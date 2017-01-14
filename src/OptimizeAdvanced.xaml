@@ -1,0 +1,68 @@
+﻿<Window x:Class="Axiom.OptimizeAdvanced"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:System="clr-namespace:System;assembly=mscorlib"
+        Title="Optimize Advanced" Height="200" Width="371" Icon="axiom.ico"
+        ResizeMode="CanMinimize" UseLayoutRounding="True">
+    <Window.Background>
+        <ImageBrush ImageSource="Resources/Images/config-background.jpg" Stretch="UniformToFill"/>
+    </Window.Background>
+    <Grid>
+        <!-- Tune -->
+        <Rectangle HorizontalAlignment="Left" Height="232" Margin="-22,-41,-17,-20" StrokeThickness="1" VerticalAlignment="Top" Width="404" Fill="Black" Opacity="0.35"/>
+
+        <!-- Tune -->
+        <Label x:Name="labelTune" Content="Tune" HorizontalAlignment="Left" Margin="57,27,0,0" Padding="0,5,0,5" VerticalAlignment="Top" Width="75" Foreground="White" />
+        <ComboBox x:Name="cboOptimizeTune" Style="{StaticResource ComboBoxBlue}" HorizontalAlignment="Left" Margin="57,53,0,0" VerticalAlignment="Top" Width="75" ToolTipService.InitialShowDelay="1000" ToolTipService.ShowOnDisabled="True" ToolTip="">
+            <System:String>none</System:String>
+            <System:String>film</System:String>
+            <System:String>animation</System:String>
+            <System:String>grain</System:String>
+            <System:String>stillimage</System:String>
+            <System:String>fastdecode</System:String>
+            <System:String>zerolatency</System:String>
+        </ComboBox>
+
+        <!-- Profile -->
+        <Label x:Name="labelProfile" Content="Profile" HorizontalAlignment="Left" Margin="140,27,0,0" Padding="0,5,0,5" VerticalAlignment="Top" Width="75" Foreground="White" />
+        <ComboBox x:Name="cboOptimizeProfile" Style="{StaticResource ComboBoxBlue}" HorizontalAlignment="Left" Margin="140,53,0,0" VerticalAlignment="Top" Width="75" SelectionChanged="cboOptimizeProfile_SelectionChanged">
+            <System:String>none</System:String>
+            <System:String>baseline</System:String>
+            <System:String>main</System:String>
+            <System:String>high</System:String>
+        </ComboBox>
+
+        <!-- Level -->
+        <Label x:Name="labelLevel" Content="Level" HorizontalAlignment="Left" Margin="223,27,0,0" Padding="0,5,0,5" VerticalAlignment="Top" Width="75" Foreground="White" />
+        <ComboBox x:Name="cboOptimizeLevel" Style="{StaticResource ComboBoxBlue}" HorizontalAlignment="Left" Margin="223,53,0,0" VerticalAlignment="Top" Width="75" SelectionChanged="cboOptimizeLevel_SelectionChanged">
+            <System:String>none</System:String>
+            <System:String>1.0</System:String>
+            <System:String>1.1</System:String>
+            <System:String>1.2</System:String>
+            <System:String>1.3</System:String>
+            <System:String>2.0</System:String>
+            <System:String>2.1</System:String>
+            <System:String>2.2</System:String>
+            <System:String>3.0</System:String>
+            <System:String>3.1</System:String>
+            <System:String>3.2</System:String>
+            <System:String>4.0</System:String>
+            <System:String>4.1</System:String>
+            <System:String>4.2</System:String>
+            <System:String>5.0</System:String>
+            <System:String>5.1</System:String>
+            <System:String>5.2</System:String>
+        </ComboBox>
+
+        <!-- Set -->
+        <Button x:Name="buttonOptimizeSet" HorizontalAlignment="Left" Margin="277,121,0,0" VerticalAlignment="Top" Width="60" Height="22" Cursor="Hand" Background="White" BorderBrush="White" Click="buttonOptimizeSet_Click">
+            <TextBlock x:Name="buttonSetTextBlock" Text="Set" Margin="0,-2,0,0"/>
+        </Button>
+
+        <!-- Clear -->
+        <Button x:Name="buttonOptimizeClear" HorizontalAlignment="Left" Margin="18,121,0,0" VerticalAlignment="Top" Width="60" Height="22" Cursor="Hand" Background="White" BorderBrush="White" Click="buttonOptimizeClear_Click">
+            <TextBlock x:Name="buttonClearTextBlock1" Text="Clear" Margin="0,-2,0,0"/>
+        </Button>
+
+    </Grid>
+</Window>
