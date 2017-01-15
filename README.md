@@ -52,3 +52,10 @@ A custom path can also be defined in the Configuration Window.
 * Add `C:\Program Files\FFmpeg\bin\`
 * Separate multiple paths with semicolon `;`
 * Typing `ffmpeg` in Command Prompt will now execute without needing to specify a direct path.
+
+## Build
+Visual Studio 2015
+<br />
+WPF, C#, XAML
+<br />
+Visual C++ 19.0 Compiler
