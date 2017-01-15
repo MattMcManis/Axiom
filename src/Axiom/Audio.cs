@@ -1181,16 +1181,14 @@ namespace Axiom
 
 
             // --------------------------------------------------
-            // NOT AUTO
+            // Not Auto
             // --------------------------------------------------
             // Default to the Highest Value Available when switching codecs
             // Only if Audio is Not Auto, None, Custom, Mute
             if ((string)mainwindow.cboAudio.SelectedItem != "Auto" && (string)mainwindow.cboAudio.SelectedItem != "None" && (string)mainwindow.cboAudio.SelectedItem != "Custom" && (string)mainwindow.cboAudio.SelectedItem != "Mute" && (string)mainwindow.cboAudio.SelectedItem != "Lossless" || string.IsNullOrEmpty((string)mainwindow.cboAudio.SelectedItem)) // If on Auto, leave it while switching codecs
             {
-                //System.Windows.MessageBox.Show((string)audio.SelectedValue); debug
-
+                //System.Windows.MessageBox.Show((string)audio.SelectedValue); // debug
                 //var audioValue = audio.SelectedValue;
-
                 //System.Windows.MessageBox.Show(Convert.ToString(audioValue));
 
                 // Only if Audio Codec is Not Empty
@@ -1321,17 +1319,15 @@ namespace Axiom
             }
             else if ((string)mainwindow.cboAudioCodec.SelectedItem == "PCM")
             {
-                aCodec = string.Empty; // Codec not needed for PCM or Controlled by "PCM MATCH BITDEPTH AUDIO" Section
+                aCodec = string.Empty; // Codec not needed for PCM or Controlled by "PCM Match Bit Depth Audio" Section
             }
 
             // Log Console Message /////////
             Log.WriteAction = () =>
             {
-                //console.rtbLog.Document = new FlowDocument(paragraph);
                 Log.paragraph.Inlines.Add(new LineBreak());
                 Log.paragraph.Inlines.Add(new Bold(new Run("Codec: ")) { Foreground = Log.ConsoleDefault });
                 Log.paragraph.Inlines.Add(new Run(Convert.ToString(mainwindow.cboAudioCodec.SelectedItem)) { Foreground = Log.ConsoleDefault });
-                //this.DataContext = this;
             };
             Log.LogActions.Add(Log.WriteAction);
         }
@@ -1469,11 +1465,9 @@ namespace Axiom
                 // Log Console Message /////////
                 Log.WriteAction = () =>
                 {
-                    //console.rtbLog.Document = new FlowDocument(paragraph);
                     Log.paragraph.Inlines.Add(new LineBreak());
                     Log.paragraph.Inlines.Add(new Bold(new Run("Bitrate Method: ")) { Foreground = Log.ConsoleDefault });
                     Log.paragraph.Inlines.Add(new Run("VBR") { Foreground = Log.ConsoleDefault });
-                    //this.DataContext = this;
                 };
                 Log.LogActions.Add(Log.WriteAction);
             }
@@ -1497,11 +1491,9 @@ namespace Axiom
                 // Log Console Message /////////
                 Log.WriteAction = () =>
                 {
-                    //console.rtbLog.Document = new FlowDocument(paragraph);
                     Log.paragraph.Inlines.Add(new LineBreak());
                     Log.paragraph.Inlines.Add(new Bold(new Run("Bitrate Method: ")) { Foreground = Log.ConsoleDefault });
                     Log.paragraph.Inlines.Add(new Run("CBR") { Foreground = Log.ConsoleDefault });
-                    //this.DataContext = this;
                 };
                 Log.LogActions.Add(Log.WriteAction);
             }
@@ -1517,18 +1509,6 @@ namespace Axiom
         {
             // set to FFprobe's result
             FFprobe.inputAudioBitrate = FFprobe.ffprobeAudioBitrateResult.Replace("\r\n", "").Replace("\n", "").Replace("\r", "");
-
-            //// Log Console Message /////////
-            //Log.WriteAction = () => 
-            //{
-            ////console.rtbLog.Document = new FlowDocument(paragraph);
-            //Log.paragraph.Inlines.Add(new LineBreak());
-            //Log.paragraph.Inlines.Add(new LineBreak());
-            //Log.paragraph.Inlines.Add(new Bold(new Run("Input Audio Bitrate: ")) { Foreground = Log.ConsoleDefault });
-            //Log.paragraph.Inlines.Add(new Run(FFprobe.inputAudioBitrate) { Foreground = Log.ConsoleDefault });
-            ////this.DataContext = this;
-            //}
-
 
             // If Video is Mute, don't set Audio Bitrate
             if (string.IsNullOrEmpty(FFprobe.inputAudioBitrate))
@@ -1597,11 +1577,9 @@ namespace Axiom
             // Log Console Message /////////
             Log.WriteAction = () =>
             {
-                //console.rtbLog.Document = new FlowDocument(paragraph);
                 Log.paragraph.Inlines.Add(new LineBreak());
                 Log.paragraph.Inlines.Add(new Bold(new Run("Quality: ")) { Foreground = Log.ConsoleDefault });
                 Log.paragraph.Inlines.Add(new Run(Convert.ToString(mainwindow.cboAudio.SelectedItem)) { Foreground = Log.ConsoleDefault });
-                //this.DataContext = this;
             };
             Log.LogActions.Add(Log.WriteAction);
 
@@ -1619,11 +1597,9 @@ namespace Axiom
 
                     Log.WriteAction = () =>
                     {
-                        //console.rtbLog.Document = new FlowDocument(paragraph);
                         Log.paragraph.Inlines.Add(new LineBreak());
                         Log.paragraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
                         Log.paragraph.Inlines.Add(new Run("") { Foreground = Log.ConsoleDefault });
-                        //this.DataContext = this;
                     };
                     Log.LogActions.Add(Log.WriteAction);
                 }
@@ -1637,11 +1613,9 @@ namespace Axiom
 
                     Log.WriteAction = () =>
                     {
-                        //console.rtbLog.Document = new FlowDocument(paragraph);
                         Log.paragraph.Inlines.Add(new LineBreak());
                         Log.paragraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
                         Log.paragraph.Inlines.Add(new Run(FFprobe.inputAudioBitrate) { Foreground = Log.ConsoleDefault });
-                        //this.DataContext = this;
                     };
                     Log.LogActions.Add(Log.WriteAction);
                 }
@@ -1658,11 +1632,9 @@ namespace Axiom
 
                         Log.WriteAction = () =>
                         {
-                            //console.rtbLog.Document = new FlowDocument(paragraph);
                             Log.paragraph.Inlines.Add(new LineBreak());
                             Log.paragraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
                             Log.paragraph.Inlines.Add(new Run("320k") { Foreground = Log.ConsoleDefault });
-                            //this.DataContext = this;
                         };
                         Log.LogActions.Add(Log.WriteAction);
                     }
@@ -1676,11 +1648,11 @@ namespace Axiom
 
                     //    Log.WriteAction = () =>
                     //    {
-                    //        //console.rtbLog.Document = new FlowDocument(paragraph);
+                    //        
                     //        Log.paragraph.Inlines.Add(new LineBreak());
                     //        Log.paragraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
                     //        Log.paragraph.Inlines.Add(new Run("") { Foreground = Log.ConsoleDefault });
-                    //        //this.DataContext = this;
+                    //        
                     //    };
                     //    Log.LogActions.Add(Log.WriteAction);
                     //}
@@ -1717,11 +1689,9 @@ namespace Axiom
 
                 Log.WriteAction = () =>
                 {
-                    //console.rtbLog.Document = new FlowDocument(paragraph);
                     Log.paragraph.Inlines.Add(new LineBreak());
                     Log.paragraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
                     Log.paragraph.Inlines.Add(new Run(aBitrate) { Foreground = Log.ConsoleDefault });
-                    //this.DataContext = this;
                 };
                 Log.LogActions.Add(Log.WriteAction);
 
@@ -1743,11 +1713,9 @@ namespace Axiom
                 {
                     Log.WriteAction = () =>
                     {
-                        //console.rtbLog.Document = new FlowDocument(paragraph);
                         Log.paragraph.Inlines.Add(new LineBreak());
                         Log.paragraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
                         Log.paragraph.Inlines.Add(new Run("CBR " + mainwindow.cboAudio.SelectedItem + " to VBR " + aBitrate) { Foreground = Log.ConsoleDefault });
-                        //this.DataContext = this;
                     };
                     Log.LogActions.Add(Log.WriteAction);
                 }
@@ -1769,11 +1737,9 @@ namespace Axiom
                 {
                     Log.WriteAction = () =>
                     {
-                        //console.rtbLog.Document = new FlowDocument(paragraph);
                         Log.paragraph.Inlines.Add(new LineBreak());
                         Log.paragraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
                         Log.paragraph.Inlines.Add(new Run("CBR " + mainwindow.cboAudio.SelectedItem + " to VBR " + aBitrate) { Foreground = Log.ConsoleDefault });
-                        //this.DataContext = this;
                     };
                     Log.LogActions.Add(Log.WriteAction);
                 }
@@ -1795,11 +1761,9 @@ namespace Axiom
                 {
                     Log.WriteAction = () =>
                     {
-                        //console.rtbLog.Document = new FlowDocument(paragraph);
                         Log.paragraph.Inlines.Add(new LineBreak());
                         Log.paragraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
                         Log.paragraph.Inlines.Add(new Run("CBR " + mainwindow.cboAudio.SelectedItem + " to VBR " + aBitrate) { Foreground = Log.ConsoleDefault });
-                        //this.DataContext = this;
                     };
                     Log.LogActions.Add(Log.WriteAction);
                 }
@@ -1821,11 +1785,9 @@ namespace Axiom
                 {
                     Log.WriteAction = () =>
                     {
-                        //console.rtbLog.Document = new FlowDocument(paragraph);
                         Log.paragraph.Inlines.Add(new LineBreak());
                         Log.paragraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
                         Log.paragraph.Inlines.Add(new Run("CBR " + mainwindow.cboAudio.SelectedItem + " to VBR " + aBitrate) { Foreground = Log.ConsoleDefault });
-                        //this.DataContext = this;
                     };
                     Log.LogActions.Add(Log.WriteAction);
                 }
@@ -1847,11 +1809,9 @@ namespace Axiom
                 {
                     Log.WriteAction = () =>
                     {
-                        //console.rtbLog.Document = new FlowDocument(paragraph);
                         Log.paragraph.Inlines.Add(new LineBreak());
                         Log.paragraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
                         Log.paragraph.Inlines.Add(new Run("CBR " + mainwindow.cboAudio.SelectedItem + " to VBR " + aBitrate) { Foreground = Log.ConsoleDefault });
-                        //this.DataContext = this;
                     };
                     Log.LogActions.Add(Log.WriteAction);
                 }
@@ -1879,11 +1839,9 @@ namespace Axiom
                 {
                     Log.WriteAction = () =>
                     {
-                        //console.rtbLog.Document = new FlowDocument(paragraph);
                         Log.paragraph.Inlines.Add(new LineBreak());
                         Log.paragraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
                         Log.paragraph.Inlines.Add(new Run("CBR " + mainwindow.cboAudio.SelectedItem + " to VBR " + aBitrate) { Foreground = Log.ConsoleDefault });
-                        //this.DataContext = this;
                     };
                     Log.LogActions.Add(Log.WriteAction);
                 }
@@ -1911,11 +1869,9 @@ namespace Axiom
                 {
                     Log.WriteAction = () =>
                     {
-                        //console.rtbLog.Document = new FlowDocument(paragraph);
                         Log.paragraph.Inlines.Add(new LineBreak());
                         Log.paragraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
                         Log.paragraph.Inlines.Add(new Run("CBR " + mainwindow.cboAudio.SelectedItem + " to VBR " + aBitrate) { Foreground = Log.ConsoleDefault });
-                        //this.DataContext = this;
                     };
                     Log.LogActions.Add(Log.WriteAction);
                 }
@@ -1943,11 +1899,9 @@ namespace Axiom
                 {
                     Log.WriteAction = () =>
                     {
-                        //console.rtbLog.Document = new FlowDocument(paragraph);
                         Log.paragraph.Inlines.Add(new LineBreak());
                         Log.paragraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
                         Log.paragraph.Inlines.Add(new Run("CBR " + mainwindow.cboAudio.SelectedItem + " to VBR " + aBitrate) { Foreground = Log.ConsoleDefault });
-                        //this.DataContext = this;
                     };
                     Log.LogActions.Add(Log.WriteAction);
                 }
@@ -1975,11 +1929,9 @@ namespace Axiom
                 {
                     Log.WriteAction = () =>
                     {
-                        //console.rtbLog.Document = new FlowDocument(paragraph);
                         Log.paragraph.Inlines.Add(new LineBreak());
                         Log.paragraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
                         Log.paragraph.Inlines.Add(new Run("CBR " + mainwindow.cboAudio.SelectedItem + " to VBR " + aBitrate) { Foreground = Log.ConsoleDefault });
-                        //this.DataContext = this;
                     };
                     Log.LogActions.Add(Log.WriteAction);
                 }
@@ -2007,11 +1959,9 @@ namespace Axiom
                 {
                     Log.WriteAction = () =>
                     {
-                        //console.rtbLog.Document = new FlowDocument(paragraph);
                         Log.paragraph.Inlines.Add(new LineBreak());
                         Log.paragraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
                         Log.paragraph.Inlines.Add(new Run("CBR " + mainwindow.cboAudio.SelectedItem + " to VBR " + aBitrate) { Foreground = Log.ConsoleDefault });
-                        //this.DataContext = this;
                     };
                     Log.LogActions.Add(Log.WriteAction);
                 }
@@ -2039,11 +1989,9 @@ namespace Axiom
                 {
                     Log.WriteAction = () =>
                     {
-                        //console.rtbLog.Document = new FlowDocument(paragraph);
                         Log.paragraph.Inlines.Add(new LineBreak());
                         Log.paragraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
                         Log.paragraph.Inlines.Add(new Run("CBR " + mainwindow.cboAudio.SelectedItem + " to VBR " + aBitrate) { Foreground = Log.ConsoleDefault });
-                        //this.DataContext = this;
                     };
                     Log.LogActions.Add(Log.WriteAction);
                 }
@@ -2071,11 +2019,9 @@ namespace Axiom
                 {
                     Log.WriteAction = () =>
                     {
-                        //console.rtbLog.Document = new FlowDocument(paragraph);
                         Log.paragraph.Inlines.Add(new LineBreak());
                         Log.paragraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
                         Log.paragraph.Inlines.Add(new Run("CBR " + mainwindow.cboAudio.SelectedItem + " to VBR " + aBitrate) { Foreground = Log.ConsoleDefault });
-                        //this.DataContext = this;
                     };
                     Log.LogActions.Add(Log.WriteAction);
                 }
@@ -2121,11 +2067,9 @@ namespace Axiom
                     // Log Console Message /////////
                     Log.WriteAction = () =>
                     {
-                        //console.rtbLog.Document = new FlowDocument(paragraph);
                         Log.paragraph.Inlines.Add(new LineBreak());
                         Log.paragraph.Inlines.Add(new Bold(new Run("AAC: ")) { Foreground = Log.ConsoleDefault });
                         Log.paragraph.Inlines.Add(new Run("CBR " + aBitrate + " to ") { Foreground = Log.ConsoleDefault });
-                        //this.DataContext = this;
                     };
                     Log.LogActions.Add(Log.WriteAction);
 
@@ -2138,11 +2082,9 @@ namespace Axiom
                         // Log Console Message /////////
                         Log.WriteAction = () =>
                         {
-                            //console.rtbLog.Document = new FlowDocument(paragraph);
                             Log.paragraph.Inlines.Add(new LineBreak());
                             Log.paragraph.Inlines.Add(new LineBreak());
                             Log.paragraph.Inlines.Add(new Bold(new Run("Warning: AAC VBR cannot be above 400k.")) { Foreground = Log.ConsoleWarning });
-                            //this.DataContext = this;
                         };
                         Log.LogActions.Add(Log.WriteAction);
 
@@ -2153,9 +2095,7 @@ namespace Axiom
                     // Log Console Message /////////
                     Log.WriteAction = () =>
                     {
-                        //console.rtbLog.Document = new FlowDocument(paragraph);
                         Log.paragraph.Inlines.Add(new Run("VBR " + aBitrate) { Foreground = Log.ConsoleDefault });
-                        //this.DataContext = this;
                     };
                     Log.LogActions.Add(Log.WriteAction);
                 }
@@ -2172,11 +2112,9 @@ namespace Axiom
                     // Log Console Message /////////
                     Log.WriteAction = () =>
                     {
-                        //console.rtbLog.Document = new FlowDocument(paragraph);
                         Log.paragraph.Inlines.Add(new LineBreak());
                         Log.paragraph.Inlines.Add(new Bold(new Run("Vorbis: ")) { Foreground = Log.ConsoleDefault });
                         Log.paragraph.Inlines.Add(new Run("CBR " + aBitrate + " to ") { Foreground = Log.ConsoleDefault });
-                        //this.DataContext = this;
                     };
                     Log.LogActions.Add(Log.WriteAction);
 
@@ -2212,9 +2150,7 @@ namespace Axiom
                     // Log Console Message /////////
                     Log.WriteAction = () =>
                     {
-                        //console.rtbLog.Document = new FlowDocument(paragraph);
                         Log.paragraph.Inlines.Add(new Run("VBR " + aBitrate) { Foreground = Log.ConsoleDefault });
-                        //this.DataContext = this;
                     };
                     Log.LogActions.Add(Log.WriteAction);
                 }
@@ -2227,11 +2163,9 @@ namespace Axiom
                     // Log Console Message /////////
                     Log.WriteAction = () =>
                     {
-                        //console.rtbLog.Document = new FlowDocument(paragraph);
                         Log.paragraph.Inlines.Add(new LineBreak());
                         Log.paragraph.Inlines.Add(new Bold(new Run("LAME: ")) { Foreground = Log.ConsoleDefault });
                         Log.paragraph.Inlines.Add(new Run("CBR " + aBitrate + " to ") { Foreground = Log.ConsoleDefault });
-                        //this.DataContext = this;
                     };
                     Log.LogActions.Add(Log.WriteAction);
 
@@ -2249,9 +2183,7 @@ namespace Axiom
                     // Log Console Message /////////
                     Log.WriteAction = () =>
                     {
-                        //console.rtbLog.Document = new FlowDocument(paragraph);
                         Log.paragraph.Inlines.Add(new Run("VBR " + aBitrate) { Foreground = Log.ConsoleDefault });
-                        //this.DataContext = this;
                     };
                     Log.LogActions.Add(Log.WriteAction);
                 }
@@ -2307,11 +2239,9 @@ namespace Axiom
             // Log Console Message /////////
             Log.WriteAction = () =>
             {
-                //console.rtbLog.Document = new FlowDocument(paragraph);
                 Log.paragraph.Inlines.Add(new LineBreak());
                 Log.paragraph.Inlines.Add(new Bold(new Run("Channel: ")) { Foreground = Log.ConsoleDefault });
                 Log.paragraph.Inlines.Add(new Run(mainwindow.cboChannel.Text.ToString()) { Foreground = Log.ConsoleDefault });
-                //this.DataContext = this;
             };
             Log.LogActions.Add(Log.WriteAction);
         }
@@ -2378,11 +2308,9 @@ namespace Axiom
             // Log Console Message /////////
             Log.WriteAction = () =>
             {
-                //console.rtbLog.Document = new FlowDocument(paragraph);
                 Log.paragraph.Inlines.Add(new LineBreak());
                 Log.paragraph.Inlines.Add(new Bold(new Run("Sample Rate: ")) { Foreground = Log.ConsoleDefault });
                 Log.paragraph.Inlines.Add(new Run(mainwindow.cboSamplerate.Text.ToString()) { Foreground = Log.ConsoleDefault });
-                //this.DataContext = this;
             };
             Log.LogActions.Add(Log.WriteAction);
         }
@@ -2443,11 +2371,9 @@ namespace Axiom
             // Log Console Message /////////
             Log.WriteAction = () =>
             {
-                //console.rtbLog.Document = new FlowDocument(paragraph);
                 Log.paragraph.Inlines.Add(new LineBreak());
                 Log.paragraph.Inlines.Add(new Bold(new Run("Bit Depth: ")) { Foreground = Log.ConsoleDefault });
                 Log.paragraph.Inlines.Add(new Run(mainwindow.cboBitDepth.SelectedItem.ToString()) { Foreground = Log.ConsoleDefault });
-                //this.DataContext = this;
             };
             Log.LogActions.Add(Log.WriteAction);
         }
@@ -2487,11 +2413,9 @@ namespace Axiom
             // Log Console Message /////////
             Log.WriteAction = () =>
             {
-                //console.rtbLog.Document = new FlowDocument(paragraph);
                 Log.paragraph.Inlines.Add(new LineBreak());
                 Log.paragraph.Inlines.Add(new Bold(new Run("Volume: ")) { Foreground = Log.ConsoleDefault });
                 Log.paragraph.Inlines.Add(new Run(mainwindow.volumeUpDown.Text.ToString()) { Foreground = Log.ConsoleDefault });
-                //this.DataContext = this;
             };
             Log.LogActions.Add(Log.WriteAction);
         }
@@ -2510,11 +2434,9 @@ namespace Axiom
                 // Log Console Message /////////
                 Log.WriteAction = () =>
                 {
-                    //console.rtbLog.Document = new FlowDocument(paragraph);
                     Log.paragraph.Inlines.Add(new LineBreak());
                     Log.paragraph.Inlines.Add(new Bold(new Run("alimiter Toggle: ")) { Foreground = Log.ConsoleDefault });
                     Log.paragraph.Inlines.Add(new Run("On") { Foreground = Log.ConsoleDefault });
-                    //this.DataContext = this;
                 };
                 Log.LogActions.Add(Log.WriteAction);
 
@@ -2529,11 +2451,9 @@ namespace Axiom
                 // Log Console Message /////////
                 Log.WriteAction = () =>
                 {
-                    //console.rtbLog.Document = new FlowDocument(paragraph);
                     Log.paragraph.Inlines.Add(new LineBreak());
                     Log.paragraph.Inlines.Add(new Bold(new Run("alimiter Toggle: ")) { Foreground = Log.ConsoleDefault });
                     Log.paragraph.Inlines.Add(new Run("Off") { Foreground = Log.ConsoleDefault });
-                    //this.DataContext = this;
                 };
                 Log.LogActions.Add(Log.WriteAction);
 
@@ -2570,11 +2490,9 @@ namespace Axiom
             // Log Console Message /////////
             Log.WriteAction = () =>
             {
-                //console.rtbLog.Document = new FlowDocument(paragraph);
                 Log.paragraph.Inlines.Add(new LineBreak());
                 Log.paragraph.Inlines.Add(new Bold(new Run("Filter: ")) { Foreground = Log.ConsoleDefault });
                 Log.paragraph.Inlines.Add(new Run(aFilterSwitch.ToString()) { Foreground = Log.ConsoleDefault });
-                //this.DataContext = this;
             };
             Log.LogActions.Add(Log.WriteAction);
 
