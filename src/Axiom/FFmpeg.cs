@@ -9,6 +9,27 @@ using System.Windows.Documents;
 #pragma warning disable 1587
 #pragma warning disable 1570
 
+/* ----------------------------------------------------------------------
+Axiom
+Copyright (C) 2017 Matt McManis
+http://github.com/MattMcManis/Axiom
+http://www.x.co/axiomui
+axiom.interface@gmail.com
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.If not, see <http://www.gnu.org/licenses/>. 
+---------------------------------------------------------------------- */
+
 namespace Axiom
 {
     public partial class FFmpeg
@@ -201,16 +222,16 @@ namespace Axiom
 
 
                 // -------------------------
-                //  Audio Convert  (Media to Audio) Batch
+                //  Audio Convert  (Media to Audio - Auto) Batch
                 // -------------------------
-                if (mainwindow.tglBatch.IsChecked == true && !string.IsNullOrWhiteSpace(mainwindow.textBoxBrowse.Text) && (string)mainwindow.cboMediaType.SelectedItem == "Audio" && (string)mainwindow.cboAudio.SelectedItem == "Auto")
+                if (mainwindow.tglBatch.IsChecked == true && (string)mainwindow.cboMediaType.SelectedItem == "Audio" && (string)mainwindow.cboAudio.SelectedItem == "Auto")
                 {
                     // Make List
                     List<string> FFmpegArgsList = new List<string>()
                     {
                         "cd",
                         "\"" + MainWindow.input + "\"",
-                        "& for %f in", "(*" + mainwindow.batchExtensionTextBox.Text + ")",
+                        "& for %f in", "(*" + MainWindow.batchExt + ")",
                         "do", FFprobe.ffprobe, "-i",
                         "\"" + browseBatchInput + "%~f" + "\"",
                         "-select_streams a:0 -show_entries " + FFprobe.aEntryType + " -v quiet -of csv=\"p=0\" & for /f \"tokens=*\" %A in (" + "\"" + FFprobe.ffprobe + " -i " + "\"" + browseBatchInput + "%~f" + "\"" + " -select_streams a:0 -show_entries " + FFprobe.aEntryType + " -v quiet -of csv=p=0\") do (SET z=%A) & (%A > tmp_aBitrate) & SET /p aBitrate= < tmp_aBitrate & del tmp_aBitrate & for /F %A in (\'echo %aBitrate%\') do echo %A &",
@@ -245,9 +266,9 @@ namespace Axiom
                 }
 
                 // -------------------------
-                // Video Convert  (Media to Video) Batch
+                // Video Convert  (Media to Video - Auto) Batch 
                 // -------------------------
-                else if (mainwindow.tglBatch.IsChecked == true && !string.IsNullOrWhiteSpace(mainwindow.textBoxBrowse.Text) && (string)mainwindow.cboMediaType.SelectedItem == "Video" && (string)mainwindow.cboVideo.SelectedItem == "Auto" | (string)mainwindow.cboAudio.SelectedItem == "Auto")
+                else if (mainwindow.tglBatch.IsChecked == true && (string)mainwindow.cboMediaType.SelectedItem == "Video" && (string)mainwindow.cboVideo.SelectedItem == "Auto" | (string)mainwindow.cboAudio.SelectedItem == "Auto")
                 {
                     // Make List
                     List<string> FFmpegArgsList = new List<string>()
@@ -255,7 +276,7 @@ namespace Axiom
                         "cd",
                         "\"" + MainWindow.input + "\"",
                         "& for %f in",
-                        "(*" + mainwindow.batchExtensionTextBox.Text + ")",
+                        "(*" + MainWindow.batchExt + ")",
                         "do",
                         FFprobe.ffprobe,
                         "-i", "\"" + browseBatchInput + "%~f" + "\"",
@@ -299,7 +320,7 @@ namespace Axiom
                 // -------------------------
                 // Batch Media  (User selected options)
                 // -------------------------
-                else if (mainwindow.tglBatch.IsChecked == true && !string.IsNullOrWhiteSpace(mainwindow.textBoxBrowse.Text) && (string)mainwindow.cboVideo.SelectedItem != "Auto" && (string)mainwindow.cboAudio.SelectedItem != "Auto")
+                else if (mainwindow.tglBatch.IsChecked == true && (string)mainwindow.cboVideo.SelectedItem != "Auto" && (string)mainwindow.cboAudio.SelectedItem != "Auto")
                 {
                     // Make List
                     List<string> FFmpegArgsList = new List<string>()
@@ -307,7 +328,7 @@ namespace Axiom
                         "cd",
                         "\"" + MainWindow.input + "\"",
                         "& for %f in",
-                        "(*" + mainwindow.batchExtensionTextBox.Text + ")",
+                        "(*" + MainWindow.batchExt + ")",
                         "do",
                         ffmpeg,
                         "-i",
