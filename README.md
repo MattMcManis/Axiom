@@ -3,12 +3,16 @@
 # Axiom
 An FFmpeg GUI for Windows
 
+* [Overview](#overview)
+* [Features](#features)
+* [Downloads](#downloads)
+* [Installation](#installation)
+* [Build](#build)
+
 ## Overview
 Axiom generates command scripts to be processed by multimedia encoder, FFmpeg, and streams analyzer, FFprobe.
 
 Convert to webm, mp4, mkv, ogv, mp3, m4a, ogg, flac, wav, png, jpg image & sequence.
-
-It is portable and can be run from any location on the computer.
 
 ![Axiom](https://github.com/MattMcManis/Axiom/blob/screenshots/axiom.png?raw=true)
 
@@ -27,7 +31,7 @@ It is portable and can be run from any location on the computer.
 ## Downloads
 Axiom User Interface Standalone
 <br />
-Axiom + FFmpeg, FFprobe, FFplay 3.2.2 64-Bit Windows
+Axiom + FFmpeg/FFprobe/FFplay 64-Bit Windows
 <br />
 Install Instructions & User Guide.
 <br />
@@ -38,11 +42,13 @@ FFmpeg Windows builds
 https://ffmpeg.zeranoe.com/builds/
 
 ## Installation
-Axiom first checks Window's Environment Variables to see if FFmpeg is installed and uses that location.
+Axiom is portable and can be run from any location on the computer.
+
+It first checks Window's Environment Variables to see if FFmpeg is installed and uses that location.
 <br />
 If not found, it will look for `ffmpeg.exe` and `ffprobe.exe` in `\ffmpeg\bin\`, within `Axiom.exe current folder`.
 
-A custom path can also be defined in the Configuration Window.
+A custom path can also be defined in the Configure Window.
 
 #### Add FFmpeg to Environment Variables (optional):
 
