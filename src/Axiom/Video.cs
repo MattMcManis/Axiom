@@ -1063,12 +1063,10 @@ namespace Axiom
 
             // Log Console Message /////////
             Log.WriteAction = () =>
-            {
-
+            {         
                 Log.paragraph.Inlines.Add(new LineBreak());
                 Log.paragraph.Inlines.Add(new Bold(new Run("Codec: ")) { Foreground = Log.ConsoleDefault });
                 Log.paragraph.Inlines.Add(new Run(Convert.ToString(mainwindow.cboVideoCodec.SelectedItem)) { Foreground = Log.ConsoleDefault });
-
             };
             Log.LogActions.Add(Log.WriteAction);
         }
@@ -1205,11 +1203,9 @@ namespace Axiom
                 // Log Console Message /////////
                 Log.WriteAction = () =>
                 {
-
                     Log.paragraph.Inlines.Add(new LineBreak());
                     Log.paragraph.Inlines.Add(new LineBreak());
                     Log.paragraph.Inlines.Add(new Bold(new Run("Input Video Bitrate does not exist or can't be detected")) { Foreground = Log.ConsoleWarning });
-
                 };
                 Log.LogActions.Add(Log.WriteAction);
             }
@@ -1256,13 +1252,11 @@ namespace Axiom
                     // Log Console Message /////////
                     Log.WriteAction = () =>
                     {
-
                         Log.paragraph.Inlines.Add(new LineBreak());
                         Log.paragraph.Inlines.Add(new LineBreak());
                         Log.paragraph.Inlines.Add(new Bold(new Run("Calculating New Bitrate Information...")) { Foreground = Log.ConsoleAction });
                         Log.paragraph.Inlines.Add(new LineBreak());
                         Log.paragraph.Inlines.Add(new Run("((File Size * 8) / 1000) / File Time Duration") { Foreground = Log.ConsoleDefault });
-
                     };
                     Log.LogActions.Add(Log.WriteAction);
                 }
@@ -1271,11 +1265,9 @@ namespace Axiom
                     // Log Console Message /////////
                     Log.WriteAction = () =>
                     {
-
                         Log.paragraph.Inlines.Add(new LineBreak());
                         Log.paragraph.Inlines.Add(new LineBreak());
                         Log.paragraph.Inlines.Add(new Bold(new Run("Error: Could Not Calculate New Bitrate Information...")) { Foreground = Log.ConsoleError });
-
                     };
                     Log.LogActions.Add(Log.WriteAction);
                 }
@@ -1292,11 +1284,9 @@ namespace Axiom
             // Log Console Message /////////
             Log.WriteAction = () =>
             {
-
                 Log.paragraph.Inlines.Add(new LineBreak());
                 Log.paragraph.Inlines.Add(new Bold(new Run("Quality: ")) { Foreground = Log.ConsoleDefault });
                 Log.paragraph.Inlines.Add(new Run(Convert.ToString(mainwindow.cboVideo.SelectedItem)) { Foreground = Log.ConsoleDefault });
-
             };
             Log.LogActions.Add(Log.WriteAction);
 
@@ -1410,6 +1400,9 @@ namespace Axiom
                 // Theora can't be Lossless
 
                 // Lossless Switch
+                // Encoding Pass Method based on Pass ComboBox Selection
+                // Different values than PassesSwitch Method
+                //
                 // CRF
                 if ((string)mainwindow.cboPass.SelectedItem == "CRF")
                 {
@@ -1448,241 +1441,75 @@ namespace Axiom
             // -------------------------
             else if ((string)mainwindow.cboVideo.SelectedItem == "Ultra")
             {
-                if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8") { crf = "-b:v 4M -crf 8" /* crf needs b:v 0*/; vBitrate = "-b:v 5M" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9") { crf = "-b:v 4M -crf 8"/* crf needs b:v 0*/; vBitrate = "-b:v 5M" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
+                if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8") { crf = "-b:v 4M -crf 10" /* crf needs b:v 0*/; vBitrate = "-b:v 5M" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
+                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9") { crf = "-b:v 4M -crf 10"/* crf needs b:v 0*/; vBitrate = "-b:v 5M" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
                 else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264") { crf = "-crf 18"; vBitrate = "-b:v 5M" /* for 2 pass */; vOptions = "-pix_fmt yuv420p -qcomp 0.8"; }
                 else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265") { crf = "-x265-params crf=23"; vBitrate = "-b:v 5M" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
                 else if ((string)mainwindow.cboVideoCodec.SelectedItem == "Theora") { crf = "-q:v 10"; vBitrate = "-q:v 10" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; } //OGV uses forced q:v instead of CRF
                 else if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG") { crf = string.Empty; vBitrate = "-qscale:v 2"; vOptions = string.Empty; }
 
-                // CRF (Use -crf)
-                if ((string)mainwindow.cboPass.SelectedItem == "CRF")
-                {
-                    vBitrate = string.Empty; //clear -b:v 2 pass
-                    vQual = crf + " " + vOptions; //combine
-
-                    v2passSwitch = 0;
-                    v2passBatchSwitch = 0;
-                }
-                // 1 Pass Toggle On (Use Bitrate -b:v)
-                else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass")
-                {
-                    crf = string.Empty; //clear crf
-                    vQual = vBitrate + " " + vOptions; //combine
-
-                    v2passSwitch = 0;
-                    v2passBatchSwitch = 0;
-                }
-                // 2 Pass Toggle On (Use Bitrate -b:v)
-                else if ((string)mainwindow.cboPass.SelectedItem == "2 Pass")
-                {
-                    crf = string.Empty; //clear crf
-                    vQual = vBitrate + " " + vOptions; //combine
-
-                    v2passSwitch = 1;
-                    v2passBatchSwitch = 1;
-                }
-                // auto
-                else if ((string)mainwindow.cboPass.SelectedItem == "auto")
-                {
-                    vQual = vBitrate + " " + vOptions; //combine
-
-                    v2passSwitch = 0;
-                    v2passBatchSwitch = 0;
-                }
+                // Encoding Pass Method based on Pass ComboBox Selection
+                PassesSwitch(mainwindow);
             }
             // -------------------------
             // High
             // -------------------------
             else if ((string)mainwindow.cboVideo.SelectedItem == "High")
             {
-                if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8") { crf = "-b:v 2M -crf 10" /* crf needs b:v 0*/; vBitrate = "-b:v 2M" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9") { crf = "-b:v 2M -crf 10" /* crf needs b:v 0*/; vBitrate = "-b:v 2M" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
+                if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8") { crf = "-b:v 2M -crf 12" /* crf needs b:v 0*/; vBitrate = "-b:v 2M" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
+                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9") { crf = "-b:v 2M -crf 12" /* crf needs b:v 0*/; vBitrate = "-b:v 2M" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
                 else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264") { crf = "-crf 23"; vBitrate = "-b:v 2M" /* for 2 pass */; vOptions = "-pix_fmt yuv420p -qcomp 0.8"; }
                 else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265") { crf = "-x265-params crf=28"; vBitrate = "-b:v 2M" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
                 else if ((string)mainwindow.cboVideoCodec.SelectedItem == "Theora") { crf = "-q:v 8"; vBitrate = "-q:v 8" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; } //OGV uses forced q:v instead of CRF
                 else if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG") { crf = string.Empty; vBitrate = "-qscale:v 4"; vOptions = string.Empty; }
 
-                // CRF (Use -crf)
-                if ((string)mainwindow.cboPass.SelectedItem == "CRF")
-                {
-                    vBitrate = string.Empty; //clear -b:v 2 pass
-                    vQual = crf + " " + vOptions; //combine
-
-                    v2passSwitch = 0;
-                    v2passBatchSwitch = 0;
-                }
-                // 1 Pass Toggle On (Use Bitrate -b:v)
-                else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass")
-                {
-                    crf = string.Empty; //clear crf
-                    vQual = vBitrate + " " + vOptions; //combine
-
-                    v2passSwitch = 0;
-                    v2passBatchSwitch = 0;
-                }
-                // 2 Pass Toggle On (Use Bitrate -b:v)
-                else if ((string)mainwindow.cboPass.SelectedItem == "2 Pass")
-                {
-                    crf = string.Empty; //clear crf
-                    vQual = vBitrate + " " + vOptions; //combine
-
-                    v2passSwitch = 1;
-                    v2passBatchSwitch = 1;
-                }
-                // auto
-                else if ((string)mainwindow.cboPass.SelectedItem == "auto")
-                {
-                    vQual = vBitrate + " " + vOptions; //combine
-
-                    v2passSwitch = 0;
-                    v2passBatchSwitch = 0;
-                }
-
+                // Encoding Pass Method based on Pass ComboBox Selection
+                PassesSwitch(mainwindow);
             }
             // -------------------------
             // Medium
             // -------------------------
             else if ((string)mainwindow.cboVideo.SelectedItem == "Medium")
             {
-                if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8") { crf = "-b:v 1.3M -crf 14" /* crf needs b:v 0*/; vBitrate = "-b:v 1.3M" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9") { crf = "-b:v 1.3M -crf 14" /* crf needs b:v 0*/; vBitrate = "-b:v 1.3M" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
+                if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8") { crf = "-b:v 1.3M -crf 16" /* crf needs b:v 0*/; vBitrate = "-b:v 1.3M" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
+                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9") { crf = "-b:v 1.3M -crf 16" /* crf needs b:v 0*/; vBitrate = "-b:v 1.3M" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
                 else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264") { crf = "-crf 30"; vBitrate = "-b:v 1.3M" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
                 else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265") { crf = "-x265-params crf=35"; vBitrate = "-b:v 1.3M" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
                 else if ((string)mainwindow.cboVideoCodec.SelectedItem == "Theora") { crf = "-q:v 6"; vBitrate = "-q:v 6" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; } //OGV uses forced q:v instead of CRF
                 else if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG") { crf = string.Empty; vBitrate = "-qscale:v 8"; vOptions = string.Empty; }
 
-                // CRF (Use -crf)
-                if ((string)mainwindow.cboPass.SelectedItem == "CRF")
-                {
-                    vBitrate = string.Empty; //clear -b:v 2 pass
-                    vQual = crf + " " + vOptions; //combine
-
-                    v2passSwitch = 0;
-                    v2passBatchSwitch = 0;
-                }
-                // 1 Pass Toggle On (Use Bitrate -b:v)
-                else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass")
-                {
-                    crf = string.Empty; //clear crf
-                    vQual = vBitrate + " " + vOptions; //combine
-
-                    v2passSwitch = 0;
-                    v2passBatchSwitch = 0;
-                }
-                // 2 Pass Toggle On (Use Bitrate -b:v)
-                else if ((string)mainwindow.cboPass.SelectedItem == "2 Pass")
-                {
-                    crf = string.Empty; //clear crf
-                    vQual = vBitrate + " " + vOptions; //combine
-
-                    v2passSwitch = 1;
-                    v2passBatchSwitch = 1;
-                }
-                // auto
-                else if ((string)mainwindow.cboPass.SelectedItem == "auto")
-                {
-                    vQual = vBitrate + " " + vOptions; //combine
-
-                    v2passSwitch = 0;
-                    v2passBatchSwitch = 0;
-                }
+                // Encoding Pass Method based on Pass ComboBox Selection
+                PassesSwitch(mainwindow);
             }
             // -------------------------
             // Low
             // -------------------------
             else if ((string)mainwindow.cboVideo.SelectedItem == "Low")
             {
-                if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8") { crf = "-b:v 600K -crf 18" /* crf needs b:v 0*/; vBitrate = "-b:v 600K" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9") { crf = "-b:v 600K -crf 18" /* crf needs b:v 0*/; vBitrate = "-b:v 600K" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
+                if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8") { crf = "-b:v 600K -crf 20" /* crf needs b:v 0*/; vBitrate = "-b:v 600K" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
+                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9") { crf = "-b:v 600K -crf 20" /* crf needs b:v 0*/; vBitrate = "-b:v 600K" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
                 else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264") { crf = "-crf 37"; vBitrate = "-b:v 600K" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
                 else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265") { crf = "-x265-params crf=42"; vBitrate = "-b:v 600K" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
                 else if ((string)mainwindow.cboVideoCodec.SelectedItem == "Theora") { crf = "-q:v 4"; vBitrate = "-q:v 4" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; } //OGV uses forced q:v instead of CRF
                 else if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG") { crf = string.Empty; vBitrate = "-qscale:v 15"; vOptions = string.Empty; }
 
-                // CRF (Use -crf)
-                if ((string)mainwindow.cboPass.SelectedItem == "CRF")
-                {
-                    vBitrate = string.Empty; //clear -b:v 2 pass
-                    vQual = crf + " " + vOptions; //combine
-
-                    v2passSwitch = 0;
-                    v2passBatchSwitch = 0;
-                }
-                // 1 Pass Toggle On (Use Bitrate -b:v)
-                else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass")
-                {
-                    crf = string.Empty; //clear crf
-                    vQual = vBitrate + " " + vOptions; //combine
-
-                    v2passSwitch = 0;
-                    v2passBatchSwitch = 0;
-                }
-                // 2 Pass Toggle On (Use Bitrate -b:v)
-                else if ((string)mainwindow.cboPass.SelectedItem == "2 Pass")
-                {
-                    crf = string.Empty; //clear crf
-                    vQual = vBitrate + " " + vOptions; //combine
-
-                    v2passSwitch = 1;
-                    v2passBatchSwitch = 1;
-                }
-                // auto
-                else if ((string)mainwindow.cboPass.SelectedItem == "auto")
-                {
-                    vQual = vBitrate + " " + vOptions; //combine
-
-                    v2passSwitch = 0;
-                    v2passBatchSwitch = 0;
-                }
+                // Encoding Pass Method based on Pass ComboBox Selection
+                PassesSwitch(mainwindow);
             }
             // -------------------------
             // Sub
             // -------------------------
             else if ((string)mainwindow.cboVideo.SelectedItem == "Sub")
             {
-                if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8") { crf = "-b:v 250K -crf 23" /* crf needs b:v 0*/; vBitrate = "-b:v 250K" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9") { crf = "-b:v 250K -crf 23" /* crf needs b:v 0*/; vBitrate = "-b:v 250K" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
+                if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8") { crf = "-b:v 250K -crf 25" /* crf needs b:v 0*/; vBitrate = "-b:v 250K" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
+                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9") { crf = "-b:v 250K -crf 25" /* crf needs b:v 0*/; vBitrate = "-b:v 250K" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
                 else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264") { crf = "-crf 45"; vBitrate = "-b:v 250K" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
                 else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265") { crf = "-x265-aQualparams crf=50"; vBitrate = "-b:v 250K" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
                 else if ((string)mainwindow.cboVideoCodec.SelectedItem == "Theora") { crf = "-q:v 2"; vBitrate = "-q:v 2" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; } //OGV uses forced q:v instead of CRF
                 else if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG") { crf = string.Empty; vBitrate = "-qscale:v 25"; vOptions = string.Empty; }
 
-                // CRF (Use -crf)
-                if ((string)mainwindow.cboPass.SelectedItem == "CRF")
-                {
-                    vBitrate = string.Empty; //clear -b:v 2 pass
-                    vQual = crf + " " + vOptions; //combine
-
-                    v2passSwitch = 0;
-                    v2passBatchSwitch = 0;
-                }
-                // 1 Pass Toggle On (Use Bitrate -b:v)
-                else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass")
-                {
-                    crf = string.Empty; //clear crf
-                    vQual = vBitrate + " " + vOptions; //combine
-
-                    v2passSwitch = 0;
-                    v2passBatchSwitch = 0;
-                }
-                // 2 Pass Toggle On (Use Bitrate -b:v)
-                else if ((string)mainwindow.cboPass.SelectedItem == "2 Pass")
-                {
-                    crf = string.Empty; //clear crf
-                    vQual = vBitrate + " " + vOptions; //combine
-
-                    v2passSwitch = 1;
-                    v2passBatchSwitch = 1;
-                }
-                // auto
-                else if ((string)mainwindow.cboPass.SelectedItem == "auto")
-                {
-                    vQual = vBitrate + " " + vOptions; //combine
-
-                    v2passSwitch = 0;
-                    v2passBatchSwitch = 0;
-                }
+                // Encoding Pass Method based on Pass ComboBox Selection
+                PassesSwitch(mainwindow);
             }
 
             // -------------------------
@@ -1724,14 +1551,12 @@ namespace Axiom
                         // Log Console Message /////////
                         Log.WriteAction = () =>
                         {
-
                             Log.paragraph.Inlines.Add(new LineBreak());
                             Log.paragraph.Inlines.Add(new LineBreak());
                             Log.paragraph.Inlines.Add(new Bold(new Run("2 Pass Toggle: ")) { Foreground = Log.ConsoleDefault });
                             Log.paragraph.Inlines.Add(new Run("On, ") { Foreground = Log.ConsoleDefault });
                             Log.paragraph.Inlines.Add(new Bold(new Run("CRF: ")) { Foreground = Log.ConsoleDefault });
                             Log.paragraph.Inlines.Add(new Run("None, Using Bitrate 2 Pass") { Foreground = Log.ConsoleDefault });
-
                         };
                         Log.LogActions.Add(Log.WriteAction);
 
@@ -1749,14 +1574,12 @@ namespace Axiom
                         // Log Console Message /////////
                         Log.WriteAction = () =>
                         {
-
                             Log.paragraph.Inlines.Add(new LineBreak());
                             Log.paragraph.Inlines.Add(new LineBreak());
                             Log.paragraph.Inlines.Add(new Bold(new Run("2 Pass Toggle: ")) { Foreground = Log.ConsoleDefault });
                             Log.paragraph.Inlines.Add(new Run("Off, ") { Foreground = Log.ConsoleDefault });
                             Log.paragraph.Inlines.Add(new Bold(new Run("CRF: ")) { Foreground = Log.ConsoleDefault });
                             Log.paragraph.Inlines.Add(new Run("None, Using Bitrate 1 Pass") { Foreground = Log.ConsoleDefault });
-
                         };
                         Log.LogActions.Add(Log.WriteAction);
 
@@ -1811,7 +1634,6 @@ namespace Axiom
             // Log Console Message /////////        
             Log.WriteAction = () =>
             {
-
                 Log.paragraph.Inlines.Add(new LineBreak());
                 Log.paragraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
                 if (!string.IsNullOrEmpty(vBitrate))
@@ -1827,7 +1649,6 @@ namespace Axiom
                 Log.paragraph.Inlines.Add(new LineBreak());
                 Log.paragraph.Inlines.Add(new Bold(new Run("Options: ")) { Foreground = Log.ConsoleDefault });
                 Log.paragraph.Inlines.Add(new Run(vOptions) { Foreground = Log.ConsoleDefault });
-
             };
             Log.LogActions.Add(Log.WriteAction);
         }
@@ -1850,11 +1671,9 @@ namespace Axiom
                 // Log Console Message /////////
                 Log.WriteAction = () =>
                 {
-
                     Log.paragraph.Inlines.Add(new LineBreak());
                     Log.paragraph.Inlines.Add(new Bold(new Run("Resize: ")) { Foreground = Log.ConsoleDefault });
                     Log.paragraph.Inlines.Add(new Run("No") { Foreground = Log.ConsoleDefault });
-
                 };
                 Log.LogActions.Add(Log.WriteAction);
             }
@@ -2139,11 +1958,9 @@ namespace Axiom
                             // Log Console Message /////////
                             Log.WriteAction = () =>
                             {
-
                                 Log.paragraph.Inlines.Add(new LineBreak());
                                 Log.paragraph.Inlines.Add(new LineBreak());
                                 Log.paragraph.Inlines.Add(new Bold(new Run("Warning: Must enter numbers only.")) { Foreground = Log.ConsoleWarning });
-
                             };
                             Log.LogActions.Add(Log.WriteAction);
 
@@ -2182,11 +1999,9 @@ namespace Axiom
                             // Log Console Message /////////
                             Log.WriteAction = () =>
                             {
-
                                 Log.paragraph.Inlines.Add(new LineBreak());
                                 Log.paragraph.Inlines.Add(new LineBreak());
                                 Log.paragraph.Inlines.Add(new Bold(new Run("Warning: Must enter numbers only.")) { Foreground = Log.ConsoleWarning });
-
                             };
                             Log.LogActions.Add(Log.WriteAction);
 
@@ -2241,11 +2056,9 @@ namespace Axiom
                             // Log Console Message /////////
                             Log.WriteAction = () =>
                             {
-
                                 Log.paragraph.Inlines.Add(new LineBreak());
                                 Log.paragraph.Inlines.Add(new LineBreak());
                                 Log.paragraph.Inlines.Add(new Bold(new Run("Warning: Must enter numbers only.")) { Foreground = Log.ConsoleWarning });
-
                             };
                             Log.LogActions.Add(Log.WriteAction);
 
@@ -2317,14 +2130,12 @@ namespace Axiom
             // Log Console Message /////////
             Log.WriteAction = () =>
             {
-
                 Log.paragraph.Inlines.Add(new LineBreak());
                 Log.paragraph.Inlines.Add(new Bold(new Run("Width: ")) { Foreground = Log.ConsoleDefault });
                 Log.paragraph.Inlines.Add(new Run(width) { Foreground = Log.ConsoleDefault });
                 Log.paragraph.Inlines.Add(new LineBreak());
                 Log.paragraph.Inlines.Add(new Bold(new Run("Height: ")) { Foreground = Log.ConsoleDefault });
                 Log.paragraph.Inlines.Add(new Run(height) { Foreground = Log.ConsoleDefault });
-
             };
             Log.LogActions.Add(Log.WriteAction);
 
@@ -2376,11 +2187,9 @@ namespace Axiom
                 // Log Console Message /////////
                 Log.WriteAction = () =>
                 {
-
                     Log.paragraph.Inlines.Add(new LineBreak());
                     Log.paragraph.Inlines.Add(new LineBreak());
                     Log.paragraph.Inlines.Add(new Bold(new Run("Warning: Crop cannot use Codec Copy. Please select a Video Codec.")) { Foreground = Log.ConsoleDefault });
-
                 };
                 Log.LogActions.Add(Log.WriteAction);
 
@@ -2406,11 +2215,9 @@ namespace Axiom
             // Log Console Message /////////
             Log.WriteAction = () =>
             {
-
                 Log.paragraph.Inlines.Add(new LineBreak());
                 Log.paragraph.Inlines.Add(new Bold(new Run("FPS: ")) { Foreground = Log.ConsoleDefault });
                 Log.paragraph.Inlines.Add(new Run(mainwindow.cboFPS.Text.ToString()) { Foreground = Log.ConsoleDefault });
-
             };
             Log.LogActions.Add(Log.WriteAction);
         }
@@ -2456,11 +2263,9 @@ namespace Axiom
                 // Log Console Message /////////
                 Log.WriteAction = () =>
                 {
-
                     Log.paragraph.Inlines.Add(new LineBreak());
                     Log.paragraph.Inlines.Add(new Bold(new Run("Encoding Speed: ")) { Foreground = Log.ConsoleDefault });
                     Log.paragraph.Inlines.Add(new Run(mainwindow.cboSpeed.Text.ToString()) { Foreground = Log.ConsoleDefault });
-
                 };
                 Log.LogActions.Add(Log.WriteAction);
             }
@@ -2484,11 +2289,9 @@ namespace Axiom
                 // Log Console Message /////////
                 Log.WriteAction = () =>
                 {
-
                     Log.paragraph.Inlines.Add(new LineBreak());
                     Log.paragraph.Inlines.Add(new Bold(new Run("Encoding Speed: ")) { Foreground = Log.ConsoleDefault });
                     Log.paragraph.Inlines.Add(new Run(mainwindow.cboSpeed.Text.ToString()) { Foreground = Log.ConsoleDefault });
-
                 };
                 Log.LogActions.Add(Log.WriteAction);
             }
@@ -2503,11 +2306,9 @@ namespace Axiom
                 // Log Console Message /////////
                 Log.WriteAction = () =>
                 {
-
                     Log.paragraph.Inlines.Add(new LineBreak());
                     Log.paragraph.Inlines.Add(new Bold(new Run("Encoding Speed: ")) { Foreground = Log.ConsoleDefault });
                     Log.paragraph.Inlines.Add(new Run("N/A") { Foreground = Log.ConsoleDefault });
-
                 };
                 Log.LogActions.Add(Log.WriteAction);
             }
@@ -2522,11 +2323,9 @@ namespace Axiom
                 // Log Console Message /////////
                 Log.WriteAction = () =>
                 {
-
                     Log.paragraph.Inlines.Add(new LineBreak());
                     Log.paragraph.Inlines.Add(new Bold(new Run("Encoding Speed: ")) { Foreground = Log.ConsoleDefault });
                     Log.paragraph.Inlines.Add(new Run("N/A") { Foreground = Log.ConsoleDefault });
-
                 };
                 Log.LogActions.Add(Log.WriteAction);
             }
@@ -2545,11 +2344,9 @@ namespace Axiom
                 // Log Console Message /////////
                 Log.WriteAction = () =>
                 {
-
                     Log.paragraph.Inlines.Add(new LineBreak());
                     Log.paragraph.Inlines.Add(new Bold(new Run("Encoding Speed: ")) { Foreground = Log.ConsoleDefault });
                     Log.paragraph.Inlines.Add(new Run("N/A") { Foreground = Log.ConsoleDefault });
-
                 };
                 Log.LogActions.Add(Log.WriteAction);
             }
@@ -2759,11 +2556,9 @@ namespace Axiom
                 {
                     Log.WriteAction = () =>
                     {
-
                         Log.paragraph.Inlines.Add(new LineBreak());
                         Log.paragraph.Inlines.Add(new Bold(new Run("End Frame: ")) { Foreground = Log.ConsoleDefault });
                         Log.paragraph.Inlines.Add(new Run(mainwindow.frameEnd.Text + " / " + detectedFramerate + " = " + Format.trimEnd) { Foreground = Log.ConsoleDefault });
-
                     };
                     Log.LogActions.Add(Log.WriteAction);
                 }
@@ -2774,11 +2569,9 @@ namespace Axiom
                 // Log Console Message /////////
                 Log.WriteAction = () =>
                 {
-
                     Log.paragraph.Inlines.Add(new LineBreak());
                     Log.paragraph.Inlines.Add(new LineBreak());
                     Log.paragraph.Inlines.Add(new Bold(new Run("Warning: No input file or Framerate not detected.")) { Foreground = Log.ConsoleWarning });
-
                 };
                 Log.LogActions.Add(Log.WriteAction);
 
@@ -2803,11 +2596,9 @@ namespace Axiom
             // Log Console Message /////////
             Log.WriteAction = () =>
             {
-
                 Log.paragraph.Inlines.Add(new LineBreak());
                 Log.paragraph.Inlines.Add(new Bold(new Run("Filter: ")) { Foreground = Log.ConsoleDefault });
                 Log.paragraph.Inlines.Add(new Run(vFilterSwitch.ToString()) { Foreground = Log.ConsoleDefault });
-
             };
             Log.LogActions.Add(Log.WriteAction);
 
@@ -2844,6 +2635,51 @@ namespace Axiom
             {
                 vFilterSwitch = 0;
                 vFilter = string.Empty;
+            }
+        }
+
+
+        /// <summary>
+        ///     Passes Switch
+        ///     
+        ///     Encoding Pass Method based on Pass ComboBox Selection
+        /// </summary>
+        public static void PassesSwitch(MainWindow mainwindow)
+        {
+            // CRF (Use -crf)
+            if ((string)mainwindow.cboPass.SelectedItem == "CRF")
+            {
+                vBitrate = string.Empty; //clear -b:v 2 pass
+                vQual = crf + " " + vOptions; //combine
+
+                v2passSwitch = 0;
+                v2passBatchSwitch = 0;
+            }
+            // 1 Pass Toggle On (Use Bitrate -b:v)
+            else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass")
+            {
+                crf = string.Empty; //clear crf
+                vQual = vBitrate + " " + vOptions; //combine
+
+                v2passSwitch = 0;
+                v2passBatchSwitch = 0;
+            }
+            // 2 Pass Toggle On (Use Bitrate -b:v)
+            else if ((string)mainwindow.cboPass.SelectedItem == "2 Pass")
+            {
+                crf = string.Empty; //clear crf
+                vQual = vBitrate + " " + vOptions; //combine
+
+                v2passSwitch = 1;
+                v2passBatchSwitch = 1;
+            }
+            // auto
+            else if ((string)mainwindow.cboPass.SelectedItem == "auto")
+            {
+                vQual = vBitrate + " " + vOptions; //combine
+
+                v2passSwitch = 0;
+                v2passBatchSwitch = 0;
             }
         }
 
@@ -2892,14 +2728,7 @@ namespace Axiom
         /// <summary>
         public static void TwoPassSwitch(MainWindow mainwindow)
         {
-            // Enable 2 Pass if Video Dropdown (Auto) selected 
-            //// If 2 Pass Toggle On
-            //if (prefer2PassToggle.IsChecked == true)
-            //{
-            //    v2pass = "on";
-            //    v2passBatch = "on";
-            //} //do not add if() for v2pass="off", it will override all other switches
-
+            // If 2 Pass is Enabled
             if (v2passSwitch == 1)
             {
                 pass1 = "-pass 1";
@@ -2911,10 +2740,9 @@ namespace Axiom
                 List<string> v2passList = new List<string>() { "&", FFmpeg.ffmpeg, "-i", "\"" + MainWindow.input + "\"", "-y", vCodec, vQual, tune, speed, vFilter, fps, Audio.aCodec, Audio.aQual, Audio.aSamplerate, Audio.aBitDepth, Audio.aChannel, Audio.aFilter, Streams.map, Format.trim, options, optimize, MainWindow.threads, pass2, "\"" + MainWindow.output + "\"" };
                 // Join List with Spaces, Remove Empty Strings
                 v2pass = string.Join(" ", v2passList.Where(s => !string.IsNullOrEmpty(s)));
-
-
             }
 
+            // If 2 Pass is Enabled
             if (v2passBatchSwitch == 1)
             {
                 pass1 = "-pass 1";
