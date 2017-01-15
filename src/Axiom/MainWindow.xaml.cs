@@ -204,6 +204,8 @@ namespace Axiom
 
             /// <summary>
             ///     System Info
+            ///     
+            ///     Shows OS and Hardware information in Log Console
             /// </summary>
             SystemInfoDisplay();
 
@@ -232,6 +234,7 @@ namespace Axiom
             cboCut.SelectedIndex = 0;
             cboSize.SelectedIndex = 0;
             cboPreset.SelectedIndex = 0;
+
 
             /// <summary>
             ///     Startup Preset
@@ -698,9 +701,7 @@ namespace Axiom
                 }
             }
             cpu.Dispose();
-            /// <summary>
-            /// Max Threads
-            /// </summary>
+            // Max Threads
             foreach (var item in new System.Management.ManagementObjectSearcher("Select NumberOfLogicalProcessors FROM Win32_ComputerSystem").Get())
             {
                 maxthreads = String.Format("{0}", item["NumberOfLogicalProcessors"]);
@@ -1409,6 +1410,7 @@ namespace Axiom
                 ready = 0;
                 script = 0;
             }
+
             // STOP if Single File Input with no Extension
             if (tglBatch.IsChecked == false && textBoxBrowse.Text.EndsWith("\\"))
             {
@@ -1422,8 +1424,8 @@ namespace Axiom
                 ready = 0;
             }
 
-            // STOP Do not allow Batch Copy to same folder (to avoid file overwrite)
-            if (tglBatch.IsChecked == true && inputDir == outputDir && string.Equals(batchExt, outputExt, StringComparison.CurrentCultureIgnoreCase))
+            // STOP Do not allow Batch Copy to same folder if file extensions are the same (to avoid file overwrite)
+            if (tglBatch.IsChecked == true && string.Equals(inputDir, outputDir, StringComparison.CurrentCultureIgnoreCase) && string.Equals(batchExt, outputExt, StringComparison.CurrentCultureIgnoreCase))
             {
                 // Log Console Message /////////
                 Log.paragraph.Inlines.Add(new LineBreak());
@@ -3106,7 +3108,7 @@ namespace Axiom
                 cboAudioCodec.SelectedItem = "Vorbis";
 
                 // Video
-                cboVideo.SelectedItem = "High";
+                cboVideo.SelectedItem = "Medium";
                 cboSize.SelectedItem = "No";
                 cboCut.SelectedItem = "No";
                 cutStart.Text = "00:00:00.000";
@@ -3262,14 +3264,9 @@ namespace Axiom
                 batchExt = "." + batchExt;
             }
 
-            // Call Method
-            //if (!string.IsNullOrEmpty(inputExt)) // Prevents if input extension is null when method activates, you'll receive a NullReferenceException Error
-            //{
-            // Set Video Codec Combobox to "Copy" if Input Extension is Same as Output Extension and Video Quality is Auto
+            // Set Video and AudioCodec Combobox to "Copy" if Input Extension is Same as Output Extension and Video Quality is Auto
             Video.AutoVideoCodecCopy(this);
-            // Set Audio Codec Combobox to "Copy" if Input Extension is Same as Output Extension and Audio Quality is Auto
             Audio.AutoAudioCodecCopy(this);
-            //}
         }
 
 
@@ -3304,9 +3301,8 @@ namespace Axiom
                 batchExtensionTextBox.Text = "extension";
             }
 
-            // Set Video Codec Combobox to "Copy" if Input Extension is Same as Output Extension and Video Quality is Auto
+            // Set Video and AudioCodec Combobox to "Copy" if Input Extension is Same as Output Extension and Video Quality is Auto
             Video.AutoVideoCodecCopy(this);
-            // Set Audio Codec Combobox to "Copy" if Input Extension is Same as Output Extension and Audio Quality is Auto
             Audio.AutoAudioCodecCopy(this);
         }
 
@@ -3493,8 +3489,18 @@ namespace Axiom
                                 Log.paragraph.Inlines.Add(new LineBreak());
                                 Log.paragraph.Inlines.Add(new Bold(new Run("General")) { Foreground = Log.ConsoleAction });
                                 Log.paragraph.Inlines.Add(new LineBreak());
+
                                 Log.paragraph.Inlines.Add(new Bold(new Run("Format: ")) { Foreground = Log.ConsoleDefault });
-                                Log.paragraph.Inlines.Add(new Run(inputExt) { Foreground = Log.ConsoleDefault });
+                                // single file
+                                if (!string.IsNullOrEmpty(inputExt)) {
+                                    Log.paragraph.Inlines.Add(new Run(inputExt) { Foreground = Log.ConsoleDefault });
+                                }
+                                // batch
+                                if (!string.IsNullOrEmpty(batchExt) && batchExt != "extension")
+                                {
+                                    Log.paragraph.Inlines.Add(new Run(batchExt) { Foreground = Log.ConsoleDefault });
+                                }
+
                                 Log.paragraph.Inlines.Add(new LineBreak());
                                 Log.paragraph.Inlines.Add(new Bold(new Run("Size: ")) { Foreground = Log.ConsoleDefault });
                                 Log.paragraph.Inlines.Add(new Run(FFprobe.inputSize) { Foreground = Log.ConsoleDefault });
