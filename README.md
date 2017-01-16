@@ -45,11 +45,10 @@ https://ffmpeg.zeranoe.com/builds/
 ## Installation
 Axiom is portable and can be run from any location on the computer.
 
-It first checks Window's Environment Variables to see if FFmpeg is installed and uses that location.
-<br />
-If not found, it will look for `ffmpeg.exe` and `ffprobe.exe` in `\ffmpeg\bin\`, within `Axiom.exe current folder`.
-
-A custom path can also be defined in the Configure Window.
+1. Extract Axiom.FFmpeg.zip to a location of your choice.
+2. Run the program Axiom.exe or create a shortcut on the Desktop.
+2. It will automatically detect `ffmpeg.exe` and `ffprobe.exe` in the included `ffmpeg` folder.
+3. If you move the `ffmpeg` folder, set Windows Environment Variables or choose path in the Axiom Configure Window.
 
 #### Add FFmpeg to Environment Variables (optional):
 
