@@ -36,6 +36,16 @@ namespace Axiom
         // FFprobe
         public static string ffprobe; // FFprobe.exe
 
+        // Arguments for StartInfo
+        public static string FFprobeArgsVideoCodec; 
+        public static string FFprobeArgsAudioCodec; 
+        public static string FFprobeArgsVideoBitrate;
+        public static string FFprobeArgsAudioBitrate;
+        public static string FFprobeArgsSize;
+        public static string FFprobeArgsDuration;
+        public static string FFprobeArgsFramerate;
+
+        // FFprobe Results
         public static string ffprobeVideoCodecResult;
         public static string ffprobeVideoBitrateResult;
         public static string ffprobeAudioCodecResult;
@@ -44,6 +54,7 @@ namespace Axiom
         public static string ffprobeDurationResult;
         public static string ffprobeFramerateResult;
 
+        // Results to Modify
         public static string inputVideoCodec;
         public static string inputVideoBitrate;
         public static string inputAudioCodec;
@@ -155,7 +166,8 @@ namespace Axiom
                     // -------------------------
                     // Frame Rate
                     // -------------------------
-                    FFprobeParse.StartInfo.Arguments = " -i" + " " + "\"" + MainWindow.input + "\"" + " -select_streams v:0 -show_entries stream=r_frame_rate -v quiet -of csv=\"p=0\""; // Arguments
+                    FFprobeArgsFramerate = " -i" + " " + "\"" + MainWindow.input + "\"" + " -select_streams v:0 -show_entries stream=r_frame_rate -v quiet -of csv=\"p=0\"";
+                    FFprobeParse.StartInfo.Arguments = FFprobeArgsFramerate;
                     FFprobeParse.Start();
                     FFprobeParse.WaitForExit();
                     ffprobeFramerateResult = FFprobeParse.StandardOutput.ReadToEnd(); // Get Ouput Result
@@ -168,7 +180,7 @@ namespace Axiom
                         Log.paragraph.Inlines.Add(new LineBreak());
                         Log.paragraph.Inlines.Add(new Bold(new Run("Frame Rate")) { Foreground = Log.ConsoleAction });
                         Log.paragraph.Inlines.Add(new LineBreak());
-                        Log.paragraph.Inlines.Add(new Run(ffprobe + FFprobeParse.StartInfo.Arguments) { Foreground = Log.ConsoleDefault });
+                        Log.paragraph.Inlines.Add(new Run(ffprobe + FFprobeArgsFramerate) { Foreground = Log.ConsoleDefault });
                     };
                     Log.LogActions.Add(Log.WriteAction);
                     //FFprobeParse.Close();
@@ -177,7 +189,8 @@ namespace Axiom
                     // -------------------------
                     // Size
                     // -------------------------
-                    FFprobeParse.StartInfo.Arguments = " -i" + " " + "\"" + mainwindow.textBoxBrowse.Text + "\"" + " -select_streams v:0 -show_entries format=size -v quiet -of csv=\"p=0\"";
+                    FFprobeArgsSize = " -i" + " " + "\"" + mainwindow.textBoxBrowse.Text + "\"" + " -select_streams v:0 -show_entries format=size -v quiet -of csv=\"p=0\"";
+                    FFprobeParse.StartInfo.Arguments = FFprobeArgsSize;
                     FFprobeParse.Start();
                     FFprobeParse.WaitForExit();
                     ffprobeSizeResult = FFprobeParse.StandardOutput.ReadToEnd(); // Get Ouput Result
@@ -190,7 +203,7 @@ namespace Axiom
                         Log.paragraph.Inlines.Add(new LineBreak());
                         Log.paragraph.Inlines.Add(new Bold(new Run("File Size")) { Foreground = Log.ConsoleAction });
                         Log.paragraph.Inlines.Add(new LineBreak());
-                        Log.paragraph.Inlines.Add(new Run(ffprobe + FFprobeParse.StartInfo.Arguments) { Foreground = Log.ConsoleDefault });
+                        Log.paragraph.Inlines.Add(new Run(ffprobe + FFprobeArgsSize) { Foreground = Log.ConsoleDefault });
                     };
                     Log.LogActions.Add(Log.WriteAction);
                     //FFprobeParse.Close();
@@ -199,12 +212,12 @@ namespace Axiom
                     // -------------------------
                     // Duration
                     // -------------------------
-                    FFprobeParse.StartInfo.Arguments = " -i" + " " + "\"" + mainwindow.textBoxBrowse.Text + "\"" + " -select_streams v:0 -show_entries format=duration -v quiet -of csv=\"p=0\"";
+                    FFprobeArgsDuration = " -i" + " " + "\"" + mainwindow.textBoxBrowse.Text + "\"" + " -select_streams v:0 -show_entries format=duration -v quiet -of csv=\"p=0\"";
+                    FFprobeParse.StartInfo.Arguments = FFprobeArgsDuration;
                     FFprobeParse.Start();
                     FFprobeParse.WaitForExit();
                     ffprobeDurationResult = FFprobeParse.StandardOutput.ReadToEnd(); // Get Ouput Result
                     inputDuration = ffprobeDurationResult.Replace("\r\n", "").Replace("\n", "").Replace("\r", ""); // remove linebreaks
-
 
                     // Log Console Message /////////
                     Log.WriteAction = () =>
@@ -213,7 +226,7 @@ namespace Axiom
                         Log.paragraph.Inlines.Add(new LineBreak());
                         Log.paragraph.Inlines.Add(new Bold(new Run("File Duration")) { Foreground = Log.ConsoleAction });
                         Log.paragraph.Inlines.Add(new LineBreak());
-                        Log.paragraph.Inlines.Add(new Run(ffprobe + FFprobeParse.StartInfo.Arguments) { Foreground = Log.ConsoleDefault });
+                        Log.paragraph.Inlines.Add(new Run(ffprobe + FFprobeArgsDuration) { Foreground = Log.ConsoleDefault });
                     };
                     Log.LogActions.Add(Log.WriteAction);
                     //FFprobeParse.Close();
@@ -222,7 +235,8 @@ namespace Axiom
                     // -------------------------
                     // Video Codec
                     // -------------------------
-                    FFprobeParse.StartInfo.Arguments = " -i" + " " + "\"" + mainwindow.textBoxBrowse.Text + "\"" + " -select_streams v:0 -show_entries stream=codec_name -v quiet -of csv=\"p=0\"";
+                    FFprobeArgsVideoCodec = " -i" + " " + "\"" + mainwindow.textBoxBrowse.Text + "\"" + " -select_streams v:0 -show_entries stream=codec_name -v quiet -of csv=\"p=0\"";
+                    FFprobeParse.StartInfo.Arguments = FFprobeArgsVideoCodec;
                     FFprobeParse.Start();
                     FFprobeParse.WaitForExit();
                     ffprobeVideoCodecResult = FFprobeParse.StandardOutput.ReadToEnd(); // Get Ouput Result
@@ -235,7 +249,7 @@ namespace Axiom
                         Log.paragraph.Inlines.Add(new LineBreak());
                         Log.paragraph.Inlines.Add(new Bold(new Run("Video Codec")) { Foreground = Log.ConsoleAction });
                         Log.paragraph.Inlines.Add(new LineBreak());
-                        Log.paragraph.Inlines.Add(new Run(ffprobe + FFprobeParse.StartInfo.Arguments) { Foreground = Log.ConsoleDefault });
+                        Log.paragraph.Inlines.Add(new Run(ffprobe + FFprobeArgsVideoCodec) { Foreground = Log.ConsoleDefault });
                     };
                     Log.LogActions.Add(Log.WriteAction);
                     //FFprobeParse.Close();
@@ -244,7 +258,8 @@ namespace Axiom
                     // -------------------------
                     // Audio Codec
                     // -------------------------
-                    FFprobeParse.StartInfo.Arguments = " -i" + " " + "\"" + mainwindow.textBoxBrowse.Text + "\"" + " -select_streams a:0 -show_entries stream=codec_name -v quiet -of csv=\"p=0\"";
+                    FFprobeArgsAudioCodec = " -i" + " " + "\"" + mainwindow.textBoxBrowse.Text + "\"" + " -select_streams a:0 -show_entries stream=codec_name -v quiet -of csv=\"p=0\"";
+                    FFprobeParse.StartInfo.Arguments = FFprobeArgsAudioCodec;
                     FFprobeParse.Start();
                     FFprobeParse.WaitForExit();
                     ffprobeAudioCodecResult = FFprobeParse.StandardOutput.ReadToEnd(); // Get Ouput Result
@@ -257,7 +272,7 @@ namespace Axiom
                         Log.paragraph.Inlines.Add(new LineBreak());
                         Log.paragraph.Inlines.Add(new Bold(new Run("Audio Codec")) { Foreground = Log.ConsoleAction });
                         Log.paragraph.Inlines.Add(new LineBreak());
-                        Log.paragraph.Inlines.Add(new Run(ffprobe + FFprobeParse.StartInfo.Arguments) { Foreground = Log.ConsoleDefault });
+                        Log.paragraph.Inlines.Add(new Run(ffprobe + FFprobeArgsAudioCodec) { Foreground = Log.ConsoleDefault });
                     };
                     Log.LogActions.Add(Log.WriteAction);
                     //FFprobeParse.Close();
@@ -266,11 +281,13 @@ namespace Axiom
                     // -------------------------
                     // Video Bitrate
                     // -------------------------
-                    FFprobeParse.StartInfo.Arguments = " -i" + " " + "\"" + mainwindow.textBoxBrowse.Text + "\"" + " -select_streams v:0 -show_entries " + vEntryType + " -v quiet -of csv=\"p=0\"";
+                    FFprobeArgsVideoBitrate = " -i" + " " + "\"" + mainwindow.textBoxBrowse.Text + "\"" + " -select_streams v:0 -show_entries " + vEntryType + " -v quiet -of csv=\"p=0\"";
+                    FFprobeParse.StartInfo.Arguments = FFprobeArgsVideoBitrate;
                     FFprobeParse.Start();
                     FFprobeParse.WaitForExit();
                     ffprobeVideoBitrateResult = FFprobeParse.StandardOutput.ReadToEnd(); // Get Ouput Result
-                    inputVideoBitrate = ffprobeVideoBitrateResult.Replace("\r\n", "").Replace("\n", "").Replace("\r", ""); // remove linebreaks                
+                    ffprobeVideoBitrateResult = ffprobeVideoBitrateResult.Replace("\r\n", "").Replace("\n", "").Replace("\r", ""); // remove linebreaks  
+                    inputVideoBitrate = ffprobeVideoBitrateResult;       
 
                     // Log Console Message /////////
                     Log.WriteAction = () =>
@@ -279,7 +296,7 @@ namespace Axiom
                         Log.paragraph.Inlines.Add(new LineBreak());
                         Log.paragraph.Inlines.Add(new Bold(new Run("Video Bitrate")) { Foreground = Log.ConsoleAction });
                         Log.paragraph.Inlines.Add(new LineBreak());
-                        Log.paragraph.Inlines.Add(new Run(ffprobe + FFprobeParse.StartInfo.Arguments) { Foreground = Log.ConsoleDefault });
+                        Log.paragraph.Inlines.Add(new Run(ffprobe + FFprobeArgsVideoBitrate) { Foreground = Log.ConsoleDefault });
                     };
                     Log.LogActions.Add(Log.WriteAction);
                     //FFprobeParse.Close();
@@ -288,7 +305,8 @@ namespace Axiom
                     // -------------------------
                     // Audio Bitrate
                     // -------------------------
-                    FFprobeParse.StartInfo.Arguments = " -i" + " " + "\"" + mainwindow.textBoxBrowse.Text + "\"" + " -select_streams a:0 -show_entries " + aEntryType + " -v quiet -of csv=\"p=0\"";
+                    FFprobeArgsAudioBitrate = " -i" + " " + "\"" + mainwindow.textBoxBrowse.Text + "\"" + " -select_streams a:0 -show_entries " + aEntryType + " -v quiet -of csv=\"p=0\"";
+                    FFprobeParse.StartInfo.Arguments = FFprobeArgsAudioBitrate;
                     FFprobeParse.Start();
                     FFprobeParse.WaitForExit();
                     ffprobeAudioBitrateResult = FFprobeParse.StandardOutput.ReadToEnd(); // Get Ouput Result
@@ -301,17 +319,17 @@ namespace Axiom
                         Log.paragraph.Inlines.Add(new LineBreak());
                         Log.paragraph.Inlines.Add(new Bold(new Run("Audio Bitrate")) { Foreground = Log.ConsoleAction });
                         Log.paragraph.Inlines.Add(new LineBreak());
-                        Log.paragraph.Inlines.Add(new Run(ffprobe + FFprobeParse.StartInfo.Arguments) { Foreground = Log.ConsoleDefault });
+                        Log.paragraph.Inlines.Add(new Run(ffprobe + FFprobeArgsAudioBitrate) { Foreground = Log.ConsoleDefault });
                     };
                     Log.LogActions.Add(Log.WriteAction);
 
                     // Close Process
-                    //FFprobeParse.Close();
+                    FFprobeParse.Close();
                 }
 
 
                 // Dispose Process
-                FFprobeParse.Dispose();
+                //FFprobeParse.Dispose();
             }
 
 
