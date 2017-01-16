@@ -1239,26 +1239,33 @@ namespace Axiom
             // If Video has a Bitrate, calculate Bitrate into decimal
             if (FFprobe.inputVideoBitrate != "N/A" && !string.IsNullOrEmpty(FFprobe.inputVideoBitrate)) // NEW
             {
-                if (Convert.ToInt32(FFprobe.inputVideoBitrate) >= 1000000000) // e.g. (100M / 100,000K)
+                if (Convert.ToInt32(FFprobe.inputVideoBitrate) >= 1000000000) // e.g. (1000M / 1,000,000K)
                 {
                     FFprobe.inputVideoBitrate = Convert.ToString(int.Parse(FFprobe.inputVideoBitrate) * 0.00001) + "k ";
                 }
-                else if (Convert.ToInt32(FFprobe.inputVideoBitrate) >= 100000000) // e.g. (10M / 10,000K) 
+                else if (Convert.ToInt32(FFprobe.inputVideoBitrate) >= 100000000) // e.g. (100M / 100,000K) 
                 {
                     FFprobe.inputVideoBitrate = Convert.ToString(int.Parse(FFprobe.inputVideoBitrate) * 0.0001) + "k ";
                 }
-                else if (Convert.ToInt32(FFprobe.inputVideoBitrate) >= 10000000) // e.g. (1M / 1,000K)
+                else if (Convert.ToInt32(FFprobe.inputVideoBitrate) >= 10000000) // e.g. (10M / 10,000K)
                 {
                     FFprobe.inputVideoBitrate = Convert.ToString(int.Parse(FFprobe.inputVideoBitrate) * 0.001) + "k ";
                 }
-                else if (Convert.ToInt32(FFprobe.inputVideoBitrate) >= 100000) // e.g. (100K)
+                else if (Convert.ToInt32(FFprobe.inputVideoBitrate) >= 100000) // e.g. (1M /1000K)
                 {
                     FFprobe.inputVideoBitrate = Convert.ToString(int.Parse(FFprobe.inputVideoBitrate) * 0.001) + "k ";
                 }
-                else if (Convert.ToInt32(FFprobe.inputVideoBitrate) >= 10000) // e.g. (10K)
+                else if (Convert.ToInt32(FFprobe.inputVideoBitrate) >= 10000) // e.g. (100K)
                 {
                     FFprobe.inputVideoBitrate = Convert.ToString(int.Parse(FFprobe.inputVideoBitrate) * 0.001) + "k ";
                 }
+            }
+
+            // WebM Video Bitrate Limiter
+            // If input video bitrate is greater than 1.5M, lower the bitrate to 1.5M
+            if (MainWindow.outputExt == ".webm" && Convert.ToInt32(FFprobe.ffprobeVideoBitrateResult) >= 150000)
+            {
+                FFprobe.inputVideoBitrate = "1.5M";
             }
 
             // If Video Variable = N/A, Calculate Bitate (((Filesize*8)/1000)/Duration)
@@ -2758,7 +2765,33 @@ namespace Axiom
                 // 2 Pass added after the main FFmpeg cmd line
 
                 // Make List
-                List<string> v2passList = new List<string>() { "&", FFmpeg.ffmpeg, "-i", "\"" + MainWindow.input + "\"", "-y", vCodec, vQual, tune, speed, vFilter, fps, Audio.aCodec, Audio.aQual, Audio.aSamplerate, Audio.aBitDepth, Audio.aChannel, Audio.aFilter, Streams.map, Format.trim, options, optimize, MainWindow.threads, pass2, "\"" + MainWindow.output + "\"" };
+                List<string> v2passList = new List<string>() {
+                    "&",
+                    FFmpeg.ffmpeg,
+                    "-y",
+                    "-i",
+                    "\"" + MainWindow.input + "\"",
+                    vCodec,
+                    speed,
+                    vQual,
+                    tune,
+                    fps,
+                    vFilter,
+                    optimize,
+                    Audio.aCodec,
+                    Audio.aQual,
+                    Audio.aSamplerate,
+                    Audio.aBitDepth,
+                    Audio.aChannel,
+                    Audio.aFilter,
+                    Streams.map,
+                    Format.trim,
+                    options,
+                    MainWindow.threads,
+                    pass2,
+                    "\"" + MainWindow.output + "\""
+                };
+
                 // Join List with Spaces, Remove Empty Strings
                 v2pass = string.Join(" ", v2passList.Where(s => !string.IsNullOrEmpty(s)));
             }
@@ -2772,7 +2805,33 @@ namespace Axiom
                 // 2 Pass added after the main FFmpeg cmd line
 
                 // Make List
-                List<string> v2passBatchList = new List<string>() { "&", FFmpeg.ffmpeg, "-i", "\"" + mainwindow.textBoxBrowse.Text + "%~f" + "\"", "-y", vCodec, cmdBatch_vQual, tune, speed, vFilter, fps, Audio.aCodec, Audio.cmdBatch_aQual, Audio.aSamplerate, Audio.aBitDepth, Audio.aChannel, Audio.aFilter, Streams.map, Format.trim, options, optimize, MainWindow.threads, pass2, "\"" + MainWindow.output + "\"" };
+                List<string> v2passBatchList = new List<string>() {
+                    "&",
+                    FFmpeg.ffmpeg,
+                    "-y",
+                    "-i",
+                    "\"" + MainWindow.input + "%~f" + "\"",
+                    vCodec,
+                    speed,
+                    cmdBatch_vQual,
+                    tune,
+                    fps,
+                    vFilter,
+                    optimize,
+                    Audio.aCodec,
+                    Audio.cmdBatch_aQual,
+                    Audio.aSamplerate,
+                    Audio.aBitDepth,
+                    Audio.aChannel,
+                    Audio.aFilter,
+                    Streams.map,
+                    Format.trim,
+                    options,
+                    MainWindow.threads,
+                    pass2,
+                    "\"" + MainWindow.output + "\""
+                };
+
                 // Join List with Spaces, Remove Empty Strings
                 v2passBatch = string.Join(" ", v2passBatchList.Where(s => !string.IsNullOrEmpty(s)));
             }
