@@ -45,19 +45,19 @@ https://ffmpeg.zeranoe.com/builds/
 ## Installation
 Axiom is portable and can be run from any location on the computer.
 
-1. Extract Axiom.FFmpeg.zip to a location of your choice.
+1. Extract `Axiom.FFmpeg.zip` to a location of your choice.
 2. Run the program Axiom.exe or create a shortcut on the Desktop.
 3. It will automatically detect `ffmpeg.exe` and `ffprobe.exe` in the included `ffmpeg` folder.
 4. If you move the `ffmpeg` folder, set Windows Environment Variables or choose path in the Axiom Configure Window.
 
 #### Add FFmpeg to Environment Variables (optional):
 
-* Move FFmpeg folder to a location of your choice, such as `C:\Program Files\`.
-* Control Panel → System and Security → System → Advanced system settings
-* Advanced Tab → Environment Variables → System variables → Path
-* Add `C:\Program Files\FFmpeg\bin\`
-* Separate multiple paths with semicolon `;`
-* Typing `ffmpeg` in Command Prompt will now execute without needing to specify a direct path.
+1. Move FFmpeg folder to a location of your choice, such as `C:\Program Files\`.
+2. Control Panel → System and Security → System → Advanced system settings
+3. Advanced Tab → Environment Variables → System variables → Path
+4. Add `C:\Program Files\FFmpeg\bin\`
+5. Separate multiple paths with semicolon `;`
+6. Typing `ffmpeg` in Command Prompt will now execute without needing to specify a direct path.
 
 ## Build
 Visual Studio 2015
