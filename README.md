@@ -30,13 +30,13 @@ Convert to webm, mp4, mkv, ogv, mp3, m4a, ogg, flac, wav, png, jpg image & seque
 
 ## Downloads
 #### Binary Releases
-Axiom User Interface Standalone
-<br />
-Axiom + FFmpeg/FFprobe/FFplay 64-Bit Windows
-<br />
-Install Instructions & User Guide.
-<br />
 https://github.com/MattMcManis/Axiom/releases
+
+* Axiom User Interface Standalone
+* Axiom + FFmpeg/FFprobe/FFplay 64-Bit Windows
+* Install Instructions & User Guide.
+
+Requires [Microsoft .NET Framework 4.5](http://www.deviantart.com/users/outgoing?https://www.microsoft.com/en-us/download/details.aspx?id=30653)
 
 FFmpeg Windows builds
 <br />
