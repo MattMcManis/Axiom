@@ -102,7 +102,7 @@ namespace Axiom
                 MainWindow.outputExt = ".mp4";
                 mainwindow.cboMediaType.SelectedItem = "Video";
                 mainwindow.cboMediaType.IsEnabled = false;
-                Video.options = "-strict experimental";
+                Video.options = string.Empty;
                 mainwindow.cboSubtitle.SelectedItem = "all";
                 mainwindow.cboSubtitle.IsEnabled = true;
                 mainwindow.cboAudioStream.SelectedItem = "all";
