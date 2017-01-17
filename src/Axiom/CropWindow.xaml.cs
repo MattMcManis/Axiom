@@ -189,21 +189,22 @@ namespace Axiom
             //MainWindow.cropClear = false;
 
             // Make x264 & x265 Width/Height Divisible by 2
+            //
             if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264" || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
             {
                 try // will error if wrong characters input
                 {
-                    int width = Convert.ToInt32(cropWidth.Text);
-                    int height = Convert.ToInt32(cropHeight.Text);
+                    int divisibleWidth = Convert.ToInt32(cropWidth.Text);
+                    int divisibleHeight = Convert.ToInt32(cropHeight.Text);
 
-                    // If not divisible by 2, add 1 to total
-                    if (width % 2 != 0)
+                    // If not divisible by 2, subtract 1 from total
+                    if (divisibleWidth % 2 != 0)
                     {
-                        width = width - 1;
+                        divisibleWidth -= 1;
                     }
-                    if (height % 2 != 0)
+                    if (divisibleHeight % 2 != 0)
                     {
-                        height = height - 1;
+                        divisibleHeight -= 1;
                     }
 
                     // Save Temp TextBox String Holder
@@ -212,7 +213,7 @@ namespace Axiom
                     mainwindow.cropX = cropX.Text;
                     mainwindow.cropY = cropY.Text;
 
-                    crop = Convert.ToString("crop=" + width + ":" + height + ":" + cropX.Text + ":" + cropY.Text);
+                    crop = Convert.ToString("crop=" + divisibleWidth + ":" + divisibleHeight + ":" + cropX.Text + ":" + cropY.Text);
 
                 }
                 catch
@@ -221,7 +222,9 @@ namespace Axiom
                 }
 
             }
+
             // Use Normal Width/Height
+            //
             else
             {
                 // Save Temp TextBox String Holder
@@ -235,6 +238,7 @@ namespace Axiom
 
 
             // Set Empty Crop X Textbox to 0
+            //
             if (string.IsNullOrWhiteSpace(cropX.Text))
             {
                 cropX.Text = "0";
@@ -243,6 +247,7 @@ namespace Axiom
                 crop = "crop=" + cropWidth.Text + ":" + cropHeight.Text + ":" + cropX.Text + ":" + cropY.Text;
             }
             // Set Empty Crop Y Textbox to 0
+            //
             if (string.IsNullOrWhiteSpace(cropY.Text))
             {
                 cropY.Text = "0";

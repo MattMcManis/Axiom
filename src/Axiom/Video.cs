@@ -91,7 +91,7 @@ namespace Axiom
         public static string pass2;
         public static int? v2passBatchSwitch = 0;
         public static string v2passBatch; // enabled if auto and batched checked
-        public static string cmdBatch_vQual; // cmd batch video dynamic value
+        public static string cmdBatch_vQual; // cmd batch Video Auto dynamic value
 
         // Filter
         public static List<string> VideoFilters = new List<string>(); // Filters to String Join
@@ -1263,10 +1263,20 @@ namespace Axiom
 
             // WebM Video Bitrate Limiter
             // If input video bitrate is greater than 1.5M, lower the bitrate to 1.5M
-            if (MainWindow.outputExt == ".webm" && Convert.ToInt32(FFprobe.ffprobeVideoBitrateResult) >= 150000)
-            {
-                FFprobe.inputVideoBitrate = "1.5M";
-            }
+            // Error checking the ffprobeVideoBitrateResult when using Batch
+            //
+            //try
+            //{
+            //    if (MainWindow.outputExt == ".webm" && Convert.ToInt32(FFprobe.ffprobeVideoBitrateResult) >= 150000)
+            //    {
+            //        FFprobe.inputVideoBitrate = "1.5M";
+            //    }
+            //}
+            //catch
+            //{
+
+            //}
+
 
             // If Video Variable = N/A, Calculate Bitate (((Filesize*8)/1000)/Duration)
             // Formats like WebM, MKV and with Missing Metadata can have New Bitrates calculated and applied
@@ -1714,8 +1724,8 @@ namespace Axiom
                 vFilterSwitch += 1;
 
                 scale = "scale=";
-                width = "trunc(iw/2)*2";
-                height = "trunc(ih/2)*2";
+                width = "-2";
+                height = "-2";
                 //combine
                 aspect = scale + "\"" + width + ":" + height + "\"";
             }
@@ -1973,12 +1983,13 @@ namespace Axiom
 
                         try
                         {
-                            int mp4Height = Convert.ToInt32(height);
+                            // If not divisible by 2, subtract 1 from total
+                            int divisibleHeight = Convert.ToInt32(height);
 
-                            if (mp4Height % 2 != 0)
+                            if (divisibleHeight % 2 != 0)
                             {
-                                mp4Height = mp4Height - 1;
-                                height = String.Concat(mp4Height);
+                                divisibleHeight -= 1;
+                                height = Convert.ToString(divisibleHeight);
                             }
                         }
                         catch
@@ -2006,7 +2017,9 @@ namespace Axiom
                             //crop = null;
                         }
                     }
+
                     // If width = custom value & height = auto
+                    //
                     else if (!string.Equals(mainwindow.widthCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase) && string.Equals(mainwindow.heightCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase))
                     {
                         // Auto the height (-2), Make user entered width divisible by 2
@@ -2014,12 +2027,13 @@ namespace Axiom
 
                         try
                         {
-                            int mp4Width = Convert.ToInt32(width);
+                            // If not divisible by 2, subtract 1 from total
+                            int divisibleWidth = Convert.ToInt32(width);
 
-                            if (mp4Width % 2 != 0)
+                            if (divisibleWidth % 2 != 0)
                             {
-                                mp4Width = mp4Width - 1;
-                                width = String.Concat(mp4Width);
+                                divisibleWidth -= 1;
+                                width = Convert.ToString(divisibleWidth);
                             }
                         }
                         catch
@@ -2047,36 +2061,33 @@ namespace Axiom
                             //crop = null;
                         }
                     }
+
                     // If both width & height are custom value
+                    //
                     else if (!string.Equals(mainwindow.widthCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase) && !string.Equals(mainwindow.heightCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase))
                     {
                         try
                         {
-                            int mp4Width = Convert.ToInt32(width);
-                            int mp4Height = Convert.ToInt32(height);
+                            // If not divisible by 2, subtract 1 from total
+                            int divisibleWidth = Convert.ToInt32(width);
+                            int divisibleHeight = Convert.ToInt32(height);
 
-                            // If not divisible by 2, add 1 to total
-                            if (mp4Width % 2 != 0)
+                            if (divisibleWidth % 2 != 0)
                             {
-                                mp4Width = mp4Width - 1;
+                                divisibleWidth -= 1;
+                                width = Convert.ToString(divisibleWidth);
                             }
-                            if (mp4Height % 2 != 0)
+                            if (divisibleHeight % 2 != 0)
                             {
-                                mp4Height = mp4Height - 1;
+                                divisibleHeight -= 1;
+                                height = Convert.ToString(divisibleHeight);
                             }
 
                             // If crop string is empty use the mp4 divisible crop 
-                            if (string.IsNullOrEmpty(MainWindow.crop)) //null check
+                            if (string.IsNullOrEmpty(MainWindow.crop))
                             {
-                                //IMPORTANT!
-                                MainWindow.crop = Convert.ToString("crop=" + mp4Width + ":" + mp4Height + ":0:0"); //divisibleCrop //Now in vFilter Switch Combine Section
-                            }
-                            // If crop string has value from CropWindow
-                            if (!string.IsNullOrEmpty(MainWindow.crop)) //null check
-                            {
-                                // Use CropWindow Custom Crop
-                                //Crop(); //method
-                                // may not need this section since crop already has value
+                                MainWindow.crop = "crop=" + width + ":" + height + ":0:0";
+                                //divisibleCrop //Now in vFilter Switch Combine Section
                             }
                         }
                         catch
@@ -2097,16 +2108,13 @@ namespace Axiom
 
                     }
 
-
                     // Video Filter Switch
                     Video.vFilterSwitch = 2; //always combine (greater than 1)
-
 
                     //set values
                     scale = "scale=";
 
                     //combine
-                    //aspect = scale + "\"" + width + ":" + height + crop + "\""; //divisibleCrop
                     aspect = scale + width + ":" + height;
 
                     //System.Windows.MessageBox.Show(crop); //debug
@@ -2710,132 +2718,5 @@ namespace Axiom
                 v2passBatchSwitch = 0;
             }
         }
-
-
-        /// <summary>
-        /// 2 Pass Clear (Method)
-        /// <summary>
-        public static void TwoPassClear(MainWindow mainwindow)
-        {
-            // Disable 2 Pass if Video Selected None (Audio) 
-            if ((string)mainwindow.cboVideo.SelectedItem == "None")
-            {
-                v2passSwitch = 0;
-                v2passBatchSwitch = 0;
-                pass1 = string.Empty;
-            }
-
-            // Disable 2 Pass if User selected Value
-            if (FFprobe.inputVideoBitrate == "N/A" | string.IsNullOrEmpty(FFprobe.inputVideoBitrate) && (string)mainwindow.cboVideo.SelectedItem != "Auto" && (string)mainwindow.cboPass.SelectedItem != "2 Pass")
-            {
-                v2passSwitch = 0;
-                v2passBatchSwitch = 0;
-                pass1 = string.Empty;
-            }
-
-            // Disable 2 Pass if User selected Value (again)
-            if ((string)mainwindow.cboVideo.SelectedItem != "Auto" && (string)mainwindow.cboPass.SelectedItem != "2 Pass")
-            {
-                v2passSwitch = 0;
-                v2passBatchSwitch = 0;
-                pass1 = string.Empty;
-            }
-
-            // If input extension is same as output extension (.mkv = .mkv), uses codec copy, Disable 2 Pass (does same as above)
-            if ((string)mainwindow.cboVideoCodec.SelectedItem == "Copy")
-            {
-                v2passSwitch = 0;
-                v2passBatchSwitch = 0;
-                pass1 = string.Empty;
-            }
-        }
-
-
-        /// <summary>
-        /// 2 Pass Switch (Method)
-        /// <summary>
-        public static void TwoPassSwitch(MainWindow mainwindow)
-        {
-            // If 2 Pass is Enabled
-            if (v2passSwitch == 1)
-            {
-                pass1 = "-pass 1";
-                pass2 = "-pass 2";
-
-                // 2 Pass added after the main FFmpeg cmd line
-
-                // Make List
-                List<string> v2passList = new List<string>() {
-                    "&",
-                    FFmpeg.ffmpeg,
-                    "-y",
-                    "-i",
-                    "\"" + MainWindow.input + "\"",
-                    vCodec,
-                    speed,
-                    vQual,
-                    tune,
-                    fps,
-                    vFilter,
-                    optimize,
-                    Audio.aCodec,
-                    Audio.aQual,
-                    Audio.aSamplerate,
-                    Audio.aBitDepth,
-                    Audio.aChannel,
-                    Audio.aFilter,
-                    Streams.map,
-                    Format.trim,
-                    options,
-                    MainWindow.threads,
-                    pass2,
-                    "\"" + MainWindow.output + "\""
-                };
-
-                // Join List with Spaces, Remove Empty Strings
-                v2pass = string.Join(" ", v2passList.Where(s => !string.IsNullOrEmpty(s)));
-            }
-
-            // If 2 Pass is Enabled
-            if (v2passBatchSwitch == 1)
-            {
-                pass1 = "-pass 1";
-                pass2 = "-pass 2";
-
-                // 2 Pass added after the main FFmpeg cmd line
-
-                // Make List
-                List<string> v2passBatchList = new List<string>() {
-                    "&",
-                    FFmpeg.ffmpeg,
-                    "-y",
-                    "-i",
-                    "\"" + MainWindow.input + "%~f" + "\"",
-                    vCodec,
-                    speed,
-                    cmdBatch_vQual,
-                    tune,
-                    fps,
-                    vFilter,
-                    optimize,
-                    Audio.aCodec,
-                    Audio.cmdBatch_aQual,
-                    Audio.aSamplerate,
-                    Audio.aBitDepth,
-                    Audio.aChannel,
-                    Audio.aFilter,
-                    Streams.map,
-                    Format.trim,
-                    options,
-                    MainWindow.threads,
-                    pass2,
-                    "\"" + MainWindow.output + "\""
-                };
-
-                // Join List with Spaces, Remove Empty Strings
-                v2passBatch = string.Join(" ", v2passBatchList.Where(s => !string.IsNullOrEmpty(s)));
-            }
-        }
-
     }
 }
