@@ -36,7 +36,7 @@ https://github.com/MattMcManis/Axiom/releases
 * Axiom + FFmpeg 64-Bit Windows
 * Install Instructions & User Guide.
 
-Requires [Microsoft .NET Framework 4.5](http://www.deviantart.com/users/outgoing?https://www.microsoft.com/en-us/download/details.aspx?id=30653)
+Requires [Microsoft .NET Framework 4.5](https://www.microsoft.com/en-us/download/details.aspx?id=30653)
 
 FFmpeg Windows builds
 <br />
