@@ -1382,61 +1382,67 @@ namespace Axiom
             // Alimiter is Checked
             // Volume is Not 100
             //
-            if (AudioCodecItemSource.Contains("Copy") && !string.IsNullOrEmpty((string)mainwindow.cboAudio.SelectedItem) && !string.Equals(MainWindow.inputExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase) && !string.Equals(MainWindow.batchExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase) || (string)mainwindow.cboAudio.SelectedItem != "Auto" || mainwindow.tglVBR.IsChecked != false || (string)mainwindow.cboSamplerate.SelectedItem != "auto" || mainwindow.tglAudioLimiter.IsChecked != false || !mainwindow.volumeUpDown.Text.ToString().Equals("100"))
+            if (AudioCodecItemSource.Contains("Copy") && !string.IsNullOrEmpty((string)mainwindow.cboAudio.SelectedItem) && !string.Equals(MainWindow.inputExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase) | !string.Equals(MainWindow.batchExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase))
             {
                 // Switch back to format's default codec
-
-                // VIDEO
                 //
-                if ((string)mainwindow.cboFormat.SelectedItem == "webm")
+                if ((string)mainwindow.cboAudio.SelectedItem != "Auto" || mainwindow.tglVBR.IsChecked != false || (string)mainwindow.cboSamplerate.SelectedItem != "auto" || mainwindow.tglAudioLimiter.IsChecked != false || !mainwindow.volumeUpDown.Text.ToString().Equals("100"))
                 {
-                    mainwindow.cboAudioCodec.SelectedItem = "Vorbis";
-                }
-                else if ((string)mainwindow.cboFormat.SelectedItem == "mp4")
-                {
-                    mainwindow.cboAudioCodec.SelectedItem = "AAC";
-                }
-                else if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
-                {
-                    //cboAudioCodec.SelectedItem = "AC3"; //ignore mkv, special rules below ??
-                }
-                else if ((string)mainwindow.cboFormat.SelectedItem == "ogv")
-                {
-                    mainwindow.cboAudioCodec.SelectedItem = "Vorbis";
-                }
-                // AUDIO
-                //
-                if ((string)mainwindow.cboFormat.SelectedItem == "m4a")
-                {
-                    mainwindow.cboAudioCodec.SelectedItem = "AAC";
-                }
-                else if ((string)mainwindow.cboFormat.SelectedItem == "mp3")
-                {
-                    mainwindow.cboAudioCodec.SelectedItem = "LAME";
-                }
-                else if ((string)mainwindow.cboFormat.SelectedItem == "ogg")
-                {
-                    mainwindow.cboAudioCodec.SelectedItem = "Opus";
-                }
-                else if ((string)mainwindow.cboFormat.SelectedItem == "flac")
-                {
-                    mainwindow.cboAudioCodec.SelectedItem = "Flac";
-                }
-                else if ((string)mainwindow.cboFormat.SelectedItem == "wav")
-                {
-                    mainwindow.cboAudioCodec.SelectedItem = "PCM";
-                }
-                // IMAGE
-                //
-                if ((string)mainwindow.cboFormat.SelectedItem == "jpg")
-                {
-                    mainwindow.cboAudioCodec.SelectedItem = string.Empty;
-                }
-                else if ((string)mainwindow.cboFormat.SelectedItem == "png")
-                {
-                    mainwindow.cboAudioCodec.SelectedItem = string.Empty;
+                    // VIDEO
+                    //
+                    if ((string)mainwindow.cboFormat.SelectedItem == "webm")
+                    {
+                        mainwindow.cboAudioCodec.SelectedItem = "Vorbis";
+                    }
+                    else if ((string)mainwindow.cboFormat.SelectedItem == "mp4")
+                    {
+                        mainwindow.cboAudioCodec.SelectedItem = "AAC";
+                    }
+                    else if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
+                    {
+                        //cboAudioCodec.SelectedItem = "AC3"; //ignore mkv, special rules below ??
+                    }
+                    else if ((string)mainwindow.cboFormat.SelectedItem == "ogv")
+                    {
+                        mainwindow.cboAudioCodec.SelectedItem = "Vorbis";
+                    }
+                    // AUDIO
+                    //
+                    if ((string)mainwindow.cboFormat.SelectedItem == "m4a")
+                    {
+                        mainwindow.cboAudioCodec.SelectedItem = "AAC";
+                    }
+                    else if ((string)mainwindow.cboFormat.SelectedItem == "mp3")
+                    {
+                        mainwindow.cboAudioCodec.SelectedItem = "LAME";
+                    }
+                    else if ((string)mainwindow.cboFormat.SelectedItem == "ogg")
+                    {
+                        mainwindow.cboAudioCodec.SelectedItem = "Opus";
+                    }
+                    else if ((string)mainwindow.cboFormat.SelectedItem == "flac")
+                    {
+                        mainwindow.cboAudioCodec.SelectedItem = "Flac";
+                    }
+                    else if ((string)mainwindow.cboFormat.SelectedItem == "wav")
+                    {
+                        mainwindow.cboAudioCodec.SelectedItem = "PCM";
+                    }
+                    // IMAGE
+                    //
+                    if ((string)mainwindow.cboFormat.SelectedItem == "jpg")
+                    {
+                        mainwindow.cboAudioCodec.SelectedItem = string.Empty;
+                    }
+                    else if ((string)mainwindow.cboFormat.SelectedItem == "png")
+                    {
+                        mainwindow.cboAudioCodec.SelectedItem = string.Empty;
+                    }
                 }
             }
+                
+
+                
 
             // Special Rules for MKV
             if ((string)mainwindow.cboFormat.SelectedItem == "mkv" && (string)mainwindow.cboAudioCodec.SelectedItem == "Copy" && (string)mainwindow.cboAudio.SelectedItem != "Auto")
