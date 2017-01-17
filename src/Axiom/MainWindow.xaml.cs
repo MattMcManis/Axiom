@@ -180,7 +180,7 @@ namespace Axiom
         {
             InitializeComponent();
 
-            TitleVersion = "Axiom ~ FFmpeg UI (0.8.0α)";
+            TitleVersion = "Axiom ~ FFmpeg UI (0.8.2α)";
             DataContext = this;
 
             /// <summary>
@@ -529,6 +529,14 @@ namespace Axiom
             FFmpeg.cmdWindow = string.Empty;
 
             // FFprobe
+            FFprobe.FFprobeArgsVideoCodec = string.Empty;
+            FFprobe.FFprobeArgsAudioCodec = string.Empty;
+            FFprobe.FFprobeArgsVideoBitrate = string.Empty;
+            FFprobe.FFprobeArgsAudioBitrate = string.Empty;
+            FFprobe.FFprobeArgsSize = string.Empty;
+            FFprobe.FFprobeArgsDuration = string.Empty;
+            FFprobe.FFprobeArgsFramerate = string.Empty;
+
             FFprobe.ffprobeVideoCodecResult = string.Empty;
             FFprobe.ffprobeVideoBitrateResult = string.Empty;
             FFprobe.ffprobeAudioCodecResult = string.Empty;
@@ -1169,12 +1177,12 @@ namespace Axiom
                 }
 
                 input = textBoxBrowse.Text; // (eg. C:\Input Folder\file.wmv)
-                output = textBoxOutput.Text + outputFileName + outputExt; // (eg. C:\Output Folder\ + file + .mp4)
+                output = textBoxOutput.Text + outputFileName + outputExt; // (eg. C:\Output Folder\ + file + .mp4)                                                        
             }
             // Batch
             else if (tglBatch.IsChecked == true)
             {
-                input = textBoxBrowse.Text; // (eg. C:\Input Folder\)
+                input = textBoxBrowse.Text; // (eg. C:\Input Folder\)                
                 output = textBoxOutput.Text + "%~nf" + outputExt; // (eg. C:\Output Folder\%~nf.mp4)
             }
         }
@@ -3793,13 +3801,13 @@ namespace Axiom
                         /// <summary>
                         ///    2 Pass Clear
                         /// </summary> 
-                        Video.TwoPassClear(this);
+                        FFmpeg.TwoPassClear(this);
 
 
                         /// <summary>
                         ///    2 Pass Switch
                         /// </summary> 
-                        Video.TwoPassSwitch(this);
+                        FFmpeg.TwoPassSwitch(this);
 
 
                     }); //end dispatcher
