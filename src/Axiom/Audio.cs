@@ -1382,7 +1382,7 @@ namespace Axiom
             // Alimiter is Checked
             // Volume is Not 100
             //
-            if (AudioCodecItemSource.Contains("Copy") && !string.IsNullOrEmpty((string)mainwindow.cboAudio.SelectedItem) && !string.Equals(MainWindow.inputExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase) | !string.Equals(MainWindow.batchExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase))
+            if (AudioCodecItemSource.Contains("Copy") && !string.Equals(MainWindow.inputExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase) | !string.Equals(MainWindow.batchExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase))
             {
                 // Switch back to format's default codec
                 //
@@ -1441,9 +1441,7 @@ namespace Axiom
                 }
             }
                 
-
-                
-
+              
             // Special Rules for MKV
             if ((string)mainwindow.cboFormat.SelectedItem == "mkv" && (string)mainwindow.cboAudioCodec.SelectedItem == "Copy" && (string)mainwindow.cboAudio.SelectedItem != "Auto")
             {

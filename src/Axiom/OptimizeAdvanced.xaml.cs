@@ -56,9 +56,9 @@ namespace Axiom
             this.MaxHeight = 200;
 
             // Set ComboBox Dropdown Color
-            cboOptimizeTune.Resources.Add(SystemColors.WindowBrushKey, MainWindow.CustomBlue);
-            cboOptimizeProfile.Resources.Add(SystemColors.WindowBrushKey, MainWindow.CustomBlue);
-            cboOptimizeLevel.Resources.Add(SystemColors.WindowBrushKey, MainWindow.CustomBlue);
+            //cboOptimizeTune.Resources.Add(SystemColors.WindowBrushKey, MainWindow.CustomBlue);
+            //cboOptimizeProfile.Resources.Add(SystemColors.WindowBrushKey, MainWindow.CustomBlue);
+            //cboOptimizeLevel.Resources.Add(SystemColors.WindowBrushKey, MainWindow.CustomBlue);
 
 
             // --------------------------------------------------

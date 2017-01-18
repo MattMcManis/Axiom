@@ -1,421 +1,46 @@
-﻿<Window
+﻿<!-- 
+    Axiom
+    Copyright (C) 2017 Matt McManis
+    http://github.com/MattMcManis/Axiom
+    http://www.x.co/axiomui
+    axiom.interface@gmail.com
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.If not, see<http://www.gnu.org/licenses/> . 
+ -->
+
+<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:System="clr-namespace:System;assembly=mscorlib" 
         xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
-        x:Name="windowAxiom" x:Class="Axiom.MainWindow"
-        Title="{Binding TitleVersion, RelativeSource={RelativeSource Mode=Self}}" Height="305" Width="609" Icon="axiom.ico"
+        xmlns:my="clr-namespace:Axiom"
+        x:Class="Axiom.MainWindow"
+        Title="{Binding TitleVersion, RelativeSource={RelativeSource Mode=Self}}" 
+        Height="305" Width="609"
+        Icon="axiom.ico"
         ResizeMode="CanMinimize" UseLayoutRounding="True"
         WindowStartupLocation="CenterScreen"
+        Style="{DynamicResource WindowStyleBlue}"
         >
-    <Window.Resources>
-        <Style x:Key="FocusVisual">
-            <Setter Property="Control.Template">
-                <Setter.Value>
-                    <ControlTemplate>
-                        <Rectangle Margin="2" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-        <SolidColorBrush x:Key="Button.Static.Background" Color="#FFFFFFFF"/>
-        <SolidColorBrush x:Key="Button.Static.Border" Color="#FFFFFFFF"/>
-        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FFFFFFFF"/>
-        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1"/>
-        <SolidColorBrush x:Key="Button.Pressed.Background" Color="#FFC4E5F6"/>
-        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF2C628B"/>
-        <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FF002371"/>
-        <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
-        <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
-        <Style TargetType="{x:Type Button}">
-            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
-            <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
-            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
-            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-            <Setter Property="Padding" Value="1"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
-                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsDefaulted" Value="true">
-                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
-                            </Trigger>
-                            <Trigger Property="IsMouseOver" Value="true">
-                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
-                            </Trigger>
-                            <Trigger Property="IsPressed" Value="true">
-                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
-                            </Trigger>
-                            <Trigger Property="IsEnabled" Value="false">
-                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
-                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-        <SolidColorBrush x:Key="ComboBox.Static.Background" Color="#FFFFFFFF"/>
-        <SolidColorBrush x:Key="ComboBox.Static.Border" Color="#FFFFFFFF"/>
-        <SolidColorBrush x:Key="ComboBox.Static.Editable.Background" Color="#FFFFFFFF"/>
-        <SolidColorBrush x:Key="ComboBox.Static.Editable.Border" Color="#FFABADB3"/>
-        <SolidColorBrush x:Key="ComboBox.Static.Editable.Button.Background" Color="Transparent"/>
-        <SolidColorBrush x:Key="ComboBox.Static.Editable.Button.Border" Color="Transparent"/>
-        <SolidColorBrush x:Key="ComboBox.MouseOver.Glyph" Color="#FF000000"/>
-        <LinearGradientBrush x:Key="ComboBox.MouseOver.Background" EndPoint="0,1" StartPoint="0,0">
-            <GradientStop Color="#FFFFFFFF" Offset="0.0"/>
-            <GradientStop Color="#FFFFFFFF" Offset="1.0"/>
-        </LinearGradientBrush>
-        <SolidColorBrush x:Key="ComboBox.MouseOver.Border" Color="#FF7EB4EA"/>
-        <SolidColorBrush x:Key="ComboBox.MouseOver.Editable.Background" Color="#FFFFFFFF"/>
-        <SolidColorBrush x:Key="ComboBox.MouseOver.Editable.Border" Color="#FF7EB4EA"/>
-        <LinearGradientBrush x:Key="ComboBox.MouseOver.Editable.Button.Background" EndPoint="0,1" StartPoint="0,0">
-            <GradientStop Color="#FFEBF4FC" Offset="0.0"/>
-            <GradientStop Color="#FFDCECFC" Offset="1.0"/>
-        </LinearGradientBrush>
-        <SolidColorBrush x:Key="ComboBox.MouseOver.Editable.Button.Border" Color="#FF7EB4EA"/>
-        <SolidColorBrush x:Key="ComboBox.Pressed.Glyph" Color="#FF000000"/>
-        <LinearGradientBrush x:Key="ComboBox.Pressed.Background" EndPoint="0,1" StartPoint="0,0">
-            <GradientStop Color="#FFDAECFC" Offset="0.0"/>
-            <GradientStop Color="#FFC4E0FC" Offset="1.0"/>
-        </LinearGradientBrush>
-        <SolidColorBrush x:Key="ComboBox.Pressed.Border" Color="#FF569DE5"/>
-        <SolidColorBrush x:Key="ComboBox.Pressed.Editable.Background" Color="#FFFFFFFF"/>
-        <SolidColorBrush x:Key="ComboBox.Pressed.Editable.Border" Color="#FF569DE5"/>
-        <LinearGradientBrush x:Key="ComboBox.Pressed.Editable.Button.Background" EndPoint="0,1" StartPoint="0,0">
-            <GradientStop Color="#FFDAEBFC" Offset="0.0"/>
-            <GradientStop Color="#FFC4E0FC" Offset="1.0"/>
-        </LinearGradientBrush>
-        <SolidColorBrush x:Key="ComboBox.Pressed.Editable.Button.Border" Color="#FF569DE5"/>
-        <SolidColorBrush x:Key="ComboBox.Disabled.Glyph" Color="#FFBFBFBF"/>
-        <SolidColorBrush x:Key="ComboBox.Disabled.Background" Color="#FFbcbcbc"/>
-        <SolidColorBrush x:Key="ComboBox.Disabled.Border" Color="#FFbcbcbc"/>
-        <SolidColorBrush x:Key="ComboBox.Disabled.Editable.Background" Color="#FFFFFFFF"/>
-        <SolidColorBrush x:Key="ComboBox.Disabled.Editable.Border" Color="#FFBFBFBF"/>
-        <SolidColorBrush x:Key="ComboBox.Disabled.Editable.Button.Background" Color="Transparent"/>
-        <SolidColorBrush x:Key="ComboBox.Disabled.Editable.Button.Border" Color="Transparent"/>
-        <SolidColorBrush x:Key="ComboBox.Static.Glyph" Color="#FF606060"/>
-        <Style x:Key="ComboBoxToggleButton" TargetType="{x:Type ToggleButton}">
-            <Setter Property="OverridesDefaultStyle" Value="true"/>
-            <Setter Property="IsTabStop" Value="false"/>
-            <Setter Property="Focusable" Value="false"/>
-            <Setter Property="ClickMode" Value="Press"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type ToggleButton}">
-                        <Border x:Name="templateRoot" SnapsToDevicePixels="true" Background="{StaticResource ComboBox.Static.Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{StaticResource ComboBox.Static.Border}">
-                            <Border x:Name="splitBorder" Width="{DynamicResource {x:Static SystemParameters.VerticalScrollBarWidthKey}}" SnapsToDevicePixels="true" Margin="0" HorizontalAlignment="Right" BorderThickness="1" BorderBrush="Transparent">
-                                <Path x:Name="arrow" VerticalAlignment="Center" Margin="0" HorizontalAlignment="Center" Fill="{StaticResource ComboBox.Static.Glyph}" Data="F1 M 0,0 L 2.667,2.66665 L 5.3334,0 L 5.3334,-1.78168 L 2.6667,0.88501 L0,-1.78168 L0,0 Z"/>
-                            </Border>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <MultiDataTrigger>
-                                <MultiDataTrigger.Conditions>
-                                    <Condition Binding="{Binding IsEditable, RelativeSource={RelativeSource AncestorType={x:Type ComboBox}}}" Value="true"/>
-                                    <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="false"/>
-                                    <Condition Binding="{Binding IsPressed, RelativeSource={RelativeSource Self}}" Value="false"/>
-                                    <Condition Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}" Value="true"/>
-                                </MultiDataTrigger.Conditions>
-                                <Setter Property="Background" TargetName="templateRoot" Value="{StaticResource ComboBox.Static.Editable.Background}"/>
-                                <Setter Property="BorderBrush" TargetName="templateRoot" Value="{StaticResource ComboBox.Static.Editable.Border}"/>
-                                <Setter Property="Background" TargetName="splitBorder" Value="{StaticResource ComboBox.Static.Editable.Button.Background}"/>
-                                <Setter Property="BorderBrush" TargetName="splitBorder" Value="{StaticResource ComboBox.Static.Editable.Button.Border}"/>
-                            </MultiDataTrigger>
-                            <Trigger Property="IsMouseOver" Value="true">
-                                <Setter Property="Fill" TargetName="arrow" Value="{StaticResource ComboBox.MouseOver.Glyph}"/>
-                            </Trigger>
-                            <MultiDataTrigger>
-                                <MultiDataTrigger.Conditions>
-                                    <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="true"/>
-                                    <Condition Binding="{Binding IsEditable, RelativeSource={RelativeSource AncestorType={x:Type ComboBox}}}" Value="false"/>
-                                </MultiDataTrigger.Conditions>
-                                <Setter Property="Background" TargetName="templateRoot" Value="{StaticResource ComboBox.MouseOver.Background}"/>
-                                <Setter Property="BorderBrush" TargetName="templateRoot" Value="{StaticResource ComboBox.MouseOver.Border}"/>
-                            </MultiDataTrigger>
-                            <MultiDataTrigger>
-                                <MultiDataTrigger.Conditions>
-                                    <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="true"/>
-                                    <Condition Binding="{Binding IsEditable, RelativeSource={RelativeSource AncestorType={x:Type ComboBox}}}" Value="true"/>
-                                </MultiDataTrigger.Conditions>
-                                <Setter Property="Background" TargetName="templateRoot" Value="{StaticResource ComboBox.MouseOver.Editable.Background}"/>
-                                <Setter Property="BorderBrush" TargetName="templateRoot" Value="{StaticResource ComboBox.MouseOver.Editable.Border}"/>
-                                <Setter Property="Background" TargetName="splitBorder" Value="{StaticResource ComboBox.MouseOver.Editable.Button.Background}"/>
-                                <Setter Property="BorderBrush" TargetName="splitBorder" Value="{StaticResource ComboBox.MouseOver.Editable.Button.Border}"/>
-                            </MultiDataTrigger>
-                            <Trigger Property="IsPressed" Value="true">
-                                <Setter Property="Fill" TargetName="arrow" Value="{StaticResource ComboBox.Pressed.Glyph}"/>
-                            </Trigger>
-                            <MultiDataTrigger>
-                                <MultiDataTrigger.Conditions>
-                                    <Condition Binding="{Binding IsPressed, RelativeSource={RelativeSource Self}}" Value="true"/>
-                                    <Condition Binding="{Binding IsEditable, RelativeSource={RelativeSource AncestorType={x:Type ComboBox}}}" Value="false"/>
-                                </MultiDataTrigger.Conditions>
-                                <Setter Property="Background" TargetName="templateRoot" Value="{StaticResource ComboBox.Pressed.Background}"/>
-                                <Setter Property="BorderBrush" TargetName="templateRoot" Value="{StaticResource ComboBox.Pressed.Border}"/>
-                            </MultiDataTrigger>
-                            <MultiDataTrigger>
-                                <MultiDataTrigger.Conditions>
-                                    <Condition Binding="{Binding IsPressed, RelativeSource={RelativeSource Self}}" Value="true"/>
-                                    <Condition Binding="{Binding IsEditable, RelativeSource={RelativeSource AncestorType={x:Type ComboBox}}}" Value="true"/>
-                                </MultiDataTrigger.Conditions>
-                                <Setter Property="Background" TargetName="templateRoot" Value="{StaticResource ComboBox.Pressed.Editable.Background}"/>
-                                <Setter Property="BorderBrush" TargetName="templateRoot" Value="{StaticResource ComboBox.Pressed.Editable.Border}"/>
-                                <Setter Property="Background" TargetName="splitBorder" Value="{StaticResource ComboBox.Pressed.Editable.Button.Background}"/>
-                                <Setter Property="BorderBrush" TargetName="splitBorder" Value="{StaticResource ComboBox.Pressed.Editable.Button.Border}"/>
-                            </MultiDataTrigger>
-                            <Trigger Property="IsEnabled" Value="false">
-                                <Setter Property="Fill" TargetName="arrow" Value="{StaticResource ComboBox.Disabled.Glyph}"/>
-                            </Trigger>
-                            <MultiDataTrigger>
-                                <MultiDataTrigger.Conditions>
-                                    <Condition Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}" Value="false"/>
-                                    <Condition Binding="{Binding IsEditable, RelativeSource={RelativeSource AncestorType={x:Type ComboBox}}}" Value="false"/>
-                                </MultiDataTrigger.Conditions>
-                                <Setter Property="Background" TargetName="templateRoot" Value="{StaticResource ComboBox.Disabled.Background}"/>
-                                <Setter Property="BorderBrush" TargetName="templateRoot" Value="{StaticResource ComboBox.Disabled.Border}"/>
-                            </MultiDataTrigger>
-                            <MultiDataTrigger>
-                                <MultiDataTrigger.Conditions>
-                                    <Condition Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}" Value="false"/>
-                                    <Condition Binding="{Binding IsEditable, RelativeSource={RelativeSource AncestorType={x:Type ComboBox}}}" Value="true"/>
-                                </MultiDataTrigger.Conditions>
-                                <Setter Property="Background" TargetName="templateRoot" Value="{StaticResource ComboBox.Disabled.Editable.Background}"/>
-                                <Setter Property="BorderBrush" TargetName="templateRoot" Value="{StaticResource ComboBox.Disabled.Editable.Border}"/>
-                                <Setter Property="Background" TargetName="splitBorder" Value="{StaticResource ComboBox.Disabled.Editable.Button.Background}"/>
-                                <Setter Property="BorderBrush" TargetName="splitBorder" Value="{StaticResource ComboBox.Disabled.Editable.Button.Border}"/>
-                            </MultiDataTrigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-        <ControlTemplate x:Key="ComboBoxTemplate" TargetType="{x:Type ComboBox}">
-            <Grid x:Name="templateRoot" SnapsToDevicePixels="true">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition MinWidth="{DynamicResource {x:Static SystemParameters.VerticalScrollBarWidthKey}}" Width="0"/>
-                </Grid.ColumnDefinitions>
-                <Popup x:Name="PART_Popup" AllowsTransparency="true" Grid.ColumnSpan="2" IsOpen="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" Margin="1" PopupAnimation="{DynamicResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}" Placement="Bottom">
-                    <Themes:SystemDropShadowChrome x:Name="shadow" Color="Transparent" MaxHeight="{TemplateBinding MaxDropDownHeight}" MinWidth="{Binding ActualWidth, ElementName=templateRoot}">
-                        <Border x:Name="dropDownBorder" BorderBrush="{DynamicResource {x:Static SystemColors.WindowFrameBrushKey}}" BorderThickness="1" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
-                            <ScrollViewer x:Name="DropDownScrollViewer">
-                                <Grid x:Name="grid" RenderOptions.ClearTypeHint="Enabled">
-                                    <Canvas x:Name="canvas" HorizontalAlignment="Left" Height="0" VerticalAlignment="Top" Width="0">
-                                        <Rectangle x:Name="opaqueRect" Fill="{Binding Background, ElementName=dropDownBorder}" Height="{Binding ActualHeight, ElementName=dropDownBorder}" Width="{Binding ActualWidth, ElementName=dropDownBorder}"/>
-                                    </Canvas>
-                                    <ItemsPresenter x:Name="ItemsPresenter" KeyboardNavigation.DirectionalNavigation="Contained" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
-                                </Grid>
-                            </ScrollViewer>
-                        </Border>
-                    </Themes:SystemDropShadowChrome>
-                </Popup>
-                <ToggleButton x:Name="toggleButton" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Grid.ColumnSpan="2" IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" Style="{StaticResource ComboBoxToggleButton}"/>
-                <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}" Content="{TemplateBinding SelectionBoxItem}" ContentStringFormat="{TemplateBinding SelectionBoxItemStringFormat}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" IsHitTestVisible="false" Margin="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-            </Grid>
-            <ControlTemplate.Triggers>
-                <Trigger Property="HasDropShadow" SourceName="PART_Popup" Value="true">
-                    <Setter Property="Margin" TargetName="shadow" Value="0,0,5,5"/>
-                    <Setter Property="Color" TargetName="shadow" Value="#71000000"/>
-                </Trigger>
-                <Trigger Property="HasItems" Value="false">
-                    <Setter Property="Height" TargetName="dropDownBorder" Value="95"/>
-                </Trigger>
-                <MultiTrigger>
-                    <MultiTrigger.Conditions>
-                        <Condition Property="IsGrouping" Value="true"/>
-                        <Condition Property="VirtualizingPanel.IsVirtualizingWhenGrouping" Value="false"/>
-                    </MultiTrigger.Conditions>
-                    <Setter Property="ScrollViewer.CanContentScroll" Value="false"/>
-                </MultiTrigger>
-                <Trigger Property="ScrollViewer.CanContentScroll" SourceName="DropDownScrollViewer" Value="false">
-                    <Setter Property="Canvas.Top" TargetName="opaqueRect" Value="{Binding VerticalOffset, ElementName=DropDownScrollViewer}"/>
-                    <Setter Property="Canvas.Left" TargetName="opaqueRect" Value="{Binding HorizontalOffset, ElementName=DropDownScrollViewer}"/>
-                </Trigger>
-            </ControlTemplate.Triggers>
-        </ControlTemplate>
-        <SolidColorBrush x:Key="TextBox.Static.Background" Color="#FF1049bb"/>
-        <Style x:Key="ComboBoxEditableTextBox" TargetType="{x:Type TextBox}">
-            <!-- ComboBox Editable Foreground Color-->
-            <Setter Property="Foreground" Value="#FFFFFFFF"/>
-            <Setter Property="OverridesDefaultStyle" Value="true"/>
-            <Setter Property="AllowDrop" Value="true"/>
-            <Setter Property="MinWidth" Value="0"/>
-            <Setter Property="MinHeight" Value="0"/>
-            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-            <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst"/>
-            <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type TextBox}">
-                        <ScrollViewer x:Name="PART_ContentHost" Background="Transparent" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-        <ControlTemplate x:Key="ComboBoxEditableTemplate" TargetType="{x:Type ComboBox}">
-            <Grid x:Name="templateRoot" SnapsToDevicePixels="true">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition MinWidth="{DynamicResource {x:Static SystemParameters.VerticalScrollBarWidthKey}}" Width="0"/>
-                </Grid.ColumnDefinitions>
-                <Popup x:Name="PART_Popup" AllowsTransparency="true" Grid.ColumnSpan="2" IsOpen="{Binding IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}}" PopupAnimation="{DynamicResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}" Placement="Bottom">
-                    <Themes:SystemDropShadowChrome x:Name="shadow" Color="Transparent" MaxHeight="{TemplateBinding MaxDropDownHeight}" MinWidth="{Binding ActualWidth, ElementName=templateRoot}">
-                        <Border x:Name="dropDownBorder" BorderBrush="{DynamicResource {x:Static SystemColors.WindowFrameBrushKey}}" BorderThickness="1" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
-                            <ScrollViewer x:Name="DropDownScrollViewer">
-                                <Grid x:Name="grid" RenderOptions.ClearTypeHint="Enabled">
-                                    <Canvas x:Name="canvas" HorizontalAlignment="Left" Height="0" VerticalAlignment="Top" Width="0">
-                                        <Rectangle x:Name="opaqueRect" Fill="{Binding Background, ElementName=dropDownBorder}" Height="{Binding ActualHeight, ElementName=dropDownBorder}" Width="{Binding ActualWidth, ElementName=dropDownBorder}"/>
-                                    </Canvas>
-                                    <ItemsPresenter x:Name="ItemsPresenter" KeyboardNavigation.DirectionalNavigation="Contained" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
-                                </Grid>
-                            </ScrollViewer>
-                        </Border>
-                    </Themes:SystemDropShadowChrome>
-                </Popup>
-                <ToggleButton x:Name="toggleButton" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Grid.ColumnSpan="2" IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" Style="{StaticResource ComboBoxToggleButton}"/>
-                <Border x:Name="border" Background="{StaticResource TextBox.Static.Background}" Margin="{TemplateBinding BorderThickness}">
-                    <TextBox x:Name="PART_EditableTextBox" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" IsReadOnly="{Binding IsReadOnly, RelativeSource={RelativeSource TemplatedParent}}" Margin="{TemplateBinding Padding}" Style="{StaticResource ComboBoxEditableTextBox}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                </Border>
-            </Grid>
-            <ControlTemplate.Triggers>
-                <Trigger Property="IsEnabled" Value="false">
-                    <Setter Property="Opacity" TargetName="border" Value="0.56"/>
-                </Trigger>
-                <Trigger Property="IsKeyboardFocusWithin" Value="true">
-                    <Setter Property="Foreground" Value="Black"/>
-                </Trigger>
-                <Trigger Property="HasDropShadow" SourceName="PART_Popup" Value="true">
-                    <Setter Property="Margin" TargetName="shadow" Value="0,0,5,5"/>
-                    <Setter Property="Color" TargetName="shadow" Value="#71000000"/>
-                </Trigger>
-                <Trigger Property="HasItems" Value="false">
-                    <Setter Property="Height" TargetName="dropDownBorder" Value="95"/>
-                </Trigger>
-                <MultiTrigger>
-                    <MultiTrigger.Conditions>
-                        <Condition Property="IsGrouping" Value="true"/>
-                        <Condition Property="VirtualizingPanel.IsVirtualizingWhenGrouping" Value="false"/>
-                    </MultiTrigger.Conditions>
-                    <Setter Property="ScrollViewer.CanContentScroll" Value="false"/>
-                </MultiTrigger>
-                <Trigger Property="ScrollViewer.CanContentScroll" SourceName="DropDownScrollViewer" Value="false">
-                    <Setter Property="Canvas.Top" TargetName="opaqueRect" Value="{Binding VerticalOffset, ElementName=DropDownScrollViewer}"/>
-                    <Setter Property="Canvas.Left" TargetName="opaqueRect" Value="{Binding HorizontalOffset, ElementName=DropDownScrollViewer}"/>
-                </Trigger>
-            </ControlTemplate.Triggers>
-        </ControlTemplate>
-        <Style TargetType="{x:Type ComboBox}">
-            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
-            <Setter Property="Background" Value="{StaticResource ComboBox.Static.Background}"/>
-            <Setter Property="BorderBrush" Value="{StaticResource ComboBox.Static.Border}"/>
-            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
-            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
-            <Setter Property="Padding" Value="6,3,5,3"/>
-            <Setter Property="ScrollViewer.CanContentScroll" Value="true"/>
-            <Setter Property="ScrollViewer.PanningMode" Value="Both"/>
-            <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
-            <Setter Property="Template" Value="{StaticResource ComboBoxTemplate}"/>
-            <Style.Triggers>
-                <Trigger Property="IsEditable" Value="true">
-                    <Setter Property="IsTabStop" Value="false"/>
-                    <Setter Property="Padding" Value="2"/>
-                    <Setter Property="Template" Value="{StaticResource ComboBoxEditableTemplate}"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-
-        <!-- Toggle Button Style -->
-        <Style x:Key="ToggleButtonStyleBlue" TargetType="{x:Type ToggleButton}">
-            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="BorderBrush" Value="#FFFFFFFF"/>
-            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-            <Setter Property="Padding" Value="1"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type ToggleButton}">
-                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
-                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="Button.IsDefaulted" Value="true">
-                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
-                            </Trigger>
-                            <Trigger Property="IsMouseOver" Value="true">
-                                <Setter Property="Background" TargetName="border" Value="Transparent"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="#FF3399FF"/>
-                                <Setter Property="Cursor" Value="Hand" />
-                            </Trigger>
-                            <Trigger Property="IsPressed" Value="true">
-                                <Setter Property="Background" TargetName="border" Value="#FF002371"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="#FFFFFFFF"/>
-                            </Trigger>
-                            <Trigger Property="IsChecked" Value="true">
-                                <Setter Property="Background" TargetName="border" Value="#FF1049bb"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="#FFFFFFFF"/>
-                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="#FFFFFFFF"/>
-                            </Trigger>
-
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-        <SolidColorBrush x:Key="TextBox.Static.Background2" Color="#FFFFFFFF"/>
-        <Style x:Key="ComboBoxEditableTextBox2" TargetType="{x:Type TextBox}">
-            <Setter Property="OverridesDefaultStyle" Value="true"/>
-            <Setter Property="AllowDrop" Value="true"/>
-            <Setter Property="MinWidth" Value="0"/>
-            <Setter Property="MinHeight" Value="0"/>
-            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-            <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst"/>
-            <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type TextBox}">
-                        <ScrollViewer x:Name="PART_ContentHost" Background="Transparent" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-        <!-- Volume Button Glyph -->
-        <Style x:Key="VolumeButtonGlyph" TargetType="{x:Type Image}">
-            <Setter Property="FlowDirection" Value="LeftToRight"/>
-            <Style.Triggers>
-                <Trigger Property="IsEnabled" Value="false">
-                    <Setter Property="Opacity" Value="0.6"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-
-
-    </Window.Resources>
-    <Window.Background>
-        <ImageBrush ImageSource="Resources/Images/background.jpg" Stretch="UniformToFill"/>
-    </Window.Background>
     <Grid>
 
         <!-- Subtitle -->
         <Label x:Name="labelSubs" Content="Sub" HorizontalAlignment="Left" Margin="503,127,0,0" VerticalAlignment="Top" Width="28" Foreground="White" ToolTip="Subtitle Stream to keep." FontSize="11" FontFamily="Segoe UI Semilight" />
 
-        <ComboBox x:Name="cboSubtitle" Style="{StaticResource ComboBoxBlue}" HorizontalAlignment="Left" Margin="531,128,0,0" VerticalAlignment="Top" Width="52" ToolTipService.InitialShowDelay="1000" ToolTipService.ShowOnDisabled="True" ToolTip="Subtitle Stream to keep."  >
+        <ComboBox x:Name="cboSubtitle" Style="{StaticResource ComboBoxBlue}" ItemContainerStyle="{StaticResource ComboBoxBlueItem}" HorizontalAlignment="Left" Margin="531,128,0,0" VerticalAlignment="Top" Width="52" ToolTipService.InitialShowDelay="1000" ToolTipService.ShowOnDisabled="True" ToolTip="Subtitle Stream to keep."  >
             <System:String>none</System:String>
             <System:String>all</System:String>
             <System:String>1</System:String>
@@ -431,7 +56,7 @@
         <!-- Track -->
         <Label x:Name="labelStream" Content="Str" HorizontalAlignment="Left" Margin="254,183,0,0" VerticalAlignment="Top" Width="28" Foreground="White" FontSize="11" FontFamily="Segoe UI Semilight" ToolTip="Audio Stream to keep." />
 
-        <ComboBox x:Name="cboAudioStream" Style="{StaticResource ComboBoxBlue}" HorizontalAlignment="Left" Margin="282,184,0,0" VerticalAlignment="Top" Width="52" ToolTipService.InitialShowDelay="1000" ToolTipService.ShowOnDisabled="True" ToolTip="Audio Stream to keep."  >
+        <ComboBox x:Name="cboAudioStream" Style="{StaticResource ComboBoxBlue}" ItemContainerStyle="{StaticResource ComboBoxBlueItem}"  HorizontalAlignment="Left" Margin="282,184,0,0" VerticalAlignment="Top" Width="52" ToolTipService.InitialShowDelay="1000" ToolTipService.ShowOnDisabled="True" ToolTip="Audio Stream to keep."  >
             <System:String>none</System:String>
             <System:String>all</System:String>
             <System:String>1</System:String>
@@ -447,7 +72,7 @@
         <!-- FPS -->
         <Label x:Name="labelFps" Content="Fps" HorizontalAlignment="Left" Margin="89,182,0,0" VerticalAlignment="Top" Width="26" Foreground="White" ToolTip="Frames Per Second" FontSize="11" FontFamily="Segoe UI Semilight" />
 
-        <ComboBox x:Name="cboFPS" Style="{StaticResource ComboBoxBlue}" HorizontalAlignment="Left" Margin="116,183,0,0" VerticalAlignment="Top" Width="52" ToolTipService.InitialShowDelay="1000" ToolTipService.ShowOnDisabled="True" ToolTip="Frames Per Second" SelectionChanged="cboFPS_SelectionChanged" Background="Black" IsTextSearchEnabled="False">
+        <ComboBox x:Name="cboFPS" Style="{StaticResource ComboBoxBlue}" ItemContainerStyle="{StaticResource ComboBoxBlueItem}"  HorizontalAlignment="Left" Margin="116,183,0,0" VerticalAlignment="Top" Width="52" ToolTipService.InitialShowDelay="1000" ToolTipService.ShowOnDisabled="True" ToolTip="Frames Per Second" SelectionChanged="cboFPS_SelectionChanged" Background="Black" IsTextSearchEnabled="False">
             <System:String>auto</System:String>
             <System:String>23.976</System:String>
             <System:String>24</System:String>
@@ -468,7 +93,7 @@
         <!-- Cut -->
         <Label x:Name="lableCut" Content="Cut" HorizontalAlignment="Left" Margin="421,74,0,0" VerticalAlignment="Top" Width="75" Foreground="White" />
 
-        <ComboBox x:Name="cboCut" HorizontalAlignment="Left" Margin="425,100,0,0" VerticalAlignment="Top" Width="75" SelectionChanged="cboCut_SelectionChanged"  >
+        <ComboBox x:Name="cboCut" Style="{StaticResource ComboBoxWhite}" HorizontalAlignment="Left" Margin="425,100,0,0" VerticalAlignment="Top" Width="75" SelectionChanged="cboCut_SelectionChanged"  >
             <System:String>No</System:String>
             <System:String>Yes</System:String>
         </ComboBox>
@@ -476,7 +101,7 @@
         <!-- Resize -->
         <Label x:Name="labelResize" Content="Resize" HorizontalAlignment="Left" Margin="338,74,0,0" VerticalAlignment="Top" Width="75" Foreground="White" />
 
-        <ComboBox x:Name="cboSize" HorizontalAlignment="Left" Margin="342,100,0,0" VerticalAlignment="Top" Width="75" SelectionChanged="cboSize_SelectionChanged"  >
+        <ComboBox x:Name="cboSize" Style="{StaticResource ComboBoxWhite}" HorizontalAlignment="Left" Margin="342,100,0,0" VerticalAlignment="Top" Width="75" SelectionChanged="cboSize_SelectionChanged"  >
             <System:String>No</System:String>
             <System:String>8K</System:String>
             <System:String>4K</System:String>
@@ -500,31 +125,32 @@
         <!-- Audio -->
         <Label x:Name="labelAudio" Content="Audio" HorizontalAlignment="Left" Margin="173,74,0,0" VerticalAlignment="Top" Width="75" Foreground="White" />
 
-        <ComboBox x:Name="cboAudio" HorizontalAlignment="Left" Margin="176,100,0,0" VerticalAlignment="Top" Width="75" SelectionChanged="cboAudio_SelectionChanged"  />
+        <ComboBox x:Name="cboAudio" Style="{StaticResource ComboBoxWhite}" HorizontalAlignment="Left" Margin="176,100,0,0" VerticalAlignment="Top" Width="75" SelectionChanged="cboAudio_SelectionChanged"  />
 
         <!-- Video -->
         <Label x:Name="labelVideo" Content="Video" HorizontalAlignment="Left" Margin="90,74,0,0" VerticalAlignment="Top" Width="75" Foreground="White" />
 
-        <ComboBox x:Name="cboVideo" HorizontalAlignment="Left" Margin="93,100,0,0" VerticalAlignment="Top" Width="75" SelectionChanged="cboVideo_SelectionChanged"  />
+        <ComboBox x:Name="cboVideo" Style="{StaticResource ComboBoxWhite}" HorizontalAlignment="Left" Margin="93,100,0,0" VerticalAlignment="Top" Width="75" SelectionChanged="cboVideo_SelectionChanged"  />
 
         <!-- Format -->
         <Label x:Name="labelFormat" Content="Format" HorizontalAlignment="Left" Margin="5,74,0,0" VerticalAlignment="Top" Width="75" Foreground="White" />
 
-        <ComboBox x:Name="cboFormat" HorizontalAlignment="Left" Margin="10,100,0,0" VerticalAlignment="Top" Width="75" SelectionChanged="cboFormat_SelectionChanged" Foreground="Black" ToolTip="Container" />
+        <ComboBox x:Name="cboFormat" Style="{StaticResource ComboBoxWhite}" HorizontalAlignment="Left" Margin="10,100,0,0" VerticalAlignment="Top" Width="75" SelectionChanged="cboFormat_SelectionChanged" ToolTip="Container" />
 
         <!-- Codec Video -->
-        <ComboBox x:Name="cboVideoCodec" Style="{StaticResource ComboBoxBlue}" HorizontalAlignment="Left" Margin="10,156,0,0" VerticalAlignment="Top" Width="75" SelectionChanged="cboVideoCodec_SelectionChanged" ToolTipService.InitialShowDelay="1000" ToolTipService.ShowOnDisabled="True" ToolTip="Video Codec" />
+        <ComboBox x:Name="cboVideoCodec" Style="{StaticResource ComboBoxBlue}" ItemContainerStyle="{StaticResource ComboBoxBlueItem}" HorizontalAlignment="Left" Margin="10,156,0,0" VerticalAlignment="Top" Width="75" SelectionChanged="cboVideoCodec_SelectionChanged" ToolTipService.InitialShowDelay="1000" ToolTipService.ShowOnDisabled="True" ToolTip="Video Codec" />
 
         <!-- Codec Audio -->
-        <ComboBox x:Name="cboAudioCodec" Style="{StaticResource ComboBoxBlue}" HorizontalAlignment="Left" Margin="10,184,0,0" VerticalAlignment="Top" Width="75" SelectionChanged="cboAudioCodec_SelectionChanged"  ToolTipService.InitialShowDelay="1000" ToolTipService.ShowOnDisabled="True" ToolTip="Audio Codec" />
+        <ComboBox x:Name="cboAudioCodec" Style="{StaticResource ComboBoxBlue}" ItemContainerStyle="{StaticResource ComboBoxBlueItem}" HorizontalAlignment="Left" Margin="10,184,0,0" VerticalAlignment="Top" Width="75" SelectionChanged="cboAudioCodec_SelectionChanged"  ToolTipService.InitialShowDelay="1000" ToolTipService.ShowOnDisabled="True" ToolTip="Audio Codec" />
 
         <!-- Sequence -->
-        <ComboBox x:Name="cboMediaType" Style="{StaticResource ComboBoxBlue}" HorizontalAlignment="Left" Margin="10,128,0,0" VerticalAlignment="Top" Width="75" SelectionChanged="cboMediaType_SelectionChanged" ToolTipService.InitialShowDelay="1000" ToolTipService.ShowOnDisabled="True" ToolTip="Media Type" />
+        <ComboBox x:Name="cboMediaType" Style="{StaticResource ComboBoxBlue}" ItemContainerStyle="{StaticResource ComboBoxBlueItem}" HorizontalAlignment="Left" Margin="10,128,0,0" VerticalAlignment="Top" Width="75" SelectionChanged="cboMediaType_SelectionChanged" ToolTipService.InitialShowDelay="1000" ToolTipService.ShowOnDisabled="True" ToolTip="Media Type">
+        </ComboBox>
 
         <!-- Preset -->
         <Label x:Name="labelOptions" Content="Options" HorizontalAlignment="Left" Margin="504,74,0,0" VerticalAlignment="Top" Width="75" Foreground="White" />
 
-        <ComboBox x:Name="cboPreset" HorizontalAlignment="Left" Margin="508,100,0,0" VerticalAlignment="Top" Width="75" SelectionChanged="cboPreset_SelectionChanged"  >
+        <ComboBox x:Name="cboPreset" Style="{StaticResource ComboBoxWhite}" HorizontalAlignment="Left" Margin="508,100,0,0" VerticalAlignment="Top" Width="75" SelectionChanged="cboPreset_SelectionChanged"  >
             <System:String>Preset</System:String>
             <!-- <System:String>Custom</System:String> -->
             <System:String>DVD</System:String>
@@ -544,7 +170,7 @@
         </ComboBox>
 
         <!-- Browse Button -->
-        <Button x:Name="buttonBrowse" HorizontalAlignment="Left" Margin="10,12,0,0" VerticalAlignment="Top" Width="75" Height="22" Cursor="Hand" Click="buttonBrowse_Click">
+        <Button x:Name="buttonBrowse" HorizontalAlignment="Left" Margin="10,12,0,0" VerticalAlignment="Top" Width="75" Height="22" Cursor="Hand" Click="buttonBrowse_Click" Background="White" BorderBrush="White">
             <TextBlock x:Name="buttonBrowseTextBlock" Text="Browse" Margin="0,-2,0,0"/>
         </Button>
         <!-- Browse Textbox -->
@@ -555,7 +181,7 @@
         </TextBox>
 
         <!-- Output Button -->
-        <Button x:Name="buttonOutput" HorizontalAlignment="Left" Margin="10,43,0,0" VerticalAlignment="Top" Width="75" Height="22" Cursor="Hand" Click="buttonOutput_Click">
+        <Button x:Name="buttonOutput" HorizontalAlignment="Left" Margin="10,43,0,0" VerticalAlignment="Top" Width="75" Height="22" Cursor="Hand" Click="buttonOutput_Click" Background="White" BorderBrush="White">
             <TextBlock x:Name="buttonOutputTextBlock" Text="Output" Margin="0,-2,0,0"/>
         </Button>
         <!-- Output Textbox-->
@@ -572,96 +198,12 @@
         <TextBox x:Name="crfCustom" HorizontalAlignment="Left" Height="22" Margin="141,128,0,0" Padding="0, 1, 0, 0" TextWrapping="NoWrap" Text="CRF" VerticalAlignment="Top" Width="27" GotFocus="crfCustom_GotFocus" LostFocus="crfCustom_LostFocus" KeyDown="crfCustom_KeyDown" MaxLines="1" MaxLength="2" BorderBrush="#FF0C3F97" Style="{DynamicResource TextBoxStyleBlue}" ToolTipService.InitialShowDelay="1000" ToolTipService.ShowOnDisabled="True" ToolTip="Custom Constant Rate Factor value (e.g. 18)"/>
 
         <!-- Input Location Button -->
-        <Button x:Name="openLocationInput" HorizontalAlignment="Left" Margin="562,12,0,0" VerticalAlignment="Top" Width="22" Cursor="Hand" Height="22" Click="openLocationInput_Click" Background="{x:Null}" ToolTip="Open this location">
-            <Button.Resources>
-                <Style x:Key="ButtonStyleTransparent" TargetType="{x:Type Button}">
-                    <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
-                    <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
-                    <Setter Property="BorderBrush" Value="Transparent"/>
-                    <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
-                    <Setter Property="BorderThickness" Value="1"/>
-                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                    <Setter Property="VerticalContentAlignment" Value="Center"/>
-                    <Setter Property="Padding" Value="1"/>
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="{x:Type Button}">
-                                <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
-                                    <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                                </Border>
-                                <ControlTemplate.Triggers>
-                                    <Trigger Property="IsDefaulted" Value="true">
-                                        <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
-                                    </Trigger>
-                                    <Trigger Property="IsMouseOver" Value="true">
-                                        <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
-                                        <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
-                                    </Trigger>
-                                    <Trigger Property="IsPressed" Value="true">
-                                        <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
-                                        <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
-                                    </Trigger>
-                                    <Trigger Property="IsEnabled" Value="false">
-                                        <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
-                                        <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
-                                        <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
-                                    </Trigger>
-                                </ControlTemplate.Triggers>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-            </Button.Resources>
-            <Button.Style>
-                <StaticResource ResourceKey="ButtonFolder"/>
-            </Button.Style>
+        <Button x:Name="openLocationInput" Style="{StaticResource ButtonFolderBlue}" HorizontalAlignment="Left" Margin="562,12,0,0" VerticalAlignment="Top" Width="22" Cursor="Hand" Height="22" Click="openLocationInput_Click" ToolTip="Open this location">
             <Image Source="Resources/Images/folder.png" Width="11" Height="7" Stretch="Fill" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="1,0,0,0"/>
         </Button>
 
         <!-- Output Location Button -->
-        <Button x:Name="openLocationOutput" HorizontalAlignment="Left" Margin="562,43,0,0" VerticalAlignment="Top" Width="22" Cursor="Hand" Height="22" Click="openLocationOutput_Click" Background="{x:Null}" ToolTip="Open this location">
-            <Button.Resources>
-                <Style x:Key="ButtonStyleTransparent" TargetType="{x:Type Button}">
-                    <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
-                    <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
-                    <Setter Property="BorderBrush" Value="Transparent"/>
-                    <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
-                    <Setter Property="BorderThickness" Value="1"/>
-                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                    <Setter Property="VerticalContentAlignment" Value="Center"/>
-                    <Setter Property="Padding" Value="1"/>
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="{x:Type Button}">
-                                <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
-                                    <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                                </Border>
-                                <ControlTemplate.Triggers>
-                                    <Trigger Property="IsDefaulted" Value="true">
-                                        <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
-                                    </Trigger>
-                                    <Trigger Property="IsMouseOver" Value="true">
-                                        <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
-                                        <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
-                                    </Trigger>
-                                    <Trigger Property="IsPressed" Value="true">
-                                        <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
-                                        <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
-                                    </Trigger>
-                                    <Trigger Property="IsEnabled" Value="false">
-                                        <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
-                                        <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
-                                        <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
-                                    </Trigger>
-                                </ControlTemplate.Triggers>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-            </Button.Resources>
-            <Button.Style>
-                <StaticResource ResourceKey="ButtonFolder"/>
-            </Button.Style>
+        <Button x:Name="openLocationOutput" Style="{StaticResource ButtonFolderBlue}" HorizontalAlignment="Left" Margin="562,43,0,0" VerticalAlignment="Top" Width="22" Cursor="Hand" Height="22" Click="openLocationOutput_Click" ToolTip="Open this location">
             <Image Source="Resources/Images/folder.png" Width="11" Height="7" Stretch="Fill" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="1,0,0,0"/>
         </Button>
 
@@ -669,10 +211,10 @@
         <TextBox x:Name="audioCustom" HorizontalAlignment="Left" Height="22" Margin="176,128,0,0" Padding="2, 1, 0, 0" TextWrapping="NoWrap" Text="kbps" VerticalAlignment="Top" Width="40" MaxLines="1" MaxLength="5" GotFocus="audioCustom_GotFocus" LostFocus="audioCustom_LostFocus" KeyDown="audioCustom_KeyDown" BorderBrush="#FF0C3F97" Style="{DynamicResource TextBoxStyleBlue}" ToolTipService.InitialShowDelay="1000" ToolTipService.ShowOnDisabled="True" ToolTip="Custom Audio Bitrate (e.g. 245)"/>
 
         <!-- Optimize -->
-        <ComboBox x:Name="cboOptimize" Style="{StaticResource ComboBoxBlue}" HorizontalAlignment="Left" Margin="531,156,0,0" VerticalAlignment="Top" Width="52" SelectionChanged="cboOptimize_SelectionChanged" DropDownClosed="cboOptimize_DropDownClosed" ToolTipService.ShowOnDisabled="True" ToolTip="Optimize file for device type." />
+        <ComboBox x:Name="cboOptimize" Style="{StaticResource ComboBoxBlue}" ItemContainerStyle="{StaticResource ComboBoxBlueItem}" HorizontalAlignment="Left" Margin="531,156,0,0" VerticalAlignment="Top" Width="52" SelectionChanged="cboOptimize_SelectionChanged" DropDownClosed="cboOptimize_DropDownClosed" ToolTipService.ShowOnDisabled="True" ToolTip="Optimize file for device type." />
 
         <!-- Convert Button -->
-        <Button x:Name="buttonConvert" HorizontalAlignment="Left" Margin="508,233,0,0" VerticalAlignment="Top" Width="75" Height="22" Cursor="Hand" Click="buttonConvert_Click">
+        <Button x:Name="buttonConvert" HorizontalAlignment="Left" Margin="508,233,0,0" VerticalAlignment="Top" Width="75" Height="22" Cursor="Hand" Click="buttonConvert_Click" Background="White" BorderBrush="White">
             <TextBlock x:Name="buttonConvertTextBlock" Text="Convert" Margin="0,-2,0,0"/>
         </Button>
 
@@ -697,7 +239,7 @@
         </Button>
 
         <!-- Script Button -->
-        <Button x:Name="buttonScript" HorizontalAlignment="Left" Margin="425,233,0,0" VerticalAlignment="Top" Width="75" Height="22" Cursor="Hand" Click="buttonScript_Click" ToolTip="Generate FFmpeg Commands">
+        <Button x:Name="buttonScript" HorizontalAlignment="Left" Margin="425,233,0,0" VerticalAlignment="Top" Width="75" Height="22" Cursor="Hand" Click="buttonScript_Click" ToolTip="Generate FFmpeg Commands" Background="White" BorderBrush="White">
             <TextBlock x:Name="buttonScriptTextBlock" Text="Script" Margin="0,-2,0,0" />
         </Button>
         <Button x:Name="buttonCmd" HorizontalAlignment="Left" Margin="145,233,0,0" VerticalAlignment="Top" Width="22" Height="22" Cursor="Hand" Click="buttonCmd_Click" Background="{x:Null}" Style="{StaticResource ButtonBlue}" ToolTip="Launch Command Prompt" BorderBrush="White">
@@ -733,16 +275,17 @@
 
         <!-- Channel -->
         <Label x:Name="labelChannel" Content="Channel" HorizontalAlignment="Left" Margin="256,74,0,0" VerticalAlignment="Top" Width="75" Foreground="White" />
-        <ComboBox x:Name="cboChannel" HorizontalAlignment="Left" Margin="259,100,0,0" VerticalAlignment="Top" Width="75"  />
+        <ComboBox x:Name="cboChannel" Style="{StaticResource ComboBoxWhite}" HorizontalAlignment="Left" Margin="259,100,0,0" VerticalAlignment="Top" Width="75"  />
 
         <!-- Sample Rate -->
         <Label x:Name="labelSamplerate" Content="Hz" HorizontalAlignment="Left" Margin="171,155,0,0" VerticalAlignment="Top" Width="24" Foreground="White" ToolTip="Audio Sample Rate" FontSize="11" FontFamily="Segoe UI Semilight" />
-        <ComboBox x:Name="cboSamplerate" Style="{StaticResource ComboBoxBlue}" HorizontalAlignment="Left" Margin="198,156,0,0" VerticalAlignment="Top" Width="52" ToolTip="Audio Sample Rate" SelectionChanged="cboSamplerate_SelectionChanged"  />
+        <ComboBox x:Name="cboSamplerate" Style="{StaticResource ComboBoxBlue}" ItemContainerStyle="{StaticResource ComboBoxBlueItem}" HorizontalAlignment="Left" Margin="198,156,0,0" VerticalAlignment="Top" Width="52" ToolTip="Audio Sample Rate" SelectionChanged="cboSamplerate_SelectionChanged"  />
 
         <!-- Bit Depth -->
         <Label x:Name="labelBitdepth" Content="Bit" HorizontalAlignment="Left" Margin="171,183,0,0" VerticalAlignment="Top" Width="24" Foreground="White" ToolTip="Audio Bit Depth" FontSize="11" FontFamily="Segoe UI Semilight" />
 
-        <ComboBox x:Name="cboBitDepth" Style="{StaticResource ComboBoxBlue}" HorizontalAlignment="Left" Margin="198,184,0,0" VerticalAlignment="Top" Width="52" ToolTipService.InitialShowDelay="1000" ToolTipService.ShowOnDisabled="True" ToolTip="Audio Bit Depth" SelectionChanged="cboBitDepth_SelectionChanged"  />
+        <ComboBox x:Name="cboBitDepth" Style="{StaticResource ComboBoxBlue}" ItemContainerStyle="{StaticResource ComboBoxBlueItem}" HorizontalAlignment="Left" Margin="198,184,0,0" VerticalAlignment="Top" Width="52" ToolTipService.InitialShowDelay="1000" ToolTipService.ShowOnDisabled="True" ToolTip="Audio Bit Depth" SelectionChanged="cboBitDepth_SelectionChanged">
+        </ComboBox>
 
         <!-- Auto Play -->
         <ToggleButton x:Name="toggleAutoPlay" HorizontalAlignment="Left" Margin="-162,233,0,0" VerticalAlignment="Top" Foreground="White" ToolTip="Auto Play after converting." Width="22" Height="22" Style="{DynamicResource ToggleButtonStyleBlue}">
@@ -760,7 +303,7 @@
         <!-- Speed -->
         <Label x:Name="labelSpeed" Content="Spd" HorizontalAlignment="Left" Margin="503,183,0,0" VerticalAlignment="Top" Width="28" Foreground="White" ToolTip="Encoding Speed. Slower = Better Quality &amp; Compression." FontSize="11" FontFamily="Segoe UI Semilight" />
 
-        <ComboBox x:Name="cboSpeed" Style="{StaticResource ComboBoxBlue}" HorizontalAlignment="Left" Margin="531,184,0,0" VerticalAlignment="Top" Width="52" ToolTipService.InitialShowDelay="1000" ToolTipService.ShowOnDisabled="True" ToolTip="Encoding Speed. Slower = Better Quality &amp; Compression." >
+        <ComboBox x:Name="cboSpeed" Style="{StaticResource ComboBoxBlue}" ItemContainerStyle="{StaticResource ComboBoxBlueItem}" HorizontalAlignment="Left" Margin="531,184,0,0" VerticalAlignment="Top" Width="52" ToolTipService.InitialShowDelay="1000" ToolTipService.ShowOnDisabled="True" ToolTip="Encoding Speed. Slower = Better Quality &amp; Compression." >
             <System:String>Placebo</System:String>
             <System:String>Very Slow</System:String>
             <System:String>Slower</System:String>
@@ -806,7 +349,7 @@
 
         <!-- Encoding Pass -->
         <Label x:Name="labelPass" Content="Enc" HorizontalAlignment="Left" Margin="88,155,0,0" VerticalAlignment="Top" Width="34" Foreground="White" ToolTip="Encoding Pass Method" FontSize="11" FontFamily="Segoe UI Semilight" />
-        <ComboBox x:Name="cboPass" Style="{StaticResource ComboBoxBlue}" HorizontalAlignment="Left" Margin="116,155,0,0" VerticalAlignment="Top" Width="52" ToolTipService.InitialShowDelay="1000" ToolTipService.ShowOnDisabled="True" ToolTip="Encoding Pass Method" SelectionChanged="cboPass_SelectionChanged" DropDownClosed="cboPass_DropDownClosed" />
+        <ComboBox x:Name="cboPass" Style="{StaticResource ComboBoxBlue}" ItemContainerStyle="{StaticResource ComboBoxBlueItem}" HorizontalAlignment="Left" Margin="116,155,0,0" VerticalAlignment="Top" Width="52" ToolTipService.InitialShowDelay="1000" ToolTipService.ShowOnDisabled="True" ToolTip="Encoding Pass Method" SelectionChanged="cboPass_SelectionChanged" DropDownClosed="cboPass_DropDownClosed" />
 
         <!-- File Queue -->
         <Button x:Name="buttonFileQueue" HorizontalAlignment="Left" Margin="-108,233,0,0" VerticalAlignment="Top" Width="22" Height="22" Cursor="Hand" Background="{x:Null}" Style="{StaticResource ButtonBlue}" ToolTip="Show File Queue" Click="buttonFileQueue_Click">

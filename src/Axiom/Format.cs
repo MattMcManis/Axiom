@@ -514,12 +514,6 @@ namespace Axiom
             // -------------------------
             // Format Container Additional Rules
             // -------------------------
-            // If Video File is Auto, make Audio also Auto (to avoid batch interfere)
-            //else if ((string)mainwindow.cboFormat.SelectedItem == "webm" | (string)mainwindow.cboFormat.SelectedItem == "mp4" | (string)mainwindow.cboFormat.SelectedItem == "mkv" | (string)mainwindow.cboFormat.SelectedItem == "ogv" | (string)mainwindow.cboFormat.SelectedItem == "gif")
-            //{
-            //    cboAudio.SelectedItem = "Auto";
-            //}
-
             // Disable VBR checkbox if Audio is Auto (ALWAYS) - This might not work, might be overridden by below
             if ((string)mainwindow.cboAudio.SelectedItem == "Auto" && (string)mainwindow.cboFormat.SelectedItem == "mp4" || (string)mainwindow.cboFormat.SelectedItem == "mkv" || (string)mainwindow.cboFormat.SelectedItem == "gif" || (string)mainwindow.cboFormat.SelectedItem == "mp3" || (string)mainwindow.cboFormat.SelectedItem == "m4a" || (string)mainwindow.cboFormat.SelectedItem == "flac" || (string)mainwindow.cboFormat.SelectedItem == "wav")
             {

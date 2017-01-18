@@ -126,7 +126,7 @@ namespace Axiom
         public static Brush TextBoxDarkBlue = (SolidColorBrush)(new BrushConverter().ConvertFrom("#00034E"));
 
         //ComboBox Foreground
-        public static Brush CustomBlue = (SolidColorBrush)(new BrushConverter().ConvertFrom("#1049BB")); //hex color to brush
+        //public static Brush CustomBlue = (SolidColorBrush)(new BrushConverter().ConvertFrom("#1049BB")); //hex color to brush
 
 
         // --------------------------------------------------------------------------------------------------------
@@ -180,7 +180,7 @@ namespace Axiom
         {
             InitializeComponent();
 
-            TitleVersion = "Axiom ~ FFmpeg UI (0.8.3α)";
+            TitleVersion = "Axiom ~ FFmpeg UI (0.8.4α)";
             DataContext = this;
 
             /// <summary>
@@ -257,17 +257,17 @@ namespace Axiom
             ///     Combobox Item Background Colors
             /// </summary>
             // -----------------------------------------------------------------      
-            cboVideoCodec.Resources.Add(SystemColors.WindowBrushKey, CustomBlue);
-            cboAudioCodec.Resources.Add(SystemColors.WindowBrushKey, CustomBlue);
-            cboPass.Resources.Add(SystemColors.WindowBrushKey, CustomBlue);
-            cboFPS.Resources.Add(SystemColors.WindowBrushKey, CustomBlue);
-            cboMediaType.Resources.Add(SystemColors.WindowBrushKey, CustomBlue);
-            cboAudioStream.Resources.Add(SystemColors.WindowBrushKey, CustomBlue);
-            cboSamplerate.Resources.Add(SystemColors.WindowBrushKey, CustomBlue);
-            cboBitDepth.Resources.Add(SystemColors.WindowBrushKey, CustomBlue);
-            cboOptimize.Resources.Add(SystemColors.WindowBrushKey, CustomBlue);
-            cboSubtitle.Resources.Add(SystemColors.WindowBrushKey, CustomBlue);
-            cboSpeed.Resources.Add(SystemColors.WindowBrushKey, CustomBlue);
+            //cboVideoCodec.Resources.Add(SystemColors.WindowBrushKey, CustomBlue);
+            //cboAudioCodec.Resources.Add(SystemColors.WindowBrushKey, CustomBlue);
+            //cboPass.Resources.Add(SystemColors.WindowBrushKey, CustomBlue);
+            //cboFPS.Resources.Add(SystemColors.WindowBrushKey, CustomBlue);
+            //cboMediaType.Resources.Add(SystemColors.WindowBrushKey, CustomBlue);
+            //cboAudioStream.Resources.Add(SystemColors.WindowBrushKey, CustomBlue);
+            //cboSamplerate.Resources.Add(SystemColors.WindowBrushKey, CustomBlue);
+            //cboBitDepth.Resources.Add(SystemColors.WindowBrushKey, CustomBlue);
+            //cboOptimize.Resources.Add(SystemColors.WindowBrushKey, CustomBlue);
+            //cboSubtitle.Resources.Add(SystemColors.WindowBrushKey, CustomBlue);
+            //cboSpeed.Resources.Add(SystemColors.WindowBrushKey, CustomBlue);
 
 
             // -----------------------------------------------------------------

@@ -28,11 +28,6 @@
         <ImageBrush ImageSource="Resources/Images/config-background.jpg" Stretch="UniformToFill"/>
     </Window.Background>
     <Grid >
-        <Grid.Background>
-            <ImageBrush/>
-        </Grid.Background>
-
-        <!-- WinRAR Revert Button -->
 
         <!-- FFmpeg Path TextBox -->
         <Label x:Name="labelFFmpegPath" Content="FFmpeg Path" HorizontalAlignment="Left" Margin="10,12,0,0" VerticalAlignment="Top" Height="26" Foreground="White" ToolTip="Path to FFmpeg.exe"/>
@@ -80,7 +75,7 @@
         <Button x:Name="buttonFFprobeAuto" HorizontalAlignment="Left" Margin="397,48,0,0" VerticalAlignment="Top" Width="23" Foreground="White" BorderThickness="0" Height="23" Cursor="Hand" ToolTip="Revert to Auto" Click="buttonFFprobeAuto_Click" Background="{x:Null}" Style="{StaticResource ButtonBlue}">
             <Image Source="Resources/Images/revertarrow.png" Width="9" Height="11" Stretch="Fill" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="1,0,0,0"/>
         </Button>
-        <ComboBox x:Name="cboThreads" Style="{StaticResource ComboBoxBlue}" HorizontalAlignment="Left" Margin="95,120,0,0" VerticalAlignment="Top" Width="60" IsTextSearchEnabled="False" SelectionChanged="threadSelect_SelectionChanged" KeyDown="threadSelect_KeyDown">
+        <ComboBox x:Name="cboThreads" Style="{StaticResource ComboBoxBlue}" ItemContainerStyle="{StaticResource ComboBoxBlueItem}" HorizontalAlignment="Left" Margin="95,120,0,0" VerticalAlignment="Top" Width="60" IsTextSearchEnabled="False" SelectionChanged="threadSelect_SelectionChanged" KeyDown="threadSelect_KeyDown">
             <System:String>off</System:String>
             <System:String>all</System:String>
             <System:String>1</System:String>
