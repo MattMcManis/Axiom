@@ -22,7 +22,7 @@ using System.Windows.Threading;
 #pragma warning disable 1570
 
 /* ----------------------------------------------------------------------
-    Axiom
+    Axiom UI
     Copyright (C) 2017 Matt McManis
     http://github.com/MattMcManis/Axiom
     http://www.x.co/axiomui
@@ -42,7 +42,6 @@ using System.Windows.Threading;
     along with this program.If not, see <http://www.gnu.org/licenses/>. 
    ---------------------------------------------------------------------- */
 
-
 namespace Axiom
 {
     /// <summary>
@@ -54,8 +53,6 @@ namespace Axiom
             get { return (string)GetValue(TitleProperty); }
             set { SetValue(TitleProperty, value); }
         }
-
-        //Stopwatch sw = new Stopwatch();
 
         // --------------------------------------------------------------------------------------------------------
         /// <summary>
@@ -250,24 +247,6 @@ namespace Axiom
 
             // Batch Extension Box Disabled
             batchExtensionTextBox.IsEnabled = false;
-
-
-            // -----------------------------------------------------------------
-            /// <summary>
-            ///     Combobox Item Background Colors
-            /// </summary>
-            // -----------------------------------------------------------------      
-            //cboVideoCodec.Resources.Add(SystemColors.WindowBrushKey, CustomBlue);
-            //cboAudioCodec.Resources.Add(SystemColors.WindowBrushKey, CustomBlue);
-            //cboPass.Resources.Add(SystemColors.WindowBrushKey, CustomBlue);
-            //cboFPS.Resources.Add(SystemColors.WindowBrushKey, CustomBlue);
-            //cboMediaType.Resources.Add(SystemColors.WindowBrushKey, CustomBlue);
-            //cboAudioStream.Resources.Add(SystemColors.WindowBrushKey, CustomBlue);
-            //cboSamplerate.Resources.Add(SystemColors.WindowBrushKey, CustomBlue);
-            //cboBitDepth.Resources.Add(SystemColors.WindowBrushKey, CustomBlue);
-            //cboOptimize.Resources.Add(SystemColors.WindowBrushKey, CustomBlue);
-            //cboSubtitle.Resources.Add(SystemColors.WindowBrushKey, CustomBlue);
-            //cboSpeed.Resources.Add(SystemColors.WindowBrushKey, CustomBlue);
 
 
             // -----------------------------------------------------------------

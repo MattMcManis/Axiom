@@ -6,7 +6,7 @@ using System.Windows.Controls;
 #pragma warning disable 1570
 
 /* ----------------------------------------------------------------------
-Axiom
+Axiom UI
 Copyright (C) 2017 Matt McManis
 http://github.com/MattMcManis/Axiom
 http://www.x.co/axiomui
@@ -35,9 +35,6 @@ namespace Axiom
     {
         private MainWindow mainwindow;
 
-        // Optimize Window Window
-        //OptimizeAdvanced optadv = new OptimizeAdvanced(); //must be "new" for pass data, do not change or remove
-
         public OptimizeAdvanced()
         {
             // Don't Remove
@@ -54,11 +51,6 @@ namespace Axiom
             this.MinHeight = 200;
             this.MaxWidth = 371;
             this.MaxHeight = 200;
-
-            // Set ComboBox Dropdown Color
-            //cboOptimizeTune.Resources.Add(SystemColors.WindowBrushKey, MainWindow.CustomBlue);
-            //cboOptimizeProfile.Resources.Add(SystemColors.WindowBrushKey, MainWindow.CustomBlue);
-            //cboOptimizeLevel.Resources.Add(SystemColors.WindowBrushKey, MainWindow.CustomBlue);
 
 
             // --------------------------------------------------

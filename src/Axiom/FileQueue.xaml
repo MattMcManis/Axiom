@@ -1,5 +1,5 @@
 ﻿<!-- 
-    Axiom
+    Axiom UI
     Copyright (C) 2017 Matt McManis
     http://github.com/MattMcManis/Axiom
     http://www.x.co/axiomui
@@ -18,7 +18,7 @@
     You should have received a copy of the GNU General Public License
     along with this program.If not, see<http://www.gnu.org/licenses/> . 
  -->
-    <Window x:Class="Axiom.FileQueue"
+<Window x:Class="Axiom.FileQueue"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:System="clr-namespace:System;assembly=mscorlib"
@@ -28,7 +28,7 @@
         <ImageBrush ImageSource="Resources/Images/config-background.jpg" Stretch="UniformToFill"/>
     </Window.Background>
     <Grid>
-        
+
         <!-- ListView Cores To Download -->
         <ListView x:Name="listViewFileQueue" HorizontalAlignment="Left" Height="308" Margin="10,33,0,0" VerticalAlignment="Top" Width="276" Background="Transparent" Foreground="White" BorderThickness="0"
               SelectionMode="Multiple"

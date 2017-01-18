@@ -10,7 +10,7 @@ using System.Windows.Media;
 #pragma warning disable 1570
 
 /* ----------------------------------------------------------------------
-Axiom
+Axiom UI
 Copyright (C) 2017 Matt McManis
 http://github.com/MattMcManis/Axiom
 http://www.x.co/axiomui

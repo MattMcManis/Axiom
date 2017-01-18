@@ -1,5 +1,5 @@
 ﻿<!-- 
-    Axiom
+    Axiom UI
     Copyright (C) 2017 Matt McManis
     http://github.com/MattMcManis/Axiom
     http://www.x.co/axiomui
@@ -246,7 +246,6 @@
             <Image Source="Resources/Images/cmd.png" Width="11" Height="11" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0"/>
         </Button>
 
-
         <!-- Batch Checkbox -->
         <ToggleButton x:Name="tglBatch" HorizontalAlignment="Left" Margin="302,233,0,0" VerticalAlignment="Top" Checked="tglBatch_Checked" Unchecked="tglBatch_Unchecked" IsChecked="False" Foreground="White" ToolTip="Enable, Browse for folder, Enter file extention to batch process." Width="45" Height="22" Style="{DynamicResource ToggleButtonStyleBlue}">
             <TextBlock x:Name="batchTextBlock" Text="Batch" Margin="0,-2,0,0" />
@@ -297,8 +296,6 @@
         <Button x:Name="buttonPlayFile" HorizontalAlignment="Left" Margin="199,233,0,0" VerticalAlignment="Top" Width="22" Height="22" Cursor="Hand" Click="buttonPlayFile_Click" Background="{x:Null}" Style="{StaticResource ButtonBlue}" ToolTip="Play Converted File" BorderBrush="White">
             <Image Source="Resources/Images/autoplay.png" Width="11" Height="11" Stretch="None" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="-1,0,0,0"/>
         </Button>
-
-        <!-- Tune -->
 
         <!-- Speed -->
         <Label x:Name="labelSpeed" Content="Spd" HorizontalAlignment="Left" Margin="503,183,0,0" VerticalAlignment="Top" Width="28" Foreground="White" ToolTip="Encoding Speed. Slower = Better Quality &amp; Compression." FontSize="11" FontFamily="Segoe UI Semilight" />
@@ -355,8 +352,6 @@
         <Button x:Name="buttonFileQueue" HorizontalAlignment="Left" Margin="-108,233,0,0" VerticalAlignment="Top" Width="22" Height="22" Cursor="Hand" Background="{x:Null}" Style="{StaticResource ButtonBlue}" ToolTip="Show File Queue" Click="buttonFileQueue_Click">
             <Image Source="Resources/Images/logconsole.png" Width="10" Height="11" Stretch="Fill" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0"/>
         </Button>
-
-
 
     </Grid>
 </Window>

@@ -11,7 +11,7 @@ using System.Windows.Media;
 #pragma warning disable 1591
 
 /* ----------------------------------------------------------------------
-Axiom
+Axiom UI
 Copyright (C) 2017 Matt McManis
 http://github.com/MattMcManis/Axiom
 http://www.x.co/axiomui
@@ -337,7 +337,7 @@ namespace Axiom
             // Set the ffmpegPath string
             ffmpegPath = textBoxFFmpegPathConfig.Text; //<auto>
 
-            // Save 7-zip Path path for next launch
+            // FFmpeg Path path for next launch
             Settings.Default["ffmpegPath"] = textBoxFFmpegPathConfig.Text;
             Settings.Default.Save();
             Settings.Default.Reload();
