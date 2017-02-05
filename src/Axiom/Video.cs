@@ -1059,7 +1059,7 @@ namespace Axiom
             }
             else if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9")
             {
-                vCodec = "-vcodec libvpx-vp9 -tile-columns 6 -frame-parallel 1 -auto-alt-ref 1 -lag-in-frames 25 -g 128";
+                vCodec = "-vcodec libvpx-vp9 -tile-columns 6 -frame-parallel 1 -auto-alt-ref 1 -lag-in-frames 25";
             }
             else if ((string)mainwindow.cboVideoCodec.SelectedItem == "Theora")
             {
@@ -2312,9 +2312,9 @@ namespace Axiom
             }
 
             // -------------------------
-            // VP8 / VP9
+            // VP8
             // -------------------------
-            if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9")
+            else if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8")
             {
                 if ((string)mainwindow.cboSpeed.SelectedItem == "Placebo") { speed = "-quality best -cpu-used 0"; }
                 else if ((string)mainwindow.cboSpeed.SelectedItem == "Very Slow") { speed = "-quality good -cpu-used 0"; }
@@ -2326,6 +2326,32 @@ namespace Axiom
                 else if ((string)mainwindow.cboSpeed.SelectedItem == "Very Fast") { speed = "-quality realtime -cpu-used 3"; }
                 else if ((string)mainwindow.cboSpeed.SelectedItem == "Super Fast") { speed = "-quality realtime -cpu-used 4"; }
                 else if ((string)mainwindow.cboSpeed.SelectedItem == "Ultra Fast") { speed = "-quality realtime -cpu-used 5"; }
+
+                // Log Console Message /////////
+                Log.WriteAction = () =>
+                {
+                    Log.paragraph.Inlines.Add(new LineBreak());
+                    Log.paragraph.Inlines.Add(new Bold(new Run("Encoding Speed: ")) { Foreground = Log.ConsoleDefault });
+                    Log.paragraph.Inlines.Add(new Run(mainwindow.cboSpeed.Text.ToString()) { Foreground = Log.ConsoleDefault });
+                };
+                Log.LogActions.Add(Log.WriteAction);
+            }
+
+            // -------------------------
+            // VP9
+            // -------------------------
+            else if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9")
+            {
+                if ((string)mainwindow.cboSpeed.SelectedItem == "Placebo") { speed = "-speed -8"; }
+                else if ((string)mainwindow.cboSpeed.SelectedItem == "Very Slow") { speed = "-speed -4"; }
+                else if ((string)mainwindow.cboSpeed.SelectedItem == "Slower") { speed = "-speed -2"; }
+                else if ((string)mainwindow.cboSpeed.SelectedItem == "Slow") { speed = "-speed 0"; }
+                else if ((string)mainwindow.cboSpeed.SelectedItem == "Medium") { speed = "-speed 1"; }
+                else if ((string)mainwindow.cboSpeed.SelectedItem == "Fast") { speed = "-speed 2"; }
+                else if ((string)mainwindow.cboSpeed.SelectedItem == "Faster") { speed = "-speed 3"; }
+                else if ((string)mainwindow.cboSpeed.SelectedItem == "Very Fast") { speed = "-speed 4"; }
+                else if ((string)mainwindow.cboSpeed.SelectedItem == "Super Fast") { speed = "-speed 5"; }
+                else if ((string)mainwindow.cboSpeed.SelectedItem == "Ultra Fast") { speed = "-speed 6"; }
 
                 // Log Console Message /////////
                 Log.WriteAction = () =>
