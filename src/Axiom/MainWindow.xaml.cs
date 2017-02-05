@@ -177,7 +177,7 @@ namespace Axiom
         {
             InitializeComponent();
 
-            TitleVersion = "Axiom ~ FFmpeg UI (0.8.4α)";
+            TitleVersion = "Axiom ~ FFmpeg UI (0.8.5α)";
             DataContext = this;
 
             /// <summary>
