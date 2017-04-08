@@ -27,7 +27,7 @@
         <SolidColorBrush x:Key="TextBox.Static.Border" Color="#FF1049bb"/>
         <SolidColorBrush x:Key="TextBox.MouseOver.Border" Color="#FF7EB4EA"/>
         <SolidColorBrush x:Key="TextBox.Focus.Border" Color="#FF569DE5"/>
-        <Style x:Key="TextBoxStyleBlue" TargetType="{x:Type TextBox}">
+        <Style x:Key="TextBoxStyleCustom" TargetType="{x:Type TextBox}">
             <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
             <Setter Property="BorderBrush" Value="{StaticResource TextBox.Static.Border}"/>
             <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
@@ -85,23 +85,23 @@
     <Grid>
         <Rectangle HorizontalAlignment="Left" Height="301" Margin="-29,-42,-23,-18" StrokeThickness="1" VerticalAlignment="Top" Width="526" Fill="Black" Opacity="0.5"/>
 
-        <TextBox x:Name="cropX" HorizontalAlignment="Left" Height="22" Margin="32,109,0,0" TextWrapping="NoWrap" MaxLines="1" VerticalAlignment="Top" Width="60" BorderBrush="#FF0C3F97" Style="{DynamicResource TextBoxStyleBlue}" KeyDown="cropX_KeyDown" ToolTipService.ShowOnDisabled="True" ToolTip="Position of Crop from Left">
+        <TextBox x:Name="cropX" HorizontalAlignment="Left" Height="22" Margin="32,109,0,0" TextWrapping="NoWrap" MaxLines="1" VerticalAlignment="Top" Width="60" BorderBrush="#FF0C3F97" Style="{DynamicResource TextBoxStyleCustom}" KeyDown="cropX_KeyDown" ToolTipService.ShowOnDisabled="True" ToolTip="Position of Crop from Left">
             <TextBox.Background>
                 <ImageBrush ImageSource="Resources/Images/TextBoxEnabled.png" Stretch="None" AlignmentX="Left" AlignmentY="Bottom"/>
             </TextBox.Background>
         </TextBox>
-        <TextBox x:Name="cropY" HorizontalAlignment="Left" Height="22" Margin="202,17,0,0" TextWrapping="NoWrap" MaxLines="1" VerticalAlignment="Top" Width="60" BorderBrush="#FF0C3F97" Style="{DynamicResource TextBoxStyleBlue}" KeyDown="cropY_KeyDown" ToolTipService.ShowOnDisabled="True" ToolTip="Position of Crop from Top">
+        <TextBox x:Name="cropY" HorizontalAlignment="Left" Height="22" Margin="202,17,0,0" TextWrapping="NoWrap" MaxLines="1" VerticalAlignment="Top" Width="60" BorderBrush="#FF0C3F97" Style="{DynamicResource TextBoxStyleCustom}" KeyDown="cropY_KeyDown" ToolTipService.ShowOnDisabled="True" ToolTip="Position of Crop from Top">
             <TextBox.Background>
                 <ImageBrush ImageSource="Resources/Images/TextBoxEnabled.png" Stretch="None" AlignmentX="Left" AlignmentY="Bottom"/>
             </TextBox.Background>
         </TextBox>
         <Rectangle HorizontalAlignment="Left" Height="152" Margin="97,44,0,0" Stroke="White" VerticalAlignment="Top" Width="270" StrokeThickness="1"/>
-        <TextBox x:Name="cropWidth" HorizontalAlignment="Left" Height="22" Margin="170,109,0,0" TextWrapping="NoWrap" MaxLines="1" VerticalAlignment="Top" Width="60" BorderBrush="#FF0C3F97" Style="{DynamicResource TextBoxStyleBlue}" KeyDown="cropWidth_KeyDown" ToolTipService.ShowOnDisabled="True" ToolTip="Width of Cropped Area">
+        <TextBox x:Name="cropWidth" HorizontalAlignment="Left" Height="22" Margin="170,109,0,0" TextWrapping="NoWrap" MaxLines="1" VerticalAlignment="Top" Width="60" BorderBrush="#FF0C3F97" Style="{DynamicResource TextBoxStyleCustom}" KeyDown="cropWidth_KeyDown" ToolTipService.ShowOnDisabled="True" ToolTip="Width of Cropped Area">
             <TextBox.Background>
                 <ImageBrush ImageSource="Resources/Images/TextBoxEnabled.png" Stretch="None" AlignmentX="Left" AlignmentY="Bottom"/>
             </TextBox.Background>
         </TextBox>
-        <TextBox x:Name="cropHeight" HorizontalAlignment="Left" Height="22" Margin="235,109,0,0" TextWrapping="NoWrap" MaxLines="1" VerticalAlignment="Top" Width="60" BorderBrush="#FF0C3F97" Style="{DynamicResource TextBoxStyleBlue}" KeyDown="cropHeight_KeyDown" ToolTipService.ShowOnDisabled="True" ToolTip="Height of Cropped Area">
+        <TextBox x:Name="cropHeight" HorizontalAlignment="Left" Height="22" Margin="235,109,0,0" TextWrapping="NoWrap" MaxLines="1" VerticalAlignment="Top" Width="60" BorderBrush="#FF0C3F97" Style="{DynamicResource TextBoxStyleCustom}" KeyDown="cropHeight_KeyDown" ToolTipService.ShowOnDisabled="True" ToolTip="Height of Cropped Area">
             <TextBox.Background>
                 <ImageBrush ImageSource="Resources/Images/TextBoxEnabled.png" Stretch="None" AlignmentX="Left" AlignmentY="Bottom"/>
             </TextBox.Background>

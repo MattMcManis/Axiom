@@ -47,7 +47,7 @@
 
 
         <!-- FFmpeg Path Revert Button -->
-        <Button x:Name="buttonFFmpegAuto" HorizontalAlignment="Left" Margin="397,13,0,0" VerticalAlignment="Top" Width="23" Foreground="White" BorderThickness="0" Height="23" Cursor="Hand" ToolTip="Revert to Auto" Click="buttonFFmpegAuto_Click" Background="{x:Null}" Style="{StaticResource ButtonBlue}">
+        <Button x:Name="buttonFFmpegAuto" HorizontalAlignment="Left" Margin="397,13,0,0" VerticalAlignment="Top" Width="23" Foreground="White" BorderThickness="0" Height="23" Cursor="Hand" ToolTip="Revert to Auto" Click="buttonFFmpegAuto_Click" Background="{x:Null}" Style="{StaticResource ButtonCustom}">
             <Image Source="Resources/Images/revertarrow.png" Width="9" Height="11" Stretch="Fill" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="1,0,0,0"/>
         </Button>
 
@@ -60,7 +60,7 @@
         </TextBox>
 
         <!-- Log Revert Button -->
-        <Button x:Name="buttonLogAuto" HorizontalAlignment="Left" Margin="397,83,0,0" VerticalAlignment="Top" Width="23" Foreground="White" BorderThickness="0" Height="23" Cursor="Hand" ToolTip="Clear Path" Click="buttonLogAuto_Click" Background="{x:Null}" Style="{StaticResource ButtonBlue}">
+        <Button x:Name="buttonLogAuto" HorizontalAlignment="Left" Margin="397,83,0,0" VerticalAlignment="Top" Width="23" Foreground="White" BorderThickness="0" Height="23" Cursor="Hand" ToolTip="Clear Path" Click="buttonLogAuto_Click" Background="{x:Null}" Style="{StaticResource ButtonCustom}">
             <Image Source="Resources/Images/revertarrow.png" Width="9" Height="11" Stretch="Fill" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="1,0,0,0"/>
         </Button>
 
@@ -69,13 +69,13 @@
 
 
         <!-- Reset Saved Settigns Button -->
-        <Button x:Name="buttonClearAllSavedSettings" HorizontalAlignment="Left" Margin="332,120,0,0" VerticalAlignment="Top" Width="60" Background="{x:Null}" Foreground="White" BorderBrush="White" Height="23" ToolTip="Reset the Saved Settings to Default." Cursor="Hand" Click="buttonClearAllSavedSettings_Click" Style="{StaticResource ButtonBlue}">
+        <Button x:Name="buttonClearAllSavedSettings" HorizontalAlignment="Left" Margin="332,120,0,0" VerticalAlignment="Top" Width="60" Background="{x:Null}" Foreground="White" BorderBrush="White" Height="23" ToolTip="Reset the Saved Settings to Default." Cursor="Hand" Click="buttonClearAllSavedSettings_Click" Style="{StaticResource ButtonCustom}">
             <TextBlock Text="Reset" Margin="0,-1,0,0"/>
         </Button>
-        <Button x:Name="buttonFFprobeAuto" HorizontalAlignment="Left" Margin="397,48,0,0" VerticalAlignment="Top" Width="23" Foreground="White" BorderThickness="0" Height="23" Cursor="Hand" ToolTip="Revert to Auto" Click="buttonFFprobeAuto_Click" Background="{x:Null}" Style="{StaticResource ButtonBlue}">
+        <Button x:Name="buttonFFprobeAuto" HorizontalAlignment="Left" Margin="397,48,0,0" VerticalAlignment="Top" Width="23" Foreground="White" BorderThickness="0" Height="23" Cursor="Hand" ToolTip="Revert to Auto" Click="buttonFFprobeAuto_Click" Background="{x:Null}" Style="{StaticResource ButtonCustom}">
             <Image Source="Resources/Images/revertarrow.png" Width="9" Height="11" Stretch="Fill" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="1,0,0,0"/>
         </Button>
-        <ComboBox x:Name="cboThreads" Style="{StaticResource ComboBoxBlue}" ItemContainerStyle="{StaticResource ComboBoxBlueItem}" HorizontalAlignment="Left" Margin="95,120,0,0" VerticalAlignment="Top" Width="60" IsTextSearchEnabled="False" SelectionChanged="threadSelect_SelectionChanged" KeyDown="threadSelect_KeyDown">
+        <ComboBox x:Name="cboThreads" Style="{StaticResource ComboBoxCustom}" ItemContainerStyle="{StaticResource ComboBoxCustomItem}" HorizontalAlignment="Left" Margin="95,120,0,0" VerticalAlignment="Top" Width="60" IsTextSearchEnabled="False" SelectionChanged="threadSelect_SelectionChanged" KeyDown="threadSelect_KeyDown">
             <System:String>off</System:String>
             <System:String>all</System:String>
             <System:String>1</System:String>
@@ -91,7 +91,7 @@
         <Label x:Name="labelLogConfig_Copy" Content="CPU Threads" HorizontalAlignment="Left" Margin="10,118,0,0" VerticalAlignment="Top" Height="26" Foreground="White" ToolTip="Path to Save Log"/>
 
         <!-- Delete Saved Settigns Button -->
-        <Button x:Name="buttonDeleteSettings" HorizontalAlignment="Left" Margin="267,120,0,0" VerticalAlignment="Top" Width="60" Background="{x:Null}" Foreground="White" BorderBrush="White" Height="23" ToolTip="Delete the Settings File in AppData." Cursor="Hand" Style="{StaticResource ButtonBlue}" Click="buttonDeleteSettings_Click">
+        <Button x:Name="buttonDeleteSettings" HorizontalAlignment="Left" Margin="267,120,0,0" VerticalAlignment="Top" Width="60" Background="{x:Null}" Foreground="White" BorderBrush="White" Height="23" ToolTip="Delete the Settings File in AppData." Cursor="Hand" Style="{StaticResource ButtonCustom}" Click="buttonDeleteSettings_Click">
             <TextBlock Text="Delete" Margin="0,-1,0,0"/>
         </Button>
         <Label x:Name="labelSavedSettings" Content="Saved Settings" HorizontalAlignment="Left" Margin="174,118,0,0" VerticalAlignment="Top" Height="26" Foreground="White" ToolTip="Path to Save Log"/>

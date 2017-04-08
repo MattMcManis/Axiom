@@ -177,7 +177,7 @@ namespace Axiom
         {
             InitializeComponent();
 
-            TitleVersion = "Axiom ~ FFmpeg UI (0.8.5α)";
+            TitleVersion = "Axiom ~ FFmpeg UI (0.8.6α)";
             DataContext = this;
 
             /// <summary>
@@ -1490,6 +1490,14 @@ namespace Axiom
             console.Left = this.Left + 610;
             console.Top = this.Top + 0;
             console.Show();
+        }
+
+        /// <summary>
+        ///     File Properties Button
+        /// </summary>
+        private void buttonProperties_Click(object sender, RoutedEventArgs e)
+        {
+
         }
 
 
