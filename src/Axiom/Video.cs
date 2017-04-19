@@ -13,7 +13,7 @@ using System.Windows.Media;
 Axiom UI
 Copyright (C) 2017 Matt McManis
 http://github.com/MattMcManis/Axiom
-http://www.x.co/axiomui
+http://axiomui.github.io
 axiom.interface@gmail.com
 
 This program is free software: you can redistribute it and/or modify
@@ -65,7 +65,8 @@ namespace Axiom
         public static string vQual;
         public static string vBitMode;
         public static string vBitrate;
-        public static string vMaxrate; // NOT USED RIGHT NOW, set in Optimize options instead
+        public static string vMaxrate;
+        public static string vBufsize;
         public static string vOptions;
         public static string crf; // ffmpeg quality
         public static string fps; // frames per second
@@ -230,7 +231,7 @@ namespace Axiom
                 mainwindow.cboOptimize.ItemsSource = OptimizeItemSource;
 
                 // Select Item
-                mainwindow.cboOptimize.SelectedItem = "Web";
+                mainwindow.cboOptimize.SelectedItem = "none";
 
                 // Enable Control
                 mainwindow.cboOptimize.IsEnabled = true;
@@ -316,7 +317,7 @@ namespace Axiom
                 mainwindow.cboOptimize.ItemsSource = OptimizeItemSource;
 
                 // Select Item
-                mainwindow.cboOptimize.SelectedItem = "Web";
+                mainwindow.cboOptimize.SelectedItem = "none";
 
                 // Enable Control
                 mainwindow.cboOptimize.IsEnabled = true;
@@ -1439,7 +1440,7 @@ namespace Axiom
                 //if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8") { crf = "-b:v 0 -crf 4"; vBitrate = "-b:v 0" /* for 2 pass */; vOptions = "-pix_fmt yuv444p"; } //VP8 cannot be Lossless
                 if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9") { crf = "-lossless 1" /* crf needs b:v 0*/; vBitrate = "-lossless 1" /* for 2 pass */; vOptions = "-pix_fmt yuv444p"; }
                 else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264") { crf = "-qp 0"; vBitrate = "-qp 0" /* for 2 pass */; vOptions = "-pix_fmt yuv444p"; }
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265") { crf = "-x265-params lossless"; vBitrate = "-x265-params lossless" /* for 2 pass */; vOptions = "-pix_fmt yuv444p"; }
+                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265") { crf = "-qp 0 -x265-params lossless"; vBitrate = "-qp 0 -x265-params lossless" /* for 2 pass */; vOptions = "-pix_fmt yuv444p"; }
                 // Theora can't be Lossless
 
                 // Lossless Switch
@@ -1486,8 +1487,8 @@ namespace Axiom
             {
                 if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8") { crf = "-b:v 4M -crf 10" /* crf needs b:v 0*/; vBitrate = "-b:v 5M" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
                 else if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9") { crf = "-b:v 4M -crf 10"/* crf needs b:v 0*/; vBitrate = "-b:v 5M" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264") { crf = "-crf 18"; vBitrate = "-b:v 5M" /* for 2 pass */; vOptions = "-pix_fmt yuv420p -qcomp 0.8"; }
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265") { crf = "-x265-params crf=23"; vBitrate = "-b:v 5M" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
+                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264") { crf = "-crf 16"; vBitrate = "-b:v 5M" /* for 2 pass */; vMaxrate = "-maxrate 5M"; vOptions = "-pix_fmt yuv420p -qcomp 0.8"; }
+                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265") { crf = "-crf 20 -x265-params crf=20"; vBitrate = "-b:v 5M" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
                 else if ((string)mainwindow.cboVideoCodec.SelectedItem == "Theora") { crf = "-q:v 10"; vBitrate = "-q:v 10" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; } //OGV uses forced q:v instead of CRF
                 else if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG") { crf = string.Empty; vBitrate = "-qscale:v 2"; vOptions = string.Empty; }
 
@@ -1501,8 +1502,8 @@ namespace Axiom
             {
                 if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8") { crf = "-b:v 2M -crf 12" /* crf needs b:v 0*/; vBitrate = "-b:v 2M" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
                 else if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9") { crf = "-b:v 2M -crf 12" /* crf needs b:v 0*/; vBitrate = "-b:v 2M" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264") { crf = "-crf 23"; vBitrate = "-b:v 2M" /* for 2 pass */; vOptions = "-pix_fmt yuv420p -qcomp 0.8"; }
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265") { crf = "-x265-params crf=28"; vBitrate = "-b:v 2M" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
+                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264") { crf = "-crf 20"; vBitrate = "-b:v 2500K" /* for 2 pass */; vMaxrate = "-maxrate 2500K"; vOptions = "-pix_fmt yuv420p -qcomp 0.8"; }
+                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265") { crf = "-crf 25 -x265-params crf=25"; vBitrate = "-b:v 2M" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
                 else if ((string)mainwindow.cboVideoCodec.SelectedItem == "Theora") { crf = "-q:v 8"; vBitrate = "-q:v 8" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; } //OGV uses forced q:v instead of CRF
                 else if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG") { crf = string.Empty; vBitrate = "-qscale:v 4"; vOptions = string.Empty; }
 
@@ -1514,10 +1515,10 @@ namespace Axiom
             // -------------------------
             else if ((string)mainwindow.cboVideo.SelectedItem == "Medium")
             {
-                if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8") { crf = "-b:v 1.3M -crf 16" /* crf needs b:v 0*/; vBitrate = "-b:v 1.3M" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9") { crf = "-b:v 1.3M -crf 16" /* crf needs b:v 0*/; vBitrate = "-b:v 1.3M" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264") { crf = "-crf 30"; vBitrate = "-b:v 1.3M" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265") { crf = "-x265-params crf=35"; vBitrate = "-b:v 1.3M" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
+                if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8") { crf = "-b:v 1300K -crf 16" /* crf needs b:v 0*/; vBitrate = "-b:v 1300K" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
+                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9") { crf = "-b:v 1300K -crf 16" /* crf needs b:v 0*/; vBitrate = "-b:v 1300K" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
+                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264") { crf = "-crf 28"; vBitrate = "-b:v 1300K" /* for 2 pass */; vMaxrate = "-maxrate 1300K"; vOptions = "-pix_fmt yuv420p"; }
+                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265") { crf = "-crf 30 -x265-params crf=30"; vBitrate = "-b:v 1300K" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
                 else if ((string)mainwindow.cboVideoCodec.SelectedItem == "Theora") { crf = "-q:v 6"; vBitrate = "-q:v 6" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; } //OGV uses forced q:v instead of CRF
                 else if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG") { crf = string.Empty; vBitrate = "-qscale:v 8"; vOptions = string.Empty; }
 
@@ -1531,8 +1532,8 @@ namespace Axiom
             {
                 if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8") { crf = "-b:v 600K -crf 20" /* crf needs b:v 0*/; vBitrate = "-b:v 600K" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
                 else if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9") { crf = "-b:v 600K -crf 20" /* crf needs b:v 0*/; vBitrate = "-b:v 600K" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264") { crf = "-crf 37"; vBitrate = "-b:v 600K" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265") { crf = "-x265-params crf=42"; vBitrate = "-b:v 600K" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
+                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264") { crf = "-crf 37"; vBitrate = "-b:v 600K" /* for 2 pass */; vMaxrate = "-maxrate 600K"; vOptions = "-pix_fmt yuv420p"; }
+                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265") { crf = "-crf 38 -x265-params crf=38"; vBitrate = "-b:v 600K" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
                 else if ((string)mainwindow.cboVideoCodec.SelectedItem == "Theora") { crf = "-q:v 4"; vBitrate = "-q:v 4" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; } //OGV uses forced q:v instead of CRF
                 else if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG") { crf = string.Empty; vBitrate = "-qscale:v 15"; vOptions = string.Empty; }
 
@@ -1546,8 +1547,8 @@ namespace Axiom
             {
                 if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8") { crf = "-b:v 250K -crf 25" /* crf needs b:v 0*/; vBitrate = "-b:v 250K" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
                 else if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9") { crf = "-b:v 250K -crf 25" /* crf needs b:v 0*/; vBitrate = "-b:v 250K" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264") { crf = "-crf 45"; vBitrate = "-b:v 250K" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265") { crf = "-x265-aQualparams crf=50"; vBitrate = "-b:v 250K" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
+                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264") { crf = "-crf 45"; vBitrate = "-b:v 250K" /* for 2 pass */; vMaxrate = "-maxrate 250K"; vOptions = "-pix_fmt yuv420p"; }
+                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265") { crf = "-crf 45 -x265-params crf=45"; vBitrate = "-b:v 250K" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
                 else if ((string)mainwindow.cboVideoCodec.SelectedItem == "Theora") { crf = "-q:v 2"; vBitrate = "-q:v 2" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; } //OGV uses forced q:v instead of CRF
                 else if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG") { crf = string.Empty; vBitrate = "-qscale:v 25"; vOptions = string.Empty; }
 
@@ -1637,11 +1638,11 @@ namespace Axiom
                 if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8") { vOptions = "-pix_fmt yuv420p"; } //used to have -qmin 0 -qmax 50
                 else if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9") { vOptions = "-pix_fmt yuv420p"; }
                 else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264") { vOptions = "-pix_fmt yuv420p"; }
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265") { crf = "-x265-params crf=" + mainwindow.crfCustom.Text; vOptions = "-pix_fmt yuv420p"; }
+                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265") { crf = "-crf" + mainwindow.crfCustom.Text + " -x265-params crf=" + mainwindow.crfCustom.Text; vOptions = "-pix_fmt yuv420p"; }
                 // Theora cant have Custom yet
 
                 //Combine
-                vQual = vBitMode + " " + vBitrate + " " + crf + " " + vMaxrate + " " + vOptions;
+                vQual = vBitMode + " " + vBitrate + " " + crf + " " + vMaxrate + " " + vBufsize + " " + vOptions;
             }
             // -------------------------
             // None
@@ -1660,6 +1661,7 @@ namespace Axiom
                 vBitMode = string.Empty;
                 vBitrate = string.Empty;
                 vMaxrate = string.Empty;
+                vBufsize = string.Empty;
                 vQual = string.Empty;
             }
 
@@ -1670,6 +1672,7 @@ namespace Axiom
                 vBitMode = string.Empty;
                 vBitrate = string.Empty;
                 vMaxrate = string.Empty;
+                vBufsize = string.Empty;
                 vQual = string.Empty;
             }
 

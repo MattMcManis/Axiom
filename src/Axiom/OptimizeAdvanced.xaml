@@ -2,7 +2,7 @@
     Axiom UI
     Copyright (C) 2017 Matt McManis
     http://github.com/MattMcManis/Axiom
-    http://www.x.co/axiomui
+    http://axiomui.github.io
     axiom.interface@gmail.com
 
     This program is free software: you can redistribute it and/or modify
@@ -23,18 +23,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:System="clr-namespace:System;assembly=mscorlib"
         Title="Optimize Advanced" Height="200" Width="371" Icon="axiom.ico"
-        ResizeMode="CanMinimize" UseLayoutRounding="True">
-
-    <Window.Background>
-        <ImageBrush ImageSource="Resources/Images/config-background.jpg" Stretch="UniformToFill"/>
-    </Window.Background>
+        ResizeMode="CanMinimize" UseLayoutRounding="True"
+        Style="{DynamicResource WindowOptimizeAdvanced}">
     <Grid>
         <!-- Black Overlay -->
-        <Rectangle HorizontalAlignment="Left" Height="232" Margin="-22,-41,-17,-20" StrokeThickness="1" VerticalAlignment="Top" Width="404" Fill="Black" Opacity="0.35"/>
 
         <!-- Tune -->
-        <Label x:Name="labelTune" Content="Tune" HorizontalAlignment="Left" Margin="57,27,0,0" Padding="0,5,0,5" VerticalAlignment="Top" Width="75" Foreground="White" />
-        <ComboBox x:Name="cboOptimizeTune" Style="{StaticResource ComboBoxCustom}"  ItemContainerStyle="{StaticResource ComboBoxCustomItem}" HorizontalAlignment="Left" Margin="57,53,0,0" VerticalAlignment="Top" Width="75" ToolTipService.InitialShowDelay="1000" ToolTipService.ShowOnDisabled="True" ToolTip="">
+        <Label x:Name="labelTune" Style="{DynamicResource LabelCustom}" Content="Tune" HorizontalAlignment="Left" Margin="57,27,0,0" Padding="0,5,0,5" VerticalAlignment="Top" Width="75" />
+        <ComboBox x:Name="cboOptimizeTune" Style="{DynamicResource ComboBoxCustom}"  ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" HorizontalAlignment="Left" Margin="57,53,0,0" VerticalAlignment="Top" Width="75" ToolTipService.InitialShowDelay="1000" ToolTipService.ShowOnDisabled="True" ToolTip="">
             <System:String>none</System:String>
             <System:String>film</System:String>
             <System:String>animation</System:String>
@@ -45,8 +41,8 @@
         </ComboBox>
 
         <!-- Profile -->
-        <Label x:Name="labelProfile" Content="Profile" HorizontalAlignment="Left" Margin="140,27,0,0" Padding="0,5,0,5" VerticalAlignment="Top" Width="75" Foreground="White" />
-        <ComboBox x:Name="cboOptimizeProfile" Style="{StaticResource ComboBoxCustom}" ItemContainerStyle="{StaticResource ComboBoxCustomItem}" HorizontalAlignment="Left" Margin="140,53,0,0" VerticalAlignment="Top" Width="75" SelectionChanged="cboOptimizeProfile_SelectionChanged">
+        <Label x:Name="labelProfile" Style="{DynamicResource LabelCustom}" Content="Profile" HorizontalAlignment="Left" Margin="140,27,0,0" Padding="0,5,0,5" VerticalAlignment="Top" Width="75" />
+        <ComboBox x:Name="cboOptimizeProfile" Style="{DynamicResource ComboBoxCustom}" ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" HorizontalAlignment="Left" Margin="140,53,0,0" VerticalAlignment="Top" Width="75" SelectionChanged="cboOptimizeProfile_SelectionChanged">
             <System:String>none</System:String>
             <System:String>baseline</System:String>
             <System:String>main</System:String>
@@ -54,8 +50,8 @@
         </ComboBox>
 
         <!-- Level -->
-        <Label x:Name="labelLevel" Content="Level" HorizontalAlignment="Left" Margin="223,27,0,0" Padding="0,5,0,5" VerticalAlignment="Top" Width="75" Foreground="White" />
-        <ComboBox x:Name="cboOptimizeLevel" Style="{StaticResource ComboBoxCustom}" ItemContainerStyle="{StaticResource ComboBoxCustomItem}" HorizontalAlignment="Left" Margin="223,53,0,0" VerticalAlignment="Top" Width="75" SelectionChanged="cboOptimizeLevel_SelectionChanged">
+        <Label x:Name="labelLevel" Style="{DynamicResource LabelCustom}" Content="Level" HorizontalAlignment="Left" Margin="223,27,0,0" Padding="0,5,0,5" VerticalAlignment="Top" Width="75" />
+        <ComboBox x:Name="cboOptimizeLevel" Style="{DynamicResource ComboBoxCustom}" ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" HorizontalAlignment="Left" Margin="223,53,0,0" VerticalAlignment="Top" Width="75" SelectionChanged="cboOptimizeLevel_SelectionChanged">
             <System:String>none</System:String>
             <System:String>1.0</System:String>
             <System:String>1.1</System:String>
@@ -76,12 +72,12 @@
         </ComboBox>
 
         <!-- Set -->
-        <Button x:Name="buttonOptimizeSet" HorizontalAlignment="Left" Margin="277,121,0,0" VerticalAlignment="Top" Width="60" Height="22" Cursor="Hand" Background="White" BorderBrush="White" Click="buttonOptimizeSet_Click">
+        <Button x:Name="buttonOptimizeSet" Style="{DynamicResource ButtonCustom}" HorizontalAlignment="Left" Margin="277,121,0,0" VerticalAlignment="Top" Width="60" Height="22" Cursor="Hand" Click="buttonOptimizeSet_Click">
             <TextBlock x:Name="buttonSetTextBlock" Text="Set" Margin="0,-2,0,0"/>
         </Button>
 
         <!-- Clear -->
-        <Button x:Name="buttonOptimizeClear" HorizontalAlignment="Left" Margin="18,121,0,0" VerticalAlignment="Top" Width="60" Height="22" Cursor="Hand" Background="White" BorderBrush="White" Click="buttonOptimizeClear_Click">
+        <Button x:Name="buttonOptimizeClear" Style="{DynamicResource ButtonCustom}" HorizontalAlignment="Left" Margin="18,121,0,0" VerticalAlignment="Top" Width="60" Height="22" Cursor="Hand" Click="buttonOptimizeClear_Click">
             <TextBlock x:Name="buttonClearTextBlock1" Text="Clear" Margin="0,-2,0,0"/>
         </Button>
 

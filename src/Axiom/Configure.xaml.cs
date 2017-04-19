@@ -14,7 +14,7 @@ using System.Windows.Media;
 Axiom UI
 Copyright (C) 2017 Matt McManis
 http://github.com/MattMcManis/Axiom
-http://www.x.co/axiomui
+http://axiomui.github.io
 axiom.interface@gmail.com
 
 This program is free software: you can redistribute it and/or modify
@@ -41,6 +41,7 @@ namespace Axiom
         // --------------------------------------------------------------------------------------------------------
         // Variables
         // --------------------------------------------------------------------------------------------------------
+        public static string theme; // Set Theme (public - pass data)
         public static string ffmpegPath; // Config Settings Path (public - pass data)
         public static string ffprobePath; // Config Settings Path (public - pass data)
         public static string logPath; // output.log Config Settings Path (public - pass data)
@@ -75,13 +76,39 @@ namespace Axiom
             // --------------------------------------------------
             // Combobox Item Background Colors
             // --------------------------------------------------
-            Brush DarkBlue = (SolidColorBrush)(new BrushConverter().ConvertFrom("#1049bb")); //hex color to brush
-            cboThreads.Resources.Add(SystemColors.WindowBrushKey, DarkBlue);
+            //Brush DarkBlue = (SolidColorBrush)(new BrushConverter().ConvertFrom("#1049bb")); //hex color to brush
+            //cboThreads.Resources.Add(SystemColors.WindowBrushKey, DarkBlue);
 
 
             // --------------------------------------------------
             // Load From Saved Settings
             // --------------------------------------------------
+
+            // -------------------------
+            // Theme CombBox
+            // -------------------------
+            // Load Theme from saved settings
+            // Safeguard Against Corrupt Saved Settings
+            try
+            {
+                // First time use
+                if (string.IsNullOrEmpty(Settings.Default["Theme"].ToString()))
+                {
+                    cboTheme.SelectedItem = "Axiom";
+                    theme = cboTheme.SelectedItem.ToString();
+                }
+                // Load Theme ComboBox from Saved Settings
+                else if (!string.IsNullOrEmpty(Settings.Default["Theme"].ToString())) // null check
+                {
+                    cboTheme.SelectedItem = Settings.Default["Theme"].ToString();
+                }
+            }
+            catch
+            {
+
+            }
+
+
             // -------------------------
             // FFmpeg Path
             // -------------------------        
@@ -575,6 +602,22 @@ namespace Axiom
             }
         }
 
+        // --------------------------------------------------
+        // Theme Select ComboBox
+        // --------------------------------------------------
+        private void themeSelect_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            string theme = cboTheme.SelectedItem.ToString();
+
+            App.Current.Resources.MergedDictionaries.Clear();
+            App.Current.Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new Uri("Theme" + theme + ".xaml", UriKind.RelativeOrAbsolute) });
+
+            // Save Theme for next launch
+            Settings.Default["Theme"] = cboTheme.SelectedItem.ToString();
+            Settings.Default.Save();
+            Settings.Default.Reload();
+        }
+
 
         // --------------------------------------------------
         // Reset Saved Settings Button
@@ -644,6 +687,8 @@ namespace Axiom
                 System.Windows.MessageBox.Show("No Previous Settings Found.");
             }
         }
+
+
     }
 
 }

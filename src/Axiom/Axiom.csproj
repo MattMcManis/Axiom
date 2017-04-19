@@ -157,9 +157,21 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="TemplateStylesDictionary.xaml">
+    <Page Include="ThemeCyberpunk.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ThemeFFmpeg.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ThemeAxiom.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ThemeSystem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -276,17 +288,17 @@
     <Resource Include="Resources\Images\ComboBoxMouseOverBorder-75x22.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Images\ToggleButtonGenericSmallDisabled.png" />
+    <Resource Include="Resources\Images\ToggleButtonSmallDisabled.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Images\ToggleButtonGenericSmallChecked.png" />
-    <Resource Include="Resources\Images\ToggleButtonGenericSmallUnchecked.png" />
+    <Resource Include="Resources\Images\ToggleButtonSmallChecked.png" />
+    <Resource Include="Resources\Images\ToggleButtonSmallUnchecked.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Images\ToggleButtonGenericSmallMouseOver.png" />
+    <Resource Include="Resources\Images\ToggleButtonSmallMouseOver.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Images\ToggleButtonGenericsmallMouseOver-Unchecked.png" />
+    <Resource Include="Resources\Images\ToggleButtonSmallMouseOver-Unchecked.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Images\BrowseTextBox.png" />
@@ -295,7 +307,12 @@
     <Resource Include="Resources\Images\ArrowDown.png" />
     <Resource Include="Resources\Images\ArrowUp.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\Images\buttonCropClearDisabled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\properties.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>

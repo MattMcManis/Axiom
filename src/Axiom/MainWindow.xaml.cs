@@ -25,7 +25,7 @@ using System.Windows.Threading;
     Axiom UI
     Copyright (C) 2017 Matt McManis
     http://github.com/MattMcManis/Axiom
-    http://www.x.co/axiomui
+    http://axiomui.github.io
     axiom.interface@gmail.com
 
     This program is free software: you can redistribute it and/or modify
@@ -119,8 +119,8 @@ namespace Axiom
         /// </summary>
         // --------------------------------------------------------------------------------------------------------
         // TextBox Disabled Foreground
-        public static Brush TextBoxDiabledForeground = (SolidColorBrush)(new BrushConverter().ConvertFrom("#ADD5FF"));
-        public static Brush TextBoxDarkBlue = (SolidColorBrush)(new BrushConverter().ConvertFrom("#00034E"));
+        //public static Brush TextBoxDiabledForeground = (SolidColorBrush)(new BrushConverter().ConvertFrom("#ADD5FF"));
+        //public static Brush TextBoxDarkBlue = (SolidColorBrush)(new BrushConverter().ConvertFrom("#00034E"));
 
         //ComboBox Foreground
         //public static Brush CustomBlue = (SolidColorBrush)(new BrushConverter().ConvertFrom("#1049BB")); //hex color to brush
@@ -177,7 +177,7 @@ namespace Axiom
         {
             InitializeComponent();
 
-            TitleVersion = "Axiom ~ FFmpeg UI (0.8.6α)";
+            TitleVersion = "Axiom ~ FFmpeg UI (0.8.7α)";
             DataContext = this;
 
             /// <summary>
@@ -242,7 +242,7 @@ namespace Axiom
                 //cboTune.SelectedItem = "none";
                 cboSubtitle.SelectedItem = "none";
                 cboAudioStream.SelectedItem = "1";
-                cboOptimize.SelectedItem = "Web";
+                //cboOptimize.SelectedItem = "Web";
             }
 
             // Batch Extension Box Disabled
@@ -279,6 +279,40 @@ namespace Axiom
                 {
 
                 }
+            }
+
+
+            // -------------------------
+            // Load Theme
+            // -------------------------
+            // Safeguard Against Corrupt Saved Settings
+            try
+            {
+                // first time use
+                if (string.IsNullOrEmpty(Settings.Default["Theme"].ToString()))
+                {
+                    //Configure.theme = "Axiom";
+                    //Configure.cboTheme.SelectedItem = "Axiom";
+
+                    string theme = "Axiom";
+                    App.Current.Resources.MergedDictionaries.Clear();
+                    App.Current.Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new Uri("Theme" + theme + ".xaml", UriKind.RelativeOrAbsolute) });
+                }
+                // If string has value
+                else if (!string.IsNullOrEmpty(Settings.Default["Theme"].ToString())) // auto/null check
+                {
+                    // Load Saved Settings Override
+                    //Configure.theme = Settings.Default["Theme"].ToString();
+                    //Configure.cboTheme.SelectedItem = Settings.Default["Theme"].ToString();
+
+                    string theme = Settings.Default["Theme"].ToString();
+                    App.Current.Resources.MergedDictionaries.Clear();
+                    App.Current.Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new Uri("Theme" + theme + ".xaml", UriKind.RelativeOrAbsolute) });
+                }
+            }
+            catch
+            {
+
             }
 
 
@@ -1072,6 +1106,41 @@ namespace Axiom
 
 
         /// <summary>
+        ///    Input / Output File (Method)
+        /// </summary>
+        public void InputOutputFile()
+        {
+            // Get input file extension
+            inputExt = System.IO.Path.GetExtension(textBoxBrowse.Text);
+
+            // Set the input / output strings
+            // Single File
+            if (tglBatch.IsChecked == false)
+            {
+                // Get Input Filename without extension
+                inputFileName = System.IO.Path.GetFileNameWithoutExtension(textBoxBrowse.Text);
+                // Get Output Folder Path + Input Filename = Output Filename
+                outputFileName = inputFileName;
+
+                // If Image Sequence
+                if ((string)cboMediaType.SelectedItem == "Sequence")
+                {
+                    outputFileName = "image-%03d"; //must be this name
+                }
+
+                input = textBoxBrowse.Text; // (eg. C:\Input Folder\file.wmv)
+                output = textBoxOutput.Text + outputFileName + outputExt; // (eg. C:\Output Folder\ + file + .mp4)                                                        
+            }
+            // Batch
+            else if (tglBatch.IsChecked == true)
+            {
+                input = textBoxBrowse.Text; // (eg. C:\Input Folder\)                
+                output = textBoxOutput.Text + "%~nf" + outputExt; // (eg. C:\Output Folder\%~nf.mp4)
+            }
+        }
+
+
+        /// <summary>
         ///    Input / Output Path Modifier (Method)
         /// </summary>
         public void InputOutputPathModifier()
@@ -1113,56 +1182,22 @@ namespace Axiom
 
             // -------------------------
             //  Output Default folder
-            //  Single File
             // -------------------------
+            // Output Default Folder BATCH
             // If Output empty, default to same as Input folder
-            if (!string.IsNullOrWhiteSpace(textBoxBrowse.Text) && string.IsNullOrWhiteSpace(textBoxOutput.Text) && tglBatch.IsChecked == false)
+            if (tglBatch.IsChecked == true && !string.IsNullOrWhiteSpace(textBoxBrowse.Text) && string.IsNullOrWhiteSpace(textBoxOutput.Text))
+            {
+                textBoxOutput.Text = textBoxOutput.Text.TrimEnd('\\') + @"\";
+                outputDir = inputDir;
+            }
+
+            // Output Default Folder Single File
+            // If Output empty, default to same as Input folder
+            if (!string.IsNullOrWhiteSpace(textBoxBrowse.Text) && string.IsNullOrWhiteSpace(textBoxOutput.Text))
             {
                 // Recreate Output Path + Filename
                 textBoxOutput.Text = inputDir;
                 outputDir = inputDir; //used for later renaming file.mp3 to file1.mp3
-            }
-            // Output Default Folder BATCH #####################
-            // If Output empty, default to same as Input folder
-            if (!string.IsNullOrWhiteSpace(textBoxBrowse.Text) && string.IsNullOrWhiteSpace(textBoxOutput.Text) && tglBatch.IsChecked == true)
-            {
-                textBoxOutput.Text = textBoxBrowse.Text;
-                outputDir = inputDir;
-            }
-        }
-
-
-        /// <summary>
-        ///    Input / Output File (Method)
-        /// </summary>
-        public void InputOutputFile()
-        {
-            // Get input file extension
-            inputExt = System.IO.Path.GetExtension(textBoxBrowse.Text);
-
-            // Set the input / output strings
-            // Single File
-            if (tglBatch.IsChecked == false)
-            {
-                // Get Input Filename without extension
-                inputFileName = System.IO.Path.GetFileNameWithoutExtension(textBoxBrowse.Text);
-                // Get Output Folder Path + Input Filename = Output Filename
-                outputFileName = inputFileName;
-
-                // If Image Sequence
-                if ((string)cboMediaType.SelectedItem == "Sequence")
-                {
-                    outputFileName = "image-%03d"; //must be this name
-                }
-
-                input = textBoxBrowse.Text; // (eg. C:\Input Folder\file.wmv)
-                output = textBoxOutput.Text + outputFileName + outputExt; // (eg. C:\Output Folder\ + file + .mp4)                                                        
-            }
-            // Batch
-            else if (tglBatch.IsChecked == true)
-            {
-                input = textBoxBrowse.Text; // (eg. C:\Input Folder\)                
-                output = textBoxOutput.Text + "%~nf" + outputExt; // (eg. C:\Output Folder\%~nf.mp4)
             }
         }
 
@@ -1251,24 +1286,25 @@ namespace Axiom
             try
             {
                 // Delete File
-                if (File.Exists(@MainWindow.currentDir + "\\ffmpeg2pass-0.log.mbtree"))
-                {
-                    FileInfo file = new FileInfo(@MainWindow.currentDir + "\\ffmpeg2pass-0.log.mbtree");
-
-                    while (IsFileLocked(file))
-                        Thread.Sleep(1000);
-                    await file.DeleteAsync();
-                }
+                // Don't Use, causing log to delete too early when needed by ffmpeg for pass 2
+                //if (File.Exists(@MainWindow.currentDir + "\\ffmpeg2pass-0.log.mbtree"))
+                //{
+                //    FileInfo file = new FileInfo(@MainWindow.currentDir + "\\ffmpeg2pass-0.log.mbtree");
+                //
+                //    while (IsFileLocked(file))
+                //        Thread.Sleep(1000);
+                //    await file.DeleteAsync();
+                //}
 
                 // Delete File
-                if (File.Exists(@MainWindow.currentDir + "\\ffmpeg2pass-0.log"))
-                {
-                    FileInfo file = new FileInfo(@MainWindow.currentDir + "\\ffmpeg2pass-0.log");
-
-                    while (IsFileLocked(file))
-                        Thread.Sleep(1000);
-                    await file.DeleteAsync();
-                }
+                //if (File.Exists(@MainWindow.currentDir + "\\ffmpeg2pass-0.log"))
+                //{
+                //    FileInfo file = new FileInfo(@MainWindow.currentDir + "\\ffmpeg2pass-0.log");
+                //
+                //    while (IsFileLocked(file))
+                //        Thread.Sleep(1000);
+                //    await file.DeleteAsync();
+                //}
 
             }
             catch
@@ -1439,6 +1475,406 @@ namespace Axiom
         }
 
 
+        /// <summary>
+        ///    FFprobe Detect Metadata (Method)
+        /// </summary> 
+        public void Metadata()
+        {
+            // --------------------------------------------------------------------
+            // Section: FFprobe
+            // --------------------------------------------------------------------
+
+            // Log Console Message /////////
+            Log.WriteAction = () =>
+            {
+                Log.paragraph.Inlines.Add(new LineBreak());
+                Log.paragraph.Inlines.Add(new LineBreak());
+                Log.paragraph.Inlines.Add(new Bold(new Run("FFprobe")) { Foreground = Log.ConsoleTitle });
+            };
+            Log.LogActions.Add(Log.WriteAction);
+
+
+            // Only Run FFprobe if Input File is Not Null
+            // Strange FFprobe Class problem - methods halting after FFprobeInputFileInfo() 
+            // unless Null Check is put here instead of inside the Class.
+            if (!string.IsNullOrWhiteSpace(textBoxBrowse.Text) && !string.IsNullOrEmpty(inputDir) && !string.IsNullOrEmpty(FFprobe.ffprobe))
+            {
+                /// <summary>
+                ///    FFprobe Video Entry Type Containers
+                /// </summary> 
+                FFprobe.FFprobeVideoEntryType(this);
+
+
+                /// <summary>
+                ///    FFprobe Audio Entry Type Containers
+                /// </summary> 
+                FFprobe.FFprobeAudioEntryType(this);
+
+
+                /// <summary>
+                ///    FFprobe Input File Size
+                /// </summary> 
+                FFprobe.FFprobeInputFileInfo(this);
+
+
+                /// <summary>
+                ///    Video Bitrate Calculator
+                /// </summary> 
+                Video.VideoBitrateCalculator(this);
+
+
+                /// <summary>
+                ///    Audio Bitrate Calculator
+                /// </summary> 
+                Audio.AudioBitrateCalculator(this);
+            }
+
+            // --------------------------------------------------------------------
+            // Section: Input
+            // --------------------------------------------------------------------
+
+            // Log Console Message /////////
+            // Only Check FFprobe Input if Input File is Not Null
+            if (!string.IsNullOrWhiteSpace(textBoxBrowse.Text) && !string.IsNullOrEmpty(inputDir) && !string.IsNullOrEmpty(FFprobe.ffprobe))
+            {
+                Log.WriteAction = () =>
+                {
+                    // Log Console Message /////////
+                    Log.paragraph.Inlines.Add(new LineBreak());
+                    Log.paragraph.Inlines.Add(new LineBreak());
+                    Log.paragraph.Inlines.Add(new LineBreak());
+                    Log.paragraph.Inlines.Add(new Bold(new Run("Input File Details")) { Foreground = Log.ConsoleTitle });
+
+                    Log.paragraph.Inlines.Add(new LineBreak());
+                    Log.paragraph.Inlines.Add(new LineBreak());
+                    Log.paragraph.Inlines.Add(new Bold(new Run("Directory: ")) { Foreground = Log.ConsoleDefault });
+                    Log.paragraph.Inlines.Add(new Run(inputDir) { Foreground = Log.ConsoleDefault });
+
+                    Log.paragraph.Inlines.Add(new LineBreak());
+                    Log.paragraph.Inlines.Add(new LineBreak());
+                    Log.paragraph.Inlines.Add(new Bold(new Run("General")) { Foreground = Log.ConsoleAction });
+                    Log.paragraph.Inlines.Add(new LineBreak());
+
+                    Log.paragraph.Inlines.Add(new Bold(new Run("Format: ")) { Foreground = Log.ConsoleDefault });
+                    // single file
+                    if (!string.IsNullOrEmpty(inputExt))
+                    {
+                        Log.paragraph.Inlines.Add(new Run(inputExt) { Foreground = Log.ConsoleDefault });
+                    }
+                    // batch
+                    if (!string.IsNullOrEmpty(batchExt) && batchExt != "extension")
+                    {
+                        Log.paragraph.Inlines.Add(new Run(batchExt) { Foreground = Log.ConsoleDefault });
+                    }
+
+                    Log.paragraph.Inlines.Add(new LineBreak());
+                    Log.paragraph.Inlines.Add(new Bold(new Run("Size: ")) { Foreground = Log.ConsoleDefault });
+                    Log.paragraph.Inlines.Add(new Run(FFprobe.inputSize) { Foreground = Log.ConsoleDefault });
+                    Log.paragraph.Inlines.Add(new LineBreak());
+                    Log.paragraph.Inlines.Add(new Bold(new Run("Duration: ")) { Foreground = Log.ConsoleDefault });
+                    Log.paragraph.Inlines.Add(new Run(FFprobe.inputDuration) { Foreground = Log.ConsoleDefault });
+
+                    Log.paragraph.Inlines.Add(new LineBreak());
+                    Log.paragraph.Inlines.Add(new LineBreak());
+                    Log.paragraph.Inlines.Add(new Bold(new Run("Video")) { Foreground = Log.ConsoleAction });
+                    Log.paragraph.Inlines.Add(new LineBreak());
+                    Log.paragraph.Inlines.Add(new Bold(new Run("Codec: ")) { Foreground = Log.ConsoleDefault });
+                    Log.paragraph.Inlines.Add(new Run(FFprobe.inputVideoCodec) { Foreground = Log.ConsoleDefault });
+                    Log.paragraph.Inlines.Add(new LineBreak());
+                    Log.paragraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
+                    Log.paragraph.Inlines.Add(new Run(FFprobe.inputVideoBitrate) { Foreground = Log.ConsoleDefault });
+                    Log.paragraph.Inlines.Add(new LineBreak());
+                    Log.paragraph.Inlines.Add(new Bold(new Run("FPS: ")) { Foreground = Log.ConsoleDefault });
+                    Log.paragraph.Inlines.Add(new Run(FFprobe.inputFramerate) { Foreground = Log.ConsoleDefault });
+
+                    Log.paragraph.Inlines.Add(new LineBreak());
+                    Log.paragraph.Inlines.Add(new LineBreak());
+                    Log.paragraph.Inlines.Add(new Bold(new Run("Audio")) { Foreground = Log.ConsoleAction });
+                    Log.paragraph.Inlines.Add(new LineBreak());
+                    Log.paragraph.Inlines.Add(new Bold(new Run("Codec: ")) { Foreground = Log.ConsoleDefault });
+                    Log.paragraph.Inlines.Add(new Run(FFprobe.inputAudioCodec) { Foreground = Log.ConsoleDefault });
+                    Log.paragraph.Inlines.Add(new LineBreak());
+                    Log.paragraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
+                    Log.paragraph.Inlines.Add(new Run(Convert.ToString(FFprobe.ffprobeAudioBitrateResult.Replace("\r\n", "").Replace("\n", "").Replace("\r", ""))) { Foreground = Log.ConsoleDefault }); //use ffprobe result to avoid Limiting the bitrate
+                };
+                Log.LogActions.Add(Log.WriteAction);
+            }
+            else
+            {
+                // Log Console Message /////////
+                Log.WriteAction = () =>
+                {
+                    Log.paragraph.Inlines.Add(new LineBreak());
+                    Log.paragraph.Inlines.Add(new LineBreak());
+                    Log.paragraph.Inlines.Add(new Bold(new Run("Input File Not Found")) { Foreground = Log.ConsoleWarning });
+                };
+                Log.LogActions.Add(Log.WriteAction);
+            }
+
+
+            // --------------------------------------------------------------------
+            // Section: Output
+            // --------------------------------------------------------------------
+            // Log Console Message /////////
+            Log.WriteAction = () =>
+            {
+                Log.paragraph.Inlines.Add(new LineBreak());
+                Log.paragraph.Inlines.Add(new LineBreak());
+                Log.paragraph.Inlines.Add(new LineBreak());
+                Log.paragraph.Inlines.Add(new Bold(new Run("Output File Settings")) { Foreground = Log.ConsoleTitle });
+            };
+            Log.LogActions.Add(Log.WriteAction);
+
+            // Log Console Message /////////
+            Log.WriteAction = () =>
+            {
+                Log.paragraph.Inlines.Add(new LineBreak());
+                Log.paragraph.Inlines.Add(new LineBreak());
+                Log.paragraph.Inlines.Add(new Bold(new Run("Directory: ")) { Foreground = Log.ConsoleDefault });
+                Log.paragraph.Inlines.Add(new Run(outputDir) { Foreground = Log.ConsoleDefault });
+            };
+            Log.LogActions.Add(Log.WriteAction);
+
+            // --------------------------------------------------
+            // Category: General
+            // --------------------------------------------------
+            // Log Console Message /////////
+            Log.WriteAction = () =>
+            {
+                Log.paragraph.Inlines.Add(new LineBreak());
+                Log.paragraph.Inlines.Add(new LineBreak());
+                Log.paragraph.Inlines.Add(new Bold(new Run("General")) { Foreground = Log.ConsoleAction });
+            };
+            Log.LogActions.Add(Log.WriteAction);
+
+
+            // -------------------------
+            //    Format
+            // -------------------------
+            // fileFormat() is not called because it is instead used in Controls
+            // Use a Message for Log Console
+
+            // Log Console Message /////////
+            Log.WriteAction = () =>
+            {
+                Log.paragraph.Inlines.Add(new LineBreak());
+                Log.paragraph.Inlines.Add(new Bold(new Run("Format: ")) { Foreground = Log.ConsoleDefault });
+                Log.paragraph.Inlines.Add(new Run(outputExt) { Foreground = Log.ConsoleDefault });
+            };
+            Log.LogActions.Add(Log.WriteAction);
+        }
+
+
+        /// <summary>
+        ///    Generate FFmpeg Args (Method)
+        /// </summary>
+        public void ProcessInputs()
+        {
+            /// <summary>
+            ///    Batch Auto Quality Modifier
+            /// </summary> 
+            BatchAutoQualityModifier();
+
+
+            /// <summary>
+            ///    Stream Maps
+            /// </summary> 
+            Streams.StreamMaps(this);
+
+
+            /// <summary>
+            ///    Optimize
+            /// </summary> 
+            Video.Optimize(this);
+
+
+            // --------------------------------------------------
+            // Category: Video
+            // --------------------------------------------------
+
+            // Log Console Message /////////
+            Log.WriteAction = () =>
+            {
+                Log.paragraph.Inlines.Add(new LineBreak());
+                Log.paragraph.Inlines.Add(new LineBreak());
+                Log.paragraph.Inlines.Add(new Bold(new Run("Video")) { Foreground = Log.ConsoleAction });
+            };
+            Log.LogActions.Add(Log.WriteAction);
+
+
+            /// <summary>
+            ///    Video Codecs
+            /// </summary> 
+            Video.VideoCodecs(this);
+
+
+            /// <summary>
+            ///    Video Filter
+            /// </summary> 
+            Video.VideoFilter(this);
+
+
+            ///// <summary>
+            /////    Batch Auto Quality Modifier
+            ///// </summary> 
+            ///// <remarks>
+            ///// Not Used
+            ///// </remarks>
+
+
+            /// <summary>
+            ///    Video Quality
+            /// </summary> 
+            Video.VideoQuality(this);
+
+
+            /// <summary>
+            ///    Resize
+            /// </summary> 
+            Video.Resize(this);
+
+
+            /// <summary>
+            ///    Cut
+            /// </summary> 
+            Format.Cut(this);
+
+
+            /// <summary>
+            ///    Crop
+            /// </summary> 
+            Video.Crop(this, cropwindow);
+            //MessageBox.Show(crop); //debug
+            //MessageBox.Show(geq); //debug
+
+
+            /// <summary>
+            ///    FPS
+            /// </summary> 
+            Video.FPS(this);
+
+
+            /// <summary>
+            ///    Images
+            /// </summary> 
+            Video.Images(this);
+
+
+            ///// <summary>
+            /////    Tuning
+            ///// </summary> 
+            ////Tuning();
+            //// Tune now in Optimize Advanced Window
+
+
+            /// <summary>
+            ///    Speed
+            /// </summary> 
+            Video.Speed(this);
+
+
+            /// <summary>
+            ///    Video Filter Combine
+            /// </summary> 
+            Video.VideoFilterCombine(this);
+
+
+            // --------------------------------------------------
+            // Category: Audio
+            // --------------------------------------------------
+
+            // Log Console Message /////////
+            Log.WriteAction = () =>
+            {
+                Log.paragraph.Inlines.Add(new LineBreak());
+                Log.paragraph.Inlines.Add(new LineBreak());
+                Log.paragraph.Inlines.Add(new Bold(new Run("Audio")) { Foreground = Log.ConsoleAction });
+            };
+            Log.LogActions.Add(Log.WriteAction);
+
+            /// <summary>
+            ///    Audio Codecs
+            /// </summary> 
+            Audio.AudioCodecs(this);
+
+
+            /// <summary>
+            ///    Audio Filter
+            /// </summary> 
+            Audio.AudioFilter(this);
+
+
+            /// <summary>
+            ///    Audio Bitrate Mode
+            /// </summary> 
+            Audio.AudioBitrateMode(this);
+
+
+            /// <summary>
+            ///    Audio Quality
+            /// </summary> 
+            Audio.AudioQuality(this);
+
+
+            /// <summary>
+            ///    Channel Select
+            /// </summary> 
+            Audio.Channel(this);
+
+
+            /// <summary>
+            ///    Sample Rate
+            /// </summary> 
+            Audio.SampleRate(this);
+
+
+            /// <summary>
+            ///    Bit Depth
+            /// </summary> 
+            Audio.BitDepth(this);
+
+
+            /// <summary>
+            ///    Volume
+            /// </summary> 
+            Audio.Volume(this);
+
+
+            /// <summary>
+            ///    ALimiter
+            /// </summary> 
+            Audio.ALimiter(this);
+
+
+            /// <summary>
+            ///    Audio Filter Combine
+            /// </summary> 
+            Audio.AudioFilterCombine(this);
+
+
+            // --------------------------------------------------
+            // Category: Other
+            // --------------------------------------------------
+
+            /// <summary>
+            ///    File Renamer
+            /// </summary> 
+            FileRenamer(); // must be above 2 Pass to allow name to copy to -pass 2
+
+
+            /// <summary>
+            ///    2 Pass Clear
+            /// </summary> 
+            FFmpeg.TwoPassClear(this);
+
+
+            /// <summary>
+            ///    2 Pass Switch
+            /// </summary> 
+            FFmpeg.TwoPassSwitch(this);
+        }
+
+
         // --------------------------------------------------------------------------------------------------------
         // --------------------------------------------------------------------------------------------------------
         /// <summary>
@@ -1497,7 +1933,20 @@ namespace Axiom
         /// </summary>
         private void buttonProperties_Click(object sender, RoutedEventArgs e)
         {
+            /// <summary>
+            ///    FFprobe Detect Metadata
+            /// </summary> 
+            Metadata();
 
+            /// <summary>
+            ///    Write All Log Actions to Console
+            /// </summary> 
+            Log.LogWriteAll(this, configure);
+
+            // Open Log Console Window
+            console.Left = this.Left + 610;
+            console.Top = this.Top + 0;
+            console.Show();
         }
 
 
@@ -1519,7 +1968,7 @@ namespace Axiom
         private void buttonWebsite_Click(object sender, RoutedEventArgs e)
         {
             // Open Axiom Website URL in Default Browser
-            Process.Start("http://x.co/axiomui");
+            Process.Start("http://axiomui.github.io");
 
         }
 
@@ -1617,10 +2066,126 @@ namespace Axiom
             Log.LogActions.Add(Log.WriteAction);
 
             // Enable Script
-            script = 1;
+            //script = 1;
             // Call Convert Button Method
-            buttonConvert_Click(sender, e);
+            //buttonConvert_Click(sender, e);
 
+            /// <summary>
+            ///    FFmpeg and FFprobe Path
+            /// </summary>
+            FFpaths();
+
+
+            /// <summary>
+            ///    Thread Detect
+            /// </summary>
+            ThreadDetect();
+
+
+            /// <summary>
+            ///    Keep FFmpeg Window Toggle
+            /// </summary>
+            KeepWindow();
+
+
+            /// <summary>
+            ///    Input Output File
+            /// </summary>
+            InputOutputFile();
+
+
+            /// <summary>
+            ///    Input Output Path Modifier
+            /// </summary>
+            InputOutputPathModifier();
+
+
+            /// <summary>
+            ///    Batch Extention Period Check
+            /// </summary>
+            BatchExtCheck();
+
+
+            /// <summary>
+            ///    Error Halts
+            /// </summary> 
+            ErrorHalts();
+
+
+            // -------------------------
+            // Background Thread Worker
+            // -------------------------
+            BackgroundWorker fileprocess = new BackgroundWorker();
+
+            fileprocess.WorkerSupportsCancellation = true;
+
+            // This allows the worker to report progress during work
+            fileprocess.WorkerReportsProgress = true;
+
+            // What to do in the background thread
+            fileprocess.DoWork += new DoWorkEventHandler(delegate (object o, DoWorkEventArgs args)
+            {
+                BackgroundWorker b = o as BackgroundWorker;
+
+                //Dispatcher Allows Cross-Thread Communication
+                this.Dispatcher.Invoke(() =>
+                {
+                    /// <summary>
+                    ///    FFprobe Detect Metadata
+                    /// </summary> 
+                    Metadata();
+
+                    /// <summary>
+                    ///    Process GUI Inputs
+                    /// </summary> 
+                    ProcessInputs();
+
+                    /// <summary>
+                    ///    Write All Log Actions to Console
+                    /// </summary> 
+                    Log.LogWriteAll(this, configure);
+
+                    /// <summary>
+                    ///    FFmpeg Single File Generate Arguments
+                    /// </summary> 
+                    FFmpeg.FFmpegSingleGenerateArgs(this);
+
+
+                    /// <summary>
+                    ///    FFmpeg Batch Generate Arguments
+                    /// </summary> 
+                    FFmpeg.FFmpegBatchGenerateArgs(this);
+
+                }); //end dispatcher
+            }); //end thread
+
+
+            // When background worker completes task
+            fileprocess.RunWorkerCompleted += new RunWorkerCompletedEventHandler(delegate(object o, RunWorkerCompletedEventArgs args)
+            {
+                /// <summary>
+                ///    Generate Script
+                /// </summary> 
+                FFmpeg.FFmpegScript(this);
+
+
+                /// <summary>
+                ///    Garbage Collector
+                /// </summary> 
+                GC.Collect();
+
+                //sw.Stop(); //stop stopwatch
+
+
+                // Close the Background Worker
+                fileprocess.CancelAsync();
+                fileprocess.Dispose();
+
+            }); //end worker completed task
+
+
+            // Background Worker Run Async
+            fileprocess.RunWorkerAsync(); //important!
         }
 
 
@@ -1943,7 +2508,7 @@ namespace Axiom
                 tbvb.Text = string.Empty;
                 tbvb.GotFocus += vBitrateCustom_GotFocus; //used to be -=
 
-                vBitrateCustom.Foreground = new SolidColorBrush(Colors.White);
+                //vBitrateCustom.Foreground = new SolidColorBrush(Colors.White);
             }
         }
         // Lost Focus
@@ -1956,7 +2521,7 @@ namespace Axiom
                 tbvb.Text = "Bitrate";
                 tbvb.GotFocus -= vBitrateCustom_GotFocus; //used to be +=
 
-                vBitrateCustom.Foreground = TextBoxDarkBlue;
+                //vBitrateCustom.Foreground = TextBoxDarkBlue;
             }
         }
 
@@ -1982,7 +2547,7 @@ namespace Axiom
                 tbcrf.Text = string.Empty;
                 tbcrf.GotFocus += crfCustom_GotFocus; //used to be -=
 
-                crfCustom.Foreground = new SolidColorBrush(Colors.White);
+                //crfCustom.Foreground = new SolidColorBrush(Colors.White);
             }
         }
         // Lost Focus
@@ -1996,7 +2561,7 @@ namespace Axiom
                 tbcrf.Text = "CRF";
                 tbcrf.GotFocus -= crfCustom_GotFocus; //used to be +=
 
-                crfCustom.Foreground = TextBoxDarkBlue;
+                //crfCustom.Foreground = TextBoxDarkBlue;
             }
         }
 
@@ -2054,7 +2619,7 @@ namespace Axiom
                 tbac.Text = string.Empty;
                 tbac.GotFocus += audioCustom_GotFocus; //used to be -=
 
-                audioCustom.Foreground = new SolidColorBrush(Colors.White);
+                //audioCustom.Foreground = new SolidColorBrush(Colors.White);
             }
         }
         // Lost Focus
@@ -2067,7 +2632,7 @@ namespace Axiom
                 tbac.Text = "kbps";
                 tbac.GotFocus -= audioCustom_GotFocus; //used to be +=
 
-                audioCustom.Foreground = TextBoxDarkBlue;
+                //audioCustom.Foreground = TextBoxDarkBlue;
             }
         }
 
@@ -2259,8 +2824,8 @@ namespace Axiom
             {
                 crfCustom.IsEnabled = true;
                 vBitrateCustom.IsEnabled = true;
-                crfCustom.Foreground = TextBoxDarkBlue;
-                vBitrateCustom.Foreground = TextBoxDarkBlue;
+                //crfCustom.Foreground = TextBoxDarkBlue;
+                //vBitrateCustom.Foreground = TextBoxDarkBlue;
 
                 // Disable CRF for Theora
                 if ((string)cboVideoCodec.SelectedItem == "Theora")
@@ -2275,8 +2840,8 @@ namespace Axiom
                 vBitrateCustom.IsEnabled = false;
                 vBitrateCustom.Text = "Bitrate";
 
-                crfCustom.Foreground = TextBoxDiabledForeground;
-                vBitrateCustom.Foreground = TextBoxDiabledForeground;
+                //crfCustom.Foreground = TextBoxDiabledForeground;
+                //vBitrateCustom.Foreground = TextBoxDiabledForeground;
             }
 
             // -------------------------
@@ -2324,14 +2889,14 @@ namespace Axiom
                 audioCustom.IsEnabled = true;
                 //audioCustom.Text = string.Empty;
 
-                audioCustom.Foreground = TextBoxDarkBlue;
+                //audioCustom.Foreground = TextBoxDarkBlue;
             }
             else
             {
                 audioCustom.IsEnabled = false;
                 audioCustom.Text = "kbps";
 
-                audioCustom.Foreground = TextBoxDiabledForeground;
+                //audioCustom.Foreground = TextBoxDiabledForeground;
             }
 
             // -------------------------
@@ -2417,8 +2982,8 @@ namespace Axiom
                 widthCustom.Text = "width";
                 heightCustom.Text = "height";
 
-                widthCustom.Foreground = TextBoxDarkBlue;
-                heightCustom.Foreground = TextBoxDarkBlue;
+                //widthCustom.Foreground = TextBoxDarkBlue;
+                //heightCustom.Foreground = TextBoxDarkBlue;
             }
             else
             {
@@ -2427,8 +2992,8 @@ namespace Axiom
                 widthCustom.Text = "width";
                 heightCustom.Text = "height";
 
-                widthCustom.Foreground = TextBoxDiabledForeground;
-                heightCustom.Foreground = TextBoxDiabledForeground;
+                //widthCustom.Foreground = TextBoxDiabledForeground;
+                //heightCustom.Foreground = TextBoxDiabledForeground;
             }
 
             // Change TextBox Resolution numbers
@@ -2503,7 +3068,7 @@ namespace Axiom
             if (widthCustom.Focus() == true && widthCustom.Text == "width")
             {
                 widthCustom.Text = string.Empty;
-                widthCustom.Foreground = new SolidColorBrush(Colors.White);
+                //widthCustom.Foreground = new SolidColorBrush(Colors.White);
             }
         }
         // Lost Focus
@@ -2516,7 +3081,7 @@ namespace Axiom
 
                 if ((string)cboSize.SelectedItem == "Custom")
                 {
-                    widthCustom.Foreground = TextBoxDarkBlue;
+                    //widthCustom.Foreground = TextBoxDarkBlue;
                 }
             }
         }
@@ -2531,7 +3096,7 @@ namespace Axiom
             if (heightCustom.Focus() == true && heightCustom.Text == "height")
             {
                 heightCustom.Text = string.Empty;
-                heightCustom.Foreground = new SolidColorBrush(Colors.White);
+                //heightCustom.Foreground = new SolidColorBrush(Colors.White);
             }
         }
         // Lost Focus
@@ -2544,7 +3109,7 @@ namespace Axiom
 
                 if ((string)cboSize.SelectedItem == "Custom")
                 {
-                    heightCustom.Foreground = TextBoxDarkBlue;
+                    //heightCustom.Foreground = TextBoxDarkBlue;
                 }
             }
         }
@@ -2568,7 +3133,7 @@ namespace Axiom
             if (frameStart.Focus() == true && frameStart.Text == "Frame")
             {
                 frameStart.Text = string.Empty;
-                frameStart.Foreground = new SolidColorBrush(Colors.White);
+                //frameStart.Foreground = new SolidColorBrush(Colors.White);
             }
         }
         // Lost Focus
@@ -2581,7 +3146,7 @@ namespace Axiom
 
                 if ((string)cboCut.SelectedItem == "Yes")
                 {
-                    frameStart.Foreground = TextBoxDarkBlue;
+                    //frameStart.Foreground = TextBoxDarkBlue;
                 }
             }
         }
@@ -2596,7 +3161,7 @@ namespace Axiom
             if (frameEnd.Focus() == true && frameEnd.Text == "Range")
             {
                 frameEnd.Text = string.Empty;
-                frameEnd.Foreground = new SolidColorBrush(Colors.White);
+                //frameEnd.Foreground = new SolidColorBrush(Colors.White);
             }
         }
         // Lost Focus
@@ -2609,7 +3174,7 @@ namespace Axiom
 
                 if ((string)cboCut.SelectedItem == "Yes")
                 {
-                    frameEnd.Foreground = TextBoxDarkBlue;
+                    //frameEnd.Foreground = TextBoxDarkBlue;
                 }
             }
         }
@@ -2708,7 +3273,7 @@ namespace Axiom
                     {
                         cboSubtitle.SelectedItem = "none";
                         cboAudioStream.SelectedItem = "1";
-                        cboOptimize.SelectedItem = "Web";
+                        //cboOptimize.SelectedItem = "Web";
                     }
                     else
                     {
@@ -2757,8 +3322,8 @@ namespace Axiom
                 // Video
                 cboVideo.SelectedItem = "High";
                 cboSize.SelectedItem = "Custom";
-                widthCustom.Foreground = new SolidColorBrush(Colors.White);
-                heightCustom.Foreground = new SolidColorBrush(Colors.White);
+                //widthCustom.Foreground = new SolidColorBrush(Colors.White);
+                //heightCustom.Foreground = new SolidColorBrush(Colors.White);
                 widthCustom.Text = "720";
                 heightCustom.Text = "480";
                 cboCut.SelectedItem = "No";
@@ -3116,6 +3681,7 @@ namespace Axiom
                 // Audio
                 cboAudio.SelectedItem = "192";
                 tglVBR.IsChecked = true;
+                cboAudioStream.SelectedItem = "1";
                 cboChannel.SelectedItem = "Stereo";
                 cboSamplerate.SelectedItem = "44.1k";
                 cboBitDepth.SelectedItem = "auto";
@@ -3335,15 +3901,15 @@ namespace Axiom
 
 
             /// <summary>
-            ///    Input Output Path Modifier
-            /// </summary>
-            InputOutputPathModifier();
-
-
-            /// <summary>
             ///    Input Output File
             /// </summary>
             InputOutputFile();
+
+
+            /// <summary>
+            ///    Input Output Path Modifier
+            /// </summary>
+            InputOutputPathModifier();
 
 
             /// <summary>
@@ -3409,392 +3975,40 @@ namespace Axiom
                     //Dispatcher Allows Cross-Thread Communication
                     this.Dispatcher.Invoke(() =>
                     {
-                        // --------------------------------------------------------------------
-                        // Section: FFprobe
-                        // --------------------------------------------------------------------
-
-                        // Log Console Message /////////
-                        Log.WriteAction = () =>
-                        {
-                            Log.paragraph.Inlines.Add(new LineBreak());
-                            Log.paragraph.Inlines.Add(new LineBreak());
-                            Log.paragraph.Inlines.Add(new Bold(new Run("FFprobe")) { Foreground = Log.ConsoleTitle });
-                        };
-                        Log.LogActions.Add(Log.WriteAction);
-
-
-                        // Only Run FFprobe if Input File is Not Null
-                        // Strange FFprobe Class problem - methods halting after FFprobeInputFileInfo() 
-                        // unless Null Check is put here instead of inside the Class.
-                        if (!string.IsNullOrWhiteSpace(textBoxBrowse.Text) && !string.IsNullOrEmpty(inputDir) && !string.IsNullOrEmpty(FFprobe.ffprobe))
-                        {
-                            /// <summary>
-                            ///    FFprobe Video Entry Type Containers
-                            /// </summary> 
-                            FFprobe.FFprobeVideoEntryType(this);
-
-
-                            /// <summary>
-                            ///    FFprobe Audio Entry Type Containers
-                            /// </summary> 
-                            FFprobe.FFprobeAudioEntryType(this);
-
-
-                            /// <summary>
-                            ///    FFprobe Input File Size
-                            /// </summary> 
-                            FFprobe.FFprobeInputFileInfo(this);
-
-
-                            /// <summary>
-                            ///    Video Bitrate Calculator
-                            /// </summary> 
-                            Video.VideoBitrateCalculator(this);
-
-
-                            /// <summary>
-                            ///    Audio Bitrate Calculator
-                            /// </summary> 
-                            Audio.AudioBitrateCalculator(this);
-                        }
-
-
-                        // --------------------------------------------------------------------
-                        // Section: Input
-                        // --------------------------------------------------------------------
-
-                        // Log Console Message /////////
-                        // Only Check FFprobe Input if Input File is Not Null
-                        if (!string.IsNullOrWhiteSpace(textBoxBrowse.Text) && !string.IsNullOrEmpty(inputDir) && !string.IsNullOrEmpty(FFprobe.ffprobe))
-                        {
-                            Log.WriteAction = () =>
-                            {
-                            // Log Console Message /////////
-                                Log.paragraph.Inlines.Add(new LineBreak());
-                                Log.paragraph.Inlines.Add(new LineBreak());
-                                Log.paragraph.Inlines.Add(new LineBreak());
-                                Log.paragraph.Inlines.Add(new Bold(new Run("Input File Details")) { Foreground = Log.ConsoleTitle });
-
-                                Log.paragraph.Inlines.Add(new LineBreak());
-                                Log.paragraph.Inlines.Add(new LineBreak());
-                                Log.paragraph.Inlines.Add(new Bold(new Run("Directory: ")) { Foreground = Log.ConsoleDefault });
-                                Log.paragraph.Inlines.Add(new Run(inputDir) { Foreground = Log.ConsoleDefault });
-
-                                Log.paragraph.Inlines.Add(new LineBreak());
-                                Log.paragraph.Inlines.Add(new LineBreak());
-                                Log.paragraph.Inlines.Add(new Bold(new Run("General")) { Foreground = Log.ConsoleAction });
-                                Log.paragraph.Inlines.Add(new LineBreak());
-
-                                Log.paragraph.Inlines.Add(new Bold(new Run("Format: ")) { Foreground = Log.ConsoleDefault });
-                                // single file
-                                if (!string.IsNullOrEmpty(inputExt)) {
-                                    Log.paragraph.Inlines.Add(new Run(inputExt) { Foreground = Log.ConsoleDefault });
-                                }
-                                // batch
-                                if (!string.IsNullOrEmpty(batchExt) && batchExt != "extension")
-                                {
-                                    Log.paragraph.Inlines.Add(new Run(batchExt) { Foreground = Log.ConsoleDefault });
-                                }
-
-                                Log.paragraph.Inlines.Add(new LineBreak());
-                                Log.paragraph.Inlines.Add(new Bold(new Run("Size: ")) { Foreground = Log.ConsoleDefault });
-                                Log.paragraph.Inlines.Add(new Run(FFprobe.inputSize) { Foreground = Log.ConsoleDefault });
-                                Log.paragraph.Inlines.Add(new LineBreak());
-                                Log.paragraph.Inlines.Add(new Bold(new Run("Duration: ")) { Foreground = Log.ConsoleDefault });
-                                Log.paragraph.Inlines.Add(new Run(FFprobe.inputDuration) { Foreground = Log.ConsoleDefault });
-
-                                Log.paragraph.Inlines.Add(new LineBreak());
-                                Log.paragraph.Inlines.Add(new LineBreak());
-                                Log.paragraph.Inlines.Add(new Bold(new Run("Video")) { Foreground = Log.ConsoleAction });
-                                Log.paragraph.Inlines.Add(new LineBreak());
-                                Log.paragraph.Inlines.Add(new Bold(new Run("Codec: ")) { Foreground = Log.ConsoleDefault });
-                                Log.paragraph.Inlines.Add(new Run(FFprobe.inputVideoCodec) { Foreground = Log.ConsoleDefault });
-                                Log.paragraph.Inlines.Add(new LineBreak());
-                                Log.paragraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
-                                Log.paragraph.Inlines.Add(new Run(FFprobe.inputVideoBitrate) { Foreground = Log.ConsoleDefault });
-                                Log.paragraph.Inlines.Add(new LineBreak());
-                                Log.paragraph.Inlines.Add(new Bold(new Run("FPS: ")) { Foreground = Log.ConsoleDefault });
-                                Log.paragraph.Inlines.Add(new Run(FFprobe.inputFramerate) { Foreground = Log.ConsoleDefault });
-
-                                Log.paragraph.Inlines.Add(new LineBreak());
-                                Log.paragraph.Inlines.Add(new LineBreak());
-                                Log.paragraph.Inlines.Add(new Bold(new Run("Audio")) { Foreground = Log.ConsoleAction });
-                                Log.paragraph.Inlines.Add(new LineBreak());
-                                Log.paragraph.Inlines.Add(new Bold(new Run("Codec: ")) { Foreground = Log.ConsoleDefault });
-                                Log.paragraph.Inlines.Add(new Run(FFprobe.inputAudioCodec) { Foreground = Log.ConsoleDefault });
-                                Log.paragraph.Inlines.Add(new LineBreak());
-                                Log.paragraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
-                                Log.paragraph.Inlines.Add(new Run(Convert.ToString(FFprobe.ffprobeAudioBitrateResult.Replace("\r\n", "").Replace("\n", "").Replace("\r", ""))) { Foreground = Log.ConsoleDefault }); //use ffprobe result to avoid Limiting the bitrate
-                            };
-                            Log.LogActions.Add(Log.WriteAction);
-                        }
-                        else
-                        {
-                            // Log Console Message /////////
-                            Log.WriteAction = () =>
-                            {
-                                Log.paragraph.Inlines.Add(new LineBreak());
-                                Log.paragraph.Inlines.Add(new LineBreak());
-                                Log.paragraph.Inlines.Add(new Bold(new Run("Input File Not Found")) { Foreground = Log.ConsoleWarning });
-                            };
-                            Log.LogActions.Add(Log.WriteAction);
-                        }
-
-
-                        // --------------------------------------------------------------------
-                        // Section: Output
-                        // --------------------------------------------------------------------
-                        // Log Console Message /////////
-                        Log.WriteAction = () =>
-                        {
-                            Log.paragraph.Inlines.Add(new LineBreak());
-                            Log.paragraph.Inlines.Add(new LineBreak());
-                            Log.paragraph.Inlines.Add(new LineBreak());
-                            Log.paragraph.Inlines.Add(new Bold(new Run("Output File Settings")) { Foreground = Log.ConsoleTitle });
-                        };
-                        Log.LogActions.Add(Log.WriteAction);
-
-                        // Log Console Message /////////
-                        Log.WriteAction = () =>
-                        {
-                            Log.paragraph.Inlines.Add(new LineBreak());
-                            Log.paragraph.Inlines.Add(new LineBreak());
-                            Log.paragraph.Inlines.Add(new Bold(new Run("Directory: ")) { Foreground = Log.ConsoleDefault });
-                            Log.paragraph.Inlines.Add(new Run(outputDir) { Foreground = Log.ConsoleDefault });
-                        };
-                        Log.LogActions.Add(Log.WriteAction);
-
-                        // --------------------------------------------------
-                        // Category: General
-                        // --------------------------------------------------
-                        // Log Console Message /////////
-                        Log.WriteAction = () =>
-                        {
-                            Log.paragraph.Inlines.Add(new LineBreak());
-                            Log.paragraph.Inlines.Add(new LineBreak());
-                            Log.paragraph.Inlines.Add(new Bold(new Run("General")) { Foreground = Log.ConsoleAction });
-                        };
-                        Log.LogActions.Add(Log.WriteAction);
-
-
-                        // -------------------------
-                        //    Format
-                        // -------------------------
-                        // fileFormat() is not called because it is instead used in Controls
-                        // Use a Message for Log Console
-
-                        // Log Console Message /////////
-                        Log.WriteAction = () =>
-                        {
-                            Log.paragraph.Inlines.Add(new LineBreak());
-                            Log.paragraph.Inlines.Add(new Bold(new Run("Format: ")) { Foreground = Log.ConsoleDefault });
-                            Log.paragraph.Inlines.Add(new Run(outputExt) { Foreground = Log.ConsoleDefault });
-                        };
-                        Log.LogActions.Add(Log.WriteAction);
+                        /// <summary>
+                        ///    FFprobe Detect Metadata
+                        /// </summary> 
+                        Metadata();
 
 
                         /// <summary>
-                        ///    Batch Auto Quality Modifier
+                        ///    Process GUI Inputs
                         /// </summary> 
-                        BatchAutoQualityModifier();
+                        ProcessInputs();
 
 
                         /// <summary>
-                        ///    Stream Maps
+                        ///    FFmpeg Single File Generate Arguments
                         /// </summary> 
-                        Streams.StreamMaps(this);
+                        FFmpeg.FFmpegSingleGenerateArgs(this);
 
 
                         /// <summary>
-                        ///    Optimize
+                        ///    FFmpeg Single File Convert
                         /// </summary> 
-                        Video.Optimize(this);
-
-
-                        // --------------------------------------------------
-                        // Category: Video
-                        // --------------------------------------------------
-
-                        // Log Console Message /////////
-                        Log.WriteAction = () =>
-                        {
-                            Log.paragraph.Inlines.Add(new LineBreak());
-                            Log.paragraph.Inlines.Add(new LineBreak());
-                            Log.paragraph.Inlines.Add(new Bold(new Run("Video")) { Foreground = Log.ConsoleAction });
-                        };
-                        Log.LogActions.Add(Log.WriteAction);
+                        FFmpeg.FFmpegSingleConvert(this);
 
 
                         /// <summary>
-                        ///    Video Codecs
+                        ///    FFmpeg Batch Generate Arguments
                         /// </summary> 
-                        Video.VideoCodecs(this);
+                        FFmpeg.FFmpegBatchGenerateArgs(this);
 
 
                         /// <summary>
-                        ///    Video Filter
+                        ///    FFmpeg Single File Convert
                         /// </summary> 
-                        Video.VideoFilter(this);
-
-
-                        ///// <summary>
-                        /////    Batch Auto Quality Modifier
-                        ///// </summary> 
-                        ///// <remarks>
-                        ///// Not Used
-                        ///// </remarks>
-
-
-                        /// <summary>
-                        ///    Video Quality
-                        /// </summary> 
-                        Video.VideoQuality(this);
-
-
-                        /// <summary>
-                        ///    Resize
-                        /// </summary> 
-                        Video.Resize(this);
-
-
-                        /// <summary>
-                        ///    Cut
-                        /// </summary> 
-                        Format.Cut(this);
-
-
-                        /// <summary>
-                        ///    Crop
-                        /// </summary> 
-                        Video.Crop(this, cropwindow);
-                        //MessageBox.Show(crop); //debug
-                        //MessageBox.Show(geq); //debug
-
-
-                        /// <summary>
-                        ///    FPS
-                        /// </summary> 
-                        Video.FPS(this);
-
-
-                        /// <summary>
-                        ///    Images
-                        /// </summary> 
-                        Video.Images(this);
-
-
-                        ///// <summary>
-                        /////    Tuning
-                        ///// </summary> 
-                        ////Tuning();
-                        //// Tune now in Optimize Advanced Window
-
-
-                        /// <summary>
-                        ///    Speed
-                        /// </summary> 
-                        Video.Speed(this);
-
-
-                        /// <summary>
-                        ///    Video Filter Combine
-                        /// </summary> 
-                        Video.VideoFilterCombine(this);
-
-
-                        // --------------------------------------------------
-                        // Category: Audio
-                        // --------------------------------------------------
-
-                        // Log Console Message /////////
-                        Log.WriteAction = () =>
-                        {   
-                            Log.paragraph.Inlines.Add(new LineBreak());
-                            Log.paragraph.Inlines.Add(new LineBreak());
-                            Log.paragraph.Inlines.Add(new Bold(new Run("Audio")) { Foreground = Log.ConsoleAction });
-                        };
-                        Log.LogActions.Add(Log.WriteAction);
-
-                        /// <summary>
-                        ///    Audio Codecs
-                        /// </summary> 
-                        Audio.AudioCodecs(this);
-
-
-                        /// <summary>
-                        ///    Audio Filter
-                        /// </summary> 
-                        Audio.AudioFilter(this);
-
-
-                        /// <summary>
-                        ///    Audio Bitrate Mode
-                        /// </summary> 
-                        Audio.AudioBitrateMode(this);
-
-
-                        /// <summary>
-                        ///    Audio Quality
-                        /// </summary> 
-                        Audio.AudioQuality(this);
-
-
-                        /// <summary>
-                        ///    Channel Select
-                        /// </summary> 
-                        Audio.Channel(this);
-
-
-                        /// <summary>
-                        ///    Sample Rate
-                        /// </summary> 
-                        Audio.SampleRate(this);
-
-
-                        /// <summary>
-                        ///    Bit Depth
-                        /// </summary> 
-                        Audio.BitDepth(this);
-
-
-                        /// <summary>
-                        ///    Volume
-                        /// </summary> 
-                        Audio.Volume(this);
-
-
-                        /// <summary>
-                        ///    ALimiter
-                        /// </summary> 
-                        Audio.ALimiter(this);
-
-
-                        /// <summary>
-                        ///    Audio Filter Combine
-                        /// </summary> 
-                        Audio.AudioFilterCombine(this);
-
-
-                        // --------------------------------------------------
-                        // Category: Other
-                        // --------------------------------------------------
-
-                        /// <summary>
-                        ///    File Renamer
-                        /// </summary> 
-                        FileRenamer(); // must be above 2 Pass to allow name to copy to -pass 2
-
-
-                        /// <summary>
-                        ///    2 Pass Clear
-                        /// </summary> 
-                        FFmpeg.TwoPassClear(this);
-
-
-                        /// <summary>
-                        ///    2 Pass Switch
-                        /// </summary> 
-                        FFmpeg.TwoPassSwitch(this);
+                        FFmpeg.FFmpegBatchConvert(this);
 
 
                     }); //end dispatcher
@@ -3805,30 +4019,12 @@ namespace Axiom
                 fileprocess.RunWorkerCompleted += new RunWorkerCompletedEventHandler(delegate(object o, RunWorkerCompletedEventArgs args)
                 {
                     /// <summary>
-                    ///    Single File Process
-                    /// </summary> 
-                    FFmpeg.FFmpegSingle(this);
-
-
-                    /// <summary>
-                    ///    Batch Convert
-                    /// </summary> 
-                    FFmpeg.FFmpegBatch(this);
-
-
-                    /// <summary>
-                    ///    Generate Script
-                    /// </summary> 
-                    FFmpeg.FFmpegScript(this);
-
-
-                    /// <summary>
                     ///    Delete 2 Pass Logs
                     /// </summary> 
-                    if (script == 0 && Video.v2passSwitch == 1)
-                    {
-                        Delete2PassLogs(this);
-                    }
+                    //if (script == 0 && Video.v2passSwitch == 1)
+                    //{
+                    //    //Delete2PassLogs(this);
+                    //}
 
 
                     // Log Console Message /////////
@@ -3906,12 +4102,12 @@ namespace Axiom
     ///     Log 2 Pass Delete Class
     /// </summary>
     /// --------------------------------------------------------------------------------------------------------
-    public static class Log2PassDelete
-    {
-        public static Task DeleteAsync(this FileInfo file)
-        {
-            return Task.Factory.StartNew(() => file.Delete());
-        }
-    }
+    //public static class Log2PassDelete
+    //{
+    //    public static Task DeleteAsync(this FileInfo file)
+    //    {
+    //        return Task.Factory.StartNew(() => file.Delete());
+    //    }
+    //}
 
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Documents;
 // Disable XML Comment warnings
@@ -13,7 +14,7 @@ using System.Windows.Documents;
 Axiom UI
 Copyright (C) 2017 Matt McManis
 http://github.com/MattMcManis/Axiom
-http://www.x.co/axiomui
+http://axiomui.github.io
 axiom.interface@gmail.com
 
 This program is free software: you can redistribute it and/or modify
@@ -139,6 +140,9 @@ namespace Axiom
 
                 // Join List with Spaces, Remove Empty Strings
                 Video.v2pass = string.Join(" ", v2passList.Where(s => !string.IsNullOrEmpty(s)));
+
+                // Remove double spaces
+                Video.v2pass = Regex.Replace(Video.v2pass, @"\s+", " ");
             }
 
             // If 2 Pass is Enabled
@@ -191,6 +195,9 @@ namespace Axiom
 
                 // Join List with Spaces, Remove Empty Strings
                 Video.v2passBatch = string.Join(" ", v2passBatchList.Where(s => !string.IsNullOrEmpty(s)));
+
+                // Remove double spaces
+                Video.v2passBatch = Regex.Replace(Video.v2passBatch, @"\s+", " ");
             }
         }
 
@@ -198,7 +205,7 @@ namespace Axiom
         /// <summary>
         /// FFmpeg Single File Process
         /// </summary>
-        public static void FFmpegSingle(MainWindow mainwindow)
+        public static void FFmpegSingleGenerateArgs(MainWindow mainwindow)
         {
             if (mainwindow.tglBatch.IsChecked == false)
             {
@@ -234,11 +241,8 @@ namespace Axiom
                 // Join List with Spaces, Remove Empty Strings
                 ffmpegArgs = string.Join(" ", FFmpegArgsList.Where(s => !string.IsNullOrEmpty(s)));
 
-
-                if (MainWindow.script == 0) // if script not clicked, start ffmpeg
-                {
-                    System.Diagnostics.Process.Start("CMD.exe", /* /c or /k -->*/ cmdWindow + /* needed to start cmd -->*/ "cd " + "\"" + MainWindow.currentDir + "\"" + " && " + /* start ffmpeg commands -->*/ ffmpegArgs);
-                }
+                // Remove double spaces
+                ffmpegArgs = Regex.Replace(ffmpegArgs, @"\s+", " ");
             }
 
 
@@ -257,9 +261,21 @@ namespace Axiom
 
 
         /// <summary>
-        /// FFmpeg Batch Convert
+        /// FFmpeg Single Convert
         /// </summary>
-        public static void FFmpegBatch(MainWindow mainwindow)
+        public static void FFmpegSingleConvert(MainWindow mainwindow)
+        {
+            if (mainwindow.tglBatch.IsChecked == false && MainWindow.script == 0) // if script not clicked, start ffmpeg
+            {
+                System.Diagnostics.Process.Start("CMD.exe", /* /c or /k -->*/ cmdWindow + /* needed to start cmd -->*/ "cd " + "\"" + MainWindow.currentDir + "\"" + " && " + /* start ffmpeg commands -->*/ ffmpegArgs);
+            }
+        }
+
+
+        /// <summary>
+        /// FFmpeg Batch Generate Args
+        /// </summary>
+        public static void FFmpegBatchGenerateArgs(MainWindow mainwindow)
         {
             if (mainwindow.tglBatch.IsChecked == true)
             {
@@ -372,10 +388,9 @@ namespace Axiom
                     // Join List with Spaces, Remove Empty Strings
                     ffmpegArgs = string.Join(" ", FFmpegArgsList.Where(s => !string.IsNullOrEmpty(s)));
 
-                    if (MainWindow.script == 0) // check if script button enabled
-                    {
-                        System.Diagnostics.Process.Start("CMD.exe", cmdWindow + ffmpegArgs);
-                    }
+                    // Remove double spaces
+                    ffmpegArgs = Regex.Replace(ffmpegArgs, @"\s+", " ");
+
                 }
 
                 // -------------------------
@@ -425,10 +440,9 @@ namespace Axiom
                     // Join List with Spaces, Remove Empty Strings
                     ffmpegArgs = string.Join(" ", FFmpegArgsList.Where(s => !string.IsNullOrEmpty(s)));
 
-                    if (MainWindow.script == 0) // check if script button enabled
-                    {
-                        System.Diagnostics.Process.Start("CMD.exe", cmdWindow + ffmpegArgs);
-                    }
+                    // Remove double spaces
+                    ffmpegArgs = Regex.Replace(ffmpegArgs, @"\s+", " ");
+
                 }
 
                 // -------------------------
@@ -473,11 +487,21 @@ namespace Axiom
                     // Join List with Spaces, Remove Empty Strings
                     ffmpegArgs = string.Join(" ", FFmpegArgsList.Where(s => !string.IsNullOrEmpty(s)));
 
-                    if (MainWindow.script == 0) // check if script button enabled
-                    {
-                        System.Diagnostics.Process.Start("CMD.exe", cmdWindow + ffmpegArgs);
-                    }
+                    // Remove double spaces
+                    ffmpegArgs = Regex.Replace(ffmpegArgs, @"\s+", " ");
                 }
+            }
+        }
+
+
+        /// <summary>
+        /// FFmpeg Batch Convert
+        /// </summary>
+        public static void FFmpegBatchConvert(MainWindow mainwindow)
+        {
+            if (mainwindow.tglBatch.IsChecked == true && MainWindow.script == 0) // check if script button enabled
+            {
+                System.Diagnostics.Process.Start("CMD.exe", cmdWindow + ffmpegArgs);
             }
         }
 
@@ -487,8 +511,8 @@ namespace Axiom
         /// </summary>
         public static void FFmpegScript(MainWindow mainwindow)
         {
-            if (MainWindow.script == 1)
-            {
+            //if (MainWindow.script == 1)
+            //{
                 //ffmpegArgs = Regex.Replace(ffmpegArgs, @"\s+", " "); /* remove extra white spaces*/
 
                 // Open ScriptView Window
@@ -497,7 +521,7 @@ namespace Axiom
                 scriptview.Top = mainwindow.Top + 98;
                 scriptview.Owner = Window.GetWindow(mainwindow);
                 scriptview.Show();
-            }
+            //}
         }
 
 

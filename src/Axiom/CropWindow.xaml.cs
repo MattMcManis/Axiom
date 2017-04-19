@@ -8,7 +8,7 @@ using System.Windows.Input;
 Axiom UI
 Copyright (C) 2017 Matt McManis
 http://github.com/MattMcManis/Axiom
-http://www.x.co/axiomui
+http://axiomui.github.io
 axiom.interface@gmail.com
 
 This program is free software: you can redistribute it and/or modify

@@ -2,7 +2,7 @@
     Axiom UI
     Copyright (C) 2017 Matt McManis
     http://github.com/MattMcManis/Axiom
-    http://www.x.co/axiomui
+    http://axiomui.github.io
     axiom.interface@gmail.com
 
     This program is free software: you can redistribute it and/or modify
@@ -74,12 +74,12 @@
                                 <ControlTemplate.Triggers>
                                     <Trigger Property="IsMouseOver" Value="True">
                                         <Setter Property="Foreground" Value="#FF000000" />
-                                        <Setter Property="Background" Value="{StaticResource ListItemHoverFill}" />
+                                        <Setter Property="Background" Value="{DynamicResource ListItemHoverFill}" />
                                         <Setter Property="BorderBrush" Value="#FF06b025" />
                                         <Setter TargetName="UpperHighlight" Property="Visibility" Value="Visible" />
                                     </Trigger>
                                     <!--<Trigger Property="IsSelected" Value="True">
-                                <Setter Property="Background" Value="{StaticResource ListItemSelectedFill}" />
+                                <Setter Property="Background" Value="{DynamicResource ListItemSelectedFill}" />
                                 <Setter Property="BorderBrush" Value="#FF98DDFB" />
                                 <Setter TargetName="InnerBorder" Property="BorderBrush" Value="#80FFFFFF" />
                                 <Setter TargetName="UpperHighlight" Property="Visibility" Value="Visible" />
@@ -90,7 +90,7 @@
                     <Condition Property="IsSelected" Value="True" /> 
                     <Condition Property="Selector.IsSelectionActive" Value="False" /> 
                 </MultiTrigger.Conditions> 
-                <Setter Property="Background" Value="{StaticResource ListItemSelectedInactiveFill}" /> 
+                <Setter Property="Background" Value="{DynamicResource ListItemSelectedInactiveFill}" /> 
                 <Setter Property="BorderBrush" Value="#FFCFCFCF" /> 
             </MultiTrigger>-->
                                     <!--<MultiTrigger>
@@ -98,7 +98,7 @@
                                     <Condition Property="IsSelected" Value="True" />
                                     <Condition Property="IsMouseOver" Value="True" />
                                 </MultiTrigger.Conditions>
-                                <Setter Property="Background" Value="{StaticResource ListItemSelectedHoverFill}" />
+                                <Setter Property="Background" Value="{DynamicResource ListItemSelectedHoverFill}" />
                                 <Setter Property="BorderBrush" Value="#FF98DDFB" />
                             </MultiTrigger>-->
                                     <Trigger Property="IsEnabled" Value="False">

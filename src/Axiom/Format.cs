@@ -9,7 +9,7 @@ using System.Windows.Media;
     Axiom UI
     Copyright (C) 2017 Matt McManis
     http://github.com/MattMcManis/Axiom
-    http://www.x.co/axiomui
+    http://axiomui.github.io
     axiom.interface@gmail.com
 
     This program is free software: you can redistribute it and/or modify
@@ -643,7 +643,7 @@ namespace Axiom
                 // Crop
                 //crop = string.Empty; //??
                 mainwindow.buttonCrop.IsEnabled = false;
-                mainwindow.buttonCrop.Foreground = MainWindow.TextBoxDiabledForeground;
+                //mainwindow.buttonCrop.Foreground = MainWindow.TextBoxDiabledForeground;
 
                 // Fps
                 mainwindow.cboFPS.SelectedItem = "auto";
@@ -736,7 +736,7 @@ namespace Axiom
 
                 // Volume
                 mainwindow.volumeUpDown.IsEnabled = false;
-                mainwindow.volumeUpDown.Foreground = MainWindow.TextBoxDiabledForeground;
+                //mainwindow.volumeUpDown.Foreground = MainWindow.TextBoxDiabledForeground;
                 mainwindow.volumeUpButton.IsEnabled = false;
                 mainwindow.volumeDownButton.IsEnabled = false;
 
@@ -799,7 +799,7 @@ namespace Axiom
 
                 // Volume
                 mainwindow.volumeUpDown.IsEnabled = false;
-                mainwindow.volumeUpDown.Foreground = MainWindow.TextBoxDiabledForeground;
+                //mainwindow.volumeUpDown.Foreground = MainWindow.TextBoxDiabledForeground;
                 mainwindow.volumeUpButton.IsEnabled = false;
                 mainwindow.volumeDownButton.IsEnabled = false;
 
@@ -834,8 +834,8 @@ namespace Axiom
                 mainwindow.frameEnd.IsEnabled = false;
 
                 // TextBox Color
-                mainwindow.frameStart.Foreground = MainWindow.TextBoxDiabledForeground;
-                mainwindow.frameEnd.Foreground = MainWindow.TextBoxDiabledForeground;
+                //mainwindow.frameStart.Foreground = MainWindow.TextBoxDiabledForeground;
+                //mainwindow.frameEnd.Foreground = MainWindow.TextBoxDiabledForeground;
 
                 // Reset Text
                 mainwindow.frameStart.Text = "Frame";
@@ -849,8 +849,8 @@ namespace Axiom
             else if ((string)mainwindow.cboCut.SelectedItem == "Yes")
             {
                 // TextBox Color
-                mainwindow.frameStart.Foreground = MainWindow.TextBoxDarkBlue;
-                mainwindow.frameEnd.Foreground = MainWindow.TextBoxDarkBlue;
+                //mainwindow.frameStart.Foreground = MainWindow.TextBoxDarkBlue;
+                //mainwindow.frameEnd.Foreground = MainWindow.TextBoxDarkBlue;
 
                 // Frames
                 if ((string)mainwindow.cboMediaType.SelectedItem == "Video") // only for video
@@ -884,8 +884,8 @@ namespace Axiom
                     mainwindow.frameEnd.IsEnabled = false;
 
                     // TextBox Color
-                    mainwindow.frameStart.Foreground = MainWindow.TextBoxDiabledForeground;
-                    mainwindow.frameEnd.Foreground = MainWindow.TextBoxDiabledForeground;
+                    //mainwindow.frameStart.Foreground = MainWindow.TextBoxDiabledForeground;
+                    //mainwindow.frameEnd.Foreground = MainWindow.TextBoxDiabledForeground;
 
                     // Text
                     mainwindow.frameStart.Text = "Frame";
