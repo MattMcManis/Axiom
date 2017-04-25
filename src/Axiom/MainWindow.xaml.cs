@@ -79,6 +79,12 @@ namespace Axiom
         public LogConsole console = new LogConsole();
 
         /// <summary>
+        /// Log Console
+        /// </summary>
+        public FileProperties fileproperties = new FileProperties();
+        public static Paragraph propertiesparagraph = new Paragraph(); //RichTextBox
+
+        /// <summary>
         ///     Script View
         /// </summary>
         public ScriptView scriptview; //pass data, do not add new
@@ -177,7 +183,7 @@ namespace Axiom
         {
             InitializeComponent();
 
-            TitleVersion = "Axiom ~ FFmpeg UI (0.8.7α)";
+            TitleVersion = "Axiom ~ FFmpeg UI (0.8.8α)";
             DataContext = this;
 
             /// <summary>
@@ -1279,39 +1285,39 @@ namespace Axiom
         /// <summary>
         ///    Delete 2 Pass Logs (Method)
         /// </summary>
-        public async void Delete2PassLogs(MainWindow mainwindow)
-        {
-            await Task.Delay(5000);
+        //public async void Delete2PassLogs(MainWindow mainwindow)
+        //{
+        //    await Task.Delay(5000);
 
-            try
-            {
-                // Delete File
-                // Don't Use, causing log to delete too early when needed by ffmpeg for pass 2
-                //if (File.Exists(@MainWindow.currentDir + "\\ffmpeg2pass-0.log.mbtree"))
-                //{
-                //    FileInfo file = new FileInfo(@MainWindow.currentDir + "\\ffmpeg2pass-0.log.mbtree");
-                //
-                //    while (IsFileLocked(file))
-                //        Thread.Sleep(1000);
-                //    await file.DeleteAsync();
-                //}
+        //    try
+        //    {
+        //        // Delete File
+        //        // Don't Use, causing log to delete too early when needed by ffmpeg for pass 2
+        //        if (File.Exists(@MainWindow.currentDir + "\\ffmpeg2pass-0.log.mbtree"))
+        //        {
+        //            FileInfo file = new FileInfo(@MainWindow.currentDir + "\\ffmpeg2pass-0.log.mbtree");
 
-                // Delete File
-                //if (File.Exists(@MainWindow.currentDir + "\\ffmpeg2pass-0.log"))
-                //{
-                //    FileInfo file = new FileInfo(@MainWindow.currentDir + "\\ffmpeg2pass-0.log");
-                //
-                //    while (IsFileLocked(file))
-                //        Thread.Sleep(1000);
-                //    await file.DeleteAsync();
-                //}
+        //            while (IsFileLocked(file))
+        //                Thread.Sleep(1000);
+        //            await file.DeleteAsync();
+        //        }
 
-            }
-            catch
-            {
+        //        // Delete File
+        //        if (File.Exists(@MainWindow.currentDir + "\\ffmpeg2pass-0.log"))
+        //        {
+        //            FileInfo file = new FileInfo(@MainWindow.currentDir + "\\ffmpeg2pass-0.log");
 
-            }
-        }
+        //            while (IsFileLocked(file))
+        //                Thread.Sleep(1000);
+        //            await file.DeleteAsync();
+        //        }
+
+        //    }
+        //    catch
+        //    {
+
+        //    }
+        //}
 
 
         /// <summary>
@@ -1512,7 +1518,7 @@ namespace Axiom
 
 
                 /// <summary>
-                ///    FFprobe Input File Size
+                ///    FFprobe File Info
                 /// </summary> 
                 FFprobe.FFprobeInputFileInfo(this);
 
@@ -1555,7 +1561,7 @@ namespace Axiom
                     Log.paragraph.Inlines.Add(new Bold(new Run("General")) { Foreground = Log.ConsoleAction });
                     Log.paragraph.Inlines.Add(new LineBreak());
 
-                    Log.paragraph.Inlines.Add(new Bold(new Run("Format: ")) { Foreground = Log.ConsoleDefault });
+                    Log.paragraph.Inlines.Add(new Bold(new Run("Container: ")) { Foreground = Log.ConsoleDefault });
                     // single file
                     if (!string.IsNullOrEmpty(inputExt))
                     {
@@ -1931,22 +1937,46 @@ namespace Axiom
         /// <summary>
         ///     File Properties Button
         /// </summary>
+        private Boolean IsFilePropertiesOpened = false;
         private void buttonProperties_Click(object sender, RoutedEventArgs e)
         {
             /// <summary>
-            ///    FFprobe Detect Metadata
+            ///    FFprobe Video Entry Type Containers
             /// </summary> 
-            Metadata();
+            FFprobe.FFprobeInputFileProperties(this);
 
-            /// <summary>
-            ///    Write All Log Actions to Console
-            /// </summary> 
-            Log.LogWriteAll(this, configure);
 
-            // Open Log Console Window
-            console.Left = this.Left + 610;
-            console.Top = this.Top + 0;
-            console.Show();
+            // -------------------------
+            // Start File Properties Window
+            // -------------------------
+            if (IsFilePropertiesOpened) return;
+            MainWindow mainwindow = this;
+            fileproperties = new FileProperties(mainwindow);
+            fileproperties.Owner = Window.GetWindow(this);
+            fileproperties.Left = Left + 95;
+            fileproperties.Top = Top - 47;
+            fileproperties.ContentRendered += delegate { IsFilePropertiesOpened = true; };
+            fileproperties.Closed += delegate { IsFilePropertiesOpened = false; };
+
+            // -------------------------
+            // Display FFprobe File Properties
+            // -------------------------  
+            mainwindow.fileproperties.rtbFileProperties.Document = new FlowDocument(propertiesparagraph); // start
+            mainwindow.fileproperties.rtbFileProperties.BeginChange(); // begin change
+
+            // Clear Rich Text Box on Start
+            propertiesparagraph.Inlines.Clear();
+
+            // Write All File Properties to Rich Text Box
+            propertiesparagraph.Inlines.Add(new Run(FFprobe.inputFileProperties) { Foreground = Log.ConsoleDefault });
+
+            mainwindow.fileproperties.rtbFileProperties.EndChange(); // end change
+
+
+            // -------------------------
+            // Open File Properties Window
+            // -------------------------
+            fileproperties.Show();
         }
 
 
@@ -2066,9 +2096,7 @@ namespace Axiom
             Log.LogActions.Add(Log.WriteAction);
 
             // Enable Script
-            //script = 1;
-            // Call Convert Button Method
-            //buttonConvert_Click(sender, e);
+            script = 1;
 
             /// <summary>
             ///    FFmpeg and FFprobe Path
@@ -3190,7 +3218,7 @@ namespace Axiom
             // Open Configure Window
             cropwindow = new CropWindow(mainwindow);
             cropwindow.Left = this.Left + 64;
-            cropwindow.Top = this.Top - 275;
+            cropwindow.Top = this.Top - 40;
             cropwindow.Owner = Window.GetWindow(this);
             cropwindow.ShowDialog();
         }

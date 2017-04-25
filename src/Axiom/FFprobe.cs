@@ -37,6 +37,7 @@ namespace Axiom
         public static string ffprobe; // FFprobe.exe
 
         // Arguments for StartInfo
+        public static string FFprobeArgsProperties;
         public static string FFprobeArgsVideoCodec; 
         public static string FFprobeArgsAudioCodec; 
         public static string FFprobeArgsVideoBitrate;
@@ -55,6 +56,7 @@ namespace Axiom
         public static string ffprobeFramerateResult;
 
         // Results to Modify
+        public static string inputFileProperties;
         public static string inputVideoCodec;
         public static string inputVideoBitrate;
         public static string inputAudioCodec;
@@ -147,6 +149,34 @@ namespace Axiom
             }
         }
 
+        /// <summary>
+        /// FFprobe Input File Properties Parse (Method)
+        /// </summary>
+        public static void FFprobeInputFileProperties(MainWindow mainwindow)
+        {
+            // Start FFprobe Process
+            using (Process FFprobeParse = new Process())
+            {
+                FFprobeParse.StartInfo.UseShellExecute = false;
+                FFprobeParse.StartInfo.CreateNoWindow = true;
+                FFprobeParse.StartInfo.RedirectStandardOutput = true;
+                FFprobeParse.StartInfo.FileName = ffprobe;
+
+                if (!string.IsNullOrEmpty(ffprobe)) //FFprobe.exe Null Check
+                {
+                    // -------------------------
+                    // Get All Streams Properties
+                    // -------------------------
+                    FFprobeArgsProperties = " -i" + " " + "\"" + mainwindow.textBoxBrowse.Text + "\"" + " -v quiet -print_format ini -show_format -show_streams";
+                    FFprobeParse.StartInfo.Arguments = FFprobeArgsProperties;
+                    FFprobeParse.Start();
+                    FFprobeParse.WaitForExit();
+                    inputFileProperties = FFprobeParse.StandardOutput.ReadToEnd(); // Get Ouput Result
+                }
+
+            }
+        }
+
 
         /// <summary>
         /// FFprobe Input File Info Parse (Method)
@@ -166,7 +196,7 @@ namespace Axiom
                     // -------------------------
                     // Frame Rate
                     // -------------------------
-                    FFprobeArgsFramerate = " -i" + " " + "\"" + MainWindow.input + "\"" + " -select_streams v:0 -show_entries stream=r_frame_rate -v quiet -of csv=\"p=0\"";
+                    FFprobeArgsFramerate = " -i" + " " + "\"" + mainwindow.textBoxBrowse.Text + "\"" + " -select_streams v:0 -show_entries stream=r_frame_rate -v quiet -of csv=\"p=0\"";
                     FFprobeParse.StartInfo.Arguments = FFprobeArgsFramerate;
                     FFprobeParse.Start();
                     FFprobeParse.WaitForExit();

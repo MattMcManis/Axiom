@@ -110,6 +110,13 @@ namespace Axiom
                 Video.pass1 = "-pass 1";
                 Video.pass2 = "-pass 2";
 
+                // x265 Pass 2 Params
+                if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265")
+                {
+                    Video.pass1 = "-x265-params pass=1";
+                    Video.pass2 = "-x265-params pass=2";
+                }
+
                 // Make Arguments List
                 List<string> v2passList = new List<string>() {
                     "&&",
@@ -145,6 +152,7 @@ namespace Axiom
                 Video.v2pass = Regex.Replace(Video.v2pass, @"\s+", " ");
             }
 
+
             // If 2 Pass is Enabled
             // Batch
             //
@@ -153,6 +161,13 @@ namespace Axiom
                 // Enable pass parameters in the FFmpeg Batch Arguments
                 Video.pass1 = "-pass 1";
                 Video.pass2 = "-pass 2";
+
+                // x265 Pass 2 Params
+                if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265")
+                {
+                    Video.pass1 = "-x265-params pass=1";
+                    Video.pass2 = "-x265-params pass=2";
+                }
 
                 // If Video = Auto, use the CMD Batch Video Variable
                 if (mainwindow.tglBatch.IsChecked == true && (string)mainwindow.cboVideo.SelectedItem == "Auto")
@@ -511,8 +526,8 @@ namespace Axiom
         /// </summary>
         public static void FFmpegScript(MainWindow mainwindow)
         {
-            //if (MainWindow.script == 1)
-            //{
+            if (MainWindow.script == 1)
+            {
                 //ffmpegArgs = Regex.Replace(ffmpegArgs, @"\s+", " "); /* remove extra white spaces*/
 
                 // Open ScriptView Window
@@ -521,7 +536,7 @@ namespace Axiom
                 scriptview.Top = mainwindow.Top + 98;
                 scriptview.Owner = Window.GetWindow(mainwindow);
                 scriptview.Show();
-            //}
+            }
         }
 
 

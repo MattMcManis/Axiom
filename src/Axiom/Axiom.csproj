@@ -98,6 +98,9 @@
     </Compile>
     <Compile Include="FFmpeg.cs" />
     <Compile Include="FFprobe.cs" />
+    <Compile Include="FileProperties.xaml.cs">
+      <DependentUpon>FileProperties.xaml</DependentUpon>
+    </Compile>
     <Compile Include="FileQueue.xaml.cs">
       <DependentUpon>FileQueue.xaml</DependentUpon>
     </Compile>
@@ -122,6 +125,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="CropWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FileProperties.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

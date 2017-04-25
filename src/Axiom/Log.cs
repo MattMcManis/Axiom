@@ -44,7 +44,7 @@ namespace Axiom
         // --------------------------------------------------------------------------------------------------------
         // List of Actions
         public static List<Action> LogActions = new List<Action>();
-        //Action
+        // Action
         public static Action WriteAction;
         // Rich Textbox Paragraph
         public static Paragraph paragraph = new Paragraph(); //RichTextBox

@@ -29,26 +29,36 @@ namespace Axiom
     /// <summary>
     /// Interaction logic for Console.xaml
     /// </summary>
-    public partial class LogConsole : Window
+    public partial class FileProperties : Window
     {
         private MainWindow mainwindow;
 
-        public LogConsole()
+        public FileProperties()
         {
             //do not remove
         }
 
-        public LogConsole(MainWindow mainwindow)
+        public FileProperties(MainWindow mainwindow)
         {
             InitializeComponent();
 
             this.mainwindow = mainwindow;
 
             // Set Width/Height to prevent Tablets maximizing
-            this.Width = 400;
-            this.Height = 500;
+            this.Width = 420;
+            this.Height = 400;
             this.MinWidth = 200;
             this.MinHeight = 200;
+        }
+
+
+        /// <summary>
+        /// Close
+        /// </summary>
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            e.Cancel = true;
+            this.Close();
         }
 
 
@@ -62,20 +72,7 @@ namespace Axiom
             {
                 this.Width = 650;
                 this.Height = 600;
-            }          
-        }
-
-
-        /// <summary>
-        /// Hide Window Instead of Closing
-        /// </summary>
-        protected override void OnClosing(CancelEventArgs e)
-        {
-            this.Hide();
-            this.Width = 400;
-            this.Height = 500;
-            e.Cancel = true;
-            base.OnClosing(e);
+            }
         }
     }
 }
