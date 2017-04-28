@@ -54,7 +54,7 @@ namespace Axiom
         // --------------------------------------------------------------------------------------------------------
         // Audio
         public static string aCodec;
-        public static string aQual;
+        public static string aQuality;
         public static string aBitMode;
         public static string aBitrate;
         public static string aTrack;
@@ -71,7 +71,7 @@ namespace Axiom
         public static string aFilter;
 
         // Batch
-        public static string cmdBatch_aQual; // cmd batch audio dynamic value
+        //public static string cmdBatch_aQuality; // cmd batch audio dynamic value
 
 
 
@@ -1617,7 +1617,7 @@ namespace Axiom
                 {
                     aCodec = string.Empty; //used to be -an, but that is for Mute enabled only
                     aBitMode = string.Empty;
-                    aQual = string.Empty;
+                    aQuality = string.Empty;
 
                     Log.WriteAction = () =>
                     {
@@ -1633,7 +1633,7 @@ namespace Axiom
                 {
                     aBitMode = "-b:a";
                     //combine
-                    aQual = aBitMode + " " + FFprobe.inputAudioBitrate;
+                    aQuality = aBitMode + " " + FFprobe.inputAudioBitrate;
 
                     Log.WriteAction = () =>
                     {
@@ -1652,7 +1652,7 @@ namespace Axiom
                     if (FFprobe.inputAudioBitrate == "N/A" && !string.Equals(MainWindow.inputExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase))
                     {
                         // output codec is specified by the format selected
-                        aQual = "-b:a 320k"; // set a high default
+                        aQuality = "-b:a 320k"; // set a high default
 
                         Log.WriteAction = () =>
                         {
@@ -1668,7 +1668,7 @@ namespace Axiom
                     //if (FFprobe.inputAudioBitrate == "N/A" && string.Equals(MainWindow.inputExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase)) // (eg. mkv/flac to mkv)
                     //{
                     //    //aCodec = "-acodec copy";
-                    //    aQual = string.Empty;
+                    //    aQuality = string.Empty;
 
                     //    Log.WriteAction = () =>
                     //    {
@@ -1687,14 +1687,14 @@ namespace Axiom
                 if (aCodec == "-acodec copy")
                 {
                     aBitMode = string.Empty;
-                    aQual = string.Empty;
+                    aQuality = string.Empty;
                 }
                 // If input extension is same as output, use codec copy and remove -b:a and quality
                 // This does the same as codec copy above, but just to make sure
                 if ((string)mainwindow.cboVideoCodec.SelectedItem == "Copy")
                 {
                     aBitMode = string.Empty;
-                    aQual = string.Empty;
+                    aQuality = string.Empty;
                 }
             }
             // ####################
@@ -1709,7 +1709,7 @@ namespace Axiom
                 // PCM
                 else if ((string)mainwindow.cboAudioCodec.SelectedItem == "PCM") { aBitMode = string.Empty; aBitrate = string.Empty; }
                 //combine
-                aQual = aBitMode + " " + aBitrate;
+                aQuality = aBitMode + " " + aBitrate;
 
                 Log.WriteAction = () =>
                 {
@@ -1730,7 +1730,7 @@ namespace Axiom
                 //CBR default
                 else { aBitrate = "640k"; }
                 //combine
-                aQual = aBitMode + " " + aBitrate;
+                aQuality = aBitMode + " " + aBitrate;
 
                 // Log Console Message /////////
                 if (mainwindow.tglVBR.IsChecked == true)
@@ -1754,7 +1754,7 @@ namespace Axiom
                 //CBR default
                 else { aBitrate = "510k"; }
                 //combine
-                aQual = aBitMode + " " + aBitrate;
+                aQuality = aBitMode + " " + aBitrate;
 
                 // Log Console Message /////////
                 if (mainwindow.tglVBR.IsChecked == true)
@@ -1778,7 +1778,7 @@ namespace Axiom
                 //CBR default
                 else { aBitrate = "500k"; }
                 //combine
-                aQual = aBitMode + " " + aBitrate;
+                aQuality = aBitMode + " " + aBitrate;
 
                 // Log Console Message /////////
                 if (mainwindow.tglVBR.IsChecked == true)
@@ -1802,7 +1802,7 @@ namespace Axiom
                 //CBR default
                 else { aBitrate = "448k"; }
                 //combine
-                aQual = aBitMode + " " + aBitrate;
+                aQuality = aBitMode + " " + aBitrate;
 
                 // Log Console Message /////////
                 if (mainwindow.tglVBR.IsChecked == true)
@@ -1826,7 +1826,7 @@ namespace Axiom
                 //CBR default
                 else { aBitrate = "400k"; }
                 //combine
-                aQual = aBitMode + " " + aBitrate;
+                aQuality = aBitMode + " " + aBitrate;
 
                 // Log Console Message /////////
                 if (mainwindow.tglVBR.IsChecked == true)
@@ -1856,7 +1856,7 @@ namespace Axiom
                 //CBR default
                 else { aBitrate = "320k"; }
                 //combine
-                aQual = aBitMode + " " + aBitrate;
+                aQuality = aBitMode + " " + aBitrate;
 
                 // Log Console Message /////////
                 if (mainwindow.tglVBR.IsChecked == true)
@@ -1886,7 +1886,7 @@ namespace Axiom
                 //CBR default
                 else { aBitrate = "256k"; }
                 //combine
-                aQual = aBitMode + " " + aBitrate;
+                aQuality = aBitMode + " " + aBitrate;
 
                 // Log Console Message /////////
                 if (mainwindow.tglVBR.IsChecked == true)
@@ -1916,7 +1916,7 @@ namespace Axiom
                 //CBR default
                 else { aBitrate = "224k"; }
                 //combine
-                aQual = aBitMode + " " + aBitrate;
+                aQuality = aBitMode + " " + aBitrate;
 
                 // Log Console Message /////////
                 if (mainwindow.tglVBR.IsChecked == true)
@@ -1946,7 +1946,7 @@ namespace Axiom
                 //CBR default
                 else { aBitrate = "192k"; }
                 //combine
-                aQual = aBitMode + " " + aBitrate;
+                aQuality = aBitMode + " " + aBitrate;
 
                 // Log Console Message /////////
                 if (mainwindow.tglVBR.IsChecked == true)
@@ -1976,7 +1976,7 @@ namespace Axiom
                 //CBR default
                 else { aBitrate = "160k"; }
                 //combine
-                aQual = aBitMode + " " + aBitrate;
+                aQuality = aBitMode + " " + aBitrate;
 
                 // Log Console Message /////////
                 if (mainwindow.tglVBR.IsChecked == true)
@@ -2006,7 +2006,7 @@ namespace Axiom
                 //CBR default
                 else { aBitrate = "128k"; }
                 //combine
-                aQual = aBitMode + " " + aBitrate;
+                aQuality = aBitMode + " " + aBitrate;
 
                 // Log Console Message /////////
                 if (mainwindow.tglVBR.IsChecked == true)
@@ -2036,7 +2036,7 @@ namespace Axiom
                 //CBR default
                 else { aBitrate = "96k"; }
                 //combine
-                aQual = aBitMode + " " + aBitrate;
+                aQuality = aBitMode + " " + aBitrate;
 
                 // Log Console Message /////////
                 if (mainwindow.tglVBR.IsChecked == true)
@@ -2058,7 +2058,7 @@ namespace Axiom
             {
                 aBitMode = string.Empty; aBitrate = string.Empty; Streams.aMap = "-an";
                 //combine
-                aQual = aBitMode + " " + aBitrate;
+                aQuality = aBitMode + " " + aBitrate;
             }
             // ####################
             // None
@@ -2067,7 +2067,7 @@ namespace Axiom
             {
                 aBitMode = string.Empty; aBitrate = string.Empty;
                 //combine
-                aQual = aBitMode + " " + aBitrate;
+                aQuality = aBitMode + " " + aBitrate;
             }
             // ####################
             // Custom
@@ -2213,14 +2213,22 @@ namespace Axiom
                 }
 
                 //combine
-                aQual = aBitMode + " " + aBitrate;
+                aQuality = aBitMode + " " + aBitrate;
 
             }//end custom
 
-            //if blank, remove aQual (prevents the last variable from being used again)
+            //if blank, remove aQuality (prevents the last variable from being used again)
             if (string.IsNullOrWhiteSpace(mainwindow.audioCustom.Text))
             {
-                aQual = string.Empty;
+                aQuality = string.Empty;
+            }
+
+            // -------------------------
+            // Batch Auto
+            // -------------------------
+            if (mainwindow.tglBatch.IsChecked == true && (string)mainwindow.cboMediaType.SelectedItem == "Video" && (string)mainwindow.cboVideo.SelectedItem == "Auto")
+            {
+                aQuality = "-b:a %A";
             }
 
             // Audio Codec Copy - (Must be at this location)
@@ -2229,7 +2237,7 @@ namespace Axiom
                 aCodec = "-acodec copy";
                 aBitMode = string.Empty;
                 aBitrate = string.Empty;
-                aQual = string.Empty;
+                aQuality = string.Empty;
             }
         }
 

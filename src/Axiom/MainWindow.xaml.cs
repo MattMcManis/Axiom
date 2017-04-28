@@ -8,13 +8,13 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Management;
-using System.Threading;
-using System.Threading.Tasks;
+//using System.Threading;
+//using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
+//using System.Windows.Media;
 using System.Windows.Threading;
 // Disable XML Comment warnings
 #pragma warning disable 1591
@@ -183,7 +183,7 @@ namespace Axiom
         {
             InitializeComponent();
 
-            TitleVersion = "Axiom ~ FFmpeg UI (0.8.8α)";
+            TitleVersion = "Axiom ~ FFmpeg UI (0.8.9α)";
             DataContext = this;
 
             /// <summary>
@@ -577,7 +577,7 @@ namespace Axiom
 
             // Video
             Video.vCodec = string.Empty;
-            Video.vQual = string.Empty;
+            Video.vQuality = string.Empty;
             Video.vBitMode = string.Empty;
             Video.vBitrate = string.Empty;
             Video.vMaxrate = string.Empty;
@@ -614,11 +614,11 @@ namespace Axiom
             Video.options = string.Empty;
             Video.optimize = string.Empty;
             Video.speed = string.Empty;
-            Video.cmdBatch_vQual = string.Empty;
+            //Video.cmdBatch_vQuality = string.Empty;
 
             // Audio
             Audio.aCodec = string.Empty;
-            Audio.aQual = string.Empty;
+            Audio.aQuality = string.Empty;
             Audio.aBitMode = string.Empty;
             Audio.aBitrate = string.Empty;
             Audio.aTrack = string.Empty;
@@ -627,7 +627,7 @@ namespace Axiom
             Audio.aBitDepth = string.Empty;
             FFmpeg.aBitrateLimiter = string.Empty;
             aBitrateNA = string.Empty;
-            Audio.cmdBatch_aQual = string.Empty;
+            //Audio.cmdBatch_aQuality = string.Empty;
             Audio.aFilterSwitch = 0; //Set aFilter Switch back to Off to avoid doubling up
             Audio.aFilter = string.Empty;
             Audio.volume = string.Empty;
@@ -1152,6 +1152,13 @@ namespace Axiom
         public void InputOutputPathModifier()
         {
             // -------------------------
+            //  Remove Double Slash
+            // -------------------------
+            // Remove Double Slash in Root Dir, such as C:\
+            textBoxBrowse.Text = textBoxBrowse.Text.Replace(@"\\", @"\");
+            textBoxOutput.Text = textBoxOutput.Text.Replace(@"\\", @"\");
+
+            // -------------------------
             //  Input Directory Single
             // -------------------------
             if (!string.IsNullOrWhiteSpace(textBoxBrowse.Text)) // Check if Browse Textbox is empty or scanning for Directory will crash program
@@ -1193,7 +1200,7 @@ namespace Axiom
             // If Output empty, default to same as Input folder
             if (tglBatch.IsChecked == true && !string.IsNullOrWhiteSpace(textBoxBrowse.Text) && string.IsNullOrWhiteSpace(textBoxOutput.Text))
             {
-                textBoxOutput.Text = textBoxOutput.Text.TrimEnd('\\') + @"\";
+                textBoxOutput.Text = textBoxBrowse.Text.TrimEnd('\\') + @"\"; ;
                 outputDir = inputDir;
             }
 
@@ -1228,25 +1235,25 @@ namespace Axiom
         {
             // This is for when One option is Auto and the Other is User Select
             // If both Video & Audio are Auto, use both FFprobe variables
-            if ((string)cboVideo.SelectedItem == "Auto" && (string)cboAudio.SelectedItem == "Auto")
-            {
-                Video.cmdBatch_vQual = "-b:v %V"; //cmd batch value
-                Audio.cmdBatch_aQual = "-b:a %A"; //cmd batch value
-            }
+            //if ((string)cboVideo.SelectedItem == "Auto" && (string)cboAudio.SelectedItem == "Auto")
+            //{
+            //    Video.cmdBatch_vQuality = "-b:v %V"; //cmd batch value
+            //    Audio.cmdBatch_aQuality = "-b:a %A"; //cmd batch value
+            //}
 
-            // If Video is NOT (Auto), but Audio IS (Auto), use only FFprobe VIDEO variable
-            if ((string)cboVideo.SelectedItem != "Auto" && (string)cboAudio.SelectedItem == "Auto")
-            {
-                Video.cmdBatch_vQual = Video.vBitMode + " " + Video.vBitrate + " " + Video.crf + " " + Video.vMaxrate + " " + Video.vOptions; //User Selected
-                Audio.cmdBatch_aQual = "-b:a %A"; // Auto
-            }
+            //// If Video is NOT (Auto), but Audio IS (Auto), use only FFprobe VIDEO variable
+            //if ((string)cboVideo.SelectedItem != "Auto" && (string)cboAudio.SelectedItem == "Auto")
+            //{
+            //    Video.cmdBatch_vQuality = Video.vBitMode + " " + Video.vBitrate + " " + Video.crf + " " + Video.vMaxrate + " " + Video.vOptions; //User Selected
+            //    Audio.cmdBatch_aQuality = "-b:a %A"; // Auto
+            //}
 
-            // If Video IS (Auto), but Audio is NOT (Auto), use only FFprobe AUDIO variable
-            if ((string)cboVideo.SelectedItem == "Auto" && (string)cboAudio.SelectedItem != "Auto")
-            {
-                Video.cmdBatch_vQual = "-b:v %V"; // Auto
-                Audio.cmdBatch_aQual = Audio.aBitMode + " " + Audio.aBitrate; //User Selected
-            }
+            //// If Video IS (Auto), but Audio is NOT (Auto), use only FFprobe AUDIO variable
+            //if ((string)cboVideo.SelectedItem == "Auto" && (string)cboAudio.SelectedItem != "Auto")
+            //{
+            //    Video.cmdBatch_vQuality = "-b:v %V"; // Auto
+            //    Audio.cmdBatch_aQuality = Audio.aBitMode + " " + Audio.aBitrate; //User Selected
+            //}
         }
 
 
@@ -2374,12 +2381,15 @@ namespace Axiom
                 //OpenFileDialog.Multiselect = true; // enable multiple file select (optional for File Queue Window)
                 System.Windows.Forms.DialogResult result = OpenFileDialog.ShowDialog();
 
-                
+
                 // Popup File Browse Window
                 if (result == System.Windows.Forms.DialogResult.OK)
                 {
                     // Display File Path in Textbox
                     textBoxBrowse.Text = OpenFileDialog.FileName;
+
+                    // Remove Double Slash in Root Dir, such as C:\
+                    textBoxBrowse.Text = textBoxBrowse.Text.Replace(@"\\", @"\");
 
                     // Input File Folder Path
                     inputDir = System.IO.Path.GetDirectoryName(textBoxBrowse.Text);                  
@@ -2410,7 +2420,10 @@ namespace Axiom
                 if (result == System.Windows.Forms.DialogResult.OK)
                 {
                     // Display Folder Path in Textbox
-                    textBoxBrowse.Text = folderBrowserDialog.SelectedPath + "\\";
+                    textBoxBrowse.Text = folderBrowserDialog.SelectedPath.TrimEnd('\\') + @"\";
+
+                    // Remove Double Slash in Root Dir, such as C:\
+                    textBoxBrowse.Text = textBoxBrowse.Text.Replace(@"\\", @"\");
 
                     // Add slash to Batch Browse Text folder path if missing
                     if (!textBoxBrowse.Text.EndsWith("\\") && !string.IsNullOrWhiteSpace(textBoxBrowse.Text))
@@ -2483,7 +2496,11 @@ namespace Axiom
             if (result == System.Windows.Forms.DialogResult.OK)
             {
                 // Display Folder Path in Textbox
-                textBoxOutput.Text = folderBrowserDialog.SelectedPath + "\\"; //end with backslash
+                //textBoxOutput.Text = folderBrowserDialog.SelectedPath + "\\"; //end with backslash
+                textBoxOutput.Text = folderBrowserDialog.SelectedPath.TrimEnd('\\') + @"\";
+
+                // Remove Double Slash in Root Dir, such as C:\
+                textBoxOutput.Text = textBoxOutput.Text.Replace(@"\\", @"\");
 
                 // Add slash to Batch Browse Text folder path if missing
                 if (!textBoxOutput.Text.EndsWith("\\") && !string.IsNullOrWhiteSpace(textBoxOutput.Text))

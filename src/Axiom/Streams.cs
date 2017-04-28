@@ -75,19 +75,19 @@ namespace Axiom
             {
                 vMap = "-map 0:v:0?"; // only video track 1
                 aMap = "-map 0:a:0?"; // only audio track 1
-                sMap = "-map 0:s? -c:s mov_text"; // all subtitles (:? at the end ignores error if subtitle is not available)
+                sMap = "-map 0:s? -c:s copy"; // all subtitles (:? at the end ignores error if subtitle is not available)
             }
             else if ((string)mainwindow.cboFormat.SelectedItem == "mkv") // if codec copy, copy all
             {
                 vMap = "-map 0:v?"; // all video tracks
                 aMap = "-map 0:a?"; // all audio tracks 
-                sMap = "-map 0:s? -c:s ass"; // all subtitles (srt / ass)
+                sMap = "-map 0:s? -c:s copy"; // all subtitles
             }
             else if ((string)mainwindow.cboFormat.SelectedItem == "ogv") // if codec copy, copy all
             {
                 vMap = "-map 0:v?"; // all video tracks
                 aMap = "-map 0:a?"; // all audio tracks 
-                sMap = "-map 0:s? -c:s srt"; // all subtitles (srt / ass) OGV has problem using Subtitles
+                sMap = "-map 0:s? -c:s copy"; // all subtitles, OGV has problem using Subtitles
             }
 
 
@@ -185,15 +185,15 @@ namespace Axiom
                 // mp4 uses mov_text / mkv uses ass
                 if ((string)mainwindow.cboFormat.SelectedItem == "mp4")
                 {
-                    sMap = "-map 0:s:0? -c:s mov_text";
+                    sMap = "-map 0:s:0? -c:s copy";
                 }
                 else if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
                 {
-                    sMap = "-map 0:s:0? -c:s ass";
+                    sMap = "-map 0:s:0? -c:s copy";
                 }
                 else if ((string)mainwindow.cboFormat.SelectedItem == "ogv")
                 {
-                    sMap = "-map 0:s:0? -c:s ass";
+                    sMap = "-map 0:s:0? -c:s copy";
                 }
                 else if ((string)mainwindow.cboFormat.SelectedItem == "jpg" || (string)mainwindow.cboFormat.SelectedItem == "png")
                 {
@@ -205,15 +205,15 @@ namespace Axiom
                 // mp4 uses mov_text / mkv uses ass
                 if ((string)mainwindow.cboFormat.SelectedItem == "mp4")
                 {
-                    sMap = "-map 0:s:1? -c:s mov_text";
+                    sMap = "-map 0:s:1? -c:s copy";
                 }
                 else if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
                 {
-                    sMap = "-map 0:s:1? -c:s ass";
+                    sMap = "-map 0:s:1? -c:s copy";
                 }
                 else if ((string)mainwindow.cboFormat.SelectedItem == "ogv")
                 {
-                    sMap = "-map 0:s:1? -c:s ass";
+                    sMap = "-map 0:s:1? -c:s copy";
                 }
                 else if ((string)mainwindow.cboFormat.SelectedItem == "jpg" || (string)mainwindow.cboFormat.SelectedItem == "png")
                 {
@@ -225,15 +225,15 @@ namespace Axiom
                 // mp4 uses mov_text / mkv uses ass
                 if ((string)mainwindow.cboFormat.SelectedItem == "mp4")
                 {
-                    sMap = "-map 0:s:2? -c:s mov_text";
+                    sMap = "-map 0:s:2? -c:s copy";
                 }
                 else if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
                 {
-                    sMap = "-map 0:s:2? -c:s ass";
+                    sMap = "-map 0:s:2? -c:s copy";
                 }
                 else if ((string)mainwindow.cboFormat.SelectedItem == "ogv")
                 {
-                    sMap = "-map 0:s:2? -c:s ass";
+                    sMap = "-map 0:s:2? -c:s copy";
                 }
                 else if ((string)mainwindow.cboFormat.SelectedItem == "jpg" || (string)mainwindow.cboFormat.SelectedItem == "png")
                 {
@@ -245,15 +245,15 @@ namespace Axiom
                 // mp4 uses mov_text / mkv uses ass
                 if ((string)mainwindow.cboFormat.SelectedItem == "mp4")
                 {
-                    sMap = "-map 0:s:3? -c:s mov_text";
+                    sMap = "-map 0:s:3? -c:s copy";
                 }
                 else if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
                 {
-                    sMap = "-map 0:s:3? -c:s ass";
+                    sMap = "-map 0:s:3? -c:s copy";
                 }
                 else if ((string)mainwindow.cboFormat.SelectedItem == "ogv")
                 {
-                    sMap = "-map 0:s:3? -c:s ass";
+                    sMap = "-map 0:s:3? -c:s copy";
                 }
                 else if ((string)mainwindow.cboFormat.SelectedItem == "jpg" || (string)mainwindow.cboFormat.SelectedItem == "png")
                 {
@@ -265,15 +265,15 @@ namespace Axiom
                 // mp4 uses mov_text / mkv uses ass
                 if ((string)mainwindow.cboFormat.SelectedItem == "mp4")
                 {
-                    sMap = "-map 0:s:4? -c:s mov_text";
+                    sMap = "-map 0:s:4? -c:s copy";
                 }
                 else if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
                 {
-                    sMap = "-map 0:s:4? -c:s ass";
+                    sMap = "-map 0:s:4? -c:s copy";
                 }
                 else if ((string)mainwindow.cboFormat.SelectedItem == "ogv")
                 {
-                    sMap = "-map 0:s:4? -c:s ass";
+                    sMap = "-map 0:s:4? -c:s copy";
                 }
                 else if ((string)mainwindow.cboFormat.SelectedItem == "jpg" || (string)mainwindow.cboFormat.SelectedItem == "png")
                 {
@@ -285,15 +285,15 @@ namespace Axiom
                 // mp4 uses mov_text / mkv uses ass
                 if ((string)mainwindow.cboFormat.SelectedItem == "mp4")
                 {
-                    sMap = "-map 0:s:5? -c:s mov_text";
+                    sMap = "-map 0:s:5? -c:s copy";
                 }
                 else if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
                 {
-                    sMap = "-map 0:s:5? -c:s ass";
+                    sMap = "-map 0:s:5? -c:s copy";
                 }
                 else if ((string)mainwindow.cboFormat.SelectedItem == "ogv")
                 {
-                    sMap = "-map 0:s:5? -c:s ass";
+                    sMap = "-map 0:s:5? -c:s copy";
                 }
                 else if ((string)mainwindow.cboFormat.SelectedItem == "jpg" || (string)mainwindow.cboFormat.SelectedItem == "png")
                 {
@@ -305,15 +305,15 @@ namespace Axiom
                 // mp4 uses mov_text / mkv uses ass
                 if ((string)mainwindow.cboFormat.SelectedItem == "mp4")
                 {
-                    sMap = "-map 0:s:6? -c:s mov_text";
+                    sMap = "-map 0:s:6? -c:s copy";
                 }
                 else if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
                 {
-                    sMap = "-map 0:s:6? -c:s ass";
+                    sMap = "-map 0:s:6? -c:s copy";
                 }
                 else if ((string)mainwindow.cboFormat.SelectedItem == "ogv")
                 {
-                    sMap = "-map 0:s:6? -c:s ass";
+                    sMap = "-map 0:s:6? -c:s copy";
                 }
                 else if ((string)mainwindow.cboFormat.SelectedItem == "jpg" || (string)mainwindow.cboFormat.SelectedItem == "png")
                 {
@@ -325,15 +325,15 @@ namespace Axiom
                 // mp4 uses mov_text / mkv uses ass
                 if ((string)mainwindow.cboFormat.SelectedItem == "mp4")
                 {
-                    sMap = "-map 0:s:7? -c:s mov_text";
+                    sMap = "-map 0:s:7? -c:s copy";
                 }
                 else if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
                 {
-                    sMap = "-map 0:s:7? -c:s ass";
+                    sMap = "-map 0:s:7? -c:s copy";
                 }
                 else if ((string)mainwindow.cboFormat.SelectedItem == "ogv")
                 {
-                    sMap = "-map 0:s:7? -c:s ass";
+                    sMap = "-map 0:s:7? -c:s copy";
                 }
                 else if ((string)mainwindow.cboFormat.SelectedItem == "jpg" || (string)mainwindow.cboFormat.SelectedItem == "png")
                 {

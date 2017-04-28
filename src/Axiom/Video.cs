@@ -62,7 +62,7 @@ namespace Axiom
 
         // Video
         public static string vCodec;
-        public static string vQual;
+        public static string vQuality;
         public static string vBitMode;
         public static string vBitrate;
         public static string vMaxrate;
@@ -92,7 +92,7 @@ namespace Axiom
         public static string pass2;
         public static int? v2passBatchSwitch = 0;
         public static string v2passBatch; // enabled if auto and batched checked
-        public static string cmdBatch_vQual; // cmd batch Video Auto dynamic value
+        //public static string cmdBatch_vQuality; // cmd batch Video Auto dynamic value
 
         // Filter
         public static List<string> VideoFilters = new List<string>(); // Filters to String Join
@@ -1358,14 +1358,14 @@ namespace Axiom
                 if (FFprobe.inputVideoBitrate == "N/A" && string.IsNullOrEmpty(FFprobe.inputVideoCodec)) // (mp3, m4a, ogg, etc)
                 {
                     vBitMode = string.Empty;
-                    vQual = string.Empty;
+                    vQuality = string.Empty;
                 }
 
                 // If No Bitrate & No Codec
                 if (string.IsNullOrEmpty(FFprobe.inputVideoBitrate) && string.IsNullOrEmpty(FFprobe.inputVideoCodec)) // (mp3 converted to a webm)
                 {
                     vBitMode = string.Empty;
-                    vQual = string.Empty;
+                    vQuality = string.Empty;
                 }
 
                 // If Video File has video, but Bitrate CAN'T be detected, but Codec is detected
@@ -1393,7 +1393,7 @@ namespace Axiom
                     vOptions = "-pix_fmt yuv420p";
                     vBitMode = string.Empty;
                     //combine
-                    vQual = crf + " " + vOptions;
+                    vQuality = crf + " " + vOptions;
                 }
 
                 // If Input File has Video and Bitrate was detected
@@ -1408,7 +1408,7 @@ namespace Axiom
                     else if ((string)mainwindow.cboVideoCodec.SelectedItem == "Theora") { vBitrate = "-q:v 10"; vOptions = "-pix_fmt yuv420p"; } // Theora can't have Auto Value, default to highest -q:v 10
 
                     //combine
-                    vQual = vBitrate + " " + vOptions;
+                    vQuality = vBitrate + " " + vOptions;
                 }
 
                 // -------------------------
@@ -1420,14 +1420,14 @@ namespace Axiom
                     vBitrate = "-qscale:v 2"; //use highest jpeg quality
                     vOptions = string.Empty;
 
-                    vQual = vBitrate;
+                    vQuality = vBitrate;
                 }
                 else if ((string)mainwindow.cboVideoCodec.SelectedItem == "PNG")
                 {
                     // png is lossless
                     crf = string.Empty; vBitrate = string.Empty; vOptions = string.Empty;
 
-                    vQual = vBitrate;
+                    vQuality = vBitrate;
                 }
 
                 //end Auto //////////////////////////
@@ -1450,7 +1450,7 @@ namespace Axiom
                 // CRF
                 if ((string)mainwindow.cboPass.SelectedItem == "CRF")
                 {
-                    vQual = crf + " " + vOptions; //combine
+                    vQuality = crf + " " + vOptions; //combine
 
                     v2passSwitch = 0;
                     v2passBatchSwitch = 0;
@@ -1458,7 +1458,7 @@ namespace Axiom
                 // 1 Pass
                 else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass")
                 {
-                    vQual = crf + " " + vOptions; //combine
+                    vQuality = crf + " " + vOptions; //combine
 
                     v2passSwitch = 0;
                     v2passBatchSwitch = 0;
@@ -1466,7 +1466,7 @@ namespace Axiom
                 // 2 Pass
                 else if ((string)mainwindow.cboPass.SelectedItem == "2 Pass")
                 {
-                    vQual = crf + " " + vOptions; //combine
+                    vQuality = crf + " " + vOptions; //combine
 
                     v2passSwitch = 0;
                     v2passBatchSwitch = 0;
@@ -1474,7 +1474,7 @@ namespace Axiom
                 // auto
                 else if ((string)mainwindow.cboPass.SelectedItem == "auto")
                 {
-                    vQual = crf + " " + vOptions; //combine
+                    vQuality = crf + " " + vOptions; //combine
 
                     v2passSwitch = 0;
                     v2passBatchSwitch = 0;
@@ -1642,14 +1642,14 @@ namespace Axiom
                 // Theora cant have Custom yet
 
                 //Combine
-                vQual = vBitMode + " " + vBitrate + " " + crf + " " + vMaxrate + " " + vBufsize + " " + vOptions;
+                vQuality = vBitMode + " " + vBitrate + " " + crf + " " + vMaxrate + " " + vBufsize + " " + vOptions;
             }
             // -------------------------
             // None
             // -------------------------
             else if ((string)mainwindow.cboVideo.SelectedItem == "None")
             {
-                vQual = string.Empty;
+                vQuality = string.Empty;
             }
 
 
@@ -1662,7 +1662,7 @@ namespace Axiom
                 vBitrate = string.Empty;
                 vMaxrate = string.Empty;
                 vBufsize = string.Empty;
-                vQual = string.Empty;
+                vQuality = string.Empty;
             }
 
             // Video Codec Copy
@@ -1673,7 +1673,7 @@ namespace Axiom
                 vBitrate = string.Empty;
                 vMaxrate = string.Empty;
                 vBufsize = string.Empty;
-                vQual = string.Empty;
+                vQuality = string.Empty;
             }
 
 
@@ -2720,7 +2720,7 @@ namespace Axiom
             if ((string)mainwindow.cboPass.SelectedItem == "CRF")
             {
                 vBitrate = string.Empty; //clear -b:v 2 pass
-                vQual = crf + " " + vOptions; //combine
+                vQuality = crf + " " + vOptions; //combine
 
                 v2passSwitch = 0;
                 v2passBatchSwitch = 0;
@@ -2729,7 +2729,7 @@ namespace Axiom
             else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass")
             {
                 crf = string.Empty; //clear crf
-                vQual = vBitrate + " " + vOptions; //combine
+                vQuality = vBitrate + " " + vOptions; //combine
 
                 v2passSwitch = 0;
                 v2passBatchSwitch = 0;
@@ -2738,7 +2738,7 @@ namespace Axiom
             else if ((string)mainwindow.cboPass.SelectedItem == "2 Pass")
             {
                 crf = string.Empty; //clear crf
-                vQual = vBitrate + " " + vOptions; //combine
+                vQuality = vBitrate + " " + vOptions; //combine
 
                 v2passSwitch = 1;
                 v2passBatchSwitch = 1;
@@ -2746,7 +2746,7 @@ namespace Axiom
             // auto
             else if ((string)mainwindow.cboPass.SelectedItem == "auto")
             {
-                vQual = vBitrate + " " + vOptions; //combine
+                vQuality = vBitrate + " " + vOptions; //combine
 
                 v2passSwitch = 0;
                 v2passBatchSwitch = 0;
