@@ -170,7 +170,7 @@ namespace Axiom
                     FFprobeArgsProperties = " -i" + " " + "\"" + mainwindow.textBoxBrowse.Text + "\"" + " -v quiet -print_format ini -show_format -show_streams";
                     FFprobeParse.StartInfo.Arguments = FFprobeArgsProperties;
                     FFprobeParse.Start();
-                    FFprobeParse.WaitForExit();
+                    //FFprobeParse.WaitForExit(); //hangs ffprobe
                     inputFileProperties = FFprobeParse.StandardOutput.ReadToEnd(); // Get Ouput Result
                 }
 
