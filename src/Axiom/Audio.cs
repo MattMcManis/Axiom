@@ -790,7 +790,7 @@ namespace Axiom
             // --------------------------------------------------
             // FLAC
             // --------------------------------------------------
-            else if ((string)mainwindow.cboAudioCodec.SelectedItem == "Flac")
+            else if ((string)mainwindow.cboAudioCodec.SelectedItem == "FLAC")
             {
                 //string previousItem;
 
@@ -1215,42 +1215,42 @@ namespace Axiom
                 if (!string.IsNullOrEmpty((string)mainwindow.cboAudioCodec.SelectedItem))
                 {
 
-                    if (AudioItemSource.Contains("640") && (string)mainwindow.cboAudioCodec.SelectedItem != "ALAC" && (string)mainwindow.cboAudioCodec.SelectedItem != "Flac" && (string)mainwindow.cboAudioCodec.SelectedItem != "PCM")
+                    if (AudioItemSource.Contains("640") && (string)mainwindow.cboAudioCodec.SelectedItem != "ALAC" && (string)mainwindow.cboAudioCodec.SelectedItem != "FLAC" && (string)mainwindow.cboAudioCodec.SelectedItem != "PCM")
                     {
                         if (Convert.ToInt32((string)mainwindow.cboAudio.SelectedItem) >= 320 || string.IsNullOrEmpty((string)mainwindow.cboAudio.SelectedItem))
                         {
                             mainwindow.cboAudio.SelectedItem = "640";
                         }
                     }
-                    else if (AudioItemSource.Contains("510") && (string)mainwindow.cboAudioCodec.SelectedItem != "ALAC" && (string)mainwindow.cboAudioCodec.SelectedItem != "Flac" && (string)mainwindow.cboAudioCodec.SelectedItem != "PCM")
+                    else if (AudioItemSource.Contains("510") && (string)mainwindow.cboAudioCodec.SelectedItem != "ALAC" && (string)mainwindow.cboAudioCodec.SelectedItem != "FLAC" && (string)mainwindow.cboAudioCodec.SelectedItem != "PCM")
                     {
                         if (Convert.ToInt32((string)mainwindow.cboAudio.SelectedItem) >= 320 || string.IsNullOrEmpty((string)mainwindow.cboAudio.SelectedItem))
                         {
                             mainwindow.cboAudio.SelectedItem = "510";
                         }
                     }
-                    else if (AudioItemSource.Contains("500") && (string)mainwindow.cboAudioCodec.SelectedItem != "ALAC" && (string)mainwindow.cboAudioCodec.SelectedItem != "Flac" && (string)mainwindow.cboAudioCodec.SelectedItem != "PCM")
+                    else if (AudioItemSource.Contains("500") && (string)mainwindow.cboAudioCodec.SelectedItem != "ALAC" && (string)mainwindow.cboAudioCodec.SelectedItem != "FLAC" && (string)mainwindow.cboAudioCodec.SelectedItem != "PCM")
                     {
                         if (Convert.ToInt32((string)mainwindow.cboAudio.SelectedItem) >= 320 || string.IsNullOrEmpty((string)mainwindow.cboAudio.SelectedItem))
                         {
                             mainwindow.cboAudio.SelectedItem = "500";
                         }
                     }
-                    else if (AudioItemSource.Contains("448") && (string)mainwindow.cboAudioCodec.SelectedItem != "ALAC" && (string)mainwindow.cboAudioCodec.SelectedItem != "Flac" && (string)mainwindow.cboAudioCodec.SelectedItem != "PCM")
+                    else if (AudioItemSource.Contains("448") && (string)mainwindow.cboAudioCodec.SelectedItem != "ALAC" && (string)mainwindow.cboAudioCodec.SelectedItem != "FLAC" && (string)mainwindow.cboAudioCodec.SelectedItem != "PCM")
                     {
                         if (Convert.ToInt32((string)mainwindow.cboAudio.SelectedItem) >= 320 || string.IsNullOrEmpty((string)mainwindow.cboAudio.SelectedItem))
                         {
                             mainwindow.cboAudio.SelectedItem = "448";
                         }
                     }
-                    else if (AudioItemSource.Contains("400") && (string)mainwindow.cboAudioCodec.SelectedItem != "ALAC" && (string)mainwindow.cboAudioCodec.SelectedItem != "Flac" && (string)mainwindow.cboAudioCodec.SelectedItem != "PCM")
+                    else if (AudioItemSource.Contains("400") && (string)mainwindow.cboAudioCodec.SelectedItem != "ALAC" && (string)mainwindow.cboAudioCodec.SelectedItem != "FLAC" && (string)mainwindow.cboAudioCodec.SelectedItem != "PCM")
                     {
                         if (Convert.ToInt32((string)mainwindow.cboAudio.SelectedItem) >= 320 || string.IsNullOrEmpty((string)mainwindow.cboAudio.SelectedItem))
                         {
                             mainwindow.cboAudio.SelectedItem = "400";
                         }
                     }
-                    else if (AudioItemSource.Contains("320") && (string)mainwindow.cboAudioCodec.SelectedItem != "ALAC" && (string)mainwindow.cboAudioCodec.SelectedItem != "Flac" && (string)mainwindow.cboAudioCodec.SelectedItem != "PCM")
+                    else if (AudioItemSource.Contains("320") && (string)mainwindow.cboAudioCodec.SelectedItem != "ALAC" && (string)mainwindow.cboAudioCodec.SelectedItem != "FLAC" && (string)mainwindow.cboAudioCodec.SelectedItem != "PCM")
                     {
                         if (Convert.ToInt32((string)mainwindow.cboAudio.SelectedItem) >= 320 || string.IsNullOrEmpty((string)mainwindow.cboAudio.SelectedItem))
                         {
@@ -1265,7 +1265,7 @@ namespace Axiom
                     //}
                 }
                 // Default to Lossless if ALAC or FLAC
-                if (mainwindow.cboAudio.Items.Contains("Lossless") && (string)mainwindow.cboAudioCodec.SelectedItem == "ALAC" | (string)mainwindow.cboAudioCodec.SelectedItem == "Flac" | (string)mainwindow.cboAudioCodec.SelectedItem == "PCM")
+                if (mainwindow.cboAudio.Items.Contains("Lossless") && (string)mainwindow.cboAudioCodec.SelectedItem == "ALAC" | (string)mainwindow.cboAudioCodec.SelectedItem == "FLAC" | (string)mainwindow.cboAudioCodec.SelectedItem == "PCM")
                 {
                     mainwindow.cboAudio.SelectedItem = "Lossless";
                     mainwindow.cboAudio.IsEnabled = false;
@@ -1333,7 +1333,7 @@ namespace Axiom
             {
                 aCodec = "-acodec libmp3lame";
             }
-            else if ((string)mainwindow.cboAudioCodec.SelectedItem == "Flac")
+            else if ((string)mainwindow.cboAudioCodec.SelectedItem == "FLAC")
             {
                 aCodec = "-acodec flac";
             }
@@ -1422,7 +1422,7 @@ namespace Axiom
                     }
                     else if ((string)mainwindow.cboFormat.SelectedItem == "flac")
                     {
-                        mainwindow.cboAudioCodec.SelectedItem = "Flac";
+                        mainwindow.cboAudioCodec.SelectedItem = "FLAC";
                     }
                     else if ((string)mainwindow.cboFormat.SelectedItem == "wav")
                     {
@@ -1505,7 +1505,7 @@ namespace Axiom
                 if ((string)mainwindow.cboAudioCodec.SelectedItem == "LAME") { aBitMode = "-b:a"; }
                 if ((string)mainwindow.cboAudioCodec.SelectedItem == "ALAC") { aBitMode = string.Empty; }
                 if ((string)mainwindow.cboAudioCodec.SelectedItem == "AC3") { aBitMode = "-b:a"; }
-                if ((string)mainwindow.cboAudioCodec.SelectedItem == "Flac") { aBitMode = string.Empty; }
+                if ((string)mainwindow.cboAudioCodec.SelectedItem == "FLAC") { aBitMode = string.Empty; }
                 if ((string)mainwindow.cboAudioCodec.SelectedItem == "PCM") { aBitMode = string.Empty; }
 
                 // OGV IS FORCED VBR or it will not work
@@ -1704,8 +1704,8 @@ namespace Axiom
             {
                 // ALAC
                 if ((string)mainwindow.cboAudioCodec.SelectedItem == "ALAC") { aBitMode = string.Empty; aBitrate = string.Empty; }
-                // Flac
-                else if ((string)mainwindow.cboAudioCodec.SelectedItem == "Flac") { aBitMode = string.Empty; aBitrate = string.Empty; }
+                // FLAC
+                else if ((string)mainwindow.cboAudioCodec.SelectedItem == "FLAC") { aBitMode = string.Empty; aBitrate = string.Empty; }
                 // PCM
                 else if ((string)mainwindow.cboAudioCodec.SelectedItem == "PCM") { aBitMode = string.Empty; aBitrate = string.Empty; }
                 //combine
@@ -2354,48 +2354,48 @@ namespace Axiom
         public static void BitDepth(MainWindow mainwindow)
         {
             // PCM has Bitdepth defined by Codec instead of sample_fmt, can use 8, 16, 24, 32, 64-bit
-            // Flac can only use 16 and 32-bit
+            // FLAC can only use 16 and 32-bit
             // ALAC can only use 16 and 32-bit
 
             if ((string)mainwindow.cboBitDepth.SelectedItem == "auto")
             {
                 if ((string)mainwindow.cboAudioCodec.SelectedItem == "PCM") { aBitDepth = string.Empty; aCodec = "-acodec pcm_s24le"; }
-                else if ((string)mainwindow.cboAudioCodec.SelectedItem == "Flac") { aBitDepth = string.Empty; }
+                else if ((string)mainwindow.cboAudioCodec.SelectedItem == "FLAC") { aBitDepth = string.Empty; }
                 else if ((string)mainwindow.cboAudioCodec.SelectedItem == "ALAC") { aBitDepth = string.Empty; }
                 else { aBitDepth = string.Empty; } // all other codecs
             }
             else if ((string)mainwindow.cboBitDepth.SelectedItem == "8")
             {
                 if ((string)mainwindow.cboAudioCodec.SelectedItem == "PCM") { aBitDepth = string.Empty; aCodec = "-acodec pcm_u8"; }
-                else if ((string)mainwindow.cboAudioCodec.SelectedItem == "Flac") { aBitDepth = string.Empty; }
+                else if ((string)mainwindow.cboAudioCodec.SelectedItem == "FLAC") { aBitDepth = string.Empty; }
                 else if ((string)mainwindow.cboAudioCodec.SelectedItem == "ALAC") { aBitDepth = string.Empty; }
                 else { aBitDepth = string.Empty; } // all other codecs
             }
             else if ((string)mainwindow.cboBitDepth.SelectedItem == "16")
             {
                 if ((string)mainwindow.cboAudioCodec.SelectedItem == "PCM") { aBitDepth = string.Empty; aCodec = "-acodec pcm_s16le"; }
-                else if ((string)mainwindow.cboAudioCodec.SelectedItem == "Flac") { aBitDepth = "-sample_fmt s16"; }
+                else if ((string)mainwindow.cboAudioCodec.SelectedItem == "FLAC") { aBitDepth = "-sample_fmt s16"; }
                 else if ((string)mainwindow.cboAudioCodec.SelectedItem == "ALAC") { aBitDepth = "-sample_fmt s16p"; }
                 else { aBitDepth = string.Empty; } // all other codecs
             }
             else if ((string)mainwindow.cboBitDepth.SelectedItem == "24")
             {
                 if ((string)mainwindow.cboAudioCodec.SelectedItem == "PCM") { aBitDepth = string.Empty; aCodec = "-acodec pcm_s24le"; }
-                else if ((string)mainwindow.cboAudioCodec.SelectedItem == "Flac") { aBitDepth = string.Empty; }
+                else if ((string)mainwindow.cboAudioCodec.SelectedItem == "FLAC") { aBitDepth = string.Empty; }
                 else if ((string)mainwindow.cboAudioCodec.SelectedItem == "ALAC") { aBitDepth = string.Empty; }
                 else { aBitDepth = string.Empty; } // all other codecs
             }
             else if ((string)mainwindow.cboBitDepth.SelectedItem == "32")
             {
                 if ((string)mainwindow.cboAudioCodec.SelectedItem == "PCM") { aBitDepth = string.Empty; aCodec = "-acodec pcm_f32le"; }
-                else if ((string)mainwindow.cboAudioCodec.SelectedItem == "Flac") { aBitDepth = "-sample_fmt s32"; }
+                else if ((string)mainwindow.cboAudioCodec.SelectedItem == "FLAC") { aBitDepth = "-sample_fmt s32"; }
                 else if ((string)mainwindow.cboAudioCodec.SelectedItem == "ALAC") { aBitDepth = "-sample_fmt s32p"; }
                 else { aBitDepth = string.Empty; } // all other codecs
             }
             else if ((string)mainwindow.cboBitDepth.SelectedItem == "64")
             {
                 if ((string)mainwindow.cboAudioCodec.SelectedItem == "PCM") { aBitDepth = string.Empty; aCodec = "-acodec pcm_f64le"; }
-                else if ((string)mainwindow.cboAudioCodec.SelectedItem == "Flac") { aBitDepth = string.Empty; }
+                else if ((string)mainwindow.cboAudioCodec.SelectedItem == "FLAC") { aBitDepth = string.Empty; }
                 else if ((string)mainwindow.cboAudioCodec.SelectedItem == "ALAC") { aBitDepth = string.Empty; }
                 else { aBitDepth = string.Empty; } // all other codecs
             }

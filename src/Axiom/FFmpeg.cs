@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Documents;
 // Disable XML Comment warnings
@@ -107,14 +106,17 @@ namespace Axiom
             if (Video.v2passSwitch == 1)
             {
                 // Enable pass parameters in the FFmpeg Arguments
-                Video.pass1 = "-pass 1";
-                Video.pass2 = "-pass 2";
-
                 // x265 Pass 2 Params
                 if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265")
                 {
                     Video.pass1 = "-x265-params pass=1";
                     Video.pass2 = "-x265-params pass=2";
+                }
+                // All other codecs
+                else
+                {
+                    Video.pass1 = "-pass 1";
+                    Video.pass2 = "-pass 2";
                 }
 
                 // Make Arguments List
@@ -149,7 +151,7 @@ namespace Axiom
                 Video.v2pass = string.Join(" ", v2passList.Where(s => !string.IsNullOrEmpty(s)));
 
                 // Remove double spaces
-                Video.v2pass = Regex.Replace(Video.v2pass, @"\s+", " ");
+                //Video.v2pass = Regex.Replace(Video.v2pass, @"\s+", " ");
             }
 
 
@@ -159,27 +161,30 @@ namespace Axiom
             if (Video.v2passBatchSwitch == 1)
             {
                 // Enable pass parameters in the FFmpeg Batch Arguments
-                Video.pass1 = "-pass 1";
-                Video.pass2 = "-pass 2";
-
                 // x265 Pass 2 Params
                 if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265")
                 {
                     Video.pass1 = "-x265-params pass=1";
                     Video.pass2 = "-x265-params pass=2";
                 }
+                // All other codecs
+                else
+                {
+                    Video.pass1 = "-pass 1";
+                    Video.pass2 = "-pass 2";
+                }
 
                 // If Video = Auto, use the CMD Batch Video Variable
                 if (mainwindow.tglBatch.IsChecked == true && (string)mainwindow.cboMediaType.SelectedItem == "Video" && (string)mainwindow.cboVideo.SelectedItem == "Auto" && (string)mainwindow.cboVideoCodec.SelectedItem != "Copy")
                 {
                     Video.vQuality = "-b:v %V";
-                    // Empty if Codec Copy
+                    // Skipped if Codec Copy
                 }
                 // If Audio = Auto, use the CMD Batch Audio Variable
                 if (mainwindow.tglBatch.IsChecked == true && (string)mainwindow.cboMediaType.SelectedItem == "Audio" && (string)mainwindow.cboAudio.SelectedItem == "Auto" && (string)mainwindow.cboAudioCodec.SelectedItem != "Copy")
                 {
                     Audio.aQuality = "-b:a %A";
-                    // Empty if Codec Copy
+                    // Skipped if Codec Copy
                 }
 
                 // Make Arguments List
@@ -214,7 +219,7 @@ namespace Axiom
                 Video.v2passBatch = string.Join(" ", v2passBatchList.Where(s => !string.IsNullOrEmpty(s)));
 
                 // Remove double spaces
-                Video.v2passBatch = Regex.Replace(Video.v2passBatch, @"\s+", " ");
+                //Video.v2passBatch = Regex.Replace(Video.v2passBatch, @"\s+", " ");
             }
         }
 
@@ -259,7 +264,7 @@ namespace Axiom
                 ffmpegArgs = string.Join(" ", FFmpegArgsList.Where(s => !string.IsNullOrEmpty(s)));
 
                 // Remove double spaces
-                ffmpegArgs = Regex.Replace(ffmpegArgs, @"\s+", " ");
+                //ffmpegArgs = Regex.Replace(ffmpegArgs, @"\s+", " ");
             }
 
 
@@ -280,6 +285,7 @@ namespace Axiom
         /// <summary>
         /// FFmpeg Single Convert
         /// </summary>
+        // Start FFmpeg Process
         public static void FFmpegSingleConvert(MainWindow mainwindow)
         {
             if (mainwindow.tglBatch.IsChecked == false && MainWindow.script == 0) // if script not clicked, start ffmpeg
@@ -315,7 +321,64 @@ namespace Axiom
 
 
                 // -------------------------
-                // Limit Bitrates
+                // FFprobe Auto Bitrate Detect
+                // -------------------------
+                string batchFFprobeAuto = string.Empty;
+                if ((string)mainwindow.cboVideo.SelectedItem == "Auto" || (string)mainwindow.cboAudio.SelectedItem == "Auto")
+                {
+                    batchFFprobeAuto = FFprobe.ffprobe + " -i " + "\"" + autoBatchInput + "%~f" + "\"";
+                }
+                // Batch FFprobe Auto Copy
+                // Video [Quality Preset] / Audio [Auto][Copy] - Disable FFprobe
+                if ((string)mainwindow.cboVideo.SelectedItem != "Auto" && (string)mainwindow.cboAudio.SelectedItem == "Auto" && (string)mainwindow.cboAudioCodec.SelectedItem == "Copy")
+                {
+                    batchFFprobeAuto = string.Empty;
+                }
+                // Video [Auto][Copy] / Audio [Quality Preset] - Disable FFprobe
+                if ((string)mainwindow.cboAudio.SelectedItem != "Auto" && (string)mainwindow.cboVideo.SelectedItem == "Auto" && (string)mainwindow.cboVideoCodec.SelectedItem == "Copy")
+                {
+                    batchFFprobeAuto = string.Empty;
+                }
+
+
+                // -------------------------
+                // Batch Auto Bitrates
+                // -------------------------
+                // Video Auto
+                // Batch CMD Detect
+                string batchVideoAuto = string.Empty;
+                if ((string)mainwindow.cboVideo.SelectedItem == "Auto")
+                {
+                    batchVideoAuto = "-select_streams v:0 -show_entries " + FFprobe.vEntryType + " -v quiet -of csv=\"p=0\" & for /f \"tokens=*\" %S in (\"" + FFprobe.ffprobe + " -i " + "\"" + autoBatchInput + "%~f" + "\"" + " -select_streams v:0 -show_entries format=size -v quiet -of csv=p=0\") do (echo ) & (%S > tmp_size) & SET /p size= < tmp_size & del tmp_size & for /F %S in ('echo %size%') do (echo %S) & for /f \"tokens=*\" %D in (\"" + FFprobe.ffprobe + " -i " + "\"" + autoBatchInput + "%~f" + "\"" + " -select_streams v:0 -show_entries format=duration -v quiet -of csv=p=0\") do (echo ) & (%D > tmp_duration) & SET /p duration= < tmp_duration & del tmp_duration & for /f \"tokens=1 delims=.\" %R in ('echo %duration%') do set duration=%R & for /F %D in ('echo %duration%') do (echo %D) & for /f \"tokens=*\" %V in (" + "\"" + FFprobe.ffprobe + " -i " + "\"" + autoBatchInput + "%~f" + "\"" + " -select_streams v:0 -show_entries " + FFprobe.vEntryType + " -v quiet -of csv=p=0\") do (echo ) & (%V > tmp_vBitrate) & SET /p vBitrate= < tmp_vBitrate & del tmp_vBitrate & for /F %V in ('echo %vBitrate%') do (echo %V) & (if %V EQU N/A (set /a vBitrate=%S*8/1000/%D*1000) else (echo Video Bitrate Detected)) & for /F %V in ('echo %vBitrate%') do (echo %V) & " + FFprobe.ffprobe + " -i " + "\"" + autoBatchInput + "%~f" + "\"";
+
+                    // Chain FFmpeg using & symbol at end of Argument if Audio Not Auto
+                    if ((string)mainwindow.cboVideo.SelectedItem != "Auto")
+                    {
+                        batchVideoAuto = batchVideoAuto + " &";
+                    }
+                }
+                // Batch Video Copy
+                if ((string)mainwindow.cboVideoCodec.SelectedItem == "Copy")
+                {
+                    batchVideoAuto = string.Empty;
+                }
+
+                // Audio Auto
+                // Batch CMD Detect
+                string batchAudioAuto = string.Empty;
+                if ((string)mainwindow.cboAudio.SelectedItem == "Auto")
+                {
+                    batchAudioAuto = "-select_streams a:0 -show_entries " + FFprobe.aEntryType + " -v quiet -of csv=\"p=0\" & for /f \"tokens=*\" %A in (" + "\"" + FFprobe.ffprobe + " -i " + "\"" + autoBatchInput + "%~f" + "\"" + " -select_streams a:0 -show_entries " + FFprobe.aEntryType + " -v quiet -of csv=p=0\") do (echo ) & (%A > tmp_aBitrate) & SET /p aBitrate= < tmp_aBitrate & del tmp_aBitrate & for /F %A in ('echo %aBitrate%') do echo %A & (if %A EQU N/A (set aBitrate=320000)) & for /F %A in ('echo %aBitrate%') do echo %A &";
+                }
+                // Batch Audio Copy
+                if ((string)mainwindow.cboAudioCodec.SelectedItem == "Copy")
+                {
+                    batchAudioAuto = string.Empty;
+                }
+
+
+                // -------------------------
+                // Batch Limit Bitrates
                 // -------------------------
                 // Only if Audio ComboBox Auto
                 if ((string)mainwindow.cboAudio.SelectedItem == "Auto")
@@ -385,10 +448,8 @@ namespace Axiom
                         "&& for %f in",
                         "(*" + MainWindow.batchExt + ")",
                         "do",
-                        FFprobe.ffprobe,
-                        "-i",
-                        "\"" + autoBatchInput + "%~f" + "\"",
-                        "-select_streams a:0 -show_entries " + FFprobe.aEntryType + " -v quiet -of csv=\"p=0\" & for /f \"tokens=*\" %A in (" + "\"" + FFprobe.ffprobe + " -i " + "\"" + autoBatchInput + "%~f" + "\"" + " -select_streams a:0 -show_entries " + FFprobe.aEntryType + " -v quiet -of csv=p=0\") do (SET z=%A) & (%A > tmp_aBitrate) & SET /p aBitrate= < tmp_aBitrate & del tmp_aBitrate & for /F %A in (\'echo %aBitrate%\') do echo %A &",
+                        batchFFprobeAuto,
+                        batchAudioAuto,
                         aBitrateLimiter,
                         ffmpeg,
                         "-y",
@@ -411,7 +472,7 @@ namespace Axiom
                     ffmpegArgs = string.Join(" ", FFmpegArgsList.Where(s => !string.IsNullOrEmpty(s)));
 
                     // Remove double spaces
-                    ffmpegArgs = Regex.Replace(ffmpegArgs, @"\s+", " ");
+                    //ffmpegArgs = Regex.Replace(ffmpegArgs, @"\s+", " ");
 
                 }
 
@@ -421,29 +482,6 @@ namespace Axiom
                 // -------------------------
                 else if (mainwindow.tglBatch.IsChecked == true && (string)mainwindow.cboMediaType.SelectedItem == "Video" && (string)mainwindow.cboVideo.SelectedItem == "Auto" || (string)mainwindow.cboAudio.SelectedItem == "Auto")
                 {
-                    // Video Auto
-                    // Batch CMD Detect
-                    string batchVideoAuto = string.Empty;
-                    if ((string)mainwindow.cboVideo.SelectedItem == "Auto")
-                    {
-                        batchVideoAuto = "-select_streams v:0 -show_entries " + FFprobe.vEntryType + " -v quiet -of csv=\"p=0\" & for /f \"tokens=*\" %S in (\"" + FFprobe.ffprobe + " -i " + "\"" + autoBatchInput + "%~f" + "\"" + " -select_streams v:0 -show_entries format=size -v quiet -of csv=p=0\") do (echo ) & (%S > tmp_size) & SET /p size= < tmp_size & del tmp_size & for /F %S in ('echo %size%') do (echo %S) & for /f \"tokens=*\" %D in (\"" + FFprobe.ffprobe + " -i " + "\"" + autoBatchInput + "%~f" + "\"" + " -select_streams v:0 -show_entries format=duration -v quiet -of csv=p=0\") do (echo ) & (%D > tmp_duration) & SET /p duration= < tmp_duration & del tmp_duration & for /f \"tokens=1 delims=.\" %R in ('echo %duration%') do set duration=%R & for /F %D in ('echo %duration%') do (echo %D) & for /f \"tokens=*\" %V in (" + "\"" + FFprobe.ffprobe + " -i " + "\"" + autoBatchInput + "%~f" + "\"" + " -select_streams v:0 -show_entries " + FFprobe.vEntryType + " -v quiet -of csv=p=0\") do (echo ) & (%V > tmp_vBitrate) & SET /p vBitrate= < tmp_vBitrate & del tmp_vBitrate & for /F %V in ('echo %vBitrate%') do (echo %V) & (if %V EQU N/A (set /a vBitrate=%S*8/1000/%D*1000) else (echo Video Bitrate Detected)) & for /F %V in ('echo %vBitrate%') do (echo %V) & " + FFprobe.ffprobe + " -i " + "\"" + autoBatchInput + "%~f" + "\"";
-
-                        // Chain FFmpeg using & symbol at end of Argument if Audio Not Auto
-                        if ((string)mainwindow.cboAudio.SelectedItem != "Auto")
-                        {
-                            batchVideoAuto = batchVideoAuto + " &";
-                        }
-                    }
-
-                    // Audio Auto
-                    // Batch CMD Detect
-                    string batchAudioAuto = string.Empty;
-                    if ((string)mainwindow.cboAudio.SelectedItem == "Auto")
-                    {
-                        batchAudioAuto = "-select_streams a:0 -show_entries " + FFprobe.aEntryType + " -v quiet -of csv=\"p=0\" & for /f \"tokens=*\" %A in (" + "\"" + FFprobe.ffprobe + " -i " + "\"" + autoBatchInput + "%~f" + "\"" + " -select_streams a:0 -show_entries " + FFprobe.aEntryType + " -v quiet -of csv=p=0\") do (echo ) & (%A > tmp_aBitrate) & SET /p aBitrate= < tmp_aBitrate & del tmp_aBitrate & for /F %A in ('echo %aBitrate%') do echo %A & (if %A EQU N/A (set aBitrate=320000)) & for /F %A in ('echo %aBitrate%') do echo %A &";
-                    }
-
-
                     // Make List
                     List<string> FFmpegArgsList = new List<string>()
                     {
@@ -452,9 +490,7 @@ namespace Axiom
                         "&& for %f in",
                         "(*" + MainWindow.batchExt + ")",
                         "do",
-                        FFprobe.ffprobe,
-                        "-i",
-                        "\"" + autoBatchInput + "%~f" + "\"",
+                        batchFFprobeAuto,
                         batchVideoAuto,
                         batchAudioAuto,
                         aBitrateLimiter,
@@ -488,7 +524,7 @@ namespace Axiom
                     ffmpegArgs = string.Join(" ", FFmpegArgsList.Where(s => !string.IsNullOrEmpty(s)));
 
                     // Remove double spaces
-                    ffmpegArgs = Regex.Replace(ffmpegArgs, @"\s+", " ");
+                    //ffmpegArgs = Regex.Replace(ffmpegArgs, @"\s+", " ");
                 }
 
 
@@ -535,7 +571,7 @@ namespace Axiom
                     ffmpegArgs = string.Join(" ", FFmpegArgsList.Where(s => !string.IsNullOrEmpty(s)));
 
                     // Remove double spaces
-                    ffmpegArgs = Regex.Replace(ffmpegArgs, @"\s+", " ");
+                    //ffmpegArgs = Regex.Replace(ffmpegArgs, @"\s+", " ");
                 }
             }
         }

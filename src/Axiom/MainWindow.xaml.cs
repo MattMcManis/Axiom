@@ -8,13 +8,10 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Management;
-//using System.Threading;
-//using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
-//using System.Windows.Media;
 using System.Windows.Threading;
 // Disable XML Comment warnings
 #pragma warning disable 1591
@@ -183,7 +180,7 @@ namespace Axiom
         {
             InitializeComponent();
 
-            TitleVersion = "Axiom ~ FFmpeg UI (0.8.9α)";
+            TitleVersion = "Axiom ~ FFmpeg UI (0.9.0α)";
             DataContext = this;
 
             /// <summary>
@@ -1112,105 +1109,81 @@ namespace Axiom
 
 
         /// <summary>
-        ///    Input / Output File (Method)
+        ///    Input / Output Path (Method)
         /// </summary>
-        public void InputOutputFile()
+        public void InputOutputPath()
         {
-            // Get input file extension
-            inputExt = System.IO.Path.GetExtension(textBoxBrowse.Text);
-
-            // Set the input / output strings
+            // -------------------------
             // Single File
+            // -------------------------
             if (tglBatch.IsChecked == false)
             {
-                // Get Input Filename without extension
-                inputFileName = System.IO.Path.GetFileNameWithoutExtension(textBoxBrowse.Text);
-                // Get Output Folder Path + Input Filename = Output Filename
-                outputFileName = inputFileName;
-
-                // If Image Sequence
-                if ((string)cboMediaType.SelectedItem == "Sequence")
+                // may not be needed
+            }
+            // -------------------------
+            // Batch
+            // -------------------------
+            if (tglBatch.IsChecked == true)
+            {
+                // Add slash to Batch Browse Text folder path if missing
+                if (!string.IsNullOrWhiteSpace(textBoxBrowse.Text) && !textBoxBrowse.Text.EndsWith("\\"))
                 {
-                    outputFileName = "image-%03d"; //must be this name
+                    textBoxBrowse.Text = textBoxBrowse.Text.TrimEnd('\\') + @"\";
                 }
 
-                input = textBoxBrowse.Text; // (eg. C:\Input Folder\file.wmv)
-                output = textBoxOutput.Text + outputFileName + outputExt; // (eg. C:\Output Folder\ + file + .mp4)                                                        
-            }
-            // Batch
-            else if (tglBatch.IsChecked == true)
-            {
-                input = textBoxBrowse.Text; // (eg. C:\Input Folder\)                
-                output = textBoxOutput.Text + "%~nf" + outputExt; // (eg. C:\Output Folder\%~nf.mp4)
+                // Add slash to Batch Output Text folder path if missing
+                if (!string.IsNullOrWhiteSpace(textBoxOutput.Text) && !textBoxOutput.Text.EndsWith("\\"))
+                {
+                    textBoxOutput.Text = textBoxOutput.Text.TrimEnd('\\') + @"\";
+                }
             }
         }
 
 
         /// <summary>
-        ///    Input / Output Path Modifier (Method)
+        ///    Input / Output File (Method)
         /// </summary>
-        public void InputOutputPathModifier()
+        public void InputOutputFile()
         {
-            // -------------------------
-            //  Remove Double Slash
-            // -------------------------
-            // Remove Double Slash in Root Dir, such as C:\
-            textBoxBrowse.Text = textBoxBrowse.Text.Replace(@"\\", @"\");
-            textBoxOutput.Text = textBoxOutput.Text.Replace(@"\\", @"\");
+            // Set the input / output strings
 
             // -------------------------
-            //  Input Directory Single
+            // Single File
             // -------------------------
-            if (!string.IsNullOrWhiteSpace(textBoxBrowse.Text)) // Check if Browse Textbox is empty or scanning for Directory will crash program
+            if (tglBatch.IsChecked == false)
             {
-                inputDir = System.IO.Path.GetDirectoryName(textBoxBrowse.Text);
-            }
-            // Add backslash to browseText path & inputDir if missing - Single File
-            if (!textBoxBrowse.Text.EndsWith("\\") && !string.IsNullOrEmpty(inputDir))
-            {
-                inputDir = inputDir.TrimEnd('\\') + @"\";
-            }
+                // Image Sequence
+                if ((string)cboMediaType.SelectedItem == "Sequence")
+                {
+                    outputFileName = "image-%03d"; //must be this name
+                }
 
-            // -------------------------
-            //  Input Directory Batch
-            // -------------------------
-            // Add backslash to browseText path & inputDir if missing - Batch
-            if (tglBatch.IsChecked == true && !textBoxBrowse.Text.EndsWith("\\") && !string.IsNullOrEmpty(inputDir))
-            {
-                textBoxBrowse.Text = textBoxBrowse.Text.TrimEnd('\\') + @"\";
+                // Output Empty
+                if (string.IsNullOrWhiteSpace(textBoxOutput.Text))
+                {
+                    // Default Output to Input + Output Extension
+                    textBoxOutput.Text = inputDir + inputFileName + outputExt;
 
-                inputDir = textBoxBrowse.Text;
-            }
+                    outputDir = System.IO.Path.GetDirectoryName(textBoxBrowse.Text);
 
-            // -------------------------
-            //  Output Directory
-            // -------------------------
-            // Add backslash to outputBrowseText path (outputDir) if missing
-            if (!textBoxOutput.Text.EndsWith("\\") && !string.IsNullOrWhiteSpace(textBoxOutput.Text))
-            {
-                textBoxOutput.Text = textBoxOutput.Text.TrimEnd('\\') + @"\";
+                    outputFileName = System.IO.Path.GetFileNameWithoutExtension(textBoxBrowse.Text);
+                }
 
-                outputDir = textBoxOutput.Text;
+                // Input
+                input = textBoxBrowse.Text; // (eg. C:\Input Folder\file.wmv)
+                // Output
+                output = outputDir + outputFileName + outputExt; // (eg. C:\Output Folder\ + file + .mp4)                                                        
             }
 
             // -------------------------
-            //  Output Default folder
+            // Batch
             // -------------------------
-            // Output Default Folder BATCH
-            // If Output empty, default to same as Input folder
-            if (tglBatch.IsChecked == true && !string.IsNullOrWhiteSpace(textBoxBrowse.Text) && string.IsNullOrWhiteSpace(textBoxOutput.Text))
+            else if (tglBatch.IsChecked == true)
             {
-                textBoxOutput.Text = textBoxBrowse.Text.TrimEnd('\\') + @"\"; ;
-                outputDir = inputDir;
-            }
-
-            // Output Default Folder Single File
-            // If Output empty, default to same as Input folder
-            if (!string.IsNullOrWhiteSpace(textBoxBrowse.Text) && string.IsNullOrWhiteSpace(textBoxOutput.Text))
-            {
-                // Recreate Output Path + Filename
-                textBoxOutput.Text = inputDir;
-                outputDir = inputDir; //used for later renaming file.mp3 to file1.mp3
+                // Input
+                input = textBoxBrowse.Text; // (eg. C:\Input Folder\)   
+                // Output             
+                output = outputDir + "%~nf" + outputExt; // (eg. C:\Output Folder\%~nf.mp4)
             }
         }
 
@@ -1225,35 +1198,6 @@ namespace Axiom
             {
                 batchExtensionTextBox.Text = "." + batchExtensionTextBox.Text;
             }
-        }
-
-
-        /// <summary>
-        ///    Batch Auto Quality Modifer (Method)
-        /// </summary>
-        public void BatchAutoQualityModifier()
-        {
-            // This is for when One option is Auto and the Other is User Select
-            // If both Video & Audio are Auto, use both FFprobe variables
-            //if ((string)cboVideo.SelectedItem == "Auto" && (string)cboAudio.SelectedItem == "Auto")
-            //{
-            //    Video.cmdBatch_vQuality = "-b:v %V"; //cmd batch value
-            //    Audio.cmdBatch_aQuality = "-b:a %A"; //cmd batch value
-            //}
-
-            //// If Video is NOT (Auto), but Audio IS (Auto), use only FFprobe VIDEO variable
-            //if ((string)cboVideo.SelectedItem != "Auto" && (string)cboAudio.SelectedItem == "Auto")
-            //{
-            //    Video.cmdBatch_vQuality = Video.vBitMode + " " + Video.vBitrate + " " + Video.crf + " " + Video.vMaxrate + " " + Video.vOptions; //User Selected
-            //    Audio.cmdBatch_aQuality = "-b:a %A"; // Auto
-            //}
-
-            //// If Video IS (Auto), but Audio is NOT (Auto), use only FFprobe AUDIO variable
-            //if ((string)cboVideo.SelectedItem == "Auto" && (string)cboAudio.SelectedItem != "Auto")
-            //{
-            //    Video.cmdBatch_vQuality = "-b:v %V"; // Auto
-            //    Audio.cmdBatch_aQuality = Audio.aBitMode + " " + Audio.aBitrate; //User Selected
-            //}
         }
 
 
@@ -1388,8 +1332,11 @@ namespace Axiom
                     }
                 }
 
+                // Output File name
+                outputFileName = newFileName;
+
                 //rn += 1;                   
-                output = outputDir + newFileName + outputExt;
+                output = outputDir + outputFileName + outputExt;
 
                 // Clear
                 FileNames.Clear(); 
@@ -1684,12 +1631,6 @@ namespace Axiom
         public void ProcessInputs()
         {
             /// <summary>
-            ///    Batch Auto Quality Modifier
-            /// </summary> 
-            BatchAutoQualityModifier();
-
-
-            /// <summary>
             ///    Stream Maps
             /// </summary> 
             Streams.StreamMaps(this);
@@ -1725,14 +1666,6 @@ namespace Axiom
             ///    Video Filter
             /// </summary> 
             Video.VideoFilter(this);
-
-
-            ///// <summary>
-            /////    Batch Auto Quality Modifier
-            ///// </summary> 
-            ///// <remarks>
-            ///// Not Used
-            ///// </remarks>
 
 
             /// <summary>
@@ -1872,7 +1805,7 @@ namespace Axiom
             /// <summary>
             ///    File Renamer
             /// </summary> 
-            FileRenamer(); // must be above 2 Pass to allow name to copy to -pass 2
+            //FileRenamer(); // must be above 2 Pass to allow name to copy to -pass 2
 
 
             /// <summary>
@@ -2124,15 +2057,15 @@ namespace Axiom
 
 
             /// <summary>
-            ///    Input Output File
+            ///    Batch Input Output Path
             /// </summary>
-            InputOutputFile();
+            InputOutputPath();
 
 
             /// <summary>
-            ///    Input Output Path Modifier
+            ///    Input Output File
             /// </summary>
-            InputOutputPathModifier();
+            InputOutputFile();
 
 
             /// <summary>
@@ -2377,22 +2310,27 @@ namespace Axiom
             // -------------------------
             if (tglBatch.IsChecked == false)
             {
-                var OpenFileDialog = new System.Windows.Forms.OpenFileDialog();
-                //OpenFileDialog.Multiselect = true; // enable multiple file select (optional for File Queue Window)
-                System.Windows.Forms.DialogResult result = OpenFileDialog.ShowDialog();
+                // Open 'Save File'
+                Microsoft.Win32.OpenFileDialog selectFile = new Microsoft.Win32.OpenFileDialog();
 
+                // Show save file dialog box
+                Nullable<bool> result = selectFile.ShowDialog();
 
-                // Popup File Browse Window
-                if (result == System.Windows.Forms.DialogResult.OK)
+                // Process dialog box
+                if (result == true)
                 {
-                    // Display File Path in Textbox
-                    textBoxBrowse.Text = OpenFileDialog.FileName;
+                    // Display path and file in Output Textbox
+                    textBoxBrowse.Text = selectFile.FileName;
 
-                    // Remove Double Slash in Root Dir, such as C:\
-                    textBoxBrowse.Text = textBoxBrowse.Text.Replace(@"\\", @"\");
+                    // Input Directory Path
+                    inputDir = System.IO.Path.GetDirectoryName(textBoxBrowse.Text);
 
-                    // Input File Folder Path
-                    inputDir = System.IO.Path.GetDirectoryName(textBoxBrowse.Text);                  
+                    // Set input file name
+                    inputFileName = System.IO.Path.GetFileNameWithoutExtension(textBoxBrowse.Text);
+
+                    // Get input file extension
+                    inputExt = System.IO.Path.GetExtension(textBoxBrowse.Text);
+
 
                     // Add slash to inputDir path if missing
                     if (!inputDir.EndsWith("\\") && !string.IsNullOrEmpty(inputDir))
@@ -2400,6 +2338,7 @@ namespace Axiom
                         // inputDir += "\\";
                         inputDir = inputDir.TrimEnd('\\') + @"\";
                     }
+
                 }
 
                 // Set Video & Audio Codec Combobox to "Copy" if Input Extension is Same as Output Extension and Video Quality is Auto
@@ -2411,9 +2350,8 @@ namespace Axiom
             // -------------------------
             else if (tglBatch.IsChecked == true)
             {
-                // 
-                var folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
-                // result = Popup Window
+                // Open 'Batch Folder'
+                System.Windows.Forms.FolderBrowserDialog folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
                 System.Windows.Forms.DialogResult result = folderBrowserDialog.ShowDialog();
 
                 // Popup Folder Browse Window
@@ -2426,13 +2364,20 @@ namespace Axiom
                     textBoxBrowse.Text = textBoxBrowse.Text.Replace(@"\\", @"\");
 
                     // Add slash to Batch Browse Text folder path if missing
-                    if (!textBoxBrowse.Text.EndsWith("\\") && !string.IsNullOrWhiteSpace(textBoxBrowse.Text))
+                    if (!string.IsNullOrWhiteSpace(textBoxBrowse.Text) && !textBoxBrowse.Text.EndsWith("\\"))
                     {
                         textBoxBrowse.Text = textBoxBrowse.Text.TrimEnd('\\') + @"\";
                     }
 
                     // Input Directory Path
-                    inputDir = textBoxBrowse.Text;
+                    inputDir = System.IO.Path.GetDirectoryName(textBoxBrowse.Text);
+
+                    // Add slash to inputDir path if missing
+                    if (!inputDir.EndsWith("\\") && !string.IsNullOrEmpty(inputDir))
+                    {
+                        // inputDir += "\\";
+                        inputDir = inputDir.TrimEnd('\\') + @"\";
+                    }
                 }
                 else
                 {
@@ -2489,29 +2434,99 @@ namespace Axiom
         /// </summary>
         private void buttonOutput_Click(object sender, RoutedEventArgs e)
         {
-            var folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
-            System.Windows.Forms.DialogResult result = folderBrowserDialog.ShowDialog();
-
-            // Popup Folder Browse Window
-            if (result == System.Windows.Forms.DialogResult.OK)
+            // -------------------------
+            // Single File
+            // -------------------------
+            if (tglBatch.IsChecked == false)
             {
-                // Display Folder Path in Textbox
-                //textBoxOutput.Text = folderBrowserDialog.SelectedPath + "\\"; //end with backslash
-                textBoxOutput.Text = folderBrowserDialog.SelectedPath.TrimEnd('\\') + @"\";
+                // Open 'Save File'
+                Microsoft.Win32.SaveFileDialog saveFile = new Microsoft.Win32.SaveFileDialog();
 
-                // Remove Double Slash in Root Dir, such as C:\
-                textBoxOutput.Text = textBoxOutput.Text.Replace(@"\\", @"\");
+                // 'Save File' Default Path same as Input Directory
+                saveFile.InitialDirectory = inputDir;
+                saveFile.RestoreDirectory = true;
 
-                // Add slash to Batch Browse Text folder path if missing
-                if (!textBoxOutput.Text.EndsWith("\\") && !string.IsNullOrWhiteSpace(textBoxOutput.Text))
+                // Default file name if empty
+                if (string.IsNullOrEmpty(inputFileName))
                 {
-                    //textBoxOutput.Text = textBoxOutput.Text + "\\";
-                    textBoxOutput.Text = textBoxOutput.Text.TrimEnd('\\') + @"\";
+                    // Default
+                    saveFile.FileName = "Video";
+                }
+                else
+                {
+                    // Temp Output Path
+                    // Make same as Input Path so File Renamer can detect
+                    outputDir = inputDir;
+
+                    // Temp Output Filename (without extension)
+                    // Make same as Input Filename so File Renamer can detect
+                    outputFileName = inputFileName;
+
+                    // Call File Renamer Method
+                    // Get new output file name (1) if already exists
+                    FileRenamer();
+
+                    // Same as input file name
+                    saveFile.FileName = outputFileName;
                 }
 
-                // Output Path
-                outputDir = textBoxOutput.Text;
+                // Default file extension is selected format
+                saveFile.DefaultExt = outputExt; 
+
+                // Show save file dialog box
+                Nullable<bool> result = saveFile.ShowDialog();
+
+                // Process dialog box
+                if (result == true)
+                {
+                    // Display path and file in Output Textbox
+                    textBoxOutput.Text = saveFile.FileName;
+
+                    // Output Path
+                    outputDir = System.IO.Path.GetDirectoryName(textBoxOutput.Text);
+
+                    // Output Filename (without extension)
+                    outputFileName = System.IO.Path.GetFileNameWithoutExtension(textBoxOutput.Text);
+
+                    // Add slash to inputDir path if missing
+                    if (!outputDir.EndsWith("\\") && !string.IsNullOrEmpty(outputDir))
+                    {
+                        // inputDir += "\\";
+                        outputDir = outputDir.TrimEnd('\\') + @"\";
+                    }
+                }
             }
+            // -------------------------
+            // Batch
+            // -------------------------
+            else if (tglBatch.IsChecked == true)
+            {
+                // Open 'Select Folder'
+                System.Windows.Forms.FolderBrowserDialog outputFolder = new System.Windows.Forms.FolderBrowserDialog();
+                System.Windows.Forms.DialogResult result = outputFolder.ShowDialog();
+
+                // Process dialog box
+                if (result == System.Windows.Forms.DialogResult.OK)
+                {
+                    // Display path and file in Output Textbox
+                    textBoxOutput.Text = outputFolder.SelectedPath.TrimEnd('\\') + @"\";
+
+                    // Remove Double Slash in Root Dir, such as C:\
+                    textBoxOutput.Text = textBoxOutput.Text.Replace(@"\\", @"\");
+
+
+                    // Output Path
+                    outputDir = System.IO.Path.GetDirectoryName(textBoxOutput.Text);
+
+                    // Add slash to inputDir path if missing
+                    if (!outputDir.EndsWith("\\") && !string.IsNullOrEmpty(outputDir))
+                    {
+                        // inputDir += "\\";
+                        outputDir = outputDir.TrimEnd('\\') + @"\";
+                    }
+                }
+            }
+
         }
 
 
@@ -2552,8 +2567,6 @@ namespace Axiom
                 TextBox tbvb = (TextBox)sender;
                 tbvb.Text = string.Empty;
                 tbvb.GotFocus += vBitrateCustom_GotFocus; //used to be -=
-
-                //vBitrateCustom.Foreground = new SolidColorBrush(Colors.White);
             }
         }
         // Lost Focus
@@ -2591,8 +2604,6 @@ namespace Axiom
                 TextBox tbcrf = (TextBox)sender;
                 tbcrf.Text = string.Empty;
                 tbcrf.GotFocus += crfCustom_GotFocus; //used to be -=
-
-                //crfCustom.Foreground = new SolidColorBrush(Colors.White);
             }
         }
         // Lost Focus
@@ -2663,8 +2674,6 @@ namespace Axiom
                 TextBox tbac = (TextBox)sender;
                 tbac.Text = string.Empty;
                 tbac.GotFocus += audioCustom_GotFocus; //used to be -=
-
-                //audioCustom.Foreground = new SolidColorBrush(Colors.White);
             }
         }
         // Lost Focus
@@ -2845,6 +2854,13 @@ namespace Axiom
             {
                 cboAudio.SelectedItem = "Auto";
             }
+
+            // Update Ouput Textbox with current Format extension
+            if (!string.IsNullOrWhiteSpace(textBoxOutput.Text))
+            {
+                textBoxOutput.Text = outputDir + outputFileName + outputExt;
+            }
+            
         }
 
 
@@ -2973,7 +2989,7 @@ namespace Axiom
             }
 
             // Disable VBR if AC3, ALAC, FLAC, PCM, Copy
-            if ((string)cboAudioCodec.SelectedItem == "AC3" || (string)cboAudioCodec.SelectedItem == "ALAC" || (string)cboAudioCodec.SelectedItem == "Flac" || (string)cboAudioCodec.SelectedItem == "PCM" || (string)cboAudioCodec.SelectedItem == "Copy")
+            if ((string)cboAudioCodec.SelectedItem == "AC3" || (string)cboAudioCodec.SelectedItem == "ALAC" || (string)cboAudioCodec.SelectedItem == "FLAC" || (string)cboAudioCodec.SelectedItem == "PCM" || (string)cboAudioCodec.SelectedItem == "Copy")
             {
                 tglVBR.IsEnabled = false;
             }
@@ -2990,7 +3006,7 @@ namespace Axiom
                 {
                     tglVBR.IsChecked = true;
                 }
-                if ((string)cboAudioCodec.SelectedItem == "Opus" || (string)cboAudioCodec.SelectedItem == "AAC" || (string)cboAudioCodec.SelectedItem == "AC3" || (string)cboAudioCodec.SelectedItem == "LAME" || (string)cboAudioCodec.SelectedItem == "ALAC" || (string)cboAudioCodec.SelectedItem == "Flac" || (string)cboAudioCodec.SelectedItem == "PCM" || (string)cboAudioCodec.SelectedItem == "Copy")
+                if ((string)cboAudioCodec.SelectedItem == "Opus" || (string)cboAudioCodec.SelectedItem == "AAC" || (string)cboAudioCodec.SelectedItem == "AC3" || (string)cboAudioCodec.SelectedItem == "LAME" || (string)cboAudioCodec.SelectedItem == "ALAC" || (string)cboAudioCodec.SelectedItem == "FLAC" || (string)cboAudioCodec.SelectedItem == "PCM" || (string)cboAudioCodec.SelectedItem == "Copy")
                 {
                     tglVBR.IsChecked = false;
                 }
@@ -3113,7 +3129,6 @@ namespace Axiom
             if (widthCustom.Focus() == true && widthCustom.Text == "width")
             {
                 widthCustom.Text = string.Empty;
-                //widthCustom.Foreground = new SolidColorBrush(Colors.White);
             }
         }
         // Lost Focus
@@ -3141,7 +3156,6 @@ namespace Axiom
             if (heightCustom.Focus() == true && heightCustom.Text == "height")
             {
                 heightCustom.Text = string.Empty;
-                //heightCustom.Foreground = new SolidColorBrush(Colors.White);
             }
         }
         // Lost Focus
@@ -3178,7 +3192,6 @@ namespace Axiom
             if (frameStart.Focus() == true && frameStart.Text == "Frame")
             {
                 frameStart.Text = string.Empty;
-                //frameStart.Foreground = new SolidColorBrush(Colors.White);
             }
         }
         // Lost Focus
@@ -3206,7 +3219,6 @@ namespace Axiom
             if (frameEnd.Focus() == true && frameEnd.Text == "Range")
             {
                 frameEnd.Text = string.Empty;
-                //frameEnd.Foreground = new SolidColorBrush(Colors.White);
             }
         }
         // Lost Focus
@@ -3367,8 +3379,6 @@ namespace Axiom
                 // Video
                 cboVideo.SelectedItem = "High";
                 cboSize.SelectedItem = "Custom";
-                //widthCustom.Foreground = new SolidColorBrush(Colors.White);
-                //heightCustom.Foreground = new SolidColorBrush(Colors.White);
                 widthCustom.Text = "720";
                 heightCustom.Text = "480";
                 cboCut.SelectedItem = "No";
@@ -3889,11 +3899,22 @@ namespace Axiom
                 batchExtensionTextBox.Text = string.Empty;
             }
 
-            // Clear Browse Text Box & inputExt
+            // Clear Browse Textbox, Input Filename, Dir, Ext
             if (!string.IsNullOrWhiteSpace(textBoxBrowse.Text))
             {
                 textBoxBrowse.Text = string.Empty;
+                inputFileName = string.Empty;
+                inputDir = string.Empty;
                 inputExt = string.Empty;
+            }
+
+            // Clear Output Textbox, Output Filename, Dir, Ext
+            if (!string.IsNullOrWhiteSpace(textBoxOutput.Text))
+            {
+                textBoxOutput.Text = string.Empty;
+                outputFileName = string.Empty;
+                outputDir = string.Empty;
+                outputExt = string.Empty;
             }
 
         }
@@ -3954,7 +3975,7 @@ namespace Axiom
             /// <summary>
             ///    Input Output Path Modifier
             /// </summary>
-            InputOutputPathModifier();
+            //InputPath();
 
 
             /// <summary>

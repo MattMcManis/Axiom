@@ -315,7 +315,7 @@ namespace Axiom
 
 
                 // AUDIO ///////    
-                Audio.AudioCodecItemSource = new List<string>() { "AAC", "AC3", "Vorbis", "Opus", "LAME", "PCM", "Copy" };
+                Audio.AudioCodecItemSource = new List<string>() { "AAC", "AC3", "Vorbis", "Opus", "LAME", "FLAC", "PCM", "Copy" };
 
                 // Populate ComboBox from ItemSource
                 mainwindow.cboAudioCodec.ItemsSource = Audio.AudioCodecItemSource;
@@ -367,7 +367,7 @@ namespace Axiom
                 mainwindow.cboAudioCodec.ItemsSource = Audio.AudioCodecItemSource;
 
                 // Set the List Defaults
-                mainwindow.cboVideoCodec.SelectedItem = "None"; // was empty
+                mainwindow.cboVideoCodec.SelectedItem = "None"; 
                 mainwindow.cboAudioCodec.SelectedItem = "AAC";
             }
 
@@ -390,7 +390,7 @@ namespace Axiom
                 mainwindow.cboAudioCodec.ItemsSource = Audio.AudioCodecItemSource;
 
                 // Set the List Defaults
-                mainwindow.cboVideoCodec.SelectedItem = "None"; // was empty
+                mainwindow.cboVideoCodec.SelectedItem = "None"; 
                 mainwindow.cboAudioCodec.SelectedItem = "LAME";
             }
 
@@ -413,7 +413,7 @@ namespace Axiom
                 mainwindow.cboAudioCodec.ItemsSource = Audio.AudioCodecItemSource;
 
                 // Set the List Defaults
-                mainwindow.cboVideoCodec.SelectedItem = "None"; // was empty
+                mainwindow.cboVideoCodec.SelectedItem = "None"; 
                 mainwindow.cboAudioCodec.SelectedItem = "Opus";
             }
 
@@ -430,14 +430,14 @@ namespace Axiom
 
 
                 // AUDIO ///////    
-                Audio.AudioCodecItemSource = new List<string>() { "Flac" };
+                Audio.AudioCodecItemSource = new List<string>() { "FLAC" };
 
                 // Populate ComboBox from ItemSource
                 mainwindow.cboAudioCodec.ItemsSource = Audio.AudioCodecItemSource;
 
                 // Set the List Defaults
-                mainwindow.cboVideoCodec.SelectedItem = "None"; // was empty
-                mainwindow.cboAudioCodec.SelectedItem = "Flac";
+                mainwindow.cboVideoCodec.SelectedItem = "None"; 
+                mainwindow.cboAudioCodec.SelectedItem = "FLAC";
             }
 
             // -------------------------
@@ -459,7 +459,7 @@ namespace Axiom
                 mainwindow.cboAudioCodec.ItemsSource = Audio.AudioCodecItemSource;
 
                 // Set the List Defaults
-                mainwindow.cboVideoCodec.SelectedItem = "None"; // was empty
+                mainwindow.cboVideoCodec.SelectedItem = "None"; 
                 mainwindow.cboAudioCodec.SelectedItem = "PCM";
                 mainwindow.tglVBR.IsEnabled = false;
             }
