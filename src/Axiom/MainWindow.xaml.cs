@@ -168,6 +168,9 @@ namespace Axiom
         // Batch
         public static string aBitrateNA; // if Audio bitrate is N/A, default to 320k -NOT USED/HARDCODED
         public static string vBitrateNA; // if Video bitrate is N/A, default to -crf 18 or -q:v 10 (theora) - NOT USED
+        public static string batchFFprobeAuto;
+        public static string batchVideoAuto;
+        public static string batchAudioAuto;
 
 
 

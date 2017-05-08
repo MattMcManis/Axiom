@@ -175,13 +175,13 @@ namespace Axiom
                 }
 
                 // If Video = Auto, use the CMD Batch Video Variable
-                if (mainwindow.tglBatch.IsChecked == true && (string)mainwindow.cboMediaType.SelectedItem == "Video" && (string)mainwindow.cboVideo.SelectedItem == "Auto" && (string)mainwindow.cboVideoCodec.SelectedItem != "Copy")
+                if (mainwindow.tglBatch.IsChecked == true && (string)mainwindow.cboVideo.SelectedItem == "Auto" && (string)mainwindow.cboVideoCodec.SelectedItem != "Copy")
                 {
                     Video.vQuality = "-b:v %V";
                     // Skipped if Codec Copy
                 }
                 // If Audio = Auto, use the CMD Batch Audio Variable
-                if (mainwindow.tglBatch.IsChecked == true && (string)mainwindow.cboMediaType.SelectedItem == "Audio" && (string)mainwindow.cboAudio.SelectedItem == "Auto" && (string)mainwindow.cboAudioCodec.SelectedItem != "Copy")
+                if (mainwindow.tglBatch.IsChecked == true && (string)mainwindow.cboAudio.SelectedItem == "Auto" && (string)mainwindow.cboAudioCodec.SelectedItem != "Copy")
                 {
                     Audio.aQuality = "-b:a %A";
                     // Skipped if Codec Copy
@@ -323,57 +323,72 @@ namespace Axiom
                 // -------------------------
                 // FFprobe Auto Bitrate Detect
                 // -------------------------
-                string batchFFprobeAuto = string.Empty;
                 if ((string)mainwindow.cboVideo.SelectedItem == "Auto" || (string)mainwindow.cboAudio.SelectedItem == "Auto")
                 {
-                    batchFFprobeAuto = FFprobe.ffprobe + " -i " + "\"" + autoBatchInput + "%~f" + "\"";
+                    MainWindow.batchFFprobeAuto = FFprobe.ffprobe + " -i " + "\"" + autoBatchInput + "%~f" + "\"";
                 }
                 // Batch FFprobe Auto Copy
                 // Video [Quality Preset] / Audio [Auto][Copy] - Disable FFprobe
                 if ((string)mainwindow.cboVideo.SelectedItem != "Auto" && (string)mainwindow.cboAudio.SelectedItem == "Auto" && (string)mainwindow.cboAudioCodec.SelectedItem == "Copy")
                 {
-                    batchFFprobeAuto = string.Empty;
+                    MainWindow.batchFFprobeAuto = string.Empty;
                 }
                 // Video [Auto][Copy] / Audio [Quality Preset] - Disable FFprobe
                 if ((string)mainwindow.cboAudio.SelectedItem != "Auto" && (string)mainwindow.cboVideo.SelectedItem == "Auto" && (string)mainwindow.cboVideoCodec.SelectedItem == "Copy")
                 {
-                    batchFFprobeAuto = string.Empty;
+                    MainWindow.batchFFprobeAuto = string.Empty;
                 }
 
 
                 // -------------------------
-                // Batch Auto Bitrates
+                // Batch Video Auto Bitrates
                 // -------------------------
                 // Video Auto
+                //
                 // Batch CMD Detect
-                string batchVideoAuto = string.Empty;
+
                 if ((string)mainwindow.cboVideo.SelectedItem == "Auto")
                 {
-                    batchVideoAuto = "-select_streams v:0 -show_entries " + FFprobe.vEntryType + " -v quiet -of csv=\"p=0\" & for /f \"tokens=*\" %S in (\"" + FFprobe.ffprobe + " -i " + "\"" + autoBatchInput + "%~f" + "\"" + " -select_streams v:0 -show_entries format=size -v quiet -of csv=p=0\") do (echo ) & (%S > tmp_size) & SET /p size= < tmp_size & del tmp_size & for /F %S in ('echo %size%') do (echo %S) & for /f \"tokens=*\" %D in (\"" + FFprobe.ffprobe + " -i " + "\"" + autoBatchInput + "%~f" + "\"" + " -select_streams v:0 -show_entries format=duration -v quiet -of csv=p=0\") do (echo ) & (%D > tmp_duration) & SET /p duration= < tmp_duration & del tmp_duration & for /f \"tokens=1 delims=.\" %R in ('echo %duration%') do set duration=%R & for /F %D in ('echo %duration%') do (echo %D) & for /f \"tokens=*\" %V in (" + "\"" + FFprobe.ffprobe + " -i " + "\"" + autoBatchInput + "%~f" + "\"" + " -select_streams v:0 -show_entries " + FFprobe.vEntryType + " -v quiet -of csv=p=0\") do (echo ) & (%V > tmp_vBitrate) & SET /p vBitrate= < tmp_vBitrate & del tmp_vBitrate & for /F %V in ('echo %vBitrate%') do (echo %V) & (if %V EQU N/A (set /a vBitrate=%S*8/1000/%D*1000) else (echo Video Bitrate Detected)) & for /F %V in ('echo %vBitrate%') do (echo %V) & " + FFprobe.ffprobe + " -i " + "\"" + autoBatchInput + "%~f" + "\"";
+                    MainWindow.batchVideoAuto = "-select_streams v:0 -show_entries " + FFprobe.vEntryType + " -v quiet -of csv=\"p=0\" & for /f \"tokens=*\" %S in (\"" + FFprobe.ffprobe + " -i " + "\"" + autoBatchInput + "%~f" + "\"" + " -select_streams v:0 -show_entries format=size -v quiet -of csv=p=0\") do (echo ) & (%S > tmp_size) & SET /p size= < tmp_size & del tmp_size & for /F %S in ('echo %size%') do (echo %S) & for /f \"tokens=*\" %D in (\"" + FFprobe.ffprobe + " -i " + "\"" + autoBatchInput + "%~f" + "\"" + " -select_streams v:0 -show_entries format=duration -v quiet -of csv=p=0\") do (echo ) & (%D > tmp_duration) & SET /p duration= < tmp_duration & del tmp_duration & for /f \"tokens=1 delims=.\" %R in ('echo %duration%') do set duration=%R & for /F %D in ('echo %duration%') do (echo %D) & for /f \"tokens=*\" %V in (" + "\"" + FFprobe.ffprobe + " -i " + "\"" + autoBatchInput + "%~f" + "\"" + " -select_streams v:0 -show_entries " + FFprobe.vEntryType + " -v quiet -of csv=p=0\") do (echo ) & (%V > tmp_vBitrate) & SET /p vBitrate= < tmp_vBitrate & del tmp_vBitrate & for /F %V in ('echo %vBitrate%') do (echo %V) & (if %V EQU N/A (set /a vBitrate=%S*8/1000/%D*1000) else (echo Video Bitrate Detected)) & for /F %V in ('echo %vBitrate%') do (echo %V) & " + FFprobe.ffprobe + " -i " + "\"" + autoBatchInput + "%~f" + "\"";
 
                     // Chain FFmpeg using & symbol at end of Argument if Audio Not Auto
                     if ((string)mainwindow.cboVideo.SelectedItem != "Auto")
                     {
-                        batchVideoAuto = batchVideoAuto + " &";
+                        MainWindow.batchVideoAuto = MainWindow.batchVideoAuto + " &";
                     }
                 }
                 // Batch Video Copy
                 if ((string)mainwindow.cboVideoCodec.SelectedItem == "Copy")
                 {
-                    batchVideoAuto = string.Empty;
+                    MainWindow.batchVideoAuto = string.Empty;
                 }
 
+                // Not Auto
+                if ((string)mainwindow.cboVideo.SelectedItem != "Auto")
+                {
+                    MainWindow.batchVideoAuto = string.Empty;
+                }
+
+                // -------------------------
+                // Batch Audio Auto Bitrates
+                // -------------------------
                 // Audio Auto
+                //
                 // Batch CMD Detect
-                string batchAudioAuto = string.Empty;
                 if ((string)mainwindow.cboAudio.SelectedItem == "Auto")
                 {
-                    batchAudioAuto = "-select_streams a:0 -show_entries " + FFprobe.aEntryType + " -v quiet -of csv=\"p=0\" & for /f \"tokens=*\" %A in (" + "\"" + FFprobe.ffprobe + " -i " + "\"" + autoBatchInput + "%~f" + "\"" + " -select_streams a:0 -show_entries " + FFprobe.aEntryType + " -v quiet -of csv=p=0\") do (echo ) & (%A > tmp_aBitrate) & SET /p aBitrate= < tmp_aBitrate & del tmp_aBitrate & for /F %A in ('echo %aBitrate%') do echo %A & (if %A EQU N/A (set aBitrate=320000)) & for /F %A in ('echo %aBitrate%') do echo %A &";
+                    MainWindow.batchAudioAuto = "-select_streams a:0 -show_entries " + FFprobe.aEntryType + " -v quiet -of csv=\"p=0\" & for /f \"tokens=*\" %A in (" + "\"" + FFprobe.ffprobe + " -i " + "\"" + autoBatchInput + "%~f" + "\"" + " -select_streams a:0 -show_entries " + FFprobe.aEntryType + " -v quiet -of csv=p=0\") do (echo ) & (%A > tmp_aBitrate) & SET /p aBitrate= < tmp_aBitrate & del tmp_aBitrate & for /F %A in ('echo %aBitrate%') do echo %A & (if %A EQU N/A (set aBitrate=320000)) & for /F %A in ('echo %aBitrate%') do echo %A &";
                 }
                 // Batch Audio Copy
                 if ((string)mainwindow.cboAudioCodec.SelectedItem == "Copy")
                 {
-                    batchAudioAuto = string.Empty;
+                    MainWindow.batchAudioAuto = string.Empty;
+                }
+
+                // Not Auto
+                if ((string)mainwindow.cboAudio.SelectedItem != "Auto")
+                {
+                    MainWindow.batchAudioAuto = string.Empty;
                 }
 
 
@@ -448,8 +463,8 @@ namespace Axiom
                         "&& for %f in",
                         "(*" + MainWindow.batchExt + ")",
                         "do",
-                        batchFFprobeAuto,
-                        batchAudioAuto,
+                        MainWindow.batchFFprobeAuto,
+                        MainWindow.batchAudioAuto,
                         aBitrateLimiter,
                         ffmpeg,
                         "-y",
@@ -490,9 +505,9 @@ namespace Axiom
                         "&& for %f in",
                         "(*" + MainWindow.batchExt + ")",
                         "do",
-                        batchFFprobeAuto,
-                        batchVideoAuto,
-                        batchAudioAuto,
+                        MainWindow.batchFFprobeAuto,
+                        MainWindow.batchVideoAuto,
+                        MainWindow.batchAudioAuto,
                         aBitrateLimiter,
                         ffmpeg,
                         "-y",

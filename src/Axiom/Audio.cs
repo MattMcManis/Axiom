@@ -2226,10 +2226,10 @@ namespace Axiom
             // -------------------------
             // Batch Auto
             // -------------------------
-            if (mainwindow.tglBatch.IsChecked == true && (string)mainwindow.cboMediaType.SelectedItem == "Video" && (string)mainwindow.cboVideo.SelectedItem == "Auto")
-            {
-                aQuality = "-b:a %A";
-            }
+            //if (mainwindow.tglBatch.IsChecked == true && (string)mainwindow.cboMediaType.SelectedItem == "Video" && (string)mainwindow.cboVideo.SelectedItem == "Auto")
+            //{
+            //    aQuality = "-b:a %A";
+            //}
 
             // Audio Codec Copy - (Must be at this location)
             if ((string)mainwindow.cboAudioCodec.SelectedItem == "Copy")
