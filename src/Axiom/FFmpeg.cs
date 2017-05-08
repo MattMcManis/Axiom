@@ -44,10 +44,6 @@ namespace Axiom
         public static string ffmpegArgs; // FFmpeg Arguments
         public static string cmdWindow; // Keep / Close Batch Argument
 
-        // Batch
-        public static string aBitrateLimiter; // limits the bitrate value of webm and ogg
-
-
         // --------------------------------------------------------------------------------------------------------
         // --------------------------------------------------------------------------------------------------------
         /// <summary>
@@ -304,9 +300,8 @@ namespace Axiom
             {
                 // Replace ( with ^( to avoid Windows 7 CMD Error //important!
                 // This is only used in select areas
-                string autoBatchInput;
-                autoBatchInput = mainwindow.textBoxBrowse.Text.Replace(@"(", "^(");
-                autoBatchInput = autoBatchInput.Replace(@")", "^)");
+                MainWindow.autoBatchInput = mainwindow.textBoxBrowse.Text.Replace(@"(", "^(");
+                MainWindow.autoBatchInput = MainWindow.autoBatchInput.Replace(@")", "^)");
 
 
                 /// <summary>
@@ -325,7 +320,7 @@ namespace Axiom
                 // -------------------------
                 if ((string)mainwindow.cboVideo.SelectedItem == "Auto" || (string)mainwindow.cboAudio.SelectedItem == "Auto")
                 {
-                    MainWindow.batchFFprobeAuto = FFprobe.ffprobe + " -i " + "\"" + autoBatchInput + "%~f" + "\"";
+                    MainWindow.batchFFprobeAuto = FFprobe.ffprobe + " -i " + "\"" + MainWindow.autoBatchInput + "%~f" + "\"";
                 }
                 // Batch FFprobe Auto Copy
                 // Video [Quality Preset] / Audio [Auto][Copy] - Disable FFprobe
@@ -340,90 +335,9 @@ namespace Axiom
                 }
 
 
-                // -------------------------
-                // Batch Video Auto Bitrates
-                // -------------------------
-                // Video Auto
-                //
-                // Batch CMD Detect
-
-                if ((string)mainwindow.cboVideo.SelectedItem == "Auto")
-                {
-                    MainWindow.batchVideoAuto = "-select_streams v:0 -show_entries " + FFprobe.vEntryType + " -v quiet -of csv=\"p=0\" & for /f \"tokens=*\" %S in (\"" + FFprobe.ffprobe + " -i " + "\"" + autoBatchInput + "%~f" + "\"" + " -select_streams v:0 -show_entries format=size -v quiet -of csv=p=0\") do (echo ) & (%S > tmp_size) & SET /p size= < tmp_size & del tmp_size & for /F %S in ('echo %size%') do (echo %S) & for /f \"tokens=*\" %D in (\"" + FFprobe.ffprobe + " -i " + "\"" + autoBatchInput + "%~f" + "\"" + " -select_streams v:0 -show_entries format=duration -v quiet -of csv=p=0\") do (echo ) & (%D > tmp_duration) & SET /p duration= < tmp_duration & del tmp_duration & for /f \"tokens=1 delims=.\" %R in ('echo %duration%') do set duration=%R & for /F %D in ('echo %duration%') do (echo %D) & for /f \"tokens=*\" %V in (" + "\"" + FFprobe.ffprobe + " -i " + "\"" + autoBatchInput + "%~f" + "\"" + " -select_streams v:0 -show_entries " + FFprobe.vEntryType + " -v quiet -of csv=p=0\") do (echo ) & (%V > tmp_vBitrate) & SET /p vBitrate= < tmp_vBitrate & del tmp_vBitrate & for /F %V in ('echo %vBitrate%') do (echo %V) & (if %V EQU N/A (set /a vBitrate=%S*8/1000/%D*1000) else (echo Video Bitrate Detected)) & for /F %V in ('echo %vBitrate%') do (echo %V) & " + FFprobe.ffprobe + " -i " + "\"" + autoBatchInput + "%~f" + "\"";
-
-                    // Chain FFmpeg using & symbol at end of Argument if Audio Not Auto
-                    if ((string)mainwindow.cboVideo.SelectedItem != "Auto")
-                    {
-                        MainWindow.batchVideoAuto = MainWindow.batchVideoAuto + " &";
-                    }
-                }
-                // Batch Video Copy
-                if ((string)mainwindow.cboVideoCodec.SelectedItem == "Copy")
-                {
-                    MainWindow.batchVideoAuto = string.Empty;
-                }
-
-                // Not Auto
-                if ((string)mainwindow.cboVideo.SelectedItem != "Auto")
-                {
-                    MainWindow.batchVideoAuto = string.Empty;
-                }
-
-                // -------------------------
-                // Batch Audio Auto Bitrates
-                // -------------------------
-                // Audio Auto
-                //
-                // Batch CMD Detect
-                if ((string)mainwindow.cboAudio.SelectedItem == "Auto")
-                {
-                    MainWindow.batchAudioAuto = "-select_streams a:0 -show_entries " + FFprobe.aEntryType + " -v quiet -of csv=\"p=0\" & for /f \"tokens=*\" %A in (" + "\"" + FFprobe.ffprobe + " -i " + "\"" + autoBatchInput + "%~f" + "\"" + " -select_streams a:0 -show_entries " + FFprobe.aEntryType + " -v quiet -of csv=p=0\") do (echo ) & (%A > tmp_aBitrate) & SET /p aBitrate= < tmp_aBitrate & del tmp_aBitrate & for /F %A in ('echo %aBitrate%') do echo %A & (if %A EQU N/A (set aBitrate=320000)) & for /F %A in ('echo %aBitrate%') do echo %A &";
-                }
-                // Batch Audio Copy
-                if ((string)mainwindow.cboAudioCodec.SelectedItem == "Copy")
-                {
-                    MainWindow.batchAudioAuto = string.Empty;
-                }
-
-                // Not Auto
-                if ((string)mainwindow.cboAudio.SelectedItem != "Auto")
-                {
-                    MainWindow.batchAudioAuto = string.Empty;
-                }
 
 
-                // -------------------------
-                // Batch Limit Bitrates
-                // -------------------------
-                // Only if Audio ComboBox Auto
-                if ((string)mainwindow.cboAudio.SelectedItem == "Auto")
-                {
-                    // Limit Vorbis bitrate to 500k through cmd.exe
-                    if ((string)mainwindow.cboAudioCodec.SelectedItem == "Vorbis")
-                    {
-                        aBitrateLimiter = "(if %A gtr 500000 (set aBitrate=500000) else (echo Bitrate within Vorbis Limit of 500k)) & for /F %A in ('echo %aBitrate%') do (echo %A) &";
-                    }
-                    // Limit Opus bitrate to 510k through cmd.exe
-                    else if ((string)mainwindow.cboAudioCodec.SelectedItem == "Opus")
-                    {
-                        aBitrateLimiter = "(if %A gtr 510000 (set aBitrate=510000) else (echo Bitrate within Opus Limit of 510k)) & for /F %A in ('echo %aBitrate%') do (echo %A) &";
-                    }
-                    // Limit AAC bitrate to 400k through cmd.exe
-                    else if ((string)mainwindow.cboAudioCodec.SelectedItem == "AAC")
-                    {
-                        aBitrateLimiter = "(if %A gtr 400000 (set aBitrate=400000) else (echo Bitrate within AAC Limit of 400k)) & for /F %A in ('echo %aBitrate%') do (echo %A) &";
-                    }
-                    // Limit AC3 bitrate to 640k through cmd.exe
-                    else if ((string)mainwindow.cboAudioCodec.SelectedItem == "AC3")
-                    {
-                        aBitrateLimiter = "(if %A gtr 640000 (set aBitrate=640000) else (echo Bitrate within AC3 Limit of 640k)) & for /F %A in ('echo %aBitrate%') do (echo %A) &";
-                    }
-                    // Limit LAME bitrate to 320k through cmd.exe
-                    else if ((string)mainwindow.cboAudioCodec.SelectedItem == "LAME")
-                    {
-                        aBitrateLimiter = "(if %A gtr 320000 (set aBitrate=320000) else (echo Bitrate within LAME Limit of 320k)) & for /F %A in ('echo %aBitrate%') do (echo %A) &";
-                    }
-                }
+                
 
 
                 // -------------------------
@@ -464,8 +378,8 @@ namespace Axiom
                         "(*" + MainWindow.batchExt + ")",
                         "do",
                         MainWindow.batchFFprobeAuto,
-                        MainWindow.batchAudioAuto,
-                        aBitrateLimiter,
+                        Audio.batchAudioAuto,
+                        Audio.aBitrateLimiter,
                         ffmpeg,
                         "-y",
                         "-i",
@@ -506,9 +420,9 @@ namespace Axiom
                         "(*" + MainWindow.batchExt + ")",
                         "do",
                         MainWindow.batchFFprobeAuto,
-                        MainWindow.batchVideoAuto,
-                        MainWindow.batchAudioAuto,
-                        aBitrateLimiter,
+                        Video.batchVideoAuto,
+                        Audio.batchAudioAuto,
+                        Audio.aBitrateLimiter,
                         ffmpeg,
                         "-y",
                         "-i ",

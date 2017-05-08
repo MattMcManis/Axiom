@@ -167,10 +167,9 @@ namespace Axiom
 
         // Batch
         public static string aBitrateNA; // if Audio bitrate is N/A, default to 320k -NOT USED/HARDCODED
-        public static string vBitrateNA; // if Video bitrate is N/A, default to -crf 18 or -q:v 10 (theora) - NOT USED
+        public static string vBitrateNA; // if Video bitrate is N/A, default to -crf 18 or -q:v 10 (theora) -NOT USED
         public static string batchFFprobeAuto;
-        public static string batchVideoAuto;
-        public static string batchAudioAuto;
+        public static string autoBatchInput;
 
 
 
@@ -245,10 +244,8 @@ namespace Axiom
             // webm is default loaded
             if ((string)cboFormat.SelectedItem == "webm")
             {
-                //cboTune.SelectedItem = "none";
                 cboSubtitle.SelectedItem = "none";
                 cboAudioStream.SelectedItem = "1";
-                //cboOptimize.SelectedItem = "Web";
             }
 
             // Batch Extension Box Disabled
@@ -297,9 +294,6 @@ namespace Axiom
                 // first time use
                 if (string.IsNullOrEmpty(Settings.Default["Theme"].ToString()))
                 {
-                    //Configure.theme = "Axiom";
-                    //Configure.cboTheme.SelectedItem = "Axiom";
-
                     string theme = "Axiom";
                     App.Current.Resources.MergedDictionaries.Clear();
                     App.Current.Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new Uri("Theme" + theme + ".xaml", UriKind.RelativeOrAbsolute) });
@@ -308,9 +302,6 @@ namespace Axiom
                 else if (!string.IsNullOrEmpty(Settings.Default["Theme"].ToString())) // auto/null check
                 {
                     // Load Saved Settings Override
-                    //Configure.theme = Settings.Default["Theme"].ToString();
-                    //Configure.cboTheme.SelectedItem = Settings.Default["Theme"].ToString();
-
                     string theme = Settings.Default["Theme"].ToString();
                     App.Current.Resources.MergedDictionaries.Clear();
                     App.Current.Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new Uri("Theme" + theme + ".xaml", UriKind.RelativeOrAbsolute) });
@@ -614,7 +605,6 @@ namespace Axiom
             Video.options = string.Empty;
             Video.optimize = string.Empty;
             Video.speed = string.Empty;
-            //Video.cmdBatch_vQuality = string.Empty;
 
             // Audio
             Audio.aCodec = string.Empty;
@@ -625,14 +615,19 @@ namespace Axiom
             Audio.aChannel = string.Empty;
             Audio.aSamplerate = string.Empty;
             Audio.aBitDepth = string.Empty;
-            FFmpeg.aBitrateLimiter = string.Empty;
+            Audio.aBitrateLimiter = string.Empty;
             aBitrateNA = string.Empty;
-            //Audio.cmdBatch_aQuality = string.Empty;
             Audio.aFilterSwitch = 0; //Set aFilter Switch back to Off to avoid doubling up
             Audio.aFilter = string.Empty;
             Audio.volume = string.Empty;
             Audio.aLimiter = string.Empty;
             Audio.AudioFilters.Clear();
+
+            // Batch
+            batchFFprobeAuto = string.Empty;
+            Video.batchVideoAuto = string.Empty;
+            Audio.batchAudioAuto = string.Empty;
+            Audio.aBitrateLimiter = string.Empty;
 
             // Streams
             Streams.map = string.Empty;
@@ -1161,8 +1156,24 @@ namespace Axiom
                     outputFileName = "image-%03d"; //must be this name
                 }
 
-                // Output Empty
-                if (string.IsNullOrWhiteSpace(textBoxOutput.Text))
+                // Input Empty & Output Empty
+                if (string.IsNullOrWhiteSpace(textBoxBrowse.Text) && string.IsNullOrWhiteSpace(textBoxOutput.Text))
+                {
+                    textBoxBrowse.Text = string.Empty;
+                    textBoxOutput.Text = string.Empty;
+
+                    inputDir = string.Empty;
+                    outputDir = string.Empty;
+
+                    inputFileName = string.Empty;
+                    outputFileName = string.Empty;
+
+                    input = string.Empty;
+                    output = string.Empty;
+                }
+
+                // Input Not Empty, Output Empty
+                if (!string.IsNullOrWhiteSpace(textBoxBrowse.Text) && string.IsNullOrWhiteSpace(textBoxOutput.Text))
                 {
                     // Default Output to Input + Output Extension
                     textBoxOutput.Text = inputDir + inputFileName + outputExt;
@@ -2858,8 +2869,8 @@ namespace Axiom
                 cboAudio.SelectedItem = "Auto";
             }
 
-            // Update Ouput Textbox with current Format extension
-            if (!string.IsNullOrWhiteSpace(textBoxOutput.Text))
+            // Single File - Update Ouput Textbox with current Format extension
+            if (tglBatch.IsChecked == false && !string.IsNullOrWhiteSpace(textBoxOutput.Text))
             {
                 textBoxOutput.Text = outputDir + outputFileName + outputExt;
             }

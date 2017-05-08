@@ -100,6 +100,9 @@ namespace Axiom
         public static string geq; // png transparent to jpg whtie background filter
         public static string vFilter;
 
+        // Batch
+        public static string batchVideoAuto;
+
 
 
         // --------------------------------------------------------------------------------------------------------
@@ -1428,6 +1431,41 @@ namespace Axiom
                     crf = string.Empty; vBitrate = string.Empty; vOptions = string.Empty;
 
                     vQuality = vBitrate;
+                }
+
+
+                // -------------------------
+                // Batch Auto
+                // -------------------------
+                if (mainwindow.tglBatch.IsChecked == true)
+                {
+                    // -------------------------
+                    // Video Auto Bitrates
+                    // -------------------------
+                    //
+                    // Batch CMD Detect
+
+                    if ((string)mainwindow.cboVideo.SelectedItem == "Auto")
+                    {
+                        batchVideoAuto = "-select_streams v:0 -show_entries " + FFprobe.vEntryType + " -v quiet -of csv=\"p=0\" & for /f \"tokens=*\" %S in (\"" + FFprobe.ffprobe + " -i " + "\"" + MainWindow.autoBatchInput + "%~f" + "\"" + " -select_streams v:0 -show_entries format=size -v quiet -of csv=p=0\") do (echo ) & (%S > tmp_size) & SET /p size= < tmp_size & del tmp_size & for /F %S in ('echo %size%') do (echo %S) & for /f \"tokens=*\" %D in (\"" + FFprobe.ffprobe + " -i " + "\"" + MainWindow.autoBatchInput + "%~f" + "\"" + " -select_streams v:0 -show_entries format=duration -v quiet -of csv=p=0\") do (echo ) & (%D > tmp_duration) & SET /p duration= < tmp_duration & del tmp_duration & for /f \"tokens=1 delims=.\" %R in ('echo %duration%') do set duration=%R & for /F %D in ('echo %duration%') do (echo %D) & for /f \"tokens=*\" %V in (" + "\"" + FFprobe.ffprobe + " -i " + "\"" + MainWindow.autoBatchInput + "%~f" + "\"" + " -select_streams v:0 -show_entries " + FFprobe.vEntryType + " -v quiet -of csv=p=0\") do (echo ) & (%V > tmp_vBitrate) & SET /p vBitrate= < tmp_vBitrate & del tmp_vBitrate & for /F %V in ('echo %vBitrate%') do (echo %V) & (if %V EQU N/A (set /a vBitrate=%S*8/1000/%D*1000) else (echo Video Bitrate Detected)) & for /F %V in ('echo %vBitrate%') do (echo %V) & " + FFprobe.ffprobe + " -i " + "\"" + MainWindow.autoBatchInput + "%~f" + "\"";
+
+                        // Chain FFmpeg using & symbol at end of Argument if Audio Not Auto
+                        if ((string)mainwindow.cboVideo.SelectedItem != "Auto")
+                        {
+                            batchVideoAuto = batchVideoAuto + " &";
+                        }
+                    }
+                    // Batch Video Copy
+                    if ((string)mainwindow.cboVideoCodec.SelectedItem == "Copy")
+                    {
+                        batchVideoAuto = string.Empty;
+                    }
+
+                    // Not Auto
+                    if ((string)mainwindow.cboVideo.SelectedItem != "Auto")
+                    {
+                        batchVideoAuto = string.Empty;
+                    }
                 }
 
                 //end Auto //////////////////////////
