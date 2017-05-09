@@ -99,23 +99,6 @@ namespace Axiom
             {
                 cboOptimizeLevel.SelectedItem = MainWindow.OptAdvLevel;
             }
-
-            //cboOptimizeLevel.SelectedItem = "4.0"; // First time use
-            //// Safeguard Against Corrupt Saved Settings
-            //try
-            //{
-            //    if (!string.IsNullOrEmpty(Settings.Default["OptAdvLevel"].ToString())) // auto/null check
-            //    {
-            //        cboOptimizeLevel.SelectedItem = Settings.Default["OptAdvLevel"];
-            //    }
-            //}
-            //catch
-            //{
-
-            //}
-
-            //MessageBox.Show(Settings.Default["OptAdvLevel"].ToString()); //debug
-
         }
 
 
@@ -176,20 +159,6 @@ namespace Axiom
             MainWindow.OptAdvTune = cboOptimizeTune.SelectedItem.ToString();
             MainWindow.OptAdvProfile = cboOptimizeProfile.SelectedItem.ToString();
             MainWindow.OptAdvLevel = cboOptimizeLevel.SelectedItem.ToString();
-
-            //try
-            //{
-            //    // Save Textboxes for next launch
-            //    Settings.Default["OptAdvTune"] = cboOptimizeTune.SelectedItem.ToString();
-            //    Settings.Default["OptAdvProfile"] = cboOptimizeProfile.SelectedItem.ToString();
-            //    Settings.Default["OptAdvLevel"] = cboOptimizeLevel.SelectedItem.ToString();
-            //    Settings.Default.Save();
-            //    Settings.Default.Reload();
-            //}
-            //catch
-            //{
-
-            //}
 
             this.Close();
         }

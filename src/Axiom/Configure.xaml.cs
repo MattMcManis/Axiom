@@ -72,14 +72,6 @@ namespace Axiom
             // Pass Constructor from MainWindow
             this.mainwindow = mainwindow;
 
-
-            // --------------------------------------------------
-            // Combobox Item Background Colors
-            // --------------------------------------------------
-            //Brush DarkBlue = (SolidColorBrush)(new BrushConverter().ConvertFrom("#1049bb")); //hex color to brush
-            //cboThreads.Resources.Add(SystemColors.WindowBrushKey, DarkBlue);
-
-
             // --------------------------------------------------
             // Load From Saved Settings
             // --------------------------------------------------

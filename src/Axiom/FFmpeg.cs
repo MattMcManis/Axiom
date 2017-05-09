@@ -66,7 +66,10 @@ namespace Axiom
             }
 
             // Disable 2 Pass if User selected Value
-            if (FFprobe.inputVideoBitrate == "N/A" | string.IsNullOrEmpty(FFprobe.inputVideoBitrate) && (string)mainwindow.cboVideo.SelectedItem != "Auto" && (string)mainwindow.cboPass.SelectedItem != "2 Pass")
+            if (FFprobe.inputVideoBitrate == "N/A" 
+                || string.IsNullOrEmpty(FFprobe.inputVideoBitrate) 
+                && (string)mainwindow.cboVideo.SelectedItem != "Auto" 
+                && (string)mainwindow.cboPass.SelectedItem != "2 Pass")
             {
                 Video.v2passSwitch = 0;
                 Video.v2passBatchSwitch = 0;
@@ -74,7 +77,8 @@ namespace Axiom
             }
 
             // Disable 2 Pass if User selected Value (again)
-            if ((string)mainwindow.cboVideo.SelectedItem != "Auto" && (string)mainwindow.cboPass.SelectedItem != "2 Pass")
+            if ((string)mainwindow.cboVideo.SelectedItem != "Auto" 
+                && (string)mainwindow.cboPass.SelectedItem != "2 Pass")
             {
                 Video.v2passSwitch = 0;
                 Video.v2passBatchSwitch = 0;
@@ -171,13 +175,17 @@ namespace Axiom
                 }
 
                 // If Video = Auto, use the CMD Batch Video Variable
-                if (mainwindow.tglBatch.IsChecked == true && (string)mainwindow.cboVideo.SelectedItem == "Auto" && (string)mainwindow.cboVideoCodec.SelectedItem != "Copy")
+                if (mainwindow.tglBatch.IsChecked == true 
+                    && (string)mainwindow.cboVideo.SelectedItem == "Auto" 
+                    && (string)mainwindow.cboVideoCodec.SelectedItem != "Copy")
                 {
                     Video.vQuality = "-b:v %V";
                     // Skipped if Codec Copy
                 }
                 // If Audio = Auto, use the CMD Batch Audio Variable
-                if (mainwindow.tglBatch.IsChecked == true && (string)mainwindow.cboAudio.SelectedItem == "Auto" && (string)mainwindow.cboAudioCodec.SelectedItem != "Copy")
+                if (mainwindow.tglBatch.IsChecked == true 
+                    && (string)mainwindow.cboAudio.SelectedItem == "Auto" 
+                    && (string)mainwindow.cboAudioCodec.SelectedItem != "Copy")
                 {
                     Audio.aQuality = "-b:a %A";
                     // Skipped if Codec Copy
@@ -318,18 +326,23 @@ namespace Axiom
                 // -------------------------
                 // FFprobe Auto Bitrate Detect
                 // -------------------------
-                if ((string)mainwindow.cboVideo.SelectedItem == "Auto" || (string)mainwindow.cboAudio.SelectedItem == "Auto")
+                if ((string)mainwindow.cboVideo.SelectedItem == "Auto" 
+                    || (string)mainwindow.cboAudio.SelectedItem == "Auto")
                 {
                     MainWindow.batchFFprobeAuto = FFprobe.ffprobe + " -i " + "\"" + MainWindow.autoBatchInput + "%~f" + "\"";
                 }
                 // Batch FFprobe Auto Copy
                 // Video [Quality Preset] / Audio [Auto][Copy] - Disable FFprobe
-                if ((string)mainwindow.cboVideo.SelectedItem != "Auto" && (string)mainwindow.cboAudio.SelectedItem == "Auto" && (string)mainwindow.cboAudioCodec.SelectedItem == "Copy")
+                if ((string)mainwindow.cboVideo.SelectedItem != "Auto" 
+                    && (string)mainwindow.cboAudio.SelectedItem == "Auto" 
+                    && (string)mainwindow.cboAudioCodec.SelectedItem == "Copy")
                 {
                     MainWindow.batchFFprobeAuto = string.Empty;
                 }
                 // Video [Auto][Copy] / Audio [Quality Preset] - Disable FFprobe
-                if ((string)mainwindow.cboAudio.SelectedItem != "Auto" && (string)mainwindow.cboVideo.SelectedItem == "Auto" && (string)mainwindow.cboVideoCodec.SelectedItem == "Copy")
+                if ((string)mainwindow.cboAudio.SelectedItem != "Auto" 
+                    && (string)mainwindow.cboVideo.SelectedItem == "Auto" 
+                    && (string)mainwindow.cboVideoCodec.SelectedItem == "Copy")
                 {
                     MainWindow.batchFFprobeAuto = string.Empty;
                 }
@@ -367,7 +380,9 @@ namespace Axiom
                 // -------------------------
                 //  Batch Audio Convert - Media to Audio - Audio (Auto)
                 // -------------------------
-                if (mainwindow.tglBatch.IsChecked == true && (string)mainwindow.cboMediaType.SelectedItem == "Audio" && (string)mainwindow.cboAudio.SelectedItem == "Auto")
+                if (mainwindow.tglBatch.IsChecked == true 
+                    && (string)mainwindow.cboMediaType.SelectedItem == "Audio" 
+                    && (string)mainwindow.cboAudio.SelectedItem == "Auto")
                 {
                     // Make List
                     List<string> FFmpegArgsList = new List<string>()
@@ -409,7 +424,10 @@ namespace Axiom
                 // -------------------------
                 // Batch Video Convert - Media to Video - Video OR Audio (Auto)
                 // -------------------------
-                else if (mainwindow.tglBatch.IsChecked == true && (string)mainwindow.cboMediaType.SelectedItem == "Video" && (string)mainwindow.cboVideo.SelectedItem == "Auto" || (string)mainwindow.cboAudio.SelectedItem == "Auto")
+                else if (mainwindow.tglBatch.IsChecked == true 
+                    && (string)mainwindow.cboMediaType.SelectedItem == "Video" 
+                    && (string)mainwindow.cboVideo.SelectedItem == "Auto" 
+                    || (string)mainwindow.cboAudio.SelectedItem == "Auto")
                 {
                     // Make List
                     List<string> FFmpegArgsList = new List<string>()
@@ -460,7 +478,9 @@ namespace Axiom
                 // -------------------------
                 // Batch Media (User selected options) Not Auto
                 // -------------------------
-                else if (mainwindow.tglBatch.IsChecked == true && (string)mainwindow.cboVideo.SelectedItem != "Auto" && (string)mainwindow.cboAudio.SelectedItem != "Auto")
+                else if (mainwindow.tglBatch.IsChecked == true 
+                    && (string)mainwindow.cboVideo.SelectedItem != "Auto" 
+                    && (string)mainwindow.cboAudio.SelectedItem != "Auto")
                 {
                     // Make List
                     List<string> FFmpegArgsList = new List<string>()

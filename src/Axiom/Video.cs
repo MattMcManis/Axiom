@@ -1129,11 +1129,18 @@ namespace Axiom
             // FPS is Not Auto
             // Optimize is Not None
             //
-            if (VideoCodecItemSource.Contains("Copy") && !string.IsNullOrEmpty((string)mainwindow.cboVideo.SelectedItem) && !string.Equals(MainWindow.inputExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase) | !string.Equals(MainWindow.batchExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase))
+            if (VideoCodecItemSource.Contains("Copy") 
+                && !string.IsNullOrEmpty((string)mainwindow.cboVideo.SelectedItem) 
+                && !string.Equals(MainWindow.inputExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase) 
+                | !string.Equals(MainWindow.batchExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase))
             {
                 // Switch back to format's default codec
                 //
-                if ((string)mainwindow.cboVideo.SelectedItem != "Auto" || (string)mainwindow.cboSize.SelectedItem != "No" || !string.IsNullOrEmpty(MainWindow.crop) || (string)mainwindow.cboFPS.SelectedItem != "auto" || (string)mainwindow.cboOptimize.SelectedItem != "none")
+                if ((string)mainwindow.cboVideo.SelectedItem != "Auto" 
+                    || (string)mainwindow.cboSize.SelectedItem != "No" 
+                    || !string.IsNullOrEmpty(MainWindow.crop) 
+                    || (string)mainwindow.cboFPS.SelectedItem != "auto" 
+                    || (string)mainwindow.cboOptimize.SelectedItem != "none")
                 {
                     if ((string)mainwindow.cboFormat.SelectedItem == "webm")
                     {
@@ -1159,7 +1166,11 @@ namespace Axiom
                     {
                         mainwindow.cboVideoCodec.SelectedItem = "PNG";
                     }
-                    else if ((string)mainwindow.cboFormat.SelectedItem == "m4a" || (string)mainwindow.cboFormat.SelectedItem == "mp3" || (string)mainwindow.cboFormat.SelectedItem == "ogg" || (string)mainwindow.cboFormat.SelectedItem == "flac" || (string)mainwindow.cboFormat.SelectedItem == "wav")
+                    else if ((string)mainwindow.cboFormat.SelectedItem == "m4a" 
+                        || (string)mainwindow.cboFormat.SelectedItem == "mp3" 
+                        || (string)mainwindow.cboFormat.SelectedItem == "ogg"
+                        || (string)mainwindow.cboFormat.SelectedItem == "flac"
+                        || (string)mainwindow.cboFormat.SelectedItem == "wav")
                     {
                         mainwindow.cboVideoCodec.SelectedItem = string.Empty;
                     }
@@ -1169,7 +1180,9 @@ namespace Axiom
                 
 
             // Special Rules for MKV
-            if ((string)mainwindow.cboFormat.SelectedItem == "mkv" && (string)mainwindow.cboVideoCodec.SelectedItem == "Copy" && (string)mainwindow.cboVideo.SelectedItem != "Auto")
+            if ((string)mainwindow.cboFormat.SelectedItem == "mkv"
+                && (string)mainwindow.cboVideoCodec.SelectedItem == "Copy" 
+                && (string)mainwindow.cboVideo.SelectedItem != "Auto")
             {
                 if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
                 {
@@ -1203,7 +1216,8 @@ namespace Axiom
             if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG")
             {
                 // Turn on PNG to JPG Filter
-                if (string.Equals(MainWindow.inputExt, ".png", StringComparison.CurrentCultureIgnoreCase) || string.Equals(MainWindow.inputExt, "png", StringComparison.CurrentCultureIgnoreCase))
+                if (string.Equals(MainWindow.inputExt, ".png", StringComparison.CurrentCultureIgnoreCase) 
+                    || string.Equals(MainWindow.inputExt, "png", StringComparison.CurrentCultureIgnoreCase))
                 {
                     vFilterSwitch += 1;
 
@@ -1615,7 +1629,10 @@ namespace Axiom
                 if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9")
                 {
                     // If vBitrate is default or blank & CRF is custom value
-                    if (mainwindow.vBitrateCustom.Text == "Bitrate" | string.IsNullOrWhiteSpace(mainwindow.vBitrateCustom.Text) && mainwindow.crfCustom.Text != "CRF" && !string.IsNullOrWhiteSpace(mainwindow.crfCustom.Text))
+                    if (mainwindow.vBitrateCustom.Text == "Bitrate" 
+                        | string.IsNullOrWhiteSpace(mainwindow.vBitrateCustom.Text) 
+                        && mainwindow.crfCustom.Text != "CRF" 
+                        && !string.IsNullOrWhiteSpace(mainwindow.crfCustom.Text))
                     {
                         vBitMode = "-b:v";
                         vBitrate = "0";
@@ -1628,7 +1645,10 @@ namespace Axiom
                 // If vBitrate TextBox is NOT Empty & NOT Default ("Bitrate") & CRF IS Empty or Default ("CRF")
                 if ((string)mainwindow.cboPass.SelectedItem == "2 Pass")
                 {
-                    if (!string.IsNullOrWhiteSpace(mainwindow.vBitrateCustom.Text) && mainwindow.vBitrateCustom.Text != "Bitrate" && string.IsNullOrWhiteSpace(mainwindow.crfCustom.Text) | mainwindow.crfCustom.Text == "CRF")
+                    if (!string.IsNullOrWhiteSpace(mainwindow.vBitrateCustom.Text) 
+                        && mainwindow.vBitrateCustom.Text != "Bitrate" 
+                        && string.IsNullOrWhiteSpace(mainwindow.crfCustom.Text) 
+                        | mainwindow.crfCustom.Text == "CRF")
                     {
                         // Log Console Message /////////
                         Log.WriteAction = () =>
@@ -1651,7 +1671,10 @@ namespace Axiom
                 // Disabled on CRF so Bitrate can run as 1 Pass
                 if ((string)mainwindow.cboPass.SelectedItem == "1 Pass")
                 {
-                    if (!string.IsNullOrWhiteSpace(mainwindow.vBitrateCustom.Text) && mainwindow.vBitrateCustom.Text != "Bitrate" && string.IsNullOrWhiteSpace(mainwindow.crfCustom.Text) | mainwindow.crfCustom.Text == "CRF")
+                    if (!string.IsNullOrWhiteSpace(mainwindow.vBitrateCustom.Text) 
+                        && mainwindow.vBitrateCustom.Text != "Bitrate" 
+                        && string.IsNullOrWhiteSpace(mainwindow.crfCustom.Text) 
+                        | mainwindow.crfCustom.Text == "CRF")
                     {
                         // Log Console Message /////////
                         Log.WriteAction = () =>
@@ -1764,7 +1787,10 @@ namespace Axiom
 
             // FFmpeg MP4 / MKV Width/Height Fix
             //
-            if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264" && (string)mainwindow.cboSize.SelectedItem == "No" || (string)mainwindow.cboVideoCodec.SelectedItem == "x265" && (string)mainwindow.cboSize.SelectedItem == "No")
+            if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264" 
+                && (string)mainwindow.cboSize.SelectedItem == "No" 
+                || (string)mainwindow.cboVideoCodec.SelectedItem == "x265" 
+                && (string)mainwindow.cboSize.SelectedItem == "No")
             {
                 // Video Filter Switch
                 vFilterSwitch += 1;
@@ -1785,10 +1811,21 @@ namespace Axiom
                 vFilterSwitch += 1;
 
                 scale = "scale=";
-                if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9" || (string)mainwindow.cboVideoCodec.SelectedItem == "Theora" || (string)mainwindow.cboVideoCodec.SelectedItem == "JPEG" || (string)mainwindow.cboVideoCodec.SelectedItem == "PNG")
-                { height = "-1"; }
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264" || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
-                { height = "trunc(ih/2)*2"; }
+
+                if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" 
+                    || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9" 
+                    || (string)mainwindow.cboVideoCodec.SelectedItem == "Theora" 
+                    || (string)mainwindow.cboVideoCodec.SelectedItem == "JPEG" 
+                    || (string)mainwindow.cboVideoCodec.SelectedItem == "PNG")
+                {
+                    height = "-1";
+                }
+                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264" 
+                    || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
+                {
+                    height = "trunc(ih/2)*2";
+                }
+
                 width = "7680"; // Note: 8K is measured width first
 
                 aspect = scale + width + ":" + height;
@@ -1802,10 +1839,21 @@ namespace Axiom
                 vFilterSwitch += 1;
 
                 scale = "scale=";
-                if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9" || (string)mainwindow.cboVideoCodec.SelectedItem == "Theora" || (string)mainwindow.cboVideoCodec.SelectedItem == "JPEG" || (string)mainwindow.cboVideoCodec.SelectedItem == "PNG")
-                { height = "-1"; }
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264" || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
-                { height = "trunc(ih/2)*2"; }
+
+                if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" 
+                    || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9" 
+                    || (string)mainwindow.cboVideoCodec.SelectedItem == "Theora" 
+                    || (string)mainwindow.cboVideoCodec.SelectedItem == "JPEG" 
+                    || (string)mainwindow.cboVideoCodec.SelectedItem == "PNG")
+                {
+                    height = "-1";
+                }
+                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264" 
+                    || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
+                {
+                    height = "trunc(ih/2)*2";
+                }
+
                 width = "4096"; // Note: 4K is measured width first
 
                 aspect = scale + width + ":" + height;
@@ -1819,10 +1867,21 @@ namespace Axiom
                 vFilterSwitch += 1;
 
                 scale = "scale=";
-                if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9" || (string)mainwindow.cboVideoCodec.SelectedItem == "Theora" || (string)mainwindow.cboVideoCodec.SelectedItem == "JPEG" || (string)mainwindow.cboVideoCodec.SelectedItem == "PNG")
-                { height = "-1"; }
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264" || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
-                { height = "trunc(ih/2)*2"; }
+
+                if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" 
+                    || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9" 
+                    || (string)mainwindow.cboVideoCodec.SelectedItem == "Theora" 
+                    || (string)mainwindow.cboVideoCodec.SelectedItem == "JPEG" 
+                    || (string)mainwindow.cboVideoCodec.SelectedItem == "PNG")
+                {
+                    height = "-1";
+                }
+                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264" 
+                    || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
+                {
+                    height = "trunc(ih/2)*2";
+                }
+
                 width = "3840"; // Note: 4K is measured width first
 
                 aspect = scale + width + ":" + height;
@@ -1836,10 +1895,21 @@ namespace Axiom
                 vFilterSwitch += 1;
 
                 scale = "scale=";
-                if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9" || (string)mainwindow.cboVideoCodec.SelectedItem == "Theora" || (string)mainwindow.cboVideoCodec.SelectedItem == "JPEG" || (string)mainwindow.cboVideoCodec.SelectedItem == "PNG")
-                { height = "-1"; }
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264" || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
-                { height = "trunc(ih/2)*2"; }
+
+                if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" 
+                    || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9" 
+                    || (string)mainwindow.cboVideoCodec.SelectedItem == "Theora" 
+                    || (string)mainwindow.cboVideoCodec.SelectedItem == "JPEG" 
+                    || (string)mainwindow.cboVideoCodec.SelectedItem == "PNG")
+                {
+                    height = "-1";
+                }
+                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264" 
+                    || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
+                {
+                    height = "trunc(ih/2)*2";
+                }
+
                 width = "2048"; // Note: 2K is measured width first
 
                 aspect = scale + width + ":" + height;
@@ -1853,10 +1923,21 @@ namespace Axiom
                 vFilterSwitch += 1;
 
                 scale = "scale=";
-                if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9" || (string)mainwindow.cboVideoCodec.SelectedItem == "Theora" || (string)mainwindow.cboVideoCodec.SelectedItem == "JPEG" || (string)mainwindow.cboVideoCodec.SelectedItem == "PNG")
-                { width = "-1"; }
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264" || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
-                { width = "trunc(ih/2)*2"; }
+
+                if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" 
+                    || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9" 
+                    || (string)mainwindow.cboVideoCodec.SelectedItem == "Theora" 
+                    || (string)mainwindow.cboVideoCodec.SelectedItem == "JPEG" 
+                    || (string)mainwindow.cboVideoCodec.SelectedItem == "PNG")
+                {
+                    width = "-1";
+                }
+                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264" 
+                    || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
+                {
+                    width = "trunc(ih/2)*2";
+                }
+
                 height = "1440";
 
                 aspect = scale + width + ":" + height;
@@ -1870,10 +1951,21 @@ namespace Axiom
                 vFilterSwitch += 1;
 
                 scale = "scale=";
-                if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9" || (string)mainwindow.cboVideoCodec.SelectedItem == "Theora" || (string)mainwindow.cboVideoCodec.SelectedItem == "JPEG" || (string)mainwindow.cboVideoCodec.SelectedItem == "PNG")
-                { width = "-1"; }
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264" || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
-                { width = "trunc(ih/2)*2"; }
+
+                if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" 
+                    || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9" 
+                    || (string)mainwindow.cboVideoCodec.SelectedItem == "Theora" 
+                    || (string)mainwindow.cboVideoCodec.SelectedItem == "JPEG" 
+                    || (string)mainwindow.cboVideoCodec.SelectedItem == "PNG")
+                {
+                    width = "-1";
+                }
+                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264"
+                    || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
+                {
+                    width = "trunc(ih/2)*2";
+                }
+
                 height = "1200";
 
                 aspect = scale + width + ":" + height;
@@ -1887,10 +1979,21 @@ namespace Axiom
                 vFilterSwitch += 1;
 
                 scale = "scale=";
-                if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9" || (string)mainwindow.cboVideoCodec.SelectedItem == "Theora" || (string)mainwindow.cboVideoCodec.SelectedItem == "JPEG" || (string)mainwindow.cboVideoCodec.SelectedItem == "PNG")
-                { width = "-1"; }
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264" || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
-                { width = "trunc(ih/2)*2"; }
+
+                if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" 
+                    || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9" 
+                    || (string)mainwindow.cboVideoCodec.SelectedItem == "Theora" 
+                    || (string)mainwindow.cboVideoCodec.SelectedItem == "JPEG" 
+                    || (string)mainwindow.cboVideoCodec.SelectedItem == "PNG")
+                {
+                    width = "-1";
+                }
+                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264" 
+                    || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
+                {
+                    width = "trunc(ih/2)*2";
+                }
+
                 height = "1080";
 
                 aspect = scale + width + ":" + height;
@@ -1905,10 +2008,21 @@ namespace Axiom
 
                 //System.Windows.MessageBox.Show(vFilter); //debug
                 scale = "scale=";
-                if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9" || (string)mainwindow.cboVideoCodec.SelectedItem == "Theora" || (string)mainwindow.cboVideoCodec.SelectedItem == "JPEG" || (string)mainwindow.cboVideoCodec.SelectedItem == "PNG")
-                { width = "-1"; }
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264" || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
-                { width = "trunc(ih/2)*2"; }
+
+                if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" 
+                    || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9" 
+                    || (string)mainwindow.cboVideoCodec.SelectedItem == "Theora" 
+                    || (string)mainwindow.cboVideoCodec.SelectedItem == "JPEG" 
+                    || (string)mainwindow.cboVideoCodec.SelectedItem == "PNG")
+                {
+                    width = "-1";
+                }
+                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264"
+                    || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
+                {
+                    width = "trunc(ih/2)*2";
+                }
+
                 height = "720";
 
                 aspect = scale + width + ":" + height;
@@ -1922,10 +2036,21 @@ namespace Axiom
                 vFilterSwitch += 1;
 
                 scale = "scale=";
-                if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9" || (string)mainwindow.cboVideoCodec.SelectedItem == "Theora" || (string)mainwindow.cboVideoCodec.SelectedItem == "JPEG" || (string)mainwindow.cboVideoCodec.SelectedItem == "PNG")
-                { width = "-1"; }
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264" || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
-                { width = "trunc(ih/2)*2"; }
+
+                if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" 
+                    || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9" 
+                    || (string)mainwindow.cboVideoCodec.SelectedItem == "Theora"
+                    || (string)mainwindow.cboVideoCodec.SelectedItem == "JPEG" 
+                    || (string)mainwindow.cboVideoCodec.SelectedItem == "PNG")
+                {
+                    width = "-1";
+                }
+                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264" 
+                    || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
+                {
+                    width = "trunc(ih/2)*2";
+                }
+
                 height = "480";
 
                 aspect = scale + width + ":" + height;
@@ -1939,10 +2064,21 @@ namespace Axiom
                 vFilterSwitch += 1;
 
                 scale = "scale=";
-                if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9" || (string)mainwindow.cboVideoCodec.SelectedItem == "Theora" || (string)mainwindow.cboVideoCodec.SelectedItem == "JPEG" || (string)mainwindow.cboVideoCodec.SelectedItem == "PNG")
-                { width = "-1"; }
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264" || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
-                { width = "trunc(ih/2)*2"; }
+
+                if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" 
+                    || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9" 
+                    || (string)mainwindow.cboVideoCodec.SelectedItem == "Theora" 
+                    || (string)mainwindow.cboVideoCodec.SelectedItem == "JPEG" 
+                    || (string)mainwindow.cboVideoCodec.SelectedItem == "PNG")
+                {
+                    width = "-1";
+                }
+                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264"
+                    || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
+                {
+                    width = "trunc(ih/2)*2";
+                }
+
                 height = "320";
 
                 aspect = scale + width + ":" + height;
@@ -1956,10 +2092,21 @@ namespace Axiom
                 vFilterSwitch += 1;
 
                 scale = "scale=";
-                if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9" || (string)mainwindow.cboVideoCodec.SelectedItem == "Theora" || (string)mainwindow.cboVideoCodec.SelectedItem == "JPEG" || (string)mainwindow.cboVideoCodec.SelectedItem == "PNG")
-                { width = "-1"; }
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264" || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
-                { width = "trunc(ih/2)*2"; }
+
+                if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" 
+                    || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9"
+                    || (string)mainwindow.cboVideoCodec.SelectedItem == "Theora" 
+                    || (string)mainwindow.cboVideoCodec.SelectedItem == "JPEG"
+                    || (string)mainwindow.cboVideoCodec.SelectedItem == "PNG")
+                {
+                    width = "-1";
+                }
+                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264" 
+                    || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
+                {
+                    width = "trunc(ih/2)*2";
+                }
+
                 height = "240";
 
                 aspect = scale + width + ":" + height;
@@ -1985,7 +2132,11 @@ namespace Axiom
                 // -------------------------
                 // VP8, VP9, Theora
                 // -------------------------
-                if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9" || (string)mainwindow.cboVideoCodec.SelectedItem == "Theora" || (string)mainwindow.cboVideoCodec.SelectedItem == "JPEG" || (string)mainwindow.cboVideoCodec.SelectedItem == "PNG")
+                if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" 
+                    || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9"
+                    || (string)mainwindow.cboVideoCodec.SelectedItem == "Theora"
+                    || (string)mainwindow.cboVideoCodec.SelectedItem == "JPEG" 
+                    || (string)mainwindow.cboVideoCodec.SelectedItem == "PNG")
                 {
                     // Get width height from custom textbox
                     width = mainwindow.widthCustom.Text;
@@ -2022,7 +2173,8 @@ namespace Axiom
                     height = mainwindow.heightCustom.Text;
 
                     // If width = auto & height = custom value
-                    if (string.Equals(mainwindow.widthCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase) && !string.Equals(mainwindow.heightCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase))
+                    if (string.Equals(mainwindow.widthCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase)
+                        && !string.Equals(mainwindow.heightCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase))
                     {
                         // Auto the width (-2), Make user entered height divisible by 2
                         width = "trunc(iw/2)*2";
@@ -2066,7 +2218,8 @@ namespace Axiom
 
                     // If width = custom value & height = auto
                     //
-                    else if (!string.Equals(mainwindow.widthCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase) && string.Equals(mainwindow.heightCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase))
+                    else if (!string.Equals(mainwindow.widthCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase) 
+                        && string.Equals(mainwindow.heightCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase))
                     {
                         // Auto the height (-2), Make user entered width divisible by 2
                         height = "trunc(ih/2)*2";
@@ -2110,7 +2263,8 @@ namespace Axiom
 
                     // If both width & height are custom value
                     //
-                    else if (!string.Equals(mainwindow.widthCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase) && !string.Equals(mainwindow.heightCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase))
+                    else if (!string.Equals(mainwindow.widthCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase) 
+                        && !string.Equals(mainwindow.heightCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase))
                     {
                         try
                         {
@@ -2171,7 +2325,8 @@ namespace Axiom
                 // REMOVE ASPECT IF Blank
                 //
                 // Remove "auto" and empty values - no scaling
-                if (string.IsNullOrWhiteSpace(mainwindow.widthCustom.Text) && string.IsNullOrWhiteSpace(mainwindow.heightCustom.Text))
+                if (string.IsNullOrWhiteSpace(mainwindow.widthCustom.Text) 
+                    && string.IsNullOrWhiteSpace(mainwindow.heightCustom.Text))
                 {
                     scale = string.Empty;
                     MainWindow.crop = string.Empty; //divisibleCrop
@@ -2180,7 +2335,8 @@ namespace Axiom
                     aspect = string.Empty;
                 }
                 // if width =  auto & height = auto
-                else if (string.Equals(mainwindow.widthCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase) && string.Equals(mainwindow.heightCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase))
+                else if (string.Equals(mainwindow.widthCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase) 
+                    && string.Equals(mainwindow.heightCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase))
                 {
                     scale = string.Empty;
                     MainWindow.crop = string.Empty; //divisibleCrop
@@ -2189,7 +2345,8 @@ namespace Axiom
                     aspect = string.Empty;
                 }
                 // if width =  blank & height = auto
-                else if (string.IsNullOrWhiteSpace(mainwindow.widthCustom.Text) && string.Equals(mainwindow.heightCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase))
+                else if (string.IsNullOrWhiteSpace(mainwindow.widthCustom.Text) 
+                    && string.Equals(mainwindow.heightCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase))
                 {
                     scale = string.Empty;
                     MainWindow.crop = string.Empty; //divisibleCrop
@@ -2198,7 +2355,8 @@ namespace Axiom
                     aspect = string.Empty;
                 }
                 // if width =  auto & height = blank
-                else if (string.Equals(mainwindow.widthCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase) && string.IsNullOrWhiteSpace(mainwindow.heightCustom.Text))
+                else if (string.Equals(mainwindow.widthCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase) 
+                    && string.IsNullOrWhiteSpace(mainwindow.heightCustom.Text))
                 {
                     scale = string.Empty;
                     MainWindow.crop = string.Empty; //divisibleCrop
@@ -2478,7 +2636,9 @@ namespace Axiom
             // -------------------------
             // VP8, VP9, Theora
             // -------------------------
-            if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9" || (string)mainwindow.cboVideoCodec.SelectedItem == "Theora")
+            if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" 
+                || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9" 
+                || (string)mainwindow.cboVideoCodec.SelectedItem == "Theora")
             {
                 // Web
                 if ((string)mainwindow.cboOptimize.SelectedItem == "Web")
@@ -2567,7 +2727,9 @@ namespace Axiom
             // -------------------------
             // Advanced (x264 & x265)
             // -------------------------
-            if ((string)mainwindow.cboOptimize.SelectedItem == "Advanced" && (string)mainwindow.cboVideoCodec.SelectedItem == "x264" || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
+            if ((string)mainwindow.cboOptimize.SelectedItem == "Advanced" 
+                && (string)mainwindow.cboVideoCodec.SelectedItem == "x264" 
+                || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
             {
                 // Tune
                 //
@@ -2638,7 +2800,9 @@ namespace Axiom
 
                 // Trim Start Frame
                 //
-                if (mainwindow.frameStart.Text != "Frame" && !string.IsNullOrWhiteSpace(mainwindow.frameStart.Text) && !string.IsNullOrWhiteSpace(mainwindow.frameStart.Text)) // Default/Null Check
+                if (mainwindow.frameStart.Text != "Frame" 
+                    && !string.IsNullOrWhiteSpace(mainwindow.frameStart.Text) 
+                    && !string.IsNullOrWhiteSpace(mainwindow.frameStart.Text)) // Default/Null Check
                 {
                     Format.trimStart = Convert.ToString(Convert.ToDouble(mainwindow.frameStart.Text) / detectedFramerate); // Divide Frame Start Number by Video's Framerate
                 }
@@ -2654,7 +2818,9 @@ namespace Axiom
 
                 // Trim End Frame
                 //
-                if (mainwindow.frameEnd.Text != "Range" && !string.IsNullOrWhiteSpace(mainwindow.frameEnd.Text) && !string.IsNullOrWhiteSpace(mainwindow.frameEnd.Text)) // Default/Null Check
+                if (mainwindow.frameEnd.Text != "Range"
+                    && !string.IsNullOrWhiteSpace(mainwindow.frameEnd.Text) 
+                    && !string.IsNullOrWhiteSpace(mainwindow.frameEnd.Text)) // Default/Null Check
                 {
                     Format.trimEnd = Convert.ToString(Convert.ToDouble(mainwindow.frameEnd.Text) / detectedFramerate); ; // Divide Frame End Number by Video's Framerate
                 }

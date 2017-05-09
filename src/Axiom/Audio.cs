@@ -1207,7 +1207,12 @@ namespace Axiom
             // --------------------------------------------------
             // Default to the Highest Value Available when switching codecs
             // Only if Audio is Not Auto, None, Custom, Mute
-            if ((string)mainwindow.cboAudio.SelectedItem != "Auto" && (string)mainwindow.cboAudio.SelectedItem != "None" && (string)mainwindow.cboAudio.SelectedItem != "Custom" && (string)mainwindow.cboAudio.SelectedItem != "Mute" && (string)mainwindow.cboAudio.SelectedItem != "Lossless" || string.IsNullOrEmpty((string)mainwindow.cboAudio.SelectedItem)) // If on Auto, leave it while switching codecs
+            if ((string)mainwindow.cboAudio.SelectedItem != "Auto" 
+                && (string)mainwindow.cboAudio.SelectedItem != "None" 
+                && (string)mainwindow.cboAudio.SelectedItem != "Custom" 
+                && (string)mainwindow.cboAudio.SelectedItem != "Mute" 
+                && (string)mainwindow.cboAudio.SelectedItem != "Lossless" 
+                || string.IsNullOrEmpty((string)mainwindow.cboAudio.SelectedItem)) // If on Auto, leave it while switching codecs
             {
                 //System.Windows.MessageBox.Show((string)audio.SelectedValue); // debug
                 //var audioValue = audio.SelectedValue;
@@ -1217,42 +1222,60 @@ namespace Axiom
                 if (!string.IsNullOrEmpty((string)mainwindow.cboAudioCodec.SelectedItem))
                 {
 
-                    if (AudioItemSource.Contains("640") && (string)mainwindow.cboAudioCodec.SelectedItem != "ALAC" && (string)mainwindow.cboAudioCodec.SelectedItem != "FLAC" && (string)mainwindow.cboAudioCodec.SelectedItem != "PCM")
+                    if (AudioItemSource.Contains("640") 
+                        && (string)mainwindow.cboAudioCodec.SelectedItem != "ALAC" 
+                        && (string)mainwindow.cboAudioCodec.SelectedItem != "FLAC" 
+                        && (string)mainwindow.cboAudioCodec.SelectedItem != "PCM")
                     {
                         if (Convert.ToInt32((string)mainwindow.cboAudio.SelectedItem) >= 320 || string.IsNullOrEmpty((string)mainwindow.cboAudio.SelectedItem))
                         {
                             mainwindow.cboAudio.SelectedItem = "640";
                         }
                     }
-                    else if (AudioItemSource.Contains("510") && (string)mainwindow.cboAudioCodec.SelectedItem != "ALAC" && (string)mainwindow.cboAudioCodec.SelectedItem != "FLAC" && (string)mainwindow.cboAudioCodec.SelectedItem != "PCM")
+                    else if (AudioItemSource.Contains("510") 
+                        && (string)mainwindow.cboAudioCodec.SelectedItem != "ALAC" 
+                        && (string)mainwindow.cboAudioCodec.SelectedItem != "FLAC" 
+                        && (string)mainwindow.cboAudioCodec.SelectedItem != "PCM")
                     {
                         if (Convert.ToInt32((string)mainwindow.cboAudio.SelectedItem) >= 320 || string.IsNullOrEmpty((string)mainwindow.cboAudio.SelectedItem))
                         {
                             mainwindow.cboAudio.SelectedItem = "510";
                         }
                     }
-                    else if (AudioItemSource.Contains("500") && (string)mainwindow.cboAudioCodec.SelectedItem != "ALAC" && (string)mainwindow.cboAudioCodec.SelectedItem != "FLAC" && (string)mainwindow.cboAudioCodec.SelectedItem != "PCM")
+                    else if (AudioItemSource.Contains("500") 
+                        && (string)mainwindow.cboAudioCodec.SelectedItem != "ALAC" 
+                        && (string)mainwindow.cboAudioCodec.SelectedItem != "FLAC" 
+                        && (string)mainwindow.cboAudioCodec.SelectedItem != "PCM")
                     {
                         if (Convert.ToInt32((string)mainwindow.cboAudio.SelectedItem) >= 320 || string.IsNullOrEmpty((string)mainwindow.cboAudio.SelectedItem))
                         {
                             mainwindow.cboAudio.SelectedItem = "500";
                         }
                     }
-                    else if (AudioItemSource.Contains("448") && (string)mainwindow.cboAudioCodec.SelectedItem != "ALAC" && (string)mainwindow.cboAudioCodec.SelectedItem != "FLAC" && (string)mainwindow.cboAudioCodec.SelectedItem != "PCM")
+                    else if (AudioItemSource.Contains("448") 
+                        && (string)mainwindow.cboAudioCodec.SelectedItem != "ALAC" 
+                        && (string)mainwindow.cboAudioCodec.SelectedItem != "FLAC" 
+                        && (string)mainwindow.cboAudioCodec.SelectedItem != "PCM")
                     {
                         if (Convert.ToInt32((string)mainwindow.cboAudio.SelectedItem) >= 320 || string.IsNullOrEmpty((string)mainwindow.cboAudio.SelectedItem))
                         {
                             mainwindow.cboAudio.SelectedItem = "448";
                         }
                     }
-                    else if (AudioItemSource.Contains("400") && (string)mainwindow.cboAudioCodec.SelectedItem != "ALAC" && (string)mainwindow.cboAudioCodec.SelectedItem != "FLAC" && (string)mainwindow.cboAudioCodec.SelectedItem != "PCM")
+                    else if (AudioItemSource.Contains("400") 
+                        && (string)mainwindow.cboAudioCodec.SelectedItem != "ALAC" 
+                        && (string)mainwindow.cboAudioCodec.SelectedItem != "FLAC" 
+                        && (string)mainwindow.cboAudioCodec.SelectedItem != "PCM")
                     {
                         if (Convert.ToInt32((string)mainwindow.cboAudio.SelectedItem) >= 320 || string.IsNullOrEmpty((string)mainwindow.cboAudio.SelectedItem))
                         {
                             mainwindow.cboAudio.SelectedItem = "400";
                         }
                     }
-                    else if (AudioItemSource.Contains("320") && (string)mainwindow.cboAudioCodec.SelectedItem != "ALAC" && (string)mainwindow.cboAudioCodec.SelectedItem != "FLAC" && (string)mainwindow.cboAudioCodec.SelectedItem != "PCM")
+                    else if (AudioItemSource.Contains("320") 
+                        && (string)mainwindow.cboAudioCodec.SelectedItem != "ALAC" 
+                        && (string)mainwindow.cboAudioCodec.SelectedItem != "FLAC" 
+                        && (string)mainwindow.cboAudioCodec.SelectedItem != "PCM")
                     {
                         if (Convert.ToInt32((string)mainwindow.cboAudio.SelectedItem) >= 320 || string.IsNullOrEmpty((string)mainwindow.cboAudio.SelectedItem))
                         {
@@ -1260,14 +1283,12 @@ namespace Axiom
                         }
                     }
 
-                    // go to default if empty (why is it turning empty?)
-                    //if ((string)audio.SelectedValue == null)
-                    //{
-                    //    audio.SelectedItem = "320";
-                    //}
                 }
                 // Default to Lossless if ALAC or FLAC
-                if (mainwindow.cboAudio.Items.Contains("Lossless") && (string)mainwindow.cboAudioCodec.SelectedItem == "ALAC" | (string)mainwindow.cboAudioCodec.SelectedItem == "FLAC" | (string)mainwindow.cboAudioCodec.SelectedItem == "PCM")
+                if (mainwindow.cboAudio.Items.Contains("Lossless") 
+                    && (string)mainwindow.cboAudioCodec.SelectedItem == "ALAC" 
+                    | (string)mainwindow.cboAudioCodec.SelectedItem == "FLAC" 
+                    | (string)mainwindow.cboAudioCodec.SelectedItem == "PCM")
                 {
                     mainwindow.cboAudio.SelectedItem = "Lossless";
                     mainwindow.cboAudio.IsEnabled = false;
@@ -1361,7 +1382,11 @@ namespace Axiom
         public static void AutoAudioCodecCopy(MainWindow mainwindow) // Method
         {
             // Set Audio Codec Combobox to "Copy" if Input Extension is Same as Output Extension and Audio Quality is Auto
-            if ((string)mainwindow.cboAudio.SelectedItem == "Auto" && string.Equals(MainWindow.inputExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase) || mainwindow.tglBatch.IsChecked == true && (string)mainwindow.cboAudio.SelectedItem == "Auto" && string.Equals(MainWindow.batchExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase))
+            if ((string)mainwindow.cboAudio.SelectedItem == "Auto" 
+                && string.Equals(MainWindow.inputExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase) 
+                || mainwindow.tglBatch.IsChecked == true 
+                && (string)mainwindow.cboAudio.SelectedItem == "Auto" 
+                && string.Equals(MainWindow.batchExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase))
             {
 
                 // Insert Copy if Does Not Contain
@@ -1384,11 +1409,17 @@ namespace Axiom
             // Alimiter is Checked
             // Volume is Not 100
             //
-            if (AudioCodecItemSource.Contains("Copy") && !string.Equals(MainWindow.inputExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase) | !string.Equals(MainWindow.batchExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase))
+            if (AudioCodecItemSource.Contains("Copy") 
+                && !string.Equals(MainWindow.inputExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase) 
+                | !string.Equals(MainWindow.batchExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase))
             {
                 // Switch back to format's default codec
                 //
-                if ((string)mainwindow.cboAudio.SelectedItem != "Auto" || mainwindow.tglVBR.IsChecked != false || (string)mainwindow.cboSamplerate.SelectedItem != "auto" || mainwindow.tglAudioLimiter.IsChecked != false || !mainwindow.volumeUpDown.Text.ToString().Equals("100"))
+                if ((string)mainwindow.cboAudio.SelectedItem != "Auto" 
+                    || mainwindow.tglVBR.IsChecked != false 
+                    || (string)mainwindow.cboSamplerate.SelectedItem != "auto" 
+                    || mainwindow.tglAudioLimiter.IsChecked != false 
+                    || !mainwindow.volumeUpDown.Text.ToString().Equals("100"))
                 {
                     // VIDEO
                     //
@@ -1445,19 +1476,15 @@ namespace Axiom
                 
               
             // Special Rules for MKV
-            if ((string)mainwindow.cboFormat.SelectedItem == "mkv" && (string)mainwindow.cboAudioCodec.SelectedItem == "Copy" && (string)mainwindow.cboAudio.SelectedItem != "Auto")
+            if ((string)mainwindow.cboFormat.SelectedItem == "mkv" 
+                && (string)mainwindow.cboAudioCodec.SelectedItem == "Copy" 
+                && (string)mainwindow.cboAudio.SelectedItem != "Auto")
             {
                 if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
                 {
                     mainwindow.cboAudioCodec.SelectedItem = "AC3";
                 }
             }
-
-            // Always Default to Copy if it exists and Audio Dropdown is (Auto) //Causing Problems
-            //if (Audio.AudioCodecItemSource.Contains("Copy") && (string)cboAudio.SelectedItem == "Auto" && (string)cboFormat.SelectedItem != "mkv" /* ignore if mkv */)
-            //{
-            //    //audioCodecComboBox.SelectedItem = "Copy";
-            //}
 
         } // End AutoAudioCodecCopy
 

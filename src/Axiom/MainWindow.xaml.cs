@@ -2996,19 +2996,27 @@ namespace Axiom
             // VBR
             // -------------------------
             // Disable and Uncheck VBR if, Lossless or Mute
-            if ((string)cboAudio.SelectedItem == "Lossless" || (string)cboAudio.SelectedItem == "Mute")
+            if ((string)cboAudio.SelectedItem == "Lossless" 
+                || (string)cboAudio.SelectedItem == "Mute")
             {
                 tglVBR.IsEnabled = false;
                 tglVBR.IsChecked = false;
             }
 
             // Disable VBR if AC3, ALAC, FLAC, PCM, Copy
-            if ((string)cboAudioCodec.SelectedItem == "AC3" || (string)cboAudioCodec.SelectedItem == "ALAC" || (string)cboAudioCodec.SelectedItem == "FLAC" || (string)cboAudioCodec.SelectedItem == "PCM" || (string)cboAudioCodec.SelectedItem == "Copy")
+            if ((string)cboAudioCodec.SelectedItem == "AC3"
+                || (string)cboAudioCodec.SelectedItem == "ALAC"
+                || (string)cboAudioCodec.SelectedItem == "FLAC"
+                || (string)cboAudioCodec.SelectedItem == "PCM"
+                || (string)cboAudioCodec.SelectedItem == "Copy")
             {
                 tglVBR.IsEnabled = false;
             }
             // Enable VBR for Vorbis, Opus, LAME, AAC
-            if ((string)cboAudioCodec.SelectedItem == "Vorbis" || (string)cboAudioCodec.SelectedItem == "Opus" || (string)cboAudioCodec.SelectedItem == "LAME" || (string)cboAudioCodec.SelectedItem == "AAC")
+            if ((string)cboAudioCodec.SelectedItem == "Vorbis" 
+                || (string)cboAudioCodec.SelectedItem == "Opus" 
+                || (string)cboAudioCodec.SelectedItem == "LAME" 
+                || (string)cboAudioCodec.SelectedItem == "AAC")
             {
                 tglVBR.IsEnabled = true;
             }
@@ -3020,7 +3028,14 @@ namespace Axiom
                 {
                     tglVBR.IsChecked = true;
                 }
-                if ((string)cboAudioCodec.SelectedItem == "Opus" || (string)cboAudioCodec.SelectedItem == "AAC" || (string)cboAudioCodec.SelectedItem == "AC3" || (string)cboAudioCodec.SelectedItem == "LAME" || (string)cboAudioCodec.SelectedItem == "ALAC" || (string)cboAudioCodec.SelectedItem == "FLAC" || (string)cboAudioCodec.SelectedItem == "PCM" || (string)cboAudioCodec.SelectedItem == "Copy")
+                if ((string)cboAudioCodec.SelectedItem == "Opus" 
+                    || (string)cboAudioCodec.SelectedItem == "AAC" 
+                    || (string)cboAudioCodec.SelectedItem == "AC3" 
+                    || (string)cboAudioCodec.SelectedItem == "LAME" 
+                    || (string)cboAudioCodec.SelectedItem == "ALAC" 
+                    || (string)cboAudioCodec.SelectedItem == "FLAC" 
+                    || (string)cboAudioCodec.SelectedItem == "PCM" 
+                    || (string)cboAudioCodec.SelectedItem == "Copy")
                 {
                     tglVBR.IsChecked = false;
                 }
@@ -3315,7 +3330,12 @@ namespace Axiom
 
             if ((string)cboPreset.SelectedItem == "Preset")
             {
-                if ((string)cboFormat.SelectedItem == "webm" || (string)cboFormat.SelectedItem == "mp4" || (string)cboFormat.SelectedItem == "mkv" || (string)cboFormat.SelectedItem == "ogv" || (string)cboFormat.SelectedItem == "jpg" || (string)cboFormat.SelectedItem == "png")
+                if ((string)cboFormat.SelectedItem == "webm" 
+                    || (string)cboFormat.SelectedItem == "mp4" 
+                    || (string)cboFormat.SelectedItem == "mkv" 
+                    || (string)cboFormat.SelectedItem == "ogv" 
+                    || (string)cboFormat.SelectedItem == "jpg" 
+                    || (string)cboFormat.SelectedItem == "png")
                 {
                     cboPreset.IsEditable = false;
 
@@ -3352,7 +3372,11 @@ namespace Axiom
                     }
 
                 }
-                else if ((string)cboFormat.SelectedItem == "m4a" || (string)cboFormat.SelectedItem == "mp3" || (string)cboFormat.SelectedItem == "ogg" || (string)cboFormat.SelectedItem == "flac" || (string)cboFormat.SelectedItem == "wav")
+                else if ((string)cboFormat.SelectedItem == "m4a" 
+                    || (string)cboFormat.SelectedItem == "mp3" 
+                    || (string)cboFormat.SelectedItem == "ogg" 
+                    || (string)cboFormat.SelectedItem == "flac" 
+                    || (string)cboFormat.SelectedItem == "wav")
                 {
                     cboPreset.IsEditable = false;
 
