@@ -166,8 +166,6 @@ namespace Axiom
         public static string newFileName; // File Rename if File already exists
 
         // Batch
-        public static string aBitrateNA; // if Audio bitrate is N/A, default to 320k -NOT USED/HARDCODED
-        public static string vBitrateNA; // if Video bitrate is N/A, default to -crf 18 or -q:v 10 (theora) -NOT USED
         public static string batchFFprobeAuto;
         public static string autoBatchInput;
 
@@ -572,7 +570,6 @@ namespace Axiom
             Video.vBitMode = string.Empty;
             Video.vBitrate = string.Empty;
             Video.vMaxrate = string.Empty;
-            vBitrateNA = string.Empty;
             Video.vOptions = string.Empty;
             Video.crf = string.Empty;
             Video.fps = string.Empty;
@@ -616,7 +613,6 @@ namespace Axiom
             Audio.aSamplerate = string.Empty;
             Audio.aBitDepth = string.Empty;
             Audio.aBitrateLimiter = string.Empty;
-            aBitrateNA = string.Empty;
             Audio.aFilterSwitch = 0; //Set aFilter Switch back to Off to avoid doubling up
             Audio.aFilter = string.Empty;
             Audio.volume = string.Empty;
@@ -879,7 +875,7 @@ namespace Axiom
                 // If User Defined Path
                 else if (Configure.ffmpegPath != "<auto>" && Configure.ffmpegPath != null && Configure.ffmpegPath != string.Empty)
                 {
-                    var dirPath = System.IO.Path.GetDirectoryName(Configure.ffmpegPath);
+                    var dirPath = System.IO.Path.GetDirectoryName(Configure.ffmpegPath).TrimEnd('\\') + @"\";
                     var fullPath = System.IO.Path.Combine(dirPath, "ffmpeg.exe");
 
                     // Make Sure ffmpeg.exe Exists
@@ -952,7 +948,7 @@ namespace Axiom
                 // If User Defined Path
                 else if (Configure.ffprobePath != "<auto>" && Configure.ffprobePath != null && Configure.ffprobePath != string.Empty)
                 {
-                    var dirPath = System.IO.Path.GetDirectoryName(Configure.ffprobePath);
+                    var dirPath = System.IO.Path.GetDirectoryName(Configure.ffprobePath).TrimEnd('\\') + @"\";
                     var fullPath = System.IO.Path.Combine(dirPath, "ffprobe.exe");
 
                     // Make Sure ffprobe.exe Exists
@@ -1156,29 +1152,13 @@ namespace Axiom
                     outputFileName = "image-%03d"; //must be this name
                 }
 
-                // Input Empty & Output Empty
-                if (string.IsNullOrWhiteSpace(textBoxBrowse.Text) && string.IsNullOrWhiteSpace(textBoxOutput.Text))
-                {
-                    textBoxBrowse.Text = string.Empty;
-                    textBoxOutput.Text = string.Empty;
-
-                    inputDir = string.Empty;
-                    outputDir = string.Empty;
-
-                    inputFileName = string.Empty;
-                    outputFileName = string.Empty;
-
-                    input = string.Empty;
-                    output = string.Empty;
-                }
-
                 // Input Not Empty, Output Empty
                 if (!string.IsNullOrWhiteSpace(textBoxBrowse.Text) && string.IsNullOrWhiteSpace(textBoxOutput.Text))
                 {
                     // Default Output to Input + Output Extension
                     textBoxOutput.Text = inputDir + inputFileName + outputExt;
 
-                    outputDir = System.IO.Path.GetDirectoryName(textBoxBrowse.Text);
+                    outputDir = System.IO.Path.GetDirectoryName(textBoxBrowse.Text).TrimEnd('\\') + @"\";
 
                     outputFileName = System.IO.Path.GetFileNameWithoutExtension(textBoxBrowse.Text);
                 }
@@ -1194,10 +1174,38 @@ namespace Axiom
             // -------------------------
             else if (tglBatch.IsChecked == true)
             {
+                // Input Not Empty, Output Empty
+                if (!string.IsNullOrWhiteSpace(textBoxBrowse.Text) && string.IsNullOrWhiteSpace(textBoxOutput.Text))
+                {
+                    // Default Output to Input Directory
+                    textBoxOutput.Text = textBoxBrowse.Text;
+
+                    outputDir = System.IO.Path.GetDirectoryName(textBoxBrowse.Text).TrimEnd('\\') + @"\";
+
+                    outputFileName = System.IO.Path.GetFileNameWithoutExtension(textBoxBrowse.Text);
+                }
+
                 // Input
                 input = textBoxBrowse.Text; // (eg. C:\Input Folder\)   
                 // Output             
                 output = outputDir + "%~nf" + outputExt; // (eg. C:\Output Folder\%~nf.mp4)
+            }
+
+
+            // Input Empty & Output Empty
+            if (string.IsNullOrWhiteSpace(textBoxBrowse.Text) && string.IsNullOrWhiteSpace(textBoxOutput.Text))
+            {
+                textBoxBrowse.Text = string.Empty;
+                textBoxOutput.Text = string.Empty;
+
+                inputDir = string.Empty;
+                outputDir = string.Empty;
+
+                inputFileName = string.Empty;
+                outputFileName = string.Empty;
+
+                input = string.Empty;
+                output = string.Empty;
             }
         }
 
@@ -1382,7 +1390,9 @@ namespace Axiom
             }
 
             // Do not allow Auto without FFprobe being installed or linked
-            if ((string)cboVideo.SelectedItem == "Auto" | (string)cboAudio.SelectedItem == "Auto" && string.IsNullOrEmpty(FFprobe.ffprobe))
+            if ((string)cboVideo.SelectedItem == "Auto" 
+                | (string)cboAudio.SelectedItem == "Auto" 
+                && string.IsNullOrEmpty(FFprobe.ffprobe))
             {
                 // Log Console Message /////////
                 Log.paragraph.Inlines.Add(new LineBreak());
@@ -1395,7 +1405,10 @@ namespace Axiom
             }
 
             // Do not allow Script to generate if Browse Empty & Auto, since there is no file to detect bitrates/codecs
-            if (string.IsNullOrWhiteSpace(textBoxBrowse.Text) && (string)cboVideo.SelectedItem == "Auto" | (string)cboAudio.SelectedItem == "Auto" && (string)cboVideoCodec.SelectedItem != "Copy" | (string)cboAudioCodec.SelectedItem != "Copy")
+            if (string.IsNullOrWhiteSpace(textBoxBrowse.Text) && (string)cboVideo.SelectedItem == "Auto" 
+                | (string)cboAudio.SelectedItem == "Auto" 
+                && (string)cboVideoCodec.SelectedItem != "Copy" 
+                | (string)cboAudioCodec.SelectedItem != "Copy")
             {
                 // Log Console Message /////////
                 Log.paragraph.Inlines.Add(new LineBreak());
@@ -1422,7 +1435,9 @@ namespace Axiom
             }
 
             // STOP Do not allow Batch Copy to same folder if file extensions are the same (to avoid file overwrite)
-            if (tglBatch.IsChecked == true && string.Equals(inputDir, outputDir, StringComparison.CurrentCultureIgnoreCase) && string.Equals(batchExt, outputExt, StringComparison.CurrentCultureIgnoreCase))
+            if (tglBatch.IsChecked == true 
+                && string.Equals(inputDir, outputDir, StringComparison.CurrentCultureIgnoreCase) 
+                && string.Equals(batchExt, outputExt, StringComparison.CurrentCultureIgnoreCase))
             {
                 // Log Console Message /////////
                 Log.paragraph.Inlines.Add(new LineBreak());
@@ -1435,7 +1450,10 @@ namespace Axiom
             }
 
             // STOP Throw Error if VP8/VP9 & CRF does not have Bitrate -b:v
-            if ((string)cboVideoCodec.SelectedItem == "VP8" | (string)cboVideoCodec.SelectedItem == "VP9" && !string.IsNullOrWhiteSpace(crfCustom.Text) && string.IsNullOrWhiteSpace(vBitrateCustom.Text))
+            if ((string)cboVideoCodec.SelectedItem == "VP8" 
+                | (string)cboVideoCodec.SelectedItem == "VP9" 
+                && !string.IsNullOrWhiteSpace(crfCustom.Text) 
+                && string.IsNullOrWhiteSpace(vBitrateCustom.Text))
             {
                 // Log Console Message /////////
                 Log.paragraph.Inlines.Add(new LineBreak());
@@ -2071,7 +2089,7 @@ namespace Axiom
 
 
             /// <summary>
-            ///    Batch Input Output Path
+            ///    Input Output Path
             /// </summary>
             InputOutputPath();
 
@@ -2337,7 +2355,7 @@ namespace Axiom
                     textBoxBrowse.Text = selectFile.FileName;
 
                     // Input Directory Path
-                    inputDir = System.IO.Path.GetDirectoryName(textBoxBrowse.Text);
+                    inputDir = System.IO.Path.GetDirectoryName(textBoxBrowse.Text).TrimEnd('\\') + @"\";
 
                     // Set input file name
                     inputFileName = System.IO.Path.GetFileNameWithoutExtension(textBoxBrowse.Text);
@@ -2384,7 +2402,7 @@ namespace Axiom
                     }
 
                     // Input Directory Path
-                    inputDir = System.IO.Path.GetDirectoryName(textBoxBrowse.Text);
+                    inputDir = System.IO.Path.GetDirectoryName(textBoxBrowse.Text).TrimEnd('\\') + @"\";
 
                     // Add slash to inputDir path if missing
                     if (!inputDir.EndsWith("\\") && !string.IsNullOrEmpty(inputDir))
@@ -2453,6 +2471,10 @@ namespace Axiom
             // -------------------------
             if (tglBatch.IsChecked == false)
             {
+                // Get Output Ext
+                Format.fileFormat(this);
+
+
                 // Open 'Save File'
                 Microsoft.Win32.SaveFileDialog saveFile = new Microsoft.Win32.SaveFileDialog();
 
@@ -2497,7 +2519,7 @@ namespace Axiom
                     textBoxOutput.Text = saveFile.FileName;
 
                     // Output Path
-                    outputDir = System.IO.Path.GetDirectoryName(textBoxOutput.Text);
+                    outputDir = System.IO.Path.GetDirectoryName(textBoxOutput.Text).TrimEnd('\\') + @"\";
 
                     // Output Filename (without extension)
                     outputFileName = System.IO.Path.GetFileNameWithoutExtension(textBoxOutput.Text);
@@ -2530,7 +2552,7 @@ namespace Axiom
 
 
                     // Output Path
-                    outputDir = System.IO.Path.GetDirectoryName(textBoxOutput.Text);
+                    outputDir = System.IO.Path.GetDirectoryName(textBoxOutput.Text).TrimEnd('\\') + @"\";
 
                     // Add slash to inputDir path if missing
                     if (!outputDir.EndsWith("\\") && !string.IsNullOrEmpty(outputDir))
@@ -3966,6 +3988,24 @@ namespace Axiom
                 batchExtensionTextBox.Text = "extension";
             }
 
+            // Clear Browse Textbox, Input Filename, Dir, Ext
+            if (!string.IsNullOrWhiteSpace(textBoxBrowse.Text))
+            {
+                textBoxBrowse.Text = string.Empty;
+                inputFileName = string.Empty;
+                inputDir = string.Empty;
+                inputExt = string.Empty;
+            }
+
+            // Clear Output Textbox, Output Filename, Dir, Ext
+            if (!string.IsNullOrWhiteSpace(textBoxOutput.Text))
+            {
+                textBoxOutput.Text = string.Empty;
+                outputFileName = string.Empty;
+                outputDir = string.Empty;
+                outputExt = string.Empty;
+            }
+
             // Set Video and AudioCodec Combobox to "Copy" if Input Extension is Same as Output Extension and Video Quality is Auto
             Video.AutoVideoCodecCopy(this);
             Audio.AutoAudioCodecCopy(this);
@@ -4005,15 +4045,15 @@ namespace Axiom
 
 
             /// <summary>
-            ///    Input Output File
+            ///    Input Output Path
             /// </summary>
-            InputOutputFile();
+            InputOutputPath();
 
 
             /// <summary>
-            ///    Input Output Path Modifier
+            ///    Input Output File
             /// </summary>
-            //InputPath();
+            InputOutputFile();
 
 
             /// <summary>
