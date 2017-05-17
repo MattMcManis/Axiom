@@ -180,7 +180,7 @@ namespace Axiom
         {
             InitializeComponent();
 
-            TitleVersion = "Axiom ~ FFmpeg UI (0.9.0α)";
+            TitleVersion = "Axiom ~ FFmpeg UI (0.9.1α)";
             DataContext = this;
 
             /// <summary>
@@ -597,8 +597,8 @@ namespace Axiom
             Video.v2pass = string.Empty;
             Video.pass1 = string.Empty;
             Video.pass2 = string.Empty;
-            Video.v2passBatchSwitch = 0; //Set v2passBatchSwitch Switch back to Off to avoid doubling up
-            Video.v2passBatch = string.Empty;
+            //Video.v2passBatchSwitch = 0; //Set v2passBatchSwitch Switch back to Off to avoid doubling up
+            //Video.v2passBatch = string.Empty;
             Video.options = string.Empty;
             Video.optimize = string.Empty;
             Video.speed = string.Empty;
@@ -1102,69 +1102,106 @@ namespace Axiom
         //}
 
 
+
         /// <summary>
-        ///    Input / Output Path (Method)
+        ///    Input Path (Method)
         /// </summary>
-        public void InputOutputPath()
+        public void InputPath()
         {
             // -------------------------
             // Single File
             // -------------------------
             if (tglBatch.IsChecked == false)
             {
-                // may not be needed
+                // Input Directory
+                // If not Empty
+                if (!string.IsNullOrWhiteSpace(textBoxBrowse.Text))
+                {
+                    inputDir = System.IO.Path.GetDirectoryName(textBoxBrowse.Text).TrimEnd('\\') + @"\"; // (eg. C:\Input Folder\)
+                }
+
+                // Input
+                input = textBoxBrowse.Text; // (eg. C:\Input Folder\file.wmv)
             }
+
             // -------------------------
             // Batch
             // -------------------------
-            if (tglBatch.IsChecked == true)
+            else if (tglBatch.IsChecked == true)
             {
                 // Add slash to Batch Browse Text folder path if missing
-                if (!string.IsNullOrWhiteSpace(textBoxBrowse.Text) && !textBoxBrowse.Text.EndsWith("\\"))
-                {
-                    textBoxBrowse.Text = textBoxBrowse.Text.TrimEnd('\\') + @"\";
-                }
+                textBoxBrowse.Text = textBoxBrowse.Text.TrimEnd('\\') + @"\";
 
-                // Add slash to Batch Output Text folder path if missing
-                if (!string.IsNullOrWhiteSpace(textBoxOutput.Text) && !textBoxOutput.Text.EndsWith("\\"))
-                {
-                    textBoxOutput.Text = textBoxOutput.Text.TrimEnd('\\') + @"\";
-                }
+                inputDir = textBoxBrowse.Text; // (eg. C:\Input Folder\)
+
+                inputFileName = "%~f";
+
+                // Input
+                input = inputDir + inputFileName; // (eg. C:\Input Folder\)
+            }
+
+            // -------------------------
+            // Empty
+            // -------------------------
+            // Input Textbox & Output Textbox Both Empty
+            if (string.IsNullOrWhiteSpace(textBoxBrowse.Text))
+            {
+                inputDir = string.Empty;
+                inputFileName = string.Empty;
+                input = string.Empty;
             }
         }
 
 
+
         /// <summary>
-        ///    Input / Output File (Method)
+        ///    Output Path (Method)
         /// </summary>
-        public void InputOutputFile()
+        public void OutputPath()
         {
-            // Set the input / output strings
+            // Get Output Ext
+            Format.fileFormat(this);
 
             // -------------------------
             // Single File
             // -------------------------
             if (tglBatch.IsChecked == false)
             {
+                // Input Not Empty, Output Empty
+                // Default Output to be same as Input Directory
+                if (!string.IsNullOrWhiteSpace(textBoxBrowse.Text) && string.IsNullOrWhiteSpace(textBoxOutput.Text))
+                {
+                    textBoxOutput.Text = inputDir + inputFileName + outputExt;
+                }
+
+                // Input Empty, Output Not Empty
+                // Output is Output
+                if (!string.IsNullOrWhiteSpace(textBoxOutput.Text))
+                {
+                    outputDir = System.IO.Path.GetDirectoryName(textBoxOutput.Text).TrimEnd('\\') + @"\";
+
+                    outputFileName = System.IO.Path.GetFileNameWithoutExtension(textBoxOutput.Text);
+                }
+
+
+                //// Output Directory & Filename
+                //// If not Empty
+                //if (!string.IsNullOrWhiteSpace(textBoxOutput.Text))
+                //{
+                //    outputDir = System.IO.Path.GetDirectoryName(textBoxOutput.Text).TrimEnd('\\') + @"\";
+
+                //    //outputFileName = System.IO.Path.GetFileNameWithoutExtension(textBoxBrowse.Text);
+
+                //    outputFileName = System.IO.Path.GetFileNameWithoutExtension(textBoxOutput.Text);
+                //}
+
+
                 // Image Sequence
                 if ((string)cboMediaType.SelectedItem == "Sequence")
                 {
                     outputFileName = "image-%03d"; //must be this name
                 }
 
-                // Input Not Empty, Output Empty
-                if (!string.IsNullOrWhiteSpace(textBoxBrowse.Text) && string.IsNullOrWhiteSpace(textBoxOutput.Text))
-                {
-                    // Default Output to Input + Output Extension
-                    textBoxOutput.Text = inputDir + inputFileName + outputExt;
-
-                    outputDir = System.IO.Path.GetDirectoryName(textBoxBrowse.Text).TrimEnd('\\') + @"\";
-
-                    outputFileName = System.IO.Path.GetFileNameWithoutExtension(textBoxBrowse.Text);
-                }
-
-                // Input
-                input = textBoxBrowse.Text; // (eg. C:\Input Folder\file.wmv)
                 // Output
                 output = outputDir + outputFileName + outputExt; // (eg. C:\Output Folder\ + file + .mp4)                                                        
             }
@@ -1174,40 +1211,34 @@ namespace Axiom
             // -------------------------
             else if (tglBatch.IsChecked == true)
             {
+                // Add slash to Batch Output Text folder path if missing
+                textBoxOutput.Text = textBoxOutput.Text.TrimEnd('\\') + @"\";
+
                 // Input Not Empty, Output Empty
+                // Default Output to be same as Input Directory
                 if (!string.IsNullOrWhiteSpace(textBoxBrowse.Text) && string.IsNullOrWhiteSpace(textBoxOutput.Text))
                 {
-                    // Default Output to Input Directory
                     textBoxOutput.Text = textBoxBrowse.Text;
-
-                    outputDir = System.IO.Path.GetDirectoryName(textBoxBrowse.Text).TrimEnd('\\') + @"\";
-
-                    outputFileName = System.IO.Path.GetFileNameWithoutExtension(textBoxBrowse.Text);
                 }
 
-                // Input
-                input = textBoxBrowse.Text; // (eg. C:\Input Folder\)   
+                outputDir = textBoxOutput.Text;
+
                 // Output             
                 output = outputDir + "%~nf" + outputExt; // (eg. C:\Output Folder\%~nf.mp4)
             }
 
-
-            // Input Empty & Output Empty
-            if (string.IsNullOrWhiteSpace(textBoxBrowse.Text) && string.IsNullOrWhiteSpace(textBoxOutput.Text))
+            // -------------------------
+            // Empty
+            // -------------------------
+            // Input Textbox & Output Textbox Both Empty
+            if (string.IsNullOrWhiteSpace(textBoxOutput.Text))
             {
-                textBoxBrowse.Text = string.Empty;
-                textBoxOutput.Text = string.Empty;
-
-                inputDir = string.Empty;
                 outputDir = string.Empty;
-
-                inputFileName = string.Empty;
                 outputFileName = string.Empty;
-
-                input = string.Empty;
                 output = string.Empty;
             }
         }
+
 
 
         /// <summary>
@@ -2089,15 +2120,15 @@ namespace Axiom
 
 
             /// <summary>
-            ///    Input Output Path
+            ///    Input Output File
             /// </summary>
-            InputOutputPath();
+            InputPath();
 
 
             /// <summary>
             ///    Input Output File
             /// </summary>
-            InputOutputFile();
+            OutputPath();
 
 
             /// <summary>
@@ -4045,15 +4076,15 @@ namespace Axiom
 
 
             /// <summary>
-            ///    Input Output Path
+            ///    Input Output File
             /// </summary>
-            InputOutputPath();
+            InputPath();
 
 
             /// <summary>
             ///    Input Output File
             /// </summary>
-            InputOutputFile();
+            OutputPath();
 
 
             /// <summary>

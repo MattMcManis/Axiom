@@ -90,8 +90,8 @@ namespace Axiom
         public static string v2pass; // contains pass2
         public static string pass1; // enabled in ffmpeg main line if v2Pass is enabled
         public static string pass2;
-        public static int? v2passBatchSwitch = 0;
-        public static string v2passBatch; // enabled if auto and batched checked
+        //public static int? v2passBatchSwitch = 0;
+        //public static string v2passBatch; // enabled if auto and batched checked
         //public static string cmdBatch_vQuality; // cmd batch Video Auto dynamic value
 
         // Filter
@@ -1357,15 +1357,17 @@ namespace Axiom
             if ((string)mainwindow.cboVideo.SelectedItem == "Auto")
             {
                 // Only Enable 2 Pass if Format is Video
-                if ((string)mainwindow.cboFormat.SelectedItem == "webm" || (string)mainwindow.cboFormat.SelectedItem == "mp4" || (string)mainwindow.cboFormat.SelectedItem == "mkv") //exclude ogv for now
+                if ((string)mainwindow.cboFormat.SelectedItem == "webm" 
+                    || (string)mainwindow.cboFormat.SelectedItem == "mp4" 
+                    || (string)mainwindow.cboFormat.SelectedItem == "mkv") //exclude ogv for now
                 {
                     v2passSwitch = 1;
-                    v2passBatchSwitch = 1;
+                    // v2passBatchSwitch = 1;
                 }
                 else
                 {
                     v2passSwitch = 0;
-                    v2passBatchSwitch = 0;
+                    // v2passBatchSwitch = 0;
                     pass1 = string.Empty;
                 }
 
@@ -1505,7 +1507,7 @@ namespace Axiom
                     vQuality = crf + " " + vOptions; //combine
 
                     v2passSwitch = 0;
-                    v2passBatchSwitch = 0;
+                    // v2passBatchSwitch = 0;
                 }
                 // 1 Pass
                 else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass")
@@ -1513,7 +1515,7 @@ namespace Axiom
                     vQuality = crf + " " + vOptions; //combine
 
                     v2passSwitch = 0;
-                    v2passBatchSwitch = 0;
+                    // v2passBatchSwitch = 0;
                 }
                 // 2 Pass
                 else if ((string)mainwindow.cboPass.SelectedItem == "2 Pass")
@@ -1521,7 +1523,7 @@ namespace Axiom
                     vQuality = crf + " " + vOptions; //combine
 
                     v2passSwitch = 0;
-                    v2passBatchSwitch = 0;
+                    // v2passBatchSwitch = 0;
                 }
                 // auto
                 else if ((string)mainwindow.cboPass.SelectedItem == "auto")
@@ -1529,7 +1531,7 @@ namespace Axiom
                     vQuality = crf + " " + vOptions; //combine
 
                     v2passSwitch = 0;
-                    v2passBatchSwitch = 0;
+                    // v2passBatchSwitch = 0;
                 }
             }
             // -------------------------
@@ -1664,7 +1666,7 @@ namespace Axiom
 
                         // 2 Pass Switch
                         v2passSwitch = 1;
-                        v2passBatchSwitch = 1;
+                        // v2passBatchSwitch = 1;
                     }
                 }
 
@@ -1690,7 +1692,7 @@ namespace Axiom
 
                         // 2 Pass Switch
                         v2passSwitch = 0;
-                        v2passBatchSwitch = 0;
+                        // v2passBatchSwitch = 0;
                     }
                 }
 
@@ -2927,7 +2929,7 @@ namespace Axiom
                 vQuality = crf + " " + vOptions; //combine
 
                 v2passSwitch = 0;
-                v2passBatchSwitch = 0;
+                // v2passBatchSwitch = 0;
             }
             // 1 Pass Toggle On (Use Bitrate -b:v)
             else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass")
@@ -2936,7 +2938,7 @@ namespace Axiom
                 vQuality = vBitrate + " " + vOptions; //combine
 
                 v2passSwitch = 0;
-                v2passBatchSwitch = 0;
+                // v2passBatchSwitch = 0;
             }
             // 2 Pass Toggle On (Use Bitrate -b:v)
             else if ((string)mainwindow.cboPass.SelectedItem == "2 Pass")
@@ -2945,7 +2947,7 @@ namespace Axiom
                 vQuality = vBitrate + " " + vOptions; //combine
 
                 v2passSwitch = 1;
-                v2passBatchSwitch = 1;
+                // v2passBatchSwitch = 1;
             }
             // auto
             else if ((string)mainwindow.cboPass.SelectedItem == "auto")
@@ -2953,7 +2955,7 @@ namespace Axiom
                 vQuality = vBitrate + " " + vOptions; //combine
 
                 v2passSwitch = 0;
-                v2passBatchSwitch = 0;
+                // v2passBatchSwitch = 0;
             }
         }
     }
