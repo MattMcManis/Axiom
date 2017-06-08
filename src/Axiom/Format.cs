@@ -66,22 +66,14 @@ namespace Axiom
         // --------------------------------------------------------------------------------------------------------
         // --------------------------------------------------------------------------------------------------------
 
+
         /// <summary>
-        /// Format Controls (Method)
+        /// File Output Format (Method)
         /// </summary>
-        // On Format Combobox Change
-        public static void fileFormat(MainWindow mainwindow)
+        public static void fileOutputFormat(MainWindow mainwindow)
         {
-            // Reset MediaType ComboBox back to Default if not jpg/png and does not contain video/audio (must be above other format options)
-            if ((string)mainwindow.cboFormat.SelectedItem != "jpg" && (string)mainwindow.cboFormat.SelectedItem != "png" && !mainwindow.cboMediaType.Items.Contains("Video") && !mainwindow.cboMediaType.Items.Contains("Audio"))
-            {
-                MediaTypeItemSource = new List<string>() { "Video", "Audio", "Image", "Sequence" };
-
-                mainwindow.cboMediaType.ItemsSource = MediaTypeItemSource;
-            }
-
             // -------------------------
-            // Format Container Rules
+            // Output Format Container Rules
             // -------------------------
             if ((string)mainwindow.cboFormat.SelectedItem == "webm")
             {
@@ -250,7 +242,27 @@ namespace Axiom
 
                 // more options enable/disable in MediaType Section
             }
+        }
 
+
+
+        /// <summary>
+        /// Format Controls (Method)
+        /// </summary>
+        // On Format Combobox Change
+        public static void fileFormat(MainWindow mainwindow)
+        {
+            // Reset MediaType ComboBox back to Default if not jpg/png and does not contain video/audio (must be above other format options)
+            if ((string)mainwindow.cboFormat.SelectedItem != "jpg" && (string)mainwindow.cboFormat.SelectedItem != "png" && !mainwindow.cboMediaType.Items.Contains("Video") && !mainwindow.cboMediaType.Items.Contains("Audio"))
+            {
+                MediaTypeItemSource = new List<string>() { "Video", "Audio", "Image", "Sequence" };
+
+                mainwindow.cboMediaType.ItemsSource = MediaTypeItemSource;
+            }
+
+
+            //File Output Format
+            fileOutputFormat(mainwindow);
 
 
             // --------------------------------------------------------------------------------------------------------
@@ -515,7 +527,14 @@ namespace Axiom
             // Format Container Additional Rules
             // -------------------------
             // Disable VBR checkbox if Audio is Auto (ALWAYS) - This might not work, might be overridden by below
-            if ((string)mainwindow.cboAudio.SelectedItem == "Auto" && (string)mainwindow.cboFormat.SelectedItem == "mp4" || (string)mainwindow.cboFormat.SelectedItem == "mkv" || (string)mainwindow.cboFormat.SelectedItem == "gif" || (string)mainwindow.cboFormat.SelectedItem == "mp3" || (string)mainwindow.cboFormat.SelectedItem == "m4a" || (string)mainwindow.cboFormat.SelectedItem == "flac" || (string)mainwindow.cboFormat.SelectedItem == "wav")
+            if ((string)mainwindow.cboAudio.SelectedItem == "Auto" 
+                && (string)mainwindow.cboFormat.SelectedItem == "mp4" 
+                || (string)mainwindow.cboFormat.SelectedItem == "mkv" 
+                || (string)mainwindow.cboFormat.SelectedItem == "gif" 
+                || (string)mainwindow.cboFormat.SelectedItem == "mp3" 
+                || (string)mainwindow.cboFormat.SelectedItem == "m4a" 
+                || (string)mainwindow.cboFormat.SelectedItem == "flac" 
+                || (string)mainwindow.cboFormat.SelectedItem == "wav")
             {
                 mainwindow.tglVBR.IsEnabled = false;
                 mainwindow.tglVBR.IsChecked = false;

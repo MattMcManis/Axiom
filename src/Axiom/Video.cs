@@ -1152,7 +1152,7 @@ namespace Axiom
                     }
                     else if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
                     {
-                        mainwindow.cboVideoCodec.SelectedItem = "x264"; //ignore mkv, special rules below ??
+                        //mainwindow.cboVideoCodec.SelectedItem = "x264"; //ignore mkv, special rules below
                     }
                     else if ((string)mainwindow.cboFormat.SelectedItem == "ogv")
                     {
@@ -1178,7 +1178,6 @@ namespace Axiom
             }
                 
                 
-
             // Special Rules for MKV
             if ((string)mainwindow.cboFormat.SelectedItem == "mkv"
                 && (string)mainwindow.cboVideoCodec.SelectedItem == "Copy" 

@@ -180,7 +180,7 @@ namespace Axiom
         {
             InitializeComponent();
 
-            TitleVersion = "Axiom ~ FFmpeg UI (0.9.1α)";
+            TitleVersion = "Axiom ~ FFmpeg UI (0.9.2α)";
             DataContext = this;
 
             /// <summary>
@@ -1160,7 +1160,8 @@ namespace Axiom
         public void OutputPath()
         {
             // Get Output Ext
-            Format.fileFormat(this);
+            //Format.fileFormat(this);
+            Format.fileOutputFormat(this);
 
             // -------------------------
             // Single File
