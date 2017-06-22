@@ -180,7 +180,7 @@ namespace Axiom
         {
             InitializeComponent();
 
-            TitleVersion = "Axiom ~ FFmpeg UI (0.9.2α)";
+            TitleVersion = "Axiom ~ FFmpeg UI (0.9.3α)";
             DataContext = this;
 
             /// <summary>
@@ -1161,7 +1161,8 @@ namespace Axiom
         {
             // Get Output Ext
             //Format.fileFormat(this);
-            Format.fileOutputFormat(this);
+            //Format.fileOutputFormat(this);
+            outputExt = "." + cboFormat.SelectedItem.ToString();
 
             // -------------------------
             // Single File
@@ -1921,7 +1922,7 @@ namespace Axiom
             // Open Configure Window
             configure = new Configure(mainwindow);
             configure.Left = this.Left + 80;
-            configure.Top = this.Top - 210;
+            configure.Top = this.Top + 55;
             configure.Owner = Window.GetWindow(this);
             configure.ShowDialog();
         }
@@ -2518,7 +2519,7 @@ namespace Axiom
                 if (string.IsNullOrEmpty(inputFileName))
                 {
                     // Default
-                    saveFile.FileName = "Video";
+                    saveFile.FileName = "File";
                 }
                 else
                 {
@@ -2910,7 +2911,12 @@ namespace Axiom
         /// </summary>
         private void cboFormat_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Format.fileFormat(this); 
+            // Output Control Selections
+            Format.fileOutputFormat(this);
+
+            // Output ComboBox Options
+            Format.fileFormat(this);
+
 
             // Always Default Video to Auto if Input Ext matches Format Output Ext
             if ((string)cboVideo.SelectedItem != "Auto" && string.Equals(inputExt, outputExt, StringComparison.CurrentCultureIgnoreCase))

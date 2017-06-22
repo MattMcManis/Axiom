@@ -1201,7 +1201,7 @@
         /////////////////////////////////////-->
     <SolidColorBrush x:Key="Button.Static.Background" Color="#FFFFFFFF"/>
     <SolidColorBrush x:Key="Button.Static.Border" Color="#FFFFFFFF"/>
-    <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FFbee6fd"/>
+    <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FFFFFFFF"/>
     <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF1049bb"/>
     <SolidColorBrush x:Key="Button.Pressed.Background" Color="#FFc4e5f6"/>
     <SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF2c628b"/>

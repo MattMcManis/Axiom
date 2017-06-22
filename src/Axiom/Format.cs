@@ -66,10 +66,10 @@ namespace Axiom
         // --------------------------------------------------------------------------------------------------------
         // --------------------------------------------------------------------------------------------------------
 
-
         /// <summary>
         /// File Output Format (Method)
         /// </summary>
+        // Output Control Selections
         public static void fileOutputFormat(MainWindow mainwindow)
         {
             // -------------------------
@@ -250,20 +250,19 @@ namespace Axiom
         /// Format Controls (Method)
         /// </summary>
         // On Format Combobox Change
+        // Output ComboBox Options
         public static void fileFormat(MainWindow mainwindow)
         {
             // Reset MediaType ComboBox back to Default if not jpg/png and does not contain video/audio (must be above other format options)
-            if ((string)mainwindow.cboFormat.SelectedItem != "jpg" && (string)mainwindow.cboFormat.SelectedItem != "png" && !mainwindow.cboMediaType.Items.Contains("Video") && !mainwindow.cboMediaType.Items.Contains("Audio"))
+            if ((string)mainwindow.cboFormat.SelectedItem != "jpg" 
+                && (string)mainwindow.cboFormat.SelectedItem != "png" 
+                && !mainwindow.cboMediaType.Items.Contains("Video") 
+                && !mainwindow.cboMediaType.Items.Contains("Audio"))
             {
                 MediaTypeItemSource = new List<string>() { "Video", "Audio", "Image", "Sequence" };
 
                 mainwindow.cboMediaType.ItemsSource = MediaTypeItemSource;
             }
-
-
-            //File Output Format
-            fileOutputFormat(mainwindow);
-
 
             // --------------------------------------------------------------------------------------------------------
             // Codecs Per Container

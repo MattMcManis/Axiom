@@ -77,5 +77,34 @@ namespace Axiom
             e.Cancel = true;
             base.OnClosing(e);
         }
+
+        /// <summary>
+        /// Button Debug Variables
+        /// </summary>
+        private void buttonDebug_Click(object sender, RoutedEventArgs e)
+        {
+            // Show Variables
+            System.Windows.MessageBox.Show(
+                // Input
+                "Input Dir: " + MainWindow.inputDir
+                + "\n" +
+                "Input Filename: " + MainWindow.inputFileName
+                + "\n" +
+                "Input Ext: " + MainWindow.inputExt
+                + "\n" +
+                "Input: " + MainWindow.input
+                + "\n\n" +
+                // Output
+                "Output Dir: " + MainWindow.outputDir
+                + "\n" +
+                "Output Filename: " + MainWindow.outputFileName
+                + "\n" +
+                "Output Ext: " + MainWindow.outputExt
+                + "\n" +
+                "Output: " + MainWindow.output
+                + "\n" +
+                "New Filename: " + MainWindow.newFileName
+                );
+        }
     }
 }

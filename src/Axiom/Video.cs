@@ -1102,98 +1102,105 @@ namespace Axiom
         /// <summary>
         public static void AutoVideoCodecCopy(MainWindow mainwindow) // Method
         {
-            // Set Video Codec Combobox to "Copy" if Input Extension is Same as Output Extension and Video Quality is Auto
-            if ((string)mainwindow.cboVideo.SelectedItem == "Auto" && string.Equals(MainWindow.inputExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase) || mainwindow.tglBatch.IsChecked == true && (string)mainwindow.cboVideo.SelectedItem == "Auto" && string.Equals(MainWindow.batchExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase))
+            if (!string.IsNullOrEmpty(MainWindow.inputExt)) // Null Check
             {
-                // Insert Copy if Does Not Contain
-                if (!VideoCodecItemSource.Contains("Copy"))
+                // Set Video Codec Combobox to "Copy" if Input Extension is Same as Output Extension and Video Quality is Auto
+                if ((string)mainwindow.cboVideo.SelectedItem == "Auto" 
+                    && string.Equals(MainWindow.inputExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase) 
+                    || mainwindow.tglBatch.IsChecked == true && (string)mainwindow.cboVideo.SelectedItem == "Auto" 
+                    && string.Equals(MainWindow.batchExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase))
                 {
-                    VideoCodecItemSource.Insert(0, "Copy");
-                }
-                // Populate ComboBox from ItemSource
-                mainwindow.cboVideoCodec.ItemsSource = VideoCodecItemSource;
-
-                mainwindow.cboVideoCodec.SelectedItem = "Copy";
-
-                //debug show list
-                //var message = string.Join(Environment.NewLine, VideoCodec);
-                //System.Windows.MessageBox.Show(message);
-            }
-
-
-            // Disable Copy if:
-            // Input / Output Extensions don't match
-            // Batch / Output Extensions don't match
-            // Resize is Not No
-            // Crop is Not Empty
-            // FPS is Not Auto
-            // Optimize is Not None
-            //
-            if (VideoCodecItemSource.Contains("Copy") 
-                && !string.IsNullOrEmpty((string)mainwindow.cboVideo.SelectedItem) 
-                && !string.Equals(MainWindow.inputExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase) 
-                | !string.Equals(MainWindow.batchExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase))
-            {
-                // Switch back to format's default codec
-                //
-                if ((string)mainwindow.cboVideo.SelectedItem != "Auto" 
-                    || (string)mainwindow.cboSize.SelectedItem != "No" 
-                    || !string.IsNullOrEmpty(MainWindow.crop) 
-                    || (string)mainwindow.cboFPS.SelectedItem != "auto" 
-                    || (string)mainwindow.cboOptimize.SelectedItem != "none")
-                {
-                    if ((string)mainwindow.cboFormat.SelectedItem == "webm")
+                    // Insert Copy if Does Not Contain
+                    if (!VideoCodecItemSource.Contains("Copy"))
                     {
-                        mainwindow.cboVideoCodec.SelectedItem = "VP8";
+                        VideoCodecItemSource.Insert(0, "Copy");
                     }
-                    else if ((string)mainwindow.cboFormat.SelectedItem == "mp4")
+                    // Populate ComboBox from ItemSource
+                    mainwindow.cboVideoCodec.ItemsSource = VideoCodecItemSource;
+
+                    mainwindow.cboVideoCodec.SelectedItem = "Copy";
+
+                    // Debug
+                    //var message = string.Join(Environment.NewLine, VideoCodec); // Show list
+                    //System.Windows.MessageBox.Show("Input: " + MainWindow.inputExt);
+                    //System.Windows.MessageBox.Show("Output: " + MainWindow.outputExt);
+                }
+
+
+                // Disable Copy if:
+                // Input / Output Extensions don't match
+                // Batch / Output Extensions don't match
+                // Resize is Not No
+                // Crop is Not Empty
+                // FPS is Not Auto
+                // Optimize is Not None
+                //
+                if (VideoCodecItemSource.Contains("Copy")
+                    && !string.IsNullOrEmpty((string)mainwindow.cboVideo.SelectedItem)
+                    && !string.Equals(MainWindow.inputExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase)
+                    | !string.Equals(MainWindow.batchExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase))
+                {
+                    // Switch back to format's default codec
+                    //
+                    if ((string)mainwindow.cboVideo.SelectedItem != "Auto"
+                        || (string)mainwindow.cboSize.SelectedItem != "No"
+                        || !string.IsNullOrEmpty(MainWindow.crop)
+                        || (string)mainwindow.cboFPS.SelectedItem != "auto"
+                        || (string)mainwindow.cboOptimize.SelectedItem != "none")
+                    {
+                        if ((string)mainwindow.cboFormat.SelectedItem == "webm")
+                        {
+                            mainwindow.cboVideoCodec.SelectedItem = "VP8";
+                        }
+                        else if ((string)mainwindow.cboFormat.SelectedItem == "mp4")
+                        {
+                            mainwindow.cboVideoCodec.SelectedItem = "x264";
+                        }
+                        else if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
+                        {
+                            //mainwindow.cboVideoCodec.SelectedItem = "x264"; //ignore mkv, special rules below
+                        }
+                        else if ((string)mainwindow.cboFormat.SelectedItem == "ogv")
+                        {
+                            mainwindow.cboVideoCodec.SelectedItem = "Theora";
+                        }
+                        else if ((string)mainwindow.cboFormat.SelectedItem == "jpg")
+                        {
+                            mainwindow.cboVideoCodec.SelectedItem = "JPEG";
+                        }
+                        else if ((string)mainwindow.cboFormat.SelectedItem == "png")
+                        {
+                            mainwindow.cboVideoCodec.SelectedItem = "PNG";
+                        }
+                        else if ((string)mainwindow.cboFormat.SelectedItem == "m4a"
+                            || (string)mainwindow.cboFormat.SelectedItem == "mp3"
+                            || (string)mainwindow.cboFormat.SelectedItem == "ogg"
+                            || (string)mainwindow.cboFormat.SelectedItem == "flac"
+                            || (string)mainwindow.cboFormat.SelectedItem == "wav")
+                        {
+                            mainwindow.cboVideoCodec.SelectedItem = string.Empty;
+                        }
+                    }
+                }
+
+
+                // Special Rules for MKV
+                if ((string)mainwindow.cboFormat.SelectedItem == "mkv"
+                    && (string)mainwindow.cboVideoCodec.SelectedItem == "Copy"
+                    && (string)mainwindow.cboVideo.SelectedItem != "Auto")
+                {
+                    if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
                     {
                         mainwindow.cboVideoCodec.SelectedItem = "x264";
                     }
-                    else if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
-                    {
-                        //mainwindow.cboVideoCodec.SelectedItem = "x264"; //ignore mkv, special rules below
-                    }
-                    else if ((string)mainwindow.cboFormat.SelectedItem == "ogv")
-                    {
-                        mainwindow.cboVideoCodec.SelectedItem = "Theora";
-                    }
-                    else if ((string)mainwindow.cboFormat.SelectedItem == "jpg")
-                    {
-                        mainwindow.cboVideoCodec.SelectedItem = "JPEG";
-                    }
-                    else if ((string)mainwindow.cboFormat.SelectedItem == "png")
-                    {
-                        mainwindow.cboVideoCodec.SelectedItem = "PNG";
-                    }
-                    else if ((string)mainwindow.cboFormat.SelectedItem == "m4a" 
-                        || (string)mainwindow.cboFormat.SelectedItem == "mp3" 
-                        || (string)mainwindow.cboFormat.SelectedItem == "ogg"
-                        || (string)mainwindow.cboFormat.SelectedItem == "flac"
-                        || (string)mainwindow.cboFormat.SelectedItem == "wav")
-                    {
-                        mainwindow.cboVideoCodec.SelectedItem = string.Empty;
-                    }
                 }
-            }
-                
-                
-            // Special Rules for MKV
-            if ((string)mainwindow.cboFormat.SelectedItem == "mkv"
-                && (string)mainwindow.cboVideoCodec.SelectedItem == "Copy" 
-                && (string)mainwindow.cboVideo.SelectedItem != "Auto")
-            {
-                if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
-                {
-                    mainwindow.cboVideoCodec.SelectedItem = "x264";
-                }
-            }
 
-            //// Always Default to Copy if it exists and Video Dropdown is (Auto) //Causing Problems
-            //if (VideoCodecItemSource.Contains("Copy") && (string)mainwindow.cboVideo.SelectedItem == "Auto" && (string)mainwindow.cboFormat.SelectedItem != "mkv" /* ignore if mkv */)
-            //{
-            //    //videoCodecComboBox.SelectedItem = "Copy";
-            //}
+                //// Always Default to Copy if it exists and Video Dropdown is (Auto) //Causing Problems
+                //if (VideoCodecItemSource.Contains("Copy") && (string)mainwindow.cboVideo.SelectedItem == "Auto" && (string)mainwindow.cboFormat.SelectedItem != "mkv" /* ignore if mkv */)
+                //{
+                //    //videoCodecComboBox.SelectedItem = "Copy";
+                //}
+            }
 
         } // End AutoVideoCodecCopy
 

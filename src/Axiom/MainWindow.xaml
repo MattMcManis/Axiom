@@ -35,6 +35,12 @@
         WindowStartupLocation="CenterScreen"
         Style="{DynamicResource WindowStyleCustom}"
         >
+    <Window.Resources>
+        <Style x:Key="ButtonCropTextBlock" TargetType="{x:Type TextBlock}">
+            <Setter Property="TextWrapping" Value="NoWrap"/>
+            <Setter Property="TextTrimming" Value="None"/>
+        </Style>
+    </Window.Resources>
     <Grid>
 
         <!-- Subtitle -->
@@ -311,12 +317,12 @@
 
         <!-- Crop -->
         <Button x:Name="buttonCrop" Padding="0" HorizontalAlignment="Left" Margin="342,184,0,0" VerticalAlignment="Top" Width="58" Height="22" Cursor="Hand" Click="buttonCrop_Click" Style="{DynamicResource ButtonCropCustom}" ToolTipService.InitialShowDelay="1000" ToolTipService.ShowOnDisabled="True" ToolTip="Open Crop Window">
-            <TextBlock Text="Crop" Margin="0,-1,0,0" FontSize="11"/>
+            <TextBlock Text="Crop" Margin="0,-1,0,0" FontSize="11" />
         </Button>
 
         <!-- Crop Clear -->
         <Button x:Name="buttonCropClear" Padding="0" HorizontalAlignment="Left" Margin="403,184,0,0" VerticalAlignment="Top" Width="14" Height="22" Cursor="Hand" Click="buttonCropClear_Click" Style="{DynamicResource ButtonCropClear}" ToolTipService.InitialShowDelay="1000" ToolTipService.ShowOnDisabled="True" ToolTip="Clear Last Used Crop Settings">
-            <TextBlock x:Name="buttonCropClearTextBox" Text="" Margin="0,-1,0,0" />
+            <TextBlock x:Name="buttonCropClearTextBox" Text="" Margin="0,-2,0,0" />
         </Button>
 
         <!-- Volume -->
