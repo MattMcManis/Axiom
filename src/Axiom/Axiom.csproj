@@ -96,6 +96,9 @@
     <Compile Include="CropWindow.xaml.cs">
       <DependentUpon>CropWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DebugConsole.xaml.cs">
+      <DependentUpon>DebugConsole.xaml</DependentUpon>
+    </Compile>
     <Compile Include="FFmpeg.cs" />
     <Compile Include="FFprobe.cs" />
     <Compile Include="FileProperties.xaml.cs">
@@ -125,6 +128,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="CropWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DebugConsole.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -319,6 +326,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Images\properties.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\debugconsole.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\DebugConsole.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

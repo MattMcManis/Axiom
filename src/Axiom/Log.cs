@@ -47,7 +47,7 @@ namespace Axiom
         // Action
         public static Action WriteAction;
         // Rich Textbox Paragraph
-        public static Paragraph paragraph = new Paragraph(); //RichTextBox
+        public static Paragraph logParagraph = new Paragraph(); //RichTextBox
 
 
         // --------------------------------------------------------------------------------------------------------
@@ -118,9 +118,9 @@ namespace Axiom
                         // Log Console Message /////////
                         Log.WriteAction = () =>
                         {
-                            Log.paragraph.Inlines.Add(new LineBreak());
-                            Log.paragraph.Inlines.Add(new LineBreak());
-                            Log.paragraph.Inlines.Add(new Bold(new Run("Warning: Saving Output Log to " + "\"" + Configure.logPath + "\"" + " is Denied. May require Administrator Privileges.")) { Foreground = ConsoleWarning });
+                            Log.logParagraph.Inlines.Add(new LineBreak());
+                            Log.logParagraph.Inlines.Add(new LineBreak());
+                            Log.logParagraph.Inlines.Add(new Bold(new Run("Warning: Saving Output Log to " + "\"" + Configure.logPath + "\"" + " is Denied. May require Administrator Privileges.")) { Foreground = ConsoleWarning });
                         };
                         Log.LogActions.Add(Log.WriteAction);
 
@@ -165,7 +165,7 @@ namespace Axiom
                     // -------------------------
                     // Write All Log Actions to Console
                     // -------------------------  
-                    mainwindow.console.rtbLog.Document = new FlowDocument(paragraph); // start
+                    mainwindow.console.rtbLog.Document = new FlowDocument(logParagraph); // start
                     mainwindow.console.rtbLog.BeginChange(); // begin change
 
                     foreach (Action Write in LogActions)
@@ -213,7 +213,7 @@ namespace Axiom
                 MainWindow.script = 0;
 
                 // Clear Strings for next Run
-                MainWindow.ClearVariables();
+                //MainWindow.ClearVariables();
 
                 // Close the Background Worker
                 bwlog.CancelAsync();

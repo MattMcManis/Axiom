@@ -37,12 +37,12 @@ namespace Axiom
         /// Variables
         /// <summary>
         // --------------------------------------------------------------------------------------------------------
-        public static string map; // controls all maps
         public static string vMap; // video streams
         public static string aMap; // audio streams
         public static string cMap; // video chapters
         public static string sMap; // subtitle files
         public static string mMap; // file metadata
+        public static string map; // controls all maps
 
 
         // --------------------------------------------------------------------------------------------------------
@@ -101,9 +101,9 @@ namespace Axiom
             Log.WriteAction = () =>
             {
                 //console.rtbLog.Document = new FlowDocument(paragraph);
-                Log.paragraph.Inlines.Add(new LineBreak());
-                Log.paragraph.Inlines.Add(new Bold(new Run("Video Stream: ")) { Foreground = Log.ConsoleDefault });
-                Log.paragraph.Inlines.Add(new Run("all") { Foreground = Log.ConsoleDefault });
+                Log.logParagraph.Inlines.Add(new LineBreak());
+                Log.logParagraph.Inlines.Add(new Bold(new Run("Video Stream: ")) { Foreground = Log.ConsoleDefault });
+                Log.logParagraph.Inlines.Add(new Run("all") { Foreground = Log.ConsoleDefault });
                 //this.DataContext = this;
             };
             Log.LogActions.Add(Log.WriteAction);
@@ -160,9 +160,9 @@ namespace Axiom
             Log.WriteAction = () =>
             {
                 //console.rtbLog.Document = new FlowDocument(paragraph);
-                Log.paragraph.Inlines.Add(new LineBreak());
-                Log.paragraph.Inlines.Add(new Bold(new Run("Audio Stream: ")) { Foreground = Log.ConsoleDefault });
-                Log.paragraph.Inlines.Add(new Run(mainwindow.cboAudioStream.SelectedItem.ToString()) { Foreground = Log.ConsoleDefault });
+                Log.logParagraph.Inlines.Add(new LineBreak());
+                Log.logParagraph.Inlines.Add(new Bold(new Run("Audio Stream: ")) { Foreground = Log.ConsoleDefault });
+                Log.logParagraph.Inlines.Add(new Run(mainwindow.cboAudioStream.SelectedItem.ToString()) { Foreground = Log.ConsoleDefault });
                 //this.DataContext = this;
             };
             Log.LogActions.Add(Log.WriteAction);
@@ -345,9 +345,9 @@ namespace Axiom
             Log.WriteAction = () =>
             {
                 //console.rtbLog.Document = new FlowDocument(paragraph);
-                Log.paragraph.Inlines.Add(new LineBreak());
-                Log.paragraph.Inlines.Add(new Bold(new Run("Subtitle Stream: ")) { Foreground = Log.ConsoleDefault });
-                Log.paragraph.Inlines.Add(new Run(mainwindow.cboSubtitle.SelectedItem.ToString()) { Foreground = Log.ConsoleDefault });
+                Log.logParagraph.Inlines.Add(new LineBreak());
+                Log.logParagraph.Inlines.Add(new Bold(new Run("Subtitle Stream: ")) { Foreground = Log.ConsoleDefault });
+                Log.logParagraph.Inlines.Add(new Run(mainwindow.cboSubtitle.SelectedItem.ToString()) { Foreground = Log.ConsoleDefault });
                 //this.DataContext = this;
             };
             Log.LogActions.Add(Log.WriteAction);

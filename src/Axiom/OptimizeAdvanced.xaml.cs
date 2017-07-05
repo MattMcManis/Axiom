@@ -60,14 +60,14 @@ namespace Axiom
             // Tune
             // -------------------------         
             // First time use
-            if (string.IsNullOrEmpty(MainWindow.OptAdvTune))
+            if (string.IsNullOrEmpty(MainWindow.optAdvTune))
             {
                 cboOptimizeTune.SelectedItem = "none";
             }
             // Load Temp Saved String
-            else if (!string.IsNullOrEmpty(MainWindow.OptAdvTune))
+            else if (!string.IsNullOrEmpty(MainWindow.optAdvTune))
             {
-                cboOptimizeTune.SelectedItem = MainWindow.OptAdvTune;
+                cboOptimizeTune.SelectedItem = MainWindow.optAdvTune;
             }
 
 
@@ -75,14 +75,14 @@ namespace Axiom
             // Profile
             // -------------------------
             // First time use
-            if (string.IsNullOrEmpty(MainWindow.OptAdvProfile))
+            if (string.IsNullOrEmpty(MainWindow.optAdvProfile))
             {
                 cboOptimizeProfile.SelectedItem = "baseline";
             }
             // Load Temp Saved String
-            else if (!string.IsNullOrEmpty(MainWindow.OptAdvProfile))
+            else if (!string.IsNullOrEmpty(MainWindow.optAdvProfile))
             {
-                cboOptimizeProfile.SelectedItem = MainWindow.OptAdvProfile;
+                cboOptimizeProfile.SelectedItem = MainWindow.optAdvProfile;
             }
 
 
@@ -90,14 +90,14 @@ namespace Axiom
             // Level
             // -------------------------
             // First time use
-            if (string.IsNullOrEmpty(MainWindow.OptAdvLevel))
+            if (string.IsNullOrEmpty(MainWindow.optAdvLevel))
             {
                 cboOptimizeLevel.SelectedItem = "4.0";
             }
             // Load Temp Saved String
-            else if (!string.IsNullOrEmpty(MainWindow.OptAdvLevel))
+            else if (!string.IsNullOrEmpty(MainWindow.optAdvLevel))
             {
-                cboOptimizeLevel.SelectedItem = MainWindow.OptAdvLevel;
+                cboOptimizeLevel.SelectedItem = MainWindow.optAdvLevel;
             }
         }
 
@@ -156,9 +156,9 @@ namespace Axiom
         private void buttonOptimizeSet_Click(object sender, RoutedEventArgs e)
         {
             // Save to Temp Item Holder
-            MainWindow.OptAdvTune = cboOptimizeTune.SelectedItem.ToString();
-            MainWindow.OptAdvProfile = cboOptimizeProfile.SelectedItem.ToString();
-            MainWindow.OptAdvLevel = cboOptimizeLevel.SelectedItem.ToString();
+            MainWindow.optAdvTune = cboOptimizeTune.SelectedItem.ToString();
+            MainWindow.optAdvProfile = cboOptimizeProfile.SelectedItem.ToString();
+            MainWindow.optAdvLevel = cboOptimizeLevel.SelectedItem.ToString();
 
             this.Close();
         }
@@ -175,14 +175,14 @@ namespace Axiom
             cboOptimizeLevel.SelectedItem = "none";
 
             // Clear Tmp Strings
-            MainWindow.OptAdvTune = string.Empty;
-            MainWindow.OptAdvProfile = string.Empty;
-            MainWindow.OptAdvLevel = string.Empty;
+            MainWindow.optAdvTune = string.Empty;
+            MainWindow.optAdvProfile = string.Empty;
+            MainWindow.optAdvLevel = string.Empty;
 
             // Clear any previous set strings
             Video.tune = string.Empty;
-            Video.optimizeProfile = string.Empty;
-            Video.optimizeLevel = string.Empty;
+            Video.optProfile = string.Empty;
+            Video.optLevel = string.Empty;
             Video.optimize = string.Empty;
 
             this.Close();

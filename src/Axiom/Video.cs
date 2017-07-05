@@ -61,6 +61,7 @@ namespace Axiom
         // --------------------------------------------------------------------------------------------------------
 
         // Video
+        //public static int autoCopyVideoCodecSwitch = 0; // If 1, do not run AutoCopy Method again
         public static string vCodec;
         public static string vQuality;
         public static string vBitMode;
@@ -72,15 +73,15 @@ namespace Axiom
         public static string fps; // frames per second
         public static string tune; // x264 & x265 tuning modes
         public static string options;
-        public static string optimizeProfile;
-        public static string optimizeLevel;
+        public static string optProfile;
+        public static string optLevel;
         public static string optimize;
         public static string speed; // speed combobox modifier
 
         // Scale
         public static string aspect; // contains scale, width, height
         public static string scale; // -vf
-        public static string divisibleCrop; //used on mp4 custom size to keep divisible by 2
+        public static string cropDivisible; //used on mp4 custom size to keep divisible by 2
         public static string width;
         public static string height;
 
@@ -90,8 +91,6 @@ namespace Axiom
         public static string v2pass; // contains pass2
         public static string pass1; // enabled in ffmpeg main line if v2Pass is enabled
         public static string pass2;
-        //public static int? v2passBatchSwitch = 0;
-        //public static string v2passBatch; // enabled if auto and batched checked
         //public static string cmdBatch_vQuality; // cmd batch Video Auto dynamic value
 
         // Filter
@@ -1089,120 +1088,130 @@ namespace Axiom
             // Log Console Message /////////
             Log.WriteAction = () =>
             {         
-                Log.paragraph.Inlines.Add(new LineBreak());
-                Log.paragraph.Inlines.Add(new Bold(new Run("Codec: ")) { Foreground = Log.ConsoleDefault });
-                Log.paragraph.Inlines.Add(new Run(Convert.ToString(mainwindow.cboVideoCodec.SelectedItem)) { Foreground = Log.ConsoleDefault });
+                Log.logParagraph.Inlines.Add(new LineBreak());
+                Log.logParagraph.Inlines.Add(new Bold(new Run("Codec: ")) { Foreground = Log.ConsoleDefault });
+                Log.logParagraph.Inlines.Add(new Run(Convert.ToString(mainwindow.cboVideoCodec.SelectedItem)) { Foreground = Log.ConsoleDefault });
             };
             Log.LogActions.Add(Log.WriteAction);
         }
 
 
+
         /// <summary>
         /// Video - Auto Codec Copy (Method)
         /// <summary>
-        public static void AutoVideoCodecCopy(MainWindow mainwindow) // Method
+        public static void AutoCopyVideoCodec(MainWindow mainwindow) // Method
         {
-            if (!string.IsNullOrEmpty(MainWindow.inputExt)) // Null Check
-            {
-                // Set Video Codec Combobox to "Copy" if Input Extension is Same as Output Extension and Video Quality is Auto
-                if ((string)mainwindow.cboVideo.SelectedItem == "Auto" 
-                    && string.Equals(MainWindow.inputExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase) 
-                    || mainwindow.tglBatch.IsChecked == true && (string)mainwindow.cboVideo.SelectedItem == "Auto" 
-                    && string.Equals(MainWindow.batchExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase))
+            //if (autoCopyVideoCodecSwitch == 0) // Switch Check
+            //{
+                if (!string.IsNullOrEmpty(MainWindow.inputExt)) // Null Check
                 {
-                    // Insert Copy if Does Not Contain
-                    if (!VideoCodecItemSource.Contains("Copy"))
+                    // Set Video Codec Combobox to "Copy" if Input Extension is Same as Output Extension and Video Quality is Auto
+                    if ((string)mainwindow.cboVideo.SelectedItem == "Auto"
+                        && string.Equals(MainWindow.inputExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase)
+                        || mainwindow.tglBatch.IsChecked == true && (string)mainwindow.cboVideo.SelectedItem == "Auto"
+                        && string.Equals(MainWindow.batchExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase))
                     {
-                        VideoCodecItemSource.Insert(0, "Copy");
-                    }
-                    // Populate ComboBox from ItemSource
-                    mainwindow.cboVideoCodec.ItemsSource = VideoCodecItemSource;
-
-                    mainwindow.cboVideoCodec.SelectedItem = "Copy";
-
-                    // Debug
-                    //var message = string.Join(Environment.NewLine, VideoCodec); // Show list
-                    //System.Windows.MessageBox.Show("Input: " + MainWindow.inputExt);
-                    //System.Windows.MessageBox.Show("Output: " + MainWindow.outputExt);
-                }
-
-
-                // Disable Copy if:
-                // Input / Output Extensions don't match
-                // Batch / Output Extensions don't match
-                // Resize is Not No
-                // Crop is Not Empty
-                // FPS is Not Auto
-                // Optimize is Not None
-                //
-                if (VideoCodecItemSource.Contains("Copy")
-                    && !string.IsNullOrEmpty((string)mainwindow.cboVideo.SelectedItem)
-                    && !string.Equals(MainWindow.inputExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase)
-                    | !string.Equals(MainWindow.batchExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase))
-                {
-                    // Switch back to format's default codec
-                    //
-                    if ((string)mainwindow.cboVideo.SelectedItem != "Auto"
-                        || (string)mainwindow.cboSize.SelectedItem != "No"
-                        || !string.IsNullOrEmpty(MainWindow.crop)
-                        || (string)mainwindow.cboFPS.SelectedItem != "auto"
-                        || (string)mainwindow.cboOptimize.SelectedItem != "none")
-                    {
-                        if ((string)mainwindow.cboFormat.SelectedItem == "webm")
+                        // Insert Copy if Does Not Contain
+                        if (!VideoCodecItemSource.Contains("Copy"))
                         {
-                            mainwindow.cboVideoCodec.SelectedItem = "VP8";
+                            VideoCodecItemSource.Insert(0, "Copy");
                         }
-                        else if ((string)mainwindow.cboFormat.SelectedItem == "mp4")
+                        // Populate ComboBox from ItemSource
+                        mainwindow.cboVideoCodec.ItemsSource = VideoCodecItemSource;
+
+                        mainwindow.cboVideoCodec.SelectedItem = "Copy";
+
+                        // Turn on Switch
+                        // Does not let AutoCopy Method run again
+                        //autoCopyVideoCodecSwitch = 1;
+
+                        // Debug
+                        //var message = string.Join(Environment.NewLine, VideoCodec); // Show list
+                        //System.Windows.MessageBox.Show("Input: " + MainWindow.inputExt);
+                        //System.Windows.MessageBox.Show("Output: " + MainWindow.outputExt);
+                    }
+
+
+                    // Disable Copy if:
+                    // Input / Output Extensions don't match
+                    // Batch / Output Extensions don't match
+                    // Resize is Not No
+                    // Crop is Not Empty
+                    // FPS is Not Auto
+                    // Optimize is Not None
+                    //
+                    if (VideoCodecItemSource.Contains("Copy")
+                        && !string.IsNullOrEmpty((string)mainwindow.cboVideo.SelectedItem)
+                        && !string.Equals(MainWindow.inputExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase)
+                        | !string.Equals(MainWindow.batchExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase))
+                    {
+                        // Switch back to format's default codec
+                        //
+                        if ((string)mainwindow.cboVideo.SelectedItem != "Auto"
+                            || (string)mainwindow.cboSize.SelectedItem != "No"
+                            || !string.IsNullOrEmpty(MainWindow.crop)
+                            || (string)mainwindow.cboFPS.SelectedItem != "auto"
+                            || (string)mainwindow.cboOptimize.SelectedItem != "none")
+                        {
+                            if ((string)mainwindow.cboFormat.SelectedItem == "webm")
+                            {
+                                mainwindow.cboVideoCodec.SelectedItem = "VP8";
+                            }
+                            else if ((string)mainwindow.cboFormat.SelectedItem == "mp4")
+                            {
+                                mainwindow.cboVideoCodec.SelectedItem = "x264";
+                            }
+                            else if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
+                            {
+                                //mainwindow.cboVideoCodec.SelectedItem = "x264"; //ignore mkv, special rules below
+                            }
+                            else if ((string)mainwindow.cboFormat.SelectedItem == "ogv")
+                            {
+                                mainwindow.cboVideoCodec.SelectedItem = "Theora";
+                            }
+                            else if ((string)mainwindow.cboFormat.SelectedItem == "jpg")
+                            {
+                                mainwindow.cboVideoCodec.SelectedItem = "JPEG";
+                            }
+                            else if ((string)mainwindow.cboFormat.SelectedItem == "png")
+                            {
+                                mainwindow.cboVideoCodec.SelectedItem = "PNG";
+                            }
+                            else if ((string)mainwindow.cboFormat.SelectedItem == "m4a"
+                                || (string)mainwindow.cboFormat.SelectedItem == "mp3"
+                                || (string)mainwindow.cboFormat.SelectedItem == "ogg"
+                                || (string)mainwindow.cboFormat.SelectedItem == "flac"
+                                || (string)mainwindow.cboFormat.SelectedItem == "wav")
+                            {
+                                mainwindow.cboVideoCodec.SelectedItem = string.Empty;
+                            }
+                        }
+                    }
+
+
+                    // Special Rules for MKV
+                    if ((string)mainwindow.cboFormat.SelectedItem == "mkv"
+                        && (string)mainwindow.cboVideoCodec.SelectedItem == "Copy"
+                        && (string)mainwindow.cboVideo.SelectedItem != "Auto")
+                    {
+                        if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
                         {
                             mainwindow.cboVideoCodec.SelectedItem = "x264";
                         }
-                        else if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
-                        {
-                            //mainwindow.cboVideoCodec.SelectedItem = "x264"; //ignore mkv, special rules below
-                        }
-                        else if ((string)mainwindow.cboFormat.SelectedItem == "ogv")
-                        {
-                            mainwindow.cboVideoCodec.SelectedItem = "Theora";
-                        }
-                        else if ((string)mainwindow.cboFormat.SelectedItem == "jpg")
-                        {
-                            mainwindow.cboVideoCodec.SelectedItem = "JPEG";
-                        }
-                        else if ((string)mainwindow.cboFormat.SelectedItem == "png")
-                        {
-                            mainwindow.cboVideoCodec.SelectedItem = "PNG";
-                        }
-                        else if ((string)mainwindow.cboFormat.SelectedItem == "m4a"
-                            || (string)mainwindow.cboFormat.SelectedItem == "mp3"
-                            || (string)mainwindow.cboFormat.SelectedItem == "ogg"
-                            || (string)mainwindow.cboFormat.SelectedItem == "flac"
-                            || (string)mainwindow.cboFormat.SelectedItem == "wav")
-                        {
-                            mainwindow.cboVideoCodec.SelectedItem = string.Empty;
-                        }
                     }
+
+                    //// Always Default to Copy if it exists and Video Dropdown is (Auto) //Causing Problems
+                    //if (VideoCodecItemSource.Contains("Copy") 
+                    //&& (string)mainwindow.cboVideo.SelectedItem == "Auto" 
+                    //&& (string)mainwindow.cboFormat.SelectedItem != "mkv" /* ignore if mkv */)
+                    //{
+                    //    //videoCodecComboBox.SelectedItem = "Copy";
+                    //}
                 }
+            //}
 
-
-                // Special Rules for MKV
-                if ((string)mainwindow.cboFormat.SelectedItem == "mkv"
-                    && (string)mainwindow.cboVideoCodec.SelectedItem == "Copy"
-                    && (string)mainwindow.cboVideo.SelectedItem != "Auto")
-                {
-                    if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
-                    {
-                        mainwindow.cboVideoCodec.SelectedItem = "x264";
-                    }
-                }
-
-                //// Always Default to Copy if it exists and Video Dropdown is (Auto) //Causing Problems
-                //if (VideoCodecItemSource.Contains("Copy") && (string)mainwindow.cboVideo.SelectedItem == "Auto" && (string)mainwindow.cboFormat.SelectedItem != "mkv" /* ignore if mkv */)
-                //{
-                //    //videoCodecComboBox.SelectedItem = "Copy";
-                //}
-            }
-
-        } // End AutoVideoCodecCopy
+        } // End AutoCopyVideoCodec
 
 
         /// <summary>
@@ -1243,7 +1252,7 @@ namespace Axiom
         public static void VideoBitrateCalculator(MainWindow mainwindow)
         {
             // set to FFprobe's result
-            FFprobe.inputVideoBitrate = FFprobe.ffprobeVideoBitrateResult.Replace("\r\n", "").Replace("\n", "").Replace("\r", "");
+            //FFprobe.inputVideoBitrate = FFprobe.resultVideoBitrate.Replace("\r\n", "").Replace("\n", "").Replace("\r", "");
 
             // FFprobe values
             if (string.IsNullOrEmpty(FFprobe.inputVideoBitrate))
@@ -1253,9 +1262,9 @@ namespace Axiom
                 // Log Console Message /////////
                 Log.WriteAction = () =>
                 {
-                    Log.paragraph.Inlines.Add(new LineBreak());
-                    Log.paragraph.Inlines.Add(new LineBreak());
-                    Log.paragraph.Inlines.Add(new Bold(new Run("Input Video Bitrate does not exist or can't be detected")) { Foreground = Log.ConsoleWarning });
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new Bold(new Run("Input Video Bitrate does not exist or can't be detected")) { Foreground = Log.ConsoleWarning });
                 };
                 Log.LogActions.Add(Log.WriteAction);
             }
@@ -1292,11 +1301,11 @@ namespace Axiom
 
             // WebM Video Bitrate Limiter
             // If input video bitrate is greater than 1.5M, lower the bitrate to 1.5M
-            // Error checking the ffprobeVideoBitrateResult when using Batch
+            // Error checking the resultVideoBitrate when using Batch
             //
             //try
             //{
-            //    if (MainWindow.outputExt == ".webm" && Convert.ToInt32(FFprobe.ffprobeVideoBitrateResult) >= 150000)
+            //    if (MainWindow.outputExt == ".webm" && Convert.ToInt32(FFprobe.resultVideoBitrate) >= 150000)
             //    {
             //        FFprobe.inputVideoBitrate = "1.5M";
             //    }
@@ -1319,11 +1328,11 @@ namespace Axiom
                     // Log Console Message /////////
                     Log.WriteAction = () =>
                     {
-                        Log.paragraph.Inlines.Add(new LineBreak());
-                        Log.paragraph.Inlines.Add(new LineBreak());
-                        Log.paragraph.Inlines.Add(new Bold(new Run("Calculating New Bitrate Information...")) { Foreground = Log.ConsoleAction });
-                        Log.paragraph.Inlines.Add(new LineBreak());
-                        Log.paragraph.Inlines.Add(new Run("((File Size * 8) / 1000) / File Time Duration") { Foreground = Log.ConsoleDefault });
+                        Log.logParagraph.Inlines.Add(new LineBreak());
+                        Log.logParagraph.Inlines.Add(new LineBreak());
+                        Log.logParagraph.Inlines.Add(new Bold(new Run("Calculating New Bitrate Information...")) { Foreground = Log.ConsoleAction });
+                        Log.logParagraph.Inlines.Add(new LineBreak());
+                        Log.logParagraph.Inlines.Add(new Run("((File Size * 8) / 1000) / File Time Duration") { Foreground = Log.ConsoleDefault });
                     };
                     Log.LogActions.Add(Log.WriteAction);
                 }
@@ -1332,9 +1341,9 @@ namespace Axiom
                     // Log Console Message /////////
                     Log.WriteAction = () =>
                     {
-                        Log.paragraph.Inlines.Add(new LineBreak());
-                        Log.paragraph.Inlines.Add(new LineBreak());
-                        Log.paragraph.Inlines.Add(new Bold(new Run("Error: Could Not Calculate New Bitrate Information...")) { Foreground = Log.ConsoleError });
+                        Log.logParagraph.Inlines.Add(new LineBreak());
+                        Log.logParagraph.Inlines.Add(new LineBreak());
+                        Log.logParagraph.Inlines.Add(new Bold(new Run("Error: Could Not Calculate New Bitrate Information...")) { Foreground = Log.ConsoleError });
                     };
                     Log.LogActions.Add(Log.WriteAction);
                 }
@@ -1351,9 +1360,9 @@ namespace Axiom
             // Log Console Message /////////
             Log.WriteAction = () =>
             {
-                Log.paragraph.Inlines.Add(new LineBreak());
-                Log.paragraph.Inlines.Add(new Bold(new Run("Quality: ")) { Foreground = Log.ConsoleDefault });
-                Log.paragraph.Inlines.Add(new Run(Convert.ToString(mainwindow.cboVideo.SelectedItem)) { Foreground = Log.ConsoleDefault });
+                Log.logParagraph.Inlines.Add(new LineBreak());
+                Log.logParagraph.Inlines.Add(new Bold(new Run("Quality: ")) { Foreground = Log.ConsoleDefault });
+                Log.logParagraph.Inlines.Add(new Run(Convert.ToString(mainwindow.cboVideo.SelectedItem)) { Foreground = Log.ConsoleDefault });
             };
             Log.LogActions.Add(Log.WriteAction);
 
@@ -1368,12 +1377,10 @@ namespace Axiom
                     || (string)mainwindow.cboFormat.SelectedItem == "mkv") //exclude ogv for now
                 {
                     v2passSwitch = 1;
-                    // v2passBatchSwitch = 1;
                 }
                 else
                 {
                     v2passSwitch = 0;
-                    // v2passBatchSwitch = 0;
                     pass1 = string.Empty;
                 }
 
@@ -1469,7 +1476,7 @@ namespace Axiom
 
                     if ((string)mainwindow.cboVideo.SelectedItem == "Auto")
                     {
-                        batchVideoAuto = "-select_streams v:0 -show_entries " + FFprobe.vEntryType + " -v quiet -of csv=\"p=0\" & for /f \"tokens=*\" %S in (\"" + FFprobe.ffprobe + " -i " + "\"" + MainWindow.autoBatchInput + "%~f" + "\"" + " -select_streams v:0 -show_entries format=size -v quiet -of csv=p=0\") do (echo ) & (%S > tmp_size) & SET /p size= < tmp_size & del tmp_size & for /F %S in ('echo %size%') do (echo %S) & for /f \"tokens=*\" %D in (\"" + FFprobe.ffprobe + " -i " + "\"" + MainWindow.autoBatchInput + "%~f" + "\"" + " -select_streams v:0 -show_entries format=duration -v quiet -of csv=p=0\") do (echo ) & (%D > tmp_duration) & SET /p duration= < tmp_duration & del tmp_duration & for /f \"tokens=1 delims=.\" %R in ('echo %duration%') do set duration=%R & for /F %D in ('echo %duration%') do (echo %D) & for /f \"tokens=*\" %V in (" + "\"" + FFprobe.ffprobe + " -i " + "\"" + MainWindow.autoBatchInput + "%~f" + "\"" + " -select_streams v:0 -show_entries " + FFprobe.vEntryType + " -v quiet -of csv=p=0\") do (echo ) & (%V > tmp_vBitrate) & SET /p vBitrate= < tmp_vBitrate & del tmp_vBitrate & for /F %V in ('echo %vBitrate%') do (echo %V) & (if %V EQU N/A (set /a vBitrate=%S*8/1000/%D*1000) else (echo Video Bitrate Detected)) & for /F %V in ('echo %vBitrate%') do (echo %V) & " + FFprobe.ffprobe + " -i " + "\"" + MainWindow.autoBatchInput + "%~f" + "\"";
+                        batchVideoAuto = "-select_streams v:0 -show_entries " + FFprobe.vEntryType + " -v quiet -of csv=\"p=0\" & for /f \"tokens=*\" %S in (\"" + FFprobe.ffprobe + " -i " + "\"" + MainWindow.batchInputAuto + "%~f" + "\"" + " -select_streams v:0 -show_entries format=size -v quiet -of csv=p=0\") do (echo ) & (%S > tmp_size) & SET /p size= < tmp_size & del tmp_size & for /F %S in ('echo %size%') do (echo %S) & for /f \"tokens=*\" %D in (\"" + FFprobe.ffprobe + " -i " + "\"" + MainWindow.batchInputAuto + "%~f" + "\"" + " -select_streams v:0 -show_entries format=duration -v quiet -of csv=p=0\") do (echo ) & (%D > tmp_duration) & SET /p duration= < tmp_duration & del tmp_duration & for /f \"tokens=1 delims=.\" %R in ('echo %duration%') do set duration=%R & for /F %D in ('echo %duration%') do (echo %D) & for /f \"tokens=*\" %V in (" + "\"" + FFprobe.ffprobe + " -i " + "\"" + MainWindow.batchInputAuto + "%~f" + "\"" + " -select_streams v:0 -show_entries " + FFprobe.vEntryType + " -v quiet -of csv=p=0\") do (echo ) & (%V > tmp_vBitrate) & SET /p vBitrate= < tmp_vBitrate & del tmp_vBitrate & for /F %V in ('echo %vBitrate%') do (echo %V) & (if %V EQU N/A (set /a vBitrate=%S*8/1000/%D*1000) else (echo Video Bitrate Detected)) & for /F %V in ('echo %vBitrate%') do (echo %V) & " + FFprobe.ffprobe + " -i " + "\"" + MainWindow.batchInputAuto + "%~f" + "\"";
 
                         // Chain FFmpeg using & symbol at end of Argument if Audio Not Auto
                         if ((string)mainwindow.cboVideo.SelectedItem != "Auto")
@@ -1513,7 +1520,6 @@ namespace Axiom
                     vQuality = crf + " " + vOptions; //combine
 
                     v2passSwitch = 0;
-                    // v2passBatchSwitch = 0;
                 }
                 // 1 Pass
                 else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass")
@@ -1521,7 +1527,6 @@ namespace Axiom
                     vQuality = crf + " " + vOptions; //combine
 
                     v2passSwitch = 0;
-                    // v2passBatchSwitch = 0;
                 }
                 // 2 Pass
                 else if ((string)mainwindow.cboPass.SelectedItem == "2 Pass")
@@ -1529,7 +1534,6 @@ namespace Axiom
                     vQuality = crf + " " + vOptions; //combine
 
                     v2passSwitch = 0;
-                    // v2passBatchSwitch = 0;
                 }
                 // auto
                 else if ((string)mainwindow.cboPass.SelectedItem == "auto")
@@ -1537,7 +1541,6 @@ namespace Axiom
                     vQuality = crf + " " + vOptions; //combine
 
                     v2passSwitch = 0;
-                    // v2passBatchSwitch = 0;
                 }
             }
             // -------------------------
@@ -1661,18 +1664,17 @@ namespace Axiom
                         // Log Console Message /////////
                         Log.WriteAction = () =>
                         {
-                            Log.paragraph.Inlines.Add(new LineBreak());
-                            Log.paragraph.Inlines.Add(new LineBreak());
-                            Log.paragraph.Inlines.Add(new Bold(new Run("2 Pass Toggle: ")) { Foreground = Log.ConsoleDefault });
-                            Log.paragraph.Inlines.Add(new Run("On, ") { Foreground = Log.ConsoleDefault });
-                            Log.paragraph.Inlines.Add(new Bold(new Run("CRF: ")) { Foreground = Log.ConsoleDefault });
-                            Log.paragraph.Inlines.Add(new Run("None, Using Bitrate 2 Pass") { Foreground = Log.ConsoleDefault });
+                            Log.logParagraph.Inlines.Add(new LineBreak());
+                            Log.logParagraph.Inlines.Add(new LineBreak());
+                            Log.logParagraph.Inlines.Add(new Bold(new Run("2 Pass Toggle: ")) { Foreground = Log.ConsoleDefault });
+                            Log.logParagraph.Inlines.Add(new Run("On, ") { Foreground = Log.ConsoleDefault });
+                            Log.logParagraph.Inlines.Add(new Bold(new Run("CRF: ")) { Foreground = Log.ConsoleDefault });
+                            Log.logParagraph.Inlines.Add(new Run("None, Using Bitrate 2 Pass") { Foreground = Log.ConsoleDefault });
                         };
                         Log.LogActions.Add(Log.WriteAction);
 
                         // 2 Pass Switch
                         v2passSwitch = 1;
-                        // v2passBatchSwitch = 1;
                     }
                 }
 
@@ -1687,18 +1689,17 @@ namespace Axiom
                         // Log Console Message /////////
                         Log.WriteAction = () =>
                         {
-                            Log.paragraph.Inlines.Add(new LineBreak());
-                            Log.paragraph.Inlines.Add(new LineBreak());
-                            Log.paragraph.Inlines.Add(new Bold(new Run("2 Pass Toggle: ")) { Foreground = Log.ConsoleDefault });
-                            Log.paragraph.Inlines.Add(new Run("Off, ") { Foreground = Log.ConsoleDefault });
-                            Log.paragraph.Inlines.Add(new Bold(new Run("CRF: ")) { Foreground = Log.ConsoleDefault });
-                            Log.paragraph.Inlines.Add(new Run("None, Using Bitrate 1 Pass") { Foreground = Log.ConsoleDefault });
+                            Log.logParagraph.Inlines.Add(new LineBreak());
+                            Log.logParagraph.Inlines.Add(new LineBreak());
+                            Log.logParagraph.Inlines.Add(new Bold(new Run("2 Pass Toggle: ")) { Foreground = Log.ConsoleDefault });
+                            Log.logParagraph.Inlines.Add(new Run("Off, ") { Foreground = Log.ConsoleDefault });
+                            Log.logParagraph.Inlines.Add(new Bold(new Run("CRF: ")) { Foreground = Log.ConsoleDefault });
+                            Log.logParagraph.Inlines.Add(new Run("None, Using Bitrate 1 Pass") { Foreground = Log.ConsoleDefault });
                         };
                         Log.LogActions.Add(Log.WriteAction);
 
                         // 2 Pass Switch
                         v2passSwitch = 0;
-                        // v2passBatchSwitch = 0;
                     }
                 }
 
@@ -1749,21 +1750,21 @@ namespace Axiom
             // Log Console Message /////////        
             Log.WriteAction = () =>
             {
-                Log.paragraph.Inlines.Add(new LineBreak());
-                Log.paragraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
+                Log.logParagraph.Inlines.Add(new LineBreak());
+                Log.logParagraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
                 if (!string.IsNullOrEmpty(vBitrate))
                 {
-                    Log.paragraph.Inlines.Add(new Run(vBitrate.Replace("-b:v ", "")) { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new Run(vBitrate.Replace("-b:v ", "")) { Foreground = Log.ConsoleDefault });
                 }
-                Log.paragraph.Inlines.Add(new LineBreak());
-                Log.paragraph.Inlines.Add(new Bold(new Run("CRF: ")) { Foreground = Log.ConsoleDefault });
+                Log.logParagraph.Inlines.Add(new LineBreak());
+                Log.logParagraph.Inlines.Add(new Bold(new Run("CRF: ")) { Foreground = Log.ConsoleDefault });
                 if (!string.IsNullOrEmpty(crf))
                 {
-                    Log.paragraph.Inlines.Add(new Run(crf) { Foreground = Log.ConsoleDefault }); //crf combines with bitrate
+                    Log.logParagraph.Inlines.Add(new Run(crf) { Foreground = Log.ConsoleDefault }); //crf combines with bitrate
                 }
-                Log.paragraph.Inlines.Add(new LineBreak());
-                Log.paragraph.Inlines.Add(new Bold(new Run("Options: ")) { Foreground = Log.ConsoleDefault });
-                Log.paragraph.Inlines.Add(new Run(vOptions) { Foreground = Log.ConsoleDefault });
+                Log.logParagraph.Inlines.Add(new LineBreak());
+                Log.logParagraph.Inlines.Add(new Bold(new Run("Options: ")) { Foreground = Log.ConsoleDefault });
+                Log.logParagraph.Inlines.Add(new Run(vOptions) { Foreground = Log.ConsoleDefault });
             };
             Log.LogActions.Add(Log.WriteAction);
         }
@@ -1786,9 +1787,9 @@ namespace Axiom
                 // Log Console Message /////////
                 Log.WriteAction = () =>
                 {
-                    Log.paragraph.Inlines.Add(new LineBreak());
-                    Log.paragraph.Inlines.Add(new Bold(new Run("Resize: ")) { Foreground = Log.ConsoleDefault });
-                    Log.paragraph.Inlines.Add(new Run("No") { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new Bold(new Run("Resize: ")) { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new Run("No") { Foreground = Log.ConsoleDefault });
                 };
                 Log.LogActions.Add(Log.WriteAction);
             }
@@ -2203,9 +2204,9 @@ namespace Axiom
                             // Log Console Message /////////
                             Log.WriteAction = () =>
                             {
-                                Log.paragraph.Inlines.Add(new LineBreak());
-                                Log.paragraph.Inlines.Add(new LineBreak());
-                                Log.paragraph.Inlines.Add(new Bold(new Run("Warning: Must enter numbers only.")) { Foreground = Log.ConsoleWarning });
+                                Log.logParagraph.Inlines.Add(new LineBreak());
+                                Log.logParagraph.Inlines.Add(new LineBreak());
+                                Log.logParagraph.Inlines.Add(new Bold(new Run("Warning: Must enter numbers only.")) { Foreground = Log.ConsoleWarning });
                             };
                             Log.LogActions.Add(Log.WriteAction);
 
@@ -2214,7 +2215,7 @@ namespace Axiom
                             MainWindow.ready = 0;
                         }
 
-                        //crop = string.Empty; //divisibleCrop
+                        //crop = string.Empty; //cropDivisible
 
                         // If crop is null, force Empty
                         if (string.IsNullOrEmpty(MainWindow.crop)) //null check
@@ -2248,9 +2249,9 @@ namespace Axiom
                             // Log Console Message /////////
                             Log.WriteAction = () =>
                             {
-                                Log.paragraph.Inlines.Add(new LineBreak());
-                                Log.paragraph.Inlines.Add(new LineBreak());
-                                Log.paragraph.Inlines.Add(new Bold(new Run("Warning: Must enter numbers only.")) { Foreground = Log.ConsoleWarning });
+                                Log.logParagraph.Inlines.Add(new LineBreak());
+                                Log.logParagraph.Inlines.Add(new LineBreak());
+                                Log.logParagraph.Inlines.Add(new Bold(new Run("Warning: Must enter numbers only.")) { Foreground = Log.ConsoleWarning });
                             };
                             Log.LogActions.Add(Log.WriteAction);
 
@@ -2259,7 +2260,7 @@ namespace Axiom
                             MainWindow.ready = 0;
                         }
 
-                        //crop = string.Empty; //divisibleCrop
+                        //crop = string.Empty; //cropDivisible
 
                         // If crop is null, force Empty
                         if (string.IsNullOrEmpty(MainWindow.crop)) //null check
@@ -2295,7 +2296,7 @@ namespace Axiom
                             if (string.IsNullOrEmpty(MainWindow.crop))
                             {
                                 MainWindow.crop = "crop=" + width + ":" + height + ":0:0";
-                                //divisibleCrop //Now in vFilter Switch Combine Section
+                                //cropDivisible //Now in vFilter Switch Combine Section
                             }
                         }
                         catch
@@ -2303,9 +2304,9 @@ namespace Axiom
                             // Log Console Message /////////
                             Log.WriteAction = () =>
                             {
-                                Log.paragraph.Inlines.Add(new LineBreak());
-                                Log.paragraph.Inlines.Add(new LineBreak());
-                                Log.paragraph.Inlines.Add(new Bold(new Run("Warning: Must enter numbers only.")) { Foreground = Log.ConsoleWarning });
+                                Log.logParagraph.Inlines.Add(new LineBreak());
+                                Log.logParagraph.Inlines.Add(new LineBreak());
+                                Log.logParagraph.Inlines.Add(new Bold(new Run("Warning: Must enter numbers only.")) { Foreground = Log.ConsoleWarning });
                             };
                             Log.LogActions.Add(Log.WriteAction);
 
@@ -2337,7 +2338,7 @@ namespace Axiom
                     && string.IsNullOrWhiteSpace(mainwindow.heightCustom.Text))
                 {
                     scale = string.Empty;
-                    MainWindow.crop = string.Empty; //divisibleCrop
+                    MainWindow.crop = string.Empty; //cropDivisible
                     width = string.Empty;
                     height = string.Empty;
                     aspect = string.Empty;
@@ -2347,7 +2348,7 @@ namespace Axiom
                     && string.Equals(mainwindow.heightCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase))
                 {
                     scale = string.Empty;
-                    MainWindow.crop = string.Empty; //divisibleCrop
+                    MainWindow.crop = string.Empty; //cropDivisible
                     width = string.Empty;
                     height = string.Empty;
                     aspect = string.Empty;
@@ -2357,7 +2358,7 @@ namespace Axiom
                     && string.Equals(mainwindow.heightCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase))
                 {
                     scale = string.Empty;
-                    MainWindow.crop = string.Empty; //divisibleCrop
+                    MainWindow.crop = string.Empty; //cropDivisible
                     width = string.Empty;
                     height = string.Empty;
                     aspect = string.Empty;
@@ -2367,7 +2368,7 @@ namespace Axiom
                     && string.IsNullOrWhiteSpace(mainwindow.heightCustom.Text))
                 {
                     scale = string.Empty;
-                    MainWindow.crop = string.Empty; //divisibleCrop
+                    MainWindow.crop = string.Empty; //cropDivisible
                     width = string.Empty;
                     height = string.Empty;
                     aspect = string.Empty;
@@ -2378,12 +2379,12 @@ namespace Axiom
             // Log Console Message /////////
             Log.WriteAction = () =>
             {
-                Log.paragraph.Inlines.Add(new LineBreak());
-                Log.paragraph.Inlines.Add(new Bold(new Run("Width: ")) { Foreground = Log.ConsoleDefault });
-                Log.paragraph.Inlines.Add(new Run(width) { Foreground = Log.ConsoleDefault });
-                Log.paragraph.Inlines.Add(new LineBreak());
-                Log.paragraph.Inlines.Add(new Bold(new Run("Height: ")) { Foreground = Log.ConsoleDefault });
-                Log.paragraph.Inlines.Add(new Run(height) { Foreground = Log.ConsoleDefault });
+                Log.logParagraph.Inlines.Add(new LineBreak());
+                Log.logParagraph.Inlines.Add(new Bold(new Run("Width: ")) { Foreground = Log.ConsoleDefault });
+                Log.logParagraph.Inlines.Add(new Run(width) { Foreground = Log.ConsoleDefault });
+                Log.logParagraph.Inlines.Add(new LineBreak());
+                Log.logParagraph.Inlines.Add(new Bold(new Run("Height: ")) { Foreground = Log.ConsoleDefault });
+                Log.logParagraph.Inlines.Add(new Run(height) { Foreground = Log.ConsoleDefault });
             };
             Log.LogActions.Add(Log.WriteAction);
 
@@ -2435,9 +2436,9 @@ namespace Axiom
                 // Log Console Message /////////
                 Log.WriteAction = () =>
                 {
-                    Log.paragraph.Inlines.Add(new LineBreak());
-                    Log.paragraph.Inlines.Add(new LineBreak());
-                    Log.paragraph.Inlines.Add(new Bold(new Run("Warning: Crop cannot use Codec Copy. Please select a Video Codec.")) { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new Bold(new Run("Warning: Crop cannot use Codec Copy. Please select a Video Codec.")) { Foreground = Log.ConsoleDefault });
                 };
                 Log.LogActions.Add(Log.WriteAction);
 
@@ -2463,9 +2464,9 @@ namespace Axiom
             // Log Console Message /////////
             Log.WriteAction = () =>
             {
-                Log.paragraph.Inlines.Add(new LineBreak());
-                Log.paragraph.Inlines.Add(new Bold(new Run("FPS: ")) { Foreground = Log.ConsoleDefault });
-                Log.paragraph.Inlines.Add(new Run(mainwindow.cboFPS.Text.ToString()) { Foreground = Log.ConsoleDefault });
+                Log.logParagraph.Inlines.Add(new LineBreak());
+                Log.logParagraph.Inlines.Add(new Bold(new Run("FPS: ")) { Foreground = Log.ConsoleDefault });
+                Log.logParagraph.Inlines.Add(new Run(mainwindow.cboFPS.Text.ToString()) { Foreground = Log.ConsoleDefault });
             };
             Log.LogActions.Add(Log.WriteAction);
         }
@@ -2511,9 +2512,9 @@ namespace Axiom
                 // Log Console Message /////////
                 Log.WriteAction = () =>
                 {
-                    Log.paragraph.Inlines.Add(new LineBreak());
-                    Log.paragraph.Inlines.Add(new Bold(new Run("Encoding Speed: ")) { Foreground = Log.ConsoleDefault });
-                    Log.paragraph.Inlines.Add(new Run(mainwindow.cboSpeed.Text.ToString()) { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new Bold(new Run("Encoding Speed: ")) { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new Run(mainwindow.cboSpeed.Text.ToString()) { Foreground = Log.ConsoleDefault });
                 };
                 Log.LogActions.Add(Log.WriteAction);
             }
@@ -2537,9 +2538,9 @@ namespace Axiom
                 // Log Console Message /////////
                 Log.WriteAction = () =>
                 {
-                    Log.paragraph.Inlines.Add(new LineBreak());
-                    Log.paragraph.Inlines.Add(new Bold(new Run("Encoding Speed: ")) { Foreground = Log.ConsoleDefault });
-                    Log.paragraph.Inlines.Add(new Run(mainwindow.cboSpeed.Text.ToString()) { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new Bold(new Run("Encoding Speed: ")) { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new Run(mainwindow.cboSpeed.Text.ToString()) { Foreground = Log.ConsoleDefault });
                 };
                 Log.LogActions.Add(Log.WriteAction);
             }
@@ -2563,9 +2564,9 @@ namespace Axiom
                 // Log Console Message /////////
                 Log.WriteAction = () =>
                 {
-                    Log.paragraph.Inlines.Add(new LineBreak());
-                    Log.paragraph.Inlines.Add(new Bold(new Run("Encoding Speed: ")) { Foreground = Log.ConsoleDefault });
-                    Log.paragraph.Inlines.Add(new Run(mainwindow.cboSpeed.Text.ToString()) { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new Bold(new Run("Encoding Speed: ")) { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new Run(mainwindow.cboSpeed.Text.ToString()) { Foreground = Log.ConsoleDefault });
                 };
                 Log.LogActions.Add(Log.WriteAction);
             }
@@ -2580,9 +2581,9 @@ namespace Axiom
                 // Log Console Message /////////
                 Log.WriteAction = () =>
                 {
-                    Log.paragraph.Inlines.Add(new LineBreak());
-                    Log.paragraph.Inlines.Add(new Bold(new Run("Encoding Speed: ")) { Foreground = Log.ConsoleDefault });
-                    Log.paragraph.Inlines.Add(new Run("N/A") { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new Bold(new Run("Encoding Speed: ")) { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new Run("N/A") { Foreground = Log.ConsoleDefault });
                 };
                 Log.LogActions.Add(Log.WriteAction);
             }
@@ -2597,9 +2598,9 @@ namespace Axiom
                 // Log Console Message /////////
                 Log.WriteAction = () =>
                 {
-                    Log.paragraph.Inlines.Add(new LineBreak());
-                    Log.paragraph.Inlines.Add(new Bold(new Run("Encoding Speed: ")) { Foreground = Log.ConsoleDefault });
-                    Log.paragraph.Inlines.Add(new Run("N/A") { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new Bold(new Run("Encoding Speed: ")) { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new Run("N/A") { Foreground = Log.ConsoleDefault });
                 };
                 Log.LogActions.Add(Log.WriteAction);
             }
@@ -2618,9 +2619,9 @@ namespace Axiom
                 // Log Console Message /////////
                 Log.WriteAction = () =>
                 {
-                    Log.paragraph.Inlines.Add(new LineBreak());
-                    Log.paragraph.Inlines.Add(new Bold(new Run("Encoding Speed: ")) { Foreground = Log.ConsoleDefault });
-                    Log.paragraph.Inlines.Add(new Run("N/A") { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new Bold(new Run("Encoding Speed: ")) { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new Run("N/A") { Foreground = Log.ConsoleDefault });
                 };
                 Log.LogActions.Add(Log.WriteAction);
             }
@@ -2741,44 +2742,44 @@ namespace Axiom
             {
                 // Tune
                 //
-                if (MainWindow.OptAdvTune == "none" || string.IsNullOrEmpty(MainWindow.OptAdvTune))
+                if (MainWindow.optAdvTune == "none" || string.IsNullOrEmpty(MainWindow.optAdvTune))
                 {
                     tune = string.Empty;
                 }
                 else
                 {
                     // Tune = Set Tmp Setting from Optimized Advanced Window
-                    tune = "-tune " + MainWindow.OptAdvTune;
+                    tune = "-tune " + MainWindow.optAdvTune;
                 }
 
 
                 // Profile
                 //
-                if (MainWindow.OptAdvProfile == "none" || string.IsNullOrEmpty(MainWindow.OptAdvProfile))
+                if (MainWindow.optAdvProfile == "none" || string.IsNullOrEmpty(MainWindow.optAdvProfile))
                 {
-                    optimizeProfile = string.Empty;
+                    optProfile = string.Empty;
                 }
                 else
                 {
                     // Tune = Set Tmp Setting from Optimized Advanced Window
-                    optimizeProfile = "-profile:v " + MainWindow.OptAdvProfile;
+                    optProfile = "-profile:v " + MainWindow.optAdvProfile;
                 }
 
                 // Level
                 //
-                if (MainWindow.OptAdvLevel == "none" || string.IsNullOrEmpty(MainWindow.OptAdvLevel))
+                if (MainWindow.optAdvLevel == "none" || string.IsNullOrEmpty(MainWindow.optAdvLevel))
                 {
-                    optimizeLevel = string.Empty;
+                    optLevel = string.Empty;
                 }
                 else
                 {
                     // Tune = Set Tmp Setting from Optimized Advanced Window
-                    optimizeLevel = "-level " + MainWindow.OptAdvLevel;
+                    optLevel = "-level " + MainWindow.optAdvLevel;
                 }
 
                 // Combine Optimize = Profile + Level
                 //
-                List<string> v2passList = new List<string>() { optimizeProfile, optimizeLevel };
+                List<string> v2passList = new List<string>() { optProfile, optLevel };
                 optimize = string.Join(" ", v2passList.Where(s => !string.IsNullOrEmpty(s)));
 
             }
@@ -2818,9 +2819,9 @@ namespace Axiom
                 // Log Console Message /////////
                 Log.WriteAction = () =>
                 {
-                    Log.paragraph.Inlines.Add(new LineBreak());
-                    Log.paragraph.Inlines.Add(new Bold(new Run("Start Frame: ")) { Foreground = Log.ConsoleDefault });
-                    Log.paragraph.Inlines.Add(new Run(mainwindow.frameStart.Text + " / " + detectedFramerate + " = " + Format.trimStart) { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new Bold(new Run("Start Frame: ")) { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new Run(mainwindow.frameStart.Text + " / " + detectedFramerate + " = " + Format.trimStart) { Foreground = Log.ConsoleDefault });
                 };
                 Log.LogActions.Add(Log.WriteAction);
 
@@ -2838,9 +2839,9 @@ namespace Axiom
                 {
                     Log.WriteAction = () =>
                     {
-                        Log.paragraph.Inlines.Add(new LineBreak());
-                        Log.paragraph.Inlines.Add(new Bold(new Run("End Frame: ")) { Foreground = Log.ConsoleDefault });
-                        Log.paragraph.Inlines.Add(new Run(mainwindow.frameEnd.Text + " / " + detectedFramerate + " = " + Format.trimEnd) { Foreground = Log.ConsoleDefault });
+                        Log.logParagraph.Inlines.Add(new LineBreak());
+                        Log.logParagraph.Inlines.Add(new Bold(new Run("End Frame: ")) { Foreground = Log.ConsoleDefault });
+                        Log.logParagraph.Inlines.Add(new Run(mainwindow.frameEnd.Text + " / " + detectedFramerate + " = " + Format.trimEnd) { Foreground = Log.ConsoleDefault });
                     };
                     Log.LogActions.Add(Log.WriteAction);
                 }
@@ -2851,9 +2852,9 @@ namespace Axiom
                 // Log Console Message /////////
                 Log.WriteAction = () =>
                 {
-                    Log.paragraph.Inlines.Add(new LineBreak());
-                    Log.paragraph.Inlines.Add(new LineBreak());
-                    Log.paragraph.Inlines.Add(new Bold(new Run("Warning: No input file or Framerate not detected.")) { Foreground = Log.ConsoleWarning });
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new Bold(new Run("Warning: No input file or Framerate not detected.")) { Foreground = Log.ConsoleWarning });
                 };
                 Log.LogActions.Add(Log.WriteAction);
 
@@ -2878,9 +2879,9 @@ namespace Axiom
             // Log Console Message /////////
             Log.WriteAction = () =>
             {
-                Log.paragraph.Inlines.Add(new LineBreak());
-                Log.paragraph.Inlines.Add(new Bold(new Run("Filter: ")) { Foreground = Log.ConsoleDefault });
-                Log.paragraph.Inlines.Add(new Run(vFilterSwitch.ToString()) { Foreground = Log.ConsoleDefault });
+                Log.logParagraph.Inlines.Add(new LineBreak());
+                Log.logParagraph.Inlines.Add(new Bold(new Run("Filter: ")) { Foreground = Log.ConsoleDefault });
+                Log.logParagraph.Inlines.Add(new Run(vFilterSwitch.ToString()) { Foreground = Log.ConsoleDefault });
             };
             Log.LogActions.Add(Log.WriteAction);
 
@@ -2935,7 +2936,6 @@ namespace Axiom
                 vQuality = crf + " " + vOptions; //combine
 
                 v2passSwitch = 0;
-                // v2passBatchSwitch = 0;
             }
             // 1 Pass Toggle On (Use Bitrate -b:v)
             else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass")
@@ -2944,7 +2944,6 @@ namespace Axiom
                 vQuality = vBitrate + " " + vOptions; //combine
 
                 v2passSwitch = 0;
-                // v2passBatchSwitch = 0;
             }
             // 2 Pass Toggle On (Use Bitrate -b:v)
             else if ((string)mainwindow.cboPass.SelectedItem == "2 Pass")
@@ -2953,7 +2952,6 @@ namespace Axiom
                 vQuality = vBitrate + " " + vOptions; //combine
 
                 v2passSwitch = 1;
-                // v2passBatchSwitch = 1;
             }
             // auto
             else if ((string)mainwindow.cboPass.SelectedItem == "auto")
@@ -2961,7 +2959,6 @@ namespace Axiom
                 vQuality = vBitrate + " " + vOptions; //combine
 
                 v2passSwitch = 0;
-                // v2passBatchSwitch = 0;
             }
         }
     }

@@ -61,7 +61,6 @@ namespace Axiom
             if ((string)mainwindow.cboVideo.SelectedItem == "None")
             {
                 Video.v2passSwitch = 0;
-                //Video.v2passBatchSwitch = 0;
                 Video.pass1 = string.Empty;
                 Video.pass2 = string.Empty;
             }
@@ -73,7 +72,6 @@ namespace Axiom
                 && (string)mainwindow.cboPass.SelectedItem != "2 Pass")
             {
                 Video.v2passSwitch = 0;
-                //Video.v2passBatchSwitch = 0;
                 Video.pass1 = string.Empty;
                 Video.pass2 = string.Empty;
             }
@@ -83,7 +81,6 @@ namespace Axiom
                 && (string)mainwindow.cboPass.SelectedItem != "2 Pass")
             {
                 Video.v2passSwitch = 0;
-                //Video.v2passBatchSwitch = 0;
                 Video.pass1 = string.Empty;
                 Video.pass2 = string.Empty;
             }
@@ -92,7 +89,6 @@ namespace Axiom
             if ((string)mainwindow.cboVideoCodec.SelectedItem == "Copy")
             {
                 Video.v2passSwitch = 0;
-                //Video.v2passBatchSwitch = 0;
                 Video.pass1 = string.Empty;
                 Video.pass2 = string.Empty;
             }
@@ -219,7 +215,31 @@ namespace Axiom
         /// <summary>
         /// FFmpeg Single File - Generate Args
         /// </summary>
-        public static void FFmpegSingleGenerateArgs(MainWindow mainwindow)
+        public static void FFmpegSingleGenerateArgs(
+            MainWindow mainwindow, 
+            string ffmpeg, 
+            string input, 
+            string vCodec, 
+            string speed, 
+            string vQuality, 
+            string tune, 
+            string fps, 
+            string vFilter, 
+            string options,
+            string optimize,
+            string pass1,
+            string aCodec,
+            string aQuality,
+            string aSamplerate,
+            string aBitDepth,
+            string aChannel,
+            string aFilter,
+            string map,
+            string trim,
+            string threads,
+            string output,
+            string v2pass
+            )
         {
             if (mainwindow.tglBatch.IsChecked == false)
             {
@@ -260,12 +280,12 @@ namespace Axiom
             // Log Console Message /////////
             Log.WriteAction = () =>
             {
-                Log.paragraph.Inlines.Add(new LineBreak());
-                Log.paragraph.Inlines.Add(new LineBreak());
-                Log.paragraph.Inlines.Add(new LineBreak());
-                Log.paragraph.Inlines.Add(new Bold(new Run("FFmpeg Arguments")) { Foreground = Log.ConsoleTitle });
-                Log.paragraph.Inlines.Add(new LineBreak());
-                Log.paragraph.Inlines.Add(new Run(ffmpegArgs) { Foreground = Log.ConsoleDefault });
+                Log.logParagraph.Inlines.Add(new LineBreak());
+                Log.logParagraph.Inlines.Add(new LineBreak());
+                Log.logParagraph.Inlines.Add(new LineBreak());
+                Log.logParagraph.Inlines.Add(new Bold(new Run("FFmpeg Arguments")) { Foreground = Log.ConsoleTitle });
+                Log.logParagraph.Inlines.Add(new LineBreak());
+                Log.logParagraph.Inlines.Add(new Run(ffmpegArgs) { Foreground = Log.ConsoleDefault });
             };
             Log.LogActions.Add(Log.WriteAction);
         }
@@ -275,11 +295,13 @@ namespace Axiom
         /// FFmpeg Single - Convert
         /// </summary>
         // Start FFmpeg Process
-        public static void FFmpegSingleConvert(MainWindow mainwindow)
+        public static void FFmpegSingleConvert(MainWindow mainwindow, string cmdWindow, string currentDir, string ffmpegArgs)
         {
             if (mainwindow.tglBatch.IsChecked == false && MainWindow.script == 0) // if script not clicked, start ffmpeg
             {
-                System.Diagnostics.Process.Start("CMD.exe", /* /c or /k -->*/ cmdWindow + /* needed to start cmd -->*/ "cd " + "\"" + MainWindow.currentDir + "\"" + " && " + /* start ffmpeg commands -->*/ ffmpegArgs);
+                System.Diagnostics.Process.Start(
+                    "CMD.exe", /* /c or /k -->*/ FFmpeg.cmdWindow + /* needed to start cmd -->*/ "cd " + "\"" + MainWindow.currentDir + "\"" + " && " + /* start ffmpeg commands -->*/ FFmpeg.ffmpegArgs
+                    );
             }
         }
 
@@ -293,8 +315,8 @@ namespace Axiom
             {
                 // Replace ( with ^( to avoid Windows 7 CMD Error //important!
                 // This is only used in select areas
-                MainWindow.autoBatchInput = mainwindow.textBoxBrowse.Text.Replace(@"(", "^(");
-                MainWindow.autoBatchInput = MainWindow.autoBatchInput.Replace(@")", "^)");
+                MainWindow.batchInputAuto = mainwindow.textBoxBrowse.Text.Replace(@"(", "^(");
+                MainWindow.batchInputAuto = MainWindow.batchInputAuto.Replace(@")", "^)");
 
 
                 /// <summary>
@@ -314,7 +336,7 @@ namespace Axiom
                 if ((string)mainwindow.cboVideo.SelectedItem == "Auto" 
                     || (string)mainwindow.cboAudio.SelectedItem == "Auto")
                 {
-                    MainWindow.batchFFprobeAuto = FFprobe.ffprobe + " -i " + "\"" + MainWindow.autoBatchInput + "%~f" + "\"";
+                    MainWindow.batchFFprobeAuto = FFprobe.ffprobe + " -i " + "\"" + MainWindow.batchInputAuto + "%~f" + "\"";
                 }
                 // Batch FFprobe Auto Copy
                 // Video [Quality Preset] / Audio [Auto][Copy] - Disable FFprobe
@@ -334,20 +356,19 @@ namespace Axiom
 
 
 
-
                 // Log Console Message /////////
                 Log.WriteAction = () =>
                 {
-                    Log.paragraph.Inlines.Add(new LineBreak());
-                    Log.paragraph.Inlines.Add(new LineBreak());
-                    Log.paragraph.Inlines.Add(new Bold(new Run("Batch: ")) { Foreground = Log.ConsoleDefault });
-                    Log.paragraph.Inlines.Add(new Run(Convert.ToString(mainwindow.tglBatch.IsChecked)) { Foreground = Log.ConsoleDefault });
-                    Log.paragraph.Inlines.Add(new LineBreak());
-                    Log.paragraph.Inlines.Add(new LineBreak());
-                    Log.paragraph.Inlines.Add(new Bold(new Run("Generating Batch Script...")) { Foreground = Log.ConsoleTitle });
-                    Log.paragraph.Inlines.Add(new LineBreak());
-                    Log.paragraph.Inlines.Add(new LineBreak());
-                    Log.paragraph.Inlines.Add(new Bold(new Run("Running Batch Convert...")) { Foreground = Log.ConsoleAction });
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new Bold(new Run("Batch: ")) { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new Run(Convert.ToString(mainwindow.tglBatch.IsChecked)) { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new Bold(new Run("Generating Batch Script...")) { Foreground = Log.ConsoleTitle });
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new Bold(new Run("Running Batch Convert...")) { Foreground = Log.ConsoleAction });
                 };
                 Log.LogActions.Add(Log.WriteAction);
 

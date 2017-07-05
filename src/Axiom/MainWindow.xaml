@@ -232,7 +232,7 @@
         </Button>
 
         <!-- Log Button -->
-        <Button x:Name="buttonLog" HorizontalAlignment="Left" Margin="145,233,0,0" VerticalAlignment="Top" Width="22" Height="22" Cursor="Hand" Click="buttonLog_Click" ToolTip="View the last Output Log" Background="{x:Null}" Style="{DynamicResource ButtonSmallCustom}">
+        <Button x:Name="buttonLog" HorizontalAlignment="Left" Margin="172,233,0,0" VerticalAlignment="Top" Width="22" Height="22" Cursor="Hand" Click="buttonLog_Click" ToolTip="View the last Output Log" Background="{x:Null}" Style="{DynamicResource ButtonSmallCustom}">
             <Image Source="Resources/Images/log.png" Width="9" Height="11" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-1,0,0"/>
         </Button>
 
@@ -240,7 +240,7 @@
         <Button x:Name="buttonScript" Style="{DynamicResource ButtonCustom}" HorizontalAlignment="Left" Margin="425,233,0,0" VerticalAlignment="Top" Width="75" Height="22" Cursor="Hand" Click="buttonScript_Click" ToolTip="Generate FFmpeg Commands">
             <TextBlock x:Name="buttonScriptTextBlock" Text="Script" Margin="0,-2,0,0" />
         </Button>
-        <Button x:Name="buttonCmd" HorizontalAlignment="Left" Margin="172,233,0,0" VerticalAlignment="Top" Width="22" Height="22" Cursor="Hand" Click="buttonCmd_Click" Background="{x:Null}" Style="{DynamicResource ButtonSmallCustom}" ToolTip="Launch Command Prompt">
+        <Button x:Name="buttonCmd" HorizontalAlignment="Left" Margin="199,233,0,0" VerticalAlignment="Top" Width="22" Height="22" Cursor="Hand" Click="buttonCmd_Click" Background="{x:Null}" Style="{DynamicResource ButtonSmallCustom}" ToolTip="Launch Command Prompt">
             <Image Source="Resources/Images/cmd.png" Width="11" Height="11" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0"/>
         </Button>
 
@@ -291,7 +291,7 @@
 
         <!-- Play File -->
         <Label x:Name="labelOptimize" Style="{DynamicResource LabelCustom}" Content="Opt" HorizontalAlignment="Left" Margin="503,155,0,0" VerticalAlignment="Top" Width="28" ToolTip="Optimize file for device type." FontSize="11" FontFamily="Segoe UI Semilight" />
-        <Button x:Name="buttonPlayFile" HorizontalAlignment="Left" Margin="226,233,0,0" VerticalAlignment="Top" Width="22" Height="22" Cursor="Hand" Click="buttonPlayFile_Click" Background="{x:Null}" Style="{DynamicResource ButtonSmallCustom}" ToolTip="Play Converted File">
+        <Button x:Name="buttonPlayFile" HorizontalAlignment="Left" Margin="253,233,0,0" VerticalAlignment="Top" Width="22" Height="22" Cursor="Hand" Click="buttonPlayFile_Click" Background="{x:Null}" Style="{DynamicResource ButtonSmallCustom}" ToolTip="Play Converted File">
             <Image Source="Resources/Images/autoplay.png" Width="11" Height="11" Stretch="None" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="-1,0,0,0"/>
         </Button>
 
@@ -338,7 +338,7 @@
         <!-- Audio Limiter Toggle -->
         <ToggleButton x:Name="tglAudioLimiter" Content="Limit" HorizontalAlignment="Left" Margin="300,128,0,0" VerticalAlignment="Top" Cursor="Hand" ToolTipService.ShowOnDisabled="True" ToolTip="Turn Limiter On or Off" Width="34" Height="22" Style="{DynamicResource ToggleButtonSmall}" Checked="tglAudioLimiter_Checked" Unchecked="tglAudioLimiter_Unchecked"/>
         <TextBox x:Name="audioLimiter" HorizontalAlignment="Left" Height="22" Margin="259,128,0,0" Padding="2, 1, 0, 0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="37" MaxLines="1" MaxLength="11" Style="{DynamicResource TextBoxCustom}" ToolTipService.InitialShowDelay="1000" ToolTipService.ShowOnDisabled="True" ToolTip="Prevents audio from rising over a desired threshold, [0.0625 - 1]." IsEnabled="False"/>
-        <Button x:Name="buttonConsole" HorizontalAlignment="Left" Margin="118,233,0,0" VerticalAlignment="Top" Width="22" Height="22" Cursor="Hand" Click="buttonConsole_Click" Background="{x:Null}" Style="{DynamicResource ButtonSmallCustom}" ToolTip="Show Log Console">
+        <Button x:Name="buttonConsole" HorizontalAlignment="Left" Margin="145,233,0,0" VerticalAlignment="Top" Width="22" Height="22" Cursor="Hand" Click="buttonConsole_Click" Background="{x:Null}" Style="{DynamicResource ButtonSmallCustom}" ToolTip="Show Log Console">
             <Image Source="Resources/Images/logconsole.png" Width="10" Height="11" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0"/>
         </Button>
 
@@ -350,8 +350,11 @@
         <Button x:Name="buttonFileQueue" HorizontalAlignment="Left" Margin="-108,233,0,0" VerticalAlignment="Top" Width="22" Height="22" Cursor="Hand" Background="{x:Null}" Style="{DynamicResource ButtonSmallCustom}" ToolTip="Show File Queue" Click="buttonFileQueue_Click">
             <Image Source="Resources/Images/logconsole.png" Width="10" Height="11" Stretch="Fill" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0"/>
         </Button>
-        <Button x:Name="buttonProperties" HorizontalAlignment="Left" Margin="199,233,0,0" VerticalAlignment="Top" Width="22" Height="22" Cursor="Hand" Click="buttonProperties_Click" Background="{x:Null}" Style="{DynamicResource ButtonSmallCustom}" ToolTip="View File Properties">
+        <Button x:Name="buttonProperties" HorizontalAlignment="Left" Margin="226,233,0,0" VerticalAlignment="Top" Width="22" Height="22" Cursor="Hand" Click="buttonProperties_Click" Background="{x:Null}" Style="{DynamicResource ButtonSmallCustom}" ToolTip="View File Properties">
             <Image Source="Resources/Images/properties.png" Width="10" Height="11" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0"/>
+        </Button>
+        <Button x:Name="buttonDebugConsole" HorizontalAlignment="Left" Margin="118,233,0,0" VerticalAlignment="Top" Width="22" Height="22" Cursor="Hand" Click="buttonDebugConsole_Click" Background="{x:Null}" Style="{DynamicResource ButtonSmallCustom}" ToolTip="Show Debug Console">
+            <Image Source="Resources/Images/debugconsole.png" Width="12" Height="10" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="-1,0,0,0"/>
         </Button>
 
     </Grid>

@@ -448,10 +448,10 @@ namespace Axiom.Properties {
         [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string OptAdvTune {
             get {
-                return ((string)(this["OptAdvTune"]));
+                return ((string)(this["optAdvTune"]));
             }
             set {
-                this["OptAdvTune"] = value;
+                this["optAdvTune"] = value;
             }
         }
         
@@ -460,10 +460,10 @@ namespace Axiom.Properties {
         [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string OptAdvProfile {
             get {
-                return ((string)(this["OptAdvProfile"]));
+                return ((string)(this["optAdvProfile"]));
             }
             set {
-                this["OptAdvProfile"] = value;
+                this["optAdvProfile"] = value;
             }
         }
         
@@ -472,10 +472,10 @@ namespace Axiom.Properties {
         [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string OptAdvLevel {
             get {
-                return ((string)(this["OptAdvLevel"]));
+                return ((string)(this["optAdvLevel"]));
             }
             set {
-                this["OptAdvLevel"] = value;
+                this["optAdvLevel"] = value;
             }
         }
         

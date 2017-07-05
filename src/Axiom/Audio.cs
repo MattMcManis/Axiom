@@ -53,11 +53,11 @@ namespace Axiom
         // Variables
         // --------------------------------------------------------------------------------------------------------
         // Audio
+        //public static int autoCopyAudioCodecSwitch = 0; // If 1, do not run AutoCopy Method again
         public static string aCodec;
         public static string aQuality;
         public static string aBitMode;
         public static string aBitrate;
-        public static string aTrack;
         public static string aChannel;
         public static string aSamplerate;
         public static string aBitDepth;
@@ -1368,9 +1368,9 @@ namespace Axiom
             // Log Console Message /////////
             Log.WriteAction = () =>
             {
-                Log.paragraph.Inlines.Add(new LineBreak());
-                Log.paragraph.Inlines.Add(new Bold(new Run("Codec: ")) { Foreground = Log.ConsoleDefault });
-                Log.paragraph.Inlines.Add(new Run(Convert.ToString(mainwindow.cboAudioCodec.SelectedItem)) { Foreground = Log.ConsoleDefault });
+                Log.logParagraph.Inlines.Add(new LineBreak());
+                Log.logParagraph.Inlines.Add(new Bold(new Run("Codec: ")) { Foreground = Log.ConsoleDefault });
+                Log.logParagraph.Inlines.Add(new Run(Convert.ToString(mainwindow.cboAudioCodec.SelectedItem)) { Foreground = Log.ConsoleDefault });
             };
             Log.LogActions.Add(Log.WriteAction);
         }
@@ -1379,121 +1379,128 @@ namespace Axiom
         /// <summary>
         /// Audio - Auto Codec Copy (Method)
         /// <summary>
-        public static void AutoAudioCodecCopy(MainWindow mainwindow) // Method
+        public static void AutoCopyAudioCodec(MainWindow mainwindow) // Method
         {
-            if (!string.IsNullOrEmpty(MainWindow.inputExt)) // Null Check
-            {
-                // Set Audio Codec Combobox to "Copy" if Input Extension is Same as Output Extension and Audio Quality is Auto
-                if ((string)mainwindow.cboAudio.SelectedItem == "Auto"
-                    && string.Equals(MainWindow.inputExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase)
-                    || mainwindow.tglBatch.IsChecked == true
-                    && (string)mainwindow.cboAudio.SelectedItem == "Auto"
-                    && string.Equals(MainWindow.batchExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase))
+            //if (autoCopyAudioCodecSwitch == 0) // Switch Check
+            //{
+                if (!string.IsNullOrEmpty(MainWindow.inputExt)) // Null Check
                 {
-
-                    // Insert Copy if Does Not Contain
-                    if (!AudioCodecItemSource.Contains("Copy"))
+                    // Set Audio Codec Combobox to "Copy" if Input Extension is Same as Output Extension and Audio Quality is Auto
+                    if ((string)mainwindow.cboAudio.SelectedItem == "Auto"
+                        && string.Equals(MainWindow.inputExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase)
+                        || mainwindow.tglBatch.IsChecked == true
+                        && (string)mainwindow.cboAudio.SelectedItem == "Auto"
+                        && string.Equals(MainWindow.batchExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase))
                     {
-                        AudioCodecItemSource.Insert(0, "Copy");
+
+                        // Insert Copy if Does Not Contain
+                        if (!AudioCodecItemSource.Contains("Copy"))
+                        {
+                            AudioCodecItemSource.Insert(0, "Copy");
+                        }
+                        // Populate ComboBox from ItemSource
+                        mainwindow.cboAudioCodec.ItemsSource = AudioCodecItemSource;
+
+                        mainwindow.cboAudioCodec.SelectedItem = "Copy";
+
+                        // Turn on Switch
+                        // Does not let AutoCopy Method run again
+                        //autoCopyAudioCodecSwitch = 1;
+
+                        // Debug
+                        //System.Windows.MessageBox.Show("Input: " + MainWindow.inputExt);
+                        //System.Windows.MessageBox.Show("Output: " + MainWindow.outputExt);
                     }
-                    // Populate ComboBox from ItemSource
-                    mainwindow.cboAudioCodec.ItemsSource = AudioCodecItemSource;
 
-                    mainwindow.cboAudioCodec.SelectedItem = "Copy";
-
-                    // Debug
-                    //System.Windows.MessageBox.Show("Input: " + MainWindow.inputExt);
-                    //System.Windows.MessageBox.Show("Output: " + MainWindow.outputExt);
-                }
-
-                // Disable Copy if:
-                // Input / Output Extensions don't match
-                // Audio is Not Auto 
-                // VBR is Checked
-                // Samplerate is Not auto
-                // BitDepth is Not auto
-                // Alimiter is Checked
-                // Volume is Not 100
-                //
-                if (AudioCodecItemSource.Contains("Copy")
-                    && !string.Equals(MainWindow.inputExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase)
-                    | !string.Equals(MainWindow.batchExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase))
-                {
-                    // Switch back to format's default codec
+                    // Disable Copy if:
+                    // Input / Output Extensions don't match
+                    // Audio is Not Auto 
+                    // VBR is Checked
+                    // Samplerate is Not auto
+                    // BitDepth is Not auto
+                    // Alimiter is Checked
+                    // Volume is Not 100
                     //
-                    if ((string)mainwindow.cboAudio.SelectedItem != "Auto"
-                        || mainwindow.tglVBR.IsChecked != false
-                        || (string)mainwindow.cboSamplerate.SelectedItem != "auto"
-                        || mainwindow.tglAudioLimiter.IsChecked != false
-                        || !mainwindow.volumeUpDown.Text.ToString().Equals("100"))
+                    if (AudioCodecItemSource.Contains("Copy")
+                        && !string.Equals(MainWindow.inputExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase)
+                        | !string.Equals(MainWindow.batchExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase))
                     {
-                        // VIDEO
+                        // Switch back to format's default codec
                         //
-                        if ((string)mainwindow.cboFormat.SelectedItem == "webm")
+                        if ((string)mainwindow.cboAudio.SelectedItem != "Auto"
+                            || mainwindow.tglVBR.IsChecked != false
+                            || (string)mainwindow.cboSamplerate.SelectedItem != "auto"
+                            || mainwindow.tglAudioLimiter.IsChecked != false
+                            || !mainwindow.volumeUpDown.Text.ToString().Equals("100"))
                         {
-                            mainwindow.cboAudioCodec.SelectedItem = "Vorbis";
+                            // VIDEO
+                            //
+                            if ((string)mainwindow.cboFormat.SelectedItem == "webm")
+                            {
+                                mainwindow.cboAudioCodec.SelectedItem = "Vorbis";
+                            }
+                            else if ((string)mainwindow.cboFormat.SelectedItem == "mp4")
+                            {
+                                mainwindow.cboAudioCodec.SelectedItem = "AAC";
+                            }
+                            else if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
+                            {
+                                //cboAudioCodec.SelectedItem = "AC3"; //ignore mkv, special rules below ??
+                            }
+                            else if ((string)mainwindow.cboFormat.SelectedItem == "ogv")
+                            {
+                                mainwindow.cboAudioCodec.SelectedItem = "Vorbis";
+                            }
+                            // AUDIO
+                            //
+                            if ((string)mainwindow.cboFormat.SelectedItem == "m4a")
+                            {
+                                mainwindow.cboAudioCodec.SelectedItem = "AAC";
+                            }
+                            else if ((string)mainwindow.cboFormat.SelectedItem == "mp3")
+                            {
+                                mainwindow.cboAudioCodec.SelectedItem = "LAME";
+                            }
+                            else if ((string)mainwindow.cboFormat.SelectedItem == "ogg")
+                            {
+                                mainwindow.cboAudioCodec.SelectedItem = "Opus";
+                            }
+                            else if ((string)mainwindow.cboFormat.SelectedItem == "flac")
+                            {
+                                mainwindow.cboAudioCodec.SelectedItem = "FLAC";
+                            }
+                            else if ((string)mainwindow.cboFormat.SelectedItem == "wav")
+                            {
+                                mainwindow.cboAudioCodec.SelectedItem = "PCM";
+                            }
+                            // IMAGE
+                            //
+                            if ((string)mainwindow.cboFormat.SelectedItem == "jpg")
+                            {
+                                mainwindow.cboAudioCodec.SelectedItem = string.Empty;
+                            }
+                            else if ((string)mainwindow.cboFormat.SelectedItem == "png")
+                            {
+                                mainwindow.cboAudioCodec.SelectedItem = string.Empty;
+                            }
                         }
-                        else if ((string)mainwindow.cboFormat.SelectedItem == "mp4")
+                    }
+
+
+                    // Special Rules for MKV
+                    if ((string)mainwindow.cboFormat.SelectedItem == "mkv"
+                        && (string)mainwindow.cboAudioCodec.SelectedItem == "Copy"
+                        && (string)mainwindow.cboAudio.SelectedItem != "Auto")
+                    {
+                        if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
                         {
-                            mainwindow.cboAudioCodec.SelectedItem = "AAC";
-                        }
-                        else if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
-                        {
-                            //cboAudioCodec.SelectedItem = "AC3"; //ignore mkv, special rules below ??
-                        }
-                        else if ((string)mainwindow.cboFormat.SelectedItem == "ogv")
-                        {
-                            mainwindow.cboAudioCodec.SelectedItem = "Vorbis";
-                        }
-                        // AUDIO
-                        //
-                        if ((string)mainwindow.cboFormat.SelectedItem == "m4a")
-                        {
-                            mainwindow.cboAudioCodec.SelectedItem = "AAC";
-                        }
-                        else if ((string)mainwindow.cboFormat.SelectedItem == "mp3")
-                        {
-                            mainwindow.cboAudioCodec.SelectedItem = "LAME";
-                        }
-                        else if ((string)mainwindow.cboFormat.SelectedItem == "ogg")
-                        {
-                            mainwindow.cboAudioCodec.SelectedItem = "Opus";
-                        }
-                        else if ((string)mainwindow.cboFormat.SelectedItem == "flac")
-                        {
-                            mainwindow.cboAudioCodec.SelectedItem = "FLAC";
-                        }
-                        else if ((string)mainwindow.cboFormat.SelectedItem == "wav")
-                        {
-                            mainwindow.cboAudioCodec.SelectedItem = "PCM";
-                        }
-                        // IMAGE
-                        //
-                        if ((string)mainwindow.cboFormat.SelectedItem == "jpg")
-                        {
-                            mainwindow.cboAudioCodec.SelectedItem = string.Empty;
-                        }
-                        else if ((string)mainwindow.cboFormat.SelectedItem == "png")
-                        {
-                            mainwindow.cboAudioCodec.SelectedItem = string.Empty;
+                            mainwindow.cboAudioCodec.SelectedItem = "AC3";
                         }
                     }
                 }
+            //}
 
-
-                // Special Rules for MKV
-                if ((string)mainwindow.cboFormat.SelectedItem == "mkv"
-                    && (string)mainwindow.cboAudioCodec.SelectedItem == "Copy"
-                    && (string)mainwindow.cboAudio.SelectedItem != "Auto")
-                {
-                    if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
-                    {
-                        mainwindow.cboAudioCodec.SelectedItem = "AC3";
-                    }
-                }
-            }
-
-        } // End AutoAudioCodecCopy
+        } // End AutoCopyAudioCodec
 
 
         /// <summary>
@@ -1525,9 +1532,9 @@ namespace Axiom
                 // Log Console Message /////////
                 Log.WriteAction = () =>
                 {
-                    Log.paragraph.Inlines.Add(new LineBreak());
-                    Log.paragraph.Inlines.Add(new Bold(new Run("Bitrate Method: ")) { Foreground = Log.ConsoleDefault });
-                    Log.paragraph.Inlines.Add(new Run("VBR") { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new Bold(new Run("Bitrate Method: ")) { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new Run("VBR") { Foreground = Log.ConsoleDefault });
                 };
                 Log.LogActions.Add(Log.WriteAction);
             }
@@ -1551,9 +1558,9 @@ namespace Axiom
                 // Log Console Message /////////
                 Log.WriteAction = () =>
                 {
-                    Log.paragraph.Inlines.Add(new LineBreak());
-                    Log.paragraph.Inlines.Add(new Bold(new Run("Bitrate Method: ")) { Foreground = Log.ConsoleDefault });
-                    Log.paragraph.Inlines.Add(new Run("CBR") { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new Bold(new Run("Bitrate Method: ")) { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new Run("CBR") { Foreground = Log.ConsoleDefault });
                 };
                 Log.LogActions.Add(Log.WriteAction);
             }
@@ -1568,7 +1575,7 @@ namespace Axiom
         public static void AudioBitrateCalculator(MainWindow mainwindow)
         {
             // set to FFprobe's result
-            FFprobe.inputAudioBitrate = FFprobe.ffprobeAudioBitrateResult.Replace("\r\n", "").Replace("\n", "").Replace("\r", "");
+            //FFprobe.inputAudioBitrate = FFprobe.resultAudioBitrate.Replace("\r\n", "").Replace("\n", "").Replace("\r", "");
 
             // If Video is Mute, don't set Audio Bitrate
             if (string.IsNullOrEmpty(FFprobe.inputAudioBitrate))
@@ -1637,9 +1644,9 @@ namespace Axiom
             // Log Console Message /////////
             Log.WriteAction = () =>
             {
-                Log.paragraph.Inlines.Add(new LineBreak());
-                Log.paragraph.Inlines.Add(new Bold(new Run("Quality: ")) { Foreground = Log.ConsoleDefault });
-                Log.paragraph.Inlines.Add(new Run(Convert.ToString(mainwindow.cboAudio.SelectedItem)) { Foreground = Log.ConsoleDefault });
+                Log.logParagraph.Inlines.Add(new LineBreak());
+                Log.logParagraph.Inlines.Add(new Bold(new Run("Quality: ")) { Foreground = Log.ConsoleDefault });
+                Log.logParagraph.Inlines.Add(new Run(Convert.ToString(mainwindow.cboAudio.SelectedItem)) { Foreground = Log.ConsoleDefault });
             };
             Log.LogActions.Add(Log.WriteAction);
 
@@ -1657,9 +1664,9 @@ namespace Axiom
 
                     Log.WriteAction = () =>
                     {
-                        Log.paragraph.Inlines.Add(new LineBreak());
-                        Log.paragraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
-                        Log.paragraph.Inlines.Add(new Run("") { Foreground = Log.ConsoleDefault });
+                        Log.logParagraph.Inlines.Add(new LineBreak());
+                        Log.logParagraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
+                        Log.logParagraph.Inlines.Add(new Run("") { Foreground = Log.ConsoleDefault });
                     };
                     Log.LogActions.Add(Log.WriteAction);
                 }
@@ -1673,9 +1680,9 @@ namespace Axiom
 
                     Log.WriteAction = () =>
                     {
-                        Log.paragraph.Inlines.Add(new LineBreak());
-                        Log.paragraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
-                        Log.paragraph.Inlines.Add(new Run(FFprobe.inputAudioBitrate) { Foreground = Log.ConsoleDefault });
+                        Log.logParagraph.Inlines.Add(new LineBreak());
+                        Log.logParagraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
+                        Log.logParagraph.Inlines.Add(new Run(FFprobe.inputAudioBitrate) { Foreground = Log.ConsoleDefault });
                     };
                     Log.LogActions.Add(Log.WriteAction);
                 }
@@ -1692,9 +1699,9 @@ namespace Axiom
 
                         Log.WriteAction = () =>
                         {
-                            Log.paragraph.Inlines.Add(new LineBreak());
-                            Log.paragraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
-                            Log.paragraph.Inlines.Add(new Run("320k") { Foreground = Log.ConsoleDefault });
+                            Log.logParagraph.Inlines.Add(new LineBreak());
+                            Log.logParagraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
+                            Log.logParagraph.Inlines.Add(new Run("320k") { Foreground = Log.ConsoleDefault });
                         };
                         Log.LogActions.Add(Log.WriteAction);
                     }
@@ -1714,7 +1721,7 @@ namespace Axiom
                     // Batch CMD Detect
                     if ((string)mainwindow.cboAudio.SelectedItem == "Auto")
                     {
-                        batchAudioAuto = "-select_streams a:0 -show_entries " + FFprobe.aEntryType + " -v quiet -of csv=\"p=0\" & for /f \"tokens=*\" %A in (" + "\"" + FFprobe.ffprobe + " -i " + "\"" + MainWindow.autoBatchInput + "%~f" + "\"" + " -select_streams a:0 -show_entries " + FFprobe.aEntryType + " -v quiet -of csv=p=0\") do (echo ) & (%A > tmp_aBitrate) & SET /p aBitrate= < tmp_aBitrate & del tmp_aBitrate & for /F %A in ('echo %aBitrate%') do echo %A & (if %A EQU N/A (set aBitrate=320000)) & for /F %A in ('echo %aBitrate%') do echo %A &";
+                        batchAudioAuto = "-select_streams a:0 -show_entries " + FFprobe.aEntryType + " -v quiet -of csv=\"p=0\" & for /f \"tokens=*\" %A in (" + "\"" + FFprobe.ffprobe + " -i " + "\"" + MainWindow.batchInputAuto + "%~f" + "\"" + " -select_streams a:0 -show_entries " + FFprobe.aEntryType + " -v quiet -of csv=p=0\") do (echo ) & (%A > tmp_aBitrate) & SET /p aBitrate= < tmp_aBitrate & del tmp_aBitrate & for /F %A in ('echo %aBitrate%') do echo %A & (if %A EQU N/A (set aBitrate=320000)) & for /F %A in ('echo %aBitrate%') do echo %A &";
                     }
                     // Batch Audio Copy
                     if ((string)mainwindow.cboAudioCodec.SelectedItem == "Copy")
@@ -1794,9 +1801,9 @@ namespace Axiom
 
                 Log.WriteAction = () =>
                 {
-                    Log.paragraph.Inlines.Add(new LineBreak());
-                    Log.paragraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
-                    Log.paragraph.Inlines.Add(new Run(aBitrate) { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new Run(aBitrate) { Foreground = Log.ConsoleDefault });
                 };
                 Log.LogActions.Add(Log.WriteAction);
 
@@ -1818,9 +1825,9 @@ namespace Axiom
                 {
                     Log.WriteAction = () =>
                     {
-                        Log.paragraph.Inlines.Add(new LineBreak());
-                        Log.paragraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
-                        Log.paragraph.Inlines.Add(new Run("CBR " + mainwindow.cboAudio.SelectedItem + " to VBR " + aBitrate) { Foreground = Log.ConsoleDefault });
+                        Log.logParagraph.Inlines.Add(new LineBreak());
+                        Log.logParagraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
+                        Log.logParagraph.Inlines.Add(new Run("CBR " + mainwindow.cboAudio.SelectedItem + " to VBR " + aBitrate) { Foreground = Log.ConsoleDefault });
                     };
                     Log.LogActions.Add(Log.WriteAction);
                 }
@@ -1842,9 +1849,9 @@ namespace Axiom
                 {
                     Log.WriteAction = () =>
                     {
-                        Log.paragraph.Inlines.Add(new LineBreak());
-                        Log.paragraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
-                        Log.paragraph.Inlines.Add(new Run("CBR " + mainwindow.cboAudio.SelectedItem + " to VBR " + aBitrate) { Foreground = Log.ConsoleDefault });
+                        Log.logParagraph.Inlines.Add(new LineBreak());
+                        Log.logParagraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
+                        Log.logParagraph.Inlines.Add(new Run("CBR " + mainwindow.cboAudio.SelectedItem + " to VBR " + aBitrate) { Foreground = Log.ConsoleDefault });
                     };
                     Log.LogActions.Add(Log.WriteAction);
                 }
@@ -1866,9 +1873,9 @@ namespace Axiom
                 {
                     Log.WriteAction = () =>
                     {
-                        Log.paragraph.Inlines.Add(new LineBreak());
-                        Log.paragraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
-                        Log.paragraph.Inlines.Add(new Run("CBR " + mainwindow.cboAudio.SelectedItem + " to VBR " + aBitrate) { Foreground = Log.ConsoleDefault });
+                        Log.logParagraph.Inlines.Add(new LineBreak());
+                        Log.logParagraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
+                        Log.logParagraph.Inlines.Add(new Run("CBR " + mainwindow.cboAudio.SelectedItem + " to VBR " + aBitrate) { Foreground = Log.ConsoleDefault });
                     };
                     Log.LogActions.Add(Log.WriteAction);
                 }
@@ -1890,9 +1897,9 @@ namespace Axiom
                 {
                     Log.WriteAction = () =>
                     {
-                        Log.paragraph.Inlines.Add(new LineBreak());
-                        Log.paragraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
-                        Log.paragraph.Inlines.Add(new Run("CBR " + mainwindow.cboAudio.SelectedItem + " to VBR " + aBitrate) { Foreground = Log.ConsoleDefault });
+                        Log.logParagraph.Inlines.Add(new LineBreak());
+                        Log.logParagraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
+                        Log.logParagraph.Inlines.Add(new Run("CBR " + mainwindow.cboAudio.SelectedItem + " to VBR " + aBitrate) { Foreground = Log.ConsoleDefault });
                     };
                     Log.LogActions.Add(Log.WriteAction);
                 }
@@ -1914,9 +1921,9 @@ namespace Axiom
                 {
                     Log.WriteAction = () =>
                     {
-                        Log.paragraph.Inlines.Add(new LineBreak());
-                        Log.paragraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
-                        Log.paragraph.Inlines.Add(new Run("CBR " + mainwindow.cboAudio.SelectedItem + " to VBR " + aBitrate) { Foreground = Log.ConsoleDefault });
+                        Log.logParagraph.Inlines.Add(new LineBreak());
+                        Log.logParagraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
+                        Log.logParagraph.Inlines.Add(new Run("CBR " + mainwindow.cboAudio.SelectedItem + " to VBR " + aBitrate) { Foreground = Log.ConsoleDefault });
                     };
                     Log.LogActions.Add(Log.WriteAction);
                 }
@@ -1944,9 +1951,9 @@ namespace Axiom
                 {
                     Log.WriteAction = () =>
                     {
-                        Log.paragraph.Inlines.Add(new LineBreak());
-                        Log.paragraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
-                        Log.paragraph.Inlines.Add(new Run("CBR " + mainwindow.cboAudio.SelectedItem + " to VBR " + aBitrate) { Foreground = Log.ConsoleDefault });
+                        Log.logParagraph.Inlines.Add(new LineBreak());
+                        Log.logParagraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
+                        Log.logParagraph.Inlines.Add(new Run("CBR " + mainwindow.cboAudio.SelectedItem + " to VBR " + aBitrate) { Foreground = Log.ConsoleDefault });
                     };
                     Log.LogActions.Add(Log.WriteAction);
                 }
@@ -1974,9 +1981,9 @@ namespace Axiom
                 {
                     Log.WriteAction = () =>
                     {
-                        Log.paragraph.Inlines.Add(new LineBreak());
-                        Log.paragraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
-                        Log.paragraph.Inlines.Add(new Run("CBR " + mainwindow.cboAudio.SelectedItem + " to VBR " + aBitrate) { Foreground = Log.ConsoleDefault });
+                        Log.logParagraph.Inlines.Add(new LineBreak());
+                        Log.logParagraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
+                        Log.logParagraph.Inlines.Add(new Run("CBR " + mainwindow.cboAudio.SelectedItem + " to VBR " + aBitrate) { Foreground = Log.ConsoleDefault });
                     };
                     Log.LogActions.Add(Log.WriteAction);
                 }
@@ -2004,9 +2011,9 @@ namespace Axiom
                 {
                     Log.WriteAction = () =>
                     {
-                        Log.paragraph.Inlines.Add(new LineBreak());
-                        Log.paragraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
-                        Log.paragraph.Inlines.Add(new Run("CBR " + mainwindow.cboAudio.SelectedItem + " to VBR " + aBitrate) { Foreground = Log.ConsoleDefault });
+                        Log.logParagraph.Inlines.Add(new LineBreak());
+                        Log.logParagraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
+                        Log.logParagraph.Inlines.Add(new Run("CBR " + mainwindow.cboAudio.SelectedItem + " to VBR " + aBitrate) { Foreground = Log.ConsoleDefault });
                     };
                     Log.LogActions.Add(Log.WriteAction);
                 }
@@ -2034,9 +2041,9 @@ namespace Axiom
                 {
                     Log.WriteAction = () =>
                     {
-                        Log.paragraph.Inlines.Add(new LineBreak());
-                        Log.paragraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
-                        Log.paragraph.Inlines.Add(new Run("CBR " + mainwindow.cboAudio.SelectedItem + " to VBR " + aBitrate) { Foreground = Log.ConsoleDefault });
+                        Log.logParagraph.Inlines.Add(new LineBreak());
+                        Log.logParagraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
+                        Log.logParagraph.Inlines.Add(new Run("CBR " + mainwindow.cboAudio.SelectedItem + " to VBR " + aBitrate) { Foreground = Log.ConsoleDefault });
                     };
                     Log.LogActions.Add(Log.WriteAction);
                 }
@@ -2064,9 +2071,9 @@ namespace Axiom
                 {
                     Log.WriteAction = () =>
                     {
-                        Log.paragraph.Inlines.Add(new LineBreak());
-                        Log.paragraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
-                        Log.paragraph.Inlines.Add(new Run("CBR " + mainwindow.cboAudio.SelectedItem + " to VBR " + aBitrate) { Foreground = Log.ConsoleDefault });
+                        Log.logParagraph.Inlines.Add(new LineBreak());
+                        Log.logParagraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
+                        Log.logParagraph.Inlines.Add(new Run("CBR " + mainwindow.cboAudio.SelectedItem + " to VBR " + aBitrate) { Foreground = Log.ConsoleDefault });
                     };
                     Log.LogActions.Add(Log.WriteAction);
                 }
@@ -2094,9 +2101,9 @@ namespace Axiom
                 {
                     Log.WriteAction = () =>
                     {
-                        Log.paragraph.Inlines.Add(new LineBreak());
-                        Log.paragraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
-                        Log.paragraph.Inlines.Add(new Run("CBR " + mainwindow.cboAudio.SelectedItem + " to VBR " + aBitrate) { Foreground = Log.ConsoleDefault });
+                        Log.logParagraph.Inlines.Add(new LineBreak());
+                        Log.logParagraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
+                        Log.logParagraph.Inlines.Add(new Run("CBR " + mainwindow.cboAudio.SelectedItem + " to VBR " + aBitrate) { Foreground = Log.ConsoleDefault });
                     };
                     Log.LogActions.Add(Log.WriteAction);
                 }
@@ -2124,9 +2131,9 @@ namespace Axiom
                 {
                     Log.WriteAction = () =>
                     {
-                        Log.paragraph.Inlines.Add(new LineBreak());
-                        Log.paragraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
-                        Log.paragraph.Inlines.Add(new Run("CBR " + mainwindow.cboAudio.SelectedItem + " to VBR " + aBitrate) { Foreground = Log.ConsoleDefault });
+                        Log.logParagraph.Inlines.Add(new LineBreak());
+                        Log.logParagraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
+                        Log.logParagraph.Inlines.Add(new Run("CBR " + mainwindow.cboAudio.SelectedItem + " to VBR " + aBitrate) { Foreground = Log.ConsoleDefault });
                     };
                     Log.LogActions.Add(Log.WriteAction);
                 }
@@ -2172,9 +2179,9 @@ namespace Axiom
                     // Log Console Message /////////
                     Log.WriteAction = () =>
                     {
-                        Log.paragraph.Inlines.Add(new LineBreak());
-                        Log.paragraph.Inlines.Add(new Bold(new Run("AAC: ")) { Foreground = Log.ConsoleDefault });
-                        Log.paragraph.Inlines.Add(new Run("CBR " + aBitrate + " to ") { Foreground = Log.ConsoleDefault });
+                        Log.logParagraph.Inlines.Add(new LineBreak());
+                        Log.logParagraph.Inlines.Add(new Bold(new Run("AAC: ")) { Foreground = Log.ConsoleDefault });
+                        Log.logParagraph.Inlines.Add(new Run("CBR " + aBitrate + " to ") { Foreground = Log.ConsoleDefault });
                     };
                     Log.LogActions.Add(Log.WriteAction);
 
@@ -2187,9 +2194,9 @@ namespace Axiom
                         // Log Console Message /////////
                         Log.WriteAction = () =>
                         {
-                            Log.paragraph.Inlines.Add(new LineBreak());
-                            Log.paragraph.Inlines.Add(new LineBreak());
-                            Log.paragraph.Inlines.Add(new Bold(new Run("Warning: AAC VBR cannot be above 400k.")) { Foreground = Log.ConsoleWarning });
+                            Log.logParagraph.Inlines.Add(new LineBreak());
+                            Log.logParagraph.Inlines.Add(new LineBreak());
+                            Log.logParagraph.Inlines.Add(new Bold(new Run("Warning: AAC VBR cannot be above 400k.")) { Foreground = Log.ConsoleWarning });
                         };
                         Log.LogActions.Add(Log.WriteAction);
 
@@ -2200,7 +2207,7 @@ namespace Axiom
                     // Log Console Message /////////
                     Log.WriteAction = () =>
                     {
-                        Log.paragraph.Inlines.Add(new Run("VBR " + aBitrate) { Foreground = Log.ConsoleDefault });
+                        Log.logParagraph.Inlines.Add(new Run("VBR " + aBitrate) { Foreground = Log.ConsoleDefault });
                     };
                     Log.LogActions.Add(Log.WriteAction);
                 }
@@ -2217,9 +2224,9 @@ namespace Axiom
                     // Log Console Message /////////
                     Log.WriteAction = () =>
                     {
-                        Log.paragraph.Inlines.Add(new LineBreak());
-                        Log.paragraph.Inlines.Add(new Bold(new Run("Vorbis: ")) { Foreground = Log.ConsoleDefault });
-                        Log.paragraph.Inlines.Add(new Run("CBR " + aBitrate + " to ") { Foreground = Log.ConsoleDefault });
+                        Log.logParagraph.Inlines.Add(new LineBreak());
+                        Log.logParagraph.Inlines.Add(new Bold(new Run("Vorbis: ")) { Foreground = Log.ConsoleDefault });
+                        Log.logParagraph.Inlines.Add(new Run("CBR " + aBitrate + " to ") { Foreground = Log.ConsoleDefault });
                     };
                     Log.LogActions.Add(Log.WriteAction);
 
@@ -2255,7 +2262,7 @@ namespace Axiom
                     // Log Console Message /////////
                     Log.WriteAction = () =>
                     {
-                        Log.paragraph.Inlines.Add(new Run("VBR " + aBitrate) { Foreground = Log.ConsoleDefault });
+                        Log.logParagraph.Inlines.Add(new Run("VBR " + aBitrate) { Foreground = Log.ConsoleDefault });
                     };
                     Log.LogActions.Add(Log.WriteAction);
                 }
@@ -2268,9 +2275,9 @@ namespace Axiom
                     // Log Console Message /////////
                     Log.WriteAction = () =>
                     {
-                        Log.paragraph.Inlines.Add(new LineBreak());
-                        Log.paragraph.Inlines.Add(new Bold(new Run("LAME: ")) { Foreground = Log.ConsoleDefault });
-                        Log.paragraph.Inlines.Add(new Run("CBR " + aBitrate + " to ") { Foreground = Log.ConsoleDefault });
+                        Log.logParagraph.Inlines.Add(new LineBreak());
+                        Log.logParagraph.Inlines.Add(new Bold(new Run("LAME: ")) { Foreground = Log.ConsoleDefault });
+                        Log.logParagraph.Inlines.Add(new Run("CBR " + aBitrate + " to ") { Foreground = Log.ConsoleDefault });
                     };
                     Log.LogActions.Add(Log.WriteAction);
 
@@ -2288,7 +2295,7 @@ namespace Axiom
                     // Log Console Message /////////
                     Log.WriteAction = () =>
                     {
-                        Log.paragraph.Inlines.Add(new Run("VBR " + aBitrate) { Foreground = Log.ConsoleDefault });
+                        Log.logParagraph.Inlines.Add(new Run("VBR " + aBitrate) { Foreground = Log.ConsoleDefault });
                     };
                     Log.LogActions.Add(Log.WriteAction);
                 }
@@ -2344,9 +2351,9 @@ namespace Axiom
             // Log Console Message /////////
             Log.WriteAction = () =>
             {
-                Log.paragraph.Inlines.Add(new LineBreak());
-                Log.paragraph.Inlines.Add(new Bold(new Run("Channel: ")) { Foreground = Log.ConsoleDefault });
-                Log.paragraph.Inlines.Add(new Run(mainwindow.cboChannel.Text.ToString()) { Foreground = Log.ConsoleDefault });
+                Log.logParagraph.Inlines.Add(new LineBreak());
+                Log.logParagraph.Inlines.Add(new Bold(new Run("Channel: ")) { Foreground = Log.ConsoleDefault });
+                Log.logParagraph.Inlines.Add(new Run(mainwindow.cboChannel.Text.ToString()) { Foreground = Log.ConsoleDefault });
             };
             Log.LogActions.Add(Log.WriteAction);
         }
@@ -2413,9 +2420,9 @@ namespace Axiom
             // Log Console Message /////////
             Log.WriteAction = () =>
             {
-                Log.paragraph.Inlines.Add(new LineBreak());
-                Log.paragraph.Inlines.Add(new Bold(new Run("Sample Rate: ")) { Foreground = Log.ConsoleDefault });
-                Log.paragraph.Inlines.Add(new Run(mainwindow.cboSamplerate.Text.ToString()) { Foreground = Log.ConsoleDefault });
+                Log.logParagraph.Inlines.Add(new LineBreak());
+                Log.logParagraph.Inlines.Add(new Bold(new Run("Sample Rate: ")) { Foreground = Log.ConsoleDefault });
+                Log.logParagraph.Inlines.Add(new Run(mainwindow.cboSamplerate.Text.ToString()) { Foreground = Log.ConsoleDefault });
             };
             Log.LogActions.Add(Log.WriteAction);
         }
@@ -2476,9 +2483,9 @@ namespace Axiom
             // Log Console Message /////////
             Log.WriteAction = () =>
             {
-                Log.paragraph.Inlines.Add(new LineBreak());
-                Log.paragraph.Inlines.Add(new Bold(new Run("Bit Depth: ")) { Foreground = Log.ConsoleDefault });
-                Log.paragraph.Inlines.Add(new Run(mainwindow.cboBitDepth.SelectedItem.ToString()) { Foreground = Log.ConsoleDefault });
+                Log.logParagraph.Inlines.Add(new LineBreak());
+                Log.logParagraph.Inlines.Add(new Bold(new Run("Bit Depth: ")) { Foreground = Log.ConsoleDefault });
+                Log.logParagraph.Inlines.Add(new Run(mainwindow.cboBitDepth.SelectedItem.ToString()) { Foreground = Log.ConsoleDefault });
             };
             Log.LogActions.Add(Log.WriteAction);
         }
@@ -2518,9 +2525,9 @@ namespace Axiom
             // Log Console Message /////////
             Log.WriteAction = () =>
             {
-                Log.paragraph.Inlines.Add(new LineBreak());
-                Log.paragraph.Inlines.Add(new Bold(new Run("Volume: ")) { Foreground = Log.ConsoleDefault });
-                Log.paragraph.Inlines.Add(new Run(mainwindow.volumeUpDown.Text.ToString()) { Foreground = Log.ConsoleDefault });
+                Log.logParagraph.Inlines.Add(new LineBreak());
+                Log.logParagraph.Inlines.Add(new Bold(new Run("Volume: ")) { Foreground = Log.ConsoleDefault });
+                Log.logParagraph.Inlines.Add(new Run(mainwindow.volumeUpDown.Text.ToString()) { Foreground = Log.ConsoleDefault });
             };
             Log.LogActions.Add(Log.WriteAction);
         }
@@ -2539,9 +2546,9 @@ namespace Axiom
                 // Log Console Message /////////
                 Log.WriteAction = () =>
                 {
-                    Log.paragraph.Inlines.Add(new LineBreak());
-                    Log.paragraph.Inlines.Add(new Bold(new Run("alimiter Toggle: ")) { Foreground = Log.ConsoleDefault });
-                    Log.paragraph.Inlines.Add(new Run("On") { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new Bold(new Run("alimiter Toggle: ")) { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new Run("On") { Foreground = Log.ConsoleDefault });
                 };
                 Log.LogActions.Add(Log.WriteAction);
 
@@ -2556,9 +2563,9 @@ namespace Axiom
                 // Log Console Message /////////
                 Log.WriteAction = () =>
                 {
-                    Log.paragraph.Inlines.Add(new LineBreak());
-                    Log.paragraph.Inlines.Add(new Bold(new Run("alimiter Toggle: ")) { Foreground = Log.ConsoleDefault });
-                    Log.paragraph.Inlines.Add(new Run("Off") { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new Bold(new Run("alimiter Toggle: ")) { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new Run("Off") { Foreground = Log.ConsoleDefault });
                 };
                 Log.LogActions.Add(Log.WriteAction);
 
@@ -2593,9 +2600,9 @@ namespace Axiom
             // Log Console Message /////////
             Log.WriteAction = () =>
             {
-                Log.paragraph.Inlines.Add(new LineBreak());
-                Log.paragraph.Inlines.Add(new Bold(new Run("Filter: ")) { Foreground = Log.ConsoleDefault });
-                Log.paragraph.Inlines.Add(new Run(aFilterSwitch.ToString()) { Foreground = Log.ConsoleDefault });
+                Log.logParagraph.Inlines.Add(new LineBreak());
+                Log.logParagraph.Inlines.Add(new Bold(new Run("Filter: ")) { Foreground = Log.ConsoleDefault });
+                Log.logParagraph.Inlines.Add(new Run(aFilterSwitch.ToString()) { Foreground = Log.ConsoleDefault });
             };
             Log.LogActions.Add(Log.WriteAction);
 

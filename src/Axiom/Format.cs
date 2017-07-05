@@ -67,17 +67,30 @@ namespace Axiom
         // --------------------------------------------------------------------------------------------------------
 
         /// <summary>
+        /// Get Output Extension (Method)
+        /// </summary>
+        public static void GetOutputExt(MainWindow mainwindow)
+        {
+            // Output Extension is Select ComboBox
+            MainWindow.outputExt = "." + mainwindow.cboFormat.SelectedItem.ToString();
+        }
+
+
+        /// <summary>
         /// File Output Format (Method)
         /// </summary>
-        // Output Control Selections
-        public static void fileOutputFormat(MainWindow mainwindow)
+            // Output Control Selections
+        public static void OuputFormatDefaults(MainWindow mainwindow)
         {
+            // Get Output Extension (Method)
+            Format.GetOutputExt(mainwindow);
+
             // -------------------------
             // Output Format Container Rules
             // -------------------------
             if ((string)mainwindow.cboFormat.SelectedItem == "webm")
             {
-                MainWindow.outputExt = ".webm";
+                //MainWindow.outputExt = ".webm";
                 mainwindow.cboMediaType.SelectedItem = "Video";
                 mainwindow.cboMediaType.IsEnabled = false;
                 Video.options = string.Empty;
@@ -91,7 +104,7 @@ namespace Axiom
             }
             else if ((string)mainwindow.cboFormat.SelectedItem == "mp4")
             {
-                MainWindow.outputExt = ".mp4";
+                //MainWindow.outputExt = ".mp4";
                 mainwindow.cboMediaType.SelectedItem = "Video";
                 mainwindow.cboMediaType.IsEnabled = false;
                 Video.options = string.Empty;
@@ -104,7 +117,7 @@ namespace Axiom
             }
             else if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
             {
-                MainWindow.outputExt = ".mkv";
+                //MainWindow.outputExt = ".mkv";
                 mainwindow.cboMediaType.SelectedItem = "Video";
                 mainwindow.cboMediaType.IsEnabled = false;
                 Video.options = string.Empty;
@@ -116,7 +129,7 @@ namespace Axiom
             }
             else if ((string)mainwindow.cboFormat.SelectedItem == "ogv")
             {
-                MainWindow.outputExt = ".ogv";
+                //MainWindow.outputExt = ".ogv";
                 mainwindow.cboMediaType.SelectedItem = "Video";
                 mainwindow.cboMediaType.IsEnabled = false;
                 Video.options = string.Empty;
@@ -128,7 +141,7 @@ namespace Axiom
             }
             else if ((string)mainwindow.cboFormat.SelectedItem == "gif")
             {
-                MainWindow.outputExt = ".gif";
+                //MainWindow.outputExt = ".gif";
                 mainwindow.cboMediaType.SelectedItem = "Image";
                 mainwindow.cboMediaType.IsEnabled = true;
                 Video.vCodec = string.Empty;
@@ -142,7 +155,7 @@ namespace Axiom
             }
             else if ((string)mainwindow.cboFormat.SelectedItem == "mp3")
             {
-                MainWindow.outputExt = ".mp3";
+                //MainWindow.outputExt = ".mp3";
                 mainwindow.cboMediaType.SelectedItem = "Audio";
                 mainwindow.cboMediaType.IsEnabled = false;
                 Video.options = string.Empty;
@@ -155,7 +168,7 @@ namespace Axiom
             }
             else if ((string)mainwindow.cboFormat.SelectedItem == "m4a")
             {
-                MainWindow.outputExt = ".m4a";
+                //MainWindow.outputExt = ".m4a";
                 mainwindow.cboMediaType.SelectedItem = "Audio";
                 mainwindow.cboMediaType.IsEnabled = false;
                 Video.options = string.Empty;
@@ -168,7 +181,7 @@ namespace Axiom
             }
             else if ((string)mainwindow.cboFormat.SelectedItem == "ogg")
             {
-                MainWindow.outputExt = ".ogg";
+                //MainWindow.outputExt = ".ogg";
                 mainwindow.cboMediaType.SelectedItem = "Audio";
                 mainwindow.cboMediaType.IsEnabled = false;
                 Video.options = string.Empty;
@@ -181,7 +194,7 @@ namespace Axiom
             }
             else if ((string)mainwindow.cboFormat.SelectedItem == "flac")
             {
-                MainWindow.outputExt = ".flac";
+                //MainWindow.outputExt = ".flac";
                 mainwindow.cboMediaType.SelectedItem = "Audio";
                 mainwindow.cboMediaType.IsEnabled = false;
                 Video.options = string.Empty;
@@ -192,7 +205,7 @@ namespace Axiom
             }
             else if ((string)mainwindow.cboFormat.SelectedItem == "wav")
             {
-                MainWindow.outputExt = ".wav";
+                //MainWindow.outputExt = ".wav";
                 mainwindow.cboMediaType.SelectedItem = "Audio";
                 mainwindow.cboMediaType.IsEnabled = false;
                 Video.options = string.Empty;
@@ -202,7 +215,7 @@ namespace Axiom
             }
             else if ((string)mainwindow.cboFormat.SelectedItem == "jpg")
             {
-                MainWindow.outputExt = ".jpg";
+                //MainWindow.outputExt = ".jpg";
                 // Media Type Combobox ///////
                 // Remove all other options but Image and Sequence
                 MediaTypeItemSource = new List<string>() { "Image", "Sequence" };
@@ -223,7 +236,7 @@ namespace Axiom
             }
             else if ((string)mainwindow.cboFormat.SelectedItem == "png")
             {
-                MainWindow.outputExt = ".png";
+                //MainWindow.outputExt = ".png";
                 // Media Type Combobox ///////
                 // Remove all other options but Image and Sequence
                 MediaTypeItemSource = new List<string>() { "Image", "Sequence" };
@@ -251,7 +264,7 @@ namespace Axiom
         /// </summary>
         // On Format Combobox Change
         // Output ComboBox Options
-        public static void fileFormat(MainWindow mainwindow)
+        public static void OutputFormat(MainWindow mainwindow)
         {
             // Reset MediaType ComboBox back to Default if not jpg/png and does not contain video/audio (must be above other format options)
             if ((string)mainwindow.cboFormat.SelectedItem != "jpg" 
@@ -556,10 +569,10 @@ namespace Axiom
             Audio.AudioCodecControls(mainwindow);
 
             // Set Video & Audio Codec Combobox to "Copy" if Input Extension is Same as Output Extension and Video Quality is Auto
-            Video.AutoVideoCodecCopy(mainwindow);
-            Audio.AutoAudioCodecCopy(mainwindow);
+            Video.AutoCopyVideoCodec(mainwindow);
+            Audio.AutoCopyAudioCodec(mainwindow);
 
-        } // end fileFormat() method
+        } // end OutputFormat() method
 
 
 
@@ -754,7 +767,6 @@ namespace Axiom
 
                 // Volume
                 mainwindow.volumeUpDown.IsEnabled = false;
-                //mainwindow.volumeUpDown.Foreground = MainWindow.TextBoxDiabledForeground;
                 mainwindow.volumeUpButton.IsEnabled = false;
                 mainwindow.volumeDownButton.IsEnabled = false;
 
@@ -851,10 +863,6 @@ namespace Axiom
                 mainwindow.frameStart.IsEnabled = false;
                 mainwindow.frameEnd.IsEnabled = false;
 
-                // TextBox Color
-                //mainwindow.frameStart.Foreground = MainWindow.TextBoxDiabledForeground;
-                //mainwindow.frameEnd.Foreground = MainWindow.TextBoxDiabledForeground;
-
                 // Reset Text
                 mainwindow.frameStart.Text = "Frame";
                 mainwindow.frameEnd.Text = "Range";
@@ -866,10 +874,6 @@ namespace Axiom
             //
             else if ((string)mainwindow.cboCut.SelectedItem == "Yes")
             {
-                // TextBox Color
-                //mainwindow.frameStart.Foreground = MainWindow.TextBoxDarkBlue;
-                //mainwindow.frameEnd.Foreground = MainWindow.TextBoxDarkBlue;
-
                 // Frames
                 if ((string)mainwindow.cboMediaType.SelectedItem == "Video") // only for video
                 {
@@ -900,10 +904,6 @@ namespace Axiom
                     // Frames
                     mainwindow.frameStart.IsEnabled = false;
                     mainwindow.frameEnd.IsEnabled = false;
-
-                    // TextBox Color
-                    //mainwindow.frameStart.Foreground = MainWindow.TextBoxDiabledForeground;
-                    //mainwindow.frameEnd.Foreground = MainWindow.TextBoxDiabledForeground;
 
                     // Text
                     mainwindow.frameStart.Text = "Frame";
@@ -969,14 +969,20 @@ namespace Axiom
             {
                 // Use Time
                 // If Frame Textboxes Default Use Time
-                if (mainwindow.frameStart.Text == "Frame" && mainwindow.frameEnd.Text == "Range" || string.IsNullOrWhiteSpace(mainwindow.frameStart.Text) && string.IsNullOrWhiteSpace(mainwindow.frameEnd.Text))
+                if (mainwindow.frameStart.Text == "Frame" 
+                    && mainwindow.frameEnd.Text == "Range" 
+                    || string.IsNullOrWhiteSpace(mainwindow.frameStart.Text) 
+                    && string.IsNullOrWhiteSpace(mainwindow.frameEnd.Text))
                 {
                     trimStart = mainwindow.cutStart.Text;
                     trimEnd = mainwindow.cutEnd.Text;
                 }
                 // Use Frames
                 // If Frame Textboxes have Text, but not Default, use FramesToDecimal Method (Override Time)
-                else if (mainwindow.frameStart.Text != "Frame" && mainwindow.frameEnd.Text != "Range" && !string.IsNullOrWhiteSpace(mainwindow.frameStart.Text) && !string.IsNullOrWhiteSpace(mainwindow.frameEnd.Text))
+                else if (mainwindow.frameStart.Text != "Frame" 
+                    && mainwindow.frameEnd.Text != "Range" 
+                    && !string.IsNullOrWhiteSpace(mainwindow.frameStart.Text) 
+                    && !string.IsNullOrWhiteSpace(mainwindow.frameEnd.Text))
                 {
                     Video.FramesToDecimal(mainwindow);
                 }
@@ -1006,7 +1012,9 @@ namespace Axiom
                 }
                 // Use Frames
                 // If Frame Textboxes have Text, but not Default, use FramesToDecimal Method (Override Time)
-                else if (mainwindow.frameStart.Text != "Frame" && mainwindow.frameEnd.Text != "Range" && !string.IsNullOrWhiteSpace(mainwindow.frameStart.Text) && string.IsNullOrWhiteSpace(mainwindow.frameEnd.Text))
+                else if (mainwindow.frameStart.Text != "Frame" && mainwindow.frameEnd.Text != "Range" 
+                    && !string.IsNullOrWhiteSpace(mainwindow.frameStart.Text) 
+                    && string.IsNullOrWhiteSpace(mainwindow.frameEnd.Text))
                 {
                     Video.FramesToDecimal(mainwindow);
                 }

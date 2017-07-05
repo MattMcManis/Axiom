@@ -32,9 +32,9 @@ namespace Axiom
     /// </summary>
     public partial class CropWindow : Window
     {
-        public static string crop;
-
         private MainWindow mainwindow;
+
+        public static string crop;
 
         //public static object cropwindow { get; internal set; }
 
@@ -65,56 +65,56 @@ namespace Axiom
             // Crop Width
             // ------------------------- 
             // First time use
-            if (string.IsNullOrEmpty(mainwindow.cropWidth))
+            if (string.IsNullOrEmpty(MainWindow.cropWidth))
             {
                 cropWidth.Text = string.Empty;
             }
             // Load Temp Saved String
-            else if (!string.IsNullOrEmpty(mainwindow.cropWidth))
+            else if (!string.IsNullOrEmpty(MainWindow.cropWidth))
             {
-                cropWidth.Text = mainwindow.cropWidth;
+                cropWidth.Text = MainWindow.cropWidth;
             }
 
             // -------------------------
             // Crop Height
             // ------------------------- 
             // First time use
-            if (string.IsNullOrEmpty(mainwindow.cropHeight))
+            if (string.IsNullOrEmpty(MainWindow.cropHeight))
             {
                 cropHeight.Text = string.Empty;
             }
             // Load Temp Saved String
-            else if (!string.IsNullOrEmpty(mainwindow.cropHeight))
+            else if (!string.IsNullOrEmpty(MainWindow.cropHeight))
             {
-                cropHeight.Text = mainwindow.cropHeight;
+                cropHeight.Text = MainWindow.cropHeight;
             }
 
             // -------------------------
             // Crop X
             // ------------------------- 
             // First time use
-            if (string.IsNullOrEmpty(mainwindow.cropX))
+            if (string.IsNullOrEmpty(MainWindow.cropX))
             {
                 cropX.Text = string.Empty;
             }
             // Load Temp Saved String
-            else if (!string.IsNullOrEmpty(mainwindow.cropX))
+            else if (!string.IsNullOrEmpty(MainWindow.cropX))
             {
-                cropX.Text = mainwindow.cropX;
+                cropX.Text = MainWindow.cropX;
             }
 
             // -------------------------
             // Crop Y
             // ------------------------- 
             // First time use
-            if (string.IsNullOrEmpty(mainwindow.cropY))
+            if (string.IsNullOrEmpty(MainWindow.cropY))
             {
                 cropY.Text = string.Empty;
             }
             // Load Temp Saved String
-            else if (!string.IsNullOrEmpty(mainwindow.cropY))
+            else if (!string.IsNullOrEmpty(MainWindow.cropY))
             {
-                cropY.Text = mainwindow.cropY;
+                cropY.Text = MainWindow.cropY;
             }
         }
 
@@ -208,10 +208,10 @@ namespace Axiom
                     }
 
                     // Save Temp TextBox String Holder
-                    mainwindow.cropWidth = cropWidth.Text;
-                    mainwindow.cropHeight = cropWidth.Text;
-                    mainwindow.cropX = cropX.Text;
-                    mainwindow.cropY = cropY.Text;
+                    MainWindow.cropWidth = cropWidth.Text;
+                    MainWindow.cropHeight = cropWidth.Text;
+                    MainWindow.cropX = cropX.Text;
+                    MainWindow.cropY = cropY.Text;
 
                     crop = Convert.ToString("crop=" + divisibleWidth + ":" + divisibleHeight + ":" + cropX.Text + ":" + cropY.Text);
 
@@ -228,10 +228,10 @@ namespace Axiom
             else
             {
                 // Save Temp TextBox String Holder
-                mainwindow.cropWidth = cropWidth.Text;
-                mainwindow.cropHeight = cropHeight.Text;
-                mainwindow.cropX = cropX.Text;
-                mainwindow.cropY = cropY.Text;
+                MainWindow.cropWidth = cropWidth.Text;
+                MainWindow.cropHeight = cropHeight.Text;
+                MainWindow.cropX = cropX.Text;
+                MainWindow.cropY = cropY.Text;
 
                 crop = "crop=" + cropWidth.Text + ":" + cropHeight.Text + ":" + cropX.Text + ":" + cropY.Text;
             }
@@ -242,7 +242,7 @@ namespace Axiom
             if (string.IsNullOrWhiteSpace(cropX.Text))
             {
                 cropX.Text = "0";
-                mainwindow.cropX = cropX.Text;
+                MainWindow.cropX = cropX.Text;
 
                 crop = "crop=" + cropWidth.Text + ":" + cropHeight.Text + ":" + cropX.Text + ":" + cropY.Text;
             }
@@ -251,7 +251,7 @@ namespace Axiom
             if (string.IsNullOrWhiteSpace(cropY.Text))
             {
                 cropY.Text = "0";
-                mainwindow.cropY = cropY.Text;
+                MainWindow.cropY = cropY.Text;
 
                 crop = "crop=" + cropWidth.Text + ":" + cropHeight.Text + ":" + cropX.Text + ":" + cropY.Text;
             }
@@ -279,10 +279,10 @@ namespace Axiom
             cropX.Text = string.Empty;
             cropY.Text = string.Empty;
 
-            mainwindow.cropWidth = string.Empty;
-            mainwindow.cropHeight = string.Empty;
-            mainwindow.cropX = string.Empty;
-            mainwindow.cropY = string.Empty;
+            MainWindow.cropWidth = string.Empty;
+            MainWindow.cropHeight = string.Empty;
+            MainWindow.cropX = string.Empty;
+            MainWindow.cropY = string.Empty;
 
             crop = string.Empty;
             MainWindow.crop = string.Empty;

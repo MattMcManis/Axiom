@@ -18,16 +18,18 @@
     You should have received a copy of the GNU General Public License
     along with this program.If not, see<http://www.gnu.org/licenses/> . 
  -->
-<Window x:Class="Axiom.LogConsole"
+<Window x:Class="Axiom.DebugConsole"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Log Console" Height="305" Width="400" Icon="Resources/Images/LogConsole.ico"
-        Style="{DynamicResource WindowLogConsole}">
+        Title="Debug Console" Height="305" Width="400" Icon="Resources/Images/DebugConsole.ico"
+        Style="{DynamicResource WindowDebugConsole}">
     <Grid>
 
-        <RichTextBox Name="rtbLog" Margin="0" Background="{x:Null}" Foreground="White" VerticalScrollBarVisibility="Visible" RenderOptions.ClearTypeHint="Enabled" FontFamily="Consolas" Padding="10" IsReadOnly="True" IsUndoEnabled="False" />
-        <!--TextOptions.TextFormattingMode="Display"-->
+        <RichTextBox Name="rtbDebug" Margin="0" Background="{x:Null}" Foreground="White" VerticalScrollBarVisibility="Visible" RenderOptions.ClearTypeHint="Enabled" FontFamily="Consolas" Padding="10" IsReadOnly="True" IsUndoEnabled="False" />
 
+        <Button x:Name="buttonDebugTest" Margin="0,10,53,0" BorderBrush="#7FFFFFFF" Background="{x:Null}" Foreground="White" Cursor="Hand" Style="{DynamicResource ButtonFolder}" HorizontalAlignment="Right" Width="53" Height="20" VerticalAlignment="Top" Click="buttonDebugTest_Click">
+            <TextBlock x:Name="textBlockDebugTest" Text="Test" Margin="0,-2,0,0" Foreground="#99FFFFFF" />
+        </Button>
         <Button x:Name="buttonExpand" Margin="0,10,28,0" BorderBrush="#7FFFFFFF" Background="{x:Null}" Foreground="White" Cursor="Hand" Style="{DynamicResource ButtonFolder}" Click="buttonExpand_Click" HorizontalAlignment="Right" Width="20" ToolTip="Expand Window" Height="20" VerticalAlignment="Top">
             <TextBlock x:Name="textBlockExpand" Text="+" Margin="0,-2,0,0" Foreground="#99FFFFFF" />
         </Button>
