@@ -1,0 +1,430 @@
+﻿<!-- 
+    Axiom UI
+    Copyright (C) 2017 Matt McManis
+    http://github.com/MattMcManis/Axiom
+    http://axiomui.github.io
+    axiom.interface@gmail.com
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.If not, see<http://www.gnu.org/licenses/> . 
+ -->
+
+<ResourceDictionary 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    
+    <!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+         Template Default
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+
+
+    <!--/////////////////////////////////////
+         Main Window Default
+        /////////////////////////////////////-->
+
+
+    <!--/////////////////////////////////////
+         Label
+        /////////////////////////////////////-->
+
+   
+    <!--/////////////////////////////////////
+         ComboBox Default
+        /////////////////////////////////////-->
+    
+
+    <!--/////////////////////////////////////
+         Textbox Default
+        /////////////////////////////////////-->
+
+
+
+    <!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+         Template White
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+    
+    <!--/////////////////////////////////////
+         ComboBox White
+        /////////////////////////////////////-->  
+
+
+    <!--/////////////////////////////////////
+         TextBox White
+        /////////////////////////////////////-->
+
+
+    <!--/////////////////////////////////////
+         ComboBox Glyph White
+        /////////////////////////////////////-->
+
+
+
+    <!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+         Template Custom
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+
+
+    <!--/////////////////////////////////////
+         Main Window 
+        /////////////////////////////////////-->
+
+    <!-- Main Window Style Custom -->
+    <Style x:Key="WindowStyleCustom" TargetType="{x:Type Window}">
+        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}"/>
+        <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
+        <!--Background-->
+        <Setter Property="Background" Value="#FFF0F0F0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Window}">
+                    <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
+                        <AdornerDecorator>
+                            <ContentPresenter/>
+                        </AdornerDecorator>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="ResizeMode" Value="CanResizeWithGrip">
+                <Setter Property="Template" Value="{StaticResource WindowTemplateKey}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- Configure Window -->
+    <Style x:Key="WindowConfigure" TargetType="{x:Type Window}">
+        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}"/>
+        <!--Background-->
+        <Setter Property="Background" Value="#FFF0F0F0"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Window}">
+                    <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
+                        <AdornerDecorator>
+                            <ContentPresenter/>
+                        </AdornerDecorator>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="ResizeMode" Value="CanResizeWithGrip">
+                <Setter Property="Template" Value="{StaticResource WindowTemplateKey}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- Crop Window -->
+    <Style x:Key="WindowCrop" TargetType="{x:Type Window}">
+        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}"/>
+        <!--Background-->
+        <Setter Property="Background" Value="#FFF0F0F0"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Window}">
+                    <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
+                        <AdornerDecorator>
+                            <ContentPresenter/>
+                        </AdornerDecorator>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="ResizeMode" Value="CanResizeWithGrip">
+                <Setter Property="Template" Value="{StaticResource WindowTemplateKey}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- Optimize Advanced -->
+    <Style x:Key="WindowOptimizeAdvanced" TargetType="{x:Type Window}">
+        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}"/>
+        <!--Background-->
+        <Setter Property="Background" Value="#FFF0F0F0"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Window}">
+                    <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
+                        <AdornerDecorator>
+                            <ContentPresenter/>
+                        </AdornerDecorator>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="ResizeMode" Value="CanResizeWithGrip">
+                <Setter Property="Template" Value="{StaticResource WindowTemplateKey}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- Log Console -->
+    <Style x:Key="WindowLogConsole" TargetType="{x:Type Window}">
+        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}"/>
+        <!--Background-->
+        <Setter Property="Background" Value="#FF555555"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Window}">
+                    <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
+                        <AdornerDecorator>
+                            <ContentPresenter/>
+                        </AdornerDecorator>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="ResizeMode" Value="CanResizeWithGrip">
+                <Setter Property="Template" Value="{StaticResource WindowTemplateKey}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    
+    <!-- Debug Console -->
+    <Style x:Key="WindowDebugConsole" TargetType="{x:Type Window}">
+        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}"/>
+        <!--Background-->
+        <Setter Property="Background" Value="#FF444444"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Window}">
+                    <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
+                        <AdornerDecorator>
+                            <ContentPresenter/>
+                        </AdornerDecorator>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="ResizeMode" Value="CanResizeWithGrip">
+                <Setter Property="Template" Value="{StaticResource WindowTemplateKey}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+
+    <!--/////////////////////////////////////
+        ComboBox Custom
+        /////////////////////////////////////-->
+
+
+    <!--/////////////////////////////////////
+          TextBox Custom
+        /////////////////////////////////////-->
+
+
+    <!--/////////////////////////////////////
+        TextBox Browse Custom
+        /////////////////////////////////////-->
+
+
+    <!--/////////////////////////////////////
+        ComboBox Glyph Custom
+        /////////////////////////////////////-->
+
+
+    <!--/////////////////////////////////////
+        Button Custom
+        /////////////////////////////////////-->
+
+
+    <!--/////////////////////////////////////
+        Button Custom Crop
+        /////////////////////////////////////-->
+
+
+    <!--/////////////////////////////////////
+        Crop Button TextBlock
+        /////////////////////////////////////-->
+    <Style x:Key="ButtonCropTextBlock" TargetType="{x:Type TextBlock}">
+        <Setter Property="TextWrapping" Value="NoWrap" />
+        <Setter Property="TextTrimming" Value="None" />
+        <Setter Property="Foreground" Value="Black" />
+        <Setter Property="TextElement.Foreground" Value="Black" />
+
+        <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="false">
+                <Setter Property="TextElement.Foreground" Value="#FF838383" />
+            </Trigger>
+        </Style.Triggers>
+
+    </Style>
+
+
+    <!--/////////////////////////////////////
+        Button Folder
+        /////////////////////////////////////-->
+
+
+    <!--/////////////////////////////////////
+        Button Folder Custom
+        /////////////////////////////////////-->
+
+    
+    <!--/////////////////////////////////////
+          Volume TextBox
+        /////////////////////////////////////-->
+
+
+    <!--/////////////////////////////////////
+         Button Custom Volume
+        /////////////////////////////////////-->
+
+    
+    <!--/////////////////////////////////////
+         Toggle Button Custom
+        /////////////////////////////////////-->
+
+    
+    <!--/////////////////////////////////////
+         TextBlock Custom
+        /////////////////////////////////////-->
+
+
+    <!--/////////////////////////////////////
+        Toggle Button Small Custom
+        /////////////////////////////////////-->
+
+
+    <!--/////////////////////////////////////
+        Volume Button Glyph
+        /////////////////////////////////////-->
+
+
+
+
+    <!--/////////////////////////////////////
+        Black Icons
+        /////////////////////////////////////-->
+
+    <!-- Info Button -->
+    <Style x:Key="ButtonInfo" TargetType="{x:Type Image}">
+        <Setter Property="FlowDirection" Value="LeftToRight"/>
+        <Setter Property="Source" Value="Resources/Images/info-black.png"/>
+        <Setter Property="Opacity" Value="0.8"/>
+    </Style>
+
+    <!-- Website Button -->
+    <Style x:Key="ButtonWebsite" TargetType="{x:Type Image}">
+        <Setter Property="FlowDirection" Value="LeftToRight"/>
+        <Setter Property="Source" Value="Resources/Images/web-black.png"/>
+        <Setter Property="Opacity" Value="0.8"/>
+    </Style>
+
+    <!-- Configure Button -->
+    <Style x:Key="ButtonConfigure" TargetType="{x:Type Image}">
+        <Setter Property="FlowDirection" Value="LeftToRight"/>
+        <Setter Property="Source" Value="Resources/Images/configuregear-black.png"/>
+        <Setter Property="Opacity" Value="0.8"/>
+    </Style>
+
+    <!-- Window Button -->
+    <Style x:Key="ButtonWindow" TargetType="{x:Type Image}">
+        <Setter Property="FlowDirection" Value="LeftToRight"/>
+        <Setter Property="Source" Value="Resources/Images/window-black.png"/>
+        <Setter Property="Opacity" Value="0.8"/>
+    </Style>
+
+    <!-- Debug Console Button -->
+    <Style x:Key="ButtonDebugConsole" TargetType="{x:Type Image}">
+        <Setter Property="FlowDirection" Value="LeftToRight"/>
+        <Setter Property="Source" Value="Resources/Images/debugconsole-black.png"/>
+        <Setter Property="Opacity" Value="0.8"/>
+    </Style>
+
+    <!-- Log Console Button -->
+    <Style x:Key="ButtonLogConsole" TargetType="{x:Type Image}">
+        <Setter Property="FlowDirection" Value="LeftToRight"/>
+        <Setter Property="Source" Value="Resources/Images/logconsole-black.png"/>
+        <Setter Property="Opacity" Value="0.8"/>
+    </Style>
+
+    <!-- Log Button -->
+    <Style x:Key="ButtonLog" TargetType="{x:Type Image}">
+        <Setter Property="FlowDirection" Value="LeftToRight"/>
+        <Setter Property="Source" Value="Resources/Images/log-black.png"/>
+        <Setter Property="Opacity" Value="0.8"/>
+    </Style>
+
+    <!-- CMD Button -->
+    <Style x:Key="ButtonCMD" TargetType="{x:Type Image}">
+        <Setter Property="FlowDirection" Value="LeftToRight"/>
+        <Setter Property="Source" Value="Resources/Images/cmd-black.png"/>
+        <Setter Property="Opacity" Value="0.8"/>
+    </Style>
+
+    <!-- Properties Button -->
+    <Style x:Key="ButtonProperties" TargetType="{x:Type Image}">
+        <Setter Property="FlowDirection" Value="LeftToRight"/>
+        <Setter Property="Source" Value="Resources/Images/properties-black.png"/>
+        <Setter Property="Opacity" Value="0.8"/>
+    </Style>
+
+    <!-- Play Button -->
+    <Style x:Key="ButtonPlay" TargetType="{x:Type Image}">
+        <Setter Property="FlowDirection" Value="LeftToRight"/>
+        <Setter Property="Source" Value="Resources/Images/autoplay-black.png"/>
+        <Setter Property="Opacity" Value="0.8"/>
+    </Style>
+
+    <!-- Folder Button -->
+    <Style x:Key="ButtonQuickFolder" TargetType="{x:Type Image}">
+        <Setter Property="FlowDirection" Value="LeftToRight"/>
+        <Setter Property="Source" Value="Resources/Images/folder-black.png"/>
+        <Setter Property="Opacity" Value="0.8"/>
+    </Style>
+
+    <!-- Revert Arrow Button -->
+    <Style x:Key="ButtonRevertArrow" TargetType="{x:Type Image}">
+        <Setter Property="FlowDirection" Value="LeftToRight"/>
+        <Setter Property="Source" Value="Resources/Images/revertarrow-black.png"/>
+        <Setter Property="Opacity" Value="0.8"/>
+    </Style>
+
+    <!-- Volume Up Button -->
+    <Style x:Key="ButtonVolumeUp" TargetType="{x:Type Image}">
+        <Setter Property="FlowDirection" Value="LeftToRight"/>
+        <Setter Property="Source" Value="Resources/Images/ArrowUp-black.png"/>
+        <Setter Property="Opacity" Value="0.8"/>
+        <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="false">
+                <Setter Property="Opacity" Value="0.6"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- Volume Down Button -->
+    <Style x:Key="ButtonVolumeDown" TargetType="{x:Type Image}">
+        <Setter Property="FlowDirection" Value="LeftToRight"/>
+        <Setter Property="Source" Value="Resources/Images/ArrowDown-black.png"/>
+        <Setter Property="Opacity" Value="0.8"/>
+        <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="false">
+                <Setter Property="Opacity" Value="0.6"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+
+
+
+
+</ResourceDictionary>
