@@ -100,6 +100,20 @@ namespace Axiom
         /// <summary>
         public static void TwoPassSwitch(MainWindow mainwindow)
         {
+
+            // --------------------------------------------------
+            // Category: Video (Log Title)
+            // --------------------------------------------------
+            // Log Console Message /////////
+            Log.WriteAction = () =>
+            {
+                Log.logParagraph.Inlines.Add(new LineBreak());
+                Log.logParagraph.Inlines.Add(new LineBreak());
+                Log.logParagraph.Inlines.Add(new Bold(new Run("Video")) { Foreground = Log.ConsoleAction });
+            };
+            Log.LogActions.Add(Log.WriteAction);
+
+
             // -------------------------
             // Enabled
             // -------------------------
@@ -163,8 +177,6 @@ namespace Axiom
             // Log Console Message /////////
             Log.WriteAction = () =>
             {
-
-                Log.logParagraph.Inlines.Add(new LineBreak());
                 Log.logParagraph.Inlines.Add(new LineBreak());
                 Log.logParagraph.Inlines.Add(new Bold(new Run("2-Pass Switch: ")) { Foreground = Log.ConsoleDefault });
                 Log.logParagraph.Inlines.Add(new Bold(new Run(Video.v2passSwitch.ToString())) { Foreground = Log.ConsoleDefault });
@@ -363,6 +375,7 @@ namespace Axiom
                     Video.BatchVideoQualityAuto(mainwindow),
                     Audio.BatchAudioQualityAuto(mainwindow),
                     Audio.BatchAudioBitrateLimiter(mainwindow),
+                    "&&",
                     FFmpeg.ffmpeg,
                     "-y",
                     "-i",

@@ -1397,7 +1397,7 @@
 
         <Style.Triggers>
             <Trigger Property="IsEnabled" Value="false">
-                <Setter Property="TextElement.Foreground" Value="#FFADD5FF" />
+                <Setter Property="TextElement.Foreground" Value="#FFA9A9A9" />
             </Trigger>
         </Style.Triggers>
 

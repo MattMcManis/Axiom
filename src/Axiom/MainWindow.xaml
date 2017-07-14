@@ -254,7 +254,7 @@
         <TextBox x:Name="batchExtensionTextBox" HorizontalAlignment="Left" Height="22" Margin="352,233,0,0" TextWrapping="NoWrap" Padding="2, 1, 0, 0" Text="extension" VerticalAlignment="Top" Width="60" TextChanged="batchExtension_TextChanged" Style="{DynamicResource TextBoxCustom}" ToolTipService.InitialShowDelay="1000" ToolTipService.ShowOnDisabled="True" ToolTip="File Extension in Folder to Batch Process (e.g. mp4)"/>
 
         <!-- Window Toggle  -->
-        <ToggleButton x:Name="tglWindowKeep" HorizontalAlignment="Left" Margin="91,233,0,0" VerticalAlignment="Top" Foreground="White" ToolTip="Keep FFmpeg window open after converting." Width="22" Height="22" Style="{DynamicResource ToggleButtonCustom}" Checked="tglWindowKeep_Checked" Unchecked="tglWindowKeep_Unchecked">
+        <ToggleButton x:Name="tglWindowKeep" Cursor="Hand" HorizontalAlignment="Left" Margin="91,233,0,0" VerticalAlignment="Top" ToolTip="Keep FFmpeg window open after converting." Width="22" Height="22" Style="{DynamicResource ToggleButtonCustom}" Checked="tglWindowKeep_Checked" Unchecked="tglWindowKeep_Unchecked">
             <Image Width="10" Height="10" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" Style="{DynamicResource ButtonWindow}" />
         </ToggleButton>
 
@@ -269,7 +269,7 @@
         </Button>
 
         <!-- 2 Pass Toggle -->
-        <ToggleButton x:Name="tgl2Pass" HorizontalAlignment="Left" Margin="-135,233,0,0" VerticalAlignment="Top" Foreground="White" ToolTip="Use 2-Pass over CRF" Width="22" Height="22" Style="{DynamicResource ToggleButtonCustom}">
+        <ToggleButton x:Name="tgl2Pass" HorizontalAlignment="Left" Margin="-135,233,0,0" VerticalAlignment="Top" ToolTip="Use 2-Pass over CRF" Width="22" Height="22" Style="{DynamicResource ToggleButtonCustom}">
             <!--Checked="tgl2Pass_Checked" Unchecked="tgl2Pass_Unchecked"-->
             <Image Width="12" Height="11" Stretch="Fill" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0"/>
         </ToggleButton>
@@ -297,7 +297,7 @@
         </ComboBox>
 
         <!-- Auto Play -->
-        <ToggleButton x:Name="toggleAutoPlay" HorizontalAlignment="Left" Margin="-162,233,0,0" VerticalAlignment="Top" Foreground="White" ToolTip="Auto Play after converting." Width="22" Height="22" Style="{DynamicResource ToggleButtonCustom}">
+        <ToggleButton x:Name="toggleAutoPlay" HorizontalAlignment="Left" Margin="-162,233,0,0" VerticalAlignment="Top" ToolTip="Auto Play after converting." Width="22" Height="22" Style="{DynamicResource ToggleButtonCustom}">
             <Image Source="Resources/Images/autoplay.png" Width="11" Height="11" Stretch="Fill" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="-1,0,0,0"/>
         </ToggleButton>
 
@@ -329,7 +329,7 @@
 
         <!-- Crop -->
         <Button x:Name="buttonCrop" Padding="0" HorizontalAlignment="Left" Margin="342,184,0,0" VerticalAlignment="Top" Width="58" Height="22" Cursor="Hand" Click="buttonCrop_Click" Style="{DynamicResource ButtonCropCustom}" ToolTipService.InitialShowDelay="1000" ToolTipService.ShowOnDisabled="True" ToolTip="Open Crop Window">
-            <TextBlock x:Name="buttonCropTextBlock" Text="Crop" Margin="0,-1,0,0" FontSize="11" />
+            <TextBlock x:Name="buttonCropTextBlock" Text="Crop" Margin="0,-1,0,0" FontSize="11" Style="{DynamicResource ButtonCropTextBlock}" />
         </Button>
 
         <!-- Crop Clear -->

@@ -1366,9 +1366,6 @@ namespace Axiom
                 // -------------------------
                 // Video Auto Bitrates
                 // -------------------------
-                //
-                // Batch CMD Detect
-
                 if ((string)mainwindow.cboVideo.SelectedItem == "Auto")
                 {
                     // Make List
@@ -1401,10 +1398,10 @@ namespace Axiom
 
 
                     // Chain FFmpeg using & symbol at end of Argument if Audio Not Auto
-                    if ((string)mainwindow.cboVideo.SelectedItem != "Auto")
-                    {
-                        batchVideoAuto = batchVideoAuto + " &";
-                    }
+                    //if ((string)mainwindow.cboVideo.SelectedItem != "Auto")
+                    //{
+                    //    batchVideoAuto = batchVideoAuto + " &";
+                    //}
                 }
                 // Batch Video Copy
                 if ((string)mainwindow.cboVideoCodec.SelectedItem == "Copy")
@@ -2038,7 +2035,8 @@ namespace Axiom
                 else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264" 
                     || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
                 {
-                    width = "trunc(ih/2)*2";
+                    width = "trunc(iw/2)*2";
+                    //width = "-2";
                 }
 
                 height = "1440";
@@ -2064,7 +2062,8 @@ namespace Axiom
                 else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264"
                     || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
                 {
-                    width = "trunc(ih/2)*2";
+                    width = "trunc(iw/2)*2";
+                    //width = "-2";
                 }
 
                 height = "1200";
@@ -2090,7 +2089,8 @@ namespace Axiom
                 else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264" 
                     || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
                 {
-                    width = "trunc(ih/2)*2";
+                    width = "trunc(iw/2)*2";
+                    //width = "-2";
                 }
 
                 height = "1080";
@@ -2118,7 +2118,8 @@ namespace Axiom
                 else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264"
                     || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
                 {
-                    width = "trunc(ih/2)*2";
+                    width = "trunc(iw/2)*2";
+                    //width = "-2";
                 }
 
                 height = "720";
@@ -2144,7 +2145,8 @@ namespace Axiom
                 else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264" 
                     || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
                 {
-                    width = "trunc(ih/2)*2";
+                    width = "trunc(iw/2)*2";
+                    //width = "-2";
                 }
 
                 height = "480";
@@ -2170,7 +2172,8 @@ namespace Axiom
                 else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264"
                     || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
                 {
-                    width = "trunc(ih/2)*2";
+                    width = "trunc(iw/2)*2";
+                    //width = "-2";
                 }
 
                 height = "320";
@@ -2196,7 +2199,8 @@ namespace Axiom
                 else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264" 
                     || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
                 {
-                    width = "trunc(ih/2)*2";
+                    width = "trunc(iw/2)*2";
+                    //width = "-2";
                 }
 
                 height = "240";
@@ -2268,6 +2272,7 @@ namespace Axiom
                     {
                         // Auto the width (-2), Make user entered height divisible by 2
                         width = "trunc(iw/2)*2";
+                        //width = "-2";
 
                         try
                         {

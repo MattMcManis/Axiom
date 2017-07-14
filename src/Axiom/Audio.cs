@@ -1365,6 +1365,19 @@ namespace Axiom
                 aCodec = string.Empty; // Codec not needed for PCM or Controlled by "PCM Match Bit Depth Audio" Section
             }
 
+
+            // --------------------------------------------------
+            // Category: Audio (Log)
+            // --------------------------------------------------
+            // Log Console Message /////////
+            Log.WriteAction = () =>
+            {
+                Log.logParagraph.Inlines.Add(new LineBreak());
+                Log.logParagraph.Inlines.Add(new LineBreak());
+                Log.logParagraph.Inlines.Add(new Bold(new Run("Audio")) { Foreground = Log.ConsoleAction });
+            };
+            Log.LogActions.Add(Log.WriteAction);
+
             // Log Console Message /////////
             Log.WriteAction = () =>
             {
@@ -1642,27 +1655,27 @@ namespace Axiom
                 // Limit Vorbis bitrate to 500k through cmd.exe
                 if ((string)mainwindow.cboAudioCodec.SelectedItem == "Vorbis")
                 {
-                    aBitrateLimiter = "(IF %A gtr 500000 (SET aBitrate=500000) ELSE (echo Bitrate within Vorbis Limit of 500k)) & for /F %A in ('echo %aBitrate%') do (echo %A) &";
+                    aBitrateLimiter = "& (IF %A gtr 500000 (SET aBitrate=500000) ELSE (echo Bitrate within Vorbis Limit of 500k)) & for /F %A in ('echo %aBitrate%') do (echo %A)";
                 }
                 // Limit Opus bitrate to 510k through cmd.exe
                 else if ((string)mainwindow.cboAudioCodec.SelectedItem == "Opus")
                 {
-                    aBitrateLimiter = "(IF %A gtr 510000 (SET aBitrate=510000) ELSE (echo Bitrate within Opus Limit of 510k)) & for /F %A in ('echo %aBitrate%') do (echo %A) &";
+                    aBitrateLimiter = "& (IF %A gtr 510000 (SET aBitrate=510000) ELSE (echo Bitrate within Opus Limit of 510k)) & for /F %A in ('echo %aBitrate%') do (echo %A)";
                 }
                 // Limit AAC bitrate to 400k through cmd.exe
                 else if ((string)mainwindow.cboAudioCodec.SelectedItem == "AAC")
                 {
-                    aBitrateLimiter = "(IF %A gtr 400000 (SET aBitrate=400000) ELSE (echo Bitrate within AAC Limit of 400k)) & for /F %A in ('echo %aBitrate%') do (echo %A) &";
+                    aBitrateLimiter = "& (IF %A gtr 400000 (SET aBitrate=400000) ELSE (echo Bitrate within AAC Limit of 400k)) & for /F %A in ('echo %aBitrate%') do (echo %A)";
                 }
                 // Limit AC3 bitrate to 640k through cmd.exe
                 else if ((string)mainwindow.cboAudioCodec.SelectedItem == "AC3")
                 {
-                    aBitrateLimiter = "(IF %A gtr 640000 (SET aBitrate=640000) ELSE (echo Bitrate within AC3 Limit of 640k)) & for /F %A in ('echo %aBitrate%') do (echo %A) &";
+                    aBitrateLimiter = "& (IF %A gtr 640000 (SET aBitrate=640000) ELSE (echo Bitrate within AC3 Limit of 640k)) & for /F %A in ('echo %aBitrate%') do (echo %A)";
                 }
                 // Limit LAME bitrate to 320k through cmd.exe
                 else if ((string)mainwindow.cboAudioCodec.SelectedItem == "LAME")
                 {
-                    aBitrateLimiter = "(IF %A gtr 320000 (SET aBitrate=320000) ELSE (echo Bitrate within LAME Limit of 320k)) & for /F %A in ('echo %aBitrate%') do (echo %A) &";
+                    aBitrateLimiter = "& (IF %A gtr 320000 (SET aBitrate=320000) ELSE (echo Bitrate within LAME Limit of 320k)) & for /F %A in ('echo %aBitrate%') do (echo %A)";
                 }
             }
 
@@ -1693,11 +1706,7 @@ namespace Axiom
                     List<string> BatchAudioAutoList = new List<string>()
                     {
                         // audio
-                        //'@ffprobe -v error -select_streams a:0 -show_entries stream=bit_rate -of default^=noprint_wrappers^=1:nokey^=1 "%~f" 2^>^&1'
-                        //"& for /F \"delims=\" %A in (\"@" + FFprobe.ffprobe + " -v error -select_streams a:0 -show_entries " + FFprobe.aEntryType + " -v quiet -of csv=p=0\") do (echo)",
-                        //"& for /F \"delims=\" %A in ('@" + FFprobe.ffprobe + " -v error -select_streams a:0 -show_entries " + FFprobe.aEntryType + " -of default^=noprint_wrappers^=1:nokey^=1 \"%~f\" 2^>^&1') do (SET aBitrate=%A)",
-                        //"& for /F \"tokens=*\" %A in (\"@" + FFprobe.ffprobe + " -i \"%~f\" -select_streams a:0 -show_entries " + FFprobe.aEntryType + " -v quiet -of csv=p=0\") do (echo)",
-                        "& for /F \"delims=\" %A in ('@" + FFprobe.ffprobe + " -v error -select_streams a:0 -show_entries " + FFprobe.aEntryType + " -of default^=noprint_wrappers^=1:nokey^=1 \"%~f\" 2^>^&1') do (echo)", //working
+                        "& for /F \"delims=\" %A in ('@" + FFprobe.ffprobe + " -v error -select_streams a:0 -show_entries " + FFprobe.aEntryType + " -of default^=noprint_wrappers^=1:nokey^=1 \"%~f\" 2^>^&1') do (echo)",
                         "& SET aBitrate=%A",
 
                         // expand var
@@ -1707,13 +1716,7 @@ namespace Axiom
                         "& (IF %A EQU N/A (SET aBitrate=320000))",
 
                         // expand var
-                        //"& for /F %A in ('echo %aBitrate%') do (echo %A)",
-
-                        // null check
-                        //"& (IF %A LSS 0 (SET aBitrate=0))",
-
-                        // expand var
-                        "& for /F %A in ('echo %aBitrate%') do (echo %A) &"
+                        "& for /F %A in ('echo %aBitrate%') do (echo %A)"
                     };
 
                     // Join List with Spaces, Remove Empty Strings

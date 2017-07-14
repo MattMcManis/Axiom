@@ -1407,7 +1407,7 @@
     <!--/////////////////////////////////////
         Crop Button TextBlock
         /////////////////////////////////////-->    
-    <!--<Style x:Key="ButtonCropTextBlock" TargetType="{x:Type TextBlock}">
+    <Style x:Key="ButtonCropTextBlock" TargetType="{x:Type TextBlock}">
         <Setter Property="TextWrapping" Value="NoWrap" />
         <Setter Property="TextTrimming" Value="None" />
 
@@ -1417,7 +1417,7 @@
             </Trigger>
         </Style.Triggers>
 
-    </Style>-->
+    </Style>
 
 
     <!-- Button Custom Crop Clear -->
