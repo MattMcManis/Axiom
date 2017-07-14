@@ -180,7 +180,7 @@ namespace Axiom
             MainWindow.optAdvLevel = string.Empty;
 
             // Clear any previous set strings
-            Video.tune = string.Empty;
+            Video.optTune = string.Empty;
             Video.optProfile = string.Empty;
             Video.optLevel = string.Empty;
             Video.optimize = string.Empty;

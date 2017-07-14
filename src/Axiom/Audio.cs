@@ -1318,7 +1318,7 @@ namespace Axiom
         /// <summary>
         /// Audio Codecs (Method)
         /// <summary>
-        public static void AudioCodecs(MainWindow mainwindow)
+        public static String AudioCodec(MainWindow mainwindow)
         {
             // #################
             // Audio
@@ -1373,6 +1373,10 @@ namespace Axiom
                 Log.logParagraph.Inlines.Add(new Run(Convert.ToString(mainwindow.cboAudioCodec.SelectedItem)) { Foreground = Log.ConsoleDefault });
             };
             Log.LogActions.Add(Log.WriteAction);
+
+
+            // Return Value
+            return aCodec;
         }
 
 
@@ -1503,18 +1507,6 @@ namespace Axiom
         } // End AutoCopyAudioCodec
 
 
-        /// <summary>
-        /// Audio Filter (Method)
-        /// <summary>
-        public static void AudioFilter(MainWindow mainwindow)
-        {
-            // Initialize the Filter for all
-            // Clear Filter for next run
-            // Anything that pertains to Audio must be after the aFilter
-            //aFilterSwitch = string.Empty; //do not reset the switch between converts
-            aFilter = string.Empty; //important
-        }
-
 
         /// <summary>
         /// Audio Bitrate Mode (Method)
@@ -1637,10 +1629,124 @@ namespace Axiom
 
 
         /// <summary>
+        /// BatchAudioBitrateLimiter (Method)
+        /// <summary>
+        public static String BatchAudioBitrateLimiter(MainWindow mainwindow)
+        {
+            // -------------------------
+            // Batch Limit Bitrates
+            // -------------------------
+            // Only if Audio ComboBox Auto
+            if ((string)mainwindow.cboAudio.SelectedItem == "Auto")
+            {
+                // Limit Vorbis bitrate to 500k through cmd.exe
+                if ((string)mainwindow.cboAudioCodec.SelectedItem == "Vorbis")
+                {
+                    aBitrateLimiter = "(IF %A gtr 500000 (SET aBitrate=500000) ELSE (echo Bitrate within Vorbis Limit of 500k)) & for /F %A in ('echo %aBitrate%') do (echo %A) &";
+                }
+                // Limit Opus bitrate to 510k through cmd.exe
+                else if ((string)mainwindow.cboAudioCodec.SelectedItem == "Opus")
+                {
+                    aBitrateLimiter = "(IF %A gtr 510000 (SET aBitrate=510000) ELSE (echo Bitrate within Opus Limit of 510k)) & for /F %A in ('echo %aBitrate%') do (echo %A) &";
+                }
+                // Limit AAC bitrate to 400k through cmd.exe
+                else if ((string)mainwindow.cboAudioCodec.SelectedItem == "AAC")
+                {
+                    aBitrateLimiter = "(IF %A gtr 400000 (SET aBitrate=400000) ELSE (echo Bitrate within AAC Limit of 400k)) & for /F %A in ('echo %aBitrate%') do (echo %A) &";
+                }
+                // Limit AC3 bitrate to 640k through cmd.exe
+                else if ((string)mainwindow.cboAudioCodec.SelectedItem == "AC3")
+                {
+                    aBitrateLimiter = "(IF %A gtr 640000 (SET aBitrate=640000) ELSE (echo Bitrate within AC3 Limit of 640k)) & for /F %A in ('echo %aBitrate%') do (echo %A) &";
+                }
+                // Limit LAME bitrate to 320k through cmd.exe
+                else if ((string)mainwindow.cboAudioCodec.SelectedItem == "LAME")
+                {
+                    aBitrateLimiter = "(IF %A gtr 320000 (SET aBitrate=320000) ELSE (echo Bitrate within LAME Limit of 320k)) & for /F %A in ('echo %aBitrate%') do (echo %A) &";
+                }
+            }
+
+            // Return Value
+            return aBitrateLimiter;
+        }
+
+
+        /// <summary>
+        /// BatchAudioQualityAuto (Method)
+        /// <summary>
+        public static String BatchAudioQualityAuto(MainWindow mainwindow)
+        {
+            // -------------------------
+            // Batch Auto
+            // -------------------------
+            if (mainwindow.tglBatch.IsChecked == true)
+            {
+                // -------------------------
+                // Batch Audio Auto Bitrates
+                // -------------------------
+
+                // Batch CMD Detect
+                //
+                if ((string)mainwindow.cboAudio.SelectedItem == "Auto")
+                {
+                    // Make List
+                    List<string> BatchAudioAutoList = new List<string>()
+                    {
+                        // audio
+                        //'@ffprobe -v error -select_streams a:0 -show_entries stream=bit_rate -of default^=noprint_wrappers^=1:nokey^=1 "%~f" 2^>^&1'
+                        //"& for /F \"delims=\" %A in (\"@" + FFprobe.ffprobe + " -v error -select_streams a:0 -show_entries " + FFprobe.aEntryType + " -v quiet -of csv=p=0\") do (echo)",
+                        //"& for /F \"delims=\" %A in ('@" + FFprobe.ffprobe + " -v error -select_streams a:0 -show_entries " + FFprobe.aEntryType + " -of default^=noprint_wrappers^=1:nokey^=1 \"%~f\" 2^>^&1') do (SET aBitrate=%A)",
+                        //"& for /F \"tokens=*\" %A in (\"@" + FFprobe.ffprobe + " -i \"%~f\" -select_streams a:0 -show_entries " + FFprobe.aEntryType + " -v quiet -of csv=p=0\") do (echo)",
+                        "& for /F \"delims=\" %A in ('@" + FFprobe.ffprobe + " -v error -select_streams a:0 -show_entries " + FFprobe.aEntryType + " -of default^=noprint_wrappers^=1:nokey^=1 \"%~f\" 2^>^&1') do (echo)", //working
+                        "& SET aBitrate=%A",
+
+                        // expand var
+                        "& for /F %A in ('echo %aBitrate%') do (echo %A)",
+
+                        // basic limiter
+                        "& (IF %A EQU N/A (SET aBitrate=320000))",
+
+                        // expand var
+                        //"& for /F %A in ('echo %aBitrate%') do (echo %A)",
+
+                        // null check
+                        //"& (IF %A LSS 0 (SET aBitrate=0))",
+
+                        // expand var
+                        "& for /F %A in ('echo %aBitrate%') do (echo %A) &"
+                    };
+
+                    // Join List with Spaces, Remove Empty Strings
+                    Audio.batchAudioAuto = string.Join(" ", BatchAudioAutoList.Where(s => !string.IsNullOrEmpty(s)));
+
+                }
+                // Batch Audio Copy
+                if ((string)mainwindow.cboAudioCodec.SelectedItem == "Copy")
+                {
+                    batchAudioAuto = string.Empty;
+                }
+
+                //// Not Auto
+                //if ((string)mainwindow.cboAudio.SelectedItem != "Auto")
+                //{
+                //    batchAudioAuto = string.Empty;
+                //}
+            }
+
+            // Return Value
+            return batchAudioAuto;
+        }
+
+
+        /// <summary>
         /// Audio Quality (Method)
         /// <summary>
-        public static void AudioQuality(MainWindow mainwindow)
+        public static String AudioQuality(MainWindow mainwindow)
         {
+            // Audio Bitrate Mode (Method)
+            AudioBitrateMode(mainwindow);
+
+
             // Log Console Message /////////
             Log.WriteAction = () =>
             {
@@ -1707,72 +1813,9 @@ namespace Axiom
                     }
                 }
 
-
-                // -------------------------
-                // Batch Auto
-                // -------------------------
-                if (mainwindow.tglBatch.IsChecked == true)
-                {
-                    // -------------------------
-                    // Batch Audio Auto Bitrates
-                    // -------------------------
-                    // Audio Auto
-                    //
-                    // Batch CMD Detect
-                    if ((string)mainwindow.cboAudio.SelectedItem == "Auto")
-                    {
-                        batchAudioAuto = "-select_streams a:0 -show_entries " + FFprobe.aEntryType + " -v quiet -of csv=\"p=0\" & for /f \"tokens=*\" %A in (" + "\"" + FFprobe.ffprobe + " -i " + "\"" + MainWindow.batchInputAuto + "%~f" + "\"" + " -select_streams a:0 -show_entries " + FFprobe.aEntryType + " -v quiet -of csv=p=0\") do (echo ) & (%A > tmp_aBitrate) & SET /p aBitrate= < tmp_aBitrate & del tmp_aBitrate & for /F %A in ('echo %aBitrate%') do echo %A & (if %A EQU N/A (set aBitrate=320000)) & for /F %A in ('echo %aBitrate%') do echo %A &";
-                    }
-                    // Batch Audio Copy
-                    if ((string)mainwindow.cboAudioCodec.SelectedItem == "Copy")
-                    {
-                        batchAudioAuto = string.Empty;
-                    }
-
-                    //// Not Auto
-                    //if ((string)mainwindow.cboAudio.SelectedItem != "Auto")
-                    //{
-                    //    batchAudioAuto = string.Empty;
-                    //}
-
-
-                    // -------------------------
-                    // Batch Limit Bitrates
-                    // -------------------------
-                    // Only if Audio ComboBox Auto
-                    if ((string)mainwindow.cboAudio.SelectedItem == "Auto")
-                    {
-                        // Limit Vorbis bitrate to 500k through cmd.exe
-                        if ((string)mainwindow.cboAudioCodec.SelectedItem == "Vorbis")
-                        {
-                            aBitrateLimiter = "(if %A gtr 500000 (set aBitrate=500000) else (echo Bitrate within Vorbis Limit of 500k)) & for /F %A in ('echo %aBitrate%') do (echo %A) &";
-                        }
-                        // Limit Opus bitrate to 510k through cmd.exe
-                        else if ((string)mainwindow.cboAudioCodec.SelectedItem == "Opus")
-                        {
-                            aBitrateLimiter = "(if %A gtr 510000 (set aBitrate=510000) else (echo Bitrate within Opus Limit of 510k)) & for /F %A in ('echo %aBitrate%') do (echo %A) &";
-                        }
-                        // Limit AAC bitrate to 400k through cmd.exe
-                        else if ((string)mainwindow.cboAudioCodec.SelectedItem == "AAC")
-                        {
-                            aBitrateLimiter = "(if %A gtr 400000 (set aBitrate=400000) else (echo Bitrate within AAC Limit of 400k)) & for /F %A in ('echo %aBitrate%') do (echo %A) &";
-                        }
-                        // Limit AC3 bitrate to 640k through cmd.exe
-                        else if ((string)mainwindow.cboAudioCodec.SelectedItem == "AC3")
-                        {
-                            aBitrateLimiter = "(if %A gtr 640000 (set aBitrate=640000) else (echo Bitrate within AC3 Limit of 640k)) & for /F %A in ('echo %aBitrate%') do (echo %A) &";
-                        }
-                        // Limit LAME bitrate to 320k through cmd.exe
-                        else if ((string)mainwindow.cboAudioCodec.SelectedItem == "LAME")
-                        {
-                            aBitrateLimiter = "(if %A gtr 320000 (set aBitrate=320000) else (echo Bitrate within LAME Limit of 320k)) & for /F %A in ('echo %aBitrate%') do (echo %A) &";
-                        }
-                    }
-                }
-
-                    // NEW RULES
-                    // Audio Codec Copy cannot have -b:a
-                    if (aCodec == "-acodec copy")
+                // NEW RULES
+                // Audio Codec Copy cannot have -b:a
+                if (aCodec == "-acodec copy")
                 {
                     aBitMode = string.Empty;
                     aQuality = string.Empty;
@@ -2319,13 +2362,31 @@ namespace Axiom
                 aBitrate = string.Empty;
                 aQuality = string.Empty;
             }
+
+
+            // If Audio = Auto, use the CMD Batch Audio Variable
+            if (mainwindow.tglBatch.IsChecked == true
+                && (string)mainwindow.cboAudio.SelectedItem == "Auto"
+                && (string)mainwindow.cboAudioCodec.SelectedItem != "Copy")
+            {
+                Audio.aQuality = "-b:a %A";
+                // Skipped if Codec Copy
+            }
+
+
+            // Remove any white space from end of string
+            aQuality = aQuality.Trim();
+            aQuality = aQuality.TrimEnd();
+
+            // Return Value
+            return aQuality;
         }
 
 
         /// <summary>
         /// Channel (Method)
         /// <summary>
-        public static void Channel(MainWindow mainwindow)
+        public static String Channel(MainWindow mainwindow)
         {
             // Auto
             if ((string)mainwindow.cboChannel.SelectedItem == "Auto")
@@ -2356,13 +2417,16 @@ namespace Axiom
                 Log.logParagraph.Inlines.Add(new Run(mainwindow.cboChannel.Text.ToString()) { Foreground = Log.ConsoleDefault });
             };
             Log.LogActions.Add(Log.WriteAction);
+
+            // Return Value
+            return aChannel;
         }
 
 
         /// <summary>
         /// Sample Rate (Method)
         /// <summary>
-        public static void SampleRate(MainWindow mainwindow)
+        public static String SampleRate(MainWindow mainwindow)
         {
             if ((string)mainwindow.cboSamplerate.SelectedItem == "auto")
             {
@@ -2425,13 +2489,17 @@ namespace Axiom
                 Log.logParagraph.Inlines.Add(new Run(mainwindow.cboSamplerate.Text.ToString()) { Foreground = Log.ConsoleDefault });
             };
             Log.LogActions.Add(Log.WriteAction);
+
+
+            // Return Value
+            return aSamplerate;
         }
 
 
         /// <summary>
         /// Bit Depth (Method)
         /// <summary>
-        public static void BitDepth(MainWindow mainwindow)
+        public static String BitDepth(MainWindow mainwindow)
         {
             // PCM has Bitdepth defined by Codec instead of sample_fmt, can use 8, 16, 24, 32, 64-bit
             // FLAC can only use 16 and 32-bit
@@ -2488,6 +2556,10 @@ namespace Axiom
                 Log.logParagraph.Inlines.Add(new Run(mainwindow.cboBitDepth.SelectedItem.ToString()) { Foreground = Log.ConsoleDefault });
             };
             Log.LogActions.Add(Log.WriteAction);
+
+
+            // Return Value
+            return aBitDepth;
         }
 
 
@@ -2500,7 +2572,9 @@ namespace Axiom
             if (!string.IsNullOrEmpty((string)mainwindow.cboAudioCodec.SelectedItem))
             {
                 // If TextBox is 100% or Blank
-                if (mainwindow.volumeUpDown.Text == "100%" || mainwindow.volumeUpDown.Text == "100" || string.IsNullOrWhiteSpace(mainwindow.volumeUpDown.Text))
+                if (mainwindow.volumeUpDown.Text == "100%" 
+                    || mainwindow.volumeUpDown.Text == "100" 
+                    || string.IsNullOrWhiteSpace(mainwindow.volumeUpDown.Text))
                 {
                     // aFilter Switch
                     //aFilterSwitch = 0;
@@ -2592,8 +2666,28 @@ namespace Axiom
         /// <summary>
         /// Audio Filter Combine (Method)
         /// <summary>
-        public static void AudioFilterCombine(MainWindow mainwindow)
+        public static String AudioFilter(MainWindow mainwindow)
         {
+            // Initialize the Filter for all
+            // Clear Filter for next run
+            // Anything that pertains to Audio must be after the aFilter
+            //aFilterSwitch = string.Empty; //do not reset the switch between converts
+            aFilter = string.Empty; //important
+
+
+            // Filters
+            /// <summary>
+            ///    Volume
+            /// </summary> 
+            Audio.Volume(mainwindow);
+
+            /// <summary>
+            ///    ALimiter
+            /// </summary> 
+            Audio.ALimiter(mainwindow);
+
+
+
             // aFilter Switch   (On, Combine, Off, Empty)
             // If -af alMainWindow.ready on, MainWindow.ready to combine multiple filters
 
@@ -2638,6 +2732,10 @@ namespace Axiom
                 aFilterSwitch = 0;
                 aFilter = string.Empty;
             }
+
+
+            // Return Value
+            return aFilter;
         }
 
     }

@@ -114,7 +114,7 @@ namespace Axiom
                     textBoxFFmpegPathConfig.Text = ffmpegPath;
                 }
                 // Load FFmpeg Path from saved settings
-                else if (Settings.Default["ffmpegPath"].ToString() != "<auto>" && !string.IsNullOrEmpty(Settings.Default["ffmpegPath"].ToString())) // auto/null check
+                else if (!string.IsNullOrEmpty(Settings.Default["ffmpegPath"].ToString())) // null check
                 {
                     textBoxFFmpegPathConfig.Text = Settings.Default["ffmpegPath"].ToString();
                     ffmpegPath = Settings.Default["ffmpegPath"].ToString();
@@ -139,7 +139,7 @@ namespace Axiom
                     textBoxFFprobePathConfig.Text = ffprobePath;
                 }
                 // Load PProbe Path from saved settings
-                else if (Settings.Default["ffprobePath"].ToString() != "<auto>" && !string.IsNullOrEmpty(Settings.Default["ffprobePath"].ToString())) // auto/null check
+                else if (!string.IsNullOrEmpty(Settings.Default["ffprobePath"].ToString())) // null check
                 {
                     textBoxFFprobePathConfig.Text = Settings.Default["ffprobePath"].ToString();
                     ffprobePath = Settings.Default["ffprobePath"].ToString();
@@ -354,10 +354,10 @@ namespace Axiom
             textBoxFFmpegPathConfig.Text = "<auto>";
 
             // Set the ffmpegPath string
-            ffmpegPath = textBoxFFmpegPathConfig.Text; //<auto>
+            ffmpegPath = "<auto>";
 
             // FFmpeg Path path for next launch
-            Settings.Default["ffmpegPath"] = textBoxFFmpegPathConfig.Text;
+            Settings.Default["ffmpegPath"] = "<auto>";
             Settings.Default.Save();
             Settings.Default.Reload();
         }
@@ -390,10 +390,10 @@ namespace Axiom
             textBoxFFprobePathConfig.Text = "<auto>";
 
             // Set the ffprobePath string
-            ffprobePath = textBoxFFprobePathConfig.Text; //<auto>
+            ffprobePath = "<auto>"; //<auto>
 
             // Save 7-zip Path path for next launch
-            Settings.Default["ffprobePath"] = textBoxFFprobePathConfig.Text;
+            Settings.Default["ffprobePath"] = "<auto>";
             Settings.Default.Save();
             Settings.Default.Reload();
         }

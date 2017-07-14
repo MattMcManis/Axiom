@@ -746,6 +746,9 @@
             </MultiTrigger>
         </Style.Triggers>
     </Style>
+    
+    
+    
 
 
     <!--/////////////////////////////////////
@@ -1401,6 +1404,22 @@
     </Style>
 
 
+    <!--/////////////////////////////////////
+        Crop Button TextBlock
+        /////////////////////////////////////-->    
+    <!--<Style x:Key="ButtonCropTextBlock" TargetType="{x:Type TextBlock}">
+        <Setter Property="TextWrapping" Value="NoWrap" />
+        <Setter Property="TextTrimming" Value="None" />
+
+        <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="false">
+                <Setter Property="TextElement.Foreground" Value="#FFADD5FF" />
+            </Trigger>
+        </Style.Triggers>
+
+    </Style>-->
+
+
     <!-- Button Custom Crop Clear -->
     <SolidColorBrush x:Key="Button.CropClear.Static.Foreground" Color="#FFFFFFFF"/>
     <ImageBrush x:Key="Button.CropClear.Static.Background" ImageSource="Resources/Images/buttonCropClearEnabled.png" Stretch="None"/>
@@ -1533,6 +1552,77 @@
     </Style>
 
 
+
+    <!--/////////////////////////////////////
+          Volume TextBox
+        /////////////////////////////////////-->
+    <!--<SolidColorBrush x:Key="TextBoxVolume.Static.Background" Color="#FF1049BB"/>
+    <SolidColorBrush x:Key="TextBoxVolume.Static.Border" Color="#FF1049BB"/>
+
+    <SolidColorBrush x:Key="TextBoxVolume.Disabled.Foreground" Color="#FFADD5FF"/>
+
+    <SolidColorBrush x:Key="TextBoxVolume.MouseOver.Border" Color="#FF7EB4EA"/>
+    <SolidColorBrush x:Key="TextBoxVolume.Focus.Border" Color="#FF569DE5"/>
+
+    <Style x:Key="TextBoxVolume" TargetType="{x:Type TextBox}">
+        <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource TextBoxVolume.Static.Border}"/>
+        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="KeyboardNavigation.TabNavigation" Value="None"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="AllowDrop" Value="true"/>
+        <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst"/>
+        <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TextBox}">
+                    <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                        <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                    </Border>
+                    --><!-- TextBox Triggers --><!--
+                    <ControlTemplate.Triggers>
+                        --><!-- Enabled / Disabled TextBox Colors & Opacity --><!--
+                        <Trigger Property="IsEnabled" Value="true">
+                            <Setter Property="Foreground" Value="#FFFFFFFF"/>
+                            <Setter Property="Background">
+                                <Setter.Value>
+                                    <ImageBrush ImageSource="Resources/Images/TextBoxEnabled.png" Stretch="None" AlignmentX="Left" AlignmentY="Bottom"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Opacity" TargetName="border" Value="1.00"/>
+                            <Setter Property="Foreground" Value="#FFADD5FF"/>
+                            <Setter Property="Background">
+                                <Setter.Value>
+                                    <ImageBrush ImageSource="Resources/Images/TextBoxDisabled.png" Stretch="None" AlignmentX="Left" AlignmentY="Bottom"/>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="BorderBrush" Value="#FF1049BB"/>
+                        </Trigger>
+
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource TextBoxVolume.MouseOver.Border}"/>
+                        </Trigger>
+                        <Trigger Property="IsKeyboardFocused" Value="true">
+                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource TextBoxVolume.Focus.Border}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsInactiveSelectionHighlightEnabled" Value="true"/>
+                    <Condition Property="IsSelectionActive" Value="false"/>
+                </MultiTrigger.Conditions>
+                <Setter Property="SelectionBrush" Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}"/>
+            </MultiTrigger>
+        </Style.Triggers>
+    </Style>-->
 
 
     <!--/////////////////////////////////////
@@ -1787,8 +1877,108 @@
     <!--/////////////////////////////////////
            Volume Button Glyph
         /////////////////////////////////////-->
-    <Style x:Key="VolumeButtonGlyph" TargetType="{x:Type Image}">
+    <!--<Style x:Key="VolumeButtonGlyph" TargetType="{x:Type Image}">
         <Setter Property="FlowDirection" Value="LeftToRight"/>
+        <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="false">
+                <Setter Property="Opacity" Value="0.6"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>-->
+
+
+
+    <!--/////////////////////////////////////
+        White Icons
+        /////////////////////////////////////-->
+
+    <!-- Info Button -->
+    <Style x:Key="ButtonInfo" TargetType="{x:Type Image}">
+        <Setter Property="FlowDirection" Value="LeftToRight"/>
+        <Setter Property="Source" Value="Resources/Images/info.png"/>
+    </Style>
+
+    <!-- Website Button -->
+    <Style x:Key="ButtonWebsite" TargetType="{x:Type Image}">
+        <Setter Property="FlowDirection" Value="LeftToRight"/>
+        <Setter Property="Source" Value="Resources/Images/web.png"/>
+    </Style>
+
+    <!-- Configure Button -->
+    <Style x:Key="ButtonConfigure" TargetType="{x:Type Image}">
+        <Setter Property="FlowDirection" Value="LeftToRight"/>
+        <Setter Property="Source" Value="Resources/Images/configuregear.png"/>
+    </Style>
+
+    <!-- Window Button -->
+    <Style x:Key="ButtonWindow" TargetType="{x:Type Image}">
+        <Setter Property="FlowDirection" Value="LeftToRight"/>
+        <Setter Property="Source" Value="Resources/Images/window.png"/>
+    </Style>
+
+    <!-- Debug Console Button -->
+    <Style x:Key="ButtonDebugConsole" TargetType="{x:Type Image}">
+        <Setter Property="FlowDirection" Value="LeftToRight"/>
+        <Setter Property="Source" Value="Resources/Images/debugconsole.png"/>
+    </Style>
+
+    <!-- Log Console Button -->
+    <Style x:Key="ButtonLogConsole" TargetType="{x:Type Image}">
+        <Setter Property="FlowDirection" Value="LeftToRight"/>
+        <Setter Property="Source" Value="Resources/Images/logconsole.png"/>
+    </Style>
+
+    <!-- Log Button -->
+    <Style x:Key="ButtonLog" TargetType="{x:Type Image}">
+        <Setter Property="FlowDirection" Value="LeftToRight"/>
+        <Setter Property="Source" Value="Resources/Images/log.png"/>
+    </Style>
+
+    <!-- CMD Button -->
+    <Style x:Key="ButtonCMD" TargetType="{x:Type Image}">
+        <Setter Property="FlowDirection" Value="LeftToRight"/>
+        <Setter Property="Source" Value="Resources/Images/cmd.png"/>
+    </Style>
+
+    <!-- Properties Button -->
+    <Style x:Key="ButtonProperties" TargetType="{x:Type Image}">
+        <Setter Property="FlowDirection" Value="LeftToRight"/>
+        <Setter Property="Source" Value="Resources/Images/properties.png"/>
+    </Style>
+
+    <!-- Play Button -->
+    <Style x:Key="ButtonPlay" TargetType="{x:Type Image}">
+        <Setter Property="FlowDirection" Value="LeftToRight"/>
+        <Setter Property="Source" Value="Resources/Images/autoplay.png"/>
+    </Style>
+
+    <!-- Folder Button -->
+    <Style x:Key="ButtonQuickFolder" TargetType="{x:Type Image}">
+        <Setter Property="FlowDirection" Value="LeftToRight"/>
+        <Setter Property="Source" Value="Resources/Images/folder.png"/>
+    </Style>
+
+    <!-- Revert Arrow Button -->
+    <Style x:Key="ButtonRevertArrow" TargetType="{x:Type Image}">
+        <Setter Property="FlowDirection" Value="LeftToRight"/>
+        <Setter Property="Source" Value="Resources/Images/revertarrow.png"/>
+    </Style>
+
+    <!-- Volume Up Button -->
+    <Style x:Key="ButtonVolumeUp" TargetType="{x:Type Image}">
+        <Setter Property="FlowDirection" Value="LeftToRight"/>
+        <Setter Property="Source" Value="Resources/Images/ArrowUp.png"/>
+        <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="false">
+                <Setter Property="Opacity" Value="0.6"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- Volume Down Button -->
+    <Style x:Key="ButtonVolumeDown" TargetType="{x:Type Image}">
+        <Setter Property="FlowDirection" Value="LeftToRight"/>
+        <Setter Property="Source" Value="Resources/Images/ArrowDown.png"/>
         <Style.Triggers>
             <Trigger Property="IsEnabled" Value="false">
                 <Setter Property="Opacity" Value="0.6"/>

@@ -333,6 +333,28 @@
   <ItemGroup>
     <Resource Include="Resources\Images\DebugConsole.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\web-black.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\2pass-black.png" />
+    <Resource Include="Resources\Images\ArrowDown-black.png" />
+    <Resource Include="Resources\Images\ArrowUp-black.png" />
+    <Resource Include="Resources\Images\autoplay-black.png" />
+    <Resource Include="Resources\Images\cmd-black.png" />
+    <Resource Include="Resources\Images\configuregear-black.png" />
+    <Resource Include="Resources\Images\debugconsole-black.png" />
+    <Resource Include="Resources\Images\folder-black.png" />
+    <Resource Include="Resources\Images\info-black.png" />
+    <Resource Include="Resources\Images\logconsole-black.png" />
+    <Resource Include="Resources\Images\properties-black.png" />
+    <Resource Include="Resources\Images\revertarrow-black.png" />
+    <Resource Include="Resources\Images\save-black.png" />
+    <Resource Include="Resources\Images\window-black.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\log-black.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>

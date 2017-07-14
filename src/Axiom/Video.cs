@@ -69,9 +69,9 @@ namespace Axiom
         public static string vMaxrate;
         public static string vBufsize;
         public static string vOptions;
-        public static string crf; // ffmpeg quality
+        public static string crf;
         public static string fps; // frames per second
-        public static string tune; // x264 & x265 tuning modes
+        public static string optTune; // x264 & x265 tuning modes
         public static string options;
         public static string optProfile;
         public static string optLevel;
@@ -88,12 +88,13 @@ namespace Axiom
         // Pass
         public static bool passUserSelected = false; // Used to determine if User willingly selected CRF, 1 Pass or 2 Pass
         public static int? v2passSwitch = 0;
-        public static string v2pass; // contains pass2
+        public static string v2passArgs; // contains pass2 arguments
         public static string pass1; // enabled in ffmpeg main line if v2Pass is enabled
         public static string pass2;
         //public static string cmdBatch_vQuality; // cmd batch Video Auto dynamic value
 
         // Filter
+        public static CropWindow cropwindow;
         public static List<string> VideoFilters = new List<string>(); // Filters to String Join
         public static int? vFilterSwitch = 0;
         public static string geq; // png transparent to jpg whtie background filter
@@ -977,16 +978,22 @@ namespace Axiom
         /// <summary>
         /// Pass Controls (Method)
         /// <summary>
-        public static void Pass(MainWindow mainwindow)
+        public static void EncodingPass(MainWindow mainwindow)
         {
             // -------------------------
-            // Pass ComboBox Custom
+            // Encoding Pass ComboBox Custom
             // -------------------------
-            // Disable CRF TextBox if 1 Pass or 2 Pass
-            if ((string)mainwindow.cboVideo.SelectedItem == "Custom" && (string)mainwindow.cboPass.SelectedItem == "1 Pass" | (string)mainwindow.cboPass.SelectedItem == "2 Pass")
+            // Disable CRF TextBox if 1 Pass or 2-Pass
+            if ((string)mainwindow.cboVideo.SelectedItem == "Custom" 
+                && (string)mainwindow.cboPass.SelectedItem == "1 Pass" 
+                | (string)mainwindow.cboPass.SelectedItem == "2 Pass")
             {
                 mainwindow.crfCustom.IsEnabled = false;
                 mainwindow.cboPass.IsEnabled = true;
+
+                // Set CRF back to Default value
+                mainwindow.crfCustom.Text = "CRF";
+                //crf = string.Empty;
             }
 
             // Enable CRF TextBox if CRF
@@ -1005,18 +1012,18 @@ namespace Axiom
 
 
             // -------------------------
-            // Pass ComboBox Auto
+            // Encoding Pass ComboBox Auto
             // -------------------------
-            // Set Pass ComboBox to 2 Pass and Disable 
+            // Set Pass ComboBox to 2-Pass and Disable 
             if ((string)mainwindow.cboVideo.SelectedItem == "Auto" && (string)mainwindow.cboPass.SelectedItem != "2 Pass")
             {
                 mainwindow.cboPass.SelectedItem = "2 Pass";
-                // Disable Pass ComboBox if 2 Pass
+                // Disable Pass ComboBox if 2-Pass
                 mainwindow.cboPass.IsEnabled = false;
 
-                //MessageBox.Show("hello"); //debug
+                //MessageBox.Show("test"); //debug
             }
-            // If Auto Disable 2 Pass Always
+            // If Auto Disable 2-Pass Always
             if ((string)mainwindow.cboVideo.SelectedItem == "Auto" && (string)mainwindow.cboPass.SelectedItem == "2 Pass")
             {
                 mainwindow.cboPass.IsEnabled = false;
@@ -1043,44 +1050,67 @@ namespace Axiom
         /// <summary>
         /// Video Codecs (Method)
         /// <summary>
-        public static void VideoCodecs(MainWindow mainwindow)
+        public static String VideoCodec(MainWindow mainwindow)
         {
+            var vCodec = string.Empty;
+
             // #################
             // Video
             // #################
+            // Empty
             if (string.IsNullOrEmpty((string)mainwindow.cboVideoCodec.SelectedItem))
             {
                 vCodec = string.Empty; Streams.vMap = "-vn";
+                //VideoQuality() = string.Empty;
             }
+            // None
             else if ((string)mainwindow.cboVideoCodec.SelectedItem == "None")
             {
                 vCodec = string.Empty; Streams.vMap = "-vn";
             }
+            // VP8
             else if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8")
             {
                 vCodec = "-vcodec libvpx";
             }
+            // VP9
             else if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9")
             {
                 vCodec = "-vcodec libvpx-vp9 -tile-columns 6 -frame-parallel 1 -auto-alt-ref 1 -lag-in-frames 25";
             }
+            // Theora
             else if ((string)mainwindow.cboVideoCodec.SelectedItem == "Theora")
             {
                 vCodec = "-vcodec libtheora";
             }
+            // x254
             else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264")
             {
                 vCodec = "-vcodec libx264"; //leave profile:v main here so MKV can choose other ???
             }
+            //x265
             else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265")
             {
                 vCodec = "-vcodec libx265"; //does not use profile:v
             }
+            // JPEG
             else if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG")
             {
                 vCodec = string.Empty;
             }
+            // PNG
             else if ((string)mainwindow.cboVideoCodec.SelectedItem == "PNG")
+            {
+                vCodec = string.Empty;
+            }
+            // Copy
+            else if ((string)mainwindow.cboVideoCodec.SelectedItem == "Copy")
+            {
+                vCodec = "-vcodec copy";
+                //VideoQuality(this).Clear();
+            }
+            // Unknown
+            else
             {
                 vCodec = string.Empty;
             }
@@ -1093,6 +1123,9 @@ namespace Axiom
                 Log.logParagraph.Inlines.Add(new Run(Convert.ToString(mainwindow.cboVideoCodec.SelectedItem)) { Foreground = Log.ConsoleDefault });
             };
             Log.LogActions.Add(Log.WriteAction);
+
+            // Return Value
+            return vCodec;
         }
 
 
@@ -1215,38 +1248,6 @@ namespace Axiom
 
 
         /// <summary>
-        /// Video Filter (Method)
-        /// <summary>
-        public static void VideoFilter(MainWindow mainwindow)
-        {
-            // Initialize the Filter
-            // Clear the Filter for each run
-            // Anything that pertains to Video must be after the vFilter
-            //vFilterSwitch = string.Empty; //do not reset the switch between converts
-            vFilter = string.Empty;
-
-            // -------------------------
-            // JPEG
-            // -------------------------
-            if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG")
-            {
-                // Turn on PNG to JPG Filter
-                if (string.Equals(MainWindow.inputExt, ".png", StringComparison.CurrentCultureIgnoreCase) 
-                    || string.Equals(MainWindow.inputExt, "png", StringComparison.CurrentCultureIgnoreCase))
-                {
-                    vFilterSwitch += 1;
-
-                    geq = "format=yuva444p,geq='if(lte(alpha(X,Y),16),255,p(X,Y))':'if(lte(alpha(X,Y),16),128,p(X,Y))':'if(lte(alpha(X,Y),16),128,p(X,Y))'"; //png transparent to white background
-                }
-                else
-                {
-                    geq = string.Empty;
-                }
-            }
-        }
-
-
-        /// <summary>
         /// Video Bitrate Calculator (Method)
         /// <summary>
         public static void VideoBitrateCalculator(MainWindow mainwindow)
@@ -1353,9 +1354,80 @@ namespace Axiom
 
 
         /// <summary>
+        /// BatchVideoQualityAuto (Method)
+        /// <summary>
+        public static String BatchVideoQualityAuto(MainWindow mainwindow)
+        {
+            // -------------------------
+            // Batch Auto
+            // -------------------------
+            if (mainwindow.tglBatch.IsChecked == true)
+            {
+                // -------------------------
+                // Video Auto Bitrates
+                // -------------------------
+                //
+                // Batch CMD Detect
+
+                if ((string)mainwindow.cboVideo.SelectedItem == "Auto")
+                {
+                    // Make List
+                    List<string> BatchVideoAutoList = new List<string>()
+                    {
+                        // size
+                        "& for /F \"delims=\" %S in ('@" + FFprobe.ffprobe + " -v error -select_streams v:0 -show_entries format^=size -of default^=noprint_wrappers^=1:nokey^=1 \"%~f\" 2^>^&1') do (SET size=%S)",
+                        // expand var
+                        "& for /F %S in ('echo %size%') do (echo %S)",
+
+                        // duration
+                        "& for /F \"delims=\" %D in ('@" + FFprobe.ffprobe + " -v error -select_streams v:0 -show_entries format^=duration -of default^=noprint_wrappers^=1:nokey^=1 \"%~f\" 2^>^&1') do (SET duration=%D)",
+                        // remove duration decimals
+                        "& for /F \"tokens=1 delims=.\" %R in ('echo %duration%') do (SET duration=%R)",
+                        // expand var
+                        "& for /F %D in ('echo %duration%') do (echo %D)",
+
+                        // vBitrate
+                        "& for /F \"delims=\" %V in ('@" + FFprobe.ffprobe + " -v error -select_streams v:0 -show_entries " + FFprobe.vEntryTypeBatch + " -of default^=noprint_wrappers^=1:nokey^=1 \"%~f\" 2^>^&1') do (SET vBitrate=%V)",
+                        // expand var
+                        "& for /F %V in ('echo %vBitrate%') do (echo %V)",
+                        // auto bitrate calcuate
+                        "& (if %V EQU N/A (SET /a vBitrate=%S*8/1000/%D*1000) ELSE (echo Video Bitrate Detected))",
+                        // expand var
+                        "& for /F %V in ('echo %vBitrate%') do (echo %V)", 
+                    };
+
+                    // Join List with Spaces, Remove Empty Strings
+                    Video.batchVideoAuto = string.Join(" ", BatchVideoAutoList.Where(s => !string.IsNullOrEmpty(s)));
+
+
+                    // Chain FFmpeg using & symbol at end of Argument if Audio Not Auto
+                    if ((string)mainwindow.cboVideo.SelectedItem != "Auto")
+                    {
+                        batchVideoAuto = batchVideoAuto + " &";
+                    }
+                }
+                // Batch Video Copy
+                if ((string)mainwindow.cboVideoCodec.SelectedItem == "Copy")
+                {
+                    batchVideoAuto = string.Empty;
+                }
+
+                // Not Auto
+                //if ((string)mainwindow.cboVideo.SelectedItem != "Auto")
+                //{
+                //    batchVideoAuto = string.Empty;
+                //}
+            }
+
+            // Return Value
+            return batchVideoAuto;
+        }
+
+
+        /// <summary>
         /// Video Quality (Method)
         /// <summary>
-        public static void VideoQuality(MainWindow mainwindow)
+        public static String VideoQuality(MainWindow mainwindow)
         {
             // Log Console Message /////////
             Log.WriteAction = () =>
@@ -1371,7 +1443,7 @@ namespace Axiom
             // -------------------------
             if ((string)mainwindow.cboVideo.SelectedItem == "Auto")
             {
-                // Only Enable 2 Pass if Format is Video
+                // Only Enable 2-Pass if Format is Video
                 if ((string)mainwindow.cboFormat.SelectedItem == "webm" 
                     || (string)mainwindow.cboFormat.SelectedItem == "mp4" 
                     || (string)mainwindow.cboFormat.SelectedItem == "mkv") //exclude ogv for now
@@ -1387,6 +1459,7 @@ namespace Axiom
                 // Else set the Auto values
                 //
                 // If Input File has No Video or can't be detected 
+                //
                 if (FFprobe.inputVideoBitrate == "N/A" && string.IsNullOrEmpty(FFprobe.inputVideoCodec)) // (mp3, m4a, ogg, etc)
                 {
                     vBitMode = string.Empty;
@@ -1394,44 +1467,94 @@ namespace Axiom
                 }
 
                 // If No Bitrate & No Codec
+                //
                 if (string.IsNullOrEmpty(FFprobe.inputVideoBitrate) && string.IsNullOrEmpty(FFprobe.inputVideoCodec)) // (mp3 converted to a webm)
                 {
                     vBitMode = string.Empty;
                     vQuality = string.Empty;
                 }
 
-                // If Video File has video, but Bitrate CAN'T be detected, but Codec is detected
-                if (FFprobe.inputVideoBitrate == "N/A" && !string.IsNullOrEmpty(FFprobe.inputVideoCodec)) // (webm, some mkv's)
+
+                // -------------------------
+                // If Video File has Video, but Bitrate IS NOT detected, but Codec IS detected
+                // -------------------------
+                // 
+                if (!string.IsNullOrEmpty(FFprobe.inputVideoCodec) && string.IsNullOrEmpty(FFprobe.inputVideoBitrate) | FFprobe.inputVideoBitrate == "N/A" ) // (webm, some mkv's)
                 {
-                    // Default to a High value
-                    // If Theora (Special instructions)
-                    if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9")
+                    //System.Windows.MessageBox.Show("Here"); //debug
+
+                    // 1 Pass / CRF Quality
+                    //
+                    if ((string)mainwindow.cboPass.SelectedItem == "1 Pass" || (string)mainwindow.cboPass.SelectedItem == "CRF")
                     {
-                        crf = "-b:v 0 -crf 16"; //crf value different than x264
+                        // Default to a High value
+                        // If Theora (Special instructions)
+                        //
+                        if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9")
+                        {
+                            crf = "-b:v 0 -crf 16"; //crf value different than x264
+                        }
+                        if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264")
+                        {
+                            crf = "-crf 18";
+                        }
+                        if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265")
+                        {
+                            crf = "-x265-params crf=23";
+                        }
+                        if ((string)mainwindow.cboVideoCodec.SelectedItem == "Theora")
+                        {
+                            crf = "-q:v 10"; // Theora can't have Auto Value, default to highest -q:v 10
+                        }
+
+                        // Remove vBitrate
+                        vBitrate = string.Empty;
                     }
-                    if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264")
+
+                    // 2 Pass Quality
+                    // (Can't use CRF)
+                    //
+                    else if ((string)mainwindow.cboPass.SelectedItem == "2 Pass")
                     {
-                        crf = "-crf 18";
+                        // Default to a High value
+                        // If Theora (Special instructions)
+                        //
+                        if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9")
+                        {
+                            vBitrate = "-b:v 3M"; //crf value different than x264
+                        }
+                        if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264")
+                        {
+                            vBitrate = "-b:v 3M";
+                        }
+                        if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265")
+                        {
+                            vBitrate = "-b:v 3M";
+                        }
+                        if ((string)mainwindow.cboVideoCodec.SelectedItem == "Theora")
+                        {
+                            vBitrate = "-q:v 10"; // Theora can't have Auto Value, default to highest -q:v 10
+                        }
+
+                        // Remove CRF
+                        crf = string.Empty;
                     }
-                    if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265")
-                    {
-                        crf = "-x265-params crf=23";
-                    }
-                    if ((string)mainwindow.cboVideoCodec.SelectedItem == "Theora")
-                    {
-                        crf = "-q:v 10"; // Theora can't have Auto Value, default to highest -q:v 10
-                    }
+
 
                     vOptions = "-pix_fmt yuv420p";
                     vBitMode = string.Empty;
                     //combine
-                    vQuality = crf + " " + vOptions;
+                    vQuality = vBitrate + " " + crf + " " + vOptions;
                 }
 
+
+                // -------------------------
                 // If Input File has Video and Bitrate was detected
+                // -------------------------
+                //
                 if (FFprobe.inputVideoBitrate != "N/A" && !string.IsNullOrEmpty(FFprobe.inputVideoBitrate))
                 {
-                    //MessageBox.Show("Here"); //debug
+                    //System.Windows.MessageBox.Show("Here"); //debug
 
                     if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8") { vBitrate = "-b:v " + FFprobe.inputVideoBitrate; vOptions = "-pix_fmt yuv420p"; }
                     else if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9") { vBitrate = "-b:v " + FFprobe.inputVideoBitrate; vOptions = "-pix_fmt yuv420p"; }
@@ -1442,6 +1565,7 @@ namespace Axiom
                     //combine
                     vQuality = vBitrate + " " + vOptions;
                 }
+
 
                 // -------------------------
                 // IMAGE
@@ -1460,41 +1584,6 @@ namespace Axiom
                     crf = string.Empty; vBitrate = string.Empty; vOptions = string.Empty;
 
                     vQuality = vBitrate;
-                }
-
-
-                // -------------------------
-                // Batch Auto
-                // -------------------------
-                if (mainwindow.tglBatch.IsChecked == true)
-                {
-                    // -------------------------
-                    // Video Auto Bitrates
-                    // -------------------------
-                    //
-                    // Batch CMD Detect
-
-                    if ((string)mainwindow.cboVideo.SelectedItem == "Auto")
-                    {
-                        batchVideoAuto = "-select_streams v:0 -show_entries " + FFprobe.vEntryType + " -v quiet -of csv=\"p=0\" & for /f \"tokens=*\" %S in (\"" + FFprobe.ffprobe + " -i " + "\"" + MainWindow.batchInputAuto + "%~f" + "\"" + " -select_streams v:0 -show_entries format=size -v quiet -of csv=p=0\") do (echo ) & (%S > tmp_size) & SET /p size= < tmp_size & del tmp_size & for /F %S in ('echo %size%') do (echo %S) & for /f \"tokens=*\" %D in (\"" + FFprobe.ffprobe + " -i " + "\"" + MainWindow.batchInputAuto + "%~f" + "\"" + " -select_streams v:0 -show_entries format=duration -v quiet -of csv=p=0\") do (echo ) & (%D > tmp_duration) & SET /p duration= < tmp_duration & del tmp_duration & for /f \"tokens=1 delims=.\" %R in ('echo %duration%') do set duration=%R & for /F %D in ('echo %duration%') do (echo %D) & for /f \"tokens=*\" %V in (" + "\"" + FFprobe.ffprobe + " -i " + "\"" + MainWindow.batchInputAuto + "%~f" + "\"" + " -select_streams v:0 -show_entries " + FFprobe.vEntryType + " -v quiet -of csv=p=0\") do (echo ) & (%V > tmp_vBitrate) & SET /p vBitrate= < tmp_vBitrate & del tmp_vBitrate & for /F %V in ('echo %vBitrate%') do (echo %V) & (if %V EQU N/A (set /a vBitrate=%S*8/1000/%D*1000) else (echo Video Bitrate Detected)) & for /F %V in ('echo %vBitrate%') do (echo %V) & " + FFprobe.ffprobe + " -i " + "\"" + MainWindow.batchInputAuto + "%~f" + "\"";
-
-                        // Chain FFmpeg using & symbol at end of Argument if Audio Not Auto
-                        if ((string)mainwindow.cboVideo.SelectedItem != "Auto")
-                        {
-                            batchVideoAuto = batchVideoAuto + " &";
-                        }
-                    }
-                    // Batch Video Copy
-                    if ((string)mainwindow.cboVideoCodec.SelectedItem == "Copy")
-                    {
-                        batchVideoAuto = string.Empty;
-                    }
-
-                    // Not Auto
-                    if ((string)mainwindow.cboVideo.SelectedItem != "Auto")
-                    {
-                        batchVideoAuto = string.Empty;
-                    }
                 }
 
                 //end Auto //////////////////////////
@@ -1528,7 +1617,7 @@ namespace Axiom
 
                     v2passSwitch = 0;
                 }
-                // 2 Pass
+                // 2-Pass
                 else if ((string)mainwindow.cboPass.SelectedItem == "2 Pass")
                 {
                     vQuality = crf + " " + vOptions; //combine
@@ -1651,7 +1740,7 @@ namespace Axiom
                 }
 
                 // -------------------------
-                // Enable 2 Pass (If Bitrate Custom & CRF Empty)
+                // Enable 2-Pass (If Bitrate Custom & CRF Empty)
                 // -------------------------
                 // If vBitrate TextBox is NOT Empty & NOT Default ("Bitrate") & CRF IS Empty or Default ("CRF")
                 if ((string)mainwindow.cboPass.SelectedItem == "2 Pass")
@@ -1698,7 +1787,7 @@ namespace Axiom
                         };
                         Log.LogActions.Add(Log.WriteAction);
 
-                        // 2 Pass Switch
+                        // 2-Pass Switch
                         v2passSwitch = 0;
                     }
                 }
@@ -1722,28 +1811,16 @@ namespace Axiom
                 vQuality = string.Empty;
             }
 
-
-            // No Video Codec
-            if ((string)mainwindow.cboVideoCodec.SelectedItem == "None")
+            // -------------------------
+            // Batch Auto Quality
+            // -------------------------
+            // If Video = Auto, use the CMD Batch Video Variable
+            if (mainwindow.tglBatch.IsChecked == true
+                && (string)mainwindow.cboVideo.SelectedItem == "Auto"
+                && (string)mainwindow.cboVideoCodec.SelectedItem != "Copy")
             {
-                vCodec = string.Empty;
-                Streams.vMap = "-vn";
-                vBitMode = string.Empty;
-                vBitrate = string.Empty;
-                vMaxrate = string.Empty;
-                vBufsize = string.Empty;
-                vQuality = string.Empty;
-            }
-
-            // Video Codec Copy
-            if ((string)mainwindow.cboVideoCodec.SelectedItem == "Copy")
-            {
-                vCodec = "-vcodec copy";
-                vBitMode = string.Empty;
-                vBitrate = string.Empty;
-                vMaxrate = string.Empty;
-                vBufsize = string.Empty;
-                vQuality = string.Empty;
+                vQuality = "-b:v %V";
+                // Skipped if Codec Copy
             }
 
 
@@ -1767,6 +1844,34 @@ namespace Axiom
                 Log.logParagraph.Inlines.Add(new Run(vOptions) { Foreground = Log.ConsoleDefault });
             };
             Log.LogActions.Add(Log.WriteAction);
+
+
+
+            // -------------------------
+            // 2-Pass Methods
+            // -------------------------
+            /// <summary>
+            ///    2 Pass Clear
+            /// </summary> 
+            FFmpeg.TwoPassClear(mainwindow);
+
+
+            /// <summary>
+            ///    2 Pass Switch
+            /// </summary> 
+            FFmpeg.TwoPassSwitch(mainwindow);
+
+
+
+            // -------------------------
+            // Return Value
+            // -------------------------
+            // Remove any white space from end of string
+            vQuality = vQuality.Trim();
+            vQuality = vQuality.TrimEnd();
+
+            // Return Value
+            return vQuality;
         }
 
 
@@ -1804,11 +1909,10 @@ namespace Axiom
                 // Video Filter Switch
                 vFilterSwitch += 1;
 
-                scale = "scale=";
                 width = "trunc(iw/2)*2";
                 height = "trunc(ih/2)*2";
                 //combine
-                aspect = scale + "\"" + width + ":" + height + "\"";
+                aspect = "scale=" + "\"" + width + ":" + height + "\"";
             }
 
             // -------------------------
@@ -1818,8 +1922,6 @@ namespace Axiom
             {
                 // Video Filter Switch
                 vFilterSwitch += 1;
-
-                scale = "scale=";
 
                 if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" 
                     || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9" 
@@ -1837,7 +1939,7 @@ namespace Axiom
 
                 width = "7680"; // Note: 8K is measured width first
 
-                aspect = scale + width + ":" + height;
+                aspect = "scale=" + width + ":" + height;
             }
             // -------------------------
             // 4K
@@ -1846,8 +1948,6 @@ namespace Axiom
             {
                 // Video Filter Switch
                 vFilterSwitch += 1;
-
-                scale = "scale=";
 
                 if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" 
                     || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9" 
@@ -1865,7 +1965,7 @@ namespace Axiom
 
                 width = "4096"; // Note: 4K is measured width first
 
-                aspect = scale + width + ":" + height;
+                aspect = "scale=" + width + ":" + height;
             }
             // -------------------------
             // 4K UHD
@@ -1874,8 +1974,6 @@ namespace Axiom
             {
                 // Video Filter Switch
                 vFilterSwitch += 1;
-
-                scale = "scale=";
 
                 if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" 
                     || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9" 
@@ -1893,7 +1991,7 @@ namespace Axiom
 
                 width = "3840"; // Note: 4K is measured width first
 
-                aspect = scale + width + ":" + height;
+                aspect = "scale=" + width + ":" + height;
             }
             // -------------------------
             // 2K
@@ -1902,8 +2000,6 @@ namespace Axiom
             {
                 // Video Filter Switch
                 vFilterSwitch += 1;
-
-                scale = "scale=";
 
                 if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" 
                     || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9" 
@@ -1921,7 +2017,7 @@ namespace Axiom
 
                 width = "2048"; // Note: 2K is measured width first
 
-                aspect = scale + width + ":" + height;
+                aspect = "scale=" + width + ":" + height;
             }
             // -------------------------
             // 1440p
@@ -1930,8 +2026,6 @@ namespace Axiom
             {
                 // Video Filter Switch
                 vFilterSwitch += 1;
-
-                scale = "scale=";
 
                 if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" 
                     || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9" 
@@ -1949,7 +2043,7 @@ namespace Axiom
 
                 height = "1440";
 
-                aspect = scale + width + ":" + height;
+                aspect = "scale=" + width + ":" + height;
             }
             // -------------------------
             // 1200p
@@ -1958,8 +2052,6 @@ namespace Axiom
             {
                 // Video Filter Switch
                 vFilterSwitch += 1;
-
-                scale = "scale=";
 
                 if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" 
                     || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9" 
@@ -1977,7 +2069,7 @@ namespace Axiom
 
                 height = "1200";
 
-                aspect = scale + width + ":" + height;
+                aspect = "scale=" + width + ":" + height;
             }
             // -------------------------
             // 1080p
@@ -1986,8 +2078,6 @@ namespace Axiom
             {
                 // Video Filter Switch
                 vFilterSwitch += 1;
-
-                scale = "scale=";
 
                 if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" 
                     || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9" 
@@ -2005,7 +2095,7 @@ namespace Axiom
 
                 height = "1080";
 
-                aspect = scale + width + ":" + height;
+                aspect = "scale=" + width + ":" + height;
             }
             // -------------------------
             // 720p
@@ -2016,7 +2106,6 @@ namespace Axiom
                 vFilterSwitch += 1;
 
                 //System.Windows.MessageBox.Show(vFilter); //debug
-                scale = "scale=";
 
                 if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" 
                     || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9" 
@@ -2034,7 +2123,7 @@ namespace Axiom
 
                 height = "720";
 
-                aspect = scale + width + ":" + height;
+                aspect = "scale=" + width + ":" + height;
             }
             // -------------------------
             // 480p
@@ -2043,8 +2132,6 @@ namespace Axiom
             {
                 // Video Filter Switch
                 vFilterSwitch += 1;
-
-                scale = "scale=";
 
                 if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" 
                     || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9" 
@@ -2062,7 +2149,7 @@ namespace Axiom
 
                 height = "480";
 
-                aspect = scale + width + ":" + height;
+                aspect = "scale=" + width + ":" + height;
             }
             // -------------------------
             // 320p
@@ -2071,8 +2158,6 @@ namespace Axiom
             {
                 // Video Filter Switch
                 vFilterSwitch += 1;
-
-                scale = "scale=";
 
                 if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" 
                     || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9" 
@@ -2090,7 +2175,7 @@ namespace Axiom
 
                 height = "320";
 
-                aspect = scale + width + ":" + height;
+                aspect = "scale=" + width + ":" + height;
             }
             // -------------------------
             // 240p
@@ -2099,8 +2184,6 @@ namespace Axiom
             {
                 // Video Filter Switch
                 vFilterSwitch += 1;
-
-                scale = "scale=";
 
                 if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" 
                     || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9"
@@ -2118,7 +2201,7 @@ namespace Axiom
 
                 height = "240";
 
-                aspect = scale + width + ":" + height;
+                aspect = "scale=" + width + ":" + height;
             }
             // -------------------------
             // Custom Size
@@ -2128,13 +2211,13 @@ namespace Axiom
                 // Change the left over Default "width" and "height" text to "auto"
                 if (string.Equals(mainwindow.widthCustom.Text, "width", StringComparison.CurrentCultureIgnoreCase))
                 {
-                    mainwindow.widthCustom.Foreground = new SolidColorBrush(Colors.White);
+                    //mainwindow.widthCustom.Foreground = new SolidColorBrush(Colors.White);
                     mainwindow.widthCustom.Text = "auto";
                 }
 
                 if (string.Equals(mainwindow.heightCustom.Text, "height", StringComparison.CurrentCultureIgnoreCase))
                 {
-                    mainwindow.heightCustom.Foreground = new SolidColorBrush(Colors.White);
+                    //mainwindow.heightCustom.Foreground = new SolidColorBrush(Colors.White);
                     mainwindow.heightCustom.Text = "auto";
                 }
 
@@ -2164,10 +2247,8 @@ namespace Axiom
                     // Video Filter Switch
                     Video.vFilterSwitch += 1;
 
-                    //set values
-                    scale = "scale=";
                     //combine
-                    aspect = scale + "\"" + width + ":" + height + "\"";
+                    aspect = "scale=" + "\"" + width + ":" + height + "\"";
                 }
 
                 // -------------------------
@@ -2320,11 +2401,8 @@ namespace Axiom
                     // Video Filter Switch
                     Video.vFilterSwitch = 2; //always combine (greater than 1)
 
-                    //set values
-                    scale = "scale=";
-
                     //combine
-                    aspect = scale + width + ":" + height;
+                    aspect = "scale=" + width + ":" + height;
 
                     //System.Windows.MessageBox.Show(crop); //debug
 
@@ -2450,7 +2528,7 @@ namespace Axiom
         /// <summary>
         /// FPS (Method)
         /// <summary>
-        public static void FPS(MainWindow mainwindow)
+        public static String FPS(MainWindow mainwindow)
         {
             if ((string)mainwindow.cboFPS.SelectedItem == "auto")
             {
@@ -2469,13 +2547,15 @@ namespace Axiom
                 Log.logParagraph.Inlines.Add(new Run(mainwindow.cboFPS.Text.ToString()) { Foreground = Log.ConsoleDefault });
             };
             Log.LogActions.Add(Log.WriteAction);
+
+            return fps;
         }
 
 
         /// <summary>
         /// Images (Method)
         /// <summary>
-        public static void Images(MainWindow mainwindow)
+        public static String Images(MainWindow mainwindow)
         {
             if ((string)mainwindow.cboMediaType.SelectedItem == "Image")
             {
@@ -2485,14 +2565,18 @@ namespace Axiom
             {
                 options = string.Empty; //disable -vframes
             }
+
+            return options;
         }
 
 
         /// <summary>
         /// Speed (Method)
         /// <summary>
-        public static void Speed(MainWindow mainwindow)
+        public static String Speed(MainWindow mainwindow)
         {
+            //var speed = string.Empty; // speed combobox modifier
+
             // -------------------------
             // x264 / x265
             // -------------------------
@@ -2604,10 +2688,6 @@ namespace Axiom
                 };
                 Log.LogActions.Add(Log.WriteAction);
             }
-            // -------------------------
-            // JPEG
-            // -------------------------
-
 
             // -------------------------
             // None (No Codec)
@@ -2625,13 +2705,17 @@ namespace Axiom
                 };
                 Log.LogActions.Add(Log.WriteAction);
             }
+
+            // Return Value
+            return speed;
+
         } // End Speed
 
 
         /// <summary>
         /// Optimize (Method)
         /// <summary>
-        public static void Optimize(MainWindow mainwindow)
+        public static String Optimize(MainWindow mainwindow)
         {
             // -------------------------
             // None
@@ -2744,12 +2828,12 @@ namespace Axiom
                 //
                 if (MainWindow.optAdvTune == "none" || string.IsNullOrEmpty(MainWindow.optAdvTune))
                 {
-                    tune = string.Empty;
+                    optTune = string.Empty;
                 }
                 else
                 {
                     // Tune = Set Tmp Setting from Optimized Advanced Window
-                    tune = "-tune " + MainWindow.optAdvTune;
+                    optTune = "-tune " + MainWindow.optAdvTune;
                 }
 
 
@@ -2777,12 +2861,21 @@ namespace Axiom
                     optLevel = "-level " + MainWindow.optAdvLevel;
                 }
 
-                // Combine Optimize = Profile + Level
+
+                // Combine Optimize = Tune + Profile + Level
                 //
-                List<string> v2passList = new List<string>() { optProfile, optLevel };
+                List<string> v2passList = new List<string>() {
+                    optProfile,
+                    optLevel,
+                    optTune
+                };
+
                 optimize = string.Join(" ", v2passList.Where(s => !string.IsNullOrEmpty(s)));
 
             }
+
+            // Return Value
+            return optimize;
 
         } // End Optimize
 
@@ -2869,8 +2962,50 @@ namespace Axiom
         /// <summary>
         /// Video Filter Combine (Method)
         /// <summary>
-        public static void VideoFilterCombine(MainWindow mainwindow)
+        public static String VideoFilter(MainWindow mainwindow)
         {
+            // Initialize the Filter
+            // Clear the Filter for each run
+            // Anything that pertains to Video must be after the vFilter
+            //vFilterSwitch = string.Empty; //do not reset the switch between converts
+            vFilter = string.Empty;
+
+
+            // Filters
+            /// <summary>
+            ///    Resize
+            /// </summary> 
+            Video.Resize(mainwindow);
+
+            /// <summary>
+            ///    Crop
+            /// </summary> 
+            Video.Crop(mainwindow, cropwindow);
+            //MessageBox.Show(crop); //debug
+            //MessageBox.Show(geq); //debug
+
+
+
+            // -------------------------
+            // JPEG
+            // -------------------------
+            if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG")
+            {
+                // Turn on PNG to JPG Filter
+                if (string.Equals(MainWindow.inputExt, ".png", StringComparison.CurrentCultureIgnoreCase)
+                    || string.Equals(MainWindow.inputExt, "png", StringComparison.CurrentCultureIgnoreCase))
+                {
+                    vFilterSwitch += 1;
+
+                    geq = "format=yuva444p,geq='if(lte(alpha(X,Y),16),255,p(X,Y))':'if(lte(alpha(X,Y),16),128,p(X,Y))':'if(lte(alpha(X,Y),16),128,p(X,Y))'"; //png transparent to white background
+                }
+                else
+                {
+                    geq = string.Empty;
+                }
+            }
+
+
             // -------------------------
             // vFilter Switch   (On, Combine, Off, Empty)
             // -------------------------
@@ -2919,6 +3054,10 @@ namespace Axiom
                 vFilterSwitch = 0;
                 vFilter = string.Empty;
             }
+
+
+            // Return Value
+            return vFilter;
         }
 
 

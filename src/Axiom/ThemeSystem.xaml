@@ -85,7 +85,7 @@
         <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}"/>
         <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
         <!--Background-->
-        <Setter Property="Background" Value="#FFebe9ed" />
+        <Setter Property="Background" Value="#FFF0F0F0" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Window}">
@@ -108,7 +108,7 @@
     <Style x:Key="WindowConfigure" TargetType="{x:Type Window}">
         <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}"/>
         <!--Background-->
-        <Setter Property="Background" Value="#FFebe9ed"/>
+        <Setter Property="Background" Value="#FFF0F0F0"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Window}">
@@ -131,7 +131,7 @@
     <Style x:Key="WindowCrop" TargetType="{x:Type Window}">
         <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}"/>
         <!--Background-->
-        <Setter Property="Background" Value="#FFebe9ed"/>
+        <Setter Property="Background" Value="#FFF0F0F0"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Window}">
@@ -154,7 +154,7 @@
     <Style x:Key="WindowOptimizeAdvanced" TargetType="{x:Type Window}">
         <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}"/>
         <!--Background-->
-        <Setter Property="Background" Value="#FFebe9ed"/>
+        <Setter Property="Background" Value="#FFF0F0F0"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Window}">
@@ -177,7 +177,7 @@
     <Style x:Key="WindowLogConsole" TargetType="{x:Type Window}">
         <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}"/>
         <!--Background-->
-        <Setter Property="Background" Value="#FF000000"/>
+        <Setter Property="Background" Value="#FF555555"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Window}">
@@ -197,13 +197,37 @@
     </Style>
 
     
+    <!-- Debug Console -->
+    <Style x:Key="WindowDebugConsole" TargetType="{x:Type Window}">
+        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}"/>
+        <!--Background-->
+        <Setter Property="Background" Value="#FF444444"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Window}">
+                    <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
+                        <AdornerDecorator>
+                            <ContentPresenter/>
+                        </AdornerDecorator>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="ResizeMode" Value="CanResizeWithGrip">
+                <Setter Property="Template" Value="{StaticResource WindowTemplateKey}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+
     <!--/////////////////////////////////////
         ComboBox Custom
         /////////////////////////////////////-->
 
-    
+
     <!--/////////////////////////////////////
-        TextBox Custom
+          TextBox Custom
         /////////////////////////////////////-->
 
 
@@ -228,12 +252,35 @@
 
 
     <!--/////////////////////////////////////
+        Crop Button TextBlock
+        /////////////////////////////////////-->
+    <!--<Style x:Key="ButtonCropTextBlock" TargetType="{x:Type TextBlock}">
+        <Setter Property="TextWrapping" Value="NoWrap" />
+        <Setter Property="TextTrimming" Value="None" />
+        <Setter Property="Foreground" Value="Black" />
+        <Setter Property="TextElement.Foreground" Value="Black" />
+
+        <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="false">
+                <Setter Property="TextElement.Foreground" Value="#FF838383" />
+            </Trigger>
+        </Style.Triggers>
+
+    </Style>-->
+
+
+    <!--/////////////////////////////////////
         Button Folder
         /////////////////////////////////////-->
 
 
     <!--/////////////////////////////////////
         Button Folder Custom
+        /////////////////////////////////////-->
+
+    
+    <!--/////////////////////////////////////
+          Volume TextBox
         /////////////////////////////////////-->
 
 
@@ -260,6 +307,123 @@
     <!--/////////////////////////////////////
         Volume Button Glyph
         /////////////////////////////////////-->
+
+
+
+
+    <!--/////////////////////////////////////
+        Black Icons
+        /////////////////////////////////////-->
+
+    <!-- Info Button -->
+    <Style x:Key="ButtonInfo" TargetType="{x:Type Image}">
+        <Setter Property="FlowDirection" Value="LeftToRight"/>
+        <Setter Property="Source" Value="Resources/Images/info-black.png"/>
+        <Setter Property="Opacity" Value="0.8"/>
+    </Style>
+
+    <!-- Website Button -->
+    <Style x:Key="ButtonWebsite" TargetType="{x:Type Image}">
+        <Setter Property="FlowDirection" Value="LeftToRight"/>
+        <Setter Property="Source" Value="Resources/Images/web-black.png"/>
+        <Setter Property="Opacity" Value="0.8"/>
+    </Style>
+
+    <!-- Configure Button -->
+    <Style x:Key="ButtonConfigure" TargetType="{x:Type Image}">
+        <Setter Property="FlowDirection" Value="LeftToRight"/>
+        <Setter Property="Source" Value="Resources/Images/configuregear-black.png"/>
+        <Setter Property="Opacity" Value="0.8"/>
+    </Style>
+
+    <!-- Window Button -->
+    <Style x:Key="ButtonWindow" TargetType="{x:Type Image}">
+        <Setter Property="FlowDirection" Value="LeftToRight"/>
+        <Setter Property="Source" Value="Resources/Images/window-black.png"/>
+        <Setter Property="Opacity" Value="0.8"/>
+    </Style>
+
+    <!-- Debug Console Button -->
+    <Style x:Key="ButtonDebugConsole" TargetType="{x:Type Image}">
+        <Setter Property="FlowDirection" Value="LeftToRight"/>
+        <Setter Property="Source" Value="Resources/Images/debugconsole-black.png"/>
+        <Setter Property="Opacity" Value="0.8"/>
+    </Style>
+
+    <!-- Log Console Button -->
+    <Style x:Key="ButtonLogConsole" TargetType="{x:Type Image}">
+        <Setter Property="FlowDirection" Value="LeftToRight"/>
+        <Setter Property="Source" Value="Resources/Images/logconsole-black.png"/>
+        <Setter Property="Opacity" Value="0.8"/>
+    </Style>
+
+    <!-- Log Button -->
+    <Style x:Key="ButtonLog" TargetType="{x:Type Image}">
+        <Setter Property="FlowDirection" Value="LeftToRight"/>
+        <Setter Property="Source" Value="Resources/Images/log-black.png"/>
+        <Setter Property="Opacity" Value="0.8"/>
+    </Style>
+
+    <!-- CMD Button -->
+    <Style x:Key="ButtonCMD" TargetType="{x:Type Image}">
+        <Setter Property="FlowDirection" Value="LeftToRight"/>
+        <Setter Property="Source" Value="Resources/Images/cmd-black.png"/>
+        <Setter Property="Opacity" Value="0.8"/>
+    </Style>
+
+    <!-- Properties Button -->
+    <Style x:Key="ButtonProperties" TargetType="{x:Type Image}">
+        <Setter Property="FlowDirection" Value="LeftToRight"/>
+        <Setter Property="Source" Value="Resources/Images/properties-black.png"/>
+        <Setter Property="Opacity" Value="0.8"/>
+    </Style>
+
+    <!-- Play Button -->
+    <Style x:Key="ButtonPlay" TargetType="{x:Type Image}">
+        <Setter Property="FlowDirection" Value="LeftToRight"/>
+        <Setter Property="Source" Value="Resources/Images/autoplay-black.png"/>
+        <Setter Property="Opacity" Value="0.8"/>
+    </Style>
+
+    <!-- Folder Button -->
+    <Style x:Key="ButtonQuickFolder" TargetType="{x:Type Image}">
+        <Setter Property="FlowDirection" Value="LeftToRight"/>
+        <Setter Property="Source" Value="Resources/Images/folder-black.png"/>
+        <Setter Property="Opacity" Value="0.8"/>
+    </Style>
+
+    <!-- Revert Arrow Button -->
+    <Style x:Key="ButtonRevertArrow" TargetType="{x:Type Image}">
+        <Setter Property="FlowDirection" Value="LeftToRight"/>
+        <Setter Property="Source" Value="Resources/Images/revertarrow-black.png"/>
+        <Setter Property="Opacity" Value="0.8"/>
+    </Style>
+
+    <!-- Volume Up Button -->
+    <Style x:Key="ButtonVolumeUp" TargetType="{x:Type Image}">
+        <Setter Property="FlowDirection" Value="LeftToRight"/>
+        <Setter Property="Source" Value="Resources/Images/ArrowUp-black.png"/>
+        <Setter Property="Opacity" Value="0.8"/>
+        <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="false">
+                <Setter Property="Opacity" Value="0.6"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- Volume Down Button -->
+    <Style x:Key="ButtonVolumeDown" TargetType="{x:Type Image}">
+        <Setter Property="FlowDirection" Value="LeftToRight"/>
+        <Setter Property="Source" Value="Resources/Images/ArrowDown-black.png"/>
+        <Setter Property="Opacity" Value="0.8"/>
+        <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="false">
+                <Setter Property="Opacity" Value="0.6"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+
 
 
 

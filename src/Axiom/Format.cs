@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows.Media;
 // Disable XML Comment warnings
 #pragma warning disable 1591
@@ -144,7 +145,7 @@ namespace Axiom
                 //MainWindow.outputExt = ".gif";
                 mainwindow.cboMediaType.SelectedItem = "Image";
                 mainwindow.cboMediaType.IsEnabled = true;
-                Video.vCodec = string.Empty;
+                //Video.VideoCodec(mainwindow) = string.Empty;
                 Audio.aCodec = string.Empty;
                 Video.options = string.Empty;
                 mainwindow.cboSubtitle.SelectedItem = "none";
@@ -224,7 +225,7 @@ namespace Axiom
                 mainwindow.cboMediaType.SelectedItem = "Image";
 
                 mainwindow.cboMediaType.IsEnabled = true;
-                Video.vCodec = string.Empty;
+                //Video.vCodec = string.Empty;
                 Audio.aCodec = string.Empty;
                 Streams.mMap = string.Empty;
                 Video.options = string.Empty;
@@ -245,7 +246,7 @@ namespace Axiom
                 mainwindow.cboMediaType.SelectedItem = "Image";
 
                 mainwindow.cboMediaType.IsEnabled = true;
-                Video.vCodec = string.Empty;
+                //Video.vCodec = string.Empty;
                 Audio.aCodec = string.Empty;
                 Streams.mMap = string.Empty;
                 Video.options = string.Empty;
@@ -613,7 +614,7 @@ namespace Axiom
 
                 // Crop
                 mainwindow.buttonCrop.IsEnabled = true;
-                mainwindow.buttonCrop.Foreground = new SolidColorBrush(Colors.White);
+                //mainwindow.buttonCrop.Foreground = new SolidColorBrush(Colors.White);
 
                 //Speed
                 mainwindow.cboSpeed.IsEnabled = true;
@@ -626,7 +627,7 @@ namespace Axiom
 
                 // Volume
                 mainwindow.volumeUpDown.IsEnabled = true;
-                mainwindow.volumeUpDown.Foreground = new SolidColorBrush(Colors.White);
+                //mainwindow.volumeUpDown.Foreground = new SolidColorBrush(Colors.White);
                 mainwindow.volumeUpButton.IsEnabled = true;
                 mainwindow.volumeDownButton.IsEnabled = true;
 
@@ -674,6 +675,7 @@ namespace Axiom
                 // Crop
                 //crop = string.Empty; //??
                 mainwindow.buttonCrop.IsEnabled = false;
+                //mainwindow.buttonCropTextBlock.IsEnabled = false;
                 //mainwindow.buttonCrop.Foreground = MainWindow.TextBoxDiabledForeground;
 
                 // Fps
@@ -701,7 +703,7 @@ namespace Axiom
 
                 // Volume
                 mainwindow.volumeUpDown.IsEnabled = true;
-                mainwindow.volumeUpDown.Foreground = new SolidColorBrush(Colors.White);
+                //mainwindow.volumeUpDown.Foreground = new SolidColorBrush(Colors.White);
                 mainwindow.volumeUpButton.IsEnabled = true;
                 mainwindow.volumeDownButton.IsEnabled = true;
 
@@ -740,7 +742,7 @@ namespace Axiom
 
                 // Crop
                 mainwindow.buttonCrop.IsEnabled = true;
-                mainwindow.buttonCrop.Foreground = new SolidColorBrush(Colors.White);
+                //mainwindow.buttonCrop.Foreground = new SolidColorBrush(Colors.White);
 
                 // Fps
                 mainwindow.cboFPS.SelectedItem = "auto";
@@ -802,7 +804,7 @@ namespace Axiom
 
                 // Crop
                 mainwindow.buttonCrop.IsEnabled = true;
-                mainwindow.buttonCrop.Foreground = new SolidColorBrush(Colors.White);
+                //mainwindow.buttonCrop.Foreground = new SolidColorBrush(Colors.White);
 
                 //Speed
                 mainwindow.cboSpeed.IsEnabled = false;
@@ -886,14 +888,14 @@ namespace Axiom
                     mainwindow.frameEnd.IsEnabled = true;
 
                     // TextBox Color
-                    if (mainwindow.frameStart.Text != "Frame")
-                    {
-                        mainwindow.frameStart.Foreground = new SolidColorBrush(Colors.White);
-                    }
-                    if (mainwindow.frameEnd.Text != "Range")
-                    {
-                        mainwindow.frameEnd.Foreground = new SolidColorBrush(Colors.White);
-                    }
+                    //if (mainwindow.frameStart.Text != "Frame")
+                    //{
+                    //    mainwindow.frameStart.Foreground = new SolidColorBrush(Colors.White);
+                    //}
+                    //if (mainwindow.frameEnd.Text != "Range")
+                    //{
+                    //    mainwindow.frameEnd.Foreground = new SolidColorBrush(Colors.White);
+                    //}
                 }
                 else if ((string)mainwindow.cboMediaType.SelectedItem == "Audio") // only for video
                 {
@@ -922,10 +924,10 @@ namespace Axiom
                     mainwindow.frameEnd.Text = string.Empty; //important
 
                     // TextBox Color
-                    if (mainwindow.frameStart.Text != "Frame")
-                    {
-                        mainwindow.frameStart.Foreground = new SolidColorBrush(Colors.White);
-                    }
+                    //if (mainwindow.frameStart.Text != "Frame")
+                    //{
+                    //    mainwindow.frameStart.Foreground = new SolidColorBrush(Colors.White);
+                    //}
                 }
                 else if ((string)mainwindow.cboMediaType.SelectedItem == "Sequence") // only for video
                 {
@@ -938,14 +940,14 @@ namespace Axiom
                     mainwindow.frameEnd.IsEnabled = true;
 
                     // TextBox Color
-                    if (mainwindow.frameStart.Text != "Frame")
-                    {
-                        mainwindow.frameStart.Foreground = new SolidColorBrush(Colors.White);
-                    }
-                    if (mainwindow.frameEnd.Text != "Range")
-                    {
-                        mainwindow.frameEnd.Foreground = new SolidColorBrush(Colors.White);
-                    }
+                    //if (mainwindow.frameStart.Text != "Frame")
+                    //{
+                    //    mainwindow.frameStart.Foreground = new SolidColorBrush(Colors.White);
+                    //}
+                    //if (mainwindow.frameEnd.Text != "Range")
+                    //{
+                    //    mainwindow.frameEnd.Foreground = new SolidColorBrush(Colors.White);
+                    //}
                 }
             }
         } // End Cut Controls
@@ -961,7 +963,7 @@ namespace Axiom
         /// <summary>
         /// Cut (Method)
         /// </summary>
-        public static void Cut(MainWindow mainwindow)
+        public static String Cut(MainWindow mainwindow)
         {
             // VIDEO
             //
@@ -1024,24 +1026,34 @@ namespace Axiom
 
             // JPEG & PNG Sequence
             //
-            else if ((string)mainwindow.cboCut.SelectedItem == "Yes" && (string)mainwindow.cboMediaType.SelectedItem == "Sequence")
+            else if ((string)mainwindow.cboCut.SelectedItem == "Yes" 
+                && (string)mainwindow.cboMediaType.SelectedItem == "Sequence")
             {
                 // Use Time
                 // If Frame Textboxes Default Use Time
-                if (mainwindow.frameStart.Text == "Frame" && mainwindow.frameEnd.Text == "Range" || string.IsNullOrWhiteSpace(mainwindow.frameStart.Text) && string.IsNullOrWhiteSpace(mainwindow.frameEnd.Text))
+                if (mainwindow.frameStart.Text == "Frame" 
+                    && mainwindow.frameEnd.Text == "Range" 
+                    || string.IsNullOrWhiteSpace(mainwindow.frameStart.Text) 
+                    && string.IsNullOrWhiteSpace(mainwindow.frameEnd.Text))
                 {
                     trimStart = mainwindow.cutStart.Text;
                     trimEnd = mainwindow.cutEnd.Text;
                 }
                 // Use Frames
                 // If Frame Textboxes have Text, but not Default, use FramesToDecimal Method (Override Time)
-                else if (mainwindow.frameStart.Text != "Frame" && mainwindow.frameEnd.Text != "Range" && !string.IsNullOrWhiteSpace(mainwindow.frameStart.Text) && !string.IsNullOrWhiteSpace(mainwindow.frameEnd.Text))
+                else if (mainwindow.frameStart.Text != "Frame" 
+                    && mainwindow.frameEnd.Text != "Range" 
+                    && !string.IsNullOrWhiteSpace(mainwindow.frameStart.Text) 
+                    && !string.IsNullOrWhiteSpace(mainwindow.frameEnd.Text))
                 {
                     Video.FramesToDecimal(mainwindow);
                 }
 
                 trim = "-ss " + trimStart + " " + "-to " + trimEnd;
             }
+
+            // Return Value
+            return trim;
         }
 
     }

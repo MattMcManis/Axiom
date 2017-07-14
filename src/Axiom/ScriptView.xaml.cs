@@ -32,12 +32,12 @@ namespace Axiom
     /// </summary>
     public partial class ScriptView : Window
     {
-        string ffmpegArgs; // pass data to string
+        //string ffmpegArgs; // pass data to string
         //private MainWindow mainwindow;
         //private Configure configure;
         //private LogConsole console;
 
-        public ScriptView(string ffmpegArgs) // pass data constuctor
+        public ScriptView() // pass data constuctor
         {
             InitializeComponent();
 
@@ -47,10 +47,10 @@ namespace Axiom
             this.MinWidth = 300;
             this.MinHeight = 250;
 
-            this.ffmpegArgs = ffmpegArgs;
+            //this.ffmpegArgs = FFmpeg.ffmpegArgs;
 
             // Display Script in Textbox
-            textBoxScript.Text = ffmpegArgs;
+            textBoxScript.Text = FFmpeg.ffmpegArgs;
         }
 
         /// <summary>
@@ -80,9 +80,9 @@ namespace Axiom
             string currentDir = Directory.GetCurrentDirectory();
 
             // CMD Arguments are from Script TextBox
-            ffmpegArgs = textBoxScript.Text;
+            FFmpeg.ffmpegArgs = textBoxScript.Text;
 
-            System.Diagnostics.Process.Start("CMD.exe", "/k cd " + "\"" + currentDir + "\"" + " & " + /* start ffmpeg commands -->*/ ffmpegArgs);
+            System.Diagnostics.Process.Start("CMD.exe", "/k cd " + "\"" + currentDir + "\"" + " & " + /* start ffmpeg commands -->*/ FFmpeg.ffmpegArgs);
 
             // Error Writing Log from ScriptView
             // Call DefineLogPath Method
@@ -93,7 +93,7 @@ namespace Axiom
             //Log.CreateOutputLog(mainwindow, this, console, configure);
 
             // Clear FFmpeg Arguments for next run
-            ffmpegArgs = string.Empty;
+            FFmpeg.ffmpegArgs = string.Empty;
 
             // Call Garbage Collector
             //GC.Collect();

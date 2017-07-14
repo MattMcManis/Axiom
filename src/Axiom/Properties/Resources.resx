@@ -160,4 +160,52 @@
   <data name="properties" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Images\properties.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="web_black" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\web-black.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ArrowDown_black" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\ArrowDown-black.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ArrowUp_black" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\ArrowUp-black.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="autoplay_black" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\autoplay-black.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="cmd_black" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\cmd-black.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="configuregear_black" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\configuregear-black.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="debugconsole_black" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\debugconsole-black.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="folder_black" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\folder-black.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="info_black" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\info-black.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="logconsole_black" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\logconsole-black.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="log_black" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\log-black.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="properties_black" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\properties-black.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="revertarrow_black" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\revertarrow-black.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="save_black" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\save-black.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="window_black" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\window-black.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_2pass_black" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\2pass-black.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

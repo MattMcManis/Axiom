@@ -35,12 +35,7 @@
         WindowStartupLocation="CenterScreen"
         Style="{DynamicResource WindowStyleCustom}"
         >
-    <Window.Resources>
-        <Style x:Key="ButtonCropTextBlock" TargetType="{x:Type TextBlock}">
-            <Setter Property="TextWrapping" Value="NoWrap"/>
-            <Setter Property="TextTrimming" Value="None"/>
-        </Style>
-    </Window.Resources>
+
     <Grid>
 
         <!-- Subtitle -->
@@ -187,7 +182,7 @@
             <TextBlock x:Name="buttonOutputTextBlock" Text="Output" Margin="0,-2,0,0"/>
         </Button>
         <!-- Output Textbox-->
-        <TextBox x:Name="textBoxOutput" Style="{DynamicResource TextBoxBrowseCustom}" HorizontalAlignment="Left" Height="22" Margin="93,43,0,0" Padding="2, 0, 0, 0" TextWrapping="NoWrap" MaxLines="1" VerticalAlignment="Top" Width="464" TextChanged="textBoxOutput_TextChanged" Foreground="White"/>
+        <TextBox x:Name="textBoxOutput" Style="{DynamicResource TextBoxBrowseCustom}" HorizontalAlignment="Left" Height="22" Margin="93,43,0,0" Padding="2, 0, 0, 0" TextWrapping="NoWrap" MaxLines="1" VerticalAlignment="Top" Width="464" TextChanged="textBoxOutput_TextChanged"/>
 
         <!-- Video Bit-rate-->
         <TextBox x:Name="vBitrateCustom" HorizontalAlignment="Left" Height="22" Margin="93,128,0,0" Padding="1, 1, 0, 0" TextWrapping="NoWrap" Text="Bitrate" VerticalAlignment="Top" Width="44" MaxLines="1" MaxLength="10" GotFocus="vBitrateCustom_GotFocus" LostFocus="vBitrateCustom_LostFocus" Style="{DynamicResource TextBoxCustom}" ToolTipService.InitialShowDelay="1000" ToolTipService.ShowOnDisabled="True" ToolTip="Video Bitrate (e.g. 1M or 1000K)"/>
@@ -197,12 +192,12 @@
 
         <!-- Input Location Button -->
         <Button x:Name="openLocationInput" Style="{DynamicResource ButtonFolderCustom}" HorizontalAlignment="Left" Margin="562,12,0,0" VerticalAlignment="Top" Width="22" Cursor="Hand" Height="22" Click="openLocationInput_Click" ToolTip="Open this location">
-            <Image Source="Resources/Images/folder.png" Width="11" Height="7" Stretch="Fill" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="1,0,0,0"/>
+            <Image Width="11" Height="7" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="1,0,0,0" Style="{DynamicResource ButtonQuickFolder}" />
         </Button>
 
         <!-- Output Location Button -->
         <Button x:Name="openLocationOutput" Style="{DynamicResource ButtonFolderCustom}" HorizontalAlignment="Left" Margin="562,43,0,0" VerticalAlignment="Top" Width="22" Cursor="Hand" Height="22" Click="openLocationOutput_Click" ToolTip="Open this location">
-            <Image Source="Resources/Images/folder.png" Width="11" Height="7" Stretch="Fill" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="1,0,0,0"/>
+            <Image Width="11" Height="7" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="1,0,0,0" Style="{DynamicResource ButtonQuickFolder}" />
         </Button>
 
         <!-- Audio kbps Custom -->
@@ -212,36 +207,43 @@
         <ComboBox x:Name="cboOptimize" Style="{DynamicResource ComboBoxCustom}" ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" HorizontalAlignment="Left" Margin="531,156,0,0" VerticalAlignment="Top" Width="52" SelectionChanged="cboOptimize_SelectionChanged" DropDownClosed="cboOptimize_DropDownClosed" ToolTipService.ShowOnDisabled="True" ToolTip="Optimize file for device type." />
 
         <!-- Convert Button -->
-        <Button x:Name="buttonConvert" Style="{DynamicResource ButtonCustom}" HorizontalAlignment="Left" Margin="508,233,0,0" VerticalAlignment="Top" Width="75" Height="22" Cursor="Hand" Click="buttonConvert_Click">
-            <TextBlock x:Name="buttonConvertTextBlock" Text="Convert" Margin="0,-2,0,0"/>
+        <Button x:Name="btnConvert" Style="{DynamicResource ButtonCustom}" HorizontalAlignment="Left" Margin="508,233,0,0" VerticalAlignment="Top" Width="75" Height="22" Cursor="Hand" Click="btnConvert_Click">
+            <TextBlock x:Name="btnConvertTextBlock" Text="Convert" Margin="0,-2,0,0"/>
         </Button>
 
         <!-- Info Button -->
         <Button x:Name="buttonInfo" HorizontalAlignment="Left" Margin="10,233,0,0" VerticalAlignment="Top" Width="22" Height="22" Cursor="Hand" Click="buttonInfo_Click" Background="{x:Null}" Style="{DynamicResource ButtonSmallCustom}" ToolTip="About this program">
-            <Image Source="Resources/Images/info.png" Width="5" Height="10" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="1,0,0,0"/>
+            <Image Width="5" Height="10" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="1,0,0,0" Style="{DynamicResource ButtonInfo}"/>
         </Button>
 
         <!-- Configure Button -->
         <Button x:Name="buttonConfigure" HorizontalAlignment="Left" Margin="64,233,0,0" VerticalAlignment="Top" Width="22" Height="22" Cursor="Hand" Click="buttonConfigure_Click" Background="{x:Null}" Style="{DynamicResource ButtonSmallCustom}" ToolTip="Configure Settings and Paths">
-            <Image Source="Resources/Images/configuregear.png" Width="11" Height="11" Stretch="None" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-1,0,0" Cursor="Hand"/>
+            <Image Width="11" Height="11" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-1,0,0" Cursor="Hand" Style="{DynamicResource ButtonConfigure}"/>
         </Button>
 
         <!-- Website Button -->
         <Button x:Name="buttonWebsite" HorizontalAlignment="Left" Margin="37,233,0,0" VerticalAlignment="Top" Width="22" Height="22" Cursor="Hand" Click="buttonWebsite_Click" Background="{x:Null}" Style="{DynamicResource ButtonSmallCustom}" ToolTip="Visit Website">
-            <Image Source="Resources/Images/web.png" Width="11" Height="11" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="1,-1,0,0"/>
+            <Image Width="11" Height="11" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="1,-1,0,0" Style="{DynamicResource ButtonWebsite}" />
         </Button>
 
         <!-- Log Button -->
         <Button x:Name="buttonLog" HorizontalAlignment="Left" Margin="172,233,0,0" VerticalAlignment="Top" Width="22" Height="22" Cursor="Hand" Click="buttonLog_Click" ToolTip="View the last Output Log" Background="{x:Null}" Style="{DynamicResource ButtonSmallCustom}">
-            <Image Source="Resources/Images/log.png" Width="9" Height="11" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-1,0,0"/>
+            <Image Width="9" Height="11" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-1,0,0" Style="{DynamicResource ButtonLog}" />
+        </Button>
+
+        <!-- CMD Button -->
+        <Button x:Name="buttonCmd" HorizontalAlignment="Left" Margin="199,233,0,0" VerticalAlignment="Top" Width="22" Height="22" Cursor="Hand" Click="buttonCmd_Click" Background="{x:Null}" Style="{DynamicResource ButtonSmallCustom}" ToolTip="Launch Command Prompt">
+            <Image Width="11" Height="11" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" Style="{DynamicResource ButtonCMD}" />
+        </Button>
+
+        <!-- Properties Button -->
+        <Button x:Name="buttonProperties" HorizontalAlignment="Left" Margin="226,233,0,0" VerticalAlignment="Top" Width="22" Height="22" Cursor="Hand" Click="buttonProperties_Click" Background="{x:Null}" Style="{DynamicResource ButtonSmallCustom}" ToolTip="View File Properties">
+            <Image Width="10" Height="11" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" Style="{DynamicResource ButtonProperties}" />
         </Button>
 
         <!-- Script Button -->
-        <Button x:Name="buttonScript" Style="{DynamicResource ButtonCustom}" HorizontalAlignment="Left" Margin="425,233,0,0" VerticalAlignment="Top" Width="75" Height="22" Cursor="Hand" Click="buttonScript_Click" ToolTip="Generate FFmpeg Commands">
-            <TextBlock x:Name="buttonScriptTextBlock" Text="Script" Margin="0,-2,0,0" />
-        </Button>
-        <Button x:Name="buttonCmd" HorizontalAlignment="Left" Margin="199,233,0,0" VerticalAlignment="Top" Width="22" Height="22" Cursor="Hand" Click="buttonCmd_Click" Background="{x:Null}" Style="{DynamicResource ButtonSmallCustom}" ToolTip="Launch Command Prompt">
-            <Image Source="Resources/Images/cmd.png" Width="11" Height="11" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0"/>
+        <Button x:Name="btnScript" Style="{DynamicResource ButtonCustom}" HorizontalAlignment="Left" Margin="425,233,0,0" VerticalAlignment="Top" Width="75" Height="22" Cursor="Hand" Click="btnScript_Click" ToolTip="Generate FFmpeg Commands">
+            <TextBlock x:Name="btnScriptTextBlock" Text="Script" Margin="0,-2,0,0" />
         </Button>
 
         <!-- Batch Checkbox -->
@@ -253,18 +255,28 @@
 
         <!-- Window Toggle  -->
         <ToggleButton x:Name="tglWindowKeep" HorizontalAlignment="Left" Margin="91,233,0,0" VerticalAlignment="Top" Foreground="White" ToolTip="Keep FFmpeg window open after converting." Width="22" Height="22" Style="{DynamicResource ToggleButtonCustom}" Checked="tglWindowKeep_Checked" Unchecked="tglWindowKeep_Unchecked">
-            <Image Source="Resources/Images/window.png" Width="10" Height="10" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0"/>
+            <Image Width="10" Height="10" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" Style="{DynamicResource ButtonWindow}" />
         </ToggleButton>
+
+        <!-- Debug Console -->
+        <Button x:Name="buttonDebugConsole" HorizontalAlignment="Left" Margin="118,233,0,0" VerticalAlignment="Top" Width="22" Height="22" Cursor="Hand" Click="buttonDebugConsole_Click" Background="{x:Null}" Style="{DynamicResource ButtonSmallCustom}" ToolTip="Show Debug Console">
+            <Image Width="12" Height="10" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="-1,0,0,0" Style="{DynamicResource ButtonDebugConsole}" />
+        </Button>
+
+        <!-- Log Console -->
+        <Button x:Name="buttonConsole" HorizontalAlignment="Left" Margin="145,233,0,0" VerticalAlignment="Top" Width="22" Height="22" Cursor="Hand" Click="buttonConsole_Click" Background="{x:Null}" Style="{DynamicResource ButtonSmallCustom}" ToolTip="Show Log Console">
+            <Image Width="10" Height="11" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" Style="{DynamicResource ButtonLogConsole}" />
+        </Button>
 
         <!-- 2 Pass Toggle -->
         <ToggleButton x:Name="tgl2Pass" HorizontalAlignment="Left" Margin="-135,233,0,0" VerticalAlignment="Top" Foreground="White" ToolTip="Use 2-Pass over CRF" Width="22" Height="22" Style="{DynamicResource ToggleButtonCustom}">
             <!--Checked="tgl2Pass_Checked" Unchecked="tgl2Pass_Unchecked"-->
-            <Image Source="Resources/Images/2pass.png" Width="12" Height="11" Stretch="Fill" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0"/>
+            <Image Width="12" Height="11" Stretch="Fill" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0"/>
         </ToggleButton>
 
         <!-- Save -->
         <Button x:Name="buttonSave" HorizontalAlignment="Left" Margin="-189,233,0,0" VerticalAlignment="Top" Width="22" Height="22" Cursor="Hand" Click="buttonSave_Click" Background="{x:Null}" Style="{DynamicResource ButtonSmallCustom}" ToolTip="Save Custom Preset">
-            <Image Source="Resources/Images/save.png" Width="11" Height="11" Stretch="Fill" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="1,-1,0,0"/>
+            <Image Width="11" Height="11" Stretch="Fill" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="1,-1,0,0"/>
         </Button>
 
         <!-- VBR Toggle -->
@@ -292,7 +304,7 @@
         <!-- Play File -->
         <Label x:Name="labelOptimize" Style="{DynamicResource LabelCustom}" Content="Opt" HorizontalAlignment="Left" Margin="503,155,0,0" VerticalAlignment="Top" Width="28" ToolTip="Optimize file for device type." FontSize="11" FontFamily="Segoe UI Semilight" />
         <Button x:Name="buttonPlayFile" HorizontalAlignment="Left" Margin="253,233,0,0" VerticalAlignment="Top" Width="22" Height="22" Cursor="Hand" Click="buttonPlayFile_Click" Background="{x:Null}" Style="{DynamicResource ButtonSmallCustom}" ToolTip="Play Converted File">
-            <Image Source="Resources/Images/autoplay.png" Width="11" Height="11" Stretch="None" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="-1,0,0,0"/>
+            <Image Width="11" Height="11" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="-1,0,0,0" Style="{DynamicResource ButtonPlay}" />
         </Button>
 
         <!-- Speed -->
@@ -317,7 +329,7 @@
 
         <!-- Crop -->
         <Button x:Name="buttonCrop" Padding="0" HorizontalAlignment="Left" Margin="342,184,0,0" VerticalAlignment="Top" Width="58" Height="22" Cursor="Hand" Click="buttonCrop_Click" Style="{DynamicResource ButtonCropCustom}" ToolTipService.InitialShowDelay="1000" ToolTipService.ShowOnDisabled="True" ToolTip="Open Crop Window">
-            <TextBlock Text="Crop" Margin="0,-1,0,0" FontSize="11" />
+            <TextBlock x:Name="buttonCropTextBlock" Text="Crop" Margin="0,-1,0,0" FontSize="11" />
         </Button>
 
         <!-- Crop Clear -->
@@ -326,21 +338,18 @@
         </Button>
 
         <!-- Volume -->
-        <TextBox x:Name="volumeUpDown" HorizontalAlignment="Left" TextAlignment="Right" Height="22" Margin="282,156,0,0" Padding="0, 2, 17, 0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="52" Style="{DynamicResource TextBoxCustom}" KeyDown="volumeUpDown_KeyDown" MaxLines="1" MaxLength="6" ToolTipService.InitialShowDelay="1000" ToolTipService.ShowOnDisabled="True" ToolTip="Volume" Text="100" TextChanged="volumeUpDown_TextChanged"/>
+        <TextBox x:Name="volumeUpDown" HorizontalAlignment="Left" TextAlignment="Right" Height="22" Margin="282,156,0,0" Padding="0, 2, 17, 0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="52" Style="{DynamicResource TextBoxCustom}" KeyDown="volumeUpDown_KeyDown" MaxLines="1" MaxLength="6" ToolTipService.InitialShowDelay="1000" ToolTipService.ShowOnDisabled="True" ToolTip="Volume" Text="100" TextChanged="volumeUpDown_TextChanged" />
         <Label x:Name="labelVolume" Style="{DynamicResource LabelCustom}"  Content="Vol" HorizontalAlignment="Left" Margin="255,154,0,0" VerticalAlignment="Top" Width="27" ToolTip="Volume" FontSize="11" FontFamily="Segoe UI Semilight" RenderTransformOrigin="-3.349,0.72" />
         <Button x:Name="volumeUpButton" HorizontalAlignment="Left" Margin="318,157,0,0" Padding="0, 0, 0, 0" VerticalAlignment="Top" Width="15" Height="10" Click="volumeUpButton_Click" PreviewMouseLeftButtonDown="volumeUpButton_PreviewMouseLeftButtonDown" PreviewMouseUp="volumeUpButton_PreviewMouseUp" BorderBrush="{x:Null}" Background="{x:Null}" Style="{DynamicResource ButtonVolume}">
-            <Image x:Name="volumeUpButtonGlyph" Source="Resources/Images/ArrowUp.png" Width="6" Height="5" Stretch="None" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="1,1,0,0" Style="{DynamicResource VolumeButtonGlyph}" />
+            <Image x:Name="volumeUpButtonGlyph" Width="6" Height="5" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="1,1,0,0" Style="{DynamicResource ButtonVolumeUp}" />
         </Button>
         <Button x:Name="volumeDownButton" HorizontalAlignment="Left" Margin="318,167,0,0" Padding="0, 0, 0, 0" VerticalAlignment="Top" Width="15" Height="10" Click="volumeDownButton_Click" PreviewMouseLeftButtonDown="volumeDownButton_PreviewMouseLeftButtonDown" PreviewMouseUp="volumeDownButton_PreviewMouseUp"  BorderBrush="{x:Null}" Background="{x:Null}" Style="{DynamicResource ButtonVolume}">
-            <Image x:Name="volumeDownButtonGlyph" Source="Resources/Images/ArrowDown.png" Width="6" Height="5" Stretch="None" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="1,0,0,0" Style="{DynamicResource VolumeButtonGlyph}" />
+            <Image x:Name="volumeDownButtonGlyph" Width="6" Height="5" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="1,0,0,0" Style="{DynamicResource ButtonVolumeDown}" />
         </Button>
 
         <!-- Audio Limiter Toggle -->
         <ToggleButton x:Name="tglAudioLimiter" Content="Limit" HorizontalAlignment="Left" Margin="300,128,0,0" VerticalAlignment="Top" Cursor="Hand" ToolTipService.ShowOnDisabled="True" ToolTip="Turn Limiter On or Off" Width="34" Height="22" Style="{DynamicResource ToggleButtonSmall}" Checked="tglAudioLimiter_Checked" Unchecked="tglAudioLimiter_Unchecked"/>
         <TextBox x:Name="audioLimiter" HorizontalAlignment="Left" Height="22" Margin="259,128,0,0" Padding="2, 1, 0, 0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="37" MaxLines="1" MaxLength="11" Style="{DynamicResource TextBoxCustom}" ToolTipService.InitialShowDelay="1000" ToolTipService.ShowOnDisabled="True" ToolTip="Prevents audio from rising over a desired threshold, [0.0625 - 1]." IsEnabled="False"/>
-        <Button x:Name="buttonConsole" HorizontalAlignment="Left" Margin="145,233,0,0" VerticalAlignment="Top" Width="22" Height="22" Cursor="Hand" Click="buttonConsole_Click" Background="{x:Null}" Style="{DynamicResource ButtonSmallCustom}" ToolTip="Show Log Console">
-            <Image Source="Resources/Images/logconsole.png" Width="10" Height="11" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0"/>
-        </Button>
 
         <!-- Encoding Pass -->
         <Label x:Name="labelPass" Style="{DynamicResource LabelCustom}" Content="Enc" HorizontalAlignment="Left" Margin="88,155,0,0" VerticalAlignment="Top" Width="34" ToolTip="Encoding Pass Method" FontSize="11" FontFamily="Segoe UI Semilight" />
@@ -349,12 +358,6 @@
         <!-- File Queue -->
         <Button x:Name="buttonFileQueue" HorizontalAlignment="Left" Margin="-108,233,0,0" VerticalAlignment="Top" Width="22" Height="22" Cursor="Hand" Background="{x:Null}" Style="{DynamicResource ButtonSmallCustom}" ToolTip="Show File Queue" Click="buttonFileQueue_Click">
             <Image Source="Resources/Images/logconsole.png" Width="10" Height="11" Stretch="Fill" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0"/>
-        </Button>
-        <Button x:Name="buttonProperties" HorizontalAlignment="Left" Margin="226,233,0,0" VerticalAlignment="Top" Width="22" Height="22" Cursor="Hand" Click="buttonProperties_Click" Background="{x:Null}" Style="{DynamicResource ButtonSmallCustom}" ToolTip="View File Properties">
-            <Image Source="Resources/Images/properties.png" Width="10" Height="11" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0"/>
-        </Button>
-        <Button x:Name="buttonDebugConsole" HorizontalAlignment="Left" Margin="118,233,0,0" VerticalAlignment="Top" Width="22" Height="22" Cursor="Hand" Click="buttonDebugConsole_Click" Background="{x:Null}" Style="{DynamicResource ButtonSmallCustom}" ToolTip="Show Debug Console">
-            <Image Source="Resources/Images/debugconsole.png" Width="12" Height="10" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="-1,0,0,0"/>
         </Button>
 
     </Grid>

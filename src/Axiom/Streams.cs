@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Windows.Documents;
@@ -56,7 +57,7 @@ namespace Axiom
         /// <summary>
         /// Stream Maps (Method)
         /// </summary>
-        public static void StreamMaps(MainWindow mainwindow)
+        public static String StreamMaps(MainWindow mainwindow)
         {
             // WARNING: If a map is enabled, all other map types must be specified or they will be removed !!!!!!!!!
             // Question Mark ? = ignore warnings
@@ -430,6 +431,10 @@ namespace Axiom
             List<string> mapList = new List<string>() { vMap, cMap, aMap, sMap, mMap };
             // Join List with Spaces, Remove Empty Strings
             map = string.Join(" ", mapList.Where(s => !string.IsNullOrEmpty(s)));
+
+
+            // Return Value
+            return map;
 
         }
     }
