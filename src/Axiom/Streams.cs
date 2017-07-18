@@ -160,11 +160,9 @@ namespace Axiom
             // Log Console Message /////////
             Log.WriteAction = () =>
             {
-                //console.rtbLog.Document = new FlowDocument(paragraph);
                 Log.logParagraph.Inlines.Add(new LineBreak());
                 Log.logParagraph.Inlines.Add(new Bold(new Run("Audio Stream: ")) { Foreground = Log.ConsoleDefault });
                 Log.logParagraph.Inlines.Add(new Run(mainwindow.cboAudioStream.SelectedItem.ToString()) { Foreground = Log.ConsoleDefault });
-                //this.DataContext = this;
             };
             Log.LogActions.Add(Log.WriteAction);
 
@@ -345,11 +343,9 @@ namespace Axiom
             // Log Console Message /////////
             Log.WriteAction = () =>
             {
-                //console.rtbLog.Document = new FlowDocument(paragraph);
                 Log.logParagraph.Inlines.Add(new LineBreak());
                 Log.logParagraph.Inlines.Add(new Bold(new Run("Subtitle Stream: ")) { Foreground = Log.ConsoleDefault });
                 Log.logParagraph.Inlines.Add(new Run(mainwindow.cboSubtitle.SelectedItem.ToString()) { Foreground = Log.ConsoleDefault });
-                //this.DataContext = this;
             };
             Log.LogActions.Add(Log.WriteAction);
 
@@ -359,14 +355,14 @@ namespace Axiom
             // -------------------------
             // Overrides
             // Go by Container instead of Codec
-            if ((string)mainwindow.cboFormat.SelectedItem == "mp4" || (string)mainwindow.cboFormat.SelectedItem == "mkv" || (string)mainwindow.cboFormat.SelectedItem == "ogv")
-            {
-                //cMap = "-map_chapters outfile:infile";
-            }
-            else
-            {
-                //cMap = "-map_chapters -1";
-            }
+            //if ((string)mainwindow.cboFormat.SelectedItem == "mp4" || (string)mainwindow.cboFormat.SelectedItem == "mkv" || (string)mainwindow.cboFormat.SelectedItem == "ogv")
+            //{
+            //    //cMap = "-map_chapters outfile:infile";
+            //}
+            //else
+            //{
+            //    //cMap = "-map_chapters -1";
+            //}
 
 
             // -------------------------

@@ -80,18 +80,20 @@ namespace Axiom
 
         // Scale
         public static string aspect; // contains scale, width, height
-        public static string scale; // -vf
+        //public static string scale; // -vf
         public static string cropDivisible; //used on mp4 custom size to keep divisible by 2
         public static string width;
         public static string height;
 
         // Pass
         public static bool passUserSelected = false; // Used to determine if User willingly selected CRF, 1 Pass or 2 Pass
-        public static int? v2passSwitch = 0;
         public static string v2passArgs; // contains pass2 arguments
-        public static string pass1; // enabled in ffmpeg main line if v2Pass is enabled
-        public static string pass2;
-        //public static string cmdBatch_vQuality; // cmd batch Video Auto dynamic value
+
+        public static string passSingle; // 1-Pass & CRF Args
+        public static string pass1Args; // Batch 2-Pass
+        public static string pass2Args; // Batch 2-Pass
+        public static string pass1; // x265 Modifier
+        public static string pass2; // x265 Modifier
 
         // Filter
         public static CropWindow cropwindow;
@@ -1323,7 +1325,7 @@ namespace Axiom
             {
                 try // Calculating Bitrate will crash if jpg/png
                 {
-                    FFprobe.inputVideoBitrate = Convert.ToInt32((double.Parse(FFprobe.inputSize) * 8) / 1000 / double.Parse(FFprobe.inputDuration)).ToString() + "k";
+                    FFprobe.inputVideoBitrate = Convert.ToInt32((double.Parse(FFprobe.inputSize) * 8) / 1000 / double.Parse(FFprobe.inputDuration)).ToString() + "K";
                     // convert to int to remove decimals
 
                     // Log Console Message /////////
@@ -1373,47 +1375,39 @@ namespace Axiom
                     {
                         // size
                         "& for /F \"delims=\" %S in ('@" + FFprobe.ffprobe + " -v error -select_streams v:0 -show_entries format^=size -of default^=noprint_wrappers^=1:nokey^=1 \"%~f\" 2^>^&1') do (SET size=%S)",
-                        // expand var
-                        "& for /F %S in ('echo %size%') do (echo %S)",
+                        // set %S to %size%
+                        //"& for /F %S in ('echo %size%') do (echo %S)",
+                        "& for /F %S in ('echo %size%') do (echo)",
 
                         // duration
                         "& for /F \"delims=\" %D in ('@" + FFprobe.ffprobe + " -v error -select_streams v:0 -show_entries format^=duration -of default^=noprint_wrappers^=1:nokey^=1 \"%~f\" 2^>^&1') do (SET duration=%D)",
                         // remove duration decimals
                         "& for /F \"tokens=1 delims=.\" %R in ('echo %duration%') do (SET duration=%R)",
-                        // expand var
-                        "& for /F %D in ('echo %duration%') do (echo %D)",
+                        // set %D to %duration%
+                        //"& for /F %D in ('echo %duration%') do (echo %D)",
+                        "& for /F %D in ('echo %duration%') do (echo)",
 
                         // vBitrate
                         "& for /F \"delims=\" %V in ('@" + FFprobe.ffprobe + " -v error -select_streams v:0 -show_entries " + FFprobe.vEntryTypeBatch + " -of default^=noprint_wrappers^=1:nokey^=1 \"%~f\" 2^>^&1') do (SET vBitrate=%V)",
-                        // expand var
-                        "& for /F %V in ('echo %vBitrate%') do (echo %V)",
+                        // set %V to %vBitrate%
+                        //"& for /F %V in ('echo %vBitrate%') do (echo %V)",
+                        "& for /F %V in ('echo %vBitrate%') do (echo)",
                         // auto bitrate calcuate
                         "& (if %V EQU N/A (SET /a vBitrate=%S*8/1000/%D*1000) ELSE (echo Video Bitrate Detected))",
-                        // expand var
-                        "& for /F %V in ('echo %vBitrate%') do (echo %V)", 
+                        // set %V to %vBitrate%
+                        //"& for /F %V in ('echo %vBitrate%') do (echo %V)",
+                        "& for /F %V in ('echo %vBitrate%') do (echo)",
                     };
 
                     // Join List with Spaces, Remove Empty Strings
                     Video.batchVideoAuto = string.Join(" ", BatchVideoAutoList.Where(s => !string.IsNullOrEmpty(s)));
 
-
-                    // Chain FFmpeg using & symbol at end of Argument if Audio Not Auto
-                    //if ((string)mainwindow.cboVideo.SelectedItem != "Auto")
-                    //{
-                    //    batchVideoAuto = batchVideoAuto + " &";
-                    //}
                 }
                 // Batch Video Copy
                 if ((string)mainwindow.cboVideoCodec.SelectedItem == "Copy")
                 {
                     batchVideoAuto = string.Empty;
                 }
-
-                // Not Auto
-                //if ((string)mainwindow.cboVideo.SelectedItem != "Auto")
-                //{
-                //    batchVideoAuto = string.Empty;
-                //}
             }
 
             // Return Value
@@ -1426,449 +1420,496 @@ namespace Axiom
         /// <summary>
         public static String VideoQuality(MainWindow mainwindow)
         {
+            // Video None Check
+            if ((string)mainwindow.cboVideo.SelectedItem != "None")
+            {
+                // Log Console Message /////////
+                Log.WriteAction = () =>
+                {
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new Bold(new Run("Quality: ")) { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new Run(Convert.ToString(mainwindow.cboVideo.SelectedItem)) { Foreground = Log.ConsoleDefault });
+                };
+                Log.LogActions.Add(Log.WriteAction);
+
+                // -------------------------
+                // Auto
+                // -------------------------
+                if ((string)mainwindow.cboVideo.SelectedItem == "Auto")
+                {
+                    // Else set the Auto values
+                    //
+                    // If Input File has No Video or can't be detected 
+                    //
+                    if (FFprobe.inputVideoBitrate == "N/A" && string.IsNullOrEmpty(FFprobe.inputVideoCodec)) // (mp3, m4a, ogg, etc)
+                    {
+                        vBitMode = string.Empty;
+                        vQuality = string.Empty;
+                    }
+
+                    // If No Bitrate & No Codec
+                    //
+                    if (string.IsNullOrEmpty(FFprobe.inputVideoBitrate) && string.IsNullOrEmpty(FFprobe.inputVideoCodec)) // (mp3 converted to a webm)
+                    {
+                        vBitMode = string.Empty;
+                        vQuality = string.Empty;
+                    }
+
+
+                    // -------------------------
+                    // If Video File has Video, but Bitrate IS NOT detected, but Codec IS detected
+                    // -------------------------
+                    // 
+                    if (!string.IsNullOrEmpty(FFprobe.inputVideoCodec) && string.IsNullOrEmpty(FFprobe.inputVideoBitrate) | FFprobe.inputVideoBitrate == "N/A") // (webm, some mkv's)
+                    {
+                        //System.Windows.MessageBox.Show("Here"); //debug
+
+                        // 1 Pass / CRF Quality
+                        //
+                        if ((string)mainwindow.cboPass.SelectedItem == "1 Pass" || (string)mainwindow.cboPass.SelectedItem == "CRF")
+                        {
+                            // Default to a High value
+                            // If Theora (Special instructions)
+                            //
+                            if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9")
+                            {
+                                crf = "-b:v 0 -crf 16"; //crf value different than x264
+                            }
+                            if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264")
+                            {
+                                crf = "-crf 18";
+                            }
+                            if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265")
+                            {
+                                crf = "-x265-params crf=23";
+                            }
+                            if ((string)mainwindow.cboVideoCodec.SelectedItem == "Theora")
+                            {
+                                crf = "-q:v 10"; // Theora can't have Auto Value, default to highest -q:v 10
+                            }
+
+                            // Remove vBitrate
+                            vBitrate = string.Empty;
+                        }
+
+                        // 2 Pass Quality
+                        // (Can't use CRF)
+                        //
+                        else if ((string)mainwindow.cboPass.SelectedItem == "2 Pass")
+                        {
+                            // Default to a High value
+                            // If Theora (Special instructions)
+                            //
+                            if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9")
+                            {
+                                vBitrate = "-b:v 3M"; //crf value different than x264
+                            }
+                            if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264")
+                            {
+                                vBitrate = "-b:v 3M";
+                            }
+                            if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265")
+                            {
+                                vBitrate = "-b:v 3M";
+                            }
+                            if ((string)mainwindow.cboVideoCodec.SelectedItem == "Theora")
+                            {
+                                vBitrate = "-q:v 10"; // Theora can't have Auto Value, default to highest -q:v 10
+                            }
+
+                            // Remove CRF
+                            crf = string.Empty;
+                        }
+
+
+                        vOptions = "-pix_fmt yuv420p";
+                        vBitMode = string.Empty;
+                        //combine
+                        vQuality = vBitrate + " " + crf + " " + vOptions;
+                    }
+
+
+                    // -------------------------
+                    // If Input File has Video and Bitrate was detected
+                    // -------------------------
+                    //
+                    if (FFprobe.inputVideoBitrate != "N/A" && !string.IsNullOrEmpty(FFprobe.inputVideoBitrate))
+                    {
+                        if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8") { vBitrate = "-b:v " + FFprobe.inputVideoBitrate; vOptions = "-pix_fmt yuv420p"; }
+                        else if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9") { vBitrate = "-b:v " + FFprobe.inputVideoBitrate; vOptions = "-pix_fmt yuv420p"; }
+                        else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264") { vBitrate = "-b:v " + FFprobe.inputVideoBitrate; vOptions = "-pix_fmt yuv420p"; }
+                        else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265") { vBitrate = "-b:v " + FFprobe.inputVideoBitrate; vOptions = "-pix_fmt yuv420p"; }
+                        else if ((string)mainwindow.cboVideoCodec.SelectedItem == "Theora") { vBitrate = "-q:v 10"; vOptions = "-pix_fmt yuv420p"; } // Theora can't have Auto Value, default to highest -q:v 10
+
+                        //combine
+                        vQuality = vBitrate + " " + vOptions;
+                    }
+
+
+                    // -------------------------
+                    // IMAGE
+                    // -------------------------
+                    if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG")
+                    {
+                        crf = string.Empty;
+                        vBitrate = "-qscale:v 2"; //use highest jpeg quality
+                        vOptions = string.Empty;
+
+                        vQuality = vBitrate;
+                    }
+                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "PNG")
+                    {
+                        // png is lossless
+                        crf = string.Empty; vBitrate = string.Empty; vOptions = string.Empty;
+
+                        vQuality = vBitrate;
+                    }
+
+                    //end Auto //////////////////////////
+                }
+                // -------------------------
+                // Lossless
+                // -------------------------
+                else if ((string)mainwindow.cboVideo.SelectedItem == "Lossless")
+                {
+                    //if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8") { crf = "-b:v 0 -crf 4"; vBitrate = "-b:v 0" /* for 2 pass */; vOptions = "-pix_fmt yuv444p"; } //VP8 cannot be Lossless
+                    if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9") { crf = "-lossless 1" /* crf needs b:v 0*/; vBitrate = "-lossless 1" /* for 2 pass */; vOptions = "-pix_fmt yuv444p"; }
+                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264") { crf = "-qp 0"; vBitrate = "-qp 0" /* for 2 pass */; vOptions = "-pix_fmt yuv444p"; }
+                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265") { crf = "-qp 0 -x265-params lossless"; vBitrate = "-qp 0 -x265-params lossless" /* for 2 pass */; vOptions = "-pix_fmt yuv444p"; }
+                    // Theora can't be Lossless
+
+                    // Lossless Switch
+                    // Encoding Pass Method based on Pass ComboBox Selection
+                    // Different values than PassesSwitch Method
+                    //
+                    // CRF
+                    if ((string)mainwindow.cboPass.SelectedItem == "CRF")
+                    {
+                        vQuality = crf + " " + vOptions; //combine
+                    }
+                    // 1 Pass
+                    else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass")
+                    {
+                        vQuality = crf + " " + vOptions; //combine
+                    }
+                    // 2-Pass
+                    else if ((string)mainwindow.cboPass.SelectedItem == "2 Pass")
+                    {
+                        vQuality = crf + " " + vOptions; //combine
+                    }
+                    // auto
+                    else if ((string)mainwindow.cboPass.SelectedItem == "auto")
+                    {
+                        vQuality = crf + " " + vOptions; //combine
+                    }
+                }
+                // -------------------------
+                // Ultra
+                // -------------------------
+                else if ((string)mainwindow.cboVideo.SelectedItem == "Ultra")
+                {
+                    if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8") { crf = "-b:v 4M -crf 10" /* crf needs b:v 0*/; vBitrate = "-b:v 5M" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
+                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9") { crf = "-b:v 4M -crf 10"/* crf needs b:v 0*/; vBitrate = "-b:v 5M" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
+                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264") { crf = "-crf 16"; vBitrate = "-b:v 5M" /* for 2 pass */; vMaxrate = "-maxrate 5M"; vOptions = "-pix_fmt yuv420p -qcomp 0.8"; }
+                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265") { crf = "-crf 20 -x265-params crf=20"; vBitrate = "-b:v 5M" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
+                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "Theora") { crf = "-q:v 10"; vBitrate = "-q:v 10" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; } //OGV uses forced q:v instead of CRF
+                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG") { crf = string.Empty; vBitrate = "-qscale:v 2"; vOptions = string.Empty; }
+
+                    // Encoding Pass Method based on Pass ComboBox Selection
+                    PassesSwitch(mainwindow);
+                }
+                // -------------------------
+                // High
+                // -------------------------
+                else if ((string)mainwindow.cboVideo.SelectedItem == "High")
+                {
+                    if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8") { crf = "-b:v 2M -crf 12" /* crf needs b:v 0*/; vBitrate = "-b:v 2M" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
+                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9") { crf = "-b:v 2M -crf 12" /* crf needs b:v 0*/; vBitrate = "-b:v 2M" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
+                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264") { crf = "-crf 20"; vBitrate = "-b:v 2500K" /* for 2 pass */; vMaxrate = "-maxrate 2500K"; vOptions = "-pix_fmt yuv420p -qcomp 0.8"; }
+                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265") { crf = "-crf 25 -x265-params crf=25"; vBitrate = "-b:v 2M" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
+                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "Theora") { crf = "-q:v 8"; vBitrate = "-q:v 8" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; } //OGV uses forced q:v instead of CRF
+                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG") { crf = string.Empty; vBitrate = "-qscale:v 4"; vOptions = string.Empty; }
+
+                    // Encoding Pass Method based on Pass ComboBox Selection
+                    PassesSwitch(mainwindow);
+                }
+                // -------------------------
+                // Medium
+                // -------------------------
+                else if ((string)mainwindow.cboVideo.SelectedItem == "Medium")
+                {
+                    if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8") { crf = "-b:v 1300K -crf 16" /* crf needs b:v 0*/; vBitrate = "-b:v 1300K" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
+                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9") { crf = "-b:v 1300K -crf 16" /* crf needs b:v 0*/; vBitrate = "-b:v 1300K" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
+                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264") { crf = "-crf 28"; vBitrate = "-b:v 1300K" /* for 2 pass */; vMaxrate = "-maxrate 1300K"; vOptions = "-pix_fmt yuv420p"; }
+                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265") { crf = "-crf 30 -x265-params crf=30"; vBitrate = "-b:v 1300K" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
+                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "Theora") { crf = "-q:v 6"; vBitrate = "-q:v 6" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; } //OGV uses forced q:v instead of CRF
+                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG") { crf = string.Empty; vBitrate = "-qscale:v 8"; vOptions = string.Empty; }
+
+                    // Encoding Pass Method based on Pass ComboBox Selection
+                    PassesSwitch(mainwindow);
+                }
+                // -------------------------
+                // Low
+                // -------------------------
+                else if ((string)mainwindow.cboVideo.SelectedItem == "Low")
+                {
+                    if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8") { crf = "-b:v 600K -crf 20" /* crf needs b:v 0*/; vBitrate = "-b:v 600K" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
+                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9") { crf = "-b:v 600K -crf 20" /* crf needs b:v 0*/; vBitrate = "-b:v 600K" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
+                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264") { crf = "-crf 37"; vBitrate = "-b:v 600K" /* for 2 pass */; vMaxrate = "-maxrate 600K"; vOptions = "-pix_fmt yuv420p"; }
+                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265") { crf = "-crf 38 -x265-params crf=38"; vBitrate = "-b:v 600K" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
+                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "Theora") { crf = "-q:v 4"; vBitrate = "-q:v 4" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; } //OGV uses forced q:v instead of CRF
+                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG") { crf = string.Empty; vBitrate = "-qscale:v 15"; vOptions = string.Empty; }
+
+                    // Encoding Pass Method based on Pass ComboBox Selection
+                    PassesSwitch(mainwindow);
+                }
+                // -------------------------
+                // Sub
+                // -------------------------
+                else if ((string)mainwindow.cboVideo.SelectedItem == "Sub")
+                {
+                    if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8") { crf = "-b:v 250K -crf 25" /* crf needs b:v 0*/; vBitrate = "-b:v 250K" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
+                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9") { crf = "-b:v 250K -crf 25" /* crf needs b:v 0*/; vBitrate = "-b:v 250K" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
+                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264") { crf = "-crf 45"; vBitrate = "-b:v 250K" /* for 2 pass */; vMaxrate = "-maxrate 250K"; vOptions = "-pix_fmt yuv420p"; }
+                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265") { crf = "-crf 45 -x265-params crf=45"; vBitrate = "-b:v 250K" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
+                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "Theora") { crf = "-q:v 2"; vBitrate = "-q:v 2" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; } //OGV uses forced q:v instead of CRF
+                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG") { crf = string.Empty; vBitrate = "-qscale:v 25"; vOptions = string.Empty; }
+
+                    // Encoding Pass Method based on Pass ComboBox Selection
+                    PassesSwitch(mainwindow);
+                }
+
+                // -------------------------
+                // Custom
+                // -------------------------
+                if ((string)mainwindow.cboVideo.SelectedItem == "Custom")
+                {
+                    // VBITRATE
+                    // if vBitrate Textbox is default or empty
+                    if (mainwindow.vBitrateCustom.Text == "Bitrate" || string.IsNullOrWhiteSpace(mainwindow.vBitrateCustom.Text)) { vBitMode = string.Empty; vBitrate = string.Empty; }
+                    // if vBitrate is entered by user and is not blank
+                    if (mainwindow.vBitrateCustom.Text != "Bitrate" && !string.IsNullOrWhiteSpace(mainwindow.vBitrateCustom.Text)) { vBitMode = "-b:v"; vBitrate = mainwindow.vBitrateCustom.Text; }
+
+                    //CRF
+                    // if CRF texbox is default or empty
+                    if (mainwindow.crfCustom.Text == "CRF" || string.IsNullOrWhiteSpace(mainwindow.crfCustom.Text)) { crf = string.Empty; }
+                    // if CRF texbox entered by user and is not blank
+                    if (mainwindow.crfCustom.Text != "CRF" && !string.IsNullOrWhiteSpace(mainwindow.crfCustom.Text)) { crf = "-crf" + " " + mainwindow.crfCustom.Text /* crf needs b:v 0*/ ; }
+
+                    // VP9 crf -b:v 0
+                    if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9")
+                    {
+                        // If vBitrate is default or blank & CRF is custom value
+                        if (mainwindow.vBitrateCustom.Text == "Bitrate"
+                            | string.IsNullOrWhiteSpace(mainwindow.vBitrateCustom.Text)
+                            && mainwindow.crfCustom.Text != "CRF"
+                            && !string.IsNullOrWhiteSpace(mainwindow.crfCustom.Text))
+                        {
+                            vBitMode = "-b:v";
+                            vBitrate = "0";
+                        }
+                    }
+
+                    // -------------------------
+                    // Enable 2-Pass (If Bitrate Custom & CRF Empty)
+                    // -------------------------
+                    // If vBitrate TextBox is NOT Empty & NOT Default ("Bitrate") & CRF IS Empty or Default ("CRF")
+                    if ((string)mainwindow.cboPass.SelectedItem == "2 Pass")
+                    {
+                        if (!string.IsNullOrWhiteSpace(mainwindow.vBitrateCustom.Text)
+                            && mainwindow.vBitrateCustom.Text != "Bitrate"
+                            && string.IsNullOrWhiteSpace(mainwindow.crfCustom.Text)
+                            | mainwindow.crfCustom.Text == "CRF")
+                        {
+                            // Log Console Message /////////
+                            Log.WriteAction = () =>
+                            {
+                                Log.logParagraph.Inlines.Add(new LineBreak());
+                                Log.logParagraph.Inlines.Add(new LineBreak());
+                                Log.logParagraph.Inlines.Add(new Bold(new Run("2 Pass Toggle: ")) { Foreground = Log.ConsoleDefault });
+                                Log.logParagraph.Inlines.Add(new Run("On, ") { Foreground = Log.ConsoleDefault });
+                                Log.logParagraph.Inlines.Add(new Bold(new Run("CRF: ")) { Foreground = Log.ConsoleDefault });
+                                Log.logParagraph.Inlines.Add(new Run("None, Using Bitrate 2 Pass") { Foreground = Log.ConsoleDefault });
+                            };
+                            Log.LogActions.Add(Log.WriteAction);
+                        }
+                    }
+
+                    // Disabled on CRF so Bitrate can run as 1 Pass
+                    if ((string)mainwindow.cboPass.SelectedItem == "1 Pass")
+                    {
+                        if (!string.IsNullOrWhiteSpace(mainwindow.vBitrateCustom.Text)
+                            && mainwindow.vBitrateCustom.Text != "Bitrate"
+                            && string.IsNullOrWhiteSpace(mainwindow.crfCustom.Text)
+                            | mainwindow.crfCustom.Text == "CRF")
+                        {
+                            // Log Console Message /////////
+                            Log.WriteAction = () =>
+                            {
+                                Log.logParagraph.Inlines.Add(new LineBreak());
+                                Log.logParagraph.Inlines.Add(new LineBreak());
+                                Log.logParagraph.Inlines.Add(new Bold(new Run("2 Pass Toggle: ")) { Foreground = Log.ConsoleDefault });
+                                Log.logParagraph.Inlines.Add(new Run("Off, ") { Foreground = Log.ConsoleDefault });
+                                Log.logParagraph.Inlines.Add(new Bold(new Run("CRF: ")) { Foreground = Log.ConsoleDefault });
+                                Log.logParagraph.Inlines.Add(new Run("None, Using Bitrate 1 Pass") { Foreground = Log.ConsoleDefault });
+                            };
+                            Log.LogActions.Add(Log.WriteAction);
+                        }
+                    }
+
+                    //CODEC
+                    // user entered CRF textbox
+                    if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8") { vOptions = "-pix_fmt yuv420p"; } //used to have -qmin 0 -qmax 50
+                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9") { vOptions = "-pix_fmt yuv420p"; }
+                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264") { vOptions = "-pix_fmt yuv420p"; }
+                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265") { crf = "-crf" + mainwindow.crfCustom.Text + " -x265-params crf=" + mainwindow.crfCustom.Text; vOptions = "-pix_fmt yuv420p"; }
+                    // Theora cant have Custom yet
+
+                    //Combine
+                    vQuality = vBitMode + " " + vBitrate + " " + crf + " " + vMaxrate + " " + vBufsize + " " + vOptions;
+                }
+                // -------------------------
+                // None
+                // -------------------------
+                else if ((string)mainwindow.cboVideo.SelectedItem == "None")
+                {
+                    vQuality = string.Empty;
+                }
+
+                // -------------------------
+                // Batch Auto Quality
+                // -------------------------
+                // If Video = Auto, use the CMD Batch Video Variable
+                if (mainwindow.tglBatch.IsChecked == true
+                    && (string)mainwindow.cboVideo.SelectedItem == "Auto"
+                    && (string)mainwindow.cboVideoCodec.SelectedItem != "Copy")
+                {
+                    vQuality = "-b:v %V";
+                    // Skipped if Codec Copy
+                }
+
+
+                // Log Console Message /////////        
+                Log.WriteAction = () =>
+                {
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
+                    if (!string.IsNullOrEmpty(vBitrate))
+                    {
+                        Log.logParagraph.Inlines.Add(new Run(vBitrate.Replace("-b:v ", "")) { Foreground = Log.ConsoleDefault });
+                    }
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new Bold(new Run("CRF: ")) { Foreground = Log.ConsoleDefault });
+                    if (!string.IsNullOrEmpty(crf))
+                    {
+                        Log.logParagraph.Inlines.Add(new Run(crf) { Foreground = Log.ConsoleDefault }); //crf combines with bitrate
+                    }
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new Bold(new Run("Options: ")) { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new Run(vOptions) { Foreground = Log.ConsoleDefault });
+                };
+                Log.LogActions.Add(Log.WriteAction);
+
+
+                // -------------------------
+                // Return Value
+                // -------------------------
+                // Remove any white space from end of string
+                vQuality = vQuality.Trim();
+                vQuality = vQuality.TrimEnd();
+            }
+
+            // Return Value
+            return vQuality;
+        }
+
+
+        /// <summary>
+        /// Pass 1 Modifier (Method)
+        /// <summary>
+        // x265 Pass 1
+        public static String Pass1Modifier(MainWindow mainwindow)
+        {
+            // --------------------------------------------------
+            // Category: Video (Log Title)
+            // --------------------------------------------------
             // Log Console Message /////////
             Log.WriteAction = () =>
             {
                 Log.logParagraph.Inlines.Add(new LineBreak());
-                Log.logParagraph.Inlines.Add(new Bold(new Run("Quality: ")) { Foreground = Log.ConsoleDefault });
-                Log.logParagraph.Inlines.Add(new Run(Convert.ToString(mainwindow.cboVideo.SelectedItem)) { Foreground = Log.ConsoleDefault });
+                Log.logParagraph.Inlines.Add(new LineBreak());
+                Log.logParagraph.Inlines.Add(new Bold(new Run("Video")) { Foreground = Log.ConsoleAction });
             };
             Log.LogActions.Add(Log.WriteAction);
 
+
             // -------------------------
-            // Auto
+            // Enabled
             // -------------------------
-            if ((string)mainwindow.cboVideo.SelectedItem == "Auto")
+            if ((string)mainwindow.cboPass.SelectedItem == "2 Pass")
             {
-                // Only Enable 2-Pass if Format is Video
-                if ((string)mainwindow.cboFormat.SelectedItem == "webm" 
-                    || (string)mainwindow.cboFormat.SelectedItem == "mp4" 
-                    || (string)mainwindow.cboFormat.SelectedItem == "mkv") //exclude ogv for now
+                // Enable pass parameters in the FFmpeg Arguments
+                // x265 Pass 2 Params
+                if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265")
                 {
-                    v2passSwitch = 1;
+                    Video.pass1 = "-x265-params pass=1";
                 }
+                // All other codecs
                 else
                 {
-                    v2passSwitch = 0;
-                    pass1 = string.Empty;
-                }
-
-                // Else set the Auto values
-                //
-                // If Input File has No Video or can't be detected 
-                //
-                if (FFprobe.inputVideoBitrate == "N/A" && string.IsNullOrEmpty(FFprobe.inputVideoCodec)) // (mp3, m4a, ogg, etc)
-                {
-                    vBitMode = string.Empty;
-                    vQuality = string.Empty;
-                }
-
-                // If No Bitrate & No Codec
-                //
-                if (string.IsNullOrEmpty(FFprobe.inputVideoBitrate) && string.IsNullOrEmpty(FFprobe.inputVideoCodec)) // (mp3 converted to a webm)
-                {
-                    vBitMode = string.Empty;
-                    vQuality = string.Empty;
-                }
-
-
-                // -------------------------
-                // If Video File has Video, but Bitrate IS NOT detected, but Codec IS detected
-                // -------------------------
-                // 
-                if (!string.IsNullOrEmpty(FFprobe.inputVideoCodec) && string.IsNullOrEmpty(FFprobe.inputVideoBitrate) | FFprobe.inputVideoBitrate == "N/A" ) // (webm, some mkv's)
-                {
-                    //System.Windows.MessageBox.Show("Here"); //debug
-
-                    // 1 Pass / CRF Quality
-                    //
-                    if ((string)mainwindow.cboPass.SelectedItem == "1 Pass" || (string)mainwindow.cboPass.SelectedItem == "CRF")
-                    {
-                        // Default to a High value
-                        // If Theora (Special instructions)
-                        //
-                        if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9")
-                        {
-                            crf = "-b:v 0 -crf 16"; //crf value different than x264
-                        }
-                        if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264")
-                        {
-                            crf = "-crf 18";
-                        }
-                        if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265")
-                        {
-                            crf = "-x265-params crf=23";
-                        }
-                        if ((string)mainwindow.cboVideoCodec.SelectedItem == "Theora")
-                        {
-                            crf = "-q:v 10"; // Theora can't have Auto Value, default to highest -q:v 10
-                        }
-
-                        // Remove vBitrate
-                        vBitrate = string.Empty;
-                    }
-
-                    // 2 Pass Quality
-                    // (Can't use CRF)
-                    //
-                    else if ((string)mainwindow.cboPass.SelectedItem == "2 Pass")
-                    {
-                        // Default to a High value
-                        // If Theora (Special instructions)
-                        //
-                        if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9")
-                        {
-                            vBitrate = "-b:v 3M"; //crf value different than x264
-                        }
-                        if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264")
-                        {
-                            vBitrate = "-b:v 3M";
-                        }
-                        if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265")
-                        {
-                            vBitrate = "-b:v 3M";
-                        }
-                        if ((string)mainwindow.cboVideoCodec.SelectedItem == "Theora")
-                        {
-                            vBitrate = "-q:v 10"; // Theora can't have Auto Value, default to highest -q:v 10
-                        }
-
-                        // Remove CRF
-                        crf = string.Empty;
-                    }
-
-
-                    vOptions = "-pix_fmt yuv420p";
-                    vBitMode = string.Empty;
-                    //combine
-                    vQuality = vBitrate + " " + crf + " " + vOptions;
-                }
-
-
-                // -------------------------
-                // If Input File has Video and Bitrate was detected
-                // -------------------------
-                //
-                if (FFprobe.inputVideoBitrate != "N/A" && !string.IsNullOrEmpty(FFprobe.inputVideoBitrate))
-                {
-                    //System.Windows.MessageBox.Show("Here"); //debug
-
-                    if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8") { vBitrate = "-b:v " + FFprobe.inputVideoBitrate; vOptions = "-pix_fmt yuv420p"; }
-                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9") { vBitrate = "-b:v " + FFprobe.inputVideoBitrate; vOptions = "-pix_fmt yuv420p"; }
-                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264") { vBitrate = "-b:v " + FFprobe.inputVideoBitrate; vOptions = "-pix_fmt yuv420p"; }
-                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265") { vBitrate = "-b:v " + FFprobe.inputVideoBitrate; vOptions = "-pix_fmt yuv420p"; }
-                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "Theora") { vBitrate = "-q:v 10"; vOptions = "-pix_fmt yuv420p"; } // Theora can't have Auto Value, default to highest -q:v 10
-
-                    //combine
-                    vQuality = vBitrate + " " + vOptions;
-                }
-
-
-                // -------------------------
-                // IMAGE
-                // -------------------------
-                if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG")
-                {
-                    crf = string.Empty;
-                    vBitrate = "-qscale:v 2"; //use highest jpeg quality
-                    vOptions = string.Empty;
-
-                    vQuality = vBitrate;
-                }
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "PNG")
-                {
-                    // png is lossless
-                    crf = string.Empty; vBitrate = string.Empty; vOptions = string.Empty;
-
-                    vQuality = vBitrate;
-                }
-
-                //end Auto //////////////////////////
-            }
-            // -------------------------
-            // Lossless
-            // -------------------------
-            else if ((string)mainwindow.cboVideo.SelectedItem == "Lossless")
-            {
-                //if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8") { crf = "-b:v 0 -crf 4"; vBitrate = "-b:v 0" /* for 2 pass */; vOptions = "-pix_fmt yuv444p"; } //VP8 cannot be Lossless
-                if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9") { crf = "-lossless 1" /* crf needs b:v 0*/; vBitrate = "-lossless 1" /* for 2 pass */; vOptions = "-pix_fmt yuv444p"; }
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264") { crf = "-qp 0"; vBitrate = "-qp 0" /* for 2 pass */; vOptions = "-pix_fmt yuv444p"; }
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265") { crf = "-qp 0 -x265-params lossless"; vBitrate = "-qp 0 -x265-params lossless" /* for 2 pass */; vOptions = "-pix_fmt yuv444p"; }
-                // Theora can't be Lossless
-
-                // Lossless Switch
-                // Encoding Pass Method based on Pass ComboBox Selection
-                // Different values than PassesSwitch Method
-                //
-                // CRF
-                if ((string)mainwindow.cboPass.SelectedItem == "CRF")
-                {
-                    vQuality = crf + " " + vOptions; //combine
-
-                    v2passSwitch = 0;
-                }
-                // 1 Pass
-                else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass")
-                {
-                    vQuality = crf + " " + vOptions; //combine
-
-                    v2passSwitch = 0;
-                }
-                // 2-Pass
-                else if ((string)mainwindow.cboPass.SelectedItem == "2 Pass")
-                {
-                    vQuality = crf + " " + vOptions; //combine
-
-                    v2passSwitch = 0;
-                }
-                // auto
-                else if ((string)mainwindow.cboPass.SelectedItem == "auto")
-                {
-                    vQuality = crf + " " + vOptions; //combine
-
-                    v2passSwitch = 0;
+                    Video.pass1 = "-pass 1";
                 }
             }
-            // -------------------------
-            // Ultra
-            // -------------------------
-            else if ((string)mainwindow.cboVideo.SelectedItem == "Ultra")
-            {
-                if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8") { crf = "-b:v 4M -crf 10" /* crf needs b:v 0*/; vBitrate = "-b:v 5M" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9") { crf = "-b:v 4M -crf 10"/* crf needs b:v 0*/; vBitrate = "-b:v 5M" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264") { crf = "-crf 16"; vBitrate = "-b:v 5M" /* for 2 pass */; vMaxrate = "-maxrate 5M"; vOptions = "-pix_fmt yuv420p -qcomp 0.8"; }
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265") { crf = "-crf 20 -x265-params crf=20"; vBitrate = "-b:v 5M" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "Theora") { crf = "-q:v 10"; vBitrate = "-q:v 10" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; } //OGV uses forced q:v instead of CRF
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG") { crf = string.Empty; vBitrate = "-qscale:v 2"; vOptions = string.Empty; }
 
-                // Encoding Pass Method based on Pass ComboBox Selection
-                PassesSwitch(mainwindow);
-            }
             // -------------------------
-            // High
+            // Disabled
             // -------------------------
-            else if ((string)mainwindow.cboVideo.SelectedItem == "High")
+            else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass" || (string)mainwindow.cboPass.SelectedItem == "CRF")
             {
-                if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8") { crf = "-b:v 2M -crf 12" /* crf needs b:v 0*/; vBitrate = "-b:v 2M" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9") { crf = "-b:v 2M -crf 12" /* crf needs b:v 0*/; vBitrate = "-b:v 2M" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264") { crf = "-crf 20"; vBitrate = "-b:v 2500K" /* for 2 pass */; vMaxrate = "-maxrate 2500K"; vOptions = "-pix_fmt yuv420p -qcomp 0.8"; }
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265") { crf = "-crf 25 -x265-params crf=25"; vBitrate = "-b:v 2M" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "Theora") { crf = "-q:v 8"; vBitrate = "-q:v 8" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; } //OGV uses forced q:v instead of CRF
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG") { crf = string.Empty; vBitrate = "-qscale:v 4"; vOptions = string.Empty; }
-
-                // Encoding Pass Method based on Pass ComboBox Selection
-                PassesSwitch(mainwindow);
-            }
-            // -------------------------
-            // Medium
-            // -------------------------
-            else if ((string)mainwindow.cboVideo.SelectedItem == "Medium")
-            {
-                if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8") { crf = "-b:v 1300K -crf 16" /* crf needs b:v 0*/; vBitrate = "-b:v 1300K" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9") { crf = "-b:v 1300K -crf 16" /* crf needs b:v 0*/; vBitrate = "-b:v 1300K" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264") { crf = "-crf 28"; vBitrate = "-b:v 1300K" /* for 2 pass */; vMaxrate = "-maxrate 1300K"; vOptions = "-pix_fmt yuv420p"; }
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265") { crf = "-crf 30 -x265-params crf=30"; vBitrate = "-b:v 1300K" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "Theora") { crf = "-q:v 6"; vBitrate = "-q:v 6" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; } //OGV uses forced q:v instead of CRF
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG") { crf = string.Empty; vBitrate = "-qscale:v 8"; vOptions = string.Empty; }
-
-                // Encoding Pass Method based on Pass ComboBox Selection
-                PassesSwitch(mainwindow);
-            }
-            // -------------------------
-            // Low
-            // -------------------------
-            else if ((string)mainwindow.cboVideo.SelectedItem == "Low")
-            {
-                if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8") { crf = "-b:v 600K -crf 20" /* crf needs b:v 0*/; vBitrate = "-b:v 600K" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9") { crf = "-b:v 600K -crf 20" /* crf needs b:v 0*/; vBitrate = "-b:v 600K" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264") { crf = "-crf 37"; vBitrate = "-b:v 600K" /* for 2 pass */; vMaxrate = "-maxrate 600K"; vOptions = "-pix_fmt yuv420p"; }
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265") { crf = "-crf 38 -x265-params crf=38"; vBitrate = "-b:v 600K" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "Theora") { crf = "-q:v 4"; vBitrate = "-q:v 4" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; } //OGV uses forced q:v instead of CRF
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG") { crf = string.Empty; vBitrate = "-qscale:v 15"; vOptions = string.Empty; }
-
-                // Encoding Pass Method based on Pass ComboBox Selection
-                PassesSwitch(mainwindow);
-            }
-            // -------------------------
-            // Sub
-            // -------------------------
-            else if ((string)mainwindow.cboVideo.SelectedItem == "Sub")
-            {
-                if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8") { crf = "-b:v 250K -crf 25" /* crf needs b:v 0*/; vBitrate = "-b:v 250K" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9") { crf = "-b:v 250K -crf 25" /* crf needs b:v 0*/; vBitrate = "-b:v 250K" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264") { crf = "-crf 45"; vBitrate = "-b:v 250K" /* for 2 pass */; vMaxrate = "-maxrate 250K"; vOptions = "-pix_fmt yuv420p"; }
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265") { crf = "-crf 45 -x265-params crf=45"; vBitrate = "-b:v 250K" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; }
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "Theora") { crf = "-q:v 2"; vBitrate = "-q:v 2" /* for 2 pass */; vOptions = "-pix_fmt yuv420p"; } //OGV uses forced q:v instead of CRF
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG") { crf = string.Empty; vBitrate = "-qscale:v 25"; vOptions = string.Empty; }
-
-                // Encoding Pass Method based on Pass ComboBox Selection
-                PassesSwitch(mainwindow);
+                Video.pass1 = string.Empty;
             }
 
-            // -------------------------
-            // Custom
-            // -------------------------
-            if ((string)mainwindow.cboVideo.SelectedItem == "Custom")
-            {
-                // VBITRATE
-                // if vBitrate Textbox is default or empty
-                if (mainwindow.vBitrateCustom.Text == "Bitrate" || string.IsNullOrWhiteSpace(mainwindow.vBitrateCustom.Text)) { vBitMode = string.Empty; vBitrate = string.Empty; }
-                // if vBitrate is entered by user and is not blank
-                if (mainwindow.vBitrateCustom.Text != "Bitrate" && !string.IsNullOrWhiteSpace(mainwindow.vBitrateCustom.Text)) { vBitMode = "-b:v"; vBitrate = mainwindow.vBitrateCustom.Text; }
-
-                //CRF
-                // if CRF texbox is default or empty
-                if (mainwindow.crfCustom.Text == "CRF" || string.IsNullOrWhiteSpace(mainwindow.crfCustom.Text)) { crf = string.Empty; }
-                // if CRF texbox entered by user and is not blank
-                if (mainwindow.crfCustom.Text != "CRF" && !string.IsNullOrWhiteSpace(mainwindow.crfCustom.Text)) { crf = "-crf" + " " + mainwindow.crfCustom.Text /* crf needs b:v 0*/ ; }
-
-                // VP9 crf -b:v 0
-                if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9")
-                {
-                    // If vBitrate is default or blank & CRF is custom value
-                    if (mainwindow.vBitrateCustom.Text == "Bitrate" 
-                        | string.IsNullOrWhiteSpace(mainwindow.vBitrateCustom.Text) 
-                        && mainwindow.crfCustom.Text != "CRF" 
-                        && !string.IsNullOrWhiteSpace(mainwindow.crfCustom.Text))
-                    {
-                        vBitMode = "-b:v";
-                        vBitrate = "0";
-                    }
-                }
-
-                // -------------------------
-                // Enable 2-Pass (If Bitrate Custom & CRF Empty)
-                // -------------------------
-                // If vBitrate TextBox is NOT Empty & NOT Default ("Bitrate") & CRF IS Empty or Default ("CRF")
-                if ((string)mainwindow.cboPass.SelectedItem == "2 Pass")
-                {
-                    if (!string.IsNullOrWhiteSpace(mainwindow.vBitrateCustom.Text) 
-                        && mainwindow.vBitrateCustom.Text != "Bitrate" 
-                        && string.IsNullOrWhiteSpace(mainwindow.crfCustom.Text) 
-                        | mainwindow.crfCustom.Text == "CRF")
-                    {
-                        // Log Console Message /////////
-                        Log.WriteAction = () =>
-                        {
-                            Log.logParagraph.Inlines.Add(new LineBreak());
-                            Log.logParagraph.Inlines.Add(new LineBreak());
-                            Log.logParagraph.Inlines.Add(new Bold(new Run("2 Pass Toggle: ")) { Foreground = Log.ConsoleDefault });
-                            Log.logParagraph.Inlines.Add(new Run("On, ") { Foreground = Log.ConsoleDefault });
-                            Log.logParagraph.Inlines.Add(new Bold(new Run("CRF: ")) { Foreground = Log.ConsoleDefault });
-                            Log.logParagraph.Inlines.Add(new Run("None, Using Bitrate 2 Pass") { Foreground = Log.ConsoleDefault });
-                        };
-                        Log.LogActions.Add(Log.WriteAction);
-
-                        // 2 Pass Switch
-                        v2passSwitch = 1;
-                    }
-                }
-
-                // Disabled on CRF so Bitrate can run as 1 Pass
-                if ((string)mainwindow.cboPass.SelectedItem == "1 Pass")
-                {
-                    if (!string.IsNullOrWhiteSpace(mainwindow.vBitrateCustom.Text) 
-                        && mainwindow.vBitrateCustom.Text != "Bitrate" 
-                        && string.IsNullOrWhiteSpace(mainwindow.crfCustom.Text) 
-                        | mainwindow.crfCustom.Text == "CRF")
-                    {
-                        // Log Console Message /////////
-                        Log.WriteAction = () =>
-                        {
-                            Log.logParagraph.Inlines.Add(new LineBreak());
-                            Log.logParagraph.Inlines.Add(new LineBreak());
-                            Log.logParagraph.Inlines.Add(new Bold(new Run("2 Pass Toggle: ")) { Foreground = Log.ConsoleDefault });
-                            Log.logParagraph.Inlines.Add(new Run("Off, ") { Foreground = Log.ConsoleDefault });
-                            Log.logParagraph.Inlines.Add(new Bold(new Run("CRF: ")) { Foreground = Log.ConsoleDefault });
-                            Log.logParagraph.Inlines.Add(new Run("None, Using Bitrate 1 Pass") { Foreground = Log.ConsoleDefault });
-                        };
-                        Log.LogActions.Add(Log.WriteAction);
-
-                        // 2-Pass Switch
-                        v2passSwitch = 0;
-                    }
-                }
-
-                //CODEC
-                // user entered CRF textbox
-                if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8") { vOptions = "-pix_fmt yuv420p"; } //used to have -qmin 0 -qmax 50
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9") { vOptions = "-pix_fmt yuv420p"; }
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264") { vOptions = "-pix_fmt yuv420p"; }
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265") { crf = "-crf" + mainwindow.crfCustom.Text + " -x265-params crf=" + mainwindow.crfCustom.Text; vOptions = "-pix_fmt yuv420p"; }
-                // Theora cant have Custom yet
-
-                //Combine
-                vQuality = vBitMode + " " + vBitrate + " " + crf + " " + vMaxrate + " " + vBufsize + " " + vOptions;
-            }
-            // -------------------------
-            // None
-            // -------------------------
-            else if ((string)mainwindow.cboVideo.SelectedItem == "None")
-            {
-                vQuality = string.Empty;
-            }
-
-            // -------------------------
-            // Batch Auto Quality
-            // -------------------------
-            // If Video = Auto, use the CMD Batch Video Variable
-            if (mainwindow.tglBatch.IsChecked == true
-                && (string)mainwindow.cboVideo.SelectedItem == "Auto"
-                && (string)mainwindow.cboVideoCodec.SelectedItem != "Copy")
-            {
-                vQuality = "-b:v %V";
-                // Skipped if Codec Copy
-            }
-
-
-            // Log Console Message /////////        
-            Log.WriteAction = () =>
-            {
-                Log.logParagraph.Inlines.Add(new LineBreak());
-                Log.logParagraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
-                if (!string.IsNullOrEmpty(vBitrate))
-                {
-                    Log.logParagraph.Inlines.Add(new Run(vBitrate.Replace("-b:v ", "")) { Foreground = Log.ConsoleDefault });
-                }
-                Log.logParagraph.Inlines.Add(new LineBreak());
-                Log.logParagraph.Inlines.Add(new Bold(new Run("CRF: ")) { Foreground = Log.ConsoleDefault });
-                if (!string.IsNullOrEmpty(crf))
-                {
-                    Log.logParagraph.Inlines.Add(new Run(crf) { Foreground = Log.ConsoleDefault }); //crf combines with bitrate
-                }
-                Log.logParagraph.Inlines.Add(new LineBreak());
-                Log.logParagraph.Inlines.Add(new Bold(new Run("Options: ")) { Foreground = Log.ConsoleDefault });
-                Log.logParagraph.Inlines.Add(new Run(vOptions) { Foreground = Log.ConsoleDefault });
-            };
-            Log.LogActions.Add(Log.WriteAction);
-
-
-
-            // -------------------------
-            // 2-Pass Methods
-            // -------------------------
-            /// <summary>
-            ///    2 Pass Clear
-            /// </summary> 
-            FFmpeg.TwoPassClear(mainwindow);
-
-
-            /// <summary>
-            ///    2 Pass Switch
-            /// </summary> 
-            FFmpeg.TwoPassSwitch(mainwindow);
-
-
-
-            // -------------------------
-            // Return Value
-            // -------------------------
-            // Remove any white space from end of string
-            vQuality = vQuality.Trim();
-            vQuality = vQuality.TrimEnd();
 
             // Return Value
-            return vQuality;
+            return Video.pass1;
+        }
+
+
+        /// <summary>
+        /// Pass 2 Modifier (Method)
+        /// <summary>
+        // x265 Pass 2
+        public static String Pass2Modifier(MainWindow mainwindow)
+        {
+            // -------------------------
+            // Enabled
+            // -------------------------
+            if ((string)mainwindow.cboPass.SelectedItem == "2 Pass")
+            {
+                // Enable pass parameters in the FFmpeg Arguments
+                // x265 Pass 2 Params
+                if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265")
+                {
+                    Video.pass2 = "-x265-params pass=2";
+                }
+                // All other codecs
+                else
+                {
+                    Video.pass2 = "-pass 2";
+                }
+            }
+
+            // -------------------------
+            // Disabled
+            // -------------------------
+            else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass" || (string)mainwindow.cboPass.SelectedItem == "CRF")
+            {
+                Video.pass2 = string.Empty;
+            }
+
+
+            // Return Value
+            return Video.pass2;
         }
 
 
@@ -1881,9 +1922,6 @@ namespace Axiom
             //
             if ((string)mainwindow.cboSize.SelectedItem == "No")
             {
-                // Video Filter Switch
-                //vFilterSwitch = 0; //do not use
-
                 aspect = string.Empty;
 
                 // Log Console Message /////////
@@ -2036,7 +2074,6 @@ namespace Axiom
                     || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
                 {
                     width = "trunc(iw/2)*2";
-                    //width = "-2";
                 }
 
                 height = "1440";
@@ -2063,7 +2100,6 @@ namespace Axiom
                     || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
                 {
                     width = "trunc(iw/2)*2";
-                    //width = "-2";
                 }
 
                 height = "1200";
@@ -2090,7 +2126,6 @@ namespace Axiom
                     || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
                 {
                     width = "trunc(iw/2)*2";
-                    //width = "-2";
                 }
 
                 height = "1080";
@@ -2119,7 +2154,6 @@ namespace Axiom
                     || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
                 {
                     width = "trunc(iw/2)*2";
-                    //width = "-2";
                 }
 
                 height = "720";
@@ -2146,7 +2180,6 @@ namespace Axiom
                     || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
                 {
                     width = "trunc(iw/2)*2";
-                    //width = "-2";
                 }
 
                 height = "480";
@@ -2173,7 +2206,6 @@ namespace Axiom
                     || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
                 {
                     width = "trunc(iw/2)*2";
-                    //width = "-2";
                 }
 
                 height = "320";
@@ -2200,7 +2232,6 @@ namespace Axiom
                     || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
                 {
                     width = "trunc(iw/2)*2";
-                    //width = "-2";
                 }
 
                 height = "240";
@@ -2272,7 +2303,6 @@ namespace Axiom
                     {
                         // Auto the width (-2), Make user entered height divisible by 2
                         width = "trunc(iw/2)*2";
-                        //width = "-2";
 
                         try
                         {
@@ -2420,7 +2450,7 @@ namespace Axiom
                 if (string.IsNullOrWhiteSpace(mainwindow.widthCustom.Text) 
                     && string.IsNullOrWhiteSpace(mainwindow.heightCustom.Text))
                 {
-                    scale = string.Empty;
+                    //scale = string.Empty;
                     MainWindow.crop = string.Empty; //cropDivisible
                     width = string.Empty;
                     height = string.Empty;
@@ -2430,7 +2460,7 @@ namespace Axiom
                 else if (string.Equals(mainwindow.widthCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase) 
                     && string.Equals(mainwindow.heightCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase))
                 {
-                    scale = string.Empty;
+                    //scale = string.Empty;
                     MainWindow.crop = string.Empty; //cropDivisible
                     width = string.Empty;
                     height = string.Empty;
@@ -2440,7 +2470,7 @@ namespace Axiom
                 else if (string.IsNullOrWhiteSpace(mainwindow.widthCustom.Text) 
                     && string.Equals(mainwindow.heightCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase))
                 {
-                    scale = string.Empty;
+                    //scale = string.Empty;
                     MainWindow.crop = string.Empty; //cropDivisible
                     width = string.Empty;
                     height = string.Empty;
@@ -2450,7 +2480,7 @@ namespace Axiom
                 else if (string.Equals(mainwindow.widthCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase) 
                     && string.IsNullOrWhiteSpace(mainwindow.heightCustom.Text))
                 {
-                    scale = string.Empty;
+                    //scale = string.Empty;
                     MainWindow.crop = string.Empty; //cropDivisible
                     width = string.Empty;
                     height = string.Empty;
@@ -2973,10 +3003,12 @@ namespace Axiom
             // Clear the Filter for each run
             // Anything that pertains to Video must be after the vFilter
             //vFilterSwitch = string.Empty; //do not reset the switch between converts
-            vFilter = string.Empty;
+            vFilter = string.Empty; //important!
 
 
+            // -------------------------
             // Filters
+            // -------------------------
             /// <summary>
             ///    Resize
             /// </summary> 
@@ -3078,31 +3110,23 @@ namespace Axiom
             {
                 vBitrate = string.Empty; //clear -b:v 2 pass
                 vQuality = crf + " " + vOptions; //combine
-
-                v2passSwitch = 0;
             }
             // 1 Pass Toggle On (Use Bitrate -b:v)
             else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass")
             {
                 crf = string.Empty; //clear crf
                 vQuality = vBitrate + " " + vOptions; //combine
-
-                v2passSwitch = 0;
             }
             // 2 Pass Toggle On (Use Bitrate -b:v)
             else if ((string)mainwindow.cboPass.SelectedItem == "2 Pass")
             {
                 crf = string.Empty; //clear crf
                 vQuality = vBitrate + " " + vOptions; //combine
-
-                v2passSwitch = 1;
             }
             // auto
             else if ((string)mainwindow.cboPass.SelectedItem == "auto")
             {
                 vQuality = vBitrate + " " + vOptions; //combine
-
-                v2passSwitch = 0;
             }
         }
     }

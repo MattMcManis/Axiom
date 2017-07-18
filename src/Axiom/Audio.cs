@@ -1655,27 +1655,28 @@ namespace Axiom
                 // Limit Vorbis bitrate to 500k through cmd.exe
                 if ((string)mainwindow.cboAudioCodec.SelectedItem == "Vorbis")
                 {
-                    aBitrateLimiter = "& (IF %A gtr 500000 (SET aBitrate=500000) ELSE (echo Bitrate within Vorbis Limit of 500k)) & for /F %A in ('echo %aBitrate%') do (echo %A)";
+                    //aBitrateLimiter = "& (IF %A gtr 500000 (SET aBitrate=500000) ELSE (echo Bitrate within Vorbis Limit of 500k)) & for /F %A in ('echo %aBitrate%') do (echo %A)";
+                    aBitrateLimiter = "& (IF %A gtr 500000 (SET aBitrate=500000) ELSE (echo Bitrate within Vorbis Limit of 500k)) & for /F %A in ('echo %aBitrate%') do (echo)";
                 }
                 // Limit Opus bitrate to 510k through cmd.exe
                 else if ((string)mainwindow.cboAudioCodec.SelectedItem == "Opus")
                 {
-                    aBitrateLimiter = "& (IF %A gtr 510000 (SET aBitrate=510000) ELSE (echo Bitrate within Opus Limit of 510k)) & for /F %A in ('echo %aBitrate%') do (echo %A)";
+                    aBitrateLimiter = "& (IF %A gtr 510000 (SET aBitrate=510000) ELSE (echo Bitrate within Opus Limit of 510k)) & for /F %A in ('echo %aBitrate%') do (echo)";
                 }
                 // Limit AAC bitrate to 400k through cmd.exe
                 else if ((string)mainwindow.cboAudioCodec.SelectedItem == "AAC")
                 {
-                    aBitrateLimiter = "& (IF %A gtr 400000 (SET aBitrate=400000) ELSE (echo Bitrate within AAC Limit of 400k)) & for /F %A in ('echo %aBitrate%') do (echo %A)";
+                    aBitrateLimiter = "& (IF %A gtr 400000 (SET aBitrate=400000) ELSE (echo Bitrate within AAC Limit of 400k)) & for /F %A in ('echo %aBitrate%') do (echo)";
                 }
                 // Limit AC3 bitrate to 640k through cmd.exe
                 else if ((string)mainwindow.cboAudioCodec.SelectedItem == "AC3")
                 {
-                    aBitrateLimiter = "& (IF %A gtr 640000 (SET aBitrate=640000) ELSE (echo Bitrate within AC3 Limit of 640k)) & for /F %A in ('echo %aBitrate%') do (echo %A)";
+                    aBitrateLimiter = "& (IF %A gtr 640000 (SET aBitrate=640000) ELSE (echo Bitrate within AC3 Limit of 640k)) & for /F %A in ('echo %aBitrate%') do (echo)";
                 }
                 // Limit LAME bitrate to 320k through cmd.exe
                 else if ((string)mainwindow.cboAudioCodec.SelectedItem == "LAME")
                 {
-                    aBitrateLimiter = "& (IF %A gtr 320000 (SET aBitrate=320000) ELSE (echo Bitrate within LAME Limit of 320k)) & for /F %A in ('echo %aBitrate%') do (echo %A)";
+                    aBitrateLimiter = "& (IF %A gtr 320000 (SET aBitrate=320000) ELSE (echo Bitrate within LAME Limit of 320k)) & for /F %A in ('echo %aBitrate%') do (echo)";
                 }
             }
 
@@ -1706,17 +1707,19 @@ namespace Axiom
                     List<string> BatchAudioAutoList = new List<string>()
                     {
                         // audio
-                        "& for /F \"delims=\" %A in ('@" + FFprobe.ffprobe + " -v error -select_streams a:0 -show_entries " + FFprobe.aEntryType + " -of default^=noprint_wrappers^=1:nokey^=1 \"%~f\" 2^>^&1') do (echo)",
-                        "& SET aBitrate=%A",
+                        "& for /F \"delims=\" %A in ('@" + FFprobe.ffprobe + " -v error -select_streams a:0 -show_entries " + FFprobe.aEntryType + " -of default^=noprint_wrappers^=1:nokey^=1 \"%~f\" 2^>^&1') do (SET aBitrate=%A)",
+                        //"& SET aBitrate=%A",
 
                         // expand var
-                        "& for /F %A in ('echo %aBitrate%') do (echo %A)",
+                        //"& for /F %A in ('echo %aBitrate%') do (echo %A)",
+                        "& for /F %A in ('echo %aBitrate%') do (echo)",
 
                         // basic limiter
                         "& (IF %A EQU N/A (SET aBitrate=320000))",
 
                         // expand var
-                        "& for /F %A in ('echo %aBitrate%') do (echo %A)"
+                        //"& for /F %A in ('echo %aBitrate%') do (echo %A)"
+                        "& for /F %A in ('echo %aBitrate%') do (echo)"
                     };
 
                     // Join List with Spaces, Remove Empty Strings
@@ -1728,12 +1731,6 @@ namespace Axiom
                 {
                     batchAudioAuto = string.Empty;
                 }
-
-                //// Not Auto
-                //if ((string)mainwindow.cboAudio.SelectedItem != "Auto")
-                //{
-                //    batchAudioAuto = string.Empty;
-                //}
             }
 
             // Return Value
@@ -1746,640 +1743,645 @@ namespace Axiom
         /// <summary>
         public static String AudioQuality(MainWindow mainwindow)
         {
-            // Audio Bitrate Mode (Method)
-            AudioBitrateMode(mainwindow);
-
-
-            // Log Console Message /////////
-            Log.WriteAction = () =>
+            // Audio None Check
+            if ((string)mainwindow.cboAudio.SelectedItem != "None")
             {
-                Log.logParagraph.Inlines.Add(new LineBreak());
-                Log.logParagraph.Inlines.Add(new Bold(new Run("Quality: ")) { Foreground = Log.ConsoleDefault });
-                Log.logParagraph.Inlines.Add(new Run(Convert.ToString(mainwindow.cboAudio.SelectedItem)) { Foreground = Log.ConsoleDefault });
-            };
-            Log.LogActions.Add(Log.WriteAction);
+                // Audio Bitrate Mode (Method)
+                AudioBitrateMode(mainwindow);
 
-            // ####################
-            // Auto
-            // ####################
-            if ((string)mainwindow.cboAudio.SelectedItem == "Auto")
-            {
-                // If Input File has No audio
-                if (string.IsNullOrEmpty(FFprobe.inputAudioBitrate) && mainwindow.tglBatch.IsChecked == false)
+
+                // Log Console Message /////////
+                Log.WriteAction = () =>
                 {
-                    aCodec = string.Empty; //used to be -an, but that is for Mute enabled only
-                    aBitMode = string.Empty;
-                    aQuality = string.Empty;
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new Bold(new Run("Quality: ")) { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new Run(Convert.ToString(mainwindow.cboAudio.SelectedItem)) { Foreground = Log.ConsoleDefault });
+                };
+                Log.LogActions.Add(Log.WriteAction);
 
-                    Log.WriteAction = () =>
-                    {
-                        Log.logParagraph.Inlines.Add(new LineBreak());
-                        Log.logParagraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
-                        Log.logParagraph.Inlines.Add(new Run("") { Foreground = Log.ConsoleDefault });
-                    };
-                    Log.LogActions.Add(Log.WriteAction);
-                }
-
-                // If Input File audio exists and bitrate was detected
-                if (FFprobe.inputAudioBitrate != "N/A" && !string.IsNullOrEmpty(FFprobe.inputAudioBitrate))
+                // -------------------------
+                // Auto
+                // -------------------------
+                if ((string)mainwindow.cboAudio.SelectedItem == "Auto")
                 {
-                    aBitMode = "-b:a";
-                    //combine
-                    aQuality = aBitMode + " " + FFprobe.inputAudioBitrate;
-
-                    Log.WriteAction = () =>
+                    // If Input File has No audio
+                    if (string.IsNullOrEmpty(FFprobe.inputAudioBitrate) && mainwindow.tglBatch.IsChecked == false)
                     {
-                        Log.logParagraph.Inlines.Add(new LineBreak());
-                        Log.logParagraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
-                        Log.logParagraph.Inlines.Add(new Run(FFprobe.inputAudioBitrate) { Foreground = Log.ConsoleDefault });
-                    };
-                    Log.LogActions.Add(Log.WriteAction);
-                }
-
-                // The following fixes the problem of FFprobe not being able to detect existing Audio Bitrate in an MKV
-                // Set new Bitrate Default if Input File Audio exists but FFprobe cant detect Bitrate
-                if (!string.IsNullOrEmpty(FFprobe.inputAudioCodec)) // this prevents substring overload
-                {
-                    // Default to a new bitrate if Input & Output formats DONT match
-                    if (FFprobe.inputAudioBitrate == "N/A" && !string.Equals(MainWindow.inputExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase))
-                    {
-                        // output codec is specified by the format selected
-                        aQuality = "-b:a 320k"; // set a high default
+                        aCodec = string.Empty; //used to be -an, but that is for Mute enabled only
+                        aBitMode = string.Empty;
+                        aQuality = string.Empty;
 
                         Log.WriteAction = () =>
                         {
                             Log.logParagraph.Inlines.Add(new LineBreak());
                             Log.logParagraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
-                            Log.logParagraph.Inlines.Add(new Run("320k") { Foreground = Log.ConsoleDefault });
+                            Log.logParagraph.Inlines.Add(new Run("") { Foreground = Log.ConsoleDefault });
+                        };
+                        Log.LogActions.Add(Log.WriteAction);
+                    }
+
+                    // If Input File audio exists and bitrate was detected
+                    if (FFprobe.inputAudioBitrate != "N/A" && !string.IsNullOrEmpty(FFprobe.inputAudioBitrate))
+                    {
+                        aBitMode = "-b:a";
+                        //combine
+                        aQuality = aBitMode + " " + FFprobe.inputAudioBitrate;
+
+                        Log.WriteAction = () =>
+                        {
+                            Log.logParagraph.Inlines.Add(new LineBreak());
+                            Log.logParagraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
+                            Log.logParagraph.Inlines.Add(new Run(FFprobe.inputAudioBitrate) { Foreground = Log.ConsoleDefault });
+                        };
+                        Log.LogActions.Add(Log.WriteAction);
+                    }
+
+                    // The following fixes the problem of FFprobe not being able to detect existing Audio Bitrate in an MKV
+                    // Set new Bitrate Default if Input File Audio exists but FFprobe cant detect Bitrate
+                    if (!string.IsNullOrEmpty(FFprobe.inputAudioCodec)) // this prevents substring overload
+                    {
+                        // Default to a new bitrate if Input & Output formats DONT match
+                        if (FFprobe.inputAudioBitrate == "N/A" && !string.Equals(MainWindow.inputExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase))
+                        {
+                            // output codec is specified by the format selected
+                            aQuality = "-b:a 320k"; // set a high default
+
+                            Log.WriteAction = () =>
+                            {
+                                Log.logParagraph.Inlines.Add(new LineBreak());
+                                Log.logParagraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
+                                Log.logParagraph.Inlines.Add(new Run("320k") { Foreground = Log.ConsoleDefault });
+                            };
+                            Log.LogActions.Add(Log.WriteAction);
+                        }
+                    }
+
+                    // NEW RULES
+                    // Audio Codec Copy cannot have -b:a
+                    if (aCodec == "-acodec copy")
+                    {
+                        aBitMode = string.Empty;
+                        aQuality = string.Empty;
+                    }
+                    // If input extension is same as output, use codec copy and remove -b:a and quality
+                    // This does the same as codec copy above, but just to make sure
+                    if ((string)mainwindow.cboVideoCodec.SelectedItem == "Copy")
+                    {
+                        aBitMode = string.Empty;
+                        aQuality = string.Empty;
+                    }
+                }
+                // -------------------------
+                // Lossless
+                // -------------------------
+                else if ((string)mainwindow.cboAudio.SelectedItem == "Lossless")
+                {
+                    // ALAC
+                    if ((string)mainwindow.cboAudioCodec.SelectedItem == "ALAC") { aBitMode = string.Empty; aBitrate = string.Empty; }
+                    // FLAC
+                    else if ((string)mainwindow.cboAudioCodec.SelectedItem == "FLAC") { aBitMode = string.Empty; aBitrate = string.Empty; }
+                    // PCM
+                    else if ((string)mainwindow.cboAudioCodec.SelectedItem == "PCM") { aBitMode = string.Empty; aBitrate = string.Empty; }
+                    //combine
+                    aQuality = aBitMode + " " + aBitrate;
+
+                    Log.WriteAction = () =>
+                    {
+                        Log.logParagraph.Inlines.Add(new LineBreak());
+                        Log.logParagraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
+                        Log.logParagraph.Inlines.Add(new Run(aBitrate) { Foreground = Log.ConsoleDefault });
+                    };
+                    Log.LogActions.Add(Log.WriteAction);
+
+                }
+                // -------------------------
+                // 640
+                // -------------------------
+                else if ((string)mainwindow.cboAudio.SelectedItem == "640")
+                {
+                    //ac3 value > low 0-10 high
+                    if ((string)mainwindow.cboAudioCodec.SelectedItem == "AC3" && mainwindow.tglVBR.IsChecked == true) { /* AC3 can't be VBR */ }
+                    //CBR default
+                    else { aBitrate = "640k"; }
+                    //combine
+                    aQuality = aBitMode + " " + aBitrate;
+
+                    // Log Console Message /////////
+                    if (mainwindow.tglVBR.IsChecked == true)
+                    {
+                        Log.WriteAction = () =>
+                        {
+                            Log.logParagraph.Inlines.Add(new LineBreak());
+                            Log.logParagraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
+                            Log.logParagraph.Inlines.Add(new Run("CBR " + mainwindow.cboAudio.SelectedItem + " to VBR " + aBitrate) { Foreground = Log.ConsoleDefault });
                         };
                         Log.LogActions.Add(Log.WriteAction);
                     }
                 }
-
-                // NEW RULES
-                // Audio Codec Copy cannot have -b:a
-                if (aCodec == "-acodec copy")
-                {
-                    aBitMode = string.Empty;
-                    aQuality = string.Empty;
-                }
-                // If input extension is same as output, use codec copy and remove -b:a and quality
-                // This does the same as codec copy above, but just to make sure
-                if ((string)mainwindow.cboVideoCodec.SelectedItem == "Copy")
-                {
-                    aBitMode = string.Empty;
-                    aQuality = string.Empty;
-                }
-            }
-            // ####################
-            // Lossless
-            // ####################
-            else if ((string)mainwindow.cboAudio.SelectedItem == "Lossless")
-            {
-                // ALAC
-                if ((string)mainwindow.cboAudioCodec.SelectedItem == "ALAC") { aBitMode = string.Empty; aBitrate = string.Empty; }
-                // FLAC
-                else if ((string)mainwindow.cboAudioCodec.SelectedItem == "FLAC") { aBitMode = string.Empty; aBitrate = string.Empty; }
-                // PCM
-                else if ((string)mainwindow.cboAudioCodec.SelectedItem == "PCM") { aBitMode = string.Empty; aBitrate = string.Empty; }
-                //combine
-                aQuality = aBitMode + " " + aBitrate;
-
-                Log.WriteAction = () =>
-                {
-                    Log.logParagraph.Inlines.Add(new LineBreak());
-                    Log.logParagraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
-                    Log.logParagraph.Inlines.Add(new Run(aBitrate) { Foreground = Log.ConsoleDefault });
-                };
-                Log.LogActions.Add(Log.WriteAction);
-
-            }
-            // ####################
-            // 640
-            // ####################
-            else if ((string)mainwindow.cboAudio.SelectedItem == "640")
-            {
-                //ac3 value > low 0-10 high
-                if ((string)mainwindow.cboAudioCodec.SelectedItem == "AC3" && mainwindow.tglVBR.IsChecked == true) { /* AC3 can't be VBR */ }
-                //CBR default
-                else { aBitrate = "640k"; }
-                //combine
-                aQuality = aBitMode + " " + aBitrate;
-
-                // Log Console Message /////////
-                if (mainwindow.tglVBR.IsChecked == true)
-                {
-                    Log.WriteAction = () =>
-                    {
-                        Log.logParagraph.Inlines.Add(new LineBreak());
-                        Log.logParagraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
-                        Log.logParagraph.Inlines.Add(new Run("CBR " + mainwindow.cboAudio.SelectedItem + " to VBR " + aBitrate) { Foreground = Log.ConsoleDefault });
-                    };
-                    Log.LogActions.Add(Log.WriteAction);
-                }
-            }
-            // ####################
-            // 510
-            // ####################
-            else if ((string)mainwindow.cboAudio.SelectedItem == "510")
-            {
-                //opus value > low 0-10 high
-                if ((string)mainwindow.cboAudioCodec.SelectedItem == "Opus" && mainwindow.tglVBR.IsChecked == true) { aBitrate = "510k"; } //special rule for opus -b:a -vbr on
-                //CBR default
-                else { aBitrate = "510k"; }
-                //combine
-                aQuality = aBitMode + " " + aBitrate;
-
-                // Log Console Message /////////
-                if (mainwindow.tglVBR.IsChecked == true)
-                {
-                    Log.WriteAction = () =>
-                    {
-                        Log.logParagraph.Inlines.Add(new LineBreak());
-                        Log.logParagraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
-                        Log.logParagraph.Inlines.Add(new Run("CBR " + mainwindow.cboAudio.SelectedItem + " to VBR " + aBitrate) { Foreground = Log.ConsoleDefault });
-                    };
-                    Log.LogActions.Add(Log.WriteAction);
-                }
-            }
-            // ####################
-            // 500
-            // ####################
-            else if ((string)mainwindow.cboAudio.SelectedItem == "500")
-            {
-                //vorbis value > low 0-10 high
-                if ((string)mainwindow.cboAudioCodec.SelectedItem == "Vorbis" && mainwindow.tglVBR.IsChecked == true) { aBitrate = "10"; }
-                //CBR default
-                else { aBitrate = "500k"; }
-                //combine
-                aQuality = aBitMode + " " + aBitrate;
-
-                // Log Console Message /////////
-                if (mainwindow.tglVBR.IsChecked == true)
-                {
-                    Log.WriteAction = () =>
-                    {
-                        Log.logParagraph.Inlines.Add(new LineBreak());
-                        Log.logParagraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
-                        Log.logParagraph.Inlines.Add(new Run("CBR " + mainwindow.cboAudio.SelectedItem + " to VBR " + aBitrate) { Foreground = Log.ConsoleDefault });
-                    };
-                    Log.LogActions.Add(Log.WriteAction);
-                }
-            }
-            // ####################
-            // 448
-            // ####################
-            else if ((string)mainwindow.cboAudio.SelectedItem == "448")
-            {
-                //ac3 value > low 0.1-2 high
-                if ((string)mainwindow.cboAudioCodec.SelectedItem == "AC3" && mainwindow.tglVBR.IsChecked == true) { /* AC3 can't be VBR */ }
-                //CBR default
-                else { aBitrate = "448k"; }
-                //combine
-                aQuality = aBitMode + " " + aBitrate;
-
-                // Log Console Message /////////
-                if (mainwindow.tglVBR.IsChecked == true)
-                {
-                    Log.WriteAction = () =>
-                    {
-                        Log.logParagraph.Inlines.Add(new LineBreak());
-                        Log.logParagraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
-                        Log.logParagraph.Inlines.Add(new Run("CBR " + mainwindow.cboAudio.SelectedItem + " to VBR " + aBitrate) { Foreground = Log.ConsoleDefault });
-                    };
-                    Log.LogActions.Add(Log.WriteAction);
-                }
-            }
-            // ####################
-            // 400
-            // ####################
-            else if ((string)mainwindow.cboAudio.SelectedItem == "400")
-            {
-                //aac value > low 0.1-2 high
-                if ((string)mainwindow.cboAudioCodec.SelectedItem == "AAC" && mainwindow.tglVBR.IsChecked == true) { aBitrate = "2"; }
-                //CBR default
-                else { aBitrate = "400k"; }
-                //combine
-                aQuality = aBitMode + " " + aBitrate;
-
-                // Log Console Message /////////
-                if (mainwindow.tglVBR.IsChecked == true)
-                {
-                    Log.WriteAction = () =>
-                    {
-                        Log.logParagraph.Inlines.Add(new LineBreak());
-                        Log.logParagraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
-                        Log.logParagraph.Inlines.Add(new Run("CBR " + mainwindow.cboAudio.SelectedItem + " to VBR " + aBitrate) { Foreground = Log.ConsoleDefault });
-                    };
-                    Log.LogActions.Add(Log.WriteAction);
-                }
-            }
-            // ####################
-            // 320
-            // ####################
-            else if ((string)mainwindow.cboAudio.SelectedItem == "320")
-            {
-                //vorbis value > low 0-10 high
-                if ((string)mainwindow.cboAudioCodec.SelectedItem == "Vorbis" && mainwindow.tglVBR.IsChecked == true) { aBitrate = "9"; }
-                //opus value > low 0-10 high
-                else if ((string)mainwindow.cboAudioCodec.SelectedItem == "Opus" && mainwindow.tglVBR.IsChecked == true) { aBitrate = "320k"; } //special rule for opus -b:a -vbr on
-                //aac value > low 0.1-2 high
-                else if ((string)mainwindow.cboAudioCodec.SelectedItem == "AAC" && mainwindow.tglVBR.IsChecked == true) { aBitrate = "2"; }
-                //lame value > low 9-0 high
-                else if ((string)mainwindow.cboAudioCodec.SelectedItem == "LAME" && mainwindow.tglVBR.IsChecked == true) { aBitrate = "0"; }
-                //CBR default
-                else { aBitrate = "320k"; }
-                //combine
-                aQuality = aBitMode + " " + aBitrate;
-
-                // Log Console Message /////////
-                if (mainwindow.tglVBR.IsChecked == true)
-                {
-                    Log.WriteAction = () =>
-                    {
-                        Log.logParagraph.Inlines.Add(new LineBreak());
-                        Log.logParagraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
-                        Log.logParagraph.Inlines.Add(new Run("CBR " + mainwindow.cboAudio.SelectedItem + " to VBR " + aBitrate) { Foreground = Log.ConsoleDefault });
-                    };
-                    Log.LogActions.Add(Log.WriteAction);
-                }
-            }
-            // ####################
-            // 256
-            // ####################
-            else if ((string)mainwindow.cboAudio.SelectedItem == "256")
-            {
-                //webm value low 0-10 high
-                if ((string)mainwindow.cboAudioCodec.SelectedItem == "Vorbis" && mainwindow.tglVBR.IsChecked == true) { aBitrate = "8"; }
-                //opus value > low 0-10 high
-                else if ((string)mainwindow.cboAudioCodec.SelectedItem == "Opus" && mainwindow.tglVBR.IsChecked == true) { aBitrate = "256k"; } //special rule for opus -b:a -vbr on
-                //aac value > low 0.1-2 high
-                else if ((string)mainwindow.cboAudioCodec.SelectedItem == "AAC" && mainwindow.tglVBR.IsChecked == true) { aBitrate = "1.6"; }
-                //lame value > low 9-0 high
-                else if ((string)mainwindow.cboAudioCodec.SelectedItem == "LAME" && mainwindow.tglVBR.IsChecked == true) { aBitrate = "0"; }
-                //CBR default
-                else { aBitrate = "256k"; }
-                //combine
-                aQuality = aBitMode + " " + aBitrate;
-
-                // Log Console Message /////////
-                if (mainwindow.tglVBR.IsChecked == true)
-                {
-                    Log.WriteAction = () =>
-                    {
-                        Log.logParagraph.Inlines.Add(new LineBreak());
-                        Log.logParagraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
-                        Log.logParagraph.Inlines.Add(new Run("CBR " + mainwindow.cboAudio.SelectedItem + " to VBR " + aBitrate) { Foreground = Log.ConsoleDefault });
-                    };
-                    Log.LogActions.Add(Log.WriteAction);
-                }
-            }
-            // ####################
-            // 224
-            // ####################
-            else if ((string)mainwindow.cboAudio.SelectedItem == "224")
-            {
-                //webm value low 0-10 high
-                if ((string)mainwindow.cboAudioCodec.SelectedItem == "Vorbis" && mainwindow.tglVBR.IsChecked == true) { aBitrate = "7"; }
-                //opus value > low 0-10 high
-                else if ((string)mainwindow.cboAudioCodec.SelectedItem == "Opus" && mainwindow.tglVBR.IsChecked == true) { aBitrate = "224k"; } //special rule for opus -b:a -vbr on
-                //aac value > low 0.1-2 high
-                else if ((string)mainwindow.cboAudioCodec.SelectedItem == "AAC" && mainwindow.tglVBR.IsChecked == true) { aBitrate = "1.4"; }
-                //lame value > low 9-0 high
-                else if ((string)mainwindow.cboAudioCodec.SelectedItem == "LAME" && mainwindow.tglVBR.IsChecked == true) { aBitrate = "1"; }
-                //CBR default
-                else { aBitrate = "224k"; }
-                //combine
-                aQuality = aBitMode + " " + aBitrate;
-
-                // Log Console Message /////////
-                if (mainwindow.tglVBR.IsChecked == true)
-                {
-                    Log.WriteAction = () =>
-                    {
-                        Log.logParagraph.Inlines.Add(new LineBreak());
-                        Log.logParagraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
-                        Log.logParagraph.Inlines.Add(new Run("CBR " + mainwindow.cboAudio.SelectedItem + " to VBR " + aBitrate) { Foreground = Log.ConsoleDefault });
-                    };
-                    Log.LogActions.Add(Log.WriteAction);
-                }
-            }
-            // ####################
-            // 192
-            // ####################
-            else if ((string)mainwindow.cboAudio.SelectedItem == "192")
-            {
-                //webm value low 0-10 high
-                if ((string)mainwindow.cboAudioCodec.SelectedItem == "Vorbis" && mainwindow.tglVBR.IsChecked == true) { aBitrate = "6"; }
-                //opus value > low 0-10 high
-                else if ((string)mainwindow.cboAudioCodec.SelectedItem == "Opus" && mainwindow.tglVBR.IsChecked == true) { aBitrate = "192k"; } //special rule for opus -b:a -vbr on
-                //aac value > low 0.1-2 high
-                else if ((string)mainwindow.cboAudioCodec.SelectedItem == "AAC" && mainwindow.tglVBR.IsChecked == true) { aBitrate = "1.2"; }
-                //lame value > low 9-0 high
-                else if ((string)mainwindow.cboAudioCodec.SelectedItem == "LAME" && mainwindow.tglVBR.IsChecked == true) { aBitrate = "2"; }
-                //CBR default
-                else { aBitrate = "192k"; }
-                //combine
-                aQuality = aBitMode + " " + aBitrate;
-
-                // Log Console Message /////////
-                if (mainwindow.tglVBR.IsChecked == true)
-                {
-                    Log.WriteAction = () =>
-                    {
-                        Log.logParagraph.Inlines.Add(new LineBreak());
-                        Log.logParagraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
-                        Log.logParagraph.Inlines.Add(new Run("CBR " + mainwindow.cboAudio.SelectedItem + " to VBR " + aBitrate) { Foreground = Log.ConsoleDefault });
-                    };
-                    Log.LogActions.Add(Log.WriteAction);
-                }
-            }
-            // ####################
-            // 160
-            // ####################
-            else if ((string)mainwindow.cboAudio.SelectedItem == "160")
-            {
-                //webm value low 0-10 high
-                if ((string)mainwindow.cboAudioCodec.SelectedItem == "Vorbis" && mainwindow.tglVBR.IsChecked == true) { aBitrate = "5"; }
-                //opus value > low 0-10 high
-                else if ((string)mainwindow.cboAudioCodec.SelectedItem == "Opus" && mainwindow.tglVBR.IsChecked == true) { aBitrate = "160k"; } //special rule for opus -b:a -vbr on
-                //aac value > low 0.1-2 high
-                else if ((string)mainwindow.cboAudioCodec.SelectedItem == "AAC" && mainwindow.tglVBR.IsChecked == true) { aBitrate = "1.1"; }
-                //lame value > low 9-0 high
-                else if ((string)mainwindow.cboAudioCodec.SelectedItem == "LAME" && mainwindow.tglVBR.IsChecked == true) { aBitrate = "3"; }
-                //CBR default
-                else { aBitrate = "160k"; }
-                //combine
-                aQuality = aBitMode + " " + aBitrate;
-
-                // Log Console Message /////////
-                if (mainwindow.tglVBR.IsChecked == true)
-                {
-                    Log.WriteAction = () =>
-                    {
-                        Log.logParagraph.Inlines.Add(new LineBreak());
-                        Log.logParagraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
-                        Log.logParagraph.Inlines.Add(new Run("CBR " + mainwindow.cboAudio.SelectedItem + " to VBR " + aBitrate) { Foreground = Log.ConsoleDefault });
-                    };
-                    Log.LogActions.Add(Log.WriteAction);
-                }
-            }
-            // ####################
-            // 128
-            // ####################
-            else if ((string)mainwindow.cboAudio.SelectedItem == "128")
-            {
-                //webm value low 0-10 high
-                if ((string)mainwindow.cboAudioCodec.SelectedItem == "Vorbis" && mainwindow.tglVBR.IsChecked == true) { aBitrate = "4"; }
-                //opus value > low 0-10 high
-                else if ((string)mainwindow.cboAudioCodec.SelectedItem == "Opus" && mainwindow.tglVBR.IsChecked == true) { aBitrate = "128k"; } //special rule for opus -b:a -vbr on
-                //aac value > low 0.1-2 high
-                else if ((string)mainwindow.cboAudioCodec.SelectedItem == "AAC" && mainwindow.tglVBR.IsChecked == true) { aBitrate = "0.8"; }
-                //lame value > low 9-0 high
-                else if ((string)mainwindow.cboAudioCodec.SelectedItem == "LAME" && mainwindow.tglVBR.IsChecked == true) { aBitrate = "5"; }
-                //CBR default
-                else { aBitrate = "128k"; }
-                //combine
-                aQuality = aBitMode + " " + aBitrate;
-
-                // Log Console Message /////////
-                if (mainwindow.tglVBR.IsChecked == true)
-                {
-                    Log.WriteAction = () =>
-                    {
-                        Log.logParagraph.Inlines.Add(new LineBreak());
-                        Log.logParagraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
-                        Log.logParagraph.Inlines.Add(new Run("CBR " + mainwindow.cboAudio.SelectedItem + " to VBR " + aBitrate) { Foreground = Log.ConsoleDefault });
-                    };
-                    Log.LogActions.Add(Log.WriteAction);
-                }
-            }
-            // ####################
-            // 96
-            // ####################
-            else if ((string)mainwindow.cboAudio.SelectedItem == "96")
-            {
-                //webm value low 0-10 high
-                if ((string)mainwindow.cboAudioCodec.SelectedItem == "Vorbis" && mainwindow.tglVBR.IsChecked == true) { aBitrate = "2"; }
-                //opus value > low 0-10 high
-                else if ((string)mainwindow.cboAudioCodec.SelectedItem == "Opus" && mainwindow.tglVBR.IsChecked == true) { aBitrate = "96k"; }
-                //aac value > low 0.1-2 high
-                else if ((string)mainwindow.cboAudioCodec.SelectedItem == "AAC" && mainwindow.tglVBR.IsChecked == true) { aBitrate = "0.6"; }
-                //lame value > low 9-0 high
-                else if ((string)mainwindow.cboAudioCodec.SelectedItem == "LAME" && mainwindow.tglVBR.IsChecked == true) { aBitrate = "7"; }
-                //CBR default
-                else { aBitrate = "96k"; }
-                //combine
-                aQuality = aBitMode + " " + aBitrate;
-
-                // Log Console Message /////////
-                if (mainwindow.tglVBR.IsChecked == true)
-                {
-                    Log.WriteAction = () =>
-                    {
-                        Log.logParagraph.Inlines.Add(new LineBreak());
-                        Log.logParagraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
-                        Log.logParagraph.Inlines.Add(new Run("CBR " + mainwindow.cboAudio.SelectedItem + " to VBR " + aBitrate) { Foreground = Log.ConsoleDefault });
-                    };
-                    Log.LogActions.Add(Log.WriteAction);
-                }
-
-            }
-            // ####################
-            // Mute
-            // ####################
-            else if ((string)mainwindow.cboAudio.SelectedItem == "Mute")
-            {
-                aBitMode = string.Empty; aBitrate = string.Empty; Streams.aMap = "-an";
-                //combine
-                aQuality = aBitMode + " " + aBitrate;
-            }
-            // ####################
-            // None
-            // ####################
-            else if ((string)mainwindow.cboAudio.SelectedItem == "None")
-            {
-                aBitMode = string.Empty; aBitrate = string.Empty;
-                //combine
-                aQuality = aBitMode + " " + aBitrate;
-            }
-            // ####################
-            // Custom
-            // ####################
-            else if ((string)mainwindow.cboAudio.SelectedItem == "Custom" && !string.IsNullOrWhiteSpace(mainwindow.audioCustom.Text)) //dont allow if blank, crashes
-            {
-                // Convert user entered text into double
-                double audioCustomNum;
-
-                audioCustomNum = Convert.ToDouble(mainwindow.audioCustom.Text);
-
-                /// <summary>
-                /// VBR User entered value Algorithm
-                /// <summary>
-
                 // -------------------------
-                // AAC (M4A, MP4, MKV) USER CUSTOM VBR
+                // 510
                 // -------------------------
-                if ((string)mainwindow.cboAudioCodec.SelectedItem == "AAC" && mainwindow.tglVBR.IsChecked == true)
+                else if ((string)mainwindow.cboAudio.SelectedItem == "510")
                 {
+                    //opus value > low 0-10 high
+                    if ((string)mainwindow.cboAudioCodec.SelectedItem == "Opus" && mainwindow.tglVBR.IsChecked == true) { aBitrate = "510k"; } //special rule for opus -b:a -vbr on
+                                                                                                                                               //CBR default
+                    else { aBitrate = "510k"; }
+                    //combine
+                    aQuality = aBitMode + " " + aBitrate;
+
                     // Log Console Message /////////
-                    Log.WriteAction = () =>
+                    if (mainwindow.tglVBR.IsChecked == true)
                     {
-                        Log.logParagraph.Inlines.Add(new LineBreak());
-                        Log.logParagraph.Inlines.Add(new Bold(new Run("AAC: ")) { Foreground = Log.ConsoleDefault });
-                        Log.logParagraph.Inlines.Add(new Run("CBR " + aBitrate + " to ") { Foreground = Log.ConsoleDefault });
-                    };
-                    Log.LogActions.Add(Log.WriteAction);
+                        Log.WriteAction = () =>
+                        {
+                            Log.logParagraph.Inlines.Add(new LineBreak());
+                            Log.logParagraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
+                            Log.logParagraph.Inlines.Add(new Run("CBR " + mainwindow.cboAudio.SelectedItem + " to VBR " + aBitrate) { Foreground = Log.ConsoleDefault });
+                        };
+                        Log.LogActions.Add(Log.WriteAction);
+                    }
+                }
+                // -------------------------
+                // 500
+                // -------------------------
+                else if ((string)mainwindow.cboAudio.SelectedItem == "500")
+                {
+                    //vorbis value > low 0-10 high
+                    if ((string)mainwindow.cboAudioCodec.SelectedItem == "Vorbis" && mainwindow.tglVBR.IsChecked == true) { aBitrate = "10"; }
+                    //CBR default
+                    else { aBitrate = "500k"; }
+                    //combine
+                    aQuality = aBitMode + " " + aBitrate;
 
-                    // VBR User entered value algorithm
-                    aBitrate = String.Concat(audioCustomNum * 0.00625);
+                    // Log Console Message /////////
+                    if (mainwindow.tglVBR.IsChecked == true)
+                    {
+                        Log.WriteAction = () =>
+                        {
+                            Log.logParagraph.Inlines.Add(new LineBreak());
+                            Log.logParagraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
+                            Log.logParagraph.Inlines.Add(new Run("CBR " + mainwindow.cboAudio.SelectedItem + " to VBR " + aBitrate) { Foreground = Log.ConsoleDefault });
+                        };
+                        Log.LogActions.Add(Log.WriteAction);
+                    }
+                }
+                // -------------------------
+                // 448
+                // -------------------------
+                else if ((string)mainwindow.cboAudio.SelectedItem == "448")
+                {
+                    //ac3 value > low 0.1-2 high
+                    if ((string)mainwindow.cboAudioCodec.SelectedItem == "AC3" && mainwindow.tglVBR.IsChecked == true) { /* AC3 can't be VBR */ }
+                    //CBR default
+                    else { aBitrate = "448k"; }
+                    //combine
+                    aQuality = aBitMode + " " + aBitrate;
 
-                    // AAC VBR Above 320k Error (look into this)
-                    if (audioCustomNum > 400)
+                    // Log Console Message /////////
+                    if (mainwindow.tglVBR.IsChecked == true)
+                    {
+                        Log.WriteAction = () =>
+                        {
+                            Log.logParagraph.Inlines.Add(new LineBreak());
+                            Log.logParagraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
+                            Log.logParagraph.Inlines.Add(new Run("CBR " + mainwindow.cboAudio.SelectedItem + " to VBR " + aBitrate) { Foreground = Log.ConsoleDefault });
+                        };
+                        Log.LogActions.Add(Log.WriteAction);
+                    }
+                }
+                // -------------------------
+                // 400
+                // -------------------------
+                else if ((string)mainwindow.cboAudio.SelectedItem == "400")
+                {
+                    //aac value > low 0.1-2 high
+                    if ((string)mainwindow.cboAudioCodec.SelectedItem == "AAC" && mainwindow.tglVBR.IsChecked == true) { aBitrate = "2"; }
+                    //CBR default
+                    else { aBitrate = "400k"; }
+                    //combine
+                    aQuality = aBitMode + " " + aBitrate;
+
+                    // Log Console Message /////////
+                    if (mainwindow.tglVBR.IsChecked == true)
+                    {
+                        Log.WriteAction = () =>
+                        {
+                            Log.logParagraph.Inlines.Add(new LineBreak());
+                            Log.logParagraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
+                            Log.logParagraph.Inlines.Add(new Run("CBR " + mainwindow.cboAudio.SelectedItem + " to VBR " + aBitrate) { Foreground = Log.ConsoleDefault });
+                        };
+                        Log.LogActions.Add(Log.WriteAction);
+                    }
+                }
+                // -------------------------
+                // 320
+                // -------------------------
+                else if ((string)mainwindow.cboAudio.SelectedItem == "320")
+                {
+                    //vorbis value > low 0-10 high
+                    if ((string)mainwindow.cboAudioCodec.SelectedItem == "Vorbis" && mainwindow.tglVBR.IsChecked == true) { aBitrate = "9"; }
+                    //opus value > low 0-10 high
+                    else if ((string)mainwindow.cboAudioCodec.SelectedItem == "Opus" && mainwindow.tglVBR.IsChecked == true) { aBitrate = "320k"; } //special rule for opus -b:a -vbr on
+                                                                                                                                                    //aac value > low 0.1-2 high
+                    else if ((string)mainwindow.cboAudioCodec.SelectedItem == "AAC" && mainwindow.tglVBR.IsChecked == true) { aBitrate = "2"; }
+                    //lame value > low 9-0 high
+                    else if ((string)mainwindow.cboAudioCodec.SelectedItem == "LAME" && mainwindow.tglVBR.IsChecked == true) { aBitrate = "0"; }
+                    //CBR default
+                    else { aBitrate = "320k"; }
+                    //combine
+                    aQuality = aBitMode + " " + aBitrate;
+
+                    // Log Console Message /////////
+                    if (mainwindow.tglVBR.IsChecked == true)
+                    {
+                        Log.WriteAction = () =>
+                        {
+                            Log.logParagraph.Inlines.Add(new LineBreak());
+                            Log.logParagraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
+                            Log.logParagraph.Inlines.Add(new Run("CBR " + mainwindow.cboAudio.SelectedItem + " to VBR " + aBitrate) { Foreground = Log.ConsoleDefault });
+                        };
+                        Log.LogActions.Add(Log.WriteAction);
+                    }
+                }
+                // -------------------------
+                // 256
+                // -------------------------
+                else if ((string)mainwindow.cboAudio.SelectedItem == "256")
+                {
+                    //webm value low 0-10 high
+                    if ((string)mainwindow.cboAudioCodec.SelectedItem == "Vorbis" && mainwindow.tglVBR.IsChecked == true) { aBitrate = "8"; }
+                    //opus value > low 0-10 high
+                    else if ((string)mainwindow.cboAudioCodec.SelectedItem == "Opus" && mainwindow.tglVBR.IsChecked == true) { aBitrate = "256k"; } //special rule for opus -b:a -vbr on
+                                                                                                                                                    //aac value > low 0.1-2 high
+                    else if ((string)mainwindow.cboAudioCodec.SelectedItem == "AAC" && mainwindow.tglVBR.IsChecked == true) { aBitrate = "1.6"; }
+                    //lame value > low 9-0 high
+                    else if ((string)mainwindow.cboAudioCodec.SelectedItem == "LAME" && mainwindow.tglVBR.IsChecked == true) { aBitrate = "0"; }
+                    //CBR default
+                    else { aBitrate = "256k"; }
+                    //combine
+                    aQuality = aBitMode + " " + aBitrate;
+
+                    // Log Console Message /////////
+                    if (mainwindow.tglVBR.IsChecked == true)
+                    {
+                        Log.WriteAction = () =>
+                        {
+                            Log.logParagraph.Inlines.Add(new LineBreak());
+                            Log.logParagraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
+                            Log.logParagraph.Inlines.Add(new Run("CBR " + mainwindow.cboAudio.SelectedItem + " to VBR " + aBitrate) { Foreground = Log.ConsoleDefault });
+                        };
+                        Log.LogActions.Add(Log.WriteAction);
+                    }
+                }
+                // -------------------------
+                // 224
+                // -------------------------
+                else if ((string)mainwindow.cboAudio.SelectedItem == "224")
+                {
+                    //webm value low 0-10 high
+                    if ((string)mainwindow.cboAudioCodec.SelectedItem == "Vorbis" && mainwindow.tglVBR.IsChecked == true) { aBitrate = "7"; }
+                    //opus value > low 0-10 high
+                    else if ((string)mainwindow.cboAudioCodec.SelectedItem == "Opus" && mainwindow.tglVBR.IsChecked == true) { aBitrate = "224k"; } //special rule for opus -b:a -vbr on
+                                                                                                                                                    //aac value > low 0.1-2 high
+                    else if ((string)mainwindow.cboAudioCodec.SelectedItem == "AAC" && mainwindow.tglVBR.IsChecked == true) { aBitrate = "1.4"; }
+                    //lame value > low 9-0 high
+                    else if ((string)mainwindow.cboAudioCodec.SelectedItem == "LAME" && mainwindow.tglVBR.IsChecked == true) { aBitrate = "1"; }
+                    //CBR default
+                    else { aBitrate = "224k"; }
+                    //combine
+                    aQuality = aBitMode + " " + aBitrate;
+
+                    // Log Console Message /////////
+                    if (mainwindow.tglVBR.IsChecked == true)
+                    {
+                        Log.WriteAction = () =>
+                        {
+                            Log.logParagraph.Inlines.Add(new LineBreak());
+                            Log.logParagraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
+                            Log.logParagraph.Inlines.Add(new Run("CBR " + mainwindow.cboAudio.SelectedItem + " to VBR " + aBitrate) { Foreground = Log.ConsoleDefault });
+                        };
+                        Log.LogActions.Add(Log.WriteAction);
+                    }
+                }
+                // -------------------------
+                // 192
+                // -------------------------
+                else if ((string)mainwindow.cboAudio.SelectedItem == "192")
+                {
+                    //webm value low 0-10 high
+                    if ((string)mainwindow.cboAudioCodec.SelectedItem == "Vorbis" && mainwindow.tglVBR.IsChecked == true) { aBitrate = "6"; }
+                    //opus value > low 0-10 high
+                    else if ((string)mainwindow.cboAudioCodec.SelectedItem == "Opus" && mainwindow.tglVBR.IsChecked == true) { aBitrate = "192k"; } //special rule for opus -b:a -vbr on
+                                                                                                                                                    //aac value > low 0.1-2 high
+                    else if ((string)mainwindow.cboAudioCodec.SelectedItem == "AAC" && mainwindow.tglVBR.IsChecked == true) { aBitrate = "1.2"; }
+                    //lame value > low 9-0 high
+                    else if ((string)mainwindow.cboAudioCodec.SelectedItem == "LAME" && mainwindow.tglVBR.IsChecked == true) { aBitrate = "2"; }
+                    //CBR default
+                    else { aBitrate = "192k"; }
+                    //combine
+                    aQuality = aBitMode + " " + aBitrate;
+
+                    // Log Console Message /////////
+                    if (mainwindow.tglVBR.IsChecked == true)
+                    {
+                        Log.WriteAction = () =>
+                        {
+                            Log.logParagraph.Inlines.Add(new LineBreak());
+                            Log.logParagraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
+                            Log.logParagraph.Inlines.Add(new Run("CBR " + mainwindow.cboAudio.SelectedItem + " to VBR " + aBitrate) { Foreground = Log.ConsoleDefault });
+                        };
+                        Log.LogActions.Add(Log.WriteAction);
+                    }
+                }
+                // -------------------------
+                // 160
+                // -------------------------
+                else if ((string)mainwindow.cboAudio.SelectedItem == "160")
+                {
+                    //webm value low 0-10 high
+                    if ((string)mainwindow.cboAudioCodec.SelectedItem == "Vorbis" && mainwindow.tglVBR.IsChecked == true) { aBitrate = "5"; }
+                    //opus value > low 0-10 high
+                    else if ((string)mainwindow.cboAudioCodec.SelectedItem == "Opus" && mainwindow.tglVBR.IsChecked == true) { aBitrate = "160k"; } //special rule for opus -b:a -vbr on
+                                                                                                                                                    //aac value > low 0.1-2 high
+                    else if ((string)mainwindow.cboAudioCodec.SelectedItem == "AAC" && mainwindow.tglVBR.IsChecked == true) { aBitrate = "1.1"; }
+                    //lame value > low 9-0 high
+                    else if ((string)mainwindow.cboAudioCodec.SelectedItem == "LAME" && mainwindow.tglVBR.IsChecked == true) { aBitrate = "3"; }
+                    //CBR default
+                    else { aBitrate = "160k"; }
+                    //combine
+                    aQuality = aBitMode + " " + aBitrate;
+
+                    // Log Console Message /////////
+                    if (mainwindow.tglVBR.IsChecked == true)
+                    {
+                        Log.WriteAction = () =>
+                        {
+                            Log.logParagraph.Inlines.Add(new LineBreak());
+                            Log.logParagraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
+                            Log.logParagraph.Inlines.Add(new Run("CBR " + mainwindow.cboAudio.SelectedItem + " to VBR " + aBitrate) { Foreground = Log.ConsoleDefault });
+                        };
+                        Log.LogActions.Add(Log.WriteAction);
+                    }
+                }
+                // -------------------------
+                // 128
+                // -------------------------
+                else if ((string)mainwindow.cboAudio.SelectedItem == "128")
+                {
+                    //webm value low 0-10 high
+                    if ((string)mainwindow.cboAudioCodec.SelectedItem == "Vorbis" && mainwindow.tglVBR.IsChecked == true) { aBitrate = "4"; }
+                    //opus value > low 0-10 high
+                    else if ((string)mainwindow.cboAudioCodec.SelectedItem == "Opus" && mainwindow.tglVBR.IsChecked == true) { aBitrate = "128k"; } //special rule for opus -b:a -vbr on
+                                                                                                                                                    //aac value > low 0.1-2 high
+                    else if ((string)mainwindow.cboAudioCodec.SelectedItem == "AAC" && mainwindow.tglVBR.IsChecked == true) { aBitrate = "0.8"; }
+                    //lame value > low 9-0 high
+                    else if ((string)mainwindow.cboAudioCodec.SelectedItem == "LAME" && mainwindow.tglVBR.IsChecked == true) { aBitrate = "5"; }
+                    //CBR default
+                    else { aBitrate = "128k"; }
+                    //combine
+                    aQuality = aBitMode + " " + aBitrate;
+
+                    // Log Console Message /////////
+                    if (mainwindow.tglVBR.IsChecked == true)
+                    {
+                        Log.WriteAction = () =>
+                        {
+                            Log.logParagraph.Inlines.Add(new LineBreak());
+                            Log.logParagraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
+                            Log.logParagraph.Inlines.Add(new Run("CBR " + mainwindow.cboAudio.SelectedItem + " to VBR " + aBitrate) { Foreground = Log.ConsoleDefault });
+                        };
+                        Log.LogActions.Add(Log.WriteAction);
+                    }
+                }
+                // -------------------------
+                // 96
+                // -------------------------
+                else if ((string)mainwindow.cboAudio.SelectedItem == "96")
+                {
+                    //webm value low 0-10 high
+                    if ((string)mainwindow.cboAudioCodec.SelectedItem == "Vorbis" && mainwindow.tglVBR.IsChecked == true) { aBitrate = "2"; }
+                    //opus value > low 0-10 high
+                    else if ((string)mainwindow.cboAudioCodec.SelectedItem == "Opus" && mainwindow.tglVBR.IsChecked == true) { aBitrate = "96k"; }
+                    //aac value > low 0.1-2 high
+                    else if ((string)mainwindow.cboAudioCodec.SelectedItem == "AAC" && mainwindow.tglVBR.IsChecked == true) { aBitrate = "0.6"; }
+                    //lame value > low 9-0 high
+                    else if ((string)mainwindow.cboAudioCodec.SelectedItem == "LAME" && mainwindow.tglVBR.IsChecked == true) { aBitrate = "7"; }
+                    //CBR default
+                    else { aBitrate = "96k"; }
+                    //combine
+                    aQuality = aBitMode + " " + aBitrate;
+
+                    // Log Console Message /////////
+                    if (mainwindow.tglVBR.IsChecked == true)
+                    {
+                        Log.WriteAction = () =>
+                        {
+                            Log.logParagraph.Inlines.Add(new LineBreak());
+                            Log.logParagraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
+                            Log.logParagraph.Inlines.Add(new Run("CBR " + mainwindow.cboAudio.SelectedItem + " to VBR " + aBitrate) { Foreground = Log.ConsoleDefault });
+                        };
+                        Log.LogActions.Add(Log.WriteAction);
+                    }
+
+                }
+                // -------------------------
+                // Mute
+                // -------------------------
+                else if ((string)mainwindow.cboAudio.SelectedItem == "Mute")
+                {
+                    aBitMode = string.Empty; aBitrate = string.Empty; Streams.aMap = "-an";
+                    //combine
+                    aQuality = aBitMode + " " + aBitrate;
+                }
+                // -------------------------
+                // None
+                // -------------------------
+                else if ((string)mainwindow.cboAudio.SelectedItem == "None")
+                {
+                    aBitMode = string.Empty; aBitrate = string.Empty;
+                    //combine
+                    aQuality = aBitMode + " " + aBitrate;
+                }
+                // -------------------------
+                // Custom
+                // -------------------------
+                else if ((string)mainwindow.cboAudio.SelectedItem == "Custom" && !string.IsNullOrWhiteSpace(mainwindow.audioCustom.Text)) //dont allow if blank, crashes
+                {
+                    // Convert user entered text into double
+                    double audioCustomNum;
+
+                    audioCustomNum = Convert.ToDouble(mainwindow.audioCustom.Text);
+
+                    /// <summary>
+                    /// VBR User entered value Algorithm
+                    /// <summary>
+
+                    // -------------------------
+                    // AAC (M4A, MP4, MKV) USER CUSTOM VBR
+                    // -------------------------
+                    if ((string)mainwindow.cboAudioCodec.SelectedItem == "AAC" && mainwindow.tglVBR.IsChecked == true)
                     {
                         // Log Console Message /////////
                         Log.WriteAction = () =>
                         {
                             Log.logParagraph.Inlines.Add(new LineBreak());
-                            Log.logParagraph.Inlines.Add(new LineBreak());
-                            Log.logParagraph.Inlines.Add(new Bold(new Run("Warning: AAC VBR cannot be above 400k.")) { Foreground = Log.ConsoleWarning });
+                            Log.logParagraph.Inlines.Add(new Bold(new Run("AAC: ")) { Foreground = Log.ConsoleDefault });
+                            Log.logParagraph.Inlines.Add(new Run("CBR " + aBitrate + " to ") { Foreground = Log.ConsoleDefault });
                         };
                         Log.LogActions.Add(Log.WriteAction);
 
-
-                        System.Windows.MessageBox.Show("Error: AAC VBR cannot be above 400k."); /* lock */ MainWindow.ready = 0;
-                    }
-
-                    // Log Console Message /////////
-                    Log.WriteAction = () =>
-                    {
-                        Log.logParagraph.Inlines.Add(new Run("VBR " + aBitrate) { Foreground = Log.ConsoleDefault });
-                    };
-                    Log.LogActions.Add(Log.WriteAction);
-                }
-                else
-                {
-                    aBitrate = mainwindow.audioCustom.Text + "k";
-                }
-
-                // -------------------------
-                // VORBIS (WEBM, OGG) USER CUSTOM VBR
-                // -------------------------
-                if ((string)mainwindow.cboAudioCodec.SelectedItem == "Vorbis" && mainwindow.tglVBR.IsChecked == true)
-                {
-                    // Log Console Message /////////
-                    Log.WriteAction = () =>
-                    {
-                        Log.logParagraph.Inlines.Add(new LineBreak());
-                        Log.logParagraph.Inlines.Add(new Bold(new Run("Vorbis: ")) { Foreground = Log.ConsoleDefault });
-                        Log.logParagraph.Inlines.Add(new Run("CBR " + aBitrate + " to ") { Foreground = Log.ConsoleDefault });
-                    };
-                    Log.LogActions.Add(Log.WriteAction);
-
-                    // Above 290k set to 10 Quality
-                    if (audioCustomNum > 290)
-                    {
-                        aBitrate = "10";
-                    }
-                    // 32 bracket
-                    if (audioCustomNum >= 128) //above 113kbps, use standard equation
-                    {
                         // VBR User entered value algorithm
-                        aBitrate = String.Concat(audioCustomNum * 0.03125);
-                    }
-                    // 16 bracket
-                    if (audioCustomNum <= 127) //112kbps needs work, half decimal off
-                    {
-                        // VBR User entered value algorithm
-                        aBitrate = String.Concat((audioCustomNum * 0.03125) - 0.5);
-                    }
-                    if (audioCustomNum <= 96)
-                    {
-                        // VBR User entered value algorithm
-                        aBitrate = String.Concat((audioCustomNum * 0.013125) - 0.25);
-                    }
-                    // 8 bracket
-                    if (audioCustomNum <= 64)
-                    {
-                        // VBR User entered value algorithm
-                        aBitrate = String.Concat(0);
-                    }
+                        aBitrate = String.Concat(audioCustomNum * 0.00625);
 
-                    // Log Console Message /////////
-                    Log.WriteAction = () =>
-                    {
-                        Log.logParagraph.Inlines.Add(new Run("VBR " + aBitrate) { Foreground = Log.ConsoleDefault });
-                    };
-                    Log.LogActions.Add(Log.WriteAction);
-                }
+                        // AAC VBR Above 320k Error (look into this)
+                        if (audioCustomNum > 400)
+                        {
+                            // Log Console Message /////////
+                            Log.WriteAction = () =>
+                            {
+                                Log.logParagraph.Inlines.Add(new LineBreak());
+                                Log.logParagraph.Inlines.Add(new LineBreak());
+                                Log.logParagraph.Inlines.Add(new Bold(new Run("Warning: AAC VBR cannot be above 400k.")) { Foreground = Log.ConsoleWarning });
+                            };
+                            Log.LogActions.Add(Log.WriteAction);
 
-                // -------------------------
-                // LAME (MP3) USER CUSTOM VBR
-                // -------------------------
-                if ((string)mainwindow.cboAudioCodec.SelectedItem == "LAME" && mainwindow.tglVBR.IsChecked == true)
-                {
-                    // Log Console Message /////////
-                    Log.WriteAction = () =>
-                    {
-                        Log.logParagraph.Inlines.Add(new LineBreak());
-                        Log.logParagraph.Inlines.Add(new Bold(new Run("LAME: ")) { Foreground = Log.ConsoleDefault });
-                        Log.logParagraph.Inlines.Add(new Run("CBR " + aBitrate + " to ") { Foreground = Log.ConsoleDefault });
-                    };
-                    Log.LogActions.Add(Log.WriteAction);
 
-                    // Above 245k set to V0
-                    if (audioCustomNum > 260)
-                    {
-                        aBitrate = "0";
+                            System.Windows.MessageBox.Show("Error: AAC VBR cannot be above 400k."); /* lock */ MainWindow.ready = 0;
+                        }
+
+                        // Log Console Message /////////
+                        Log.WriteAction = () =>
+                        {
+                            Log.logParagraph.Inlines.Add(new Run("VBR " + aBitrate) { Foreground = Log.ConsoleDefault });
+                        };
+                        Log.LogActions.Add(Log.WriteAction);
                     }
                     else
                     {
-                        // VBR User entered value algorithm (0 high / 10 low)
-                        aBitrate = String.Concat((((audioCustomNum * (-0.01)) / 2.60) + 1) * 10);
+                        aBitrate = mainwindow.audioCustom.Text + "k";
                     }
 
-                    // Log Console Message /////////
-                    Log.WriteAction = () =>
+                    // -------------------------
+                    // VORBIS (WEBM, OGG) USER CUSTOM VBR
+                    // -------------------------
+                    if ((string)mainwindow.cboAudioCodec.SelectedItem == "Vorbis" && mainwindow.tglVBR.IsChecked == true)
                     {
-                        Log.logParagraph.Inlines.Add(new Run("VBR " + aBitrate) { Foreground = Log.ConsoleDefault });
-                    };
-                    Log.LogActions.Add(Log.WriteAction);
+                        // Log Console Message /////////
+                        Log.WriteAction = () =>
+                        {
+                            Log.logParagraph.Inlines.Add(new LineBreak());
+                            Log.logParagraph.Inlines.Add(new Bold(new Run("Vorbis: ")) { Foreground = Log.ConsoleDefault });
+                            Log.logParagraph.Inlines.Add(new Run("CBR " + aBitrate + " to ") { Foreground = Log.ConsoleDefault });
+                        };
+                        Log.LogActions.Add(Log.WriteAction);
+
+                        // Above 290k set to 10 Quality
+                        if (audioCustomNum > 290)
+                        {
+                            aBitrate = "10";
+                        }
+                        // 32 bracket
+                        if (audioCustomNum >= 128) //above 113kbps, use standard equation
+                        {
+                            // VBR User entered value algorithm
+                            aBitrate = String.Concat(audioCustomNum * 0.03125);
+                        }
+                        // 16 bracket
+                        if (audioCustomNum <= 127) //112kbps needs work, half decimal off
+                        {
+                            // VBR User entered value algorithm
+                            aBitrate = String.Concat((audioCustomNum * 0.03125) - 0.5);
+                        }
+                        if (audioCustomNum <= 96)
+                        {
+                            // VBR User entered value algorithm
+                            aBitrate = String.Concat((audioCustomNum * 0.013125) - 0.25);
+                        }
+                        // 8 bracket
+                        if (audioCustomNum <= 64)
+                        {
+                            // VBR User entered value algorithm
+                            aBitrate = String.Concat(0);
+                        }
+
+                        // Log Console Message /////////
+                        Log.WriteAction = () =>
+                        {
+                            Log.logParagraph.Inlines.Add(new Run("VBR " + aBitrate) { Foreground = Log.ConsoleDefault });
+                        };
+                        Log.LogActions.Add(Log.WriteAction);
+                    }
+
+                    // -------------------------
+                    // LAME (MP3) USER CUSTOM VBR
+                    // -------------------------
+                    if ((string)mainwindow.cboAudioCodec.SelectedItem == "LAME" && mainwindow.tglVBR.IsChecked == true)
+                    {
+                        // Log Console Message /////////
+                        Log.WriteAction = () =>
+                        {
+                            Log.logParagraph.Inlines.Add(new LineBreak());
+                            Log.logParagraph.Inlines.Add(new Bold(new Run("LAME: ")) { Foreground = Log.ConsoleDefault });
+                            Log.logParagraph.Inlines.Add(new Run("CBR " + aBitrate + " to ") { Foreground = Log.ConsoleDefault });
+                        };
+                        Log.LogActions.Add(Log.WriteAction);
+
+                        // Above 245k set to V0
+                        if (audioCustomNum > 260)
+                        {
+                            aBitrate = "0";
+                        }
+                        else
+                        {
+                            // VBR User entered value algorithm (0 high / 10 low)
+                            aBitrate = String.Concat((((audioCustomNum * (-0.01)) / 2.60) + 1) * 10);
+                        }
+
+                        // Log Console Message /////////
+                        Log.WriteAction = () =>
+                        {
+                            Log.logParagraph.Inlines.Add(new Run("VBR " + aBitrate) { Foreground = Log.ConsoleDefault });
+                        };
+                        Log.LogActions.Add(Log.WriteAction);
+                    }
+
+                    //combine
+                    aQuality = aBitMode + " " + aBitrate;
+
+                }//end custom
+
+                //if blank, remove aQuality (prevents the last variable from being used again)
+                if (string.IsNullOrWhiteSpace(mainwindow.audioCustom.Text))
+                {
+                    aQuality = string.Empty;
                 }
 
-                //combine
-                aQuality = aBitMode + " " + aBitrate;
+                // Audio Codec Copy - (Must be at this location)
+                if ((string)mainwindow.cboAudioCodec.SelectedItem == "Copy")
+                {
+                    aCodec = "-acodec copy";
+                    aBitMode = string.Empty;
+                    aBitrate = string.Empty;
+                    aQuality = string.Empty;
+                }
 
-            }//end custom
 
-            //if blank, remove aQuality (prevents the last variable from being used again)
-            if (string.IsNullOrWhiteSpace(mainwindow.audioCustom.Text))
-            {
-                aQuality = string.Empty;
+                // If Audio = Auto, use the CMD Batch Audio Variable
+                if (mainwindow.tglBatch.IsChecked == true
+                    && (string)mainwindow.cboAudio.SelectedItem == "Auto"
+                    && (string)mainwindow.cboAudioCodec.SelectedItem != "Copy")
+                {
+                    Audio.aQuality = "-b:a %A";
+                    // Skipped if Codec Copy
+                }
+
+
+                // Remove any white space from end of string
+                aQuality = aQuality.Trim();
+                aQuality = aQuality.TrimEnd();
             }
 
-            // Audio Codec Copy - (Must be at this location)
-            if ((string)mainwindow.cboAudioCodec.SelectedItem == "Copy")
-            {
-                aCodec = "-acodec copy";
-                aBitMode = string.Empty;
-                aBitrate = string.Empty;
-                aQuality = string.Empty;
-            }
-
-
-            // If Audio = Auto, use the CMD Batch Audio Variable
-            if (mainwindow.tglBatch.IsChecked == true
-                && (string)mainwindow.cboAudio.SelectedItem == "Auto"
-                && (string)mainwindow.cboAudioCodec.SelectedItem != "Copy")
-            {
-                Audio.aQuality = "-b:a %A";
-                // Skipped if Codec Copy
-            }
-
-
-            // Remove any white space from end of string
-            aQuality = aQuality.Trim();
-            aQuality = aQuality.TrimEnd();
 
             // Return Value
             return aQuality;
@@ -2594,7 +2596,6 @@ namespace Axiom
                     // If user enters value, turn on Filter
                     string volumePercent = mainwindow.volumeUpDown.Text;
                     double volumeDecimal = double.Parse(volumePercent.TrimEnd(new[] { '%' })) / 100;
-                    //volume = "\"volume=" + volumeDecimal + "\""; //old
                     volume = "volume=" + volumeDecimal;
                 }
             }
@@ -2678,7 +2679,9 @@ namespace Axiom
             aFilter = string.Empty; //important
 
 
+            // -------------------------
             // Filters
+            // -------------------------
             /// <summary>
             ///    Volume
             /// </summary> 

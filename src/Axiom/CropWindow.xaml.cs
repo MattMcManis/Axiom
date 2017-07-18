@@ -36,11 +36,6 @@ namespace Axiom
 
         public static string crop;
 
-        //public static object cropwindow { get; internal set; }
-
-        // Console Window
-        //LogConsole console = new LogConsole(); //pass data
-
         public CropWindow()
         {
             // Don't Remove

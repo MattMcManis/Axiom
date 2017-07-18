@@ -12,9 +12,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Threading;
 // Disable XML Comment warnings
 #pragma warning disable 1591
@@ -81,7 +78,7 @@ namespace Axiom
         /// <summary>
         /// Log Console
         /// </summary>
-        public LogConsole console = new LogConsole();
+        public LogConsole logconsole = new LogConsole();
 
         /// <summary>
         /// Log Console
@@ -141,6 +138,7 @@ namespace Axiom
         // System
         public static string threads; // CPU Threads
         public static string maxthreads; // All CPU Threads
+        //public static string theme;
 
         // Paths
         public static string currentDir = Directory.GetCurrentDirectory();
@@ -173,7 +171,7 @@ namespace Axiom
         {
             InitializeComponent();
 
-            TitleVersion = "Axiom ~ FFmpeg UI (0.9.5-alpha)";
+            TitleVersion = "Axiom ~ FFmpeg UI (0.9.6-alpha)";
             DataContext = this;
 
             /// <summary>
@@ -190,8 +188,8 @@ namespace Axiom
 
 
             // Log Console Message /////////
-            console.rtbLog.Document = new FlowDocument(Log.logParagraph); //start
-            console.rtbLog.BeginChange(); //begin change
+            logconsole.rtbLog.Document = new FlowDocument(Log.logParagraph); //start
+            logconsole.rtbLog.BeginChange(); //begin change
             Log.logParagraph.Inlines.Add(new Bold(new Run(TitleVersion)) { Foreground = Log.ConsoleTitle });
 
             /// <summary>
@@ -284,17 +282,23 @@ namespace Axiom
                 // first time use
                 if (string.IsNullOrEmpty(Settings.Default["Theme"].ToString()))
                 {
-                    string theme = "Axiom";
+                    Configure.theme = "Axiom";
+
                     App.Current.Resources.MergedDictionaries.Clear();
-                    App.Current.Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new Uri("Theme" + theme + ".xaml", UriKind.RelativeOrAbsolute) });
+                    App.Current.Resources.MergedDictionaries.Add(new ResourceDictionary() {
+                        Source = new Uri("Theme" + Configure.theme + ".xaml", UriKind.RelativeOrAbsolute)
+                    });
                 }
                 // If string has value
                 else if (!string.IsNullOrEmpty(Settings.Default["Theme"].ToString())) // auto/null check
                 {
                     // Load Saved Settings Override
-                    string theme = Settings.Default["Theme"].ToString();
+                    Configure.theme = Settings.Default["Theme"].ToString();
+
                     App.Current.Resources.MergedDictionaries.Clear();
-                    App.Current.Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new Uri("Theme" + theme + ".xaml", UriKind.RelativeOrAbsolute) });
+                    App.Current.Resources.MergedDictionaries.Add(new ResourceDictionary() {
+                        Source = new Uri("Theme" + Configure.theme + ".xaml", UriKind.RelativeOrAbsolute)
+                    });
                 }
             }
             catch
@@ -329,13 +333,13 @@ namespace Axiom
             // -------------------------
             // Get / Set the FFmpeg & FFprobe Paths
             // -------------------------
-            MainWindow.FFpaths(this);
+            //MainWindow.FFpaths(this);
 
             // Log Console Message /////////
             Log.logParagraph.Inlines.Add(new LineBreak());
             Log.logParagraph.Inlines.Add(new LineBreak());
             Log.logParagraph.Inlines.Add(new Bold(new Run("FFmpeg: ")) { Foreground = Log.ConsoleDefault });
-            Log.logParagraph.Inlines.Add(new Run(FFmpeg.ffmpeg) { Foreground = Log.ConsoleDefault });
+            Log.logParagraph.Inlines.Add(new Run(MainWindow.FFmpegPath(this)) { Foreground = Log.ConsoleDefault });
 
 
             // -------------------------
@@ -364,12 +368,12 @@ namespace Axiom
             // -------------------------
             // Get / Set the FFmpeg & FFprobe Paths
             // -------------------------
-            MainWindow.FFpaths(this);
+            //MainWindow.FFpaths(this);
 
             // Log Console Message /////////
             Log.logParagraph.Inlines.Add(new LineBreak());
             Log.logParagraph.Inlines.Add(new Bold(new Run("FFprobe: ")) { Foreground = Log.ConsoleDefault });
-            Log.logParagraph.Inlines.Add(new Run(FFprobe.ffprobe) { Foreground = Log.ConsoleDefault });
+            Log.logParagraph.Inlines.Add(new Run(MainWindow.FFprobePath(this)) { Foreground = Log.ConsoleDefault });
 
 
             // -------------------------
@@ -457,7 +461,7 @@ namespace Axiom
             Log.logParagraph.Inlines.Add(new LineBreak());
             Log.logParagraph.Inlines.Add(new Bold(new Run("Using CPU Threads: ")) { Foreground = Log.ConsoleDefault });
             Log.logParagraph.Inlines.Add(new Run(Configure.threads) { Foreground = Log.ConsoleDefault });
-            console.rtbLog.EndChange(); //end change !important
+            logconsole.rtbLog.EndChange(); //end change !important
 
 
             // -------------------------
@@ -561,7 +565,6 @@ namespace Axiom
             Video.optProfile = string.Empty;
             Video.optLevel = string.Empty;
             Video.aspect = string.Empty;
-            Video.scale = string.Empty;
             Video.cropDivisible = string.Empty;
             Video.width = string.Empty;
             Video.height = string.Empty;
@@ -577,7 +580,6 @@ namespace Axiom
             Video.geq = string.Empty;
             Video.VideoFilters.Clear();
 
-            Video.v2passSwitch = 0; //Set v2passSwitch Switch back to Off to avoid doubling up
             Video.v2passArgs = string.Empty;
             Video.pass1 = string.Empty;
             Video.pass2 = string.Empty;
@@ -635,12 +637,12 @@ namespace Axiom
             MainWindow mainwindow = this;
 
             // Open LogConsole Window
-            console = new LogConsole(mainwindow);
-            console.Hide();
+            logconsole = new LogConsole(mainwindow);
+            logconsole.Hide();
 
             // Position with Show();
 
-            console.rtbLog.Cursor = Cursors.Arrow;
+            logconsole.rtbLog.Cursor = Cursors.Arrow;
         }
 
 
@@ -969,12 +971,9 @@ namespace Axiom
 
 
         /// <summary>
-        ///    FFpaths (Method)
+        ///    FFmpeg Path (Method)
         /// </summary>
-        /// <remarks>
-        ///     FFmpeg & FFprobe Paths
-        /// </remarks>
-        public static void FFpaths(MainWindow mainwindow)
+        public static String FFmpegPath(MainWindow mainwindow)
         {
             // -------------------------
             // FFmpeg.exe and FFprobe.exe Paths
@@ -999,6 +998,16 @@ namespace Axiom
                 FFmpeg.ffmpeg = "\"" + Configure.ffmpegPath + "\"";
             }
 
+            // Return Value
+            return FFmpeg.ffmpeg;
+        }
+
+
+        /// <remarks>
+        ///     FFprobe Path
+        /// </remarks>
+        public static String FFprobePath(MainWindow mainwindow)
+        {
             // If Configure FFprobe Path is <auto>
             if (Configure.ffprobePath == "<auto>")
             {
@@ -1020,6 +1029,9 @@ namespace Axiom
             {
                 FFprobe.ffprobe = "\"" + Configure.ffprobePath + "\"";
             }
+
+            // Return Value
+            return FFprobe.ffprobe;
         }
 
 
@@ -1070,27 +1082,41 @@ namespace Axiom
         }
 
 
-        ///// <summary>
-        /////    Auto Play (Method)
-        ///// </summary>
-        ///// <remarks>
-        /////     Disabled
-        ///// </remarks>
-        //public void AutoPlay()
-        //{
-        //    if (toggleAutoPlay.IsChecked == true)
-        //    {
-        //        //MessageBox.Show("\"" + output + "\""); //debug
-        //        System.Diagnostics.Process.Start("\"" + output + "\"");
-        //    }
-        //}
+
+        /// <summary>
+        ///    Input Directory (Method)
+        /// </summary>
+        // Directory Only, Needed for Batch
+        public static String BatchInputDirectory(MainWindow mainwindow)
+        {
+            // -------------------------
+            // Batch
+            // -------------------------
+            if (mainwindow.tglBatch.IsChecked == true)
+            {
+                inputDir = mainwindow.textBoxBrowse.Text; // (eg. C:\Input Folder\)
+            }
+
+            // -------------------------
+            // Empty
+            // -------------------------
+            // Input Textbox & Output Textbox Both Empty
+            if (string.IsNullOrWhiteSpace(mainwindow.textBoxBrowse.Text))
+            {
+                inputDir = string.Empty;
+            }
+
+
+            // Return Value
+            return inputDir;
+        }
 
 
 
         /// <summary>
         ///    Input Path (Method)
         /// </summary>
-        public static void InputPath(MainWindow mainwindow)
+        public static String InputPath(MainWindow mainwindow)
         {
             // -------------------------
             // Single File
@@ -1134,6 +1160,10 @@ namespace Axiom
                 inputFileName = string.Empty;
                 input = string.Empty;
             }
+
+
+            // Return Value
+            return input;
         }
 
 
@@ -1141,7 +1171,7 @@ namespace Axiom
         /// <summary>
         ///    Output Path (Method)
         /// </summary>
-        public static void OutputPath(MainWindow mainwindow)
+        public static String OutputPath(MainWindow mainwindow)
         {
             // Get Output Extension (Method)
             Format.GetOutputExt(mainwindow);
@@ -1174,7 +1204,7 @@ namespace Axiom
                 }
 
                 // Output
-                output = outputDir + outputFileName + outputExt; // (eg. C:\Output Folder\ + file + .mp4)                                                        
+                output = outputDir + outputFileName + outputExt; // (eg. C:\Output Folder\ + file + .mp4)                                                     
             }
 
             // -------------------------
@@ -1208,6 +1238,10 @@ namespace Axiom
                 outputFileName = string.Empty;
                 output = string.Empty;
             }
+
+
+            // Return Value
+            return output;
         }
 
 
@@ -1257,42 +1291,6 @@ namespace Axiom
             return false;
         }
 
-        /// <summary>
-        ///    Delete 2 Pass Logs (Method)
-        /// </summary>
-        //public async void Delete2PassLogs(MainWindow mainwindow)
-        //{
-        //    await Task.Delay(5000);
-
-        //    try
-        //    {
-        //        // Delete File
-        //        // Don't Use, causing log to delete too early when needed by ffmpeg for pass 2
-        //        if (File.Exists(@MainWindow.currentDir + "\\ffmpeg2pass-0.log.mbtree"))
-        //        {
-        //            FileInfo file = new FileInfo(@MainWindow.currentDir + "\\ffmpeg2pass-0.log.mbtree");
-
-        //            while (IsFileLocked(file))
-        //                Thread.Sleep(1000);
-        //            await file.DeleteAsync();
-        //        }
-
-        //        // Delete File
-        //        if (File.Exists(@MainWindow.currentDir + "\\ffmpeg2pass-0.log"))
-        //        {
-        //            FileInfo file = new FileInfo(@MainWindow.currentDir + "\\ffmpeg2pass-0.log");
-
-        //            while (IsFileLocked(file))
-        //                Thread.Sleep(1000);
-        //            await file.DeleteAsync();
-        //        }
-
-        //    }
-        //    catch
-        //    {
-
-        //    }
-        //}
 
 
         /// <summary>
@@ -1394,7 +1392,7 @@ namespace Axiom
             // Do not allow Auto without FFprobe being installed or linked
             if ((string)mainwindow.cboVideo.SelectedItem == "Auto" 
                 | (string)mainwindow.cboAudio.SelectedItem == "Auto" 
-                && string.IsNullOrEmpty(FFprobe.ffprobe))
+                && string.IsNullOrEmpty(MainWindow.FFprobePath(mainwindow)))
             {
                 // Log Console Message /////////
                 Log.logParagraph.Inlines.Add(new LineBreak());
@@ -1469,41 +1467,6 @@ namespace Axiom
         }
 
 
-        /// <summary>
-        ///    Process the Input Controls (Method)
-        /// </summary>
-        //public static void ProcessInputControls(MainWindow mainwindow)
-        //{
-        //    // --------------------------------------------------
-        //    // Category: Video
-        //    // --------------------------------------------------
-
-        //    // Log Console Message /////////
-        //    Log.WriteAction = () =>
-        //    {
-        //        Log.logParagraph.Inlines.Add(new LineBreak());
-        //        Log.logParagraph.Inlines.Add(new LineBreak());
-        //        Log.logParagraph.Inlines.Add(new Bold(new Run("Video")) { Foreground = Log.ConsoleAction });
-        //    };
-        //    Log.LogActions.Add(Log.WriteAction);
-
-
-        //    // --------------------------------------------------
-        //    // Category: Audio
-        //    // --------------------------------------------------
-
-        //    // Log Console Message /////////
-        //    Log.WriteAction = () =>
-        //    {
-        //        Log.logParagraph.Inlines.Add(new LineBreak());
-        //        Log.logParagraph.Inlines.Add(new LineBreak());
-        //        Log.logParagraph.Inlines.Add(new Bold(new Run("Audio")) { Foreground = Log.ConsoleAction });
-        //    };
-        //    Log.LogActions.Add(Log.WriteAction);
-        //}
-
-
-
 
         // --------------------------------------------------------------------------------------------------------
         // --------------------------------------------------------------------------------------------------------
@@ -1553,9 +1516,9 @@ namespace Axiom
         private void buttonConsole_Click(object sender, RoutedEventArgs e)
         {
             // Open Log Console Window
-            console.Left = this.Left + 610;
-            console.Top = this.Top + 0;
-            console.Show();
+            logconsole.Left = this.Left + 610;
+            logconsole.Top = this.Top + 0;
+            logconsole.Show();
         }
 
         /// <summary>
@@ -1750,27 +1713,9 @@ namespace Axiom
 
 
             /// <summary>
-            ///    FFmpeg and FFprobe Path
-            /// </summary>
-            MainWindow.FFpaths(this);
-
-
-            /// <summary>
             ///    Keep FFmpeg Window Toggle
             /// </summary>
             MainWindow.KeepWindow(this);
-
-
-            /// <summary>
-            ///    Input Output File
-            /// </summary>
-            MainWindow.InputPath(this);
-
-
-            /// <summary>
-            ///    Input Output File
-            /// </summary>
-            MainWindow.OutputPath(this);
 
 
             /// <summary>
@@ -1808,18 +1753,21 @@ namespace Axiom
                     /// </summary> 
                     FFprobe.Metadata(this);
 
+                    // ------------------------------------------------------------------------
 
                     /// <summary>
                     ///    Write All Log Actions to Console
                     /// </summary> 
                     Log.LogWriteAll(this, configure);
 
+                    // ------------------------------------------------------------------------
 
                     /// <summary>
                     ///    FFmpeg Single File Generate Arguments
                     /// </summary> 
                     FFmpeg.FFmpegSingleGenerateArgs(this);
 
+                    // ------------------------------------------------------------------------
 
                     /// <summary>
                     ///    FFmpeg Batch Generate Arguments
@@ -3676,27 +3624,9 @@ namespace Axiom
             //sw.Start(); //start stopwatch
 
             /// <summary>
-            ///    FFmpeg and FFprobe Path
-            /// </summary>
-            MainWindow.FFpaths(this);
-
-
-            /// <summary>
             ///    Keep FFmpeg Window Toggle
             /// </summary>
             MainWindow.KeepWindow(this);
-
-
-            /// <summary>
-            ///    Input Output File
-            /// </summary>
-            MainWindow.InputPath(this);
-
-
-            /// <summary>
-            ///    Input Output File
-            /// </summary>
-            MainWindow.OutputPath(this);
 
 
             /// <summary>
@@ -3709,7 +3639,6 @@ namespace Axiom
             ///    Error Halts
             /// </summary> 
             MainWindow.ErrorHalts(this); 
-
 
 
             // Log Console Message /////////
@@ -3768,29 +3697,29 @@ namespace Axiom
                         /// </summary> 
                         FFprobe.Metadata(this);
 
+                        // ------------------------------------------------------------------------
 
                         /// <summary>
                         ///    FFmpeg Single File Generate Arguments
                         /// </summary> 
-                        FFmpeg.FFmpegSingleGenerateArgs(this);
-
+                        FFmpeg.FFmpegSingleGenerateArgs(this); //disabled if batch=
 
                         /// <summary>
                         ///    FFmpeg Single File Convert
                         /// </summary> 
-                        FFmpeg.FFmpegSingleConvert(this);
+                        FFmpeg.FFmpegSingleConvert(this); //disabled if batch
 
+                        // ------------------------------------------------------------------------
 
                         /// <summary>
                         ///    FFmpeg Batch Generate Arguments
                         /// </summary> 
-                        FFmpeg.FFmpegBatchGenerateArgs(this);
-
+                        FFmpeg.FFmpegBatchGenerateArgs(this); //disabled if single file
 
                         /// <summary>
                         ///    FFmpeg Single File Convert
                         /// </summary> 
-                        FFmpeg.FFmpegBatchConvert(this);
+                        FFmpeg.FFmpegBatchConvert(this); //disabled if single file
 
 
                     }); //end dispatcher
@@ -3801,15 +3730,6 @@ namespace Axiom
                 //
                 fileprocess.RunWorkerCompleted += new RunWorkerCompletedEventHandler(delegate(object o, RunWorkerCompletedEventArgs args)
                 {
-                    /// <summary>
-                    ///    Delete 2 Pass Logs
-                    /// </summary> 
-                    //if (script == 0 && Video.v2passSwitch == 1)
-                    //{
-                    //    //Delete2PassLogs(this);
-                    //}
-
-
                     // Log Console Message /////////
                     Log.WriteAction = () =>
                     {
@@ -3881,19 +3801,5 @@ namespace Axiom
         } //end convert button
 
     }
-
-
-    /// --------------------------------------------------------------------------------------------------------
-    /// <summary>
-    ///     Log 2 Pass Delete Class
-    /// </summary>
-    /// --------------------------------------------------------------------------------------------------------
-    //public static class Log2PassDelete
-    //{
-    //    public static Task DeleteAsync(this FileInfo file)
-    //    {
-    //        return Task.Factory.StartNew(() => file.Delete());
-    //    }
-    //}
 
 }

@@ -85,7 +85,7 @@
         <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}"/>
         <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
         <!--Background-->
-        <Setter Property="Background" Value="#FFF0F0F0" />
+        <Setter Property="Background" Value="#FFF8F8F8" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Window}">
@@ -108,7 +108,7 @@
     <Style x:Key="WindowConfigure" TargetType="{x:Type Window}">
         <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}"/>
         <!--Background-->
-        <Setter Property="Background" Value="#FFF0F0F0"/>
+        <Setter Property="Background" Value="#FFF8F8F8"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Window}">
@@ -131,7 +131,7 @@
     <Style x:Key="WindowCrop" TargetType="{x:Type Window}">
         <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}"/>
         <!--Background-->
-        <Setter Property="Background" Value="#FFF0F0F0"/>
+        <Setter Property="Background" Value="#FFF8F8F8"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Window}">
@@ -154,7 +154,7 @@
     <Style x:Key="WindowOptimizeAdvanced" TargetType="{x:Type Window}">
         <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}"/>
         <!--Background-->
-        <Setter Property="Background" Value="#FFF0F0F0"/>
+        <Setter Property="Background" Value="#FFF8F8F8"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Window}">

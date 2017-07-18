@@ -191,7 +191,6 @@ namespace Axiom
                     Log.logParagraph.Inlines.Add(new Run(FFprobe.inputAudioCodec) { Foreground = Log.ConsoleDefault });
                     Log.logParagraph.Inlines.Add(new LineBreak());
                     Log.logParagraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
-                    //Log.logParagraph.Inlines.Add(new Run(Convert.ToString(FFprobe.resultAudioBitrate.Replace("\r\n", "").Replace("\n", "").Replace("\r", ""))) { Foreground = Log.ConsoleDefault }); //use ffprobe result to avoid Limiting the bitrate
                     Log.logParagraph.Inlines.Add(new Run(Convert.ToString(FFprobe.inputAudioBitrate)) { Foreground = Log.ConsoleDefault });
                 };
                 Log.LogActions.Add(Log.WriteAction);
@@ -260,51 +259,6 @@ namespace Axiom
             };
             Log.LogActions.Add(Log.WriteAction);
         }
-
-
-        ///// <summary>
-        ///// BatchFFprobeAutoBitrate (Method)
-        ///// </summary>
-        //public static String BatchFFprobeAutoBitrate(MainWindow mainwindow)
-        //{
-        //    // -------------------------
-        //    // FFprobe Auto Bitrate Detect
-        //    // -------------------------
-        //    if ((string)mainwindow.cboVideo.SelectedItem == "Auto"
-        //        || (string)mainwindow.cboAudio.SelectedItem == "Auto")
-        //    {
-        //        FFprobe.batchFFprobeAuto = FFprobe.ffprobe + " -i " + "\"" + MainWindow.batchInputAuto + "%~f" + "\"";
-        //    }
-        //    // Batch FFprobe Auto Copy
-        //    // Video [Quality Preset] / Audio [Auto][Copy] - Disable FFprobe
-        //    if ((string)mainwindow.cboVideo.SelectedItem != "Auto"
-        //        && (string)mainwindow.cboAudio.SelectedItem == "Auto"
-        //        && (string)mainwindow.cboAudioCodec.SelectedItem == "Copy")
-        //    {
-        //        FFprobe.batchFFprobeAuto = string.Empty;
-        //    }
-        //    // Video [Auto][Copy] / Audio [Quality Preset] - Disable FFprobe
-        //    if ((string)mainwindow.cboAudio.SelectedItem != "Auto"
-        //        && (string)mainwindow.cboVideo.SelectedItem == "Auto"
-        //        && (string)mainwindow.cboVideoCodec.SelectedItem == "Copy")
-        //    {
-        //        FFprobe.batchFFprobeAuto = string.Empty;
-        //    }
-
-        //    // -------------------------
-        //    // (User selected options) 
-        //    // Not Auto
-        //    // -------------------------
-        //    if ((string)mainwindow.cboVideo.SelectedItem != "Auto"
-        //       && (string)mainwindow.cboAudio.SelectedItem != "Auto")
-        //    {
-        //        // Disable Auto
-        //        FFprobe.batchFFprobeAuto = string.Empty;
-        //    }
-
-        //    // Return Value
-        //    return batchFFprobeAuto;
-        //}
 
 
         /// <summary>
@@ -439,7 +393,8 @@ namespace Axiom
                     FFprobeParse.StartInfo.Arguments = argsProperties;
                     FFprobeParse.Start();
                     //FFprobeParse.WaitForExit(); //hangs ffprobe
-                    inputFileProperties = FFprobeParse.StandardOutput.ReadToEnd(); // Get Ouput Result
+                    // Get Ouput Result
+                    inputFileProperties = FFprobeParse.StandardOutput.ReadToEnd(); 
                 }
 
             }
@@ -468,8 +423,10 @@ namespace Axiom
                     FFprobeParse.StartInfo.Arguments = argsFramerate;
                     FFprobeParse.Start();
                     FFprobeParse.WaitForExit();
-                    inputFramerate = FFprobeParse.StandardOutput.ReadToEnd(); // Get Ouput Result
-                    inputFramerate = inputFramerate.Replace(Environment.NewLine, ""); // remove linebreaks
+                    // Get Ouput Result
+                    inputFramerate = FFprobeParse.StandardOutput.ReadToEnd();
+                    // Remove linebreaks
+                    inputFramerate = inputFramerate.Replace(Environment.NewLine, ""); 
                     // Remove any white space from end of string
                     inputFramerate = inputFramerate.Trim();
                     inputFramerate = inputFramerate.TrimEnd();
@@ -494,8 +451,10 @@ namespace Axiom
                     FFprobeParse.StartInfo.Arguments = argsSize;
                     FFprobeParse.Start();
                     FFprobeParse.WaitForExit();
-                    inputSize = FFprobeParse.StandardOutput.ReadToEnd(); // Get Ouput Result
-                    inputSize = inputSize.Replace(Environment.NewLine, ""); // remove linebreaks
+                    // Get Ouput Result
+                    inputSize = FFprobeParse.StandardOutput.ReadToEnd();
+                    // Remove linebreaks
+                    inputSize = inputSize.Replace(Environment.NewLine, ""); 
                     // Remove any white space from end of string
                     inputSize = inputSize.Trim();
                     inputSize = inputSize.TrimEnd();
@@ -520,8 +479,10 @@ namespace Axiom
                     FFprobeParse.StartInfo.Arguments = argsDuration;
                     FFprobeParse.Start();
                     FFprobeParse.WaitForExit();
-                    inputDuration = FFprobeParse.StandardOutput.ReadToEnd(); // Get Ouput Result
-                    inputDuration = inputDuration.Replace(Environment.NewLine, ""); // remove linebreaks
+                    // Get Ouput Result
+                    inputDuration = FFprobeParse.StandardOutput.ReadToEnd();
+                    // Remove linebreaks
+                    inputDuration = inputDuration.Replace(Environment.NewLine, ""); 
                     // Remove any white space from end of string
                     inputDuration = inputDuration.Trim();
                     inputDuration = inputDuration.TrimEnd();
@@ -546,8 +507,10 @@ namespace Axiom
                     FFprobeParse.StartInfo.Arguments = argsVideoCodec;
                     FFprobeParse.Start();
                     FFprobeParse.WaitForExit();
-                    inputVideoCodec = FFprobeParse.StandardOutput.ReadToEnd(); // Get Ouput Result
-                    inputVideoCodec = inputVideoCodec.Replace(Environment.NewLine, ""); // remove linebreaks
+                    // Get Ouput Result
+                    inputVideoCodec = FFprobeParse.StandardOutput.ReadToEnd();
+                    // Remove linebreaks
+                    inputVideoCodec = inputVideoCodec.Replace(Environment.NewLine, ""); 
                     // Remove any white space from end of string
                     inputVideoCodec = inputVideoCodec.Trim();
                     inputVideoCodec = inputVideoCodec.TrimEnd();
@@ -572,8 +535,10 @@ namespace Axiom
                     FFprobeParse.StartInfo.Arguments = argsAudioCodec;
                     FFprobeParse.Start();
                     FFprobeParse.WaitForExit();
-                    inputAudioCodec = FFprobeParse.StandardOutput.ReadToEnd(); // Get Ouput Result
-                    inputAudioCodec = inputAudioCodec.Replace(Environment.NewLine, ""); // remove linebreaks
+                    // Get Ouput Result
+                    inputAudioCodec = FFprobeParse.StandardOutput.ReadToEnd();
+                    // Remove linebreaks
+                    inputAudioCodec = inputAudioCodec.Replace(Environment.NewLine, ""); 
                     // Remove any white space from end of string
                     inputAudioCodec = inputAudioCodec.Trim();
                     inputAudioCodec = inputAudioCodec.TrimEnd();
@@ -595,14 +560,12 @@ namespace Axiom
                     // Video Bitrate
                     // -------------------------
                     argsVideoBitrate = " -i " + "\"" + mainwindow.textBoxBrowse.Text + "\"" + " -select_streams v:0 -show_entries " + vEntryType + " -v quiet -of csv=\"p=0\"";
-                    //argsVideoBitrate = " -i " + "\"" + mainwindow.textBoxBrowse.Text + "\"" + " -select_streams v:0 -show_entries " + vEntryType + " -of default^=noprint_wrappers^=1:nokey^=1 2^>^&1";
                     FFprobeParse.StartInfo.Arguments = argsVideoBitrate;
                     FFprobeParse.Start();
                     FFprobeParse.WaitForExit();
                     // Get Ouput Result
                     inputVideoBitrate = FFprobeParse.StandardOutput.ReadToEnd();
-                    //System.Windows.MessageBox.Show(inputVideoBitrate); //debug
-                    // remove linebreaks  
+                    // Remove linebreaks  
                     inputVideoBitrate = inputVideoBitrate.Replace(Environment.NewLine, "");
                     // Remove any white space from end of string
                     inputVideoBitrate = inputVideoBitrate.Trim();
@@ -629,8 +592,10 @@ namespace Axiom
                     FFprobeParse.StartInfo.Arguments = argsAudioBitrate;
                     FFprobeParse.Start();
                     FFprobeParse.WaitForExit();
-                    inputAudioBitrate = FFprobeParse.StandardOutput.ReadToEnd(); // Get Ouput Result
-                    inputAudioBitrate = inputAudioBitrate.Replace(Environment.NewLine, ""); // remove linebreaks
+                    // Get Ouput Result
+                    inputAudioBitrate = FFprobeParse.StandardOutput.ReadToEnd();
+                    // Remove linebreaks
+                    inputAudioBitrate = inputAudioBitrate.Replace(Environment.NewLine, ""); 
                     // Remove any white space from end of string
                     inputAudioBitrate = inputAudioBitrate.Trim();
                     inputAudioBitrate = inputAudioBitrate.TrimEnd();
@@ -650,14 +615,11 @@ namespace Axiom
                     FFprobeParse.Close();
                 }
 
-
                 // Dispose Process
                 //FFprobeParse.Dispose();
             }
 
-
         }
-
 
     }
 }

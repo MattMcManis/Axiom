@@ -44,6 +44,7 @@ namespace Axiom
         public static string ffmpegArgs; // FFmpeg Arguments
         public static string cmdWindow; // Keep / Close Batch Argument
 
+
         // --------------------------------------------------------------------------------------------------------
         // --------------------------------------------------------------------------------------------------------
         /// <summary>
@@ -52,185 +53,148 @@ namespace Axiom
         // --------------------------------------------------------------------------------------------------------
         // --------------------------------------------------------------------------------------------------------
 
-        /// <summary>
-        /// 2 Pass Clear (Method)
-        /// <summary>
-        public static void TwoPassClear(MainWindow mainwindow)
-        {
-            // Disable 2-Pass if Video Selected None (Audio) 
-            if ((string)mainwindow.cboVideo.SelectedItem == "None")
-            {
-                Video.v2passSwitch = 0;
-                Video.pass1 = string.Empty;
-                Video.pass2 = string.Empty;
-            }
-
-            // Disable 2-Pass if User selected Value
-            if (FFprobe.inputVideoBitrate == "N/A" 
-                || string.IsNullOrEmpty(FFprobe.inputVideoBitrate) 
-                && (string)mainwindow.cboVideo.SelectedItem != "Auto" 
-                && (string)mainwindow.cboPass.SelectedItem != "2 Pass")
-            {
-                Video.v2passSwitch = 0;
-                Video.pass1 = string.Empty;
-                Video.pass2 = string.Empty;
-            }
-
-            // Disable 2-Pass if User selected Value (again)
-            if ((string)mainwindow.cboVideo.SelectedItem != "Auto" 
-                && (string)mainwindow.cboPass.SelectedItem != "2 Pass")
-            {
-                Video.v2passSwitch = 0;
-                Video.pass1 = string.Empty;
-                Video.pass2 = string.Empty;
-            }
-
-            // If input extension is same as output extension (.mkv = .mkv), uses codec copy, Disable 2 Pass (does same as above)
-            if ((string)mainwindow.cboVideoCodec.SelectedItem == "Copy")
-            {
-                Video.v2passSwitch = 0;
-                Video.pass1 = string.Empty;
-                Video.pass2 = string.Empty;
-            }
-        }
-
 
         /// <summary>
-        /// 2-Pass Switch (Method)
-        /// <summary>
-        public static void TwoPassSwitch(MainWindow mainwindow)
-        {
-
-            // --------------------------------------------------
-            // Category: Video (Log Title)
-            // --------------------------------------------------
-            // Log Console Message /////////
-            Log.WriteAction = () =>
-            {
-                Log.logParagraph.Inlines.Add(new LineBreak());
-                Log.logParagraph.Inlines.Add(new LineBreak());
-                Log.logParagraph.Inlines.Add(new Bold(new Run("Video")) { Foreground = Log.ConsoleAction });
-            };
-            Log.LogActions.Add(Log.WriteAction);
-
-
-            // -------------------------
-            // Enabled
-            // -------------------------
-            if (Video.v2passSwitch == 1)
-            {
-                // -------------------------
-                // Single File 2-Pass
-                // -------------------------
-                //
-                if (mainwindow.tglBatch.IsChecked == false)
-                {
-                    // Enable pass parameters in the FFmpeg Arguments
-                    // x265 Pass 2 Params
-                    if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265")
-                    {
-                        Video.pass1 = "-x265-params pass=1";
-                        Video.pass2 = "-x265-params pass=2";
-                    }
-                    // All other codecs
-                    else
-                    {
-                        Video.pass1 = "-pass 1";
-                        Video.pass2 = "-pass 2";
-                    }
-                }
-
-                // -------------------------
-                // Batch 2-Pass
-                // -------------------------
-                //
-                else if (mainwindow.tglBatch.IsChecked == true)
-                {
-                    // Enable pass parameters in the FFmpeg Batch Arguments
-                    // x265 Pass 2 Params
-                    if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265")
-                    {
-                        Video.pass1 = "-x265-params pass=1";
-                        Video.pass2 = "-x265-params pass=2";
-                    }
-                    // All other codecs
-                    else
-                    {
-                        Video.pass1 = "-pass 1";
-                        Video.pass2 = "-pass 2";
-                    }
-
-                    // Batch Input
-                    //MainWindow.input = MainWindow.input + "%~f";
-                }
-            }
-
-            // -------------------------
-            // Disabled
-            // -------------------------
-            else if (Video.v2passSwitch == 0)
-            {
-                Video.pass1 = string.Empty;
-                Video.pass2 = string.Empty;
-            }
-
-            // Log Console Message /////////
-            Log.WriteAction = () =>
-            {
-                Log.logParagraph.Inlines.Add(new LineBreak());
-                Log.logParagraph.Inlines.Add(new Bold(new Run("2-Pass Switch: ")) { Foreground = Log.ConsoleDefault });
-                Log.logParagraph.Inlines.Add(new Bold(new Run(Video.v2passSwitch.ToString())) { Foreground = Log.ConsoleDefault });
-
-            };
-            Log.LogActions.Add(Log.WriteAction);
-        }
-
-
-        /// <summary>
-        /// TwoPassArgs
+        /// OnePassArgs
         /// </summary>
+        // 1-Pass, CRF, & auto
+        public static String OnePassArgs(MainWindow mainwindow)
+        {
+            // -------------------------
+            //  Batch 
+            //  Single Pass
+            // -------------------------
+            if ((string)mainwindow.cboPass.SelectedItem == "1 Pass" 
+                || (string)mainwindow.cboPass.SelectedItem == "CRF" 
+                || (string)mainwindow.cboPass.SelectedItem == "auto"
+                || (string)mainwindow.cboFormat.SelectedItem == "ogv" //ogv (special rule)
+                )
+            {
+                // Make List
+                //
+                List<string> FFmpegArgsSinglePassList = new List<string>()
+                    {
+                        "\"" + MainWindow.InputPath(mainwindow) + "\"",
+                        Video.VideoCodec(mainwindow),
+                        Video.Speed(mainwindow),
+                        Video.VideoQuality(mainwindow),
+                        Video.FPS(mainwindow),
+                        Video.VideoFilter(mainwindow),
+                        Video.Images(mainwindow),
+                        Video.Optimize(mainwindow),
+                        Audio.AudioCodec(mainwindow),
+                        Audio.AudioQuality(mainwindow),
+                        Audio.SampleRate(mainwindow),
+                        Audio.BitDepth(mainwindow),
+                        Audio.Channel(mainwindow),
+                        Audio.AudioFilter(mainwindow),
+                        Streams.StreamMaps(mainwindow),
+                        Format.Cut(mainwindow),
+                        MainWindow.ThreadDetect(mainwindow),
+                        "\"" + MainWindow.OutputPath(mainwindow) + "\""
+                    };
+
+                // Join List with Spaces, Remove Empty Strings
+                Video.passSingle = string.Join(" ", FFmpegArgsSinglePassList.Where(s => !string.IsNullOrEmpty(s)));
+            }
+
+            // Return Value
+            return Video.passSingle;
+        }
+
+
+        /// <summary>
+        /// Batch2PassArgs
+        /// </summary>
+        // 2-Pass
         public static String TwoPassArgs(MainWindow mainwindow)
         {
             // -------------------------
-            // Make 2nd Pass Arguments List
+            //  Batch 
+            //  Auto Quality
             // -------------------------
+            // Enabled 
             //
-            if (Video.v2passSwitch == 1)
+            if ((string)mainwindow.cboPass.SelectedItem == "2 Pass" 
+                && (string)mainwindow.cboMediaType.SelectedItem == "Video" //video only
+                && (string)mainwindow.cboVideoCodec.SelectedItem != "Copy" //exclude copy
+                && (string)mainwindow.cboFormat.SelectedItem != "ogv" //exclude ogv (special rule)
+                )
             {
-                List<string> v2passList = new List<string>() {
-                    "&&",
-                    FFmpeg.ffmpeg,
-                    "-y",
-                    "-i",
-                    "\"" + MainWindow.input + "\"",
-                    Video.VideoCodec(mainwindow),
-                    Video.Speed(mainwindow),
-                    Video.VideoQuality(mainwindow),
-                    Video.FPS(mainwindow),
-                    Video.VideoFilter(mainwindow),
-                    Video.Images(mainwindow),
-                    Video.Optimize(mainwindow),
-                    Video.pass2,
-                    Audio.AudioCodec(mainwindow),
-                    Audio.AudioQuality(mainwindow),
-                    Audio.SampleRate(mainwindow),
-                    Audio.BitDepth(mainwindow),
-                    Audio.Channel(mainwindow),
-                    Audio.AudioFilter(mainwindow),
-                    Streams.StreamMaps(mainwindow),
-                    Format.Cut(mainwindow),
-                    MainWindow.ThreadDetect(mainwindow),
-                    "\"" + MainWindow.output + "\""
-                };
+                // -------------------------
+                // Pass 1
+                // -------------------------
+                List<string> FFmpegArgsPass1List = new List<string>()
+                    {
+                        "\"" + MainWindow.InputPath(mainwindow) + "\"",
+                        Video.VideoCodec(mainwindow),
+                        Video.Speed(mainwindow),
+                        Video.VideoQuality(mainwindow),
+                        Video.FPS(mainwindow),
+                        Video.VideoFilter(mainwindow),
+                        Video.Images(mainwindow),
+                        Video.Optimize(mainwindow),
+                        Video.Pass1Modifier(mainwindow), // -pass 1
+                        Audio.AudioCodec(mainwindow),
+                        Audio.AudioQuality(mainwindow),
+                        Audio.SampleRate(mainwindow),
+                        Audio.BitDepth(mainwindow),
+                        Audio.Channel(mainwindow),
+                        Audio.AudioFilter(mainwindow),
+                        Streams.StreamMaps(mainwindow),
+                        Format.Cut(mainwindow),
+                        MainWindow.ThreadDetect(mainwindow),
+                        "\"" + MainWindow.OutputPath(mainwindow) + "\""
+                    };
 
                 // Join List with Spaces, Remove Empty Strings
-                Video.v2passArgs = string.Join(" ", v2passList.Where(s => !string.IsNullOrEmpty(s)));
+                Video.pass1Args = string.Join(" ", FFmpegArgsPass1List.Where(s => !string.IsNullOrEmpty(s)));
+
+
+                // -------------------------
+                // Pass 2
+                // -------------------------
+                List<string> FFmpegArgsPass2List = new List<string>()
+                    {
+                        "&&",
+                        MainWindow.FFmpegPath(mainwindow),
+                        "-y",
+                        "-i",
+                        "\"" + MainWindow.InputPath(mainwindow) + "\"",
+                        Video.VideoCodec(mainwindow),
+                        Video.Speed(mainwindow),
+                        Video.VideoQuality(mainwindow),
+                        Video.FPS(mainwindow),
+                        Video.VideoFilter(mainwindow),
+                        Video.Images(mainwindow),
+                        Video.Optimize(mainwindow),
+                        Video.Pass2Modifier(mainwindow), // -pass 2
+                        Audio.AudioCodec(mainwindow),
+                        Audio.AudioQuality(mainwindow),
+                        Audio.SampleRate(mainwindow),
+                        Audio.BitDepth(mainwindow),
+                        Audio.Channel(mainwindow),
+                        Audio.AudioFilter(mainwindow),
+                        Streams.StreamMaps(mainwindow),
+                        Format.Cut(mainwindow),
+                        MainWindow.ThreadDetect(mainwindow),
+                        "\"" + MainWindow.OutputPath(mainwindow) + "\""
+                    };
+
+                // Join List with Spaces, Remove Empty Strings
+                Video.pass2Args = string.Join(" ", FFmpegArgsPass2List.Where(s => !string.IsNullOrEmpty(s)));
+
+                //Combine Pass 1 & Pass 2
+                Video.v2passArgs = Video.pass1Args + " " + Video.pass2Args;
             }
 
 
             // Return Value
             return Video.v2passArgs;
         }
+
+
+        // --------------------------------------------------------------------------------------------------------
 
 
         /// <summary>
@@ -243,29 +207,11 @@ namespace Axiom
                 // Make Arugments List
                 List<string> FFmpegArgsList = new List<string>()
                 {
-                    FFmpeg.ffmpeg,
+                    MainWindow.FFmpegPath(mainwindow),
                     "-y",
                     "-i",
-                    "\"" + MainWindow.input + "\"",
-                    Video.VideoCodec(mainwindow),
-                    Video.Speed(mainwindow),
-                    Video.VideoQuality(mainwindow),
-                    Video.FPS(mainwindow),
-                    Video.VideoFilter(mainwindow),
-                    Video.Images(mainwindow),
-                    Video.Optimize(mainwindow),
-                    Video.pass1,
-                    Audio.AudioCodec(mainwindow),
-                    Audio.AudioQuality(mainwindow),
-                    Audio.SampleRate(mainwindow),
-                    Audio.BitDepth(mainwindow),
-                    Audio.Channel(mainwindow),
-                    Audio.AudioFilter(mainwindow),
-                    Streams.StreamMaps(mainwindow),
-                    Format.Cut(mainwindow),
-                    MainWindow.ThreadDetect(mainwindow),
-                    "\"" + MainWindow.output + "\"",
-                    FFmpeg.TwoPassArgs(mainwindow)
+                    FFmpeg.OnePassArgs(mainwindow), //disabled if 2-Pass
+                    FFmpeg.TwoPassArgs(mainwindow) //disabled if 1-Pass
                 };
 
                 // Join List with Spaces, Remove Empty Strings
@@ -297,13 +243,17 @@ namespace Axiom
         // Start FFmpeg Process
         public static void FFmpegSingleConvert(MainWindow mainwindow)
         {
-            if (mainwindow.tglBatch.IsChecked == false && MainWindow.script == 0) // if script not clicked, start ffmpeg
+            // if script not clicked, start ffmpeg
+            if (mainwindow.tglBatch.IsChecked == false && MainWindow.script == 0)
             {
                 System.Diagnostics.Process.Start(
                     "CMD.exe", /* /c or /k -->*/ FFmpeg.cmdWindow + /* needed to start cmd -->*/ "cd " + "\"" + MainWindow.currentDir + "\"" + " && " + /* start ffmpeg commands -->*/ FFmpeg.ffmpegArgs
                     );
             }
         }
+
+
+        // --------------------------------------------------------------------------------------------------------
 
 
         /// <summary>
@@ -315,8 +265,8 @@ namespace Axiom
             {
                 // Replace ( with ^( to avoid Windows 7 CMD Error //important!
                 // This is only used in select areas
-                MainWindow.batchInputAuto = mainwindow.textBoxBrowse.Text.Replace(@"(", "^(");
-                MainWindow.batchInputAuto = MainWindow.batchInputAuto.Replace(@")", "^)");
+                //MainWindow.batchInputAuto = mainwindow.textBoxBrowse.Text.Replace(@"(", "^(");
+                //MainWindow.batchInputAuto = MainWindow.batchInputAuto.Replace(@")", "^)");
 
 
                 /// <summary>
@@ -349,60 +299,31 @@ namespace Axiom
 
 
                 // -------------------------
-                //  Batch 
-                //  Media to Audio Only
-                // -------------------------
-                if ((string)mainwindow.cboMediaType.SelectedItem == "Audio")
-                {
-                    // Disable Video
-                    Video.pass1 = string.Empty;
-                }
-
-
-                // -------------------------
                 // Batch Arguments Full
                 // -------------------------
                 // Make List
-                List<string> FFmpegArgsList = new List<string>()
+                //
+                List<string> FFmpegBatchArgsList = new List<string>()
                 {
                     "cd",
-                    "\"" + MainWindow.inputDir + "\"",
+                    "\"" + MainWindow.BatchInputDirectory(mainwindow) + "\"",
                     "&& for %f in",
                     "(*" + MainWindow.batchExt + ")",
-                    "do",
-                    "(echo)",
-                    //FFprobe.BatchFFprobeAutoBitrate(mainwindow),
+                    "do (echo)",
                     Video.BatchVideoQualityAuto(mainwindow),
                     Audio.BatchAudioQualityAuto(mainwindow),
                     Audio.BatchAudioBitrateLimiter(mainwindow),
                     "&&",
-                    FFmpeg.ffmpeg,
+                    MainWindow.FFmpegPath(mainwindow),
                     "-y",
                     "-i",
-                    "\"" + MainWindow.input + "\"", //input = %~f added in 2-pass
-                    Video.VideoCodec(mainwindow),
-                    Video.Speed(mainwindow),
-                    Video.VideoQuality(mainwindow),
-                    Video.FPS(mainwindow),
-                    Video.VideoFilter(mainwindow),
-                    Video.Images(mainwindow),
-                    Video.Optimize(mainwindow),
-                    Video.pass1,
-                    Audio.AudioCodec(mainwindow),
-                    Audio.AudioQuality(mainwindow),
-                    Audio.SampleRate(mainwindow),
-                    Audio.BitDepth(mainwindow),
-                    Audio.Channel(mainwindow),
-                    Audio.AudioFilter(mainwindow),
-                    Streams.StreamMaps(mainwindow),
-                    Format.Cut(mainwindow),
-                    MainWindow.ThreadDetect(mainwindow),
-                    "\"" + MainWindow.output + "\"",
-                    FFmpeg.TwoPassArgs(mainwindow)
+                    //%~f added in InputPath()
+                    FFmpeg.OnePassArgs(mainwindow), //disabled if 2-Pass       
+                    FFmpeg.TwoPassArgs(mainwindow) //disabled if 1-Pass
                 };
 
                 // Join List with Spaces, Remove Empty Strings
-                FFmpeg.ffmpegArgs = string.Join(" ", FFmpegArgsList.Where(s => !string.IsNullOrEmpty(s)));
+                FFmpeg.ffmpegArgs = string.Join(" ", FFmpegBatchArgsList.Where(s => !string.IsNullOrEmpty(s)));
             }
         }
 
@@ -426,8 +347,6 @@ namespace Axiom
         {
             if (MainWindow.script == 1)
             {
-                //ffmpegArgs = Regex.Replace(ffmpegArgs, @"\s+", " "); /* remove extra white spaces*/
-
                 // Open ScriptView Window
                 ScriptView scriptview = new ScriptView();
                 scriptview.Left = mainwindow.Left + 90;

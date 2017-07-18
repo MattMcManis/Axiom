@@ -34,11 +34,6 @@ namespace Axiom
 {
     public partial class Log
     {
-        //private MainWindow mainwindow;
-        //private Configure configure;
-        //private ScriptView scriptview;
-        //private LogConsole console;
-
         // --------------------------------------------------------------------------------------------------------
         // Variables
         // --------------------------------------------------------------------------------------------------------
@@ -108,7 +103,7 @@ namespace Axiom
                     try
                     {
                         //Write Log Console to File
-                        TextRange t = new TextRange(mainwindow.console.rtbLog.Document.ContentStart, mainwindow.console.rtbLog.Document.ContentEnd);
+                        TextRange t = new TextRange(mainwindow.logconsole.rtbLog.Document.ContentStart, mainwindow.logconsole.rtbLog.Document.ContentEnd);
                         FileStream file = new FileStream(@Configure.logPath + "output.log", FileMode.Create);
                         t.Save(file, System.Windows.DataFormats.Text);
                         file.Close();
@@ -165,15 +160,15 @@ namespace Axiom
                     // -------------------------
                     // Write All Log Actions to Console
                     // -------------------------  
-                    mainwindow.console.rtbLog.Document = new FlowDocument(logParagraph); // start
-                    mainwindow.console.rtbLog.BeginChange(); // begin change
+                    mainwindow.logconsole.rtbLog.Document = new FlowDocument(logParagraph); // start
+                    mainwindow.logconsole.rtbLog.BeginChange(); // begin change
 
                     foreach (Action Write in LogActions)
                     {
                         Write();
                     }
 
-                    mainwindow.console.rtbLog.EndChange(); // end change
+                    mainwindow.logconsole.rtbLog.EndChange(); // end change
 
 
                     // Clear
@@ -190,7 +185,7 @@ namespace Axiom
             bwlog.RunWorkerCompleted += new RunWorkerCompletedEventHandler(delegate (object o, RunWorkerCompletedEventArgs args)
             {
                 // Scroll Console to End
-                mainwindow.console.rtbLog.ScrollToEnd();
+                mainwindow.logconsole.rtbLog.ScrollToEnd();
 
                 // -------------------------
                 // Create Output Log File

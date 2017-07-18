@@ -32,11 +32,6 @@ namespace Axiom
     /// </summary>
     public partial class ScriptView : Window
     {
-        //string ffmpegArgs; // pass data to string
-        //private MainWindow mainwindow;
-        //private Configure configure;
-        //private LogConsole console;
-
         public ScriptView() // pass data constuctor
         {
             InitializeComponent();

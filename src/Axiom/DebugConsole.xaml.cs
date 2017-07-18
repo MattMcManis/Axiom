@@ -88,27 +88,9 @@ namespace Axiom
         private void btnDebugTest_Click(object sender, RoutedEventArgs e)
         {
             /// <summary>
-            ///    FFmpeg and FFprobe Path
-            /// </summary>
-            MainWindow.FFpaths(mainwindow);
-
-
-            /// <summary>
             ///    Keep FFmpeg Window Toggle
             /// </summary>
             MainWindow.KeepWindow(mainwindow);
-
-
-            /// <summary>
-            ///    Input Output File
-            /// </summary>
-            MainWindow.InputPath(mainwindow);
-
-
-            /// <summary>
-            ///    Input Output File
-            /// </summary>
-            MainWindow.OutputPath(mainwindow);
 
 
             /// <summary>
@@ -146,12 +128,14 @@ namespace Axiom
                     /// </summary> 
                     FFprobe.Metadata(mainwindow);
 
+                    // ------------------------------------------------------------------------
 
                     /// <summary>
                     ///    FFmpeg Single File Generate Arguments
                     /// </summary> 
                     FFmpeg.FFmpegSingleGenerateArgs(mainwindow);
 
+                    // ------------------------------------------------------------------------
 
                     /// <summary>
                     ///    FFmpeg Batch Generate Arguments
@@ -206,7 +190,6 @@ namespace Axiom
             debugconsole.rtbDebug.BeginChange();
             debugconsole.rtbDebug.SelectAll();
             debugconsole.rtbDebug.Selection.Text = "";
-            //debugconsole.rtbDebug.Document.Blocks.Clear();
             debugconsole.rtbDebug.EndChange();
 
 
@@ -425,10 +408,6 @@ namespace Axiom
 
             debugParagraph.Inlines.Add(new LineBreak());
 
-            debugParagraph.Inlines.Add(new Bold(new Run("v2passSwitch ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(Video.v2passSwitch.ToString()) { Foreground = Value });
-            debugParagraph.Inlines.Add(new LineBreak());
-
             debugParagraph.Inlines.Add(new Bold(new Run("passUserSelected ")) { Foreground = Variable });
             debugParagraph.Inlines.Add(new Run(Video.passUserSelected.ToString()) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
@@ -473,9 +452,6 @@ namespace Axiom
 
             debugParagraph.Inlines.Add(new LineBreak());
 
-            debugParagraph.Inlines.Add(new Bold(new Run("scale ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(Video.scale) { Foreground = Value });
-            debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("width ")) { Foreground = Variable });
             debugParagraph.Inlines.Add(new Run(Video.width) { Foreground = Value });
