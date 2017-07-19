@@ -1320,9 +1320,9 @@ namespace Axiom
         /// <summary>
         public static String AudioCodec(MainWindow mainwindow)
         {
-            // #################
+            // -------------------------
             // Audio
-            // #################
+            // -------------------------
             if (string.IsNullOrEmpty((string)mainwindow.cboAudioCodec.SelectedItem))
             {
                 aCodec = string.Empty;
@@ -1363,6 +1363,13 @@ namespace Axiom
             else if ((string)mainwindow.cboAudioCodec.SelectedItem == "PCM")
             {
                 aCodec = string.Empty; // Codec not needed for PCM or Controlled by "PCM Match Bit Depth Audio" Section
+            }
+
+
+            // Mute
+            if ((string)mainwindow.cboAudio.SelectedItem == "Mute" || (string)mainwindow.cboAudioStream.SelectedItem == "none")
+            {
+                aCodec = string.Empty;
             }
 
 
@@ -1708,17 +1715,14 @@ namespace Axiom
                     {
                         // audio
                         "& for /F \"delims=\" %A in ('@" + FFprobe.ffprobe + " -v error -select_streams a:0 -show_entries " + FFprobe.aEntryType + " -of default^=noprint_wrappers^=1:nokey^=1 \"%~f\" 2^>^&1') do (SET aBitrate=%A)",
-                        //"& SET aBitrate=%A",
 
-                        // expand var
-                        //"& for /F %A in ('echo %aBitrate%') do (echo %A)",
+                        // set %A to %aBitrate%
                         "& for /F %A in ('echo %aBitrate%') do (echo)",
 
                         // basic limiter
                         "& (IF %A EQU N/A (SET aBitrate=320000))",
 
-                        // expand var
-                        //"& for /F %A in ('echo %aBitrate%') do (echo %A)"
+                        // set %A to %aBitrate%
                         "& for /F %A in ('echo %aBitrate%') do (echo)"
                     };
 
@@ -2414,6 +2418,12 @@ namespace Axiom
                 aChannel = "-ac 1";
             }
 
+            // Mute
+            if ((string)mainwindow.cboAudio.SelectedItem == "Mute" || (string)mainwindow.cboAudioStream.SelectedItem == "none")
+            {
+                aChannel = string.Empty;
+            }
+
             // Log Console Message /////////
             Log.WriteAction = () =>
             {
@@ -2486,6 +2496,12 @@ namespace Axiom
                 aSamplerate = "-ar 96000";
             }
 
+            // Mute
+            if ((string)mainwindow.cboAudio.SelectedItem == "Mute" || (string)mainwindow.cboAudioStream.SelectedItem == "none")
+            {
+                aSamplerate = string.Empty;
+            }
+
             // Log Console Message /////////
             Log.WriteAction = () =>
             {
@@ -2553,6 +2569,13 @@ namespace Axiom
                 else { aBitDepth = string.Empty; } // all other codecs
             }
 
+
+            // Mute
+            if ((string)mainwindow.cboAudio.SelectedItem == "Mute" || (string)mainwindow.cboAudioStream.SelectedItem == "none")
+            {
+                aBitDepth = string.Empty;
+            }
+
             // Log Console Message /////////
             Log.WriteAction = () =>
             {
@@ -2598,6 +2621,13 @@ namespace Axiom
                     double volumeDecimal = double.Parse(volumePercent.TrimEnd(new[] { '%' })) / 100;
                     volume = "volume=" + volumeDecimal;
                 }
+            }
+
+            // Mute
+            if ((string)mainwindow.cboAudio.SelectedItem == "Mute" || (string)mainwindow.cboAudioStream.SelectedItem == "none")
+            {
+                aFilterSwitch = 0;
+                volume = string.Empty;
             }
 
             // Log Console Message /////////
@@ -2662,7 +2692,13 @@ namespace Axiom
                 {
                     aFilterSwitch = 1; //on
                 }
+            }
 
+            // Mute
+            if ((string)mainwindow.cboAudio.SelectedItem == "Mute" || (string)mainwindow.cboAudioStream.SelectedItem == "none")
+            {
+                aFilterSwitch = 0;
+                aLimiter = string.Empty;
             }
         }
 
@@ -2734,6 +2770,14 @@ namespace Axiom
 
             // Remove aFilter if Video Codec is Empty
             if (string.IsNullOrEmpty((string)mainwindow.cboAudioCodec.SelectedItem))
+            {
+                aFilterSwitch = 0;
+                aFilter = string.Empty;
+            }
+
+
+            // Mute
+            if ((string)mainwindow.cboAudio.SelectedItem == "Mute" || (string)mainwindow.cboAudioStream.SelectedItem == "none")
             {
                 aFilterSwitch = 0;
                 aFilter = string.Empty;

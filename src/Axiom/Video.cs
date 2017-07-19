@@ -1054,11 +1054,9 @@ namespace Axiom
         /// <summary>
         public static String VideoCodec(MainWindow mainwindow)
         {
-            var vCodec = string.Empty;
-
-            // #################
+            // -------------------------
             // Video
-            // #################
+            // -------------------------
             // Empty
             if (string.IsNullOrEmpty((string)mainwindow.cboVideoCodec.SelectedItem))
             {
@@ -1109,13 +1107,13 @@ namespace Axiom
             else if ((string)mainwindow.cboVideoCodec.SelectedItem == "Copy")
             {
                 vCodec = "-vcodec copy";
-                //VideoQuality(this).Clear();
             }
             // Unknown
             else
             {
                 vCodec = string.Empty;
             }
+
 
             // Log Console Message /////////
             Log.WriteAction = () =>
@@ -1137,114 +1135,102 @@ namespace Axiom
         /// <summary>
         public static void AutoCopyVideoCodec(MainWindow mainwindow) // Method
         {
-            //if (autoCopyVideoCodecSwitch == 0) // Switch Check
-            //{
-                if (!string.IsNullOrEmpty(MainWindow.inputExt)) // Null Check
+            if (!string.IsNullOrEmpty(MainWindow.inputExt)) // Null Check
+            {
+                // Set Video Codec Combobox to "Copy" if Input Extension is Same as Output Extension and Video Quality is Auto
+                if ((string)mainwindow.cboVideo.SelectedItem == "Auto"
+                    && string.Equals(MainWindow.inputExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase)
+                    || mainwindow.tglBatch.IsChecked == true && (string)mainwindow.cboVideo.SelectedItem == "Auto"
+                    && string.Equals(MainWindow.batchExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase))
                 {
-                    // Set Video Codec Combobox to "Copy" if Input Extension is Same as Output Extension and Video Quality is Auto
-                    if ((string)mainwindow.cboVideo.SelectedItem == "Auto"
-                        && string.Equals(MainWindow.inputExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase)
-                        || mainwindow.tglBatch.IsChecked == true && (string)mainwindow.cboVideo.SelectedItem == "Auto"
-                        && string.Equals(MainWindow.batchExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase))
+                    // Insert Copy if Does Not Contain
+                    if (!VideoCodecItemSource.Contains("Copy"))
                     {
-                        // Insert Copy if Does Not Contain
-                        if (!VideoCodecItemSource.Contains("Copy"))
-                        {
-                            VideoCodecItemSource.Insert(0, "Copy");
-                        }
-                        // Populate ComboBox from ItemSource
-                        mainwindow.cboVideoCodec.ItemsSource = VideoCodecItemSource;
-
-                        mainwindow.cboVideoCodec.SelectedItem = "Copy";
-
-                        // Turn on Switch
-                        // Does not let AutoCopy Method run again
-                        //autoCopyVideoCodecSwitch = 1;
-
-                        // Debug
-                        //var message = string.Join(Environment.NewLine, VideoCodec); // Show list
-                        //System.Windows.MessageBox.Show("Input: " + MainWindow.inputExt);
-                        //System.Windows.MessageBox.Show("Output: " + MainWindow.outputExt);
+                        VideoCodecItemSource.Insert(0, "Copy");
                     }
+                    // Populate ComboBox from ItemSource
+                    mainwindow.cboVideoCodec.ItemsSource = VideoCodecItemSource;
+
+                    mainwindow.cboVideoCodec.SelectedItem = "Copy";
+                }
 
 
-                    // Disable Copy if:
-                    // Input / Output Extensions don't match
-                    // Batch / Output Extensions don't match
-                    // Resize is Not No
-                    // Crop is Not Empty
-                    // FPS is Not Auto
-                    // Optimize is Not None
+                // Disable Copy if:
+                // Input / Output Extensions don't match
+                // Batch / Output Extensions don't match
+                // Resize is Not No
+                // Crop is Not Empty
+                // FPS is Not Auto
+                // Optimize is Not None
+                //
+                if (VideoCodecItemSource.Contains("Copy")
+                    && !string.IsNullOrEmpty((string)mainwindow.cboVideo.SelectedItem)
+                    && !string.Equals(MainWindow.inputExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase)
+                    | !string.Equals(MainWindow.batchExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase))
+                {
+                    // Switch back to format's default codec
                     //
-                    if (VideoCodecItemSource.Contains("Copy")
-                        && !string.IsNullOrEmpty((string)mainwindow.cboVideo.SelectedItem)
-                        && !string.Equals(MainWindow.inputExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase)
-                        | !string.Equals(MainWindow.batchExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase))
+                    if ((string)mainwindow.cboVideo.SelectedItem != "Auto"
+                        || (string)mainwindow.cboSize.SelectedItem != "No"
+                        || !string.IsNullOrEmpty(MainWindow.crop)
+                        || (string)mainwindow.cboFPS.SelectedItem != "auto"
+                        || (string)mainwindow.cboOptimize.SelectedItem != "none")
                     {
-                        // Switch back to format's default codec
-                        //
-                        if ((string)mainwindow.cboVideo.SelectedItem != "Auto"
-                            || (string)mainwindow.cboSize.SelectedItem != "No"
-                            || !string.IsNullOrEmpty(MainWindow.crop)
-                            || (string)mainwindow.cboFPS.SelectedItem != "auto"
-                            || (string)mainwindow.cboOptimize.SelectedItem != "none")
+                        if ((string)mainwindow.cboFormat.SelectedItem == "webm")
                         {
-                            if ((string)mainwindow.cboFormat.SelectedItem == "webm")
-                            {
-                                mainwindow.cboVideoCodec.SelectedItem = "VP8";
-                            }
-                            else if ((string)mainwindow.cboFormat.SelectedItem == "mp4")
-                            {
-                                mainwindow.cboVideoCodec.SelectedItem = "x264";
-                            }
-                            else if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
-                            {
-                                //mainwindow.cboVideoCodec.SelectedItem = "x264"; //ignore mkv, special rules below
-                            }
-                            else if ((string)mainwindow.cboFormat.SelectedItem == "ogv")
-                            {
-                                mainwindow.cboVideoCodec.SelectedItem = "Theora";
-                            }
-                            else if ((string)mainwindow.cboFormat.SelectedItem == "jpg")
-                            {
-                                mainwindow.cboVideoCodec.SelectedItem = "JPEG";
-                            }
-                            else if ((string)mainwindow.cboFormat.SelectedItem == "png")
-                            {
-                                mainwindow.cboVideoCodec.SelectedItem = "PNG";
-                            }
-                            else if ((string)mainwindow.cboFormat.SelectedItem == "m4a"
-                                || (string)mainwindow.cboFormat.SelectedItem == "mp3"
-                                || (string)mainwindow.cboFormat.SelectedItem == "ogg"
-                                || (string)mainwindow.cboFormat.SelectedItem == "flac"
-                                || (string)mainwindow.cboFormat.SelectedItem == "wav")
-                            {
-                                mainwindow.cboVideoCodec.SelectedItem = string.Empty;
-                            }
+                            mainwindow.cboVideoCodec.SelectedItem = "VP8";
                         }
-                    }
-
-
-                    // Special Rules for MKV
-                    if ((string)mainwindow.cboFormat.SelectedItem == "mkv"
-                        && (string)mainwindow.cboVideoCodec.SelectedItem == "Copy"
-                        && (string)mainwindow.cboVideo.SelectedItem != "Auto")
-                    {
-                        if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
+                        else if ((string)mainwindow.cboFormat.SelectedItem == "mp4")
                         {
                             mainwindow.cboVideoCodec.SelectedItem = "x264";
                         }
+                        else if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
+                        {
+                            //mainwindow.cboVideoCodec.SelectedItem = "x264"; //ignore mkv, special rules below
+                        }
+                        else if ((string)mainwindow.cboFormat.SelectedItem == "ogv")
+                        {
+                            mainwindow.cboVideoCodec.SelectedItem = "Theora";
+                        }
+                        else if ((string)mainwindow.cboFormat.SelectedItem == "jpg")
+                        {
+                            mainwindow.cboVideoCodec.SelectedItem = "JPEG";
+                        }
+                        else if ((string)mainwindow.cboFormat.SelectedItem == "png")
+                        {
+                            mainwindow.cboVideoCodec.SelectedItem = "PNG";
+                        }
+                        else if ((string)mainwindow.cboFormat.SelectedItem == "m4a"
+                            || (string)mainwindow.cboFormat.SelectedItem == "mp3"
+                            || (string)mainwindow.cboFormat.SelectedItem == "ogg"
+                            || (string)mainwindow.cboFormat.SelectedItem == "flac"
+                            || (string)mainwindow.cboFormat.SelectedItem == "wav")
+                        {
+                            mainwindow.cboVideoCodec.SelectedItem = string.Empty;
+                        }
                     }
-
-                    //// Always Default to Copy if it exists and Video Dropdown is (Auto) //Causing Problems
-                    //if (VideoCodecItemSource.Contains("Copy") 
-                    //&& (string)mainwindow.cboVideo.SelectedItem == "Auto" 
-                    //&& (string)mainwindow.cboFormat.SelectedItem != "mkv" /* ignore if mkv */)
-                    //{
-                    //    //videoCodecComboBox.SelectedItem = "Copy";
-                    //}
                 }
-            //}
+
+
+                // Special Rules for MKV
+                if ((string)mainwindow.cboFormat.SelectedItem == "mkv"
+                    && (string)mainwindow.cboVideoCodec.SelectedItem == "Copy"
+                    && (string)mainwindow.cboVideo.SelectedItem != "Auto")
+                {
+                    if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
+                    {
+                        mainwindow.cboVideoCodec.SelectedItem = "x264";
+                    }
+                }
+
+                //// Always Default to Copy if it exists and Video Dropdown is (Auto) //Causing Problems
+                //if (VideoCodecItemSource.Contains("Copy") 
+                //&& (string)mainwindow.cboVideo.SelectedItem == "Auto" 
+                //&& (string)mainwindow.cboFormat.SelectedItem != "mkv" /* ignore if mkv */)
+                //{
+                //    //videoCodecComboBox.SelectedItem = "Copy";
+                //}
+            }
 
         } // End AutoCopyVideoCodec
 
@@ -1254,9 +1240,6 @@ namespace Axiom
         /// <summary>
         public static void VideoBitrateCalculator(MainWindow mainwindow)
         {
-            // set to FFprobe's result
-            //FFprobe.inputVideoBitrate = FFprobe.resultVideoBitrate.Replace("\r\n", "").Replace("\n", "").Replace("\r", "");
-
             // FFprobe values
             if (string.IsNullOrEmpty(FFprobe.inputVideoBitrate))
             {
@@ -1282,23 +1265,23 @@ namespace Axiom
             {
                 if (Convert.ToInt32(FFprobe.inputVideoBitrate) >= 1000000000) // e.g. (1000M / 1,000,000K)
                 {
-                    FFprobe.inputVideoBitrate = Convert.ToString(int.Parse(FFprobe.inputVideoBitrate) * 0.00001) + "k ";
+                    FFprobe.inputVideoBitrate = Convert.ToString(int.Parse(FFprobe.inputVideoBitrate) * 0.00001) + "K";
                 }
                 else if (Convert.ToInt32(FFprobe.inputVideoBitrate) >= 100000000) // e.g. (100M / 100,000K) 
                 {
-                    FFprobe.inputVideoBitrate = Convert.ToString(int.Parse(FFprobe.inputVideoBitrate) * 0.0001) + "k ";
+                    FFprobe.inputVideoBitrate = Convert.ToString(int.Parse(FFprobe.inputVideoBitrate) * 0.0001) + "K";
                 }
                 else if (Convert.ToInt32(FFprobe.inputVideoBitrate) >= 10000000) // e.g. (10M / 10,000K)
                 {
-                    FFprobe.inputVideoBitrate = Convert.ToString(int.Parse(FFprobe.inputVideoBitrate) * 0.001) + "k ";
+                    FFprobe.inputVideoBitrate = Convert.ToString(int.Parse(FFprobe.inputVideoBitrate) * 0.001) + "K";
                 }
                 else if (Convert.ToInt32(FFprobe.inputVideoBitrate) >= 100000) // e.g. (1M /1000K)
                 {
-                    FFprobe.inputVideoBitrate = Convert.ToString(int.Parse(FFprobe.inputVideoBitrate) * 0.001) + "k ";
+                    FFprobe.inputVideoBitrate = Convert.ToString(int.Parse(FFprobe.inputVideoBitrate) * 0.001) + "K";
                 }
                 else if (Convert.ToInt32(FFprobe.inputVideoBitrate) >= 10000) // e.g. (100K)
                 {
-                    FFprobe.inputVideoBitrate = Convert.ToString(int.Parse(FFprobe.inputVideoBitrate) * 0.001) + "k ";
+                    FFprobe.inputVideoBitrate = Convert.ToString(int.Parse(FFprobe.inputVideoBitrate) * 0.001) + "K";
                 }
             }
 
@@ -1376,7 +1359,6 @@ namespace Axiom
                         // size
                         "& for /F \"delims=\" %S in ('@" + FFprobe.ffprobe + " -v error -select_streams v:0 -show_entries format^=size -of default^=noprint_wrappers^=1:nokey^=1 \"%~f\" 2^>^&1') do (SET size=%S)",
                         // set %S to %size%
-                        //"& for /F %S in ('echo %size%') do (echo %S)",
                         "& for /F %S in ('echo %size%') do (echo)",
 
                         // duration
@@ -1384,18 +1366,15 @@ namespace Axiom
                         // remove duration decimals
                         "& for /F \"tokens=1 delims=.\" %R in ('echo %duration%') do (SET duration=%R)",
                         // set %D to %duration%
-                        //"& for /F %D in ('echo %duration%') do (echo %D)",
                         "& for /F %D in ('echo %duration%') do (echo)",
 
                         // vBitrate
                         "& for /F \"delims=\" %V in ('@" + FFprobe.ffprobe + " -v error -select_streams v:0 -show_entries " + FFprobe.vEntryTypeBatch + " -of default^=noprint_wrappers^=1:nokey^=1 \"%~f\" 2^>^&1') do (SET vBitrate=%V)",
                         // set %V to %vBitrate%
-                        //"& for /F %V in ('echo %vBitrate%') do (echo %V)",
                         "& for /F %V in ('echo %vBitrate%') do (echo)",
                         // auto bitrate calcuate
                         "& (if %V EQU N/A (SET /a vBitrate=%S*8/1000/%D*1000) ELSE (echo Video Bitrate Detected))",
                         // set %V to %vBitrate%
-                        //"& for /F %V in ('echo %vBitrate%') do (echo %V)",
                         "& for /F %V in ('echo %vBitrate%') do (echo)",
                     };
 
@@ -1460,7 +1439,9 @@ namespace Axiom
                     // If Video File has Video, but Bitrate IS NOT detected, but Codec IS detected
                     // -------------------------
                     // 
-                    if (!string.IsNullOrEmpty(FFprobe.inputVideoCodec) && string.IsNullOrEmpty(FFprobe.inputVideoBitrate) | FFprobe.inputVideoBitrate == "N/A") // (webm, some mkv's)
+                    if (!string.IsNullOrEmpty(FFprobe.inputVideoCodec) 
+                        && string.IsNullOrEmpty(FFprobe.inputVideoBitrate) 
+                        | FFprobe.inputVideoBitrate == "N/A") // (webm, some mkv's)
                     {
                         //System.Windows.MessageBox.Show("Here"); //debug
 

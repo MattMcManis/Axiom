@@ -553,6 +553,7 @@ namespace Axiom
             FFprobe.aEntryType = string.Empty;
 
             // Video
+            Video.passSingle = string.Empty;
             Video.vCodec = string.Empty;
             Video.vQuality = string.Empty;
             Video.vBitMode = string.Empty;
@@ -581,6 +582,8 @@ namespace Axiom
             Video.VideoFilters.Clear();
 
             Video.v2passArgs = string.Empty;
+            Video.pass1Args = string.Empty; // Batch 2-Pass
+            Video.pass2Args = string.Empty; // Batch 2-Pass
             Video.pass1 = string.Empty;
             Video.pass2 = string.Empty;
             Video.options = string.Empty;

@@ -61,7 +61,6 @@ namespace Axiom
         public static String OnePassArgs(MainWindow mainwindow)
         {
             // -------------------------
-            //  Batch 
             //  Single Pass
             // -------------------------
             if ((string)mainwindow.cboPass.SelectedItem == "1 Pass" 
@@ -106,12 +105,11 @@ namespace Axiom
         /// <summary>
         /// Batch2PassArgs
         /// </summary>
-        // 2-Pass
+        
         public static String TwoPassArgs(MainWindow mainwindow)
         {
             // -------------------------
-            //  Batch 
-            //  Auto Quality
+            //  2-Pass Auto Quality
             // -------------------------
             // Enabled 
             //

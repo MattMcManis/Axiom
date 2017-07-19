@@ -157,6 +157,14 @@ namespace Axiom
                 aMap = "-map 0:a:7?";
             }
 
+            // -------------------------
+            // Mute Override
+            // -------------------------
+            if ((string)mainwindow.cboAudio.SelectedItem == "Mute")
+            {
+                aMap = "-an";
+            }
+
             // Log Console Message /////////
             Log.WriteAction = () =>
             {
@@ -409,14 +417,6 @@ namespace Axiom
             {
                 vMap = string.Empty;
                 sMap = string.Empty;
-            }
-
-            // -------------------------
-            // Mute Override
-            // -------------------------
-            if ((string)mainwindow.cboAudio.SelectedItem == "Mute")
-            {
-                aMap = "-an";
             }
 
 

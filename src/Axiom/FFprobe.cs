@@ -322,7 +322,9 @@ namespace Axiom
         /// </summary>
         public static void FFprobeVideoEntryTypeBatch(MainWindow mainwindow)
         {
-            // ##### VIDEO #####
+            // -------------------------
+            // VIDEO
+            // -------------------------
             if (string.Equals(MainWindow.batchExt, ".wmv", StringComparison.CurrentCultureIgnoreCase) 
                 || string.Equals(MainWindow.batchExt, ".mp4", StringComparison.CurrentCultureIgnoreCase) 
                 || string.Equals(MainWindow.batchExt, ".ogv", StringComparison.CurrentCultureIgnoreCase)
@@ -346,7 +348,8 @@ namespace Axiom
             {
                 FFprobe.vEntryTypeBatch = "format^=bit_rate";
             }
-            else // UNLISTED Filetypes & Audio to Video (this may cause conflict)
+            // UNLISTED Filetypes & Audio to Video (this may cause conflict)
+            else
             {
                 FFprobe.vEntryTypeBatch = "stream^=bit_rate";
             }
