@@ -614,7 +614,6 @@ namespace Axiom
 
                 // Crop
                 mainwindow.buttonCrop.IsEnabled = true;
-                //mainwindow.buttonCrop.Foreground = new SolidColorBrush(Colors.White);
 
                 //Speed
                 mainwindow.cboSpeed.IsEnabled = true;
@@ -627,7 +626,6 @@ namespace Axiom
 
                 // Volume
                 mainwindow.volumeUpDown.IsEnabled = true;
-                //mainwindow.volumeUpDown.Foreground = new SolidColorBrush(Colors.White);
                 mainwindow.volumeUpButton.IsEnabled = true;
                 mainwindow.volumeDownButton.IsEnabled = true;
 
@@ -664,10 +662,6 @@ namespace Axiom
                     mainwindow.cboCut.SelectedItem = "No";
                 }
 
-                //mainwindow.cutStart.IsEnabled = true; 
-                //mainwindow.cutEnd.Text = "00:00:00.000";
-                //mainwindow.cutEnd.IsEnabled = true; 
-
                 // Frame
                 mainwindow.frameEnd.IsEnabled = false;
                 mainwindow.frameEnd.Text = string.Empty;
@@ -675,8 +669,6 @@ namespace Axiom
                 // Crop
                 //crop = string.Empty; //??
                 mainwindow.buttonCrop.IsEnabled = false;
-                //mainwindow.buttonCropTextBlock.IsEnabled = false;
-                //mainwindow.buttonCrop.Foreground = MainWindow.TextBoxDiabledForeground;
 
                 // Fps
                 mainwindow.cboFPS.SelectedItem = "auto";
@@ -703,7 +695,6 @@ namespace Axiom
 
                 // Volume
                 mainwindow.volumeUpDown.IsEnabled = true;
-                //mainwindow.volumeUpDown.Foreground = new SolidColorBrush(Colors.White);
                 mainwindow.volumeUpButton.IsEnabled = true;
                 mainwindow.volumeDownButton.IsEnabled = true;
 
@@ -741,8 +732,6 @@ namespace Axiom
                 mainwindow.frameEnd.Text = string.Empty; //important
 
                 // Crop
-                mainwindow.buttonCrop.IsEnabled = true;
-                //mainwindow.buttonCrop.Foreground = new SolidColorBrush(Colors.White);
 
                 // Fps
                 mainwindow.cboFPS.SelectedItem = "auto";
@@ -804,7 +793,6 @@ namespace Axiom
 
                 // Crop
                 mainwindow.buttonCrop.IsEnabled = true;
-                //mainwindow.buttonCrop.Foreground = new SolidColorBrush(Colors.White);
 
                 //Speed
                 mainwindow.cboSpeed.IsEnabled = false;
@@ -831,7 +819,6 @@ namespace Axiom
 
                 // Volume
                 mainwindow.volumeUpDown.IsEnabled = false;
-                //mainwindow.volumeUpDown.Foreground = MainWindow.TextBoxDiabledForeground;
                 mainwindow.volumeUpButton.IsEnabled = false;
                 mainwindow.volumeDownButton.IsEnabled = false;
 
@@ -869,7 +856,7 @@ namespace Axiom
                 mainwindow.frameStart.Text = "Frame";
                 mainwindow.frameEnd.Text = "Range";
 
-                trim = string.Empty;
+                //trim = string.Empty;
             }
 
             // Yes
@@ -886,16 +873,6 @@ namespace Axiom
                     // Frames
                     mainwindow.frameStart.IsEnabled = true;
                     mainwindow.frameEnd.IsEnabled = true;
-
-                    // TextBox Color
-                    //if (mainwindow.frameStart.Text != "Frame")
-                    //{
-                    //    mainwindow.frameStart.Foreground = new SolidColorBrush(Colors.White);
-                    //}
-                    //if (mainwindow.frameEnd.Text != "Range")
-                    //{
-                    //    mainwindow.frameEnd.Foreground = new SolidColorBrush(Colors.White);
-                    //}
                 }
                 else if ((string)mainwindow.cboMediaType.SelectedItem == "Audio") // only for video
                 {
@@ -922,12 +899,6 @@ namespace Axiom
                     mainwindow.frameStart.IsEnabled = true;
                     mainwindow.frameEnd.IsEnabled = false;
                     mainwindow.frameEnd.Text = string.Empty; //important
-
-                    // TextBox Color
-                    //if (mainwindow.frameStart.Text != "Frame")
-                    //{
-                    //    mainwindow.frameStart.Foreground = new SolidColorBrush(Colors.White);
-                    //}
                 }
                 else if ((string)mainwindow.cboMediaType.SelectedItem == "Sequence") // only for video
                 {
@@ -938,16 +909,6 @@ namespace Axiom
                     // Frames
                     mainwindow.frameStart.IsEnabled = true;
                     mainwindow.frameEnd.IsEnabled = true;
-
-                    // TextBox Color
-                    //if (mainwindow.frameStart.Text != "Frame")
-                    //{
-                    //    mainwindow.frameStart.Foreground = new SolidColorBrush(Colors.White);
-                    //}
-                    //if (mainwindow.frameEnd.Text != "Range")
-                    //{
-                    //    mainwindow.frameEnd.Foreground = new SolidColorBrush(Colors.White);
-                    //}
                 }
             }
         } // End Cut Controls
@@ -965,6 +926,9 @@ namespace Axiom
         /// </summary>
         public static String Cut(MainWindow mainwindow)
         {
+            // -------------------------
+            // Yes
+            // -------------------------
             // VIDEO
             //
             if ((string)mainwindow.cboCut.SelectedItem == "Yes" && (string)mainwindow.cboMediaType.SelectedItem == "Video")
@@ -973,7 +937,7 @@ namespace Axiom
                 // If Frame Textboxes Default Use Time
                 if (mainwindow.frameStart.Text == "Frame" 
                     && mainwindow.frameEnd.Text == "Range" 
-                    || string.IsNullOrWhiteSpace(mainwindow.frameStart.Text) 
+                    && string.IsNullOrWhiteSpace(mainwindow.frameStart.Text) 
                     && string.IsNullOrWhiteSpace(mainwindow.frameEnd.Text))
                 {
                     trimStart = mainwindow.cutStart.Text;
@@ -1026,14 +990,13 @@ namespace Axiom
 
             // JPEG & PNG Sequence
             //
-            else if ((string)mainwindow.cboCut.SelectedItem == "Yes" 
-                && (string)mainwindow.cboMediaType.SelectedItem == "Sequence")
+            else if ((string)mainwindow.cboCut.SelectedItem == "Yes" && (string)mainwindow.cboMediaType.SelectedItem == "Sequence")
             {
                 // Use Time
                 // If Frame Textboxes Default Use Time
                 if (mainwindow.frameStart.Text == "Frame" 
                     && mainwindow.frameEnd.Text == "Range" 
-                    || string.IsNullOrWhiteSpace(mainwindow.frameStart.Text) 
+                    && string.IsNullOrWhiteSpace(mainwindow.frameStart.Text) 
                     && string.IsNullOrWhiteSpace(mainwindow.frameEnd.Text))
                 {
                     trimStart = mainwindow.cutStart.Text;
@@ -1050,6 +1013,15 @@ namespace Axiom
                 }
 
                 trim = "-ss " + trimStart + " " + "-to " + trimEnd;
+            }
+
+
+            // -------------------------
+            // No
+            // -------------------------
+            if ((string)mainwindow.cboCut.SelectedItem == "No")
+            {
+                trim = string.Empty;
             }
 
             // Return Value

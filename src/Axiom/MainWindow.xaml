@@ -73,7 +73,7 @@
         <!-- FPS -->
         <Label x:Name="labelFps" Style="{DynamicResource LabelCustom}" Content="Fps" HorizontalAlignment="Left" Margin="89,182,0,0" VerticalAlignment="Top" Width="26" ToolTip="Frames Per Second" FontSize="11" FontFamily="Segoe UI Semilight" />
 
-        <ComboBox x:Name="cboFPS" Style="{DynamicResource ComboBoxCustom}" ItemContainerStyle="{DynamicResource ComboBoxCustomItem}"  HorizontalAlignment="Left" Margin="116,183,0,0" VerticalAlignment="Top" Width="52" ToolTipService.InitialShowDelay="1000" ToolTipService.ShowOnDisabled="True" ToolTip="Frames Per Second" SelectionChanged="cboFPS_SelectionChanged" Background="Black" IsTextSearchEnabled="False">
+        <ComboBox x:Name="cboFPS" Style="{DynamicResource ComboBoxCustom}" ItemContainerStyle="{DynamicResource ComboBoxCustomItem}"  HorizontalAlignment="Left" Margin="116,183,0,0" VerticalAlignment="Top" Width="52" ToolTipService.InitialShowDelay="1000" ToolTipService.ShowOnDisabled="True" ToolTip="Frames Per Second" SelectionChanged="cboFPS_SelectionChanged" IsTextSearchEnabled="False">
             <System:String>auto</System:String>
             <System:String>23.976</System:String>
             <System:String>24</System:String>
@@ -268,12 +268,6 @@
             <Image Width="10" Height="11" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" Style="{DynamicResource ButtonLogConsole}" />
         </Button>
 
-        <!-- 2 Pass Toggle -->
-        <ToggleButton x:Name="tgl2Pass" HorizontalAlignment="Left" Margin="-135,233,0,0" VerticalAlignment="Top" ToolTip="Use 2-Pass over CRF" Width="22" Height="22" Style="{DynamicResource ToggleButtonCustom}">
-            <!--Checked="tgl2Pass_Checked" Unchecked="tgl2Pass_Unchecked"-->
-            <Image Width="12" Height="11" Stretch="Fill" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0"/>
-        </ToggleButton>
-
         <!-- Save -->
         <Button x:Name="buttonSave" HorizontalAlignment="Left" Margin="-189,233,0,0" VerticalAlignment="Top" Width="22" Height="22" Cursor="Hand" Click="buttonSave_Click" Background="{x:Null}" Style="{DynamicResource ButtonSmallCustom}" ToolTip="Save Custom Preset">
             <Image Width="11" Height="11" Stretch="Fill" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="1,-1,0,0"/>
@@ -338,11 +332,13 @@
         </Button>
 
         <!-- Volume -->
-        <TextBox x:Name="volumeUpDown" HorizontalAlignment="Left" TextAlignment="Right" Height="22" Margin="282,156,0,0" Padding="0, 2, 17, 0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="52" Style="{DynamicResource TextBoxCustom}" KeyDown="volumeUpDown_KeyDown" MaxLines="1" MaxLength="6" ToolTipService.InitialShowDelay="1000" ToolTipService.ShowOnDisabled="True" ToolTip="Volume" Text="100" TextChanged="volumeUpDown_TextChanged" />
         <Label x:Name="labelVolume" Style="{DynamicResource LabelCustom}"  Content="Vol" HorizontalAlignment="Left" Margin="255,154,0,0" VerticalAlignment="Top" Width="27" ToolTip="Volume" FontSize="11" FontFamily="Segoe UI Semilight" RenderTransformOrigin="-3.349,0.72" />
+        <TextBox x:Name="volumeUpDown" HorizontalAlignment="Left" TextAlignment="Right" Height="22" Margin="282,156,0,0" Padding="0, 2, 17, 0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="52" Style="{DynamicResource TextBoxCustom}" KeyDown="volumeUpDown_KeyDown" MaxLines="1" MaxLength="6" ToolTipService.InitialShowDelay="1000" ToolTipService.ShowOnDisabled="True" ToolTip="Volume" Text="100" TextChanged="volumeUpDown_TextChanged" />
+        <!-- Vol Up -->
         <Button x:Name="volumeUpButton" HorizontalAlignment="Left" Margin="318,157,0,0" Padding="0, 0, 0, 0" VerticalAlignment="Top" Width="15" Height="10" Click="volumeUpButton_Click" PreviewMouseLeftButtonDown="volumeUpButton_PreviewMouseLeftButtonDown" PreviewMouseUp="volumeUpButton_PreviewMouseUp" BorderBrush="{x:Null}" Background="{x:Null}" Style="{DynamicResource ButtonVolume}">
             <Image x:Name="volumeUpButtonGlyph" Width="6" Height="5" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="1,1,0,0" Style="{DynamicResource ButtonVolumeUp}" />
         </Button>
+        <!-- Vol Down -->
         <Button x:Name="volumeDownButton" HorizontalAlignment="Left" Margin="318,167,0,0" Padding="0, 0, 0, 0" VerticalAlignment="Top" Width="15" Height="10" Click="volumeDownButton_Click" PreviewMouseLeftButtonDown="volumeDownButton_PreviewMouseLeftButtonDown" PreviewMouseUp="volumeDownButton_PreviewMouseUp"  BorderBrush="{x:Null}" Background="{x:Null}" Style="{DynamicResource ButtonVolume}">
             <Image x:Name="volumeDownButtonGlyph" Width="6" Height="5" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="1,0,0,0" Style="{DynamicResource ButtonVolumeDown}" />
         </Button>
@@ -356,7 +352,7 @@
         <ComboBox x:Name="cboPass" Style="{DynamicResource ComboBoxCustom}" ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" HorizontalAlignment="Left" Margin="116,155,0,0" VerticalAlignment="Top" Width="52" ToolTipService.InitialShowDelay="1000" ToolTipService.ShowOnDisabled="True" ToolTip="Encoding Pass Method" SelectionChanged="cboPass_SelectionChanged" DropDownClosed="cboPass_DropDownClosed" />
 
         <!-- File Queue -->
-        <Button x:Name="buttonFileQueue" HorizontalAlignment="Left" Margin="-108,233,0,0" VerticalAlignment="Top" Width="22" Height="22" Cursor="Hand" Background="{x:Null}" Style="{DynamicResource ButtonSmallCustom}" ToolTip="Show File Queue" Click="buttonFileQueue_Click">
+        <Button x:Name="buttonFileQueue" HorizontalAlignment="Left" Margin="-135,233,0,0" VerticalAlignment="Top" Width="22" Height="22" Cursor="Hand" Background="{x:Null}" Style="{DynamicResource ButtonSmallCustom}" ToolTip="Show File Queue" Click="buttonFileQueue_Click">
             <Image Source="Resources/Images/logconsole.png" Width="10" Height="11" Stretch="Fill" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0"/>
         </Button>
 

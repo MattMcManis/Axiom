@@ -26,7 +26,6 @@
     <Grid>
 
         <RichTextBox Name="rtbFileProperties" Margin="0" Background="{x:Null}" Foreground="White" VerticalScrollBarVisibility="Visible" RenderOptions.ClearTypeHint="Enabled" FontFamily="Consolas" Padding="10" IsReadOnly="True" IsUndoEnabled="False" />
-        <!--TextOptions.TextFormattingMode="Display"-->
 
         <Button x:Name="buttonExpand" Margin="0,10,28,0" BorderBrush="#7FFFFFFF" Background="{x:Null}" Foreground="White" Cursor="Hand" Style="{DynamicResource ButtonFolder}" Click="buttonExpand_Click" HorizontalAlignment="Right" Width="20" ToolTip="Expand Window" Height="20" VerticalAlignment="Top">
             <TextBlock x:Name="textBlockExpand" Text="+" Margin="0,-2,0,0" Foreground="#99FFFFFF" />

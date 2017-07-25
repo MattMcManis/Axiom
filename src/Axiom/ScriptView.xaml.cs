@@ -1,6 +1,8 @@
 ﻿using System;
 using System.IO;
+using System.Text;
 using System.Windows;
+using System.Windows.Documents;
 // Disable XML Comment warnings
 #pragma warning disable 1591
 
@@ -32,20 +34,45 @@ namespace Axiom
     /// </summary>
     public partial class ScriptView : Window
     {
-        public ScriptView() // pass data constuctor
+        //private MainWindow mainwindow;
+
+        public static int sort = 0;
+
+        public static Paragraph scriptParagraph = new Paragraph(); //RichTextBox
+
+
+        public ScriptView()
+        {
+            //do not remove
+        }
+
+        public ScriptView(MainWindow mainwindow) // pass data constuctor
         {
             InitializeComponent();
 
             // Set Window Size to center TextBox & Button
             this.Width = 575;
             this.Height = 250;
-            this.MinWidth = 300;
+            this.MinWidth = 575;
             this.MinHeight = 250;
 
-            //this.ffmpegArgs = FFmpeg.ffmpegArgs;
+            // Write New Text
+            rtbScript.Document = new FlowDocument(scriptParagraph); // start
 
-            // Display Script in Textbox
-            textBoxScript.Text = FFmpeg.ffmpegArgs;
+            // Clear Old Text
+            rtbScript.Document = new FlowDocument(scriptParagraph); // start
+            rtbScript.BeginChange();
+            rtbScript.SelectAll();
+            rtbScript.Selection.Text = "";
+            rtbScript.EndChange();
+
+            // Write New Text
+            rtbScript.Document = new FlowDocument(scriptParagraph); // start
+
+            // begin change
+            rtbScript.BeginChange();
+            scriptParagraph.Inlines.Add(new Run(FFmpeg.ffmpegArgs));
+            rtbScript.EndChange();
         }
 
         /// <summary>
@@ -53,9 +80,35 @@ namespace Axiom
         /// </summary>
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            textBoxScript.Text = null;
             this.Close();
             System.Windows.Forms.Application.ExitThread();
+        }
+
+
+        /// <summary>
+        /// Save Script
+        /// </summary>
+        private void buttonSave_Click(object sender, RoutedEventArgs e)
+        {
+            // Open 'Save File'
+            Microsoft.Win32.SaveFileDialog saveFile = new Microsoft.Win32.SaveFileDialog();
+
+            // 'Save File' Default Path same as Input Directory
+            //saveFile.InitialDirectory = inputDir;
+            saveFile.RestoreDirectory = true;
+            saveFile.Filter = "Text file (*.txt)|*.txt";
+            saveFile.DefaultExt = ".txt";
+            saveFile.FileName = "Script";
+
+            // Show save file dialog box
+            Nullable<bool> result = saveFile.ShowDialog();
+
+            // Process dialog box
+            if (result == true)
+            {
+                // Save document
+                File.WriteAllText(saveFile.FileName, ScriptRichTextBoxCurrent(), Encoding.Unicode);
+            }
         }
 
 
@@ -64,8 +117,99 @@ namespace Axiom
         /// </summary>
         private void buttonCopy_Click(object sender, RoutedEventArgs e)
         {
-            Clipboard.SetText(textBoxScript.Text);
+            Clipboard.SetText(ScriptRichTextBoxCurrent(), TextDataFormat.UnicodeText);
         }
+
+        /// <summary>
+        /// Script RichTextBox Edited
+        /// </summary>
+        // current richtextbox text
+        public String ScriptRichTextBoxCurrent()
+        {
+            FlowDocument scriptFlowDoc = new FlowDocument(scriptParagraph);
+
+            rtbScript.Document = scriptFlowDoc;
+
+            TextRange textRange = new TextRange(
+                rtbScript.Document.ContentStart,
+                rtbScript.Document.ContentEnd
+            );
+
+            // Return Text, Remove LineBreaks
+            return textRange.Text;
+        }
+
+
+        /// <summary>
+        /// Sort Button
+        /// </summary>
+        private void buttonSort_Click(object sender, RoutedEventArgs e)
+        {
+            // -------------------------
+            // Sort
+            // -------------------------
+            // Has Not Been Edited
+            if (ScriptView.sort == 0 && ScriptRichTextBoxCurrent().Replace(Environment.NewLine, "").Replace("\r\n", "") == FFmpeg.ffmpegArgs)
+            {
+                // Clear Old Text
+                rtbScript.Document = new FlowDocument(scriptParagraph); // start
+                rtbScript.BeginChange();
+                rtbScript.SelectAll();
+                rtbScript.Selection.Text = "";
+                rtbScript.EndChange();
+
+                // Write New Text
+                rtbScript.Document = new FlowDocument(scriptParagraph); // start
+
+                // Write FFmpeg Args Sort
+                rtbScript.BeginChange();
+                scriptParagraph.Inlines.Add(new Run(FFmpeg.ffmpegArgsSort));
+                rtbScript.EndChange();
+
+                // Sort is Off
+                ScriptView.sort = 1;
+                // Change Button Back to Inline
+                buttonSortTextBlock.Text = "Inline";
+            }
+
+            // Has Been Edited
+            else if (ScriptView.sort == 0 && ScriptRichTextBoxCurrent().Replace(Environment.NewLine, "").Replace("\r\n", "") != FFmpeg.ffmpegArgs)
+            {
+                MessageBox.Show("Cannot sort edited text.");
+            }
+
+
+            // -------------------------
+            // Inline
+            // -------------------------
+            else if (ScriptView.sort == 1)
+            {
+                // CMD Arguments are from Script TextBox
+                FFmpeg.ffmpegArgs = ScriptRichTextBoxCurrent().Replace(Environment.NewLine, "").Replace("\r\n", "");
+
+                // Clear Old Text
+                rtbScript.Document = new FlowDocument(scriptParagraph); // start
+                rtbScript.BeginChange();
+                rtbScript.SelectAll();
+                rtbScript.Selection.Text = "";
+                rtbScript.EndChange();
+
+                // Write New Text
+                rtbScript.Document = new FlowDocument(scriptParagraph); // start
+
+                // Write FFmpeg Args
+                rtbScript.BeginChange();
+                scriptParagraph.Inlines.Add(new Run(FFmpeg.ffmpegArgs));
+                rtbScript.EndChange();
+
+                // Sort is On
+                ScriptView.sort = 0;
+                // Change Button Back to Sort
+                buttonSortTextBlock.Text = "Sort";
+            }
+
+        }
+
 
         /// <summary>
         /// Run Button
@@ -75,24 +219,16 @@ namespace Axiom
             string currentDir = Directory.GetCurrentDirectory();
 
             // CMD Arguments are from Script TextBox
-            FFmpeg.ffmpegArgs = textBoxScript.Text;
+            FFmpeg.ffmpegArgs = ScriptRichTextBoxCurrent().Replace(Environment.NewLine, "").Replace("\r\n", "");
 
+            // Run FFmpeg Arguments
             System.Diagnostics.Process.Start("CMD.exe", "/k cd " + "\"" + currentDir + "\"" + " & " + /* start ffmpeg commands -->*/ FFmpeg.ffmpegArgs);
 
-            // Error Writing Log from ScriptView
-            // Call DefineLogPath Method
-            //var getMethod1 = mainwindow.Owner as MainWindow;
-            //Log.DefineLogPath(mainwindow, this, console, configure);
-            // Call CreateLog Method
-            //var getMethod2 = mainwindow.Owner as MainWindow;
-            //Log.CreateOutputLog(mainwindow, this, console, configure);
-
             // Clear FFmpeg Arguments for next run
-            FFmpeg.ffmpegArgs = string.Empty;
-
-            // Call Garbage Collector
-            //GC.Collect();
+            //FFmpeg.ffmpegArgs = string.Empty;
+            //FFmpeg.ffmpegArgsSort = string.Empty;
         }
+
 
         /// <summary>
         /// Expand Button
@@ -110,7 +246,8 @@ namespace Axiom
                 double windowHeight = this.Height;
                 this.Left = (screenWidth / 2) - (windowWidth / 2);
                 this.Top = (screenHeight / 2) - (windowHeight / 2);
-            } 
+            }
         }
+
     }
 }

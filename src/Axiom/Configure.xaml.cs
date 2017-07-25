@@ -3,10 +3,10 @@ using System;
 using System.Configuration;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
 // Disable XML Comment warnings
 #pragma warning disable 1591
 
@@ -38,6 +38,8 @@ namespace Axiom
     /// </summary>
     public partial class Configure : Window
     {
+        private MainWindow mainwindow;
+
         // --------------------------------------------------------------------------------------------------------
         // Variables
         // --------------------------------------------------------------------------------------------------------
@@ -48,13 +50,10 @@ namespace Axiom
         public static bool logEnable; //checkBoxLogConfig, Enable or Disable Log, true or false - (public - pass data)
         public static string threads; // Set FFmpeg -threads (public - pass data)
 
-        private MainWindow mainwindow;
-
         public Configure()
         {
             // Configure, dont remove
         }
-
 
         // --------------------------------------------------------------------------------------------------------
         // Window
@@ -75,151 +74,336 @@ namespace Axiom
             // --------------------------------------------------
             // Load From Saved Settings
             // --------------------------------------------------
-
-            // -------------------------
             // Theme CombBox
-            // -------------------------
-            // Load Theme from saved settings
+            Configure.ConfigTheme(this);
+
+            // FFmpeg Path 
+            Configure.ConfigFFmpegPath(this);
+
+            // PProbe Path
+            Configure.ConfigFFprobePath(this);
+
+            // Log CheckBox
+            Configure.ConfigLogCheckbox(this);
+
+            // Log Path
+            Configure.ConfigLogPath(this);
+
+            // Threads CombBox
+            Configure.ConfigThreads(this);
+        }
+
+
+        /// <summary>
+        /// Check if Window Is Open
+        /// </summary>
+        public static bool IsWindowOpen<T>(string name = "") where T : Window
+        {
+            return string.IsNullOrEmpty(name)
+               ? Application.Current.Windows.OfType<T>().Any()
+               : Application.Current.Windows.OfType<T>().Any(w => w.Name.Equals(name));
+        }
+
+
+        /// <summary>
+        /// Theme CombBox
+        /// </summary>
+        public static void ConfigTheme(Configure configure)
+        {
+            // --------------------------------------------------
             // Safeguard Against Corrupt Saved Settings
+            // --------------------------------------------------
             try
             {
+                // --------------------------
                 // First time use
+                // --------------------------
                 if (string.IsNullOrEmpty(Settings.Default["Theme"].ToString()))
                 {
-                    cboTheme.SelectedItem = "Axiom";
-                    theme = cboTheme.SelectedItem.ToString();
+                    Configure.theme = "Axiom";
+
+                    // Set ComboBox if Configure Window is Open
+                    if (configure != null)
+                    {
+                        configure.cboTheme.SelectedItem = "Axiom";
+                    }
+
+                    // Save Theme for next launch
+                    Settings.Default["Theme"] = Configure.theme;
+                    Settings.Default.Save();
+
+                    // Change Theme Resource
+                    App.Current.Resources.MergedDictionaries.Clear();
+                    App.Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
+                    {
+                        Source = new Uri("Theme" + Configure.theme + ".xaml", UriKind.RelativeOrAbsolute)
+                    });
                 }
-                // Load Theme ComboBox from Saved Settings
+                // --------------------------
+                // Load Saved Settings Override
+                // --------------------------
                 else if (!string.IsNullOrEmpty(Settings.Default["Theme"].ToString())) // null check
                 {
-                    cboTheme.SelectedItem = Settings.Default["Theme"].ToString();
+                    Configure.theme = Settings.Default["Theme"].ToString();
+
+                    // Set ComboBox if Configure Window is Open
+                    if (configure != null)
+                    {
+                        configure.cboTheme.SelectedItem = Settings.Default["Theme"].ToString();
+                    }
+
+                    // Change Theme Resource
+                    App.Current.Resources.MergedDictionaries.Clear();
+                    App.Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
+                    {
+                        Source = new Uri("Theme" + Configure.theme + ".xaml", UriKind.RelativeOrAbsolute)
+                    });
                 }
             }
             catch
             {
-
+            
             }
+        }
 
 
-            // -------------------------
-            // FFmpeg Path
-            // -------------------------        
+        /// <summary>
+        /// FFmpeg Path
+        /// </summary>
+        public static void ConfigFFmpegPath(Configure configure)
+        {
+            // --------------------------------------------------
             // Safeguard Against Corrupt Saved Settings
+            // --------------------------------------------------
             try
             {
+                // --------------------------
                 // First time use
+                // --------------------------
                 if (string.IsNullOrEmpty(Settings.Default["ffmpegPath"].ToString()))
                 {
-                    ffmpegPath = "<auto>"; 
-                    textBoxFFmpegPathConfig.Text = ffmpegPath;
+                    Configure.ffmpegPath = "<auto>";
+
+                    // Set ComboBox if Configure Window is Open
+                    if (configure != null)
+                    {
+                        configure.textBoxFFmpegPathConfig.Text = Configure.ffmpegPath;
+                    }
+
+                    // Save for next launch
+                    Settings.Default["ffmpegPath"] = Configure.ffmpegPath;
+                    Settings.Default.Save();
                 }
-                // Load FFmpeg Path from saved settings
+                // --------------------------
+                // Load Saved Settings Override
+                // --------------------------
                 else if (!string.IsNullOrEmpty(Settings.Default["ffmpegPath"].ToString())) // null check
                 {
-                    textBoxFFmpegPathConfig.Text = Settings.Default["ffmpegPath"].ToString();
-                    ffmpegPath = Settings.Default["ffmpegPath"].ToString();
+                    Configure.ffmpegPath = Settings.Default["ffmpegPath"].ToString();
+
+                    // Set ComboBox if Configure Window is Open
+                    if (configure != null)
+                    {
+                        configure.textBoxFFmpegPathConfig.Text = Settings.Default["ffmpegPath"].ToString();
+                    }
                 }
             }
             catch
             {
 
             }
+        }
 
 
-            // -------------------------
-            // PProbe Path
-            // -------------------------
+        /// <summary>
+        /// FFprobe Path
+        /// </summary>
+        public static void ConfigFFprobePath(Configure configure)
+        {
+            // --------------------------------------------------
             // Safeguard Against Corrupt Saved Settings
+            // --------------------------------------------------
             try
             {
+                // --------------------------
                 // First time use
+                // --------------------------
                 if (string.IsNullOrEmpty(Settings.Default["ffprobePath"].ToString()))
                 {
-                    ffprobePath = "<auto>";
-                    textBoxFFprobePathConfig.Text = ffprobePath;
+                    Configure.ffprobePath = "<auto>";
+                    
+                    // Set ComboBox if Configure Window is Open
+                    if (configure != null)
+                    {
+                        configure.textBoxFFprobePathConfig.Text = Configure.ffprobePath;
+                    }
+
+                    // Save for next launch
+                    Settings.Default["ffprobePath"] = Configure.ffprobePath;
+                    Settings.Default.Save();
                 }
-                // Load PProbe Path from saved settings
+                // --------------------------
+                // Load Saved Settings Override
+                // --------------------------
                 else if (!string.IsNullOrEmpty(Settings.Default["ffprobePath"].ToString())) // null check
                 {
-                    textBoxFFprobePathConfig.Text = Settings.Default["ffprobePath"].ToString();
-                    ffprobePath = Settings.Default["ffprobePath"].ToString();
+                    Configure.ffprobePath = Settings.Default["ffprobePath"].ToString();
+
+                    // Set ComboBox if Configure Window is Open
+                    if (configure != null)
+                    {
+                        configure.textBoxFFprobePathConfig.Text = Settings.Default["ffprobePath"].ToString();
+                    }
                 }
             }
             catch
             {
 
             }
+        }
 
-            // -------------------------
-            // Log CheckBox
-            // -------------------------
+
+        /// <summary>
+        /// Log Checkbox
+        /// </summary>
+        public static void ConfigLogCheckbox(Configure configure)
+        {
+            // --------------------------------------------------
             // Safeguard Against Corrupt Saved Settings
+            // --------------------------------------------------
             try
             {
+                // --------------------------
                 // First time use
+                // --------------------------
                 if (string.IsNullOrEmpty(Convert.ToString(Settings.Default.checkBoxLog)))
                 {
-                    checkBoxLogConfig.IsChecked = false;
+                    Configure.logEnable = false;
+
+                    // Set ComboBox if Configure Window is Open
+                    if (configure != null)
+                    {
+                        configure.checkBoxLogConfig.IsChecked = false;
+                    }
+
+                    // Save for next launch
+                    Settings.Default["checkBoxLog"] = Configure.logEnable;
+                    Settings.Default.Save();
                 }
-                // Load Log Checkbox Toggle from saved settings
+                // --------------------------
+                // Load Saved Settings Override
+                // --------------------------
                 else if (!string.IsNullOrEmpty(Convert.ToString(Settings.Default.checkBoxLog)))
                 {
-                    checkBoxLogConfig.IsChecked = Convert.ToBoolean(Settings.Default.checkBoxLog);
+                    Configure.logEnable = Convert.ToBoolean(Settings.Default.logEnable);
+
+                    // Set ComboBox if Configure Window is Open
+                    if (configure != null)
+                    {
+                        configure.checkBoxLogConfig.IsChecked = Convert.ToBoolean(Settings.Default.checkBoxLog);
+                    }
                 }
             }
             catch
             {
 
             }
+        }
 
-            // -------------------------
-            // Log Path
-            // -------------------------
+
+        /// <summary>
+        /// Log Path
+        /// </summary>
+        public static void ConfigLogPath(Configure configure)
+        {
+            // --------------------------------------------------
             // Safeguard Against Corrupt Saved Settings
+            // --------------------------------------------------
             try
             {
+                // --------------------------
                 // First time use
+                // --------------------------
                 if (string.IsNullOrEmpty(Settings.Default["logPath"].ToString()))
                 {
-                    logPath = ""; // First time use
-                    textBoxLogConfig.Text = logPath; // First time use
+                    Configure.logPath = string.Empty; 
+                    
+                    // Set ComboBox if Configure Window is Open
+                    if (configure != null)
+                    {
+                        configure.textBoxLogConfig.Text = Configure.logPath;
+                    }
+
+                    // Save for next launch
+                    Settings.Default["logPath"] = Configure.logPath;
+                    Settings.Default.Save();
                 }
-                // Load Log Path from saved settings
+                // --------------------------
+                // Load Saved Settings Override
+                // --------------------------
                 if (!string.IsNullOrEmpty(Settings.Default["logPath"].ToString())) // null check
                 {
-                    textBoxLogConfig.Text = Settings.Default["logPath"].ToString();
-                    logPath = Settings.Default["logPath"].ToString();
+                    Configure.logPath = Settings.Default["logPath"].ToString();
+
+                    // Set ComboBox if Configure Window is Open
+                    if (configure != null)
+                    {
+                        configure.textBoxLogConfig.Text = Settings.Default["logPath"].ToString();
+                    }
                 }
             }
             catch
             {
 
             }
+        }
 
-            // -------------------------
-            // Threads CombBox
-            // -------------------------
-            // Load Threads from saved settings
+
+        /// <summary>
+        /// Threads
+        /// </summary>
+        public static void ConfigThreads(Configure configure)
+        {
+            // --------------------------------------------------
             // Safeguard Against Corrupt Saved Settings
+            // --------------------------------------------------
             try
             {
+                // --------------------------
                 // First time use
+                // --------------------------
                 if (string.IsNullOrEmpty(Settings.Default["threads"].ToString()))
                 {
-                    cboThreads.SelectedItem = "all";
-                    threads = cboThreads.SelectedItem.ToString(); 
+                    Configure.threads = "all";
+
+                    // Set ComboBox if Configure Window is Open
+                    if (configure != null)
+                    {
+                        configure.cboThreads.SelectedItem = Configure.threads;
+                    }
+
+                    // Save for next launch
+                    Settings.Default["threads"] = Configure.threads;
+                    Settings.Default.Save();
                 }
-                // Load Threads ComboBox from Saved Settings
+                // --------------------------
+                // Load Saved Settings Override
+                // --------------------------
                 else if (!string.IsNullOrEmpty(Settings.Default["threads"].ToString())) // null check
                 {
-                    cboThreads.SelectedItem = Settings.Default["threads"].ToString();
+                    Configure.threads = Settings.Default["threads"].ToString();
+
+                    // Set ComboBox if Configure Window is Open
+                    if (configure != null)
+                    {
+                        configure.cboThreads.SelectedItem = Settings.Default["threads"].ToString();
+                    }
                 }
             }
             catch
             {
 
             }
-
         }
 
 

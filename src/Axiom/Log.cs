@@ -70,7 +70,7 @@ namespace Axiom
                     //configure.logPath = currentDir + "\\";
                     //System.Windows.MessageBox.Show(log); //debug
 
-                    Configure.logPath = MainWindow.currentDir.TrimEnd('\\') + @"\";
+                    Configure.logPath = MainWindow.currentDir;
                 }
                 // If textbox is not empty, use User custom path
                 else if (!string.IsNullOrEmpty(Configure.logPath))
@@ -199,10 +199,10 @@ namespace Axiom
                 // -------------------------
                 // Clear the Process Line before the next convert to be safe
                 // Do not clear if Running from Script window, it will prevent ffmpegArgs from appearing in log
-                if (MainWindow.script == 0)
-                {
-                    FFmpeg.ffmpegArgs = string.Empty;
-                }
+                //if (MainWindow.script == 0)
+                //{
+                //    FFmpeg.ffmpegArgs = string.Empty;
+                //}
 
                 // set script back to 0 for next convert
                 MainWindow.script = 0;

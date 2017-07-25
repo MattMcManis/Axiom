@@ -71,20 +71,20 @@ namespace Axiom
         // --------------------------------------------------------------------------------------------------------
 
         /// <summary>
-        /// Log Console
-        /// </summary>
-        public DebugConsole debugconsole = new DebugConsole();
-
-        /// <summary>
-        /// Log Console
+        ///     Log Console
         /// </summary>
         public LogConsole logconsole = new LogConsole();
 
         /// <summary>
-        /// Log Console
+        ///     Debug Console
         /// </summary>
-        public FileProperties fileproperties = new FileProperties();
-        public static Paragraph propertiesparagraph = new Paragraph(); //RichTextBox
+        public DebugConsole debugconsole; //pass data, do not add new
+
+        /// <summary>
+        ///     File Properties Console
+        /// </summary>
+        public FileProperties fileproperties; //pass data, do not add new
+        public static Paragraph propertiesParagraph = new Paragraph(); //RichTextBox
 
         /// <summary>
         ///     Script View
@@ -92,30 +92,24 @@ namespace Axiom
         public ScriptView scriptview; //pass data, do not add new
 
         /// <summary>
-        ///     Configure
+        ///     Configure Window
         /// </summary>
-        public Configure configure = new Configure();
+        public Configure configure; //pass data, do not add new
 
         /// <summary>
         ///     File Queue
         /// </summary>
-        public FileQueue filequeue = new FileQueue(); 
+        public FileQueue filequeue = new FileQueue();
 
         /// <summary>
         ///     Crop Window
         /// </summary>
-        public static CropWindow cropwindow = new CropWindow(); 
-        // Temp save settings when Crop Window is closed
-        public static string cropWidth = string.Empty; 
-        public static string cropHeight = string.Empty; 
-        public static string cropX = string.Empty; 
-        public static string cropY = string.Empty;
-        public static string crop = string.Empty; // Combined Width, Height, X, Y
+        public static CropWindow cropwindow; //pass data, do not add new
 
         /// <summary>
         ///     Optimize Advanced Window
         /// </summary>
-        public OptimizeAdvanced optadv = new OptimizeAdvanced(); //pass data
+        public OptimizeAdvanced optadv; //pass data
         public static string optAdvTune = string.Empty; //temporary save settings holder
         public static string optAdvProfile = string.Empty; //temporary save settings holder
         public static string optAdvLevel = string.Empty; //temporary save settings holder
@@ -138,10 +132,9 @@ namespace Axiom
         // System
         public static string threads; // CPU Threads
         public static string maxthreads; // All CPU Threads
-        //public static string theme;
 
         // Paths
-        public static string currentDir = Directory.GetCurrentDirectory();
+        public static string currentDir = Directory.GetCurrentDirectory().TrimEnd('\\') + @"\";
 
         // Input / Output
         public static string inputDir; // Input File Directory
@@ -171,7 +164,7 @@ namespace Axiom
         {
             InitializeComponent();
 
-            TitleVersion = "Axiom ~ FFmpeg UI (0.9.6-alpha)";
+            TitleVersion = "Axiom ~ FFmpeg UI (0.9.7-alpha)";
             DataContext = this;
 
             /// <summary>
@@ -190,6 +183,7 @@ namespace Axiom
             // Log Console Message /////////
             logconsole.rtbLog.Document = new FlowDocument(Log.logParagraph); //start
             logconsole.rtbLog.BeginChange(); //begin change
+
             Log.logParagraph.Inlines.Add(new Bold(new Run(TitleVersion)) { Foreground = Log.ConsoleTitle });
 
             /// <summary>
@@ -276,64 +270,12 @@ namespace Axiom
             // -------------------------
             // Load Theme
             // -------------------------
-            // Safeguard Against Corrupt Saved Settings
-            try
-            {
-                // first time use
-                if (string.IsNullOrEmpty(Settings.Default["Theme"].ToString()))
-                {
-                    Configure.theme = "Axiom";
-
-                    App.Current.Resources.MergedDictionaries.Clear();
-                    App.Current.Resources.MergedDictionaries.Add(new ResourceDictionary() {
-                        Source = new Uri("Theme" + Configure.theme + ".xaml", UriKind.RelativeOrAbsolute)
-                    });
-                }
-                // If string has value
-                else if (!string.IsNullOrEmpty(Settings.Default["Theme"].ToString())) // auto/null check
-                {
-                    // Load Saved Settings Override
-                    Configure.theme = Settings.Default["Theme"].ToString();
-
-                    App.Current.Resources.MergedDictionaries.Clear();
-                    App.Current.Resources.MergedDictionaries.Add(new ResourceDictionary() {
-                        Source = new Uri("Theme" + Configure.theme + ".xaml", UriKind.RelativeOrAbsolute)
-                    });
-                }
-            }
-            catch
-            {
-
-            }
-
+            Configure.ConfigTheme(configure);
 
             // -------------------------
             // Load FFmpeg.exe Path
             // -------------------------
-            // Safeguard Against Corrupt Saved Settings
-            try
-            {
-                // first time use
-                if (string.IsNullOrEmpty(Settings.Default["ffmpegPath"].ToString()))
-                {
-                    Configure.ffmpegPath = "<auto>"; 
-                }
-                // If string has value besides <auto> or none
-                else if (!string.IsNullOrEmpty(Settings.Default["ffmpegPath"].ToString())) // null check
-                {
-                    // Load Saved Settings Override
-                    Configure.ffmpegPath = Settings.Default["ffmpegPath"].ToString();
-                }
-            }
-            catch
-            {
-
-            }
-
-            // -------------------------
-            // Get / Set the FFmpeg & FFprobe Paths
-            // -------------------------
-            //MainWindow.FFpaths(this);
+            Configure.ConfigFFmpegPath(configure);
 
             // Log Console Message /////////
             Log.logParagraph.Inlines.Add(new LineBreak());
@@ -341,63 +283,20 @@ namespace Axiom
             Log.logParagraph.Inlines.Add(new Bold(new Run("FFmpeg: ")) { Foreground = Log.ConsoleDefault });
             Log.logParagraph.Inlines.Add(new Run(MainWindow.FFmpegPath(this)) { Foreground = Log.ConsoleDefault });
 
-
             // -------------------------
             // Load FFprobe.exe Path
             // -------------------------
-            // Safeguard Against Corrupt Saved Settings
-            try
-            {
-                // first time use
-                if (string.IsNullOrEmpty(Settings.Default["ffprobePath"].ToString()))
-                {
-                    Configure.ffprobePath = "<auto>";
-                }
-                // If string has value besides <auto> or none
-                else if (!string.IsNullOrEmpty(Settings.Default["ffprobePath"].ToString())) // null check
-                {
-                    // Load Saved Settings Override
-                    Configure.ffprobePath = Settings.Default["ffprobePath"].ToString();
-                }
-            }
-            catch
-            {
-
-            }
-
-            // -------------------------
-            // Get / Set the FFmpeg & FFprobe Paths
-            // -------------------------
-            //MainWindow.FFpaths(this);
+            Configure.ConfigFFprobePath(configure);
 
             // Log Console Message /////////
             Log.logParagraph.Inlines.Add(new LineBreak());
             Log.logParagraph.Inlines.Add(new Bold(new Run("FFprobe: ")) { Foreground = Log.ConsoleDefault });
             Log.logParagraph.Inlines.Add(new Run(MainWindow.FFprobePath(this)) { Foreground = Log.ConsoleDefault });
 
-
             // -------------------------
             // Load Log Enabled
             // -------------------------
-            // Safeguard Against Corrupt Saved Settings
-            try
-            {
-                // First time use
-                if (string.IsNullOrEmpty(Convert.ToString(Settings.Default.logEnable)))
-                {
-                    Configure.logEnable = false;
-                }
-                // Load Keep Window Toggle from saved settings
-                else if (!string.IsNullOrEmpty(Convert.ToString(Settings.Default.KeepWindow)))
-                {
-                    Configure.logEnable = Convert.ToBoolean(Settings.Default.logEnable);
-                }
-            }
-            catch
-            {
-
-            }
-
+            Configure.ConfigLogCheckbox(configure);
 
             // Log Console Message /////////
             Log.logParagraph.Inlines.Add(new LineBreak());
@@ -405,62 +304,27 @@ namespace Axiom
             Log.logParagraph.Inlines.Add(new Bold(new Run("Log Enabled: ")) { Foreground = Log.ConsoleDefault });
             Log.logParagraph.Inlines.Add(new Run(Convert.ToString(Configure.logEnable)) { Foreground = Log.ConsoleDefault });
 
-
             // -------------------------
             // Load Log Path
             // -------------------------
-            // Safeguard Against Corrupt Saved Settings
-            try
-            {
-                // first time use
-                if (string.IsNullOrEmpty(Settings.Default["logPath"].ToString())) // null check
-                {
-                    Configure.logPath = string.Empty;
-                }
-                // If string has value besides <auto> or none
-                else if (!string.IsNullOrEmpty(Settings.Default["logPath"].ToString())) // null check
-                {
-                    Configure.logPath = Settings.Default["logPath"].ToString(); // Load Saved Settings Override
-                }
-            }
-            catch
-            {
-
-            }
+            Configure.ConfigLogPath(configure);
 
             // Log Console Message /////////
             Log.logParagraph.Inlines.Add(new LineBreak());
             Log.logParagraph.Inlines.Add(new Bold(new Run("Log Path: ")) { Foreground = Log.ConsoleDefault });
             Log.logParagraph.Inlines.Add(new Run(Configure.logPath) { Foreground = Log.ConsoleDefault });
 
-
             // -------------------------
             // Load Threads
             // -------------------------
-            // Safeguard Against Corrupt Saved Settings
-            try
-            {
-                // first time use
-                if (string.IsNullOrEmpty(Settings.Default["threads"].ToString()))
-                {
-                    Configure.threads = "all";
-                }
-                // Load Saved
-                else if (!string.IsNullOrEmpty(Settings.Default["threads"].ToString())) // null check
-                {
-                    Configure.threads = Settings.Default["threads"].ToString();
-                }
-            }
-            catch
-            {
-
-            }
+            Configure.ConfigThreads(configure);
 
             // Log Console Message /////////
             Log.logParagraph.Inlines.Add(new LineBreak());
             Log.logParagraph.Inlines.Add(new LineBreak());
             Log.logParagraph.Inlines.Add(new Bold(new Run("Using CPU Threads: ")) { Foreground = Log.ConsoleDefault });
             Log.logParagraph.Inlines.Add(new Run(Configure.threads) { Foreground = Log.ConsoleDefault });
+
             logconsole.rtbLog.EndChange(); //end change !important
 
 
@@ -471,12 +335,16 @@ namespace Axiom
             // Safeguard Against Corrupt Saved Settings
             try
             {
+                // --------------------------
                 // First time use
+                // --------------------------
                 if (string.IsNullOrEmpty(Convert.ToString(Settings.Default.KeepWindow)))
                 {
                     tglWindowKeep.IsChecked = false;
                 }
-                // Load Keep Window Toggle from saved settings
+                // --------------------------
+                // Load Saved Settings Override
+                // --------------------------
                 else if (!string.IsNullOrEmpty(Convert.ToString(Settings.Default.KeepWindow)))
                 {
                     tglWindowKeep.IsChecked = Convert.ToBoolean(Settings.Default.KeepWindow);
@@ -529,7 +397,6 @@ namespace Axiom
         public static void ClearVariables()
         {
             // FFmpeg
-            FFmpeg.ffmpegArgs = string.Empty;
             FFmpeg.cmdWindow = string.Empty;
 
             // FFprobe
@@ -569,8 +436,6 @@ namespace Axiom
             Video.cropDivisible = string.Empty;
             Video.width = string.Empty;
             Video.height = string.Empty;
-
-            crop = string.Empty;
 
             Format.trim = string.Empty;
             Format.trimStart = string.Empty;
@@ -629,6 +494,9 @@ namespace Axiom
             //input
             //outputDir
             //outputFileName
+            //CropWindow.crop
+            //ffmpegArgs
+            //ffmpegArgsSort
         }
 
 
@@ -827,7 +695,7 @@ namespace Axiom
                 if (Configure.ffmpegPath == "<auto>")
                 {
                     // Check default current directory
-                    if (File.Exists(currentDir + "\\ffmpeg\\bin\\ffmpeg.exe"))
+                    if (File.Exists(currentDir + "ffmpeg\\bin\\ffmpeg.exe"))
                     {
                         // let pass
                         ffCheckCleared = 1;
@@ -900,7 +768,7 @@ namespace Axiom
                 if (Configure.ffprobePath == "<auto>")
                 {
                     // Check default current directory
-                    if (File.Exists(currentDir + "\\ffmpeg\\bin\\ffprobe.exe"))
+                    if (File.Exists(currentDir + "ffmpeg\\bin\\ffprobe.exe"))
                     {
                         // let pass
                         ffCheckCleared = 1;
@@ -984,12 +852,12 @@ namespace Axiom
             // If Configure FFmpeg Path is <auto>
             if (Configure.ffmpegPath == "<auto>")
             {
-                if (File.Exists(currentDir + "\\ffmpeg\\bin\\ffmpeg.exe"))
+                if (File.Exists(currentDir + "ffmpeg\\bin\\ffmpeg.exe"))
                 {
                     //use included binary
-                    FFmpeg.ffmpeg = "\"" + currentDir + "\\ffmpeg\\bin\\ffmpeg.exe" + "\"";
+                    FFmpeg.ffmpeg = "\"" + currentDir + "ffmpeg\\bin\\ffmpeg.exe" + "\"";
                 }
-                else if (!File.Exists(currentDir + "\\ffmpeg\\bin\\ffmpeg.exe"))
+                else if (!File.Exists(currentDir + "ffmpeg\\bin\\ffmpeg.exe"))
                 {
                     //use system installed binaries
                     FFmpeg.ffmpeg = "ffmpeg";
@@ -1014,12 +882,12 @@ namespace Axiom
             // If Configure FFprobe Path is <auto>
             if (Configure.ffprobePath == "<auto>")
             {
-                if (File.Exists(currentDir + "\\ffmpeg\\bin\\ffprobe.exe"))
+                if (File.Exists(currentDir + "ffmpeg\\bin\\ffprobe.exe"))
                 {
                     //use included binary
-                    FFprobe.ffprobe = "\"" + currentDir + "\\ffmpeg\\bin\\ffprobe.exe" + "\"";
+                    FFprobe.ffprobe = "\"" + currentDir + "ffmpeg\\bin\\ffprobe.exe" + "\"";
                 }
-                else if (!File.Exists(currentDir + "\\ffmpeg\\bin\\ffprobe.exe"))
+                else if (!File.Exists(currentDir + "ffmpeg\\bin\\ffprobe.exe"))
                 {
                     //use system installed binaries
                     //ffprobe = "\"" + "ffprobe" + "\"";
@@ -1408,21 +1276,27 @@ namespace Axiom
             }
 
             // Do not allow Script to generate if Browse Empty & Auto, since there is no file to detect bitrates/codecs
-            if (string.IsNullOrWhiteSpace(mainwindow.textBoxBrowse.Text) && (string)mainwindow.cboVideo.SelectedItem == "Auto" 
-                | (string)mainwindow.cboAudio.SelectedItem == "Auto" 
-                && (string)mainwindow.cboVideoCodec.SelectedItem != "Copy" 
-                | (string)mainwindow.cboAudioCodec.SelectedItem != "Copy")
+            // Ignore if Batch
+            if (mainwindow.tglBatch.IsChecked == false)
             {
-                // Log Console Message /////////
-                Log.logParagraph.Inlines.Add(new LineBreak());
-                Log.logParagraph.Inlines.Add(new LineBreak());
-                Log.logParagraph.Inlines.Add(new Bold(new Run("Notice: Auto Mode needs an input file in order to detect settings.")) { Foreground = Log.ConsoleWarning });
+                if (string.IsNullOrWhiteSpace(mainwindow.textBoxBrowse.Text)
+                    && (string)mainwindow.cboVideo.SelectedItem == "Auto"
+                    | (string)mainwindow.cboAudio.SelectedItem == "Auto"
+                    && (string)mainwindow.cboVideoCodec.SelectedItem != "Copy"
+                    | (string)mainwindow.cboAudioCodec.SelectedItem != "Copy")
+                {
+                    // Log Console Message /////////
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new Bold(new Run("Notice: Auto Mode needs an input file in order to detect settings.")) { Foreground = Log.ConsoleWarning });
 
-                MessageBox.Show("Auto Mode needs an input file in order to detect settings.");
-                /* lock */
-                ready = 0;
-                script = 0;
+                    MessageBox.Show("Auto Mode needs an input file in order to detect settings.");
+                    /* lock */
+                    ready = 0;
+                    script = 0;
+                }
             }
+
 
             // STOP if Single File Input with no Extension
             if (mainwindow.tglBatch.IsChecked == false && mainwindow.textBoxBrowse.Text.EndsWith("\\"))
@@ -1576,14 +1450,14 @@ namespace Axiom
             // -------------------------
             // Display FFprobe File Properties
             // -------------------------  
-            mainwindow.fileproperties.rtbFileProperties.Document = new FlowDocument(propertiesparagraph); // start
+            mainwindow.fileproperties.rtbFileProperties.Document = new FlowDocument(propertiesParagraph); // start
             mainwindow.fileproperties.rtbFileProperties.BeginChange(); // begin change
 
             // Clear Rich Text Box on Start
-            propertiesparagraph.Inlines.Clear();
+            propertiesParagraph.Inlines.Clear();
 
             // Write All File Properties to Rich Text Box
-            propertiesparagraph.Inlines.Add(new Run(FFprobe.inputFileProperties) { Foreground = Log.ConsoleDefault });
+            propertiesParagraph.Inlines.Add(new Run(FFprobe.inputFileProperties) { Foreground = Log.ConsoleDefault });
 
             mainwindow.fileproperties.rtbFileProperties.EndChange(); // end change
 
@@ -1685,11 +1559,9 @@ namespace Axiom
             // Log Console Message /////////
             Log.WriteAction = () =>
             {
-                
                 Log.logParagraph.Inlines.Add(new LineBreak());
                 Log.logParagraph.Inlines.Add(new LineBreak());
                 Log.logParagraph.Inlines.Add(new Bold(new Run("...............................................")) { Foreground = Log.ConsoleAction });
-                
             };
             Log.LogActions.Add(Log.WriteAction);
 
@@ -1713,6 +1585,9 @@ namespace Axiom
 
             // Enable Script
             script = 1;
+
+            // Reset Sort
+            ScriptView.sort = 0;
 
 
             /// <summary>
@@ -1788,12 +1663,9 @@ namespace Axiom
                 /// <summary>
                 ///    Generate Script
                 /// </summary> 
-                FFmpeg.FFmpegScript(this);
+                FFmpeg.FFmpegScript(this, scriptview);
 
                 //sw.Stop(); //stop stopwatch
-
-                // Write Variables to Debug Window (Method)
-                //DebugConsole.DebugWrite(debugconsole, this);
 
                 // Close the Background Worker
                 fileprocess.CancelAsync();
@@ -1861,7 +1733,6 @@ namespace Axiom
                     File.Delete(filename);
                     Settings.Default.Upgrade();
                     // Properties.Settings.Default.Reload();
-                    // you could optionally restart the app instead
                 }
                 else
                 {
@@ -2903,12 +2774,12 @@ namespace Axiom
         {
             try
             {
-                cropwindow.cropWidth.Text = string.Empty;
-                cropwindow.cropHeight.Text = string.Empty;
-                cropwindow.cropX.Text = string.Empty;
-                cropwindow.cropY.Text = string.Empty;
+                cropwindow.textBoxCropWidth.Text = string.Empty;
+                cropwindow.textBoxCropHeight.Text = string.Empty;
+                cropwindow.textBoxCropX.Text = string.Empty;
+                cropwindow.textBoxCropY.Text = string.Empty;
 
-                crop = string.Empty;
+                CropWindow.crop = string.Empty;
 
                 // Trigger the CropWindow Clear Button (only way it will clear the string)
                 cropwindow.buttonClear_Click(sender, e);
@@ -2928,541 +2799,7 @@ namespace Axiom
         /// </summary>
         private void cboPreset_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            // Custom ComboBox Editable
-            if ((string)cboPreset.SelectedItem == "Custom")
-            {
-                cboPreset.IsEditable = true;
-            }
-            // Maintain Editable Combobox while typing
-            if (cboPreset.IsEditable == true)
-            {
-                cboPreset.IsEditable = true;
-
-                // Clear Custom Text
-                cboPreset.Text = string.Empty;
-            }
-
-            if ((string)cboPreset.SelectedItem == "Preset")
-            {
-                if ((string)cboFormat.SelectedItem == "webm" 
-                    || (string)cboFormat.SelectedItem == "mp4" 
-                    || (string)cboFormat.SelectedItem == "mkv" 
-                    || (string)cboFormat.SelectedItem == "ogv" 
-                    || (string)cboFormat.SelectedItem == "jpg" 
-                    || (string)cboFormat.SelectedItem == "png")
-                {
-                    cboPreset.IsEditable = false;
-
-                    // Video
-                    cboFormat.SelectedItem = cboFormat;
-                    cboVideo.SelectedItem = "Auto";
-                    cboSize.SelectedItem = "No";
-                    cboCut.SelectedItem = "No";
-                    cutStart.Text = "00:00:00.000";
-                    cutEnd.Text = "00:00:00.000";
-                    cboSpeed.SelectedItem = "Medium";
-                    cboFPS.SelectedItem = "auto";
-                    cboFPS.IsEnabled = true;
-                    cboSubtitle.SelectedItem = "all";
-                    // Audio
-                    cboAudio.SelectedItem = "Auto";
-                    cboChannel.SelectedItem = "Source";
-                    cboSamplerate.SelectedItem = "auto";
-                    cboBitDepth.SelectedItem = "auto";
-                    cboAudioStream.SelectedItem = "all";
-                    volumeUpDown.Text = "100";
-                    tglAudioLimiter.IsChecked = false;
-                    audioLimiter.Text = string.Empty;
-
-                    if ((string)cboFormat.SelectedItem == "webm") // special rules for webm
-                    {
-                        cboSubtitle.SelectedItem = "none";
-                        cboAudioStream.SelectedItem = "1";
-                        //cboOptimize.SelectedItem = "Web";
-                    }
-                    else
-                    {
-                        cboOptimize.SelectedItem = "none";
-                    }
-
-                }
-                else if ((string)cboFormat.SelectedItem == "m4a" 
-                    || (string)cboFormat.SelectedItem == "mp3" 
-                    || (string)cboFormat.SelectedItem == "ogg" 
-                    || (string)cboFormat.SelectedItem == "flac" 
-                    || (string)cboFormat.SelectedItem == "wav")
-                {
-                    cboPreset.IsEditable = false;
-
-                    // Video
-                    cboFormat.SelectedItem = cboFormat;
-                    cboVideo.SelectedItem = "None";
-                    cboSize.SelectedItem = "No";
-                    cboCut.SelectedItem = "No";
-                    cutStart.Text = "00:00:00.000";
-                    cutEnd.Text = "00:00:00.000";
-                    cboSpeed.SelectedItem = "Medium";
-                    cboFPS.SelectedItem = "auto";
-                    cboFPS.IsEnabled = false;
-                    cboSubtitle.SelectedItem = "none";
-                    cboOptimize.SelectedItem = "none";
-                    // Audio
-                    cboAudio.SelectedItem = "Auto";
-                    cboChannel.SelectedItem = "Source";
-                    cboSamplerate.SelectedItem = "auto";
-                    if ((string)cboAudioCodec.SelectedItem == "PCM") { cboBitDepth.SelectedItem = "24"; } // special rules for PCM codec
-                    else { cboBitDepth.SelectedItem = "auto"; }
-                    cboAudioStream.SelectedItem = "1";
-                    volumeUpDown.Text = "100";
-                    tglAudioLimiter.IsChecked = false;
-                    audioLimiter.Text = string.Empty;
-                }
-            }
-
-            else if ((string)cboPreset.SelectedItem == "DVD")
-            {
-                cboPreset.IsEditable = false;
-
-                // Format
-                cboFormat.SelectedItem = "mp4";
-                cboVideoCodec.SelectedItem = "x264";
-                cboAudioCodec.SelectedItem = "AC3";
-
-                // Video
-                cboVideo.SelectedItem = "High";
-                cboSize.SelectedItem = "Custom";
-                widthCustom.Text = "720";
-                heightCustom.Text = "480";
-                cboCut.SelectedItem = "No";
-                cutStart.Text = "00:00:00.000";
-                cutEnd.Text = "00:00:00.000";
-                cboFPS.SelectedItem = "23.976";
-                cboFPS.IsEnabled = true;
-                cboSubtitle.SelectedItem = "all";
-                cboOptimize.SelectedItem = "DVD";
-
-                // Audio
-                cboAudio.SelectedItem = "320";
-                tglVBR.IsChecked = false;
-                cboChannel.SelectedItem = "Source";
-                cboSamplerate.SelectedItem = "44.1k";
-                cboBitDepth.SelectedItem = "auto";
-                volumeUpDown.Text = "100";
-                tglAudioLimiter.IsChecked = false;
-                audioLimiter.Text = string.Empty;
-            }
-
-            else if ((string)cboPreset.SelectedItem == "HD Video")
-            {
-                cboPreset.IsEditable = false;
-
-                // Format
-                cboFormat.SelectedItem = "mp4";
-                cboVideoCodec.SelectedItem = "x264";
-                cboAudioCodec.SelectedItem = "AAC";
-
-                // Video
-                cboVideo.SelectedItem = "Ultra";
-                cboSize.SelectedItem = "No";
-                cboSubtitle.SelectedItem = "all";
-                cboOptimize.SelectedItem = "none";
-                cboFPS.SelectedItem = "auto";
-                cboFPS.IsEnabled = true;
-                cboCut.SelectedItem = "No";
-                cutStart.Text = "00:00:00.000";
-                cutEnd.Text = "00:00:00.000";
-
-                // Audio
-                cboAudio.SelectedItem = "400";
-                tglVBR.IsChecked = false;
-                cboChannel.SelectedItem = "Stereo";
-                cboSamplerate.SelectedItem = "48k";
-                cboBitDepth.SelectedItem = "auto";
-                volumeUpDown.Text = "100";
-                tglAudioLimiter.IsChecked = false;
-                audioLimiter.Text = string.Empty;
-            }
-
-            else if ((string)cboPreset.SelectedItem == "SD Video")
-            {
-                cboPreset.IsEditable = false;
-
-                // Format
-                cboFormat.SelectedItem = "mp4";
-                cboVideoCodec.SelectedItem = "x264";
-                cboAudioCodec.SelectedItem = "AC3";
-
-
-                // Video
-                cboVideo.SelectedItem = "High";
-                cboSize.SelectedItem = "No";
-                cboFPS.SelectedItem = "auto";
-                cboFPS.IsEnabled = true;
-                cboCut.SelectedItem = "No";
-                cutStart.Text = "00:00:00.000";
-                cutEnd.Text = "00:00:00.000";
-                cboSubtitle.SelectedItem = "all";
-                cboOptimize.SelectedItem = "none";
-
-                // Audio
-                cboAudio.SelectedItem = "256";
-                tglVBR.IsChecked = false;
-                cboChannel.SelectedItem = "Stereo";
-                cboSamplerate.SelectedItem = "44.1k";
-                cboBitDepth.SelectedItem = "auto";
-                volumeUpDown.Text = "100";
-                tglAudioLimiter.IsChecked = false;
-                audioLimiter.Text = string.Empty;
-            }
-
-            else if ((string)cboPreset.SelectedItem == "Blu-ray")
-            {
-                cboPreset.IsEditable = false;
-
-                // Format
-                cboFormat.SelectedItem = "mp4";
-                cboVideoCodec.SelectedItem = "x264";
-                cboAudioCodec.SelectedItem = "AC3";
-
-                // Video
-                cboSize.SelectedItem = "1080p";
-                cboVideo.SelectedItem = "Ultra";
-                cboFPS.SelectedItem = "23.976";
-                cboFPS.IsEnabled = true;
-                cboSubtitle.SelectedItem = "all";
-                cboOptimize.SelectedItem = "Blu-ray";
-                cboCut.SelectedItem = "No";
-                cutStart.Text = "00:00:00.000";
-                cutEnd.Text = "00:00:00.000";
-
-                // Audio
-                cboAudio.SelectedItem = "640";
-                tglVBR.IsChecked = false;
-                cboChannel.SelectedItem = "Source";
-                cboSamplerate.SelectedItem = "48k";
-                cboBitDepth.SelectedItem = "auto";
-                volumeUpDown.Text = "100";
-                tglAudioLimiter.IsChecked = false;
-                audioLimiter.Text = string.Empty;
-            }
-
-            else if ((string)cboPreset.SelectedItem == "Win Phone")
-            {
-                cboPreset.IsEditable = false;
-
-                // Format
-                cboFormat.SelectedItem = "mp4";
-                cboVideoCodec.SelectedItem = "x264";
-                cboAudioCodec.SelectedItem = "AAC";
-
-                // Video
-                cboVideo.SelectedItem = "High";
-
-                cboCut.SelectedItem = "No";
-                cutStart.Text = "00:00:00.000";
-                cutEnd.Text = "00:00:00.000";
-                //cboTune.SelectedItem = "none";
-                cboFPS.SelectedItem = "23.976";
-                cboFPS.IsEnabled = true;
-                cboSize.SelectedItem = "No";
-                cboSubtitle.SelectedItem = "all";
-                cboOptimize.SelectedItem = "Windows";
-
-                // Audio
-                cboAudio.SelectedItem = "400";
-                tglVBR.IsChecked = true;
-                cboChannel.SelectedItem = "Stereo";
-                cboSamplerate.SelectedItem = "44.1k";
-                cboBitDepth.SelectedItem = "auto";
-                volumeUpDown.Text = "100";
-                tglAudioLimiter.IsChecked = false;
-                audioLimiter.Text = string.Empty;
-            }
-
-            else if ((string)cboPreset.SelectedItem == "iOS")
-            {
-                cboPreset.IsEditable = false;
-
-                // Format
-                cboFormat.SelectedItem = "mp4";
-                cboVideoCodec.SelectedItem = "x264";
-                cboAudioCodec.SelectedItem = "AAC";
-
-                // Video
-                cboVideo.SelectedItem = "High";
-                cboSize.SelectedItem = "No";
-                cboFPS.SelectedItem = "23.976";
-                cboFPS.IsEnabled = true;
-                cboCut.SelectedItem = "No";
-                cutStart.Text = "00:00:00.000";
-                cutEnd.Text = "00:00:00.000";
-                cboSubtitle.SelectedItem = "all";
-                cboOptimize.SelectedItem = "Apple";
-
-                // Audio
-                cboAudio.SelectedItem = "400";
-                tglVBR.IsChecked = true;
-                cboChannel.SelectedItem = "Stereo";
-                cboSamplerate.SelectedItem = "44.1k";
-                cboBitDepth.SelectedItem = "auto";
-                volumeUpDown.Text = "100";
-                tglAudioLimiter.IsChecked = false;
-                audioLimiter.Text = string.Empty;
-            }
-
-            else if ((string)cboPreset.SelectedItem == "Android")
-            {
-                cboPreset.IsEditable = false;
-
-                // Format
-                cboFormat.SelectedItem = "mp4";
-                cboVideoCodec.SelectedItem = "x264";
-                cboAudioCodec.SelectedItem = "AAC";
-
-                // Video
-                cboVideo.SelectedItem = "High";
-                cboSize.SelectedItem = "No";
-                cboSubtitle.SelectedItem = "all";
-                cboOptimize.SelectedItem = "Android";
-                cboFPS.SelectedItem = "23.976";
-                cboFPS.IsEnabled = true;
-                cboCut.SelectedItem = "No";
-                cutStart.Text = "00:00:00.000";
-                cutEnd.Text = "00:00:00.000";
-
-                // Audio
-                cboAudio.SelectedItem = "400";
-                tglVBR.IsChecked = true;
-                cboChannel.SelectedItem = "Stereo";
-                cboSamplerate.SelectedItem = "44.1k";
-                cboBitDepth.SelectedItem = "auto";
-                volumeUpDown.Text = "100";
-                tglAudioLimiter.IsChecked = false;
-                audioLimiter.Text = string.Empty;
-            }
-
-            else if ((string)cboPreset.SelectedItem == "PS3")
-            {
-                cboPreset.IsEditable = false;
-
-                // Format
-                cboFormat.SelectedItem = "mp4";
-                cboVideoCodec.SelectedItem = "x264";
-                cboAudioCodec.SelectedItem = "AAC";
-
-                // Video
-                cboVideo.SelectedItem = "Ultra";
-                cboSize.SelectedItem = "No";
-                cboFPS.SelectedItem = "23.976";
-                cboFPS.IsEnabled = true;
-                cboCut.SelectedItem = "No";
-                cutStart.Text = "00:00:00.000";
-                cutEnd.Text = "00:00:00.000";
-                cboSubtitle.SelectedItem = "all";
-                cboOptimize.SelectedItem = "PS3";
-
-                // Audio
-                cboAudio.SelectedItem = "400";
-                tglVBR.IsChecked = false;
-                cboChannel.SelectedItem = "Source";
-                cboSamplerate.SelectedItem = "48k";
-                cboBitDepth.SelectedItem = "auto";
-                volumeUpDown.Text = "100";
-                tglAudioLimiter.IsChecked = false;
-                audioLimiter.Text = string.Empty;
-            }
-
-            else if ((string)cboPreset.SelectedItem == "PS4")
-            {
-                cboPreset.IsEditable = false;
-
-                // Format
-                cboFormat.SelectedItem = "mp4";
-                cboVideoCodec.SelectedItem = "x264";
-                cboAudioCodec.SelectedItem = "AAC";
-
-                // Video
-                cboVideo.SelectedItem = "Ultra";
-                cboSize.SelectedItem = "No";
-                cboCut.SelectedItem = "No";
-                cutStart.Text = "00:00:00.000";
-                cutEnd.Text = "00:00:00.000";
-                cboFPS.SelectedItem = "auto";
-                cboFPS.IsEnabled = true;
-                cboSubtitle.SelectedItem = "all";
-                cboOptimize.SelectedItem = "PS4";
-
-                // Audio
-                cboAudio.SelectedItem = "400";
-                cboChannel.SelectedItem = "Source";
-                cboSamplerate.SelectedItem = "auto";
-                cboBitDepth.SelectedItem = "auto";
-                tglVBR.IsChecked = false;
-                volumeUpDown.Text = "100";
-                tglAudioLimiter.IsChecked = false;
-                audioLimiter.Text = string.Empty;
-            }
-
-            else if ((string)cboPreset.SelectedItem == "Xbox 360")
-            {
-                cboPreset.IsEditable = false;
-
-                // Format
-                cboFormat.SelectedItem = "mp4";
-                cboVideoCodec.SelectedItem = "x264";
-                cboAudioCodec.SelectedItem = "AAC";
-
-                // Video
-                cboVideo.SelectedItem = "High";
-                cboSize.SelectedItem = "No";
-                cboCut.SelectedItem = "No";
-                cutStart.Text = "00:00:00.000";
-                cutEnd.Text = "00:00:00.000";
-                cboFPS.SelectedItem = "23.976";
-                cboFPS.IsEnabled = true;
-                cboSubtitle.SelectedItem = "all";
-                cboOptimize.SelectedItem = "Xbox 360";
-
-                // Audio
-                cboAudio.SelectedItem = "320";
-                cboChannel.SelectedItem = "Stereo";
-                cboSamplerate.SelectedItem = "48k";
-                cboBitDepth.SelectedItem = "auto";
-                tglVBR.IsChecked = false;
-                volumeUpDown.Text = "100";
-                tglAudioLimiter.IsChecked = false;
-                audioLimiter.Text = string.Empty;
-            }
-
-            else if ((string)cboPreset.SelectedItem == "Xbox One")
-            {
-                cboPreset.IsEditable = false;
-
-                // Format
-                cboFormat.SelectedItem = "mp4";
-                cboVideoCodec.SelectedItem = "x264";
-                cboAudioCodec.SelectedItem = "AAC";
-
-                // Video
-                cboVideo.SelectedItem = "Ultra";
-                cboSize.SelectedItem = "No";
-                cboCut.SelectedItem = "No";
-                cutStart.Text = "00:00:00.000";
-                cutEnd.Text = "00:00:00.000";
-                cboSubtitle.SelectedItem = "all";
-                cboOptimize.SelectedItem = "Xbox One";
-                cboFPS.SelectedItem = "auto";
-                cboFPS.IsEnabled = true;
-
-                // Audio
-                cboAudio.SelectedItem = "400";
-                cboChannel.SelectedItem = "Source";
-                cboSamplerate.SelectedItem = "auto";
-                cboBitDepth.SelectedItem = "auto";
-                tglVBR.IsChecked = false;
-                volumeUpDown.Text = "100";
-                tglAudioLimiter.IsChecked = false;
-                audioLimiter.Text = string.Empty;
-            }
-
-            else if ((string)cboPreset.SelectedItem == "HTML5")
-            {
-                cboPreset.IsEditable = false;
-
-                // Format
-                cboFormat.SelectedItem = "webm";
-                cboVideoCodec.SelectedItem = "VP8";
-                cboAudioCodec.SelectedItem = "Vorbis";
-
-                // Video
-                cboVideo.SelectedItem = "Medium";
-                cboSize.SelectedItem = "No";
-                cboCut.SelectedItem = "No";
-                cutStart.Text = "00:00:00.000";
-                cutEnd.Text = "00:00:00.000";
-                cboFPS.SelectedItem = "auto";
-                cboFPS.IsEnabled = true;
-                cboSubtitle.SelectedItem = "none";
-                cboOptimize.SelectedItem = "Web";
-
-                // Audio
-                cboAudio.SelectedItem = "192";
-                tglVBR.IsChecked = true;
-                cboAudioStream.SelectedItem = "1";
-                cboChannel.SelectedItem = "Stereo";
-                cboSamplerate.SelectedItem = "44.1k";
-                cboBitDepth.SelectedItem = "auto";
-                volumeUpDown.Text = "100";
-                tglAudioLimiter.IsChecked = false;
-                audioLimiter.Text = string.Empty;
-            }
-
-            else if ((string)cboPreset.SelectedItem == "iTunes")
-            {
-                cboPreset.IsEditable = false;
-
-                // Format
-                cboFormat.SelectedItem = "m4a";
-                cboAudioCodec.SelectedItem = "AAC";
-
-                // Video
-                cboSize.SelectedItem = "No";
-                cboCut.SelectedItem = "No";
-                cutStart.Text = "00:00:00.000";
-                cutEnd.Text = "00:00:00.000";
-                cboFPS.SelectedItem = "auto";
-                cboFPS.IsEnabled = false;
-                cboOptimize.SelectedItem = "optimize";
-                cboSubtitle.SelectedItem = "none";
-
-                // Audio
-                cboAudio.SelectedItem = "320";
-                tglVBR.IsChecked = true;
-                cboChannel.SelectedItem = "Stereo";
-                cboSamplerate.SelectedItem = "44.1k";
-                cboBitDepth.SelectedItem = "auto";
-                volumeUpDown.Text = "100";
-                tglAudioLimiter.IsChecked = false;
-                audioLimiter.Text = string.Empty;
-            }
-
-            else if ((string)cboPreset.SelectedItem == "Debug")
-            {
-                cboPreset.IsEditable = false;
-
-                // Format
-                cboFormat.SelectedItem = "mkv";
-                cboAudioCodec.SelectedItem = "Opus";
-
-                // Video
-                cboVideo.SelectedItem = "Custom";
-                vBitrateCustom.Text = "1250K";
-                crfCustom.Text = "26";
-                cboFPS.SelectedItem = "24";
-                cboFPS.IsEnabled = true;
-                cboVideoCodec.SelectedItem = "x264";
-                cboSize.SelectedItem = "Custom";
-                widthCustom.Text = "545";
-                heightCustom.Text = "307";
-                cboCut.SelectedItem = "Yes";
-                cutStart.Text = "00:00:00.000";
-                cutEnd.Text = "00:00:05.300";
-                cboSubtitle.SelectedItem = "all";
-                cboOptimize.SelectedItem = "Windows";
-                cboSpeed.SelectedItem = "Faster";
-
-                // Audio
-                cboAudioStream.SelectedItem = "1";
-                cboAudio.SelectedItem = "Custom";
-                audioCustom.Text = "380";
-                tglVBR.IsChecked = true;
-                cboChannel.SelectedItem = "Stereo";
-                cboSamplerate.SelectedItem = "48k";
-                cboBitDepth.SelectedItem = "auto";
-                volumeUpDown.Text = "120";
-                tglAudioLimiter.IsChecked = true;
-                audioLimiter.Text = "0.90";
-            }
+            Presets.Preset(this); // Method
         }
 
 

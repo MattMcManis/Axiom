@@ -26,19 +26,32 @@
         Style="{DynamicResource WindowCrop}">
 
     <Grid>
-
-        <TextBox x:Name="cropX" HorizontalAlignment="Left" Height="22" Margin="32,109,0,0" TextWrapping="NoWrap" MaxLines="1" VerticalAlignment="Top" Width="60" Style="{DynamicResource TextBoxCustom}" KeyDown="cropX_KeyDown" ToolTipService.ShowOnDisabled="True" ToolTip="Position of Crop from Left"/>
-        <TextBox x:Name="cropY" HorizontalAlignment="Left" Height="22" Margin="202,17,0,0" TextWrapping="NoWrap" MaxLines="1" VerticalAlignment="Top" Width="60" Style="{DynamicResource TextBoxCustom}" KeyDown="cropY_KeyDown" ToolTipService.ShowOnDisabled="True" ToolTip="Position of Crop from Top"/>
-        <Rectangle HorizontalAlignment="Left" Height="152" Margin="97,44,0,0" Stroke="White" VerticalAlignment="Top" Width="270" StrokeThickness="1"/>
-        <TextBox x:Name="cropWidth" HorizontalAlignment="Left" Height="22" Margin="170,109,0,0" TextWrapping="NoWrap" MaxLines="1" VerticalAlignment="Top" Width="60" Style="{DynamicResource TextBoxCustom}" KeyDown="cropWidth_KeyDown" ToolTipService.ShowOnDisabled="True" ToolTip="Width of Cropped Area"/>
-        <TextBox x:Name="cropHeight" HorizontalAlignment="Left" Height="22" Margin="235,109,0,0" TextWrapping="NoWrap" MaxLines="1" VerticalAlignment="Top" Width="60" Style="{DynamicResource TextBoxCustom}" KeyDown="cropHeight_KeyDown" ToolTipService.ShowOnDisabled="True" ToolTip="Height of Cropped Area"/>
-        <Label x:Name="labelCropY" Style="{DynamicResource LabelCustom}" Content="Y" HorizontalAlignment="Left" Margin="186,15,0,0" VerticalAlignment="Top" Width="21" />
+        
+        <!-- Crop X -->
         <Label x:Name="labelCropX" Style="{DynamicResource LabelCustom}" Content="X" HorizontalAlignment="Left" Margin="15,107,0,0" VerticalAlignment="Top" Width="20" />
+        <TextBox x:Name="textBoxCropX" HorizontalAlignment="Left" Height="22" Margin="32,109,0,0" TextWrapping="NoWrap" MaxLines="1" VerticalAlignment="Top" Width="60" Style="{DynamicResource TextBoxCustom}" KeyDown="textBoxCropX_KeyDown" ToolTipService.ShowOnDisabled="True" ToolTip="Position of Crop from Left"/>
+
+        <!-- Crop Y -->
+        <Label x:Name="labelCropY" Style="{DynamicResource LabelCustom}" Content="Y" HorizontalAlignment="Left" Margin="186,15,0,0" VerticalAlignment="Top" Width="21" />
+        <TextBox x:Name="textBoxCropY" HorizontalAlignment="Left" Height="22" Margin="202,17,0,0" TextWrapping="NoWrap" MaxLines="1" VerticalAlignment="Top" Width="60" Style="{DynamicResource TextBoxCustom}" KeyDown="textBoxCropY_KeyDown" ToolTipService.ShowOnDisabled="True" ToolTip="Position of Crop from Top"/>
+
+        <!-- Crop Width -->
         <Label x:Name="labelCropWidth" Style="{DynamicResource LabelCustom}" Content="Width" HorizontalAlignment="Left" Margin="178,84,0,0" VerticalAlignment="Top" Width="44" />
+        <TextBox x:Name="textBoxCropWidth" HorizontalAlignment="Left" Height="22" Margin="170,109,0,0" TextWrapping="NoWrap" MaxLines="1" VerticalAlignment="Top" Width="60" Style="{DynamicResource TextBoxCustom}" KeyDown="textBoxCropWidth_KeyDown" ToolTipService.ShowOnDisabled="True" ToolTip="Width of Cropped Area"/>
+
+        <!-- Crop Height -->
         <Label x:Name="labelCropHeight" Style="{DynamicResource LabelCustom}" Content="Height" HorizontalAlignment="Left" Margin="241,84,0,0" VerticalAlignment="Top" Width="48" />
+        <TextBox x:Name="textBoxCropHeight" HorizontalAlignment="Left" Height="22" Margin="235,109,0,0" TextWrapping="NoWrap" MaxLines="1" VerticalAlignment="Top" Width="60" Style="{DynamicResource TextBoxCustom}" KeyDown="textBoxCropHeight_KeyDown" ToolTipService.ShowOnDisabled="True" ToolTip="Height of Cropped Area"/>
+
+        <!-- Diagram Border -->
+        <Rectangle HorizontalAlignment="Left" Height="152" Margin="97,44,0,0" Stroke="White" VerticalAlignment="Top" Width="270" StrokeThickness="1"/>
+
+        <!-- Set button -->
         <Button x:Name="buttonSet" Style="{DynamicResource ButtonCustom}" HorizontalAlignment="Left" Margin="387,194,0,0" VerticalAlignment="Top" Width="60" Height="22" Cursor="Hand" Click="buttonSet_Click">
             <TextBlock x:Name="buttonSetTextBlock" Text="Set" Margin="0,-2,0,0"/>
         </Button>
+
+        <!-- Clear Button -->
         <Button x:Name="buttonClear" Style="{DynamicResource ButtonCustom}" HorizontalAlignment="Left" Margin="17,194,0,0" VerticalAlignment="Top" Width="60" Height="22" Cursor="Hand" Click="buttonClear_Click">
             <TextBlock x:Name="buttonClearTextBlock" Text="Clear" Margin="0,-2,0,0"/>
         </Button>

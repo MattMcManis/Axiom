@@ -38,6 +38,8 @@ namespace Axiom
     {
         private MainWindow mainwindow;
 
+        private ScriptView scriptview;
+
         public static Paragraph debugParagraph = new Paragraph(); //RichTextBox
         public static System.Windows.Media.Brush Heading = (SolidColorBrush)(new BrushConverter().ConvertFrom("#007DF2"));
         public static System.Windows.Media.Brush Variable = (SolidColorBrush)(new BrushConverter().ConvertFrom("#72D4E8"));
@@ -152,7 +154,7 @@ namespace Axiom
                 /// <summary>
                 ///    Generate Script
                 /// </summary> 
-                FFmpeg.FFmpegScript(mainwindow);
+                FFmpeg.FFmpegScript(mainwindow, scriptview);
 
                 //sw.Stop(); //stop stopwatch
 
@@ -359,11 +361,11 @@ namespace Axiom
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("vCodec ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(Video.VideoCodec(mainwindow)) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Video.vCodec) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("vQuality ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(Video.VideoQuality(mainwindow)) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Video.vCodec) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("vBitMode ")) { Foreground = Variable });
@@ -403,7 +405,7 @@ namespace Axiom
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("speed ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(Video.Speed(mainwindow)) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Video.speed) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new LineBreak());
@@ -468,19 +470,19 @@ namespace Axiom
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("cropWidth ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(MainWindow.cropWidth) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(CropWindow.cropWidth) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("cropHeight ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(MainWindow.cropHeight) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(CropWindow.cropHeight) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("cropX ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(MainWindow.cropX) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(CropWindow.cropX) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("cropY ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(MainWindow.cropY) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(CropWindow.cropY) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("cropDivisible ")) { Foreground = Variable });
@@ -488,7 +490,7 @@ namespace Axiom
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("crop ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(MainWindow.crop) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(CropWindow.crop) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new LineBreak());

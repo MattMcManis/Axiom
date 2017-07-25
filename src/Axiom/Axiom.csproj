@@ -118,6 +118,7 @@
     <Compile Include="OptimizeAdvanced.xaml.cs">
       <DependentUpon>OptimizeAdvanced.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Presets.cs" />
     <Compile Include="ScriptView.xaml.cs">
       <DependentUpon>ScriptView.xaml</DependentUpon>
     </Compile>

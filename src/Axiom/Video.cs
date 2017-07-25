@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Windows.Documents;
-using System.Windows.Media;
 // Disable XML Comment warnings
 #pragma warning disable 1591
 #pragma warning disable 1587
@@ -61,7 +60,6 @@ namespace Axiom
         // --------------------------------------------------------------------------------------------------------
 
         // Video
-        //public static int autoCopyVideoCodecSwitch = 0; // If 1, do not run AutoCopy Method again
         public static string vCodec;
         public static string vQuality;
         public static string vBitMode;
@@ -80,18 +78,25 @@ namespace Axiom
 
         // Scale
         public static string aspect; // contains scale, width, height
-        //public static string scale; // -vf
         public static string cropDivisible; //used on mp4 custom size to keep divisible by 2
         public static string width;
         public static string height;
 
         // Pass
         public static bool passUserSelected = false; // Used to determine if User willingly selected CRF, 1 Pass or 2 Pass
-        public static string v2passArgs; // contains pass2 arguments
+
+        public static string v2passArgs; // 2-Pass Arguments
+        //public static string v2passArgsSort; // 2-Pass Arguments Sorted
 
         public static string passSingle; // 1-Pass & CRF Args
-        public static string pass1Args; // Batch 2-Pass
-        public static string pass2Args; // Batch 2-Pass
+        //public static string passSingleSort; // 1-Pass & CRF Args Sorted
+
+        public static string pass1Args; // Batch 2-Pass (Pass 1)
+        //public static string pass1ArgsSort; // Batch 2-Pass Sorted (Pass 1)
+
+        public static string pass2Args; // Batch 2-Pass (Pass 2)
+        //public static string pass2ArgsSort; // Batch 2-Pass Sorted (Pass 2)
+
         public static string pass1; // x265 Modifier
         public static string pass2; // x265 Modifier
 
@@ -160,8 +165,6 @@ namespace Axiom
             // --------------------------------------------------
             if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8")
             {
-                //string previousItem;
-
                 // -------------------------
                 // Video
                 // -------------------------
@@ -253,8 +256,6 @@ namespace Axiom
             // --------------------------------------------------
             else if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9")
             {
-                //string previousItem;
-
                 // -------------------------
                 // Video
                 // -------------------------
@@ -340,8 +341,6 @@ namespace Axiom
             // --------------------------------------------------
             else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264")
             {
-                //string previousItem;
-
                 // -------------------------
                 // Video
                 // -------------------------
@@ -463,8 +462,6 @@ namespace Axiom
             // --------------------------------------------------
             else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265")
             {
-                //string previousItem;
-
                 // -------------------------
                 // Video
                 // -------------------------
@@ -584,8 +581,6 @@ namespace Axiom
             // --------------------------------------------------
             else if ((string)mainwindow.cboVideoCodec.SelectedItem == "Theora")
             {
-                //string previousItem;
-
                 // -------------------------
                 // Video
                 // -------------------------
@@ -682,8 +677,6 @@ namespace Axiom
             // --------------------------------------------------
             else if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG")
             {
-                //string previousItem;
-
                 // -------------------------
                 // Video
                 // -------------------------
@@ -759,8 +752,6 @@ namespace Axiom
             // --------------------------------------------------
             else if ((string)mainwindow.cboVideoCodec.SelectedItem == "PNG")
             {
-                //string previousItem;
-
                 // -------------------------
                 // Video
                 // -------------------------
@@ -830,8 +821,6 @@ namespace Axiom
             // --------------------------------------------------
             else if ((string)mainwindow.cboVideoCodec.SelectedItem == "Copy")
             {
-                //string previousItem;
-
                 // -------------------------
                 // Video
                 // -------------------------
@@ -900,8 +889,6 @@ namespace Axiom
             // --------------------------------------------------
             else if ((string)mainwindow.cboVideoCodec.SelectedItem == "None")
             {
-                //string previousItem;
-
                 // -------------------------
                 // Video
                 // -------------------------
@@ -1117,7 +1104,11 @@ namespace Axiom
 
             // Log Console Message /////////
             Log.WriteAction = () =>
-            {         
+            {
+                Log.logParagraph.Inlines.Add(new LineBreak());
+                Log.logParagraph.Inlines.Add(new LineBreak());
+                Log.logParagraph.Inlines.Add(new Bold(new Run("Video")) { Foreground = Log.ConsoleAction });
+                
                 Log.logParagraph.Inlines.Add(new LineBreak());
                 Log.logParagraph.Inlines.Add(new Bold(new Run("Codec: ")) { Foreground = Log.ConsoleDefault });
                 Log.logParagraph.Inlines.Add(new Run(Convert.ToString(mainwindow.cboVideoCodec.SelectedItem)) { Foreground = Log.ConsoleDefault });
@@ -1172,7 +1163,7 @@ namespace Axiom
                     //
                     if ((string)mainwindow.cboVideo.SelectedItem != "Auto"
                         || (string)mainwindow.cboSize.SelectedItem != "No"
-                        || !string.IsNullOrEmpty(MainWindow.crop)
+                        || !string.IsNullOrEmpty(CropWindow.crop)
                         || (string)mainwindow.cboFPS.SelectedItem != "auto"
                         || (string)mainwindow.cboOptimize.SelectedItem != "none")
                     {
@@ -1359,23 +1350,23 @@ namespace Axiom
                         // size
                         "& for /F \"delims=\" %S in ('@" + FFprobe.ffprobe + " -v error -select_streams v:0 -show_entries format^=size -of default^=noprint_wrappers^=1:nokey^=1 \"%~f\" 2^>^&1') do (SET size=%S)",
                         // set %S to %size%
-                        "& for /F %S in ('echo %size%') do (echo)",
+                        "\r\n\r\n" + "& for /F %S in ('echo %size%') do (echo)",
 
                         // duration
-                        "& for /F \"delims=\" %D in ('@" + FFprobe.ffprobe + " -v error -select_streams v:0 -show_entries format^=duration -of default^=noprint_wrappers^=1:nokey^=1 \"%~f\" 2^>^&1') do (SET duration=%D)",
+                        "\r\n\r\n" + "& for /F \"delims=\" %D in ('@" + FFprobe.ffprobe + " -v error -select_streams v:0 -show_entries format^=duration -of default^=noprint_wrappers^=1:nokey^=1 \"%~f\" 2^>^&1') do (SET duration=%D)",
                         // remove duration decimals
-                        "& for /F \"tokens=1 delims=.\" %R in ('echo %duration%') do (SET duration=%R)",
+                        "\r\n\r\n" + "& for /F \"tokens=1 delims=.\" %R in ('echo %duration%') do (SET duration=%R)",
                         // set %D to %duration%
-                        "& for /F %D in ('echo %duration%') do (echo)",
+                        "\r\n\r\n" + "& for /F %D in ('echo %duration%') do (echo)",
 
                         // vBitrate
-                        "& for /F \"delims=\" %V in ('@" + FFprobe.ffprobe + " -v error -select_streams v:0 -show_entries " + FFprobe.vEntryTypeBatch + " -of default^=noprint_wrappers^=1:nokey^=1 \"%~f\" 2^>^&1') do (SET vBitrate=%V)",
+                        "\r\n\r\n" + "& for /F \"delims=\" %V in ('@" + FFprobe.ffprobe + " -v error -select_streams v:0 -show_entries " + FFprobe.vEntryTypeBatch + " -of default^=noprint_wrappers^=1:nokey^=1 \"%~f\" 2^>^&1') do (SET vBitrate=%V)",
                         // set %V to %vBitrate%
-                        "& for /F %V in ('echo %vBitrate%') do (echo)",
+                        "\r\n\r\n" + "& for /F %V in ('echo %vBitrate%') do (echo)",
                         // auto bitrate calcuate
-                        "& (if %V EQU N/A (SET /a vBitrate=%S*8/1000/%D*1000) ELSE (echo Video Bitrate Detected))",
+                        "\r\n\r\n" + "& (if %V EQU N/A (SET /a vBitrate=%S*8/1000/%D*1000) ELSE (echo Video Bitrate Detected))",
                         // set %V to %vBitrate%
-                        "& for /F %V in ('echo %vBitrate%') do (echo)",
+                        "\r\n\r\n" + "& for /F %V in ('echo %vBitrate%') do (echo)",
                     };
 
                     // Join List with Spaces, Remove Empty Strings
@@ -2315,9 +2306,9 @@ namespace Axiom
                         //crop = string.Empty; //cropDivisible
 
                         // If crop is null, force Empty
-                        if (string.IsNullOrEmpty(MainWindow.crop)) //null check
+                        if (string.IsNullOrEmpty(CropWindow.crop)) //null check
                         {
-                            MainWindow.crop = string.Empty;
+                            CropWindow.crop = string.Empty;
                             //crop = null;
                         }
                     }
@@ -2360,9 +2351,9 @@ namespace Axiom
                         //crop = string.Empty; //cropDivisible
 
                         // If crop is null, force Empty
-                        if (string.IsNullOrEmpty(MainWindow.crop)) //null check
+                        if (string.IsNullOrEmpty(CropWindow.crop)) //null check
                         {
-                            MainWindow.crop = string.Empty;
+                            CropWindow.crop = string.Empty;
                             //crop = null;
                         }
                     }
@@ -2390,9 +2381,9 @@ namespace Axiom
                             }
 
                             // If crop string is empty use the mp4 divisible crop 
-                            if (string.IsNullOrEmpty(MainWindow.crop))
+                            if (string.IsNullOrEmpty(CropWindow.crop))
                             {
-                                MainWindow.crop = "crop=" + width + ":" + height + ":0:0";
+                                CropWindow.crop = "crop=" + width + ":" + height + ":0:0";
                                 //cropDivisible //Now in vFilter Switch Combine Section
                             }
                         }
@@ -2432,7 +2423,7 @@ namespace Axiom
                     && string.IsNullOrWhiteSpace(mainwindow.heightCustom.Text))
                 {
                     //scale = string.Empty;
-                    MainWindow.crop = string.Empty; //cropDivisible
+                    CropWindow.crop = string.Empty; //cropDivisible
                     width = string.Empty;
                     height = string.Empty;
                     aspect = string.Empty;
@@ -2442,7 +2433,7 @@ namespace Axiom
                     && string.Equals(mainwindow.heightCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase))
                 {
                     //scale = string.Empty;
-                    MainWindow.crop = string.Empty; //cropDivisible
+                    CropWindow.crop = string.Empty; //cropDivisible
                     width = string.Empty;
                     height = string.Empty;
                     aspect = string.Empty;
@@ -2452,7 +2443,7 @@ namespace Axiom
                     && string.Equals(mainwindow.heightCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase))
                 {
                     //scale = string.Empty;
-                    MainWindow.crop = string.Empty; //cropDivisible
+                    CropWindow.crop = string.Empty; //cropDivisible
                     width = string.Empty;
                     height = string.Empty;
                     aspect = string.Empty;
@@ -2462,7 +2453,7 @@ namespace Axiom
                     && string.IsNullOrWhiteSpace(mainwindow.heightCustom.Text))
                 {
                     //scale = string.Empty;
-                    MainWindow.crop = string.Empty; //cropDivisible
+                    CropWindow.crop = string.Empty; //cropDivisible
                     width = string.Empty;
                     height = string.Empty;
                     aspect = string.Empty;
@@ -2507,17 +2498,17 @@ namespace Axiom
             //System.Windows.MessageBox.Show("CropWindow: " + cropwindow.crop); //debug
             if (!string.IsNullOrEmpty(CropWindow.crop)) //null check to avoid overwriting mp4 custom crop with null
             {
-                MainWindow.crop = CropWindow.crop; //get crop values from CropWindow
+                CropWindow.crop = CropWindow.crop; //get crop values from CropWindow
             }
 
             // Clear crop if MediaType is Audio
             if ((string)mainwindow.cboMediaType.SelectedItem == "Audio")
             {
-                MainWindow.crop = string.Empty;
+                CropWindow.crop = string.Empty;
             }
 
             // Enable Video Filter Switch if Not Empty
-            if (!string.IsNullOrEmpty(MainWindow.crop))
+            if (!string.IsNullOrEmpty(CropWindow.crop))
             {
                 // Video Filter Switch
                 vFilterSwitch += 1;
@@ -2525,7 +2516,7 @@ namespace Axiom
 
             // Crop Codec Copy Check
             // Switch Copy to Codec to avoid error
-            if (!string.IsNullOrEmpty(MainWindow.crop) && (string)mainwindow.cboVideoCodec.SelectedItem == "Copy") //null check
+            if (!string.IsNullOrEmpty(CropWindow.crop) && (string)mainwindow.cboVideoCodec.SelectedItem == "Copy") //null check
             {
                 // Log Console Message /////////
                 Log.WriteAction = () =>
@@ -2897,19 +2888,13 @@ namespace Axiom
 
 
         /// <summary>
-        // Frame Rate To Decimal (Method)
+        /// Frame Rate To Decimal (Method)
         /// <summary>
         // When using Video Frame Range instead of Time
         public static void FramesToDecimal(MainWindow mainwindow) //method
         {
-            // FFprobeInputFrameRate() Method is called in Convert Button
-            // FFprobeInputFrameRate();
-
-            //MessageBox.Show(inputFramerate); //debug
-
             // Separate FFprobe Result (e.g. 30000/1001)
             string[] f = FFprobe.inputFramerate.Split('/');
-
 
             try
             {
@@ -3003,7 +2988,6 @@ namespace Axiom
             //MessageBox.Show(geq); //debug
 
 
-
             // -------------------------
             // JPEG
             // -------------------------
@@ -3041,14 +3025,14 @@ namespace Axiom
             // Use Single Filter
             if (vFilterSwitch == 1)
             {
-                vFilter = "-vf " + aspect + MainWindow.crop + geq; //either aspect, crop, or geq will be enabled
+                vFilter = "-vf " + aspect + CropWindow.crop + geq; //either aspect, crop, or geq will be enabled
             }
             // Combine Multiple Filters
             else if (vFilterSwitch > 1)
             {
                 // Add Filters to List
                 if (!string.IsNullOrEmpty(aspect)) { VideoFilters.Add(aspect); }
-                if (!string.IsNullOrEmpty(MainWindow.crop)) { VideoFilters.Add(MainWindow.crop); }
+                if (!string.IsNullOrEmpty(CropWindow.crop)) { VideoFilters.Add(CropWindow.crop); }
                 if (!string.IsNullOrEmpty(geq)) { VideoFilters.Add(geq); }
 
                 // Join List with Comma, Remove Empty Strings
@@ -3081,9 +3065,8 @@ namespace Axiom
 
         /// <summary>
         ///     Passes Switch
-        ///     
-        ///     Encoding Pass Method based on Pass ComboBox Selection
         /// </summary>
+        // Encoding Pass Method based on Pass ComboBox Selection
         public static void PassesSwitch(MainWindow mainwindow)
         {
             // CRF (Use -crf)

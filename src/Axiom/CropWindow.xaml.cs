@@ -34,7 +34,13 @@ namespace Axiom
     {
         private MainWindow mainwindow;
 
-        public static string crop;
+        // Temp save settings when Crop Window is closed
+        public static string cropWidth;
+        public static string cropHeight;
+        public static string cropX;
+        public static string cropY;
+        public static string crop; // Combined Width, Height, X, Y
+
 
         public CropWindow()
         {
@@ -60,56 +66,56 @@ namespace Axiom
             // Crop Width
             // ------------------------- 
             // First time use
-            if (string.IsNullOrEmpty(MainWindow.cropWidth))
+            if (string.IsNullOrEmpty(CropWindow.cropWidth))
             {
-                cropWidth.Text = string.Empty;
+                textBoxCropWidth.Text = string.Empty;
             }
             // Load Temp Saved String
-            else if (!string.IsNullOrEmpty(MainWindow.cropWidth))
+            else if (!string.IsNullOrEmpty(CropWindow.cropWidth))
             {
-                cropWidth.Text = MainWindow.cropWidth;
+                textBoxCropWidth.Text = CropWindow.cropWidth;
             }
 
             // -------------------------
             // Crop Height
             // ------------------------- 
             // First time use
-            if (string.IsNullOrEmpty(MainWindow.cropHeight))
+            if (string.IsNullOrEmpty(CropWindow.cropHeight))
             {
-                cropHeight.Text = string.Empty;
+                textBoxCropHeight.Text = string.Empty;
             }
             // Load Temp Saved String
-            else if (!string.IsNullOrEmpty(MainWindow.cropHeight))
+            else if (!string.IsNullOrEmpty(CropWindow.cropHeight))
             {
-                cropHeight.Text = MainWindow.cropHeight;
+                textBoxCropHeight.Text = CropWindow.cropHeight;
             }
 
             // -------------------------
             // Crop X
             // ------------------------- 
             // First time use
-            if (string.IsNullOrEmpty(MainWindow.cropX))
+            if (string.IsNullOrEmpty(CropWindow.cropX))
             {
-                cropX.Text = string.Empty;
+                textBoxCropX.Text = string.Empty;
             }
             // Load Temp Saved String
-            else if (!string.IsNullOrEmpty(MainWindow.cropX))
+            else if (!string.IsNullOrEmpty(CropWindow.cropX))
             {
-                cropX.Text = MainWindow.cropX;
+                textBoxCropX.Text = CropWindow.cropX;
             }
 
             // -------------------------
             // Crop Y
             // ------------------------- 
             // First time use
-            if (string.IsNullOrEmpty(MainWindow.cropY))
+            if (string.IsNullOrEmpty(CropWindow.cropY))
             {
-                cropY.Text = string.Empty;
+                textBoxCropY.Text = string.Empty;
             }
             // Load Temp Saved String
-            else if (!string.IsNullOrEmpty(MainWindow.cropY))
+            else if (!string.IsNullOrEmpty(CropWindow.cropY))
             {
-                cropY.Text = MainWindow.cropY;
+                textBoxCropY.Text = CropWindow.cropY;
             }
         }
 
@@ -126,7 +132,7 @@ namespace Axiom
         /// <summary>
         /// Crop Width
         /// </summary>
-        private void cropWidth_KeyDown(object sender, KeyEventArgs e)
+        private void textBoxCropWidth_KeyDown(object sender, KeyEventArgs e)
         {
             // Only allow Numbers or Backspace
             if (!(e.Key >= Key.D0 && e.Key <= Key.D9) && e.Key != Key.Back)
@@ -138,7 +144,7 @@ namespace Axiom
         /// <summary>
         /// Crop Height
         /// </summary>
-        private void cropHeight_KeyDown(object sender, KeyEventArgs e)
+        private void textBoxCropHeight_KeyDown(object sender, KeyEventArgs e)
         {
             // Only allow Numbers or Backspace
             if (!(e.Key >= Key.D0 && e.Key <= Key.D9) && e.Key != Key.Back)
@@ -150,7 +156,7 @@ namespace Axiom
         /// <summary>
         /// Crop X
         /// </summary>
-        private void cropX_KeyDown(object sender, KeyEventArgs e)
+        private void textBoxCropX_KeyDown(object sender, KeyEventArgs e)
         {
             // Only allow Numbers or Backspace
             if (!(e.Key >= Key.D0 && e.Key <= Key.D9) && e.Key != Key.Back)
@@ -162,7 +168,7 @@ namespace Axiom
         /// <summary>
         /// Crop Y
         /// </summary>
-        private void cropY_KeyDown(object sender, KeyEventArgs e)
+        private void textBoxCropY_KeyDown(object sender, KeyEventArgs e)
         {
             // Only allow Numbers or Backspace
             if (!(e.Key >= Key.D0 && e.Key <= Key.D9) && e.Key != Key.Back)
@@ -177,11 +183,7 @@ namespace Axiom
         /// </summary>
         public void buttonSet_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow.crop = string.Empty;
-            //mainwindow.crop = null;
-
-            // set crop string to be saved after each run
-            //MainWindow.cropClear = false;
+            CropWindow.crop = string.Empty;
 
             // Make x264 & x265 Width/Height Divisible by 2
             //
@@ -189,8 +191,8 @@ namespace Axiom
             {
                 try // will error if wrong characters input
                 {
-                    int divisibleWidth = Convert.ToInt32(cropWidth.Text);
-                    int divisibleHeight = Convert.ToInt32(cropHeight.Text);
+                    int divisibleWidth = Convert.ToInt32(textBoxCropWidth.Text);
+                    int divisibleHeight = Convert.ToInt32(textBoxCropHeight.Text);
 
                     // If not divisible by 2, subtract 1 from total
                     if (divisibleWidth % 2 != 0)
@@ -203,12 +205,12 @@ namespace Axiom
                     }
 
                     // Save Temp TextBox String Holder
-                    MainWindow.cropWidth = cropWidth.Text;
-                    MainWindow.cropHeight = cropWidth.Text;
-                    MainWindow.cropX = cropX.Text;
-                    MainWindow.cropY = cropY.Text;
+                    CropWindow.cropWidth = textBoxCropWidth.Text;
+                    CropWindow.cropHeight = textBoxCropWidth.Text;
+                    CropWindow.cropX = textBoxCropX.Text;
+                    CropWindow.cropY = textBoxCropY.Text;
 
-                    crop = Convert.ToString("crop=" + divisibleWidth + ":" + divisibleHeight + ":" + cropX.Text + ":" + cropY.Text);
+                    CropWindow.crop = Convert.ToString("crop=" + divisibleWidth + ":" + divisibleHeight + ":" + textBoxCropX.Text + ":" + textBoxCropY.Text);
 
                 }
                 catch
@@ -223,39 +225,36 @@ namespace Axiom
             else
             {
                 // Save Temp TextBox String Holder
-                MainWindow.cropWidth = cropWidth.Text;
-                MainWindow.cropHeight = cropHeight.Text;
-                MainWindow.cropX = cropX.Text;
-                MainWindow.cropY = cropY.Text;
+                CropWindow.cropWidth = textBoxCropWidth.Text;
+                CropWindow.cropHeight = textBoxCropHeight.Text;
+                CropWindow.cropX = textBoxCropX.Text;
+                CropWindow.cropY = textBoxCropY.Text;
 
-                crop = "crop=" + cropWidth.Text + ":" + cropHeight.Text + ":" + cropX.Text + ":" + cropY.Text;
+                CropWindow.crop = "crop=" + textBoxCropWidth.Text + ":" + textBoxCropHeight.Text + ":" + textBoxCropX.Text + ":" + textBoxCropY.Text;
             }
 
 
             // Set Empty Crop X Textbox to 0
             //
-            if (string.IsNullOrWhiteSpace(cropX.Text))
+            if (string.IsNullOrWhiteSpace(textBoxCropX.Text))
             {
-                cropX.Text = "0";
-                MainWindow.cropX = cropX.Text;
+                textBoxCropX.Text = "0";
+                CropWindow.cropX = textBoxCropX.Text;
 
-                crop = "crop=" + cropWidth.Text + ":" + cropHeight.Text + ":" + cropX.Text + ":" + cropY.Text;
+                CropWindow.crop = "crop=" + textBoxCropWidth.Text + ":" + textBoxCropHeight.Text + ":" + textBoxCropX.Text + ":" + textBoxCropY.Text;
             }
             // Set Empty Crop Y Textbox to 0
             //
-            if (string.IsNullOrWhiteSpace(cropY.Text))
+            if (string.IsNullOrWhiteSpace(textBoxCropY.Text))
             {
-                cropY.Text = "0";
-                MainWindow.cropY = cropY.Text;
+                textBoxCropY.Text = "0";
+                CropWindow.cropY = textBoxCropY.Text;
 
-                crop = "crop=" + cropWidth.Text + ":" + cropHeight.Text + ":" + cropX.Text + ":" + cropY.Text;
+                CropWindow.crop = "crop=" + textBoxCropWidth.Text + ":" + textBoxCropHeight.Text + ":" + textBoxCropX.Text + ":" + textBoxCropY.Text;
             }
 
             // Set Button Text to show Crop is Active
             mainwindow.buttonCropClearTextBox.Text = "~";
-
-            // Log Console Message /////////
-            //console.rtbLog.Inlines.Add("Crop Set: " + "Width = " + cropWidth.Text + " Height = " + cropHeight.Text + " X = " + cropX.Text + " Y = " + cropY.Text);
 
             this.Close();
         }
@@ -269,18 +268,18 @@ namespace Axiom
             // set crop string to be cleared after each run
             //MainWindow.cropClear = true;
 
-            cropWidth.Text = string.Empty;
-            cropHeight.Text = string.Empty;
-            cropX.Text = string.Empty;
-            cropY.Text = string.Empty;
+            textBoxCropWidth.Text = string.Empty;
+            textBoxCropHeight.Text = string.Empty;
+            textBoxCropX.Text = string.Empty;
+            textBoxCropY.Text = string.Empty;
 
-            MainWindow.cropWidth = string.Empty;
-            MainWindow.cropHeight = string.Empty;
-            MainWindow.cropX = string.Empty;
-            MainWindow.cropY = string.Empty;
+            CropWindow.cropWidth = string.Empty;
+            CropWindow.cropHeight = string.Empty;
+            CropWindow.cropX = string.Empty;
+            CropWindow.cropY = string.Empty;
 
-            crop = string.Empty;
-            MainWindow.crop = string.Empty;
+            CropWindow.crop = string.Empty;
+            CropWindow.crop = string.Empty;
 
             // Set Button Text to show Crop is Active
             mainwindow.buttonCropClearTextBox.Text = string.Empty;
