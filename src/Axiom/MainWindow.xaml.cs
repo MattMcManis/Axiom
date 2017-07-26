@@ -705,10 +705,10 @@ namespace Axiom
                         int found = 0;
 
                         // Check Environment Variables
-                        foreach (var path in envar.Split(';'))
+                        foreach (var envarPath in envar.Split(';'))
                         {
-                            var fullPath = System.IO.Path.Combine(path, "ffmpeg.exe");
-                            if (File.Exists(fullPath)) { found = 1; }
+                            var exePath = System.IO.Path.Combine(envarPath, "ffmpeg.exe");
+                            if (File.Exists(exePath)) { found = 1; }
                         }
 
                         if (found == 1)
@@ -778,10 +778,10 @@ namespace Axiom
                         int found = 0;
 
                         // Check Environment Variables
-                        foreach (var path in envar.Split(';'))
+                        foreach (var envarPath in envar.Split(';'))
                         {
-                            var fullPath = System.IO.Path.Combine(path, "ffprobe.exe");
-                            if (File.Exists(fullPath)) { found = 1; }
+                            var exePath = System.IO.Path.Combine(envarPath, "ffprobe.exe");
+                            if (File.Exists(exePath)) { found = 1; }
                         }
 
                         if (found == 1)

@@ -1252,7 +1252,7 @@ namespace Axiom
             }
 
             // If Video has a Bitrate, calculate Bitrate into decimal
-            if (FFprobe.inputVideoBitrate != "N/A" && !string.IsNullOrEmpty(FFprobe.inputVideoBitrate)) // NEW
+            if (FFprobe.inputVideoBitrate != "N/A" && !string.IsNullOrEmpty(FFprobe.inputVideoBitrate))
             {
                 if (Convert.ToInt32(FFprobe.inputVideoBitrate) >= 1000000000) // e.g. (1000M / 1,000,000K)
                 {
@@ -2925,7 +2925,7 @@ namespace Axiom
                     && !string.IsNullOrWhiteSpace(mainwindow.frameEnd.Text) 
                     && !string.IsNullOrWhiteSpace(mainwindow.frameEnd.Text)) // Default/Null Check
                 {
-                    Format.trimEnd = Convert.ToString(Convert.ToDouble(mainwindow.frameEnd.Text) / detectedFramerate); ; // Divide Frame End Number by Video's Framerate
+                    Format.trimEnd = Convert.ToString(Convert.ToDouble(mainwindow.frameEnd.Text) / detectedFramerate); // Divide Frame End Number by Video's Framerate
                 }
 
                 // Log Console Message /////////

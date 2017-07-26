@@ -152,12 +152,12 @@ namespace Axiom
                     Log.logParagraph.Inlines.Add(new LineBreak());
 
                     Log.logParagraph.Inlines.Add(new Bold(new Run("Container: ")) { Foreground = Log.ConsoleDefault });
-                    // single file
+                    // Single File
                     if (!string.IsNullOrEmpty(MainWindow.inputExt))
                     {
                         Log.logParagraph.Inlines.Add(new Run(MainWindow.inputExt) { Foreground = Log.ConsoleDefault });
                     }
-                    // batch
+                    // Batch
                     if (!string.IsNullOrEmpty(MainWindow.batchExt) && MainWindow.batchExt != "extension")
                     {
                         Log.logParagraph.Inlines.Add(new Run(MainWindow.batchExt) { Foreground = Log.ConsoleDefault });
@@ -435,7 +435,18 @@ namespace Axiom
                         // Get Ouput Result
                         inputFramerate = FFprobeParse.StandardOutput.ReadToEnd();
                         // Remove linebreaks
-                        inputFramerate = inputFramerate.Replace(Environment.NewLine, "");
+                        inputFramerate = inputFramerate
+                            .Replace(Environment.NewLine, "")
+                            .Replace("\n", "")
+                            .Replace("\r\n", "")
+                            .Replace("\u2028", "")
+                            .Replace("\u000A", "")
+                            .Replace("\u000B", "")
+                            .Replace("\u000C", "")
+                            .Replace("\u000D", "")
+                            .Replace("\u0085", "")
+                            .Replace("\u2028", "")
+                            .Replace("\u2029", "");
                         // Remove any white space from end of string
                         inputFramerate = inputFramerate.Trim();
                         inputFramerate = inputFramerate.TrimEnd();
@@ -463,7 +474,18 @@ namespace Axiom
                         // Get Ouput Result
                         inputSize = FFprobeParse.StandardOutput.ReadToEnd();
                         // Remove linebreaks
-                        inputSize = inputSize.Replace(Environment.NewLine, "");
+                        inputSize = inputSize
+                            .Replace(Environment.NewLine, "")
+                            .Replace("\n", "")
+                            .Replace("\r\n", "")
+                            .Replace("\u2028", "")
+                            .Replace("\u000A", "")
+                            .Replace("\u000B", "")
+                            .Replace("\u000C", "")
+                            .Replace("\u000D", "")
+                            .Replace("\u0085", "")
+                            .Replace("\u2028", "")
+                            .Replace("\u2029", "");
                         // Remove any white space from end of string
                         inputSize = inputSize.Trim();
                         inputSize = inputSize.TrimEnd();
@@ -491,7 +513,18 @@ namespace Axiom
                         // Get Ouput Result
                         inputDuration = FFprobeParse.StandardOutput.ReadToEnd();
                         // Remove linebreaks
-                        inputDuration = inputDuration.Replace(Environment.NewLine, "");
+                        inputDuration = inputDuration
+                            .Replace(Environment.NewLine, "")
+                            .Replace("\n", "")
+                            .Replace("\r\n", "")
+                            .Replace("\u2028", "")
+                            .Replace("\u000A", "")
+                            .Replace("\u000B", "")
+                            .Replace("\u000C", "")
+                            .Replace("\u000D", "")
+                            .Replace("\u0085", "")
+                            .Replace("\u2028", "")
+                            .Replace("\u2029", "");
                         // Remove any white space from end of string
                         inputDuration = inputDuration.Trim();
                         inputDuration = inputDuration.TrimEnd();
@@ -519,7 +552,18 @@ namespace Axiom
                         // Get Ouput Result
                         inputVideoCodec = FFprobeParse.StandardOutput.ReadToEnd();
                         // Remove linebreaks
-                        inputVideoCodec = inputVideoCodec.Replace(Environment.NewLine, "");
+                        inputVideoCodec = inputVideoCodec
+                            .Replace(Environment.NewLine, "")
+                            .Replace("\n", "")
+                            .Replace("\r\n", "")
+                            .Replace("\u2028", "")
+                            .Replace("\u000A", "")
+                            .Replace("\u000B", "")
+                            .Replace("\u000C", "")
+                            .Replace("\u000D", "")
+                            .Replace("\u0085", "")
+                            .Replace("\u2028", "")
+                            .Replace("\u2029", "");
                         // Remove any white space from end of string
                         inputVideoCodec = inputVideoCodec.Trim();
                         inputVideoCodec = inputVideoCodec.TrimEnd();
@@ -547,7 +591,18 @@ namespace Axiom
                         // Get Ouput Result
                         inputAudioCodec = FFprobeParse.StandardOutput.ReadToEnd();
                         // Remove linebreaks
-                        inputAudioCodec = inputAudioCodec.Replace(Environment.NewLine, "");
+                        inputAudioCodec = inputAudioCodec
+                            .Replace(Environment.NewLine, "")
+                            .Replace("\n", "")
+                            .Replace("\r\n", "")
+                            .Replace("\u2028", "")
+                            .Replace("\u000A", "")
+                            .Replace("\u000B", "")
+                            .Replace("\u000C", "")
+                            .Replace("\u000D", "")
+                            .Replace("\u0085", "")
+                            .Replace("\u2028", "")
+                            .Replace("\u2029", "");
                         // Remove any white space from end of string
                         inputAudioCodec = inputAudioCodec.Trim();
                         inputAudioCodec = inputAudioCodec.TrimEnd();
@@ -575,7 +630,18 @@ namespace Axiom
                         // Get Ouput Result
                         inputVideoBitrate = FFprobeParse.StandardOutput.ReadToEnd();
                         // Remove linebreaks  
-                        inputVideoBitrate = inputVideoBitrate.Replace(Environment.NewLine, "");
+                        inputVideoBitrate = inputVideoBitrate
+                            .Replace(Environment.NewLine, "")
+                            .Replace("\n", "")
+                            .Replace("\r\n", "")
+                            .Replace("\u2028", "")
+                            .Replace("\u000A", "")
+                            .Replace("\u000B", "")
+                            .Replace("\u000C", "")
+                            .Replace("\u000D", "")
+                            .Replace("\u0085", "")
+                            .Replace("\u2028", "")
+                            .Replace("\u2029", "");
                         // Remove any white space from end of string
                         inputVideoBitrate = inputVideoBitrate.Trim();
                         inputVideoBitrate = inputVideoBitrate.TrimEnd();
@@ -604,7 +670,18 @@ namespace Axiom
                         // Get Ouput Result
                         inputAudioBitrate = FFprobeParse.StandardOutput.ReadToEnd();
                         // Remove linebreaks
-                        inputAudioBitrate = inputAudioBitrate.Replace(Environment.NewLine, "");
+                        inputAudioBitrate = inputAudioBitrate
+                            .Replace(Environment.NewLine, "")
+                            .Replace("\n", "")
+                            .Replace("\r\n", "")
+                            .Replace("\u2028", "")
+                            .Replace("\u000A", "")
+                            .Replace("\u000B", "")
+                            .Replace("\u000C", "")
+                            .Replace("\u000D", "")
+                            .Replace("\u0085", "")
+                            .Replace("\u2028", "")
+                            .Replace("\u2029", "");
                         // Remove any white space from end of string
                         inputAudioBitrate = inputAudioBitrate.Trim();
                         inputAudioBitrate = inputAudioBitrate.TrimEnd();

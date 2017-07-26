@@ -4,7 +4,6 @@ using System.Data;
 using System.Linq;
 using System.Windows;
 using System.Windows.Documents;
-using System.Windows.Media;
 // Disable XML Comment warnings
 #pragma warning disable 1591
 #pragma warning disable 1587
@@ -63,7 +62,7 @@ namespace Axiom
         /// <summary>
         /// OnePassArgs
         /// </summary>
-        // 1-Pass, CRF, & auto
+        // 1-Pass, CRF, & Auto
         public static String OnePassArgs(MainWindow mainwindow)
         {
             // -------------------------
@@ -83,15 +82,15 @@ namespace Axiom
                         "\r\n\r\n" + "\"" + MainWindow.InputPath(mainwindow) + "\"",
 
                         "\r\n\r\n" + Video.VideoCodec(mainwindow),
-                        Video.Speed(mainwindow),
+                        "\r\n" + Video.Speed(mainwindow),
                         Video.VideoQuality(mainwindow),
-                        Video.FPS(mainwindow),
+                        "\r\n" + Video.FPS(mainwindow),
                         "\r\n" + Video.VideoFilter(mainwindow),
                         "\r\n" + Video.Images(mainwindow),
                         "\r\n" + Video.Optimize(mainwindow),
 
                         "\r\n\r\n" + Audio.AudioCodec(mainwindow),
-                        Audio.AudioQuality(mainwindow),
+                        "\r\n" + Audio.AudioQuality(mainwindow),
                         Audio.SampleRate(mainwindow),
                         Audio.BitDepth(mainwindow),
                         Audio.Channel(mainwindow),
@@ -145,16 +144,16 @@ namespace Axiom
                         "\r\n\r\n" + "\"" + MainWindow.InputPath(mainwindow) + "\"",
 
                         "\r\n\r\n" + Video.VideoCodec(mainwindow),
-                        Video.Speed(mainwindow),
+                        "\r\n" + Video.Speed(mainwindow),
                         Video.VideoQuality(mainwindow),
-                        Video.FPS(mainwindow),
+                        "\r\n" + Video.FPS(mainwindow),
                         "\r\n" + Video.VideoFilter(mainwindow),
                         "\r\n" + Video.Images(mainwindow),
                         "\r\n" + Video.Optimize(mainwindow),
                         "\r\n" + Video.Pass1Modifier(mainwindow), // -pass 1
 
                         "\r\n\r\n" + Audio.AudioCodec(mainwindow),
-                        Audio.AudioQuality(mainwindow),
+                        "\r\n" + Audio.AudioQuality(mainwindow),
                         Audio.SampleRate(mainwindow),
                         Audio.BitDepth(mainwindow),
                         Audio.Channel(mainwindow),
@@ -169,8 +168,7 @@ namespace Axiom
 
                 // Join List with Spaces
                 // Remove: Empty, Null, Standalone LineBreak
-                Video.pass1Args = string.Join(" ",
-                    FFmpegArgsPass1List
+                Video.pass1Args = string.Join(" ", FFmpegArgsPass1List
                     .Where(s => !string.IsNullOrEmpty(s))
                     .Where(s => !s.Equals("\r\n\r\n"))
                     .Where(s => !s.Equals("\r\n"))
@@ -189,16 +187,16 @@ namespace Axiom
                         "\r\n\r\n" + "\"" + MainWindow.InputPath(mainwindow) + "\"",
 
                         "\r\n\r\n" + Video.VideoCodec(mainwindow),
-                        Video.Speed(mainwindow),
+                        "\r\n" + Video.Speed(mainwindow),
                         Video.VideoQuality(mainwindow),
-                        Video.FPS(mainwindow),
+                        "\r\n" + Video.FPS(mainwindow),
                         "\r\n" + Video.VideoFilter(mainwindow),
                         "\r\n" + Video.Images(mainwindow),
                         "\r\n" + Video.Optimize(mainwindow),
                         "\r\n" + Video.Pass2Modifier(mainwindow), // -pass 2
 
                         "\r\n\r\n" + Audio.AudioCodec(mainwindow),
-                        Audio.AudioQuality(mainwindow),
+                        "\r\n" + Audio.AudioQuality(mainwindow),
                         Audio.SampleRate(mainwindow),
                         Audio.BitDepth(mainwindow),
                         Audio.Channel(mainwindow),
@@ -213,8 +211,7 @@ namespace Axiom
 
                 // Join List with Spaces
                 // Remove: Empty, Null, Standalone LineBreak
-                Video.pass2Args = string.Join(" ",
-                    FFmpegArgsPass2List
+                Video.pass2Args = string.Join(" ", FFmpegArgsPass2List
                     .Where(s => !string.IsNullOrEmpty(s))
                     .Where(s => !s.Equals("\r\n\r\n"))
                     .Where(s => !s.Equals("\r\n"))
@@ -252,16 +249,17 @@ namespace Axiom
 
                 // Join List with Spaces
                 // Remove: Empty, Null, Standalone LineBreak
-                FFmpeg.ffmpegArgsSort = string.Join(" ",
-                    FFmpegArgsList
+                FFmpeg.ffmpegArgsSort = string.Join(" ", FFmpegArgsList
                     .Where(s => !string.IsNullOrEmpty(s))
                     .Where(s => !s.Equals("\r\n\r\n"))
                     .Where(s => !s.Equals("\r\n"))
                     );
 
                 // Inline 
-                FFmpeg.ffmpegArgs = string.Join(" ", FFmpegArgsList.Where(s => !string.IsNullOrEmpty(s)));
-                FFmpeg.ffmpegArgs = ffmpegArgs.Replace("\r\n", ""); //Remove Linebreaks
+                FFmpeg.ffmpegArgs = string.Join(" ", FFmpegArgsList
+                    .Where(s => !string.IsNullOrEmpty(s)))
+                    .Replace("\r\n", "") //Remove Linebreaks
+                    .Replace(Environment.NewLine, "");
             }
 
 
@@ -284,7 +282,7 @@ namespace Axiom
 
 
         /// <summary>
-        /// FFmpeg Single - Convert
+        /// FFmpeg Convert
         /// </summary>
         // Start FFmpeg Process
         public static void FFmpegSingleConvert(MainWindow mainwindow)
@@ -293,7 +291,11 @@ namespace Axiom
             if (mainwindow.tglBatch.IsChecked == false && MainWindow.script == 0)
             {
                 System.Diagnostics.Process.Start(
-                    "CMD.exe", /* /c or /k -->*/ FFmpeg.cmdWindow + /* needed to start cmd -->*/ "cd " + "\"" + MainWindow.currentDir + "\"" + " && " + /* start ffmpeg commands -->*/ FFmpeg.ffmpegArgs
+                    "CMD.exe", 
+                    FFmpeg.cmdWindow // /c or /k
+                    + "cd " + "\"" + MainWindow.currentDir + "\"" // needed to start cmd
+                    + " && " 
+                    + FFmpeg.ffmpegArgs // start ffmpeg commands
                     );
             }
         }
@@ -375,22 +377,23 @@ namespace Axiom
 
                 // Join List with Spaces
                 // Remove: Empty, Null, Standalone LineBreak
-                FFmpeg.ffmpegArgsSort = string.Join(" ",
-                    FFmpegBatchArgsList
+                FFmpeg.ffmpegArgsSort = string.Join(" ", FFmpegBatchArgsList
                     .Where(s => !string.IsNullOrEmpty(s))
                     .Where(s => !s.Equals("\r\n\r\n"))
                     .Where(s => !s.Equals("\r\n"))
                     );
 
                 // Inline 
-                FFmpeg.ffmpegArgs = string.Join(" ", FFmpegBatchArgsList.Where(s => !string.IsNullOrEmpty(s)));
-                FFmpeg.ffmpegArgs = ffmpegArgs.Replace("\r\n", ""); //Remove Linebreaks
+                FFmpeg.ffmpegArgs = string.Join(" ", FFmpegBatchArgsList
+                    .Where(s => !string.IsNullOrEmpty(s)))
+                    .Replace("\r\n", "") //Remove Linebreaks
+                    .Replace(Environment.NewLine, "");
             }
         }
 
 
         /// <summary>
-        /// FFmpeg Batch - Convert
+        /// FFmpeg Batch Convert
         /// </summary>
         public static void FFmpegBatchConvert(MainWindow mainwindow)
         {

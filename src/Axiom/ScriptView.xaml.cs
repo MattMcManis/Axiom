@@ -38,7 +38,7 @@ namespace Axiom
 
         public static int sort = 0;
 
-        public static Paragraph scriptParagraph = new Paragraph(); //RichTextBox
+        public Paragraph scriptParagraph = new Paragraph(); //RichTextBox
 
 
         public ScriptView()
@@ -56,20 +56,11 @@ namespace Axiom
             this.MinWidth = 575;
             this.MinHeight = 250;
 
-            // Write New Text
-            rtbScript.Document = new FlowDocument(scriptParagraph); // start
-
             // Clear Old Text
-            rtbScript.Document = new FlowDocument(scriptParagraph); // start
-            rtbScript.BeginChange();
-            rtbScript.SelectAll();
-            rtbScript.Selection.Text = "";
-            rtbScript.EndChange();
+            ClearRichTextBox();
 
-            // Write New Text
-            rtbScript.Document = new FlowDocument(scriptParagraph); // start
-
-            // begin change
+            // Write FFmpeg Args
+            rtbScript.Document = new FlowDocument(scriptParagraph);
             rtbScript.BeginChange();
             scriptParagraph.Inlines.Add(new Run(FFmpeg.ffmpegArgs));
             rtbScript.EndChange();
@@ -93,7 +84,6 @@ namespace Axiom
             // Open 'Save File'
             Microsoft.Win32.SaveFileDialog saveFile = new Microsoft.Win32.SaveFileDialog();
 
-            // 'Save File' Default Path same as Input Directory
             //saveFile.InitialDirectory = inputDir;
             saveFile.RestoreDirectory = true;
             saveFile.Filter = "Text file (*.txt)|*.txt";
@@ -123,20 +113,30 @@ namespace Axiom
         /// <summary>
         /// Script RichTextBox Edited
         /// </summary>
-        // current richtextbox text
+        // Current RichTextBox Text
         public String ScriptRichTextBoxCurrent()
         {
-            FlowDocument scriptFlowDoc = new FlowDocument(scriptParagraph);
-
-            rtbScript.Document = scriptFlowDoc;
-
+            // Select All Text
             TextRange textRange = new TextRange(
                 rtbScript.Document.ContentStart,
                 rtbScript.Document.ContentEnd
             );
 
-            // Return Text, Remove LineBreaks
+            // Return Text
             return textRange.Text;
+        }
+
+        /// <summary>
+        /// Clear RichTextBox
+        /// </summary>
+        public void ClearRichTextBox()
+        {
+            // Clear Old Text
+            rtbScript.Document = new FlowDocument(scriptParagraph);
+            rtbScript.BeginChange();
+            rtbScript.SelectAll();
+            rtbScript.Selection.Text = "";
+            rtbScript.EndChange();
         }
 
 
@@ -152,16 +152,10 @@ namespace Axiom
             if (ScriptView.sort == 0 && ScriptRichTextBoxCurrent().Replace(Environment.NewLine, "").Replace("\r\n", "") == FFmpeg.ffmpegArgs)
             {
                 // Clear Old Text
-                rtbScript.Document = new FlowDocument(scriptParagraph); // start
-                rtbScript.BeginChange();
-                rtbScript.SelectAll();
-                rtbScript.Selection.Text = "";
-                rtbScript.EndChange();
-
-                // Write New Text
-                rtbScript.Document = new FlowDocument(scriptParagraph); // start
+                ClearRichTextBox();
 
                 // Write FFmpeg Args Sort
+                rtbScript.Document = new FlowDocument(scriptParagraph);
                 rtbScript.BeginChange();
                 scriptParagraph.Inlines.Add(new Run(FFmpeg.ffmpegArgsSort));
                 rtbScript.EndChange();
@@ -185,19 +179,24 @@ namespace Axiom
             else if (ScriptView.sort == 1)
             {
                 // CMD Arguments are from Script TextBox
-                FFmpeg.ffmpegArgs = ScriptRichTextBoxCurrent().Replace(Environment.NewLine, "").Replace("\r\n", "");
+                FFmpeg.ffmpegArgs = ScriptRichTextBoxCurrent()
+                    .Replace(Environment.NewLine, "") //Remove Linebreaks
+                    .Replace("\n", "")
+                    .Replace("\r\n", "")
+                    .Replace("\u2028", "")
+                    .Replace("\u000A", "")
+                    .Replace("\u000B", "")
+                    .Replace("\u000C", "")
+                    .Replace("\u000D", "")
+                    .Replace("\u0085", "")
+                    .Replace("\u2028", "")
+                    .Replace("\u2029", "");
 
                 // Clear Old Text
-                rtbScript.Document = new FlowDocument(scriptParagraph); // start
-                rtbScript.BeginChange();
-                rtbScript.SelectAll();
-                rtbScript.Selection.Text = "";
-                rtbScript.EndChange();
-
-                // Write New Text
-                rtbScript.Document = new FlowDocument(scriptParagraph); // start
+                ClearRichTextBox();
 
                 // Write FFmpeg Args
+                rtbScript.Document = new FlowDocument(scriptParagraph);
                 rtbScript.BeginChange();
                 scriptParagraph.Inlines.Add(new Run(FFmpeg.ffmpegArgs));
                 rtbScript.EndChange();
@@ -219,10 +218,26 @@ namespace Axiom
             string currentDir = Directory.GetCurrentDirectory();
 
             // CMD Arguments are from Script TextBox
-            FFmpeg.ffmpegArgs = ScriptRichTextBoxCurrent().Replace(Environment.NewLine, "").Replace("\r\n", "");
+            FFmpeg.ffmpegArgs = ScriptRichTextBoxCurrent()
+                .Replace(Environment.NewLine, "") //Remove Linebreaks
+                .Replace("\n", "")
+                .Replace("\r\n", "") 
+                .Replace("\u2028", "")
+                .Replace("\u000A", "")
+                .Replace("\u000B", "")
+                .Replace("\u000C", "")
+                .Replace("\u000D", "")
+                .Replace("\u0085", "")
+                .Replace("\u2028", "")
+                .Replace("\u2029", "");
 
             // Run FFmpeg Arguments
-            System.Diagnostics.Process.Start("CMD.exe", "/k cd " + "\"" + currentDir + "\"" + " & " + /* start ffmpeg commands -->*/ FFmpeg.ffmpegArgs);
+            System.Diagnostics.Process.Start(
+                "CMD.exe", 
+                "/k cd " + "\"" + currentDir + "\"" 
+                + " & " 
+                +  FFmpeg.ffmpegArgs // start ffmpeg commands
+                );
 
             // Clear FFmpeg Arguments for next run
             //FFmpeg.ffmpegArgs = string.Empty;
