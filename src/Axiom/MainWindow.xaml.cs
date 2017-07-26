@@ -170,6 +170,7 @@ namespace Axiom
             /// <summary>
             /// Start the Log Console (Hidden)
             /// </summary>
+            // Start
             StartLogConsole();
 
             /// <summary>

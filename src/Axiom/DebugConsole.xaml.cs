@@ -37,13 +37,14 @@ namespace Axiom
     public partial class DebugConsole : Window
     {
         private MainWindow mainwindow;
-
         private ScriptView scriptview;
+        private Configure configure;
 
         public static Paragraph debugParagraph = new Paragraph(); //RichTextBox
-        public static System.Windows.Media.Brush Heading = (SolidColorBrush)(new BrushConverter().ConvertFrom("#007DF2"));
-        public static System.Windows.Media.Brush Variable = (SolidColorBrush)(new BrushConverter().ConvertFrom("#72D4E8"));
-        public static System.Windows.Media.Brush Value = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFFFFF"));
+
+        public static Brush Heading;
+        public static Brush Variable;
+        public static Brush Value;
 
         public DebugConsole()
         {
@@ -61,6 +62,12 @@ namespace Axiom
             this.Height = 500;
             this.MinWidth = 200;
             this.MinHeight = 200;
+
+            // -------------------------
+            // Text Theme Color
+            // -------------------------
+            Configure.ConfigTheme(configure);
+
         }
 
         /// <summary>
@@ -708,10 +715,6 @@ namespace Axiom
 
             // FFmpeg
             debugParagraph.Inlines.Add(new Bold(new Run("FFmpeg ")) { Foreground = Heading });
-            debugParagraph.Inlines.Add(new LineBreak());
-
-            debugParagraph.Inlines.Add(new Bold(new Run("ffmpeg ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(FFmpeg.ffmpeg) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("ffmpegArgs ")) { Foreground = Variable });

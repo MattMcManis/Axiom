@@ -7,6 +7,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 // Disable XML Comment warnings
 #pragma warning disable 1591
 
@@ -159,12 +160,147 @@ namespace Axiom
                         Source = new Uri("Theme" + Configure.theme + ".xaml", UriKind.RelativeOrAbsolute)
                     });
                 }
+
+                // -------------------------
+                // Log Text Theme Color
+                // -------------------------
+                if (Configure.theme == "Axiom")
+                {
+                    Log.ConsoleDefault = Brushes.White; // Default
+                    Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#007DF2")); // Titles
+                    Log.ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
+                    Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
+                    Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#72D4E8")); // Actions
+                }
+                else if (Configure.theme == "FFmpeg")
+                {
+                    Log.ConsoleDefault = Brushes.White; // Default
+                    Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#5cb85c")); // Titles
+                    Log.ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
+                    Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
+                    Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#5cb85c")); // Actions
+                }
+                else if (Configure.theme == "Cyberpunk")
+                {
+                    Log.ConsoleDefault = Brushes.White; // Default
+                    Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#9f3ed2")); // Titles
+                    Log.ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
+                    Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
+                    Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#9380fd")); // Actions
+                }
+                else if (Configure.theme == "System")
+                {
+                    Log.ConsoleDefault = Brushes.White; // Default
+                    Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#007DF2")); // Titles
+                    Log.ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
+                    Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
+                    Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#72D4E8")); // Actions
+                }
+
+                // -------------------------
+                // Debug Text Theme Color
+                // -------------------------
+                if (Configure.theme == "Axiom")
+                {
+                    DebugConsole.Heading = (SolidColorBrush)(new BrushConverter().ConvertFrom("#007DF2"));
+                    DebugConsole.Variable = (SolidColorBrush)(new BrushConverter().ConvertFrom("#72D4E8"));
+                    DebugConsole.Value = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFFFFF"));
+                }
+                else if (Configure.theme == "FFmpeg")
+                {
+                    DebugConsole.Heading = (SolidColorBrush)(new BrushConverter().ConvertFrom("#878787"));
+                    DebugConsole.Variable = (SolidColorBrush)(new BrushConverter().ConvertFrom("#5cb85c"));
+                    DebugConsole.Value = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFFFFF"));
+                }
+                else if (Configure.theme == "Cyberpunk")
+                {
+                    DebugConsole.Heading = (SolidColorBrush)(new BrushConverter().ConvertFrom("#9a989c"));
+                    DebugConsole.Variable = (SolidColorBrush)(new BrushConverter().ConvertFrom("#9f3ed2"));
+                    DebugConsole.Value = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFFFFF"));
+                }
+                else if (Configure.theme == "System")
+                {
+                    DebugConsole.Heading = (SolidColorBrush)(new BrushConverter().ConvertFrom("#007DF2"));
+                    DebugConsole.Variable = (SolidColorBrush)(new BrushConverter().ConvertFrom("#72D4E8"));
+                    DebugConsole.Value = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFFFFF"));
+                }
+
             }
             catch
             {
             
             }
         }
+
+        /// <summary>
+        /// Theme DebugConsole Text
+        /// </summary>
+        //public static void ConfigThemeDebugConsole(Configure configure)
+        //{
+        //    if (Configure.theme == "Axiom")
+        //    {
+        //        DebugConsole.Heading = (SolidColorBrush)(new BrushConverter().ConvertFrom("#007DF2"));
+        //        DebugConsole.Variable = (SolidColorBrush)(new BrushConverter().ConvertFrom("#72D4E8"));
+        //        DebugConsole.Value = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFFFFF"));
+        //    }
+        //    else if (Configure.theme == "FFmpeg")
+        //    {
+        //        DebugConsole.Heading = (SolidColorBrush)(new BrushConverter().ConvertFrom("#878787"));
+        //        DebugConsole.Variable = (SolidColorBrush)(new BrushConverter().ConvertFrom("#5cb85c"));
+        //        DebugConsole.Value = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFFFFF"));
+        //    }
+        //    else if (Configure.theme == "Cyberpunk")
+        //    {
+        //        DebugConsole.Heading = (SolidColorBrush)(new BrushConverter().ConvertFrom("#9a989c"));
+        //        DebugConsole.Variable = (SolidColorBrush)(new BrushConverter().ConvertFrom("#9f3ed2"));
+        //        DebugConsole.Value = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFFFFF"));
+        //    }
+        //    else if (Configure.theme == "System")
+        //    {
+        //        DebugConsole.Heading = (SolidColorBrush)(new BrushConverter().ConvertFrom("#007DF2"));
+        //        DebugConsole.Variable = (SolidColorBrush)(new BrushConverter().ConvertFrom("#72D4E8"));
+        //        DebugConsole.Value = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFFFFF"));
+        //    }
+        //}
+
+        /// <summary>
+        /// Theme LogConsole Text
+        /// </summary>
+        //public static void ConfigThemeLogConsole(Configure configure)
+        //{
+        //    if (Configure.theme == "Axiom")
+        //    {
+        //        Log.ConsoleDefault = Brushes.White; // Default
+        //        Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#007DF2")); // Titles
+        //        Log.ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
+        //        Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
+        //        Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#72D4E8")); // Actions
+        //    }
+        //    else if (Configure.theme == "FFmpeg")
+        //    {
+        //        Log.ConsoleDefault = Brushes.White; // Default
+        //        Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#5cb85c")); // Titles
+        //        Log.ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
+        //        Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
+        //        Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#5cb85c")); // Actions
+        //    }
+        //    else if (Configure.theme == "Cyberpunk")
+        //    {
+        //        Log.ConsoleDefault = Brushes.White; // Default
+        //        Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#9f3ed2")); // Titles
+        //        Log.ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
+        //        Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
+        //        Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#9380fd")); // Actions
+        //    }
+        //    else if (Configure.theme == "System")
+        //    {
+        //        Log.ConsoleDefault = Brushes.White; // Default
+        //        Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#007DF2")); // Titles
+        //        Log.ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
+        //        Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
+        //        Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#72D4E8")); // Actions
+        //    }
+        //}
 
 
         /// <summary>
@@ -783,10 +919,14 @@ namespace Axiom
         // --------------------------------------------------
         private void themeSelect_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            string theme = cboTheme.SelectedItem.ToString();
+            Configure.theme = cboTheme.SelectedItem.ToString();
 
+            // Change Theme Resource
             App.Current.Resources.MergedDictionaries.Clear();
-            App.Current.Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new Uri("Theme" + theme + ".xaml", UriKind.RelativeOrAbsolute) });
+            App.Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
+            {
+                Source = new Uri("Theme" + theme + ".xaml", UriKind.RelativeOrAbsolute)
+            });
 
             // Save Theme for next launch
             Settings.Default["Theme"] = cboTheme.SelectedItem.ToString();

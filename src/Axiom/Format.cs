@@ -936,13 +936,14 @@ namespace Axiom
                 // Use Time
                 // If Frame Textboxes Default Use Time
                 if (mainwindow.frameStart.Text == "Frame" 
-                    && mainwindow.frameEnd.Text == "Range" 
-                    && string.IsNullOrWhiteSpace(mainwindow.frameStart.Text) 
-                    && string.IsNullOrWhiteSpace(mainwindow.frameEnd.Text))
+                    || mainwindow.frameEnd.Text == "Range"
+                    || string.IsNullOrWhiteSpace(mainwindow.frameStart.Text)
+                    || string.IsNullOrWhiteSpace(mainwindow.frameEnd.Text))
                 {
                     trimStart = mainwindow.cutStart.Text;
                     trimEnd = mainwindow.cutEnd.Text;
                 }
+
                 // Use Frames
                 // If Frame Textboxes have Text, but not Default, use FramesToDecimal Method (Override Time)
                 else if (mainwindow.frameStart.Text != "Frame" 
@@ -976,9 +977,11 @@ namespace Axiom
                 {
                     trimStart = mainwindow.cutStart.Text;
                 }
+
                 // Use Frames
                 // If Frame Textboxes have Text, but not Default, use FramesToDecimal Method (Override Time)
-                else if (mainwindow.frameStart.Text != "Frame" && mainwindow.frameEnd.Text != "Range" 
+                else if (mainwindow.frameStart.Text != "Frame" 
+                    && mainwindow.frameEnd.Text != "Range" 
                     && !string.IsNullOrWhiteSpace(mainwindow.frameStart.Text) 
                     && string.IsNullOrWhiteSpace(mainwindow.frameEnd.Text))
                 {
@@ -995,13 +998,14 @@ namespace Axiom
                 // Use Time
                 // If Frame Textboxes Default Use Time
                 if (mainwindow.frameStart.Text == "Frame" 
-                    && mainwindow.frameEnd.Text == "Range" 
-                    && string.IsNullOrWhiteSpace(mainwindow.frameStart.Text) 
-                    && string.IsNullOrWhiteSpace(mainwindow.frameEnd.Text))
+                    || mainwindow.frameEnd.Text == "Range"
+                    || string.IsNullOrWhiteSpace(mainwindow.frameStart.Text)
+                    || string.IsNullOrWhiteSpace(mainwindow.frameEnd.Text))
                 {
                     trimStart = mainwindow.cutStart.Text;
                     trimEnd = mainwindow.cutEnd.Text;
                 }
+
                 // Use Frames
                 // If Frame Textboxes have Text, but not Default, use FramesToDecimal Method (Override Time)
                 else if (mainwindow.frameStart.Text != "Frame" 

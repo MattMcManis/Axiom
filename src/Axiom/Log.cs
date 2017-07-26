@@ -46,14 +46,14 @@ namespace Axiom
 
 
         // --------------------------------------------------------------------------------------------------------
-        // Template
+        // Theme
         // --------------------------------------------------------------------------------------------------------
         // Console Colors
-        public static Brush ConsoleDefault = Brushes.White; // Default
-        public static Brush ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#007DF2")); // Titles
-        public static Brush ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
-        public static Brush ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
-        public static Brush ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#72D4E8")); // Actions
+        public static Brush ConsoleDefault; // Default
+        public static Brush ConsoleTitle; // Titles
+        public static Brush ConsoleWarning; // Warning
+        public static Brush ConsoleError; // Error
+        public static Brush ConsoleAction; // Actions
 
 
         /// <summary>

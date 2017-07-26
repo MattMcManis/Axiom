@@ -32,6 +32,7 @@ namespace Axiom
     public partial class LogConsole : Window
     {
         private MainWindow mainwindow;
+        private Configure configure;
 
         public LogConsole()
         {
@@ -49,6 +50,11 @@ namespace Axiom
             this.Height = 500;
             this.MinWidth = 200;
             this.MinHeight = 200;
+
+            // -------------------------
+            // Text Theme Color
+            // -------------------------
+            Configure.ConfigTheme(configure);
         }
 
 

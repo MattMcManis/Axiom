@@ -1941,7 +1941,7 @@ namespace Axiom
                 else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264" 
                     || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
                 {
-                    height = "trunc(ih/2)*2";
+                    height = "-2";
                 }
 
                 width = "7680"; // Note: 8K is measured width first
@@ -1967,7 +1967,7 @@ namespace Axiom
                 else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264" 
                     || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
                 {
-                    height = "trunc(ih/2)*2";
+                    height = "-2";
                 }
 
                 width = "4096"; // Note: 4K is measured width first
@@ -1993,7 +1993,7 @@ namespace Axiom
                 else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264" 
                     || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
                 {
-                    height = "trunc(ih/2)*2";
+                    height = "-2";
                 }
 
                 width = "3840"; // Note: 4K is measured width first
@@ -2019,7 +2019,7 @@ namespace Axiom
                 else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264" 
                     || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
                 {
-                    height = "trunc(ih/2)*2";
+                    height = "-2";
                 }
 
                 width = "2048"; // Note: 2K is measured width first
@@ -2045,7 +2045,7 @@ namespace Axiom
                 else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264" 
                     || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
                 {
-                    width = "trunc(iw/2)*2";
+                    width = "-2";
                 }
 
                 height = "1440";
@@ -2071,7 +2071,7 @@ namespace Axiom
                 else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264"
                     || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
                 {
-                    width = "trunc(iw/2)*2";
+                    width = "-2";
                 }
 
                 height = "1200";
@@ -2097,7 +2097,7 @@ namespace Axiom
                 else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264" 
                     || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
                 {
-                    width = "trunc(iw/2)*2";
+                    width = "-2";
                 }
 
                 height = "1080";
@@ -2125,7 +2125,7 @@ namespace Axiom
                 else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264"
                     || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
                 {
-                    width = "trunc(iw/2)*2";
+                    width = "-2";
                 }
 
                 height = "720";
@@ -2151,7 +2151,7 @@ namespace Axiom
                 else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264" 
                     || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
                 {
-                    width = "trunc(iw/2)*2";
+                    width = "-2";
                 }
 
                 height = "480";
@@ -2177,7 +2177,7 @@ namespace Axiom
                 else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264"
                     || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
                 {
-                    width = "trunc(iw/2)*2";
+                    width = "-2";
                 }
 
                 height = "320";
@@ -2203,7 +2203,7 @@ namespace Axiom
                 else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264" 
                     || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
                 {
-                    width = "trunc(iw/2)*2";
+                    width = "-2";
                 }
 
                 height = "240";
@@ -2274,7 +2274,7 @@ namespace Axiom
                         && !string.Equals(mainwindow.heightCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase))
                     {
                         // Auto the width (-2), Make user entered height divisible by 2
-                        width = "trunc(iw/2)*2";
+                        width = "-2";
 
                         try
                         {
@@ -2319,7 +2319,7 @@ namespace Axiom
                         && string.Equals(mainwindow.heightCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase))
                     {
                         // Auto the height (-2), Make user entered width divisible by 2
-                        height = "trunc(ih/2)*2";
+                        height = "-2";
 
                         try
                         {
