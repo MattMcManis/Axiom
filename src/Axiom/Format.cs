@@ -94,7 +94,7 @@ namespace Axiom
                 //MainWindow.outputExt = ".webm";
                 mainwindow.cboMediaType.SelectedItem = "Video";
                 mainwindow.cboMediaType.IsEnabled = false;
-                Video.options = string.Empty;
+                //Video.options = string.Empty;
                 mainwindow.cboSubtitle.SelectedItem = "none";
                 mainwindow.cboSubtitle.IsEnabled = false;
                 mainwindow.cboAudioStream.SelectedItem = "1";
@@ -108,7 +108,7 @@ namespace Axiom
                 //MainWindow.outputExt = ".mp4";
                 mainwindow.cboMediaType.SelectedItem = "Video";
                 mainwindow.cboMediaType.IsEnabled = false;
-                Video.options = string.Empty;
+                //Video.options = string.Empty;
                 mainwindow.cboSubtitle.SelectedItem = "all";
                 mainwindow.cboSubtitle.IsEnabled = true;
                 mainwindow.cboAudioStream.SelectedItem = "all";
@@ -121,7 +121,7 @@ namespace Axiom
                 //MainWindow.outputExt = ".mkv";
                 mainwindow.cboMediaType.SelectedItem = "Video";
                 mainwindow.cboMediaType.IsEnabled = false;
-                Video.options = string.Empty;
+                //Video.options = string.Empty;
                 mainwindow.cboSubtitle.SelectedItem = "all";
                 mainwindow.cboSubtitle.IsEnabled = true;
                 mainwindow.cboAudioStream.SelectedItem = "all";
@@ -133,7 +133,7 @@ namespace Axiom
                 //MainWindow.outputExt = ".ogv";
                 mainwindow.cboMediaType.SelectedItem = "Video";
                 mainwindow.cboMediaType.IsEnabled = false;
-                Video.options = string.Empty;
+                //Video.options = string.Empty;
                 mainwindow.cboSubtitle.SelectedItem = "none";
                 mainwindow.cboSubtitle.IsEnabled = false;
                 mainwindow.cboAudioStream.SelectedItem = "all";
@@ -147,7 +147,7 @@ namespace Axiom
                 mainwindow.cboMediaType.IsEnabled = true;
                 //Video.VideoCodec(mainwindow) = string.Empty;
                 Audio.aCodec = string.Empty;
-                Video.options = string.Empty;
+                //Video.options = string.Empty;
                 mainwindow.cboSubtitle.SelectedItem = "none";
                 mainwindow.cboSubtitle.IsEnabled = false;
                 mainwindow.cboFPS.SelectedItem = "auto";
@@ -159,7 +159,7 @@ namespace Axiom
                 //MainWindow.outputExt = ".mp3";
                 mainwindow.cboMediaType.SelectedItem = "Audio";
                 mainwindow.cboMediaType.IsEnabled = false;
-                Video.options = string.Empty;
+                //Video.options = string.Empty;
                 mainwindow.cboSubtitle.SelectedItem = "none";
                 mainwindow.cboSubtitle.IsEnabled = false;
                 mainwindow.cboAudioStream.SelectedItem = "1";
@@ -172,7 +172,7 @@ namespace Axiom
                 //MainWindow.outputExt = ".m4a";
                 mainwindow.cboMediaType.SelectedItem = "Audio";
                 mainwindow.cboMediaType.IsEnabled = false;
-                Video.options = string.Empty;
+                //Video.options = string.Empty;
                 mainwindow.cboSubtitle.SelectedItem = "none";
                 mainwindow.cboSubtitle.IsEnabled = false;
                 mainwindow.cboAudioStream.SelectedItem = "1";
@@ -185,7 +185,7 @@ namespace Axiom
                 //MainWindow.outputExt = ".ogg";
                 mainwindow.cboMediaType.SelectedItem = "Audio";
                 mainwindow.cboMediaType.IsEnabled = false;
-                Video.options = string.Empty;
+                //Video.options = string.Empty;
                 mainwindow.cboSubtitle.SelectedItem = "none";
                 mainwindow.cboSubtitle.IsEnabled = false;
                 mainwindow.cboAudioStream.SelectedItem = "1";
@@ -198,7 +198,7 @@ namespace Axiom
                 //MainWindow.outputExt = ".flac";
                 mainwindow.cboMediaType.SelectedItem = "Audio";
                 mainwindow.cboMediaType.IsEnabled = false;
-                Video.options = string.Empty;
+                //Video.options = string.Empty;
                 mainwindow.cboSubtitle.SelectedItem = "none";
                 mainwindow.cboSubtitle.IsEnabled = false;
                 mainwindow.cboAudioStream.SelectedItem = "1";
@@ -209,7 +209,7 @@ namespace Axiom
                 //MainWindow.outputExt = ".wav";
                 mainwindow.cboMediaType.SelectedItem = "Audio";
                 mainwindow.cboMediaType.IsEnabled = false;
-                Video.options = string.Empty;
+                //Video.options = string.Empty;
                 mainwindow.cboSubtitle.SelectedItem = "none";
                 mainwindow.cboSubtitle.IsEnabled = false;
                 mainwindow.cboOptimize.IsEnabled = false;
@@ -228,7 +228,7 @@ namespace Axiom
                 //Video.vCodec = string.Empty;
                 Audio.aCodec = string.Empty;
                 Streams.mMap = string.Empty;
-                Video.options = string.Empty;
+                //Video.options = string.Empty;
                 mainwindow.cboSubtitle.SelectedItem = "none";
                 mainwindow.cboSubtitle.IsEnabled = false;
                 mainwindow.cboOptimize.IsEnabled = false;
@@ -249,7 +249,7 @@ namespace Axiom
                 //Video.vCodec = string.Empty;
                 Audio.aCodec = string.Empty;
                 Streams.mMap = string.Empty;
-                Video.options = string.Empty;
+                //Video.options = string.Empty;
                 mainwindow.cboSubtitle.SelectedItem = "none";
                 mainwindow.cboSubtitle.IsEnabled = false;
                 mainwindow.cboOptimize.IsEnabled = false;

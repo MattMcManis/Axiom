@@ -150,14 +150,10 @@ namespace Axiom
                         "\r\n" + Video.VideoFilter(mainwindow),
                         "\r\n" + Video.Images(mainwindow),
                         "\r\n" + Video.Optimize(mainwindow),
-                        "\r\n" + Video.Pass1Modifier(mainwindow), // -pass 1
+                        "\r\n" + Video.Pass1Modifier(mainwindow), // -pass 1, -x265-params pass=2
 
-                        "\r\n\r\n" + Audio.AudioCodec(mainwindow),
-                        "\r\n" + Audio.AudioQuality(mainwindow),
-                        Audio.SampleRate(mainwindow),
-                        Audio.BitDepth(mainwindow),
-                        Audio.Channel(mainwindow),
-                        "\r\n" + Audio.AudioFilter(mainwindow),
+                        // Disable Audio for Pass 1 to speed up encoding
+                        "\r\n\r\n" + "-an",
 
                         "\r\n\r\n" + Streams.StreamMaps(mainwindow),
                         "\r\n\r\n" + Format.Cut(mainwindow),
@@ -173,9 +169,9 @@ namespace Axiom
                 Video.vFilter = string.Empty;
                 Video.VideoFilters.Clear();
 
-                Audio.aFilterSwitch = 0;
-                Audio.aFilter = string.Empty;
-                Audio.AudioFilters.Clear();
+                //Audio.aFilterSwitch = 0;
+                //Audio.aFilter = string.Empty;
+                //Audio.AudioFilters.Clear();
 
 
                 // Join List with Spaces
@@ -192,6 +188,9 @@ namespace Axiom
                 // -------------------------
                 List<string> FFmpegArgsPass2List = new List<string>()
                     {
+                        // Video Strings have already been defined in Pass 1
+                        // Use Strings instead of Methods
+                        //
                         "\r\n\r\n" + "&&",
                         "\r\n\r\n" + MainWindow.FFmpegPath(mainwindow),
                         "-y",
@@ -199,14 +198,14 @@ namespace Axiom
 
                         "\r\n\r\n" + "\"" + MainWindow.InputPath(mainwindow) + "\"",
 
-                        "\r\n\r\n" + Video.VideoCodec(mainwindow),
-                        "\r\n" + Video.Speed(mainwindow),
-                        Video.VideoQuality(mainwindow),
-                        "\r\n" + Video.FPS(mainwindow),
-                        "\r\n" + Video.VideoFilter(mainwindow),
-                        "\r\n" + Video.Images(mainwindow),
-                        "\r\n" + Video.Optimize(mainwindow),
-                        "\r\n" + Video.Pass2Modifier(mainwindow), // -pass 2
+                        "\r\n\r\n" + Video.vCodec,
+                        "\r\n" + Video.speed,
+                        Video.vQuality,
+                        "\r\n" + Video.fps,
+                        "\r\n" + Video.vFilter,
+                        "\r\n" + Video.image,
+                        "\r\n" + Video.optimize,
+                        "\r\n" + Video.Pass2Modifier(mainwindow), // -pass 2, -x265-params pass=2
 
                         "\r\n\r\n" + Audio.AudioCodec(mainwindow),
                         "\r\n" + Audio.AudioQuality(mainwindow),
@@ -217,8 +216,7 @@ namespace Axiom
 
                         "\r\n\r\n" + Streams.StreamMaps(mainwindow),
                         "\r\n\r\n" + Format.Cut(mainwindow),
-                        "\r\n\r\n" + MainWindow.ThreadDetect(mainwindow),
-
+                        "\r\n\r\n" + MainWindow.threads,
                         "\r\n\r\n" + "\"" + MainWindow.OutputPath(mainwindow) + "\""
                     };
 
@@ -428,7 +426,7 @@ namespace Axiom
                 scriptview = new ScriptView(mainwindow);
                 scriptview.Left = mainwindow.Left + 90;
                 scriptview.Top = mainwindow.Top + 98;
-                scriptview.Owner = Window.GetWindow(mainwindow);
+                //scriptview.Owner = Window.GetWindow(mainwindow);
                 scriptview.Show();
             }
         }

@@ -70,7 +70,7 @@ namespace Axiom
         public static string crf;
         public static string fps; // frames per second
         public static string optTune; // x264 & x265 tuning modes
-        public static string options;
+        public static string image;
         public static string optProfile;
         public static string optLevel;
         public static string optimize;
@@ -2566,14 +2566,18 @@ namespace Axiom
         {
             if ((string)mainwindow.cboMediaType.SelectedItem == "Image")
             {
-                options = "-vframes 1"; //important
+                image = "-vframes 1"; //important
             }
             if ((string)mainwindow.cboMediaType.SelectedItem == "Sequence")
             {
-                options = string.Empty; //disable -vframes
+                image = string.Empty; //disable -vframes
+            }
+            else
+            {
+                image = string.Empty;
             }
 
-            return options;
+            return image;
         }
 
 

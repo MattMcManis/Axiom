@@ -407,8 +407,8 @@ namespace Axiom
             debugParagraph.Inlines.Add(new Run(Video.optTune) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
-            debugParagraph.Inlines.Add(new Bold(new Run("options ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(Video.options) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Bold(new Run("image ")) { Foreground = Variable });
+            debugParagraph.Inlines.Add(new Run(Video.image) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("speed ")) { Foreground = Variable });

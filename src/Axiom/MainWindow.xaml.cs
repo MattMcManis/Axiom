@@ -164,7 +164,7 @@ namespace Axiom
         {
             InitializeComponent();
 
-            TitleVersion = "Axiom ~ FFmpeg UI (0.9.7-alpha)";
+            TitleVersion = "Axiom ~ FFmpeg UI (0.9.7.2-alpha)";
             DataContext = this;
 
             /// <summary>
@@ -452,7 +452,7 @@ namespace Axiom
             Video.pass2Args = string.Empty; // Batch 2-Pass
             Video.pass1 = string.Empty;
             Video.pass2 = string.Empty;
-            Video.options = string.Empty;
+            Video.image = string.Empty;
             Video.optimize = string.Empty;
             Video.speed = string.Empty;
 
