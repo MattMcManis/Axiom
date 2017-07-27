@@ -166,8 +166,17 @@ namespace Axiom
                         "\r\n\r\n" + "\"" + MainWindow.OutputPath(mainwindow) + "\""
                     };
 
-                // Clear to prevent Pass 2 from doubling up
-                MainWindow.ClearVariables();
+
+                // Clear Filters to prevent Pass 2 from doubling up
+                //
+                Video.vFilterSwitch = 0;
+                Video.vFilter = string.Empty;
+                Video.VideoFilters.Clear();
+
+                Audio.aFilterSwitch = 0;
+                Audio.aFilter = string.Empty;
+                Audio.AudioFilters.Clear();
+
 
                 // Join List with Spaces
                 // Remove: Empty, Null, Standalone LineBreak
@@ -176,6 +185,7 @@ namespace Axiom
                     .Where(s => !s.Equals("\r\n\r\n"))
                     .Where(s => !s.Equals("\r\n"))
                     );
+
 
                 // -------------------------
                 // Pass 2
