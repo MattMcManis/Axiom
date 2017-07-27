@@ -485,7 +485,7 @@ namespace Axiom
             Streams.mMap = string.Empty;
 
             // General
-            outputNewFileName = string.Empty;
+            //outputNewFileName = string.Empty;
 
             // Do not Empty:
             //

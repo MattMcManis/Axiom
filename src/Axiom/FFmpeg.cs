@@ -166,6 +166,9 @@ namespace Axiom
                         "\r\n\r\n" + "\"" + MainWindow.OutputPath(mainwindow) + "\""
                     };
 
+                // Clear to prevent Pass 2 from doubling up
+                MainWindow.ClearVariables();
+
                 // Join List with Spaces
                 // Remove: Empty, Null, Standalone LineBreak
                 Video.pass1Args = string.Join(" ", FFmpegArgsPass1List
