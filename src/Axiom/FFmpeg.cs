@@ -162,18 +162,6 @@ namespace Axiom
                         "\r\n\r\n" + "\"" + MainWindow.OutputPath(mainwindow) + "\""
                     };
 
-
-                // Clear Filters to prevent Pass 2 from doubling up
-                //
-                Video.vFilterSwitch = 0;
-                Video.vFilter = string.Empty;
-                Video.VideoFilters.Clear();
-
-                //Audio.aFilterSwitch = 0;
-                //Audio.aFilter = string.Empty;
-                //Audio.AudioFilters.Clear();
-
-
                 // Join List with Spaces
                 // Remove: Empty, Null, Standalone LineBreak
                 Video.pass1Args = string.Join(" ", FFmpegArgsPass1List
