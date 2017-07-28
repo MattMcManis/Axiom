@@ -2560,7 +2560,9 @@ namespace Axiom
         /// <summary>
         public static void Volume(MainWindow mainwindow)
         {
+            // -------------------------
             // Only if Audio Codec is Not Empty
+            // -------------------------
             if (!string.IsNullOrEmpty((string)mainwindow.cboAudioCodec.SelectedItem))
             {
                 // If TextBox is 100% or Blank
@@ -2587,7 +2589,9 @@ namespace Axiom
                 }
             }
 
+            // -------------------------
             // Mute
+            // -------------------------
             if ((string)mainwindow.cboAudio.SelectedItem == "Mute" || (string)mainwindow.cboAudioStream.SelectedItem == "none")
             {
                 aFilterSwitch = 0;
@@ -2613,7 +2617,10 @@ namespace Axiom
         /// <summary>
         public static void ALimiter(MainWindow mainwindow)
         {
-            if (mainwindow.tglAudioLimiter.IsChecked == true && !string.IsNullOrEmpty((string)mainwindow.cboAudioCodec.SelectedItem)) // Only if Audio Codec is Not Empty
+            // -------------------------
+            // Only if Audio Codec is Not Empty
+            // -------------------------
+            if (mainwindow.tglAudioLimiter.IsChecked == true && !string.IsNullOrEmpty((string)mainwindow.cboAudioCodec.SelectedItem)) 
             {
                 // Log Console Message /////////
                 Log.WriteAction = () =>
@@ -2628,8 +2635,11 @@ namespace Axiom
 
                 // aFilter Switch
                 aFilterSwitch += 1;
-
             }
+
+            // -------------------------
+            // Off
+            // -------------------------
             if (mainwindow.tglAudioLimiter.IsChecked == false)
             {
                 // Log Console Message /////////
@@ -2644,7 +2654,9 @@ namespace Axiom
                 aLimiter = string.Empty; //off
             }
 
+            // -------------------------
             // If TextBox Empty
+            // -------------------------
             if (mainwindow.tglAudioLimiter.IsChecked == true && string.IsNullOrWhiteSpace(mainwindow.audioLimiter.Text))
             {
                 // aFilter Switch
@@ -2658,7 +2670,9 @@ namespace Axiom
                 }
             }
 
+            // -------------------------
             // Mute
+            // -------------------------
             if ((string)mainwindow.cboAudio.SelectedItem == "Mute" || (string)mainwindow.cboAudioStream.SelectedItem == "none")
             {
                 aFilterSwitch = 0;
@@ -2679,9 +2693,9 @@ namespace Axiom
             aFilter = string.Empty; //important
 
 
-            // -------------------------
+            // --------------------------------------------------
             // Filters
-            // -------------------------
+            // --------------------------------------------------
             /// <summary>
             ///    Volume
             /// </summary> 
@@ -2706,12 +2720,17 @@ namespace Axiom
             };
             Log.LogActions.Add(Log.WriteAction);
 
+            // -------------------------
             // Use Single Filter
+            // -------------------------
             if (aFilterSwitch == 1)
             {
                 aFilter = "-af " + volume + aLimiter; //either volume or aLimiter will be enabled
             }
+
+            // -------------------------
             // Combine Multiple Filters
+            // -------------------------
             else if (aFilterSwitch > 1)
             {
                 // Add Filters to List
@@ -2721,26 +2740,32 @@ namespace Axiom
                 // Join List with Comma, Remove Empty Strings
                 aFilter = "-af \"" + string.Join(", ", AudioFilters.Where(s => !string.IsNullOrEmpty(s))) + "\"";
             }
+
+            // -------------------------
+            // No Filters
+            // -------------------------
             else if (aFilterSwitch == 0)
             {
                 aFilter = string.Empty;
             }
-            // No Filters
             else if (aFilterSwitch == null)
             {
                 aFilterSwitch = 0;
                 aFilter = string.Empty;
             }
 
+            // -------------------------
             // Remove aFilter if Video Codec is Empty
+            // -------------------------
             if (string.IsNullOrEmpty((string)mainwindow.cboAudioCodec.SelectedItem))
             {
                 aFilterSwitch = 0;
                 aFilter = string.Empty;
             }
 
-
+            // -------------------------
             // Mute
+            // -------------------------
             if ((string)mainwindow.cboAudio.SelectedItem == "Mute" || (string)mainwindow.cboAudioStream.SelectedItem == "none")
             {
                 aFilterSwitch = 0;

@@ -39,11 +39,11 @@ namespace Axiom
         /// <summary>
         // --------------------------------------------------------------------------------------------------------
         public static string vMap; // video streams
-        public static string aMap; // audio streams
         public static string cMap; // video chapters
-        public static string sMap; // subtitle files
+        public static string sMap; // video subtitles
+        public static string aMap; // audio streams
         public static string mMap; // file metadata
-        public static string map; // controls all maps
+        public static string map; // combines all maps
 
 
         // --------------------------------------------------------------------------------------------------------
@@ -69,26 +69,31 @@ namespace Axiom
             if ((string)mainwindow.cboFormat.SelectedItem == "webm")
             {
                 vMap = "-map 0:v:0?"; // only video track 1
-                aMap = "-map 0:a:0?"; // only audio track 1
+                cMap = "-map_chapters -1"; // remove chapters
                 sMap = "-sn"; // no subtitles for webm
+                aMap = "-map 0:a:0?"; // only audio track 1
             }
             else if ((string)mainwindow.cboFormat.SelectedItem == "mp4")
             {
                 vMap = "-map 0:v:0?"; // only video track 1
-                aMap = "-map 0:a:0?"; // only audio track 1
-                sMap = "-map 0:s? -c:s copy"; // all subtitles (:? at the end ignores error if subtitle is not available)
+                cMap = "-map_chapters 0"; // all chapters
+                sMap = "-map 0:s?"; // all subtitles (:? at the end ignores error if subtitle is not available)
+                //aMap = "-map 0:a:0?"; // only audio track 1
+                aMap = "-map 0:a?"; // all audio tracks 
             }
-            else if ((string)mainwindow.cboFormat.SelectedItem == "mkv") // if codec copy, copy all
+            else if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
             {
                 vMap = "-map 0:v?"; // all video tracks
+                cMap = "-map_chapters 0"; // all chapters
+                sMap = "-map 0:s?"; // all subtitles
                 aMap = "-map 0:a?"; // all audio tracks 
-                sMap = "-map 0:s? -c:s copy"; // all subtitles
             }
-            else if ((string)mainwindow.cboFormat.SelectedItem == "ogv") // if codec copy, copy all
+            else if ((string)mainwindow.cboFormat.SelectedItem == "ogv")
             {
                 vMap = "-map 0:v?"; // all video tracks
+                cMap = "-map_chapters 0"; // all chapters
+                sMap = "-map 0:s?"; // all subtitles, OGV has problem using Subtitles
                 aMap = "-map 0:a?"; // all audio tracks 
-                sMap = "-map 0:s? -c:s copy"; // all subtitles, OGV has problem using Subtitles
             }
 
 
@@ -101,11 +106,9 @@ namespace Axiom
             // Log Console Message /////////
             Log.WriteAction = () =>
             {
-                //console.rtbLog.Document = new FlowDocument(paragraph);
                 Log.logParagraph.Inlines.Add(new LineBreak());
                 Log.logParagraph.Inlines.Add(new Bold(new Run("Video Stream: ")) { Foreground = Log.ConsoleDefault });
                 Log.logParagraph.Inlines.Add(new Run("all") { Foreground = Log.ConsoleDefault });
-                //this.DataContext = this;
             };
             Log.LogActions.Add(Log.WriteAction);
 
@@ -116,50 +119,26 @@ namespace Axiom
             // Overrides
             // Offset by 1. VLC starts with #1, FFprobe starts with #a:0.
             // WARNING: IF Audio Map Enabled, Video Map must also be enabled or no video !!!!!!!!!!
+
+            // None
             if ((string)mainwindow.cboAudioStream.SelectedItem == "none")
             {
                 aMap = "-an";
             }
+            // All
             else if ((string)mainwindow.cboAudioStream.SelectedItem == "all")
             {
 
             }
-            else if ((string)mainwindow.cboAudioStream.SelectedItem == "1")
+            // Number
+            else
             {
-                aMap = "-map 0:a:0?";
-            }
-            else if ((string)mainwindow.cboAudioStream.SelectedItem == "2")
-            {
-                aMap = "-map 0:a:1?";
-            }
-            else if ((string)mainwindow.cboAudioStream.SelectedItem == "3")
-            {
-                aMap = "-map 0:a:2?";
-            }
-            else if ((string)mainwindow.cboAudioStream.SelectedItem == "4")
-            {
-                aMap = "-map 0:a:3?";
-            }
-            else if ((string)mainwindow.cboAudioStream.SelectedItem == "5")
-            {
-                aMap = "-map 0:a:4?";
-            }
-            else if ((string)mainwindow.cboAudioStream.SelectedItem == "6")
-            {
-                aMap = "-map 0:a:5?";
-            }
-            else if ((string)mainwindow.cboAudioStream.SelectedItem == "7")
-            {
-                aMap = "-map 0:a:6?";
-            }
-            else if ((string)mainwindow.cboAudioStream.SelectedItem == "8")
-            {
-                aMap = "-map 0:a:7?";
-            }
+                // Subtract 1, Map starts at 0
+                int aMapNumber = Int32.Parse(mainwindow.cboAudioStream.SelectedItem.ToString()) - 1;
 
-            // -------------------------
-            // Mute Override
-            // -------------------------
+                aMap = "-map 0:a:" + aMapNumber + "?";
+            }
+            // Mute
             if ((string)mainwindow.cboAudio.SelectedItem == "Mute")
             {
                 aMap = "-an";
@@ -179,170 +158,31 @@ namespace Axiom
             // Subtitle Map
             // -------------------------
             // Overrides
-            if ((string)mainwindow.cboSubtitle.SelectedItem == "all")
-            {
 
-            }
-            else if ((string)mainwindow.cboSubtitle.SelectedItem == "none")
+            // None
+            //
+            if ((string)mainwindow.cboSubtitle.SelectedItem == "none")
             {
-                sMap = "-sn"; //might interfere with webm's -sn
+                sMap = "-sn";
             }
-            else if ((string)mainwindow.cboSubtitle.SelectedItem == "1")
+            // All
+            //
+            else if ((string)mainwindow.cboSubtitle.SelectedItem == "all")
             {
-                // mp4 uses mov_text / mkv uses ass
-                if ((string)mainwindow.cboFormat.SelectedItem == "mp4")
-                {
-                    sMap = "-map 0:s:0? -c:s copy";
-                }
-                else if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
-                {
-                    sMap = "-map 0:s:0? -c:s copy";
-                }
-                else if ((string)mainwindow.cboFormat.SelectedItem == "ogv")
-                {
-                    sMap = "-map 0:s:0? -c:s copy";
-                }
-                else if ((string)mainwindow.cboFormat.SelectedItem == "jpg" || (string)mainwindow.cboFormat.SelectedItem == "png")
-                {
-                    sMap = "-sn";
-                }
+                
             }
-            else if ((string)mainwindow.cboSubtitle.SelectedItem == "2")
+            // Number
+            //
+            else
             {
-                // mp4 uses mov_text / mkv uses ass
-                if ((string)mainwindow.cboFormat.SelectedItem == "mp4")
-                {
-                    sMap = "-map 0:s:1? -c:s copy";
-                }
-                else if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
-                {
-                    sMap = "-map 0:s:1? -c:s copy";
-                }
-                else if ((string)mainwindow.cboFormat.SelectedItem == "ogv")
-                {
-                    sMap = "-map 0:s:1? -c:s copy";
-                }
-                else if ((string)mainwindow.cboFormat.SelectedItem == "jpg" || (string)mainwindow.cboFormat.SelectedItem == "png")
-                {
-                    sMap = "-sn";
-                }
-            }
-            else if ((string)mainwindow.cboSubtitle.SelectedItem == "3")
-            {
-                // mp4 uses mov_text / mkv uses ass
-                if ((string)mainwindow.cboFormat.SelectedItem == "mp4")
-                {
-                    sMap = "-map 0:s:2? -c:s copy";
-                }
-                else if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
-                {
-                    sMap = "-map 0:s:2? -c:s copy";
-                }
-                else if ((string)mainwindow.cboFormat.SelectedItem == "ogv")
-                {
-                    sMap = "-map 0:s:2? -c:s copy";
-                }
-                else if ((string)mainwindow.cboFormat.SelectedItem == "jpg" || (string)mainwindow.cboFormat.SelectedItem == "png")
-                {
-                    sMap = "-sn";
-                }
-            }
-            else if ((string)mainwindow.cboSubtitle.SelectedItem == "4")
-            {
-                // mp4 uses mov_text / mkv uses ass
-                if ((string)mainwindow.cboFormat.SelectedItem == "mp4")
-                {
-                    sMap = "-map 0:s:3? -c:s copy";
-                }
-                else if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
-                {
-                    sMap = "-map 0:s:3? -c:s copy";
-                }
-                else if ((string)mainwindow.cboFormat.SelectedItem == "ogv")
-                {
-                    sMap = "-map 0:s:3? -c:s copy";
-                }
-                else if ((string)mainwindow.cboFormat.SelectedItem == "jpg" || (string)mainwindow.cboFormat.SelectedItem == "png")
-                {
-                    sMap = "-sn";
-                }
-            }
-            else if ((string)mainwindow.cboSubtitle.SelectedItem == "5")
-            {
-                // mp4 uses mov_text / mkv uses ass
-                if ((string)mainwindow.cboFormat.SelectedItem == "mp4")
-                {
-                    sMap = "-map 0:s:4? -c:s copy";
-                }
-                else if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
-                {
-                    sMap = "-map 0:s:4? -c:s copy";
-                }
-                else if ((string)mainwindow.cboFormat.SelectedItem == "ogv")
-                {
-                    sMap = "-map 0:s:4? -c:s copy";
-                }
-                else if ((string)mainwindow.cboFormat.SelectedItem == "jpg" || (string)mainwindow.cboFormat.SelectedItem == "png")
-                {
-                    sMap = "-sn";
-                }
-            }
-            else if ((string)mainwindow.cboSubtitle.SelectedItem == "6")
-            {
-                // mp4 uses mov_text / mkv uses ass
-                if ((string)mainwindow.cboFormat.SelectedItem == "mp4")
-                {
-                    sMap = "-map 0:s:5? -c:s copy";
-                }
-                else if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
-                {
-                    sMap = "-map 0:s:5? -c:s copy";
-                }
-                else if ((string)mainwindow.cboFormat.SelectedItem == "ogv")
-                {
-                    sMap = "-map 0:s:5? -c:s copy";
-                }
-                else if ((string)mainwindow.cboFormat.SelectedItem == "jpg" || (string)mainwindow.cboFormat.SelectedItem == "png")
-                {
-                    sMap = "-sn";
-                }
-            }
-            else if ((string)mainwindow.cboSubtitle.SelectedItem == "7")
-            {
-                // mp4 uses mov_text / mkv uses ass
-                if ((string)mainwindow.cboFormat.SelectedItem == "mp4")
-                {
-                    sMap = "-map 0:s:6? -c:s copy";
-                }
-                else if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
-                {
-                    sMap = "-map 0:s:6? -c:s copy";
-                }
-                else if ((string)mainwindow.cboFormat.SelectedItem == "ogv")
-                {
-                    sMap = "-map 0:s:6? -c:s copy";
-                }
-                else if ((string)mainwindow.cboFormat.SelectedItem == "jpg" || (string)mainwindow.cboFormat.SelectedItem == "png")
-                {
-                    sMap = "-sn";
-                }
-            }
-            else if ((string)mainwindow.cboSubtitle.SelectedItem == "8")
-            {
-                // mp4 uses mov_text / mkv uses ass
-                if ((string)mainwindow.cboFormat.SelectedItem == "mp4")
-                {
-                    sMap = "-map 0:s:7? -c:s copy";
-                }
-                else if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
-                {
-                    sMap = "-map 0:s:7? -c:s copy";
-                }
-                else if ((string)mainwindow.cboFormat.SelectedItem == "ogv")
-                {
-                    sMap = "-map 0:s:7? -c:s copy";
-                }
-                else if ((string)mainwindow.cboFormat.SelectedItem == "jpg" || (string)mainwindow.cboFormat.SelectedItem == "png")
+                // Subtract 1, Map starts at 0
+                int sMapNumber = Int32.Parse(mainwindow.cboSubtitle.SelectedItem.ToString()) - 1;
+
+                sMap = "-map 0:s:" + sMapNumber + "?";
+
+                // Image
+                if ((string)mainwindow.cboFormat.SelectedItem == "jpg"
+                    || (string)mainwindow.cboFormat.SelectedItem == "png")
                 {
                     sMap = "-sn";
                 }
@@ -359,24 +199,12 @@ namespace Axiom
 
 
             // -------------------------
-            // Chapters Map
-            // -------------------------
-            // Overrides
-            // Go by Container instead of Codec
-            //if ((string)mainwindow.cboFormat.SelectedItem == "mp4" || (string)mainwindow.cboFormat.SelectedItem == "mkv" || (string)mainwindow.cboFormat.SelectedItem == "ogv")
-            //{
-            //    //cMap = "-map_chapters outfile:infile";
-            //}
-            //else
-            //{
-            //    //cMap = "-map_chapters -1";
-            //}
-
-
-            // -------------------------
-            // Metadata Map
+            // Format Overrides
             // -------------------------
             // Go by Format Container
+
+            // MP3
+            //
             if ((string)mainwindow.cboFormat.SelectedItem == "mp3")
             {
                 mMap = "-map_metadata 0 -id3v2_version 3";
@@ -386,37 +214,47 @@ namespace Axiom
                 mMap = "-map_metadata 0";
             }
 
-            // MediaType
-            if ((string)mainwindow.cboMediaType.SelectedItem == "Image" || (string)mainwindow.cboMediaType.SelectedItem == "Sequence")
-            {
-                mMap = string.Empty;
-            }
-
 
             // -------------------------
             // MediaType Overrides (Input & Output)
             // -------------------------
             // If output is Image Format, disable Video & Audio Map
             // Must be after inputVideoCodec
-            if ((string)mainwindow.cboMediaType.SelectedItem == "Image" || (string)mainwindow.cboMediaType.SelectedItem == "Sequence")
+            if ((string)mainwindow.cboMediaType.SelectedItem == "Image" 
+                || (string)mainwindow.cboMediaType.SelectedItem == "Sequence")
             {
                 vMap = string.Empty;
+                cMap = string.Empty;
                 aMap = "-an";
                 sMap = "-sn";
+                mMap = string.Empty;
             }
-
-            // If input is Mute, disable the Audio Map (This can only happen in Auto Mode, as it enables FFmpeg detection)
-            // This caused problems when generating Script. When Output TextBox was blank aMap was empty.
-            //if (string.IsNullOrEmpty(FFprobe.inputAudioCodec))
-            //{
-            //    aMap = string.Empty;
-            //}
 
             // If output is Audio Format, disable Video & Subtitle Map
             if ((string)mainwindow.cboMediaType.SelectedItem == "Audio")
             {
                 vMap = string.Empty;
+                cMap = string.Empty;
                 sMap = string.Empty;
+            }
+
+
+            // -------------------------
+            // Two-Pass Overrides
+            // -------------------------
+            if ((string)mainwindow.cboMediaType.SelectedItem == "Video" 
+                && (string)mainwindow.cboPass.SelectedItem == "2 Pass"
+                && Video.v2PassSwitch == 0)
+            {
+                // Remove Chapters, Subtitles, Audio, Metadata on Pass 1
+                cMap = string.Empty;
+                sMap = "-sn";
+                aMap = "-an";
+                mMap = string.Empty;
+
+                // Turn On Two-Pass Switch
+                // Pass 2 will now avoid this Override and use Audio Args
+                Video.v2PassSwitch = 1;
             }
 
 
@@ -424,7 +262,7 @@ namespace Axiom
             // Combine Maps
             // -------------------------
             // Make List
-            List<string> mapList = new List<string>() { vMap, cMap, aMap, sMap, mMap };
+            List<string> mapList = new List<string>() { vMap, cMap, sMap, aMap, mMap };
             // Join List with Spaces, Remove Empty Strings
             map = string.Join(" ", mapList.Where(s => !string.IsNullOrEmpty(s)));
 

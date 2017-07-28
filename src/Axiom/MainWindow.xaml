@@ -268,10 +268,10 @@
             <Image Width="10" Height="11" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" Style="{DynamicResource ButtonLogConsole}" />
         </Button>
 
-        <!-- Save -->
+        <!-- Save
         <Button x:Name="buttonSave" HorizontalAlignment="Left" Margin="-189,233,0,0" VerticalAlignment="Top" Width="22" Height="22" Cursor="Hand" Click="buttonSave_Click" Background="{x:Null}" Style="{DynamicResource ButtonSmallCustom}" ToolTip="Save Custom Preset">
             <Image Width="11" Height="11" Stretch="Fill" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="1,-1,0,0"/>
-        </Button>
+        </Button> -->
 
         <!-- VBR Toggle -->
         <ToggleButton x:Name="tglVBR" Content="VBR" HorizontalAlignment="Left" Margin="220,128,0,0" VerticalAlignment="Top" Cursor="Hand" ToolTipService.InitialShowDelay="1000" ToolTipService.ShowOnDisabled="True" ToolTip="Toggle Variable Bitrate for Vorbis (always), Opus, Lame, AAC, (if not Auto)." Width="30" Height="22" Style="{DynamicResource ToggleButtonSmall}"/>
@@ -290,10 +290,10 @@
         <ComboBox x:Name="cboBitDepth" Style="{DynamicResource ComboBoxCustom}" ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" HorizontalAlignment="Left" Margin="198,184,0,0" VerticalAlignment="Top" Width="52" ToolTipService.InitialShowDelay="1000" ToolTipService.ShowOnDisabled="True" ToolTip="Audio Bit Depth" SelectionChanged="cboBitDepth_SelectionChanged">
         </ComboBox>
 
-        <!-- Auto Play -->
+        <!-- Auto Play
         <ToggleButton x:Name="toggleAutoPlay" HorizontalAlignment="Left" Margin="-162,233,0,0" VerticalAlignment="Top" ToolTip="Auto Play after converting." Width="22" Height="22" Style="{DynamicResource ToggleButtonCustom}">
             <Image Source="Resources/Images/autoplay.png" Width="11" Height="11" Stretch="Fill" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="-1,0,0,0"/>
-        </ToggleButton>
+        </ToggleButton> -->
 
         <!-- Play File -->
         <Label x:Name="labelOptimize" Style="{DynamicResource LabelCustom}" Content="Opt" HorizontalAlignment="Left" Margin="503,155,0,0" VerticalAlignment="Top" Width="28" ToolTip="Optimize file for device type." FontSize="11" FontFamily="Segoe UI Semilight" />
@@ -351,10 +351,10 @@
         <Label x:Name="labelPass" Style="{DynamicResource LabelCustom}" Content="Enc" HorizontalAlignment="Left" Margin="88,155,0,0" VerticalAlignment="Top" Width="34" ToolTip="Encoding Pass Method" FontSize="11" FontFamily="Segoe UI Semilight" />
         <ComboBox x:Name="cboPass" Style="{DynamicResource ComboBoxCustom}" ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" HorizontalAlignment="Left" Margin="116,155,0,0" VerticalAlignment="Top" Width="52" ToolTipService.InitialShowDelay="1000" ToolTipService.ShowOnDisabled="True" ToolTip="Encoding Pass Method" SelectionChanged="cboPass_SelectionChanged" DropDownClosed="cboPass_DropDownClosed" />
 
-        <!-- File Queue -->
+        <!-- File Queue
         <Button x:Name="buttonFileQueue" HorizontalAlignment="Left" Margin="-135,233,0,0" VerticalAlignment="Top" Width="22" Height="22" Cursor="Hand" Background="{x:Null}" Style="{DynamicResource ButtonSmallCustom}" ToolTip="Show File Queue" Click="buttonFileQueue_Click">
             <Image Source="Resources/Images/logconsole.png" Width="10" Height="11" Stretch="Fill" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0"/>
-        </Button>
+        </Button> -->
 
     </Grid>
 </Window>

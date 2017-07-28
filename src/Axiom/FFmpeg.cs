@@ -89,6 +89,8 @@ namespace Axiom
                         "\r\n" + Video.Images(mainwindow),
                         "\r\n" + Video.Optimize(mainwindow),
 
+                        "\r\n\r\n" + Video.SubtitleCodec(mainwindow),
+
                         "\r\n\r\n" + Audio.AudioCodec(mainwindow),
                         "\r\n" + Audio.AudioQuality(mainwindow),
                         Audio.SampleRate(mainwindow),
@@ -152,8 +154,11 @@ namespace Axiom
                         "\r\n" + Video.Optimize(mainwindow),
                         "\r\n" + Video.Pass1Modifier(mainwindow), // -pass 1, -x265-params pass=2
 
+                        //"\r\n\r\n" + Video.SubtitleCodec(mainwindow),
+                        // Disable Subtitles for Pass 1 to speed up encoding
+                        // -sn put in Stream Maps
                         // Disable Audio for Pass 1 to speed up encoding
-                        "\r\n\r\n" + "-an",
+                        // -an put in Stream Maps
 
                         "\r\n\r\n" + Streams.StreamMaps(mainwindow),
                         "\r\n\r\n" + Format.Cut(mainwindow),
@@ -164,11 +169,17 @@ namespace Axiom
 
                 // Join List with Spaces
                 // Remove: Empty, Null, Standalone LineBreak
+                //
                 Video.pass1Args = string.Join(" ", FFmpegArgsPass1List
                     .Where(s => !string.IsNullOrEmpty(s))
                     .Where(s => !s.Equals("\r\n\r\n"))
                     .Where(s => !s.Equals("\r\n"))
                     );
+
+                // Turn on Two-Pass Switch
+                // Lets Pass 2 know Pass 1 has been run
+                //
+                Video.v2PassSwitch = 1;
 
 
                 // -------------------------
@@ -195,6 +206,8 @@ namespace Axiom
                         "\r\n" + Video.optimize,
                         "\r\n" + Video.Pass2Modifier(mainwindow), // -pass 2, -x265-params pass=2
 
+                        "\r\n\r\n" + Video.SubtitleCodec(mainwindow),
+
                         "\r\n\r\n" + Audio.AudioCodec(mainwindow),
                         "\r\n" + Audio.AudioQuality(mainwindow),
                         Audio.SampleRate(mainwindow),
@@ -205,11 +218,13 @@ namespace Axiom
                         "\r\n\r\n" + Streams.StreamMaps(mainwindow),
                         "\r\n\r\n" + Format.Cut(mainwindow),
                         "\r\n\r\n" + MainWindow.threads,
+
                         "\r\n\r\n" + "\"" + MainWindow.OutputPath(mainwindow) + "\""
                     };
 
                 // Join List with Spaces
                 // Remove: Empty, Null, Standalone LineBreak
+                //
                 Video.pass2Args = string.Join(" ", FFmpegArgsPass2List
                     .Where(s => !string.IsNullOrEmpty(s))
                     .Where(s => !s.Equals("\r\n\r\n"))
@@ -217,12 +232,19 @@ namespace Axiom
                     );
 
                 // Combine Pass 1 & Pass 2 Args
-                Video.v2passArgs = Video.pass1Args + " " + Video.pass2Args;
+                //
+                Video.v2PassArgs = Video.pass1Args + " " + Video.pass2Args;
+
+
+                // Turn Off Two-Pass Switch
+                // All Passes have been run
+                //
+                Video.v2PassSwitch = 0;
             }
 
 
             // Return Value
-            return Video.v2passArgs;
+            return Video.v2PassArgs;
         }
 
 

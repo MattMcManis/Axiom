@@ -164,7 +164,7 @@ namespace Axiom
         {
             InitializeComponent();
 
-            TitleVersion = "Axiom ~ FFmpeg UI (0.9.7.2-alpha)";
+            TitleVersion = "Axiom ~ FFmpeg UI (0.9.8-alpha)";
             DataContext = this;
 
             /// <summary>
@@ -175,9 +175,8 @@ namespace Axiom
 
             /// <summary>
             /// Start the File Queue (Hidden)
-            /// 
-            /// disabled
             /// </summary>
+            // disabled
             //StartFileQueue(); 
 
 
@@ -189,9 +188,8 @@ namespace Axiom
 
             /// <summary>
             ///     System Info
-            ///     
-            ///     Shows OS and Hardware information in Log Console
             /// </summary>
+            // Shows OS and Hardware information in Log Console
             SystemInfoDisplay();
 
 
@@ -421,10 +419,11 @@ namespace Axiom
             FFprobe.aEntryType = string.Empty;
 
             // Video
+            Video.v2PassSwitch = 0; // Set Two-Pass Switch back to Off to avoid doubling up   
             Video.passSingle = string.Empty;
             Video.vCodec = string.Empty;
             Video.vQuality = string.Empty;
-            Video.vBitMode = string.Empty;
+            //Video.vBitMode = string.Empty;
             Video.vBitrate = string.Empty;
             Video.vMaxrate = string.Empty;
             Video.vOptions = string.Empty;
@@ -442,12 +441,12 @@ namespace Axiom
             Format.trimStart = string.Empty;
             Format.trimEnd = string.Empty;
 
-            Video.vFilterSwitch = 0; //Set vFilter Switch back to Off to avoid doubling up        
+            Video.vFilterSwitch = 0; // Set vFilter Switch back to Off to avoid doubling up        
             Video.vFilter = string.Empty;
             Video.geq = string.Empty;
             Video.VideoFilters.Clear();
 
-            Video.v2passArgs = string.Empty;
+            Video.v2PassArgs = string.Empty;
             Video.pass1Args = string.Empty; // Batch 2-Pass
             Video.pass2Args = string.Empty; // Batch 2-Pass
             Video.pass1 = string.Empty;
@@ -1124,9 +1123,17 @@ namespace Axiom
         public static void BatchExtCheck(MainWindow mainwindow)
         {
             // Add period if Batch Extension if User did not enter
-            if (!mainwindow.batchExtensionTextBox.Text.Contains(".") && mainwindow.batchExtensionTextBox.Text != "extension")
+            if (!mainwindow.batchExtensionTextBox.Text.Contains(".") 
+                && mainwindow.batchExtensionTextBox.Text != "extension")
             {
                 mainwindow.batchExtensionTextBox.Text = "." + mainwindow.batchExtensionTextBox.Text;
+            }
+
+            // Clear Batch Extension Text if Only period
+            if (mainwindow.batchExtensionTextBox.Text == ".")
+            {
+                mainwindow.batchExtensionTextBox.Text = "";
+                batchExt = "";
             }
         }
 
@@ -1488,7 +1495,7 @@ namespace Axiom
         private void buttonWebsite_Click(object sender, RoutedEventArgs e)
         {
             // Open Axiom Website URL in Default Browser
-            Process.Start("http://axiomui.github.io");
+            Process.Start("https://axiomui.github.io");
 
         }
 
@@ -1522,34 +1529,34 @@ namespace Axiom
         /// <summary>
         ///    Save Profile Button
         /// </summary>
-        private void buttonSave_Click(object sender, RoutedEventArgs e)
-        {
-            // Create an Array of SelectItem.ToString for each Control
-            // Save the Array to a New Setting
-            // Load each Control from Saved Setting Array
+        //private void buttonSave_Click(object sender, RoutedEventArgs e)
+        //{
+        //    // Create an Array of SelectItem.ToString for each Control
+        //    // Save the Array to a New Setting
+        //    // Load each Control from Saved Setting Array
 
-            string customPreset = cboPreset.Text;
+        //    string customPreset = cboPreset.Text;
 
-            // Prefix the User Custom Preset Text to the Saved Setting
-            // Create a New Setting
-            //var propertyFormat = new SettingsProperty(customPreset + "Format");
+        //    // Prefix the User Custom Preset Text to the Saved Setting
+        //    // Create a New Setting
+        //    //var propertyFormat = new SettingsProperty(customPreset + "Format");
 
-            SettingsProperty propertyFormat = new SettingsProperty(customPreset + "Format");
+        //    SettingsProperty propertyFormat = new SettingsProperty(customPreset + "Format");
 
-            propertyFormat.Name = customPreset + "Format";
-            //propertyFormat.Provider = Settings.Default.Providers["LocalFileSettingsProvider"];
-            propertyFormat.PropertyType = typeof(string);
-            propertyFormat.IsReadOnly = false;
-            propertyFormat.Attributes.Add(typeof(UserScopedSettingAttribute), new UserScopedSettingAttribute());
+        //    propertyFormat.Name = customPreset + "Format";
+        //    //propertyFormat.Provider = Settings.Default.Providers["LocalFileSettingsProvider"];
+        //    propertyFormat.PropertyType = typeof(string);
+        //    propertyFormat.IsReadOnly = false;
+        //    propertyFormat.Attributes.Add(typeof(UserScopedSettingAttribute), new UserScopedSettingAttribute());
 
-            Settings.Default.Properties.Add(propertyFormat);
+        //    Settings.Default.Properties.Add(propertyFormat);
 
-            Settings.Default.Save();
-            Settings.Default.Reload();
+        //    Settings.Default.Save();
+        //    Settings.Default.Reload();
 
-            // Add ComboBox SelectedItem String to the Setting
-            Settings.Default[customPreset + "Format"] = (string)cboFormat.SelectedItem;
-        }
+        //    // Add ComboBox SelectedItem String to the Setting
+        //    Settings.Default[customPreset + "Format"] = (string)cboFormat.SelectedItem;
+        //}
 
 
         /// <summary>
@@ -2862,7 +2869,8 @@ namespace Axiom
         private void batchExtension_TextChanged(object sender, TextChangedEventArgs e)
         {
             // Remove Default Value
-            if (batchExtensionTextBox.Text == "extension" || string.IsNullOrWhiteSpace(batchExtensionTextBox.Text))
+            if (batchExtensionTextBox.Text == "extension" 
+                || string.IsNullOrWhiteSpace(batchExtensionTextBox.Text))
             {
                 batchExt = string.Empty;
             }
@@ -2873,7 +2881,8 @@ namespace Axiom
             }
 
             // Add period to batchExt if user did not enter (This helps enable Copy)
-            if (!batchExt.StartsWith(".") && !string.IsNullOrWhiteSpace(batchExtensionTextBox.Text) && batchExtensionTextBox.Text != "extension")
+            if (!batchExt.StartsWith(".") && !string.IsNullOrWhiteSpace(batchExtensionTextBox.Text) 
+                && batchExtensionTextBox.Text != "extension")
             {
                 batchExt = "." + batchExt;
             }

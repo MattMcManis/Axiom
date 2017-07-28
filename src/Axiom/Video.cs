@@ -62,19 +62,20 @@ namespace Axiom
         // Video
         public static string vCodec;
         public static string vQuality;
-        public static string vBitMode;
+        //public static string vBitMode;
         public static string vBitrate;
         public static string vMaxrate;
         public static string vBufsize;
-        public static string vOptions;
-        public static string crf;
-        public static string fps; // frames per second
+        public static string vOptions; // -pix_fmt, -qcomp
+        public static string crf; // Constant Rate Factor
+        public static string fps; // Frames Per Second
         public static string optTune; // x264 & x265 tuning modes
-        public static string image;
-        public static string optProfile;
-        public static string optLevel;
-        public static string optimize;
+        public static string image; // JPEG & PNG options
+        public static string optProfile; // x264/x265 Profile
+        public static string optLevel; // x264/x265 Level
+        public static string optimize; // Contains tune + optProfile + optLevel
         public static string speed; // speed combobox modifier
+        public static string sCodec;
 
         // Scale
         public static string aspect; // contains scale, width, height
@@ -85,18 +86,12 @@ namespace Axiom
         // Pass
         public static bool passUserSelected = false; // Used to determine if User willingly selected CRF, 1 Pass or 2 Pass
 
-        public static string v2passArgs; // 2-Pass Arguments
-        //public static string v2passArgsSort; // 2-Pass Arguments Sorted
+        public static int v2PassSwitch = 0; // Indentifies if Pass is Single or Two-Pass
 
+        public static string v2PassArgs; // 2-Pass Arguments
         public static string passSingle; // 1-Pass & CRF Args
-        //public static string passSingleSort; // 1-Pass & CRF Args Sorted
-
         public static string pass1Args; // Batch 2-Pass (Pass 1)
-        //public static string pass1ArgsSort; // Batch 2-Pass Sorted (Pass 1)
-
         public static string pass2Args; // Batch 2-Pass (Pass 2)
-        //public static string pass2ArgsSort; // Batch 2-Pass Sorted (Pass 2)
-
         public static string pass1; // x265 Modifier
         public static string pass2; // x265 Modifier
 
@@ -131,6 +126,7 @@ namespace Axiom
             // Encoding Speed
             // -------------------------
             // Codec
+            //
             if ((string)mainwindow.cboVideoCodec.SelectedItem == "Copy") { mainwindow.cboSpeed.IsEnabled = true; }
             else if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8") { mainwindow.cboSpeed.IsEnabled = true; }
             else if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9") { mainwindow.cboSpeed.IsEnabled = true; }
@@ -140,7 +136,9 @@ namespace Axiom
             else if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG") { mainwindow.cboSpeed.IsEnabled = false; }
             else if ((string)mainwindow.cboVideoCodec.SelectedItem == "PNG") { mainwindow.cboSpeed.IsEnabled = false; }
             else if (string.IsNullOrEmpty((string)mainwindow.cboVideoCodec.SelectedItem)) { mainwindow.cboSpeed.IsEnabled = false; }
+
             //Container
+            //
             if ((string)mainwindow.cboFormat.SelectedItem == "ogv") { mainwindow.cboSpeed.IsEnabled = false; }
             else if ((string)mainwindow.cboFormat.SelectedItem == "mp3") { mainwindow.cboSpeed.IsEnabled = false; }
             else if ((string)mainwindow.cboFormat.SelectedItem == "m4a") { mainwindow.cboSpeed.IsEnabled = false; }
@@ -204,9 +202,6 @@ namespace Axiom
                 // --------------------------------------------------
                 // Get Previous Item
                 previousItem = (string)mainwindow.cboPass.SelectedItem;
-                //MessageBox.Show(previousItem); //debug
-                //var message = string.Join(Environment.NewLine, VideoCodecItemSource); //debug
-                //MessageBox.Show(message); //debug
 
                 // Change ItemSource
                 PassItemSource = new List<string>() { "CRF", "1 Pass", "2 Pass" };
@@ -1131,7 +1126,8 @@ namespace Axiom
                 // Set Video Codec Combobox to "Copy" if Input Extension is Same as Output Extension and Video Quality is Auto
                 if ((string)mainwindow.cboVideo.SelectedItem == "Auto"
                     && string.Equals(MainWindow.inputExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase)
-                    || mainwindow.tglBatch.IsChecked == true && (string)mainwindow.cboVideo.SelectedItem == "Auto"
+                    || mainwindow.tglBatch.IsChecked == true 
+                    && (string)mainwindow.cboVideo.SelectedItem == "Auto"
                     && string.Equals(MainWindow.batchExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase))
                 {
                     // Insert Copy if Does Not Contain
@@ -1413,7 +1409,7 @@ namespace Axiom
                     //
                     if (FFprobe.inputVideoBitrate == "N/A" && string.IsNullOrEmpty(FFprobe.inputVideoCodec)) // (mp3, m4a, ogg, etc)
                     {
-                        vBitMode = string.Empty;
+                        //vBitMode = string.Empty;
                         vQuality = string.Empty;
                     }
 
@@ -1421,7 +1417,7 @@ namespace Axiom
                     //
                     if (string.IsNullOrEmpty(FFprobe.inputVideoBitrate) && string.IsNullOrEmpty(FFprobe.inputVideoCodec)) // (mp3 converted to a webm)
                     {
-                        vBitMode = string.Empty;
+                        //vBitMode = string.Empty;
                         vQuality = string.Empty;
                     }
 
@@ -1495,7 +1491,7 @@ namespace Axiom
 
 
                         vOptions = "-pix_fmt yuv420p";
-                        vBitMode = string.Empty;
+                        //vBitMode = string.Empty;
                         //combine
                         vQuality = vBitrate + " " + crf + " " + vOptions;
                     }
@@ -1658,9 +1654,9 @@ namespace Axiom
                 {
                     // VBITRATE
                     // if vBitrate Textbox is default or empty
-                    if (mainwindow.vBitrateCustom.Text == "Bitrate" || string.IsNullOrWhiteSpace(mainwindow.vBitrateCustom.Text)) { vBitMode = string.Empty; vBitrate = string.Empty; }
+                    if (mainwindow.vBitrateCustom.Text == "Bitrate" || string.IsNullOrWhiteSpace(mainwindow.vBitrateCustom.Text)) { /*vBitMode = string.Empty;*/ vBitrate = string.Empty; }
                     // if vBitrate is entered by user and is not blank
-                    if (mainwindow.vBitrateCustom.Text != "Bitrate" && !string.IsNullOrWhiteSpace(mainwindow.vBitrateCustom.Text)) { vBitMode = "-b:v"; vBitrate = mainwindow.vBitrateCustom.Text; }
+                    if (mainwindow.vBitrateCustom.Text != "Bitrate" && !string.IsNullOrWhiteSpace(mainwindow.vBitrateCustom.Text)) { /*vBitMode = "-b:v"; vBitrate = mainwindow.vBitrateCustom.Text;*/ vBitrate = "-b:v" + mainwindow.vBitrateCustom.Text.ToString(); }
 
                     //CRF
                     // if CRF texbox is default or empty
@@ -1677,8 +1673,9 @@ namespace Axiom
                             && mainwindow.crfCustom.Text != "CRF"
                             && !string.IsNullOrWhiteSpace(mainwindow.crfCustom.Text))
                         {
-                            vBitMode = "-b:v";
-                            vBitrate = "0";
+                            //vBitMode = "-b:v";
+                            //vBitrate = "0";
+                            vBitrate = "-b:v 0";
                         }
                     }
 
@@ -1738,7 +1735,7 @@ namespace Axiom
                     // Theora cant have Custom yet
 
                     //Combine
-                    vQuality = vBitMode + " " + vBitrate + " " + crf + " " + vMaxrate + " " + vBufsize + " " + vOptions;
+                    vQuality = /*vBitMode + " " + */vBitrate + " " + crf + " " + vMaxrate + " " + vBufsize + " " + vOptions;
                 }
                 // -------------------------
                 // None
@@ -2309,7 +2306,6 @@ namespace Axiom
                         if (string.IsNullOrEmpty(CropWindow.crop)) //null check
                         {
                             CropWindow.crop = string.Empty;
-                            //crop = null;
                         }
                     }
 
@@ -2348,13 +2344,10 @@ namespace Axiom
                             MainWindow.ready = 0;
                         }
 
-                        //crop = string.Empty; //cropDivisible
-
                         // If crop is null, force Empty
                         if (string.IsNullOrEmpty(CropWindow.crop)) //null check
                         {
                             CropWindow.crop = string.Empty;
-                            //crop = null;
                         }
                     }
 
@@ -2422,7 +2415,6 @@ namespace Axiom
                 if (string.IsNullOrWhiteSpace(mainwindow.widthCustom.Text) 
                     && string.IsNullOrWhiteSpace(mainwindow.heightCustom.Text))
                 {
-                    //scale = string.Empty;
                     CropWindow.crop = string.Empty; //cropDivisible
                     width = string.Empty;
                     height = string.Empty;
@@ -2432,7 +2424,6 @@ namespace Axiom
                 else if (string.Equals(mainwindow.widthCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase) 
                     && string.Equals(mainwindow.heightCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase))
                 {
-                    //scale = string.Empty;
                     CropWindow.crop = string.Empty; //cropDivisible
                     width = string.Empty;
                     height = string.Empty;
@@ -2442,7 +2433,6 @@ namespace Axiom
                 else if (string.IsNullOrWhiteSpace(mainwindow.widthCustom.Text) 
                     && string.Equals(mainwindow.heightCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase))
                 {
-                    //scale = string.Empty;
                     CropWindow.crop = string.Empty; //cropDivisible
                     width = string.Empty;
                     height = string.Empty;
@@ -2452,7 +2442,6 @@ namespace Axiom
                 else if (string.Equals(mainwindow.widthCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase) 
                     && string.IsNullOrWhiteSpace(mainwindow.heightCustom.Text))
                 {
-                    //scale = string.Empty;
                     CropWindow.crop = string.Empty; //cropDivisible
                     width = string.Empty;
                     height = string.Empty;
@@ -2472,18 +2461,6 @@ namespace Axiom
                 Log.logParagraph.Inlines.Add(new Run(height) { Foreground = Log.ConsoleDefault });
             };
             Log.LogActions.Add(Log.WriteAction);
-
-            // Log Console Message /////////
-            //console.rtbLog.AppendText("\n\nAspect: " + aspect);
-            // Log Console Message /////////
-            //try
-            //{
-            //    console.rtbLog.AppendText("\n\nCrop = " + cropwindow.cropWidth.Text + ":" + cropwindow.cropHeight.Text + ":" + cropwindow.cropX.Text + ":" + cropwindow.cropY.Text);
-            //}
-            //catch
-            //{
-
-            //}
         }
 
 
@@ -2492,15 +2469,6 @@ namespace Axiom
         /// <summary>
         public static void Crop(MainWindow mainwindow, CropWindow cropwindow) //method
         {
-            //CropWindow cropwindow;
-
-            //System.Windows.MessageBox.Show("MainWindow: " + crop); //debug
-            //System.Windows.MessageBox.Show("CropWindow: " + cropwindow.crop); //debug
-            if (!string.IsNullOrEmpty(CropWindow.crop)) //null check to avoid overwriting mp4 custom crop with null
-            {
-                CropWindow.crop = CropWindow.crop; //get crop values from CropWindow
-            }
-
             // Clear crop if MediaType is Audio
             if ((string)mainwindow.cboMediaType.SelectedItem == "Audio")
             {
@@ -2976,9 +2944,9 @@ namespace Axiom
             vFilter = string.Empty; //important!
 
 
-            // -------------------------
+            // --------------------------------------------------
             // Filters
-            // -------------------------
+            // --------------------------------------------------
             /// <summary>
             ///    Resize
             /// </summary> 
@@ -2988,8 +2956,6 @@ namespace Axiom
             ///    Crop
             /// </summary> 
             Video.Crop(mainwindow, cropwindow);
-            //MessageBox.Show(crop); //debug
-            //MessageBox.Show(geq); //debug
 
 
             // -------------------------
@@ -3026,12 +2992,17 @@ namespace Axiom
             };
             Log.LogActions.Add(Log.WriteAction);
 
+            // -------------------------
             // Use Single Filter
+            // -------------------------
             if (vFilterSwitch == 1)
             {
                 vFilter = "-vf " + aspect + CropWindow.crop + geq; //either aspect, crop, or geq will be enabled
             }
+
+            // -------------------------
             // Combine Multiple Filters
+            // -------------------------
             else if (vFilterSwitch > 1)
             {
                 // Add Filters to List
@@ -3043,18 +3014,23 @@ namespace Axiom
                 vFilter = "-vf \"" + string.Join(", ", VideoFilters.Where(s => !string.IsNullOrEmpty(s))) + "\"";
 
             }
+
+            // -------------------------
+            // No Filters
+            // -------------------------
             else if (vFilterSwitch == 0)
             {
                 vFilter = string.Empty;
             }
-            // No Filters
             else if (vFilterSwitch == null)
             {
                 vFilterSwitch = 0;
                 vFilter = string.Empty;
             }
 
+            // -------------------------
             // Remove vFilter if Video Codec is Empty
+            // -------------------------
             if (string.IsNullOrEmpty((string)mainwindow.cboVideoCodec.SelectedItem))
             {
                 vFilterSwitch = 0;
@@ -3097,5 +3073,65 @@ namespace Axiom
                 vQuality = vBitrate + " " + vOptions; //combine
             }
         }
+
+
+        /// <summary>
+        ///     Subtitle Codec
+        /// </summary>
+        public static String SubtitleCodec(MainWindow mainwindow)
+        {
+            // -------------------------
+            // Subtitle Map
+            // -------------------------
+
+            // Video
+            //
+            if ((string)mainwindow.cboMediaType.SelectedItem == "Video")
+            {
+                // None
+                //
+                if ((string)mainwindow.cboSubtitle.SelectedItem == "none")
+                {
+                    sCodec = string.Empty;
+                }
+                // All & Number
+                //
+                else
+                {
+                    // Formats
+                    if ((string)mainwindow.cboFormat.SelectedItem == "webm")
+                    {
+                        sCodec = string.Empty;
+                    }
+                    else if ((string)mainwindow.cboFormat.SelectedItem == "mp4")
+                    {
+                        sCodec = "-scodec mov_text";
+                    }
+                    else if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
+                    {
+                        sCodec = "-scodec copy";
+                    }
+                    //else if ((string)mainwindow.cboFormat.SelectedItem == "ogv")
+                    //{
+                    //    sCodec = "-scodec copy";
+                    //}
+                    
+                }
+            }
+
+            // Image
+            //
+            if ((string)mainwindow.cboMediaType.SelectedItem == "Image"
+                || (string)mainwindow.cboMediaType.SelectedItem == "Sequence")
+            {
+                sCodec = string.Empty;
+            }
+
+
+            // Return Value
+            return sCodec;
+        }
+
+
     }
 }
