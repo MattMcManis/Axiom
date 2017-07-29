@@ -2780,7 +2780,7 @@ namespace Axiom
                 // PS3
                 else if ((string)mainwindow.cboOptimize.SelectedItem == "PS3")
                 {
-                    optimize = "-profile:v main -level 4.0 -vpre normal";
+                    optimize = "-profile:v main -level 4.0";
                 }
                 // PS4
                 else if ((string)mainwindow.cboOptimize.SelectedItem == "PS4")
