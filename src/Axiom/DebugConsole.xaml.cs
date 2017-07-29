@@ -173,7 +173,7 @@ namespace Axiom
                 fileprocess.Dispose();
 
                 // Clear Variables for next Run
-                MainWindow.ClearVariables();
+                MainWindow.ClearVariables(mainwindow);
                 GC.Collect();
 
             }); //end worker completed task
@@ -403,10 +403,6 @@ namespace Axiom
             debugParagraph.Inlines.Add(new Run(Video.fps) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
-            debugParagraph.Inlines.Add(new Bold(new Run("tune ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(Video.optTune) { Foreground = Value });
-            debugParagraph.Inlines.Add(new LineBreak());
-
             debugParagraph.Inlines.Add(new Bold(new Run("image ")) { Foreground = Variable });
             debugParagraph.Inlines.Add(new Run(Video.image) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
@@ -440,15 +436,19 @@ namespace Axiom
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("optAdvTune ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(MainWindow.optAdvTune) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(OptimizeAdvanced.optAdvTune) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("optAdvProfile ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(MainWindow.optAdvProfile) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(OptimizeAdvanced.optAdvProfile) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("optAdvLevel ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(MainWindow.optAdvLevel) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(OptimizeAdvanced.optAdvLevel) { Foreground = Value });
+            debugParagraph.Inlines.Add(new LineBreak());
+
+            debugParagraph.Inlines.Add(new Bold(new Run("optTune ")) { Foreground = Variable });
+            debugParagraph.Inlines.Add(new Run(Video.optTune) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("optProfile ")) { Foreground = Variable });
@@ -494,10 +494,6 @@ namespace Axiom
 
             debugParagraph.Inlines.Add(new Bold(new Run("cropY ")) { Foreground = Variable });
             debugParagraph.Inlines.Add(new Run(CropWindow.cropY) { Foreground = Value });
-            debugParagraph.Inlines.Add(new LineBreak());
-
-            debugParagraph.Inlines.Add(new Bold(new Run("cropDivisible ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(Video.cropDivisible) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("crop ")) { Foreground = Variable });

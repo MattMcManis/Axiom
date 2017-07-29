@@ -35,6 +35,8 @@ namespace Axiom
         private MainWindow mainwindow;
 
         // Temp save settings when Crop Window is closed
+        public static int? divisibleCropWidth;
+        public static int? divisibleCropHeight;
         public static string cropWidth;
         public static string cropHeight;
         public static string cropX;
@@ -185,54 +187,11 @@ namespace Axiom
         {
             CropWindow.crop = string.Empty;
 
-            // Make x264 & x265 Width/Height Divisible by 2
-            //
-            if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264" || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
-            {
-                try // will error if wrong characters input
-                {
-                    int divisibleWidth = Convert.ToInt32(textBoxCropWidth.Text);
-                    int divisibleHeight = Convert.ToInt32(textBoxCropHeight.Text);
-
-                    // If not divisible by 2, subtract 1 from total
-                    if (divisibleWidth % 2 != 0)
-                    {
-                        divisibleWidth -= 1;
-                    }
-                    if (divisibleHeight % 2 != 0)
-                    {
-                        divisibleHeight -= 1;
-                    }
-
-                    // Save Temp TextBox String Holder
-                    CropWindow.cropWidth = textBoxCropWidth.Text;
-                    CropWindow.cropHeight = textBoxCropWidth.Text;
-                    CropWindow.cropX = textBoxCropX.Text;
-                    CropWindow.cropY = textBoxCropY.Text;
-
-                    CropWindow.crop = Convert.ToString("crop=" + divisibleWidth + ":" + divisibleHeight + ":" + textBoxCropX.Text + ":" + textBoxCropY.Text);
-
-                }
-                catch
-                {
-                    MessageBox.Show("Error: Must enter numbers only.");
-                }
-
-            }
-
-            // Use Normal Width/Height
-            //
-            else
-            {
-                // Save Temp TextBox String Holder
-                CropWindow.cropWidth = textBoxCropWidth.Text;
-                CropWindow.cropHeight = textBoxCropHeight.Text;
-                CropWindow.cropX = textBoxCropX.Text;
-                CropWindow.cropY = textBoxCropY.Text;
-
-                CropWindow.crop = "crop=" + textBoxCropWidth.Text + ":" + textBoxCropHeight.Text + ":" + textBoxCropX.Text + ":" + textBoxCropY.Text;
-            }
-
+            // Save Temp TextBox String Holder
+            CropWindow.cropWidth = textBoxCropWidth.Text;
+            CropWindow.cropHeight = textBoxCropWidth.Text;
+            CropWindow.cropX = textBoxCropX.Text;
+            CropWindow.cropY = textBoxCropY.Text;
 
             // Set Empty Crop X Textbox to 0
             //
@@ -240,8 +199,6 @@ namespace Axiom
             {
                 textBoxCropX.Text = "0";
                 CropWindow.cropX = textBoxCropX.Text;
-
-                CropWindow.crop = "crop=" + textBoxCropWidth.Text + ":" + textBoxCropHeight.Text + ":" + textBoxCropX.Text + ":" + textBoxCropY.Text;
             }
             // Set Empty Crop Y Textbox to 0
             //
@@ -249,8 +206,41 @@ namespace Axiom
             {
                 textBoxCropY.Text = "0";
                 CropWindow.cropY = textBoxCropY.Text;
+            }
 
-                CropWindow.crop = "crop=" + textBoxCropWidth.Text + ":" + textBoxCropHeight.Text + ":" + textBoxCropX.Text + ":" + textBoxCropY.Text;
+            // Make x264 & x265 Width/Height Divisible by 2
+            //
+            if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264" || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
+            {
+                try // will error if wrong characters input
+                {
+                    CropWindow.divisibleCropWidth = Convert.ToInt32(CropWindow.cropWidth);
+                    CropWindow.divisibleCropHeight = Convert.ToInt32(CropWindow.cropHeight);
+
+                    // If not divisible by 2, subtract 1 from total
+                    if (CropWindow.divisibleCropWidth % 2 != 0)
+                    {
+                        CropWindow.divisibleCropWidth -= 1;
+                    }
+                    if (CropWindow.divisibleCropHeight % 2 != 0)
+                    {
+                        CropWindow.divisibleCropHeight -= 1;
+                    }
+
+                    CropWindow.crop = Convert.ToString("crop=" + CropWindow.divisibleCropWidth + ":" + CropWindow.divisibleCropHeight + ":" + CropWindow.cropX + ":" + CropWindow.cropY);
+
+                }
+                catch
+                {
+                    System.Windows.MessageBox.Show("Error: Must enter numbers only.");
+                }
+            }
+
+            // Use Normal Width, Height, X, Y
+            //
+            else
+            {
+                CropWindow.crop = "crop=" + CropWindow.cropWidth + ":" + CropWindow.cropHeight + ":" + CropWindow.cropX + ":" + CropWindow.cropY;
             }
 
             // Set Button Text to show Crop is Active
@@ -272,6 +262,9 @@ namespace Axiom
             textBoxCropHeight.Text = string.Empty;
             textBoxCropX.Text = string.Empty;
             textBoxCropY.Text = string.Empty;
+
+            CropWindow.divisibleCropWidth = null;
+            CropWindow.divisibleCropHeight = null;
 
             CropWindow.cropWidth = string.Empty;
             CropWindow.cropHeight = string.Empty;

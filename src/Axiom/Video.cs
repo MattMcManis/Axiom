@@ -60,26 +60,25 @@ namespace Axiom
         // --------------------------------------------------------------------------------------------------------
 
         // Video
-        public static string vCodec;
-        public static string vQuality;
+        public static string vCodec; // Video Codec
+        public static string vQuality; // Video Quality
         //public static string vBitMode;
-        public static string vBitrate;
+        public static string vBitrate; // Video Bitrate
         public static string vMaxrate;
         public static string vBufsize;
         public static string vOptions; // -pix_fmt, -qcomp
         public static string crf; // Constant Rate Factor
         public static string fps; // Frames Per Second
-        public static string optTune; // x264 & x265 tuning modes
         public static string image; // JPEG & PNG options
+        public static string optTune; // x264 & x265 tuning modes
         public static string optProfile; // x264/x265 Profile
         public static string optLevel; // x264/x265 Level
-        public static string optimize; // Contains tune + optProfile + optLevel
-        public static string speed; // speed combobox modifier
-        public static string sCodec;
+        public static string optimize; // Contains opTune + optProfile + optLevel
+        public static string speed; // Speed combobox modifier
+        public static string sCodec; // Subtitle Codec
 
         // Scale
         public static string aspect; // contains scale, width, height
-        public static string cropDivisible; //used on mp4 custom size to keep divisible by 2
         public static string width;
         public static string height;
 
@@ -2262,11 +2261,12 @@ namespace Axiom
                 // Apply Fix to all scale effects above
                 if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264" || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
                 {
+                    width = mainwindow.widthCustom.Text.ToString();
+                    height = mainwindow.heightCustom.Text.ToString();
 
-                    width = mainwindow.widthCustom.Text;
-                    height = mainwindow.heightCustom.Text;
-
-                    // If width = auto & height = custom value
+                    // -------------------------
+                    // Width = auto & Height = Custom value
+                    // -------------------------
                     if (string.Equals(mainwindow.widthCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase)
                         && !string.Equals(mainwindow.heightCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase))
                     {
@@ -2299,18 +2299,11 @@ namespace Axiom
                             /* lock */
                             MainWindow.ready = 0;
                         }
-
-                        //crop = string.Empty; //cropDivisible
-
-                        // If crop is null, force Empty
-                        if (string.IsNullOrEmpty(CropWindow.crop)) //null check
-                        {
-                            CropWindow.crop = string.Empty;
-                        }
                     }
 
-                    // If width = custom value & height = auto
-                    //
+                    // -------------------------
+                    // Width = Custom value & Height = auto
+                    // -------------------------
                     else if (!string.Equals(mainwindow.widthCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase) 
                         && string.Equals(mainwindow.heightCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase))
                     {
@@ -2320,12 +2313,12 @@ namespace Axiom
                         try
                         {
                             // If not divisible by 2, subtract 1 from total
-                            int divisibleWidth = Convert.ToInt32(width);
+                            CropWindow.divisibleCropWidth = Convert.ToInt32(width);
 
-                            if (divisibleWidth % 2 != 0)
+                            if (CropWindow.divisibleCropWidth % 2 != 0)
                             {
-                                divisibleWidth -= 1;
-                                width = Convert.ToString(divisibleWidth);
+                                CropWindow.divisibleCropWidth -= 1;
+                                width = Convert.ToString(CropWindow.divisibleCropWidth);
                             }
                         }
                         catch
@@ -2343,41 +2336,44 @@ namespace Axiom
                             /* lock */
                             MainWindow.ready = 0;
                         }
-
-                        // If crop is null, force Empty
-                        if (string.IsNullOrEmpty(CropWindow.crop)) //null check
-                        {
-                            CropWindow.crop = string.Empty;
-                        }
                     }
 
-                    // If both width & height are custom value
-                    //
+                    // -------------------------
+                    // Both Width & Height are Custom value
+                    // -------------------------
                     else if (!string.Equals(mainwindow.widthCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase) 
                         && !string.Equals(mainwindow.heightCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase))
                     {
+                        // Aspect Must be Cropped to be divisible by 2
+                        // e.g. -vf "scale=777:777, crop=776:776:0:0"
+                        //
                         try
                         {
-                            // If not divisible by 2, subtract 1 from total
-                            int divisibleWidth = Convert.ToInt32(width);
-                            int divisibleHeight = Convert.ToInt32(height);
+                            // Only if Crop is already Empty
+                            // User Defined Crop should always override Divisible Crop
+                            // CropClearButton ~ is used as an Identifier, Divisible Crop does not leave "~"
+                            //
+                            if (mainwindow.buttonCropClearTextBox.Text == "") // Crop Set Check
+                            {
+                                // Temporary Strings
+                                // So not to Override User Defined Crop
+                                int? divisibleCropWidth = Convert.ToInt32(width);
+                                int? divisibleCropHeight = Convert.ToInt32(height);
+                                string cropX = "0";
+                                string cropY = "0";
 
-                            if (divisibleWidth % 2 != 0)
-                            {
-                                divisibleWidth -= 1;
-                                width = Convert.ToString(divisibleWidth);
-                            }
-                            if (divisibleHeight % 2 != 0)
-                            {
-                                divisibleHeight -= 1;
-                                height = Convert.ToString(divisibleHeight);
-                            }
+                                // If not divisible by 2, subtract 1 from total
+                                if (divisibleCropWidth % 2 != 0)
+                                {
+                                    divisibleCropWidth -= 1;
+                                }
+                                if (divisibleCropHeight % 2 != 0)
+                                {
+                                    divisibleCropHeight -= 1;
+                                }
 
-                            // If crop string is empty use the mp4 divisible crop 
-                            if (string.IsNullOrEmpty(CropWindow.crop))
-                            {
-                                CropWindow.crop = "crop=" + width + ":" + height + ":0:0";
-                                //cropDivisible //Now in vFilter Switch Combine Section
+                                // Use the MP4 Divisible Crop values
+                                CropWindow.crop = Convert.ToString("crop=" + divisibleCropWidth + ":" + divisibleCropHeight + ":" + cropX + ":" + cropY);
                             }
                         }
                         catch
@@ -2392,6 +2388,7 @@ namespace Axiom
                             Log.LogActions.Add(Log.WriteAction);
 
                             System.Windows.MessageBox.Show("Must enter numbers only.");
+
                             /* lock */
                             MainWindow.ready = 0;
                         }
@@ -2409,9 +2406,11 @@ namespace Axiom
                 } //end x264 & x265
 
 
-                // REMOVE ASPECT IF Blank
-                //
+                // -------------------------
+                // Remove Aspect if Blank
+                // -------------------------
                 // Remove "auto" and empty values - no scaling
+                // Both Width & Height are Empty
                 if (string.IsNullOrWhiteSpace(mainwindow.widthCustom.Text) 
                     && string.IsNullOrWhiteSpace(mainwindow.heightCustom.Text))
                 {
@@ -2420,8 +2419,8 @@ namespace Axiom
                     height = string.Empty;
                     aspect = string.Empty;
                 }
-                // if width =  auto & height = auto
-                else if (string.Equals(mainwindow.widthCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase) 
+                // Both Width & Height are auto
+                if (string.Equals(mainwindow.widthCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase) 
                     && string.Equals(mainwindow.heightCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase))
                 {
                     CropWindow.crop = string.Empty; //cropDivisible
@@ -2429,8 +2428,8 @@ namespace Axiom
                     height = string.Empty;
                     aspect = string.Empty;
                 }
-                // if width =  blank & height = auto
-                else if (string.IsNullOrWhiteSpace(mainwindow.widthCustom.Text) 
+                // Width = blank & Height = auto
+                if (string.IsNullOrWhiteSpace(mainwindow.widthCustom.Text) 
                     && string.Equals(mainwindow.heightCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase))
                 {
                     CropWindow.crop = string.Empty; //cropDivisible
@@ -2438,8 +2437,8 @@ namespace Axiom
                     height = string.Empty;
                     aspect = string.Empty;
                 }
-                // if width =  auto & height = blank
-                else if (string.Equals(mainwindow.widthCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase) 
+                // Width = auto & Height = blank
+                if (string.Equals(mainwindow.widthCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase) 
                     && string.IsNullOrWhiteSpace(mainwindow.heightCustom.Text))
                 {
                     CropWindow.crop = string.Empty; //cropDivisible
@@ -2467,21 +2466,29 @@ namespace Axiom
         /// <summary>
         /// Crop (Method)
         /// <summary>
-        public static void Crop(MainWindow mainwindow, CropWindow cropwindow) //method
+        public static void Crop(MainWindow mainwindow, CropWindow cropwindow)
         {
-            // Clear crop if MediaType is Audio
+            // -------------------------
+            // Clear
+            // -------------------------
+            // Clear leftover Divisible Crop if not x264/x265
+            // CropClearButton is used as an Identifier, Divisible Crop does not leave "~"
+            if ((string)mainwindow.cboVideoCodec.SelectedItem != "x264" 
+                && (string)mainwindow.cboVideoCodec.SelectedItem != "x265" 
+                && mainwindow.buttonCropClearTextBox.Text == "")
+            {
+                CropWindow.crop = string.Empty;
+            }
+
+            // Clear Crop if MediaType is Audio
             if ((string)mainwindow.cboMediaType.SelectedItem == "Audio")
             {
                 CropWindow.crop = string.Empty;
             }
 
-            // Enable Video Filter Switch if Not Empty
-            if (!string.IsNullOrEmpty(CropWindow.crop))
-            {
-                // Video Filter Switch
-                vFilterSwitch += 1;
-            }
-
+            // -------------------------
+            // Halt
+            // -------------------------
             // Crop Codec Copy Check
             // Switch Copy to Codec to avoid error
             if (!string.IsNullOrEmpty(CropWindow.crop) && (string)mainwindow.cboVideoCodec.SelectedItem == "Copy") //null check
@@ -2496,6 +2503,15 @@ namespace Axiom
                 Log.LogActions.Add(Log.WriteAction);
 
                 System.Windows.MessageBox.Show("Crop cannot use Codec Copy. Please select a Video Codec."); /* lock */ MainWindow.ready = 0;
+            }
+
+            // -------------------------
+            // Enable Video Filter Switch if Not Empty
+            // -------------------------
+            if (!string.IsNullOrEmpty(CropWindow.crop))
+            {
+                // Video Filter Switch
+                vFilterSwitch += 1;
             }
         }
 
@@ -2554,8 +2570,6 @@ namespace Axiom
         /// <summary>
         public static String Speed(MainWindow mainwindow)
         {
-            //var speed = string.Empty; // speed combobox modifier
-
             // -------------------------
             // x264 / x265
             // -------------------------
@@ -2805,39 +2819,39 @@ namespace Axiom
             {
                 // Tune
                 //
-                if (MainWindow.optAdvTune == "none" || string.IsNullOrEmpty(MainWindow.optAdvTune))
+                if (OptimizeAdvanced.optAdvTune == "none" || string.IsNullOrEmpty(OptimizeAdvanced.optAdvTune))
                 {
                     optTune = string.Empty;
                 }
                 else
                 {
                     // Tune = Set Tmp Setting from Optimized Advanced Window
-                    optTune = "-tune " + MainWindow.optAdvTune;
+                    optTune = "-tune " + OptimizeAdvanced.optAdvTune;
                 }
 
 
                 // Profile
                 //
-                if (MainWindow.optAdvProfile == "none" || string.IsNullOrEmpty(MainWindow.optAdvProfile))
+                if (OptimizeAdvanced.optAdvProfile == "none" || string.IsNullOrEmpty(OptimizeAdvanced.optAdvProfile))
                 {
                     optProfile = string.Empty;
                 }
                 else
                 {
                     // Tune = Set Tmp Setting from Optimized Advanced Window
-                    optProfile = "-profile:v " + MainWindow.optAdvProfile;
+                    optProfile = "-profile:v " + OptimizeAdvanced.optAdvProfile;
                 }
 
                 // Level
                 //
-                if (MainWindow.optAdvLevel == "none" || string.IsNullOrEmpty(MainWindow.optAdvLevel))
+                if (OptimizeAdvanced.optAdvLevel == "none" || string.IsNullOrEmpty(OptimizeAdvanced.optAdvLevel))
                 {
                     optLevel = string.Empty;
                 }
                 else
                 {
                     // Tune = Set Tmp Setting from Optimized Advanced Window
-                    optLevel = "-level " + MainWindow.optAdvLevel;
+                    optLevel = "-level " + OptimizeAdvanced.optAdvLevel;
                 }
 
 
@@ -2850,7 +2864,6 @@ namespace Axiom
                 };
 
                 optimize = string.Join(" ", v2passList.Where(s => !string.IsNullOrEmpty(s)));
-
             }
 
             // Return Value

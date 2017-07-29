@@ -110,9 +110,6 @@ namespace Axiom
         ///     Optimize Advanced Window
         /// </summary>
         public OptimizeAdvanced optadv; //pass data
-        public static string optAdvTune = string.Empty; //temporary save settings holder
-        public static string optAdvProfile = string.Empty; //temporary save settings holder
-        public static string optAdvLevel = string.Empty; //temporary save settings holder
 
 
         // --------------------------------------------------------------------------------------------------------
@@ -126,32 +123,26 @@ namespace Axiom
         public static int script = 0; // If 0 run ffmpeg, if 1 run generate script
         public static int ffCheckCleared = 0; // If 1, FFcheck no longer has to run for each convert
 
-        // Bool
-        //public static bool cropClear = true; // If true, empty crop after each run. If false (user set from CropWindow) do not empty crop.
-
         // System
         public static string threads; // CPU Threads
         public static string maxthreads; // All CPU Threads
-
-        // Paths
         public static string currentDir = Directory.GetCurrentDirectory().TrimEnd('\\') + @"\";
 
-        // Input / Output
+        // Input
         public static string inputDir; // Input File Directory
         public static string inputFileName; // (eg. myvideo.mp4 = myvideo)
         public static string inputExt; // (eg. .mp4)
         public static string input; // Single: Input Path + Filename No Ext + Input Ext (Browse Text Box) /// Batch: Input Path (Browse Text Box)
 
+        // Output
         public static string outputDir; // Output Path
         public static string outputFileName; // Output Directory + Filename (No Extension)
         public static string outputExt; // (eg. .webm)
         public static string output; // Single: outputDir + outputFileName + outputExt /// Batch: outputDir + %~nf
-
-        public static string batchExt; // Batch user entered extension (eg. mp4 or .mp4)
-
         public static string outputNewFileName; // File Rename if File already exists
 
         // Batch
+        public static string batchExt; // Batch user entered extension (eg. mp4 or .mp4)
         public static string batchInputAuto;
 
 
@@ -393,7 +384,7 @@ namespace Axiom
         /// <summary>
         ///     Clear Variables (Method)
         /// </summary>
-        public static void ClearVariables()
+        public static void ClearVariables(MainWindow mainwindow)
         {
             // FFmpeg
             FFmpeg.cmdWindow = string.Empty;
@@ -433,9 +424,16 @@ namespace Axiom
             Video.optProfile = string.Empty;
             Video.optLevel = string.Empty;
             Video.aspect = string.Empty;
-            Video.cropDivisible = string.Empty;
             Video.width = string.Empty;
             Video.height = string.Empty;
+
+            // Clear Crop if ClearCrop Button Identifier is Empty
+            if (mainwindow.buttonCropClearTextBox.Text == "") 
+            {
+                CropWindow.crop = string.Empty;
+                CropWindow.divisibleCropWidth = null; //int
+                CropWindow.divisibleCropHeight = null; //int
+            }
 
             Format.trim = string.Empty;
             Format.trimStart = string.Empty;
@@ -494,9 +492,14 @@ namespace Axiom
             //input
             //outputDir
             //outputFileName
-            //CropWindow.crop
-            //ffmpegArgs
-            //ffmpegArgsSort
+            //FFmpeg.ffmpegArgs
+            //FFmpeg.ffmpegArgsSort
+            //CropWindow.divisibleCropWidth
+            //CropWindow.divisibleCropHeight
+            //CropWindow.cropWidth
+            //CropWindow.cropHeight
+            //CropWindow.cropX
+            //CropWindow.cropY
         }
 
 
@@ -1680,7 +1683,7 @@ namespace Axiom
                 fileprocess.Dispose();
 
                 // Clear Variables for next Run
-                ClearVariables();
+                ClearVariables(this);
                 GC.Collect();
 
             }); //end worker completed task
@@ -3106,7 +3109,7 @@ namespace Axiom
                     fileprocess.Dispose();
 
                     // Clear Strings for next Run
-                    ClearVariables();
+                    ClearVariables(this);
                     GC.Collect();
 
                 }); //end worker completed task
@@ -3144,7 +3147,7 @@ namespace Axiom
                 DebugConsole.DebugWrite(debugconsole, this);
 
                 // Clear Variables for next Run
-                ClearVariables();
+                ClearVariables(this);
                 GC.Collect();
 
             }
