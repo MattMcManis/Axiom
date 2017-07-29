@@ -1,4 +1,4 @@
-![https://github.com/MattMcManis/Axiom](https://raw.githubusercontent.com/MattMcManis/Axiom/screenshots/axiom-logo-128.png)
+![https://github.com/MattMcManis/Axiom](https://raw.githubusercontent.com/MattMcManis/Axiom/master/images/axiom-logo-128.png)
 
 # Axiom
 An FFmpeg GUI for Windows
@@ -14,7 +14,7 @@ Axiom generates command scripts to be processed by multimedia encoder, FFmpeg, a
 
 Convert to webm, mp4, mkv, ogv, mp3, m4a, ogg, flac, wav, png, jpg image & sequence.
 
-![Axiom](https://github.com/MattMcManis/Axiom/blob/screenshots/axiom.png?raw=true)
+![Axiom](https://raw.githubusercontent.com/MattMcManis/Axiom/master/images/axiom.png)
 
 ### Features
 * The Power of FFmpeg through a Minimal Interface
