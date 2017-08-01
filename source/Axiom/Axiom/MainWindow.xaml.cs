@@ -1029,7 +1029,7 @@ namespace Axiom
         public static String OutputPath(MainWindow mainwindow)
         {
             // Get Output Extension (Method)
-            Format.GetOutputExt(mainwindow);
+            Format.OutputFormatExt(mainwindow);
 
             // -------------------------
             // Single File
@@ -1958,7 +1958,7 @@ namespace Axiom
             if (tglBatch.IsChecked == false)
             {
                 // Get Output Ext
-                Format.OutputFormat(this);
+                Format.OutputFormatExt(this);
 
 
                 // Open 'Save File'
@@ -2366,8 +2366,15 @@ namespace Axiom
             // Output Control Selections
             Format.OuputFormatDefaults(this);
 
+            // Get Output Extension
+            Format.OutputFormatExt(this);
+
             // Output ComboBox Options
             Format.OutputFormat(this);
+
+            // Change All MainWindow Items
+            Video.VideoCodecControls(this);
+            Audio.AudioCodecControls(this);
 
 
             // Always Default Video to Auto if Input Ext matches Format Output Ext

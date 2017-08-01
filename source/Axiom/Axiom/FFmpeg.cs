@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Windows;
 using System.Windows.Documents;
 // Disable XML Comment warnings
 #pragma warning disable 1591

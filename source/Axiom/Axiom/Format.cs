@@ -69,9 +69,9 @@ namespace Axiom
         /// <summary>
         /// Get Output Extension (Method)
         /// </summary>
-        public static void GetOutputExt(MainWindow mainwindow)
+        public static void OutputFormatExt(MainWindow mainwindow)
         {
-            // Output Extension is Select ComboBox
+            // Output Extension is Format ComboBox Selected Item
             MainWindow.outputExt = "." + mainwindow.cboFormat.SelectedItem.ToString();
         }
 
@@ -83,7 +83,7 @@ namespace Axiom
         public static void OuputFormatDefaults(MainWindow mainwindow)
         {
             // Get Output Extension (Method)
-            Format.GetOutputExt(mainwindow);
+            //Format.GetOutputExt(mainwindow);
 
             // -------------------------
             // Output Format Container Rules
@@ -135,7 +135,6 @@ namespace Axiom
             {
                 mainwindow.cboMediaType.SelectedItem = "Image";
                 mainwindow.cboMediaType.IsEnabled = true;
-                Audio.aCodec = string.Empty;
                 mainwindow.cboSubtitle.SelectedItem = "none";
                 mainwindow.cboSubtitle.IsEnabled = false;
                 mainwindow.cboFPS.SelectedItem = "auto";
@@ -202,8 +201,6 @@ namespace Axiom
                 mainwindow.cboMediaType.SelectedItem = "Image";
 
                 mainwindow.cboMediaType.IsEnabled = true;
-                Audio.aCodec = string.Empty;
-                Streams.mMap = string.Empty;
                 mainwindow.cboSubtitle.SelectedItem = "none";
                 mainwindow.cboSubtitle.IsEnabled = false;
                 mainwindow.cboOptimize.IsEnabled = false;
@@ -220,8 +217,6 @@ namespace Axiom
                 mainwindow.cboMediaType.SelectedItem = "Image";
 
                 mainwindow.cboMediaType.IsEnabled = true;
-                Audio.aCodec = string.Empty;
-                Streams.mMap = string.Empty;
                 mainwindow.cboSubtitle.SelectedItem = "none";
                 mainwindow.cboSubtitle.IsEnabled = false;
                 mainwindow.cboOptimize.IsEnabled = false;
@@ -539,14 +534,13 @@ namespace Axiom
             }
 
             // Change All MainWindow Items
-            Video.VideoCodecControls(mainwindow);
-            Audio.AudioCodecControls(mainwindow);
+            //Video.VideoCodecControls(mainwindow);
+            //Audio.AudioCodecControls(mainwindow);
 
             // Set Video & Audio Codec Combobox to "Copy" if Input Extension is Same as Output Extension and Video Quality is Auto
             Video.AutoCopyVideoCodec(mainwindow);
             Audio.AutoCopyAudioCodec(mainwindow);
-
-        } // end OutputFormat() method
+        }
 
 
 
