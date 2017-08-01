@@ -1,0 +1,85 @@
+﻿<!-- 
+    Axiom UI
+    Copyright (C) 2017 Matt McManis
+    http://github.com/MattMcManis/Axiom
+    http://axiomui.github.io
+    axiom.interface@gmail.com
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.If not, see<http://www.gnu.org/licenses/> . 
+ -->
+<Window x:Class="Axiom.OptimizeAdvancedWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:System="clr-namespace:System;assembly=mscorlib"
+        Title="Optimize Advanced" Height="200" Width="371" Icon="Resources/Images/Icons/axiom.ico"
+        ResizeMode="CanMinimize" UseLayoutRounding="True"
+        Style="{DynamicResource WindowOptimizeAdvanced}">
+    <Grid>
+        <!-- Black Overlay -->
+
+        <!-- Tune -->
+        <Label x:Name="labelTune" Style="{DynamicResource LabelCustom}" Content="Tune" HorizontalAlignment="Left" Margin="57,27,0,0" Padding="0,5,0,5" VerticalAlignment="Top" Width="75" />
+        <ComboBox x:Name="cboOptimizeTune" Style="{DynamicResource ComboBoxCustom}"  ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" HorizontalAlignment="Left" Margin="57,53,0,0" VerticalAlignment="Top" Width="75" ToolTipService.InitialShowDelay="1000" ToolTipService.ShowOnDisabled="True" ToolTip="">
+            <System:String>none</System:String>
+            <System:String>film</System:String>
+            <System:String>animation</System:String>
+            <System:String>grain</System:String>
+            <System:String>stillimage</System:String>
+            <System:String>fastdecode</System:String>
+            <System:String>zerolatency</System:String>
+        </ComboBox>
+
+        <!-- Profile -->
+        <Label x:Name="labelProfile" Style="{DynamicResource LabelCustom}" Content="Profile" HorizontalAlignment="Left" Margin="140,27,0,0" Padding="0,5,0,5" VerticalAlignment="Top" Width="75" />
+        <ComboBox x:Name="cboOptimizeProfile" Style="{DynamicResource ComboBoxCustom}" ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" HorizontalAlignment="Left" Margin="140,53,0,0" VerticalAlignment="Top" Width="75" SelectionChanged="cboOptimizeProfile_SelectionChanged">
+            <System:String>none</System:String>
+            <System:String>baseline</System:String>
+            <System:String>main</System:String>
+            <System:String>high</System:String>
+        </ComboBox>
+
+        <!-- Level -->
+        <Label x:Name="labelLevel" Style="{DynamicResource LabelCustom}" Content="Level" HorizontalAlignment="Left" Margin="223,27,0,0" Padding="0,5,0,5" VerticalAlignment="Top" Width="75" />
+        <ComboBox x:Name="cboOptimizeLevel" Style="{DynamicResource ComboBoxCustom}" ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" HorizontalAlignment="Left" Margin="223,53,0,0" VerticalAlignment="Top" Width="75" SelectionChanged="cboOptimizeLevel_SelectionChanged">
+            <System:String>none</System:String>
+            <System:String>1.0</System:String>
+            <System:String>1.1</System:String>
+            <System:String>1.2</System:String>
+            <System:String>1.3</System:String>
+            <System:String>2.0</System:String>
+            <System:String>2.1</System:String>
+            <System:String>2.2</System:String>
+            <System:String>3.0</System:String>
+            <System:String>3.1</System:String>
+            <System:String>3.2</System:String>
+            <System:String>4.0</System:String>
+            <System:String>4.1</System:String>
+            <System:String>4.2</System:String>
+            <System:String>5.0</System:String>
+            <System:String>5.1</System:String>
+            <System:String>5.2</System:String>
+        </ComboBox>
+
+        <!-- Set -->
+        <Button x:Name="buttonOptimizeSet" Style="{DynamicResource ButtonCustom}" HorizontalAlignment="Left" Margin="277,121,0,0" VerticalAlignment="Top" Width="60" Height="22" Cursor="Hand" Click="buttonOptimizeSet_Click">
+            <TextBlock x:Name="buttonSetTextBlock" Text="Set" Margin="0,-2,0,0"/>
+        </Button>
+
+        <!-- Clear -->
+        <Button x:Name="buttonOptimizeClear" Style="{DynamicResource ButtonCustom}" HorizontalAlignment="Left" Margin="18,121,0,0" VerticalAlignment="Top" Width="60" Height="22" Cursor="Hand" Click="buttonOptimizeClear_Click">
+            <TextBlock x:Name="buttonClearTextBlock1" Text="Clear" Margin="0,-2,0,0"/>
+        </Button>
+
+    </Grid>
+</Window>
