@@ -342,6 +342,7 @@ namespace Axiom
             // --------------------------------------------------------------------
             if ((string)mainwindow.cboMediaType.SelectedItem == "Video" 
                 && (string)mainwindow.cboPass.SelectedItem == "2 Pass"
+                && (string)mainwindow.cboFormat.SelectedItem != "ogv" //exclude ogv
                 && Video.v2PassSwitch == 0)
             {
                 // Remove Chapters, Subtitles, Audio, Metadata on Pass 1

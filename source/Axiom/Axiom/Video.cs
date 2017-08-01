@@ -2552,7 +2552,7 @@ namespace Axiom
             {
                 image = "-vframes 1"; //important
             }
-            if ((string)mainwindow.cboMediaType.SelectedItem == "Sequence")
+            else if ((string)mainwindow.cboMediaType.SelectedItem == "Sequence")
             {
                 image = string.Empty; //disable -vframes
             }
