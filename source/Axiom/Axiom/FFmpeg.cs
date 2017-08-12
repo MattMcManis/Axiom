@@ -89,6 +89,7 @@ namespace Axiom
                         "\r\n" + Video.Optimize(mainwindow),
 
                         "\r\n\r\n" + Video.SubtitleCodec(mainwindow),
+                        "\r\n" + Streams.VideoStreamMaps(mainwindow),
 
                         "\r\n\r\n" + Audio.AudioCodec(mainwindow),
                         "\r\n" + Audio.AudioQuality(mainwindow),
@@ -96,9 +97,12 @@ namespace Axiom
                         Audio.BitDepth(mainwindow),
                         Audio.Channel(mainwindow),
                         "\r\n" + Audio.AudioFilter(mainwindow),
+                        "\r\n" + Streams.AudioStreamMaps(mainwindow),
 
-                        "\r\n\r\n" + Streams.StreamMaps(mainwindow),
                         "\r\n\r\n" + Format.Cut(mainwindow),
+
+                        "\r\n\r\n" + Streams.FormatMaps(mainwindow),
+
                         "\r\n\r\n" + MainWindow.ThreadDetect(mainwindow),
 
                         "\r\n\r\n" + "\"" + MainWindow.OutputPath(mainwindow) + "\""
@@ -151,14 +155,9 @@ namespace Axiom
                         "\r\n" + Video.VideoFilter(mainwindow),
                         "\r\n" + Video.Images(mainwindow),
                         "\r\n" + Video.Optimize(mainwindow),
+                        "\r\n" + "-sn -an", // Disable Audio & Subtitles for Pass 1 to speed up encoding
                         "\r\n" + Video.Pass1Modifier(mainwindow), // -pass 1, -x265-params pass=2
 
-                        // Disable Subtitles for Pass 1 to speed up encoding
-                        // -sn put in Stream Maps
-                        // Disable Audio for Pass 1 to speed up encoding
-                        // -an put in Stream Maps
-
-                        "\r\n\r\n" + Streams.StreamMaps(mainwindow),
                         "\r\n\r\n" + Format.Cut(mainwindow),
                         "\r\n\r\n" + MainWindow.ThreadDetect(mainwindow),
 
@@ -177,7 +176,7 @@ namespace Axiom
                 // Turn on Two-Pass Switch
                 // Lets Pass 2 know Pass 1 has been run
                 //
-                Video.v2PassSwitch = 1;
+                //Video.v2PassSwitch = 1;
 
 
                 // -------------------------
@@ -202,9 +201,11 @@ namespace Axiom
                         "\r\n" + Video.vFilter,
                         "\r\n" + Video.image,
                         "\r\n" + Video.optimize,
-                        "\r\n" + Video.Pass2Modifier(mainwindow), // -pass 2, -x265-params pass=2
 
                         "\r\n\r\n" + Video.SubtitleCodec(mainwindow),
+
+                        "\r\n" + Streams.VideoStreamMaps(mainwindow),
+                        "\r\n" + Video.Pass2Modifier(mainwindow), // -pass 2, -x265-params pass=2
 
                         "\r\n\r\n" + Audio.AudioCodec(mainwindow),
                         "\r\n" + Audio.AudioQuality(mainwindow),
@@ -212,9 +213,12 @@ namespace Axiom
                         Audio.BitDepth(mainwindow),
                         Audio.Channel(mainwindow),
                         "\r\n" + Audio.AudioFilter(mainwindow),
+                        "\r\n" + Streams.AudioStreamMaps(mainwindow),
 
-                        "\r\n\r\n" + Streams.StreamMaps(mainwindow), // use method, contains 2-Pass Switch
                         "\r\n\r\n" + Format.trim,
+
+                        "\r\n\r\n" + Streams.FormatMaps(mainwindow),
+
                         "\r\n\r\n" + MainWindow.threads,
 
                         "\r\n\r\n" + "\"" + MainWindow.OutputPath(mainwindow) + "\""
@@ -237,7 +241,7 @@ namespace Axiom
                 // Turn Off Two-Pass Switch
                 // All Passes have been run
                 //
-                Video.v2PassSwitch = 0;
+                //Video.v2PassSwitch = 0;
             }
 
 

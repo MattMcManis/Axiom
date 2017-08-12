@@ -55,9 +55,9 @@ namespace Axiom
         // --------------------------------------------------------------------------------------------------------
 
         /// <summary>
-        /// Stream Maps (Method)
+        /// Video Stream Maps (Method)
         /// </summary>
-        public static String StreamMaps(MainWindow mainwindow)
+        public static String VideoStreamMaps(MainWindow mainwindow)
         {
             // WARNING: If a map is enabled, all other map types must be specified or they will be removed !!!!!!!!!
             // Question Mark ? = ignore warnings
@@ -145,6 +145,103 @@ namespace Axiom
 
 
             // --------------------------------------------------------------------
+            // Subtitle Map
+            // --------------------------------------------------------------------
+            // -------------------------
+            // None
+            // -------------------------
+            if ((string)mainwindow.cboSubtitle.SelectedItem == "none")
+            {
+                sMap = "-sn";
+            }
+            // -------------------------
+            // All
+            // -------------------------
+            else if ((string)mainwindow.cboSubtitle.SelectedItem == "all")
+            {
+                // Formats
+                //
+                if ((string)mainwindow.cboFormat.SelectedItem == "webm")
+                {
+                    sMap = "-sn"; // no subtitles for webm
+                }
+                else if ((string)mainwindow.cboFormat.SelectedItem == "mp4")
+                {
+                    sMap = "-map 0:s?"; // all subtitles (:? at the end ignores error if subtitle is not available)
+                }
+                else if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
+                {
+                    sMap = "-map 0:s?"; // all subtitles
+                }
+                else if ((string)mainwindow.cboFormat.SelectedItem == "ogv")
+                {
+                    sMap = "-map 0:s?"; // all subtitles, OGV has problem using Subtitles
+                }
+                else if ((string)mainwindow.cboFormat.SelectedItem == "jpg")
+                {
+                    sMap = "-sn"; // disable subtitles
+                }
+                else if ((string)mainwindow.cboFormat.SelectedItem == "png")
+                {
+                    sMap = "-sn"; // disable subtitles
+                }
+                // Non-Video/Image Formats
+                //
+                else
+                {
+                    sMap = "-sn"; // disable subtitles
+                }
+            }
+            // -------------------------
+            // Number
+            // -------------------------
+            else
+            {
+                // Subtract 1, Map starts at 0
+                int sMapNumber = Int32.Parse(mainwindow.cboSubtitle.SelectedItem.ToString()) - 1;
+
+                sMap = "-map 0:s:" + sMapNumber + "?";
+
+                // Image
+                if ((string)mainwindow.cboFormat.SelectedItem == "jpg"
+                    || (string)mainwindow.cboFormat.SelectedItem == "png")
+                {
+                    sMap = "-sn";
+                }
+            }
+
+            // Log Console Message /////////
+            Log.WriteAction = () =>
+            {
+                Log.logParagraph.Inlines.Add(new LineBreak());
+                Log.logParagraph.Inlines.Add(new Bold(new Run("Subtitle Stream: ")) { Foreground = Log.ConsoleDefault });
+                Log.logParagraph.Inlines.Add(new Run(mainwindow.cboSubtitle.SelectedItem.ToString()) { Foreground = Log.ConsoleDefault });
+            };
+            Log.LogActions.Add(Log.WriteAction);
+
+
+            // --------------------------------------------------------------------
+            // Combine Maps
+            // --------------------------------------------------------------------
+            // Make List
+            List<string> mapList = new List<string>() { vMap, cMap, sMap };
+            // Join List with Spaces, Remove Empty Strings
+            map = string.Join(" ", mapList.Where(s => !string.IsNullOrEmpty(s)));
+
+
+            // Return Value
+            return map;
+        }
+
+
+
+
+        /// <summary>
+        /// Audio Stream Maps (Method)
+        /// </summary>
+        public static String AudioStreamMaps(MainWindow mainwindow)
+        {
+            // --------------------------------------------------------------------
             // Audio Map
             // --------------------------------------------------------------------
             // Offset by 1. VLC starts with #1, FFprobe starts with #a:0.
@@ -223,84 +320,26 @@ namespace Axiom
             Log.LogActions.Add(Log.WriteAction);
 
 
-
             // --------------------------------------------------------------------
-            // Subtitle Map
+            // Combine Maps
             // --------------------------------------------------------------------
-            // -------------------------
-            // None
-            // -------------------------
-            if ((string)mainwindow.cboSubtitle.SelectedItem == "none")
-            {
-                sMap = "-sn";
-            }
-            // -------------------------
-            // All
-            // -------------------------
-            else if ((string)mainwindow.cboSubtitle.SelectedItem == "all")
-            {
-                // Formats
-                //
-                if ((string)mainwindow.cboFormat.SelectedItem == "webm")
-                {
-                    sMap = "-sn"; // no subtitles for webm
-                }
-                else if ((string)mainwindow.cboFormat.SelectedItem == "mp4")
-                {
-                    sMap = "-map 0:s?"; // all subtitles (:? at the end ignores error if subtitle is not available)
-                }
-                else if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
-                {
-                    sMap = "-map 0:s?"; // all subtitles
-                }
-                else if ((string)mainwindow.cboFormat.SelectedItem == "ogv")
-                {
-                    sMap = "-map 0:s?"; // all subtitles, OGV has problem using Subtitles
-                }
-                else if ((string)mainwindow.cboFormat.SelectedItem == "jpg")
-                {
-                    sMap = "-sn"; // disable subtitles
-                }
-                else if ((string)mainwindow.cboFormat.SelectedItem == "png")
-                {
-                    sMap = "-sn"; // disable subtitles
-                }
-                // Non-Video/Image Formats
-                //
-                else
-                {
-                    sMap = "-sn"; // disable subtitles
-                }
-            }
-            // -------------------------
-            // Number
-            // -------------------------
-            else
-            {
-                // Subtract 1, Map starts at 0
-                int sMapNumber = Int32.Parse(mainwindow.cboSubtitle.SelectedItem.ToString()) - 1;
+            // Make List
+            List<string> mapList = new List<string>() { aMap };
+            // Join List with Spaces, Remove Empty Strings
+            map = string.Join(" ", mapList.Where(s => !string.IsNullOrEmpty(s)));
 
-                sMap = "-map 0:s:" + sMapNumber + "?";
 
-                // Image
-                if ((string)mainwindow.cboFormat.SelectedItem == "jpg"
-                    || (string)mainwindow.cboFormat.SelectedItem == "png")
-                {
-                    sMap = "-sn";
-                }
-            }
-
-            // Log Console Message /////////
-            Log.WriteAction = () =>
-            {
-                Log.logParagraph.Inlines.Add(new LineBreak());
-                Log.logParagraph.Inlines.Add(new Bold(new Run("Subtitle Stream: ")) { Foreground = Log.ConsoleDefault });
-                Log.logParagraph.Inlines.Add(new Run(mainwindow.cboSubtitle.SelectedItem.ToString()) { Foreground = Log.ConsoleDefault });
-            };
-            Log.LogActions.Add(Log.WriteAction);
+            // Return Value
+            return map;
+        }
 
 
 
+        /// <summary>
+        /// Stream Maps (Method)
+        /// </summary>
+        public static String FormatMaps(MainWindow mainwindow)
+        {
             // --------------------------------------------------------------------
             // Metadata Map
             // --------------------------------------------------------------------
@@ -336,33 +375,11 @@ namespace Axiom
             }
 
 
-
-            // --------------------------------------------------------------------
-            // Two-Pass Switch Overrides
-            // --------------------------------------------------------------------
-            if ((string)mainwindow.cboMediaType.SelectedItem == "Video" 
-                && (string)mainwindow.cboPass.SelectedItem == "2 Pass"
-                && (string)mainwindow.cboFormat.SelectedItem != "ogv" //exclude ogv
-                && Video.v2PassSwitch == 0)
-            {
-                // Remove Chapters, Subtitles, Audio, Metadata on Pass 1
-                cMap = string.Empty;
-                sMap = "-sn";
-                aMap = "-an";
-                mMap = string.Empty;
-
-                // Turn On Two-Pass Switch
-                // Pass 2 will now avoid this Override and use Audio Args
-                Video.v2PassSwitch = 1;
-            }
-
-
-
             // --------------------------------------------------------------------
             // Combine Maps
             // --------------------------------------------------------------------
             // Make List
-            List<string> mapList = new List<string>() { vMap, cMap, sMap, aMap, mMap };
+            List<string> mapList = new List<string>() { mMap };
             // Join List with Spaces, Remove Empty Strings
             map = string.Join(" ", mapList.Where(s => !string.IsNullOrEmpty(s)));
 
@@ -370,7 +387,6 @@ namespace Axiom
             // Return Value
             return map;
         }
-
 
     }
 }

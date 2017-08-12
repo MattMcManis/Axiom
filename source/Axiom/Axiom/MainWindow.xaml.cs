@@ -439,7 +439,7 @@ namespace Axiom
             FFprobe.aEntryType = string.Empty;
 
             // Video
-            Video.v2PassSwitch = 0; // Set Two-Pass Switch back to Off to avoid doubling up   
+            //Video.v2PassSwitch = 0; // Set Two-Pass Switch back to Off to avoid doubling up   
             Video.passSingle = string.Empty;
             Video.vCodec = string.Empty;
             Video.vQuality = string.Empty;

@@ -84,7 +84,7 @@ namespace Axiom
 
         // Pass
         public static bool passUserSelected = false; // Used to determine if User willingly selected CRF, 1 Pass or 2 Pass
-        public static int v2PassSwitch = 0; // Indentifies if Pass is Single or Two-Pass
+        //public static int v2PassSwitch = 0; // Indentifies if Pass is Single or Two-Pass
         public static string v2PassArgs; // 2-Pass Arguments
         public static string passSingle; // 1-Pass & CRF Args
         public static string pass1Args; // Batch 2-Pass (Pass 1)
@@ -1793,13 +1793,13 @@ namespace Axiom
             // Category: Video (Log Title)
             // --------------------------------------------------
             // Log Console Message /////////
-            Log.WriteAction = () =>
-            {
-                Log.logParagraph.Inlines.Add(new LineBreak());
-                Log.logParagraph.Inlines.Add(new LineBreak());
-                Log.logParagraph.Inlines.Add(new Bold(new Run("Video")) { Foreground = Log.ConsoleAction });
-            };
-            Log.LogActions.Add(Log.WriteAction);
+            //Log.WriteAction = () =>
+            //{
+            //    Log.logParagraph.Inlines.Add(new LineBreak());
+            //    Log.logParagraph.Inlines.Add(new LineBreak());
+            //    Log.logParagraph.Inlines.Add(new Bold(new Run("Video")) { Foreground = Log.ConsoleAction });
+            //};
+            //Log.LogActions.Add(Log.WriteAction);
 
 
             // -------------------------
