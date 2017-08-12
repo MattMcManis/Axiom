@@ -1,0 +1,32 @@
+﻿<Window x:Class="Axiom.UpdateWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:System="clr-namespace:System;assembly=mscorlib" 
+        xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
+        xmlns:local="clr-namespace:Axiom"
+        mc:Ignorable="d"
+        ResizeMode="CanMinimize"
+        UseLayoutRounding="True"
+        Title="Update" 
+        Height="200" Width="400"
+        Icon="Resources/Images/Icons/axiom.ico"
+        Style="{DynamicResource WindowConfigure}">
+
+    <Grid>
+        <Grid>
+            <!-- Progres Info -->
+            <Label x:Name="labelProgressInfo" 
+                Content="" 
+                HorizontalContentAlignment="Center" 
+                Margin="12,52,12,0" Height="26" VerticalAlignment="Top" Style="{DynamicResource LabelCustom}"/>
+
+            <!-- Progres Bar -->
+            <ProgressBar x:Name="progressBar" 
+                Margin="10,85,12,0" 
+                ToolTip="Download Progress" Height="23" VerticalAlignment="Top"/>
+        </Grid>
+
+    </Grid>
+</Window>

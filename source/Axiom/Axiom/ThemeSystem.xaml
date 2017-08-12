@@ -329,6 +329,12 @@
         <Setter Property="Opacity" Value="0.8"/>
     </Style>
 
+    <!-- Update Button -->
+    <Style x:Key="ButtonUpdate" TargetType="{x:Type Image}">
+        <Setter Property="FlowDirection" Value="LeftToRight"/>
+        <Setter Property="Source" Value="Resources/Images/Buttons/Black/update.png"/>
+    </Style>
+
     <!-- Configure Button -->
     <Style x:Key="ButtonConfigure" TargetType="{x:Type Image}">
         <Setter Property="FlowDirection" Value="LeftToRight"/>

@@ -40,8 +40,6 @@ namespace Axiom
     /// </summary>
     public partial class ConfigureWindow : Window
     {
-        private MainWindow mainwindow;
-
         // --------------------------------------------------------------------------------------------------------
         // Variables
         // --------------------------------------------------------------------------------------------------------
@@ -51,11 +49,6 @@ namespace Axiom
         public static string logPath; // output.log Config Settings Path (public - pass data)
         public static bool logEnable; //checkBoxLogConfig, Enable or Disable Log, true or false - (public - pass data)
         public static string threads; // Set FFmpeg -threads (public - pass data)
-
-        public ConfigureWindow()
-        {
-            // Configure, dont remove
-        }
 
         // --------------------------------------------------------------------------------------------------------
         // Window
@@ -69,9 +62,6 @@ namespace Axiom
             this.MinHeight = 200;
             this.MaxWidth = 450;
             this.MaxHeight = 200;
-
-            // Pass Constructor from MainWindow
-            this.mainwindow = mainwindow;
 
             // --------------------------------------------------
             // Load From Saved Settings
@@ -97,18 +87,7 @@ namespace Axiom
 
 
         /// <summary>
-        /// Check if Window Is Open
-        /// </summary>
-        public static bool IsWindowOpen<T>(string name = "") where T : Window
-        {
-            return string.IsNullOrEmpty(name)
-               ? Application.Current.Windows.OfType<T>().Any()
-               : Application.Current.Windows.OfType<T>().Any(w => w.Name.Equals(name));
-        }
-
-
-        /// <summary>
-        /// Theme CombBox
+        /// Load Theme
         /// </summary>
         public static void ConfigTheme(ConfigureWindow configurewindow)
         {
@@ -205,6 +184,14 @@ namespace Axiom
                     Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
                     Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#2ebf93")); // Actions
                 }
+                else if (ConfigureWindow.theme == "Prelude")
+                {
+                    Log.ConsoleDefault = Brushes.White; // Default
+                    Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#999999")); // Titles
+                    Log.ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
+                    Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
+                    Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#777777")); // Actions
+                }
                 else if (ConfigureWindow.theme == "System")
                 {
                     Log.ConsoleDefault = Brushes.White; // Default
@@ -247,6 +234,12 @@ namespace Axiom
                     DebugConsole.Variable = (SolidColorBrush)(new BrushConverter().ConvertFrom("#2ebf93"));
                     DebugConsole.Value = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFFFFF"));
                 }
+                else if (ConfigureWindow.theme == "Prelude")
+                {
+                    DebugConsole.Heading = (SolidColorBrush)(new BrushConverter().ConvertFrom("#ad8a4a"));
+                    DebugConsole.Variable = (SolidColorBrush)(new BrushConverter().ConvertFrom("#2ebf93"));
+                    DebugConsole.Value = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFFFFF"));
+                }
                 else if (ConfigureWindow.theme == "System")
                 {
                     DebugConsole.Heading = (SolidColorBrush)(new BrushConverter().ConvertFrom("#007DF2"));
@@ -262,7 +255,7 @@ namespace Axiom
 
 
         /// <summary>
-        /// FFmpeg Path
+        /// Load FFmpeg Path
         /// </summary>
         public static void ConfigFFmpegPath(ConfigureWindow configurewindow)
         {
@@ -316,7 +309,7 @@ namespace Axiom
 
 
         /// <summary>
-        /// FFprobe Path
+        /// Load FFprobe Path
         /// </summary>
         public static void ConfigFFprobePath(ConfigureWindow configurewindow)
         {
@@ -369,7 +362,7 @@ namespace Axiom
 
 
         /// <summary>
-        /// Log Checkbox
+        /// Load Log Checkbox
         /// </summary>
         public static void ConfigLogCheckbox(ConfigureWindow configurewindow)
         {
@@ -423,7 +416,7 @@ namespace Axiom
 
 
         /// <summary>
-        /// Log Path
+        /// Load Log Path
         /// </summary>
         public static void ConfigLogPath(ConfigureWindow configurewindow)
         {
@@ -476,7 +469,7 @@ namespace Axiom
 
 
         /// <summary>
-        /// Threads
+        /// Load Threads
         /// </summary>
         public static void ConfigThreads(ConfigureWindow configurewindow)
         {

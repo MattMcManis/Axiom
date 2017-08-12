@@ -1918,6 +1918,12 @@
         <Setter Property="Source" Value="Resources/Images/Buttons/White/web.png"/>
     </Style>
 
+    <!-- Update Button -->
+    <Style x:Key="ButtonUpdate" TargetType="{x:Type Image}">
+        <Setter Property="FlowDirection" Value="LeftToRight"/>
+        <Setter Property="Source" Value="Resources/Images/Buttons/White/update.png"/>
+    </Style>
+
     <!-- Configure Button -->
     <Style x:Key="ButtonConfigure" TargetType="{x:Type Image}">
         <Setter Property="FlowDirection" Value="LeftToRight"/>

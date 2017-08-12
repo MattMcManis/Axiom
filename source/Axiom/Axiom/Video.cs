@@ -1655,13 +1655,13 @@ namespace Axiom
                     // if vBitrate Textbox is default or empty
                     if (mainwindow.vBitrateCustom.Text == "Bitrate" || string.IsNullOrWhiteSpace(mainwindow.vBitrateCustom.Text)) { /*vBitMode = string.Empty;*/ vBitrate = string.Empty; }
                     // if vBitrate is entered by user and is not blank
-                    if (mainwindow.vBitrateCustom.Text != "Bitrate" && !string.IsNullOrWhiteSpace(mainwindow.vBitrateCustom.Text)) { /*vBitMode = "-b:v"; vBitrate = mainwindow.vBitrateCustom.Text;*/ vBitrate = "-b:v " + mainwindow.vBitrateCustom.Text.ToString(); }
+                    if (mainwindow.vBitrateCustom.Text != "Bitrate" && !string.IsNullOrWhiteSpace(mainwindow.vBitrateCustom.Text)) { /*vBitMode = "-b:v"; vBitrate = mainwindow.vBitrateCustom.Text;*/ vBitrate = "-b:v" + mainwindow.vBitrateCustom.Text.ToString(); }
 
                     //CRF
                     // if CRF texbox is default or empty
                     if (mainwindow.crfCustom.Text == "CRF" || string.IsNullOrWhiteSpace(mainwindow.crfCustom.Text)) { crf = string.Empty; }
                     // if CRF texbox entered by user and is not blank
-                    if (mainwindow.crfCustom.Text != "CRF" && !string.IsNullOrWhiteSpace(mainwindow.crfCustom.Text)) { crf = "-crf " + mainwindow.crfCustom.Text /* crf needs b:v 0*/ ; }
+                    if (mainwindow.crfCustom.Text != "CRF" && !string.IsNullOrWhiteSpace(mainwindow.crfCustom.Text)) { crf = "-crf" + " " + mainwindow.crfCustom.Text /* crf needs b:v 0*/ ; }
 
                     // VP9 crf -b:v 0
                     if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9")

@@ -18,11 +18,17 @@
     You should have received a copy of the GNU General Public License
     along with this program.If not, see<http://www.gnu.org/licenses/> . 
  -->
-<Window x:Name="windowInfo" x:Class="Axiom.Info"
+<Window x:Name="windowInfo" x:Class="Axiom.InfoWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:System="clr-namespace:System;assembly=mscorlib" 
+        xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
         ResizeMode="CanMinimize" UseLayoutRounding="True"
-        Title="Info" Height="335" Width="445" Icon="Resources/Images/Icons/info.ico"
+        Title="Info" 
+        Height="335" Width="445" 
+        Icon="Resources/Images/Icons/info.ico"
         >
     <Window.Resources>
         <SolidColorBrush x:Key="TextBox.Static.Border" Color="#FFABAdB3"/>

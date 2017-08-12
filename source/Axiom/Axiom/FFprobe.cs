@@ -388,7 +388,7 @@ namespace Axiom
                     FFprobeParse.StartInfo.UseShellExecute = false;
                     FFprobeParse.StartInfo.CreateNoWindow = true;
                     FFprobeParse.StartInfo.RedirectStandardOutput = true;
-                    FFprobeParse.StartInfo.FileName = ffprobe;
+                    FFprobeParse.StartInfo.FileName = MainWindow.FFprobePath(mainwindow);
 
                     if (!string.IsNullOrEmpty(ffprobe)) //FFprobe.exe Null Check
                     {

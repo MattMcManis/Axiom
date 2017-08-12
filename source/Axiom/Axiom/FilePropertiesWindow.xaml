@@ -21,7 +21,11 @@
 <Window x:Class="Axiom.FilePropertiesWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="File Properties" Height="305" Width="400" Icon="Resources/Images/Icons/axiom.ico"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:System="clr-namespace:System;assembly=mscorlib" 
+        xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
+        Title="File Properties" Height="400" Width="420" Icon="Resources/Images/Icons/axiom.ico"
         Style="{DynamicResource WindowLogConsole}">
     <Grid>
 

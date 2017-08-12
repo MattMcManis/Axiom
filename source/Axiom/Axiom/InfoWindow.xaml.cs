@@ -28,10 +28,9 @@ namespace Axiom
     /// <summary>
     /// Interaction logic for Info.xaml
     /// </summary>
-    public partial class Info : Window
+    public partial class InfoWindow : Window
     {
-
-        public Info()
+        public InfoWindow()
         {
             InitializeComponent();
 

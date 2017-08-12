@@ -1,5 +1,5 @@
-﻿using System.ComponentModel;
-using System.Windows;
+﻿using System.Windows;
+using System.Windows.Documents;
 // Disable XML Comment warnings
 #pragma warning disable 1591
 
@@ -31,24 +31,31 @@ namespace Axiom
     /// </summary>
     public partial class FilePropertiesWindow : Window
     {
-        private MainWindow mainwindow;
-
-        public FilePropertiesWindow()
-        {
-            //do not remove
-        }
-
         public FilePropertiesWindow(MainWindow mainwindow)
         {
             InitializeComponent();
 
-            this.mainwindow = mainwindow;
-
             // Set Width/Height to prevent Tablets maximizing
-            this.Width = 420;
-            this.Height = 400;
+            //this.Width = 420;
+            //this.Height = 400;
             this.MinWidth = 200;
             this.MinHeight = 200;
+
+            // -------------------------
+            // Display FFprobe File Properties
+
+            Paragraph propertiesParagraph = new Paragraph(); //RichTextBox
+            this.rtbFileProperties.Document = new FlowDocument(propertiesParagraph); // start
+            this.rtbFileProperties.BeginChange(); // begin change
+
+            // Clear Rich Text Box on Start
+            propertiesParagraph.Inlines.Clear();
+
+            // Write All File Properties to Rich Text Box
+            propertiesParagraph.Inlines.Add(new Run(FFprobe.inputFileProperties) { Foreground = Log.ConsoleDefault });
+
+            this.rtbFileProperties.EndChange(); // end change
+            // -------------------------  
         }
 
 
@@ -68,10 +75,17 @@ namespace Axiom
         private void buttonExpand_Click(object sender, RoutedEventArgs e)
         {
             // If less than 600px Height
-            if (this.Width <= 650)
+            if (this.Height <= 650)
             {
                 this.Width = 650;
                 this.Height = 600;
+
+                double screenWidth = SystemParameters.PrimaryScreenWidth;
+                double screenHeight = SystemParameters.PrimaryScreenHeight;
+                double windowWidth = this.Width;
+                double windowHeight = this.Height;
+                this.Left = (screenWidth / 2) - (windowWidth / 2);
+                this.Top = (screenHeight / 2) - (windowHeight / 2);
             }
         }
     }

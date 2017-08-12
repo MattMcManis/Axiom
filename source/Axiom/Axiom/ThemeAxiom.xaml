@@ -24,7 +24,7 @@
     xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero" 
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    
+
     <!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////
          Template Default
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
@@ -63,8 +63,8 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    
-    
+
+
     <!--/////////////////////////////////////
          Label
         /////////////////////////////////////-->
@@ -151,7 +151,7 @@
     <!-- Border Thickness-->
     <Thickness x:Key="Border.Static.Thickness.None" Top="0" Right="0" Bottom="0" Left="0" />
     <Thickness x:Key="Border.MouseOver.Thickness.One" Top="1" Right="1" Bottom="1" Left="1"/>
-    
+
     <!-- Padding -->
     <Thickness x:Key="PaddingStaticThickness" Top="0" Right="0" Bottom="0" Left="0" />
 
@@ -163,15 +163,15 @@
 
 
 
-    
+
 
     <!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////
          Template White
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
-    
+
     <!--/////////////////////////////////////
          ComboBox White
-        /////////////////////////////////////-->  
+        /////////////////////////////////////-->
     <!-- Static -->
     <SolidColorBrush x:Key="ComboBoxWhite.Static.Foreground" Color="#FFFFFFFF"/>
     <SolidColorBrush x:Key="ComboBoxWhite.Static.Background" Color="#FFFFFFFF"/>
@@ -181,7 +181,7 @@
     <SolidColorBrush x:Key="ComboBoxWhite.Disabled.Foreground" Color="#FF000000"/>
     <SolidColorBrush x:Key="ComboBoxWhite.Disabled.Background" Color="#FFBCBCBC"/>
     <SolidColorBrush x:Key="ComboBoxWhite.Disabled.Border" Color="#FFBCBCBC"/>
-    
+
     <!-- Mouse Over-->
     <SolidColorBrush x:Key="ComboBoxWhite.MouseOver.Foreground" Color="#FFFFFFFF"/>
     <SolidColorBrush x:Key="ComboBoxWhite.MouseOver.Background" Color="#FF26a0da"/>
@@ -498,12 +498,12 @@
     <!--/////////////////////////////////////
          Main Window 
         /////////////////////////////////////-->
-    
+
     <!-- Main Window Custom -->
     <Style x:Key="WindowStyleCustom" TargetType="{x:Type Window}">
         <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}"/>
-         <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
-         <!--Background--> 
+        <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
+        <!--Background-->
         <Setter Property="Background">
             <Setter.Value>
                 <ImageBrush ImageSource="Resources/Images/Themes/Axiom/background.jpg" Stretch="UniformToFill" AlignmentX="Center" AlignmentY="Center"/>
@@ -683,7 +683,7 @@
         /////////////////////////////////////-->
     <SolidColorBrush x:Key="TextBoxCustom.Static.Background" Color="#FF1049BB"/>
     <SolidColorBrush x:Key="TextBoxCustom.Static.Border" Color="#FF1049BB"/>
-    
+
     <SolidColorBrush x:Key="TextBoxCustom.Disabled.Foreground" Color="#FFADD5FF"/>
 
     <SolidColorBrush x:Key="TextBoxCustom.MouseOver.Border" Color="#FF7EB4EA"/>
@@ -748,9 +748,9 @@
             </MultiTrigger>
         </Style.Triggers>
     </Style>
-    
-    
-    
+
+
+
 
 
     <!--/////////////////////////////////////
@@ -818,17 +818,17 @@
             </MultiTrigger>
         </Style.Triggers>
     </Style>
-    
-    
-    
+
+
+
 
     <!--/////////////////////////////////////
      ComboBox Glyph Custom
     /////////////////////////////////////-->
     <SolidColorBrush x:Key="ComboBoxCustom.Static.Glyph" Color="#FFFFFFFF"/>
     <SolidColorBrush x:Key="ComboBoxCustom.MouseOver.Glyph" Color="#FFFFFFFF"/>
-    
-    
+
+
     <Style x:Key="ComboBoxWhite.Editable.TextBox" TargetType="{x:Type TextBox}">
         <Setter Property="OverridesDefaultStyle" Value="true"/>
         <Setter Property="AllowDrop" Value="true"/>
@@ -846,7 +846,7 @@
         </Setter>
     </Style>
 
-    
+
     <!-- ComboBox Custom Toggle Button -->
     <Style x:Key="ComboBoxCustom.ToggleButton" TargetType="{x:Type ToggleButton}">
         <Setter Property="OverridesDefaultStyle" Value="true"/>
@@ -1048,7 +1048,7 @@
         </Style.Triggers>
     </Style>
 
-    
+
     <!-- ComboBox Custom Template -->
     <ControlTemplate x:Key="ComboBoxCustom.Template" TargetType="{x:Type ComboBox}">
         <Grid x:Name="templateRoot" SnapsToDevicePixels="true">
@@ -1102,7 +1102,7 @@
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
-    
+
     <!-- ComboBox Custom Textbox -->
     <Style x:Key="ComboBox.Editable.TextBoxCustom" TargetType="{x:Type TextBox}">
         <Setter Property="OverridesDefaultStyle" Value="true"/>
@@ -1198,7 +1198,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
+
 
     <!-- ComboBox Custom -->
     <Style x:Key="ComboBoxCustom" TargetType="{x:Type ComboBox}">
@@ -1274,7 +1274,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
+
 
 
     <!--/////////////////////////////////////
@@ -1329,19 +1329,19 @@
         </Setter>
     </Style>
 
-    
-    
-    
+
+
+
     <!--/////////////////////////////////////
         Button Custom Crop
         /////////////////////////////////////-->
     <SolidColorBrush x:Key="Button.Crop.Static.Foreground" Color="#FFFFFFFF"/>
     <ImageBrush x:Key="Button.Crop.Static.Background" ImageSource="Resources/Images/Themes/Axiom/buttonCropEnabled.png" Stretch="None"/>
     <SolidColorBrush x:Key="Button.Crop.Static.Border" Color="#FFFFFFFF"/>
-    
+
     <SolidColorBrush x:Key="Button.Crop.MouseOver.Background" Color="#FF1049BB"/>
     <SolidColorBrush x:Key="Button.Crop.MouseOver.Border" Color="#FF7EB4EA"/>
-    
+
     <SolidColorBrush x:Key="Button.Crop.Pressed.Background" Color="#FFC4E5F6"/>
     <SolidColorBrush x:Key="Button.Crop.Pressed.Border" Color="#FF2C628B"/>
 
@@ -1408,7 +1408,7 @@
 
     <!--/////////////////////////////////////
         Crop Button TextBlock
-        /////////////////////////////////////-->    
+        /////////////////////////////////////-->
     <Style x:Key="ButtonCropTextBlock" TargetType="{x:Type TextBlock}">
         <Setter Property="TextWrapping" Value="NoWrap" />
         <Setter Property="TextTrimming" Value="None" />
@@ -1426,10 +1426,10 @@
     <SolidColorBrush x:Key="Button.CropClear.Static.Foreground" Color="#FFFFFFFF"/>
     <ImageBrush x:Key="Button.CropClear.Static.Background" ImageSource="Resources/Images/Themes/Axiom/buttonCropClearEnabled.png" Stretch="None"/>
     <SolidColorBrush x:Key="Button.CropClear.Static.Border" Color="#FFFFFFFF"/>
-    
+
     <SolidColorBrush x:Key="Button.CropClear.MouseOver.Background" Color="#FF1049BB"/>
     <SolidColorBrush x:Key="Button.CropClear.MouseOver.Border" Color="#FF7EB4EA"/>
-    
+
     <SolidColorBrush x:Key="Button.CropClear.Pressed.Background" Color="#FFC4E5F6"/>
     <SolidColorBrush x:Key="Button.CropClear.Pressed.Border" Color="#FF2C628B"/>
 
@@ -1497,8 +1497,8 @@
     </Style>
 
 
-    
-    
+
+
     <!--/////////////////////////////////////
         Button Folder
         /////////////////////////////////////-->
@@ -1604,8 +1604,8 @@
         </Setter>
     </Style>
 
-    
-    
+
+
 
     <!--/////////////////////////////////////
          Toggle Button Custom
@@ -1650,9 +1650,9 @@
         </Setter>
     </Style>
 
-    
-    
-    
+
+
+
     <!--/////////////////////////////////////
          VBR Toggle Button Custom
         /////////////////////////////////////-->
@@ -1711,7 +1711,7 @@
 
     <ImageBrush x:Key="ToggleButton.Small.MouseOver.Background" ImageSource="Resources/Images/Themes/Axiom/ToggleButtonSmallMouseOver.png" Stretch="Fill" AlignmentX="Center" AlignmentY="Center"/>
     <SolidColorBrush x:Key="ToggleButton.Small.MouseOver.Border" Color="#FF7EB4EA"/>
-    
+
     <SolidColorBrush x:Key="ToggleButton.Small.Pressed.Background" Color="#FFC4E5F6"/>
     <SolidColorBrush x:Key="ToggleButton.Small.Pressed.Border" Color="#FF2C628B"/>
 
@@ -1900,7 +1900,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
+
 
 
 
@@ -1918,6 +1918,12 @@
     <Style x:Key="ButtonWebsite" TargetType="{x:Type Image}">
         <Setter Property="FlowDirection" Value="LeftToRight"/>
         <Setter Property="Source" Value="Resources/Images/Buttons/White/web.png"/>
+    </Style>
+
+    <!-- Update Button -->
+    <Style x:Key="ButtonUpdate" TargetType="{x:Type Image}">
+        <Setter Property="FlowDirection" Value="LeftToRight"/>
+        <Setter Property="Source" Value="Resources/Images/Buttons/White/update.png"/>
     </Style>
 
     <!-- Configure Button -->

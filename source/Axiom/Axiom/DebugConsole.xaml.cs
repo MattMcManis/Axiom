@@ -37,8 +37,6 @@ namespace Axiom
     public partial class DebugConsole : Window
     {
         private MainWindow mainwindow;
-        private ScriptView scriptview;
-        private ConfigureWindow configurewindow;
 
         public static Paragraph debugParagraph = new Paragraph(); //RichTextBox
 
@@ -46,20 +44,15 @@ namespace Axiom
         public static Brush Variable;
         public static Brush Value;
 
-        public DebugConsole()
-        {
-            //do not remove
-        }
 
-        public DebugConsole(MainWindow mainwindow)
+        public DebugConsole(MainWindow mainwindow, ConfigureWindow configurewindow)
         {
             InitializeComponent();
 
             this.mainwindow = mainwindow;
 
-            // Set Width/Height to prevent Tablets maximizing
-            this.Width = 400;
-            this.Height = 500;
+            //this.Width = 400;
+            //this.Height = 500;
             this.MinWidth = 200;
             this.MinHeight = 200;
 
@@ -68,6 +61,15 @@ namespace Axiom
             // -------------------------
             ConfigureWindow.ConfigTheme(configurewindow);
 
+        }
+
+        /// <summary>
+        /// Close
+        /// </summary>
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            e.Cancel = true;
+            this.Close();
         }
 
         /// <summary>
@@ -161,9 +163,7 @@ namespace Axiom
                 /// <summary>
                 ///    Generate Script
                 /// </summary> 
-                FFmpeg.FFmpegScript(mainwindow, scriptview);
-
-                //sw.Stop(); //stop stopwatch
+                //FFmpeg.FFmpegScript(mainwindow, scriptview);
 
                 // Write Variables to Debug Window (Method)
                 DebugWrite(this, mainwindow);

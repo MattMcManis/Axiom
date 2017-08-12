@@ -33,23 +33,24 @@ namespace Axiom
     /// </summary>
     public partial class OptimizeAdvancedWindow : Window
     {
-        private MainWindow mainwindow;
+        //private static MainWindow mainwindow = ((MainWindow)Application.Current.MainWindow);
+        //private static MainWindow mainwindow;
 
         // Temporary saved settings holder
         public static string optAdvTune = string.Empty; 
         public static string optAdvProfile = string.Empty;
         public static string optAdvLevel = string.Empty;
 
-        public OptimizeAdvancedWindow()
-        {
-            // Don't Remove
-        }
+        //public OptimizeAdvancedWindow()
+        //{
+        //    // Don't Remove
+        //}
 
         public OptimizeAdvancedWindow(MainWindow mainwindow)
         {
             InitializeComponent();
 
-            this.mainwindow = mainwindow;
+            //this.mainwindow = mainwindow;
 
             // Set Min/Max Width/Height to prevent Tablets maximizing
             this.MinWidth = 371;

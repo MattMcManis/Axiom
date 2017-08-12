@@ -21,8 +21,12 @@
 <Window x:Class="Axiom.ScriptView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:System="clr-namespace:System;assembly=mscorlib" 
+        xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
         UseLayoutRounding="True"
-        Title="Script" Height="230" Width="500" Icon="Resources/Images/Icons/axiom.ico"               
+        Title="Script" Height="250" Width="575" Icon="Resources/Images/Icons/axiom.ico"               
         >
     <Grid>
         <!-- Script TextBox -->

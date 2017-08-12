@@ -34,25 +34,18 @@ namespace Axiom
     /// </summary>
     public partial class ScriptView : Window
     {
-        //private MainWindow mainwindow;
-
         public static int sort = 0;
 
         public Paragraph scriptParagraph = new Paragraph(); //RichTextBox
 
-
-        public ScriptView()
-        {
-            //do not remove
-        }
 
         public ScriptView(MainWindow mainwindow) // pass data constuctor
         {
             InitializeComponent();
 
             // Set Window Size to center TextBox & Button
-            this.Width = 575;
-            this.Height = 250;
+            //this.Width = 575;
+            //this.Height = 250;
             this.MinWidth = 575;
             this.MinHeight = 250;
 

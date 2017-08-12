@@ -73,7 +73,7 @@ namespace Axiom
         /// <summary>
         ///     Log Console
         /// </summary>
-        public LogConsole logconsole = new LogConsole();
+        public LogConsole logconsole = new LogConsole(((MainWindow)Application.Current.MainWindow), configurewindow);
 
         /// <summary>
         ///     Debug Console
@@ -88,12 +88,12 @@ namespace Axiom
         /// <summary>
         ///     Script View
         /// </summary>
-        public ScriptView scriptview; //pass data
+        public static ScriptView scriptview; //pass data
 
         /// <summary>
         ///     Configure Window
         /// </summary>
-        public ConfigureWindow configurewindow; //pass data
+        public static ConfigureWindow configurewindow; //pass data
 
         /// <summary>
         ///     File Queue
@@ -110,12 +110,30 @@ namespace Axiom
         /// </summary>
         public static OptimizeAdvancedWindow optadvwindow; //pass data
 
+        /// <summary>
+        ///     Optimize Advanced Window
+        /// </summary>
+        public static InfoWindow infowindow; //pass data
+
+        /// <summary>
+        ///     Optimize Advanced Window
+        /// </summary>
+        public static UpdateWindow updatewindow; //pass data
 
         // --------------------------------------------------------------------------------------------------------
         /// <summary>
         ///     Variables
         /// </summary>
         // --------------------------------------------------------------------------------------------------------
+
+        // Axiom Current Version
+        public static Version currentVersion;
+        // Axiom GitHub Latest Version
+        public static Version latestVersion;
+        // Alpha, Beta, Stable
+        public static string currentBuildPhase;
+        public static string latestBuildPhase;
+        public static string[] splitVersionBuildPhase;
 
         // Locks
         public static int ready = 1; // If 1 allow conversion, else stop
@@ -154,7 +172,9 @@ namespace Axiom
         {
             InitializeComponent();
 
-            TitleVersion = "Axiom ~ FFmpeg UI (0.9.9-alpha)";
+            currentVersion = new Version("0.8.0.0");
+            currentBuildPhase = "alpha";
+            TitleVersion = "Axiom ~ FFmpeg UI (" + Convert.ToString(currentVersion) + "-" + currentBuildPhase + ")";
             DataContext = this;
 
             /// <summary>
@@ -189,9 +209,9 @@ namespace Axiom
             /// </summary>
             // -----------------------------------------------------------------
             // Set Min/Max Width/Height to prevent Tablets maximizing
-            this.MinWidth = 609;
+            this.MinWidth = 615;
             this.MinHeight = 305;
-            this.MaxWidth = 609;
+            this.MaxWidth = 615;
             this.MaxHeight = 305;
 
 
@@ -489,10 +509,8 @@ namespace Axiom
         /// </summary>
         public void StartLogConsole()
         {
-            MainWindow mainwindow = this;
-
             // Open LogConsole Window
-            logconsole = new LogConsole(mainwindow);
+            logconsole = new LogConsole(this, configurewindow);
             logconsole.Hide();
 
             // Position with Show();
@@ -1348,19 +1366,30 @@ namespace Axiom
         /// <summary>
         ///     Info Button
         /// </summary>
-        private Info info = null;
-        private Boolean IsInfoOpened = false;
+        private Boolean IsInfoWindowOpened = false;
         private void buttonInfo_Click(object sender, RoutedEventArgs e)
         {
-            // Open Info Window
-            if (this.IsInfoOpened) return;
-            this.info = new Info();
-            this.info.Owner = Window.GetWindow(this);
-            this.info.Left = this.Left + 82;
-            this.info.Top = this.Top + -15;
-            this.info.ContentRendered += delegate { this.IsInfoOpened = true; };
-            this.info.Closed += delegate { this.IsInfoOpened = false; };
-            this.info.Show();
+            // Detect which screen we're on
+            var allScreens = System.Windows.Forms.Screen.AllScreens.ToList();
+            var thisScreen = allScreens.SingleOrDefault(s => this.Left >= s.WorkingArea.Left && this.Left < s.WorkingArea.Right);
+
+            // Start Window
+            infowindow = new InfoWindow();
+
+            // Keep Window on Top
+            infowindow.Owner = Window.GetWindow(this);
+
+            // Only allow 1 Window instance
+            if (IsInfoWindowOpened) return;
+            infowindow.ContentRendered += delegate { IsInfoWindowOpened = true; };
+            infowindow.Closed += delegate { IsInfoWindowOpened = false; };
+
+            // Position Relative to MainWindow
+            infowindow.Left = Math.Max((this.Left + (this.Width - infowindow.Width) / 2), thisScreen.WorkingArea.Left);
+            infowindow.Top = Math.Max((this.Top + (this.Height - infowindow.Height) / 2), thisScreen.WorkingArea.Top);
+
+            // Open Window
+            infowindow.Show();
         }
 
 
@@ -1369,12 +1398,22 @@ namespace Axiom
         /// </summary>
         private void buttonConfigure_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow mainwindow = this;
+            // Detect which screen we're on
+            var allScreens = System.Windows.Forms.Screen.AllScreens.ToList();
+            var thisScreen = allScreens.SingleOrDefault(s => this.Left >= s.WorkingArea.Left && this.Left < s.WorkingArea.Right);
+
             // Open Configure Window
-            configurewindow = new ConfigureWindow(mainwindow);
-            configurewindow.Left = this.Left + 80;
-            configurewindow.Top = this.Top - 20;
+            configurewindow = new ConfigureWindow(this);
+
+            // Position Relative to MainWindow
+            // Keep from going off screen
+            configurewindow.Left = Math.Max((this.Left + (this.Width - configurewindow.Width) / 2), thisScreen.WorkingArea.Left);
+            configurewindow.Top = Math.Max(this.Top - configurewindow.Height - 12, thisScreen.WorkingArea.Top);
+
+            // Keep Window on Top
             configurewindow.Owner = Window.GetWindow(this);
+
+            // Open Winndow
             configurewindow.ShowDialog();
         }
 
@@ -1382,11 +1421,18 @@ namespace Axiom
         /// <summary>
         ///     Log Console Window Button
         /// </summary>
-        private void buttonConsole_Click(object sender, RoutedEventArgs e)
+        private void buttonLogConsole_Click(object sender, RoutedEventArgs e)
         {
-            // Open Log Console Window
-            logconsole.Left = this.Left + 610;
-            logconsole.Top = this.Top + 0;
+            // Detect which screen we're on
+            var allScreens = System.Windows.Forms.Screen.AllScreens.ToList();
+            var thisScreen = allScreens.SingleOrDefault(s => this.Left >= s.WorkingArea.Left && this.Left < s.WorkingArea.Right);
+
+            // Position Relative to MainWindow
+            // Keep from going off screen
+            logconsole.Left = Math.Min(this.Left + this.ActualWidth + 12, thisScreen.WorkingArea.Right - logconsole.Width);
+            logconsole.Top = Math.Min(this.Top + 0, thisScreen.WorkingArea.Bottom - logconsole.Height);
+
+            // Open Winndow
             logconsole.Show();
         }
 
@@ -1399,18 +1445,28 @@ namespace Axiom
             // -------------------------
             // Open Debug Console Window
             // -------------------------
+
+            // Detect which screen we're on
+            var allScreens = System.Windows.Forms.Screen.AllScreens.ToList();
+            var thisScreen = allScreens.SingleOrDefault(s => this.Left >= s.WorkingArea.Left && this.Left < s.WorkingArea.Right);
+
+            // Start Window
+            debugconsole = new DebugConsole(this, configurewindow);
+
             // Only allow 1 Window instance
             if (IsDebugConsoleOpened) return;
-            MainWindow mainwindow = this;
-            debugconsole = new DebugConsole(mainwindow);
-            debugconsole.Left = Left - 400;
-            debugconsole.Top = Top + 0;
             debugconsole.ContentRendered += delegate { IsDebugConsoleOpened = true; };
             debugconsole.Closed += delegate { IsDebugConsoleOpened = false; };
+
+            // Position Relative to MainWindow
+            // Keep from going off screen
+            debugconsole.Left = Math.Max(this.Left - debugconsole.Width - 12, thisScreen.WorkingArea.Left);
+            debugconsole.Top = Math.Max(this.Top - 0, thisScreen.WorkingArea.Top);
 
             // Write Variables to Debug Window (Method)
             DebugConsole.DebugWrite(debugconsole, this);
 
+            // Open Window
             debugconsole.Show();
         }
 
@@ -1426,52 +1482,29 @@ namespace Axiom
             FFprobe.FFprobeInputFileProperties(this);
 
 
-            // -------------------------
-            // Start File Properties Window
-            // -------------------------
+            // Detect which screen we're on
+            var allScreens = System.Windows.Forms.Screen.AllScreens.ToList();
+            var thisScreen = allScreens.SingleOrDefault(s => this.Left >= s.WorkingArea.Left && this.Left < s.WorkingArea.Right);
+
+            // Start window
+            //MainWindow mainwindow = this;
+            filepropwindow = new FilePropertiesWindow(this);
+
             // Only allow 1 Window instance
             if (IsFilePropertiesOpened) return;
-            MainWindow mainwindow = this;
-            filepropwindow = new FilePropertiesWindow(mainwindow);
-            filepropwindow.Owner = Window.GetWindow(this);
-            filepropwindow.Left = Left + 95;
-            filepropwindow.Top = Top - 47;
             filepropwindow.ContentRendered += delegate { IsFilePropertiesOpened = true; };
             filepropwindow.Closed += delegate { IsFilePropertiesOpened = false; };
 
-            // -------------------------
-            // Display FFprobe File Properties
-            // -------------------------  
-            Paragraph propertiesParagraph = new Paragraph(); //RichTextBox
-            mainwindow.filepropwindow.rtbFileProperties.Document = new FlowDocument(propertiesParagraph); // start
-            mainwindow.filepropwindow.rtbFileProperties.BeginChange(); // begin change
+            // Position Relative to MainWindow
+            // Keep from going off screen
+            filepropwindow.Left = Math.Max((this.Left + (this.Width - filepropwindow.Width) / 2), thisScreen.WorkingArea.Left);
+            filepropwindow.Top = Math.Max((this.Top + (this.Height - filepropwindow.Height) / 2), thisScreen.WorkingArea.Top);
 
-            // Clear Rich Text Box on Start
-            propertiesParagraph.Inlines.Clear();
+            // Write Properties to Textbox in FilePropertiesWindow Initialize
 
-            // Write All File Properties to Rich Text Box
-            propertiesParagraph.Inlines.Add(new Run(FFprobe.inputFileProperties) { Foreground = Log.ConsoleDefault });
-
-            mainwindow.filepropwindow.rtbFileProperties.EndChange(); // end change
-
-
-            // -------------------------
-            // Open File Properties Window
-            // -------------------------
+            // Open Window
             filepropwindow.Show();
         }
-
-
-        /// <summary> 
-        ///     File Queue Button
-        /// </summary>
-        //private void buttonFileQueue_Click(object sender, RoutedEventArgs e)
-        //{
-        //    // Open File Queue Window
-        //    filequeue.Left = this.Left - 321;
-        //    filequeue.Top = this.Top + 0;
-        //    filequeue.Show();
-        //}
 
 
         /// <summary>
@@ -1482,6 +1515,112 @@ namespace Axiom
             // Open Axiom Website URL in Default Browser
             Process.Start("https://axiomui.github.io");
 
+        }
+
+
+        /// <summary>
+        ///    Update Button
+        /// </summary>
+        private Boolean IsUpdateWindowOpened = false;
+        private void buttonUpdate_Click(object sender, RoutedEventArgs e)
+        {
+            //Process.Start("powershell.exe",
+            //  "$shell = new-object -com shell.application; "
+            //  + "$zip = $shell.NameSpace('C:\\Users\\Matt\\AppData\\Local\\Temp\\Axiom.zip'); "
+            //  + "foreach ($item in $zip.items()) {$shell.Namespace('C:\\Users\\Matt\\Desktop\\').CopyHere($item, 0x14)}"
+            //  );
+
+            //Process.Start("powershell.exe",
+            //  "timeout 3; "
+            //  + "$shell = new-object -com shell.application; "
+            //  + "$zip = $shell.NameSpace('C:\\Users\\Matt\\AppData\\Local\\Temp\\Axiom.zip'); "
+            //  + "foreach ($item in $zip.items()) {$shell.Namespace('C:\\Users\\Matt\\Desktop\\').CopyHere($item, 0x14)}"
+            //  );
+
+            // Proceed if Internet Connection
+            //
+            if (UpdateWindow.CheckForInternetConnection() == true)
+            {
+                // Parse GitHub .version file
+                string parseLatestVersion = UpdateWindow.wc.DownloadString("https://raw.githubusercontent.com/MattMcManis/Axiom/master/.version");
+
+                //Split Version & Build Phase by dash
+                if (!string.IsNullOrEmpty(parseLatestVersion)) //null check
+                {
+                    // Split Version and Build Phase
+                    splitVersionBuildPhase = Convert.ToString(parseLatestVersion).Split('-');
+
+                    // Set Version Number
+                    latestVersion = new Version(splitVersionBuildPhase[0]); //number
+                    latestBuildPhase = splitVersionBuildPhase[1]; //alpha
+
+
+                    // Debug
+                    //MessageBox.Show(Convert.ToString(latestVersion));
+                    //MessageBox.Show(latestBuildPhase);
+
+
+                    // Check if Axiom is the Latest Version
+                    // Update Available
+                    if (latestVersion > currentVersion)
+                    {
+                        // Yes/No Dialog Confirmation
+                        //
+                        MessageBoxResult result = MessageBox.Show("Download Update?", "Update Available", MessageBoxButton.YesNo);
+                        switch (result)
+                        {
+                            case MessageBoxResult.Yes:
+                                // Detect which screen we're on
+                                var allScreens = System.Windows.Forms.Screen.AllScreens.ToList();
+                                var thisScreen = allScreens.SingleOrDefault(s => this.Left >= s.WorkingArea.Left && this.Left < s.WorkingArea.Right);
+
+                                // Start Window
+                                updatewindow = new UpdateWindow();
+
+                                // Keep in Front
+                                updatewindow.Owner = Window.GetWindow(this);
+
+                                // Only allow 1 Window instance
+                                if (IsUpdateWindowOpened) return;
+                                updatewindow.ContentRendered += delegate { IsUpdateWindowOpened = true; };
+                                updatewindow.Closed += delegate { IsUpdateWindowOpened = false; };
+
+                                // Position Relative to MainWindow
+                                // Keep from going off screen
+                                updatewindow.Left = Math.Max((this.Left + (this.Width - updatewindow.Width) / 2), thisScreen.WorkingArea.Left);
+                                updatewindow.Top = Math.Max((this.Top + (this.Height - updatewindow.Height) / 2), thisScreen.WorkingArea.Top);
+
+                                // Open Window
+                                updatewindow.Show();
+                                break;
+                            case MessageBoxResult.No:
+                                break;
+                        }
+                    }
+                    // Update Not Available
+                    else if (latestVersion <= currentVersion)
+                    {
+                        //MainWindow.ready = 0;
+                        MessageBox.Show("Already Latest Version");
+                    }
+                    // Unknown
+                    else // null
+                    {
+                        //MainWindow.ready = 0;
+                        MessageBox.Show("Could not find download. Try updating manually.");
+                    }
+                }
+                // Version is Null
+                else
+                {
+                    MessageBox.Show("Could not detect Axiom GitHub Version.");
+                }
+            }
+            else
+            {
+                //MainWindow.ready = 0;
+                MessageBox.Show("Could not detect Internet Connection.");
+            }
         }
 
 
@@ -1772,7 +1911,6 @@ namespace Axiom
                     File.Delete(filename);
                     Settings.Default.Upgrade();
                     // Properties.Settings.Default.Reload();
-                    // you could optionally restart the app instead
                 }
                 else
                 {
@@ -2753,13 +2891,22 @@ namespace Axiom
         /// </summary>
         private void buttonCrop_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow mainwindow = this;
+            // Detect which screen we're on
+            var allScreens = System.Windows.Forms.Screen.AllScreens.ToList();
+            var thisScreen = allScreens.SingleOrDefault(s => this.Left >= s.WorkingArea.Left && this.Left < s.WorkingArea.Right);
 
-            // Open Configure Window
-            cropwindow = new CropWindow(mainwindow);
-            cropwindow.Left = this.Left + 64;
-            cropwindow.Top = this.Top - 40;
+            // Start Window
+            cropwindow = new CropWindow(this);
+
+            // Position Relative to MainWindow
+            // Keep from going off screen
+            cropwindow.Left = Math.Max((this.Left + (this.Width - cropwindow.Width) / 2), thisScreen.WorkingArea.Left);
+            cropwindow.Top = Math.Max(this.Top - cropwindow.Height - 12, thisScreen.WorkingArea.Top);
+
+            // Keep Window on Top
             cropwindow.Owner = Window.GetWindow(this);
+
+            // Open Window
             cropwindow.ShowDialog();
         }
 
@@ -2808,13 +2955,22 @@ namespace Axiom
             // Open Advanced Window
             if ((string)cboOptimize.SelectedItem == "Advanced")
             {
-                MainWindow mainwindow = this;
+                // Detect which screen we're on
+                var allScreens = System.Windows.Forms.Screen.AllScreens.ToList();
+                var thisScreen = allScreens.SingleOrDefault(s => this.Left >= s.WorkingArea.Left && this.Left < s.WorkingArea.Right);
 
-                // Open Optimize Advanced Window
-                optadvwindow = new OptimizeAdvancedWindow(mainwindow);
-                optadvwindow.Left = this.Left + 119;
-                optadvwindow.Top = this.Top + 56;
+                // Start Window
+                optadvwindow = new OptimizeAdvancedWindow(this);
+
+                // Position Relative to MainWindow
+                // Keep from going off screen
+                optadvwindow.Left = Math.Max((this.Left + (this.Width - optadvwindow.Width) / 2), thisScreen.WorkingArea.Left);
+                optadvwindow.Top = Math.Max((this.Top + (this.Height - optadvwindow.Height) / 2), thisScreen.WorkingArea.Top);
+
+                // Keep Window on Top
                 optadvwindow.Owner = Window.GetWindow(this);
+
+                // Open Window
                 optadvwindow.ShowDialog();
             }
         }
@@ -3138,6 +3294,7 @@ namespace Axiom
 
             }
         } //end convert button
+
 
     }
 

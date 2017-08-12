@@ -430,11 +430,19 @@ namespace Axiom
         {
             if (MainWindow.script == 1)
             {
-                // Open ScriptView Window
+                // Detect which screen we're on
+                var allScreens = System.Windows.Forms.Screen.AllScreens.ToList();
+                var thisScreen = allScreens.SingleOrDefault(s => mainwindow.Left >= s.WorkingArea.Left && mainwindow.Left < s.WorkingArea.Right);
+
+                // Start Window
                 scriptview = new ScriptView(mainwindow);
-                scriptview.Left = mainwindow.Left + 90;
-                scriptview.Top = mainwindow.Top + 98;
-                //scriptview.Owner = Window.GetWindow(mainwindow);
+
+                // Position Relative to MainWindow
+                // Keep from going off screen
+                scriptview.Left = Math.Max((mainwindow.Left + (mainwindow.Width - scriptview.Width) / 2), thisScreen.WorkingArea.Left);
+                scriptview.Top = Math.Max(((mainwindow.Top + (mainwindow.Height - scriptview.Height) * 2)), thisScreen.WorkingArea.Top);
+
+                // Open Window
                 scriptview.Show();
             }
         }

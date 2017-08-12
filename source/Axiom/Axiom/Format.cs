@@ -36,9 +36,6 @@ namespace Axiom
         /// </summary>
         // --------------------------------------------------------------------------------------------------------
 
-        // Previous ComboBox Item
-        //private string previousItem; 
-
         // Load in Intialize Component
         //
         // MediaType

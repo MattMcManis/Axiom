@@ -31,23 +31,13 @@ namespace Axiom
     /// </summary>
     public partial class LogConsole : Window
     {
-        private MainWindow mainwindow;
-        private ConfigureWindow configurewindow;
-
-        public LogConsole()
-        {
-            //do not remove
-        }
-
-        public LogConsole(MainWindow mainwindow)
+        public LogConsole(MainWindow mainwindow, ConfigureWindow configurewindow)
         {
             InitializeComponent();
 
-            this.mainwindow = mainwindow;
-
             // Set Width/Height to prevent Tablets maximizing
-            this.Width = 400;
-            this.Height = 500;
+            //this.Width = 400;
+            //this.Height = 500;
             this.MinWidth = 200;
             this.MinHeight = 200;
 
@@ -74,11 +64,18 @@ namespace Axiom
         private void buttonExpand_Click(object sender, RoutedEventArgs e)
         {
             // If less than 600px Height
-            if (this.Width <= 650)
+            if (this.Height <= 650)
             {
                 this.Width = 650;
                 this.Height = 600;
-            }          
+
+                double screenWidth = System.Windows.SystemParameters.PrimaryScreenWidth;
+                double screenHeight = System.Windows.SystemParameters.PrimaryScreenHeight;
+                double windowWidth = this.Width;
+                double windowHeight = this.Height;
+                this.Left = (screenWidth / 2) - (windowWidth / 2);
+                this.Top = (screenHeight / 2) - (windowHeight / 2);
+            }
         }
 
 

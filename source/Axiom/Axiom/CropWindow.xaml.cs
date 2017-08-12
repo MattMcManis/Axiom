@@ -44,11 +44,6 @@ namespace Axiom
         public static string crop; // Combined Width, Height, X, Y
 
 
-        public CropWindow()
-        {
-            // Don't Remove
-        }
-
         public CropWindow(MainWindow mainwindow)
         {
             InitializeComponent();
@@ -255,9 +250,6 @@ namespace Axiom
         /// </summary>
         public void buttonClear_Click(object sender, RoutedEventArgs e)
         {
-            // set crop string to be cleared after each run
-            //MainWindow.cropClear = true;
-
             textBoxCropWidth.Text = string.Empty;
             textBoxCropHeight.Text = string.Empty;
             textBoxCropX.Text = string.Empty;
