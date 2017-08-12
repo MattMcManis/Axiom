@@ -84,9 +84,7 @@ namespace Axiom
 
         // Pass
         public static bool passUserSelected = false; // Used to determine if User willingly selected CRF, 1 Pass or 2 Pass
-
         public static int v2PassSwitch = 0; // Indentifies if Pass is Single or Two-Pass
-
         public static string v2PassArgs; // 2-Pass Arguments
         public static string passSingle; // 1-Pass & CRF Args
         public static string pass1Args; // Batch 2-Pass (Pass 1)
@@ -97,7 +95,7 @@ namespace Axiom
         // Filter
         public static CropWindow cropwindow;
         public static List<string> VideoFilters = new List<string>(); // Filters to String Join
-        public static int? vFilterSwitch = 0;
+        //public static int? vFilterSwitch = 0;
         public static string geq; // png transparent to jpg whtie background filter
         public static string vFilter;
 
@@ -1903,9 +1901,6 @@ namespace Axiom
                 || (string)mainwindow.cboVideoCodec.SelectedItem == "x265" 
                 && (string)mainwindow.cboSize.SelectedItem == "No")
             {
-                // Video Filter Switch
-                //vFilterSwitch += 1;
-
                 width = "trunc(iw/2)*2";
                 height = "trunc(ih/2)*2";
                 //combine
@@ -1920,9 +1915,6 @@ namespace Axiom
             // -------------------------
             if ((string)mainwindow.cboSize.SelectedItem == "8K")
             {
-                // Video Filter Switch
-                //vFilterSwitch += 1;
-
                 if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" 
                     || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9" 
                     || (string)mainwindow.cboVideoCodec.SelectedItem == "Theora" 
@@ -1949,9 +1941,6 @@ namespace Axiom
             // -------------------------
             else if ((string)mainwindow.cboSize.SelectedItem == "4K")
             {
-                // Video Filter Switch
-                //vFilterSwitch += 1;
-
                 if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" 
                     || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9" 
                     || (string)mainwindow.cboVideoCodec.SelectedItem == "Theora" 
@@ -1978,9 +1967,6 @@ namespace Axiom
             // -------------------------
             else if ((string)mainwindow.cboSize.SelectedItem == "4K UHD")
             {
-                // Video Filter Switch
-                //vFilterSwitch += 1;
-
                 if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" 
                     || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9" 
                     || (string)mainwindow.cboVideoCodec.SelectedItem == "Theora" 
@@ -2007,9 +1993,6 @@ namespace Axiom
             // -------------------------
             else if ((string)mainwindow.cboSize.SelectedItem == "2K")
             {
-                // Video Filter Switch
-                //vFilterSwitch += 1;
-
                 if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" 
                     || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9" 
                     || (string)mainwindow.cboVideoCodec.SelectedItem == "Theora" 
@@ -2036,9 +2019,6 @@ namespace Axiom
             // -------------------------
             else if ((string)mainwindow.cboSize.SelectedItem == "1440p")
             {
-                // Video Filter Switch
-                //vFilterSwitch += 1;
-
                 if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" 
                     || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9" 
                     || (string)mainwindow.cboVideoCodec.SelectedItem == "Theora" 
@@ -2065,9 +2045,6 @@ namespace Axiom
             // -------------------------
             else if ((string)mainwindow.cboSize.SelectedItem == "1200p")
             {
-                // Video Filter Switch
-                //vFilterSwitch += 1;
-
                 if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" 
                     || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9" 
                     || (string)mainwindow.cboVideoCodec.SelectedItem == "Theora" 
@@ -2094,9 +2071,6 @@ namespace Axiom
             // -------------------------
             else if ((string)mainwindow.cboSize.SelectedItem == "1080p")
             {
-                // Video Filter Switch
-                //vFilterSwitch += 1;
-
                 if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" 
                     || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9" 
                     || (string)mainwindow.cboVideoCodec.SelectedItem == "Theora" 
@@ -2123,11 +2097,6 @@ namespace Axiom
             // -------------------------
             else if ((string)mainwindow.cboSize.SelectedItem == "720p")
             {
-                // Video Filter Switch
-                //vFilterSwitch += 1;
-
-                //System.Windows.MessageBox.Show(vFilter); //debug
-
                 if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" 
                     || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9" 
                     || (string)mainwindow.cboVideoCodec.SelectedItem == "Theora" 
@@ -2154,9 +2123,6 @@ namespace Axiom
             // -------------------------
             else if ((string)mainwindow.cboSize.SelectedItem == "480p")
             {
-                // Video Filter Switch
-                //vFilterSwitch += 1;
-
                 if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" 
                     || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9" 
                     || (string)mainwindow.cboVideoCodec.SelectedItem == "Theora"
@@ -2183,9 +2149,6 @@ namespace Axiom
             // -------------------------
             else if ((string)mainwindow.cboSize.SelectedItem == "320p")
             {
-                // Video Filter Switch
-                //vFilterSwitch += 1;
-
                 if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" 
                     || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9" 
                     || (string)mainwindow.cboVideoCodec.SelectedItem == "Theora" 
@@ -2212,9 +2175,6 @@ namespace Axiom
             // -------------------------
             else if ((string)mainwindow.cboSize.SelectedItem == "240p")
             {
-                // Video Filter Switch
-                //vFilterSwitch += 1;
-
                 if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" 
                     || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9"
                     || (string)mainwindow.cboVideoCodec.SelectedItem == "Theora" 
@@ -2241,6 +2201,10 @@ namespace Axiom
             // -------------------------
             else if ((string)mainwindow.cboSize.SelectedItem == "Custom")
             {
+                // Get width height from custom textbox
+                width = mainwindow.widthCustom.Text;
+                height = mainwindow.heightCustom.Text;
+
                 // Change the left over Default "width" and "height" text to "auto"
                 if (string.Equals(mainwindow.widthCustom.Text, "width", StringComparison.CurrentCultureIgnoreCase))
                 {
@@ -2261,9 +2225,9 @@ namespace Axiom
                     || (string)mainwindow.cboVideoCodec.SelectedItem == "JPEG" 
                     || (string)mainwindow.cboVideoCodec.SelectedItem == "PNG")
                 {
-                    // Get width height from custom textbox
-                    width = mainwindow.widthCustom.Text;
-                    height = mainwindow.heightCustom.Text;
+                    //// Get width height from custom textbox
+                    //width = mainwindow.widthCustom.Text;
+                    //height = mainwindow.heightCustom.Text;
 
                     // If User enters "auto" or textbox has default "width" or "height"
                     if (string.Equals(mainwindow.widthCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase))
@@ -2289,16 +2253,6 @@ namespace Axiom
                 // Apply Fix to all scale effects above
                 if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264" || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
                 {
-                    // If User enters "auto" or textbox has default "width" or "height"
-                    if (string.Equals(mainwindow.widthCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase))
-                    {
-                        width = "-2";
-                    }
-                    if (string.Equals(mainwindow.heightCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase))
-                    {
-                        height = "-2";
-                    }
-
                     // -------------------------
                     // Width = auto & Height = Custom value
                     // -------------------------
@@ -2339,7 +2293,7 @@ namespace Axiom
                     // -------------------------
                     // Width = Custom value & Height = auto
                     // -------------------------
-                    else if (!string.Equals(mainwindow.widthCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase) 
+                    else if (!string.Equals(mainwindow.widthCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase)
                         && string.Equals(mainwindow.heightCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase))
                     {
                         // Auto the height (-2), Make user entered width divisible by 2
@@ -2376,7 +2330,7 @@ namespace Axiom
                     // -------------------------
                     // Both Width & Height are Custom value
                     // -------------------------
-                    else if (!string.Equals(mainwindow.widthCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase) 
+                    else if (!string.Equals(mainwindow.widthCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase)
                         && !string.Equals(mainwindow.heightCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase))
                     {
                         // Aspect Must be Cropped to be divisible by 2
@@ -2432,17 +2386,29 @@ namespace Axiom
                         }
 
                     }
-
-                    // Video Filter Switch
-                    //Video.vFilterSwitch = 2; //always combine (greater than 1)
+                    // -------------------------
+                    // Both Width & Height are auto
+                    // -------------------------
+                    else if (string.Equals(mainwindow.widthCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase)
+                        && string.Equals(mainwindow.heightCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase))
+                    {
+                        // If User enters "auto" or textbox has default "width" or "height"
+                        if (string.Equals(mainwindow.widthCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase))
+                        {
+                            width = "trunc(iw/2)*2";
+                            
+                        }
+                        if (string.Equals(mainwindow.heightCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase))
+                        {
+                            height = "trunc(ih/2)*2";
+                        }
+                    }
 
                     //combine
                     aspect = "scale=" + width + ":" + height;
 
                     // Video Filter Add
                     VideoFilters.Add(aspect);
-
-                    //System.Windows.MessageBox.Show(crop); //debug
 
                 } //end x264 & x265
 
@@ -2552,9 +2518,6 @@ namespace Axiom
             // If Crop is set by User in the CropWindow
             if (!string.IsNullOrEmpty(CropWindow.crop))
             {
-                // Video Filter Switch
-                //vFilterSwitch += 1;
-
                 // Video Filters Add
                 VideoFilters.Add(CropWindow.crop);
             }

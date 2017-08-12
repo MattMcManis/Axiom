@@ -294,25 +294,53 @@ namespace Axiom
             // -------------------------
             ConfigureWindow.ConfigFFmpegPath(configurewindow);
 
+            // Log Console Message /////////
+            Log.logParagraph.Inlines.Add(new LineBreak());
+            Log.logParagraph.Inlines.Add(new LineBreak());
+            Log.logParagraph.Inlines.Add(new Bold(new Run("FFmpeg: ")) { Foreground = Log.ConsoleDefault });
+            Log.logParagraph.Inlines.Add(new Run(ConfigureWindow.ffmpegPath) { Foreground = Log.ConsoleDefault });
+
             // -------------------------
             // Load FFprobe.exe Path
             // -------------------------
             ConfigureWindow.ConfigFFprobePath(configurewindow);
+
+            // Log Console Message /////////
+            Log.logParagraph.Inlines.Add(new LineBreak());
+            Log.logParagraph.Inlines.Add(new Bold(new Run("FFprobe: ")) { Foreground = Log.ConsoleDefault });
+            Log.logParagraph.Inlines.Add(new Run(ConfigureWindow.ffprobePath) { Foreground = Log.ConsoleDefault });
 
             // -------------------------
             // Load Log Enabled
             // -------------------------
             ConfigureWindow.ConfigLogCheckbox(configurewindow);
 
+            // Log Console Message /////////
+            Log.logParagraph.Inlines.Add(new LineBreak());
+            Log.logParagraph.Inlines.Add(new LineBreak());
+            Log.logParagraph.Inlines.Add(new Bold(new Run("Log Enabled: ")) { Foreground = Log.ConsoleDefault });
+            Log.logParagraph.Inlines.Add(new Run(Convert.ToString(ConfigureWindow.logEnable)) { Foreground = Log.ConsoleDefault });
+
             // -------------------------
             // Load Log Path
             // -------------------------
             ConfigureWindow.ConfigLogPath(configurewindow);
 
+            // Log Console Message /////////
+            Log.logParagraph.Inlines.Add(new LineBreak());
+            Log.logParagraph.Inlines.Add(new Bold(new Run("Log Path: ")) { Foreground = Log.ConsoleDefault });
+            Log.logParagraph.Inlines.Add(new Run(ConfigureWindow.logPath) { Foreground = Log.ConsoleDefault });
+
             // -------------------------
             // Load Threads
             // -------------------------
             ConfigureWindow.ConfigThreads(configurewindow);
+
+            // Log Console Message /////////
+            Log.logParagraph.Inlines.Add(new LineBreak());
+            Log.logParagraph.Inlines.Add(new LineBreak());
+            Log.logParagraph.Inlines.Add(new Bold(new Run("Using CPU Threads: ")) { Foreground = Log.ConsoleDefault });
+            Log.logParagraph.Inlines.Add(new Run(ConfigureWindow.threads) { Foreground = Log.ConsoleDefault });
 
 
             //end change !important
@@ -440,7 +468,7 @@ namespace Axiom
             Format.trimStart = string.Empty;
             Format.trimEnd = string.Empty;
 
-            Video.vFilterSwitch = 0; // Set vFilter Switch back to Off to avoid doubling up        
+            //Video.vFilterSwitch = 0; // Set vFilter Switch back to Off to avoid doubling up        
             Video.vFilter = string.Empty;
             Video.geq = string.Empty;
             Video.VideoFilters.Clear();
@@ -464,7 +492,7 @@ namespace Axiom
             Audio.aSamplerate = string.Empty;
             Audio.aBitDepth = string.Empty;
             Audio.aBitrateLimiter = string.Empty;
-            Audio.aFilterSwitch = 0; //Set aFilter Switch back to Off to avoid doubling up
+            //Audio.aFilterSwitch = 0; //Set aFilter Switch back to Off to avoid doubling up
             Audio.aFilter = string.Empty;
             Audio.volume = string.Empty;
             Audio.aLimiter = string.Empty;
@@ -2925,11 +2953,12 @@ namespace Axiom
 
                 CropWindow.crop = string.Empty;
 
+                Video.vFilter = string.Empty;
+                Video.VideoFilters.Clear();
+                Video.VideoFilters.TrimExcess();
+
                 // Trigger the CropWindow Clear Button (only way it will clear the string)
                 cropwindow.buttonClear_Click(sender, e);
-
-                // Video Filter Switch
-                Video.vFilterSwitch = 0;
             }
             catch
             {

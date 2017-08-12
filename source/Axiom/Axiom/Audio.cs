@@ -66,12 +66,10 @@ namespace Axiom
 
         // Filter Lists
         public static List<string> AudioFilters = new List<string>(); // Filters to String Join
-
-        public static int? aFilterSwitch = 0;
+        //public static int? aFilterSwitch = 0;
         public static string aFilter;
 
         // Batch
-        //public static string cmdBatch_aQuality; // cmd batch audio dynamic value
         public static string aBitrateLimiter; // limits the bitrate value of webm and ogg
         public static string batchAudioAuto;
 
@@ -1798,6 +1796,15 @@ namespace Axiom
                         }
                     }
 
+
+                    // If Batch, use the CMD Batch Audio Variable
+                    if (mainwindow.tglBatch.IsChecked == true
+                        && (string)mainwindow.cboAudio.SelectedItem == "Auto"
+                        && (string)mainwindow.cboAudioCodec.SelectedItem != "Copy")
+                    {
+                        Audio.aQuality = "-b:a %A";
+                    }
+
                     // If input extension is same as output, use codec copy and remove -b:a and quality
                     // This does the same as codec copy above, but just to make sure
                     //if ((string)mainwindow.cboAudioCodec.SelectedItem == "Copy")
@@ -1809,13 +1816,13 @@ namespace Axiom
                     //}
 
                     // Audio Codec Copy cannot have -b:a
-                    if ((string)mainwindow.cboAudioCodec.SelectedItem == "Copy")
-                    {
-                        //aCodec = "-acodec copy";
-                        aBitMode = string.Empty;
-                        aBitrate = string.Empty;
-                        aQuality = string.Empty;
-                    }
+                    //if ((string)mainwindow.cboAudioCodec.SelectedItem == "Copy")
+                    //{
+                    //    //aCodec = "-acodec copy";
+                    //    aBitMode = string.Empty;
+                    //    aBitrate = string.Empty;
+                    //    aQuality = string.Empty;
+                    //}
                 }
                 // -------------------------
                 // Lossless
@@ -2193,7 +2200,8 @@ namespace Axiom
                 // -------------------------
                 // Custom
                 // -------------------------
-                else if ((string)mainwindow.cboAudio.SelectedItem == "Custom" && !string.IsNullOrWhiteSpace(mainwindow.audioCustom.Text)) //dont allow if blank, crashes
+                else if ((string)mainwindow.cboAudio.SelectedItem == "Custom" 
+                    && !string.IsNullOrWhiteSpace(mainwindow.audioCustom.Text)) //dont allow if blank, crashes
                 {
                     // Convert user entered text into double
                     double audioCustomNum;
@@ -2338,6 +2346,7 @@ namespace Axiom
 
                 }//end custom
 
+
                 //if blank, remove aQuality (prevents the last variable from being used again)
                 if (string.IsNullOrWhiteSpace(mainwindow.audioCustom.Text))
                 {
@@ -2354,14 +2363,13 @@ namespace Axiom
                 }
 
 
-                // If Audio = Auto, use the CMD Batch Audio Variable
-                if (mainwindow.tglBatch.IsChecked == true
-                    && (string)mainwindow.cboAudio.SelectedItem == "Auto"
-                    && (string)mainwindow.cboAudioCodec.SelectedItem != "Copy")
-                {
-                    Audio.aQuality = "-b:a %A";
-                    // Skipped if Codec Copy
-                }
+                //// If Audio = Auto, use the CMD Batch Audio Variable
+                //if (mainwindow.tglBatch.IsChecked == true
+                //    && (string)mainwindow.cboAudio.SelectedItem == "Auto"
+                //    && (string)mainwindow.cboAudioCodec.SelectedItem != "Copy")
+                //{
+                //    Audio.aQuality = "-b:a %A";
+                //}
 
 
                 // Remove any white space from end of string

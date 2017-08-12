@@ -3,10 +3,8 @@ using System;
 using System.Configuration;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 // Disable XML Comment warnings
@@ -294,12 +292,6 @@ namespace Axiom
                         configurewindow.textBoxFFmpegPathConfig.Text = Settings.Default["ffmpegPath"].ToString();
                     }
                 }
-
-                // Log Console Message /////////
-                Log.logParagraph.Inlines.Add(new LineBreak());
-                Log.logParagraph.Inlines.Add(new LineBreak());
-                Log.logParagraph.Inlines.Add(new Bold(new Run("FFmpeg: ")) { Foreground = Log.ConsoleDefault });
-                Log.logParagraph.Inlines.Add(new Run(ConfigureWindow.ffmpegPath) { Foreground = Log.ConsoleDefault });
             }
             catch
             {
@@ -348,11 +340,6 @@ namespace Axiom
                         configurewindow.textBoxFFprobePathConfig.Text = Settings.Default["ffprobePath"].ToString();
                     }
                 }
-
-                // Log Console Message /////////
-                Log.logParagraph.Inlines.Add(new LineBreak());
-                Log.logParagraph.Inlines.Add(new Bold(new Run("FFprobe: ")) { Foreground = Log.ConsoleDefault });
-                Log.logParagraph.Inlines.Add(new Run(ConfigureWindow.ffprobePath) { Foreground = Log.ConsoleDefault });
             }
             catch
             {
@@ -401,12 +388,6 @@ namespace Axiom
                         configurewindow.checkBoxLogConfig.IsChecked = Convert.ToBoolean(Settings.Default.checkBoxLog);
                     }
                 }
-
-                // Log Console Message /////////
-                Log.logParagraph.Inlines.Add(new LineBreak());
-                Log.logParagraph.Inlines.Add(new LineBreak());
-                Log.logParagraph.Inlines.Add(new Bold(new Run("Log Enabled: ")) { Foreground = Log.ConsoleDefault });
-                Log.logParagraph.Inlines.Add(new Run(Convert.ToString(ConfigureWindow.logEnable)) { Foreground = Log.ConsoleDefault });
             }
             catch
             {
@@ -455,11 +436,6 @@ namespace Axiom
                         configurewindow.textBoxLogConfig.Text = Settings.Default["logPath"].ToString();
                     }
                 }
-
-                // Log Console Message /////////
-                Log.logParagraph.Inlines.Add(new LineBreak());
-                Log.logParagraph.Inlines.Add(new Bold(new Run("Log Path: ")) { Foreground = Log.ConsoleDefault });
-                Log.logParagraph.Inlines.Add(new Run(ConfigureWindow.logPath) { Foreground = Log.ConsoleDefault });
             }
             catch
             {
@@ -508,12 +484,6 @@ namespace Axiom
                         configurewindow.cboThreads.SelectedItem = Settings.Default["threads"].ToString();
                     }
                 }
-
-                // Log Console Message /////////
-                Log.logParagraph.Inlines.Add(new LineBreak());
-                Log.logParagraph.Inlines.Add(new LineBreak());
-                Log.logParagraph.Inlines.Add(new Bold(new Run("Using CPU Threads: ")) { Foreground = Log.ConsoleDefault });
-                Log.logParagraph.Inlines.Add(new Run(ConfigureWindow.threads) { Foreground = Log.ConsoleDefault });
             }
             catch
             {
