@@ -172,7 +172,7 @@ namespace Axiom
         {
             InitializeComponent();
 
-            currentVersion = new Version("0.8.0.0");
+            currentVersion = new Version("1.0.0.0");
             currentBuildPhase = "alpha";
             TitleVersion = "Axiom ~ FFmpeg UI (" + Convert.ToString(currentVersion) + "-" + currentBuildPhase + ")";
             DataContext = this;
@@ -444,6 +444,7 @@ namespace Axiom
             Video.vFilter = string.Empty;
             Video.geq = string.Empty;
             Video.VideoFilters.Clear();
+            Video.VideoFilters.TrimExcess();
 
             Video.v2PassArgs = string.Empty;
             Video.pass1Args = string.Empty; // Batch 2-Pass
@@ -468,6 +469,7 @@ namespace Axiom
             Audio.volume = string.Empty;
             Audio.aLimiter = string.Empty;
             Audio.AudioFilters.Clear();
+            Audio.AudioFilters.TrimExcess();
 
             // Batch
             FFprobe.batchFFprobeAuto = string.Empty;
@@ -478,8 +480,9 @@ namespace Axiom
             // Streams
             Streams.map = string.Empty;
             Streams.vMap = string.Empty;
-            Streams.aMap = string.Empty;
+            Streams.cMap = string.Empty;
             Streams.sMap = string.Empty;
+            Streams.aMap = string.Empty;
             Streams.mMap = string.Empty;
 
             // General
@@ -1601,7 +1604,7 @@ namespace Axiom
                     else if (latestVersion <= currentVersion)
                     {
                         //MainWindow.ready = 0;
-                        MessageBox.Show("Already Latest Version");
+                        MessageBox.Show("This version is up to date.");
                     }
                     // Unknown
                     else // null
@@ -2273,11 +2276,8 @@ namespace Axiom
             TextBox tbcrf = sender as TextBox;
             if (tbcrf.Text.Trim().Equals(string.Empty))
             {
-                //crfCustom.Clear();
                 tbcrf.Text = "CRF";
                 tbcrf.GotFocus -= crfCustom_GotFocus; //used to be +=
-
-                //crfCustom.Foreground = TextBoxDarkBlue;
             }
         }
 
@@ -3114,8 +3114,6 @@ namespace Axiom
         /// --------------------------------------------------------------------------------------------------------
         private void btnConvert_Click(object sender, RoutedEventArgs e)
         {
-            //Log.console.rtbLog.Document.Blocks.Clear(); //Clear Log Console
-
             //sw.Start(); //start stopwatch
 
             /// <summary>

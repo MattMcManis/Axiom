@@ -895,99 +895,115 @@ namespace Axiom
             // -------------------------
             // VIDEO
             //
-            if ((string)mainwindow.cboCut.SelectedItem == "Yes" && (string)mainwindow.cboMediaType.SelectedItem == "Video")
+            if ((string)mainwindow.cboCut.SelectedItem == "Yes")
             {
-                // Use Time
-                // If Frame Textboxes Default Use Time
-                if (mainwindow.frameStart.Text == "Frame" 
-                    || mainwindow.frameEnd.Text == "Range"
-                    || string.IsNullOrWhiteSpace(mainwindow.frameStart.Text)
-                    || string.IsNullOrWhiteSpace(mainwindow.frameEnd.Text))
+                if ((string)mainwindow.cboMediaType.SelectedItem == "Video")
+                {
+                    // Use Time
+                    // If Frame Textboxes Default Use Time
+                    if (mainwindow.frameStart.Text == "Frame"
+                        || mainwindow.frameEnd.Text == "Range"
+                        || string.IsNullOrWhiteSpace(mainwindow.frameStart.Text)
+                        || string.IsNullOrWhiteSpace(mainwindow.frameEnd.Text))
+                    {
+                        trimStart = mainwindow.cutStart.Text;
+                        trimEnd = mainwindow.cutEnd.Text;
+                    }
+
+                    // Use Frames
+                    // If Frame Textboxes have Text, but not Default, use FramesToDecimal Method (Override Time)
+                    else if (mainwindow.frameStart.Text != "Frame"
+                        && mainwindow.frameEnd.Text != "Range"
+                        && !string.IsNullOrWhiteSpace(mainwindow.frameStart.Text)
+                        && !string.IsNullOrWhiteSpace(mainwindow.frameEnd.Text))
+                    {
+                        Video.FramesToDecimal(mainwindow);
+                    }
+
+                    // If End Time is Empty, Default to Full Duration
+                    if (mainwindow.cutEnd.Text == "00:00:00.000" || string.IsNullOrWhiteSpace(mainwindow.cutEnd.Text))
+                    {
+                        trimEnd = FFprobe.FFprobeCutDuration(mainwindow);
+                    }
+
+                    // Combine
+                    trim = "-ss " + trimStart + " " + "-to " + trimEnd;
+                }
+
+                // AUDIO
+                //
+                else if ((string)mainwindow.cboMediaType.SelectedItem == "Audio")
                 {
                     trimStart = mainwindow.cutStart.Text;
                     trimEnd = mainwindow.cutEnd.Text;
+
+                    // If End Time is Empty, Default to Full Duration
+                    if (mainwindow.cutEnd.Text == "00:00:00.000" || string.IsNullOrWhiteSpace(mainwindow.cutEnd.Text))
+                    {
+                        trimEnd = FFprobe.FFprobeCutDuration(mainwindow);
+                    }
+
+                    // Combine
+                    trim = "-ss " + trimStart + " " + "-to " + trimEnd;
                 }
 
-                // Use Frames
-                // If Frame Textboxes have Text, but not Default, use FramesToDecimal Method (Override Time)
-                else if (mainwindow.frameStart.Text != "Frame" 
-                    && mainwindow.frameEnd.Text != "Range" 
-                    && !string.IsNullOrWhiteSpace(mainwindow.frameStart.Text) 
-                    && !string.IsNullOrWhiteSpace(mainwindow.frameEnd.Text))
+                // JPEG & PNG Screenshot
+                //
+                else if ((string)mainwindow.cboMediaType.SelectedItem == "Image")
                 {
-                    Video.FramesToDecimal(mainwindow);
+                    // Use Time
+                    // If Frame Textbox Default Use Time
+                    if (mainwindow.frameStart.Text == "Frame" || string.IsNullOrWhiteSpace(mainwindow.frameStart.Text))
+                    {
+                        trimStart = mainwindow.cutStart.Text;
+                    }
+
+                    // Use Frames
+                    // If Frame Textboxes have Text, but not Default, use FramesToDecimal Method (Override Time)
+                    else if (mainwindow.frameStart.Text != "Frame"
+                        && mainwindow.frameEnd.Text != "Range"
+                        && !string.IsNullOrWhiteSpace(mainwindow.frameStart.Text)
+                        && string.IsNullOrWhiteSpace(mainwindow.frameEnd.Text))
+                    {
+                        Video.FramesToDecimal(mainwindow);
+                    }
+
+                    trim = "-ss " + trimStart;
                 }
 
-                trim = "-ss " + trimStart + " " + "-to " + trimEnd;
+                // JPEG & PNG Sequence
+                //
+                else if ((string)mainwindow.cboMediaType.SelectedItem == "Sequence")
+                {
+                    // Use Time
+                    // If Frame Textboxes Default Use Time
+                    if (mainwindow.frameStart.Text == "Frame"
+                        || mainwindow.frameEnd.Text == "Range"
+                        || string.IsNullOrWhiteSpace(mainwindow.frameStart.Text)
+                        || string.IsNullOrWhiteSpace(mainwindow.frameEnd.Text))
+                    {
+                        trimStart = mainwindow.cutStart.Text;
+                        trimEnd = mainwindow.cutEnd.Text;
+                    }
+
+                    // Use Frames
+                    // If Frame Textboxes have Text, but not Default, use FramesToDecimal Method (Override Time)
+                    else if (mainwindow.frameStart.Text != "Frame"
+                        && mainwindow.frameEnd.Text != "Range"
+                        && !string.IsNullOrWhiteSpace(mainwindow.frameStart.Text)
+                        && !string.IsNullOrWhiteSpace(mainwindow.frameEnd.Text))
+                    {
+                        Video.FramesToDecimal(mainwindow);
+                    }
+
+                    trim = "-ss " + trimStart + " " + "-to " + trimEnd;
+                }
             }
-
-            // AUDIO
-            //
-            else if ((string)mainwindow.cboCut.SelectedItem == "Yes" && (string)mainwindow.cboMediaType.SelectedItem == "Audio")
-            {
-                trimStart = mainwindow.cutStart.Text;
-                trimEnd = mainwindow.cutEnd.Text;
-
-                trim = "-ss " + trimStart + " " + "-to " + trimEnd;
-            }
-
-            // JPEG & PNG Screenshot
-            //
-            else if ((string)mainwindow.cboCut.SelectedItem == "Yes" && (string)mainwindow.cboMediaType.SelectedItem == "Image")
-            {
-                // Use Time
-                // If Frame Textbox Default Use Time
-                if (mainwindow.frameStart.Text == "Frame" || string.IsNullOrWhiteSpace(mainwindow.frameStart.Text))
-                {
-                    trimStart = mainwindow.cutStart.Text;
-                }
-
-                // Use Frames
-                // If Frame Textboxes have Text, but not Default, use FramesToDecimal Method (Override Time)
-                else if (mainwindow.frameStart.Text != "Frame" 
-                    && mainwindow.frameEnd.Text != "Range" 
-                    && !string.IsNullOrWhiteSpace(mainwindow.frameStart.Text) 
-                    && string.IsNullOrWhiteSpace(mainwindow.frameEnd.Text))
-                {
-                    Video.FramesToDecimal(mainwindow);
-                }
-
-                trim = "-ss " + trimStart;
-            }
-
-            // JPEG & PNG Sequence
-            //
-            else if ((string)mainwindow.cboCut.SelectedItem == "Yes" && (string)mainwindow.cboMediaType.SelectedItem == "Sequence")
-            {
-                // Use Time
-                // If Frame Textboxes Default Use Time
-                if (mainwindow.frameStart.Text == "Frame" 
-                    || mainwindow.frameEnd.Text == "Range"
-                    || string.IsNullOrWhiteSpace(mainwindow.frameStart.Text)
-                    || string.IsNullOrWhiteSpace(mainwindow.frameEnd.Text))
-                {
-                    trimStart = mainwindow.cutStart.Text;
-                    trimEnd = mainwindow.cutEnd.Text;
-                }
-
-                // Use Frames
-                // If Frame Textboxes have Text, but not Default, use FramesToDecimal Method (Override Time)
-                else if (mainwindow.frameStart.Text != "Frame" 
-                    && mainwindow.frameEnd.Text != "Range" 
-                    && !string.IsNullOrWhiteSpace(mainwindow.frameStart.Text) 
-                    && !string.IsNullOrWhiteSpace(mainwindow.frameEnd.Text))
-                {
-                    Video.FramesToDecimal(mainwindow);
-                }
-
-                trim = "-ss " + trimStart + " " + "-to " + trimEnd;
-            }
-
-
+   
             // -------------------------
             // No
             // -------------------------
-            if ((string)mainwindow.cboCut.SelectedItem == "No")
+            else if ((string)mainwindow.cboCut.SelectedItem == "No")
             {
                 trim = string.Empty;
             }

@@ -90,7 +90,7 @@
             <System:String>Cyberpunk</System:String>
             <System:String>Onyx</System:String>
             <System:String>Circuit</System:String>
-            <System:String>Prelude</System:String>
+            <!--<System:String>Prelude</System:String>-->
             <System:String>System</System:String>
         </ComboBox>
         <Label x:Name="labelTheme" Style="{DynamicResource LabelCustom}" Content="Theme" HorizontalAlignment="Left" Margin="118,118,0,0" VerticalAlignment="Top" Height="26" ToolTip="Path to Save Log"/>

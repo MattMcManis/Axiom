@@ -1301,46 +1301,61 @@ namespace Axiom
             // -------------------------
             // Audio
             // -------------------------
-            if (string.IsNullOrEmpty((string)mainwindow.cboAudioCodec.SelectedItem))
-            {
-                aCodec = string.Empty;
-            }
-            else if ((string)mainwindow.cboAudioCodec.SelectedItem == "None")
+            // None
+            if ((string)mainwindow.cboAudioCodec.SelectedItem == "None")
             {
                 aCodec = string.Empty;
                 Streams.aMap = "-an";
             }
+            // Vorbis
             else if ((string)mainwindow.cboAudioCodec.SelectedItem == "Vorbis")
             {
                 aCodec = "-acodec libvorbis";
             }
+            // Opus
             else if ((string)mainwindow.cboAudioCodec.SelectedItem == "Opus")
             {
                 aCodec = "-acodec libopus";
             }
+            // AAC
             else if ((string)mainwindow.cboAudioCodec.SelectedItem == "AAC")
             {
                 aCodec = "-acodec aac";
             }
+            // ALAC
             else if ((string)mainwindow.cboAudioCodec.SelectedItem == "ALAC")
             {
                 aCodec = "-acodec alac";
             }
+            // AC3
             else if ((string)mainwindow.cboAudioCodec.SelectedItem == "AC3")
             {
                 aCodec = "-acodec ac3";
             }
+            // LAME
             else if ((string)mainwindow.cboAudioCodec.SelectedItem == "LAME")
             {
                 aCodec = "-acodec libmp3lame";
             }
+            // FLAC
             else if ((string)mainwindow.cboAudioCodec.SelectedItem == "FLAC")
             {
                 aCodec = "-acodec flac";
             }
+            // PCM
             else if ((string)mainwindow.cboAudioCodec.SelectedItem == "PCM")
             {
                 aCodec = string.Empty; // Codec not needed for PCM or Controlled by "PCM Match Bit Depth Audio" Section
+            }
+            // Copy
+            else if ((string)mainwindow.cboAudioCodec.SelectedItem == "Copy")
+            {
+                aCodec = "-acodec copy";
+            }
+            // Unknown
+            else
+            {
+                aCodec = string.Empty;
             }
 
 
@@ -1783,18 +1798,22 @@ namespace Axiom
                         }
                     }
 
-                    // NEW RULES
-                    // Audio Codec Copy cannot have -b:a
-                    if (aCodec == "-acodec copy")
-                    {
-                        aBitMode = string.Empty;
-                        aQuality = string.Empty;
-                    }
                     // If input extension is same as output, use codec copy and remove -b:a and quality
                     // This does the same as codec copy above, but just to make sure
-                    if ((string)mainwindow.cboVideoCodec.SelectedItem == "Copy")
+                    //if ((string)mainwindow.cboAudioCodec.SelectedItem == "Copy")
+                    //{
+                    //    aCodec = "-acodec copy";
+                    //    aBitMode = string.Empty;
+                    //    aBitrate = string.Empty;
+                    //    aQuality = string.Empty;
+                    //}
+
+                    // Audio Codec Copy cannot have -b:a
+                    if ((string)mainwindow.cboAudioCodec.SelectedItem == "Copy")
                     {
+                        //aCodec = "-acodec copy";
                         aBitMode = string.Empty;
+                        aBitrate = string.Empty;
                         aQuality = string.Empty;
                     }
                 }
@@ -2328,7 +2347,7 @@ namespace Axiom
                 // Audio Codec Copy - (Must be at this location)
                 if ((string)mainwindow.cboAudioCodec.SelectedItem == "Copy")
                 {
-                    aCodec = "-acodec copy";
+                    //aCodec = "-acodec copy";
                     aBitMode = string.Empty;
                     aBitrate = string.Empty;
                     aQuality = string.Empty;
@@ -2570,32 +2589,20 @@ namespace Axiom
                     || mainwindow.volumeUpDown.Text == "100" 
                     || string.IsNullOrWhiteSpace(mainwindow.volumeUpDown.Text))
                 {
-                    // aFilter Switch
-                    //aFilterSwitch = 0;
-
                     volume = string.Empty;
                 }
                 // If User Custom Entered Value
                 // Convert Volume % to Decimal
                 else
                 {
-                    // aFilter Switch
-                    aFilterSwitch += 1;
-
                     // If user enters value, turn on Filter
                     string volumePercent = mainwindow.volumeUpDown.Text;
                     double volumeDecimal = double.Parse(volumePercent.TrimEnd(new[] { '%' })) / 100;
                     volume = "volume=" + volumeDecimal;
-                }
-            }
 
-            // -------------------------
-            // Mute
-            // -------------------------
-            if ((string)mainwindow.cboAudio.SelectedItem == "Mute" || (string)mainwindow.cboAudioStream.SelectedItem == "none")
-            {
-                aFilterSwitch = 0;
-                volume = string.Empty;
+                    // Audio Filter Add
+                    AudioFilters.Add(volume);
+                }
             }
 
             // Log Console Message /////////
@@ -2633,8 +2640,8 @@ namespace Axiom
 
                 aLimiter = "alimiter=level_in=1:level_out=1:limit=" + mainwindow.audioLimiter.Text + ":attack=7:release=100:level=disabled";
 
-                // aFilter Switch
-                aFilterSwitch += 1;
+                // Audio Filter Add
+                AudioFilters.Add(aLimiter);
             }
 
             // -------------------------
@@ -2651,31 +2658,6 @@ namespace Axiom
                 };
                 Log.LogActions.Add(Log.WriteAction);
 
-                aLimiter = string.Empty; //off
-            }
-
-            // -------------------------
-            // If TextBox Empty
-            // -------------------------
-            if (mainwindow.tglAudioLimiter.IsChecked == true && string.IsNullOrWhiteSpace(mainwindow.audioLimiter.Text))
-            {
-                // aFilter Switch
-                if (aFilterSwitch == 1)
-                {
-                    aFilterSwitch = 0; //off
-                }
-                if (aFilterSwitch > 1)
-                {
-                    aFilterSwitch = 1; //on
-                }
-            }
-
-            // -------------------------
-            // Mute
-            // -------------------------
-            if ((string)mainwindow.cboAudio.SelectedItem == "Mute" || (string)mainwindow.cboAudioStream.SelectedItem == "none")
-            {
-                aFilterSwitch = 0;
                 aLimiter = string.Empty;
             }
         }
@@ -2686,13 +2668,6 @@ namespace Axiom
         /// <summary>
         public static String AudioFilter(MainWindow mainwindow)
         {
-            // Initialize the Filter for all
-            // Clear Filter for next run
-            // Anything that pertains to Audio must be after the aFilter
-            //aFilterSwitch = string.Empty; //do not reset the switch between converts
-            aFilter = string.Empty; //important
-
-
             // --------------------------------------------------
             // Filters
             // --------------------------------------------------
@@ -2706,70 +2681,49 @@ namespace Axiom
             /// </summary> 
             Audio.ALimiter(mainwindow);
 
-
-
-            // aFilter Switch   (On, Combine, Off, Empty)
-            // If -af alMainWindow.ready on, MainWindow.ready to combine multiple filters
-
-            // Log Console Message /////////
-            Log.WriteAction = () =>
-            {
-                Log.logParagraph.Inlines.Add(new LineBreak());
-                Log.logParagraph.Inlines.Add(new Bold(new Run("Filter: ")) { Foreground = Log.ConsoleDefault });
-                Log.logParagraph.Inlines.Add(new Run(aFilterSwitch.ToString()) { Foreground = Log.ConsoleDefault });
-            };
-            Log.LogActions.Add(Log.WriteAction);
-
             // -------------------------
-            // Use Single Filter
+            // Filter Combine
             // -------------------------
-            if (aFilterSwitch == 1)
+            if ((string)mainwindow.cboAudioCodec.SelectedItem != "None") // None Check
             {
-                aFilter = "-af " + volume + aLimiter; //either volume or aLimiter will be enabled
+                // 1 Filter
+                //
+                if (AudioFilters.Count() == 1)
+                {
+                    aFilter = "-af " + string.Join(", ", AudioFilters.Where(s => !string.IsNullOrEmpty(s)));
+                }
+
+                // Multiple Filters
+                //
+                else if (AudioFilters.Count() > 1)
+                {
+                    aFilter = "-af \"" + string.Join(", ", AudioFilters.Where(s => !string.IsNullOrEmpty(s))) + "\"";
+                }
+
+                // Empty
+                //
+                else
+                {
+                    aFilter = string.Empty;
+                }
             }
-
-            // -------------------------
-            // Combine Multiple Filters
-            // -------------------------
-            else if (aFilterSwitch > 1)
-            {
-                // Add Filters to List
-                if (!string.IsNullOrEmpty(volume)) { AudioFilters.Add(volume); }
-                if (!string.IsNullOrEmpty(aLimiter)) { AudioFilters.Add(aLimiter); }
-
-                // Join List with Comma, Remove Empty Strings
-                aFilter = "-af \"" + string.Join(", ", AudioFilters.Where(s => !string.IsNullOrEmpty(s))) + "\"";
-            }
-
-            // -------------------------
-            // No Filters
-            // -------------------------
-            else if (aFilterSwitch == 0)
+            // Audio Codec None
+            else
             {
                 aFilter = string.Empty;
-            }
-            else if (aFilterSwitch == null)
-            {
-                aFilterSwitch = 0;
-                aFilter = string.Empty;
-            }
 
-            // -------------------------
-            // Remove aFilter if Video Codec is Empty
-            // -------------------------
-            if (string.IsNullOrEmpty((string)mainwindow.cboAudioCodec.SelectedItem))
-            {
-                aFilterSwitch = 0;
-                aFilter = string.Empty;
             }
 
             // -------------------------
             // Mute
             // -------------------------
-            if ((string)mainwindow.cboAudio.SelectedItem == "Mute" || (string)mainwindow.cboAudioStream.SelectedItem == "none")
+            if ((string)mainwindow.cboAudio.SelectedItem == "Mute" 
+                || (string)mainwindow.cboAudioStream.SelectedItem == "none")
             {
-                aFilterSwitch = 0;
                 aFilter = string.Empty;
+
+                AudioFilters.Clear();
+                AudioFilters.TrimExcess();
             }
 
 

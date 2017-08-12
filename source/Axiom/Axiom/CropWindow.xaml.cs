@@ -224,10 +224,13 @@ namespace Axiom
 
                     CropWindow.crop = Convert.ToString("crop=" + CropWindow.divisibleCropWidth + ":" + CropWindow.divisibleCropHeight + ":" + CropWindow.cropX + ":" + CropWindow.cropY);
 
+                    // Video Filter Add
+                    //Video.VideoFilters.Add(CropWindow.crop);
+
                 }
                 catch
                 {
-                    System.Windows.MessageBox.Show("Error: Must enter numbers only.");
+                    MessageBox.Show("Error: Must enter numbers only.");
                 }
             }
 
@@ -236,6 +239,9 @@ namespace Axiom
             else
             {
                 CropWindow.crop = "crop=" + CropWindow.cropWidth + ":" + CropWindow.cropHeight + ":" + CropWindow.cropX + ":" + CropWindow.cropY;
+
+                // Video Filter Add
+                //Video.VideoFilters.Add(CropWindow.crop);
             }
 
             // Set Button Text to show Crop is Active

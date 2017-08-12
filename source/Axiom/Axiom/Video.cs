@@ -1038,14 +1038,8 @@ namespace Axiom
             // -------------------------
             // Video
             // -------------------------
-            // Empty
-            if (string.IsNullOrEmpty((string)mainwindow.cboVideoCodec.SelectedItem))
-            {
-                vCodec = string.Empty; Streams.vMap = "-vn";
-                //VideoQuality() = string.Empty;
-            }
             // None
-            else if ((string)mainwindow.cboVideoCodec.SelectedItem == "None")
+            if ((string)mainwindow.cboVideoCodec.SelectedItem == "None")
             {
                 vCodec = string.Empty; Streams.vMap = "-vn";
             }
@@ -1910,12 +1904,15 @@ namespace Axiom
                 && (string)mainwindow.cboSize.SelectedItem == "No")
             {
                 // Video Filter Switch
-                vFilterSwitch += 1;
+                //vFilterSwitch += 1;
 
                 width = "trunc(iw/2)*2";
                 height = "trunc(ih/2)*2";
                 //combine
                 aspect = "scale=" + "\"" + width + ":" + height + "\"";
+
+                // Video Filter Add
+                VideoFilters.Add(aspect);
             }
 
             // -------------------------
@@ -1924,7 +1921,7 @@ namespace Axiom
             if ((string)mainwindow.cboSize.SelectedItem == "8K")
             {
                 // Video Filter Switch
-                vFilterSwitch += 1;
+                //vFilterSwitch += 1;
 
                 if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" 
                     || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9" 
@@ -1943,6 +1940,9 @@ namespace Axiom
                 width = "7680"; // Note: 8K is measured width first
 
                 aspect = "scale=" + width + ":" + height;
+
+                // Video Filter Add
+                VideoFilters.Add(aspect);
             }
             // -------------------------
             // 4K
@@ -1950,7 +1950,7 @@ namespace Axiom
             else if ((string)mainwindow.cboSize.SelectedItem == "4K")
             {
                 // Video Filter Switch
-                vFilterSwitch += 1;
+                //vFilterSwitch += 1;
 
                 if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" 
                     || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9" 
@@ -1969,6 +1969,9 @@ namespace Axiom
                 width = "4096"; // Note: 4K is measured width first
 
                 aspect = "scale=" + width + ":" + height;
+
+                // Video Filter Add
+                VideoFilters.Add(aspect);
             }
             // -------------------------
             // 4K UHD
@@ -1976,7 +1979,7 @@ namespace Axiom
             else if ((string)mainwindow.cboSize.SelectedItem == "4K UHD")
             {
                 // Video Filter Switch
-                vFilterSwitch += 1;
+                //vFilterSwitch += 1;
 
                 if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" 
                     || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9" 
@@ -1995,6 +1998,9 @@ namespace Axiom
                 width = "3840"; // Note: 4K is measured width first
 
                 aspect = "scale=" + width + ":" + height;
+
+                // Video Filter Add
+                VideoFilters.Add(aspect);
             }
             // -------------------------
             // 2K
@@ -2002,7 +2008,7 @@ namespace Axiom
             else if ((string)mainwindow.cboSize.SelectedItem == "2K")
             {
                 // Video Filter Switch
-                vFilterSwitch += 1;
+                //vFilterSwitch += 1;
 
                 if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" 
                     || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9" 
@@ -2021,6 +2027,9 @@ namespace Axiom
                 width = "2048"; // Note: 2K is measured width first
 
                 aspect = "scale=" + width + ":" + height;
+
+                // Video Filter Add
+                VideoFilters.Add(aspect);
             }
             // -------------------------
             // 1440p
@@ -2028,7 +2037,7 @@ namespace Axiom
             else if ((string)mainwindow.cboSize.SelectedItem == "1440p")
             {
                 // Video Filter Switch
-                vFilterSwitch += 1;
+                //vFilterSwitch += 1;
 
                 if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" 
                     || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9" 
@@ -2047,6 +2056,9 @@ namespace Axiom
                 height = "1440";
 
                 aspect = "scale=" + width + ":" + height;
+
+                // Video Filter Add
+                VideoFilters.Add(aspect);
             }
             // -------------------------
             // 1200p
@@ -2054,7 +2066,7 @@ namespace Axiom
             else if ((string)mainwindow.cboSize.SelectedItem == "1200p")
             {
                 // Video Filter Switch
-                vFilterSwitch += 1;
+                //vFilterSwitch += 1;
 
                 if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" 
                     || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9" 
@@ -2073,6 +2085,9 @@ namespace Axiom
                 height = "1200";
 
                 aspect = "scale=" + width + ":" + height;
+
+                // Video Filter Add
+                VideoFilters.Add(aspect);
             }
             // -------------------------
             // 1080p
@@ -2080,7 +2095,7 @@ namespace Axiom
             else if ((string)mainwindow.cboSize.SelectedItem == "1080p")
             {
                 // Video Filter Switch
-                vFilterSwitch += 1;
+                //vFilterSwitch += 1;
 
                 if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" 
                     || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9" 
@@ -2099,6 +2114,9 @@ namespace Axiom
                 height = "1080";
 
                 aspect = "scale=" + width + ":" + height;
+
+                // Video Filter Add
+                VideoFilters.Add(aspect);
             }
             // -------------------------
             // 720p
@@ -2106,7 +2124,7 @@ namespace Axiom
             else if ((string)mainwindow.cboSize.SelectedItem == "720p")
             {
                 // Video Filter Switch
-                vFilterSwitch += 1;
+                //vFilterSwitch += 1;
 
                 //System.Windows.MessageBox.Show(vFilter); //debug
 
@@ -2127,6 +2145,9 @@ namespace Axiom
                 height = "720";
 
                 aspect = "scale=" + width + ":" + height;
+
+                // Video Filter Add
+                VideoFilters.Add(aspect);
             }
             // -------------------------
             // 480p
@@ -2134,7 +2155,7 @@ namespace Axiom
             else if ((string)mainwindow.cboSize.SelectedItem == "480p")
             {
                 // Video Filter Switch
-                vFilterSwitch += 1;
+                //vFilterSwitch += 1;
 
                 if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" 
                     || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9" 
@@ -2153,6 +2174,9 @@ namespace Axiom
                 height = "480";
 
                 aspect = "scale=" + width + ":" + height;
+
+                // Video Filter Add
+                VideoFilters.Add(aspect);
             }
             // -------------------------
             // 320p
@@ -2160,7 +2184,7 @@ namespace Axiom
             else if ((string)mainwindow.cboSize.SelectedItem == "320p")
             {
                 // Video Filter Switch
-                vFilterSwitch += 1;
+                //vFilterSwitch += 1;
 
                 if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" 
                     || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9" 
@@ -2179,6 +2203,9 @@ namespace Axiom
                 height = "320";
 
                 aspect = "scale=" + width + ":" + height;
+
+                // Video Filter Add
+                VideoFilters.Add(aspect);
             }
             // -------------------------
             // 240p
@@ -2186,7 +2213,7 @@ namespace Axiom
             else if ((string)mainwindow.cboSize.SelectedItem == "240p")
             {
                 // Video Filter Switch
-                vFilterSwitch += 1;
+                //vFilterSwitch += 1;
 
                 if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" 
                     || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9"
@@ -2205,6 +2232,9 @@ namespace Axiom
                 height = "240";
 
                 aspect = "scale=" + width + ":" + height;
+
+                // Video Filter Add
+                VideoFilters.Add(aspect);
             }
             // -------------------------
             // Custom Size
@@ -2214,13 +2244,11 @@ namespace Axiom
                 // Change the left over Default "width" and "height" text to "auto"
                 if (string.Equals(mainwindow.widthCustom.Text, "width", StringComparison.CurrentCultureIgnoreCase))
                 {
-                    //mainwindow.widthCustom.Foreground = new SolidColorBrush(Colors.White);
                     mainwindow.widthCustom.Text = "auto";
                 }
 
                 if (string.Equals(mainwindow.heightCustom.Text, "height", StringComparison.CurrentCultureIgnoreCase))
                 {
-                    //mainwindow.heightCustom.Foreground = new SolidColorBrush(Colors.White);
                     mainwindow.heightCustom.Text = "auto";
                 }
 
@@ -2247,11 +2275,11 @@ namespace Axiom
                         height = "-1";
                     }
 
-                    // Video Filter Switch
-                    Video.vFilterSwitch += 1;
-
                     //combine
                     aspect = "scale=" + "\"" + width + ":" + height + "\"";
+
+                    // Video Filter Add
+                    VideoFilters.Add(aspect);
                 }
 
                 // -------------------------
@@ -2261,8 +2289,15 @@ namespace Axiom
                 // Apply Fix to all scale effects above
                 if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264" || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
                 {
-                    width = mainwindow.widthCustom.Text.ToString();
-                    height = mainwindow.heightCustom.Text.ToString();
+                    // If User enters "auto" or textbox has default "width" or "height"
+                    if (string.Equals(mainwindow.widthCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase))
+                    {
+                        width = "-2";
+                    }
+                    if (string.Equals(mainwindow.heightCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase))
+                    {
+                        height = "-2";
+                    }
 
                     // -------------------------
                     // Width = auto & Height = Custom value
@@ -2374,6 +2409,9 @@ namespace Axiom
 
                                 // Use the MP4 Divisible Crop values
                                 CropWindow.crop = Convert.ToString("crop=" + divisibleCropWidth + ":" + divisibleCropHeight + ":" + cropX + ":" + cropY);
+
+                                // Video Filter Add
+                                //Video.VideoFilters.Add(CropWindow.crop);
                             }
                         }
                         catch
@@ -2396,10 +2434,13 @@ namespace Axiom
                     }
 
                     // Video Filter Switch
-                    Video.vFilterSwitch = 2; //always combine (greater than 1)
+                    //Video.vFilterSwitch = 2; //always combine (greater than 1)
 
                     //combine
                     aspect = "scale=" + width + ":" + height;
+
+                    // Video Filter Add
+                    VideoFilters.Add(aspect);
 
                     //System.Windows.MessageBox.Show(crop); //debug
 
@@ -2506,12 +2547,16 @@ namespace Axiom
             }
 
             // -------------------------
-            // Enable Video Filter Switch if Not Empty
+            // Add Crop to Video Filters if Not Null
             // -------------------------
+            // If Crop is set by User in the CropWindow
             if (!string.IsNullOrEmpty(CropWindow.crop))
             {
                 // Video Filter Switch
-                vFilterSwitch += 1;
+                //vFilterSwitch += 1;
+
+                // Video Filters Add
+                VideoFilters.Add(CropWindow.crop);
             }
         }
 
@@ -2950,13 +2995,6 @@ namespace Axiom
         /// <summary>
         public static String VideoFilter(MainWindow mainwindow)
         {
-            // Initialize the Filter
-            // Clear the Filter for each run
-            // Anything that pertains to Video must be after the vFilter
-            //vFilterSwitch = string.Empty; //do not reset the switch between converts
-            vFilter = string.Empty; //important!
-
-
             // --------------------------------------------------
             // Filters
             // --------------------------------------------------
@@ -2972,7 +3010,7 @@ namespace Axiom
 
 
             // -------------------------
-            // JPEG
+            // PNG to JPEG
             // -------------------------
             if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG")
             {
@@ -2980,9 +3018,11 @@ namespace Axiom
                 if (string.Equals(MainWindow.inputExt, ".png", StringComparison.CurrentCultureIgnoreCase)
                     || string.Equals(MainWindow.inputExt, "png", StringComparison.CurrentCultureIgnoreCase))
                 {
-                    vFilterSwitch += 1;
+                    //png transparent to white background
+                    geq = "format=yuva444p,geq='if(lte(alpha(X,Y),16),255,p(X,Y))':'if(lte(alpha(X,Y),16),128,p(X,Y))':'if(lte(alpha(X,Y),16),128,p(X,Y))'"; 
 
-                    geq = "format=yuva444p,geq='if(lte(alpha(X,Y),16),255,p(X,Y))':'if(lte(alpha(X,Y),16),128,p(X,Y))':'if(lte(alpha(X,Y),16),128,p(X,Y))'"; //png transparent to white background
+                    // Video Filter Add
+                    VideoFilters.Add(geq);
                 }
                 else
                 {
@@ -2990,64 +3030,37 @@ namespace Axiom
                 }
             }
 
-
             // -------------------------
-            // vFilter Switch   (On, Combine, Off, Empty)
+            // Filter Combine
             // -------------------------
-            // If -vf already on, ready to combine multiple filters
-
-            // Log Console Message /////////
-            Log.WriteAction = () =>
+            if ((string)mainwindow.cboVideoCodec.SelectedItem != "None") // None Check
             {
-                Log.logParagraph.Inlines.Add(new LineBreak());
-                Log.logParagraph.Inlines.Add(new Bold(new Run("Filter: ")) { Foreground = Log.ConsoleDefault });
-                Log.logParagraph.Inlines.Add(new Run(vFilterSwitch.ToString()) { Foreground = Log.ConsoleDefault });
-            };
-            Log.LogActions.Add(Log.WriteAction);
+                // 1 Filter
+                //
+                if (VideoFilters.Count() == 1)
+                {
+                    vFilter = "-vf " + string.Join(", ", VideoFilters.Where(s => !string.IsNullOrEmpty(s)));
+                }
 
-            // -------------------------
-            // Use Single Filter
-            // -------------------------
-            if (vFilterSwitch == 1)
-            {
-                vFilter = "-vf " + aspect + CropWindow.crop + geq; //either aspect, crop, or geq will be enabled
+                // Multiple Filters
+                //
+                else if (VideoFilters.Count() > 1)
+                {
+                    vFilter = "-vf \"" + string.Join(", ", VideoFilters.Where(s => !string.IsNullOrEmpty(s))) + "\"";
+                }
+
+                // Empty
+                //
+                else
+                {
+                    vFilter = string.Empty;
+                }
             }
-
-            // -------------------------
-            // Combine Multiple Filters
-            // -------------------------
-            else if (vFilterSwitch > 1)
-            {
-                // Add Filters to List
-                if (!string.IsNullOrEmpty(aspect)) { VideoFilters.Add(aspect); }
-                if (!string.IsNullOrEmpty(CropWindow.crop)) { VideoFilters.Add(CropWindow.crop); }
-                if (!string.IsNullOrEmpty(geq)) { VideoFilters.Add(geq); }
-
-                // Join List with Comma, Remove Empty Strings
-                vFilter = "-vf \"" + string.Join(", ", VideoFilters.Where(s => !string.IsNullOrEmpty(s))) + "\"";
-
-            }
-
-            // -------------------------
-            // No Filters
-            // -------------------------
-            else if (vFilterSwitch == 0)
+            // Video Codec None
+            else
             {
                 vFilter = string.Empty;
-            }
-            else if (vFilterSwitch == null)
-            {
-                vFilterSwitch = 0;
-                vFilter = string.Empty;
-            }
 
-            // -------------------------
-            // Remove vFilter if Video Codec is Empty
-            // -------------------------
-            if (string.IsNullOrEmpty((string)mainwindow.cboVideoCodec.SelectedItem))
-            {
-                vFilterSwitch = 0;
-                vFilter = string.Empty;
             }
 
 
