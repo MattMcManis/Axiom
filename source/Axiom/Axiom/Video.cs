@@ -1874,327 +1874,188 @@ namespace Axiom
 
 
         /// <summary>
-        /// Resize (Method)
+        /// Size Width Auto
         /// <summary>
-        public static void Resize(MainWindow mainwindow)
+        public static void SizeWidthAuto(MainWindow mainwindow)
         {
+            if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8"
+                || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9"
+                || (string)mainwindow.cboVideoCodec.SelectedItem == "Theora"
+                || (string)mainwindow.cboVideoCodec.SelectedItem == "JPEG"
+                || (string)mainwindow.cboVideoCodec.SelectedItem == "PNG")
+            {
+                width = "-1";
+            }
+            else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264"
+                || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
+            {
+                width = "-2";
+            }
+        }
+
+        /// <summary>
+        /// Size Height Auto
+        /// <summary>
+        public static void SizeHeightAuto(MainWindow mainwindow)
+        {
+            if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8"
+                || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9"
+                || (string)mainwindow.cboVideoCodec.SelectedItem == "Theora"
+                || (string)mainwindow.cboVideoCodec.SelectedItem == "JPEG"
+                || (string)mainwindow.cboVideoCodec.SelectedItem == "PNG")
+            {
+                height = "-1";
+            }
+            else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264"
+                || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
+            {
+                height = "-2";
+            }
+        }
+
+        /// <summary>
+        /// Size (Method)
+        /// <summary>
+        // Size is a Filter
+        public static void Size(MainWindow mainwindow)
+        {
+            // -------------------------
             // No
-            //
+            // -------------------------
             if ((string)mainwindow.cboSize.SelectedItem == "No")
             {
-                aspect = string.Empty;
+                aspect = null;
 
-                // Log Console Message /////////
-                Log.WriteAction = () =>
+                // MP4/MKV Width/Height Fix
+                if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264" 
+                    || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
                 {
-                    Log.logParagraph.Inlines.Add(new LineBreak());
-                    Log.logParagraph.Inlines.Add(new Bold(new Run("Resize: ")) { Foreground = Log.ConsoleDefault });
-                    Log.logParagraph.Inlines.Add(new Run("No") { Foreground = Log.ConsoleDefault });
-                };
-                Log.LogActions.Add(Log.WriteAction);
+                    width = "trunc(iw/2)*2";
+                    height = "trunc(ih/2)*2";
+                }
             }
-
-            // FFmpeg MP4 / MKV Width/Height Fix
-            //
-            if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264" 
-                && (string)mainwindow.cboSize.SelectedItem == "No" 
-                || (string)mainwindow.cboVideoCodec.SelectedItem == "x265" 
-                && (string)mainwindow.cboSize.SelectedItem == "No")
-            {
-                width = "trunc(iw/2)*2";
-                height = "trunc(ih/2)*2";
-                //combine
-                aspect = "scale=" + "\"" + width + ":" + height + "\"";
-
-                // Video Filter Add
-                VideoFilters.Add(aspect);
-            }
-
             // -------------------------
             // 8K
             // -------------------------
-            if ((string)mainwindow.cboSize.SelectedItem == "8K")
+            else if ((string)mainwindow.cboSize.SelectedItem == "8K")
             {
-                if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" 
-                    || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9" 
-                    || (string)mainwindow.cboVideoCodec.SelectedItem == "Theora" 
-                    || (string)mainwindow.cboVideoCodec.SelectedItem == "JPEG" 
-                    || (string)mainwindow.cboVideoCodec.SelectedItem == "PNG")
-                {
-                    height = "-1";
-                }
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264" 
-                    || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
-                {
-                    height = "-2";
-                }
-
+                // Width
                 width = "7680"; // Note: 8K is measured width first
 
-                aspect = "scale=" + width + ":" + height;
-
-                // Video Filter Add
-                VideoFilters.Add(aspect);
+                // Height
+                SizeHeightAuto(mainwindow);
             }
             // -------------------------
             // 4K
             // -------------------------
             else if ((string)mainwindow.cboSize.SelectedItem == "4K")
             {
-                if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" 
-                    || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9" 
-                    || (string)mainwindow.cboVideoCodec.SelectedItem == "Theora" 
-                    || (string)mainwindow.cboVideoCodec.SelectedItem == "JPEG" 
-                    || (string)mainwindow.cboVideoCodec.SelectedItem == "PNG")
-                {
-                    height = "-1";
-                }
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264" 
-                    || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
-                {
-                    height = "-2";
-                }
-
+                // Width
                 width = "4096"; // Note: 4K is measured width first
 
-                aspect = "scale=" + width + ":" + height;
-
-                // Video Filter Add
-                VideoFilters.Add(aspect);
+                // Height
+                SizeHeightAuto(mainwindow);
             }
             // -------------------------
             // 4K UHD
             // -------------------------
             else if ((string)mainwindow.cboSize.SelectedItem == "4K UHD")
             {
-                if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" 
-                    || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9" 
-                    || (string)mainwindow.cboVideoCodec.SelectedItem == "Theora" 
-                    || (string)mainwindow.cboVideoCodec.SelectedItem == "JPEG" 
-                    || (string)mainwindow.cboVideoCodec.SelectedItem == "PNG")
-                {
-                    height = "-1";
-                }
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264" 
-                    || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
-                {
-                    height = "-2";
-                }
-
+                // Width
                 width = "3840"; // Note: 4K is measured width first
 
-                aspect = "scale=" + width + ":" + height;
+                // Height
+                SizeHeightAuto(mainwindow);
 
-                // Video Filter Add
-                VideoFilters.Add(aspect);
             }
             // -------------------------
             // 2K
             // -------------------------
             else if ((string)mainwindow.cboSize.SelectedItem == "2K")
             {
-                if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" 
-                    || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9" 
-                    || (string)mainwindow.cboVideoCodec.SelectedItem == "Theora" 
-                    || (string)mainwindow.cboVideoCodec.SelectedItem == "JPEG" 
-                    || (string)mainwindow.cboVideoCodec.SelectedItem == "PNG")
-                {
-                    height = "-1";
-                }
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264" 
-                    || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
-                {
-                    height = "-2";
-                }
-
+                // Width
                 width = "2048"; // Note: 2K is measured width first
 
-                aspect = "scale=" + width + ":" + height;
-
-                // Video Filter Add
-                VideoFilters.Add(aspect);
+                // Height
+                SizeHeightAuto(mainwindow);
             }
             // -------------------------
             // 1440p
             // -------------------------
             else if ((string)mainwindow.cboSize.SelectedItem == "1440p")
             {
-                if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" 
-                    || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9" 
-                    || (string)mainwindow.cboVideoCodec.SelectedItem == "Theora" 
-                    || (string)mainwindow.cboVideoCodec.SelectedItem == "JPEG" 
-                    || (string)mainwindow.cboVideoCodec.SelectedItem == "PNG")
-                {
-                    width = "-1";
-                }
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264" 
-                    || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
-                {
-                    width = "-2";
-                }
+                // Width
+                SizeWidthAuto(mainwindow);
 
+                // Height
                 height = "1440";
-
-                aspect = "scale=" + width + ":" + height;
-
-                // Video Filter Add
-                VideoFilters.Add(aspect);
             }
             // -------------------------
             // 1200p
             // -------------------------
             else if ((string)mainwindow.cboSize.SelectedItem == "1200p")
             {
-                if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" 
-                    || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9" 
-                    || (string)mainwindow.cboVideoCodec.SelectedItem == "Theora" 
-                    || (string)mainwindow.cboVideoCodec.SelectedItem == "JPEG" 
-                    || (string)mainwindow.cboVideoCodec.SelectedItem == "PNG")
-                {
-                    width = "-1";
-                }
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264"
-                    || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
-                {
-                    width = "-2";
-                }
+                // Width
+                SizeWidthAuto(mainwindow);
 
+                // Height
                 height = "1200";
-
-                aspect = "scale=" + width + ":" + height;
-
-                // Video Filter Add
-                VideoFilters.Add(aspect);
             }
             // -------------------------
             // 1080p
             // -------------------------
             else if ((string)mainwindow.cboSize.SelectedItem == "1080p")
             {
-                if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" 
-                    || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9" 
-                    || (string)mainwindow.cboVideoCodec.SelectedItem == "Theora" 
-                    || (string)mainwindow.cboVideoCodec.SelectedItem == "JPEG" 
-                    || (string)mainwindow.cboVideoCodec.SelectedItem == "PNG")
-                {
-                    width = "-1";
-                }
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264" 
-                    || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
-                {
-                    width = "-2";
-                }
+                // Width
+                SizeWidthAuto(mainwindow);
 
+                // Height
                 height = "1080";
-
-                aspect = "scale=" + width + ":" + height;
-
-                // Video Filter Add
-                VideoFilters.Add(aspect);
             }
             // -------------------------
             // 720p
             // -------------------------
             else if ((string)mainwindow.cboSize.SelectedItem == "720p")
             {
-                if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" 
-                    || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9" 
-                    || (string)mainwindow.cboVideoCodec.SelectedItem == "Theora" 
-                    || (string)mainwindow.cboVideoCodec.SelectedItem == "JPEG" 
-                    || (string)mainwindow.cboVideoCodec.SelectedItem == "PNG")
-                {
-                    width = "-1";
-                }
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264"
-                    || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
-                {
-                    width = "-2";
-                }
+                // Width
+                SizeWidthAuto(mainwindow);
 
+                // Height
                 height = "720";
-
-                aspect = "scale=" + width + ":" + height;
-
-                // Video Filter Add
-                VideoFilters.Add(aspect);
             }
             // -------------------------
             // 480p
             // -------------------------
             else if ((string)mainwindow.cboSize.SelectedItem == "480p")
             {
-                if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" 
-                    || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9" 
-                    || (string)mainwindow.cboVideoCodec.SelectedItem == "Theora"
-                    || (string)mainwindow.cboVideoCodec.SelectedItem == "JPEG" 
-                    || (string)mainwindow.cboVideoCodec.SelectedItem == "PNG")
-                {
-                    width = "-1";
-                }
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264" 
-                    || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
-                {
-                    width = "-2";
-                }
+                // Width
+                SizeWidthAuto(mainwindow);
 
+                // Height
                 height = "480";
 
-                aspect = "scale=" + width + ":" + height;
-
-                // Video Filter Add
-                VideoFilters.Add(aspect);
             }
             // -------------------------
             // 320p
             // -------------------------
             else if ((string)mainwindow.cboSize.SelectedItem == "320p")
             {
-                if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" 
-                    || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9" 
-                    || (string)mainwindow.cboVideoCodec.SelectedItem == "Theora" 
-                    || (string)mainwindow.cboVideoCodec.SelectedItem == "JPEG" 
-                    || (string)mainwindow.cboVideoCodec.SelectedItem == "PNG")
-                {
-                    width = "-1";
-                }
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264"
-                    || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
-                {
-                    width = "-2";
-                }
+                // Width
+                SizeWidthAuto(mainwindow);
 
+                // Height
                 height = "320";
-
-                aspect = "scale=" + width + ":" + height;
-
-                // Video Filter Add
-                VideoFilters.Add(aspect);
             }
             // -------------------------
             // 240p
             // -------------------------
             else if ((string)mainwindow.cboSize.SelectedItem == "240p")
             {
-                if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" 
-                    || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9"
-                    || (string)mainwindow.cboVideoCodec.SelectedItem == "Theora" 
-                    || (string)mainwindow.cboVideoCodec.SelectedItem == "JPEG"
-                    || (string)mainwindow.cboVideoCodec.SelectedItem == "PNG")
-                {
-                    width = "-1";
-                }
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264" 
-                    || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
-                {
-                    width = "-2";
-                }
+                // Width
+                SizeWidthAuto(mainwindow);
 
+                // Height
                 height = "240";
-
-                aspect = "scale=" + width + ":" + height;
-
-                // Video Filter Add
-                VideoFilters.Add(aspect);
             }
             // -------------------------
             // Custom Size
@@ -2225,10 +2086,6 @@ namespace Axiom
                     || (string)mainwindow.cboVideoCodec.SelectedItem == "JPEG" 
                     || (string)mainwindow.cboVideoCodec.SelectedItem == "PNG")
                 {
-                    //// Get width height from custom textbox
-                    //width = mainwindow.widthCustom.Text;
-                    //height = mainwindow.heightCustom.Text;
-
                     // If User enters "auto" or textbox has default "width" or "height"
                     if (string.Equals(mainwindow.widthCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase))
                     {
@@ -2238,99 +2095,22 @@ namespace Axiom
                     {
                         height = "-1";
                     }
-
-                    //combine
-                    aspect = "scale=" + "\"" + width + ":" + height + "\"";
-
-                    // Video Filter Add
-                    VideoFilters.Add(aspect);
                 }
+
 
                 // -------------------------
                 // x264 & x265
                 // -------------------------
                 // Fix FFmpeg MP4 but (User entered value)
                 // Apply Fix to all scale effects above
+                //
                 if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264" || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
                 {
                     // -------------------------
-                    // Width = auto & Height = Custom value
+                    // Width = Custom value
+                    // Height = Custom value
                     // -------------------------
-                    if (string.Equals(mainwindow.widthCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase)
-                        && !string.Equals(mainwindow.heightCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase))
-                    {
-                        // Auto the width (-2), Make user entered height divisible by 2
-                        width = "-2";
-
-                        try
-                        {
-                            // If not divisible by 2, subtract 1 from total
-                            int divisibleHeight = Convert.ToInt32(height);
-
-                            if (divisibleHeight % 2 != 0)
-                            {
-                                divisibleHeight -= 1;
-                                height = Convert.ToString(divisibleHeight);
-                            }
-                        }
-                        catch
-                        {
-                            // Log Console Message /////////
-                            Log.WriteAction = () =>
-                            {
-                                Log.logParagraph.Inlines.Add(new LineBreak());
-                                Log.logParagraph.Inlines.Add(new LineBreak());
-                                Log.logParagraph.Inlines.Add(new Bold(new Run("Warning: Must enter numbers only.")) { Foreground = Log.ConsoleWarning });
-                            };
-                            Log.LogActions.Add(Log.WriteAction);
-
-                            System.Windows.MessageBox.Show("Must enter numbers only.");
-                            /* lock */
-                            MainWindow.ready = 0;
-                        }
-                    }
-
-                    // -------------------------
-                    // Width = Custom value & Height = auto
-                    // -------------------------
-                    else if (!string.Equals(mainwindow.widthCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase)
-                        && string.Equals(mainwindow.heightCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase))
-                    {
-                        // Auto the height (-2), Make user entered width divisible by 2
-                        height = "-2";
-
-                        try
-                        {
-                            // If not divisible by 2, subtract 1 from total
-                            CropWindow.divisibleCropWidth = Convert.ToInt32(width);
-
-                            if (CropWindow.divisibleCropWidth % 2 != 0)
-                            {
-                                CropWindow.divisibleCropWidth -= 1;
-                                width = Convert.ToString(CropWindow.divisibleCropWidth);
-                            }
-                        }
-                        catch
-                        {
-                            // Log Console Message /////////
-                            Log.WriteAction = () =>
-                            {
-                                Log.logParagraph.Inlines.Add(new LineBreak());
-                                Log.logParagraph.Inlines.Add(new LineBreak());
-                                Log.logParagraph.Inlines.Add(new Bold(new Run("Warning: Must enter numbers only.")) { Foreground = Log.ConsoleWarning });
-                            };
-                            Log.LogActions.Add(Log.WriteAction);
-
-                            System.Windows.MessageBox.Show("Must enter numbers only.");
-                            /* lock */
-                            MainWindow.ready = 0;
-                        }
-                    }
-
-                    // -------------------------
-                    // Both Width & Height are Custom value
-                    // -------------------------
-                    else if (!string.Equals(mainwindow.widthCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase)
+                    if (!string.Equals(mainwindow.widthCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase)
                         && !string.Equals(mainwindow.heightCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase))
                     {
                         // Aspect Must be Cropped to be divisible by 2
@@ -2346,26 +2126,30 @@ namespace Axiom
                             {
                                 // Temporary Strings
                                 // So not to Override User Defined Crop
-                                int? divisibleCropWidth = Convert.ToInt32(width);
-                                int? divisibleCropHeight = Convert.ToInt32(height);
+                                int divisibleCropWidth = Convert.ToInt32(width);
+                                int divisibleCropHeight = Convert.ToInt32(height);
                                 string cropX = "0";
                                 string cropY = "0";
 
-                                // If not divisible by 2, subtract 1 from total
-                                if (divisibleCropWidth % 2 != 0)
+                                // int convert check
+                                if (Int32.TryParse(width, out divisibleCropWidth)
+                                    && Int32.TryParse(height, out divisibleCropHeight))
                                 {
-                                    divisibleCropWidth -= 1;
-                                }
-                                if (divisibleCropHeight % 2 != 0)
-                                {
-                                    divisibleCropHeight -= 1;
-                                }
+                                    // If not divisible by 2, subtract 1 from total
 
-                                // Use the MP4 Divisible Crop values
-                                CropWindow.crop = Convert.ToString("crop=" + divisibleCropWidth + ":" + divisibleCropHeight + ":" + cropX + ":" + cropY);
+                                    // Width
+                                    if (divisibleCropWidth % 2 != 0)
+                                    {
+                                        divisibleCropWidth -= 1;
+                                    }
+                                    // Height
+                                    if (divisibleCropHeight % 2 != 0)
+                                    {
+                                        divisibleCropHeight -= 1;
+                                    }
 
-                                // Video Filter Add
-                                //Video.VideoFilters.Add(CropWindow.crop);
+                                    CropWindow.crop = Convert.ToString("crop=" + divisibleCropWidth + ":" + divisibleCropHeight + ":" + cropX + ":" + cropY);
+                                }
                             }
                         }
                         catch
@@ -2379,15 +2163,105 @@ namespace Axiom
                             };
                             Log.LogActions.Add(Log.WriteAction);
 
-                            System.Windows.MessageBox.Show("Must enter numbers only.");
-
                             /* lock */
                             MainWindow.ready = 0;
+                            // Warning
+                            System.Windows.MessageBox.Show("Must enter numbers only.");
                         }
 
                     }
                     // -------------------------
-                    // Both Width & Height are auto
+                    // Width = auto
+                    // Height = Custom value
+                    // -------------------------
+                    else if (string.Equals(mainwindow.widthCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase)
+                        && !string.Equals(mainwindow.heightCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase))
+                    {
+                        //Width
+                        width = "-2";
+
+                        // Height
+                        // Make user entered height divisible by 2
+                        try
+                        {
+                            // Convert Height TextBox Value to Int
+                            int divisibleHeight = Convert.ToInt32(height);
+
+                            // int convert check
+                            if (Int32.TryParse(height, out divisibleHeight))
+                            {
+                                // If not divisible by 2, subtract 1 from total
+                                if (divisibleHeight % 2 != 0)
+                                {
+                                    divisibleHeight -= 1;
+                                    height = Convert.ToString(divisibleHeight);
+                                }
+                            }
+                        }
+                        catch
+                        {
+                            // Log Console Message /////////
+                            Log.WriteAction = () =>
+                            {
+                                Log.logParagraph.Inlines.Add(new LineBreak());
+                                Log.logParagraph.Inlines.Add(new LineBreak());
+                                Log.logParagraph.Inlines.Add(new Bold(new Run("Warning: Must enter numbers only.")) { Foreground = Log.ConsoleWarning });
+                            };
+                            Log.LogActions.Add(Log.WriteAction);
+
+                            /* lock */
+                            MainWindow.ready = 0;
+                            // Warning
+                            System.Windows.MessageBox.Show("Must enter numbers only.");
+                        }
+                    }
+
+                    // -------------------------
+                    // Width = Custom value
+                    // Height = auto
+                    // -------------------------
+                    else if (!string.Equals(mainwindow.widthCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase)
+                        && string.Equals(mainwindow.heightCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase))
+                    {
+                        // Height
+                        height = "-2";
+
+                        try
+                        {
+                            // Convert Height TextBox Value to Int
+                            int divisibleWidth = Convert.ToInt32(width);
+
+                            // int convert check
+                            if (Int32.TryParse(width, out divisibleWidth))
+                            {
+                                // If not divisible by 2, subtract 1 from total
+                                if (divisibleWidth % 2 != 0)
+                                {
+                                    divisibleWidth -= 1;
+                                    width = Convert.ToString(divisibleWidth);
+                                }
+                            }
+                        }
+                        catch
+                        {
+                            // Log Console Message /////////
+                            Log.WriteAction = () =>
+                            {
+                                Log.logParagraph.Inlines.Add(new LineBreak());
+                                Log.logParagraph.Inlines.Add(new LineBreak());
+                                Log.logParagraph.Inlines.Add(new Bold(new Run("Warning: Must enter numbers only.")) { Foreground = Log.ConsoleWarning });
+                            };
+                            Log.LogActions.Add(Log.WriteAction);
+
+                            /* lock */
+                            MainWindow.ready = 0;
+                            // Warning
+                            System.Windows.MessageBox.Show("Must enter numbers only.");
+                        }
+                    }
+                    // -------------------------
+                    // Width = auto
+                    // Height = auto
                     // -------------------------
                     else if (string.Equals(mainwindow.widthCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase)
                         && string.Equals(mainwindow.heightCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase))
@@ -2404,61 +2278,26 @@ namespace Axiom
                         }
                     }
 
-                    //combine
-                    aspect = "scale=" + width + ":" + height;
-
-                    // Video Filter Add
-                    VideoFilters.Add(aspect);
-
                 } //end x264 & x265
 
+            } //end custom
 
-                // -------------------------
-                // Remove Aspect if Blank
-                // -------------------------
-                // Remove "auto" and empty values - no scaling
-                // Both Width & Height are Empty
-                if (string.IsNullOrWhiteSpace(mainwindow.widthCustom.Text) 
-                    && string.IsNullOrWhiteSpace(mainwindow.heightCustom.Text))
-                {
-                    CropWindow.crop = string.Empty; //cropDivisible
-                    width = string.Empty;
-                    height = string.Empty;
-                    aspect = string.Empty;
-                }
-                // Both Width & Height are auto
-                if (string.Equals(mainwindow.widthCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase) 
-                    && string.Equals(mainwindow.heightCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase))
-                {
-                    CropWindow.crop = string.Empty; //cropDivisible
-                    width = string.Empty;
-                    height = string.Empty;
-                    aspect = string.Empty;
-                }
-                // Width = blank & Height = auto
-                if (string.IsNullOrWhiteSpace(mainwindow.widthCustom.Text) 
-                    && string.Equals(mainwindow.heightCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase))
-                {
-                    CropWindow.crop = string.Empty; //cropDivisible
-                    width = string.Empty;
-                    height = string.Empty;
-                    aspect = string.Empty;
-                }
-                // Width = auto & Height = blank
-                if (string.Equals(mainwindow.widthCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase) 
-                    && string.IsNullOrWhiteSpace(mainwindow.heightCustom.Text))
-                {
-                    CropWindow.crop = string.Empty; //cropDivisible
-                    width = string.Empty;
-                    height = string.Empty;
-                    aspect = string.Empty;
-                }
 
-            } //End Resize
+            // -------------------------
+            // Combine & Add Aspect Filter
+            // -------------------------
+            //combine
+            aspect = "scale=" + width + ":" + height;
+
+            // Video Filter Add
+            VideoFilters.Add(aspect);
 
             // Log Console Message /////////
             Log.WriteAction = () =>
             {
+                Log.logParagraph.Inlines.Add(new LineBreak());
+                Log.logParagraph.Inlines.Add(new Bold(new Run("Resize: ")) { Foreground = Log.ConsoleDefault });
+                Log.logParagraph.Inlines.Add(new Run(mainwindow.cboSize.SelectedItem.ToString()) { Foreground = Log.ConsoleDefault });
                 Log.logParagraph.Inlines.Add(new LineBreak());
                 Log.logParagraph.Inlines.Add(new Bold(new Run("Width: ")) { Foreground = Log.ConsoleDefault });
                 Log.logParagraph.Inlines.Add(new Run(width) { Foreground = Log.ConsoleDefault });
@@ -2467,7 +2306,8 @@ namespace Axiom
                 Log.logParagraph.Inlines.Add(new Run(height) { Foreground = Log.ConsoleDefault });
             };
             Log.LogActions.Add(Log.WriteAction);
-        }
+
+        } //End Size
 
 
         /// <summary>
@@ -2593,15 +2433,6 @@ namespace Axiom
                 else if ((string)mainwindow.cboSpeed.SelectedItem == "Very Fast") { speed = "-preset veryfast"; }
                 else if ((string)mainwindow.cboSpeed.SelectedItem == "Super Fast") { speed = "-preset superfast"; }
                 else if ((string)mainwindow.cboSpeed.SelectedItem == "Ultra Fast") { speed = "-preset ultrafast"; }
-
-                // Log Console Message /////////
-                Log.WriteAction = () =>
-                {
-                    Log.logParagraph.Inlines.Add(new LineBreak());
-                    Log.logParagraph.Inlines.Add(new Bold(new Run("Encoding Speed: ")) { Foreground = Log.ConsoleDefault });
-                    Log.logParagraph.Inlines.Add(new Run(mainwindow.cboSpeed.Text.ToString()) { Foreground = Log.ConsoleDefault });
-                };
-                Log.LogActions.Add(Log.WriteAction);
             }
 
             // -------------------------
@@ -2619,15 +2450,6 @@ namespace Axiom
                 else if ((string)mainwindow.cboSpeed.SelectedItem == "Very Fast") { speed = "-quality realtime -cpu-used 3"; }
                 else if ((string)mainwindow.cboSpeed.SelectedItem == "Super Fast") { speed = "-quality realtime -cpu-used 4"; }
                 else if ((string)mainwindow.cboSpeed.SelectedItem == "Ultra Fast") { speed = "-quality realtime -cpu-used 5"; }
-
-                // Log Console Message /////////
-                Log.WriteAction = () =>
-                {
-                    Log.logParagraph.Inlines.Add(new LineBreak());
-                    Log.logParagraph.Inlines.Add(new Bold(new Run("Encoding Speed: ")) { Foreground = Log.ConsoleDefault });
-                    Log.logParagraph.Inlines.Add(new Run(mainwindow.cboSpeed.Text.ToString()) { Foreground = Log.ConsoleDefault });
-                };
-                Log.LogActions.Add(Log.WriteAction);
             }
 
             // -------------------------
@@ -2646,66 +2468,42 @@ namespace Axiom
                 else if ((string)mainwindow.cboSpeed.SelectedItem == "Super Fast") { speed = "-speed 5"; }
                 else if ((string)mainwindow.cboSpeed.SelectedItem == "Ultra Fast") { speed = "-speed 6"; }
 
-                // Log Console Message /////////
-                Log.WriteAction = () =>
-                {
-                    Log.logParagraph.Inlines.Add(new LineBreak());
-                    Log.logParagraph.Inlines.Add(new Bold(new Run("Encoding Speed: ")) { Foreground = Log.ConsoleDefault });
-                    Log.logParagraph.Inlines.Add(new Run(mainwindow.cboSpeed.Text.ToString()) { Foreground = Log.ConsoleDefault });
-                };
-                Log.LogActions.Add(Log.WriteAction);
             }
 
             // -------------------------
             // Theora
             // -------------------------
-            if ((string)mainwindow.cboVideoCodec.SelectedItem == "Theora")
+            else if ((string)mainwindow.cboVideoCodec.SelectedItem == "Theora")
             {
                 speed = string.Empty;
-
-                // Log Console Message /////////
-                Log.WriteAction = () =>
-                {
-                    Log.logParagraph.Inlines.Add(new LineBreak());
-                    Log.logParagraph.Inlines.Add(new Bold(new Run("Encoding Speed: ")) { Foreground = Log.ConsoleDefault });
-                    Log.logParagraph.Inlines.Add(new Run("N/A") { Foreground = Log.ConsoleDefault });
-                };
-                Log.LogActions.Add(Log.WriteAction);
             }
 
             // -------------------------
             // JPEG & PNG
             // -------------------------
-            if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG" || (string)mainwindow.cboVideoCodec.SelectedItem == "PNG")
+            else if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG" || (string)mainwindow.cboVideoCodec.SelectedItem == "PNG")
             {
                 speed = string.Empty;
-
-                // Log Console Message /////////
-                Log.WriteAction = () =>
-                {
-                    Log.logParagraph.Inlines.Add(new LineBreak());
-                    Log.logParagraph.Inlines.Add(new Bold(new Run("Encoding Speed: ")) { Foreground = Log.ConsoleDefault });
-                    Log.logParagraph.Inlines.Add(new Run("N/A") { Foreground = Log.ConsoleDefault });
-                };
-                Log.LogActions.Add(Log.WriteAction);
             }
 
             // -------------------------
             // None (No Codec)
             // -------------------------
-            if (string.IsNullOrEmpty((string)mainwindow.cboVideoCodec.SelectedItem))
+            else if ((string)mainwindow.cboVideoCodec.SelectedItem == "None" 
+                || string.IsNullOrEmpty((string)mainwindow.cboVideoCodec.SelectedItem))
             {
                 speed = string.Empty;
-
-                // Log Console Message /////////
-                Log.WriteAction = () =>
-                {
-                    Log.logParagraph.Inlines.Add(new LineBreak());
-                    Log.logParagraph.Inlines.Add(new Bold(new Run("Encoding Speed: ")) { Foreground = Log.ConsoleDefault });
-                    Log.logParagraph.Inlines.Add(new Run("N/A") { Foreground = Log.ConsoleDefault });
-                };
-                Log.LogActions.Add(Log.WriteAction);
             }
+
+            // Log Console Message /////////
+            Log.WriteAction = () =>
+            {
+                Log.logParagraph.Inlines.Add(new LineBreak());
+                Log.logParagraph.Inlines.Add(new Bold(new Run("Encoding Speed: ")) { Foreground = Log.ConsoleDefault });
+                Log.logParagraph.Inlines.Add(new Run(mainwindow.cboSpeed.Text.ToString()) { Foreground = Log.ConsoleDefault });
+            };
+            Log.LogActions.Add(Log.WriteAction);
+
 
             // Return Value
             return speed;
@@ -2964,7 +2762,7 @@ namespace Axiom
             /// <summary>
             ///    Resize
             /// </summary> 
-            Video.Resize(mainwindow);
+            Video.Size(mainwindow);
 
             /// <summary>
             ///    Crop

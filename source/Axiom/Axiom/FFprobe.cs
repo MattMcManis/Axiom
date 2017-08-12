@@ -379,61 +379,66 @@ namespace Axiom
         /// </summary>
         public static String FFprobeCutDuration(MainWindow mainwindow)
         {
-            // Ignore if Batch
-            if (mainwindow.tglBatch.IsChecked == false)
+            // Input Null Check
+            if (!string.IsNullOrWhiteSpace(mainwindow.textBoxBrowse.Text))
             {
-                // Start FFprobe Process
-                //
-                using (Process FFprobeParse = new Process())
+                // Ignore if Batch
+                if (mainwindow.tglBatch.IsChecked == false)
                 {
-                    FFprobeParse.StartInfo.UseShellExecute = false;
-                    FFprobeParse.StartInfo.CreateNoWindow = true;
-                    FFprobeParse.StartInfo.RedirectStandardOutput = true;
-                    FFprobeParse.StartInfo.FileName = MainWindow.FFprobePath(mainwindow);
-
-                    if (!string.IsNullOrEmpty(ffprobe)) //FFprobe.exe Null Check
+                    // Start FFprobe Process
+                    //
+                    using (Process FFprobeParse = new Process())
                     {
-                        // -------------------------
-                        // Duration
-                        // -------------------------
-                        argsDuration = " -i" + " " + "\"" + mainwindow.textBoxBrowse.Text + "\"" + " -select_streams v:0 -show_entries format=duration -v quiet -of csv=\"p=0\"";
-                        FFprobeParse.StartInfo.Arguments = argsDuration;
-                        FFprobeParse.Start();
-                        FFprobeParse.WaitForExit();
-                        // Get Ouput Result
-                        inputDuration = FFprobeParse.StandardOutput.ReadToEnd();
-                        // Remove linebreaks
-                        inputDuration = inputDuration
-                            .Replace(Environment.NewLine, "")
-                            .Replace("\n", "")
-                            .Replace("\r\n", "")
-                            .Replace("\u2028", "")
-                            .Replace("\u000A", "")
-                            .Replace("\u000B", "")
-                            .Replace("\u000C", "")
-                            .Replace("\u000D", "")
-                            .Replace("\u0085", "")
-                            .Replace("\u2028", "")
-                            .Replace("\u2029", "");
-                        // Remove any white space from end of string
-                        inputDuration = inputDuration.Trim();
-                        inputDuration = inputDuration.TrimEnd();
+                        FFprobeParse.StartInfo.UseShellExecute = false;
+                        FFprobeParse.StartInfo.CreateNoWindow = true;
+                        FFprobeParse.StartInfo.RedirectStandardOutput = true;
+                        FFprobeParse.StartInfo.FileName = MainWindow.FFprobePath(mainwindow);
+
+                        if (!string.IsNullOrEmpty(ffprobe)) //FFprobe.exe Null Check
+                        {
+                            // -------------------------
+                            // Duration
+                            // -------------------------
+                            argsDuration = " -i" + " " + "\"" + mainwindow.textBoxBrowse.Text + "\"" + " -select_streams v:0 -show_entries format=duration -v quiet -of csv=\"p=0\"";
+                            FFprobeParse.StartInfo.Arguments = argsDuration;
+                            FFprobeParse.Start();
+                            FFprobeParse.WaitForExit();
+                            // Get Ouput Result
+                            inputDuration = FFprobeParse.StandardOutput.ReadToEnd();
+                            // Remove linebreaks
+                            inputDuration = inputDuration
+                                .Replace(Environment.NewLine, "")
+                                .Replace("\n", "")
+                                .Replace("\r\n", "")
+                                .Replace("\u2028", "")
+                                .Replace("\u000A", "")
+                                .Replace("\u000B", "")
+                                .Replace("\u000C", "")
+                                .Replace("\u000D", "")
+                                .Replace("\u0085", "")
+                                .Replace("\u2028", "")
+                                .Replace("\u2029", "");
+                            // Remove any white space from end of string
+                            inputDuration = inputDuration.Trim();
+                            inputDuration = inputDuration.TrimEnd();
+                        }
                     }
                 }
-            }
 
-            // Format Time for FFmpeg 00:00:00.000
-            //
-            if (!string.IsNullOrEmpty(inputDuration)) //null check
-            {
-                TimeSpan t = TimeSpan.FromSeconds(Convert.ToDouble(inputDuration));
+                // Format Time for FFmpeg 00:00:00.000
+                //
+                if (!string.IsNullOrEmpty(inputDuration)) //null check
+                {
+                    TimeSpan t = TimeSpan.FromSeconds(Convert.ToDouble(inputDuration));
 
-                inputDuration = string.Format("{0:D2}:{1:D2}:{2:D2}.{3:D3}",
-                                t.Hours,
-                                t.Minutes,
-                                t.Seconds,
-                                t.Milliseconds);
+                    inputDuration = string.Format("{0:D2}:{1:D2}:{2:D2}.{3:D3}",
+                                    t.Hours,
+                                    t.Minutes,
+                                    t.Seconds,
+                                    t.Milliseconds);
+                }
             }
+            
 
             return inputDuration;
         }
@@ -443,28 +448,32 @@ namespace Axiom
         /// </summary>
         public static void FFprobeInputFileProperties(MainWindow mainwindow)
         {
-            // Ignore if Batch
-            if (mainwindow.tglBatch.IsChecked == false)
+            // Input Null Check
+            if (!string.IsNullOrWhiteSpace(mainwindow.textBoxBrowse.Text))
             {
-                // Start FFprobe Process
-                using (Process FFprobeParse = new Process())
+                // Ignore if Batch
+                if (mainwindow.tglBatch.IsChecked == false)
                 {
-                    FFprobeParse.StartInfo.UseShellExecute = false;
-                    FFprobeParse.StartInfo.CreateNoWindow = true;
-                    FFprobeParse.StartInfo.RedirectStandardOutput = true;
-                    FFprobeParse.StartInfo.FileName = MainWindow.FFprobePath(mainwindow);
-
-                    if (!string.IsNullOrEmpty(ffprobe)) //FFprobe.exe Null Check
+                    // Start FFprobe Process
+                    using (Process FFprobeParse = new Process())
                     {
-                        // -------------------------
-                        // Get All Streams Properties
-                        // -------------------------
-                        argsProperties = " -i" + " " + "\"" + mainwindow.textBoxBrowse.Text + "\"" + " -v quiet -print_format ini -show_format -show_streams";
-                        FFprobeParse.StartInfo.Arguments = argsProperties;
-                        FFprobeParse.Start();
-                        //FFprobeParse.WaitForExit(); //hangs ffprobe
-                        // Get Ouput Result
-                        inputFileProperties = FFprobeParse.StandardOutput.ReadToEnd();
+                        FFprobeParse.StartInfo.UseShellExecute = false;
+                        FFprobeParse.StartInfo.CreateNoWindow = true;
+                        FFprobeParse.StartInfo.RedirectStandardOutput = true;
+                        FFprobeParse.StartInfo.FileName = MainWindow.FFprobePath(mainwindow);
+
+                        if (!string.IsNullOrEmpty(ffprobe)) //FFprobe.exe Null Check
+                        {
+                            // -------------------------
+                            // Get All Streams Properties
+                            // -------------------------
+                            argsProperties = " -i" + " " + "\"" + mainwindow.textBoxBrowse.Text + "\"" + " -v quiet -print_format ini -show_format -show_streams";
+                            FFprobeParse.StartInfo.Arguments = argsProperties;
+                            FFprobeParse.Start();
+                            //FFprobeParse.WaitForExit(); //hangs ffprobe
+                            // Get Ouput Result
+                            inputFileProperties = FFprobeParse.StandardOutput.ReadToEnd();
+                        }
                     }
                 }
             }

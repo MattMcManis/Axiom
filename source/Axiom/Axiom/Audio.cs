@@ -1744,7 +1744,7 @@ namespace Axiom
                 // -------------------------
                 if ((string)mainwindow.cboAudio.SelectedItem == "Auto")
                 {
-                    // If Input File has No audio
+                    // Input File has No audio
                     if (string.IsNullOrEmpty(FFprobe.inputAudioBitrate) && mainwindow.tglBatch.IsChecked == false)
                     {
                         aCodec = string.Empty; //used to be -an, but that is for Mute enabled only
@@ -1760,7 +1760,7 @@ namespace Axiom
                         Log.LogActions.Add(Log.WriteAction);
                     }
 
-                    // If Input File audio exists and bitrate was detected
+                    // Input File audio exists and bitrate was detected
                     if (FFprobe.inputAudioBitrate != "N/A" && !string.IsNullOrEmpty(FFprobe.inputAudioBitrate))
                     {
                         aBitMode = "-b:a";

@@ -921,9 +921,13 @@ namespace Axiom
                     }
 
                     // If End Time is Empty, Default to Full Duration
-                    if (mainwindow.cutEnd.Text == "00:00:00.000" || string.IsNullOrWhiteSpace(mainwindow.cutEnd.Text))
+                    // Input Null Check
+                    if (!string.IsNullOrWhiteSpace(mainwindow.textBoxBrowse.Text))
                     {
-                        trimEnd = FFprobe.FFprobeCutDuration(mainwindow);
+                        if (mainwindow.cutEnd.Text == "00:00:00.000" || string.IsNullOrWhiteSpace(mainwindow.cutEnd.Text))
+                        {
+                            trimEnd = FFprobe.FFprobeCutDuration(mainwindow);
+                        }
                     }
 
                     // Combine
@@ -938,9 +942,13 @@ namespace Axiom
                     trimEnd = mainwindow.cutEnd.Text;
 
                     // If End Time is Empty, Default to Full Duration
-                    if (mainwindow.cutEnd.Text == "00:00:00.000" || string.IsNullOrWhiteSpace(mainwindow.cutEnd.Text))
+                    // Input Null Check
+                    if (!string.IsNullOrWhiteSpace(mainwindow.textBoxBrowse.Text))
                     {
-                        trimEnd = FFprobe.FFprobeCutDuration(mainwindow);
+                        if (mainwindow.cutEnd.Text == "00:00:00.000" || string.IsNullOrWhiteSpace(mainwindow.cutEnd.Text))
+                        {
+                            trimEnd = FFprobe.FFprobeCutDuration(mainwindow);
+                        }
                     }
 
                     // Combine
