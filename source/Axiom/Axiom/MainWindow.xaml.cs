@@ -172,7 +172,7 @@ namespace Axiom
         {
             InitializeComponent();
 
-            currentVersion = new Version("0.8.0.0");
+            currentVersion = new Version("1.0.0.0");
             currentBuildPhase = "alpha";
             TitleVersion = "Axiom ~ FFmpeg UI (" + Convert.ToString(currentVersion) + "-" + currentBuildPhase + ")";
             DataContext = this;
