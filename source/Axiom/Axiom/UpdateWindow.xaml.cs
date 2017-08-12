@@ -150,9 +150,11 @@ namespace Axiom
                 List<string> extractArgs = new List<string>() {
                     // Powershell Launch Parameters
                     "-nologo -noprofile -command",
+                    "$Host.UI.RawUI.WindowSize = New-Object System.Management.Automation.Host.Size (80, 30); ",
+                    "$Host.UI.RawUI.BufferSize = New-Object System.Management.Automation.Host.Size (80, 30); ",
                     // Message
-                    "Write-Host \"Updating Axiom to version " + Convert.ToString(MainWindow.latestVersion) + ". Please wait for program to close.\" -NoNewLine;",
-                    "Write-Host \"\";", //double linebreak
+                    "Write-Host \"Updating Axiom to version " + Convert.ToString(MainWindow.latestVersion) + ".\";",
+                    "Write-Host \"`nPlease wait for program to close.\";",
                     // Wait
                     "timeout 3;",
                     // Extract
@@ -160,9 +162,11 @@ namespace Axiom
                     "$zip = $shell.NameSpace('" + tempDir + "Axiom.zip');",
                     "foreach ($item in $zip.items()) {$shell.Namespace('" + currentDir + "').CopyHere($item, 0x14)};",
                     // Delete Temp
-                    "Write-Host \"Deleting Temp File\" -NoNewLine;",
-                    "Write-Host \"\";", //double linebreak
+                    "Write-Host \"`nDeleting Temp File\";",
                     "del " + "\"" + tempDir + "Axiom.zip" + "\";",
+                    // Complete
+                    "Write-Host \"`nUpdate Complete. Relaunching Axiom.\";",
+                    "timeout 3;",
                     // Relaunch Axiom
                     "& '" + currentDir + "Axiom.exe'",
                 };

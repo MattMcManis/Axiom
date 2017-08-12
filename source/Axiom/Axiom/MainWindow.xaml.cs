@@ -172,7 +172,7 @@ namespace Axiom
         {
             InitializeComponent();
 
-            currentVersion = new Version("1.0.0.0");
+            currentVersion = new Version("0.8.0.0");
             currentBuildPhase = "alpha";
             TitleVersion = "Axiom ~ FFmpeg UI (" + Convert.ToString(currentVersion) + "-" + currentBuildPhase + ")";
             DataContext = this;
@@ -1555,19 +1555,6 @@ namespace Axiom
         private Boolean IsUpdateWindowOpened = false;
         private void buttonUpdate_Click(object sender, RoutedEventArgs e)
         {
-            //Process.Start("powershell.exe",
-            //  "$shell = new-object -com shell.application; "
-            //  + "$zip = $shell.NameSpace('C:\\Users\\Matt\\AppData\\Local\\Temp\\Axiom.zip'); "
-            //  + "foreach ($item in $zip.items()) {$shell.Namespace('C:\\Users\\Matt\\Desktop\\').CopyHere($item, 0x14)}"
-            //  );
-
-            //Process.Start("powershell.exe",
-            //  "timeout 3; "
-            //  + "$shell = new-object -com shell.application; "
-            //  + "$zip = $shell.NameSpace('C:\\Users\\Matt\\AppData\\Local\\Temp\\Axiom.zip'); "
-            //  + "foreach ($item in $zip.items()) {$shell.Namespace('C:\\Users\\Matt\\Desktop\\').CopyHere($item, 0x14)}"
-            //  );
-
             // Proceed if Internet Connection
             //
             if (UpdateWindow.CheckForInternetConnection() == true)

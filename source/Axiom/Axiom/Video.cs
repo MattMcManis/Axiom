@@ -95,7 +95,6 @@ namespace Axiom
         // Filter
         public static CropWindow cropwindow;
         public static List<string> VideoFilters = new List<string>(); // Filters to String Join
-        //public static int? vFilterSwitch = 0;
         public static string geq; // png transparent to jpg whtie background filter
         public static string vFilter;
 
@@ -1924,373 +1923,404 @@ namespace Axiom
             // -------------------------
             if ((string)mainwindow.cboSize.SelectedItem == "No")
             {
-                aspect = null;
-
                 // MP4/MKV Width/Height Fix
                 if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264" 
                     || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
                 {
                     width = "trunc(iw/2)*2";
                     height = "trunc(ih/2)*2";
+
+                    // -------------------------
+                    // Combine & Add Aspect Filter
+                    // -------------------------
+                    //combine
+                    aspect = "scale=" + width + ":" + height;
+
+                    // Video Filter Add
+                    VideoFilters.Add(aspect);
                 }
             }
             // -------------------------
-            // 8K
+            // Yes
             // -------------------------
-            else if ((string)mainwindow.cboSize.SelectedItem == "8K")
+            else
             {
-                // Width
-                width = "7680"; // Note: 8K is measured width first
-
-                // Height
-                SizeHeightAuto(mainwindow);
-            }
-            // -------------------------
-            // 4K
-            // -------------------------
-            else if ((string)mainwindow.cboSize.SelectedItem == "4K")
-            {
-                // Width
-                width = "4096"; // Note: 4K is measured width first
-
-                // Height
-                SizeHeightAuto(mainwindow);
-            }
-            // -------------------------
-            // 4K UHD
-            // -------------------------
-            else if ((string)mainwindow.cboSize.SelectedItem == "4K UHD")
-            {
-                // Width
-                width = "3840"; // Note: 4K is measured width first
-
-                // Height
-                SizeHeightAuto(mainwindow);
-
-            }
-            // -------------------------
-            // 2K
-            // -------------------------
-            else if ((string)mainwindow.cboSize.SelectedItem == "2K")
-            {
-                // Width
-                width = "2048"; // Note: 2K is measured width first
-
-                // Height
-                SizeHeightAuto(mainwindow);
-            }
-            // -------------------------
-            // 1440p
-            // -------------------------
-            else if ((string)mainwindow.cboSize.SelectedItem == "1440p")
-            {
-                // Width
-                SizeWidthAuto(mainwindow);
-
-                // Height
-                height = "1440";
-            }
-            // -------------------------
-            // 1200p
-            // -------------------------
-            else if ((string)mainwindow.cboSize.SelectedItem == "1200p")
-            {
-                // Width
-                SizeWidthAuto(mainwindow);
-
-                // Height
-                height = "1200";
-            }
-            // -------------------------
-            // 1080p
-            // -------------------------
-            else if ((string)mainwindow.cboSize.SelectedItem == "1080p")
-            {
-                // Width
-                SizeWidthAuto(mainwindow);
-
-                // Height
-                height = "1080";
-            }
-            // -------------------------
-            // 720p
-            // -------------------------
-            else if ((string)mainwindow.cboSize.SelectedItem == "720p")
-            {
-                // Width
-                SizeWidthAuto(mainwindow);
-
-                // Height
-                height = "720";
-            }
-            // -------------------------
-            // 480p
-            // -------------------------
-            else if ((string)mainwindow.cboSize.SelectedItem == "480p")
-            {
-                // Width
-                SizeWidthAuto(mainwindow);
-
-                // Height
-                height = "480";
-
-            }
-            // -------------------------
-            // 320p
-            // -------------------------
-            else if ((string)mainwindow.cboSize.SelectedItem == "320p")
-            {
-                // Width
-                SizeWidthAuto(mainwindow);
-
-                // Height
-                height = "320";
-            }
-            // -------------------------
-            // 240p
-            // -------------------------
-            else if ((string)mainwindow.cboSize.SelectedItem == "240p")
-            {
-                // Width
-                SizeWidthAuto(mainwindow);
-
-                // Height
-                height = "240";
-            }
-            // -------------------------
-            // Custom Size
-            // -------------------------
-            else if ((string)mainwindow.cboSize.SelectedItem == "Custom")
-            {
-                // Get width height from custom textbox
-                width = mainwindow.widthCustom.Text;
-                height = mainwindow.heightCustom.Text;
-
-                // Change the left over Default "width" and "height" text to "auto"
-                if (string.Equals(mainwindow.widthCustom.Text, "width", StringComparison.CurrentCultureIgnoreCase))
+                // -------------------------
+                 // 8K
+                 // -------------------------
+                if ((string)mainwindow.cboSize.SelectedItem == "8K")
                 {
-                    mainwindow.widthCustom.Text = "auto";
+                    // Width
+                    width = "7680"; // Note: 8K is measured width first
+
+                    // Height
+                    SizeHeightAuto(mainwindow);
                 }
-
-                if (string.Equals(mainwindow.heightCustom.Text, "height", StringComparison.CurrentCultureIgnoreCase))
+                // -------------------------
+                // 4K
+                // -------------------------
+                else if ((string)mainwindow.cboSize.SelectedItem == "4K")
                 {
-                    mainwindow.heightCustom.Text = "auto";
+                    // Width
+                    width = "4096"; // Note: 4K is measured width first
+
+                    // Height
+                    SizeHeightAuto(mainwindow);
                 }
-
                 // -------------------------
-                // VP8, VP9, Theora
+                // 4K UHD
                 // -------------------------
-                if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" 
-                    || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9"
-                    || (string)mainwindow.cboVideoCodec.SelectedItem == "Theora"
-                    || (string)mainwindow.cboVideoCodec.SelectedItem == "JPEG" 
-                    || (string)mainwindow.cboVideoCodec.SelectedItem == "PNG")
+                else if ((string)mainwindow.cboSize.SelectedItem == "4K UHD")
                 {
-                    // If User enters "auto" or textbox has default "width" or "height"
-                    if (string.Equals(mainwindow.widthCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase))
-                    {
-                        width = "-1";
-                    }
-                    if (string.Equals(mainwindow.heightCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase))
-                    {
-                        height = "-1";
-                    }
+                    // Width
+                    width = "3840"; // Note: 4K is measured width first
+
+                    // Height
+                    SizeHeightAuto(mainwindow);
+
                 }
-
-
                 // -------------------------
-                // x264 & x265
+                // 2K
                 // -------------------------
-                // Fix FFmpeg MP4 but (User entered value)
-                // Apply Fix to all scale effects above
-                //
-                if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264" || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
+                else if ((string)mainwindow.cboSize.SelectedItem == "2K")
                 {
-                    // -------------------------
-                    // Width = Custom value
-                    // Height = Custom value
-                    // -------------------------
-                    if (!string.Equals(mainwindow.widthCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase)
-                        && !string.Equals(mainwindow.heightCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase))
+                    // Width
+                    width = "2048"; // Note: 2K is measured width first
+
+                    // Height
+                    SizeHeightAuto(mainwindow);
+                }
+                // -------------------------
+                // 1440p
+                // -------------------------
+                else if ((string)mainwindow.cboSize.SelectedItem == "1440p")
+                {
+                    // Width
+                    SizeWidthAuto(mainwindow);
+
+                    // Height
+                    height = "1440";
+                }
+                // -------------------------
+                // 1200p
+                // -------------------------
+                else if ((string)mainwindow.cboSize.SelectedItem == "1200p")
+                {
+                    // Width
+                    SizeWidthAuto(mainwindow);
+
+                    // Height
+                    height = "1200";
+                }
+                // -------------------------
+                // 1080p
+                // -------------------------
+                else if ((string)mainwindow.cboSize.SelectedItem == "1080p")
+                {
+                    // Width
+                    SizeWidthAuto(mainwindow);
+
+                    // Height
+                    height = "1080";
+                }
+                // -------------------------
+                // 720p
+                // -------------------------
+                else if ((string)mainwindow.cboSize.SelectedItem == "720p")
+                {
+                    // Width
+                    SizeWidthAuto(mainwindow);
+
+                    // Height
+                    height = "720";
+                }
+                // -------------------------
+                // 480p
+                // -------------------------
+                else if ((string)mainwindow.cboSize.SelectedItem == "480p")
+                {
+                    // Width
+                    SizeWidthAuto(mainwindow);
+
+                    // Height
+                    height = "480";
+
+                }
+                // -------------------------
+                // 320p
+                // -------------------------
+                else if ((string)mainwindow.cboSize.SelectedItem == "320p")
+                {
+                    // Width
+                    SizeWidthAuto(mainwindow);
+
+                    // Height
+                    height = "320";
+                }
+                // -------------------------
+                // 240p
+                // -------------------------
+                else if ((string)mainwindow.cboSize.SelectedItem == "240p")
+                {
+                    // Width
+                    SizeWidthAuto(mainwindow);
+
+                    // Height
+                    height = "240";
+                }
+                // -------------------------
+                // Custom Size
+                // -------------------------
+                else if ((string)mainwindow.cboSize.SelectedItem == "Custom")
+                {
+                    // Get width height from custom textbox
+                    width = mainwindow.widthCustom.Text;
+                    height = mainwindow.heightCustom.Text;
+
+                    // Change the left over Default "width" and "height" text to "auto"
+                    if (string.Equals(mainwindow.widthCustom.Text, "width", StringComparison.CurrentCultureIgnoreCase))
                     {
-                        // Aspect Must be Cropped to be divisible by 2
-                        // e.g. -vf "scale=777:777, crop=776:776:0:0"
-                        //
-                        try
-                        {
-                            // Only if Crop is already Empty
-                            // User Defined Crop should always override Divisible Crop
-                            // CropClearButton ~ is used as an Identifier, Divisible Crop does not leave "~"
-                            //
-                            if (mainwindow.buttonCropClearTextBox.Text == "") // Crop Set Check
-                            {
-                                // Temporary Strings
-                                // So not to Override User Defined Crop
-                                int divisibleCropWidth = Convert.ToInt32(width);
-                                int divisibleCropHeight = Convert.ToInt32(height);
-                                string cropX = "0";
-                                string cropY = "0";
-
-                                // int convert check
-                                if (Int32.TryParse(width, out divisibleCropWidth)
-                                    && Int32.TryParse(height, out divisibleCropHeight))
-                                {
-                                    // If not divisible by 2, subtract 1 from total
-
-                                    // Width
-                                    if (divisibleCropWidth % 2 != 0)
-                                    {
-                                        divisibleCropWidth -= 1;
-                                    }
-                                    // Height
-                                    if (divisibleCropHeight % 2 != 0)
-                                    {
-                                        divisibleCropHeight -= 1;
-                                    }
-
-                                    CropWindow.crop = Convert.ToString("crop=" + divisibleCropWidth + ":" + divisibleCropHeight + ":" + cropX + ":" + cropY);
-                                }
-                            }
-                        }
-                        catch
-                        {
-                            // Log Console Message /////////
-                            Log.WriteAction = () =>
-                            {
-                                Log.logParagraph.Inlines.Add(new LineBreak());
-                                Log.logParagraph.Inlines.Add(new LineBreak());
-                                Log.logParagraph.Inlines.Add(new Bold(new Run("Warning: Must enter numbers only.")) { Foreground = Log.ConsoleWarning });
-                            };
-                            Log.LogActions.Add(Log.WriteAction);
-
-                            /* lock */
-                            MainWindow.ready = 0;
-                            // Warning
-                            System.Windows.MessageBox.Show("Must enter numbers only.");
-                        }
-
+                        mainwindow.widthCustom.Text = "auto";
                     }
-                    // -------------------------
-                    // Width = auto
-                    // Height = Custom value
-                    // -------------------------
-                    else if (string.Equals(mainwindow.widthCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase)
-                        && !string.Equals(mainwindow.heightCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase))
+
+                    if (string.Equals(mainwindow.heightCustom.Text, "height", StringComparison.CurrentCultureIgnoreCase))
                     {
-                        //Width
-                        width = "-2";
-
-                        // Height
-                        // Make user entered height divisible by 2
-                        try
-                        {
-                            // Convert Height TextBox Value to Int
-                            int divisibleHeight = Convert.ToInt32(height);
-
-                            // int convert check
-                            if (Int32.TryParse(height, out divisibleHeight))
-                            {
-                                // If not divisible by 2, subtract 1 from total
-                                if (divisibleHeight % 2 != 0)
-                                {
-                                    divisibleHeight -= 1;
-                                    height = Convert.ToString(divisibleHeight);
-                                }
-                            }
-                        }
-                        catch
-                        {
-                            // Log Console Message /////////
-                            Log.WriteAction = () =>
-                            {
-                                Log.logParagraph.Inlines.Add(new LineBreak());
-                                Log.logParagraph.Inlines.Add(new LineBreak());
-                                Log.logParagraph.Inlines.Add(new Bold(new Run("Warning: Must enter numbers only.")) { Foreground = Log.ConsoleWarning });
-                            };
-                            Log.LogActions.Add(Log.WriteAction);
-
-                            /* lock */
-                            MainWindow.ready = 0;
-                            // Warning
-                            System.Windows.MessageBox.Show("Must enter numbers only.");
-                        }
+                        mainwindow.heightCustom.Text = "auto";
                     }
 
                     // -------------------------
-                    // Width = Custom value
-                    // Height = auto
+                    // VP8, VP9, Theora
                     // -------------------------
-                    else if (!string.Equals(mainwindow.widthCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase)
-                        && string.Equals(mainwindow.heightCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase))
-                    {
-                        // Height
-                        height = "-2";
-
-                        try
-                        {
-                            // Convert Height TextBox Value to Int
-                            int divisibleWidth = Convert.ToInt32(width);
-
-                            // int convert check
-                            if (Int32.TryParse(width, out divisibleWidth))
-                            {
-                                // If not divisible by 2, subtract 1 from total
-                                if (divisibleWidth % 2 != 0)
-                                {
-                                    divisibleWidth -= 1;
-                                    width = Convert.ToString(divisibleWidth);
-                                }
-                            }
-                        }
-                        catch
-                        {
-                            // Log Console Message /////////
-                            Log.WriteAction = () =>
-                            {
-                                Log.logParagraph.Inlines.Add(new LineBreak());
-                                Log.logParagraph.Inlines.Add(new LineBreak());
-                                Log.logParagraph.Inlines.Add(new Bold(new Run("Warning: Must enter numbers only.")) { Foreground = Log.ConsoleWarning });
-                            };
-                            Log.LogActions.Add(Log.WriteAction);
-
-                            /* lock */
-                            MainWindow.ready = 0;
-                            // Warning
-                            System.Windows.MessageBox.Show("Must enter numbers only.");
-                        }
-                    }
-                    // -------------------------
-                    // Width = auto
-                    // Height = auto
-                    // -------------------------
-                    else if (string.Equals(mainwindow.widthCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase)
-                        && string.Equals(mainwindow.heightCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase))
+                    if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8"
+                        || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9"
+                        || (string)mainwindow.cboVideoCodec.SelectedItem == "Theora"
+                        || (string)mainwindow.cboVideoCodec.SelectedItem == "JPEG"
+                        || (string)mainwindow.cboVideoCodec.SelectedItem == "PNG")
                     {
                         // If User enters "auto" or textbox has default "width" or "height"
                         if (string.Equals(mainwindow.widthCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase))
                         {
-                            width = "trunc(iw/2)*2";
-                            
+                            width = "-1";
                         }
                         if (string.Equals(mainwindow.heightCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase))
                         {
-                            height = "trunc(ih/2)*2";
+                            height = "-1";
                         }
-                    }
+                    } //end vp8/vp9/theora
 
-                } //end x264 & x265
 
-            } //end custom
+                    // -------------------------
+                    // x264 & x265
+                    // -------------------------
+                    // Fix FFmpeg MP4 but (User entered value)
+                    // Apply Fix to all scale effects above
+                    //
+                    if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264" || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
+                    {
+                        // -------------------------
+                        // Width = Custom value
+                        // Height = Custom value
+                        // -------------------------
+                        if (!string.Equals(mainwindow.widthCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase)
+                            && !string.Equals(mainwindow.heightCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase))
+                        {
+                            // Aspect Must be Cropped to be divisible by 2
+                            // e.g. -vf "scale=777:777, crop=776:776:0:0"
+                            //
+                            try
+                            {
+                                // Only if Crop is already Empty
+                                // User Defined Crop should always override Divisible Crop
+                                // CropClearButton ~ is used as an Identifier, Divisible Crop does not leave "~"
+                                //
+                                if (mainwindow.buttonCropClearTextBox.Text == "") // Crop Set Check
+                                {
+                                    // Temporary Strings
+                                    // So not to Override User Defined Crop
+                                    int divisibleCropWidth = Convert.ToInt32(width);
+                                    int divisibleCropHeight = Convert.ToInt32(height);
+                                    string cropX = "0";
+                                    string cropY = "0";
+
+                                    // int convert check
+                                    if (Int32.TryParse(width, out divisibleCropWidth)
+                                        && Int32.TryParse(height, out divisibleCropHeight))
+                                    {
+                                        // If not divisible by 2, subtract 1 from total
+
+                                        // Width
+                                        if (divisibleCropWidth % 2 != 0)
+                                        {
+                                            divisibleCropWidth -= 1;
+                                        }
+                                        // Height
+                                        if (divisibleCropHeight % 2 != 0)
+                                        {
+                                            divisibleCropHeight -= 1;
+                                        }
+
+                                        CropWindow.crop = Convert.ToString("crop=" + divisibleCropWidth + ":" + divisibleCropHeight + ":" + cropX + ":" + cropY);
+                                    }
+                                }
+                            }
+                            catch
+                            {
+                                // Log Console Message /////////
+                                Log.WriteAction = () =>
+                                {
+                                    Log.logParagraph.Inlines.Add(new LineBreak());
+                                    Log.logParagraph.Inlines.Add(new LineBreak());
+                                    Log.logParagraph.Inlines.Add(new Bold(new Run("Warning: Must enter numbers only.")) { Foreground = Log.ConsoleWarning });
+                                };
+                                Log.LogActions.Add(Log.WriteAction);
+
+                                /* lock */
+                                MainWindow.ready = 0;
+                                // Warning
+                                System.Windows.MessageBox.Show("Must enter numbers only.");
+                            }
+
+                        }
+                        // -------------------------
+                        // Width = auto
+                        // Height = Custom value
+                        // -------------------------
+                        else if (string.Equals(mainwindow.widthCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase)
+                            && !string.Equals(mainwindow.heightCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase))
+                        {
+                            //Width
+                            width = "-2";
+
+                            // Height
+                            // Make user entered height divisible by 2
+                            try
+                            {
+                                // Convert Height TextBox Value to Int
+                                int divisibleHeight = Convert.ToInt32(height);
+
+                                // int convert check
+                                if (Int32.TryParse(height, out divisibleHeight))
+                                {
+                                    // If not divisible by 2, subtract 1 from total
+                                    if (divisibleHeight % 2 != 0)
+                                    {
+                                        divisibleHeight -= 1;
+                                        height = Convert.ToString(divisibleHeight);
+                                    }
+                                }
+                            }
+                            catch
+                            {
+                                // Log Console Message /////////
+                                Log.WriteAction = () =>
+                                {
+                                    Log.logParagraph.Inlines.Add(new LineBreak());
+                                    Log.logParagraph.Inlines.Add(new LineBreak());
+                                    Log.logParagraph.Inlines.Add(new Bold(new Run("Warning: Must enter numbers only.")) { Foreground = Log.ConsoleWarning });
+                                };
+                                Log.LogActions.Add(Log.WriteAction);
+
+                                /* lock */
+                                MainWindow.ready = 0;
+                                // Warning
+                                System.Windows.MessageBox.Show("Must enter numbers only.");
+                            }
+                        }
+
+                        // -------------------------
+                        // Width = Custom value
+                        // Height = auto
+                        // -------------------------
+                        else if (!string.Equals(mainwindow.widthCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase)
+                            && string.Equals(mainwindow.heightCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase))
+                        {
+                            // Height
+                            height = "-2";
+
+                            // Width
+                            // Make user entered Width divisible by 2
+                            try
+                            {
+                                // Convert Height TextBox Value to Int
+                                int divisibleWidth = Convert.ToInt32(width);
+
+                                // int convert check
+                                if (Int32.TryParse(width, out divisibleWidth))
+                                {
+                                    // If not divisible by 2, subtract 1 from total
+                                    if (divisibleWidth % 2 != 0)
+                                    {
+                                        divisibleWidth -= 1;
+                                        width = Convert.ToString(divisibleWidth);
+                                    }
+                                }
+                            }
+                            catch
+                            {
+                                // Log Console Message /////////
+                                Log.WriteAction = () =>
+                                {
+                                    Log.logParagraph.Inlines.Add(new LineBreak());
+                                    Log.logParagraph.Inlines.Add(new LineBreak());
+                                    Log.logParagraph.Inlines.Add(new Bold(new Run("Warning: Must enter numbers only.")) { Foreground = Log.ConsoleWarning });
+                                };
+                                Log.LogActions.Add(Log.WriteAction);
+
+                                /* lock */
+                                MainWindow.ready = 0;
+                                // Warning
+                                System.Windows.MessageBox.Show("Must enter numbers only.");
+                            }
+                        }
+                        // -------------------------
+                        // Width = auto
+                        // Height = auto
+                        // -------------------------
+                        else if (string.Equals(mainwindow.widthCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase)
+                            && string.Equals(mainwindow.heightCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase))
+                        {
+                            // If User enters "auto" or textbox has default "width" or "height"
+                            if (string.Equals(mainwindow.widthCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase))
+                            {
+                                width = "trunc(iw/2)*2";
+
+                            }
+                            if (string.Equals(mainwindow.heightCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase))
+                            {
+                                height = "trunc(ih/2)*2";
+                            }
+                        }
+
+                    } //end x264 & x265
+
+                } //end custom
+
+
+                // -------------------------
+                // Combine & Add Aspect Filter
+                // -------------------------
+                //combine
+                aspect = "scale=" + width + ":" + height;
+
+                // Video Filter Add
+                VideoFilters.Add(aspect);
+
+            } //end Yes
 
 
             // -------------------------
-            // Combine & Add Aspect Filter
+            // Filter Clear
             // -------------------------
-            //combine
-            aspect = "scale=" + width + ":" + height;
+            // Copy
+            if ((string)mainwindow.cboVideoCodec.SelectedItem == "Copy")
+            {
+                aspect = string.Empty;
 
-            // Video Filter Add
-            VideoFilters.Add(aspect);
+                // Video Filter Add
+                VideoFilters.Clear();
+                VideoFilters.TrimExcess();
+            }
+
 
             // Log Console Message /////////
             Log.WriteAction = () =>

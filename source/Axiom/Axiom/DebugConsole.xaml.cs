@@ -502,10 +502,6 @@ namespace Axiom
 
             debugParagraph.Inlines.Add(new LineBreak());
 
-            //debugParagraph.Inlines.Add(new Bold(new Run("vFilterSwitch ")) { Foreground = Variable });
-            //debugParagraph.Inlines.Add(new Run(Video.vFilterSwitch.ToString()) { Foreground = Value });
-            //debugParagraph.Inlines.Add(new LineBreak());
-
             debugParagraph.Inlines.Add(new Bold(new Run("geq ")) { Foreground = Variable });
             debugParagraph.Inlines.Add(new Run(Video.geq) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
@@ -559,10 +555,6 @@ namespace Axiom
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new LineBreak());
-
-            //debugParagraph.Inlines.Add(new Bold(new Run("aFilterSwitch ")) { Foreground = Variable });
-            //debugParagraph.Inlines.Add(new Run(Audio.aFilterSwitch.ToString()) { Foreground = Value });
-            //debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("aFilter ")) { Foreground = Variable });
             debugParagraph.Inlines.Add(new Run(Audio.aFilter) { Foreground = Value });
