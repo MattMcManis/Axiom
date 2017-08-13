@@ -2529,6 +2529,12 @@ namespace Axiom
             Video.VideoCodecControls(this);
             Audio.AudioCodecControls(this);
 
+            // File Renamer
+            if (string.Equals(inputExt, outputExt, StringComparison.CurrentCultureIgnoreCase))
+            {
+                FileRenamer();
+            }
+            
 
             // Always Default Video to Auto if Input Ext matches Format Output Ext
             if ((string)cboVideo.SelectedItem != "Auto" && string.Equals(inputExt, outputExt, StringComparison.CurrentCultureIgnoreCase))
