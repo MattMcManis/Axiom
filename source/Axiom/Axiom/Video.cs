@@ -2453,8 +2453,11 @@ namespace Axiom
                 aspect = string.Empty;
 
                 // Video Filter Add
-                VideoFilters.Clear();
-                VideoFilters.TrimExcess();
+                if (VideoFilters != null)
+                {
+                    VideoFilters.Clear();
+                    VideoFilters.TrimExcess();
+                }
             }
 
 

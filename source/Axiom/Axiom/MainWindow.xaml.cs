@@ -172,7 +172,7 @@ namespace Axiom
         {
             InitializeComponent();
 
-            currentVersion = new Version("1.0.0.0");
+            currentVersion = new Version("1.0.0.1");
             currentBuildPhase = "alpha";
             TitleVersion = "Axiom ~ FFmpeg UI (" + Convert.ToString(currentVersion) + "-" + currentBuildPhase + ")";
             DataContext = this;
@@ -439,7 +439,6 @@ namespace Axiom
             FFprobe.aEntryType = string.Empty;
 
             // Video
-            //Video.v2PassSwitch = 0; // Set Two-Pass Switch back to Off to avoid doubling up   
             Video.passSingle = string.Empty;
             Video.vCodec = string.Empty;
             Video.vQuality = string.Empty;
@@ -467,12 +466,15 @@ namespace Axiom
             Format.trim = string.Empty;
             Format.trimStart = string.Empty;
             Format.trimEnd = string.Empty;
-
-            //Video.vFilterSwitch = 0; // Set vFilter Switch back to Off to avoid doubling up        
+      
             Video.vFilter = string.Empty;
             Video.geq = string.Empty;
-            Video.VideoFilters.Clear();
-            Video.VideoFilters.TrimExcess();
+
+            if (Video.VideoFilters != null)
+            {
+                Video.VideoFilters.Clear();
+                Video.VideoFilters.TrimExcess();
+            }
 
             Video.v2PassArgs = string.Empty;
             Video.pass1Args = string.Empty; // Batch 2-Pass
@@ -492,12 +494,15 @@ namespace Axiom
             Audio.aSamplerate = string.Empty;
             Audio.aBitDepth = string.Empty;
             Audio.aBitrateLimiter = string.Empty;
-            //Audio.aFilterSwitch = 0; //Set aFilter Switch back to Off to avoid doubling up
             Audio.aFilter = string.Empty;
             Audio.volume = string.Empty;
             Audio.aLimiter = string.Empty;
-            Audio.AudioFilters.Clear();
-            Audio.AudioFilters.TrimExcess();
+
+            if (Audio.AudioFilters != null)
+            {
+                Audio.AudioFilters.Clear();
+                Audio.AudioFilters.TrimExcess();
+            }
 
             // Batch
             FFprobe.batchFFprobeAuto = string.Empty;
@@ -1273,8 +1278,11 @@ namespace Axiom
                 output = outputDir + outputFileName + outputExt;
 
                 // Clear
-                FileNames.Clear(); 
-                FileNames.TrimExcess();
+                if (FileNames != null)
+                {
+                    FileNames.Clear();
+                    FileNames.TrimExcess();
+                }
 
 
                 // Log Console Message /////////
@@ -1560,9 +1568,21 @@ namespace Axiom
             if (UpdateWindow.CheckForInternetConnection() == true)
             {
                 // Parse GitHub .version file
-                string parseLatestVersion = UpdateWindow.wc.DownloadString("https://raw.githubusercontent.com/MattMcManis/Axiom/master/.version");
+                //
+                string parseLatestVersion = string.Empty;
+
+                try
+                {
+                    parseLatestVersion = UpdateWindow.wc.DownloadString("https://raw.githubusercontent.com/MattMcManis/Axiom/master/.version");
+                }
+                catch
+                {
+                    MessageBox.Show("GitHub version file not found.");
+                }
+
 
                 //Split Version & Build Phase by dash
+                //
                 if (!string.IsNullOrEmpty(parseLatestVersion)) //null check
                 {
                     // Split Version and Build Phase
@@ -1631,7 +1651,7 @@ namespace Axiom
                 // Version is Null
                 else
                 {
-                    MessageBox.Show("Could not detect Axiom GitHub Version.");
+                    MessageBox.Show("GitHub version file returned empty.");
                 }
             }
             else
@@ -1666,39 +1686,6 @@ namespace Axiom
                 MessageBox.Show("Output Log has not been created yet.");
             }
         }
-
-
-        /// <summary>
-        ///    Save Profile Button
-        /// </summary>
-        //private void buttonSave_Click(object sender, RoutedEventArgs e)
-        //{
-        //    // Create an Array of SelectItem.ToString for each Control
-        //    // Save the Array to a New Setting
-        //    // Load each Control from Saved Setting Array
-
-        //    string customPreset = cboPreset.Text;
-
-        //    // Prefix the User Custom Preset Text to the Saved Setting
-        //    // Create a New Setting
-        //    //var propertyFormat = new SettingsProperty(customPreset + "Format");
-
-        //    SettingsProperty propertyFormat = new SettingsProperty(customPreset + "Format");
-
-        //    propertyFormat.Name = customPreset + "Format";
-        //    //propertyFormat.Provider = Settings.Default.Providers["LocalFileSettingsProvider"];
-        //    propertyFormat.PropertyType = typeof(string);
-        //    propertyFormat.IsReadOnly = false;
-        //    propertyFormat.Attributes.Add(typeof(UserScopedSettingAttribute), new UserScopedSettingAttribute());
-
-        //    Settings.Default.Properties.Add(propertyFormat);
-
-        //    Settings.Default.Save();
-        //    Settings.Default.Reload();
-
-        //    // Add ComboBox SelectedItem String to the Setting
-        //    Settings.Default[customPreset + "Format"] = (string)cboFormat.SelectedItem;
-        //}
 
 
         /// <summary>
@@ -2947,8 +2934,12 @@ namespace Axiom
                 CropWindow.crop = string.Empty;
 
                 Video.vFilter = string.Empty;
-                Video.VideoFilters.Clear();
-                Video.VideoFilters.TrimExcess();
+
+                if (Video.VideoFilters != null)
+                {
+                    Video.VideoFilters.Clear();
+                    Video.VideoFilters.TrimExcess();
+                }
 
                 // Trigger the CropWindow Clear Button (only way it will clear the string)
                 cropwindow.buttonClear_Click(sender, e);
@@ -3261,11 +3252,6 @@ namespace Axiom
                     Log.LogWriteAll(this, configurewindow);
 
 
-                    //sw.Stop(); //stop stopwatch
-
-                    // Write Variables to Debug Window (Method)
-                    //DebugConsole.DebugWrite(debugconsole, this);
-
                     // Close the Background Worker
                     fileprocess.CancelAsync();
                     fileprocess.Dispose();
@@ -3313,6 +3299,7 @@ namespace Axiom
                 GC.Collect();
 
             }
+
         } //end convert button
 
 

@@ -172,8 +172,11 @@ namespace Axiom
 
 
                     // Clear
-                    LogActions.Clear();
-                    LogActions.TrimExcess();
+                    if (LogActions != null)
+                    {
+                        LogActions.Clear();
+                        LogActions.TrimExcess();
+                    }
 
                 }); //end dispatcher
             }); //end thread
