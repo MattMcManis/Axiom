@@ -87,9 +87,10 @@ namespace Axiom
                         "\r\n" + Video.VideoFilter(mainwindow),
                         "\r\n" + Video.Images(mainwindow),
                         "\r\n" + Video.Optimize(mainwindow),
+                        "\r\n" + Streams.VideoStreamMaps(mainwindow),
 
                         "\r\n\r\n" + Video.SubtitleCodec(mainwindow),
-                        "\r\n" + Streams.VideoStreamMaps(mainwindow),
+                        "\r\n" + Streams.SubtitleMaps(mainwindow),
 
                         "\r\n\r\n" + Audio.AudioCodec(mainwindow),
                         "\r\n" + Audio.AudioQuality(mainwindow),
@@ -201,10 +202,11 @@ namespace Axiom
                         "\r\n" + Video.vFilter,
                         "\r\n" + Video.image,
                         "\r\n" + Video.optimize,
+                        "\r\n" + Streams.VideoStreamMaps(mainwindow),
 
                         "\r\n\r\n" + Video.SubtitleCodec(mainwindow),
+                        "\r\n" + Streams.SubtitleMaps(mainwindow),
 
-                        "\r\n" + Streams.VideoStreamMaps(mainwindow),
                         "\r\n" + Video.Pass2Modifier(mainwindow), // -pass 2, -x265-params pass=2
 
                         "\r\n\r\n" + Audio.AudioCodec(mainwindow),

@@ -417,10 +417,6 @@ namespace Axiom
             debugParagraph.Inlines.Add(new Run(Video.passUserSelected.ToString()) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
-            //debugParagraph.Inlines.Add(new Bold(new Run("v2PassSwitch ")) { Foreground = Variable });
-            //debugParagraph.Inlines.Add(new Run(Video.v2PassSwitch.ToString()) { Foreground = Value });
-            //debugParagraph.Inlines.Add(new LineBreak());
-
             debugParagraph.Inlines.Add(new Bold(new Run("pass1 ")) { Foreground = Variable });
             debugParagraph.Inlines.Add(new Run(Video.pass1) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
@@ -592,9 +588,9 @@ namespace Axiom
             debugParagraph.Inlines.Add(new Run(Streams.mMap) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
-            debugParagraph.Inlines.Add(new Bold(new Run("map ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(Streams.map) { Foreground = Value });
-            debugParagraph.Inlines.Add(new LineBreak());
+            //debugParagraph.Inlines.Add(new Bold(new Run("map ")) { Foreground = Variable });
+            //debugParagraph.Inlines.Add(new Run(Streams.map) { Foreground = Value });
+            //debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new LineBreak());
             debugParagraph.Inlines.Add(new LineBreak());

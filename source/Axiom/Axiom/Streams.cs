@@ -145,6 +145,25 @@ namespace Axiom
 
 
             // --------------------------------------------------------------------
+            // Combine Maps
+            // --------------------------------------------------------------------
+            // Make List
+            List<string> mapList = new List<string>() { vMap, cMap };
+            // Join List with Spaces, Remove Empty Strings
+            map = string.Join(" ", mapList.Where(s => !string.IsNullOrEmpty(s)));
+
+
+            // Return Value
+            return map;
+        }
+
+
+        /// <summary>
+        /// Subtitle Maps (Method)
+        /// </summary>
+        public static String SubtitleMaps(MainWindow mainwindow)
+        {
+            // --------------------------------------------------------------------
             // Subtitle Map
             // --------------------------------------------------------------------
             // -------------------------
@@ -224,7 +243,7 @@ namespace Axiom
             // Combine Maps
             // --------------------------------------------------------------------
             // Make List
-            List<string> mapList = new List<string>() { vMap, cMap, sMap };
+            List<string> mapList = new List<string>() { sMap };
             // Join List with Spaces, Remove Empty Strings
             map = string.Join(" ", mapList.Where(s => !string.IsNullOrEmpty(s)));
 
@@ -336,7 +355,7 @@ namespace Axiom
 
 
         /// <summary>
-        /// Stream Maps (Method)
+        /// Format Maps (Method)
         /// </summary>
         public static String FormatMaps(MainWindow mainwindow)
         {

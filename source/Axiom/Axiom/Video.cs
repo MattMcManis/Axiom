@@ -1113,12 +1113,15 @@ namespace Axiom
         {
             if (!string.IsNullOrEmpty(MainWindow.inputExt)) // Null Check
             {
-                // Set Video Codec Combobox to "Copy" if Input Extension is Same as Output Extension and Video Quality is Auto
+                // -------------------------
+                // Add Copy to Video Codec ComboBox
+                // -------------------------
+                // Input Extension is Same as Output Extension and Video Quality is Auto
                 if ((string)mainwindow.cboVideo.SelectedItem == "Auto"
-                    && string.Equals(MainWindow.inputExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase)
-                    || mainwindow.tglBatch.IsChecked == true 
-                    && (string)mainwindow.cboVideo.SelectedItem == "Auto"
-                    && string.Equals(MainWindow.batchExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase))
+                && string.Equals(MainWindow.inputExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase)
+                || mainwindow.tglBatch.IsChecked == true
+                && (string)mainwindow.cboVideo.SelectedItem == "Auto"
+                && string.Equals(MainWindow.batchExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase))
                 {
                     // Insert Copy if Does Not Contain
                     if (!VideoCodecItemSource.Contains("Copy"))
@@ -1127,87 +1130,219 @@ namespace Axiom
                     }
                     // Populate ComboBox from ItemSource
                     mainwindow.cboVideoCodec.ItemsSource = VideoCodecItemSource;
+                }
 
+                // -------------------------
+                // Set Video Codec Combobox Selected Item to Copy
+                // -------------------------
+                if ((string)mainwindow.cboVideo.SelectedItem == "Auto"
+                    && (string)mainwindow.cboSize.SelectedItem == "No"
+                    && string.IsNullOrEmpty(CropWindow.crop)
+                    && (string)mainwindow.cboFPS.SelectedItem == "auto"
+                    && (string)mainwindow.cboOptimize.SelectedItem == "none")
+                {
                     mainwindow.cboVideoCodec.SelectedItem = "Copy";
                 }
 
 
+                // -------------------------
                 // Disable Copy if:
                 // Input / Output Extensions don't match
                 // Batch / Output Extensions don't match
-                // Resize is Not No
+                // Size is Not No
                 // Crop is Not Empty
                 // FPS is Not Auto
                 // Optimize is Not None
-                //
-                if (VideoCodecItemSource.Contains("Copy")
-                    && !string.IsNullOrEmpty((string)mainwindow.cboVideo.SelectedItem)
-                    && !string.Equals(MainWindow.inputExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase)
-                    | !string.Equals(MainWindow.batchExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase))
+                // -------------------------
+                if (VideoCodecItemSource.Contains("Copy"))
                 {
-                    // Switch back to format's default codec
-                    //
-                    if ((string)mainwindow.cboVideo.SelectedItem != "Auto"
-                        || (string)mainwindow.cboSize.SelectedItem != "No"
-                        || !string.IsNullOrEmpty(CropWindow.crop)
-                        || (string)mainwindow.cboFPS.SelectedItem != "auto"
-                        || (string)mainwindow.cboOptimize.SelectedItem != "none")
+                    // Copy Selected
+                    if ((string)mainwindow.cboVideoCodec.SelectedItem == "Copy")
                     {
-                        if ((string)mainwindow.cboFormat.SelectedItem == "webm")
+                        // Null Check
+                        //
+                        if (!string.IsNullOrEmpty((string)mainwindow.cboVideo.SelectedItem))
                         {
-                            mainwindow.cboVideoCodec.SelectedItem = "VP8";
-                        }
-                        else if ((string)mainwindow.cboFormat.SelectedItem == "mp4")
-                        {
-                            mainwindow.cboVideoCodec.SelectedItem = "x264";
-                        }
-                        else if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
-                        {
-                            //mainwindow.cboVideoCodec.SelectedItem = "x264"; //ignore mkv, special rules below
-                        }
-                        else if ((string)mainwindow.cboFormat.SelectedItem == "ogv")
-                        {
-                            mainwindow.cboVideoCodec.SelectedItem = "Theora";
-                        }
-                        else if ((string)mainwindow.cboFormat.SelectedItem == "jpg")
-                        {
-                            mainwindow.cboVideoCodec.SelectedItem = "JPEG";
-                        }
-                        else if ((string)mainwindow.cboFormat.SelectedItem == "png")
-                        {
-                            mainwindow.cboVideoCodec.SelectedItem = "PNG";
-                        }
-                        else if ((string)mainwindow.cboFormat.SelectedItem == "m4a"
-                            || (string)mainwindow.cboFormat.SelectedItem == "mp3"
-                            || (string)mainwindow.cboFormat.SelectedItem == "ogg"
-                            || (string)mainwindow.cboFormat.SelectedItem == "flac"
-                            || (string)mainwindow.cboFormat.SelectedItem == "wav")
-                        {
-                            mainwindow.cboVideoCodec.SelectedItem = string.Empty;
+                            // Extension Match
+                            //
+                            if (!string.Equals(MainWindow.inputExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase)
+                                || !string.Equals(MainWindow.batchExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase))
+                            {
+                                // -------------------------
+                                // WebM
+                                // -------------------------
+                                if ((string)mainwindow.cboFormat.SelectedItem == "webm")
+                                {
+                                    // Not Auto
+                                    if ((string)mainwindow.cboVideo.SelectedItem != "Auto")
+                                    {
+                                        mainwindow.cboVideoCodec.SelectedItem = "VP8";
+                                    }
+
+                                    // Size
+                                    if ((string)mainwindow.cboVideo.SelectedItem == "Auto"
+                                        && (string)mainwindow.cboSize.SelectedItem != "No")
+                                    {
+                                        mainwindow.cboVideoCodec.SelectedItem = "VP8";
+                                    }
+
+                                    // Crop, FPS, Optimize
+                                    if (!string.IsNullOrEmpty(CropWindow.crop)
+                                        || (string)mainwindow.cboFPS.SelectedItem != "auto"
+                                        || (string)mainwindow.cboOptimize.SelectedItem != "none")
+                                    {
+                                        mainwindow.cboVideoCodec.SelectedItem = "VP8";
+                                    }
+                                }
+                                // -------------------------
+                                // MP4
+                                // -------------------------
+                                else if ((string)mainwindow.cboFormat.SelectedItem == "mp4")
+                                {
+                                    // Not Auto
+                                    if ((string)mainwindow.cboVideo.SelectedItem != "Auto")
+                                    {
+                                        mainwindow.cboVideoCodec.SelectedItem = "x264";
+                                    }
+
+                                    // Size
+                                    if ((string)mainwindow.cboVideo.SelectedItem == "Auto"
+                                        && (string)mainwindow.cboSize.SelectedItem != "No")
+                                    {
+                                        mainwindow.cboVideoCodec.SelectedItem = "x264";
+                                    }
+
+                                    // Crop, FPS, Optimize
+                                    if (!string.IsNullOrEmpty(CropWindow.crop)
+                                        || (string)mainwindow.cboFPS.SelectedItem != "auto"
+                                        || (string)mainwindow.cboOptimize.SelectedItem != "none")
+                                    {
+                                        mainwindow.cboVideoCodec.SelectedItem = "x264";
+                                    }
+                                }
+                                // -------------------------
+                                // MKV
+                                // -------------------------
+                                else if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
+                                {
+                                    // Not Auto
+                                    if ((string)mainwindow.cboVideo.SelectedItem != "Auto")
+                                    {
+                                        mainwindow.cboVideoCodec.SelectedItem = "x264";
+                                    }
+
+                                    // Size
+                                    if ((string)mainwindow.cboVideo.SelectedItem == "Auto"
+                                        && (string)mainwindow.cboSize.SelectedItem != "No")
+                                    {
+                                        mainwindow.cboVideoCodec.SelectedItem = "x264";
+                                    }
+
+                                    // Crop, FPS, Optimize
+                                    if (!string.IsNullOrEmpty(CropWindow.crop)
+                                        || (string)mainwindow.cboFPS.SelectedItem != "auto"
+                                        || (string)mainwindow.cboOptimize.SelectedItem != "none")
+                                    {
+                                        mainwindow.cboVideoCodec.SelectedItem = "x264";
+                                    }
+                                }
+                                // -------------------------
+                                // OGV
+                                // -------------------------
+                                else if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
+                                {
+                                    // Not Auto
+                                    if ((string)mainwindow.cboVideo.SelectedItem != "Auto")
+                                    {
+                                        mainwindow.cboVideoCodec.SelectedItem = "Theora";
+                                    }
+
+                                    // Size
+                                    if ((string)mainwindow.cboVideo.SelectedItem == "Auto"
+                                        && (string)mainwindow.cboSize.SelectedItem != "No")
+                                    {
+                                        mainwindow.cboVideoCodec.SelectedItem = "Theora";
+                                    }
+
+                                    // Crop, FPS, Optimize
+                                    if (!string.IsNullOrEmpty(CropWindow.crop)
+                                        || (string)mainwindow.cboFPS.SelectedItem != "auto"
+                                        || (string)mainwindow.cboOptimize.SelectedItem != "none")
+                                    {
+                                        mainwindow.cboVideoCodec.SelectedItem = "Theora";
+                                    }
+                                }
+                                // -------------------------
+                                // JPG
+                                // -------------------------
+                                else if ((string)mainwindow.cboFormat.SelectedItem == "jpg")
+                                {
+                                    // Not Auto
+                                    if ((string)mainwindow.cboVideo.SelectedItem != "Auto")
+                                    {
+                                        mainwindow.cboVideoCodec.SelectedItem = "JPEG";
+                                    }
+
+                                    // Size
+                                    if ((string)mainwindow.cboVideo.SelectedItem == "Auto"
+                                        && (string)mainwindow.cboSize.SelectedItem != "No")
+                                    {
+                                        mainwindow.cboVideoCodec.SelectedItem = "JPEG";
+                                    }
+
+                                    // Crop, FPS, Optimize
+                                    if (!string.IsNullOrEmpty(CropWindow.crop)
+                                        || (string)mainwindow.cboFPS.SelectedItem != "auto"
+                                        || (string)mainwindow.cboOptimize.SelectedItem != "none")
+                                    {
+                                        mainwindow.cboVideoCodec.SelectedItem = "JPEG";
+                                    }
+                                }
+                                // -------------------------
+                                // PNG
+                                // -------------------------
+                                else if ((string)mainwindow.cboFormat.SelectedItem == "png")
+                                {
+                                    // Not Auto
+                                    if ((string)mainwindow.cboVideo.SelectedItem != "Auto")
+                                    {
+                                        mainwindow.cboVideoCodec.SelectedItem = "PNG";
+                                    }
+
+                                    // Size
+                                    if ((string)mainwindow.cboVideo.SelectedItem == "Auto"
+                                        && (string)mainwindow.cboSize.SelectedItem != "No")
+                                    {
+                                        mainwindow.cboVideoCodec.SelectedItem = "PNG";
+                                    }
+
+                                    // Crop, FPS, Optimize
+                                    if (!string.IsNullOrEmpty(CropWindow.crop)
+                                        || (string)mainwindow.cboFPS.SelectedItem != "auto"
+                                        || (string)mainwindow.cboOptimize.SelectedItem != "none")
+                                    {
+                                        mainwindow.cboVideoCodec.SelectedItem = "PNG";
+                                    }
+                                }
+                                // -------------------------
+                                // Audio Formats
+                                // -------------------------
+                                //else if ((string)mainwindow.cboFormat.SelectedItem == "m4a"
+                                //    || (string)mainwindow.cboFormat.SelectedItem == "mp3"
+                                //    || (string)mainwindow.cboFormat.SelectedItem == "ogg"
+                                //    || (string)mainwindow.cboFormat.SelectedItem == "flac"
+                                //    || (string)mainwindow.cboFormat.SelectedItem == "wav")
+                                //{
+                                //    mainwindow.cboVideoCodec.SelectedItem = "None";
+                                //}
+
+                            }
                         }
                     }
                 }
 
 
-                // Special Rules for MKV
-                if ((string)mainwindow.cboFormat.SelectedItem == "mkv"
-                    && (string)mainwindow.cboVideoCodec.SelectedItem == "Copy"
-                    && (string)mainwindow.cboVideo.SelectedItem != "Auto")
-                {
-                    if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
-                    {
-                        mainwindow.cboVideoCodec.SelectedItem = "x264";
-                    }
-                }
-
-                //// Always Default to Copy if it exists and Video Dropdown is (Auto) //Causing Problems
-                //if (VideoCodecItemSource.Contains("Copy") 
-                //&& (string)mainwindow.cboVideo.SelectedItem == "Auto" 
-                //&& (string)mainwindow.cboFormat.SelectedItem != "mkv" /* ignore if mkv */)
-                //{
-                //    //videoCodecComboBox.SelectedItem = "Copy";
-                //}
-            }
+            } // End Disable Copy
 
         } // End AutoCopyVideoCodec
 
