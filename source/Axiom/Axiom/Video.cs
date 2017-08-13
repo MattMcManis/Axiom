@@ -1111,7 +1111,7 @@ namespace Axiom
         /// <summary>
         public static void AutoCopyVideoCodec(MainWindow mainwindow) // Method
         {
-            if (!string.IsNullOrEmpty(MainWindow.inputExt)) // Null Check
+            if (!string.IsNullOrEmpty(MainWindow.inputExt) || !string.IsNullOrEmpty(MainWindow.batchExt)) // Null Check
             {
                 // -------------------------
                 // Add Copy to Video Codec ComboBox
@@ -1130,18 +1130,19 @@ namespace Axiom
                     }
                     // Populate ComboBox from ItemSource
                     mainwindow.cboVideoCodec.ItemsSource = VideoCodecItemSource;
-                }
 
-                // -------------------------
-                // Set Video Codec Combobox Selected Item to Copy
-                // -------------------------
-                if ((string)mainwindow.cboVideo.SelectedItem == "Auto"
-                    && (string)mainwindow.cboSize.SelectedItem == "No"
-                    && string.IsNullOrEmpty(CropWindow.crop)
-                    && (string)mainwindow.cboFPS.SelectedItem == "auto"
-                    && (string)mainwindow.cboOptimize.SelectedItem == "none")
-                {
-                    mainwindow.cboVideoCodec.SelectedItem = "Copy";
+
+                    // -------------------------
+                    // Set Video Codec Combobox Selected Item to Copy
+                    // -------------------------
+                    if ((string)mainwindow.cboVideo.SelectedItem == "Auto"
+                        && (string)mainwindow.cboSize.SelectedItem == "No"
+                        && string.IsNullOrEmpty(CropWindow.crop)
+                        && (string)mainwindow.cboFPS.SelectedItem == "auto"
+                        && (string)mainwindow.cboOptimize.SelectedItem == "none")
+                    {
+                        mainwindow.cboVideoCodec.SelectedItem = "Copy";
+                    }
                 }
 
 

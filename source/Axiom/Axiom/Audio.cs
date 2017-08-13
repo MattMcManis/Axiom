@@ -1395,7 +1395,7 @@ namespace Axiom
         /// <summary>
         public static void AutoCopyAudioCodec(MainWindow mainwindow) // Method
         {
-            if (!string.IsNullOrEmpty(MainWindow.inputExt)) // Null Check
+            if (!string.IsNullOrEmpty(MainWindow.inputExt) || !string.IsNullOrEmpty(MainWindow.batchExt)) // Null Check
             {
                 // -------------------------
                 // Add Copy to Audio Codec ComboBox
@@ -1414,18 +1414,20 @@ namespace Axiom
                     }
                     // Populate ComboBox from ItemSource
                     mainwindow.cboAudioCodec.ItemsSource = AudioCodecItemSource;
+
+
+                    // -------------------------
+                    // Set Audio Codec Combobox Selected Item to Copy
+                    // -------------------------
+                    if ((string)mainwindow.cboAudio.SelectedItem == "Auto"
+                        && (string)mainwindow.cboSamplerate.SelectedItem == "auto"
+                        && mainwindow.tglAudioLimiter.IsChecked == false
+                        && mainwindow.volumeUpDown.Text.ToString().Equals("100"))
+                    {
+                        mainwindow.cboAudioCodec.SelectedItem = "Copy";
+                    }
                 }
 
-                // -------------------------
-                // Set Audio Codec Combobox Selected Item to Copy
-                // -------------------------
-                if ((string)mainwindow.cboAudio.SelectedItem == "Auto"
-                    && (string)mainwindow.cboSamplerate.SelectedItem == "auto"
-                    && mainwindow.tglAudioLimiter.IsChecked == false
-                    && mainwindow.volumeUpDown.Text.ToString().Equals("100"))
-                {
-                    mainwindow.cboAudioCodec.SelectedItem = "Copy";
-                }
 
                 // -------------------------
                 // Disable Copy if:
