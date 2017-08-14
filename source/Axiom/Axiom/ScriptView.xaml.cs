@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Documents;
@@ -164,15 +165,22 @@ namespace Axiom
                 // Expand Window
                 if (this.Height <= 350)
                 {
+                    // Detect which screen we're on
+                    var allScreens = System.Windows.Forms.Screen.AllScreens.ToList();
+                    var thisScreen = allScreens.SingleOrDefault(s => this.Left >= s.WorkingArea.Left && this.Left < s.WorkingArea.Right);
+
+                    // Original Size
+                    double originalWidth = this.Width;
+                    double originalHeight = this.Height;
+
+                    // Enlarge Window
                     this.Width = 800;
                     this.Height = 600;
 
-                    double screenWidth = System.Windows.SystemParameters.PrimaryScreenWidth;
-                    double screenHeight = System.Windows.SystemParameters.PrimaryScreenHeight;
-                    double windowWidth = this.Width;
-                    double windowHeight = this.Height;
-                    this.Left = this.Left - 112;
-                    this.Top = this.Top - 125;
+                    // Position Relative to MainWindow
+                    // Keep from going off screen
+                    this.Left = Math.Max((this.Left - ((800 - originalWidth)) / 2), thisScreen.WorkingArea.Left);
+                    this.Top = Math.Max((this.Top - ((600 - originalHeight)) / 2), thisScreen.WorkingArea.Top);
                 }
             }
 

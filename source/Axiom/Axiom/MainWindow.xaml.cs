@@ -1,9 +1,7 @@
 ﻿using Axiom.Properties;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
-using System.Data;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -1111,7 +1109,8 @@ namespace Axiom
                 }
 
                 // Output
-                output = outputDir + outputFileName + outputExt; // (eg. C:\Output Folder\ + file + .mp4)                                                     
+                output = outputDir + outputFileName + outputExt; // (eg. C:\Output Folder\ + file + .mp4)    
+                //output = Path.Combine(outputDir, outputFileName + outputExt);
             }
 
             // -------------------------
@@ -1213,87 +1212,27 @@ namespace Axiom
         /// </summary>
         public void FileRenamer()
         {
-            // Prevent Filename Overwrite, Add number to filename if it already exists
-            // If Output File Already Exists
-            if (File.Exists(outputDir + outputFileName + outputExt))
+            // Set Output
+            outputDir = inputDir;
+            outputFileName = inputFileName;
+            output = Path.Combine(outputDir, outputFileName + outputExt);
+
+            int count = 1;
+
+            // Add number to filename if it already exists
+            while (File.Exists(output))
             {
-                // Log Console Message /////////
-                Log.WriteAction = () =>
-                {
-                    Log.logParagraph.Inlines.Add(new LineBreak());
-                    Log.logParagraph.Inlines.Add(new LineBreak());
-                    Log.logParagraph.Inlines.Add(new Bold(new Run("File Exists: ")) { Foreground = Log.ConsoleWarning });
-                    Log.logParagraph.Inlines.Add(new Run(outputDir + outputFileName + outputExt) { Foreground = Log.ConsoleWarning });
-                };
-                Log.LogActions.Add(Log.WriteAction);
-
-                List<string> FileNames = new List<string>();
-                FileNames = Directory.GetFiles(@outputDir, "*" + outputExt)
-                    .Select(Path.GetFileName)
-                    .ToList();
-
-                int i = 0;
-                int rn = 0;
-
-                // For Each *.mp4 In OutputDir
-                foreach (var file in FileNames)
-                {
-                    i += 1; //Add 1 to i per all files in the loop
-
-
-                    // Add 1 to rn per matching file found
-                    if (FileNames.Contains(string.Format("{0}({1})", inputFileName, i) + outputExt)) //example, +(1), .mp4
-                    {
-                        rn += 1;
-
-                        outputNewFileName = string.Format("{0}({1})", inputFileName, rn);
-
-                        // Log Console Message /////////
-                        Log.WriteAction = () =>
-                        {
-                            Log.logParagraph.Inlines.Add(new LineBreak());
-                            Log.logParagraph.Inlines.Add(new LineBreak());
-                            Log.logParagraph.Inlines.Add(new Bold(new Run("File Exists: ")) { Foreground = Log.ConsoleWarning });
-                            Log.logParagraph.Inlines.Add(new Run(outputDir + string.Format("{0}({1})", inputFileName, rn) + outputExt) { Foreground = Log.ConsoleWarning });
-                        };
-                        Log.LogActions.Add(Log.WriteAction);
-                    }
-                    // If File Does Not Exist
-                    else
-                    {
-                        rn += 1;
-
-                        outputNewFileName = string.Format("{0}({1})", inputFileName, rn);
-
-                        break;
-                    }
-                }
-
-                // Output File name
-                outputFileName = outputNewFileName;
-
-                //rn += 1;                   
-                output = outputDir + outputFileName + outputExt;
-
-                // Clear
-                if (FileNames != null)
-                {
-                    FileNames.Clear();
-                    FileNames.TrimExcess();
-                }
-
-
-                // Log Console Message /////////
-                Log.WriteAction = () =>
-                {
-                    Log.logParagraph.Inlines.Add(new LineBreak());
-                    Log.logParagraph.Inlines.Add(new LineBreak());
-                    Log.logParagraph.Inlines.Add(new Bold(new Run("Renaming File: ")) { Foreground = Log.ConsoleAction });
-                    Log.logParagraph.Inlines.Add(new Run(output) { Foreground = Log.ConsoleAction });
-                };
-                Log.LogActions.Add(Log.WriteAction);
+                string outputNewFileName = string.Format("{0}({1})", outputFileName, count++);
+                output = Path.Combine(outputDir, outputNewFileName + outputExt);
             }
+
+            // Set the Output File Name
+            outputFileName = Path.GetFileNameWithoutExtension(output);
+
+            // Combine Output
+            output = Path.Combine(outputDir, outputFileName + outputExt);
         }
+
 
 
         /// <summary>
