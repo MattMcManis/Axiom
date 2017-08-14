@@ -41,24 +41,6 @@
 
     <Grid>
 
-        
-
-
-
-
-
-
-
-        
-
-
-
-        
-
-
-
-        
-
         <!-- Browse Button -->
         <Button x:Name="buttonBrowse" Style="{DynamicResource ButtonCustom}" HorizontalAlignment="Left" Margin="10,12,0,0" VerticalAlignment="Top" Width="75" Height="22" Cursor="Hand" Click="buttonBrowse_Click">
             <TextBlock x:Name="buttonBrowseTextBlock" Text="Input" Margin="0,-2,0,0"/>
@@ -230,8 +212,7 @@
         </Button>
 
 
-
-
+        
         <!-- Cut -->
         <Label x:Name="lableCut" Style="{DynamicResource LabelCustom}" Content="Cut" HorizontalAlignment="Left" Margin="426,74,0,0" VerticalAlignment="Top" Width="75" />
 
@@ -247,8 +228,6 @@
         <!-- Frame Range -->
         <TextBox x:Name="frameStart" HorizontalAlignment="Left" Height="22" Margin="430,184,0,0" Padding="0, 1, 0, 0" TextWrapping="NoWrap" MaxLines="1" VerticalAlignment="Top" Width="36" Style="{DynamicResource TextBoxCustom}" GotFocus="frameStart_GotFocus" LostFocus="frameStart_LostFocus" ToolTipService.InitialShowDelay="1000" ToolTipService.ShowOnDisabled="True" ToolTip="Start Frame" Text="Frame" FontSize="11"/>
         <TextBox x:Name="frameEnd" HorizontalAlignment="Left" Height="22" Margin="469,184,0,0" Padding="0, 1, 0, 0" TextWrapping="NoWrap" MaxLines="1" VerticalAlignment="Top" Width="36" Style="{DynamicResource TextBoxCustom}" GotFocus="frameEnd_GotFocus" LostFocus="frameEnd_LostFocus" ToolTipService.InitialShowDelay="1000" ToolTipService.ShowOnDisabled="True" ToolTip="End Frame" Text="Range" FontSize="11"/>
-
-
 
 
         <!-- Options -->
