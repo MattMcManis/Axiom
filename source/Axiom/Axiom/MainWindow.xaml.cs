@@ -241,6 +241,10 @@ namespace Axiom
             // Batch Extension Box Disabled
             batchExtensionTextBox.IsEnabled = false;
 
+            // Open Input/Output Location Disabled
+            openLocationInput.IsEnabled = false;
+            openLocationOutput.IsEnabled = false;
+
 
             // -----------------------------------------------------------------
             /// <summary>
@@ -405,6 +409,12 @@ namespace Axiom
             // Force Exit All Executables
             base.OnClosed(e);
             Application.Current.Shutdown();
+        }
+
+        // Save Window Position
+        void MainWindow_Closing(object sender, CancelEventArgs e)
+        {
+            Settings.Default.Save();
         }
 
 
@@ -1214,23 +1224,35 @@ namespace Axiom
         {
             // Set Output
             outputDir = inputDir;
-            outputFileName = inputFileName;
-            output = Path.Combine(outputDir, outputFileName + outputExt);
 
-            int count = 1;
-
-            // Add number to filename if it already exists
-            while (File.Exists(output))
+            if (!string.IsNullOrEmpty(outputDir)) //null check
             {
-                string outputNewFileName = string.Format("{0}({1})", outputFileName, count++);
-                output = Path.Combine(outputDir, outputNewFileName + outputExt);
+                output = Path.Combine(outputDir, outputFileName + outputExt);
             }
 
-            // Set the Output File Name
-            outputFileName = Path.GetFileNameWithoutExtension(output);
+            // Add number to filename if it already exists
+            if (!string.IsNullOrEmpty(output)) //null check
+            {
+                // If Input and Output Extensions match
+                if (string.Equals(inputExt, outputExt, StringComparison.CurrentCultureIgnoreCase))
+                {
+                    int count = 1;
 
-            // Combine Output
-            output = Path.Combine(outputDir, outputFileName + outputExt);
+                    while (File.Exists(output))
+                    {
+                        string outputNewFileName = string.Format("{0}({1})", outputFileName, count++);
+                        output = Path.Combine(outputDir, outputNewFileName + outputExt);
+                    }
+
+                    // Set the Output File Name
+                    outputFileName = Path.GetFileNameWithoutExtension(output);
+
+                    // Combine Output
+                    output = Path.Combine(outputDir, outputFileName + outputExt);
+                }
+                
+            }
+            
         }
 
 
@@ -2023,6 +2045,22 @@ namespace Axiom
             // Get input file extension
             inputExt = Path.GetExtension(textBoxBrowse.Text);
 
+
+            // Enable / Disable "Open Input Location" Buttion
+            if (!string.IsNullOrWhiteSpace(textBoxBrowse.Text))
+            {
+                bool exists = Directory.Exists(Path.GetDirectoryName(textBoxBrowse.Text));
+
+                if (exists)
+                {
+                    openLocationInput.IsEnabled = true;
+                }
+                else
+                {
+                    openLocationInput.IsEnabled = false;
+                }
+            }
+
             // Set Video & Audio Codec Combobox to "Copy" if Input Extension is Same as Output Extension and Video Quality is Auto
             Video.AutoCopyVideoCodec(this);
             Audio.AutoCopyAudioCodec(this);
@@ -2155,6 +2193,21 @@ namespace Axiom
             if (textBoxOutput.Text == "\\")
             {
                 textBoxOutput.Text = string.Empty;
+            }
+
+            // Enable / Disable "Open Output Location" Buttion
+            if (!string.IsNullOrWhiteSpace(textBoxOutput.Text))
+            {
+                bool exists = Directory.Exists(Path.GetDirectoryName(textBoxOutput.Text));
+
+                if (exists)
+                {
+                    openLocationOutput.IsEnabled = true;
+                }
+                else
+                {
+                    openLocationOutput.IsEnabled = false;
+                }
             }
         }
 

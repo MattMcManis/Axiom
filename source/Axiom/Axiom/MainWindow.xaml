@@ -19,7 +19,7 @@
     along with this program. If not, see<http://www.gnu.org/licenses/>. 
  -->
 
-<Window
+<Window x:Class="Axiom.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -27,12 +27,15 @@
         xmlns:System="clr-namespace:System;assembly=mscorlib" 
         xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
         xmlns:my="clr-namespace:Axiom"
-        x:Class="Axiom.MainWindow"
+        xmlns:settings="clr-namespace:Axiom.Properties"
+        
         Title="{Binding TitleVersion, RelativeSource={RelativeSource Mode=Self}}" 
-        Height="305" Width="615"
+        Closing="MainWindow_Closing"  
         Icon="Resources/Images/Icons/axiom.ico"
+        Height="305" Width="615"
+        Top="{Binding Top, Source={x:Static settings:Settings.Default}, Mode=TwoWay}"
+        Left="{Binding Left, Source={x:Static settings:Settings.Default}, Mode=TwoWay}"
         ResizeMode="CanMinimize" UseLayoutRounding="True"
-        WindowStartupLocation="CenterScreen"
         Style="{DynamicResource WindowStyleCustom}"
         >
 
@@ -58,7 +61,7 @@
 
         <!-- Browse Button -->
         <Button x:Name="buttonBrowse" Style="{DynamicResource ButtonCustom}" HorizontalAlignment="Left" Margin="10,12,0,0" VerticalAlignment="Top" Width="75" Height="22" Cursor="Hand" Click="buttonBrowse_Click">
-            <TextBlock x:Name="buttonBrowseTextBlock" Text="Browse" Margin="0,-2,0,0"/>
+            <TextBlock x:Name="buttonBrowseTextBlock" Text="Input" Margin="0,-2,0,0"/>
         </Button>
         <!-- Browse Textbox -->
         <TextBox x:Name="textBoxBrowse" Style="{DynamicResource TextBoxBrowseCustom}" HorizontalAlignment="Left" Height="22" Margin="93,12,0,0" Padding="2, 0, 0, 0" TextWrapping="NoWrap" MaxLines="1" VerticalAlignment="Top" Width="469" TextChanged="textBoxBrowse_TextChanged"/>
@@ -108,11 +111,11 @@
         <TextBox x:Name="crfCustom" HorizontalAlignment="Left" Height="22" Margin="142,128,0,0" Padding="0, 1, 0, 0" TextWrapping="NoWrap" Text="CRF" VerticalAlignment="Top" Width="27" GotFocus="crfCustom_GotFocus" LostFocus="crfCustom_LostFocus" KeyDown="crfCustom_KeyDown" MaxLines="1" MaxLength="2" Style="{DynamicResource TextBoxCustom}" ToolTipService.InitialShowDelay="1000" ToolTipService.ShowOnDisabled="True" ToolTip="Custom Constant Rate Factor value (e.g. 18)"/>
 
         <!-- Encoding Pass -->
-        <Label x:Name="labelPass" Style="{DynamicResource LabelCustom}" Content="Enc" HorizontalAlignment="Left" Margin="89,155,0,0" VerticalAlignment="Top" Width="34" ToolTip="Encoding Pass Method" FontSize="11" FontFamily="Segoe UI Semilight" />
+        <Label x:Name="labelPass" Style="{DynamicResource LabelCustom}" Content="Pass" HorizontalAlignment="Left" Margin="89,155,0,0" VerticalAlignment="Top" Width="34" ToolTip="Encoding Pass Method" FontSize="11" FontFamily="Segoe UI Semilight" />
         <ComboBox x:Name="cboPass" Style="{DynamicResource ComboBoxCustom}" ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" HorizontalAlignment="Left" Margin="117,156,0,0" VerticalAlignment="Top" Width="52" ToolTipService.InitialShowDelay="1000" ToolTipService.ShowOnDisabled="True" ToolTip="Encoding Pass Method" SelectionChanged="cboPass_SelectionChanged" DropDownClosed="cboPass_DropDownClosed" />
 
         <!-- FPS -->
-        <Label x:Name="labelFps" Style="{DynamicResource LabelCustom}" Content="Fps" HorizontalAlignment="Left" Margin="90,182,0,0" VerticalAlignment="Top" Width="26" ToolTip="Frames Per Second" FontSize="11" FontFamily="Segoe UI Semilight" />
+        <Label x:Name="labelFps" Style="{DynamicResource LabelCustom}" Content="FPS" HorizontalAlignment="Left" Margin="90,182,0,0" VerticalAlignment="Top" Width="26" ToolTip="Frames Per Second" FontSize="11" FontFamily="Segoe UI Semilight" />
 
         <ComboBox x:Name="cboFPS" Style="{DynamicResource ComboBoxCustom}" ItemContainerStyle="{DynamicResource ComboBoxCustomItem}"  HorizontalAlignment="Left" Margin="117,184,0,0" VerticalAlignment="Top" Width="52" ToolTipService.InitialShowDelay="1000" ToolTipService.ShowOnDisabled="True" ToolTip="Frames Per Second" SelectionChanged="cboFPS_SelectionChanged" IsTextSearchEnabled="False">
             <System:String>auto</System:String>

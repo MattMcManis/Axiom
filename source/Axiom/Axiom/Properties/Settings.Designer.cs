@@ -448,10 +448,10 @@ namespace Axiom.Properties {
         [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string OptAdvTune {
             get {
-                return ((string)(this["optAdvTune"]));
+                return ((string)(this["OptAdvTune"]));
             }
             set {
-                this["optAdvTune"] = value;
+                this["OptAdvTune"] = value;
             }
         }
         
@@ -460,10 +460,10 @@ namespace Axiom.Properties {
         [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string OptAdvProfile {
             get {
-                return ((string)(this["optAdvProfile"]));
+                return ((string)(this["OptAdvProfile"]));
             }
             set {
-                this["optAdvProfile"] = value;
+                this["OptAdvProfile"] = value;
             }
         }
         
@@ -472,10 +472,10 @@ namespace Axiom.Properties {
         [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string OptAdvLevel {
             get {
-                return ((string)(this["optAdvLevel"]));
+                return ((string)(this["OptAdvLevel"]));
             }
             set {
-                this["optAdvLevel"] = value;
+                this["OptAdvLevel"] = value;
             }
         }
         
@@ -488,6 +488,54 @@ namespace Axiom.Properties {
             }
             set {
                 this["Theme"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public double Height {
+            get {
+                return ((double)(this["Height"]));
+            }
+            set {
+                this["Height"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public double Width {
+            get {
+                return ((double)(this["Width"]));
+            }
+            set {
+                this["Width"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public double Top {
+            get {
+                return ((double)(this["Top"]));
+            }
+            set {
+                this["Top"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public double Left {
+            get {
+                return ((double)(this["Left"]));
+            }
+            set {
+                this["Left"] = value;
             }
         }
     }
