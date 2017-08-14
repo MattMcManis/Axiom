@@ -136,9 +136,9 @@ namespace Axiom
         public static string[] splitVersionBuildPhase;
 
         // Locks
-        public static int ready = 1; // If 1 allow conversion, else stop
-        public static int script = 0; // If 0 run ffmpeg, if 1 run generate script
-        public static int ffCheckCleared = 0; // If 1, FFcheck no longer has to run for each convert
+        public static bool ready = true; // If 1 allow conversion, else stop
+        public static bool script = false; // If 0 run ffmpeg, if 1 run generate script
+        public static bool ffCheckCleared = false; // If 1, FFcheck no longer has to run for each convert
 
         // System
         public static string threads; // CPU Threads
@@ -172,7 +172,7 @@ namespace Axiom
         {
             InitializeComponent();
 
-            currentVersion = new Version("1.0.0.1");
+            currentVersion = new Version("1.0.0.2");
             currentBuildPhase = "alpha";
             TitleVersion = "Axiom ~ FFmpeg UI (" + Convert.ToString(currentVersion) + "-" + currentBuildPhase + ")";
             DataContext = this;
@@ -736,7 +736,7 @@ namespace Axiom
                     if (File.Exists(currentDir + "ffmpeg\\bin\\ffmpeg.exe"))
                     {
                         // let pass
-                        ffCheckCleared = 1;
+                        ffCheckCleared = true;
                     }
                     else
                     {
@@ -745,20 +745,20 @@ namespace Axiom
                         // Check Environment Variables
                         foreach (var envarPath in envar.Split(';'))
                         {
-                            var exePath = System.IO.Path.Combine(envarPath, "ffmpeg.exe");
+                            var exePath = Path.Combine(envarPath, "ffmpeg.exe");
                             if (File.Exists(exePath)) { found = 1; }
                         }
 
                         if (found == 1)
                         {
                             // let pass
-                            ffCheckCleared = 1;
+                            ffCheckCleared = true;
                         }
                         else
                         {
                             /* lock */
-                            ready = 0;
-                            ffCheckCleared = 0;
+                            ready = false;
+                            ffCheckCleared = false;
                             MessageBox.Show("Cannot locate FFmpeg Path in Environment Variables or Current Folder.");
                         }
 
@@ -767,20 +767,20 @@ namespace Axiom
                 // If User Defined Path
                 else if (ConfigureWindow.ffmpegPath != "<auto>" && ConfigureWindow.ffmpegPath != null && ConfigureWindow.ffmpegPath != string.Empty)
                 {
-                    var dirPath = System.IO.Path.GetDirectoryName(ConfigureWindow.ffmpegPath).TrimEnd('\\') + @"\";
-                    var fullPath = System.IO.Path.Combine(dirPath, "ffmpeg.exe");
+                    var dirPath = Path.GetDirectoryName(ConfigureWindow.ffmpegPath).TrimEnd('\\') + @"\";
+                    var fullPath = Path.Combine(dirPath, "ffmpeg.exe");
 
                     // Make Sure ffmpeg.exe Exists
                     if (File.Exists(fullPath))
                     {
                         // let pass
-                        ffCheckCleared = 1;
+                        ffCheckCleared = true;
                     }
                     else
                     {
                         /* lock */
-                        ready = 0;
-                        ffCheckCleared = 0;
+                        ready = false;
+                        ffCheckCleared = false;
                         MessageBox.Show("Cannot locate FFmpeg Path in User Defined Path.");
                     }
 
@@ -788,13 +788,13 @@ namespace Axiom
                     if (string.Equals(ConfigureWindow.ffmpegPath, fullPath, StringComparison.CurrentCultureIgnoreCase))
                     {
                         // let pass
-                        ffCheckCleared = 1;
+                        ffCheckCleared = true;
                     }
                     else
                     {
                         /* lock */
-                        ready = 0;
-                        ffCheckCleared = 0;
+                        ready = false;
+                        ffCheckCleared = false;
                         MessageBox.Show("Error: FFmpeg Path must link to ffmpeg.exe.");
                     }
                 }
@@ -809,7 +809,7 @@ namespace Axiom
                     if (File.Exists(currentDir + "ffmpeg\\bin\\ffprobe.exe"))
                     {
                         // let pass
-                        ffCheckCleared = 1;
+                        ffCheckCleared = true;
                     }
                     else
                     {
@@ -818,20 +818,20 @@ namespace Axiom
                         // Check Environment Variables
                         foreach (var envarPath in envar.Split(';'))
                         {
-                            var exePath = System.IO.Path.Combine(envarPath, "ffprobe.exe");
+                            var exePath = Path.Combine(envarPath, "ffprobe.exe");
                             if (File.Exists(exePath)) { found = 1; }
                         }
 
                         if (found == 1)
                         {
                             // let pass
-                            ffCheckCleared = 1;
+                            ffCheckCleared = true;
                         }
                         else
                         {
                             /* lock */
-                            ready = 0;
-                            ffCheckCleared = 0;
+                            ready = false;
+                            ffCheckCleared = false;
                             MessageBox.Show("Cannot locate FFprobe Path in Environment Variables or Current Folder.");
                         }
 
@@ -840,20 +840,20 @@ namespace Axiom
                 // If User Defined Path
                 else if (ConfigureWindow.ffprobePath != "<auto>" && ConfigureWindow.ffprobePath != null && ConfigureWindow.ffprobePath != string.Empty)
                 {
-                    var dirPath = System.IO.Path.GetDirectoryName(ConfigureWindow.ffprobePath).TrimEnd('\\') + @"\";
-                    var fullPath = System.IO.Path.Combine(dirPath, "ffprobe.exe");
+                    var dirPath = Path.GetDirectoryName(ConfigureWindow.ffprobePath).TrimEnd('\\') + @"\";
+                    var fullPath = Path.Combine(dirPath, "ffprobe.exe");
 
                     // Make Sure ffprobe.exe Exists
                     if (File.Exists(fullPath))
                     {
                         // let pass
-                        ffCheckCleared = 1;
+                        ffCheckCleared = true;
                     }
                     else
                     {
                         /* lock */
-                        ready = 0;
-                        ffCheckCleared = 0;
+                        ready = false;
+                        ffCheckCleared = false;
                         MessageBox.Show("Cannot locate FFprobe Path in User Defined Path.");
                     }
 
@@ -861,13 +861,13 @@ namespace Axiom
                     if (string.Equals(ConfigureWindow.ffprobePath, fullPath, StringComparison.CurrentCultureIgnoreCase))
                     {
                         // let pass
-                        ffCheckCleared = 1;
+                        ffCheckCleared = true;
                     }
                     else
                     {
                         /* lock */
-                        ready = 0;
-                        ffCheckCleared = 0;
+                        ready = false;
+                        ffCheckCleared = false;
                         MessageBox.Show("Error: FFprobe Path must link to ffprobe.exe.");
                     }
                 }
@@ -915,7 +915,7 @@ namespace Axiom
         /// <remarks>
         ///     FFprobe Path
         /// </remarks>
-        public static String FFprobePath(MainWindow mainwindow)
+        public static void FFprobePath(MainWindow mainwindow)
         {
             // If Configure FFprobe Path is <auto>
             if (ConfigureWindow.ffprobePath == "<auto>")
@@ -928,8 +928,6 @@ namespace Axiom
                 else if (!File.Exists(currentDir + "ffmpeg\\bin\\ffprobe.exe"))
                 {
                     //use system installed binaries
-                    //ffprobe = "\"" + "ffprobe" + "\"";
-
                     FFprobe.ffprobe = "ffprobe";
                 }
             }
@@ -940,7 +938,7 @@ namespace Axiom
             }
 
             // Return Value
-            return FFprobe.ffprobe;
+            //return FFprobe.ffprobe;
         }
 
 
@@ -1036,7 +1034,7 @@ namespace Axiom
                 // If not Empty
                 if (!string.IsNullOrWhiteSpace(mainwindow.textBoxBrowse.Text))
                 {
-                    inputDir = System.IO.Path.GetDirectoryName(mainwindow.textBoxBrowse.Text).TrimEnd('\\') + @"\"; // (eg. C:\Input Folder\)
+                    inputDir = Path.GetDirectoryName(mainwindow.textBoxBrowse.Text).TrimEnd('\\') + @"\"; // (eg. C:\Input Folder\)
                 }
 
                 // Input
@@ -1101,9 +1099,9 @@ namespace Axiom
                 // Output is Output
                 if (!string.IsNullOrWhiteSpace(mainwindow.textBoxOutput.Text))
                 {
-                    outputDir = System.IO.Path.GetDirectoryName(mainwindow.textBoxOutput.Text).TrimEnd('\\') + @"\";
+                    outputDir = Path.GetDirectoryName(mainwindow.textBoxOutput.Text).TrimEnd('\\') + @"\";
 
-                    outputFileName = System.IO.Path.GetFileNameWithoutExtension(mainwindow.textBoxOutput.Text);
+                    outputFileName = Path.GetFileNameWithoutExtension(mainwindow.textBoxOutput.Text);
                 }
 
                 // Image Sequence
@@ -1231,7 +1229,7 @@ namespace Axiom
 
                 List<string> FileNames = new List<string>();
                 FileNames = Directory.GetFiles(@outputDir, "*" + outputExt)
-                    .Select(System.IO.Path.GetFileName)
+                    .Select(Path.GetFileName)
                     .ToList();
 
                 int i = 0;
@@ -1299,55 +1297,61 @@ namespace Axiom
 
 
         /// <summary>
-        ///    Error Halts (Method)
+        ///    Ready Halts (Method)
         /// </summary>
-        public static void ErrorHalts(MainWindow mainwindow)
+        public static void ReadyHalts(MainWindow mainwindow)
         {
             // Check if FFmpeg & FFprobe Exists
-            if (ffCheckCleared == 0)
+            //
+            if (ffCheckCleared == false)
             {
                 mainwindow.FFcheck();
             }
 
             // Do not allow Auto without FFprobe being installed or linked
-            if ((string)mainwindow.cboVideo.SelectedItem == "Auto" 
-                | (string)mainwindow.cboAudio.SelectedItem == "Auto" 
-                && string.IsNullOrEmpty(MainWindow.FFprobePath(mainwindow)))
+            //
+            if (string.IsNullOrEmpty(FFprobe.ffprobe))
             {
-                // Log Console Message /////////
-                Log.logParagraph.Inlines.Add(new LineBreak());
-                Log.logParagraph.Inlines.Add(new LineBreak());
-                Log.logParagraph.Inlines.Add(new Bold(new Run("Auto Quality Mode Requires FFprobe in order to Detect File Info.")) { Foreground = Log.ConsoleWarning });
-
-                MessageBox.Show("Auto Quality Mode Requires FFprobe in order to Detect File Info.");
-                /* lock */
-                ready = 0;
-            }
-
-            // Do not allow Script to generate if Browse Empty & Auto, since there is no file to detect bitrates/codecs
-            // Ignore if Batch
-            if (mainwindow.tglBatch.IsChecked == false)
-            {
-                if (string.IsNullOrWhiteSpace(mainwindow.textBoxBrowse.Text)
-                    && (string)mainwindow.cboVideo.SelectedItem == "Auto"
-                    | (string)mainwindow.cboAudio.SelectedItem == "Auto"
-                    && (string)mainwindow.cboVideoCodec.SelectedItem != "Copy"
-                    | (string)mainwindow.cboAudioCodec.SelectedItem != "Copy")
+                if ((string)mainwindow.cboVideo.SelectedItem == "Auto" || (string)mainwindow.cboAudio.SelectedItem == "Auto")
                 {
                     // Log Console Message /////////
                     Log.logParagraph.Inlines.Add(new LineBreak());
                     Log.logParagraph.Inlines.Add(new LineBreak());
-                    Log.logParagraph.Inlines.Add(new Bold(new Run("Notice: Auto Mode needs an input file in order to detect settings.")) { Foreground = Log.ConsoleWarning });
+                    Log.logParagraph.Inlines.Add(new Bold(new Run("Auto Quality Mode Requires FFprobe in order to Detect File Info.")) { Foreground = Log.ConsoleWarning });
 
-                    MessageBox.Show("Auto Mode needs an input file in order to detect settings.");
                     /* lock */
-                    ready = 0;
-                    script = 0;
+                    ready = false;
+                    MessageBox.Show("Auto Quality Mode Requires FFprobe in order to Detect File Info.");
                 }
             }
 
+            // Do not allow Script to generate if Browse Empty & Auto, since there is no file to detect bitrates/codecs
+            //
+            if (mainwindow.tglBatch.IsChecked == false) // Ignore if Batch
+            {
+                if (string.IsNullOrWhiteSpace(mainwindow.textBoxBrowse.Text)) // empty check
+                {
+                    if ((string)mainwindow.cboVideo.SelectedItem == "Auto" || (string)mainwindow.cboAudio.SelectedItem == "Auto")
+                    {
+                        if ((string)mainwindow.cboVideoCodec.SelectedItem != "Copy" || (string)mainwindow.cboAudioCodec.SelectedItem != "Copy")
+                        {
+                            // Log Console Message /////////
+                            Log.logParagraph.Inlines.Add(new LineBreak());
+                            Log.logParagraph.Inlines.Add(new LineBreak());
+                            Log.logParagraph.Inlines.Add(new Bold(new Run("Notice: Auto Mode needs an input file in order to detect settings.")) { Foreground = Log.ConsoleWarning });
+
+                            /* lock */
+                            ready = false;
+                            script = false;
+                            // Warning
+                            MessageBox.Show("Auto Mode needs an input file in order to detect settings.");
+                        }
+                    }
+                }
+            }
 
             // STOP if Single File Input with no Extension
+            //
             if (mainwindow.tglBatch.IsChecked == false && mainwindow.textBoxBrowse.Text.EndsWith("\\"))
             {
                 // Log Console Message /////////
@@ -1355,12 +1359,14 @@ namespace Axiom
                 Log.logParagraph.Inlines.Add(new LineBreak());
                 Log.logParagraph.Inlines.Add(new Bold(new Run("Notice: Please choose an input file.")) { Foreground = Log.ConsoleWarning });
 
-                MessageBox.Show("Please choose an input file.");
                 /* lock */
-                ready = 0;
+                ready = false;
+                // Warning
+                MessageBox.Show("Please choose an input file.");
             }
 
             // STOP Do not allow Batch Copy to same folder if file extensions are the same (to avoid file overwrite)
+            //
             if (mainwindow.tglBatch.IsChecked == true 
                 && string.Equals(inputDir, outputDir, StringComparison.CurrentCultureIgnoreCase) 
                 && string.Equals(batchExt, outputExt, StringComparison.CurrentCultureIgnoreCase))
@@ -1370,25 +1376,29 @@ namespace Axiom
                 Log.logParagraph.Inlines.Add(new LineBreak());
                 Log.logParagraph.Inlines.Add(new Bold(new Run("Notice: Please choose an output folder different than the input folder to avoid file overwrite.")) { Foreground = Log.ConsoleWarning });
 
-                MessageBox.Show("Please choose an output folder different than the input folder to avoid file overwrite.");
                 /* lock */
-                ready = 0;
+                ready = false;
+                // Warning
+                MessageBox.Show("Please choose an output folder different than the input folder to avoid file overwrite.");
             }
 
             // STOP Throw Error if VP8/VP9 & CRF does not have Bitrate -b:v
-            if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" 
-                | (string)mainwindow.cboVideoCodec.SelectedItem == "VP9" 
-                && !string.IsNullOrWhiteSpace(mainwindow.crfCustom.Text) 
-                && string.IsNullOrWhiteSpace(mainwindow.vBitrateCustom.Text))
+            //
+            if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9")
             {
-                // Log Console Message /////////
-                Log.logParagraph.Inlines.Add(new LineBreak());
-                Log.logParagraph.Inlines.Add(new LineBreak());
-                Log.logParagraph.Inlines.Add(new Bold(new Run("Notice: VP8/VP9 CRF must also have Bitrate. \n(e.g. 0 for Constant, 1234k for Constrained)")) { Foreground = Log.ConsoleWarning });
+                if (!string.IsNullOrWhiteSpace(mainwindow.crfCustom.Text) 
+                    && string.IsNullOrWhiteSpace(mainwindow.vBitrateCustom.Text))
+                {
+                    // Log Console Message /////////
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new Bold(new Run("Notice: VP8/VP9 CRF must also have Bitrate. \n(e.g. 0 for Constant, 1234k for Constrained)")) { Foreground = Log.ConsoleWarning });
 
-                MessageBox.Show("Notice: VP8/VP9 CRF must also have Bitrate. \n(e.g. 0 for Constant, 1234k for Constrained)");
-                /* lock */
-                ready = 0;
+                    /* lock */
+                    ready = false;
+                    // Notice
+                    MessageBox.Show("Notice: VP8/VP9 CRF must also have Bitrate. \n(e.g. 0 for Constant, 1234k for Constrained)");
+                }
             }
         }
 
@@ -1604,7 +1614,7 @@ namespace Axiom
                     {
                         // Yes/No Dialog Confirmation
                         //
-                        MessageBoxResult result = MessageBox.Show("Download Update?", "Update Available", MessageBoxButton.YesNo);
+                        MessageBoxResult result = MessageBox.Show("v" + latestVersion + "-" + latestBuildPhase + "\n\nDownload Update?", "Update Available ", MessageBoxButton.YesNo);
                         switch (result)
                         {
                             case MessageBoxResult.Yes:
@@ -1720,29 +1730,35 @@ namespace Axiom
             Log.LogActions.Add(Log.WriteAction);
 
 
+            // -------------------------
             // Enable Script
-            script = 1;
+            // -------------------------
+            script = true;
 
+            // -------------------------
             // Reset Sort
-            ScriptView.sort = 0;
+            // -------------------------
+            ScriptView.sort = false;
 
-
-            /// <summary>
-            ///    Keep FFmpeg Window Toggle
-            /// </summary>
+            // -------------------------
+            // Keep FFmpeg Window Toggle
+            // -------------------------
             MainWindow.KeepWindow(this);
 
-
-            /// <summary>
-            ///    Batch Extention Period Check
-            /// </summary>
+            // -------------------------
+            // Batch Extention Period Check
+            // -------------------------
             MainWindow.BatchExtCheck(this);
 
+            // -------------------------
+            // Set FFprobe Path
+            // -------------------------
+            MainWindow.FFprobePath(this);
 
-            /// <summary>
-            ///    Error Halts
-            /// </summary> 
-            MainWindow.ErrorHalts(this);
+            // -------------------------
+            // Ready Halts
+            // -------------------------
+            MainWindow.ReadyHalts(this);
 
 
             // -------------------------
@@ -1751,72 +1767,68 @@ namespace Axiom
             BackgroundWorker fileprocess = new BackgroundWorker();
 
             fileprocess.WorkerSupportsCancellation = true;
-
-            // This allows the worker to report progress during work
             fileprocess.WorkerReportsProgress = true;
 
-            // What to do in the background thread
             fileprocess.DoWork += new DoWorkEventHandler(delegate (object o, DoWorkEventArgs args)
             {
                 BackgroundWorker b = o as BackgroundWorker;
 
-                // Dispatcher Allows Cross-Thread Communication
+                // Cross-Thread Communication
                 this.Dispatcher.Invoke(() =>
                 {
-                    /// <summary>
-                    ///    FFprobe Detect Metadata
-                    /// </summary> 
+                    // -------------------------
+                    // FFprobe Detect Metadata
+                    // -------------------------
                     FFprobe.Metadata(this);
 
-                    // ------------------------------------------------------------------------
-
-                    /// <summary>
-                    ///    Write All Log Actions to Console
-                    /// </summary> 
+                    // -------------------------
+                    // Write All Log Actions to Console
+                    // -------------------------
                     Log.LogWriteAll(this, configurewindow);
 
-                    // ------------------------------------------------------------------------
-
-                    /// <summary>
-                    ///    FFmpeg Single File Generate Arguments
-                    /// </summary> 
+                    // -------------------------
+                    // FFmpeg Single File Generate Arguments
+                    // -------------------------
                     FFmpeg.FFmpegSingleGenerateArgs(this);
 
-                    // ------------------------------------------------------------------------
-
-                    /// <summary>
-                    ///    FFmpeg Batch Generate Arguments
-                    /// </summary> 
+                    // -------------------------
+                    // FFmpeg Batch Generate Arguments
+                    // -------------------------
                     FFmpeg.FFmpegBatchGenerateArgs(this);
 
 
                 }); //end dispatcher
+
             }); //end thread
 
 
             // When background worker completes task
             fileprocess.RunWorkerCompleted += new RunWorkerCompletedEventHandler(delegate(object o, RunWorkerCompletedEventArgs args)
             {
-                /// <summary>
-                ///    Generate Script
-                /// </summary> 
+                // -------------------------
+                // Generate Script
+                // -------------------------
                 FFmpeg.FFmpegScript(this, scriptview);
 
-                //sw.Stop(); //stop stopwatch
-
+                // -------------------------
                 // Close the Background Worker
+                // -------------------------
                 fileprocess.CancelAsync();
                 fileprocess.Dispose();
 
+                // -------------------------
                 // Clear Variables for next Run
+                // -------------------------
                 ClearVariables(this);
                 GC.Collect();
 
             }); //end worker completed task
 
 
+            // -------------------------
             // Background Worker Run Async
-            fileprocess.RunWorkerAsync(); //important!
+            // -------------------------
+            fileprocess.RunWorkerAsync();
         }
 
 
@@ -1948,7 +1960,7 @@ namespace Axiom
             if (File.Exists(@output))
             {
                 //MessageBox.Show("File exists.");
-                System.Diagnostics.Process.Start("\"" + output + "\"");
+                Process.Start("\"" + output + "\"");
             }
             else
             {
@@ -1984,13 +1996,13 @@ namespace Axiom
                     textBoxBrowse.Text = selectFile.FileName;
 
                     // Input Directory Path
-                    inputDir = System.IO.Path.GetDirectoryName(textBoxBrowse.Text).TrimEnd('\\') + @"\";
+                    inputDir = Path.GetDirectoryName(textBoxBrowse.Text).TrimEnd('\\') + @"\";
 
                     // Set input file name
-                    inputFileName = System.IO.Path.GetFileNameWithoutExtension(textBoxBrowse.Text);
+                    inputFileName = Path.GetFileNameWithoutExtension(textBoxBrowse.Text);
 
                     // Get input file extension
-                    inputExt = System.IO.Path.GetExtension(textBoxBrowse.Text);
+                    inputExt = Path.GetExtension(textBoxBrowse.Text);
 
 
                     // Add slash to inputDir path if missing
@@ -2031,7 +2043,7 @@ namespace Axiom
                     }
 
                     // Input Directory Path
-                    inputDir = System.IO.Path.GetDirectoryName(textBoxBrowse.Text).TrimEnd('\\') + @"\";
+                    inputDir = Path.GetDirectoryName(textBoxBrowse.Text).TrimEnd('\\') + @"\";
 
                     // Add slash to inputDir path if missing
                     if (!inputDir.EndsWith("\\") && !string.IsNullOrEmpty(inputDir))
@@ -2070,7 +2082,7 @@ namespace Axiom
             }
 
             // Get input file extension
-            inputExt = System.IO.Path.GetExtension(textBoxBrowse.Text);
+            inputExt = Path.GetExtension(textBoxBrowse.Text);
 
             // Set Video & Audio Codec Combobox to "Copy" if Input Extension is Same as Output Extension and Video Quality is Auto
             Video.AutoCopyVideoCodec(this);
@@ -2148,10 +2160,10 @@ namespace Axiom
                     textBoxOutput.Text = saveFile.FileName;
 
                     // Output Path
-                    outputDir = System.IO.Path.GetDirectoryName(textBoxOutput.Text).TrimEnd('\\') + @"\";
+                    outputDir = Path.GetDirectoryName(textBoxOutput.Text).TrimEnd('\\') + @"\";
 
                     // Output Filename (without extension)
-                    outputFileName = System.IO.Path.GetFileNameWithoutExtension(textBoxOutput.Text);
+                    outputFileName = Path.GetFileNameWithoutExtension(textBoxOutput.Text);
 
                     // Add slash to inputDir path if missing
                     if (!outputDir.EndsWith("\\") && !string.IsNullOrEmpty(outputDir))
@@ -2181,7 +2193,7 @@ namespace Axiom
 
 
                     // Output Path
-                    outputDir = System.IO.Path.GetDirectoryName(textBoxOutput.Text).TrimEnd('\\') + @"\";
+                    outputDir = Path.GetDirectoryName(textBoxOutput.Text).TrimEnd('\\') + @"\";
 
                     // Add slash to inputDir path if missing
                     if (!outputDir.EndsWith("\\") && !string.IsNullOrEmpty(outputDir))
@@ -3127,28 +3139,29 @@ namespace Axiom
         /// --------------------------------------------------------------------------------------------------------
         private void btnConvert_Click(object sender, RoutedEventArgs e)
         {
-            //sw.Start(); //start stopwatch
-
-            /// <summary>
-            ///    Keep FFmpeg Window Toggle
-            /// </summary>
+            // -------------------------
+            // Keep FFmpeg Window Toggle
+            // -------------------------
             MainWindow.KeepWindow(this);
 
-
-            /// <summary>
-            ///    Batch Extention Period Check
-            /// </summary>
+            // -------------------------
+            // Batch Extention Period Check
+            // -------------------------
             MainWindow.BatchExtCheck(this);
 
+            // -------------------------
+            // Set FFprobe Path
+            // -------------------------
+            MainWindow.FFprobePath(this);
 
-            /// <summary>
-            ///    Error Halts
-            /// </summary> 
-            MainWindow.ErrorHalts(this); 
+            // -------------------------
+            // Ready Halts
+            // -------------------------
+            MainWindow.ReadyHalts(this); 
 
 
             // Log Console Message /////////
-            if (script == 0 && ready == 1)
+            if (script == false && ready == true)
             {
                 // Log Console Message /////////
                 Log.WriteAction = () =>
@@ -3177,7 +3190,7 @@ namespace Axiom
             // Ready Check
             // If Ready, start conversion process
             // --------------------------------------------------------------------
-            if (ready == 1)
+            if (ready == true)
             {
                 // -------------------------
                 // Background Thread Worker
@@ -3185,50 +3198,40 @@ namespace Axiom
                 BackgroundWorker fileprocess = new BackgroundWorker();
 
                 fileprocess.WorkerSupportsCancellation = true;
-
-                // This allows the worker to report progress during work
                 fileprocess.WorkerReportsProgress = true;
 
-                // What to do in the background thread
-                //
                 fileprocess.DoWork += new DoWorkEventHandler(delegate(object o, DoWorkEventArgs args)
                 {
                     BackgroundWorker b = o as BackgroundWorker;
 
-                    //Dispatcher Allows Cross-Thread Communication
+                    // Cross-Thread Communication
                     this.Dispatcher.Invoke(() =>
                     {
-                        /// <summary>
-                        ///    FFprobe Detect Metadata
-                        /// </summary> 
+                        // -------------------------
+                        // FFprobe Detect Metadata
+                        // -------------------------
                         FFprobe.Metadata(this);
 
-                        // ------------------------------------------------------------------------
+                        // -------------------------
+                        // FFmpeg Generate Arguments (Single)
+                        // -------------------------
+                        //disabled if batch
+                        FFmpeg.FFmpegSingleGenerateArgs(this);
 
-                        /// <summary>
-                        ///    FFmpeg Single File Generate Arguments
-                        /// </summary> 
-                        FFmpeg.FFmpegSingleGenerateArgs(this); //disabled if batch=
+                        // -------------------------
+                        // FFmpeg Generate Arguments (Batch)
+                        // -------------------------
+                        //disabled if single file
+                        FFmpeg.FFmpegBatchGenerateArgs(this);
 
-                        /// <summary>
-                        ///    FFmpeg Single File Convert
-                        /// </summary> 
-                        FFmpeg.FFmpegSingleConvert(this); //disabled if batch
-
-                        // ------------------------------------------------------------------------
-
-                        /// <summary>
-                        ///    FFmpeg Batch Generate Arguments
-                        /// </summary> 
-                        FFmpeg.FFmpegBatchGenerateArgs(this); //disabled if single file
-
-                        /// <summary>
-                        ///    FFmpeg Single File Convert
-                        /// </summary> 
-                        FFmpeg.FFmpegBatchConvert(this); //disabled if single file
+                        // -------------------------
+                        // FFmpeg Convert
+                        // -------------------------
+                        FFmpeg.FFmpegConvert(this);
 
 
                     }); //end dispatcher
+
                 }); //end thread
 
 
@@ -3246,25 +3249,30 @@ namespace Axiom
                     Log.LogActions.Add(Log.WriteAction);
 
 
-                    /// <summary>
-                    ///    Write All Log Actions to Console
-                    /// </summary> 
+                    // -------------------------
+                    // Write All Log Actions to Console
+                    // -------------------------
                     Log.LogWriteAll(this, configurewindow);
 
-
+                    // -------------------------
                     // Close the Background Worker
+                    // -------------------------
                     fileprocess.CancelAsync();
                     fileprocess.Dispose();
 
+                    // -------------------------
                     // Clear Strings for next Run
+                    // -------------------------
                     ClearVariables(this);
                     GC.Collect();
 
                 }); //end worker completed task
 
 
+                // -------------------------
                 // Background Worker Run Async
-                fileprocess.RunWorkerAsync(); //important!
+                // -------------------------
+                fileprocess.RunWorkerAsync(); 
             }
             else
             {
@@ -3288,13 +3296,16 @@ namespace Axiom
                 ///    Restart
                 /// </summary> 
                 /* unlock */
-                ready = 1;
+                ready = true;
 
-
+                // -------------------------
                 // Write Variables to Debug Window (Method)
+                // -------------------------
                 DebugConsole.DebugWrite(debugconsole, this);
 
+                // -------------------------
                 // Clear Variables for next Run
+                // -------------------------
                 ClearVariables(this);
                 GC.Collect();
 

@@ -167,17 +167,11 @@ namespace Axiom
 
                 // Join List with Spaces
                 // Remove: Empty, Null, Standalone LineBreak
-                //
                 Video.pass1Args = string.Join(" ", FFmpegArgsPass1List
                     .Where(s => !string.IsNullOrEmpty(s))
                     .Where(s => !s.Equals("\r\n\r\n"))
                     .Where(s => !s.Equals("\r\n"))
                     );
-
-                // Turn on Two-Pass Switch
-                // Lets Pass 2 know Pass 1 has been run
-                //
-                //Video.v2PassSwitch = 1;
 
 
                 // -------------------------
@@ -185,7 +179,7 @@ namespace Axiom
                 // -------------------------
                 List<string> FFmpegArgsPass2List = new List<string>()
                     {
-                        // Video Strings have already been defined in Pass 1
+                        // Video Methods have already defined Global Strings in Pass 1
                         // Use Strings instead of Methods
                         //
                         "\r\n\r\n" + "&&",
@@ -203,11 +197,10 @@ namespace Axiom
                         "\r\n" + Video.image,
                         "\r\n" + Video.optimize,
                         "\r\n" + Streams.VideoStreamMaps(mainwindow),
+                        "\r\n" + Video.Pass2Modifier(mainwindow), // -pass 2, -x265-params pass=2
 
                         "\r\n\r\n" + Video.SubtitleCodec(mainwindow),
                         "\r\n" + Streams.SubtitleMaps(mainwindow),
-
-                        "\r\n" + Video.Pass2Modifier(mainwindow), // -pass 2, -x265-params pass=2
 
                         "\r\n\r\n" + Audio.AudioCodec(mainwindow),
                         "\r\n" + Audio.AudioQuality(mainwindow),
@@ -228,7 +221,6 @@ namespace Axiom
 
                 // Join List with Spaces
                 // Remove: Empty, Null, Standalone LineBreak
-                //
                 Video.pass2Args = string.Join(" ", FFmpegArgsPass2List
                     .Where(s => !string.IsNullOrEmpty(s))
                     .Where(s => !s.Equals("\r\n\r\n"))
@@ -238,12 +230,6 @@ namespace Axiom
                 // Combine Pass 1 & Pass 2 Args
                 //
                 Video.v2PassArgs = Video.pass1Args + " " + Video.pass2Args;
-
-
-                // Turn Off Two-Pass Switch
-                // All Passes have been run
-                //
-                //Video.v2PassSwitch = 0;
             }
 
 
@@ -305,25 +291,6 @@ namespace Axiom
             return ffmpegArgs;
         }
 
-
-        /// <summary>
-        /// FFmpeg Convert
-        /// </summary>
-        // Start FFmpeg Process
-        public static void FFmpegSingleConvert(MainWindow mainwindow)
-        {
-            // if script not clicked, start ffmpeg
-            if (mainwindow.tglBatch.IsChecked == false && MainWindow.script == 0)
-            {
-                System.Diagnostics.Process.Start(
-                    "CMD.exe", 
-                    FFmpeg.cmdWindow // /c or /k
-                    + "cd " + "\"" + MainWindow.currentDir + "\"" // needed to start cmd
-                    + " && " 
-                    + FFmpeg.ffmpegArgs // start ffmpeg commands
-                    );
-            }
-        }
 
 
         // --------------------------------------------------------------------------------------------------------
@@ -417,16 +384,7 @@ namespace Axiom
         }
 
 
-        /// <summary>
-        /// FFmpeg Batch Convert
-        /// </summary>
-        public static void FFmpegBatchConvert(MainWindow mainwindow)
-        {
-            if (mainwindow.tglBatch.IsChecked == true && MainWindow.script == 0) // check if script button enabled
-            {
-                System.Diagnostics.Process.Start("CMD.exe", FFmpeg.cmdWindow + FFmpeg.ffmpegArgs);
-            }
-        }
+        // --------------------------------------------------------------------------------------------------------
 
 
         /// <summary>
@@ -434,7 +392,7 @@ namespace Axiom
         /// </summary>
         public static void FFmpegScript(MainWindow mainwindow, ScriptView scriptview)
         {
-            if (MainWindow.script == 1)
+            if (MainWindow.script == true)
             {
                 // Detect which screen we're on
                 var allScreens = System.Windows.Forms.Screen.AllScreens.ToList();
@@ -450,6 +408,18 @@ namespace Axiom
 
                 // Open Window
                 scriptview.Show();
+            }
+        }
+
+
+        /// <summary>
+        /// FFmpeg Convert
+        /// </summary>
+        public static void FFmpegConvert(MainWindow mainwindow)
+        {
+            if (MainWindow.script == false)
+            {
+                System.Diagnostics.Process.Start("CMD.exe", FFmpeg.cmdWindow + FFmpeg.ffmpegArgs);
             }
         }
 

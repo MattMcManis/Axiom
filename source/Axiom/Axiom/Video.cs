@@ -1782,7 +1782,7 @@ namespace Axiom
                     // if vBitrate Textbox is default or empty
                     if (mainwindow.vBitrateCustom.Text == "Bitrate" || string.IsNullOrWhiteSpace(mainwindow.vBitrateCustom.Text)) { /*vBitMode = string.Empty;*/ vBitrate = string.Empty; }
                     // if vBitrate is entered by user and is not blank
-                    if (mainwindow.vBitrateCustom.Text != "Bitrate" && !string.IsNullOrWhiteSpace(mainwindow.vBitrateCustom.Text)) { /*vBitMode = "-b:v"; vBitrate = mainwindow.vBitrateCustom.Text;*/ vBitrate = "-b:v" + mainwindow.vBitrateCustom.Text.ToString(); }
+                    if (mainwindow.vBitrateCustom.Text != "Bitrate" && !string.IsNullOrWhiteSpace(mainwindow.vBitrateCustom.Text)) { /*vBitMode = "-b:v"; vBitrate = mainwindow.vBitrateCustom.Text;*/ vBitrate = "-b:v " + mainwindow.vBitrateCustom.Text.ToString(); }
 
                     //CRF
                     // if CRF texbox is default or empty
@@ -2311,7 +2311,7 @@ namespace Axiom
                                 Log.LogActions.Add(Log.WriteAction);
 
                                 /* lock */
-                                MainWindow.ready = 0;
+                                MainWindow.ready = false;
                                 // Warning
                                 System.Windows.MessageBox.Show("Must enter numbers only.");
                             }
@@ -2357,7 +2357,7 @@ namespace Axiom
                                 Log.LogActions.Add(Log.WriteAction);
 
                                 /* lock */
-                                MainWindow.ready = 0;
+                                MainWindow.ready = false;
                                 // Warning
                                 System.Windows.MessageBox.Show("Must enter numbers only.");
                             }
@@ -2403,7 +2403,7 @@ namespace Axiom
                                 Log.LogActions.Add(Log.WriteAction);
 
                                 /* lock */
-                                MainWindow.ready = 0;
+                                MainWindow.ready = false;
                                 // Warning
                                 System.Windows.MessageBox.Show("Must enter numbers only.");
                             }
@@ -2518,7 +2518,10 @@ namespace Axiom
                 };
                 Log.LogActions.Add(Log.WriteAction);
 
-                System.Windows.MessageBox.Show("Crop cannot use Codec Copy. Please select a Video Codec."); /* lock */ MainWindow.ready = 0;
+                /* lock */
+                MainWindow.ready = false;
+                // Warning
+                System.Windows.MessageBox.Show("Crop cannot use Codec Copy. Please select a Video Codec."); 
             }
 
             // -------------------------
@@ -2912,9 +2915,10 @@ namespace Axiom
                 };
                 Log.LogActions.Add(Log.WriteAction);
 
-                System.Windows.MessageBox.Show("No input file or Framerate not detected.");
                 /* lock */
-                MainWindow.ready = 0;
+                MainWindow.ready = false;
+                // Warning
+                System.Windows.MessageBox.Show("No input file or Framerate not detected.");
             }
 
         } // End Frame Rate To Decimal

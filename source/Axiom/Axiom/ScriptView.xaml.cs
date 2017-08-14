@@ -34,7 +34,7 @@ namespace Axiom
     /// </summary>
     public partial class ScriptView : Window
     {
-        public static int sort = 0;
+        public static bool sort = false;
 
         public Paragraph scriptParagraph = new Paragraph(); //RichTextBox
 
@@ -145,7 +145,7 @@ namespace Axiom
             // Sort
             // -------------------------
             // Has Not Been Edited
-            if (ScriptView.sort == 0 && ScriptRichTextBoxCurrent().Replace(Environment.NewLine, "").Replace("\r\n", "") == FFmpeg.ffmpegArgs)
+            if (ScriptView.sort == false && ScriptRichTextBoxCurrent().Replace(Environment.NewLine, "").Replace("\r\n", "") == FFmpeg.ffmpegArgs)
             {
                 // Clear Old Text
                 ClearRichTextBox();
@@ -157,13 +157,27 @@ namespace Axiom
                 rtbScript.EndChange();
 
                 // Sort is Off
-                ScriptView.sort = 1;
+                ScriptView.sort = true;
                 // Change Button Back to Inline
                 buttonSortTextBlock.Text = "Inline";
+
+                // Expand Window
+                if (this.Height <= 350)
+                {
+                    this.Width = 800;
+                    this.Height = 600;
+
+                    double screenWidth = System.Windows.SystemParameters.PrimaryScreenWidth;
+                    double screenHeight = System.Windows.SystemParameters.PrimaryScreenHeight;
+                    double windowWidth = this.Width;
+                    double windowHeight = this.Height;
+                    this.Left = this.Left - 112;
+                    this.Top = this.Top - 125;
+                }
             }
 
             // Has Been Edited
-            else if (ScriptView.sort == 0 && ScriptRichTextBoxCurrent().Replace(Environment.NewLine, "").Replace("\r\n", "") != FFmpeg.ffmpegArgs)
+            else if (ScriptView.sort == false && ScriptRichTextBoxCurrent().Replace(Environment.NewLine, "").Replace("\r\n", "") != FFmpeg.ffmpegArgs)
             {
                 MessageBox.Show("Cannot sort edited text.");
             }
@@ -172,7 +186,7 @@ namespace Axiom
             // -------------------------
             // Inline
             // -------------------------
-            else if (ScriptView.sort == 1)
+            else if (ScriptView.sort == true)
             {
                 // CMD Arguments are from Script TextBox
                 FFmpeg.ffmpegArgs = ScriptRichTextBoxCurrent()
@@ -198,7 +212,7 @@ namespace Axiom
                 rtbScript.EndChange();
 
                 // Sort is On
-                ScriptView.sort = 0;
+                ScriptView.sort = false;
                 // Change Button Back to Sort
                 buttonSortTextBlock.Text = "Sort";
             }

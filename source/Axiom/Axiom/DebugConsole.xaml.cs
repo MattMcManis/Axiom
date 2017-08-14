@@ -98,22 +98,25 @@ namespace Axiom
         /// </summary>
         private void btnDebugTest_Click(object sender, RoutedEventArgs e)
         {
-            /// <summary>
-            ///    Keep FFmpeg Window Toggle
-            /// </summary>
+            // -------------------------
+            // Keep FFmpeg Window Toggle
+            // -------------------------
             MainWindow.KeepWindow(mainwindow);
 
-
-            /// <summary>
-            ///    Batch Extention Period Check
-            /// </summary>
+            // -------------------------
+            // Batch Extention Period Check
+            // -------------------------
             MainWindow.BatchExtCheck(mainwindow);
 
+            // -------------------------
+            // Set FFprobe Path
+            // -------------------------
+            MainWindow.FFprobePath(mainwindow);
 
-            /// <summary>
-            ///    Error Halts
-            /// </summary> 
-            MainWindow.ErrorHalts(mainwindow);
+            // -------------------------
+            // Ready Halts
+            // -------------------------
+            MainWindow.ReadyHalts(mainwindow);
 
 
             // -------------------------
@@ -122,65 +125,62 @@ namespace Axiom
             BackgroundWorker fileprocess = new BackgroundWorker();
 
             fileprocess.WorkerSupportsCancellation = true;
-
-            // This allows the worker to report progress during work
             fileprocess.WorkerReportsProgress = true;
 
-            // What to do in the background thread
             fileprocess.DoWork += new DoWorkEventHandler(delegate (object o, DoWorkEventArgs args)
             {
                 BackgroundWorker b = o as BackgroundWorker;
 
-                //Dispatcher Allows Cross-Thread Communication
+                // Cross-Thread Communication
                 this.Dispatcher.Invoke(() =>
                 {
-                    /// <summary>
-                    ///    FFprobe Detect Metadata
-                    /// </summary> 
+                    // -------------------------
+                    // FFprobe Detect Metadata
+                    // -------------------------
                     FFprobe.Metadata(mainwindow);
 
-                    // ------------------------------------------------------------------------
-
-                    /// <summary>
-                    ///    FFmpeg Single File Generate Arguments
-                    /// </summary> 
+                    // -------------------------
+                    // FFmpeg Single File Generate Arguments
+                    // -------------------------
                     FFmpeg.FFmpegSingleGenerateArgs(mainwindow);
 
-                    // ------------------------------------------------------------------------
-
-                    /// <summary>
-                    ///    FFmpeg Batch Generate Arguments
-                    /// </summary> 
+                    // -------------------------
+                    // FFmpeg Batch Generate Arguments
+                    // -------------------------
                     FFmpeg.FFmpegBatchGenerateArgs(mainwindow);
 
                 }); //end dispatcher
+
             }); //end thread
 
 
             // When background worker completes task
             fileprocess.RunWorkerCompleted += new RunWorkerCompletedEventHandler(delegate (object o, RunWorkerCompletedEventArgs args)
             {
-                /// <summary>
-                ///    Generate Script
-                /// </summary> 
-                //FFmpeg.FFmpegScript(mainwindow, scriptview);
-
-                // Write Variables to Debug Window (Method)
+                // -------------------------
+                // Write Variables to Debug Window
+                // -------------------------
                 DebugWrite(this, mainwindow);
 
+                // -------------------------
                 // Close the Background Worker
+                // -------------------------
                 fileprocess.CancelAsync();
                 fileprocess.Dispose();
 
+                // -------------------------
                 // Clear Variables for next Run
+                // -------------------------
                 MainWindow.ClearVariables(mainwindow);
                 GC.Collect();
 
             }); //end worker completed task
 
 
+            // -------------------------
             // Background Worker Run Async
-            fileprocess.RunWorkerAsync(); //important!
+            // -------------------------
+            fileprocess.RunWorkerAsync();
         }
 
 

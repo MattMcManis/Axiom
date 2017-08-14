@@ -385,16 +385,17 @@ namespace Axiom
                 // Ignore if Batch
                 if (mainwindow.tglBatch.IsChecked == false)
                 {
+                    // -------------------------
                     // Start FFprobe Process
-                    //
+                    // -------------------------
                     using (Process FFprobeParse = new Process())
                     {
                         FFprobeParse.StartInfo.UseShellExecute = false;
                         FFprobeParse.StartInfo.CreateNoWindow = true;
                         FFprobeParse.StartInfo.RedirectStandardOutput = true;
-                        FFprobeParse.StartInfo.FileName = MainWindow.FFprobePath(mainwindow);
+                        FFprobeParse.StartInfo.FileName = FFprobe.ffprobe;
 
-                        if (!string.IsNullOrEmpty(ffprobe)) //FFprobe.exe Null Check
+                        if (!string.IsNullOrEmpty(FFprobe.ffprobe)) //FFprobe.exe Null Check
                         {
                             // -------------------------
                             // Duration
@@ -454,15 +455,22 @@ namespace Axiom
                 // Ignore if Batch
                 if (mainwindow.tglBatch.IsChecked == false)
                 {
+                    // -------------------------
+                    // Set FFprobe Path
+                    // -------------------------
+                    MainWindow.FFprobePath(mainwindow);
+
+                    // -------------------------
                     // Start FFprobe Process
+                    // -------------------------
                     using (Process FFprobeParse = new Process())
                     {
                         FFprobeParse.StartInfo.UseShellExecute = false;
                         FFprobeParse.StartInfo.CreateNoWindow = true;
                         FFprobeParse.StartInfo.RedirectStandardOutput = true;
-                        FFprobeParse.StartInfo.FileName = MainWindow.FFprobePath(mainwindow);
+                        FFprobeParse.StartInfo.FileName = FFprobe.ffprobe;
 
-                        if (!string.IsNullOrEmpty(ffprobe)) //FFprobe.exe Null Check
+                        if (!string.IsNullOrEmpty(FFprobe.ffprobe)) //FFprobe.exe Null Check
                         {
                             // -------------------------
                             // Get All Streams Properties
@@ -496,7 +504,7 @@ namespace Axiom
                     FFprobeParse.StartInfo.RedirectStandardOutput = true;
                     FFprobeParse.StartInfo.FileName = FFprobe.ffprobe;
 
-                    if (!string.IsNullOrEmpty(ffprobe)) //FFprobe.exe Null Check
+                    if (!string.IsNullOrEmpty(FFprobe.ffprobe)) //FFprobe.exe Null Check
                     {
                         // -------------------------
                         // Frame Rate
@@ -531,7 +539,7 @@ namespace Axiom
                             Log.logParagraph.Inlines.Add(new LineBreak());
                             Log.logParagraph.Inlines.Add(new Bold(new Run("Frame Rate")) { Foreground = Log.ConsoleAction });
                             Log.logParagraph.Inlines.Add(new LineBreak());
-                            Log.logParagraph.Inlines.Add(new Run(ffprobe + argsFramerate) { Foreground = Log.ConsoleDefault });
+                            Log.logParagraph.Inlines.Add(new Run(FFprobe.ffprobe + argsFramerate) { Foreground = Log.ConsoleDefault });
                         };
                         Log.LogActions.Add(Log.WriteAction);
 
@@ -569,7 +577,7 @@ namespace Axiom
                             Log.logParagraph.Inlines.Add(new LineBreak());
                             Log.logParagraph.Inlines.Add(new Bold(new Run("File Size")) { Foreground = Log.ConsoleAction });
                             Log.logParagraph.Inlines.Add(new LineBreak());
-                            Log.logParagraph.Inlines.Add(new Run(ffprobe + argsSize) { Foreground = Log.ConsoleDefault });
+                            Log.logParagraph.Inlines.Add(new Run(FFprobe.ffprobe + argsSize) { Foreground = Log.ConsoleDefault });
                         };
                         Log.LogActions.Add(Log.WriteAction);
 
@@ -607,7 +615,7 @@ namespace Axiom
                             Log.logParagraph.Inlines.Add(new LineBreak());
                             Log.logParagraph.Inlines.Add(new Bold(new Run("File Duration")) { Foreground = Log.ConsoleAction });
                             Log.logParagraph.Inlines.Add(new LineBreak());
-                            Log.logParagraph.Inlines.Add(new Run(ffprobe + argsDuration) { Foreground = Log.ConsoleDefault });
+                            Log.logParagraph.Inlines.Add(new Run(FFprobe.ffprobe + argsDuration) { Foreground = Log.ConsoleDefault });
                         };
                         Log.LogActions.Add(Log.WriteAction);
 
@@ -645,7 +653,7 @@ namespace Axiom
                             Log.logParagraph.Inlines.Add(new LineBreak());
                             Log.logParagraph.Inlines.Add(new Bold(new Run("Video Codec")) { Foreground = Log.ConsoleAction });
                             Log.logParagraph.Inlines.Add(new LineBreak());
-                            Log.logParagraph.Inlines.Add(new Run(ffprobe + argsVideoCodec) { Foreground = Log.ConsoleDefault });
+                            Log.logParagraph.Inlines.Add(new Run(FFprobe.ffprobe + argsVideoCodec) { Foreground = Log.ConsoleDefault });
                         };
                         Log.LogActions.Add(Log.WriteAction);
 
@@ -683,7 +691,7 @@ namespace Axiom
                             Log.logParagraph.Inlines.Add(new LineBreak());
                             Log.logParagraph.Inlines.Add(new Bold(new Run("Audio Codec")) { Foreground = Log.ConsoleAction });
                             Log.logParagraph.Inlines.Add(new LineBreak());
-                            Log.logParagraph.Inlines.Add(new Run(ffprobe + argsAudioCodec) { Foreground = Log.ConsoleDefault });
+                            Log.logParagraph.Inlines.Add(new Run(FFprobe.ffprobe + argsAudioCodec) { Foreground = Log.ConsoleDefault });
                         };
                         Log.LogActions.Add(Log.WriteAction);
 
@@ -722,7 +730,7 @@ namespace Axiom
                             Log.logParagraph.Inlines.Add(new LineBreak());
                             Log.logParagraph.Inlines.Add(new Bold(new Run("Video Bitrate")) { Foreground = Log.ConsoleAction });
                             Log.logParagraph.Inlines.Add(new LineBreak());
-                            Log.logParagraph.Inlines.Add(new Run(ffprobe + argsVideoBitrate) { Foreground = Log.ConsoleDefault });
+                            Log.logParagraph.Inlines.Add(new Run(FFprobe.ffprobe + argsVideoBitrate) { Foreground = Log.ConsoleDefault });
                         };
                         Log.LogActions.Add(Log.WriteAction);
 
@@ -760,7 +768,7 @@ namespace Axiom
                             Log.logParagraph.Inlines.Add(new LineBreak());
                             Log.logParagraph.Inlines.Add(new Bold(new Run("Audio Bitrate")) { Foreground = Log.ConsoleAction });
                             Log.logParagraph.Inlines.Add(new LineBreak());
-                            Log.logParagraph.Inlines.Add(new Run(ffprobe + argsAudioBitrate) { Foreground = Log.ConsoleDefault });
+                            Log.logParagraph.Inlines.Add(new Run(FFprobe.ffprobe + argsAudioBitrate) { Foreground = Log.ConsoleDefault });
                         };
                         Log.LogActions.Add(Log.WriteAction);
 

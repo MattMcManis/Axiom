@@ -2271,7 +2271,7 @@ namespace Axiom
                                 Log.LogActions.Add(Log.WriteAction);
 
                                 /* lock */
-                                MainWindow.ready = 0;
+                                MainWindow.ready = false;
                                 // Error
                                 MessageBox.Show("Error: AAC VBR cannot be above 400k.");
                             }

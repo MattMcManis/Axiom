@@ -95,7 +95,7 @@ namespace Axiom
             if (ConfigureWindow.logEnable == true) // Only if Log is Enabled through Configure Checkbox
             {
                 // Start Log /////////
-                if (MainWindow.script == 0) // do not log if Script Button clicked
+                if (MainWindow.script == false) // do not log if Script Button clicked
                 {
                     // Start write output log file
 
@@ -197,7 +197,7 @@ namespace Axiom
                 CreateOutputLog(mainwindow, configurewindow); //write output log to text file
 
                 // set script back to 0 for next convert
-                MainWindow.script = 0;
+                MainWindow.script = false;
 
                 // Close the Background Worker
                 bwlog.CancelAsync();
