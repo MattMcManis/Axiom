@@ -111,7 +111,7 @@
         <TextBox x:Name="crfCustom" HorizontalAlignment="Left" Height="22" Margin="142,128,0,0" Padding="0, 1, 0, 0" TextWrapping="NoWrap" Text="CRF" VerticalAlignment="Top" Width="27" GotFocus="crfCustom_GotFocus" LostFocus="crfCustom_LostFocus" KeyDown="crfCustom_KeyDown" MaxLines="1" MaxLength="2" Style="{DynamicResource TextBoxCustom}" ToolTipService.InitialShowDelay="1000" ToolTipService.ShowOnDisabled="True" ToolTip="Custom Constant Rate Factor value (e.g. 18)"/>
 
         <!-- Encoding Pass -->
-        <Label x:Name="labelPass" Style="{DynamicResource LabelCustom}" Content="Pass" HorizontalAlignment="Left" Margin="89,155,0,0" VerticalAlignment="Top" Width="34" ToolTip="Encoding Pass Method" FontSize="11" FontFamily="Segoe UI Semilight" />
+        <Label x:Name="labelPass" Style="{DynamicResource LabelCustom}" Content="Enc" HorizontalAlignment="Left" Margin="89,155,0,0" VerticalAlignment="Top" Width="27" ToolTip="Encoding Pass Method" FontSize="11" FontFamily="Segoe UI Semilight" />
         <ComboBox x:Name="cboPass" Style="{DynamicResource ComboBoxCustom}" ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" HorizontalAlignment="Left" Margin="117,156,0,0" VerticalAlignment="Top" Width="52" ToolTipService.InitialShowDelay="1000" ToolTipService.ShowOnDisabled="True" ToolTip="Encoding Pass Method" SelectionChanged="cboPass_SelectionChanged" DropDownClosed="cboPass_DropDownClosed" />
 
         <!-- FPS -->

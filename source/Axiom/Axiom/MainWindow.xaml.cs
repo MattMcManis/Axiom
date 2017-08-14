@@ -44,6 +44,15 @@ namespace Axiom
     /// </summary>
     public partial class MainWindow : Window
     {
+        // Axiom Current Version
+        public static Version currentVersion = new Version("1.0.0.3");
+        // Axiom GitHub Latest Version
+        public static Version latestVersion;
+        // Alpha, Beta, Stable
+        public static string currentBuildPhase = "alpha";
+        public static string latestBuildPhase;
+        public static string[] splitVersionBuildPhase;
+
         public string TitleVersion {
             get { return (string)GetValue(TitleProperty); }
             set { SetValue(TitleProperty, value); }
@@ -124,15 +133,6 @@ namespace Axiom
         /// </summary>
         // --------------------------------------------------------------------------------------------------------
 
-        // Axiom Current Version
-        public static Version currentVersion;
-        // Axiom GitHub Latest Version
-        public static Version latestVersion;
-        // Alpha, Beta, Stable
-        public static string currentBuildPhase;
-        public static string latestBuildPhase;
-        public static string[] splitVersionBuildPhase;
-
         // Locks
         public static bool ready = true; // If 1 allow conversion, else stop
         public static bool script = false; // If 0 run ffmpeg, if 1 run generate script
@@ -170,8 +170,6 @@ namespace Axiom
         {
             InitializeComponent();
 
-            currentVersion = new Version("1.0.0.2");
-            currentBuildPhase = "alpha";
             TitleVersion = "Axiom ~ FFmpeg UI (" + Convert.ToString(currentVersion) + "-" + currentBuildPhase + ")";
             DataContext = this;
 
