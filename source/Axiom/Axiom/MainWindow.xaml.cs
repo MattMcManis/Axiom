@@ -280,6 +280,16 @@ namespace Axiom
 
 
             // -------------------------
+            // Window Position
+            // -------------------------
+            // First time use
+            if (Convert.ToDouble(Settings.Default["Left"]) == 0 || Convert.ToDouble(Settings.Default["Top"]) == 0)
+            {
+                this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            }
+            
+
+            // -------------------------
             // Load Theme
             // -------------------------
             ConfigureWindow.ConfigTheme(configurewindow);
@@ -983,7 +993,7 @@ namespace Axiom
             {
                 threads = string.Empty;
             }
-            else if (ConfigureWindow.threads == "all" || string.IsNullOrEmpty(ConfigureWindow.threads) /* || ConfigureWindow.threads == null */)
+            else if (ConfigureWindow.threads == "all" || string.IsNullOrEmpty(ConfigureWindow.threads))
             {
                 threads = "-threads " + maxthreads;
             }
@@ -1920,7 +1930,6 @@ namespace Axiom
         {
             if (File.Exists(@output))
             {
-                //MessageBox.Show("File exists.");
                 Process.Start("\"" + output + "\"");
             }
             else
@@ -1956,13 +1965,11 @@ namespace Axiom
                     // Display path and file in Output Textbox
                     textBoxBrowse.Text = selectFile.FileName;
 
-                    // Input Directory Path
+                    // Set Input Dir, Name, Ext
                     inputDir = Path.GetDirectoryName(textBoxBrowse.Text).TrimEnd('\\') + @"\";
 
-                    // Set input file name
                     inputFileName = Path.GetFileNameWithoutExtension(textBoxBrowse.Text);
 
-                    // Get input file extension
                     inputExt = Path.GetExtension(textBoxBrowse.Text);
 
 
@@ -2521,19 +2528,18 @@ namespace Axiom
             Audio.AudioCodecControls(this);
 
             // File Renamer
-            if (string.Equals(inputExt, outputExt, StringComparison.CurrentCultureIgnoreCase))
-            {
-                FileRenamer();
-            }
+            FileRenamer();
             
 
             // Always Default Video to Auto if Input Ext matches Format Output Ext
-            if ((string)cboVideo.SelectedItem != "Auto" && string.Equals(inputExt, outputExt, StringComparison.CurrentCultureIgnoreCase))
+            if ((string)cboVideo.SelectedItem != "Auto" 
+                && string.Equals(inputExt, outputExt, StringComparison.CurrentCultureIgnoreCase))
             {
                 cboVideo.SelectedItem = "Auto";
             }
             // Always Default Video to Auto if Input Ext matches Format Output Ext
-            if ((string)cboAudio.SelectedItem != "Auto" && string.Equals(inputExt, outputExt, StringComparison.CurrentCultureIgnoreCase))
+            if ((string)cboAudio.SelectedItem != "Auto" 
+                && string.Equals(inputExt, outputExt, StringComparison.CurrentCultureIgnoreCase))
             {
                 cboAudio.SelectedItem = "Auto";
             }

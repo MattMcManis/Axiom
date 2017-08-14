@@ -38,6 +38,8 @@ namespace Axiom
     /// </summary>
     public partial class ConfigureWindow : Window
     {
+        private MainWindow mainwindow;
+
         // --------------------------------------------------------------------------------------------------------
         // Variables
         // --------------------------------------------------------------------------------------------------------
@@ -54,6 +56,8 @@ namespace Axiom
         public ConfigureWindow(MainWindow mainwindow) // Pass Constructor from MainWindow
         {
             InitializeComponent();
+
+            this.mainwindow = mainwindow;
 
             // Set Min/Max Width/Height to prevent Tablets maximizing
             this.MinWidth = 450;
@@ -904,8 +908,18 @@ namespace Axiom
             cboThreads.SelectedItem = "all";
             threads = string.Empty;
 
+            // Save Current Window Location
+            // Prevents MainWindow from moving to Top 0 Left 0 while running
+            double left = mainwindow.Left;
+            double top = mainwindow.Top;
+
+            // Reset AppData Settings
             Settings.Default.Reset();
             Settings.Default.Reload();
+
+            // Set Window Location
+            mainwindow.Left = left;
+            mainwindow.Top = top;
         }
 
 

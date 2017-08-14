@@ -1526,16 +1526,21 @@
         Button Folder Custom
         /////////////////////////////////////-->
     <SolidColorBrush x:Key="Button.FolderCustom.Static.Background" Color="Transparent"/>
-    <SolidColorBrush x:Key="Button.FolderCustom.MouseOver.Background" Color="#FF000000"/>
     <SolidColorBrush x:Key="Button.FolderCustom.Static.Border" Color="Transparent"/>
+    <SolidColorBrush x:Key="Button.FolderCustom.MouseOver.Background" Color="#FF000000"/>
     <SolidColorBrush x:Key="Button.FolderCustom.MouseOver.Border" Color="Transparent"/>
+    <SolidColorBrush x:Key="Button.FolderCustom.Pressed.Background" Color="#FF222222"/>
+    <SolidColorBrush x:Key="Button.FolderCustom.Pressed.Border" Color="Transparent"/>
+    <SolidColorBrush x:Key="Button.FolderCustom.Disabled.Background" Color="Transparent"/>
+    <SolidColorBrush x:Key="Button.FolderCustom.Disabled.Border" Color="Transparent"/>
+    <SolidColorBrush x:Key="Button.FolderCustom.Disabled.Foreground" Color="DarkGray"/>
 
     <Style x:Key="ButtonFolderCustom" TargetType="{x:Type Button}">
         <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
         <Setter Property="Background" Value="{StaticResource Button.FolderCustom.Static.Background}"/>
         <Setter Property="BorderBrush" Value="{StaticResource Button.FolderCustom.Static.Border}"/>
         <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
-        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="Padding" Value="1"/>
@@ -1554,13 +1559,14 @@
                             <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.FolderCustom.MouseOver.Border}"/>
                         </Trigger>
                         <Trigger Property="IsPressed" Value="true">
-                            <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Small.Pressed.Background}"/>
-                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Small.Pressed.Border}"/>
+                            <Setter Property="Background" TargetName="border" Value="{StaticResource Button.FolderCustom.Pressed.Background}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.FolderCustom.Pressed.Border}"/>
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
-                            <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Small.Disabled.Background}"/>
-                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Small.Disabled.Border}"/>
-                            <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Small.Disabled.Foreground}"/>
+                            <Setter Property="Opacity" Value="0.8" />
+                            <Setter Property="Background" TargetName="border" Value="{StaticResource Button.FolderCustom.Disabled.Background}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.FolderCustom.Disabled.Border}"/>
+                            <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.FolderCustom.Disabled.Foreground}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
