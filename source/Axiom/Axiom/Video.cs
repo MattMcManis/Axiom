@@ -179,6 +179,7 @@ namespace Axiom
             else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265") { vBitMode = "-b:v"; }
             else if ((string)mainwindow.cboVideoCodec.SelectedItem == "Theora") { vBitMode = "-q:v"; }
             else if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG") { vBitMode = "-q:v"; }
+            else if ((string)mainwindow.cboVideoCodec.SelectedItem == "PNG") { vBitMode = string.Empty; }
             else if ((string)mainwindow.cboVideoCodec.SelectedItem == "Copy") { vBitMode = string.Empty; }
         }
 
@@ -556,6 +557,8 @@ namespace Axiom
                 {
                     // VP8 cannot be Lossless
 
+                    // Theora cannot be Lossless
+
                     // VP9
                     if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9")
                     {
@@ -577,7 +580,17 @@ namespace Axiom
                         vBitrate = "-qp 0 -x265-params lossless"; /* for 2 pass */
                         vOptions = "-pix_fmt yuv444p";
                     }
-                    // Theora can't be Lossless
+                    // PNG
+                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "PNG")
+                    {
+                        // png is lossless
+                        crf = string.Empty;
+                        vBitMode = string.Empty;
+                        vBitrate = string.Empty;
+                        vMaxrate = string.Empty;
+                        vBufsize = string.Empty;
+                        vOptions = string.Empty;
+                    }
                 }
 
                 // -------------------------
@@ -1669,7 +1682,6 @@ namespace Axiom
                 else if ((string)mainwindow.cboSpeed.SelectedItem == "Very Fast") { speed = "-speed 4"; }
                 else if ((string)mainwindow.cboSpeed.SelectedItem == "Super Fast") { speed = "-speed 5"; }
                 else if ((string)mainwindow.cboSpeed.SelectedItem == "Ultra Fast") { speed = "-speed 6"; }
-
             }
 
             // -------------------------
@@ -1821,57 +1833,58 @@ namespace Axiom
             // -------------------------
             // Advanced (x264 & x265)
             // -------------------------
-            if ((string)mainwindow.cboOptimize.SelectedItem == "Advanced" 
-                && (string)mainwindow.cboVideoCodec.SelectedItem == "x264" 
-                || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
+            if ((string)mainwindow.cboOptimize.SelectedItem == "Advanced" )
             {
-                // Tune
-                //
-                if (OptimizeAdvancedWindow.optAdvTune == "none" || string.IsNullOrEmpty(OptimizeAdvancedWindow.optAdvTune))
+                if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264" || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
                 {
-                    optTune = string.Empty;
-                }
-                else
-                {
-                    // Tune = Set Tmp Setting from Optimized Advanced Window
-                    optTune = "-tune " + OptimizeAdvancedWindow.optAdvTune;
-                }
+                    // Tune
+                    //
+                    if (OptimizeAdvancedWindow.optAdvTune == "none" || string.IsNullOrEmpty(OptimizeAdvancedWindow.optAdvTune))
+                    {
+                        optTune = string.Empty;
+                    }
+                    else
+                    {
+                        // Tune = Set Tmp Setting from Optimized Advanced Window
+                        optTune = "-tune " + OptimizeAdvancedWindow.optAdvTune;
+                    }
 
 
-                // Profile
-                //
-                if (OptimizeAdvancedWindow.optAdvProfile == "none" || string.IsNullOrEmpty(OptimizeAdvancedWindow.optAdvProfile))
-                {
-                    optProfile = string.Empty;
-                }
-                else
-                {
-                    // Tune = Set Tmp Setting from Optimized Advanced Window
-                    optProfile = "-profile:v " + OptimizeAdvancedWindow.optAdvProfile;
-                }
+                    // Profile
+                    //
+                    if (OptimizeAdvancedWindow.optAdvProfile == "none" || string.IsNullOrEmpty(OptimizeAdvancedWindow.optAdvProfile))
+                    {
+                        optProfile = string.Empty;
+                    }
+                    else
+                    {
+                        // Tune = Set Tmp Setting from Optimized Advanced Window
+                        optProfile = "-profile:v " + OptimizeAdvancedWindow.optAdvProfile;
+                    }
 
-                // Level
-                //
-                if (OptimizeAdvancedWindow.optAdvLevel == "none" || string.IsNullOrEmpty(OptimizeAdvancedWindow.optAdvLevel))
-                {
-                    optLevel = string.Empty;
+                    // Level
+                    //
+                    if (OptimizeAdvancedWindow.optAdvLevel == "none" || string.IsNullOrEmpty(OptimizeAdvancedWindow.optAdvLevel))
+                    {
+                        optLevel = string.Empty;
+                    }
+                    else
+                    {
+                        // Tune = Set Tmp Setting from Optimized Advanced Window
+                        optLevel = "-level " + OptimizeAdvancedWindow.optAdvLevel;
+                    }
+
+
+                    // Combine Optimize = Tune + Profile + Level
+                    //
+                    List<string> v2passList = new List<string>() {
+                        optProfile,
+                        optLevel,
+                        optTune
+                    };
+
+                    optimize = string.Join(" ", v2passList.Where(s => !string.IsNullOrEmpty(s)));
                 }
-                else
-                {
-                    // Tune = Set Tmp Setting from Optimized Advanced Window
-                    optLevel = "-level " + OptimizeAdvancedWindow.optAdvLevel;
-                }
-
-
-                // Combine Optimize = Tune + Profile + Level
-                //
-                List<string> v2passList = new List<string>() {
-                    optProfile,
-                    optLevel,
-                    optTune
-                };
-
-                optimize = string.Join(" ", v2passList.Where(s => !string.IsNullOrEmpty(s)));
             }
 
             // Return Value
@@ -2096,7 +2109,6 @@ namespace Axiom
             // Return Value
             return sCodec;
         }
-
 
     }
 }

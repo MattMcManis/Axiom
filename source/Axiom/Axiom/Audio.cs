@@ -284,13 +284,120 @@ namespace Axiom
                     }
 
                     // add k to value
-                    FFprobe.inputAudioBitrate = Convert.ToString(double.Parse(FFprobe.inputAudioBitrate)) + "k";
+                    //FFprobe.inputAudioBitrate = Convert.ToString(double.Parse(FFprobe.inputAudioBitrate)) + "k";
+                    FFprobe.inputAudioBitrate = Convert.ToString(FFprobe.inputAudioBitrate);
                 }
             }
             catch
             {
                 MessageBox.Show("Error calculating Audio Bitrate.");
             }
+        }
+
+
+        /// <summary>
+        /// Audio VBR Calculator (Method)
+        /// <summary>
+        public static String AudioVBRCalculator(MainWindow mainwindow, string inputBitrate)
+        {
+            // -------------------------
+            // VBR 
+            // User entered value
+            // -------------------------
+            if (mainwindow.tglVBR.IsChecked == true && (string)mainwindow.cboAudioCodec.SelectedItem != "Opus") // exclude opus
+            {
+                // Used to Calculate VBR Double
+                //
+                double aBitrateVBR = double.Parse(inputBitrate); // passed parameter
+
+
+                // -------------------------
+                // AAC (M4A, MP4, MKV) USER CUSTOM VBR
+                // -------------------------
+                if ((string)mainwindow.cboAudioCodec.SelectedItem == "AAC")
+                {
+                    // Calculate VBR
+                    aBitrateVBR = aBitrateVBR * 0.00625;
+
+
+                    // AAC VBR Above 320k Error (look into this)
+                    if (aBitrateVBR > 400)
+                    {
+                        // Log Console Message /////////
+                        Log.WriteAction = () =>
+                        {
+                            Log.logParagraph.Inlines.Add(new LineBreak());
+                            Log.logParagraph.Inlines.Add(new LineBreak());
+                            Log.logParagraph.Inlines.Add(new Bold(new Run("Warning: AAC VBR cannot be above 400k."))
+                            { Foreground = Log.ConsoleWarning });
+                        };
+                        Log.LogActions.Add(Log.WriteAction);
+
+                        /* lock */
+                        MainWindow.ready = false;
+                        // Error
+                        MessageBox.Show("Error: AAC VBR cannot be above 400k.");
+                    }
+                }
+
+
+                // -------------------------
+                // VORBIS (WEBM, OGG) USER CUSTOM VBR
+                // -------------------------
+                else if ((string)mainwindow.cboAudioCodec.SelectedItem == "Vorbis")
+                {
+                    // Above 290k set to 10 Quality
+                    if (aBitrateVBR > 290)
+                    {
+                        aBitrateVBR = 10;
+                    }
+                    // 32 bracket
+                    else if (aBitrateVBR >= 128) //above 113kbps, use standard equation
+                    {
+                        aBitrateVBR = aBitrateVBR * 0.03125;
+                    }
+                    // 16 bracket
+                    else if (aBitrateVBR <= 127) //112kbps needs work, half decimal off
+                    {
+                        aBitrateVBR = (aBitrateVBR * 0.03125) - 0.5;
+                    }
+                    else if (aBitrateVBR <= 96)
+                    {
+                        aBitrateVBR = (aBitrateVBR * 0.013125) - 0.25;
+                    }
+                    // 8 bracket
+                    else if (aBitrateVBR <= 64)
+                    {
+                        aBitrateVBR = 0;
+                    }
+                }
+
+                // -------------------------
+                // LAME (MP3) USER CUSTOM VBR
+                // -------------------------
+                else if ((string)mainwindow.cboAudioCodec.SelectedItem == "LAME")
+                {
+                    // Above 245k set to V0
+                    if (aBitrateVBR > 260)
+                    {
+                        aBitrateVBR = 0;
+                    }
+                    else
+                    {
+                        // VBR User entered value algorithm (0 high / 10 low)
+                        aBitrateVBR = (((aBitrateVBR * (-0.01)) / 2.60) + 1) * 10;
+                    }
+                }
+
+
+                // -------------------------
+                // Convert to String for aQuality Combine
+                // -------------------------
+                aBitrate = Convert.ToString(aBitrateVBR);
+
+            } //end VBR
+
+            return aBitrate;
         }
 
 
@@ -420,16 +527,43 @@ namespace Axiom
                     if (mainwindow.tglBatch.IsChecked == false)
                     {
                         // Input Has Audio
+                        //
                         if (!string.IsNullOrEmpty(FFprobe.inputAudioBitrate))
                         {
-                            // Input Audio exists and Bitrate was detected
+                            // Input Bitrate was detected
                             if (FFprobe.inputAudioBitrate != "N/A")
                             {
-                                aBitMode = "-b:a";
-                                aBitrate = FFprobe.inputAudioBitrate;
+                                //CBR
+                                if (mainwindow.tglVBR.IsChecked == false)
+                                {
+                                    aBitMode = "-b:a";
+                                    aBitrate = FFprobe.inputAudioBitrate;
+
+                                    // add k to value
+                                    aBitrate = aBitrate + "k";
+                                }
+
+                                // VBR
+                                else if (mainwindow.tglVBR.IsChecked == true)
+                                {
+                                    //aBitMode = "-q:a";
+                                    aBitrate = AudioVBRCalculator(mainwindow, FFprobe.inputAudioBitrate);
+
+                                    //vbr does not have k
+
+
+                                    // Opus special rules
+                                    if ((string)mainwindow.cboAudioCodec.SelectedItem == "Opus")
+                                    {
+                                        // special rule for opus -b:a -vbr on
+                                        // opus vbr cannot be above 256k
+                                        aBitrate = "256k"; 
+                                    }
+                                }
                             }
 
                             // Input Does Not Have Audio Codec
+                            //
                             if (!string.IsNullOrEmpty(FFprobe.inputAudioCodec))
                             {
                                 // Default to a new bitrate if Input & Output formats Do Not match
@@ -444,6 +578,7 @@ namespace Axiom
                         }
 
                         // Input No Audio
+                        //
                         else if (string.IsNullOrEmpty(FFprobe.inputAudioBitrate))
                         {
                             aBitMode = string.Empty;
@@ -463,76 +598,6 @@ namespace Axiom
                             aBitrate = "%A";
                         }
                     }
-
-                    //// Log Console Message /////////
-                    //Log.WriteAction = () =>
-                    //{
-                    //    Log.logParagraph.Inlines.Add(new LineBreak());
-                    //    Log.logParagraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
-                    //    Log.logParagraph.Inlines.Add(new Run(aBitrate) { Foreground = Log.ConsoleDefault });
-                    //};
-                    //Log.LogActions.Add(Log.WriteAction);
-
-                    // Input File has No audio
-                    //if (string.IsNullOrEmpty(FFprobe.inputAudioBitrate) && mainwindow.tglBatch.IsChecked == false)
-                    //{
-                    //    aCodec = string.Empty;
-                    //    aBitMode = string.Empty;
-
-                    //    Log.WriteAction = () =>
-                    //    {
-                    //        Log.logParagraph.Inlines.Add(new LineBreak());
-                    //        Log.logParagraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
-                    //        Log.logParagraph.Inlines.Add(new Run("") { Foreground = Log.ConsoleDefault });
-                    //    };
-                    //    Log.LogActions.Add(Log.WriteAction);
-                    //}
-
-                    // Input File audio exists and bitrate was detected
-                    //if (FFprobe.inputAudioBitrate != "N/A" && !string.IsNullOrEmpty(FFprobe.inputAudioBitrate))
-                    //{
-                    //    aBitMode = "-b:a";
-                    //    aBitrate = FFprobe.inputAudioBitrate;
-
-                    //    Log.WriteAction = () =>
-                    //    {
-                    //        Log.logParagraph.Inlines.Add(new LineBreak());
-                    //        Log.logParagraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
-                    //        Log.logParagraph.Inlines.Add(new Run(FFprobe.inputAudioBitrate) { Foreground = Log.ConsoleDefault });
-                    //    };
-                    //    Log.LogActions.Add(Log.WriteAction);
-                    //}
-
-                    // The following fixes the problem of FFprobe not being able to detect existing Audio Bitrate in an MKV
-                    // Set new Bitrate Default if Input File Audio exists but FFprobe cant detect Bitrate
-                    //if (!string.IsNullOrEmpty(FFprobe.inputAudioCodec)) // this prevents substring overload
-                    //{
-                    //    // Default to a new bitrate if Input & Output formats DONT match
-                    //    if (FFprobe.inputAudioBitrate == "N/A" && !string.Equals(MainWindow.inputExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase))
-                    //    {
-                    //        // output codec is specified by the format selected
-                    //        aBitMode = "-b:a";
-                    //        aBitrate = "320k";
-
-                    //        Log.WriteAction = () =>
-                    //        {
-                    //            Log.logParagraph.Inlines.Add(new LineBreak());
-                    //            Log.logParagraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
-                    //            Log.logParagraph.Inlines.Add(new Run("320k") { Foreground = Log.ConsoleDefault });
-                    //        };
-                    //        Log.LogActions.Add(Log.WriteAction);
-                    //    }
-                    //}
-
-
-                    // If Batch, use the CMD Batch Audio Variable
-                    //if (mainwindow.tglBatch.IsChecked == true
-                    //    && (string)mainwindow.cboAudio.SelectedItem == "Auto"
-                    //    && (string)mainwindow.cboAudioCodec.SelectedItem != "Copy")
-                    //{
-                    //    aBitMode = "-b:a";
-                    //    aBitrate = "%A";
-                    //}
                 }
 
                 // -------------------------
@@ -592,7 +657,9 @@ namespace Axiom
                         // Opus value > low 0-10 high
                         if ((string)mainwindow.cboAudioCodec.SelectedItem == "Opus")
                         {
-                            aBitrate = "510k"; //special rule for opus -b:a -vbr on
+                            //special rule for opus -b:a -vbr on
+                            // opus vbr cannot be above 256k
+                            aBitrate = "256k"; 
                         }
                     }
                     // CBR default                                                                                                               
@@ -931,106 +998,17 @@ namespace Axiom
                         // CBR 
                         // User entered value
                         // -------------------------
-                        aBitrate = mainwindow.audioCustom.Text + "k";
+                        if (mainwindow.tglVBR.IsChecked == false)
+                        {
+                            aBitrate = mainwindow.audioCustom.Text + "k";
+                        }
 
 
                         // -------------------------
                         // VBR 
                         // User entered value
                         // -------------------------
-                        if (mainwindow.tglVBR.IsChecked == true
-                            && (string)mainwindow.cboAudioCodec.SelectedItem != "Opus") // exclude opus
-                        {
-                            // Used to Calculate VBR Double
-                            double aBitrateVBR = double.Parse(mainwindow.audioCustom.Text);
-
-
-                            // -------------------------
-                            // AAC (M4A, MP4, MKV) USER CUSTOM VBR
-                            // -------------------------
-                            if ((string)mainwindow.cboAudioCodec.SelectedItem == "AAC")
-                            {
-                                // Calculate VBR
-                                aBitrateVBR = aBitrateVBR * 0.00625;
-
-
-                                // AAC VBR Above 320k Error (look into this)
-                                if (aBitrateVBR > 400)
-                                {
-                                    // Log Console Message /////////
-                                    Log.WriteAction = () =>
-                                    {
-                                        Log.logParagraph.Inlines.Add(new LineBreak());
-                                        Log.logParagraph.Inlines.Add(new LineBreak());
-                                        Log.logParagraph.Inlines.Add(new Bold(new Run("Warning: AAC VBR cannot be above 400k."))
-                                        { Foreground = Log.ConsoleWarning });
-                                    };
-                                    Log.LogActions.Add(Log.WriteAction);
-
-                                    /* lock */
-                                    MainWindow.ready = false;
-                                    // Error
-                                    MessageBox.Show("Error: AAC VBR cannot be above 400k.");
-                                }
-                            }
-
-
-                            // -------------------------
-                            // VORBIS (WEBM, OGG) USER CUSTOM VBR
-                            // -------------------------
-                            else if ((string)mainwindow.cboAudioCodec.SelectedItem == "Vorbis")
-                            {
-                                // Above 290k set to 10 Quality
-                                if (aBitrateVBR > 290)
-                                {
-                                    aBitrateVBR = 10;
-                                }
-                                // 32 bracket
-                                else if (aBitrateVBR >= 128) //above 113kbps, use standard equation
-                                {
-                                    aBitrateVBR = aBitrateVBR * 0.03125;
-                                }
-                                // 16 bracket
-                                else if (aBitrateVBR <= 127) //112kbps needs work, half decimal off
-                                {
-                                    aBitrateVBR = (aBitrateVBR * 0.03125) - 0.5;
-                                }
-                                else if (aBitrateVBR <= 96)
-                                {
-                                    aBitrateVBR = (aBitrateVBR * 0.013125) - 0.25;
-                                }
-                                // 8 bracket
-                                else if (aBitrateVBR <= 64)
-                                {
-                                    aBitrateVBR = 0;
-                                }
-                            }
-
-
-                            // -------------------------
-                            // LAME (MP3) USER CUSTOM VBR
-                            // -------------------------
-                            else if ((string)mainwindow.cboAudioCodec.SelectedItem == "LAME")
-                            {
-                                // Above 245k set to V0
-                                if (aBitrateVBR > 260)
-                                {
-                                    aBitrateVBR = 0;
-                                }
-                                else
-                                {
-                                    // VBR User entered value algorithm (0 high / 10 low)
-                                    aBitrateVBR = (((aBitrateVBR * (-0.01)) / 2.60) + 1) * 10;
-                                }
-                            }
-
-
-                            // -------------------------
-                            // Convert to String for aQuality Combine
-                            // -------------------------
-                            aBitrate = Convert.ToString(aBitrateVBR);
-
-                        } //end VBR
+                        aBitrate = AudioVBRCalculator(mainwindow, mainwindow.audioCustom.Text);
                     }
 
                     // Custom Empty
@@ -1048,7 +1026,6 @@ namespace Axiom
                 {
                     aBitMode = string.Empty;
                     aBitrate = string.Empty;
-                    //Streams.aMap = "-an";
                 }
 
                 // -------------------------
