@@ -239,8 +239,8 @@ namespace Axiom
             debugParagraph.Inlines.Add(new Run(MainWindow.maxthreads) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
-            debugParagraph.Inlines.Add(new Bold(new Run("currentDir ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(MainWindow.currentDir) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Bold(new Run("appDir ")) { Foreground = Variable });
+            debugParagraph.Inlines.Add(new Run(MainWindow.appDir) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new LineBreak());
@@ -414,7 +414,7 @@ namespace Axiom
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("passUserSelected ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(Video.passUserSelected.ToString()) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(VideoControls.passUserSelected.ToString()) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("pass1 ")) { Foreground = Variable });
@@ -543,7 +543,7 @@ namespace Axiom
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("volume ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(Audio.volume) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Audio.aVolume) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("aLimiter ")) { Foreground = Variable });

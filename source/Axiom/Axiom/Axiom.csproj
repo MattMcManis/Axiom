@@ -40,6 +40,7 @@
     <WarningLevel>4</WarningLevel>
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <DocumentationFile>bin\Debug\Axiom.XML</DocumentationFile>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -93,6 +94,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Audio.cs" />
+    <Compile Include="AudioControls.cs" />
     <Compile Include="ConfigureWindow.xaml.cs">
       <DependentUpon>ConfigureWindow.xaml</DependentUpon>
     </Compile>
@@ -111,6 +113,7 @@
       <DependentUpon>FileQueue.xaml</DependentUpon>
     </Compile>
     <Compile Include="Format.cs" />
+    <Compile Include="FormatControls.cs" />
     <Compile Include="InfoWindow.xaml.cs">
       <DependentUpon>InfoWindow.xaml</DependentUpon>
     </Compile>
@@ -135,6 +138,7 @@
       <DependentUpon>UpdateWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Video.cs" />
+    <Compile Include="VideoControls.cs" />
     <Page Include="ConfigureWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

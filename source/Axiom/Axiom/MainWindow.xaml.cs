@@ -45,7 +45,7 @@ namespace Axiom
     public partial class MainWindow : Window
     {
         // Axiom Current Version
-        public static Version currentVersion = new Version("1.0.0.3");
+        public static Version currentVersion;
         // Axiom GitHub Latest Version
         public static Version latestVersion;
         // Alpha, Beta, Stable
@@ -57,18 +57,6 @@ namespace Axiom
             get { return (string)GetValue(TitleProperty); }
             set { SetValue(TitleProperty, value); }
         }
-
-        // --------------------------------------------------------------------------------------------------------
-        /// <summary>
-        ///     Dispatcher
-        /// </summary>
-        /// <remarks>
-        ///     Used for Volume Up Down buttons. Integer += 1 for each tick of the timer.
-        ///     Timer Tick in MainWindow Initialize
-        /// </remarks>
-        // --------------------------------------------------------------------------------------------------------
-        public DispatcherTimer dispatcherTimerUp = new DispatcherTimer(DispatcherPriority.Render);
-        public DispatcherTimer dispatcherTimerDown = new DispatcherTimer(DispatcherPriority.Render);
 
 
         // --------------------------------------------------------------------------------------------------------
@@ -127,6 +115,7 @@ namespace Axiom
         /// </summary>
         public static UpdateWindow updatewindow; //pass data
 
+
         // --------------------------------------------------------------------------------------------------------
         /// <summary>
         ///     Variables
@@ -139,9 +128,9 @@ namespace Axiom
         public static bool ffCheckCleared = false; // If 1, FFcheck no longer has to run for each convert
 
         // System
+        public static string appDir = AppDomain.CurrentDomain.BaseDirectory.TrimEnd('\\') + @"\"; // Axiom.exe directory
         public static string threads; // CPU Threads
         public static string maxthreads; // All CPU Threads
-        public static string currentDir = Directory.GetCurrentDirectory().TrimEnd('\\') + @"\";
 
         // Input
         public static string inputDir; // Input File Directory
@@ -163,6 +152,19 @@ namespace Axiom
 
         // --------------------------------------------------------------------------------------------------------
         /// <summary>
+        ///     Volume Up Down
+        /// </summary>
+        /// <remarks>
+        ///     Used for Volume Up Down buttons. Integer += 1 for each tick of the timer.
+        ///     Timer Tick in MainWindow Initialize
+        /// </remarks>
+        // --------------------------------------------------------------------------------------------------------
+        public DispatcherTimer dispatcherTimerUp = new DispatcherTimer(DispatcherPriority.Render);
+        public DispatcherTimer dispatcherTimerDown = new DispatcherTimer(DispatcherPriority.Render);
+
+
+        // --------------------------------------------------------------------------------------------------------
+        /// <summary>
         ///     Main Window Initialize
         /// </summary>
         // --------------------------------------------------------------------------------------------------------
@@ -170,20 +172,47 @@ namespace Axiom
         {
             InitializeComponent();
 
+            // -------------------------
+            // Set Current Version to Assembly Version
+            // -------------------------
+            System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
+            FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
+            string assemblyVersion = fvi.FileVersion;
+            currentVersion = new Version(assemblyVersion);
+
+            // -------------------------
+            // Title + Version
+            // -------------------------
             TitleVersion = "Axiom ~ FFmpeg UI (" + Convert.ToString(currentVersion) + "-" + currentBuildPhase + ")";
             DataContext = this;
 
-            /// <summary>
-            /// Start the Log Console (Hidden)
-            /// </summary>
-            // Start
-            StartLogConsole();
 
+            // -----------------------------------------------------------------
+            /// <summary>
+            ///     Window & Components
+            /// </summary>
+            // -----------------------------------------------------------------
+            // Set Min/Max Width/Height to prevent Tablets maximizing
+            this.MinWidth = 615;
+            this.MinHeight = 305;
+            this.MaxWidth = 615;
+            this.MaxHeight = 305;
+
+
+            // -----------------------------------------------------------------
             /// <summary>
             /// Start the File Queue (Hidden)
             /// </summary>
             // disabled
             //StartFileQueue(); 
+            // -----------------------------------------------------------------
+
+
+            // -----------------------------------------------------------------
+            /// <summary>
+            /// Start the Log Console (Hidden)
+            /// </summary>
+            StartLogConsole();
 
 
             // Log Console Message /////////
@@ -200,23 +229,12 @@ namespace Axiom
 
 
             // -----------------------------------------------------------------
-            /// <summary>
-            ///     Window & Components
-            /// </summary>
-            // -----------------------------------------------------------------
-            // Set Min/Max Width/Height to prevent Tablets maximizing
-            this.MinWidth = 615;
-            this.MinHeight = 305;
-            this.MaxWidth = 615;
-            this.MaxHeight = 305;
-
-
-            /// <summary>
-            ///     ComboBox Defaults
-            /// </summary>
-            // Item Sources
-            cboFormat.ItemsSource = Format.FormatItemSource;
-            cboMediaType.ItemsSource = Format.MediaTypeItemSource;
+            // -------------------------
+            // Control Defaults
+            // -------------------------
+            // ComboBox Item Sources
+            cboFormat.ItemsSource = FormatControls.FormatItemSource;
+            cboMediaType.ItemsSource = FormatControls.MediaTypeItemSource;
 
             cboFormat.SelectedIndex = 0;
             cboFPS.SelectedIndex = 0;
@@ -224,24 +242,24 @@ namespace Axiom
             cboSize.SelectedIndex = 0;
             cboPreset.SelectedIndex = 0;
 
-
-            /// <summary>
-            ///     Startup Preset
-            /// </summary>
-            // Default Format is WebM
-            if ((string)cboFormat.SelectedItem == "webm")
-            {
-                cboSubtitle.SelectedItem = "none";
-                cboAudioStream.SelectedItem = "1";
-                //cboOptimize.SelectedItem = "Web";
-            }
-
             // Batch Extension Box Disabled
             batchExtensionTextBox.IsEnabled = false;
 
             // Open Input/Output Location Disabled
             openLocationInput.IsEnabled = false;
             openLocationOutput.IsEnabled = false;
+
+            // -------------------------
+            // Startup Preset
+            // -------------------------
+            // Default Format is WebM
+            if ((string)cboFormat.SelectedItem == "webm")
+            {
+                cboSubtitle.SelectedItem = "none";
+                cboAudioStream.SelectedItem = "1";
+            }
+            // -----------------------------------------------------------------
+
 
 
             // -----------------------------------------------------------------
@@ -252,7 +270,6 @@ namespace Axiom
             // Log Console Message /////////
             Log.logParagraph.Inlines.Add(new LineBreak());
             Log.logParagraph.Inlines.Add(new Bold(new Run("Loading Saved Settings...")) { Foreground = Log.ConsoleAction });
-
 
             // -------------------------
             // Prevent Loading Corrupt App.Config
@@ -284,8 +301,7 @@ namespace Axiom
             if (Convert.ToDouble(Settings.Default["Left"]) == 0 || Convert.ToDouble(Settings.Default["Top"]) == 0)
             {
                 this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            }
-            
+            }           
 
             // -------------------------
             // Load Theme
@@ -386,8 +402,8 @@ namespace Axiom
 
 
             // -------------------------
-            // Dispatcher Tick
             // Volume Up/Down Button Timer Tick
+            // Dispatcher Tick
             // In Intializer to prevent Tick from doubling up every MouseDown
             // -------------------------
             dispatcherTimerUp.Tick += new EventHandler(dispatcherTimerUp_Tick);
@@ -511,7 +527,7 @@ namespace Axiom
             Audio.aBitDepth = string.Empty;
             Audio.aBitrateLimiter = string.Empty;
             Audio.aFilter = string.Empty;
-            Audio.volume = string.Empty;
+            Audio.aVolume = string.Empty;
             Audio.aLimiter = string.Empty;
 
             if (Audio.AudioFilters != null)
@@ -749,7 +765,7 @@ namespace Axiom
                 if (ConfigureWindow.ffmpegPath == "<auto>")
                 {
                     // Check default current directory
-                    if (File.Exists(currentDir + "ffmpeg\\bin\\ffmpeg.exe"))
+                    if (File.Exists(appDir + "ffmpeg\\bin\\ffmpeg.exe"))
                     {
                         // let pass
                         ffCheckCleared = true;
@@ -822,7 +838,7 @@ namespace Axiom
                 if (ConfigureWindow.ffprobePath == "<auto>")
                 {
                     // Check default current directory
-                    if (File.Exists(currentDir + "ffmpeg\\bin\\ffprobe.exe"))
+                    if (File.Exists(appDir + "ffmpeg\\bin\\ffprobe.exe"))
                     {
                         // let pass
                         ffCheckCleared = true;
@@ -906,12 +922,12 @@ namespace Axiom
             // If Configure FFmpeg Path is <auto>
             if (ConfigureWindow.ffmpegPath == "<auto>")
             {
-                if (File.Exists(currentDir + "ffmpeg\\bin\\ffmpeg.exe"))
+                if (File.Exists(appDir + "ffmpeg\\bin\\ffmpeg.exe"))
                 {
                     //use included binary
-                    FFmpeg.ffmpeg = "\"" + currentDir + "ffmpeg\\bin\\ffmpeg.exe" + "\"";
+                    FFmpeg.ffmpeg = "\"" + appDir + "ffmpeg\\bin\\ffmpeg.exe" + "\"";
                 }
-                else if (!File.Exists(currentDir + "ffmpeg\\bin\\ffmpeg.exe"))
+                else if (!File.Exists(appDir + "ffmpeg\\bin\\ffmpeg.exe"))
                 {
                     //use system installed binaries
                     FFmpeg.ffmpeg = "ffmpeg";
@@ -936,12 +952,12 @@ namespace Axiom
             // If Configure FFprobe Path is <auto>
             if (ConfigureWindow.ffprobePath == "<auto>")
             {
-                if (File.Exists(currentDir + "ffmpeg\\bin\\ffprobe.exe"))
+                if (File.Exists(appDir + "ffmpeg\\bin\\ffprobe.exe"))
                 {
                     //use included binary
-                    FFprobe.ffprobe = "\"" + currentDir + "ffmpeg\\bin\\ffprobe.exe" + "\"";
+                    FFprobe.ffprobe = "\"" + appDir + "ffmpeg\\bin\\ffprobe.exe" + "\"";
                 }
-                else if (!File.Exists(currentDir + "ffmpeg\\bin\\ffprobe.exe"))
+                else if (!File.Exists(appDir + "ffmpeg\\bin\\ffprobe.exe"))
                 {
                     //use system installed binaries
                     FFprobe.ffprobe = "ffprobe";
@@ -1097,7 +1113,7 @@ namespace Axiom
         public static String OutputPath(MainWindow mainwindow)
         {
             // Get Output Extension (Method)
-            Format.OutputFormatExt(mainwindow);
+            FormatControls.OutputFormatExt(mainwindow);
 
             // -------------------------
             // Single File
@@ -1128,7 +1144,6 @@ namespace Axiom
 
                 // Output
                 output = outputDir + outputFileName + outputExt; // (eg. C:\Output Folder\ + file + .mp4)    
-                //output = Path.Combine(outputDir, outputFileName + outputExt);
             }
 
             // -------------------------
@@ -1564,13 +1579,19 @@ namespace Axiom
                 //
                 if (!string.IsNullOrEmpty(parseLatestVersion)) //null check
                 {
-                    // Split Version and Build Phase
-                    splitVersionBuildPhase = Convert.ToString(parseLatestVersion).Split('-');
+                    try
+                    {
+                        // Split Version and Build Phase
+                        splitVersionBuildPhase = Convert.ToString(parseLatestVersion).Split('-');
 
-                    // Set Version Number
-                    latestVersion = new Version(splitVersionBuildPhase[0]); //number
-                    latestBuildPhase = splitVersionBuildPhase[1]; //alpha
-
+                        // Set Version Number
+                        latestVersion = new Version(splitVersionBuildPhase[0]); //number
+                        latestBuildPhase = splitVersionBuildPhase[1]; //alpha
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Error reading version.");
+                    }
 
                     // Debug
                     //MessageBox.Show(Convert.ToString(latestVersion));
@@ -1617,13 +1638,11 @@ namespace Axiom
                     // Update Not Available
                     else if (latestVersion <= currentVersion)
                     {
-                        //MainWindow.ready = 0;
                         MessageBox.Show("This version is up to date.");
                     }
                     // Unknown
                     else // null
                     {
-                        //MainWindow.ready = 0;
                         MessageBox.Show("Could not find download. Try updating manually.");
                     }
                 }
@@ -1635,7 +1654,6 @@ namespace Axiom
             }
             else
             {
-                //MainWindow.ready = 0;
                 MessageBox.Show("Could not detect Internet Connection.");
             }
         }
@@ -1912,12 +1930,12 @@ namespace Axiom
         private void cboPass_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // Pass Controls Method
-            Video.EncodingPass(this);
+            VideoControls.EncodingPass(this);
         }
         private void cboPass_DropDownClosed(object sender, EventArgs e)
         {
             // User willingly selected a Pass
-            Video.passUserSelected = true;
+            VideoControls.passUserSelected = true;
         }
 
 
@@ -1981,8 +1999,8 @@ namespace Axiom
                 }
 
                 // Set Video & Audio Codec Combobox to "Copy" if Input Extension is Same as Output Extension and Video Quality is Auto
-                Video.AutoCopyVideoCodec(this);
-                Audio.AutoCopyAudioCodec(this);
+                VideoControls.AutoCopyVideoCodec(this);
+                AudioControls.AutoCopyAudioCodec(this);
             }
             // -------------------------
             // Batch
@@ -2023,15 +2041,15 @@ namespace Axiom
                     // Prevent Losing Codec Copy after cancel closing Browse Folder Dialog Box 
                     //
                     // Set Video & Audio Codec Combobox to "Copy" if Input Extension is Same as Output Extension and Video Quality is Auto
-                    Video.AutoCopyVideoCodec(this);
-                    Audio.AutoCopyAudioCodec(this);
+                    VideoControls.AutoCopyVideoCodec(this);
+                    AudioControls.AutoCopyAudioCodec(this);
                 }
 
                 // Prevent Losing Codec Copy after cancel closing Browse Folder Dialog Box 
                 //
                 // Set Video & Audio Codec Combobox to "Copy" if Input Extension is Same as Output Extension and Video Quality is Auto
-                Video.AutoCopyVideoCodec(this);
-                Audio.AutoCopyAudioCodec(this);
+                VideoControls.AutoCopyVideoCodec(this);
+                AudioControls.AutoCopyAudioCodec(this);
             }
         }
 
@@ -2067,8 +2085,8 @@ namespace Axiom
             }
 
             // Set Video & Audio Codec Combobox to "Copy" if Input Extension is Same as Output Extension and Video Quality is Auto
-            Video.AutoCopyVideoCodec(this);
-            Audio.AutoCopyAudioCodec(this);
+            VideoControls.AutoCopyVideoCodec(this);
+            AudioControls.AutoCopyAudioCodec(this);
         }
 
 
@@ -2095,7 +2113,7 @@ namespace Axiom
             if (tglBatch.IsChecked == false)
             {
                 // Get Output Ext
-                Format.OutputFormatExt(this);
+                FormatControls.OutputFormatExt(this);
 
 
                 // Open 'Save File'
@@ -2320,7 +2338,7 @@ namespace Axiom
             }
 
             // Disable Copy on change
-            Video.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this);
 
         }
 
@@ -2366,7 +2384,7 @@ namespace Axiom
         private void cboSamplerate_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // Switch to Copy if inputExt & outputExt match
-            Audio.AutoCopyAudioCodec(this);
+            AudioControls.AutoCopyAudioCodec(this);
         }
 
 
@@ -2376,7 +2394,7 @@ namespace Axiom
         private void cboBitDepth_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // Switch to Copy if inputExt & outputExt match
-            Audio.AutoCopyAudioCodec(this);
+            AudioControls.AutoCopyAudioCodec(this);
         }
 
 
@@ -2387,7 +2405,7 @@ namespace Axiom
         {
             // Disable Volume instead of running AutoCopyAudioCodec each time 
             // This needs to be re-thought, calling method on every timer tick
-            Audio.AutoCopyAudioCodec(this);
+            AudioControls.AutoCopyAudioCodec(this);
         }
         /// <summary>
         ///    Volume TextBox KeyDown
@@ -2491,10 +2509,10 @@ namespace Axiom
         /// </summary>
         private void cboVideoCodec_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Video.VideoCodecControls(this);
+            VideoControls.VideoCodecControls(this);
 
             // Video Encoding Pass Controls Method
-            Video.EncodingPass(this); 
+            VideoControls.EncodingPass(this); 
         }
 
 
@@ -2503,7 +2521,7 @@ namespace Axiom
         /// </summary>
         private void cboAudioCodec_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Audio.AudioCodecControls(this);
+            AudioControls.AudioCodecControls(this);
         }
 
 
@@ -2513,17 +2531,17 @@ namespace Axiom
         private void cboFormat_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // Output Control Selections
-            Format.OuputFormatDefaults(this);
+            FormatControls.OuputFormatDefaults(this);
 
             // Get Output Extension
-            Format.OutputFormatExt(this);
+            FormatControls.OutputFormatExt(this);
 
             // Output ComboBox Options
-            Format.OutputFormat(this);
+            FormatControls.OutputFormat(this);
 
             // Change All MainWindow Items
-            Video.VideoCodecControls(this);
-            Audio.AudioCodecControls(this);
+            VideoControls.VideoCodecControls(this);
+            AudioControls.AudioCodecControls(this);
 
             // File Renamer
             FileRenamer();
@@ -2556,7 +2574,7 @@ namespace Axiom
         /// </summary>
         private void cboMediaType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Format.MediaType(this); 
+            FormatControls.MediaType(this); 
         }
 
 
@@ -2565,7 +2583,7 @@ namespace Axiom
         /// </summary>
         private void cboVideo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Video.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this);
 
             //enable Video Custom
             if ((string)cboVideo.SelectedItem == "Custom")
@@ -2602,14 +2620,14 @@ namespace Axiom
             // -------------------------
             // Pass Controls Method
             // -------------------------
-            Video.EncodingPass(this);
+            VideoControls.EncodingPass(this);
 
             // -------------------------
             // Pass - Default to CRF
             // -------------------------
             // Keep in Video SelectionChanged
             // If Video Not Auto and User Willingly Selected Pass is false
-            if ((string)cboVideo.SelectedItem != "Auto" && Video.passUserSelected == false)
+            if ((string)cboVideo.SelectedItem != "Auto" && VideoControls.passUserSelected == false)
             {
                 cboPass.SelectedItem = "CRF";
             }
@@ -2712,7 +2730,7 @@ namespace Axiom
 
             // Call Method (Needs to be at this location)
             // Set Audio Codec Combobox to "Copy" if Input Extension is Same as Output Extension and Audio Quality is Auto
-            Audio.AutoCopyAudioCodec(this);
+            AudioControls.AutoCopyAudioCodec(this);
 
         } // End audio_SelectionChanged
 
@@ -2723,7 +2741,7 @@ namespace Axiom
         private void cboSize_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // Set Video Codec Combobox to "Copy" if Input Extension is Same as Output Extension and Video Quality is Auto
-            Video.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this);
 
             // Enable Aspect Custom
             if ((string)cboSize.SelectedItem == "Custom")
@@ -2854,7 +2872,7 @@ namespace Axiom
         /// </summary>
         private void cboCut_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Format.CutControls(this); 
+            FormatControls.CutControls(this); 
         }
 
         // -------------------------
@@ -2998,7 +3016,7 @@ namespace Axiom
         private void cboOptimize_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // Disable Copy on change
-            //Video.AutoCopyVideoCodec(this); // this caused a loop error
+            //VideoControls.AutoCopyVideoCodec(this); // this caused a loop error
         }
 
 
@@ -3014,7 +3032,7 @@ namespace Axiom
             }
 
             // Disable Audio Codec Copy
-            Audio.AutoCopyAudioCodec(this);
+            AudioControls.AutoCopyAudioCodec(this);
         }
         private void tglAudioLimiter_Unchecked(object sender, RoutedEventArgs e)
         {
@@ -3025,7 +3043,7 @@ namespace Axiom
             }
 
             // Enable Audio Codec Copy if InputExt / outputExt match
-            Audio.AutoCopyAudioCodec(this);
+            AudioControls.AutoCopyAudioCodec(this);
         }
 
 
@@ -3054,8 +3072,8 @@ namespace Axiom
             }
 
             // Set Video and AudioCodec Combobox to "Copy" if Input Extension is Same as Output Extension and Video Quality is Auto
-            Video.AutoCopyVideoCodec(this);
-            Audio.AutoCopyAudioCodec(this);
+            VideoControls.AutoCopyVideoCodec(this);
+            AudioControls.AutoCopyAudioCodec(this);
         }
 
 
@@ -3120,8 +3138,8 @@ namespace Axiom
             }
 
             // Set Video and AudioCodec Combobox to "Copy" if Input Extension is Same as Output Extension and Video Quality is Auto
-            Video.AutoCopyVideoCodec(this);
-            Audio.AutoCopyAudioCodec(this);
+            VideoControls.AutoCopyVideoCodec(this);
+            AudioControls.AutoCopyAudioCodec(this);
         }
 
 

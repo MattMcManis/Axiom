@@ -67,10 +67,10 @@ namespace Axiom
                 // If checkbox is enabled but textbox is empty, put log in exe's current directory
                 if (string.IsNullOrEmpty(ConfigureWindow.logPath))
                 {
-                    //configure.logPath = currentDir + "\\";
+                    //configure.logPath = appDir + "\\";
                     //System.Windows.MessageBox.Show(log); //debug
 
-                    ConfigureWindow.logPath = MainWindow.currentDir;
+                    ConfigureWindow.logPath = MainWindow.appDir;
                 }
                 // If textbox is not empty, use User custom path
                 else if (!string.IsNullOrEmpty(ConfigureWindow.logPath))
