@@ -92,6 +92,14 @@ namespace Axiom
                 vMap = string.Empty; // do not copy video map
             }
 
+            // -------------------------
+            // Video Codecs
+            // -------------------------
+            if ((string)mainwindow.cboVideoCodec.SelectedItem == "None")
+            {
+                vMap = "-vn"; // only video track 1
+            }
+
             // Log Console Message /////////
             Log.WriteAction = () =>
             {
@@ -322,8 +330,10 @@ namespace Axiom
 
                 aMap = "-map 0:a:" + aMapNumber + "?";
             }
+
+            // -------------------------
             // Mute
-            //
+            // -------------------------
             if ((string)mainwindow.cboAudio.SelectedItem == "Mute")
             {
                 aMap = "-an";

@@ -92,74 +92,81 @@ namespace Axiom
         /// <summary>
         public static String VideoCodec(MainWindow mainwindow)
         {
-            // -------------------------
-            // Video
-            // -------------------------
-            // None
-            if ((string)mainwindow.cboVideoCodec.SelectedItem == "None")
+            // Video Bitrate None Check
+            // Video Codec None Check
+            // Media Type Check
+            if ((string)mainwindow.cboVideo.SelectedItem != "None"
+                && (string)mainwindow.cboVideoCodec.SelectedItem != "None"
+                && (string)mainwindow.cboMediaType.SelectedItem != "Audio")
             {
-                vCodec = string.Empty;
-                Streams.vMap = "-vn";
-            }
-            // VP8
-            else if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8")
-            {
-                vCodec = "-vcodec libvpx";
-            }
-            // VP9
-            else if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9")
-            {
-                vCodec = "-vcodec libvpx-vp9 -tile-columns 6 -frame-parallel 1 -auto-alt-ref 1 -lag-in-frames 25";
-            }
-            // Theora
-            else if ((string)mainwindow.cboVideoCodec.SelectedItem == "Theora")
-            {
-                vCodec = "-vcodec libtheora";
-            }
-            // x254
-            else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264")
-            {
-                vCodec = "-vcodec libx264"; //leave profile:v main here so MKV can choose other ???
-            }
-            //x265
-            else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265")
-            {
-                vCodec = "-vcodec libx265"; //does not use profile:v
-            }
-            // JPEG
-            else if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG")
-            {
-                vCodec = string.Empty;
-            }
-            // PNG
-            else if ((string)mainwindow.cboVideoCodec.SelectedItem == "PNG")
-            {
-                vCodec = string.Empty;
-            }
-            // Copy
-            else if ((string)mainwindow.cboVideoCodec.SelectedItem == "Copy")
-            {
-                vCodec = "-vcodec copy";
-            }
-            // Unknown
-            else
-            {
-                vCodec = string.Empty;
-            }
+                // -------------------------
+                // Video
+                // -------------------------
+                // None
+                if ((string)mainwindow.cboVideoCodec.SelectedItem == "None")
+                {
+                    vCodec = string.Empty;
+                }
+                // VP8
+                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8")
+                {
+                    vCodec = "-vcodec libvpx";
+                }
+                // VP9
+                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9")
+                {
+                    vCodec = "-vcodec libvpx-vp9 -tile-columns 6 -frame-parallel 1 -auto-alt-ref 1 -lag-in-frames 25";
+                }
+                // Theora
+                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "Theora")
+                {
+                    vCodec = "-vcodec libtheora";
+                }
+                // x254
+                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264")
+                {
+                    vCodec = "-vcodec libx264"; //leave profile:v main here so MKV can choose other ???
+                }
+                //x265
+                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265")
+                {
+                    vCodec = "-vcodec libx265"; //does not use profile:v
+                }
+                // JPEG
+                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG")
+                {
+                    vCodec = string.Empty;
+                }
+                // PNG
+                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "PNG")
+                {
+                    vCodec = string.Empty;
+                }
+                // Copy
+                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "Copy")
+                {
+                    vCodec = "-vcodec copy";
+                }
+                // Unknown
+                else
+                {
+                    vCodec = string.Empty;
+                }
 
 
-            // Log Console Message /////////
-            Log.WriteAction = () =>
-            {
-                Log.logParagraph.Inlines.Add(new LineBreak());
-                Log.logParagraph.Inlines.Add(new LineBreak());
-                Log.logParagraph.Inlines.Add(new Bold(new Run("Video")) { Foreground = Log.ConsoleAction });
-                
-                Log.logParagraph.Inlines.Add(new LineBreak());
-                Log.logParagraph.Inlines.Add(new Bold(new Run("Codec: ")) { Foreground = Log.ConsoleDefault });
-                Log.logParagraph.Inlines.Add(new Run(Convert.ToString(mainwindow.cboVideoCodec.SelectedItem)) { Foreground = Log.ConsoleDefault });
-            };
-            Log.LogActions.Add(Log.WriteAction);
+                // Log Console Message /////////
+                Log.WriteAction = () =>
+                {
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new Bold(new Run("Video")) { Foreground = Log.ConsoleAction });
+
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new Bold(new Run("Codec: ")) { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new Run(Convert.ToString(mainwindow.cboVideoCodec.SelectedItem)) { Foreground = Log.ConsoleDefault });
+                };
+                Log.LogActions.Add(Log.WriteAction);
+            }
 
             // Return Value
             return vCodec;
@@ -302,15 +309,25 @@ namespace Axiom
             // -------------------------
             // Batch Auto
             // -------------------------
-            if (mainwindow.tglBatch.IsChecked == true)
+            // Video Bitrate None Check
+            // Video Codec None Check
+            // Codec Copy Check
+            // Media Type Check
+            if ((string)mainwindow.cboVideo.SelectedItem != "None"
+                && (string)mainwindow.cboVideoCodec.SelectedItem != "None"
+                && (string)mainwindow.cboVideoCodec.SelectedItem != "Copy"
+                && (string)mainwindow.cboMediaType.SelectedItem != "Audio")
             {
-                // -------------------------
-                // Video Auto Bitrates
-                // -------------------------
-                if ((string)mainwindow.cboVideo.SelectedItem == "Auto")
+                // Batch Check
+                if (mainwindow.tglBatch.IsChecked == true)
                 {
-                    // Make List
-                    List<string> BatchVideoAutoList = new List<string>()
+                    // -------------------------
+                    // Video Auto Bitrates
+                    // -------------------------
+                    if ((string)mainwindow.cboVideo.SelectedItem == "Auto")
+                    {
+                        // Make List
+                        List<string> BatchVideoAutoList = new List<string>()
                     {
                         // size
                         "& for /F \"delims=\" %S in ('@" + FFprobe.ffprobe + " -v error -select_streams v:0 -show_entries format^=size -of default^=noprint_wrappers^=1:nokey^=1 \"%~f\" 2^>^&1') do (SET size=%S)",
@@ -334,14 +351,10 @@ namespace Axiom
                         "\r\n\r\n" + "& for /F %V in ('echo %vBitrate%') do (echo)",
                     };
 
-                    // Join List with Spaces, Remove Empty Strings
-                    Video.batchVideoAuto = string.Join(" ", BatchVideoAutoList.Where(s => !string.IsNullOrEmpty(s)));
+                        // Join List with Spaces, Remove Empty Strings
+                        Video.batchVideoAuto = string.Join(" ", BatchVideoAutoList.Where(s => !string.IsNullOrEmpty(s)));
 
-                }
-                // Batch Video Copy
-                if ((string)mainwindow.cboVideoCodec.SelectedItem == "Copy")
-                {
-                    batchVideoAuto = string.Empty;
+                    }
                 }
             }
 
@@ -355,8 +368,14 @@ namespace Axiom
         /// <summary>
         public static String VideoQuality(MainWindow mainwindow)
         {
-            // Video None Check
-            if ((string)mainwindow.cboVideo.SelectedItem != "None")
+            // Video Bitrate None Check
+            // Video Codec None Check
+            // Codec Copy Check
+            // Media Type Check
+            if ((string)mainwindow.cboVideo.SelectedItem != "None"
+                && (string)mainwindow.cboVideoCodec.SelectedItem != "None"
+                && (string)mainwindow.cboVideoCodec.SelectedItem != "Copy"
+                && (string)mainwindow.cboMediaType.SelectedItem != "Audio")
             {
                 // Video Bitrate Mode (Method)
                 //
@@ -520,11 +539,8 @@ namespace Axiom
                     else if (mainwindow.tglBatch.IsChecked == true)
                     {
                         // Use the CMD Batch Video Variable
-                        if ((string)mainwindow.cboVideoCodec.SelectedItem != "Copy")
-                        {
-                            vBitMode = "-b:v";
-                            vBitrate = "%V";
-                        }
+                        vBitMode = "-b:v";
+                        vBitrate = "%V";
                     }
 
                     // -------------------------
@@ -880,21 +896,6 @@ namespace Axiom
                 // None
                 // -------------------------
                 else if ((string)mainwindow.cboVideo.SelectedItem == "None")
-                {
-                    crf = string.Empty;
-                    vBitMode = string.Empty;
-                    vBitrate = string.Empty;
-                    vMaxrate = string.Empty;
-                    vBufsize = string.Empty;
-                    vOptions = string.Empty;
-                }
-
-
-                // -------------------------
-                // Copy
-                // -------------------------
-                // Video Codec Copy
-                if ((string)mainwindow.cboVideoCodec.SelectedItem == "Copy")
                 {
                     crf = string.Empty;
                     vBitMode = string.Empty;
@@ -1534,7 +1535,7 @@ namespace Axiom
             // CropClearButton is used as an Identifier, Divisible Crop does not leave "~"
             if ((string)mainwindow.cboVideoCodec.SelectedItem != "x264" 
                 && (string)mainwindow.cboVideoCodec.SelectedItem != "x265" 
-                && mainwindow.buttonCropClearTextBox.Text == "")
+                && string.IsNullOrWhiteSpace(mainwindow.buttonCropClearTextBox.Text))
             {
                 CropWindow.crop = string.Empty;
             }
@@ -1584,23 +1585,33 @@ namespace Axiom
         /// <summary>
         public static String FPS(MainWindow mainwindow)
         {
-            if ((string)mainwindow.cboFPS.SelectedItem == "auto")
+            // Video Bitrate None Check
+            // Video Codec None Check
+            // Codec Copy Check
+            // Media Type Check
+            if ((string)mainwindow.cboVideo.SelectedItem != "None"
+                && (string)mainwindow.cboVideoCodec.SelectedItem != "None"
+                && (string)mainwindow.cboVideoCodec.SelectedItem != "Copy"
+                && (string)mainwindow.cboMediaType.SelectedItem != "Audio")
             {
-                fps = string.Empty;
-            }
-            else
-            {
-                fps = "-r " + mainwindow.cboFPS.Text;
-            }
+                if ((string)mainwindow.cboFPS.SelectedItem == "auto")
+                {
+                    fps = string.Empty;
+                }
+                else
+                {
+                    fps = "-r " + mainwindow.cboFPS.Text;
+                }
 
-            // Log Console Message /////////
-            Log.WriteAction = () =>
-            {
-                Log.logParagraph.Inlines.Add(new LineBreak());
-                Log.logParagraph.Inlines.Add(new Bold(new Run("FPS: ")) { Foreground = Log.ConsoleDefault });
-                Log.logParagraph.Inlines.Add(new Run(mainwindow.cboFPS.Text.ToString()) { Foreground = Log.ConsoleDefault });
-            };
-            Log.LogActions.Add(Log.WriteAction);
+                // Log Console Message /////////
+                Log.WriteAction = () =>
+                {
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new Bold(new Run("FPS: ")) { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new Run(mainwindow.cboFPS.Text.ToString()) { Foreground = Log.ConsoleDefault });
+                };
+                Log.LogActions.Add(Log.WriteAction);
+            }
 
             return fps;
         }
@@ -1611,17 +1622,27 @@ namespace Axiom
         /// <summary>
         public static String Images(MainWindow mainwindow)
         {
-            if ((string)mainwindow.cboMediaType.SelectedItem == "Image")
+            // Video Bitrate None Check
+            // Video Codec None Check
+            // Codec Copy Check
+            // Media Type Check
+            if ((string)mainwindow.cboVideo.SelectedItem != "None"
+                && (string)mainwindow.cboVideoCodec.SelectedItem != "None"
+                && (string)mainwindow.cboVideoCodec.SelectedItem != "Copy"
+                && (string)mainwindow.cboMediaType.SelectedItem != "Audio")
             {
-                image = "-vframes 1"; //important
-            }
-            else if ((string)mainwindow.cboMediaType.SelectedItem == "Sequence")
-            {
-                image = string.Empty; //disable -vframes
-            }
-            else
-            {
-                image = string.Empty;
+                if ((string)mainwindow.cboMediaType.SelectedItem == "Image")
+                {
+                    image = "-vframes 1"; //important
+                }
+                else if ((string)mainwindow.cboMediaType.SelectedItem == "Sequence")
+                {
+                    image = string.Empty; //disable -vframes
+                }
+                else
+                {
+                    image = string.Empty;
+                }
             }
 
             return image;
@@ -1633,90 +1654,100 @@ namespace Axiom
         /// <summary>
         public static String Speed(MainWindow mainwindow)
         {
-            // -------------------------
-            // x264 / x265
-            // -------------------------
-            if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264" || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
+            // Video Bitrate None Check
+            // Video Codec None Check
+            // Codec Copy Check
+            // Media Type Check
+            if ((string)mainwindow.cboVideo.SelectedItem != "None"
+                && (string)mainwindow.cboVideoCodec.SelectedItem != "None"
+                && (string)mainwindow.cboVideoCodec.SelectedItem != "Copy"
+                && (string)mainwindow.cboMediaType.SelectedItem != "Audio")
             {
-                if ((string)mainwindow.cboSpeed.SelectedItem == "Placebo") { speed = "-preset placebo"; }
-                else if ((string)mainwindow.cboSpeed.SelectedItem == "Very Slow") { speed = "-preset veryslow"; }
-                else if ((string)mainwindow.cboSpeed.SelectedItem == "Slower") { speed = "-preset slower"; }
-                else if ((string)mainwindow.cboSpeed.SelectedItem == "Slow") { speed = "-preset slow"; }
-                else if ((string)mainwindow.cboSpeed.SelectedItem == "Medium") { speed = "-preset medium"; }
-                else if ((string)mainwindow.cboSpeed.SelectedItem == "Fast") { speed = "-preset fast"; }
-                else if ((string)mainwindow.cboSpeed.SelectedItem == "Faster") { speed = "-preset faster"; }
-                else if ((string)mainwindow.cboSpeed.SelectedItem == "Very Fast") { speed = "-preset veryfast"; }
-                else if ((string)mainwindow.cboSpeed.SelectedItem == "Super Fast") { speed = "-preset superfast"; }
-                else if ((string)mainwindow.cboSpeed.SelectedItem == "Ultra Fast") { speed = "-preset ultrafast"; }
-            }
+                // -------------------------
+                // x264 / x265
+                // -------------------------
+                if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264" || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
+                {
+                    if ((string)mainwindow.cboSpeed.SelectedItem == "Placebo") { speed = "-preset placebo"; }
+                    else if ((string)mainwindow.cboSpeed.SelectedItem == "Very Slow") { speed = "-preset veryslow"; }
+                    else if ((string)mainwindow.cboSpeed.SelectedItem == "Slower") { speed = "-preset slower"; }
+                    else if ((string)mainwindow.cboSpeed.SelectedItem == "Slow") { speed = "-preset slow"; }
+                    else if ((string)mainwindow.cboSpeed.SelectedItem == "Medium") { speed = "-preset medium"; }
+                    else if ((string)mainwindow.cboSpeed.SelectedItem == "Fast") { speed = "-preset fast"; }
+                    else if ((string)mainwindow.cboSpeed.SelectedItem == "Faster") { speed = "-preset faster"; }
+                    else if ((string)mainwindow.cboSpeed.SelectedItem == "Very Fast") { speed = "-preset veryfast"; }
+                    else if ((string)mainwindow.cboSpeed.SelectedItem == "Super Fast") { speed = "-preset superfast"; }
+                    else if ((string)mainwindow.cboSpeed.SelectedItem == "Ultra Fast") { speed = "-preset ultrafast"; }
+                }
 
-            // -------------------------
-            // VP8
-            // -------------------------
-            else if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8")
-            {
-                if ((string)mainwindow.cboSpeed.SelectedItem == "Placebo") { speed = "-quality best -cpu-used 0"; }
-                else if ((string)mainwindow.cboSpeed.SelectedItem == "Very Slow") { speed = "-quality good -cpu-used 0"; }
-                else if ((string)mainwindow.cboSpeed.SelectedItem == "Slower") { speed = "-quality good -cpu-used 0"; }
-                else if ((string)mainwindow.cboSpeed.SelectedItem == "Slow") { speed = "-quality good -cpu-used 0"; }
-                else if ((string)mainwindow.cboSpeed.SelectedItem == "Medium") { speed = "-quality good -cpu-used 0"; }
-                else if ((string)mainwindow.cboSpeed.SelectedItem == "Fast") { speed = "-quality good -cpu-used 1"; }
-                else if ((string)mainwindow.cboSpeed.SelectedItem == "Faster") { speed = "-quality good -cpu-used 2"; }
-                else if ((string)mainwindow.cboSpeed.SelectedItem == "Very Fast") { speed = "-quality realtime -cpu-used 3"; }
-                else if ((string)mainwindow.cboSpeed.SelectedItem == "Super Fast") { speed = "-quality realtime -cpu-used 4"; }
-                else if ((string)mainwindow.cboSpeed.SelectedItem == "Ultra Fast") { speed = "-quality realtime -cpu-used 5"; }
-            }
+                // -------------------------
+                // VP8
+                // -------------------------
+                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8")
+                {
+                    if ((string)mainwindow.cboSpeed.SelectedItem == "Placebo") { speed = "-quality best -cpu-used 0"; }
+                    else if ((string)mainwindow.cboSpeed.SelectedItem == "Very Slow") { speed = "-quality good -cpu-used 0"; }
+                    else if ((string)mainwindow.cboSpeed.SelectedItem == "Slower") { speed = "-quality good -cpu-used 0"; }
+                    else if ((string)mainwindow.cboSpeed.SelectedItem == "Slow") { speed = "-quality good -cpu-used 0"; }
+                    else if ((string)mainwindow.cboSpeed.SelectedItem == "Medium") { speed = "-quality good -cpu-used 0"; }
+                    else if ((string)mainwindow.cboSpeed.SelectedItem == "Fast") { speed = "-quality good -cpu-used 1"; }
+                    else if ((string)mainwindow.cboSpeed.SelectedItem == "Faster") { speed = "-quality good -cpu-used 2"; }
+                    else if ((string)mainwindow.cboSpeed.SelectedItem == "Very Fast") { speed = "-quality realtime -cpu-used 3"; }
+                    else if ((string)mainwindow.cboSpeed.SelectedItem == "Super Fast") { speed = "-quality realtime -cpu-used 4"; }
+                    else if ((string)mainwindow.cboSpeed.SelectedItem == "Ultra Fast") { speed = "-quality realtime -cpu-used 5"; }
+                }
 
-            // -------------------------
-            // VP9
-            // -------------------------
-            else if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9")
-            {
-                if ((string)mainwindow.cboSpeed.SelectedItem == "Placebo") { speed = "-speed -8"; }
-                else if ((string)mainwindow.cboSpeed.SelectedItem == "Very Slow") { speed = "-speed -4"; }
-                else if ((string)mainwindow.cboSpeed.SelectedItem == "Slower") { speed = "-speed -2"; }
-                else if ((string)mainwindow.cboSpeed.SelectedItem == "Slow") { speed = "-speed 0"; }
-                else if ((string)mainwindow.cboSpeed.SelectedItem == "Medium") { speed = "-speed 1"; }
-                else if ((string)mainwindow.cboSpeed.SelectedItem == "Fast") { speed = "-speed 2"; }
-                else if ((string)mainwindow.cboSpeed.SelectedItem == "Faster") { speed = "-speed 3"; }
-                else if ((string)mainwindow.cboSpeed.SelectedItem == "Very Fast") { speed = "-speed 4"; }
-                else if ((string)mainwindow.cboSpeed.SelectedItem == "Super Fast") { speed = "-speed 5"; }
-                else if ((string)mainwindow.cboSpeed.SelectedItem == "Ultra Fast") { speed = "-speed 6"; }
-            }
+                // -------------------------
+                // VP9
+                // -------------------------
+                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9")
+                {
+                    if ((string)mainwindow.cboSpeed.SelectedItem == "Placebo") { speed = "-speed -8"; }
+                    else if ((string)mainwindow.cboSpeed.SelectedItem == "Very Slow") { speed = "-speed -4"; }
+                    else if ((string)mainwindow.cboSpeed.SelectedItem == "Slower") { speed = "-speed -2"; }
+                    else if ((string)mainwindow.cboSpeed.SelectedItem == "Slow") { speed = "-speed 0"; }
+                    else if ((string)mainwindow.cboSpeed.SelectedItem == "Medium") { speed = "-speed 1"; }
+                    else if ((string)mainwindow.cboSpeed.SelectedItem == "Fast") { speed = "-speed 2"; }
+                    else if ((string)mainwindow.cboSpeed.SelectedItem == "Faster") { speed = "-speed 3"; }
+                    else if ((string)mainwindow.cboSpeed.SelectedItem == "Very Fast") { speed = "-speed 4"; }
+                    else if ((string)mainwindow.cboSpeed.SelectedItem == "Super Fast") { speed = "-speed 5"; }
+                    else if ((string)mainwindow.cboSpeed.SelectedItem == "Ultra Fast") { speed = "-speed 6"; }
+                }
 
-            // -------------------------
-            // Theora
-            // -------------------------
-            else if ((string)mainwindow.cboVideoCodec.SelectedItem == "Theora")
-            {
-                speed = string.Empty;
-            }
+                // -------------------------
+                // Theora
+                // -------------------------
+                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "Theora")
+                {
+                    speed = string.Empty;
+                }
 
-            // -------------------------
-            // JPEG & PNG
-            // -------------------------
-            else if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG" || (string)mainwindow.cboVideoCodec.SelectedItem == "PNG")
-            {
-                speed = string.Empty;
-            }
+                // -------------------------
+                // JPEG & PNG
+                // -------------------------
+                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG" || (string)mainwindow.cboVideoCodec.SelectedItem == "PNG")
+                {
+                    speed = string.Empty;
+                }
 
-            // -------------------------
-            // None (No Codec)
-            // -------------------------
-            else if ((string)mainwindow.cboVideoCodec.SelectedItem == "None" 
-                || string.IsNullOrEmpty((string)mainwindow.cboVideoCodec.SelectedItem))
-            {
-                speed = string.Empty;
-            }
+                // -------------------------
+                // None (No Codec)
+                // -------------------------
+                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "None"
+                    || string.IsNullOrEmpty((string)mainwindow.cboVideoCodec.SelectedItem))
+                {
+                    speed = string.Empty;
+                }
 
-            // Log Console Message /////////
-            Log.WriteAction = () =>
-            {
-                Log.logParagraph.Inlines.Add(new LineBreak());
-                Log.logParagraph.Inlines.Add(new Bold(new Run("Encoding Speed: ")) { Foreground = Log.ConsoleDefault });
-                Log.logParagraph.Inlines.Add(new Run(mainwindow.cboSpeed.Text.ToString()) { Foreground = Log.ConsoleDefault });
-            };
-            Log.LogActions.Add(Log.WriteAction);
+                // Log Console Message /////////
+                Log.WriteAction = () =>
+                {
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new Bold(new Run("Encoding Speed: ")) { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new Run(mainwindow.cboSpeed.Text.ToString()) { Foreground = Log.ConsoleDefault });
+                };
+                Log.LogActions.Add(Log.WriteAction);
+            }
 
 
             // Return Value
@@ -1730,160 +1761,170 @@ namespace Axiom
         /// <summary>
         public static String Optimize(MainWindow mainwindow)
         {
-            // -------------------------
-            // None
-            // -------------------------
-            // Default to blank
-            if ((string)mainwindow.cboOptimize.SelectedItem == "None")
+            // Video Bitrate None Check
+            // Video Codec None Check
+            // Codec Copy Check
+            // Media Type Check
+            if ((string)mainwindow.cboVideo.SelectedItem != "None"
+                && (string)mainwindow.cboVideoCodec.SelectedItem != "None"
+                && (string)mainwindow.cboVideoCodec.SelectedItem != "Copy"
+                && (string)mainwindow.cboMediaType.SelectedItem != "Audio")
             {
-                optimize = string.Empty;
-            }
+                // -------------------------
+                // None
+                // -------------------------
+                // Default to blank
+                if ((string)mainwindow.cboOptimize.SelectedItem == "None")
+                {
+                    optimize = string.Empty;
+                }
 
-            // -------------------------
-            // VP8, VP9, Theora
-            // -------------------------
-            if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" 
-                || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9" 
-                || (string)mainwindow.cboVideoCodec.SelectedItem == "Theora")
-            {
-                // Web
-                if ((string)mainwindow.cboOptimize.SelectedItem == "Web")
+                // -------------------------
+                // VP8, VP9, Theora
+                // -------------------------
+                if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8"
+                    || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9"
+                    || (string)mainwindow.cboVideoCodec.SelectedItem == "Theora")
                 {
-                    optimize = "-movflags faststart";
-                }
-            }
-            // -------------------------
-            // x264
-            // -------------------------
-            else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264")
-            {
-                // Web
-                if ((string)mainwindow.cboOptimize.SelectedItem == "Web")
-                {
-                    optimize = "-profile:v baseline -level 3.0 -movflags +faststart ";
-                }
-                // DVD
-                else if ((string)mainwindow.cboOptimize.SelectedItem == "DVD")
-                {
-                    optimize = "-profile:v baseline -level 3.0 -maxrate 9.6M";
-                }
-                // HD Video
-                else if ((string)mainwindow.cboOptimize.SelectedItem == "HD Video")
-                {
-                    optimize = "-profile:v main -level 4.0";
-                }
-                // Animation
-                else if ((string)mainwindow.cboOptimize.SelectedItem == "Animation")
-                {
-                    optimize = "-profile:v main -level 4.0";
-                }
-                // Blu-ray
-                else if ((string)mainwindow.cboOptimize.SelectedItem == "Blu-ray")
-                {
-                    optimize = "-deblock 0:0 -sar 1/1 -x264opts bluray-compat=1:level=4.1:open-gop=1:slices=4:tff=1:colorprim=bt709:colormatrix=bt709:vbv-maxrate=40000:vbv-bufsize=30000:me=umh:ref=4:nal-hrd=vbr:aud=1:b-pyramid=strict";
-                }
-                // Windows Device
-                else if ((string)mainwindow.cboOptimize.SelectedItem == "Windows")
-                {
-                    optimize = "-profile:v baseline -level 3.1 -movflags faststart";
-                }
-                // Apple Device
-                else if ((string)mainwindow.cboOptimize.SelectedItem == "Apple")
-                {
-                    optimize = "-x264-params ref=4 -profile:v baseline -level 3.1 -movflags +faststart";
-                }
-                // Android Device
-                else if ((string)mainwindow.cboOptimize.SelectedItem == "Android")
-                {
-                    optimize = "-profile:v baseline -level 3.0 -movflags faststart";
-                }
-                // PS3
-                else if ((string)mainwindow.cboOptimize.SelectedItem == "PS3")
-                {
-                    optimize = "-profile:v main -level 4.0";
-                }
-                // PS4
-                else if ((string)mainwindow.cboOptimize.SelectedItem == "PS4")
-                {
-                    optimize = "-profile:v main -level 4.1";
-                }
-                // Xbox 360
-                else if ((string)mainwindow.cboOptimize.SelectedItem == "Xbox 360")
-                {
-                    optimize = "-profile:v high -level 4.1 -maxrate 9.8M";
-                }
-                // Xbox One
-                else if ((string)mainwindow.cboOptimize.SelectedItem == "Xbox 360")
-                {
-                    optimize = "-profile:v high -level 4.1";
-                }
-            }
-            // -------------------------
-            // x265
-            // -------------------------
-            else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265")
-            {
-                // Web
-                if ((string)mainwindow.cboOptimize.SelectedItem == "Web")
-                {
-                    optimize = "-movflags +faststart";
-                }
-            }
-
-            // -------------------------
-            // Advanced (x264 & x265)
-            // -------------------------
-            if ((string)mainwindow.cboOptimize.SelectedItem == "Advanced" )
-            {
-                if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264" || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
-                {
-                    // Tune
-                    //
-                    if (OptimizeAdvancedWindow.optAdvTune == "none" || string.IsNullOrEmpty(OptimizeAdvancedWindow.optAdvTune))
+                    // Web
+                    if ((string)mainwindow.cboOptimize.SelectedItem == "Web")
                     {
-                        optTune = string.Empty;
+                        optimize = "-movflags faststart";
                     }
-                    else
+                }
+                // -------------------------
+                // x264
+                // -------------------------
+                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264")
+                {
+                    // Web
+                    if ((string)mainwindow.cboOptimize.SelectedItem == "Web")
                     {
-                        // Tune = Set Tmp Setting from Optimized Advanced Window
-                        optTune = "-tune " + OptimizeAdvancedWindow.optAdvTune;
+                        optimize = "-profile:v baseline -level 3.0 -movflags +faststart ";
                     }
+                    // DVD
+                    else if ((string)mainwindow.cboOptimize.SelectedItem == "DVD")
+                    {
+                        optimize = "-profile:v baseline -level 3.0 -maxrate 9.6M";
+                    }
+                    // HD Video
+                    else if ((string)mainwindow.cboOptimize.SelectedItem == "HD Video")
+                    {
+                        optimize = "-profile:v main -level 4.0";
+                    }
+                    // Animation
+                    else if ((string)mainwindow.cboOptimize.SelectedItem == "Animation")
+                    {
+                        optimize = "-profile:v main -level 4.0";
+                    }
+                    // Blu-ray
+                    else if ((string)mainwindow.cboOptimize.SelectedItem == "Blu-ray")
+                    {
+                        optimize = "-deblock 0:0 -sar 1/1 -x264opts bluray-compat=1:level=4.1:open-gop=1:slices=4:tff=1:colorprim=bt709:colormatrix=bt709:vbv-maxrate=40000:vbv-bufsize=30000:me=umh:ref=4:nal-hrd=vbr:aud=1:b-pyramid=strict";
+                    }
+                    // Windows Device
+                    else if ((string)mainwindow.cboOptimize.SelectedItem == "Windows")
+                    {
+                        optimize = "-profile:v baseline -level 3.1 -movflags faststart";
+                    }
+                    // Apple Device
+                    else if ((string)mainwindow.cboOptimize.SelectedItem == "Apple")
+                    {
+                        optimize = "-x264-params ref=4 -profile:v baseline -level 3.1 -movflags +faststart";
+                    }
+                    // Android Device
+                    else if ((string)mainwindow.cboOptimize.SelectedItem == "Android")
+                    {
+                        optimize = "-profile:v baseline -level 3.0 -movflags faststart";
+                    }
+                    // PS3
+                    else if ((string)mainwindow.cboOptimize.SelectedItem == "PS3")
+                    {
+                        optimize = "-profile:v main -level 4.0";
+                    }
+                    // PS4
+                    else if ((string)mainwindow.cboOptimize.SelectedItem == "PS4")
+                    {
+                        optimize = "-profile:v main -level 4.1";
+                    }
+                    // Xbox 360
+                    else if ((string)mainwindow.cboOptimize.SelectedItem == "Xbox 360")
+                    {
+                        optimize = "-profile:v high -level 4.1 -maxrate 9.8M";
+                    }
+                    // Xbox One
+                    else if ((string)mainwindow.cboOptimize.SelectedItem == "Xbox 360")
+                    {
+                        optimize = "-profile:v high -level 4.1";
+                    }
+                }
+                // -------------------------
+                // x265
+                // -------------------------
+                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265")
+                {
+                    // Web
+                    if ((string)mainwindow.cboOptimize.SelectedItem == "Web")
+                    {
+                        optimize = "-movflags +faststart";
+                    }
+                }
+
+                // -------------------------
+                // Advanced (x264 & x265)
+                // -------------------------
+                if ((string)mainwindow.cboOptimize.SelectedItem == "Advanced")
+                {
+                    if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264" || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
+                    {
+                        // Tune
+                        //
+                        if (OptimizeAdvancedWindow.optAdvTune == "none" || string.IsNullOrEmpty(OptimizeAdvancedWindow.optAdvTune))
+                        {
+                            optTune = string.Empty;
+                        }
+                        else
+                        {
+                            // Tune = Set Tmp Setting from Optimized Advanced Window
+                            optTune = "-tune " + OptimizeAdvancedWindow.optAdvTune;
+                        }
 
 
-                    // Profile
-                    //
-                    if (OptimizeAdvancedWindow.optAdvProfile == "none" || string.IsNullOrEmpty(OptimizeAdvancedWindow.optAdvProfile))
-                    {
-                        optProfile = string.Empty;
-                    }
-                    else
-                    {
-                        // Tune = Set Tmp Setting from Optimized Advanced Window
-                        optProfile = "-profile:v " + OptimizeAdvancedWindow.optAdvProfile;
-                    }
+                        // Profile
+                        //
+                        if (OptimizeAdvancedWindow.optAdvProfile == "none" || string.IsNullOrEmpty(OptimizeAdvancedWindow.optAdvProfile))
+                        {
+                            optProfile = string.Empty;
+                        }
+                        else
+                        {
+                            // Tune = Set Tmp Setting from Optimized Advanced Window
+                            optProfile = "-profile:v " + OptimizeAdvancedWindow.optAdvProfile;
+                        }
 
-                    // Level
-                    //
-                    if (OptimizeAdvancedWindow.optAdvLevel == "none" || string.IsNullOrEmpty(OptimizeAdvancedWindow.optAdvLevel))
-                    {
-                        optLevel = string.Empty;
-                    }
-                    else
-                    {
-                        // Tune = Set Tmp Setting from Optimized Advanced Window
-                        optLevel = "-level " + OptimizeAdvancedWindow.optAdvLevel;
-                    }
+                        // Level
+                        //
+                        if (OptimizeAdvancedWindow.optAdvLevel == "none" || string.IsNullOrEmpty(OptimizeAdvancedWindow.optAdvLevel))
+                        {
+                            optLevel = string.Empty;
+                        }
+                        else
+                        {
+                            // Tune = Set Tmp Setting from Optimized Advanced Window
+                            optLevel = "-level " + OptimizeAdvancedWindow.optAdvLevel;
+                        }
 
 
-                    // Combine Optimize = Tune + Profile + Level
-                    //
-                    List<string> v2passList = new List<string>() {
+                        // Combine Optimize = Tune + Profile + Level
+                        //
+                        List<string> v2passList = new List<string>() {
                         optProfile,
                         optLevel,
                         optTune
                     };
 
-                    optimize = string.Join(" ", v2passList.Where(s => !string.IsNullOrEmpty(s)));
+                        optimize = string.Join(" ", v2passList.Where(s => !string.IsNullOrEmpty(s)));
+                    }
                 }
             }
 
@@ -1899,72 +1940,82 @@ namespace Axiom
         // When using Video Frame Range instead of Time
         public static void FramesToDecimal(MainWindow mainwindow) //method
         {
-            // Separate FFprobe Result (e.g. 30000/1001)
-            string[] f = FFprobe.inputFramerate.Split('/');
-
-            try
+            // Video Bitrate None Check
+            // Video Codec None Check
+            // Codec Copy Check
+            // Media Type Check
+            if ((string)mainwindow.cboVideo.SelectedItem != "None"
+                && (string)mainwindow.cboVideoCodec.SelectedItem != "None"
+                && (string)mainwindow.cboVideoCodec.SelectedItem != "Copy"
+                && (string)mainwindow.cboMediaType.SelectedItem != "Audio")
             {
-                double detectedFramerate = Convert.ToDouble(f[0]) / Convert.ToDouble(f[1]); // divide FFprobe values
-                detectedFramerate = Math.Truncate(detectedFramerate * 1000) / 1000; // limit to 3 decimal places
+                // Separate FFprobe Result (e.g. 30000/1001)
+                string[] f = FFprobe.inputFramerate.Split('/');
 
-                // Trim Start Frame
-                //
-                if (mainwindow.frameStart.Text != "Frame" 
-                    && !string.IsNullOrWhiteSpace(mainwindow.frameStart.Text) 
-                    && !string.IsNullOrWhiteSpace(mainwindow.frameStart.Text)) // Default/Null Check
+                try
                 {
-                    Format.trimStart = Convert.ToString(Convert.ToDouble(mainwindow.frameStart.Text) / detectedFramerate); // Divide Frame Start Number by Video's Framerate
-                }
+                    double detectedFramerate = Convert.ToDouble(f[0]) / Convert.ToDouble(f[1]); // divide FFprobe values
+                    detectedFramerate = Math.Truncate(detectedFramerate * 1000) / 1000; // limit to 3 decimal places
 
-                // Log Console Message /////////
-                Log.WriteAction = () =>
-                {
-                    Log.logParagraph.Inlines.Add(new LineBreak());
-                    Log.logParagraph.Inlines.Add(new Bold(new Run("Start Frame: ")) { Foreground = Log.ConsoleDefault });
-                    Log.logParagraph.Inlines.Add(new Run(mainwindow.frameStart.Text + " / " + detectedFramerate + " = " + Format.trimStart) { Foreground = Log.ConsoleDefault });
-                };
-                Log.LogActions.Add(Log.WriteAction);
+                    // Trim Start Frame
+                    //
+                    if (mainwindow.frameStart.Text != "Frame"
+                        && !string.IsNullOrWhiteSpace(mainwindow.frameStart.Text)
+                        && !string.IsNullOrWhiteSpace(mainwindow.frameStart.Text)) // Default/Null Check
+                    {
+                        Format.trimStart = Convert.ToString(Convert.ToDouble(mainwindow.frameStart.Text) / detectedFramerate); // Divide Frame Start Number by Video's Framerate
+                    }
 
-                // Trim End Frame
-                //
-                if (mainwindow.frameEnd.Text != "Range"
-                    && !string.IsNullOrWhiteSpace(mainwindow.frameEnd.Text) 
-                    && !string.IsNullOrWhiteSpace(mainwindow.frameEnd.Text)) // Default/Null Check
-                {
-                    Format.trimEnd = Convert.ToString(Convert.ToDouble(mainwindow.frameEnd.Text) / detectedFramerate); // Divide Frame End Number by Video's Framerate
-                }
-
-                // Log Console Message /////////
-                if (mainwindow.frameEnd.IsEnabled == true)
-                {
+                    // Log Console Message /////////
                     Log.WriteAction = () =>
                     {
                         Log.logParagraph.Inlines.Add(new LineBreak());
-                        Log.logParagraph.Inlines.Add(new Bold(new Run("End Frame: ")) { Foreground = Log.ConsoleDefault });
-                        Log.logParagraph.Inlines.Add(new Run(mainwindow.frameEnd.Text + " / " + detectedFramerate + " = " + Format.trimEnd) { Foreground = Log.ConsoleDefault });
+                        Log.logParagraph.Inlines.Add(new Bold(new Run("Start Frame: ")) { Foreground = Log.ConsoleDefault });
+                        Log.logParagraph.Inlines.Add(new Run(mainwindow.frameStart.Text + " / " + detectedFramerate + " = " + Format.trimStart) { Foreground = Log.ConsoleDefault });
                     };
                     Log.LogActions.Add(Log.WriteAction);
+
+                    // Trim End Frame
+                    //
+                    if (mainwindow.frameEnd.Text != "Range"
+                        && !string.IsNullOrWhiteSpace(mainwindow.frameEnd.Text)
+                        && !string.IsNullOrWhiteSpace(mainwindow.frameEnd.Text)) // Default/Null Check
+                    {
+                        Format.trimEnd = Convert.ToString(Convert.ToDouble(mainwindow.frameEnd.Text) / detectedFramerate); // Divide Frame End Number by Video's Framerate
+                    }
+
+                    // Log Console Message /////////
+                    if (mainwindow.frameEnd.IsEnabled == true)
+                    {
+                        Log.WriteAction = () =>
+                        {
+                            Log.logParagraph.Inlines.Add(new LineBreak());
+                            Log.logParagraph.Inlines.Add(new Bold(new Run("End Frame: ")) { Foreground = Log.ConsoleDefault });
+                            Log.logParagraph.Inlines.Add(new Run(mainwindow.frameEnd.Text + " / " + detectedFramerate + " = " + Format.trimEnd) { Foreground = Log.ConsoleDefault });
+                        };
+                        Log.LogActions.Add(Log.WriteAction);
+                    }
+
                 }
-
-            }
-            catch
-            {
-                // Log Console Message /////////
-                Log.WriteAction = () =>
+                catch
                 {
-                    Log.logParagraph.Inlines.Add(new LineBreak());
-                    Log.logParagraph.Inlines.Add(new LineBreak());
-                    Log.logParagraph.Inlines.Add(new Bold(new Run("Warning: No input file or Framerate not detected.")) { Foreground = Log.ConsoleWarning });
-                };
-                Log.LogActions.Add(Log.WriteAction);
+                    // Log Console Message /////////
+                    Log.WriteAction = () =>
+                    {
+                        Log.logParagraph.Inlines.Add(new LineBreak());
+                        Log.logParagraph.Inlines.Add(new LineBreak());
+                        Log.logParagraph.Inlines.Add(new Bold(new Run("Warning: No input file or Framerate not detected.")) { Foreground = Log.ConsoleWarning });
+                    };
+                    Log.LogActions.Add(Log.WriteAction);
 
-                /* lock */
-                MainWindow.ready = false;
-                // Warning
-                System.Windows.MessageBox.Show("No input file or Framerate not detected.");
+                    /* lock */
+                    MainWindow.ready = false;
+                    // Warning
+                    System.Windows.MessageBox.Show("No input file or Framerate not detected.");
+                }
             }
 
-        } // End Frame Rate To Decimal
+        }
 
 
         /// <summary>
@@ -1972,74 +2023,83 @@ namespace Axiom
         /// <summary>
         public static String VideoFilter(MainWindow mainwindow)
         {
-            // --------------------------------------------------
-            // Filters
-            // --------------------------------------------------
-            /// <summary>
-            ///    Resize
-            /// </summary> 
-            Video.Size(mainwindow);
-
-            /// <summary>
-            ///    Crop
-            /// </summary> 
-            Video.Crop(mainwindow, cropwindow);
-
-
-            // -------------------------
-            // PNG to JPEG
-            // -------------------------
-            if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG")
+            // Video Bitrate None Check
+            // Video Codec None Check
+            // Codec Copy Check
+            // Media Type Check
+            if ((string)mainwindow.cboVideo.SelectedItem != "None"
+                && (string)mainwindow.cboVideoCodec.SelectedItem != "None"
+                && (string)mainwindow.cboVideoCodec.SelectedItem != "Copy"
+                && (string)mainwindow.cboMediaType.SelectedItem != "Audio")
             {
-                // Turn on PNG to JPG Filter
-                if (string.Equals(MainWindow.inputExt, ".png", StringComparison.CurrentCultureIgnoreCase)
-                    || string.Equals(MainWindow.inputExt, "png", StringComparison.CurrentCultureIgnoreCase))
-                {
-                    //png transparent to white background
-                    geq = "format=yuva444p,geq='if(lte(alpha(X,Y),16),255,p(X,Y))':'if(lte(alpha(X,Y),16),128,p(X,Y))':'if(lte(alpha(X,Y),16),128,p(X,Y))'"; 
+                // --------------------------------------------------
+                // Filters
+                // --------------------------------------------------
+                /// <summary>
+                ///    Resize
+                /// </summary> 
+                Video.Size(mainwindow);
 
-                    // Video Filter Add
-                    VideoFilters.Add(geq);
-                }
-                else
-                {
-                    geq = string.Empty;
-                }
-            }
+                /// <summary>
+                ///    Crop
+                /// </summary> 
+                Video.Crop(mainwindow, cropwindow);
 
-            // -------------------------
-            // Filter Combine
-            // -------------------------
-            if ((string)mainwindow.cboVideoCodec.SelectedItem != "None") // None Check
-            {
-                // 1 Filter
-                //
-                if (VideoFilters.Count() == 1)
+
+                // -------------------------
+                // PNG to JPEG
+                // -------------------------
+                if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG")
                 {
-                    vFilter = "-vf " + string.Join(", ", VideoFilters.Where(s => !string.IsNullOrEmpty(s)));
+                    // Turn on PNG to JPG Filter
+                    if (string.Equals(MainWindow.inputExt, ".png", StringComparison.CurrentCultureIgnoreCase)
+                        || string.Equals(MainWindow.inputExt, "png", StringComparison.CurrentCultureIgnoreCase))
+                    {
+                        //png transparent to white background
+                        geq = "format=yuva444p,geq='if(lte(alpha(X,Y),16),255,p(X,Y))':'if(lte(alpha(X,Y),16),128,p(X,Y))':'if(lte(alpha(X,Y),16),128,p(X,Y))'";
+
+                        // Video Filter Add
+                        VideoFilters.Add(geq);
+                    }
+                    else
+                    {
+                        geq = string.Empty;
+                    }
                 }
 
-                // Multiple Filters
-                //
-                else if (VideoFilters.Count() > 1)
+                // -------------------------
+                // Filter Combine
+                // -------------------------
+                if ((string)mainwindow.cboVideoCodec.SelectedItem != "None") // None Check
                 {
-                    vFilter = "-vf \"" + string.Join(", ", VideoFilters.Where(s => !string.IsNullOrEmpty(s))) + "\"";
-                }
+                    // 1 Filter
+                    //
+                    if (VideoFilters.Count() == 1)
+                    {
+                        vFilter = "-vf " + string.Join(", ", VideoFilters.Where(s => !string.IsNullOrEmpty(s)));
+                    }
 
-                // Empty
-                //
+                    // Multiple Filters
+                    //
+                    else if (VideoFilters.Count() > 1)
+                    {
+                        vFilter = "-vf \"" + string.Join(", ", VideoFilters.Where(s => !string.IsNullOrEmpty(s))) + "\"";
+                    }
+
+                    // Empty
+                    //
+                    else
+                    {
+                        vFilter = string.Empty;
+                    }
+                }
+                // Video Codec None
                 else
                 {
                     vFilter = string.Empty;
+
                 }
             }
-            // Video Codec None
-            else
-            {
-                vFilter = string.Empty;
-
-            }
-
 
             // Return Value
             return vFilter;

@@ -118,7 +118,13 @@
         <!-- Audio -->
         <Label x:Name="labelAudio" Style="{DynamicResource LabelCustom}" Content="Audio" HorizontalAlignment="Left" Margin="175,74,0,0" VerticalAlignment="Top" Width="75" />
 
-        <ComboBox x:Name="cboAudio" Style="{DynamicResource ComboBoxWhite}" ItemContainerStyle="{DynamicResource ComboBoxWhiteItem}" HorizontalAlignment="Left" Margin="178,100,0,0" VerticalAlignment="Top" Width="75" SelectionChanged="cboAudio_SelectionChanged"  />
+        <ComboBox x:Name="cboAudio" 
+                  Style="{DynamicResource ComboBoxWhite}" 
+                  ItemContainerStyle="{DynamicResource ComboBoxWhiteItem}"
+                  HorizontalAlignment="Left" Margin="178,100,0,0" 
+                  VerticalAlignment="Top"
+                  Width="75"
+                  SelectionChanged="cboAudio_SelectionChanged"/>
 
         <!-- Audio kbps Custom -->
         <TextBox x:Name="audioCustom" HorizontalAlignment="Left" Height="22" Width="41" Margin="178,128,0,0" Padding="2, 1, 0, 0" TextWrapping="NoWrap" Text="kbps" VerticalAlignment="Top" MaxLines="1" MaxLength="5" GotFocus="audioCustom_GotFocus" LostFocus="audioCustom_LostFocus" KeyDown="audioCustom_KeyDown" Style="{DynamicResource TextBoxCustom}" ToolTipService.InitialShowDelay="1000" ToolTipService.ShowOnDisabled="True" ToolTip="Custom Audio Bitrate (e.g. 245)"/>

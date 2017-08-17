@@ -69,94 +69,99 @@ namespace Axiom
         /// <summary>
         public static String AudioCodec(MainWindow mainwindow)
         {
-            // -------------------------
-            // Audio
-            // -------------------------
-            // None
-            if ((string)mainwindow.cboAudioCodec.SelectedItem == "None")
+            // Audio Bitrate None Check
+            // Audio Codec None Check
+            // Mute Check
+            // Stream None Check
+            // Media Type Check
+            if ((string)mainwindow.cboAudio.SelectedItem != "None"
+                && (string)mainwindow.cboAudioCodec.SelectedItem != "None"
+                && (string)mainwindow.cboAudioCodec.SelectedItem != "Mute"
+                && (string)mainwindow.cboAudioStream.SelectedItem != "none"
+                && (string)mainwindow.cboMediaType.SelectedItem != "Image"
+                && (string)mainwindow.cboMediaType.SelectedItem != "Sequence")
             {
-                aCodec = string.Empty;
-                Streams.aMap = "-an";
-            }
-            // Vorbis
-            else if ((string)mainwindow.cboAudioCodec.SelectedItem == "Vorbis")
-            {
-                aCodec = "-acodec libvorbis";
-            }
-            // Opus
-            else if ((string)mainwindow.cboAudioCodec.SelectedItem == "Opus")
-            {
-                aCodec = "-acodec libopus";
-            }
-            // AAC
-            else if ((string)mainwindow.cboAudioCodec.SelectedItem == "AAC")
-            {
-                aCodec = "-acodec aac";
-            }
-            // ALAC
-            else if ((string)mainwindow.cboAudioCodec.SelectedItem == "ALAC")
-            {
-                aCodec = "-acodec alac";
-            }
-            // AC3
-            else if ((string)mainwindow.cboAudioCodec.SelectedItem == "AC3")
-            {
-                aCodec = "-acodec ac3";
-            }
-            // LAME
-            else if ((string)mainwindow.cboAudioCodec.SelectedItem == "LAME")
-            {
-                aCodec = "-acodec libmp3lame";
-            }
-            // FLAC
-            else if ((string)mainwindow.cboAudioCodec.SelectedItem == "FLAC")
-            {
-                aCodec = "-acodec flac";
-            }
-            // PCM
-            else if ((string)mainwindow.cboAudioCodec.SelectedItem == "PCM")
-            {
-                aCodec = string.Empty; // Codec not needed for PCM or Controlled by "PCM Match Bit Depth Audio" Section
-            }
-            // Copy
-            else if ((string)mainwindow.cboAudioCodec.SelectedItem == "Copy")
-            {
-                aCodec = "-acodec copy";
-            }
-            // Unknown
-            else
-            {
-                aCodec = string.Empty;
-            }
+                // -------------------------
+                // Audio
+                // -------------------------
+                // None
+                if ((string)mainwindow.cboAudioCodec.SelectedItem == "None")
+                {
+                    aCodec = string.Empty;
+                    //Streams.aMap = "-an";
+                }
+                // Vorbis
+                else if ((string)mainwindow.cboAudioCodec.SelectedItem == "Vorbis")
+                {
+                    aCodec = "-acodec libvorbis";
+                }
+                // Opus
+                else if ((string)mainwindow.cboAudioCodec.SelectedItem == "Opus")
+                {
+                    aCodec = "-acodec libopus";
+                }
+                // AAC
+                else if ((string)mainwindow.cboAudioCodec.SelectedItem == "AAC")
+                {
+                    aCodec = "-acodec aac";
+                }
+                // ALAC
+                else if ((string)mainwindow.cboAudioCodec.SelectedItem == "ALAC")
+                {
+                    aCodec = "-acodec alac";
+                }
+                // AC3
+                else if ((string)mainwindow.cboAudioCodec.SelectedItem == "AC3")
+                {
+                    aCodec = "-acodec ac3";
+                }
+                // LAME
+                else if ((string)mainwindow.cboAudioCodec.SelectedItem == "LAME")
+                {
+                    aCodec = "-acodec libmp3lame";
+                }
+                // FLAC
+                else if ((string)mainwindow.cboAudioCodec.SelectedItem == "FLAC")
+                {
+                    aCodec = "-acodec flac";
+                }
+                // PCM
+                else if ((string)mainwindow.cboAudioCodec.SelectedItem == "PCM")
+                {
+                    aCodec = string.Empty; // Codec not needed for PCM or Controlled by "PCM Match Bit Depth Audio" Section
+                }
+                // Copy
+                else if ((string)mainwindow.cboAudioCodec.SelectedItem == "Copy")
+                {
+                    aCodec = "-acodec copy";
+                }
+                // Unknown
+                else
+                {
+                    aCodec = string.Empty;
+                }
 
+                // --------------------------------------------------
+                // Category: Audio (Log)
+                // --------------------------------------------------
+                // Log Console Message /////////
+                Log.WriteAction = () =>
+                {
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new Bold(new Run("Audio")) { Foreground = Log.ConsoleAction });
+                };
+                Log.LogActions.Add(Log.WriteAction);
 
-            // Mute
-            if ((string)mainwindow.cboAudio.SelectedItem == "Mute" || (string)mainwindow.cboAudioStream.SelectedItem == "none")
-            {
-                aCodec = string.Empty;
+                // Log Console Message /////////
+                Log.WriteAction = () =>
+                {
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new Bold(new Run("Codec: ")) { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new Run(mainwindow.cboAudioCodec.SelectedItem.ToString()) { Foreground = Log.ConsoleDefault });
+                };
+                Log.LogActions.Add(Log.WriteAction);
             }
-
-
-            // --------------------------------------------------
-            // Category: Audio (Log)
-            // --------------------------------------------------
-            // Log Console Message /////////
-            Log.WriteAction = () =>
-            {
-                Log.logParagraph.Inlines.Add(new LineBreak());
-                Log.logParagraph.Inlines.Add(new LineBreak());
-                Log.logParagraph.Inlines.Add(new Bold(new Run("Audio")) { Foreground = Log.ConsoleAction });
-            };
-            Log.LogActions.Add(Log.WriteAction);
-
-            // Log Console Message /////////
-            Log.WriteAction = () =>
-            {
-                Log.logParagraph.Inlines.Add(new LineBreak());
-                Log.logParagraph.Inlines.Add(new Bold(new Run("Codec: ")) { Foreground = Log.ConsoleDefault });
-                Log.logParagraph.Inlines.Add(new Run(mainwindow.cboAudioCodec.SelectedItem.ToString()) { Foreground = Log.ConsoleDefault });
-            };
-            Log.LogActions.Add(Log.WriteAction);
 
 
             // Return Value
@@ -178,6 +183,14 @@ namespace Axiom
                 else if ((string)mainwindow.cboAudioCodec.SelectedItem == "Opus") { aBitMode = "-vbr on -compression_level 10 -b:a"; } //special rule for opus -b:a -vbr on
                 else if ((string)mainwindow.cboAudioCodec.SelectedItem == "AAC") { aBitMode = "-q:a"; }
                 else if ((string)mainwindow.cboAudioCodec.SelectedItem == "LAME") { aBitMode = "-q:a"; }
+                else if ((string)mainwindow.cboAudioCodec.SelectedItem == "Copy") { aBitMode = string.Empty; }
+
+                // Format
+                if ((string)mainwindow.cboFormat.SelectedItem == "ogv") { aBitMode = "-q:a"; }
+
+                // Bitrate
+                if ((string)mainwindow.cboAudio.SelectedItem == "Lossless") { aBitMode = string.Empty; }
+                else if ((string)mainwindow.cboAudio.SelectedItem == "Mute") { aBitMode = string.Empty; }
 
                 // Log Console Message /////////
                 Log.WriteAction = () =>
@@ -201,8 +214,14 @@ namespace Axiom
                 else if ((string)mainwindow.cboAudioCodec.SelectedItem == "AC3") { aBitMode = "-b:a"; }
                 else if ((string)mainwindow.cboAudioCodec.SelectedItem == "FLAC") { aBitMode = string.Empty; }
                 else if ((string)mainwindow.cboAudioCodec.SelectedItem == "PCM") { aBitMode = string.Empty; }
+                else if ((string)mainwindow.cboAudioCodec.SelectedItem == "Copy") { aBitMode = string.Empty; }
+
                 // Format
                 if ((string)mainwindow.cboFormat.SelectedItem == "ogv") { aBitMode = "-q:a"; } // OGV, Force VBR or it will not work
+
+                // Bitrate
+                if ((string)mainwindow.cboAudio.SelectedItem == "Lossless") { aBitMode = string.Empty; }
+                else if ((string)mainwindow.cboAudio.SelectedItem == "Mute") { aBitMode = string.Empty; }
 
                 // Log Console Message /////////
                 Log.WriteAction = () =>
@@ -212,6 +231,14 @@ namespace Axiom
                     Log.logParagraph.Inlines.Add(new Run("CBR") { Foreground = Log.ConsoleDefault });
                 };
                 Log.LogActions.Add(Log.WriteAction);
+            }
+
+            // -------------------------
+            // Batch
+            // -------------------------
+            if (mainwindow.tglBatch.IsChecked == true)
+            {
+                aBitMode = "-b:a";
             }
         }
 
@@ -283,8 +310,7 @@ namespace Axiom
                         FFprobe.inputAudioBitrate = Convert.ToString(6);
                     }
 
-                    // add k to value
-                    //FFprobe.inputAudioBitrate = Convert.ToString(double.Parse(FFprobe.inputAudioBitrate)) + "k";
+
                     FFprobe.inputAudioBitrate = Convert.ToString(FFprobe.inputAudioBitrate);
                 }
             }
@@ -406,36 +432,51 @@ namespace Axiom
         /// <summary>
         public static String BatchAudioBitrateLimiter(MainWindow mainwindow)
         {
-            // -------------------------
-            // Batch Limit Bitrates
-            // -------------------------
-            // Only if Audio ComboBox Auto
-            if ((string)mainwindow.cboAudio.SelectedItem == "Auto")
+            // Audio Bitrate None Check
+            // Audio Codec None
+            // Codec Copy Check
+            // Mute Check
+            // Stream None Check
+            // Media Type Check
+            if ((string)mainwindow.cboAudio.SelectedItem != "None"
+                && (string)mainwindow.cboAudioCodec.SelectedItem != "None"
+                && (string)mainwindow.cboAudioCodec.SelectedItem != "Copy"
+                && (string)mainwindow.cboAudioCodec.SelectedItem != "Mute"
+                && (string)mainwindow.cboAudioStream.SelectedItem != "none"
+                && (string)mainwindow.cboMediaType.SelectedItem != "Image"
+                && (string)mainwindow.cboMediaType.SelectedItem != "Sequence")
             {
-                // Limit Vorbis bitrate to 500k through cmd.exe
-                if ((string)mainwindow.cboAudioCodec.SelectedItem == "Vorbis")
+                // -------------------------
+                // Batch Limit Bitrates
+                // -------------------------
+                // Only if Audio ComboBox Auto
+                if ((string)mainwindow.cboAudio.SelectedItem == "Auto")
                 {
-                    aBitrateLimiter = "& (IF %A gtr 500000 (SET aBitrate=500000) ELSE (echo Bitrate within Vorbis Limit of 500k)) & for /F %A in ('echo %aBitrate%') do (echo)";
-                }
-                // Limit Opus bitrate to 510k through cmd.exe
-                else if ((string)mainwindow.cboAudioCodec.SelectedItem == "Opus")
-                {
-                    aBitrateLimiter = "& (IF %A gtr 510000 (SET aBitrate=510000) ELSE (echo Bitrate within Opus Limit of 510k)) & for /F %A in ('echo %aBitrate%') do (echo)";
-                }
-                // Limit AAC bitrate to 400k through cmd.exe
-                else if ((string)mainwindow.cboAudioCodec.SelectedItem == "AAC")
-                {
-                    aBitrateLimiter = "& (IF %A gtr 400000 (SET aBitrate=400000) ELSE (echo Bitrate within AAC Limit of 400k)) & for /F %A in ('echo %aBitrate%') do (echo)";
-                }
-                // Limit AC3 bitrate to 640k through cmd.exe
-                else if ((string)mainwindow.cboAudioCodec.SelectedItem == "AC3")
-                {
-                    aBitrateLimiter = "& (IF %A gtr 640000 (SET aBitrate=640000) ELSE (echo Bitrate within AC3 Limit of 640k)) & for /F %A in ('echo %aBitrate%') do (echo)";
-                }
-                // Limit LAME bitrate to 320k through cmd.exe
-                else if ((string)mainwindow.cboAudioCodec.SelectedItem == "LAME")
-                {
-                    aBitrateLimiter = "& (IF %A gtr 320000 (SET aBitrate=320000) ELSE (echo Bitrate within LAME Limit of 320k)) & for /F %A in ('echo %aBitrate%') do (echo)";
+                    // Limit Vorbis bitrate to 500k through cmd.exe
+                    if ((string)mainwindow.cboAudioCodec.SelectedItem == "Vorbis")
+                    {
+                        aBitrateLimiter = "& (IF %A gtr 500000 (SET aBitrate=500000) ELSE (echo Bitrate within Vorbis Limit of 500k)) & for /F %A in ('echo %aBitrate%') do (echo)";
+                    }
+                    // Limit Opus bitrate to 510k through cmd.exe
+                    else if ((string)mainwindow.cboAudioCodec.SelectedItem == "Opus")
+                    {
+                        aBitrateLimiter = "& (IF %A gtr 510000 (SET aBitrate=510000) ELSE (echo Bitrate within Opus Limit of 510k)) & for /F %A in ('echo %aBitrate%') do (echo)";
+                    }
+                    // Limit AAC bitrate to 400k through cmd.exe
+                    else if ((string)mainwindow.cboAudioCodec.SelectedItem == "AAC")
+                    {
+                        aBitrateLimiter = "& (IF %A gtr 400000 (SET aBitrate=400000) ELSE (echo Bitrate within AAC Limit of 400k)) & for /F %A in ('echo %aBitrate%') do (echo)";
+                    }
+                    // Limit AC3 bitrate to 640k through cmd.exe
+                    else if ((string)mainwindow.cboAudioCodec.SelectedItem == "AC3")
+                    {
+                        aBitrateLimiter = "& (IF %A gtr 640000 (SET aBitrate=640000) ELSE (echo Bitrate within AC3 Limit of 640k)) & for /F %A in ('echo %aBitrate%') do (echo)";
+                    }
+                    // Limit LAME bitrate to 320k through cmd.exe
+                    else if ((string)mainwindow.cboAudioCodec.SelectedItem == "LAME")
+                    {
+                        aBitrateLimiter = "& (IF %A gtr 320000 (SET aBitrate=320000) ELSE (echo Bitrate within LAME Limit of 320k)) & for /F %A in ('echo %aBitrate%') do (echo)";
+                    }
                 }
             }
 
@@ -449,21 +490,35 @@ namespace Axiom
         /// <summary>
         public static String BatchAudioQualityAuto(MainWindow mainwindow)
         {
-            // -------------------------
-            // Batch Auto
-            // -------------------------
-            if (mainwindow.tglBatch.IsChecked == true)
+            // Audio Bitrate None Check
+            // Audio Codec None
+            // Codec Copy Check
+            // Mute Check
+            // Stream None Check
+            // Media Type Check
+            if ((string)mainwindow.cboAudio.SelectedItem != "None"
+                && (string)mainwindow.cboAudioCodec.SelectedItem != "None"
+                && (string)mainwindow.cboAudioCodec.SelectedItem != "Copy"
+                && (string)mainwindow.cboAudioCodec.SelectedItem != "Mute"
+                && (string)mainwindow.cboAudioStream.SelectedItem != "none"
+                && (string)mainwindow.cboMediaType.SelectedItem != "Image"
+                && (string)mainwindow.cboMediaType.SelectedItem != "Sequence")
             {
                 // -------------------------
-                // Batch Audio Auto Bitrates
+                // Batch Auto
                 // -------------------------
-
-                // Batch CMD Detect
-                //
-                if ((string)mainwindow.cboAudio.SelectedItem == "Auto")
+                if (mainwindow.tglBatch.IsChecked == true)
                 {
-                    // Make List
-                    List<string> BatchAudioAutoList = new List<string>()
+                    // -------------------------
+                    // Batch Audio Auto Bitrates
+                    // -------------------------
+
+                    // Batch CMD Detect
+                    //
+                    if ((string)mainwindow.cboAudio.SelectedItem == "Auto")
+                    {
+                        // Make List
+                        List<string> BatchAudioAutoList = new List<string>()
                     {
                         // audio
                         "& for /F \"delims=\" %A in ('@" + FFprobe.ffprobe + " -v error -select_streams a:0 -show_entries " + FFprobe.aEntryType + " -of default^=noprint_wrappers^=1:nokey^=1 \"%~f\" 2^>^&1') do (SET aBitrate=%A)",
@@ -478,14 +533,10 @@ namespace Axiom
                         "\r\n\r\n" + "& for /F %A in ('echo %aBitrate%') do (echo)"
                     };
 
-                    // Join List with Spaces, Remove Empty Strings
-                    Audio.batchAudioAuto = string.Join(" ", BatchAudioAutoList.Where(s => !string.IsNullOrEmpty(s)));
+                        // Join List with Spaces, Remove Empty Strings
+                        Audio.batchAudioAuto = string.Join(" ", BatchAudioAutoList.Where(s => !string.IsNullOrEmpty(s)));
 
-                }
-                // Batch Audio Copy
-                if ((string)mainwindow.cboAudioCodec.SelectedItem == "Copy")
-                {
-                    batchAudioAuto = string.Empty;
+                    }
                 }
             }
 
@@ -499,8 +550,26 @@ namespace Axiom
         /// <summary>
         public static String AudioQuality(MainWindow mainwindow)
         {
-            // Audio None Check
-            if ((string)mainwindow.cboAudio.SelectedItem != "None")
+            // -------------------------
+            // Vorbis low 0-10 high
+            // Opus low 0-10 high
+            // AAC low 0.1-2 high
+            // LAME low 9-0 high
+            // -------------------------
+
+            // Audio Bitrate None Check
+            // Audio Codec None
+            // Codec Copy Check
+            // Mute Check
+            // Stream None Check
+            // Media Type Check
+            if ((string)mainwindow.cboAudio.SelectedItem != "None"
+                && (string)mainwindow.cboAudioCodec.SelectedItem != "None"
+                && (string)mainwindow.cboAudioCodec.SelectedItem != "Copy"
+                && (string)mainwindow.cboAudioCodec.SelectedItem != "Mute"
+                && (string)mainwindow.cboAudioStream.SelectedItem != "none"
+                && (string)mainwindow.cboMediaType.SelectedItem != "Image"
+                && (string)mainwindow.cboMediaType.SelectedItem != "Sequence")
             {
                 // Audio Bitrate Mode (Method)
                 //
@@ -536,7 +605,7 @@ namespace Axiom
                                 //CBR
                                 if (mainwindow.tglVBR.IsChecked == false)
                                 {
-                                    aBitMode = "-b:a";
+                                    //aBitMode = "-b:a";
                                     aBitrate = FFprobe.inputAudioBitrate;
 
                                     // add k to value
@@ -546,17 +615,17 @@ namespace Axiom
                                 // VBR
                                 else if (mainwindow.tglVBR.IsChecked == true)
                                 {
-                                    //aBitMode = "-q:a";
-                                    aBitrate = AudioVBRCalculator(mainwindow, FFprobe.inputAudioBitrate);
-
                                     //vbr does not have k
 
+                                    //aBitMode = "-q:a";
+                                    aBitrate = AudioVBRCalculator(mainwindow, FFprobe.inputAudioBitrate);
 
                                     // Opus special rules
                                     if ((string)mainwindow.cboAudioCodec.SelectedItem == "Opus")
                                     {
                                         // special rule for opus -b:a -vbr on
                                         // opus vbr cannot be above 256k
+                                        aBitMode = "-b:a";
                                         aBitrate = "256k"; 
                                     }
                                 }
@@ -570,7 +639,7 @@ namespace Axiom
                                 if (FFprobe.inputAudioBitrate == "N/A"
                                     && !string.Equals(MainWindow.inputExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase))
                                 {
-                                    aBitMode = "-b:a";
+                                    //aBitMode = "-b:a";
                                     aBitrate = "320k";
                                 }
                             }
@@ -592,11 +661,7 @@ namespace Axiom
                     else if (mainwindow.tglBatch.IsChecked == true)
                     {
                         // Use the CMD Batch Audio Variable
-                        if ((string)mainwindow.cboAudioCodec.SelectedItem != "Copy")
-                        {
-                            aBitMode = "-b:a";
-                            aBitrate = "%A";
-                        }
+                        aBitrate = "%A";
                     }
                 }
 
@@ -605,24 +670,14 @@ namespace Axiom
                 // -------------------------
                 else if ((string)mainwindow.cboAudio.SelectedItem == "Lossless")
                 {
-                    // ALAC
                     if ((string)mainwindow.cboAudioCodec.SelectedItem == "ALAC")
-                    {
-                        aBitMode = string.Empty;
                         aBitrate = string.Empty;
-                    }
-                    // FLAC
+
                     else if ((string)mainwindow.cboAudioCodec.SelectedItem == "FLAC")
-                    {
-                        aBitMode = string.Empty;
                         aBitrate = string.Empty;
-                    }
-                    // PCM
+
                     else if ((string)mainwindow.cboAudioCodec.SelectedItem == "PCM")
-                    {
-                        aBitMode = string.Empty;
                         aBitrate = string.Empty;
-                    }
                 }
 
                 // -------------------------
@@ -630,43 +685,33 @@ namespace Axiom
                 // -------------------------
                 else if ((string)mainwindow.cboAudio.SelectedItem == "640")
                 {
+                    // CBR
+                    if (mainwindow.tglVBR.IsChecked == false)
+                        aBitrate = "640k";
+
                     // VBR
                     if (mainwindow.tglVBR.IsChecked == true)
-                    {
-                        // AC3 value > low 0-10 high
+
                         if ((string)mainwindow.cboAudioCodec.SelectedItem == "AC3")
-                        {
                             aBitrate = string.Empty; //AC3 can't be VBR
-                        }
-                    }
-                    // CBR default
-                    else
-                    {
-                        aBitrate = "640k";
-                    }
                 }
 
                 // -------------------------
                 // 510
                 // -------------------------
-                else if ((string)mainwindow.cboAudio.SelectedItem == "510")
-                {
-                    // VBR
-                    if (mainwindow.tglVBR.IsChecked == true)
-                    {
-                        // Opus value > low 0-10 high
-                        if ((string)mainwindow.cboAudioCodec.SelectedItem == "Opus")
-                        {
-                            //special rule for opus -b:a -vbr on
-                            // opus vbr cannot be above 256k
-                            aBitrate = "256k"; 
-                        }
-                    }
-                    // CBR default                                                                                                               
-                    else
-                    {
+                else if ((string)mainwindow.cboAudio.SelectedItem == "510") { 
+
+                    // CBR
+                    if (mainwindow.tglVBR.IsChecked == false)
                         aBitrate = "510k";
-                    }
+
+                    // VBR
+                    else if (mainwindow.tglVBR.IsChecked == true)
+
+                        if ((string)mainwindow.cboAudioCodec.SelectedItem == "Opus")
+                            // special rule for opus -b:a -vbr on
+                            // opus vbr cannot be above 256k
+                            aBitrate = "256k";
                 }
 
                 // -------------------------
@@ -674,20 +719,15 @@ namespace Axiom
                 // -------------------------
                 else if ((string)mainwindow.cboAudio.SelectedItem == "500")
                 {
+                    // CBR
+                    if (mainwindow.tglVBR.IsChecked == false)
+                        aBitrate = "500k";
+
                     // VBR
                     if (mainwindow.tglVBR.IsChecked == true)
-                    {
-                        // Vorbis value > low 0-10 high
-                        // VBR default
+
                         if ((string)mainwindow.cboAudioCodec.SelectedItem == "Vorbis")
-                        {
                             aBitrate = "10";
-                        }
-                    }
-                    else
-                    {
-                        aBitrate = "500k";
-                    }
                 }
 
                 // -------------------------
@@ -695,20 +735,15 @@ namespace Axiom
                 // -------------------------
                 else if ((string)mainwindow.cboAudio.SelectedItem == "448")
                 {
+                    // CBR
+                    if (mainwindow.tglVBR.IsChecked == false)
+                        aBitrate = "448k";
+
                     // VBR
                     if (mainwindow.tglVBR.IsChecked == true)
-                    {
-                        // AC3 value > low 0.1-2 high
+
                         if ((string)mainwindow.cboAudioCodec.SelectedItem == "AC3")
-                        {
-                            aBitrate = string.Empty; /* AC3 can't be VBR */
-                        }
-                    }
-                    // CBR default
-                    else
-                    {
-                        aBitrate = "448k";
-                    }
+                            aBitrate = string.Empty; //AC3 can't be VBR
                 }
 
                 // -------------------------
@@ -716,20 +751,15 @@ namespace Axiom
                 // -------------------------
                 else if ((string)mainwindow.cboAudio.SelectedItem == "400")
                 {
+                    // CBR
+                    if (mainwindow.tglVBR.IsChecked == false)
+                        aBitrate = "400k";
+
                     // VBR
                     if (mainwindow.tglVBR.IsChecked == true)
-                    {
-                        // AAC value > low 0.1-2 high
+
                         if ((string)mainwindow.cboAudioCodec.SelectedItem == "AAC")
-                        {
                             aBitrate = "2";
-                        }
-                    }
-                    // CBR default
-                    else
-                    {
-                        aBitrate = "400k";
-                    }
                 }
 
                 // -------------------------
@@ -737,36 +767,24 @@ namespace Axiom
                 // -------------------------
                 else if ((string)mainwindow.cboAudio.SelectedItem == "320")
                 {
-                    // VBR
-                    if (mainwindow.tglVBR.IsChecked == true)
-                    {
-                        // Vorbis value > low 0-10 high
-                        if ((string)mainwindow.cboAudioCodec.SelectedItem == "Vorbis")
-                        {
-                            aBitrate = "9";
-                        }
-                        // Opus value > low 0-10 high
-                        else if ((string)mainwindow.cboAudioCodec.SelectedItem == "Opus")
-                        {
-                            aBitrate = "320k"; //special rule for opus -b:a -vbr on
-                        }
-                        // AAC value > low 0.1-2 high
-                        else if ((string)mainwindow.cboAudioCodec.SelectedItem == "AAC")
-                        {
-                            aBitrate = "2";
-                        }
-                        // LAME value > low 9-0 high
-                        else if ((string)mainwindow.cboAudioCodec.SelectedItem == "LAME")
-                        {
-                            aBitrate = "0";
-                        }
-                    }
-                    
-                    // CBR default
-                    else
-                    {
+                    // CBR
+                    if (mainwindow.tglVBR.IsChecked == false)
                         aBitrate = "320k";
-                    }
+
+                    // VBR
+                    else if (mainwindow.tglVBR.IsChecked == true)
+
+                        if ((string)mainwindow.cboAudioCodec.SelectedItem == "Vorbis")
+                            aBitrate = "9";
+
+                        else if ((string)mainwindow.cboAudioCodec.SelectedItem == "Opus")
+                            aBitrate = "256k"; //-b:a -vbr on, vbr cannot be greater than 256k
+
+                        else if ((string)mainwindow.cboAudioCodec.SelectedItem == "AAC")
+                            aBitrate = "2";
+
+                        else if ((string)mainwindow.cboAudioCodec.SelectedItem == "LAME")
+                            aBitrate = "0";
                 }
 
                 // -------------------------
@@ -774,35 +792,24 @@ namespace Axiom
                 // -------------------------
                 else if ((string)mainwindow.cboAudio.SelectedItem == "256")
                 {
-                    // VBR
-                    if (mainwindow.tglVBR.IsChecked == true)
-                    {
-                        //webm value low 0-10 high
-                        if ((string)mainwindow.cboAudioCodec.SelectedItem == "Vorbis")
-                        {
-                            aBitrate = "8";
-                        }
-                        // Opus value > low 0-10 high
-                        else if ((string)mainwindow.cboAudioCodec.SelectedItem == "Opus")
-                        {
-                            aBitrate = "256k"; //special rule for opus -b:a -vbr on
-                        }
-                        // AAC value > low 0.1-2 high
-                        else if ((string)mainwindow.cboAudioCodec.SelectedItem == "AAC")
-                        {
-                            aBitrate = "1.6";
-                        }
-                        // LAME value > low 9-0 high
-                        else if ((string)mainwindow.cboAudioCodec.SelectedItem == "LAME")
-                        {
-                            aBitrate = "0";
-                        }
-                    }
-                    // CBR default
-                    else
-                    {
+                    // CBR
+                    if (mainwindow.tglVBR.IsChecked == false)
                         aBitrate = "256k";
-                    }
+
+                    // VBR
+                    else if (mainwindow.tglVBR.IsChecked == true)
+
+                        if ((string)mainwindow.cboAudioCodec.SelectedItem == "Vorbis")
+                            aBitrate = "8";
+
+                        else if ((string)mainwindow.cboAudioCodec.SelectedItem == "Opus")
+                            aBitrate = "256k"; //-b:a -vbr on
+
+                        else if ((string)mainwindow.cboAudioCodec.SelectedItem == "AAC")
+                            aBitrate = "1.6";
+
+                        else if ((string)mainwindow.cboAudioCodec.SelectedItem == "LAME")
+                            aBitrate = "0";
                 }
 
                 // -------------------------
@@ -810,35 +817,24 @@ namespace Axiom
                 // -------------------------
                 else if ((string)mainwindow.cboAudio.SelectedItem == "224")
                 {
-                    // VBR
-                    if (mainwindow.tglVBR.IsChecked == true)
-                    {
-                        // Vorbis value low 0-10 high
-                        if ((string)mainwindow.cboAudioCodec.SelectedItem == "Vorbis")
-                        {
-                            aBitrate = "7";
-                        }
-                        // Opus value > low 0-10 high
-                        else if ((string)mainwindow.cboAudioCodec.SelectedItem == "Opus")
-                        {
-                            aBitrate = "224k"; //special rule for opus -b:a -vbr on
-                        }
-                        // AAC value > low 0.1-2 high
-                        else if ((string)mainwindow.cboAudioCodec.SelectedItem == "AAC")
-                        {
-                            aBitrate = "1.4";
-                        }
-                        // LAME value > low 9-0 high
-                        else if ((string)mainwindow.cboAudioCodec.SelectedItem == "LAME")
-                        {
-                            aBitrate = "1";
-                        }
-                    }
-                    // CBR default
-                    else
-                    {
+                    // CBR
+                    if (mainwindow.tglVBR.IsChecked == false)
                         aBitrate = "224k";
-                    }
+
+                    // VBR
+                    else if (mainwindow.tglVBR.IsChecked == true)
+
+                        if ((string)mainwindow.cboAudioCodec.SelectedItem == "Vorbis")
+                            aBitrate = "7";
+
+                        else if ((string)mainwindow.cboAudioCodec.SelectedItem == "Opus")
+                            aBitrate = "224k"; //-b:a -vbr on
+
+                        else if ((string)mainwindow.cboAudioCodec.SelectedItem == "AAC")
+                            aBitrate = "1.4";
+
+                        else if ((string)mainwindow.cboAudioCodec.SelectedItem == "LAME")
+                            aBitrate = "1";
                 }
 
                 // -------------------------
@@ -846,35 +842,24 @@ namespace Axiom
                 // -------------------------
                 else if ((string)mainwindow.cboAudio.SelectedItem == "192")
                 {
-                    // VBR
-                    if (mainwindow.tglVBR.IsChecked == true)
-                    {
-                        // Vorbis value low 0-10 high
-                        if ((string)mainwindow.cboAudioCodec.SelectedItem == "Vorbis")
-                        {
-                            aBitrate = "6";
-                        }
-                        // Opus value > low 0-10 high
-                        else if ((string)mainwindow.cboAudioCodec.SelectedItem == "Opus")
-                        {
-                            aBitrate = "192k"; //special rule for opus -b:a -vbr on
-                        }
-                        // AAC value > low 0.1-2 high
-                        else if ((string)mainwindow.cboAudioCodec.SelectedItem == "AAC")
-                        {
-                            aBitrate = "1.2";
-                        }
-                        // LAME value > low 9-0 high
-                        else if ((string)mainwindow.cboAudioCodec.SelectedItem == "LAME")
-                        {
-                            aBitrate = "2";
-                        }
-                    }
-                    // CBR default
-                    else
-                    {
+                    // CBR
+                    if (mainwindow.tglVBR.IsChecked == false)
                         aBitrate = "192k";
-                    }
+
+                    // VBR
+                    else if (mainwindow.tglVBR.IsChecked == true)
+
+                        if ((string)mainwindow.cboAudioCodec.SelectedItem == "Vorbis")
+                            aBitrate = "6";
+
+                        else if ((string)mainwindow.cboAudioCodec.SelectedItem == "Opus")
+                            aBitrate = "192k"; //-b:a -vbr on
+
+                        else if ((string)mainwindow.cboAudioCodec.SelectedItem == "AAC")
+                            aBitrate = "1.2";
+
+                        else if ((string)mainwindow.cboAudioCodec.SelectedItem == "LAME")
+                            aBitrate = "2";
                 }
 
                 // -------------------------
@@ -882,71 +867,49 @@ namespace Axiom
                 // -------------------------
                 else if ((string)mainwindow.cboAudio.SelectedItem == "160")
                 {
-                    // VBR
-                    if (mainwindow.tglVBR.IsChecked == true)
-                    {
-                        //webm value low 0-10 high
-                        if ((string)mainwindow.cboAudioCodec.SelectedItem == "Vorbis")
-                        {
-                            aBitrate = "5";
-                        }
-                        //opus value > low 0-10 high
-                        else if ((string)mainwindow.cboAudioCodec.SelectedItem == "Opus")
-                        {
-                            aBitrate = "160k"; //special rule for opus -b:a -vbr on
-                        } 
-                        //aac value > low 0.1-2 high
-                        else if ((string)mainwindow.cboAudioCodec.SelectedItem == "AAC")
-                        {
-                            aBitrate = "1.1";
-                        }
-                        //lame value > low 9-0 high
-                        else if ((string)mainwindow.cboAudioCodec.SelectedItem == "LAME")
-                        {
-                            aBitrate = "3";
-                        }
-                    }
-                    //CBR default
-                    else
-                    {
+                    // CBR
+                    if (mainwindow.tglVBR.IsChecked == false)
                         aBitrate = "160k";
-                    }
+
+                    // VBR
+                    else if (mainwindow.tglVBR.IsChecked == true)
+
+                        if ((string)mainwindow.cboAudioCodec.SelectedItem == "Vorbis")
+                            aBitrate = "5";
+
+                        else if ((string)mainwindow.cboAudioCodec.SelectedItem == "Opus")
+                            aBitrate = "160k"; //-b:a -vbr on
+
+                        else if ((string)mainwindow.cboAudioCodec.SelectedItem == "AAC")
+                            aBitrate = "1.1";
+
+                        else if ((string)mainwindow.cboAudioCodec.SelectedItem == "LAME")
+                            aBitrate = "3";
                 }
 
                 // -------------------------
                 // 128
                 // -------------------------
                 else if ((string)mainwindow.cboAudio.SelectedItem == "128")
-                {   
-                    // VBR
-                    if (mainwindow.tglVBR.IsChecked == true)
-                    {
-                        //webm value low 0-10 high
-                        if ((string)mainwindow.cboAudioCodec.SelectedItem == "Vorbis")
-                        {
-                            aBitrate = "4";
-                        }
-                        //opus value > low 0-10 high
-                        else if ((string)mainwindow.cboAudioCodec.SelectedItem == "Opus")
-                        {
-                            aBitrate = "128k"; //special rule for opus -b:a -vbr on
-                        }
-                        //aac value > low 0.1-2 high
-                        else if ((string)mainwindow.cboAudioCodec.SelectedItem == "AAC")
-                        {
-                            aBitrate = "0.8";
-                        }
-                        //lame value > low 9-0 high
-                        else if ((string)mainwindow.cboAudioCodec.SelectedItem == "LAME")
-                        {
-                            aBitrate = "5";
-                        }
-                    }
-                    //CBR default
-                    else
-                    {
+                {
+                    // CBR
+                    if (mainwindow.tglVBR.IsChecked == false)
                         aBitrate = "128k";
-                    }
+
+                    // VBR
+                    else if (mainwindow.tglVBR.IsChecked == true)
+
+                        if ((string)mainwindow.cboAudioCodec.SelectedItem == "Vorbis")
+                            aBitrate = "4";
+
+                        else if ((string)mainwindow.cboAudioCodec.SelectedItem == "Opus")
+                            aBitrate = "128k"; //-b:a -vbr on
+
+                        else if ((string)mainwindow.cboAudioCodec.SelectedItem == "AAC")
+                            aBitrate = "0.8";
+
+                        else if ((string)mainwindow.cboAudioCodec.SelectedItem == "LAME")
+                            aBitrate = "5";
                 }
 
                 // -------------------------
@@ -954,35 +917,24 @@ namespace Axiom
                 // -------------------------
                 else if ((string)mainwindow.cboAudio.SelectedItem == "96")
                 {
-                    // VBR
-                    if (mainwindow.tglVBR.IsChecked == true)
-                    {
-                        //webm value low 0-10 high
-                        if ((string)mainwindow.cboAudioCodec.SelectedItem == "Vorbis")
-                        {
-                            aBitrate = "2";
-                        }
-                        //opus value > low 0-10 high
-                        else if ((string)mainwindow.cboAudioCodec.SelectedItem == "Opus")
-                        {
-                            aBitrate = "96k"; //special rule for opus -b:a -vbr on
-                        }
-                        //aac value > low 0.1-2 high
-                        else if ((string)mainwindow.cboAudioCodec.SelectedItem == "AAC")
-                        {
-                            aBitrate = "0.6";
-                        }
-                        //lame value > low 9-0 high
-                        else if ((string)mainwindow.cboAudioCodec.SelectedItem == "LAME")
-                        {
-                            aBitrate = "7";
-                        }
-                    }
-                    //CBR default
-                    else
-                    {
+                    // CBR
+                    if (mainwindow.tglVBR.IsChecked == false)
                         aBitrate = "96k";
-                    }
+
+                    // VBR
+                    else if (mainwindow.tglVBR.IsChecked == true)
+
+                        if ((string)mainwindow.cboAudioCodec.SelectedItem == "Vorbis")
+                            aBitrate = "2";
+
+                        else if ((string)mainwindow.cboAudioCodec.SelectedItem == "Opus")
+                            aBitrate = "96k"; //-b:a -vbr on
+
+                        else if ((string)mainwindow.cboAudioCodec.SelectedItem == "AAC")
+                            aBitrate = "0.6";
+
+                        else if ((string)mainwindow.cboAudioCodec.SelectedItem == "LAME")
+                            aBitrate = "7";
                 }
 
                 // -------------------------
@@ -1003,12 +955,14 @@ namespace Axiom
                             aBitrate = mainwindow.audioCustom.Text + "k";
                         }
 
-
                         // -------------------------
                         // VBR 
                         // User entered value
                         // -------------------------
-                        aBitrate = AudioVBRCalculator(mainwindow, mainwindow.audioCustom.Text);
+                        else if (mainwindow.tglVBR.IsChecked == true)
+                        {
+                            aBitrate = AudioVBRCalculator(mainwindow, mainwindow.audioCustom.Text);
+                        }
                     }
 
                     // Custom Empty
@@ -1024,7 +978,6 @@ namespace Axiom
                 // -------------------------
                 else if ((string)mainwindow.cboAudio.SelectedItem == "Mute")
                 {
-                    aBitMode = string.Empty;
                     aBitrate = string.Empty;
                 }
 
@@ -1033,20 +986,9 @@ namespace Axiom
                 // -------------------------
                 else if ((string)mainwindow.cboAudio.SelectedItem == "None")
                 {
-                    aBitMode = string.Empty;
                     aBitrate = string.Empty;
                 }
 
-
-                // -------------------------
-                // Copy
-                // -------------------------
-                // Audio Codec Copy
-                if ((string)mainwindow.cboAudioCodec.SelectedItem == "Copy")
-                {
-                    aBitMode = string.Empty;
-                    aBitrate = string.Empty;
-                }
 
                 // -------------------------
                 // Combine
@@ -1101,41 +1043,50 @@ namespace Axiom
         /// <summary>
         public static String Channel(MainWindow mainwindow)
         {
-            // Auto
-            if ((string)mainwindow.cboChannel.SelectedItem == "Auto")
+            // Audio Bitrate None Check
+            // Audio Codec None
+            // Codec Copy Check
+            // Mute Check
+            // Stream None Check
+            // Media Type Check
+            if ((string)mainwindow.cboAudio.SelectedItem != "None"
+                && (string)mainwindow.cboAudioCodec.SelectedItem != "None"
+                && (string)mainwindow.cboAudioCodec.SelectedItem != "Copy"
+                && (string)mainwindow.cboAudioCodec.SelectedItem != "Mute"
+                && (string)mainwindow.cboAudioStream.SelectedItem != "none"
+                && (string)mainwindow.cboMediaType.SelectedItem != "Image"
+                && (string)mainwindow.cboMediaType.SelectedItem != "Sequence")
             {
-                aChannel = string.Empty;
-            }
-            // Stereo
-            else if ((string)mainwindow.cboChannel.SelectedItem == "Stereo")
-            {
-                aChannel = "-ac 2";
-            }
-            // Joint Stereo
-            else if ((string)mainwindow.cboChannel.SelectedItem == "Joint Stereo")
-            {
-                aChannel = "-ac 2 -joint_stereo 1";
-            }
-            // Mono
-            else if ((string)mainwindow.cboChannel.SelectedItem == "Mono")
-            {
-                aChannel = "-ac 1";
-            }
+                // Auto
+                if ((string)mainwindow.cboChannel.SelectedItem == "Auto")
+                {
+                    aChannel = string.Empty;
+                }
+                // Stereo
+                else if ((string)mainwindow.cboChannel.SelectedItem == "Stereo")
+                {
+                    aChannel = "-ac 2";
+                }
+                // Joint Stereo
+                else if ((string)mainwindow.cboChannel.SelectedItem == "Joint Stereo")
+                {
+                    aChannel = "-ac 2 -joint_stereo 1";
+                }
+                // Mono
+                else if ((string)mainwindow.cboChannel.SelectedItem == "Mono")
+                {
+                    aChannel = "-ac 1";
+                }
 
-            // Mute
-            if ((string)mainwindow.cboAudio.SelectedItem == "Mute" || (string)mainwindow.cboAudioStream.SelectedItem == "none")
-            {
-                aChannel = string.Empty;
+                // Log Console Message /////////
+                Log.WriteAction = () =>
+                {
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new Bold(new Run("Channel: ")) { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new Run(mainwindow.cboChannel.Text.ToString()) { Foreground = Log.ConsoleDefault });
+                };
+                Log.LogActions.Add(Log.WriteAction);
             }
-
-            // Log Console Message /////////
-            Log.WriteAction = () =>
-            {
-                Log.logParagraph.Inlines.Add(new LineBreak());
-                Log.logParagraph.Inlines.Add(new Bold(new Run("Channel: ")) { Foreground = Log.ConsoleDefault });
-                Log.logParagraph.Inlines.Add(new Run(mainwindow.cboChannel.Text.ToString()) { Foreground = Log.ConsoleDefault });
-            };
-            Log.LogActions.Add(Log.WriteAction);
 
             // Return Value
             return aChannel;
@@ -1147,73 +1098,82 @@ namespace Axiom
         /// <summary>
         public static String SampleRate(MainWindow mainwindow)
         {
-            if ((string)mainwindow.cboSamplerate.SelectedItem == "auto")
+            // Audio Bitrate None Check
+            // Audio Codec None
+            // Codec Copy Check
+            // Mute Check
+            // Stream None Check
+            // Media Type Check
+            if ((string)mainwindow.cboAudio.SelectedItem != "None"
+                && (string)mainwindow.cboAudioCodec.SelectedItem != "None"
+                && (string)mainwindow.cboAudioCodec.SelectedItem != "Copy"
+                && (string)mainwindow.cboAudioCodec.SelectedItem != "Mute"
+                && (string)mainwindow.cboAudioStream.SelectedItem != "none"
+                && (string)mainwindow.cboMediaType.SelectedItem != "Image"
+                && (string)mainwindow.cboMediaType.SelectedItem != "Sequence")
             {
-                aSamplerate = string.Empty;
-            }
-            else if ((string)mainwindow.cboSamplerate.SelectedItem == "8k")
-            {
-                aSamplerate = "-ar 8000";
-            }
-            else if ((string)mainwindow.cboSamplerate.SelectedItem == "11.025k")
-            {
-                aSamplerate = "-ar 11025";
-            }
-            else if ((string)mainwindow.cboSamplerate.SelectedItem == "12k")
-            {
-                aSamplerate = "-ar 12000";
-            }
-            else if ((string)mainwindow.cboSamplerate.SelectedItem == "16k")
-            {
-                aSamplerate = "-ar 16000";
-            }
-            else if ((string)mainwindow.cboSamplerate.SelectedItem == "22.05k")
-            {
-                aSamplerate = "-ar 22050";
-            }
-            else if ((string)mainwindow.cboSamplerate.SelectedItem == "24k")
-            {
-                aSamplerate = "-ar 24000";
-            }
-            else if ((string)mainwindow.cboSamplerate.SelectedItem == "32k")
-            {
-                aSamplerate = "-ar 32000";
-            }
-            else if ((string)mainwindow.cboSamplerate.SelectedItem == "44.1k")
-            {
-                aSamplerate = "-ar 44100";
-            }
-            else if ((string)mainwindow.cboSamplerate.SelectedItem == "48k")
-            {
-                aSamplerate = "-ar 48000";
-            }
-            else if ((string)mainwindow.cboSamplerate.SelectedItem == "64k")
-            {
-                aSamplerate = "-ar 64000";
-            }
-            else if ((string)mainwindow.cboSamplerate.SelectedItem == "88.2k")
-            {
-                aSamplerate = "-ar 88200";
-            }
-            else if ((string)mainwindow.cboSamplerate.SelectedItem == "96k")
-            {
-                aSamplerate = "-ar 96000";
-            }
+                if ((string)mainwindow.cboSamplerate.SelectedItem == "auto")
+                {
+                    aSamplerate = string.Empty;
+                }
+                else if ((string)mainwindow.cboSamplerate.SelectedItem == "8k")
+                {
+                    aSamplerate = "-ar 8000";
+                }
+                else if ((string)mainwindow.cboSamplerate.SelectedItem == "11.025k")
+                {
+                    aSamplerate = "-ar 11025";
+                }
+                else if ((string)mainwindow.cboSamplerate.SelectedItem == "12k")
+                {
+                    aSamplerate = "-ar 12000";
+                }
+                else if ((string)mainwindow.cboSamplerate.SelectedItem == "16k")
+                {
+                    aSamplerate = "-ar 16000";
+                }
+                else if ((string)mainwindow.cboSamplerate.SelectedItem == "22.05k")
+                {
+                    aSamplerate = "-ar 22050";
+                }
+                else if ((string)mainwindow.cboSamplerate.SelectedItem == "24k")
+                {
+                    aSamplerate = "-ar 24000";
+                }
+                else if ((string)mainwindow.cboSamplerate.SelectedItem == "32k")
+                {
+                    aSamplerate = "-ar 32000";
+                }
+                else if ((string)mainwindow.cboSamplerate.SelectedItem == "44.1k")
+                {
+                    aSamplerate = "-ar 44100";
+                }
+                else if ((string)mainwindow.cboSamplerate.SelectedItem == "48k")
+                {
+                    aSamplerate = "-ar 48000";
+                }
+                else if ((string)mainwindow.cboSamplerate.SelectedItem == "64k")
+                {
+                    aSamplerate = "-ar 64000";
+                }
+                else if ((string)mainwindow.cboSamplerate.SelectedItem == "88.2k")
+                {
+                    aSamplerate = "-ar 88200";
+                }
+                else if ((string)mainwindow.cboSamplerate.SelectedItem == "96k")
+                {
+                    aSamplerate = "-ar 96000";
+                }
 
-            // Mute
-            if ((string)mainwindow.cboAudio.SelectedItem == "Mute" || (string)mainwindow.cboAudioStream.SelectedItem == "none")
-            {
-                aSamplerate = string.Empty;
+                // Log Console Message /////////
+                Log.WriteAction = () =>
+                {
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new Bold(new Run("Sample Rate: ")) { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new Run(mainwindow.cboSamplerate.Text.ToString()) { Foreground = Log.ConsoleDefault });
+                };
+                Log.LogActions.Add(Log.WriteAction);
             }
-
-            // Log Console Message /////////
-            Log.WriteAction = () =>
-            {
-                Log.logParagraph.Inlines.Add(new LineBreak());
-                Log.logParagraph.Inlines.Add(new Bold(new Run("Sample Rate: ")) { Foreground = Log.ConsoleDefault });
-                Log.logParagraph.Inlines.Add(new Run(mainwindow.cboSamplerate.Text.ToString()) { Foreground = Log.ConsoleDefault });
-            };
-            Log.LogActions.Add(Log.WriteAction);
 
 
             // Return Value
@@ -1226,68 +1186,177 @@ namespace Axiom
         /// <summary>
         public static String BitDepth(MainWindow mainwindow)
         {
-            // PCM has Bitdepth defined by Codec instead of sample_fmt, can use 8, 16, 24, 32, 64-bit
-            // FLAC can only use 16 and 32-bit
-            // ALAC can only use 16 and 32-bit
+            // Audio Bitrate None Check
+            // Audio Codec None
+            // Codec Copy Check
+            // Mute Check
+            // Stream None Check
+            // Media Type Check
+            if ((string)mainwindow.cboAudio.SelectedItem != "None"
+                && (string)mainwindow.cboAudioCodec.SelectedItem != "None"
+                && (string)mainwindow.cboAudioCodec.SelectedItem != "Copy"
+                && (string)mainwindow.cboAudioCodec.SelectedItem != "Mute"
+                && (string)mainwindow.cboAudioStream.SelectedItem != "none"
+                && (string)mainwindow.cboMediaType.SelectedItem != "Image"
+                && (string)mainwindow.cboMediaType.SelectedItem != "Sequence")
+            {
+                // PCM has Bitdepth defined by Codec instead of sample_fmt, can use 8, 16, 24, 32, 64-bit
+                // FLAC can only use 16 and 32-bit
+                // ALAC can only use 16 and 32-bit
 
-            if ((string)mainwindow.cboBitDepth.SelectedItem == "auto")
-            {
-                if ((string)mainwindow.cboAudioCodec.SelectedItem == "PCM") { aBitDepth = string.Empty; aCodec = "-acodec pcm_s24le"; }
-                else if ((string)mainwindow.cboAudioCodec.SelectedItem == "FLAC") { aBitDepth = string.Empty; }
-                else if ((string)mainwindow.cboAudioCodec.SelectedItem == "ALAC") { aBitDepth = string.Empty; }
-                else { aBitDepth = string.Empty; } // all other codecs
-            }
-            else if ((string)mainwindow.cboBitDepth.SelectedItem == "8")
-            {
-                if ((string)mainwindow.cboAudioCodec.SelectedItem == "PCM") { aBitDepth = string.Empty; aCodec = "-acodec pcm_u8"; }
-                else if ((string)mainwindow.cboAudioCodec.SelectedItem == "FLAC") { aBitDepth = string.Empty; }
-                else if ((string)mainwindow.cboAudioCodec.SelectedItem == "ALAC") { aBitDepth = string.Empty; }
-                else { aBitDepth = string.Empty; } // all other codecs
-            }
-            else if ((string)mainwindow.cboBitDepth.SelectedItem == "16")
-            {
-                if ((string)mainwindow.cboAudioCodec.SelectedItem == "PCM") { aBitDepth = string.Empty; aCodec = "-acodec pcm_s16le"; }
-                else if ((string)mainwindow.cboAudioCodec.SelectedItem == "FLAC") { aBitDepth = "-sample_fmt s16"; }
-                else if ((string)mainwindow.cboAudioCodec.SelectedItem == "ALAC") { aBitDepth = "-sample_fmt s16p"; }
-                else { aBitDepth = string.Empty; } // all other codecs
-            }
-            else if ((string)mainwindow.cboBitDepth.SelectedItem == "24")
-            {
-                if ((string)mainwindow.cboAudioCodec.SelectedItem == "PCM") { aBitDepth = string.Empty; aCodec = "-acodec pcm_s24le"; }
-                else if ((string)mainwindow.cboAudioCodec.SelectedItem == "FLAC") { aBitDepth = string.Empty; }
-                else if ((string)mainwindow.cboAudioCodec.SelectedItem == "ALAC") { aBitDepth = string.Empty; }
-                else { aBitDepth = string.Empty; } // all other codecs
-            }
-            else if ((string)mainwindow.cboBitDepth.SelectedItem == "32")
-            {
-                if ((string)mainwindow.cboAudioCodec.SelectedItem == "PCM") { aBitDepth = string.Empty; aCodec = "-acodec pcm_f32le"; }
-                else if ((string)mainwindow.cboAudioCodec.SelectedItem == "FLAC") { aBitDepth = "-sample_fmt s32"; }
-                else if ((string)mainwindow.cboAudioCodec.SelectedItem == "ALAC") { aBitDepth = "-sample_fmt s32p"; }
-                else { aBitDepth = string.Empty; } // all other codecs
-            }
-            else if ((string)mainwindow.cboBitDepth.SelectedItem == "64")
-            {
-                if ((string)mainwindow.cboAudioCodec.SelectedItem == "PCM") { aBitDepth = string.Empty; aCodec = "-acodec pcm_f64le"; }
-                else if ((string)mainwindow.cboAudioCodec.SelectedItem == "FLAC") { aBitDepth = string.Empty; }
-                else if ((string)mainwindow.cboAudioCodec.SelectedItem == "ALAC") { aBitDepth = string.Empty; }
-                else { aBitDepth = string.Empty; } // all other codecs
-            }
+                // -------------------------
+                // auto
+                // -------------------------
+                if ((string)mainwindow.cboBitDepth.SelectedItem == "auto")
+                {
+                    if ((string)mainwindow.cboAudioCodec.SelectedItem == "PCM")
+                    {
+                        aBitDepth = string.Empty;
+                        aCodec = "-acodec pcm_s24le";
+                    }
+                    else if ((string)mainwindow.cboAudioCodec.SelectedItem == "FLAC")
+                    {
+                        aBitDepth = string.Empty;
+                    }
+                    else if ((string)mainwindow.cboAudioCodec.SelectedItem == "ALAC")
+                    {
+                        aBitDepth = string.Empty;
+                    }
+                    // all other codecs
+                    else
+                    {
+                        aBitDepth = string.Empty;
+                    } 
+                }
+                // -------------------------
+                // 8
+                // -------------------------
+                else if ((string)mainwindow.cboBitDepth.SelectedItem == "8")
+                {
+                    if ((string)mainwindow.cboAudioCodec.SelectedItem == "PCM")
+                    {
+                        aBitDepth = string.Empty;
+                        aCodec = "-acodec pcm_u8";
+                    }
+                    else if ((string)mainwindow.cboAudioCodec.SelectedItem == "FLAC")
+                    {
+                        aBitDepth = string.Empty;
+                    }
+                    else if ((string)mainwindow.cboAudioCodec.SelectedItem == "ALAC")
+                    {
+                        aBitDepth = string.Empty;
+                    }
+                    // all other codecs
+                    else
+                    {
+                        aBitDepth = string.Empty;
+                    } 
+                }
+                // -------------------------
+                // 16
+                // -------------------------
+                else if ((string)mainwindow.cboBitDepth.SelectedItem == "16")
+                {
+                    if ((string)mainwindow.cboAudioCodec.SelectedItem == "PCM")
+                    {
+                        aBitDepth = string.Empty;
+                        aCodec = "-acodec pcm_s16le";
+                    }
+                    else if ((string)mainwindow.cboAudioCodec.SelectedItem == "FLAC")
+                    {
+                        aBitDepth = "-sample_fmt s16";
+                    }
+                    else if ((string)mainwindow.cboAudioCodec.SelectedItem == "ALAC")
+                    {
+                        aBitDepth = "-sample_fmt s16p";
+                    }
+                    // all other codecs
+                    else
+                    {
+                        aBitDepth = string.Empty;
+                    } 
+                }
+                // -------------------------
+                // 24
+                // -------------------------
+                else if ((string)mainwindow.cboBitDepth.SelectedItem == "24")
+                {
+                    if ((string)mainwindow.cboAudioCodec.SelectedItem == "PCM")
+                    {
+                        aBitDepth = string.Empty;
+                        aCodec = "-acodec pcm_s24le";
+                    }
+                    else if ((string)mainwindow.cboAudioCodec.SelectedItem == "FLAC")
+                    {
+                        aBitDepth = string.Empty; }
+                    else if ((string)mainwindow.cboAudioCodec.SelectedItem == "ALAC")
+                    {
+                        aBitDepth = string.Empty;
+                    }
+                    // all other codecs
+                    else
+                    {
+                        aBitDepth = string.Empty;
+                    } 
+                }
+                // -------------------------
+                // 32
+                // -------------------------
+                else if ((string)mainwindow.cboBitDepth.SelectedItem == "32")
+                {
+                    if ((string)mainwindow.cboAudioCodec.SelectedItem == "PCM")
+                    {
+                        aBitDepth = string.Empty;
+                        aCodec = "-acodec pcm_f32le";
+                    }
+                    else if ((string)mainwindow.cboAudioCodec.SelectedItem == "FLAC")
+                    {
+                        aBitDepth = "-sample_fmt s32";
+                    }
+                    else if ((string)mainwindow.cboAudioCodec.SelectedItem == "ALAC")
+                    {
+                        aBitDepth = "-sample_fmt s32p";
+                    }
+                    // all other codecs
+                    else
+                    {
+                        aBitDepth = string.Empty;
+                    } 
+                }
+                // -------------------------
+                // 64
+                // -------------------------
+                else if ((string)mainwindow.cboBitDepth.SelectedItem == "64")
+                {
+                    if ((string)mainwindow.cboAudioCodec.SelectedItem == "PCM")
+                    {
+                        aBitDepth = string.Empty;
+                        aCodec = "-acodec pcm_f64le";
+                    }
+                    else if ((string)mainwindow.cboAudioCodec.SelectedItem == "FLAC")
+                    {
+                        aBitDepth = string.Empty;
+                    }
+                    else if ((string)mainwindow.cboAudioCodec.SelectedItem == "ALAC")
+                    {
+                        aBitDepth = string.Empty;
+                    }
+                    // all other codecs
+                    else
+                    {
+                        aBitDepth = string.Empty;
+                    } 
+                }
 
-
-            // Mute
-            if ((string)mainwindow.cboAudio.SelectedItem == "Mute" || (string)mainwindow.cboAudioStream.SelectedItem == "none")
-            {
-                aBitDepth = string.Empty;
+                // Log Console Message /////////
+                Log.WriteAction = () =>
+                {
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new Bold(new Run("Bit Depth: ")) { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new Run(mainwindow.cboBitDepth.SelectedItem.ToString()) { Foreground = Log.ConsoleDefault });
+                };
+                Log.LogActions.Add(Log.WriteAction);
             }
-
-            // Log Console Message /////////
-            Log.WriteAction = () =>
-            {
-                Log.logParagraph.Inlines.Add(new LineBreak());
-                Log.logParagraph.Inlines.Add(new Bold(new Run("Bit Depth: ")) { Foreground = Log.ConsoleDefault });
-                Log.logParagraph.Inlines.Add(new Run(mainwindow.cboBitDepth.SelectedItem.ToString()) { Foreground = Log.ConsoleDefault });
-            };
-            Log.LogActions.Add(Log.WriteAction);
 
 
             // Return Value
@@ -1346,9 +1415,9 @@ namespace Axiom
         public static void HardLimiter(MainWindow mainwindow)
         {
             // -------------------------
-            // Only if Audio Codec is Not Empty
+            // On
             // -------------------------
-            if (mainwindow.tglAudioLimiter.IsChecked == true && !string.IsNullOrEmpty((string)mainwindow.cboAudioCodec.SelectedItem)) 
+            if (mainwindow.tglAudioLimiter.IsChecked == true) 
             {
                 // Log Console Message /////////
                 Log.WriteAction = () =>
@@ -1368,7 +1437,7 @@ namespace Axiom
             // -------------------------
             // Off
             // -------------------------
-            if (mainwindow.tglAudioLimiter.IsChecked == false)
+            else if (mainwindow.tglAudioLimiter.IsChecked == false)
             {
                 // Log Console Message /////////
                 Log.WriteAction = () =>
@@ -1389,61 +1458,71 @@ namespace Axiom
         /// <summary>
         public static String AudioFilter(MainWindow mainwindow)
         {
-            // --------------------------------------------------
-            // Filters
-            // --------------------------------------------------
-            /// <summary>
-            ///    Volume
-            /// </summary> 
-            Audio.Volume(mainwindow);
-
-            /// <summary>
-            ///    ALimiter
-            /// </summary> 
-            Audio.HardLimiter(mainwindow);
-
-            // -------------------------
-            // Filter Combine
-            // -------------------------
-            if ((string)mainwindow.cboAudioCodec.SelectedItem != "None") // None Check
+            // Audio Bitrate None Check
+            // Audio Codec None
+            // Codec Copy Check
+            // Mute Check
+            // Stream None Check
+            // Media Type Check
+            if ((string)mainwindow.cboAudio.SelectedItem != "None"
+                && (string)mainwindow.cboAudioCodec.SelectedItem != "None"
+                && (string)mainwindow.cboAudioCodec.SelectedItem != "Copy"
+                && (string)mainwindow.cboAudioCodec.SelectedItem != "Mute"
+                && (string)mainwindow.cboAudioStream.SelectedItem != "none"
+                && (string)mainwindow.cboMediaType.SelectedItem != "Image"
+                && (string)mainwindow.cboMediaType.SelectedItem != "Sequence")
             {
-                // 1 Filter
-                //
-                if (AudioFilters.Count() == 1)
-                {
-                    aFilter = "-af " + string.Join(", ", AudioFilters.Where(s => !string.IsNullOrEmpty(s)));
-                }
+                // --------------------------------------------------
+                // Filters
+                // --------------------------------------------------
+                /// <summary>
+                ///    Volume
+                /// </summary> 
+                Audio.Volume(mainwindow);
 
-                // Multiple Filters
-                //
-                else if (AudioFilters.Count() > 1)
-                {
-                    aFilter = "-af \"" + string.Join(", ", AudioFilters.Where(s => !string.IsNullOrEmpty(s))) + "\"";
-                }
+                /// <summary>
+                ///    ALimiter
+                /// </summary> 
+                Audio.HardLimiter(mainwindow);
 
-                // Empty
-                //
+                // -------------------------
+                // Filter Combine
+                // -------------------------
+                if ((string)mainwindow.cboAudioCodec.SelectedItem != "None") // None Check
+                {
+                    // 1 Filter
+                    //
+                    if (AudioFilters.Count() == 1)
+                    {
+                        aFilter = "-af " + string.Join(", ", AudioFilters.Where(s => !string.IsNullOrEmpty(s)));
+                    }
+
+                    // Multiple Filters
+                    //
+                    else if (AudioFilters.Count() > 1)
+                    {
+                        aFilter = "-af \"" + string.Join(", ", AudioFilters.Where(s => !string.IsNullOrEmpty(s))) + "\"";
+                    }
+
+                    // Empty
+                    //
+                    else
+                    {
+                        aFilter = string.Empty;
+                    }
+                }
+                // Audio Codec None
                 else
                 {
                     aFilter = string.Empty;
-                }
-            }
-            // Audio Codec None
-            else
-            {
-                aFilter = string.Empty;
 
+                }
             }
 
             // -------------------------
             // Filter Clear
             // -------------------------
-            // Copy
-            // Mute
-            // Stream none
-            if ((string)mainwindow.cboVideoCodec.SelectedItem == "Copy"
-                || (string)mainwindow.cboAudio.SelectedItem == "Mute" 
-                || (string)mainwindow.cboAudioStream.SelectedItem == "none")
+            else
             {
                 aFilter = string.Empty;
 
