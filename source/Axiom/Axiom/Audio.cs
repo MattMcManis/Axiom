@@ -330,7 +330,7 @@ namespace Axiom
             // VBR 
             // User entered value
             // -------------------------
-            if (mainwindow.tglVBR.IsChecked == true && (string)mainwindow.cboAudioCodec.SelectedItem != "Opus") // exclude opus
+            if (mainwindow.tglVBR.IsChecked == true)
             {
                 // Used to Calculate VBR Double
                 //
@@ -617,16 +617,12 @@ namespace Axiom
                                 {
                                     //vbr does not have k
 
-                                    //aBitMode = "-q:a";
                                     aBitrate = AudioVBRCalculator(mainwindow, FFprobe.inputAudioBitrate);
 
-                                    // Opus special rules
+                                    // Opus uses -b:a (value)k -vbr on
                                     if ((string)mainwindow.cboAudioCodec.SelectedItem == "Opus")
                                     {
-                                        // special rule for opus -b:a -vbr on
-                                        // opus vbr cannot be above 256k
-                                        aBitMode = "-b:a";
-                                        aBitrate = "256k"; 
+                                        aBitrate = aBitrate = "k";
                                     }
                                 }
                             }
