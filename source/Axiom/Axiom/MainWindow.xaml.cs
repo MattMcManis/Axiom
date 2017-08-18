@@ -58,7 +58,6 @@ namespace Axiom
             set { SetValue(TitleProperty, value); }
         }
 
-
         // --------------------------------------------------------------------------------------------------------
         /// <summary>
         ///     Other Windows
@@ -241,6 +240,9 @@ namespace Axiom
             cboCut.SelectedIndex = 0;
             cboSize.SelectedIndex = 0;
             cboPreset.SelectedIndex = 0;
+
+            //AudioControls.Audio_SelectedItem = AudioControls.AudioItemSource[0];
+            //AudioControls.Audio_SelectedItem = AudioControls.AudioItemSource[0];
 
             // Batch Extension Box Disabled
             batchExtensionTextBox.IsEnabled = false;
@@ -1144,6 +1146,17 @@ namespace Axiom
 
                 // Output
                 output = outputDir + outputFileName + outputExt; // (eg. C:\Output Folder\ + file + .mp4)    
+
+
+                // -------------------------
+                // File Renamer
+                // -------------------------
+                // Prevent overwriting Input file
+                // If Input and Output Extensions match
+                //if (string.Equals(inputExt, outputExt, StringComparison.CurrentCultureIgnoreCase))
+                //{
+                    FileRenamer();
+                //}
             }
 
             // -------------------------
@@ -1243,7 +1256,7 @@ namespace Axiom
         /// <summary>
         ///    File Renamer (Method)
         /// </summary>
-        public void FileRenamer()
+        public static void FileRenamer()
         {
             // Set Output
             outputDir = inputDir;
@@ -1256,24 +1269,19 @@ namespace Axiom
             // Add number to filename if it already exists
             if (!string.IsNullOrEmpty(output)) //null check
             {
-                // If Input and Output Extensions match
-                if (string.Equals(inputExt, outputExt, StringComparison.CurrentCultureIgnoreCase))
+                int count = 1;
+
+                while (File.Exists(output))
                 {
-                    int count = 1;
-
-                    while (File.Exists(output))
-                    {
-                        string outputNewFileName = string.Format("{0}({1})", outputFileName, count++);
-                        output = Path.Combine(outputDir, outputNewFileName + outputExt);
-                    }
-
-                    // Set the Output File Name
-                    outputFileName = Path.GetFileNameWithoutExtension(output);
-
-                    // Combine Output
-                    output = Path.Combine(outputDir, outputFileName + outputExt);
+                    string outputNewFileName = string.Format("{0}({1})", outputFileName, count++);
+                    output = Path.Combine(outputDir, outputNewFileName + outputExt);
                 }
-                
+
+                // Set the Output File Name
+                outputFileName = Path.GetFileNameWithoutExtension(output);
+
+                // Combine Output
+                output = Path.Combine(outputDir, outputFileName + outputExt);
             }
             
         }
@@ -1730,22 +1738,22 @@ namespace Axiom
             // -------------------------
             // Keep FFmpeg Window Toggle
             // -------------------------
-            MainWindow.KeepWindow(this);
+            KeepWindow(this);
 
             // -------------------------
             // Batch Extention Period Check
             // -------------------------
-            MainWindow.BatchExtCheck(this);
+            BatchExtCheck(this);
 
             // -------------------------
             // Set FFprobe Path
             // -------------------------
-            MainWindow.FFprobePath(this);
+            FFprobePath(this);
 
             // -------------------------
             // Ready Halts
             // -------------------------
-            MainWindow.ReadyHalts(this);
+            ReadyHalts(this);
 
 
             // -------------------------
@@ -3156,22 +3164,22 @@ namespace Axiom
             // -------------------------
             // Keep FFmpeg Window Toggle
             // -------------------------
-            MainWindow.KeepWindow(this);
+            KeepWindow(this);
 
             // -------------------------
             // Batch Extention Period Check
             // -------------------------
-            MainWindow.BatchExtCheck(this);
+            BatchExtCheck(this);
 
             // -------------------------
             // Set FFprobe Path
             // -------------------------
-            MainWindow.FFprobePath(this);
+            FFprobePath(this);
 
             // -------------------------
             // Ready Halts
             // -------------------------
-            MainWindow.ReadyHalts(this); 
+            ReadyHalts(this); 
 
 
             // Log Console Message /////////

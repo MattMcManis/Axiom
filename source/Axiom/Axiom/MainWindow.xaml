@@ -118,7 +118,10 @@
         <!-- Audio -->
         <Label x:Name="labelAudio" Style="{DynamicResource LabelCustom}" Content="Audio" HorizontalAlignment="Left" Margin="175,74,0,0" VerticalAlignment="Top" Width="75" />
 
+        <!--ItemsSource="{Binding Audio_ComboBoxItems}"
+            SelectedItem="{Binding Audio_SelectedItem}"-->
         <ComboBox x:Name="cboAudio" 
+                  ItemsSource="{Binding AudioItemSource}"
                   Style="{DynamicResource ComboBoxWhite}" 
                   ItemContainerStyle="{DynamicResource ComboBoxWhiteItem}"
                   HorizontalAlignment="Left" Margin="178,100,0,0" 

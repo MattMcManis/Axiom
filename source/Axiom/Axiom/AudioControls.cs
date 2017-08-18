@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 // Disable XML Comment warnings
 #pragma warning disable 1591
 #pragma warning disable 1587
@@ -18,14 +19,11 @@ namespace Axiom
         // -------------------------
         // Audio
         // -------------------------
-        public static List<string> AudioCodecItemSource = new List<string>();
-        public static List<string> AudioItemSource = new List<string>();
-        //public static List<string> AudioComboItemSource = new List<string>();
-        //public static ObservableCollection<string> AudioComboItemSource { get; set; }
-        public static List<string> ChannelItemSource = new List<string>();
-        public static List<string> SampleRateItemSource = new List<string>();
-        public static List<string> BitDepthItemSource = new List<string>();
-
+        public static List<string> AudioCodecItemSource;
+        public static List<string> AudioItemSource;
+        public static List<string> ChannelItemSource;
+        public static List<string> SampleRateItemSource;
+        public static List<string> BitDepthItemSource;
 
 
         // --------------------------------------------------------------------------------------------------------
@@ -63,12 +61,10 @@ namespace Axiom
                 // Change ItemSource
                 // Add 510k to Audio Quality ComboBox
                 AudioItemSource = new List<string>() { "Auto", "510", "320", "256", "224", "192", "160", "128", "96", "Custom", "Mute" };
-                //AudioComboItemSource = new ObservableCollection<string>() { "Auto", "510", "320", "256", "224", "192", "160", "128", "96", "Custom", "Mute" };
-
 
                 // Populate ComboBox from ItemSource
                 mainwindow.cboAudio.ItemsSource = AudioItemSource;
-                //mainwindow.cboAudio.ItemsSource = AudioComboItemSource;
+                //OnPropertyChanged("AudioItemSource");
 
                 // Select Item
                 if (AudioItemSource.Contains(previousItem))
@@ -182,11 +178,9 @@ namespace Axiom
                 // Change ItemSource
                 // Add 500k to Audio Quality Combobox
                 AudioItemSource = new List<string>() { "Auto", "500", "320", "256", "224", "192", "160", "128", "96", "Custom", "Mute" };
-                //AudioComboItemSource = new ObservableCollection<string>() { "Auto", "500", "320", "256", "224", "192", "160", "128", "96", "Custom", "Mute" };
 
                 // Populate ComboBox from ItemSource
                 mainwindow.cboAudio.ItemsSource = AudioItemSource;
-                //mainwindow.cboAudio.ItemsSource = AudioComboItemSource;
 
                 // Select Item
                 if (AudioItemSource.Contains(previousItem))

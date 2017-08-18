@@ -33,9 +33,6 @@ namespace Axiom
     /// </summary>
     public partial class OptimizeAdvancedWindow : Window
     {
-        //private static MainWindow mainwindow = ((MainWindow)Application.Current.MainWindow);
-        //private static MainWindow mainwindow;
-
         // Temporary saved settings holder
         public static string optAdvTune = string.Empty; 
         public static string optAdvProfile = string.Empty;

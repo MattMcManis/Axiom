@@ -622,7 +622,7 @@ namespace Axiom
                                     // Opus uses -b:a (value)k -vbr on
                                     if ((string)mainwindow.cboAudioCodec.SelectedItem == "Opus")
                                     {
-                                        aBitrate = aBitrate = "k";
+                                        aBitrate = aBitrate + "k";
                                     }
                                 }
                             }
@@ -958,6 +958,12 @@ namespace Axiom
                         else if (mainwindow.tglVBR.IsChecked == true)
                         {
                             aBitrate = AudioVBRCalculator(mainwindow, mainwindow.audioCustom.Text);
+
+                            // Opus uses -b:a (value)k -vbr on
+                            if ((string)mainwindow.cboAudioCodec.SelectedItem == "Opus")
+                            {
+                                aBitrate = aBitrate + "k";
+                            }
                         }
                     }
 

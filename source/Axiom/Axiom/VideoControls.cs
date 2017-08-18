@@ -20,15 +20,14 @@ namespace Axiom
         // -------------------------
         // Video
         // -------------------------
-        public static List<string> VideoCodecItemSource = new List<string>();
-        public static List<string> VideoItemSource = new List<string>();
-        public static List<string> PassItemSource = new List<string>();
-        public static List<string> ResizeItemSource = new List<string>();
-        public static List<string> CutItemSource = new List<string>();
-        public static List<string> TuneItemSource = new List<string>();
-        public static List<string> OptimizeItemSource = new List<string>();
-        public static List<string> SpeedItemSource = new List<string>();
-
+        public static List<string> VideoCodecItemSource;
+        public static List<string> VideoItemSource;
+        public static List<string> PassItemSource;
+        public static List<string> ResizeItemSource;
+        public static List<string> CutItemSource;
+        public static List<string> TuneItemSource;
+        public static List<string> OptimizeItemSource;
+        public static List<string> SpeedItemSource;
 
         public static bool passUserSelected = false; // Used to determine if User willingly selected CRF, 1 Pass or 2 Pass
 
