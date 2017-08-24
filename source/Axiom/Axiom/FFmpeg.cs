@@ -421,8 +421,8 @@ namespace Axiom
             // -------------------------
             // Single
             // -------------------------
-            if (mainwindow.tglBatch.IsChecked == false)
-            {
+            //if (mainwindow.tglBatch.IsChecked == false)
+            //{
                 // start ffmpeg commands
                 System.Diagnostics.Process.Start(
                     "cmd.exe",
@@ -431,19 +431,21 @@ namespace Axiom
                     + " & "
                     + FFmpeg.ffmpegArgs
                 );
-            }
+            //}
 
             // -------------------------
             // Batch
             // -------------------------
-            else if (mainwindow.tglBatch.IsChecked == true)
-            {
-                System.Diagnostics.Process.Start(
-                    "cmd.exe", 
-                    FFmpeg.cmdWindow
-                    + FFmpeg.ffmpegArgs
-                );
-            }
+            //else if (mainwindow.tglBatch.IsChecked == true)
+            //{
+            //    System.Diagnostics.Process.Start(
+            //        "cmd.exe",
+            //        FFmpeg.cmdWindow
+            //        + " cd " + "\"" + MainWindow.appDir + "\""
+            //        + " & "
+            //        + FFmpeg.ffmpegArgs
+            //    );
+            //}
         }
 
 

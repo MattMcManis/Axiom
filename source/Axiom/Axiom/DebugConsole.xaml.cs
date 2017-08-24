@@ -135,19 +135,33 @@ namespace Axiom
                 this.Dispatcher.Invoke(() =>
                 {
                     // -------------------------
-                    // FFprobe Detect Metadata
+                    // Single
                     // -------------------------
-                    FFprobe.Metadata(mainwindow);
+                    if (mainwindow.tglBatch.IsChecked == false)
+                    {
+                        // -------------------------
+                        // FFprobe Detect Metadata
+                        // -------------------------
+                        FFprobe.Metadata(mainwindow);
+
+                        // -------------------------
+                        // FFmpeg Generate Arguments (Single)
+                        // -------------------------
+                        //disabled if batch
+                        FFmpeg.FFmpegSingleGenerateArgs(mainwindow);
+                    }
 
                     // -------------------------
-                    // FFmpeg Single File Generate Arguments
+                    // Batch
                     // -------------------------
-                    FFmpeg.FFmpegSingleGenerateArgs(mainwindow);
-
-                    // -------------------------
-                    // FFmpeg Batch Generate Arguments
-                    // -------------------------
-                    FFmpeg.FFmpegBatchGenerateArgs(mainwindow);
+                    else if (mainwindow.tglBatch.IsChecked == true)
+                    {
+                        // -------------------------
+                        // FFmpeg Generate Arguments (Batch)
+                        // -------------------------
+                        //disabled if single file
+                        FFmpeg.FFmpegBatchGenerateArgs(mainwindow);
+                    }
 
                 }); //end dispatcher
 
