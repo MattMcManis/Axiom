@@ -224,27 +224,27 @@ namespace Axiom
             if (FFprobe.inputVideoBitrate != "N/A" && !string.IsNullOrEmpty(FFprobe.inputVideoBitrate))
             {
                 // e.g. (1000M / 1,000,000K)
-                if (Convert.ToInt32(FFprobe.inputVideoBitrate) >= 1000000000) 
+                if (Convert.ToInt32(FFprobe.inputVideoBitrate) >= 1000000000)
                 {
                     FFprobe.inputVideoBitrate = Convert.ToString(int.Parse(FFprobe.inputVideoBitrate) * 0.00001);
                 }
                 // e.g. (100M / 100,000K) 
-                else if (Convert.ToInt32(FFprobe.inputVideoBitrate) >= 100000000) 
+                else if (Convert.ToInt32(FFprobe.inputVideoBitrate) >= 100000000)
                 {
                     FFprobe.inputVideoBitrate = Convert.ToString(int.Parse(FFprobe.inputVideoBitrate) * 0.0001);
                 }
                 // e.g. (10M / 10,000K)
-                else if (Convert.ToInt32(FFprobe.inputVideoBitrate) >= 10000000) 
+                else if (Convert.ToInt32(FFprobe.inputVideoBitrate) >= 10000000)
                 {
                     FFprobe.inputVideoBitrate = Convert.ToString(int.Parse(FFprobe.inputVideoBitrate) * 0.001);
                 }
                 // e.g. (1M /1000K)
-                else if (Convert.ToInt32(FFprobe.inputVideoBitrate) >= 100000) 
+                else if (Convert.ToInt32(FFprobe.inputVideoBitrate) >= 100000)
                 {
                     FFprobe.inputVideoBitrate = Convert.ToString(int.Parse(FFprobe.inputVideoBitrate) * 0.001);
                 }
                 // e.g. (100K)
-                else if (Convert.ToInt32(FFprobe.inputVideoBitrate) >= 10000) 
+                else if (Convert.ToInt32(FFprobe.inputVideoBitrate) >= 10000)
                 {
                     FFprobe.inputVideoBitrate = Convert.ToString(int.Parse(FFprobe.inputVideoBitrate) * 0.001);
                 }

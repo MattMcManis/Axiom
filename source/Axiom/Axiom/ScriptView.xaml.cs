@@ -35,6 +35,8 @@ namespace Axiom
     /// </summary>
     public partial class ScriptView : Window
     {
+        private MainWindow mainwindow;
+
         public static bool sort = false;
 
         public Paragraph scriptParagraph = new Paragraph(); //RichTextBox
@@ -49,6 +51,8 @@ namespace Axiom
             //this.Height = 250;
             this.MinWidth = 575;
             this.MinHeight = 250;
+
+            this.mainwindow = mainwindow;
 
             // Clear Old Text
             ClearRichTextBox();
@@ -233,8 +237,6 @@ namespace Axiom
         /// </summary>
         private void buttonRun_Click(object sender, RoutedEventArgs e)
         {
-            string currentDir = Directory.GetCurrentDirectory();
-
             // CMD Arguments are from Script TextBox
             FFmpeg.ffmpegArgs = ScriptRichTextBoxCurrent()
                 .Replace(Environment.NewLine, "") //Remove Linebreaks
@@ -247,19 +249,11 @@ namespace Axiom
                 .Replace("\u000D", "")
                 .Replace("\u0085", "")
                 .Replace("\u2028", "")
-                .Replace("\u2029", "");
+                .Replace("\u2029", "")
+                ;
 
             // Run FFmpeg Arguments
-            System.Diagnostics.Process.Start(
-                "CMD.exe", 
-                "/k cd " + "\"" + currentDir + "\"" 
-                + " & " 
-                +  FFmpeg.ffmpegArgs // start ffmpeg commands
-                );
-
-            // Clear FFmpeg Arguments for next run
-            //FFmpeg.ffmpegArgs = string.Empty;
-            //FFmpeg.ffmpegArgsSort = string.Empty;
+            FFmpeg.FFmpegConvert(mainwindow);
         }
 
 

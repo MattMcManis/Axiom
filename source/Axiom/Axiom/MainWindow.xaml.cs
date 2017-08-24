@@ -450,7 +450,7 @@ namespace Axiom
         public static void ClearVariables(MainWindow mainwindow)
         {
             // FFmpeg
-            FFmpeg.cmdWindow = string.Empty;
+            //FFmpeg.cmdWindow = string.Empty;
 
             // FFprobe
             FFprobe.argsVideoCodec = string.Empty;
@@ -1764,24 +1764,38 @@ namespace Axiom
                 this.Dispatcher.Invoke(() =>
                 {
                     // -------------------------
-                    // FFprobe Detect Metadata
+                    // Single
                     // -------------------------
-                    FFprobe.Metadata(this);
+                    if (tglBatch.IsChecked == false)
+                    {
+                        // -------------------------
+                        // FFprobe Detect Metadata
+                        // -------------------------
+                        FFprobe.Metadata(this);
+
+                        // -------------------------
+                        // FFmpeg Generate Arguments (Single)
+                        // -------------------------
+                        //disabled if batch
+                        FFmpeg.FFmpegSingleGenerateArgs(this);
+                    }
+
+                    // -------------------------
+                    // Batch
+                    // -------------------------
+                    else if (tglBatch.IsChecked == true)
+                    {
+                        // -------------------------
+                        // FFmpeg Generate Arguments (Batch)
+                        // -------------------------
+                        //disabled if single file
+                        FFmpeg.FFmpegBatchGenerateArgs(this);
+                    }
 
                     // -------------------------
                     // Write All Log Actions to Console
                     // -------------------------
                     Log.LogWriteAll(this, configurewindow);
-
-                    // -------------------------
-                    // FFmpeg Single File Generate Arguments
-                    // -------------------------
-                    FFmpeg.FFmpegSingleGenerateArgs(this);
-
-                    // -------------------------
-                    // FFmpeg Batch Generate Arguments
-                    // -------------------------
-                    FFmpeg.FFmpegBatchGenerateArgs(this);
 
 
                 }); //end dispatcher
@@ -3174,7 +3188,7 @@ namespace Axiom
 
 
             // Log Console Message /////////
-            if (script == false && ready == true)
+            if (/*script == false && */ready == true)
             {
                 // Log Console Message /////////
                 Log.WriteAction = () =>
@@ -3221,21 +3235,33 @@ namespace Axiom
                     this.Dispatcher.Invoke(() =>
                     {
                         // -------------------------
-                        // FFprobe Detect Metadata
+                        // Single
                         // -------------------------
-                        FFprobe.Metadata(this);
+                        if (tglBatch.IsChecked == false)
+                        {
+                            // -------------------------
+                            // FFprobe Detect Metadata
+                            // -------------------------
+                            FFprobe.Metadata(this);
+
+                            // -------------------------
+                            // FFmpeg Generate Arguments (Single)
+                            // -------------------------
+                            //disabled if batch
+                            FFmpeg.FFmpegSingleGenerateArgs(this);
+                        }
 
                         // -------------------------
-                        // FFmpeg Generate Arguments (Single)
+                        // Batch
                         // -------------------------
-                        //disabled if batch
-                        FFmpeg.FFmpegSingleGenerateArgs(this);
-
-                        // -------------------------
-                        // FFmpeg Generate Arguments (Batch)
-                        // -------------------------
-                        //disabled if single file
-                        FFmpeg.FFmpegBatchGenerateArgs(this);
+                        else if (tglBatch.IsChecked == true)
+                        {
+                            // -------------------------
+                            // FFmpeg Generate Arguments (Batch)
+                            // -------------------------
+                            //disabled if single file
+                            FFmpeg.FFmpegBatchGenerateArgs(this);
+                        }
 
                         // -------------------------
                         // FFmpeg Convert
@@ -3289,6 +3315,9 @@ namespace Axiom
             }
             else
             {
+                //debug
+                //MessageBox.Show("Not Ready");
+
                 // Log Console Message /////////
                 Log.WriteAction = () =>
                 {

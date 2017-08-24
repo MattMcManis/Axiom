@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Windows;
 using System.Windows.Documents;
 // Disable XML Comment warnings
 #pragma warning disable 1591
@@ -260,14 +261,14 @@ namespace Axiom
 
                 // Join List with Spaces
                 // Remove: Empty, Null, Standalone LineBreak
-                FFmpeg.ffmpegArgsSort = string.Join(" ", FFmpegArgsList
+                ffmpegArgsSort = string.Join(" ", FFmpegArgsList
                     .Where(s => !string.IsNullOrEmpty(s))
                     .Where(s => !s.Equals("\r\n\r\n"))
                     .Where(s => !s.Equals("\r\n"))
                     );
 
                 // Inline 
-                FFmpeg.ffmpegArgs = string.Join(" ", FFmpegArgsList
+                ffmpegArgs = string.Join(" ", FFmpegArgsList
                     .Where(s => !string.IsNullOrEmpty(s)))
                     .Replace("\r\n", "") //Remove Linebreaks
                     .Replace(Environment.NewLine, "");
@@ -282,7 +283,7 @@ namespace Axiom
                 Log.logParagraph.Inlines.Add(new LineBreak());
                 Log.logParagraph.Inlines.Add(new Bold(new Run("FFmpeg Arguments")) { Foreground = Log.ConsoleTitle });
                 Log.logParagraph.Inlines.Add(new LineBreak());
-                Log.logParagraph.Inlines.Add(new Run(FFmpeg.ffmpegArgs) { Foreground = Log.ConsoleDefault });
+                Log.logParagraph.Inlines.Add(new Run(ffmpegArgs) { Foreground = Log.ConsoleDefault });
             };
             Log.LogActions.Add(Log.WriteAction);
 
@@ -369,14 +370,14 @@ namespace Axiom
 
                 // Join List with Spaces
                 // Remove: Empty, Null, Standalone LineBreak
-                FFmpeg.ffmpegArgsSort = string.Join(" ", FFmpegBatchArgsList
+                ffmpegArgsSort = string.Join(" ", FFmpegBatchArgsList
                     .Where(s => !string.IsNullOrEmpty(s))
                     .Where(s => !s.Equals("\r\n\r\n"))
                     .Where(s => !s.Equals("\r\n"))
                     );
 
                 // Inline 
-                FFmpeg.ffmpegArgs = string.Join(" ", FFmpegBatchArgsList
+                ffmpegArgs = string.Join(" ", FFmpegBatchArgsList
                     .Where(s => !string.IsNullOrEmpty(s)))
                     .Replace("\r\n", "") //Remove Linebreaks
                     .Replace(Environment.NewLine, "");
@@ -392,8 +393,8 @@ namespace Axiom
         /// </summary>
         public static void FFmpegScript(MainWindow mainwindow, ScriptView scriptview)
         {
-            if (MainWindow.script == true)
-            {
+            //if (MainWindow.script == true)
+            //{
                 // Detect which screen we're on
                 var allScreens = System.Windows.Forms.Screen.AllScreens.ToList();
                 var thisScreen = allScreens.SingleOrDefault(s => mainwindow.Left >= s.WorkingArea.Left && mainwindow.Left < s.WorkingArea.Right);
@@ -408,7 +409,7 @@ namespace Axiom
 
                 // Open Window
                 scriptview.Show();
-            }
+            //}
         }
 
 
@@ -417,9 +418,31 @@ namespace Axiom
         /// </summary>
         public static void FFmpegConvert(MainWindow mainwindow)
         {
-            if (MainWindow.script == false)
+            // -------------------------
+            // Single
+            // -------------------------
+            if (mainwindow.tglBatch.IsChecked == false)
             {
-                System.Diagnostics.Process.Start("CMD.exe", FFmpeg.cmdWindow + FFmpeg.ffmpegArgs);
+                // start ffmpeg commands
+                System.Diagnostics.Process.Start(
+                    "cmd.exe",
+                    FFmpeg.cmdWindow 
+                    + " cd " + "\"" + MainWindow.appDir + "\""
+                    + " & "
+                    + FFmpeg.ffmpegArgs
+                );
+            }
+
+            // -------------------------
+            // Batch
+            // -------------------------
+            else if (mainwindow.tglBatch.IsChecked == true)
+            {
+                System.Diagnostics.Process.Start(
+                    "cmd.exe", 
+                    FFmpeg.cmdWindow
+                    + FFmpeg.ffmpegArgs
+                );
             }
         }
 
