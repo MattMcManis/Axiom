@@ -69,29 +69,29 @@ namespace Axiom
             // Load From Saved Settings
             // --------------------------------------------------
             // Theme CombBox
-            ConfigureWindow.ConfigTheme(this);
+            ConfigureWindow.LoadTheme(this);
 
             // FFmpeg Path 
-            ConfigureWindow.ConfigFFmpegPath(this);
+            ConfigureWindow.LoadFFmpegPath(this);
 
             // PProbe Path
-            ConfigureWindow.ConfigFFprobePath(this);
+            ConfigureWindow.LoadFFprobePath(this);
 
             // Log CheckBox
-            ConfigureWindow.ConfigLogCheckbox(this);
+            ConfigureWindow.LoadLogCheckbox(this);
 
             // Log Path
-            ConfigureWindow.ConfigLogPath(this);
+            ConfigureWindow.LoadLogPath(this);
 
             // Threads CombBox
-            ConfigureWindow.ConfigThreads(this);
+            ConfigureWindow.LoadThreads(this);
         }
 
 
         /// <summary>
         /// Load Theme
         /// </summary>
-        public static void ConfigTheme(ConfigureWindow configurewindow)
+        public static void LoadTheme(ConfigureWindow configurewindow)
         {
             // --------------------------------------------------
             // Safeguard Against Corrupt Saved Settings
@@ -259,7 +259,7 @@ namespace Axiom
         /// <summary>
         /// Load FFmpeg Path
         /// </summary>
-        public static void ConfigFFmpegPath(ConfigureWindow configurewindow)
+        public static void LoadFFmpegPath(ConfigureWindow configurewindow)
         {
             // --------------------------------------------------
             // Safeguard Against Corrupt Saved Settings
@@ -307,7 +307,7 @@ namespace Axiom
         /// <summary>
         /// Load FFprobe Path
         /// </summary>
-        public static void ConfigFFprobePath(ConfigureWindow configurewindow)
+        public static void LoadFFprobePath(ConfigureWindow configurewindow)
         {
             // --------------------------------------------------
             // Safeguard Against Corrupt Saved Settings
@@ -355,7 +355,7 @@ namespace Axiom
         /// <summary>
         /// Load Log Checkbox
         /// </summary>
-        public static void ConfigLogCheckbox(ConfigureWindow configurewindow)
+        public static void LoadLogCheckbox(ConfigureWindow configurewindow)
         {
             // --------------------------------------------------
             // Safeguard Against Corrupt Saved Settings
@@ -403,7 +403,7 @@ namespace Axiom
         /// <summary>
         /// Load Log Path
         /// </summary>
-        public static void ConfigLogPath(ConfigureWindow configurewindow)
+        public static void LoadLogPath(ConfigureWindow configurewindow)
         {
             // --------------------------------------------------
             // Safeguard Against Corrupt Saved Settings
@@ -451,7 +451,7 @@ namespace Axiom
         /// <summary>
         /// Load Threads
         /// </summary>
-        public static void ConfigThreads(ConfigureWindow configurewindow)
+        public static void LoadThreads(ConfigureWindow configurewindow)
         {
             // --------------------------------------------------
             // Safeguard Against Corrupt Saved Settings
@@ -623,11 +623,11 @@ namespace Axiom
         // --------------------------------------------------
         private void buttonFFmpegAuto_Click(object sender, RoutedEventArgs e)
         {
-            // Display Folder Path in Textbox
-            textBoxFFmpegPathConfig.Text = "<auto>";
-
             // Set the ffmpegPath string
             ffmpegPath = "<auto>";
+
+            // Display Folder Path in Textbox
+            textBoxFFmpegPathConfig.Text = "<auto>";
 
             // FFmpeg Path path for next launch
             Settings.Default["ffmpegPath"] = "<auto>";
@@ -659,11 +659,11 @@ namespace Axiom
         // --------------------------------------------------
         private void buttonFFprobeAuto_Click(object sender, RoutedEventArgs e)
         {
-            // Display Folder Path in Textbox
-            textBoxFFprobePathConfig.Text = "<auto>";
-
             // Set the ffprobePath string
             ffprobePath = "<auto>"; //<auto>
+
+            // Display Folder Path in Textbox
+            textBoxFFprobePathConfig.Text = "<auto>";
 
             // Save 7-zip Path path for next launch
             Settings.Default["ffprobePath"] = "<auto>";
@@ -962,7 +962,7 @@ namespace Axiom
             // If Axiom Folder Not Found
             else
             {
-                System.Windows.MessageBox.Show("No Previous Settings Found.");
+                MessageBox.Show("No Previous Settings Found.");
             }
         }
 

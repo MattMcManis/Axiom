@@ -19,12 +19,10 @@ namespace Axiom
     /// </summary>
     public partial class UpdateWindow : Window
     {
-        //private static MainWindow mainwindow = ((MainWindow)System.Windows.Application.Current.MainWindow);
-
         // Windows AppData Temp Directory
         public static string tempDir = Path.GetTempPath();
         // Axiom Exe Current Directory
-        public static string currentDir = Directory.GetCurrentDirectory().TrimEnd('\\') + @"\";
+        //public static string currentDir = Directory.GetCurrentDirectory().TrimEnd('\\') + @"\";
 
         // Web Downloads
         public static WebClient wc = new WebClient();
@@ -160,7 +158,7 @@ namespace Axiom
                     // Extract
                     "$shell = new-object -com shell.application;",
                     "$zip = $shell.NameSpace('" + tempDir + "Axiom.zip');",
-                    "foreach ($item in $zip.items()) {$shell.Namespace('" + currentDir + "').CopyHere($item, 0x14)};",
+                    "foreach ($item in $zip.items()) {$shell.Namespace('" + MainWindow.appDir + "').CopyHere($item, 0x14)};",
                     // Delete Temp
                     "Write-Host \"`nDeleting Temp File\";",
                     "del " + "\"" + tempDir + "Axiom.zip" + "\";",
@@ -168,7 +166,7 @@ namespace Axiom
                     "Write-Host \"`nUpdate Complete. Relaunching Axiom.\";",
                     "timeout 3;",
                     // Relaunch Axiom
-                    "& '" + currentDir + "Axiom.exe'",
+                    "& '" + MainWindow.appDir + "Axiom.exe'",
                 };
 
                 // Join List with Spaces

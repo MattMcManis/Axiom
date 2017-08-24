@@ -44,7 +44,7 @@ namespace Axiom
             // -------------------------
             // Text Theme Color
             // -------------------------
-            ConfigureWindow.ConfigTheme(configurewindow);
+            ConfigureWindow.LoadTheme(configurewindow);
         }
 
 

@@ -308,7 +308,7 @@ namespace Axiom
             // -------------------------
             // Load Theme
             // -------------------------
-            ConfigureWindow.ConfigTheme(configurewindow);
+            ConfigureWindow.LoadTheme(configurewindow);
 
             // Log Console Message /////////
             // Don't put in Configure Method, creates duplicate message /////////
@@ -320,7 +320,7 @@ namespace Axiom
             // -------------------------
             // Load FFmpeg.exe Path
             // -------------------------
-            ConfigureWindow.ConfigFFmpegPath(configurewindow);
+            ConfigureWindow.LoadFFmpegPath(configurewindow);
 
             // Log Console Message /////////
             Log.logParagraph.Inlines.Add(new LineBreak());
@@ -331,7 +331,7 @@ namespace Axiom
             // -------------------------
             // Load FFprobe.exe Path
             // -------------------------
-            ConfigureWindow.ConfigFFprobePath(configurewindow);
+            ConfigureWindow.LoadFFprobePath(configurewindow);
 
             // Log Console Message /////////
             Log.logParagraph.Inlines.Add(new LineBreak());
@@ -341,7 +341,7 @@ namespace Axiom
             // -------------------------
             // Load Log Enabled
             // -------------------------
-            ConfigureWindow.ConfigLogCheckbox(configurewindow);
+            ConfigureWindow.LoadLogCheckbox(configurewindow);
 
             // Log Console Message /////////
             Log.logParagraph.Inlines.Add(new LineBreak());
@@ -352,7 +352,7 @@ namespace Axiom
             // -------------------------
             // Load Log Path
             // -------------------------
-            ConfigureWindow.ConfigLogPath(configurewindow);
+            ConfigureWindow.LoadLogPath(configurewindow);
 
             // Log Console Message /////////
             Log.logParagraph.Inlines.Add(new LineBreak());
@@ -362,7 +362,7 @@ namespace Axiom
             // -------------------------
             // Load Threads
             // -------------------------
-            ConfigureWindow.ConfigThreads(configurewindow);
+            ConfigureWindow.LoadThreads(configurewindow);
 
             // Log Console Message /////////
             Log.logParagraph.Inlines.Add(new LineBreak());
@@ -1138,25 +1138,23 @@ namespace Axiom
                     outputFileName = Path.GetFileNameWithoutExtension(mainwindow.textBoxOutput.Text);
                 }
 
-                // Image Sequence
+                // -------------------------
+                // File Renamer
+                // -------------------------
+                outputFileName = mainwindow.FileRenamer(inputFileName);
+
+                // -------------------------
+                // Image Sequence Renamer
+                // -------------------------
                 if ((string)mainwindow.cboMediaType.SelectedItem == "Sequence")
                 {
                     outputFileName = "image-%03d"; //must be this name
                 }
 
+                // -------------------------
                 // Output
+                // -------------------------
                 output = outputDir + outputFileName + outputExt; // (eg. C:\Output Folder\ + file + .mp4)    
-
-
-                // -------------------------
-                // File Renamer
-                // -------------------------
-                // Prevent overwriting Input file
-                // If Input and Output Extensions match
-                //if (string.Equals(inputExt, outputExt, StringComparison.CurrentCultureIgnoreCase))
-                //{
-                    FileRenamer();
-                //}
             }
 
             // -------------------------
@@ -1225,65 +1223,59 @@ namespace Axiom
         /// <remarks>
         ///     Check if File is in use by another Process (FFmpeg writing 2 Pass log)
         /// </remarks>
-        protected virtual bool IsFileLocked(FileInfo file)
-        {
-            FileStream stream = null;
+        //protected virtual bool IsFileLocked(FileInfo file)
+        //{
+        //    FileStream stream = null;
 
-            try
-            {
-                stream = file.Open(FileMode.Open, FileAccess.ReadWrite, FileShare.None);
-            }
-            catch (IOException)
-            {
-                //the file is unavailable because it is:
-                //still being written to
-                //or being processed by another thread
-                //or does not exist (has already been processed)
-                return true;
-            }
-            finally
-            {
-                if (stream != null)
-                    stream.Close();
-            }
+        //    try
+        //    {
+        //        stream = file.Open(FileMode.Open, FileAccess.ReadWrite, FileShare.None);
+        //    }
+        //    catch (IOException)
+        //    {
+        //        //the file is unavailable because it is:
+        //        //still being written to
+        //        //or being processed by another thread
+        //        //or does not exist (has already been processed)
+        //        return true;
+        //    }
+        //    finally
+        //    {
+        //        if (stream != null)
+        //            stream.Close();
+        //    }
 
-            //file is not locked
-            return false;
-        }
+        //    //file is not locked
+        //    return false;
+        //}
 
 
 
         /// <summary>
         ///    File Renamer (Method)
         /// </summary>
-        public static void FileRenamer()
+        public String FileRenamer(string filename)
         {
-            // Set Output
-            outputDir = inputDir;
+            string outputNewFileName = string.Empty;
+            string output = outputDir + filename + outputExt;
 
-            if (!string.IsNullOrEmpty(outputDir)) //null check
+            int count = 1;
+
+            if (File.Exists(outputDir + filename + outputExt))
             {
-                output = Path.Combine(outputDir, outputFileName + outputExt);
-            }
-
-            // Add number to filename if it already exists
-            if (!string.IsNullOrEmpty(output)) //null check
-            {
-                int count = 1;
-
                 while (File.Exists(output))
                 {
-                    string outputNewFileName = string.Format("{0}({1})", outputFileName, count++);
+                    outputNewFileName = string.Format("{0}({1})", filename, count++);
                     output = Path.Combine(outputDir, outputNewFileName + outputExt);
                 }
-
-                // Set the Output File Name
-                outputFileName = Path.GetFileNameWithoutExtension(output);
-
-                // Combine Output
-                output = Path.Combine(outputDir, outputFileName + outputExt);
             }
-            
+            else
+            {
+                // stay default
+                outputNewFileName = filename;
+            }
+
+            return outputNewFileName;
         }
 
 
@@ -1980,6 +1972,8 @@ namespace Axiom
                 // Open 'Save File'
                 Microsoft.Win32.OpenFileDialog selectFile = new Microsoft.Win32.OpenFileDialog();
 
+                selectFile.RestoreDirectory = true;
+
                 // Show save file dialog box
                 Nullable<bool> result = selectFile.ShowDialog();
 
@@ -2130,6 +2124,7 @@ namespace Axiom
                 // 'Save File' Default Path same as Input Directory
                 saveFile.InitialDirectory = inputDir;
                 saveFile.RestoreDirectory = true;
+                saveFile.DefaultExt = outputExt;
 
                 // Default file name if empty
                 if (string.IsNullOrEmpty(inputFileName))
@@ -2139,24 +2134,17 @@ namespace Axiom
                 }
                 else
                 {
-                    // Temp Output Path
-                    // Make same as Input Path so File Renamer can detect
+                    // Output Path
                     outputDir = inputDir;
 
-                    // Temp Output Filename (without extension)
-                    // Make same as Input Filename so File Renamer can detect
-                    outputFileName = inputFileName;
-
-                    // Call File Renamer Method
+                    // File Renamer
                     // Get new output file name (1) if already exists
-                    FileRenamer();
+                    outputFileName = FileRenamer(inputFileName);
 
                     // Same as input file name
                     saveFile.FileName = outputFileName;
                 }
 
-                // Default file extension is selected format
-                saveFile.DefaultExt = outputExt; 
 
                 // Show save file dialog box
                 Nullable<bool> result = saveFile.ShowDialog();
@@ -2552,7 +2540,10 @@ namespace Axiom
             AudioControls.AudioCodecControls(this);
 
             // File Renamer
-            FileRenamer();
+            if (!string.IsNullOrEmpty(inputDir))
+            {
+                outputFileName = FileRenamer(inputFileName);
+            }
             
 
             // Always Default Video to Auto if Input Ext matches Format Output Ext
