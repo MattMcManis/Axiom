@@ -25,36 +25,108 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:System="clr-namespace:System;assembly=mscorlib" 
         xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
+        
+        Loaded="Window_Loaded" 
+        
         UseLayoutRounding="True"
-        Title="Script" Height="250" Width="575" Icon="Resources/Images/Icons/axiom.ico"               
+        Title="Script" 
+        Height="250" Width="575" 
+        Icon="Resources/Images/Icons/axiom.ico"               
         >
     <Grid>
         <!-- Script TextBox -->
-        <RichTextBox x:Name="rtbScript" Margin="10,10,10,50" FontSize="14" Grid.ColumnSpan="1" VerticalScrollBarVisibility="Auto"/>
+        <RichTextBox x:Name="rtbScript"
+                     Margin="10,10,10,50" 
+                     Padding="5"
+                     FontSize="14" 
+                     Grid.ColumnSpan="1" 
+                     VerticalScrollBarVisibility="Auto"/>
 
         <!-- Save Button -->
-        <Button x:Name="buttonSave" Margin="81,0,336,16" Cursor="Hand" MaxWidth="75" MaxHeight="22" MinWidth="75" MinHeight="22" Height="22" VerticalAlignment="Bottom" Width="72" Click="buttonSave_Click">
-            <TextBlock x:Name="buttonSaveTextBlock" Text="Save" Margin="0,-2,0,0"/>
+        <Button x:Name="buttonSave" 
+                Margin="81,0,336,16"
+                Cursor="Hand"
+                MaxWidth="75" 
+                MaxHeight="22"
+                MinWidth="75"
+                MinHeight="22" 
+                Height="22" 
+                VerticalAlignment="Bottom"
+                Width="72"
+                Click="buttonSave_Click">
+            <TextBlock x:Name="buttonSaveTextBlock" 
+                       Text="Save" 
+                       Margin="0,-2,0,0"/>
         </Button>
 
         <!-- Copy Button -->
-        <Button x:Name="buttonCopy" Margin="166,0,251,16" Click="buttonCopy_Click" Cursor="Hand" MaxWidth="75" MaxHeight="22" MinWidth="75" MinHeight="22" Height="22" VerticalAlignment="Bottom" Width="72">
-            <TextBlock x:Name="buttonCopyTextBlock" Text="Copy" Margin="0,-2,0,0"/>
+        <Button x:Name="buttonCopy"
+                Margin="166,0,251,16"
+                Click="buttonCopy_Click"
+                Cursor="Hand" 
+                MaxWidth="75" 
+                MaxHeight="22"
+                MinWidth="75" 
+                MinHeight="22" 
+                Height="22" 
+                VerticalAlignment="Bottom"
+                Width="72">
+            <TextBlock x:Name="buttonCopyTextBlock"
+                       Text="Copy" 
+                       Margin="0,-2,0,0"/>
         </Button>
 
         <!-- Sort Button -->
-        <Button x:Name="buttonSort" Margin="251,0,166,16" Cursor="Hand" MaxWidth="75" MaxHeight="22" MinWidth="75" MinHeight="22" Height="22" VerticalAlignment="Bottom" Width="72" Click="buttonSort_Click">
-            <TextBlock x:Name="buttonSortTextBlock" Text="Sort" Margin="0,-2,0,0"/>
+        <Button x:Name="buttonSort"
+                Margin="251,0,166,16" 
+                Cursor="Hand"
+                MaxWidth="75"
+                MaxHeight="22"
+                MinWidth="75" 
+                MinHeight="22" 
+                Height="22" 
+                VerticalAlignment="Bottom" 
+                Width="72" 
+                Click="buttonSort_Click">
+            <TextBlock x:Name="buttonSortTextBlock" 
+                       Text="Sort"
+                       Margin="0,-2,0,0"/>
         </Button>
 
         <!-- Run Button -->
-        <Button x:Name="buttonRun" Margin="336,0,81,16" Click="buttonRun_Click" Cursor="Hand" MaxWidth="75" MaxHeight="22" MinWidth="75" MinHeight="22" Height="22" VerticalAlignment="Bottom" Width="72">
-            <TextBlock x:Name="buttonRunTextBlock" Text="Run" Margin="0,-2,0,0"/>
+        <Button x:Name="buttonRun"
+                Margin="336,0,81,16" 
+                Click="buttonRun_Click" 
+                Cursor="Hand" 
+                MaxWidth="75" 
+                MaxHeight="22" 
+                MinWidth="75" 
+                MinHeight="22" 
+                Height="22"
+                VerticalAlignment="Bottom"
+                Width="72">
+            <TextBlock x:Name="buttonRunTextBlock" 
+                       Text="Run" 
+                       Margin="0,-2,0,0"/>
         </Button>
 
         <!-- Expand Button -->
-        <Button x:Name="buttonExpand" Margin="0,0,10,16" Foreground="Black" Cursor="Hand" Click="buttonExpand_Click" ToolTip="Expand Window" BorderBrush="#FF707070" Background="#FFDDDDDD" Height="22" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="22">
-            <TextBlock x:Name="textBlockExpand" Text="+" Margin="0,-2,0,0" Foreground="Black" />
+        <Button x:Name="buttonExpand" 
+                Margin="0,0,10,16" 
+                Foreground="Black"
+                Cursor="Hand" 
+                Click="buttonExpand_Click" 
+                ToolTip="Expand Window" 
+                BorderBrush="#FF707070" 
+                Background="#FFDDDDDD" 
+                Height="22" 
+                VerticalAlignment="Bottom" 
+                HorizontalAlignment="Right"
+                Width="22">
+            <TextBlock x:Name="textBlockExpand"
+                       Text="+" 
+                       Margin="0,-2,0,0" 
+                       Foreground="Black" />
         </Button>
 
     </Grid>

@@ -1,29 +1,29 @@
-﻿using System;
+﻿/* ----------------------------------------------------------------------
+Axiom UI
+Copyright (C) 2017 Matt McManis
+http://github.com/MattMcManis/Axiom
+http://axiomui.github.io
+axiom.interface@gmail.com
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.If not, see <http://www.gnu.org/licenses/>. 
+---------------------------------------------------------------------- */
+
+using System;
 // Disable XML Comment warnings
 #pragma warning disable 1591
 #pragma warning disable 1587
 #pragma warning disable 1570
-
-/* ----------------------------------------------------------------------
-    Axiom UI
-    Copyright (C) 2017 Matt McManis
-    http://github.com/MattMcManis/Axiom
-    http://axiomui.github.io
-    axiom.interface@gmail.com
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.If not, see <http://www.gnu.org/licenses/>. 
-   ---------------------------------------------------------------------- */
 
 namespace Axiom
 {
@@ -82,11 +82,11 @@ namespace Axiom
 
                     // If End Time is Empty, Default to Full Duration
                     // Input Null Check
-                    if (!string.IsNullOrWhiteSpace(mainwindow.textBoxBrowse.Text))
+                    if (!string.IsNullOrWhiteSpace(mainwindow.tbxInput.Text))
                     {
                         if (mainwindow.cutEnd.Text == "00:00:00.000" || string.IsNullOrWhiteSpace(mainwindow.cutEnd.Text))
                         {
-                            trimEnd = FFprobe.FFprobeCutDuration(mainwindow);
+                            trimEnd = FFprobe.CutDuration(mainwindow);
                         }
                     }
 
@@ -103,11 +103,11 @@ namespace Axiom
 
                     // If End Time is Empty, Default to Full Duration
                     // Input Null Check
-                    if (!string.IsNullOrWhiteSpace(mainwindow.textBoxBrowse.Text))
+                    if (!string.IsNullOrWhiteSpace(mainwindow.tbxInput.Text))
                     {
                         if (mainwindow.cutEnd.Text == "00:00:00.000" || string.IsNullOrWhiteSpace(mainwindow.cutEnd.Text))
                         {
-                            trimEnd = FFprobe.FFprobeCutDuration(mainwindow);
+                            trimEnd = FFprobe.CutDuration(mainwindow);
                         }
                     }
 

@@ -1,16 +1,4 @@
-﻿using Axiom.Properties;
-using System;
-using System.Configuration;
-using System.Diagnostics;
-using System.IO;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Media;
-// Disable XML Comment warnings
-#pragma warning disable 1591
-
-/* ----------------------------------------------------------------------
+﻿/* ----------------------------------------------------------------------
 Axiom UI
 Copyright (C) 2017 Matt McManis
 http://github.com/MattMcManis/Axiom
@@ -30,6 +18,18 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.If not, see <http://www.gnu.org/licenses/>. 
 ---------------------------------------------------------------------- */
+
+using Axiom.Properties;
+using System;
+using System.Configuration;
+using System.Diagnostics;
+using System.IO;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
+using System.Windows.Media;
+// Disable XML Comment warnings
+#pragma warning disable 1591
 
 namespace Axiom
 {
@@ -504,14 +504,22 @@ namespace Axiom
         // --------------------------------------------------------------------------------------------------------
         // --------------------------------------------------------------------------------------------------------
 
-        // --------------------------------------------------
-        // Close All
-        // --------------------------------------------------
+        /// <summary>
+        ///    Window Loaded
+        /// </summary>
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        /// <summary>
+        ///    Window Close
+        /// </summary>
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            e.Cancel = true;
-            this.Close();
-            Settings.Default.Reload();
+            //e.Cancel = true;
+            //this.Close();
+            //Settings.Default.Reload();
         }
 
         // --------------------------------------------------

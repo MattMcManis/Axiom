@@ -1,4 +1,25 @@
-﻿using System;
+﻿/* ----------------------------------------------------------------------
+Axiom UI
+Copyright (C) 2017 Matt McManis
+http://github.com/MattMcManis/Axiom
+http://axiomui.github.io
+axiom.interface@gmail.com
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.If not, see <http://www.gnu.org/licenses/>. 
+---------------------------------------------------------------------- */
+
+using System;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Documents;
@@ -7,27 +28,6 @@ using System.Windows.Media;
 #pragma warning disable 1591
 #pragma warning disable 1587
 #pragma warning disable 1570
-
-/* ----------------------------------------------------------------------
-    Axiom UI
-    Copyright (C) 2017 Matt McManis
-    http://github.com/MattMcManis/Axiom
-    http://axiomui.github.io
-    axiom.interface@gmail.com
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.If not, see <http://www.gnu.org/licenses/>. 
-   ---------------------------------------------------------------------- */
 
 namespace Axiom
 {
@@ -101,7 +101,7 @@ namespace Axiom
             // -------------------------
             // Keep FFmpeg Window Toggle
             // -------------------------
-            MainWindow.KeepWindow(mainwindow);
+            //MainWindow.KeepWindow(mainwindow);
 
             // -------------------------
             // Batch Extention Period Check
@@ -156,6 +156,18 @@ namespace Axiom
                     // -------------------------
                     else if (mainwindow.tglBatch.IsChecked == true)
                     {
+                        // -------------------------
+                        // FFprobe Video Entry Type Containers
+                        // -------------------------
+                        //FFprobe.VideoEntryTypeBatch(this);
+                        FFprobe.VideoEntryType(mainwindow);
+
+                        // -------------------------
+                        // FFprobe Video Entry Type Containers
+                        // -------------------------
+                        //FFprobe.AudioEntryTypeBatch(this);
+                        FFprobe.AudioEntryType(mainwindow);
+
                         // -------------------------
                         // FFmpeg Generate Arguments (Batch)
                         // -------------------------
@@ -662,8 +674,8 @@ namespace Axiom
             debugParagraph.Inlines.Add(new Run(FFprobe.argsDuration) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
-            debugParagraph.Inlines.Add(new Bold(new Run("argsFramerate ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(FFprobe.argsFramerate) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Bold(new Run("argsFrameRate ")) { Foreground = Variable });
+            debugParagraph.Inlines.Add(new Run(FFprobe.argsFrameRate) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new LineBreak());
@@ -697,8 +709,8 @@ namespace Axiom
             debugParagraph.Inlines.Add(new Run(FFprobe.inputDuration) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
-            debugParagraph.Inlines.Add(new Bold(new Run("inputFramerate ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(FFprobe.inputFramerate) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Bold(new Run("inputFrameRate ")) { Foreground = Variable });
+            debugParagraph.Inlines.Add(new Run(FFprobe.inputFrameRate) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new LineBreak());
@@ -719,9 +731,9 @@ namespace Axiom
             debugParagraph.Inlines.Add(new Bold(new Run("FFmpeg ")) { Foreground = Heading });
             debugParagraph.Inlines.Add(new LineBreak());
 
-            debugParagraph.Inlines.Add(new Bold(new Run("cmdWindow ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(FFmpeg.cmdWindow) { Foreground = Value });
-            debugParagraph.Inlines.Add(new LineBreak());
+            //debugParagraph.Inlines.Add(new Bold(new Run("cmdWindow ")) { Foreground = Variable });
+            //debugParagraph.Inlines.Add(new Run(FFmpeg.cmdWindow) { Foreground = Value });
+            //debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("ffmpegArgs ")) { Foreground = Variable });
             debugParagraph.Inlines.Add(new Run(FFmpeg.ffmpegArgs) { Foreground = Value });

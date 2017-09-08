@@ -1,14 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Windows.Documents;
-// Disable XML Comment warnings
-#pragma warning disable 1591
-#pragma warning disable 1587
-#pragma warning disable 1570
-
-/* ----------------------------------------------------------------------
+﻿/* ----------------------------------------------------------------------
 Axiom UI
 Copyright (C) 2017 Matt McManis
 http://github.com/MattMcManis/Axiom
@@ -28,6 +18,16 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.If not, see <http://www.gnu.org/licenses/>. 
 ---------------------------------------------------------------------- */
+
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Windows.Documents;
+// Disable XML Comment warnings
+#pragma warning disable 1591
+#pragma warning disable 1587
+#pragma warning disable 1570
 
 namespace Axiom
 {
@@ -178,8 +178,10 @@ namespace Axiom
         /// Video Bitrate Mode (Method)
         /// <summary>
         // For Bitrate Only, Not CRF
-        public static void VideoBitrateMode(MainWindow mainwindow)
+        public static String VideoBitrateMode(MainWindow mainwindow)
         {
+            string vBitMode = string.Empty;
+
             if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8") { vBitMode = "-b:v"; }
             else if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9") { vBitMode = "-b:v"; }
             else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264") { vBitMode = "-b:v"; }
@@ -188,6 +190,8 @@ namespace Axiom
             else if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG") { vBitMode = "-q:v"; }
             else if ((string)mainwindow.cboVideoCodec.SelectedItem == "PNG") { vBitMode = string.Empty; }
             else if ((string)mainwindow.cboVideoCodec.SelectedItem == "Copy") { vBitMode = string.Empty; }
+
+            return vBitMode;
         }
 
 
@@ -195,11 +199,11 @@ namespace Axiom
         /// <summary>
         /// Video Bitrate Calculator (Method)
         /// <summary>
-        public static void VideoBitrateCalculator(MainWindow mainwindow)
+        public static String VideoBitrateCalculator(MainWindow mainwindow, string vEntryType, string inputVideoBitrate)
         {
             // FFprobe values
             //
-            if (string.IsNullOrEmpty(FFprobe.inputVideoBitrate))
+            if (string.IsNullOrEmpty(inputVideoBitrate))
             {
                 // do nothing (dont remove, it will cause substring to overload)
 
@@ -214,39 +218,39 @@ namespace Axiom
             }
             // Filter out any extra spaces after the first 3 characters IMPORTANT
             //
-            else if (FFprobe.inputVideoBitrate.Substring(0, 3) == "N/A")
+            else if (inputVideoBitrate.Substring(0, 3) == "N/A")
             {
-                FFprobe.inputVideoBitrate = "N/A";
+                inputVideoBitrate = "N/A";
             }
 
             // If Video has a Bitrate, calculate Bitrate into decimal
             //
-            if (FFprobe.inputVideoBitrate != "N/A" && !string.IsNullOrEmpty(FFprobe.inputVideoBitrate))
+            if (inputVideoBitrate != "N/A" && !string.IsNullOrEmpty(inputVideoBitrate))
             {
                 // e.g. (1000M / 1,000,000K)
-                if (Convert.ToInt32(FFprobe.inputVideoBitrate) >= 1000000000)
+                if (Convert.ToInt32(inputVideoBitrate) >= 1000000000)
                 {
-                    FFprobe.inputVideoBitrate = Convert.ToString(int.Parse(FFprobe.inputVideoBitrate) * 0.00001);
+                    inputVideoBitrate = Convert.ToString(int.Parse(inputVideoBitrate) * 0.00001);
                 }
                 // e.g. (100M / 100,000K) 
-                else if (Convert.ToInt32(FFprobe.inputVideoBitrate) >= 100000000)
+                else if (Convert.ToInt32(inputVideoBitrate) >= 100000000)
                 {
-                    FFprobe.inputVideoBitrate = Convert.ToString(int.Parse(FFprobe.inputVideoBitrate) * 0.0001);
+                    inputVideoBitrate = Convert.ToString(int.Parse(inputVideoBitrate) * 0.0001);
                 }
                 // e.g. (10M / 10,000K)
-                else if (Convert.ToInt32(FFprobe.inputVideoBitrate) >= 10000000)
+                else if (Convert.ToInt32(inputVideoBitrate) >= 10000000)
                 {
-                    FFprobe.inputVideoBitrate = Convert.ToString(int.Parse(FFprobe.inputVideoBitrate) * 0.001);
+                    inputVideoBitrate = Convert.ToString(int.Parse(inputVideoBitrate) * 0.001);
                 }
                 // e.g. (1M /1000K)
-                else if (Convert.ToInt32(FFprobe.inputVideoBitrate) >= 100000)
+                else if (Convert.ToInt32(inputVideoBitrate) >= 100000)
                 {
-                    FFprobe.inputVideoBitrate = Convert.ToString(int.Parse(FFprobe.inputVideoBitrate) * 0.001);
+                    inputVideoBitrate = Convert.ToString(int.Parse(inputVideoBitrate) * 0.001);
                 }
                 // e.g. (100K)
-                else if (Convert.ToInt32(FFprobe.inputVideoBitrate) >= 10000)
+                else if (Convert.ToInt32(inputVideoBitrate) >= 10000)
                 {
-                    FFprobe.inputVideoBitrate = Convert.ToString(int.Parse(FFprobe.inputVideoBitrate) * 0.001);
+                    inputVideoBitrate = Convert.ToString(int.Parse(inputVideoBitrate) * 0.001);
                 }
             }
 
@@ -254,11 +258,11 @@ namespace Axiom
             // If Video Variable = N/A, Calculate Bitate (((Filesize*8)/1000)/Duration)
             // Formats like WebM, MKV and with Missing Metadata can have New Bitrates calculated and applied
             //
-            if (FFprobe.inputVideoBitrate == "N/A")
+            if (inputVideoBitrate == "N/A")
             {
                 try // Calculating Bitrate will crash if jpg/png
                 {
-                    FFprobe.inputVideoBitrate = Convert.ToInt32((double.Parse(FFprobe.inputSize) * 8) / 1000 / double.Parse(FFprobe.inputDuration)).ToString();
+                    inputVideoBitrate = Convert.ToInt32((double.Parse(FFprobe.inputSize) * 8) / 1000 / double.Parse(FFprobe.inputDuration)).ToString();
                     // convert to int to remove decimals
 
                     // Log Console Message /////////
@@ -289,15 +293,21 @@ namespace Axiom
             // WebM Video Bitrate Limiter
             // If input video bitrate is greater than 1.5M, lower the bitrate to 1.5M
             //
-            if (MainWindow.outputExt == ".webm" && Convert.ToDouble(FFprobe.inputVideoBitrate) >= 1500)
+            if (MainWindow.outputExt == ".webm" && Convert.ToDouble(inputVideoBitrate) >= 1500)
             {
-                FFprobe.inputVideoBitrate = "1500";
+                inputVideoBitrate = "1500";
             }
 
+            // Round Bitrate, Remove Decimals
+            //
+            inputVideoBitrate = Math.Round(double.Parse(inputVideoBitrate)).ToString();
 
             // Add K to end of Bitrate
             //
-            FFprobe.inputVideoBitrate = FFprobe.inputVideoBitrate + "K";
+            inputVideoBitrate = inputVideoBitrate + "K";
+
+
+            return inputVideoBitrate;
         }
 
 
@@ -377,9 +387,9 @@ namespace Axiom
                 && (string)mainwindow.cboVideoCodec.SelectedItem != "Copy"
                 && (string)mainwindow.cboMediaType.SelectedItem != "Audio")
             {
-                // Video Bitrate Mode (Method)
+                // Video Bitrate Mode
                 //
-                VideoBitrateMode(mainwindow);
+                vBitMode = VideoBitrateMode(mainwindow);
 
 
                 // Log Console Message /////////
@@ -495,21 +505,12 @@ namespace Axiom
                             //
                             if (!string.IsNullOrEmpty(FFprobe.inputVideoCodec))
                             {
-                                if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8")
+                                if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8"
+                                    || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9"
+                                    || (string)mainwindow.cboVideoCodec.SelectedItem == "x264"
+                                    || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
                                 {
-                                    vBitrate = FFprobe.inputVideoBitrate;
-                                }
-                                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9")
-                                {
-                                    vBitrate = FFprobe.inputVideoBitrate;
-                                }
-                                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264")
-                                {
-                                    vBitrate = FFprobe.inputVideoBitrate;
-                                }
-                                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265")
-                                {
-                                    vBitrate = FFprobe.inputVideoBitrate;
+                                    vBitrate = VideoBitrateCalculator(mainwindow, FFprobe.vEntryType, FFprobe.inputVideoBitrate);
                                 }
                                 else if ((string)mainwindow.cboVideoCodec.SelectedItem == "Theora")
                                 {
@@ -1950,7 +1951,7 @@ namespace Axiom
                 && (string)mainwindow.cboMediaType.SelectedItem != "Audio")
             {
                 // Separate FFprobe Result (e.g. 30000/1001)
-                string[] f = FFprobe.inputFramerate.Split('/');
+                string[] f = FFprobe.inputFrameRate.Split('/');
 
                 try
                 {

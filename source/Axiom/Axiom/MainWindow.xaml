@@ -28,14 +28,17 @@
         xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
         xmlns:my="clr-namespace:Axiom"
         xmlns:settings="clr-namespace:Axiom.Properties"
-        
-        Title="{Binding TitleVersion, RelativeSource={RelativeSource Mode=Self}}" 
-        Closing="MainWindow_Closing"  
+               
+        Loaded="Window_Loaded" 
+        Closing="Window_Closing"  
         Icon="Resources/Images/Icons/axiom.ico"
-        Height="305" Width="615"
-        Top="{Binding Top, Source={x:Static settings:Settings.Default}, Mode=TwoWay}"
-        Left="{Binding Left, Source={x:Static settings:Settings.Default}, Mode=TwoWay}"
+        
         ResizeMode="CanMinimize" UseLayoutRounding="True"
+        Height="305" Width="615"
+        
+        Top="{Binding Top, Source={x:Static settings:Settings.Default}, Mode=TwoWay}"
+        Left="{Binding Left, Source={x:Static settings:Settings.Default}, Mode=TwoWay}" 
+        Title="{Binding TitleVersion, RelativeSource={RelativeSource Mode=Self}}" 
         Style="{DynamicResource WindowStyleCustom}"
         >
 
@@ -46,14 +49,14 @@
             <TextBlock x:Name="buttonBrowseTextBlock" Text="Input" Margin="0,-2,0,0"/>
         </Button>
         <!-- Browse Textbox -->
-        <TextBox x:Name="textBoxBrowse" Style="{DynamicResource TextBoxBrowseCustom}" HorizontalAlignment="Left" Height="22" Margin="93,12,0,0" Padding="2, 0, 0, 0" TextWrapping="NoWrap" MaxLines="1" VerticalAlignment="Top" Width="469" TextChanged="textBoxBrowse_TextChanged"/>
+        <TextBox x:Name="tbxInput" Style="{DynamicResource TextBoxBrowseCustom}" HorizontalAlignment="Left" Height="22" Margin="93,12,0,0" Padding="2, 0, 0, 0" TextWrapping="NoWrap" MaxLines="1" VerticalAlignment="Top" Width="469" TextChanged="tbxInput_TextChanged"/>
 
         <!-- Output Button -->
         <Button x:Name="buttonOutput" Style="{DynamicResource ButtonCustom}" HorizontalAlignment="Left" Margin="10,43,0,0" VerticalAlignment="Top" Width="75" Height="22" Cursor="Hand" Click="buttonOutput_Click">
             <TextBlock x:Name="buttonOutputTextBlock" Text="Output" Margin="0,-2,0,0"/>
         </Button>
         <!-- Output Textbox-->
-        <TextBox x:Name="textBoxOutput" Style="{DynamicResource TextBoxBrowseCustom}" HorizontalAlignment="Left" Height="22" Margin="93,43,0,0" Padding="2, 0, 0, 0" TextWrapping="NoWrap" MaxLines="1" VerticalAlignment="Top" Width="469" TextChanged="textBoxOutput_TextChanged"/>
+        <TextBox x:Name="tbxOutput" Style="{DynamicResource TextBoxBrowseCustom}" HorizontalAlignment="Left" Height="22" Margin="93,43,0,0" Padding="2, 0, 0, 0" TextWrapping="NoWrap" MaxLines="1" VerticalAlignment="Top" Width="469" TextChanged="tbxOutput_TextChanged"/>
 
         <!-- Input Location Button -->
         <Button x:Name="openLocationInput" Style="{DynamicResource ButtonFolderCustom}" HorizontalAlignment="Left" Margin="567,12,0,0" VerticalAlignment="Top" Width="22" Cursor="Hand" Height="22" Click="openLocationInput_Click" ToolTip="Open this location">

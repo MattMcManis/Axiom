@@ -25,6 +25,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:System="clr-namespace:System;assembly=mscorlib" 
         xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
+        
+        Loaded="Window_Loaded" 
+        
         Title="File Properties" Height="400" Width="420" Icon="Resources/Images/Icons/axiom.ico"
         Style="{DynamicResource WindowLogConsole}">
     <Grid>

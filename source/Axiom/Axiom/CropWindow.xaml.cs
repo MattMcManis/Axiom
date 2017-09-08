@@ -1,10 +1,4 @@
-﻿using System;
-using System.Windows;
-using System.Windows.Input;
-// Disable XML Comment warnings
-#pragma warning disable 1591
-
-/* ----------------------------------------------------------------------
+﻿/* ----------------------------------------------------------------------
 Axiom UI
 Copyright (C) 2017 Matt McManis
 http://github.com/MattMcManis/Axiom
@@ -24,6 +18,12 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.If not, see <http://www.gnu.org/licenses/>. 
 ---------------------------------------------------------------------- */
+
+using System;
+using System.Windows;
+using System.Windows.Input;
+// Disable XML Comment warnings
+#pragma warning disable 1591
 
 namespace Axiom
 {

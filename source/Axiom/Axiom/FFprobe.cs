@@ -1,10 +1,4 @@
-﻿using System;
-using System.Diagnostics;
-using System.Windows.Documents;
-// Disable XML Comment warnings
-#pragma warning disable 1591
-
-/* ----------------------------------------------------------------------
+﻿/* ----------------------------------------------------------------------
 Axiom UI
 Copyright (C) 2017 Matt McManis
 http://github.com/MattMcManis/Axiom
@@ -25,6 +19,13 @@ You should have received a copy of the GNU General Public License
 along with this program.If not, see <http://www.gnu.org/licenses/>. 
 ---------------------------------------------------------------------- */
 
+using System;
+using System.Diagnostics;
+using System.Windows;
+using System.Windows.Documents;
+// Disable XML Comment warnings
+#pragma warning disable 1591
+
 namespace Axiom
 {
     public partial class FFprobe
@@ -38,13 +39,14 @@ namespace Axiom
 
         // Arguments for StartInfo
         public static string argsProperties;
-        public static string argsVideoCodec; 
-        public static string argsAudioCodec; 
+        public static string argsVideoCodec;
+        public static string argsAudioCodec;
         public static string argsVideoBitrate;
         public static string argsAudioBitrate;
         public static string argsSize;
         public static string argsDuration;
-        public static string argsFramerate;
+        public static string argsFrameRate;
+        public static string argsFileProperties;
 
         // Results to Modify
         public static string inputFileProperties;
@@ -54,7 +56,7 @@ namespace Axiom
         public static string inputAudioBitrate;
         public static string inputSize; //used to calculate video bitrate
         public static string inputDuration; //used to calculate video bitrate
-        public static string inputFramerate; //used for Frame Range
+        public static string inputFrameRate; //used for Frame Range
 
         // Single Auto
         public static string vEntryType; // ffprobe format or stream
@@ -86,53 +88,53 @@ namespace Axiom
 
 
             // Only Run FFprobe if Input File is Not Null
-            // Strange FFprobe Class problem - methods halting after FFprobeInputFileInfo() 
+            // Strange FFprobe Class problem - methods halting after InputFileInfo() 
             // unless Null Check is put here instead of inside the Class.
-            if (!string.IsNullOrWhiteSpace(mainwindow.textBoxBrowse.Text)
-                && !string.IsNullOrEmpty(MainWindow.inputDir)
+            if (!string.IsNullOrWhiteSpace(mainwindow.tbxInput.Text)
+                //&& !string.IsNullOrEmpty(MainWindow.inputDir)
                 && !string.IsNullOrEmpty(FFprobe.ffprobe))
             {
                 // -------------------------
                 //    FFprobe Video Entry Type Containers
                 // -------------------------
-                FFprobe.FFprobeVideoEntryType(mainwindow);
-
+                FFprobe.VideoEntryType(mainwindow);
 
                 // -------------------------
                 //    FFprobe Audio Entry Type Containers
                 // -------------------------
-                FFprobe.FFprobeAudioEntryType(mainwindow);
-
+                FFprobe.AudioEntryType(mainwindow);
 
                 // -------------------------
                 //    FFprobe File Info
                 // -------------------------
-                FFprobe.FFprobeInputFileInfo(mainwindow);
+                argsFrameRate = " -i " + "\"" + mainwindow.tbxInput.Text + "\"" + " -select_streams v:0 -show_entries stream=r_frame_rate -v quiet -of csv=\"p=0\"";
+                argsSize = " -i " + "\"" + mainwindow.tbxInput.Text + "\"" + " -select_streams v:0 -show_entries format=size -v quiet -of csv=\"p=0\"";
+                argsDuration = " -i " + "\"" + mainwindow.tbxInput.Text + "\"" + " -select_streams v:0 -show_entries format=duration -v quiet -of csv=\"p=0\"";
+                argsVideoCodec = " -i " + "\"" + mainwindow.tbxInput.Text + "\"" + " -select_streams v:0 -show_entries stream=codec_name -v quiet -of csv=\"p=0\"";
+                argsVideoBitrate = " -i " + "\"" + mainwindow.tbxInput.Text + "\"" + " -select_streams v:0 -show_entries " + vEntryType + " -v quiet -of csv=\"p=0\"";
+                argsAudioCodec = " -i " + "\"" + mainwindow.tbxInput.Text + "\"" + " -select_streams a:0 -show_entries stream=codec_name -v quiet -of csv=\"p=0\"";
+                argsAudioBitrate = " -i" + " " + "\"" + mainwindow.tbxInput.Text + "\"" + " -select_streams a:0 -show_entries " + aEntryType + " -v quiet -of csv=\"p=0\"";
 
+                inputFrameRate = InputFileInfo(mainwindow, argsFrameRate);
+                inputSize = InputFileInfo(mainwindow, argsSize);
+                inputDuration = InputFileInfo(mainwindow, argsDuration);
+                inputVideoCodec = InputFileInfo(mainwindow, argsVideoCodec);
+                inputVideoBitrate = InputFileInfo(mainwindow, argsVideoBitrate);
+                inputAudioCodec = InputFileInfo(mainwindow, argsAudioCodec);
+                inputAudioBitrate = InputFileInfo(mainwindow, argsAudioBitrate);
 
-                // -------------------------
-                //    Video Bitrate Calculator
-                // -------------------------
-                Video.VideoBitrateCalculator(mainwindow);
+                // Log won't write the input data unless we pass it to a new string
+                string logInputFrameRate = inputFrameRate;
+                string logInputSize = inputSize;
+                string logInputDuration = inputDuration;
+                string logInputVideoCodec = inputVideoCodec;
+                string logInputVideoBitrate = inputVideoBitrate;
+                string logInputAudioCodec = inputAudioCodec;
+                string logInputAudioBitrate = inputAudioBitrate;
 
-
-                // -------------------------
-                //    Audio Bitrate Calculator
-                // -------------------------
-                Audio.AudioBitrateCalculator(mainwindow);
-            }
-
-
-            // --------------------------------------------------------------------
-            // Section: Input
-            // --------------------------------------------------------------------
-
-            // Log Console Message /////////
-            // Only Check FFprobe Input if Input File is Not Null
-            if (!string.IsNullOrWhiteSpace(mainwindow.textBoxBrowse.Text) 
-                && !string.IsNullOrEmpty(MainWindow.inputDir) 
-                && !string.IsNullOrEmpty(FFprobe.ffprobe))
-            {
+                // --------------------------------------------------------------------
+                // Section: Input
+                // --------------------------------------------------------------------
                 Log.WriteAction = () =>
                 {
                     // Log Console Message /////////
@@ -165,33 +167,33 @@ namespace Axiom
 
                     Log.logParagraph.Inlines.Add(new LineBreak());
                     Log.logParagraph.Inlines.Add(new Bold(new Run("Size: ")) { Foreground = Log.ConsoleDefault });
-                    Log.logParagraph.Inlines.Add(new Run(FFprobe.inputSize) { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new Run(logInputSize) { Foreground = Log.ConsoleDefault });
                     Log.logParagraph.Inlines.Add(new LineBreak());
                     Log.logParagraph.Inlines.Add(new Bold(new Run("Duration: ")) { Foreground = Log.ConsoleDefault });
-                    Log.logParagraph.Inlines.Add(new Run(FFprobe.inputDuration) { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new Run(logInputDuration) { Foreground = Log.ConsoleDefault });
 
                     Log.logParagraph.Inlines.Add(new LineBreak());
                     Log.logParagraph.Inlines.Add(new LineBreak());
                     Log.logParagraph.Inlines.Add(new Bold(new Run("Video")) { Foreground = Log.ConsoleAction });
                     Log.logParagraph.Inlines.Add(new LineBreak());
                     Log.logParagraph.Inlines.Add(new Bold(new Run("Codec: ")) { Foreground = Log.ConsoleDefault });
-                    Log.logParagraph.Inlines.Add(new Run(FFprobe.inputVideoCodec) { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new Run(logInputVideoCodec) { Foreground = Log.ConsoleDefault });
                     Log.logParagraph.Inlines.Add(new LineBreak());
                     Log.logParagraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
-                    Log.logParagraph.Inlines.Add(new Run(FFprobe.inputVideoBitrate) { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new Run(logInputVideoBitrate) { Foreground = Log.ConsoleDefault });
                     Log.logParagraph.Inlines.Add(new LineBreak());
                     Log.logParagraph.Inlines.Add(new Bold(new Run("FPS: ")) { Foreground = Log.ConsoleDefault });
-                    Log.logParagraph.Inlines.Add(new Run(FFprobe.inputFramerate) { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new Run(logInputFrameRate) { Foreground = Log.ConsoleDefault });
 
                     Log.logParagraph.Inlines.Add(new LineBreak());
                     Log.logParagraph.Inlines.Add(new LineBreak());
                     Log.logParagraph.Inlines.Add(new Bold(new Run("Audio")) { Foreground = Log.ConsoleAction });
                     Log.logParagraph.Inlines.Add(new LineBreak());
                     Log.logParagraph.Inlines.Add(new Bold(new Run("Codec: ")) { Foreground = Log.ConsoleDefault });
-                    Log.logParagraph.Inlines.Add(new Run(FFprobe.inputAudioCodec) { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new Run(logInputAudioCodec) { Foreground = Log.ConsoleDefault });
                     Log.logParagraph.Inlines.Add(new LineBreak());
                     Log.logParagraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
-                    Log.logParagraph.Inlines.Add(new Run(Convert.ToString(FFprobe.inputAudioBitrate)) { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new Run(Convert.ToString(logInputAudioBitrate)) { Foreground = Log.ConsoleDefault });
                 };
                 Log.LogActions.Add(Log.WriteAction);
             }
@@ -264,237 +266,165 @@ namespace Axiom
         /// <summary>
         /// FFprobe Video Entry Type Containers (Method)
         /// </summary>
-        public static void FFprobeVideoEntryType(MainWindow mainwindow)
+        public static void VideoEntryType(MainWindow mainwindow)
         {
-            // Choose FFprobe Entry Type based on Input file extension
-            // Note: Format sometimes encompasses the entire file, Video + Audio bitrate. 
-            if (string.Equals(MainWindow.inputExt, ".wmv", StringComparison.CurrentCultureIgnoreCase) 
-                || string.Equals(MainWindow.inputExt, ".mp4", StringComparison.CurrentCultureIgnoreCase)
-                || string.Equals(MainWindow.inputExt, ".ogv", StringComparison.CurrentCultureIgnoreCase) 
-                || string.Equals(MainWindow.inputExt, ".mov", StringComparison.CurrentCultureIgnoreCase) 
-                || string.Equals(MainWindow.inputExt, ".m4v", StringComparison.CurrentCultureIgnoreCase) 
-                || string.Equals(MainWindow.inputExt, ".qt", StringComparison.CurrentCultureIgnoreCase) 
-                || string.Equals(MainWindow.inputExt, ".3gp", StringComparison.CurrentCultureIgnoreCase) 
-                || string.Equals(MainWindow.inputExt, ".3g2", StringComparison.CurrentCultureIgnoreCase) 
-                || string.Equals(MainWindow.inputExt, ".flv", StringComparison.CurrentCultureIgnoreCase) 
-                || string.Equals(MainWindow.inputExt, ".swf", StringComparison.CurrentCultureIgnoreCase))
+            // -------------------------
+            // Single
+            // -------------------------
+            if (mainwindow.tglBatch.IsChecked == false)
             {
-                vEntryType = "stream=bit_rate";
+                // Choose FFprobe Entry Type based on Input file extension
+                // Note: Format sometimes encompasses the entire file, Video + Audio bitrate. 
+                if (string.Equals(MainWindow.inputExt, ".webm", StringComparison.CurrentCultureIgnoreCase)
+                    || string.Equals(MainWindow.inputExt, ".wmv", StringComparison.CurrentCultureIgnoreCase)
+                    || string.Equals(MainWindow.inputExt, ".mp4", StringComparison.CurrentCultureIgnoreCase)
+                    || string.Equals(MainWindow.inputExt, ".ogv", StringComparison.CurrentCultureIgnoreCase)
+                    || string.Equals(MainWindow.inputExt, ".mov", StringComparison.CurrentCultureIgnoreCase)
+                    || string.Equals(MainWindow.inputExt, ".m4v", StringComparison.CurrentCultureIgnoreCase)
+                    || string.Equals(MainWindow.inputExt, ".qt", StringComparison.CurrentCultureIgnoreCase)
+                    || string.Equals(MainWindow.inputExt, ".3gp", StringComparison.CurrentCultureIgnoreCase)
+                    || string.Equals(MainWindow.inputExt, ".3g2", StringComparison.CurrentCultureIgnoreCase)
+                    || string.Equals(MainWindow.inputExt, ".flv", StringComparison.CurrentCultureIgnoreCase)
+                    || string.Equals(MainWindow.inputExt, ".swf", StringComparison.CurrentCultureIgnoreCase))
+                {
+                    vEntryType = "stream=bit_rate";
+                }
+                else if (string.Equals(MainWindow.inputExt, ".avi", StringComparison.CurrentCultureIgnoreCase)
+                    || string.Equals(MainWindow.inputExt, ".mpg", StringComparison.CurrentCultureIgnoreCase)
+                    || string.Equals(MainWindow.inputExt, ".mpeg", StringComparison.CurrentCultureIgnoreCase)
+                    || string.Equals(MainWindow.inputExt, ".mod", StringComparison.CurrentCultureIgnoreCase)
+                    || string.Equals(MainWindow.inputExt, ".mkv", StringComparison.CurrentCultureIgnoreCase)
+                    || string.Equals(MainWindow.inputExt, ".asf", StringComparison.CurrentCultureIgnoreCase)
+                    || string.Equals(MainWindow.inputExt, ".vob", StringComparison.CurrentCultureIgnoreCase))
+                {
+                    vEntryType = "format=bit_rate";
+                }
+                else // UNLISTED Filetypes & Audio to Video (this may cause conflict)
+                {
+                    vEntryType = "stream=bit_rate";
+                }
             }
-            else if (string.Equals(MainWindow.inputExt, ".avi", StringComparison.CurrentCultureIgnoreCase) 
-                || string.Equals(MainWindow.inputExt, ".mpg", StringComparison.CurrentCultureIgnoreCase) 
-                || string.Equals(MainWindow.inputExt, ".mpeg", StringComparison.CurrentCultureIgnoreCase) 
-                || string.Equals(MainWindow.inputExt, ".mod", StringComparison.CurrentCultureIgnoreCase) 
-                || string.Equals(MainWindow.inputExt, ".mkv", StringComparison.CurrentCultureIgnoreCase) 
-                || string.Equals(MainWindow.inputExt, ".asf", StringComparison.CurrentCultureIgnoreCase) 
-                || string.Equals(MainWindow.inputExt, ".vob", StringComparison.CurrentCultureIgnoreCase))
+
+            // -------------------------
+            // Batch
+            // -------------------------
+            else if (mainwindow.tglBatch.IsChecked == true)
             {
-                vEntryType = "format=bit_rate";
-            }
-            else // UNLISTED Filetypes & Audio to Video (this may cause conflict)
-            {
-                vEntryType = "stream=bit_rate";
-            }
+                if (string.Equals(MainWindow.batchExt, ".webm", StringComparison.CurrentCultureIgnoreCase)
+                || string.Equals(MainWindow.batchExt, ".wmv", StringComparison.CurrentCultureIgnoreCase)
+                || string.Equals(MainWindow.batchExt, ".mp4", StringComparison.CurrentCultureIgnoreCase)
+                || string.Equals(MainWindow.batchExt, ".ogv", StringComparison.CurrentCultureIgnoreCase)
+                || string.Equals(MainWindow.batchExt, ".mov", StringComparison.CurrentCultureIgnoreCase)
+                || string.Equals(MainWindow.batchExt, ".m4v", StringComparison.CurrentCultureIgnoreCase)
+                || string.Equals(MainWindow.batchExt, ".qt", StringComparison.CurrentCultureIgnoreCase)
+                || string.Equals(MainWindow.batchExt, ".3gp", StringComparison.CurrentCultureIgnoreCase)
+                || string.Equals(MainWindow.batchExt, ".3g2", StringComparison.CurrentCultureIgnoreCase)
+                || string.Equals(MainWindow.batchExt, ".flv", StringComparison.CurrentCultureIgnoreCase)
+                || string.Equals(MainWindow.batchExt, ".swf", StringComparison.CurrentCultureIgnoreCase))
+                {
+                    vEntryTypeBatch = "stream^=bit_rate";
+                }
+                else if (string.Equals(MainWindow.batchExt, ".avi", StringComparison.CurrentCultureIgnoreCase)
+                    || string.Equals(MainWindow.batchExt, ".mpg", StringComparison.CurrentCultureIgnoreCase)
+                    || string.Equals(MainWindow.batchExt, ".mpeg", StringComparison.CurrentCultureIgnoreCase)
+                    || string.Equals(MainWindow.batchExt, ".mod", StringComparison.CurrentCultureIgnoreCase)
+                    || string.Equals(MainWindow.batchExt, ".mkv", StringComparison.CurrentCultureIgnoreCase)
+                    || string.Equals(MainWindow.batchExt, ".asf", StringComparison.CurrentCultureIgnoreCase)
+                    || string.Equals(MainWindow.batchExt, ".vob", StringComparison.CurrentCultureIgnoreCase))
+                {
+                    vEntryTypeBatch = "format^=bit_rate";
+                }
+                // Unlisted Filetypes & Audio to Video (this may cause conflict)
+                else
+                {
+                    vEntryTypeBatch = "stream^=bit_rate";
+                }
+            }          
         }
 
 
         /// <summary>
         /// FFprobe Audio Entry Type Containers (Method)
         /// </summary>
-        public static void FFprobeAudioEntryType(MainWindow mainwindow)
-        {
-            // These file types need special instructions for FFprobe to detect
-            if (string.Equals(MainWindow.inputExt, ".flac", StringComparison.CurrentCultureIgnoreCase) 
-                || string.Equals(MainWindow.inputExt, ".wav", StringComparison.CurrentCultureIgnoreCase))
-            {
-                aEntryType = "format=bit_rate";
-            }
-            else
-            {
-                // All other audio types use stream=bit_rate? -maybe
-                aEntryType = "stream=bit_rate";
-            }
-        }
-
-
-        /// <summary>
-        /// FFprobe Video Entry Type Containers - Batch (Method)
-        /// </summary>
-        public static void FFprobeVideoEntryTypeBatch(MainWindow mainwindow)
+        public static void AudioEntryType(MainWindow mainwindow)
         {
             // -------------------------
-            // VIDEO
+            // Single
             // -------------------------
-            if (string.Equals(MainWindow.batchExt, ".wmv", StringComparison.CurrentCultureIgnoreCase) 
-                || string.Equals(MainWindow.batchExt, ".mp4", StringComparison.CurrentCultureIgnoreCase) 
-                || string.Equals(MainWindow.batchExt, ".ogv", StringComparison.CurrentCultureIgnoreCase)
-                || string.Equals(MainWindow.batchExt, ".mov", StringComparison.CurrentCultureIgnoreCase) 
-                || string.Equals(MainWindow.batchExt, ".m4v", StringComparison.CurrentCultureIgnoreCase) 
-                || string.Equals(MainWindow.batchExt, ".qt", StringComparison.CurrentCultureIgnoreCase) 
-                || string.Equals(MainWindow.batchExt, ".3gp", StringComparison.CurrentCultureIgnoreCase)
-                || string.Equals(MainWindow.batchExt, ".3g2", StringComparison.CurrentCultureIgnoreCase)
-                || string.Equals(MainWindow.batchExt, ".flv", StringComparison.CurrentCultureIgnoreCase)
-                || string.Equals(MainWindow.batchExt, ".swf", StringComparison.CurrentCultureIgnoreCase))
+            if (mainwindow.tglBatch.IsChecked == false)
             {
-                FFprobe.vEntryTypeBatch = "stream^=bit_rate";
+                // These file types need special instructions for FFprobe to detect
+                if (string.Equals(MainWindow.inputExt, ".flac", StringComparison.CurrentCultureIgnoreCase)
+                    || string.Equals(MainWindow.inputExt, ".wav", StringComparison.CurrentCultureIgnoreCase))
+                {
+                    aEntryType = "format=bit_rate";
+                }
+                else
+                {
+                    // All other audio types use stream=bit_rate? -maybe
+                    aEntryType = "stream=bit_rate";
+                }
             }
-            else if (string.Equals(MainWindow.batchExt, ".avi", StringComparison.CurrentCultureIgnoreCase)
-                || string.Equals(MainWindow.batchExt, ".mpg", StringComparison.CurrentCultureIgnoreCase) 
-                || string.Equals(MainWindow.batchExt, ".mpeg", StringComparison.CurrentCultureIgnoreCase)
-                || string.Equals(MainWindow.batchExt, ".mod", StringComparison.CurrentCultureIgnoreCase) 
-                || string.Equals(MainWindow.batchExt, ".mkv", StringComparison.CurrentCultureIgnoreCase)
-                || string.Equals(MainWindow.batchExt, ".asf", StringComparison.CurrentCultureIgnoreCase)
-                || string.Equals(MainWindow.batchExt, ".vob", StringComparison.CurrentCultureIgnoreCase))
+
+            // -------------------------
+            // Batch
+            // -------------------------
+            else if (mainwindow.tglBatch.IsChecked == true)
             {
-                FFprobe.vEntryTypeBatch = "format^=bit_rate";
-            }
-            // UNLISTED Filetypes & Audio to Video (this may cause conflict)
-            else
-            {
-                FFprobe.vEntryTypeBatch = "stream^=bit_rate";
+                // Choose FFprobe Entry Type based on Input file extension
+                if (string.Equals(MainWindow.batchExt, ".flac", StringComparison.CurrentCultureIgnoreCase)
+                    || string.Equals(MainWindow.batchExt, ".wav", StringComparison.CurrentCultureIgnoreCase))
+                {
+                    aEntryType = "format=bit_rate";
+                }
+                else
+                {
+                    // All other audio types use stream=bit_rate? -maybe
+                    aEntryType = "stream=bit_rate";
+                }
             }
         }
 
-
-        /// <summary>
-        /// FFprobe Audio Entry Type Containers - Batch (Method)
-        /// </summary>
-        public static void FFprobeAudioEntryTypeBatch(MainWindow mainwindow)
-        {
-            // Choose FFprobe Entry Type based on Input file extension
-            if (string.Equals(MainWindow.batchExt, ".flac", StringComparison.CurrentCultureIgnoreCase) 
-                || string.Equals(MainWindow.batchExt, ".wav", StringComparison.CurrentCultureIgnoreCase))
-            {
-                FFprobe.aEntryType = "format=bit_rate";
-            }
-            else
-            {
-                // All other audio types use stream=bit_rate? -maybe
-                FFprobe.aEntryType = "stream=bit_rate";
-            }
-        }
 
         /// <summary>
         /// FFprobe Cut Duration
         /// </summary>
-        public static String FFprobeCutDuration(MainWindow mainwindow)
+        public static String CutDuration(MainWindow mainwindow)
         {
-            // Input Null Check
-            if (!string.IsNullOrWhiteSpace(mainwindow.textBoxBrowse.Text))
+            string argsDuration = " -i " + "\"" + mainwindow.tbxInput.Text + "\"" + " -select_streams v:0 -show_entries format=duration -v quiet -of csv=\"p=0\"";
+            inputDuration = InputFileInfo(mainwindow, argsDuration);
+
+            // Format Time for FFmpeg 00:00:00.000
+            //
+            if (!string.IsNullOrEmpty(inputDuration)) //null check
             {
-                // Ignore if Batch
-                if (mainwindow.tglBatch.IsChecked == false)
-                {
-                    // -------------------------
-                    // Start FFprobe Process
-                    // -------------------------
-                    using (Process FFprobeParse = new Process())
-                    {
-                        FFprobeParse.StartInfo.UseShellExecute = false;
-                        FFprobeParse.StartInfo.CreateNoWindow = true;
-                        FFprobeParse.StartInfo.RedirectStandardOutput = true;
-                        FFprobeParse.StartInfo.FileName = FFprobe.ffprobe;
+                TimeSpan t = TimeSpan.FromSeconds(Convert.ToDouble(inputDuration));
 
-                        if (!string.IsNullOrEmpty(FFprobe.ffprobe)) //FFprobe.exe Null Check
-                        {
-                            // -------------------------
-                            // Duration
-                            // -------------------------
-                            argsDuration = " -i" + " " + "\"" + mainwindow.textBoxBrowse.Text + "\"" + " -select_streams v:0 -show_entries format=duration -v quiet -of csv=\"p=0\"";
-                            FFprobeParse.StartInfo.Arguments = argsDuration;
-                            FFprobeParse.Start();
-                            FFprobeParse.WaitForExit();
-                            // Get Ouput Result
-                            inputDuration = FFprobeParse.StandardOutput.ReadToEnd();
-                            // Remove linebreaks
-                            inputDuration = inputDuration
-                                .Replace(Environment.NewLine, "")
-                                .Replace("\n", "")
-                                .Replace("\r\n", "")
-                                .Replace("\u2028", "")
-                                .Replace("\u000A", "")
-                                .Replace("\u000B", "")
-                                .Replace("\u000C", "")
-                                .Replace("\u000D", "")
-                                .Replace("\u0085", "")
-                                .Replace("\u2028", "")
-                                .Replace("\u2029", "");
-                            // Remove any white space from end of string
-                            inputDuration = inputDuration.Trim();
-                            inputDuration = inputDuration.TrimEnd();
-                        }
-                    }
-                }
-
-                // Format Time for FFmpeg 00:00:00.000
-                //
-                if (!string.IsNullOrEmpty(inputDuration)) //null check
-                {
-                    TimeSpan t = TimeSpan.FromSeconds(Convert.ToDouble(inputDuration));
-
-                    inputDuration = string.Format("{0:D2}:{1:D2}:{2:D2}.{3:D3}",
-                                    t.Hours,
-                                    t.Minutes,
-                                    t.Seconds,
-                                    t.Milliseconds);
-                }
+                inputDuration = string.Format("{0:D2}:{1:D2}:{2:D2}.{3:D3}",
+                                t.Hours,
+                                t.Minutes,
+                                t.Seconds,
+                                t.Milliseconds);
             }
-            
 
             return inputDuration;
         }
 
-        /// <summary>
-        /// FFprobe Input File Properties Parse (Method)
-        /// </summary>
-        public static void FFprobeInputFileProperties(MainWindow mainwindow)
-        {
-            // Input Null Check
-            if (!string.IsNullOrWhiteSpace(mainwindow.textBoxBrowse.Text))
-            {
-                // Ignore if Batch
-                if (mainwindow.tglBatch.IsChecked == false)
-                {
-                    // -------------------------
-                    // Set FFprobe Path
-                    // -------------------------
-                    MainWindow.FFprobePath(mainwindow);
-
-                    // -------------------------
-                    // Start FFprobe Process
-                    // -------------------------
-                    using (Process FFprobeParse = new Process())
-                    {
-                        FFprobeParse.StartInfo.UseShellExecute = false;
-                        FFprobeParse.StartInfo.CreateNoWindow = true;
-                        FFprobeParse.StartInfo.RedirectStandardOutput = true;
-                        FFprobeParse.StartInfo.FileName = FFprobe.ffprobe;
-
-                        if (!string.IsNullOrEmpty(FFprobe.ffprobe)) //FFprobe.exe Null Check
-                        {
-                            // -------------------------
-                            // Get All Streams Properties
-                            // -------------------------
-                            argsProperties = " -i" + " " + "\"" + mainwindow.textBoxBrowse.Text + "\"" + " -v quiet -print_format ini -show_format -show_streams";
-                            FFprobeParse.StartInfo.Arguments = argsProperties;
-                            FFprobeParse.Start();
-                            //FFprobeParse.WaitForExit(); //hangs ffprobe
-                            // Get Ouput Result
-                            inputFileProperties = FFprobeParse.StandardOutput.ReadToEnd();
-                        }
-                    }
-                }
-            }
-        }
-
+        
 
         /// <summary>
         /// FFprobe Input File Info Parse (Method)
         /// </summary>
-        public static void FFprobeInputFileInfo(MainWindow mainwindow)
+        public static String InputFileInfo(MainWindow mainwindow, string arguments)
         {
+            string inputMetaData = string.Empty;
+
             // Ignore if Batch
-            if (mainwindow.tglBatch.IsChecked == false)
+            // Input Empty Check
+            // FFprobe.exe Null Check
+            if (mainwindow.tglBatch.IsChecked == false
+                && !string.IsNullOrWhiteSpace(mainwindow.tbxInput.Text)
+                && !string.IsNullOrEmpty(FFprobe.ffprobe))
             {
                 // Start FFprobe Process
                 using (Process FFprobeParse = new Process())
@@ -504,284 +434,44 @@ namespace Axiom
                     FFprobeParse.StartInfo.RedirectStandardOutput = true;
                     FFprobeParse.StartInfo.FileName = FFprobe.ffprobe;
 
-                    if (!string.IsNullOrEmpty(FFprobe.ffprobe)) //FFprobe.exe Null Check
-                    {
-                        // -------------------------
-                        // Frame Rate
-                        // -------------------------
-                        argsFramerate = " -i" + " " + "\"" + mainwindow.textBoxBrowse.Text + "\"" + " -select_streams v:0 -show_entries stream=r_frame_rate -v quiet -of csv=\"p=0\"";
-                        FFprobeParse.StartInfo.Arguments = argsFramerate;
-                        FFprobeParse.Start();
-                        FFprobeParse.WaitForExit();
-                        // Get Ouput Result
-                        inputFramerate = FFprobeParse.StandardOutput.ReadToEnd();
-                        // Remove linebreaks
-                        inputFramerate = inputFramerate
-                            .Replace(Environment.NewLine, "")
-                            .Replace("\n", "")
-                            .Replace("\r\n", "")
-                            .Replace("\u2028", "")
-                            .Replace("\u000A", "")
-                            .Replace("\u000B", "")
-                            .Replace("\u000C", "")
-                            .Replace("\u000D", "")
-                            .Replace("\u0085", "")
-                            .Replace("\u2028", "")
-                            .Replace("\u2029", "");
-                        // Remove any white space from end of string
-                        inputFramerate = inputFramerate.Trim();
-                        inputFramerate = inputFramerate.TrimEnd();
-
-                        // Log Console Message /////////
-                        Log.WriteAction = () =>
-                        {
-                            Log.logParagraph.Inlines.Add(new LineBreak());
-                            Log.logParagraph.Inlines.Add(new LineBreak());
-                            Log.logParagraph.Inlines.Add(new Bold(new Run("Frame Rate")) { Foreground = Log.ConsoleAction });
-                            Log.logParagraph.Inlines.Add(new LineBreak());
-                            Log.logParagraph.Inlines.Add(new Run(FFprobe.ffprobe + argsFramerate) { Foreground = Log.ConsoleDefault });
-                        };
-                        Log.LogActions.Add(Log.WriteAction);
-
-
-                        // -------------------------
-                        // Size
-                        // -------------------------
-                        argsSize = " -i" + " " + "\"" + mainwindow.textBoxBrowse.Text + "\"" + " -select_streams v:0 -show_entries format=size -v quiet -of csv=\"p=0\"";
-                        FFprobeParse.StartInfo.Arguments = argsSize;
-                        FFprobeParse.Start();
-                        FFprobeParse.WaitForExit();
-                        // Get Ouput Result
-                        inputSize = FFprobeParse.StandardOutput.ReadToEnd();
-                        // Remove linebreaks
-                        inputSize = inputSize
-                            .Replace(Environment.NewLine, "")
-                            .Replace("\n", "")
-                            .Replace("\r\n", "")
-                            .Replace("\u2028", "")
-                            .Replace("\u000A", "")
-                            .Replace("\u000B", "")
-                            .Replace("\u000C", "")
-                            .Replace("\u000D", "")
-                            .Replace("\u0085", "")
-                            .Replace("\u2028", "")
-                            .Replace("\u2029", "");
-                        // Remove any white space from end of string
-                        inputSize = inputSize.Trim();
-                        inputSize = inputSize.TrimEnd();
-
-                        // Log Console Message /////////
-                        Log.WriteAction = () =>
-                        {
-                            Log.logParagraph.Inlines.Add(new LineBreak());
-                            Log.logParagraph.Inlines.Add(new LineBreak());
-                            Log.logParagraph.Inlines.Add(new Bold(new Run("File Size")) { Foreground = Log.ConsoleAction });
-                            Log.logParagraph.Inlines.Add(new LineBreak());
-                            Log.logParagraph.Inlines.Add(new Run(FFprobe.ffprobe + argsSize) { Foreground = Log.ConsoleDefault });
-                        };
-                        Log.LogActions.Add(Log.WriteAction);
-
-
-                        // -------------------------
-                        // Duration
-                        // -------------------------
-                        argsDuration = " -i" + " " + "\"" + mainwindow.textBoxBrowse.Text + "\"" + " -select_streams v:0 -show_entries format=duration -v quiet -of csv=\"p=0\"";
-                        FFprobeParse.StartInfo.Arguments = argsDuration;
-                        FFprobeParse.Start();
-                        FFprobeParse.WaitForExit();
-                        // Get Ouput Result
-                        inputDuration = FFprobeParse.StandardOutput.ReadToEnd();
-                        // Remove linebreaks
-                        inputDuration = inputDuration
-                            .Replace(Environment.NewLine, "")
-                            .Replace("\n", "")
-                            .Replace("\r\n", "")
-                            .Replace("\u2028", "")
-                            .Replace("\u000A", "")
-                            .Replace("\u000B", "")
-                            .Replace("\u000C", "")
-                            .Replace("\u000D", "")
-                            .Replace("\u0085", "")
-                            .Replace("\u2028", "")
-                            .Replace("\u2029", "");
-                        // Remove any white space from end of string
-                        inputDuration = inputDuration.Trim();
-                        inputDuration = inputDuration.TrimEnd();
-
-                        // Log Console Message /////////
-                        Log.WriteAction = () =>
-                        {
-                            Log.logParagraph.Inlines.Add(new LineBreak());
-                            Log.logParagraph.Inlines.Add(new LineBreak());
-                            Log.logParagraph.Inlines.Add(new Bold(new Run("File Duration")) { Foreground = Log.ConsoleAction });
-                            Log.logParagraph.Inlines.Add(new LineBreak());
-                            Log.logParagraph.Inlines.Add(new Run(FFprobe.ffprobe + argsDuration) { Foreground = Log.ConsoleDefault });
-                        };
-                        Log.LogActions.Add(Log.WriteAction);
-
-
-                        // -------------------------
-                        // Video Codec
-                        // -------------------------
-                        argsVideoCodec = " -i" + " " + "\"" + mainwindow.textBoxBrowse.Text + "\"" + " -select_streams v:0 -show_entries stream=codec_name -v quiet -of csv=\"p=0\"";
-                        FFprobeParse.StartInfo.Arguments = argsVideoCodec;
-                        FFprobeParse.Start();
-                        FFprobeParse.WaitForExit();
-                        // Get Ouput Result
-                        inputVideoCodec = FFprobeParse.StandardOutput.ReadToEnd();
-                        // Remove linebreaks
-                        inputVideoCodec = inputVideoCodec
-                            .Replace(Environment.NewLine, "")
-                            .Replace("\n", "")
-                            .Replace("\r\n", "")
-                            .Replace("\u2028", "")
-                            .Replace("\u000A", "")
-                            .Replace("\u000B", "")
-                            .Replace("\u000C", "")
-                            .Replace("\u000D", "")
-                            .Replace("\u0085", "")
-                            .Replace("\u2028", "")
-                            .Replace("\u2029", "");
-                        // Remove any white space from end of string
-                        inputVideoCodec = inputVideoCodec.Trim();
-                        inputVideoCodec = inputVideoCodec.TrimEnd();
-
-                        // Log Console Message /////////
-                        Log.WriteAction = () =>
-                        {
-                            Log.logParagraph.Inlines.Add(new LineBreak());
-                            Log.logParagraph.Inlines.Add(new LineBreak());
-                            Log.logParagraph.Inlines.Add(new Bold(new Run("Video Codec")) { Foreground = Log.ConsoleAction });
-                            Log.logParagraph.Inlines.Add(new LineBreak());
-                            Log.logParagraph.Inlines.Add(new Run(FFprobe.ffprobe + argsVideoCodec) { Foreground = Log.ConsoleDefault });
-                        };
-                        Log.LogActions.Add(Log.WriteAction);
-
-
-                        // -------------------------
-                        // Audio Codec
-                        // -------------------------
-                        argsAudioCodec = " -i" + " " + "\"" + mainwindow.textBoxBrowse.Text + "\"" + " -select_streams a:0 -show_entries stream=codec_name -v quiet -of csv=\"p=0\"";
-                        FFprobeParse.StartInfo.Arguments = argsAudioCodec;
-                        FFprobeParse.Start();
-                        FFprobeParse.WaitForExit();
-                        // Get Ouput Result
-                        inputAudioCodec = FFprobeParse.StandardOutput.ReadToEnd();
-                        // Remove linebreaks
-                        inputAudioCodec = inputAudioCodec
-                            .Replace(Environment.NewLine, "")
-                            .Replace("\n", "")
-                            .Replace("\r\n", "")
-                            .Replace("\u2028", "")
-                            .Replace("\u000A", "")
-                            .Replace("\u000B", "")
-                            .Replace("\u000C", "")
-                            .Replace("\u000D", "")
-                            .Replace("\u0085", "")
-                            .Replace("\u2028", "")
-                            .Replace("\u2029", "");
-                        // Remove any white space from end of string
-                        inputAudioCodec = inputAudioCodec.Trim();
-                        inputAudioCodec = inputAudioCodec.TrimEnd();
-
-                        // Log Console Message /////////
-                        Log.WriteAction = () =>
-                        {
-                            Log.logParagraph.Inlines.Add(new LineBreak());
-                            Log.logParagraph.Inlines.Add(new LineBreak());
-                            Log.logParagraph.Inlines.Add(new Bold(new Run("Audio Codec")) { Foreground = Log.ConsoleAction });
-                            Log.logParagraph.Inlines.Add(new LineBreak());
-                            Log.logParagraph.Inlines.Add(new Run(FFprobe.ffprobe + argsAudioCodec) { Foreground = Log.ConsoleDefault });
-                        };
-                        Log.LogActions.Add(Log.WriteAction);
-
-
-                        // -------------------------
-                        // Video Bitrate
-                        // -------------------------
-                        argsVideoBitrate = " -i " + "\"" + mainwindow.textBoxBrowse.Text + "\"" + " -select_streams v:0 -show_entries " + vEntryType + " -v quiet -of csv=\"p=0\"";
-                        FFprobeParse.StartInfo.Arguments = argsVideoBitrate;
-                        FFprobeParse.Start();
-                        FFprobeParse.WaitForExit();
-                        // Get Ouput Result
-                        inputVideoBitrate = FFprobeParse.StandardOutput.ReadToEnd();
-                        // Remove linebreaks  
-                        inputVideoBitrate = inputVideoBitrate
-                            .Replace(Environment.NewLine, "")
-                            .Replace("\n", "")
-                            .Replace("\r\n", "")
-                            .Replace("\u2028", "")
-                            .Replace("\u000A", "")
-                            .Replace("\u000B", "")
-                            .Replace("\u000C", "")
-                            .Replace("\u000D", "")
-                            .Replace("\u0085", "")
-                            .Replace("\u2028", "")
-                            .Replace("\u2029", "");
-                        // Remove any white space from end of string
-                        inputVideoBitrate = inputVideoBitrate.Trim();
-                        inputVideoBitrate = inputVideoBitrate.TrimEnd();
-
-
-                        // Log Console Message /////////
-                        Log.WriteAction = () =>
-                        {
-                            Log.logParagraph.Inlines.Add(new LineBreak());
-                            Log.logParagraph.Inlines.Add(new LineBreak());
-                            Log.logParagraph.Inlines.Add(new Bold(new Run("Video Bitrate")) { Foreground = Log.ConsoleAction });
-                            Log.logParagraph.Inlines.Add(new LineBreak());
-                            Log.logParagraph.Inlines.Add(new Run(FFprobe.ffprobe + argsVideoBitrate) { Foreground = Log.ConsoleDefault });
-                        };
-                        Log.LogActions.Add(Log.WriteAction);
-
-
-                        // -------------------------
-                        // Audio Bitrate
-                        // -------------------------
-                        argsAudioBitrate = " -i" + " " + "\"" + mainwindow.textBoxBrowse.Text + "\"" + " -select_streams a:0 -show_entries " + aEntryType + " -v quiet -of csv=\"p=0\"";
-                        FFprobeParse.StartInfo.Arguments = argsAudioBitrate;
-                        FFprobeParse.Start();
-                        FFprobeParse.WaitForExit();
-                        // Get Ouput Result
-                        inputAudioBitrate = FFprobeParse.StandardOutput.ReadToEnd();
-                        // Remove linebreaks
-                        inputAudioBitrate = inputAudioBitrate
-                            .Replace(Environment.NewLine, "")
-                            .Replace("\n", "")
-                            .Replace("\r\n", "")
-                            .Replace("\u2028", "")
-                            .Replace("\u000A", "")
-                            .Replace("\u000B", "")
-                            .Replace("\u000C", "")
-                            .Replace("\u000D", "")
-                            .Replace("\u0085", "")
-                            .Replace("\u2028", "")
-                            .Replace("\u2029", "");
-                        // Remove any white space from end of string
-                        inputAudioBitrate = inputAudioBitrate.Trim();
-                        inputAudioBitrate = inputAudioBitrate.TrimEnd();
-
-                        // Log Console Message /////////
-                        Log.WriteAction = () =>
-                        {
-                            Log.logParagraph.Inlines.Add(new LineBreak());
-                            Log.logParagraph.Inlines.Add(new LineBreak());
-                            Log.logParagraph.Inlines.Add(new Bold(new Run("Audio Bitrate")) { Foreground = Log.ConsoleAction });
-                            Log.logParagraph.Inlines.Add(new LineBreak());
-                            Log.logParagraph.Inlines.Add(new Run(FFprobe.ffprobe + argsAudioBitrate) { Foreground = Log.ConsoleDefault });
-                        };
-                        Log.LogActions.Add(Log.WriteAction);
-
-                        // Close Process
-                        //FFprobeParse.Close();
-                    }
-
+                    // -------------------------
+                    // Frame Rate
+                    // -------------------------
+                    FFprobeParse.StartInfo.Arguments = arguments;
+                    FFprobeParse.Start();
+                    FFprobeParse.WaitForExit();
+                    // Get Ouput Result
+                    inputMetaData = FFprobeParse.StandardOutput.ReadToEnd();
+                    // Remove linebreaks
+                    inputMetaData = inputMetaData
+                        .Replace(Environment.NewLine, "")
+                        .Replace("\n", "")
+                        .Replace("\r\n", "")
+                        .Replace("\u2028", "")
+                        .Replace("\u000A", "")
+                        .Replace("\u000B", "")
+                        .Replace("\u000C", "")
+                        .Replace("\u000D", "")
+                        .Replace("\u0085", "")
+                        .Replace("\u2028", "")
+                        .Replace("\u2029", "");
+                    // Remove any white space from end of string
+                    inputMetaData = inputMetaData.Trim();
+                    inputMetaData = inputMetaData.TrimEnd();
                 }
-
             }
 
-        }
+            // Log Console Message /////////
+            //Log.WriteAction = () =>
+            //{
+            //    Log.logParagraph.Inlines.Add(new LineBreak());
+            //    Log.logParagraph.Inlines.Add(new LineBreak());
+            //    Log.logParagraph.Inlines.Add(new Run(FFprobe.ffprobe + arguments) { Foreground = Log.ConsoleDefault });
+            //};
+            //Log.LogActions.Add(Log.WriteAction);
 
+            return inputMetaData;
+        }
 
     }
 }

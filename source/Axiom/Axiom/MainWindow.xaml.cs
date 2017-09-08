@@ -1,4 +1,25 @@
-﻿using Axiom.Properties;
+﻿/* ----------------------------------------------------------------------
+Axiom UI
+Copyright (C) 2017 Matt McManis
+http://github.com/MattMcManis/Axiom
+http://axiomui.github.io
+axiom.interface@gmail.com
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.If not, see <http://www.gnu.org/licenses/>. 
+---------------------------------------------------------------------- */
+
+using Axiom.Properties;
 using System;
 using System.ComponentModel;
 using System.Configuration;
@@ -15,27 +36,6 @@ using System.Windows.Threading;
 #pragma warning disable 1591
 #pragma warning disable 1587
 #pragma warning disable 1570
-
-/* ----------------------------------------------------------------------
-    Axiom UI
-    Copyright (C) 2017 Matt McManis
-    http://github.com/MattMcManis/Axiom
-    http://axiomui.github.io
-    axiom.interface@gmail.com
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.If not, see <http://www.gnu.org/licenses/>. 
-   ---------------------------------------------------------------------- */
 
 namespace Axiom
 {
@@ -171,21 +171,6 @@ namespace Axiom
         {
             InitializeComponent();
 
-            // -------------------------
-            // Set Current Version to Assembly Version
-            // -------------------------
-            System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
-            FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
-            string assemblyVersion = fvi.FileVersion;
-            currentVersion = new Version(assemblyVersion);
-
-            // -------------------------
-            // Title + Version
-            // -------------------------
-            TitleVersion = "Axiom ~ FFmpeg UI (" + Convert.ToString(currentVersion) + "-" + currentBuildPhase + ")";
-            DataContext = this;
-
-
             // -----------------------------------------------------------------
             /// <summary>
             ///     Window & Components
@@ -197,7 +182,6 @@ namespace Axiom
             this.MaxWidth = 615;
             this.MaxHeight = 305;
 
-
             // -----------------------------------------------------------------
             /// <summary>
             /// Start the File Queue (Hidden)
@@ -205,7 +189,6 @@ namespace Axiom
             // disabled
             //StartFileQueue(); 
             // -----------------------------------------------------------------
-
 
             // -----------------------------------------------------------------
             /// <summary>
@@ -225,43 +208,6 @@ namespace Axiom
             /// </summary>
             // Shows OS and Hardware information in Log Console
             SystemInfoDisplay();
-
-
-            // -----------------------------------------------------------------
-            // -------------------------
-            // Control Defaults
-            // -------------------------
-            // ComboBox Item Sources
-            cboFormat.ItemsSource = FormatControls.FormatItemSource;
-            cboMediaType.ItemsSource = FormatControls.MediaTypeItemSource;
-
-            cboFormat.SelectedIndex = 0;
-            cboFPS.SelectedIndex = 0;
-            cboCut.SelectedIndex = 0;
-            cboSize.SelectedIndex = 0;
-            cboPreset.SelectedIndex = 0;
-
-            //AudioControls.Audio_SelectedItem = AudioControls.AudioItemSource[0];
-            //AudioControls.Audio_SelectedItem = AudioControls.AudioItemSource[0];
-
-            // Batch Extension Box Disabled
-            batchExtensionTextBox.IsEnabled = false;
-
-            // Open Input/Output Location Disabled
-            openLocationInput.IsEnabled = false;
-            openLocationOutput.IsEnabled = false;
-
-            // -------------------------
-            // Startup Preset
-            // -------------------------
-            // Default Format is WebM
-            if ((string)cboFormat.SelectedItem == "webm")
-            {
-                cboSubtitle.SelectedItem = "none";
-                cboAudioStream.SelectedItem = "1";
-            }
-            // -----------------------------------------------------------------
-
 
 
             // -----------------------------------------------------------------
@@ -428,6 +374,59 @@ namespace Axiom
         // --------------------------------------------------------------------------------------------------------
 
         /// <summary>
+        ///    Window Loaded
+        /// </summary>
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            // -------------------------
+            // Set Current Version to Assembly Version
+            // -------------------------
+            System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
+            FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
+            string assemblyVersion = fvi.FileVersion;
+            currentVersion = new Version(assemblyVersion);
+
+            // -------------------------
+            // Title + Version
+            // -------------------------
+            TitleVersion = "Axiom ~ FFmpeg UI (" + Convert.ToString(currentVersion) + "-" + currentBuildPhase + ")";
+            DataContext = this;
+
+            // -------------------------
+            // Control Defaults
+            // -------------------------
+            // ComboBox Item Sources
+            cboFormat.ItemsSource = FormatControls.FormatItemSource;
+            cboMediaType.ItemsSource = FormatControls.MediaTypeItemSource;
+
+            cboFormat.SelectedIndex = 0;
+            cboFPS.SelectedIndex = 0;
+            cboCut.SelectedIndex = 0;
+            cboSize.SelectedIndex = 0;
+            cboPreset.SelectedIndex = 0;
+
+            //AudioControls.Audio_SelectedItem = AudioControls.AudioItemSource[0];
+            //AudioControls.Audio_SelectedItem = AudioControls.AudioItemSource[0];
+
+            // Batch Extension Box Disabled
+            batchExtensionTextBox.IsEnabled = false;
+
+            // Open Input/Output Location Disabled
+            openLocationInput.IsEnabled = false;
+            openLocationOutput.IsEnabled = false;
+
+            // -------------------------
+            // Startup Preset
+            // -------------------------
+            // Default Format is WebM
+            if ((string)cboFormat.SelectedItem == "webm")
+            {
+                cboSubtitle.SelectedItem = "none";
+                cboAudioStream.SelectedItem = "1";
+            }
+        }
+
+        /// <summary>
         ///     Close / Exit (Method)
         /// </summary>
         protected override void OnClosed(EventArgs e)
@@ -438,7 +437,7 @@ namespace Axiom
         }
 
         // Save Window Position
-        void MainWindow_Closing(object sender, CancelEventArgs e)
+        void Window_Closing(object sender, CancelEventArgs e)
         {
             Settings.Default.Save();
         }
@@ -459,7 +458,7 @@ namespace Axiom
             FFprobe.argsAudioBitrate = string.Empty;
             FFprobe.argsSize = string.Empty;
             FFprobe.argsDuration = string.Empty;
-            FFprobe.argsFramerate = string.Empty;
+            FFprobe.argsFrameRate = string.Empty;
 
             FFprobe.inputVideoCodec = string.Empty;
             FFprobe.inputVideoBitrate = string.Empty;
@@ -467,7 +466,7 @@ namespace Axiom
             FFprobe.inputAudioBitrate = string.Empty;
             FFprobe.inputSize = string.Empty;
             FFprobe.inputDuration = string.Empty;
-            FFprobe.inputFramerate = string.Empty;
+            FFprobe.inputFrameRate = string.Empty;
 
             FFprobe.vEntryType = string.Empty;
             FFprobe.aEntryType = string.Empty;
@@ -977,26 +976,6 @@ namespace Axiom
 
 
         /// <summary>
-        ///    Keep FFmpegWindow Switch (Method)
-        /// </summary>
-        /// <remarks>
-        ///     CMD.exe command, /k = keep, /c = close
-        ///     Do not .Close(); if using /c, it will throw a Dispose exception
-        /// </remarks>
-        public static void KeepWindow(MainWindow mainwindow)
-        {
-            if (mainwindow.tglWindowKeep.IsChecked == true)
-            {
-                FFmpeg.cmdWindow = "/k ";
-            }
-            else
-            {
-                FFmpeg.cmdWindow = "/c ";
-            }
-        }
-
-
-        /// <summary>
         ///    Thread Detect (Method)
         /// </summary>
         public static String ThreadDetect(MainWindow mainwindow)
@@ -1035,14 +1014,14 @@ namespace Axiom
             // -------------------------
             if (mainwindow.tglBatch.IsChecked == true)
             {
-                inputDir = mainwindow.textBoxBrowse.Text; // (eg. C:\Input Folder\)
+                inputDir = mainwindow.tbxInput.Text; // (eg. C:\Input Folder\)
             }
 
             // -------------------------
             // Empty
             // -------------------------
             // Input Textbox & Output Textbox Both Empty
-            if (string.IsNullOrWhiteSpace(mainwindow.textBoxBrowse.Text))
+            if (string.IsNullOrWhiteSpace(mainwindow.tbxInput.Text))
             {
                 inputDir = string.Empty;
             }
@@ -1066,13 +1045,13 @@ namespace Axiom
             {
                 // Input Directory
                 // If not Empty
-                if (!string.IsNullOrWhiteSpace(mainwindow.textBoxBrowse.Text))
+                if (!string.IsNullOrWhiteSpace(mainwindow.tbxInput.Text))
                 {
-                    inputDir = Path.GetDirectoryName(mainwindow.textBoxBrowse.Text).TrimEnd('\\') + @"\"; // (eg. C:\Input Folder\)
+                    inputDir = Path.GetDirectoryName(mainwindow.tbxInput.Text).TrimEnd('\\') + @"\"; // (eg. C:\Input Folder\)
                 }
 
                 // Input
-                input = mainwindow.textBoxBrowse.Text; // (eg. C:\Input Folder\file.wmv)
+                input = mainwindow.tbxInput.Text; // (eg. C:\Input Folder\file.wmv)
             }
 
             // -------------------------
@@ -1081,9 +1060,9 @@ namespace Axiom
             else if (mainwindow.tglBatch.IsChecked == true)
             {
                 // Add slash to Batch Browse Text folder path if missing
-                mainwindow.textBoxBrowse.Text = mainwindow.textBoxBrowse.Text.TrimEnd('\\') + @"\";
+                mainwindow.tbxInput.Text = mainwindow.tbxInput.Text.TrimEnd('\\') + @"\";
 
-                inputDir = mainwindow.textBoxBrowse.Text; // (eg. C:\Input Folder\)
+                inputDir = mainwindow.tbxInput.Text; // (eg. C:\Input Folder\)
 
                 inputFileName = "%~f";
 
@@ -1095,7 +1074,7 @@ namespace Axiom
             // Empty
             // -------------------------
             // Input Textbox & Output Textbox Both Empty
-            if (string.IsNullOrWhiteSpace(mainwindow.textBoxBrowse.Text))
+            if (string.IsNullOrWhiteSpace(mainwindow.tbxInput.Text))
             {
                 inputDir = string.Empty;
                 inputFileName = string.Empty;
@@ -1124,18 +1103,18 @@ namespace Axiom
             {
                 // Input Not Empty, Output Empty
                 // Default Output to be same as Input Directory
-                if (!string.IsNullOrWhiteSpace(mainwindow.textBoxBrowse.Text) && string.IsNullOrWhiteSpace(mainwindow.textBoxOutput.Text))
+                if (!string.IsNullOrWhiteSpace(mainwindow.tbxInput.Text) && string.IsNullOrWhiteSpace(mainwindow.tbxOutput.Text))
                 {
-                    mainwindow.textBoxOutput.Text = inputDir + inputFileName + outputExt;
+                    mainwindow.tbxOutput.Text = inputDir + inputFileName + outputExt;
                 }
 
                 // Input Empty, Output Not Empty
                 // Output is Output
-                if (!string.IsNullOrWhiteSpace(mainwindow.textBoxOutput.Text))
+                if (!string.IsNullOrWhiteSpace(mainwindow.tbxOutput.Text))
                 {
-                    outputDir = Path.GetDirectoryName(mainwindow.textBoxOutput.Text).TrimEnd('\\') + @"\";
+                    outputDir = Path.GetDirectoryName(mainwindow.tbxOutput.Text).TrimEnd('\\') + @"\";
 
-                    outputFileName = Path.GetFileNameWithoutExtension(mainwindow.textBoxOutput.Text);
+                    outputFileName = Path.GetFileNameWithoutExtension(mainwindow.tbxOutput.Text);
                 }
 
                 // -------------------------
@@ -1163,16 +1142,16 @@ namespace Axiom
             else if (mainwindow.tglBatch.IsChecked == true)
             {
                 // Add slash to Batch Output Text folder path if missing
-                mainwindow.textBoxOutput.Text = mainwindow.textBoxOutput.Text.TrimEnd('\\') + @"\";
+                mainwindow.tbxOutput.Text = mainwindow.tbxOutput.Text.TrimEnd('\\') + @"\";
 
                 // Input Not Empty, Output Empty
                 // Default Output to be same as Input Directory
-                if (!string.IsNullOrWhiteSpace(mainwindow.textBoxBrowse.Text) && string.IsNullOrWhiteSpace(mainwindow.textBoxOutput.Text))
+                if (!string.IsNullOrWhiteSpace(mainwindow.tbxInput.Text) && string.IsNullOrWhiteSpace(mainwindow.tbxOutput.Text))
                 {
-                    mainwindow.textBoxOutput.Text = mainwindow.textBoxBrowse.Text;
+                    mainwindow.tbxOutput.Text = mainwindow.tbxInput.Text;
                 }
 
-                outputDir = mainwindow.textBoxOutput.Text;
+                outputDir = mainwindow.tbxOutput.Text;
 
                 // Output             
                 output = outputDir + "%~nf" + outputExt; // (eg. C:\Output Folder\%~nf.mp4)
@@ -1182,7 +1161,7 @@ namespace Axiom
             // Empty
             // -------------------------
             // Input Textbox & Output Textbox Both Empty
-            if (string.IsNullOrWhiteSpace(mainwindow.textBoxOutput.Text))
+            if (string.IsNullOrWhiteSpace(mainwindow.tbxOutput.Text))
             {
                 outputDir = string.Empty;
                 outputFileName = string.Empty;
@@ -1313,7 +1292,7 @@ namespace Axiom
             //
             if (mainwindow.tglBatch.IsChecked == false) // Ignore if Batch
             {
-                if (string.IsNullOrWhiteSpace(mainwindow.textBoxBrowse.Text)) // empty check
+                if (string.IsNullOrWhiteSpace(mainwindow.tbxInput.Text)) // empty check
                 {
                     if ((string)mainwindow.cboVideo.SelectedItem == "Auto" || (string)mainwindow.cboAudio.SelectedItem == "Auto")
                     {
@@ -1336,7 +1315,7 @@ namespace Axiom
 
             // STOP if Single File Input with no Extension
             //
-            if (mainwindow.tglBatch.IsChecked == false && mainwindow.textBoxBrowse.Text.EndsWith("\\"))
+            if (mainwindow.tglBatch.IsChecked == false && mainwindow.tbxInput.Text.EndsWith("\\"))
             {
                 // Log Console Message /////////
                 Log.logParagraph.Inlines.Add(new LineBreak());
@@ -1512,8 +1491,7 @@ namespace Axiom
             /// <summary>
             ///    FFprobe Video Entry Type Containers
             /// </summary> 
-            FFprobe.FFprobeInputFileProperties(this);
-
+            //FFprobe.InputFileProperties(this);
 
             // Detect which screen we're on
             var allScreens = System.Windows.Forms.Screen.AllScreens.ToList();
@@ -1730,7 +1708,7 @@ namespace Axiom
             // -------------------------
             // Keep FFmpeg Window Toggle
             // -------------------------
-            KeepWindow(this);
+            //KeepWindow(this);
 
             // -------------------------
             // Batch Extention Period Check
@@ -1785,6 +1763,18 @@ namespace Axiom
                     // -------------------------
                     else if (tglBatch.IsChecked == true)
                     {
+                        // -------------------------
+                        // FFprobe Video Entry Type Containers
+                        // -------------------------
+                        //FFprobe.VideoEntryTypeBatch(this);
+                        FFprobe.VideoEntryType(this);
+
+                        // -------------------------
+                        // FFprobe Video Entry Type Containers
+                        // -------------------------
+                        //FFprobe.AudioEntryTypeBatch(this);
+                        FFprobe.AudioEntryType(this);
+
                         // -------------------------
                         // FFmpeg Generate Arguments (Batch)
                         // -------------------------
@@ -1983,7 +1973,7 @@ namespace Axiom
             // -------------------------
             if (tglBatch.IsChecked == false)
             {
-                // Open 'Save File'
+                // Open 'Select File'
                 Microsoft.Win32.OpenFileDialog selectFile = new Microsoft.Win32.OpenFileDialog();
 
                 selectFile.RestoreDirectory = true;
@@ -1995,14 +1985,14 @@ namespace Axiom
                 if (result == true)
                 {
                     // Display path and file in Output Textbox
-                    textBoxBrowse.Text = selectFile.FileName;
+                    tbxInput.Text = selectFile.FileName;
 
                     // Set Input Dir, Name, Ext
-                    inputDir = Path.GetDirectoryName(textBoxBrowse.Text).TrimEnd('\\') + @"\";
+                    inputDir = Path.GetDirectoryName(tbxInput.Text).TrimEnd('\\') + @"\";
 
-                    inputFileName = Path.GetFileNameWithoutExtension(textBoxBrowse.Text);
+                    inputFileName = Path.GetFileNameWithoutExtension(tbxInput.Text);
 
-                    inputExt = Path.GetExtension(textBoxBrowse.Text);
+                    inputExt = Path.GetExtension(tbxInput.Text);
 
 
                     // Add slash to inputDir path if missing
@@ -2031,19 +2021,19 @@ namespace Axiom
                 if (result == System.Windows.Forms.DialogResult.OK)
                 {
                     // Display Folder Path in Textbox
-                    textBoxBrowse.Text = folderBrowserDialog.SelectedPath.TrimEnd('\\') + @"\";
+                    tbxInput.Text = folderBrowserDialog.SelectedPath.TrimEnd('\\') + @"\";
 
                     // Remove Double Slash in Root Dir, such as C:\
-                    textBoxBrowse.Text = textBoxBrowse.Text.Replace(@"\\", @"\");
+                    tbxInput.Text = tbxInput.Text.Replace(@"\\", @"\");
 
                     // Add slash to Batch Browse Text folder path if missing
-                    if (!string.IsNullOrWhiteSpace(textBoxBrowse.Text) && !textBoxBrowse.Text.EndsWith("\\"))
+                    if (!string.IsNullOrWhiteSpace(tbxInput.Text) && !tbxInput.Text.EndsWith("\\"))
                     {
-                        textBoxBrowse.Text = textBoxBrowse.Text.TrimEnd('\\') + @"\";
+                        tbxInput.Text = tbxInput.Text.TrimEnd('\\') + @"\";
                     }
 
                     // Input Directory Path
-                    inputDir = Path.GetDirectoryName(textBoxBrowse.Text).TrimEnd('\\') + @"\";
+                    inputDir = Path.GetDirectoryName(tbxInput.Text).TrimEnd('\\') + @"\";
 
                     // Add slash to inputDir path if missing
                     if (!inputDir.EndsWith("\\") && !string.IsNullOrEmpty(inputDir))
@@ -2073,22 +2063,22 @@ namespace Axiom
         /// <summary>
         ///    Browse Textbox
         /// </summary>
-        private void textBoxBrowse_TextChanged(object sender, TextChangedEventArgs e)
+        private void tbxInput_TextChanged(object sender, TextChangedEventArgs e)
         {
             // Remove stray slash if closed out early (duplicate code?)
-            if (textBoxBrowse.Text == "\\")
+            if (tbxInput.Text == "\\")
             {
-                textBoxBrowse.Text = string.Empty;
+                tbxInput.Text = string.Empty;
             }
 
             // Get input file extension
-            inputExt = Path.GetExtension(textBoxBrowse.Text);
+            inputExt = Path.GetExtension(tbxInput.Text);
 
 
             // Enable / Disable "Open Input Location" Buttion
-            if (!string.IsNullOrWhiteSpace(textBoxBrowse.Text))
+            if (!string.IsNullOrWhiteSpace(tbxInput.Text))
             {
-                bool exists = Directory.Exists(Path.GetDirectoryName(textBoxBrowse.Text));
+                bool exists = Directory.Exists(Path.GetDirectoryName(tbxInput.Text));
 
                 if (exists)
                 {
@@ -2167,13 +2157,13 @@ namespace Axiom
                 if (result == true)
                 {
                     // Display path and file in Output Textbox
-                    textBoxOutput.Text = saveFile.FileName;
+                    tbxOutput.Text = saveFile.FileName;
 
                     // Output Path
-                    outputDir = Path.GetDirectoryName(textBoxOutput.Text).TrimEnd('\\') + @"\";
+                    outputDir = Path.GetDirectoryName(tbxOutput.Text).TrimEnd('\\') + @"\";
 
                     // Output Filename (without extension)
-                    outputFileName = Path.GetFileNameWithoutExtension(textBoxOutput.Text);
+                    outputFileName = Path.GetFileNameWithoutExtension(tbxOutput.Text);
 
                     // Add slash to inputDir path if missing
                     if (!outputDir.EndsWith("\\") && !string.IsNullOrEmpty(outputDir))
@@ -2196,14 +2186,14 @@ namespace Axiom
                 if (result == System.Windows.Forms.DialogResult.OK)
                 {
                     // Display path and file in Output Textbox
-                    textBoxOutput.Text = outputFolder.SelectedPath.TrimEnd('\\') + @"\";
+                    tbxOutput.Text = outputFolder.SelectedPath.TrimEnd('\\') + @"\";
 
                     // Remove Double Slash in Root Dir, such as C:\
-                    textBoxOutput.Text = textBoxOutput.Text.Replace(@"\\", @"\");
+                    tbxOutput.Text = tbxOutput.Text.Replace(@"\\", @"\");
 
 
                     // Output Path
-                    outputDir = Path.GetDirectoryName(textBoxOutput.Text).TrimEnd('\\') + @"\";
+                    outputDir = Path.GetDirectoryName(tbxOutput.Text).TrimEnd('\\') + @"\";
 
                     // Add slash to inputDir path if missing
                     if (!outputDir.EndsWith("\\") && !string.IsNullOrEmpty(outputDir))
@@ -2220,18 +2210,18 @@ namespace Axiom
         /// <summary>
         ///    Output Textbox
         /// </summary>
-        private void textBoxOutput_TextChanged(object sender, TextChangedEventArgs e)
+        private void tbxOutput_TextChanged(object sender, TextChangedEventArgs e)
         {
             // Remove stray slash if closed out early
-            if (textBoxOutput.Text == "\\")
+            if (tbxOutput.Text == "\\")
             {
-                textBoxOutput.Text = string.Empty;
+                tbxOutput.Text = string.Empty;
             }
 
             // Enable / Disable "Open Output Location" Buttion
-            if (!string.IsNullOrWhiteSpace(textBoxOutput.Text))
+            if (!string.IsNullOrWhiteSpace(tbxOutput.Text))
             {
-                bool exists = Directory.Exists(Path.GetDirectoryName(textBoxOutput.Text));
+                bool exists = Directory.Exists(Path.GetDirectoryName(tbxOutput.Text));
 
                 if (exists)
                 {
@@ -2574,9 +2564,9 @@ namespace Axiom
             }
 
             // Single File - Update Ouput Textbox with current Format extension
-            if (tglBatch.IsChecked == false && !string.IsNullOrWhiteSpace(textBoxOutput.Text))
+            if (tglBatch.IsChecked == false && !string.IsNullOrWhiteSpace(tbxOutput.Text))
             {
-                textBoxOutput.Text = outputDir + outputFileName + outputExt;
+                tbxOutput.Text = outputDir + outputFileName + outputExt;
             }
             
         }
@@ -3104,18 +3094,18 @@ namespace Axiom
             }
 
             // Clear Browse Textbox, Input Filename, Dir, Ext
-            if (!string.IsNullOrWhiteSpace(textBoxBrowse.Text))
+            if (!string.IsNullOrWhiteSpace(tbxInput.Text))
             {
-                textBoxBrowse.Text = string.Empty;
+                tbxInput.Text = string.Empty;
                 inputFileName = string.Empty;
                 inputDir = string.Empty;
                 inputExt = string.Empty;
             }
 
             // Clear Output Textbox, Output Filename, Dir, Ext
-            if (!string.IsNullOrWhiteSpace(textBoxOutput.Text))
+            if (!string.IsNullOrWhiteSpace(tbxOutput.Text))
             {
-                textBoxOutput.Text = string.Empty;
+                tbxOutput.Text = string.Empty;
                 outputFileName = string.Empty;
                 outputDir = string.Empty;
                 outputExt = string.Empty;
@@ -3133,18 +3123,18 @@ namespace Axiom
             }
 
             // Clear Browse Textbox, Input Filename, Dir, Ext
-            if (!string.IsNullOrWhiteSpace(textBoxBrowse.Text))
+            if (!string.IsNullOrWhiteSpace(tbxInput.Text))
             {
-                textBoxBrowse.Text = string.Empty;
+                tbxInput.Text = string.Empty;
                 inputFileName = string.Empty;
                 inputDir = string.Empty;
                 inputExt = string.Empty;
             }
 
             // Clear Output Textbox, Output Filename, Dir, Ext
-            if (!string.IsNullOrWhiteSpace(textBoxOutput.Text))
+            if (!string.IsNullOrWhiteSpace(tbxOutput.Text))
             {
-                textBoxOutput.Text = string.Empty;
+                tbxOutput.Text = string.Empty;
                 outputFileName = string.Empty;
                 outputDir = string.Empty;
                 outputExt = string.Empty;
@@ -3169,7 +3159,7 @@ namespace Axiom
             // -------------------------
             // Keep FFmpeg Window Toggle
             // -------------------------
-            KeepWindow(this);
+            //KeepWindow(this);
 
             // -------------------------
             // Batch Extention Period Check
@@ -3256,6 +3246,18 @@ namespace Axiom
                         // -------------------------
                         else if (tglBatch.IsChecked == true)
                         {
+                            // -------------------------
+                            // FFprobe Video Entry Type Containers
+                            // -------------------------
+                            //FFprobe.VideoEntryTypeBatch(this);
+                            FFprobe.VideoEntryType(this);
+
+                            // -------------------------
+                            // FFprobe Video Entry Type Containers
+                            // -------------------------
+                            //FFprobe.AudioEntryTypeBatch(this);
+                            FFprobe.AudioEntryType(this);
+
                             // -------------------------
                             // FFmpeg Generate Arguments (Batch)
                             // -------------------------

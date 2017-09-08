@@ -1,15 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Windows;
-using System.Windows.Documents;
-// Disable XML Comment warnings
-#pragma warning disable 1591
-#pragma warning disable 1587
-#pragma warning disable 1570
-
-/* ----------------------------------------------------------------------
+﻿/* ----------------------------------------------------------------------
 Axiom UI
 Copyright (C) 2017 Matt McManis
 http://github.com/MattMcManis/Axiom
@@ -30,6 +19,17 @@ You should have received a copy of the GNU General Public License
 along with this program.If not, see <http://www.gnu.org/licenses/>. 
 ---------------------------------------------------------------------- */
 
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Windows;
+using System.Windows.Documents;
+// Disable XML Comment warnings
+#pragma warning disable 1591
+#pragma warning disable 1587
+#pragma warning disable 1570
+
 namespace Axiom
 {
     public partial class FFmpeg
@@ -43,7 +43,7 @@ namespace Axiom
         public static string ffmpeg; // FFmpeg.exe
         public static string ffmpegArgs; // FFmpeg Arguments
         public static string ffmpegArgsSort; // FFmpeg Arguments Sorted
-        public static string cmdWindow; // Keep / Close Batch Argument
+        //public static string cmdWindow; // Keep / Close Batch Argument
 
         // Sorted Argument Colors
         //public static System.Windows.Media.Brush Blue = (SolidColorBrush)(new BrushConverter().ConvertFrom("#0000CC"));
@@ -58,6 +58,31 @@ namespace Axiom
         /// </summary>
         // --------------------------------------------------------------------------------------------------------
         // --------------------------------------------------------------------------------------------------------
+
+        /// <summary>
+        ///    Keep FFmpegWindow Switch (Method)
+        /// </summary>
+        /// <remarks>
+        ///     CMD.exe command, /k = keep, /c = close
+        ///     Do not .Close(); if using /c, it will throw a Dispose exception
+        /// </remarks>
+        public static String KeepWindow(MainWindow mainwindow)
+        {
+            string cmdWindow = string.Empty;
+
+            // Keep
+            if (mainwindow.tglWindowKeep.IsChecked == true)
+            {
+                cmdWindow = "/k ";
+            }
+            // Close
+            else
+            {
+                cmdWindow = "/c ";
+            }
+
+            return cmdWindow;
+        }
 
         /// <summary>
         /// OnePassArgs
@@ -157,8 +182,9 @@ namespace Axiom
                         "\r\n" + Video.VideoFilter(mainwindow),
                         "\r\n" + Video.Images(mainwindow),
                         "\r\n" + Video.Optimize(mainwindow),
-                        "\r\n" + "-sn -an", // Disable Audio & Subtitles for Pass 1 to speed up encoding
                         "\r\n" + Video.Pass1Modifier(mainwindow), // -pass 1, -x265-params pass=2
+
+                        "\r\n\r\n" + "-sn -an", // Disable Audio & Subtitles for Pass 1 to speed up encoding
 
                         "\r\n\r\n" + Format.Cut(mainwindow),
                         "\r\n\r\n" + MainWindow.ThreadDetect(mainwindow),
@@ -309,19 +335,6 @@ namespace Axiom
                 //MainWindow.batchInputAuto = mainwindow.textBoxBrowse.Text.Replace(@"(", "^(");
                 //MainWindow.batchInputAuto = MainWindow.batchInputAuto.Replace(@")", "^)");
 
-
-                /// <summary>
-                /// FFprobe Video Entry Type Containers - Batch (Method)
-                /// </summary>
-                FFprobe.FFprobeVideoEntryTypeBatch(mainwindow);
-
-                /// <summary>
-                /// FFprobe Video Entry Type Containers - Batch (Method)
-                /// </summary>
-                FFprobe.FFprobeAudioEntryTypeBatch(mainwindow);
-
-
-
                 // Log Console Message /////////
                 Log.WriteAction = () =>
                 {
@@ -393,23 +406,20 @@ namespace Axiom
         /// </summary>
         public static void FFmpegScript(MainWindow mainwindow, ScriptView scriptview)
         {
-            //if (MainWindow.script == true)
-            //{
-                // Detect which screen we're on
-                var allScreens = System.Windows.Forms.Screen.AllScreens.ToList();
-                var thisScreen = allScreens.SingleOrDefault(s => mainwindow.Left >= s.WorkingArea.Left && mainwindow.Left < s.WorkingArea.Right);
+            // Detect which screen we're on
+            var allScreens = System.Windows.Forms.Screen.AllScreens.ToList();
+            var thisScreen = allScreens.SingleOrDefault(s => mainwindow.Left >= s.WorkingArea.Left && mainwindow.Left < s.WorkingArea.Right);
 
-                // Start Window
-                scriptview = new ScriptView(mainwindow);
+            // Start Window
+            scriptview = new ScriptView(mainwindow);
 
-                // Position Relative to MainWindow
-                // Keep from going off screen
-                scriptview.Left = Math.Max((mainwindow.Left + (mainwindow.Width - scriptview.Width) / 2), thisScreen.WorkingArea.Left);
-                scriptview.Top = Math.Max(((mainwindow.Top + (mainwindow.Height - scriptview.Height) * 2)), thisScreen.WorkingArea.Top);
+            // Position Relative to MainWindow
+            // Keep from going off screen
+            scriptview.Left = Math.Max((mainwindow.Left + (mainwindow.Width - scriptview.Width) / 2), thisScreen.WorkingArea.Left);
+            scriptview.Top = Math.Max(((mainwindow.Top + (mainwindow.Height - scriptview.Height) * 2)), thisScreen.WorkingArea.Top);
 
-                // Open Window
-                scriptview.Show();
-            //}
+            // Open Window
+            scriptview.Show();
         }
 
 
@@ -418,34 +428,15 @@ namespace Axiom
         /// </summary>
         public static void FFmpegConvert(MainWindow mainwindow)
         {
-            // -------------------------
-            // Single
-            // -------------------------
-            //if (mainwindow.tglBatch.IsChecked == false)
-            //{
-                // start ffmpeg commands
-                System.Diagnostics.Process.Start(
-                    "cmd.exe",
-                    FFmpeg.cmdWindow 
-                    + " cd " + "\"" + MainWindow.appDir + "\""
-                    + " & "
-                    + FFmpeg.ffmpegArgs
-                );
-            //}
-
-            // -------------------------
-            // Batch
-            // -------------------------
-            //else if (mainwindow.tglBatch.IsChecked == true)
-            //{
-            //    System.Diagnostics.Process.Start(
-            //        "cmd.exe",
-            //        FFmpeg.cmdWindow
-            //        + " cd " + "\"" + MainWindow.appDir + "\""
-            //        + " & "
-            //        + FFmpeg.ffmpegArgs
-            //    );
-            //}
+            // start ffmpeg commands
+            System.Diagnostics.Process.Start(
+                "cmd.exe",
+                //FFmpeg.cmdWindow 
+                KeepWindow(mainwindow)
+                + " cd " + "\"" + MainWindow.appDir + "\""
+                + " & "
+                + FFmpeg.ffmpegArgs
+            );
         }
 
 

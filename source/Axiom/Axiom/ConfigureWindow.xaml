@@ -26,8 +26,12 @@
         xmlns:System="clr-namespace:System;assembly=mscorlib" 
         xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
         
-        Title="Configure" Height="200" Width="450" Icon="Resources/Images/Icons/configure.ico"
+        Loaded="Window_Loaded" 
+        
+        Title="Configure" 
+        Height="200" Width="450" 
         ResizeMode="CanMinimize" UseLayoutRounding="True"
+        Icon="Resources/Images/Icons/configure.ico"   
         Style="{DynamicResource WindowConfigure}">
     <Grid >
 

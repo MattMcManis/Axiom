@@ -1,4 +1,25 @@
-﻿using System;
+﻿/* ----------------------------------------------------------------------
+Axiom UI
+Copyright (C) 2017 Matt McManis
+http://github.com/MattMcManis/Axiom
+http://axiomui.github.io
+axiom.interface@gmail.com
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.If not, see <http://www.gnu.org/licenses/>. 
+---------------------------------------------------------------------- */
+
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -8,27 +29,6 @@ using System.Windows.Documents;
 #pragma warning disable 1591
 #pragma warning disable 1587
 #pragma warning disable 1570
-
-/* ----------------------------------------------------------------------
-    Axiom UI
-    Copyright (C) 2017 Matt McManis
-    http://github.com/MattMcManis/Axiom
-    http://axiomui.github.io
-    axiom.interface@gmail.com
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.If not, see <http://www.gnu.org/licenses/>. 
-   ---------------------------------------------------------------------- */
 
 namespace Axiom
 {
@@ -173,7 +173,7 @@ namespace Axiom
         /// <summary>
         /// Audio Bitrate Mode (Method)
         /// <summary>
-        public static void AudioBitrateMode(MainWindow mainwindow)
+        public static String AudioBitrateMode(MainWindow mainwindow)
         {
             // VBR
             if (mainwindow.tglVBR.IsChecked == true)
@@ -240,84 +240,97 @@ namespace Axiom
             {
                 aBitMode = "-b:a";
             }
+
+            return aBitMode;
         }
 
 
         /// <summary>
         /// Audio Bitrate Calculator (Method)
         /// <summary>
-        public static void AudioBitrateCalculator(MainWindow mainwindow)
+        public static String AudioBitrateCalculator(MainWindow mainwindow, string aEntryType, string inputAudioBitrate)
         {
             try
             {
                 // If Video is Mute, don't set Audio Bitrate
+                //
                 if (string.IsNullOrEmpty(FFprobe.inputAudioBitrate))
                 {
                     // do nothing (dont remove, it will cause substring to overload)
                 }
                 // Filter out any extra spaces after the first 3 characters IMPORTANT
-                else if (FFprobe.inputAudioBitrate.Substring(0, 3) == "N/A")
+                //
+                else if (inputAudioBitrate.Substring(0, 3) == "N/A")
                 {
-                    FFprobe.inputAudioBitrate = "N/A";
+                    inputAudioBitrate = "N/A";
                 }
 
                 // If Video has Audio, calculate Bitrate into decimal
-                if (FFprobe.inputAudioBitrate != "N/A" && !string.IsNullOrEmpty(FFprobe.inputAudioBitrate))
+                //
+                if (inputAudioBitrate != "N/A" && !string.IsNullOrEmpty(FFprobe.inputAudioBitrate))
                 {
                     // Convert to Decimal
-                    FFprobe.inputAudioBitrate = Convert.ToString(double.Parse(FFprobe.inputAudioBitrate) * 0.001);
+                    //
+                    inputAudioBitrate = Convert.ToString(double.Parse(inputAudioBitrate) * 0.001);
 
                     // Apply limits if Bitrate goes over
+                    //
                     if ((string)mainwindow.cboAudioCodec.SelectedItem == "Vorbis"
-                        && double.Parse(FFprobe.inputAudioBitrate) > 500)
+                        && double.Parse(inputAudioBitrate) > 500)
                     {
-                        FFprobe.inputAudioBitrate = Convert.ToString(500); //was 500,000 (before converting to decimal)
+                        inputAudioBitrate = Convert.ToString(500); //was 500,000 (before converting to decimal)
                     }
                     else if ((string)mainwindow.cboAudioCodec.SelectedItem == "Opus"
-                        && double.Parse(FFprobe.inputAudioBitrate) > 510)
+                        && double.Parse(inputAudioBitrate) > 510)
                     {
-                        FFprobe.inputAudioBitrate = Convert.ToString(510); //was 510,000 (before converting to decimal)
+                        inputAudioBitrate = Convert.ToString(510); //was 510,000 (before converting to decimal)
                     }
                     else if ((string)mainwindow.cboAudioCodec.SelectedItem == "LAME"
-                        && double.Parse(FFprobe.inputAudioBitrate) > 320)
+                        && double.Parse(inputAudioBitrate) > 320)
                     {
-                        FFprobe.inputAudioBitrate = Convert.ToString(320); //was 320,000 before converting to decimal)
+                        inputAudioBitrate = Convert.ToString(320); //was 320,000 before converting to decimal)
                     }
                     else if ((string)mainwindow.cboAudioCodec.SelectedItem == "AAC"
-                        && double.Parse(FFprobe.inputAudioBitrate) > 400)
+                        && double.Parse(inputAudioBitrate) > 400)
                     {
-                        FFprobe.inputAudioBitrate = Convert.ToString(400); //was 400,000 (before converting to decimal)
+                        inputAudioBitrate = Convert.ToString(400); //was 400,000 (before converting to decimal)
                     }
                     else if ((string)mainwindow.cboAudioCodec.SelectedItem == "AC3"
-                        && double.Parse(FFprobe.inputAudioBitrate) > 640)
+                        && double.Parse(inputAudioBitrate) > 640)
                     {
-                        FFprobe.inputAudioBitrate = Convert.ToString(640); //was 640,000 (before converting to decimal)
+                        inputAudioBitrate = Convert.ToString(640); //was 640,000 (before converting to decimal)
                     }
+
                     // ALAC, FLAC do not need limit
 
                     // Apply limits if Bitrate goes Under
                     // Vorbis has a minimum bitrate limit of 45k, if less than, set to 45k
+                    //
                     else if ((string)mainwindow.cboAudioCodec.SelectedItem == "Vorbis"
-                        && double.Parse(FFprobe.inputAudioBitrate) < 45)
+                        && double.Parse(inputAudioBitrate) < 45)
                     {
-                        FFprobe.inputAudioBitrate = Convert.ToString(45);
+                        inputAudioBitrate = Convert.ToString(45);
                     }
 
                     // Opus has a minimum bitrate limit of 6k, if less than, set to 6k
+                    //
                     else if ((string)mainwindow.cboAudioCodec.SelectedItem == "Opus"
-                        && double.Parse(FFprobe.inputAudioBitrate) < 6)
+                        && double.Parse(inputAudioBitrate) < 6)
                     {
-                        FFprobe.inputAudioBitrate = Convert.ToString(6);
+                        inputAudioBitrate = Convert.ToString(6);
                     }
 
-
-                    FFprobe.inputAudioBitrate = Convert.ToString(FFprobe.inputAudioBitrate);
+                    // Round Bitrate, Remove Decimals
+                    //
+                    inputAudioBitrate = Math.Round(double.Parse(inputAudioBitrate)).ToString();
                 }
             }
             catch
             {
                 MessageBox.Show("Error calculating Audio Bitrate.");
             }
+
+            return inputAudioBitrate;
         }
 
 
@@ -571,9 +584,9 @@ namespace Axiom
                 && (string)mainwindow.cboMediaType.SelectedItem != "Image"
                 && (string)mainwindow.cboMediaType.SelectedItem != "Sequence")
             {
-                // Audio Bitrate Mode (Method)
+                // Audio Bitrate Mode
                 //
-                AudioBitrateMode(mainwindow);
+                aBitMode = AudioBitrateMode(mainwindow);
 
 
                 // Log Console Message /////////
@@ -606,7 +619,7 @@ namespace Axiom
                                 if (mainwindow.tglVBR.IsChecked == false)
                                 {
                                     //aBitMode = "-b:a";
-                                    aBitrate = FFprobe.inputAudioBitrate;
+                                    aBitrate = AudioBitrateCalculator(mainwindow, FFprobe.aEntryType, FFprobe.inputAudioBitrate);
 
                                     // add k to value
                                     aBitrate = aBitrate + "k";
