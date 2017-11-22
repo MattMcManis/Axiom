@@ -1120,7 +1120,14 @@ namespace Axiom
                 // -------------------------
                 // File Renamer
                 // -------------------------
-                outputFileName = mainwindow.FileRenamer(inputFileName);
+                // Auto Renamer
+                // Pressing Script or Convert while Output is empty
+                if (inputDir == outputDir 
+                    && inputFileName == outputFileName 
+                    && string.Equals(inputExt, outputExt, StringComparison.CurrentCultureIgnoreCase))
+                {
+                    outputFileName = mainwindow.FileRenamer(inputFileName);
+                }
 
                 // -------------------------
                 // Image Sequence Renamer

@@ -238,7 +238,15 @@ namespace Axiom
             // -------------------------
             if (mainwindow.tglBatch.IsChecked == true)
             {
-                aBitMode = "-b:a";
+                // Remove -b:a if Batch is Lossless
+                if ((string)mainwindow.cboAudio.SelectedItem == "Lossless") {
+                    aBitMode = "";
+                }
+                // Use -b:a if Lossy
+                else
+                {
+                    aBitMode = "-b:a";
+                }
             }
 
             return aBitMode;
