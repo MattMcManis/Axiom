@@ -20,6 +20,7 @@ along with this program.If not, see <http://www.gnu.org/licenses/>.
 ---------------------------------------------------------------------- */
 
 using System;
+using System.Collections.Generic;
 // Disable XML Comment warnings
 #pragma warning disable 1591
 #pragma warning disable 1587
@@ -39,6 +40,95 @@ namespace Axiom
         public static string trimEnd;
         public static string trim; // combine trimStart, trimEnd
 
+        // -------------------------
+        // File Formats
+        // -------------------------
+        // Video
+        public static List<string> VideoFormatsList = new List<string>()
+        {
+            ".3g2",
+            ".3gp",
+            ".amv",
+            ".asf",
+            ".avi",
+            ".drc",
+            ".flv",
+            ".f4v",
+            ".f4p",
+            ".f4a",
+            ".f4b",
+            ".gif",
+            ".gifv",
+            ".m4v",
+            ".mkv",
+            ".mng",
+            ".mov",
+            ".mp4",
+            ".m4p",
+            ".m4v",
+            ".mpg",
+            ".mp2",
+            ".mpeg",
+            ".mpe",
+            ".mpv",
+            ".mpg",
+            ".mpeg",
+            ".m2v",
+            ".mxf",
+            ".nsv",
+            ".ogv",
+            ".ogg",
+            ".rm",
+            ".rmvb",
+            ".roq",
+            ".svi",
+            ".vob",
+            ".qt",
+            ".webm",
+            ".wmv",
+            ".yuv"
+        };
+
+        // Audio
+        public static List<string> AudioFormatsList = new List<string>()
+        {
+            ".aa",
+            ".aac",
+            ".aax",
+            ".act",
+            ".aiff",
+            ".amr",
+            ".ape",
+            ".au",
+            ".awb",
+            ".dct",
+            ".dss",
+            ".dvf",
+            ".flac",
+            ".gsm",
+            ".iklax",
+            ".ivs",
+            ".m4a",
+            ".m4b",
+            ".m4p",
+            ".mmf",
+            ".mp3",
+            ".mpc",
+            ".msv",
+            ".ogg",
+            ".oga",
+            ".opus",
+            ".ra",
+            ".rm",
+            ".raw",
+            ".sln",
+            ".tta",
+            ".vox",
+            ".wav",
+            ".wma",
+            ".wv",
+            ".8svx"
+        };
 
         // --------------------------------------------------------------------------------------------------------
         // --------------------------------------------------------------------------------------------------------

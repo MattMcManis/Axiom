@@ -359,7 +359,7 @@ namespace Axiom
                 //
                 List<string> FFmpegBatchArgsList = new List<string>()
                 {
-                    "cd",
+                    "cd /d",
                     "\"" + MainWindow.BatchInputDirectory(mainwindow) + "\"",
 
                     "\r\n\r\n" + "&& for %f in",

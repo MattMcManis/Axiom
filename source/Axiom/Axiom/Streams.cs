@@ -19,7 +19,6 @@ You should have received a copy of the GNU General Public License
 along with this program.If not, see <http://www.gnu.org/licenses/>. 
 ---------------------------------------------------------------------- */
 
-
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -101,6 +100,17 @@ namespace Axiom
                 vMap = "-vn"; // only video track 1
             }
 
+            // -------------------------
+            // Remove Video Map if Input File is Audio Format
+            // -------------------------
+            if (Format.AudioFormatsList.Any(s => s.Equals(MainWindow.inputExt, StringComparison.OrdinalIgnoreCase))
+                || Format.AudioFormatsList.Any(s => s.Equals(MainWindow.batchExt, StringComparison.OrdinalIgnoreCase)))
+            {
+                vMap = "";
+            }
+            //vMap = AudioFormatRemoveMap(mainwindow, vMap);
+
+
             // Log Console Message /////////
             Log.WriteAction = () =>
             {
@@ -151,6 +161,16 @@ namespace Axiom
             };
             Log.LogActions.Add(Log.WriteAction);
 
+
+            // -------------------------
+            // Remove Chapters Map if Input File is Audio Format
+            // -------------------------
+            //cMap = AudioFormatRemoveMap(mainwindow, cMap);
+            if (Format.AudioFormatsList.Any(s => s.Equals(MainWindow.inputExt, StringComparison.OrdinalIgnoreCase))
+                || Format.AudioFormatsList.Any(s => s.Equals(MainWindow.batchExt, StringComparison.OrdinalIgnoreCase)))
+            {
+                cMap = "";
+            }
 
 
             // --------------------------------------------------------------------
@@ -237,6 +257,17 @@ namespace Axiom
                     sMap = "-sn";
                 }
             }
+
+            // -------------------------
+            // Remove Subtitle Map if Input File is Audio Format
+            // -------------------------
+            //sMap = AudioFormatRemoveMap(mainwindow, sMap);
+            if (Format.AudioFormatsList.Any(s => s.Equals(MainWindow.inputExt, StringComparison.OrdinalIgnoreCase))
+                || Format.AudioFormatsList.Any(s => s.Equals(MainWindow.batchExt, StringComparison.OrdinalIgnoreCase)))
+            {
+                sMap = "";
+            }
+
 
             // Log Console Message /////////
             Log.WriteAction = () =>
@@ -339,6 +370,17 @@ namespace Axiom
             {
                 aMap = "-an";
             }
+
+            // -------------------------
+            // Remove Audio Map if Input File is Audio Format
+            // -------------------------
+            //aMap = AudioFormatRemoveMap(mainwindow, aMap);
+            if (Format.AudioFormatsList.Any(s => s.Equals(MainWindow.inputExt, StringComparison.OrdinalIgnoreCase))
+                || Format.AudioFormatsList.Any(s => s.Equals(MainWindow.batchExt, StringComparison.OrdinalIgnoreCase)))
+            {
+                aMap = "";
+            }
+
 
             // Log Console Message /////////
             Log.WriteAction = () =>
