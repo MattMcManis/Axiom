@@ -1726,7 +1726,8 @@ namespace Axiom
                 // -------------------------
                 // JPEG & PNG
                 // -------------------------
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG" || (string)mainwindow.cboVideoCodec.SelectedItem == "PNG")
+                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG" 
+                    || (string)mainwindow.cboVideoCodec.SelectedItem == "PNG")
                 {
                     speed = string.Empty;
                 }
@@ -1876,11 +1877,13 @@ namespace Axiom
                 // -------------------------
                 if ((string)mainwindow.cboOptimize.SelectedItem == "Advanced")
                 {
-                    if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264" || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
+                    if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264" 
+                        || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
                     {
                         // Tune
                         //
-                        if (OptimizeAdvancedWindow.optAdvTune == "none" || string.IsNullOrEmpty(OptimizeAdvancedWindow.optAdvTune))
+                        if (OptimizeAdvancedWindow.optAdvTune == "none" 
+                            || string.IsNullOrEmpty(OptimizeAdvancedWindow.optAdvTune))
                         {
                             optTune = string.Empty;
                         }
@@ -1893,7 +1896,8 @@ namespace Axiom
 
                         // Profile
                         //
-                        if (OptimizeAdvancedWindow.optAdvProfile == "none" || string.IsNullOrEmpty(OptimizeAdvancedWindow.optAdvProfile))
+                        if (OptimizeAdvancedWindow.optAdvProfile == "none" 
+                            || string.IsNullOrEmpty(OptimizeAdvancedWindow.optAdvProfile))
                         {
                             optProfile = string.Empty;
                         }
@@ -1905,7 +1909,8 @@ namespace Axiom
 
                         // Level
                         //
-                        if (OptimizeAdvancedWindow.optAdvLevel == "none" || string.IsNullOrEmpty(OptimizeAdvancedWindow.optAdvLevel))
+                        if (OptimizeAdvancedWindow.optAdvLevel == "none" 
+                            || string.IsNullOrEmpty(OptimizeAdvancedWindow.optAdvLevel))
                         {
                             optLevel = string.Empty;
                         }

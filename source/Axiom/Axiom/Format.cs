@@ -40,11 +40,14 @@ namespace Axiom
         public static string trimEnd;
         public static string trim; // combine trimStart, trimEnd
 
-        // -------------------------
+        // --------------------------------------------------
         // File Formats
+        // --------------------------------------------------
+
         // -------------------------
         // Video
-        public static List<string> VideoFormatsList = new List<string>()
+        // -------------------------
+        public static List<string> VideoFormats = new List<string>()
         {
             ".3g2",
             ".3gp",
@@ -89,8 +92,38 @@ namespace Axiom
             ".yuv"
         };
 
+        // Video Entry Type Stream
+        public static List<string> VideoFormats_EntryType_Stream = new List<string>()
+        {
+            ".3g2",
+            ".3gp",
+            ".flv",
+            ".m4v",
+            ".mov",
+            ".mp4",
+            ".ogv",
+            ".qt",
+            ".swf",
+            ".webm",
+            ".wmv",
+        };
+
+        // Video Entry Type Format
+        public static List<string> VideoFormats_EntryType_Format = new List<string>()
+        {
+            ".asf",
+            ".avi",
+            ".mkv",
+            ".mod",
+            ".mpeg",
+            ".mpg",
+            ".vob",
+        };
+
+        // -------------------------
         // Audio
-        public static List<string> AudioFormatsList = new List<string>()
+        // -------------------------
+        public static List<string> AudioFormats = new List<string>()
         {
             ".aa",
             ".aac",
@@ -129,6 +162,7 @@ namespace Axiom
             ".wv",
             ".8svx"
         };
+
 
         // --------------------------------------------------------------------------------------------------------
         // --------------------------------------------------------------------------------------------------------

@@ -21,7 +21,7 @@ along with this program.If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Diagnostics;
-using System.Windows;
+using System.Linq;
 using System.Windows.Documents;
 // Disable XML Comment warnings
 #pragma warning disable 1591
@@ -266,6 +266,7 @@ namespace Axiom
         /// <summary>
         /// FFprobe Video Entry Type Containers (Method)
         /// </summary>
+        // Used for Auto Quality to pass Bit-rate Entry Type to FFprobe
         public static void VideoEntryType(MainWindow mainwindow)
         {
             // -------------------------
@@ -273,35 +274,17 @@ namespace Axiom
             // -------------------------
             if (mainwindow.tglBatch.IsChecked == false)
             {
-                // Choose FFprobe Entry Type based on Input file extension
-                // Note: Format sometimes encompasses the entire file, Video + Audio bitrate. 
-                if (string.Equals(MainWindow.inputExt, ".webm", StringComparison.CurrentCultureIgnoreCase)
-                    || string.Equals(MainWindow.inputExt, ".wmv", StringComparison.CurrentCultureIgnoreCase)
-                    || string.Equals(MainWindow.inputExt, ".mp4", StringComparison.CurrentCultureIgnoreCase)
-                    || string.Equals(MainWindow.inputExt, ".ogv", StringComparison.CurrentCultureIgnoreCase)
-                    || string.Equals(MainWindow.inputExt, ".mov", StringComparison.CurrentCultureIgnoreCase)
-                    || string.Equals(MainWindow.inputExt, ".m4v", StringComparison.CurrentCultureIgnoreCase)
-                    || string.Equals(MainWindow.inputExt, ".qt", StringComparison.CurrentCultureIgnoreCase)
-                    || string.Equals(MainWindow.inputExt, ".3gp", StringComparison.CurrentCultureIgnoreCase)
-                    || string.Equals(MainWindow.inputExt, ".3g2", StringComparison.CurrentCultureIgnoreCase)
-                    || string.Equals(MainWindow.inputExt, ".flv", StringComparison.CurrentCultureIgnoreCase)
-                    || string.Equals(MainWindow.inputExt, ".swf", StringComparison.CurrentCultureIgnoreCase))
+                if (Format.VideoFormats_EntryType_Stream.Any(s => s.Equals(MainWindow.inputExt, StringComparison.OrdinalIgnoreCase)))
                 {
                     vEntryType = "stream=bit_rate";
                 }
-                else if (string.Equals(MainWindow.inputExt, ".avi", StringComparison.CurrentCultureIgnoreCase)
-                    || string.Equals(MainWindow.inputExt, ".mpg", StringComparison.CurrentCultureIgnoreCase)
-                    || string.Equals(MainWindow.inputExt, ".mpeg", StringComparison.CurrentCultureIgnoreCase)
-                    || string.Equals(MainWindow.inputExt, ".mod", StringComparison.CurrentCultureIgnoreCase)
-                    || string.Equals(MainWindow.inputExt, ".mkv", StringComparison.CurrentCultureIgnoreCase)
-                    || string.Equals(MainWindow.inputExt, ".asf", StringComparison.CurrentCultureIgnoreCase)
-                    || string.Equals(MainWindow.inputExt, ".vob", StringComparison.CurrentCultureIgnoreCase))
+                else if (Format.VideoFormats_EntryType_Format.Any(s => s.Equals(MainWindow.inputExt, StringComparison.OrdinalIgnoreCase)))
                 {
                     vEntryType = "format=bit_rate";
                 }
-                else // UNLISTED Filetypes & Audio to Video (this may cause conflict)
+                else // UNLISTED Filetypes & Audio to Video
                 {
-                    vEntryType = "stream=bit_rate";
+                    vEntryTypeBatch = "stream=bit_rate";
                 }
             }
 
@@ -310,32 +293,15 @@ namespace Axiom
             // -------------------------
             else if (mainwindow.tglBatch.IsChecked == true)
             {
-                if (string.Equals(MainWindow.batchExt, ".webm", StringComparison.CurrentCultureIgnoreCase)
-                || string.Equals(MainWindow.batchExt, ".wmv", StringComparison.CurrentCultureIgnoreCase)
-                || string.Equals(MainWindow.batchExt, ".mp4", StringComparison.CurrentCultureIgnoreCase)
-                || string.Equals(MainWindow.batchExt, ".ogv", StringComparison.CurrentCultureIgnoreCase)
-                || string.Equals(MainWindow.batchExt, ".mov", StringComparison.CurrentCultureIgnoreCase)
-                || string.Equals(MainWindow.batchExt, ".m4v", StringComparison.CurrentCultureIgnoreCase)
-                || string.Equals(MainWindow.batchExt, ".qt", StringComparison.CurrentCultureIgnoreCase)
-                || string.Equals(MainWindow.batchExt, ".3gp", StringComparison.CurrentCultureIgnoreCase)
-                || string.Equals(MainWindow.batchExt, ".3g2", StringComparison.CurrentCultureIgnoreCase)
-                || string.Equals(MainWindow.batchExt, ".flv", StringComparison.CurrentCultureIgnoreCase)
-                || string.Equals(MainWindow.batchExt, ".swf", StringComparison.CurrentCultureIgnoreCase))
+                if (Format.VideoFormats_EntryType_Stream.Any(s => s.Equals(MainWindow.batchExt, StringComparison.OrdinalIgnoreCase)))
                 {
-                    vEntryTypeBatch = "stream^=bit_rate";
+                    vEntryType = "stream^=bit_rate";
                 }
-                else if (string.Equals(MainWindow.batchExt, ".avi", StringComparison.CurrentCultureIgnoreCase)
-                    || string.Equals(MainWindow.batchExt, ".mpg", StringComparison.CurrentCultureIgnoreCase)
-                    || string.Equals(MainWindow.batchExt, ".mpeg", StringComparison.CurrentCultureIgnoreCase)
-                    || string.Equals(MainWindow.batchExt, ".mod", StringComparison.CurrentCultureIgnoreCase)
-                    || string.Equals(MainWindow.batchExt, ".mkv", StringComparison.CurrentCultureIgnoreCase)
-                    || string.Equals(MainWindow.batchExt, ".asf", StringComparison.CurrentCultureIgnoreCase)
-                    || string.Equals(MainWindow.batchExt, ".vob", StringComparison.CurrentCultureIgnoreCase))
+                else if (Format.VideoFormats_EntryType_Format.Any(s => s.Equals(MainWindow.batchExt, StringComparison.OrdinalIgnoreCase)))
                 {
-                    vEntryTypeBatch = "format^=bit_rate";
+                    vEntryType = "format^=bit_rate";
                 }
-                // Unlisted Filetypes & Audio to Video (this may cause conflict)
-                else
+                else // UNLISTED Filetypes & Audio to Video
                 {
                     vEntryTypeBatch = "stream^=bit_rate";
                 }
@@ -346,6 +312,7 @@ namespace Axiom
         /// <summary>
         /// FFprobe Audio Entry Type Containers (Method)
         /// </summary>
+        // Used for Auto Quality to pass Bit-rate Entry Type to FFprobe
         public static void AudioEntryType(MainWindow mainwindow)
         {
             // -------------------------
@@ -375,12 +342,12 @@ namespace Axiom
                 if (string.Equals(MainWindow.batchExt, ".flac", StringComparison.CurrentCultureIgnoreCase)
                     || string.Equals(MainWindow.batchExt, ".wav", StringComparison.CurrentCultureIgnoreCase))
                 {
-                    aEntryType = "format=bit_rate";
+                    aEntryType = "format^=bit_rate";
                 }
                 else
                 {
                     // All other audio types use stream=bit_rate? -maybe
-                    aEntryType = "stream=bit_rate";
+                    aEntryType = "stream^=bit_rate";
                 }
             }
         }

@@ -175,7 +175,9 @@ namespace Axiom
         /// <summary>
         public static String AudioBitrateMode(MainWindow mainwindow)
         {
+            // -------------------------
             // VBR
+            // -------------------------
             if (mainwindow.tglVBR.IsChecked == true)
             {
                 // Codec
@@ -202,8 +204,11 @@ namespace Axiom
                 Log.LogActions.Add(Log.WriteAction);
             }
 
+            // -------------------------
             // CBR
-            if (mainwindow.tglVBR.IsChecked == false || mainwindow.tglVBR.IsEnabled == false)
+            // -------------------------
+            if (mainwindow.tglVBR.IsChecked == false 
+                || mainwindow.tglVBR.IsEnabled == false)
             {
                 // Codec
                 if ((string)mainwindow.cboAudioCodec.SelectedItem == "Vorbis") { aBitMode = "-b:a"; }
@@ -231,22 +236,6 @@ namespace Axiom
                     Log.logParagraph.Inlines.Add(new Run("CBR") { Foreground = Log.ConsoleDefault });
                 };
                 Log.LogActions.Add(Log.WriteAction);
-            }
-
-            // -------------------------
-            // Batch
-            // -------------------------
-            if (mainwindow.tglBatch.IsChecked == true)
-            {
-                // Remove -b:a if Batch is Lossless
-                if ((string)mainwindow.cboAudio.SelectedItem == "Lossless") {
-                    aBitMode = "";
-                }
-                // Use -b:a if Lossy
-                else
-                {
-                    aBitMode = "-b:a";
-                }
             }
 
             return aBitMode;

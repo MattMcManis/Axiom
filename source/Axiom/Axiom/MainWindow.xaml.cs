@@ -544,7 +544,7 @@ namespace Axiom
             Audio.aBitrateLimiter = string.Empty;
 
             // Streams
-            Streams.map = string.Empty;
+            //Streams.map = string.Empty;
             Streams.vMap = string.Empty;
             Streams.cMap = string.Empty;
             Streams.sMap = string.Empty;

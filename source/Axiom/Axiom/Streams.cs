@@ -43,7 +43,7 @@ namespace Axiom
         public static string sMap; // video subtitles
         public static string aMap; // audio streams
         public static string mMap; // file metadata
-        public static string map; // combines all maps
+        //public static string map; // combines all maps
 
 
         // --------------------------------------------------------------------------------------------------------
@@ -103,12 +103,11 @@ namespace Axiom
             // -------------------------
             // Remove Video Map if Input File is Audio Format
             // -------------------------
-            if (Format.AudioFormatsList.Any(s => s.Equals(MainWindow.inputExt, StringComparison.OrdinalIgnoreCase))
-                || Format.AudioFormatsList.Any(s => s.Equals(MainWindow.batchExt, StringComparison.OrdinalIgnoreCase)))
+            if (Format.AudioFormats.Any(s => s.Equals(MainWindow.inputExt, StringComparison.OrdinalIgnoreCase))
+                || Format.AudioFormats.Any(s => s.Equals(MainWindow.batchExt, StringComparison.OrdinalIgnoreCase)))
             {
-                vMap = "";
+                vMap = string.Empty;
             }
-            //vMap = AudioFormatRemoveMap(mainwindow, vMap);
 
 
             // Log Console Message /////////
@@ -152,6 +151,16 @@ namespace Axiom
                 cMap = string.Empty; // do not copy chapters
             }
 
+            // -------------------------
+            // Remove Chapters Map if Input File is Audio Format
+            // -------------------------
+            if (Format.AudioFormats.Any(s => s.Equals(MainWindow.inputExt, StringComparison.OrdinalIgnoreCase))
+                || Format.AudioFormats.Any(s => s.Equals(MainWindow.batchExt, StringComparison.OrdinalIgnoreCase)))
+            {
+                cMap = string.Empty;
+            }
+
+
             // Log Console Message /////////
             Log.WriteAction = () =>
             {
@@ -162,24 +171,13 @@ namespace Axiom
             Log.LogActions.Add(Log.WriteAction);
 
 
-            // -------------------------
-            // Remove Chapters Map if Input File is Audio Format
-            // -------------------------
-            //cMap = AudioFormatRemoveMap(mainwindow, cMap);
-            if (Format.AudioFormatsList.Any(s => s.Equals(MainWindow.inputExt, StringComparison.OrdinalIgnoreCase))
-                || Format.AudioFormatsList.Any(s => s.Equals(MainWindow.batchExt, StringComparison.OrdinalIgnoreCase)))
-            {
-                cMap = "";
-            }
-
-
             // --------------------------------------------------------------------
             // Combine Maps
             // --------------------------------------------------------------------
             // Make List
             List<string> mapList = new List<string>() { vMap, cMap };
             // Join List with Spaces, Remove Empty Strings
-            map = string.Join(" ", mapList.Where(s => !string.IsNullOrEmpty(s)));
+            string map = string.Join(" ", mapList.Where(s => !string.IsNullOrEmpty(s)));
 
 
             // Return Value
@@ -261,11 +259,10 @@ namespace Axiom
             // -------------------------
             // Remove Subtitle Map if Input File is Audio Format
             // -------------------------
-            //sMap = AudioFormatRemoveMap(mainwindow, sMap);
-            if (Format.AudioFormatsList.Any(s => s.Equals(MainWindow.inputExt, StringComparison.OrdinalIgnoreCase))
-                || Format.AudioFormatsList.Any(s => s.Equals(MainWindow.batchExt, StringComparison.OrdinalIgnoreCase)))
+            if (Format.AudioFormats.Any(s => s.Equals(MainWindow.inputExt, StringComparison.OrdinalIgnoreCase))
+                || Format.AudioFormats.Any(s => s.Equals(MainWindow.batchExt, StringComparison.OrdinalIgnoreCase)))
             {
-                sMap = "";
+                sMap = string.Empty;
             }
 
 
@@ -285,7 +282,7 @@ namespace Axiom
             // Make List
             List<string> mapList = new List<string>() { sMap };
             // Join List with Spaces, Remove Empty Strings
-            map = string.Join(" ", mapList.Where(s => !string.IsNullOrEmpty(s)));
+            string map = string.Join(" ", mapList.Where(s => !string.IsNullOrEmpty(s)));
 
 
             // Return Value
@@ -364,21 +361,20 @@ namespace Axiom
             }
 
             // -------------------------
+            // Remove Audio Map if Input File is Audio Format
+            // -------------------------
+            if (Format.AudioFormats.Any(s => s.Equals(MainWindow.inputExt, StringComparison.OrdinalIgnoreCase))
+                || Format.AudioFormats.Any(s => s.Equals(MainWindow.batchExt, StringComparison.OrdinalIgnoreCase)))
+            {
+                aMap = string.Empty;
+            }
+
+            // -------------------------
             // Mute
             // -------------------------
             if ((string)mainwindow.cboAudio.SelectedItem == "Mute")
             {
                 aMap = "-an";
-            }
-
-            // -------------------------
-            // Remove Audio Map if Input File is Audio Format
-            // -------------------------
-            //aMap = AudioFormatRemoveMap(mainwindow, aMap);
-            if (Format.AudioFormatsList.Any(s => s.Equals(MainWindow.inputExt, StringComparison.OrdinalIgnoreCase))
-                || Format.AudioFormatsList.Any(s => s.Equals(MainWindow.batchExt, StringComparison.OrdinalIgnoreCase)))
-            {
-                aMap = "";
             }
 
 
@@ -398,7 +394,7 @@ namespace Axiom
             // Make List
             List<string> mapList = new List<string>() { aMap };
             // Join List with Spaces, Remove Empty Strings
-            map = string.Join(" ", mapList.Where(s => !string.IsNullOrEmpty(s)));
+            string map = string.Join(" ", mapList.Where(s => !string.IsNullOrEmpty(s)));
 
 
             // Return Value
@@ -453,7 +449,7 @@ namespace Axiom
             // Make List
             List<string> mapList = new List<string>() { mMap };
             // Join List with Spaces, Remove Empty Strings
-            map = string.Join(" ", mapList.Where(s => !string.IsNullOrEmpty(s)));
+            string map = string.Join(" ", mapList.Where(s => !string.IsNullOrEmpty(s)));
 
 
             // Return Value
