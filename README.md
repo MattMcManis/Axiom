@@ -7,6 +7,7 @@ An FFmpeg GUI for Windows
 * [Features](#features)
 * [Downloads](#downloads)
 * [Installation](#installation)
+* [Examples](https://github.com/MattMcManis/Axiom/wiki/Examples)
 * [Build](#build)
 
 ## Overview

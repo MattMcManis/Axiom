@@ -169,6 +169,69 @@ namespace Axiom
         // Process Methods
         // --------------------------------------------------------------------------------------------------------
         // --------------------------------------------------------------------------------------------------------
+
+        /// <summary>
+        /// Force Format (Method)
+        /// </summary>
+        // Used for Two-Pass Pass 1
+        public static String ForceFormat(MainWindow mainwindow)
+        {
+            string format = string.Empty;
+
+            // Video
+            if ((string)mainwindow.cboFormat.SelectedItem == "webm")
+            {
+                format = "-f webm";
+            }
+            else if ((string)mainwindow.cboFormat.SelectedItem == "mp4")
+            {
+                format = "-f mp4";
+            }
+            else if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
+            {
+                format = "-f matroska";
+            }
+            else if ((string)mainwindow.cboFormat.SelectedItem == "ogv")
+            {
+                format = "-f ogv";
+            }
+
+            // Image
+            else if ((string)mainwindow.cboFormat.SelectedItem == "jpg")
+            {
+                format = "-f jpg";
+            }
+            else if ((string)mainwindow.cboFormat.SelectedItem == "png")
+            {
+                format = "-f png";
+            }
+
+            // Audio
+            else if ((string)mainwindow.cboFormat.SelectedItem == "mp3")
+            {
+                format = "-f mp3";
+            }
+            else if ((string)mainwindow.cboFormat.SelectedItem == "m4a")
+            {
+                format = "-f m4a";
+            }
+            else if ((string)mainwindow.cboFormat.SelectedItem == "ogg")
+            {
+                format = "-f ogg";
+            }
+            else if ((string)mainwindow.cboFormat.SelectedItem == "flac")
+            {
+                format = "-f flac";
+            }
+            else if ((string)mainwindow.cboFormat.SelectedItem == "wav")
+            {
+                format = "-f wav";
+            }
+
+            return format;
+        }
+
+
         /// <summary>
         /// Cut (Method)
         /// </summary>

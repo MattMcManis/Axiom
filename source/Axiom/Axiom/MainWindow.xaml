@@ -100,7 +100,7 @@
         <ComboBox x:Name="cboPass" Style="{DynamicResource ComboBoxCustom}" ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" HorizontalAlignment="Left" Margin="117,156,0,0" VerticalAlignment="Top" Width="52" ToolTipService.InitialShowDelay="1000" ToolTipService.ShowOnDisabled="True" ToolTip="Encoding Pass Method" SelectionChanged="cboPass_SelectionChanged" DropDownClosed="cboPass_DropDownClosed" />
 
         <!-- FPS -->
-        <Label x:Name="labelFps" Style="{DynamicResource LabelCustom}" Content="FPS" HorizontalAlignment="Left" Margin="90,182,0,0" VerticalAlignment="Top" Width="26" ToolTip="Frames Per Second" FontSize="11" FontFamily="Segoe UI Semilight" />
+        <Label x:Name="labelFps" Style="{DynamicResource LabelCustom}" Content="FPS" HorizontalAlignment="Left" Margin="89,182,0,0" VerticalAlignment="Top" Width="26" ToolTip="Frames Per Second" FontSize="11" FontFamily="Segoe UI Semilight" />
 
         <ComboBox x:Name="cboFPS" Style="{DynamicResource ComboBoxCustom}" ItemContainerStyle="{DynamicResource ComboBoxCustomItem}"  HorizontalAlignment="Left" Margin="117,184,0,0" VerticalAlignment="Top" Width="52" ToolTipService.InitialShowDelay="1000" ToolTipService.ShowOnDisabled="True" ToolTip="Frames Per Second" SelectionChanged="cboFPS_SelectionChanged" IsTextSearchEnabled="False">
             <System:String>auto</System:String>

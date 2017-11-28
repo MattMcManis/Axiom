@@ -186,9 +186,11 @@ namespace Axiom
                         "\r\n\r\n" + "-sn -an", // Disable Audio & Subtitles for Pass 1 to speed up encoding
 
                         "\r\n\r\n" + Format.Cut(mainwindow),
+                        "\r\n\r\n" + Format.ForceFormat(mainwindow),
                         "\r\n\r\n" + MainWindow.ThreadDetect(mainwindow),
 
-                        "\r\n\r\n" + "\"" + MainWindow.OutputPath(mainwindow) + "\""
+                        //"\r\n\r\n" + "\"" + MainWindow.OutputPath(mainwindow) + "\""
+                        "\r\n\r\n" + "NUL"
                     };
 
                 // Join List with Spaces

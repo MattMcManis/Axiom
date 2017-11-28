@@ -110,27 +110,27 @@ namespace Axiom
                 // VP8
                 else if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8")
                 {
-                    vCodec = "-vcodec libvpx";
+                    vCodec = "-c:v libvpx";
                 }
                 // VP9
                 else if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9")
                 {
-                    vCodec = "-vcodec libvpx-vp9 -tile-columns 6 -frame-parallel 1 -auto-alt-ref 1 -lag-in-frames 25";
+                    vCodec = "-c:v libvpx-vp9 -tile-columns 6 -frame-parallel 1 -auto-alt-ref 1 -lag-in-frames 25";
                 }
                 // Theora
                 else if ((string)mainwindow.cboVideoCodec.SelectedItem == "Theora")
                 {
-                    vCodec = "-vcodec libtheora";
+                    vCodec = "-c:v libtheora";
                 }
                 // x254
                 else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264")
                 {
-                    vCodec = "-vcodec libx264"; //leave profile:v main here so MKV can choose other ???
+                    vCodec = "-c:v libx264"; //leave profile:v main here so MKV can choose other ???
                 }
                 //x265
                 else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265")
                 {
-                    vCodec = "-vcodec libx265"; //does not use profile:v
+                    vCodec = "-c:v libx265"; //does not use profile:v
                 }
                 // JPEG
                 else if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG")
@@ -145,7 +145,7 @@ namespace Axiom
                 // Copy
                 else if ((string)mainwindow.cboVideoCodec.SelectedItem == "Copy")
                 {
-                    vCodec = "-vcodec copy";
+                    vCodec = "-c:v copy";
                 }
                 // Unknown
                 else
@@ -649,7 +649,7 @@ namespace Axiom
                     else if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG")
                     {
                         crf = string.Empty;
-                        vBitrate = "-qscale:v 2";
+                        vBitrate = "2";
                         vOptions = string.Empty;
                     }
                 }
@@ -737,7 +737,7 @@ namespace Axiom
                     else if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG")
                     {
                         crf = string.Empty;
-                        vBitrate = "-qscale:v 8";
+                        vBitrate = "8";
                         vOptions = string.Empty;
                     }
                 }
@@ -781,7 +781,7 @@ namespace Axiom
                     else if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG")
                     {
                         crf = string.Empty;
-                        vBitrate = "-qscale:v 15";
+                        vBitrate = "15";
                         vOptions = string.Empty;
                     }
                 }
@@ -825,7 +825,7 @@ namespace Axiom
                     else if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG")
                     {
                         crf = string.Empty;
-                        vBitrate = "-qscale:v 25";
+                        vBitrate = "25";
                         vOptions = string.Empty;
                     }
                 }

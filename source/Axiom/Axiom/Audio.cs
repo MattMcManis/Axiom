@@ -93,37 +93,37 @@ namespace Axiom
                 // Vorbis
                 else if ((string)mainwindow.cboAudioCodec.SelectedItem == "Vorbis")
                 {
-                    aCodec = "-acodec libvorbis";
+                    aCodec = "-c:a libvorbis";
                 }
                 // Opus
                 else if ((string)mainwindow.cboAudioCodec.SelectedItem == "Opus")
                 {
-                    aCodec = "-acodec libopus";
+                    aCodec = "-c:a libopus";
                 }
                 // AAC
                 else if ((string)mainwindow.cboAudioCodec.SelectedItem == "AAC")
                 {
-                    aCodec = "-acodec aac";
+                    aCodec = "-c:a aac";
                 }
                 // ALAC
                 else if ((string)mainwindow.cboAudioCodec.SelectedItem == "ALAC")
                 {
-                    aCodec = "-acodec alac";
+                    aCodec = "-c:a alac";
                 }
                 // AC3
                 else if ((string)mainwindow.cboAudioCodec.SelectedItem == "AC3")
                 {
-                    aCodec = "-acodec ac3";
+                    aCodec = "-c:a ac3";
                 }
                 // LAME
                 else if ((string)mainwindow.cboAudioCodec.SelectedItem == "LAME")
                 {
-                    aCodec = "-acodec libmp3lame";
+                    aCodec = "-c:a libmp3lame";
                 }
                 // FLAC
                 else if ((string)mainwindow.cboAudioCodec.SelectedItem == "FLAC")
                 {
-                    aCodec = "-acodec flac";
+                    aCodec = "-c:a flac";
                 }
                 // PCM
                 else if ((string)mainwindow.cboAudioCodec.SelectedItem == "PCM")
@@ -133,7 +133,7 @@ namespace Axiom
                 // Copy
                 else if ((string)mainwindow.cboAudioCodec.SelectedItem == "Copy")
                 {
-                    aCodec = "-acodec copy";
+                    aCodec = "-c:a copy";
                 }
                 // Unknown
                 else
@@ -1224,7 +1224,7 @@ namespace Axiom
                     if ((string)mainwindow.cboAudioCodec.SelectedItem == "PCM")
                     {
                         aBitDepth = string.Empty;
-                        aCodec = "-acodec pcm_s24le";
+                        aCodec = "-c:a pcm_s24le";
                     }
                     else if ((string)mainwindow.cboAudioCodec.SelectedItem == "FLAC")
                     {
@@ -1248,7 +1248,7 @@ namespace Axiom
                     if ((string)mainwindow.cboAudioCodec.SelectedItem == "PCM")
                     {
                         aBitDepth = string.Empty;
-                        aCodec = "-acodec pcm_u8";
+                        aCodec = "-c:a pcm_u8";
                     }
                     else if ((string)mainwindow.cboAudioCodec.SelectedItem == "FLAC")
                     {
@@ -1272,7 +1272,7 @@ namespace Axiom
                     if ((string)mainwindow.cboAudioCodec.SelectedItem == "PCM")
                     {
                         aBitDepth = string.Empty;
-                        aCodec = "-acodec pcm_s16le";
+                        aCodec = "-c:a pcm_s16le";
                     }
                     else if ((string)mainwindow.cboAudioCodec.SelectedItem == "FLAC")
                     {
@@ -1296,7 +1296,7 @@ namespace Axiom
                     if ((string)mainwindow.cboAudioCodec.SelectedItem == "PCM")
                     {
                         aBitDepth = string.Empty;
-                        aCodec = "-acodec pcm_s24le";
+                        aCodec = "-c:a pcm_s24le";
                     }
                     else if ((string)mainwindow.cboAudioCodec.SelectedItem == "FLAC")
                     {
@@ -1319,7 +1319,7 @@ namespace Axiom
                     if ((string)mainwindow.cboAudioCodec.SelectedItem == "PCM")
                     {
                         aBitDepth = string.Empty;
-                        aCodec = "-acodec pcm_f32le";
+                        aCodec = "-c:a pcm_f32le";
                     }
                     else if ((string)mainwindow.cboAudioCodec.SelectedItem == "FLAC")
                     {
@@ -1343,7 +1343,7 @@ namespace Axiom
                     if ((string)mainwindow.cboAudioCodec.SelectedItem == "PCM")
                     {
                         aBitDepth = string.Empty;
-                        aCodec = "-acodec pcm_f64le";
+                        aCodec = "-c:a pcm_f64le";
                     }
                     else if ((string)mainwindow.cboAudioCodec.SelectedItem == "FLAC")
                     {
