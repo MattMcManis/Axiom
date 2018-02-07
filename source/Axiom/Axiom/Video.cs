@@ -839,7 +839,8 @@ namespace Axiom
                     // Bitrate
                     // -------------------------
                     // Textbox Default or Empty
-                    if (mainwindow.vBitrateCustom.Text == "Bitrate" || string.IsNullOrWhiteSpace(mainwindow.vBitrateCustom.Text))
+                    if (mainwindow.vBitrateCustom.Text == "Bitrate" 
+                        || string.IsNullOrWhiteSpace(mainwindow.vBitrateCustom.Text))
                     {
                         crf = string.Empty;
                         vBitMode = string.Empty;
@@ -849,7 +850,8 @@ namespace Axiom
                         vOptions = string.Empty;
                     }
                     // Textbox Not Empty
-                    if (mainwindow.vBitrateCustom.Text != "Bitrate" && !string.IsNullOrWhiteSpace(mainwindow.vBitrateCustom.Text))
+                    if (mainwindow.vBitrateCustom.Text != "Bitrate" 
+                        && !string.IsNullOrWhiteSpace(mainwindow.vBitrateCustom.Text))
                     {
                         vBitrate = mainwindow.vBitrateCustom.Text.ToString();
                     }
@@ -858,14 +860,18 @@ namespace Axiom
                     // CRF
                     // -------------------------
                     // if CRF texbox is default or empty
-                    if (mainwindow.crfCustom.Text == "CRF" || string.IsNullOrWhiteSpace(mainwindow.crfCustom.Text))
+                    if (mainwindow.crfCustom.Text == "CRF" 
+                        || string.IsNullOrWhiteSpace(mainwindow.crfCustom.Text))
                     {
                         crf = string.Empty;
                     }
                     // if CRF texbox entered by user and is not blank
-                    if (mainwindow.crfCustom.Text != "CRF" && !string.IsNullOrWhiteSpace(mainwindow.crfCustom.Text))
+                    if (mainwindow.crfCustom.Text != "CRF" 
+                        && !string.IsNullOrWhiteSpace(mainwindow.crfCustom.Text))
                     {
+                        // x264
                         crf = "-crf " + mainwindow.crfCustom.Text; // crf needs b:v 0
+                        vOptions = "-pix_fmt yuv420p";
 
                         // x265
                         if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265")
@@ -882,11 +888,14 @@ namespace Axiom
                     // & CRF is Custom value
                     if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9")
                     {
-                        if (mainwindow.vBitrateCustom.Text == "Bitrate" || string.IsNullOrWhiteSpace(mainwindow.vBitrateCustom.Text))
+                        if (mainwindow.vBitrateCustom.Text == "Bitrate" 
+                            || string.IsNullOrWhiteSpace(mainwindow.vBitrateCustom.Text))
                         {
-                            if (mainwindow.crfCustom.Text != "CRF" && !string.IsNullOrWhiteSpace(mainwindow.crfCustom.Text))
+                            if (mainwindow.crfCustom.Text != "CRF" 
+                                && !string.IsNullOrWhiteSpace(mainwindow.crfCustom.Text))
                             {
                                 vBitrate = "0";
+                                vOptions = "-pix_fmt yuv420p";
                             }
                         }
                     }
@@ -916,6 +925,8 @@ namespace Axiom
                 {
                     vQualityArgs = new List<string>()
                     {
+                        vBitMode,
+                        vBitrate,
                         crf,
                         vOptions
                     };
@@ -2143,11 +2154,11 @@ namespace Axiom
                     }
                     else if ((string)mainwindow.cboFormat.SelectedItem == "mp4")
                     {
-                        sCodec = "-scodec mov_text";
+                        sCodec = "-c:s mov_text";
                     }
                     else if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
                     {
-                        sCodec = "-scodec copy";
+                        sCodec = "-c:s copy";
                     }
                     else if ((string)mainwindow.cboFormat.SelectedItem == "ogv")
                     {

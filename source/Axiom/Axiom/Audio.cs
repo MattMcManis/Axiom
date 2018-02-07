@@ -76,7 +76,7 @@ namespace Axiom
             // Media Type Check
             if ((string)mainwindow.cboAudio.SelectedItem != "None"
                 && (string)mainwindow.cboAudioCodec.SelectedItem != "None"
-                && (string)mainwindow.cboAudioCodec.SelectedItem != "Mute"
+                && (string)mainwindow.cboAudio.SelectedItem != "Mute"
                 && (string)mainwindow.cboAudioStream.SelectedItem != "none"
                 && (string)mainwindow.cboMediaType.SelectedItem != "Image"
                 && (string)mainwindow.cboMediaType.SelectedItem != "Sequence")
@@ -451,7 +451,7 @@ namespace Axiom
             if ((string)mainwindow.cboAudio.SelectedItem != "None"
                 && (string)mainwindow.cboAudioCodec.SelectedItem != "None"
                 && (string)mainwindow.cboAudioCodec.SelectedItem != "Copy"
-                && (string)mainwindow.cboAudioCodec.SelectedItem != "Mute"
+                && (string)mainwindow.cboAudio.SelectedItem != "Mute"
                 && (string)mainwindow.cboAudioStream.SelectedItem != "none"
                 && (string)mainwindow.cboMediaType.SelectedItem != "Image"
                 && (string)mainwindow.cboMediaType.SelectedItem != "Sequence")
@@ -509,7 +509,7 @@ namespace Axiom
             if ((string)mainwindow.cboAudio.SelectedItem != "None"
                 && (string)mainwindow.cboAudioCodec.SelectedItem != "None"
                 && (string)mainwindow.cboAudioCodec.SelectedItem != "Copy"
-                && (string)mainwindow.cboAudioCodec.SelectedItem != "Mute"
+                && (string)mainwindow.cboAudio.SelectedItem != "Mute"
                 && (string)mainwindow.cboAudioStream.SelectedItem != "none"
                 && (string)mainwindow.cboMediaType.SelectedItem != "Image"
                 && (string)mainwindow.cboMediaType.SelectedItem != "Sequence")
@@ -576,7 +576,7 @@ namespace Axiom
             if ((string)mainwindow.cboAudio.SelectedItem != "None"
                 && (string)mainwindow.cboAudioCodec.SelectedItem != "None"
                 && (string)mainwindow.cboAudioCodec.SelectedItem != "Copy"
-                && (string)mainwindow.cboAudioCodec.SelectedItem != "Mute"
+                && (string)mainwindow.cboAudio.SelectedItem != "Mute"
                 && (string)mainwindow.cboAudioStream.SelectedItem != "none"
                 && (string)mainwindow.cboMediaType.SelectedItem != "Image"
                 && (string)mainwindow.cboMediaType.SelectedItem != "Sequence")
@@ -1064,7 +1064,7 @@ namespace Axiom
             if ((string)mainwindow.cboAudio.SelectedItem != "None"
                 && (string)mainwindow.cboAudioCodec.SelectedItem != "None"
                 && (string)mainwindow.cboAudioCodec.SelectedItem != "Copy"
-                && (string)mainwindow.cboAudioCodec.SelectedItem != "Mute"
+                && (string)mainwindow.cboAudio.SelectedItem != "Mute"
                 && (string)mainwindow.cboAudioStream.SelectedItem != "none"
                 && (string)mainwindow.cboMediaType.SelectedItem != "Image"
                 && (string)mainwindow.cboMediaType.SelectedItem != "Sequence")
@@ -1119,7 +1119,7 @@ namespace Axiom
             if ((string)mainwindow.cboAudio.SelectedItem != "None"
                 && (string)mainwindow.cboAudioCodec.SelectedItem != "None"
                 && (string)mainwindow.cboAudioCodec.SelectedItem != "Copy"
-                && (string)mainwindow.cboAudioCodec.SelectedItem != "Mute"
+                && (string)mainwindow.cboAudio.SelectedItem != "Mute"
                 && (string)mainwindow.cboAudioStream.SelectedItem != "none"
                 && (string)mainwindow.cboMediaType.SelectedItem != "Image"
                 && (string)mainwindow.cboMediaType.SelectedItem != "Sequence")
@@ -1207,7 +1207,7 @@ namespace Axiom
             if ((string)mainwindow.cboAudio.SelectedItem != "None"
                 && (string)mainwindow.cboAudioCodec.SelectedItem != "None"
                 && (string)mainwindow.cboAudioCodec.SelectedItem != "Copy"
-                && (string)mainwindow.cboAudioCodec.SelectedItem != "Mute"
+                && (string)mainwindow.cboAudio.SelectedItem != "Mute"
                 && (string)mainwindow.cboAudioStream.SelectedItem != "none"
                 && (string)mainwindow.cboMediaType.SelectedItem != "Image"
                 && (string)mainwindow.cboMediaType.SelectedItem != "Sequence")
@@ -1479,7 +1479,7 @@ namespace Axiom
             if ((string)mainwindow.cboAudio.SelectedItem != "None"
                 && (string)mainwindow.cboAudioCodec.SelectedItem != "None"
                 && (string)mainwindow.cboAudioCodec.SelectedItem != "Copy"
-                && (string)mainwindow.cboAudioCodec.SelectedItem != "Mute"
+                && (string)mainwindow.cboAudio.SelectedItem != "Mute"
                 && (string)mainwindow.cboAudioStream.SelectedItem != "none"
                 && (string)mainwindow.cboMediaType.SelectedItem != "Image"
                 && (string)mainwindow.cboMediaType.SelectedItem != "Sequence")
