@@ -923,13 +923,30 @@ namespace Axiom
                 // CRF
                 if ((string)mainwindow.cboPass.SelectedItem == "CRF")
                 {
-                    vQualityArgs = new List<string>()
+                    // Custom
+                    if ((string)mainwindow.cboVideo.SelectedItem == "Custom")
                     {
-                        vBitMode,
-                        vBitrate,
-                        crf,
-                        vOptions
-                    };
+                        // Include Custom vBitrate with CRF
+                        vQualityArgs = new List<string>()
+                        {
+                            vBitMode,
+                            vBitrate,
+                            crf,
+                            vOptions
+                        };
+                    }
+
+                    // Presets
+                    else
+                    {
+                        // High, Med, Low, Sub
+                        vQualityArgs = new List<string>()
+                        {
+                            crf,
+                            vOptions
+                        };
+                    }
+
                 }
 
                 // 1 Pass, 2 Pass, auto
