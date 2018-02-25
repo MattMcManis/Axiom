@@ -1056,7 +1056,7 @@ namespace Axiom
         public static String Channel(MainWindow mainwindow)
         {
             // Audio Bitrate None Check
-            // Audio Codec None
+            // Audio Codec None Check
             // Codec Copy Check
             // Mute Check
             // Stream None Check
@@ -1074,6 +1074,11 @@ namespace Axiom
                 {
                     aChannel = string.Empty;
                 }
+                // Mono
+                else if ((string)mainwindow.cboChannel.SelectedItem == "Mono")
+                {
+                    aChannel = "-ac 1";
+                }
                 // Stereo
                 else if ((string)mainwindow.cboChannel.SelectedItem == "Stereo")
                 {
@@ -1084,11 +1089,20 @@ namespace Axiom
                 {
                     aChannel = "-ac 2 -joint_stereo 1";
                 }
-                // Mono
-                else if ((string)mainwindow.cboChannel.SelectedItem == "Mono")
+                // 5.1
+                else if ((string)mainwindow.cboChannel.SelectedItem == "5.1")
                 {
-                    aChannel = "-ac 1";
+                    aChannel = "-ac 6";
                 }
+
+
+                // Prevent Downmix Clipping
+                //
+                if ((string)mainwindow.cboChannel.SelectedItem != "Source")
+                {
+                    aChannel = "-rematrix_maxval 1.0 " + aChannel;
+                }
+
 
                 // Log Console Message /////////
                 Log.WriteAction = () =>

@@ -579,22 +579,52 @@ namespace Axiom
                     // VP9
                     if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9")
                     {
-                        crf = "-lossless 1"; /* crf needs b:v 0*/
-                        vBitrate = "-lossless 1"; /* for 2 pass */
+                        if ((string)mainwindow.cboPass.SelectedItem == "CRF")
+                        {
+                            vBitMode = string.Empty;
+                            vBitrate = string.Empty;
+                            crf = "-lossless 1";
+                        }
+                        else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
+                            || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
+                        {
+                            vBitrate = "-lossless 1";
+                        }
+   
                         vOptions = "-pix_fmt yuv444p";
                     }
                     // x264
                     else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264")
                     {
-                        crf = "-qp 0";
-                        vBitrate = "-qp 0"; /* for 2 pass */
+                        if ((string)mainwindow.cboPass.SelectedItem == "CRF")
+                        {
+                            vBitMode = string.Empty;
+                            vBitrate = string.Empty;
+                            crf = "-qp 0";
+                        }
+                        else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
+                            || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
+                        {
+                            vBitrate = "-qp 0"; /* for 2 pass */
+                        }
+           
                         vOptions = "-pix_fmt yuv444p";
                     }
                     // x265
                     else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265")
                     {
-                        crf = "-qp 0 -x265-params lossless";
-                        vBitrate = "-qp 0 -x265-params lossless"; /* for 2 pass */
+                        if ((string)mainwindow.cboPass.SelectedItem == "CRF")
+                        {
+                            vBitMode = string.Empty;
+                            vBitrate = string.Empty;
+                            crf = "-qp 0 -x265-params lossless";
+                        }
+                        else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
+                            || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
+                        {
+                            vBitrate = "-qp 0 -x265-params lossless";
+                        }
+                              
                         vOptions = "-pix_fmt yuv444p";
                     }
                     // PNG
@@ -615,37 +645,102 @@ namespace Axiom
                 // -------------------------
                 else if ((string)mainwindow.cboVideo.SelectedItem == "Ultra")
                 {
+                    // -------------------------
+                    // VP8
+                    // -------------------------
                     if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8")
                     {
-                        crf = "-b:v 4M -crf 10" /* crf needs b:v 0*/;
-                        vBitrate = "5M" /* for 2 pass */;
+                        if ((string)mainwindow.cboPass.SelectedItem == "CRF")
+                        {
+                            vBitrate = "4M";
+                            crf = "-crf 10" /* crf needs b:v 0*/;
+                        }
+                        else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass" 
+                            || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
+                        {
+                            vBitrate = "4M";
+                        }
+
                         vOptions = "-pix_fmt yuv420p";
                     }
+                    // -------------------------
+                    // VP9
+                    // -------------------------
                     else if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9")
                     {
-                        crf = "-b:v 4M -crf 10"/* crf needs b:v 0*/;
-                        vBitrate = "5M" /* for 2 pass */;
+                        if ((string)mainwindow.cboPass.SelectedItem == "CRF")
+                        {
+                            vBitrate = "4M";
+                            crf = "-crf 10"/* crf needs b:v 0*/;
+                        }
+                        else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
+                            || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
+                        {
+                            vBitrate = "4M";
+                        }
+                   
                         vOptions = "-pix_fmt yuv420p";
                     }
+                    // -------------------------
+                    // x264
+                    // -------------------------
                     else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264")
                     {
-                        crf = "-crf 16";
-                        vBitrate = "5M" /* for 2 pass */;
-                        vMaxrate = "-maxrate 5M";
+                        if ((string)mainwindow.cboPass.SelectedItem == "CRF")
+                        {
+                            vBitMode = string.Empty;
+                            vBitrate = string.Empty;
+                            crf = "-crf 16";
+                        }
+                        else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
+                            || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
+                        {
+                            vBitrate = "5M";
+                            vMaxrate = "-maxrate 5M";
+                        }
+                                                                       
                         vOptions = "-pix_fmt yuv420p -qcomp 0.8";
                     }
+                    // -------------------------
+                    // x265
+                    // -------------------------
                     else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265")
                     {
-                        crf = "-crf 20 -x265-params crf=20";
-                        vBitrate = "5M" /* for 2 pass */;
+                        if ((string)mainwindow.cboPass.SelectedItem == "CRF")
+                        {
+                            vBitMode = string.Empty;
+                            vBitrate = string.Empty;
+                            crf = "-crf 20 -x265-params crf=20";
+                        }
+                        else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
+                            || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
+                        {
+                            vBitrate = "5M";
+                        }                       
+                        
                         vOptions = "-pix_fmt yuv420p";
                     }
+                    // -------------------------
+                    // Theora
+                    // -------------------------
                     else if ((string)mainwindow.cboVideoCodec.SelectedItem == "Theora")
                     {
-                        crf = "-q:v 10";
-                        vBitrate = "10" /* for 2 pass */; //OGV uses forced q:v instead of CRF
+                        if ((string)mainwindow.cboPass.SelectedItem == "CRF")
+                        {
+                            // OGV uses forced q:v instead of CRF
+                            vBitrate = "10";
+                        }
+                        else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
+                            || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
+                        {
+                            vBitrate = "10";
+                        }
+                  
                         vOptions = "-pix_fmt yuv420p";
-                    } 
+                    }
+                    // -------------------------
+                    // JPEG
+                    // -------------------------
                     else if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG")
                     {
                         crf = string.Empty;
@@ -659,37 +754,102 @@ namespace Axiom
                 // -------------------------
                 else if ((string)mainwindow.cboVideo.SelectedItem == "High")
                 {
+                    // -------------------------
+                    // VP8
+                    // -------------------------
                     if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8")
                     {
-                        crf = "-b:v 2M -crf 12" /* crf needs b:v 0*/;
-                        vBitrate = "2M" /* for 2 pass */;
+                        if ((string)mainwindow.cboPass.SelectedItem == "CRF")
+                        {
+                            vBitrate = "2M";
+                            crf = "-crf 12";
+                        }
+                        else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
+                            || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
+                        {
+                            vBitrate = "2M";
+                        }
+                              
                         vOptions = "-pix_fmt yuv420p";
                     }
+                    // -------------------------
+                    // VP9
+                    // -------------------------
                     else if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9")
                     {
-                        crf = "-b:v 2M -crf 12" /* crf needs b:v 0*/;
-                        vBitrate = "2M" /* for 2 pass */;
+                        if ((string)mainwindow.cboPass.SelectedItem == "CRF")
+                        {
+                            vBitrate = "2M";
+                            crf = "-crf 12";
+                        }
+                        else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
+                            || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
+                        {
+                            vBitrate = "2M";
+                        }
+                        
                         vOptions = "-pix_fmt yuv420p";
                     }
+                    // -------------------------
+                    // x264
+                    // -------------------------
                     else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264")
                     {
-                        crf = "-crf 20";
-                        vBitrate = "2500K" /* for 2 pass */;
-                        vMaxrate = "-maxrate 2500K";
+                        if ((string)mainwindow.cboPass.SelectedItem == "CRF")
+                        {
+                            vBitMode = string.Empty;
+                            vBitrate = string.Empty;
+                            crf = "-crf 20";
+                        }
+                        else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
+                            || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
+                        {
+                            vBitrate = "2500K";
+                            vMaxrate = "-maxrate 2500K";
+                        }
+
                         vOptions = "-pix_fmt yuv420p -qcomp 0.8";
                     }
+                    // -------------------------
+                    // x265
+                    // -------------------------
                     else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265")
                     {
-                        crf = "-crf 25 -x265-params crf=25";
-                        vBitrate = "2M" /* for 2 pass */;
+                        if ((string)mainwindow.cboPass.SelectedItem == "CRF")
+                        {
+                            vBitMode = string.Empty;
+                            vBitrate = string.Empty;
+                            crf = "-crf 25 -x265-params crf=25";
+                        }
+                        else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
+                            || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
+                        {
+                            vBitrate = "2M" /* for 2 pass */;
+                        }
+  
                         vOptions = "-pix_fmt yuv420p";
                     }
+                    // -------------------------
+                    // Theora
+                    // -------------------------
                     else if ((string)mainwindow.cboVideoCodec.SelectedItem == "Theora")
                     {
-                        crf = "-q:v 8"; //OGV uses forced q:v instead of CRF
-                        vBitrate = "8" /* for 2 pass */;
+                        if ((string)mainwindow.cboPass.SelectedItem == "CRF")
+                        {
+                            // OGV uses forced q:v instead of CRF
+                            vBitrate = "8";
+                        }
+                        else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
+                            || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
+                        {
+                            vBitrate = "8";
+                        }
+                                            
                         vOptions = "-pix_fmt yuv420p";
-                    } 
+                    }
+                    // -------------------------
+                    // JPEG
+                    // -------------------------
                     else if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG")
                     {
                         crf = string.Empty;
@@ -703,37 +863,102 @@ namespace Axiom
                 // -------------------------
                 else if ((string)mainwindow.cboVideo.SelectedItem == "Medium")
                 {
+                    // -------------------------
+                    // VP8
+                    // -------------------------
                     if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8")
                     {
-                        crf = "-b:v 1300K -crf 16" /* crf needs b:v 0*/;
-                        vBitrate = "1300K" /* for 2 pass */;
+                        if ((string)mainwindow.cboPass.SelectedItem == "CRF")
+                        {
+                            vBitrate = "1300K";
+                            crf = "-crf 16";
+                        }
+                        else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
+                            || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
+                        {
+                            vBitrate = "1300K" /* for 2 pass */;
+                        }
+                   
                         vOptions = "-pix_fmt yuv420p";
                     }
+                    // -------------------------
+                    // VP9
+                    // -------------------------
                     else if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9")
                     {
-                        crf = "-b:v 1300K -crf 16" /* crf needs b:v 0*/;
-                        vBitrate = "1300K" /* for 2 pass */;
+                        if ((string)mainwindow.cboPass.SelectedItem == "CRF")
+                        {
+                            vBitrate = "1300K";
+                            crf = "-crf 16";
+                        }
+                        else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
+                            || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
+                        {
+                            vBitrate = "1300K";
+                        }
+   
                         vOptions = "-pix_fmt yuv420p";
                     }
+                    // -------------------------
+                    // x264
+                    // -------------------------
                     else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264")
                     {
-                        crf = "-crf 28";
-                        vBitrate = "1300K" /* for 2 pass */;
-                        vMaxrate = "-maxrate 1300K";
+                        if ((string)mainwindow.cboPass.SelectedItem == "CRF")
+                        {
+                            vBitMode = string.Empty;
+                            vBitrate = string.Empty;
+                            crf = "-crf 28";
+                        }
+                        else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
+                            || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
+                        {
+                            vBitrate = "1300K";
+                            vMaxrate = "-maxrate 1300K";
+                        }
+
                         vOptions = "-pix_fmt yuv420p";
                     }
+                    // -------------------------
+                    // x265
+                    // -------------------------
                     else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265")
                     {
-                        crf = "-crf 30 -x265-params crf=30";
-                        vBitrate = "1300K" /* for 2 pass */;
+                        if ((string)mainwindow.cboPass.SelectedItem == "CRF")
+                        {
+                            vBitMode = string.Empty;
+                            vBitrate = string.Empty;
+                            crf = "-crf 30 -x265-params crf=30";
+                        }
+                        else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
+                            || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
+                        {
+                            vBitrate = "1300K";
+                        }
+
                         vOptions = "-pix_fmt yuv420p";
                     }
+                    // -------------------------
+                    // Theora
+                    // -------------------------
                     else if ((string)mainwindow.cboVideoCodec.SelectedItem == "Theora")
                     {
-                        crf = "-q:v 6"; //OGV uses forced q:v instead of CRF
-                        vBitrate = "6" /* for 2 pass */;
+                        if ((string)mainwindow.cboPass.SelectedItem == "CRF")
+                        {
+                            // OGV uses forced q:v instead of CRF
+                            vBitrate = "6";
+                        }
+                        else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
+                            || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
+                        {
+                            vBitrate = "6";
+                        }
+
                         vOptions = "-pix_fmt yuv420p";
-                    } 
+                    }
+                    // -------------------------
+                    // JPEG
+                    // -------------------------
                     else if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG")
                     {
                         crf = string.Empty;
@@ -747,37 +972,102 @@ namespace Axiom
                 // -------------------------
                 else if ((string)mainwindow.cboVideo.SelectedItem == "Low")
                 {
+                    // -------------------------
+                    // VP8
+                    // -------------------------
                     if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8")
                     {
-                        crf = "-b:v 600K -crf 20" /* crf needs b:v 0*/;
-                        vBitrate = "600K" /* for 2 pass */;
+                        if ((string)mainwindow.cboPass.SelectedItem == "CRF")
+                        {
+                            vBitrate = "600K";
+                            crf = "-crf 20";
+                        }
+                        else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
+                            || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
+                        {
+                            vBitrate = "600K";
+                        }
+                                
                         vOptions = "-pix_fmt yuv420p";
                     }
+                    // -------------------------
+                    // VP9
+                    // -------------------------
                     else if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9")
                     {
-                        crf = "-b:v 600K -crf 20" /* crf needs b:v 0*/;
-                        vBitrate = "600K" /* for 2 pass */;
+                        if ((string)mainwindow.cboPass.SelectedItem == "CRF")
+                        {
+                            vBitrate = "600K";
+                            crf = "-crf 20";
+                        }
+                        else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
+                            || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
+                        {
+                            vBitrate = "600K";
+                        }
+
                         vOptions = "-pix_fmt yuv420p";
                     }
+                    // -------------------------
+                    // x264
+                    // -------------------------
                     else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264")
                     {
-                        crf = "-crf 37";
-                        vBitrate = "600K" /* for 2 pass */;
-                        vMaxrate = "-maxrate 600K";
+                        if ((string)mainwindow.cboPass.SelectedItem == "CRF")
+                        {
+                            vBitMode = string.Empty;
+                            vBitrate = string.Empty;
+                            crf = "-crf 37";
+                        }
+                        else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
+                            || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
+                        {
+                            vBitrate = "600K";
+                            vMaxrate = "-maxrate 600K";
+                        }
+
                         vOptions = "-pix_fmt yuv420p";
                     }
+                    // -------------------------
+                    // x265
+                    // -------------------------
                     else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265")
                     {
-                        crf = "-crf 38 -x265-params crf=38";
-                        vBitrate = "600K" /* for 2 pass */;
+                        if ((string)mainwindow.cboPass.SelectedItem == "CRF")
+                        {
+                            vBitMode = string.Empty;
+                            vBitrate = string.Empty;
+                            crf = "-crf 38 -x265-params crf=38";
+                        }
+                        else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
+                            || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
+                        {
+                            vBitrate = "600K";
+                        }
+
                         vOptions = "-pix_fmt yuv420p";
                     }
+                    // -------------------------
+                    // Theora
+                    // -------------------------
                     else if ((string)mainwindow.cboVideoCodec.SelectedItem == "Theora")
                     {
-                        crf = "-q:v 4"; 
-                        vBitrate = "4" /* for 2 pass */; //OGV uses forced q:v instead of CRF
+                        if ((string)mainwindow.cboPass.SelectedItem == "CRF")
+                        {
+                            // OGV uses forced q:v instead of CRF
+                            vBitrate = "4";
+                        }
+                        else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
+                            || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
+                        {
+                            vBitrate = "4";
+                        }
+
                         vOptions = "-pix_fmt yuv420p";
-                    } 
+                    }
+                    // -------------------------
+                    // JPEG
+                    // -------------------------
                     else if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG")
                     {
                         crf = string.Empty;
@@ -791,37 +1081,102 @@ namespace Axiom
                 // -------------------------
                 else if ((string)mainwindow.cboVideo.SelectedItem == "Sub")
                 {
+                    // -------------------------
+                    // VP8
+                    // -------------------------
                     if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8")
                     {
-                        crf = "-b:v 250K -crf 25" /* crf needs b:v 0*/;
-                        vBitrate = "250K" /* for 2 pass */;
+                        if ((string)mainwindow.cboPass.SelectedItem == "CRF")
+                        {
+                            vBitrate = "250K";
+                            crf = "-crf 25";
+                        }
+                        else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
+                            || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
+                        {
+                            vBitrate = "250K";
+                        }
+
                         vOptions = "-pix_fmt yuv420p";
                     }
+                    // -------------------------
+                    // VP9
+                    // -------------------------
                     else if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9")
                     {
-                        crf = "-b:v 250K -crf 25" /* crf needs b:v 0*/;
-                        vBitrate = "250K" /* for 2 pass */;
+                        if ((string)mainwindow.cboPass.SelectedItem == "CRF")
+                        {
+                            vBitrate = "250K";
+                            crf = "-crf 25";
+                        }
+                        else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
+                            || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
+                        {
+                            vBitrate = "250K";
+                        }
+
                         vOptions = "-pix_fmt yuv420p";
                     }
+                    // -------------------------
+                    // x264
+                    // -------------------------
                     else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264")
                     {
-                        crf = "-crf 45";
-                        vBitrate = "250K" /* for 2 pass */;
-                        vMaxrate = "-maxrate 250K";
+                        if ((string)mainwindow.cboPass.SelectedItem == "CRF")
+                        {
+                            vBitMode = string.Empty;
+                            vBitrate = string.Empty;
+                            crf = "-crf 45";
+                        }
+                        else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
+                            || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
+                        {
+                            vBitrate = "250K";
+                            vMaxrate = "-maxrate 250K";
+                        }
+
                         vOptions = "-pix_fmt yuv420p";
                     }
+                    // -------------------------
+                    // x265
+                    // -------------------------
                     else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265")
                     {
-                        crf = "-crf 45 -x265-params crf=45";
-                        vBitrate = "250K" /* for 2 pass */;
+                        if ((string)mainwindow.cboPass.SelectedItem == "CRF")
+                        {
+                            vBitMode = string.Empty;
+                            vBitrate = string.Empty;
+                            crf = "-crf 45 -x265-params crf=45";
+                        }
+                        else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
+                            || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
+                        {
+                            vBitrate = "250K";
+                        }
+
                         vOptions = "-pix_fmt yuv420p";
                     }
+                    // -------------------------
+                    // Theora
+                    // -------------------------
                     else if ((string)mainwindow.cboVideoCodec.SelectedItem == "Theora")
                     {
-                        crf = "-q:v 2";
-                        vBitrate = "2" /* for 2 pass */; //OGV uses forced q:v instead of CRF
+                        if ((string)mainwindow.cboPass.SelectedItem == "CRF")
+                        {
+                            // OGV uses forced q:v instead of CRF
+                            vBitrate = "2";
+                        }
+                        else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
+                            || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
+                        {
+                            vBitrate = "2";
+                        }
+
                         vOptions = "-pix_fmt yuv420p";
-                    } 
+                    }
+                    // -------------------------
+                    // JPEG
+                    // -------------------------
                     else if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG")
                     {
                         crf = string.Empty;
@@ -854,6 +1209,7 @@ namespace Axiom
                         && !string.IsNullOrWhiteSpace(mainwindow.vBitrateCustom.Text))
                     {
                         vBitrate = mainwindow.vBitrateCustom.Text.ToString();
+                        vOptions = "-pix_fmt yuv420p";
                     }
 
                     // -------------------------
@@ -923,30 +1279,13 @@ namespace Axiom
                 // CRF
                 if ((string)mainwindow.cboPass.SelectedItem == "CRF")
                 {
-                    // Custom
-                    if ((string)mainwindow.cboVideo.SelectedItem == "Custom")
+                    vQualityArgs = new List<string>()
                     {
-                        // Include Custom vBitrate with CRF
-                        vQualityArgs = new List<string>()
-                        {
-                            vBitMode,
-                            vBitrate,
-                            crf,
-                            vOptions
-                        };
-                    }
-
-                    // Presets
-                    else
-                    {
-                        // High, Med, Low, Sub
-                        vQualityArgs = new List<string>()
-                        {
-                            crf,
-                            vOptions
-                        };
-                    }
-
+                        vBitMode,
+                        vBitrate,
+                        crf,
+                        vOptions
+                    };
                 }
 
                 // 1 Pass, 2 Pass, auto

@@ -108,7 +108,7 @@ namespace Axiom
                 previousItem = (string)mainwindow.cboChannel.SelectedItem;
 
                 // Change ItemSource
-                ChannelItemSource = new List<string>() { "Source", "Stereo", "Mono" };
+                ChannelItemSource = new List<string>() { "Source", "Stereo", "Mono", "5.1" };
 
                 // Populate ComboBox from ItemSource
                 mainwindow.cboChannel.ItemsSource = ChannelItemSource;
@@ -224,7 +224,7 @@ namespace Axiom
                 previousItem = (string)mainwindow.cboChannel.SelectedItem;
 
                 // Change ItemSource
-                ChannelItemSource = new List<string>() { "Source", "Stereo", "Mono" };
+                ChannelItemSource = new List<string>() { "Source", "Stereo", "Mono", "5.1" };
 
                 // Populate ComboBox from ItemSource
                 mainwindow.cboChannel.ItemsSource = ChannelItemSource;
@@ -339,7 +339,7 @@ namespace Axiom
                 previousItem = (string)mainwindow.cboChannel.SelectedItem;
 
                 // Change ItemSource
-                ChannelItemSource = new List<string>() { "Source", "Stereo", "Mono" };
+                ChannelItemSource = new List<string>() { "Source", "Stereo", "Mono", "5.1" };
 
                 // Populate ComboBox from ItemSource
                 mainwindow.cboChannel.ItemsSource = ChannelItemSource;
@@ -448,7 +448,7 @@ namespace Axiom
                 previousItem = (string)mainwindow.cboChannel.SelectedItem;
 
                 // Change ItemSource
-                ChannelItemSource = new List<string>() { "Source", "Stereo", "Mono" };
+                ChannelItemSource = new List<string>() { "Source", "Stereo", "Mono", "5.1" };
 
                 // Populate ComboBox from ItemSource
                 mainwindow.cboChannel.ItemsSource = ChannelItemSource;
@@ -564,7 +564,7 @@ namespace Axiom
                 previousItem = (string)mainwindow.cboChannel.SelectedItem;
 
                 // Change ItemSource
-                ChannelItemSource = new List<string>() { "Source", "Stereo", "Mono" };
+                ChannelItemSource = new List<string>() { "Source", "Stereo", "Mono", "5.1" };
 
                 // Populate ComboBox from ItemSource
                 mainwindow.cboChannel.ItemsSource = ChannelItemSource;
@@ -680,7 +680,7 @@ namespace Axiom
                 previousItem = (string)mainwindow.cboChannel.SelectedItem;
 
                 // Change ItemSource
-                ChannelItemSource = new List<string>() { "Source", "Stereo", "Joint Stereo", "Mono" };
+                ChannelItemSource = new List<string>() { "Source", "Stereo", "Joint Stereo", "Mono", "5.1" };
 
                 // Populate ComboBox from ItemSource
                 mainwindow.cboChannel.ItemsSource = ChannelItemSource;
@@ -779,7 +779,7 @@ namespace Axiom
                 previousItem = (string)mainwindow.cboChannel.SelectedItem;
 
                 // Change ItemSource
-                ChannelItemSource = new List<string>() { "Source", "Stereo", "Mono" };
+                ChannelItemSource = new List<string>() { "Source", "Stereo", "Mono", "5.1" };
 
                 // Populate ComboBox from ItemSource
                 mainwindow.cboChannel.ItemsSource = ChannelItemSource;
@@ -884,7 +884,7 @@ namespace Axiom
                 previousItem = (string)mainwindow.cboChannel.SelectedItem;
 
                 // Change ItemSource
-                ChannelItemSource = new List<string>() { "Source", "Stereo", "Mono" };
+                ChannelItemSource = new List<string>() { "Source", "Stereo", "Mono", "5.1" };
 
                 // Populate ComboBox from ItemSource
                 mainwindow.cboChannel.ItemsSource = ChannelItemSource;
@@ -998,7 +998,7 @@ namespace Axiom
                 previousItem = (string)mainwindow.cboChannel.SelectedItem;
 
                 // Change ItemSource
-                ChannelItemSource = new List<string>() { "Source", "Stereo", "Mono" };
+                ChannelItemSource = new List<string>() { "Source", "Stereo", "Mono", "5.1" };
 
                 // Populate ComboBox from ItemSource
                 mainwindow.cboChannel.ItemsSource = ChannelItemSource;
@@ -1089,7 +1089,7 @@ namespace Axiom
                 previousItem = (string)mainwindow.cboChannel.SelectedItem;
 
                 // Change ItemSource
-                ChannelItemSource = new List<string>() { "Source", "Stereo", "Mono" };
+                ChannelItemSource = new List<string>() { "Source", "Stereo", "Mono", "5.1" };
 
                 // Populate ComboBox from ItemSource
                 mainwindow.cboChannel.ItemsSource = ChannelItemSource;
