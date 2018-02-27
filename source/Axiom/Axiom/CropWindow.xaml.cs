@@ -184,7 +184,7 @@ namespace Axiom
 
             // Save Temp TextBox String Holder
             CropWindow.cropWidth = textBoxCropWidth.Text;
-            CropWindow.cropHeight = textBoxCropWidth.Text;
+            CropWindow.cropHeight = textBoxCropHeight.Text;
             CropWindow.cropX = textBoxCropX.Text;
             CropWindow.cropY = textBoxCropY.Text;
 
