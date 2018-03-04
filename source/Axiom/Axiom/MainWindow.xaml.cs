@@ -72,7 +72,7 @@ namespace Axiom
         /// <summary>
         ///     Debug Console
         /// </summary>
-        public DebugConsole debugconsole; //pass data
+        public static DebugConsole debugconsole; //pass data
 
         /// <summary>
         ///     File Properties Console
@@ -1388,27 +1388,57 @@ namespace Axiom
         private Boolean IsInfoWindowOpened = false;
         private void buttonInfo_Click(object sender, RoutedEventArgs e)
         {
-            // Detect which screen we're on
-            var allScreens = System.Windows.Forms.Screen.AllScreens.ToList();
-            var thisScreen = allScreens.SingleOrDefault(s => this.Left >= s.WorkingArea.Left && this.Left < s.WorkingArea.Right);
+            // Prevent Monitor Resolution Window Crash
+            //
+            try
+            {
+                // Detect which screen we're on
+                var allScreens = System.Windows.Forms.Screen.AllScreens.ToList();
+                var thisScreen = allScreens.SingleOrDefault(s => this.Left >= s.WorkingArea.Left && this.Left < s.WorkingArea.Right);
+                if (thisScreen == null) thisScreen = allScreens.First();
 
-            // Start Window
-            infowindow = new InfoWindow();
+                // Check if Window is already open
+                if (IsInfoWindowOpened) return;
 
-            // Keep Window on Top
-            infowindow.Owner = Window.GetWindow(this);
+                // Start Window
+                infowindow = new InfoWindow();
 
-            // Only allow 1 Window instance
-            if (IsInfoWindowOpened) return;
-            infowindow.ContentRendered += delegate { IsInfoWindowOpened = true; };
-            infowindow.Closed += delegate { IsInfoWindowOpened = false; };
+                // Only allow 1 Window instance
+                infowindow.ContentRendered += delegate { IsInfoWindowOpened = true; };
+                infowindow.Closed += delegate { IsInfoWindowOpened = false; };
 
-            // Position Relative to MainWindow
-            infowindow.Left = Math.Max((this.Left + (this.Width - infowindow.Width) / 2), thisScreen.WorkingArea.Left);
-            infowindow.Top = Math.Max((this.Top + (this.Height - infowindow.Height) / 2), thisScreen.WorkingArea.Top);
+                // Keep Window on Top
+                infowindow.Owner = Window.GetWindow(this);
 
-            // Open Window
-            infowindow.Show();
+                // Position Relative to MainWindow
+                infowindow.Left = Math.Max((this.Left + (this.Width - infowindow.Width) / 2), thisScreen.WorkingArea.Left);
+                infowindow.Top = Math.Max((this.Top + (this.Height - infowindow.Height) / 2), thisScreen.WorkingArea.Top);
+
+                // Open Window
+                infowindow.Show();
+            }
+            catch
+            {
+                // Check if Window is already open
+                if (IsInfoWindowOpened) return;
+
+                // Start Window
+                infowindow = new InfoWindow();
+
+                // Only allow 1 Window instance
+                infowindow.ContentRendered += delegate { IsInfoWindowOpened = true; };
+                infowindow.Closed += delegate { IsInfoWindowOpened = false; };
+
+                // Keep Window on Top
+                infowindow.Owner = Window.GetWindow(this);
+
+                // Position Relative to MainWindow
+                infowindow.Left = Math.Max((this.Left + (this.Width - infowindow.Width) / 2), this.Left);
+                infowindow.Top = Math.Max((this.Top + (this.Height - infowindow.Height) / 2), this.Top);
+
+                // Open Window
+                infowindow.Show();
+            }
         }
 
 
@@ -1417,23 +1447,44 @@ namespace Axiom
         /// </summary>
         private void buttonConfigure_Click(object sender, RoutedEventArgs e)
         {
-            // Detect which screen we're on
-            var allScreens = System.Windows.Forms.Screen.AllScreens.ToList();
-            var thisScreen = allScreens.SingleOrDefault(s => this.Left >= s.WorkingArea.Left && this.Left < s.WorkingArea.Right);
+            // Prevent Monitor Resolution Window Crash
+            //
+            try
+            {
+                // Detect which screen we're on
+                var allScreens = System.Windows.Forms.Screen.AllScreens.ToList();
+                var thisScreen = allScreens.SingleOrDefault(s => this.Left >= s.WorkingArea.Left && this.Left < s.WorkingArea.Right);
+                if (thisScreen == null) thisScreen = allScreens.First();
 
-            // Open Configure Window
-            configurewindow = new ConfigureWindow(this);
+                // Open Configure Window
+                configurewindow = new ConfigureWindow(this);
 
-            // Position Relative to MainWindow
-            // Keep from going off screen
-            configurewindow.Left = Math.Max((this.Left + (this.Width - configurewindow.Width) / 2), thisScreen.WorkingArea.Left);
-            configurewindow.Top = Math.Max(this.Top - configurewindow.Height - 12, thisScreen.WorkingArea.Top);
+                // Keep Window on Top
+                configurewindow.Owner = Window.GetWindow(this);
 
-            // Keep Window on Top
-            configurewindow.Owner = Window.GetWindow(this);
+                // Position Relative to MainWindow
+                // Keep from going off screen
+                configurewindow.Left = Math.Max((this.Left + (this.Width - configurewindow.Width) / 2), thisScreen.WorkingArea.Left);
+                configurewindow.Top = Math.Max(this.Top - configurewindow.Height - 12, thisScreen.WorkingArea.Top);
 
-            // Open Winndow
-            configurewindow.ShowDialog();
+                // Open Winndow
+                configurewindow.ShowDialog();
+            }
+            catch
+            {
+                // Open Configure Window
+                configurewindow = new ConfigureWindow(this);
+
+                // Keep Window on Top
+                configurewindow.Owner = Window.GetWindow(this);
+
+                // Position Relative to MainWindow
+                configurewindow.Left = Math.Max((this.Left + (this.Width - configurewindow.Width) / 2), this.Left);
+                configurewindow.Top = Math.Max((this.Top + (this.Height - configurewindow.Height) / 2), this.Top);
+
+                // Open Winndow
+                configurewindow.ShowDialog();
+            }
         }
 
 
@@ -1442,17 +1493,33 @@ namespace Axiom
         /// </summary>
         private void buttonLogConsole_Click(object sender, RoutedEventArgs e)
         {
-            // Detect which screen we're on
-            var allScreens = System.Windows.Forms.Screen.AllScreens.ToList();
-            var thisScreen = allScreens.SingleOrDefault(s => this.Left >= s.WorkingArea.Left && this.Left < s.WorkingArea.Right);
+            // Prevent Monitor Resolution Window Crash
+            //
+            try
+            {
+                // Detect which screen we're on
+                var allScreens = System.Windows.Forms.Screen.AllScreens.ToList();
+                var thisScreen = allScreens.SingleOrDefault(s => this.Left >= s.WorkingArea.Left && this.Left < s.WorkingArea.Right);
+                if (thisScreen == null) thisScreen = allScreens.First();
 
-            // Position Relative to MainWindow
-            // Keep from going off screen
-            logconsole.Left = Math.Min(this.Left + this.ActualWidth + 12, thisScreen.WorkingArea.Right - logconsole.Width);
-            logconsole.Top = Math.Min(this.Top + 0, thisScreen.WorkingArea.Bottom - logconsole.Height);
+                // Position Relative to MainWindow
+                // Keep from going off screen
+                logconsole.Left = Math.Min(this.Left + this.ActualWidth + 12, thisScreen.WorkingArea.Right - logconsole.Width);
+                logconsole.Top = Math.Min(this.Top + 0, thisScreen.WorkingArea.Bottom - logconsole.Height);
 
-            // Open Winndow
-            logconsole.Show();
+                // Open Winndow
+                logconsole.Show();
+            }
+            catch
+            {
+                // Position Relative to MainWindow
+                // Keep from going off screen
+                logconsole.Left = this.Left + this.ActualWidth + 12;
+                logconsole.Top = this.Top;
+
+                // Open Winndow
+                logconsole.Show();
+            }
         }
 
         /// <summary>
@@ -1461,32 +1528,59 @@ namespace Axiom
         private Boolean IsDebugConsoleOpened = false;
         private void buttonDebugConsole_Click(object sender, RoutedEventArgs e)
         {
-            // -------------------------
-            // Open Debug Console Window
-            // -------------------------
+            // Prevent Monitor Resolution Window Crash
+            //
+            try
+            {
+                // Detect which screen we're on
+                var allScreens = System.Windows.Forms.Screen.AllScreens.ToList();
+                var thisScreen = allScreens.SingleOrDefault(s => this.Left >= s.WorkingArea.Left && this.Left < s.WorkingArea.Right);
+                if (thisScreen == null) thisScreen = allScreens.First();
 
-            // Detect which screen we're on
-            var allScreens = System.Windows.Forms.Screen.AllScreens.ToList();
-            var thisScreen = allScreens.SingleOrDefault(s => this.Left >= s.WorkingArea.Left && this.Left < s.WorkingArea.Right);
+                // Check if Window is already open
+                if (IsDebugConsoleOpened) return;
 
-            // Start Window
-            debugconsole = new DebugConsole(this, configurewindow);
+                // Start Window
+                debugconsole = new DebugConsole(this, configurewindow);
 
-            // Only allow 1 Window instance
-            if (IsDebugConsoleOpened) return;
-            debugconsole.ContentRendered += delegate { IsDebugConsoleOpened = true; };
-            debugconsole.Closed += delegate { IsDebugConsoleOpened = false; };
+                // Only allow 1 Window instance
+                debugconsole.ContentRendered += delegate { IsDebugConsoleOpened = true; };
+                debugconsole.Closed += delegate { IsDebugConsoleOpened = false; };
 
-            // Position Relative to MainWindow
-            // Keep from going off screen
-            debugconsole.Left = Math.Max(this.Left - debugconsole.Width - 12, thisScreen.WorkingArea.Left);
-            debugconsole.Top = Math.Max(this.Top - 0, thisScreen.WorkingArea.Top);
+                // Position Relative to MainWindow
+                // Keep from going off screen
+                debugconsole.Left = Math.Max(this.Left - debugconsole.Width - 12, thisScreen.WorkingArea.Left);
+                debugconsole.Top = Math.Max(this.Top - 0, thisScreen.WorkingArea.Top);
 
-            // Write Variables to Debug Window (Method)
-            DebugConsole.DebugWrite(debugconsole, this);
+                // Write Variables to Debug Window (Method)
+                DebugConsole.DebugWrite(debugconsole, this);
 
-            // Open Window
-            debugconsole.Show();
+                // Open Window
+                debugconsole.Show();
+            }
+            catch
+            {
+                // Check if Window is already open
+                if (IsDebugConsoleOpened) return;
+
+                // Start Window
+                debugconsole = new DebugConsole(this, configurewindow);
+
+                // Only allow 1 Window instance
+                debugconsole.ContentRendered += delegate { IsDebugConsoleOpened = true; };
+                debugconsole.Closed += delegate { IsDebugConsoleOpened = false; };
+
+                // Position Relative to MainWindow
+                // Keep from going off screen
+                debugconsole.Left = this.Left - debugconsole.Width - 12;
+                debugconsole.Top = this.Top;
+
+                // Write Variables to Debug Window (Method)
+                DebugConsole.DebugWrite(debugconsole, this);
+
+                // Open Window
+                debugconsole.Show();
+            }
         }
 
         /// <summary>
@@ -1495,33 +1589,58 @@ namespace Axiom
         private Boolean IsFilePropertiesOpened = false;
         private void buttonProperties_Click(object sender, RoutedEventArgs e)
         {
-            /// <summary>
-            ///    FFprobe Video Entry Type Containers
-            /// </summary> 
-            //FFprobe.InputFileProperties(this);
+            // Prevent Monitor Resolution Window Crash
+            //
+            try
+            {
+                // Detect which screen we're on
+                var allScreens = System.Windows.Forms.Screen.AllScreens.ToList();
+                var thisScreen = allScreens.SingleOrDefault(s => this.Left >= s.WorkingArea.Left && this.Left < s.WorkingArea.Right);
+                if (thisScreen == null) thisScreen = allScreens.First();
 
-            // Detect which screen we're on
-            var allScreens = System.Windows.Forms.Screen.AllScreens.ToList();
-            var thisScreen = allScreens.SingleOrDefault(s => this.Left >= s.WorkingArea.Left && this.Left < s.WorkingArea.Right);
+                // Check if Window is already open
+                if (IsFilePropertiesOpened) return;
 
-            // Start window
-            //MainWindow mainwindow = this;
-            filepropwindow = new FilePropertiesWindow(this);
+                // Start window
+                //MainWindow mainwindow = this;
+                filepropwindow = new FilePropertiesWindow(this);
 
-            // Only allow 1 Window instance
-            if (IsFilePropertiesOpened) return;
-            filepropwindow.ContentRendered += delegate { IsFilePropertiesOpened = true; };
-            filepropwindow.Closed += delegate { IsFilePropertiesOpened = false; };
+                // Only allow 1 Window instance
+                filepropwindow.ContentRendered += delegate { IsFilePropertiesOpened = true; };
+                filepropwindow.Closed += delegate { IsFilePropertiesOpened = false; };
 
-            // Position Relative to MainWindow
-            // Keep from going off screen
-            filepropwindow.Left = Math.Max((this.Left + (this.Width - filepropwindow.Width) / 2), thisScreen.WorkingArea.Left);
-            filepropwindow.Top = Math.Max((this.Top + (this.Height - filepropwindow.Height) / 2), thisScreen.WorkingArea.Top);
+                // Position Relative to MainWindow
+                // Keep from going off screen
+                filepropwindow.Left = Math.Max((this.Left + (this.Width - filepropwindow.Width) / 2), thisScreen.WorkingArea.Left);
+                filepropwindow.Top = Math.Max((this.Top + (this.Height - filepropwindow.Height) / 2), thisScreen.WorkingArea.Top);
 
-            // Write Properties to Textbox in FilePropertiesWindow Initialize
+                // Write Properties to Textbox in FilePropertiesWindow Initialize
 
-            // Open Window
-            filepropwindow.Show();
+                // Open Window
+                filepropwindow.Show();
+            }
+            catch
+            {
+                // Check if Window is already open
+                if (IsFilePropertiesOpened) return;
+
+                // Start window
+                filepropwindow = new FilePropertiesWindow(this);
+
+                // Only allow 1 Window instance
+                filepropwindow.ContentRendered += delegate { IsFilePropertiesOpened = true; };
+                filepropwindow.Closed += delegate { IsFilePropertiesOpened = false; };
+
+                // Position Relative to MainWindow
+                // Keep from going off screen
+                filepropwindow.Left = Math.Max((this.Left + (this.Width - filepropwindow.Width) / 2), this.Left);
+                filepropwindow.Top = Math.Max((this.Top + (this.Height - filepropwindow.Height) / 2), this.Top);
+
+                // Write Properties to Textbox in FilePropertiesWindow Initialize
+
+                // Open Window
+                filepropwindow.Show();
+            }
         }
 
 
@@ -1593,28 +1712,59 @@ namespace Axiom
                         switch (result)
                         {
                             case MessageBoxResult.Yes:
-                                // Detect which screen we're on
-                                var allScreens = System.Windows.Forms.Screen.AllScreens.ToList();
-                                var thisScreen = allScreens.SingleOrDefault(s => this.Left >= s.WorkingArea.Left && this.Left < s.WorkingArea.Right);
+                                // Prevent Monitor Resolution Window Crash
+                                //
+                                try
+                                {
+                                    // Detect which screen we're on
+                                    var allScreens = System.Windows.Forms.Screen.AllScreens.ToList();
+                                    var thisScreen = allScreens.SingleOrDefault(s => this.Left >= s.WorkingArea.Left && this.Left < s.WorkingArea.Right);
+                                    if (thisScreen == null) thisScreen = allScreens.First();
 
-                                // Start Window
-                                updatewindow = new UpdateWindow();
+                                    // Check if Window is already open
+                                    if (IsUpdateWindowOpened) return;
 
-                                // Keep in Front
-                                updatewindow.Owner = Window.GetWindow(this);
+                                    // Start Window
+                                    updatewindow = new UpdateWindow();
 
-                                // Only allow 1 Window instance
-                                if (IsUpdateWindowOpened) return;
-                                updatewindow.ContentRendered += delegate { IsUpdateWindowOpened = true; };
-                                updatewindow.Closed += delegate { IsUpdateWindowOpened = false; };
+                                    // Keep in Front
+                                    updatewindow.Owner = Window.GetWindow(this);
 
-                                // Position Relative to MainWindow
-                                // Keep from going off screen
-                                updatewindow.Left = Math.Max((this.Left + (this.Width - updatewindow.Width) / 2), thisScreen.WorkingArea.Left);
-                                updatewindow.Top = Math.Max((this.Top + (this.Height - updatewindow.Height) / 2), thisScreen.WorkingArea.Top);
+                                    // Only allow 1 Window instance
+                                    updatewindow.ContentRendered += delegate { IsUpdateWindowOpened = true; };
+                                    updatewindow.Closed += delegate { IsUpdateWindowOpened = false; };
 
-                                // Open Window
-                                updatewindow.Show();
+                                    // Position Relative to MainWindow
+                                    // Keep from going off screen
+                                    updatewindow.Left = Math.Max((this.Left + (this.Width - updatewindow.Width) / 2), thisScreen.WorkingArea.Left);
+                                    updatewindow.Top = Math.Max((this.Top + (this.Height - updatewindow.Height) / 2), thisScreen.WorkingArea.Top);
+
+                                    // Open Window
+                                    updatewindow.Show();
+                                }
+                                catch
+                                {
+                                    // Check if Window is already open
+                                    if (IsUpdateWindowOpened) return;
+
+                                    // Start Window
+                                    updatewindow = new UpdateWindow();
+
+                                    // Keep in Front
+                                    updatewindow.Owner = Window.GetWindow(this);
+
+                                    // Only allow 1 Window instance
+                                    updatewindow.ContentRendered += delegate { IsUpdateWindowOpened = true; };
+                                    updatewindow.Closed += delegate { IsUpdateWindowOpened = false; };
+
+                                    // Position Relative to MainWindow
+                                    // Keep from going off screen
+                                    updatewindow.Left = Math.Max((this.Left + (this.Width - updatewindow.Width) / 2), this.Left);
+                                    updatewindow.Top = Math.Max((this.Top + (this.Height - updatewindow.Height) / 2), this.Top);
+
+                                    // Open Window
+                                    updatewindow.Show();
+                                }
                                 break;
                             case MessageBoxResult.No:
                                 break;
@@ -3342,7 +3492,6 @@ namespace Axiom
                 /// </summary> 
                 Log.LogWriteAll(this, configurewindow);
 
-
                 /// <summary>
                 ///    Restart
                 /// </summary> 
@@ -3352,7 +3501,7 @@ namespace Axiom
                 // -------------------------
                 // Write Variables to Debug Window (Method)
                 // -------------------------
-                DebugConsole.DebugWrite(debugconsole, this);
+                //DebugConsole.DebugWrite(debugconsole, this);
 
                 // -------------------------
                 // Clear Variables for next Run

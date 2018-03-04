@@ -260,7 +260,7 @@ namespace Axiom
             debugParagraph.Inlines.Add(new Bold(new Run("threads ")) { Foreground = Variable });
             debugParagraph.Inlines.Add(new Run(MainWindow.threads) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
-        
+
             debugParagraph.Inlines.Add(new Bold(new Run("maxthreads ")) { Foreground = Variable });
             debugParagraph.Inlines.Add(new Run(MainWindow.maxthreads) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());

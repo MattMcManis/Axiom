@@ -39,7 +39,6 @@ namespace Axiom
             this.MinHeight = 335;
             this.MaxWidth = 445;
             this.MaxHeight = 335;
-
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)

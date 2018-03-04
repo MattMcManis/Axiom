@@ -30,7 +30,8 @@
         
         Title="Configure" 
         Height="200" Width="450" 
-        ResizeMode="CanMinimize" UseLayoutRounding="True"
+        ResizeMode="CanMinimize" 
+        UseLayoutRounding="True"
         Icon="Resources/Images/Icons/configure.ico"   
         Style="{DynamicResource WindowConfigure}">
     <Grid >
