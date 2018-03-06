@@ -1,6 +1,6 @@
 ﻿<!-- 
     Axiom UI
-    Copyright (C) 2017 Matt McManis
+    Copyright (C) 2017, 2018 Matt McManis
     http://github.com/MattMcManis/Axiom
     http://axiomui.github.io
     axiom.interface@gmail.com
@@ -25,6 +25,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:System="clr-namespace:System;assembly=mscorlib" 
         xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
+        mc:Ignorable="d"
+        
         Title="Optimize Advanced" Height="200" Width="371" Icon="Resources/Images/Icons/axiom.ico"
         ResizeMode="CanMinimize" UseLayoutRounding="True"
         Style="{DynamicResource WindowOptimizeAdvanced}">

@@ -1,6 +1,6 @@
 ﻿/* ----------------------------------------------------------------------
 Axiom UI
-Copyright (C) 2017 Matt McManis
+Copyright (C) 2017, 2018 Matt McManis
 http://github.com/MattMcManis/Axiom
 http://axiomui.github.io
 axiom.interface@gmail.com
@@ -128,7 +128,31 @@ namespace Axiom
                 // PCM
                 else if ((string)mainwindow.cboAudioCodec.SelectedItem == "PCM")
                 {
-                    aCodec = string.Empty; // Codec not needed for PCM or Controlled by "PCM Match Bit Depth Audio" Section
+                    // Codec and BitDepth are the same
+                    if ((string)mainwindow.cboBitDepth.SelectedItem == "auto")
+                    {
+                        aCodec = "-c:a pcm_s24le";
+                    }
+                    if ((string)mainwindow.cboBitDepth.SelectedItem == "8")
+                    {
+                        aCodec = "-c:a pcm_u8";
+                    }
+                    if ((string)mainwindow.cboBitDepth.SelectedItem == "16")
+                    {
+                        aCodec = "-c:a pcm_s16le";
+                    }
+                    if ((string)mainwindow.cboBitDepth.SelectedItem == "24")
+                    {
+                        aCodec = "-c:a pcm_s24le";
+                    }
+                    if ((string)mainwindow.cboBitDepth.SelectedItem == "32")
+                    {
+                        aCodec = "-c:a pcm_f32le";
+                    }
+                    if ((string)mainwindow.cboBitDepth.SelectedItem == "64")
+                    {
+                        aCodec = "-c:a pcm_f64le";
+                    }
                 }
                 // Copy
                 else if ((string)mainwindow.cboAudioCodec.SelectedItem == "Copy")

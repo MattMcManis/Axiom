@@ -1,6 +1,6 @@
 ﻿/* ----------------------------------------------------------------------
 Axiom UI
-Copyright (C) 2017 Matt McManis
+Copyright (C) 2017, 2018 Matt McManis
 http://github.com/MattMcManis/Axiom
 http://axiomui.github.io
 axiom.interface@gmail.com
@@ -245,11 +245,18 @@ namespace Axiom
             // -------------------------
             // Window Position
             // -------------------------
-            // First time use
-            if (Convert.ToDouble(Settings.Default["Left"]) == 0 || Convert.ToDouble(Settings.Default["Top"]) == 0)
+            try
             {
-                this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            }           
+                // First time use
+                if (Convert.ToDouble(Settings.Default["Left"]) == 0 || Convert.ToDouble(Settings.Default["Top"]) == 0)
+                {
+                    this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                }
+            }
+            catch
+            {
+
+            }         
 
             // -------------------------
             // Load Theme
@@ -333,7 +340,7 @@ namespace Axiom
                 // --------------------------
                 if (string.IsNullOrEmpty(Convert.ToString(Settings.Default.KeepWindow)))
                 {
-                    tglWindowKeep.IsChecked = false;
+                    tglWindowKeep.IsChecked = true;
                 }
                 // --------------------------
                 // Load Saved Settings Override
@@ -404,6 +411,8 @@ namespace Axiom
             cboCut.SelectedIndex = 0;
             cboSize.SelectedIndex = 0;
             cboPreset.SelectedIndex = 0;
+
+            tglWindowKeep.IsChecked = true;
 
             //AudioControls.Audio_SelectedItem = AudioControls.AudioItemSource[0];
             //AudioControls.Audio_SelectedItem = AudioControls.AudioItemSource[0];
@@ -1417,6 +1426,7 @@ namespace Axiom
                 // Open Window
                 infowindow.Show();
             }
+            // Simplified
             catch
             {
                 // Check if Window is already open
@@ -1470,6 +1480,7 @@ namespace Axiom
                 // Open Winndow
                 configurewindow.ShowDialog();
             }
+            // Simplified
             catch
             {
                 // Open Configure Window
@@ -1510,6 +1521,7 @@ namespace Axiom
                 // Open Winndow
                 logconsole.Show();
             }
+            // Simplified
             catch
             {
                 // Position Relative to MainWindow
@@ -1558,6 +1570,7 @@ namespace Axiom
                 // Open Window
                 debugconsole.Show();
             }
+            // Simplified
             catch
             {
                 // Check if Window is already open
@@ -1619,6 +1632,7 @@ namespace Axiom
                 // Open Window
                 filepropwindow.Show();
             }
+            // Simplified
             catch
             {
                 // Check if Window is already open
@@ -1742,6 +1756,7 @@ namespace Axiom
                                     // Open Window
                                     updatewindow.Show();
                                 }
+                                // Simplified
                                 catch
                                 {
                                     // Check if Window is already open
@@ -2669,7 +2684,11 @@ namespace Axiom
             VideoControls.VideoCodecControls(this);
 
             // Video Encoding Pass Controls Method
-            VideoControls.EncodingPass(this); 
+            VideoControls.EncodingPass(this);
+
+            // Display Video Bit-rate in TextBox
+            // Must be after EncodingPass
+            VideoDisplayBitrate();
         }
 
 
@@ -2760,9 +2779,9 @@ namespace Axiom
             else
             {
                 crfCustom.IsEnabled = false;
-                crfCustom.Text = "CRF";
+                //crfCustom.Text = "CRF";
                 vBitrateCustom.IsEnabled = false;
-                vBitrateCustom.Text = "Bitrate";
+                //vBitrateCustom.Text = "Bitrate";
             }
 
             // -------------------------
@@ -2787,13 +2806,79 @@ namespace Axiom
             // -------------------------
             // Keep in Video SelectionChanged
             // If Video Not Auto and User Willingly Selected Pass is false
-            if ((string)cboVideo.SelectedItem != "Auto" && VideoControls.passUserSelected == false)
+            if ((string)cboVideo.SelectedItem != "Auto" 
+                && VideoControls.passUserSelected == false)
             {
                 cboPass.SelectedItem = "CRF";
             }
 
+
+            // -------------------------
+            // Display Bit-rate in TextBox
+            // -------------------------
+            VideoDisplayBitrate();
+            //if ((string)cboVideo.SelectedItem != "Auto"
+            //    && (string)cboVideo.SelectedItem != "Lossless"
+            //    && (string)cboVideo.SelectedItem != "Custom"
+            //    && (string)cboVideo.SelectedItem != "None"
+            //    && !string.IsNullOrEmpty((string)cboVideo.SelectedItem))
+            //{
+            //    //Video.vBitrate = string.Empty;
+            //    //Video.crf = string.Empty;
+            //    // TextBox Displayed placed at the end of VideoQuality Method
+            //    Video.VideoQuality(this);
+
+            //    // Display Bit-rate in TextBox
+            //    if (!string.IsNullOrEmpty(Video.vBitrate))
+            //    {
+            //        vBitrateCustom.Text = Video.vBitrate;
+            //    }
+            //    if (!string.IsNullOrEmpty(Video.crf))
+            //    {
+            //        crfCustom.Text = Video.crf.Replace("-crf ", "");
+            //    }
+            //}
+            //else
+            //{
+            //    vBitrateCustom.Text = "Bitrate";
+            //    crfCustom.Text = "CRF";
+            //}
+
         } // End Video Combobox
 
+
+        /// <summary>
+        ///    Video Display Bit-rate
+        /// </summary>
+        public void VideoDisplayBitrate()
+        {
+            if ((string)cboVideo.SelectedItem != "Auto"
+                && (string)cboVideo.SelectedItem != "Lossless"
+                && (string)cboVideo.SelectedItem != "Custom"
+                && (string)cboVideo.SelectedItem != "None"
+                && !string.IsNullOrEmpty((string)cboVideo.SelectedItem))
+            {
+                //Video.vBitrate = string.Empty;
+                //Video.crf = string.Empty;
+                // TextBox Displayed placed at the end of VideoQuality Method
+                Video.VideoQuality(this);
+
+                // Display Bit-rate in TextBox
+                if (!string.IsNullOrEmpty(Video.vBitrate))
+                {
+                    vBitrateCustom.Text = Video.vBitrate;
+                }
+                if (!string.IsNullOrEmpty(Video.crf))
+                {
+                    crfCustom.Text = Video.crf.Replace("-crf ", "");
+                }
+            }
+            else
+            {
+                vBitrateCustom.Text = "Bitrate";
+                crfCustom.Text = "CRF";
+            }
+        }
 
         /// <summary>
         ///    Audio Quality Combobox
@@ -2811,7 +2896,7 @@ namespace Axiom
             else
             {
                 audioCustom.IsEnabled = false;
-                audioCustom.Text = "kbps";
+                //audioCustom.Text = "kbps";
             }
 
             // -------------------------
@@ -2892,7 +2977,26 @@ namespace Axiom
             // Set Audio Codec Combobox to "Copy" if Input Extension is Same as Output Extension and Audio Quality is Auto
             AudioControls.AutoCopyAudioCodec(this);
 
+
+            // -------------------------
+            // Display Bit-rate in TextBox
+            // -------------------------
+            if ((string)cboAudio.SelectedItem != "Auto"
+                && (string)cboAudio.SelectedItem != "Lossless"
+                && (string)cboAudio.SelectedItem != "Custom"
+                && (string)cboAudio.SelectedItem != "Mute"
+                && (string)cboAudio.SelectedItem != "None"
+                && !string.IsNullOrEmpty((string)cboAudio.SelectedItem))
+            {
+                audioCustom.Text = cboAudio.SelectedItem.ToString() + "k";
+            }
+            else
+            {
+                audioCustom.Text = "kbps";
+            }
+
         } // End audio_SelectionChanged
+
 
 
         /// <summary>

@@ -1,6 +1,6 @@
 ﻿/* ----------------------------------------------------------------------
 Axiom UI
-Copyright (C) 2017 Matt McManis
+Copyright (C) 2017, 2018 Matt McManis
 http://github.com/MattMcManis/Axiom
 http://axiomui.github.io
 axiom.interface@gmail.com
@@ -659,6 +659,7 @@ namespace Axiom
                             || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
                         {
                             vBitrate = "4M";
+                            crf = string.Empty;
                         }
 
                         vOptions = "-pix_fmt yuv420p";
@@ -1332,7 +1333,6 @@ namespace Axiom
                 Log.LogActions.Add(Log.WriteAction);
 
             } // end Null Check
-
 
             // Return Value
             return vQuality;

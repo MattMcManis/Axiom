@@ -1,6 +1,6 @@
 ﻿<!-- 
     Axiom UI
-    Copyright (C) 2017 Matt McManis
+    Copyright (C) 2017, 2018 Matt McManis
     http://github.com/MattMcManis/Axiom
     http://axiomui.github.io
     axiom.interface@gmail.com
@@ -24,9 +24,7 @@
         xmlns:System="clr-namespace:System;assembly=mscorlib"
         Title="File Queue" Height="400" Width="320" Icon="axiom.ico"
         ResizeMode="CanMinimize" UseLayoutRounding="True">
-    <Window.Background>
-        <ImageBrush ImageSource="Resources/Images/config-background.jpg" Stretch="UniformToFill"/>
-    </Window.Background>
+
     <Grid>
 
         <!-- ListView Cores To Download -->

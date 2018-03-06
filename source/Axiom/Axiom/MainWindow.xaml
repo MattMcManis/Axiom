@@ -1,6 +1,6 @@
 ﻿<!-- 
     Axiom UI
-    Copyright (C) 2017 Matt McManis
+    Copyright (C) 2017, 2018 Matt McManis
     http://github.com/MattMcManis/Axiom
     http://axiomui.github.io
     axiom.interface@gmail.com
@@ -28,6 +28,7 @@
         xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
         xmlns:my="clr-namespace:Axiom"
         xmlns:settings="clr-namespace:Axiom.Properties"
+        mc:Ignorable="d"
                
         Loaded="Window_Loaded" 
         Closing="Window_Closing"  
@@ -45,52 +46,195 @@
     <Grid>
 
         <!-- Browse Button -->
-        <Button x:Name="buttonBrowse" Style="{DynamicResource ButtonCustom}" HorizontalAlignment="Left" Margin="10,12,0,0" VerticalAlignment="Top" Width="75" Height="22" Cursor="Hand" Click="buttonBrowse_Click">
-            <TextBlock x:Name="buttonBrowseTextBlock" Text="Input" Margin="0,-2,0,0"/>
+        <Button x:Name="buttonBrowse" 
+                Style="{DynamicResource ButtonCustom}"
+                HorizontalAlignment="Left" 
+                Margin="10,12,0,0" 
+                VerticalAlignment="Top" 
+                Width="75" Height="22" 
+                Cursor="Hand" 
+                Click="buttonBrowse_Click">
+            <TextBlock x:Name="buttonBrowseTextBlock" 
+                       Text="Input" 
+                       Margin="0,-2,0,0"/>
         </Button>
+        
         <!-- Browse Textbox -->
-        <TextBox x:Name="tbxInput" Style="{DynamicResource TextBoxBrowseCustom}" HorizontalAlignment="Left" Height="22" Margin="93,12,0,0" Padding="2, 0, 0, 0" TextWrapping="NoWrap" MaxLines="1" VerticalAlignment="Top" Width="469" TextChanged="tbxInput_TextChanged"/>
+        <TextBox x:Name="tbxInput"
+                 Style="{DynamicResource TextBoxBrowseCustom}" 
+                 HorizontalAlignment="Left" 
+                 Height="22" 
+                 Margin="93,12,0,0"
+                 Padding="2, 0, 0, 0" 
+                 TextWrapping="NoWrap"
+                 MaxLines="1"
+                 VerticalAlignment="Top" 
+                 Width="469"
+                 TextChanged="tbxInput_TextChanged"/>
 
         <!-- Output Button -->
-        <Button x:Name="buttonOutput" Style="{DynamicResource ButtonCustom}" HorizontalAlignment="Left" Margin="10,43,0,0" VerticalAlignment="Top" Width="75" Height="22" Cursor="Hand" Click="buttonOutput_Click">
-            <TextBlock x:Name="buttonOutputTextBlock" Text="Output" Margin="0,-2,0,0"/>
+        <Button x:Name="buttonOutput"
+                Style="{DynamicResource ButtonCustom}" 
+                HorizontalAlignment="Left" 
+                Margin="10,43,0,0" VerticalAlignment="Top" 
+                Width="75"
+                Height="22"
+                Cursor="Hand" 
+                Click="buttonOutput_Click">
+            <TextBlock x:Name="buttonOutputTextBlock" 
+                       Text="Output"
+                       Margin="0,-2,0,0"/>
         </Button>
+        
         <!-- Output Textbox-->
-        <TextBox x:Name="tbxOutput" Style="{DynamicResource TextBoxBrowseCustom}" HorizontalAlignment="Left" Height="22" Margin="93,43,0,0" Padding="2, 0, 0, 0" TextWrapping="NoWrap" MaxLines="1" VerticalAlignment="Top" Width="469" TextChanged="tbxOutput_TextChanged"/>
+        <TextBox x:Name="tbxOutput" 
+                 Style="{DynamicResource TextBoxBrowseCustom}" 
+                 HorizontalAlignment="Left"
+                 Height="22" 
+                 Margin="93,43,0,0"
+                 Padding="2, 0, 0, 0" 
+                 TextWrapping="NoWrap" 
+                 MaxLines="1"
+                 VerticalAlignment="Top"
+                 Width="469" 
+                 TextChanged="tbxOutput_TextChanged"/>
 
         <!-- Input Location Button -->
-        <Button x:Name="openLocationInput" Style="{DynamicResource ButtonFolderCustom}" HorizontalAlignment="Left" Margin="567,12,0,0" VerticalAlignment="Top" Width="22" Cursor="Hand" Height="22" Click="openLocationInput_Click" ToolTip="Open this location">
-            <Image Width="11" Height="7" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="1,0,0,0" Style="{DynamicResource ButtonQuickFolder}" />
+        <Button x:Name="openLocationInput" 
+                Style="{DynamicResource ButtonFolderCustom}" 
+                HorizontalAlignment="Left" 
+                Margin="567,12,0,0" 
+                VerticalAlignment="Top" 
+                Width="22" 
+                Cursor="Hand" 
+                Height="22" 
+                Click="openLocationInput_Click"
+                ToolTip="Open this location">
+            <Image Width="11" 
+                   Height="7" 
+                   Stretch="Uniform" 
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center" 
+                   Margin="1,0,0,0" 
+                   Style="{DynamicResource ButtonQuickFolder}" />
         </Button>
 
         <!-- Output Location Button -->
-        <Button x:Name="openLocationOutput" Style="{DynamicResource ButtonFolderCustom}" HorizontalAlignment="Left" Margin="567,43,0,0" VerticalAlignment="Top" Width="22" Cursor="Hand" Height="22" Click="openLocationOutput_Click" ToolTip="Open this location">
-            <Image Width="11" Height="7" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="1,0,0,0" Style="{DynamicResource ButtonQuickFolder}" />
+        <Button x:Name="openLocationOutput"
+                Style="{DynamicResource ButtonFolderCustom}"
+                HorizontalAlignment="Left" 
+                Margin="567,43,0,0"
+                VerticalAlignment="Top" 
+                Width="22" 
+                Cursor="Hand"
+                Height="22" 
+                Click="openLocationOutput_Click" 
+                ToolTip="Open this location">
+            <Image Width="11" 
+                   Height="7" 
+                   Stretch="Uniform" 
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center" 
+                   Margin="1,0,0,0" 
+                   Style="{DynamicResource ButtonQuickFolder}" />
         </Button>
 
         
         <!-- Format -->
-        <Label x:Name="labelFormat" Style="{DynamicResource LabelCustom}" Content="Format" HorizontalAlignment="Left" Margin="5,74,0,0" VerticalAlignment="Top" Width="75" />
-        <ComboBox x:Name="cboFormat" Style="{DynamicResource ComboBoxWhite}" ItemContainerStyle="{DynamicResource ComboBoxWhiteItem}" HorizontalAlignment="Left" Margin="10,100,0,0" VerticalAlignment="Top" Width="75" SelectionChanged="cboFormat_SelectionChanged" ToolTip="Container" />
+        <Label x:Name="labelFormat" 
+               Style="{DynamicResource LabelCustom}"
+               Content="Format"
+               HorizontalAlignment="Left"
+               Margin="5,74,0,0" 
+               VerticalAlignment="Top" 
+               Width="75" />
+        <ComboBox x:Name="cboFormat"
+                  Style="{DynamicResource ComboBoxWhite}" 
+                  ItemContainerStyle="{DynamicResource ComboBoxWhiteItem}"
+                  HorizontalAlignment="Left"
+                  Margin="10,100,0,0" 
+                  VerticalAlignment="Top" 
+                  Width="75" 
+                  SelectionChanged="cboFormat_SelectionChanged" 
+                  ToolTip="Container" />
 
         <!-- Media Type -->
-        <ComboBox x:Name="cboMediaType" Style="{DynamicResource ComboBoxCustom}" ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" HorizontalAlignment="Left" Margin="10,128,0,0" VerticalAlignment="Top" Width="75" SelectionChanged="cboMediaType_SelectionChanged" ToolTipService.InitialShowDelay="1000" ToolTipService.ShowOnDisabled="True" ToolTip="Media Type">
+        <ComboBox x:Name="cboMediaType" 
+                  Style="{DynamicResource ComboBoxCustom}" 
+                  ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" 
+                  HorizontalAlignment="Left"
+                  Margin="10,128,0,0" 
+                  VerticalAlignment="Top"
+                  Width="75" 
+                  SelectionChanged="cboMediaType_SelectionChanged"
+                  ToolTipService.InitialShowDelay="1000" 
+                  ToolTipService.ShowOnDisabled="True" 
+                  ToolTip="Media Type">
         </ComboBox>
         
         <!-- Codec Video -->
-        <ComboBox x:Name="cboVideoCodec" Style="{DynamicResource ComboBoxCustom}" ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" HorizontalAlignment="Left" Margin="10,156,0,0" VerticalAlignment="Top" Width="75" SelectionChanged="cboVideoCodec_SelectionChanged" ToolTipService.InitialShowDelay="1000" ToolTipService.ShowOnDisabled="True" ToolTip="Video Codec" />
+        <ComboBox x:Name="cboVideoCodec"
+                  Style="{DynamicResource ComboBoxCustom}"
+                  ItemContainerStyle="{DynamicResource ComboBoxCustomItem}"
+                  HorizontalAlignment="Left" 
+                  Margin="10,156,0,0"
+                  VerticalAlignment="Top"
+                  Width="75" 
+                  SelectionChanged="cboVideoCodec_SelectionChanged" 
+                  ToolTipService.InitialShowDelay="1000" 
+                  ToolTipService.ShowOnDisabled="True"
+                  ToolTip="Video Codec" />
 
         <!-- Codec Audio -->
-        <ComboBox x:Name="cboAudioCodec" Style="{DynamicResource ComboBoxCustom}" ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" HorizontalAlignment="Left" Margin="10,184,0,0" VerticalAlignment="Top" Width="75" SelectionChanged="cboAudioCodec_SelectionChanged"  ToolTipService.InitialShowDelay="1000" ToolTipService.ShowOnDisabled="True" ToolTip="Audio Codec" />
+        <ComboBox x:Name="cboAudioCodec"
+                  Style="{DynamicResource ComboBoxCustom}"
+                  ItemContainerStyle="{DynamicResource ComboBoxCustomItem}"
+                  HorizontalAlignment="Left" 
+                  Margin="10,184,0,0" 
+                  VerticalAlignment="Top" 
+                  Width="75" 
+                  SelectionChanged="cboAudioCodec_SelectionChanged" 
+                  ToolTipService.InitialShowDelay="1000"
+                  ToolTipService.ShowOnDisabled="True"
+                  ToolTip="Audio Codec" />
 
 
 
         <!-- Video -->
-        <Label x:Name="labelVideo" Style="{DynamicResource LabelCustom}" Content="Video" HorizontalAlignment="Left" Margin="91,74,0,0" VerticalAlignment="Top" Width="75" />
-        <ComboBox x:Name="cboVideo" Style="{DynamicResource ComboBoxWhite}" ItemContainerStyle="{DynamicResource ComboBoxWhiteItem}" HorizontalAlignment="Left" Margin="94,100,0,0" VerticalAlignment="Top" Width="75" SelectionChanged="cboVideo_SelectionChanged"  />
+        <Label x:Name="labelVideo"
+               Style="{DynamicResource LabelCustom}"
+               Content="Video" 
+               HorizontalAlignment="Left" 
+               Margin="91,74,0,0" 
+               VerticalAlignment="Top" 
+               Width="75" />
+        <ComboBox x:Name="cboVideo"
+                  Style="{DynamicResource ComboBoxWhite}"
+                  ItemContainerStyle="{DynamicResource ComboBoxWhiteItem}"
+                  HorizontalAlignment="Left" 
+                  Margin="94,100,0,0"
+                  VerticalAlignment="Top"
+                  Width="75" 
+                  SelectionChanged="cboVideo_SelectionChanged" />
 
         <!-- Video Bit-rate-->
-        <TextBox x:Name="vBitrateCustom" HorizontalAlignment="Left" Height="22" Margin="94,128,0,0" Padding="1, 1, 0, 0" TextWrapping="NoWrap" Text="Bitrate" VerticalAlignment="Top" Width="44" MaxLines="1" MaxLength="10" GotFocus="vBitrateCustom_GotFocus" LostFocus="vBitrateCustom_LostFocus" Style="{DynamicResource TextBoxCustom}" ToolTipService.InitialShowDelay="1000" ToolTipService.ShowOnDisabled="True" ToolTip="Video Bitrate (e.g. 1M or 1000K)"/>
+        <TextBox x:Name="vBitrateCustom" 
+                 HorizontalAlignment="Left" 
+                 Height="22" 
+                 Margin="94,128,0,0" 
+                 Padding="1, 1, 0, 0" 
+                 TextWrapping="NoWrap" 
+                 Text="Bitrate" 
+                 VerticalAlignment="Top" 
+                 Width="44"
+                 MaxLines="1" 
+                 MaxLength="10"
+                 GotFocus="vBitrateCustom_GotFocus"
+                 LostFocus="vBitrateCustom_LostFocus"
+                 Style="{DynamicResource TextBoxCustom}" 
+                 ToolTipService.InitialShowDelay="1000"
+                 ToolTipService.ShowOnDisabled="True" 
+                 ToolTip="Video Bitrate (e.g. 1M or 1000K)"/>
 
         <!-- CRF -->
         <TextBox x:Name="crfCustom" HorizontalAlignment="Left" Height="22" Margin="142,128,0,0" Padding="0, 1, 0, 0" TextWrapping="NoWrap" Text="CRF" VerticalAlignment="Top" Width="27" GotFocus="crfCustom_GotFocus" LostFocus="crfCustom_LostFocus" KeyDown="crfCustom_KeyDown" MaxLines="1" MaxLength="2" Style="{DynamicResource TextBoxCustom}" ToolTipService.InitialShowDelay="1000" ToolTipService.ShowOnDisabled="True" ToolTip="Custom Constant Rate Factor value (e.g. 18)"/>

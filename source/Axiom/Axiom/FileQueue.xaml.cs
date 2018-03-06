@@ -17,7 +17,7 @@ using System.Windows.Shapes;
 
 /* ----------------------------------------------------------------------
     Axiom UI
-    Copyright (C) 2017 Matt McManis
+    Copyright (C) 2017, 2018 Matt McManis
     http://github.com/MattMcManis/Axiom
     http://axiomui.github.io
     axiom.interface@gmail.com
