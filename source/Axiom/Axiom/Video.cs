@@ -678,6 +678,7 @@ namespace Axiom
                             || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
                         {
                             vBitrate = "4M";
+                            crf = string.Empty;
                         }
                    
                         vOptions = "-pix_fmt yuv420p";
@@ -698,6 +699,7 @@ namespace Axiom
                         {
                             vBitrate = "5M";
                             vMaxrate = "-maxrate 5M";
+                            crf = string.Empty;
                         }
                                                                        
                         vOptions = "-pix_fmt yuv420p -qcomp 0.8";
@@ -717,6 +719,7 @@ namespace Axiom
                             || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
                         {
                             vBitrate = "5M";
+                            crf = string.Empty;
                         }                       
                         
                         vOptions = "-pix_fmt yuv420p";
@@ -730,11 +733,13 @@ namespace Axiom
                         {
                             // OGV uses forced q:v instead of CRF
                             vBitrate = "10";
+                            crf = string.Empty;
                         }
                         else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
                             || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
                         {
                             vBitrate = "10";
+                            crf = string.Empty;
                         }
                   
                         vOptions = "-pix_fmt yuv420p";
@@ -744,8 +749,8 @@ namespace Axiom
                     // -------------------------
                     else if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG")
                     {
-                        crf = string.Empty;
                         vBitrate = "2";
+                        crf = string.Empty;
                         vOptions = string.Empty;
                     }
                 }
@@ -769,6 +774,7 @@ namespace Axiom
                             || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
                         {
                             vBitrate = "2M";
+                            crf = string.Empty;
                         }
                               
                         vOptions = "-pix_fmt yuv420p";
@@ -787,6 +793,7 @@ namespace Axiom
                             || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
                         {
                             vBitrate = "2M";
+                            crf = string.Empty;
                         }
                         
                         vOptions = "-pix_fmt yuv420p";
@@ -807,6 +814,7 @@ namespace Axiom
                         {
                             vBitrate = "2500K";
                             vMaxrate = "-maxrate 2500K";
+                            crf = string.Empty;
                         }
 
                         vOptions = "-pix_fmt yuv420p -qcomp 0.8";
@@ -825,7 +833,8 @@ namespace Axiom
                         else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
                             || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
                         {
-                            vBitrate = "2M" /* for 2 pass */;
+                            vBitrate = "2M";
+                            crf = string.Empty;
                         }
   
                         vOptions = "-pix_fmt yuv420p";
@@ -839,11 +848,13 @@ namespace Axiom
                         {
                             // OGV uses forced q:v instead of CRF
                             vBitrate = "8";
+                            crf = string.Empty;
                         }
                         else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
                             || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
                         {
                             vBitrate = "8";
+                            crf = string.Empty;
                         }
                                             
                         vOptions = "-pix_fmt yuv420p";
@@ -853,8 +864,8 @@ namespace Axiom
                     // -------------------------
                     else if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG")
                     {
-                        crf = string.Empty;
                         vBitrate = "4";
+                        crf = string.Empty;
                         vOptions = string.Empty;
                     }
                 }
@@ -877,7 +888,8 @@ namespace Axiom
                         else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
                             || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
                         {
-                            vBitrate = "1300K" /* for 2 pass */;
+                            vBitrate = "1300K";
+                            crf = string.Empty;
                         }
                    
                         vOptions = "-pix_fmt yuv420p";
@@ -896,6 +908,7 @@ namespace Axiom
                             || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
                         {
                             vBitrate = "1300K";
+                            crf = string.Empty;
                         }
    
                         vOptions = "-pix_fmt yuv420p";
@@ -916,6 +929,7 @@ namespace Axiom
                         {
                             vBitrate = "1300K";
                             vMaxrate = "-maxrate 1300K";
+                            crf = string.Empty;
                         }
 
                         vOptions = "-pix_fmt yuv420p";
@@ -935,6 +949,7 @@ namespace Axiom
                             || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
                         {
                             vBitrate = "1300K";
+                            crf = string.Empty;
                         }
 
                         vOptions = "-pix_fmt yuv420p";
@@ -948,11 +963,13 @@ namespace Axiom
                         {
                             // OGV uses forced q:v instead of CRF
                             vBitrate = "6";
+                            crf = string.Empty;
                         }
                         else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
                             || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
                         {
                             vBitrate = "6";
+                            crf = string.Empty;
                         }
 
                         vOptions = "-pix_fmt yuv420p";
@@ -962,8 +979,8 @@ namespace Axiom
                     // -------------------------
                     else if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG")
                     {
-                        crf = string.Empty;
                         vBitrate = "8";
+                        crf = string.Empty;
                         vOptions = string.Empty;
                     }
                 }
@@ -987,6 +1004,7 @@ namespace Axiom
                             || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
                         {
                             vBitrate = "600K";
+                            crf = string.Empty;
                         }
                                 
                         vOptions = "-pix_fmt yuv420p";
@@ -1005,6 +1023,7 @@ namespace Axiom
                             || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
                         {
                             vBitrate = "600K";
+                            crf = string.Empty;
                         }
 
                         vOptions = "-pix_fmt yuv420p";
@@ -1025,6 +1044,7 @@ namespace Axiom
                         {
                             vBitrate = "600K";
                             vMaxrate = "-maxrate 600K";
+                            crf = string.Empty;
                         }
 
                         vOptions = "-pix_fmt yuv420p";
@@ -1044,6 +1064,7 @@ namespace Axiom
                             || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
                         {
                             vBitrate = "600K";
+                            crf = string.Empty;
                         }
 
                         vOptions = "-pix_fmt yuv420p";
@@ -1057,11 +1078,13 @@ namespace Axiom
                         {
                             // OGV uses forced q:v instead of CRF
                             vBitrate = "4";
+                            crf = string.Empty;
                         }
                         else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
                             || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
                         {
                             vBitrate = "4";
+                            crf = string.Empty;
                         }
 
                         vOptions = "-pix_fmt yuv420p";
@@ -1071,8 +1094,8 @@ namespace Axiom
                     // -------------------------
                     else if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG")
                     {
-                        crf = string.Empty;
                         vBitrate = "15";
+                        crf = string.Empty;
                         vOptions = string.Empty;
                     }
                 }
@@ -1096,6 +1119,7 @@ namespace Axiom
                             || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
                         {
                             vBitrate = "250K";
+                            crf = string.Empty;
                         }
 
                         vOptions = "-pix_fmt yuv420p";
@@ -1114,6 +1138,7 @@ namespace Axiom
                             || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
                         {
                             vBitrate = "250K";
+                            crf = string.Empty;
                         }
 
                         vOptions = "-pix_fmt yuv420p";
@@ -1134,6 +1159,7 @@ namespace Axiom
                         {
                             vBitrate = "250K";
                             vMaxrate = "-maxrate 250K";
+                            crf = string.Empty;
                         }
 
                         vOptions = "-pix_fmt yuv420p";
@@ -1153,6 +1179,7 @@ namespace Axiom
                             || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
                         {
                             vBitrate = "250K";
+                            crf = string.Empty;
                         }
 
                         vOptions = "-pix_fmt yuv420p";
@@ -1166,11 +1193,13 @@ namespace Axiom
                         {
                             // OGV uses forced q:v instead of CRF
                             vBitrate = "2";
+                            crf = string.Empty;
                         }
                         else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
                             || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
                         {
                             vBitrate = "2";
+                            crf = string.Empty;
                         }
 
                         vOptions = "-pix_fmt yuv420p";
@@ -1180,8 +1209,8 @@ namespace Axiom
                     // -------------------------
                     else if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG")
                     {
-                        crf = string.Empty;
                         vBitrate = "25";
+                        crf = string.Empty;
                         vOptions = string.Empty;
                     }
                 }

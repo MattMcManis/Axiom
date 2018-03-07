@@ -484,7 +484,7 @@ namespace Axiom
             Video.passSingle = string.Empty;
             Video.vCodec = string.Empty;
             Video.vQuality = string.Empty;
-            //Video.vBitMode = string.Empty;
+            Video.vBitMode = string.Empty;
             Video.vBitrate = string.Empty;
             Video.vMaxrate = string.Empty;
             Video.vOptions = string.Empty;
@@ -1840,6 +1840,12 @@ namespace Axiom
         /// </summary>
         private void btnScript_Click(object sender, RoutedEventArgs e)
         {
+            // -------------------------
+            // Clear Variables before Run
+            // -------------------------
+            ClearVariables(this);
+
+
             // Log Console Message /////////
             Log.WriteAction = () =>
             {
@@ -2107,6 +2113,9 @@ namespace Axiom
         {
             // Pass Controls Method
             VideoControls.EncodingPass(this);
+
+            // Display Bit-rate in TextBox
+            VideoDisplayBitrate();
         }
         private void cboPass_DropDownClosed(object sender, EventArgs e)
         {
@@ -2817,32 +2826,6 @@ namespace Axiom
             // Display Bit-rate in TextBox
             // -------------------------
             VideoDisplayBitrate();
-            //if ((string)cboVideo.SelectedItem != "Auto"
-            //    && (string)cboVideo.SelectedItem != "Lossless"
-            //    && (string)cboVideo.SelectedItem != "Custom"
-            //    && (string)cboVideo.SelectedItem != "None"
-            //    && !string.IsNullOrEmpty((string)cboVideo.SelectedItem))
-            //{
-            //    //Video.vBitrate = string.Empty;
-            //    //Video.crf = string.Empty;
-            //    // TextBox Displayed placed at the end of VideoQuality Method
-            //    Video.VideoQuality(this);
-
-            //    // Display Bit-rate in TextBox
-            //    if (!string.IsNullOrEmpty(Video.vBitrate))
-            //    {
-            //        vBitrateCustom.Text = Video.vBitrate;
-            //    }
-            //    if (!string.IsNullOrEmpty(Video.crf))
-            //    {
-            //        crfCustom.Text = Video.crf.Replace("-crf ", "");
-            //    }
-            //}
-            //else
-            //{
-            //    vBitrateCustom.Text = "Bitrate";
-            //    crfCustom.Text = "CRF";
-            //}
 
         } // End Video Combobox
 
@@ -2852,14 +2835,20 @@ namespace Axiom
         /// </summary>
         public void VideoDisplayBitrate()
         {
+            // -------------------------
+            // Clear Variables before Run
+            // -------------------------
+            ClearVariables(this);
+            vBitrateCustom.Text = "Bitrate";
+            crfCustom.Text = "CRF";
+
+
             if ((string)cboVideo.SelectedItem != "Auto"
                 && (string)cboVideo.SelectedItem != "Lossless"
                 && (string)cboVideo.SelectedItem != "Custom"
                 && (string)cboVideo.SelectedItem != "None"
                 && !string.IsNullOrEmpty((string)cboVideo.SelectedItem))
             {
-                //Video.vBitrate = string.Empty;
-                //Video.crf = string.Empty;
                 // TextBox Displayed placed at the end of VideoQuality Method
                 Video.VideoQuality(this);
 
@@ -3417,6 +3406,11 @@ namespace Axiom
         /// --------------------------------------------------------------------------------------------------------
         private void btnConvert_Click(object sender, RoutedEventArgs e)
         {
+            // -------------------------
+            // Clear Variables before Run
+            // -------------------------
+            ClearVariables(this);
+
             // -------------------------
             // Keep FFmpeg Window Toggle
             // -------------------------
