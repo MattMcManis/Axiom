@@ -196,6 +196,20 @@ namespace Axiom
             /// </summary>
             StartLogConsole();
 
+            // -------------------------
+            // Set Current Version to Assembly Version
+            // -------------------------
+            System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
+            FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
+            string assemblyVersion = fvi.FileVersion;
+            currentVersion = new Version(assemblyVersion);
+
+            // -------------------------
+            // Title + Version
+            // -------------------------
+            TitleVersion = "Axiom ~ FFmpeg UI (" + Convert.ToString(currentVersion) + "-" + currentBuildPhase + ")";
+            DataContext = this;
+
 
             // Log Console Message /////////
             logconsole.rtbLog.Document = new FlowDocument(Log.logParagraph); //start
@@ -248,14 +262,15 @@ namespace Axiom
             try
             {
                 // First time use
-                if (Convert.ToDouble(Settings.Default["Left"]) == 0 || Convert.ToDouble(Settings.Default["Top"]) == 0)
+                if (Convert.ToDouble(Settings.Default["Left"]) == 0 
+                    || Convert.ToDouble(Settings.Default["Top"]) == 0)
                 {
                     this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
                 }
             }
             catch
             {
-
+                this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             }         
 
             // -------------------------
@@ -385,20 +400,6 @@ namespace Axiom
         /// </summary>
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            // -------------------------
-            // Set Current Version to Assembly Version
-            // -------------------------
-            System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
-            FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
-            string assemblyVersion = fvi.FileVersion;
-            currentVersion = new Version(assemblyVersion);
-
-            // -------------------------
-            // Title + Version
-            // -------------------------
-            TitleVersion = "Axiom ~ FFmpeg UI (" + Convert.ToString(currentVersion) + "-" + currentBuildPhase + ")";
-            DataContext = this;
-
             // -------------------------
             // Control Defaults
             // -------------------------
@@ -924,7 +925,7 @@ namespace Axiom
         /// <summary>
         ///    FFmpeg Path (Method)
         /// </summary>
-        public static String FFmpegPath(MainWindow mainwindow)
+        public static String FFmpegPath()
         {
             // -------------------------
             // FFmpeg.exe and FFprobe.exe Paths
@@ -957,7 +958,7 @@ namespace Axiom
         /// <remarks>
         ///     FFprobe Path
         /// </remarks>
-        public static void FFprobePath(MainWindow mainwindow)
+        public static void FFprobePath()
         {
             // If Configure FFprobe Path is <auto>
             if (ConfigureWindow.ffprobePath == "<auto>")
@@ -1884,11 +1885,6 @@ namespace Axiom
             ScriptView.sort = false;
 
             // -------------------------
-            // Keep FFmpeg Window Toggle
-            // -------------------------
-            //KeepWindow(this);
-
-            // -------------------------
             // Batch Extention Period Check
             // -------------------------
             BatchExtCheck(this);
@@ -1896,108 +1892,67 @@ namespace Axiom
             // -------------------------
             // Set FFprobe Path
             // -------------------------
-            FFprobePath(this);
+            FFprobePath();
 
             // -------------------------
             // Ready Halts
             // -------------------------
             ReadyHalts(this);
 
-
             // -------------------------
-            // Background Thread Worker
+            // Single
             // -------------------------
-            BackgroundWorker fileprocess = new BackgroundWorker();
-
-            fileprocess.WorkerSupportsCancellation = true;
-            fileprocess.WorkerReportsProgress = true;
-
-            fileprocess.DoWork += new DoWorkEventHandler(delegate (object o, DoWorkEventArgs args)
-            {
-                BackgroundWorker b = o as BackgroundWorker;
-
-                // Cross-Thread Communication
-                this.Dispatcher.Invoke(() =>
-                {
-                    // -------------------------
-                    // Single
-                    // -------------------------
-                    if (tglBatch.IsChecked == false)
-                    {
-                        // -------------------------
-                        // FFprobe Detect Metadata
-                        // -------------------------
-                        FFprobe.Metadata(this);
-
-                        // -------------------------
-                        // FFmpeg Generate Arguments (Single)
-                        // -------------------------
-                        //disabled if batch
-                        FFmpeg.FFmpegSingleGenerateArgs(this);
-                    }
-
-                    // -------------------------
-                    // Batch
-                    // -------------------------
-                    else if (tglBatch.IsChecked == true)
-                    {
-                        // -------------------------
-                        // FFprobe Video Entry Type Containers
-                        // -------------------------
-                        //FFprobe.VideoEntryTypeBatch(this);
-                        FFprobe.VideoEntryType(this);
-
-                        // -------------------------
-                        // FFprobe Video Entry Type Containers
-                        // -------------------------
-                        //FFprobe.AudioEntryTypeBatch(this);
-                        FFprobe.AudioEntryType(this);
-
-                        // -------------------------
-                        // FFmpeg Generate Arguments (Batch)
-                        // -------------------------
-                        //disabled if single file
-                        FFmpeg.FFmpegBatchGenerateArgs(this);
-                    }
-
-                    // -------------------------
-                    // Write All Log Actions to Console
-                    // -------------------------
-                    Log.LogWriteAll(this, configurewindow);
-
-
-                }); //end dispatcher
-
-            }); //end thread
-
-
-            // When background worker completes task
-            fileprocess.RunWorkerCompleted += new RunWorkerCompletedEventHandler(delegate(object o, RunWorkerCompletedEventArgs args)
+            if (tglBatch.IsChecked == false)
             {
                 // -------------------------
-                // Generate Script
+                // FFprobe Detect Metadata
                 // -------------------------
-                FFmpeg.FFmpegScript(this, scriptview);
+                FFprobe.Metadata(this);
 
                 // -------------------------
-                // Close the Background Worker
+                // FFmpeg Generate Arguments (Single)
                 // -------------------------
-                fileprocess.CancelAsync();
-                fileprocess.Dispose();
-
-                // -------------------------
-                // Clear Variables for next Run
-                // -------------------------
-                ClearVariables(this);
-                GC.Collect();
-
-            }); //end worker completed task
-
+                //disabled if batch
+                FFmpeg.FFmpegSingleGenerateArgs(this);
+            }
 
             // -------------------------
-            // Background Worker Run Async
+            // Batch
             // -------------------------
-            fileprocess.RunWorkerAsync();
+            else if (tglBatch.IsChecked == true)
+            {
+                // -------------------------
+                // FFprobe Video Entry Type Containers
+                // -------------------------
+                FFprobe.VideoEntryType(this);
+
+                // -------------------------
+                // FFprobe Video Entry Type Containers
+                // -------------------------
+                FFprobe.AudioEntryType(this);
+
+                // -------------------------
+                // FFmpeg Generate Arguments (Batch)
+                // -------------------------
+                //disabled if single file
+                FFmpeg.FFmpegBatchGenerateArgs(this);
+            }
+
+            // -------------------------
+            // Write All Log Actions to Console
+            // -------------------------
+            Log.LogWriteAll(this, configurewindow);
+
+            // -------------------------
+            // Generate Script
+            // -------------------------
+            FFmpeg.FFmpegScript(this, scriptview);
+
+            // -------------------------
+            // Clear Variables for next Run
+            // -------------------------
+            ClearVariables(this);
+            GC.Collect();
         }
 
 
@@ -3412,11 +3367,6 @@ namespace Axiom
             ClearVariables(this);
 
             // -------------------------
-            // Keep FFmpeg Window Toggle
-            // -------------------------
-            //KeepWindow(this);
-
-            // -------------------------
             // Batch Extention Period Check
             // -------------------------
             BatchExtCheck(this);
@@ -3424,7 +3374,7 @@ namespace Axiom
             // -------------------------
             // Set FFprobe Path
             // -------------------------
-            FFprobePath(this);
+            FFprobePath();
 
             // -------------------------
             // Ready Halts
@@ -3433,7 +3383,7 @@ namespace Axiom
 
 
             // Log Console Message /////////
-            if (/*script == false && */ready == true)
+            if (ready == true)
             {
                 // Log Console Message /////////
                 Log.WriteAction = () =>
@@ -3465,110 +3415,69 @@ namespace Axiom
             if (ready == true)
             {
                 // -------------------------
-                // Background Thread Worker
+                // Single
                 // -------------------------
-                BackgroundWorker fileprocess = new BackgroundWorker();
-
-                fileprocess.WorkerSupportsCancellation = true;
-                fileprocess.WorkerReportsProgress = true;
-
-                fileprocess.DoWork += new DoWorkEventHandler(delegate(object o, DoWorkEventArgs args)
+                if (tglBatch.IsChecked == false)
                 {
-                    BackgroundWorker b = o as BackgroundWorker;
+                    // -------------------------
+                    // FFprobe Detect Metadata
+                    // -------------------------
+                    FFprobe.Metadata(this);
 
-                    // Cross-Thread Communication
-                    this.Dispatcher.Invoke(() =>
-                    {
-                        // -------------------------
-                        // Single
-                        // -------------------------
-                        if (tglBatch.IsChecked == false)
-                        {
-                            // -------------------------
-                            // FFprobe Detect Metadata
-                            // -------------------------
-                            FFprobe.Metadata(this);
+                    // -------------------------
+                    // FFmpeg Generate Arguments (Single)
+                    // -------------------------
+                    //disabled if batch
+                    FFmpeg.FFmpegSingleGenerateArgs(this);
+                }
 
-                            // -------------------------
-                            // FFmpeg Generate Arguments (Single)
-                            // -------------------------
-                            //disabled if batch
-                            FFmpeg.FFmpegSingleGenerateArgs(this);
-                        }
-
-                        // -------------------------
-                        // Batch
-                        // -------------------------
-                        else if (tglBatch.IsChecked == true)
-                        {
-                            // -------------------------
-                            // FFprobe Video Entry Type Containers
-                            // -------------------------
-                            //FFprobe.VideoEntryTypeBatch(this);
-                            FFprobe.VideoEntryType(this);
-
-                            // -------------------------
-                            // FFprobe Video Entry Type Containers
-                            // -------------------------
-                            //FFprobe.AudioEntryTypeBatch(this);
-                            FFprobe.AudioEntryType(this);
-
-                            // -------------------------
-                            // FFmpeg Generate Arguments (Batch)
-                            // -------------------------
-                            //disabled if single file
-                            FFmpeg.FFmpegBatchGenerateArgs(this);
-                        }
-
-                        // -------------------------
-                        // FFmpeg Convert
-                        // -------------------------
-                        FFmpeg.FFmpegConvert(this);
-
-
-                    }); //end dispatcher
-
-                }); //end thread
-
-
-                // When background worker completes task
-                //
-                fileprocess.RunWorkerCompleted += new RunWorkerCompletedEventHandler(delegate(object o, RunWorkerCompletedEventArgs args)
+                // -------------------------
+                // Batch
+                // -------------------------
+                else if (tglBatch.IsChecked == true)
                 {
-                    // Log Console Message /////////
-                    Log.WriteAction = () =>
-                    {
-                        Log.logParagraph.Inlines.Add(new LineBreak());
-                        Log.logParagraph.Inlines.Add(new LineBreak());
-                        Log.logParagraph.Inlines.Add(new Run("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~") { Foreground = Log.ConsoleAction });
-                    };
-                    Log.LogActions.Add(Log.WriteAction);
-
+                    // -------------------------
+                    // FFprobe Video Entry Type Containers
+                    // -------------------------
+                    FFprobe.VideoEntryType(this);
 
                     // -------------------------
-                    // Write All Log Actions to Console
+                    // FFprobe Video Entry Type Containers
                     // -------------------------
-                    Log.LogWriteAll(this, configurewindow);
+                    FFprobe.AudioEntryType(this);
 
                     // -------------------------
-                    // Close the Background Worker
+                    // FFmpeg Generate Arguments (Batch)
                     // -------------------------
-                    fileprocess.CancelAsync();
-                    fileprocess.Dispose();
+                    //disabled if single file
+                    FFmpeg.FFmpegBatchGenerateArgs(this);
+                }
 
-                    // -------------------------
-                    // Clear Strings for next Run
-                    // -------------------------
-                    ClearVariables(this);
-                    GC.Collect();
+                // -------------------------
+                // FFmpeg Convert
+                // -------------------------
+                FFmpeg.FFmpegConvert(this);
 
-                }); //end worker completed task
+                // Log Console Message /////////
+                Log.WriteAction = () =>
+                {
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new Run("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~") { Foreground = Log.ConsoleAction });
+                };
+                Log.LogActions.Add(Log.WriteAction);
 
 
                 // -------------------------
-                // Background Worker Run Async
+                // Write All Log Actions to Console
                 // -------------------------
-                fileprocess.RunWorkerAsync(); 
+                Log.LogWriteAll(this, configurewindow);
+
+                // -------------------------
+                // Clear Strings for next Run
+                // -------------------------
+                ClearVariables(this);
+                GC.Collect();
             }
             else
             {

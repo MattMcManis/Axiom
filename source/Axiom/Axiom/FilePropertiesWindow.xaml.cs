@@ -53,21 +53,35 @@ namespace Axiom
         {
             // Display FFprobe File Properties
 
-            Paragraph propertiesParagraph = new Paragraph(); //RichTextBox
-            this.rtbFileProperties.Document = new FlowDocument(propertiesParagraph); // start
-            this.rtbFileProperties.BeginChange(); // begin change
+            MainWindow.FFprobePath();
 
-            // Clear Rich Text Box on Start
-            propertiesParagraph.Inlines.Clear();
+            try
+            {
+                Paragraph propertiesParagraph = new Paragraph(); //RichTextBox
 
-            // Write All File Properties to Rich Text Box
-            //propertiesParagraph.Inlines.Add(new Run(FFprobe.inputFileProperties) { Foreground = Log.ConsoleDefault });
-            FFprobe.argsFileProperties = " -i" + " " + "\"" + mainwindow.tbxInput.Text + "\"" + " -v quiet -print_format ini -show_format -show_streams";
-            FFprobe.inputFileProperties = FFprobe.InputFileInfo(mainwindow, FFprobe.argsFileProperties);
+                // Clear Rich Text Box on Start
+                propertiesParagraph.Inlines.Clear();
 
-            propertiesParagraph.Inlines.Add(new Run(FFprobe.inputFileProperties) { Foreground = Log.ConsoleDefault });
+                // Start
+                rtbFileProperties.Document = new FlowDocument(propertiesParagraph); 
 
-            this.rtbFileProperties.EndChange(); // end change
+                FFprobe.argsFileProperties = " -i" + " " + "\"" + mainwindow.tbxInput.Text + "\"" + " -v quiet -print_format ini -show_format -show_streams";
+                FFprobe.inputFileProperties = FFprobe.InputFileInfo(mainwindow, FFprobe.argsFileProperties);
+
+                // Write All File Properties to Rich Text Box
+                if (!string.IsNullOrEmpty(FFprobe.inputFileProperties))
+                {
+                    rtbFileProperties.BeginChange(); // begin change
+
+                    propertiesParagraph.Inlines.Add(new Run(FFprobe.inputFileProperties) { Foreground = Log.ConsoleDefault });
+
+                    rtbFileProperties.EndChange(); // end change
+                }
+            }
+            catch
+            {
+
+            }
         }
 
 

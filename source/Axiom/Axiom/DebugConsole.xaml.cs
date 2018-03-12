@@ -111,7 +111,7 @@ namespace Axiom
             // -------------------------
             // Set FFprobe Path
             // -------------------------
-            MainWindow.FFprobePath(mainwindow);
+            MainWindow.FFprobePath();
 
             // -------------------------
             // Ready Halts
@@ -122,18 +122,18 @@ namespace Axiom
             // -------------------------
             // Background Thread Worker
             // -------------------------
-            BackgroundWorker fileprocess = new BackgroundWorker();
+            //BackgroundWorker fileprocess = new BackgroundWorker();
 
-            fileprocess.WorkerSupportsCancellation = true;
-            fileprocess.WorkerReportsProgress = true;
+            //fileprocess.WorkerSupportsCancellation = true;
+            //fileprocess.WorkerReportsProgress = true;
 
-            fileprocess.DoWork += new DoWorkEventHandler(delegate (object o, DoWorkEventArgs args)
-            {
-                BackgroundWorker b = o as BackgroundWorker;
+            //fileprocess.DoWork += new DoWorkEventHandler(delegate (object o, DoWorkEventArgs args)
+            //{
+            //    BackgroundWorker b = o as BackgroundWorker;
 
-                // Cross-Thread Communication
-                this.Dispatcher.Invoke(() =>
-                {
+            //    // Cross-Thread Communication
+            //    this.Dispatcher.Invoke(() =>
+            //    {
                     // -------------------------
                     // Single
                     // -------------------------
@@ -175,14 +175,14 @@ namespace Axiom
                         FFmpeg.FFmpegBatchGenerateArgs(mainwindow);
                     }
 
-                }); //end dispatcher
+            //    }); //end dispatcher
 
-            }); //end thread
+            //}); //end thread
 
 
             // When background worker completes task
-            fileprocess.RunWorkerCompleted += new RunWorkerCompletedEventHandler(delegate (object o, RunWorkerCompletedEventArgs args)
-            {
+            //fileprocess.RunWorkerCompleted += new RunWorkerCompletedEventHandler(delegate (object o, RunWorkerCompletedEventArgs args)
+            //{
                 // -------------------------
                 // Write Variables to Debug Window
                 // -------------------------
@@ -191,8 +191,8 @@ namespace Axiom
                 // -------------------------
                 // Close the Background Worker
                 // -------------------------
-                fileprocess.CancelAsync();
-                fileprocess.Dispose();
+                //fileprocess.CancelAsync();
+                //fileprocess.Dispose();
 
                 // -------------------------
                 // Clear Variables for next Run
@@ -200,13 +200,13 @@ namespace Axiom
                 MainWindow.ClearVariables(mainwindow);
                 GC.Collect();
 
-            }); //end worker completed task
+        //    }); //end worker completed task
 
 
-            // -------------------------
-            // Background Worker Run Async
-            // -------------------------
-            fileprocess.RunWorkerAsync();
+        //    // -------------------------
+        //    // Background Worker Run Async
+        //    // -------------------------
+        //    fileprocess.RunWorkerAsync();
         }
 
 
@@ -220,16 +220,18 @@ namespace Axiom
             // -------------------------
 
             // Clear Old Text
+            debugParagraph.Inlines.Clear();
+
             debugconsole.rtbDebug.Document = new FlowDocument(debugParagraph); // start
 
-            debugconsole.rtbDebug.BeginChange();
-            debugconsole.rtbDebug.SelectAll();
-            debugconsole.rtbDebug.Selection.Text = "";
-            debugconsole.rtbDebug.EndChange();
+            //debugconsole.rtbDebug.BeginChange();
+            //debugconsole.rtbDebug.SelectAll();
+            //debugconsole.rtbDebug.Selection.Text = "";
+            //debugconsole.rtbDebug.EndChange();
 
 
             // Write New Text
-            debugconsole.rtbDebug.Document = new FlowDocument(debugParagraph); // start
+            //debugconsole.rtbDebug.Document = new FlowDocument(debugParagraph); // start
 
             // begin change
             debugconsole.rtbDebug.BeginChange();

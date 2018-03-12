@@ -61,22 +61,14 @@ namespace Axiom
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             // Clear Old Text
-            ClearRichTextBox();
+            //ClearRichTextBox();
+            scriptParagraph.Inlines.Clear();
 
             // Write FFmpeg Args
             rtbScript.Document = new FlowDocument(scriptParagraph);
             rtbScript.BeginChange();
             scriptParagraph.Inlines.Add(new Run(FFmpeg.ffmpegArgs));
             rtbScript.EndChange();
-        }
-
-        /// <summary>
-        /// Close
-        /// </summary>
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            //this.Close();
-            //System.Windows.Forms.Application.ExitThread();
         }
 
 
@@ -156,10 +148,12 @@ namespace Axiom
             // Sort
             // -------------------------
             // Has Not Been Edited
-            if (ScriptView.sort == false && ScriptRichTextBoxCurrent().Replace(Environment.NewLine, "").Replace("\r\n", "") == FFmpeg.ffmpegArgs)
+            if (ScriptView.sort == false 
+                && ScriptRichTextBoxCurrent().Replace(Environment.NewLine, "").Replace("\r\n", "") == FFmpeg.ffmpegArgs)
             {
                 // Clear Old Text
-                ClearRichTextBox();
+                //ClearRichTextBox();
+                scriptParagraph.Inlines.Clear();
 
                 // Write FFmpeg Args Sort
                 rtbScript.Document = new FlowDocument(scriptParagraph);
@@ -195,7 +189,8 @@ namespace Axiom
             }
 
             // Has Been Edited
-            else if (ScriptView.sort == false && ScriptRichTextBoxCurrent().Replace(Environment.NewLine, "").Replace("\r\n", "") != FFmpeg.ffmpegArgs)
+            else if (ScriptView.sort == false 
+                && ScriptRichTextBoxCurrent().Replace(Environment.NewLine, "").Replace("\r\n", "") != FFmpeg.ffmpegArgs)
             {
                 MessageBox.Show("Cannot sort edited text.");
             }
@@ -221,7 +216,8 @@ namespace Axiom
                     .Replace("\u2029", "");
 
                 // Clear Old Text
-                ClearRichTextBox();
+                //ClearRichTextBox();
+                scriptParagraph.Inlines.Clear();
 
                 // Write FFmpeg Args
                 rtbScript.Document = new FlowDocument(scriptParagraph);

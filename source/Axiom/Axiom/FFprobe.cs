@@ -115,13 +115,13 @@ namespace Axiom
                 argsAudioCodec = " -i " + "\"" + mainwindow.tbxInput.Text + "\"" + " -select_streams a:0 -show_entries stream=codec_name -v quiet -of csv=\"p=0\"";
                 argsAudioBitrate = " -i" + " " + "\"" + mainwindow.tbxInput.Text + "\"" + " -select_streams a:0 -show_entries " + aEntryType + " -v quiet -of csv=\"p=0\"";
 
-                inputFrameRate = InputFileInfo(mainwindow, argsFrameRate);
-                inputSize = InputFileInfo(mainwindow, argsSize);
-                inputDuration = InputFileInfo(mainwindow, argsDuration);
-                inputVideoCodec = InputFileInfo(mainwindow, argsVideoCodec);
-                inputVideoBitrate = InputFileInfo(mainwindow, argsVideoBitrate);
-                inputAudioCodec = InputFileInfo(mainwindow, argsAudioCodec);
-                inputAudioBitrate = InputFileInfo(mainwindow, argsAudioBitrate);
+                inputFrameRate = RemoveLineBreaks(InputFileInfo(mainwindow, argsFrameRate));
+                inputSize = RemoveLineBreaks(InputFileInfo(mainwindow, argsSize));
+                inputDuration = RemoveLineBreaks(InputFileInfo(mainwindow, argsDuration));
+                inputVideoCodec = RemoveLineBreaks(InputFileInfo(mainwindow, argsVideoCodec));
+                inputVideoBitrate = RemoveLineBreaks(InputFileInfo(mainwindow, argsVideoBitrate));
+                inputAudioCodec = RemoveLineBreaks(InputFileInfo(mainwindow, argsAudioCodec));
+                inputAudioBitrate = RemoveLineBreaks(InputFileInfo(mainwindow, argsAudioBitrate));
 
                 // Log won't write the input data unless we pass it to a new string
                 string logInputFrameRate = inputFrameRate;
@@ -385,6 +385,7 @@ namespace Axiom
         public static String InputFileInfo(MainWindow mainwindow, string arguments)
         {
             string inputMetaData = string.Empty;
+            //List<string> listInputMetaData = new List<string>();
 
             // Ignore if Batch
             // Input Empty Check
@@ -406,25 +407,27 @@ namespace Axiom
                     // -------------------------
                     FFprobeParse.StartInfo.Arguments = arguments;
                     FFprobeParse.Start();
-                    FFprobeParse.WaitForExit();
+                    //FFprobeParse.WaitForExit();
                     // Get Ouput Result
                     inputMetaData = FFprobeParse.StandardOutput.ReadToEnd();
-                    // Remove linebreaks
-                    inputMetaData = inputMetaData
-                        .Replace(Environment.NewLine, "")
-                        .Replace("\n", "")
-                        .Replace("\r\n", "")
-                        .Replace("\u2028", "")
-                        .Replace("\u000A", "")
-                        .Replace("\u000B", "")
-                        .Replace("\u000C", "")
-                        .Replace("\u000D", "")
-                        .Replace("\u0085", "")
-                        .Replace("\u2028", "")
-                        .Replace("\u2029", "");
-                    // Remove any white space from end of string
-                    inputMetaData = inputMetaData.Trim();
-                    inputMetaData = inputMetaData.TrimEnd();
+
+                    //while (FFprobeParse.StandardOutput.Peek() > -1)
+                    //{
+                    //    listInputMetaData.Add(FFprobeParse.StandardOutput.ReadLine());
+                    //}
+                    //while (FFprobeParse.StandardError.Peek() > -1)
+                    //{
+                    //    listInputMetaData.Add(FFprobeParse.StandardError.ReadLine());
+                    //}
+
+                    // Join List
+                    //inputMetaData = string.Join(Environment.NewLine, listInputMetaData);
+
+                    if (!string.IsNullOrEmpty(inputMetaData))
+                    {
+                        inputMetaData = inputMetaData.Trim();
+                        inputMetaData = inputMetaData.TrimEnd();
+                    }
                 }
             }
 
@@ -438,6 +441,27 @@ namespace Axiom
             //Log.LogActions.Add(Log.WriteAction);
 
             return inputMetaData;
+        }
+
+
+        /// <summary>
+        ///     Remove Line Breaks (Method)
+        /// </summary>
+        public static String RemoveLineBreaks(string lines)
+        {
+            lines = lines.Replace(Environment.NewLine, "")
+                .Replace("\n", "")
+                .Replace("\r\n", "")
+                .Replace("\u2028", "")
+                .Replace("\u000A", "")
+                .Replace("\u000B", "")
+                .Replace("\u000C", "")
+                .Replace("\u000D", "")
+                .Replace("\u0085", "")
+                .Replace("\u2028", "")
+                .Replace("\u2029", "");
+
+            return lines;
         }
 
     }

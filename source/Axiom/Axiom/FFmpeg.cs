@@ -211,7 +211,7 @@ namespace Axiom
                         // Use Strings instead of Methods
                         //
                         "\r\n\r\n" + "&&",
-                        "\r\n\r\n" + MainWindow.FFmpegPath(mainwindow),
+                        "\r\n\r\n" + MainWindow.FFmpegPath(),
                         "-y",
                         "-i",
 
@@ -279,7 +279,7 @@ namespace Axiom
                 // Make Arugments List
                 List<string> FFmpegArgsList = new List<string>()
                 {
-                    MainWindow.FFmpegPath(mainwindow),
+                    MainWindow.FFmpegPath(),
                     "-y",
                     "-i",
                     FFmpeg.OnePassArgs(mainwindow), //disabled if 2-Pass
@@ -373,7 +373,7 @@ namespace Axiom
                     "\r\n\r\n" + Audio.BatchAudioBitrateLimiter(mainwindow),
 
                     "\r\n\r\n" + "&&",
-                    "\r\n\r\n" + MainWindow.FFmpegPath(mainwindow),
+                    "\r\n\r\n" + MainWindow.FFmpegPath(),
                     "-y",
                     "-i",
                     //%~f added in InputPath()
