@@ -204,9 +204,9 @@ namespace Axiom
                 mainwindow.cutEnd.Text = "00:00:00.000";
 
                 // Audio
-                mainwindow.cboAudio.SelectedItem = "400";
+                mainwindow.cboAudio.SelectedItem = "Auto";
                 mainwindow.tglVBR.IsChecked = false;
-                mainwindow.cboChannel.SelectedItem = "Stereo";
+                mainwindow.cboChannel.SelectedItem = "Source";
                 mainwindow.cboSamplerate.SelectedItem = "48k";
                 mainwindow.cboBitDepth.SelectedItem = "auto";
                 mainwindow.volumeUpDown.Text = "100";
@@ -445,7 +445,7 @@ namespace Axiom
                 mainwindow.cboOptimize.SelectedItem = "PS4";
 
                 // Audio
-                mainwindow.cboAudio.SelectedItem = "400";
+                mainwindow.cboAudio.SelectedItem = "Auto";
                 mainwindow.cboChannel.SelectedItem = "Source";
                 mainwindow.cboSamplerate.SelectedItem = "auto";
                 mainwindow.cboBitDepth.SelectedItem = "auto";
@@ -513,7 +513,7 @@ namespace Axiom
                 mainwindow.cboFPS.IsEnabled = true;
 
                 // Audio
-                mainwindow.cboAudio.SelectedItem = "400";
+                mainwindow.cboAudio.SelectedItem = "Auto";
                 mainwindow.cboChannel.SelectedItem = "Source";
                 mainwindow.cboSamplerate.SelectedItem = "auto";
                 mainwindow.cboBitDepth.SelectedItem = "auto";

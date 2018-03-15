@@ -44,6 +44,7 @@ namespace Axiom
         public static string vQuality; // Video Quality
         public static string vBitMode;
         public static string vBitrate; // Video Bitrate
+        public static string vMinrate;
         public static string vMaxrate;
         public static string vBufsize;
         public static string vOptions; // -pix_fmt, -qcomp
@@ -488,6 +489,7 @@ namespace Axiom
                                 crf = string.Empty;
                                 vBitMode = string.Empty;
                                 vBitrate = string.Empty;
+                                vMinrate = string.Empty;
                                 vMaxrate = string.Empty;
                                 vBufsize = string.Empty;
                                 vOptions = string.Empty;
@@ -527,6 +529,7 @@ namespace Axiom
                                 crf = string.Empty;
                                 vBitMode = string.Empty;
                                 vBitrate = string.Empty;
+                                vMinrate = string.Empty;
                                 vMaxrate = string.Empty;
                                 vBufsize = string.Empty;
                                 vOptions = string.Empty;
@@ -551,6 +554,7 @@ namespace Axiom
                     {
                         crf = string.Empty;
                         vBitrate = "2"; //use highest jpeg quality
+                        vMinrate = string.Empty;
                         vMaxrate = string.Empty;
                         vBufsize = string.Empty;
                         vOptions = string.Empty;
@@ -561,6 +565,7 @@ namespace Axiom
                         crf = string.Empty;
                         vBitMode = string.Empty;
                         vBitrate = string.Empty;
+                        vMinrate = string.Empty;
                         vMaxrate = string.Empty;
                         vBufsize = string.Empty;
                         vOptions = string.Empty;
@@ -634,6 +639,7 @@ namespace Axiom
                         crf = string.Empty;
                         vBitMode = string.Empty;
                         vBitrate = string.Empty;
+                        vMinrate = string.Empty;
                         vMaxrate = string.Empty;
                         vBufsize = string.Empty;
                         vOptions = string.Empty;
@@ -698,7 +704,8 @@ namespace Axiom
                             || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
                         {
                             vBitrate = "5M";
-                            vMaxrate = "-maxrate 5M";
+                            vMinrate = string.Empty;
+                            vMaxrate = string.Empty;
                             crf = string.Empty;
                         }
                                                                        
@@ -813,7 +820,8 @@ namespace Axiom
                             || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
                         {
                             vBitrate = "2500K";
-                            vMaxrate = "-maxrate 2500K";
+                            vMinrate = string.Empty;
+                            vMaxrate = string.Empty;
                             crf = string.Empty;
                         }
 
@@ -928,7 +936,8 @@ namespace Axiom
                             || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
                         {
                             vBitrate = "1300K";
-                            vMaxrate = "-maxrate 1300K";
+                            vMinrate = string.Empty;
+                            vMaxrate = string.Empty;
                             crf = string.Empty;
                         }
 
@@ -1043,7 +1052,8 @@ namespace Axiom
                             || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
                         {
                             vBitrate = "600K";
-                            vMaxrate = "-maxrate 600K";
+                            vMinrate = string.Empty;
+                            vMaxrate = string.Empty;
                             crf = string.Empty;
                         }
 
@@ -1158,7 +1168,8 @@ namespace Axiom
                             || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
                         {
                             vBitrate = "250K";
-                            vMaxrate = "-maxrate 250K";
+                            vMinrate = string.Empty;
+                            vMaxrate = string.Empty;
                             crf = string.Empty;
                         }
 
@@ -1230,6 +1241,7 @@ namespace Axiom
                         crf = string.Empty;
                         vBitMode = string.Empty;
                         vBitrate = string.Empty;
+                        vMinrate = string.Empty;
                         vMaxrate = string.Empty;
                         vBufsize = string.Empty;
                         vOptions = string.Empty;
@@ -1327,6 +1339,7 @@ namespace Axiom
                     {
                         vBitMode,
                         vBitrate,
+                        vMinrate,
                         vMaxrate,
                         vBufsize,
                         vOptions

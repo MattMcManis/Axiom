@@ -136,6 +136,7 @@ namespace Axiom
         public static string inputFileName; // (eg. myvideo.mp4 = myvideo)
         public static string inputExt; // (eg. .mp4)
         public static string input; // Single: Input Path + Filename No Ext + Input Ext (Browse Text Box) /// Batch: Input Path (Browse Text Box)
+        public static string youtubedl; // YouTube Download
 
         // Output
         public static string outputDir; // Output Path
@@ -1055,13 +1056,21 @@ namespace Axiom
             {
                 // Input Directory
                 // If not Empty
-                if (!string.IsNullOrWhiteSpace(mainwindow.tbxInput.Text))
-                {
-                    inputDir = Path.GetDirectoryName(mainwindow.tbxInput.Text).TrimEnd('\\') + @"\"; // (eg. C:\Input Folder\)
-                }
+                //if (!mainwindow.tbxInput.Text.Contains("www.youtube.com")
+                //    && !mainwindow.tbxInput.Text.Contains("youtube.com"))
+                //{
+                    if (!string.IsNullOrWhiteSpace(mainwindow.tbxInput.Text))
+                    {
+                        inputDir = Path.GetDirectoryName(mainwindow.tbxInput.Text).TrimEnd('\\') + @"\"; // (eg. C:\Input Folder\)
+                    }
 
-                // Input
-                input = mainwindow.tbxInput.Text; // (eg. C:\Input Folder\file.wmv)
+                    // Input
+                    input = mainwindow.tbxInput.Text; // (eg. C:\Input Folder\file.wmv)
+                //}
+                //else
+                //{
+                //    input = "\"" + "%appdata%/YouTube/" + "" + "\"";
+                //}
             }
 
             // -------------------------
@@ -1274,6 +1283,20 @@ namespace Axiom
             return outputNewFileName;
         }
 
+
+        /// <summary>
+        ///    YouTube Download (Method)
+        /// </summary>
+        public static String YouTubeDownload(string input)
+        {
+            if (input.Contains("www.youtube.com")
+                || input.Contains("youtube.com"))
+            {
+                youtubedl = "cd " + "\"" + appDir + "youtube-dl" + "\"" + " && youtube-dl.exe " +  input + " -o %appdata%/YouTube/%(title)s.%(ext)s &&";
+            }
+
+            return youtubedl;
+        }
 
 
         /// <summary>
@@ -2201,34 +2224,41 @@ namespace Axiom
         /// </summary>
         private void tbxInput_TextChanged(object sender, TextChangedEventArgs e)
         {
-            // Remove stray slash if closed out early (duplicate code?)
-            if (tbxInput.Text == "\\")
+            //if (!tbxInput.Text.Contains("www.youtube.com")
+            //    && !tbxInput.Text.Contains("youtube.com"))
+            //{
+            if (!string.IsNullOrEmpty(tbxInput.Text))
             {
-                tbxInput.Text = string.Empty;
-            }
-
-            // Get input file extension
-            inputExt = Path.GetExtension(tbxInput.Text);
-
-
-            // Enable / Disable "Open Input Location" Buttion
-            if (!string.IsNullOrWhiteSpace(tbxInput.Text))
-            {
-                bool exists = Directory.Exists(Path.GetDirectoryName(tbxInput.Text));
-
-                if (exists)
+                // Remove stray slash if closed out early (duplicate code?)
+                if (tbxInput.Text == "\\")
                 {
-                    openLocationInput.IsEnabled = true;
+                    tbxInput.Text = string.Empty;
                 }
-                else
-                {
-                    openLocationInput.IsEnabled = false;
-                }
-            }
 
-            // Set Video & Audio Codec Combobox to "Copy" if Input Extension is Same as Output Extension and Video Quality is Auto
-            VideoControls.AutoCopyVideoCodec(this);
-            AudioControls.AutoCopyAudioCodec(this);
+                // Get input file extension
+                inputExt = Path.GetExtension(tbxInput.Text);
+
+
+                // Enable / Disable "Open Input Location" Buttion
+                if (!string.IsNullOrWhiteSpace(tbxInput.Text))
+                {
+                    bool exists = Directory.Exists(Path.GetDirectoryName(tbxInput.Text));
+
+                    if (exists)
+                    {
+                        openLocationInput.IsEnabled = true;
+                    }
+                    else
+                    {
+                        openLocationInput.IsEnabled = false;
+                    }
+                }
+
+                // Set Video & Audio Codec Combobox to "Copy" if Input Extension is Same as Output Extension and Video Quality is Auto
+                VideoControls.AutoCopyVideoCodec(this);
+                AudioControls.AutoCopyAudioCodec(this);
+            }             
+            //}
         }
 
 
