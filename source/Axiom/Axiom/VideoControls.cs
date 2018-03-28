@@ -465,7 +465,7 @@ namespace Axiom
                 previousItem = (string)mainwindow.cboOptimize.SelectedItem;
 
                 // Change ItemSource
-                OptimizeItemSource = new List<string>() { "none", "Advanced", "Web", "Windows", "Apple", "Android" };
+                OptimizeItemSource = new List<string>() { "none", "Web" };
 
                 // Populate ComboBox from ItemSource
                 mainwindow.cboOptimize.ItemsSource = OptimizeItemSource;
@@ -484,14 +484,14 @@ namespace Axiom
                 mainwindow.cboOptimize.IsEnabled = true;
 
 
-                //MKV NEEDS ITS OWN RULES ////////////////////////////
+                // MKV NEEDS ITS OWN RULES ////////////////////////////
                 if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
                 {
                     // Get Previous Item
                     previousItem = (string)mainwindow.cboOptimize.SelectedItem;
 
                     // Change ItemSource
-                    OptimizeItemSource = new List<string>() { "none", "Windows", "Apple", "Android" };
+                    OptimizeItemSource = new List<string>() { "none" };
 
                     // Populate ComboBox from ItemSource
                     mainwindow.cboOptimize.ItemsSource = OptimizeItemSource;

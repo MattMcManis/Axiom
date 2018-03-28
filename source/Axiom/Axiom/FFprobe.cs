@@ -385,7 +385,6 @@ namespace Axiom
         public static String InputFileInfo(MainWindow mainwindow, string arguments)
         {
             string inputMetaData = string.Empty;
-            //List<string> listInputMetaData = new List<string>();
 
             // Ignore if Batch
             // Input Empty Check
@@ -411,18 +410,6 @@ namespace Axiom
                     // Get Ouput Result
                     inputMetaData = FFprobeParse.StandardOutput.ReadToEnd();
 
-                    //while (FFprobeParse.StandardOutput.Peek() > -1)
-                    //{
-                    //    listInputMetaData.Add(FFprobeParse.StandardOutput.ReadLine());
-                    //}
-                    //while (FFprobeParse.StandardError.Peek() > -1)
-                    //{
-                    //    listInputMetaData.Add(FFprobeParse.StandardError.ReadLine());
-                    //}
-
-                    // Join List
-                    //inputMetaData = string.Join(Environment.NewLine, listInputMetaData);
-
                     if (!string.IsNullOrEmpty(inputMetaData))
                     {
                         inputMetaData = inputMetaData.Trim();
@@ -430,15 +417,6 @@ namespace Axiom
                     }
                 }
             }
-
-            // Log Console Message /////////
-            //Log.WriteAction = () =>
-            //{
-            //    Log.logParagraph.Inlines.Add(new LineBreak());
-            //    Log.logParagraph.Inlines.Add(new LineBreak());
-            //    Log.logParagraph.Inlines.Add(new Run(FFprobe.ffprobe + arguments) { Foreground = Log.ConsoleDefault });
-            //};
-            //Log.LogActions.Add(Log.WriteAction);
 
             return inputMetaData;
         }

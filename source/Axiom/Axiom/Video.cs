@@ -81,7 +81,6 @@ namespace Axiom
         public static string batchVideoAuto;
 
 
-
         // --------------------------------------------------------------------------------------------------------
         // --------------------------------------------------------------------------------------------------------
         // Process Methods
@@ -720,7 +719,7 @@ namespace Axiom
                         {
                             vBitMode = string.Empty;
                             vBitrate = string.Empty;
-                            crf = "-crf 20 -x265-params crf=20";
+                            crf = "-crf 18 -x265-params crf=18";
                         }
                         else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
                             || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
@@ -836,7 +835,7 @@ namespace Axiom
                         {
                             vBitMode = string.Empty;
                             vBitrate = string.Empty;
-                            crf = "-crf 25 -x265-params crf=25";
+                            crf = "-crf 21 -x265-params crf=21";
                         }
                         else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
                             || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
@@ -952,7 +951,7 @@ namespace Axiom
                         {
                             vBitMode = string.Empty;
                             vBitrate = string.Empty;
-                            crf = "-crf 30 -x265-params crf=30";
+                            crf = "-crf 26 -x265-params crf=26";
                         }
                         else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
                             || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
@@ -1068,7 +1067,7 @@ namespace Axiom
                         {
                             vBitMode = string.Empty;
                             vBitrate = string.Empty;
-                            crf = "-crf 38 -x265-params crf=38";
+                            crf = "-crf 35 -x265-params crf=35";
                         }
                         else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
                             || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
@@ -1184,7 +1183,7 @@ namespace Axiom
                         {
                             vBitMode = string.Empty;
                             vBitrate = string.Empty;
-                            crf = "-crf 45 -x265-params crf=45";
+                            crf = "-crf 42 -x265-params crf=42";
                         }
                         else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
                             || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
@@ -1274,7 +1273,7 @@ namespace Axiom
                         // x265
                         if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265")
                         {
-                            crf = "-crf" + mainwindow.crfCustom.Text + " -x265-params crf=" + mainwindow.crfCustom.Text;
+                            crf = "-crf " + mainwindow.crfCustom.Text + " -x265-params crf=" + mainwindow.crfCustom.Text;
                             vOptions = "-pix_fmt yuv420p";
                         }
                     }
