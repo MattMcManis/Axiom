@@ -191,6 +191,10 @@ namespace Axiom
             {
                 format = "-f matroska";
             }
+            else if ((string)mainwindow.cboFormat.SelectedItem == "avi")
+            {
+                format = "-f avi";
+            }
             else if ((string)mainwindow.cboFormat.SelectedItem == "ogv")
             {
                 format = "-f ogv";

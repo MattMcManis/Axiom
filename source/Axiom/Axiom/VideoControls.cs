@@ -78,12 +78,14 @@ namespace Axiom
             else if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9") { mainwindow.cboSpeed.IsEnabled = true; }
             else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264") { mainwindow.cboSpeed.IsEnabled = true; }
             else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265") { mainwindow.cboSpeed.IsEnabled = true; }
+            else if ((string)mainwindow.cboVideoCodec.SelectedItem == "mpeg4") { mainwindow.cboSpeed.IsEnabled = true; }
             else if ((string)mainwindow.cboVideoCodec.SelectedItem == "Theora") { mainwindow.cboSpeed.IsEnabled = false; }
             else if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG") { mainwindow.cboSpeed.IsEnabled = false; }
             else if ((string)mainwindow.cboVideoCodec.SelectedItem == "PNG") { mainwindow.cboSpeed.IsEnabled = false; }
             else if (string.IsNullOrEmpty((string)mainwindow.cboVideoCodec.SelectedItem)) { mainwindow.cboSpeed.IsEnabled = false; }
 
-            //Container
+            // Container
+            // Audio
             //
             if ((string)mainwindow.cboFormat.SelectedItem == "ogv") { mainwindow.cboSpeed.IsEnabled = false; }
             else if ((string)mainwindow.cboFormat.SelectedItem == "mp3") { mainwindow.cboSpeed.IsEnabled = false; }
@@ -98,7 +100,8 @@ namespace Axiom
             // -------------------------
             // MKV Special Inustrctions - If Video Codec = Copy, select Video Dropdown to Auto
             // -------------------------
-            if ((string)mainwindow.cboFormat.SelectedItem == "mkv" && (string)mainwindow.cboVideoCodec.SelectedItem == "Copy")
+            if ((string)mainwindow.cboFormat.SelectedItem == "mkv" 
+                && (string)mainwindow.cboVideoCodec.SelectedItem == "Copy")
             {
                 mainwindow.cboVideo.SelectedItem = "Auto";
             }
@@ -516,6 +519,97 @@ namespace Axiom
                 // Controlled through Video Quality ComboBox
             }
 
+            // --------------------------------------------------
+            // MPEG-4
+            // --------------------------------------------------
+            else if ((string)mainwindow.cboVideoCodec.SelectedItem == "mpeg4")
+            {
+                // -------------------------
+                // Video
+                // -------------------------
+                // Get Previous Item
+                previousItem = (string)mainwindow.cboVideo.SelectedItem;
+
+                // Change ItemSource
+                VideoItemSource = new List<string>() { "Auto", "Lossless", "Ultra", "High", "Medium", "Low", "Sub", "Custom" };
+
+                // Populate ComboBox from ItemSource
+                mainwindow.cboVideo.ItemsSource = VideoItemSource;
+
+                // Select Item
+                if (VideoItemSource.Contains(previousItem))
+                {
+                    mainwindow.cboVideo.SelectedItem = previousItem;
+                }
+                else
+                {
+                    mainwindow.cboVideo.SelectedIndex = 0; // Auto
+                }
+
+                // Enable Control
+                mainwindow.cboVideo.IsEnabled = true;
+
+                // Enable CRF
+                if ((string)mainwindow.cboVideo.SelectedItem == "Custom")
+                {
+                    mainwindow.crfCustom.IsEnabled = true;
+                }
+
+
+                // --------------------------------------------------
+                // Pass
+                // --------------------------------------------------
+                // Get Previous Item
+                previousItem = (string)mainwindow.cboPass.SelectedItem;
+
+                // Change ItemSource
+                PassItemSource = new List<string>() { "1 Pass", "2 Pass" };
+
+                // Populate ComboBox from ItemSource
+                mainwindow.cboPass.ItemsSource = PassItemSource;
+
+                // Select Item
+                if (PassItemSource.Contains(previousItem))
+                {
+                    mainwindow.cboPass.SelectedItem = previousItem;
+                }
+                else
+                {
+                    mainwindow.cboPass.SelectedIndex = 0; // Auto
+                }
+
+
+                // --------------------------------------------------
+                // Optimize
+                // --------------------------------------------------
+                // Get Previous Item
+                previousItem = (string)mainwindow.cboOptimize.SelectedItem;
+
+                // Change ItemSource
+                OptimizeItemSource = new List<string>() { "none" };
+
+                // Populate ComboBox from ItemSource
+                mainwindow.cboOptimize.ItemsSource = OptimizeItemSource;
+
+                // Select Item
+                if (OptimizeItemSource.Contains(previousItem))
+                {
+                    mainwindow.cboOptimize.SelectedItem = previousItem;
+                }
+                else
+                {
+                    mainwindow.cboOptimize.SelectedIndex = 0; // auto
+                }
+
+                // Enable Control
+                mainwindow.cboOptimize.IsEnabled = true;
+
+
+                // --------------------------------------------------
+                // Speed
+                // --------------------------------------------------
+                // Controlled through Video Quality ComboBox
+            }
 
             // --------------------------------------------------
             // Theora
@@ -910,7 +1004,8 @@ namespace Axiom
         /// <summary>
         public static void AutoCopyVideoCodec(MainWindow mainwindow) // Method
         {
-            if (!string.IsNullOrEmpty(MainWindow.inputExt) || !string.IsNullOrEmpty(MainWindow.batchExt)) // Null Check
+            if (!string.IsNullOrEmpty(MainWindow.inputExt) 
+                || !string.IsNullOrEmpty(MainWindow.batchExt)) // Null Check
             {
                 // -------------------------
                 // Add Copy to Video Codec ComboBox
@@ -1044,6 +1139,32 @@ namespace Axiom
                                         || (string)mainwindow.cboOptimize.SelectedItem != "none")
                                     {
                                         mainwindow.cboVideoCodec.SelectedItem = "x264";
+                                    }
+                                }
+                                // -------------------------
+                                // AVI
+                                // -------------------------
+                                else if ((string)mainwindow.cboFormat.SelectedItem == "avi")
+                                {
+                                    // Not Auto
+                                    if ((string)mainwindow.cboVideo.SelectedItem != "Auto")
+                                    {
+                                        mainwindow.cboVideoCodec.SelectedItem = "mpeg4";
+                                    }
+
+                                    // Size
+                                    if ((string)mainwindow.cboVideo.SelectedItem == "Auto"
+                                        && (string)mainwindow.cboSize.SelectedItem != "No")
+                                    {
+                                        mainwindow.cboVideoCodec.SelectedItem = "mpeg4";
+                                    }
+
+                                    // Crop, FPS, Optimize
+                                    if (!string.IsNullOrEmpty(CropWindow.crop)
+                                        || (string)mainwindow.cboFPS.SelectedItem != "auto"
+                                        || (string)mainwindow.cboOptimize.SelectedItem != "none")
+                                    {
+                                        mainwindow.cboVideoCodec.SelectedItem = "mpeg4";
                                     }
                                 }
                                 // -------------------------

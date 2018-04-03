@@ -42,7 +42,7 @@ namespace Axiom
         public static List<string> MediaTypeItemSource = new List<string>() { "Video", "Audio", "Image", "Sequence" };
 
         // Format
-        public static List<string> FormatItemSource = new List<string>() { "webm", "mp4", "mkv", "ogv", "mp3", "m4a", "ogg", "flac", "wav", "jpg", "png" };
+        public static List<string> FormatItemSource = new List<string>() { "webm", "mp4", "mkv", "avi", "ogv", "mp3", "m4a", "ogg", "flac", "wav", "jpg", "png" };
 
         // --------------------------------------------------------------------------------------------------------
         // --------------------------------------------------------------------------------------------------------
@@ -104,6 +104,16 @@ namespace Axiom
                 mainwindow.cboAudioStream.SelectedItem = "all";
                 mainwindow.cboFPS.IsEnabled = true;
                 mainwindow.cboOptimize.IsEnabled = true;
+            }
+            else if ((string)mainwindow.cboFormat.SelectedItem == "avi")
+            {
+                mainwindow.cboMediaType.SelectedItem = "Video";
+                mainwindow.cboMediaType.IsEnabled = false;
+                mainwindow.cboSubtitle.SelectedItem = "all";
+                mainwindow.cboSubtitle.IsEnabled = true;
+                mainwindow.cboAudioStream.SelectedItem = "all";
+                mainwindow.cboFPS.IsEnabled = true;
+                mainwindow.cboOptimize.IsEnabled = false;
             }
             else if ((string)mainwindow.cboFormat.SelectedItem == "ogv")
             {
@@ -300,6 +310,29 @@ namespace Axiom
                 // Set the List Defaults
                 mainwindow.cboVideoCodec.SelectedItem = "x264";
                 mainwindow.cboAudioCodec.SelectedItem = "AC3";
+            }
+
+            // -------------------------
+            // AVI 
+            // -------------------------
+            else if ((string)mainwindow.cboFormat.SelectedItem == "avi")
+            {
+                // VIDEO ///////
+                VideoControls.VideoCodecItemSource = new List<string>() { "mpeg4" };
+
+                // Populate ComboBox from ItemSource
+                mainwindow.cboVideoCodec.ItemsSource = VideoControls.VideoCodecItemSource;
+
+
+                // AUDIO ///////    
+                AudioControls.AudioCodecItemSource = new List<string>() { "AAC", "AC3", "LAME", "PCM" };
+
+                // Populate ComboBox from ItemSource
+                mainwindow.cboAudioCodec.ItemsSource = AudioControls.AudioCodecItemSource;
+
+                // Set the List Defaults
+                mainwindow.cboVideoCodec.SelectedItem = "mpeg4";
+                mainwindow.cboAudioCodec.SelectedItem = "LAME";
             }
 
             // -------------------------
@@ -505,13 +538,15 @@ namespace Axiom
                 mainwindow.tglVBR.IsChecked = false;
             }
             // Check VBR for WebM (VBR-Only codec) (ALWAYS)
-            else if ((string)mainwindow.cboAudio.SelectedItem == "Auto" && (string)mainwindow.cboFormat.SelectedItem == "webm")
+            else if ((string)mainwindow.cboAudio.SelectedItem == "Auto" 
+                && (string)mainwindow.cboFormat.SelectedItem == "webm")
             {
                 mainwindow.tglVBR.IsEnabled = false;
                 mainwindow.tglVBR.IsChecked = true;
             }
             // Check VBR for OGV (VBR-Only codec) (ALWAYS)
-            else if ((string)mainwindow.cboAudio.SelectedItem == "Auto" && (string)mainwindow.cboFormat.SelectedItem == "ogv")
+            else if ((string)mainwindow.cboAudio.SelectedItem == "Auto" 
+                && (string)mainwindow.cboFormat.SelectedItem == "ogv")
             {
                 mainwindow.tglVBR.IsEnabled = false;
                 mainwindow.tglVBR.IsChecked = true; //doesnt work

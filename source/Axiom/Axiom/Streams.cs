@@ -80,6 +80,10 @@ namespace Axiom
             {
                 vMap = "-map 0:v?"; // all video tracks
             }
+            else if ((string)mainwindow.cboFormat.SelectedItem == "avi")
+            {
+                vMap = "-map 0:v:0?"; // only video track 1
+            }
             else if ((string)mainwindow.cboFormat.SelectedItem == "ogv")
             {
                 vMap = "-map 0:v?"; // all video tracks
@@ -136,6 +140,10 @@ namespace Axiom
                 cMap = "-map_chapters 0"; // all chapters
             }
             else if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
+            {
+                cMap = "-map_chapters 0"; // all chapters
+            }
+            else if ((string)mainwindow.cboFormat.SelectedItem == "avi")
             {
                 cMap = "-map_chapters 0"; // all chapters
             }
@@ -216,6 +224,10 @@ namespace Axiom
                     sMap = "-map 0:s?"; // all subtitles (:? at the end ignores error if subtitle is not available)
                 }
                 else if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
+                {
+                    sMap = "-map 0:s?"; // all subtitles
+                }
+                else if ((string)mainwindow.cboFormat.SelectedItem == "avi")
                 {
                     sMap = "-map 0:s?"; // all subtitles
                 }
@@ -326,6 +338,10 @@ namespace Axiom
                     aMap = "-map 0:a?"; // all audio tracks 
                 }
                 else if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
+                {
+                    aMap = "-map 0:a?"; // all audio tracks 
+                }
+                else if ((string)mainwindow.cboFormat.SelectedItem == "avi")
                 {
                     aMap = "-map 0:a?"; // all audio tracks 
                 }

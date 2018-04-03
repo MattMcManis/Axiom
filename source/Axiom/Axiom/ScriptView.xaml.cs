@@ -266,13 +266,27 @@ namespace Axiom
         {
             if (this.Height <= 250)
             {
-                this.Width = 800;
-                this.Height = 600;
-
                 double screenWidth = System.Windows.SystemParameters.PrimaryScreenWidth;
                 double screenHeight = System.Windows.SystemParameters.PrimaryScreenHeight;
+
+
+                // Fit Smaller Resolution
+                if (screenHeight < 768)
+                {
+                    this.Width = 800;
+                    this.Height = 500;
+                }
+                // Fit Larger Resolution
+                else
+                {
+                    this.Width = 800;
+                    this.Height = 600;
+                }
+
+
                 double windowWidth = this.Width;
                 double windowHeight = this.Height;
+
                 this.Left = (screenWidth / 2) - (windowWidth / 2);
                 this.Top = (screenHeight / 2) - (windowHeight / 2);
             }

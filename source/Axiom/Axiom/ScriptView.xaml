@@ -91,6 +91,8 @@
                 Click="buttonSort_Click">
             <TextBlock x:Name="buttonSortTextBlock" 
                        Text="Sort"
+                       Width="65"
+                       TextAlignment="Center"
                        Margin="0,-2,0,0"/>
         </Button>
 

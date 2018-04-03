@@ -809,7 +809,7 @@ namespace Axiom
                     }
                 }
                 // If User Defined Path
-                else if (ConfigureWindow.ffmpegPath != "<auto>" && ConfigureWindow.ffmpegPath != null && ConfigureWindow.ffmpegPath != string.Empty)
+                else if (ConfigureWindow.ffmpegPath != "<auto>" && !string.IsNullOrEmpty(ConfigureWindow.ffprobePath))
                 {
                     var dirPath = Path.GetDirectoryName(ConfigureWindow.ffmpegPath).TrimEnd('\\') + @"\";
                     var fullPath = Path.Combine(dirPath, "ffmpeg.exe");
@@ -882,7 +882,7 @@ namespace Axiom
                     }
                 }
                 // If User Defined Path
-                else if (ConfigureWindow.ffprobePath != "<auto>" && ConfigureWindow.ffprobePath != null && ConfigureWindow.ffprobePath != string.Empty)
+                else if (ConfigureWindow.ffprobePath != "<auto>" && !string.IsNullOrEmpty(ConfigureWindow.ffprobePath))
                 {
                     var dirPath = Path.GetDirectoryName(ConfigureWindow.ffprobePath).TrimEnd('\\') + @"\";
                     var fullPath = Path.Combine(dirPath, "ffprobe.exe");
@@ -1015,7 +1015,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///    Input Directory (Method)
+        ///    Batch Input Directory (Method)
         /// </summary>
         // Directory Only, Needed for Batch
         public static String BatchInputDirectory(MainWindow mainwindow)
@@ -1061,6 +1061,7 @@ namespace Axiom
                 //{
                     if (!string.IsNullOrWhiteSpace(mainwindow.tbxInput.Text))
                     {
+                        //inputDir = Path.GetDirectoryName(mainwindow.tbxInput.Text.TrimEnd('\\') + @"\"); // (eg. C:\Input Folder\)
                         inputDir = Path.GetDirectoryName(mainwindow.tbxInput.Text).TrimEnd('\\') + @"\"; // (eg. C:\Input Folder\)
                     }
 
@@ -1122,13 +1123,13 @@ namespace Axiom
             {
                 // Input Not Empty, Output Empty
                 // Default Output to be same as Input Directory
-                if (!string.IsNullOrWhiteSpace(mainwindow.tbxInput.Text) && string.IsNullOrWhiteSpace(mainwindow.tbxOutput.Text))
+                if (!string.IsNullOrWhiteSpace(mainwindow.tbxInput.Text) 
+                    && string.IsNullOrWhiteSpace(mainwindow.tbxOutput.Text))
                 {
                     mainwindow.tbxOutput.Text = inputDir + inputFileName + outputExt;
                 }
 
                 // Input Empty, Output Not Empty
-                // Output is Output
                 if (!string.IsNullOrWhiteSpace(mainwindow.tbxOutput.Text))
                 {
                     outputDir = Path.GetDirectoryName(mainwindow.tbxOutput.Text).TrimEnd('\\') + @"\";
@@ -1263,14 +1264,12 @@ namespace Axiom
         {
             string outputNewFileName = string.Empty;
             string output = outputDir + filename + outputExt;
-
             int count = 1;
-
             if (File.Exists(outputDir + filename + outputExt))
             {
                 while (File.Exists(output))
                 {
-                    outputNewFileName = string.Format("{0}({1})", filename, count++);
+                    outputNewFileName = string.Format("{0}({1})", filename + " ", count++);
                     output = Path.Combine(outputDir, outputNewFileName + outputExt);
                 }
             }
@@ -1279,9 +1278,9 @@ namespace Axiom
                 // stay default
                 outputNewFileName = filename;
             }
-
             return outputNewFileName;
         }
+
 
 
         /// <summary>
@@ -1315,7 +1314,8 @@ namespace Axiom
             //
             if (string.IsNullOrEmpty(FFprobe.ffprobe))
             {
-                if ((string)mainwindow.cboVideo.SelectedItem == "Auto" || (string)mainwindow.cboAudio.SelectedItem == "Auto")
+                if ((string)mainwindow.cboVideo.SelectedItem == "Auto" 
+                    || (string)mainwindow.cboAudio.SelectedItem == "Auto")
                 {
                     // Log Console Message /////////
                     Log.logParagraph.Inlines.Add(new LineBreak());
@@ -1387,7 +1387,8 @@ namespace Axiom
 
             // STOP Throw Error if VP8/VP9 & CRF does not have Bitrate -b:v
             //
-            if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9")
+            if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" 
+                || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9")
             {
                 if (!string.IsNullOrWhiteSpace(mainwindow.crfCustom.Text) 
                     && string.IsNullOrWhiteSpace(mainwindow.vBitrateCustom.Text))
@@ -2123,24 +2124,31 @@ namespace Axiom
 
 
         /// <summary>
-        ///    Browse Button
+        ///    Input Button
         /// </summary>
-        private void buttonBrowse_Click(object sender, RoutedEventArgs e)
+        private void btnInput_Click(object sender, RoutedEventArgs e)
         {
             // -------------------------
             // Single File
             // -------------------------
             if (tglBatch.IsChecked == false)
             {
-                // Open 'Select File'
+                // Open Select File Window
                 Microsoft.Win32.OpenFileDialog selectFile = new Microsoft.Win32.OpenFileDialog();
 
-                selectFile.RestoreDirectory = true;
+                // Remember Last Dir
+                //
+                string previousPath = Settings.Default.inputDir.ToString();
+                // Use Previous Path if Not Null
+                if (!string.IsNullOrEmpty(previousPath))
+                {
+                    selectFile.InitialDirectory = previousPath;
+                }
 
-                // Show save file dialog box
+                // Show Dialog Box
                 Nullable<bool> result = selectFile.ShowDialog();
 
-                // Process dialog box
+                // Process Dialog Box
                 if (result == true)
                 {
                     // Display path and file in Output Textbox
@@ -2153,13 +2161,9 @@ namespace Axiom
 
                     inputExt = Path.GetExtension(tbxInput.Text);
 
-
-                    // Add slash to inputDir path if missing
-                    if (!inputDir.EndsWith("\\") && !string.IsNullOrEmpty(inputDir))
-                    {
-                        // inputDir += "\\";
-                        inputDir = inputDir.TrimEnd('\\') + @"\";
-                    }
+                    // Save Previous Path
+                    Settings.Default.inputDir = inputDir;
+                    Settings.Default.Save();
 
                 }
 
@@ -2172,34 +2176,19 @@ namespace Axiom
             // -------------------------
             else if (tglBatch.IsChecked == true)
             {
-                // Open 'Batch Folder'
-                System.Windows.Forms.FolderBrowserDialog folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
-                System.Windows.Forms.DialogResult result = folderBrowserDialog.ShowDialog();
+                // Open Batch Folder
+                System.Windows.Forms.FolderBrowserDialog inputFolder = new System.Windows.Forms.FolderBrowserDialog();
+                System.Windows.Forms.DialogResult result = inputFolder.ShowDialog();
+                
 
-                // Popup Folder Browse Window
+                // Show Input Dialog Box
                 if (result == System.Windows.Forms.DialogResult.OK)
                 {
                     // Display Folder Path in Textbox
-                    tbxInput.Text = folderBrowserDialog.SelectedPath.TrimEnd('\\') + @"\";
+                    tbxInput.Text = inputFolder.SelectedPath.TrimEnd('\\') + @"\";
 
-                    // Remove Double Slash in Root Dir, such as C:\
-                    tbxInput.Text = tbxInput.Text.Replace(@"\\", @"\");
-
-                    // Add slash to Batch Browse Text folder path if missing
-                    if (!string.IsNullOrWhiteSpace(tbxInput.Text) && !tbxInput.Text.EndsWith("\\"))
-                    {
-                        tbxInput.Text = tbxInput.Text.TrimEnd('\\') + @"\";
-                    }
-
-                    // Input Directory Path
-                    inputDir = Path.GetDirectoryName(tbxInput.Text).TrimEnd('\\') + @"\";
-
-                    // Add slash to inputDir path if missing
-                    if (!inputDir.EndsWith("\\") && !string.IsNullOrEmpty(inputDir))
-                    {
-                        // inputDir += "\\";
-                        inputDir = inputDir.TrimEnd('\\') + @"\";
-                    }
+                    // Input Directory
+                    inputDir = Path.GetDirectoryName(tbxInput.Text.TrimEnd('\\') + @"\");
                 }
                 else
                 {
@@ -2220,7 +2209,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///    Browse Textbox
+        ///    Input Textbox
         /// </summary>
         private void tbxInput_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -2277,7 +2266,7 @@ namespace Axiom
         /// <summary>
         ///    Output Button
         /// </summary>
-        private void buttonOutput_Click(object sender, RoutedEventArgs e)
+        private void btnOutput_Click(object sender, RoutedEventArgs e)
         {
             // -------------------------
             // Single File
@@ -2291,17 +2280,27 @@ namespace Axiom
                 // Open 'Save File'
                 Microsoft.Win32.SaveFileDialog saveFile = new Microsoft.Win32.SaveFileDialog();
 
+
                 // 'Save File' Default Path same as Input Directory
-                saveFile.InitialDirectory = inputDir;
+                //
+                string previousPath = Settings.Default.outputDir.ToString();
+                // Use Input Path if Previous Path is Null
+                if (string.IsNullOrEmpty(previousPath))
+                {
+                    saveFile.InitialDirectory = inputDir;
+                }
+                                
+                // Remember Last Dir
                 saveFile.RestoreDirectory = true;
+                // Default Extension
                 saveFile.DefaultExt = outputExt;
 
                 // Default file name if empty
                 if (string.IsNullOrEmpty(inputFileName))
                 {
-                    // Default
                     saveFile.FileName = "File";
                 }
+                // If file name exists
                 else
                 {
                     // Output Path
@@ -2316,10 +2315,10 @@ namespace Axiom
                 }
 
 
-                // Show save file dialog box
+                // Show Dialog Box
                 Nullable<bool> result = saveFile.ShowDialog();
 
-                // Process dialog box
+                // Process Dialog Box
                 if (result == true)
                 {
                     // Display path and file in Output Textbox
@@ -2332,11 +2331,17 @@ namespace Axiom
                     outputFileName = Path.GetFileNameWithoutExtension(tbxOutput.Text);
 
                     // Add slash to inputDir path if missing
-                    if (!outputDir.EndsWith("\\") && !string.IsNullOrEmpty(outputDir))
+                    if (!string.IsNullOrEmpty(outputDir))
                     {
-                        // inputDir += "\\";
-                        outputDir = outputDir.TrimEnd('\\') + @"\";
+                        if (!outputDir.EndsWith("\\"))
+                        {
+                            outputDir = outputDir.TrimEnd('\\') + @"\";
+                        }
                     }
+
+                    // Save Previous Path
+                    Settings.Default.outputDir = outputDir;
+                    Settings.Default.Save();
                 }
             }
             // -------------------------
@@ -2348,7 +2353,8 @@ namespace Axiom
                 System.Windows.Forms.FolderBrowserDialog outputFolder = new System.Windows.Forms.FolderBrowserDialog();
                 System.Windows.Forms.DialogResult result = outputFolder.ShowDialog();
 
-                // Process dialog box
+
+                // Process Dialog Box
                 if (result == System.Windows.Forms.DialogResult.OK)
                 {
                     // Display path and file in Output Textbox
@@ -2357,15 +2363,16 @@ namespace Axiom
                     // Remove Double Slash in Root Dir, such as C:\
                     tbxOutput.Text = tbxOutput.Text.Replace(@"\\", @"\");
 
-
                     // Output Path
-                    outputDir = Path.GetDirectoryName(tbxOutput.Text).TrimEnd('\\') + @"\";
+                    outputDir = Path.GetDirectoryName(tbxOutput.Text.TrimEnd('\\') + @"\");
 
                     // Add slash to inputDir path if missing
-                    if (!outputDir.EndsWith("\\") && !string.IsNullOrEmpty(outputDir))
+                    if (!string.IsNullOrEmpty(outputDir))
                     {
-                        // inputDir += "\\";
-                        outputDir = outputDir.TrimEnd('\\') + @"\";
+                        if (!outputDir.EndsWith("\\"))
+                        {
+                            outputDir = outputDir.TrimEnd('\\') + @"\";
+                        }   
                     }
                 }
             }
@@ -2787,7 +2794,7 @@ namespace Axiom
             else if ((string)cboVideo.SelectedItem == "High") { cboSpeed.SelectedItem = "Medium"; }
             else if ((string)cboVideo.SelectedItem == "Medium") { cboSpeed.SelectedItem = "Medium"; }
             else if ((string)cboVideo.SelectedItem == "Low") { cboSpeed.SelectedItem = "Fast"; }
-            else if ((string)cboVideo.SelectedItem == "Sub") { cboSpeed.SelectedItem = "Very Fast"; }
+            else if ((string)cboVideo.SelectedItem == "Sub") { cboSpeed.SelectedItem = "Fast"; }
             else if ((string)cboVideo.SelectedItem == "Custom") { cboSpeed.SelectedItem = "Medium"; }
 
             // -------------------------
