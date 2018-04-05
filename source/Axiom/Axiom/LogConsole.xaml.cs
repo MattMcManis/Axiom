@@ -31,7 +31,7 @@ namespace Axiom
     /// </summary>
     public partial class LogConsole : Window
     {
-        public LogConsole(MainWindow mainwindow, ConfigureWindow configurewindow)
+        public LogConsole(MainWindow mainwindow)
         {
             InitializeComponent();
 
@@ -44,7 +44,7 @@ namespace Axiom
             // -------------------------
             // Text Theme Color
             // -------------------------
-            ConfigureWindow.LoadTheme(configurewindow);
+            Configure.LoadTheme(mainwindow);
         }
 
 

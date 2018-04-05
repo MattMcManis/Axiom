@@ -27,6 +27,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Management;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -67,7 +68,7 @@ namespace Axiom
         /// <summary>
         ///     Log Console
         /// </summary>
-        public LogConsole logconsole = new LogConsole(((MainWindow)Application.Current.MainWindow), configurewindow);
+        public LogConsole logconsole = new LogConsole(((MainWindow)Application.Current.MainWindow));
 
         /// <summary>
         ///     Debug Console
@@ -87,7 +88,7 @@ namespace Axiom
         /// <summary>
         ///     Configure Window
         /// </summary>
-        public static ConfigureWindow configurewindow; //pass data
+        //public static ConfigureWindow configurewindow; //pass data
 
         /// <summary>
         ///     File Queue
@@ -128,8 +129,6 @@ namespace Axiom
 
         // System
         public static string appDir = AppDomain.CurrentDomain.BaseDirectory.TrimEnd('\\') + @"\"; // Axiom.exe directory
-        public static string threads; // CPU Threads
-        public static string maxthreads; // All CPU Threads
 
         // Input
         public static string inputDir; // Input File Directory
@@ -178,10 +177,10 @@ namespace Axiom
             /// </summary>
             // -----------------------------------------------------------------
             // Set Min/Max Width/Height to prevent Tablets maximizing
-            this.MinWidth = 615;
-            this.MinHeight = 305;
-            this.MaxWidth = 615;
-            this.MaxHeight = 305;
+            this.MinWidth = 750;
+            this.MinHeight = 422;
+            //this.MaxWidth = 615;
+            //this.MaxHeight = 305;
 
             // -----------------------------------------------------------------
             /// <summary>
@@ -260,84 +259,89 @@ namespace Axiom
             // -------------------------
             // Window Position
             // -------------------------
-            try
-            {
-                // First time use
-                if (Convert.ToDouble(Settings.Default["Left"]) == 0 
-                    || Convert.ToDouble(Settings.Default["Top"]) == 0)
-                {
-                    this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-                }
-            }
-            catch
+            if (Convert.ToDouble(Settings.Default["Left"]) == 0 
+                && Convert.ToDouble(Settings.Default["Top"]) == 0)
             {
                 this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            }         
+            }
+            // Load Saved
+            else
+            {
+                this.Top = Settings.Default.Top;
+                this.Left = Settings.Default.Left;
+                this.Height = Settings.Default.Height;
+                this.Width = Settings.Default.Width;
+
+                if (Settings.Default.Maximized)
+                {
+                    WindowState = WindowState.Maximized;
+                }
+            }
 
             // -------------------------
             // Load Theme
             // -------------------------
-            ConfigureWindow.LoadTheme(configurewindow);
+            Configure.LoadTheme(this);
 
             // Log Console Message /////////
             // Don't put in Configure Method, creates duplicate message /////////
             Log.logParagraph.Inlines.Add(new LineBreak());
             Log.logParagraph.Inlines.Add(new LineBreak());
             Log.logParagraph.Inlines.Add(new Bold(new Run("Theme: ")) { Foreground = Log.ConsoleDefault });
-            Log.logParagraph.Inlines.Add(new Run(ConfigureWindow.theme) { Foreground = Log.ConsoleDefault });
+            Log.logParagraph.Inlines.Add(new Run(Configure.theme) { Foreground = Log.ConsoleDefault });
 
             // -------------------------
             // Load FFmpeg.exe Path
             // -------------------------
-            ConfigureWindow.LoadFFmpegPath(configurewindow);
+            Configure.LoadFFmpegPath(this);
 
             // Log Console Message /////////
             Log.logParagraph.Inlines.Add(new LineBreak());
             Log.logParagraph.Inlines.Add(new LineBreak());
             Log.logParagraph.Inlines.Add(new Bold(new Run("FFmpeg: ")) { Foreground = Log.ConsoleDefault });
-            Log.logParagraph.Inlines.Add(new Run(ConfigureWindow.ffmpegPath) { Foreground = Log.ConsoleDefault });
+            Log.logParagraph.Inlines.Add(new Run(Configure.ffmpegPath) { Foreground = Log.ConsoleDefault });
 
             // -------------------------
             // Load FFprobe.exe Path
             // -------------------------
-            ConfigureWindow.LoadFFprobePath(configurewindow);
+            Configure.LoadFFprobePath(this);
 
             // Log Console Message /////////
             Log.logParagraph.Inlines.Add(new LineBreak());
             Log.logParagraph.Inlines.Add(new Bold(new Run("FFprobe: ")) { Foreground = Log.ConsoleDefault });
-            Log.logParagraph.Inlines.Add(new Run(ConfigureWindow.ffprobePath) { Foreground = Log.ConsoleDefault });
+            Log.logParagraph.Inlines.Add(new Run(Configure.ffprobePath) { Foreground = Log.ConsoleDefault });
 
             // -------------------------
             // Load Log Enabled
             // -------------------------
-            ConfigureWindow.LoadLogCheckbox(configurewindow);
+            Configure.LoadLogCheckbox(this);
 
             // Log Console Message /////////
             Log.logParagraph.Inlines.Add(new LineBreak());
             Log.logParagraph.Inlines.Add(new LineBreak());
             Log.logParagraph.Inlines.Add(new Bold(new Run("Log Enabled: ")) { Foreground = Log.ConsoleDefault });
-            Log.logParagraph.Inlines.Add(new Run(Convert.ToString(ConfigureWindow.logEnable)) { Foreground = Log.ConsoleDefault });
+            Log.logParagraph.Inlines.Add(new Run(Convert.ToString(Configure.logEnable)) { Foreground = Log.ConsoleDefault });
 
             // -------------------------
             // Load Log Path
             // -------------------------
-            ConfigureWindow.LoadLogPath(configurewindow);
+            Configure.LoadLogPath(this);
 
             // Log Console Message /////////
             Log.logParagraph.Inlines.Add(new LineBreak());
             Log.logParagraph.Inlines.Add(new Bold(new Run("Log Path: ")) { Foreground = Log.ConsoleDefault });
-            Log.logParagraph.Inlines.Add(new Run(ConfigureWindow.logPath) { Foreground = Log.ConsoleDefault });
+            Log.logParagraph.Inlines.Add(new Run(Configure.logPath) { Foreground = Log.ConsoleDefault });
 
             // -------------------------
             // Load Threads
             // -------------------------
-            ConfigureWindow.LoadThreads(configurewindow);
+            Configure.LoadThreads(this);
 
             // Log Console Message /////////
             Log.logParagraph.Inlines.Add(new LineBreak());
             Log.logParagraph.Inlines.Add(new LineBreak());
             Log.logParagraph.Inlines.Add(new Bold(new Run("Using CPU Threads: ")) { Foreground = Log.ConsoleDefault });
-            Log.logParagraph.Inlines.Add(new Run(ConfigureWindow.threads) { Foreground = Log.ConsoleDefault });
+            Log.logParagraph.Inlines.Add(new Run(Configure.threads) { Foreground = Log.ConsoleDefault });
 
 
             //end change !important
@@ -450,7 +454,30 @@ namespace Axiom
         // Save Window Position
         void Window_Closing(object sender, CancelEventArgs e)
         {
+            if (WindowState == WindowState.Maximized)
+            {
+                // Use the RestoreBounds as the current values will be 0, 0 and the size of the screen
+                Settings.Default.Top = RestoreBounds.Top;
+                Settings.Default.Left = RestoreBounds.Left;
+                Settings.Default.Height = RestoreBounds.Height;
+                Settings.Default.Width = RestoreBounds.Width;
+                Settings.Default.Maximized = true;
+            }
+            else
+            {
+                Settings.Default.Top = this.Top;
+                Settings.Default.Left = this.Left;
+                Settings.Default.Height = this.Height;
+                Settings.Default.Width = this.Width;
+                Settings.Default.Maximized = false;
+            }
+
             Settings.Default.Save();
+
+            // Exit
+            e.Cancel = true;
+            System.Windows.Forms.Application.ExitThread();
+            Environment.Exit(0);
         }
 
 
@@ -590,7 +617,7 @@ namespace Axiom
         public void StartLogConsole()
         {
             // Open LogConsole Window
-            logconsole = new LogConsole(this, configurewindow);
+            logconsole = new LogConsole(this);
             logconsole.Hide();
 
             // Position with Show();
@@ -658,7 +685,7 @@ namespace Axiom
             // Max Threads
             foreach (var item in new System.Management.ManagementObjectSearcher("Select NumberOfLogicalProcessors FROM Win32_ComputerSystem").Get())
             {
-                maxthreads = String.Format("{0}", item["NumberOfLogicalProcessors"]);
+                Configure.maxthreads = String.Format("{0}", item["NumberOfLogicalProcessors"]);
             }
 
             /// <summary>
@@ -774,7 +801,7 @@ namespace Axiom
                 // FFmpeg
                 // -------------------------
                 // If Auto Mode
-                if (ConfigureWindow.ffmpegPath == "<auto>")
+                if (Configure.ffmpegPath == "<auto>")
                 {
                     // Check default current directory
                     if (File.Exists(appDir + "ffmpeg\\bin\\ffmpeg.exe"))
@@ -809,9 +836,9 @@ namespace Axiom
                     }
                 }
                 // If User Defined Path
-                else if (ConfigureWindow.ffmpegPath != "<auto>" && !string.IsNullOrEmpty(ConfigureWindow.ffprobePath))
+                else if (Configure.ffmpegPath != "<auto>" && !string.IsNullOrEmpty(Configure.ffprobePath))
                 {
-                    var dirPath = Path.GetDirectoryName(ConfigureWindow.ffmpegPath).TrimEnd('\\') + @"\";
+                    var dirPath = Path.GetDirectoryName(Configure.ffmpegPath).TrimEnd('\\') + @"\";
                     var fullPath = Path.Combine(dirPath, "ffmpeg.exe");
 
                     // Make Sure ffmpeg.exe Exists
@@ -829,7 +856,7 @@ namespace Axiom
                     }
 
                     // If Configure Path is ffmpeg.exe and not another Program
-                    if (string.Equals(ConfigureWindow.ffmpegPath, fullPath, StringComparison.CurrentCultureIgnoreCase))
+                    if (string.Equals(Configure.ffmpegPath, fullPath, StringComparison.CurrentCultureIgnoreCase))
                     {
                         // let pass
                         ffCheckCleared = true;
@@ -847,7 +874,7 @@ namespace Axiom
                 // FFprobe
                 // -------------------------
                 // If Auto Mode
-                if (ConfigureWindow.ffprobePath == "<auto>")
+                if (Configure.ffprobePath == "<auto>")
                 {
                     // Check default current directory
                     if (File.Exists(appDir + "ffmpeg\\bin\\ffprobe.exe"))
@@ -882,9 +909,9 @@ namespace Axiom
                     }
                 }
                 // If User Defined Path
-                else if (ConfigureWindow.ffprobePath != "<auto>" && !string.IsNullOrEmpty(ConfigureWindow.ffprobePath))
+                else if (Configure.ffprobePath != "<auto>" && !string.IsNullOrEmpty(Configure.ffprobePath))
                 {
-                    var dirPath = Path.GetDirectoryName(ConfigureWindow.ffprobePath).TrimEnd('\\') + @"\";
+                    var dirPath = Path.GetDirectoryName(Configure.ffprobePath).TrimEnd('\\') + @"\";
                     var fullPath = Path.Combine(dirPath, "ffprobe.exe");
 
                     // Make Sure ffprobe.exe Exists
@@ -902,7 +929,7 @@ namespace Axiom
                     }
 
                     // If Configure Path is FFmpeg.exe and not another Program
-                    if (string.Equals(ConfigureWindow.ffprobePath, fullPath, StringComparison.CurrentCultureIgnoreCase))
+                    if (string.Equals(Configure.ffprobePath, fullPath, StringComparison.CurrentCultureIgnoreCase))
                     {
                         // let pass
                         ffCheckCleared = true;
@@ -932,7 +959,7 @@ namespace Axiom
             // FFmpeg.exe and FFprobe.exe Paths
             // -------------------------
             // If Configure FFmpeg Path is <auto>
-            if (ConfigureWindow.ffmpegPath == "<auto>")
+            if (Configure.ffmpegPath == "<auto>")
             {
                 if (File.Exists(appDir + "ffmpeg\\bin\\ffmpeg.exe"))
                 {
@@ -948,7 +975,7 @@ namespace Axiom
             // Use User Custom Path
             else
             {
-                FFmpeg.ffmpeg = "\"" + ConfigureWindow.ffmpegPath + "\"";
+                FFmpeg.ffmpeg = "\"" + Configure.ffmpegPath + "\"";
             }
 
             // Return Value
@@ -962,7 +989,7 @@ namespace Axiom
         public static void FFprobePath()
         {
             // If Configure FFprobe Path is <auto>
-            if (ConfigureWindow.ffprobePath == "<auto>")
+            if (Configure.ffprobePath == "<auto>")
             {
                 if (File.Exists(appDir + "ffmpeg\\bin\\ffprobe.exe"))
                 {
@@ -978,7 +1005,7 @@ namespace Axiom
             // Use User Custom Path
             else
             {
-                FFprobe.ffprobe = "\"" + ConfigureWindow.ffprobePath + "\"";
+                FFprobe.ffprobe = "\"" + Configure.ffprobePath + "\"";
             }
 
             // Return Value
@@ -991,25 +1018,22 @@ namespace Axiom
         /// </summary>
         public static String ThreadDetect(MainWindow mainwindow)
         {
-            // check threads from configure
-            threads = ConfigureWindow.threads;
-
             // set threads
-            if (ConfigureWindow.threads == "off")
+            if (Configure.threads == "off")
             {
-                threads = string.Empty;
+                Configure.threads = string.Empty;
             }
-            else if (ConfigureWindow.threads == "all" || string.IsNullOrEmpty(ConfigureWindow.threads))
+            else if (Configure.threads == "all" || string.IsNullOrEmpty(Configure.threads))
             {
-                threads = "-threads " + maxthreads;
+                Configure.threads = "-threads " + Configure.maxthreads;
             }
             else
             {
-                threads = "-threads " + threads;
+                Configure.threads = "-threads " + Configure.threads;
             }
 
             // Return Value
-            return threads;
+            return Configure.threads;
         }
 
 
@@ -1416,6 +1440,381 @@ namespace Axiom
         // --------------------------------------------------------------------------------------------------------
         // --------------------------------------------------------------------------------------------------------
 
+        // --------------------------------------------------------------------------------------------------------
+        // Configure
+        // --------------------------------------------------------------------------------------------------------
+
+        // --------------------------------------------------
+        // FFmpeg Textbox Click
+        // --------------------------------------------------
+        private void textBoxFFmpegPathConfig_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Configure.FFmpegFolderBrowser(this);
+        }
+
+
+        // --------------------------------------------------
+        // FFmpeg Textbox (Text Changed)
+        // --------------------------------------------------
+        private void textBoxFFmpegPathConfig_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            // dont use
+        }
+
+
+        // --------------------------------------------------
+        // FFmpeg Auto Path Button (On Click)
+        // --------------------------------------------------
+        private void buttonFFmpegAuto_Click(object sender, RoutedEventArgs e)
+        {
+            // Set the ffmpegPath string
+            Configure.ffmpegPath = "<auto>";
+
+            // Display Folder Path in Textbox
+            textBoxFFmpegPathConfig.Text = "<auto>";
+
+            // FFmpeg Path path for next launch
+            Settings.Default["ffmpegPath"] = "<auto>";
+            Settings.Default.Save();
+            Settings.Default.Reload();
+        }
+
+
+        // --------------------------------------------------
+        // FFprobe Textbox Click
+        // --------------------------------------------------
+        private void textBoxFFprobePathConfig_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Configure.FFprobeFolderBrowser(this);
+        }
+
+
+        // --------------------------------------------------
+        // FFprobe Textbox (Text Changed)
+        // --------------------------------------------------
+        private void textBoxFFprobePathConfig_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            // dont use
+        }
+
+
+        // --------------------------------------------------
+        // FFprobe Auto Path Button (On Click)
+        // --------------------------------------------------
+        private void buttonFFprobeAuto_Click(object sender, RoutedEventArgs e)
+        {
+            // Set the ffprobePath string
+            Configure.ffprobePath = "<auto>"; //<auto>
+
+            // Display Folder Path in Textbox
+            textBoxFFprobePathConfig.Text = "<auto>";
+
+            // Save 7-zip Path path for next launch
+            Settings.Default["ffprobePath"] = "<auto>";
+            Settings.Default.Save();
+            Settings.Default.Reload();
+        }
+
+
+        // --------------------------------------------------
+        // Log Checkbox (Checked)
+        // --------------------------------------------------
+        private void checkBoxLogConfig_Checked(object sender, RoutedEventArgs e)
+        {
+            // Enable the Log
+            Configure.logEnable = true;
+
+            // -------------------------
+            // Prevent Loading Corrupt App.Config
+            // -------------------------
+            try
+            {
+                // must be done this way or you get "convert object to bool error"
+                if (checkBoxLogConfig.IsChecked == true)
+                {
+                    // Save Checkbox Settings
+                    Settings.Default.checkBoxLog = true;
+                    Settings.Default.Save();
+                    Settings.Default.Reload();
+
+                    // Save Log Enable Settings
+                    Settings.Default.logEnable = true;
+                    Settings.Default.Save();
+                    Settings.Default.Reload();
+                }
+                if (checkBoxLogConfig.IsChecked == false)
+                {
+                    // Save Checkbox Settings
+                    Settings.Default.checkBoxLog = false;
+                    Settings.Default.Save();
+                    Settings.Default.Reload();
+
+                    // Save Log Enable Settings
+                    Settings.Default.logEnable = false;
+                    Settings.Default.Save();
+                    Settings.Default.Reload();
+                }
+            }
+            catch (ConfigurationErrorsException ex)
+            {
+                // Delete Old App.Config
+                string filename = ex.Filename;
+
+                if (File.Exists(filename) == true)
+                {
+                    File.Delete(filename);
+                    Properties.Settings.Default.Upgrade();
+                    // Properties.Settings.Default.Reload();
+                }
+                else
+                {
+
+                }
+            }
+
+        }
+
+
+        // --------------------------------------------------
+        // Log Checkbox (Unchecked)
+        // --------------------------------------------------
+        private void checkBoxLogConfig_Unchecked(object sender, RoutedEventArgs e)
+        {
+            // Disable the Log
+            Configure.logEnable = false;
+
+            // -------------------------
+            // Prevent Loading Corrupt App.Config
+            // -------------------------
+            try
+            {
+                // must be done this way or you get "convert object to bool error"
+                if (checkBoxLogConfig.IsChecked == true)
+                {
+                    // Save Checkbox Settings
+                    Settings.Default.checkBoxLog = true;
+                    Settings.Default.Save();
+                    Settings.Default.Reload();
+
+                    // Save Log Enable Settings
+                    Settings.Default.logEnable = true;
+                    Settings.Default.Save();
+                    Settings.Default.Reload();
+                }
+                if (checkBoxLogConfig.IsChecked == false)
+                {
+                    // Save Checkbox Settings
+                    Settings.Default.checkBoxLog = false;
+                    Settings.Default.Save();
+                    Settings.Default.Reload();
+
+                    // Save Log Enable Settings
+                    Settings.Default.logEnable = false;
+                    Settings.Default.Save();
+                    Settings.Default.Reload();
+                }
+            }
+            catch (ConfigurationErrorsException ex)
+            {
+                // Delete Old App.Config
+                string filename = ex.Filename;
+
+                if (File.Exists(filename) == true)
+                {
+                    File.Delete(filename);
+                    Properties.Settings.Default.Upgrade();
+                    // Properties.Settings.Default.Reload();
+                }
+                else
+                {
+
+                }
+            }
+        }
+
+
+        // --------------------------------------------------
+        // Log Textbox (On Click)
+        // --------------------------------------------------
+        private void textBoxLogConfig_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Configure.logFolderBrowser(this);
+        }
+
+        // --------------------------------------------------
+        // Log Auto Path Button (On Click)
+        // --------------------------------------------------
+        private void buttonLogAuto_Click(object sender, RoutedEventArgs e)
+        {
+            // Uncheck Log Checkbox
+            checkBoxLogConfig.IsChecked = false;
+
+            // Clear Path in Textbox
+            textBoxLogConfig.Text = string.Empty;
+
+            // Set the logPath string
+            Configure.logPath = string.Empty;
+
+            // Save Log Path path for next launch
+            Settings.Default["logPath"] = string.Empty;
+            Settings.Default.Save();
+            Settings.Default.Reload();
+        }
+
+
+        // --------------------------------------------------
+        // Thread Select ComboBox
+        // --------------------------------------------------
+        private void threadSelect_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // Custom ComboBox Editable
+            if ((string)cboThreads.SelectedItem == "Custom" || cboThreads.SelectedValue == null)
+            {
+                cboThreads.IsEditable = true;
+            }
+
+            // Other Items Disable Editable
+            if ((string)cboThreads.SelectedItem != "Custom" && cboThreads.SelectedValue != null)
+            {
+                cboThreads.IsEditable = false;
+            }
+
+            // Maintain Editable Combobox while typing
+            if (cboThreads.IsEditable == true)
+            {
+                cboThreads.IsEditable = true;
+
+                // Clear Custom Text
+                cboThreads.SelectedIndex = -1;
+            }
+
+            // Set the threads to pass to MainWindow
+            Configure.threads = cboThreads.SelectedItem.ToString();
+
+            // Save Thread Number for next launch
+            //Settings.Default["cboThreads"] = cboThreads.SelectedItem.ToString();
+            Settings.Default["threads"] = cboThreads.SelectedItem.ToString();
+            Settings.Default.Save();
+            Settings.Default.Reload();
+        }
+        // --------------------------------------------------
+        // Thread Select ComboBox - Allow Only Numbers
+        // --------------------------------------------------
+        private void threadSelect_KeyDown(object sender, KeyEventArgs e)
+        {
+            // Only allow Numbers or Backspace
+            if (!(e.Key >= Key.D0 && e.Key <= Key.D9) && e.Key != Key.Back)
+            {
+                e.Handled = true;
+            }
+        }
+
+        // --------------------------------------------------
+        // Theme Select ComboBox
+        // --------------------------------------------------
+        private void themeSelect_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Configure.theme = cboTheme.SelectedItem.ToString();
+
+            // Change Theme Resource
+            App.Current.Resources.MergedDictionaries.Clear();
+            App.Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
+            {
+                Source = new Uri("Theme" + Configure.theme + ".xaml", UriKind.RelativeOrAbsolute)
+            });
+
+            // Save Theme for next launch
+            Settings.Default["Theme"] = cboTheme.SelectedItem.ToString();
+            Settings.Default.Save();
+            Settings.Default.Reload();
+        }
+
+
+        // --------------------------------------------------
+        // Reset Saved Settings Button
+        // --------------------------------------------------
+        private void buttonClearAllSavedSettings_Click(object sender, RoutedEventArgs e)
+        {
+            // Revert FFmpeg
+            textBoxFFmpegPathConfig.Text = "<auto>";
+            Configure.ffmpegPath = textBoxFFmpegPathConfig.Text;
+
+            // Revert FFprobe
+            textBoxFFprobePathConfig.Text = "<auto>";
+            Configure.ffprobePath = textBoxFFprobePathConfig.Text;
+
+            // Revert Log
+            checkBoxLogConfig.IsChecked = false;
+            textBoxLogConfig.Text = string.Empty;
+            Configure.logPath = string.Empty;
+
+            // Revert Threads
+            cboThreads.SelectedItem = "all";
+            Configure.threads = string.Empty;
+
+            // Save Current Window Location
+            // Prevents MainWindow from moving to Top 0 Left 0 while running
+            double left = Left;
+            double top = Top;
+
+            // Reset AppData Settings
+            Settings.Default.Reset();
+            Settings.Default.Reload();
+
+            // Set Window Location
+            Left = left;
+            Top = top;
+        }
+
+
+        // --------------------------------------------------
+        // Delete Saved Settings Button
+        // --------------------------------------------------
+        private void buttonDeleteSettings_Click(object sender, RoutedEventArgs e)
+        {
+            string userProfile = Environment.ExpandEnvironmentVariables(@"%USERPROFILE%");
+            string appDataPath = "\\AppData\\Local\\Axiom";
+
+            // Check if Directory Exists
+            if (Directory.Exists(userProfile + appDataPath))
+            {
+                // Show Yes No Window
+                System.Windows.Forms.DialogResult dialogResult = System.Windows.Forms.MessageBox.Show(
+                    "Delete " + userProfile + appDataPath, "Delete Directory Confirm", System.Windows.Forms.MessageBoxButtons.YesNo);
+                // Yes
+                if (dialogResult == System.Windows.Forms.DialogResult.Yes)
+                {
+                    // Delete leftover 2 Pass Logs in Program's folder and Input Files folder
+                    using (Process delete = new Process())
+                    {
+                        delete.StartInfo.UseShellExecute = false;
+                        delete.StartInfo.CreateNoWindow = false;
+                        delete.StartInfo.RedirectStandardOutput = true;
+                        delete.StartInfo.FileName = "cmd.exe";
+                        delete.StartInfo.Arguments = "/c RD /Q /S " + "\"" + userProfile + appDataPath;
+                        delete.Start();
+                        delete.WaitForExit();
+                        //delete.Close();
+                    }
+                }
+                // No
+                else if (dialogResult == System.Windows.Forms.DialogResult.No)
+                {
+                    //do nothing
+                }
+            }
+            // If Axiom Folder Not Found
+            else
+            {
+                MessageBox.Show("No Previous Settings Found.");
+            }
+        }
+
+
+        // --------------------------------------------------------------------------------------------------------
+        // Main
+        // --------------------------------------------------------------------------------------------------------
+
         /// <summary>
         ///     Info Button
         /// </summary>
@@ -1482,45 +1881,45 @@ namespace Axiom
         /// </summary>
         private void buttonConfigure_Click(object sender, RoutedEventArgs e)
         {
-            // Prevent Monitor Resolution Window Crash
-            //
-            try
-            {
-                // Detect which screen we're on
-                var allScreens = System.Windows.Forms.Screen.AllScreens.ToList();
-                var thisScreen = allScreens.SingleOrDefault(s => this.Left >= s.WorkingArea.Left && this.Left < s.WorkingArea.Right);
-                if (thisScreen == null) thisScreen = allScreens.First();
+            //// Prevent Monitor Resolution Window Crash
+            ////
+            //try
+            //{
+            //    // Detect which screen we're on
+            //    var allScreens = System.Windows.Forms.Screen.AllScreens.ToList();
+            //    var thisScreen = allScreens.SingleOrDefault(s => this.Left >= s.WorkingArea.Left && this.Left < s.WorkingArea.Right);
+            //    if (thisScreen == null) thisScreen = allScreens.First();
 
-                // Open Configure Window
-                configurewindow = new ConfigureWindow(this);
+            //    // Open Configure Window
+            //    configurewindow = new ConfigureWindow(this);
 
-                // Keep Window on Top
-                configurewindow.Owner = Window.GetWindow(this);
+            //    // Keep Window on Top
+            //    configurewindow.Owner = Window.GetWindow(this);
 
-                // Position Relative to MainWindow
-                // Keep from going off screen
-                configurewindow.Left = Math.Max((this.Left + (this.Width - configurewindow.Width) / 2), thisScreen.WorkingArea.Left);
-                configurewindow.Top = Math.Max(this.Top - configurewindow.Height - 12, thisScreen.WorkingArea.Top);
+            //    // Position Relative to MainWindow
+            //    // Keep from going off screen
+            //    configurewindow.Left = Math.Max((this.Left + (this.Width - configurewindow.Width) / 2), thisScreen.WorkingArea.Left);
+            //    configurewindow.Top = Math.Max(this.Top - configurewindow.Height - 12, thisScreen.WorkingArea.Top);
 
-                // Open Winndow
-                configurewindow.ShowDialog();
-            }
-            // Simplified
-            catch
-            {
-                // Open Configure Window
-                configurewindow = new ConfigureWindow(this);
+            //    // Open Winndow
+            //    configurewindow.ShowDialog();
+            //}
+            //// Simplified
+            //catch
+            //{
+            //    // Open Configure Window
+            //    configurewindow = new ConfigureWindow(this);
 
-                // Keep Window on Top
-                configurewindow.Owner = Window.GetWindow(this);
+            //    // Keep Window on Top
+            //    configurewindow.Owner = Window.GetWindow(this);
 
-                // Position Relative to MainWindow
-                configurewindow.Left = Math.Max((this.Left + (this.Width - configurewindow.Width) / 2), this.Left);
-                configurewindow.Top = Math.Max((this.Top + (this.Height - configurewindow.Height) / 2), this.Top);
+            //    // Position Relative to MainWindow
+            //    configurewindow.Left = Math.Max((this.Left + (this.Width - configurewindow.Width) / 2), this.Left);
+            //    configurewindow.Top = Math.Max((this.Top + (this.Height - configurewindow.Height) / 2), this.Top);
 
-                // Open Winndow
-                configurewindow.ShowDialog();
-            }
+            //    // Open Winndow
+            //    configurewindow.ShowDialog();
+            //}
         }
 
 
@@ -1578,7 +1977,7 @@ namespace Axiom
                 if (IsDebugConsoleOpened) return;
 
                 // Start Window
-                debugconsole = new DebugConsole(this, configurewindow);
+                debugconsole = new DebugConsole(this);
 
                 // Only allow 1 Window instance
                 debugconsole.ContentRendered += delegate { IsDebugConsoleOpened = true; };
@@ -1602,7 +2001,7 @@ namespace Axiom
                 if (IsDebugConsoleOpened) return;
 
                 // Start Window
-                debugconsole = new DebugConsole(this, configurewindow);
+                debugconsole = new DebugConsole(this);
 
                 // Only allow 1 Window instance
                 debugconsole.ContentRendered += delegate { IsDebugConsoleOpened = true; };
@@ -1840,14 +2239,14 @@ namespace Axiom
         private void buttonLog_Click(object sender, RoutedEventArgs e)
         {
             // Call Method to get Log Path
-            Log.DefineLogPath(this, configurewindow);
+            Log.DefineLogPath(this);
 
-            //MessageBox.Show(ConfigureWindow.logPath.ToString()); //debug
+            //MessageBox.Show(Configure.logPath.ToString()); //debug
 
             // Open Log
-            if (File.Exists(ConfigureWindow.logPath + "output.log"))
+            if (File.Exists(Configure.logPath + "output.log"))
             {
-                Process.Start("notepad.exe", "\"" + ConfigureWindow.logPath + "output.log" + "\"");
+                Process.Start("notepad.exe", "\"" + Configure.logPath + "output.log" + "\"");
             }
             else
             {
@@ -1965,7 +2364,7 @@ namespace Axiom
             // -------------------------
             // Write All Log Actions to Console
             // -------------------------
-            Log.LogWriteAll(this, configurewindow);
+            Log.LogWriteAll(this);
 
             // -------------------------
             // Generate Script
@@ -1977,6 +2376,30 @@ namespace Axiom
             // -------------------------
             ClearVariables(this);
             GC.Collect();
+        }
+
+        /// <summary>
+        /// Run Button
+        /// </summary>
+        private void btnScriptRun_Click(object sender, RoutedEventArgs e)
+        {
+            // CMD Arguments are from Script TextBox
+            FFmpeg.ffmpegArgs = ScriptView.ScriptRichTextBoxCurrent(this)
+                .Replace(Environment.NewLine, "") //Remove Linebreaks
+                .Replace("\n", "")
+                .Replace("\r\n", "")
+                .Replace("\u2028", "")
+                .Replace("\u000A", "")
+                .Replace("\u000B", "")
+                .Replace("\u000C", "")
+                .Replace("\u000D", "")
+                .Replace("\u0085", "")
+                .Replace("\u2028", "")
+                .Replace("\u2029", "")
+                ;
+
+            // Run FFmpeg Arguments
+            FFmpeg.FFmpegConvert(this);
         }
 
 
@@ -3195,14 +3618,12 @@ namespace Axiom
         /// </summary>
         private void buttonCropClear_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                cropwindow.textBoxCropWidth.Text = string.Empty;
-                cropwindow.textBoxCropHeight.Text = string.Empty;
-                cropwindow.textBoxCropX.Text = string.Empty;
-                cropwindow.textBoxCropY.Text = string.Empty;
-
-                CropWindow.crop = string.Empty;
+            //try
+            //{
+            //cropwindow.textBoxCropWidth.Text = string.Empty;
+            //cropwindow.textBoxCropHeight.Text = string.Empty;
+            //cropwindow.textBoxCropX.Text = string.Empty;
+            //cropwindow.textBoxCropY.Text = string.Empty;
 
                 Video.vFilter = string.Empty;
 
@@ -3212,13 +3633,15 @@ namespace Axiom
                     Video.VideoFilters.TrimExcess();
                 }
 
-                // Trigger the CropWindow Clear Button (only way it will clear the string)
-                cropwindow.buttonClear_Click(sender, e);
-            }
-            catch
-            {
+            // Trigger the CropWindow Clear Button (only way it will clear the string)
+            //cropwindow.buttonClear_Click(sender, e);
+            CropWindow.CropClear(this);
 
-            }
+            //}
+            //catch
+            //{
+
+            //}
         }
 
 
@@ -3508,7 +3931,7 @@ namespace Axiom
                 // -------------------------
                 // Write All Log Actions to Console
                 // -------------------------
-                Log.LogWriteAll(this, configurewindow);
+                Log.LogWriteAll(this);
 
                 // -------------------------
                 // Clear Strings for next Run
@@ -3534,7 +3957,7 @@ namespace Axiom
                 /// <summary>
                 ///    Write All Log Actions to Console
                 /// </summary> 
-                Log.LogWriteAll(this, configurewindow);
+                Log.LogWriteAll(this);
 
                 /// <summary>
                 ///    Restart
@@ -3558,6 +3981,170 @@ namespace Axiom
         } //end convert button
 
 
+
+
+
+
+
+
+
+
+        /// <summary>
+        /// Save Script
+        /// </summary>
+        private void btnScriptSave_Click(object sender, RoutedEventArgs e)
+        {
+            // Open 'Save File'
+            Microsoft.Win32.SaveFileDialog saveFile = new Microsoft.Win32.SaveFileDialog();
+
+            //saveFile.InitialDirectory = inputDir;
+            saveFile.RestoreDirectory = true;
+            saveFile.Filter = "Text file (*.txt)|*.txt";
+            saveFile.DefaultExt = ".txt";
+            saveFile.FileName = "Script";
+
+            // Show save file dialog box
+            Nullable<bool> result = saveFile.ShowDialog();
+
+            // Process dialog box
+            if (result == true)
+            {
+                // Save document
+                File.WriteAllText(saveFile.FileName, ScriptView.ScriptRichTextBoxCurrent(this), Encoding.Unicode);
+            }
+        }
+
+        /// <summary>
+        /// Copy All Button
+        /// </summary>
+        private void btnScriptCopy_Click(object sender, RoutedEventArgs e)
+        {
+            Clipboard.SetText(ScriptView.ScriptRichTextBoxCurrent(this), TextDataFormat.UnicodeText);
+        }
+
+        /// <summary>
+        /// Sort Button
+        /// </summary>
+        private void btnScriptSort_Click(object sender, RoutedEventArgs e)
+        {
+            // -------------------------
+            // Sort
+            // -------------------------
+            // Has Not Been Edited
+            if (ScriptView.sort == false
+                && ScriptView.ScriptRichTextBoxCurrent(this).Replace(Environment.NewLine, "").Replace("\r\n", "") == FFmpeg.ffmpegArgs)
+            {
+                // Clear Old Text
+                //ClearRichTextBox();
+                ScriptView.scriptParagraph.Inlines.Clear();
+
+                // Write FFmpeg Args Sort
+                rtbScriptView.Document = new FlowDocument(ScriptView.scriptParagraph);
+                rtbScriptView.BeginChange();
+                ScriptView.scriptParagraph.Inlines.Add(new Run(FFmpeg.ffmpegArgsSort));
+                rtbScriptView.EndChange();
+
+                // Sort is Off
+                ScriptView.sort = true;
+                // Change Button Back to Inline
+                txblScriptSort.Text = "Inline";
+
+                // Expand Window
+                if (this.Height <= 350)
+                {
+                    // Detect which screen we're on
+                    var allScreens = System.Windows.Forms.Screen.AllScreens.ToList();
+                    var thisScreen = allScreens.SingleOrDefault(s => this.Left >= s.WorkingArea.Left && this.Left < s.WorkingArea.Right);
+
+                    // Original Size
+                    double originalWidth = this.Width;
+                    double originalHeight = this.Height;
+
+                    // Enlarge Window
+                    this.Width = 800;
+                    this.Height = 600;
+
+                    // Position Relative to MainWindow
+                    // Keep from going off screen
+                    this.Left = Math.Max((this.Left - ((800 - originalWidth)) / 2), thisScreen.WorkingArea.Left);
+                    this.Top = Math.Max((this.Top - ((600 - originalHeight)) / 2), thisScreen.WorkingArea.Top);
+                }
+            }
+
+            // Has Been Edited
+            else if (ScriptView.sort == false
+                && ScriptView.ScriptRichTextBoxCurrent(this).Replace(Environment.NewLine, "").Replace("\r\n", "") != FFmpeg.ffmpegArgs)
+            {
+                MessageBox.Show("Cannot sort edited text.");
+            }
+
+
+            // -------------------------
+            // Inline
+            // -------------------------
+            else if (ScriptView.sort == true)
+            {
+                // CMD Arguments are from Script TextBox
+                FFmpeg.ffmpegArgs = ScriptView.ScriptRichTextBoxCurrent(this)
+                    .Replace(Environment.NewLine, "") //Remove Linebreaks
+                    .Replace("\n", "")
+                    .Replace("\r\n", "")
+                    .Replace("\u2028", "")
+                    .Replace("\u000A", "")
+                    .Replace("\u000B", "")
+                    .Replace("\u000C", "")
+                    .Replace("\u000D", "")
+                    .Replace("\u0085", "")
+                    .Replace("\u2028", "")
+                    .Replace("\u2029", "");
+
+                // Clear Old Text
+                //ClearRichTextBox();
+                ScriptView.scriptParagraph.Inlines.Clear();
+
+                // Write FFmpeg Args
+                rtbScriptView.Document = new FlowDocument(ScriptView.scriptParagraph);
+                rtbScriptView.BeginChange();
+                ScriptView.scriptParagraph.Inlines.Add(new Run(FFmpeg.ffmpegArgs));
+                rtbScriptView.EndChange();
+
+                // Sort is On
+                ScriptView.sort = false;
+                // Change Button Back to Sort
+                txblScriptSort.Text = "Sort";
+            }
+
+        }
+
+
+        /// <summary>
+        /// Run Button
+        /// </summary>
+        private void buttonRun_Click(object sender, RoutedEventArgs e)
+        {
+            // CMD Arguments are from Script TextBox
+            FFmpeg.ffmpegArgs = ScriptView.ScriptRichTextBoxCurrent(this)
+                .Replace(Environment.NewLine, "") //Remove Linebreaks
+                .Replace("\n", "")
+                .Replace("\r\n", "")
+                .Replace("\u2028", "")
+                .Replace("\u000A", "")
+                .Replace("\u000B", "")
+                .Replace("\u000C", "")
+                .Replace("\u000D", "")
+                .Replace("\u0085", "")
+                .Replace("\u2028", "")
+                .Replace("\u2029", "")
+                ;
+
+            // Run FFmpeg Arguments
+            FFmpeg.FFmpegConvert(this);
+        }
+
+        private void listViewFileQueue_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 
 }

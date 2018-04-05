@@ -95,9 +95,7 @@
     </ApplicationDefinition>
     <Compile Include="Audio.cs" />
     <Compile Include="AudioControls.cs" />
-    <Compile Include="ConfigureWindow.xaml.cs">
-      <DependentUpon>ConfigureWindow.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="Configure.cs" />
     <Compile Include="CropWindow.xaml.cs">
       <DependentUpon>CropWindow.xaml</DependentUpon>
     </Compile>
@@ -130,19 +128,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="ScriptView.xaml.cs">
-      <DependentUpon>ScriptView.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="ScriptView.cs" />
     <Compile Include="Streams.cs" />
     <Compile Include="UpdateWindow.xaml.cs">
       <DependentUpon>UpdateWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Video.cs" />
     <Compile Include="VideoControls.cs" />
-    <Page Include="ConfigureWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="CropWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -180,10 +172,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="OptimizeAdvancedWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ScriptView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -319,7 +307,6 @@
     <Resource Include="Resources\Images\Themes\Axiom\ComboBoxDisabled-75x22.png" />
     <Resource Include="Resources\Images\Themes\Axiom\ComboBoxEnabled-75x22.png" />
     <Resource Include="Resources\Images\Themes\Axiom\ComboBoxMouseOverBorder-75x22.png" />
-    <Resource Include="Resources\Images\Themes\Axiom\config-background.jpg" />
     <Resource Include="Resources\Images\Themes\Axiom\TextBoxDisabled.png" />
     <Resource Include="Resources\Images\Themes\Axiom\TextBoxEnabled.png" />
     <Resource Include="Resources\Images\Themes\Axiom\ToggleButtonSmallChecked.png" />
@@ -329,7 +316,7 @@
     <Resource Include="Resources\Images\Themes\Axiom\ToggleButtonSmallUnchecked.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Resources\Images\Themes\Onyx\" />
+    <Resource Include="Resources\Images\Themes\Axiom\config-background.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Images\Buttons\White\update.png" />

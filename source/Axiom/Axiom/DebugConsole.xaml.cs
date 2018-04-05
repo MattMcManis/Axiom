@@ -45,7 +45,7 @@ namespace Axiom
         public static Brush Value;
 
 
-        public DebugConsole(MainWindow mainwindow, ConfigureWindow configurewindow)
+        public DebugConsole(MainWindow mainwindow)
         {
             InitializeComponent();
 
@@ -59,7 +59,7 @@ namespace Axiom
             // -------------------------
             // Text Theme Color
             // -------------------------
-            ConfigureWindow.LoadTheme(configurewindow);
+            Configure.LoadTheme(mainwindow);
 
         }
 
@@ -260,11 +260,11 @@ namespace Axiom
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("threads ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(MainWindow.threads) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Configure.threads) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("maxthreads ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(MainWindow.maxthreads) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Configure.maxthreads) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("appDir ")) { Foreground = Variable });
@@ -280,7 +280,7 @@ namespace Axiom
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("theme ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(ConfigureWindow.theme) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Configure.theme) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("ffmpeg ")) { Foreground = Variable });
@@ -292,19 +292,19 @@ namespace Axiom
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("ffmpegPath ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(ConfigureWindow.ffmpegPath) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Configure.ffmpegPath) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("ffprobePath ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(ConfigureWindow.ffprobePath) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Configure.ffprobePath) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("logPath ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(ConfigureWindow.logPath) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Configure.logPath) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("logEnable ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(ConfigureWindow.logEnable.ToString()) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Configure.logEnable.ToString()) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new LineBreak());

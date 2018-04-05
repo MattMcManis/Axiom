@@ -59,21 +59,21 @@ namespace Axiom
         /// <summary>
         /// Define Log Path (Method)
         /// </summary>
-        public static void DefineLogPath(MainWindow mainwindow, ConfigureWindow configurewindow)
+        public static void DefineLogPath(MainWindow mainwindow)
         {
             // Only if Log is Enabled through Configure Checkbox
-            if (ConfigureWindow.logEnable == true)
+            if (Configure.logEnable == true)
             {
                 // If checkbox is enabled but textbox is empty, put log in exe's current directory
-                if (string.IsNullOrEmpty(ConfigureWindow.logPath))
+                if (string.IsNullOrEmpty(Configure.logPath))
                 {
                     //configure.logPath = appDir + "\\";
                     //System.Windows.MessageBox.Show(log); //debug
 
-                    ConfigureWindow.logPath = MainWindow.appDir;
+                    Configure.logPath = MainWindow.appDir;
                 }
                 // If textbox is not empty, use User custom path
-                else if (!string.IsNullOrEmpty(ConfigureWindow.logPath))
+                else if (!string.IsNullOrEmpty(Configure.logPath))
                 {
                     // do nothing
                 }
@@ -81,7 +81,7 @@ namespace Axiom
             // If checkbox disabled
             else
             {
-                ConfigureWindow.logPath = string.Empty;
+                Configure.logPath = string.Empty;
             }
         }
 
@@ -89,10 +89,10 @@ namespace Axiom
         /// <summary>
         /// Create Output Log (Method)
         /// </summary>
-        public static void CreateOutputLog(MainWindow mainwindow, ConfigureWindow configure)
+        public static void CreateOutputLog(MainWindow mainwindow)
         {
             // Log Path
-            if (ConfigureWindow.logEnable == true) // Only if Log is Enabled through Configure Checkbox
+            if (Configure.logEnable == true) // Only if Log is Enabled through Configure Checkbox
             {
                 // Start Log /////////
                 if (MainWindow.script == false) // do not log if Script Button clicked
@@ -104,7 +104,7 @@ namespace Axiom
                     {
                         //Write Log Console to File
                         TextRange t = new TextRange(mainwindow.logconsole.rtbLog.Document.ContentStart, mainwindow.logconsole.rtbLog.Document.ContentEnd);
-                        FileStream file = new FileStream(@ConfigureWindow.logPath + "output.log", FileMode.Create);
+                        FileStream file = new FileStream(@Configure.logPath + "output.log", FileMode.Create);
                         t.Save(file, System.Windows.DataFormats.Text);
                         file.Close();
                     }
@@ -115,12 +115,12 @@ namespace Axiom
                         {
                             Log.logParagraph.Inlines.Add(new LineBreak());
                             Log.logParagraph.Inlines.Add(new LineBreak());
-                            Log.logParagraph.Inlines.Add(new Bold(new Run("Warning: Saving Output Log to " + "\"" + ConfigureWindow.logPath + "\"" + " is Denied. May require Administrator Privileges.")) { Foreground = ConsoleWarning });
+                            Log.logParagraph.Inlines.Add(new Bold(new Run("Warning: Saving Output Log to " + "\"" + Configure.logPath + "\"" + " is Denied. May require Administrator Privileges.")) { Foreground = ConsoleWarning });
                         };
                         Log.LogActions.Add(Log.WriteAction);
 
                         // Popup Message Dialog Box
-                        System.Windows.MessageBox.Show("Error Saving Output Log to " + "\"" + ConfigureWindow.logPath + "\"" + ". May require Administrator Privileges.");
+                        System.Windows.MessageBox.Show("Error Saving Output Log to " + "\"" + Configure.logPath + "\"" + ". May require Administrator Privileges.");
                         // do not halt program
                     }
                 }
@@ -129,7 +129,7 @@ namespace Axiom
             // If checkbox disabled
             else
             {
-                ConfigureWindow.logPath = string.Empty;
+                Configure.logPath = string.Empty;
             }
         }
 
@@ -137,7 +137,7 @@ namespace Axiom
         /// <summary>
         /// Log Write All 
         /// </summary>
-        public static void LogWriteAll(MainWindow mainwindow, ConfigureWindow configurewindow)
+        public static void LogWriteAll(MainWindow mainwindow)
         {
             // -------------------------
             // Background Thread Worker
@@ -193,8 +193,8 @@ namespace Axiom
                 // -------------------------
                 // Create Output Log File
                 // -------------------------
-                DefineLogPath(mainwindow, configurewindow);
-                CreateOutputLog(mainwindow, configurewindow); //write output log to text file
+                DefineLogPath(mainwindow);
+                CreateOutputLog(mainwindow); //write output log to text file
 
                 // set script back to 0 for next convert
                 MainWindow.script = false;

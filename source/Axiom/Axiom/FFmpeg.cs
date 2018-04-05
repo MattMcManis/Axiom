@@ -242,7 +242,7 @@ namespace Axiom
 
                         "\r\n\r\n" + Streams.FormatMaps(mainwindow),
 
-                        "\r\n\r\n" + MainWindow.threads,
+                        "\r\n\r\n" + Configure.threads,
 
                         "\r\n\r\n" + "\"" + MainWindow.OutputPath(mainwindow) + "\""
                     };
@@ -408,20 +408,30 @@ namespace Axiom
         /// </summary>
         public static void FFmpegScript(MainWindow mainwindow, ScriptView scriptview)
         {
+            // Clear Old Text
+            //ClearRichTextBox();
+            ScriptView.scriptParagraph.Inlines.Clear();
+
+            // Write FFmpeg Args
+            mainwindow.rtbScriptView.Document = new FlowDocument(ScriptView.scriptParagraph);
+            mainwindow.rtbScriptView.BeginChange();
+            ScriptView.scriptParagraph.Inlines.Add(new Run(FFmpeg.ffmpegArgs));
+            mainwindow.rtbScriptView.EndChange();
+
             // Detect which screen we're on
-            var allScreens = System.Windows.Forms.Screen.AllScreens.ToList();
-            var thisScreen = allScreens.SingleOrDefault(s => mainwindow.Left >= s.WorkingArea.Left && mainwindow.Left < s.WorkingArea.Right);
+            //var allScreens = System.Windows.Forms.Screen.AllScreens.ToList();
+            //var thisScreen = allScreens.SingleOrDefault(s => mainwindow.Left >= s.WorkingArea.Left && mainwindow.Left < s.WorkingArea.Right);
 
-            // Start Window
-            scriptview = new ScriptView(mainwindow);
+            //// Start Window
+            //scriptview = new ScriptView();
 
-            // Position Relative to MainWindow
-            // Keep from going off screen
-            scriptview.Left = Math.Max((mainwindow.Left + (mainwindow.Width - scriptview.Width) / 2), thisScreen.WorkingArea.Left);
-            scriptview.Top = Math.Max(((mainwindow.Top + (mainwindow.Height - scriptview.Height) * 2)), thisScreen.WorkingArea.Top);
+            //// Position Relative to MainWindow
+            //// Keep from going off screen
+            //scriptview.Left = Math.Max((mainwindow.Left + (mainwindow.Width - scriptview.Width) / 2), thisScreen.WorkingArea.Left);
+            //scriptview.Top = Math.Max(((mainwindow.Top + (mainwindow.Height - scriptview.Height) * 2)), thisScreen.WorkingArea.Top);
 
-            // Open Window
-            scriptview.Show();
+            //// Open Window
+            //scriptview.Show();
         }
 
 

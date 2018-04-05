@@ -205,7 +205,8 @@ namespace Axiom
 
             // Make x264 & x265 Width/Height Divisible by 2
             //
-            if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264" || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
+            if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264" 
+                || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
             {
                 try // will error if wrong characters input
                 {
@@ -261,6 +262,14 @@ namespace Axiom
             textBoxCropX.Text = string.Empty;
             textBoxCropY.Text = string.Empty;
 
+            CropClear(mainwindow);
+        }
+
+        /// <summary>
+        /// Crop Clear (Method)
+        /// </summary>
+        public static void CropClear(MainWindow mainwindow)
+        {
             CropWindow.divisibleCropWidth = null;
             CropWindow.divisibleCropHeight = null;
 
@@ -270,10 +279,9 @@ namespace Axiom
             CropWindow.cropY = string.Empty;
 
             CropWindow.crop = string.Empty;
-            CropWindow.crop = string.Empty;
 
             // Set Button Text to show Crop is Active
-            mainwindow.buttonCropClearTextBox.Text = string.Empty;
+            mainwindow.buttonCropClearTextBox.Text = "Clear";
         }
     }
 }
