@@ -1913,8 +1913,8 @@
     <SolidColorBrush x:Key="TextBox.Static.Background" Color="#FF171717"/>
     <SolidColorBrush x:Key="TextBox.Static.Foreground" Color="#FFFFFFFF"/>
     <SolidColorBrush x:Key="TextBox.Static.Border" Color="#FFABAdB3"/>
-    <SolidColorBrush x:Key="TextBox.MouseOver.Border" Color="#FF7EB4EA"/>
-    <SolidColorBrush x:Key="TextBox.Focus.Border" Color="#FF569DE5"/>
+    <SolidColorBrush x:Key="TextBox.MouseOver.Border" Color="#FF5cb85c"/>
+    <SolidColorBrush x:Key="TextBox.Focus.Border" Color="#FF5cb85c"/>
     <Style x:Key="{x:Type TextBoxBase}" TargetType="{x:Type TextBoxBase}">
         <Setter Property="Background" Value="{DynamicResource TextBox.Static.Background}"/>
         <Setter Property="BorderBrush" Value="{StaticResource TextBox.Static.Border}"/>

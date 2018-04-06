@@ -108,9 +108,10 @@
                 Width="53" 
                 Click="btnScriptSort_Click">
             <TextBlock x:Name="txblScriptSort" 
-                Text="Sort"
-                Width="50"
-                TextAlignment="Center"/>
+                       Text="Sort"
+                       Width="50"
+                       Margin="0,-2,0,0"
+                       TextAlignment="Center"/>
         </Button>
 
         <!-- Run Button -->

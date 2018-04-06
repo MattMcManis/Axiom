@@ -2168,7 +2168,7 @@
     <SolidColorBrush x:Key="TabItem.Static.Border" Color="#FF999999"/>
 
     <SolidColorBrush x:Key="TabItem.MouseOver.Background" Color="#FFe9f3fc"/>
-    <SolidColorBrush x:Key="TabItem.MouseOver.Border" Color="#FF7eb4ea"/>
+    <SolidColorBrush x:Key="TabItem.MouseOver.Border" Color="#FF1049bb"/>
 
     <SolidColorBrush x:Key="TabItem.Disabled.Background" Color="#FF555555"/>
     <SolidColorBrush x:Key="TabItem.Disabled.Border" Color="#FF555555"/>
