@@ -1019,11 +1019,12 @@ namespace Axiom
         public static String ThreadDetect(MainWindow mainwindow)
         {
             // set threads
-            if (Configure.threads == "off")
+            if ((string)mainwindow.cboThreads.SelectedItem == "off")
             {
                 Configure.threads = string.Empty;
             }
-            else if (Configure.threads == "all" || string.IsNullOrEmpty(Configure.threads))
+            else if ((string)mainwindow.cboThreads.SelectedItem == "all" 
+                || string.IsNullOrEmpty(Configure.threads))
             {
                 Configure.threads = "-threads " + Configure.maxthreads;
             }
@@ -2850,7 +2851,7 @@ namespace Axiom
         private void vBitrateCustom_GotFocus(object sender, RoutedEventArgs e)
         {
             // Clear Textbox on first use
-            if (vBitrateCustom.Text == "Bitrate")
+            if (vBitrateCustom.Text == string.Empty)
             {
                 TextBox tbvb = (TextBox)sender;
                 tbvb.Text = string.Empty;
@@ -2864,7 +2865,7 @@ namespace Axiom
             TextBox tbvb = sender as TextBox;
             if (tbvb.Text.Trim().Equals(string.Empty))
             {
-                tbvb.Text = "Bitrate";
+                tbvb.Text = string.Empty;
                 tbvb.GotFocus -= vBitrateCustom_GotFocus; //used to be +=
 
                 //vBitrateCustom.Foreground = TextBoxDarkBlue;
@@ -2887,7 +2888,7 @@ namespace Axiom
         private void crfCustom_GotFocus(object sender, RoutedEventArgs e)
         {
             // Clear Textbox on first use
-            if (crfCustom.Text == "CRF")
+            if (crfCustom.Text == string.Empty)
             {
                 TextBox tbcrf = (TextBox)sender;
                 tbcrf.Text = string.Empty;
@@ -2901,7 +2902,7 @@ namespace Axiom
             TextBox tbcrf = sender as TextBox;
             if (tbcrf.Text.Trim().Equals(string.Empty))
             {
-                tbcrf.Text = "CRF";
+                tbcrf.Text = string.Empty;
                 tbcrf.GotFocus -= crfCustom_GotFocus; //used to be +=
             }
         }
@@ -3113,6 +3114,24 @@ namespace Axiom
             // Display Video Bit-rate in TextBox
             // Must be after EncodingPass
             VideoDisplayBitrate();
+
+
+            // Enable/Disable Video VBR
+            if ((string)cboVideoCodec.SelectedItem == "VP8"
+                || (string)cboVideoCodec.SelectedItem == "VP9"
+                || (string)cboVideoCodec.SelectedItem == "x264" 
+                || (string)cboVideoCodec.SelectedItem == "x265"
+                || (string)cboVideoCodec.SelectedItem == "Copy")
+            {
+                tglVideoVBR.IsChecked = false;
+                tglVideoVBR.IsEnabled = false;
+            }
+            // All other codecs
+            else
+            {
+                // Do not check, only enable
+                tglVideoVBR.IsEnabled = true;
+            }
         }
 
 
@@ -3203,9 +3222,9 @@ namespace Axiom
             else
             {
                 crfCustom.IsEnabled = false;
-                //crfCustom.Text = "CRF";
+                //crfCustom.Text = string.Empty ;
                 vBitrateCustom.IsEnabled = false;
-                //vBitrateCustom.Text = "Bitrate";
+                //vBitrateCustom.Text = string.Empty ;
             }
 
             // -------------------------
@@ -3254,8 +3273,8 @@ namespace Axiom
             // Clear Variables before Run
             // -------------------------
             ClearVariables(this);
-            vBitrateCustom.Text = "Bitrate";
-            crfCustom.Text = "CRF";
+            vBitrateCustom.Text = string.Empty;
+            crfCustom.Text = string.Empty;
 
 
             if ((string)cboVideo.SelectedItem != "Auto"
@@ -3279,8 +3298,8 @@ namespace Axiom
             }
             else
             {
-                vBitrateCustom.Text = "Bitrate";
-                crfCustom.Text = "CRF";
+                vBitrateCustom.Text = string.Empty;
+                crfCustom.Text = string.Empty;
             }
         }
 
@@ -3399,6 +3418,62 @@ namespace Axiom
                 audioCustom.Text = "kbps";
             }
 
+            // -------------------------
+            // Mute
+            // -------------------------
+            if ((string)cboAudio.SelectedItem == "Mute")
+            {
+                // -------------------------
+                // Disable
+                // -------------------------
+
+                // Channel
+                //cboChannel.SelectedItem = "Source";
+                cboChannel.IsEnabled = false;
+
+                // Stream
+                //cboAudioStream.SelectedItem = "none";
+                cboAudioStream.IsEnabled = false;
+
+                // Samplerate
+                //cboSamplerate.SelectedItem = "auto";
+                cboSamplerate.IsEnabled = false;
+
+                // BitDepth
+                //cboBitDepth.SelectedItem = "auto";
+                cboBitDepth.IsEnabled = false;
+
+                // Volume
+                volumeUpDown.IsEnabled = false;
+                volumeUpButton.IsEnabled = false;
+                volumeDownButton.IsEnabled = false;
+            }
+            else
+            {
+                // -------------------------
+                // Enable
+                // -------------------------
+
+                // Don't select item, to avoid changing user selection each time Quality is changed.
+
+                // Channel
+                cboChannel.IsEnabled = true;
+
+                // Stream
+                cboAudioStream.IsEnabled = true;
+
+                // Samplerate
+                cboSamplerate.IsEnabled = true;
+
+                // BitDepth
+                cboBitDepth.IsEnabled = true;
+
+                // Volume
+                volumeUpDown.IsEnabled = true;
+                volumeUpButton.IsEnabled = true;
+                volumeDownButton.IsEnabled = true;
+            }
+
         } // End audio_SelectionChanged
 
 
@@ -3417,22 +3492,22 @@ namespace Axiom
                 widthCustom.IsEnabled = true;
                 heightCustom.IsEnabled = true;
 
-                widthCustom.Text = "width";
-                heightCustom.Text = "height";
+                widthCustom.Text = "auto";
+                heightCustom.Text = "auto";
             }
             else
             {
                 widthCustom.IsEnabled = false;
                 heightCustom.IsEnabled = false;
-                widthCustom.Text = "width";
-                heightCustom.Text = "height";
+                widthCustom.Text = "auto";
+                heightCustom.Text = "auto";
             }
 
             // Change TextBox Resolution numbers
-            if ((string)cboSize.SelectedItem == "No")
+            if ((string)cboSize.SelectedItem == "Source")
             {
-                widthCustom.Text = "width";
-                heightCustom.Text = "height";
+                widthCustom.Text = "auto";
+                heightCustom.Text = "auto";
             }
             else if ((string)cboSize.SelectedItem == "8K")
             {
@@ -3497,7 +3572,7 @@ namespace Axiom
         private void widthCustom_GotFocus(object sender, RoutedEventArgs e)
         {
             // Clear textbox on focus if default text "width"
-            if (widthCustom.Focus() == true && widthCustom.Text == "width")
+            if (widthCustom.Focus() == true && widthCustom.Text == "auto")
             {
                 widthCustom.Text = string.Empty;
             }
@@ -3508,7 +3583,7 @@ namespace Axiom
             // Change textbox back to "width" if left empty
             if (string.IsNullOrWhiteSpace(widthCustom.Text))
             {
-                widthCustom.Text = "width";
+                widthCustom.Text = "auto";
             }
         }
 
@@ -3519,7 +3594,7 @@ namespace Axiom
         private void heightCustom_GotFocus(object sender, RoutedEventArgs e)
         {
             // Clear textbox on focus if default text "width"
-            if (heightCustom.Focus() == true && heightCustom.Text == "height")
+            if (heightCustom.Focus() == true && heightCustom.Text == "auto")
             {
                 heightCustom.Text = string.Empty;
             }
@@ -3530,7 +3605,7 @@ namespace Axiom
             // Change textbox back to "width" if left empty
             if (string.IsNullOrWhiteSpace(heightCustom.Text))
             {
-                heightCustom.Text = "height";
+                heightCustom.Text = "auto";
             }
         }
 
@@ -3558,7 +3633,7 @@ namespace Axiom
         // Lost Focus
         private void frameStart_LostFocus(object sender, RoutedEventArgs e)
         {
-            // Change textbox back to "width" if left empty
+            // Change textbox back to "auto" if left empty
             if (string.IsNullOrWhiteSpace(frameStart.Text))
             {
                 frameStart.Text = "Frame";
@@ -3571,7 +3646,7 @@ namespace Axiom
         // Got Focus
         private void frameEnd_GotFocus(object sender, RoutedEventArgs e)
         {
-            // Clear textbox on focus if default text "width"
+            // Clear textbox on focus if default text "auto"
             if (frameEnd.Focus() == true && frameEnd.Text == "Range")
             {
                 frameEnd.Text = string.Empty;
@@ -3580,7 +3655,7 @@ namespace Axiom
         // Lost Focus
         private void frameEnd_LostFocus(object sender, RoutedEventArgs e)
         {
-            // Change textbox back to "width" if left empty
+            // Change textbox back to "auto" if left empty
             if (string.IsNullOrWhiteSpace(frameEnd.Text))
             {
                 frameEnd.Text = "Range";

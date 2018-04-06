@@ -427,7 +427,14 @@
 
             <!-- Browse Textbox -->
             <TextBox x:Name="tbxInput" 
-                     Style="{DynamicResource TextBoxBrowseCustom}" Height="22" Margin="75,0,-14,0" Padding="2, 0, 0, 0" TextWrapping="NoWrap" MaxLines="1" VerticalAlignment="Top" TextChanged="tbxInput_TextChanged"/>
+                     Style="{DynamicResource TextBoxBrowseCustom}" 
+                     Height="22"
+                     Margin="75,0,-14,0" 
+                     Padding="2, 0, 25, 0" 
+                     TextWrapping="NoWrap"
+                     MaxLines="1" 
+                     VerticalAlignment="Top" 
+                     TextChanged="tbxInput_TextChanged"/>
 
             <!-- Input Location Button -->
             <Button x:Name="openLocationInput" 
@@ -462,7 +469,15 @@
                 <TextBlock Text="Output" Margin="0,-2,0,0"/>
             </Button>
             <!-- Output Textbox-->
-            <TextBox x:Name="tbxOutput" Style="{DynamicResource TextBoxBrowseCustom}" Height="22" Margin="75,29,-14,0" Padding="2, 0, 0, 0" TextWrapping="NoWrap" MaxLines="1" VerticalAlignment="Top" TextChanged="tbxOutput_TextChanged"/>
+            <TextBox x:Name="tbxOutput" 
+                     Style="{DynamicResource TextBoxBrowseCustom}"
+                     Height="22"
+                     Margin="75,29,-14,0"
+                     Padding="2, 0, 25, 0" 
+                     TextWrapping="NoWrap" 
+                     MaxLines="1" 
+                     VerticalAlignment="Top" 
+                     TextChanged="tbxOutput_TextChanged"/>
 
             <!-- Output Location Button -->
             <Button x:Name="openLocationOutput"
@@ -892,32 +907,31 @@
                             </ComboBox>
 
                             <!-- Video Bit-rate-->
-                            <Label 
-                            Style="{DynamicResource LabelCustom}" 
-                            Content="Bit Rate" 
-                            HorizontalAlignment="Left" 
-                            Margin="20,0,0,0" 
-                            VerticalAlignment="Top"
-                            Width="56" 
-                            
-                            FontFamily="Segoe UI Semilight" Grid.Row="1" />
+                            <Label Style="{DynamicResource LabelCustom}" 
+                                    Content="Bit Rate" 
+                                    HorizontalAlignment="Left" 
+                                    Margin="20,0,0,0" 
+                                    VerticalAlignment="Top"
+                                    Width="56" 
+                                    FontFamily="Segoe UI Semilight" Grid.Row="1" />
 
                             <TextBox x:Name="vBitrateCustom" 
-                            Style="{DynamicResource TextBoxCustom}"
-                            HorizontalAlignment="Left" 
-                            Height="22" Margin="0,3,0,0" 
-                            Padding="1, 1, 0, 0" 
-                            TextWrapping="NoWrap" 
-                            Text="Bitrate" 
-                            VerticalAlignment="Top" 
-                            Width="65"
-                            MaxLines="1" 
-                            MaxLength="10"
-                            GotFocus="vBitrateCustom_GotFocus"
-                            LostFocus="vBitrateCustom_LostFocus"
-                            ToolTipService.InitialShowDelay="1000" 
-                            ToolTipService.ShowOnDisabled="True"
-                            ToolTip="Video Bitrate (e.g. 1M or 1000K)" Grid.Row="1" Grid.Column="1"/>
+                                    Style="{DynamicResource TextBoxCustom}"
+                                    HorizontalAlignment="Left" 
+                                    Height="22" Margin="0,3,0,0" 
+                                    Padding="1, 1, 0, 0" 
+                                    TextWrapping="NoWrap" 
+                                    Text="" 
+                                    VerticalAlignment="Top" 
+                                    Width="65"
+                                    MaxLines="1" 
+                                    MaxLength="10"
+                                    GotFocus="vBitrateCustom_GotFocus"
+                                    LostFocus="vBitrateCustom_LostFocus"
+                                    ToolTipService.InitialShowDelay="1000" 
+                                    ToolTipService.ShowOnDisabled="True"
+                                    ToolTip="Video Bitrate (e.g. 1M or 1000K)" 
+                                     Grid.Row="1" Grid.Column="1"/>
 
                             <!-- VBR -->
                             <ToggleButton x:Name="tglVideoVBR" 
@@ -931,84 +945,82 @@
                                           ToolTipService.ShowOnDisabled="True" 
                                           ToolTip="Toggle Variable Bitrate." 
                                           Width="30" 
-                                          Height="22" Grid.Row="1" Grid.Column="1" />
+                                          Height="22" 
+                                          Grid.Row="1" 
+                                          Grid.Column="1" />
 
                             <!-- CRF -->
-                            <Label 
-                            Style="{DynamicResource LabelCustom}" 
-                            Content="CRF" 
-                            HorizontalAlignment="Left" 
-                            Margin="20,0,0,0" 
-                            VerticalAlignment="Top"
-                            Width="56" 
-                            
-                            FontFamily="Segoe UI Semilight" Grid.Row="2" />
+                            <Label Style="{DynamicResource LabelCustom}" 
+                                   Content="CRF" 
+                                   HorizontalAlignment="Left" 
+                                   Margin="20,0,0,0" 
+                                   VerticalAlignment="Top"
+                                   Width="56" 
+                                   FontFamily="Segoe UI Semilight" Grid.Row="2" />
 
                             <TextBox x:Name="crfCustom" 
-                            Style="{DynamicResource TextBoxCustom}"
-                            HorizontalAlignment="Left" 
-                            Height="22" Margin="0,2,0,0"
-                            Padding="0, 1, 0, 0" 
-                            TextWrapping="NoWrap"
-                            Text="CRF"
-                            VerticalAlignment="Top"
-                            Width="100"
-                            GotFocus="crfCustom_GotFocus"
-                            LostFocus="crfCustom_LostFocus"
-                            KeyDown="crfCustom_KeyDown" 
-                            MaxLines="1"
-                            MaxLength="2"
-                            ToolTipService.InitialShowDelay="1000"
-                            ToolTipService.ShowOnDisabled="True"
-                            ToolTip="Custom Constant Rate Factor value (e.g. 18)" Grid.Row="2" Grid.Column="1"/>
+                                    Style="{DynamicResource TextBoxCustom}"
+                                    HorizontalAlignment="Left" 
+                                    Height="22" Margin="0,2,0,0"
+                                    Padding="0, 1, 0, 0" 
+                                    TextWrapping="NoWrap"
+                                    Text=""
+                                    VerticalAlignment="Top"
+                                    Width="100"
+                                    GotFocus="crfCustom_GotFocus"
+                                    LostFocus="crfCustom_LostFocus"
+                                    KeyDown="crfCustom_KeyDown" 
+                                    MaxLines="1"
+                                    MaxLength="2"
+                                    ToolTipService.InitialShowDelay="1000"
+                                    ToolTipService.ShowOnDisabled="True"
+                                    ToolTip="Custom Constant Rate Factor value (e.g. 18)" Grid.Row="2" Grid.Column="1"/>
 
                             <!-- Pass -->
-                            <Label
-                            Style="{DynamicResource LabelCustom}" 
-                            Content="Pass" 
-                            HorizontalAlignment="Left"
-                            Margin="20,0,0,0" 
-                            VerticalAlignment="Top" 
-                            Width="56"
-                            ToolTip="Encoding Pass Method"
-                            
-                            FontFamily="Segoe UI Semilight" Grid.Row="3" />
+                            <Label Style="{DynamicResource LabelCustom}" 
+                                Content="Pass" 
+                                HorizontalAlignment="Left"
+                                Margin="20,0,0,0" 
+                                VerticalAlignment="Top" 
+                                Width="56"
+                                ToolTip="Encoding Pass Method"
+                                FontFamily="Segoe UI Semilight" Grid.Row="3" />
 
                             <ComboBox x:Name="cboPass"
-                            Style="{DynamicResource ComboBoxCustom}"
-                            ItemContainerStyle="{DynamicResource ComboBoxCustomItem}"
-                            HorizontalAlignment="Left"
-                            Margin="0,3,0,0"
-                            VerticalAlignment="Top"
-                            Width="100" 
-                            ToolTipService.InitialShowDelay="1000" 
-                            ToolTipService.ShowOnDisabled="True"
-                            ToolTip="Encoding Pass Method" 
-                            SelectionChanged="cboPass_SelectionChanged"
-                            DropDownClosed="cboPass_DropDownClosed" Grid.Row="3" Grid.Column="1" />
+                                      Style="{DynamicResource ComboBoxCustom}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxCustomItem}"
+                                      HorizontalAlignment="Left"
+                                      Margin="0,3,0,0"
+                                      VerticalAlignment="Top"
+                                      Width="100" 
+                                      ToolTipService.InitialShowDelay="1000" 
+                                      ToolTipService.ShowOnDisabled="True"
+                                      ToolTip="Encoding Pass Method" 
+                                      SelectionChanged="cboPass_SelectionChanged"
+                                      DropDownClosed="cboPass_DropDownClosed" 
+                                      Grid.Row="3" 
+                                      Grid.Column="1" />
 
                             <!-- Subtitles -->
-                            <Label
-                            Style="{DynamicResource LabelCustom}"
-                            Content="Subtitles" 
-                            HorizontalAlignment="Left" 
-                            Margin="20,0,0,0" 
-                            VerticalAlignment="Top"
-                            Width="54" 
-                            ToolTip="Subtitle Stream to keep." 
-                             
-                            FontFamily="Segoe UI Semilight" Grid.Row="9" />
+                            <Label Style="{DynamicResource LabelCustom}"
+                                    Content="Subtitles" 
+                                    HorizontalAlignment="Left" 
+                                    Margin="20,0,0,0" 
+                                    VerticalAlignment="Top"
+                                    Width="54" 
+                                    ToolTip="Subtitle Stream to keep." 
+                                    FontFamily="Segoe UI Semilight" Grid.Row="9" />
 
                             <ComboBox x:Name="cboSubtitle" 
-                            Style="{DynamicResource ComboBoxCustom}" 
-                            ItemContainerStyle="{DynamicResource ComboBoxCustomItem}"
-                            HorizontalAlignment="Left" 
-                            Margin="0,3,0,0" 
-                            VerticalAlignment="Top" 
-                            Width="100" 
-                            ToolTipService.InitialShowDelay="1000" 
-                            ToolTipService.ShowOnDisabled="True"
-                            ToolTip="Subtitle Stream to keep." Grid.Row="9" Grid.Column="1" >
+                                    Style="{DynamicResource ComboBoxCustom}" 
+                                    ItemContainerStyle="{DynamicResource ComboBoxCustomItem}"
+                                    HorizontalAlignment="Left" 
+                                    Margin="0,3,0,0" 
+                                    VerticalAlignment="Top" 
+                                    Width="100" 
+                                    ToolTipService.InitialShowDelay="1000" 
+                                    ToolTipService.ShowOnDisabled="True"
+                                    ToolTip="Subtitle Stream to keep." Grid.Row="9" Grid.Column="1" >
                                 <System:String>none</System:String>
                                 <System:String>all</System:String>
                                 <System:String>1</System:String>
@@ -1038,7 +1050,7 @@
                                       VerticalAlignment="Top"
                                       Width="100" 
                                       SelectionChanged="cboSize_SelectionChanged" Grid.Row="5" Grid.Column="1" >
-                                <System:String>No</System:String>
+                                <System:String>Source</System:String>
                                 <System:String>8K</System:String>
                                 <System:String>4K</System:String>
                                 <System:String>4K UHD</System:String>
@@ -1069,12 +1081,14 @@
                                      Margin="0,2,0,0" 
                                      Padding="2, 1, 0, 0" 
                                      TextWrapping="NoWrap" 
-                                     Text="width" 
+                                     Text="" 
                                      VerticalAlignment="Top" 
                                      Width="100"
                                      MaxLines="1"
                                      GotFocus="widthCustom_GotFocus" 
-                                     LostFocus="widthCustom_LostFocus" Grid.Row="6" Grid.Column="1" />
+                                     LostFocus="widthCustom_LostFocus" 
+                                     Grid.Row="6" 
+                                     Grid.Column="1" />
 
                             <!-- Height -->
                             <Label 
@@ -1091,7 +1105,7 @@
                                      Margin="0,2,0,0" 
                                      Padding="2, 1, 0, 0"
                                      TextWrapping="NoWrap"
-                                     Text="height" 
+                                     Text="" 
                                      VerticalAlignment="Top" 
                                      Width="100" 
                                      MaxLines="1" 
@@ -1517,7 +1531,7 @@
                             <Label Style="{DynamicResource LabelCustom}" 
                                    Content="FFmpeg" 
                                    HorizontalAlignment="Left" 
-                                   Margin="10,0,0,0" 
+                                   Margin="13,0,0,0" 
                                    VerticalAlignment="Top"
                                    Height="26" 
                                    ToolTip="Path to FFmpeg.exe"/>
@@ -1557,7 +1571,7 @@
                             <Label Style="{DynamicResource LabelCustom}" 
                                    Content="FFprobe" 
                                    HorizontalAlignment="Left" 
-                                   Margin="10,0,0,0" 
+                                   Margin="13,0,0,0" 
                                    VerticalAlignment="Top"
                                    Height="26" 
                                    ToolTip="Path to FFprobe.exe" Grid.Row="1"/>
@@ -1598,7 +1612,7 @@
                                    Style="{DynamicResource LabelCustom}" 
                                    Content="Log" 
                                    HorizontalAlignment="Left" 
-                                   Margin="10,0,0,0"
+                                   Margin="13,0,0,0"
                                    VerticalAlignment="Top"
                                    Height="26" 
                                    ToolTip="Path to Save Log" Grid.Row="2"/>
@@ -1640,7 +1654,7 @@
                             <CheckBox x:Name="checkBoxLogConfig" 
                                       Content=""
                                       HorizontalAlignment="Left" 
-                                      Margin="42,6,0,0" 
+                                      Margin="45,6,0,0" 
                                       VerticalAlignment="Top" 
                                       ToolTip="Enable/Disable Log"
                                       Checked="checkBoxLogConfig_Checked" 
@@ -1652,7 +1666,7 @@
                                    Style="{DynamicResource LabelCustom}"
                                    Content=" Threads" 
                                    HorizontalAlignment="Left"
-                                   Margin="7,0,0,0" 
+                                   Margin="10,0,0,0" 
                                    VerticalAlignment="Top" 
                                    Height="26" 
                                    ToolTip="Path to Save Log" Grid.Row="3"/>
@@ -1684,7 +1698,7 @@
                                    Style="{DynamicResource LabelCustom}" 
                                    Content="Theme" 
                                    HorizontalAlignment="Left"
-                                   Margin="10,0,0,0"
+                                   Margin="13,0,0,0"
                                    VerticalAlignment="Top"
                                    Height="26" 
                                    ToolTip="Path to Save Log" Grid.Row="4"/>
@@ -1709,7 +1723,7 @@
                             <Label Style="{DynamicResource LabelCustom}" 
                                    Content="Settings"
                                    HorizontalAlignment="Left"
-                                   Margin="10,0,0,0"
+                                   Margin="13,0,0,0"
                                    VerticalAlignment="Top" 
                                    Height="26" Grid.Row="5" />
 

@@ -1030,7 +1030,7 @@ namespace Axiom
                     // Set Video Codec Combobox Selected Item to Copy
                     // -------------------------
                     if ((string)mainwindow.cboVideo.SelectedItem == "Auto"
-                        && (string)mainwindow.cboSize.SelectedItem == "No"
+                        && (string)mainwindow.cboSize.SelectedItem == "Source"
                         && string.IsNullOrEmpty(CropWindow.crop)
                         && (string)mainwindow.cboFPS.SelectedItem == "auto"
                         && (string)mainwindow.cboOptimize.SelectedItem == "none")

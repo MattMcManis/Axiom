@@ -69,7 +69,7 @@ namespace Axiom
                     // Video
                     mainwindow.cboFormat.SelectedItem = mainwindow.cboFormat;
                     mainwindow.cboVideo.SelectedItem = "Auto";
-                    mainwindow.cboSize.SelectedItem = "No";
+                    mainwindow.cboSize.SelectedItem = "Source";
                     mainwindow.cboCut.SelectedItem = "No";
                     mainwindow.cutStart.Text = "00:00:00.000";
                     mainwindow.cutEnd.Text = "00:00:00.000";
@@ -115,7 +115,7 @@ namespace Axiom
                     // Video
                     mainwindow.cboFormat.SelectedItem = mainwindow.cboFormat;
                     mainwindow.cboVideo.SelectedItem = "None";
-                    mainwindow.cboSize.SelectedItem = "No";
+                    mainwindow.cboSize.SelectedItem = "Source";
                     mainwindow.cboCut.SelectedItem = "No";
                     mainwindow.cutStart.Text = "00:00:00.000";
                     mainwindow.cutEnd.Text = "00:00:00.000";
@@ -195,7 +195,7 @@ namespace Axiom
 
                 // Video
                 mainwindow.cboVideo.SelectedItem = "Ultra";
-                mainwindow.cboSize.SelectedItem = "No";
+                mainwindow.cboSize.SelectedItem = "Source";
                 mainwindow.cboSubtitle.SelectedItem = "all";
                 mainwindow.cboOptimize.SelectedItem = "none";
                 mainwindow.cboFPS.SelectedItem = "auto";
@@ -230,7 +230,7 @@ namespace Axiom
 
                 // Video
                 mainwindow.cboVideo.SelectedItem = "High";
-                mainwindow.cboSize.SelectedItem = "No";
+                mainwindow.cboSize.SelectedItem = "Source";
                 mainwindow.cboFPS.SelectedItem = "auto";
                 mainwindow.cboFPS.IsEnabled = true;
                 mainwindow.cboCut.SelectedItem = "No";
@@ -305,7 +305,7 @@ namespace Axiom
                 //cboTune.SelectedItem = "none";
                 mainwindow.cboFPS.SelectedItem = "23.976";
                 mainwindow.cboFPS.IsEnabled = true;
-                mainwindow.cboSize.SelectedItem = "No";
+                mainwindow.cboSize.SelectedItem = "Source";
                 mainwindow.cboSubtitle.SelectedItem = "all";
                 mainwindow.cboOptimize.SelectedItem = "Windows";
 
@@ -334,7 +334,7 @@ namespace Axiom
 
                 // Video
                 mainwindow.cboVideo.SelectedItem = "High";
-                mainwindow.cboSize.SelectedItem = "No";
+                mainwindow.cboSize.SelectedItem = "Source";
                 mainwindow.cboFPS.SelectedItem = "23.976";
                 mainwindow.cboFPS.IsEnabled = true;
                 mainwindow.cboCut.SelectedItem = "No";
@@ -368,7 +368,7 @@ namespace Axiom
 
                 // Video
                 mainwindow.cboVideo.SelectedItem = "High";
-                mainwindow.cboSize.SelectedItem = "No";
+                mainwindow.cboSize.SelectedItem = "Source";
                 mainwindow.cboSubtitle.SelectedItem = "all";
                 mainwindow.cboOptimize.SelectedItem = "Android";
                 mainwindow.cboFPS.SelectedItem = "23.976";
@@ -402,7 +402,7 @@ namespace Axiom
 
                 // Video
                 mainwindow.cboVideo.SelectedItem = "Ultra";
-                mainwindow.cboSize.SelectedItem = "No";
+                mainwindow.cboSize.SelectedItem = "Source";
                 mainwindow.cboFPS.SelectedItem = "23.976";
                 mainwindow.cboFPS.IsEnabled = true;
                 mainwindow.cboCut.SelectedItem = "No";
@@ -436,7 +436,7 @@ namespace Axiom
 
                 // Video
                 mainwindow.cboVideo.SelectedItem = "Ultra";
-                mainwindow.cboSize.SelectedItem = "No";
+                mainwindow.cboSize.SelectedItem = "Source";
                 mainwindow.cboCut.SelectedItem = "No";
                 mainwindow.cutStart.Text = "00:00:00.000";
                 mainwindow.cutEnd.Text = "00:00:00.000";
@@ -470,7 +470,7 @@ namespace Axiom
 
                 // Video
                 mainwindow.cboVideo.SelectedItem = "High";
-                mainwindow.cboSize.SelectedItem = "No";
+                mainwindow.cboSize.SelectedItem = "Source";
                 mainwindow.cboCut.SelectedItem = "No";
                 mainwindow.cutStart.Text = "00:00:00.000";
                 mainwindow.cutEnd.Text = "00:00:00.000";
@@ -504,7 +504,7 @@ namespace Axiom
 
                 // Video
                 mainwindow.cboVideo.SelectedItem = "Ultra";
-                mainwindow.cboSize.SelectedItem = "No";
+                mainwindow.cboSize.SelectedItem = "Source";
                 mainwindow.cboCut.SelectedItem = "No";
                 mainwindow.cutStart.Text = "00:00:00.000";
                 mainwindow.cutEnd.Text = "00:00:00.000";
@@ -538,7 +538,7 @@ namespace Axiom
 
                 // Video
                 mainwindow.cboVideo.SelectedItem = "Medium";
-                mainwindow.cboSize.SelectedItem = "No";
+                mainwindow.cboSize.SelectedItem = "Source";
                 mainwindow.cboCut.SelectedItem = "No";
                 mainwindow.cutStart.Text = "00:00:00.000";
                 mainwindow.cutEnd.Text = "00:00:00.000";
@@ -571,7 +571,7 @@ namespace Axiom
                 mainwindow.cboAudioCodec.SelectedItem = "AAC";
 
                 // Video
-                mainwindow.cboSize.SelectedItem = "No";
+                mainwindow.cboSize.SelectedItem = "Source";
                 mainwindow.cboCut.SelectedItem = "No";
                 mainwindow.cutStart.Text = "00:00:00.000";
                 mainwindow.cutEnd.Text = "00:00:00.000";

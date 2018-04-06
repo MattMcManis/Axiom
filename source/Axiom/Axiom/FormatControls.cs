@@ -635,7 +635,7 @@ namespace Axiom
                 // Video
                 // -------------------------
                 //Size
-                mainwindow.cboSize.SelectedItem = "No";
+                mainwindow.cboSize.SelectedItem = "Source";
                 mainwindow.cboSize.IsEnabled = false;
 
                 // Cut

@@ -197,6 +197,16 @@ namespace Axiom
             else if ((string)mainwindow.cboVideoCodec.SelectedItem == "PNG") { vBitMode = string.Empty; }
             else if ((string)mainwindow.cboVideoCodec.SelectedItem == "Copy") { vBitMode = string.Empty; }
 
+
+            // VBR Toggle Override
+            if (mainwindow.tglVideoVBR.IsChecked == true)
+            {
+                //if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8") { vBitMode = "-q:v"; }
+                //else if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9") { vBitMode = "-q:v"; }
+                if ((string)mainwindow.cboVideoCodec.SelectedItem == "mpeg4") { vBitMode = "-q:v"; }
+                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "Theora") { vBitMode = "-q:v"; }
+            }
+
             return vBitMode;
         }
 
@@ -1330,7 +1340,7 @@ namespace Axiom
                     // Bitrate
                     // -------------------------
                     // Textbox Default or Empty
-                    if (mainwindow.vBitrateCustom.Text == "Bitrate" 
+                    if (mainwindow.vBitrateCustom.Text == string.Empty 
                         || string.IsNullOrWhiteSpace(mainwindow.vBitrateCustom.Text))
                     {
                         crf = string.Empty;
@@ -1342,7 +1352,7 @@ namespace Axiom
                         vOptions = string.Empty;
                     }
                     // Textbox Not Empty
-                    if (mainwindow.vBitrateCustom.Text != "Bitrate" 
+                    if (mainwindow.vBitrateCustom.Text != string.Empty
                         && !string.IsNullOrWhiteSpace(mainwindow.vBitrateCustom.Text))
                     {
                         vBitrate = mainwindow.vBitrateCustom.Text.ToString();
@@ -1353,13 +1363,13 @@ namespace Axiom
                     // CRF
                     // -------------------------
                     // if CRF texbox is default or empty
-                    if (mainwindow.crfCustom.Text == "CRF" 
+                    if (mainwindow.crfCustom.Text == string.Empty
                         || string.IsNullOrWhiteSpace(mainwindow.crfCustom.Text))
                     {
                         crf = string.Empty;
                     }
                     // if CRF texbox entered by user and is not blank
-                    if (mainwindow.crfCustom.Text != "CRF" 
+                    if (mainwindow.crfCustom.Text != string.Empty
                         && !string.IsNullOrWhiteSpace(mainwindow.crfCustom.Text))
                     {
                         // x264
@@ -1381,10 +1391,10 @@ namespace Axiom
                     // & CRF is Custom value
                     if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9")
                     {
-                        if (mainwindow.vBitrateCustom.Text == "Bitrate" 
+                        if (mainwindow.vBitrateCustom.Text == string.Empty
                             || string.IsNullOrWhiteSpace(mainwindow.vBitrateCustom.Text))
                         {
-                            if (mainwindow.crfCustom.Text != "CRF" 
+                            if (mainwindow.crfCustom.Text != string.Empty
                                 && !string.IsNullOrWhiteSpace(mainwindow.crfCustom.Text))
                             {
                                 vBitrate = "0";
@@ -1607,7 +1617,7 @@ namespace Axiom
             // -------------------------
             // No
             // -------------------------
-            if ((string)mainwindow.cboSize.SelectedItem == "No")
+            if ((string)mainwindow.cboSize.SelectedItem == "Source")
             {
                 // MP4/MKV Width/Height Fix
                 if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264" 
@@ -1763,13 +1773,13 @@ namespace Axiom
                     width = mainwindow.widthCustom.Text;
                     height = mainwindow.heightCustom.Text;
 
-                    // Change the left over Default "width" and "height" text to "auto"
-                    if (string.Equals(mainwindow.widthCustom.Text, "width", StringComparison.CurrentCultureIgnoreCase))
+                    // Change the left over Default empty text to "auto"
+                    if (string.Equals(mainwindow.widthCustom.Text, "", StringComparison.CurrentCultureIgnoreCase))
                     {
                         mainwindow.widthCustom.Text = "auto";
                     }
 
-                    if (string.Equals(mainwindow.heightCustom.Text, "height", StringComparison.CurrentCultureIgnoreCase))
+                    if (string.Equals(mainwindow.heightCustom.Text, "", StringComparison.CurrentCultureIgnoreCase))
                     {
                         mainwindow.heightCustom.Text = "auto";
                     }
@@ -1783,7 +1793,7 @@ namespace Axiom
                         || (string)mainwindow.cboVideoCodec.SelectedItem == "JPEG"
                         || (string)mainwindow.cboVideoCodec.SelectedItem == "PNG")
                     {
-                        // If User enters "auto" or textbox has default "width" or "height"
+                        // If User enters "auto" or textbox is empty
                         if (string.Equals(mainwindow.widthCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase))
                         {
                             width = "-1";
@@ -1967,7 +1977,7 @@ namespace Axiom
                         else if (string.Equals(mainwindow.widthCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase)
                             && string.Equals(mainwindow.heightCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase))
                         {
-                            // If User enters "auto" or textbox has default "width" or "height"
+                            // If User enters "auto" or textbox is empty
                             if (string.Equals(mainwindow.widthCustom.Text, "auto", StringComparison.CurrentCultureIgnoreCase))
                             {
                                 width = "trunc(iw/2)*2";
