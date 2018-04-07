@@ -2322,6 +2322,7 @@ namespace Axiom
             // Reset Sort
             // -------------------------
             ScriptView.sort = false;
+            txblScriptSort.Text = "Sort";
 
             // -------------------------
             // Batch Extention Period Check
@@ -2386,13 +2387,6 @@ namespace Axiom
             // Generate Script
             // -------------------------
             FFmpeg.FFmpegScript(this, scriptview);
-
-            // -------------------------
-            // Sort
-            // -------------------------
-            // Reset
-            ScriptView.sort = false;
-            txblScriptSort.Text = "Sort";
 
             // -------------------------
             // Clear Variables for next Run
@@ -3938,6 +3932,17 @@ namespace Axiom
             ClearVariables(this);
 
             // -------------------------
+            // Enable Script
+            // -------------------------
+            script = true;
+
+            // -------------------------
+            // Reset Sort
+            // -------------------------
+            ScriptView.sort = false;
+            txblScriptSort.Text = "Sort";
+
+            // -------------------------
             // Batch Extention Period Check
             // -------------------------
             BatchExtCheck(this);
@@ -4043,6 +4048,11 @@ namespace Axiom
                 // Write All Log Actions to Console
                 // -------------------------
                 Log.LogWriteAll(this);
+
+                // -------------------------
+                // Generate Script
+                // -------------------------
+                FFmpeg.FFmpegScript(this, scriptview);
 
                 // -------------------------
                 // Clear Strings for next Run
