@@ -80,12 +80,78 @@ namespace Axiom
         // Batch
         public static string batchVideoAuto;
 
+        // Rendering
+        public static string hwaccel;
+
 
         // --------------------------------------------------------------------------------------------------------
         // --------------------------------------------------------------------------------------------------------
         // Process Methods
         // --------------------------------------------------------------------------------------------------------
         // --------------------------------------------------------------------------------------------------------
+
+        /// <summary>
+        /// Hardware Acceleration (Method)
+        /// <summary>
+        /// https://trac.ffmpeg.org/wiki/HWAccelIntro
+        public static String HWAcceleration(MainWindow mainwindow)
+        {
+            // Hardware Acceleration Codec in VideoCodec() Method
+
+            //if (mainwindow.tglHWAccel.IsChecked == true)
+            //{
+            //    hwaccel = "-hwaccel";
+            //}
+            //else
+            //{
+            //    hwaccel = string.Empty;
+            //}
+
+            // Only x264/x265
+            //
+            if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264"
+                || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
+            {
+                // Off
+                if ((string)mainwindow.cboHWAccel.SelectedItem == "off")
+                {
+                    hwaccel = string.Empty;
+                }
+                // DXVA2
+                else if ((string)mainwindow.cboHWAccel.SelectedItem == "dxva2")
+                {
+                    // ffmpeg -hwaccel dxva2 -threads 1 -i INPUT -f null
+                    hwaccel = "-hwaccel dxva2";
+                }
+                // CUVID
+                else if ((string)mainwindow.cboHWAccel.SelectedItem == "cuvid")
+                {
+                    // ffmpeg -c:v h264_cuvid -i input output.mkv
+                    hwaccel = string.Empty;
+                }
+                // NVENC
+                else if ((string)mainwindow.cboHWAccel.SelectedItem == "nvenc")
+                {
+                    // ffmpeg -i input -c:v h264_nvenc -profile high444p -pixel_format yuv444p -preset default output.mp4
+                    hwaccel = string.Empty;
+                }
+                // CUVID + NVENC
+                else if ((string)mainwindow.cboHWAccel.SelectedItem == "cuvid+nvenc")
+                {
+                    // ffmpeg -hwaccel cuvid -c:v h264_cuvid -i input -c:v h264_nvenc -preset slow output.mkv
+                    if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264")
+                    {
+                        hwaccel = "-hwaccel cuvid -c:v h264_cuvid";
+                    }
+                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265")
+                    {
+                        hwaccel = "-hwaccel cuvid -c:v hevc_cuvid";
+                    }
+                }
+            }
+
+            return hwaccel;
+        }
 
         /// <summary>
         /// Video Codecs (Method)
@@ -156,6 +222,59 @@ namespace Axiom
                 else
                 {
                     vCodec = string.Empty;
+                }
+
+
+                // Hardware Acceleration Codec
+                // HW options in HWAcceleration() Method
+                //
+                if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264"
+                    || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
+                {
+                    if ((string)mainwindow.cboHWAccel.SelectedItem == "dxva2")
+                    {
+                        // default
+                    }
+                    // CUVID
+                    else if ((string)mainwindow.cboHWAccel.SelectedItem == "cuvid")
+                    {
+                        // x264
+                        if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264")
+                        {
+                            vCodec = "-c:v h264_cuvid";
+                        }
+                        // x265
+                        else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265")
+                        {
+                            vCodec = "-c:v hevc_cuvid";
+                        }
+                    }
+                    else if ((string)mainwindow.cboHWAccel.SelectedItem == "nvenc")
+                    {
+                        // x264
+                        if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264")
+                        {
+                            vCodec = "-c:v h264_nvenc";
+                        }
+                        // x265
+                        else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265")
+                        {
+                            vCodec = "-c:v hevc_nvenc";
+                        }
+                    }
+                    else if ((string)mainwindow.cboHWAccel.SelectedItem == "cuvid+nvenc")
+                    {
+                        // x264
+                        if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264")
+                        {
+                            vCodec = "-c:v h264_nvenc";
+                        }
+                        // x265
+                        else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265")
+                        {
+                            vCodec = "-c:v hevc_nvenc";
+                        }
+                    }
                 }
 
 

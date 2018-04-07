@@ -416,6 +416,7 @@ namespace Axiom
             cboFPS.SelectedIndex = 0;
             cboCut.SelectedIndex = 0;
             cboSize.SelectedIndex = 0;
+            cboHWAccel.SelectedIndex = 0;
             cboPreset.SelectedIndex = 0;
 
             tglWindowKeep.IsChecked = true;
@@ -555,6 +556,8 @@ namespace Axiom
             Video.image = string.Empty;
             Video.optimize = string.Empty;
             Video.speed = string.Empty;
+
+            Video.hwaccel = string.Empty;
 
             // Audio
             Audio.aCodec = string.Empty;
@@ -1730,6 +1733,18 @@ namespace Axiom
             Settings.Default.Reload();
         }
 
+        // --------------------------------------------------
+        // Hardware Acceleration
+        // --------------------------------------------------
+        //private void tglHWAccel_Checked(object sender, RoutedEventArgs e)
+        //{
+        //    tglHWAccel.Content = "On";
+        //}
+        //private void tglHWAccel_Unchecked(object sender, RoutedEventArgs e)
+        //{
+        //    tglHWAccel.Content = "Off";
+        //}
+
 
         // --------------------------------------------------
         // Reset Saved Settings Button
@@ -2371,6 +2386,13 @@ namespace Axiom
             // Generate Script
             // -------------------------
             FFmpeg.FFmpegScript(this, scriptview);
+
+            // -------------------------
+            // Sort
+            // -------------------------
+            // Reset
+            ScriptView.sort = false;
+            txblScriptSort.Text = "Sort";
 
             // -------------------------
             // Clear Variables for next Run
@@ -3117,6 +3139,7 @@ namespace Axiom
 
 
             // Enable/Disable Video VBR
+            //
             if ((string)cboVideoCodec.SelectedItem == "VP8"
                 || (string)cboVideoCodec.SelectedItem == "VP9"
                 || (string)cboVideoCodec.SelectedItem == "x264" 
@@ -3131,6 +3154,19 @@ namespace Axiom
             {
                 // Do not check, only enable
                 tglVideoVBR.IsEnabled = true;
+            }
+
+
+            // Enable/Disable Hardware Acceleration
+            //
+            if ((string)cboVideoCodec.SelectedItem == "x264" 
+                || (string)cboVideoCodec.SelectedItem == "x265")
+            {
+                cboHWAccel.IsEnabled = true;
+            }
+            else
+            {
+                cboHWAccel.IsEnabled = false;
             }
         }
 
@@ -4216,10 +4252,6 @@ namespace Axiom
             FFmpeg.FFmpegConvert(this);
         }
 
-        private void listViewFileQueue_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
     }
 
 }

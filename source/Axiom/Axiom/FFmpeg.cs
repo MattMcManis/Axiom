@@ -212,6 +212,7 @@ namespace Axiom
                         //
                         "\r\n\r\n" + "&&",
                         "\r\n\r\n" + MainWindow.FFmpegPath(),
+                        "\r\n\r\n" + Video.HWAcceleration(mainwindow),
                         "-y",
                         "-i",
 
@@ -281,6 +282,7 @@ namespace Axiom
                 {
                     //MainWindow.YouTubeDownload(MainWindow.InputPath(mainwindow)),
                     MainWindow.FFmpegPath(),
+                    Video.HWAcceleration(mainwindow),
                     "-y",
                     "-i",
                     FFmpeg.OnePassArgs(mainwindow), //disabled if 2-Pass
@@ -375,6 +377,7 @@ namespace Axiom
 
                     "\r\n\r\n" + "&&",
                     "\r\n\r\n" + MainWindow.FFmpegPath(),
+                    "\r\n\r\n" + Video.HWAcceleration(mainwindow),
                     "-y",
                     "-i",
                     //%~f added in InputPath()
