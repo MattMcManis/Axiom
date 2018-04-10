@@ -174,7 +174,8 @@ namespace Axiom
                     // Extract
                     "$shell = new-object -com shell.application;",
                     "$zip = $shell.NameSpace('" + tempDir + "Axiom.zip');",
-                    "foreach ($item in $zip.items()) {$shell.Namespace('" + MainWindow.appDir + "').CopyHere($item, 0x14)};",
+                    //"foreach ($item in $zip.items()) {$shell.Namespace('" + MainWindow.appDir + "').CopyHere($item, 0x14)};", //all files
+                    "foreach ($item in $zip.items()) {$name = [string]$item.Name; if ($name -match 'Axiom.exe') {$shell.Namespace('" + MainWindow.appDir + "').CopyHere($item, 0x14)}};",
                     // Delete Temp
                     "Write-Host \"`nDeleting Temp File\";",
                     "del " + "\"" + tempDir + "Axiom.zip" + "\";",

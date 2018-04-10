@@ -358,17 +358,7 @@ namespace Axiom
                 // --------------------------
                 // First time use
                 // --------------------------
-                if (string.IsNullOrEmpty(Convert.ToString(Settings.Default.KeepWindow)))
-                {
-                    tglWindowKeep.IsChecked = true;
-                }
-                // --------------------------
-                // Load Saved Settings Override
-                // --------------------------
-                else if (!string.IsNullOrEmpty(Convert.ToString(Settings.Default.KeepWindow)))
-                {
-                    tglWindowKeep.IsChecked = Convert.ToBoolean(Settings.Default.KeepWindow);
-                }
+                tglWindowKeep.IsChecked = Convert.ToBoolean(Settings.Default.KeepWindow);
             }
             catch
             {
@@ -383,6 +373,11 @@ namespace Axiom
             // -------------------------
             dispatcherTimerUp.Tick += new EventHandler(dispatcherTimerUp_Tick);
             dispatcherTimerDown.Tick += new EventHandler(dispatcherTimerDown_Tick);
+
+
+            //tbxInput.AllowDrop = true;
+            //tbxInput.DragEnter += new DragEventHandler(tbxInput_PreviewDragEnter);
+            //tbxInput.DragDrop += new DragEventHandler(FileTextBox_DragDrop);
 
         } // End MainWindow
 
@@ -419,7 +414,7 @@ namespace Axiom
             cboHWAccel.SelectedIndex = 0;
             cboPreset.SelectedIndex = 0;
 
-            tglWindowKeep.IsChecked = true;
+            //tglWindowKeep.IsChecked = true;
 
             //AudioControls.Audio_SelectedItem = AudioControls.AudioItemSource[0];
             //AudioControls.Audio_SelectedItem = AudioControls.AudioItemSource[0];
@@ -1091,6 +1086,8 @@ namespace Axiom
                     {
                         //inputDir = Path.GetDirectoryName(mainwindow.tbxInput.Text.TrimEnd('\\') + @"\"); // (eg. C:\Input Folder\)
                         inputDir = Path.GetDirectoryName(mainwindow.tbxInput.Text).TrimEnd('\\') + @"\"; // (eg. C:\Input Folder\)
+                        inputFileName = Path.GetFileNameWithoutExtension(mainwindow.tbxInput.Text);
+                        inputExt = Path.GetExtension(mainwindow.tbxInput.Text);
                     }
 
                     // Input
@@ -2690,6 +2687,36 @@ namespace Axiom
             //}
         }
 
+        /// <summary>
+        ///    Input Textbox - Drag and Drop
+        /// </summary>
+        private void tbxInput_PreviewDragOver(object sender, DragEventArgs e)
+        {
+            e.Handled = true;
+            e.Effects = DragDropEffects.Copy;
+        }
+
+        private void tbxInput_PreviewDrop(object sender, DragEventArgs e)
+        {
+            var buffer = e.Data.GetData(DataFormats.FileDrop, false) as string[];
+            tbxInput.Text = buffer.First();
+        }
+
+        /// <summary>
+        ///    Output Textbox - Drag and Drop
+        /// </summary>
+        private void tbxOutput_PreviewDragOver(object sender, DragEventArgs e)
+        {
+            e.Handled = true;
+            e.Effects = DragDropEffects.Copy;
+        }
+
+        private void tbxOutput_PreviewDrop(object sender, DragEventArgs e)
+        {
+            var buffer = e.Data.GetData(DataFormats.FileDrop, false) as string[];
+            tbxOutput.Text = buffer.First();
+        }
+
 
         /// <summary>
         ///    Open Input Folder Button
@@ -3122,18 +3149,25 @@ namespace Axiom
         /// </summary>
         private void cboVideoCodec_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            // -------------------------
+            // Video Codec Controls
+            // -------------------------
             VideoControls.VideoCodecControls(this);
 
-            // Video Encoding Pass Controls Method
+            // -------------------------
+            // Video Encoding Pass Controls
+            // -------------------------
             VideoControls.EncodingPass(this);
 
+            // -------------------------
             // Display Video Bit-rate in TextBox
+            // -------------------------
             // Must be after EncodingPass
             VideoDisplayBitrate();
 
-
+            // -------------------------
             // Enable/Disable Video VBR
-            //
+            // -------------------------
             if ((string)cboVideoCodec.SelectedItem == "VP8"
                 || (string)cboVideoCodec.SelectedItem == "VP9"
                 || (string)cboVideoCodec.SelectedItem == "x264" 
@@ -3150,9 +3184,9 @@ namespace Axiom
                 tglVideoVBR.IsEnabled = true;
             }
 
-
+            // -------------------------
             // Enable/Disable Hardware Acceleration
-            //
+            // -------------------------
             if ((string)cboVideoCodec.SelectedItem == "x264" 
                 || (string)cboVideoCodec.SelectedItem == "x265")
             {
@@ -3160,6 +3194,7 @@ namespace Axiom
             }
             else
             {
+                cboHWAccel.SelectedItem = "off";
                 cboHWAccel.IsEnabled = false;
             }
         }
@@ -3192,13 +3227,17 @@ namespace Axiom
             VideoControls.VideoCodecControls(this);
             AudioControls.AudioCodecControls(this);
 
+            // -------------------------
             // File Renamer
+            // -------------------------
             if (!string.IsNullOrEmpty(inputDir))
             {
                 outputFileName = FileRenamer(inputFileName);
             }
-            
 
+            // -------------------------
+            // Default to Auto
+            // -------------------------
             // Always Default Video to Auto if Input Ext matches Format Output Ext
             if ((string)cboVideo.SelectedItem != "Auto" 
                 && string.Equals(inputExt, outputExt, StringComparison.CurrentCultureIgnoreCase))
@@ -3212,7 +3251,9 @@ namespace Axiom
                 cboAudio.SelectedItem = "Auto";
             }
 
+            // -------------------------
             // Single File - Update Ouput Textbox with current Format extension
+            // -------------------------
             if (tglBatch.IsChecked == false && !string.IsNullOrWhiteSpace(tbxOutput.Text))
             {
                 tbxOutput.Text = outputDir + outputFileName + outputExt;

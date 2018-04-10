@@ -434,7 +434,14 @@
                      TextWrapping="NoWrap"
                      MaxLines="1" 
                      VerticalAlignment="Top" 
-                     TextChanged="tbxInput_TextChanged"/>
+                     
+                     TextChanged="tbxInput_TextChanged"
+      
+                     AllowDrop="True"
+                     PreviewDragOver="tbxInput_PreviewDragOver"
+                     PreviewDragEnter="tbxInput_PreviewDragOver"
+                     PreviewDrop="tbxInput_PreviewDrop"
+                     />
 
             <!-- Input Location Button -->
             <Button x:Name="openLocationInput" 
@@ -477,7 +484,12 @@
                      TextWrapping="NoWrap" 
                      MaxLines="1" 
                      VerticalAlignment="Top" 
-                     TextChanged="tbxOutput_TextChanged"/>
+                     TextChanged="tbxOutput_TextChanged"
+                     
+                     AllowDrop="True"
+                     PreviewDragOver="tbxOutput_PreviewDragOver"
+                     PreviewDragEnter="tbxOutput_PreviewDragOver"
+                     PreviewDrop="tbxOutput_PreviewDrop"/>
 
             <!-- Output Location Button -->
             <Button x:Name="openLocationOutput"
