@@ -2700,6 +2700,15 @@ namespace Axiom
         {
             var buffer = e.Data.GetData(DataFormats.FileDrop, false) as string[];
             tbxInput.Text = buffer.First();
+
+            // Set Input Dir, Name, Ext
+            inputDir = Path.GetDirectoryName(tbxInput.Text).TrimEnd('\\') + @"\";
+            inputFileName = Path.GetFileNameWithoutExtension(tbxInput.Text);
+            inputExt = Path.GetExtension(tbxInput.Text);
+
+            // Set Video & Audio Codec Combobox to "Copy" if Input Extension is Same as Output Extension and Video Quality is Auto
+            VideoControls.AutoCopyVideoCodec(this);
+            AudioControls.AutoCopyAudioCodec(this);
         }
 
         /// <summary>
