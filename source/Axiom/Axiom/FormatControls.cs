@@ -3,7 +3,7 @@ Axiom UI
 Copyright (C) 2017, 2018 Matt McManis
 http://github.com/MattMcManis/Axiom
 http://axiomui.github.io
-axiom.interface@gmail.com
+mattmcmanis@outlook.com
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -39,10 +39,30 @@ namespace Axiom
         // Load in Intialize Component
         //
         // MediaType
-        public static List<string> MediaTypeItemSource = new List<string>() { "Video", "Audio", "Image", "Sequence" };
+        public static List<string> MediaTypeItemSource = new List<string>()
+        {
+            "Video",
+            "Audio",
+            "Image",
+            "Sequence"
+        };
 
         // Format
-        public static List<string> FormatItemSource = new List<string>() { "webm", "mp4", "mkv", "avi", "ogv", "mp3", "m4a", "ogg", "flac", "wav", "jpg", "png" };
+        public static List<string> FormatItemSource = new List<string>()
+        {
+            "webm",
+            "mp4",
+            "mkv",
+            "avi",
+            "ogv",
+            "mp3",
+            "m4a",
+            "ogg",
+            "flac",
+            "wav",
+            "jpg",
+            "png"
+        };
 
         // --------------------------------------------------------------------------------------------------------
         // --------------------------------------------------------------------------------------------------------
@@ -55,7 +75,7 @@ namespace Axiom
         /// </summary>
         public static void OutputFormatExt(MainWindow mainwindow)
         {
-            // Output Extension is Format ComboBox Selected Item
+            // Output Extension is Format ComboBox's Selected Item (eg mp4)
             MainWindow.outputExt = "." + mainwindow.cboFormat.SelectedItem.ToString();
         }
 
@@ -69,150 +89,308 @@ namespace Axiom
             // Get Output Extension (Method)
             //Format.GetOutputExt(mainwindow);
 
-            // -------------------------
+            // Previous Subtitle Item
+            string previousSubtitleItem = string.Empty;
+            if ((string)mainwindow.cboSubtitle.SelectedItem == "external")
+            {
+                previousSubtitleItem = "external";
+            }
+
+            // --------------------------------------------------
             // Output Format Container Rules
+            // --------------------------------------------------
+            // -------------------------
+            // WebM
             // -------------------------
             if ((string)mainwindow.cboFormat.SelectedItem == "webm")
             {
+                // Media Type
                 mainwindow.cboMediaType.SelectedItem = "Video";
                 mainwindow.cboMediaType.IsEnabled = false;
+
+                // Subtitle
                 mainwindow.cboSubtitle.SelectedItem = "none";
                 mainwindow.cboSubtitle.IsEnabled = false;
+
+                // Audio
                 mainwindow.cboAudioStream.SelectedItem = "1";
+
+                // FPS
                 mainwindow.cboFPS.IsEnabled = true;
+
+                // Optimize
                 mainwindow.cboOptimize.IsEnabled = true;
+
                 //mainwindow.cboOptimize.SelectedItem = "Web";
+
                 //webm has no video tuning available
             }
+
+            // -------------------------
+            // MP4
+            // -------------------------
             else if ((string)mainwindow.cboFormat.SelectedItem == "mp4")
             {
+                // Media Type
                 mainwindow.cboMediaType.SelectedItem = "Video";
                 mainwindow.cboMediaType.IsEnabled = false;
-                //mainwindow.cboSubtitle.SelectedItem = "all";
+
+                // Subtitle
+                mainwindow.cboSubtitle.SelectedItem = "all";
                 mainwindow.cboSubtitle.IsEnabled = true;
+
+                // Audio
                 mainwindow.cboAudioStream.SelectedItem = "all";
+
+                // FPS
                 mainwindow.cboFPS.IsEnabled = true;
+
+                // Optimize
                 mainwindow.cboOptimize.IsEnabled = true;
+
                 //video tuning is under videoCodec method
             }
+
+            // -------------------------
+            // MKV
+            // -------------------------
             else if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
             {
+                // Media Type
                 mainwindow.cboMediaType.SelectedItem = "Video";
                 mainwindow.cboMediaType.IsEnabled = false;
-                //mainwindow.cboSubtitle.SelectedItem = "all";
+
+                // Subtitle
+                mainwindow.cboSubtitle.SelectedItem = "all";
                 mainwindow.cboSubtitle.IsEnabled = true;
+
+                // Audio
                 mainwindow.cboAudioStream.SelectedItem = "all";
+
+                // FPS
                 mainwindow.cboFPS.IsEnabled = true;
+
+                // Optimize
                 mainwindow.cboOptimize.IsEnabled = true;
             }
+
+            // -------------------------
+            // AVI
+            // -------------------------
             else if ((string)mainwindow.cboFormat.SelectedItem == "avi")
             {
+                // Media Type
                 mainwindow.cboMediaType.SelectedItem = "Video";
                 mainwindow.cboMediaType.IsEnabled = false;
-                //mainwindow.cboSubtitle.SelectedItem = "all";
+
+                // Subtitle
+                mainwindow.cboSubtitle.SelectedItem = "all";
                 mainwindow.cboSubtitle.IsEnabled = true;
+
+                // Audio
                 mainwindow.cboAudioStream.SelectedItem = "all";
+
+                // FPS
                 mainwindow.cboFPS.IsEnabled = true;
+
+                // Optimize
                 mainwindow.cboOptimize.IsEnabled = false;
             }
+
+            // -------------------------
+            // OGV
+            // -------------------------
             else if ((string)mainwindow.cboFormat.SelectedItem == "ogv")
             {
+                // Media Type
                 mainwindow.cboMediaType.SelectedItem = "Video";
                 mainwindow.cboMediaType.IsEnabled = false;
+
+                // Subtitle
                 mainwindow.cboSubtitle.SelectedItem = "none";
                 mainwindow.cboSubtitle.IsEnabled = false;
+
+                // Audio
                 mainwindow.cboAudioStream.SelectedItem = "all";
+
+                // FPS
                 mainwindow.cboFPS.IsEnabled = true;
+
+                // Optimize
                 mainwindow.cboOptimize.IsEnabled = true;
             }
+
+            // -------------------------
+            // Gif
+            // -------------------------
             else if ((string)mainwindow.cboFormat.SelectedItem == "gif")
             {
+                // Media Type
                 mainwindow.cboMediaType.SelectedItem = "Image";
                 mainwindow.cboMediaType.IsEnabled = true;
+
+                // Subtitle
                 mainwindow.cboSubtitle.SelectedItem = "none";
                 mainwindow.cboSubtitle.IsEnabled = false;
+
+                // FPS
                 mainwindow.cboFPS.SelectedItem = "auto";
                 mainwindow.cboFPS.IsEnabled = true;
+
+                // Optimize
                 mainwindow.cboOptimize.IsEnabled = false;
             }
+
+            // -------------------------
+            // MP3
+            // -------------------------
             else if ((string)mainwindow.cboFormat.SelectedItem == "mp3")
             {
+                // Media Type
                 mainwindow.cboMediaType.SelectedItem = "Audio";
                 mainwindow.cboMediaType.IsEnabled = false;
+
+                // Subtitle
                 mainwindow.cboSubtitle.SelectedItem = "none";
                 mainwindow.cboSubtitle.IsEnabled = false;
+
+                // Audio
                 mainwindow.cboAudioStream.SelectedItem = "1";
+
+                // FPS
                 mainwindow.cboFPS.SelectedItem = "auto";
                 mainwindow.cboFPS.IsEnabled = false;
+
+                // Optimize
                 mainwindow.cboOptimize.IsEnabled = false;
             }
+
+            // -------------------------
+            // M4A
+            // -------------------------
             else if ((string)mainwindow.cboFormat.SelectedItem == "m4a")
             {
+                // Media Type
                 mainwindow.cboMediaType.SelectedItem = "Audio";
                 mainwindow.cboMediaType.IsEnabled = false;
+
+                // Subtitle
                 mainwindow.cboSubtitle.SelectedItem = "none";
                 mainwindow.cboSubtitle.IsEnabled = false;
+
+                // Audio
                 mainwindow.cboAudioStream.SelectedItem = "1";
+
+                // FPS
                 mainwindow.cboFPS.SelectedItem = "auto";
                 mainwindow.cboFPS.IsEnabled = false;
+
+                // Optimize
                 mainwindow.cboOptimize.IsEnabled = false;
             }
+
+            // -------------------------
+            // OGG
+            // -------------------------
             else if ((string)mainwindow.cboFormat.SelectedItem == "ogg")
             {
+                // Media Type
                 mainwindow.cboMediaType.SelectedItem = "Audio";
                 mainwindow.cboMediaType.IsEnabled = false;
+
+                // Subtitle
                 mainwindow.cboSubtitle.SelectedItem = "none";
                 mainwindow.cboSubtitle.IsEnabled = false;
+
+                // Audio
                 mainwindow.cboAudioStream.SelectedItem = "1";
+
+                // FPS
                 mainwindow.cboFPS.SelectedItem = "auto";
                 mainwindow.cboFPS.IsEnabled = false;
+
+                // Optimize
                 mainwindow.cboOptimize.IsEnabled = false;
             }
+
+            // -------------------------
+            // FLAC
+            // -------------------------
             else if ((string)mainwindow.cboFormat.SelectedItem == "flac")
             {
+                // Media Type
                 mainwindow.cboMediaType.SelectedItem = "Audio";
                 mainwindow.cboMediaType.IsEnabled = false;
+
+                // Subtitle
                 mainwindow.cboSubtitle.SelectedItem = "none";
                 mainwindow.cboSubtitle.IsEnabled = false;
+
+                // Audio
                 mainwindow.cboAudioStream.SelectedItem = "1";
+
+                // Optimize
                 mainwindow.cboOptimize.IsEnabled = false;
             }
+
+            // -------------------------
+            // WAV
+            // -------------------------
             else if ((string)mainwindow.cboFormat.SelectedItem == "wav")
             {
+                // Media Type
                 mainwindow.cboMediaType.SelectedItem = "Audio";
                 mainwindow.cboMediaType.IsEnabled = false;
+
+                // Subtitle
                 mainwindow.cboSubtitle.SelectedItem = "none";
                 mainwindow.cboSubtitle.IsEnabled = false;
+
+                // Optimize
                 mainwindow.cboOptimize.IsEnabled = false;
             }
+
+            // -------------------------
+            // Jpg
+            // -------------------------
             else if ((string)mainwindow.cboFormat.SelectedItem == "jpg")
             {
-                // Media Type Combobox ///////
+                // Media Type
                 // Remove all other options but Image and Sequence
                 MediaTypeItemSource = new List<string>() { "Image", "Sequence" };
                 mainwindow.cboMediaType.ItemsSource = MediaTypeItemSource;
 
                 mainwindow.cboMediaType.SelectedItem = "Image";
-
                 mainwindow.cboMediaType.IsEnabled = true;
+
+                // Subtitle
                 mainwindow.cboSubtitle.SelectedItem = "none";
                 mainwindow.cboSubtitle.IsEnabled = false;
+
+                // Optimize
                 mainwindow.cboOptimize.IsEnabled = false;
 
                 // more options enable/disable in MediaType Section
             }
+
+            // -------------------------
+            // Png
+            // -------------------------
             else if ((string)mainwindow.cboFormat.SelectedItem == "png")
             {
-                // Media Type Combobox ///////
+                // Media Type
                 // Remove all other options but Image and Sequence
                 MediaTypeItemSource = new List<string>() { "Image", "Sequence" };
                 mainwindow.cboMediaType.ItemsSource = MediaTypeItemSource;
 
                 mainwindow.cboMediaType.SelectedItem = "Image";
-
                 mainwindow.cboMediaType.IsEnabled = true;
+
+                // Subtitle
                 mainwindow.cboSubtitle.SelectedItem = "none";
                 mainwindow.cboSubtitle.IsEnabled = false;
+
+                // Optimize
                 mainwindow.cboOptimize.IsEnabled = false;
 
                 // more options enable/disable in MediaType Section
@@ -250,7 +428,7 @@ namespace Axiom
             if ((string)mainwindow.cboFormat.SelectedItem == "webm")
             {
                 // -------------------------
-                // VIDEO
+                // Video
                 // -------------------------
                 VideoControls.VideoCodecItemSource = new List<string>() { "VP8", "VP9" };
 
@@ -287,7 +465,7 @@ namespace Axiom
             else if ((string)mainwindow.cboFormat.SelectedItem == "mp4")
             {
                 // -------------------------
-                // VIDEO
+                // Video
                 // -------------------------
                 VideoControls.VideoCodecItemSource = new List<string>() { "x264", "x265" };
 
@@ -324,7 +502,7 @@ namespace Axiom
             else if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
             {
                 // -------------------------
-                // VIDEO
+                // Video
                 // -------------------------
                 VideoControls.VideoCodecItemSource = new List<string>() { "x264", "x265", "VP8", "VP9", "Theora", "Copy" };
 
@@ -361,7 +539,7 @@ namespace Axiom
             else if ((string)mainwindow.cboFormat.SelectedItem == "avi")
             {
                 // -------------------------
-                // VIDEO
+                // Video
                 // -------------------------
                 VideoControls.VideoCodecItemSource = new List<string>() { "mpeg4" };
 
@@ -398,7 +576,7 @@ namespace Axiom
             else if ((string)mainwindow.cboFormat.SelectedItem == "ogv")
             {
                 // -------------------------
-                // VIDEO
+                // Video
                 // -------------------------
                 VideoControls.VideoCodecItemSource = new List<string>() { "Theora" };
 
@@ -435,7 +613,7 @@ namespace Axiom
             else if ((string)mainwindow.cboFormat.SelectedItem == "m4a")
             {
                 // -------------------------
-                // VIDEO
+                // Video
                 // -------------------------
                 VideoControls.VideoCodecItemSource = new List<string>() { "None" };
 
@@ -463,7 +641,7 @@ namespace Axiom
             else if ((string)mainwindow.cboFormat.SelectedItem == "mp3")
             {
                 // -------------------------
-                // VIDEO
+                // Video
                 // -------------------------
                 VideoControls.VideoCodecItemSource = new List<string>() { "None" };
 
@@ -491,7 +669,7 @@ namespace Axiom
             else if ((string)mainwindow.cboFormat.SelectedItem == "ogg")
             {
                 // -------------------------
-                // VIDEO
+                // Video
                 // -------------------------
                 VideoControls.VideoCodecItemSource = new List<string>() { "None" };
 
@@ -519,7 +697,7 @@ namespace Axiom
             else if ((string)mainwindow.cboFormat.SelectedItem == "flac")
             {
                 // -------------------------
-                // VIDEO
+                // Video
                 // -------------------------
                 VideoControls.VideoCodecItemSource = new List<string>() { "None" };
 
@@ -547,7 +725,7 @@ namespace Axiom
             else if ((string)mainwindow.cboFormat.SelectedItem == "wav")
             {
                 // -------------------------
-                // VIDEO
+                // Video
                 // -------------------------
                 VideoControls.VideoCodecItemSource = new List<string>() { "None" };
 
@@ -576,7 +754,7 @@ namespace Axiom
             else if ((string)mainwindow.cboFormat.SelectedItem == "jpg")
             {
                 // -------------------------
-                // VIDEO
+                // Video
                 // -------------------------
                 VideoControls.VideoCodecItemSource = new List<string>() { "JPEG" };
 
@@ -604,7 +782,7 @@ namespace Axiom
             else if ((string)mainwindow.cboFormat.SelectedItem == "png")
             {
                 // -------------------------
-                // VIDEO
+                // Video
                 // -------------------------
                 VideoControls.VideoCodecItemSource = new List<string>() { "PNG" };
 

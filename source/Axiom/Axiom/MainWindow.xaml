@@ -3,7 +3,7 @@
     Copyright (C) 2017, 2018 Matt McManis
     http://github.com/MattMcManis/Axiom
     http://axiomui.github.io
-    axiom.interface@gmail.com
+    mattmcmanis@outlook.com
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -1104,7 +1104,8 @@
                                     Margin="20,0,0,0" 
                                     VerticalAlignment="Top"
                                     Width="54" 
-                                    ToolTip="Subtitle Stream to keep." 
+                                    ToolTipService.ShowOnDisabled="True"
+                                    ToolTip="Subtitle Stream to keep. Add External Subtitle files. Mark CheckBox for Default." 
                                     FontFamily="Segoe UI Semilight" 
                                     Grid.Row="10" />
 
@@ -1152,17 +1153,18 @@
                                 <ListView.View>
                                     <GridView>
                                         <!-- CheckBox -->
-                                        <!--<GridViewColumn>
+                                        <GridViewColumn>
                                             <GridViewColumn.CellTemplate>
                                                 <DataTemplate>
                                                     <CheckBox Tag="{Binding ItemCore}" 
                                                               IsChecked="{Binding IsSelected,
-                                                                                  RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}}" />
+                                                                            RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}}" />
                                                 </DataTemplate>
                                             </GridViewColumn.CellTemplate>
-                                        </GridViewColumn>-->
+                                        </GridViewColumn>
                                         <!-- Name -->
                                         <GridViewColumn Width="Auto">
+                                        <!--<GridViewColumn>-->
                                             <GridViewColumn/>
                                         </GridViewColumn>
                                     </GridView>
@@ -1206,7 +1208,7 @@
                                     Height="22"
                                     Cursor="Hand"
                                     Click="btnSortSubtitleUp_Click"
-                                    Margin="78,57,0,0" 
+                                    Margin="78,84,0,0" 
                                     HorizontalAlignment="Left" 
                                     Width="22" 
                                     Grid.Column="1" Grid.Row="11">
@@ -1221,7 +1223,7 @@
                                     Height="22" 
                                     Cursor="Hand" 
                                     Click="btnSortSubtitleDown_Click"
-                                    Margin="78,84,0,0" 
+                                    Margin="78,111,0,0" 
                                     Grid.Column="1" Grid.Row="11">
                                 <TextBlock Text="▾" Margin="0,0,0,0"/>
                             </Button>
@@ -1234,7 +1236,7 @@
                                     Height="22" 
                                     Cursor="Hand" 
                                     Click="btnClearSubtitles_Click"
-                                    Margin="78,111,0,0" 
+                                    Margin="78,57,0,0" 
                                     ToolTipService.InitialShowDelay="500" 
                                     ToolTip="Clear All"
                                     Grid.Column="1" Grid.Row="11">

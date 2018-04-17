@@ -3,7 +3,7 @@ Axiom UI
 Copyright (C) 2017, 2018 Matt McManis
 http://github.com/MattMcManis/Axiom
 http://axiomui.github.io
-axiom.interface@gmail.com
+mattmcmanis@outlook.com
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -1505,26 +1505,36 @@ namespace Axiom
                 else
                 {
                     // Formats
+
+                    // WebM
                     if ((string)mainwindow.cboFormat.SelectedItem == "webm")
                     {
                         mainwindow.cboSubtitleCodec.SelectedItem = "None";
                         mainwindow.cboSubtitleCodec.IsEnabled = false;
                     }
+
+                    // MP4
                     else if ((string)mainwindow.cboFormat.SelectedItem == "mp4")
                     {
                         mainwindow.cboSubtitleCodec.SelectedItem = "mov_text";
                         mainwindow.cboSubtitleCodec.IsEnabled = true;
                     }
+
+                    // MKV
                     else if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
                     {
                         mainwindow.cboSubtitleCodec.SelectedItem = "Copy";
                         mainwindow.cboSubtitleCodec.IsEnabled = true;
                     }
+
+                    // AVI
                     else if ((string)mainwindow.cboFormat.SelectedItem == "avi")
                     {
                         mainwindow.cboSubtitleCodec.SelectedItem = "SRT";
                         mainwindow.cboSubtitleCodec.IsEnabled = true;
                     }
+
+                    // OGV
                     else if ((string)mainwindow.cboFormat.SelectedItem == "ogv")
                     {
                         mainwindow.cboSubtitleCodec.SelectedItem = "None";

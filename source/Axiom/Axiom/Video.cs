@@ -3,7 +3,7 @@ Axiom UI
 Copyright (C) 2017, 2018 Matt McManis
 http://github.com/MattMcManis/Axiom
 http://axiomui.github.io
-axiom.interface@gmail.com
+mattmcmanis@outlook.com
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -2390,29 +2390,6 @@ namespace Axiom
                 subtitles = "-i " + string.Join(" \r\n\r\n-i ", subtitleFilePathsList
                                           .Where(s => !string.IsNullOrEmpty(s))
                                           );
-
-                // Default Subtitle
-                string checkedItem = string.Empty;
-                for (var i = 0; i < mainwindow.listViewSubtitles.Items.Count; i++)
-                {
-                    // If list contains a checked item
-                    if (mainwindow.listViewSubtitles.SelectedItems.Contains(mainwindow.listViewSubtitles.Items[i]))
-                    {
-                        // Get Index Position
-                        checkedItem = i.ToString();
-                    }
-                }
-
-                // Create Default Subtitle
-                string disposition = string.Empty;
-                if (!string.IsNullOrEmpty(checkedItem))
-                {
-                    //disposition = " -disposition:s:" + checkedItem;
-                }
-                
-                // Add Subtitles + Default Sub
-                // -i "C:\example\eng.srt" -disposition:s:0
-                subtitles = subtitles + disposition;
             }
 
             return subtitles;

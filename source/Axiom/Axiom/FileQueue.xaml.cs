@@ -20,7 +20,7 @@ using System.Windows.Shapes;
     Copyright (C) 2017, 2018 Matt McManis
     http://github.com/MattMcManis/Axiom
     http://axiomui.github.io
-    axiom.interface@gmail.com
+    mattmcmanis@outlook.com
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by

@@ -3,7 +3,7 @@ Axiom UI
 Copyright (C) 2017, 2018 Matt McManis
 http://github.com/MattMcManis/Axiom
 http://axiomui.github.io
-axiom.interface@gmail.com
+mattmcmanis@outlook.com
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -59,7 +59,7 @@ namespace Axiom
         /// </summary>
         public static String VideoStreamMaps(MainWindow mainwindow)
         {
-            // WARNING: If a map is enabled, all other map types must be specified or they will be removed !!!!!!!!!
+            // WARNING: If a map is enabled, all other map types must be specified or they will be removed !!!
             // Question Mark ? = ignore warnings
 
             // --------------------------------------------------------------------
@@ -213,6 +213,9 @@ namespace Axiom
             // -------------------------
             else if ((string)mainwindow.cboSubtitle.SelectedItem == "external")
             {
+                // -------------------------
+                // Map
+                // -------------------------
                 List<string> subtitleMapsList = new List<string>();
 
                 if (Video.subtitleFilePathsList.Count > 0)
@@ -226,6 +229,31 @@ namespace Axiom
 
                 // Join multiple maps: -map 1:s? -map 2:s? -map 3:s?
                 sMap = string.Join(" ", subtitleMapsList.Where(s => !string.IsNullOrEmpty(s)));
+
+
+                // -------------------------
+                // Default Subtitle
+                // -------------------------
+                string checkedItem = string.Empty;
+                for (var i = 0; i < mainwindow.listViewSubtitles.Items.Count; i++)
+                {
+                    // If list contains a checked item
+                    if (mainwindow.listViewSubtitles.SelectedItems.Contains(mainwindow.listViewSubtitles.Items[i]))
+                    {
+                        // Get Index Position
+                        checkedItem = i.ToString();
+                    }
+                }
+
+                // Create Default Subtitle
+                string disposition = string.Empty;
+                if (!string.IsNullOrEmpty(checkedItem))
+                {
+                    disposition = " \r\n-disposition:s:" + checkedItem + " default";
+                }
+
+                // Combine Map + Default
+                sMap = sMap + disposition;
             }
             //
             // -------------------------

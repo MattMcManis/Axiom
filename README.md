@@ -10,12 +10,16 @@ An FFmpeg GUI for Windows
 * [Examples](https://github.com/MattMcManis/Axiom/wiki/Examples)
 * [Build](#build)
 
+&nbsp;
+
 ## Overview
 Axiom generates command scripts to be processed by multimedia encoder, FFmpeg, and streams analyzer, FFprobe.
 
 Convert to webm, mp4, mkv, avi, ogv, mp3, m4a, ogg, flac, wav, png, jpg image & sequence.
 
 ![Axiom](https://raw.githubusercontent.com/MattMcManis/Axiom/master/images/axiom.png)  
+
+&nbsp;
 
 ### Features
 * The Power of FFmpeg through a Minimal Interface
@@ -28,6 +32,8 @@ Convert to webm, mp4, mkv, avi, ogv, mp3, m4a, ogg, flac, wav, png, jpg image & 
 * Video to Image Sequence
 * Custom User Defined Settings
 * Command Script Generator
+
+&nbsp;
 
 ## Downloads
 #### Releases
@@ -42,6 +48,8 @@ https://github.com/MattMcManis/Axiom/releases
 
 #### FFmpeg Builds
 https://ffmpeg.zeranoe.com/builds/
+
+&nbsp;
 
 ## Installation
 Axiom is portable and can be run from any location on the computer.
@@ -59,6 +67,8 @@ Axiom is portable and can be run from any location on the computer.
 4. Add `C:\Program Files\FFmpeg\bin\`
 5. Separate multiple paths with semicolon `;`
 6. Typing `ffmpeg` in Command Prompt will now execute without needing to specify a direct path.
+
+&nbsp;
 
 ## Build
 Visual Studio 2015

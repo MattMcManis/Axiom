@@ -3,7 +3,7 @@ Axiom UI
 Copyright (C) 2017, 2018 Matt McManis
 http://github.com/MattMcManis/Axiom
 http://axiomui.github.io
-axiom.interface@gmail.com
+mattmcmanis@outlook.com
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -246,6 +246,8 @@ namespace Axiom
                         "\r\n\r\n" + Format.trim,
 
                         "\r\n\r\n" + Streams.FormatMaps(mainwindow),
+
+                        "\r\n\r\n" + Format.ForceFormat(mainwindow),
 
                         "\r\n\r\n" + Configure.threads,
 
