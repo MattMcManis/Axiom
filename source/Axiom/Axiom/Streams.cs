@@ -269,19 +269,19 @@ namespace Axiom
                 }
                 else if ((string)mainwindow.cboFormat.SelectedItem == "mp4")
                 {
-                    sMap = "-map 1:s?"; // all subtitles (:? at the end ignores error if subtitle is not available)
+                    sMap = "-map 0:s?"; // all subtitles (:? at the end ignores error if subtitle is not available)
                 }
                 else if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
                 {
-                    sMap = "-map 1:s?"; // all subtitles
+                    sMap = "-map 0:s?"; // all subtitles
                 }
                 else if ((string)mainwindow.cboFormat.SelectedItem == "avi")
                 {
-                    sMap = "-map 1:s?"; // all subtitles
+                    sMap = "-map 0:s?"; // all subtitles
                 }
                 else if ((string)mainwindow.cboFormat.SelectedItem == "ogv")
                 {
-                    sMap = "-map 1:s?"; // all subtitles, OGV has problem using Subtitles
+                    sMap = "-map 0:s?"; // all subtitles, OGV has problem using Subtitles
                 }
                 else if ((string)mainwindow.cboFormat.SelectedItem == "jpg")
                 {
