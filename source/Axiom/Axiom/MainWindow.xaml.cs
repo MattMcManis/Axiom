@@ -21,6 +21,7 @@ along with this program.If not, see <http://www.gnu.org/licenses/>.
 
 using Axiom.Properties;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
 using System.Diagnostics;
@@ -32,6 +33,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Threading;
 // Disable XML Comment warnings
 #pragma warning disable 1591
@@ -111,7 +113,7 @@ namespace Axiom
         public static InfoWindow infowindow; //pass data
 
         /// <summary>
-        ///     Optimize Advanced Window
+        ///     Update Window
         /// </summary>
         public static UpdateWindow updatewindow; //pass data
 
@@ -211,6 +213,120 @@ namespace Axiom
             DataContext = this;
 
 
+            // -------------------------
+            // Load Theme
+            // -------------------------
+            // --------------------------
+            // First time use
+            // --------------------------
+            try
+            {
+                if (string.IsNullOrEmpty(Settings.Default["Theme"].ToString()))
+                {
+                    Configure.theme = "Axiom";
+
+                    // Set ComboBox if Configure Window is Open
+                    cboTheme.SelectedItem = "Axiom";
+
+                    // Save Theme for next launch
+                    Settings.Default["Theme"] = Configure.theme;
+                    Settings.Default.Save();
+
+                    // Change Theme Resource
+                    App.Current.Resources.MergedDictionaries.Clear();
+                    App.Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
+                    {
+                        Source = new Uri("Theme" + Configure.theme + ".xaml", UriKind.RelativeOrAbsolute)
+                    });
+                }
+                // --------------------------
+                // Load Saved Settings Override
+                // --------------------------
+                else if (!string.IsNullOrEmpty(Settings.Default["Theme"].ToString())) // null check
+                {
+                    Configure.theme = Settings.Default["Theme"].ToString();
+
+                    // Set ComboBox
+                    cboTheme.SelectedItem = Configure.theme;
+
+                    // Change Theme Resource
+                    App.Current.Resources.MergedDictionaries.Clear();
+                    App.Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
+                    {
+                        Source = new Uri("Theme" + Configure.theme + ".xaml", UriKind.RelativeOrAbsolute)
+                    });
+                }
+
+
+                // -------------------------
+                // Log Text Theme Color
+                // -------------------------
+                if (Configure.theme == "Axiom")
+                {
+                    Log.ConsoleDefault = Brushes.White; // Default
+                    Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#007DF2")); // Titles
+                    Log.ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
+                    Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
+                    Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#72D4E8")); // Actions
+                }
+                else if (Configure.theme == "FFmpeg")
+                {
+                    Log.ConsoleDefault = Brushes.White; // Default
+                    Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#5cb85c")); // Titles
+                    Log.ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
+                    Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
+                    Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#5cb85c")); // Actions
+                }
+                else if (Configure.theme == "Cyberpunk")
+                {
+                    Log.ConsoleDefault = Brushes.White; // Default
+                    Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#9f3ed2")); // Titles
+                    Log.ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
+                    Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
+                    Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#9380fd")); // Actions
+                }
+                else if (Configure.theme == "Onyx")
+                {
+                    Log.ConsoleDefault = Brushes.White; // Default
+                    Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#999999")); // Titles
+                    Log.ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
+                    Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
+                    Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#777777")); // Actions
+                }
+                else if (Configure.theme == "Circuit")
+                {
+                    Log.ConsoleDefault = Brushes.White; // Default
+                    Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#ad8a4a")); // Titles
+                    Log.ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
+                    Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
+                    Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#2ebf93")); // Actions
+                }
+                else if (Configure.theme == "Prelude")
+                {
+                    Log.ConsoleDefault = Brushes.White; // Default
+                    Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#999999")); // Titles
+                    Log.ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
+                    Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
+                    Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#777777")); // Actions
+                }
+                else if (Configure.theme == "System")
+                {
+                    Log.ConsoleDefault = Brushes.White; // Default
+                    Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#007DF2")); // Titles
+                    Log.ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
+                    Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
+                    Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#72D4E8")); // Actions
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Problem loading Theme.",
+                                "Error",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Error);
+            }           
+           
+
             // Log Console Message /////////
             logconsole.rtbLog.Document = new FlowDocument(Log.logParagraph); //start
             logconsole.rtbLog.BeginChange(); //begin change
@@ -232,6 +348,15 @@ namespace Axiom
             // Log Console Message /////////
             Log.logParagraph.Inlines.Add(new LineBreak());
             Log.logParagraph.Inlines.Add(new Bold(new Run("Loading Saved Settings...")) { Foreground = Log.ConsoleAction });
+
+
+            // Log Console Message /////////
+            // Don't put in Configure Method, creates duplicate message /////////
+            Log.logParagraph.Inlines.Add(new LineBreak());
+            Log.logParagraph.Inlines.Add(new LineBreak());
+            Log.logParagraph.Inlines.Add(new Bold(new Run("Theme: ")) { Foreground = Log.ConsoleDefault });
+            Log.logParagraph.Inlines.Add(new Run(Configure.theme) { Foreground = Log.ConsoleDefault });
+
 
             // -------------------------
             // Prevent Loading Corrupt App.Config
@@ -278,18 +403,12 @@ namespace Axiom
                 }
             }
 
-            // -------------------------
-            // Load Theme
-            // -------------------------
-            Configure.LoadTheme(this);
+            //// -------------------------
+            //// Load Theme
+            //// -------------------------
+            //Configure.LoadTheme(this);
 
-            // Log Console Message /////////
-            // Don't put in Configure Method, creates duplicate message /////////
-            Log.logParagraph.Inlines.Add(new LineBreak());
-            Log.logParagraph.Inlines.Add(new LineBreak());
-            Log.logParagraph.Inlines.Add(new Bold(new Run("Theme: ")) { Foreground = Log.ConsoleDefault });
-            Log.logParagraph.Inlines.Add(new Run(Configure.theme) { Foreground = Log.ConsoleDefault });
-
+            
             // -------------------------
             // Load FFmpeg.exe Path
             // -------------------------
@@ -374,11 +493,6 @@ namespace Axiom
             dispatcherTimerUp.Tick += new EventHandler(dispatcherTimerUp_Tick);
             dispatcherTimerDown.Tick += new EventHandler(dispatcherTimerDown_Tick);
 
-
-            //tbxInput.AllowDrop = true;
-            //tbxInput.DragEnter += new DragEventHandler(tbxInput_PreviewDragEnter);
-            //tbxInput.DragDrop += new DragEventHandler(FileTextBox_DragDrop);
-
         } // End MainWindow
 
 
@@ -407,10 +521,13 @@ namespace Axiom
             cboFormat.ItemsSource = FormatControls.FormatItemSource;
             cboMediaType.ItemsSource = FormatControls.MediaTypeItemSource;
 
+            listViewSubtitles.SelectionMode = SelectionMode.Single;
+
             cboFormat.SelectedIndex = 0;
             cboFPS.SelectedIndex = 0;
             cboCut.SelectedIndex = 0;
             cboSize.SelectedIndex = 0;
+            cboSpeed.SelectedItem = "Medium";
             cboHWAccel.SelectedIndex = 0;
             cboPreset.SelectedIndex = 0;
 
@@ -533,7 +650,7 @@ namespace Axiom
             Format.trim = string.Empty;
             Format.trimStart = string.Empty;
             Format.trimEnd = string.Empty;
-      
+
             Video.vFilter = string.Empty;
             Video.geq = string.Empty;
 
@@ -551,8 +668,10 @@ namespace Axiom
             Video.image = string.Empty;
             Video.optimize = string.Empty;
             Video.speed = string.Empty;
-
             Video.hwaccel = string.Empty;
+
+            // Subtitle
+            Video.sCodec = string.Empty;
 
             // Audio
             Audio.aCodec = string.Empty;
@@ -828,7 +947,10 @@ namespace Axiom
                             /* lock */
                             ready = false;
                             ffCheckCleared = false;
-                            MessageBox.Show("Cannot locate FFmpeg Path in Environment Variables or Current Folder.");
+                            MessageBox.Show("Cannot locate FFmpeg Path in Environment Variables or Current Folder.",
+                                            "Error",
+                                            MessageBoxButton.OK,
+                                            MessageBoxImage.Warning);
                         }
 
                     }
@@ -850,7 +972,10 @@ namespace Axiom
                         /* lock */
                         ready = false;
                         ffCheckCleared = false;
-                        MessageBox.Show("Cannot locate FFmpeg Path in User Defined Path.");
+                        MessageBox.Show("Cannot locate FFmpeg Path in User Defined Path.",
+                                        "Error",
+                                        MessageBoxButton.OK,
+                                        MessageBoxImage.Warning);
                     }
 
                     // If Configure Path is ffmpeg.exe and not another Program
@@ -864,7 +989,10 @@ namespace Axiom
                         /* lock */
                         ready = false;
                         ffCheckCleared = false;
-                        MessageBox.Show("Error: FFmpeg Path must link to ffmpeg.exe.");
+                        MessageBox.Show("FFmpeg Path must link to ffmpeg.exe.",
+                                        "Error",
+                                        MessageBoxButton.OK,
+                                        MessageBoxImage.Warning);
                     }
                 }
 
@@ -901,7 +1029,10 @@ namespace Axiom
                             /* lock */
                             ready = false;
                             ffCheckCleared = false;
-                            MessageBox.Show("Cannot locate FFprobe Path in Environment Variables or Current Folder.");
+                            MessageBox.Show("Cannot locate FFprobe Path in Environment Variables or Current Folder.",
+                                        "Error",
+                                        MessageBoxButton.OK,
+                                        MessageBoxImage.Warning);
                         }
 
                     }
@@ -923,7 +1054,10 @@ namespace Axiom
                         /* lock */
                         ready = false;
                         ffCheckCleared = false;
-                        MessageBox.Show("Cannot locate FFprobe Path in User Defined Path.");
+                        MessageBox.Show("Cannot locate FFprobe Path in User Defined Path.",
+                                        "Error",
+                                        MessageBoxButton.OK,
+                                        MessageBoxImage.Warning);
                     }
 
                     // If Configure Path is FFmpeg.exe and not another Program
@@ -937,13 +1071,19 @@ namespace Axiom
                         /* lock */
                         ready = false;
                         ffCheckCleared = false;
-                        MessageBox.Show("Error: FFprobe Path must link to ffprobe.exe.");
+                        MessageBox.Show("Error: FFprobe Path must link to ffprobe.exe.",
+                                        "Error",
+                                        MessageBoxButton.OK,
+                                        MessageBoxImage.Warning);
                     }
                 }
             }
             catch
             {
-                MessageBox.Show("Unknown Error trying to locate FFmpeg or FFprobe.");
+                MessageBox.Show("Unknown Error trying to locate FFmpeg or FFprobe.",
+                                "Error",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Warning);
             }
         }
 
@@ -1287,10 +1427,12 @@ namespace Axiom
         /// </summary>
         public String FileRenamer(string filename)
         {
-            string outputNewFileName = string.Empty;
             string output = outputDir + filename + outputExt;
+            string outputNewFileName = string.Empty;
+
             int count = 1;
-            if (File.Exists(outputDir + filename + outputExt))
+
+            if (File.Exists(output))
             {
                 while (File.Exists(output))
                 {
@@ -1303,6 +1445,7 @@ namespace Axiom
                 // stay default
                 outputNewFileName = filename;
             }
+
             return outputNewFileName;
         }
 
@@ -1349,7 +1492,10 @@ namespace Axiom
 
                     /* lock */
                     ready = false;
-                    MessageBox.Show("Auto Quality Mode Requires FFprobe in order to Detect File Info.");
+                    MessageBox.Show("Auto Quality Mode Requires FFprobe in order to Detect File Info.",
+                                    "Notice",
+                                    MessageBoxButton.OK,
+                                    MessageBoxImage.Exclamation);
                 }
             }
 
@@ -1359,9 +1505,11 @@ namespace Axiom
             {
                 if (string.IsNullOrWhiteSpace(mainwindow.tbxInput.Text)) // empty check
                 {
-                    if ((string)mainwindow.cboVideo.SelectedItem == "Auto" || (string)mainwindow.cboAudio.SelectedItem == "Auto")
+                    if ((string)mainwindow.cboVideo.SelectedItem == "Auto" 
+                        || (string)mainwindow.cboAudio.SelectedItem == "Auto")
                     {
-                        if ((string)mainwindow.cboVideoCodec.SelectedItem != "Copy" || (string)mainwindow.cboAudioCodec.SelectedItem != "Copy")
+                        if ((string)mainwindow.cboVideoCodec.SelectedItem != "Copy" 
+                            || (string)mainwindow.cboAudioCodec.SelectedItem != "Copy")
                         {
                             // Log Console Message /////////
                             Log.logParagraph.Inlines.Add(new LineBreak());
@@ -1372,7 +1520,10 @@ namespace Axiom
                             ready = false;
                             script = false;
                             // Warning
-                            MessageBox.Show("Auto Mode needs an input file in order to detect settings.");
+                            MessageBox.Show("Auto Mode needs an input file in order to detect settings.",
+                                            "Notice",
+                                            MessageBoxButton.OK,
+                                            MessageBoxImage.Exclamation);
                         }
                     }
                 }
@@ -1390,7 +1541,10 @@ namespace Axiom
                 /* lock */
                 ready = false;
                 // Warning
-                MessageBox.Show("Please choose an input file.");
+                MessageBox.Show("Please choose an input file.",
+                                "Notice",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Exclamation);
             }
 
             // STOP Do not allow Batch Copy to same folder if file extensions are the same (to avoid file overwrite)
@@ -1399,6 +1553,9 @@ namespace Axiom
                 && string.Equals(inputDir, outputDir, StringComparison.CurrentCultureIgnoreCase) 
                 && string.Equals(batchExt, outputExt, StringComparison.CurrentCultureIgnoreCase))
             {
+                //MessageBox.Show(inputDir); //debug
+                //MessageBox.Show(outputDir); //debug
+
                 // Log Console Message /////////
                 Log.logParagraph.Inlines.Add(new LineBreak());
                 Log.logParagraph.Inlines.Add(new LineBreak());
@@ -1407,7 +1564,10 @@ namespace Axiom
                 /* lock */
                 ready = false;
                 // Warning
-                MessageBox.Show("Please choose an output folder different than the input folder to avoid file overwrite.");
+                MessageBox.Show("Please choose an output folder different than the input folder to avoid file overwrite.",
+                                "Notice",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Exclamation);
             }
 
             // STOP Throw Error if VP8/VP9 & CRF does not have Bitrate -b:v
@@ -1426,7 +1586,10 @@ namespace Axiom
                     /* lock */
                     ready = false;
                     // Notice
-                    MessageBox.Show("Notice: VP8/VP9 CRF must also have Bitrate. \n(e.g. 0 for Constant, 1234k for Constrained)");
+                    MessageBox.Show("VP8/VP9 CRF must also have Bitrate. \n(e.g. 0 for Constant, 1234k for Constrained)",
+                                "Notice",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Exclamation);
                 }
             }
         }
@@ -1819,7 +1982,10 @@ namespace Axiom
             // If Axiom Folder Not Found
             else
             {
-                MessageBox.Show("No Previous Settings Found.");
+                MessageBox.Show("No Previous Settings Found.",
+                                "Notice",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Information);
             }
         }
 
@@ -1838,11 +2004,6 @@ namespace Axiom
             //
             try
             {
-                // Detect which screen we're on
-                var allScreens = System.Windows.Forms.Screen.AllScreens.ToList();
-                var thisScreen = allScreens.SingleOrDefault(s => this.Left >= s.WorkingArea.Left && this.Left < s.WorkingArea.Right);
-                if (thisScreen == null) thisScreen = allScreens.First();
-
                 // Check if Window is already open
                 if (IsInfoWindowOpened) return;
 
@@ -1855,6 +2016,11 @@ namespace Axiom
 
                 // Keep Window on Top
                 infowindow.Owner = Window.GetWindow(this);
+
+                // Detect which screen we're on
+                var allScreens = System.Windows.Forms.Screen.AllScreens.ToList();
+                var thisScreen = allScreens.SingleOrDefault(s => this.Left >= s.WorkingArea.Left && this.Left < s.WorkingArea.Right);
+                if (thisScreen == null) thisScreen = allScreens.First();
 
                 // Position Relative to MainWindow
                 infowindow.Left = Math.Max((this.Left + (this.Width - infowindow.Width) / 2), thisScreen.WorkingArea.Left);
@@ -1981,11 +2147,6 @@ namespace Axiom
             //
             try
             {
-                // Detect which screen we're on
-                var allScreens = System.Windows.Forms.Screen.AllScreens.ToList();
-                var thisScreen = allScreens.SingleOrDefault(s => this.Left >= s.WorkingArea.Left && this.Left < s.WorkingArea.Right);
-                if (thisScreen == null) thisScreen = allScreens.First();
-
                 // Check if Window is already open
                 if (IsDebugConsoleOpened) return;
 
@@ -1995,6 +2156,12 @@ namespace Axiom
                 // Only allow 1 Window instance
                 debugconsole.ContentRendered += delegate { IsDebugConsoleOpened = true; };
                 debugconsole.Closed += delegate { IsDebugConsoleOpened = false; };
+
+                // Detect which screen we're on
+                var allScreens = System.Windows.Forms.Screen.AllScreens.ToList();
+                var thisScreen = allScreens.SingleOrDefault(s => this.Left >= s.WorkingArea.Left && this.Left < s.WorkingArea.Right);
+                if (thisScreen == null) thisScreen = allScreens.First();
+
 
                 // Position Relative to MainWindow
                 // Keep from going off screen
@@ -2043,11 +2210,6 @@ namespace Axiom
             //
             try
             {
-                // Detect which screen we're on
-                var allScreens = System.Windows.Forms.Screen.AllScreens.ToList();
-                var thisScreen = allScreens.SingleOrDefault(s => this.Left >= s.WorkingArea.Left && this.Left < s.WorkingArea.Right);
-                if (thisScreen == null) thisScreen = allScreens.First();
-
                 // Check if Window is already open
                 if (IsFilePropertiesOpened) return;
 
@@ -2058,6 +2220,11 @@ namespace Axiom
                 // Only allow 1 Window instance
                 filepropwindow.ContentRendered += delegate { IsFilePropertiesOpened = true; };
                 filepropwindow.Closed += delegate { IsFilePropertiesOpened = false; };
+
+                // Detect which screen we're on
+                var allScreens = System.Windows.Forms.Screen.AllScreens.ToList();
+                var thisScreen = allScreens.SingleOrDefault(s => this.Left >= s.WorkingArea.Left && this.Left < s.WorkingArea.Right);
+                if (thisScreen == null) thisScreen = allScreens.First();
 
                 // Position Relative to MainWindow
                 // Keep from going off screen
@@ -2126,7 +2293,12 @@ namespace Axiom
                 }
                 catch
                 {
-                    MessageBox.Show("GitHub version file not found.");
+                    MessageBox.Show("GitHub version file not found.",
+                                "Notice",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Exclamation);
+
+                    return;
                 }
 
 
@@ -2145,7 +2317,12 @@ namespace Axiom
                     }
                     catch
                     {
-                        MessageBox.Show("Error reading version.");
+                        MessageBox.Show("Error reading version.",
+                                "Error",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Error);
+
+                        return;
                     }
 
                     // Debug
@@ -2159,64 +2336,32 @@ namespace Axiom
                     {
                         // Yes/No Dialog Confirmation
                         //
-                        MessageBoxResult result = MessageBox.Show("v" + latestVersion + "-" + latestBuildPhase + "\n\nDownload Update?", "Update Available ", MessageBoxButton.YesNo);
+                        MessageBoxResult result = MessageBox.Show("v" + latestVersion + "-" + latestBuildPhase + "\n\nDownload Update?", 
+                                                             "Update Available", 
+                                                             MessageBoxButton.YesNo);
                         switch (result)
                         {
                             case MessageBoxResult.Yes:
-                                // Prevent Monitor Resolution Window Crash
-                                //
-                                try
-                                {
-                                    // Detect which screen we're on
-                                    var allScreens = System.Windows.Forms.Screen.AllScreens.ToList();
-                                    var thisScreen = allScreens.SingleOrDefault(s => this.Left >= s.WorkingArea.Left && this.Left < s.WorkingArea.Right);
-                                    if (thisScreen == null) thisScreen = allScreens.First();
+                                // Check if Window is already open
+                                if (IsUpdateWindowOpened) return;
 
-                                    // Check if Window is already open
-                                    if (IsUpdateWindowOpened) return;
+                                // Start Window
+                                updatewindow = new UpdateWindow();
 
-                                    // Start Window
-                                    updatewindow = new UpdateWindow();
+                                // Keep in Front
+                                updatewindow.Owner = Window.GetWindow(this);
 
-                                    // Keep in Front
-                                    updatewindow.Owner = Window.GetWindow(this);
+                                // Only allow 1 Window instance
+                                updatewindow.ContentRendered += delegate { IsUpdateWindowOpened = true; };
+                                updatewindow.Closed += delegate { IsUpdateWindowOpened = false; };
 
-                                    // Only allow 1 Window instance
-                                    updatewindow.ContentRendered += delegate { IsUpdateWindowOpened = true; };
-                                    updatewindow.Closed += delegate { IsUpdateWindowOpened = false; };
+                                // Position Relative to MainWindow
+                                // Keep from going off screen
+                                updatewindow.Left = Math.Max((this.Left + (this.Width - updatewindow.Width) / 2), this.Left);
+                                updatewindow.Top = Math.Max((this.Top + (this.Height - updatewindow.Height) / 2), this.Top);
 
-                                    // Position Relative to MainWindow
-                                    // Keep from going off screen
-                                    updatewindow.Left = Math.Max((this.Left + (this.Width - updatewindow.Width) / 2), thisScreen.WorkingArea.Left);
-                                    updatewindow.Top = Math.Max((this.Top + (this.Height - updatewindow.Height) / 2), thisScreen.WorkingArea.Top);
-
-                                    // Open Window
-                                    updatewindow.Show();
-                                }
-                                // Simplified
-                                catch
-                                {
-                                    // Check if Window is already open
-                                    if (IsUpdateWindowOpened) return;
-
-                                    // Start Window
-                                    updatewindow = new UpdateWindow();
-
-                                    // Keep in Front
-                                    updatewindow.Owner = Window.GetWindow(this);
-
-                                    // Only allow 1 Window instance
-                                    updatewindow.ContentRendered += delegate { IsUpdateWindowOpened = true; };
-                                    updatewindow.Closed += delegate { IsUpdateWindowOpened = false; };
-
-                                    // Position Relative to MainWindow
-                                    // Keep from going off screen
-                                    updatewindow.Left = Math.Max((this.Left + (this.Width - updatewindow.Width) / 2), this.Left);
-                                    updatewindow.Top = Math.Max((this.Top + (this.Height - updatewindow.Height) / 2), this.Top);
-
-                                    // Open Window
-                                    updatewindow.Show();
-                                }
+                                // Open Window
+                                updatewindow.Show();
                                 break;
                             case MessageBoxResult.No:
                                 break;
@@ -2225,23 +2370,43 @@ namespace Axiom
                     // Update Not Available
                     else if (latestVersion <= currentVersion)
                     {
-                        MessageBox.Show("This version is up to date.");
+                        MessageBox.Show("This version is up to date.",
+                                "Notice",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Exclamation);
+
+                        return;
                     }
                     // Unknown
                     else // null
                     {
-                        MessageBox.Show("Could not find download. Try updating manually.");
+                        MessageBox.Show("Could not find download. Try updating manually.",
+                                "Error",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Error);
+
+                        return;
                     }
                 }
                 // Version is Null
                 else
                 {
-                    MessageBox.Show("GitHub version file returned empty.");
+                    MessageBox.Show("GitHub version file returned empty.",
+                                "Error",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Error);
+
+                    return;
                 }
             }
             else
             {
-                MessageBox.Show("Could not detect Internet Connection.");
+                MessageBox.Show("Could not detect Internet Connection.",
+                                "Error",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Error);
+
+                return;
             }
         }
 
@@ -2267,7 +2432,10 @@ namespace Axiom
                 Log.logParagraph.Inlines.Add(new LineBreak());
                 Log.logParagraph.Inlines.Add(new Bold(new Run("Notice: Output Log has not been created yet.")) { Foreground = Log.ConsoleWarning });
 
-                MessageBox.Show("Output Log has not been created yet.");
+                MessageBox.Show("Output Log has not been created yet.",
+                                        "Notice",
+                                        MessageBoxButton.OK,
+                                        MessageBoxImage.Information);
             }
         }
 
@@ -2384,6 +2552,33 @@ namespace Axiom
             // Generate Script
             // -------------------------
             FFmpeg.FFmpegScript(this, scriptview);
+
+            // -------------------------
+            // Re-Sort
+            // Reset Sort
+            // -------------------------
+            //if (ScriptView.sort == true)
+            //{
+            //    MessageBox.Show("here");
+
+            //    // Clear Old Text
+            //    //ClearRichTextBox();
+            //    ScriptView.scriptParagraph.Inlines.Clear();
+
+            //    // Write FFmpeg Args Sort
+            //    rtbScriptView.Document = new FlowDocument(ScriptView.scriptParagraph);
+            //    rtbScriptView.BeginChange();
+            //    ScriptView.scriptParagraph.Inlines.Add(new Run(FFmpeg.ffmpegArgsSort));
+            //    rtbScriptView.EndChange();
+
+            //    // Change Button Back to Inline
+            //    txblScriptSort.Text = "Inline";
+
+            //}
+            //else if (ScriptView.sort == false)
+            //{
+            //    txblScriptSort.Text = "Sort";
+            //}
 
             // -------------------------
             // Clear Variables for next Run
@@ -2555,7 +2750,10 @@ namespace Axiom
                 Log.logParagraph.Inlines.Add(new LineBreak());
                 Log.logParagraph.Inlines.Add(new Bold(new Run("Notice: File does not yet exist.")) { Foreground = Log.ConsoleWarning });
 
-                MessageBox.Show("File does not yet exist.");
+                MessageBox.Show("File does not yet exist.",
+                                "Notice",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Warning);
             }
         }
 
@@ -3208,6 +3406,14 @@ namespace Axiom
             }
         }
 
+        /// <summary>
+        ///    Subtitle Codec Combobox
+        /// </summary>
+        private void cboSubtitleCodec_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            VideoControls.VideoCodecControls(this);
+        }
+
 
         /// <summary>
         ///    Audio Codec Combobox
@@ -3310,14 +3516,14 @@ namespace Axiom
             // -------------------------
             // Set Encoding Speed
             // -------------------------
-            if ((string)cboVideo.SelectedItem == "Auto") { cboSpeed.SelectedItem = "Medium"; }
-            else if ((string)cboVideo.SelectedItem == "Lossless") { cboSpeed.SelectedItem = "Very Slow"; }
-            else if ((string)cboVideo.SelectedItem == "Ultra") { cboSpeed.SelectedItem = "Slow"; }
-            else if ((string)cboVideo.SelectedItem == "High") { cboSpeed.SelectedItem = "Medium"; }
-            else if ((string)cboVideo.SelectedItem == "Medium") { cboSpeed.SelectedItem = "Medium"; }
-            else if ((string)cboVideo.SelectedItem == "Low") { cboSpeed.SelectedItem = "Fast"; }
-            else if ((string)cboVideo.SelectedItem == "Sub") { cboSpeed.SelectedItem = "Fast"; }
-            else if ((string)cboVideo.SelectedItem == "Custom") { cboSpeed.SelectedItem = "Medium"; }
+            //if ((string)cboVideo.SelectedItem == "Auto") { cboSpeed.SelectedItem = "Medium"; }
+            //else if ((string)cboVideo.SelectedItem == "Lossless") { cboSpeed.SelectedItem = "Very Slow"; }
+            //else if ((string)cboVideo.SelectedItem == "Ultra") { cboSpeed.SelectedItem = "Slow"; }
+            //else if ((string)cboVideo.SelectedItem == "High") { cboSpeed.SelectedItem = "Medium"; }
+            //else if ((string)cboVideo.SelectedItem == "Medium") { cboSpeed.SelectedItem = "Medium"; }
+            //else if ((string)cboVideo.SelectedItem == "Low") { cboSpeed.SelectedItem = "Fast"; }
+            //else if ((string)cboVideo.SelectedItem == "Sub") { cboSpeed.SelectedItem = "Fast"; }
+            //else if ((string)cboVideo.SelectedItem == "Custom") { cboSpeed.SelectedItem = "Medium"; }
 
             // -------------------------
             // Pass Controls Method
@@ -3748,12 +3954,12 @@ namespace Axiom
         /// </summary>
         private void buttonCrop_Click(object sender, RoutedEventArgs e)
         {
+            // Start Window
+            cropwindow = new CropWindow(this);
+
             // Detect which screen we're on
             var allScreens = System.Windows.Forms.Screen.AllScreens.ToList();
             var thisScreen = allScreens.SingleOrDefault(s => this.Left >= s.WorkingArea.Left && this.Left < s.WorkingArea.Right);
-
-            // Start Window
-            cropwindow = new CropWindow(this);
 
             // Position Relative to MainWindow
             // Keep from going off screen
@@ -3797,6 +4003,47 @@ namespace Axiom
             //{
 
             //}
+        }
+
+        /// <summary>
+        ///    Subtitle
+        /// </summary>
+        private void cboSubtitle_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // -------------------------
+            // External
+            // -------------------------
+            if ((string)cboSubtitle.SelectedItem == "external")
+            {
+                // Enable External ListView and Buttons
+                listViewSubtitles.IsEnabled = true;
+
+                btnAddSubtitles.IsEnabled = true;
+                btnRemoveSubtitle.IsEnabled = true;
+                btnSortSubtitleUp.IsEnabled = true;
+                btnSortSubtitleDown.IsEnabled = true;
+                btnClearSubtitles.IsEnabled = true;
+
+                listViewSubtitles.Opacity = 1;
+            }
+            else
+            {
+                // Disable External ListView and Buttons
+                listViewSubtitles.IsEnabled = false;
+
+                btnAddSubtitles.IsEnabled = false;
+                btnRemoveSubtitle.IsEnabled = false;
+                btnSortSubtitleUp.IsEnabled = false;
+                btnSortSubtitleDown.IsEnabled = false;
+                btnClearSubtitles.IsEnabled = false;
+
+                listViewSubtitles.Opacity = 0.1;
+            }
+
+            // -------------------------
+            // Select Subtitle Codec
+            // -------------------------
+            VideoControls.SubtitleCodecControls(this);
         }
 
 
@@ -3899,6 +4146,182 @@ namespace Axiom
             AudioControls.AutoCopyAudioCodec(this);
         }
 
+
+        /// <summary>
+        /// Subtitle Sort Up
+        /// </summary>
+        private void btnSortSubtitleUp_Click(object sender, RoutedEventArgs e)
+        {
+            if (listViewSubtitles.SelectedItems.Count > 0)
+            {
+                var selectedIndex = listViewSubtitles.SelectedIndex;
+
+                if (selectedIndex > 0)
+                {
+                    // ListView Items
+                    var itemlsvFileNames = listViewSubtitles.Items[selectedIndex];
+                    listViewSubtitles.Items.RemoveAt(selectedIndex);
+                    listViewSubtitles.Items.Insert(selectedIndex - 1, itemlsvFileNames);
+
+                    // List File Paths
+                    string itemFilePaths = Video.subtitleFilePathsList[selectedIndex];
+                    Video.subtitleFilePathsList.RemoveAt(selectedIndex);
+                    Video.subtitleFilePathsList.Insert(selectedIndex - 1, itemFilePaths);
+
+                    // List File Names
+                    string itemFileNames = Video.subtitleFileNamesList[selectedIndex];
+                    Video.subtitleFileNamesList.RemoveAt(selectedIndex);
+                    Video.subtitleFileNamesList.Insert(selectedIndex - 1, itemFileNames);
+
+                    // Highlight Selected Index
+                    listViewSubtitles.SelectedIndex = selectedIndex - 1;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Subtitle Sort Down
+        /// </summary>
+        private void btnSortSubtitleDown_Click(object sender, RoutedEventArgs e)
+        {
+            if (listViewSubtitles.SelectedItems.Count > 0)
+            {
+                var selectedIndex = listViewSubtitles.SelectedIndex;
+
+                if (selectedIndex + 1 < listViewSubtitles.Items.Count)
+                {
+                    // ListView Items
+                    var itemlsvFileNames = listViewSubtitles.Items[selectedIndex];
+                    listViewSubtitles.Items.RemoveAt(selectedIndex);
+                    listViewSubtitles.Items.Insert(selectedIndex + 1, itemlsvFileNames);
+
+                    // List FilePaths
+                    string itemFilePaths = Video.subtitleFilePathsList[selectedIndex];
+                    Video.subtitleFilePathsList.RemoveAt(selectedIndex);
+                    Video.subtitleFilePathsList.Insert(selectedIndex + 1, itemFilePaths);
+
+                    // List File Names
+                    string itemFileNames = Video.subtitleFileNamesList[selectedIndex];
+                    Video.subtitleFileNamesList.RemoveAt(selectedIndex);
+                    Video.subtitleFileNamesList.Insert(selectedIndex + 1, itemFileNames);
+
+                    // Highlight Selected Index
+                    listViewSubtitles.SelectedIndex = selectedIndex + 1;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Subtitle Add
+        /// </summary>
+        private void btnAddSubtitles_Click(object sender, RoutedEventArgs e)
+        {
+            // Open Select File Window
+            Microsoft.Win32.OpenFileDialog selectFiles = new Microsoft.Win32.OpenFileDialog();
+
+            // Defaults
+            selectFiles.Multiselect = true;
+            //selectFiles.Filter = "SRT (*.srt)|*.srt|SUB *.sub|SBV *.sbv|ASS *.ass|SSA *.ssa|MPSUB *.mpsub|LRC *.lrc|CAP *.cap|All files (*.*)|*.*";
+            selectFiles.Filter = "All files (*.*)|*.*|SRT (*.srt)|*.srt|SUB (*.sub)|*.sub|SBV (*.sbv)|*.sbv|ASS (*.ass)|*.ass|SSA (*.ssa)|*.ssa|MPSUB (*.mpsub)|*.mpsub|LRC (*.lrc)|*.lrc|CAP (*.cap)|*.cap";
+
+            // Remember Last Dir
+            //
+            //string previousPath = Settings.Default.subsDir.ToString();
+            //// Use Previous Path if Not Null
+            //if (!string.IsNullOrEmpty(previousPath))
+            //{
+            //    selectFiles.InitialDirectory = previousPath;
+            //}
+
+            // Process Dialog Box
+            Nullable<bool> result = selectFiles.ShowDialog();
+            if (result == true)
+            {
+                // Reset
+                //SubtitlesClear();
+
+                // Add Selected Files to List
+                for (var i = 0; i < selectFiles.FileNames.Length; i++)
+                {
+                    // Wrap in quotes for ffmpeg -i
+                    Video.subtitleFilePathsList.Add("\"" + selectFiles.FileNames[i] + "\"");
+                    //MessageBox.Show(Video.subtitleFiles[i]); //debug
+
+                    Video.subtitleFileNamesList.Add(Path.GetFileName(selectFiles.FileNames[i]));
+
+                    // ListView Display File Names + Ext
+                    listViewSubtitles.Items.Add(Path.GetFileName(selectFiles.FileNames[i]));
+                }
+
+                //subsDir = selectFiles.FileName;
+
+                // Set Input Dir, Name, Ext
+                //subsDir = Path.GetDirectoryName(tbxInput.Text).TrimEnd('\\') + @"\";
+                //subsFileName = Path.GetFileNameWithoutExtension(tbxInput.Text);
+                //subsExt = Path.GetExtension(tbxInput.Text);
+
+                // Save Previous Path
+                //Settings.Default.subsDir = subsDir;
+                //Settings.Default.Save();
+
+            }
+        }
+
+        /// <summary>
+        /// Subtitle Remove
+        /// </summary>
+        private void btnRemoveSubtitle_Click(object sender, RoutedEventArgs e)
+        {
+            if (listViewSubtitles.SelectedItems.Count > 0)
+            {
+                var selectedIndex = listViewSubtitles.SelectedIndex;
+
+                // ListView Items
+                var itemlsvFileNames = listViewSubtitles.Items[selectedIndex];
+                listViewSubtitles.Items.RemoveAt(selectedIndex);
+
+                // List File Paths
+                string itemFilePaths = Video.subtitleFilePathsList[selectedIndex];
+                Video.subtitleFilePathsList.RemoveAt(selectedIndex);
+
+                // List File Names
+                string itemFileNames = Video.subtitleFileNamesList[selectedIndex];
+                Video.subtitleFileNamesList.RemoveAt(selectedIndex);
+            }
+        }
+
+        /// <summary>
+        /// Subtitle Clear All
+        /// </summary>
+        private void btnClearSubtitles_Click(object sender, RoutedEventArgs e)
+        {
+            SubtitlesClear();
+        }
+
+        /// <summary>
+        /// Subtitle Clear (Method)
+        /// </summary>
+        public void SubtitlesClear()
+        {
+            // Clear List View
+            listViewSubtitles.Items.Clear();
+
+            // Clear Paths List
+            if (Video.subtitleFilePathsList != null
+                && Video.subtitleFilePathsList.Count > 0)
+            {
+                Video.subtitleFilePathsList.Clear();
+                Video.subtitleFilePathsList.TrimExcess();
+            }
+
+            // Clear Names List
+            if (Video.subtitleFileNamesList != null
+                && Video.subtitleFileNamesList.Count > 0)
+            {
+                Video.subtitleFileNamesList.Clear();
+                Video.subtitleFileNamesList.TrimExcess();
+            }
+        }
 
         /// <summary>
         ///    Batch Toggle
@@ -4198,10 +4621,31 @@ namespace Axiom
         /// </summary>
         private void btnScriptSort_Click(object sender, RoutedEventArgs e)
         {
+            Sort();
+        }
+
+        /// <summary>
+        /// Sort (Method)
+        /// </summary>
+        public void Sort()
+        {
+            //MessageBox.Show("Sort"); //debug
+
             // -------------------------
             // Sort
             // -------------------------
+
+            // Check if Rich TextBox is Empty
+            TextRange textRange = new TextRange(rtbScriptView.Document.ContentStart, rtbScriptView.Document.ContentEnd);
+            string rtb = textRange.Text;
+            if (string.IsNullOrWhiteSpace(rtb))
+            {
+                //MessageBox.Show("Empty"); //debug
+                return;
+            }
+
             // Has Not Been Edited
+            //
             if (ScriptView.sort == false
                 && ScriptView.ScriptRichTextBoxCurrent(this).Replace(Environment.NewLine, "").Replace("\r\n", "") == FFmpeg.ffmpegArgs)
             {
@@ -4219,34 +4663,23 @@ namespace Axiom
                 ScriptView.sort = true;
                 // Change Button Back to Inline
                 txblScriptSort.Text = "Inline";
-
-                // Expand Window
-                if (this.Height <= 350)
-                {
-                    // Detect which screen we're on
-                    var allScreens = System.Windows.Forms.Screen.AllScreens.ToList();
-                    var thisScreen = allScreens.SingleOrDefault(s => this.Left >= s.WorkingArea.Left && this.Left < s.WorkingArea.Right);
-
-                    // Original Size
-                    double originalWidth = this.Width;
-                    double originalHeight = this.Height;
-
-                    // Enlarge Window
-                    this.Width = 800;
-                    this.Height = 600;
-
-                    // Position Relative to MainWindow
-                    // Keep from going off screen
-                    this.Left = Math.Max((this.Left - ((800 - originalWidth)) / 2), thisScreen.WorkingArea.Left);
-                    this.Top = Math.Max((this.Top - ((600 - originalHeight)) / 2), thisScreen.WorkingArea.Top);
-                }
             }
 
             // Has Been Edited
+            //
             else if (ScriptView.sort == false
-                && ScriptView.ScriptRichTextBoxCurrent(this).Replace(Environment.NewLine, "").Replace("\r\n", "") != FFmpeg.ffmpegArgs)
+                  && ScriptView.ScriptRichTextBoxCurrent(this)
+                             .Replace(Environment.NewLine, "")
+                             .Replace("\r\n", "") 
+                             
+                             != FFmpeg.ffmpegArgs)
             {
-                MessageBox.Show("Cannot sort edited text.");
+                MessageBox.Show("Cannot sort edited text.",
+                                "Notice",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Exclamation);
+
+                return;
             }
 
 
@@ -4284,7 +4717,6 @@ namespace Axiom
                 // Change Button Back to Sort
                 txblScriptSort.Text = "Sort";
             }
-
         }
 
 

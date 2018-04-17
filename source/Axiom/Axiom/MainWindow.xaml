@@ -117,7 +117,7 @@
         <!-- Run Button -->
         <Button x:Name="btnScriptRun"
                 Style="{DynamicResource ButtonCustom}"
-                Margin="225,0,0,66"
+                Margin="293,0,0,66"
                 Click="btnScriptRun_Click" 
                 Cursor="Hand" 
                 MaxWidth="60" 
@@ -125,6 +125,9 @@
                 MinWidth="60" 
                 MinHeight="22" 
                 Height="22" 
+                ToolTipService.InitialShowDelay="1000" 
+                ToolTipService.ShowOnDisabled="True"
+                ToolTip="Run the customized Script." 
                 HorizontalAlignment="Left"
                 VerticalAlignment="Bottom"
                 Width="54">
@@ -137,7 +140,7 @@
         <Button x:Name="btnScript" 
                 Style="{DynamicResource ButtonCustom}" 
                 HorizontalAlignment="Left"
-                Margin="293,0,0,66"
+                Margin="225,0,0,66"
                 VerticalAlignment="Bottom"
                 Width="60" 
                 Height="22" 
@@ -267,24 +270,38 @@
               VerticalAlignment="Bottom" 
               Margin="10,0,0,0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="28"/>
-                <ColumnDefinition Width="28"/>
-                <ColumnDefinition Width="28"/>
-                <ColumnDefinition Width="28"/>
-                <ColumnDefinition Width="28"/>
-                <ColumnDefinition Width="28"/>
-                <ColumnDefinition Width="28"/>
-                <ColumnDefinition Width="28"/>
-                <ColumnDefinition Width="28"/>
-                <ColumnDefinition Width="28"/>
-                <ColumnDefinition Width="28"/>
+                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="30"/>
             </Grid.ColumnDefinitions>
 
-
-
             <!-- Info Button -->
-            <Button x:Name="buttonInfo" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Width="22" Height="22" Cursor="Hand" Click="buttonInfo_Click" Background="{x:Null}" Style="{DynamicResource ButtonSmallCustom}" ToolTip="About this program">
-                <Image Width="5" Height="10" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="1,0,0,0" Style="{DynamicResource ButtonInfo}"/>
+            <Button x:Name="buttonInfo" 
+                    HorizontalAlignment="Left"
+                    Margin="0,0,0,0" 
+                    VerticalAlignment="Top" 
+                    Width="22" 
+                    Height="22" 
+                    Cursor="Hand" 
+                    Click="buttonInfo_Click" 
+                    Background="{x:Null}"
+                    Style="{DynamicResource ButtonSmallCustom}"
+                    ToolTip="About this program">
+                <Image Width="5"
+                       Height="10"
+                       Stretch="Uniform"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center" 
+                       Margin="1,0,0,0" 
+                       Style="{DynamicResource ButtonInfo}"/>
             </Button>
 
             <!-- Website Button -->
@@ -545,11 +562,12 @@
                                 <RowDefinition Height="31"/>
                                 <RowDefinition Height="31"/>
                                 <RowDefinition Height="31"/>
-                                <RowDefinition Height="43"/>
+                                <RowDefinition Height="31"/>
+                                <RowDefinition Height="45"/>
                                 <RowDefinition Height="31"/>
                                 <RowDefinition Height="31"/>
                                 <RowDefinition Height="31"/>
-                                <RowDefinition Height="43"/>
+                                <RowDefinition Height="45"/>
                                 <RowDefinition Height="31"/>
                                 <RowDefinition Height="31"/>
                                 <RowDefinition Height="31"/>
@@ -589,16 +607,15 @@
                                 Height="26" />
 
                             <ComboBox x:Name="cboMediaType" 
-                                  Style="{DynamicResource ComboBoxCustom}"
-                                  ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" 
-                                  HorizontalAlignment="Left"
-                                  Margin="0,2,0,0" 
-                                  VerticalAlignment="Top" 
-                                  Width="100"
-                                  SelectionChanged="cboMediaType_SelectionChanged" 
-                                  ToolTipService.InitialShowDelay="1000" 
-                                  ToolTipService.ShowOnDisabled="True"
-                                  ToolTip="Media Type" Grid.Row="1" Grid.Column="1" Height="22"/>
+                                      Style="{DynamicResource ComboBoxCustom}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" 
+                                      HorizontalAlignment="Left"
+                                      Margin="0,2,0,0" 
+                                      VerticalAlignment="Top" 
+                                      Width="100"
+                                      SelectionChanged="cboMediaType_SelectionChanged" 
+                                      Grid.Row="1"
+                                      Grid.Column="1" Height="22"/>
 
                             <!-- Video Codec -->
                             <Label 
@@ -608,20 +625,18 @@
                             Margin="20,0,0,0" 
                             VerticalAlignment="Top" 
                             Width="75" 
-                            
                             FontFamily="Segoe UI Semilight" Grid.Row="2" Height="26" />
 
                             <ComboBox x:Name="cboVideoCodec" 
-                                  Style="{DynamicResource ComboBoxCustom}" 
-                                  ItemContainerStyle="{DynamicResource ComboBoxCustomItem}"
-                                  HorizontalAlignment="Left" 
-                                  Margin="0,2,0,0"
-                                  VerticalAlignment="Top"
-                                  Width="100" 
-                                  SelectionChanged="cboVideoCodec_SelectionChanged" 
-                                  ToolTipService.InitialShowDelay="1000" 
-                                  ToolTipService.ShowOnDisabled="True" 
-                                  ToolTip="Video Codec" Grid.Row="2" Grid.Column="1" Height="22" />
+                                      Style="{DynamicResource ComboBoxCustom}" 
+                                      ItemContainerStyle="{DynamicResource ComboBoxCustomItem}"
+                                      HorizontalAlignment="Left" 
+                                      Margin="0,2,0,0"
+                                      VerticalAlignment="Top"
+                                      Width="100" 
+                                      SelectionChanged="cboVideoCodec_SelectionChanged"  
+                                      Grid.Row="2"
+                                      Grid.Column="1" Height="22" />
 
                             <!-- Audio Codec -->
                             <Label 
@@ -645,7 +660,32 @@
                                       ToolTipService.InitialShowDelay="1000" 
                                       ToolTipService.ShowOnDisabled="True" 
                                       ToolTip="Audio Codec" 
-                                      Grid.Row="3" Grid.Column="1" Height="22" />
+                                      Grid.Row="3" 
+                                      Grid.Column="1" 
+                                      Height="22" />
+
+                            <!-- Subtitle Codec -->
+                            <Label 
+                                Style="{DynamicResource LabelCustom}"
+                                Content="Subtitle Codec" 
+                                HorizontalAlignment="Left"
+                                Margin="20,0,0,0" 
+                                VerticalAlignment="Top" 
+                                Width="85" 
+                                FontFamily="Segoe UI Semilight" 
+                                Grid.Row="4" Height="26" />
+
+                            <ComboBox x:Name="cboSubtitleCodec" 
+                                      Style="{DynamicResource ComboBoxCustom}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxCustomItem}"
+                                      HorizontalAlignment="Left" 
+                                      Margin="0,2,0,0" 
+                                      VerticalAlignment="Top" 
+                                      Width="100" 
+                                      SelectionChanged="cboSubtitleCodec_SelectionChanged"  
+                                      Grid.Row="4" 
+                                      Grid.Column="1" 
+                                      Height="22" />
 
                             <!-- Cut Start -->
                             <Label 
@@ -655,7 +695,9 @@
                                 Margin="20,0,0,0" 
                                 VerticalAlignment="Top" 
                                 Width="75" 
-                                FontFamily="Segoe UI Semilight" Grid.Row="5" Height="26" />
+                                FontFamily="Segoe UI Semilight"
+                                Grid.Row="6"
+                                Height="26" />
 
                             <TextBox x:Name="cutStart"
                                      Style="{DynamicResource TextBoxCustom}"
@@ -668,7 +710,10 @@
                                      Width="100" 
                                      ToolTipService.InitialShowDelay="1000" 
                                      ToolTipService.ShowOnDisabled="True" 
-                                     ToolTip="Start Time (hh:mm:ss.ms)" Grid.Column="1" Grid.Row="5" Margin="0,2,0,0"/>
+                                     ToolTip="Start Time (hh:mm:ss.ms)" 
+                                     Grid.Column="1" 
+                                     Grid.Row="6"
+                                     Margin="0,2,0,0"/>
 
                             <!-- Cut End -->
                             <Label 
@@ -678,7 +723,9 @@
                                 Margin="20,0,0,0" 
                                 VerticalAlignment="Top"
                                 Width="75"
-                                FontFamily="Segoe UI Semilight" Grid.Row="6" Height="26" />
+                                FontFamily="Segoe UI Semilight" 
+                                Grid.Row="7"
+                                Height="26" />
 
                             <TextBox x:Name="cutEnd"
                                      Style="{DynamicResource TextBoxCustom}" 
@@ -691,7 +738,10 @@
                                      Width="100"
                                      ToolTipService.InitialShowDelay="1000"
                                      ToolTipService.ShowOnDisabled="True"
-                                     ToolTip="End Time (hh:mm:ss.ms)" Grid.Column="1" Grid.Row="6" Margin="0,2,0,0"/>
+                                     ToolTip="End Time (hh:mm:ss.ms)"
+                                     Grid.Column="1" 
+                                     Grid.Row="7"
+                                     Margin="0,2,0,0"/>
 
                             <!-- Cut -->
                             <Label 
@@ -701,7 +751,9 @@
                                    Margin="20,0,0,0" 
                                    VerticalAlignment="Top" 
                                    Width="53" 
-                                   FontFamily="Segoe UI Semilight" Grid.Row="4" Height="26" />
+                                   FontFamily="Segoe UI Semilight" 
+                                Grid.Row="5"
+                                Height="26" />
 
                             <ComboBox x:Name="cboCut" 
                                       Style="{DynamicResource ComboBoxWhite}"
@@ -710,7 +762,7 @@
                                       Width="100" 
                                       SelectionChanged="cboCut_SelectionChanged" 
                                       Grid.Column="1" 
-                                      Grid.Row="4" 
+                                      Grid.Row="5" 
                                       Height="22" 
                                       Margin="0,2,0,0" >
                                 <System:String>No</System:String>
@@ -725,7 +777,8 @@
                                 Margin="20,0,0,0"
                                 VerticalAlignment="Top"
                                 Width="90"
-                                FontFamily="Segoe UI Semilight" Grid.Row="7" Height="26" />
+                                FontFamily="Segoe UI Semilight"
+                                Grid.Row="8" Height="26" />
 
                             <TextBox x:Name="frameStart"
                                      Style="{DynamicResource TextBoxCustom}"
@@ -741,7 +794,10 @@
                                      ToolTipService.InitialShowDelay="1000" 
                                      ToolTipService.ShowOnDisabled="True"
                                      ToolTip="Start Frame" 
-                                     Text="Frame" Grid.Column="1" Grid.Row="7" Margin="0,2,0,0" />
+                                     Text="Frame" 
+                                     Grid.Column="1" 
+                                     Grid.Row="8" 
+                                     Margin="0,2,0,0" />
 
                             <TextBox x:Name="frameEnd" 
                                      Style="{DynamicResource TextBoxCustom}"
@@ -758,7 +814,9 @@
                                      ToolTipService.InitialShowDelay="1000"
                                      ToolTipService.ShowOnDisabled="True"
                                      ToolTip="End Frame" 
-                                     Text="Range" Grid.Column="1" Grid.Row="7" />
+                                     Text="Range"
+                                     Grid.Column="1" 
+                                     Grid.Row="8" />
 
                             <!-- Speed -->
                             <Label 
@@ -769,7 +827,7 @@
                                 VerticalAlignment="Top"
                                 Width="75" 
                                 FontFamily="Segoe UI Semilight" 
-                                Grid.Row="8" Height="26" />
+                                Grid.Row="9" Height="26" />
 
                             <ComboBox x:Name="cboSpeed" 
                                       Style="{DynamicResource ComboBoxWhite}"
@@ -780,7 +838,7 @@
                                       ToolTipService.InitialShowDelay="1000" 
                                       ToolTipService.ShowOnDisabled="True" 
                                       ToolTip="Encoding Speed. Slower = Better Quality &amp; Compression." 
-                                      Grid.Row="8"
+                                      Grid.Row="9"
                                       Grid.Column="1"
                                       Height="22" 
                                       Margin="0,2,0,0" >
@@ -805,7 +863,7 @@
                                 VerticalAlignment="Top"
                                 Width="75" 
                                 FontFamily="Segoe UI Semilight" 
-                                Grid.Row="9" Height="26" />
+                                Grid.Row="10" Height="26" />
 
                             <ComboBox x:Name="cboHWAccel" 
                                       Style="{DynamicResource ComboBoxCustom}"
@@ -816,7 +874,7 @@
                                       ToolTipService.InitialShowDelay="1000" 
                                       ToolTipService.ShowOnDisabled="True" 
                                       ToolTip="Hardware Acceleration" 
-                                      Grid.Row="9"
+                                      Grid.Row="10"
                                       Grid.Column="1"
                                       Height="22" 
                                       Margin="0,2,0,0" >
@@ -858,12 +916,13 @@
                                 <RowDefinition Height="31"/>
                                 <RowDefinition Height="31"/>
                                 <RowDefinition Height="31"/>
-                                <RowDefinition Height="43"/>
+                                <RowDefinition Height="45"/>
                                 <RowDefinition Height="31"/>
                                 <RowDefinition Height="31"/>
                                 <RowDefinition Height="31"/>
-                                <RowDefinition Height="43"/>
+                                <RowDefinition Height="45"/>
                                 <RowDefinition Height="31"/>
+                                <RowDefinition Height="180"/>
                             </Grid.RowDefinitions>
 
                             <!-- Video Quality -->
@@ -871,8 +930,7 @@
                             Style="{DynamicResource LabelCustom}" 
                             Content="Quality" 
                             HorizontalAlignment="Left"
-                            Width="56" 
-                            
+                            Width="56"  
                             FontFamily="Segoe UI Semilight" Margin="20,0,0,4" />
 
                             <ComboBox x:Name="cboVideo" 
@@ -1024,7 +1082,6 @@
                                 Margin="20,0,0,0" 
                                 VerticalAlignment="Top"
                                 Width="75"
-                                 
                                 FontFamily="Segoe UI Semilight" Grid.Row="5" Height="26" />
 
                             <ComboBox x:Name="cboOptimize" 
@@ -1061,8 +1118,9 @@
                                     ToolTipService.InitialShowDelay="1000" 
                                     ToolTipService.ShowOnDisabled="True"
                                     ToolTip="Subtitle Stream to keep." 
-                                      Grid.Row="10" Grid.Column="1" >
+                                      Grid.Row="10" Grid.Column="1" SelectionChanged="cboSubtitle_SelectionChanged" >
                                 <System:String>none</System:String>
+                                <System:String>external</System:String>
                                 <System:String>all</System:String>
                                 <System:String>1</System:String>
                                 <System:String>2</System:String>
@@ -1073,6 +1131,115 @@
                                 <System:String>7</System:String>
                                 <System:String>8</System:String>
                             </ComboBox>
+
+                            <!-- Subtitles List -->
+                            <ListView x:Name="listViewSubtitles" 
+                                        Height="130" 
+                                        Margin="26,3,54,0"
+                                        VerticalAlignment="Top"
+                                        BorderThickness="0"
+                                        Style="{DynamicResource ListViewStyle}" 
+                                        Grid.ColumnSpan="2" 
+                                        Grid.Row="11">
+
+                                <ListView.Resources>
+                                    <Style TargetType="{x:Type GridViewColumnHeader}">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                    </Style>
+                                </ListView.Resources>
+
+                                <!-- List Checkboxes -->
+                                <ListView.View>
+                                    <GridView>
+                                        <!-- CheckBox -->
+                                        <!--<GridViewColumn>
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <CheckBox Tag="{Binding ItemCore}" 
+                                                              IsChecked="{Binding IsSelected,
+                                                                                  RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}}" />
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>-->
+                                        <!-- Name -->
+                                        <GridViewColumn Width="Auto">
+                                            <GridViewColumn/>
+                                        </GridViewColumn>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+
+                            <!-- Add -->
+                            <Button x:Name="btnAddSubtitles"
+                                    Style="{DynamicResource ButtonNavigationStyle}"
+                                    HorizontalAlignment="Left" 
+                                    VerticalAlignment="Top" 
+                                    Width="22" 
+                                    Height="22" 
+                                    Cursor="Hand" 
+                                    Click="btnAddSubtitles_Click"
+                                    Margin="78,3,0,0" 
+                                    ToolTipService.InitialShowDelay="500" 
+                                    ToolTip="Add"
+                                    Grid.Column="1" Grid.Row="11">
+                                <TextBlock Text="+" Margin="0,-2,0,0"/>
+                            </Button>
+                            <!-- Remove -->
+                            <Button x:Name="btnRemoveSubtitle"
+                                    Style="{DynamicResource ButtonNavigationStyle}"
+                                    HorizontalAlignment="Left" 
+                                    VerticalAlignment="Top" 
+                                    Width="22" 
+                                    Height="22" 
+                                    Cursor="Hand" 
+                                    Click="btnRemoveSubtitle_Click"
+                                    Margin="78,30,0,0" 
+                                    ToolTipService.InitialShowDelay="500" 
+                                    ToolTip="Remove"
+                                    Grid.Column="1" Grid.Row="11">
+                                <TextBlock Text="-" Margin="0,-2,0,0"/>
+                            </Button>
+                            <!-- Sort Up -->
+                            <Button x:Name="btnSortSubtitleUp"
+                                    Style="{DynamicResource ButtonNavigationStyle}"
+                                    VerticalAlignment="Top" 
+                                    Height="22"
+                                    Cursor="Hand"
+                                    Click="btnSortSubtitleUp_Click"
+                                    Margin="78,57,0,0" 
+                                    HorizontalAlignment="Left" 
+                                    Width="22" 
+                                    Grid.Column="1" Grid.Row="11">
+                                <TextBlock Text="▴" Margin="0,-2,0,0"/>
+                            </Button>
+                            <!-- Sort Down -->
+                            <Button x:Name="btnSortSubtitleDown"
+                                    Style="{DynamicResource ButtonNavigationStyle}"
+                                    HorizontalAlignment="Left" 
+                                    VerticalAlignment="Top" 
+                                    Width="22" 
+                                    Height="22" 
+                                    Cursor="Hand" 
+                                    Click="btnSortSubtitleDown_Click"
+                                    Margin="78,84,0,0" 
+                                    Grid.Column="1" Grid.Row="11">
+                                <TextBlock Text="▾" Margin="0,0,0,0"/>
+                            </Button>
+                            <!-- Clear All -->
+                            <Button x:Name="btnClearSubtitles" 
+                                    Style="{DynamicResource ButtonNavigationStyle}"
+                                    HorizontalAlignment="Left" 
+                                    VerticalAlignment="Top" 
+                                    Width="22" 
+                                    Height="22" 
+                                    Cursor="Hand" 
+                                    Click="btnClearSubtitles_Click"
+                                    Margin="78,111,0,0" 
+                                    ToolTipService.InitialShowDelay="500" 
+                                    ToolTip="Clear All"
+                                    Grid.Column="1" Grid.Row="11">
+                                <TextBlock Text="x" Margin="0,-3,0,0"/>
+                            </Button>
 
                             <!-- Size -->
                             <Label 
@@ -1536,7 +1703,7 @@
                                 <RowDefinition Height="31"/>
                                 <RowDefinition Height="31"/>
                                 <RowDefinition Height="31"/>
-                                <RowDefinition Height="43"/>
+                                <RowDefinition Height="45"/>
                                 <RowDefinition Height="31"/>
                                 <RowDefinition Height="31"/>
                             </Grid.RowDefinitions>

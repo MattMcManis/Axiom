@@ -59,7 +59,61 @@ namespace Axiom
             // -------------------------
             // Text Theme Color
             // -------------------------
-            Configure.LoadTheme(mainwindow);
+            //Configure.LoadTheme(mainwindow);
+
+            // -------------------------
+            // Debug Text Theme Color
+            // -------------------------
+            if (Configure.theme == "Axiom")
+            {
+                DebugConsole.Heading = (SolidColorBrush)(new BrushConverter().ConvertFrom("#007DF2"));
+                DebugConsole.Variable = (SolidColorBrush)(new BrushConverter().ConvertFrom("#72D4E8"));
+                DebugConsole.Value = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFFFFF"));
+            }
+            else if (Configure.theme == "FFmpeg")
+            {
+                DebugConsole.Heading = (SolidColorBrush)(new BrushConverter().ConvertFrom("#878787"));
+                DebugConsole.Variable = (SolidColorBrush)(new BrushConverter().ConvertFrom("#5cb85c"));
+                DebugConsole.Value = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFFFFF"));
+            }
+            else if (Configure.theme == "Cyberpunk")
+            {
+                DebugConsole.Heading = (SolidColorBrush)(new BrushConverter().ConvertFrom("#9a989c"));
+                DebugConsole.Variable = (SolidColorBrush)(new BrushConverter().ConvertFrom("#9f3ed2"));
+                DebugConsole.Value = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFFFFF"));
+            }
+            else if (Configure.theme == "Onyx")
+            {
+                DebugConsole.Heading = (SolidColorBrush)(new BrushConverter().ConvertFrom("#EEEEEE"));
+                DebugConsole.Variable = (SolidColorBrush)(new BrushConverter().ConvertFrom("#999999"));
+                DebugConsole.Value = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFFFFF"));
+            }
+            else if (Configure.theme == "Circuit")
+            {
+                DebugConsole.Heading = (SolidColorBrush)(new BrushConverter().ConvertFrom("#ad8a4a"));
+                DebugConsole.Variable = (SolidColorBrush)(new BrushConverter().ConvertFrom("#2ebf93"));
+                DebugConsole.Value = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFFFFF"));
+            }
+            else if (Configure.theme == "Prelude")
+            {
+                DebugConsole.Heading = (SolidColorBrush)(new BrushConverter().ConvertFrom("#ad8a4a"));
+                DebugConsole.Variable = (SolidColorBrush)(new BrushConverter().ConvertFrom("#2ebf93"));
+                DebugConsole.Value = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFFFFF"));
+            }
+            else if (Configure.theme == "System")
+            {
+                DebugConsole.Heading = (SolidColorBrush)(new BrushConverter().ConvertFrom("#007DF2"));
+                DebugConsole.Variable = (SolidColorBrush)(new BrushConverter().ConvertFrom("#72D4E8"));
+                DebugConsole.Value = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFFFFF"));
+            }
+
+
+            // Log Console Message /////////
+            // Don't put in Configure Method, creates duplicate message /////////
+            Log.logParagraph.Inlines.Add(new LineBreak());
+            Log.logParagraph.Inlines.Add(new LineBreak());
+            Log.logParagraph.Inlines.Add(new Bold(new Run("Theme: ")) { Foreground = Log.ConsoleDefault });
+            Log.logParagraph.Inlines.Add(new Run(Configure.theme) { Foreground = Log.ConsoleDefault });
 
         }
 

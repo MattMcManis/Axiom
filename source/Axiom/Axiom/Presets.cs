@@ -153,7 +153,7 @@ namespace Axiom
                 mainwindow.cboPreset.IsEditable = false;
 
                 // Format
-                mainwindow.cboFormat.SelectedItem = "mp4";
+                mainwindow.cboFormat.SelectedItem = "avi";
                 mainwindow.cboVideoCodec.SelectedItem = "x264";
                 mainwindow.cboAudioCodec.SelectedItem = "AC3";
 
@@ -161,7 +161,7 @@ namespace Axiom
                 mainwindow.cboVideo.SelectedItem = "High";
                 mainwindow.cboSize.SelectedItem = "Custom";
                 mainwindow.widthCustom.Text = "720";
-                mainwindow.heightCustom.Text = "480";
+                mainwindow.heightCustom.Text = "-2";
                 mainwindow.cboCut.SelectedItem = "No";
                 mainwindow.cutStart.Text = "00:00:00.000";
                 mainwindow.cutEnd.Text = "00:00:00.000";

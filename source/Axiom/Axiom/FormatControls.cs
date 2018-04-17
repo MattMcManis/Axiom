@@ -88,7 +88,7 @@ namespace Axiom
             {
                 mainwindow.cboMediaType.SelectedItem = "Video";
                 mainwindow.cboMediaType.IsEnabled = false;
-                mainwindow.cboSubtitle.SelectedItem = "all";
+                //mainwindow.cboSubtitle.SelectedItem = "all";
                 mainwindow.cboSubtitle.IsEnabled = true;
                 mainwindow.cboAudioStream.SelectedItem = "all";
                 mainwindow.cboFPS.IsEnabled = true;
@@ -99,7 +99,7 @@ namespace Axiom
             {
                 mainwindow.cboMediaType.SelectedItem = "Video";
                 mainwindow.cboMediaType.IsEnabled = false;
-                mainwindow.cboSubtitle.SelectedItem = "all";
+                //mainwindow.cboSubtitle.SelectedItem = "all";
                 mainwindow.cboSubtitle.IsEnabled = true;
                 mainwindow.cboAudioStream.SelectedItem = "all";
                 mainwindow.cboFPS.IsEnabled = true;
@@ -109,7 +109,7 @@ namespace Axiom
             {
                 mainwindow.cboMediaType.SelectedItem = "Video";
                 mainwindow.cboMediaType.IsEnabled = false;
-                mainwindow.cboSubtitle.SelectedItem = "all";
+                //mainwindow.cboSubtitle.SelectedItem = "all";
                 mainwindow.cboSubtitle.IsEnabled = true;
                 mainwindow.cboAudioStream.SelectedItem = "all";
                 mainwindow.cboFPS.IsEnabled = true;
@@ -249,22 +249,36 @@ namespace Axiom
             // -------------------------
             if ((string)mainwindow.cboFormat.SelectedItem == "webm")
             {
-                // VIDEO ///////
+                // -------------------------
+                // VIDEO
+                // -------------------------
                 VideoControls.VideoCodecItemSource = new List<string>() { "VP8", "VP9" };
 
                 // Populate ComboBox from ItemSource
                 mainwindow.cboVideoCodec.ItemsSource = VideoControls.VideoCodecItemSource;
 
-                // AUDIO ///////    
+                // -------------------------
+                // Subtitle
+                // -------------------------
+                // Item Source
+                VideoControls.SubtitleCodecItemSource = new List<string>() { "None", "Copy" };
+                // Populate ComboBox
+                mainwindow.cboSubtitleCodec.ItemsSource = VideoControls.SubtitleCodecItemSource;
+
+                // -------------------------
+                // Audio
+                // ------------------------- 
                 AudioControls.AudioCodecItemSource = new List<string>() { "Vorbis", "Opus" };
 
                 // Populate ComboBox from ItemSource
                 mainwindow.cboAudioCodec.ItemsSource = AudioControls.AudioCodecItemSource;
 
+                // -------------------------
                 // Set the List Defaults
+                // -------------------------
                 mainwindow.cboVideoCodec.SelectedItem = "VP8";
+                mainwindow.cboSubtitleCodec.SelectedItem = "None";
                 mainwindow.cboAudioCodec.SelectedItem = "Vorbis";
-                //mainwindow.cboOptimize.SelectedItem = "Web";
             }
 
             // -------------------------
@@ -272,20 +286,35 @@ namespace Axiom
             // -------------------------
             else if ((string)mainwindow.cboFormat.SelectedItem == "mp4")
             {
-                // VIDEO ///////
+                // -------------------------
+                // VIDEO
+                // -------------------------
                 VideoControls.VideoCodecItemSource = new List<string>() { "x264", "x265" };
 
                 // Populate ComboBox from ItemSource
                 mainwindow.cboVideoCodec.ItemsSource = VideoControls.VideoCodecItemSource;
 
-                // AUDIO ///////    
+                // -------------------------
+                // Subtitle
+                // -------------------------
+                // Item Source
+                VideoControls.SubtitleCodecItemSource = new List<string>() { "None", "mov_text", "Copy" };
+                // Populate ComboBox
+                mainwindow.cboSubtitleCodec.ItemsSource = VideoControls.SubtitleCodecItemSource;
+
+                // -------------------------
+                // Audio
+                // -------------------------  
                 AudioControls.AudioCodecItemSource = new List<string>() { "AAC", "AC3" };
 
                 // Populate ComboBox from ItemSource
                 mainwindow.cboAudioCodec.ItemsSource = AudioControls.AudioCodecItemSource;
 
+                // -------------------------
                 // Set the List Defaults
+                // -------------------------
                 mainwindow.cboVideoCodec.SelectedItem = "x264";
+                mainwindow.cboSubtitleCodec.SelectedItem = "mov_text";
                 mainwindow.cboAudioCodec.SelectedItem = "AAC";
             }
 
@@ -294,21 +323,35 @@ namespace Axiom
             // -------------------------
             else if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
             {
-                // VIDEO ///////
+                // -------------------------
+                // VIDEO
+                // -------------------------
                 VideoControls.VideoCodecItemSource = new List<string>() { "x264", "x265", "VP8", "VP9", "Theora", "Copy" };
 
                 // Populate ComboBox from ItemSource
                 mainwindow.cboVideoCodec.ItemsSource = VideoControls.VideoCodecItemSource;
 
+                // -------------------------
+                // Subtitle
+                // -------------------------
+                // Item Source
+                VideoControls.SubtitleCodecItemSource = new List<string>() { "None", "mov_text", "ASS", "SSA", "SRT", "Copy" };
+                // Populate ComboBox
+                mainwindow.cboSubtitleCodec.ItemsSource = VideoControls.SubtitleCodecItemSource;
 
-                // AUDIO ///////    
+                // -------------------------
+                // Audio
+                // ------------------------- 
                 AudioControls.AudioCodecItemSource = new List<string>() { "AAC", "AC3", "Vorbis", "Opus", "LAME", "FLAC", "PCM", "Copy" };
 
                 // Populate ComboBox from ItemSource
                 mainwindow.cboAudioCodec.ItemsSource = AudioControls.AudioCodecItemSource;
 
+                // -------------------------
                 // Set the List Defaults
+                // -------------------------
                 mainwindow.cboVideoCodec.SelectedItem = "x264";
+                mainwindow.cboSubtitleCodec.SelectedItem = "Copy";
                 mainwindow.cboAudioCodec.SelectedItem = "AC3";
             }
 
@@ -317,21 +360,35 @@ namespace Axiom
             // -------------------------
             else if ((string)mainwindow.cboFormat.SelectedItem == "avi")
             {
-                // VIDEO ///////
+                // -------------------------
+                // VIDEO
+                // -------------------------
                 VideoControls.VideoCodecItemSource = new List<string>() { "mpeg4" };
 
                 // Populate ComboBox from ItemSource
                 mainwindow.cboVideoCodec.ItemsSource = VideoControls.VideoCodecItemSource;
 
+                // -------------------------
+                // Subtitle
+                // -------------------------
+                // Item Source
+                VideoControls.SubtitleCodecItemSource = new List<string>() { "None", "SRT", "Copy" };
+                // Populate ComboBox
+                mainwindow.cboSubtitleCodec.ItemsSource = VideoControls.SubtitleCodecItemSource;
 
-                // AUDIO ///////    
+                // -------------------------
+                // Audio
+                // ------------------------- 
                 AudioControls.AudioCodecItemSource = new List<string>() { "AAC", "AC3", "LAME", "PCM" };
 
                 // Populate ComboBox from ItemSource
                 mainwindow.cboAudioCodec.ItemsSource = AudioControls.AudioCodecItemSource;
 
+                // -------------------------
                 // Set the List Defaults
+                // -------------------------
                 mainwindow.cboVideoCodec.SelectedItem = "mpeg4";
+                mainwindow.cboSubtitleCodec.SelectedItem = "SRT";
                 mainwindow.cboAudioCodec.SelectedItem = "LAME";
             }
 
@@ -340,21 +397,35 @@ namespace Axiom
             // -------------------------
             else if ((string)mainwindow.cboFormat.SelectedItem == "ogv")
             {
-                // VIDEO ///////
+                // -------------------------
+                // VIDEO
+                // -------------------------
                 VideoControls.VideoCodecItemSource = new List<string>() { "Theora" };
 
                 // Populate ComboBox from ItemSource
                 mainwindow.cboVideoCodec.ItemsSource = VideoControls.VideoCodecItemSource;
 
+                // -------------------------
+                // Subtitle
+                // -------------------------
+                // Item Source
+                VideoControls.SubtitleCodecItemSource = new List<string>() { "None", "Copy" };
+                // Populate ComboBox
+                mainwindow.cboSubtitleCodec.ItemsSource = VideoControls.SubtitleCodecItemSource;
 
-                // AUDIO ///////    
+                // -------------------------
+                // Audio
+                // ------------------------- 
                 AudioControls.AudioCodecItemSource = new List<string>() { "Vorbis" };
 
                 // Populate ComboBox from ItemSource
                 mainwindow.cboAudioCodec.ItemsSource = AudioControls.AudioCodecItemSource;
 
+                // -------------------------
                 // Set the List Defaults
+                // -------------------------
                 mainwindow.cboVideoCodec.SelectedItem = "Theora";
+                mainwindow.cboSubtitleCodec.SelectedItem = "None";
                 mainwindow.cboAudioCodec.SelectedItem = "Vorbis";
             }
 
@@ -363,20 +434,25 @@ namespace Axiom
             // -------------------------
             else if ((string)mainwindow.cboFormat.SelectedItem == "m4a")
             {
-                // VIDEO ///////
+                // -------------------------
+                // VIDEO
+                // -------------------------
                 VideoControls.VideoCodecItemSource = new List<string>() { "None" };
 
                 // Populate ComboBox from ItemSource
                 mainwindow.cboVideoCodec.ItemsSource = VideoControls.VideoCodecItemSource;
 
-
-                // AUDIO ///////    
+                // -------------------------
+                // Audio
+                // ------------------------- 
                 AudioControls.AudioCodecItemSource = new List<string>() { "AAC", "ALAC" };
 
                 // Populate ComboBox from ItemSource
                 mainwindow.cboAudioCodec.ItemsSource = AudioControls.AudioCodecItemSource;
 
+                // -------------------------
                 // Set the List Defaults
+                // -------------------------
                 mainwindow.cboVideoCodec.SelectedItem = "None";
                 mainwindow.cboAudioCodec.SelectedItem = "AAC";
             }
@@ -386,20 +462,25 @@ namespace Axiom
             // -------------------------
             else if ((string)mainwindow.cboFormat.SelectedItem == "mp3")
             {
-                // VIDEO ///////
+                // -------------------------
+                // VIDEO
+                // -------------------------
                 VideoControls.VideoCodecItemSource = new List<string>() { "None" };
 
                 // Populate ComboBox from ItemSource
                 mainwindow.cboVideoCodec.ItemsSource = VideoControls.VideoCodecItemSource;
 
-
-                // AUDIO ///////    
+                // -------------------------
+                // Audio
+                // ------------------------- 
                 AudioControls.AudioCodecItemSource = new List<string>() { "LAME" };
 
                 // Populate ComboBox from ItemSource
                 mainwindow.cboAudioCodec.ItemsSource = AudioControls.AudioCodecItemSource;
 
+                // -------------------------
                 // Set the List Defaults
+                // -------------------------
                 mainwindow.cboVideoCodec.SelectedItem = "None";
                 mainwindow.cboAudioCodec.SelectedItem = "LAME";
             }
@@ -409,20 +490,25 @@ namespace Axiom
             // -------------------------
             else if ((string)mainwindow.cboFormat.SelectedItem == "ogg")
             {
-                // VIDEO ///////
+                // -------------------------
+                // VIDEO
+                // -------------------------
                 VideoControls.VideoCodecItemSource = new List<string>() { "None" };
 
                 // Populate ComboBox from ItemSource
                 mainwindow.cboVideoCodec.ItemsSource = VideoControls.VideoCodecItemSource;
 
-
-                // AUDIO ///////    
+                // -------------------------
+                // Audio
+                // ------------------------- 
                 AudioControls.AudioCodecItemSource = new List<string>() { "Opus", "Vorbis" };
 
                 // Populate ComboBox from ItemSource
                 mainwindow.cboAudioCodec.ItemsSource = AudioControls.AudioCodecItemSource;
 
+                // -------------------------
                 // Set the List Defaults
+                // -------------------------
                 mainwindow.cboVideoCodec.SelectedItem = "None";
                 mainwindow.cboAudioCodec.SelectedItem = "Opus";
             }
@@ -432,20 +518,25 @@ namespace Axiom
             // -------------------------
             else if ((string)mainwindow.cboFormat.SelectedItem == "flac")
             {
-                // VIDEO ///////
+                // -------------------------
+                // VIDEO
+                // -------------------------
                 VideoControls.VideoCodecItemSource = new List<string>() { "None" };
 
                 // Populate ComboBox from ItemSource
                 mainwindow.cboVideoCodec.ItemsSource = VideoControls.VideoCodecItemSource;
 
-
-                // AUDIO ///////    
+                // -------------------------
+                // Audio
+                // ------------------------- 
                 AudioControls.AudioCodecItemSource = new List<string>() { "FLAC" };
 
                 // Populate ComboBox from ItemSource
                 mainwindow.cboAudioCodec.ItemsSource = AudioControls.AudioCodecItemSource;
 
+                // -------------------------
                 // Set the List Defaults
+                // -------------------------
                 mainwindow.cboVideoCodec.SelectedItem = "None";
                 mainwindow.cboAudioCodec.SelectedItem = "FLAC";
             }
@@ -455,20 +546,25 @@ namespace Axiom
             // -------------------------
             else if ((string)mainwindow.cboFormat.SelectedItem == "wav")
             {
-                // VIDEO ///////
+                // -------------------------
+                // VIDEO
+                // -------------------------
                 VideoControls.VideoCodecItemSource = new List<string>() { "None" };
 
                 // Populate ComboBox from ItemSource
                 mainwindow.cboVideoCodec.ItemsSource = VideoControls.VideoCodecItemSource;
 
-
-                // AUDIO ///////    
+                // -------------------------
+                // Audio
+                // ------------------------- 
                 AudioControls.AudioCodecItemSource = new List<string>() { "PCM" };
 
                 // Populate ComboBox from ItemSource
                 mainwindow.cboAudioCodec.ItemsSource = AudioControls.AudioCodecItemSource;
 
+                // -------------------------
                 // Set the List Defaults
+                // -------------------------
                 mainwindow.cboVideoCodec.SelectedItem = "None";
                 mainwindow.cboAudioCodec.SelectedItem = "PCM";
                 mainwindow.tglVBR.IsEnabled = false;
@@ -479,20 +575,25 @@ namespace Axiom
             // -------------------------
             else if ((string)mainwindow.cboFormat.SelectedItem == "jpg")
             {
-                // VIDEO ///////
+                // -------------------------
+                // VIDEO
+                // -------------------------
                 VideoControls.VideoCodecItemSource = new List<string>() { "JPEG" };
 
                 // Populate ComboBox from ItemSource
                 mainwindow.cboVideoCodec.ItemsSource = VideoControls.VideoCodecItemSource;
 
-
-                // AUDIO ///////    
+                // -------------------------
+                // Audio
+                // ------------------------- 
                 AudioControls.AudioCodecItemSource = new List<string>() { "None" };
 
                 // Populate ComboBox from ItemSource
                 mainwindow.cboAudioCodec.ItemsSource = AudioControls.AudioCodecItemSource;
 
+                // -------------------------
                 // Set the List Defaults
+                // -------------------------
                 mainwindow.cboVideoCodec.SelectedItem = "JPEG";
                 mainwindow.cboAudioCodec.SelectedItem = "None";  //important
             }
@@ -502,20 +603,25 @@ namespace Axiom
             // -------------------------
             else if ((string)mainwindow.cboFormat.SelectedItem == "png")
             {
-                // VIDEO ///////
+                // -------------------------
+                // VIDEO
+                // -------------------------
                 VideoControls.VideoCodecItemSource = new List<string>() { "PNG" };
 
                 // Populate ComboBox from ItemSource
                 mainwindow.cboVideoCodec.ItemsSource = VideoControls.VideoCodecItemSource;
 
-
-                // AUDIO ///////    
+                // -------------------------
+                // Audio
+                // ------------------------- 
                 AudioControls.AudioCodecItemSource = new List<string>() { "None" };
 
                 // Populate ComboBox from ItemSource
                 mainwindow.cboAudioCodec.ItemsSource = AudioControls.AudioCodecItemSource;
 
+                // -------------------------
                 // Set the List Defaults
+                // -------------------------
                 mainwindow.cboVideoCodec.SelectedItem = "PNG";
                 mainwindow.cboAudioCodec.SelectedItem = "None";  //important
             }

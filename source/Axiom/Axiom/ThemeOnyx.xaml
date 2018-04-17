@@ -1304,9 +1304,63 @@
         </Setter>
     </Style>
 
+
+    <!--/////////////////////////////////////
+        Button Navigation
+        /////////////////////////////////////-->
+    <SolidColorBrush x:Key="Button.Nav.Static.Background" Color="Transparent"/>
+    <SolidColorBrush x:Key="Button.Nav.Static.Border" Color="#FF444444"/>
+    <SolidColorBrush x:Key="Button.Nav.Static.Foreground" Color="#FFFFFFFF"/>
     
+    <SolidColorBrush x:Key="Button.Nav.MouseOver.Background" Color="#FF444444"/>
+    <SolidColorBrush x:Key="Button.Nav.MouseOver.Border" Color="#FFFFFFFF"/>
     
+    <SolidColorBrush x:Key="Button.Nav.Pressed.Background" Color="#FF111111"/>
+    <SolidColorBrush x:Key="Button.Nav.Pressed.Border" Color="#FF222222"/>
     
+    <SolidColorBrush x:Key="Button.Nav.Disabled.Background" Color="Transparent"/>
+    <SolidColorBrush x:Key="Button.Nav.Disabled.Border" Color="#FF222222"/>
+    <SolidColorBrush x:Key="Button.Nav.Disabled.Foreground" Color="#FF333333"/>
+
+    <Style x:Key="ButtonNavigationStyle" TargetType="{x:Type Button}">
+        <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+        <Setter Property="Background" Value="{StaticResource Button.Nav.Static.Background}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource Button.Nav.Static.Border}"/>
+        <Setter Property="Foreground" Value="{DynamicResource Button.Nav.Static.Foreground}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Padding" Value="1"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
+                        <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsDefaulted" Value="true">
+                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Nav.MouseOver.Background}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Nav.MouseOver.Border}"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="true">
+                            <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Nav.Pressed.Background}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Nav.Pressed.Border}"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Nav.Disabled.Background}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Nav.Disabled.Border}"/>
+                            <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Nav.Disabled.Foreground}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
     <!--/////////////////////////////////////
         Button Custom Crop
         /////////////////////////////////////-->
@@ -1906,6 +1960,113 @@
         </Setter>
     </Style>
 
+
+
+    <!--/////////////////////////////////////
+        List View
+        /////////////////////////////////////-->
+    <!--Enabled-->
+    <SolidColorBrush x:Key="ListView.Static.Foreground" Color="#FFFFFFFF"/>
+    <SolidColorBrush x:Key="ListView.Static.Background" Color="#FF555555"/>
+    <SolidColorBrush x:Key="ListView.Static.Border" Color="#FF555555"/>
+    <SolidColorBrush x:Key="ListView.Selected.Foreground" Color="#FF7e7e7e"/>
+    <!--Disabled-->
+    <SolidColorBrush x:Key="ListView.Disabled.Foreground" Color="#FFFFFFFF"/>
+    <SolidColorBrush x:Key="ListView.Disabled.Background" Color="#FF000000"/>
+    <SolidColorBrush x:Key="ListView.Disabled.Border" Color="#FF000000"/>
+
+    <Style x:Key="ListViewStyle" TargetType="{x:Type ListView}">
+        <Setter Property="Background" Value="{DynamicResource ListView.Static.Background}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource ListView.Static.Border}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Foreground" Value="{StaticResource ListView.Static.Foreground}"/>
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+        <Setter Property="ScrollViewer.CanContentScroll" Value="true"/>
+        <Setter Property="ScrollViewer.PanningMode" Value="Both"/>
+        <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ListView}">
+                    <Themes:ListBoxChrome x:Name="Bd" 
+                                          BorderBrush="{TemplateBinding BorderBrush}" 
+                                          BorderThickness="{TemplateBinding BorderThickness}" 
+                                          Background="{TemplateBinding Background}"
+                                          RenderMouseOver="{TemplateBinding IsMouseOver}"
+                                          RenderFocused="{TemplateBinding IsKeyboardFocusWithin}" 
+                                          SnapsToDevicePixels="true">
+                        <ScrollViewer Padding="{TemplateBinding Padding}" Style="{DynamicResource {x:Static GridView.GridViewScrollViewerStyleKey}}">
+                            <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                        </ScrollViewer>
+                    </Themes:ListBoxChrome>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Background" Value="{DynamicResource ListView.Disabled.Background}"/>
+                            <Setter Property="BorderBrush" Value="{DynamicResource ListView.Disabled.Border}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource ListView.Disabled.Foreground}"/>
+                        </Trigger>
+                        <!--<Trigger Property="IsSelected" Value="true">
+                            <Setter Property="Foreground" Value="{DynamicResource ListView.Selected.Foreground}"/>
+                        </Trigger>-->
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsGrouping" Value="true"/>
+                                <Condition Property="VirtualizingPanel.IsVirtualizingWhenGrouping" Value="false"/>
+                            </MultiTrigger.Conditions>
+                            <Setter Property="ScrollViewer.CanContentScroll" Value="false"/>
+                        </MultiTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <!--/////////////////////////////////////
+        List Item
+        /////////////////////////////////////-->
+    <Style TargetType="{x:Type ListViewItem}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ListViewItem}">
+                    <Border CornerRadius="0" SnapsToDevicePixels="True"  
+                                            BorderThickness="{TemplateBinding BorderThickness}"   
+                                            BorderBrush="{TemplateBinding BorderBrush}"   
+                                            Background="{TemplateBinding Background}">
+
+                        <Border x:Name="InnerBorder" CornerRadius="0" BorderThickness="1">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition MaxHeight="11" />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+
+                                <Rectangle x:Name="UpperHighlight" Visibility="Collapsed" Fill="#75FFFFFF" />
+                                <GridViewRowPresenter Grid.RowSpan="2"   
+                                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"   
+                                                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                            </Grid>
+                        </Border>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#FF7e7e7e" />
+                            <Setter TargetName="UpperHighlight" Property="Visibility" Value="Hidden" />
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="true">
+                            <Setter Property="Foreground" Value="#FFFFFFFF"/>
+                            <Setter Property="Background" Value="#FF7e7e7e"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
 
     <!--/////////////////////////////////////
         RichTextBox

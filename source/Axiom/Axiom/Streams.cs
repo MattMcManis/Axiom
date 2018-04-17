@@ -209,6 +209,26 @@ namespace Axiom
                 sMap = "-sn";
             }
             // -------------------------
+            // External
+            // -------------------------
+            else if ((string)mainwindow.cboSubtitle.SelectedItem == "external")
+            {
+                List<string> subtitleMapsList = new List<string>();
+
+                if (Video.subtitleFilePathsList.Count > 0)
+                {
+                    // Give each Subtitle File it's own map
+                    for (var i = 0; i < Video.subtitleFilePathsList.Count; i++)
+                    {
+                        subtitleMapsList.Add("-map " + (i + 1).ToString() + ":s?");
+                    }
+                }
+
+                // Join multiple maps: -map 1:s? -map 2:s? -map 3:s?
+                sMap = string.Join(" ", subtitleMapsList.Where(s => !string.IsNullOrEmpty(s)));
+            }
+            //
+            // -------------------------
             // All
             // -------------------------
             else if ((string)mainwindow.cboSubtitle.SelectedItem == "all")
@@ -221,19 +241,19 @@ namespace Axiom
                 }
                 else if ((string)mainwindow.cboFormat.SelectedItem == "mp4")
                 {
-                    sMap = "-map 0:s?"; // all subtitles (:? at the end ignores error if subtitle is not available)
+                    sMap = "-map 1:s?"; // all subtitles (:? at the end ignores error if subtitle is not available)
                 }
                 else if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
                 {
-                    sMap = "-map 0:s?"; // all subtitles
+                    sMap = "-map 1:s?"; // all subtitles
                 }
                 else if ((string)mainwindow.cboFormat.SelectedItem == "avi")
                 {
-                    sMap = "-map 0:s?"; // all subtitles
+                    sMap = "-map 1:s?"; // all subtitles
                 }
                 else if ((string)mainwindow.cboFormat.SelectedItem == "ogv")
                 {
-                    sMap = "-map 0:s?"; // all subtitles, OGV has problem using Subtitles
+                    sMap = "-map 1:s?"; // all subtitles, OGV has problem using Subtitles
                 }
                 else if ((string)mainwindow.cboFormat.SelectedItem == "jpg")
                 {
@@ -258,7 +278,7 @@ namespace Axiom
                 // Subtract 1, Map starts at 0
                 int sMapNumber = Int32.Parse(mainwindow.cboSubtitle.SelectedItem.ToString()) - 1;
 
-                sMap = "-map 0:s:" + sMapNumber + "?";
+                sMap = "-map 1:s:" + sMapNumber + "?";
 
                 // Image
                 if ((string)mainwindow.cboFormat.SelectedItem == "jpg"

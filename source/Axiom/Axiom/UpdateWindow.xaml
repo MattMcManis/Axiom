@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:System="clr-namespace:System;assembly=mscorlib" 
         xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
+        xmlns:Themes1="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2" 
         xmlns:local="clr-namespace:Axiom"
         mc:Ignorable="d"
-        ResizeMode="CanMinimize"
         UseLayoutRounding="True"
         Title="Update" 
         Height="200" Width="400"
@@ -16,16 +16,22 @@
 
     <Grid>
         <Grid>
+            
             <!-- Progres Info -->
             <Label x:Name="labelProgressInfo" 
-                Content="" 
-                HorizontalContentAlignment="Center" 
-                Margin="12,52,12,0" Height="26" VerticalAlignment="Top" Style="{DynamicResource LabelCustom}"/>
+                   Content="" 
+                   HorizontalContentAlignment="Center" 
+                   Margin="12,52,12,0" 
+                   Height="26" 
+                   VerticalAlignment="Top"
+                   Style="{DynamicResource LabelCustom}"/>
 
             <!-- Progres Bar -->
             <ProgressBar x:Name="progressBar" 
-                Margin="10,85,12,0" 
-                ToolTip="Download Progress" Height="23" VerticalAlignment="Top"/>
+                         Margin="10,85,12,0" 
+                         ToolTip="Download Progress"
+                         Height="23"
+                         VerticalAlignment="Top"/>
         </Grid>
 
     </Grid>

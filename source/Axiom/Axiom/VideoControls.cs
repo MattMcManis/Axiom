@@ -42,6 +42,7 @@ namespace Axiom
         // Video
         // -------------------------
         public static List<string> VideoCodecItemSource;
+        public static List<string> SubtitleCodecItemSource;
         public static List<string> VideoItemSource;
         public static List<string> PassItemSource;
         public static List<string> ResizeItemSource;
@@ -1193,7 +1194,11 @@ namespace Axiom
                         && (string)mainwindow.cboFPS.SelectedItem == "auto"
                         && (string)mainwindow.cboOptimize.SelectedItem == "none")
                     {
+                        // Video
                         mainwindow.cboVideoCodec.SelectedItem = "Copy";
+
+                        // Subtitle
+                        mainwindow.cboSubtitleCodec.SelectedItem = "Copy";
                     }
                 }
 
@@ -1473,6 +1478,76 @@ namespace Axiom
             if ((string)mainwindow.cboVideo.SelectedItem != "Auto")
             {
                 mainwindow.cboPass.IsEnabled = true;
+            }
+        }
+
+
+        /// <summary>
+        ///     Subtitle Codec Controls
+        /// </summary>
+        public static void SubtitleCodecControls(MainWindow mainwindow)
+        {
+            // -------------------------
+            // Video
+            // -------------------------
+            if ((string)mainwindow.cboMediaType.SelectedItem == "Video")
+            {
+                // None
+                //
+                if ((string)mainwindow.cboSubtitle.SelectedItem == "none")
+                {
+                    mainwindow.cboSubtitleCodec.SelectedItem = "None";
+                    mainwindow.cboSubtitleCodec.IsEnabled = false;
+                }
+
+                // All, External, & Stream Number
+                //
+                else
+                {
+                    // Formats
+                    if ((string)mainwindow.cboFormat.SelectedItem == "webm")
+                    {
+                        mainwindow.cboSubtitleCodec.SelectedItem = "None";
+                        mainwindow.cboSubtitleCodec.IsEnabled = false;
+                    }
+                    else if ((string)mainwindow.cboFormat.SelectedItem == "mp4")
+                    {
+                        mainwindow.cboSubtitleCodec.SelectedItem = "mov_text";
+                        mainwindow.cboSubtitleCodec.IsEnabled = true;
+                    }
+                    else if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
+                    {
+                        mainwindow.cboSubtitleCodec.SelectedItem = "Copy";
+                        mainwindow.cboSubtitleCodec.IsEnabled = true;
+                    }
+                    else if ((string)mainwindow.cboFormat.SelectedItem == "avi")
+                    {
+                        mainwindow.cboSubtitleCodec.SelectedItem = "SRT";
+                        mainwindow.cboSubtitleCodec.IsEnabled = true;
+                    }
+                    else if ((string)mainwindow.cboFormat.SelectedItem == "ogv")
+                    {
+                        mainwindow.cboSubtitleCodec.SelectedItem = "None";
+                        mainwindow.cboSubtitleCodec.IsEnabled = false;
+                    }
+                }
+            }
+            // -------------------------
+            // Image
+            // -------------------------
+            else if ((string)mainwindow.cboMediaType.SelectedItem == "Image"
+                || (string)mainwindow.cboMediaType.SelectedItem == "Sequence")
+            {
+                mainwindow.cboSubtitleCodec.SelectedItem = "None";
+                mainwindow.cboSubtitleCodec.IsEnabled = false;
+            }
+            // -------------------------
+            // Audio
+            // -------------------------
+            else if ((string)mainwindow.cboMediaType.SelectedItem == "Audio")
+            {
+                mainwindow.cboSubtitleCodec.SelectedItem = "None";
+                mainwindow.cboSubtitleCodec.IsEnabled = false;
             }
         }
     }

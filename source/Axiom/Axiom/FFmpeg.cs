@@ -103,7 +103,9 @@ namespace Axiom
                 // -------------------------
                 List<string> FFmpegArgsSinglePassList = new List<string>()
                     {
-                        "\r\n\r\n" + "\"" + MainWindow.InputPath(mainwindow) + "\"",
+                        "\r\n\r\n" + "-i "+ "\"" + MainWindow.InputPath(mainwindow) + "\"",
+
+                        "\r\n\r\n" + Video.Subtitles(mainwindow),
 
                         "\r\n\r\n" + Video.VideoCodec(mainwindow),
                         "\r\n" + Video.Speed(mainwindow),
@@ -151,9 +153,8 @@ namespace Axiom
 
 
         /// <summary>
-        /// Batch2PassArgs
-        /// </summary>
-        
+        /// Batch 2Pass Args
+        /// </summary>      
         public static String TwoPassArgs(MainWindow mainwindow)
         {
             // -------------------------
@@ -172,7 +173,9 @@ namespace Axiom
                 // -------------------------
                 List<string> FFmpegArgsPass1List = new List<string>()
                     {
-                        "\r\n\r\n" + "\"" + MainWindow.InputPath(mainwindow) + "\"",
+                        "\r\n\r\n" + "-i "+ "\"" + MainWindow.InputPath(mainwindow) + "\"",
+
+                        "\r\n\r\n" + Video.Subtitles(mainwindow),
 
                         "\r\n\r\n" + Video.VideoCodec(mainwindow),
                         "\r\n" + Video.Speed(mainwindow),
@@ -214,9 +217,10 @@ namespace Axiom
                         "\r\n\r\n" + MainWindow.FFmpegPath(),
                         "\r\n\r\n" + Video.HWAcceleration(mainwindow),
                         "-y",
-                        "-i",
 
-                        "\r\n\r\n" + "\"" + MainWindow.InputPath(mainwindow) + "\"",
+                        "\r\n\r\n" + "-i " + "\"" + MainWindow.InputPath(mainwindow) + "\"",
+
+                        "\r\n\r\n" + Video.Subtitles(mainwindow),
 
                         "\r\n\r\n" + Video.vCodec,
                         "\r\n" + Video.speed,
@@ -284,7 +288,7 @@ namespace Axiom
                     MainWindow.FFmpegPath(),
                     Video.HWAcceleration(mainwindow),
                     "-y",
-                    "-i",
+                    //"-i",
                     FFmpeg.OnePassArgs(mainwindow), //disabled if 2-Pass
                     FFmpeg.TwoPassArgs(mainwindow) //disabled if 1-Pass
                 };
@@ -379,7 +383,7 @@ namespace Axiom
                     "\r\n\r\n" + MainWindow.FFmpegPath(),
                     "\r\n\r\n" + Video.HWAcceleration(mainwindow),
                     "-y",
-                    "-i",
+                    //"-i",
                     //%~f added in InputPath()
 
                     FFmpeg.OnePassArgs(mainwindow), //disabled if 2-Pass       
@@ -397,7 +401,7 @@ namespace Axiom
                 // Inline 
                 ffmpegArgs = string.Join(" ", FFmpegBatchArgsList
                     .Where(s => !string.IsNullOrEmpty(s)))
-                    .Replace("\r\n", "") //Remove Linebreaks
+                    .Replace("\r\n", " ") // Replace Linebreaks with Spaces to avoid arguments touching
                     .Replace(Environment.NewLine, "");
             }
         }
@@ -433,7 +437,8 @@ namespace Axiom
                 "cmd.exe",
                 //FFmpeg.cmdWindow 
                 KeepWindow(mainwindow)
-                + " cd " + "\"" + MainWindow.appDir + "\""
+                //+ " cd " + "\"" + MainWindow.appDir + "\""
+                + " cd " + "\"" + MainWindow.inputDir + "\""
                 + " & "
                 + FFmpeg.ffmpegArgs
             );

@@ -22,7 +22,9 @@ along with this program.If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
+using System.Windows;
 using System.Windows.Documents;
 // Disable XML Comment warnings
 #pragma warning disable 1591
@@ -70,6 +72,11 @@ namespace Axiom
         public static string pass2Args; // Batch 2-Pass (Pass 2)
         public static string pass1; // x265 Modifier
         public static string pass2; // x265 Modifier
+
+        // Subtitles
+        public static string subsDir; // Subtitles Directory
+        public static List<string> subtitleFilePathsList = new List<string>(); // Files Added   
+        public static List<string> subtitleFileNamesList = new List<string>(); // File Names without Path
 
         // Filter
         public static CropWindow cropwindow;
@@ -158,7 +165,7 @@ namespace Axiom
         /// <summary>
         public static String VideoCodec(MainWindow mainwindow)
         {
-            // Video Bitrate None Check
+            // Video None Check
             // Video Codec None Check
             // Media Type Check
             if ((string)mainwindow.cboVideo.SelectedItem != "None"
@@ -296,6 +303,71 @@ namespace Axiom
             return vCodec;
         }
 
+
+        /// <summary>
+        /// Subtitle Codecs (Method)
+        /// <summary>
+        public static String SubtitleCodec(MainWindow mainwindow)
+        {
+            // Video None Check
+            // Subtitle none -sn Check
+            // Subtitle Codec None Check
+            // Media Type Check
+            if ((string)mainwindow.cboVideo.SelectedItem != "None"
+                && (string)mainwindow.cboSubtitle.SelectedItem != "none"
+                && (string)mainwindow.cboSubtitleCodec.SelectedItem != "None"
+                && (string)mainwindow.cboMediaType.SelectedItem != "Audio")
+            {
+                //MessageBox.Show("here"); //debug
+
+                // -------------------------
+                // Subtitle
+                // -------------------------
+                // None
+                if ((string)mainwindow.cboSubtitleCodec.SelectedItem == "None")
+                {
+                    sCodec = string.Empty;
+                }
+                // mov_text
+                else if ((string)mainwindow.cboSubtitleCodec.SelectedItem == "mov_text")
+                {
+                    sCodec = "-c:s mov_text";
+                }
+                // ASS
+                else if ((string)mainwindow.cboSubtitleCodec.SelectedItem == "ASS")
+                {
+                    sCodec = "-c:s ass";
+                }
+                // SSA
+                else if ((string)mainwindow.cboSubtitleCodec.SelectedItem == "SSA")
+                {
+                    sCodec = "-c:s ssa";
+                }
+                // SRT
+                else if ((string)mainwindow.cboSubtitleCodec.SelectedItem == "SRT")
+                {
+                    sCodec = "-c:s srt";
+                }
+                // Copy
+                else if ((string)mainwindow.cboSubtitleCodec.SelectedItem == "Copy")
+                {
+                    sCodec = "-c:s copy";
+                }
+
+
+                // Log Console Message /////////
+                Log.WriteAction = () =>
+                {
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new Bold(new Run("Codec: ")) { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new Run(Convert.ToString(mainwindow.cboSubtitleCodec.SelectedItem)) { Foreground = Log.ConsoleDefault });
+                };
+                Log.LogActions.Add(Log.WriteAction);
+            }
+
+            // Return Value
+            return sCodec;
+        }
 
 
         /// <summary>
@@ -1700,7 +1772,8 @@ namespace Axiom
                 width = "-1";
             }
             else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264"
-                || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
+                || (string)mainwindow.cboVideoCodec.SelectedItem == "x265"
+                || (string)mainwindow.cboVideoCodec.SelectedItem == "mpeg4")
             {
                 width = "-2";
             }
@@ -1740,7 +1813,8 @@ namespace Axiom
             {
                 // MP4/MKV Width/Height Fix
                 if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264" 
-                    || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
+                    || (string)mainwindow.cboVideoCodec.SelectedItem == "x265"
+                    || (string)mainwindow.cboVideoCodec.SelectedItem == "mpeg4")
                 {
                     width = "trunc(iw/2)*2";
                     height = "trunc(ih/2)*2";
@@ -1994,7 +2068,10 @@ namespace Axiom
                                 /* lock */
                                 MainWindow.ready = false;
                                 // Warning
-                                System.Windows.MessageBox.Show("Must enter numbers only.");
+                                MessageBox.Show("Must enter numbers only.",
+                                        "Notice",
+                                        MessageBoxButton.OK,
+                                        MessageBoxImage.Exclamation);
                             }
 
                         }
@@ -2040,7 +2117,10 @@ namespace Axiom
                                 /* lock */
                                 MainWindow.ready = false;
                                 // Warning
-                                System.Windows.MessageBox.Show("Must enter numbers only.");
+                                MessageBox.Show("Must enter numbers only.",
+                                        "Notice",
+                                        MessageBoxButton.OK,
+                                        MessageBoxImage.Exclamation);
                             }
                         }
 
@@ -2086,7 +2166,10 @@ namespace Axiom
                                 /* lock */
                                 MainWindow.ready = false;
                                 // Warning
-                                System.Windows.MessageBox.Show("Must enter numbers only.");
+                                MessageBox.Show("Must enter numbers only.",
+                                        "Notice",
+                                        MessageBoxButton.OK,
+                                        MessageBoxImage.Exclamation);
                             }
                         }
                         // -------------------------
@@ -2203,7 +2286,10 @@ namespace Axiom
                 /* lock */
                 MainWindow.ready = false;
                 // Warning
-                System.Windows.MessageBox.Show("Crop cannot use Codec Copy. Please select a Video Codec."); 
+                MessageBox.Show("Crop cannot use Codec Copy. Please select a Video Codec.",
+                                "Notice",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Exclamation);
             }
 
             // -------------------------
@@ -2284,6 +2370,77 @@ namespace Axiom
             }
 
             return image;
+        }
+
+
+        /// <summary>
+        /// Subtitles (Method)
+        /// <summary>
+        public static String Subtitles(MainWindow mainwindow)
+        {
+            string subtitles = string.Empty;
+
+            // -------------------------
+            // External
+            // -------------------------
+            if ((string)mainwindow.cboSubtitle.SelectedItem == "external"
+                && subtitleFilePathsList != null 
+                && subtitleFilePathsList.Count > 0)
+            {
+                subtitles = "-i " + string.Join(" \r\n\r\n-i ", subtitleFilePathsList
+                                          .Where(s => !string.IsNullOrEmpty(s))
+                                          );
+
+                // Default Subtitle
+                string checkedItem = string.Empty;
+                for (var i = 0; i < mainwindow.listViewSubtitles.Items.Count; i++)
+                {
+                    // If list contains a checked item
+                    if (mainwindow.listViewSubtitles.SelectedItems.Contains(mainwindow.listViewSubtitles.Items[i]))
+                    {
+                        // Get Index Position
+                        checkedItem = i.ToString();
+                    }
+                }
+
+                // Create Default Subtitle
+                string disposition = string.Empty;
+                if (!string.IsNullOrEmpty(checkedItem))
+                {
+                    //disposition = " -disposition:s:" + checkedItem;
+                }
+                
+                // Add Subtitles + Default Sub
+                // -i "C:\example\eng.srt" -disposition:s:0
+                subtitles = subtitles + disposition;
+            }
+
+            return subtitles;
+        }
+
+
+        /// <summary>
+        /// Subtitles Style Filter (Method)
+        /// <summary>
+        public static void SubtitlesStyleFilter(MainWindow mainwindow)
+        {
+            string style = string.Empty;
+
+            // -------------------------
+            // External
+            // -------------------------
+            if ((string)mainwindow.cboSubtitle.SelectedItem == "external"
+                && subtitleFileNamesList.Count > 0)
+            {
+                //// Join File Names List
+                //string files = string.Join(",", subtitleFileNamesList.Where(s => !string.IsNullOrEmpty(s)));
+
+                //// Create Subtitles Filter
+                //string subtitles = "subtitles=" + files + ":force_style='FontName=Arial,FontSize=22'" + style;
+
+                //// Add to Filters List
+                //VideoFilters.Add(subtitles);
+            }
         }
 
 
@@ -2656,7 +2813,10 @@ namespace Axiom
                     /* lock */
                     MainWindow.ready = false;
                     // Warning
-                    System.Windows.MessageBox.Show("No input file or Framerate not detected.");
+                    MessageBox.Show("No input file or Framerate not detected.",
+                                        "Notice",
+                                        MessageBoxButton.OK,
+                                        MessageBoxImage.Warning);
                 }
             }
 
@@ -2689,6 +2849,11 @@ namespace Axiom
                 ///    Crop
                 /// </summary> 
                 Video.Crop(mainwindow, cropwindow);
+
+                /// <summary>
+                ///    Subtitles Style
+                /// </summary> 
+                Video.SubtitlesStyleFilter(mainwindow);
 
 
                 // -------------------------
@@ -2748,75 +2913,6 @@ namespace Axiom
 
             // Return Value
             return vFilter;
-        }
-
-
-        /// <summary>
-        ///     Subtitle Codec
-        /// </summary>
-        public static String SubtitleCodec(MainWindow mainwindow)
-        {
-            // --------------------------------------------------
-            // Subtitle Map
-            // --------------------------------------------------
-
-            // -------------------------
-            // Video
-            // -------------------------
-            if ((string)mainwindow.cboMediaType.SelectedItem == "Video")
-            {
-                // None
-                //
-                if ((string)mainwindow.cboSubtitle.SelectedItem == "none")
-                {
-                    sCodec = string.Empty;
-                }
-                // All & Number
-                //
-                else
-                {
-                    // Formats
-                    if ((string)mainwindow.cboFormat.SelectedItem == "webm")
-                    {
-                        sCodec = string.Empty;
-                    }
-                    else if ((string)mainwindow.cboFormat.SelectedItem == "mp4")
-                    {
-                        sCodec = "-c:s mov_text";
-                    }
-                    else if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
-                    {
-                        sCodec = "-c:s copy";
-                    }
-                    else if ((string)mainwindow.cboFormat.SelectedItem == "avi")
-                    {
-                        sCodec = "-c:s mov_text";
-                    }
-                    else if ((string)mainwindow.cboFormat.SelectedItem == "ogv")
-                    {
-                        sCodec = string.Empty;
-                    }  
-                }
-            }
-            // -------------------------
-            // Image
-            // -------------------------
-            else if ((string)mainwindow.cboMediaType.SelectedItem == "Image"
-                || (string)mainwindow.cboMediaType.SelectedItem == "Sequence")
-            {
-                sCodec = string.Empty;
-            }
-            // -------------------------
-            // Audio
-            // -------------------------
-            else if ((string)mainwindow.cboMediaType.SelectedItem == "Audio")
-            {
-                sCodec = string.Empty;
-            }
-
-
-            // Return Value
-            return sCodec;
         }
 
     }

@@ -28,8 +28,6 @@ namespace Axiom
 {
     public partial class ScriptView
     {
-        //private MainWindow mainwindow;
-
         public static bool sort = false;
 
         public static Paragraph scriptParagraph = new Paragraph(); //RichTextBox

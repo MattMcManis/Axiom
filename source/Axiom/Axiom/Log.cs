@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Media;
 // Disable XML Comment warnings
@@ -120,7 +121,10 @@ namespace Axiom
                         Log.LogActions.Add(Log.WriteAction);
 
                         // Popup Message Dialog Box
-                        System.Windows.MessageBox.Show("Error Saving Output Log to " + "\"" + Configure.logPath + "\"" + ". May require Administrator Privileges.");
+                        MessageBox.Show("Error Saving Output Log to " + "\"" + Configure.logPath + "\"" + ". May require Administrator Privileges.",
+                                        "Error",
+                                        MessageBoxButton.OK,
+                                        MessageBoxImage.Warning);
                         // do not halt program
                     }
                 }

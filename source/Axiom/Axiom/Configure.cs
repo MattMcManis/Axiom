@@ -16,7 +16,7 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with this program.If not, see<http://www.gnu.org/licenses/>. 
+along with this program.If not, see <http://www.gnu.org/licenses/>. 
 ---------------------------------------------------------------------- */
 
 using Axiom.Properties;
@@ -47,163 +47,10 @@ namespace Axiom
         /// <summary>
         /// Load Theme
         /// </summary>
-        public static void LoadTheme(MainWindow mainwindow)
-        {
-            // --------------------------------------------------
-            // Safeguard Against Corrupt Saved Settings
-            // --------------------------------------------------
-            try
-            {
-                // --------------------------
-                // First time use
-                // --------------------------
-                if (string.IsNullOrEmpty(Settings.Default["Theme"].ToString()))
-                {
-                    Configure.theme = "Axiom";
-
-                    // Set ComboBox if Configure Window is Open
-                    mainwindow.cboTheme.SelectedItem = "Axiom";
-
-                    // Save Theme for next launch
-                    Settings.Default["Theme"] = Configure.theme;
-                    Settings.Default.Save();
-
-                    // Change Theme Resource
-                    App.Current.Resources.MergedDictionaries.Clear();
-                    App.Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
-                    {
-                        Source = new Uri("Theme" + Configure.theme + ".xaml", UriKind.RelativeOrAbsolute)
-                    });
-                }
-                // --------------------------
-                // Load Saved Settings Override
-                // --------------------------
-                else if (!string.IsNullOrEmpty(Settings.Default["Theme"].ToString())) // null check
-                {
-                    Configure.theme = Settings.Default["Theme"].ToString();
-
-                    // Set ComboBox
-                    mainwindow.cboTheme.SelectedItem = Configure.theme;
-
-                    // Change Theme Resource
-                    App.Current.Resources.MergedDictionaries.Clear();
-                    App.Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
-                    {
-                        Source = new Uri("Theme" + Configure.theme + ".xaml", UriKind.RelativeOrAbsolute)
-                    });
-                }
-
-                // -------------------------
-                // Log Text Theme Color
-                // -------------------------
-                if (Configure.theme == "Axiom")
-                {
-                    Log.ConsoleDefault = Brushes.White; // Default
-                    Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#007DF2")); // Titles
-                    Log.ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
-                    Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
-                    Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#72D4E8")); // Actions
-                }
-                else if (Configure.theme == "FFmpeg")
-                {
-                    Log.ConsoleDefault = Brushes.White; // Default
-                    Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#5cb85c")); // Titles
-                    Log.ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
-                    Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
-                    Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#5cb85c")); // Actions
-                }
-                else if (Configure.theme == "Cyberpunk")
-                {
-                    Log.ConsoleDefault = Brushes.White; // Default
-                    Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#9f3ed2")); // Titles
-                    Log.ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
-                    Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
-                    Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#9380fd")); // Actions
-                }
-                else if (Configure.theme == "Onyx")
-                {
-                    Log.ConsoleDefault = Brushes.White; // Default
-                    Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#999999")); // Titles
-                    Log.ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
-                    Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
-                    Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#777777")); // Actions
-                }
-                else if (Configure.theme == "Circuit")
-                {
-                    Log.ConsoleDefault = Brushes.White; // Default
-                    Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#ad8a4a")); // Titles
-                    Log.ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
-                    Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
-                    Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#2ebf93")); // Actions
-                }
-                else if (Configure.theme == "Prelude")
-                {
-                    Log.ConsoleDefault = Brushes.White; // Default
-                    Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#999999")); // Titles
-                    Log.ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
-                    Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
-                    Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#777777")); // Actions
-                }
-                else if (Configure.theme == "System")
-                {
-                    Log.ConsoleDefault = Brushes.White; // Default
-                    Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#007DF2")); // Titles
-                    Log.ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
-                    Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
-                    Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#72D4E8")); // Actions
-                }
-
-                // -------------------------
-                // Debug Text Theme Color
-                // -------------------------
-                if (Configure.theme == "Axiom")
-                {
-                    DebugConsole.Heading = (SolidColorBrush)(new BrushConverter().ConvertFrom("#007DF2"));
-                    DebugConsole.Variable = (SolidColorBrush)(new BrushConverter().ConvertFrom("#72D4E8"));
-                    DebugConsole.Value = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFFFFF"));
-                }
-                else if (Configure.theme == "FFmpeg")
-                {
-                    DebugConsole.Heading = (SolidColorBrush)(new BrushConverter().ConvertFrom("#878787"));
-                    DebugConsole.Variable = (SolidColorBrush)(new BrushConverter().ConvertFrom("#5cb85c"));
-                    DebugConsole.Value = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFFFFF"));
-                }
-                else if (Configure.theme == "Cyberpunk")
-                {
-                    DebugConsole.Heading = (SolidColorBrush)(new BrushConverter().ConvertFrom("#9a989c"));
-                    DebugConsole.Variable = (SolidColorBrush)(new BrushConverter().ConvertFrom("#9f3ed2"));
-                    DebugConsole.Value = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFFFFF"));
-                }
-                else if (Configure.theme == "Onyx")
-                {
-                    DebugConsole.Heading = (SolidColorBrush)(new BrushConverter().ConvertFrom("#EEEEEE"));
-                    DebugConsole.Variable = (SolidColorBrush)(new BrushConverter().ConvertFrom("#999999"));
-                    DebugConsole.Value = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFFFFF"));
-                }
-                else if (Configure.theme == "Circuit")
-                {
-                    DebugConsole.Heading = (SolidColorBrush)(new BrushConverter().ConvertFrom("#ad8a4a"));
-                    DebugConsole.Variable = (SolidColorBrush)(new BrushConverter().ConvertFrom("#2ebf93"));
-                    DebugConsole.Value = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFFFFF"));
-                }
-                else if (Configure.theme == "Prelude")
-                {
-                    DebugConsole.Heading = (SolidColorBrush)(new BrushConverter().ConvertFrom("#ad8a4a"));
-                    DebugConsole.Variable = (SolidColorBrush)(new BrushConverter().ConvertFrom("#2ebf93"));
-                    DebugConsole.Value = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFFFFF"));
-                }
-                else if (Configure.theme == "System")
-                {
-                    DebugConsole.Heading = (SolidColorBrush)(new BrushConverter().ConvertFrom("#007DF2"));
-                    DebugConsole.Variable = (SolidColorBrush)(new BrushConverter().ConvertFrom("#72D4E8"));
-                    DebugConsole.Value = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFFFFF"));
-                }
-            }
-            catch
-            {
-
-            }
-        }
+        //public static void LoadTheme(MainWindow mainwindow)
+        //{
+        //
+        //}
 
 
         /// <summary>
