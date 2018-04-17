@@ -81,4 +81,4 @@ Visual C++ 19.0 Compiler
 
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=VTUE7KQ8RS3DN) 
 
-Thank you for donating to help further development on this software.
+Your donations help further development on this software.
