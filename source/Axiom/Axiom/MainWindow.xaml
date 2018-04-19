@@ -934,13 +934,14 @@
                             FontFamily="Segoe UI Semilight" Margin="20,0,0,4" />
 
                             <ComboBox x:Name="cboVideo" 
-                            Style="{DynamicResource ComboBoxWhite}"
-                            ItemContainerStyle="{DynamicResource ComboBoxWhiteItem}"
-                            HorizontalAlignment="Left"
-                            Margin="0,2,0,0" 
-                            VerticalAlignment="Top" 
-                            Width="100"
-                            SelectionChanged="cboVideo_SelectionChanged" Grid.Column="1"  />
+                                      Style="{DynamicResource ComboBoxWhite}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxWhiteItem}"
+                                      HorizontalAlignment="Left"
+                                      Margin="0,2,0,0" 
+                                      VerticalAlignment="Top" 
+                                      Width="100"
+                                      SelectionChanged="cboVideo_SelectionChanged" 
+                                      Grid.Column="1"  />
 
                             <!-- FPS -->
                             <Label
@@ -1019,6 +1020,8 @@
                                           ToolTip="Toggle Variable Bitrate." 
                                           Width="30" 
                                           Height="22" 
+                                          Checked="tglVideoVBR_Checked"
+                                          Unchecked="tglVideoVBR_Unchecked"
                                           Grid.Row="1" 
                                           Grid.Column="1" />
 

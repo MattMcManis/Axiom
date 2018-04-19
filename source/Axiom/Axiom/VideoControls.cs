@@ -1479,6 +1479,53 @@ namespace Axiom
             {
                 mainwindow.cboPass.IsEnabled = true;
             }
+
+
+
+            // -------------------------
+            // MPEG-4 Lossless (Special Rules)
+            // -------------------------
+            if ((string)mainwindow.cboVideoCodec.SelectedItem == "mpeg4")
+            {
+                // -------------------------
+                // Lossless is VBR -q:v 2
+                // VBR can only be 1 Pass
+                // -------------------------
+                if ((string)mainwindow.cboVideo.SelectedItem == "Lossless")
+                {
+                    // Change ItemSource
+                    VideoControls.PassItemSource = new List<string>()
+                    {
+                        "1 Pass",
+                    };
+
+                    // Populate ComboBox from ItemSource
+                    mainwindow.cboPass.ItemsSource = PassItemSource;
+
+                    // Select Item
+                    mainwindow.cboPass.SelectedItem = "1 Pass";
+                }
+
+                // -------------------------
+                // High, Medium, Low, Sub is CBR/VBR
+                // CBR can be 1 Pass or 2 Pass
+                // -------------------------
+                else
+                {
+                    // Change ItemSource
+                    VideoControls.PassItemSource = new List<string>()
+                    {
+                        "2 Pass",
+                        "1 Pass",
+                    };
+
+                    // Populate ComboBox from ItemSource
+                    mainwindow.cboPass.ItemsSource = PassItemSource;
+
+                    // Select Item
+                    mainwindow.cboPass.SelectedItem = "2 Pass";
+                }
+            }
         }
 
 

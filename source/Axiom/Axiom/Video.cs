@@ -404,6 +404,25 @@ namespace Axiom
 
 
         /// <summary>
+        /// Video CBR to VBR
+        /// <summary>
+        //public static String VideoCBRtoVBR(MainWindow mainwindow, string value)
+        //{
+        //    // MPEG-4
+        //    if (mainwindow.tglVideoVBR.IsChecked == true)
+        //    {
+        //        if ((string)mainwindow.cboVideoCodec.SelectedItem == "mpeg4")
+        //        {
+
+        //        }
+        //    }
+
+        //    return value;
+        //}
+
+
+
+        /// <summary>
         /// Video Bitrate Calculator (Method)
         /// <summary>
         public static String VideoBitrateCalculator(MainWindow mainwindow, string vEntryType, string inputVideoBitrate)
@@ -728,10 +747,22 @@ namespace Axiom
                                 if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8"
                                     || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9"
                                     || (string)mainwindow.cboVideoCodec.SelectedItem == "x264"
-                                    || (string)mainwindow.cboVideoCodec.SelectedItem == "x265"
-                                    || (string)mainwindow.cboVideoCodec.SelectedItem == "mpeg4")
+                                    || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
                                 {
                                     vBitrate = VideoBitrateCalculator(mainwindow, FFprobe.vEntryType, FFprobe.inputVideoBitrate);
+                                }
+                                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "mpeg4")
+                                {
+                                    // CBR
+                                    if (mainwindow.tglVideoVBR.IsChecked == false)
+                                    {
+                                        vBitrate = VideoBitrateCalculator(mainwindow, FFprobe.vEntryType, FFprobe.inputVideoBitrate);
+                                    }
+                                    // VBR
+                                    else if (mainwindow.tglVideoVBR.IsChecked == true)
+                                    {
+                                        vBitrate = "5";
+                                    }       
                                 }
                                 else if ((string)mainwindow.cboVideoCodec.SelectedItem == "Theora")
                                 {
@@ -862,9 +893,19 @@ namespace Axiom
                     // -------------------------
                     else if ((string)mainwindow.cboVideoCodec.SelectedItem == "mpeg4")
                     {
-                        vBitMode = "-q:v";
-                        vBitrate = "1";
-                        vOptions = "-pix_fmt yuv444p";
+                        // CBR
+                        if (mainwindow.tglVideoVBR.IsChecked == false)
+                        {
+                            vBitMode = "-q:v"; // force vbr
+                            vBitrate = "2";
+                        }
+                        // VBR
+                        else if (mainwindow.tglVideoVBR.IsChecked == true)
+                        {
+                            vBitrate = "2";
+                        }
+
+                        vOptions = "-pix_fmt yuv420p";
                     }
                     // -------------------------
                     // PNG
@@ -972,7 +1013,17 @@ namespace Axiom
                     // -------------------------
                     else if ((string)mainwindow.cboVideoCodec.SelectedItem == "mpeg4")
                     {
-                        vBitrate = "5M";
+                        // CBR
+                        if (mainwindow.tglVideoVBR.IsChecked == false)
+                        {
+                            vBitrate = "5M";
+                        }
+                        // VBR
+                        else if (mainwindow.tglVideoVBR.IsChecked == true)
+                        {
+                            vBitrate = "4";
+                        }
+                       
                         vMinrate = string.Empty;
                         vMaxrate = string.Empty;
                         crf = string.Empty;
@@ -1100,7 +1151,17 @@ namespace Axiom
                     // -------------------------
                     else if ((string)mainwindow.cboVideoCodec.SelectedItem == "mpeg4")
                     {
-                        vBitrate = "2500K";
+                        // CBR
+                        if (mainwindow.tglVideoVBR.IsChecked == false)
+                        {
+                            vBitrate = "2M";
+                        }
+                        // VBR
+                        else if (mainwindow.tglVideoVBR.IsChecked == true)
+                        {
+                            vBitrate = "6";
+                        }
+
                         vMinrate = string.Empty;
                         vMaxrate = string.Empty;
                         crf = string.Empty;
@@ -1228,7 +1289,17 @@ namespace Axiom
                     // -------------------------
                     else if ((string)mainwindow.cboVideoCodec.SelectedItem == "mpeg4")
                     {
-                        vBitrate = "1300K";
+                        // CBR
+                        if (mainwindow.tglVideoVBR.IsChecked == false)
+                        {
+                            vBitrate = "1300K";
+                        }
+                        // VBR
+                        else if (mainwindow.tglVideoVBR.IsChecked == true)
+                        {
+                            vBitrate = "8";
+                        }
+
                         vMinrate = string.Empty;
                         vMaxrate = string.Empty;
                         crf = string.Empty;
@@ -1356,7 +1427,17 @@ namespace Axiom
                     // -------------------------
                     else if ((string)mainwindow.cboVideoCodec.SelectedItem == "mpeg4")
                     {
-                        vBitrate = "600K";
+                        // CBR
+                        if (mainwindow.tglVideoVBR.IsChecked == false)
+                        {
+                            vBitrate = "600K";
+                        }
+                        // VBR
+                        else if (mainwindow.tglVideoVBR.IsChecked == true)
+                        {
+                            vBitrate = "10";
+                        }
+
                         vMinrate = string.Empty;
                         vMaxrate = string.Empty;
                         crf = string.Empty;
@@ -1484,7 +1565,17 @@ namespace Axiom
                     // -------------------------
                     else if ((string)mainwindow.cboVideoCodec.SelectedItem == "mpeg4")
                     {
-                        vBitrate = "250K";
+                        // CBR
+                        if (mainwindow.tglVideoVBR.IsChecked == false)
+                        {
+                            vBitrate = "250K";
+                        }
+                        // VBR
+                        else if (mainwindow.tglVideoVBR.IsChecked == true)
+                        {
+                            vBitrate = "12";
+                        }
+
                         vMinrate = string.Empty;
                         vMaxrate = string.Empty;
                         crf = string.Empty;
@@ -2439,8 +2530,7 @@ namespace Axiom
                 // x264 / x265
                 // -------------------------
                 if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264" 
-                    || (string)mainwindow.cboVideoCodec.SelectedItem == "x265"
-                    || (string)mainwindow.cboVideoCodec.SelectedItem == "mpeg4")
+                    || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
                 {
                     if ((string)mainwindow.cboSpeed.SelectedItem == "Placebo") { speed = "-preset placebo"; }
                     else if ((string)mainwindow.cboSpeed.SelectedItem == "Very Slow") { speed = "-preset veryslow"; }
@@ -2452,6 +2542,15 @@ namespace Axiom
                     else if ((string)mainwindow.cboSpeed.SelectedItem == "Very Fast") { speed = "-preset veryfast"; }
                     else if ((string)mainwindow.cboSpeed.SelectedItem == "Super Fast") { speed = "-preset superfast"; }
                     else if ((string)mainwindow.cboSpeed.SelectedItem == "Ultra Fast") { speed = "-preset ultrafast"; }
+                }
+
+                // -------------------------
+                // MPEG-4
+                // -------------------------             
+                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "mpeg4")
+                {
+                    // Does not use speed presets
+                    speed = string.Empty;
                 }
 
                 // -------------------------
@@ -2493,6 +2592,7 @@ namespace Axiom
                 // -------------------------
                 else if ((string)mainwindow.cboVideoCodec.SelectedItem == "Theora")
                 {
+                    // Does not use speed presets
                     speed = string.Empty;
                 }
 
@@ -2502,6 +2602,7 @@ namespace Axiom
                 else if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG" 
                     || (string)mainwindow.cboVideoCodec.SelectedItem == "PNG")
                 {
+                    // Does not use speed presets
                     speed = string.Empty;
                 }
 
@@ -2511,6 +2612,7 @@ namespace Axiom
                 else if ((string)mainwindow.cboVideoCodec.SelectedItem == "None"
                     || string.IsNullOrEmpty((string)mainwindow.cboVideoCodec.SelectedItem))
                 {
+                    // Does not use speed presets
                     speed = string.Empty;
                 }
 

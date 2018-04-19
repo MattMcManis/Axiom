@@ -1928,18 +1928,46 @@ namespace Axiom
             cboThreads.SelectedItem = "all";
             Configure.threads = string.Empty;
 
-            // Save Current Window Location
-            // Prevents MainWindow from moving to Top 0 Left 0 while running
-            double left = Left;
-            double top = Top;
+            //// Save Current Window Location
+            //// Prevents MainWindow from moving to Top 0 Left 0 while running
+            //double left = Left;
+            //double top = Top;
 
-            // Reset AppData Settings
-            Settings.Default.Reset();
-            Settings.Default.Reload();
+            //// Reset AppData Settings
+            //Settings.Default.Reset();
+            //Settings.Default.Reload();
 
-            // Set Window Location
-            Left = left;
-            Top = top;
+            //// Set Window Location
+            //Left = left;
+            //Top = top;
+
+
+            // Yes/No Dialog Confirmation
+            //
+            MessageBoxResult result = MessageBox.Show(
+                                                "Reset Saved Settings?",
+                                                "Settings",
+                                                MessageBoxButton.YesNo,
+                                                MessageBoxImage.Exclamation
+                                                );
+            switch (result)
+            {
+                case MessageBoxResult.Yes:
+
+                    // Reset AppData Settings
+                    Settings.Default.Reset();
+                    Settings.Default.Reload();
+
+                    // Restart Program
+                    Process.Start(Application.ResourceAssembly.Location);
+                    Application.Current.Shutdown();
+
+                    break;
+
+                case MessageBoxResult.No:
+
+                    break;
+            }
         }
 
 
@@ -3159,6 +3187,52 @@ namespace Axiom
 
 
         /// <summary>
+        /// Video VBR Toggle - Checked
+        /// </summary>
+        private void tglVideoVBR_Checked(object sender, RoutedEventArgs e)
+        {
+            // MPEG-4 VBR can only use 1 Pass
+            if ((string)cboVideoCodec.SelectedItem == "mpeg4")
+            {
+                // Change ItemSource
+                VideoControls.PassItemSource = new List<string>()
+                {
+                    "1 Pass",
+                };
+
+                // Populate ComboBox from ItemSource
+                cboPass.ItemsSource = VideoControls.PassItemSource;
+
+                // Select Item
+                cboPass.SelectedItem = "1 Pass";
+            }
+        }
+
+        /// <summary>
+        /// Video VBR Toggle - Unchecked
+        /// </summary>
+        private void tglVideoVBR_Unchecked(object sender, RoutedEventArgs e)
+        {
+            // MPEG-4 CBR Reset
+            if ((string)cboVideoCodec.SelectedItem == "mpeg4")
+            {
+                // Change ItemSource
+                VideoControls.PassItemSource = new List<string>()
+                {
+                    "2 Pass",
+                    "1 Pass",
+                };
+
+                // Populate ComboBox from ItemSource
+                cboPass.ItemsSource = VideoControls.PassItemSource;
+
+                // Select Item
+                cboPass.SelectedItem = "2 Pass";
+            }
+        }
+
+
+        /// <summary>
         ///     FPS ComboBox
         /// </summary>
         private void cboFPS_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -3442,6 +3516,9 @@ namespace Axiom
             VideoControls.VideoCodecControls(this);
             AudioControls.AudioCodecControls(this);
 
+            // Pass Controls
+            VideoControls.EncodingPass(this);
+
             // -------------------------
             // File Renamer
             // -------------------------
@@ -3493,7 +3570,9 @@ namespace Axiom
         {
             VideoControls.AutoCopyVideoCodec(this);
 
-            //enable Video Custom
+            // -------------------------
+            // Enable Video Bitrate Custom
+            // -------------------------
             if ((string)cboVideo.SelectedItem == "Custom")
             {
                 crfCustom.IsEnabled = true;
@@ -3512,6 +3591,7 @@ namespace Axiom
                 vBitrateCustom.IsEnabled = false;
                 //vBitrateCustom.Text = string.Empty ;
             }
+
 
             // -------------------------
             // Set Encoding Speed

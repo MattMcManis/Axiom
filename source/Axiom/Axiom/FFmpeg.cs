@@ -440,7 +440,7 @@ namespace Axiom
                 //FFmpeg.cmdWindow 
                 KeepWindow(mainwindow)
                 //+ " cd " + "\"" + MainWindow.appDir + "\""
-                + " cd " + "\"" + MainWindow.inputDir + "\""
+                + " cd " + "\"" + MainWindow.outputDir + "\""
                 + " & "
                 + FFmpeg.ffmpegArgs
             );
