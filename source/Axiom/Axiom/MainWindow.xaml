@@ -114,6 +114,22 @@
                        TextAlignment="Center"/>
         </Button>
 
+
+        <!-- Script Button -->
+        <Button x:Name="btnScript" 
+                Style="{DynamicResource ButtonCustom}" 
+                HorizontalAlignment="Left"
+                Margin="225,0,0,66"
+                VerticalAlignment="Bottom"
+                Width="60" 
+                Height="22" 
+                Cursor="Hand"
+                Click="btnScript_Click"
+                ToolTip="Generate FFmpeg Commands">
+            <TextBlock Text="Script" 
+                       Margin="0,-2,0,0" />
+        </Button>
+
         <!-- Run Button -->
         <Button x:Name="btnScriptRun"
                 Style="{DynamicResource ButtonCustom}"
@@ -133,22 +149,6 @@
                 Width="54">
             <TextBlock Text="Run" 
                 Margin="0,-2,0,0"/>
-        </Button>
-
-
-        <!-- Script Button -->
-        <Button x:Name="btnScript" 
-                Style="{DynamicResource ButtonCustom}" 
-                HorizontalAlignment="Left"
-                Margin="225,0,0,66"
-                VerticalAlignment="Bottom"
-                Width="60" 
-                Height="22" 
-                Cursor="Hand"
-                Click="btnScript_Click"
-                ToolTip="Generate FFmpeg Commands">
-            <TextBlock Text="Script" 
-                       Margin="0,-2,0,0" />
         </Button>
 
         <!-- Input List -->
@@ -265,11 +265,12 @@
 
         <!-- Tool Buttons Grid -->
         <Grid HorizontalAlignment="Left" 
-              Width="339" 
+              Width="389" 
               Height="35" 
               VerticalAlignment="Bottom" 
               Margin="10,0,0,0">
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="30"/>
                 <ColumnDefinition Width="30"/>
                 <ColumnDefinition Width="30"/>
                 <ColumnDefinition Width="30"/>
@@ -305,59 +306,220 @@
             </Button>
 
             <!-- Website Button -->
-            <Button x:Name="buttonWebsite" HorizontalAlignment="Left" VerticalAlignment="Top" Width="22" Height="22" Cursor="Hand" Click="buttonWebsite_Click" Background="{x:Null}" Style="{DynamicResource ButtonSmallCustom}" ToolTip="Visit Website" Grid.Column="1">
-                <Image Width="11" Height="11" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="1,-1,0,0" Style="{DynamicResource ButtonWebsite}" />
+            <Button x:Name="buttonWebsite" 
+                    HorizontalAlignment="Left" 
+                    VerticalAlignment="Top" 
+                    Width="22" 
+                    Height="22" 
+                    Cursor="Hand" 
+                    Click="buttonWebsite_Click" 
+                    Background="{x:Null}" 
+                    Style="{DynamicResource ButtonSmallCustom}" 
+                    ToolTip="Visit Website" 
+                    Grid.Column="1">
+                <Image Width="11" 
+                       Height="11"
+                       Stretch="Uniform" 
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Margin="1,-1,0,0" 
+                       Style="{DynamicResource ButtonWebsite}" />
             </Button>
 
             <!-- Update Button -->
-            <Button x:Name="buttonUpdate" HorizontalAlignment="Left" VerticalAlignment="Top" Width="22" Height="22" Cursor="Hand" Background="{x:Null}" Style="{DynamicResource ButtonSmallCustom}" ToolTip="Check for Updates" Click="buttonUpdate_Click" Grid.Column="2">
-                <Image Width="10" Height="10" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" Style="{DynamicResource ButtonUpdate}" />
+            <Button x:Name="buttonUpdate" 
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top" 
+                    Width="22" 
+                    Height="22" 
+                    Cursor="Hand" 
+                    Background="{x:Null}" 
+                    Style="{DynamicResource ButtonSmallCustom}" 
+                    ToolTip="Check for Updates"
+                    Click="buttonUpdate_Click" 
+                    Grid.Column="2">
+                <Image Width="10" 
+                       Height="10"
+                       Stretch="Uniform" 
+                       HorizontalAlignment="Center" 
+                       VerticalAlignment="Center"
+                       Margin="0,0,0,0" 
+                       Style="{DynamicResource ButtonUpdate}" />
             </Button>
 
-            <!-- Configure Button -->
-            <!--<Button x:Name="buttonConfigure" HorizontalAlignment="Left" VerticalAlignment="Top" Width="22" Height="22" Cursor="Hand" Click="buttonConfigure_Click" Background="{x:Null}" Style="{DynamicResource ButtonSmallCustom}" ToolTip="Configure Settings and Paths" Grid.Column="3">
-                <Image Width="11" Height="11" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-1,0,0" Cursor="Hand" Style="{DynamicResource ButtonConfigure}"/>
-            </Button>-->
-
             <!-- Window Toggle  -->
-            <ToggleButton x:Name="tglWindowKeep" Cursor="Hand" HorizontalAlignment="Left" VerticalAlignment="Top" ToolTip="Keep FFmpeg window open after converting." Width="22" Height="22" Style="{DynamicResource ToggleButtonCustom}" Checked="tglWindowKeep_Checked" Unchecked="tglWindowKeep_Unchecked" Grid.Column="3">
-                <Image Width="10" Height="10" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" Style="{DynamicResource ButtonWindow}" />
+            <ToggleButton x:Name="tglWindowKeep"
+                          Cursor="Hand" 
+                          HorizontalAlignment="Left" 
+                          VerticalAlignment="Top" 
+                          ToolTip="Keep FFmpeg window open after converting" 
+                          Width="22" 
+                          Height="22" 
+                          Style="{DynamicResource ToggleButtonCustom}" 
+                          Checked="tglWindowKeep_Checked"
+                          Unchecked="tglWindowKeep_Unchecked"
+                          Grid.Column="3">
+                <Image Width="10"
+                       Height="10" 
+                       Stretch="Uniform" 
+                       HorizontalAlignment="Center" 
+                       VerticalAlignment="Center" 
+                       Margin="0,0,0,0" 
+                       Style="{DynamicResource ButtonWindow}" />
+            </ToggleButton>
+
+            <!-- Auto Sort Script Button -->
+            <ToggleButton x:Name="tglAutoSortScript"
+                          Style="{DynamicResource ToggleButtonCustom}"
+                          Margin="0,0,0,0"
+                          Cursor="Hand" 
+                          Width="22" 
+                          Height="22" 
+                          ToolTipService.InitialShowDelay="1000" 
+                          ToolTipService.ShowOnDisabled="True"
+                          ToolTip="Auto Sort Script" 
+                          HorizontalAlignment="Left"
+                          VerticalAlignment="Top"
+                          Grid.Column="4" 
+                          Checked="tglAutoSortScript_Checked"
+                          Unchecked="tglAutoSortScript_Unchecked">
+                <Image Width="10"
+                       Height="11" 
+                       Stretch="Uniform" 
+                       HorizontalAlignment="Center" 
+                       VerticalAlignment="Center" 
+                       Margin="0,0,0,0" 
+                       Style="{DynamicResource ButtonAutoSortScript}" />
             </ToggleButton>
 
             <!-- Debug Console -->
-            <Button x:Name="buttonDebugConsole" HorizontalAlignment="Left" VerticalAlignment="Top" Width="22" Height="22" Cursor="Hand" Click="buttonDebugConsole_Click" Background="{x:Null}" Style="{DynamicResource ButtonSmallCustom}" ToolTip="Show Debug Console" Grid.Column="4" Margin="1,0,0,0">
-                <Image Width="12" Height="10" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="-1,0,0,0" Style="{DynamicResource ButtonDebugConsole}" />
+            <Button x:Name="buttonDebugConsole"
+                    HorizontalAlignment="Left" 
+                    VerticalAlignment="Top" 
+                    Width="22"
+                    Height="22"
+                    Cursor="Hand" 
+                    Click="buttonDebugConsole_Click" 
+                    Background="{x:Null}" 
+                    Style="{DynamicResource ButtonSmallCustom}" 
+                    ToolTip="Show Debug Console" 
+                    Grid.Column="5" 
+                    Margin="1,0,0,0">
+                <Image Width="12" 
+                       Height="10" 
+                       Stretch="Uniform"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Margin="-1,0,0,0"
+                       Style="{DynamicResource ButtonDebugConsole}" />
             </Button>
 
             <!-- Log Console -->
-            <Button x:Name="buttonLogConsole" HorizontalAlignment="Left" VerticalAlignment="Top" Width="22" Height="22" Cursor="Hand" Click="buttonLogConsole_Click" Background="{x:Null}" Style="{DynamicResource ButtonSmallCustom}" ToolTip="Show Log Console" Grid.Column="5">
-                <Image Width="10" Height="11" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" Style="{DynamicResource ButtonLogConsole}" />
+            <Button x:Name="buttonLogConsole" 
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top" 
+                    Width="22"
+                    Height="22"
+                    Cursor="Hand" 
+                    Click="buttonLogConsole_Click" 
+                    Background="{x:Null}"
+                    Style="{DynamicResource ButtonSmallCustom}"
+                    ToolTip="Show Log Console" 
+                    Grid.Column="6">
+                <Image Width="10"
+                       Height="11"
+                       Stretch="Uniform"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Margin="0,0,0,0" 
+                       Style="{DynamicResource ButtonLogConsole}" />
             </Button>
 
             <!-- Log Button -->
-            <Button x:Name="buttonLog" HorizontalAlignment="Left" VerticalAlignment="Top" Width="22" Height="22" Cursor="Hand" Click="buttonLog_Click" ToolTip="View the last Output Log" Background="{x:Null}" Style="{DynamicResource ButtonSmallCustom}" Grid.Column="6">
-                <Image Width="9" Height="11" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-1,0,0" Style="{DynamicResource ButtonLog}" />
+            <Button x:Name="buttonLog"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Width="22" 
+                    Height="22"
+                    Cursor="Hand"
+                    Click="buttonLog_Click"
+                    ToolTip="View the last Output Log"
+                    Background="{x:Null}"
+                    Style="{DynamicResource ButtonSmallCustom}"
+                    Grid.Column="7">
+                <Image Width="9" 
+                       Height="11" 
+                       Stretch="Uniform" 
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center" 
+                       Margin="0,-1,0,0" 
+                       Style="{DynamicResource ButtonLog}" />
             </Button>
 
             <!-- CMD Button -->
-            <Button x:Name="buttonCmd" HorizontalAlignment="Left" VerticalAlignment="Top" Width="22" Height="22" Cursor="Hand" Click="buttonCmd_Click" Background="{x:Null}" Style="{DynamicResource ButtonSmallCustom}" ToolTip="Launch Command Prompt" Grid.Column="7">
-                <Image Width="11" Height="11" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" Style="{DynamicResource ButtonCMD}" />
+            <Button x:Name="buttonCmd"
+                    HorizontalAlignment="Left" 
+                    VerticalAlignment="Top" 
+                    Width="22" 
+                    Height="22" 
+                    Cursor="Hand" 
+                    Click="buttonCmd_Click" 
+                    Background="{x:Null}" 
+                    Style="{DynamicResource ButtonSmallCustom}" 
+                    ToolTip="Launch Command Prompt"
+                    Grid.Column="8">
+                <Image Width="11" 
+                       Height="11" 
+                       Stretch="Uniform"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Margin="0,0,0,0"
+                       Style="{DynamicResource ButtonCMD}" />
             </Button>
 
             <!-- Properties Button -->
-            <Button x:Name="buttonProperties" HorizontalAlignment="Left" VerticalAlignment="Top" Width="22" Height="22" Cursor="Hand" Click="buttonProperties_Click" Background="{x:Null}" Style="{DynamicResource ButtonSmallCustom}" ToolTip="View File Properties" Grid.Column="8">
-                <Image Width="10" Height="11" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" Style="{DynamicResource ButtonProperties}" />
+            <Button x:Name="buttonProperties" 
+                    HorizontalAlignment="Left" 
+                    VerticalAlignment="Top"
+                    Width="22"
+                    Height="22" 
+                    Cursor="Hand" 
+                    Click="buttonProperties_Click"
+                    Background="{x:Null}" 
+                    Style="{DynamicResource ButtonSmallCustom}" 
+                    ToolTip="View File Properties"
+                    Grid.Column="9">
+                <Image Width="10"
+                       Height="11" 
+                       Stretch="Uniform" 
+                       HorizontalAlignment="Center" 
+                       VerticalAlignment="Center" 
+                       Margin="0,0,0,0"
+                       Style="{DynamicResource ButtonProperties}" />
             </Button>
 
             <!-- Play File -->
-            <Button x:Name="buttonPlayFile" HorizontalAlignment="Left" VerticalAlignment="Top" Width="22" Height="22" Cursor="Hand" Click="buttonPlayFile_Click" Background="{x:Null}" Style="{DynamicResource ButtonSmallCustom}" ToolTip="Play Converted File" Grid.Column="9">
-                <Image Width="11" Height="11" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="-1,0,0,0" Style="{DynamicResource ButtonPlay}" />
+            <Button x:Name="buttonPlayFile"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Width="22" 
+                    Height="22"
+                    Cursor="Hand" 
+                    Click="buttonPlayFile_Click" 
+                    Background="{x:Null}" 
+                    Style="{DynamicResource ButtonSmallCustom}" 
+                    ToolTip="Play Converted File"
+                    Grid.Column="10">
+                <Image Width="11" 
+                       Height="11"
+                       Stretch="Uniform" 
+                       HorizontalAlignment="Center" 
+                       VerticalAlignment="Center" 
+                       Margin="-1,0,0,0" 
+                       Style="{DynamicResource ButtonPlay}" />
             </Button>
 
         </Grid>
-
-
-
 
 
         <!-- Process Buttons Grid -->
@@ -365,7 +527,7 @@
               Height="35" 
               VerticalAlignment="Bottom" 
               HorizontalAlignment="Right" 
-              Width="378">
+              Width="328">
 
             <!-- Preset -->
             <ComboBox x:Name="cboPreset"
@@ -400,8 +562,22 @@
             </Button>
 
             <!-- Batch Checkbox -->
-            <ToggleButton x:Name="tglBatch" HorizontalAlignment="Right" VerticalAlignment="Top" Checked="tglBatch_Checked" Unchecked="tglBatch_Unchecked" IsChecked="False" Cursor="Hand" ToolTip="Enable, Browse for folder, Enter file extention to batch process." Width="45" Height="22" Style="{DynamicResource ToggleButtonCustom}" Margin="0,0,150,0">
-                <TextBlock x:Name="batchTextBlock" Style="{DynamicResource TextBlockCustom}" Text="Batch" Margin="0,-2,0,0" />
+            <ToggleButton x:Name="tglBatch" 
+                          HorizontalAlignment="Right" 
+                          VerticalAlignment="Top" 
+                          Checked="tglBatch_Checked" 
+                          Unchecked="tglBatch_Unchecked" 
+                          IsChecked="False" 
+                          Cursor="Hand" 
+                          ToolTip="Enable, Browse for folder, Enter file extention to batch process."
+                          Width="45"
+                          Height="22"
+                          Style="{DynamicResource ToggleButtonCustom}"
+                          Margin="0,0,150,0">
+                <TextBlock x:Name="batchTextBlock" 
+                           Style="{DynamicResource TextBlockCustom}" 
+                           Text="Batch"
+                           Margin="0,-2,0,0" />
             </ToggleButton>
             <!-- Batch Textbox -->
             <TextBox x:Name="batchExtensionTextBox" 
@@ -920,6 +1096,7 @@
                                 <RowDefinition Height="31"/>
                                 <RowDefinition Height="31"/>
                                 <RowDefinition Height="31"/>
+                                <RowDefinition Height="31"/>
                                 <RowDefinition Height="45"/>
                                 <RowDefinition Height="31"/>
                                 <RowDefinition Height="180"/>
@@ -1097,7 +1274,10 @@
                                       SelectionChanged="cboOptimize_SelectionChanged" 
                                       DropDownClosed="cboOptimize_DropDownClosed"
                                       ToolTipService.ShowOnDisabled="True" 
-                                      ToolTip="Optimize file for device type." Grid.Row="5" Grid.Column="1" Height="22" />
+                                      ToolTip="Optimize file for device type." 
+                                      Grid.Row="5" 
+                                      Grid.Column="1" 
+                                      Height="22" />
 
 
                             <!-- Subtitles -->
@@ -1110,19 +1290,21 @@
                                     ToolTipService.ShowOnDisabled="True"
                                     ToolTip="Subtitle Stream to keep. Add External Subtitle files. Mark CheckBox for Default." 
                                     FontFamily="Segoe UI Semilight" 
-                                    Grid.Row="10" />
+                                    Grid.Row="11" />
 
                             <ComboBox x:Name="cboSubtitle" 
                                       Style="{DynamicResource ComboBoxWhite}"
                                       ItemContainerStyle="{DynamicResource ComboBoxWhiteItem}"
-                                    HorizontalAlignment="Left" 
-                                    Margin="0,2,0,0" 
-                                    VerticalAlignment="Top" 
-                                    Width="100" 
-                                    ToolTipService.InitialShowDelay="1000" 
-                                    ToolTipService.ShowOnDisabled="True"
-                                    ToolTip="Subtitle Stream to keep." 
-                                      Grid.Row="10" Grid.Column="1" SelectionChanged="cboSubtitle_SelectionChanged" >
+                                      HorizontalAlignment="Left" 
+                                      Margin="0,2,0,0" 
+                                      VerticalAlignment="Top" 
+                                      Width="100" 
+                                      ToolTipService.InitialShowDelay="1000" 
+                                      ToolTipService.ShowOnDisabled="True"
+                                      ToolTip="Subtitle Stream to keep." 
+                                      Grid.Row="11" 
+                                      Grid.Column="1" 
+                                      SelectionChanged="cboSubtitle_SelectionChanged" >
                                 <System:String>none</System:String>
                                 <System:String>external</System:String>
                                 <System:String>all</System:String>
@@ -1144,7 +1326,7 @@
                                         BorderThickness="0"
                                         Style="{DynamicResource ListViewStyle}" 
                                         Grid.ColumnSpan="2" 
-                                        Grid.Row="11">
+                                        Grid.Row="12">
 
                                 <ListView.Resources>
                                     <Style TargetType="{x:Type GridViewColumnHeader}">
@@ -1186,7 +1368,8 @@
                                     Margin="78,3,0,0" 
                                     ToolTipService.InitialShowDelay="500" 
                                     ToolTip="Add"
-                                    Grid.Column="1" Grid.Row="11">
+                                    Grid.Column="1" 
+                                    Grid.Row="12">
                                 <TextBlock Text="+" Margin="0,-2,0,0"/>
                             </Button>
                             <!-- Remove -->
@@ -1201,7 +1384,8 @@
                                     Margin="78,30,0,0" 
                                     ToolTipService.InitialShowDelay="500" 
                                     ToolTip="Remove"
-                                    Grid.Column="1" Grid.Row="11">
+                                    Grid.Column="1"
+                                    Grid.Row="12">
                                 <TextBlock Text="-" Margin="0,-2,0,0"/>
                             </Button>
                             <!-- Sort Up -->
@@ -1214,7 +1398,8 @@
                                     Margin="78,84,0,0" 
                                     HorizontalAlignment="Left" 
                                     Width="22" 
-                                    Grid.Column="1" Grid.Row="11">
+                                    Grid.Column="1" 
+                                    Grid.Row="12">
                                 <TextBlock Text="▴" Margin="0,-2,0,0"/>
                             </Button>
                             <!-- Sort Down -->
@@ -1227,7 +1412,8 @@
                                     Cursor="Hand" 
                                     Click="btnSortSubtitleDown_Click"
                                     Margin="78,111,0,0" 
-                                    Grid.Column="1" Grid.Row="11">
+                                    Grid.Column="1" 
+                                    Grid.Row="12">
                                 <TextBlock Text="▾" Margin="0,0,0,0"/>
                             </Button>
                             <!-- Clear All -->
@@ -1242,7 +1428,8 @@
                                     Margin="78,57,0,0" 
                                     ToolTipService.InitialShowDelay="500" 
                                     ToolTip="Clear All"
-                                    Grid.Column="1" Grid.Row="11">
+                                    Grid.Column="1"
+                                    Grid.Row="12">
                                 <TextBlock Text="x" Margin="0,-3,0,0"/>
                             </Button>
 
@@ -1325,6 +1512,45 @@
                                      GotFocus="heightCustom_GotFocus" 
                                      LostFocus="heightCustom_LostFocus" Grid.Row="8" Grid.Column="1" Margin="0,2,0,0" />
 
+                            <!-- Scaling -->
+                            <Label 
+                                Style="{DynamicResource LabelCustom}" 
+                                Content="Scaling"
+                                HorizontalAlignment="Left" 
+                                Margin="20,0,0,0" 
+                                VerticalAlignment="Top"
+                                Width="75"
+                                FontFamily="Segoe UI Semilight"
+                                Grid.Row="9" 
+                                Height="26" />
+
+                            <ComboBox x:Name="cboScaling" 
+                                      Style="{DynamicResource ComboBoxCustom}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxCustomItem}"
+                                      HorizontalAlignment="Left" 
+                                      Margin="0,2,0,0" 
+                                      VerticalAlignment="Top" 
+                                      Width="100" 
+                                      ToolTipService.ShowOnDisabled="True" 
+                                      ToolTip="Algorithm used for resizing." 
+                                      Grid.Row="9" 
+                                      Grid.Column="1" 
+                                      Height="22">
+                                <System:String>None</System:String>
+                                <System:String>Default</System:String>
+                                <System:String>neighbor</System:String>
+                                <System:String>area</System:String>
+                                <System:String>fast_bilinear</System:String>
+                                <System:String>bilinear</System:String>
+                                <System:String>bicubic</System:String>
+                                <System:String>experimental</System:String>
+                                <System:String>bicublin</System:String>
+                                <System:String>gauss</System:String>
+                                <System:String>sinc</System:String>
+                                <System:String>lanczos</System:String>
+                                <System:String>spline</System:String>
+                            </ComboBox>
+
                             <!-- Crop -->
                             <Label 
                                 Style="{DynamicResource LabelCustom}"
@@ -1333,7 +1559,7 @@
                                 Margin="20,0,0,0" 
                                 VerticalAlignment="Top"
                                 Width="75" 
-                                Grid.Row="9" />
+                                Grid.Row="10" />
                             <Button x:Name="buttonCrop"
                                     Style="{DynamicResource ButtonCropCustom}"
                                     Padding="0" 
@@ -1347,7 +1573,7 @@
                                     ToolTipService.InitialShowDelay="1000"
                                     ToolTipService.ShowOnDisabled="True" 
                                     ToolTip="Open Crop Window" 
-                                    Grid.Row="9"
+                                    Grid.Row="10"
                                     Grid.Column="1">
                                 <TextBlock Style="{DynamicResource ButtonCropTextBlock}"
                                            Text="Crop"
@@ -1367,7 +1593,7 @@
                                     ToolTipService.InitialShowDelay="1000"
                                     ToolTipService.ShowOnDisabled="True"
                                     ToolTip="Clear Last Used Crop Settings" 
-                                    Grid.Row="9"
+                                    Grid.Row="10"
                                     Grid.Column="1">
                                 <TextBlock x:Name="buttonCropClearTextBox" 
                                            Text="Clear"
@@ -1706,9 +1932,10 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="31"/>
                                 <RowDefinition Height="31"/>
+                                <RowDefinition Height="40"/>
                                 <RowDefinition Height="31"/>
-                                <RowDefinition Height="31"/>
-                                <RowDefinition Height="45"/>
+                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="40"/>
                                 <RowDefinition Height="31"/>
                                 <RowDefinition Height="31"/>
                             </Grid.RowDefinitions>
@@ -1942,13 +2169,52 @@
                                 <System:String>System</System:String>
                             </ComboBox>
 
+                            <!-- Check for Updates -->
+                            <Label Style="{DynamicResource LabelCustom}" 
+                                   Content="Updates" 
+                                   HorizontalAlignment="Left"
+                                   Margin="10,0,0,0"
+                                   VerticalAlignment="Top"
+                                   Height="26" 
+                                   ToolTip="Path to Save Log" 
+                                   Grid.Row="5"/>
+                            <!-- Window Toggle  -->
+                            <ToggleButton x:Name="tglUpdatesAutoCheck"
+                                          Cursor="Hand" 
+                                          HorizontalAlignment="Left" 
+                                          VerticalAlignment="Top" 
+                                          ToolTip="Automatically check for updates at startup." 
+                                          Width="58" 
+                                          Height="22" 
+                                          Style="{DynamicResource ToggleButtonCustom}" 
+                                          Checked="tglUpdatesAutoCheck_Checked"
+                                          Unchecked="tglUpdatesAutoCheck_Unchecked"
+                                          Grid.Column="1" 
+                                          Grid.Row="5" 
+                                          Margin="0,3,0,0">
+                                <TextBlock x:Name="tblkUpdatesAutoCheck" 
+                                           Style="{DynamicResource TextBlockCustom}" 
+                                           Text="Off"
+                                           Margin="0,-2,0,0" />
+                            </ToggleButton>
+                            <Label Style="{DynamicResource LabelCustom}" 
+                                   Content="Auto Check" 
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Top"
+                                   Height="26" 
+                                   ToolTip="Path to Save Log" 
+                                    Grid.Column="1" 
+                                    Grid.Row="5" 
+                                    Margin="63,0,0,0"/>
+
                             <!-- Reset Saved Settings -->
                             <Label Style="{DynamicResource LabelCustom}" 
                                    Content="Settings"
                                    HorizontalAlignment="Left"
                                    Margin="10,0,0,0"
                                    VerticalAlignment="Top" 
-                                   Height="26" Grid.Row="5" />
+                                   Height="26" 
+                                   Grid.Row="6" />
 
                             <!-- Reset Saved Settings Button -->
                             <Button x:Name="buttonClearAllSavedSettings"
@@ -1961,7 +2227,9 @@
                                     ToolTip="Reset the Saved Settings to Default." 
                                     Cursor="Hand" 
                                     Click="buttonClearAllSavedSettings_Click" 
-                                    Style="{DynamicResource ButtonSmallCustom}" Grid.Column="1" Grid.Row="5">
+                                    Style="{DynamicResource ButtonSmallCustom}" 
+                                    Grid.Column="1" 
+                                    Grid.Row="6">
                                 <TextBlock Style="{DynamicResource TextBlockCustom}" 
                                            Text="Reset" 
                                            Margin="0,-1,0,0"/>
@@ -1978,7 +2246,9 @@
                                     ToolTip="Delete the Settings File in AppData." 
                                     Cursor="Hand" 
                                     Style="{DynamicResource ButtonSmallCustom}" 
-                                    Click="buttonDeleteSettings_Click" Grid.Column="1" Grid.Row="5">
+                                    Click="buttonDeleteSettings_Click" 
+                                    Grid.Column="1" 
+                                    Grid.Row="6">
                                 <TextBlock Style="{DynamicResource TextBlockCustom}" 
                                            Text="Delete" Margin="0,-1,0,0"/>
                             </Button>
@@ -1993,10 +2263,6 @@
 
 
         </TabControl>
-
-
-
-
 
 
         <!-- File Queue

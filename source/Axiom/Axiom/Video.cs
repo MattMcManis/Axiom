@@ -2334,6 +2334,34 @@ namespace Axiom
         } //End Size
 
 
+
+        /// <summary>
+        /// Scaling Algorithm
+        /// <summary>
+        public static String ScalingAlgorithm(MainWindow mainwindow)
+        {
+            string algorithm = string.Empty;
+
+            // None & Default
+            //
+            if ((string)mainwindow.cboScaling.SelectedItem == "None"
+                || (string)mainwindow.cboScaling.SelectedItem == "Default")
+            {
+                algorithm = string.Empty;
+            }
+
+            // Scaler
+            //
+            else
+            {
+                algorithm = "-sws_flags " + mainwindow.cboScaling.SelectedItem.ToString();
+            }
+
+            return algorithm;
+        }
+
+
+
         /// <summary>
         /// Crop (Method)
         /// <summary>

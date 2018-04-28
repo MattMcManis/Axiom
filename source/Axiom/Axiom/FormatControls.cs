@@ -868,9 +868,12 @@ namespace Axiom
                 // -------------------------
                 // Video
                 // -------------------------
-                //Size
-                //size.SelectedItem = "No";
+                // Size
                 mainwindow.cboSize.IsEnabled = true;
+
+                // Scaling
+                mainwindow.cboScaling.SelectedItem = "Default";
+                mainwindow.cboScaling.IsEnabled = true;
 
                 // Cut
                 // Cut Change - If coming back from JPEG or PNG
@@ -921,6 +924,10 @@ namespace Axiom
                 //Size
                 mainwindow.cboSize.SelectedItem = "Source";
                 mainwindow.cboSize.IsEnabled = false;
+
+                // Scaling
+                mainwindow.cboScaling.SelectedItem = "None";
+                mainwindow.cboScaling.IsEnabled = false;
 
                 // Cut
                 // Cut Change - If coming back from JPEG or PNG
@@ -987,6 +994,10 @@ namespace Axiom
                 //Size
                 mainwindow.cboSize.IsEnabled = true;
 
+                // Scaling
+                mainwindow.cboScaling.SelectedItem = "Default";
+                mainwindow.cboScaling.IsEnabled = true;
+
                 // Cut
                 // Enable Cut Start Time for Frame Selection
                 mainwindow.cboCut.SelectedItem = "Yes";
@@ -1051,6 +1062,10 @@ namespace Axiom
                 // -------------------------
                 //Size
                 mainwindow.cboSize.IsEnabled = true;
+
+                // Scaling
+                mainwindow.cboScaling.SelectedItem = "Default";
+                mainwindow.cboScaling.IsEnabled = true;
 
                 // Cut
                 // Enable Cut for Time Selection

@@ -2594,6 +2594,12 @@
         <Setter Property="Source" Value="Resources/Images/Buttons/White/window.png"/>
     </Style>
 
+    <!-- Auto Sort Script Button -->
+    <Style x:Key="ButtonAutoSortScript" TargetType="{x:Type Image}">
+        <Setter Property="FlowDirection" Value="LeftToRight"/>
+        <Setter Property="Source" Value="Resources/Images/Buttons/White/autosortscript.png"/>
+    </Style>
+
     <!-- Debug Console Button -->
     <Style x:Key="ButtonDebugConsole" TargetType="{x:Type Image}">
         <Setter Property="FlowDirection" Value="LeftToRight"/>

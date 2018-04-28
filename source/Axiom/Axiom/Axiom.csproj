@@ -324,6 +324,12 @@
   <ItemGroup>
     <Resource Include="Resources\Images\Buttons\Black\update.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Buttons\Black\autosortscript.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Buttons\White\autosortscript.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>

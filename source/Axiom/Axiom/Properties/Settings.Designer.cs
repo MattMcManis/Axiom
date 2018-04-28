@@ -574,5 +574,29 @@ namespace Axiom.Properties {
                 this["Maximized"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool AutoSortScript {
+            get {
+                return ((bool)(this["AutoSortScript"]));
+            }
+            set {
+                this["AutoSortScript"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool UpdatesAutoCheck {
+            get {
+                return ((bool)(this["UpdatesAutoCheck"]));
+            }
+            set {
+                this["UpdatesAutoCheck"] = value;
+            }
+        }
     }
 }

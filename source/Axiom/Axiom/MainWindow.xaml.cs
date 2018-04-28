@@ -75,22 +75,22 @@ namespace Axiom
         /// <summary>
         ///     Debug Console
         /// </summary>
-        public static DebugConsole debugconsole; //pass data
+        public static DebugConsole debugconsole;
 
         /// <summary>
         ///     File Properties Console
         /// </summary>
-        public FilePropertiesWindow filepropwindow; //pass data
+        public FilePropertiesWindow filepropwindow;
 
         /// <summary>
         ///     Script View
         /// </summary>
-        public static ScriptView scriptview; //pass data
+        public static ScriptView scriptview; 
 
         /// <summary>
         ///     Configure Window
         /// </summary>
-        //public static ConfigureWindow configurewindow; //pass data
+        //public static ConfigureWindow configurewindow;
 
         /// <summary>
         ///     File Queue
@@ -100,22 +100,22 @@ namespace Axiom
         /// <summary>
         ///     Crop Window
         /// </summary>
-        public static CropWindow cropwindow; //pass data
+        public static CropWindow cropwindow;
 
         /// <summary>
         ///     Optimize Advanced Window
         /// </summary>
-        public static OptimizeAdvancedWindow optadvwindow; //pass data
+        public static OptimizeAdvancedWindow optadvwindow;
 
         /// <summary>
         ///     Optimize Advanced Window
         /// </summary>
-        public static InfoWindow infowindow; //pass data
+        public static InfoWindow infowindow;
 
         /// <summary>
         ///     Update Window
         /// </summary>
-        public static UpdateWindow updatewindow; //pass data
+        public static UpdateWindow updatewindow;
 
 
         // --------------------------------------------------------------------------------------------------------
@@ -181,8 +181,6 @@ namespace Axiom
             // Set Min/Max Width/Height to prevent Tablets maximizing
             this.MinWidth = 750;
             this.MinHeight = 422;
-            //this.MaxWidth = 615;
-            //this.MaxHeight = 305;
 
             // -----------------------------------------------------------------
             /// <summary>
@@ -211,7 +209,6 @@ namespace Axiom
             // -------------------------
             TitleVersion = "Axiom ~ FFmpeg UI (" + Convert.ToString(currentVersion) + "-" + currentBuildPhase + ")";
             DataContext = this;
-
 
             // -------------------------
             // Load Theme
@@ -403,12 +400,7 @@ namespace Axiom
                 }
             }
 
-            //// -------------------------
-            //// Load Theme
-            //// -------------------------
-            //Configure.LoadTheme(this);
 
-            
             // -------------------------
             // Load FFmpeg.exe Path
             // -------------------------
@@ -484,6 +476,41 @@ namespace Axiom
 
             }
 
+            // -------------------------
+            // Load Auto Sort Script Toggle
+            // -------------------------
+            // Log Checkbox     
+            // Safeguard Against Corrupt Saved Settings
+            try
+            {
+                // --------------------------
+                // First time use
+                // --------------------------
+                tglAutoSortScript.IsChecked = Convert.ToBoolean(Settings.Default.AutoSortScript);
+            }
+            catch
+            {
+
+            }
+
+
+            // -------------------------
+            // Load Updates Auto Check
+            // -------------------------
+            // Log Checkbox     
+            // Safeguard Against Corrupt Saved Settings
+            try
+            {
+                // --------------------------
+                // First time use
+                // --------------------------
+                tglUpdatesAutoCheck.IsChecked = Convert.ToBoolean(Settings.Default.UpdatesAutoCheck);
+            }
+            catch
+            {
+
+            }
+
 
             // -------------------------
             // Volume Up/Down Button Timer Tick
@@ -492,6 +519,12 @@ namespace Axiom
             // -------------------------
             dispatcherTimerUp.Tick += new EventHandler(dispatcherTimerUp_Tick);
             dispatcherTimerDown.Tick += new EventHandler(dispatcherTimerDown_Tick);
+
+
+            // -------------------------
+            // Check for Available Updates
+            // -------------------------
+            UpdateAvailableCheck();
 
         } // End MainWindow
 
@@ -765,122 +798,126 @@ namespace Axiom
             /// <summary>
             /// OS
             /// </summary>
-            ManagementClass os = new ManagementClass("Win32_OperatingSystem");
-            foreach (ManagementObject obj in os.GetInstances())
-            {
-                // Log Console Message /////////
-                try
-                {
-                    Log.logParagraph.Inlines.Add(new Run(Convert.ToString(obj["Caption"])) { Foreground = Log.ConsoleDefault });
-                    Log.logParagraph.Inlines.Add(new LineBreak());
-                }
-                catch
-                {
-
-                }
-            }
-            os.Dispose();
-
-            /// <summary>
-            /// CPU
-            /// </summary>
-            ManagementObjectSearcher cpu = new ManagementObjectSearcher("root\\CIMV2", "SELECT Name FROM Win32_Processor");
-            foreach (ManagementObject obj in cpu.Get())
-            {
-                // Log Console Message /////////
-                try
-                {
-                    Log.logParagraph.Inlines.Add(new Run(Convert.ToString(obj["Name"])) { Foreground = Log.ConsoleDefault });
-                    Log.logParagraph.Inlines.Add(new LineBreak());
-                }
-                catch
-                {
-
-                }
-            }
-            cpu.Dispose();
-            // Max Threads
-            foreach (var item in new System.Management.ManagementObjectSearcher("Select NumberOfLogicalProcessors FROM Win32_ComputerSystem").Get())
-            {
-                Configure.maxthreads = String.Format("{0}", item["NumberOfLogicalProcessors"]);
-            }
-
-            /// <summary>
-            /// GPU
-            /// </summary>
-            ManagementObjectSearcher gpu = new ManagementObjectSearcher("root\\CIMV2", "SELECT Name, AdapterRAM FROM Win32_VideoController");
-            foreach (ManagementObject obj in gpu.Get())
-            {
-                try
-                {
-                    Log.logParagraph.Inlines.Add(new Run(Convert.ToString(obj["Name"]) + " " + Convert.ToString(Math.Round(Convert.ToDouble(obj["AdapterRAM"]) * 0.000000001, 3) + "GB")) { Foreground = Log.ConsoleDefault });
-                    Log.logParagraph.Inlines.Add(new LineBreak());
-                }
-                catch
-                {
-
-                }
-            }
-
-            /// <summary>
-            /// RAM
-            /// </summary>
-            Log.logParagraph.Inlines.Add(new Run("RAM ") { Foreground = Log.ConsoleDefault });
-
-            double capacity = 0;
-            int memtype = 0;
-            string type;
-            int speed = 0;
-
-            ManagementObjectSearcher ram = new ManagementObjectSearcher("root\\CIMV2", "SELECT Capacity, MemoryType, Speed FROM Win32_PhysicalMemory");
-            foreach (ManagementObject obj in ram.Get())
-            {
-                try
-                {
-                    capacity += Convert.ToDouble(obj["Capacity"]);
-                    memtype = Int32.Parse(obj.GetPropertyValue("MemoryType").ToString());
-                    speed = Int32.Parse(obj.GetPropertyValue("Speed").ToString());
-                }
-                catch
-                {
-
-                }
-            }
-
-            capacity *= 0.000000001; // Convert Byte to GB
-            capacity = Math.Round(capacity, 3); // Round to 3 decimal places
-
-            // Select RAM Type
-            switch (memtype)
-            {
-                case 20:
-                    type = "DDR";
-                    break;
-                case 21:
-                    type = "DDR2";
-                    break;
-                case 17:
-                    type = "SDRAM";
-                    break;
-                default:
-                    if (memtype == 0 || memtype > 22)
-                        type = "DDR3";
-                    else
-                        type = "Unknown";
-                    break;
-            }
-
-            // Log Console Message /////////
             try
             {
-                Log.logParagraph.Inlines.Add(new Run(Convert.ToString(capacity) + "GB " + type + " " + Convert.ToString(speed) + "MHz") { Foreground = Log.ConsoleDefault });
-                Log.logParagraph.Inlines.Add(new LineBreak());
+                ManagementClass os = new ManagementClass("Win32_OperatingSystem");
+
+                foreach (ManagementObject obj in os.GetInstances())
+                {
+                    // Log Console Message /////////
+                    Log.logParagraph.Inlines.Add(new Run(Convert.ToString(obj["Caption"])) { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+
+                }
+                os.Dispose();
             }
             catch
             {
 
             }
-            ram.Dispose();
+
+
+            /// <summary>
+            /// CPU
+            /// </summary>
+            try
+            {
+                ManagementObjectSearcher cpu = new ManagementObjectSearcher("root\\CIMV2", "SELECT Name FROM Win32_Processor");
+
+                foreach (ManagementObject obj in cpu.Get())
+                {
+                    // Log Console Message /////////
+                    Log.logParagraph.Inlines.Add(new Run(Convert.ToString(obj["Name"])) { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                }
+                cpu.Dispose();
+
+                // Max Threads
+                foreach (var item in new System.Management.ManagementObjectSearcher("Select NumberOfLogicalProcessors FROM Win32_ComputerSystem").Get())
+                {
+                    Configure.maxthreads = String.Format("{0}", item["NumberOfLogicalProcessors"]);
+                }
+            }
+            catch
+            {
+
+            }
+            
+
+            /// <summary>
+            /// GPU
+            /// </summary>
+            try
+            {
+                ManagementObjectSearcher gpu = new ManagementObjectSearcher("root\\CIMV2", "SELECT Name, AdapterRAM FROM Win32_VideoController");
+
+                foreach (ManagementObject obj in gpu.Get())
+                {
+                    Log.logParagraph.Inlines.Add(new Run(Convert.ToString(obj["Name"]) + " " + Convert.ToString(Math.Round(Convert.ToDouble(obj["AdapterRAM"]) * 0.000000001, 3) + "GB")) { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                }
+            }
+            catch
+            {
+
+            }
+
+
+            /// <summary>
+            /// RAM
+            /// </summary>
+            try
+            {
+                Log.logParagraph.Inlines.Add(new Run("RAM ") { Foreground = Log.ConsoleDefault });
+
+                double capacity = 0;
+                int memtype = 0;
+                string type;
+                int speed = 0;
+
+                ManagementObjectSearcher ram = new ManagementObjectSearcher("root\\CIMV2", "SELECT Capacity, MemoryType, Speed FROM Win32_PhysicalMemory");
+
+                foreach (ManagementObject obj in ram.Get())
+                {
+                    capacity += Convert.ToDouble(obj["Capacity"]);
+                    memtype = Int32.Parse(obj.GetPropertyValue("MemoryType").ToString());
+                    speed = Int32.Parse(obj.GetPropertyValue("Speed").ToString());
+                }
+
+                capacity *= 0.000000001; // Convert Byte to GB
+                capacity = Math.Round(capacity, 3); // Round to 3 decimal places
+
+                // Select RAM Type
+                switch (memtype)
+                {
+                    case 20:
+                        type = "DDR";
+                        break;
+                    case 21:
+                        type = "DDR2";
+                        break;
+                    case 17:
+                        type = "SDRAM";
+                        break;
+                    default:
+                        if (memtype == 0 || memtype > 22)
+                            type = "DDR3";
+                        else
+                            type = "Unknown";
+                        break;
+                }
+
+                // Log Console Message /////////
+                Log.logParagraph.Inlines.Add(new Run(Convert.ToString(capacity) + "GB " + type + " " + Convert.ToString(speed) + "MHz") { Foreground = Log.ConsoleDefault });
+                Log.logParagraph.Inlines.Add(new LineBreak());
+
+                ram.Dispose();
+            }
+            catch
+            {
+
+            }
+                    
             // End System Info
         }
 
@@ -1928,19 +1965,6 @@ namespace Axiom
             cboThreads.SelectedItem = "all";
             Configure.threads = string.Empty;
 
-            //// Save Current Window Location
-            //// Prevents MainWindow from moving to Top 0 Left 0 while running
-            //double left = Left;
-            //double top = Top;
-
-            //// Reset AppData Settings
-            //Settings.Default.Reset();
-            //Settings.Default.Reload();
-
-            //// Set Window Location
-            //Left = left;
-            //Top = top;
-
 
             // Yes/No Dialog Confirmation
             //
@@ -2307,12 +2331,14 @@ namespace Axiom
         private Boolean IsUpdateWindowOpened = false;
         private void buttonUpdate_Click(object sender, RoutedEventArgs e)
         {
+            // -------------------------
             // Proceed if Internet Connection
-            //
+            // -------------------------
             if (UpdateWindow.CheckForInternetConnection() == true)
             {
+                // -------------------------
                 // Parse GitHub .version file
-                //
+                // -------------------------
                 string parseLatestVersion = string.Empty;
 
                 try
@@ -2329,9 +2355,9 @@ namespace Axiom
                     return;
                 }
 
-
-                //Split Version & Build Phase by dash
-                //
+                // -------------------------
+                // Split Version & Build Phase by dash
+                // -------------------------
                 if (!string.IsNullOrEmpty(parseLatestVersion)) //null check
                 {
                     try
@@ -2357,14 +2383,15 @@ namespace Axiom
                     //MessageBox.Show(Convert.ToString(latestVersion));
                     //MessageBox.Show(latestBuildPhase);
 
-
+                    // -------------------------
                     // Check if Axiom is the Latest Version
+                    // -------------------------
                     // Update Available
                     if (latestVersion > currentVersion)
                     {
                         // Yes/No Dialog Confirmation
                         //
-                        MessageBoxResult result = MessageBox.Show("v" + latestVersion + "-" + latestBuildPhase + "\n\nDownload Update?", 
+                        MessageBoxResult result = MessageBox.Show("v" + Convert.ToString(latestVersion) + "-" + latestBuildPhase + "\n\nDownload Update?", 
                                                              "Update Available", 
                                                              MessageBoxButton.YesNo);
                         switch (result)
@@ -2395,7 +2422,9 @@ namespace Axiom
                                 break;
                         }
                     }
+
                     // Update Not Available
+                    //
                     else if (latestVersion <= currentVersion)
                     {
                         MessageBox.Show("This version is up to date.",
@@ -2405,7 +2434,9 @@ namespace Axiom
 
                         return;
                     }
+
                     // Unknown
+                    //
                     else // null
                     {
                         MessageBox.Show("Could not find download. Try updating manually.",
@@ -2416,7 +2447,9 @@ namespace Axiom
                         return;
                     }
                 }
+
                 // Version is Null
+                //
                 else
                 {
                     MessageBox.Show("GitHub version file returned empty.",
@@ -2437,6 +2470,160 @@ namespace Axiom
                 return;
             }
         }
+
+        /// <summary>
+        ///    Updates Auto Check - Checked
+        /// </summary>
+        private void tglUpdatesAutoCheck_Checked(object sender, RoutedEventArgs e)
+        {
+            // Update Toggle Text
+            tblkUpdatesAutoCheck.Text = "On";
+
+            //Prevent Loading Corrupt App.Config
+            try
+            {
+                // Save Toggle Settings
+                // must be done this way or you get "convert object to bool error"
+                if (tglUpdatesAutoCheck.IsChecked == true)
+                {
+                    Settings.Default.UpdatesAutoCheck = true;
+                    Settings.Default.Save();
+                    Settings.Default.Reload();
+                }
+                else if (tglUpdatesAutoCheck.IsChecked == false)
+                {
+                    Settings.Default.UpdatesAutoCheck = false;
+                    Settings.Default.Save();
+                    Settings.Default.Reload();
+                }
+            }
+            catch (ConfigurationErrorsException ex)
+            {
+                // Delete Old App.Config
+                string filename = ex.Filename;
+
+                if (File.Exists(filename) == true)
+                {
+                    File.Delete(filename);
+                    Settings.Default.Upgrade();
+                    // Properties.Settings.Default.Reload();
+                }
+                else
+                {
+
+                }
+            }
+        }
+        /// <summary>
+        ///    Updates Auto Check - Unchecked
+        /// </summary>
+        private void tglUpdatesAutoCheck_Unchecked(object sender, RoutedEventArgs e)
+        {
+            // Update Toggle Text
+            tblkUpdatesAutoCheck.Text = "Off";
+
+            // Prevent Loading Corrupt App.Config
+            try
+            {
+                // Save Toggle Settings
+                // must be done this way or you get "convert object to bool error"
+                if (tglUpdatesAutoCheck.IsChecked == true)
+                {
+                    Settings.Default.UpdatesAutoCheck = true;
+                    Settings.Default.Save();
+                    Settings.Default.Reload();
+                }
+                else if (tglUpdatesAutoCheck.IsChecked == false)
+                {
+                    Settings.Default.UpdatesAutoCheck = false;
+                    Settings.Default.Save();
+                    Settings.Default.Reload();
+                }
+            }
+            catch (ConfigurationErrorsException ex)
+            {
+                // Delete Old App.Config
+                string filename = ex.Filename;
+
+                if (File.Exists(filename) == true)
+                {
+                    File.Delete(filename);
+                    Settings.Default.Upgrade();
+                    // Properties.Settings.Default.Reload();
+                }
+                else
+                {
+
+                }
+            }
+        }
+
+        /// <summary>
+        ///    Update Available Check
+        /// </summary>
+        public void UpdateAvailableCheck()
+        {
+            //string updateAvailable = string.Empty;
+
+            if (tglUpdatesAutoCheck.IsChecked == true)
+            {
+                // -------------------------
+                // Parse GitHub .version file
+                // -------------------------
+                string parseLatestVersion = string.Empty;
+
+                try
+                {
+                    parseLatestVersion = UpdateWindow.wc.DownloadString("https://raw.githubusercontent.com/MattMcManis/Axiom/master/.version");
+                }
+                catch
+                {
+                    //return string.Empty;
+                    return;
+                }
+
+                // -------------------------
+                // Split Version & Build Phase by dash
+                // -------------------------
+                if (!string.IsNullOrEmpty(parseLatestVersion)) //null check
+                {
+                    try
+                    {
+                        // Split Version and Build Phase
+                        splitVersionBuildPhase = Convert.ToString(parseLatestVersion).Split('-');
+
+                        // Set Version Number
+                        latestVersion = new Version(splitVersionBuildPhase[0]); //number
+                        latestBuildPhase = splitVersionBuildPhase[1]; //alpha
+                    }
+                    catch
+                    {
+                        //return string.Empty;
+                        return;
+                    }
+
+                    // Check if Axiom is the Latest Version
+                    // Update Available
+                    if (latestVersion > currentVersion)
+                    {
+                        //updateAvailable = " ~ Update Available: " + "(" + Convert.ToString(latestVersion) + "-" + latestBuildPhase + ")";
+
+                        TitleVersion = "Axiom ~ FFmpeg UI (" + Convert.ToString(currentVersion) + "-" + currentBuildPhase + ")" 
+                                     + " ~ Update Available: " + "(" + Convert.ToString(latestVersion) + "-" + latestBuildPhase + ")";
+                        DataContext = this;
+                    }
+                    // Update Not Available
+                    else if (latestVersion <= currentVersion)
+                    {
+                        //return string.Empty;
+                        return;
+                    }
+                }
+            }          
+
+            //return updateAvailable;
+        }
+
 
 
         /// <summary>
@@ -2609,6 +2796,14 @@ namespace Axiom
             //}
 
             // -------------------------
+            // Auto Sort Toggle
+            // -------------------------
+            if (tglAutoSortScript.IsChecked == true)
+            {
+                Sort();
+            }
+
+            // -------------------------
             // Clear Variables for next Run
             // -------------------------
             ClearVariables(this);
@@ -2722,6 +2917,99 @@ namespace Axiom
                 else if (tglWindowKeep.IsChecked == false)
                 {
                     Settings.Default.KeepWindow = false;
+                    Settings.Default.Save();
+                    Settings.Default.Reload();
+                }
+            }
+            catch (ConfigurationErrorsException ex)
+            {
+                // Delete Old App.Config
+                string filename = ex.Filename;
+
+                if (File.Exists(filename) == true)
+                {
+                    File.Delete(filename);
+                    Settings.Default.Upgrade();
+                    // Properties.Settings.Default.Reload();
+                }
+                else
+                {
+
+                }
+            }
+        }
+
+        /// <summary>
+        ///    Auto Sort Script Toggle - Checked
+        /// </summary>
+        private void tglAutoSortScript_Checked(object sender, RoutedEventArgs e)
+        {
+            // Log Console Message /////////
+            Log.logParagraph.Inlines.Add(new LineBreak());
+            Log.logParagraph.Inlines.Add(new LineBreak());
+            Log.logParagraph.Inlines.Add(new Bold(new Run("Auto Sort Script Toggle: ")) { Foreground = Log.ConsoleDefault });
+            Log.logParagraph.Inlines.Add(new Run("On") { Foreground = Log.ConsoleDefault });
+
+            //Prevent Loading Corrupt App.Config
+            try
+            {
+                // Save Toggle Settings
+                // must be done this way or you get "convert object to bool error"
+                if (tglAutoSortScript.IsChecked == true)
+                {
+                    Settings.Default.AutoSortScript = true;
+                    Settings.Default.Save();
+                    Settings.Default.Reload();
+                }
+                else if (tglAutoSortScript.IsChecked == false)
+                {
+                    Settings.Default.AutoSortScript = false;
+                    Settings.Default.Save();
+                    Settings.Default.Reload();
+                }
+            }
+            catch (ConfigurationErrorsException ex)
+            {
+                // Delete Old App.Config
+                string filename = ex.Filename;
+
+                if (File.Exists(filename) == true)
+                {
+                    File.Delete(filename);
+                    Settings.Default.Upgrade();
+                    // Properties.Settings.Default.Reload();
+                }
+                else
+                {
+
+                }
+            }
+        }
+        /// <summary>
+        ///    Auto Sort Script Toggle - Unchecked
+        /// </summary>
+        private void tglAutoSortScript_Unchecked(object sender, RoutedEventArgs e)
+        {
+            // Log Console Message /////////
+            Log.logParagraph.Inlines.Add(new LineBreak());
+            Log.logParagraph.Inlines.Add(new LineBreak());
+            Log.logParagraph.Inlines.Add(new Bold(new Run("Auto Sort Script Toggle: ")) { Foreground = Log.ConsoleDefault });
+            Log.logParagraph.Inlines.Add(new Run("Off") { Foreground = Log.ConsoleDefault });
+
+            // Prevent Loading Corrupt App.Config
+            try
+            {
+                // Save Toggle Settings
+                // must be done this way or you get "convert object to bool error"
+                if (tglAutoSortScript.IsChecked == true)
+                {
+                    Settings.Default.AutoSortScript = true;
+                    Settings.Default.Save();
+                    Settings.Default.Reload();
+                }
+                else if (tglAutoSortScript.IsChecked == false)
+                {
+                    Settings.Default.AutoSortScript = false;
                     Settings.Default.Save();
                     Settings.Default.Reload();
                 }
@@ -3191,7 +3479,9 @@ namespace Axiom
         /// </summary>
         private void tglVideoVBR_Checked(object sender, RoutedEventArgs e)
         {
+            // -------------------------
             // MPEG-4 VBR can only use 1 Pass
+            // -------------------------
             if ((string)cboVideoCodec.SelectedItem == "mpeg4")
             {
                 // Change ItemSource
@@ -3206,6 +3496,12 @@ namespace Axiom
                 // Select Item
                 cboPass.SelectedItem = "1 Pass";
             }
+
+
+            // -------------------------
+            // Display Bit-rate in TextBox
+            // -------------------------
+            VideoDisplayBitrate();
         }
 
         /// <summary>
@@ -3213,7 +3509,9 @@ namespace Axiom
         /// </summary>
         private void tglVideoVBR_Unchecked(object sender, RoutedEventArgs e)
         {
+            // -------------------------
             // MPEG-4 CBR Reset
+            // -------------------------
             if ((string)cboVideoCodec.SelectedItem == "mpeg4")
             {
                 // Change ItemSource
@@ -3229,6 +3527,11 @@ namespace Axiom
                 // Select Item
                 cboPass.SelectedItem = "2 Pass";
             }
+
+            // -------------------------
+            // Display Bit-rate in TextBox
+            // -------------------------
+            VideoDisplayBitrate();
         }
 
 
@@ -3591,6 +3894,24 @@ namespace Axiom
                 vBitrateCustom.IsEnabled = false;
                 //vBitrateCustom.Text = string.Empty ;
             }
+
+
+            // -------------------------
+            // VBR
+            // -------------------------
+            // MPEG-4
+            //if ((string)cboVideoCodec.SelectedItem == "mpeg4")
+            //{
+            //    // Lossless - Force VBR
+            //    if ((string)cboVideo.SelectedItem == "Lossless")
+            //    {
+            //        tglVideoVBR.IsChecked = true;
+            //    }
+            //    else
+            //    {
+            //        tglVideoVBR.IsChecked = false;
+            //    }
+            //}
 
 
             // -------------------------

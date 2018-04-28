@@ -112,6 +112,7 @@ namespace Axiom
                         Video.VideoQuality(mainwindow),
                         "\r\n" + Video.FPS(mainwindow),
                         "\r\n" + Video.VideoFilter(mainwindow),
+                        "\r\n" + Video.ScalingAlgorithm(mainwindow),
                         "\r\n" + Video.Images(mainwindow),
                         "\r\n" + Video.Optimize(mainwindow),
                         "\r\n" + Streams.VideoStreamMaps(mainwindow),
@@ -182,6 +183,7 @@ namespace Axiom
                         Video.VideoQuality(mainwindow),
                         "\r\n" + Video.FPS(mainwindow),
                         "\r\n" + Video.VideoFilter(mainwindow),
+                        "\r\n" + Video.ScalingAlgorithm(mainwindow),
                         "\r\n" + Video.Images(mainwindow),
                         "\r\n" + Video.Optimize(mainwindow),
                         "\r\n" + Video.Pass1Modifier(mainwindow), // -pass 1, -x265-params pass=2
@@ -227,6 +229,7 @@ namespace Axiom
                         Video.vQuality,
                         "\r\n" + Video.fps,
                         "\r\n" + Video.vFilter,
+                        "\r\n" + Video.ScalingAlgorithm(mainwindow),
                         "\r\n" + Video.image,
                         "\r\n" + Video.optimize,
                         "\r\n" + Streams.VideoStreamMaps(mainwindow),

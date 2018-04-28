@@ -349,6 +349,12 @@
         <Setter Property="Opacity" Value="0.8"/>
     </Style>
 
+    <!-- Auto Sort Script Button -->
+    <Style x:Key="ButtonAutoSortScript" TargetType="{x:Type Image}">
+        <Setter Property="FlowDirection" Value="LeftToRight"/>
+        <Setter Property="Source" Value="Resources/Images/Buttons/Black/autosortscript.png"/>
+    </Style>
+
     <!-- Debug Console Button -->
     <Style x:Key="ButtonDebugConsole" TargetType="{x:Type Image}">
         <Setter Property="FlowDirection" Value="LeftToRight"/>
