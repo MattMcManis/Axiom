@@ -211,6 +211,12 @@ namespace Axiom
             DataContext = this;
 
             // -------------------------
+            // Control Binding
+            // -------------------------
+            ViewModel vm = new ViewModel();
+            DataContext = vm;
+
+            // -------------------------
             // Load Theme
             // -------------------------
             // --------------------------
@@ -551,8 +557,8 @@ namespace Axiom
             // Control Defaults
             // -------------------------
             // ComboBox Item Sources
-            cboFormat.ItemsSource = FormatControls.FormatItemSource;
-            cboMediaType.ItemsSource = FormatControls.MediaTypeItemSource;
+            //cboFormat.ItemsSource = FormatControls.FormatItemSource;
+            //cboMediaType.ItemsSource = FormatControls.MediaTypeItemSource;
 
             listViewSubtitles.SelectionMode = SelectionMode.Single;
 
@@ -563,8 +569,6 @@ namespace Axiom
             cboSpeed.SelectedItem = "Medium";
             cboHWAccel.SelectedIndex = 0;
             cboPreset.SelectedIndex = 0;
-
-            //tglWindowKeep.IsChecked = true;
 
             //AudioControls.Audio_SelectedItem = AudioControls.AudioItemSource[0];
             //AudioControls.Audio_SelectedItem = AudioControls.AudioItemSource[0];
@@ -673,7 +677,7 @@ namespace Axiom
             Video.height = string.Empty;
 
             // Clear Crop if ClearCrop Button Identifier is Empty
-            if (mainwindow.buttonCropClearTextBox.Text == "") 
+            if (mainwindow.buttonCropClearTextBox.Text == "Clear") 
             {
                 CropWindow.crop = string.Empty;
                 CropWindow.divisibleCropWidth = null; //int
@@ -3038,10 +3042,14 @@ namespace Axiom
         /// </summary>
         private void cboPass_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            // Pass Controls Method
+            // -------------------------
+            // Pass Controls
+            // -------------------------
             VideoControls.EncodingPass(this);
 
+            // -------------------------
             // Display Bit-rate in TextBox
+            // -------------------------
             VideoDisplayBitrate();
         }
         private void cboPass_DropDownClosed(object sender, EventArgs e)
@@ -3115,11 +3123,14 @@ namespace Axiom
                     // Save Previous Path
                     Settings.Default.inputDir = inputDir;
                     Settings.Default.Save();
-
                 }
 
+                // -------------------------
+                // Prevent Losing Codec Copy after cancel closing Browse Folder Dialog Box 
                 // Set Video & Audio Codec Combobox to "Copy" if Input Extension is Same as Output Extension and Video Quality is Auto
+                // -------------------------
                 VideoControls.AutoCopyVideoCodec(this);
+                VideoControls.AutoCopySubtitleCodec(this);
                 AudioControls.AutoCopyAudioCodec(this);
             }
             // -------------------------
@@ -3141,19 +3152,13 @@ namespace Axiom
                     // Input Directory
                     inputDir = Path.GetDirectoryName(tbxInput.Text.TrimEnd('\\') + @"\");
                 }
-                else
-                {
-                    // Prevent Losing Codec Copy after cancel closing Browse Folder Dialog Box 
-                    //
-                    // Set Video & Audio Codec Combobox to "Copy" if Input Extension is Same as Output Extension and Video Quality is Auto
-                    VideoControls.AutoCopyVideoCodec(this);
-                    AudioControls.AutoCopyAudioCodec(this);
-                }
 
+                // -------------------------
                 // Prevent Losing Codec Copy after cancel closing Browse Folder Dialog Box 
-                //
                 // Set Video & Audio Codec Combobox to "Copy" if Input Extension is Same as Output Extension and Video Quality is Auto
+                // -------------------------
                 VideoControls.AutoCopyVideoCodec(this);
+                VideoControls.AutoCopySubtitleCodec(this);
                 AudioControls.AutoCopyAudioCodec(this);
             }
         }
@@ -3196,6 +3201,7 @@ namespace Axiom
 
                 // Set Video & Audio Codec Combobox to "Copy" if Input Extension is Same as Output Extension and Video Quality is Auto
                 VideoControls.AutoCopyVideoCodec(this);
+                VideoControls.AutoCopySubtitleCodec(this);
                 AudioControls.AutoCopyAudioCodec(this);
             }             
             //}
@@ -3222,6 +3228,7 @@ namespace Axiom
 
             // Set Video & Audio Codec Combobox to "Copy" if Input Extension is Same as Output Extension and Video Quality is Auto
             VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopySubtitleCodec(this);
             AudioControls.AutoCopyAudioCodec(this);
         }
 
@@ -3485,13 +3492,17 @@ namespace Axiom
             if ((string)cboVideoCodec.SelectedItem == "mpeg4")
             {
                 // Change ItemSource
-                VideoControls.PassItemSource = new List<string>()
+                List<string> Pass_ItemSource = new List<string>()
                 {
                     "1 Pass",
                 };
 
-                // Populate ComboBox from ItemSource
-                cboPass.ItemsSource = VideoControls.PassItemSource;
+                ViewModel.ChangeItemSource(
+                    this,
+                    cboPass,
+                    Pass_ItemSource,
+                    ViewModel._cboVideoPass_Items,
+                    ViewModel.cboVideoPass_SelectedItem);
 
                 // Select Item
                 cboPass.SelectedItem = "1 Pass";
@@ -3515,14 +3526,18 @@ namespace Axiom
             if ((string)cboVideoCodec.SelectedItem == "mpeg4")
             {
                 // Change ItemSource
-                VideoControls.PassItemSource = new List<string>()
+                List<string> Pass_ItemSource = new List<string>()
                 {
                     "2 Pass",
                     "1 Pass",
                 };
 
-                // Populate ComboBox from ItemSource
-                cboPass.ItemsSource = VideoControls.PassItemSource;
+                ViewModel.ChangeItemSource(
+                    this,
+                    cboPass,
+                    Pass_ItemSource,
+                    ViewModel._cboVideoPass_Items,
+                    ViewModel.cboVideoPass_SelectedItem);
 
                 // Select Item
                 cboPass.SelectedItem = "2 Pass";
@@ -3563,6 +3578,7 @@ namespace Axiom
 
             // Disable Copy on change
             VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopySubtitleCodec(this);
 
         }
 
@@ -3582,7 +3598,8 @@ namespace Axiom
         private void audioCustom_GotFocus(object sender, RoutedEventArgs e)
         {
             // Clear Textbox on first use
-            if (audioCustom.Text == "kbps")
+            //if (audioCustom.Text == "kbps")
+            if (audioCustom.Text == string.Empty)
             {
                 TextBox tbac = (TextBox)sender;
                 tbac.Text = string.Empty;
@@ -3596,7 +3613,8 @@ namespace Axiom
             TextBox tbac = sender as TextBox;
             if (tbac.Text.Trim().Equals(string.Empty))
             {
-                tbac.Text = "kbps";
+                //tbac.Text = "kbps";
+                tbac.Text = string.Empty;
                 tbac.GotFocus -= audioCustom_GotFocus; //used to be +=
             }
         }
@@ -3736,7 +3754,7 @@ namespace Axiom
             // -------------------------
             // Video Codec Controls
             // -------------------------
-            VideoControls.VideoCodecControls(this);
+            //VideoControls.VideoCodecControls(this); // select error
 
             // -------------------------
             // Video Encoding Pass Controls
@@ -3754,7 +3772,7 @@ namespace Axiom
             // -------------------------
             if ((string)cboVideoCodec.SelectedItem == "VP8"
                 || (string)cboVideoCodec.SelectedItem == "VP9"
-                || (string)cboVideoCodec.SelectedItem == "x264" 
+                || (string)cboVideoCodec.SelectedItem == "x264"
                 || (string)cboVideoCodec.SelectedItem == "x265"
                 || (string)cboVideoCodec.SelectedItem == "Copy")
             {
@@ -3771,7 +3789,7 @@ namespace Axiom
             // -------------------------
             // Enable/Disable Hardware Acceleration
             // -------------------------
-            if ((string)cboVideoCodec.SelectedItem == "x264" 
+            if ((string)cboVideoCodec.SelectedItem == "x264"
                 || (string)cboVideoCodec.SelectedItem == "x265")
             {
                 cboHWAccel.IsEnabled = true;
@@ -3788,7 +3806,9 @@ namespace Axiom
         /// </summary>
         private void cboSubtitleCodec_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            VideoControls.VideoCodecControls(this);
+            //VideoControls.VideoCodecControls(this);
+
+            //VideoControls.SubtitleCodecControls(this); // select error
         }
 
 
@@ -3797,7 +3817,7 @@ namespace Axiom
         /// </summary>
         private void cboAudioCodec_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            AudioControls.AudioCodecControls(this);
+            //AudioControls.AudioCodecControls(this); // select error
         }
 
 
@@ -3817,6 +3837,7 @@ namespace Axiom
 
             // Change All MainWindow Items
             VideoControls.VideoCodecControls(this);
+            VideoControls.SubtitleCodecControls(this);
             AudioControls.AudioCodecControls(this);
 
             // Pass Controls
@@ -3871,7 +3892,20 @@ namespace Axiom
         /// </summary>
         private void cboVideo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            // -------------------------
+            // Auto Copy Video Codec Controls
+            // -------------------------
             VideoControls.AutoCopyVideoCodec(this);
+
+            // -------------------------
+            // Auto Copy Subtitle Codec Controls
+            // -------------------------
+            VideoControls.AutoCopySubtitleCodec(this);
+
+            // -------------------------
+            // Video Quality Controls
+            // -------------------------
+            VideoControls.VideoQualityControls(this);
 
             // -------------------------
             // Enable Video Bitrate Custom
@@ -3890,9 +3924,9 @@ namespace Axiom
             else
             {
                 crfCustom.IsEnabled = false;
-                //crfCustom.Text = string.Empty ;
+                //crfCustom.Text = string.Empty;
                 vBitrateCustom.IsEnabled = false;
-                //vBitrateCustom.Text = string.Empty ;
+                //vBitrateCustom.Text = string.Empty;
             }
 
 
@@ -3941,7 +3975,6 @@ namespace Axiom
             {
                 cboPass.SelectedItem = "CRF";
             }
-
 
             // -------------------------
             // Display Bit-rate in TextBox
@@ -3998,7 +4031,7 @@ namespace Axiom
             // -------------------------
             // Custom
             // -------------------------
-            //enable Audio Custom
+            // Enable Audio Bitrate Custom
             if ((string)cboAudio.SelectedItem == "Custom")
             {
                 audioCustom.IsEnabled = true;
@@ -4102,7 +4135,8 @@ namespace Axiom
             }
             else
             {
-                audioCustom.Text = "kbps";
+                //audioCustom.Text = "kbps";
+                audioCustom.Text = string.Empty;
             }
 
             // -------------------------
@@ -4172,6 +4206,7 @@ namespace Axiom
         {
             // Set Video Codec Combobox to "Copy" if Input Extension is Same as Output Extension and Video Quality is Auto
             VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopySubtitleCodec(this);
 
             // Enable Aspect Custom
             if ((string)cboSize.SelectedItem == "Custom")
@@ -4488,6 +4523,7 @@ namespace Axiom
         {
             // Disable Copy on change
             //VideoControls.AutoCopyVideoCodec(this); // this caused a loop error
+            //VideoControls.AutoCopySubtitleCodec(this);
         }
 
 
@@ -4536,7 +4572,8 @@ namespace Axiom
             }
 
             // Add period to batchExt if user did not enter (This helps enable Copy)
-            if (!batchExt.StartsWith(".") && !string.IsNullOrWhiteSpace(batchExtensionTextBox.Text) 
+            if (!batchExt.StartsWith(".") 
+                && !string.IsNullOrWhiteSpace(batchExtensionTextBox.Text) 
                 && batchExtensionTextBox.Text != "extension")
             {
                 batchExt = "." + batchExt;
@@ -4544,6 +4581,7 @@ namespace Axiom
 
             // Set Video and AudioCodec Combobox to "Copy" if Input Extension is Same as Output Extension and Video Quality is Auto
             VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopySubtitleCodec(this);
             AudioControls.AutoCopyAudioCodec(this);
         }
 
@@ -4622,7 +4660,6 @@ namespace Axiom
 
             // Defaults
             selectFiles.Multiselect = true;
-            //selectFiles.Filter = "SRT (*.srt)|*.srt|SUB *.sub|SBV *.sbv|ASS *.ass|SSA *.ssa|MPSUB *.mpsub|LRC *.lrc|CAP *.cap|All files (*.*)|*.*";
             selectFiles.Filter = "All files (*.*)|*.*|SRT (*.srt)|*.srt|SUB (*.sub)|*.sub|SBV (*.sbv)|*.sbv|ASS (*.ass)|*.ass|SSA (*.ssa)|*.ssa|MPSUB (*.mpsub)|*.mpsub|LRC (*.lrc)|*.lrc|CAP (*.cap)|*.cap";
 
             // Remember Last Dir
@@ -4653,18 +4690,6 @@ namespace Axiom
                     // ListView Display File Names + Ext
                     listViewSubtitles.Items.Add(Path.GetFileName(selectFiles.FileNames[i]));
                 }
-
-                //subsDir = selectFiles.FileName;
-
-                // Set Input Dir, Name, Ext
-                //subsDir = Path.GetDirectoryName(tbxInput.Text).TrimEnd('\\') + @"\";
-                //subsFileName = Path.GetFileNameWithoutExtension(tbxInput.Text);
-                //subsExt = Path.GetExtension(tbxInput.Text);
-
-                // Save Previous Path
-                //Settings.Default.subsDir = subsDir;
-                //Settings.Default.Save();
-
             }
         }
 
@@ -4786,6 +4811,7 @@ namespace Axiom
 
             // Set Video and AudioCodec Combobox to "Copy" if Input Extension is Same as Output Extension and Video Quality is Auto
             VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopySubtitleCodec(this);
             AudioControls.AutoCopyAudioCodec(this);
         }
 

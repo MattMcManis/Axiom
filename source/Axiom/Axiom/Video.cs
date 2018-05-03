@@ -25,6 +25,7 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Documents;
 // Disable XML Comment warnings
 #pragma warning disable 1591
@@ -2115,7 +2116,7 @@ namespace Axiom
                                 // User Defined Crop should always override Divisible Crop
                                 // CropClearButton ~ is used as an Identifier, Divisible Crop does not leave "~"
                                 //
-                                if (mainwindow.buttonCropClearTextBox.Text == "") // Crop Set Check
+                                if (mainwindow.buttonCropClearTextBox.Text == "Clear") // Crop Set Check
                                 {
                                     // Temporary Strings
                                     // So not to Override User Defined Crop
@@ -2338,14 +2339,14 @@ namespace Axiom
         /// <summary>
         /// Scaling Algorithm
         /// <summary>
-        public static String ScalingAlgorithm(MainWindow mainwindow)
+        public static String ScalingAlgorithm()
         {
             string algorithm = string.Empty;
 
             // None & Default
             //
-            if ((string)mainwindow.cboScaling.SelectedItem == "None"
-                || (string)mainwindow.cboScaling.SelectedItem == "Default")
+            if (ViewModel.cboScaling_SelectedItem == "None"
+                || ViewModel.cboScaling_SelectedItem == "Default")
             {
                 algorithm = string.Empty;
             }
@@ -2354,11 +2355,32 @@ namespace Axiom
             //
             else
             {
-                algorithm = "-sws_flags " + mainwindow.cboScaling.SelectedItem.ToString();
+                algorithm = "-sws_flags " + ViewModel.cboScaling_SelectedItem;
             }
 
             return algorithm;
         }
+        //public static String ScalingAlgorithm(MainWindow mainwindow)
+        //{
+        //    string algorithm = string.Empty;
+
+        //    // None & Default
+        //    //
+        //    if ((string)mainwindow.cboScaling.SelectedItem == "None"
+        //        || (string)mainwindow.cboScaling.SelectedItem == "Default")
+        //    {
+        //        algorithm = string.Empty;
+        //    }
+
+        //    // Scaler
+        //    //
+        //    else
+        //    {
+        //        algorithm = "-sws_flags " + mainwindow.cboScaling.SelectedItem.ToString();
+        //    }
+
+        //    return algorithm;
+        //}
 
 
 
@@ -2375,7 +2397,9 @@ namespace Axiom
             if ((string)mainwindow.cboVideoCodec.SelectedItem != "x264" 
                 && (string)mainwindow.cboVideoCodec.SelectedItem != "x265"
                 && (string)mainwindow.cboVideoCodec.SelectedItem != "mpeg4"
-                && string.IsNullOrWhiteSpace(mainwindow.buttonCropClearTextBox.Text))
+                && mainwindow.buttonCropClearTextBox.Text == "Clear"
+                //&& string.IsNullOrWhiteSpace(mainwindow.buttonCropClearTextBox.Text)
+                )
             {
                 CropWindow.crop = string.Empty;
             }

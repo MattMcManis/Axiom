@@ -33,21 +33,6 @@ namespace Axiom
     public partial class AudioControls
     {
         // --------------------------------------------------------------------------------------------------------
-        // ComboBoxes Item Sources
-        // --------------------------------------------------------------------------------------------------------
-        private static string previousItem; // Previous ComboBox Item
-
-        // -------------------------
-        // Audio
-        // -------------------------
-        public static List<string> AudioCodecItemSource;
-        public static List<string> AudioItemSource;
-        public static List<string> ChannelItemSource;
-        public static List<string> SampleRateItemSource;
-        public static List<string> BitDepthItemSource;
-
-
-        // --------------------------------------------------------------------------------------------------------
         // --------------------------------------------------------------------------------------------------------
         // Control Methods
         // --------------------------------------------------------------------------------------------------------
@@ -76,26 +61,16 @@ namespace Axiom
                 // -------------------------
                 // Audio
                 // -------------------------
-                // Get Previous Item
-                previousItem = (string)mainwindow.cboAudio.SelectedItem;
-
                 // Change ItemSource
                 // Add 510k to Audio Quality ComboBox
-                AudioItemSource = new List<string>() { "Auto", "510", "320", "256", "224", "192", "160", "128", "96", "Custom", "Mute" };
+                List<string> Audio_ItemSource = new List<string>() { "Auto", "510", "320", "256", "224", "192", "160", "128", "96", "Custom", "Mute" };
 
-                // Populate ComboBox from ItemSource
-                mainwindow.cboAudio.ItemsSource = AudioItemSource;
-                //OnPropertyChanged("AudioItemSource");
-
-                // Select Item
-                if (AudioItemSource.Contains(previousItem))
-                {
-                    mainwindow.cboAudio.SelectedItem = previousItem;
-                }
-                else
-                {
-                    mainwindow.cboAudio.SelectedIndex = 0; // auto
-                }
+                ViewModel.ChangeItemSource(
+                    mainwindow,
+                    mainwindow.cboAudio,
+                    Audio_ItemSource,
+                    ViewModel._cboAudioQuality_Items,
+                    ViewModel.cboAudioQuality_SelectedItem);
 
                 // Enable Control
                 mainwindow.cboAudio.IsEnabled = true;
@@ -104,47 +79,35 @@ namespace Axiom
                 // -------------------------
                 // Channel
                 // -------------------------
-                // Get Previous Item
-                previousItem = (string)mainwindow.cboChannel.SelectedItem;
-
                 // Change ItemSource
-                ChannelItemSource = new List<string>() { "Source", "Stereo", "Mono", "5.1" };
+                List<string> Channel_ItemSource = new List<string>() { "Source", "Stereo", "Mono", "5.1" };
 
-                // Populate ComboBox from ItemSource
-                mainwindow.cboChannel.ItemsSource = ChannelItemSource;
+                ViewModel.ChangeItemSource(
+                    mainwindow,
+                    mainwindow.cboChannel,
+                    Channel_ItemSource,
+                    ViewModel._cboAudioChannel_Items,
+                    ViewModel.cboAudioChannel_SelectedItem);
 
                 // Select Item
-                if (ChannelItemSource.Contains(previousItem))
-                {
-                    mainwindow.cboChannel.SelectedItem = previousItem;
-                }
-                else
-                {
-                    mainwindow.cboChannel.SelectedIndex = 0; // Source
-                }
+                mainwindow.cboChannel.SelectedItem = "Source";
+
+                // Enable Control
+                mainwindow.cboChannel.IsEnabled = true;
 
 
                 // -------------------------
                 // Sample Rate
                 // -------------------------
-                // Get Previous Item
-                previousItem = (string)mainwindow.cboSamplerate.SelectedItem;
-
                 // Change ItemSource
-                SampleRateItemSource = new List<string>() { "auto", "8k", "12k", "16k", "24k", "48k" };
+                List<string> SampleRate_ItemSource = new List<string>() { "auto", "8k", "12k", "16k", "24k", "48k" };
 
-                // Populate ComboBox from ItemSource
-                mainwindow.cboSamplerate.ItemsSource = SampleRateItemSource;
-
-                // Select Item
-                if (SampleRateItemSource.Contains(previousItem))
-                {
-                    mainwindow.cboSamplerate.SelectedItem = previousItem;
-                }
-                else
-                {
-                    mainwindow.cboSamplerate.SelectedIndex = 0;
-                }
+                ViewModel.ChangeItemSource(
+                    mainwindow,
+                    mainwindow.cboSamplerate,
+                    SampleRate_ItemSource,
+                    ViewModel._cboAudioSampleRate_Items,
+                    ViewModel.cboAudioSampleRate_SelectedItem);
 
                 // Enable Control
                 mainwindow.cboSamplerate.IsEnabled = true;
@@ -153,24 +116,15 @@ namespace Axiom
                 // -------------------------
                 // Bit Depth
                 // -------------------------
-                // Get Previous Item
-                previousItem = (string)mainwindow.cboBitDepth.SelectedItem;
-
                 // Change ItemSource
-                BitDepthItemSource = new List<string>() { "auto", "8", "16", "24", "32", "64" };
+                List<string> BitDepth_ItemSource = new List<string>() { "auto", "8", "16", "24", "32", "64" };
 
-                // Populate ComboBox from ItemSource
-                mainwindow.cboBitDepth.ItemsSource = BitDepthItemSource;
-
-                // Select Item
-                if (BitDepthItemSource.Contains(previousItem))
-                {
-                    mainwindow.cboBitDepth.SelectedItem = previousItem;
-                }
-                else
-                {
-                    mainwindow.cboBitDepth.SelectedIndex = 0; // auto
-                }
+                ViewModel.ChangeItemSource(
+                    mainwindow,
+                    mainwindow.cboBitDepth,
+                    BitDepth_ItemSource,
+                    ViewModel._cboAudioBitDepth_Items,
+                    ViewModel.cboAudioBitDepth_SelectedItem);
 
                 // Disable Control
                 mainwindow.cboBitDepth.IsEnabled = false;
@@ -193,25 +147,16 @@ namespace Axiom
                 // -------------------------
                 // Audio
                 // -------------------------
-                // Get Previous Item
-                previousItem = (string)mainwindow.cboAudio.SelectedItem;
-
                 // Change ItemSource
                 // Add 500k to Audio Quality Combobox
-                AudioItemSource = new List<string>() { "Auto", "500", "320", "256", "224", "192", "160", "128", "96", "Custom", "Mute" };
+                List<string> Audio_ItemSource = new List<string>() { "Auto", "500", "320", "256", "224", "192", "160", "128", "96", "Custom", "Mute" };
 
-                // Populate ComboBox from ItemSource
-                mainwindow.cboAudio.ItemsSource = AudioItemSource;
-
-                // Select Item
-                if (AudioItemSource.Contains(previousItem))
-                {
-                    mainwindow.cboAudio.SelectedItem = previousItem;
-                }
-                else
-                {
-                    mainwindow.cboAudio.SelectedIndex = 0; // auto
-                }
+                ViewModel.ChangeItemSource(
+                    mainwindow,
+                    mainwindow.cboAudio,
+                    Audio_ItemSource,
+                    ViewModel._cboAudioQuality_Items,
+                    ViewModel.cboAudioQuality_SelectedItem);
 
                 // Enable Control
                 mainwindow.cboAudio.IsEnabled = true;
@@ -220,47 +165,35 @@ namespace Axiom
                 // -------------------------
                 // Channel
                 // -------------------------
-                // Get Previous Item
-                previousItem = (string)mainwindow.cboChannel.SelectedItem;
-
                 // Change ItemSource
-                ChannelItemSource = new List<string>() { "Source", "Stereo", "Mono", "5.1" };
+                List<string> Channel_ItemSource = new List<string>() { "Source", "Stereo", "Mono", "5.1" };
 
-                // Populate ComboBox from ItemSource
-                mainwindow.cboChannel.ItemsSource = ChannelItemSource;
+                ViewModel.ChangeItemSource(
+                    mainwindow,
+                    mainwindow.cboChannel,
+                    Channel_ItemSource,
+                    ViewModel._cboAudioChannel_Items,
+                    ViewModel.cboAudioChannel_SelectedItem);
 
                 // Select Item
-                if (ChannelItemSource.Contains(previousItem))
-                {
-                    mainwindow.cboChannel.SelectedItem = previousItem;
-                }
-                else
-                {
-                    mainwindow.cboChannel.SelectedIndex = 0; // Source
-                }
+                mainwindow.cboChannel.SelectedItem = "Source";
+
+                // Enable Control
+                mainwindow.cboChannel.IsEnabled = true;
 
 
                 // -------------------------
                 // Sample Rate
                 // -------------------------
-                // Get Previous Item
-                previousItem = (string)mainwindow.cboSamplerate.SelectedItem;
-
                 // Change ItemSource
-                SampleRateItemSource = new List<string>() { "auto", "8k", "11.025k", "12k", "16k", "22.05k", "24k", "32k", "44.1k", "48k" };
+                List<string> SampleRate_ItemSource = new List<string>() { "auto", "8k", "11.025k", "12k", "16k", "22.05k", "24k", "32k", "44.1k", "48k" };
 
-                // Populate ComboBox from ItemSource
-                mainwindow.cboSamplerate.ItemsSource = SampleRateItemSource;
-
-                // Select Item
-                if (SampleRateItemSource.Contains(previousItem))
-                {
-                    mainwindow.cboSamplerate.SelectedItem = previousItem;
-                }
-                else
-                {
-                    mainwindow.cboSamplerate.SelectedIndex = 0; // auto
-                }
+                ViewModel.ChangeItemSource(
+                    mainwindow,
+                    mainwindow.cboSamplerate,
+                    SampleRate_ItemSource,
+                    ViewModel._cboAudioSampleRate_Items,
+                    ViewModel.cboAudioSampleRate_SelectedItem);
 
                 // Enable Control
                 mainwindow.cboSamplerate.IsEnabled = true;
@@ -269,24 +202,15 @@ namespace Axiom
                 // -------------------------
                 // Bit Depth
                 // -------------------------
-                // Get Previous Item
-                previousItem = (string)mainwindow.cboBitDepth.SelectedItem;
-
                 // Change ItemSource
-                BitDepthItemSource = new List<string>() { "auto", "8", "16", "24", "32", "64" };
+                List<string> BitDepth_ItemSource = new List<string>() { "auto", "8", "16", "24", "32", "64" };
 
-                // Populate ComboBox from ItemSource
-                mainwindow.cboBitDepth.ItemsSource = BitDepthItemSource;
-
-                // Select Item
-                if (BitDepthItemSource.Contains(previousItem))
-                {
-                    mainwindow.cboBitDepth.SelectedItem = previousItem;
-                }
-                else
-                {
-                    mainwindow.cboBitDepth.SelectedIndex = 0; // auto
-                }
+                ViewModel.ChangeItemSource(
+                    mainwindow,
+                    mainwindow.cboBitDepth,
+                    BitDepth_ItemSource,
+                    ViewModel._cboAudioBitDepth_Items,
+                    ViewModel.cboAudioBitDepth_SelectedItem);
 
                 // Disable Control
                 mainwindow.cboBitDepth.IsEnabled = false;
@@ -306,27 +230,15 @@ namespace Axiom
             // --------------------------------------------------
             else if ((string)mainwindow.cboAudioCodec.SelectedItem == "AAC")
             {
-                // -------------------------
-                // Audio
-                // -------------------------
-                // Get Previous Item
-                previousItem = (string)mainwindow.cboAudio.SelectedItem;
-
                 // Change ItemSource
-                AudioItemSource = new List<string>() { "Auto", "400", "320", "256", "224", "192", "160", "128", "96", "Custom", "Mute" };
+                List<string> Audio_ItemSource = new List<string>() { "Auto", "400", "320", "256", "224", "192", "160", "128", "96", "Custom", "Mute" };
 
-                // Populate ComboBox from ItemSource
-                mainwindow.cboAudio.ItemsSource = AudioItemSource;
-
-                // Select Item
-                if (AudioItemSource.Contains(previousItem))
-                {
-                    mainwindow.cboAudio.SelectedItem = previousItem;
-                }
-                else
-                {
-                    mainwindow.cboAudio.SelectedIndex = 0; // auto
-                }
+                ViewModel.ChangeItemSource(
+                    mainwindow,
+                    mainwindow.cboAudio,
+                    Audio_ItemSource,
+                    ViewModel._cboAudioQuality_Items,
+                    ViewModel.cboAudioQuality_SelectedItem);
 
                 // Enable Control
                 mainwindow.cboAudio.IsEnabled = true;
@@ -335,47 +247,35 @@ namespace Axiom
                 // -------------------------
                 // Channel
                 // -------------------------
-                // Get Previous Item
-                previousItem = (string)mainwindow.cboChannel.SelectedItem;
-
                 // Change ItemSource
-                ChannelItemSource = new List<string>() { "Source", "Stereo", "Mono", "5.1" };
+                List<string> Channel_ItemSource = new List<string>() { "Source", "Stereo", "Mono", "5.1" };
 
-                // Populate ComboBox from ItemSource
-                mainwindow.cboChannel.ItemsSource = ChannelItemSource;
+                ViewModel.ChangeItemSource(
+                    mainwindow,
+                    mainwindow.cboChannel,
+                    Channel_ItemSource,
+                    ViewModel._cboAudioChannel_Items,
+                    ViewModel.cboAudioChannel_SelectedItem);
 
                 // Select Item
-                if (ChannelItemSource.Contains(previousItem))
-                {
-                    mainwindow.cboChannel.SelectedItem = previousItem;
-                }
-                else
-                {
-                    mainwindow.cboChannel.SelectedIndex = 0; // Source
-                }
+                mainwindow.cboChannel.SelectedItem = "Source";
+
+                // Enable Control
+                mainwindow.cboChannel.IsEnabled = true;
 
 
                 // -------------------------
                 // Sample Rate
                 // -------------------------
-                // Get Previous Item
-                previousItem = (string)mainwindow.cboSamplerate.SelectedItem;
-
                 // Change ItemSource
-                SampleRateItemSource = new List<string>() { "auto", "8k", "11.025k", "12k", "16k", "22.05k", "24k", "32k", "44.1k", "48k", "64k", "88.2k", "96k" };
+                List<string> SampleRate_ItemSource = new List<string>() { "auto", "8k", "11.025k", "12k", "16k", "22.05k", "24k", "32k", "44.1k", "48k", "64k", "88.2k", "96k" };
 
-                // Populate ComboBox from ItemSource
-                mainwindow.cboSamplerate.ItemsSource = SampleRateItemSource;
-
-                // Select Item
-                if (SampleRateItemSource.Contains(previousItem))
-                {
-                    mainwindow.cboSamplerate.SelectedItem = previousItem;
-                }
-                else
-                {
-                    mainwindow.cboSamplerate.SelectedIndex = 0;
-                }
+                ViewModel.ChangeItemSource(
+                    mainwindow,
+                    mainwindow.cboSamplerate,
+                    SampleRate_ItemSource,
+                    ViewModel._cboAudioSampleRate_Items,
+                    ViewModel.cboAudioSampleRate_SelectedItem);
 
                 //Enable Control
                 mainwindow.cboSamplerate.IsEnabled = true;
@@ -384,24 +284,15 @@ namespace Axiom
                 // -------------------------
                 // Bit Depth
                 // -------------------------
-                // Get Previous Item
-                previousItem = (string)mainwindow.cboBitDepth.SelectedItem;
-
                 // Change ItemSource
-                BitDepthItemSource = new List<string>() { "auto", "8", "16", "24", "32", "64" };
+                List<string> BitDepth_ItemSource = new List<string>() { "auto", "8", "16", "24", "32", "64" };
 
-                // Populate ComboBox from ItemSource
-                mainwindow.cboBitDepth.ItemsSource = BitDepthItemSource;
-
-                // Select Item
-                if (BitDepthItemSource.Contains(previousItem))
-                {
-                    mainwindow.cboBitDepth.SelectedItem = previousItem;
-                }
-                else
-                {
-                    mainwindow.cboBitDepth.SelectedIndex = 0; // auto
-                }
+                ViewModel.ChangeItemSource(
+                    mainwindow,
+                    mainwindow.cboBitDepth,
+                    BitDepth_ItemSource,
+                    ViewModel._cboAudioBitDepth_Items,
+                    ViewModel.cboAudioBitDepth_SelectedItem);
 
                 // Disable Control
                 mainwindow.cboBitDepth.IsEnabled = false;
@@ -425,14 +316,15 @@ namespace Axiom
                 // -------------------------
                 // Audio
                 // -------------------------
-                // Get Previous Item
-                previousItem = (string)mainwindow.cboAudio.SelectedItem;
-
                 // Change ItemSource
-                AudioItemSource = new List<string>() { "Auto", "Lossless", "320", "256", "224", "192", "160", "128", "96", "Custom", "Mute" };
+                List<string> Audio_ItemSource = new List<string>() { "Auto", "Lossless", "320", "256", "224", "192", "160", "128", "96", "Custom", "Mute" };
 
-                // Populate ComboBox from ItemSource
-                mainwindow.cboAudio.ItemsSource = AudioItemSource;
+                ViewModel.ChangeItemSource(
+                    mainwindow,
+                    mainwindow.cboAudio,
+                    Audio_ItemSource,
+                    ViewModel._cboAudioQuality_Items,
+                    ViewModel.cboAudioQuality_SelectedItem);
 
                 // Select Item
                 mainwindow.cboAudio.SelectedItem = "Lossless";
@@ -444,47 +336,35 @@ namespace Axiom
                 // -------------------------
                 // Channel
                 // -------------------------
-                // Get Previous Item
-                previousItem = (string)mainwindow.cboChannel.SelectedItem;
-
                 // Change ItemSource
-                ChannelItemSource = new List<string>() { "Source", "Stereo", "Mono", "5.1" };
+                List<string> Channel_ItemSource = new List<string>() { "Source", "Stereo", "Mono", "5.1" };
 
-                // Populate ComboBox from ItemSource
-                mainwindow.cboChannel.ItemsSource = ChannelItemSource;
+                ViewModel.ChangeItemSource(
+                    mainwindow,
+                    mainwindow.cboChannel,
+                    Channel_ItemSource,
+                    ViewModel._cboAudioChannel_Items,
+                    ViewModel.cboAudioChannel_SelectedItem);
 
                 // Select Item
-                if (ChannelItemSource.Contains(previousItem))
-                {
-                    mainwindow.cboChannel.SelectedItem = previousItem;
-                }
-                else
-                {
-                    mainwindow.cboChannel.SelectedIndex = 0; // Source
-                }
+                mainwindow.cboChannel.SelectedItem = "Source";
+
+                // Enable Control
+                mainwindow.cboChannel.IsEnabled = true;
 
 
                 // -------------------------
                 // Sample Rate
                 // -------------------------
-                // Get Previous Item
-                previousItem = (string)mainwindow.cboSamplerate.SelectedItem;
-
                 // Change ItemSource
-                SampleRateItemSource = new List<string>() { "auto", "8k", "11.025k", "12k", "16k", "22.05k", "24k", "32k", "44.1k", "48k", "64k", "88.2k", "96k" };
+                List<string> SampleRate_ItemSource = new List<string>() { "auto", "8k", "11.025k", "12k", "16k", "22.05k", "24k", "32k", "44.1k", "48k", "64k", "88.2k", "96k" };
 
-                // Populate ComboBox from ItemSource
-                mainwindow.cboSamplerate.ItemsSource = SampleRateItemSource;
-
-                // Select Item
-                if (SampleRateItemSource.Contains(previousItem))
-                {
-                    mainwindow.cboSamplerate.SelectedItem = previousItem;
-                }
-                else
-                {
-                    mainwindow.cboSamplerate.SelectedIndex = 0; // auto
-                }
+                ViewModel.ChangeItemSource(
+                    mainwindow,
+                    mainwindow.cboSamplerate,
+                    SampleRate_ItemSource,
+                    ViewModel._cboAudioSampleRate_Items,
+                    ViewModel.cboAudioSampleRate_SelectedItem);
 
                 //Enable Control
                 mainwindow.cboSamplerate.IsEnabled = true;
@@ -493,24 +373,15 @@ namespace Axiom
                 // -------------------------
                 // Bit Depth
                 // -------------------------
-                // Get Previous Item
-                previousItem = (string)mainwindow.cboBitDepth.SelectedItem;
-
                 // Change ItemSource
-                BitDepthItemSource = new List<string>() { "auto", "16", "32" };
+                List<string> BitDepth_ItemSource = new List<string>() { "auto", "16", "32" };
 
-                // Populate ComboBox from ItemSource
-                mainwindow.cboBitDepth.ItemsSource = BitDepthItemSource;
-
-                // Select Item
-                if (BitDepthItemSource.Contains(previousItem))
-                {
-                    mainwindow.cboBitDepth.SelectedItem = previousItem;
-                }
-                else
-                {
-                    mainwindow.cboBitDepth.SelectedIndex = 0; // auto
-                }
+                ViewModel.ChangeItemSource(
+                    mainwindow,
+                    mainwindow.cboBitDepth,
+                    BitDepth_ItemSource,
+                    ViewModel._cboAudioBitDepth_Items,
+                    ViewModel.cboAudioBitDepth_SelectedItem);
 
                 // Enable Control
                 mainwindow.cboBitDepth.IsEnabled = true;
@@ -533,25 +404,16 @@ namespace Axiom
                 // -------------------------
                 // Audio
                 // -------------------------
-                // Get Previous Item
-                previousItem = (string)mainwindow.cboAudio.SelectedItem;
-
                 // Change ItemSource
                 // Add 640k & 448k to Audio Quality ComboBox
-                AudioItemSource = new List<string>() { "Auto", "640", "448", "320", "256", "224", "192", "160", "128", "96", "Custom", "Mute" };
+                List<string> Audio_ItemSource = new List<string>() { "Auto", "640", "448", "320", "256", "224", "192", "160", "128", "96", "Custom", "Mute" };
 
-                // Populate ComboBox from ItemSource
-                mainwindow.cboAudio.ItemsSource = AudioItemSource;
-
-                // Select Item
-                if (AudioItemSource.Contains(previousItem))
-                {
-                    mainwindow.cboAudio.SelectedItem = previousItem;
-                }
-                else
-                {
-                    mainwindow.cboAudio.SelectedIndex = 0; // auto
-                }
+                ViewModel.ChangeItemSource(
+                    mainwindow,
+                    mainwindow.cboAudio,
+                    Audio_ItemSource,
+                    ViewModel._cboAudioQuality_Items,
+                    ViewModel.cboAudioQuality_SelectedItem);
 
                 // Enable Control
                 mainwindow.cboAudio.IsEnabled = true;
@@ -560,47 +422,35 @@ namespace Axiom
                 // -------------------------
                 // Channel
                 // -------------------------
-                // Get Previous Item
-                previousItem = (string)mainwindow.cboChannel.SelectedItem;
-
                 // Change ItemSource
-                ChannelItemSource = new List<string>() { "Source", "Stereo", "Mono", "5.1" };
+                List<string> Channel_ItemSource = new List<string>() { "Source", "Stereo", "Mono", "5.1" };
 
-                // Populate ComboBox from ItemSource
-                mainwindow.cboChannel.ItemsSource = ChannelItemSource;
+                ViewModel.ChangeItemSource(
+                    mainwindow,
+                    mainwindow.cboChannel,
+                    Channel_ItemSource,
+                    ViewModel._cboAudioChannel_Items,
+                    ViewModel.cboAudioChannel_SelectedItem);
 
                 // Select Item
-                if (ChannelItemSource.Contains(previousItem))
-                {
-                    mainwindow.cboChannel.SelectedItem = previousItem;
-                }
-                else
-                {
-                    mainwindow.cboChannel.SelectedIndex = 0; // Source
-                }
+                mainwindow.cboChannel.SelectedItem = "Source";
+
+                // Enable Control
+                mainwindow.cboChannel.IsEnabled = true;
 
 
                 // -------------------------
                 // Sample Rate
                 // -------------------------
-                // Get Previous Item
-                previousItem = (string)mainwindow.cboSamplerate.SelectedItem;
-
                 // Change ItemSource
-                SampleRateItemSource = new List<string>() { "auto", "8k", "11.025k", "12k", "16k", "22.05k", "24k", "32k", "44.1k", "48k", "64k", "88.2k", "96k" };
+                List<string> SampleRate_ItemSource = new List<string>() { "auto", "8k", "11.025k", "12k", "16k", "22.05k", "24k", "32k", "44.1k", "48k", "64k", "88.2k", "96k" };
 
-                // Populate ComboBox from ItemSource
-                mainwindow.cboSamplerate.ItemsSource = SampleRateItemSource;
-
-                // Select Item
-                if (SampleRateItemSource.Contains(previousItem))
-                {
-                    mainwindow.cboSamplerate.SelectedItem = previousItem;
-                }
-                else
-                {
-                    mainwindow.cboSamplerate.SelectedIndex = 0; // auto
-                }
+                ViewModel.ChangeItemSource(
+                    mainwindow,
+                    mainwindow.cboSamplerate,
+                    SampleRate_ItemSource,
+                    ViewModel._cboAudioSampleRate_Items,
+                    ViewModel.cboAudioSampleRate_SelectedItem);
 
                 //Enable Control
                 mainwindow.cboSamplerate.IsEnabled = true;
@@ -609,24 +459,15 @@ namespace Axiom
                 // -------------------------
                 // Bit Depth
                 // -------------------------
-                // Get Previous Item
-                previousItem = (string)mainwindow.cboBitDepth.SelectedItem;
-
                 // Change ItemSource
-                BitDepthItemSource = new List<string>() { "auto", "8", "16", "24", "32", "64" };
+                List<string> BitDepth_ItemSource = new List<string>() { "auto", "8", "16", "24", "32", "64" };
 
-                // Populate ComboBox from ItemSource
-                mainwindow.cboBitDepth.ItemsSource = BitDepthItemSource;
-
-                // Select Item
-                if (BitDepthItemSource.Contains(previousItem))
-                {
-                    mainwindow.cboBitDepth.SelectedItem = previousItem;
-                }
-                else
-                {
-                    mainwindow.cboBitDepth.SelectedIndex = 0; // auto
-                }
+                ViewModel.ChangeItemSource(
+                    mainwindow,
+                    mainwindow.cboBitDepth,
+                    BitDepth_ItemSource,
+                    ViewModel._cboAudioBitDepth_Items,
+                    ViewModel.cboAudioBitDepth_SelectedItem);
 
                 // Enable Control
                 mainwindow.cboBitDepth.IsEnabled = false;
@@ -650,24 +491,15 @@ namespace Axiom
                 // -------------------------
                 // Audio
                 // -------------------------
-                // Get Previous Item
-                previousItem = (string)mainwindow.cboAudio.SelectedItem;
-
                 // Change ItemSource
-                AudioItemSource = new List<string>() { "Auto", "320", "256", "224", "192", "160", "128", "96", "Custom", "Mute" };
+                List<string> Audio_ItemSource = new List<string>() { "Auto", "320", "256", "224", "192", "160", "128", "96", "Custom", "Mute" };
 
-                // Populate ComboBox from ItemSource
-                mainwindow.cboAudio.ItemsSource = AudioItemSource;
-
-                // Select Item
-                if (AudioItemSource.Contains(previousItem))
-                {
-                    mainwindow.cboAudio.SelectedItem = previousItem;
-                }
-                else
-                {
-                    mainwindow.cboAudio.SelectedIndex = 0; // auto
-                }
+                ViewModel.ChangeItemSource(
+                    mainwindow,
+                    mainwindow.cboAudio,
+                    Audio_ItemSource,
+                    ViewModel._cboAudioQuality_Items,
+                    ViewModel.cboAudioQuality_SelectedItem);
 
                 // Enable Control
                 mainwindow.cboAudio.IsEnabled = true;
@@ -676,40 +508,35 @@ namespace Axiom
                 // -------------------------
                 // Channel
                 // -------------------------
-                // Get Previous Item
-                previousItem = (string)mainwindow.cboChannel.SelectedItem;
-
                 // Change ItemSource
-                ChannelItemSource = new List<string>() { "Source", "Stereo", "Joint Stereo", "Mono", "5.1" };
+                List<string> Channel_ItemSource = new List<string>() { "Source", "Stereo", "Joint Stereo", "Mono", "5.1" };
 
-                // Populate ComboBox from ItemSource
-                mainwindow.cboChannel.ItemsSource = ChannelItemSource;
+                ViewModel.ChangeItemSource(
+                    mainwindow,
+                    mainwindow.cboChannel,
+                    Channel_ItemSource,
+                    ViewModel._cboAudioChannel_Items,
+                    ViewModel.cboAudioChannel_SelectedItem);
 
                 // Select Item
                 mainwindow.cboChannel.SelectedItem = "Joint Stereo";
+
+                // Enable Control
+                mainwindow.cboChannel.IsEnabled = true;
 
 
                 // -------------------------
                 // Sample Rate
                 // -------------------------
-                // Get Previous Item
-                previousItem = (string)mainwindow.cboSamplerate.SelectedItem;
-
                 // Change ItemSource
-                SampleRateItemSource = new List<string>() { "auto", "8k", "11.025k", "12k", "16k", "22.05k", "24k", "32k", "44.1k", "48k" };
+                List<string> SampleRate_ItemSource = new List<string>() { "auto", "8k", "11.025k", "12k", "16k", "22.05k", "24k", "32k", "44.1k", "48k" };
 
-                // Populate ComboBox from ItemSource
-                mainwindow.cboSamplerate.ItemsSource = SampleRateItemSource;
-
-                // Select Item
-                if (SampleRateItemSource.Contains(previousItem))
-                {
-                    mainwindow.cboSamplerate.SelectedItem = previousItem;
-                }
-                else
-                {
-                    mainwindow.cboSamplerate.SelectedIndex = 0; // auto
-                }
+                ViewModel.ChangeItemSource(
+                    mainwindow,
+                    mainwindow.cboSamplerate,
+                    SampleRate_ItemSource,
+                    ViewModel._cboAudioSampleRate_Items,
+                    ViewModel.cboAudioSampleRate_SelectedItem);
 
                 // Enable Control
                 mainwindow.cboSamplerate.IsEnabled = true;
@@ -718,24 +545,15 @@ namespace Axiom
                 // -------------------------
                 // Bit Depth
                 // -------------------------
-                // Get Previous Item
-                previousItem = (string)mainwindow.cboBitDepth.SelectedItem;
-
                 // Change ItemSource
-                BitDepthItemSource = new List<string>() { "auto", "8", "16", "24", "32", "64" };
+                List<string> BitDepth_ItemSource = new List<string>() { "auto", "8", "16", "24", "32", "64" };
 
-                // Populate ComboBox from ItemSource
-                mainwindow.cboBitDepth.ItemsSource = BitDepthItemSource;
-
-                // Select Item
-                if (BitDepthItemSource.Contains(previousItem))
-                {
-                    mainwindow.cboBitDepth.SelectedItem = previousItem;
-                }
-                else
-                {
-                    mainwindow.cboBitDepth.SelectedIndex = 0; // auto
-                }
+                ViewModel.ChangeItemSource(
+                    mainwindow,
+                    mainwindow.cboBitDepth,
+                    BitDepth_ItemSource,
+                    ViewModel._cboAudioBitDepth_Items,
+                    ViewModel.cboAudioBitDepth_SelectedItem);
 
                 // Disable Control
                 mainwindow.cboBitDepth.IsEnabled = false;
@@ -756,14 +574,15 @@ namespace Axiom
                 // -------------------------
                 // Audio
                 // -------------------------
-                // Get Previous Item
-                previousItem = (string)mainwindow.cboAudio.SelectedItem;
-
                 // Change ItemSource
-                AudioItemSource = new List<string>() { "Auto", "Lossless", "320", "256", "224", "192", "160", "128", "96", "Custom", "Mute" };
+                List<string> Audio_ItemSource = new List<string>() { "Auto", "Lossless", "320", "256", "224", "192", "160", "128", "96", "Custom", "Mute" };
 
-                // Populate ComboBox from ItemSource
-                mainwindow.cboAudio.ItemsSource = AudioItemSource;
+                ViewModel.ChangeItemSource(
+                    mainwindow,
+                    mainwindow.cboAudio,
+                    Audio_ItemSource,
+                    ViewModel._cboAudioQuality_Items,
+                    ViewModel.cboAudioQuality_SelectedItem);
 
                 // Select Item
                 mainwindow.cboAudio.SelectedItem = "Lossless";
@@ -775,46 +594,35 @@ namespace Axiom
                 // -------------------------
                 // Channel
                 // -------------------------
-                // Get Previous Item
-                previousItem = (string)mainwindow.cboChannel.SelectedItem;
-
                 // Change ItemSource
-                ChannelItemSource = new List<string>() { "Source", "Stereo", "Mono", "5.1" };
+                List<string> Channel_ItemSource = new List<string>() { "Source", "Stereo", "Mono", "5.1" };
 
-                // Populate ComboBox from ItemSource
-                mainwindow.cboChannel.ItemsSource = ChannelItemSource;
+                ViewModel.ChangeItemSource(
+                    mainwindow,
+                    mainwindow.cboChannel,
+                    Channel_ItemSource,
+                    ViewModel._cboAudioChannel_Items,
+                    ViewModel.cboAudioChannel_SelectedItem);
 
                 // Select Item
-                if (ChannelItemSource.Contains(previousItem))
-                {
-                    mainwindow.cboChannel.SelectedItem = previousItem;
-                }
-                else
-                {
-                    mainwindow.cboChannel.SelectedIndex = 0; // Source
-                }
+                mainwindow.cboChannel.SelectedItem = "Source";
+
+                // Enable Control
+                mainwindow.cboChannel.IsEnabled = true;
+
 
                 // -------------------------
                 // Sample Rate
                 // -------------------------
-                // Get Previous Item
-                previousItem = (string)mainwindow.cboSamplerate.SelectedItem;
-
                 // Change ItemSource
-                SampleRateItemSource = new List<string>() { "auto", "8k", "11.025k", "12k", "16k", "22.05k", "24k", "32k", "44.1k", "48k" };
+                List<string> SampleRate_ItemSource = new List<string>() { "auto", "8k", "11.025k", "12k", "16k", "22.05k", "24k", "32k", "44.1k", "48k" };
 
-                // Populate ComboBox from ItemSource
-                mainwindow.cboSamplerate.ItemsSource = SampleRateItemSource;
-
-                // Select Item
-                if (SampleRateItemSource.Contains(previousItem))
-                {
-                    mainwindow.cboSamplerate.SelectedItem = previousItem;
-                }
-                else
-                {
-                    mainwindow.cboSamplerate.SelectedIndex = 0; // auto
-                }
+                ViewModel.ChangeItemSource(
+                    mainwindow,
+                    mainwindow.cboSamplerate,
+                    SampleRate_ItemSource,
+                    ViewModel._cboAudioSampleRate_Items,
+                    ViewModel.cboAudioSampleRate_SelectedItem);
 
                 // Enable Control
                 mainwindow.cboSamplerate.IsEnabled = true;
@@ -823,24 +631,15 @@ namespace Axiom
                 // -------------------------
                 // Bit Depth
                 // -------------------------
-                // Get Previous Item
-                previousItem = (string)mainwindow.cboBitDepth.SelectedItem;
-
                 // Change ItemSource
-                BitDepthItemSource = new List<string>() { "auto", "16", "32" };
+                List<string> BitDepth_ItemSource = new List<string>() { "auto", "16", "32" };
 
-                // Populate ComboBox from ItemSource
-                mainwindow.cboBitDepth.ItemsSource = BitDepthItemSource;
-
-                // Select Item
-                if (BitDepthItemSource.Contains(previousItem))
-                {
-                    mainwindow.cboBitDepth.SelectedItem = previousItem;
-                }
-                else
-                {
-                    mainwindow.cboBitDepth.SelectedIndex = 0; // auto
-                }
+                ViewModel.ChangeItemSource(
+                    mainwindow,
+                    mainwindow.cboBitDepth,
+                    BitDepth_ItemSource,
+                    ViewModel._cboAudioBitDepth_Items,
+                    ViewModel.cboAudioBitDepth_SelectedItem);
 
                 // Disable Control
                 mainwindow.cboBitDepth.IsEnabled = true;
@@ -862,14 +661,15 @@ namespace Axiom
                 // -------------------------
                 // Audio
                 // -------------------------
-                // Get Previous Item
-                previousItem = (string)mainwindow.cboAudio.SelectedItem;
-
                 // Change ItemSource
-                AudioItemSource = new List<string>() { "Auto", "Lossless", "320", "256", "224", "192", "160", "128", "96", "Custom", "Mute" };
+                List<string> Audio_ItemSource = new List<string>() { "Auto", "Lossless", "320", "256", "224", "192", "160", "128", "96", "Custom", "Mute" };
 
-                // Populate ComboBox from ItemSource
-                mainwindow.cboAudio.ItemsSource = AudioItemSource;
+                ViewModel.ChangeItemSource(
+                    mainwindow,
+                    mainwindow.cboAudio,
+                    Audio_ItemSource,
+                    ViewModel._cboAudioQuality_Items,
+                    ViewModel.cboAudioQuality_SelectedItem);
 
                 // Select Item
                 mainwindow.cboAudio.SelectedItem = "Lossless";
@@ -880,47 +680,35 @@ namespace Axiom
                 // -------------------------
                 // Channel
                 // -------------------------
-                // Get Previous Item
-                previousItem = (string)mainwindow.cboChannel.SelectedItem;
-
                 // Change ItemSource
-                ChannelItemSource = new List<string>() { "Source", "Stereo", "Mono", "5.1" };
+                List<string> Channel_ItemSource = new List<string>() { "Source", "Stereo", "Mono", "5.1" };
 
-                // Populate ComboBox from ItemSource
-                mainwindow.cboChannel.ItemsSource = ChannelItemSource;
+                ViewModel.ChangeItemSource(
+                    mainwindow,
+                    mainwindow.cboChannel,
+                    Channel_ItemSource,
+                    ViewModel._cboAudioChannel_Items,
+                    ViewModel.cboAudioChannel_SelectedItem);
 
                 // Select Item
-                if (ChannelItemSource.Contains(previousItem))
-                {
-                    mainwindow.cboChannel.SelectedItem = previousItem;
-                }
-                else
-                {
-                    mainwindow.cboChannel.SelectedIndex = 0; // Source
-                }
+                mainwindow.cboChannel.SelectedItem = "Source";
+
+                // Enable Control
+                mainwindow.cboChannel.IsEnabled = true;
 
 
                 // -------------------------
                 // Sample Rate
                 // -------------------------
-                // Get Previous Item
-                previousItem = (string)mainwindow.cboSamplerate.SelectedItem;
-
                 // Change ItemSource
-                SampleRateItemSource = new List<string>() { "auto", "8k", "11.025k", "12k", "16k", "22.05k", "24k", "32k", "44.1k", "48k" };
+                List<string> SampleRate_ItemSource = new List<string>() { "auto", "8k", "11.025k", "12k", "16k", "22.05k", "24k", "32k", "44.1k", "48k" };
 
-                // Populate ComboBox from ItemSource
-                mainwindow.cboSamplerate.ItemsSource = SampleRateItemSource;
-
-                // Select Item
-                if (SampleRateItemSource.Contains(previousItem))
-                {
-                    mainwindow.cboSamplerate.SelectedItem = previousItem;
-                }
-                else
-                {
-                    mainwindow.cboSamplerate.SelectedIndex = 0; // auto
-                }
+                ViewModel.ChangeItemSource(
+                    mainwindow,
+                    mainwindow.cboSamplerate,
+                    SampleRate_ItemSource,
+                    ViewModel._cboAudioSampleRate_Items,
+                    ViewModel.cboAudioSampleRate_SelectedItem);
 
                 // Enable Control
                 mainwindow.cboSamplerate.IsEnabled = true;
@@ -929,24 +717,15 @@ namespace Axiom
                 // -------------------------
                 // Bit Depth
                 // -------------------------
-                // Get Previous Item
-                previousItem = (string)mainwindow.cboBitDepth.SelectedItem;
-
                 // Change ItemSource
-                BitDepthItemSource = new List<string>() { "auto", "8", "16", "24", "32", "64" };
+                List<string> BitDepth_ItemSource = new List<string>() { "auto", "8", "16", "24", "32", "64" };
 
-                // Populate ComboBox from ItemSource
-                mainwindow.cboBitDepth.ItemsSource = BitDepthItemSource;
-
-                // Select Item
-                if (BitDepthItemSource.Contains(previousItem))
-                {
-                    mainwindow.cboBitDepth.SelectedItem = previousItem;
-                }
-                else
-                {
-                    mainwindow.cboBitDepth.SelectedIndex = 0; // auto
-                }
+                ViewModel.ChangeItemSource(
+                    mainwindow,
+                    mainwindow.cboBitDepth,
+                    BitDepth_ItemSource,
+                    ViewModel._cboAudioBitDepth_Items,
+                    ViewModel.cboAudioBitDepth_SelectedItem);
 
                 // Disable Control
                 mainwindow.cboBitDepth.IsEnabled = true;
@@ -967,26 +746,18 @@ namespace Axiom
                 // -------------------------
                 // Audio
                 // -------------------------
-                // Get Previous Item
-                previousItem = (string)mainwindow.cboAudio.SelectedItem;
-
                 // Change ItemSource
-                AudioItemSource = new List<string>() { "Auto", "Lossless", "320", "256", "224", "192", "160", "128", "96", "Custom", "Mute" };
+                List<string> Audio_ItemSource = new List<string>() { "Auto", "Lossless", "320", "256", "224", "192", "160", "128", "96", "Custom", "Mute" };
 
-                // Populate ComboBox from ItemSource
-                mainwindow.cboAudio.ItemsSource = AudioItemSource;
+                ViewModel.ChangeItemSource(
+                    mainwindow,
+                    mainwindow.cboAudio,
+                    Audio_ItemSource,
+                    ViewModel._cboAudioQuality_Items,
+                    ViewModel.cboAudioQuality_SelectedItem);
 
                 // Select Item
                 mainwindow.cboAudio.SelectedItem = "Auto";
-
-                //if (Audio.Contains(previousItem))
-                //{
-                //    audio.SelectedItem = previousItem;
-                //}
-                //else
-                //{
-                //    audio.SelectedIndex = 0; // auto
-                //}
 
                 // Enable Control
                 mainwindow.cboAudio.IsEnabled = true;
@@ -994,30 +765,38 @@ namespace Axiom
                 // -------------------------
                 // Channel
                 // -------------------------
-                // Get Previous Item
-                previousItem = (string)mainwindow.cboChannel.SelectedItem;
-
                 // Change ItemSource
-                ChannelItemSource = new List<string>() { "Source", "Stereo", "Mono", "5.1" };
+                List<string> Channel_ItemSource = new List<string>() { "Source", "Stereo", "Mono", "5.1" };
 
-                // Populate ComboBox from ItemSource
-                mainwindow.cboChannel.ItemsSource = ChannelItemSource;
+                ViewModel.ChangeItemSource(
+                    mainwindow,
+                    mainwindow.cboChannel,
+                    Channel_ItemSource,
+                    ViewModel._cboAudioChannel_Items,
+                    ViewModel.cboAudioChannel_SelectedItem);
 
                 // Select Item
                 mainwindow.cboChannel.SelectedItem = "Source";
+
+                // Select Item
+                mainwindow.cboChannel.SelectedItem = "Source";
+
+                // Enable Control
+                mainwindow.cboChannel.IsEnabled = true;
 
 
                 // -------------------------
                 // Sample Rate
                 // -------------------------
-                // Get Previous Item
-                previousItem = (string)mainwindow.cboSamplerate.SelectedItem;
-
                 // Change ItemSource
-                SampleRateItemSource = new List<string>() { "auto", "8k", "11.025k", "12k", "16k", "22.05k", "24k", "32k", "44.1k", "48k" };
+                List<string> SampleRate_ItemSource = new List<string>() { "auto", "8k", "11.025k", "12k", "16k", "22.05k", "24k", "32k", "44.1k", "48k" };
 
-                // Populate ComboBox from ItemSource
-                mainwindow.cboSamplerate.ItemsSource = SampleRateItemSource;
+                ViewModel.ChangeItemSource(
+                    mainwindow,
+                    mainwindow.cboSamplerate,
+                    SampleRate_ItemSource,
+                    ViewModel._cboAudioSampleRate_Items,
+                    ViewModel.cboAudioSampleRate_SelectedItem);
 
                 // Select Item
                 mainwindow.cboSamplerate.SelectedItem = "auto";
@@ -1029,14 +808,15 @@ namespace Axiom
                 // -------------------------
                 // Bit Depth
                 // -------------------------
-                // Get Previous Item
-                previousItem = (string)mainwindow.cboBitDepth.SelectedItem;
-
                 // Change ItemSource
-                BitDepthItemSource = new List<string>() { "auto", "8", "16", "24", "32", "64" };
+                List<string> BitDepth_ItemSource = new List<string>() { "auto", "8", "16", "24", "32", "64" };
 
-                // Populate ComboBox from ItemSource
-                mainwindow.cboBitDepth.ItemsSource = BitDepthItemSource;
+                ViewModel.ChangeItemSource(
+                    mainwindow,
+                    mainwindow.cboBitDepth,
+                    BitDepth_ItemSource,
+                    ViewModel._cboAudioBitDepth_Items,
+                    ViewModel.cboAudioBitDepth_SelectedItem);
 
                 // Select Item
                 mainwindow.cboBitDepth.SelectedItem = "auto";
@@ -1066,14 +846,15 @@ namespace Axiom
                 // -------------------------
                 // Audio
                 // -------------------------
-                // Get Previous Item
-                previousItem = (string)mainwindow.cboAudio.SelectedItem;
-
                 // Change ItemSource
-                AudioItemSource = new List<string>() { "None" };
+                List<string> Audio_ItemSource = new List<string>() { "None" };
 
-                // Populate ComboBox from ItemSource
-                mainwindow.cboAudio.ItemsSource = AudioItemSource;
+                ViewModel.ChangeItemSource(
+                    mainwindow,
+                    mainwindow.cboAudio,
+                    Audio_ItemSource,
+                    ViewModel._cboAudioQuality_Items,
+                    ViewModel.cboAudioQuality_SelectedItem);
 
                 // Select Item
                 mainwindow.cboAudio.SelectedItem = "None";
@@ -1085,37 +866,35 @@ namespace Axiom
                 // -------------------------
                 // Channel
                 // -------------------------
-                // Get Previous Item
-                previousItem = (string)mainwindow.cboChannel.SelectedItem;
-
                 // Change ItemSource
-                ChannelItemSource = new List<string>() { "Source", "Stereo", "Mono", "5.1" };
+                List<string> Channel_ItemSource = new List<string>() { "Source", "Stereo", "Mono", "5.1" };
 
-                // Populate ComboBox from ItemSource
-                mainwindow.cboChannel.ItemsSource = ChannelItemSource;
+                ViewModel.ChangeItemSource(
+                    mainwindow,
+                    mainwindow.cboChannel,
+                    Channel_ItemSource,
+                    ViewModel._cboAudioChannel_Items,
+                    ViewModel.cboAudioChannel_SelectedItem);
 
                 // Select Item
-                if (ChannelItemSource.Contains(previousItem))
-                {
-                    mainwindow.cboChannel.SelectedItem = previousItem;
-                }
-                else
-                {
-                    mainwindow.cboChannel.SelectedIndex = 0; // Source
-                }
+                mainwindow.cboChannel.SelectedItem = "None";
+
+                // Enable Control
+                mainwindow.cboChannel.IsEnabled = false;
 
 
                 // -------------------------
                 // Sample Rate
                 // -------------------------
-                // Get Previous Item
-                previousItem = (string)mainwindow.cboSamplerate.SelectedItem;
-
                 // Change ItemSource
-                SampleRateItemSource = new List<string>() { "auto" };
+                List<string> SampleRate_ItemSource = new List<string>() { "auto" };
 
-                // Populate ComboBox from ItemSource
-                mainwindow.cboSamplerate.ItemsSource = SampleRateItemSource;
+                ViewModel.ChangeItemSource(
+                    mainwindow,
+                    mainwindow.cboSamplerate,
+                    SampleRate_ItemSource,
+                    ViewModel._cboAudioSampleRate_Items,
+                    ViewModel.cboAudioSampleRate_SelectedItem);
 
                 // Select Item
                 mainwindow.cboSamplerate.SelectedItem = "auto";
@@ -1127,15 +906,15 @@ namespace Axiom
                 // -------------------------
                 // Bit Depth
                 // -------------------------
-                // Get Previous Item
-                previousItem = (string)mainwindow.cboBitDepth.SelectedItem;
-
                 // Change ItemSource
+                List<string> BitDepth_ItemSource = new List<string>() { "auto" };
 
-                BitDepthItemSource = new List<string>() { "auto" };
-
-                // Populate ComboBox from ItemSource
-                mainwindow.cboBitDepth.ItemsSource = BitDepthItemSource;
+                ViewModel.ChangeItemSource(
+                    mainwindow,
+                    mainwindow.cboBitDepth,
+                    BitDepth_ItemSource,
+                    ViewModel._cboAudioBitDepth_Items,
+                    ViewModel.cboAudioBitDepth_SelectedItem);
 
                 // Select Item
                 mainwindow.cboBitDepth.SelectedItem = "auto";
@@ -1167,11 +946,15 @@ namespace Axiom
             {
                 //System.Windows.MessageBox.Show((string)audio.SelectedValue); // debug
 
+                // -------------------------
                 // Only if Audio Codec is Not Empty
+                // -------------------------
                 if (!string.IsNullOrEmpty((string)mainwindow.cboAudioCodec.SelectedItem))
                 {
-
-                    if (AudioItemSource.Contains("640")
+                    // -------------------------
+                    // 640
+                    // -------------------------
+                    if (ViewModel._cboAudioQuality_Items.Contains("640")
                         && (string)mainwindow.cboAudioCodec.SelectedItem != "ALAC"
                         && (string)mainwindow.cboAudioCodec.SelectedItem != "FLAC"
                         && (string)mainwindow.cboAudioCodec.SelectedItem != "PCM")
@@ -1182,7 +965,11 @@ namespace Axiom
                             mainwindow.cboAudio.SelectedItem = "640";
                         }
                     }
-                    else if (AudioItemSource.Contains("510")
+
+                    // -------------------------
+                    // 510
+                    // -------------------------
+                    else if (ViewModel._cboAudioQuality_Items.Contains("510")
                         && (string)mainwindow.cboAudioCodec.SelectedItem != "ALAC"
                         && (string)mainwindow.cboAudioCodec.SelectedItem != "FLAC"
                         && (string)mainwindow.cboAudioCodec.SelectedItem != "PCM")
@@ -1193,7 +980,11 @@ namespace Axiom
                             mainwindow.cboAudio.SelectedItem = "510";
                         }
                     }
-                    else if (AudioItemSource.Contains("500")
+
+                    // -------------------------
+                    // 500
+                    // -------------------------
+                    else if (ViewModel._cboAudioQuality_Items.Contains("500")
                         && (string)mainwindow.cboAudioCodec.SelectedItem != "ALAC"
                         && (string)mainwindow.cboAudioCodec.SelectedItem != "FLAC"
                         && (string)mainwindow.cboAudioCodec.SelectedItem != "PCM")
@@ -1204,7 +995,11 @@ namespace Axiom
                             mainwindow.cboAudio.SelectedItem = "500";
                         }
                     }
-                    else if (AudioItemSource.Contains("448")
+
+                    // -------------------------
+                    // 448
+                    // -------------------------
+                    else if (ViewModel._cboAudioQuality_Items.Contains("448")
                         && (string)mainwindow.cboAudioCodec.SelectedItem != "ALAC"
                         && (string)mainwindow.cboAudioCodec.SelectedItem != "FLAC"
                         && (string)mainwindow.cboAudioCodec.SelectedItem != "PCM")
@@ -1215,7 +1010,11 @@ namespace Axiom
                             mainwindow.cboAudio.SelectedItem = "448";
                         }
                     }
-                    else if (AudioItemSource.Contains("400")
+
+                    // -------------------------
+                    // 400
+                    // -------------------------
+                    else if (ViewModel._cboAudioQuality_Items.Contains("400")
                         && (string)mainwindow.cboAudioCodec.SelectedItem != "ALAC"
                         && (string)mainwindow.cboAudioCodec.SelectedItem != "FLAC"
                         && (string)mainwindow.cboAudioCodec.SelectedItem != "PCM")
@@ -1226,7 +1025,11 @@ namespace Axiom
                             mainwindow.cboAudio.SelectedItem = "400";
                         }
                     }
-                    else if (AudioItemSource.Contains("320")
+
+                    // -------------------------
+                    // 320
+                    // -------------------------
+                    else if (ViewModel._cboAudioQuality_Items.Contains("320")
                         && (string)mainwindow.cboAudioCodec.SelectedItem != "ALAC"
                         && (string)mainwindow.cboAudioCodec.SelectedItem != "FLAC"
                         && (string)mainwindow.cboAudioCodec.SelectedItem != "PCM")
@@ -1239,7 +1042,10 @@ namespace Axiom
                     }
 
                 }
+
+                // -------------------------
                 // Default to Lossless if ALAC or FLAC
+                // -------------------------
                 if (mainwindow.cboAudio.Items.Contains("Lossless")
                     && (string)mainwindow.cboAudioCodec.SelectedItem == "ALAC"
                     | (string)mainwindow.cboAudioCodec.SelectedItem == "FLAC"
@@ -1262,139 +1068,179 @@ namespace Axiom
 
 
         /// <summary>
-        /// Auto Codec Copy (Method)
+        ///     Audio - Auto Codec Copy (Method)
         /// <summary>
         public static void AutoCopyAudioCodec(MainWindow mainwindow) // Method
         {
             if (!string.IsNullOrEmpty(MainWindow.inputExt) || !string.IsNullOrEmpty(MainWindow.batchExt)) // Null Check
             {
                 // -------------------------
-                // Add Copy to Audio Codec ComboBox
+                // Select Copy - Single
                 // -------------------------
                 // Input Extension is Same as Output Extension and Audio Quality is Auto
                 if ((string)mainwindow.cboAudio.SelectedItem == "Auto"
+                    && (string)mainwindow.cboSamplerate.SelectedItem == "auto"
+                    && mainwindow.tglAudioLimiter.IsChecked == false
+                    && mainwindow.volumeUpDown.Text.ToString().Equals("100")
+
+                    // Extension Match
                     && string.Equals(MainWindow.inputExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase)
-                    || mainwindow.tglBatch.IsChecked == true
-                    && (string)mainwindow.cboAudio.SelectedItem == "Auto"
-                    && string.Equals(MainWindow.batchExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase))
+                    )
                 {
                     // Insert Copy if Does Not Contain
-                    if (!AudioControls.AudioCodecItemSource.Contains("Copy"))
-                    {
-                        AudioControls.AudioCodecItemSource.Insert(0, "Copy");
-                    }
-                    // Populate ComboBox from ItemSource
-                    mainwindow.cboAudioCodec.ItemsSource = AudioControls.AudioCodecItemSource;
+                    //if (!ViewModel._cboAudioCodec_Items.Contains("Copy"))
+                    //{
+                    //    // Populate ComboBox from ItemSource
 
+                    //    List<string> AudioCodec_ItemSource = new List<string>(ViewModel._cboAudioCodec_Items);
+
+                    //    AudioCodec_ItemSource.Insert(0, "Copy");
+
+                    //    ViewModel.ChangeItemSource(
+                    //        mainwindow,
+                    //        mainwindow.cboAudioCodec,        // ComboBox
+                    //        AudioCodec_ItemSource,           // New Items List
+                    //        ViewModel._cboAudioCodec_Items,  // View Model Observable Collection
+                    //        null);                           // Selected Item
+                    //}
 
                     // -------------------------
                     // Set Audio Codec Combobox Selected Item to Copy
                     // -------------------------
-                    if ((string)mainwindow.cboAudio.SelectedItem == "Auto"
-                        && (string)mainwindow.cboSamplerate.SelectedItem == "auto"
-                        && mainwindow.tglAudioLimiter.IsChecked == false
-                        && mainwindow.volumeUpDown.Text.ToString().Equals("100"))
+                    if (ViewModel._cboAudioCodec_Items.Count > 0)
                     {
-                        mainwindow.cboAudioCodec.SelectedItem = "Copy";
+                        if (ViewModel._cboAudioCodec_Items.Contains("Copy"))
+                        {
+                            mainwindow.cboAudioCodec.SelectedItem = "Copy";
+
+                            return;
+                        }
                     }
                 }
 
+                // -------------------------
+                // Select Copy - Batch
+                // -------------------------
+                else if ((string)mainwindow.cboAudio.SelectedItem == "Auto"
+                    && (string)mainwindow.cboSamplerate.SelectedItem == "auto"
+                    && mainwindow.tglAudioLimiter.IsChecked == false
+                    && mainwindow.volumeUpDown.Text.ToString().Equals("100")
+
+                    // Batch Extension Match
+                    && mainwindow.tglBatch.IsChecked == true
+                    && string.Equals(MainWindow.batchExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase)
+                    )
+                {
+                    // -------------------------
+                    // Set Audio Codec Combobox Selected Item to Copy
+                    // -------------------------
+                    if (ViewModel._cboAudioCodec_Items.Count > 0)
+                    {
+                        if (ViewModel._cboAudioCodec_Items.Contains("Copy"))
+                        {
+                            mainwindow.cboAudioCodec.SelectedItem = "Copy";
+
+                            return;
+                        }
+                    }
+                }
 
                 // -------------------------
-                // Disable Copy if:
-                // Input / Output Extensions don't match
-                // Audio is Not Auto 
-                // VBR is Checked
-                // Samplerate is Not auto
-                // BitDepth is Not auto
-                // Alimiter is Checked
-                // Volume is Not 100
+                // Reset to Default Codec
                 // -------------------------
-                //
-                if (AudioControls.AudioCodecItemSource.Contains("Copy"))
+                else
                 {
-                    // Copy Selected
-                    if ((string)mainwindow.cboAudioCodec.SelectedItem == "Copy")
+                    // -------------------------
+                    // Disable Copy if:
+                    // Input / Output Extensions don't match
+                    // Audio is Not Auto 
+                    // VBR is Checked
+                    // Samplerate is Not auto
+                    // BitDepth is Not auto
+                    // Alimiter is Checked
+                    // Volume is Not 100
+                    // -------------------------
+                    // -------------------------
+                    // Null Check
+                    // -------------------------
+                    if (!string.IsNullOrEmpty((string)mainwindow.cboAudio.SelectedItem))
                     {
-                        // Null Check
-                        //
-                        if (!string.IsNullOrEmpty((string)mainwindow.cboAudio.SelectedItem))
+                        // -------------------------
+                        // Copy Selected
+                        // -------------------------
+                        if ((string)mainwindow.cboAudioCodec.SelectedItem == "Copy")
                         {
-                            // Extension Match
-                            //
+                            // -------------------------
+                            // Switch back to format's default codec
+                            // -------------------------
                             if (!string.Equals(MainWindow.inputExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase)
-                                || !string.Equals(MainWindow.batchExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase))
+                                || !string.Equals(MainWindow.batchExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase)
+                                )
                             {
-                                // Switch back to format's default codec
-                                //
-                                if ((string)mainwindow.cboAudio.SelectedItem != "Auto"
-                                    || mainwindow.tglVBR.IsChecked != false
-                                    || (string)mainwindow.cboSamplerate.SelectedItem != "auto"
-                                    || mainwindow.tglAudioLimiter.IsChecked != false
-                                    || !mainwindow.volumeUpDown.Text.ToString().Equals("100"))
+                                // -------------------------
+                                // Video Container
+                                // -------------------------
+                                if ((string)mainwindow.cboFormat.SelectedItem == "webm")
                                 {
-                                    // VIDEO
-                                    //
-                                    if ((string)mainwindow.cboFormat.SelectedItem == "webm")
-                                    {
-                                        mainwindow.cboAudioCodec.SelectedItem = "Vorbis";
-                                    }
-                                    else if ((string)mainwindow.cboFormat.SelectedItem == "mp4")
-                                    {
-                                        mainwindow.cboAudioCodec.SelectedItem = "AAC";
-                                    }
-                                    else if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
-                                    {
-                                        mainwindow.cboAudioCodec.SelectedItem = "AC3";
-                                    }
-                                    else if ((string)mainwindow.cboFormat.SelectedItem == "avi")
-                                    {
-                                        mainwindow.cboAudioCodec.SelectedItem = "LAME";
-                                    }
-                                    else if ((string)mainwindow.cboFormat.SelectedItem == "ogv")
-                                    {
-                                        mainwindow.cboAudioCodec.SelectedItem = "Vorbis";
-                                    }
-                                    // AUDIO
-                                    //
-                                    if ((string)mainwindow.cboFormat.SelectedItem == "m4a")
-                                    {
-                                        mainwindow.cboAudioCodec.SelectedItem = "AAC";
-                                    }
-                                    else if ((string)mainwindow.cboFormat.SelectedItem == "mp3")
-                                    {
-                                        mainwindow.cboAudioCodec.SelectedItem = "LAME";
-                                    }
-                                    else if ((string)mainwindow.cboFormat.SelectedItem == "ogg")
-                                    {
-                                        mainwindow.cboAudioCodec.SelectedItem = "Opus";
-                                    }
-                                    else if ((string)mainwindow.cboFormat.SelectedItem == "flac")
-                                    {
-                                        mainwindow.cboAudioCodec.SelectedItem = "FLAC";
-                                    }
-                                    else if ((string)mainwindow.cboFormat.SelectedItem == "wav")
-                                    {
-                                        mainwindow.cboAudioCodec.SelectedItem = "PCM";
-                                    }
-                                    // IMAGE
-                                    //
-                                    //if ((string)mainwindow.cboFormat.SelectedItem == "jpg")
-                                    //{
-                                    //    mainwindow.cboAudioCodec.SelectedItem = "None";
-                                    //}
-                                    //else if ((string)mainwindow.cboFormat.SelectedItem == "png")
-                                    //{
-                                    //    mainwindow.cboAudioCodec.SelectedItem = "None";
-                                    //}
+                                    mainwindow.cboAudioCodec.SelectedItem = "Vorbis";
+                                }
+                                else if ((string)mainwindow.cboFormat.SelectedItem == "mp4")
+                                {
+                                    mainwindow.cboAudioCodec.SelectedItem = "AAC";
+                                }
+                                else if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
+                                {
+                                    mainwindow.cboAudioCodec.SelectedItem = "AC3";
+                                }
+                                else if ((string)mainwindow.cboFormat.SelectedItem == "avi")
+                                {
+                                    mainwindow.cboAudioCodec.SelectedItem = "LAME";
+                                }
+                                else if ((string)mainwindow.cboFormat.SelectedItem == "ogv")
+                                {
+                                    mainwindow.cboAudioCodec.SelectedItem = "Vorbis";
                                 }
 
+                                // -------------------------
+                                // Audio Container
+                                // -------------------------
+                                if ((string)mainwindow.cboFormat.SelectedItem == "m4a")
+                                {
+                                    mainwindow.cboAudioCodec.SelectedItem = "AAC";
+                                }
+                                else if ((string)mainwindow.cboFormat.SelectedItem == "mp3")
+                                {
+                                    mainwindow.cboAudioCodec.SelectedItem = "LAME";
+                                }
+                                else if ((string)mainwindow.cboFormat.SelectedItem == "ogg")
+                                {
+                                    mainwindow.cboAudioCodec.SelectedItem = "Opus";
+                                }
+                                else if ((string)mainwindow.cboFormat.SelectedItem == "flac")
+                                {
+                                    mainwindow.cboAudioCodec.SelectedItem = "FLAC";
+                                }
+                                else if ((string)mainwindow.cboFormat.SelectedItem == "wav")
+                                {
+                                    mainwindow.cboAudioCodec.SelectedItem = "PCM";
+                                }
+
+                                // -------------------------
+                                // Image Container
+                                // -------------------------
+                                //if ((string)mainwindow.cboFormat.SelectedItem == "jpg")
+                                //{
+                                //    mainwindow.cboAudioCodec.SelectedItem = "None";
+                                //}
+                                //else if ((string)mainwindow.cboFormat.SelectedItem == "png")
+                                //{
+                                //    mainwindow.cboAudioCodec.SelectedItem = "None";
+                                //}
                             }
                         }
                     }
                 }
             }
-
         } // End AutoCopyAudioCodec
     }
 }
