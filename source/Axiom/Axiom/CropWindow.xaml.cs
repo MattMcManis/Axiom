@@ -205,7 +205,7 @@ namespace Axiom
 
             // Make x264 & x265 Width/Height Divisible by 2
             //
-            if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264" 
+            if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264"
                 || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
             {
                 try // will error if wrong characters input

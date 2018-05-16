@@ -211,12 +211,6 @@ namespace Axiom
             DataContext = this;
 
             // -------------------------
-            // Control Binding
-            // -------------------------
-            ViewModel vm = new ViewModel();
-            DataContext = vm;
-
-            // -------------------------
             // Load Theme
             // -------------------------
             // --------------------------
@@ -557,8 +551,8 @@ namespace Axiom
             // Control Defaults
             // -------------------------
             // ComboBox Item Sources
-            //cboFormat.ItemsSource = FormatControls.FormatItemSource;
-            //cboMediaType.ItemsSource = FormatControls.MediaTypeItemSource;
+            cboFormat.ItemsSource = FormatControls.FormatItemSource;
+            cboMediaType.ItemsSource = FormatControls.MediaTypeItemSource;
 
             listViewSubtitles.SelectionMode = SelectionMode.Single;
 
@@ -569,6 +563,8 @@ namespace Axiom
             cboSpeed.SelectedItem = "Medium";
             cboHWAccel.SelectedIndex = 0;
             cboPreset.SelectedIndex = 0;
+
+            //tglWindowKeep.IsChecked = true;
 
             //AudioControls.Audio_SelectedItem = AudioControls.AudioItemSource[0];
             //AudioControls.Audio_SelectedItem = AudioControls.AudioItemSource[0];
@@ -677,7 +673,7 @@ namespace Axiom
             Video.height = string.Empty;
 
             // Clear Crop if ClearCrop Button Identifier is Empty
-            if (mainwindow.buttonCropClearTextBox.Text == "Clear") 
+            if (mainwindow.buttonCropClearTextBox.Text == "Clear")
             {
                 CropWindow.crop = string.Empty;
                 CropWindow.divisibleCropWidth = null; //int
@@ -1367,6 +1363,9 @@ namespace Axiom
                 // Output
                 // -------------------------
                 output = outputDir + outputFileName + outputExt; // (eg. C:\Output Folder\ + file + .mp4)    
+
+                // Update TextBox
+                mainwindow.tbxOutput.Text = output;
             }
 
             // -------------------------
@@ -3123,6 +3122,7 @@ namespace Axiom
                     // Save Previous Path
                     Settings.Default.inputDir = inputDir;
                     Settings.Default.Save();
+
                 }
 
                 // -------------------------
@@ -3492,17 +3492,13 @@ namespace Axiom
             if ((string)cboVideoCodec.SelectedItem == "mpeg4")
             {
                 // Change ItemSource
-                List<string> Pass_ItemSource = new List<string>()
+                VideoControls.PassItemSource = new List<string>()
                 {
                     "1 Pass",
                 };
 
-                ViewModel.ChangeItemSource(
-                    this,
-                    cboPass,
-                    Pass_ItemSource,
-                    ViewModel._cboVideoPass_Items,
-                    ViewModel.cboVideoPass_SelectedItem);
+                // Populate ComboBox from ItemSource
+                cboPass.ItemsSource = VideoControls.PassItemSource;
 
                 // Select Item
                 cboPass.SelectedItem = "1 Pass";
@@ -3526,18 +3522,14 @@ namespace Axiom
             if ((string)cboVideoCodec.SelectedItem == "mpeg4")
             {
                 // Change ItemSource
-                List<string> Pass_ItemSource = new List<string>()
+                VideoControls.PassItemSource = new List<string>()
                 {
                     "2 Pass",
                     "1 Pass",
                 };
 
-                ViewModel.ChangeItemSource(
-                    this,
-                    cboPass,
-                    Pass_ItemSource,
-                    ViewModel._cboVideoPass_Items,
-                    ViewModel.cboVideoPass_SelectedItem);
+                // Populate ComboBox from ItemSource
+                cboPass.ItemsSource = VideoControls.PassItemSource;
 
                 // Select Item
                 cboPass.SelectedItem = "2 Pass";
@@ -3598,7 +3590,6 @@ namespace Axiom
         private void audioCustom_GotFocus(object sender, RoutedEventArgs e)
         {
             // Clear Textbox on first use
-            //if (audioCustom.Text == "kbps")
             if (audioCustom.Text == string.Empty)
             {
                 TextBox tbac = (TextBox)sender;
@@ -3613,7 +3604,6 @@ namespace Axiom
             TextBox tbac = sender as TextBox;
             if (tbac.Text.Trim().Equals(string.Empty))
             {
-                //tbac.Text = "kbps";
                 tbac.Text = string.Empty;
                 tbac.GotFocus -= audioCustom_GotFocus; //used to be +=
             }
@@ -3754,7 +3744,7 @@ namespace Axiom
             // -------------------------
             // Video Codec Controls
             // -------------------------
-            //VideoControls.VideoCodecControls(this); // select error
+            VideoControls.VideoCodecControls(this);
 
             // -------------------------
             // Video Encoding Pass Controls
@@ -3772,7 +3762,7 @@ namespace Axiom
             // -------------------------
             if ((string)cboVideoCodec.SelectedItem == "VP8"
                 || (string)cboVideoCodec.SelectedItem == "VP9"
-                || (string)cboVideoCodec.SelectedItem == "x264"
+                || (string)cboVideoCodec.SelectedItem == "x264" 
                 || (string)cboVideoCodec.SelectedItem == "x265"
                 || (string)cboVideoCodec.SelectedItem == "Copy")
             {
@@ -3789,7 +3779,7 @@ namespace Axiom
             // -------------------------
             // Enable/Disable Hardware Acceleration
             // -------------------------
-            if ((string)cboVideoCodec.SelectedItem == "x264"
+            if ((string)cboVideoCodec.SelectedItem == "x264" 
                 || (string)cboVideoCodec.SelectedItem == "x265")
             {
                 cboHWAccel.IsEnabled = true;
@@ -3806,9 +3796,7 @@ namespace Axiom
         /// </summary>
         private void cboSubtitleCodec_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //VideoControls.VideoCodecControls(this);
-
-            //VideoControls.SubtitleCodecControls(this); // select error
+            VideoControls.VideoCodecControls(this);
         }
 
 
@@ -3817,7 +3805,7 @@ namespace Axiom
         /// </summary>
         private void cboAudioCodec_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //AudioControls.AudioCodecControls(this); // select error
+            AudioControls.AudioCodecControls(this);
         }
 
 
@@ -3837,7 +3825,6 @@ namespace Axiom
 
             // Change All MainWindow Items
             VideoControls.VideoCodecControls(this);
-            VideoControls.SubtitleCodecControls(this);
             AudioControls.AudioCodecControls(this);
 
             // Pass Controls
@@ -3976,6 +3963,7 @@ namespace Axiom
                 cboPass.SelectedItem = "CRF";
             }
 
+
             // -------------------------
             // Display Bit-rate in TextBox
             // -------------------------
@@ -4031,7 +4019,7 @@ namespace Axiom
             // -------------------------
             // Custom
             // -------------------------
-            // Enable Audio Bitrate Custom
+            //enable Audio Custom
             if ((string)cboAudio.SelectedItem == "Custom")
             {
                 audioCustom.IsEnabled = true;
@@ -4040,6 +4028,7 @@ namespace Axiom
             {
                 audioCustom.IsEnabled = false;
                 //audioCustom.Text = "kbps";
+                audioCustom.Text = string.Empty;
             }
 
             // -------------------------
@@ -4135,8 +4124,7 @@ namespace Axiom
             }
             else
             {
-                //audioCustom.Text = "kbps";
-                audioCustom.Text = string.Empty;
+                audioCustom.Text = "kbps";
             }
 
             // -------------------------
@@ -4560,7 +4548,7 @@ namespace Axiom
         private void batchExtension_TextChanged(object sender, TextChangedEventArgs e)
         {
             // Remove Default Value
-            if (batchExtensionTextBox.Text == "extension" 
+            if (batchExtensionTextBox.Text == "extension"
                 || string.IsNullOrWhiteSpace(batchExtensionTextBox.Text))
             {
                 batchExt = string.Empty;
@@ -4572,8 +4560,8 @@ namespace Axiom
             }
 
             // Add period to batchExt if user did not enter (This helps enable Copy)
-            if (!batchExt.StartsWith(".") 
-                && !string.IsNullOrWhiteSpace(batchExtensionTextBox.Text) 
+            if (!batchExt.StartsWith(".")
+                && !string.IsNullOrWhiteSpace(batchExtensionTextBox.Text)
                 && batchExtensionTextBox.Text != "extension")
             {
                 batchExt = "." + batchExt;

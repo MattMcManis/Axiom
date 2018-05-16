@@ -25,7 +25,6 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Documents;
 // Disable XML Comment warnings
 #pragma warning disable 1591
@@ -2116,7 +2115,7 @@ namespace Axiom
                                 // User Defined Crop should always override Divisible Crop
                                 // CropClearButton ~ is used as an Identifier, Divisible Crop does not leave "~"
                                 //
-                                if (mainwindow.buttonCropClearTextBox.Text == "Clear") // Crop Set Check
+                                if (mainwindow.buttonCropClearTextBox.Text == "") // Crop Set Check
                                 {
                                     // Temporary Strings
                                     // So not to Override User Defined Crop
@@ -2339,14 +2338,14 @@ namespace Axiom
         /// <summary>
         /// Scaling Algorithm
         /// <summary>
-        public static String ScalingAlgorithm()
+        public static String ScalingAlgorithm(MainWindow mainwindow)
         {
             string algorithm = string.Empty;
 
             // None & Default
             //
-            if (ViewModel.cboScaling_SelectedItem == "None"
-                || ViewModel.cboScaling_SelectedItem == "Default")
+            if ((string)mainwindow.cboScaling.SelectedItem == "None"
+                || (string)mainwindow.cboScaling.SelectedItem == "Default")
             {
                 algorithm = string.Empty;
             }
@@ -2355,7 +2354,7 @@ namespace Axiom
             //
             else
             {
-                algorithm = "-sws_flags " + ViewModel.cboScaling_SelectedItem;
+                algorithm = "-sws_flags " + mainwindow.cboScaling.SelectedItem.ToString();
             }
 
             return algorithm;
@@ -2383,7 +2382,6 @@ namespace Axiom
         //}
 
 
-
         /// <summary>
         /// Crop (Method)
         /// <summary>
@@ -2394,7 +2392,7 @@ namespace Axiom
             // -------------------------
             // Clear leftover Divisible Crop if not x264/x265
             // CropClearButton is used as an Identifier, Divisible Crop does not leave "~"
-            if ((string)mainwindow.cboVideoCodec.SelectedItem != "x264" 
+            if ((string)mainwindow.cboVideoCodec.SelectedItem != "x264"
                 && (string)mainwindow.cboVideoCodec.SelectedItem != "x265"
                 && (string)mainwindow.cboVideoCodec.SelectedItem != "mpeg4"
                 && mainwindow.buttonCropClearTextBox.Text == "Clear"
@@ -2584,7 +2582,8 @@ namespace Axiom
                 if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264" 
                     || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
                 {
-                    if ((string)mainwindow.cboSpeed.SelectedItem == "Placebo") { speed = "-preset placebo"; }
+                    if ((string)mainwindow.cboSpeed.SelectedItem == "None") { speed = string.Empty; }
+                    else if ((string)mainwindow.cboSpeed.SelectedItem == "Placebo") { speed = "-preset placebo"; }
                     else if ((string)mainwindow.cboSpeed.SelectedItem == "Very Slow") { speed = "-preset veryslow"; }
                     else if ((string)mainwindow.cboSpeed.SelectedItem == "Slower") { speed = "-preset slower"; }
                     else if ((string)mainwindow.cboSpeed.SelectedItem == "Slow") { speed = "-preset slow"; }
@@ -2610,7 +2609,8 @@ namespace Axiom
                 // -------------------------
                 else if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8")
                 {
-                    if ((string)mainwindow.cboSpeed.SelectedItem == "Placebo") { speed = "-quality best -cpu-used 0"; }
+                    if ((string)mainwindow.cboSpeed.SelectedItem == "None") { speed = string.Empty; }
+                    else if ((string)mainwindow.cboSpeed.SelectedItem == "Placebo") { speed = "-quality best -cpu-used 0"; }
                     else if ((string)mainwindow.cboSpeed.SelectedItem == "Very Slow") { speed = "-quality good -cpu-used 0"; }
                     else if ((string)mainwindow.cboSpeed.SelectedItem == "Slower") { speed = "-quality good -cpu-used 0"; }
                     else if ((string)mainwindow.cboSpeed.SelectedItem == "Slow") { speed = "-quality good -cpu-used 0"; }
@@ -2627,7 +2627,8 @@ namespace Axiom
                 // -------------------------
                 else if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9")
                 {
-                    if ((string)mainwindow.cboSpeed.SelectedItem == "Placebo") { speed = "-speed -8"; }
+                    if ((string)mainwindow.cboSpeed.SelectedItem == "None") { speed = string.Empty; }
+                    else if ((string)mainwindow.cboSpeed.SelectedItem == "Placebo") { speed = "-speed -8"; }
                     else if ((string)mainwindow.cboSpeed.SelectedItem == "Very Slow") { speed = "-speed -4"; }
                     else if ((string)mainwindow.cboSpeed.SelectedItem == "Slower") { speed = "-speed -2"; }
                     else if ((string)mainwindow.cboSpeed.SelectedItem == "Slow") { speed = "-speed 0"; }
