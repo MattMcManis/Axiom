@@ -1365,7 +1365,10 @@ namespace Axiom
                 output = outputDir + outputFileName + outputExt; // (eg. C:\Output Folder\ + file + .mp4)    
 
                 // Update TextBox
-                mainwindow.tbxOutput.Text = output;
+                if (!string.IsNullOrWhiteSpace(mainwindow.tbxOutput.Text))
+                {
+                    mainwindow.tbxOutput.Text = output;
+                }
             }
 
             // -------------------------
@@ -1554,13 +1557,13 @@ namespace Axiom
                             // Log Console Message /////////
                             Log.logParagraph.Inlines.Add(new LineBreak());
                             Log.logParagraph.Inlines.Add(new LineBreak());
-                            Log.logParagraph.Inlines.Add(new Bold(new Run("Notice: Auto Mode needs an input file in order to detect settings.")) { Foreground = Log.ConsoleWarning });
+                            Log.logParagraph.Inlines.Add(new Bold(new Run("Notice: Auto Quality needs an input file in order to detect settings.")) { Foreground = Log.ConsoleWarning });
 
                             /* lock */
                             ready = false;
                             script = false;
                             // Warning
-                            MessageBox.Show("Auto Mode needs an input file in order to detect settings.",
+                            MessageBox.Show("Auto Quality needs an input file in order to detect settings.",
                                             "Notice",
                                             MessageBoxButton.OK,
                                             MessageBoxImage.Exclamation);
