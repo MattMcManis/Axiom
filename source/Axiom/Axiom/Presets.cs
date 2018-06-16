@@ -208,7 +208,7 @@ namespace Axiom
                 mainwindow.cboAudio.SelectedItem = "Auto";
                 mainwindow.tglVBR.IsChecked = false;
                 mainwindow.cboChannel.SelectedItem = "Source";
-                mainwindow.cboSamplerate.SelectedItem = "48k";
+                mainwindow.cboSamplerate.SelectedItem = "auto";
                 mainwindow.cboBitDepth.SelectedItem = "auto";
                 mainwindow.volumeUpDown.Text = "100";
                 mainwindow.tglAudioLimiter.IsChecked = false;

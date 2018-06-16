@@ -504,7 +504,7 @@ namespace Axiom
                 // -------------------------
                 // Video
                 // -------------------------
-                VideoControls.VideoCodecItemSource = new List<string>() { "x264", "x265", "VP8", "VP9", "Theora", "Copy" };
+                VideoControls.VideoCodecItemSource = new List<string>() { "x264", "x265", "VP8", "VP9", "AV1", "Theora", "Copy" };
 
                 // Populate ComboBox from ItemSource
                 mainwindow.cboVideoCodec.ItemsSource = VideoControls.VideoCodecItemSource;

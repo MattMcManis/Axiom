@@ -105,7 +105,7 @@ namespace Axiom
         /// <summary>
         ///     Optimize Advanced Window
         /// </summary>
-        public static OptimizeAdvancedWindow optadvwindow;
+        //public static OptimizeAdvancedWindow optadvwindow;
 
         /// <summary>
         ///     Optimize Advanced Window
@@ -556,12 +556,22 @@ namespace Axiom
 
             listViewSubtitles.SelectionMode = SelectionMode.Single;
 
+            // Main
+            cboPreset.SelectedIndex = 0;
+
+            // Format
             cboFormat.SelectedIndex = 0;
-            cboFPS.SelectedIndex = 0;
             cboCut.SelectedIndex = 0;
-            cboSize.SelectedIndex = 0;
             cboSpeed.SelectedItem = "Medium";
             cboHWAccel.SelectedIndex = 0;
+
+            // Video
+            cboFPS.SelectedIndex = 0;
+            cboSize.SelectedIndex = 0;
+            cboOptProfile.SelectedIndex = 0;
+            cboOptTune.SelectedIndex = 0;
+            cboOptLevel.SelectedIndex = 0;
+
             cboPreset.SelectedIndex = 0;
 
             //tglWindowKeep.IsChecked = true;
@@ -3792,6 +3802,29 @@ namespace Axiom
                 cboHWAccel.SelectedItem = "off";
                 cboHWAccel.IsEnabled = false;
             }
+
+            // -------------------------
+            // Enable/Disable Optimize Tune, Profile, Level
+            // -------------------------
+            if ((string)cboVideoCodec.SelectedItem == "x264")
+            {
+                // Enable
+                cboOptTune.IsEnabled = true;
+                cboOptProfile.IsEnabled = true;
+                cboOptLevel.IsEnabled = true;
+            }
+            else
+            {
+                // Disable
+                cboOptTune.IsEnabled = false;
+                cboOptProfile.IsEnabled = false;
+                cboOptLevel.IsEnabled = false;
+
+                cboOptTune.SelectedItem = "none";
+                cboOptProfile.SelectedItem = "none";
+                cboOptLevel.SelectedItem = "none";
+                Video.optFlags = string.Empty;
+            }
         }
 
         /// <summary>
@@ -4486,35 +4519,194 @@ namespace Axiom
         /// <summary>
         ///    Optimize Combobox
         /// </summary>
-        private void cboOptimize_DropDownClosed(object sender, EventArgs e)
-        {
-            // Open Advanced Window
-            if ((string)cboOptimize.SelectedItem == "Advanced")
-            {
-                // Detect which screen we're on
-                var allScreens = System.Windows.Forms.Screen.AllScreens.ToList();
-                var thisScreen = allScreens.SingleOrDefault(s => this.Left >= s.WorkingArea.Left && this.Left < s.WorkingArea.Right);
+        //private void cboOptimize_DropDownClosed(object sender, EventArgs e)
+        //{
+        //    // Open Advanced Window
+        //    if ((string)cboOptimize.SelectedItem == "Advanced")
+        //    {
+        //        // Detect which screen we're on
+        //        var allScreens = System.Windows.Forms.Screen.AllScreens.ToList();
+        //        var thisScreen = allScreens.SingleOrDefault(s => this.Left >= s.WorkingArea.Left && this.Left < s.WorkingArea.Right);
 
-                // Start Window
-                optadvwindow = new OptimizeAdvancedWindow(this);
+        //        // Start Window
+        //        optadvwindow = new OptimizeAdvancedWindow(this);
 
-                // Position Relative to MainWindow
-                // Keep from going off screen
-                optadvwindow.Left = Math.Max((this.Left + (this.Width - optadvwindow.Width) / 2), thisScreen.WorkingArea.Left);
-                optadvwindow.Top = Math.Max((this.Top + (this.Height - optadvwindow.Height) / 2), thisScreen.WorkingArea.Top);
+        //        // Position Relative to MainWindow
+        //        // Keep from going off screen
+        //        optadvwindow.Left = Math.Max((this.Left + (this.Width - optadvwindow.Width) / 2), thisScreen.WorkingArea.Left);
+        //        optadvwindow.Top = Math.Max((this.Top + (this.Height - optadvwindow.Height) / 2), thisScreen.WorkingArea.Top);
 
-                // Keep Window on Top
-                optadvwindow.Owner = Window.GetWindow(this);
+        //        // Keep Window on Top
+        //        optadvwindow.Owner = Window.GetWindow(this);
 
-                // Open Window
-                optadvwindow.ShowDialog();
-            }
-        }
+        //        // Open Window
+        //        optadvwindow.ShowDialog();
+        //    }
+        //}
+        //private void cboOptimize_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //{
+        //    // Disable Copy on change
+        //    //VideoControls.AutoCopyVideoCodec(this); // this caused a loop error
+        //    //VideoControls.AutoCopySubtitleCodec(this);
+        //}
         private void cboOptimize_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            // Disable Copy on change
-            //VideoControls.AutoCopyVideoCodec(this); // this caused a loop error
-            //VideoControls.AutoCopySubtitleCodec(this);
+            // -------------------------
+            // Remove x264 Optimize settings
+            // -------------------------
+            //if ((string)cboVideoCodec.SelectedItem == "VP8"
+            //    || (string)cboVideoCodec.SelectedItem == "VP9"
+            //    || (string)cboVideoCodec.SelectedItem == "Theora"
+            //    || (string)cboVideoCodec.SelectedItem == "mpeg4"
+            //    || (string)cboVideoCodec.SelectedItem == "AV1")
+            //{
+            //    cboOptTune.SelectedItem = "none";
+            //    cboOptProfile.SelectedItem = "none";
+            //    cboOptLevel.SelectedItem = "none";
+            //    Video.optFlags = string.Empty;
+            //}
+
+            // -------------------------
+            // VP8, VP9, Theora
+            // -------------------------
+            if ((string)cboVideoCodec.SelectedItem == "VP8"
+                || (string)cboVideoCodec.SelectedItem == "VP9"
+                || (string)cboVideoCodec.SelectedItem == "Theora"
+            )
+            {
+                // Web
+                if ((string)cboOptimize.SelectedItem == "Web")
+                {
+                    Video.optFlags = "-movflags faststart";
+                }
+            }
+
+            // -------------------------
+            // x264
+            // -------------------------
+            else if ((string)cboVideoCodec.SelectedItem == "x264")
+            {
+                // Web
+                if ((string)cboOptimize.SelectedItem == "Web")
+                {
+                    cboOptTune.SelectedItem = "none";
+                    cboOptProfile.SelectedItem = "baseline";
+                    cboOptLevel.SelectedItem = "3.0";
+                    Video.optFlags = "-movflags +faststart";
+                }
+                // DVD
+                else if ((string)cboOptimize.SelectedItem == "DVD")
+                {
+                    cboOptTune.SelectedItem = "none";
+                    cboOptProfile.SelectedItem = "baseline";
+                    cboOptLevel.SelectedItem = "3.0";
+                    Video.optFlags = "-maxrate 9.6M";
+                }
+                // HD Video
+                else if ((string)cboOptimize.SelectedItem == "HD Video")
+                {
+                    cboOptTune.SelectedItem = "none";
+                    cboOptProfile.SelectedItem = "main";
+                    cboOptLevel.SelectedItem = "4.0";
+                    Video.optFlags = string.Empty;
+                }
+                // Animation
+                else if ((string)cboOptimize.SelectedItem == "Animation")
+                {
+                    cboOptTune.SelectedItem = "animation";
+                    cboOptProfile.SelectedItem = "main";
+                    cboOptLevel.SelectedItem = "4.0";
+                    Video.optFlags = string.Empty;
+                }
+                // Blu-ray
+                else if ((string)cboOptimize.SelectedItem == "Blu-ray")
+                {
+                    cboOptTune.SelectedItem = "none";
+                    cboOptProfile.SelectedItem = "main";
+                    cboOptLevel.SelectedItem = "4.1";
+                    Video.optFlags = "-deblock 0:0 -sar 1/1 -x264opts bluray-compat=1:level=4.1:open-gop=1:slices=4:tff=1:colorprim=bt709:colormatrix=bt709:vbv-maxrate=40000:vbv-bufsize=30000:me=umh:ref=4:nal-hrd=vbr:aud=1:b-pyramid=strict";
+                }
+                // Windows Device
+                else if ((string)cboOptimize.SelectedItem == "Windows")
+                {
+
+                    cboOptTune.SelectedItem = "none";
+                    cboOptProfile.SelectedItem = "baseline";
+                    cboOptLevel.SelectedItem = "3.1";
+                    Video.optFlags = "-movflags faststart";
+                }
+                // Apple Device
+                else if ((string)cboOptimize.SelectedItem == "Apple")
+                {
+                    cboOptTune.SelectedItem = "none";
+                    cboOptProfile.SelectedItem = "baseline";
+                    cboOptLevel.SelectedItem = "3.1";
+                    Video.optFlags = "-x264-params ref=4";
+                }
+                // Android Device
+                else if ((string)cboOptimize.SelectedItem == "Android")
+                {
+                    cboOptTune.SelectedItem = "none";
+                    cboOptProfile.SelectedItem = "baseline";
+                    cboOptLevel.SelectedItem = "3.0";
+                    Video.optFlags = "-movflags faststart";
+                }
+                // PS3
+                else if ((string)cboOptimize.SelectedItem == "PS3")
+                {
+                    cboOptTune.SelectedItem = "none";
+                    cboOptProfile.SelectedItem = "main";
+                    cboOptLevel.SelectedItem = "4.0";
+                    Video.optFlags = string.Empty;
+                }
+                // PS4
+                else if ((string)cboOptimize.SelectedItem == "PS4")
+                {
+                    cboOptTune.SelectedItem = "none";
+                    cboOptProfile.SelectedItem = "main";
+                    cboOptLevel.SelectedItem = "4.1";
+                    Video.optFlags = string.Empty;
+                }
+                // Xbox 360
+                else if ((string)cboOptimize.SelectedItem == "Xbox 360")
+                {
+                    cboOptTune.SelectedItem = "none";
+                    cboOptProfile.SelectedItem = "high";
+                    cboOptLevel.SelectedItem = "4.1";
+                    Video.optFlags = "-maxrate 9.8M";
+                }
+                // Xbox One
+                else if ((string)cboOptimize.SelectedItem == "Xbox One")
+                {
+                    cboOptTune.SelectedItem = "none";
+                    cboOptProfile.SelectedItem = "high";
+                    cboOptLevel.SelectedItem = "4.1";
+                    Video.optFlags = string.Empty;
+                }
+                // Custom
+                else if ((string)cboOptimize.SelectedItem == "Custom")
+                {
+                    cboOptTune.SelectedItem = "none";
+                    cboOptProfile.SelectedItem = "none";
+                    cboOptLevel.SelectedItem = "none";
+                    Video.optFlags = string.Empty;
+                }
+            }
+
+            // -------------------------
+            // x265
+            // -------------------------
+            else if ((string)cboVideoCodec.SelectedItem == "x265")
+            {
+                // Web
+                if ((string)cboOptimize.SelectedItem == "Web")
+                {
+                    cboOptTune.SelectedItem = "none";
+                    cboOptProfile.SelectedItem = "none";
+                    cboOptLevel.SelectedItem = "none";
+                    Video.optFlags = "-movflags faststart";
+                }
+            }
         }
 
 

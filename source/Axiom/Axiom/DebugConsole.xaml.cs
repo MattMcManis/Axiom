@@ -513,18 +513,6 @@ namespace Axiom
 
             debugParagraph.Inlines.Add(new LineBreak());
 
-            debugParagraph.Inlines.Add(new Bold(new Run("optAdvTune ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(OptimizeAdvancedWindow.optAdvTune) { Foreground = Value });
-            debugParagraph.Inlines.Add(new LineBreak());
-
-            debugParagraph.Inlines.Add(new Bold(new Run("optAdvProfile ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(OptimizeAdvancedWindow.optAdvProfile) { Foreground = Value });
-            debugParagraph.Inlines.Add(new LineBreak());
-
-            debugParagraph.Inlines.Add(new Bold(new Run("optAdvLevel ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(OptimizeAdvancedWindow.optAdvLevel) { Foreground = Value });
-            debugParagraph.Inlines.Add(new LineBreak());
-
             debugParagraph.Inlines.Add(new Bold(new Run("optTune ")) { Foreground = Variable });
             debugParagraph.Inlines.Add(new Run(Video.optTune) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());

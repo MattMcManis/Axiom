@@ -79,6 +79,7 @@ namespace Axiom
             else if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9") { mainwindow.cboSpeed.IsEnabled = true; }
             else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264") { mainwindow.cboSpeed.IsEnabled = true; }
             else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265") { mainwindow.cboSpeed.IsEnabled = true; }
+            else if ((string)mainwindow.cboVideoCodec.SelectedItem == "AV1") { mainwindow.cboSpeed.IsEnabled = true; }
             else if ((string)mainwindow.cboVideoCodec.SelectedItem == "mpeg4") { mainwindow.cboSpeed.IsEnabled = true; }
             else if ((string)mainwindow.cboVideoCodec.SelectedItem == "Theora") { mainwindow.cboSpeed.IsEnabled = false; }
             else if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG") { mainwindow.cboSpeed.IsEnabled = false; }
@@ -406,7 +407,8 @@ namespace Axiom
                 OptimizeItemSource = new List<string>()
                 {
                     "none",
-                    "Advanced",
+                    //"Advanced",
+                    "Custom",
                     "Web",
                     "DVD",
                     "Blu-ray",
@@ -436,7 +438,7 @@ namespace Axiom
                 mainwindow.cboOptimize.IsEnabled = true;
 
 
-                //MKV NEEDS ITS OWN RULES ////////////////////////////
+                // MKV Special Rules ////////////////////////////
                 if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
                 {
                     // Get Previous Item
@@ -446,7 +448,8 @@ namespace Axiom
                     OptimizeItemSource = new List<string>()
                     {
                         "none",
-                        "Advanced",
+                        //"Advanced",
+                        "Custom",
                         "Windows",
                         "Apple",
                         "Android",
@@ -584,7 +587,7 @@ namespace Axiom
                 mainwindow.cboOptimize.IsEnabled = true;
 
 
-                // MKV NEEDS ITS OWN RULES ////////////////////////////
+                // MKV Special Rules ////////////////////////////
                 if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
                 {
                     // Get Previous Item
@@ -718,6 +721,145 @@ namespace Axiom
                 // Enable Control
                 mainwindow.cboOptimize.IsEnabled = true;
 
+
+                // --------------------------------------------------
+                // Speed
+                // --------------------------------------------------
+                // Controlled through Video Quality ComboBox
+            }
+
+            // --------------------------------------------------
+            // AV1
+            // --------------------------------------------------
+            else if ((string)mainwindow.cboVideoCodec.SelectedItem == "AV1")
+            {
+                // -------------------------
+                // Video
+                // -------------------------
+                // Get Previous Item
+                previousItem = (string)mainwindow.cboVideo.SelectedItem;
+
+                // Change ItemSource
+                VideoItemSource = new List<string>()
+                {
+                    "Auto",
+                    //"Lossless", // disabled
+                    "Ultra",
+                    "High",
+                    "Medium",
+                    "Low",
+                    "Sub",
+                    "Custom"
+                };
+
+                // Populate ComboBox from ItemSource
+                mainwindow.cboVideo.ItemsSource = VideoItemSource;
+
+                // Select Item
+                if (VideoItemSource.Contains(previousItem))
+                {
+                    mainwindow.cboVideo.SelectedItem = previousItem;
+                }
+                else
+                {
+                    mainwindow.cboVideo.SelectedIndex = 0; // Auto
+                }
+
+                // Enable Control
+                mainwindow.cboVideo.IsEnabled = true;
+
+                // Enable CRF
+                if ((string)mainwindow.cboVideo.SelectedItem == "Custom")
+                {
+                    mainwindow.crfCustom.IsEnabled = true;
+                }
+
+
+                // --------------------------------------------------
+                // Pass
+                // --------------------------------------------------
+                // Get Previous Item
+                previousItem = (string)mainwindow.cboPass.SelectedItem;
+
+                // Change ItemSource
+                PassItemSource = new List<string>()
+                {
+                    "CRF",
+                    "1 Pass",
+                    "2 Pass"
+                };
+
+                // Populate ComboBox from ItemSource
+                mainwindow.cboPass.ItemsSource = PassItemSource;
+
+                // Select Item
+                if (PassItemSource.Contains(previousItem))
+                {
+                    mainwindow.cboPass.SelectedItem = previousItem;
+                }
+                else
+                {
+                    mainwindow.cboPass.SelectedIndex = 0; // Auto
+                }
+
+
+                // --------------------------------------------------
+                // Optimize
+                // --------------------------------------------------
+                // Get Previous Item
+                previousItem = (string)mainwindow.cboOptimize.SelectedItem;
+
+                // Change ItemSource
+                OptimizeItemSource = new List<string>()
+                {
+                    "none",
+                };
+
+                // Populate ComboBox from ItemSource
+                mainwindow.cboOptimize.ItemsSource = OptimizeItemSource;
+
+                // Select Item
+                if (OptimizeItemSource.Contains(previousItem))
+                {
+                    mainwindow.cboOptimize.SelectedItem = previousItem;
+                }
+                else
+                {
+                    mainwindow.cboOptimize.SelectedIndex = 0; // auto
+                }
+
+                // Enable Control
+                mainwindow.cboOptimize.IsEnabled = true;
+
+
+                // MKV Special Rules ////////////////////////////
+                if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
+                {
+                    // Get Previous Item
+                    previousItem = (string)mainwindow.cboOptimize.SelectedItem;
+
+                    // Change ItemSource
+                    OptimizeItemSource = new List<string>()
+                    {
+                        "none",
+                    };
+
+                    // Populate ComboBox from ItemSource
+                    mainwindow.cboOptimize.ItemsSource = OptimizeItemSource;
+
+                    // Select Item
+                    if (OptimizeItemSource.Contains(previousItem))
+                    {
+                        mainwindow.cboOptimize.SelectedItem = previousItem;
+                    }
+                    else
+                    {
+                        mainwindow.cboOptimize.SelectedIndex = 0; // auto
+                    }
+
+                    // Enable Control
+                    mainwindow.cboOptimize.IsEnabled = true;
+                }
 
                 // --------------------------------------------------
                 // Speed

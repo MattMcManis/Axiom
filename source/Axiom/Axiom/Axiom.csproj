@@ -119,9 +119,6 @@
     <Compile Include="LogConsole.xaml.cs">
       <DependentUpon>LogConsole.xaml</DependentUpon>
     </Compile>
-    <Compile Include="OptimizeAdvancedWindow.xaml.cs">
-      <DependentUpon>OptimizeAdvancedWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Presets.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -171,10 +168,6 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="OptimizeAdvancedWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="ThemeCircuit.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

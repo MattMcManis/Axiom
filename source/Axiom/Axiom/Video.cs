@@ -56,6 +56,7 @@ namespace Axiom
         public static string optTune; // x264 & x265 tuning modes
         public static string optProfile; // x264/x265 Profile
         public static string optLevel; // x264/x265 Level
+        public static string optFlags; // Additional Optimization Flags
         public static string optimize; // Contains opTune + optProfile + optLevel
         public static string speed; // Speed combobox modifier
         public static string sCodec; // Subtitle Codec
@@ -190,6 +191,11 @@ namespace Axiom
                 {
                     vCodec = "-c:v libvpx-vp9 -tile-columns 6 -frame-parallel 1 -auto-alt-ref 1 -lag-in-frames 25";
                 }
+                // AV1
+                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "AV1")
+                {
+                    vCodec = "-c:v libaom-av1 -strict experimental";
+                }
                 // Theora
                 else if ((string)mainwindow.cboVideoCodec.SelectedItem == "Theora")
                 {
@@ -200,7 +206,7 @@ namespace Axiom
                 {
                     vCodec = "-c:v libx264"; //leave profile:v main here so MKV can choose other ???
                 }
-                //x265
+                // x265
                 else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265")
                 {
                     vCodec = "-c:v libx265"; //does not use profile:v
@@ -382,6 +388,7 @@ namespace Axiom
             else if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9") { vBitMode = "-b:v"; }
             else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264") { vBitMode = "-b:v"; }
             else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265") { vBitMode = "-b:v"; }
+            else if ((string)mainwindow.cboVideoCodec.SelectedItem == "AV1") { vBitMode = "-b:v"; }
             else if ((string)mainwindow.cboVideoCodec.SelectedItem == "mpeg4") { vBitMode = "-b:v"; }
             else if ((string)mainwindow.cboVideoCodec.SelectedItem == "Theora") { vBitMode = "-q:v"; }
             else if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG") { vBitMode = "-q:v"; }
@@ -669,6 +676,10 @@ namespace Axiom
                                     {
                                         crf = "-x265-params crf=23";
                                     }
+                                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "AV1")
+                                    {
+                                        crf = "-crf 18";
+                                    }
                                     else if ((string)mainwindow.cboVideoCodec.SelectedItem == "mpeg4")
                                     {
                                         crf = "-b:v 5";
@@ -699,6 +710,10 @@ namespace Axiom
                                         vBitrate = "3M";
                                     }
                                     else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265")
+                                    {
+                                        vBitrate = "3M";
+                                    }
+                                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "AV1")
                                     {
                                         vBitrate = "3M";
                                     }
@@ -747,7 +762,8 @@ namespace Axiom
                                 if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8"
                                     || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9"
                                     || (string)mainwindow.cboVideoCodec.SelectedItem == "x264"
-                                    || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
+                                    || (string)mainwindow.cboVideoCodec.SelectedItem == "x265"
+                                    || (string)mainwindow.cboVideoCodec.SelectedItem == "AV1")
                                 {
                                     vBitrate = VideoBitrateCalculator(mainwindow, FFprobe.vEntryType, FFprobe.inputVideoBitrate);
                                 }
@@ -889,6 +905,13 @@ namespace Axiom
                         vOptions = "-pix_fmt yuv444p";
                     }
                     // -------------------------
+                    // AV1
+                    // -------------------------
+                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "AV1")
+                    {
+                        // Disabled
+                    }
+                    // -------------------------
                     // mpeg4
                     // -------------------------
                     else if ((string)mainwindow.cboVideoCodec.SelectedItem == "mpeg4")
@@ -1006,6 +1029,28 @@ namespace Axiom
                             crf = string.Empty;
                         }                       
                         
+                        vOptions = "-pix_fmt yuv420p";
+                    }
+                    // -------------------------
+                    // AV1
+                    // -------------------------
+                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "AV1")
+                    {
+                        if ((string)mainwindow.cboPass.SelectedItem == "CRF")
+                        {
+                            vBitMode = string.Empty;
+                            vBitrate = string.Empty;
+                            crf = "-crf 16";
+                        }
+                        else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
+                            || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
+                        {
+                            vBitrate = "5M";
+                            vMinrate = string.Empty;
+                            vMaxrate = string.Empty;
+                            crf = string.Empty;
+                        }
+
                         vOptions = "-pix_fmt yuv420p";
                     }
                     // -------------------------
@@ -1147,6 +1192,28 @@ namespace Axiom
                         vOptions = "-pix_fmt yuv420p";
                     }
                     // -------------------------
+                    // AV1
+                    // -------------------------
+                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "AV1")
+                    {
+                        if ((string)mainwindow.cboPass.SelectedItem == "CRF")
+                        {
+                            vBitMode = string.Empty;
+                            vBitrate = string.Empty;
+                            crf = "-crf 20";
+                        }
+                        else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
+                            || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
+                        {
+                            vBitrate = "2500K";
+                            vMinrate = string.Empty;
+                            vMaxrate = string.Empty;
+                            crf = string.Empty;
+                        }
+
+                        vOptions = "-pix_fmt yuv420p";
+                    }
+                    // -------------------------
                     // mpeg4
                     // -------------------------
                     else if ((string)mainwindow.cboVideoCodec.SelectedItem == "mpeg4")
@@ -1279,6 +1346,28 @@ namespace Axiom
                             || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
                         {
                             vBitrate = "1300K";
+                            crf = string.Empty;
+                        }
+
+                        vOptions = "-pix_fmt yuv420p";
+                    }
+                    // -------------------------
+                    // AV1
+                    // -------------------------
+                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "AV1")
+                    {
+                        if ((string)mainwindow.cboPass.SelectedItem == "CRF")
+                        {
+                            vBitMode = string.Empty;
+                            vBitrate = string.Empty;
+                            crf = "-crf 28";
+                        }
+                        else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
+                            || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
+                        {
+                            vBitrate = "1300K";
+                            vMinrate = string.Empty;
+                            vMaxrate = string.Empty;
                             crf = string.Empty;
                         }
 
@@ -1423,6 +1512,28 @@ namespace Axiom
                         vOptions = "-pix_fmt yuv420p";
                     }
                     // -------------------------
+                    // AV1
+                    // -------------------------
+                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "AV1")
+                    {
+                        if ((string)mainwindow.cboPass.SelectedItem == "CRF")
+                        {
+                            vBitMode = string.Empty;
+                            vBitrate = string.Empty;
+                            crf = "-crf 37";
+                        }
+                        else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
+                            || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
+                        {
+                            vBitrate = "600K";
+                            vMinrate = string.Empty;
+                            vMaxrate = string.Empty;
+                            crf = string.Empty;
+                        }
+
+                        vOptions = "-pix_fmt yuv420p";
+                    }
+                    // -------------------------
                     // mpeg4
                     // -------------------------
                     else if ((string)mainwindow.cboVideoCodec.SelectedItem == "mpeg4")
@@ -1555,6 +1666,28 @@ namespace Axiom
                             || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
                         {
                             vBitrate = "250K";
+                            crf = string.Empty;
+                        }
+
+                        vOptions = "-pix_fmt yuv420p";
+                    }
+                    // -------------------------
+                    // AV1
+                    // -------------------------
+                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "AV1")
+                    {
+                        if ((string)mainwindow.cboPass.SelectedItem == "CRF")
+                        {
+                            vBitMode = string.Empty;
+                            vBitrate = string.Empty;
+                            crf = "-crf 45";
+                        }
+                        else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
+                            || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
+                        {
+                            vBitrate = "250K";
+                            vMinrate = string.Empty;
+                            vMaxrate = string.Empty;
                             crf = string.Empty;
                         }
 
@@ -1856,6 +1989,7 @@ namespace Axiom
         {
             if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8"
                 || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9"
+                || (string)mainwindow.cboVideoCodec.SelectedItem == "AV1"
                 || (string)mainwindow.cboVideoCodec.SelectedItem == "Theora"
                 || (string)mainwindow.cboVideoCodec.SelectedItem == "JPEG"
                 || (string)mainwindow.cboVideoCodec.SelectedItem == "PNG")
@@ -1877,6 +2011,7 @@ namespace Axiom
         {
             if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8"
                 || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9"
+                || (string)mainwindow.cboVideoCodec.SelectedItem == "AV1"
                 || (string)mainwindow.cboVideoCodec.SelectedItem == "Theora"
                 || (string)mainwindow.cboVideoCodec.SelectedItem == "JPEG"
                 || (string)mainwindow.cboVideoCodec.SelectedItem == "PNG")
@@ -2596,6 +2731,24 @@ namespace Axiom
                 }
 
                 // -------------------------
+                // AV1
+                // -------------------------  
+                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "AV1")
+                {
+                    if ((string)mainwindow.cboSpeed.SelectedItem == "None") { speed = string.Empty; }
+                    else if ((string)mainwindow.cboSpeed.SelectedItem == "Placebo") { speed = "-cpu-used 0"; }
+                    else if ((string)mainwindow.cboSpeed.SelectedItem == "Very Slow") { speed = "-cpu-used 0"; }
+                    else if ((string)mainwindow.cboSpeed.SelectedItem == "Slower") { speed = "-cpu-used 0"; }
+                    else if ((string)mainwindow.cboSpeed.SelectedItem == "Slow") { speed = "-cpu-used 0"; }
+                    else if ((string)mainwindow.cboSpeed.SelectedItem == "Medium") { speed = "-cpu-used 1"; }
+                    else if ((string)mainwindow.cboSpeed.SelectedItem == "Fast") { speed = "-cpu-used 1"; }
+                    else if ((string)mainwindow.cboSpeed.SelectedItem == "Faster") { speed = "-cpu-used 2"; }
+                    else if ((string)mainwindow.cboSpeed.SelectedItem == "Very Fast") { speed = "-cpu-used 3"; }
+                    else if ((string)mainwindow.cboSpeed.SelectedItem == "Super Fast") { speed = "-cpu-used 4"; }
+                    else if ((string)mainwindow.cboSpeed.SelectedItem == "Ultra Fast") { speed = "-cpu-used 5"; }
+                }
+
+                // -------------------------
                 // MPEG-4
                 // -------------------------             
                 else if ((string)mainwindow.cboVideoCodec.SelectedItem == "mpeg4")
@@ -2700,172 +2853,78 @@ namespace Axiom
                 && (string)mainwindow.cboVideoCodec.SelectedItem != "Copy"
                 && (string)mainwindow.cboMediaType.SelectedItem != "Audio")
             {
-                // -------------------------
-                // None
-                // -------------------------
-                // Default to blank
-                if ((string)mainwindow.cboOptimize.SelectedItem == "None")
-                {
-                    optimize = string.Empty;
-                }
+                // Tune, Profile, Level set in MainWindow cboOptimize_SelectionChanged
+                //
 
-                // -------------------------
-                // VP8, VP9, Theora
-                // -------------------------
-                if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8"
-                    || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9"
-                    || (string)mainwindow.cboVideoCodec.SelectedItem == "Theora")
-                {
-                    // Web
-                    if ((string)mainwindow.cboOptimize.SelectedItem == "Web")
-                    {
-                        optimize = "-movflags faststart";
-                    }
-                }
                 // -------------------------
                 // x264
                 // -------------------------
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264")
+                if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264")
                 {
-                    // Web
-                    if ((string)mainwindow.cboOptimize.SelectedItem == "Web")
+                    // -------------------------
+                    // Tune
+                    // -------------------------
+                    if ((string)mainwindow.cboOptTune.SelectedItem == "none")
                     {
-                        optimize = "-profile:v baseline -level 3.0 -movflags +faststart ";
+                        optTune = string.Empty;
                     }
-                    // DVD
-                    else if ((string)mainwindow.cboOptimize.SelectedItem == "DVD")
+                    else
                     {
-                        optimize = "-profile:v baseline -level 3.0 -maxrate 9.6M";
+                        optTune = "-tune " + mainwindow.cboOptTune.SelectedItem.ToString();
                     }
-                    // HD Video
-                    else if ((string)mainwindow.cboOptimize.SelectedItem == "HD Video")
-                    {
-                        optimize = "-profile:v main -level 4.0";
-                    }
-                    // Animation
-                    else if ((string)mainwindow.cboOptimize.SelectedItem == "Animation")
-                    {
-                        optimize = "-profile:v main -level 4.0";
-                    }
-                    // Blu-ray
-                    else if ((string)mainwindow.cboOptimize.SelectedItem == "Blu-ray")
-                    {
-                        optimize = "-deblock 0:0 -sar 1/1 -x264opts bluray-compat=1:level=4.1:open-gop=1:slices=4:tff=1:colorprim=bt709:colormatrix=bt709:vbv-maxrate=40000:vbv-bufsize=30000:me=umh:ref=4:nal-hrd=vbr:aud=1:b-pyramid=strict";
-                    }
-                    // Windows Device
-                    else if ((string)mainwindow.cboOptimize.SelectedItem == "Windows")
-                    {
-                        optimize = "-profile:v baseline -level 3.1 -movflags faststart";
-                    }
-                    // Apple Device
-                    else if ((string)mainwindow.cboOptimize.SelectedItem == "Apple")
-                    {
-                        optimize = "-x264-params ref=4 -profile:v baseline -level 3.1 -movflags +faststart";
-                    }
-                    // Android Device
-                    else if ((string)mainwindow.cboOptimize.SelectedItem == "Android")
-                    {
-                        optimize = "-profile:v baseline -level 3.0 -movflags faststart";
-                    }
-                    // PS3
-                    else if ((string)mainwindow.cboOptimize.SelectedItem == "PS3")
-                    {
-                        optimize = "-profile:v main -level 4.0";
-                    }
-                    // PS4
-                    else if ((string)mainwindow.cboOptimize.SelectedItem == "PS4")
-                    {
-                        optimize = "-profile:v main -level 4.1";
-                    }
-                    // Xbox 360
-                    else if ((string)mainwindow.cboOptimize.SelectedItem == "Xbox 360")
-                    {
-                        optimize = "-profile:v high -level 4.1 -maxrate 9.8M";
-                    }
-                    // Xbox One
-                    else if ((string)mainwindow.cboOptimize.SelectedItem == "Xbox 360")
-                    {
-                        optimize = "-profile:v high -level 4.1";
-                    }
-                }
-                // -------------------------
-                // x265
-                // -------------------------
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265")
-                {
-                    // Web
-                    if ((string)mainwindow.cboOptimize.SelectedItem == "Web")
-                    {
-                        optimize = "-movflags +faststart";
-                    }
-                }
 
-                // -------------------------
-                // Advanced (x264 & x265)
-                // -------------------------
-                if ((string)mainwindow.cboOptimize.SelectedItem == "Advanced")
-                {
-                    if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264" 
-                        || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
+                    // -------------------------
+                    // Profile
+                    // -------------------------
+                    if ((string)mainwindow.cboOptProfile.SelectedItem == "none")
                     {
-                        // Tune
-                        //
-                        if (OptimizeAdvancedWindow.optAdvTune == "none" 
-                            || string.IsNullOrEmpty(OptimizeAdvancedWindow.optAdvTune))
-                        {
-                            optTune = string.Empty;
-                        }
-                        else
-                        {
-                            // Tune = Set Tmp Setting from Optimized Advanced Window
-                            optTune = "-tune " + OptimizeAdvancedWindow.optAdvTune;
-                        }
+                        optProfile = string.Empty;
+                    }
+                    else
+                    {
+                        optProfile = "-profile:v " + mainwindow.cboOptProfile.SelectedItem.ToString();
+                    }
 
+                    // -------------------------
+                    // Level
+                    // -------------------------
+                    if ((string)mainwindow.cboOptLevel.SelectedItem == "none")
+                    {
+                        optLevel = string.Empty;
+                    }
+                    else
+                    {
+                        optLevel = "-level " + mainwindow.cboOptLevel.SelectedItem.ToString();
+                    }
 
-                        // Profile
-                        //
-                        if (OptimizeAdvancedWindow.optAdvProfile == "none" 
-                            || string.IsNullOrEmpty(OptimizeAdvancedWindow.optAdvProfile))
-                        {
-                            optProfile = string.Empty;
-                        }
-                        else
-                        {
-                            // Tune = Set Tmp Setting from Optimized Advanced Window
-                            optProfile = "-profile:v " + OptimizeAdvancedWindow.optAdvProfile;
-                        }
-
-                        // Level
-                        //
-                        if (OptimizeAdvancedWindow.optAdvLevel == "none" 
-                            || string.IsNullOrEmpty(OptimizeAdvancedWindow.optAdvLevel))
-                        {
-                            optLevel = string.Empty;
-                        }
-                        else
-                        {
-                            // Tune = Set Tmp Setting from Optimized Advanced Window
-                            optLevel = "-level " + OptimizeAdvancedWindow.optAdvLevel;
-                        }
-
-
-                        // Combine Optimize = Tune + Profile + Level
-                        //
-                        List<string> v2passList = new List<string>() {
+                    // -------------------------
+                    // Combine Optimize = Tune + Profile + Level
+                    // -------------------------
+                    List<string> v2passList = new List<string>() {
                         optProfile,
                         optLevel,
-                        optTune
+                        optTune,
+                        optFlags
                     };
 
-                        optimize = string.Join(" ", v2passList.Where(s => !string.IsNullOrEmpty(s)));
-                    }
+                    optimize = string.Join(" ", v2passList.Where(s => !string.IsNullOrEmpty(s)));
                 }
+
+                // -------------------------
+                // x265, VP8, VP9, Theora, mpeg4, AV1
+                // -------------------------
+                else
+                {
+                    optimize = optFlags;
+                }
+
             }
 
             // Return Value
             return optimize;
 
         } // End Optimize
+
 
 
         /// <summary>
