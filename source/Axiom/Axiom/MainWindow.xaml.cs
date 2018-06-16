@@ -568,9 +568,16 @@ namespace Axiom
             // Video
             cboFPS.SelectedIndex = 0;
             cboSize.SelectedIndex = 0;
-            cboOptProfile.SelectedIndex = 0;
-            cboOptTune.SelectedIndex = 0;
-            cboOptLevel.SelectedIndex = 0;
+
+            // Optimize
+            cboOptimize.SelectedIndex = 0;
+            //cboOptProfile.SelectedIndex = 0;
+            //cboOptTune.SelectedIndex = 0;
+            //cboOptLevel.SelectedIndex = 0;
+
+            //cboOptTune.IsEnabled = true;
+            //cboOptProfile.IsEnabled = true;
+            //cboOptLevel.IsEnabled = true;
 
             cboPreset.SelectedIndex = 0;
 
@@ -3806,25 +3813,25 @@ namespace Axiom
             // -------------------------
             // Enable/Disable Optimize Tune, Profile, Level
             // -------------------------
-            if ((string)cboVideoCodec.SelectedItem == "x264")
-            {
-                // Enable
-                cboOptTune.IsEnabled = true;
-                cboOptProfile.IsEnabled = true;
-                cboOptLevel.IsEnabled = true;
-            }
-            else
-            {
-                // Disable
-                cboOptTune.IsEnabled = false;
-                cboOptProfile.IsEnabled = false;
-                cboOptLevel.IsEnabled = false;
+            //if ((string)cboVideoCodec.SelectedItem == "x264")
+            //{
+            //    // Enable
+            //    cboOptTune.IsEnabled = true;
+            //    cboOptProfile.IsEnabled = true;
+            //    cboOptLevel.IsEnabled = true;
+            //}
+            //else
+            //{
+            //    // Disable
+            //    cboOptTune.IsEnabled = false;
+            //    cboOptProfile.IsEnabled = false;
+            //    cboOptLevel.IsEnabled = false;
 
-                cboOptTune.SelectedItem = "none";
-                cboOptProfile.SelectedItem = "none";
-                cboOptLevel.SelectedItem = "none";
-                Video.optFlags = string.Empty;
-            }
+            //    cboOptTune.SelectedItem = "none";
+            //    cboOptProfile.SelectedItem = "none";
+            //    cboOptLevel.SelectedItem = "none";
+            //    Video.optFlags = string.Empty;
+            //}
         }
 
         /// <summary>
@@ -4519,52 +4526,41 @@ namespace Axiom
         /// <summary>
         ///    Optimize Combobox
         /// </summary>
-        //private void cboOptimize_DropDownClosed(object sender, EventArgs e)
-        //{
-        //    // Open Advanced Window
-        //    if ((string)cboOptimize.SelectedItem == "Advanced")
-        //    {
-        //        // Detect which screen we're on
-        //        var allScreens = System.Windows.Forms.Screen.AllScreens.ToList();
-        //        var thisScreen = allScreens.SingleOrDefault(s => this.Left >= s.WorkingArea.Left && this.Left < s.WorkingArea.Right);
-
-        //        // Start Window
-        //        optadvwindow = new OptimizeAdvancedWindow(this);
-
-        //        // Position Relative to MainWindow
-        //        // Keep from going off screen
-        //        optadvwindow.Left = Math.Max((this.Left + (this.Width - optadvwindow.Width) / 2), thisScreen.WorkingArea.Left);
-        //        optadvwindow.Top = Math.Max((this.Top + (this.Height - optadvwindow.Height) / 2), thisScreen.WorkingArea.Top);
-
-        //        // Keep Window on Top
-        //        optadvwindow.Owner = Window.GetWindow(this);
-
-        //        // Open Window
-        //        optadvwindow.ShowDialog();
-        //    }
-        //}
-        //private void cboOptimize_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        //{
-        //    // Disable Copy on change
-        //    //VideoControls.AutoCopyVideoCodec(this); // this caused a loop error
-        //    //VideoControls.AutoCopySubtitleCodec(this);
-        //}
         private void cboOptimize_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // -------------------------
-            // Remove x264 Optimize settings
+            // Enable / Disable - Optimize Tune, Profile, Level
+
             // -------------------------
-            //if ((string)cboVideoCodec.SelectedItem == "VP8"
-            //    || (string)cboVideoCodec.SelectedItem == "VP9"
-            //    || (string)cboVideoCodec.SelectedItem == "Theora"
-            //    || (string)cboVideoCodec.SelectedItem == "mpeg4"
-            //    || (string)cboVideoCodec.SelectedItem == "AV1")
-            //{
-            //    cboOptTune.SelectedItem = "none";
-            //    cboOptProfile.SelectedItem = "none";
-            //    cboOptLevel.SelectedItem = "none";
-            //    Video.optFlags = string.Empty;
-            //}
+            if ((string)cboVideoCodec.SelectedItem == "x264")
+            {
+                if ((string)cboOptimize.SelectedItem == "none")
+                {
+                    cboOptTune.IsEnabled = false;
+                    cboOptProfile.IsEnabled = false;
+                    cboOptLevel.IsEnabled = false;
+                    Video.optFlags = string.Empty;
+                }
+                else
+                {
+                    cboOptTune.IsEnabled = true;
+                    cboOptProfile.IsEnabled = true;
+                    cboOptLevel.IsEnabled = true;
+                }
+            }
+            else
+            {
+                // Disable
+                cboOptTune.IsEnabled = false;
+                cboOptProfile.IsEnabled = false;
+                cboOptLevel.IsEnabled = false;
+
+                cboOptTune.SelectedItem = "none";
+                cboOptProfile.SelectedItem = "none";
+                cboOptLevel.SelectedItem = "none";
+                Video.optFlags = string.Empty;
+            }
+
 
             // -------------------------
             // VP8, VP9, Theora
