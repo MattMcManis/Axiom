@@ -236,7 +236,7 @@ namespace Axiom
                 // --------------------------
                 if (string.IsNullOrEmpty(Settings.Default["threads"].ToString()))
                 {
-                    Configure.threads = "all";
+                    Configure.threads = "optimal";
 
                     // Set ComboBox if Configure Window is Open
                     mainwindow.cboThreads.SelectedItem = Configure.threads;

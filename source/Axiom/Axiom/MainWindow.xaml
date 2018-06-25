@@ -2317,7 +2317,7 @@
                                       Grid.Column="1"
                                       Grid.Row="4" Margin="0,2,0,0">
                                 <System:String>default</System:String>
-                                <System:String>auto</System:String>
+                                <System:String>optimal</System:String>
                                 <System:String>all</System:String>
                                 <System:String>1</System:String>
                                 <System:String>2</System:String>
@@ -2327,6 +2327,14 @@
                                 <System:String>6</System:String>
                                 <System:String>7</System:String>
                                 <System:String>8</System:String>
+                                <System:String>9</System:String>
+                                <System:String>10</System:String>
+                                <System:String>11</System:String>
+                                <System:String>12</System:String>
+                                <System:String>13</System:String>
+                                <System:String>14</System:String>
+                                <System:String>15</System:String>
+                                <System:String>16</System:String>
                                 <!-- <System:String>Custom</System:String> -->
                             </ComboBox>
 

@@ -1219,12 +1219,12 @@ namespace Axiom
             }
 
             // -------------------------
-            // Auto
+            // Optimal
             // -------------------------
-            else if ((string)mainwindow.cboThreads.SelectedItem == "auto"
+            else if ((string)mainwindow.cboThreads.SelectedItem == "optimal"
                 || string.IsNullOrEmpty(Configure.threads))
             {
-                Configure.threads = "-threads auto";
+                Configure.threads = "-threads 0";
             }
 
             // -------------------------
@@ -2004,7 +2004,7 @@ namespace Axiom
             Configure.logPath = string.Empty;
 
             // Revert Threads
-            cboThreads.SelectedItem = "all";
+            cboThreads.SelectedItem = "optimal";
             Configure.threads = string.Empty;
 
 
