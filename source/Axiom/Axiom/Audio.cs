@@ -629,14 +629,15 @@ namespace Axiom
                     // -------------------------
                     if (mainwindow.tglBatch.IsChecked == false)
                     {
+                        // -------------------------
                         // Input Has Audio
-                        //
+                        // -------------------------
                         if (!string.IsNullOrEmpty(FFprobe.inputAudioBitrate))
                         {
                             // Input Bitrate was detected
                             if (FFprobe.inputAudioBitrate != "N/A")
                             {
-                                //CBR
+                                // CBR
                                 if (mainwindow.tglVBR.IsChecked == false)
                                 {
                                     //aBitMode = "-b:a";
@@ -661,8 +662,9 @@ namespace Axiom
                                 }
                             }
 
+                            // -------------------------
                             // Input Does Not Have Audio Codec
-                            //
+                            // -------------------------
                             if (!string.IsNullOrEmpty(FFprobe.inputAudioCodec))
                             {
                                 // Default to a new bitrate if Input & Output formats Do Not match
@@ -676,12 +678,23 @@ namespace Axiom
 
                         }
 
+                        // -------------------------
                         // Input No Audio
-                        //
+                        // -------------------------
                         else if (string.IsNullOrEmpty(FFprobe.inputAudioBitrate))
                         {
                             aBitMode = string.Empty;
                             aBitrate = string.Empty;
+                        }
+
+
+                        // -------------------------
+                        // Bitrate Returned Empty
+                        // -------------------------
+                        if (string.IsNullOrEmpty(aBitrate))
+                        {
+                            // Disable Bit Mode
+                            aBitMode = string.Empty;
                         }
                     }
 
@@ -974,7 +987,7 @@ namespace Axiom
                 {
                     // Empty Check
                     // Prevents Crash
-                    if (!string.IsNullOrWhiteSpace(mainwindow.audioCustom.Text))
+                    if (!string.IsNullOrWhiteSpace(mainwindow.audioCustom.Text.Trim()))
                     {
                         // -------------------------
                         // CBR 
@@ -991,7 +1004,7 @@ namespace Axiom
                         // -------------------------
                         else if (mainwindow.tglVBR.IsChecked == true)
                         {
-                            aBitrate = AudioVBRCalculator(mainwindow, mainwindow.audioCustom.Text);
+                            aBitrate = AudioVBRCalculator(mainwindow, mainwindow.audioCustom.Text.Trim());
 
                             // Opus uses -b:a (value)k -vbr on
                             if ((string)mainwindow.cboAudioCodec.SelectedItem == "Opus")

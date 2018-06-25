@@ -51,6 +51,10 @@ namespace Axiom
         public static List<string> OptimizeItemSource;
         public static List<string> SpeedItemSource;
 
+        public static List<string> OptimizeTuneItemSource;
+        public static List<string> OptimizeProfileItemSource;
+        public static List<string> OptimizeLevelItemSource;
+
         public static bool passUserSelected = false; // Used to determine if User willingly selected CRF, 1 Pass or 2 Pass
 
 
@@ -1291,6 +1295,10 @@ namespace Axiom
                 // Enable FPS
                 mainwindow.cboFPS.IsEnabled = false;
 
+                //// Pixel Format
+                //mainwindow.cboPixelFormat.IsEnabled = false;
+                //mainwindow.cboPixelFormat.SelectedItem = "auto";
+
 
                 // --------------------------------------------------
                 // Pass
@@ -1831,6 +1839,54 @@ namespace Axiom
         }
 
 
+        /// <summary>
+        ///     Pixel Format
+        /// </summary>
+        public static void PixelFormat(MainWindow mainwindow)
+        {
+            // -------------------------
+            // MediaType Enable
+            // -------------------------
+            if ((string)mainwindow.cboMediaType.SelectedItem == "Video"
+                || (string)mainwindow.cboMediaType.SelectedItem == "Image"
+                || (string)mainwindow.cboMediaType.SelectedItem == "Sequence")
+            {
+                // -------------------------
+                // Codec Enable
+                // -------------------------
+                if ((string)mainwindow.cboVideoCodec.SelectedItem != "Copy")
+                {
+                    mainwindow.cboPixelFormat.IsEnabled = true;
+
+                    // Lossless
+                    if ((string)mainwindow.cboVideo.SelectedItem == "Lossless")
+                    {
+                        mainwindow.cboPixelFormat.SelectedItem = "yuv444p";
+                    }
+                    // All Other Quality
+                    else
+                    {
+                        mainwindow.cboPixelFormat.SelectedItem = "yuv420p";
+                    }
+                }
+
+                // -------------------------
+                // Codec Disable
+                // -------------------------
+                else
+                {
+                    mainwindow.cboPixelFormat.IsEnabled = false;
+                    mainwindow.cboPixelFormat.SelectedItem = "auto";
+                }
+            }
+
+            // MediaType Disable
+            else if ((string)mainwindow.cboMediaType.SelectedItem == "Audio")
+            {
+                mainwindow.cboPixelFormat.IsEnabled = false;
+            }
+        }
+
 
         /// <summary>
         ///    Optimize Controls
@@ -1838,10 +1894,8 @@ namespace Axiom
         public static void OptimizeControls(MainWindow mainwindow)
         {
             // --------------------------------------------------
-            // Tune ComboBox Items
+            // Optimize ComboBox Items
             // --------------------------------------------------
-
-            List<string> VideoOptimizeTuneItemSource = new List<string>();
 
             // -------------------------
             // x264
@@ -1849,7 +1903,12 @@ namespace Axiom
             if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264")
             {
                 // Change ItemSource
-                VideoOptimizeTuneItemSource = new List<string>()
+
+                // -------------------------
+                // Tune
+                // -------------------------
+
+                OptimizeTuneItemSource = new List<string>()
                 {
                     "none",
                     "film",
@@ -1859,6 +1918,41 @@ namespace Axiom
                     "fastdecode",
                     "zerolatency"
                 };
+
+                // -------------------------
+                // Profile
+                // -------------------------
+                OptimizeProfileItemSource = new List<string>()
+                {
+                    "none",
+                    "baseline",
+                    "main",
+                    "high"
+                };
+
+                // -------------------------
+                // Level
+                // -------------------------
+                OptimizeLevelItemSource = new List<string>()
+                {
+                    "none",
+                    "1.0",
+                    "1.1",
+                    "1.2",
+                    "1.3",
+                    "2.0",
+                    "2.2",
+                    "2.2",
+                    "3.0",
+                    "3.1",
+                    "3.2",
+                    "4.0",
+                    "4.1",
+                    "4.2",
+                    "5.0",
+                    "5.1",
+                    "5.2"
+                };
             }
 
             // -------------------------
@@ -1867,7 +1961,11 @@ namespace Axiom
             else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265")
             {
                 // Change ItemSource
-                VideoOptimizeTuneItemSource = new List<string>()
+
+                // -------------------------
+                // Tune
+                // -------------------------
+                OptimizeTuneItemSource = new List<string>()
                 {
                     "none",
                     "psnr",
@@ -1875,6 +1973,53 @@ namespace Axiom
                     "grain",
                     "fastdecode",
                     "zerolatency"
+                };
+
+                // -------------------------
+                // Profile
+                // -------------------------
+                OptimizeProfileItemSource = new List<string>()
+                {
+                    "none",
+                    "main",
+                    "main-intra",
+                    "mainstillpicture",
+                    "main444-8",
+                    "main444-intra",
+                    "main444-stillpicture",
+                    "main10",
+                    "main10-intra",
+                    "main422-10",
+                    "main422-10-intra",
+                    "main444-10",
+                    "main444-10-intra",
+                    "main12",
+                    "main422-12",
+                    "main422-12-intra",
+                    "main444-12",
+                    "main444-12-intra",
+                };
+
+                // -------------------------
+                // Level
+                // -------------------------
+                OptimizeLevelItemSource = new List<string>()
+                {
+                    "none",
+                    "1",
+                    "2",
+                    "2.1",
+                    "3",
+                    "3.1",
+                    "4",
+                    "4.1",
+                    "5",
+                    "5.1",
+                    "5.2",
+                    "6",
+                    "6.1",
+                    "6.2",
+                    "8.5",
                 };
             }
 
@@ -1884,26 +2029,52 @@ namespace Axiom
             else
             {
                 // Change ItemSource
-                VideoOptimizeTuneItemSource = new List<string>()
+
+                // -------------------------
+                // Tune
+                // -------------------------
+                OptimizeTuneItemSource = new List<string>()
+                {
+                    "none"
+                };
+
+                // -------------------------
+                // Profile
+                // -------------------------
+                OptimizeProfileItemSource = new List<string>()
+                {
+                    "none"
+                };
+
+                // -------------------------
+                // Level
+                // -------------------------
+                OptimizeLevelItemSource = new List<string>()
                 {
                     "none"
                 };
             }
 
             // -------------------------
-            // Populate Tune ComboBox from ItemSource
+            // Populate Optimize Tune, Profile, Level ComboBox from ItemSource
             // -------------------------
-            mainwindow.cboOptTune.ItemsSource = VideoOptimizeTuneItemSource;
+            mainwindow.cboOptTune.ItemsSource = OptimizeTuneItemSource;
+            mainwindow.cboOptProfile.ItemsSource = OptimizeProfileItemSource;
+            mainwindow.cboOptLevel.ItemsSource = OptimizeLevelItemSource;
 
+            mainwindow.cboOptTune.SelectedIndex = 0;
+            mainwindow.cboOptProfile.SelectedIndex = 0;
+            mainwindow.cboOptLevel.SelectedIndex = 0;
 
 
             // --------------------------------------------------
             // Enable / Disable - Optimize Tune, Profile, Level
             // --------------------------------------------------
             // -------------------------
-            // x264
+            // x264 / x265
             // -------------------------
-            if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264")
+            if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264"
+                || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
             {
                 if ((string)mainwindow.cboOptimize.SelectedItem == "none")
                 {
@@ -1919,28 +2090,6 @@ namespace Axiom
                     mainwindow.cboOptTune.IsEnabled = true;
                     mainwindow.cboOptProfile.IsEnabled = true;
                     mainwindow.cboOptLevel.IsEnabled = true;
-                }
-            }
-
-            // -------------------------
-            // x265
-            // -------------------------
-            else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265")
-            {
-                if ((string)mainwindow.cboOptimize.SelectedItem == "none")
-                {
-                    // Disabled
-                    mainwindow.cboOptTune.IsEnabled = false;
-                    mainwindow.cboOptProfile.IsEnabled = false;
-                    mainwindow.cboOptLevel.IsEnabled = false;
-                    Video.optFlags = string.Empty;
-                }
-                else
-                {
-                    // Enable Tune Only
-                    mainwindow.cboOptTune.IsEnabled = true;
-                    mainwindow.cboOptProfile.IsEnabled = false;
-                    mainwindow.cboOptLevel.IsEnabled = false;
                 }
             }
 

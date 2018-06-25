@@ -942,7 +942,6 @@ namespace Axiom
                 mainwindow.frameEnd.Text = string.Empty;
 
                 // Crop
-                //crop = string.Empty; //??
                 mainwindow.buttonCrop.IsEnabled = false;
 
                 // Fps

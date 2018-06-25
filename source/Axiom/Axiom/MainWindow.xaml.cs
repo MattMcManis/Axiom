@@ -3872,6 +3872,11 @@ namespace Axiom
             VideoControls.EncodingPass(this);
 
             // -------------------------
+            // Pixel Format
+            // -------------------------
+            VideoControls.PixelFormat(this);
+
+            // -------------------------
             // Optimize Controls
             // -------------------------
             VideoControls.OptimizeControls(this);
@@ -4056,6 +4061,11 @@ namespace Axiom
             // Video Quality Controls
             // -------------------------
             VideoControls.VideoQualityControls(this);
+
+            // -------------------------
+            // Pixel Format
+            // -------------------------
+            VideoControls.PixelFormat(this);
 
             // -------------------------
             // Enable Video Bitrate Custom
