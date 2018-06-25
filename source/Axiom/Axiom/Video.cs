@@ -2654,7 +2654,7 @@ namespace Axiom
                 }
                 else
                 {
-                    fps = "-framerate " + mainwindow.cboFPS.Text;
+                    fps = "-r " + mainwindow.cboFPS.Text;
                 }
 
                 // Log Console Message /////////
