@@ -1210,16 +1210,35 @@ namespace Axiom
         /// </summary>
         public static String ThreadDetect(MainWindow mainwindow)
         {
-            // set threads
-            if ((string)mainwindow.cboThreads.SelectedItem == "off")
+            // -------------------------
+            // Default
+            // -------------------------
+            if ((string)mainwindow.cboThreads.SelectedItem == "default")
             {
                 Configure.threads = string.Empty;
             }
+
+            // -------------------------
+            // Auto
+            // -------------------------
+            else if ((string)mainwindow.cboThreads.SelectedItem == "auto"
+                || string.IsNullOrEmpty(Configure.threads))
+            {
+                Configure.threads = "-threads auto";
+            }
+
+            // -------------------------
+            // All
+            // -------------------------
             else if ((string)mainwindow.cboThreads.SelectedItem == "all" 
                 || string.IsNullOrEmpty(Configure.threads))
             {
                 Configure.threads = "-threads " + Configure.maxthreads;
             }
+
+            // -------------------------
+            // Custom
+            // -------------------------
             else
             {
                 Configure.threads = "-threads " + Configure.threads;
@@ -3467,6 +3486,87 @@ namespace Axiom
 
 
         /// <summary>
+        ///     Video Minrate Custom Number Textbox
+        /// </summary>
+        // Got Focus
+        private void vMinrateCustom_GotFocus(object sender, RoutedEventArgs e)
+        {
+            // Clear Textbox on first use
+            if (vMinrateCustom.Text == string.Empty)
+            {
+                TextBox tbvb = (TextBox)sender;
+                tbvb.Text = string.Empty;
+                tbvb.GotFocus += vMinrateCustom_GotFocus; //used to be -=
+            }
+        }
+        // Lost Focus
+        private void vMinrateCustom_LostFocus(object sender, RoutedEventArgs e)
+        {
+            // Change Textbox back to Bitrate
+            TextBox tbvb = sender as TextBox;
+            if (tbvb.Text.Trim().Equals(string.Empty))
+            {
+                tbvb.Text = string.Empty;
+                tbvb.GotFocus -= vMinrateCustom_GotFocus; //used to be +=
+            }
+        }
+
+
+        /// <summary>
+        ///     Video Maxrate Custom Number Textbox
+        /// </summary>
+        // Got Focus
+        private void vMaxrateCustom_GotFocus(object sender, RoutedEventArgs e)
+        {
+            // Clear Textbox on first use
+            if (vMinrateCustom.Text == string.Empty)
+            {
+                TextBox tbvb = (TextBox)sender;
+                tbvb.Text = string.Empty;
+                tbvb.GotFocus += vMaxrateCustom_GotFocus; //used to be -=
+            }
+        }
+        // Lost Focus
+        private void vMaxrateCustom_LostFocus(object sender, RoutedEventArgs e)
+        {
+            // Change Textbox back to Bitrate
+            TextBox tbvb = sender as TextBox;
+            if (tbvb.Text.Trim().Equals(string.Empty))
+            {
+                tbvb.Text = string.Empty;
+                tbvb.GotFocus -= vMaxrateCustom_GotFocus; //used to be +=
+            }
+        }
+
+
+        /// <summary>
+        ///     Video Bufsize Custom Number Textbox
+        /// </summary>
+        // Got Focus
+        private void vBufsizeCustom_GotFocus(object sender, RoutedEventArgs e)
+        {
+            // Clear Textbox on first use
+            if (vBufsizeCustom.Text == string.Empty)
+            {
+                TextBox tbvb = (TextBox)sender;
+                tbvb.Text = string.Empty;
+                tbvb.GotFocus += vBufsizeCustom_GotFocus; //used to be -=
+            }
+        }
+        // Lost Focus
+        private void vBufsizeCustom_LostFocus(object sender, RoutedEventArgs e)
+        {
+            // Change Textbox back to Bitrate
+            TextBox tbvb = sender as TextBox;
+            if (tbvb.Text.Trim().Equals(string.Empty))
+            {
+                tbvb.Text = string.Empty;
+                tbvb.GotFocus -= vBufsizeCustom_GotFocus; //used to be +=
+            }
+        }
+
+
+        /// <summary>
         ///     Video CRF Custom Number Textbox
         /// </summary>
         private void crfCustom_KeyDown(object sender, KeyEventArgs e)
@@ -3772,6 +3872,11 @@ namespace Axiom
             VideoControls.EncodingPass(this);
 
             // -------------------------
+            // Optimize Controls
+            // -------------------------
+            VideoControls.OptimizeControls(this);
+
+            // -------------------------
             // Display Video Bit-rate in TextBox
             // -------------------------
             // Must be after EncodingPass
@@ -3857,21 +3962,36 @@ namespace Axiom
         /// </summary>
         private void cboFormat_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            // -------------------------
             // Output Control Selections
+            // -------------------------
             FormatControls.OuputFormatDefaults(this);
 
+            // -------------------------
             // Get Output Extension
+            // -------------------------
             FormatControls.OutputFormatExt(this);
 
+            // -------------------------
             // Output ComboBox Options
+            // -------------------------
             FormatControls.OutputFormat(this);
 
+            // -------------------------
             // Change All MainWindow Items
+            // -------------------------
             VideoControls.VideoCodecControls(this);
             AudioControls.AudioCodecControls(this);
 
+            // -------------------------
             // Pass Controls
+            // -------------------------
             VideoControls.EncodingPass(this);
+
+            // -------------------------
+            // Optimize Controls
+            // -------------------------
+            VideoControls.OptimizeControls(this);
 
             // -------------------------
             // File Renamer
@@ -3940,10 +4060,14 @@ namespace Axiom
             // -------------------------
             // Enable Video Bitrate Custom
             // -------------------------
+            // Enable
             if ((string)cboVideo.SelectedItem == "Custom")
             {
                 crfCustom.IsEnabled = true;
                 vBitrateCustom.IsEnabled = true;
+                vMinrateCustom.IsEnabled = true;
+                vMaxrateCustom.IsEnabled = true;
+                vBufsizeCustom.IsEnabled = true;
 
                 // Disable CRF for Theora
                 if ((string)cboVideoCodec.SelectedItem == "Theora")
@@ -3951,12 +4075,14 @@ namespace Axiom
                     crfCustom.IsEnabled = false;
                 }
             }
+            // Disable
             else
             {
                 crfCustom.IsEnabled = false;
-                //crfCustom.Text = string.Empty;
                 vBitrateCustom.IsEnabled = false;
-                //vBitrateCustom.Text = string.Empty;
+                vMinrateCustom.IsEnabled = false;
+                vMaxrateCustom.IsEnabled = false;
+                vBufsizeCustom.IsEnabled = false;
             }
 
 
@@ -4167,7 +4293,8 @@ namespace Axiom
             }
             else
             {
-                audioCustom.Text = "kbps";
+                //audioCustom.Text = "kbps";
+                audioCustom.Text = string.Empty;
             }
 
             // -------------------------
@@ -4529,181 +4656,12 @@ namespace Axiom
         private void cboOptimize_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // -------------------------
-            // Enable / Disable - Optimize Tune, Profile, Level
-
+            // Optimize Controls
             // -------------------------
-            if ((string)cboVideoCodec.SelectedItem == "x264")
-            {
-                if ((string)cboOptimize.SelectedItem == "none")
-                {
-                    cboOptTune.IsEnabled = false;
-                    cboOptProfile.IsEnabled = false;
-                    cboOptLevel.IsEnabled = false;
-                    Video.optFlags = string.Empty;
-                }
-                else
-                {
-                    cboOptTune.IsEnabled = true;
-                    cboOptProfile.IsEnabled = true;
-                    cboOptLevel.IsEnabled = true;
-                }
-            }
-            else
-            {
-                // Disable
-                cboOptTune.IsEnabled = false;
-                cboOptProfile.IsEnabled = false;
-                cboOptLevel.IsEnabled = false;
-
-                cboOptTune.SelectedItem = "none";
-                cboOptProfile.SelectedItem = "none";
-                cboOptLevel.SelectedItem = "none";
-                Video.optFlags = string.Empty;
-            }
-
-
-            // -------------------------
-            // VP8, VP9, Theora
-            // -------------------------
-            if ((string)cboVideoCodec.SelectedItem == "VP8"
-                || (string)cboVideoCodec.SelectedItem == "VP9"
-                || (string)cboVideoCodec.SelectedItem == "Theora"
-            )
-            {
-                // Web
-                if ((string)cboOptimize.SelectedItem == "Web")
-                {
-                    Video.optFlags = "-movflags faststart";
-                }
-            }
-
-            // -------------------------
-            // x264
-            // -------------------------
-            else if ((string)cboVideoCodec.SelectedItem == "x264")
-            {
-                // Web
-                if ((string)cboOptimize.SelectedItem == "Web")
-                {
-                    cboOptTune.SelectedItem = "none";
-                    cboOptProfile.SelectedItem = "baseline";
-                    cboOptLevel.SelectedItem = "3.0";
-                    Video.optFlags = "-movflags +faststart";
-                }
-                // DVD
-                else if ((string)cboOptimize.SelectedItem == "DVD")
-                {
-                    cboOptTune.SelectedItem = "none";
-                    cboOptProfile.SelectedItem = "baseline";
-                    cboOptLevel.SelectedItem = "3.0";
-                    Video.optFlags = "-maxrate 9.6M";
-                }
-                // HD Video
-                else if ((string)cboOptimize.SelectedItem == "HD Video")
-                {
-                    cboOptTune.SelectedItem = "none";
-                    cboOptProfile.SelectedItem = "main";
-                    cboOptLevel.SelectedItem = "4.0";
-                    Video.optFlags = string.Empty;
-                }
-                // Animation
-                else if ((string)cboOptimize.SelectedItem == "Animation")
-                {
-                    cboOptTune.SelectedItem = "animation";
-                    cboOptProfile.SelectedItem = "main";
-                    cboOptLevel.SelectedItem = "4.0";
-                    Video.optFlags = string.Empty;
-                }
-                // Blu-ray
-                else if ((string)cboOptimize.SelectedItem == "Blu-ray")
-                {
-                    cboOptTune.SelectedItem = "none";
-                    cboOptProfile.SelectedItem = "main";
-                    cboOptLevel.SelectedItem = "4.1";
-                    Video.optFlags = "-deblock 0:0 -sar 1/1 -x264opts bluray-compat=1:level=4.1:open-gop=1:slices=4:tff=1:colorprim=bt709:colormatrix=bt709:vbv-maxrate=40000:vbv-bufsize=30000:me=umh:ref=4:nal-hrd=vbr:aud=1:b-pyramid=strict";
-                }
-                // Windows Device
-                else if ((string)cboOptimize.SelectedItem == "Windows")
-                {
-
-                    cboOptTune.SelectedItem = "none";
-                    cboOptProfile.SelectedItem = "baseline";
-                    cboOptLevel.SelectedItem = "3.1";
-                    Video.optFlags = "-movflags faststart";
-                }
-                // Apple Device
-                else if ((string)cboOptimize.SelectedItem == "Apple")
-                {
-                    cboOptTune.SelectedItem = "none";
-                    cboOptProfile.SelectedItem = "baseline";
-                    cboOptLevel.SelectedItem = "3.1";
-                    Video.optFlags = "-x264-params ref=4";
-                }
-                // Android Device
-                else if ((string)cboOptimize.SelectedItem == "Android")
-                {
-                    cboOptTune.SelectedItem = "none";
-                    cboOptProfile.SelectedItem = "baseline";
-                    cboOptLevel.SelectedItem = "3.0";
-                    Video.optFlags = "-movflags faststart";
-                }
-                // PS3
-                else if ((string)cboOptimize.SelectedItem == "PS3")
-                {
-                    cboOptTune.SelectedItem = "none";
-                    cboOptProfile.SelectedItem = "main";
-                    cboOptLevel.SelectedItem = "4.0";
-                    Video.optFlags = string.Empty;
-                }
-                // PS4
-                else if ((string)cboOptimize.SelectedItem == "PS4")
-                {
-                    cboOptTune.SelectedItem = "none";
-                    cboOptProfile.SelectedItem = "main";
-                    cboOptLevel.SelectedItem = "4.1";
-                    Video.optFlags = string.Empty;
-                }
-                // Xbox 360
-                else if ((string)cboOptimize.SelectedItem == "Xbox 360")
-                {
-                    cboOptTune.SelectedItem = "none";
-                    cboOptProfile.SelectedItem = "high";
-                    cboOptLevel.SelectedItem = "4.1";
-                    Video.optFlags = "-maxrate 9.8M";
-                }
-                // Xbox One
-                else if ((string)cboOptimize.SelectedItem == "Xbox One")
-                {
-                    cboOptTune.SelectedItem = "none";
-                    cboOptProfile.SelectedItem = "high";
-                    cboOptLevel.SelectedItem = "4.1";
-                    Video.optFlags = string.Empty;
-                }
-                // Custom
-                else if ((string)cboOptimize.SelectedItem == "Custom")
-                {
-                    cboOptTune.SelectedItem = "none";
-                    cboOptProfile.SelectedItem = "none";
-                    cboOptLevel.SelectedItem = "none";
-                    Video.optFlags = string.Empty;
-                }
-            }
-
-            // -------------------------
-            // x265
-            // -------------------------
-            else if ((string)cboVideoCodec.SelectedItem == "x265")
-            {
-                // Web
-                if ((string)cboOptimize.SelectedItem == "Web")
-                {
-                    cboOptTune.SelectedItem = "none";
-                    cboOptProfile.SelectedItem = "none";
-                    cboOptLevel.SelectedItem = "none";
-                    Video.optFlags = "-movflags faststart";
-                }
-            }
+            VideoControls.OptimizeControls(this);
         }
+
+
 
 
         /// <summary>

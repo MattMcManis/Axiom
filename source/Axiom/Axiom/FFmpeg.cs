@@ -293,7 +293,6 @@ namespace Axiom
                     MainWindow.FFmpegPath(),
                     Video.HWAcceleration(mainwindow),
                     "-y",
-                    //"-i",
                     FFmpeg.OnePassArgs(mainwindow), //disabled if 2-Pass
                     FFmpeg.TwoPassArgs(mainwindow) //disabled if 1-Pass
                 };
@@ -388,7 +387,6 @@ namespace Axiom
                     "\r\n\r\n" + MainWindow.FFmpegPath(),
                     "\r\n\r\n" + Video.HWAcceleration(mainwindow),
                     "-y",
-                    //"-i",
                     //%~f added in InputPath()
 
                     FFmpeg.OnePassArgs(mainwindow), //disabled if 2-Pass       

@@ -156,6 +156,9 @@ namespace Axiom
                     mainwindow.crfCustom.IsEnabled = true;
                 }
 
+                // Enable FPS
+                mainwindow.cboFPS.IsEnabled = true;
+
 
                 // --------------------------------------------------
                 // Pass
@@ -210,6 +213,13 @@ namespace Axiom
 
 
                 // --------------------------------------------------
+                // Size
+                // --------------------------------------------------
+                // Scaling
+                mainwindow.cboScaling.IsEnabled = true;
+
+
+                // --------------------------------------------------
                 // Speed
                 // --------------------------------------------------
                 // Controlled through Video Quality ComboBox
@@ -261,6 +271,9 @@ namespace Axiom
                     mainwindow.crfCustom.IsEnabled = true;
                 }
 
+                // Enable FPS
+                mainwindow.cboFPS.IsEnabled = true;
+
                 // --------------------------------------------------
                 // Pass
                 // --------------------------------------------------
@@ -310,6 +323,13 @@ namespace Axiom
 
                 // Enable Control
                 mainwindow.cboOptimize.IsEnabled = true;
+
+
+                // --------------------------------------------------
+                // Size
+                // --------------------------------------------------
+                // Scaling
+                mainwindow.cboScaling.IsEnabled = true;
 
 
                 // --------------------------------------------------
@@ -365,6 +385,9 @@ namespace Axiom
                     mainwindow.crfCustom.IsEnabled = true;
                 }
 
+                // Enable FPS
+                mainwindow.cboFPS.IsEnabled = true;
+
 
                 // --------------------------------------------------
                 // Pass
@@ -403,23 +426,48 @@ namespace Axiom
                 // Get Previous Item
                 previousItem = (string)mainwindow.cboOptimize.SelectedItem;
 
-                // Change ItemSource
-                OptimizeItemSource = new List<string>()
+
+                // -------------------------
+                // MP4 Container
+                // -------------------------
+                if ((string)mainwindow.cboFormat.SelectedItem == "mp4")
                 {
-                    "none",
-                    //"Advanced",
-                    "Custom",
-                    "Web",
-                    "DVD",
-                    "Blu-ray",
-                    "Windows",
-                    "Apple",
-                    "Android",
-                    "PS3",
-                    "PS4",
-                    "Xbox 360",
-                    "Xbox One"
-                };
+                    // Change ItemSource
+                    OptimizeItemSource = new List<string>()
+                    {
+                        "none",
+                        "Custom",
+                        "Web",
+                        "DVD",
+                        "Blu-ray",
+                        "Windows",
+                        "Apple",
+                        "Android",
+                        "PS3",
+                        "PS4",
+                        "Xbox 360",
+                        "Xbox One"
+                    };
+                }
+                // -------------------------
+                // MKV Container
+                // -------------------------
+                else if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
+                {
+                    // Change ItemSource
+                    OptimizeItemSource = new List<string>()
+                    {
+                        "none",
+                        "Custom",
+                        "Windows",
+                        "Apple",
+                        "Android",
+                        "PS3",
+                        "PS4",
+                        "Xbox 360",
+                        "Xbox One"
+                    };
+                }
 
                 // Populate ComboBox from ItemSource
                 mainwindow.cboOptimize.ItemsSource = OptimizeItemSource;
@@ -438,43 +486,12 @@ namespace Axiom
                 mainwindow.cboOptimize.IsEnabled = true;
 
 
-                // MKV Special Rules ////////////////////////////
-                if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
-                {
-                    // Get Previous Item
-                    previousItem = (string)mainwindow.cboOptimize.SelectedItem;
+                // --------------------------------------------------
+                // Size
+                // --------------------------------------------------
+                // Scaling
+                mainwindow.cboScaling.IsEnabled = true;
 
-                    // Change ItemSource
-                    OptimizeItemSource = new List<string>()
-                    {
-                        "none",
-                        //"Advanced",
-                        "Custom",
-                        "Windows",
-                        "Apple",
-                        "Android",
-                        "PS3",
-                        "PS4",
-                        "Xbox 360",
-                        "Xbox One"
-                    };
-
-                    // Populate ComboBox from ItemSource
-                    mainwindow.cboOptimize.ItemsSource = OptimizeItemSource;
-
-                    // Select Item
-                    if (OptimizeItemSource.Contains(previousItem))
-                    {
-                        mainwindow.cboOptimize.SelectedItem = previousItem;
-                    }
-                    else
-                    {
-                        mainwindow.cboOptimize.SelectedIndex = 0; // auto
-                    }
-
-                    // Enable Control
-                    mainwindow.cboOptimize.IsEnabled = true;
-                }
 
                 // --------------------------------------------------
                 // Speed
@@ -528,6 +545,9 @@ namespace Axiom
                     mainwindow.crfCustom.IsEnabled = true;
                 }
 
+                // Enable FPS
+                mainwindow.cboFPS.IsEnabled = true;
+
 
                 // --------------------------------------------------
                 // Pass
@@ -567,6 +587,7 @@ namespace Axiom
                 OptimizeItemSource = new List<string>()
                 {
                     "none",
+                    "Custom",
                     "Web"
                 };
 
@@ -587,31 +608,12 @@ namespace Axiom
                 mainwindow.cboOptimize.IsEnabled = true;
 
 
-                // MKV Special Rules ////////////////////////////
-                if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
-                {
-                    // Get Previous Item
-                    previousItem = (string)mainwindow.cboOptimize.SelectedItem;
+                // --------------------------------------------------
+                // Size
+                // --------------------------------------------------
+                // Scaling
+                mainwindow.cboScaling.IsEnabled = true;
 
-                    // Change ItemSource
-                    OptimizeItemSource = new List<string>() { "none" };
-
-                    // Populate ComboBox from ItemSource
-                    mainwindow.cboOptimize.ItemsSource = OptimizeItemSource;
-
-                    // Select Item
-                    if (OptimizeItemSource.Contains(previousItem))
-                    {
-                        mainwindow.cboOptimize.SelectedItem = previousItem;
-                    }
-                    else
-                    {
-                        mainwindow.cboOptimize.SelectedIndex = 0; // auto
-                    }
-
-                    // Enable Control
-                    mainwindow.cboOptimize.IsEnabled = true;
-                }
 
                 // --------------------------------------------------
                 // Speed
@@ -664,6 +666,9 @@ namespace Axiom
                 {
                     mainwindow.crfCustom.IsEnabled = true;
                 }
+
+                // Enable FPS
+                mainwindow.cboFPS.IsEnabled = true;
 
 
                 // --------------------------------------------------
@@ -723,6 +728,13 @@ namespace Axiom
 
 
                 // --------------------------------------------------
+                // Size
+                // --------------------------------------------------
+                // Scaling
+                mainwindow.cboScaling.IsEnabled = true;
+
+
+                // --------------------------------------------------
                 // Speed
                 // --------------------------------------------------
                 // Controlled through Video Quality ComboBox
@@ -773,6 +785,9 @@ namespace Axiom
                 {
                     mainwindow.crfCustom.IsEnabled = true;
                 }
+
+                // Enable FPS
+                mainwindow.cboFPS.IsEnabled = true;
 
 
                 // --------------------------------------------------
@@ -832,34 +847,12 @@ namespace Axiom
                 mainwindow.cboOptimize.IsEnabled = true;
 
 
-                // MKV Special Rules ////////////////////////////
-                if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
-                {
-                    // Get Previous Item
-                    previousItem = (string)mainwindow.cboOptimize.SelectedItem;
+                // --------------------------------------------------
+                // Size
+                // --------------------------------------------------
+                // Scaling
+                mainwindow.cboScaling.IsEnabled = true;
 
-                    // Change ItemSource
-                    OptimizeItemSource = new List<string>()
-                    {
-                        "none",
-                    };
-
-                    // Populate ComboBox from ItemSource
-                    mainwindow.cboOptimize.ItemsSource = OptimizeItemSource;
-
-                    // Select Item
-                    if (OptimizeItemSource.Contains(previousItem))
-                    {
-                        mainwindow.cboOptimize.SelectedItem = previousItem;
-                    }
-                    else
-                    {
-                        mainwindow.cboOptimize.SelectedIndex = 0; // auto
-                    }
-
-                    // Enable Control
-                    mainwindow.cboOptimize.IsEnabled = true;
-                }
 
                 // --------------------------------------------------
                 // Speed
@@ -912,6 +905,9 @@ namespace Axiom
                 {
                     mainwindow.crfCustom.IsEnabled = false;
                 }
+
+                // Enable FPS
+                mainwindow.cboFPS.IsEnabled = true;
 
 
                 // --------------------------------------------------
@@ -975,6 +971,13 @@ namespace Axiom
 
 
                 // --------------------------------------------------
+                // Size
+                // --------------------------------------------------
+                // Scaling
+                mainwindow.cboScaling.IsEnabled = true;
+
+
+                // --------------------------------------------------
                 // Speed (Only for Theora)
                 // --------------------------------------------------
                 // Controlled through Video Quality ComboBox
@@ -1019,6 +1022,12 @@ namespace Axiom
                 // Enable Control
                 mainwindow.cboVideo.IsEnabled = true;
 
+                // Disable CRF
+                mainwindow.crfCustom.IsEnabled = false;
+
+                // Enable FPS
+                mainwindow.cboFPS.IsEnabled = false;
+
 
                 // --------------------------------------------------
                 // Pass
@@ -1056,6 +1065,13 @@ namespace Axiom
 
                 // Enable Control
                 mainwindow.cboOptimize.IsEnabled = false;
+
+
+                // --------------------------------------------------
+                // Size
+                // --------------------------------------------------
+                // Scaling
+                mainwindow.cboScaling.IsEnabled = true;
 
 
                 // --------------------------------------------------
@@ -1096,6 +1112,12 @@ namespace Axiom
                 // Enable Control
                 mainwindow.cboVideo.IsEnabled = false;
 
+                // Disable CRF
+                mainwindow.crfCustom.IsEnabled = false;
+
+                // Enable FPS
+                mainwindow.cboFPS.IsEnabled = false;
+
 
                 // --------------------------------------------------
                 // Pass
@@ -1133,6 +1155,13 @@ namespace Axiom
 
                 // Enable Control
                 mainwindow.cboOptimize.IsEnabled = false;
+
+
+                // --------------------------------------------------
+                // Size
+                // --------------------------------------------------
+                // Scaling
+                mainwindow.cboScaling.IsEnabled = true;
 
 
                 // --------------------------------------------------
@@ -1194,6 +1223,12 @@ namespace Axiom
                 // Disable Control
                 mainwindow.cboPass.IsEnabled = false;
 
+                // Disable CRF
+                mainwindow.crfCustom.IsEnabled = false;
+
+                // Enable FPS
+                mainwindow.cboFPS.IsEnabled = false;
+
 
                 // --------------------------------------------------
                 // Optimize
@@ -1212,6 +1247,13 @@ namespace Axiom
 
                 // Enable Control
                 mainwindow.cboOptimize.IsEnabled = false;
+
+
+                // --------------------------------------------------
+                // Size
+                // --------------------------------------------------
+                // Scaling
+                mainwindow.cboScaling.IsEnabled = false;
 
 
                 // --------------------------------------------------
@@ -1240,8 +1282,14 @@ namespace Axiom
                 // Select Item
                 mainwindow.cboVideo.SelectedItem = "None";
 
-                // Enable Control
+                // Enable Video Quality
                 mainwindow.cboVideo.IsEnabled = false;
+
+                // Disable CRF
+                mainwindow.crfCustom.IsEnabled = false;
+
+                // Enable FPS
+                mainwindow.cboFPS.IsEnabled = false;
 
 
                 // --------------------------------------------------
@@ -1781,6 +1829,299 @@ namespace Axiom
                 mainwindow.cboPass.IsEnabled = true;
             }
         }
+
+
+
+        /// <summary>
+        ///    Optimize Controls
+        /// </summary>
+        public static void OptimizeControls(MainWindow mainwindow)
+        {
+            // --------------------------------------------------
+            // Tune ComboBox Items
+            // --------------------------------------------------
+
+            List<string> VideoOptimizeTuneItemSource = new List<string>();
+
+            // -------------------------
+            // x264
+            // -------------------------
+            if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264")
+            {
+                // Change ItemSource
+                VideoOptimizeTuneItemSource = new List<string>()
+                {
+                    "none",
+                    "film",
+                    "animation",
+                    "grain",
+                    "stillimage",
+                    "fastdecode",
+                    "zerolatency"
+                };
+            }
+
+            // -------------------------
+            // x265
+            // -------------------------
+            else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265")
+            {
+                // Change ItemSource
+                VideoOptimizeTuneItemSource = new List<string>()
+                {
+                    "none",
+                    "psnr",
+                    "ssim",
+                    "grain",
+                    "fastdecode",
+                    "zerolatency"
+                };
+            }
+
+            // -------------------------
+            // All Other Codecs
+            // -------------------------
+            else
+            {
+                // Change ItemSource
+                VideoOptimizeTuneItemSource = new List<string>()
+                {
+                    "none"
+                };
+            }
+
+            // -------------------------
+            // Populate Tune ComboBox from ItemSource
+            // -------------------------
+            mainwindow.cboOptTune.ItemsSource = VideoOptimizeTuneItemSource;
+
+
+
+            // --------------------------------------------------
+            // Enable / Disable - Optimize Tune, Profile, Level
+            // --------------------------------------------------
+            // -------------------------
+            // x264
+            // -------------------------
+            if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264")
+            {
+                if ((string)mainwindow.cboOptimize.SelectedItem == "none")
+                {
+                    // Disabled
+                    mainwindow.cboOptTune.IsEnabled = false;
+                    mainwindow.cboOptProfile.IsEnabled = false;
+                    mainwindow.cboOptLevel.IsEnabled = false;
+                    Video.optFlags = string.Empty;
+                }
+                else
+                {
+                    // Enable 
+                    mainwindow.cboOptTune.IsEnabled = true;
+                    mainwindow.cboOptProfile.IsEnabled = true;
+                    mainwindow.cboOptLevel.IsEnabled = true;
+                }
+            }
+
+            // -------------------------
+            // x265
+            // -------------------------
+            else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265")
+            {
+                if ((string)mainwindow.cboOptimize.SelectedItem == "none")
+                {
+                    // Disabled
+                    mainwindow.cboOptTune.IsEnabled = false;
+                    mainwindow.cboOptProfile.IsEnabled = false;
+                    mainwindow.cboOptLevel.IsEnabled = false;
+                    Video.optFlags = string.Empty;
+                }
+                else
+                {
+                    // Enable Tune Only
+                    mainwindow.cboOptTune.IsEnabled = true;
+                    mainwindow.cboOptProfile.IsEnabled = false;
+                    mainwindow.cboOptLevel.IsEnabled = false;
+                }
+            }
+
+            // -------------------------
+            // All other Codecs
+            // -------------------------
+            else
+            {
+                // Disable All
+                // Tune, Profile, Level not available for other codecs
+                mainwindow.cboOptTune.IsEnabled = false;
+                mainwindow.cboOptProfile.IsEnabled = false;
+                mainwindow.cboOptLevel.IsEnabled = false;
+
+                mainwindow.cboOptTune.SelectedItem = "none";
+                mainwindow.cboOptProfile.SelectedItem = "none";
+                mainwindow.cboOptLevel.SelectedItem = "none";
+                Video.optFlags = string.Empty;
+            }
+
+
+
+            // --------------------------------------------------
+            // Presets
+            // --------------------------------------------------
+            // -------------------------
+            // VP8, VP9, Theora
+            // -------------------------
+            if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8"
+                || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9"
+                || (string)mainwindow.cboVideoCodec.SelectedItem == "Theora"
+            )
+            {
+                // Web
+                if ((string)mainwindow.cboOptimize.SelectedItem == "Web")
+                {
+                    Video.optFlags = "-movflags faststart";
+                }
+            }
+
+            // -------------------------
+            // x264
+            // -------------------------
+            else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264")
+            {
+                // Web
+                if ((string)mainwindow.cboOptimize.SelectedItem == "Web")
+                {
+                    mainwindow.cboOptTune.SelectedItem = "none";
+                    mainwindow.cboOptProfile.SelectedItem = "baseline";
+                    mainwindow.cboOptLevel.SelectedItem = "3.0";
+                    Video.optFlags = "-movflags +faststart";
+                }
+                // DVD
+                else if ((string)mainwindow.cboOptimize.SelectedItem == "DVD")
+                {
+                    mainwindow.cboOptTune.SelectedItem = "none";
+                    mainwindow.cboOptProfile.SelectedItem = "baseline";
+                    mainwindow.cboOptLevel.SelectedItem = "3.0";
+                    Video.optFlags = "-maxrate 9.6M";
+                }
+                // HD Video
+                else if ((string)mainwindow.cboOptimize.SelectedItem == "HD Video")
+                {
+                    mainwindow.cboOptTune.SelectedItem = "none";
+                    mainwindow.cboOptProfile.SelectedItem = "main";
+                    mainwindow.cboOptLevel.SelectedItem = "4.0";
+                    Video.optFlags = string.Empty;
+                }
+                // Animation
+                else if ((string)mainwindow.cboOptimize.SelectedItem == "Animation")
+                {
+                    mainwindow.cboOptTune.SelectedItem = "animation";
+                    mainwindow.cboOptProfile.SelectedItem = "main";
+                    mainwindow.cboOptLevel.SelectedItem = "4.0";
+                    Video.optFlags = string.Empty;
+                }
+                // Blu-ray
+                else if ((string)mainwindow.cboOptimize.SelectedItem == "Blu-ray")
+                {
+                    mainwindow.cboOptTune.SelectedItem = "none";
+                    mainwindow.cboOptProfile.SelectedItem = "main";
+                    mainwindow.cboOptLevel.SelectedItem = "4.1";
+                    Video.optFlags = "-deblock 0:0 -sar 1/1 -x264opts bluray-compat=1:level=4.1:open-gop=1:slices=4:tff=1:colorprim=bt709:colormatrix=bt709:vbv-maxrate=40000:vbv-bufsize=30000:me=umh:ref=4:nal-hrd=vbr:aud=1:b-pyramid=strict";
+                }
+                // Windows Device
+                else if ((string)mainwindow.cboOptimize.SelectedItem == "Windows")
+                {
+
+                    mainwindow.cboOptTune.SelectedItem = "none";
+                    mainwindow.cboOptProfile.SelectedItem = "baseline";
+                    mainwindow.cboOptLevel.SelectedItem = "3.1";
+                    Video.optFlags = "-movflags faststart";
+                }
+                // Apple Device
+                else if ((string)mainwindow.cboOptimize.SelectedItem == "Apple")
+                {
+                    mainwindow.cboOptTune.SelectedItem = "none";
+                    mainwindow.cboOptProfile.SelectedItem = "baseline";
+                    mainwindow.cboOptLevel.SelectedItem = "3.1";
+                    Video.optFlags = "-x264-params ref=4";
+                }
+                // Android Device
+                else if ((string)mainwindow.cboOptimize.SelectedItem == "Android")
+                {
+                    mainwindow.cboOptTune.SelectedItem = "none";
+                    mainwindow.cboOptProfile.SelectedItem = "baseline";
+                    mainwindow.cboOptLevel.SelectedItem = "3.0";
+                    Video.optFlags = "-movflags faststart";
+                }
+                // PS3
+                else if ((string)mainwindow.cboOptimize.SelectedItem == "PS3")
+                {
+                    mainwindow.cboOptTune.SelectedItem = "none";
+                    mainwindow.cboOptProfile.SelectedItem = "main";
+                    mainwindow.cboOptLevel.SelectedItem = "4.0";
+                    Video.optFlags = string.Empty;
+                }
+                // PS4
+                else if ((string)mainwindow.cboOptimize.SelectedItem == "PS4")
+                {
+                    mainwindow.cboOptTune.SelectedItem = "none";
+                    mainwindow.cboOptProfile.SelectedItem = "main";
+                    mainwindow.cboOptLevel.SelectedItem = "4.1";
+                    Video.optFlags = string.Empty;
+                }
+                // Xbox 360
+                else if ((string)mainwindow.cboOptimize.SelectedItem == "Xbox 360")
+                {
+                    mainwindow.cboOptTune.SelectedItem = "none";
+                    mainwindow.cboOptProfile.SelectedItem = "high";
+                    mainwindow.cboOptLevel.SelectedItem = "4.1";
+                    Video.optFlags = "-maxrate 9.8M";
+                }
+                // Xbox One
+                else if ((string)mainwindow.cboOptimize.SelectedItem == "Xbox One")
+                {
+                    mainwindow.cboOptTune.SelectedItem = "none";
+                    mainwindow.cboOptProfile.SelectedItem = "high";
+                    mainwindow.cboOptLevel.SelectedItem = "4.1";
+                    Video.optFlags = string.Empty;
+                }
+                // Custom
+                else if ((string)mainwindow.cboOptimize.SelectedItem == "Custom")
+                {
+                    mainwindow.cboOptTune.SelectedItem = "none";
+                    mainwindow.cboOptProfile.SelectedItem = "none";
+                    mainwindow.cboOptLevel.SelectedItem = "none";
+                    Video.optFlags = string.Empty;
+                }
+            }
+
+            // -------------------------
+            // x265
+            // -------------------------
+            else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265")
+            {
+                // Web
+                if ((string)mainwindow.cboOptimize.SelectedItem == "Web")
+                {
+                    mainwindow.cboOptTune.SelectedItem = "none";
+                    mainwindow.cboOptProfile.SelectedItem = "none";
+                    mainwindow.cboOptLevel.SelectedItem = "none";
+                    Video.optFlags = "-movflags faststart";
+                }
+            }
+
+
+
+            // -------------------------
+            // None
+            // -------------------------
+            if ((string)mainwindow.cboOptimize.SelectedItem == "none")
+            {
+                mainwindow.cboOptTune.SelectedItem = "none";
+                mainwindow.cboOptProfile.SelectedItem = "none";
+                mainwindow.cboOptLevel.SelectedItem = "none";
+                Video.optFlags = string.Empty;
+            }
+        }
+
 
 
         /// <summary>

@@ -63,7 +63,8 @@ namespace Axiom
             // Audio Codec Rules
             //
             // MKV Special Inustrctions - If Audio Codec = Copy, select Audio Dropdown to Auto
-            if ((string)mainwindow.cboFormat.SelectedItem == "mkv" && (string)mainwindow.cboAudioCodec.SelectedItem == "Copy")
+            if ((string)mainwindow.cboFormat.SelectedItem == "mkv" 
+                && (string)mainwindow.cboAudioCodec.SelectedItem == "Copy")
             {
                 mainwindow.cboAudio.SelectedItem = "Auto";
             }
@@ -172,7 +173,7 @@ namespace Axiom
                     mainwindow.cboBitDepth.SelectedIndex = 0; // auto
                 }
 
-                // Disable Control
+                // Disable Bit Depth
                 mainwindow.cboBitDepth.IsEnabled = false;
 
 
@@ -182,6 +183,15 @@ namespace Axiom
                 // Enable Control
                 mainwindow.tglVBR.IsEnabled = true;
                 mainwindow.tglVBR.IsChecked = false;
+
+
+                // -------------------------
+                // Volume
+                // -------------------------
+                // Enable Volume
+                mainwindow.volumeUpDown.IsEnabled = true;
+                mainwindow.volumeUpButton.IsEnabled = true;
+                mainwindow.volumeDownButton.IsEnabled = true;
             }
 
 
@@ -288,7 +298,7 @@ namespace Axiom
                     mainwindow.cboBitDepth.SelectedIndex = 0; // auto
                 }
 
-                // Disable Control
+                // Disable Bit Depth
                 mainwindow.cboBitDepth.IsEnabled = false;
 
 
@@ -297,6 +307,15 @@ namespace Axiom
                 // -------------------------
                 mainwindow.tglVBR.IsEnabled = true;
                 mainwindow.tglVBR.IsChecked = true;
+
+
+                // -------------------------
+                // Volume
+                // -------------------------
+                // Enable Volume
+                mainwindow.volumeUpDown.IsEnabled = true;
+                mainwindow.volumeUpButton.IsEnabled = true;
+                mainwindow.volumeDownButton.IsEnabled = true;
 
             }
 
@@ -403,7 +422,7 @@ namespace Axiom
                     mainwindow.cboBitDepth.SelectedIndex = 0; // auto
                 }
 
-                // Disable Control
+                // Disable Bit Depth
                 mainwindow.cboBitDepth.IsEnabled = false;
 
 
@@ -412,6 +431,15 @@ namespace Axiom
                 // -------------------------
                 mainwindow.tglVBR.IsEnabled = true;
                 mainwindow.tglVBR.IsChecked = false;
+
+
+                // -------------------------
+                // Volume
+                // -------------------------
+                // Enable Volume
+                mainwindow.volumeUpDown.IsEnabled = true;
+                mainwindow.volumeUpButton.IsEnabled = true;
+                mainwindow.volumeDownButton.IsEnabled = true;
 
             }
 
@@ -522,6 +550,15 @@ namespace Axiom
                 mainwindow.tglVBR.IsEnabled = false;
                 mainwindow.tglVBR.IsChecked = false;
 
+
+                // -------------------------
+                // Volume
+                // -------------------------
+                // Enable Volume
+                mainwindow.volumeUpDown.IsEnabled = true;
+                mainwindow.volumeUpButton.IsEnabled = true;
+                mainwindow.volumeDownButton.IsEnabled = true;
+
             }
 
 
@@ -602,7 +639,7 @@ namespace Axiom
                     mainwindow.cboSamplerate.SelectedIndex = 0; // auto
                 }
 
-                //Enable Control
+                // Enable Sample Rate
                 mainwindow.cboSamplerate.IsEnabled = true;
 
 
@@ -637,6 +674,15 @@ namespace Axiom
                 // -------------------------
                 mainwindow.tglVBR.IsEnabled = false;
                 mainwindow.tglVBR.IsChecked = false;
+
+
+                // -------------------------
+                // Volume
+                // -------------------------
+                // Enable Volume
+                mainwindow.volumeUpDown.IsEnabled = true;
+                mainwindow.volumeUpButton.IsEnabled = true;
+                mainwindow.volumeDownButton.IsEnabled = true;
 
             }
 
@@ -737,7 +783,7 @@ namespace Axiom
                     mainwindow.cboBitDepth.SelectedIndex = 0; // auto
                 }
 
-                // Disable Control
+                // Disable Bit Depth
                 mainwindow.cboBitDepth.IsEnabled = false;
 
 
@@ -746,6 +792,15 @@ namespace Axiom
                 // -------------------------
                 mainwindow.tglVBR.IsEnabled = true;
                 mainwindow.tglVBR.IsChecked = false;
+
+
+                // -------------------------
+                // Volume
+                // -------------------------
+                // Enable Volume
+                mainwindow.volumeUpDown.IsEnabled = true;
+                mainwindow.volumeUpButton.IsEnabled = true;
+                mainwindow.volumeDownButton.IsEnabled = true;
             }
 
             // --------------------------------------------------
@@ -852,6 +907,15 @@ namespace Axiom
                 mainwindow.tglVBR.IsEnabled = false;
                 mainwindow.tglVBR.IsChecked = false;
 
+
+                // -------------------------
+                // Volume
+                // -------------------------
+                // Enable Volume
+                mainwindow.volumeUpDown.IsEnabled = true;
+                mainwindow.volumeUpButton.IsEnabled = true;
+                mainwindow.volumeDownButton.IsEnabled = true;
+
             }
 
             // --------------------------------------------------
@@ -957,6 +1021,15 @@ namespace Axiom
                 // -------------------------
                 mainwindow.tglVBR.IsEnabled = false;
                 mainwindow.tglVBR.IsChecked = false;
+
+
+                // -------------------------
+                // Volume
+                // -------------------------
+                // Disable Volume
+                mainwindow.volumeUpDown.IsEnabled = true;
+                mainwindow.volumeUpButton.IsEnabled = true;
+                mainwindow.volumeDownButton.IsEnabled = true;
             }
 
             // --------------------------------------------------
@@ -979,16 +1052,7 @@ namespace Axiom
                 // Select Item
                 mainwindow.cboAudio.SelectedItem = "Auto";
 
-                //if (Audio.Contains(previousItem))
-                //{
-                //    audio.SelectedItem = previousItem;
-                //}
-                //else
-                //{
-                //    audio.SelectedIndex = 0; // auto
-                //}
-
-                // Enable Control
+                // Enable Audio Quality
                 mainwindow.cboAudio.IsEnabled = true;
 
                 // -------------------------
@@ -1022,8 +1086,8 @@ namespace Axiom
                 // Select Item
                 mainwindow.cboSamplerate.SelectedItem = "auto";
 
-                // Enable Control
-                mainwindow.cboSamplerate.IsEnabled = true;
+                // Enable Sample Rate
+                mainwindow.cboSamplerate.IsEnabled = false;
 
 
                 // -------------------------
@@ -1041,7 +1105,7 @@ namespace Axiom
                 // Select Item
                 mainwindow.cboBitDepth.SelectedItem = "auto";
 
-                // Disable Control
+                // Disable Bit Depth
                 mainwindow.cboBitDepth.IsEnabled = false;
 
 
@@ -1050,6 +1114,15 @@ namespace Axiom
                 // -------------------------
                 mainwindow.tglVBR.IsEnabled = true;
                 mainwindow.tglVBR.IsChecked = false;
+
+
+                // -------------------------
+                // Volume
+                // -------------------------
+                // Disable Volume
+                mainwindow.volumeUpDown.IsEnabled = false;
+                mainwindow.volumeUpButton.IsEnabled = false;
+                mainwindow.volumeDownButton.IsEnabled = false;
             }
 
 
@@ -1149,6 +1222,15 @@ namespace Axiom
                 // -------------------------
                 mainwindow.tglVBR.IsEnabled = false;
                 mainwindow.tglVBR.IsChecked = false;
+
+
+                // -------------------------
+                // Volume
+                // -------------------------
+                // Disable Volume
+                mainwindow.volumeUpDown.IsEnabled = false;
+                mainwindow.volumeUpButton.IsEnabled = false;
+                mainwindow.volumeDownButton.IsEnabled = false;
 
             }
 

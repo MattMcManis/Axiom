@@ -1755,47 +1755,77 @@ namespace Axiom
                     // Bitrate
                     // -------------------------
                     // Textbox Default or Empty
-                    if (mainwindow.vBitrateCustom.Text == string.Empty 
-                        || string.IsNullOrWhiteSpace(mainwindow.vBitrateCustom.Text))
+                    if (string.IsNullOrWhiteSpace(mainwindow.vBitrateCustom.Text))
                     {
-                        crf = string.Empty;
                         vBitMode = string.Empty;
                         vBitrate = string.Empty;
-                        vMinrate = string.Empty;
-                        vMaxrate = string.Empty;
-                        vBufsize = string.Empty;
-                        vOptions = string.Empty;
                     }
                     // Textbox Not Empty
-                    if (mainwindow.vBitrateCustom.Text != string.Empty
-                        && !string.IsNullOrWhiteSpace(mainwindow.vBitrateCustom.Text))
+                    else if (!string.IsNullOrWhiteSpace(mainwindow.vBitrateCustom.Text))
                     {
                         vBitrate = mainwindow.vBitrateCustom.Text.ToString();
-                        vOptions = "-pix_fmt yuv420p";
+                    }
+
+                    // -------------------------
+                    // Minrate
+                    // -------------------------
+                    // Textbox Default or Empty
+                    if (string.IsNullOrWhiteSpace(mainwindow.vMinrateCustom.Text))
+                    {
+                        vMinrate = string.Empty;
+                    }
+                    // Textbox Not Empty
+                    else if (!string.IsNullOrWhiteSpace(mainwindow.vMinrateCustom.Text))
+                    {
+                        vMinrate = "-minrate " + mainwindow.vMinrateCustom.Text.ToString();
+                    }
+
+                    // -------------------------
+                    // Maxrate
+                    // -------------------------
+                    // Textbox Default or Empty
+                    if (string.IsNullOrWhiteSpace(mainwindow.vMaxrateCustom.Text))
+                    {
+                        vMaxrate = string.Empty;
+                    }
+                    // Textbox Not Empty
+                    else if (!string.IsNullOrWhiteSpace(mainwindow.vMaxrateCustom.Text))
+                    {
+                        vMaxrate = "-maxrate " + mainwindow.vMaxrateCustom.Text.ToString();
+                    }
+
+                    // -------------------------
+                    // Bufsize
+                    // -------------------------
+                    // Textbox Default or Empty
+                    if (string.IsNullOrWhiteSpace(mainwindow.vBufsizeCustom.Text))
+                    {
+                        vBufsize = string.Empty;
+                    }
+                    // Textbox Not Empty
+                    else if (!string.IsNullOrWhiteSpace(mainwindow.vBufsizeCustom.Text))
+                    {
+                        vBufsize = "-bufsize " + mainwindow.vBufsizeCustom.Text.ToString();
                     }
 
                     // -------------------------
                     // CRF
                     // -------------------------
-                    // if CRF texbox is default or empty
-                    if (mainwindow.crfCustom.Text == string.Empty
-                        || string.IsNullOrWhiteSpace(mainwindow.crfCustom.Text))
+                    // Textbox Default or Empty
+                    if (string.IsNullOrWhiteSpace(mainwindow.crfCustom.Text))
                     {
                         crf = string.Empty;
                     }
-                    // if CRF texbox entered by user and is not blank
-                    if (mainwindow.crfCustom.Text != string.Empty
-                        && !string.IsNullOrWhiteSpace(mainwindow.crfCustom.Text))
+                    // Textbox Not Empty
+                    else if (!string.IsNullOrWhiteSpace(mainwindow.crfCustom.Text))
                     {
                         // x264
                         crf = "-crf " + mainwindow.crfCustom.Text; // crf needs b:v 0
-                        vOptions = "-pix_fmt yuv420p";
 
                         // x265
                         if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265")
                         {
                             crf = "-crf " + mainwindow.crfCustom.Text + " -x265-params crf=" + mainwindow.crfCustom.Text;
-                            vOptions = "-pix_fmt yuv420p";
                         }
                     }
 
@@ -1806,17 +1836,19 @@ namespace Axiom
                     // & CRF is Custom value
                     if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9")
                     {
-                        if (mainwindow.vBitrateCustom.Text == string.Empty
-                            || string.IsNullOrWhiteSpace(mainwindow.vBitrateCustom.Text))
+                        if (string.IsNullOrWhiteSpace(mainwindow.vBitrateCustom.Text))
                         {
-                            if (mainwindow.crfCustom.Text != string.Empty
-                                && !string.IsNullOrWhiteSpace(mainwindow.crfCustom.Text))
+                            if (!string.IsNullOrWhiteSpace(mainwindow.crfCustom.Text))
                             {
                                 vBitrate = "0";
-                                vOptions = "-pix_fmt yuv420p";
                             }
                         }
                     }
+
+                    // -------------------------
+                    // Pix Format
+                    // -------------------------
+                    vOptions = "-pix_fmt yuv420p";
 
                 }
 
@@ -1828,6 +1860,7 @@ namespace Axiom
                     crf = string.Empty;
                     vBitMode = string.Empty;
                     vBitrate = string.Empty;
+                    vMinrate = string.Empty;
                     vMaxrate = string.Empty;
                     vBufsize = string.Empty;
                     vOptions = string.Empty;
@@ -1845,6 +1878,9 @@ namespace Axiom
                     {
                         vBitMode,
                         vBitrate,
+                        vMinrate,
+                        vMaxrate,
+                        vBufsize,
                         crf,
                         vOptions
                     };
@@ -2911,7 +2947,25 @@ namespace Axiom
                 }
 
                 // -------------------------
-                // x265, VP8, VP9, Theora, mpeg4, AV1
+                // x265
+                // -------------------------
+                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265")
+                {
+                    // -------------------------
+                    // Tune
+                    // -------------------------
+                    if ((string)mainwindow.cboOptTune.SelectedItem == "none")
+                    {
+                        optTune = string.Empty;
+                    }
+                    else
+                    {
+                        optTune = "-tune " + mainwindow.cboOptTune.SelectedItem.ToString();
+                    }
+                }
+
+                // -------------------------
+                // All Other Codecs
                 // -------------------------
                 else
                 {
