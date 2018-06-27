@@ -756,7 +756,7 @@ namespace Axiom
                 // -------------------------
                 // Video
                 // -------------------------
-                VideoControls.VideoCodecItemSource = new List<string>() { "JPEG", "Copy" };
+                VideoControls.VideoCodecItemSource = new List<string>() { "JPEG" };
 
                 // Populate ComboBox from ItemSource
                 mainwindow.cboVideoCodec.ItemsSource = VideoControls.VideoCodecItemSource;
@@ -784,7 +784,7 @@ namespace Axiom
                 // -------------------------
                 // Video
                 // -------------------------
-                VideoControls.VideoCodecItemSource = new List<string>() { "PNG", "Copy" };
+                VideoControls.VideoCodecItemSource = new List<string>() { "PNG" };
 
                 // Populate ComboBox from ItemSource
                 mainwindow.cboVideoCodec.ItemsSource = VideoControls.VideoCodecItemSource;

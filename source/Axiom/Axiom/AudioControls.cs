@@ -1364,28 +1364,28 @@ namespace Axiom
                     && string.Equals(MainWindow.inputExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase)
                     )
                 {
-                    // -------------------------
-                    // Insert Copy if Does Not Contain
-                    // -------------------------
-                    if (!AudioCodecItemSource.Contains("Copy"))
-                    {
-                        AudioCodecItemSource.Insert(0, "Copy");
-                    }
-                    // Populate ComboBox from ItemSource
-                    mainwindow.cboAudioCodec.ItemsSource = AudioCodecItemSource;
+                    //// -------------------------
+                    //// Insert Copy if Does Not Contain
+                    //// -------------------------
+                    //if (!AudioCodecItemSource.Contains("Copy"))
+                    //{
+                    //    AudioCodecItemSource.Insert(0, "Copy");
+                    //}
+                    //// Populate ComboBox from ItemSource
+                    //mainwindow.cboAudioCodec.ItemsSource = AudioCodecItemSource;
 
-                    // -------------------------
-                    // Set Video Codec Combobox Selected Item to Copy
-                    // -------------------------
-                    if (AudioCodecItemSource.Count > 0)
-                    {
-                        if (AudioCodecItemSource.Contains("Copy"))
-                        {
-                            mainwindow.cboAudioCodec.SelectedItem = "Copy";
+                    //// -------------------------
+                    //// Set Video Codec Combobox Selected Item to Copy
+                    //// -------------------------
+                    //if (AudioCodecItemSource.Count > 0)
+                    //{
+                    //    if (AudioCodecItemSource.Contains("Copy"))
+                    //    {
+                    //        mainwindow.cboAudioCodec.SelectedItem = "Copy";
 
-                            //return;
-                        }
-                    }
+                    //        //return;
+                    //    }
+                    //}
                 }
 
                 // -------------------------
@@ -1401,28 +1401,28 @@ namespace Axiom
                     && string.Equals(MainWindow.batchExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase)
                     )
                 {
-                    // -------------------------
-                    // Insert Copy if Does Not Contain
-                    // -------------------------
-                    if (!AudioCodecItemSource.Contains("Copy"))
-                    {
-                        AudioCodecItemSource.Insert(0, "Copy");
-                    }
-                    // Populate ComboBox from ItemSource
-                    mainwindow.cboAudioCodec.ItemsSource = AudioCodecItemSource;
+                    //// -------------------------
+                    //// Insert Copy if Does Not Contain
+                    //// -------------------------
+                    //if (!AudioCodecItemSource.Contains("Copy"))
+                    //{
+                    //    AudioCodecItemSource.Insert(0, "Copy");
+                    //}
+                    //// Populate ComboBox from ItemSource
+                    //mainwindow.cboAudioCodec.ItemsSource = AudioCodecItemSource;
 
-                    // -------------------------
-                    // Set Video Codec Combobox Selected Item to Copy
-                    // -------------------------
-                    if (AudioCodecItemSource.Count > 0)
-                    {
-                        if (AudioCodecItemSource.Contains("Copy"))
-                        {
-                            mainwindow.cboAudioCodec.SelectedItem = "Copy";
+                    //// -------------------------
+                    //// Set Video Codec Combobox Selected Item to Copy
+                    //// -------------------------
+                    //if (AudioCodecItemSource.Count > 0)
+                    //{
+                    //    if (AudioCodecItemSource.Contains("Copy"))
+                    //    {
+                    //        mainwindow.cboAudioCodec.SelectedItem = "Copy";
 
-                            //return;
-                        }
-                    }
+                    //        //return;
+                    //    }
+                    //}
                 }
 
                 // -------------------------

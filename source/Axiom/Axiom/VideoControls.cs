@@ -21,6 +21,8 @@ along with this program.If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Windows.Controls;
 // Disable XML Comment warnings
 #pragma warning disable 1591
 #pragma warning disable 1587
@@ -65,6 +67,46 @@ namespace Axiom
         // --------------------------------------------------------------------------------------------------------
 
         /// <summary>
+        /// Change Item Source (Method)
+        /// </summary>
+        public static void ChangeItemSource(
+            MainWindow mainwindow,
+            ComboBox cbo,                               // ComboBox
+            List<string> items,                         // New Items List
+            string selectedItem)                        // Selected Item
+        {
+            // -------------------------
+            // Change Item Source
+            // -------------------------
+            cbo.ItemsSource = items;
+
+            // -------------------------
+            // Select Item
+            // -------------------------
+            // Get Previous Item
+            string previousItem = selectedItem;
+
+            // Select
+            if (!string.IsNullOrEmpty(previousItem))
+            {
+                if (items.Contains(previousItem))
+                {
+                    cbo.SelectedItem = previousItem; // Problem with Codec Copy
+
+                    // System.Windows.MessageBox.Show(previousItem); //debug
+                }
+                else
+                {
+                    cbo.SelectedIndex = 0; // Auto
+                }
+            }
+
+            return;
+        }
+
+
+
+        /// <summary>
         /// Video Codec Controls (Method)
         /// 
         /// Changes Other ComboBox Items and Selections based on Video Codec
@@ -104,7 +146,7 @@ namespace Axiom
 
 
             // -------------------------
-            // MKV Special Inustrctions - If Video Codec = Copy, select Video Dropdown to Auto
+            // MKV Special Inustrctions - If Video Codec = Copy, select Video Quality Dropdown to Auto
             // -------------------------
             if ((string)mainwindow.cboFormat.SelectedItem == "mkv" 
                 && (string)mainwindow.cboVideoCodec.SelectedItem == "Copy")
@@ -118,14 +160,13 @@ namespace Axiom
             // --------------------------------------------------
             if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8")
             {
-                // -------------------------
+                // --------------------------------------------------
                 // Video
+                // --------------------------------------------------
                 // -------------------------
-                // Get Previous Item
-                previousItem = (string)mainwindow.cboVideo.SelectedItem;
-
                 // Change ItemSource
-                VideoItemSource = new List<string>()
+                // -------------------------
+                List<string>VideoQuality_ItemSource = new List<string>()
                 {
                     "Auto",
                     "Ultra",
@@ -136,97 +177,122 @@ namespace Axiom
                     "Custom"
                 };
 
-                // Populate ComboBox from ItemSource
-                mainwindow.cboVideo.ItemsSource = VideoItemSource;
+                ChangeItemSource(
+                    mainwindow, 
+                    mainwindow.cboVideo, // ComboBox
+                    VideoQuality_ItemSource, // New Items List
+                    (string)mainwindow.cboVideo.SelectedItem); // Selected Item
 
-                // Select Item
-                if (VideoItemSource.Contains(previousItem))
-                {
-                    //System.Windows.MessageBox.Show("Previous Item");
-                    mainwindow.cboVideo.SelectedItem = previousItem;
-                }
-                else
-                {
-                    //System.Windows.MessageBox.Show("0");
-                    mainwindow.cboVideo.SelectedIndex = 0; // Auto
-                }
+                // -------------------------
+                // Enable Controls
+                // -------------------------
+                // Video Quality
+                //mainwindow.cboVideo.IsEnabled = true;
 
-                // Enable Control
-                mainwindow.cboVideo.IsEnabled = true;
+                // CRF
+                //if ((string)mainwindow.cboVideo.SelectedItem == "Custom")
+                //{
+                //    mainwindow.crfCustom.IsEnabled = true;
+                //}
 
-                // Enable CRF
-                if ((string)mainwindow.cboVideo.SelectedItem == "Custom")
-                {
-                    mainwindow.crfCustom.IsEnabled = true;
-                }
+                // FPS
+                //mainwindow.cboFPS.IsEnabled = true;
 
-                // Enable FPS
-                mainwindow.cboFPS.IsEnabled = true;
+                // -------------------------
+                // Disable Controls
+                // -------------------------
+                // None
 
 
                 // --------------------------------------------------
                 // Pass
                 // --------------------------------------------------
-                // Get Previous Item
-                previousItem = (string)mainwindow.cboPass.SelectedItem;
-
+                // -------------------------
                 // Change ItemSource
-                PassItemSource = new List<string>()
+                // -------------------------
+                List<string> Pass_ItemSource = new List<string>()
                 {
                     "CRF",
                     "1 Pass",
                     "2 Pass"
                 };
 
-                // Populate ComboBox from ItemSource
-                mainwindow.cboPass.ItemsSource = PassItemSource;
-
-                // Select Item
-                if (PassItemSource.Contains(previousItem))
-                {
-                    mainwindow.cboPass.SelectedItem = previousItem;
-                }
-                else
-                {
-                    //MessageBox.Show("not available"); //debug
-                    mainwindow.cboPass.SelectedIndex = 0; // Auto
-                }
+                ChangeItemSource(
+                    mainwindow,
+                    mainwindow.cboPass, // ComboBox
+                    Pass_ItemSource, // New Items List
+                    (string)mainwindow.cboPass.SelectedItem); // Selected Item
 
 
                 // --------------------------------------------------
                 // Optimize
                 // --------------------------------------------------
-                // Get Previous Item
-                previousItem = (string)mainwindow.cboOptimize.SelectedItem;
-
+                // -------------------------
                 // Change ItemSource
-                OptimizeItemSource = new List<string>()
+                // -------------------------
+                List<string> Optimize_ItemSource = new List<string>()
                 {
                     "none",
                     "Web"
                 };
 
-                // Populate ComboBox from ItemSource
-                mainwindow.cboOptimize.ItemsSource = OptimizeItemSource;
+                ChangeItemSource(
+                    mainwindow,
+                    mainwindow.cboOptimize, // ComboBox
+                    Optimize_ItemSource, // New Items List
+                    "none"); // Selected Item
 
-                // Select Item
-                mainwindow.cboOptimize.SelectedItem = "none";
-
-                // Enable Control
-                mainwindow.cboOptimize.IsEnabled = true;
+                // -------------------------
+                // Enable Controls
+                // -------------------------
+                // Optimize
+                //mainwindow.cboOptimize.IsEnabled = true;
 
 
                 // --------------------------------------------------
                 // Size
                 // --------------------------------------------------
                 // Scaling
-                mainwindow.cboScaling.IsEnabled = true;
+                //mainwindow.cboScaling.IsEnabled = true;
 
 
                 // --------------------------------------------------
                 // Speed
                 // --------------------------------------------------
                 // Controlled through Video Quality ComboBox
+
+
+                // --------------------------------------------------
+                // Enable Controls
+                // --------------------------------------------------
+                List<Control> ControlsEnabled = new List<Control>()
+                {
+                    // Video Quality ComboBox
+                    mainwindow.cboVideo,
+                    // FPS ComboBox
+                    mainwindow.cboFPS,
+                    // Optimize ComboBox
+                    mainwindow.cboOptimize,
+                    // Scaling ComboBox
+                    mainwindow.cboScaling
+                };
+
+                // Add CRF Custom Textbox
+                if ((string)mainwindow.cboVideo.SelectedItem == "Custom")
+                {
+                    ControlsEnabled.Add(mainwindow.crfCustom);
+                }
+
+                // Enable
+                for (int i = 0; i < ControlsEnabled.Count; i++)
+                {
+                    ControlsEnabled[i].IsEnabled = true;
+                }
+
+                // --------------------------------------------------
+                // Disabled
+                // --------------------------------------------------
+                // None
             }
 
             // --------------------------------------------------
@@ -1415,28 +1481,28 @@ namespace Axiom
                     && string.Equals(MainWindow.batchExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase)
                     )
                 {
-                    // -------------------------
-                    // Insert Copy if Does Not Contain
-                    // -------------------------
-                    if (!VideoCodecItemSource.Contains("Copy"))
-                    {
-                        VideoCodecItemSource.Insert(0, "Copy");
-                    }
-                    // Populate ComboBox from ItemSource
-                    mainwindow.cboVideoCodec.ItemsSource = VideoCodecItemSource;
+                    //// -------------------------
+                    //// Insert Copy if Does Not Contain
+                    //// -------------------------
+                    //if (!VideoCodecItemSource.Contains("Copy"))
+                    //{
+                    //    VideoCodecItemSource.Insert(0, "Copy");
+                    //}
+                    //// Populate ComboBox from ItemSource
+                    //mainwindow.cboVideoCodec.ItemsSource = VideoCodecItemSource;
 
-                    // -------------------------
-                    // Set Video Codec Combobox Selected Item to Copy
-                    // -------------------------
-                    if (VideoCodecItemSource.Count > 0)
-                    {
-                        if (VideoCodecItemSource.Contains("Copy"))
-                        {
-                            mainwindow.cboVideoCodec.SelectedItem = "Copy";
+                    //// -------------------------
+                    //// Set Video Codec Combobox Selected Item to Copy
+                    //// -------------------------
+                    //if (VideoCodecItemSource.Count > 0)
+                    //{
+                    //    if (VideoCodecItemSource.Contains("Copy"))
+                    //    {
+                    //        mainwindow.cboVideoCodec.SelectedItem = "Copy";
 
-                            //return;
-                        }
-                    }
+                    //        //return;
+                    //    }
+                    //}
                 }
 
                 // -------------------------

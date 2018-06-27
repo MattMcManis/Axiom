@@ -1241,7 +1241,7 @@ namespace Axiom
             // -------------------------
             else
             {
-                Configure.threads = "-threads " + Configure.threads;
+                Configure.threads = "-threads " + mainwindow.cboThreads.SelectedItem.ToString();
             }
 
             // Return Value
@@ -3380,6 +3380,7 @@ namespace Axiom
                     Settings.Default.Save();
                 }
             }
+
             // -------------------------
             // Batch
             // -------------------------
@@ -4001,7 +4002,9 @@ namespace Axiom
             // -------------------------
             // File Renamer
             // -------------------------
-            if (!string.IsNullOrEmpty(inputDir))
+            // Add (1) if File Names are the same
+            if (!string.IsNullOrEmpty(inputDir)
+                && string.Equals(inputFileName, outputFileName, StringComparison.CurrentCultureIgnoreCase))
             {
                 outputFileName = FileRenamer(inputFileName);
             }
