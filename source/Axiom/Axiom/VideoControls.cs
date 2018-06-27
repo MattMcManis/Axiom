@@ -1443,15 +1443,15 @@ namespace Axiom
                     && string.Equals(MainWindow.inputExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase)
                     )
                 {
-                    // -------------------------
-                    // Insert Copy if Does Not Contain
-                    // -------------------------
-                    if (!VideoCodecItemSource.Contains("Copy"))
-                    {
-                        VideoCodecItemSource.Insert(0, "Copy");
-                    }
-                    // Populate ComboBox from ItemSource
-                    mainwindow.cboVideoCodec.ItemsSource = VideoCodecItemSource;
+                    //// -------------------------
+                    //// Insert Copy if Does Not Contain
+                    //// -------------------------
+                    //if (!VideoCodecItemSource.Contains("Copy"))
+                    //{
+                    //    VideoCodecItemSource.Insert(0, "Copy");
+                    //}
+                    //// Populate ComboBox from ItemSource
+                    //mainwindow.cboVideoCodec.ItemsSource = VideoCodecItemSource;
 
                     // -------------------------
                     // Set Video Codec Combobox Selected Item to Copy
@@ -1491,18 +1491,18 @@ namespace Axiom
                     //// Populate ComboBox from ItemSource
                     //mainwindow.cboVideoCodec.ItemsSource = VideoCodecItemSource;
 
-                    //// -------------------------
-                    //// Set Video Codec Combobox Selected Item to Copy
-                    //// -------------------------
-                    //if (VideoCodecItemSource.Count > 0)
-                    //{
-                    //    if (VideoCodecItemSource.Contains("Copy"))
-                    //    {
-                    //        mainwindow.cboVideoCodec.SelectedItem = "Copy";
+                    // -------------------------
+                    // Set Video Codec Combobox Selected Item to Copy
+                    // -------------------------
+                    if (VideoCodecItemSource.Count > 0)
+                    {
+                        if (VideoCodecItemSource.Contains("Copy"))
+                        {
+                            mainwindow.cboVideoCodec.SelectedItem = "Copy";
 
-                    //        //return;
-                    //    }
-                    //}
+                            //return;
+                        }
+                    }
                 }
 
                 // -------------------------
@@ -1617,15 +1617,15 @@ namespace Axiom
                     && string.Equals(MainWindow.inputExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase)
                     )
                 {
-                    // -------------------------
-                    // Insert Copy if Does Not Contain
-                    // -------------------------
-                    if (!SubtitleCodecItemSource.Contains("Copy"))
-                    {
-                        SubtitleCodecItemSource.Insert(0, "Copy");
-                    }
-                    // Populate ComboBox from ItemSource
-                    mainwindow.cboSubtitleCodec.ItemsSource = SubtitleCodecItemSource;
+                    //// -------------------------
+                    //// Insert Copy if Does Not Contain
+                    //// -------------------------
+                    //if (!SubtitleCodecItemSource.Contains("Copy"))
+                    //{
+                    //    SubtitleCodecItemSource.Insert(0, "Copy");
+                    //}
+                    //// Populate ComboBox from ItemSource
+                    //mainwindow.cboSubtitleCodec.ItemsSource = SubtitleCodecItemSource;
 
                     // -------------------------
                     // Set Video Codec Combobox Selected Item to Copy
@@ -1655,15 +1655,15 @@ namespace Axiom
                     && string.Equals(MainWindow.batchExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase)
                     )
                 {
-                    // -------------------------
-                    // Insert Copy if Does Not Contain
-                    // -------------------------
-                    if (!SubtitleCodecItemSource.Contains("Copy"))
-                    {
-                        SubtitleCodecItemSource.Insert(0, "Copy");
-                    }
-                    // Populate ComboBox from ItemSource
-                    mainwindow.cboSubtitleCodec.ItemsSource = SubtitleCodecItemSource;
+                    //// -------------------------
+                    //// Insert Copy if Does Not Contain
+                    //// -------------------------
+                    //if (!SubtitleCodecItemSource.Contains("Copy"))
+                    //{
+                    //    SubtitleCodecItemSource.Insert(0, "Copy");
+                    //}
+                    //// Populate ComboBox from ItemSource
+                    //mainwindow.cboSubtitleCodec.ItemsSource = SubtitleCodecItemSource;
 
                     // -------------------------
                     // Set Video Codec Combobox Selected Item to Copy
