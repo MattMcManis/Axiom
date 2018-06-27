@@ -416,7 +416,7 @@ namespace Axiom
         /// <summary>
         /// FFmpeg Generate Script
         /// </summary>
-        public static void FFmpegScript(MainWindow mainwindow, ScriptView scriptview)
+        public static void FFmpegScript(MainWindow mainwindow)
         {
             // Clear Old Text
             //ClearRichTextBox();
@@ -431,22 +431,60 @@ namespace Axiom
 
 
         /// <summary>
+        /// FFmpeg Start
+        /// </summary>
+        public static void FFmpegStart(MainWindow mainwindow)
+        {
+            System.Diagnostics.Process.Start(
+                "cmd.exe",
+                KeepWindow(mainwindow)
+                + " cd " + "\"" + MainWindow.outputDir + "\""
+                + " & "
+                + ffmpegArgs
+            );
+        }
+
+        /// <summary>
         /// FFmpeg Convert
         /// </summary>
         public static void FFmpegConvert(MainWindow mainwindow)
         {
-            // start ffmpeg commands
-            System.Diagnostics.Process.Start(
-                "cmd.exe",
-                //FFmpeg.cmdWindow 
-                KeepWindow(mainwindow)
-                //+ " cd " + "\"" + MainWindow.appDir + "\""
-                + " cd " + "\"" + MainWindow.outputDir + "\""
-                + " & "
-                + FFmpeg.ffmpegArgs
-            );
-        }
+            //// -------------------------
+            //// Use User Custom Script Args
+            //// -------------------------
+            //// Check if Set Controls Differ from Script TextBox. If so, Script has been edited and is custom..
+            //if (!string.IsNullOrWhiteSpace(ScriptView.ScriptRichTextBoxCurrent(mainwindow)) // Script is not Empty
+            //    && MainWindow.RemoveLineBreaks(ScriptView.ScriptRichTextBoxCurrent(mainwindow))
 
+            //    != ffmpegArgs // Set Controls Args
+            //    )
+            //{
+            //    // CMD Arguments are from Script TextBox
+            //    // Stays Sorted
+            //    ffmpegArgs = MainWindow.RemoveLineBreaks(ScriptView.ScriptRichTextBoxCurrent(mainwindow));
+            //}
+
+            //// -------------------------
+            //// Generate Controls Script
+            //// -------------------------
+            //else
+            //{
+            //    // Inline
+            //    FFmpegScript(mainwindow);
+            //}
+
+
+            // -------------------------
+            // Generate Controls Script
+            // -------------------------
+            // Inline
+            FFmpegScript(mainwindow);
+
+            // -------------------------
+            // Start FFmpeg
+            // -------------------------
+            FFmpegStart(mainwindow);
+        }
 
     }
 }

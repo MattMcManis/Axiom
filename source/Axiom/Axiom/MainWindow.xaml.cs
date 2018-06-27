@@ -85,7 +85,7 @@ namespace Axiom
         /// <summary>
         ///     Script View
         /// </summary>
-        public static ScriptView scriptview; 
+        //public static ScriptView scriptview; 
 
         /// <summary>
         ///     Configure Window
@@ -566,25 +566,19 @@ namespace Axiom
             cboHWAccel.SelectedIndex = 0;
 
             // Video
+            cboVideoQuality.SelectedIndex = 0;
             cboFPS.SelectedIndex = 0;
             cboSize.SelectedIndex = 0;
-
-            // Optimize
             cboOptimize.SelectedIndex = 0;
-            //cboOptProfile.SelectedIndex = 0;
-            //cboOptTune.SelectedIndex = 0;
-            //cboOptLevel.SelectedIndex = 0;
 
-            //cboOptTune.IsEnabled = true;
-            //cboOptProfile.IsEnabled = true;
-            //cboOptLevel.IsEnabled = true;
+            // Audio
+            cboAudioQuality.SelectedIndex = 0;
+            cboChannel.SelectedIndex = 0;
+            cboSamplerate.SelectedIndex = 0;
+            cboBitDepth.SelectedIndex = 0;
 
+            // Preset
             cboPreset.SelectedIndex = 0;
-
-            //tglWindowKeep.IsChecked = true;
-
-            //AudioControls.Audio_SelectedItem = AudioControls.AudioItemSource[0];
-            //AudioControls.Audio_SelectedItem = AudioControls.AudioItemSource[0];
 
             // Batch Extension Box Disabled
             batchExtensionTextBox.IsEnabled = false;
@@ -775,6 +769,27 @@ namespace Axiom
             //CropWindow.cropHeight
             //CropWindow.cropX
             //CropWindow.cropY
+        }
+
+
+        /// <summary>
+        ///     Remove Line Breaks (Method)
+        /// </summary>
+        public static String RemoveLineBreaks(string lines)
+        {
+            lines = lines.Replace(Environment.NewLine, "")
+                .Replace("\n", "")
+                .Replace("\r\n", "")
+                .Replace("\u2028", "")
+                .Replace("\u000A", "")
+                .Replace("\u000B", "")
+                .Replace("\u000C", "")
+                .Replace("\u000D", "")
+                .Replace("\u0085", "")
+                .Replace("\u2028", "")
+                .Replace("\u2029", "");
+
+            return lines;
         }
 
 
@@ -1561,8 +1576,8 @@ namespace Axiom
             //
             if (string.IsNullOrEmpty(FFprobe.ffprobe))
             {
-                if ((string)mainwindow.cboVideo.SelectedItem == "Auto" 
-                    || (string)mainwindow.cboAudio.SelectedItem == "Auto")
+                if ((string)mainwindow.cboVideoQuality.SelectedItem == "Auto" 
+                    || (string)mainwindow.cboAudioQuality.SelectedItem == "Auto")
                 {
                     // Log Console Message /////////
                     Log.logParagraph.Inlines.Add(new LineBreak());
@@ -1584,8 +1599,8 @@ namespace Axiom
             {
                 if (string.IsNullOrWhiteSpace(mainwindow.tbxInput.Text)) // empty check
                 {
-                    if ((string)mainwindow.cboVideo.SelectedItem == "Auto" 
-                        || (string)mainwindow.cboAudio.SelectedItem == "Auto")
+                    if ((string)mainwindow.cboVideoQuality.SelectedItem == "Auto" 
+                        || (string)mainwindow.cboAudioQuality.SelectedItem == "Auto")
                     {
                         if ((string)mainwindow.cboVideoCodec.SelectedItem != "Copy" 
                             || (string)mainwindow.cboAudioCodec.SelectedItem != "Copy")
@@ -2808,7 +2823,7 @@ namespace Axiom
             // -------------------------
             // Generate Script
             // -------------------------
-            FFmpeg.FFmpegScript(this, scriptview);
+            FFmpeg.FFmpegScript(this);
 
             // -------------------------
             // Re-Sort
@@ -2857,23 +2872,33 @@ namespace Axiom
         /// </summary>
         private void btnScriptRun_Click(object sender, RoutedEventArgs e)
         {
-            // CMD Arguments are from Script TextBox
-            FFmpeg.ffmpegArgs = ScriptView.ScriptRichTextBoxCurrent(this)
-                .Replace(Environment.NewLine, "") //Remove Linebreaks
-                .Replace("\n", "")
-                .Replace("\r\n", "")
-                .Replace("\u2028", "")
-                .Replace("\u000A", "")
-                .Replace("\u000B", "")
-                .Replace("\u000C", "")
-                .Replace("\u000D", "")
-                .Replace("\u0085", "")
-                .Replace("\u2028", "")
-                .Replace("\u2029", "")
-                ;
+            // Use Arguments from Script TextBox
+            //FFmpeg.ffmpegArgs = ScriptView.ScriptRichTextBoxCurrent(this)
+            //    .Replace(Environment.NewLine, "") //Remove Linebreaks
+            //    .Replace("\n", "")
+            //    .Replace("\r\n", "")
+            //    .Replace("\u2028", "")
+            //    .Replace("\u000A", "")
+            //    .Replace("\u000B", "")
+            //    .Replace("\u000C", "")
+            //    .Replace("\u000D", "")
+            //    .Replace("\u0085", "")
+            //    .Replace("\u2028", "")
+            //    .Replace("\u2029", "")
+            //    ;
 
-            // Run FFmpeg Arguments
-            FFmpeg.FFmpegConvert(this);
+            //// Run FFmpeg
+            //FFmpeg.FFmpegConvert(this);
+
+            // -------------------------
+            // Use Arguments from Script TextBox
+            // -------------------------
+            FFmpeg.ffmpegArgs = RemoveLineBreaks(ScriptView.ScriptRichTextBoxCurrent(this));
+
+            // -------------------------
+            // Start FFmpeg
+            // -------------------------
+            FFmpeg.FFmpegStart(this);
         }
 
 
@@ -3613,13 +3638,13 @@ namespace Axiom
             if ((string)cboVideoCodec.SelectedItem == "mpeg4")
             {
                 // Change ItemSource
-                VideoControls.PassItemSource = new List<string>()
+                VideoControls.Pass_ItemSource = new List<string>()
                 {
                     "1 Pass",
                 };
 
                 // Populate ComboBox from ItemSource
-                cboPass.ItemsSource = VideoControls.PassItemSource;
+                cboPass.ItemsSource = VideoControls.Pass_ItemSource;
 
                 // Select Item
                 cboPass.SelectedItem = "1 Pass";
@@ -3643,14 +3668,14 @@ namespace Axiom
             if ((string)cboVideoCodec.SelectedItem == "mpeg4")
             {
                 // Change ItemSource
-                VideoControls.PassItemSource = new List<string>()
+                VideoControls.Pass_ItemSource = new List<string>()
                 {
                     "2 Pass",
                     "1 Pass",
                 };
 
                 // Populate ComboBox from ItemSource
-                cboPass.ItemsSource = VideoControls.PassItemSource;
+                cboPass.ItemsSource = VideoControls.Pass_ItemSource;
 
                 // Select Item
                 cboPass.SelectedItem = "2 Pass";
@@ -3951,6 +3976,16 @@ namespace Axiom
         private void cboSubtitleCodec_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             VideoControls.VideoCodecControls(this);
+
+            // -------------------------
+            // Burn
+            // -------------------------
+            if ((string)cboSubtitleCodec.SelectedItem == "Burn")
+            {
+                // Force Select External
+                // Can't burn All subtitles
+                cboSubtitle.SelectedItem = "external";
+            }
         }
 
 
@@ -4013,16 +4048,16 @@ namespace Axiom
             // Default to Auto
             // -------------------------
             // Always Default Video to Auto if Input Ext matches Format Output Ext
-            if ((string)cboVideo.SelectedItem != "Auto" 
+            if ((string)cboVideoQuality.SelectedItem != "Auto" 
                 && string.Equals(inputExt, outputExt, StringComparison.CurrentCultureIgnoreCase))
             {
-                cboVideo.SelectedItem = "Auto";
+                cboVideoQuality.SelectedItem = "Auto";
             }
             // Always Default Video to Auto if Input Ext matches Format Output Ext
-            if ((string)cboAudio.SelectedItem != "Auto" 
+            if ((string)cboAudioQuality.SelectedItem != "Auto" 
                 && string.Equals(inputExt, outputExt, StringComparison.CurrentCultureIgnoreCase))
             {
-                cboAudio.SelectedItem = "Auto";
+                cboAudioQuality.SelectedItem = "Auto";
             }
 
             // -------------------------
@@ -4074,7 +4109,7 @@ namespace Axiom
             // Enable Video Bitrate Custom
             // -------------------------
             // Enable
-            if ((string)cboVideo.SelectedItem == "Custom")
+            if ((string)cboVideoQuality.SelectedItem == "Custom")
             {
                 crfCustom.IsEnabled = true;
                 vBitrateCustom.IsEnabled = true;
@@ -4106,7 +4141,7 @@ namespace Axiom
             //if ((string)cboVideoCodec.SelectedItem == "mpeg4")
             //{
             //    // Lossless - Force VBR
-            //    if ((string)cboVideo.SelectedItem == "Lossless")
+            //    if ((string)cboVideoQuality.SelectedItem == "Lossless")
             //    {
             //        tglVideoVBR.IsChecked = true;
             //    }
@@ -4120,14 +4155,14 @@ namespace Axiom
             // -------------------------
             // Set Encoding Speed
             // -------------------------
-            //if ((string)cboVideo.SelectedItem == "Auto") { cboSpeed.SelectedItem = "Medium"; }
-            //else if ((string)cboVideo.SelectedItem == "Lossless") { cboSpeed.SelectedItem = "Very Slow"; }
-            //else if ((string)cboVideo.SelectedItem == "Ultra") { cboSpeed.SelectedItem = "Slow"; }
-            //else if ((string)cboVideo.SelectedItem == "High") { cboSpeed.SelectedItem = "Medium"; }
-            //else if ((string)cboVideo.SelectedItem == "Medium") { cboSpeed.SelectedItem = "Medium"; }
-            //else if ((string)cboVideo.SelectedItem == "Low") { cboSpeed.SelectedItem = "Fast"; }
-            //else if ((string)cboVideo.SelectedItem == "Sub") { cboSpeed.SelectedItem = "Fast"; }
-            //else if ((string)cboVideo.SelectedItem == "Custom") { cboSpeed.SelectedItem = "Medium"; }
+            //if ((string)cboVideoQuality.SelectedItem == "Auto") { cboSpeed.SelectedItem = "Medium"; }
+            //else if ((string)cboVideoQuality.SelectedItem == "Lossless") { cboSpeed.SelectedItem = "Very Slow"; }
+            //else if ((string)cboVideoQuality.SelectedItem == "Ultra") { cboSpeed.SelectedItem = "Slow"; }
+            //else if ((string)cboVideoQuality.SelectedItem == "High") { cboSpeed.SelectedItem = "Medium"; }
+            //else if ((string)cboVideoQuality.SelectedItem == "Medium") { cboSpeed.SelectedItem = "Medium"; }
+            //else if ((string)cboVideoQuality.SelectedItem == "Low") { cboSpeed.SelectedItem = "Fast"; }
+            //else if ((string)cboVideoQuality.SelectedItem == "Sub") { cboSpeed.SelectedItem = "Fast"; }
+            //else if ((string)cboVideoQuality.SelectedItem == "Custom") { cboSpeed.SelectedItem = "Medium"; }
 
             // -------------------------
             // Pass Controls Method
@@ -4139,7 +4174,7 @@ namespace Axiom
             // -------------------------
             // Keep in Video SelectionChanged
             // If Video Not Auto and User Willingly Selected Pass is false
-            if ((string)cboVideo.SelectedItem != "Auto" 
+            if ((string)cboVideoQuality.SelectedItem != "Auto" 
                 && VideoControls.passUserSelected == false)
             {
                 cboPass.SelectedItem = "CRF";
@@ -4167,11 +4202,11 @@ namespace Axiom
             crfCustom.Text = string.Empty;
 
 
-            if ((string)cboVideo.SelectedItem != "Auto"
-                && (string)cboVideo.SelectedItem != "Lossless"
-                && (string)cboVideo.SelectedItem != "Custom"
-                && (string)cboVideo.SelectedItem != "None"
-                && !string.IsNullOrEmpty((string)cboVideo.SelectedItem))
+            if ((string)cboVideoQuality.SelectedItem != "Auto"
+                && (string)cboVideoQuality.SelectedItem != "Lossless"
+                && (string)cboVideoQuality.SelectedItem != "Custom"
+                && (string)cboVideoQuality.SelectedItem != "None"
+                && !string.IsNullOrEmpty((string)cboVideoQuality.SelectedItem))
             {
                 // TextBox Displayed placed at the end of VideoQuality Method
                 Video.VideoQuality(this);
@@ -4202,7 +4237,7 @@ namespace Axiom
             // Custom
             // -------------------------
             //enable Audio Custom
-            if ((string)cboAudio.SelectedItem == "Custom")
+            if ((string)cboAudioQuality.SelectedItem == "Custom")
             {
                 audioCustom.IsEnabled = true;
             }
@@ -4219,14 +4254,14 @@ namespace Axiom
             // Always Enable Audio for AAC codec
             if ((string)cboAudioCodec.SelectedItem == "AAC")
             {
-                cboAudio.IsEnabled = true;
+                cboAudioQuality.IsEnabled = true;
             }
 
             // -------------------------
             // Audio Codec
             // -------------------------
             // Always switch to ALAC if M4A is Lossless
-            if ((string)cboFormat.SelectedItem == "m4a" && (string)cboAudio.SelectedItem == "Lossless")
+            if ((string)cboFormat.SelectedItem == "m4a" && (string)cboAudioQuality.SelectedItem == "Lossless")
             {
                 cboAudioCodec.SelectedItem = "ALAC";
             }
@@ -4235,8 +4270,8 @@ namespace Axiom
             // VBR
             // -------------------------
             // Disable and Uncheck VBR if, Lossless or Mute
-            if ((string)cboAudio.SelectedItem == "Lossless" 
-                || (string)cboAudio.SelectedItem == "Mute")
+            if ((string)cboAudioQuality.SelectedItem == "Lossless" 
+                || (string)cboAudioQuality.SelectedItem == "Mute")
             {
                 tglVBR.IsEnabled = false;
                 tglVBR.IsChecked = false;
@@ -4261,7 +4296,7 @@ namespace Axiom
             }
 
             // If AUTO, Check or Uncheck VBR
-            if ((string)cboAudio.SelectedItem == "Auto")
+            if ((string)cboAudioQuality.SelectedItem == "Auto")
             {
                 if ((string)cboAudioCodec.SelectedItem == "Vorbis")
                 {
@@ -4282,7 +4317,7 @@ namespace Axiom
 
             // Quality VBR Override
             // Disable / Enable VBR
-            if ((string)cboAudio.SelectedItem == "Lossless" || (string)cboAudio.SelectedItem == "Mute")
+            if ((string)cboAudioQuality.SelectedItem == "Lossless" || (string)cboAudioQuality.SelectedItem == "Mute")
             {
                 tglVBR.IsEnabled = false;
             }
@@ -4295,14 +4330,14 @@ namespace Axiom
             // -------------------------
             // Display Bit-rate in TextBox
             // -------------------------
-            if ((string)cboAudio.SelectedItem != "Auto"
-                && (string)cboAudio.SelectedItem != "Lossless"
-                && (string)cboAudio.SelectedItem != "Custom"
-                && (string)cboAudio.SelectedItem != "Mute"
-                && (string)cboAudio.SelectedItem != "None"
-                && !string.IsNullOrEmpty((string)cboAudio.SelectedItem))
+            if ((string)cboAudioQuality.SelectedItem != "Auto"
+                && (string)cboAudioQuality.SelectedItem != "Lossless"
+                && (string)cboAudioQuality.SelectedItem != "Custom"
+                && (string)cboAudioQuality.SelectedItem != "Mute"
+                && (string)cboAudioQuality.SelectedItem != "None"
+                && !string.IsNullOrEmpty((string)cboAudioQuality.SelectedItem))
             {
-                audioCustom.Text = cboAudio.SelectedItem.ToString() + "k";
+                audioCustom.Text = cboAudioQuality.SelectedItem.ToString() + "k";
             }
             else
             {
@@ -4313,7 +4348,7 @@ namespace Axiom
             // -------------------------
             // Mute
             // -------------------------
-            if ((string)cboAudio.SelectedItem == "Mute")
+            if ((string)cboAudioQuality.SelectedItem == "Mute")
             {
                 // -------------------------
                 // Disable
@@ -5102,7 +5137,7 @@ namespace Axiom
                 // -------------------------
                 // Generate Script
                 // -------------------------
-                FFmpeg.FFmpegScript(this, scriptview);
+                //FFmpeg.FFmpegScript(this); // moved to FFmpegConvert()
 
                 // -------------------------
                 // Clear Strings for next Run
@@ -5154,14 +5189,8 @@ namespace Axiom
 
 
 
-
-
-
-
-
-
         /// <summary>
-        /// Save Script
+        ///     Save Script
         /// </summary>
         private void btnScriptSave_Click(object sender, RoutedEventArgs e)
         {
@@ -5186,7 +5215,7 @@ namespace Axiom
         }
 
         /// <summary>
-        /// Copy All Button
+        ///     Copy All Button
         /// </summary>
         private void btnScriptCopy_Click(object sender, RoutedEventArgs e)
         {
@@ -5194,7 +5223,7 @@ namespace Axiom
         }
 
         /// <summary>
-        /// Sort Button
+        ///     Sort Button
         /// </summary>
         private void btnScriptSort_Click(object sender, RoutedEventArgs e)
         {
@@ -5202,12 +5231,10 @@ namespace Axiom
         }
 
         /// <summary>
-        /// Sort (Method)
+        ///     Sort (Method)
         /// </summary>
         public void Sort()
         {
-            //MessageBox.Show("Sort"); //debug
-
             // -------------------------
             // Sort
             // -------------------------
@@ -5298,7 +5325,16 @@ namespace Axiom
 
 
         /// <summary>
-        /// Run Button
+        ///     Clear Button
+        /// </summary>
+        private void btnScriptClear_Click(object sender, RoutedEventArgs e)
+        {
+            ScriptView.scriptParagraph.Inlines.Clear();
+        }
+
+
+        /// <summary>
+        ///     Run Button
         /// </summary>
         private void buttonRun_Click(object sender, RoutedEventArgs e)
         {

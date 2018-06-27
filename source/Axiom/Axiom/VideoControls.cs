@@ -38,24 +38,21 @@ namespace Axiom
         /// </summary>
         // --------------------------------------------------------------------------------------------------------
 
-        private static string previousItem; // Previous ComboBox Item
-
         // -------------------------
         // Video
         // -------------------------
-        public static List<string> VideoCodecItemSource;
-        public static List<string> SubtitleCodecItemSource;
-        public static List<string> VideoItemSource;
-        public static List<string> PassItemSource;
+        public static List<string> VideoCodec_ItemSource;
+        public static List<string> SubtitleCodec_ItemSource;
+        public static List<string> VideoQuality_ItemSource;
+        public static List<string> Pass_ItemSource;
         public static List<string> ResizeItemSource;
         public static List<string> CutItemSource;
-        public static List<string> TuneItemSource;
-        public static List<string> OptimizeItemSource;
+        public static List<string> Optimize_ItemSource;
         public static List<string> SpeedItemSource;
 
-        public static List<string> OptimizeTuneItemSource;
-        public static List<string> OptimizeProfileItemSource;
-        public static List<string> OptimizeLevelItemSource;
+        public static List<string> Optimize_Tune_ItemSource;
+        public static List<string> Optimize_Profile_ItemSource;
+        public static List<string> Optimize_Level_ItemSource;
 
         public static bool passUserSelected = false; // Used to determine if User willingly selected CRF, 1 Pass or 2 Pass
 
@@ -69,11 +66,11 @@ namespace Axiom
         /// <summary>
         /// Change Item Source (Method)
         /// </summary>
-        public static void ChangeItemSource(
+        private static void ChangeItemSource(
             MainWindow mainwindow,
-            ComboBox cbo,                               // ComboBox
-            List<string> items,                         // New Items List
-            string selectedItem)                        // Selected Item
+            ComboBox cbo,           // ComboBox
+            List<string> items,     // New Items List
+            string selectedItem)    // Selected Item
         {
             // -------------------------
             // Change Item Source
@@ -91,9 +88,7 @@ namespace Axiom
             {
                 if (items.Contains(previousItem))
                 {
-                    cbo.SelectedItem = previousItem; // Problem with Codec Copy
-
-                    // System.Windows.MessageBox.Show(previousItem); //debug
+                    cbo.SelectedItem = previousItem;
                 }
                 else
                 {
@@ -151,7 +146,7 @@ namespace Axiom
             if ((string)mainwindow.cboFormat.SelectedItem == "mkv" 
                 && (string)mainwindow.cboVideoCodec.SelectedItem == "Copy")
             {
-                mainwindow.cboVideo.SelectedItem = "Auto";
+                mainwindow.cboVideoQuality.SelectedItem = "Auto";
             }
 
 
@@ -166,7 +161,7 @@ namespace Axiom
                 // -------------------------
                 // Change ItemSource
                 // -------------------------
-                List<string>VideoQuality_ItemSource = new List<string>()
+                VideoQuality_ItemSource = new List<string>()
                 {
                     "Auto",
                     "Ultra",
@@ -179,29 +174,9 @@ namespace Axiom
 
                 ChangeItemSource(
                     mainwindow, 
-                    mainwindow.cboVideo, // ComboBox
+                    mainwindow.cboVideoQuality, // ComboBox
                     VideoQuality_ItemSource, // New Items List
-                    (string)mainwindow.cboVideo.SelectedItem); // Selected Item
-
-                // -------------------------
-                // Enable Controls
-                // -------------------------
-                // Video Quality
-                //mainwindow.cboVideo.IsEnabled = true;
-
-                // CRF
-                //if ((string)mainwindow.cboVideo.SelectedItem == "Custom")
-                //{
-                //    mainwindow.crfCustom.IsEnabled = true;
-                //}
-
-                // FPS
-                //mainwindow.cboFPS.IsEnabled = true;
-
-                // -------------------------
-                // Disable Controls
-                // -------------------------
-                // None
+                    (string)mainwindow.cboVideoQuality.SelectedItem); // Selected Item
 
 
                 // --------------------------------------------------
@@ -210,7 +185,7 @@ namespace Axiom
                 // -------------------------
                 // Change ItemSource
                 // -------------------------
-                List<string> Pass_ItemSource = new List<string>()
+                Pass_ItemSource = new List<string>()
                 {
                     "CRF",
                     "1 Pass",
@@ -230,7 +205,7 @@ namespace Axiom
                 // -------------------------
                 // Change ItemSource
                 // -------------------------
-                List<string> Optimize_ItemSource = new List<string>()
+                Optimize_ItemSource = new List<string>()
                 {
                     "none",
                     "Web"
@@ -242,33 +217,17 @@ namespace Axiom
                     Optimize_ItemSource, // New Items List
                     "none"); // Selected Item
 
+
+                // --------------------------------------------------
+                // Controls
+                // --------------------------------------------------
                 // -------------------------
-                // Enable Controls
+                // Enabled
                 // -------------------------
-                // Optimize
-                //mainwindow.cboOptimize.IsEnabled = true;
-
-
-                // --------------------------------------------------
-                // Size
-                // --------------------------------------------------
-                // Scaling
-                //mainwindow.cboScaling.IsEnabled = true;
-
-
-                // --------------------------------------------------
-                // Speed
-                // --------------------------------------------------
-                // Controlled through Video Quality ComboBox
-
-
-                // --------------------------------------------------
-                // Enable Controls
-                // --------------------------------------------------
-                List<Control> ControlsEnabled = new List<Control>()
+                List<Control> Controls_Enabled = new List<Control>()
                 {
                     // Video Quality ComboBox
-                    mainwindow.cboVideo,
+                    mainwindow.cboVideoQuality,
                     // FPS ComboBox
                     mainwindow.cboFPS,
                     // Optimize ComboBox
@@ -278,20 +237,20 @@ namespace Axiom
                 };
 
                 // Add CRF Custom Textbox
-                if ((string)mainwindow.cboVideo.SelectedItem == "Custom")
+                if ((string)mainwindow.cboVideoQuality.SelectedItem == "Custom")
                 {
-                    ControlsEnabled.Add(mainwindow.crfCustom);
+                    Controls_Enabled.Add(mainwindow.crfCustom);
                 }
 
                 // Enable
-                for (int i = 0; i < ControlsEnabled.Count; i++)
+                for (int i = 0; i < Controls_Enabled.Count; i++)
                 {
-                    ControlsEnabled[i].IsEnabled = true;
+                    Controls_Enabled[i].IsEnabled = true;
                 }
 
-                // --------------------------------------------------
+                // -------------------------
                 // Disabled
-                // --------------------------------------------------
+                // -------------------------
                 // None
             }
 
@@ -300,14 +259,13 @@ namespace Axiom
             // --------------------------------------------------
             else if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9")
             {
-                // -------------------------
+                // --------------------------------------------------
                 // Video
+                // --------------------------------------------------
                 // -------------------------
-                // Get Previous Item
-                previousItem = (string)mainwindow.cboVideo.SelectedItem;
-
                 // Change ItemSource
-                VideoItemSource = new List<string>()
+                // -------------------------
+                List<string> VideoQuality_ItemSource = new List<string>()
                 {
                     "Auto",
                     "Lossless",
@@ -319,93 +277,85 @@ namespace Axiom
                     "Custom"
                 };
 
-                // Populate ComboBox from ItemSource
-                mainwindow.cboVideo.ItemsSource = VideoItemSource;
-
-                // Select Item
-                if (VideoItemSource.Contains(previousItem))
-                {
-                    mainwindow.cboVideo.SelectedItem = previousItem;
-                }
-                else
-                {
-                    mainwindow.cboVideo.SelectedIndex = 0; // auto
-                }
-
-                // Enable Control
-                mainwindow.cboVideo.IsEnabled = true;
-
-                // Enable CRF
-                if ((string)mainwindow.cboVideo.SelectedItem == "Custom")
-                {
-                    mainwindow.crfCustom.IsEnabled = true;
-                }
-
-                // Enable FPS
-                mainwindow.cboFPS.IsEnabled = true;
+                ChangeItemSource(
+                    mainwindow,
+                    mainwindow.cboVideoQuality, // ComboBox
+                    VideoQuality_ItemSource, // New Items List
+                    (string)mainwindow.cboVideoQuality.SelectedItem); // Selected Item
 
                 // --------------------------------------------------
                 // Pass
                 // --------------------------------------------------
-                // Get Previous Item
-                previousItem = (string)mainwindow.cboPass.SelectedItem;
-
+                // -------------------------
                 // Change ItemSource
-                PassItemSource = new List<string>()
+                // -------------------------
+                Pass_ItemSource = new List<string>()
                 {
                     "CRF",
                     "1 Pass",
                     "2 Pass"
                 };
 
-                // Populate ComboBox from ItemSource
-                mainwindow.cboPass.ItemsSource = PassItemSource;
-
-                // Select Item
-                if (PassItemSource.Contains(previousItem))
-                {
-                    mainwindow.cboPass.SelectedItem = previousItem;
-                }
-                else
-                {
-                    mainwindow.cboPass.SelectedIndex = 0; // Auto
-                }
+                ChangeItemSource(
+                    mainwindow,
+                    mainwindow.cboPass, // ComboBox
+                    Pass_ItemSource, // New Items List
+                    (string)mainwindow.cboPass.SelectedItem); // Selected Item
 
 
                 // --------------------------------------------------
                 // Optimize
                 // --------------------------------------------------
-                // Get Previous Item
-                previousItem = (string)mainwindow.cboOptimize.SelectedItem;
-
+                // -------------------------
                 // Change ItemSource
-                OptimizeItemSource = new List<string>()
+                // -------------------------
+                Optimize_ItemSource = new List<string>()
                 {
                     "none",
                     "Web"
                 };
 
-                // Populate ComboBox from ItemSource
-                mainwindow.cboOptimize.ItemsSource = OptimizeItemSource;
-
-                // Select Item
-                mainwindow.cboOptimize.SelectedItem = "none";
-
-                // Enable Control
-                mainwindow.cboOptimize.IsEnabled = true;
+                ChangeItemSource(
+                    mainwindow,
+                    mainwindow.cboOptimize, // ComboBox
+                    Optimize_ItemSource, // New Items List
+                    "none"); // Selected Item
 
 
                 // --------------------------------------------------
-                // Size
+                // Controls
                 // --------------------------------------------------
-                // Scaling
-                mainwindow.cboScaling.IsEnabled = true;
+                // -------------------------
+                // Enabled
+                // -------------------------
+                List<Control> Controls_Enabled = new List<Control>()
+                {
+                    // Video Quality ComboBox
+                    mainwindow.cboVideoQuality,
+                    // FPS ComboBox
+                    mainwindow.cboFPS,
+                    // Optimize ComboBox
+                    mainwindow.cboOptimize,
+                    // Scaling ComboBox
+                    mainwindow.cboScaling
+                };
 
+                // Add CRF Custom Textbox
+                if ((string)mainwindow.cboVideoQuality.SelectedItem == "Custom")
+                {
+                    Controls_Enabled.Add(mainwindow.crfCustom);
+                }
 
-                // --------------------------------------------------
-                // Speed
-                // --------------------------------------------------
-                // Controlled through Video Quality ComboBox
+                // Enable
+                for (int i = 0; i < Controls_Enabled.Count; i++)
+                {
+                    Controls_Enabled[i].IsEnabled = true;
+                }
+
+                // -------------------------
+                // Disabled
+                // -------------------------
+                // None
             }
 
 
@@ -414,14 +364,13 @@ namespace Axiom
             // --------------------------------------------------
             else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264")
             {
-                // -------------------------
+                // --------------------------------------------------
                 // Video
+                // --------------------------------------------------
                 // -------------------------
-                // Get Previous Item
-                previousItem = (string)mainwindow.cboVideo.SelectedItem;
-
                 // Change ItemSource
-                VideoItemSource = new List<string>()
+                // -------------------------
+                List<string> VideoQuality_ItemSource = new List<string>()
                 {
                     "Auto",
                     "Lossless",
@@ -433,68 +382,31 @@ namespace Axiom
                     "Custom"
                 };
 
-                // Populate ComboBox from ItemSource
-                mainwindow.cboVideo.ItemsSource = VideoItemSource;
-
-                // Select Item
-                if (VideoItemSource.Contains(previousItem))
-                {
-                    mainwindow.cboVideo.SelectedItem = previousItem;
-                }
-                else
-                {
-                    mainwindow.cboVideo.SelectedIndex = 0; // Auto
-                }
-
-                // Enable Control
-                mainwindow.cboVideo.IsEnabled = true;
-
-                // Enable CRF
-                if ((string)mainwindow.cboVideo.SelectedItem == "Custom")
-                {
-                    mainwindow.crfCustom.IsEnabled = true;
-                }
-
-                // Enable FPS
-                mainwindow.cboFPS.IsEnabled = true;
+                ChangeItemSource(
+                    mainwindow,
+                    mainwindow.cboVideoQuality, // ComboBox
+                    VideoQuality_ItemSource, // New Items List
+                    (string)mainwindow.cboVideoQuality.SelectedItem); // Selected Item
 
 
                 // --------------------------------------------------
                 // Pass
                 // --------------------------------------------------
-                // Get Previous Item
-                previousItem = (string)mainwindow.cboPass.SelectedItem;
-                //MessageBox.Show(previousItem); //debug
-                //var message = string.Join(Environment.NewLine, VideoCodecItemSource); //debug
-                //MessageBox.Show(message); //debug
-
+                // -------------------------
                 // Change ItemSource
-                PassItemSource = new List<string>()
+                // -------------------------
+                Pass_ItemSource = new List<string>()
                 {
                     "CRF",
                     "1 Pass",
                     "2 Pass"
                 };
 
-                // Populate ComboBox from ItemSource
-                mainwindow.cboPass.ItemsSource = PassItemSource;
-
-                // Select Item
-                if (PassItemSource.Contains(previousItem))
-                {
-                    mainwindow.cboPass.SelectedItem = previousItem;
-                }
-                else
-                {
-                    mainwindow.cboPass.SelectedIndex = 0; // Auto
-                }
-
-
-                // --------------------------------------------------
-                // Optimize
-                // --------------------------------------------------
-                // Get Previous Item
-                previousItem = (string)mainwindow.cboOptimize.SelectedItem;
+                ChangeItemSource(
+                    mainwindow,
+                    mainwindow.cboPass, // ComboBox
+                    Pass_ItemSource, // New Items List
+                    (string)mainwindow.cboPass.SelectedItem); // Selected Item
 
 
                 // -------------------------
@@ -502,8 +414,10 @@ namespace Axiom
                 // -------------------------
                 if ((string)mainwindow.cboFormat.SelectedItem == "mp4")
                 {
+                    // -------------------------
                     // Change ItemSource
-                    OptimizeItemSource = new List<string>()
+                    // -------------------------
+                    Optimize_ItemSource = new List<string>()
                     {
                         "none",
                         "Custom",
@@ -518,14 +432,22 @@ namespace Axiom
                         "Xbox 360",
                         "Xbox One"
                     };
+
+                    ChangeItemSource(
+                        mainwindow,
+                        mainwindow.cboOptimize, // ComboBox
+                        Optimize_ItemSource, // New Items List
+                        (string)mainwindow.cboOptimize.SelectedItem); // Selected Item
                 }
                 // -------------------------
                 // MKV Container
                 // -------------------------
                 else if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
                 {
+                    // -------------------------
                     // Change ItemSource
-                    OptimizeItemSource = new List<string>()
+                    // -------------------------
+                    Optimize_ItemSource = new List<string>()
                     {
                         "none",
                         "Custom",
@@ -537,36 +459,49 @@ namespace Axiom
                         "Xbox 360",
                         "Xbox One"
                     };
+
+                    ChangeItemSource(
+                        mainwindow,
+                        mainwindow.cboOptimize, // ComboBox
+                        Optimize_ItemSource, // New Items List
+                        (string)mainwindow.cboOptimize.SelectedItem); // Selected Item
                 }
 
-                // Populate ComboBox from ItemSource
-                mainwindow.cboOptimize.ItemsSource = OptimizeItemSource;
 
-                // Select Item
-                if (OptimizeItemSource.Contains(previousItem))
+                // --------------------------------------------------
+                // Controls
+                // --------------------------------------------------
+                // -------------------------
+                // Enabled
+                // -------------------------
+                List<Control> Controls_Enabled = new List<Control>()
                 {
-                    mainwindow.cboOptimize.SelectedItem = previousItem;
-                }
-                else
+                    // Video Quality ComboBox
+                    mainwindow.cboVideoQuality,
+                    // FPS ComboBox
+                    mainwindow.cboFPS,
+                    // Optimize ComboBox
+                    mainwindow.cboOptimize,
+                    // Scaling ComboBox
+                    mainwindow.cboScaling
+                };
+
+                // Add CRF Custom Textbox
+                if ((string)mainwindow.cboVideoQuality.SelectedItem == "Custom")
                 {
-                    mainwindow.cboOptimize.SelectedIndex = 0; // auto
+                    Controls_Enabled.Add(mainwindow.crfCustom);
                 }
 
-                // Enable Control
-                mainwindow.cboOptimize.IsEnabled = true;
+                // Enable
+                for (int i = 0; i < Controls_Enabled.Count; i++)
+                {
+                    Controls_Enabled[i].IsEnabled = true;
+                }
 
-
-                // --------------------------------------------------
-                // Size
-                // --------------------------------------------------
-                // Scaling
-                mainwindow.cboScaling.IsEnabled = true;
-
-
-                // --------------------------------------------------
-                // Speed
-                // --------------------------------------------------
-                // Controlled through Video Quality ComboBox
+                // -------------------------
+                // Disabled
+                // -------------------------
+                // None
             }
 
             // --------------------------------------------------
@@ -574,14 +509,13 @@ namespace Axiom
             // --------------------------------------------------
             else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265")
             {
-                // -------------------------
+                // --------------------------------------------------
                 // Video
+                // --------------------------------------------------
                 // -------------------------
-                // Get Previous Item
-                previousItem = (string)mainwindow.cboVideo.SelectedItem;
-
                 // Change ItemSource
-                VideoItemSource = new List<string>()
+                // -------------------------
+                List<string> VideoQuality_ItemSource = new List<string>()
                 {
                     "Auto",
                     "Lossless",
@@ -593,102 +527,87 @@ namespace Axiom
                     "Custom"
                 };
 
-                // Populate ComboBox from ItemSource
-                mainwindow.cboVideo.ItemsSource = VideoItemSource;
-
-                // Select Item
-                if (VideoItemSource.Contains(previousItem))
-                {
-                    mainwindow.cboVideo.SelectedItem = previousItem;
-                }
-                else
-                {
-                    mainwindow.cboVideo.SelectedIndex = 0; // Auto
-                }
-
-                // Enable Control
-                mainwindow.cboVideo.IsEnabled = true;
-
-                // Enable CRF
-                if ((string)mainwindow.cboVideo.SelectedItem == "Custom")
-                {
-                    mainwindow.crfCustom.IsEnabled = true;
-                }
-
-                // Enable FPS
-                mainwindow.cboFPS.IsEnabled = true;
+                ChangeItemSource(
+                    mainwindow,
+                    mainwindow.cboVideoQuality, // ComboBox
+                    VideoQuality_ItemSource, // New Items List
+                    (string)mainwindow.cboVideoQuality.SelectedItem); // Selected Item
 
 
                 // --------------------------------------------------
                 // Pass
                 // --------------------------------------------------
-                // Get Previous Item
-                previousItem = (string)mainwindow.cboPass.SelectedItem;
-
+                // -------------------------
                 // Change ItemSource
-                PassItemSource = new List<string>()
+                // -------------------------
+                Pass_ItemSource = new List<string>()
                 {
                     "CRF",
                     "1 Pass",
                     "2 Pass"
                 };
 
-                // Populate ComboBox from ItemSource
-                mainwindow.cboPass.ItemsSource = PassItemSource;
-
-                // Select Item
-                if (PassItemSource.Contains(previousItem))
-                {
-                    mainwindow.cboPass.SelectedItem = previousItem;
-                }
-                else
-                {
-                    mainwindow.cboPass.SelectedIndex = 0; // Auto
-                }
+                ChangeItemSource(
+                    mainwindow,
+                    mainwindow.cboPass, // ComboBox
+                    Pass_ItemSource, // New Items List
+                    (string)mainwindow.cboPass.SelectedItem); // Selected Item
 
 
                 // --------------------------------------------------
                 // Optimize
                 // --------------------------------------------------
-                // Get Previous Item
-                previousItem = (string)mainwindow.cboOptimize.SelectedItem;
-
+                // -------------------------
                 // Change ItemSource
-                OptimizeItemSource = new List<string>()
+                // -------------------------
+                Optimize_ItemSource = new List<string>()
                 {
                     "none",
                     "Custom",
                     "Web"
                 };
 
-                // Populate ComboBox from ItemSource
-                mainwindow.cboOptimize.ItemsSource = OptimizeItemSource;
+                ChangeItemSource(
+                    mainwindow,
+                    mainwindow.cboOptimize, // ComboBox
+                    Optimize_ItemSource, // New Items List
+                    (string)mainwindow.cboOptimize.SelectedItem); // Selected Item
 
-                // Select Item
-                if (OptimizeItemSource.Contains(previousItem))
+
+                // --------------------------------------------------
+                // Controls
+                // --------------------------------------------------
+                // -------------------------
+                // Enabled
+                // -------------------------
+                List<Control> Controls_Enabled = new List<Control>()
                 {
-                    mainwindow.cboOptimize.SelectedItem = previousItem;
-                }
-                else
+                    // Video Quality ComboBox
+                    mainwindow.cboVideoQuality,
+                    // FPS ComboBox
+                    mainwindow.cboFPS,
+                    // Optimize ComboBox
+                    mainwindow.cboOptimize,
+                    // Scaling ComboBox
+                    mainwindow.cboScaling
+                };
+
+                // Add CRF Custom Textbox
+                if ((string)mainwindow.cboVideoQuality.SelectedItem == "Custom")
                 {
-                    mainwindow.cboOptimize.SelectedIndex = 0; // auto
+                    Controls_Enabled.Add(mainwindow.crfCustom);
                 }
 
-                // Enable Control
-                mainwindow.cboOptimize.IsEnabled = true;
+                // Enable
+                for (int i = 0; i < Controls_Enabled.Count; i++)
+                {
+                    Controls_Enabled[i].IsEnabled = true;
+                }
 
-
-                // --------------------------------------------------
-                // Size
-                // --------------------------------------------------
-                // Scaling
-                mainwindow.cboScaling.IsEnabled = true;
-
-
-                // --------------------------------------------------
-                // Speed
-                // --------------------------------------------------
-                // Controlled through Video Quality ComboBox
+                // -------------------------
+                // Disabled
+                // -------------------------
+                // None
             }
 
             // --------------------------------------------------
@@ -699,11 +618,10 @@ namespace Axiom
                 // -------------------------
                 // Video
                 // -------------------------
-                // Get Previous Item
-                previousItem = (string)mainwindow.cboVideo.SelectedItem;
-
+                // -------------------------
                 // Change ItemSource
-                VideoItemSource = new List<string>()
+                // -------------------------
+                List<string> VideoQuality_ItemSource = new List<string>()
                 {
                     "Auto",
                     "Lossless",
@@ -715,99 +633,83 @@ namespace Axiom
                     "Custom"
                 };
 
-                // Populate ComboBox from ItemSource
-                mainwindow.cboVideo.ItemsSource = VideoItemSource;
-
-                // Select Item
-                if (VideoItemSource.Contains(previousItem))
-                {
-                    mainwindow.cboVideo.SelectedItem = previousItem;
-                }
-                else
-                {
-                    mainwindow.cboVideo.SelectedIndex = 0; // Auto
-                }
-
-                // Enable Control
-                mainwindow.cboVideo.IsEnabled = true;
-
-                // Enable CRF
-                if ((string)mainwindow.cboVideo.SelectedItem == "Custom")
-                {
-                    mainwindow.crfCustom.IsEnabled = true;
-                }
-
-                // Enable FPS
-                mainwindow.cboFPS.IsEnabled = true;
+                ChangeItemSource(
+                    mainwindow,
+                    mainwindow.cboVideoQuality, // ComboBox
+                    VideoQuality_ItemSource, // New Items List
+                    (string)mainwindow.cboVideoQuality.SelectedItem); // Selected Item
 
 
                 // --------------------------------------------------
                 // Pass
                 // --------------------------------------------------
-                // Get Previous Item
-                previousItem = (string)mainwindow.cboPass.SelectedItem;
-
+                // -------------------------
                 // Change ItemSource
-                PassItemSource = new List<string>()
+                // -------------------------
+                Pass_ItemSource = new List<string>()
                 {
                     "1 Pass",
                     "2 Pass"
                 };
 
-                // Populate ComboBox from ItemSource
-                mainwindow.cboPass.ItemsSource = PassItemSource;
-
-                // Select Item
-                if (PassItemSource.Contains(previousItem))
-                {
-                    mainwindow.cboPass.SelectedItem = previousItem;
-                }
-                else
-                {
-                    mainwindow.cboPass.SelectedIndex = 0; // Auto
-                }
+                ChangeItemSource(
+                    mainwindow,
+                    mainwindow.cboPass, // ComboBox
+                    Pass_ItemSource, // New Items List
+                    (string)mainwindow.cboPass.SelectedItem); // Selected Item
 
 
                 // --------------------------------------------------
                 // Optimize
                 // --------------------------------------------------
-                // Get Previous Item
-                previousItem = (string)mainwindow.cboOptimize.SelectedItem;
-
+                // -------------------------
                 // Change ItemSource
-                OptimizeItemSource = new List<string>()
+                // -------------------------
+                Optimize_ItemSource = new List<string>()
                 {
                     "none"
                 };
 
-                // Populate ComboBox from ItemSource
-                mainwindow.cboOptimize.ItemsSource = OptimizeItemSource;
+                ChangeItemSource(
+                    mainwindow,
+                    mainwindow.cboOptimize, // ComboBox
+                    Optimize_ItemSource, // New Items List
+                    (string)mainwindow.cboOptimize.SelectedItem); // Selected Item
 
-                // Select Item
-                if (OptimizeItemSource.Contains(previousItem))
+                // --------------------------------------------------
+                // Controls
+                // --------------------------------------------------
+                // -------------------------
+                // Enabled
+                // -------------------------
+                List<Control> Controls_Enabled = new List<Control>()
                 {
-                    mainwindow.cboOptimize.SelectedItem = previousItem;
-                }
-                else
+                    // Video Quality ComboBox
+                    mainwindow.cboVideoQuality,
+                    // FPS ComboBox
+                    mainwindow.cboFPS,
+                    // Optimize ComboBox
+                    mainwindow.cboOptimize,
+                    // Scaling ComboBox
+                    mainwindow.cboScaling
+                };
+
+                // Add CRF Custom Textbox
+                if ((string)mainwindow.cboVideoQuality.SelectedItem == "Custom")
                 {
-                    mainwindow.cboOptimize.SelectedIndex = 0; // auto
+                    Controls_Enabled.Add(mainwindow.crfCustom);
                 }
 
-                // Enable Control
-                mainwindow.cboOptimize.IsEnabled = true;
+                // Enable
+                for (int i = 0; i < Controls_Enabled.Count; i++)
+                {
+                    Controls_Enabled[i].IsEnabled = true;
+                }
 
-
-                // --------------------------------------------------
-                // Size
-                // --------------------------------------------------
-                // Scaling
-                mainwindow.cboScaling.IsEnabled = true;
-
-
-                // --------------------------------------------------
-                // Speed
-                // --------------------------------------------------
-                // Controlled through Video Quality ComboBox
+                // -------------------------
+                // Disabled
+                // -------------------------
+                // None
             }
 
             // --------------------------------------------------
@@ -818,11 +720,10 @@ namespace Axiom
                 // -------------------------
                 // Video
                 // -------------------------
-                // Get Previous Item
-                previousItem = (string)mainwindow.cboVideo.SelectedItem;
-
+                // -------------------------
                 // Change ItemSource
-                VideoItemSource = new List<string>()
+                // -------------------------
+                List<string> VideoQuality_ItemSource = new List<string>()
                 {
                     "Auto",
                     //"Lossless", // disabled
@@ -834,100 +735,85 @@ namespace Axiom
                     "Custom"
                 };
 
-                // Populate ComboBox from ItemSource
-                mainwindow.cboVideo.ItemsSource = VideoItemSource;
-
-                // Select Item
-                if (VideoItemSource.Contains(previousItem))
-                {
-                    mainwindow.cboVideo.SelectedItem = previousItem;
-                }
-                else
-                {
-                    mainwindow.cboVideo.SelectedIndex = 0; // Auto
-                }
-
-                // Enable Control
-                mainwindow.cboVideo.IsEnabled = true;
-
-                // Enable CRF
-                if ((string)mainwindow.cboVideo.SelectedItem == "Custom")
-                {
-                    mainwindow.crfCustom.IsEnabled = true;
-                }
-
-                // Enable FPS
-                mainwindow.cboFPS.IsEnabled = true;
+                ChangeItemSource(
+                    mainwindow,
+                    mainwindow.cboVideoQuality, // ComboBox
+                    VideoQuality_ItemSource, // New Items List
+                    (string)mainwindow.cboVideoQuality.SelectedItem); // Selected Item
 
 
                 // --------------------------------------------------
                 // Pass
                 // --------------------------------------------------
-                // Get Previous Item
-                previousItem = (string)mainwindow.cboPass.SelectedItem;
-
+                // -------------------------
                 // Change ItemSource
-                PassItemSource = new List<string>()
+                // -------------------------
+                Pass_ItemSource = new List<string>()
                 {
                     "CRF",
                     "1 Pass",
                     "2 Pass"
                 };
 
-                // Populate ComboBox from ItemSource
-                mainwindow.cboPass.ItemsSource = PassItemSource;
-
-                // Select Item
-                if (PassItemSource.Contains(previousItem))
-                {
-                    mainwindow.cboPass.SelectedItem = previousItem;
-                }
-                else
-                {
-                    mainwindow.cboPass.SelectedIndex = 0; // Auto
-                }
+                ChangeItemSource(
+                    mainwindow,
+                    mainwindow.cboPass, // ComboBox
+                    Pass_ItemSource, // New Items List
+                    (string)mainwindow.cboPass.SelectedItem); // Selected Item
 
 
                 // --------------------------------------------------
                 // Optimize
                 // --------------------------------------------------
-                // Get Previous Item
-                previousItem = (string)mainwindow.cboOptimize.SelectedItem;
-
+                // -------------------------
                 // Change ItemSource
-                OptimizeItemSource = new List<string>()
+                // -------------------------
+                Optimize_ItemSource = new List<string>()
                 {
                     "none",
                 };
 
-                // Populate ComboBox from ItemSource
-                mainwindow.cboOptimize.ItemsSource = OptimizeItemSource;
+                ChangeItemSource(
+                    mainwindow,
+                    mainwindow.cboOptimize, // ComboBox
+                    Optimize_ItemSource, // New Items List
+                    (string)mainwindow.cboOptimize.SelectedItem); // Selected Item
 
-                // Select Item
-                if (OptimizeItemSource.Contains(previousItem))
+
+                // --------------------------------------------------
+                // Controls
+                // --------------------------------------------------
+                // -------------------------
+                // Enabled
+                // -------------------------
+                List<Control> Controls_Enabled = new List<Control>()
                 {
-                    mainwindow.cboOptimize.SelectedItem = previousItem;
-                }
-                else
+                    // Video Quality ComboBox
+                    mainwindow.cboVideoQuality,
+                    // FPS ComboBox
+                    mainwindow.cboFPS,
+                    // Optimize ComboBox
+                    mainwindow.cboOptimize,
+                    // Scaling ComboBox
+                    mainwindow.cboScaling
+                };
+
+                // Add CRF Custom Textbox
+                if ((string)mainwindow.cboVideoQuality.SelectedItem == "Custom")
                 {
-                    mainwindow.cboOptimize.SelectedIndex = 0; // auto
+                    Controls_Enabled.Add(mainwindow.crfCustom);
                 }
 
-                // Enable Control
-                mainwindow.cboOptimize.IsEnabled = true;
+                // Enable
+                for (int i = 0; i < Controls_Enabled.Count; i++)
+                {
+                    Controls_Enabled[i].IsEnabled = true;
+                }
 
-
-                // --------------------------------------------------
-                // Size
-                // --------------------------------------------------
-                // Scaling
-                mainwindow.cboScaling.IsEnabled = true;
-
-
-                // --------------------------------------------------
-                // Speed
-                // --------------------------------------------------
-                // Controlled through Video Quality ComboBox
+                // -------------------------
+                // Disabled
+                // -------------------------
+                // None
             }
 
             // --------------------------------------------------
@@ -938,11 +824,10 @@ namespace Axiom
                 // -------------------------
                 // Video
                 // -------------------------
-                // Get Previous Item
-                previousItem = (string)mainwindow.cboVideo.SelectedItem;
-
+                // -------------------------
                 // Change ItemSource
-                VideoItemSource = new List<string>()
+                // -------------------------
+                List<string> VideoQuality_ItemSource = new List<string>()
                 {
                     "Auto",
                     "Lossless",
@@ -954,104 +839,95 @@ namespace Axiom
                     "Custom"
                 };
 
-                // Populate ComboBox from ItemSource
-                mainwindow.cboVideo.ItemsSource = VideoItemSource;
-
-                // Select Item
-                if (VideoItemSource.Contains(previousItem))
-                {
-                    mainwindow.cboVideo.SelectedItem = previousItem;
-                }
-                else
-                {
-                    mainwindow.cboVideo.SelectedIndex = 0; // auto
-                }
-
-                // Enable Control
-                mainwindow.cboVideo.IsEnabled = true;
-
-                // Disable CRF (Only for Theora)
-                if ((string)mainwindow.cboVideo.SelectedItem == "Custom")
-                {
-                    mainwindow.crfCustom.IsEnabled = false;
-                }
-
-                // Enable FPS
-                mainwindow.cboFPS.IsEnabled = true;
+                ChangeItemSource(
+                    mainwindow,
+                    mainwindow.cboVideoQuality, // ComboBox
+                    VideoQuality_ItemSource, // New Items List
+                    (string)mainwindow.cboVideoQuality.SelectedItem); // Selected Item
 
 
                 // --------------------------------------------------
                 // Pass
                 // --------------------------------------------------
-                // Get Previous Item
-                previousItem = (string)mainwindow.cboPass.SelectedItem;
-
+                // -------------------------
                 // Change ItemSource
-                PassItemSource = new List<string>()
+                // -------------------------
+                Pass_ItemSource = new List<string>()
                 {
                     "1 Pass",
                     "2 Pass"
                 };
 
-                // Populate ComboBox from ItemSource
-                mainwindow.cboPass.ItemsSource = PassItemSource;
-
-                // Select Item
-                if (PassItemSource.Contains(previousItem))
-                {
-                    mainwindow.cboPass.SelectedItem = previousItem;
-                }
-                else
-                {
-                    mainwindow.cboPass.SelectedIndex = 0; // Auto
-                }
-
-                // Disable Control
-                //mainwindow.cboPass.IsEnabled = true;
+                ChangeItemSource(
+                    mainwindow,
+                    mainwindow.cboPass, // ComboBox
+                    Pass_ItemSource, // New Items List
+                    (string)mainwindow.cboPass.SelectedItem); // Selected Item
 
 
                 // --------------------------------------------------
                 // Optimize
                 // --------------------------------------------------
-                // Get Previous Item
-                previousItem = (string)mainwindow.cboOptimize.SelectedItem;
-
+                // -------------------------
                 // Change ItemSource
-                OptimizeItemSource = new List<string>()
+                // -------------------------
+                Optimize_ItemSource = new List<string>()
                 {
                     "none",
                     "Web"
                 };
 
-                // Populate ComboBox from ItemSource
-                mainwindow.cboOptimize.ItemsSource = OptimizeItemSource;
+                ChangeItemSource(
+                    mainwindow,
+                    mainwindow.cboOptimize, // ComboBox
+                    Optimize_ItemSource, // New Items List
+                    (string)mainwindow.cboOptimize.SelectedItem); // Selected Item
 
-                // Select Item
-                if (OptimizeItemSource.Contains(previousItem))
+
+                // --------------------------------------------------
+                // Controls
+                // --------------------------------------------------
+                // -------------------------
+                // Enabled
+                // -------------------------
+                List<Control> Controls_Enabled = new List<Control>()
                 {
-                    mainwindow.cboOptimize.SelectedItem = previousItem;
-                }
-                else
+                    // Video Quality ComboBox
+                    mainwindow.cboVideoQuality,
+                    // FPS ComboBox
+                    mainwindow.cboFPS,
+                    // Optimize ComboBox
+                    mainwindow.cboOptimize,
+                    // Scaling ComboBox
+                    mainwindow.cboScaling
+                };
+
+                // Enable
+                for (int i = 0; i < Controls_Enabled.Count; i++)
                 {
-                    mainwindow.cboOptimize.SelectedIndex = 0; // auto
+                    Controls_Enabled[i].IsEnabled = true;
                 }
 
-                // Enable Control
-                mainwindow.cboOptimize.IsEnabled = true;
+                // -------------------------
+                // Disabled
+                // -------------------------
+                List<Control> Controls_Disabled = new List<Control>()
+                {
+                    // Speed
+                    mainwindow.cboSpeed,
+                };
 
+                // Add CRF Custom Textbox
+                if ((string)mainwindow.cboVideoQuality.SelectedItem == "Custom")
+                {
+                    Controls_Disabled.Add(mainwindow.crfCustom);
+                }
 
-                // --------------------------------------------------
-                // Size
-                // --------------------------------------------------
-                // Scaling
-                mainwindow.cboScaling.IsEnabled = true;
-
-
-                // --------------------------------------------------
-                // Speed (Only for Theora)
-                // --------------------------------------------------
-                // Controlled through Video Quality ComboBox
-                mainwindow.cboSpeed.IsEnabled = false;
+                // Disable
+                for (int i = 0; i < Controls_Disabled.Count; i++)
+                {
+                    Controls_Disabled[i].IsEnabled = false;
+                }
             }
 
             // --------------------------------------------------
@@ -1062,11 +938,10 @@ namespace Axiom
                 // -------------------------
                 // Video
                 // -------------------------
-                // Get Previous Item
-                previousItem = (string)mainwindow.cboVideo.SelectedItem;
-
+                // -------------------------
                 // Change ItemSource
-                VideoItemSource = new List<string>()
+                // -------------------------
+                List<string> VideoQuality_ItemSource = new List<string>()
                 {
                     "Auto",
                     "Ultra",
@@ -1076,78 +951,91 @@ namespace Axiom
                     "Sub"
                 };
 
-                // Populate ComboBox from ItemSource
-                mainwindow.cboVideo.ItemsSource = VideoItemSource;
-
-                // Select Item
-                if (VideoItemSource.Contains(previousItem))
-                {
-                    mainwindow.cboVideo.SelectedItem = previousItem;
-                }
-                else
-                {
-                    mainwindow.cboVideo.SelectedIndex = 0; // auto
-                }
-
-                // Enable Control
-                mainwindow.cboVideo.IsEnabled = true;
-
-                // Disable CRF
-                mainwindow.crfCustom.IsEnabled = false;
-
-                // Enable FPS
-                mainwindow.cboFPS.IsEnabled = false;
+                ChangeItemSource(
+                    mainwindow,
+                    mainwindow.cboVideoQuality, // ComboBox
+                    VideoQuality_ItemSource, // New Items List
+                    (string)mainwindow.cboVideoQuality.SelectedItem); // Selected Item
 
 
                 // --------------------------------------------------
                 // Pass
                 // --------------------------------------------------
-                // Get Previous Item
-                previousItem = (string)mainwindow.cboPass.SelectedItem;
-
+                // -------------------------
                 // Change ItemSource
-                PassItemSource = new List<string>() { "auto" };
+                // -------------------------
+                Pass_ItemSource = new List<string>()
+                {
+                    "auto"
+                };
 
-                // Populate ComboBox from ItemSource
-                mainwindow.cboPass.ItemsSource = PassItemSource;
-
-                // Select Item
-                mainwindow.cboPass.SelectedItem = "auto";
-
-                // Disable Control
-                mainwindow.cboPass.IsEnabled = false;
+                ChangeItemSource(
+                    mainwindow,
+                    mainwindow.cboPass, // ComboBox
+                    Pass_ItemSource, // New Items List
+                    "auto"); // Selected Item
 
 
                 // --------------------------------------------------
                 // Optimize
                 // --------------------------------------------------
-                // Get Previous Item
-                previousItem = (string)mainwindow.cboOptimize.SelectedItem;
-
+                // -------------------------
                 // Change ItemSource
-                OptimizeItemSource = new List<string>() { "none" };
+                // -------------------------
+                Optimize_ItemSource = new List<string>()
+                {
+                    "none"
+                };
 
-                // Populate ComboBox from ItemSource
-                mainwindow.cboOptimize.ItemsSource = OptimizeItemSource;
-
-                // Select Item
-                mainwindow.cboOptimize.SelectedItem = "none";
-
-                // Enable Control
-                mainwindow.cboOptimize.IsEnabled = false;
-
-
-                // --------------------------------------------------
-                // Size
-                // --------------------------------------------------
-                // Scaling
-                mainwindow.cboScaling.IsEnabled = true;
+                ChangeItemSource(
+                    mainwindow,
+                    mainwindow.cboOptimize, // ComboBox
+                    Optimize_ItemSource, // New Items List
+                    "none"); // Selected Item
 
 
                 // --------------------------------------------------
-                // Speed
+                // Controls
                 // --------------------------------------------------
-                // Controlled through Video Quality ComboBox
+                // -------------------------
+                // Enabled
+                // -------------------------
+                List<Control> Controls_Enabled = new List<Control>()
+                {
+                    // Video Quality ComboBox
+                    mainwindow.cboVideoQuality,
+                    // Scaling ComboBox
+                    mainwindow.cboScaling
+                };
+
+                // Enable
+                for (int i = 0; i < Controls_Enabled.Count; i++)
+                {
+                    Controls_Enabled[i].IsEnabled = true;
+                }
+
+                // -------------------------
+                // Disabled
+                // -------------------------
+                List<Control> Controls_Disabled = new List<Control>()
+                {
+                    // Speed ComboBox
+                    mainwindow.cboSpeed,
+                    // CRF Custom Textbox
+                    mainwindow.crfCustom,
+                    // Pass ComboBox
+                    mainwindow.cboPass,
+                    // FPS ComboBox
+                    mainwindow.cboFPS,
+                    // Optimize ComboBox
+                    mainwindow.cboOptimize,
+                };
+
+                // Disable
+                for (int i = 0; i < Controls_Disabled.Count; i++)
+                {
+                    Controls_Disabled[i].IsEnabled = false;
+                }
             }
 
             // --------------------------------------------------
@@ -1158,11 +1046,10 @@ namespace Axiom
                 // -------------------------
                 // Video
                 // -------------------------
-                // Get Previous Item
-                previousItem = (string)mainwindow.cboVideo.SelectedItem;
-
+                // -------------------------
                 // Change ItemSource
-                VideoItemSource = new List<string>()
+                // -------------------------
+                List<string> VideoQuality_ItemSource = new List<string>()
                 {
                     "Auto",
                     "Lossless",
@@ -1173,71 +1060,91 @@ namespace Axiom
                     "Sub"
                 };
 
-                // Populate ComboBox from ItemSource
-                mainwindow.cboVideo.ItemsSource = VideoItemSource;
-
-                // Select Item
-                mainwindow.cboVideo.SelectedItem = "Lossless";
-
-                // Enable Control
-                mainwindow.cboVideo.IsEnabled = false;
-
-                // Disable CRF
-                mainwindow.crfCustom.IsEnabled = false;
-
-                // Enable FPS
-                mainwindow.cboFPS.IsEnabled = false;
+                ChangeItemSource(
+                    mainwindow,
+                    mainwindow.cboVideoQuality, // ComboBox
+                    VideoQuality_ItemSource, // New Items List
+                    "Lossless"); // Selected Item
 
 
                 // --------------------------------------------------
                 // Pass
                 // --------------------------------------------------
-                // Get Previous Item
-                previousItem = (string)mainwindow.cboPass.SelectedItem;
-
+                // -------------------------
                 // Change ItemSource
-                PassItemSource = new List<string>() { "auto" };
+                // -------------------------
+                Pass_ItemSource = new List<string>()
+                {
+                    "auto"
+                };
 
-                // Populate ComboBox from ItemSource
-                mainwindow.cboPass.ItemsSource = PassItemSource;
-
-                // Select Item
-                mainwindow.cboPass.SelectedItem = "auto";
-
-                // Disable Control
-                mainwindow.cboPass.IsEnabled = false;
+                ChangeItemSource(
+                    mainwindow,
+                    mainwindow.cboPass, // ComboBox
+                    Pass_ItemSource, // New Items List
+                    "auto"); // Selected Item
 
 
                 // --------------------------------------------------
                 // Optimize
                 // --------------------------------------------------
-                // Get Previous Item
-                previousItem = (string)mainwindow.cboOptimize.SelectedItem;
-
+                // -------------------------
                 // Change ItemSource
-                OptimizeItemSource = new List<string>() { "none" };
+                // -------------------------
+                Optimize_ItemSource = new List<string>()
+                {
+                    "none"
+                };
 
-                // Populate ComboBox from ItemSource
-                mainwindow.cboOptimize.ItemsSource = OptimizeItemSource;
-
-                // Select Item
-                mainwindow.cboOptimize.SelectedItem = "none";
-
-                // Enable Control
-                mainwindow.cboOptimize.IsEnabled = false;
-
-
-                // --------------------------------------------------
-                // Size
-                // --------------------------------------------------
-                // Scaling
-                mainwindow.cboScaling.IsEnabled = true;
+                ChangeItemSource(
+                    mainwindow,
+                    mainwindow.cboOptimize, // ComboBox
+                    Optimize_ItemSource, // New Items List
+                    "none"); // Selected Item
 
 
                 // --------------------------------------------------
-                // Speed
+                // Controls
                 // --------------------------------------------------
-                // Controlled through Video Quality ComboBox
+                // -------------------------
+                // Enabled
+                // -------------------------
+                List<Control> Controls_Enabled = new List<Control>()
+                {
+                    // Scaling ComboBox
+                    mainwindow.cboScaling
+                };
+
+                // Enable
+                for (int i = 0; i < Controls_Enabled.Count; i++)
+                {
+                    Controls_Enabled[i].IsEnabled = true;
+                }
+
+                // -------------------------
+                // Disabled
+                // -------------------------
+                List<Control> Controls_Disabled = new List<Control>()
+                {
+                    // Speed ComboBox
+                    mainwindow.cboSpeed,
+                    // Video Quality ComboBox
+                    mainwindow.cboVideoQuality,
+                    // CRF Custom Textbox
+                    mainwindow.crfCustom,
+                    // Pass ComboBox
+                    mainwindow.cboPass,
+                    // FPS ComboBox
+                    mainwindow.cboFPS,
+                    // Optimize ComboBox
+                    mainwindow.cboOptimize,
+                };
+
+                // Disable
+                for (int i = 0; i < Controls_Disabled.Count; i++)
+                {
+                    Controls_Disabled[i].IsEnabled = false;
+                }
             }
 
 
@@ -1249,11 +1156,10 @@ namespace Axiom
                 // -------------------------
                 // Video
                 // -------------------------
-                // Get Previous Item
-                previousItem = (string)mainwindow.cboVideo.SelectedItem;
-
+                // -------------------------
                 // Change ItemSource
-                VideoItemSource = new List<string>()
+                // -------------------------
+                List<string> VideoQuality_ItemSource = new List<string>()
                 {
                     "Auto",
                     "Lossless",
@@ -1265,71 +1171,91 @@ namespace Axiom
                     "Custom"
                 };
 
-                // Populate ComboBox from ItemSource
-                mainwindow.cboVideo.ItemsSource = VideoItemSource;
-
-                // Select Item
-                mainwindow.cboVideo.SelectedItem = "Auto";
-
-                // Enable Control
-                mainwindow.cboVideo.IsEnabled = true;
+                ChangeItemSource(
+                    mainwindow,
+                    mainwindow.cboVideoQuality, // ComboBox
+                    VideoQuality_ItemSource, // New Items List
+                    "Auto"); // Selected Item
 
 
                 // --------------------------------------------------
                 // Pass
                 // --------------------------------------------------
-                // Get Previous Item
-                previousItem = (string)mainwindow.cboPass.SelectedItem;
-
+                // -------------------------
                 // Change ItemSource
-                PassItemSource = new List<string>() { "auto" };
+                // -------------------------
+                Pass_ItemSource = new List<string>()
+                {
+                    "auto"
+                };
 
-                // Populate ComboBox from ItemSource
-                mainwindow.cboPass.ItemsSource = PassItemSource;
-
-                // Select Item
-                mainwindow.cboPass.SelectedItem = "auto";
-
-                // Disable Control
-                mainwindow.cboPass.IsEnabled = false;
-
-                // Disable CRF
-                mainwindow.crfCustom.IsEnabled = false;
-
-                // Enable FPS
-                mainwindow.cboFPS.IsEnabled = false;
+                ChangeItemSource(
+                    mainwindow,
+                    mainwindow.cboPass, // ComboBox
+                    Pass_ItemSource, // New Items List
+                    "auto"); // Selected Item
 
 
                 // --------------------------------------------------
                 // Optimize
                 // --------------------------------------------------
-                // Get Previous Item
-                previousItem = (string)mainwindow.cboOptimize.SelectedItem;
-
+                // -------------------------
                 // Change ItemSource
-                OptimizeItemSource = new List<string>() { "none" };
+                // -------------------------
+                Optimize_ItemSource = new List<string>()
+                {
+                    "none"
+                };
 
-                // Populate ComboBox from ItemSource
-                mainwindow.cboOptimize.ItemsSource = OptimizeItemSource;
-
-                // Select Item
-                mainwindow.cboOptimize.SelectedItem = "none";
-
-                // Enable Control
-                mainwindow.cboOptimize.IsEnabled = false;
-
-
-                // --------------------------------------------------
-                // Size
-                // --------------------------------------------------
-                // Scaling
-                mainwindow.cboScaling.IsEnabled = false;
+                ChangeItemSource(
+                    mainwindow,
+                    mainwindow.cboOptimize, // ComboBox
+                    Optimize_ItemSource, // New Items List
+                    "none"); // Selected Item
 
 
                 // --------------------------------------------------
-                // Speed
+                // Controls
                 // --------------------------------------------------
-                // Controlled through Video Quality ComboBox
+                // -------------------------
+                // Enabled
+                // -------------------------
+                List<Control> Controls_Enabled = new List<Control>()
+                {
+                    // Video Quality ComboBox
+                    mainwindow.cboVideoQuality,
+                };
+
+                // Enable
+                for (int i = 0; i < Controls_Enabled.Count; i++)
+                {
+                    Controls_Enabled[i].IsEnabled = true;
+                }
+
+                // -------------------------
+                // Disabled
+                // -------------------------
+                List<Control> Controls_Disabled = new List<Control>()
+                {
+                    // Speed ComboBox
+                    mainwindow.cboSpeed,
+                    // CRF Custom Textbox
+                    mainwindow.crfCustom,
+                    // Pass ComboBox
+                    mainwindow.cboPass,
+                    // FPS ComboBox
+                    mainwindow.cboFPS,
+                    // Optimize ComboBox
+                    mainwindow.cboOptimize,
+                    // Scaling ComboBox
+                    mainwindow.cboScaling
+                };
+
+                // Disable
+                for (int i = 0; i < Controls_Disabled.Count; i++)
+                {
+                    Controls_Disabled[i].IsEnabled = false;
+                }
             }
 
             // --------------------------------------------------
@@ -1340,82 +1266,98 @@ namespace Axiom
                 // -------------------------
                 // Video
                 // -------------------------
-                // Get Previous Item
-                previousItem = (string)mainwindow.cboVideo.SelectedItem;
-
+                // -------------------------
                 // Change ItemSource
-                VideoItemSource = new List<string>() { "None" };
+                // -------------------------
+                List<string> VideoQuality_ItemSource = new List<string>()
+                {
+                    "None"
+                };
 
-                // Populate ComboBox from ItemSource
-                mainwindow.cboVideo.ItemsSource = VideoItemSource;
-
-                // Select Item
-                mainwindow.cboVideo.SelectedItem = "None";
-
-                // Enable Video Quality
-                mainwindow.cboVideo.IsEnabled = false;
-
-                // Disable CRF
-                mainwindow.crfCustom.IsEnabled = false;
-
-                // Enable FPS
-                mainwindow.cboFPS.IsEnabled = false;
-
-                //// Pixel Format
-                //mainwindow.cboPixelFormat.IsEnabled = false;
-                //mainwindow.cboPixelFormat.SelectedItem = "auto";
+                ChangeItemSource(
+                    mainwindow,
+                    mainwindow.cboVideoQuality, // ComboBox
+                    VideoQuality_ItemSource, // New Items List
+                    "None"); // Selected Item
 
 
                 // --------------------------------------------------
                 // Pass
                 // --------------------------------------------------
-                // Get Previous Item
-                previousItem = (string)mainwindow.cboPass.SelectedItem;
-
+                // -------------------------
                 // Change ItemSource
-                PassItemSource = new List<string>() { "auto" };
+                // -------------------------
+                Pass_ItemSource = new List<string>()
+                {
+                    "auto"
+                };
 
-                // Populate ComboBox from ItemSource
-                mainwindow.cboPass.ItemsSource = PassItemSource;
-
-                // Select Item
-                mainwindow.cboPass.SelectedItem = "auto";
-
-                // Disable Control
-                mainwindow.cboPass.IsEnabled = false;
+                ChangeItemSource(
+                    mainwindow,
+                    mainwindow.cboPass, // ComboBox
+                    Pass_ItemSource, // New Items List
+                    "auto"); // Selected Item
 
 
                 // --------------------------------------------------
                 // Optimize
                 // --------------------------------------------------
-                // Get Previous Item
-                previousItem = (string)mainwindow.cboOptimize.SelectedItem;
-
+                // -------------------------
                 // Change ItemSource
-                OptimizeItemSource = new List<string>() { "none" };
+                // -------------------------
+                Optimize_ItemSource = new List<string>()
+                {
+                    "none"
+                };
 
-                // Populate ComboBox from ItemSource
-                mainwindow.cboOptimize.ItemsSource = OptimizeItemSource;
-
-                // Select Item
-                mainwindow.cboOptimize.SelectedItem = "none";
-
-                // Enable Control
-                mainwindow.cboOptimize.IsEnabled = false;
+                ChangeItemSource(
+                    mainwindow,
+                    mainwindow.cboOptimize, // ComboBox
+                    Optimize_ItemSource, // New Items List
+                    "none"); // Selected Item
 
 
                 // --------------------------------------------------
-                // Speed
+                // Controls
                 // --------------------------------------------------
-                // Controlled through Video Quality ComboBox
-                mainwindow.cboSpeed.IsEnabled = false;
+                // -------------------------
+                // Enabled
+                // -------------------------
+                // None
+
+                // -------------------------
+                // Disabled
+                // -------------------------
+                List<Control> Controls_Disabled = new List<Control>()
+                {
+                    // Video Quality ComboBox
+                    mainwindow.cboVideoQuality,
+                    // Speed ComboBox
+                    mainwindow.cboSpeed,
+                    // CRF Custom Textbox
+                    mainwindow.crfCustom,
+                    // Pass ComboBox
+                    mainwindow.cboPass,
+                    // FPS ComboBox
+                    mainwindow.cboFPS,
+                    // Optimize ComboBox
+                    mainwindow.cboOptimize,
+                    // Scaling ComboBox
+                    mainwindow.cboScaling
+                };
+
+                // Disable
+                for (int i = 0; i < Controls_Disabled.Count; i++)
+                {
+                    Controls_Disabled[i].IsEnabled = false;
+                }
             }
 
 
             // If Video ComboBox Null, Select Default Auto
-            else if (string.IsNullOrEmpty((string)mainwindow.cboVideo.SelectedItem))
+            else if (string.IsNullOrEmpty((string)mainwindow.cboVideoQuality.SelectedItem))
             {
-                mainwindow.cboVideo.SelectedIndex = 0;
+                mainwindow.cboVideoQuality.SelectedIndex = 0;
             }
 
         } // End Video Codec Controls 
@@ -1433,7 +1375,7 @@ namespace Axiom
                 // Select Copy - Single
                 // -------------------------
                 // Input Extension is Same as Output Extension and Video Quality is Auto
-                if ((string)mainwindow.cboVideo.SelectedItem == "Auto"
+                if ((string)mainwindow.cboVideoQuality.SelectedItem == "Auto"
                     && (string)mainwindow.cboSize.SelectedItem == "Source"
                     && string.IsNullOrEmpty(CropWindow.crop)
                     && (string)mainwindow.cboFPS.SelectedItem == "auto"
@@ -1456,9 +1398,9 @@ namespace Axiom
                     // -------------------------
                     // Set Video Codec Combobox Selected Item to Copy
                     // -------------------------
-                    if (VideoCodecItemSource.Count > 0)
+                    if (VideoCodec_ItemSource.Count > 0)
                     {
-                        if (VideoCodecItemSource.Contains("Copy"))
+                        if (VideoCodec_ItemSource.Contains("Copy"))
                         {
                             mainwindow.cboVideoCodec.SelectedItem = "Copy";
 
@@ -1470,7 +1412,7 @@ namespace Axiom
                 // -------------------------
                 // Select Copy - Batch
                 // -------------------------
-                else if ((string)mainwindow.cboVideo.SelectedItem == "Auto"
+                else if ((string)mainwindow.cboVideoQuality.SelectedItem == "Auto"
                     && (string)mainwindow.cboSize.SelectedItem == "Source"
                     && string.IsNullOrEmpty(CropWindow.crop)
                     && (string)mainwindow.cboFPS.SelectedItem == "auto"
@@ -1494,9 +1436,9 @@ namespace Axiom
                     // -------------------------
                     // Set Video Codec Combobox Selected Item to Copy
                     // -------------------------
-                    if (VideoCodecItemSource.Count > 0)
+                    if (VideoCodec_ItemSource.Count > 0)
                     {
-                        if (VideoCodecItemSource.Contains("Copy"))
+                        if (VideoCodec_ItemSource.Contains("Copy"))
                         {
                             mainwindow.cboVideoCodec.SelectedItem = "Copy";
 
@@ -1522,7 +1464,7 @@ namespace Axiom
                     // -------------------------
                     // Null Check
                     // -------------------------
-                    if (!string.IsNullOrEmpty((string)mainwindow.cboVideo.SelectedItem))
+                    if (!string.IsNullOrEmpty((string)mainwindow.cboVideoQuality.SelectedItem))
                     {
                         // -------------------------
                         // Copy Selected
@@ -1607,7 +1549,7 @@ namespace Axiom
                 // Select Copy - Single
                 // -------------------------
                 // Input Extension is Same as Output Extension and Subtitle Quality is Auto
-                if ((string)mainwindow.cboVideo.SelectedItem == "Auto"
+                if ((string)mainwindow.cboVideoQuality.SelectedItem == "Auto"
                     && (string)mainwindow.cboSize.SelectedItem == "Source"
                     && string.IsNullOrEmpty(CropWindow.crop)
                     && (string)mainwindow.cboFPS.SelectedItem == "auto"
@@ -1628,11 +1570,11 @@ namespace Axiom
                     //mainwindow.cboSubtitleCodec.ItemsSource = SubtitleCodecItemSource;
 
                     // -------------------------
-                    // Set Video Codec Combobox Selected Item to Copy
+                    // Set Subtitle Codec Combobox Selected Item to Copy
                     // -------------------------
-                    if (SubtitleCodecItemSource.Count > 0)
+                    if (SubtitleCodec_ItemSource.Count > 0)
                     {
-                        if (SubtitleCodecItemSource.Contains("Copy"))
+                        if (SubtitleCodec_ItemSource.Contains("Copy"))
                         {
                             mainwindow.cboSubtitleCodec.SelectedItem = "Copy";
 
@@ -1644,7 +1586,7 @@ namespace Axiom
                 // -------------------------
                 // Select Copy - Batch
                 // -------------------------
-                else if ((string)mainwindow.cboVideo.SelectedItem == "Auto"
+                else if ((string)mainwindow.cboVideoQuality.SelectedItem == "Auto"
                     && (string)mainwindow.cboSize.SelectedItem == "Source"
                     && string.IsNullOrEmpty(CropWindow.crop)
                     && (string)mainwindow.cboFPS.SelectedItem == "auto"
@@ -1668,9 +1610,9 @@ namespace Axiom
                     // -------------------------
                     // Set Video Codec Combobox Selected Item to Copy
                     // -------------------------
-                    if (SubtitleCodecItemSource.Count > 0)
+                    if (SubtitleCodec_ItemSource.Count > 0)
                     {
-                        if (SubtitleCodecItemSource.Contains("Copy"))
+                        if (SubtitleCodec_ItemSource.Contains("Copy"))
                         {
                             mainwindow.cboSubtitleCodec.SelectedItem = "Copy";
 
@@ -1782,25 +1724,25 @@ namespace Axiom
                 // Lossless is VBR -q:v 2
                 // VBR can only be 1 Pass
                 // -------------------------
-                if ((string)mainwindow.cboVideo.SelectedItem == "Lossless")
+                if ((string)mainwindow.cboVideoQuality.SelectedItem == "Lossless")
                 {
                     // Change ItemSource
-                    PassItemSource = new List<string>()
+                    Pass_ItemSource = new List<string>()
                     {
                         "1 Pass",
                     };
 
                     //Change Item Source
-                    if (PassItemSource.Count > 0)
+                    if (Pass_ItemSource.Count > 0)
                     {
-                        PassItemSource.Clear();
+                        Pass_ItemSource.Clear();
                     }
 
                     //Pass_ItemSource.ForEach(ViewModel._cboVideoPass_Items.Add);
 
-                    for (int i = 0; i < PassItemSource.Count; i++)
+                    for (int i = 0; i < Pass_ItemSource.Count; i++)
                     {
-                        PassItemSource.Add(PassItemSource[i]);
+                        Pass_ItemSource.Add(Pass_ItemSource[i]);
                     }
 
                     // Select Item
@@ -1814,14 +1756,14 @@ namespace Axiom
                 else
                 {
                     // Change ItemSource
-                    PassItemSource = new List<string>()
+                    Pass_ItemSource = new List<string>()
                     {
                         "1 Pass",
                         "2 Pass",
                     };
 
                     // Populate ComboBox from ItemSource
-                    mainwindow.cboPass.ItemsSource = PassItemSource;
+                    mainwindow.cboPass.ItemsSource = Pass_ItemSource;
                 }
             }
         }
@@ -1835,7 +1777,7 @@ namespace Axiom
             // -------------------------
             // Encoding Pass ComboBox Custom
             // -------------------------
-            if ((string)mainwindow.cboVideo.SelectedItem == "Custom")
+            if ((string)mainwindow.cboVideoQuality.SelectedItem == "Custom")
             {
                 // -------------------------
                 // Disable CRF TextBox if 1 Pass or 2-Pass
@@ -1871,7 +1813,7 @@ namespace Axiom
             // -------------------------
             // Encoding Pass ComboBox - Auto
             // -------------------------
-            if ((string)mainwindow.cboVideo.SelectedItem == "Auto")
+            if ((string)mainwindow.cboVideoQuality.SelectedItem == "Auto")
             {
                 // -------------------------
                 // // If Auto Disable 2-Pass Always
@@ -1898,7 +1840,7 @@ namespace Axiom
             // -------------------------
             // Encoding Pass ComboBox - Not Auto
             // -------------------------
-            else if ((string)mainwindow.cboVideo.SelectedItem != "Auto")
+            else if ((string)mainwindow.cboVideoQuality.SelectedItem != "Auto")
             {
                 mainwindow.cboPass.IsEnabled = true;
             }
@@ -1925,7 +1867,7 @@ namespace Axiom
                     mainwindow.cboPixelFormat.IsEnabled = true;
 
                     // Lossless
-                    if ((string)mainwindow.cboVideo.SelectedItem == "Lossless")
+                    if ((string)mainwindow.cboVideoQuality.SelectedItem == "Lossless")
                     {
                         mainwindow.cboPixelFormat.SelectedItem = "yuv444p";
                     }
@@ -1962,7 +1904,6 @@ namespace Axiom
             // --------------------------------------------------
             // Optimize ComboBox Items
             // --------------------------------------------------
-
             // -------------------------
             // x264
             // -------------------------
@@ -1973,8 +1914,7 @@ namespace Axiom
                 // -------------------------
                 // Tune
                 // -------------------------
-
-                OptimizeTuneItemSource = new List<string>()
+                Optimize_Tune_ItemSource = new List<string>()
                 {
                     "none",
                     "film",
@@ -1988,7 +1928,7 @@ namespace Axiom
                 // -------------------------
                 // Profile
                 // -------------------------
-                OptimizeProfileItemSource = new List<string>()
+                Optimize_Profile_ItemSource = new List<string>()
                 {
                     "none",
                     "baseline",
@@ -1999,7 +1939,7 @@ namespace Axiom
                 // -------------------------
                 // Level
                 // -------------------------
-                OptimizeLevelItemSource = new List<string>()
+                Optimize_Level_ItemSource = new List<string>()
                 {
                     "none",
                     "1.0",
@@ -2031,7 +1971,7 @@ namespace Axiom
                 // -------------------------
                 // Tune
                 // -------------------------
-                OptimizeTuneItemSource = new List<string>()
+                Optimize_Tune_ItemSource = new List<string>()
                 {
                     "none",
                     "psnr",
@@ -2044,7 +1984,7 @@ namespace Axiom
                 // -------------------------
                 // Profile
                 // -------------------------
-                OptimizeProfileItemSource = new List<string>()
+                Optimize_Profile_ItemSource = new List<string>()
                 {
                     "none",
                     "main",
@@ -2069,7 +2009,7 @@ namespace Axiom
                 // -------------------------
                 // Level
                 // -------------------------
-                OptimizeLevelItemSource = new List<string>()
+                Optimize_Level_ItemSource = new List<string>()
                 {
                     "none",
                     "1",
@@ -2099,7 +2039,7 @@ namespace Axiom
                 // -------------------------
                 // Tune
                 // -------------------------
-                OptimizeTuneItemSource = new List<string>()
+                Optimize_Tune_ItemSource = new List<string>()
                 {
                     "none"
                 };
@@ -2107,7 +2047,7 @@ namespace Axiom
                 // -------------------------
                 // Profile
                 // -------------------------
-                OptimizeProfileItemSource = new List<string>()
+                Optimize_Profile_ItemSource = new List<string>()
                 {
                     "none"
                 };
@@ -2115,7 +2055,7 @@ namespace Axiom
                 // -------------------------
                 // Level
                 // -------------------------
-                OptimizeLevelItemSource = new List<string>()
+                Optimize_Level_ItemSource = new List<string>()
                 {
                     "none"
                 };
@@ -2124,9 +2064,9 @@ namespace Axiom
             // -------------------------
             // Populate Optimize Tune, Profile, Level ComboBox from ItemSource
             // -------------------------
-            mainwindow.cboOptTune.ItemsSource = OptimizeTuneItemSource;
-            mainwindow.cboOptProfile.ItemsSource = OptimizeProfileItemSource;
-            mainwindow.cboOptLevel.ItemsSource = OptimizeLevelItemSource;
+            mainwindow.cboOptTune.ItemsSource = Optimize_Tune_ItemSource;
+            mainwindow.cboOptProfile.ItemsSource = Optimize_Profile_ItemSource;
+            mainwindow.cboOptLevel.ItemsSource = Optimize_Level_ItemSource;
 
             mainwindow.cboOptTune.SelectedIndex = 0;
             mainwindow.cboOptProfile.SelectedIndex = 0;
@@ -2349,53 +2289,58 @@ namespace Axiom
             // -------------------------
             if ((string)mainwindow.cboMediaType.SelectedItem == "Video")
             {
+                // -------------------------
                 // None
-                //
+                // -------------------------
                 if ((string)mainwindow.cboSubtitle.SelectedItem == "none")
                 {
                     mainwindow.cboSubtitleCodec.SelectedItem = "None";
                     mainwindow.cboSubtitleCodec.IsEnabled = false;
                 }
 
+                // -------------------------
                 // All, External, & Stream Number
-                //
+                // -------------------------
                 else
                 {
                     // Formats
 
-                    // WebM
-                    if ((string)mainwindow.cboFormat.SelectedItem == "webm")
+                    if ((string)mainwindow.cboSubtitleCodec.SelectedItem != "Burn") // Ignore if Burn
                     {
-                        mainwindow.cboSubtitleCodec.SelectedItem = "None";
-                        mainwindow.cboSubtitleCodec.IsEnabled = false;
-                    }
+                        // WebM
+                        if ((string)mainwindow.cboFormat.SelectedItem == "webm")
+                        {
+                            mainwindow.cboSubtitleCodec.SelectedItem = "None";
+                            mainwindow.cboSubtitleCodec.IsEnabled = false;
+                        }
 
-                    // MP4
-                    else if ((string)mainwindow.cboFormat.SelectedItem == "mp4")
-                    {
-                        mainwindow.cboSubtitleCodec.SelectedItem = "mov_text";
-                        mainwindow.cboSubtitleCodec.IsEnabled = true;
-                    }
+                        // MP4
+                        else if ((string)mainwindow.cboFormat.SelectedItem == "mp4")
+                        {
+                            mainwindow.cboSubtitleCodec.SelectedItem = "mov_text";
+                            mainwindow.cboSubtitleCodec.IsEnabled = true;
+                        }
 
-                    // MKV
-                    else if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
-                    {
-                        mainwindow.cboSubtitleCodec.SelectedItem = "Copy";
-                        mainwindow.cboSubtitleCodec.IsEnabled = true;
-                    }
+                        // MKV
+                        else if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
+                        {
+                            mainwindow.cboSubtitleCodec.SelectedItem = "Copy";
+                            mainwindow.cboSubtitleCodec.IsEnabled = true;
+                        }
 
-                    // AVI
-                    else if ((string)mainwindow.cboFormat.SelectedItem == "avi")
-                    {
-                        mainwindow.cboSubtitleCodec.SelectedItem = "SRT";
-                        mainwindow.cboSubtitleCodec.IsEnabled = true;
-                    }
+                        // AVI
+                        else if ((string)mainwindow.cboFormat.SelectedItem == "avi")
+                        {
+                            mainwindow.cboSubtitleCodec.SelectedItem = "SRT";
+                            mainwindow.cboSubtitleCodec.IsEnabled = true;
+                        }
 
-                    // OGV
-                    else if ((string)mainwindow.cboFormat.SelectedItem == "ogv")
-                    {
-                        mainwindow.cboSubtitleCodec.SelectedItem = "None";
-                        mainwindow.cboSubtitleCodec.IsEnabled = false;
+                        // OGV
+                        else if ((string)mainwindow.cboFormat.SelectedItem == "ogv")
+                        {
+                            mainwindow.cboSubtitleCodec.SelectedItem = "None";
+                            mainwindow.cboSubtitleCodec.IsEnabled = false;
+                        }
                     }
                 }
             }
@@ -2416,6 +2361,6 @@ namespace Axiom
                 mainwindow.cboSubtitleCodec.SelectedItem = "None";
                 mainwindow.cboSubtitleCodec.IsEnabled = false;
             }
-        }
+         }
     }
 }

@@ -55,15 +55,15 @@ namespace Axiom
         /// <summary>
         /// Clear RichTextBox
         /// </summary>
-        public static void ClearRichTextBox(MainWindow mainwindow)
-        {
-            // Clear Old Text
-            mainwindow.rtbScriptView.Document = new FlowDocument(scriptParagraph);
-            mainwindow.rtbScriptView.BeginChange();
-            mainwindow.rtbScriptView.SelectAll();
-            mainwindow.rtbScriptView.Selection.Text = "";
-            mainwindow.rtbScriptView.EndChange();
-        }
+        //public static void ClearRichTextBox(MainWindow mainwindow)
+        //{
+        //    // Clear Old Text
+        //    mainwindow.rtbScriptView.Document = new FlowDocument(scriptParagraph);
+        //    mainwindow.rtbScriptView.BeginChange();
+        //    mainwindow.rtbScriptView.SelectAll();
+        //    mainwindow.rtbScriptView.Selection.Text = "";
+        //    mainwindow.rtbScriptView.EndChange();
+        //}
 
     }
 }

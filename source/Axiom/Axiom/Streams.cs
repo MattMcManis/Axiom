@@ -201,130 +201,133 @@ namespace Axiom
             // --------------------------------------------------------------------
             // Subtitle Map
             // --------------------------------------------------------------------
-            // -------------------------
-            // None
-            // -------------------------
-            if ((string)mainwindow.cboSubtitle.SelectedItem == "none")
-            {
-                sMap = "-sn";
-            }
-            // -------------------------
-            // External
-            // -------------------------
-            else if ((string)mainwindow.cboSubtitle.SelectedItem == "external")
+
+            if ((string)mainwindow.cboSubtitleCodec.SelectedItem != "Burn") // Ignore if Burn
             {
                 // -------------------------
-                // Map
+                // None
                 // -------------------------
-                List<string> subtitleMapsList = new List<string>();
-
-                if (Video.subtitleFilePathsList.Count > 0)
-                {
-                    // Give each Subtitle File it's own map
-                    for (var i = 0; i < Video.subtitleFilePathsList.Count; i++)
-                    {
-                        subtitleMapsList.Add("-map " + (i + 1).ToString() + ":s?");
-                    }
-                }
-
-                // Join multiple maps: -map 1:s? -map 2:s? -map 3:s?
-                sMap = string.Join(" ", subtitleMapsList.Where(s => !string.IsNullOrEmpty(s)));
-
-
-                // -------------------------
-                // Default Subtitle
-                // -------------------------
-                string checkedItem = string.Empty;
-                for (var i = 0; i < mainwindow.listViewSubtitles.Items.Count; i++)
-                {
-                    // If list contains a checked item
-                    if (mainwindow.listViewSubtitles.SelectedItems.Contains(mainwindow.listViewSubtitles.Items[i]))
-                    {
-                        // Get Index Position
-                        checkedItem = i.ToString();
-                    }
-                }
-
-                // Create Default Subtitle
-                string disposition = string.Empty;
-                if (!string.IsNullOrEmpty(checkedItem))
-                {
-                    disposition = " \r\n-disposition:s:" + checkedItem + " default";
-                }
-
-                // Combine Map + Default
-                sMap = sMap + disposition;
-            }
-            //
-            // -------------------------
-            // All
-            // -------------------------
-            else if ((string)mainwindow.cboSubtitle.SelectedItem == "all")
-            {
-                // Formats
-                //
-                if ((string)mainwindow.cboFormat.SelectedItem == "webm")
-                {
-                    sMap = "-sn"; // no subtitles for webm
-                }
-                else if ((string)mainwindow.cboFormat.SelectedItem == "mp4")
-                {
-                    sMap = "-map 0:s?"; // all subtitles (:? at the end ignores error if subtitle is not available)
-                }
-                else if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
-                {
-                    sMap = "-map 0:s?"; // all subtitles
-                }
-                else if ((string)mainwindow.cboFormat.SelectedItem == "avi")
-                {
-                    sMap = "-map 0:s?"; // all subtitles
-                }
-                else if ((string)mainwindow.cboFormat.SelectedItem == "ogv")
-                {
-                    sMap = "-map 0:s?"; // all subtitles, OGV has problem using Subtitles
-                }
-                else if ((string)mainwindow.cboFormat.SelectedItem == "jpg")
-                {
-                    sMap = "-sn"; // disable subtitles
-                }
-                else if ((string)mainwindow.cboFormat.SelectedItem == "png")
-                {
-                    sMap = "-sn"; // disable subtitles
-                }
-                // Non-Video/Image Formats
-                //
-                else
-                {
-                    sMap = "-sn"; // disable subtitles
-                }
-            }
-            // -------------------------
-            // Number
-            // -------------------------
-            else
-            {
-                // Subtract 1, Map starts at 0
-                int sMapNumber = Int32.Parse(mainwindow.cboSubtitle.SelectedItem.ToString()) - 1;
-
-                sMap = "-map 1:s:" + sMapNumber + "?";
-
-                // Image
-                if ((string)mainwindow.cboFormat.SelectedItem == "jpg"
-                    || (string)mainwindow.cboFormat.SelectedItem == "png")
+                if ((string)mainwindow.cboSubtitle.SelectedItem == "none")
                 {
                     sMap = "-sn";
                 }
-            }
+                // -------------------------
+                // External
+                // -------------------------
+                else if ((string)mainwindow.cboSubtitle.SelectedItem == "external")
+                {
+                    // -------------------------
+                    // Map
+                    // -------------------------
+                    List<string> subtitleMapsList = new List<string>();
 
-            // -------------------------
-            // Remove Subtitle Map if Input File is Audio Format
-            // -------------------------
-            if (Format.AudioFormats.Any(s => s.Equals(MainWindow.inputExt, StringComparison.OrdinalIgnoreCase))
-                || Format.AudioFormats.Any(s => s.Equals(MainWindow.batchExt, StringComparison.OrdinalIgnoreCase)))
-            {
-                sMap = string.Empty;
-            }
+                    if (Video.subtitleFilePathsList.Count > 0)
+                    {
+                        // Give each Subtitle File it's own map
+                        for (var i = 0; i < Video.subtitleFilePathsList.Count; i++)
+                        {
+                            subtitleMapsList.Add("-map " + (i + 1).ToString() + ":s?");
+                        }
+                    }
 
+                    // Join multiple maps: -map 1:s? -map 2:s? -map 3:s?
+                    sMap = string.Join(" ", subtitleMapsList.Where(s => !string.IsNullOrEmpty(s)));
+
+
+                    // -------------------------
+                    // Default Subtitle
+                    // -------------------------
+                    string checkedItem = string.Empty;
+                    for (var i = 0; i < mainwindow.listViewSubtitles.Items.Count; i++)
+                    {
+                        // If list contains a checked item
+                        if (mainwindow.listViewSubtitles.SelectedItems.Contains(mainwindow.listViewSubtitles.Items[i]))
+                        {
+                            // Get Index Position
+                            checkedItem = i.ToString();
+                        }
+                    }
+
+                    // Create Default Subtitle
+                    string disposition = string.Empty;
+                    if (!string.IsNullOrEmpty(checkedItem))
+                    {
+                        disposition = " \r\n-disposition:s:" + checkedItem + " default";
+                    }
+
+                    // Combine Map + Default
+                    sMap = sMap + disposition;
+                }
+                //
+                // -------------------------
+                // All
+                // -------------------------
+                else if ((string)mainwindow.cboSubtitle.SelectedItem == "all")
+                {
+                    // Formats
+                    //
+                    if ((string)mainwindow.cboFormat.SelectedItem == "webm")
+                    {
+                        sMap = "-sn"; // no subtitles for webm
+                    }
+                    else if ((string)mainwindow.cboFormat.SelectedItem == "mp4")
+                    {
+                        sMap = "-map 0:s?"; // all subtitles (:? at the end ignores error if subtitle is not available)
+                    }
+                    else if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
+                    {
+                        sMap = "-map 0:s?"; // all subtitles
+                    }
+                    else if ((string)mainwindow.cboFormat.SelectedItem == "avi")
+                    {
+                        sMap = "-map 0:s?"; // all subtitles
+                    }
+                    else if ((string)mainwindow.cboFormat.SelectedItem == "ogv")
+                    {
+                        sMap = "-map 0:s?"; // all subtitles, OGV has problem using Subtitles
+                    }
+                    else if ((string)mainwindow.cboFormat.SelectedItem == "jpg")
+                    {
+                        sMap = "-sn"; // disable subtitles
+                    }
+                    else if ((string)mainwindow.cboFormat.SelectedItem == "png")
+                    {
+                        sMap = "-sn"; // disable subtitles
+                    }
+                    // Non-Video/Image Formats
+                    //
+                    else
+                    {
+                        sMap = "-sn"; // disable subtitles
+                    }
+                }
+                // -------------------------
+                // Number
+                // -------------------------
+                else
+                {
+                    // Subtract 1, Map starts at 0
+                    int sMapNumber = Int32.Parse(mainwindow.cboSubtitle.SelectedItem.ToString()) - 1;
+
+                    sMap = "-map 1:s:" + sMapNumber + "?";
+
+                    // Image
+                    if ((string)mainwindow.cboFormat.SelectedItem == "jpg"
+                        || (string)mainwindow.cboFormat.SelectedItem == "png")
+                    {
+                        sMap = "-sn";
+                    }
+                }
+
+                // -------------------------
+                // Remove Subtitle Map if Input File is Audio Format
+                // -------------------------
+                if (Format.AudioFormats.Any(s => s.Equals(MainWindow.inputExt, StringComparison.OrdinalIgnoreCase))
+                    || Format.AudioFormats.Any(s => s.Equals(MainWindow.batchExt, StringComparison.OrdinalIgnoreCase)))
+                {
+                    sMap = string.Empty;
+                }
+            }
 
             // Log Console Message /////////
             Log.WriteAction = () =>
@@ -335,7 +338,6 @@ namespace Axiom
             };
             Log.LogActions.Add(Log.WriteAction);
 
-
             // --------------------------------------------------------------------
             // Combine Maps
             // --------------------------------------------------------------------
@@ -343,7 +345,6 @@ namespace Axiom
             List<string> mapList = new List<string>() { sMap };
             // Join List with Spaces, Remove Empty Strings
             string map = string.Join(" ", mapList.Where(s => !string.IsNullOrEmpty(s)));
-
 
             // Return Value
             return map;
@@ -436,7 +437,7 @@ namespace Axiom
             // -------------------------
             // Mute
             // -------------------------
-            if ((string)mainwindow.cboAudio.SelectedItem == "Mute")
+            if ((string)mainwindow.cboAudioQuality.SelectedItem == "Mute")
             {
                 aMap = "-an";
             }

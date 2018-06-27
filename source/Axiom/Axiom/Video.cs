@@ -169,7 +169,7 @@ namespace Axiom
             // Video None Check
             // Video Codec None Check
             // Media Type Check
-            if ((string)mainwindow.cboVideo.SelectedItem != "None"
+            if ((string)mainwindow.cboVideoQuality.SelectedItem != "None"
                 && (string)mainwindow.cboVideoCodec.SelectedItem != "None"
                 && (string)mainwindow.cboMediaType.SelectedItem != "Audio")
             {
@@ -319,7 +319,7 @@ namespace Axiom
             // Subtitle none -sn Check
             // Subtitle Codec None Check
             // Media Type Check
-            if ((string)mainwindow.cboVideo.SelectedItem != "None"
+            if ((string)mainwindow.cboVideoQuality.SelectedItem != "None"
                 && (string)mainwindow.cboSubtitle.SelectedItem != "none"
                 && (string)mainwindow.cboSubtitleCodec.SelectedItem != "None"
                 && (string)mainwindow.cboMediaType.SelectedItem != "Audio")
@@ -574,7 +574,7 @@ namespace Axiom
             // Video Codec None Check
             // Codec Copy Check
             // Media Type Check
-            if ((string)mainwindow.cboVideo.SelectedItem != "None"
+            if ((string)mainwindow.cboVideoQuality.SelectedItem != "None"
                 && (string)mainwindow.cboVideoCodec.SelectedItem != "None"
                 && (string)mainwindow.cboVideoCodec.SelectedItem != "Copy"
                 && (string)mainwindow.cboMediaType.SelectedItem != "Audio")
@@ -585,7 +585,7 @@ namespace Axiom
                     // -------------------------
                     // Video Auto Bitrates
                     // -------------------------
-                    if ((string)mainwindow.cboVideo.SelectedItem == "Auto")
+                    if ((string)mainwindow.cboVideoQuality.SelectedItem == "Auto")
                     {
                         // Make List
                         List<string> BatchVideoAutoList = new List<string>()
@@ -633,7 +633,7 @@ namespace Axiom
             // Video Codec None Check
             // Codec Copy Check
             // Media Type Check
-            if ((string)mainwindow.cboVideo.SelectedItem != "None"
+            if ((string)mainwindow.cboVideoQuality.SelectedItem != "None"
                 && (string)mainwindow.cboVideoCodec.SelectedItem != "None"
                 && (string)mainwindow.cboVideoCodec.SelectedItem != "Copy"
                 && (string)mainwindow.cboMediaType.SelectedItem != "Audio")
@@ -648,14 +648,14 @@ namespace Axiom
                 {
                     Log.logParagraph.Inlines.Add(new LineBreak());
                     Log.logParagraph.Inlines.Add(new Bold(new Run("Quality: ")) { Foreground = Log.ConsoleDefault });
-                    Log.logParagraph.Inlines.Add(new Run(Convert.ToString(mainwindow.cboVideo.SelectedItem)) { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new Run(Convert.ToString(mainwindow.cboVideoQuality.SelectedItem)) { Foreground = Log.ConsoleDefault });
                 };
                 Log.LogActions.Add(Log.WriteAction);
 
                 // -------------------------
                 // Auto
                 // -------------------------
-                if ((string)mainwindow.cboVideo.SelectedItem == "Auto")
+                if ((string)mainwindow.cboVideoQuality.SelectedItem == "Auto")
                 {
                     // -------------------------
                     // Single
@@ -859,7 +859,7 @@ namespace Axiom
                 // -------------------------
                 // Lossless
                 // -------------------------
-                else if ((string)mainwindow.cboVideo.SelectedItem == "Lossless")
+                else if ((string)mainwindow.cboVideoQuality.SelectedItem == "Lossless")
                 {
                     // VP8 cannot be Lossless
 
@@ -967,7 +967,7 @@ namespace Axiom
                 // -------------------------
                 // Ultra
                 // -------------------------
-                else if ((string)mainwindow.cboVideo.SelectedItem == "Ultra")
+                else if ((string)mainwindow.cboVideoQuality.SelectedItem == "Ultra")
                 {
                     // -------------------------
                     // VP8
@@ -1127,7 +1127,7 @@ namespace Axiom
                 // -------------------------
                 // High
                 // -------------------------
-                else if ((string)mainwindow.cboVideo.SelectedItem == "High")
+                else if ((string)mainwindow.cboVideoQuality.SelectedItem == "High")
                 {
                     // -------------------------
                     // VP8
@@ -1287,7 +1287,7 @@ namespace Axiom
                 // -------------------------
                 // Medium
                 // -------------------------
-                else if ((string)mainwindow.cboVideo.SelectedItem == "Medium")
+                else if ((string)mainwindow.cboVideoQuality.SelectedItem == "Medium")
                 {
                     // -------------------------
                     // VP8
@@ -1447,7 +1447,7 @@ namespace Axiom
                 // -------------------------
                 // Low
                 // -------------------------
-                else if ((string)mainwindow.cboVideo.SelectedItem == "Low")
+                else if ((string)mainwindow.cboVideoQuality.SelectedItem == "Low")
                 {
                     // -------------------------
                     // VP8
@@ -1607,7 +1607,7 @@ namespace Axiom
                 // -------------------------
                 // Sub
                 // -------------------------
-                else if ((string)mainwindow.cboVideo.SelectedItem == "Sub")
+                else if ((string)mainwindow.cboVideoQuality.SelectedItem == "Sub")
                 {
                     // -------------------------
                     // VP8
@@ -1767,7 +1767,7 @@ namespace Axiom
                 // -------------------------
                 // Custom
                 // -------------------------
-                else if ((string)mainwindow.cboVideo.SelectedItem == "Custom")
+                else if ((string)mainwindow.cboVideoQuality.SelectedItem == "Custom")
                 {
                     // -------------------------
                     // Bitrate
@@ -1873,7 +1873,7 @@ namespace Axiom
                 // -------------------------
                 // None
                 // -------------------------
-                else if ((string)mainwindow.cboVideo.SelectedItem == "None")
+                else if ((string)mainwindow.cboVideoQuality.SelectedItem == "None")
                 {
                     crf = string.Empty;
                     vBitMode = string.Empty;
@@ -2643,7 +2643,7 @@ namespace Axiom
             // Video Codec None Check
             // Codec Copy Check
             // Media Type Check
-            if ((string)mainwindow.cboVideo.SelectedItem != "None"
+            if ((string)mainwindow.cboVideoQuality.SelectedItem != "None"
                 && (string)mainwindow.cboVideoCodec.SelectedItem != "None"
                 && (string)mainwindow.cboVideoCodec.SelectedItem != "Copy"
                 && (string)mainwindow.cboMediaType.SelectedItem != "Audio")
@@ -2680,7 +2680,7 @@ namespace Axiom
             // Video Codec None Check
             // Codec Copy Check
             // Media Type Check
-            if ((string)mainwindow.cboVideo.SelectedItem != "None"
+            if ((string)mainwindow.cboVideoQuality.SelectedItem != "None"
                 && (string)mainwindow.cboVideoCodec.SelectedItem != "None"
                 && (string)mainwindow.cboVideoCodec.SelectedItem != "Copy"
                 && (string)mainwindow.cboMediaType.SelectedItem != "Audio")
@@ -2714,6 +2714,7 @@ namespace Axiom
             // External
             // -------------------------
             if ((string)mainwindow.cboSubtitle.SelectedItem == "external"
+                && (string)mainwindow.cboSubtitleCodec.SelectedItem != "Burn" // Ignore if Burn
                 && subtitleFilePathsList != null 
                 && subtitleFilePathsList.Count > 0)
             {
@@ -2727,26 +2728,29 @@ namespace Axiom
 
 
         /// <summary>
-        /// Subtitles Style Filter (Method)
+        /// Subtitles Burn Filter (Method)
         /// <summary>
-        public static void SubtitlesStyleFilter(MainWindow mainwindow)
+        public static void SubtitlesBurnFilter(MainWindow mainwindow)
         {
-            string style = string.Empty;
+            string burn = string.Empty;
 
-            // -------------------------
-            // External
-            // -------------------------
-            if ((string)mainwindow.cboSubtitle.SelectedItem == "external"
+            if ((string)mainwindow.cboSubtitleCodec.SelectedItem == "Burn"
                 && subtitleFileNamesList.Count > 0)
             {
-                //// Join File Names List
+                // Join File Names List
                 //string files = string.Join(",", subtitleFileNamesList.Where(s => !string.IsNullOrEmpty(s)));
 
                 //// Create Subtitles Filter
                 //string subtitles = "subtitles=" + files + ":force_style='FontName=Arial,FontSize=22'" + style;
 
-                //// Add to Filters List
-                //VideoFilters.Add(subtitles);
+                // Get First Subtitle File
+                string file = subtitleFilePathsList.First().Replace("\"", "'");
+
+                // Create Subtitles Filter
+                burn = "subtitles=" + file;
+
+                // Add to Filters List
+                VideoFilters.Add(burn);
             }
         }
 
@@ -2760,7 +2764,7 @@ namespace Axiom
             // Video Codec None Check
             // Codec Copy Check
             // Media Type Check
-            if ((string)mainwindow.cboVideo.SelectedItem != "None"
+            if ((string)mainwindow.cboVideoQuality.SelectedItem != "None"
                 && (string)mainwindow.cboVideoCodec.SelectedItem != "None"
                 && (string)mainwindow.cboVideoCodec.SelectedItem != "Copy"
                 && (string)mainwindow.cboMediaType.SelectedItem != "Audio")
@@ -2902,7 +2906,7 @@ namespace Axiom
             // Video Codec None Check
             // Codec Copy Check
             // Media Type Check
-            if ((string)mainwindow.cboVideo.SelectedItem != "None"
+            if ((string)mainwindow.cboVideoQuality.SelectedItem != "None"
                 && (string)mainwindow.cboVideoCodec.SelectedItem != "None"
                 && (string)mainwindow.cboVideoCodec.SelectedItem != "Copy"
                 && (string)mainwindow.cboMediaType.SelectedItem != "Audio")
@@ -2954,48 +2958,6 @@ namespace Axiom
                 }
 
                 // -------------------------
-                // x265
-                // -------------------------
-                //else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265")
-                //{
-                //    // -------------------------
-                //    // Tune
-                //    // -------------------------
-                //    if ((string)mainwindow.cboOptTune.SelectedItem == "none")
-                //    {
-                //        optTune = string.Empty;
-                //    }
-                //    else
-                //    {
-                //        optTune = "-tune " + mainwindow.cboOptTune.SelectedItem.ToString();
-                //    }
-
-                //    // -------------------------
-                //    // Profile
-                //    // -------------------------
-                //    if ((string)mainwindow.cboOptProfile.SelectedItem == "none")
-                //    {
-                //        optProfile = string.Empty;
-                //    }
-                //    else
-                //    {
-                //        optProfile = "-profile " + mainwindow.cboOptProfile.SelectedItem.ToString();
-                //    }
-
-                //    // -------------------------
-                //    // Level
-                //    // -------------------------
-                //    if ((string)mainwindow.cboOptLevel.SelectedItem == "none")
-                //    {
-                //        optLevel = string.Empty;
-                //    }
-                //    else
-                //    {
-                //        optLevel = "-level " + mainwindow.cboOptLevel.SelectedItem.ToString();
-                //    }
-                //}
-
-                // -------------------------
                 // All Other Codecs
                 // -------------------------
                 else
@@ -3035,7 +2997,7 @@ namespace Axiom
             // Video Codec None Check
             // Codec Copy Check
             // Media Type Check
-            if ((string)mainwindow.cboVideo.SelectedItem != "None"
+            if ((string)mainwindow.cboVideoQuality.SelectedItem != "None"
                 && (string)mainwindow.cboVideoCodec.SelectedItem != "None"
                 && (string)mainwindow.cboVideoCodec.SelectedItem != "Copy"
                 && (string)mainwindow.cboMediaType.SelectedItem != "Audio")
@@ -3121,7 +3083,7 @@ namespace Axiom
             // Video Codec None Check
             // Codec Copy Check
             // Media Type Check
-            if ((string)mainwindow.cboVideo.SelectedItem != "None"
+            if ((string)mainwindow.cboVideoQuality.SelectedItem != "None"
                 && (string)mainwindow.cboVideoCodec.SelectedItem != "None"
                 && (string)mainwindow.cboVideoCodec.SelectedItem != "Copy"
                 && (string)mainwindow.cboMediaType.SelectedItem != "Audio")
@@ -3140,9 +3102,9 @@ namespace Axiom
                 Video.Crop(mainwindow, cropwindow);
 
                 /// <summary>
-                ///    Subtitles Style
+                ///    Subtitles Burn
                 /// </summary> 
-                Video.SubtitlesStyleFilter(mainwindow);
+                Video.SubtitlesBurnFilter(mainwindow);
 
 
                 // -------------------------

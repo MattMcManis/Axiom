@@ -74,9 +74,9 @@ namespace Axiom
             // Mute Check
             // Stream None Check
             // Media Type Check
-            if ((string)mainwindow.cboAudio.SelectedItem != "None"
+            if ((string)mainwindow.cboAudioQuality.SelectedItem != "None"
                 && (string)mainwindow.cboAudioCodec.SelectedItem != "None"
-                && (string)mainwindow.cboAudio.SelectedItem != "Mute"
+                && (string)mainwindow.cboAudioQuality.SelectedItem != "Mute"
                 && (string)mainwindow.cboAudioStream.SelectedItem != "none"
                 && (string)mainwindow.cboMediaType.SelectedItem != "Image"
                 && (string)mainwindow.cboMediaType.SelectedItem != "Sequence")
@@ -215,8 +215,8 @@ namespace Axiom
                 if ((string)mainwindow.cboFormat.SelectedItem == "ogv") { aBitMode = "-q:a"; }
 
                 // Bitrate
-                if ((string)mainwindow.cboAudio.SelectedItem == "Lossless") { aBitMode = string.Empty; }
-                else if ((string)mainwindow.cboAudio.SelectedItem == "Mute") { aBitMode = string.Empty; }
+                if ((string)mainwindow.cboAudioQuality.SelectedItem == "Lossless") { aBitMode = string.Empty; }
+                else if ((string)mainwindow.cboAudioQuality.SelectedItem == "Mute") { aBitMode = string.Empty; }
 
                 // Log Console Message /////////
                 Log.WriteAction = () =>
@@ -249,8 +249,8 @@ namespace Axiom
                 if ((string)mainwindow.cboFormat.SelectedItem == "ogv") { aBitMode = "-q:a"; } // OGV, Force VBR or it will not work
 
                 // Bitrate
-                if ((string)mainwindow.cboAudio.SelectedItem == "Lossless") { aBitMode = string.Empty; }
-                else if ((string)mainwindow.cboAudio.SelectedItem == "Mute") { aBitMode = string.Empty; }
+                if ((string)mainwindow.cboAudioQuality.SelectedItem == "Lossless") { aBitMode = string.Empty; }
+                else if ((string)mainwindow.cboAudioQuality.SelectedItem == "Mute") { aBitMode = string.Empty; }
 
                 // Log Console Message /////////
                 Log.WriteAction = () =>
@@ -472,10 +472,10 @@ namespace Axiom
             // Mute Check
             // Stream None Check
             // Media Type Check
-            if ((string)mainwindow.cboAudio.SelectedItem != "None"
+            if ((string)mainwindow.cboAudioQuality.SelectedItem != "None"
                 && (string)mainwindow.cboAudioCodec.SelectedItem != "None"
                 && (string)mainwindow.cboAudioCodec.SelectedItem != "Copy"
-                && (string)mainwindow.cboAudio.SelectedItem != "Mute"
+                && (string)mainwindow.cboAudioQuality.SelectedItem != "Mute"
                 && (string)mainwindow.cboAudioStream.SelectedItem != "none"
                 && (string)mainwindow.cboMediaType.SelectedItem != "Image"
                 && (string)mainwindow.cboMediaType.SelectedItem != "Sequence")
@@ -484,7 +484,7 @@ namespace Axiom
                 // Batch Limit Bitrates
                 // -------------------------
                 // Only if Audio ComboBox Auto
-                if ((string)mainwindow.cboAudio.SelectedItem == "Auto")
+                if ((string)mainwindow.cboAudioQuality.SelectedItem == "Auto")
                 {
                     // Limit Vorbis bitrate to 500k through cmd.exe
                     if ((string)mainwindow.cboAudioCodec.SelectedItem == "Vorbis")
@@ -530,10 +530,10 @@ namespace Axiom
             // Mute Check
             // Stream None Check
             // Media Type Check
-            if ((string)mainwindow.cboAudio.SelectedItem != "None"
+            if ((string)mainwindow.cboAudioQuality.SelectedItem != "None"
                 && (string)mainwindow.cboAudioCodec.SelectedItem != "None"
                 && (string)mainwindow.cboAudioCodec.SelectedItem != "Copy"
-                && (string)mainwindow.cboAudio.SelectedItem != "Mute"
+                && (string)mainwindow.cboAudioQuality.SelectedItem != "Mute"
                 && (string)mainwindow.cboAudioStream.SelectedItem != "none"
                 && (string)mainwindow.cboMediaType.SelectedItem != "Image"
                 && (string)mainwindow.cboMediaType.SelectedItem != "Sequence")
@@ -549,7 +549,7 @@ namespace Axiom
 
                     // Batch CMD Detect
                     //
-                    if ((string)mainwindow.cboAudio.SelectedItem == "Auto")
+                    if ((string)mainwindow.cboAudioQuality.SelectedItem == "Auto")
                     {
                         // Make List
                         List<string> BatchAudioAutoList = new List<string>()
@@ -597,10 +597,10 @@ namespace Axiom
             // Mute Check
             // Stream None Check
             // Media Type Check
-            if ((string)mainwindow.cboAudio.SelectedItem != "None"
+            if ((string)mainwindow.cboAudioQuality.SelectedItem != "None"
                 && (string)mainwindow.cboAudioCodec.SelectedItem != "None"
                 && (string)mainwindow.cboAudioCodec.SelectedItem != "Copy"
-                && (string)mainwindow.cboAudio.SelectedItem != "Mute"
+                && (string)mainwindow.cboAudioQuality.SelectedItem != "Mute"
                 && (string)mainwindow.cboAudioStream.SelectedItem != "none"
                 && (string)mainwindow.cboMediaType.SelectedItem != "Image"
                 && (string)mainwindow.cboMediaType.SelectedItem != "Sequence")
@@ -615,14 +615,14 @@ namespace Axiom
                 {
                     Log.logParagraph.Inlines.Add(new LineBreak());
                     Log.logParagraph.Inlines.Add(new Bold(new Run("Quality: ")) { Foreground = Log.ConsoleDefault });
-                    Log.logParagraph.Inlines.Add(new Run(Convert.ToString(mainwindow.cboAudio.SelectedItem.ToString())) { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new Run(Convert.ToString(mainwindow.cboAudioQuality.SelectedItem.ToString())) { Foreground = Log.ConsoleDefault });
                 };
                 Log.LogActions.Add(Log.WriteAction);
 
                 // -------------------------
                 // Auto
                 // -------------------------
-                if ((string)mainwindow.cboAudio.SelectedItem == "Auto")
+                if ((string)mainwindow.cboAudioQuality.SelectedItem == "Auto")
                 {
                     // -------------------------
                     // Single
@@ -711,7 +711,7 @@ namespace Axiom
                 // -------------------------
                 // Lossless
                 // -------------------------
-                else if ((string)mainwindow.cboAudio.SelectedItem == "Lossless")
+                else if ((string)mainwindow.cboAudioQuality.SelectedItem == "Lossless")
                 {
                     if ((string)mainwindow.cboAudioCodec.SelectedItem == "ALAC")
                         aBitrate = string.Empty;
@@ -726,7 +726,7 @@ namespace Axiom
                 // -------------------------
                 // 640
                 // -------------------------
-                else if ((string)mainwindow.cboAudio.SelectedItem == "640")
+                else if ((string)mainwindow.cboAudioQuality.SelectedItem == "640")
                 {
                     // CBR
                     if (mainwindow.tglVBR.IsChecked == false)
@@ -742,7 +742,7 @@ namespace Axiom
                 // -------------------------
                 // 510
                 // -------------------------
-                else if ((string)mainwindow.cboAudio.SelectedItem == "510") { 
+                else if ((string)mainwindow.cboAudioQuality.SelectedItem == "510") { 
 
                     // CBR
                     if (mainwindow.tglVBR.IsChecked == false)
@@ -760,7 +760,7 @@ namespace Axiom
                 // -------------------------
                 // 500
                 // -------------------------
-                else if ((string)mainwindow.cboAudio.SelectedItem == "500")
+                else if ((string)mainwindow.cboAudioQuality.SelectedItem == "500")
                 {
                     // CBR
                     if (mainwindow.tglVBR.IsChecked == false)
@@ -776,7 +776,7 @@ namespace Axiom
                 // -------------------------
                 // 448
                 // -------------------------
-                else if ((string)mainwindow.cboAudio.SelectedItem == "448")
+                else if ((string)mainwindow.cboAudioQuality.SelectedItem == "448")
                 {
                     // CBR
                     if (mainwindow.tglVBR.IsChecked == false)
@@ -792,7 +792,7 @@ namespace Axiom
                 // -------------------------
                 // 400
                 // -------------------------
-                else if ((string)mainwindow.cboAudio.SelectedItem == "400")
+                else if ((string)mainwindow.cboAudioQuality.SelectedItem == "400")
                 {
                     // CBR
                     if (mainwindow.tglVBR.IsChecked == false)
@@ -808,7 +808,7 @@ namespace Axiom
                 // -------------------------
                 // 320
                 // -------------------------
-                else if ((string)mainwindow.cboAudio.SelectedItem == "320")
+                else if ((string)mainwindow.cboAudioQuality.SelectedItem == "320")
                 {
                     // CBR
                     if (mainwindow.tglVBR.IsChecked == false)
@@ -833,7 +833,7 @@ namespace Axiom
                 // -------------------------
                 // 256
                 // -------------------------
-                else if ((string)mainwindow.cboAudio.SelectedItem == "256")
+                else if ((string)mainwindow.cboAudioQuality.SelectedItem == "256")
                 {
                     // CBR
                     if (mainwindow.tglVBR.IsChecked == false)
@@ -858,7 +858,7 @@ namespace Axiom
                 // -------------------------
                 // 224
                 // -------------------------
-                else if ((string)mainwindow.cboAudio.SelectedItem == "224")
+                else if ((string)mainwindow.cboAudioQuality.SelectedItem == "224")
                 {
                     // CBR
                     if (mainwindow.tglVBR.IsChecked == false)
@@ -883,7 +883,7 @@ namespace Axiom
                 // -------------------------
                 // 192
                 // -------------------------
-                else if ((string)mainwindow.cboAudio.SelectedItem == "192")
+                else if ((string)mainwindow.cboAudioQuality.SelectedItem == "192")
                 {
                     // CBR
                     if (mainwindow.tglVBR.IsChecked == false)
@@ -908,7 +908,7 @@ namespace Axiom
                 // -------------------------
                 // 160
                 // -------------------------
-                else if ((string)mainwindow.cboAudio.SelectedItem == "160")
+                else if ((string)mainwindow.cboAudioQuality.SelectedItem == "160")
                 {
                     // CBR
                     if (mainwindow.tglVBR.IsChecked == false)
@@ -933,7 +933,7 @@ namespace Axiom
                 // -------------------------
                 // 128
                 // -------------------------
-                else if ((string)mainwindow.cboAudio.SelectedItem == "128")
+                else if ((string)mainwindow.cboAudioQuality.SelectedItem == "128")
                 {
                     // CBR
                     if (mainwindow.tglVBR.IsChecked == false)
@@ -958,7 +958,7 @@ namespace Axiom
                 // -------------------------
                 // 96
                 // -------------------------
-                else if ((string)mainwindow.cboAudio.SelectedItem == "96")
+                else if ((string)mainwindow.cboAudioQuality.SelectedItem == "96")
                 {
                     // CBR
                     if (mainwindow.tglVBR.IsChecked == false)
@@ -983,7 +983,7 @@ namespace Axiom
                 // -------------------------
                 // Custom
                 // -------------------------
-                else if ((string)mainwindow.cboAudio.SelectedItem == "Custom")
+                else if ((string)mainwindow.cboAudioQuality.SelectedItem == "Custom")
                 {
                     // Empty Check
                     // Prevents Crash
@@ -1025,7 +1025,7 @@ namespace Axiom
                 // -------------------------
                 // Mute
                 // -------------------------
-                else if ((string)mainwindow.cboAudio.SelectedItem == "Mute")
+                else if ((string)mainwindow.cboAudioQuality.SelectedItem == "Mute")
                 {
                     aBitrate = string.Empty;
                 }
@@ -1033,7 +1033,7 @@ namespace Axiom
                 // -------------------------
                 // None
                 // -------------------------
-                else if ((string)mainwindow.cboAudio.SelectedItem == "None")
+                else if ((string)mainwindow.cboAudioQuality.SelectedItem == "None")
                 {
                     aBitrate = string.Empty;
                 }
@@ -1073,7 +1073,7 @@ namespace Axiom
                     {
                         Log.logParagraph.Inlines.Add(new LineBreak());
                         Log.logParagraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
-                        Log.logParagraph.Inlines.Add(new Run("CBR " + mainwindow.cboAudio.SelectedItem.ToString() + " to VBR " + aBitrate) { Foreground = Log.ConsoleDefault });
+                        Log.logParagraph.Inlines.Add(new Run("CBR " + mainwindow.cboAudioQuality.SelectedItem.ToString() + " to VBR " + aBitrate) { Foreground = Log.ConsoleDefault });
                     };
                     Log.LogActions.Add(Log.WriteAction);
                 }
@@ -1098,10 +1098,10 @@ namespace Axiom
             // Mute Check
             // Stream None Check
             // Media Type Check
-            if ((string)mainwindow.cboAudio.SelectedItem != "None"
+            if ((string)mainwindow.cboAudioQuality.SelectedItem != "None"
                 && (string)mainwindow.cboAudioCodec.SelectedItem != "None"
                 && (string)mainwindow.cboAudioCodec.SelectedItem != "Copy"
-                && (string)mainwindow.cboAudio.SelectedItem != "Mute"
+                && (string)mainwindow.cboAudioQuality.SelectedItem != "Mute"
                 && (string)mainwindow.cboAudioStream.SelectedItem != "none"
                 && (string)mainwindow.cboMediaType.SelectedItem != "Image"
                 && (string)mainwindow.cboMediaType.SelectedItem != "Sequence")
@@ -1167,10 +1167,10 @@ namespace Axiom
             // Mute Check
             // Stream None Check
             // Media Type Check
-            if ((string)mainwindow.cboAudio.SelectedItem != "None"
+            if ((string)mainwindow.cboAudioQuality.SelectedItem != "None"
                 && (string)mainwindow.cboAudioCodec.SelectedItem != "None"
                 && (string)mainwindow.cboAudioCodec.SelectedItem != "Copy"
-                && (string)mainwindow.cboAudio.SelectedItem != "Mute"
+                && (string)mainwindow.cboAudioQuality.SelectedItem != "Mute"
                 && (string)mainwindow.cboAudioStream.SelectedItem != "none"
                 && (string)mainwindow.cboMediaType.SelectedItem != "Image"
                 && (string)mainwindow.cboMediaType.SelectedItem != "Sequence")
@@ -1255,10 +1255,10 @@ namespace Axiom
             // Mute Check
             // Stream None Check
             // Media Type Check
-            if ((string)mainwindow.cboAudio.SelectedItem != "None"
+            if ((string)mainwindow.cboAudioQuality.SelectedItem != "None"
                 && (string)mainwindow.cboAudioCodec.SelectedItem != "None"
                 && (string)mainwindow.cboAudioCodec.SelectedItem != "Copy"
-                && (string)mainwindow.cboAudio.SelectedItem != "Mute"
+                && (string)mainwindow.cboAudioQuality.SelectedItem != "Mute"
                 && (string)mainwindow.cboAudioStream.SelectedItem != "none"
                 && (string)mainwindow.cboMediaType.SelectedItem != "Image"
                 && (string)mainwindow.cboMediaType.SelectedItem != "Sequence")
@@ -1527,10 +1527,10 @@ namespace Axiom
             // Mute Check
             // Stream None Check
             // Media Type Check
-            if ((string)mainwindow.cboAudio.SelectedItem != "None"
+            if ((string)mainwindow.cboAudioQuality.SelectedItem != "None"
                 && (string)mainwindow.cboAudioCodec.SelectedItem != "None"
                 && (string)mainwindow.cboAudioCodec.SelectedItem != "Copy"
-                && (string)mainwindow.cboAudio.SelectedItem != "Mute"
+                && (string)mainwindow.cboAudioQuality.SelectedItem != "Mute"
                 && (string)mainwindow.cboAudioStream.SelectedItem != "none"
                 && (string)mainwindow.cboMediaType.SelectedItem != "Image"
                 && (string)mainwindow.cboMediaType.SelectedItem != "Sequence")

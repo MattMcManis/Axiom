@@ -115,12 +115,33 @@
                        TextAlignment="Center"/>
         </Button>
 
+        <!-- Clear Button -->
+        <Button x:Name="btnScriptClear"
+                Style="{DynamicResource ButtonCustom}"
+                Margin="225,0,0,66" 
+                Cursor="Hand"
+                MaxWidth="60"
+                MaxHeight="22"
+                MinWidth="60" 
+                MinHeight="22" 
+                Height="22" 
+                HorizontalAlignment="Left"
+                VerticalAlignment="Bottom" 
+                Width="53" 
+                Click="btnScriptClear_Click">
+            <TextBlock x:Name="txblScriptClear" 
+                       Text="Clear"
+                       Width="50"
+                       Margin="0,-2,0,0"
+                       TextAlignment="Center"/>
+        </Button>
+
 
         <!-- Script Button -->
         <Button x:Name="btnScript" 
                 Style="{DynamicResource ButtonCustom}" 
                 HorizontalAlignment="Left"
-                Margin="225,0,0,66"
+                Margin="293,0,0,66"
                 VerticalAlignment="Bottom"
                 Width="60" 
                 Height="22" 
@@ -134,7 +155,7 @@
         <!-- Run Button -->
         <Button x:Name="btnScriptRun"
                 Style="{DynamicResource ButtonCustom}"
-                Margin="293,0,0,66"
+                Margin="361,0,0,66"
                 Click="btnScriptRun_Click" 
                 Cursor="Hand" 
                 MaxWidth="60" 
@@ -1078,7 +1099,7 @@
                             Width="56"  
                             FontFamily="Segoe UI Semilight" Margin="20,0,0,4" Grid.Row="2" />
 
-                            <ComboBox x:Name="cboVideo" 
+                            <ComboBox x:Name="cboVideoQuality" 
                                       Style="{DynamicResource ComboBoxWhite}"
                                       ItemContainerStyle="{DynamicResource ComboBoxWhiteItem}"
                                       HorizontalAlignment="Left" 
@@ -1877,7 +1898,7 @@
                                 FontFamily="Segoe UI Semilight" 
                                 Margin="20,0,0,0" Grid.Row="4" />
 
-                            <ComboBox x:Name="cboAudio" 
+                            <ComboBox x:Name="cboAudioQuality" 
                                       Style="{DynamicResource ComboBoxWhite}" 
                                       ItemContainerStyle="{DynamicResource ComboBoxWhiteItem}" 
                                       HorizontalAlignment="Left"
@@ -2199,7 +2220,7 @@
                             <Label Style="{DynamicResource LabelCustom}" 
                                    Content="FFmpeg" 
                                    HorizontalAlignment="Left" 
-                                   Margin="10,0,0,0" 
+                                   Margin="20,0,0,0" 
                                    VerticalAlignment="Top"
                                    Height="26" 
                                    ToolTip="Path to FFmpeg.exe"/>
@@ -2207,10 +2228,10 @@
                                      Style="{DynamicResource TextBoxBrowseCustom}"
                                      HorizontalAlignment="Left" 
                                      Height="20"
-                                     Margin="0,2,0,0" 
+                                     Margin="10,2,0,0" 
                                      TextWrapping="Wrap" 
                                      VerticalAlignment="Top"
-                                     Width="123"
+                                     Width="105"
                                      IsReadOnly="True" 
                                      PreviewMouseDown="textBoxFFmpegPathConfig_PreviewMouseDown"
                                      TextChanged="textBoxFFmpegPathConfig_TextChanged"
@@ -2220,7 +2241,7 @@
                             <!-- FFmpeg Path Revert Button -->
                             <Button x:Name="buttonFFmpegAuto"
                                     HorizontalAlignment="Left"
-                                    Margin="128,0,0,0" 
+                                    Margin="120,0,0,0" 
                                     VerticalAlignment="Top"
                                     Width="23" 
                                     Height="23" 
@@ -2240,7 +2261,7 @@
                             <Label Style="{DynamicResource LabelCustom}" 
                                    Content="FFprobe" 
                                    HorizontalAlignment="Left" 
-                                   Margin="10,0,0,0" 
+                                   Margin="20,0,0,0" 
                                    VerticalAlignment="Top"
                                    Height="26" 
                                    ToolTip="Path to FFprobe.exe" Grid.Row="1"/>
@@ -2248,10 +2269,10 @@
                                      Style="{DynamicResource TextBoxBrowseCustom}"
                                      HorizontalAlignment="Left" 
                                      Height="20"
-                                     Margin="0,2,0,0" 
+                                     Margin="10,2,0,0" 
                                      TextWrapping="Wrap" 
                                      VerticalAlignment="Top"
-                                     Width="123"
+                                     Width="105"
                                      IsReadOnly="True" 
                                      PreviewMouseDown="textBoxFFprobePathConfig_PreviewMouseDown"
                                      TextChanged="textBoxFFprobePathConfig_TextChanged"
@@ -2260,7 +2281,7 @@
                             <!-- FFprobe Path Revert Button -->
                             <Button x:Name="buttonFFprobeAuto"
                                     HorizontalAlignment="Left"
-                                    Margin="128,1,0,0" 
+                                    Margin="120,1,0,0" 
                                     VerticalAlignment="Top"
                                     Width="23" 
                                     Height="23" 
@@ -2281,7 +2302,7 @@
                                    Style="{DynamicResource LabelCustom}" 
                                    Content="Log" 
                                    HorizontalAlignment="Left" 
-                                   Margin="10,0,0,0"
+                                   Margin="20,0,0,0"
                                    VerticalAlignment="Top"
                                    Height="26" 
                                    ToolTip="Path to Save Log" Grid.Row="2"/>
@@ -2289,10 +2310,10 @@
                                      Style="{DynamicResource TextBoxBrowseCustom}" 
                                      HorizontalAlignment="Left" 
                                      Height="20" 
-                                     Margin="0,2,0,0" 
+                                     Margin="10,2,0,0" 
                                      TextWrapping="Wrap"
                                      VerticalAlignment="Top"
-                                     Width="123"
+                                     Width="105"
                                      IsReadOnly="True" 
                                      PreviewMouseDown="textBoxLogConfig_PreviewMouseDown" 
                                      ToolTipService.ShowOnDisabled="True" 
@@ -2302,7 +2323,7 @@
                             <!-- Log Revert Button -->
                             <Button x:Name="buttonLogAuto" 
                                     HorizontalAlignment="Left" 
-                                    Margin="128,1,0,0" 
+                                    Margin="120,1,0,0" 
                                     VerticalAlignment="Top"
                                     Width="23"
                                     Height="23" 
@@ -2323,7 +2344,7 @@
                             <CheckBox x:Name="checkBoxLogConfig" 
                                       Content=""
                                       HorizontalAlignment="Left" 
-                                      Margin="45,6,0,0" 
+                                      Margin="55,6,0,0" 
                                       VerticalAlignment="Top" 
                                       ToolTip="Enable/Disable Log"
                                       Checked="checkBoxLogConfig_Checked" 
@@ -2335,7 +2356,7 @@
                                    Style="{DynamicResource LabelCustom}"
                                    Content="Threads" 
                                    HorizontalAlignment="Left"
-                                   Margin="10,0,0,0" 
+                                   Margin="20,0,0,0" 
                                    VerticalAlignment="Top" 
                                    Height="26" 
                                    ToolTip="Path to Save Log"
@@ -2350,7 +2371,7 @@
                                       SelectionChanged="threadSelect_SelectionChanged" 
                                       KeyDown="threadSelect_KeyDown" 
                                       Grid.Column="1"
-                                      Grid.Row="4" Margin="0,2,0,0">
+                                      Grid.Row="4" Margin="10,2,0,0">
                                 <System:String>default</System:String>
                                 <System:String>optimal</System:String>
                                 <System:String>all</System:String>
@@ -2405,7 +2426,7 @@
                                    Style="{DynamicResource LabelCustom}" 
                                    Content="Theme" 
                                    HorizontalAlignment="Left"
-                                   Margin="10,0,0,0"
+                                   Margin="20,0,0,0"
                                    VerticalAlignment="Top"
                                    Height="26" 
                                    ToolTip="Path to Save Log" 
@@ -2418,7 +2439,7 @@
                                       IsTextSearchEnabled="False"
                                       SelectionChanged="themeSelect_SelectionChanged" 
                                       Grid.Column="1" 
-                                      Grid.Row="5" Margin="0,2,0,0">
+                                      Grid.Row="5" Margin="10,2,0,0">
                                 <System:String>Axiom</System:String>
                                 <System:String>FFmpeg</System:String>
                                 <System:String>Cyberpunk</System:String>
@@ -2432,7 +2453,7 @@
                             <Label Style="{DynamicResource LabelCustom}" 
                                    Content="Updates" 
                                    HorizontalAlignment="Left"
-                                   Margin="10,0,0,0"
+                                   Margin="20,0,0,0"
                                    VerticalAlignment="Top"
                                    Height="26" 
                                    ToolTip="Path to Save Log" 
@@ -2449,27 +2470,27 @@
                                           Checked="tglUpdatesAutoCheck_Checked"
                                           Unchecked="tglUpdatesAutoCheck_Unchecked"
                                           Grid.Column="1" 
-                                          Grid.Row="7" Margin="0,2,0,0">
+                                          Grid.Row="7" Margin="10,2,0,0">
                                 <TextBlock x:Name="tblkUpdatesAutoCheck" 
                                            Style="{DynamicResource TextBlockCustom}" 
                                            Text="Off"
                                            Margin="0,-2,0,0" />
                             </ToggleButton>
                             <Label Style="{DynamicResource LabelCustom}" 
-                                   Content="Auto Check" 
+                                   Content="Check" 
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Top"
                                    Height="26" 
                                    ToolTip="Path to Save Log" 
                                     Grid.Column="1" 
                                     Grid.Row="7" 
-                                    Margin="63,2,0,0"/>
+                                    Margin="73,0,0,0"/>
 
                             <!-- Reset Saved Settings -->
                             <Label Style="{DynamicResource LabelCustom}" 
                                    Content="Settings"
                                    HorizontalAlignment="Left"
-                                   Margin="10,0,0,0"
+                                   Margin="20,0,0,0"
                                    VerticalAlignment="Top" 
                                    Height="26" 
                                    Grid.Row="9" />
@@ -2478,7 +2499,7 @@
                             <Button x:Name="buttonClearAllSavedSettings"
                                     HorizontalAlignment="Left" 
                                     VerticalAlignment="Top"
-                                    Width="58" 
+                                    Width="55" 
                                     Background="{x:Null}"
                                     Height="23" 
                                     ToolTip="Reset the Saved Settings to Default." 
@@ -2486,7 +2507,7 @@
                                     Click="buttonClearAllSavedSettings_Click" 
                                     Style="{DynamicResource ButtonSmallCustom}" 
                                     Grid.Column="1" 
-                                    Grid.Row="9" Margin="0,2,0,0">
+                                    Grid.Row="9" Margin="10,2,0,0">
                                 <TextBlock Style="{DynamicResource TextBlockCustom}" 
                                            Text="Reset" 
                                            Margin="0,-1,0,0"/>
@@ -2495,9 +2516,9 @@
                             <!-- Delete Saved Settings Button -->
                             <Button x:Name="buttonDeleteSettings"
                                     HorizontalAlignment="Left"
-                                    Margin="65,2,0,0"
+                                    Margin="72,2,0,0"
                                     VerticalAlignment="Top"
-                                    Width="58" 
+                                    Width="55" 
                                     Background="{x:Null}" 
                                     Height="23"
                                     ToolTip="Delete the Settings File in AppData." 

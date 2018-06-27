@@ -66,9 +66,13 @@ namespace Axiom
                 {
                     mainwindow.cboPreset.IsEditable = false;
 
+                    // Format
+                    mainwindow.cboFormat.SelectedItem = "webm";
+
                     // Video
                     mainwindow.cboFormat.SelectedItem = mainwindow.cboFormat;
-                    mainwindow.cboVideo.SelectedItem = "Auto";
+                    mainwindow.cboVideoQuality.SelectedItem = "Auto";
+                    mainwindow.cboPass.SelectedItem = "CRF";
                     mainwindow.cboSize.SelectedItem = "Source";
                     mainwindow.cboCut.SelectedItem = "No";
                     mainwindow.cutStart.Text = "00:00:00.000";
@@ -78,7 +82,7 @@ namespace Axiom
                     mainwindow.cboFPS.IsEnabled = true;
                     mainwindow.cboSubtitle.SelectedItem = "all";
                     // Audio
-                    mainwindow.cboAudio.SelectedItem = "Auto";
+                    mainwindow.cboAudioQuality.SelectedItem = "Auto";
                     mainwindow.cboChannel.SelectedItem = "Source";
                     mainwindow.cboSamplerate.SelectedItem = "auto";
                     mainwindow.cboBitDepth.SelectedItem = "auto";
@@ -114,7 +118,7 @@ namespace Axiom
 
                     // Video
                     mainwindow.cboFormat.SelectedItem = mainwindow.cboFormat;
-                    mainwindow.cboVideo.SelectedItem = "None";
+                    mainwindow.cboVideoQuality.SelectedItem = "None";
                     mainwindow.cboSize.SelectedItem = "Source";
                     mainwindow.cboCut.SelectedItem = "No";
                     mainwindow.cutStart.Text = "00:00:00.000";
@@ -126,7 +130,7 @@ namespace Axiom
                     mainwindow.cboOptimize.SelectedItem = "none";
 
                     // Audio
-                    mainwindow.cboAudio.SelectedItem = "Auto";
+                    mainwindow.cboAudioQuality.SelectedItem = "Auto";
                     mainwindow.cboChannel.SelectedItem = "Source";
                     mainwindow.cboSamplerate.SelectedItem = "auto";
                     // special rules for PCM codec
@@ -158,7 +162,7 @@ namespace Axiom
                 mainwindow.cboAudioCodec.SelectedItem = "AC3";
 
                 // Video
-                mainwindow.cboVideo.SelectedItem = "High";
+                mainwindow.cboVideoQuality.SelectedItem = "High";
                 mainwindow.cboSize.SelectedItem = "Custom";
                 mainwindow.widthCustom.Text = "720";
                 mainwindow.heightCustom.Text = "-2";
@@ -171,7 +175,7 @@ namespace Axiom
                 mainwindow.cboOptimize.SelectedItem = "DVD";
 
                 // Audio
-                mainwindow.cboAudio.SelectedItem = "320";
+                mainwindow.cboAudioQuality.SelectedItem = "320";
                 mainwindow.tglVBR.IsChecked = false;
                 mainwindow.cboChannel.SelectedItem = "Source";
                 mainwindow.cboSamplerate.SelectedItem = "44.1k";
@@ -194,7 +198,7 @@ namespace Axiom
                 mainwindow.cboAudioCodec.SelectedItem = "AAC";
 
                 // Video
-                mainwindow.cboVideo.SelectedItem = "Ultra";
+                mainwindow.cboVideoQuality.SelectedItem = "Ultra";
                 mainwindow.cboSize.SelectedItem = "Source";
                 mainwindow.cboSubtitle.SelectedItem = "all";
                 mainwindow.cboOptimize.SelectedItem = "none";
@@ -205,7 +209,7 @@ namespace Axiom
                 mainwindow.cutEnd.Text = "00:00:00.000";
 
                 // Audio
-                mainwindow.cboAudio.SelectedItem = "Auto";
+                mainwindow.cboAudioQuality.SelectedItem = "Auto";
                 mainwindow.tglVBR.IsChecked = false;
                 mainwindow.cboChannel.SelectedItem = "Source";
                 mainwindow.cboSamplerate.SelectedItem = "auto";
@@ -229,7 +233,7 @@ namespace Axiom
 
 
                 // Video
-                mainwindow.cboVideo.SelectedItem = "High";
+                mainwindow.cboVideoQuality.SelectedItem = "High";
                 mainwindow.cboSize.SelectedItem = "Source";
                 mainwindow.cboFPS.SelectedItem = "auto";
                 mainwindow.cboFPS.IsEnabled = true;
@@ -240,7 +244,7 @@ namespace Axiom
                 mainwindow.cboOptimize.SelectedItem = "none";
 
                 // Audio
-                mainwindow.cboAudio.SelectedItem = "256";
+                mainwindow.cboAudioQuality.SelectedItem = "256";
                 mainwindow.tglVBR.IsChecked = false;
                 mainwindow.cboChannel.SelectedItem = "Stereo";
                 mainwindow.cboSamplerate.SelectedItem = "44.1k";
@@ -264,7 +268,7 @@ namespace Axiom
 
                 // Video
                 mainwindow.cboSize.SelectedItem = "1080p";
-                mainwindow.cboVideo.SelectedItem = "Ultra";
+                mainwindow.cboVideoQuality.SelectedItem = "Ultra";
                 mainwindow.cboFPS.SelectedItem = "23.976";
                 mainwindow.cboFPS.IsEnabled = true;
                 mainwindow.cboSubtitle.SelectedItem = "all";
@@ -274,7 +278,7 @@ namespace Axiom
                 mainwindow.cutEnd.Text = "00:00:00.000";
 
                 // Audio
-                mainwindow.cboAudio.SelectedItem = "640";
+                mainwindow.cboAudioQuality.SelectedItem = "640";
                 mainwindow.tglVBR.IsChecked = false;
                 mainwindow.cboChannel.SelectedItem = "Source";
                 mainwindow.cboSamplerate.SelectedItem = "48k";
@@ -297,7 +301,7 @@ namespace Axiom
                 mainwindow.cboAudioCodec.SelectedItem = "AAC";
 
                 // Video
-                mainwindow.cboVideo.SelectedItem = "High";
+                mainwindow.cboVideoQuality.SelectedItem = "High";
 
                 mainwindow.cboCut.SelectedItem = "No";
                 mainwindow.cutStart.Text = "00:00:00.000";
@@ -310,7 +314,7 @@ namespace Axiom
                 mainwindow.cboOptimize.SelectedItem = "Windows";
 
                 // Audio
-                mainwindow.cboAudio.SelectedItem = "400";
+                mainwindow.cboAudioQuality.SelectedItem = "400";
                 mainwindow.tglVBR.IsChecked = true;
                 mainwindow.cboChannel.SelectedItem = "Stereo";
                 mainwindow.cboSamplerate.SelectedItem = "44.1k";
@@ -333,7 +337,7 @@ namespace Axiom
                 mainwindow.cboAudioCodec.SelectedItem = "AAC";
 
                 // Video
-                mainwindow.cboVideo.SelectedItem = "High";
+                mainwindow.cboVideoQuality.SelectedItem = "High";
                 mainwindow.cboSize.SelectedItem = "Source";
                 mainwindow.cboFPS.SelectedItem = "23.976";
                 mainwindow.cboFPS.IsEnabled = true;
@@ -344,7 +348,7 @@ namespace Axiom
                 mainwindow.cboOptimize.SelectedItem = "Apple";
 
                 // Audio
-                mainwindow.cboAudio.SelectedItem = "400";
+                mainwindow.cboAudioQuality.SelectedItem = "400";
                 mainwindow.tglVBR.IsChecked = true;
                 mainwindow.cboChannel.SelectedItem = "Stereo";
                 mainwindow.cboSamplerate.SelectedItem = "44.1k";
@@ -367,7 +371,7 @@ namespace Axiom
                 mainwindow.cboAudioCodec.SelectedItem = "AAC";
 
                 // Video
-                mainwindow.cboVideo.SelectedItem = "High";
+                mainwindow.cboVideoQuality.SelectedItem = "High";
                 mainwindow.cboSize.SelectedItem = "Source";
                 mainwindow.cboSubtitle.SelectedItem = "all";
                 mainwindow.cboOptimize.SelectedItem = "Android";
@@ -378,7 +382,7 @@ namespace Axiom
                 mainwindow.cutEnd.Text = "00:00:00.000";
 
                 // Audio
-                mainwindow.cboAudio.SelectedItem = "400";
+                mainwindow.cboAudioQuality.SelectedItem = "400";
                 mainwindow.tglVBR.IsChecked = true;
                 mainwindow.cboChannel.SelectedItem = "Stereo";
                 mainwindow.cboSamplerate.SelectedItem = "44.1k";
@@ -401,7 +405,7 @@ namespace Axiom
                 mainwindow.cboAudioCodec.SelectedItem = "AAC";
 
                 // Video
-                mainwindow.cboVideo.SelectedItem = "Ultra";
+                mainwindow.cboVideoQuality.SelectedItem = "Ultra";
                 mainwindow.cboSize.SelectedItem = "Source";
                 mainwindow.cboFPS.SelectedItem = "23.976";
                 mainwindow.cboFPS.IsEnabled = true;
@@ -412,7 +416,7 @@ namespace Axiom
                 mainwindow.cboOptimize.SelectedItem = "PS3";
 
                 // Audio
-                mainwindow.cboAudio.SelectedItem = "400";
+                mainwindow.cboAudioQuality.SelectedItem = "400";
                 mainwindow.tglVBR.IsChecked = false;
                 mainwindow.cboChannel.SelectedItem = "Source";
                 mainwindow.cboSamplerate.SelectedItem = "48k";
@@ -435,7 +439,7 @@ namespace Axiom
                 mainwindow.cboAudioCodec.SelectedItem = "AAC";
 
                 // Video
-                mainwindow.cboVideo.SelectedItem = "Ultra";
+                mainwindow.cboVideoQuality.SelectedItem = "Ultra";
                 mainwindow.cboSize.SelectedItem = "Source";
                 mainwindow.cboCut.SelectedItem = "No";
                 mainwindow.cutStart.Text = "00:00:00.000";
@@ -446,7 +450,7 @@ namespace Axiom
                 mainwindow.cboOptimize.SelectedItem = "PS4";
 
                 // Audio
-                mainwindow.cboAudio.SelectedItem = "Auto";
+                mainwindow.cboAudioQuality.SelectedItem = "Auto";
                 mainwindow.cboChannel.SelectedItem = "Source";
                 mainwindow.cboSamplerate.SelectedItem = "auto";
                 mainwindow.cboBitDepth.SelectedItem = "auto";
@@ -469,7 +473,7 @@ namespace Axiom
                 mainwindow.cboAudioCodec.SelectedItem = "AAC";
 
                 // Video
-                mainwindow.cboVideo.SelectedItem = "High";
+                mainwindow.cboVideoQuality.SelectedItem = "High";
                 mainwindow.cboSize.SelectedItem = "Source";
                 mainwindow.cboCut.SelectedItem = "No";
                 mainwindow.cutStart.Text = "00:00:00.000";
@@ -480,7 +484,7 @@ namespace Axiom
                 mainwindow.cboOptimize.SelectedItem = "Xbox 360";
 
                 // Audio
-                mainwindow.cboAudio.SelectedItem = "320";
+                mainwindow.cboAudioQuality.SelectedItem = "320";
                 mainwindow.cboChannel.SelectedItem = "Stereo";
                 mainwindow.cboSamplerate.SelectedItem = "48k";
                 mainwindow.cboBitDepth.SelectedItem = "auto";
@@ -503,7 +507,7 @@ namespace Axiom
                 mainwindow.cboAudioCodec.SelectedItem = "AAC";
 
                 // Video
-                mainwindow.cboVideo.SelectedItem = "Ultra";
+                mainwindow.cboVideoQuality.SelectedItem = "Ultra";
                 mainwindow.cboSize.SelectedItem = "Source";
                 mainwindow.cboCut.SelectedItem = "No";
                 mainwindow.cutStart.Text = "00:00:00.000";
@@ -514,7 +518,7 @@ namespace Axiom
                 mainwindow.cboFPS.IsEnabled = true;
 
                 // Audio
-                mainwindow.cboAudio.SelectedItem = "Auto";
+                mainwindow.cboAudioQuality.SelectedItem = "Auto";
                 mainwindow.cboChannel.SelectedItem = "Source";
                 mainwindow.cboSamplerate.SelectedItem = "auto";
                 mainwindow.cboBitDepth.SelectedItem = "auto";
@@ -537,7 +541,7 @@ namespace Axiom
                 mainwindow.cboAudioCodec.SelectedItem = "Vorbis";
 
                 // Video
-                mainwindow.cboVideo.SelectedItem = "Medium";
+                mainwindow.cboVideoQuality.SelectedItem = "Medium";
                 mainwindow.cboSize.SelectedItem = "Source";
                 mainwindow.cboCut.SelectedItem = "No";
                 mainwindow.cutStart.Text = "00:00:00.000";
@@ -548,7 +552,7 @@ namespace Axiom
                 mainwindow.cboOptimize.SelectedItem = "Web";
 
                 // Audio
-                mainwindow.cboAudio.SelectedItem = "192";
+                mainwindow.cboAudioQuality.SelectedItem = "192";
                 mainwindow.tglVBR.IsChecked = true;
                 mainwindow.cboAudioStream.SelectedItem = "1";
                 mainwindow.cboChannel.SelectedItem = "Stereo";
@@ -581,7 +585,7 @@ namespace Axiom
                 mainwindow.cboSubtitle.SelectedItem = "none";
 
                 // Audio
-                mainwindow.cboAudio.SelectedItem = "320";
+                mainwindow.cboAudioQuality.SelectedItem = "320";
                 mainwindow.tglVBR.IsChecked = true;
                 mainwindow.cboChannel.SelectedItem = "Stereo";
                 mainwindow.cboSamplerate.SelectedItem = "44.1k";
@@ -603,7 +607,7 @@ namespace Axiom
                 mainwindow.cboAudioCodec.SelectedItem = "Opus";
 
                 // Video
-                mainwindow.cboVideo.SelectedItem = "Custom";
+                mainwindow.cboVideoQuality.SelectedItem = "Custom";
                 mainwindow.vBitrateCustom.Text = "1250K";
                 mainwindow.crfCustom.Text = "26";
                 mainwindow.cboFPS.SelectedItem = "24";
@@ -621,7 +625,7 @@ namespace Axiom
 
                 // Audio
                 mainwindow.cboAudioStream.SelectedItem = "1";
-                mainwindow.cboAudio.SelectedItem = "Custom";
+                mainwindow.cboAudioQuality.SelectedItem = "Custom";
                 mainwindow.audioCustom.Text = "380";
                 mainwindow.tglVBR.IsChecked = true;
                 mainwindow.cboChannel.SelectedItem = "Stereo";

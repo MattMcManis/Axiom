@@ -115,13 +115,13 @@ namespace Axiom
                 argsAudioCodec = " -i " + "\"" + mainwindow.tbxInput.Text + "\"" + " -select_streams a:0 -show_entries stream=codec_name -v quiet -of csv=\"p=0\"";
                 argsAudioBitrate = " -i" + " " + "\"" + mainwindow.tbxInput.Text + "\"" + " -select_streams a:0 -show_entries " + aEntryType + " -v quiet -of csv=\"p=0\"";
 
-                inputFrameRate = RemoveLineBreaks(InputFileInfo(mainwindow, argsFrameRate));
-                inputSize = RemoveLineBreaks(InputFileInfo(mainwindow, argsSize));
-                inputDuration = RemoveLineBreaks(InputFileInfo(mainwindow, argsDuration));
-                inputVideoCodec = RemoveLineBreaks(InputFileInfo(mainwindow, argsVideoCodec));
-                inputVideoBitrate = RemoveLineBreaks(InputFileInfo(mainwindow, argsVideoBitrate));
-                inputAudioCodec = RemoveLineBreaks(InputFileInfo(mainwindow, argsAudioCodec));
-                inputAudioBitrate = RemoveLineBreaks(InputFileInfo(mainwindow, argsAudioBitrate));
+                inputFrameRate = MainWindow.RemoveLineBreaks(InputFileInfo(mainwindow, argsFrameRate));
+                inputSize = MainWindow.RemoveLineBreaks(InputFileInfo(mainwindow, argsSize));
+                inputDuration = MainWindow.RemoveLineBreaks(InputFileInfo(mainwindow, argsDuration));
+                inputVideoCodec = MainWindow.RemoveLineBreaks(InputFileInfo(mainwindow, argsVideoCodec));
+                inputVideoBitrate = MainWindow.RemoveLineBreaks(InputFileInfo(mainwindow, argsVideoBitrate));
+                inputAudioCodec = MainWindow.RemoveLineBreaks(InputFileInfo(mainwindow, argsAudioCodec));
+                inputAudioBitrate = MainWindow.RemoveLineBreaks(InputFileInfo(mainwindow, argsAudioBitrate));
 
                 // Log won't write the input data unless we pass it to a new string
                 string logInputFrameRate = inputFrameRate;
@@ -419,27 +419,6 @@ namespace Axiom
             }
 
             return inputMetaData;
-        }
-
-
-        /// <summary>
-        ///     Remove Line Breaks (Method)
-        /// </summary>
-        public static String RemoveLineBreaks(string lines)
-        {
-            lines = lines.Replace(Environment.NewLine, "")
-                .Replace("\n", "")
-                .Replace("\r\n", "")
-                .Replace("\u2028", "")
-                .Replace("\u000A", "")
-                .Replace("\u000B", "")
-                .Replace("\u000C", "")
-                .Replace("\u000D", "")
-                .Replace("\u0085", "")
-                .Replace("\u2028", "")
-                .Replace("\u2029", "");
-
-            return lines;
         }
 
     }
