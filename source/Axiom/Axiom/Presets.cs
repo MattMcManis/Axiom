@@ -72,8 +72,13 @@ namespace Axiom
                     // Video
                     mainwindow.cboFormat.SelectedItem = mainwindow.cboFormat;
                     mainwindow.cboVideoQuality.SelectedItem = "Auto";
+                    mainwindow.vBitrateCustom.Text = "";
+                    mainwindow.vMinrateCustom.Text = "";
+                    mainwindow.vMaxrateCustom.Text = "";
+                    mainwindow.vBufsizeCustom.Text = "";
                     mainwindow.cboPass.SelectedItem = "CRF";
                     mainwindow.cboSize.SelectedItem = "Source";
+                    mainwindow.cboScaling.SelectedItem = "None";
                     mainwindow.cboCut.SelectedItem = "No";
                     mainwindow.cutStart.Text = "00:00:00.000";
                     mainwindow.cutEnd.Text = "00:00:00.000";
@@ -119,7 +124,12 @@ namespace Axiom
                     // Video
                     mainwindow.cboFormat.SelectedItem = mainwindow.cboFormat;
                     mainwindow.cboVideoQuality.SelectedItem = "None";
+                    mainwindow.vBitrateCustom.Text = "";
+                    mainwindow.vMinrateCustom.Text = "";
+                    mainwindow.vMaxrateCustom.Text = "";
+                    mainwindow.vBufsizeCustom.Text = "";
                     mainwindow.cboSize.SelectedItem = "Source";
+                    mainwindow.cboScaling.SelectedItem = "None";
                     mainwindow.cboCut.SelectedItem = "No";
                     mainwindow.cutStart.Text = "00:00:00.000";
                     mainwindow.cutEnd.Text = "00:00:00.000";
@@ -162,14 +172,20 @@ namespace Axiom
                 mainwindow.cboAudioCodec.SelectedItem = "AC3";
 
                 // Video
-                mainwindow.cboVideoQuality.SelectedItem = "High";
+                mainwindow.cboVideoQuality.SelectedItem = "Custom";
+                mainwindow.cboPass.SelectedItem = "2 Pass";
+                mainwindow.vBitrateCustom.Text = "3M";
+                mainwindow.vMinrateCustom.Text = "";
+                mainwindow.vMaxrateCustom.Text = "9.8M";
+                mainwindow.vBufsizeCustom.Text = "9.8M";
                 mainwindow.cboSize.SelectedItem = "Custom";
+                mainwindow.cboScaling.SelectedItem = "None";
                 mainwindow.widthCustom.Text = "720";
                 mainwindow.heightCustom.Text = "-2";
                 mainwindow.cboCut.SelectedItem = "No";
                 mainwindow.cutStart.Text = "00:00:00.000";
                 mainwindow.cutEnd.Text = "00:00:00.000";
-                mainwindow.cboFPS.SelectedItem = "23.976";
+                mainwindow.cboFPS.SelectedItem = "29.97";
                 mainwindow.cboFPS.IsEnabled = true;
                 mainwindow.cboSubtitle.SelectedItem = "all";
                 mainwindow.cboOptimize.SelectedItem = "DVD";
@@ -199,7 +215,12 @@ namespace Axiom
 
                 // Video
                 mainwindow.cboVideoQuality.SelectedItem = "Ultra";
+                mainwindow.vBitrateCustom.Text = "";
+                mainwindow.vMinrateCustom.Text = "";
+                mainwindow.vMaxrateCustom.Text = "";
+                mainwindow.vBufsizeCustom.Text = "";
                 mainwindow.cboSize.SelectedItem = "Source";
+                mainwindow.cboScaling.SelectedItem = "None";
                 mainwindow.cboSubtitle.SelectedItem = "all";
                 mainwindow.cboOptimize.SelectedItem = "None";
                 mainwindow.cboFPS.SelectedItem = "auto";
@@ -234,7 +255,12 @@ namespace Axiom
 
                 // Video
                 mainwindow.cboVideoQuality.SelectedItem = "High";
+                mainwindow.vBitrateCustom.Text = "";
+                mainwindow.vMinrateCustom.Text = "";
+                mainwindow.vMaxrateCustom.Text = "";
+                mainwindow.vBufsizeCustom.Text = "";
                 mainwindow.cboSize.SelectedItem = "Source";
+                mainwindow.cboScaling.SelectedItem = "None";
                 mainwindow.cboFPS.SelectedItem = "auto";
                 mainwindow.cboFPS.IsEnabled = true;
                 mainwindow.cboCut.SelectedItem = "No";
@@ -267,8 +293,13 @@ namespace Axiom
                 mainwindow.cboAudioCodec.SelectedItem = "AC3";
 
                 // Video
-                mainwindow.cboSize.SelectedItem = "1080p";
                 mainwindow.cboVideoQuality.SelectedItem = "Ultra";
+                mainwindow.vBitrateCustom.Text = "";
+                mainwindow.vMinrateCustom.Text = "";
+                mainwindow.vMaxrateCustom.Text = "";
+                mainwindow.vBufsizeCustom.Text = "";
+                mainwindow.cboSize.SelectedItem = "1080p";
+                mainwindow.cboScaling.SelectedItem = "None";
                 mainwindow.cboFPS.SelectedItem = "23.976";
                 mainwindow.cboFPS.IsEnabled = true;
                 mainwindow.cboSubtitle.SelectedItem = "all";
@@ -302,7 +333,12 @@ namespace Axiom
 
                 // Video
                 mainwindow.cboVideoQuality.SelectedItem = "High";
-
+                mainwindow.vBitrateCustom.Text = "";
+                mainwindow.vMinrateCustom.Text = "";
+                mainwindow.vMaxrateCustom.Text = "";
+                mainwindow.vBufsizeCustom.Text = "";
+                mainwindow.cboSize.SelectedItem = "Source";
+                mainwindow.cboScaling.SelectedItem = "None";
                 mainwindow.cboCut.SelectedItem = "No";
                 mainwindow.cutStart.Text = "00:00:00.000";
                 mainwindow.cutEnd.Text = "00:00:00.000";
@@ -338,7 +374,12 @@ namespace Axiom
 
                 // Video
                 mainwindow.cboVideoQuality.SelectedItem = "High";
+                mainwindow.vBitrateCustom.Text = "";
+                mainwindow.vMinrateCustom.Text = "";
+                mainwindow.vMaxrateCustom.Text = "";
+                mainwindow.vBufsizeCustom.Text = "";
                 mainwindow.cboSize.SelectedItem = "Source";
+                mainwindow.cboScaling.SelectedItem = "None";
                 mainwindow.cboFPS.SelectedItem = "23.976";
                 mainwindow.cboFPS.IsEnabled = true;
                 mainwindow.cboCut.SelectedItem = "No";
@@ -372,7 +413,12 @@ namespace Axiom
 
                 // Video
                 mainwindow.cboVideoQuality.SelectedItem = "High";
+                mainwindow.vBitrateCustom.Text = "";
+                mainwindow.vMinrateCustom.Text = "";
+                mainwindow.vMaxrateCustom.Text = "";
+                mainwindow.vBufsizeCustom.Text = "";
                 mainwindow.cboSize.SelectedItem = "Source";
+                mainwindow.cboScaling.SelectedItem = "None";
                 mainwindow.cboSubtitle.SelectedItem = "all";
                 mainwindow.cboOptimize.SelectedItem = "Android";
                 mainwindow.cboFPS.SelectedItem = "23.976";
@@ -393,6 +439,80 @@ namespace Axiom
             }
 
             // -------------------------
+            // iTunes
+            // -------------------------
+            else if ((string)mainwindow.cboPreset.SelectedItem == "iTunes")
+            {
+                mainwindow.cboPreset.IsEditable = false;
+
+                // Format
+                mainwindow.cboFormat.SelectedItem = "m4a";
+                mainwindow.cboAudioCodec.SelectedItem = "AAC";
+
+                // Video
+                mainwindow.vBitrateCustom.Text = "";
+                mainwindow.vMinrateCustom.Text = "";
+                mainwindow.vMaxrateCustom.Text = "";
+                mainwindow.vBufsizeCustom.Text = "";
+                mainwindow.cboSize.SelectedItem = "Source";
+                mainwindow.cboScaling.SelectedItem = "None";
+                mainwindow.cboCut.SelectedItem = "No";
+                mainwindow.cutStart.Text = "00:00:00.000";
+                mainwindow.cutEnd.Text = "00:00:00.000";
+                mainwindow.cboFPS.SelectedItem = "auto";
+                mainwindow.cboFPS.IsEnabled = false;
+                mainwindow.cboOptimize.SelectedItem = "None";
+                mainwindow.cboSubtitle.SelectedItem = "none";
+
+                // Audio
+                mainwindow.cboAudioQuality.SelectedItem = "320";
+                mainwindow.tglVBR.IsChecked = true;
+                mainwindow.cboChannel.SelectedItem = "Stereo";
+                mainwindow.cboSamplerate.SelectedItem = "auto";
+                mainwindow.cboBitDepth.SelectedItem = "auto";
+                mainwindow.volumeUpDown.Text = "100";
+                mainwindow.tglAudioLimiter.IsChecked = false;
+                mainwindow.audioLimiter.Text = string.Empty;
+            }
+
+            // -------------------------
+            // MP3 HQ
+            // -------------------------
+            else if ((string)mainwindow.cboPreset.SelectedItem == "MP3 HQ")
+            {
+                mainwindow.cboPreset.IsEditable = false;
+
+                // Format
+                mainwindow.cboFormat.SelectedItem = "mp3";
+                mainwindow.cboAudioCodec.SelectedItem = "LAME";
+
+                // Video
+                mainwindow.vBitrateCustom.Text = "";
+                mainwindow.vMinrateCustom.Text = "";
+                mainwindow.vMaxrateCustom.Text = "";
+                mainwindow.vBufsizeCustom.Text = "";
+                mainwindow.cboSize.SelectedItem = "Source";
+                mainwindow.cboScaling.SelectedItem = "None";
+                mainwindow.cboCut.SelectedItem = "No";
+                mainwindow.cutStart.Text = "00:00:00.000";
+                mainwindow.cutEnd.Text = "00:00:00.000";
+                mainwindow.cboFPS.SelectedItem = "auto";
+                mainwindow.cboFPS.IsEnabled = false;
+                mainwindow.cboOptimize.SelectedItem = "None";
+                mainwindow.cboSubtitle.SelectedItem = "none";
+
+                // Audio
+                mainwindow.cboAudioQuality.SelectedItem = "320";
+                mainwindow.tglVBR.IsChecked = true;
+                mainwindow.cboChannel.SelectedItem = "Joint Stereo";
+                mainwindow.cboSamplerate.SelectedItem = "auto";
+                mainwindow.cboBitDepth.SelectedItem = "auto";
+                mainwindow.volumeUpDown.Text = "100";
+                mainwindow.tglAudioLimiter.IsChecked = false;
+                mainwindow.audioLimiter.Text = string.Empty;
+            }
+
+            // -------------------------
             // PS3
             // -------------------------
             else if ((string)mainwindow.cboPreset.SelectedItem == "PS3")
@@ -406,7 +526,12 @@ namespace Axiom
 
                 // Video
                 mainwindow.cboVideoQuality.SelectedItem = "Ultra";
+                mainwindow.vBitrateCustom.Text = "";
+                mainwindow.vMinrateCustom.Text = "";
+                mainwindow.vMaxrateCustom.Text = "";
+                mainwindow.vBufsizeCustom.Text = "";
                 mainwindow.cboSize.SelectedItem = "Source";
+                mainwindow.cboScaling.SelectedItem = "None";
                 mainwindow.cboFPS.SelectedItem = "23.976";
                 mainwindow.cboFPS.IsEnabled = true;
                 mainwindow.cboCut.SelectedItem = "No";
@@ -440,7 +565,12 @@ namespace Axiom
 
                 // Video
                 mainwindow.cboVideoQuality.SelectedItem = "Ultra";
+                mainwindow.vBitrateCustom.Text = "";
+                mainwindow.vMinrateCustom.Text = "";
+                mainwindow.vMaxrateCustom.Text = "";
+                mainwindow.vBufsizeCustom.Text = "";
                 mainwindow.cboSize.SelectedItem = "Source";
+                mainwindow.cboScaling.SelectedItem = "None";
                 mainwindow.cboCut.SelectedItem = "No";
                 mainwindow.cutStart.Text = "00:00:00.000";
                 mainwindow.cutEnd.Text = "00:00:00.000";
@@ -474,7 +604,12 @@ namespace Axiom
 
                 // Video
                 mainwindow.cboVideoQuality.SelectedItem = "High";
+                mainwindow.vBitrateCustom.Text = "";
+                mainwindow.vMinrateCustom.Text = "";
+                mainwindow.vMaxrateCustom.Text = "";
+                mainwindow.vBufsizeCustom.Text = "";
                 mainwindow.cboSize.SelectedItem = "Source";
+                mainwindow.cboScaling.SelectedItem = "None";
                 mainwindow.cboCut.SelectedItem = "No";
                 mainwindow.cutStart.Text = "00:00:00.000";
                 mainwindow.cutEnd.Text = "00:00:00.000";
@@ -508,7 +643,12 @@ namespace Axiom
 
                 // Video
                 mainwindow.cboVideoQuality.SelectedItem = "Ultra";
+                mainwindow.vBitrateCustom.Text = "";
+                mainwindow.vMinrateCustom.Text = "";
+                mainwindow.vMaxrateCustom.Text = "";
+                mainwindow.vBufsizeCustom.Text = "";
                 mainwindow.cboSize.SelectedItem = "Source";
+                mainwindow.cboScaling.SelectedItem = "None";
                 mainwindow.cboCut.SelectedItem = "No";
                 mainwindow.cutStart.Text = "00:00:00.000";
                 mainwindow.cutEnd.Text = "00:00:00.000";
@@ -542,7 +682,12 @@ namespace Axiom
 
                 // Video
                 mainwindow.cboVideoQuality.SelectedItem = "Medium";
+                //mainwindow.vBitrateCustom.Text = ""; // use quality preset bitrate
+                mainwindow.vMinrateCustom.Text = "";
+                mainwindow.vMaxrateCustom.Text = "";
+                mainwindow.vBufsizeCustom.Text = "";
                 mainwindow.cboSize.SelectedItem = "Source";
+                mainwindow.cboScaling.SelectedItem = "None";
                 mainwindow.cboCut.SelectedItem = "No";
                 mainwindow.cutStart.Text = "00:00:00.000";
                 mainwindow.cutEnd.Text = "00:00:00.000";
@@ -555,38 +700,6 @@ namespace Axiom
                 mainwindow.cboAudioQuality.SelectedItem = "192";
                 mainwindow.tglVBR.IsChecked = true;
                 mainwindow.cboAudioStream.SelectedItem = "1";
-                mainwindow.cboChannel.SelectedItem = "Stereo";
-                mainwindow.cboSamplerate.SelectedItem = "44.1k";
-                mainwindow.cboBitDepth.SelectedItem = "auto";
-                mainwindow.volumeUpDown.Text = "100";
-                mainwindow.tglAudioLimiter.IsChecked = false;
-                mainwindow.audioLimiter.Text = string.Empty;
-            }
-
-            // -------------------------
-            // iTunes
-            // -------------------------
-            else if ((string)mainwindow.cboPreset.SelectedItem == "iTunes")
-            {
-                mainwindow.cboPreset.IsEditable = false;
-
-                // Format
-                mainwindow.cboFormat.SelectedItem = "m4a";
-                mainwindow.cboAudioCodec.SelectedItem = "AAC";
-
-                // Video
-                mainwindow.cboSize.SelectedItem = "Source";
-                mainwindow.cboCut.SelectedItem = "No";
-                mainwindow.cutStart.Text = "00:00:00.000";
-                mainwindow.cutEnd.Text = "00:00:00.000";
-                mainwindow.cboFPS.SelectedItem = "auto";
-                mainwindow.cboFPS.IsEnabled = false;
-                mainwindow.cboOptimize.SelectedItem = "optimize";
-                mainwindow.cboSubtitle.SelectedItem = "none";
-
-                // Audio
-                mainwindow.cboAudioQuality.SelectedItem = "320";
-                mainwindow.tglVBR.IsChecked = true;
                 mainwindow.cboChannel.SelectedItem = "Stereo";
                 mainwindow.cboSamplerate.SelectedItem = "44.1k";
                 mainwindow.cboBitDepth.SelectedItem = "auto";
@@ -609,11 +722,15 @@ namespace Axiom
                 // Video
                 mainwindow.cboVideoQuality.SelectedItem = "Custom";
                 mainwindow.vBitrateCustom.Text = "1250K";
+                mainwindow.vMinrateCustom.Text = "";
+                mainwindow.vMaxrateCustom.Text = "";
+                mainwindow.vBufsizeCustom.Text = "";
                 mainwindow.crfCustom.Text = "26";
-                mainwindow.cboFPS.SelectedItem = "24";
+                mainwindow.cboFPS.SelectedItem = "29.97";
                 mainwindow.cboFPS.IsEnabled = true;
                 mainwindow.cboVideoCodec.SelectedItem = "x264";
                 mainwindow.cboSize.SelectedItem = "Custom";
+                mainwindow.cboScaling.SelectedItem = "spline";
                 mainwindow.widthCustom.Text = "545";
                 mainwindow.heightCustom.Text = "307";
                 mainwindow.cboCut.SelectedItem = "Yes";

@@ -37,7 +37,7 @@
         
         RenderOptions.BitmapScalingMode="Fant"
         UseLayoutRounding="True"
-        Height="717.8"
+        Height="432"
         Width="768"
         
         Top="{Binding Top, Source={x:Static settings:Settings.Default}, Mode=TwoWay}"
@@ -567,10 +567,10 @@
                 <System:String>HD Video</System:String>
                 <System:String>SD Video</System:String>
                 <System:String>HTML5</System:String>
-                <System:String>Win Phone</System:String>
                 <System:String>Android</System:String>
                 <System:String>iOS</System:String>
                 <System:String>iTunes</System:String>
+                <System:String>MP3 HQ</System:String>
                 <System:String>PS3</System:String>
                 <System:String>PS4</System:String>
                 <System:String>Xbox 360</System:String>
@@ -1564,7 +1564,7 @@
                                      MaxLines="1"
                                      GotFocus="widthCustom_GotFocus" 
                                      LostFocus="widthCustom_LostFocus" 
-                                     Grid.Row="19" 
+                                     Grid.Row="18" 
                                      Grid.Column="1" Margin="0,2,0,0" />
 
                             <!-- Height -->
@@ -1586,7 +1586,7 @@
                                      Width="100" 
                                      MaxLines="1" 
                                      GotFocus="heightCustom_GotFocus" 
-                                     LostFocus="heightCustom_LostFocus" Grid.Row="18" Grid.Column="1" Margin="0,2,0,0" />
+                                     LostFocus="heightCustom_LostFocus" Grid.Row="19" Grid.Column="1" Margin="0,2,0,0" />
 
                             <!-- Scaling -->
                             <Label 
@@ -2287,13 +2287,14 @@
                                 <RowDefinition Height="33"/>
                                 <RowDefinition Height="110"/>
                                 <RowDefinition Height="33"/>
-                                <RowDefinition Height="33"/>
-                                <!--<RowDefinition Height="33"/>
-                                <RowDefinition Height="33"/>
+                                <RowDefinition Height="0"/>
                                 <RowDefinition Height="33"/>
                                 <RowDefinition Height="33"/>
                                 <RowDefinition Height="33"/>
-                                <RowDefinition Height="33"/>-->
+                                <RowDefinition Height="33"/>
+                                <RowDefinition Height="33"/>
+                                <RowDefinition Height="33"/>
+                                <RowDefinition Height="33"/>
                             </Grid.RowDefinitions>
 
                             <!-- Video Section -->
@@ -2454,6 +2455,7 @@
                             </ComboBox>
 
                             <!-- Color Group -->
+                            <!-- Selective Color -->
                             <Label 
                                 Style="{DynamicResource LabelCustom}"
                                 Content="Selective Color" 
@@ -2465,17 +2467,16 @@
                                 Grid.Row="8" 
                                 Height="26" Grid.ColumnSpan="2" />
 
-                            <!-- Selective Color -->
-                            <Label 
-                                Style="{DynamicResource LabelCustom}"
-                                Content="Color" 
-                                HorizontalAlignment="Left"
-                                Margin="20,0,0,0" 
-                                VerticalAlignment="Top" 
-                                Width="95" 
-                                FontFamily="Segoe UI Semilight" 
-                                Grid.Row="9" 
-                                Height="26" />
+                            <!-- Color -->
+                            <Label Style="{DynamicResource LabelCustom}"
+                                   Content="Color" 
+                                   HorizontalAlignment="Left"
+                                   Margin="20,0,0,0" 
+                                   VerticalAlignment="Top" 
+                                   Width="95" 
+                                   FontFamily="Segoe UI Semilight" 
+                                   Grid.Row="9" 
+                                   Height="26" />
 
                             <ComboBox x:Name="cboFilterVideo_SelectiveColor" 
                                       Style="{DynamicResource ComboBoxCustom}"
@@ -2567,7 +2568,8 @@
                                               VerticalAlignment="Top" >
 
                                             <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="110"/>
+                                                <ColumnDefinition Width="81"/>
+                                                <ColumnDefinition Width="29"/>
                                                 <ColumnDefinition Width="*"/>
                                             </Grid.ColumnDefinitions>
 
@@ -2585,16 +2587,18 @@
                                                     VerticalAlignment="Top" 
                                                     Width="85" 
                                                     FontFamily="Segoe UI Semilight" 
-                                                    Height="26" />
+                                                    Height="26" Grid.ColumnSpan="2" />
                                             <Slider x:Name="slFiltersVideo_SelectiveColor_Reds_Cyan" 
                                                     HorizontalAlignment="Right"
-                                                    Margin="0,6,65,0" 
+                                                    Margin="0,5,65,0" 
                                                     VerticalAlignment="Top" 
                                                     Width="62"
                                                     Minimum="-100"
                                                     Maximum="100" 
                                                     IsSnapToTickEnabled="True"
-                                                    IsMoveToPointEnabled="True" Grid.ColumnSpan="2" />
+                                                    IsMoveToPointEnabled="True" 
+                                                    Grid.ColumnSpan="2" 
+                                                    MouseDoubleClick="slFiltersVideo_SelectiveColor_Reds_Cyan_MouseDoubleClick" Grid.Column="1"/>
                                             <TextBox x:Name="tbxFiltersVideo_SelectiveColor_Reds_Cyan"
                                                     Text="{Binding Value, ElementName=slFiltersVideo_SelectiveColor_Reds_Cyan, UpdateSourceTrigger=PropertyChanged}"
                                                     Height="22" 
@@ -2603,7 +2607,7 @@
                                                     HorizontalAlignment="Right"
                                                     Width="33" 
                                                     VerticalAlignment="Top" 
-                                                    Grid.Column="1"/>
+                                                    Grid.Column="2"/>
 
                                             <!-- Reds Magenta -->
                                             <Label Style="{DynamicResource LabelCustom}"
@@ -2614,10 +2618,10 @@
                                                     Width="85" 
                                                     FontFamily="Segoe UI Semilight" 
                                                     Grid.Row="1" 
-                                                    Height="26" />
+                                                    Height="26" Grid.ColumnSpan="2" />
                                             <Slider x:Name="slFiltersVideo_SelectiveColor_Reds_Magenta" 
                                                     HorizontalAlignment="Right"
-                                                    Margin="0,6,65,0" 
+                                                    Margin="0,5,65,0" 
                                                     VerticalAlignment="Top" 
                                                     Width="62"
                                                     Minimum="-100"
@@ -2625,7 +2629,8 @@
                                                     IsSnapToTickEnabled="True"
                                                     IsMoveToPointEnabled="True"
                                                     Grid.Row="1" 
-                                                    Grid.Column="1" />
+                                                    Grid.Column="1"
+                                                    MouseDoubleClick="slFiltersVideo_SelectiveColor_Reds_Magenta_MouseDoubleClick" Grid.ColumnSpan="2"/>
                                             <TextBox x:Name="tbxFiltersVideo_SelectiveColor_Reds_Magenta"
                                                      Text="{Binding Value, ElementName=slFiltersVideo_SelectiveColor_Reds_Magenta, UpdateSourceTrigger=PropertyChanged}"
                                                      Height="22" 
@@ -2634,7 +2639,7 @@
                                                      HorizontalAlignment="Right"
                                                      Width="33" 
                                                      VerticalAlignment="Top" 
-                                                     Grid.Column="1" 
+                                                     Grid.Column="2" 
                                                      Grid.Row="1"/>
 
                                             <!-- Reds Yellow -->
@@ -2646,10 +2651,10 @@
                                                     Width="85" 
                                                     FontFamily="Segoe UI Semilight" 
                                                     Grid.Row="2" 
-                                                    Height="26" />
+                                                    Height="26" Grid.ColumnSpan="2" />
                                             <Slider x:Name="slFiltersVideo_SelectiveColor_Reds_Yellow" 
                                                     HorizontalAlignment="Right"
-                                                    Margin="0,6,65,0" 
+                                                    Margin="0,5,65,0" 
                                                     VerticalAlignment="Top" 
                                                     Width="62"
                                                     Minimum="-100"
@@ -2657,7 +2662,8 @@
                                                     IsSnapToTickEnabled="True"
                                                     IsMoveToPointEnabled="True"
                                                     Grid.Row="2" 
-                                                    Grid.ColumnSpan="2" />
+                                                    Grid.ColumnSpan="2"
+                                                    MouseDoubleClick="slFiltersVideo_SelectiveColor_Reds_Yellow_MouseDoubleClick" Grid.Column="1"/>
                                             <TextBox x:Name="tbxFiltersVideo_SelectiveColor_Reds_Yellow"
                                                      Text="{Binding Value, ElementName=slFiltersVideo_SelectiveColor_Reds_Yellow, UpdateSourceTrigger=PropertyChanged}"
                                                      Height="22" 
@@ -2666,7 +2672,7 @@
                                                      HorizontalAlignment="Right"
                                                      Width="33" 
                                                      VerticalAlignment="Top" 
-                                                     Grid.Column="1" 
+                                                     Grid.Column="2" 
                                                      Grid.Row="2"/>
 
                                         </Grid>
@@ -2711,7 +2717,9 @@
                                                     Minimum="-100"
                                                     Maximum="100" 
                                                     IsSnapToTickEnabled="True"
-                                                    IsMoveToPointEnabled="True" Grid.ColumnSpan="2" />
+                                                    IsMoveToPointEnabled="True" 
+                                                    MouseDoubleClick="slFiltersVideo_SelectiveColor_Yellows_Cyan_MouseDoubleClick"
+                                                    Grid.ColumnSpan="2" />
                                             <TextBox x:Name="tbxFiltersVideo_SelectiveColor_Yellows_Cyan"
                                                     Text="{Binding Value, ElementName=slFiltersVideo_SelectiveColor_Yellows_Cyan, UpdateSourceTrigger=PropertyChanged}"
                                                     Height="22" 
@@ -2741,6 +2749,7 @@
                                                     Maximum="100" 
                                                     IsSnapToTickEnabled="True"
                                                     IsMoveToPointEnabled="True"
+                                                    MouseDoubleClick="slFiltersVideo_SelectiveColor_Yellows_Magenta_MouseDoubleClick"
                                                     Grid.Row="1" 
                                                     Grid.Column="1" />
                                             <TextBox x:Name="tbxFiltersVideo_SelectiveColor_Yellows_Magenta"
@@ -2773,6 +2782,7 @@
                                                     Maximum="100" 
                                                     IsSnapToTickEnabled="True"
                                                     IsMoveToPointEnabled="True"
+                                                    MouseDoubleClick="slFiltersVideo_SelectiveColor_Yellows_Yellow_MouseDoubleClick"
                                                     Grid.Row="2" 
                                                     Grid.ColumnSpan="2" />
                                             <TextBox x:Name="tbxFiltersVideo_SelectiveColor_Yellows_Yellow"
@@ -2828,7 +2838,9 @@
                                                     Minimum="-100"
                                                     Maximum="100" 
                                                     IsSnapToTickEnabled="True"
-                                                    IsMoveToPointEnabled="True" Grid.ColumnSpan="2" />
+                                                    IsMoveToPointEnabled="True" 
+                                                    MouseDoubleClick="slFiltersVideo_SelectiveColor_Greens_Cyan_MouseDoubleClick"
+                                                    Grid.ColumnSpan="2" />
                                             <TextBox x:Name="tbxFiltersVideo_SelectiveColor_Greens_Cyan"
                                                     Text="{Binding Value, ElementName=slFiltersVideo_SelectiveColor_Greens_Cyan, UpdateSourceTrigger=PropertyChanged}"
                                                     Height="22" 
@@ -2858,6 +2870,7 @@
                                                     Maximum="100" 
                                                     IsSnapToTickEnabled="True"
                                                     IsMoveToPointEnabled="True"
+                                                    MouseDoubleClick="slFiltersVideo_SelectiveColor_Greens_Magenta_MouseDoubleClick"
                                                     Grid.Row="1" 
                                                     Grid.Column="1" />
                                             <TextBox x:Name="tbxFiltersVideo_SelectiveColor_Greens_Magenta"
@@ -2890,6 +2903,7 @@
                                                     Maximum="100" 
                                                     IsSnapToTickEnabled="True"
                                                     IsMoveToPointEnabled="True"
+                                                    MouseDoubleClick="slFiltersVideo_SelectiveColor_Greens_Yellow_MouseDoubleClick"
                                                     Grid.Row="2" 
                                                     Grid.ColumnSpan="2" />
                                             <TextBox x:Name="tbxFiltersVideo_SelectiveColor_Greens_Yellow"
@@ -2945,7 +2959,9 @@
                                                     Minimum="-100"
                                                     Maximum="100" 
                                                     IsSnapToTickEnabled="True"
-                                                    IsMoveToPointEnabled="True" Grid.ColumnSpan="2" />
+                                                    IsMoveToPointEnabled="True"
+                                                    MouseDoubleClick="slFiltersVideo_SelectiveColor_Cyans_Cyan_MouseDoubleClick"
+                                                    Grid.ColumnSpan="2" />
                                             <TextBox x:Name="tbxFiltersVideo_SelectiveColor_Cyans_Cyan"
                                                     Text="{Binding Value, ElementName=slFiltersVideo_SelectiveColor_Cyans_Cyan, UpdateSourceTrigger=PropertyChanged}"
                                                     Height="22" 
@@ -2975,6 +2991,7 @@
                                                     Maximum="100" 
                                                     IsSnapToTickEnabled="True"
                                                     IsMoveToPointEnabled="True"
+                                                    MouseDoubleClick="slFiltersVideo_SelectiveColor_Cyans_Magenta_MouseDoubleClick"
                                                     Grid.Row="1" 
                                                     Grid.Column="1" />
                                             <TextBox x:Name="tbxFiltersVideo_SelectiveColor_Cyans_Magenta"
@@ -3007,6 +3024,7 @@
                                                     Maximum="100" 
                                                     IsSnapToTickEnabled="True"
                                                     IsMoveToPointEnabled="True"
+                                                    MouseDoubleClick="slFiltersVideo_SelectiveColor_Cyans_Yellow_MouseDoubleClick"
                                                     Grid.Row="2" 
                                                     Grid.ColumnSpan="2" />
                                             <TextBox x:Name="tbxFiltersVideo_SelectiveColor_Cyans_Yellow"
@@ -3062,7 +3080,9 @@
                                                     Minimum="-100"
                                                     Maximum="100" 
                                                     IsSnapToTickEnabled="True"
-                                                    IsMoveToPointEnabled="True" Grid.ColumnSpan="2" />
+                                                    IsMoveToPointEnabled="True" 
+                                                    MouseDoubleClick="slFiltersVideo_SelectiveColor_Blues_Cyan_MouseDoubleClick"
+                                                    Grid.ColumnSpan="2" />
                                             <TextBox x:Name="tbxFiltersVideo_SelectiveColor_Blues_Cyan"
                                                     Text="{Binding Value, ElementName=slFiltersVideo_SelectiveColor_Blues_Cyan, UpdateSourceTrigger=PropertyChanged}"
                                                     Height="22" 
@@ -3092,6 +3112,7 @@
                                                     Maximum="100" 
                                                     IsSnapToTickEnabled="True"
                                                     IsMoveToPointEnabled="True"
+                                                    MouseDoubleClick="slFiltersVideo_SelectiveColor_Blues_Magenta_MouseDoubleClick"
                                                     Grid.Row="1" 
                                                     Grid.Column="1" />
                                             <TextBox x:Name="tbxFiltersVideo_SelectiveColor_Blues_Magenta"
@@ -3124,6 +3145,7 @@
                                                     Maximum="100" 
                                                     IsSnapToTickEnabled="True"
                                                     IsMoveToPointEnabled="True"
+                                                    MouseDoubleClick="slFiltersVideo_SelectiveColor_Blues_Yellow_MouseDoubleClick"
                                                     Grid.Row="2" 
                                                     Grid.ColumnSpan="2" />
                                             <TextBox x:Name="tbxFiltersVideo_SelectiveColor_Blues_Yellow"
@@ -3179,7 +3201,9 @@
                                                     Minimum="-100"
                                                     Maximum="100" 
                                                     IsSnapToTickEnabled="True"
-                                                    IsMoveToPointEnabled="True" Grid.ColumnSpan="2" />
+                                                    IsMoveToPointEnabled="True"
+                                                    MouseDoubleClick="slFiltersVideo_SelectiveColor_Magentas_Cyan_MouseDoubleClick"
+                                                    Grid.ColumnSpan="2" />
                                             <TextBox x:Name="tbxFiltersVideo_SelectiveColor_Magentas_Cyan"
                                                     Text="{Binding Value, ElementName=slFiltersVideo_SelectiveColor_Magentas_Cyan, UpdateSourceTrigger=PropertyChanged}"
                                                     Height="22" 
@@ -3209,6 +3233,7 @@
                                                     Maximum="100" 
                                                     IsSnapToTickEnabled="True"
                                                     IsMoveToPointEnabled="True"
+                                                    MouseDoubleClick="slFiltersVideo_SelectiveColor_Magentas_Magenta_MouseDoubleClick"
                                                     Grid.Row="1" 
                                                     Grid.Column="1" />
                                             <TextBox x:Name="tbxFiltersVideo_SelectiveColor_Magentas_Magenta"
@@ -3241,6 +3266,7 @@
                                                     Maximum="100" 
                                                     IsSnapToTickEnabled="True"
                                                     IsMoveToPointEnabled="True"
+                                                    MouseDoubleClick="slFiltersVideo_SelectiveColor_Magentas_Yellow_MouseDoubleClick"
                                                     Grid.Row="2" 
                                                     Grid.ColumnSpan="2" />
                                             <TextBox x:Name="tbxFiltersVideo_SelectiveColor_Magentas_Yellow"
@@ -3296,7 +3322,9 @@
                                                     Minimum="-100"
                                                     Maximum="100" 
                                                     IsSnapToTickEnabled="True"
-                                                    IsMoveToPointEnabled="True" Grid.ColumnSpan="2" />
+                                                    IsMoveToPointEnabled="True" 
+                                                    MouseDoubleClick="slFiltersVideo_SelectiveColor_Whites_Cyan_MouseDoubleClick"
+                                                    Grid.ColumnSpan="2" />
                                             <TextBox x:Name="tbxFiltersVideo_SelectiveColor_Whites_Cyan"
                                                     Text="{Binding Value, ElementName=slFiltersVideo_SelectiveColor_Whites_Cyan, UpdateSourceTrigger=PropertyChanged}"
                                                     Height="22" 
@@ -3326,6 +3354,7 @@
                                                     Maximum="100" 
                                                     IsSnapToTickEnabled="True"
                                                     IsMoveToPointEnabled="True"
+                                                    MouseDoubleClick="slFiltersVideo_SelectiveColor_Whites_Magenta_MouseDoubleClick"
                                                     Grid.Row="1" 
                                                     Grid.Column="1" />
                                             <TextBox x:Name="tbxFiltersVideo_SelectiveColor_Whites_Magenta"
@@ -3358,6 +3387,7 @@
                                                     Maximum="100" 
                                                     IsSnapToTickEnabled="True"
                                                     IsMoveToPointEnabled="True"
+                                                    MouseDoubleClick="slFiltersVideo_SelectiveColor_Whites_Yellow_MouseDoubleClick"
                                                     Grid.Row="2" 
                                                     Grid.ColumnSpan="2" />
                                             <TextBox x:Name="tbxFiltersVideo_SelectiveColor_Whites_Yellow"
@@ -3413,7 +3443,9 @@
                                                     Minimum="-100"
                                                     Maximum="100" 
                                                     IsSnapToTickEnabled="True"
-                                                    IsMoveToPointEnabled="True" Grid.ColumnSpan="2" />
+                                                    IsMoveToPointEnabled="True" 
+                                                    MouseDoubleClick="slFiltersVideo_SelectiveColor_Neutrals_Cyan_MouseDoubleClick"
+                                                    Grid.ColumnSpan="2" />
                                             <TextBox x:Name="tbxFiltersVideo_SelectiveColor_Neutrals_Cyan"
                                                     Text="{Binding Value, ElementName=slFiltersVideo_SelectiveColor_Neutrals_Cyan, UpdateSourceTrigger=PropertyChanged}"
                                                     Height="22" 
@@ -3443,6 +3475,7 @@
                                                     Maximum="100" 
                                                     IsSnapToTickEnabled="True"
                                                     IsMoveToPointEnabled="True"
+                                                    MouseDoubleClick="slFiltersVideo_SelectiveColor_Neutrals_Magenta_MouseDoubleClick"
                                                     Grid.Row="1" 
                                                     Grid.Column="1" />
                                             <TextBox x:Name="tbxFiltersVideo_SelectiveColor_Neutrals_Magenta"
@@ -3475,6 +3508,7 @@
                                                     Maximum="100" 
                                                     IsSnapToTickEnabled="True"
                                                     IsMoveToPointEnabled="True"
+                                                    MouseDoubleClick="slFiltersVideo_SelectiveColor_Neutrals_Yellow_MouseDoubleClick"
                                                     Grid.Row="2" 
                                                     Grid.ColumnSpan="2" />
                                             <TextBox x:Name="tbxFiltersVideo_SelectiveColor_Neutrals_Yellow"
@@ -3530,7 +3564,9 @@
                                                     Minimum="-100"
                                                     Maximum="100" 
                                                     IsSnapToTickEnabled="True"
-                                                    IsMoveToPointEnabled="True" Grid.ColumnSpan="2" />
+                                                    IsMoveToPointEnabled="True" 
+                                                    MouseDoubleClick="slFiltersVideo_SelectiveColor_Blacks_Cyan_MouseDoubleClick"
+                                                    Grid.ColumnSpan="2" />
                                             <TextBox x:Name="tbxFiltersVideo_SelectiveColor_Blacks_Cyan"
                                                     Text="{Binding Value, ElementName=slFiltersVideo_SelectiveColor_Blacks_Cyan, UpdateSourceTrigger=PropertyChanged}"
                                                     Height="22" 
@@ -3560,6 +3596,7 @@
                                                     Maximum="100" 
                                                     IsSnapToTickEnabled="True"
                                                     IsMoveToPointEnabled="True"
+                                                    MouseDoubleClick="slFiltersVideo_SelectiveColor_Blacks_Magenta_MouseDoubleClick"
                                                     Grid.Row="1" 
                                                     Grid.Column="1" />
                                             <TextBox x:Name="tbxFiltersVideo_SelectiveColor_Blacks_Magenta"
@@ -3592,6 +3629,7 @@
                                                     Maximum="100" 
                                                     IsSnapToTickEnabled="True"
                                                     IsMoveToPointEnabled="True"
+                                                    MouseDoubleClick="slFiltersVideo_SelectiveColor_Blacks_Yellow_MouseDoubleClick"
                                                     Grid.Row="2" 
                                                     Grid.ColumnSpan="2" />
                                             <TextBox x:Name="tbxFiltersVideo_SelectiveColor_Blacks_Yellow"
@@ -3610,7 +3648,196 @@
                                 </TabItem>
 
                             </TabControl>
+
+                            <!-- Selective Color Rest Button -->
+                            <Button x:Name="btnFilterVideo_SelectiveColorReset"
+                                    Style="{DynamicResource ButtonCropCustom}"
+                                    Margin="50,0,0,14"
+                                    Cursor="Hand" 
+                                    MaxWidth="60" 
+                                    MaxHeight="22"
+                                    MinWidth="50" 
+                                    Height="19" 
+                                    ToolTipService.InitialShowDelay="1000" 
+                                    ToolTipService.ShowOnDisabled="True"
+                                    ToolTip="Reset Selective Color to Default." 
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Bottom"
+                                    Width="1"
+                                    Grid.Column="1" 
+                                    Grid.Row="12" Click="btnFilterVideo_SelectiveColorReset_Click"
+                                    >
+                                <TextBlock Text="Reset" 
+                                           Margin="0,-2,0,0"/>
+                            </Button>
                             <!-- End Selective Color -->
+
+                            <!-- EQ -->
+                            <Label 
+                                Style="{DynamicResource LabelCustom}"
+                                Content="EQ" 
+                                HorizontalAlignment="Left"
+                                Margin="20,0,0,0" 
+                                VerticalAlignment="Top" 
+                                Width="95" 
+                                FontFamily="Segoe UI Semibold" 
+                                Grid.Row="14" 
+                                Height="26"
+                                Grid.ColumnSpan="2" />
+
+                            <!-- Brightness -->
+                            <Label Style="{DynamicResource LabelCustom}"
+                                   Content="Brightness" 
+                                   HorizontalAlignment="Left"
+                                   Margin="20,2,0,0" 
+                                   VerticalAlignment="Top" 
+                                   Width="85" 
+                                   FontFamily="Segoe UI Semilight" 
+                                   Height="26" 
+                                   Grid.Row="15" />
+                            <Slider x:Name="slFiltersVideo_EQ_Brightness" 
+                                    HorizontalAlignment="Right"
+                                    Margin="0,7,65,0" 
+                                    VerticalAlignment="Top" 
+                                    Width="62"
+                                    Minimum="-100"
+                                    Maximum="100" 
+                                    IsSnapToTickEnabled="True"
+                                    IsMoveToPointEnabled="True" 
+                                    MouseDoubleClick="slFiltersVideo_EQ_Brightness_MouseDoubleClick"
+                                    Grid.Column="1" 
+                                    Grid.Row="15"/>
+                            <TextBox x:Name="tbxFiltersVideo_EQ_Brightness"
+                                    Text="{Binding Value, ElementName=slFiltersVideo_EQ_Brightness, UpdateSourceTrigger=PropertyChanged}"
+                                    Height="22" 
+                                    TextWrapping="Wrap" 
+                                    Margin="0,6,27,0"
+                                    HorizontalAlignment="Right"
+                                    Width="33" 
+                                    VerticalAlignment="Top" 
+                                    Grid.Column="1" 
+                                    Grid.Row="15"/>
+
+                            <!-- Contrast -->
+                            <Label Style="{DynamicResource LabelCustom}"
+                                   Content="Contrast" 
+                                   HorizontalAlignment="Left"
+                                   Margin="20,0,0,0" 
+                                   VerticalAlignment="Top" 
+                                   Width="85" 
+                                   FontFamily="Segoe UI Semilight" 
+                                   Height="26" 
+                                   Grid.Row="16" />
+                            <Slider x:Name="slFiltersVideo_EQ_Contrast" 
+                                    HorizontalAlignment="Right"
+                                    Margin="0,5,65,0" 
+                                    VerticalAlignment="Top" 
+                                    Width="62"
+                                    Minimum="-100"
+                                    Maximum="100" 
+                                    IsSnapToTickEnabled="True"
+                                    IsMoveToPointEnabled="True" 
+                                    MouseDoubleClick="slFiltersVideo_EQ_Contrast_MouseDoubleClick"
+                                    Grid.Column="1" 
+                                    Grid.Row="16"/>
+                            <TextBox x:Name="tbxFiltersVideo_EQ_Contrast"
+                                    Text="{Binding Value, ElementName=slFiltersVideo_EQ_Contrast, UpdateSourceTrigger=PropertyChanged}"
+                                    Height="22" 
+                                    TextWrapping="Wrap" 
+                                    Margin="0,4,27,0"
+                                    HorizontalAlignment="Right"
+                                    Width="33" 
+                                    VerticalAlignment="Top" 
+                                    Grid.Column="1" 
+                                    Grid.Row="16"/>
+
+                            <!-- Saturation -->
+                            <Label Style="{DynamicResource LabelCustom}"
+                                   Content="Saturation" 
+                                   HorizontalAlignment="Left"
+                                   Margin="20,0,0,0" 
+                                   VerticalAlignment="Top" 
+                                   Width="85" 
+                                   FontFamily="Segoe UI Semilight" 
+                                   Height="26" 
+                                   Grid.Row="17" />
+                            <Slider x:Name="slFiltersVideo_EQ_Saturation" 
+                                    HorizontalAlignment="Right"
+                                    Margin="0,5,65,0" 
+                                    VerticalAlignment="Top" 
+                                    Width="62"
+                                    Minimum="-100"
+                                    Maximum="100" 
+                                    IsSnapToTickEnabled="True"
+                                    IsMoveToPointEnabled="True" 
+                                    MouseDoubleClick="slFiltersVideo_EQ_Saturation_MouseDoubleClick"
+                                    Grid.Column="1" 
+                                    Grid.Row="17"/>
+                            <TextBox x:Name="tbxFiltersVideo_EQ_Saturation"
+                                    Text="{Binding Value, ElementName=slFiltersVideo_EQ_Saturation, UpdateSourceTrigger=PropertyChanged}"
+                                    Height="22" 
+                                    TextWrapping="Wrap" 
+                                    Margin="0,4,27,0"
+                                    HorizontalAlignment="Right"
+                                    Width="33" 
+                                    VerticalAlignment="Top" 
+                                    Grid.Column="1" 
+                                    Grid.Row="17"/>
+
+                            <!-- Gamma -->
+                            <Label Style="{DynamicResource LabelCustom}"
+                                   Content="Gamma" 
+                                   HorizontalAlignment="Left"
+                                   Margin="20,0,0,0" 
+                                   VerticalAlignment="Top" 
+                                   Width="85" 
+                                   FontFamily="Segoe UI Semilight" 
+                                   Height="26" 
+                                   Grid.Row="18" />
+                            <Slider x:Name="slFiltersVideo_EQ_Gamma" 
+                                    HorizontalAlignment="Right"
+                                    Margin="0,5,65,0" 
+                                    VerticalAlignment="Top" 
+                                    Width="62"
+                                    Minimum="-100"
+                                    Maximum="100" 
+                                    IsSnapToTickEnabled="True"
+                                    IsMoveToPointEnabled="True" 
+                                    MouseDoubleClick="slFiltersVideo_EQ_Gamma_MouseDoubleClick"
+                                    Grid.Column="1" 
+                                    Grid.Row="18"/>
+                            <TextBox x:Name="tbxFiltersVideo_EQ_Gamma"
+                                    Text="{Binding Value, ElementName=slFiltersVideo_EQ_Gamma, UpdateSourceTrigger=PropertyChanged}"
+                                    Height="22" 
+                                    TextWrapping="Wrap" 
+                                    Margin="0,4,27,0"
+                                    HorizontalAlignment="Right"
+                                    Width="33" 
+                                    VerticalAlignment="Top" 
+                                    Grid.Column="1" 
+                                    Grid.Row="18"/>
+
+                            <!-- EQ Reset Button -->
+                            <Button x:Name="btnFilterVideo_EQ_Reset"
+                                    Style="{DynamicResource ButtonCropCustom}"
+                                    Margin="50,0,0,6"
+                                    Cursor="Hand" 
+                                    MaxWidth="60" 
+                                    MaxHeight="22"
+                                    MinWidth="50" 
+                                    Height="19" 
+                                    ToolTipService.InitialShowDelay="1000" 
+                                    ToolTipService.ShowOnDisabled="True"
+                                    ToolTip="Reset EQ to Default." 
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Bottom"
+                                    Width="1"
+                                    Grid.Column="1" 
+                                    Grid.Row="19" Click="btnFilterVideo_EQ_Reset_Click"
+                                    >
+                                <TextBlock Text="Reset" 
+                                           Margin="0,-2,0,0"/>
+                            </Button>
 
                             <!-- Audio Section -->
                             <!--<Label x:Name="lblFiltersAudioSection"
@@ -3774,8 +4001,8 @@
                                      Grid.Column="1" 
                                      Grid.Row="2"/>
 
-                                    <!-- FFplay Path Revert Button -->
-                                    <Button x:Name="buttonFFplayAuto"
+                            <!-- FFplay Path Revert Button -->
+                            <Button x:Name="buttonFFplayAuto"
                                             HorizontalAlignment="Left"
                                             Margin="120,1,0,0" 
                                             VerticalAlignment="Top"
@@ -3787,7 +4014,7 @@
                                             Style="{DynamicResource ButtonFolderCustom}" 
                                             Grid.Column="1" 
                                             Grid.Row="2" >
-                                    <Image Width="9" 
+                                <Image Width="9" 
                                            Height="11" 
                                            Stretch="Uniform"
                                            HorizontalAlignment="Center"

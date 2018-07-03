@@ -38,9 +38,20 @@ namespace Axiom
     public partial class VideoFilters
     {
         // Filter
-        public static List<string> vFiltersList = new List<string>(); // Filters to String Join
+        public static List<string> vFiltersList = new List<string>(); // Master Filters List
         public static string geq; // png transparent to jpg whtie background filter
         public static string vFilter;
+
+
+        /// <summary>
+        ///     Normalize Value (Method)
+        /// <summary>
+        public static double NormalizeValue(double val, double valmin, double valmax, double min, double max)
+        {
+            // (((sliderValue - sliderValueMin) / (sliderValueMax - sliderValueMin)) * (NormalizeMax - NormalizeMin)) + NormalizeMin
+
+            return (((val - valmin) / (valmax - valmin)) * (max - min)) + min;
+        }
 
 
         /// <summary>
@@ -54,7 +65,7 @@ namespace Axiom
                 if (string.Equals(MainWindow.inputExt, ".png", StringComparison.CurrentCultureIgnoreCase)
                     || string.Equals(MainWindow.batchExt, "png", StringComparison.CurrentCultureIgnoreCase))
                 {
-                    //png transparent to white background
+                    // png transparent to white background
                     geq = "format=yuva444p,geq='if(lte(alpha(X,Y),16),255,p(X,Y))':'if(lte(alpha(X,Y),16),128,p(X,Y))':'if(lte(alpha(X,Y),16),128,p(X,Y))'";
 
                     // Video Filter Add
@@ -208,15 +219,47 @@ namespace Axiom
         }
 
 
+
+        /// <summary>
+        ///     Selective Color Class
+        /// <summary>
+        public static List<FilterVideoSelectiveColor> SelectiveColorList { get; set; }
+        public partial class FilterVideoSelectiveColor
+        {
+            public string SelectiveColorName { get; set; }
+            public Color SelectiveColorPreview { get; set; }
+            public string SelectiveColorPreviewStr { get { return SelectiveColorPreview.ToString(); } }
+            public FilterVideoSelectiveColor(string name, Color color)
+            {
+                SelectiveColorName = name;
+                SelectiveColorPreview = color;
+            }
+        }
+
         /// <summary>
         ///     Selective SelectiveColorPreview Calculator (Method)
         /// <summary>
-        public static String SelectiveColor_Calculator(double sliderValue)
+        public static String SelectiveColor_Calculator(double value)
         {
-            // Convert Slider Value -100 to 100 integer to -1 to 1 decimal
-            string decimalValue = Convert.ToString(Math.Round(sliderValue * 0.01, 2));
+            // FFmpeg Range -1 to 1
+            // Slider -100 to 100
+            // Limit to 2 decimal places
+
+            string decimalValue = Convert.ToString(
+                                        Math.Round(
+                                                    NormalizeValue(
+                                                           value, // input
+                                                            -100, // input min
+                                                             100, // input max
+                                                              -1, // normalize min
+                                                               1  // normalize max
+                                                        )
+                                                    , 2
+                                                )
+                                            );
 
             return decimalValue;
+
         }
 
         /// <summary>
@@ -395,6 +438,172 @@ namespace Axiom
 
 
         /// <summary>
+        ///     Video EQ (Method)
+        /// <summary>
+        public static void Video_EQ_Filter(MainWindow mainwindow)
+        {
+            if (mainwindow.slFiltersVideo_EQ_Brightness.Value != 0
+                || mainwindow.slFiltersVideo_EQ_Contrast.Value != 0
+                || mainwindow.slFiltersVideo_EQ_Saturation.Value != 0
+                || mainwindow.slFiltersVideo_EQ_Gamma.Value != 0)
+            {
+                // EQ List
+                List<string> vEQ_Filter_List = new List<string>()
+                {
+                    // EQ Brightness
+                    VideoFilters.Video_EQ_Brightness_Filter(mainwindow),
+                    // Contrast
+                    VideoFilters.Video_EQ_Contrast_Filter(mainwindow),
+                    // Struation
+                    VideoFilters.Video_EQ_Saturation_Filter(mainwindow),
+                    // Gamma
+                    VideoFilters.Video_EQ_Gamma_Filter(mainwindow),
+                };
+
+                // Join
+                string filters = string.Join("\r\n:", vEQ_Filter_List
+                                       .Where(s => !string.IsNullOrEmpty(s)));
+
+                // Combine
+                vFiltersList.Add("eq=\r\n" + filters);
+            }
+        }
+
+
+        /// <summary>
+        ///     Video EQ - Brightness (Method)
+        /// <summary>
+        public static String Video_EQ_Brightness_Filter(MainWindow mainwindow)
+        {
+            double value = mainwindow.slFiltersVideo_EQ_Brightness.Value;
+
+            string brightness = string.Empty;
+
+            if (value != 0)
+            {
+                // FFmpeg Range -1 to 1
+                // Slider -100 to 100
+                // Limit to 2 decimal places
+
+                brightness = "brightness=" +
+                                    Convert.ToString(
+                                        Math.Round(
+                                                    NormalizeValue(
+                                                           value, // input
+                                                            -100, // input min
+                                                             100, // input max
+                                                              -1, // normalize min
+                                                               1  // normalize max
+                                                        )
+                                                    , 2
+                                                )
+                                            );
+            }
+
+            return brightness;
+        }
+
+        /// <summary>
+        ///     Video EQ - Contrast (Method)
+        /// <summary>
+        public static String Video_EQ_Contrast_Filter(MainWindow mainwindow)
+        {
+            double value = mainwindow.slFiltersVideo_EQ_Contrast.Value;
+
+            string contrast = string.Empty;
+
+            if (value != 0)
+            {
+                // FFmpeg Range -2 to 2
+                // Slider -100 to 100
+
+                contrast = "contrast=" +
+                            Convert.ToString(
+                                    Math.Round(
+                                                NormalizeValue(
+                                                        value, // input
+                                                        -100, // input min
+                                                            100, // input max
+                                                            -2, // normalize min
+                                                            2  // normalize max
+                                                    )
+                                                , 2
+                                            )
+                                        );
+            }
+
+            return contrast;
+        }
+
+        /// <summary>
+        ///     Video EQ - Saturation (Method)
+        /// <summary>
+        public static String Video_EQ_Saturation_Filter(MainWindow mainwindow)
+        {
+            double value = mainwindow.slFiltersVideo_EQ_Saturation.Value;
+
+            string saturation = string.Empty;
+
+            if (value != 0)
+            {
+                // FFmpeg Range 0 to 3
+                // Slider -100 to 100
+                // Limit to 2 decimal places
+
+                saturation = "saturation=" +
+                             Convert.ToString(
+                                        Math.Round(
+                                                    NormalizeValue(
+                                                           value, // input
+                                                            -100, // input min
+                                                             100, // input max
+                                                               0, // normalize min
+                                                               3  // normalize max
+                                                        )
+                                                    , 2
+                                                )
+                                            );
+            }
+
+            return saturation;
+        }
+
+        /// <summary>
+        ///     Video EQ - Gamma (Method)
+        /// <summary>
+        public static String Video_EQ_Gamma_Filter(MainWindow mainwindow)
+        {
+            double value = mainwindow.slFiltersVideo_EQ_Gamma.Value;
+
+            string gamma = string.Empty;
+
+            if (value != 0)
+            {
+                // FFmpeg Range 0.1 to 10
+                // Slider -100 to 100
+                // Limit to 2 decimal places
+
+                gamma = "gamma=" +
+                        Convert.ToString(
+                                    Math.Round(
+                                                NormalizeValue(
+                                                        value, // input
+                                                        -100, // input min
+                                                            100, // input max
+                                                            0.1, // normalize min
+                                                            10  // normalize max
+                                                    )
+                                                , 2
+                                            )
+                                        );
+            }
+
+            return gamma;
+        }
+
+
+
+        /// <summary>
         ///     Video Filter Combine (Method)
         /// <summary>
         public static String VideoFilter(MainWindow mainwindow)
@@ -457,6 +666,11 @@ namespace Axiom
                 VideoFilters.SelectiveColor_Filter(mainwindow);
 
                 // -------------------------
+                //  EQ - Brightness, Contrast, Saturation, Gamma
+                // -------------------------
+                VideoFilters.Video_EQ_Filter(mainwindow);
+
+                // -------------------------
                 // PNG to JPEG
                 // -------------------------
                 VideoFilters.PNGtoJPG_Filter(mainwindow);
@@ -470,37 +684,41 @@ namespace Axiom
                     //System.Windows.MessageBox.Show(string.Join(",\r\n\r\n", vFiltersList.Where(s => !string.IsNullOrEmpty(s)))); //debug
                     //System.Windows.MessageBox.Show(Convert.ToString(vFiltersList.Count())); //debug
 
-                    //// 1 Filter
-                    ////
-                    //if (vFiltersList.Count() == 1)
-                    //{
-                    //    //vFilter = "-vf " + string.Join(",\r\n\r\n", vFiltersList.Where(s => !string.IsNullOrEmpty(s)));
-                    //}
-
-                    //// Multiple Filters
-                    //// Wrap in Quotes
-                    ////
-                    //else if (vFiltersList.Count() > 1)
-                    //{
-                    //    vFilter = "-vf \"" + string.Join(",\r\n\r\n", vFiltersList.Where(s => !string.IsNullOrEmpty(s))) + "\"";
-                    //}
-
-                    // Has Filter(s)
-                    //
-                    if (vFiltersList.Count() > 0)
+                    // -------------------------
+                    // 1 Filter
+                    // -------------------------
+                    if (vFiltersList.Count == 1)
                     {
                         // Always wrap in quotes
-                        vFilter = "-vf \"" + string.Join(", \r\n\r\n", vFiltersList.Where(s => !string.IsNullOrEmpty(s))) + "\"";
+                        vFilter = "-vf \"" + string.Join(", \r\n\r\n", vFiltersList
+                                                   .Where(s => !string.IsNullOrEmpty(s))) 
+                                                   + "\"";
                     }
 
+                    // -------------------------
+                    // Multiple Filters
+                    // -------------------------
+                    else if (vFiltersList.Count > 1)
+                    {
+                        // Always wrap in quotes
+                        // Linebreak beginning and end
+                        vFilter = "-vf \"\r\n" + string.Join(", \r\n\r\n", vFiltersList
+                                                       .Where(s => !string.IsNullOrEmpty(s))) 
+                                                       + "\r\n\"";
+                    }
+
+                    // -------------------------
                     // Empty
-                    //
+                    // -------------------------
                     else
                     {
                         vFilter = string.Empty;
                     }
                 }
+
+                // -------------------------
                 // Video Codec None
+                // -------------------------
                 else
                 {
                     vFilter = string.Empty;
@@ -511,25 +729,6 @@ namespace Axiom
             // Return Value
             return vFilter;
         }
-
-
-
-        /// <summary>
-        ///     Selective Color Class
-        /// <summary>
-        public static List<FilterVideoSelectiveColor> SelectiveColorList { get; set; }
-        public partial class FilterVideoSelectiveColor
-        {
-            public string SelectiveColorName { get; set; }
-            public Color SelectiveColorPreview { get; set; }
-            public string SelectiveColorPreviewStr { get { return SelectiveColorPreview.ToString(); } }
-            public FilterVideoSelectiveColor(string name, Color color)
-            {
-                SelectiveColorName = name;
-                SelectiveColorPreview = color;
-            }
-        }
-
 
     }
 }

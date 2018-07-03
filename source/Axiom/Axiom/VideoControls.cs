@@ -2179,7 +2179,7 @@ namespace Axiom
                     mainwindow.cboOptTune.SelectedItem = "none";
                     mainwindow.cboOptProfile.SelectedItem = "main";
                     mainwindow.cboOptLevel.SelectedItem = "4.1";
-                    Video.optFlags = "-deblock 0:0 -sar 1/1 -x264opts bluray-compat=1:level=4.1:open-gop=1:slices=4:tff=1:colorprim=bt709:colormatrix=bt709:vbv-maxrate=40000:vbv-bufsize=30000:me=umh:ref=4:nal-hrd=vbr:aud=1:b-pyramid=strict";
+                    Video.optFlags = "-deblock 0:0 -sar 1/1 -x264-params \"bluray-compat=1:level=4.1:open-gop=1:slices=4:tff=1:colorprim=bt709:colormatrix=bt709:vbv-maxrate=40000:vbv-bufsize=30000:me=umh:ref=4:nal-hrd=vbr:aud=1:b-pyramid=strict\"";
                 }
                 // Windows Device
                 else if ((string)mainwindow.cboOptimize.SelectedItem == "Windows")
@@ -2228,7 +2228,9 @@ namespace Axiom
                     mainwindow.cboOptTune.SelectedItem = "none";
                     mainwindow.cboOptProfile.SelectedItem = "high";
                     mainwindow.cboOptLevel.SelectedItem = "4.1";
-                    Video.optFlags = "-maxrate 9.8M";
+                    //mainwindow.vMaxrateCustom.Text = "9.8M";
+                    //Video.optFlags = "-maxrate 9.8M";
+                    Video.optFlags = string.Empty;
                 }
                 // Xbox One
                 else if ((string)mainwindow.cboOptimize.SelectedItem == "Xbox One")

@@ -1670,55 +1670,87 @@ namespace Axiom
                 if (string.IsNullOrWhiteSpace(mainwindow.tbxInput.Text)) // empty check
                 {
                     // -------------------------
-                    // Video Auto Quality
+                    // Both Video & Audio are Auto Quality
+                    // Combined Single Warning
                     // -------------------------
-                    if ((string)mainwindow.cboVideoQuality.SelectedItem == "Auto")
+                    if ((string)mainwindow.cboVideoQuality.SelectedItem == "Auto"
+                        && (string)mainwindow.cboAudioQuality.SelectedItem == "Auto"
+                        && (string)mainwindow.cboVideoCodec.SelectedItem != "Copy"
+                        && (string)mainwindow.cboAudioCodec.SelectedItem != "Copy"
+                        )
                     {
-                        if ((string)mainwindow.cboVideoCodec.SelectedItem != "Copy")
-                        {
-                            // Log Console Message /////////
-                            Log.logParagraph.Inlines.Add(new LineBreak());
-                            Log.logParagraph.Inlines.Add(new LineBreak());
-                            Log.logParagraph.Inlines.Add(new Bold(new Run("Notice: Video Auto Quality requires an input file in order to detect.")) { Foreground = Log.ConsoleWarning });
+                        // Log Console Message /////////
+                        Log.logParagraph.Inlines.Add(new LineBreak());
+                        Log.logParagraph.Inlines.Add(new LineBreak());
+                        Log.logParagraph.Inlines.Add(new Bold(new Run("Notice: Video & Audio Auto Quality require an input file in order to detect.")) { Foreground = Log.ConsoleWarning });
 
-                            /* lock */
-                            ready = false;
-                            script = false;
-                            // Warning
-                            MessageBox.Show("Video Auto Quality requires an input file in order to detect.",
-                                            "Notice",
-                                            MessageBoxButton.OK,
-                                            MessageBoxImage.Exclamation);
-                        }
+                        /* lock */
+                        ready = false;
+                        script = false;
+                        // Warning
+                        MessageBox.Show("Video & Audio Auto Quality require an input file in order to detect.",
+                                        "Notice",
+                                        MessageBoxButton.OK,
+                                        MessageBoxImage.Information);
                     }
 
                     // -------------------------
-                    // Audio Auto Quality
+                    // Either Video & Audio are Auto Quality
+                    // Warning for each
                     // -------------------------
-                    if ((string)mainwindow.cboAudioQuality.SelectedItem == "Auto")
+                    else
                     {
-                        if ((string)mainwindow.cboAudioCodec.SelectedItem != "Copy")
+                        // -------------------------
+                        // Video Auto Quality
+                        // -------------------------
+                        if ((string)mainwindow.cboVideoQuality.SelectedItem == "Auto")
                         {
-                            // Log Console Message /////////
-                            Log.logParagraph.Inlines.Add(new LineBreak());
-                            Log.logParagraph.Inlines.Add(new LineBreak());
-                            Log.logParagraph.Inlines.Add(new Bold(new Run("Notice: Audio Auto Quality requires an input file in order to detect.")) { Foreground = Log.ConsoleWarning });
+                            if ((string)mainwindow.cboVideoCodec.SelectedItem != "Copy")
+                            {
+                                // Log Console Message /////////
+                                Log.logParagraph.Inlines.Add(new LineBreak());
+                                Log.logParagraph.Inlines.Add(new LineBreak());
+                                Log.logParagraph.Inlines.Add(new Bold(new Run("Notice: Video Auto Quality requires an input file in order to detect.")) { Foreground = Log.ConsoleWarning });
 
-                            /* lock */
-                            ready = false;
-                            script = false;
-                            // Warning
-                            MessageBox.Show("Audio Auto Quality requires an input file in order to detect.",
-                                            "Notice",
-                                            MessageBoxButton.OK,
-                                            MessageBoxImage.Exclamation);
+                                /* lock */
+                                ready = false;
+                                script = false;
+                                // Warning
+                                MessageBox.Show("Video Auto Quality requires an input file in order to detect.",
+                                                "Notice",
+                                                MessageBoxButton.OK,
+                                                MessageBoxImage.Information);
+                            }
                         }
-                    }
+
+                        // -------------------------
+                        // Audio Auto Quality
+                        // -------------------------
+                        if ((string)mainwindow.cboAudioQuality.SelectedItem == "Auto")
+                        {
+                            if ((string)mainwindow.cboAudioCodec.SelectedItem != "Copy")
+                            {
+                                // Log Console Message /////////
+                                Log.logParagraph.Inlines.Add(new LineBreak());
+                                Log.logParagraph.Inlines.Add(new LineBreak());
+                                Log.logParagraph.Inlines.Add(new Bold(new Run("Notice: Audio Auto Quality requires an input file in order to detect.")) { Foreground = Log.ConsoleWarning });
+
+                                /* lock */
+                                ready = false;
+                                script = false;
+                                // Warning
+                                MessageBox.Show("Audio Auto Quality requires an input file in order to detect.",
+                                                "Notice",
+                                                MessageBoxButton.OK,
+                                                MessageBoxImage.Information);
+                            }
+                        }
+                    }                  
                 }
             }
 
             // -------------------------
-            // STOP if Single File Input with no Extension
+            // Halt if Single File Input with no Extension
             // -------------------------
             if (mainwindow.tglBatch.IsChecked == false && mainwindow.tbxInput.Text.EndsWith("\\"))
             {
@@ -5591,6 +5623,285 @@ namespace Axiom
             FFmpeg.FFmpegConvert(this);
         }
 
+
+        /// <summary>
+        ///     Filter Video - Selective Color Sliders
+        /// </summary>
+        // Reds Cyan
+        private void slFiltersVideo_SelectiveColor_Reds_Cyan_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            // Reset to default
+            slFiltersVideo_SelectiveColor_Reds_Cyan.Value = 0;
+        }
+        // Reds Magenta
+        private void slFiltersVideo_SelectiveColor_Reds_Magenta_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            // Reset to default
+            slFiltersVideo_SelectiveColor_Reds_Magenta.Value = 0;
+        }
+        // Regs Yellow
+        private void slFiltersVideo_SelectiveColor_Reds_Yellow_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            // Reset to default
+            slFiltersVideo_SelectiveColor_Reds_Yellow.Value = 0;
+        }
+        // Yellows Cyan
+        private void slFiltersVideo_SelectiveColor_Yellows_Cyan_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            // Reset to default
+            slFiltersVideo_SelectiveColor_Yellows_Cyan.Value = 0;
+        }
+        // Yellows Magenta
+        private void slFiltersVideo_SelectiveColor_Yellows_Magenta_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            // Reset to default
+            slFiltersVideo_SelectiveColor_Yellows_Magenta.Value = 0;
+        }
+        // Yellows Yellow
+        private void slFiltersVideo_SelectiveColor_Yellows_Yellow_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            // Reset to default
+            slFiltersVideo_SelectiveColor_Yellows_Yellow.Value = 0;
+        }
+        // Greens Cyan
+        private void slFiltersVideo_SelectiveColor_Greens_Cyan_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            // Reset to default
+            slFiltersVideo_SelectiveColor_Greens_Cyan.Value = 0;
+        }
+        // Greens Magenta
+        private void slFiltersVideo_SelectiveColor_Greens_Magenta_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            // Reset to default
+            slFiltersVideo_SelectiveColor_Greens_Magenta.Value = 0;
+        }
+        // Greens Yellow
+        private void slFiltersVideo_SelectiveColor_Greens_Yellow_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            // Reset to default
+            slFiltersVideo_SelectiveColor_Greens_Yellow.Value = 0;
+        }
+        // Cyans Cyan
+        private void slFiltersVideo_SelectiveColor_Cyans_Cyan_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            // Reset to default
+            slFiltersVideo_SelectiveColor_Cyans_Cyan.Value = 0;
+        }
+        // Cyans Magenta
+        private void slFiltersVideo_SelectiveColor_Cyans_Magenta_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            // Reset to default
+            slFiltersVideo_SelectiveColor_Cyans_Magenta.Value = 0;
+        }
+        // Cyans Yellow
+        private void slFiltersVideo_SelectiveColor_Cyans_Yellow_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            // Reset to default
+            slFiltersVideo_SelectiveColor_Cyans_Yellow.Value = 0;
+        }
+        // Blues Cyan
+        private void slFiltersVideo_SelectiveColor_Blues_Cyan_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            // Reset to default
+            slFiltersVideo_SelectiveColor_Blues_Cyan.Value = 0;
+        }
+        // Blues Magneta
+        private void slFiltersVideo_SelectiveColor_Blues_Magenta_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            // Reset to default
+            slFiltersVideo_SelectiveColor_Blues_Magenta.Value = 0;
+        }
+        // Blues Yellow
+        private void slFiltersVideo_SelectiveColor_Blues_Yellow_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            // Reset to default
+            slFiltersVideo_SelectiveColor_Blues_Yellow.Value = 0;
+        }
+        // Magentas Cyan
+        private void slFiltersVideo_SelectiveColor_Magentas_Cyan_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            // Reset to default
+            slFiltersVideo_SelectiveColor_Magentas_Cyan.Value = 0;
+        }
+        // Magentas Magenta
+        private void slFiltersVideo_SelectiveColor_Magentas_Magenta_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            // Reset to default
+            slFiltersVideo_SelectiveColor_Magentas_Magenta.Value = 0;
+        }
+        // Magentas Yellow
+        private void slFiltersVideo_SelectiveColor_Magentas_Yellow_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            // Reset to default
+            slFiltersVideo_SelectiveColor_Magentas_Yellow.Value = 0;
+        }
+        // Whites Cyan
+        private void slFiltersVideo_SelectiveColor_Whites_Cyan_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            // Reset to default
+            slFiltersVideo_SelectiveColor_Whites_Cyan.Value = 0;
+        }
+        // Whites Magenta
+        private void slFiltersVideo_SelectiveColor_Whites_Magenta_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            // Reset to default
+            slFiltersVideo_SelectiveColor_Whites_Magenta.Value = 0;
+        }
+        // Whites Yellow
+        private void slFiltersVideo_SelectiveColor_Whites_Yellow_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            // Reset to default
+            slFiltersVideo_SelectiveColor_Whites_Yellow.Value = 0;
+        }
+        // Neutrals Cyan
+        private void slFiltersVideo_SelectiveColor_Neutrals_Cyan_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            // Reset to default
+            slFiltersVideo_SelectiveColor_Neutrals_Cyan.Value = 0;
+        }
+        // Neutrals Magenta
+        private void slFiltersVideo_SelectiveColor_Neutrals_Magenta_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            // Reset to default
+            slFiltersVideo_SelectiveColor_Neutrals_Magenta.Value = 0;
+        }
+        // Neutrals Yellow
+        private void slFiltersVideo_SelectiveColor_Neutrals_Yellow_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            // Reset to default
+            slFiltersVideo_SelectiveColor_Neutrals_Yellow.Value = 0;
+        }
+        // Blacks Cyan
+        private void slFiltersVideo_SelectiveColor_Blacks_Cyan_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            // Reset to default
+            slFiltersVideo_SelectiveColor_Blacks_Cyan.Value = 0;
+        }
+        // Blacks Magenta
+        private void slFiltersVideo_SelectiveColor_Blacks_Magenta_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            // Reset to default
+            slFiltersVideo_SelectiveColor_Blacks_Magenta.Value = 0;
+        }
+        // Blacks Yellow
+        private void slFiltersVideo_SelectiveColor_Blacks_Yellow_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            // Reset to default
+            slFiltersVideo_SelectiveColor_Blacks_Yellow.Value = 0;
+        }
+
+        /// <summary>
+        ///     Filter Video - Selective Color Reset
+        /// </summary>
+        private void btnFilterVideo_SelectiveColorReset_Click(object sender, RoutedEventArgs e)
+        {
+            // Reset to default
+
+            // Reds Cyan
+            slFiltersVideo_SelectiveColor_Reds_Cyan.Value = 0;
+            // Reds Magenta
+            slFiltersVideo_SelectiveColor_Reds_Magenta.Value = 0;
+            // Regs Yellow
+            slFiltersVideo_SelectiveColor_Reds_Yellow.Value = 0;
+
+            // Yellows Cyan
+            slFiltersVideo_SelectiveColor_Yellows_Cyan.Value = 0;
+            // Yellows Magenta
+            slFiltersVideo_SelectiveColor_Yellows_Magenta.Value = 0;
+            // Yellows Yellow
+            slFiltersVideo_SelectiveColor_Yellows_Yellow.Value = 0;
+
+            // Greens Cyan
+            slFiltersVideo_SelectiveColor_Greens_Cyan.Value = 0;
+            // Greens Magenta
+            slFiltersVideo_SelectiveColor_Greens_Magenta.Value = 0;
+            // Greens Yellow
+            slFiltersVideo_SelectiveColor_Greens_Yellow.Value = 0;
+
+            // Cyans Cyan
+            slFiltersVideo_SelectiveColor_Cyans_Cyan.Value = 0;
+            // Cyans Magenta
+            slFiltersVideo_SelectiveColor_Cyans_Magenta.Value = 0;
+            // Cyans Yellow
+            slFiltersVideo_SelectiveColor_Cyans_Yellow.Value = 0;
+
+            // Blues Cyan
+            slFiltersVideo_SelectiveColor_Blues_Cyan.Value = 0;
+            // Blues Magneta
+            slFiltersVideo_SelectiveColor_Blues_Magenta.Value = 0;
+            // Blues Yellow
+            slFiltersVideo_SelectiveColor_Blues_Yellow.Value = 0;
+
+            // Magentas Cyan
+            slFiltersVideo_SelectiveColor_Magentas_Cyan.Value = 0;
+            // Magentas Magenta
+            slFiltersVideo_SelectiveColor_Magentas_Magenta.Value = 0;
+            // Magentas Yellow
+            slFiltersVideo_SelectiveColor_Magentas_Yellow.Value = 0;
+
+            // Whites Cyan
+            slFiltersVideo_SelectiveColor_Whites_Cyan.Value = 0;
+            // Whites Magenta
+            slFiltersVideo_SelectiveColor_Whites_Magenta.Value = 0;
+            // Whites Yellow
+            slFiltersVideo_SelectiveColor_Whites_Yellow.Value = 0;
+
+            // Neutrals Cyan
+            slFiltersVideo_SelectiveColor_Neutrals_Cyan.Value = 0;
+            // Neutrals Magenta
+            slFiltersVideo_SelectiveColor_Neutrals_Magenta.Value = 0;
+            // Neutrals Yellow
+            slFiltersVideo_SelectiveColor_Neutrals_Yellow.Value = 0;
+
+            // Blacks Cyan
+            slFiltersVideo_SelectiveColor_Blacks_Cyan.Value = 0;
+            // Blacks Magenta
+            slFiltersVideo_SelectiveColor_Blacks_Magenta.Value = 0;
+            // Blacks Yellow
+            slFiltersVideo_SelectiveColor_Blacks_Yellow.Value = 0;
+        }
+
+
+        /// <summary>
+        ///     Filter Video - EQ Sliders
+        /// </summary>
+        private void slFiltersVideo_EQ_Brightness_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            // Reset to default
+            slFiltersVideo_EQ_Brightness.Value = 0;
+        }
+
+        private void slFiltersVideo_EQ_Contrast_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            // Reset to default
+            slFiltersVideo_EQ_Contrast.Value = 0;
+        }
+
+        private void slFiltersVideo_EQ_Saturation_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            // Reset to default
+            slFiltersVideo_EQ_Saturation.Value = 0;
+        }
+
+        private void slFiltersVideo_EQ_Gamma_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            // Reset to default
+            slFiltersVideo_EQ_Gamma.Value = 0;
+        }
+
+        private void btnFilterVideo_EQ_Reset_Click(object sender, RoutedEventArgs e)
+        {
+            // Reset to default
+
+            // Brightness
+            slFiltersVideo_EQ_Brightness.Value = 0;
+            // Contrast
+            slFiltersVideo_EQ_Contrast.Value = 0;
+            // Saturation
+            slFiltersVideo_EQ_Saturation.Value = 0;
+            // Gamma
+            slFiltersVideo_EQ_Gamma.Value = 0;
+        }
     }
 
 }

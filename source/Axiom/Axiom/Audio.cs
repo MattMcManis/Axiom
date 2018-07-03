@@ -372,7 +372,7 @@ namespace Axiom
 
 
                 // -------------------------
-                // AAC (M4A, MP4, MKV) USER CUSTOM VBR
+                // AAC (M4A, MP4, MKV) User Custom VBR
                 // -------------------------
                 if ((string)mainwindow.cboAudioCodec.SelectedItem == "AAC")
                 {
@@ -402,7 +402,7 @@ namespace Axiom
 
 
                 // -------------------------
-                // VORBIS (WEBM, OGG) USER CUSTOM VBR
+                // Vorbis (WebM, OGG) User Custom VBR
                 // -------------------------
                 else if ((string)mainwindow.cboAudioCodec.SelectedItem == "Vorbis")
                 {
@@ -433,7 +433,7 @@ namespace Axiom
                 }
 
                 // -------------------------
-                // LAME (MP3) USER CUSTOM VBR
+                // LAME (MP3) User Custom VBR
                 // -------------------------
                 else if ((string)mainwindow.cboAudioCodec.SelectedItem == "LAME")
                 {
