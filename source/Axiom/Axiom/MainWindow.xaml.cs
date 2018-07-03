@@ -22,6 +22,7 @@ along with this program.If not, see <http://www.gnu.org/licenses/>.
 using Axiom.Properties;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Configuration;
 using System.Diagnostics;
@@ -179,8 +180,8 @@ namespace Axiom
             /// </summary>
             // -----------------------------------------------------------------
             // Set Min/Max Width/Height to prevent Tablets maximizing
-            this.MinWidth = 750;
-            this.MinHeight = 422;
+            this.MinWidth = 768;
+            this.MinHeight = 432;
 
             // -----------------------------------------------------------------
             /// <summary>
@@ -256,7 +257,7 @@ namespace Axiom
 
 
                 // -------------------------
-                // Log Text Theme Color
+                // Log Text Theme SelectiveColorPreview
                 // -------------------------
                 if (Configure.theme == "Axiom")
                 {
@@ -321,8 +322,8 @@ namespace Axiom
                                 "Error",
                                 MessageBoxButton.OK,
                                 MessageBoxImage.Error);
-            }           
-           
+            }
+
 
             // Log Console Message /////////
             logconsole.rtbLog.Document = new FlowDocument(Log.logParagraph); //start
@@ -381,7 +382,7 @@ namespace Axiom
             // -------------------------
             // Window Position
             // -------------------------
-            if (Convert.ToDouble(Settings.Default["Left"]) == 0 
+            if (Convert.ToDouble(Settings.Default["Left"]) == 0
                 && Convert.ToDouble(Settings.Default["Top"]) == 0)
             {
                 this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
@@ -423,6 +424,16 @@ namespace Axiom
             Log.logParagraph.Inlines.Add(new Run(Configure.ffprobePath) { Foreground = Log.ConsoleDefault });
 
             // -------------------------
+            // Load FFplay.exe Path
+            // -------------------------
+            Configure.LoadFFplayPath(this);
+
+            // Log Console Message /////////
+            Log.logParagraph.Inlines.Add(new LineBreak());
+            Log.logParagraph.Inlines.Add(new Bold(new Run("FFplay: ")) { Foreground = Log.ConsoleDefault });
+            Log.logParagraph.Inlines.Add(new Run(Configure.ffplayPath) { Foreground = Log.ConsoleDefault });
+
+            // -------------------------
             // Load Log Enabled
             // -------------------------
             Configure.LoadLogCheckbox(this);
@@ -456,7 +467,7 @@ namespace Axiom
 
 
             //end change !important
-            logconsole.rtbLog.EndChange(); 
+            logconsole.rtbLog.EndChange();
 
 
             // -------------------------
@@ -528,7 +539,7 @@ namespace Axiom
 
         } // End MainWindow
 
-
+        
 
 
         // --------------------------------------------------------------------------------------------------------
@@ -577,6 +588,16 @@ namespace Axiom
             cboSamplerate.SelectedIndex = 0;
             cboBitDepth.SelectedIndex = 0;
 
+            // Filters
+            cboFilterVideo_Deband.SelectedIndex = 0;
+            cboFilterVideo_Deshake.SelectedIndex = 0;
+            cboFilterVideo_Deflicker.SelectedIndex = 0;
+            cboFilterVideo_Dejudder.SelectedIndex = 0;
+            cboFilterVideo_Dejudder.SelectedIndex = 0;
+            cboFilterVideo_Denoise.SelectedIndex = 0;
+            cboFilterVideo_SelectiveColor.SelectedIndex = 0;
+            cboFilterVideo_SelectiveColor_Correction_Method.SelectedIndex = 0;
+
             // Preset
             cboPreset.SelectedIndex = 0;
 
@@ -586,6 +607,13 @@ namespace Axiom
             // Open Input/Output Location Disabled
             openLocationInput.IsEnabled = false;
             openLocationOutput.IsEnabled = false;
+
+
+            // -------------------------
+            // Load ComboBox Items
+            // -------------------------
+            // Filter Selective SelectiveColorPreview
+            cboFilterVideo_SelectiveColor.ItemsSource = cboSelectiveColor_Items;
 
             // -------------------------
             // Startup Preset
@@ -683,6 +711,14 @@ namespace Axiom
             Video.width = string.Empty;
             Video.height = string.Empty;
 
+            if (Video.x265paramsList != null)
+            {
+                Video.x265paramsList.Clear();
+                Video.x265paramsList.TrimExcess();
+            }
+
+            Video.x265params = string.Empty;
+
             // Clear Crop if ClearCrop Button Identifier is Empty
             if (mainwindow.buttonCropClearTextBox.Text == "Clear")
             {
@@ -695,13 +731,13 @@ namespace Axiom
             Format.trimStart = string.Empty;
             Format.trimEnd = string.Empty;
 
-            Video.vFilter = string.Empty;
-            Video.geq = string.Empty;
+            VideoFilters.vFilter = string.Empty;
+            VideoFilters.geq = string.Empty;
 
-            if (Video.VideoFilters != null)
+            if (VideoFilters.vFiltersList != null)
             {
-                Video.VideoFilters.Clear();
-                Video.VideoFilters.TrimExcess();
+                VideoFilters.vFiltersList.Clear();
+                VideoFilters.vFiltersList.TrimExcess();
             }
 
             Video.v2PassArgs = string.Empty;
@@ -777,7 +813,8 @@ namespace Axiom
         /// </summary>
         public static String RemoveLineBreaks(string lines)
         {
-            lines = lines.Replace(Environment.NewLine, "")
+            lines = lines
+                .Replace(Environment.NewLine, "")
                 .Replace("\n", "")
                 .Replace("\r\n", "")
                 .Replace("\u2028", "")
@@ -874,7 +911,7 @@ namespace Axiom
             {
 
             }
-            
+
 
             /// <summary>
             /// GPU
@@ -949,7 +986,7 @@ namespace Axiom
             {
 
             }
-                    
+
             // End System Info
         }
 
@@ -1170,12 +1207,12 @@ namespace Axiom
             {
                 if (File.Exists(appDir + "ffmpeg\\bin\\ffmpeg.exe"))
                 {
-                    //use included binary
+                    // use included binary
                     FFmpeg.ffmpeg = "\"" + appDir + "ffmpeg\\bin\\ffmpeg.exe" + "\"";
                 }
                 else if (!File.Exists(appDir + "ffmpeg\\bin\\ffmpeg.exe"))
                 {
-                    //use system installed binaries
+                    // use system installed binaries
                     FFmpeg.ffmpeg = "ffmpeg";
                 }
             }
@@ -1200,12 +1237,12 @@ namespace Axiom
             {
                 if (File.Exists(appDir + "ffmpeg\\bin\\ffprobe.exe"))
                 {
-                    //use included binary
+                    // use included binary
                     FFprobe.ffprobe = "\"" + appDir + "ffmpeg\\bin\\ffprobe.exe" + "\"";
                 }
                 else if (!File.Exists(appDir + "ffmpeg\\bin\\ffprobe.exe"))
                 {
-                    //use system installed binaries
+                    // use system installed binaries
                     FFprobe.ffprobe = "ffprobe";
                 }
             }
@@ -1217,6 +1254,36 @@ namespace Axiom
 
             // Return Value
             //return FFprobe.ffprobe;
+        }
+
+
+        /// <remarks>
+        ///     FFplay Path
+        /// </remarks>
+        public static void FFplayPath()
+        {
+            // If Configure FFprobe Path is <auto>
+            if (Configure.ffplayPath == "<auto>")
+            {
+                if (File.Exists(appDir + "ffmpeg\\bin\\ffplay.exe"))
+                {
+                    // use included binary
+                    FFplay.ffplay = "\"" + appDir + "ffmpeg\\bin\\ffplay.exe" + "\"";
+                }
+                else if (!File.Exists(appDir + "ffmpeg\\bin\\ffplay.exe"))
+                {
+                    // use system installed binaries
+                    FFplay.ffplay = "ffplay";
+                }
+            }
+            // Use User Custom Path
+            else
+            {
+                FFplay.ffplay = "\"" + Configure.ffplayPath + "\"";
+            }
+
+            // Return Value
+            //return FFplay.ffplay;
         }
 
 
@@ -1245,7 +1312,7 @@ namespace Axiom
             // -------------------------
             // All
             // -------------------------
-            else if ((string)mainwindow.cboThreads.SelectedItem == "all" 
+            else if ((string)mainwindow.cboThreads.SelectedItem == "all"
                 || string.IsNullOrEmpty(Configure.threads))
             {
                 Configure.threads = "-threads " + Configure.maxthreads;
@@ -1310,16 +1377,16 @@ namespace Axiom
                 //if (!mainwindow.tbxInput.Text.Contains("www.youtube.com")
                 //    && !mainwindow.tbxInput.Text.Contains("youtube.com"))
                 //{
-                    if (!string.IsNullOrWhiteSpace(mainwindow.tbxInput.Text))
-                    {
-                        //inputDir = Path.GetDirectoryName(mainwindow.tbxInput.Text.TrimEnd('\\') + @"\"); // (eg. C:\Input Folder\)
-                        inputDir = Path.GetDirectoryName(mainwindow.tbxInput.Text).TrimEnd('\\') + @"\"; // (eg. C:\Input Folder\)
-                        inputFileName = Path.GetFileNameWithoutExtension(mainwindow.tbxInput.Text);
-                        inputExt = Path.GetExtension(mainwindow.tbxInput.Text);
-                    }
+                if (!string.IsNullOrWhiteSpace(mainwindow.tbxInput.Text))
+                {
+                    //inputDir = Path.GetDirectoryName(mainwindow.tbxInput.Text.TrimEnd('\\') + @"\"); // (eg. C:\Input Folder\)
+                    inputDir = Path.GetDirectoryName(mainwindow.tbxInput.Text).TrimEnd('\\') + @"\"; // (eg. C:\Input Folder\)
+                    inputFileName = Path.GetFileNameWithoutExtension(mainwindow.tbxInput.Text);
+                    inputExt = Path.GetExtension(mainwindow.tbxInput.Text);
+                }
 
-                    // Input
-                    input = mainwindow.tbxInput.Text; // (eg. C:\Input Folder\file.wmv)
+                // Input
+                input = mainwindow.tbxInput.Text; // (eg. C:\Input Folder\file.wmv)
                 //}
                 //else
                 //{
@@ -1376,7 +1443,7 @@ namespace Axiom
             {
                 // Input Not Empty, Output Empty
                 // Default Output to be same as Input Directory
-                if (!string.IsNullOrWhiteSpace(mainwindow.tbxInput.Text) 
+                if (!string.IsNullOrWhiteSpace(mainwindow.tbxInput.Text)
                     && string.IsNullOrWhiteSpace(mainwindow.tbxOutput.Text))
                 {
                     mainwindow.tbxOutput.Text = inputDir + inputFileName + outputExt;
@@ -1395,8 +1462,8 @@ namespace Axiom
                 // -------------------------
                 // Auto Renamer
                 // Pressing Script or Convert while Output is empty
-                if (inputDir == outputDir 
-                    && inputFileName == outputFileName 
+                if (inputDir == outputDir
+                    && inputFileName == outputFileName
                     && string.Equals(inputExt, outputExt, StringComparison.CurrentCultureIgnoreCase))
                 {
                     outputFileName = mainwindow.FileRenamer(inputFileName);
@@ -1467,7 +1534,7 @@ namespace Axiom
         public static void BatchExtCheck(MainWindow mainwindow)
         {
             // Add period if Batch Extension if User did not enter
-            if (!mainwindow.batchExtensionTextBox.Text.Contains(".") 
+            if (!mainwindow.batchExtensionTextBox.Text.Contains(".")
                 && mainwindow.batchExtensionTextBox.Text != "extension")
             {
                 mainwindow.batchExtensionTextBox.Text = "." + mainwindow.batchExtensionTextBox.Text;
@@ -1553,7 +1620,7 @@ namespace Axiom
             if (input.Contains("www.youtube.com")
                 || input.Contains("youtube.com"))
             {
-                youtubedl = "cd " + "\"" + appDir + "youtube-dl" + "\"" + " && youtube-dl.exe " +  input + " -o %appdata%/YouTube/%(title)s.%(ext)s &&";
+                youtubedl = "cd " + "\"" + appDir + "youtube-dl" + "\"" + " && youtube-dl.exe " + input + " -o %appdata%/YouTube/%(title)s.%(ext)s &&";
             }
 
             return youtubedl;
@@ -1565,18 +1632,20 @@ namespace Axiom
         /// </summary>
         public static void ReadyHalts(MainWindow mainwindow)
         {
+            // -------------------------
             // Check if FFmpeg & FFprobe Exists
-            //
+            // -------------------------
             if (ffCheckCleared == false)
             {
                 mainwindow.FFcheck();
             }
 
+            // -------------------------
             // Do not allow Auto without FFprobe being installed or linked
-            //
+            // -------------------------
             if (string.IsNullOrEmpty(FFprobe.ffprobe))
             {
-                if ((string)mainwindow.cboVideoQuality.SelectedItem == "Auto" 
+                if ((string)mainwindow.cboVideoQuality.SelectedItem == "Auto"
                     || (string)mainwindow.cboAudioQuality.SelectedItem == "Auto")
                 {
                     // Log Console Message /////////
@@ -1593,28 +1662,53 @@ namespace Axiom
                 }
             }
 
+            // -------------------------
             // Do not allow Script to generate if Browse Empty & Auto, since there is no file to detect bitrates/codecs
-            //
+            // -------------------------
             if (mainwindow.tglBatch.IsChecked == false) // Ignore if Batch
             {
                 if (string.IsNullOrWhiteSpace(mainwindow.tbxInput.Text)) // empty check
                 {
-                    if ((string)mainwindow.cboVideoQuality.SelectedItem == "Auto" 
-                        || (string)mainwindow.cboAudioQuality.SelectedItem == "Auto")
+                    // -------------------------
+                    // Video Auto Quality
+                    // -------------------------
+                    if ((string)mainwindow.cboVideoQuality.SelectedItem == "Auto")
                     {
-                        if ((string)mainwindow.cboVideoCodec.SelectedItem != "Copy" 
-                            || (string)mainwindow.cboAudioCodec.SelectedItem != "Copy")
+                        if ((string)mainwindow.cboVideoCodec.SelectedItem != "Copy")
                         {
                             // Log Console Message /////////
                             Log.logParagraph.Inlines.Add(new LineBreak());
                             Log.logParagraph.Inlines.Add(new LineBreak());
-                            Log.logParagraph.Inlines.Add(new Bold(new Run("Notice: Auto Quality needs an input file in order to detect settings.")) { Foreground = Log.ConsoleWarning });
+                            Log.logParagraph.Inlines.Add(new Bold(new Run("Notice: Video Auto Quality requires an input file in order to detect.")) { Foreground = Log.ConsoleWarning });
 
                             /* lock */
                             ready = false;
                             script = false;
                             // Warning
-                            MessageBox.Show("Auto Quality needs an input file in order to detect settings.",
+                            MessageBox.Show("Video Auto Quality requires an input file in order to detect.",
+                                            "Notice",
+                                            MessageBoxButton.OK,
+                                            MessageBoxImage.Exclamation);
+                        }
+                    }
+
+                    // -------------------------
+                    // Audio Auto Quality
+                    // -------------------------
+                    if ((string)mainwindow.cboAudioQuality.SelectedItem == "Auto")
+                    {
+                        if ((string)mainwindow.cboAudioCodec.SelectedItem != "Copy")
+                        {
+                            // Log Console Message /////////
+                            Log.logParagraph.Inlines.Add(new LineBreak());
+                            Log.logParagraph.Inlines.Add(new LineBreak());
+                            Log.logParagraph.Inlines.Add(new Bold(new Run("Notice: Audio Auto Quality requires an input file in order to detect.")) { Foreground = Log.ConsoleWarning });
+
+                            /* lock */
+                            ready = false;
+                            script = false;
+                            // Warning
+                            MessageBox.Show("Audio Auto Quality requires an input file in order to detect.",
                                             "Notice",
                                             MessageBoxButton.OK,
                                             MessageBoxImage.Exclamation);
@@ -1623,8 +1717,9 @@ namespace Axiom
                 }
             }
 
+            // -------------------------
             // STOP if Single File Input with no Extension
-            //
+            // -------------------------
             if (mainwindow.tglBatch.IsChecked == false && mainwindow.tbxInput.Text.EndsWith("\\"))
             {
                 // Log Console Message /////////
@@ -1641,10 +1736,11 @@ namespace Axiom
                                 MessageBoxImage.Exclamation);
             }
 
-            // STOP Do not allow Batch Copy to same folder if file extensions are the same (to avoid file overwrite)
-            //
-            if (mainwindow.tglBatch.IsChecked == true 
-                && string.Equals(inputDir, outputDir, StringComparison.CurrentCultureIgnoreCase) 
+            // -------------------------
+            // Do not allow Batch Copy to same folder if file extensions are the same (to avoid file overwrite)
+            // -------------------------
+            if (mainwindow.tglBatch.IsChecked == true
+                && string.Equals(inputDir, outputDir, StringComparison.CurrentCultureIgnoreCase)
                 && string.Equals(batchExt, outputExt, StringComparison.CurrentCultureIgnoreCase))
             {
                 //MessageBox.Show(inputDir); //debug
@@ -1664,12 +1760,13 @@ namespace Axiom
                                 MessageBoxImage.Exclamation);
             }
 
-            // STOP Throw Error if VP8/VP9 & CRF does not have Bitrate -b:v
-            //
-            if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" 
+            // -------------------------
+            // Throw Error if VP8/VP9 & CRF does not have Bitrate -b:v
+            // -------------------------
+            if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8"
                 || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9")
             {
-                if (!string.IsNullOrWhiteSpace(mainwindow.crfCustom.Text) 
+                if (!string.IsNullOrWhiteSpace(mainwindow.crfCustom.Text)
                     && string.IsNullOrWhiteSpace(mainwindow.vBitrateCustom.Text))
                 {
                     // Log Console Message /////////
@@ -1773,6 +1870,41 @@ namespace Axiom
             Settings.Default.Reload();
         }
 
+
+        // --------------------------------------------------
+        // FFplay Textbox Click
+        // --------------------------------------------------
+        private void textBoxFFplayPathConfig_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Configure.FFplayFolderBrowser(this);
+        }
+
+
+        // --------------------------------------------------
+        // FFplay Textbox (Text Changed)
+        // --------------------------------------------------
+        private void textBoxFFplayPathConfig_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            // dont use
+        }
+
+
+        // --------------------------------------------------
+        // FFplay Auto Path Button (On Click)
+        // --------------------------------------------------
+        private void buttonFFplayAuto_Click(object sender, RoutedEventArgs e)
+        {
+            // Set the ffplayPath string
+            Configure.ffplayPath = "<auto>"; //<auto>
+
+            // Display Folder Path in Textbox
+            textBoxFFplayPathConfig.Text = "<auto>";
+
+            // Save 7-zip Path path for next launch
+            Settings.Default["ffplayPath"] = "<auto>";
+            Settings.Default.Save();
+            Settings.Default.Reload();
+        }
 
         // --------------------------------------------------
         // Log Checkbox (Checked)
@@ -2448,8 +2580,8 @@ namespace Axiom
                     {
                         // Yes/No Dialog Confirmation
                         //
-                        MessageBoxResult result = MessageBox.Show("v" + Convert.ToString(latestVersion) + "-" + latestBuildPhase + "\n\nDownload Update?", 
-                                                             "Update Available", 
+                        MessageBoxResult result = MessageBox.Show("v" + Convert.ToString(latestVersion) + "-" + latestBuildPhase + "\n\nDownload Update?",
+                                                             "Update Available",
                                                              MessageBoxButton.YesNo);
                         switch (result)
                         {
@@ -2487,7 +2619,7 @@ namespace Axiom
                         MessageBox.Show("This version is up to date.",
                                 "Notice",
                                 MessageBoxButton.OK,
-                                MessageBoxImage.Exclamation);
+                                MessageBoxImage.Information);
 
                         return;
                     }
@@ -2665,7 +2797,7 @@ namespace Axiom
                     {
                         //updateAvailable = " ~ Update Available: " + "(" + Convert.ToString(latestVersion) + "-" + latestBuildPhase + ")";
 
-                        TitleVersion = "Axiom ~ FFmpeg UI (" + Convert.ToString(currentVersion) + "-" + currentBuildPhase + ")" 
+                        TitleVersion = "Axiom ~ FFmpeg UI (" + Convert.ToString(currentVersion) + "-" + currentBuildPhase + ")"
                                      + " ~ Update Available: " + "(" + Convert.ToString(latestVersion) + "-" + latestBuildPhase + ")";
                         DataContext = this;
                     }
@@ -2676,7 +2808,7 @@ namespace Axiom
                         return;
                     }
                 }
-            }          
+            }
 
             //return updateAvailable;
         }
@@ -2708,6 +2840,83 @@ namespace Axiom
                                         "Notice",
                                         MessageBoxButton.OK,
                                         MessageBoxImage.Information);
+            }
+        }
+
+
+        /// <summary>
+        ///     Filter - Selective SelectiveColorPreview - ComboBox
+        /// </summary>
+        public static List<VideoFilters.FilterVideoSelectiveColor> cboSelectiveColor_Items = new List<VideoFilters.FilterVideoSelectiveColor>()
+        {
+            new VideoFilters.FilterVideoSelectiveColor("Reds", Colors.Red),
+            new VideoFilters.FilterVideoSelectiveColor("Yellows", Colors.Yellow),
+            new VideoFilters.FilterVideoSelectiveColor("Greens", Colors.Green),
+            new VideoFilters.FilterVideoSelectiveColor("Cyans", Colors.Cyan),
+            new VideoFilters.FilterVideoSelectiveColor("Blues", Colors.Blue),
+            new VideoFilters.FilterVideoSelectiveColor("Magentas", Colors.Magenta),
+            new VideoFilters.FilterVideoSelectiveColor("Whites", Colors.White),
+            new VideoFilters.FilterVideoSelectiveColor("Neutrals", Colors.Gray),
+            new VideoFilters.FilterVideoSelectiveColor("Blacks", Colors.Black),
+        };
+        //public static List<VideoFilters.FilterVideoSelectiveColor> _cboSelectiveColor_Previews
+        //{
+        //    get { return _cboSelectiveColor_Previews; }
+        //    set { _cboSelectiveColor_Previews = value; }
+        //}
+
+        private void cboFilterVideo_SelectiveColor_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // Switch Tab SelectiveColorPreview
+            tabControl_SelectiveColor.SelectedIndex = 0;
+
+            var selectedItem = (VideoFilters.FilterVideoSelectiveColor)cboFilterVideo_SelectiveColor.SelectedItem;
+            string color = selectedItem.SelectiveColorName;
+
+            if (color == "Reds")
+            {
+                tabControl_SelectiveColor.SelectedItem = selectedItem;
+                tabItem_SelectiveColor_Reds.IsSelected = true;
+            }
+            else if (color == "Yellows")
+            {
+                tabControl_SelectiveColor.SelectedItem = selectedItem;
+                tabItem_SelectiveColor_Yellows.IsSelected = true;
+            }
+            else if (color == "Greens")
+            {
+                tabControl_SelectiveColor.SelectedItem = selectedItem;
+                tabItem_SelectiveColor_Greens.IsSelected = true;
+            }
+            else if (color == "Cyans")
+            {
+                tabControl_SelectiveColor.SelectedItem = selectedItem;
+                tabItem_SelectiveColor_Cyans.IsSelected = true;
+            }
+            else if (color == "Blues")
+            {
+                tabControl_SelectiveColor.SelectedItem = selectedItem;
+                tabItem_SelectiveColor_Blues.IsSelected = true;
+            }
+            else if (color == "Magentas")
+            {
+                tabControl_SelectiveColor.SelectedItem = selectedItem;
+                tabItem_SelectiveColor_Magentas.IsSelected = true;
+            }
+            else if (color == "Whites")
+            {
+                tabControl_SelectiveColor.SelectedItem = selectedItem;
+                tabItem_SelectiveColor_Whites.IsSelected = true;
+            }
+            else if (color == "Neutrals")
+            {
+                tabControl_SelectiveColor.SelectedItem = selectedItem;
+                tabItem_SelectiveColor_Neutrals.IsSelected = true;
+            }
+            else if (color == "Blacks")
+            {
+                tabControl_SelectiveColor.SelectedItem = selectedItem;
+                tabItem_SelectiveColor_Blacks.IsSelected = true;
             }
         }
 
@@ -3160,11 +3369,19 @@ namespace Axiom
 
                 // Remember Last Dir
                 //
-                string previousPath = Settings.Default.inputDir.ToString();
-                // Use Previous Path if Not Null
-                if (!string.IsNullOrEmpty(previousPath))
+                try
                 {
-                    selectFile.InitialDirectory = previousPath;
+                    string previousPath = Settings.Default.inputDir.ToString();
+
+                    // Use Previous Path if Not Null
+                    if (!string.IsNullOrEmpty(previousPath))
+                    {
+                        selectFile.InitialDirectory = previousPath;
+                    }
+                }
+                catch
+                {
+
                 }
 
                 // Show Dialog Box
@@ -3344,11 +3561,18 @@ namespace Axiom
 
                 // 'Save File' Default Path same as Input Directory
                 //
-                string previousPath = Settings.Default.outputDir.ToString();
-                // Use Input Path if Previous Path is Null
-                if (string.IsNullOrEmpty(previousPath))
+                try
                 {
-                    saveFile.InitialDirectory = inputDir;
+                    string previousPath = Settings.Default.outputDir.ToString();
+                    // Use Input Path if Previous Path is Null
+                    if (string.IsNullOrEmpty(previousPath))
+                    {
+                        saveFile.InitialDirectory = inputDir;
+                    }
+                }
+                catch
+                {
+
                 }
                                 
                 // Remember Last Dir
@@ -4628,12 +4852,12 @@ namespace Axiom
             //cropwindow.textBoxCropX.Text = string.Empty;
             //cropwindow.textBoxCropY.Text = string.Empty;
 
-                Video.vFilter = string.Empty;
+            VideoFilters.vFilter = string.Empty;
 
-                if (Video.VideoFilters != null)
+                if (VideoFilters.vFiltersList != null)
                 {
-                    Video.VideoFilters.Clear();
-                    Video.VideoFilters.TrimExcess();
+                    VideoFilters.vFiltersList.Clear();
+                    VideoFilters.vFiltersList.TrimExcess();
                 }
 
             // Trigger the CropWindow Clear Button (only way it will clear the string)
@@ -5000,6 +5224,16 @@ namespace Axiom
             AudioControls.AutoCopyAudioCodec(this);
         }
 
+
+        /// --------------------------------------------------------------------------------------------------------
+        /// <summary>
+        ///    Preview Button
+        /// </summary>
+        /// --------------------------------------------------------------------------------------------------------
+        private void btnPreview_Click(object sender, RoutedEventArgs e)
+        {
+            FFplay.Preview(this);
+        }
 
 
 

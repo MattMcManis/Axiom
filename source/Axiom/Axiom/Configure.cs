@@ -35,12 +35,13 @@ namespace Axiom
         // --------------------------------------------------------------------------------------------------------
         // Variables
         // --------------------------------------------------------------------------------------------------------
-        public static string theme; // Set Theme (public - pass data)
-        public static string ffmpegPath; // Config Settings Path (public - pass data)
-        public static string ffprobePath; // Config Settings Path (public - pass data)
-        public static string logPath; // output.log Config Settings Path (public - pass data)
-        public static bool logEnable; //checkBoxLogConfig, Enable or Disable Log, true or false - (public - pass data)
-        public static string threads; // Set FFmpeg -threads (public - pass data)
+        public static string theme; // Set Theme
+        public static string ffmpegPath; // Config Settings Path
+        public static string ffprobePath; // Config Settings Path
+        public static string ffplayPath; // Config Settings Path
+        public static string logPath; // output.log Config Settings Path
+        public static bool logEnable; //checkBoxLogConfig, Enable or Disable Log, true or false
+        public static string threads; // Set FFmpeg -threads
         public static string maxthreads; // All CPU Threads
 
 
@@ -136,6 +137,47 @@ namespace Axiom
             }
         }
 
+
+        /// <summary>
+        /// Load FFplay Path
+        /// </summary>
+        public static void LoadFFplayPath(MainWindow mainwindow)
+        {
+            // --------------------------------------------------
+            // Safeguard Against Corrupt Saved Settings
+            // --------------------------------------------------
+            try
+            {
+                // --------------------------
+                // First time use
+                // --------------------------
+                if (string.IsNullOrEmpty(Settings.Default["ffplayPath"].ToString()))
+                {
+                    Configure.ffplayPath = "<auto>";
+
+                    // Set ComboBox if Configure Window is Open
+                    mainwindow.textBoxFFplayPathConfig.Text = Configure.ffplayPath;
+
+                    // Save for next launch
+                    Settings.Default["ffplayPath"] = Configure.ffplayPath;
+                    Settings.Default.Save();
+                }
+                // --------------------------
+                // Load Saved Settings Override
+                // --------------------------
+                else if (!string.IsNullOrEmpty(Settings.Default["ffplayPath"].ToString())) // null check
+                {
+                    Configure.ffplayPath = Settings.Default["ffplayPath"].ToString();
+
+                    // Set ComboBox if Configure Window is Open
+                    mainwindow.textBoxFFplayPathConfig.Text = Settings.Default["ffplayPath"].ToString();
+                }
+            }
+            catch
+            {
+
+            }
+        }
 
         /// <summary>
         /// Load Log Checkbox
@@ -315,6 +357,31 @@ namespace Axiom
 
                 // Save WinRAR Path for next launch
                 Settings.Default["ffprobePath"] = mainwindow.textBoxFFprobePathConfig.Text;
+                Settings.Default.Save();
+                Settings.Default.Reload();
+            }
+        }
+
+
+        // --------------------------------------------------
+        // FFplay Folder Browser Dialog
+        // --------------------------------------------------
+        public static void FFplayFolderBrowser(MainWindow mainwindow) // Method
+        {
+            var OpenFileDialog = new System.Windows.Forms.OpenFileDialog();
+            System.Windows.Forms.DialogResult result = OpenFileDialog.ShowDialog();
+
+            // Popup Folder Browse Window
+            if (result == System.Windows.Forms.DialogResult.OK)
+            {
+                // Display Folder Path in Textbox
+                mainwindow.textBoxFFplayPathConfig.Text = OpenFileDialog.FileName;
+
+                // Set the ffplayPath string
+                ffplayPath = mainwindow.textBoxFFplayPathConfig.Text;
+
+                // Save WinRAR Path for next launch
+                Settings.Default["ffplayPath"] = mainwindow.textBoxFFplayPathConfig.Text;
                 Settings.Default.Save();
                 Settings.Default.Reload();
             }

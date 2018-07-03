@@ -2254,7 +2254,7 @@
 
     <SolidColorBrush x:Key="TabItem.Selected.Foreground" Color="#FF000000"/>
     <SolidColorBrush x:Key="TabItem.Selected.Background" Color="#FFFFFFFF"/>
-    <SolidColorBrush x:Key="TabItem.Top.Selected.Border" Color="#FF999999"/>
+    <SolidColorBrush x:Key="TabItem.Top.Selected.Border" Color="#FFad8a4a"/>
     <SolidColorBrush x:Key="TabItem.Selected.Border" Color="#FF0080cb"/>
 
     <Style x:Key="TabControlStyle" TargetType="{x:Type TabControl}">
@@ -2348,7 +2348,7 @@
 
     <!-- Unselected -->
     <SolidColorBrush x:Key="TabItem.Static.Foreground" Color="#FF000000"/>
-    <SolidColorBrush x:Key="TabItem.Static.Background" Color="#FFFFFFFF"/>
+    <SolidColorBrush x:Key="TabItem.Static.Background" Color="#FFF4F4F4"/>
     <SolidColorBrush x:Key="TabItem.Static.Border" Color="#FF999999"/>
 
     <SolidColorBrush x:Key="TabItem.MouseOver.Background" Color="#FFefefef"/>

@@ -598,5 +598,17 @@ namespace Axiom.Properties {
                 this["UpdatesAutoCheck"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ffplayPath {
+            get {
+                return ((string)(this["ffplayPath"]));
+            }
+            set {
+                this["ffplayPath"] = value;
+            }
+        }
     }
 }

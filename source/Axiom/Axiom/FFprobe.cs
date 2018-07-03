@@ -35,7 +35,7 @@ namespace Axiom
         // --------------------------------------------------------------------------------------------------------
 
         // FFprobe
-        public static string ffprobe; // FFprobe.exe
+        public static string ffprobe; // ffprobe.exe
 
         // Arguments for StartInfo
         public static string argsProperties;

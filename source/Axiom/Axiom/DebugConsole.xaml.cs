@@ -57,12 +57,12 @@ namespace Axiom
             this.MinHeight = 200;
 
             // -------------------------
-            // Text Theme Color
+            // Text Theme SelectiveColorPreview
             // -------------------------
             //Configure.LoadTheme(mainwindow);
 
             // -------------------------
-            // Debug Text Theme Color
+            // Debug Text Theme SelectiveColorPreview
             // -------------------------
             if (Configure.theme == "Axiom")
             {
@@ -569,11 +569,11 @@ namespace Axiom
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("geq ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(Video.geq) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(VideoFilters.geq) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("vFilter ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(Video.vFilter) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(VideoFilters.vFilter) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new LineBreak());

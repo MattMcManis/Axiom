@@ -43,7 +43,7 @@ namespace Axiom
             this.MinHeight = 200;
 
             // -------------------------
-            // Text Theme Color
+            // Text Theme SelectiveColorPreview
             // -------------------------
             //Configure.LoadTheme(mainwindow);
         }

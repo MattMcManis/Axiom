@@ -103,6 +103,7 @@
       <DependentUpon>DebugConsole.xaml</DependentUpon>
     </Compile>
     <Compile Include="FFmpeg.cs" />
+    <Compile Include="FFplay.cs" />
     <Compile Include="FFprobe.cs" />
     <Compile Include="FilePropertiesWindow.xaml.cs">
       <DependentUpon>FilePropertiesWindow.xaml</DependentUpon>
@@ -110,6 +111,8 @@
     <Compile Include="FileQueue.xaml.cs">
       <DependentUpon>FileQueue.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Filters.cs" />
+    <Compile Include="FiltersControls.cs" />
     <Compile Include="Format.cs" />
     <Compile Include="FormatControls.cs" />
     <Compile Include="InfoWindow.xaml.cs">

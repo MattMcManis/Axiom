@@ -100,7 +100,7 @@ namespace Axiom
                     }
                     else
                     {
-                        mainwindow.cboOptimize.SelectedItem = "none";
+                        mainwindow.cboOptimize.SelectedItem = "None";
                     }
 
                 }
@@ -127,7 +127,7 @@ namespace Axiom
                     mainwindow.cboFPS.SelectedItem = "auto";
                     mainwindow.cboFPS.IsEnabled = false;
                     mainwindow.cboSubtitle.SelectedItem = "none";
-                    mainwindow.cboOptimize.SelectedItem = "none";
+                    mainwindow.cboOptimize.SelectedItem = "None";
 
                     // Audio
                     mainwindow.cboAudioQuality.SelectedItem = "Auto";
@@ -201,7 +201,7 @@ namespace Axiom
                 mainwindow.cboVideoQuality.SelectedItem = "Ultra";
                 mainwindow.cboSize.SelectedItem = "Source";
                 mainwindow.cboSubtitle.SelectedItem = "all";
-                mainwindow.cboOptimize.SelectedItem = "none";
+                mainwindow.cboOptimize.SelectedItem = "None";
                 mainwindow.cboFPS.SelectedItem = "auto";
                 mainwindow.cboFPS.IsEnabled = true;
                 mainwindow.cboCut.SelectedItem = "No";
@@ -241,7 +241,7 @@ namespace Axiom
                 mainwindow.cutStart.Text = "00:00:00.000";
                 mainwindow.cutEnd.Text = "00:00:00.000";
                 mainwindow.cboSubtitle.SelectedItem = "all";
-                mainwindow.cboOptimize.SelectedItem = "none";
+                mainwindow.cboOptimize.SelectedItem = "None";
 
                 // Audio
                 mainwindow.cboAudioQuality.SelectedItem = "256";

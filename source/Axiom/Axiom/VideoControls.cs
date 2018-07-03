@@ -207,7 +207,7 @@ namespace Axiom
                 // -------------------------
                 Optimize_ItemSource = new List<string>()
                 {
-                    "none",
+                    "None",
                     "Web"
                 };
 
@@ -215,7 +215,7 @@ namespace Axiom
                     mainwindow,
                     mainwindow.cboOptimize, // ComboBox
                     Optimize_ItemSource, // New Items List
-                    "none"); // Selected Item
+                    "None"); // Selected Item
 
 
                 // --------------------------------------------------
@@ -311,7 +311,7 @@ namespace Axiom
                 // -------------------------
                 Optimize_ItemSource = new List<string>()
                 {
-                    "none",
+                    "None",
                     "Web"
                 };
 
@@ -319,7 +319,7 @@ namespace Axiom
                     mainwindow,
                     mainwindow.cboOptimize, // ComboBox
                     Optimize_ItemSource, // New Items List
-                    "none"); // Selected Item
+                    "None"); // Selected Item
 
 
                 // --------------------------------------------------
@@ -419,7 +419,7 @@ namespace Axiom
                     // -------------------------
                     Optimize_ItemSource = new List<string>()
                     {
-                        "none",
+                        "None",
                         "Custom",
                         "Web",
                         "DVD",
@@ -449,7 +449,7 @@ namespace Axiom
                     // -------------------------
                     Optimize_ItemSource = new List<string>()
                     {
-                        "none",
+                        "None",
                         "Custom",
                         "Windows",
                         "Apple",
@@ -562,7 +562,7 @@ namespace Axiom
                 // -------------------------
                 Optimize_ItemSource = new List<string>()
                 {
-                    "none",
+                    "None",
                     "Custom",
                     "Web"
                 };
@@ -667,7 +667,7 @@ namespace Axiom
                 // -------------------------
                 Optimize_ItemSource = new List<string>()
                 {
-                    "none"
+                    "None"
                 };
 
                 ChangeItemSource(
@@ -770,7 +770,7 @@ namespace Axiom
                 // -------------------------
                 Optimize_ItemSource = new List<string>()
                 {
-                    "none",
+                    "None",
                 };
 
                 ChangeItemSource(
@@ -873,7 +873,7 @@ namespace Axiom
                 // -------------------------
                 Optimize_ItemSource = new List<string>()
                 {
-                    "none",
+                    "None",
                     "Web"
                 };
 
@@ -984,14 +984,14 @@ namespace Axiom
                 // -------------------------
                 Optimize_ItemSource = new List<string>()
                 {
-                    "none"
+                    "None"
                 };
 
                 ChangeItemSource(
                     mainwindow,
                     mainwindow.cboOptimize, // ComboBox
                     Optimize_ItemSource, // New Items List
-                    "none"); // Selected Item
+                    "None"); // Selected Item
 
 
                 // --------------------------------------------------
@@ -1093,14 +1093,14 @@ namespace Axiom
                 // -------------------------
                 Optimize_ItemSource = new List<string>()
                 {
-                    "none"
+                    "None"
                 };
 
                 ChangeItemSource(
                     mainwindow,
                     mainwindow.cboOptimize, // ComboBox
                     Optimize_ItemSource, // New Items List
-                    "none"); // Selected Item
+                    "None"); // Selected Item
 
 
                 // --------------------------------------------------
@@ -1204,14 +1204,14 @@ namespace Axiom
                 // -------------------------
                 Optimize_ItemSource = new List<string>()
                 {
-                    "none"
+                    "None"
                 };
 
                 ChangeItemSource(
                     mainwindow,
                     mainwindow.cboOptimize, // ComboBox
                     Optimize_ItemSource, // New Items List
-                    "none"); // Selected Item
+                    "None"); // Selected Item
 
 
                 // --------------------------------------------------
@@ -1307,14 +1307,14 @@ namespace Axiom
                 // -------------------------
                 Optimize_ItemSource = new List<string>()
                 {
-                    "none"
+                    "None"
                 };
 
                 ChangeItemSource(
                     mainwindow,
                     mainwindow.cboOptimize, // ComboBox
                     Optimize_ItemSource, // New Items List
-                    "none"); // Selected Item
+                    "None"); // Selected Item
 
 
                 // --------------------------------------------------
@@ -1379,7 +1379,7 @@ namespace Axiom
                     && (string)mainwindow.cboSize.SelectedItem == "Source"
                     && string.IsNullOrEmpty(CropWindow.crop)
                     && (string)mainwindow.cboFPS.SelectedItem == "auto"
-                    && (string)mainwindow.cboOptimize.SelectedItem == "none"
+                    && (string)mainwindow.cboOptimize.SelectedItem == "None"
 
                     // Extension Match
                     && string.Equals(MainWindow.inputExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase)
@@ -1416,7 +1416,7 @@ namespace Axiom
                     && (string)mainwindow.cboSize.SelectedItem == "Source"
                     && string.IsNullOrEmpty(CropWindow.crop)
                     && (string)mainwindow.cboFPS.SelectedItem == "auto"
-                    && (string)mainwindow.cboOptimize.SelectedItem == "none"
+                    && (string)mainwindow.cboOptimize.SelectedItem == "None"
 
                     // Batch Extension Match
                     && mainwindow.tglBatch.IsChecked == true
@@ -1553,7 +1553,7 @@ namespace Axiom
                     && (string)mainwindow.cboSize.SelectedItem == "Source"
                     && string.IsNullOrEmpty(CropWindow.crop)
                     && (string)mainwindow.cboFPS.SelectedItem == "auto"
-                    && (string)mainwindow.cboOptimize.SelectedItem == "none"
+                    && (string)mainwindow.cboOptimize.SelectedItem == "None"
 
                     // Extension Match
                     && string.Equals(MainWindow.inputExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase)
@@ -1590,7 +1590,7 @@ namespace Axiom
                     && (string)mainwindow.cboSize.SelectedItem == "Source"
                     && string.IsNullOrEmpty(CropWindow.crop)
                     && (string)mainwindow.cboFPS.SelectedItem == "auto"
-                    && (string)mainwindow.cboOptimize.SelectedItem == "none"
+                    && (string)mainwindow.cboOptimize.SelectedItem == "None"
 
                     // Batch Extension Match
                     && mainwindow.tglBatch.IsChecked == true
@@ -1988,22 +1988,22 @@ namespace Axiom
                 {
                     "none",
                     "main",
-                    "main-intra",
+                    //"main-intra",
                     "mainstillpicture",
                     "main444-8",
-                    "main444-intra",
+                    //"main444-intra",
                     "main444-stillpicture",
                     "main10",
-                    "main10-intra",
+                    //"main10-intra",
                     "main422-10",
-                    "main422-10-intra",
+                    //"main422-10-intra",
                     "main444-10",
-                    "main444-10-intra",
+                    //"main444-10-intra",
                     "main12",
                     "main422-12",
-                    "main422-12-intra",
+                    //"main422-12-intra",
                     "main444-12",
-                    "main444-12-intra",
+                    //"main444-12-intra",
                 };
 
                 // -------------------------
@@ -2082,7 +2082,7 @@ namespace Axiom
             if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264"
                 || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
             {
-                if ((string)mainwindow.cboOptimize.SelectedItem == "none")
+                if ((string)mainwindow.cboOptimize.SelectedItem == "None")
                 {
                     // Disabled
                     mainwindow.cboOptTune.IsEnabled = false;
@@ -2268,7 +2268,7 @@ namespace Axiom
             // -------------------------
             // None
             // -------------------------
-            if ((string)mainwindow.cboOptimize.SelectedItem == "none")
+            if ((string)mainwindow.cboOptimize.SelectedItem == "None")
             {
                 mainwindow.cboOptTune.SelectedItem = "none";
                 mainwindow.cboOptProfile.SelectedItem = "none";

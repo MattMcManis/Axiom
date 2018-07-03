@@ -61,6 +61,10 @@ namespace Axiom
         public static string speed; // Speed combobox modifier
         public static string sCodec; // Subtitle Codec
 
+        //x265 Params
+        public static List<string> x265paramsList = new List<string>(); // multiple parameters
+        public static string x265params; // combined inline list
+
         // Scale
         public static string width;
         public static string height;
@@ -79,11 +83,8 @@ namespace Axiom
         public static List<string> subtitleFilePathsList = new List<string>(); // Files Added   
         public static List<string> subtitleFileNamesList = new List<string>(); // File Names without Path
 
-        // Filter
+        // Crop
         public static CropWindow cropwindow;
-        public static List<string> VideoFilters = new List<string>(); // Filters to String Join
-        public static string geq; // png transparent to jpg whtie background filter
-        public static string vFilter;
 
         // Batch
         public static string batchVideoAuto;
@@ -1038,7 +1039,10 @@ namespace Axiom
                         {
                             vBitMode = string.Empty;
                             vBitrate = string.Empty;
-                            crf = "-crf 18 -x265-params crf=18";
+                            crf = string.Empty; // use -x265-params List instead
+                            x265paramsList.Add("crf=18");
+
+                            //crf = "-x265-params \"crf=18\"";
                         }
                         else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
                             || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
@@ -1198,7 +1202,9 @@ namespace Axiom
                         {
                             vBitMode = string.Empty;
                             vBitrate = string.Empty;
-                            crf = "-crf 21 -x265-params crf=21";
+                            crf = string.Empty; // use -x265-params List instead
+                            x265paramsList.Add("crf=21");
+                            //crf = "-x265-params \"crf=21\"";
                         }
                         else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
                             || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
@@ -1358,7 +1364,9 @@ namespace Axiom
                         {
                             vBitMode = string.Empty;
                             vBitrate = string.Empty;
-                            crf = "-crf 26 -x265-params crf=26";
+                            crf = string.Empty; // use -x265-params List instead
+                            x265paramsList.Add("crf=26");
+                            //crf = "-x265-params \"crf=26\"";
                         }
                         else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
                             || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
@@ -1518,7 +1526,9 @@ namespace Axiom
                         {
                             vBitMode = string.Empty;
                             vBitrate = string.Empty;
-                            crf = "-crf 35 -x265-params crf=35";
+                            crf = string.Empty; // use -x265-params List instead
+                            x265paramsList.Add("crf=35");
+                            //crf = "-x265-params \"crf=35\"";
                         }
                         else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
                             || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
@@ -1678,7 +1688,9 @@ namespace Axiom
                         {
                             vBitMode = string.Empty;
                             vBitrate = string.Empty;
-                            crf = "-crf 42 -x265-params crf=42";
+                            crf = string.Empty; // use -x265-params List instead
+                            x265paramsList.Add("crf=42");
+                            //crf = "-x265-params \"crf=42\"";
                         }
                         else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
                             || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
@@ -1843,7 +1855,9 @@ namespace Axiom
                         // x265
                         if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265")
                         {
-                            crf = "-crf " + mainwindow.crfCustom.Text + " -x265-params crf=" + mainwindow.crfCustom.Text;
+                            //crf = "-x265-params \"crf=" + mainwindow.crfCustom.Text + "\"";
+                            crf = string.Empty; // use -x265-params List instead
+                            x265paramsList.Add("crf=" + mainwindow.crfCustom.Text);
                         }
                     }
 
@@ -1881,6 +1895,7 @@ namespace Axiom
                     vMinrate = string.Empty;
                     vMaxrate = string.Empty;
                     vBufsize = string.Empty;
+                    x265params = string.Empty;
                     vOptions = string.Empty;
                 }
 
@@ -1888,6 +1903,16 @@ namespace Axiom
                 // Combine
                 // -------------------------
                 List<string> vQualityArgs = new List<string>();
+
+                // x265 Params
+                if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265")
+                {
+                    x265params = "-x265-params " + "\"" + string.Join(":", x265paramsList.Where(s => !string.IsNullOrEmpty(s))) + "\"";
+                }
+                else
+                {
+                    x265params = string.Empty;
+                }
 
                 // CRF
                 if ((string)mainwindow.cboPass.SelectedItem == "CRF")
@@ -1900,6 +1925,7 @@ namespace Axiom
                         vMaxrate,
                         vBufsize,
                         crf,
+                        x265params,
                         vOptions
                     };
                 }
@@ -1916,6 +1942,7 @@ namespace Axiom
                         vMinrate,
                         vMaxrate,
                         vBufsize,
+                        x265params,
                         vOptions
                     };
                 }
@@ -2106,7 +2133,7 @@ namespace Axiom
                     aspect = "scale=" + width + ":" + height;
 
                     // Video Filter Add
-                    VideoFilters.Add(aspect);
+                    VideoFilters.vFiltersList.Add(aspect);
                 }
             }
             // -------------------------
@@ -2483,7 +2510,7 @@ namespace Axiom
                 aspect = "scale=" + width + ":" + height;
 
                 // Video Filter Add
-                VideoFilters.Add(aspect);
+                VideoFilters.vFiltersList.Add(aspect);
 
             } //end Yes
 
@@ -2497,10 +2524,10 @@ namespace Axiom
                 aspect = string.Empty;
 
                 // Video Filter Add
-                if (VideoFilters != null)
+                if (VideoFilters.vFiltersList != null)
                 {
-                    VideoFilters.Clear();
-                    VideoFilters.TrimExcess();
+                    VideoFilters.vFiltersList.Clear();
+                    VideoFilters.vFiltersList.TrimExcess();
                 }
             }
 
@@ -2629,7 +2656,7 @@ namespace Axiom
             if (!string.IsNullOrEmpty(CropWindow.crop))
             {
                 // Video Filters Add
-                VideoFilters.Add(CropWindow.crop);
+                VideoFilters.vFiltersList.Add(CropWindow.crop);
             }
         }
 
@@ -2652,9 +2679,72 @@ namespace Axiom
                 {
                     fps = string.Empty;
                 }
+                else if ((string)mainwindow.cboFPS.SelectedItem == "film")
+                {
+                    fps = "-r film";
+                }
+                else if ((string)mainwindow.cboFPS.SelectedItem == "pal")
+                {
+                    fps = "-r pal";
+                }
+                else if ((string)mainwindow.cboFPS.SelectedItem == "ntsc")
+                {
+                    fps = "-r ntsc";
+                }
+                else if ((string)mainwindow.cboFPS.SelectedItem == "23.976")
+                {
+                    fps = "-r 24000/1001";
+                }
+                else if ((string)mainwindow.cboFPS.SelectedItem == "24")
+                {
+                    fps = "24";
+                }
+                else if ((string)mainwindow.cboFPS.SelectedItem == "25")
+                {
+                    fps = "-r 25";
+                }
+                else if ((string)mainwindow.cboFPS.SelectedItem == "ntsc"
+                    || (string)mainwindow.cboFPS.SelectedItem == "29.97")
+                {
+                    fps = "-r 30000/1001";
+                }
+                else if ((string)mainwindow.cboFPS.SelectedItem == "30")
+                {
+                    fps = "-r 30";
+                }
+                else if ((string)mainwindow.cboFPS.SelectedItem == "48")
+                {
+                    fps = "-r 48";
+                }
+                else if ((string)mainwindow.cboFPS.SelectedItem == "50")
+                {
+                    fps = "-r 50";
+                }
+                else if ((string)mainwindow.cboFPS.SelectedItem == "59.94")
+                {
+                    fps = "-r 60000/1001";
+                }
+                else if ((string)mainwindow.cboFPS.SelectedItem == "60")
+                {
+                    fps = "-r 60";
+                }
                 else
                 {
-                    fps = "-r " + mainwindow.cboFPS.Text;
+                    try
+                    {
+                        fps = "-r " + mainwindow.cboFPS.Text;
+                    }
+                    catch
+                    {
+                        /* lock */
+                        MainWindow.ready = false;
+                        // Warning
+                        MessageBox.Show("Invalid Custom FPS.",
+                                        "Notice",
+                                        MessageBoxButton.OK,
+                                        MessageBoxImage.Warning);
+                    }
+                    
                 }
 
                 // Log Console Message /////////
@@ -2724,34 +2814,6 @@ namespace Axiom
             }
 
             return subtitles;
-        }
-
-
-        /// <summary>
-        /// Subtitles Burn Filter (Method)
-        /// <summary>
-        public static void SubtitlesBurnFilter(MainWindow mainwindow)
-        {
-            string burn = string.Empty;
-
-            if ((string)mainwindow.cboSubtitleCodec.SelectedItem == "Burn"
-                && subtitleFileNamesList.Count > 0)
-            {
-                // Join File Names List
-                //string files = string.Join(",", subtitleFileNamesList.Where(s => !string.IsNullOrEmpty(s)));
-
-                //// Create Subtitles Filter
-                //string subtitles = "subtitles=" + files + ":force_style='FontName=Arial,FontSize=22'" + style;
-
-                // Get First Subtitle File
-                string file = subtitleFilePathsList.First().Replace("\"", "'");
-
-                // Create Subtitles Filter
-                burn = "subtitles=" + file;
-
-                // Add to Filters List
-                VideoFilters.Add(burn);
-            }
         }
 
 
@@ -3071,99 +3133,6 @@ namespace Axiom
                 }
             }
 
-        }
-
-
-        /// <summary>
-        /// Video Filter Combine (Method)
-        /// <summary>
-        public static String VideoFilter(MainWindow mainwindow)
-        {
-            // Video Bitrate None Check
-            // Video Codec None Check
-            // Codec Copy Check
-            // Media Type Check
-            if ((string)mainwindow.cboVideoQuality.SelectedItem != "None"
-                && (string)mainwindow.cboVideoCodec.SelectedItem != "None"
-                && (string)mainwindow.cboVideoCodec.SelectedItem != "Copy"
-                && (string)mainwindow.cboMediaType.SelectedItem != "Audio")
-            {
-                // --------------------------------------------------
-                // Filters
-                // --------------------------------------------------
-                /// <summary>
-                ///    Resize
-                /// </summary> 
-                Video.Size(mainwindow);
-
-                /// <summary>
-                ///    Crop
-                /// </summary> 
-                Video.Crop(mainwindow, cropwindow);
-
-                /// <summary>
-                ///    Subtitles Burn
-                /// </summary> 
-                Video.SubtitlesBurnFilter(mainwindow);
-
-
-                // -------------------------
-                // PNG to JPEG
-                // -------------------------
-                if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG")
-                {
-                    // Turn on PNG to JPG Filter
-                    if (string.Equals(MainWindow.inputExt, ".png", StringComparison.CurrentCultureIgnoreCase)
-                        || string.Equals(MainWindow.inputExt, "png", StringComparison.CurrentCultureIgnoreCase))
-                    {
-                        //png transparent to white background
-                        geq = "format=yuva444p,geq='if(lte(alpha(X,Y),16),255,p(X,Y))':'if(lte(alpha(X,Y),16),128,p(X,Y))':'if(lte(alpha(X,Y),16),128,p(X,Y))'";
-
-                        // Video Filter Add
-                        VideoFilters.Add(geq);
-                    }
-                    else
-                    {
-                        geq = string.Empty;
-                    }
-                }
-
-                // -------------------------
-                // Filter Combine
-                // -------------------------
-                if ((string)mainwindow.cboVideoCodec.SelectedItem != "None") // None Check
-                {
-                    // 1 Filter
-                    //
-                    if (VideoFilters.Count() == 1)
-                    {
-                        vFilter = "-vf " + string.Join(", ", VideoFilters.Where(s => !string.IsNullOrEmpty(s)));
-                    }
-
-                    // Multiple Filters
-                    //
-                    else if (VideoFilters.Count() > 1)
-                    {
-                        vFilter = "-vf \"" + string.Join(", ", VideoFilters.Where(s => !string.IsNullOrEmpty(s))) + "\"";
-                    }
-
-                    // Empty
-                    //
-                    else
-                    {
-                        vFilter = string.Empty;
-                    }
-                }
-                // Video Codec None
-                else
-                {
-                    vFilter = string.Empty;
-
-                }
-            }
-
-            // Return Value
-            return vFilter;
         }
 
     }
