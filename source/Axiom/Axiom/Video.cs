@@ -49,7 +49,7 @@ namespace Axiom
         public static string vMinrate;
         public static string vMaxrate;
         public static string vBufsize;
-        public static string vOptions; // -pix_fmt, -qcomp
+        public static string vOptions; // -pixel_format, -qcomp
         public static string crf; // Constant Rate Factor
         public static string fps; // Frames Per Second
         public static string image; // JPEG & PNG options
@@ -750,7 +750,7 @@ namespace Axiom
                                 }
 
 
-                                vOptions = "-pix_fmt " + PixFmt(mainwindow);
+                                vOptions = "-pixel_format " + PixFmt(mainwindow);
                             }
 
                             // Codec Not Detected
@@ -804,7 +804,7 @@ namespace Axiom
                                     vBitrate = "10"; // Theora can't have Auto Value, default to highest -q:v 10
                                 }
 
-                                vOptions = "-pix_fmt " + PixFmt(mainwindow);
+                                vOptions = "-pixel_format " + PixFmt(mainwindow);
                             }
 
                             // Codec Not Detected
@@ -883,7 +883,7 @@ namespace Axiom
                             vBitrate = "-lossless 1";
                         }
    
-                        vOptions = "-pix_fmt " + PixFmt(mainwindow);
+                        vOptions = "-pixel_format " + PixFmt(mainwindow);
                     }
                     // -------------------------
                     // x264
@@ -902,7 +902,7 @@ namespace Axiom
                             vBitrate = "-qp 0"; /* for 2 pass */
                         }
            
-                        vOptions = "-pix_fmt " + PixFmt(mainwindow);
+                        vOptions = "-pixel_format " + PixFmt(mainwindow);
                     }
                     // -------------------------
                     // x265
@@ -921,7 +921,7 @@ namespace Axiom
                             vBitrate = "-qp 0 -x265-params lossless";
                         }
                               
-                        vOptions = "-pix_fmt " + PixFmt(mainwindow);
+                        vOptions = "-pixel_format " + PixFmt(mainwindow);
                     }
                     // -------------------------
                     // AV1
@@ -947,7 +947,7 @@ namespace Axiom
                             vBitrate = "2";
                         }
 
-                        vOptions = "-pix_fmt " + PixFmt(mainwindow);
+                        vOptions = "-pixel_format " + PixFmt(mainwindow);
                     }
                     // -------------------------
                     // PNG
@@ -987,7 +987,7 @@ namespace Axiom
                             crf = string.Empty;
                         }
 
-                        vOptions = "-pix_fmt " + PixFmt(mainwindow);
+                        vOptions = "-pixel_format " + PixFmt(mainwindow);
                     }
                     // -------------------------
                     // VP9
@@ -1006,7 +1006,7 @@ namespace Axiom
                             crf = string.Empty;
                         }
                    
-                        vOptions = "-pix_fmt " + PixFmt(mainwindow);
+                        vOptions = "-pixel_format " + PixFmt(mainwindow);
                     }
                     // -------------------------
                     // x264
@@ -1028,7 +1028,7 @@ namespace Axiom
                             crf = string.Empty;
                         }
                                                                        
-                        vOptions = "-pix_fmt " + PixFmt(mainwindow) + " -qcomp 0.8";
+                        vOptions = "-pixel_format " + PixFmt(mainwindow) + " -qcomp 0.8";
                     }
                     // -------------------------
                     // x265
@@ -1051,7 +1051,7 @@ namespace Axiom
                             crf = string.Empty;
                         }                       
                         
-                        vOptions = "-pix_fmt " + PixFmt(mainwindow);
+                        vOptions = "-pixel_format " + PixFmt(mainwindow);
                     }
                     // -------------------------
                     // AV1
@@ -1073,7 +1073,7 @@ namespace Axiom
                             crf = string.Empty;
                         }
 
-                        vOptions = "-pix_fmt " + PixFmt(mainwindow);
+                        vOptions = "-pixel_format " + PixFmt(mainwindow);
                     }
                     // -------------------------
                     // mpeg4
@@ -1095,7 +1095,7 @@ namespace Axiom
                         vMaxrate = string.Empty;
                         crf = string.Empty;
 
-                        vOptions = "-pix_fmt " + PixFmt(mainwindow);
+                        vOptions = "-pixel_format " + PixFmt(mainwindow);
                     }
                     // -------------------------
                     // Theora
@@ -1115,7 +1115,7 @@ namespace Axiom
                             crf = string.Empty;
                         }
                   
-                        vOptions = "-pix_fmt " + PixFmt(mainwindow);
+                        vOptions = "-pixel_format " + PixFmt(mainwindow);
                     }
                     // -------------------------
                     // JPEG
@@ -1150,7 +1150,7 @@ namespace Axiom
                             crf = string.Empty;
                         }
                               
-                        vOptions = "-pix_fmt " + PixFmt(mainwindow);
+                        vOptions = "-pixel_format " + PixFmt(mainwindow);
                     }
                     // -------------------------
                     // VP9
@@ -1169,7 +1169,7 @@ namespace Axiom
                             crf = string.Empty;
                         }
                         
-                        vOptions = "-pix_fmt " + PixFmt(mainwindow);
+                        vOptions = "-pixel_format " + PixFmt(mainwindow);
                     }
                     // -------------------------
                     // x264
@@ -1191,7 +1191,7 @@ namespace Axiom
                             crf = string.Empty;
                         }
 
-                        vOptions = "-pix_fmt " + PixFmt(mainwindow) + " -qcomp 0.8";
+                        vOptions = "-pixel_format " + PixFmt(mainwindow) + " -qcomp 0.8";
                     }
                     // -------------------------
                     // x265
@@ -1213,7 +1213,7 @@ namespace Axiom
                             crf = string.Empty;
                         }
   
-                        vOptions = "-pix_fmt " + PixFmt(mainwindow);
+                        vOptions = "-pixel_format " + PixFmt(mainwindow);
                     }
                     // -------------------------
                     // AV1
@@ -1235,7 +1235,7 @@ namespace Axiom
                             crf = string.Empty;
                         }
 
-                        vOptions = "-pix_fmt " + PixFmt(mainwindow);
+                        vOptions = "-pixel_format " + PixFmt(mainwindow);
                     }
                     // -------------------------
                     // mpeg4
@@ -1257,7 +1257,7 @@ namespace Axiom
                         vMaxrate = string.Empty;
                         crf = string.Empty;
 
-                        vOptions = "-pix_fmt " + PixFmt(mainwindow);
+                        vOptions = "-pixel_format " + PixFmt(mainwindow);
                     }
                     // -------------------------
                     // Theora
@@ -1277,7 +1277,7 @@ namespace Axiom
                             crf = string.Empty;
                         }
                                             
-                        vOptions = "-pix_fmt " + PixFmt(mainwindow);
+                        vOptions = "-pixel_format " + PixFmt(mainwindow);
                     }
                     // -------------------------
                     // JPEG
@@ -1312,7 +1312,7 @@ namespace Axiom
                             crf = string.Empty;
                         }
                    
-                        vOptions = "-pix_fmt " + PixFmt(mainwindow);
+                        vOptions = "-pixel_format " + PixFmt(mainwindow);
                     }
                     // -------------------------
                     // VP9
@@ -1331,7 +1331,7 @@ namespace Axiom
                             crf = string.Empty;
                         }
    
-                        vOptions = "-pix_fmt " + PixFmt(mainwindow);
+                        vOptions = "-pixel_format " + PixFmt(mainwindow);
                     }
                     // -------------------------
                     // x264
@@ -1353,7 +1353,7 @@ namespace Axiom
                             crf = string.Empty;
                         }
 
-                        vOptions = "-pix_fmt " + PixFmt(mainwindow);
+                        vOptions = "-pixel_format " + PixFmt(mainwindow);
                     }
                     // -------------------------
                     // x265
@@ -1375,7 +1375,7 @@ namespace Axiom
                             crf = string.Empty;
                         }
 
-                        vOptions = "-pix_fmt " + PixFmt(mainwindow);
+                        vOptions = "-pixel_format " + PixFmt(mainwindow);
                     }
                     // -------------------------
                     // AV1
@@ -1397,7 +1397,7 @@ namespace Axiom
                             crf = string.Empty;
                         }
 
-                        vOptions = "-pix_fmt " + PixFmt(mainwindow);
+                        vOptions = "-pixel_format " + PixFmt(mainwindow);
                     }
                     // -------------------------
                     // mpeg4
@@ -1419,7 +1419,7 @@ namespace Axiom
                         vMaxrate = string.Empty;
                         crf = string.Empty;
 
-                        vOptions = "-pix_fmt " + PixFmt(mainwindow);
+                        vOptions = "-pixel_format " + PixFmt(mainwindow);
                     }
                     // -------------------------
                     // Theora
@@ -1439,7 +1439,7 @@ namespace Axiom
                             crf = string.Empty;
                         }
 
-                        vOptions = "-pix_fmt " + PixFmt(mainwindow);
+                        vOptions = "-pixel_format " + PixFmt(mainwindow);
                     }
                     // -------------------------
                     // JPEG
@@ -1474,7 +1474,7 @@ namespace Axiom
                             crf = string.Empty;
                         }
                                 
-                        vOptions = "-pix_fmt " + PixFmt(mainwindow);
+                        vOptions = "-pixel_format " + PixFmt(mainwindow);
                     }
                     // -------------------------
                     // VP9
@@ -1493,7 +1493,7 @@ namespace Axiom
                             crf = string.Empty;
                         }
 
-                        vOptions = "-pix_fmt " + PixFmt(mainwindow);
+                        vOptions = "-pixel_format " + PixFmt(mainwindow);
                     }
                     // -------------------------
                     // x264
@@ -1515,7 +1515,7 @@ namespace Axiom
                             crf = string.Empty;
                         }
 
-                        vOptions = "-pix_fmt " + PixFmt(mainwindow);
+                        vOptions = "-pixel_format " + PixFmt(mainwindow);
                     }
                     // -------------------------
                     // x265
@@ -1537,7 +1537,7 @@ namespace Axiom
                             crf = string.Empty;
                         }
 
-                        vOptions = "-pix_fmt " + PixFmt(mainwindow);
+                        vOptions = "-pixel_format " + PixFmt(mainwindow);
                     }
                     // -------------------------
                     // AV1
@@ -1559,7 +1559,7 @@ namespace Axiom
                             crf = string.Empty;
                         }
 
-                        vOptions = "-pix_fmt " + PixFmt(mainwindow);
+                        vOptions = "-pixel_format " + PixFmt(mainwindow);
                     }
                     // -------------------------
                     // mpeg4
@@ -1581,7 +1581,7 @@ namespace Axiom
                         vMaxrate = string.Empty;
                         crf = string.Empty;
 
-                        vOptions = "-pix_fmt " + PixFmt(mainwindow);
+                        vOptions = "-pixel_format " + PixFmt(mainwindow);
                     }
                     // -------------------------
                     // Theora
@@ -1601,7 +1601,7 @@ namespace Axiom
                             crf = string.Empty;
                         }
 
-                        vOptions = "-pix_fmt " + PixFmt(mainwindow);
+                        vOptions = "-pixel_format " + PixFmt(mainwindow);
                     }
                     // -------------------------
                     // JPEG
@@ -1636,7 +1636,7 @@ namespace Axiom
                             crf = string.Empty;
                         }
 
-                        vOptions = "-pix_fmt " + PixFmt(mainwindow);
+                        vOptions = "-pixel_format " + PixFmt(mainwindow);
                     }
                     // -------------------------
                     // VP9
@@ -1655,7 +1655,7 @@ namespace Axiom
                             crf = string.Empty;
                         }
 
-                        vOptions = "-pix_fmt " + PixFmt(mainwindow);
+                        vOptions = "-pixel_format " + PixFmt(mainwindow);
                     }
                     // -------------------------
                     // x264
@@ -1677,7 +1677,7 @@ namespace Axiom
                             crf = string.Empty;
                         }
 
-                        vOptions = "-pix_fmt " + PixFmt(mainwindow);
+                        vOptions = "-pixel_format " + PixFmt(mainwindow);
                     }
                     // -------------------------
                     // x265
@@ -1699,7 +1699,7 @@ namespace Axiom
                             crf = string.Empty;
                         }
 
-                        vOptions = "-pix_fmt " + PixFmt(mainwindow);
+                        vOptions = "-pixel_format " + PixFmt(mainwindow);
                     }
                     // -------------------------
                     // AV1
@@ -1721,7 +1721,7 @@ namespace Axiom
                             crf = string.Empty;
                         }
 
-                        vOptions = "-pix_fmt " + PixFmt(mainwindow);
+                        vOptions = "-pixel_format " + PixFmt(mainwindow);
                     }
                     // -------------------------
                     // mpeg4
@@ -1743,7 +1743,7 @@ namespace Axiom
                         vMaxrate = string.Empty;
                         crf = string.Empty;
 
-                        vOptions = "-pix_fmt " + PixFmt(mainwindow);
+                        vOptions = "-pixel_format " + PixFmt(mainwindow);
                     }
                     // -------------------------
                     // Theora
@@ -1763,7 +1763,7 @@ namespace Axiom
                             crf = string.Empty;
                         }
 
-                        vOptions = "-pix_fmt " + PixFmt(mainwindow);
+                        vOptions = "-pixel_format " + PixFmt(mainwindow);
                     }
                     // -------------------------
                     // JPEG
@@ -1880,7 +1880,7 @@ namespace Axiom
                     // -------------------------
                     // Pix Format
                     // -------------------------
-                    vOptions = "-pix_fmt " + PixFmt(mainwindow);
+                    vOptions = "-pixel_format " + PixFmt(mainwindow);
 
                 }
 

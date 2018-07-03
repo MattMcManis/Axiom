@@ -110,7 +110,7 @@ namespace Axiom
                     .Where(s => !s.Equals("\r\n"))
                     );
 
-                MessageBox.Show(ffplayArgs);
+                //MessageBox.Show(ffplayArgs); //debug
 
 
                 // Start FFplay

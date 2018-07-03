@@ -219,7 +219,6 @@ namespace Axiom
             return decimalValue;
         }
 
-
         /// <summary>
         ///     Selective SelectiveColorPreview (Method)
         /// <summary>
@@ -471,19 +470,27 @@ namespace Axiom
                     //System.Windows.MessageBox.Show(string.Join(",\r\n\r\n", vFiltersList.Where(s => !string.IsNullOrEmpty(s)))); //debug
                     //System.Windows.MessageBox.Show(Convert.ToString(vFiltersList.Count())); //debug
 
-                    // 1 Filter
-                    //
-                    if (vFiltersList.Count() == 1)
-                    {
-                        vFilter = "-vf " + string.Join(",\r\n\r\n", vFiltersList.Where(s => !string.IsNullOrEmpty(s)));
-                    }
+                    //// 1 Filter
+                    ////
+                    //if (vFiltersList.Count() == 1)
+                    //{
+                    //    //vFilter = "-vf " + string.Join(",\r\n\r\n", vFiltersList.Where(s => !string.IsNullOrEmpty(s)));
+                    //}
 
-                    // Multiple Filters
-                    // Wrap in Quotes
+                    //// Multiple Filters
+                    //// Wrap in Quotes
+                    ////
+                    //else if (vFiltersList.Count() > 1)
+                    //{
+                    //    vFilter = "-vf \"" + string.Join(",\r\n\r\n", vFiltersList.Where(s => !string.IsNullOrEmpty(s))) + "\"";
+                    //}
+
+                    // Has Filter(s)
                     //
-                    else if (vFiltersList.Count() > 1)
+                    if (vFiltersList.Count() > 0)
                     {
-                        vFilter = "-vf \"" + string.Join(",\r\n\r\n", vFiltersList.Where(s => !string.IsNullOrEmpty(s))) + "\"";
+                        // Always wrap in quotes
+                        vFilter = "-vf \"" + string.Join(", \r\n\r\n", vFiltersList.Where(s => !string.IsNullOrEmpty(s))) + "\"";
                     }
 
                     // Empty
