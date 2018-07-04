@@ -1381,6 +1381,57 @@ namespace Axiom
                     && (string)mainwindow.cboFPS.SelectedItem == "auto"
                     && (string)mainwindow.cboOptimize.SelectedItem == "None"
 
+                    // Filters
+                    // Fix
+                    && (string)mainwindow.cboFilterVideo_Deband.SelectedItem == "disabled"
+                    && (string)mainwindow.cboFilterVideo_Deshake.SelectedItem == "disabled"
+                    && (string)mainwindow.cboFilterVideo_Deflicker.SelectedItem == "disabled"
+                    && (string)mainwindow.cboFilterVideo_Dejudder.SelectedItem == "disabled"
+                    && (string)mainwindow.cboFilterVideo_Denoise.SelectedItem == "disabled"
+                    // Selective Color
+                    // Reds
+                    && mainwindow.slFiltersVideo_SelectiveColor_Reds_Cyan.Value == 0
+                    && mainwindow.slFiltersVideo_SelectiveColor_Reds_Magenta.Value == 0
+                    && mainwindow.slFiltersVideo_SelectiveColor_Reds_Yellow.Value == 0
+                    // Yellows
+                    && mainwindow.slFiltersVideo_SelectiveColor_Yellows_Cyan.Value == 0
+                    && mainwindow.slFiltersVideo_SelectiveColor_Yellows_Magenta.Value == 0
+                    && mainwindow.slFiltersVideo_SelectiveColor_Yellows_Yellow.Value == 0
+                    // Greens
+                    && mainwindow.slFiltersVideo_SelectiveColor_Greens_Cyan.Value == 0
+                    && mainwindow.slFiltersVideo_SelectiveColor_Greens_Magenta.Value == 0
+                    && mainwindow.slFiltersVideo_SelectiveColor_Greens_Yellow.Value == 0
+                    // Cyans
+                    && mainwindow.slFiltersVideo_SelectiveColor_Cyans_Cyan.Value == 0
+                    && mainwindow.slFiltersVideo_SelectiveColor_Cyans_Magenta.Value == 0
+                    && mainwindow.slFiltersVideo_SelectiveColor_Cyans_Yellow.Value == 0
+                    // Blues
+                    && mainwindow.slFiltersVideo_SelectiveColor_Blues_Cyan.Value == 0
+                    && mainwindow.slFiltersVideo_SelectiveColor_Blues_Magenta.Value == 0
+                    && mainwindow.slFiltersVideo_SelectiveColor_Blues_Yellow.Value == 0
+                    // Magentas
+                    && mainwindow.slFiltersVideo_SelectiveColor_Magentas_Cyan.Value == 0
+                    && mainwindow.slFiltersVideo_SelectiveColor_Magentas_Magenta.Value == 0
+                    && mainwindow.slFiltersVideo_SelectiveColor_Magentas_Yellow.Value == 0
+                    // Whites
+                    && mainwindow.slFiltersVideo_SelectiveColor_Whites_Cyan.Value == 0
+                    && mainwindow.slFiltersVideo_SelectiveColor_Whites_Magenta.Value == 0
+                    && mainwindow.slFiltersVideo_SelectiveColor_Whites_Yellow.Value == 0
+                    // Neutrals
+                    && mainwindow.slFiltersVideo_SelectiveColor_Neutrals_Cyan.Value == 0
+                    && mainwindow.slFiltersVideo_SelectiveColor_Neutrals_Magenta.Value == 0
+                    && mainwindow.slFiltersVideo_SelectiveColor_Neutrals_Yellow.Value == 0
+                    // Blacks
+                    && mainwindow.slFiltersVideo_SelectiveColor_Blacks_Cyan.Value == 0
+                    && mainwindow.slFiltersVideo_SelectiveColor_Blacks_Magenta.Value == 0
+                    && mainwindow.slFiltersVideo_SelectiveColor_Blacks_Yellow.Value == 0
+
+                    // EQ
+                    && mainwindow.slFiltersVideo_EQ_Brightness.Value == 0
+                    && mainwindow.slFiltersVideo_EQ_Contrast.Value == 0
+                    && mainwindow.slFiltersVideo_EQ_Saturation.Value == 0
+                    && mainwindow.slFiltersVideo_EQ_Gamma.Value == 0
+
                     // Extension Match
                     && string.Equals(MainWindow.inputExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase)
                     )

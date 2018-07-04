@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Documents;
 using System.Windows.Media;
 // Disable XML Comment warnings
 #pragma warning disable 1591
@@ -46,11 +47,34 @@ namespace Axiom
         /// <summary>
         ///     Normalize Value (Method)
         /// <summary>
-        public static double NormalizeValue(double val, double valmin, double valmax, double min, double max)
+        public static double NormalizeValue(double val, double valmin, double valmax, double min, double max, double midpoint)
         {
-            // (((sliderValue - sliderValueMin) / (sliderValueMax - sliderValueMin)) * (NormalizeMax - NormalizeMin)) + NormalizeMin
+            double mid = (valmin + valmax) / 2.0;
+            if (val < mid)
+            {
+                return (val - valmin) / (mid - valmin) * (midpoint - min) + min;
+            }
+            else
+            {
+                return (val - mid) / (valmax - mid) * (max - midpoint) + midpoint;
+            }
+        }
+        //public static double NormalizeValue(double val, double valmin, double valmax, double min, double max, double ffdefault)
+        //{
+        //    // (((sliderValue - sliderValueMin) / (sliderValueMax - sliderValueMin)) * (NormalizeMax - NormalizeMin)) + NormalizeMin
 
-            return (((val - valmin) / (valmax - valmin)) * (max - min)) + min;
+        //    return (((val - valmin) / (valmax - valmin)) * (max - min)) + min;
+        //}
+
+
+        /// <summary>
+        ///     Limit to Range (Method)
+        /// <summary>
+        public static double LimitToRange(double value, double inclusiveMinimum, double inclusiveMaximum)
+        {
+            if (value < inclusiveMinimum) { return inclusiveMinimum; }
+            if (value > inclusiveMaximum) { return inclusiveMaximum; }
+            return value;
         }
 
 
@@ -252,7 +276,8 @@ namespace Axiom
                                                             -100, // input min
                                                              100, // input max
                                                               -1, // normalize min
-                                                               1  // normalize max
+                                                               1, // normalize max
+                                                               0  // ffmpeg default
                                                         )
                                                     , 2
                                                 )
@@ -482,22 +507,40 @@ namespace Axiom
             if (value != 0)
             {
                 // FFmpeg Range -1 to 1
+                // FFmpeg Default 0
                 // Slider -100 to 100
+                // Slider Default 0
                 // Limit to 2 decimal places
 
-                brightness = "brightness=" +
-                                    Convert.ToString(
-                                        Math.Round(
-                                                    NormalizeValue(
-                                                           value, // input
-                                                            -100, // input min
-                                                             100, // input max
-                                                              -1, // normalize min
-                                                               1  // normalize max
-                                                        )
-                                                    , 2
-                                                )
-                                            );
+                //brightness = "brightness=" + mainwindow.slFiltersVideo_EQ_Brightness.Value.ToString();
+
+                try
+                {
+                    brightness = "brightness=" +
+                                        Convert.ToString(
+                                            Math.Round(
+                                                        NormalizeValue(
+                                                                       value, // input
+                                                                        -100, // input min
+                                                                         100, // input max
+                                                                          -1, // normalize min
+                                                                           1, // normalize max
+                                                                           0  // ffmpeg default
+                                                            )
+                                                        , 2
+                                                    )
+                                                );
+                }
+                catch
+                {
+                    // Log Console Message /////////
+                    Log.WriteAction = () =>
+                    {
+                        Log.logParagraph.Inlines.Add(new LineBreak());
+                        Log.logParagraph.Inlines.Add(new Bold(new Run("Error: Could not set Brightness.")) { Foreground = Log.ConsoleDefault });
+                    };
+                    Log.LogActions.Add(Log.WriteAction);
+                }
             }
 
             return brightness;
@@ -515,21 +558,42 @@ namespace Axiom
             if (value != 0)
             {
                 // FFmpeg Range -2 to 2
+                // FFmpeg Default 1
                 // Slider -100 to 100
+                // Slider Default 0
+                // Limit to 2 decimal places
 
-                contrast = "contrast=" +
-                            Convert.ToString(
-                                    Math.Round(
-                                                NormalizeValue(
-                                                        value, // input
-                                                        -100, // input min
-                                                            100, // input max
-                                                            -2, // normalize min
-                                                            2  // normalize max
-                                                    )
-                                                , 2
-                                            )
-                                        );
+                //contrast = "contrast=" + mainwindow.slFiltersVideo_EQ_Contrast.Value.ToString();
+
+                try
+                {
+                    contrast = "contrast=" +
+                                Convert.ToString(
+                                        Math.Round(
+                                                    NormalizeValue(
+                                                                    value, // input
+                                                                     -100, // input min
+                                                                      100, // input max
+                                                                       -2, // normalize min
+                                                                        2, // normalize max
+                                                                        1  // ffdefault
+                                                        )
+
+                                                    , 2 // max decimal places
+                                                )
+                                            );
+                }
+                catch
+                {
+                    // Log Console Message /////////
+                    Log.WriteAction = () =>
+                    {
+                        Log.logParagraph.Inlines.Add(new LineBreak());
+                        Log.logParagraph.Inlines.Add(new Bold(new Run("Error: Could not set Contrast.")) { Foreground = Log.ConsoleDefault });
+                    };
+                    Log.LogActions.Add(Log.WriteAction);
+                }
+
             }
 
             return contrast;
@@ -547,22 +611,42 @@ namespace Axiom
             if (value != 0)
             {
                 // FFmpeg Range 0 to 3
+                // FFmpeg Default 1
                 // Slider -100 to 100
+                // Slider Default 0
                 // Limit to 2 decimal places
 
-                saturation = "saturation=" +
-                             Convert.ToString(
-                                        Math.Round(
-                                                    NormalizeValue(
-                                                           value, // input
-                                                            -100, // input min
-                                                             100, // input max
-                                                               0, // normalize min
-                                                               3  // normalize max
-                                                        )
-                                                    , 2
-                                                )
-                                            );
+                //saturation = "saturation=" + mainwindow.slFiltersVideo_EQ_Saturation.Value.ToString();
+
+                try
+                {
+                    saturation = "saturation=" +
+                                    Convert.ToString(
+                                            Math.Round(
+                                                        NormalizeValue(
+                                                                       value, // input
+                                                                        -100, // input min
+                                                                         100, // input max
+                                                                           0, // normalize min
+                                                                           3, // normalize max
+                                                                           1  // ffmpeg default
+                                                            )
+
+                                                        , 2 // max decimal places
+                                                    )
+                                                );
+                }
+                catch
+                {
+                    // Log Console Message /////////
+                    Log.WriteAction = () =>
+                    {
+                        Log.logParagraph.Inlines.Add(new LineBreak());
+                        Log.logParagraph.Inlines.Add(new Bold(new Run("Error: Could not set Saturation.")) { Foreground = Log.ConsoleDefault });
+                    };
+                    Log.LogActions.Add(Log.WriteAction);
+                }
+
             }
 
             return saturation;
@@ -580,22 +664,40 @@ namespace Axiom
             if (value != 0)
             {
                 // FFmpeg Range 0.1 to 10
+                // FFmpeg Default 1
                 // Slider -100 to 100
+                // Slider Default 0
                 // Limit to 2 decimal places
 
-                gamma = "gamma=" +
-                        Convert.ToString(
-                                    Math.Round(
-                                                NormalizeValue(
-                                                        value, // input
-                                                        -100, // input min
-                                                            100, // input max
-                                                            0.1, // normalize min
-                                                            10  // normalize max
+                //gamma = "gamma=" + mainwindow.slFiltersVideo_EQ_Gamma.Value.ToString();
+                try
+                {
+                    gamma = "gamma=" +
+                                    Convert.ToString(
+                                            Math.Round(
+                                                       NormalizeValue(
+                                                                      value, // input
+                                                                       -100, // input min
+                                                                        100, // input max
+                                                                        0.1, // normalize min
+                                                                         10, // normalize max
+                                                                          1  // ffmpeg default
+                                                            )
+
+                                                        , 2 // max decimal places
                                                     )
-                                                , 2
-                                            )
-                                        );
+                                                );
+                }
+                catch
+                {
+                    // Log Console Message /////////
+                    Log.WriteAction = () =>
+                    {
+                        Log.logParagraph.Inlines.Add(new LineBreak());
+                        Log.logParagraph.Inlines.Add(new Bold(new Run("Error: Could not set Gamma.")) { Foreground = Log.ConsoleDefault });
+                    };
+                    Log.LogActions.Add(Log.WriteAction);
+                }
             }
 
             return gamma;

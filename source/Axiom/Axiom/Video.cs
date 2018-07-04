@@ -2890,9 +2890,9 @@ namespace Axiom
                     else if ((string)mainwindow.cboSpeed.SelectedItem == "Medium") { speed = "-quality good -cpu-used 0"; }
                     else if ((string)mainwindow.cboSpeed.SelectedItem == "Fast") { speed = "-quality good -cpu-used 1"; }
                     else if ((string)mainwindow.cboSpeed.SelectedItem == "Faster") { speed = "-quality good -cpu-used 2"; }
-                    else if ((string)mainwindow.cboSpeed.SelectedItem == "Very Fast") { speed = "-quality realtime -cpu-used 3"; }
-                    else if ((string)mainwindow.cboSpeed.SelectedItem == "Super Fast") { speed = "-quality realtime -cpu-used 4"; }
-                    else if ((string)mainwindow.cboSpeed.SelectedItem == "Ultra Fast") { speed = "-quality realtime -cpu-used 5"; }
+                    else if ((string)mainwindow.cboSpeed.SelectedItem == "Very Fast") { speed = "-quality good -cpu-used 3"; } // needs realtime 
+                    else if ((string)mainwindow.cboSpeed.SelectedItem == "Super Fast") { speed = "-quality good -cpu-used 4"; } // needs realtime
+                    else if ((string)mainwindow.cboSpeed.SelectedItem == "Ultra Fast") { speed = "-quality good -cpu-used 5"; } // needs realtime
                 }
 
                 // -------------------------
