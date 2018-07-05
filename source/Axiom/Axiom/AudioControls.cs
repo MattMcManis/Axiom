@@ -109,7 +109,7 @@ namespace Axiom
             }
 
             // --------------------------------------------------
-            // OPUS
+            // Opus
             // --------------------------------------------------
             if ((string)mainwindow.cboAudioCodec.SelectedItem == "Opus")
             {
@@ -165,7 +165,7 @@ namespace Axiom
                 // -------------------------
                 // Change ItemSource
                 // -------------------------
-                BitDepth_ItemSource = new List<string>() { "auto", "8", "16", "24", "32", "64" };
+                BitDepth_ItemSource = new List<string>() { "auto", /*"8", "16", "24", "32", "64"*/ };
 
                 ChangeItemSource(
                     mainwindow,
@@ -209,7 +209,7 @@ namespace Axiom
 
 
             // --------------------------------------------------
-            // VORBIS
+            // Vorbis
             // --------------------------------------------------
             else if ((string)mainwindow.cboAudioCodec.SelectedItem == "Vorbis")
             {
@@ -257,7 +257,7 @@ namespace Axiom
                 // Bit Depth
                 // -------------------------
                 // Change ItemSource
-                BitDepth_ItemSource = new List<string>() { "auto", "8", "16", "24", "32", "64" };
+                BitDepth_ItemSource = new List<string>() { "auto", /*"8", "16", "24", "32", "64"*/ };
 
                 ChangeItemSource(
                     mainwindow,
@@ -348,7 +348,7 @@ namespace Axiom
                 // Bit Depth
                 // -------------------------
                 // Change ItemSource
-                BitDepth_ItemSource = new List<string>() { "auto", "8", "16", "24", "32", "64" };
+                BitDepth_ItemSource = new List<string>() { "auto", /*"8", "16", "24", "32", "64"*/ };
 
                 ChangeItemSource(
                     mainwindow,
@@ -534,7 +534,7 @@ namespace Axiom
                 // Bit Depth
                 // -------------------------
                 // Change ItemSource
-                BitDepth_ItemSource = new List<string>() { "auto", "8", "16", "24", "32", "64" };
+                BitDepth_ItemSource = new List<string>() { "auto", /*"8", "16", "24", "32", "64"*/ };
 
                 ChangeItemSource(
                     mainwindow,
@@ -627,7 +627,7 @@ namespace Axiom
                 // Bit Depth
                 // -------------------------
                 // Change ItemSource
-                BitDepth_ItemSource = new List<string>() { "auto", "8", "16", "24", "32", "64" };
+                BitDepth_ItemSource = new List<string>() { "auto", /*"8", "16", "24", "32", "64"*/ };
 
                 ChangeItemSource(
                     mainwindow,
@@ -1061,7 +1061,9 @@ namespace Axiom
                 // Only if Audio Codec is Not Empty
                 if (!string.IsNullOrEmpty((string)mainwindow.cboAudioCodec.SelectedItem))
                 {
-
+                    // -------------------------
+                    // 640
+                    // -------------------------
                     if (AudioQuality_ItemSource.Contains("640")
                         && (string)mainwindow.cboAudioCodec.SelectedItem != "ALAC"
                         && (string)mainwindow.cboAudioCodec.SelectedItem != "FLAC"
@@ -1073,6 +1075,9 @@ namespace Axiom
                             mainwindow.cboAudioQuality.SelectedItem = "640";
                         }
                     }
+                    // -------------------------
+                    // 510
+                    // -------------------------
                     else if (AudioQuality_ItemSource.Contains("510")
                         && (string)mainwindow.cboAudioCodec.SelectedItem != "ALAC"
                         && (string)mainwindow.cboAudioCodec.SelectedItem != "FLAC"
@@ -1084,6 +1089,9 @@ namespace Axiom
                             mainwindow.cboAudioQuality.SelectedItem = "510";
                         }
                     }
+                    // -------------------------
+                    // 500
+                    // -------------------------
                     else if (AudioQuality_ItemSource.Contains("500")
                         && (string)mainwindow.cboAudioCodec.SelectedItem != "ALAC"
                         && (string)mainwindow.cboAudioCodec.SelectedItem != "FLAC"
@@ -1095,6 +1103,9 @@ namespace Axiom
                             mainwindow.cboAudioQuality.SelectedItem = "500";
                         }
                     }
+                    // -------------------------
+                    // 448
+                    // -------------------------
                     else if (AudioQuality_ItemSource.Contains("448")
                         && (string)mainwindow.cboAudioCodec.SelectedItem != "ALAC"
                         && (string)mainwindow.cboAudioCodec.SelectedItem != "FLAC"
@@ -1106,6 +1117,9 @@ namespace Axiom
                             mainwindow.cboAudioQuality.SelectedItem = "448";
                         }
                     }
+                    // -------------------------
+                    // 400
+                    // -------------------------
                     else if (AudioQuality_ItemSource.Contains("400")
                         && (string)mainwindow.cboAudioCodec.SelectedItem != "ALAC"
                         && (string)mainwindow.cboAudioCodec.SelectedItem != "FLAC"
@@ -1117,6 +1131,9 @@ namespace Axiom
                             mainwindow.cboAudioQuality.SelectedItem = "400";
                         }
                     }
+                    // -------------------------
+                    // 320
+                    // -------------------------
                     else if (AudioQuality_ItemSource.Contains("320")
                         && (string)mainwindow.cboAudioCodec.SelectedItem != "ALAC"
                         && (string)mainwindow.cboAudioCodec.SelectedItem != "FLAC"
@@ -1130,7 +1147,10 @@ namespace Axiom
                     }
 
                 }
+
+                // -------------------------
                 // Default to Lossless if ALAC or FLAC
+                // -------------------------
                 if (mainwindow.cboAudioQuality.Items.Contains("Lossless")
                     && (string)mainwindow.cboAudioCodec.SelectedItem == "ALAC"
                     | (string)mainwindow.cboAudioCodec.SelectedItem == "FLAC"

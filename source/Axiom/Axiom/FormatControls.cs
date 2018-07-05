@@ -873,7 +873,7 @@ namespace Axiom
                 mainwindow.cboSize.IsEnabled = true;
 
                 // Scaling
-                mainwindow.cboScaling.SelectedItem = "Default";
+                mainwindow.cboScaling.SelectedItem = "default";
                 mainwindow.cboScaling.IsEnabled = true;
 
                 // Cut
@@ -927,7 +927,7 @@ namespace Axiom
                 mainwindow.cboSize.IsEnabled = false;
 
                 // Scaling
-                mainwindow.cboScaling.SelectedItem = "None";
+                mainwindow.cboScaling.SelectedItem = "default";
                 mainwindow.cboScaling.IsEnabled = false;
 
                 // Cut
@@ -995,7 +995,7 @@ namespace Axiom
                 mainwindow.cboSize.IsEnabled = true;
 
                 // Scaling
-                mainwindow.cboScaling.SelectedItem = "Default";
+                mainwindow.cboScaling.SelectedItem = "default";
                 mainwindow.cboScaling.IsEnabled = true;
 
                 // Cut
@@ -1064,7 +1064,7 @@ namespace Axiom
                 mainwindow.cboSize.IsEnabled = true;
 
                 // Scaling
-                mainwindow.cboScaling.SelectedItem = "Default";
+                mainwindow.cboScaling.SelectedItem = "default";
                 mainwindow.cboScaling.IsEnabled = true;
 
                 // Cut

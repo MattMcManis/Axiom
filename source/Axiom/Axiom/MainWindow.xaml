@@ -1157,7 +1157,7 @@
                                       ToolTip="Pixel Format" 
                                       IsTextSearchEnabled="False"
                                       Grid.Row="9" 
-                                      Grid.Column="1" Margin="0,2,0,0">
+                                      Grid.Column="1" Margin="0,2,0,0" SelectionChanged="cboPixelFormat_SelectionChanged">
                                 <System:String>auto</System:String>
                                 <System:String>yuv420p</System:String>
                                 <System:String>yuv422p</System:String>
@@ -1610,9 +1610,10 @@
                                       ToolTip="Algorithm used for resizing." 
                                       Grid.Row="20" 
                                       Grid.Column="1" 
-                                      Height="22" Margin="0,2,0,0">
-                                <System:String>None</System:String>
-                                <System:String>Default</System:String>
+                                      Height="22" 
+                                      Margin="0,2,0,0" 
+                                      SelectionChanged="cboScaling_SelectionChanged">
+                                <System:String>default</System:String>
                                 <System:String>neighbor</System:String>
                                 <System:String>area</System:String>
                                 <System:String>fast_bilinear</System:String>

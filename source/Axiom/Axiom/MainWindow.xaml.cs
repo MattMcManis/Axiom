@@ -587,6 +587,7 @@ namespace Axiom
             cboChannel.SelectedIndex = 0;
             cboSamplerate.SelectedIndex = 0;
             cboBitDepth.SelectedIndex = 0;
+            cboBitDepth.IsEnabled = false;
 
             // Filters
             cboFilterVideo_Deband.SelectedIndex = 0;
@@ -6276,6 +6277,23 @@ namespace Axiom
             VideoControls.AutoCopyVideoCodec(this);
         }
 
+
+
+        /// <summary>
+        ///     Scaling Video
+        /// </summary>
+        private void cboScaling_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+
+        /// <summary>
+        ///     Pixel Format
+        /// </summary>
+        private void cboPixelFormat_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            VideoControls.AutoCopyVideoCodec(this);
+        }
     }
 
 }

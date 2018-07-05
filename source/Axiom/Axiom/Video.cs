@@ -693,7 +693,8 @@ namespace Axiom
                                     }
                                     else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265")
                                     {
-                                        crf = "-x265-params crf=23";
+                                        //crf = "-x265-params crf=23";
+                                        x265paramsList.Add("crf=23");
                                     }
                                     else if ((string)mainwindow.cboVideoCodec.SelectedItem == "AV1")
                                     {
@@ -913,12 +914,16 @@ namespace Axiom
                         {
                             vBitMode = string.Empty;
                             vBitrate = string.Empty;
-                            crf = "-qp 0 -x265-params lossless";
+                            //crf = "-qp 0 -x265-params lossless";
+                            crf = "-qp 0";
+                            x265paramsList.Add("lossless");
                         }
                         else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
                             || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
                         {
-                            vBitrate = "-qp 0 -x265-params lossless";
+                            //vBitrate = "-qp 0 -x265-params lossless";
+                            vBitrate = "-qp 0";
+                            x265paramsList.Add("lossless");
                         }
                               
                         vOptions = "-pix_fmt " + PixFmt(mainwindow);
@@ -1905,7 +1910,8 @@ namespace Axiom
                 List<string> vQualityArgs = new List<string>();
 
                 // x265 Params
-                if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265")
+                if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265"
+                    && x265paramsList.Count > 0)
                 {
                     x265params = "-x265-params " + "\"" + string.Join(":", x265paramsList.Where(s => !string.IsNullOrEmpty(s))) + "\"";
                 }
@@ -1984,6 +1990,49 @@ namespace Axiom
 
 
         /// <summary>
+        /// Pass 1 Modifier x256 (Method)
+        /// <summary>
+        //public static void Pass1Modifier_x265(MainWindow mainwindow)
+        //{
+        //    // -------------------------
+        //    // 2 Pass Enabled
+        //    // -------------------------
+        //    if ((string)mainwindow.cboPass.SelectedItem == "2 Pass")
+        //    {
+        //        // -------------------------
+        //        // x265
+        //        // -------------------------
+        //        if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265")
+        //        {
+        //            Video.pass1 = string.Empty;
+        //            x265paramsList.Add("pass=1");
+        //        }
+        //    }
+        //}
+
+        /// <summary>
+        /// Pass 2 Modifier x265 (Method)
+        /// <summary>
+        //public static void Pass2Modifier_x265(MainWindow mainwindow)
+        //{
+        //    // -------------------------
+        //    // 2 Pass Enabled
+        //    // -------------------------
+        //    if ((string)mainwindow.cboPass.SelectedItem == "2 Pass")
+        //    {
+        //        // -------------------------
+        //        // x265
+        //        // -------------------------
+        //        if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265")
+        //        {
+        //            Video.pass1 = string.Empty;
+        //            x265paramsList.Add("pass=2");
+        //        }
+        //    }
+        //}
+
+
+        /// <summary>
         /// Pass 1 Modifier (Method)
         /// <summary>
         // x265 Pass 1
@@ -1999,6 +2048,8 @@ namespace Axiom
                 if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265")
                 {
                     Video.pass1 = "-x265-params pass=1";
+                    //Video.pass1 = string.Empty;
+                    //x265paramsList.Add("pass=1");
                 }
                 // All other codecs
                 else
@@ -2039,6 +2090,8 @@ namespace Axiom
                 if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265")
                 {
                     Video.pass2 = "-x265-params pass=2";
+                    //Video.pass2 = string.Empty;
+                    //x265paramsList.Add("pass=2");
                 }
                 // All other codecs
                 else
@@ -2560,8 +2613,7 @@ namespace Axiom
 
             // None & Default
             //
-            if ((string)mainwindow.cboScaling.SelectedItem == "None"
-                || (string)mainwindow.cboScaling.SelectedItem == "Default")
+            if ((string)mainwindow.cboScaling.SelectedItem == "default")
             {
                 algorithm = string.Empty;
             }
@@ -2820,7 +2872,7 @@ namespace Axiom
         /// <summary>
         /// Speed (Method)
         /// <summary>
-        public static String Speed(MainWindow mainwindow)
+        public static String Speed(MainWindow mainwindow, string pass)
         {
             // Video Bitrate None Check
             // Video Codec None Check
@@ -2890,9 +2942,48 @@ namespace Axiom
                     else if ((string)mainwindow.cboSpeed.SelectedItem == "Medium") { speed = "-quality good -cpu-used 0"; }
                     else if ((string)mainwindow.cboSpeed.SelectedItem == "Fast") { speed = "-quality good -cpu-used 1"; }
                     else if ((string)mainwindow.cboSpeed.SelectedItem == "Faster") { speed = "-quality good -cpu-used 2"; }
-                    else if ((string)mainwindow.cboSpeed.SelectedItem == "Very Fast") { speed = "-quality good -cpu-used 3"; } // needs realtime 
-                    else if ((string)mainwindow.cboSpeed.SelectedItem == "Super Fast") { speed = "-quality good -cpu-used 4"; } // needs realtime
-                    else if ((string)mainwindow.cboSpeed.SelectedItem == "Ultra Fast") { speed = "-quality good -cpu-used 5"; } // needs realtime
+                    else if ((string)mainwindow.cboSpeed.SelectedItem == "Very Fast")
+                    {
+                        // CRF / 2-Pass Pass 1
+                        if (pass == "single" // CRF & 1-Pass
+                         || pass == "pass 1")
+                        {
+                            speed = "-quality good -cpu-used 3";
+                        }
+                        // 2-Pass Pass 2
+                        else if (pass == "pass 2") 
+                        {
+                            speed = "-quality realtime -cpu-used 3";
+                        }
+                    }
+                    else if ((string)mainwindow.cboSpeed.SelectedItem == "Super Fast")
+                    {
+                        // CRF / 2-Pass Pass 1
+                        if (pass == "single" // CRF & 1-Pass
+                         || pass == "pass 1")
+                        {
+                            speed = "-quality good -cpu-used 4";
+                        }
+                        // Pass 2
+                        else if (pass == "pass 2")
+                        {
+                            speed = "-quality realtime -cpu-used 4";
+                        }
+                    }
+                    else if ((string)mainwindow.cboSpeed.SelectedItem == "Ultra Fast")
+                    {
+                        // CRF / 2-Pass Pass 1
+                        if (pass == "single" // CRF & 1-Pass
+                         || pass == "pass 1")
+                        {
+                            speed = "-quality good -cpu-used 5";
+                        }
+                        // Pass 2
+                        else if (pass == "pass 2")
+                        {
+                            speed = "-quality realtime -cpu-used 5";
+                        }
+                    }
                 }
 
                 // -------------------------

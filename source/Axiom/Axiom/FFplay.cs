@@ -103,12 +103,14 @@ namespace Axiom
                 // Join List with Spaces
                 // Remove: Empty, Null, Standalone LineBreak
                 string ffplayArgs = string.Join(" ",
-                    FFplayArgsList
-                    .Where(s => !string.IsNullOrEmpty(s))
-                    .Where(s => !s.Equals(Environment.NewLine))
-                    .Where(s => !s.Equals("\r\n\r\n"))
-                    .Where(s => !s.Equals("\r\n"))
-                    );
+                                           FFplayArgsList
+                                           .Where(s => !string.IsNullOrEmpty(s))
+                                           .Where(s => !s.Equals(Environment.NewLine))
+                                           .Where(s => !s.Equals("\r\n\r\n"))
+                                           .Where(s => !s.Equals("\r\n"))
+                                    )
+                                   .Replace("\r\n", "") //Remove Linebreaks
+                                   .Replace(Environment.NewLine, "");
 
                 //MessageBox.Show(ffplayArgs); //debug
 

@@ -78,7 +78,7 @@ namespace Axiom
                     mainwindow.vBufsizeCustom.Text = "";
                     mainwindow.cboPass.SelectedItem = "CRF";
                     mainwindow.cboSize.SelectedItem = "Source";
-                    mainwindow.cboScaling.SelectedItem = "None";
+                    mainwindow.cboScaling.SelectedItem = "default";
                     mainwindow.cboCut.SelectedItem = "No";
                     mainwindow.cutStart.Text = "00:00:00.000";
                     mainwindow.cutEnd.Text = "00:00:00.000";
@@ -129,7 +129,7 @@ namespace Axiom
                     mainwindow.vMaxrateCustom.Text = "";
                     mainwindow.vBufsizeCustom.Text = "";
                     mainwindow.cboSize.SelectedItem = "Source";
-                    mainwindow.cboScaling.SelectedItem = "None";
+                    mainwindow.cboScaling.SelectedItem = "default";
                     mainwindow.cboCut.SelectedItem = "No";
                     mainwindow.cutStart.Text = "00:00:00.000";
                     mainwindow.cutEnd.Text = "00:00:00.000";
@@ -179,7 +179,7 @@ namespace Axiom
                 mainwindow.vMaxrateCustom.Text = "9.8M";
                 mainwindow.vBufsizeCustom.Text = "9.8M";
                 mainwindow.cboSize.SelectedItem = "Custom";
-                mainwindow.cboScaling.SelectedItem = "None";
+                mainwindow.cboScaling.SelectedItem = "default";
                 mainwindow.widthCustom.Text = "720";
                 mainwindow.heightCustom.Text = "-2";
                 mainwindow.cboCut.SelectedItem = "No";
@@ -220,7 +220,7 @@ namespace Axiom
                 mainwindow.vMaxrateCustom.Text = "";
                 mainwindow.vBufsizeCustom.Text = "";
                 mainwindow.cboSize.SelectedItem = "Source";
-                mainwindow.cboScaling.SelectedItem = "None";
+                mainwindow.cboScaling.SelectedItem = "default";
                 mainwindow.cboSubtitle.SelectedItem = "all";
                 mainwindow.cboOptimize.SelectedItem = "None";
                 mainwindow.cboFPS.SelectedItem = "auto";
@@ -260,7 +260,7 @@ namespace Axiom
                 mainwindow.vMaxrateCustom.Text = "";
                 mainwindow.vBufsizeCustom.Text = "";
                 mainwindow.cboSize.SelectedItem = "Source";
-                mainwindow.cboScaling.SelectedItem = "None";
+                mainwindow.cboScaling.SelectedItem = "default";
                 mainwindow.cboFPS.SelectedItem = "auto";
                 mainwindow.cboFPS.IsEnabled = true;
                 mainwindow.cboCut.SelectedItem = "No";
@@ -299,7 +299,7 @@ namespace Axiom
                 mainwindow.vMaxrateCustom.Text = "";
                 mainwindow.vBufsizeCustom.Text = "";
                 mainwindow.cboSize.SelectedItem = "1080p";
-                mainwindow.cboScaling.SelectedItem = "None";
+                mainwindow.cboScaling.SelectedItem = "default";
                 mainwindow.cboFPS.SelectedItem = "23.976";
                 mainwindow.cboFPS.IsEnabled = true;
                 mainwindow.cboSubtitle.SelectedItem = "all";
@@ -338,7 +338,7 @@ namespace Axiom
                 mainwindow.vMaxrateCustom.Text = "";
                 mainwindow.vBufsizeCustom.Text = "";
                 mainwindow.cboSize.SelectedItem = "Source";
-                mainwindow.cboScaling.SelectedItem = "None";
+                mainwindow.cboScaling.SelectedItem = "default";
                 mainwindow.cboCut.SelectedItem = "No";
                 mainwindow.cutStart.Text = "00:00:00.000";
                 mainwindow.cutEnd.Text = "00:00:00.000";
@@ -379,7 +379,7 @@ namespace Axiom
                 mainwindow.vMaxrateCustom.Text = "";
                 mainwindow.vBufsizeCustom.Text = "";
                 mainwindow.cboSize.SelectedItem = "Source";
-                mainwindow.cboScaling.SelectedItem = "None";
+                mainwindow.cboScaling.SelectedItem = "default";
                 mainwindow.cboFPS.SelectedItem = "23.976";
                 mainwindow.cboFPS.IsEnabled = true;
                 mainwindow.cboCut.SelectedItem = "No";
@@ -418,7 +418,7 @@ namespace Axiom
                 mainwindow.vMaxrateCustom.Text = "";
                 mainwindow.vBufsizeCustom.Text = "";
                 mainwindow.cboSize.SelectedItem = "Source";
-                mainwindow.cboScaling.SelectedItem = "None";
+                mainwindow.cboScaling.SelectedItem = "default";
                 mainwindow.cboSubtitle.SelectedItem = "all";
                 mainwindow.cboOptimize.SelectedItem = "Android";
                 mainwindow.cboFPS.SelectedItem = "23.976";
@@ -455,7 +455,7 @@ namespace Axiom
                 mainwindow.vMaxrateCustom.Text = "";
                 mainwindow.vBufsizeCustom.Text = "";
                 mainwindow.cboSize.SelectedItem = "Source";
-                mainwindow.cboScaling.SelectedItem = "None";
+                mainwindow.cboScaling.SelectedItem = "default";
                 mainwindow.cboCut.SelectedItem = "No";
                 mainwindow.cutStart.Text = "00:00:00.000";
                 mainwindow.cutEnd.Text = "00:00:00.000";
@@ -492,7 +492,7 @@ namespace Axiom
                 mainwindow.vMaxrateCustom.Text = "";
                 mainwindow.vBufsizeCustom.Text = "";
                 mainwindow.cboSize.SelectedItem = "Source";
-                mainwindow.cboScaling.SelectedItem = "None";
+                mainwindow.cboScaling.SelectedItem = "default";
                 mainwindow.cboCut.SelectedItem = "No";
                 mainwindow.cutStart.Text = "00:00:00.000";
                 mainwindow.cutEnd.Text = "00:00:00.000";
@@ -531,7 +531,7 @@ namespace Axiom
                 mainwindow.vMaxrateCustom.Text = "";
                 mainwindow.vBufsizeCustom.Text = "";
                 mainwindow.cboSize.SelectedItem = "Source";
-                mainwindow.cboScaling.SelectedItem = "None";
+                mainwindow.cboScaling.SelectedItem = "default";
                 mainwindow.cboFPS.SelectedItem = "23.976";
                 mainwindow.cboFPS.IsEnabled = true;
                 mainwindow.cboCut.SelectedItem = "No";
@@ -570,7 +570,7 @@ namespace Axiom
                 mainwindow.vMaxrateCustom.Text = "";
                 mainwindow.vBufsizeCustom.Text = "";
                 mainwindow.cboSize.SelectedItem = "Source";
-                mainwindow.cboScaling.SelectedItem = "None";
+                mainwindow.cboScaling.SelectedItem = "default";
                 mainwindow.cboCut.SelectedItem = "No";
                 mainwindow.cutStart.Text = "00:00:00.000";
                 mainwindow.cutEnd.Text = "00:00:00.000";
@@ -609,7 +609,7 @@ namespace Axiom
                 mainwindow.vMaxrateCustom.Text = "";
                 mainwindow.vBufsizeCustom.Text = "";
                 mainwindow.cboSize.SelectedItem = "Source";
-                mainwindow.cboScaling.SelectedItem = "None";
+                mainwindow.cboScaling.SelectedItem = "default";
                 mainwindow.cboCut.SelectedItem = "No";
                 mainwindow.cutStart.Text = "00:00:00.000";
                 mainwindow.cutEnd.Text = "00:00:00.000";
@@ -648,7 +648,7 @@ namespace Axiom
                 mainwindow.vMaxrateCustom.Text = "";
                 mainwindow.vBufsizeCustom.Text = "";
                 mainwindow.cboSize.SelectedItem = "Source";
-                mainwindow.cboScaling.SelectedItem = "None";
+                mainwindow.cboScaling.SelectedItem = "default";
                 mainwindow.cboCut.SelectedItem = "No";
                 mainwindow.cutStart.Text = "00:00:00.000";
                 mainwindow.cutEnd.Text = "00:00:00.000";
@@ -687,7 +687,7 @@ namespace Axiom
                 mainwindow.vMaxrateCustom.Text = "";
                 mainwindow.vBufsizeCustom.Text = "";
                 mainwindow.cboSize.SelectedItem = "Source";
-                mainwindow.cboScaling.SelectedItem = "None";
+                mainwindow.cboScaling.SelectedItem = "defualt";
                 mainwindow.cboCut.SelectedItem = "No";
                 mainwindow.cutStart.Text = "00:00:00.000";
                 mainwindow.cutEnd.Text = "00:00:00.000";

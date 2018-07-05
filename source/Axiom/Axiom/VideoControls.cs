@@ -1379,7 +1379,9 @@ namespace Axiom
                     && (string)mainwindow.cboSize.SelectedItem == "Source"
                     && string.IsNullOrEmpty(CropWindow.crop)
                     && (string)mainwindow.cboFPS.SelectedItem == "auto"
+                    && (string)mainwindow.cboPixelFormat.SelectedItem == "auto"
                     && (string)mainwindow.cboOptimize.SelectedItem == "None"
+                    && (string)mainwindow.cboScaling.SelectedItem == "default"
 
                     // Filters
                     // Fix
