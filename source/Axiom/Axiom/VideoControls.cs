@@ -30,11 +30,11 @@ using System.Windows.Controls;
 
 namespace Axiom
 {
-    public partial class VideoControls
+    public class VideoControls
     {
         // --------------------------------------------------------------------------------------------------------
         /// <summary>
-        /// ComboBoxes Item Sources
+        ///     ComboBoxes Item Sources
         /// </summary>
         // --------------------------------------------------------------------------------------------------------
 
@@ -64,7 +64,7 @@ namespace Axiom
         // --------------------------------------------------------------------------------------------------------
 
         /// <summary>
-        /// Change Item Source (Method)
+        ///     Change Item Source (Method)
         /// </summary>
         private static void ChangeItemSource(
             MainWindow mainwindow,
@@ -102,10 +102,11 @@ namespace Axiom
 
 
         /// <summary>
-        /// Video Codec Controls (Method)
-        /// 
-        /// Changes Other ComboBox Items and Selections based on Video Codec
+        ///     Video Codec Controls (Method)
         /// </summary>
+        /// <remarks>
+        ///     Changes Other ComboBox Items and Selections based on Video Codec
+        /// </remarks>
         public static void VideoCodecControls(MainWindow mainwindow)
         {
             // On ComboBox Selection Change, Through Method

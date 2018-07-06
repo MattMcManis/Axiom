@@ -31,7 +31,7 @@ using System.Windows.Documents;
 
 namespace Axiom
 {
-    public partial class Streams
+    public class Streams
     {
         // --------------------------------------------------------------------------------------------------------
         /// <summary>

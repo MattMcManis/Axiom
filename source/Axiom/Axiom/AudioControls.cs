@@ -32,12 +32,13 @@ using System.Windows.Controls;
 
 namespace Axiom
 {
-    public partial class AudioControls
+    public class AudioControls
     {
         // --------------------------------------------------------------------------------------------------------
-        // ComboBoxes Item Sources
+        /// <summary>
+        ///     ComboBoxes Item Sources
+        /// </summary>
         // --------------------------------------------------------------------------------------------------------
-        private static string previousItem; // Previous ComboBox Item
 
         // -------------------------
         // Audio
@@ -56,7 +57,7 @@ namespace Axiom
         // --------------------------------------------------------------------------------------------------------
 
         /// <summary>
-        /// Change Item Source (Method)
+        ///     Change Item Source (Method)
         /// </summary>
         private static void ChangeItemSource(
             MainWindow mainwindow,

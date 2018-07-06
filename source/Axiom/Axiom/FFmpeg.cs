@@ -31,7 +31,7 @@ using System.Windows.Documents;
 
 namespace Axiom
 {
-    public partial class FFmpeg
+    public class FFmpeg
     {
         // --------------------------------------------------------------------------------------------------------
         /// <summary>
@@ -103,40 +103,61 @@ namespace Axiom
                 // -------------------------
                 List<string> FFmpegArgsSinglePassList = new List<string>()
                 {
-                    "\r\n\r\n" + "-i "+ "\"" + MainWindow.InputPath(mainwindow) + "\"",
+                    "\r\n\r\n" + 
+                    "-i "+ "\"" + MainWindow.InputPath(mainwindow) + "\"",
 
-                    "\r\n\r\n" + Video.Subtitles(mainwindow),
+                    "\r\n\r\n" + 
+                    Video.Subtitles(mainwindow),
 
-                    "\r\n\r\n" + Video.VideoCodec(mainwindow),
-                    "\r\n" + Video.Speed(mainwindow, "pass single"),
+                    "\r\n\r\n" + 
+                    Video.VideoCodec(mainwindow),
+                    "\r\n" + 
+                    Video.Speed(mainwindow, "pass single"),
                     Video.VideoQuality(mainwindow),
-                    "\r\n" + Video.FPS(mainwindow),
-                    "\r\n" + VideoFilters.VideoFilter(mainwindow),
-                    "\r\n" + Video.ScalingAlgorithm(mainwindow),
-                    "\r\n" + Video.Images(mainwindow),
-                    "\r\n" + Video.Optimize(mainwindow),
-                    "\r\n" + Streams.VideoStreamMaps(mainwindow),
+                    "\r\n" + 
+                    Video.FPS(mainwindow),
+                    "\r\n" + 
+                    VideoFilters.VideoFilter(mainwindow),
+                    "\r\n" + 
+                    Video.ScalingAlgorithm(mainwindow),
+                    "\r\n" + 
+                    Video.Images(mainwindow),
+                    "\r\n" + 
+                    Video.Optimize(mainwindow),
+                    "\r\n" + 
+                    Streams.VideoStreamMaps(mainwindow),
 
-                    "\r\n\r\n" + Video.SubtitleCodec(mainwindow),
-                    "\r\n" + Streams.SubtitleMaps(mainwindow),
+                    "\r\n\r\n" + 
+                    Video.SubtitleCodec(mainwindow),
+                    "\r\n" + 
+                    Streams.SubtitleMaps(mainwindow),
 
-                    "\r\n\r\n" + Audio.AudioCodec(mainwindow),
-                    "\r\n" + Audio.AudioQuality(mainwindow),
+                    "\r\n\r\n" + 
+                    Audio.AudioCodec(mainwindow),
+                    "\r\n" + 
+                    Audio.AudioQuality(mainwindow),
                     Audio.SampleRate(mainwindow),
                     Audio.BitDepth(mainwindow),
                     Audio.Channel(mainwindow),
-                    "\r\n" + Audio.AudioFilter(mainwindow),
-                    "\r\n" + Streams.AudioStreamMaps(mainwindow),
+                    "\r\n" + 
+                    Audio.AudioFilter(mainwindow),
+                    "\r\n" + 
+                    Streams.AudioStreamMaps(mainwindow),
 
-                    "\r\n\r\n" + Format.Cut(mainwindow),
+                    "\r\n\r\n" + 
+                    Format.Cut(mainwindow),
 
-                    "\r\n\r\n" + Streams.FormatMaps(mainwindow),
+                    "\r\n\r\n" + 
+                    Streams.FormatMaps(mainwindow),
 
-                    "\r\n\r\n" + Format.ForceFormat(mainwindow),
+                    "\r\n\r\n" + 
+                    Format.ForceFormat(mainwindow),
 
-                    "\r\n\r\n" + MainWindow.ThreadDetect(mainwindow),
+                    "\r\n\r\n" + 
+                    MainWindow.ThreadDetect(mainwindow),
 
-                    "\r\n\r\n" + "\"" + MainWindow.OutputPath(mainwindow) + "\""
+                    "\r\n\r\n" + "\"" + 
+                    MainWindow.OutputPath(mainwindow) + "\""
                 };
 
                 // Join List with Spaces

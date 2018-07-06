@@ -33,7 +33,7 @@ using System.Windows.Media;
 
 namespace Axiom
 {
-    public partial class Log
+    public class Log
     {
         // --------------------------------------------------------------------------------------------------------
         // Variables

@@ -26,7 +26,7 @@ using System.Windows.Documents;
 
 namespace Axiom
 {
-    public partial class ScriptView
+    public class ScriptView
     {
         public static bool sort = false;
 

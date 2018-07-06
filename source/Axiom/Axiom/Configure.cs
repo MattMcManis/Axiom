@@ -28,7 +28,7 @@ using System.Windows.Media;
 
 namespace Axiom
 {
-    public partial class Configure
+    public class Configure
     {
         //private MainWindow mainwindow;
 

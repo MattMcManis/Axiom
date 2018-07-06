@@ -135,6 +135,7 @@
     </Compile>
     <Compile Include="Video.cs" />
     <Compile Include="VideoControls.cs" />
+    <Compile Include="ViewModel.cs" />
     <Page Include="CropWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

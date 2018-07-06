@@ -31,7 +31,7 @@ using System.Threading.Tasks;
 
 namespace Axiom
 {
-    public partial class FiltersControls
+    public class FiltersControls
     {
     }
 }

@@ -185,6 +185,14 @@ namespace Axiom
 
             // -----------------------------------------------------------------
             /// <summary>
+            ///     Control Binding
+            /// </summary>
+            // -----------------------------------------------------------------
+            ViewModel vm = new ViewModel();
+            DataContext = vm;
+
+            // -----------------------------------------------------------------
+            /// <summary>
             /// Start the File Queue (Hidden)
             /// </summary>
             // disabled
@@ -209,7 +217,7 @@ namespace Axiom
             // Title + Version
             // -------------------------
             TitleVersion = "Axiom ~ FFmpeg UI (" + Convert.ToString(currentVersion) + "-" + currentBuildPhase + ")";
-            DataContext = this;
+            //DataContext = this;
 
             // -------------------------
             // Load Theme
@@ -2832,7 +2840,7 @@ namespace Axiom
 
                         TitleVersion = "Axiom ~ FFmpeg UI (" + Convert.ToString(currentVersion) + "-" + currentBuildPhase + ")"
                                      + " ~ Update Available: " + "(" + Convert.ToString(latestVersion) + "-" + latestBuildPhase + ")";
-                        DataContext = this;
+                        //DataContext = this;
                     }
                     // Update Not Available
                     else if (latestVersion <= currentVersion)

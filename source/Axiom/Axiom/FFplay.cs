@@ -32,7 +32,7 @@ using System.Windows.Documents;
 
 namespace Axiom
 {
-    public partial class FFplay
+    public class FFplay
     {
         // FFplay
         public static string ffplay; // ffplay.exe
@@ -117,8 +117,9 @@ namespace Axiom
 
                 // Start FFplay
                 System.Diagnostics.Process.Start(
-                    "cmd.exe",
-                    FFmpeg.KeepWindow(mainwindow)
+                    "cmd.exe ",
+                    "/c " //always close cmd
+                    //FFmpeg.KeepWindow(mainwindow)
                     + ffplayArgs
                 );
             }

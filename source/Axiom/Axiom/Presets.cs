@@ -27,7 +27,7 @@ along with this program.If not, see <http://www.gnu.org/licenses/>.
 
 namespace Axiom
 {
-    public partial class Presets
+    public class Presets
     {
         public static void Preset(MainWindow mainwindow)
         {

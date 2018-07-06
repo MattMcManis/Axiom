@@ -36,7 +36,7 @@ namespace Axiom
     /// <summary>
     ///     Video Filters (Class)
     /// <summary>
-    public partial class VideoFilters
+    public class VideoFilters
     {
         // Filter
         public static List<string> vFiltersList = new List<string>(); // Master Filters List
@@ -140,9 +140,11 @@ namespace Axiom
         /// <summary>
         ///     Deband (Method)
         /// <summary>
-        public static void Deband_Filter(MainWindow mainwindow)
+        public static void Deband_Filter(/*MainWindow mainwindow*/)
         {
-            if ((string)mainwindow.cboFilterVideo_Deband.SelectedItem == "enabled")
+            //if ((string)mainwindow.cboFilterVideo_Deband.SelectedItem == "enabled")
+            //if (ViewModel.Filters.cboFilterVideo_Deband_SelectedItem == "enabled")
+            if (ViewModel.cboFilterVideo_Deband_SelectedItem == "enabled")
             {
                 // -------------------------
                 // Add Filter to List
@@ -261,9 +263,9 @@ namespace Axiom
         }
 
         /// <summary>
-        ///     Selective SelectiveColorPreview Calculator (Method)
+        ///     Selective Color Normalize (Method)
         /// <summary>
-        public static String SelectiveColor_Calculator(double value)
+        public static String SelectiveColor_Normalize(double value)
         {
             // FFmpeg Range -1 to 1
             // Slider -100 to 100
@@ -298,6 +300,7 @@ namespace Axiom
             {
                 // Reds
                 mainwindow.slFiltersVideo_SelectiveColor_Reds_Cyan.Value,
+                //ViewModel.Filters.slFiltersVideo_SelectiveColor_Reds_Cyan_Value,
                 mainwindow.slFiltersVideo_SelectiveColor_Reds_Magenta.Value,
                 mainwindow.slFiltersVideo_SelectiveColor_Reds_Yellow.Value,
                 // Yellows
@@ -344,110 +347,113 @@ namespace Axiom
                 // Reds
                 // -------------------------
                 // Cyan
-                string reds_cyan = SelectiveColor_Calculator(mainwindow.slFiltersVideo_SelectiveColor_Reds_Cyan.Value);
+                string reds_cyan = SelectiveColor_Normalize(mainwindow.slFiltersVideo_SelectiveColor_Reds_Cyan.Value);
+                //string reds_cyan = SelectiveColor_Normalize(ViewModel.Filters.slFiltersVideo_SelectiveColor_Reds_Cyan_Value);
                 //if (string.IsNullOrEmpty(reds_cyan)) { reds_cyan = "0"; };
                 // Magenta
-                string reds_magenta = SelectiveColor_Calculator(mainwindow.slFiltersVideo_SelectiveColor_Reds_Magenta.Value);
+                string reds_magenta = SelectiveColor_Normalize(mainwindow.slFiltersVideo_SelectiveColor_Reds_Magenta.Value);
                 // Yellow
-                string reds_yellow = SelectiveColor_Calculator(mainwindow.slFiltersVideo_SelectiveColor_Reds_Yellow.Value);
+                string reds_yellow = SelectiveColor_Normalize(mainwindow.slFiltersVideo_SelectiveColor_Reds_Yellow.Value);
 
                 // -------------------------
                 // Yellows
                 // -------------------------
                 // Cyan
-                string yellows_cyan = SelectiveColor_Calculator(mainwindow.slFiltersVideo_SelectiveColor_Yellows_Cyan.Value);
+                string yellows_cyan = SelectiveColor_Normalize(mainwindow.slFiltersVideo_SelectiveColor_Yellows_Cyan.Value);
                 // Magenta
-                string yellows_magenta = SelectiveColor_Calculator(mainwindow.slFiltersVideo_SelectiveColor_Yellows_Magenta.Value);
+                string yellows_magenta = SelectiveColor_Normalize(mainwindow.slFiltersVideo_SelectiveColor_Yellows_Magenta.Value);
                 // Yellow
-                string yellows_yellow = SelectiveColor_Calculator(mainwindow.slFiltersVideo_SelectiveColor_Yellows_Yellow.Value);
+                string yellows_yellow = SelectiveColor_Normalize(mainwindow.slFiltersVideo_SelectiveColor_Yellows_Yellow.Value);
 
                 // -------------------------
                 // Greens
                 // -------------------------
                 // Cyan
-                string greens_cyan = SelectiveColor_Calculator(mainwindow.slFiltersVideo_SelectiveColor_Greens_Cyan.Value);
+                string greens_cyan = SelectiveColor_Normalize(mainwindow.slFiltersVideo_SelectiveColor_Greens_Cyan.Value);
                 // Magenta
-                string greens_magenta = SelectiveColor_Calculator(mainwindow.slFiltersVideo_SelectiveColor_Greens_Magenta.Value);
+                string greens_magenta = SelectiveColor_Normalize(mainwindow.slFiltersVideo_SelectiveColor_Greens_Magenta.Value);
                 // Yellow
-                string greens_yellow = SelectiveColor_Calculator(mainwindow.slFiltersVideo_SelectiveColor_Greens_Yellow.Value);
+                string greens_yellow = SelectiveColor_Normalize(mainwindow.slFiltersVideo_SelectiveColor_Greens_Yellow.Value);
 
                 // -------------------------
                 // Cyans
                 // -------------------------
                 // Cyan
-                string cyans_cyan = SelectiveColor_Calculator(mainwindow.slFiltersVideo_SelectiveColor_Cyans_Cyan.Value);
+                string cyans_cyan = SelectiveColor_Normalize(mainwindow.slFiltersVideo_SelectiveColor_Cyans_Cyan.Value);
                 // Magenta
-                string cyans_magenta = SelectiveColor_Calculator(mainwindow.slFiltersVideo_SelectiveColor_Cyans_Magenta.Value);
+                string cyans_magenta = SelectiveColor_Normalize(mainwindow.slFiltersVideo_SelectiveColor_Cyans_Magenta.Value);
                 // Yellow
-                string cyans_yellow = SelectiveColor_Calculator(mainwindow.slFiltersVideo_SelectiveColor_Cyans_Yellow.Value);
+                string cyans_yellow = SelectiveColor_Normalize(mainwindow.slFiltersVideo_SelectiveColor_Cyans_Yellow.Value);
 
                 // -------------------------
                 // Blues
                 // -------------------------
                 // Cyan
-                string blues_cyan = SelectiveColor_Calculator(mainwindow.slFiltersVideo_SelectiveColor_Blues_Cyan.Value);
+                string blues_cyan = SelectiveColor_Normalize(mainwindow.slFiltersVideo_SelectiveColor_Blues_Cyan.Value);
                 // Magenta
-                string blues_magenta = SelectiveColor_Calculator(mainwindow.slFiltersVideo_SelectiveColor_Blues_Magenta.Value);
+                string blues_magenta = SelectiveColor_Normalize(mainwindow.slFiltersVideo_SelectiveColor_Blues_Magenta.Value);
                 // Yellow
-                string blues_yellow = SelectiveColor_Calculator(mainwindow.slFiltersVideo_SelectiveColor_Blues_Yellow.Value);
+                string blues_yellow = SelectiveColor_Normalize(mainwindow.slFiltersVideo_SelectiveColor_Blues_Yellow.Value);
 
                 // -------------------------
                 // Magentas
                 // -------------------------
                 // Cyan
-                string magentas_cyan = SelectiveColor_Calculator(mainwindow.slFiltersVideo_SelectiveColor_Magentas_Cyan.Value);
+                string magentas_cyan = SelectiveColor_Normalize(mainwindow.slFiltersVideo_SelectiveColor_Magentas_Cyan.Value);
                 // Magenta
-                string magentas_magenta = SelectiveColor_Calculator(mainwindow.slFiltersVideo_SelectiveColor_Magentas_Magenta.Value);
+                string magentas_magenta = SelectiveColor_Normalize(mainwindow.slFiltersVideo_SelectiveColor_Magentas_Magenta.Value);
                 // Yellow
-                string magentas_yellow = SelectiveColor_Calculator(mainwindow.slFiltersVideo_SelectiveColor_Magentas_Yellow.Value);
+                string magentas_yellow = SelectiveColor_Normalize(mainwindow.slFiltersVideo_SelectiveColor_Magentas_Yellow.Value);
 
                 // -------------------------
                 // Whites
                 // -------------------------
                 // Cyan
-                string whites_cyan = SelectiveColor_Calculator(mainwindow.slFiltersVideo_SelectiveColor_Whites_Cyan.Value);
+                string whites_cyan = SelectiveColor_Normalize(mainwindow.slFiltersVideo_SelectiveColor_Whites_Cyan.Value);
                 // Magenta
-                string whites_magenta = SelectiveColor_Calculator(mainwindow.slFiltersVideo_SelectiveColor_Whites_Magenta.Value);
+                string whites_magenta = SelectiveColor_Normalize(mainwindow.slFiltersVideo_SelectiveColor_Whites_Magenta.Value);
                 // Yellow
-                string whites_yellow = SelectiveColor_Calculator(mainwindow.slFiltersVideo_SelectiveColor_Whites_Yellow.Value);
+                string whites_yellow = SelectiveColor_Normalize(mainwindow.slFiltersVideo_SelectiveColor_Whites_Yellow.Value);
 
                 // -------------------------
                 // Nuetrals
                 // -------------------------
                 // Cyan
-                string neutrals_cyan = SelectiveColor_Calculator(mainwindow.slFiltersVideo_SelectiveColor_Neutrals_Cyan.Value);
+                string neutrals_cyan = SelectiveColor_Normalize(mainwindow.slFiltersVideo_SelectiveColor_Neutrals_Cyan.Value);
                 // Magenta
-                string neutrals_magenta = SelectiveColor_Calculator(mainwindow.slFiltersVideo_SelectiveColor_Neutrals_Magenta.Value);
+                string neutrals_magenta = SelectiveColor_Normalize(mainwindow.slFiltersVideo_SelectiveColor_Neutrals_Magenta.Value);
                 // Yellow
-                string neutrals_yellow = SelectiveColor_Calculator(mainwindow.slFiltersVideo_SelectiveColor_Neutrals_Yellow.Value);
+                string neutrals_yellow = SelectiveColor_Normalize(mainwindow.slFiltersVideo_SelectiveColor_Neutrals_Yellow.Value);
 
                 // -------------------------
                 // Blacks
                 // -------------------------
                 // Cyan
-                string blacks_cyan = SelectiveColor_Calculator(mainwindow.slFiltersVideo_SelectiveColor_Blacks_Cyan.Value);
+                string blacks_cyan = SelectiveColor_Normalize(mainwindow.slFiltersVideo_SelectiveColor_Blacks_Cyan.Value);
                 // Magenta
-                string blacks_magenta = SelectiveColor_Calculator(mainwindow.slFiltersVideo_SelectiveColor_Blacks_Magenta.Value);
+                string blacks_magenta = SelectiveColor_Normalize(mainwindow.slFiltersVideo_SelectiveColor_Blacks_Magenta.Value);
                 // Yellow
-                string blacks_yellow = SelectiveColor_Calculator(mainwindow.slFiltersVideo_SelectiveColor_Blacks_Yellow.Value);
+                string blacks_yellow = SelectiveColor_Normalize(mainwindow.slFiltersVideo_SelectiveColor_Blacks_Yellow.Value);
 
                 // -------------------------
                 // Combine
                 // -------------------------
                 List<string> selectiveColorList = new List<string>()
                 {
-                    "selectivecolor=" + "\r\n"
-                    + "correction_method=" + mainwindow.cboFilterVideo_SelectiveColor_Correction_Method.SelectedItem.ToString().ToLower() + "\r\n",
+                    "selectivecolor=" 
+                    + "\r\n"
+                    + "correction_method=" + mainwindow.cboFilterVideo_SelectiveColor_Correction_Method.SelectedItem.ToString() 
+                    + "\r\n",
 
-                    "reds=" + reds_cyan + " " + reds_magenta + " " + reds_yellow + "\r\n",
-                    "yellows=" + yellows_cyan + " " + yellows_magenta + " " + yellows_yellow + "\r\n",
-                    "greens=" + greens_cyan + " " + greens_magenta + " " + greens_yellow + "\r\n",
-                    "cyans=" + cyans_cyan + " " + cyans_magenta + " " + cyans_yellow + "\r\n",
-                    "blues=" + blues_cyan + " " + blues_magenta + " " + blues_yellow + "\r\n",
+                    "reds="     + reds_cyan     + " " + reds_magenta     + " " + reds_yellow     + "\r\n",
+                    "yellows="  + yellows_cyan  + " " + yellows_magenta  + " " + yellows_yellow  + "\r\n",
+                    "greens="   + greens_cyan   + " " + greens_magenta   + " " + greens_yellow   + "\r\n",
+                    "cyans="    + cyans_cyan    + " " + cyans_magenta    + " " + cyans_yellow    + "\r\n",
+                    "blues="    + blues_cyan    + " " + blues_magenta    + " " + blues_yellow    + "\r\n",
                     "magentas=" + magentas_cyan + " " + magentas_magenta + " " + magentas_yellow + "\r\n",
-                    "whites=" + whites_cyan + " " + whites_magenta + " " + whites_yellow + "\r\n",
+                    "whites="   + whites_cyan   + " " + whites_magenta   + " " + whites_yellow   + "\r\n",
                     "neutrals=" + neutrals_cyan + " " + neutrals_magenta + " " + neutrals_yellow + "\r\n",
-                    "blacks=" + blacks_cyan + " " + blacks_magenta + " " + blacks_yellow + "\r\n",
+                    "blacks="   + blacks_cyan   + " " + blacks_magenta   + " " + blacks_yellow   + "\r\n",
                 };
 
                 selectiveColor = string.Join(":", selectiveColorList
@@ -720,7 +726,7 @@ namespace Axiom
                 && (string)mainwindow.cboMediaType.SelectedItem != "Audio")
             {
                 // --------------------------------------------------
-                // Filters
+                // Add Each Filter to Master Filters List
                 // --------------------------------------------------
                 // -------------------------
                 //  Resize
@@ -733,6 +739,11 @@ namespace Axiom
                 Video.Crop(mainwindow, Video.cropwindow);
 
                 // -------------------------
+                // PNG to JPEG
+                // -------------------------
+                VideoFilters.PNGtoJPG_Filter(mainwindow);
+
+                // -------------------------
                 //    Subtitles Burn
                 // -------------------------
                 VideoFilters.SubtitlesBurn_Filter(mainwindow);
@@ -740,7 +751,7 @@ namespace Axiom
                 // -------------------------
                 //  Deband
                 // -------------------------
-                VideoFilters.Deband_Filter(mainwindow);
+                VideoFilters.Deband_Filter(/*mainwindow*/);
 
                 // -------------------------
                 //  Deshake
@@ -763,19 +774,14 @@ namespace Axiom
                 VideoFilters.Denoise_Filter(mainwindow);
 
                 // -------------------------
-                //  Selective SelectiveColorPreview
-                // -------------------------
-                VideoFilters.SelectiveColor_Filter(mainwindow);
-
-                // -------------------------
                 //  EQ - Brightness, Contrast, Saturation, Gamma
                 // -------------------------
                 VideoFilters.Video_EQ_Filter(mainwindow);
 
                 // -------------------------
-                // PNG to JPEG
+                //  Selective SelectiveColorPreview
                 // -------------------------
-                VideoFilters.PNGtoJPG_Filter(mainwindow);
+                VideoFilters.SelectiveColor_Filter(mainwindow);
 
 
                 // -------------------------

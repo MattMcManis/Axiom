@@ -33,7 +33,7 @@ using System.Windows.Documents;
 
 namespace Axiom
 {
-    public partial class Video
+    public class Video
     {
         // --------------------------------------------------------------------------------------------------------
         /// <summary>

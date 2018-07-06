@@ -28,7 +28,7 @@ using System.Collections.Generic;
 
 namespace Axiom
 {
-    public partial class Format
+    public class Format
     {
         // --------------------------------------------------------------------------------------------------------
         /// <summary>

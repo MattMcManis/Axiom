@@ -32,7 +32,7 @@ using System.Windows.Documents;
 
 namespace Axiom
 {
-    public partial class Audio
+    public class Audio
     {
         // --------------------------------------------------------------------------------------------------------
         // Variables
