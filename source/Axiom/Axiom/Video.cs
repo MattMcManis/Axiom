@@ -717,6 +717,8 @@ namespace Axiom
                                     else if ((string)mainwindow.cboVideoCodec.SelectedItem == "mpeg4")
                                     {
                                         crf = "-b:v 5M";
+                                        vMaxrate = "5M";
+                                        vBufsize = "5M";
                                     }
                                     else if ((string)mainwindow.cboVideoCodec.SelectedItem == "Theora")
                                     {
@@ -760,6 +762,8 @@ namespace Axiom
                                     else if ((string)mainwindow.cboVideoCodec.SelectedItem == "mpeg4")
                                     {
                                         vBitrate = "3M";
+                                        vMaxrate = "3M";
+                                        vBufsize = "4M";
                                     }
                                     else if ((string)mainwindow.cboVideoCodec.SelectedItem == "Theora")
                                     {
@@ -908,7 +912,11 @@ namespace Axiom
                         {
                             vBitrate = "-lossless 1";
                         }
-   
+
+                        vMinrate = string.Empty;
+                        vMaxrate = string.Empty;
+                        vBufsize = string.Empty;
+
                         vOptions = "-pix_fmt " + PixFmt(mainwindow);
                     }
                     // -------------------------
@@ -927,7 +935,11 @@ namespace Axiom
                         {
                             vBitrate = "-qp 0"; /* for 2 pass */
                         }
-           
+
+                        vMinrate = string.Empty;
+                        vMaxrate = string.Empty;
+                        vBufsize = string.Empty;
+
                         vOptions = "-pix_fmt " + PixFmt(mainwindow);
                     }
                     // -------------------------
@@ -950,7 +962,11 @@ namespace Axiom
                             vBitrate = "-qp 0";
                             x265paramsList.Add("lossless");
                         }
-                              
+
+                        vMinrate = string.Empty;
+                        vMaxrate = string.Empty;
+                        vBufsize = string.Empty;
+
                         vOptions = "-pix_fmt " + PixFmt(mainwindow);
                     }
                     // -------------------------
@@ -978,6 +994,9 @@ namespace Axiom
                         else if (mainwindow.tglVideoVBR.IsChecked == true)
                         {
                             vBitrate = "2";
+                            vMinrate = string.Empty;
+                            vMaxrate = "9.8M";
+                            vBufsize = "9.8M";
                         }
 
                         vOptions = "-pix_fmt " + PixFmt(mainwindow);
@@ -992,11 +1011,17 @@ namespace Axiom
                         {
                             vBitMode = "-q:v"; // force vbr
                             vBitrate = "2";
+                            vMinrate = string.Empty;
+                            vMaxrate = "9.8M";
+                            vBufsize = "9.8M";
                         }
                         // VBR
                         else if (mainwindow.tglVideoVBR.IsChecked == true)
                         {
                             vBitrate = "2";
+                            vMinrate = string.Empty;
+                            vMaxrate = "9.8M";
+                            vBufsize = "9.8M";
                         }
 
                         vOptions = "-pix_fmt " + PixFmt(mainwindow);
@@ -1041,6 +1066,10 @@ namespace Axiom
                             crf = string.Empty;
                         }
 
+                        vMinrate = string.Empty;
+                        vMaxrate = string.Empty;
+                        vBufsize = string.Empty;
+
                         vOptions = "-pix_fmt " + PixFmt(mainwindow);
                     }
                     // -------------------------
@@ -1059,7 +1088,11 @@ namespace Axiom
                             vBitrate = "4M";
                             crf = string.Empty;
                         }
-                   
+
+                        vMinrate = string.Empty;
+                        vMaxrate = string.Empty;
+                        vBufsize = string.Empty;
+
                         vOptions = "-pix_fmt " + PixFmt(mainwindow);
                     }
                     // -------------------------
@@ -1077,11 +1110,13 @@ namespace Axiom
                             || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
                         {
                             vBitrate = "5M";
-                            vMinrate = string.Empty;
-                            vMaxrate = string.Empty;
                             crf = string.Empty;
                         }
-                                                                       
+
+                        vMinrate = string.Empty;
+                        vMaxrate = string.Empty;
+                        vBufsize = string.Empty;
+
                         vOptions = "-pix_fmt " + PixFmt(mainwindow) + " -qcomp 0.8";
                     }
                     // -------------------------
@@ -1103,8 +1138,12 @@ namespace Axiom
                         {
                             vBitrate = "5M";
                             crf = string.Empty;
-                        }                       
-                        
+                        }
+
+                        vMinrate = string.Empty;
+                        vMaxrate = string.Empty;
+                        vBufsize = string.Empty;
+
                         vOptions = "-pix_fmt " + PixFmt(mainwindow);
                     }
                     // -------------------------
@@ -1122,10 +1161,12 @@ namespace Axiom
                             || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
                         {
                             vBitrate = "5M";
-                            vMinrate = string.Empty;
-                            vMaxrate = string.Empty;
                             crf = string.Empty;
                         }
+
+                        vMinrate = string.Empty;
+                        vMaxrate = string.Empty;
+                        vBufsize = string.Empty;
 
                         vOptions = "-pix_fmt " + PixFmt(mainwindow);
                     }
@@ -1167,9 +1208,10 @@ namespace Axiom
                         {
                             vBitrate = "4";
                         }
-                       
+
                         vMinrate = string.Empty;
-                        vMaxrate = string.Empty;
+                        vMaxrate = "5M";
+                        vBufsize = "6M";
                         crf = string.Empty;
 
                         vOptions = "-pix_fmt " + PixFmt(mainwindow);
@@ -1191,7 +1233,11 @@ namespace Axiom
                             vBitrate = "10";
                             crf = string.Empty;
                         }
-                  
+
+                        vMinrate = string.Empty;
+                        vMaxrate = string.Empty;
+                        vBufsize = string.Empty;
+
                         vOptions = "-pix_fmt " + PixFmt(mainwindow);
                     }
                     // -------------------------
@@ -1200,8 +1246,11 @@ namespace Axiom
                     else if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG")
                     {
                         vBitrate = "2";
+                        vMinrate = string.Empty;
+                        vMaxrate = string.Empty;
+                        vBufsize = string.Empty;
+
                         crf = string.Empty;
-                        vOptions = string.Empty;
 
                         vOptions = "-pix_fmt " + PixFmt(mainwindow);
                     }
@@ -1228,7 +1277,11 @@ namespace Axiom
                             vBitrate = "2M";
                             crf = string.Empty;
                         }
-                              
+
+                        vMinrate = string.Empty;
+                        vMaxrate = string.Empty;
+                        vBufsize = string.Empty;
+
                         vOptions = "-pix_fmt " + PixFmt(mainwindow);
                     }
                     // -------------------------
@@ -1247,7 +1300,11 @@ namespace Axiom
                             vBitrate = "2M";
                             crf = string.Empty;
                         }
-                        
+
+                        vMinrate = string.Empty;
+                        vMaxrate = string.Empty;
+                        vBufsize = string.Empty;
+
                         vOptions = "-pix_fmt " + PixFmt(mainwindow);
                     }
                     // -------------------------
@@ -1265,10 +1322,12 @@ namespace Axiom
                             || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
                         {
                             vBitrate = "2500K";
-                            vMinrate = string.Empty;
-                            vMaxrate = string.Empty;
                             crf = string.Empty;
                         }
+
+                        vMinrate = string.Empty;
+                        vMaxrate = string.Empty;
+                        vBufsize = string.Empty;
 
                         vOptions = "-pix_fmt " + PixFmt(mainwindow) + " -qcomp 0.8";
                     }
@@ -1291,7 +1350,11 @@ namespace Axiom
                             vBitrate = "2M";
                             crf = string.Empty;
                         }
-  
+
+                        vMinrate = string.Empty;
+                        vMaxrate = string.Empty;
+                        vBufsize = string.Empty;
+
                         vOptions = "-pix_fmt " + PixFmt(mainwindow);
                     }
                     // -------------------------
@@ -1309,10 +1372,12 @@ namespace Axiom
                             || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
                         {
                             vBitrate = "2500K";
-                            vMinrate = string.Empty;
-                            vMaxrate = string.Empty;
                             crf = string.Empty;
                         }
+
+                        vMinrate = string.Empty;
+                        vMaxrate = string.Empty;
+                        vBufsize = string.Empty;
 
                         vOptions = "-pix_fmt " + PixFmt(mainwindow);
                     }
@@ -1356,7 +1421,8 @@ namespace Axiom
                         }
 
                         vMinrate = string.Empty;
-                        vMaxrate = string.Empty;
+                        vMaxrate = "2M";
+                        vBufsize = "3M";
                         crf = string.Empty;
 
                         vOptions = "-pix_fmt " + PixFmt(mainwindow);
@@ -1378,7 +1444,11 @@ namespace Axiom
                             vBitrate = "8";
                             crf = string.Empty;
                         }
-                                            
+
+                        vMinrate = string.Empty;
+                        vMaxrate = string.Empty;
+                        vBufsize = string.Empty;
+
                         vOptions = "-pix_fmt " + PixFmt(mainwindow);
                     }
                     // -------------------------
@@ -1387,6 +1457,10 @@ namespace Axiom
                     else if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG")
                     {
                         vBitrate = "4";
+                        vMinrate = string.Empty;
+                        vMaxrate = string.Empty;
+                        vBufsize = string.Empty;
+
                         crf = string.Empty;
                         vOptions = string.Empty;
 
@@ -1415,7 +1489,11 @@ namespace Axiom
                             vBitrate = "1300K";
                             crf = string.Empty;
                         }
-                   
+
+                        vMinrate = string.Empty;
+                        vMaxrate = string.Empty;
+                        vBufsize = string.Empty;
+
                         vOptions = "-pix_fmt " + PixFmt(mainwindow);
                     }
                     // -------------------------
@@ -1434,7 +1512,11 @@ namespace Axiom
                             vBitrate = "1300K";
                             crf = string.Empty;
                         }
-   
+
+                        vMinrate = string.Empty;
+                        vMaxrate = string.Empty;
+                        vBufsize = string.Empty;
+
                         vOptions = "-pix_fmt " + PixFmt(mainwindow);
                     }
                     // -------------------------
@@ -1452,10 +1534,12 @@ namespace Axiom
                             || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
                         {
                             vBitrate = "1300K";
-                            vMinrate = string.Empty;
-                            vMaxrate = string.Empty;
                             crf = string.Empty;
                         }
+
+                        vMinrate = string.Empty;
+                        vMaxrate = string.Empty;
+                        vBufsize = string.Empty;
 
                         vOptions = "-pix_fmt " + PixFmt(mainwindow);
                     }
@@ -1479,6 +1563,10 @@ namespace Axiom
                             crf = string.Empty;
                         }
 
+                        vMinrate = string.Empty;
+                        vMaxrate = string.Empty;
+                        vBufsize = string.Empty;
+
                         vOptions = "-pix_fmt " + PixFmt(mainwindow);
                     }
                     // -------------------------
@@ -1496,10 +1584,12 @@ namespace Axiom
                             || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
                         {
                             vBitrate = "1300K";
-                            vMinrate = string.Empty;
-                            vMaxrate = string.Empty;
                             crf = string.Empty;
                         }
+
+                        vMinrate = string.Empty;
+                        vMaxrate = string.Empty;
+                        vBufsize = string.Empty;
 
                         vOptions = "-pix_fmt " + PixFmt(mainwindow);
                     }
@@ -1543,7 +1633,8 @@ namespace Axiom
                         }
 
                         vMinrate = string.Empty;
-                        vMaxrate = string.Empty;
+                        vMaxrate = "1300K";
+                        vBufsize = "1800K";
                         crf = string.Empty;
 
                         vOptions = "-pix_fmt " + PixFmt(mainwindow);
@@ -1566,6 +1657,10 @@ namespace Axiom
                             crf = string.Empty;
                         }
 
+                        vMinrate = string.Empty;
+                        vMaxrate = string.Empty;
+                        vBufsize = string.Empty;
+
                         vOptions = "-pix_fmt " + PixFmt(mainwindow);
                     }
                     // -------------------------
@@ -1574,8 +1669,11 @@ namespace Axiom
                     else if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG")
                     {
                         vBitrate = "8";
+                        vMinrate = string.Empty;
+                        vMaxrate = string.Empty;
+                        vBufsize = string.Empty;
+
                         crf = string.Empty;
-                        vOptions = string.Empty;
 
                         vOptions = "-pix_fmt " + PixFmt(mainwindow);
                     }
@@ -1602,7 +1700,11 @@ namespace Axiom
                             vBitrate = "600K";
                             crf = string.Empty;
                         }
-                                
+
+                        vMinrate = string.Empty;
+                        vMaxrate = string.Empty;
+                        vBufsize = string.Empty;
+
                         vOptions = "-pix_fmt " + PixFmt(mainwindow);
                     }
                     // -------------------------
@@ -1622,6 +1724,10 @@ namespace Axiom
                             crf = string.Empty;
                         }
 
+                        vMinrate = string.Empty;
+                        vMaxrate = string.Empty;
+                        vBufsize = string.Empty;
+
                         vOptions = "-pix_fmt " + PixFmt(mainwindow);
                     }
                     // -------------------------
@@ -1639,10 +1745,12 @@ namespace Axiom
                             || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
                         {
                             vBitrate = "600K";
-                            vMinrate = string.Empty;
-                            vMaxrate = string.Empty;
                             crf = string.Empty;
                         }
+
+                        vMinrate = string.Empty;
+                        vMaxrate = string.Empty;
+                        vBufsize = string.Empty;
 
                         vOptions = "-pix_fmt " + PixFmt(mainwindow);
                     }
@@ -1666,6 +1774,10 @@ namespace Axiom
                             crf = string.Empty;
                         }
 
+                        vMinrate = string.Empty;
+                        vMaxrate = string.Empty;
+                        vBufsize = string.Empty;
+
                         vOptions = "-pix_fmt " + PixFmt(mainwindow);
                     }
                     // -------------------------
@@ -1683,10 +1795,12 @@ namespace Axiom
                             || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
                         {
                             vBitrate = "600K";
-                            vMinrate = string.Empty;
-                            vMaxrate = string.Empty;
                             crf = string.Empty;
                         }
+
+                        vMinrate = string.Empty;
+                        vMaxrate = string.Empty;
+                        vBufsize = string.Empty;
 
                         vOptions = "-pix_fmt " + PixFmt(mainwindow);
                     }
@@ -1730,7 +1844,8 @@ namespace Axiom
                         }
 
                         vMinrate = string.Empty;
-                        vMaxrate = string.Empty;
+                        vMaxrate = "600K";
+                        vBufsize = "1000K";
                         crf = string.Empty;
 
                         vOptions = "-pix_fmt " + PixFmt(mainwindow);
@@ -1753,6 +1868,10 @@ namespace Axiom
                             crf = string.Empty;
                         }
 
+                        vMinrate = string.Empty;
+                        vMaxrate = string.Empty;
+                        vBufsize = string.Empty;
+
                         vOptions = "-pix_fmt " + PixFmt(mainwindow);
                     }
                     // -------------------------
@@ -1761,8 +1880,11 @@ namespace Axiom
                     else if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG")
                     {
                         vBitrate = "15";
+                        vMinrate = string.Empty;
+                        vMaxrate = string.Empty;
+                        vBufsize = string.Empty;
+
                         crf = string.Empty;
-                        vOptions = string.Empty;
 
                         vOptions = "-pix_fmt " + PixFmt(mainwindow);
                     }
@@ -1790,6 +1912,10 @@ namespace Axiom
                             crf = string.Empty;
                         }
 
+                        vMinrate = string.Empty;
+                        vMaxrate = string.Empty;
+                        vBufsize = string.Empty;
+
                         vOptions = "-pix_fmt " + PixFmt(mainwindow);
                     }
                     // -------------------------
@@ -1809,6 +1935,10 @@ namespace Axiom
                             crf = string.Empty;
                         }
 
+                        vMinrate = string.Empty;
+                        vMaxrate = string.Empty;
+                        vBufsize = string.Empty;
+
                         vOptions = "-pix_fmt " + PixFmt(mainwindow);
                     }
                     // -------------------------
@@ -1826,10 +1956,12 @@ namespace Axiom
                             || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
                         {
                             vBitrate = "250K";
-                            vMinrate = string.Empty;
-                            vMaxrate = string.Empty;
                             crf = string.Empty;
                         }
+
+                        vMinrate = string.Empty;
+                        vMaxrate = string.Empty;
+                        vBufsize = string.Empty;
 
                         vOptions = "-pix_fmt " + PixFmt(mainwindow);
                     }
@@ -1853,6 +1985,10 @@ namespace Axiom
                             crf = string.Empty;
                         }
 
+                        vMinrate = string.Empty;
+                        vMaxrate = string.Empty;
+                        vBufsize = string.Empty;
+
                         vOptions = "-pix_fmt " + PixFmt(mainwindow);
                     }
                     // -------------------------
@@ -1870,10 +2006,12 @@ namespace Axiom
                             || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
                         {
                             vBitrate = "250K";
-                            vMinrate = string.Empty;
-                            vMaxrate = string.Empty;
                             crf = string.Empty;
                         }
+
+                        vMinrate = string.Empty;
+                        vMaxrate = string.Empty;
+                        vBufsize = string.Empty;
 
                         vOptions = "-pix_fmt " + PixFmt(mainwindow);
                     }
@@ -1917,7 +2055,8 @@ namespace Axiom
                         }
 
                         vMinrate = string.Empty;
-                        vMaxrate = string.Empty;
+                        vMaxrate = "250K";
+                        vBufsize = "500K";
                         crf = string.Empty;
 
                         vOptions = "-pix_fmt " + PixFmt(mainwindow);
@@ -1940,6 +2079,10 @@ namespace Axiom
                             crf = string.Empty;
                         }
 
+                        vMinrate = string.Empty;
+                        vMaxrate = string.Empty;
+                        vBufsize = string.Empty;
+
                         vOptions = "-pix_fmt " + PixFmt(mainwindow);
                     }
                     // -------------------------
@@ -1948,8 +2091,11 @@ namespace Axiom
                     else if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG")
                     {
                         vBitrate = "25";
+                        vMinrate = string.Empty;
+                        vMaxrate = string.Empty;
+                        vBufsize = string.Empty;
+
                         crf = string.Empty;
-                        vOptions = string.Empty;
 
                         vOptions = "-pix_fmt " + PixFmt(mainwindow);
                     }
