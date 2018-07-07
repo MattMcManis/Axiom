@@ -457,8 +457,8 @@ namespace Axiom
                 };
 
                 selectiveColor = string.Join(":", selectiveColorList
-                        .Where(s => !string.IsNullOrEmpty(s))
-                        );
+                                       .Where(s => !string.IsNullOrEmpty(s))
+                                       );
 
                 // -------------------------
                 // Add Filter to List

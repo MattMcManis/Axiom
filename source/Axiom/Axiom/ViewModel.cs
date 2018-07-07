@@ -11,6 +11,38 @@ namespace Axiom
     {
         // --------------------------------------------------------------------------------------------------------
         /// <summary>
+        ///     Format
+        /// </summary>
+        // --------------------------------------------------------------------------------------------------------
+        // -------------------------
+        // Containers
+        // -------------------------
+        // Items
+        public static ObservableCollection<string> _cboFormat_Items = new ObservableCollection<string>()
+        {
+            "webm",
+            "mp4",
+            "mkv",
+            "m2v",
+            "mpg",
+            "avi",
+            "ogv",
+            "mp3",
+            "m4a",
+            "ogg",
+            "flac",
+            "wav",
+            "jpg",
+            "png"
+        };
+        public static ObservableCollection<string> cboFormat_Items
+        {
+            get { return _cboFormat_Items; }
+            set { _cboFormat_Items = value; }
+        }
+
+        // --------------------------------------------------------------------------------------------------------
+        /// <summary>
         ///     Filters
         /// </summary>
         // --------------------------------------------------------------------------------------------------------

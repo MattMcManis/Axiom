@@ -561,6 +561,7 @@
                       Width="75" 
                       SelectionChanged="cboPreset_SelectionChanged"  >
                 <System:String>Preset</System:String>
+                <System:String>Default</System:String>
                 <!-- <System:String>Custom</System:String> -->
                 <System:String>DVD</System:String>
                 <System:String>Blu-ray</System:String>
@@ -806,6 +807,7 @@
                                     Height="26" Grid.Column="1" />
 
                             <ComboBox x:Name="cboFormat"
+                                      ItemsSource="{Binding cboFormat_Items}"
                                       Style="{DynamicResource ComboBoxWhite}" 
                                       ItemContainerStyle="{DynamicResource ComboBoxWhiteItem}"
                                       HorizontalAlignment="Left" 
@@ -1371,7 +1373,7 @@
                                     Style="{DynamicResource TextBoxCustom}"
                                     HorizontalAlignment="Left" 
                                     Height="22"
-                                    Padding="0, 1, 0, 0" 
+                                    Padding="1, 1, 0, 0" 
                                     TextWrapping="NoWrap"
                                     Text=""
                                     VerticalAlignment="Top"
@@ -2073,7 +2075,7 @@
 
                             <!-- Subtitles -->
                             <Label Style="{DynamicResource LabelCustom}"
-                                    Content="Subtitles" 
+                                    Content="Stream" 
                                     HorizontalAlignment="Left" 
                                     VerticalAlignment="Top"
                                     Width="54" 
@@ -2082,7 +2084,7 @@
                                     FontFamily="Segoe UI Semilight" 
                                     Grid.Row="1" Grid.Column="1" />
 
-                            <ComboBox x:Name="cboSubtitle" 
+                            <ComboBox x:Name="cboSubtitlesStream" 
                                       Style="{DynamicResource ComboBoxCustom}"
                                       ItemContainerStyle="{DynamicResource ComboBoxCustomItem}"
                                       HorizontalAlignment="Left" 

@@ -570,7 +570,7 @@ namespace Axiom
             // Control Defaults
             // -------------------------
             // ComboBox Item Sources
-            cboFormat.ItemsSource = FormatControls.FormatItemSource;
+            //cboFormat.ItemsSource = FormatControls.FormatItemSource;
             cboMediaType.ItemsSource = FormatControls.MediaTypeItemSource;
 
             listViewSubtitles.SelectionMode = SelectionMode.Single;
@@ -630,7 +630,7 @@ namespace Axiom
             // Default Format is WebM
             if ((string)cboFormat.SelectedItem == "webm")
             {
-                cboSubtitle.SelectedItem = "none";
+                cboSubtitlesStream.SelectedItem = "none";
                 cboAudioStream.SelectedItem = "1";
             }
         }
@@ -3753,26 +3753,26 @@ namespace Axiom
         // Got Focus
         private void vBitrateCustom_GotFocus(object sender, RoutedEventArgs e)
         {
-            // Clear Textbox on first use
-            if (vBitrateCustom.Text == string.Empty)
-            {
-                TextBox tbvb = (TextBox)sender;
-                tbvb.Text = string.Empty;
-                tbvb.GotFocus += vBitrateCustom_GotFocus; //used to be -=
-            }
+            //// Clear Textbox on first use
+            //if (vBitrateCustom.Text == string.Empty)
+            //{
+            //    TextBox tbvb = (TextBox)sender;
+            //    tbvb.Text = string.Empty;
+            //    tbvb.GotFocus += vBitrateCustom_GotFocus; //used to be -=
+            //}
         }
         // Lost Focus
         private void vBitrateCustom_LostFocus(object sender, RoutedEventArgs e)
         {
-            // Change Textbox back to Bitrate
-            TextBox tbvb = sender as TextBox;
-            if (tbvb.Text.Trim().Equals(string.Empty))
-            {
-                tbvb.Text = string.Empty;
-                tbvb.GotFocus -= vBitrateCustom_GotFocus; //used to be +=
+            //// Change Textbox back to Bitrate
+            //TextBox tbvb = sender as TextBox;
+            //if (tbvb.Text.Trim().Equals(string.Empty))
+            //{
+            //    tbvb.Text = string.Empty;
+            //    tbvb.GotFocus -= vBitrateCustom_GotFocus; //used to be +=
 
-                //vBitrateCustom.Foreground = TextBoxDarkBlue;
-            }
+            //    //vBitrateCustom.Foreground = TextBoxDarkBlue;
+            //}
         }
 
 
@@ -3782,24 +3782,24 @@ namespace Axiom
         // Got Focus
         private void vMinrateCustom_GotFocus(object sender, RoutedEventArgs e)
         {
-            // Clear Textbox on first use
-            if (vMinrateCustom.Text == string.Empty)
-            {
-                TextBox tbvb = (TextBox)sender;
-                tbvb.Text = string.Empty;
-                tbvb.GotFocus += vMinrateCustom_GotFocus; //used to be -=
-            }
+            //// Clear Textbox on first use
+            //if (vMinrateCustom.Text == string.Empty)
+            //{
+            //    TextBox tbvb = (TextBox)sender;
+            //    tbvb.Text = string.Empty;
+            //    tbvb.GotFocus += vMinrateCustom_GotFocus; //used to be -=
+            //}
         }
         // Lost Focus
         private void vMinrateCustom_LostFocus(object sender, RoutedEventArgs e)
         {
-            // Change Textbox back to Bitrate
-            TextBox tbvb = sender as TextBox;
-            if (tbvb.Text.Trim().Equals(string.Empty))
-            {
-                tbvb.Text = string.Empty;
-                tbvb.GotFocus -= vMinrateCustom_GotFocus; //used to be +=
-            }
+            //// Change Textbox back to Bitrate
+            //TextBox tbvb = sender as TextBox;
+            //if (tbvb.Text.Trim().Equals(string.Empty))
+            //{
+            //    tbvb.Text = string.Empty;
+            //    tbvb.GotFocus -= vMinrateCustom_GotFocus; //used to be +=
+            //}
         }
 
 
@@ -3809,24 +3809,24 @@ namespace Axiom
         // Got Focus
         private void vMaxrateCustom_GotFocus(object sender, RoutedEventArgs e)
         {
-            // Clear Textbox on first use
-            if (vMinrateCustom.Text == string.Empty)
-            {
-                TextBox tbvb = (TextBox)sender;
-                tbvb.Text = string.Empty;
-                tbvb.GotFocus += vMaxrateCustom_GotFocus; //used to be -=
-            }
+            //// Clear Textbox on first use
+            //if (vMinrateCustom.Text == string.Empty)
+            //{
+            //    TextBox tbvb = (TextBox)sender;
+            //    tbvb.Text = string.Empty;
+            //    tbvb.GotFocus += vMaxrateCustom_GotFocus; //used to be -=
+            //}
         }
         // Lost Focus
         private void vMaxrateCustom_LostFocus(object sender, RoutedEventArgs e)
         {
-            // Change Textbox back to Bitrate
-            TextBox tbvb = sender as TextBox;
-            if (tbvb.Text.Trim().Equals(string.Empty))
-            {
-                tbvb.Text = string.Empty;
-                tbvb.GotFocus -= vMaxrateCustom_GotFocus; //used to be +=
-            }
+            //// Change Textbox back to Bitrate
+            //TextBox tbvb = sender as TextBox;
+            //if (tbvb.Text.Trim().Equals(string.Empty))
+            //{
+            //    tbvb.Text = string.Empty;
+            //    tbvb.GotFocus -= vMaxrateCustom_GotFocus; //used to be +=
+            //}
         }
 
 
@@ -3836,24 +3836,24 @@ namespace Axiom
         // Got Focus
         private void vBufsizeCustom_GotFocus(object sender, RoutedEventArgs e)
         {
-            // Clear Textbox on first use
-            if (vBufsizeCustom.Text == string.Empty)
-            {
-                TextBox tbvb = (TextBox)sender;
-                tbvb.Text = string.Empty;
-                tbvb.GotFocus += vBufsizeCustom_GotFocus; //used to be -=
-            }
+            //// Clear Textbox on first use
+            //if (vBufsizeCustom.Text == string.Empty)
+            //{
+            //    TextBox tbvb = (TextBox)sender;
+            //    tbvb.Text = string.Empty;
+            //    tbvb.GotFocus += vBufsizeCustom_GotFocus; //used to be -=
+            //}
         }
         // Lost Focus
         private void vBufsizeCustom_LostFocus(object sender, RoutedEventArgs e)
         {
-            // Change Textbox back to Bitrate
-            TextBox tbvb = sender as TextBox;
-            if (tbvb.Text.Trim().Equals(string.Empty))
-            {
-                tbvb.Text = string.Empty;
-                tbvb.GotFocus -= vBufsizeCustom_GotFocus; //used to be +=
-            }
+            //// Change Textbox back to Bitrate
+            //TextBox tbvb = sender as TextBox;
+            //if (tbvb.Text.Trim().Equals(string.Empty))
+            //{
+            //    tbvb.Text = string.Empty;
+            //    tbvb.GotFocus -= vBufsizeCustom_GotFocus; //used to be +=
+            //}
         }
 
 
@@ -3900,7 +3900,8 @@ namespace Axiom
             // -------------------------
             // MPEG-4 VBR can only use 1 Pass
             // -------------------------
-            if ((string)cboVideoCodec.SelectedItem == "mpeg4")
+            if ((string)cboVideoCodec.SelectedItem == "mpeg2"
+                || (string)cboVideoCodec.SelectedItem == "mpeg4")
             {
                 // Change ItemSource
                 VideoControls.Pass_ItemSource = new List<string>()
@@ -3928,9 +3929,10 @@ namespace Axiom
         private void tglVideoVBR_Unchecked(object sender, RoutedEventArgs e)
         {
             // -------------------------
-            // MPEG-4 CBR Reset
+            // MPEG-2 / MPEG-4 CBR Reset
             // -------------------------
-            if ((string)cboVideoCodec.SelectedItem == "mpeg4")
+            if ((string)cboVideoCodec.SelectedItem == "mpeg2"
+                || (string)cboVideoCodec.SelectedItem == "mpeg4")
             {
                 // Change ItemSource
                 VideoControls.Pass_ItemSource = new List<string>()
@@ -4243,13 +4245,40 @@ namespace Axiom
             VideoControls.VideoCodecControls(this);
 
             // -------------------------
-            // Burn
+            // None Codec
             // -------------------------
-            if ((string)cboSubtitleCodec.SelectedItem == "Burn")
+            if ((string)cboSubtitleCodec.SelectedItem == "None")
+            {
+                cboSubtitlesStream.SelectedItem = "none";
+                cboSubtitlesStream.IsEnabled = false;
+            }
+
+            // -------------------------
+            // Burn Codec
+            // -------------------------
+            else if((string)cboSubtitleCodec.SelectedItem == "Burn")
             {
                 // Force Select External
-                // Can't burn All subtitles
-                cboSubtitle.SelectedItem = "external";
+                // Can't burn All subtitle streams
+                cboSubtitlesStream.SelectedItem = "external";
+                cboSubtitlesStream.IsEnabled = true;
+            }
+
+            // -------------------------
+            // Copy Codec
+            // -------------------------
+            else if ((string)cboSubtitleCodec.SelectedItem == "Copy")
+            {
+                //cboSubtitlesStream.SelectedItem = "all";
+                cboSubtitlesStream.IsEnabled = true;
+            }
+
+            // -------------------------
+            // All Other Codecs
+            // -------------------------
+            else
+            {
+                cboSubtitlesStream.IsEnabled = true;
             }
         }
 
@@ -4464,6 +4493,9 @@ namespace Axiom
             // -------------------------
             ClearVariables(this);
             vBitrateCustom.Text = string.Empty;
+            vMinrateCustom.Text = string.Empty;
+            vMaxrateCustom.Text = string.Empty;
+            vBufsizeCustom.Text = string.Empty;
             crfCustom.Text = string.Empty;
 
 
@@ -4481,6 +4513,26 @@ namespace Axiom
                 {
                     vBitrateCustom.Text = Video.vBitrate;
                 }
+
+                // Display Minrate in TextBox
+                if (!string.IsNullOrEmpty(Video.vMinrate))
+                {
+                    vMinrateCustom.Text = Video.vMinrate;
+                }
+
+                // Display Maxrate in TextBox
+                if (!string.IsNullOrEmpty(Video.vMaxrate))
+                {
+                    vMaxrateCustom.Text = Video.vMaxrate;
+                }
+
+                // Display Bufsize in TextBox
+                if (!string.IsNullOrEmpty(Video.vBufsize))
+                {
+                    vBufsizeCustom.Text = Video.vBufsize;
+                }
+
+                // Display CRF in TextBox
                 if (!string.IsNullOrEmpty(Video.crf))
                 {
                     crfCustom.Text = Video.crf.Replace("-crf ", "");
@@ -4489,6 +4541,10 @@ namespace Axiom
             else
             {
                 vBitrateCustom.Text = string.Empty;
+                vMinrateCustom.Text = string.Empty;
+                vMaxrateCustom.Text = string.Empty;
+                vBufsizeCustom.Text = string.Empty;
+
                 crfCustom.Text = string.Empty;
             }
         }
@@ -4920,7 +4976,7 @@ namespace Axiom
             // -------------------------
             // External
             // -------------------------
-            if ((string)cboSubtitle.SelectedItem == "external")
+            if ((string)cboSubtitlesStream.SelectedItem == "external")
             {
                 // Enable External ListView and Buttons
                 listViewSubtitles.IsEnabled = true;
@@ -4950,7 +5006,7 @@ namespace Axiom
             // -------------------------
             // Select Subtitle Codec
             // -------------------------
-            VideoControls.SubtitleCodecControls(this);
+            //VideoControls.SubtitleCodecControls(this);
         }
 
 

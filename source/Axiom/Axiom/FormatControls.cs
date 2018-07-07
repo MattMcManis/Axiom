@@ -48,21 +48,21 @@ namespace Axiom
         };
 
         // Format
-        public static List<string> FormatItemSource = new List<string>()
-        {
-            "webm",
-            "mp4",
-            "mkv",
-            "avi",
-            "ogv",
-            "mp3",
-            "m4a",
-            "ogg",
-            "flac",
-            "wav",
-            "jpg",
-            "png"
-        };
+        //public static List<string> FormatItemSource = new List<string>()
+        //{
+        //    "webm",
+        //    "mp4",
+        //    "mkv",
+        //    "avi",
+        //    "ogv",
+        //    "mp3",
+        //    "m4a",
+        //    "ogg",
+        //    "flac",
+        //    "wav",
+        //    "jpg",
+        //    "png"
+        //};
 
         // --------------------------------------------------------------------------------------------------------
         // --------------------------------------------------------------------------------------------------------
@@ -91,7 +91,7 @@ namespace Axiom
 
             // Previous Subtitle Item
             string previousSubtitleItem = string.Empty;
-            if ((string)mainwindow.cboSubtitle.SelectedItem == "external")
+            if ((string)mainwindow.cboSubtitlesStream.SelectedItem == "external")
             {
                 previousSubtitleItem = "external";
             }
@@ -109,8 +109,8 @@ namespace Axiom
                 mainwindow.cboMediaType.IsEnabled = false;
 
                 // Subtitle
-                mainwindow.cboSubtitle.SelectedItem = "none";
-                mainwindow.cboSubtitle.IsEnabled = false;
+                mainwindow.cboSubtitlesStream.SelectedItem = "none";
+                mainwindow.cboSubtitlesStream.IsEnabled = false;
 
                 // Audio
                 mainwindow.cboAudioStream.SelectedItem = "1";
@@ -136,8 +136,8 @@ namespace Axiom
                 mainwindow.cboMediaType.IsEnabled = false;
 
                 // Subtitle
-                mainwindow.cboSubtitle.SelectedItem = "all";
-                mainwindow.cboSubtitle.IsEnabled = true;
+                mainwindow.cboSubtitlesStream.SelectedItem = "all";
+                mainwindow.cboSubtitlesStream.IsEnabled = true;
 
                 // Audio
                 mainwindow.cboAudioStream.SelectedItem = "all";
@@ -161,8 +161,8 @@ namespace Axiom
                 mainwindow.cboMediaType.IsEnabled = false;
 
                 // Subtitle
-                mainwindow.cboSubtitle.SelectedItem = "all";
-                mainwindow.cboSubtitle.IsEnabled = true;
+                mainwindow.cboSubtitlesStream.SelectedItem = "all";
+                mainwindow.cboSubtitlesStream.IsEnabled = true;
 
                 // Audio
                 mainwindow.cboAudioStream.SelectedItem = "all";
@@ -175,6 +175,52 @@ namespace Axiom
             }
 
             // -------------------------
+            // M2V
+            // -------------------------
+            else if ((string)mainwindow.cboFormat.SelectedItem == "m2v")
+            {
+                // Media Type
+                mainwindow.cboMediaType.SelectedItem = "Video";
+                mainwindow.cboMediaType.IsEnabled = false;
+
+                // Subtitle
+                mainwindow.cboSubtitlesStream.SelectedItem = "none";
+                mainwindow.cboSubtitlesStream.IsEnabled = false;
+
+                // Audio
+                mainwindow.cboAudioStream.SelectedItem = "none";
+
+                // FPS
+                mainwindow.cboFPS.IsEnabled = true;
+
+                // Optimize
+                mainwindow.cboOptimize.IsEnabled = false;
+            }
+
+            // -------------------------
+            // MPG
+            // -------------------------
+            else if ((string)mainwindow.cboFormat.SelectedItem == "mpg")
+            {
+                // Media Type
+                mainwindow.cboMediaType.SelectedItem = "Video";
+                mainwindow.cboMediaType.IsEnabled = false;
+
+                // Subtitle
+                mainwindow.cboSubtitlesStream.SelectedItem = "all";
+                mainwindow.cboSubtitlesStream.IsEnabled = true;
+
+                // Audio
+                mainwindow.cboAudioStream.SelectedItem = "all";
+
+                // FPS
+                mainwindow.cboFPS.IsEnabled = true;
+
+                // Optimize
+                mainwindow.cboOptimize.IsEnabled = false;
+            }
+
+            // -------------------------
             // AVI
             // -------------------------
             else if ((string)mainwindow.cboFormat.SelectedItem == "avi")
@@ -184,8 +230,8 @@ namespace Axiom
                 mainwindow.cboMediaType.IsEnabled = false;
 
                 // Subtitle
-                mainwindow.cboSubtitle.SelectedItem = "all";
-                mainwindow.cboSubtitle.IsEnabled = true;
+                mainwindow.cboSubtitlesStream.SelectedItem = "all";
+                mainwindow.cboSubtitlesStream.IsEnabled = true;
 
                 // Audio
                 mainwindow.cboAudioStream.SelectedItem = "all";
@@ -207,8 +253,8 @@ namespace Axiom
                 mainwindow.cboMediaType.IsEnabled = false;
 
                 // Subtitle
-                mainwindow.cboSubtitle.SelectedItem = "none";
-                mainwindow.cboSubtitle.IsEnabled = false;
+                mainwindow.cboSubtitlesStream.SelectedItem = "none";
+                mainwindow.cboSubtitlesStream.IsEnabled = false;
 
                 // Audio
                 mainwindow.cboAudioStream.SelectedItem = "all";
@@ -230,8 +276,8 @@ namespace Axiom
                 mainwindow.cboMediaType.IsEnabled = true;
 
                 // Subtitle
-                mainwindow.cboSubtitle.SelectedItem = "none";
-                mainwindow.cboSubtitle.IsEnabled = false;
+                mainwindow.cboSubtitlesStream.SelectedItem = "none";
+                mainwindow.cboSubtitlesStream.IsEnabled = false;
 
                 // FPS
                 mainwindow.cboFPS.SelectedItem = "auto";
@@ -251,8 +297,8 @@ namespace Axiom
                 mainwindow.cboMediaType.IsEnabled = false;
 
                 // Subtitle
-                mainwindow.cboSubtitle.SelectedItem = "none";
-                mainwindow.cboSubtitle.IsEnabled = false;
+                mainwindow.cboSubtitlesStream.SelectedItem = "none";
+                mainwindow.cboSubtitlesStream.IsEnabled = false;
 
                 // Audio
                 mainwindow.cboAudioStream.SelectedItem = "1";
@@ -275,8 +321,8 @@ namespace Axiom
                 mainwindow.cboMediaType.IsEnabled = false;
 
                 // Subtitle
-                mainwindow.cboSubtitle.SelectedItem = "none";
-                mainwindow.cboSubtitle.IsEnabled = false;
+                mainwindow.cboSubtitlesStream.SelectedItem = "none";
+                mainwindow.cboSubtitlesStream.IsEnabled = false;
 
                 // Audio
                 mainwindow.cboAudioStream.SelectedItem = "1";
@@ -299,8 +345,8 @@ namespace Axiom
                 mainwindow.cboMediaType.IsEnabled = false;
 
                 // Subtitle
-                mainwindow.cboSubtitle.SelectedItem = "none";
-                mainwindow.cboSubtitle.IsEnabled = false;
+                mainwindow.cboSubtitlesStream.SelectedItem = "none";
+                mainwindow.cboSubtitlesStream.IsEnabled = false;
 
                 // Audio
                 mainwindow.cboAudioStream.SelectedItem = "1";
@@ -323,8 +369,8 @@ namespace Axiom
                 mainwindow.cboMediaType.IsEnabled = false;
 
                 // Subtitle
-                mainwindow.cboSubtitle.SelectedItem = "none";
-                mainwindow.cboSubtitle.IsEnabled = false;
+                mainwindow.cboSubtitlesStream.SelectedItem = "none";
+                mainwindow.cboSubtitlesStream.IsEnabled = false;
 
                 // Audio
                 mainwindow.cboAudioStream.SelectedItem = "1";
@@ -343,8 +389,8 @@ namespace Axiom
                 mainwindow.cboMediaType.IsEnabled = false;
 
                 // Subtitle
-                mainwindow.cboSubtitle.SelectedItem = "none";
-                mainwindow.cboSubtitle.IsEnabled = false;
+                mainwindow.cboSubtitlesStream.SelectedItem = "none";
+                mainwindow.cboSubtitlesStream.IsEnabled = false;
 
                 // Optimize
                 mainwindow.cboOptimize.IsEnabled = false;
@@ -364,8 +410,8 @@ namespace Axiom
                 mainwindow.cboMediaType.IsEnabled = true;
 
                 // Subtitle
-                mainwindow.cboSubtitle.SelectedItem = "none";
-                mainwindow.cboSubtitle.IsEnabled = false;
+                mainwindow.cboSubtitlesStream.SelectedItem = "none";
+                mainwindow.cboSubtitlesStream.IsEnabled = false;
 
                 // Optimize
                 mainwindow.cboOptimize.IsEnabled = false;
@@ -387,8 +433,8 @@ namespace Axiom
                 mainwindow.cboMediaType.IsEnabled = true;
 
                 // Subtitle
-                mainwindow.cboSubtitle.SelectedItem = "none";
-                mainwindow.cboSubtitle.IsEnabled = false;
+                mainwindow.cboSubtitlesStream.SelectedItem = "none";
+                mainwindow.cboSubtitlesStream.IsEnabled = false;
 
                 // Optimize
                 mainwindow.cboOptimize.IsEnabled = false;
@@ -534,6 +580,80 @@ namespace Axiom
             }
 
             // -------------------------
+            // M2V 
+            // -------------------------
+            else if ((string)mainwindow.cboFormat.SelectedItem == "m2v")
+            {
+                // -------------------------
+                // Video
+                // -------------------------
+                VideoControls.VideoCodec_ItemSource = new List<string>() { "mpeg2", "Copy" };
+
+                // Populate ComboBox from ItemSource
+                mainwindow.cboVideoCodec.ItemsSource = VideoControls.VideoCodec_ItemSource;
+
+                // -------------------------
+                // Subtitle
+                // -------------------------
+                // Item Source
+                VideoControls.SubtitleCodec_ItemSource = new List<string>() { "None" };
+                // Populate ComboBox
+                mainwindow.cboSubtitleCodec.ItemsSource = VideoControls.SubtitleCodec_ItemSource;
+
+                // -------------------------
+                // Audio
+                // ------------------------- 
+                AudioControls.AudioCodec_ItemSource = new List<string>() { "None" };
+
+                // Populate ComboBox from ItemSource
+                mainwindow.cboAudioCodec.ItemsSource = AudioControls.AudioCodec_ItemSource;
+
+                // -------------------------
+                // Set the List Defaults
+                // -------------------------
+                mainwindow.cboVideoCodec.SelectedItem = "mpeg2";
+                mainwindow.cboSubtitleCodec.SelectedItem = "None";
+                mainwindow.cboAudioCodec.SelectedItem = "None";
+            }
+
+            // -------------------------
+            // MPG 
+            // -------------------------
+            else if ((string)mainwindow.cboFormat.SelectedItem == "mpg")
+            {
+                // -------------------------
+                // Video
+                // -------------------------
+                VideoControls.VideoCodec_ItemSource = new List<string>() { "mpeg2", "mpeg4", "Copy" };
+
+                // Populate ComboBox from ItemSource
+                mainwindow.cboVideoCodec.ItemsSource = VideoControls.VideoCodec_ItemSource;
+
+                // -------------------------
+                // Subtitle
+                // -------------------------
+                // Item Source
+                VideoControls.SubtitleCodec_ItemSource = new List<string>() { "None", "SRT", "Burn", "Copy" };
+                // Populate ComboBox
+                mainwindow.cboSubtitleCodec.ItemsSource = VideoControls.SubtitleCodec_ItemSource;
+
+                // -------------------------
+                // Audio
+                // ------------------------- 
+                AudioControls.AudioCodec_ItemSource = new List<string>() { "AAC", "AC3", "LAME", "PCM", "Copy" };
+
+                // Populate ComboBox from ItemSource
+                mainwindow.cboAudioCodec.ItemsSource = AudioControls.AudioCodec_ItemSource;
+
+                // -------------------------
+                // Set the List Defaults
+                // -------------------------
+                mainwindow.cboVideoCodec.SelectedItem = "mpeg2";
+                mainwindow.cboSubtitleCodec.SelectedItem = "SRT";
+                mainwindow.cboAudioCodec.SelectedItem = "AC3";
+            }
+
+            // -------------------------
             // AVI 
             // -------------------------
             else if ((string)mainwindow.cboFormat.SelectedItem == "avi")
@@ -541,7 +661,7 @@ namespace Axiom
                 // -------------------------
                 // Video
                 // -------------------------
-                VideoControls.VideoCodec_ItemSource = new List<string>() { "mpeg4", "Copy" };
+                VideoControls.VideoCodec_ItemSource = new List<string>() { "mpeg2", "mpeg4", "Copy" };
 
                 // Populate ComboBox from ItemSource
                 mainwindow.cboVideoCodec.ItemsSource = VideoControls.VideoCodec_ItemSource;
@@ -812,6 +932,10 @@ namespace Axiom
             if ((string)mainwindow.cboAudioQuality.SelectedItem == "Auto"
                 && (string)mainwindow.cboFormat.SelectedItem == "mp4"
                 || (string)mainwindow.cboFormat.SelectedItem == "mkv"
+                || (string)mainwindow.cboFormat.SelectedItem == "m2v"
+                || (string)mainwindow.cboFormat.SelectedItem == "mpg"
+                || (string)mainwindow.cboFormat.SelectedItem == "avi"
+                || (string)mainwindow.cboFormat.SelectedItem == "ogv"
                 || (string)mainwindow.cboFormat.SelectedItem == "gif"
                 || (string)mainwindow.cboFormat.SelectedItem == "mp3"
                 || (string)mainwindow.cboFormat.SelectedItem == "m4a"

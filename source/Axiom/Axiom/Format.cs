@@ -191,6 +191,14 @@ namespace Axiom
             {
                 format = "-f matroska";
             }
+            else if ((string)mainwindow.cboFormat.SelectedItem == "m2v")
+            {
+                format = "-f mpeg2video";
+            }
+            else if ((string)mainwindow.cboFormat.SelectedItem == "mpg")
+            {
+                format = "-f mpeg";
+            }
             else if ((string)mainwindow.cboFormat.SelectedItem == "avi")
             {
                 format = "-f avi";
@@ -203,11 +211,11 @@ namespace Axiom
             // Image
             else if ((string)mainwindow.cboFormat.SelectedItem == "jpg")
             {
-                format = "-f jpg";
+                // do not use
             }
             else if ((string)mainwindow.cboFormat.SelectedItem == "png")
             {
-                format = "-f png";
+                // do not use
             }
 
             // Audio

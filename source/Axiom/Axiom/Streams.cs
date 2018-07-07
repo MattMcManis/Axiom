@@ -80,6 +80,14 @@ namespace Axiom
             {
                 vMap = "-map 0:v?"; // all video tracks
             }
+            else if ((string)mainwindow.cboFormat.SelectedItem == "m2v")
+            {
+                vMap = "-map 0:v?"; // all video tracks
+            }
+            else if ((string)mainwindow.cboFormat.SelectedItem == "mpg")
+            {
+                vMap = "-map 0:v?"; // all video tracks
+            }
             else if ((string)mainwindow.cboFormat.SelectedItem == "avi")
             {
                 vMap = "-map 0:v:0?"; // only video track 1
@@ -140,6 +148,14 @@ namespace Axiom
                 cMap = "-map_chapters 0"; // all chapters
             }
             else if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
+            {
+                cMap = "-map_chapters 0"; // all chapters
+            }
+            else if ((string)mainwindow.cboFormat.SelectedItem == "m2v")
+            {
+                cMap = "-map_chapters -1"; // remove chapters
+            }
+            else if ((string)mainwindow.cboFormat.SelectedItem == "mpg")
             {
                 cMap = "-map_chapters 0"; // all chapters
             }
@@ -207,14 +223,14 @@ namespace Axiom
                 // -------------------------
                 // None
                 // -------------------------
-                if ((string)mainwindow.cboSubtitle.SelectedItem == "none")
+                if ((string)mainwindow.cboSubtitlesStream.SelectedItem == "none")
                 {
                     sMap = "-sn";
                 }
                 // -------------------------
                 // External
                 // -------------------------
-                else if ((string)mainwindow.cboSubtitle.SelectedItem == "external")
+                else if ((string)mainwindow.cboSubtitlesStream.SelectedItem == "external")
                 {
                     // -------------------------
                     // Map
@@ -262,19 +278,27 @@ namespace Axiom
                 // -------------------------
                 // All
                 // -------------------------
-                else if ((string)mainwindow.cboSubtitle.SelectedItem == "all")
+                else if ((string)mainwindow.cboSubtitlesStream.SelectedItem == "all")
                 {
                     // Formats
                     //
                     if ((string)mainwindow.cboFormat.SelectedItem == "webm")
                     {
-                        sMap = "-sn"; // no subtitles for webm
+                        sMap = "-sn"; // no subtitles
                     }
                     else if ((string)mainwindow.cboFormat.SelectedItem == "mp4")
                     {
                         sMap = "-map 0:s?"; // all subtitles (:? at the end ignores error if subtitle is not available)
                     }
                     else if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
+                    {
+                        sMap = "-map 0:s?"; // all subtitles
+                    }
+                    else if ((string)mainwindow.cboFormat.SelectedItem == "m2v")
+                    {
+                        sMap = "-sn"; //  no subtitles
+                    }
+                    else if ((string)mainwindow.cboFormat.SelectedItem == "mpg")
                     {
                         sMap = "-map 0:s?"; // all subtitles
                     }
@@ -307,7 +331,7 @@ namespace Axiom
                 else
                 {
                     // Subtract 1, Map starts at 0
-                    int sMapNumber = Int32.Parse(mainwindow.cboSubtitle.SelectedItem.ToString()) - 1;
+                    int sMapNumber = Int32.Parse(mainwindow.cboSubtitlesStream.SelectedItem.ToString()) - 1;
 
                     sMap = "-map 1:s:" + sMapNumber + "?";
 
@@ -334,7 +358,7 @@ namespace Axiom
             {
                 Log.logParagraph.Inlines.Add(new LineBreak());
                 Log.logParagraph.Inlines.Add(new Bold(new Run("Subtitle Stream: ")) { Foreground = Log.ConsoleDefault });
-                Log.logParagraph.Inlines.Add(new Run(mainwindow.cboSubtitle.SelectedItem.ToString()) { Foreground = Log.ConsoleDefault });
+                Log.logParagraph.Inlines.Add(new Run(mainwindow.cboSubtitlesStream.SelectedItem.ToString()) { Foreground = Log.ConsoleDefault });
             };
             Log.LogActions.Add(Log.WriteAction);
 
@@ -387,6 +411,14 @@ namespace Axiom
                     aMap = "-map 0:a?"; // all audio tracks 
                 }
                 else if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
+                {
+                    aMap = "-map 0:a?"; // all audio tracks 
+                }
+                else if ((string)mainwindow.cboFormat.SelectedItem == "m2v")
+                {
+                    aMap = "-an"; // disable audio
+                }
+                else if ((string)mainwindow.cboFormat.SelectedItem == "mpg")
                 {
                     aMap = "-map 0:a?"; // all audio tracks 
                 }
@@ -443,6 +475,15 @@ namespace Axiom
             }
 
 
+            // --------------------------------------------------------------------
+            // Combine Maps
+            // --------------------------------------------------------------------
+            // Make List
+            List<string> mapList = new List<string>() { aMap };
+            // Join List with Spaces, Remove Empty Strings
+            string map = string.Join(" ", mapList.Where(s => !string.IsNullOrEmpty(s)));
+
+
             // Log Console Message /////////
             Log.WriteAction = () =>
             {
@@ -451,15 +492,6 @@ namespace Axiom
                 Log.logParagraph.Inlines.Add(new Run(mainwindow.cboAudioStream.SelectedItem.ToString()) { Foreground = Log.ConsoleDefault });
             };
             Log.LogActions.Add(Log.WriteAction);
-
-
-            // --------------------------------------------------------------------
-            // Combine Maps
-            // --------------------------------------------------------------------
-            // Make List
-            List<string> mapList = new List<string>() { aMap };
-            // Join List with Spaces, Remove Empty Strings
-            string map = string.Join(" ", mapList.Where(s => !string.IsNullOrEmpty(s)));
 
 
             // Return Value

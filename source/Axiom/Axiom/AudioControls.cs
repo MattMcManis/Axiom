@@ -1302,6 +1302,10 @@ namespace Axiom
                                 {
                                     mainwindow.cboAudioCodec.SelectedItem = "AC3";
                                 }
+                                else if ((string)mainwindow.cboFormat.SelectedItem == "mpg")
+                                {
+                                    mainwindow.cboAudioCodec.SelectedItem = "AC3";
+                                }
                                 else if ((string)mainwindow.cboFormat.SelectedItem == "avi")
                                 {
                                     mainwindow.cboAudioCodec.SelectedItem = "LAME";

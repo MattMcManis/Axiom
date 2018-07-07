@@ -122,6 +122,7 @@ namespace Axiom
             else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264") { mainwindow.cboSpeed.IsEnabled = true; }
             else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265") { mainwindow.cboSpeed.IsEnabled = true; }
             else if ((string)mainwindow.cboVideoCodec.SelectedItem == "AV1") { mainwindow.cboSpeed.IsEnabled = true; }
+            else if ((string)mainwindow.cboVideoCodec.SelectedItem == "mpeg2") { mainwindow.cboSpeed.IsEnabled = true; }
             else if ((string)mainwindow.cboVideoCodec.SelectedItem == "mpeg4") { mainwindow.cboSpeed.IsEnabled = true; }
             else if ((string)mainwindow.cboVideoCodec.SelectedItem == "Theora") { mainwindow.cboSpeed.IsEnabled = false; }
             else if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG") { mainwindow.cboSpeed.IsEnabled = false; }
@@ -423,9 +424,12 @@ namespace Axiom
                         "None",
                         "Custom",
                         "Web",
+                        "PC HD",
+                        "PC SD",
                         "DVD",
                         "Blu-ray",
                         "Windows",
+                        "Animation",
                         "Apple",
                         "Android",
                         "PS3",
@@ -452,7 +456,10 @@ namespace Axiom
                     {
                         "None",
                         "Custom",
+                        "PC HD",
+                        "PC SD",
                         "Windows",
+                        "Animation",
                         "Apple",
                         "Android",
                         "PS3",
@@ -574,6 +581,108 @@ namespace Axiom
                     Optimize_ItemSource, // New Items List
                     (string)mainwindow.cboOptimize.SelectedItem); // Selected Item
 
+
+                // --------------------------------------------------
+                // Controls
+                // --------------------------------------------------
+                // -------------------------
+                // Enabled
+                // -------------------------
+                List<Control> Controls_Enabled = new List<Control>()
+                {
+                    // Video Quality ComboBox
+                    mainwindow.cboVideoQuality,
+                    // FPS ComboBox
+                    mainwindow.cboFPS,
+                    // Optimize ComboBox
+                    mainwindow.cboOptimize,
+                    // Scaling ComboBox
+                    mainwindow.cboScaling
+                };
+
+                // Add CRF Custom Textbox
+                if ((string)mainwindow.cboVideoQuality.SelectedItem == "Custom")
+                {
+                    Controls_Enabled.Add(mainwindow.crfCustom);
+                }
+
+                // Enable
+                for (int i = 0; i < Controls_Enabled.Count; i++)
+                {
+                    Controls_Enabled[i].IsEnabled = true;
+                }
+
+                // -------------------------
+                // Disabled
+                // -------------------------
+                // None
+            }
+
+            // --------------------------------------------------
+            // MPEG-2
+            // --------------------------------------------------
+            else if ((string)mainwindow.cboVideoCodec.SelectedItem == "mpeg2")
+            {
+                // -------------------------
+                // Video
+                // -------------------------
+                // -------------------------
+                // Change ItemSource
+                // -------------------------
+                List<string> VideoQuality_ItemSource = new List<string>()
+                {
+                    "Auto",
+                    "Lossless",
+                    "Ultra",
+                    "High",
+                    "Medium",
+                    "Low",
+                    "Sub",
+                    "Custom"
+                };
+
+                ChangeItemSource(
+                    mainwindow,
+                    mainwindow.cboVideoQuality, // ComboBox
+                    VideoQuality_ItemSource, // New Items List
+                    (string)mainwindow.cboVideoQuality.SelectedItem); // Selected Item
+
+
+                // --------------------------------------------------
+                // Pass
+                // --------------------------------------------------
+                // -------------------------
+                // Change ItemSource
+                // -------------------------
+                Pass_ItemSource = new List<string>()
+                {
+                    "1 Pass",
+                    "2 Pass"
+                };
+
+                ChangeItemSource(
+                    mainwindow,
+                    mainwindow.cboPass, // ComboBox
+                    Pass_ItemSource, // New Items List
+                    (string)mainwindow.cboPass.SelectedItem); // Selected Item
+
+
+                // --------------------------------------------------
+                // Optimize
+                // --------------------------------------------------
+                // -------------------------
+                // Change ItemSource
+                // -------------------------
+                Optimize_ItemSource = new List<string>()
+                {
+                    "None"
+                };
+
+                ChangeItemSource(
+                    mainwindow,
+                    mainwindow.cboOptimize, // ComboBox
+                    Optimize_ItemSource, // New Items List
+                    (string)mainwindow.cboOptimize.SelectedItem); // Selected Item
 
                 // --------------------------------------------------
                 // Controls
@@ -1554,6 +1663,13 @@ namespace Axiom
                                     mainwindow.cboVideoCodec.SelectedItem = "x264";
                                 }
                                 // -------------------------
+                                // MPG
+                                // -------------------------
+                                else if ((string)mainwindow.cboFormat.SelectedItem == "mpg")
+                                {
+                                    mainwindow.cboVideoCodec.SelectedItem = "mpeg2";
+                                }
+                                // -------------------------
                                 // AVI
                                 // -------------------------
                                 else if ((string)mainwindow.cboFormat.SelectedItem == "avi")
@@ -1692,7 +1808,7 @@ namespace Axiom
                     // -------------------------
                     // Null Check
                     // -------------------------
-                    if (!string.IsNullOrEmpty((string)mainwindow.cboSubtitle.SelectedItem))
+                    if (!string.IsNullOrEmpty((string)mainwindow.cboSubtitlesStream.SelectedItem))
                     {
                         // -------------------------
                         // Copy Selected 
@@ -1723,6 +1839,13 @@ namespace Axiom
                                 // MKV
                                 // -------------------------
                                 else if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
+                                {
+                                    mainwindow.cboSubtitleCodec.SelectedItem = "Copy";
+                                }
+                                // -------------------------
+                                // MPG
+                                // -------------------------
+                                else if ((string)mainwindow.cboFormat.SelectedItem == "mpg")
                                 {
                                     mainwindow.cboSubtitleCodec.SelectedItem = "Copy";
                                 }
@@ -1770,9 +1893,10 @@ namespace Axiom
         public static void VideoQualityControls(MainWindow mainwindow)
         {
             // -------------------------
-            // MPEG-4 Lossless (Special Rules)
+            // MPEG-2 / MPEG-4 Lossless (Special Rules)
             // -------------------------
-            if ((string)mainwindow.cboVideoCodec.SelectedItem == "mpeg4")
+            if ((string)mainwindow.cboVideoCodec.SelectedItem == "mpeg2"
+                || (string)mainwindow.cboVideoCodec.SelectedItem == "mpeg4")
             {
                 // -------------------------
                 // Lossless is VBR -q:v 2
@@ -1907,16 +2031,34 @@ namespace Axiom
         public static void PixelFormat(MainWindow mainwindow)
         {
             // -------------------------
-            // MediaType Enable
+            // MediaType
             // -------------------------
             if ((string)mainwindow.cboMediaType.SelectedItem == "Video"
                 || (string)mainwindow.cboMediaType.SelectedItem == "Image"
                 || (string)mainwindow.cboMediaType.SelectedItem == "Sequence")
             {
                 // -------------------------
-                // Codec Enable
+                // VP8
                 // -------------------------
-                if ((string)mainwindow.cboVideoCodec.SelectedItem != "Copy")
+                if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8")
+                {
+                    mainwindow.cboPixelFormat.IsEnabled = true;
+                    mainwindow.cboPixelFormat.SelectedItem = "yuv420p";
+                    // VP8 Lossless Disabled
+                }
+
+                // -------------------------
+                // VP9
+                // x264
+                // x265
+                // AV1
+                // Theora
+                // -------------------------
+                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9"
+                    || (string)mainwindow.cboVideoCodec.SelectedItem == "x264"
+                    || (string)mainwindow.cboVideoCodec.SelectedItem == "x265"
+                    || (string)mainwindow.cboVideoCodec.SelectedItem == "AV1"
+                    || (string)mainwindow.cboVideoCodec.SelectedItem == "Theora")
                 {
                     mainwindow.cboPixelFormat.IsEnabled = true;
 
@@ -1933,18 +2075,90 @@ namespace Axiom
                 }
 
                 // -------------------------
-                // Codec Disable
+                // mpeg2
+                // mpeg4
+                // -------------------------
+                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "mpeg2"
+                    || (string)mainwindow.cboVideoCodec.SelectedItem == "mpeg4")
+                {
+                    mainwindow.cboPixelFormat.IsEnabled = true;
+
+                    // Lossless can't be yuv444p
+                    // All Pixel Formats yuv420p
+                    mainwindow.cboPixelFormat.SelectedItem = "yuv420p"; 
+                }
+
+                // -------------------------
+                // JPG
+                // -------------------------
+                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG")
+                {
+                    mainwindow.cboPixelFormat.IsEnabled = true;
+                    mainwindow.cboPixelFormat.SelectedItem = "yuvj420p";
+                }
+
+                // -------------------------
+                // PNG
+                // -------------------------
+                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "PNG")
+                {
+                    mainwindow.cboPixelFormat.IsEnabled = true;
+                    mainwindow.cboPixelFormat.SelectedItem = "auto"; // use rgb24 instead of yuv444p
+                }
+
+                // -------------------------
+                // Copy
+                // -------------------------
+                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "Copy")
+                {
+                    mainwindow.cboPixelFormat.IsEnabled = false;
+                    mainwindow.cboPixelFormat.SelectedItem = "auto";
+                }
+
+                // -------------------------
+                // All Other Codecs
                 // -------------------------
                 else
                 {
                     mainwindow.cboPixelFormat.IsEnabled = false;
                     mainwindow.cboPixelFormat.SelectedItem = "auto";
                 }
+
+                //// -------------------------
+                //// Copy Codec
+                //// -------------------------
+                //if ((string)mainwindow.cboVideoCodec.SelectedItem != "Copy")
+                //{
+                //    mainwindow.cboPixelFormat.IsEnabled = true;
+
+                //    // Lossless
+                //    if ((string)mainwindow.cboVideoQuality.SelectedItem == "Lossless")
+                //    {
+                //        mainwindow.cboPixelFormat.SelectedItem = "yuv444p";
+                //    }
+                //    // All Other Quality
+                //    else
+                //    {
+                //        mainwindow.cboPixelFormat.SelectedItem = "yuv420p";
+                //    }
+                //}
+
+                //// -------------------------
+                //// All Other Codecs
+                //// -------------------------
+                //else
+                //{
+                //    mainwindow.cboPixelFormat.IsEnabled = false;
+                //    mainwindow.cboPixelFormat.SelectedItem = "auto";
+                //}
             }
 
-            // MediaType Disable
+            // -------------------------
+            // MediaType Audio
+            // -------------------------
             else if ((string)mainwindow.cboMediaType.SelectedItem == "Audio")
             {
+                mainwindow.cboPixelFormat.SelectedItem = "auto";
                 mainwindow.cboPixelFormat.IsEnabled = false;
             }
         }
@@ -2216,15 +2430,30 @@ namespace Axiom
                 {
                     mainwindow.cboOptTune.SelectedItem = "none";
                     mainwindow.cboOptProfile.SelectedItem = "main";
-                    mainwindow.cboOptLevel.SelectedItem = "4.0";
+                    mainwindow.cboOptLevel.SelectedItem = "4.2";
                     Video.optFlags = string.Empty;
+                }
+                // PC HD
+                else if ((string)mainwindow.cboOptimize.SelectedItem == "PC HD")
+                {
+                    mainwindow.cboOptTune.SelectedItem = "none";
+                    mainwindow.cboOptProfile.SelectedItem = "main";
+                    mainwindow.cboOptLevel.SelectedItem = "4.2";
+                    Video.optFlags = string.Empty;
+                }
+                // PC SD
+                else if ((string)mainwindow.cboOptimize.SelectedItem == "PC SD")
+                {
+                    mainwindow.cboOptTune.SelectedItem = "none";
+                    mainwindow.cboOptProfile.SelectedItem = "baseline";
+                    mainwindow.cboOptLevel.SelectedItem = "3.1";
                 }
                 // Animation
                 else if ((string)mainwindow.cboOptimize.SelectedItem == "Animation")
                 {
                     mainwindow.cboOptTune.SelectedItem = "animation";
                     mainwindow.cboOptProfile.SelectedItem = "main";
-                    mainwindow.cboOptLevel.SelectedItem = "4.0";
+                    mainwindow.cboOptLevel.SelectedItem = "4.2";
                     Video.optFlags = string.Empty;
                 }
                 // Blu-ray
@@ -2346,12 +2575,12 @@ namespace Axiom
             if ((string)mainwindow.cboMediaType.SelectedItem == "Video")
             {
                 // -------------------------
-                // None
+                // None Stream
                 // -------------------------
-                if ((string)mainwindow.cboSubtitle.SelectedItem == "none")
+                if ((string)mainwindow.cboSubtitlesStream.SelectedItem == "none")
                 {
                     mainwindow.cboSubtitleCodec.SelectedItem = "None";
-                    mainwindow.cboSubtitleCodec.IsEnabled = false;
+                    //mainwindow.cboSubtitleCodec.IsEnabled = false;
                 }
 
                 // -------------------------
@@ -2379,6 +2608,13 @@ namespace Axiom
 
                         // MKV
                         else if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
+                        {
+                            mainwindow.cboSubtitleCodec.SelectedItem = "Copy";
+                            mainwindow.cboSubtitleCodec.IsEnabled = true;
+                        }
+
+                        // MPG
+                        else if ((string)mainwindow.cboFormat.SelectedItem == "mpg")
                         {
                             mainwindow.cboSubtitleCodec.SelectedItem = "Copy";
                             mainwindow.cboSubtitleCodec.IsEnabled = true;
