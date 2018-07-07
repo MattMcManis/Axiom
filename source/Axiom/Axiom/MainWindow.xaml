@@ -2303,22 +2303,6 @@
                                                 <RowDefinition Height="110"/>
                                                 <RowDefinition Height="33"/>
                                                 <RowDefinition Height="33"/>
-                                                <RowDefinition Height="33"/>
-                                                <RowDefinition Height="33"/>
-                                                <RowDefinition Height="33"/>
-                                                <RowDefinition Height="33"/>
-                                                <RowDefinition Height="33"/>
-                                                <RowDefinition Height="33"/>
-                                                <RowDefinition Height="33"/>
-                                                <RowDefinition Height="33"/>
-                                                <RowDefinition Height="33"/>
-                                                <RowDefinition Height="33"/>
-                                                <RowDefinition Height="33"/>
-                                                <RowDefinition Height="33"/>
-                                                <RowDefinition Height="33"/>
-                                                <RowDefinition Height="33"/>
-                                                <RowDefinition Height="33"/>
-                                                <RowDefinition Height="33"/>
                                             </Grid.RowDefinitions>
 
                                             <!-- Video Section -->
