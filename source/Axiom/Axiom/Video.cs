@@ -711,8 +711,8 @@ namespace Axiom
                                     {
                                         //vBitMode = "-b:v";
                                         crf = "-b:v 5M";
-                                        vMaxrate = "5M";
-                                        vBufsize = "5M";
+                                        vMaxrate = "9.8M";
+                                        vBufsize = "9.8M";
                                     }
                                     else if ((string)mainwindow.cboVideoCodec.SelectedItem == "mpeg4")
                                     {
@@ -756,8 +756,8 @@ namespace Axiom
                                     else if ((string)mainwindow.cboVideoCodec.SelectedItem == "mpeg2")
                                     {
                                         vBitrate = "3M";
-                                        vMaxrate = "3M";
-                                        vBufsize = "4M";
+                                        vMaxrate = "9.8M";
+                                        vBufsize = "9.8M";
                                     }
                                     else if ((string)mainwindow.cboVideoCodec.SelectedItem == "mpeg4")
                                     {
@@ -803,6 +803,11 @@ namespace Axiom
                             //
                             if (!string.IsNullOrEmpty(FFprobe.inputVideoCodec))
                             {
+                                // VP8
+                                // VP9
+                                // x264
+                                // x265
+                                // AV1
                                 if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8"
                                     || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9"
                                     || (string)mainwindow.cboVideoCodec.SelectedItem == "x264"
@@ -811,20 +816,46 @@ namespace Axiom
                                 {
                                     vBitrate = VideoBitrateCalculator(mainwindow, FFprobe.vEntryType, FFprobe.inputVideoBitrate);
                                 }
-                                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "mpeg2"
-                                    || (string)mainwindow.cboVideoCodec.SelectedItem == "mpeg4")
+
+                                // MPEG-2
+                                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "mpeg2")
                                 {
                                     // CBR
                                     if (mainwindow.tglVideoVBR.IsChecked == false)
                                     {
                                         vBitrate = VideoBitrateCalculator(mainwindow, FFprobe.vEntryType, FFprobe.inputVideoBitrate);
+                                        vMaxrate = "9.8M";
+                                        vBufsize = "9.8M";
                                     }
                                     // VBR
                                     else if (mainwindow.tglVideoVBR.IsChecked == true)
                                     {
                                         vBitrate = "5";
+                                        vMaxrate = "9.8M";
+                                        vBufsize = "9.8M";
+                                    }
+                                }
+
+                                // MPEG-4
+                                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "mpeg4")
+                                {
+                                    // CBR
+                                    if (mainwindow.tglVideoVBR.IsChecked == false)
+                                    {
+                                        vBitrate = VideoBitrateCalculator(mainwindow, FFprobe.vEntryType, FFprobe.inputVideoBitrate);
+                                        vMaxrate = VideoBitrateCalculator(mainwindow, FFprobe.vEntryType, FFprobe.inputVideoBitrate);
+                                        vBufsize = VideoBitrateCalculator(mainwindow, FFprobe.vEntryType, FFprobe.inputVideoBitrate);
+                                    }
+                                    // VBR
+                                    else if (mainwindow.tglVideoVBR.IsChecked == true)
+                                    {
+                                        vBitrate = "5";
+                                        vMaxrate = "6M";
+                                        vBufsize = "6M";
                                     }       
                                 }
+
+                                // Theora
                                 else if ((string)mainwindow.cboVideoCodec.SelectedItem == "Theora")
                                 {
                                     vBitrate = "10"; // Theora can't have Auto Value, default to highest -q:v 10
