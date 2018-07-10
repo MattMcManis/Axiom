@@ -539,7 +539,7 @@ namespace Axiom
 
                 try
                 {
-                    contrast = "acontrast=" +
+                    contrast = "contrast=" +
                                 Convert.ToString(
                                         Math.Round(
                                             MainWindow.NormalizeValue(
