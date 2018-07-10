@@ -122,8 +122,8 @@ namespace Axiom
             else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264") { mainwindow.cboSpeed.IsEnabled = true; }
             else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265") { mainwindow.cboSpeed.IsEnabled = true; }
             else if ((string)mainwindow.cboVideoCodec.SelectedItem == "AV1") { mainwindow.cboSpeed.IsEnabled = true; }
-            else if ((string)mainwindow.cboVideoCodec.SelectedItem == "mpeg2") { mainwindow.cboSpeed.IsEnabled = true; }
-            else if ((string)mainwindow.cboVideoCodec.SelectedItem == "mpeg4") { mainwindow.cboSpeed.IsEnabled = true; }
+            else if ((string)mainwindow.cboVideoCodec.SelectedItem == "MPEG-2") { mainwindow.cboSpeed.IsEnabled = true; }
+            else if ((string)mainwindow.cboVideoCodec.SelectedItem == "MPEG-4") { mainwindow.cboSpeed.IsEnabled = true; }
             else if ((string)mainwindow.cboVideoCodec.SelectedItem == "Theora") { mainwindow.cboSpeed.IsEnabled = false; }
             else if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG") { mainwindow.cboSpeed.IsEnabled = false; }
             else if ((string)mainwindow.cboVideoCodec.SelectedItem == "PNG") { mainwindow.cboSpeed.IsEnabled = false; }
@@ -426,7 +426,7 @@ namespace Axiom
                         "Web",
                         "PC HD",
                         "PC SD",
-                        "DVD",
+                        //"DVD",
                         "Blu-ray",
                         "Windows",
                         "Animation",
@@ -621,7 +621,7 @@ namespace Axiom
             // --------------------------------------------------
             // MPEG-2
             // --------------------------------------------------
-            else if ((string)mainwindow.cboVideoCodec.SelectedItem == "mpeg2")
+            else if ((string)mainwindow.cboVideoCodec.SelectedItem == "MPEG-2")
             {
                 // -------------------------
                 // Video
@@ -723,7 +723,7 @@ namespace Axiom
             // --------------------------------------------------
             // MPEG-4
             // --------------------------------------------------
-            else if ((string)mainwindow.cboVideoCodec.SelectedItem == "mpeg4")
+            else if ((string)mainwindow.cboVideoCodec.SelectedItem == "MPEG-4")
             {
                 // -------------------------
                 // Video
@@ -1667,14 +1667,14 @@ namespace Axiom
                                 // -------------------------
                                 else if ((string)mainwindow.cboFormat.SelectedItem == "mpg")
                                 {
-                                    mainwindow.cboVideoCodec.SelectedItem = "mpeg2";
+                                    mainwindow.cboVideoCodec.SelectedItem = "MPEG-2";
                                 }
                                 // -------------------------
                                 // AVI
                                 // -------------------------
                                 else if ((string)mainwindow.cboFormat.SelectedItem == "avi")
                                 {
-                                    mainwindow.cboVideoCodec.SelectedItem = "mpeg4";
+                                    mainwindow.cboVideoCodec.SelectedItem = "MPEG-4";
                                 }
                                 // -------------------------
                                 // OGV
@@ -1895,8 +1895,8 @@ namespace Axiom
             // -------------------------
             // MPEG-2 / MPEG-4 Lossless (Special Rules)
             // -------------------------
-            if ((string)mainwindow.cboVideoCodec.SelectedItem == "mpeg2"
-                || (string)mainwindow.cboVideoCodec.SelectedItem == "mpeg4")
+            if ((string)mainwindow.cboVideoCodec.SelectedItem == "MPEG-2"
+                || (string)mainwindow.cboVideoCodec.SelectedItem == "MPEG-4")
             {
                 // -------------------------
                 // Lossless is VBR -q:v 2
@@ -2078,8 +2078,8 @@ namespace Axiom
                 // mpeg2
                 // mpeg4
                 // -------------------------
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "mpeg2"
-                    || (string)mainwindow.cboVideoCodec.SelectedItem == "mpeg4")
+                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "MPEG-2"
+                    || (string)mainwindow.cboVideoCodec.SelectedItem == "MPEG-4")
                 {
                     mainwindow.cboPixelFormat.IsEnabled = true;
 
@@ -2418,13 +2418,13 @@ namespace Axiom
                     Video.optFlags = "-movflags +faststart";
                 }
                 // DVD
-                else if ((string)mainwindow.cboOptimize.SelectedItem == "DVD")
-                {
-                    mainwindow.cboOptTune.SelectedItem = "none";
-                    mainwindow.cboOptProfile.SelectedItem = "baseline";
-                    mainwindow.cboOptLevel.SelectedItem = "3.0";
-                    Video.optFlags = "-maxrate 9.6M";
-                }
+                //else if ((string)mainwindow.cboOptimize.SelectedItem == "DVD")
+                //{
+                //    mainwindow.cboOptTune.SelectedItem = "none";
+                //    mainwindow.cboOptProfile.SelectedItem = "baseline";
+                //    mainwindow.cboOptLevel.SelectedItem = "3.0";
+                //    Video.optFlags = "-maxrate 9.6M";
+                //}
                 // HD Video
                 else if ((string)mainwindow.cboOptimize.SelectedItem == "HD Video")
                 {

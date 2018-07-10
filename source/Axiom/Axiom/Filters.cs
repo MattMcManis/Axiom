@@ -45,40 +45,6 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Normalize Value (Method)
-        /// <summary>
-        public static double NormalizeValue(double val, double valmin, double valmax, double min, double max, double midpoint)
-        {
-            double mid = (valmin + valmax) / 2.0;
-            if (val < mid)
-            {
-                return (val - valmin) / (mid - valmin) * (midpoint - min) + min;
-            }
-            else
-            {
-                return (val - mid) / (valmax - mid) * (max - midpoint) + midpoint;
-            }
-        }
-        //public static double NormalizeValue(double val, double valmin, double valmax, double min, double max, double ffdefault)
-        //{
-        //    // (((sliderValue - sliderValueMin) / (sliderValueMax - sliderValueMin)) * (NormalizeMax - NormalizeMin)) + NormalizeMin
-
-        //    return (((val - valmin) / (valmax - valmin)) * (max - min)) + min;
-        //}
-
-
-        /// <summary>
-        ///     Limit to Range (Method)
-        /// <summary>
-        public static double LimitToRange(double value, double inclusiveMinimum, double inclusiveMaximum)
-        {
-            if (value < inclusiveMinimum) { return inclusiveMinimum; }
-            if (value > inclusiveMaximum) { return inclusiveMaximum; }
-            return value;
-        }
-
-
-        /// <summary>
         ///     PNG to JPG (Method)
         /// <summary>
         public static void PNGtoJPG_Filter(MainWindow mainwindow)
@@ -273,7 +239,7 @@ namespace Axiom
 
             string decimalValue = Convert.ToString(
                                         Math.Round(
-                                                    NormalizeValue(
+                                            MainWindow.NormalizeValue(
                                                            value, // input
                                                             -100, // input min
                                                              100, // input max
@@ -524,8 +490,8 @@ namespace Axiom
                 {
                     brightness = "brightness=" +
                                         Convert.ToString(
-                                            Math.Round(
-                                                        NormalizeValue(
+                                                Math.Round(
+                                                        MainWindow.NormalizeValue(
                                                                        value, // input
                                                                         -100, // input min
                                                                          100, // input max
@@ -573,10 +539,10 @@ namespace Axiom
 
                 try
                 {
-                    contrast = "contrast=" +
+                    contrast = "acontrast=" +
                                 Convert.ToString(
                                         Math.Round(
-                                                    NormalizeValue(
+                                            MainWindow.NormalizeValue(
                                                                     value, // input
                                                                      -100, // input min
                                                                       100, // input max
@@ -629,7 +595,7 @@ namespace Axiom
                     saturation = "saturation=" +
                                     Convert.ToString(
                                             Math.Round(
-                                                        NormalizeValue(
+                                                MainWindow.NormalizeValue(
                                                                        value, // input
                                                                         -100, // input min
                                                                          100, // input max
@@ -681,7 +647,7 @@ namespace Axiom
                     gamma = "gamma=" +
                                     Convert.ToString(
                                             Math.Round(
-                                                       NormalizeValue(
+                                                MainWindow.NormalizeValue(
                                                                       value, // input
                                                                        -100, // input min
                                                                         100, // input max
@@ -839,4 +805,330 @@ namespace Axiom
         }
 
     }
+
+
+
+
+
+    /// <summary>
+    ///     Audio Filters (Class)
+    /// <summary>
+    public class AudioFilters
+    {
+        // Filter Lists
+        public static List<string> aFiltersList = new List<string>(); // Filters to String Join
+        public static string aFilter;
+
+
+        /// <summary>
+        ///     Remove Click (Method)
+        /// <summary>
+        //public static void RemoveClick_Filter(MainWindow mainwindow)
+        //{
+        //    // FFmpeg Range 1 to 100
+        //    // FFmpeg Default 2
+        //    // Slider 0 to 100
+        //    // Slider Default 0
+        //    // Limit to 2 decimal places
+
+        //    double value = mainwindow.slFilterAudio_RemoveClick.Value;
+
+        //    string adeclick = string.Empty;
+
+        //    if (value != 0)
+        //    {
+        //        adeclick = "adeclick=t=" + Convert.ToString(value);
+
+        //        // Add to Filters List
+        //        aFiltersList.Add(adeclick);
+        //    }
+        //}
+
+
+        /// <summary>
+        ///     Lowpass (Method)
+        /// <summary>
+        public static void Lowpass_Filter(MainWindow mainwindow)
+        {
+            if ((string)mainwindow.cboFilterAudio_Lowpass.SelectedItem == "enabled")
+            {
+                // -------------------------
+                // Add Filter to List
+                // -------------------------
+                aFiltersList.Add("lowpass");
+            }
+        }
+
+        /// <summary>
+        ///     Highpass (Method)
+        /// <summary>
+        public static void Highpass_Filter(MainWindow mainwindow)
+        {
+            if ((string)mainwindow.cboFilterAudio_Highpass.SelectedItem == "enabled")
+            {
+                // -------------------------
+                // Add Filter to List
+                // -------------------------
+                aFiltersList.Add("highpass");
+            }
+        }
+
+
+        /// <summary>
+        ///     Contrast (Method)
+        /// <summary>
+        public static void Contrast_Filter(MainWindow mainwindow)
+        {
+            // FFmpeg Range 0 to 100
+            // FFmpeg Default 33
+            // Slider 0 to 100
+            // Slider Default 0
+            // Limit to 2 decimal places
+
+            double value = mainwindow.slFilterAudio_Contrast.Value;
+
+            string acontrast = string.Empty;
+
+            if (value != 0)
+            {
+                acontrast = "acontrast=" + Convert.ToString(value);
+
+                // Add to Filters List
+                aFiltersList.Add(acontrast);
+            }
+        }
+
+
+        /// <summary>
+        ///     Extra Stereo (Method)
+        /// <summary>
+        public static void ExtraStereo_Filter(MainWindow mainwindow)
+        {
+            // FFmpeg Range 0 to ??
+            // FFmpeg Default 2.5
+            // Slider -100 to 100
+            // Slider Default 0
+            // Limit to 2 decimal places
+
+            double value = mainwindow.slFilterAudio_ExtraStereo.Value;
+
+            string extrastereo = string.Empty;
+
+            if (value != 0)
+            {
+                try
+                {
+                    extrastereo = "extrastereo=" +
+                                    Convert.ToString(
+                                            Math.Round(
+                                                MainWindow.NormalizeValue(
+                                                                      value, // input
+                                                                       -100, // input min
+                                                                        100, // input max
+                                                                          0, // normalize min
+                                                                         10, // normalize max
+                                                                        2.5  // ffmpeg default
+                                                            )
+
+                                                        , 3 // max decimal places
+                                                    )
+                                                );
+
+                    // Add to Filters List
+                    aFiltersList.Add(extrastereo);
+                }
+                catch
+                {
+                    // Log Console Message /////////
+                    Log.WriteAction = () =>
+                    {
+                        Log.logParagraph.Inlines.Add(new LineBreak());
+                        Log.logParagraph.Inlines.Add(new Bold(new Run("Error: Could not set Extra Stereo.")) { Foreground = Log.ConsoleDefault });
+                    };
+                    Log.LogActions.Add(Log.WriteAction);
+                }
+            }
+        }
+
+
+        /// <summary>
+        ///     Headphones (Method)
+        /// <summary>
+        public static void Headphones_Filter(MainWindow mainwindow)
+        {
+            if ((string)mainwindow.cboFilterAudio_Headphones.SelectedItem == "enabled")
+            {
+                // -------------------------
+                // Add Filter to List
+                // -------------------------
+                aFiltersList.Add("earwax");
+            }
+        }
+
+
+        /// <summary>
+        ///     Tempo (Method)
+        /// <summary>
+        public static void Tempo_Filter(MainWindow mainwindow)
+        {
+            // FFmpeg Range 0.5 to 2
+            // FFmpeg Default 1.0
+            // Slider 50 to 200
+            // Slider Default 100
+            // Limit to 2 decimal places
+
+            // Example: Slow down audio to 80% tempo: atempo=0.8
+            //          Speed up audio to 200% tempo: atempo=2
+
+            double value = mainwindow.slFilterAudio_Tempo.Value;
+
+            string tempo = string.Empty;
+
+            if (value != 100)
+            {
+                tempo = "atempo=" + Convert.ToString(Math.Round(value * 0.01, 2)); // convert to decimal
+
+                // Add to Filters List
+                aFiltersList.Add(tempo);
+            }
+        }
+
+
+        /// <summary>
+        ///     Audio Filter Combine (Method)
+        /// <summary>
+        public static String AudioFilter(MainWindow mainwindow)
+        {
+            // Audio Bitrate None Check
+            // Audio Codec None
+            // Codec Copy Check
+            // Mute Check
+            // Stream None Check
+            // Media Type Check
+            if ((string)mainwindow.cboAudioQuality.SelectedItem != "None"
+                && (string)mainwindow.cboAudioCodec.SelectedItem != "None"
+                && (string)mainwindow.cboAudioCodec.SelectedItem != "Copy"
+                && (string)mainwindow.cboAudioQuality.SelectedItem != "Mute"
+                && (string)mainwindow.cboAudioStream.SelectedItem != "none"
+                && (string)mainwindow.cboMediaType.SelectedItem != "Image"
+                && (string)mainwindow.cboMediaType.SelectedItem != "Sequence")
+            {
+                // --------------------------------------------------
+                // Filters
+                // --------------------------------------------------
+                // -------------------------
+                // Volume
+                // -------------------------
+                Audio.Volume(mainwindow);
+
+                // -------------------------
+                // Hard Limiter
+                // -------------------------
+                Audio.HardLimiter(mainwindow);
+
+                // -------------------------
+                // Remove Click
+                // -------------------------
+                //RemoveClick_Filter(mainwindow);
+
+                // -------------------------
+                // Lowpass
+                // -------------------------
+                Lowpass_Filter(mainwindow);
+
+                // -------------------------
+                // Highpass
+                // -------------------------
+                Highpass_Filter(mainwindow);
+
+                // -------------------------
+                // Contrast
+                // -------------------------
+                Contrast_Filter(mainwindow);
+
+                // -------------------------
+                // Extra Stereo
+                // -------------------------
+                ExtraStereo_Filter(mainwindow);
+
+                // -------------------------
+                // Headphones
+                // -------------------------
+                Headphones_Filter(mainwindow);
+
+                // -------------------------
+                // Tempo
+                // -------------------------
+                Tempo_Filter(mainwindow);
+
+
+                // -------------------------
+                // Filter Combine
+                // -------------------------
+                if ((string)mainwindow.cboAudioCodec.SelectedItem != "None") // None Check
+                {
+                    // -------------------------
+                    // 1 Filter
+                    // -------------------------
+                    if (aFiltersList.Count == 1)
+                    {
+                        // Always wrap in quotes
+                        aFilter = "-af \"" + string.Join(", \r\n\r\n", aFiltersList
+                                                   .Where(s => !string.IsNullOrEmpty(s)))
+                                                   + "\"";
+                    }
+
+                    // -------------------------
+                    // Multiple Filters
+                    // -------------------------
+                    else if (aFiltersList.Count > 1)
+                    {
+                        // Always wrap in quotes
+                        // Linebreak beginning and end
+                        aFilter = "-af \"\r\n" + string.Join(", \r\n\r\n", aFiltersList
+                                                       .Where(s => !string.IsNullOrEmpty(s)))
+                                                       + "\r\n\"";
+
+                        //System.Windows.MessageBox.Show(aFilter); //debug
+                    }
+
+                    // -------------------------
+                    // Empty
+                    // -------------------------
+                    else
+                    {
+                        aFilter = string.Empty;
+                    }
+                }
+                // Audio Codec None
+                else
+                {
+                    aFilter = string.Empty;
+
+                }
+            }
+
+            // -------------------------
+            // Filter Clear
+            // -------------------------
+            else
+            {
+                aFilter = string.Empty;
+
+                if (aFiltersList != null)
+                {
+                    aFiltersList.Clear();
+                    aFiltersList.TrimExcess();
+                }
+            }
+
+
+            // Return Value
+            return aFilter;
+        }
+
+
+    }
+
+
 }

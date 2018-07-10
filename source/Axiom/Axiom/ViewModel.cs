@@ -4,6 +4,10 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+// Disable XML Comment warnings
+#pragma warning disable 1591
+#pragma warning disable 1587
+#pragma warning disable 1570
 
 namespace Axiom
 {
@@ -43,7 +47,7 @@ namespace Axiom
 
         // --------------------------------------------------------------------------------------------------------
         /// <summary>
-        ///     Filters
+        ///     Video Filters
         /// </summary>
         // --------------------------------------------------------------------------------------------------------
         // -------------------------
@@ -154,6 +158,61 @@ namespace Axiom
         }
 
         public static string cboFilterVideo_SelectiveColor_Correction_Method_SelectedItem { get; set; }
+
+
+        // --------------------------------------------------------------------------------------------------------
+        /// <summary>
+        ///     Audio Filters
+        /// </summary>
+        // --------------------------------------------------------------------------------------------------------
+        // -------------------------
+        // Lowpass
+        // -------------------------
+        public static ObservableCollection<string> _cboFilterAudio_Lowpass_Items = new ObservableCollection<string>()
+        {
+            "disabled",
+            "enabled"
+        };
+        public static ObservableCollection<string> cboFilterAudio_Lowpass_Items
+        {
+            get { return _cboFilterAudio_Lowpass_Items; }
+            set { _cboFilterAudio_Lowpass_Items = value; }
+        }
+
+        public static string cboFilterAudio_Lowpass_SelectedItem { get; set; }
+
+        // -------------------------
+        // Highpass
+        // -------------------------
+        public static ObservableCollection<string> _cboFilterAudio_Highpass_Items = new ObservableCollection<string>()
+        {
+            "disabled",
+            "enabled"
+        };
+        public static ObservableCollection<string> cboFilterAudio_Highpass_Items
+        {
+            get { return _cboFilterAudio_Highpass_Items; }
+            set { _cboFilterAudio_Highpass_Items = value; }
+        }
+
+        public static string cboFilterAudio_Highpass_SelectedItem { get; set; }
+
+        // -------------------------
+        // Headphones (Earwax)
+        // -------------------------
+        public static ObservableCollection<string> _cboFilterAudio_Headphones_Items = new ObservableCollection<string>()
+        {
+            "disabled",
+            "enabled"
+        };
+        public static ObservableCollection<string> cboFilterAudio_Headphones_Items
+        {
+            get { return _cboFilterAudio_Headphones_Items; }
+            set { _cboFilterAudio_Headphones_Items = value; }
+        }
+
+        public static string cboFilterAudio_Headphones_SelectedItem { get; set; }
+
 
     }
 }

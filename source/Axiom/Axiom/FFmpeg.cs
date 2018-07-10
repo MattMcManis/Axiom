@@ -139,8 +139,8 @@ namespace Axiom
                     Audio.SampleRate(mainwindow),
                     Audio.BitDepth(mainwindow),
                     Audio.Channel(mainwindow),
-                    "\r\n" + 
-                    Audio.AudioFilter(mainwindow),
+                    "\r\n" +
+                    AudioFilters.AudioFilter(mainwindow),
                     "\r\n" + 
                     Streams.AudioStreamMaps(mainwindow),
 
@@ -302,8 +302,8 @@ namespace Axiom
                     Audio.SampleRate(mainwindow),
                     Audio.BitDepth(mainwindow),
                     Audio.Channel(mainwindow),
-                    "\r\n" + 
-                    Audio.AudioFilter(mainwindow),
+                    "\r\n" +
+                    AudioFilters.AudioFilter(mainwindow),
                     "\r\n" + 
                     Streams.AudioStreamMaps(mainwindow),
 

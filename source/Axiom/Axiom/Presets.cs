@@ -94,8 +94,9 @@ namespace Axiom
                     mainwindow.cboBitDepth.SelectedItem = "auto";
                     mainwindow.cboAudioStream.SelectedItem = "all";
                     mainwindow.volumeUpDown.Text = "100";
-                    mainwindow.tglAudioLimiter.IsChecked = false;
-                    mainwindow.audioLimiter.Text = string.Empty;
+                    mainwindow.slAudioLimiter.Value = 1;
+                    ////mainwindow.tglAudioLimiter.IsChecked = false;
+                    ////mainwindow.audioLimiter.Text = string.Empty;
 
                     // special rules for webm
                     if ((string)mainwindow.cboFormat.SelectedItem == "webm") 
@@ -155,8 +156,9 @@ namespace Axiom
 
                     mainwindow.cboAudioStream.SelectedItem = "1";
                     mainwindow.volumeUpDown.Text = "100";
-                    mainwindow.tglAudioLimiter.IsChecked = false;
-                    mainwindow.audioLimiter.Text = string.Empty;
+                    mainwindow.slAudioLimiter.Value = 1;
+                    //mainwindow.tglAudioLimiter.IsChecked = false;
+                    //mainwindow.audioLimiter.Text = string.Empty;
                 }
             }
 
@@ -169,7 +171,7 @@ namespace Axiom
 
                 // Format
                 mainwindow.cboFormat.SelectedItem = "mpg";
-                mainwindow.cboVideoCodec.SelectedItem = "mpeg2";
+                mainwindow.cboVideoCodec.SelectedItem = "MPEG-2";
                 mainwindow.cboAudioCodec.SelectedItem = "AC3";
 
                 // Video
@@ -186,10 +188,10 @@ namespace Axiom
                 mainwindow.cboCut.SelectedItem = "No";
                 mainwindow.cutStart.Text = "00:00:00.000";
                 mainwindow.cutEnd.Text = "00:00:00.000";
-                mainwindow.cboFPS.SelectedItem = "29.97";
+                mainwindow.cboFPS.SelectedItem = "ntsc";
                 mainwindow.cboFPS.IsEnabled = true;
                 mainwindow.cboSubtitlesStream.SelectedItem = "all";
-                mainwindow.cboOptimize.SelectedItem = "DVD";
+                mainwindow.cboOptimize.SelectedItem = "None";
 
                 // Audio
                 mainwindow.cboAudioQuality.SelectedItem = "320";
@@ -198,8 +200,9 @@ namespace Axiom
                 mainwindow.cboSamplerate.SelectedItem = "44.1k";
                 mainwindow.cboBitDepth.SelectedItem = "auto";
                 mainwindow.volumeUpDown.Text = "100";
-                mainwindow.tglAudioLimiter.IsChecked = false;
-                mainwindow.audioLimiter.Text = string.Empty;
+                mainwindow.slAudioLimiter.Value = 1;
+                //mainwindow.tglAudioLimiter.IsChecked = false;
+                //mainwindow.audioLimiter.Text = string.Empty;
             }
 
             // -------------------------
@@ -237,8 +240,9 @@ namespace Axiom
                 mainwindow.cboSamplerate.SelectedItem = "auto";
                 mainwindow.cboBitDepth.SelectedItem = "auto";
                 mainwindow.volumeUpDown.Text = "100";
-                mainwindow.tglAudioLimiter.IsChecked = false;
-                mainwindow.audioLimiter.Text = string.Empty;
+                mainwindow.slAudioLimiter.Value = 1;
+                //mainwindow.tglAudioLimiter.IsChecked = false;
+                //mainwindow.audioLimiter.Text = string.Empty;
             }
 
             // -------------------------
@@ -277,8 +281,9 @@ namespace Axiom
                 mainwindow.cboSamplerate.SelectedItem = "44.1k";
                 mainwindow.cboBitDepth.SelectedItem = "auto";
                 mainwindow.volumeUpDown.Text = "100";
-                mainwindow.tglAudioLimiter.IsChecked = false;
-                mainwindow.audioLimiter.Text = string.Empty;
+                mainwindow.slAudioLimiter.Value = 1;
+                //mainwindow.tglAudioLimiter.IsChecked = false;
+                //mainwindow.audioLimiter.Text = string.Empty;
             }
 
             // -------------------------
@@ -316,8 +321,9 @@ namespace Axiom
                 mainwindow.cboSamplerate.SelectedItem = "48k";
                 mainwindow.cboBitDepth.SelectedItem = "auto";
                 mainwindow.volumeUpDown.Text = "100";
-                mainwindow.tglAudioLimiter.IsChecked = false;
-                mainwindow.audioLimiter.Text = string.Empty;
+                mainwindow.slAudioLimiter.Value = 1;
+                //mainwindow.tglAudioLimiter.IsChecked = false;
+                //mainwindow.audioLimiter.Text = string.Empty;
             }
 
             // -------------------------
@@ -357,8 +363,9 @@ namespace Axiom
                 mainwindow.cboSamplerate.SelectedItem = "44.1k";
                 mainwindow.cboBitDepth.SelectedItem = "auto";
                 mainwindow.volumeUpDown.Text = "100";
-                mainwindow.tglAudioLimiter.IsChecked = false;
-                mainwindow.audioLimiter.Text = string.Empty;
+                mainwindow.slAudioLimiter.Value = 1;
+                //mainwindow.tglAudioLimiter.IsChecked = false;
+                //mainwindow.audioLimiter.Text = string.Empty;
             }
 
             // -------------------------
@@ -396,8 +403,9 @@ namespace Axiom
                 mainwindow.cboSamplerate.SelectedItem = "44.1k";
                 mainwindow.cboBitDepth.SelectedItem = "auto";
                 mainwindow.volumeUpDown.Text = "100";
-                mainwindow.tglAudioLimiter.IsChecked = false;
-                mainwindow.audioLimiter.Text = string.Empty;
+                mainwindow.slAudioLimiter.Value = 1;
+                //mainwindow.tglAudioLimiter.IsChecked = false;
+                //mainwindow.audioLimiter.Text = string.Empty;
             }
 
             // -------------------------
@@ -435,8 +443,9 @@ namespace Axiom
                 mainwindow.cboSamplerate.SelectedItem = "44.1k";
                 mainwindow.cboBitDepth.SelectedItem = "auto";
                 mainwindow.volumeUpDown.Text = "100";
-                mainwindow.tglAudioLimiter.IsChecked = false;
-                mainwindow.audioLimiter.Text = string.Empty;
+                mainwindow.slAudioLimiter.Value = 1;
+                //mainwindow.tglAudioLimiter.IsChecked = false;
+                //mainwindow.audioLimiter.Text = string.Empty;
             }
 
             // -------------------------
@@ -472,8 +481,9 @@ namespace Axiom
                 mainwindow.cboSamplerate.SelectedItem = "auto";
                 mainwindow.cboBitDepth.SelectedItem = "auto";
                 mainwindow.volumeUpDown.Text = "100";
-                mainwindow.tglAudioLimiter.IsChecked = false;
-                mainwindow.audioLimiter.Text = string.Empty;
+                mainwindow.slAudioLimiter.Value = 1;
+                //mainwindow.tglAudioLimiter.IsChecked = false;
+                //mainwindow.audioLimiter.Text = string.Empty;
             }
 
             // -------------------------
@@ -509,8 +519,9 @@ namespace Axiom
                 mainwindow.cboSamplerate.SelectedItem = "auto";
                 mainwindow.cboBitDepth.SelectedItem = "auto";
                 mainwindow.volumeUpDown.Text = "100";
-                mainwindow.tglAudioLimiter.IsChecked = false;
-                mainwindow.audioLimiter.Text = string.Empty;
+                mainwindow.slAudioLimiter.Value = 1;
+                //mainwindow.tglAudioLimiter.IsChecked = false;
+                //mainwindow.audioLimiter.Text = string.Empty;
             }
 
             // -------------------------
@@ -548,8 +559,9 @@ namespace Axiom
                 mainwindow.cboSamplerate.SelectedItem = "48k";
                 mainwindow.cboBitDepth.SelectedItem = "auto";
                 mainwindow.volumeUpDown.Text = "100";
-                mainwindow.tglAudioLimiter.IsChecked = false;
-                mainwindow.audioLimiter.Text = string.Empty;
+                mainwindow.slAudioLimiter.Value = 1;
+                //mainwindow.tglAudioLimiter.IsChecked = false;
+                //mainwindow.audioLimiter.Text = string.Empty;
             }
 
             // -------------------------
@@ -587,8 +599,9 @@ namespace Axiom
                 mainwindow.cboBitDepth.SelectedItem = "auto";
                 mainwindow.tglVBR.IsChecked = false;
                 mainwindow.volumeUpDown.Text = "100";
-                mainwindow.tglAudioLimiter.IsChecked = false;
-                mainwindow.audioLimiter.Text = string.Empty;
+                mainwindow.slAudioLimiter.Value = 1;
+                //mainwindow.tglAudioLimiter.IsChecked = false;
+                //mainwindow.audioLimiter.Text = string.Empty;
             }
 
             // -------------------------
@@ -626,8 +639,9 @@ namespace Axiom
                 mainwindow.cboBitDepth.SelectedItem = "auto";
                 mainwindow.tglVBR.IsChecked = false;
                 mainwindow.volumeUpDown.Text = "100";
-                mainwindow.tglAudioLimiter.IsChecked = false;
-                mainwindow.audioLimiter.Text = string.Empty;
+                mainwindow.slAudioLimiter.Value = 1;
+                //mainwindow.tglAudioLimiter.IsChecked = false;
+                //mainwindow.audioLimiter.Text = string.Empty;
             }
 
             // -------------------------
@@ -665,8 +679,9 @@ namespace Axiom
                 mainwindow.cboBitDepth.SelectedItem = "auto";
                 mainwindow.tglVBR.IsChecked = false;
                 mainwindow.volumeUpDown.Text = "100";
-                mainwindow.tglAudioLimiter.IsChecked = false;
-                mainwindow.audioLimiter.Text = string.Empty;
+                mainwindow.slAudioLimiter.Value = 1;
+                //mainwindow.tglAudioLimiter.IsChecked = false;
+                //mainwindow.audioLimiter.Text = string.Empty;
             }
 
             // -------------------------
@@ -705,8 +720,9 @@ namespace Axiom
                 mainwindow.cboSamplerate.SelectedItem = "44.1k";
                 mainwindow.cboBitDepth.SelectedItem = "auto";
                 mainwindow.volumeUpDown.Text = "100";
-                mainwindow.tglAudioLimiter.IsChecked = false;
-                mainwindow.audioLimiter.Text = string.Empty;
+                mainwindow.slAudioLimiter.Value = 1;
+                //mainwindow.tglAudioLimiter.IsChecked = false;
+                //mainwindow.audioLimiter.Text = string.Empty;
             }
 
             // -------------------------
@@ -750,8 +766,9 @@ namespace Axiom
                 mainwindow.cboSamplerate.SelectedItem = "48k";
                 mainwindow.cboBitDepth.SelectedItem = "auto";
                 mainwindow.volumeUpDown.Text = "120";
-                mainwindow.tglAudioLimiter.IsChecked = true;
-                mainwindow.audioLimiter.Text = "0.90";
+                mainwindow.slAudioLimiter.Value = 0.9;
+                //mainwindow.tglAudioLimiter.IsChecked = true;
+                //mainwindow.audioLimiter.Text = "0.90";
             }
         }
     }

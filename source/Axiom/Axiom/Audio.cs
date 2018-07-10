@@ -48,10 +48,6 @@ namespace Axiom
         public static string aVolume;
         public static string aLimiter;
 
-        // Filter Lists
-        public static List<string> AudioFilters = new List<string>(); // Filters to String Join
-        public static string aFilter;
-
         // Batch
         public static string aBitrateLimiter; // limits the bitrate value of webm and ogg
         public static string batchAudioAuto;
@@ -1428,7 +1424,7 @@ namespace Axiom
 
 
         /// <summary>
-        /// Volume (Method)
+        ///     Volume (Method)
         /// <summary>
         public static void Volume(MainWindow mainwindow)
         {
@@ -1454,7 +1450,7 @@ namespace Axiom
                     aVolume = "volume=" + volumeDecimal;
 
                     // Audio Filter Add
-                    AudioFilters.Add(aVolume);
+                    AudioFilters.aFiltersList.Add(aVolume);
                 }
             }
 
@@ -1473,133 +1469,62 @@ namespace Axiom
 
 
         /// <summary>
-        /// HardLimiter Filter (Method)
+        ///     HardLimiter Filter (Method)
         /// <summary>
         public static void HardLimiter(MainWindow mainwindow)
         {
-            // -------------------------
-            // On
-            // -------------------------
-            if (mainwindow.tglAudioLimiter.IsChecked == true) 
+            double value = mainwindow.slAudioLimiter.Value;
+
+            // If enabled and not default
+            if (mainwindow.slAudioLimiter.IsEnabled == true 
+                && value != 1)
             {
-                // Log Console Message /////////
-                Log.WriteAction = () =>
-                {
-                    Log.logParagraph.Inlines.Add(new LineBreak());
-                    Log.logParagraph.Inlines.Add(new Bold(new Run("Hard Limiter Toggle: ")) { Foreground = Log.ConsoleDefault });
-                    Log.logParagraph.Inlines.Add(new Run("On") { Foreground = Log.ConsoleDefault });
-                };
-                Log.LogActions.Add(Log.WriteAction);
+                aLimiter = "alimiter=level_in=1:level_out=1:limit=" + Convert.ToString(Math.Round(value, 2)) + ":attack=7:release=100:level=disabled";
 
-                aLimiter = "alimiter=level_in=1:level_out=1:limit=" + mainwindow.audioLimiter.Text + ":attack=7:release=100:level=disabled";
-
-                // Audio Filter Add
-                AudioFilters.Add(aLimiter);
+                // Add to Audio Filters
+                AudioFilters.aFiltersList.Add(aLimiter);
             }
 
-            // -------------------------
-            // Off
-            // -------------------------
-            else if (mainwindow.tglAudioLimiter.IsChecked == false)
-            {
-                // Log Console Message /////////
-                Log.WriteAction = () =>
-                {
-                    Log.logParagraph.Inlines.Add(new LineBreak());
-                    Log.logParagraph.Inlines.Add(new Bold(new Run("alimiter Toggle: ")) { Foreground = Log.ConsoleDefault });
-                    Log.logParagraph.Inlines.Add(new Run("Off") { Foreground = Log.ConsoleDefault });
-                };
-                Log.LogActions.Add(Log.WriteAction);
 
-                aLimiter = string.Empty;
-            }
+
+            //// -------------------------
+            //// On
+            //// -------------------------
+            //if (mainwindow.tglAudioLimiter.IsChecked == true) 
+            //{
+            //    // Log Console Message /////////
+            //    Log.WriteAction = () =>
+            //    {
+            //        Log.logParagraph.Inlines.Add(new LineBreak());
+            //        Log.logParagraph.Inlines.Add(new Bold(new Run("Hard Limiter Toggle: ")) { Foreground = Log.ConsoleDefault });
+            //        Log.logParagraph.Inlines.Add(new Run("On") { Foreground = Log.ConsoleDefault });
+            //    };
+            //    Log.LogActions.Add(Log.WriteAction);
+
+            //    aLimiter = "alimiter=level_in=1:level_out=1:limit=" + mainwindow.audioLimiter.Text + ":attack=7:release=100:level=disabled";
+
+            //    // Audio Filter Add
+            //    AudioFilters.Add(aLimiter);
+            //}
+
+            //// -------------------------
+            //// Off
+            //// -------------------------
+            //else if (mainwindow.tglAudioLimiter.IsChecked == false)
+            //{
+            //    // Log Console Message /////////
+            //    Log.WriteAction = () =>
+            //    {
+            //        Log.logParagraph.Inlines.Add(new LineBreak());
+            //        Log.logParagraph.Inlines.Add(new Bold(new Run("alimiter Toggle: ")) { Foreground = Log.ConsoleDefault });
+            //        Log.logParagraph.Inlines.Add(new Run("Off") { Foreground = Log.ConsoleDefault });
+            //    };
+            //    Log.LogActions.Add(Log.WriteAction);
+
+            //    aLimiter = string.Empty;
+            //}
         }
-
-
-        /// <summary>
-        /// Audio Filter Combine (Method)
-        /// <summary>
-        public static String AudioFilter(MainWindow mainwindow)
-        {
-            // Audio Bitrate None Check
-            // Audio Codec None
-            // Codec Copy Check
-            // Mute Check
-            // Stream None Check
-            // Media Type Check
-            if ((string)mainwindow.cboAudioQuality.SelectedItem != "None"
-                && (string)mainwindow.cboAudioCodec.SelectedItem != "None"
-                && (string)mainwindow.cboAudioCodec.SelectedItem != "Copy"
-                && (string)mainwindow.cboAudioQuality.SelectedItem != "Mute"
-                && (string)mainwindow.cboAudioStream.SelectedItem != "none"
-                && (string)mainwindow.cboMediaType.SelectedItem != "Image"
-                && (string)mainwindow.cboMediaType.SelectedItem != "Sequence")
-            {
-                // --------------------------------------------------
-                // Filters
-                // --------------------------------------------------
-                /// <summary>
-                ///    Volume
-                /// </summary> 
-                Audio.Volume(mainwindow);
-
-                /// <summary>
-                ///    ALimiter
-                /// </summary> 
-                Audio.HardLimiter(mainwindow);
-
-                // -------------------------
-                // Filter Combine
-                // -------------------------
-                if ((string)mainwindow.cboAudioCodec.SelectedItem != "None") // None Check
-                {
-                    // 1 Filter
-                    //
-                    if (AudioFilters.Count() == 1)
-                    {
-                        aFilter = "-af " + string.Join(", ", AudioFilters.Where(s => !string.IsNullOrEmpty(s)));
-                    }
-
-                    // Multiple Filters
-                    //
-                    else if (AudioFilters.Count() > 1)
-                    {
-                        aFilter = "-af \"" + string.Join(", ", AudioFilters.Where(s => !string.IsNullOrEmpty(s))) + "\"";
-                    }
-
-                    // Empty
-                    //
-                    else
-                    {
-                        aFilter = string.Empty;
-                    }
-                }
-                // Audio Codec None
-                else
-                {
-                    aFilter = string.Empty;
-
-                }
-            }
-
-            // -------------------------
-            // Filter Clear
-            // -------------------------
-            else
-            {
-                aFilter = string.Empty;
-
-                if (AudioFilters != null)
-                {
-                    AudioFilters.Clear();
-                    AudioFilters.TrimExcess();
-                }
-            }
-
-
-            // Return Value
-            return aFilter;
-        }
+        
 
     }
 }

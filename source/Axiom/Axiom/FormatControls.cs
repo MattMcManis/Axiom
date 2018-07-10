@@ -587,7 +587,7 @@ namespace Axiom
                 // -------------------------
                 // Video
                 // -------------------------
-                VideoControls.VideoCodec_ItemSource = new List<string>() { "mpeg2", "Copy" };
+                VideoControls.VideoCodec_ItemSource = new List<string>() { "MPEG-2", "Copy" };
 
                 // Populate ComboBox from ItemSource
                 mainwindow.cboVideoCodec.ItemsSource = VideoControls.VideoCodec_ItemSource;
@@ -611,7 +611,7 @@ namespace Axiom
                 // -------------------------
                 // Set the List Defaults
                 // -------------------------
-                mainwindow.cboVideoCodec.SelectedItem = "mpeg2";
+                mainwindow.cboVideoCodec.SelectedItem = "MPEG-2";
                 mainwindow.cboSubtitleCodec.SelectedItem = "None";
                 mainwindow.cboAudioCodec.SelectedItem = "None";
             }
@@ -624,7 +624,7 @@ namespace Axiom
                 // -------------------------
                 // Video
                 // -------------------------
-                VideoControls.VideoCodec_ItemSource = new List<string>() { "mpeg2", "mpeg4", "Copy" };
+                VideoControls.VideoCodec_ItemSource = new List<string>() { "MPEG-2", "MPEG-4", "Copy" };
 
                 // Populate ComboBox from ItemSource
                 mainwindow.cboVideoCodec.ItemsSource = VideoControls.VideoCodec_ItemSource;
@@ -648,7 +648,7 @@ namespace Axiom
                 // -------------------------
                 // Set the List Defaults
                 // -------------------------
-                mainwindow.cboVideoCodec.SelectedItem = "mpeg2";
+                mainwindow.cboVideoCodec.SelectedItem = "MPEG-2";
                 mainwindow.cboSubtitleCodec.SelectedItem = "SRT";
                 mainwindow.cboAudioCodec.SelectedItem = "AC3";
             }
@@ -661,7 +661,7 @@ namespace Axiom
                 // -------------------------
                 // Video
                 // -------------------------
-                VideoControls.VideoCodec_ItemSource = new List<string>() { "mpeg2", "mpeg4", "Copy" };
+                VideoControls.VideoCodec_ItemSource = new List<string>() { "MPEG-2", "MPEG-4", "Copy" };
 
                 // Populate ComboBox from ItemSource
                 mainwindow.cboVideoCodec.ItemsSource = VideoControls.VideoCodec_ItemSource;
@@ -685,7 +685,7 @@ namespace Axiom
                 // -------------------------
                 // Set the List Defaults
                 // -------------------------
-                mainwindow.cboVideoCodec.SelectedItem = "mpeg4";
+                mainwindow.cboVideoCodec.SelectedItem = "MPEG-4";
                 mainwindow.cboSubtitleCodec.SelectedItem = "SRT";
                 mainwindow.cboAudioCodec.SelectedItem = "LAME";
             }
@@ -1025,7 +1025,8 @@ namespace Axiom
                 mainwindow.volumeDownButton.IsEnabled = true;
 
                 // Limiter
-                mainwindow.tglAudioLimiter.IsEnabled = true;
+                //mainwindow.tglAudioLimiter.IsEnabled = true;
+                mainwindow.slAudioLimiter.IsEnabled = true;
 
                 // Audio Stream
                 mainwindow.cboAudioStream.IsEnabled = true;
@@ -1097,7 +1098,8 @@ namespace Axiom
                 mainwindow.volumeDownButton.IsEnabled = true;
 
                 // Limiter
-                mainwindow.tglAudioLimiter.IsEnabled = true;
+                //mainwindow.tglAudioLimiter.IsEnabled = true;
+                mainwindow.slAudioLimiter.IsEnabled = true;
 
             }
 
@@ -1164,9 +1166,11 @@ namespace Axiom
                 mainwindow.volumeDownButton.IsEnabled = false;
 
                 // Limiter
-                mainwindow.tglAudioLimiter.IsChecked = false;
-                mainwindow.tglAudioLimiter.IsEnabled = false;
-                mainwindow.audioLimiter.Text = string.Empty;
+                mainwindow.slAudioLimiter.IsEnabled = false;
+                mainwindow.slAudioLimiter.Value = 1;
+                //mainwindow.tglAudioLimiter.IsChecked = false;
+                //mainwindow.tglAudioLimiter.IsEnabled = false;
+                //mainwindow.audioLimiter.Text = string.Empty;
 
             }
 
@@ -1229,9 +1233,11 @@ namespace Axiom
                 mainwindow.volumeDownButton.IsEnabled = false;
 
                 // Limiter
-                mainwindow.tglAudioLimiter.IsChecked = false;
-                mainwindow.tglAudioLimiter.IsEnabled = false;
-                mainwindow.audioLimiter.Text = string.Empty;
+                mainwindow.slAudioLimiter.IsEnabled = false;
+                mainwindow.slAudioLimiter.Value = 1;
+                //mainwindow.tglAudioLimiter.IsChecked = false;
+                //mainwindow.tglAudioLimiter.IsEnabled = false;
+                //mainwindow.audioLimiter.Text = string.Empty;
             }
         }
 

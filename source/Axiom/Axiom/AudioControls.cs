@@ -1187,7 +1187,8 @@ namespace Axiom
                 if ((string)mainwindow.cboAudioQuality.SelectedItem == "Auto"
                     && (string)mainwindow.cboChannel.SelectedItem == "Source"
                     && (string)mainwindow.cboSamplerate.SelectedItem == "auto"
-                    && mainwindow.tglAudioLimiter.IsChecked == false
+                    //&& mainwindow.tglAudioLimiter.IsChecked == false
+                    && mainwindow.slAudioLimiter.Value == 1
                     && mainwindow.volumeUpDown.Text.ToString().Equals("100")
 
                     // Extension Match
@@ -1223,7 +1224,8 @@ namespace Axiom
                 // -------------------------
                 else if ((string)mainwindow.cboAudioQuality.SelectedItem == "Auto"
                     && (string)mainwindow.cboSamplerate.SelectedItem == "auto"
-                    && mainwindow.tglAudioLimiter.IsChecked == false
+                    //&& mainwindow.tglAudioLimiter.IsChecked == false
+                    && mainwindow.slAudioLimiter.Value == 1
                     && mainwindow.volumeUpDown.Text.ToString().Equals("100")
 
                     // Batch Extension Match

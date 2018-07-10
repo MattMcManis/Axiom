@@ -85,7 +85,7 @@ namespace Axiom
                     Audio.SampleRate(mainwindow),
                     Audio.BitDepth(mainwindow),
                     Audio.Channel(mainwindow),
-                    Audio.AudioFilter(mainwindow),
+                    AudioFilters.AudioFilter(mainwindow),
                     //Streams.AudioStreamMaps(mainwindow),
 
                     //Format.Cut(mainwindow),

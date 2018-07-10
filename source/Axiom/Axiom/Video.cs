@@ -213,12 +213,12 @@ namespace Axiom
                     vCodec = "-c:v libx265"; //does not use profile:v
                 }
                 // mpeg2
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "mpeg2")
+                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "MPEG-2")
                 {
                     vCodec = "-c:v mpeg2video";
                 }
                 // mpeg4
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "mpeg4")
+                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "MPEG-4")
                 {
                     vCodec = "-c:v mpeg4 -vtag xvid";
                 }
@@ -395,8 +395,8 @@ namespace Axiom
             else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264") { vBitMode = "-b:v"; }
             else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265") { vBitMode = "-b:v"; }
             else if ((string)mainwindow.cboVideoCodec.SelectedItem == "AV1") { vBitMode = "-b:v"; }
-            else if ((string)mainwindow.cboVideoCodec.SelectedItem == "mpeg2") { vBitMode = "-b:v"; }
-            else if ((string)mainwindow.cboVideoCodec.SelectedItem == "mpeg4") { vBitMode = "-b:v"; }
+            else if ((string)mainwindow.cboVideoCodec.SelectedItem == "MPEG-2") { vBitMode = "-b:v"; }
+            else if ((string)mainwindow.cboVideoCodec.SelectedItem == "MPEG-4") { vBitMode = "-b:v"; }
             else if ((string)mainwindow.cboVideoCodec.SelectedItem == "Theora") { vBitMode = "-q:v"; }
             else if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG") { vBitMode = "-q:v"; }
             else if ((string)mainwindow.cboVideoCodec.SelectedItem == "PNG") { vBitMode = string.Empty; }
@@ -408,8 +408,8 @@ namespace Axiom
             {
                 //if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8") { vBitMode = "-q:v"; }
                 //else if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9") { vBitMode = "-q:v"; }
-                if ((string)mainwindow.cboVideoCodec.SelectedItem == "mpeg2") { vBitMode = "-q:v"; }
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "mpeg4") { vBitMode = "-q:v"; }
+                if ((string)mainwindow.cboVideoCodec.SelectedItem == "MPEG-2") { vBitMode = "-q:v"; }
+                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "MPEG-4") { vBitMode = "-q:v"; }
                 else if ((string)mainwindow.cboVideoCodec.SelectedItem == "Theora") { vBitMode = "-q:v"; }
             }
 
@@ -426,7 +426,7 @@ namespace Axiom
         //    // MPEG-4
         //    if (mainwindow.tglVideoVBR.IsChecked == true)
         //    {
-        //        if ((string)mainwindow.cboVideoCodec.SelectedItem == "mpeg4")
+        //        if ((string)mainwindow.cboVideoCodec.SelectedItem == "MPEG-4")
         //        {
 
         //        }
@@ -707,14 +707,14 @@ namespace Axiom
                                     {
                                         crf = "-crf 18";
                                     }
-                                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "mpeg2")
+                                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "MPEG-2")
                                     {
                                         //vBitMode = "-b:v";
                                         crf = "-b:v 5M";
                                         vMaxrate = "9.8M";
                                         vBufsize = "9.8M";
                                     }
-                                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "mpeg4")
+                                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "MPEG-4")
                                     {
                                         crf = "-b:v 5M";
                                         vMaxrate = "5M";
@@ -753,13 +753,13 @@ namespace Axiom
                                     {
                                         vBitrate = "3M";
                                     }
-                                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "mpeg2")
+                                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "MPEG-2")
                                     {
                                         vBitrate = "3M";
                                         vMaxrate = "9.8M";
                                         vBufsize = "9.8M";
                                     }
-                                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "mpeg4")
+                                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "MPEG-4")
                                     {
                                         vBitrate = "3M";
                                         vMaxrate = "3M";
@@ -818,7 +818,7 @@ namespace Axiom
                                 }
 
                                 // MPEG-2
-                                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "mpeg2")
+                                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "MPEG-2")
                                 {
                                     // CBR
                                     if (mainwindow.tglVideoVBR.IsChecked == false)
@@ -837,7 +837,7 @@ namespace Axiom
                                 }
 
                                 // MPEG-4
-                                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "mpeg4")
+                                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "MPEG-4")
                                 {
                                     // CBR
                                     if (mainwindow.tglVideoVBR.IsChecked == false)
@@ -1010,7 +1010,7 @@ namespace Axiom
                     // -------------------------
                     // mpeg2
                     // -------------------------
-                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "mpeg2")
+                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "MPEG-2")
                     {
                         // CBR
                         if (mainwindow.tglVideoVBR.IsChecked == false)
@@ -1035,7 +1035,7 @@ namespace Axiom
                     // -------------------------
                     // mpeg4
                     // -------------------------
-                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "mpeg4")
+                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "MPEG-4")
                     {
                         // CBR
                         if (mainwindow.tglVideoVBR.IsChecked == false)
@@ -1204,7 +1204,7 @@ namespace Axiom
                     // -------------------------
                     // mpeg2
                     // -------------------------
-                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "mpeg2")
+                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "MPEG-2")
                     {
                         // CBR
                         if (mainwindow.tglVideoVBR.IsChecked == false)
@@ -1227,7 +1227,7 @@ namespace Axiom
                     // -------------------------
                     // mpeg4
                     // -------------------------
-                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "mpeg4")
+                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "MPEG-4")
                     {
                         // CBR
                         if (mainwindow.tglVideoVBR.IsChecked == false)
@@ -1415,7 +1415,7 @@ namespace Axiom
                     // -------------------------
                     // mpeg2
                     // -------------------------
-                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "mpeg2")
+                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "MPEG-2")
                     {
                         // CBR
                         if (mainwindow.tglVideoVBR.IsChecked == false)
@@ -1438,7 +1438,7 @@ namespace Axiom
                     // -------------------------
                     // mpeg4
                     // -------------------------
-                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "mpeg4")
+                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "MPEG-4")
                     {
                         // CBR
                         if (mainwindow.tglVideoVBR.IsChecked == false)
@@ -1627,7 +1627,7 @@ namespace Axiom
                     // -------------------------
                     // mpeg2
                     // -------------------------
-                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "mpeg2")
+                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "MPEG-2")
                     {
                         // CBR
                         if (mainwindow.tglVideoVBR.IsChecked == false)
@@ -1650,7 +1650,7 @@ namespace Axiom
                     // -------------------------
                     // mpeg4
                     // -------------------------
-                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "mpeg4")
+                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "MPEG-4")
                     {
                         // CBR
                         if (mainwindow.tglVideoVBR.IsChecked == false)
@@ -1838,7 +1838,7 @@ namespace Axiom
                     // -------------------------
                     // mpeg2
                     // -------------------------
-                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "mpeg2")
+                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "MPEG-2")
                     {
                         // CBR
                         if (mainwindow.tglVideoVBR.IsChecked == false)
@@ -1861,7 +1861,7 @@ namespace Axiom
                     // -------------------------
                     // mpeg4
                     // -------------------------
-                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "mpeg4")
+                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "MPEG-4")
                     {
                         // CBR
                         if (mainwindow.tglVideoVBR.IsChecked == false)
@@ -2049,7 +2049,7 @@ namespace Axiom
                     // -------------------------
                     // mpeg2
                     // -------------------------
-                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "mpeg2")
+                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "MPEG-2")
                     {
                         // CBR
                         if (mainwindow.tglVideoVBR.IsChecked == false)
@@ -2072,7 +2072,7 @@ namespace Axiom
                     // -------------------------
                     // mpeg4
                     // -------------------------
-                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "mpeg4")
+                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "MPEG-4")
                     {
                         // CBR
                         if (mainwindow.tglVideoVBR.IsChecked == false)
@@ -2516,8 +2516,8 @@ namespace Axiom
             }
             else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264"
                 || (string)mainwindow.cboVideoCodec.SelectedItem == "x265"
-                || (string)mainwindow.cboVideoCodec.SelectedItem == "mpeg2"
-                || (string)mainwindow.cboVideoCodec.SelectedItem == "mpeg4")
+                || (string)mainwindow.cboVideoCodec.SelectedItem == "MPEG-2"
+                || (string)mainwindow.cboVideoCodec.SelectedItem == "MPEG-4")
             {
                 width = "-2";
             }
@@ -2539,8 +2539,8 @@ namespace Axiom
             }
             else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264"
                 || (string)mainwindow.cboVideoCodec.SelectedItem == "x265"
-                || (string)mainwindow.cboVideoCodec.SelectedItem == "mpeg2"
-                || (string)mainwindow.cboVideoCodec.SelectedItem == "mpeg4")
+                || (string)mainwindow.cboVideoCodec.SelectedItem == "MPEG-2"
+                || (string)mainwindow.cboVideoCodec.SelectedItem == "MPEG-4")
             {
                 height = "-2";
             }
@@ -2560,8 +2560,8 @@ namespace Axiom
                 // MP4/MKV Width/Height Fix
                 if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264" 
                     || (string)mainwindow.cboVideoCodec.SelectedItem == "x265"
-                    || (string)mainwindow.cboVideoCodec.SelectedItem == "mpeg2"
-                    || (string)mainwindow.cboVideoCodec.SelectedItem == "mpeg4")
+                    || (string)mainwindow.cboVideoCodec.SelectedItem == "MPEG-2"
+                    || (string)mainwindow.cboVideoCodec.SelectedItem == "MPEG-4")
                 {
                     width = "trunc(iw/2)*2";
                     height = "trunc(ih/2)*2";
@@ -2753,8 +2753,8 @@ namespace Axiom
                     //
                     if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264" 
                         || (string)mainwindow.cboVideoCodec.SelectedItem == "x265"
-                        || (string)mainwindow.cboVideoCodec.SelectedItem == "mpeg2"
-                        || (string)mainwindow.cboVideoCodec.SelectedItem == "mpeg4")
+                        || (string)mainwindow.cboVideoCodec.SelectedItem == "MPEG-2"
+                        || (string)mainwindow.cboVideoCodec.SelectedItem == "MPEG-4")
                     {
                         // -------------------------
                         // Width = Custom value
@@ -3050,8 +3050,8 @@ namespace Axiom
             // CropClearButton is used as an Identifier, Divisible Crop does not leave "~"
             if ((string)mainwindow.cboVideoCodec.SelectedItem != "x264"
                 && (string)mainwindow.cboVideoCodec.SelectedItem != "x265"
-                && (string)mainwindow.cboVideoCodec.SelectedItem != "mpeg2"
-                && (string)mainwindow.cboVideoCodec.SelectedItem != "mpeg4"
+                && (string)mainwindow.cboVideoCodec.SelectedItem != "MPEG-2"
+                && (string)mainwindow.cboVideoCodec.SelectedItem != "MPEG-4"
                 && mainwindow.buttonCropClearTextBox.Text == "Clear"
                 //&& string.IsNullOrWhiteSpace(mainwindow.buttonCropClearTextBox.Text)
                 )
@@ -3312,7 +3312,7 @@ namespace Axiom
                 // -------------------------
                 // MPEG-2
                 // -------------------------             
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "mpeg2")
+                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "MPEG-2")
                 {
                     // Does not use speed presets
                     speed = string.Empty;
@@ -3321,7 +3321,7 @@ namespace Axiom
                 // -------------------------
                 // MPEG-4
                 // -------------------------             
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "mpeg4")
+                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "MPEG-4")
                 {
                     // Does not use speed presets
                     speed = string.Empty;

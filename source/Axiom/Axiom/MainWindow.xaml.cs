@@ -539,12 +539,6 @@ namespace Axiom
             dispatcherTimerUp.Tick += new EventHandler(dispatcherTimerUp_Tick);
             dispatcherTimerDown.Tick += new EventHandler(dispatcherTimerDown_Tick);
 
-
-            // -------------------------
-            // Check for Available Updates
-            // -------------------------
-            UpdateAvailableCheck();
-
         } // End MainWindow
 
         
@@ -597,7 +591,7 @@ namespace Axiom
             cboBitDepth.SelectedIndex = 0;
             cboBitDepth.IsEnabled = false;
 
-            // Filters
+            // Video Filters
             cboFilterVideo_Deband.SelectedIndex = 0;
             cboFilterVideo_Deshake.SelectedIndex = 0;
             cboFilterVideo_Deflicker.SelectedIndex = 0;
@@ -606,6 +600,11 @@ namespace Axiom
             cboFilterVideo_Denoise.SelectedIndex = 0;
             cboFilterVideo_SelectiveColor.SelectedIndex = 0;
             cboFilterVideo_SelectiveColor_Correction_Method.SelectedIndex = 0;
+
+            // Audio Filters
+            cboFilterAudio_Lowpass.SelectedIndex = 0;
+            cboFilterAudio_Highpass.SelectedIndex = 0;
+            cboFilterAudio_Headphones.SelectedIndex = 0;
 
             // Preset
             cboPreset.SelectedIndex = 0;
@@ -633,6 +632,11 @@ namespace Axiom
                 cboSubtitlesStream.SelectedItem = "none";
                 cboAudioStream.SelectedItem = "1";
             }
+
+            // -------------------------
+            // Check for Available Updates
+            // -------------------------
+            UpdateAvailableCheck();
         }
 
         /// <summary>
@@ -771,14 +775,14 @@ namespace Axiom
             Audio.aSamplerate = string.Empty;
             Audio.aBitDepth = string.Empty;
             Audio.aBitrateLimiter = string.Empty;
-            Audio.aFilter = string.Empty;
+            AudioFilters.aFilter = string.Empty;
             Audio.aVolume = string.Empty;
             Audio.aLimiter = string.Empty;
 
-            if (Audio.AudioFilters != null)
+            if (AudioFilters.aFiltersList != null)
             {
-                Audio.AudioFilters.Clear();
-                Audio.AudioFilters.TrimExcess();
+                AudioFilters.aFiltersList.Clear();
+                AudioFilters.aFiltersList.TrimExcess();
             }
 
             // Batch
@@ -1012,6 +1016,40 @@ namespace Axiom
 
         //    // Position with Show();
         //}
+
+
+        /// <summary>
+        ///     Normalize Value (Method)
+        /// <summary>
+        public static double NormalizeValue(double val, double valmin, double valmax, double min, double max, double midpoint)
+        {
+            double mid = (valmin + valmax) / 2.0;
+            if (val < mid)
+            {
+                return (val - valmin) / (mid - valmin) * (midpoint - min) + min;
+            }
+            else
+            {
+                return (val - mid) / (valmax - mid) * (max - midpoint) + midpoint;
+            }
+        }
+        //public static double NormalizeValue(double val, double valmin, double valmax, double min, double max, double ffdefault)
+        //{
+        //    // (((sliderValue - sliderValueMin) / (sliderValueMax - sliderValueMin)) * (NormalizeMax - NormalizeMin)) + NormalizeMin
+
+        //    return (((val - valmin) / (valmax - valmin)) * (max - min)) + min;
+        //}
+
+
+        /// <summary>
+        ///     Limit to Range (Method)
+        /// <summary>
+        public static double LimitToRange(double value, double inclusiveMinimum, double inclusiveMaximum)
+        {
+            if (value < inclusiveMinimum) { return inclusiveMinimum; }
+            if (value > inclusiveMaximum) { return inclusiveMaximum; }
+            return value;
+        }
 
 
         /// <summary>
@@ -2961,6 +2999,782 @@ namespace Axiom
             }
         }
 
+        /// <summary>
+        ///     Filter Video - Selective Color Sliders
+        /// </summary>
+        // Reds Cyan
+        private void slFiltersVideo_SelectiveColor_Reds_Cyan_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            // Reset to default
+            slFiltersVideo_SelectiveColor_Reds_Cyan.Value = 0;
+
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+        private void slFiltersVideo_SelectiveColor_Reds_Cyan_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+        private void tbxFiltersVideo_SelectiveColor_Reds_Cyan_PreviewKeyUp(object sender, KeyEventArgs e)
+        {
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+        // Reds Magenta
+        private void slFiltersVideo_SelectiveColor_Reds_Magenta_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            // Reset to default
+            slFiltersVideo_SelectiveColor_Reds_Magenta.Value = 0;
+
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+        private void slFiltersVideo_SelectiveColor_Reds_Magenta_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+        // Regs Yellow
+        private void slFiltersVideo_SelectiveColor_Reds_Yellow_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            // Reset to default
+            slFiltersVideo_SelectiveColor_Reds_Yellow.Value = 0;
+
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+        private void slFiltersVideo_SelectiveColor_Reds_Yellow_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+
+        // Yellows Cyan
+        private void slFiltersVideo_SelectiveColor_Yellows_Cyan_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            // Reset to default
+            slFiltersVideo_SelectiveColor_Yellows_Cyan.Value = 0;
+
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+        private void slFiltersVideo_SelectiveColor_Yellows_Cyan_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+
+        private void tbxFiltersVideo_SelectiveColor_Yellows_Cyan_PreviewKeyUp(object sender, KeyEventArgs e)
+        {
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+        // Yellows Magenta
+        private void slFiltersVideo_SelectiveColor_Yellows_Magenta_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            // Reset to default
+            slFiltersVideo_SelectiveColor_Yellows_Magenta.Value = 0;
+
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+        private void slFiltersVideo_SelectiveColor_Yellows_Magenta_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+        private void tbxFiltersVideo_SelectiveColor_Yellows_Magenta_PreviewKeyUp(object sender, KeyEventArgs e)
+        {
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+
+        // Yellows Yellow
+        private void slFiltersVideo_SelectiveColor_Yellows_Yellow_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            // Reset to default
+            slFiltersVideo_SelectiveColor_Yellows_Yellow.Value = 0;
+
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+        private void slFiltersVideo_SelectiveColor_Yellows_Yellow_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+        private void tbxFiltersVideo_SelectiveColor_Yellows_Yellow_PreviewKeyUp(object sender, KeyEventArgs e)
+        {
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+
+        // Greens Cyan
+        private void slFiltersVideo_SelectiveColor_Greens_Cyan_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            // Reset to default
+            slFiltersVideo_SelectiveColor_Greens_Cyan.Value = 0;
+
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+        private void slFiltersVideo_SelectiveColor_Greens_Cyan_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+        private void tbxFiltersVideo_SelectiveColor_Greens_Cyan_PreviewKeyUp(object sender, KeyEventArgs e)
+        {
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+        // Greens Magenta
+        private void slFiltersVideo_SelectiveColor_Greens_Magenta_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            // Reset to default
+            slFiltersVideo_SelectiveColor_Greens_Magenta.Value = 0;
+
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+        private void slFiltersVideo_SelectiveColor_Greens_Magenta_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+        private void tbxFiltersVideo_SelectiveColor_Greens_Magenta_PreviewKeyUp(object sender, KeyEventArgs e)
+        {
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+        // Greens Yellow
+        private void slFiltersVideo_SelectiveColor_Greens_Yellow_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            // Reset to default
+            slFiltersVideo_SelectiveColor_Greens_Yellow.Value = 0;
+
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+        private void slFiltersVideo_SelectiveColor_Greens_Yellow_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+        private void tbxFiltersVideo_SelectiveColor_Greens_Yellow_PreviewKeyUp(object sender, KeyEventArgs e)
+        {
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+
+        // Cyans Cyan
+        private void slFiltersVideo_SelectiveColor_Cyans_Cyan_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            // Reset to default
+            slFiltersVideo_SelectiveColor_Cyans_Cyan.Value = 0;
+
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+        private void slFiltersVideo_SelectiveColor_Cyans_Cyan_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+        private void tbxFiltersVideo_SelectiveColor_Cyans_Cyan_PreviewKeyUp(object sender, KeyEventArgs e)
+        {
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+
+        // Cyans Magenta
+        private void slFiltersVideo_SelectiveColor_Cyans_Magenta_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            // Reset to default
+            slFiltersVideo_SelectiveColor_Cyans_Magenta.Value = 0;
+
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+        private void slFiltersVideo_SelectiveColor_Cyans_Magenta_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+        private void tbxFiltersVideo_SelectiveColor_Cyans_Magenta_PreviewKeyUp(object sender, KeyEventArgs e)
+        {
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+        // Cyans Yellow
+        private void slFiltersVideo_SelectiveColor_Cyans_Yellow_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            // Reset to default
+            slFiltersVideo_SelectiveColor_Cyans_Yellow.Value = 0;
+
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+        private void slFiltersVideo_SelectiveColor_Cyans_Yellow_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+        private void tbxFiltersVideo_SelectiveColor_Cyans_Yellow_PreviewKeyUp(object sender, KeyEventArgs e)
+        {
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+
+        // Blues Cyan
+        private void slFiltersVideo_SelectiveColor_Blues_Cyan_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            // Reset to default
+            slFiltersVideo_SelectiveColor_Blues_Cyan.Value = 0;
+
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+        private void slFiltersVideo_SelectiveColor_Blues_Cyan_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+        private void tbxFiltersVideo_SelectiveColor_Blues_Cyan_PreviewKeyUp(object sender, KeyEventArgs e)
+        {
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+        // Blues Magneta
+        private void slFiltersVideo_SelectiveColor_Blues_Magenta_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            // Reset to default
+            slFiltersVideo_SelectiveColor_Blues_Magenta.Value = 0;
+
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+        private void slFiltersVideo_SelectiveColor_Blues_Magenta_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+        private void tbxFiltersVideo_SelectiveColor_Blues_Magenta_PreviewKeyUp(object sender, KeyEventArgs e)
+        {
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+        // Blues Yellow
+        private void slFiltersVideo_SelectiveColor_Blues_Yellow_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            // Reset to default
+            slFiltersVideo_SelectiveColor_Blues_Yellow.Value = 0;
+
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+        private void slFiltersVideo_SelectiveColor_Blues_Yellow_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+        private void tbxFiltersVideo_SelectiveColor_Blues_Yellow_PreviewKeyUp(object sender, KeyEventArgs e)
+        {
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+
+        // Magentas Cyan
+        private void slFiltersVideo_SelectiveColor_Magentas_Cyan_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            // Reset to default
+            slFiltersVideo_SelectiveColor_Magentas_Cyan.Value = 0;
+
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+        private void slFiltersVideo_SelectiveColor_Magentas_Cyan_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+        private void tbxFiltersVideo_SelectiveColor_Magentas_Cyan_PreviewKeyUp(object sender, KeyEventArgs e)
+        {
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+        // Magentas Magenta
+        private void slFiltersVideo_SelectiveColor_Magentas_Magenta_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            // Reset to default
+            slFiltersVideo_SelectiveColor_Magentas_Magenta.Value = 0;
+
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+        private void slFiltersVideo_SelectiveColor_Magentas_Magenta_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+
+        private void tbxFiltersVideo_SelectiveColor_Magentas_Magenta_PreviewKeyUp(object sender, KeyEventArgs e)
+        {
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+        // Magentas Yellow
+        private void slFiltersVideo_SelectiveColor_Magentas_Yellow_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            // Reset to default
+            slFiltersVideo_SelectiveColor_Magentas_Yellow.Value = 0;
+
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+        private void slFiltersVideo_SelectiveColor_Magentas_Yellow_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+        private void tbxFiltersVideo_SelectiveColor_Magentas_Yellow_PreviewKeyUp(object sender, KeyEventArgs e)
+        {
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+
+        // Whites Cyan
+        private void slFiltersVideo_SelectiveColor_Whites_Cyan_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            // Reset to default
+            slFiltersVideo_SelectiveColor_Whites_Cyan.Value = 0;
+
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+        private void slFiltersVideo_SelectiveColor_Whites_Cyan_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+        private void tbxFiltersVideo_SelectiveColor_Whites_Cyan_PreviewKeyUp(object sender, KeyEventArgs e)
+        {
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+        // Whites Magenta
+        private void slFiltersVideo_SelectiveColor_Whites_Magenta_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            // Reset to default
+            slFiltersVideo_SelectiveColor_Whites_Magenta.Value = 0;
+
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+        private void slFiltersVideo_SelectiveColor_Whites_Magenta_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+        private void tbxFiltersVideo_SelectiveColor_Whites_Magenta_PreviewKeyUp(object sender, KeyEventArgs e)
+        {
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+        // Whites Yellow
+        private void slFiltersVideo_SelectiveColor_Whites_Yellow_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            // Reset to default
+            slFiltersVideo_SelectiveColor_Whites_Yellow.Value = 0;
+
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+        private void slFiltersVideo_SelectiveColor_Whites_Yellow_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+        private void tbxFiltersVideo_SelectiveColor_Whites_Yellow_PreviewKeyUp(object sender, KeyEventArgs e)
+        {
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+
+        // Neutrals Cyan
+        private void slFiltersVideo_SelectiveColor_Neutrals_Cyan_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            // Reset to default
+            slFiltersVideo_SelectiveColor_Neutrals_Cyan.Value = 0;
+
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+        private void slFiltersVideo_SelectiveColor_Neutrals_Cyan_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+        private void tbxFiltersVideo_SelectiveColor_Neutrals_Cyan_PreviewKeyUp(object sender, KeyEventArgs e)
+        {
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+        // Neutrals Magenta
+        private void slFiltersVideo_SelectiveColor_Neutrals_Magenta_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            // Reset to default
+            slFiltersVideo_SelectiveColor_Neutrals_Magenta.Value = 0;
+
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+        private void slFiltersVideo_SelectiveColor_Neutrals_Magenta_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+        private void tbxFiltersVideo_SelectiveColor_Neutrals_Magenta_PreviewKeyUp(object sender, KeyEventArgs e)
+        {
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+        // Neutrals Yellow
+        private void slFiltersVideo_SelectiveColor_Neutrals_Yellow_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            // Reset to default
+            slFiltersVideo_SelectiveColor_Neutrals_Yellow.Value = 0;
+
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+        private void slFiltersVideo_SelectiveColor_Neutrals_Yellow_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+        private void tbxFiltersVideo_SelectiveColor_Neutrals_Yellow_PreviewKeyUp(object sender, KeyEventArgs e)
+        {
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+
+        // Blacks Cyan
+        private void slFiltersVideo_SelectiveColor_Blacks_Cyan_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            // Reset to default
+            slFiltersVideo_SelectiveColor_Blacks_Cyan.Value = 0;
+
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+        private void slFiltersVideo_SelectiveColor_Blacks_Cyan_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+        private void tbxFiltersVideo_SelectiveColor_Blacks_Cyan_PreviewKeyUp(object sender, KeyEventArgs e)
+        {
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+        // Blacks Magenta
+        private void slFiltersVideo_SelectiveColor_Blacks_Magenta_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            // Reset to default
+            slFiltersVideo_SelectiveColor_Blacks_Magenta.Value = 0;
+
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+        private void slFiltersVideo_SelectiveColor_Blacks_Magenta_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+        private void tbxFiltersVideo_SelectiveColor_Blacks_Magenta_PreviewKeyUp(object sender, KeyEventArgs e)
+        {
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+        // Blacks Yellow
+        private void slFiltersVideo_SelectiveColor_Blacks_Yellow_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            // Reset to default
+            slFiltersVideo_SelectiveColor_Blacks_Yellow.Value = 0;
+
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+        private void slFiltersVideo_SelectiveColor_Blacks_Yellow_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+        private void tbxFiltersVideo_SelectiveColor_Blacks_Yellow_PreviewKeyUp(object sender, KeyEventArgs e)
+        {
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+
+
+        /// <summary>
+        ///     Filter Video - Selective Color Reset
+        /// </summary>
+        private void btnFilterVideo_SelectiveColorReset_Click(object sender, RoutedEventArgs e)
+        {
+            // Reset to default
+
+            // Reds Cyan
+            slFiltersVideo_SelectiveColor_Reds_Cyan.Value = 0;
+            // Reds Magenta
+            slFiltersVideo_SelectiveColor_Reds_Magenta.Value = 0;
+            // Regs Yellow
+            slFiltersVideo_SelectiveColor_Reds_Yellow.Value = 0;
+
+            // Yellows Cyan
+            slFiltersVideo_SelectiveColor_Yellows_Cyan.Value = 0;
+            // Yellows Magenta
+            slFiltersVideo_SelectiveColor_Yellows_Magenta.Value = 0;
+            // Yellows Yellow
+            slFiltersVideo_SelectiveColor_Yellows_Yellow.Value = 0;
+
+            // Greens Cyan
+            slFiltersVideo_SelectiveColor_Greens_Cyan.Value = 0;
+            // Greens Magenta
+            slFiltersVideo_SelectiveColor_Greens_Magenta.Value = 0;
+            // Greens Yellow
+            slFiltersVideo_SelectiveColor_Greens_Yellow.Value = 0;
+
+            // Cyans Cyan
+            slFiltersVideo_SelectiveColor_Cyans_Cyan.Value = 0;
+            // Cyans Magenta
+            slFiltersVideo_SelectiveColor_Cyans_Magenta.Value = 0;
+            // Cyans Yellow
+            slFiltersVideo_SelectiveColor_Cyans_Yellow.Value = 0;
+
+            // Blues Cyan
+            slFiltersVideo_SelectiveColor_Blues_Cyan.Value = 0;
+            // Blues Magneta
+            slFiltersVideo_SelectiveColor_Blues_Magenta.Value = 0;
+            // Blues Yellow
+            slFiltersVideo_SelectiveColor_Blues_Yellow.Value = 0;
+
+            // Magentas Cyan
+            slFiltersVideo_SelectiveColor_Magentas_Cyan.Value = 0;
+            // Magentas Magenta
+            slFiltersVideo_SelectiveColor_Magentas_Magenta.Value = 0;
+            // Magentas Yellow
+            slFiltersVideo_SelectiveColor_Magentas_Yellow.Value = 0;
+
+            // Whites Cyan
+            slFiltersVideo_SelectiveColor_Whites_Cyan.Value = 0;
+            // Whites Magenta
+            slFiltersVideo_SelectiveColor_Whites_Magenta.Value = 0;
+            // Whites Yellow
+            slFiltersVideo_SelectiveColor_Whites_Yellow.Value = 0;
+
+            // Neutrals Cyan
+            slFiltersVideo_SelectiveColor_Neutrals_Cyan.Value = 0;
+            // Neutrals Magenta
+            slFiltersVideo_SelectiveColor_Neutrals_Magenta.Value = 0;
+            // Neutrals Yellow
+            slFiltersVideo_SelectiveColor_Neutrals_Yellow.Value = 0;
+
+            // Blacks Cyan
+            slFiltersVideo_SelectiveColor_Blacks_Cyan.Value = 0;
+            // Blacks Magenta
+            slFiltersVideo_SelectiveColor_Blacks_Magenta.Value = 0;
+            // Blacks Yellow
+            slFiltersVideo_SelectiveColor_Blacks_Yellow.Value = 0;
+
+
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+
+
+        /// <summary>
+        ///     Filter Video - EQ Sliders
+        /// </summary>
+        // Brightness
+        private void slFiltersVideo_EQ_Brightness_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            // Reset to default
+            slFiltersVideo_EQ_Brightness.Value = 0;
+
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+        private void slFiltersVideo_EQ_Brightness_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+        private void tbxFiltersVideo_EQ_Brightness_PreviewKeyUp(object sender, KeyEventArgs e)
+        {
+            // Reset Empty to 0
+            if (string.IsNullOrWhiteSpace(tbxFiltersVideo_EQ_Brightness.Text))
+            {
+                tbxFiltersVideo_EQ_Brightness.Text = "0";
+            }
+
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+
+        // Contrast
+        private void slFiltersVideo_EQ_Contrast_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            // Reset to default
+            slFiltersVideo_EQ_Contrast.Value = 0;
+
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+        private void slFiltersVideo_EQ_Contrast_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+        private void tbxFiltersVideo_EQ_Contrast_PreviewKeyUp(object sender, KeyEventArgs e)
+        {
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+
+        // Saturation
+        private void slFiltersVideo_EQ_Saturation_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            // Reset to default
+            slFiltersVideo_EQ_Saturation.Value = 0;
+
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+        private void slFiltersVideo_EQ_Saturation_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+        private void tbxFiltersVideo_EQ_Saturation_PreviewKeyUp(object sender, KeyEventArgs e)
+        {
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+
+        // Gamma
+        private void slFiltersVideo_EQ_Gamma_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            // Reset to default
+            slFiltersVideo_EQ_Gamma.Value = 0;
+
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+        private void slFiltersVideo_EQ_Gamma_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+        private void tbxFiltersVideo_EQ_Gamma_PreviewKeyUp(object sender, KeyEventArgs e)
+        {
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+
+        // Reset
+        private void btnFilterVideo_EQ_Reset_Click(object sender, RoutedEventArgs e)
+        {
+            // Reset to default
+
+            // Brightness
+            slFiltersVideo_EQ_Brightness.Value = 0;
+            // Contrast
+            slFiltersVideo_EQ_Contrast.Value = 0;
+            // Saturation
+            slFiltersVideo_EQ_Saturation.Value = 0;
+            // Gamma
+            slFiltersVideo_EQ_Gamma.Value = 0;
+
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+
+
+
+        /// <summary>
+        ///     Filter Video - Deband
+        /// </summary>
+        private void cboFilterVideo_Deband_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+
+        /// <summary>
+        ///     Filter Video - Deshake
+        /// </summary>
+        private void cboFilterVideo_Deshake_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+
+        /// <summary>
+        ///     Filter Video - Deflicker
+        /// </summary>
+        private void cboFilterVideo_Deflicker_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+
+        /// <summary>
+        ///     Filter Video - Dejudder
+        /// </summary>
+        private void cboFilterVideo_Dejudder_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+
+        /// <summary>
+        ///     Filter Video - Denoise
+        /// </summary>
+        private void cboFilterVideo_Denoise_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+
+
+
+        /// <summary>
+        ///     Scaling Video
+        /// </summary>
+        private void cboScaling_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+
+        /// <summary>
+        ///     Pixel Format
+        /// </summary>
+        private void cboPixelFormat_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            VideoControls.AutoCopyVideoCodec(this);
+        }
+
+
+
+        /// <summary>
+        ///     Audio Limiter
+        /// </summary>
+        private void slAudioLimiter_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            // Reset to default
+            slAudioLimiter.Value = 1;
+
+            AudioControls.AutoCopyAudioCodec(this);
+        }
+
+        private void slAudioLimiter_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            AudioControls.AutoCopyAudioCodec(this);
+        }
+
+        private void tbxAudioLimiter_PreviewKeyUp(object sender, KeyEventArgs e)
+        {
+            AudioControls.AutoCopyAudioCodec(this);
+        }
+
+        /// <summary>
+        ///     Filter Audio - Remove Click
+        /// </summary>
+        //private void slFilterAudio_RemoveClick_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        //{
+        //    // Reset to default
+        //    slFilterAudio_RemoveClick.Value = 0;
+
+        //    AudioControls.AutoCopyAudioCodec(this);
+        //}
+
+        //private void slFilterAudio_RemoveClick_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        //{
+        //    AudioControls.AutoCopyAudioCodec(this);
+        //}
+
+        //private void tbxFilterAudio_RemoveClick_PreviewKeyUp(object sender, KeyEventArgs e)
+        //{
+        //    AudioControls.AutoCopyAudioCodec(this);
+        //}
+
+
+        /// <summary>
+        ///     Filter Audio - Contrast
+        /// </summary>
+        private void slFilterAudio_Contrast_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            // Reset to default
+            slFilterAudio_Contrast.Value = 0;
+
+            AudioControls.AutoCopyAudioCodec(this);
+        }
+
+        private void slFilterAudio_Contrast_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            AudioControls.AutoCopyAudioCodec(this);
+        }
+        private void tbxFilterAudio_Contrast_PreviewKeyUp(object sender, KeyEventArgs e)
+        {
+            AudioControls.AutoCopyAudioCodec(this);
+        }
+
+        /// <summary>
+        ///     Filter Audio - Extra Stereo
+        /// </summary>
+        private void slFilterAudio_ExtraStereo_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            // Reset to default
+            slFilterAudio_ExtraStereo.Value = 0;
+
+            AudioControls.AutoCopyAudioCodec(this);
+        }
+
+        private void slFilterAudio_ExtraStereo_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            AudioControls.AutoCopyAudioCodec(this);
+        }
+        private void tbxFilterAudio_ExtraStereo_PreviewKeyUp(object sender, KeyEventArgs e)
+        {
+            AudioControls.AutoCopyAudioCodec(this);
+        }
+
+        /// <summary>
+        ///     Filter Audio - Tempo
+        /// </summary>
+        private void slFilterAudio_Tempo_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            // Reset to default
+            slFilterAudio_Tempo.Value = 100;
+
+            AudioControls.AutoCopyAudioCodec(this);
+        }
+
+        private void slFilterAudio_Tempo_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            AudioControls.AutoCopyAudioCodec(this);
+        }
+
+        private void tbxFilterAudio_Tempo_PreviewKeyUp(object sender, KeyEventArgs e)
+        {
+            AudioControls.AutoCopyAudioCodec(this);
+        }
+
 
         /// <summary>
         ///    Script Button
@@ -3900,8 +4714,8 @@ namespace Axiom
             // -------------------------
             // MPEG-4 VBR can only use 1 Pass
             // -------------------------
-            if ((string)cboVideoCodec.SelectedItem == "mpeg2"
-                || (string)cboVideoCodec.SelectedItem == "mpeg4")
+            if ((string)cboVideoCodec.SelectedItem == "MPEG-2"
+                || (string)cboVideoCodec.SelectedItem == "MPEG-4")
             {
                 // Change ItemSource
                 VideoControls.Pass_ItemSource = new List<string>()
@@ -3931,8 +4745,8 @@ namespace Axiom
             // -------------------------
             // MPEG-2 / MPEG-4 CBR Reset
             // -------------------------
-            if ((string)cboVideoCodec.SelectedItem == "mpeg2"
-                || (string)cboVideoCodec.SelectedItem == "mpeg4")
+            if ((string)cboVideoCodec.SelectedItem == "MPEG-2"
+                || (string)cboVideoCodec.SelectedItem == "MPEG-4")
             {
                 // Change ItemSource
                 VideoControls.Pass_ItemSource = new List<string>()
@@ -4432,7 +5246,7 @@ namespace Axiom
             // VBR
             // -------------------------
             // MPEG-4
-            //if ((string)cboVideoCodec.SelectedItem == "mpeg4")
+            //if ((string)cboVideoCodec.SelectedItem == "MPEG-4")
             //{
             //    // Lossless - Force VBR
             //    if ((string)cboVideoQuality.SelectedItem == "Lossless")
@@ -5036,28 +5850,28 @@ namespace Axiom
         /// <summary>
         ///    Audio Limiter Toggle
         /// </summary>
-        private void tglAudioLimiter_Checked(object sender, RoutedEventArgs e)
-        {
-            // Enable Limit TextBox
-            if (tglAudioLimiter.IsChecked == true)
-            {
-                audioLimiter.IsEnabled = true;
-            }
+        //private void tglAudioLimiter_Checked(object sender, RoutedEventArgs e)
+        //{
+        //    //// Enable Limit TextBox
+        //    //if (tglAudioLimiter.IsChecked == true)
+        //    //{
+        //    //    audioLimiter.IsEnabled = true;
+        //    //}
 
-            // Disable Audio Codec Copy
-            AudioControls.AutoCopyAudioCodec(this);
-        }
-        private void tglAudioLimiter_Unchecked(object sender, RoutedEventArgs e)
-        {
-            // Disable Limit TextBox
-            if (tglAudioLimiter.IsChecked == false)
-            {
-                audioLimiter.IsEnabled = false;
-            }
+        //    //// Disable Audio Codec Copy
+        //    //AudioControls.AutoCopyAudioCodec(this);
+        //}
+        //private void tglAudioLimiter_Unchecked(object sender, RoutedEventArgs e)
+        //{
+        //    //// Disable Limit TextBox
+        //    //if (tglAudioLimiter.IsChecked == false)
+        //    //{
+        //    //    audioLimiter.IsEnabled = false;
+        //    //}
 
-            // Enable Audio Codec Copy if InputExt / outputExt match
-            AudioControls.AutoCopyAudioCodec(this);
-        }
+        //    //// Enable Audio Codec Copy if InputExt / outputExt match
+        //    //AudioControls.AutoCopyAudioCodec(this);
+        //}
 
 
         /// <summary>
@@ -5688,676 +6502,6 @@ namespace Axiom
             FFmpeg.FFmpegConvert(this);
         }
 
-
-        /// <summary>
-        ///     Filter Video - Selective Color Sliders
-        /// </summary>
-        // Reds Cyan
-        private void slFiltersVideo_SelectiveColor_Reds_Cyan_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            // Reset to default
-            slFiltersVideo_SelectiveColor_Reds_Cyan.Value = 0;
-
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-        private void slFiltersVideo_SelectiveColor_Reds_Cyan_PreviewMouseUp(object sender, MouseButtonEventArgs e)
-        {
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-        private void tbxFiltersVideo_SelectiveColor_Reds_Cyan_PreviewKeyUp(object sender, KeyEventArgs e)
-        {
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-        // Reds Magenta
-        private void slFiltersVideo_SelectiveColor_Reds_Magenta_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            // Reset to default
-            slFiltersVideo_SelectiveColor_Reds_Magenta.Value = 0;
-
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-        private void slFiltersVideo_SelectiveColor_Reds_Magenta_PreviewMouseUp(object sender, MouseButtonEventArgs e)
-        {
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-        // Regs Yellow
-        private void slFiltersVideo_SelectiveColor_Reds_Yellow_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            // Reset to default
-            slFiltersVideo_SelectiveColor_Reds_Yellow.Value = 0;
-
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-        private void slFiltersVideo_SelectiveColor_Reds_Yellow_PreviewMouseUp(object sender, MouseButtonEventArgs e)
-        {
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-
-        // Yellows Cyan
-        private void slFiltersVideo_SelectiveColor_Yellows_Cyan_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            // Reset to default
-            slFiltersVideo_SelectiveColor_Yellows_Cyan.Value = 0;
-
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-        private void slFiltersVideo_SelectiveColor_Yellows_Cyan_PreviewMouseUp(object sender, MouseButtonEventArgs e)
-        {
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-
-        private void tbxFiltersVideo_SelectiveColor_Yellows_Cyan_PreviewKeyUp(object sender, KeyEventArgs e)
-        {
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-        // Yellows Magenta
-        private void slFiltersVideo_SelectiveColor_Yellows_Magenta_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            // Reset to default
-            slFiltersVideo_SelectiveColor_Yellows_Magenta.Value = 0;
-
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-        private void slFiltersVideo_SelectiveColor_Yellows_Magenta_PreviewMouseUp(object sender, MouseButtonEventArgs e)
-        {
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-        private void tbxFiltersVideo_SelectiveColor_Yellows_Magenta_PreviewKeyUp(object sender, KeyEventArgs e)
-        {
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-
-        // Yellows Yellow
-        private void slFiltersVideo_SelectiveColor_Yellows_Yellow_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            // Reset to default
-            slFiltersVideo_SelectiveColor_Yellows_Yellow.Value = 0;
-
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-        private void slFiltersVideo_SelectiveColor_Yellows_Yellow_PreviewMouseUp(object sender, MouseButtonEventArgs e)
-        {
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-        private void tbxFiltersVideo_SelectiveColor_Yellows_Yellow_PreviewKeyUp(object sender, KeyEventArgs e)
-        {
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-
-        // Greens Cyan
-        private void slFiltersVideo_SelectiveColor_Greens_Cyan_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            // Reset to default
-            slFiltersVideo_SelectiveColor_Greens_Cyan.Value = 0;
-
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-        private void slFiltersVideo_SelectiveColor_Greens_Cyan_PreviewMouseUp(object sender, MouseButtonEventArgs e)
-        {
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-        private void tbxFiltersVideo_SelectiveColor_Greens_Cyan_PreviewKeyUp(object sender, KeyEventArgs e)
-        {
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-        // Greens Magenta
-        private void slFiltersVideo_SelectiveColor_Greens_Magenta_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            // Reset to default
-            slFiltersVideo_SelectiveColor_Greens_Magenta.Value = 0;
-
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-        private void slFiltersVideo_SelectiveColor_Greens_Magenta_PreviewMouseUp(object sender, MouseButtonEventArgs e)
-        {
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-        private void tbxFiltersVideo_SelectiveColor_Greens_Magenta_PreviewKeyUp(object sender, KeyEventArgs e)
-        {
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-        // Greens Yellow
-        private void slFiltersVideo_SelectiveColor_Greens_Yellow_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            // Reset to default
-            slFiltersVideo_SelectiveColor_Greens_Yellow.Value = 0;
-
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-        private void slFiltersVideo_SelectiveColor_Greens_Yellow_PreviewMouseUp(object sender, MouseButtonEventArgs e)
-        {
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-        private void tbxFiltersVideo_SelectiveColor_Greens_Yellow_PreviewKeyUp(object sender, KeyEventArgs e)
-        {
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-
-        // Cyans Cyan
-        private void slFiltersVideo_SelectiveColor_Cyans_Cyan_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            // Reset to default
-            slFiltersVideo_SelectiveColor_Cyans_Cyan.Value = 0;
-
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-        private void slFiltersVideo_SelectiveColor_Cyans_Cyan_PreviewMouseUp(object sender, MouseButtonEventArgs e)
-        {
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-        private void tbxFiltersVideo_SelectiveColor_Cyans_Cyan_PreviewKeyUp(object sender, KeyEventArgs e)
-        {
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-
-        // Cyans Magenta
-        private void slFiltersVideo_SelectiveColor_Cyans_Magenta_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            // Reset to default
-            slFiltersVideo_SelectiveColor_Cyans_Magenta.Value = 0;
-
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-        private void slFiltersVideo_SelectiveColor_Cyans_Magenta_PreviewMouseUp(object sender, MouseButtonEventArgs e)
-        {
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-        private void tbxFiltersVideo_SelectiveColor_Cyans_Magenta_PreviewKeyUp(object sender, KeyEventArgs e)
-        {
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-        // Cyans Yellow
-        private void slFiltersVideo_SelectiveColor_Cyans_Yellow_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            // Reset to default
-            slFiltersVideo_SelectiveColor_Cyans_Yellow.Value = 0;
-
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-        private void slFiltersVideo_SelectiveColor_Cyans_Yellow_PreviewMouseUp(object sender, MouseButtonEventArgs e)
-        {
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-        private void tbxFiltersVideo_SelectiveColor_Cyans_Yellow_PreviewKeyUp(object sender, KeyEventArgs e)
-        {
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-
-        // Blues Cyan
-        private void slFiltersVideo_SelectiveColor_Blues_Cyan_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            // Reset to default
-            slFiltersVideo_SelectiveColor_Blues_Cyan.Value = 0;
-
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-        private void slFiltersVideo_SelectiveColor_Blues_Cyan_PreviewMouseUp(object sender, MouseButtonEventArgs e)
-        {
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-        private void tbxFiltersVideo_SelectiveColor_Blues_Cyan_PreviewKeyUp(object sender, KeyEventArgs e)
-        {
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-        // Blues Magneta
-        private void slFiltersVideo_SelectiveColor_Blues_Magenta_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            // Reset to default
-            slFiltersVideo_SelectiveColor_Blues_Magenta.Value = 0;
-
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-        private void slFiltersVideo_SelectiveColor_Blues_Magenta_PreviewMouseUp(object sender, MouseButtonEventArgs e)
-        {
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-        private void tbxFiltersVideo_SelectiveColor_Blues_Magenta_PreviewKeyUp(object sender, KeyEventArgs e)
-        {
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-        // Blues Yellow
-        private void slFiltersVideo_SelectiveColor_Blues_Yellow_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            // Reset to default
-            slFiltersVideo_SelectiveColor_Blues_Yellow.Value = 0;
-
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-        private void slFiltersVideo_SelectiveColor_Blues_Yellow_PreviewMouseUp(object sender, MouseButtonEventArgs e)
-        {
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-        private void tbxFiltersVideo_SelectiveColor_Blues_Yellow_PreviewKeyUp(object sender, KeyEventArgs e)
-        {
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-
-        // Magentas Cyan
-        private void slFiltersVideo_SelectiveColor_Magentas_Cyan_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            // Reset to default
-            slFiltersVideo_SelectiveColor_Magentas_Cyan.Value = 0;
-
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-        private void slFiltersVideo_SelectiveColor_Magentas_Cyan_PreviewMouseUp(object sender, MouseButtonEventArgs e)
-        {
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-        private void tbxFiltersVideo_SelectiveColor_Magentas_Cyan_PreviewKeyUp(object sender, KeyEventArgs e)
-        {
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-        // Magentas Magenta
-        private void slFiltersVideo_SelectiveColor_Magentas_Magenta_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            // Reset to default
-            slFiltersVideo_SelectiveColor_Magentas_Magenta.Value = 0;
-
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-        private void slFiltersVideo_SelectiveColor_Magentas_Magenta_PreviewMouseUp(object sender, MouseButtonEventArgs e)
-        {
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-
-        private void tbxFiltersVideo_SelectiveColor_Magentas_Magenta_PreviewKeyUp(object sender, KeyEventArgs e)
-        {
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-        // Magentas Yellow
-        private void slFiltersVideo_SelectiveColor_Magentas_Yellow_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            // Reset to default
-            slFiltersVideo_SelectiveColor_Magentas_Yellow.Value = 0;
-
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-        private void slFiltersVideo_SelectiveColor_Magentas_Yellow_PreviewMouseUp(object sender, MouseButtonEventArgs e)
-        {
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-        private void tbxFiltersVideo_SelectiveColor_Magentas_Yellow_PreviewKeyUp(object sender, KeyEventArgs e)
-        {
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-
-        // Whites Cyan
-        private void slFiltersVideo_SelectiveColor_Whites_Cyan_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            // Reset to default
-            slFiltersVideo_SelectiveColor_Whites_Cyan.Value = 0;
-
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-        private void slFiltersVideo_SelectiveColor_Whites_Cyan_PreviewMouseUp(object sender, MouseButtonEventArgs e)
-        {
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-        private void tbxFiltersVideo_SelectiveColor_Whites_Cyan_PreviewKeyUp(object sender, KeyEventArgs e)
-        {
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-        // Whites Magenta
-        private void slFiltersVideo_SelectiveColor_Whites_Magenta_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            // Reset to default
-            slFiltersVideo_SelectiveColor_Whites_Magenta.Value = 0;
-
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-        private void slFiltersVideo_SelectiveColor_Whites_Magenta_PreviewMouseUp(object sender, MouseButtonEventArgs e)
-        {
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-        private void tbxFiltersVideo_SelectiveColor_Whites_Magenta_PreviewKeyUp(object sender, KeyEventArgs e)
-        {
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-        // Whites Yellow
-        private void slFiltersVideo_SelectiveColor_Whites_Yellow_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            // Reset to default
-            slFiltersVideo_SelectiveColor_Whites_Yellow.Value = 0;
-
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-        private void slFiltersVideo_SelectiveColor_Whites_Yellow_PreviewMouseUp(object sender, MouseButtonEventArgs e)
-        {
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-        private void tbxFiltersVideo_SelectiveColor_Whites_Yellow_PreviewKeyUp(object sender, KeyEventArgs e)
-        {
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-
-        // Neutrals Cyan
-        private void slFiltersVideo_SelectiveColor_Neutrals_Cyan_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            // Reset to default
-            slFiltersVideo_SelectiveColor_Neutrals_Cyan.Value = 0;
-
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-        private void slFiltersVideo_SelectiveColor_Neutrals_Cyan_PreviewMouseUp(object sender, MouseButtonEventArgs e)
-        {
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-        private void tbxFiltersVideo_SelectiveColor_Neutrals_Cyan_PreviewKeyUp(object sender, KeyEventArgs e)
-        {
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-        // Neutrals Magenta
-        private void slFiltersVideo_SelectiveColor_Neutrals_Magenta_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            // Reset to default
-            slFiltersVideo_SelectiveColor_Neutrals_Magenta.Value = 0;
-
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-        private void slFiltersVideo_SelectiveColor_Neutrals_Magenta_PreviewMouseUp(object sender, MouseButtonEventArgs e)
-        {
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-        private void tbxFiltersVideo_SelectiveColor_Neutrals_Magenta_PreviewKeyUp(object sender, KeyEventArgs e)
-        {
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-        // Neutrals Yellow
-        private void slFiltersVideo_SelectiveColor_Neutrals_Yellow_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            // Reset to default
-            slFiltersVideo_SelectiveColor_Neutrals_Yellow.Value = 0;
-
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-        private void slFiltersVideo_SelectiveColor_Neutrals_Yellow_PreviewMouseUp(object sender, MouseButtonEventArgs e)
-        {
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-        private void tbxFiltersVideo_SelectiveColor_Neutrals_Yellow_PreviewKeyUp(object sender, KeyEventArgs e)
-        {
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-
-        // Blacks Cyan
-        private void slFiltersVideo_SelectiveColor_Blacks_Cyan_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            // Reset to default
-            slFiltersVideo_SelectiveColor_Blacks_Cyan.Value = 0;
-
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-        private void slFiltersVideo_SelectiveColor_Blacks_Cyan_PreviewMouseUp(object sender, MouseButtonEventArgs e)
-        {
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-        private void tbxFiltersVideo_SelectiveColor_Blacks_Cyan_PreviewKeyUp(object sender, KeyEventArgs e)
-        {
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-        // Blacks Magenta
-        private void slFiltersVideo_SelectiveColor_Blacks_Magenta_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            // Reset to default
-            slFiltersVideo_SelectiveColor_Blacks_Magenta.Value = 0;
-
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-        private void slFiltersVideo_SelectiveColor_Blacks_Magenta_PreviewMouseUp(object sender, MouseButtonEventArgs e)
-        {
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-        private void tbxFiltersVideo_SelectiveColor_Blacks_Magenta_PreviewKeyUp(object sender, KeyEventArgs e)
-        {
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-        // Blacks Yellow
-        private void slFiltersVideo_SelectiveColor_Blacks_Yellow_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            // Reset to default
-            slFiltersVideo_SelectiveColor_Blacks_Yellow.Value = 0;
-
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-        private void slFiltersVideo_SelectiveColor_Blacks_Yellow_PreviewMouseUp(object sender, MouseButtonEventArgs e)
-        {
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-        private void tbxFiltersVideo_SelectiveColor_Blacks_Yellow_PreviewKeyUp(object sender, KeyEventArgs e)
-        {
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-
-
-        /// <summary>
-        ///     Filter Video - Selective Color Reset
-        /// </summary>
-        private void btnFilterVideo_SelectiveColorReset_Click(object sender, RoutedEventArgs e)
-        {
-            // Reset to default
-
-            // Reds Cyan
-            slFiltersVideo_SelectiveColor_Reds_Cyan.Value = 0;
-            // Reds Magenta
-            slFiltersVideo_SelectiveColor_Reds_Magenta.Value = 0;
-            // Regs Yellow
-            slFiltersVideo_SelectiveColor_Reds_Yellow.Value = 0;
-
-            // Yellows Cyan
-            slFiltersVideo_SelectiveColor_Yellows_Cyan.Value = 0;
-            // Yellows Magenta
-            slFiltersVideo_SelectiveColor_Yellows_Magenta.Value = 0;
-            // Yellows Yellow
-            slFiltersVideo_SelectiveColor_Yellows_Yellow.Value = 0;
-
-            // Greens Cyan
-            slFiltersVideo_SelectiveColor_Greens_Cyan.Value = 0;
-            // Greens Magenta
-            slFiltersVideo_SelectiveColor_Greens_Magenta.Value = 0;
-            // Greens Yellow
-            slFiltersVideo_SelectiveColor_Greens_Yellow.Value = 0;
-
-            // Cyans Cyan
-            slFiltersVideo_SelectiveColor_Cyans_Cyan.Value = 0;
-            // Cyans Magenta
-            slFiltersVideo_SelectiveColor_Cyans_Magenta.Value = 0;
-            // Cyans Yellow
-            slFiltersVideo_SelectiveColor_Cyans_Yellow.Value = 0;
-
-            // Blues Cyan
-            slFiltersVideo_SelectiveColor_Blues_Cyan.Value = 0;
-            // Blues Magneta
-            slFiltersVideo_SelectiveColor_Blues_Magenta.Value = 0;
-            // Blues Yellow
-            slFiltersVideo_SelectiveColor_Blues_Yellow.Value = 0;
-
-            // Magentas Cyan
-            slFiltersVideo_SelectiveColor_Magentas_Cyan.Value = 0;
-            // Magentas Magenta
-            slFiltersVideo_SelectiveColor_Magentas_Magenta.Value = 0;
-            // Magentas Yellow
-            slFiltersVideo_SelectiveColor_Magentas_Yellow.Value = 0;
-
-            // Whites Cyan
-            slFiltersVideo_SelectiveColor_Whites_Cyan.Value = 0;
-            // Whites Magenta
-            slFiltersVideo_SelectiveColor_Whites_Magenta.Value = 0;
-            // Whites Yellow
-            slFiltersVideo_SelectiveColor_Whites_Yellow.Value = 0;
-
-            // Neutrals Cyan
-            slFiltersVideo_SelectiveColor_Neutrals_Cyan.Value = 0;
-            // Neutrals Magenta
-            slFiltersVideo_SelectiveColor_Neutrals_Magenta.Value = 0;
-            // Neutrals Yellow
-            slFiltersVideo_SelectiveColor_Neutrals_Yellow.Value = 0;
-
-            // Blacks Cyan
-            slFiltersVideo_SelectiveColor_Blacks_Cyan.Value = 0;
-            // Blacks Magenta
-            slFiltersVideo_SelectiveColor_Blacks_Magenta.Value = 0;
-            // Blacks Yellow
-            slFiltersVideo_SelectiveColor_Blacks_Yellow.Value = 0;
-
-
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-
-
-        /// <summary>
-        ///     Filter Video - EQ Sliders
-        /// </summary>
-        // Brightness
-        private void slFiltersVideo_EQ_Brightness_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            // Reset to default
-            slFiltersVideo_EQ_Brightness.Value = 0;
-
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-        private void slFiltersVideo_EQ_Brightness_PreviewMouseUp(object sender, MouseButtonEventArgs e)
-        {
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-        private void tbxFiltersVideo_EQ_Brightness_PreviewKeyUp(object sender, KeyEventArgs e)
-        {
-            // Reset Empty to 0
-            if (string.IsNullOrWhiteSpace(tbxFiltersVideo_EQ_Brightness.Text))
-            {
-                tbxFiltersVideo_EQ_Brightness.Text = "0";
-            }
-
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-
-        // Contrast
-        private void slFiltersVideo_EQ_Contrast_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            // Reset to default
-            slFiltersVideo_EQ_Contrast.Value = 0;
-
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-        private void slFiltersVideo_EQ_Contrast_PreviewMouseUp(object sender, MouseButtonEventArgs e)
-        {
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-        private void tbxFiltersVideo_EQ_Contrast_PreviewKeyUp(object sender, KeyEventArgs e)
-        {
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-
-        // Saturation
-        private void slFiltersVideo_EQ_Saturation_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            // Reset to default
-            slFiltersVideo_EQ_Saturation.Value = 0;
-
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-        private void slFiltersVideo_EQ_Saturation_PreviewMouseUp(object sender, MouseButtonEventArgs e)
-        {
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-        private void tbxFiltersVideo_EQ_Saturation_PreviewKeyUp(object sender, KeyEventArgs e)
-        {
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-
-        // Gamma
-        private void slFiltersVideo_EQ_Gamma_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            // Reset to default
-            slFiltersVideo_EQ_Gamma.Value = 0;
-
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-        private void slFiltersVideo_EQ_Gamma_PreviewMouseUp(object sender, MouseButtonEventArgs e)
-        {
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-        private void tbxFiltersVideo_EQ_Gamma_PreviewKeyUp(object sender, KeyEventArgs e)
-        {
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-
-        // Reset
-        private void btnFilterVideo_EQ_Reset_Click(object sender, RoutedEventArgs e)
-        {
-            // Reset to default
-
-            // Brightness
-            slFiltersVideo_EQ_Brightness.Value = 0;
-            // Contrast
-            slFiltersVideo_EQ_Contrast.Value = 0;
-            // Saturation
-            slFiltersVideo_EQ_Saturation.Value = 0;
-            // Gamma
-            slFiltersVideo_EQ_Gamma.Value = 0;
-
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-
-
-
-        /// <summary>
-        ///     Filter Video - Deband
-        /// </summary>
-        private void cboFilterVideo_Deband_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-
-        /// <summary>
-        ///     Filter Video - Deshake
-        /// </summary>
-        private void cboFilterVideo_Deshake_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-
-        /// <summary>
-        ///     Filter Video - Deflicker
-        /// </summary>
-        private void cboFilterVideo_Deflicker_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-
-        /// <summary>
-        ///     Filter Video - Dejudder
-        /// </summary>
-        private void cboFilterVideo_Dejudder_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-
-        /// <summary>
-        ///     Filter Video - Denoise
-        /// </summary>
-        private void cboFilterVideo_Denoise_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-
-
-
-        /// <summary>
-        ///     Scaling Video
-        /// </summary>
-        private void cboScaling_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-
-        /// <summary>
-        ///     Pixel Format
-        /// </summary>
-        private void cboPixelFormat_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            VideoControls.AutoCopyVideoCodec(this);
-        }
     }
 
 }

@@ -623,7 +623,7 @@ namespace Axiom
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("aFilter ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(Audio.aFilter) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(AudioFilters.aFilter) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("aBitrateLimiter ")) { Foreground = Variable });
