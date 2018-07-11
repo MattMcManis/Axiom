@@ -4,6 +4,36 @@ Axiom FFmpeg UI
 
 ## [alpha]
 
+## [1.2.6.1] - Jul 11, 2018
+### Added
+- New Line Add Spaces between FFmpeg arguments
+
+### Changed
+- Update Check to New Thread
+- Improved Remove Linebreaks
+
+### Fixed
+- Preview Button when no Environment Variables
+
+
+## [1.2.6.0] - Jul 11, 2018
+### Added
+- Audio Filter Fix - Remove Click
+- Audio Filters EQ - Lowpass, Highpass
+- Audio Filters Dynamics - Contrast, Extra Stereo, Headphones
+- Audio Filter Timing - Tempo
+
+### Changed
+- Moved Update Check to Window_Loaded
+- Format - Speed to Encode Speed
+- mpeg2 to MPEG-2
+- mpeg4 to MPEG-4
+- Audio Hard Limiter TextBox to Slider
+
+### Removed
+- x264 DVD Optimize
+
+
 ## [1.2.5.0] - Jul 7, 2018
 ### Added
 - MVVM ViewModel
