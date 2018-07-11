@@ -61,7 +61,7 @@ namespace Axiom
                 // -------------------------
                 List<string> FFplayArgsList = new List<string>()
                 {
-                    ffplay,
+                    //ffplay,
 
                     "-i " + "\"" + MainWindow.InputPath(mainwindow) + "\"",
 
@@ -106,16 +106,21 @@ namespace Axiom
                                         string.Join(" ", FFplayArgsList)
                                     );
 
+                //string ffplayArgs = string.Join(" ", FFplayArgsList
+                //                          .Where(s => !string.IsNullOrEmpty(s)))
+                //                          .Replace("\r\n", " ") //Remove Linebreaks
+                //                          .Replace(Environment.NewLine, " ");
+
 
                 //MessageBox.Show(ffplayArgs); //debug
 
 
                 // Start FFplay
                 System.Diagnostics.Process.Start(
-                    "cmd.exe ",
-                    "/k " //always close cmd
+                    ffplay,
+                    //"/c " //always close cmd
                     //FFmpeg.KeepWindow(mainwindow)
-                    + ffplayArgs
+                    ffplayArgs
                 );
             }
 
