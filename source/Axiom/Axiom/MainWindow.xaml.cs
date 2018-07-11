@@ -22,7 +22,6 @@ along with this program.If not, see <http://www.gnu.org/licenses/>.
 using Axiom.Properties;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Configuration;
 using System.Diagnostics;
@@ -30,6 +29,7 @@ using System.IO;
 using System.Linq;
 using System.Management;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -636,7 +636,10 @@ namespace Axiom
             // -------------------------
             // Check for Available Updates
             // -------------------------
-            UpdateAvailableCheck();
+            Task.Factory.StartNew(() =>
+            {
+                UpdateAvailableCheck();
+            });
         }
 
         /// <summary>
@@ -827,17 +830,19 @@ namespace Axiom
         public static String RemoveLineBreaks(string lines)
         {
             lines = lines
-                .Replace(Environment.NewLine, "")
-                .Replace("\n", "")
-                .Replace("\r\n", "")
-                .Replace("\u2028", "")
-                .Replace("\u000A", "")
-                .Replace("\u000B", "")
-                .Replace("\u000C", "")
-                .Replace("\u000D", "")
-                .Replace("\u0085", "")
-                .Replace("\u2028", "")
-                .Replace("\u2029", "");
+                .Replace(Environment.NewLine, " ") // Replace Linebreaks with Spaces to avoid arguments touching
+                .Replace("\n\n", " ")
+                .Replace("\n", " ")
+                .Replace("\r\n\r\n", " ")
+                .Replace("\r\n", " ")
+                .Replace("\u2028", " ")
+                .Replace("\u000A", " ")
+                .Replace("\u000B", " ")
+                .Replace("\u000C", " ")
+                .Replace("\u000D", " ")
+                .Replace("\u0085", " ")
+                .Replace("\u2028", " ")
+                .Replace("\u2029", " ");
 
             return lines;
         }
@@ -2831,9 +2836,8 @@ namespace Axiom
         /// </summary>
         public void UpdateAvailableCheck()
         {
-            //string updateAvailable = string.Empty;
-
-            if (tglUpdatesAutoCheck.IsChecked == true)
+            //if (tglUpdatesAutoCheck.IsChecked == true)
+            if (tglUpdatesAutoCheck.Dispatcher.Invoke((() => { return tglUpdatesAutoCheck.IsChecked; })) == true)
             {
                 // -------------------------
                 // Parse GitHub .version file
@@ -2846,7 +2850,6 @@ namespace Axiom
                 }
                 catch
                 {
-                    //return string.Empty;
                     return;
                 }
 
@@ -2866,7 +2869,6 @@ namespace Axiom
                     }
                     catch
                     {
-                        //return string.Empty;
                         return;
                     }
 
@@ -2876,20 +2878,19 @@ namespace Axiom
                     {
                         //updateAvailable = " ~ Update Available: " + "(" + Convert.ToString(latestVersion) + "-" + latestBuildPhase + ")";
 
-                        TitleVersion = "Axiom ~ FFmpeg UI (" + Convert.ToString(currentVersion) + "-" + currentBuildPhase + ")"
-                                     + " ~ Update Available: " + "(" + Convert.ToString(latestVersion) + "-" + latestBuildPhase + ")";
-                        //DataContext = this;
+                        Dispatcher.Invoke(new Action(delegate
+                        {
+                            TitleVersion = "Axiom ~ FFmpeg UI (" + Convert.ToString(currentVersion) + "-" + currentBuildPhase + ")"
+                                            + " ~ Update Available: " + "(" + Convert.ToString(latestVersion) + "-" + latestBuildPhase + ")";
+                        }));
                     }
                     // Update Not Available
                     else if (latestVersion <= currentVersion)
                     {
-                        //return string.Empty;
                         return;
                     }
                 }
             }
-
-            //return updateAvailable;
         }
 
 

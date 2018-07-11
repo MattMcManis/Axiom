@@ -373,9 +373,9 @@ namespace Axiom
 
                 // Inline 
                 ffmpegArgs = string.Join(" ", FFmpegArgsList
-                    .Where(s => !string.IsNullOrEmpty(s)))
-                    .Replace("\r\n", "") //Remove Linebreaks
-                    .Replace(Environment.NewLine, "");
+                                   .Where(s => !string.IsNullOrEmpty(s)))
+                                   .Replace("\r\n", "") //Remove Linebreaks
+                                   .Replace(Environment.NewLine, "");
             }
 
 
@@ -470,9 +470,9 @@ namespace Axiom
 
                 // Inline 
                 ffmpegArgs = string.Join(" ", FFmpegBatchArgsList
-                    .Where(s => !string.IsNullOrEmpty(s)))
-                    .Replace("\r\n", " ") // Replace Linebreaks with Spaces to avoid arguments touching
-                    .Replace(Environment.NewLine, "");
+                                   .Where(s => !string.IsNullOrEmpty(s)))
+                                   .Replace("\r\n", " ") // Replace Linebreaks with Spaces to avoid arguments touching
+                                   .Replace(Environment.NewLine, "");
             }
         }
 

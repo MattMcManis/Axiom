@@ -74,7 +74,7 @@ namespace Axiom
                     VideoFilters.VideoFilter(mainwindow),
                     Video.ScalingAlgorithm(mainwindow),
                     Video.Images(mainwindow),
-                    Video.Optimize(mainwindow),
+                    //Video.Optimize(mainwindow),
                     //Streams.VideoStreamMaps(mainwindow),
 
                     //Video.SubtitleCodec(mainwindow),
@@ -102,15 +102,10 @@ namespace Axiom
 
                 // Join List with Spaces
                 // Remove: Empty, Null, Standalone LineBreak
-                string ffplayArgs = string.Join(" ",
-                                           FFplayArgsList
-                                           .Where(s => !string.IsNullOrEmpty(s))
-                                           .Where(s => !s.Equals(Environment.NewLine))
-                                           .Where(s => !s.Equals("\r\n\r\n"))
-                                           .Where(s => !s.Equals("\r\n"))
-                                    )
-                                   .Replace("\r\n", "") //Remove Linebreaks
-                                   .Replace(Environment.NewLine, "");
+                string ffplayArgs = MainWindow.RemoveLineBreaks(
+                                        string.Join(" ", FFplayArgsList)
+                                    );
+
 
                 //MessageBox.Show(ffplayArgs); //debug
 
@@ -118,7 +113,7 @@ namespace Axiom
                 // Start FFplay
                 System.Diagnostics.Process.Start(
                     "cmd.exe ",
-                    "/c " //always close cmd
+                    "/k " //always close cmd
                     //FFmpeg.KeepWindow(mainwindow)
                     + ffplayArgs
                 );
