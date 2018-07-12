@@ -2239,7 +2239,17 @@ namespace Axiom
                 else if ((string)mainwindow.cboVideoCodec.SelectedItem == "WebP")
                 {
                     mainwindow.cboPixelFormat.IsEnabled = true;
-                    mainwindow.cboPixelFormat.SelectedItem = "auto"; 
+
+                    // Lossless
+                    if ((string)mainwindow.cboVideoQuality.SelectedItem == "Lossless")
+                    {
+                        mainwindow.cboPixelFormat.SelectedItem = "bgra";
+                    }
+                    // All Other Quality
+                    else
+                    {
+                        mainwindow.cboPixelFormat.SelectedItem = "yuv420p";
+                    }
                 }
 
                 // -------------------------

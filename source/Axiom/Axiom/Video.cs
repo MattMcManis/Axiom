@@ -1093,9 +1093,9 @@ namespace Axiom
                     // -------------------------
                     else if ((string)mainwindow.cboVideoCodec.SelectedItem == "WebP")
                     {
-                        crf = "-lossless 1";
+                        crf = string.Empty;
                         vBitMode = string.Empty;
-                        vBitrate = string.Empty;
+                        vBitrate = "-lossless 1";
                         vMinrate = string.Empty;
                         vMaxrate = string.Empty;
                         vBufsize = string.Empty;
