@@ -13,9 +13,9 @@ An FFmpeg GUI for Windows
 &nbsp;
 
 ## Overview
-Axiom generates command scripts to be processed by multimedia encoder, FFmpeg, and streams analyzer, FFprobe.
+Axiom generates command scripts to be processed by multimedia encoder, [FFmpeg](https://www.ffmpeg.org), and streams analyzer, [FFprobe](https://ffmpeg.org/ffprobe.html).
 
-Convert to webm, mp4, mkv, avi, ogv, mp3, m4a, ogg, flac, wav, png, jpg image & sequence.
+Convert to `webm`, `mp4`, `mkv`, `avi`, `ogv`, `mp3`, `m4a`, `ogg`, `flac`, `wav`, `png`, `jpg`, `webp` and more.
 
 ![Axiom](https://raw.githubusercontent.com/MattMcManis/Axiom/master/images/axiom.png)  
 
