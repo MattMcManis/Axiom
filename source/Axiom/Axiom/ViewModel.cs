@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 // Disable XML Comment warnings
 #pragma warning disable 1591
 #pragma warning disable 1587
@@ -37,13 +38,34 @@ namespace Axiom
             "flac",
             "wav",
             "jpg",
-            "png"
+            "png",
+            "webp"
         };
+
         public static ObservableCollection<string> cboFormat_Items
         {
             get { return _cboFormat_Items; }
             set { _cboFormat_Items = value; }
         }
+        //public static ObservableCollection<FormatItem> _cboFormat_Items = new ObservableCollection<FormatItem>()
+        //{
+        //    new FormatItem() { Name = "webm", Category = "Video" },
+        //    new FormatItem() { Name = "mp4", Category = "Video" },
+        //};
+
+        //public static ObservableCollection<FormatItem> cboFormat_Items
+        //{
+        //    get { return _cboFormat_Items; }
+        //    set { _cboFormat_Items = value; }
+        //}
+
+        //public class FormatItem
+        //{
+        //    public string Name { get; set; }
+        //    public string Category { get; set; }
+        //}
+        // Selected Item
+        //public static string cboFormat_SelectedItem { get; set; }
 
         // --------------------------------------------------------------------------------------------------------
         /// <summary>

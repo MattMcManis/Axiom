@@ -819,7 +819,22 @@
                                       ToolTip="Container" 
                                       SelectionChanged="cboFormat_SelectionChanged" 
                                       Grid.Column="2" 
-                                      Height="22" />
+                                      Height="22">
+                                <!--<ComboBox.GroupStyle>
+                                    <GroupStyle>
+                                        <GroupStyle.HeaderTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding Name}"/>
+                                            </DataTemplate>
+                                        </GroupStyle.HeaderTemplate>
+                                    </GroupStyle>
+                                </ComboBox.GroupStyle>
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Name}"/>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>-->
+                            </ComboBox>
 
                             <!-- MediaType -->
                             <Label Style="{DynamicResource LabelCustom}"
@@ -1162,6 +1177,8 @@
                                       Grid.Row="9" 
                                       Grid.Column="2" Margin="0,2,0,0" SelectionChanged="cboPixelFormat_SelectionChanged">
                                 <System:String>auto</System:String>
+                                <System:String>gray</System:String>
+                                <System:String>rgb24</System:String>
                                 <System:String>yuv420p</System:String>
                                 <System:String>yuv422p</System:String>
                                 <System:String>yuv440p</System:String>
@@ -1696,7 +1713,7 @@
                                 <RowDefinition Height="33"/>
                                 <RowDefinition Height="33"/>
                                 <RowDefinition Height="33"/>
-                                <RowDefinition Height="13"/>
+                                <RowDefinition Height="22"/>
                                 <RowDefinition Height="33"/>
                                 <RowDefinition Height="33"/>
                                 <RowDefinition Height="33"/>
@@ -1996,7 +2013,7 @@
                                     HorizontalAlignment="Right"
                                     Margin="0,4,60,0" 
                                     VerticalAlignment="Top" 
-                                    Width="61"
+                                    Width="66"
                                     IsMoveToPointEnabled="True"
                                     Minimum="0"
                                     Maximum="1" 

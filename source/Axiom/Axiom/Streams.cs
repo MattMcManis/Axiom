@@ -318,6 +318,10 @@ namespace Axiom
                     {
                         sMap = "-sn"; // disable subtitles
                     }
+                    else if ((string)mainwindow.cboFormat.SelectedItem == "webp")
+                    {
+                        sMap = "-sn"; // disable subtitles
+                    }
                     // Non-Video/Image Formats
                     //
                     else
@@ -337,7 +341,8 @@ namespace Axiom
 
                     // Image
                     if ((string)mainwindow.cboFormat.SelectedItem == "jpg"
-                        || (string)mainwindow.cboFormat.SelectedItem == "png")
+                        || (string)mainwindow.cboFormat.SelectedItem == "png"
+                        || (string)mainwindow.cboFormat.SelectedItem == "webp")
                     {
                         sMap = "-sn";
                     }
@@ -438,6 +443,10 @@ namespace Axiom
                 {
                     aMap = "-an"; // disable audio
                 }
+                else if ((string)mainwindow.cboFormat.SelectedItem == "webp")
+                {
+                    aMap = "-an"; // disable audio
+                }
 
                 // Audio Media Type
                 //
@@ -511,23 +520,30 @@ namespace Axiom
             // Go by Format Container
 
             // -------------------------
-            // MP3
+            // mp3
             // -------------------------
             if ((string)mainwindow.cboFormat.SelectedItem == "mp3")
             {
                 mMap = "-map_metadata 0 -id3v2_version 3";
             }
             // -------------------------
-            // JPG
+            // jpg
             // -------------------------
             else if ((string)mainwindow.cboFormat.SelectedItem == "jpg")
             {
                 mMap = string.Empty; // do not copy metadata
             }
             // -------------------------
-            // PNG
+            // png
             // -------------------------
             else if ((string)mainwindow.cboFormat.SelectedItem == "png")
+            {
+                mMap = string.Empty; // do not copy metadata
+            }
+            // -------------------------
+            // webp
+            // -------------------------
+            else if ((string)mainwindow.cboFormat.SelectedItem == "webp")
             {
                 mMap = string.Empty; // do not copy metadata
             }

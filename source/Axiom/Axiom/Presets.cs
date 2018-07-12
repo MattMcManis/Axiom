@@ -60,10 +60,13 @@ namespace Axiom
                 if ((string)mainwindow.cboFormat.SelectedItem == "webm"
                     || (string)mainwindow.cboFormat.SelectedItem == "mp4"
                     || (string)mainwindow.cboFormat.SelectedItem == "mkv"
+                    || (string)mainwindow.cboFormat.SelectedItem == "m2v"
+                    || (string)mainwindow.cboFormat.SelectedItem == "mpg"
                     || (string)mainwindow.cboFormat.SelectedItem == "avi"
                     || (string)mainwindow.cboFormat.SelectedItem == "ogv"
                     || (string)mainwindow.cboFormat.SelectedItem == "jpg"
-                    || (string)mainwindow.cboFormat.SelectedItem == "png")
+                    || (string)mainwindow.cboFormat.SelectedItem == "png"
+                    || (string)mainwindow.cboFormat.SelectedItem == "webp")
                 {
                     mainwindow.cboPreset.IsEditable = false;
 

@@ -34,10 +34,10 @@ namespace Axiom
 
 
         /// <summary>
-        /// Script RichTextBox Edited
+        ///     Script RichTextBox Edited
         /// </summary>
         // Current RichTextBox Text
-        public static String ScriptRichTextBoxCurrent(MainWindow mainwindow)
+        public static String GetScriptRichTextBoxContents(MainWindow mainwindow)
         {
             // Select All Text
             TextRange textRange = new TextRange(
@@ -52,18 +52,19 @@ namespace Axiom
             return textRange.Text;
         }
 
+
         /// <summary>
-        /// Clear RichTextBox
+        ///     Clear RichTextBox
         /// </summary>
-        //public static void ClearRichTextBox(MainWindow mainwindow)
-        //{
-        //    // Clear Old Text
-        //    mainwindow.rtbScriptView.Document = new FlowDocument(scriptParagraph);
-        //    mainwindow.rtbScriptView.BeginChange();
-        //    mainwindow.rtbScriptView.SelectAll();
-        //    mainwindow.rtbScriptView.Selection.Text = "";
-        //    mainwindow.rtbScriptView.EndChange();
-        //}
+        public static void ClearScriptView(MainWindow mainwindow)
+        {
+            // Clear Old Text
+            mainwindow.rtbScriptView.Document = new FlowDocument(scriptParagraph);
+            mainwindow.rtbScriptView.BeginChange();
+            mainwindow.rtbScriptView.SelectAll();
+            mainwindow.rtbScriptView.Selection.Text = "";
+            mainwindow.rtbScriptView.EndChange();
+        }
 
     }
 }

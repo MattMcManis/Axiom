@@ -825,16 +825,44 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Remove Line Breaks (Method)
+        ///     Remove Linebreaks (Method)
         /// </summary>
+        /// <remarks>
+        ///     Used for Selected Controls FFmpeg Arguments
+        /// </remarks>
         public static String RemoveLineBreaks(string lines)
         {
             lines = lines
-                .Replace(Environment.NewLine, " ") // Replace Linebreaks with Spaces to avoid arguments touching
-                .Replace("\n\n", " ")
-                .Replace("\n", " ")
-                .Replace("\r\n\r\n", " ")
+                .Replace(Environment.NewLine, "")
+                .Replace("\r\n", "")
+                .Replace("\n", "")
+                .Replace("\u2028", "")
+                .Replace("\u000A", "")
+                .Replace("\u000B", "")
+                .Replace("\u000C", "")
+                .Replace("\u000D", "")
+                .Replace("\u0085", "")
+                .Replace("\u2028", "")
+                .Replace("\u2029", "");
+
+            return lines;
+        }
+
+
+        /// <summary>
+        ///     Replace Linebreaks with Space (Method)
+        /// </summary>
+        /// <remarks>
+        ///     Used for Script View Custom Edited Script
+        /// </remarks>
+        public static String ReplaceLineBreaksWithSpace(string lines)
+        {
+            // Replace Linebreaks with Spaces to avoid arguments touching
+
+            lines = lines
+                .Replace(Environment.NewLine, " ")
                 .Replace("\r\n", " ")
+                .Replace("\n", " ")
                 .Replace("\u2028", " ")
                 .Replace("\u000A", " ")
                 .Replace("\u000B", " ")
@@ -1679,6 +1707,55 @@ namespace Axiom
         }
 
 
+
+        /// <summary>
+        ///    Check if Script has been Edited (Method)
+        /// </summary>
+        public static void CheckScriptEdited(MainWindow mainwindow)
+        {
+            // -------------------------
+            // Check if Script has been modified
+            // -------------------------
+            if (!string.IsNullOrWhiteSpace(ScriptView.GetScriptRichTextBoxContents(mainwindow)))
+            {
+                if (ScriptView.GetScriptRichTextBoxContents(mainwindow)
+                          .Replace(Environment.NewLine, "")
+                          .Replace("\r\n", "")
+                          .Replace("\u2028", "")
+                          .Replace("\u000A", "")
+                          .Replace("\u000B", "")
+                          .Replace("\u000C", "")
+                          .Replace("\u000D", "")
+                          .Replace("\u0085", "")
+                          .Replace("\u2028", "")
+                          .Replace("\u2029", "")
+
+                          != FFmpeg.ffmpegArgs)
+                {
+                    // Yes/No Dialog Confirmation
+                    MessageBoxResult result = MessageBox.Show("The Convert button will override and replace your custom script with the selected controls."
+                                                              + "\r\n\r\nPress the Run button instead to execute your script."
+                                                              + "\r\n\r\nContinue Convert?",
+                                                              "Edited Script Detected",
+                                                              MessageBoxButton.YesNo,
+                                                              MessageBoxImage.Warning);
+
+                    switch (result)
+                    {
+                        case MessageBoxResult.Yes:
+                            // Continue
+                            break;
+                        case MessageBoxResult.No:
+                            /* lock */
+                            ready = false;
+                            break;
+                    }
+                }
+            }
+        }
+
+
+
         /// <summary>
         ///    Ready Halts (Method)
         /// </summary>
@@ -1734,13 +1811,13 @@ namespace Axiom
                         // Log Console Message /////////
                         Log.logParagraph.Inlines.Add(new LineBreak());
                         Log.logParagraph.Inlines.Add(new LineBreak());
-                        Log.logParagraph.Inlines.Add(new Bold(new Run("Notice: Video & Audio Auto Quality require an input file in order to detect.")) { Foreground = Log.ConsoleWarning });
+                        Log.logParagraph.Inlines.Add(new Bold(new Run("Notice: Video & Audio Quality require an input file in order to detect bitrate settings.")) { Foreground = Log.ConsoleWarning });
 
                         /* lock */
                         ready = false;
                         script = false;
                         // Warning
-                        MessageBox.Show("Video & Audio Auto Quality require an input file in order to detect.",
+                        MessageBox.Show("Video & Audio Auto Quality require an input file in order to detect bitrate settings.",
                                         "Notice",
                                         MessageBoxButton.OK,
                                         MessageBoxImage.Information);
@@ -1762,7 +1839,7 @@ namespace Axiom
                                 // Log Console Message /////////
                                 Log.logParagraph.Inlines.Add(new LineBreak());
                                 Log.logParagraph.Inlines.Add(new LineBreak());
-                                Log.logParagraph.Inlines.Add(new Bold(new Run("Notice: Video Auto Quality requires an input file in order to detect.")) { Foreground = Log.ConsoleWarning });
+                                Log.logParagraph.Inlines.Add(new Bold(new Run("Notice: Video Auto Quality requires an input file in order to detect bitrate settings.")) { Foreground = Log.ConsoleWarning });
 
                                 /* lock */
                                 ready = false;
@@ -1785,7 +1862,7 @@ namespace Axiom
                                 // Log Console Message /////////
                                 Log.logParagraph.Inlines.Add(new LineBreak());
                                 Log.logParagraph.Inlines.Add(new LineBreak());
-                                Log.logParagraph.Inlines.Add(new Bold(new Run("Notice: Audio Auto Quality requires an input file in order to detect.")) { Foreground = Log.ConsoleWarning });
+                                Log.logParagraph.Inlines.Add(new Bold(new Run("Notice: Audio Auto Quality requires an input file in order to detect bitrate settings.")) { Foreground = Log.ConsoleWarning });
 
                                 /* lock */
                                 ready = false;
@@ -3899,7 +3976,7 @@ namespace Axiom
             //    MessageBox.Show("here");
 
             //    // Clear Old Text
-            //    //ClearRichTextBox();
+            //    //ClearScriptView();
             //    ScriptView.scriptParagraph.Inlines.Clear();
 
             //    // Write FFmpeg Args Sort
@@ -3938,7 +4015,7 @@ namespace Axiom
         private void btnScriptRun_Click(object sender, RoutedEventArgs e)
         {
             // Use Arguments from Script TextBox
-            //FFmpeg.ffmpegArgs = ScriptView.ScriptRichTextBoxCurrent(this)
+            //FFmpeg.ffmpegArgs = ScriptView.GetScriptRichTextBoxContents(this)
             //    .Replace(Environment.NewLine, "") //Remove Linebreaks
             //    .Replace("\n", "")
             //    .Replace("\r\n", "")
@@ -3958,7 +4035,7 @@ namespace Axiom
             // -------------------------
             // Use Arguments from Script TextBox
             // -------------------------
-            FFmpeg.ffmpegArgs = RemoveLineBreaks(ScriptView.ScriptRichTextBoxCurrent(this));
+            FFmpeg.ffmpegArgs = ReplaceLineBreaksWithSpace(ScriptView.GetScriptRichTextBoxContents(this));
 
             // -------------------------
             // Start FFmpeg
@@ -6186,7 +6263,12 @@ namespace Axiom
             // -------------------------
             // Ready Halts
             // -------------------------
-            ReadyHalts(this); 
+            ReadyHalts(this);
+
+            // -------------------------
+            // Check if Script has been Edited
+            // -------------------------
+            CheckScriptEdited(this);
 
 
             // Log Console Message /////////
@@ -6264,6 +6346,15 @@ namespace Axiom
                 // FFmpeg Convert
                 // -------------------------
                 FFmpeg.FFmpegConvert(this);
+
+                // -------------------------
+                // Sort Script
+                // -------------------------
+                // Only if Auto Sort is enabled
+                if (tglAutoSortScript.IsChecked == true)
+                {
+                    Sort();
+                }
 
                 // Log Console Message /////////
                 Log.WriteAction = () =>
@@ -6356,7 +6447,7 @@ namespace Axiom
             if (result == true)
             {
                 // Save document
-                File.WriteAllText(saveFile.FileName, ScriptView.ScriptRichTextBoxCurrent(this), Encoding.Unicode);
+                File.WriteAllText(saveFile.FileName, ScriptView.GetScriptRichTextBoxContents(this), Encoding.Unicode);
             }
         }
 
@@ -6365,7 +6456,7 @@ namespace Axiom
         /// </summary>
         private void btnScriptCopy_Click(object sender, RoutedEventArgs e)
         {
-            Clipboard.SetText(ScriptView.ScriptRichTextBoxCurrent(this), TextDataFormat.UnicodeText);
+            Clipboard.SetText(ScriptView.GetScriptRichTextBoxContents(this), TextDataFormat.UnicodeText);
         }
 
         /// <summary>
@@ -6381,10 +6472,6 @@ namespace Axiom
         /// </summary>
         public void Sort()
         {
-            // -------------------------
-            // Sort
-            // -------------------------
-
             // Check if Rich TextBox is Empty
             TextRange textRange = new TextRange(rtbScriptView.Document.ContentStart, rtbScriptView.Document.ContentEnd);
             string rtb = textRange.Text;
@@ -6394,14 +6481,27 @@ namespace Axiom
                 return;
             }
 
+            // -------------------------
             // Has Not Been Edited
-            //
+            // -------------------------
             if (ScriptView.sort == false
-                && ScriptView.ScriptRichTextBoxCurrent(this).Replace(Environment.NewLine, "").Replace("\r\n", "") == FFmpeg.ffmpegArgs)
+                && ScriptView.GetScriptRichTextBoxContents(this)
+                              .Replace(Environment.NewLine, "")
+                              .Replace("\r\n", "")
+                              .Replace("\u2028", "")
+                              .Replace("\u000A", "")
+                              .Replace("\u000B", "")
+                              .Replace("\u000C", "")
+                              .Replace("\u000D", "")
+                              .Replace("\u0085", "")
+                              .Replace("\u2028", "")
+                              .Replace("\u2029", "")
+
+                             == FFmpeg.ffmpegArgs)
             {
                 // Clear Old Text
-                //ClearRichTextBox();
-                ScriptView.scriptParagraph.Inlines.Clear();
+                //ScriptView.scriptParagraph.Inlines.Clear();
+                ScriptView.ClearScriptView(this);
 
                 // Write FFmpeg Args Sort
                 rtbScriptView.Document = new FlowDocument(ScriptView.scriptParagraph);
@@ -6415,14 +6515,23 @@ namespace Axiom
                 txblScriptSort.Text = "Inline";
             }
 
+            // -------------------------
             // Has Been Edited
-            //
+            // -------------------------
             else if (ScriptView.sort == false
-                  && ScriptView.ScriptRichTextBoxCurrent(this)
-                             .Replace(Environment.NewLine, "")
-                             .Replace("\r\n", "") 
-                             
-                             != FFmpeg.ffmpegArgs)
+                  && ScriptView.GetScriptRichTextBoxContents(this)
+                               .Replace(Environment.NewLine, "")
+                               .Replace("\r\n", "")
+                               .Replace("\u2028", "")
+                               .Replace("\u000A", "")
+                               .Replace("\u000B", "")
+                               .Replace("\u000C", "")
+                               .Replace("\u000D", "")
+                               .Replace("\u0085", "")
+                               .Replace("\u2028", "")
+                               .Replace("\u2029", "")
+
+                               != FFmpeg.ffmpegArgs)
             {
                 MessageBox.Show("Cannot sort edited text.",
                                 "Notice",
@@ -6439,22 +6548,22 @@ namespace Axiom
             else if (ScriptView.sort == true)
             {
                 // CMD Arguments are from Script TextBox
-                FFmpeg.ffmpegArgs = ScriptView.ScriptRichTextBoxCurrent(this)
-                    .Replace(Environment.NewLine, "") //Remove Linebreaks
-                    .Replace("\n", "")
-                    .Replace("\r\n", "")
-                    .Replace("\u2028", "")
-                    .Replace("\u000A", "")
-                    .Replace("\u000B", "")
-                    .Replace("\u000C", "")
-                    .Replace("\u000D", "")
-                    .Replace("\u0085", "")
-                    .Replace("\u2028", "")
-                    .Replace("\u2029", "");
+                FFmpeg.ffmpegArgs = RemoveLineBreaks(ScriptView.GetScriptRichTextBoxContents(this));
+                                    //.Replace(Environment.NewLine, "") //Remove Linebreaks
+                                    //.Replace("\n", "")
+                                    //.Replace("\r\n", "")
+                                    //.Replace("\u2028", "")
+                                    //.Replace("\u000A", "")
+                                    //.Replace("\u000B", "")
+                                    //.Replace("\u000C", "")
+                                    //.Replace("\u000D", "")
+                                    //.Replace("\u0085", "")
+                                    //.Replace("\u2028", "")
+                                    //.Replace("\u2029", "");
 
                 // Clear Old Text
-                //ClearRichTextBox();
-                ScriptView.scriptParagraph.Inlines.Clear();
+                ScriptView.ClearScriptView(this);
+                //ScriptView.scriptParagraph.Inlines.Clear();
 
                 // Write FFmpeg Args
                 rtbScriptView.Document = new FlowDocument(ScriptView.scriptParagraph);
@@ -6475,7 +6584,9 @@ namespace Axiom
         /// </summary>
         private void btnScriptClear_Click(object sender, RoutedEventArgs e)
         {
-            ScriptView.scriptParagraph.Inlines.Clear();
+            //ScriptView.scriptParagraph.Inlines.Clear();
+
+            ScriptView.ClearScriptView(this);
         }
 
 
@@ -6485,19 +6596,19 @@ namespace Axiom
         private void buttonRun_Click(object sender, RoutedEventArgs e)
         {
             // CMD Arguments are from Script TextBox
-            FFmpeg.ffmpegArgs = ScriptView.ScriptRichTextBoxCurrent(this)
-                .Replace(Environment.NewLine, "") //Remove Linebreaks
-                .Replace("\n", "")
-                .Replace("\r\n", "")
-                .Replace("\u2028", "")
-                .Replace("\u000A", "")
-                .Replace("\u000B", "")
-                .Replace("\u000C", "")
-                .Replace("\u000D", "")
-                .Replace("\u0085", "")
-                .Replace("\u2028", "")
-                .Replace("\u2029", "")
-                ;
+            FFmpeg.ffmpegArgs = RemoveLineBreaks(ScriptView.GetScriptRichTextBoxContents(this));
+                                //.Replace(Environment.NewLine, "") //Remove Linebreaks
+                                //.Replace("\r\n", "")
+                                //.Replace("\n", "")
+                                //.Replace("\u2028", "")
+                                //.Replace("\u000A", "")
+                                //.Replace("\u000B", "")
+                                //.Replace("\u000C", "")
+                                //.Replace("\u000D", "")
+                                //.Replace("\u0085", "")
+                                //.Replace("\u2028", "")
+                                //.Replace("\u2029", "")
+                                //;
 
             // Run FFmpeg Arguments
             FFmpeg.FFmpegConvert(this);

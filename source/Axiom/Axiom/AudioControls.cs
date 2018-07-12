@@ -1304,6 +1304,10 @@ namespace Axiom
                                 {
                                     mainwindow.cboAudioCodec.SelectedItem = "AC3";
                                 }
+                                else if ((string)mainwindow.cboFormat.SelectedItem == "m2v")
+                                {
+                                    mainwindow.cboAudioCodec.SelectedItem = "None";
+                                }
                                 else if ((string)mainwindow.cboFormat.SelectedItem == "mpg")
                                 {
                                     mainwindow.cboAudioCodec.SelectedItem = "AC3";
@@ -1349,6 +1353,10 @@ namespace Axiom
                                 //    mainwindow.cboAudioCodec.SelectedItem = "None";
                                 //}
                                 //else if ((string)mainwindow.cboFormat.SelectedItem == "png")
+                                //{
+                                //    mainwindow.cboAudioCodec.SelectedItem = "None";
+                                //}
+                                //else if ((string)mainwindow.cboFormat.SelectedItem == "webp")
                                 //{
                                 //    mainwindow.cboAudioCodec.SelectedItem = "None";
                                 //}

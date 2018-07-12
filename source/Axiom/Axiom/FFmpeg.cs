@@ -486,8 +486,8 @@ namespace Axiom
         public static void FFmpegScript(MainWindow mainwindow)
         {
             // Clear Old Text
-            //ClearRichTextBox();
-            ScriptView.scriptParagraph.Inlines.Clear();
+            ScriptView.ClearScriptView(mainwindow);
+            //ScriptView.scriptParagraph.Inlines.Clear();
 
             // Write FFmpeg Args
             mainwindow.rtbScriptView.Document = new FlowDocument(ScriptView.scriptParagraph);
@@ -520,15 +520,15 @@ namespace Axiom
             //// Use User Custom Script Args
             //// -------------------------
             //// Check if Set Controls Differ from Script TextBox. If so, Script has been edited and is custom..
-            //if (!string.IsNullOrWhiteSpace(ScriptView.ScriptRichTextBoxCurrent(mainwindow)) // Script is not Empty
-            //    && MainWindow.RemoveLineBreaks(ScriptView.ScriptRichTextBoxCurrent(mainwindow))
+            //if (!string.IsNullOrWhiteSpace(ScriptView.GetScriptRichTextBoxContents(mainwindow)) // Script is not Empty
+            //    && MainWindow.ReplaceLineBreaksWithSpace(ScriptView.GetScriptRichTextBoxContents(mainwindow))
 
             //    != ffmpegArgs // Set Controls Args
             //    )
             //{
             //    // CMD Arguments are from Script TextBox
             //    // Stays Sorted
-            //    ffmpegArgs = MainWindow.RemoveLineBreaks(ScriptView.ScriptRichTextBoxCurrent(mainwindow));
+            //    ffmpegArgs = MainWindow.ReplaceLineBreaksWithSpace(ScriptView.GetScriptRichTextBoxContents(mainwindow));
             //}
 
             //// -------------------------

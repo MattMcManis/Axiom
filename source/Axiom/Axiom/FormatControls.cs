@@ -20,6 +20,7 @@ along with this program.If not, see <http://www.gnu.org/licenses/>.
 ---------------------------------------------------------------------- */
 
 
+using System;
 using System.Collections.Generic;
 // Disable XML Comment warnings
 #pragma warning disable 1591
@@ -96,11 +97,14 @@ namespace Axiom
                 previousSubtitleItem = "external";
             }
 
+            //var selectedItem = (ViewModel.FormatItem)mainwindow.cboFormat.SelectedItem;
+            //string format = selectedItem.Name;
+
             // --------------------------------------------------
             // Output Format Container Rules
             // --------------------------------------------------
             // -------------------------
-            // WebM
+            // webm
             // -------------------------
             if ((string)mainwindow.cboFormat.SelectedItem == "webm")
             {
@@ -127,7 +131,7 @@ namespace Axiom
             }
 
             // -------------------------
-            // MP4
+            // mp4
             // -------------------------
             else if ((string)mainwindow.cboFormat.SelectedItem == "mp4")
             {
@@ -152,7 +156,7 @@ namespace Axiom
             }
 
             // -------------------------
-            // MKV
+            // mkv
             // -------------------------
             else if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
             {
@@ -175,7 +179,7 @@ namespace Axiom
             }
 
             // -------------------------
-            // M2V
+            // m2v
             // -------------------------
             else if ((string)mainwindow.cboFormat.SelectedItem == "m2v")
             {
@@ -198,7 +202,7 @@ namespace Axiom
             }
 
             // -------------------------
-            // MPG
+            // mpg
             // -------------------------
             else if ((string)mainwindow.cboFormat.SelectedItem == "mpg")
             {
@@ -221,7 +225,7 @@ namespace Axiom
             }
 
             // -------------------------
-            // AVI
+            // avi
             // -------------------------
             else if ((string)mainwindow.cboFormat.SelectedItem == "avi")
             {
@@ -244,7 +248,7 @@ namespace Axiom
             }
 
             // -------------------------
-            // OGV
+            // ogv
             // -------------------------
             else if ((string)mainwindow.cboFormat.SelectedItem == "ogv")
             {
@@ -267,7 +271,7 @@ namespace Axiom
             }
 
             // -------------------------
-            // Gif
+            // gif
             // -------------------------
             else if ((string)mainwindow.cboFormat.SelectedItem == "gif")
             {
@@ -288,7 +292,7 @@ namespace Axiom
             }
 
             // -------------------------
-            // MP3
+            // mp3
             // -------------------------
             else if ((string)mainwindow.cboFormat.SelectedItem == "mp3")
             {
@@ -312,7 +316,7 @@ namespace Axiom
             }
 
             // -------------------------
-            // M4A
+            // m4a
             // -------------------------
             else if ((string)mainwindow.cboFormat.SelectedItem == "m4a")
             {
@@ -336,7 +340,7 @@ namespace Axiom
             }
 
             // -------------------------
-            // OGG
+            // ogg
             // -------------------------
             else if ((string)mainwindow.cboFormat.SelectedItem == "ogg")
             {
@@ -360,7 +364,7 @@ namespace Axiom
             }
 
             // -------------------------
-            // FLAC
+            // flac
             // -------------------------
             else if ((string)mainwindow.cboFormat.SelectedItem == "flac")
             {
@@ -380,7 +384,7 @@ namespace Axiom
             }
 
             // -------------------------
-            // WAV
+            // wav
             // -------------------------
             else if ((string)mainwindow.cboFormat.SelectedItem == "wav")
             {
@@ -397,7 +401,7 @@ namespace Axiom
             }
 
             // -------------------------
-            // Jpg
+            // jpg
             // -------------------------
             else if ((string)mainwindow.cboFormat.SelectedItem == "jpg")
             {
@@ -420,9 +424,32 @@ namespace Axiom
             }
 
             // -------------------------
-            // Png
+            // png
             // -------------------------
             else if ((string)mainwindow.cboFormat.SelectedItem == "png")
+            {
+                // Media Type
+                // Remove all other options but Image and Sequence
+                MediaTypeItemSource = new List<string>() { "Image", "Sequence" };
+                mainwindow.cboMediaType.ItemsSource = MediaTypeItemSource;
+
+                mainwindow.cboMediaType.SelectedItem = "Image";
+                mainwindow.cboMediaType.IsEnabled = true;
+
+                // Subtitle
+                mainwindow.cboSubtitlesStream.SelectedItem = "none";
+                mainwindow.cboSubtitlesStream.IsEnabled = false;
+
+                // Optimize
+                mainwindow.cboOptimize.IsEnabled = false;
+
+                // more options enable/disable in MediaType Section
+            }
+
+            // -------------------------
+            // WebP
+            // -------------------------
+            else if ((string)mainwindow.cboFormat.SelectedItem == "webp")
             {
                 // Media Type
                 // Remove all other options but Image and Sequence
@@ -455,6 +482,7 @@ namespace Axiom
             // Reset MediaType ComboBox back to Default if not jpg/png and does not contain video/audio (must be above other format options)
             if ((string)mainwindow.cboFormat.SelectedItem != "jpg"
                 && (string)mainwindow.cboFormat.SelectedItem != "png"
+                && (string)mainwindow.cboFormat.SelectedItem != "webp"
                 && !mainwindow.cboMediaType.Items.Contains("Video")
                 && !mainwindow.cboMediaType.Items.Contains("Audio"))
             {
@@ -921,6 +949,34 @@ namespace Axiom
                 // Set the List Defaults
                 // -------------------------
                 mainwindow.cboVideoCodec.SelectedItem = "PNG";
+                mainwindow.cboAudioCodec.SelectedItem = "None";  //important
+            }
+
+            // -------------------------
+            // WebP
+            // -------------------------
+            else if ((string)mainwindow.cboFormat.SelectedItem == "webp")
+            {
+                // -------------------------
+                // Video
+                // -------------------------
+                VideoControls.VideoCodec_ItemSource = new List<string>() { "WebP" };
+
+                // Populate ComboBox from ItemSource
+                mainwindow.cboVideoCodec.ItemsSource = VideoControls.VideoCodec_ItemSource;
+
+                // -------------------------
+                // Audio
+                // ------------------------- 
+                AudioControls.AudioCodec_ItemSource = new List<string>() { "None" };
+
+                // Populate ComboBox from ItemSource
+                mainwindow.cboAudioCodec.ItemsSource = AudioControls.AudioCodec_ItemSource;
+
+                // -------------------------
+                // Set the List Defaults
+                // -------------------------
+                mainwindow.cboVideoCodec.SelectedItem = "WebP";
                 mainwindow.cboAudioCodec.SelectedItem = "None";  //important
             }
 

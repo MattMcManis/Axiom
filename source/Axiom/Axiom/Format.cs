@@ -217,6 +217,10 @@ namespace Axiom
             {
                 // do not use
             }
+            else if ((string)mainwindow.cboFormat.SelectedItem == "webp")
+            {
+                format = "-f webp";
+            }
 
             // Audio
             else if ((string)mainwindow.cboFormat.SelectedItem == "mp3")
