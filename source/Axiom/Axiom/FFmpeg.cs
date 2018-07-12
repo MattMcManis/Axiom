@@ -162,12 +162,12 @@ namespace Axiom
 
                 // Join List with Spaces
                 // Remove: Empty, Null, Standalone LineBreak
-                Video.passSingle = string.Join(" ",
-                    FFmpegArgsSinglePassList
-                    .Where(s => !string.IsNullOrEmpty(s))
-                    .Where(s => !s.Equals("\r\n\r\n"))
-                    .Where(s => !s.Equals("\r\n"))
-                    );
+                Video.passSingle = string.Join(" ", FFmpegArgsSinglePassList
+                                                    .Where(s => !string.IsNullOrEmpty(s))
+                                                    .Where(s => !s.Equals(Environment.NewLine))
+                                                    .Where(s => !s.Equals("\r\n\r\n"))
+                                                    .Where(s => !s.Equals("\r\n"))
+                                              );
             }
 
 
@@ -240,10 +240,11 @@ namespace Axiom
                 // Join List with Spaces
                 // Remove: Empty, Null, Standalone LineBreak
                 Video.pass1Args = string.Join(" ", FFmpegArgsPass1List
-                    .Where(s => !string.IsNullOrEmpty(s))
-                    .Where(s => !s.Equals("\r\n\r\n"))
-                    .Where(s => !s.Equals("\r\n"))
-                    );
+                                                   .Where(s => !string.IsNullOrEmpty(s))
+                                                   .Where(s => !s.Equals(Environment.NewLine))
+                                                   .Where(s => !s.Equals("\r\n\r\n"))
+                                                   .Where(s => !s.Equals("\r\n"))
+                                             );
 
 
                 // -------------------------
@@ -259,10 +260,10 @@ namespace Axiom
 
                     "\r\n\r\n" + 
                     MainWindow.FFmpegPath(),
+                    "-y",
+
                     "\r\n\r\n" + 
                     Video.HWAcceleration(mainwindow),
-
-                    "-y",
 
                     "\r\n\r\n" + 
                     "-i " + "\"" + MainWindow.InputPath(mainwindow) + "\"",
@@ -326,10 +327,11 @@ namespace Axiom
                 // Join List with Spaces
                 // Remove: Empty, Null, Standalone LineBreak
                 Video.pass2Args = string.Join(" ", FFmpegArgsPass2List
-                    .Where(s => !string.IsNullOrEmpty(s))
-                    .Where(s => !s.Equals("\r\n\r\n"))
-                    .Where(s => !s.Equals("\r\n"))
-                    );
+                                                   .Where(s => !string.IsNullOrEmpty(s))
+                                                   .Where(s => !s.Equals(Environment.NewLine))
+                                                   .Where(s => !s.Equals("\r\n\r\n"))
+                                                   .Where(s => !s.Equals("\r\n"))
+                                             );
 
                 // Combine Pass 1 & Pass 2 Args
                 //
@@ -357,8 +359,8 @@ namespace Axiom
                 {
                     //MainWindow.YouTubeDownload(MainWindow.InputPath(mainwindow)),
                     MainWindow.FFmpegPath(),
-                    Video.HWAcceleration(mainwindow),
                     "-y",
+                    "\r\n\r\n" + Video.HWAcceleration(mainwindow),
                     FFmpeg.OnePassArgs(mainwindow), //disabled if 2-Pass
                     FFmpeg.TwoPassArgs(mainwindow) //disabled if 1-Pass
                 };
@@ -366,16 +368,24 @@ namespace Axiom
                 // Join List with Spaces
                 // Remove: Empty, Null, Standalone LineBreak
                 ffmpegArgsSort = string.Join(" ", FFmpegArgsList
-                    .Where(s => !string.IsNullOrEmpty(s))
-                    .Where(s => !s.Equals("\r\n\r\n"))
-                    .Where(s => !s.Equals("\r\n"))
-                    );
+                                                  .Where(s => !string.IsNullOrEmpty(s))
+                                                  .Where(s => !s.Equals(Environment.NewLine))
+                                                  .Where(s => !s.Equals("\r\n\r\n"))
+                                                  .Where(s => !s.Equals("\r\n"))
+                                            );
 
                 // Inline 
-                ffmpegArgs = string.Join(" ", FFmpegArgsList
-                                   .Where(s => !string.IsNullOrEmpty(s)))
-                                   .Replace("\r\n", "") //Remove Linebreaks
-                                   .Replace(Environment.NewLine, "");
+                ffmpegArgs = MainWindow.RemoveLineBreaks(
+                                            string.Join(" ", FFmpegArgsList
+                                                             .Where(s => !string.IsNullOrEmpty(s))
+                                                             .Where(s => !s.Equals(Environment.NewLine))
+                                                             .Where(s => !s.Equals("\r\n\r\n"))
+                                                             .Where(s => !s.Equals("\r\n"))
+                                                        )
+                                        );
+
+                                   //.Replace("\r\n", "") //Remove Linebreaks
+                                   //.Replace(Environment.NewLine, "")
             }
 
 
@@ -462,17 +472,23 @@ namespace Axiom
                 // Join List with Spaces
                 // Remove: Empty, Null, Standalone LineBreak
                 ffmpegArgsSort = string.Join(" ", FFmpegBatchArgsList
-                    .Where(s => !string.IsNullOrEmpty(s))
-                    .Where(s => !s.Equals(Environment.NewLine))
-                    .Where(s => !s.Equals("\r\n\r\n"))
-                    .Where(s => !s.Equals("\r\n"))
-                    );
+                                                  .Where(s => !string.IsNullOrEmpty(s))
+                                                  .Where(s => !s.Equals(Environment.NewLine))
+                                                  .Where(s => !s.Equals("\r\n\r\n"))
+                                                  .Where(s => !s.Equals("\r\n"))
+                                            );
 
                 // Inline 
-                ffmpegArgs = string.Join(" ", FFmpegBatchArgsList
-                                   .Where(s => !string.IsNullOrEmpty(s)))
-                                   .Replace("\r\n", " ") // Replace Linebreaks with Spaces to avoid arguments touching
-                                   .Replace(Environment.NewLine, "");
+                ffmpegArgs = MainWindow.RemoveLineBreaks(
+                                            string.Join(" ", FFmpegBatchArgsList
+                                                            .Where(s => !string.IsNullOrEmpty(s))
+                                                            .Where(s => !s.Equals(Environment.NewLine))
+                                                            .Where(s => !s.Equals("\r\n\r\n"))
+                                                            .Where(s => !s.Equals("\r\n"))
+                                                        )
+                                        );
+                                   //.Replace("\r\n", " ") // Replace Linebreaks with Spaces to avoid arguments touching
+                                   //.Replace(Environment.NewLine, "");
             }
         }
 
@@ -492,7 +508,7 @@ namespace Axiom
             // Write FFmpeg Args
             mainwindow.rtbScriptView.Document = new FlowDocument(ScriptView.scriptParagraph);
             mainwindow.rtbScriptView.BeginChange();
-            ScriptView.scriptParagraph.Inlines.Add(new Run(FFmpeg.ffmpegArgs));
+            ScriptView.scriptParagraph.Inlines.Add(new Run(ffmpegArgs));
             mainwindow.rtbScriptView.EndChange();
         }
 
@@ -521,14 +537,14 @@ namespace Axiom
             //// -------------------------
             //// Check if Set Controls Differ from Script TextBox. If so, Script has been edited and is custom..
             //if (!string.IsNullOrWhiteSpace(ScriptView.GetScriptRichTextBoxContents(mainwindow)) // Script is not Empty
-            //    && MainWindow.ReplaceLineBreaksWithSpace(ScriptView.GetScriptRichTextBoxContents(mainwindow))
+            //    && MainWindow.ReplaceLineBreaksWithSpaces(ScriptView.GetScriptRichTextBoxContents(mainwindow))
 
             //    != ffmpegArgs // Set Controls Args
             //    )
             //{
             //    // CMD Arguments are from Script TextBox
             //    // Stays Sorted
-            //    ffmpegArgs = MainWindow.ReplaceLineBreaksWithSpace(ScriptView.GetScriptRichTextBoxContents(mainwindow));
+            //    ffmpegArgs = MainWindow.ReplaceLineBreaksWithSpaces(ScriptView.GetScriptRichTextBoxContents(mainwindow));
             //}
 
             //// -------------------------

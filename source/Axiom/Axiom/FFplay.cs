@@ -102,7 +102,7 @@ namespace Axiom
 
                 // Join List with Spaces
                 // Remove: Empty, Null, Standalone LineBreak
-                string ffplayArgs = MainWindow.ReplaceLineBreaksWithSpace(
+                string ffplayArgs = MainWindow.ReplaceLineBreaksWithSpaces(
                                         string.Join(" ", FFplayArgsList)
                                     );
 
