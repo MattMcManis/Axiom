@@ -194,8 +194,8 @@ namespace Axiom
                 mainwindow.cboSamplerate.IsEnabled = true;
 
                 // VBR Button
-                mainwindow.tglVBR.IsEnabled = true;
-                mainwindow.tglVBR.IsChecked = false;
+                mainwindow.tglAudioVBR.IsEnabled = true;
+                mainwindow.tglAudioVBR.IsChecked = false;
 
                 // Volume
                 mainwindow.volumeUpDown.IsEnabled = true;
@@ -286,8 +286,8 @@ namespace Axiom
                 mainwindow.cboSamplerate.IsEnabled = true;
 
                 // VBR Button
-                mainwindow.tglVBR.IsEnabled = true;
-                mainwindow.tglVBR.IsChecked = true;
+                mainwindow.tglAudioVBR.IsEnabled = true;
+                mainwindow.tglAudioVBR.IsChecked = true;
 
                 // Volume
                 mainwindow.volumeUpDown.IsEnabled = true;
@@ -377,8 +377,8 @@ namespace Axiom
                 mainwindow.cboSamplerate.IsEnabled = true;
 
                 // VBR Button
-                mainwindow.tglVBR.IsEnabled = true;
-                mainwindow.tglVBR.IsChecked = false;
+                mainwindow.tglAudioVBR.IsEnabled = true;
+                mainwindow.tglAudioVBR.IsChecked = false;
 
                 // Volume
                 mainwindow.volumeUpDown.IsEnabled = true;
@@ -481,8 +481,8 @@ namespace Axiom
                 mainwindow.cboAudioQuality.IsEnabled = true;
 
                 // VBR Button
-                mainwindow.tglVBR.IsEnabled = false;
-                mainwindow.tglVBR.IsChecked = false;
+                mainwindow.tglAudioVBR.IsEnabled = false;
+                mainwindow.tglAudioVBR.IsChecked = false;
             }
 
 
@@ -571,8 +571,8 @@ namespace Axiom
                 // Disabled
                 // -------------------------
                 // VBR Button
-                mainwindow.tglVBR.IsEnabled = false;
-                mainwindow.tglVBR.IsChecked = false;
+                mainwindow.tglAudioVBR.IsEnabled = false;
+                mainwindow.tglAudioVBR.IsChecked = false;
 
                 // Bit Depth
                 mainwindow.cboBitDepth.IsEnabled = false;
@@ -653,8 +653,8 @@ namespace Axiom
                 mainwindow.cboChannel.IsEnabled = true;
 
                 // VBR Button
-                mainwindow.tglVBR.IsEnabled = true;
-                mainwindow.tglVBR.IsChecked = false;
+                mainwindow.tglAudioVBR.IsEnabled = true;
+                mainwindow.tglAudioVBR.IsChecked = false;
 
                 // SampleRate
                 mainwindow.cboSamplerate.IsEnabled = true;
@@ -760,8 +760,8 @@ namespace Axiom
                 mainwindow.cboAudioQuality.IsEnabled = true;
 
                 // VBR Button
-                mainwindow.tglVBR.IsEnabled = false;
-                mainwindow.tglVBR.IsChecked = false;
+                mainwindow.tglAudioVBR.IsEnabled = false;
+                mainwindow.tglAudioVBR.IsChecked = false;
 
             }
 
@@ -852,8 +852,8 @@ namespace Axiom
                 mainwindow.cboAudioQuality.IsEnabled = true;
 
                 // VBR Button
-                mainwindow.tglVBR.IsEnabled = false;
-                mainwindow.tglVBR.IsChecked = false;
+                mainwindow.tglAudioVBR.IsEnabled = false;
+                mainwindow.tglAudioVBR.IsChecked = false;
             }
 
 
@@ -931,8 +931,8 @@ namespace Axiom
                 mainwindow.cboChannel.IsEnabled = true;
 
                 // VBR Button
-                mainwindow.tglVBR.IsEnabled = true;
-                mainwindow.tglVBR.IsChecked = false;
+                mainwindow.tglAudioVBR.IsEnabled = true;
+                mainwindow.tglAudioVBR.IsChecked = false;
 
                 // Volume
                 mainwindow.volumeUpDown.IsEnabled = true;
@@ -1029,8 +1029,8 @@ namespace Axiom
                 mainwindow.cboChannel.IsEnabled = false;
 
                 // VBR Button
-                mainwindow.tglVBR.IsEnabled = false;
-                mainwindow.tglVBR.IsChecked = false;
+                mainwindow.tglAudioVBR.IsEnabled = false;
+                mainwindow.tglAudioVBR.IsChecked = false;
 
                 // SampleRate
                 mainwindow.cboSamplerate.IsEnabled = false;

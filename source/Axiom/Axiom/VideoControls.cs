@@ -944,7 +944,7 @@ namespace Axiom
                 List<string> VideoQuality_ItemSource = new List<string>()
                 {
                     "Auto",
-                    "Lossless",
+                    //"Lossless", //disabled
                     "Ultra",
                     "High",
                     "Medium",
@@ -1062,7 +1062,8 @@ namespace Axiom
                     "High",
                     "Medium",
                     "Low",
-                    "Sub"
+                    "Sub",
+                    "Custom"
                 };
 
                 ChangeItemSource(
@@ -1080,14 +1081,14 @@ namespace Axiom
                 // -------------------------
                 Pass_ItemSource = new List<string>()
                 {
-                    "auto"
+                    "1 Pass"
                 };
 
                 ChangeItemSource(
                     mainwindow,
                     mainwindow.cboPass, // ComboBox
                     Pass_ItemSource, // New Items List
-                    "auto"); // Selected Item
+                    "1 Pass"); // Selected Item
 
 
                 // --------------------------------------------------
@@ -1189,14 +1190,14 @@ namespace Axiom
                 // -------------------------
                 Pass_ItemSource = new List<string>()
                 {
-                    "auto"
+                    "1 Pass"
                 };
 
                 ChangeItemSource(
                     mainwindow,
                     mainwindow.cboPass, // ComboBox
                     Pass_ItemSource, // New Items List
-                    "auto"); // Selected Item
+                    "1 Pass"); // Selected Item
 
 
                 // --------------------------------------------------
@@ -1280,7 +1281,8 @@ namespace Axiom
                     "High",
                     "Medium",
                     "Low",
-                    "Sub"
+                    "Sub",
+                    "Custom"
                 };
 
                 ChangeItemSource(
@@ -1298,14 +1300,14 @@ namespace Axiom
                 // -------------------------
                 Pass_ItemSource = new List<string>()
                 {
-                    "auto"
+                    "1 Pass"
                 };
 
                 ChangeItemSource(
                     mainwindow,
                     mainwindow.cboPass, // ComboBox
                     Pass_ItemSource, // New Items List
-                    "auto"); // Selected Item
+                    "1 Pass"); // Selected Item
 
 
                 // --------------------------------------------------
@@ -2085,16 +2087,17 @@ namespace Axiom
             if ((string)mainwindow.cboVideoQuality.SelectedItem == "Custom")
             {
                 // -------------------------
-                // Disable CRF TextBox if 1 Pass or 2-Pass
+                // Disable CRF TextBox if 1 Pass or 2 Pass
                 // -------------------------
-                if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
-                    || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
+                if ((string)mainwindow.cboPass.SelectedItem == "1 Pass" ||
+                    (string)mainwindow.cboPass.SelectedItem == "2 Pass")
                 {
                     mainwindow.crfCustom.IsEnabled = false;
                     mainwindow.cboPass.IsEnabled = true;
 
                     // Set CRF back to Default value
-                    mainwindow.crfCustom.Text = "CRF";
+                    //mainwindow.crfCustom.Text = "CRF";
+                    mainwindow.crfCustom.Text = string.Empty;
                 }
 
                 // -------------------------

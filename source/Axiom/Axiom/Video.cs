@@ -45,6 +45,7 @@ namespace Axiom
         public static string vCodec; // Video Codec
         public static string vQuality; // Video Quality
         public static string vBitMode;
+        public static string vLossless;
         public static string vBitrate; // Video Bitrate
         public static string vMinrate;
         public static string vMaxrate;
@@ -351,14 +352,14 @@ namespace Axiom
                     sCodec = "-c:s mov_text";
                 }
                 // ASS
-                else if ((string)mainwindow.cboSubtitleCodec.SelectedItem == "ASS")
-                {
-                    sCodec = "-c:s ass";
-                }
+                //else if ((string)mainwindow.cboSubtitleCodec.SelectedItem == "ASS")
+                //{
+                //    sCodec = "-c:s ass";
+                //}
                 // SSA
                 else if ((string)mainwindow.cboSubtitleCodec.SelectedItem == "SSA")
                 {
-                    sCodec = "-c:s ssa";
+                    sCodec = "-c:s ass";
                 }
                 // SRT
                 else if ((string)mainwindow.cboSubtitleCodec.SelectedItem == "SRT")
@@ -453,7 +454,7 @@ namespace Axiom
             // If Not Auto, use Selected Item
             if (mainwindow.cboPixelFormat.SelectedItem.ToString() != "auto")
             {
-                pix_fmt = "-pix_fmt " + mainwindow.cboPixelFormat.SelectedItem.ToString();
+                pix_fmt = "\n-pix_fmt " + mainwindow.cboPixelFormat.SelectedItem.ToString();
             }
 
             return pix_fmt;
@@ -466,110 +467,127 @@ namespace Axiom
         /// <summary>
         public static String VideoBitrateCalculator(MainWindow mainwindow, string vEntryType, string inputVideoBitrate)
         {
-            // FFprobe values
-            //
-            if (string.IsNullOrEmpty(inputVideoBitrate))
+            // -------------------------
+            // Null Check
+            // -------------------------
+            if (!string.IsNullOrEmpty(inputVideoBitrate))
             {
-                // do nothing (dont remove, it will cause substring to overload)
-
-                // Log Console Message /////////
-                Log.WriteAction = () =>
+                // -------------------------
+                // Capture only "N/A" from FFprobe
+                // -------------------------
+                if (inputVideoBitrate.Substring(0, 3) == "N/A")
                 {
-                    Log.logParagraph.Inlines.Add(new LineBreak());
-                    Log.logParagraph.Inlines.Add(new LineBreak());
-                    Log.logParagraph.Inlines.Add(new Bold(new Run("Input Video Bitrate does not exist or can't be detected")) { Foreground = Log.ConsoleWarning });
-                };
-                Log.LogActions.Add(Log.WriteAction);
+                    inputVideoBitrate = "N/A";
+                }
+
+                // -------------------------
+                // If Video has a Bitrate, calculate Bitrate into decimal
+                // -------------------------
+                if (inputVideoBitrate != "N/A")
+                {
+                    // e.g. (1000M / 1,000,000K)
+                    if (Convert.ToInt32(inputVideoBitrate) >= 1000000000)
+                    {
+                        inputVideoBitrate = Convert.ToString(int.Parse(inputVideoBitrate) * 0.00001);
+                    }
+                    // e.g. (100M / 100,000K) 
+                    else if (Convert.ToInt32(inputVideoBitrate) >= 100000000)
+                    {
+                        inputVideoBitrate = Convert.ToString(int.Parse(inputVideoBitrate) * 0.0001);
+                    }
+                    // e.g. (10M / 10,000K)
+                    else if (Convert.ToInt32(inputVideoBitrate) >= 10000000)
+                    {
+                        inputVideoBitrate = Convert.ToString(int.Parse(inputVideoBitrate) * 0.001);
+                    }
+                    // e.g. (1M /1000K)
+                    else if (Convert.ToInt32(inputVideoBitrate) >= 100000)
+                    {
+                        inputVideoBitrate = Convert.ToString(int.Parse(inputVideoBitrate) * 0.001);
+                    }
+                    // e.g. (100K)
+                    else if (Convert.ToInt32(inputVideoBitrate) >= 10000)
+                    {
+                        inputVideoBitrate = Convert.ToString(int.Parse(inputVideoBitrate) * 0.001);
+                    }
+                }
+
+                // -------------------------
+                // If Video Variable = N/A, Calculate Bitate (((Filesize*8)/1000)/Duration)
+                // Formats like WebM, MKV and with Missing Metadata can have New Bitrates calculated and applied
+                // -------------------------
+                if (inputVideoBitrate == "N/A")
+                {
+                    // Calculating Bitrate will crash if jpg/png
+                    try
+                    {
+                        // Convert to int to remove decimals
+                        inputVideoBitrate = Convert.ToInt32((double.Parse(FFprobe.inputSize) * 8) / 1000 / double.Parse(FFprobe.inputDuration)).ToString();
+                        
+
+                        // Log Console Message /////////
+                        Log.WriteAction = () =>
+                        {
+                            Log.logParagraph.Inlines.Add(new LineBreak());
+                            Log.logParagraph.Inlines.Add(new LineBreak());
+                            Log.logParagraph.Inlines.Add(new Bold(new Run("Calculating New Bitrate Information...")) { Foreground = Log.ConsoleAction });
+                            Log.logParagraph.Inlines.Add(new LineBreak());
+                            Log.logParagraph.Inlines.Add(new Run("((File Size * 8) / 1000) / File Time Duration") { Foreground = Log.ConsoleDefault });
+                        };
+                        Log.LogActions.Add(Log.WriteAction);
+                    }
+                    catch
+                    {
+                        // Log Console Message /////////
+                        Log.WriteAction = () =>
+                        {
+                            Log.logParagraph.Inlines.Add(new LineBreak());
+                            Log.logParagraph.Inlines.Add(new LineBreak());
+                            Log.logParagraph.Inlines.Add(new Bold(new Run("Error: Could Not Calculate New Bitrate Information...")) { Foreground = Log.ConsoleError });
+                        };
+                        Log.LogActions.Add(Log.WriteAction);
+                    }
+                }
+
+                // -------------------------
+                // WebM Video Bitrate Limiter
+                // If input video bitrate is greater than 1.5M, lower the bitrate to 1.5M
+                // -------------------------
+                if (MainWindow.outputExt == ".webm" && Convert.ToDouble(inputVideoBitrate) >= 1500)
+                {
+                    inputVideoBitrate = "1500";
+                }
+
+                // -------------------------
+                // Round Bitrate, Remove Decimals
+                // -------------------------
+                inputVideoBitrate = Math.Round(double.Parse(inputVideoBitrate)).ToString();
+
+                // -------------------------
+                // Add K to end of Bitrate
+                // -------------------------
+                inputVideoBitrate = inputVideoBitrate + "K";
             }
-            // Filter out any extra spaces after the first 3 characters IMPORTANT
-            //
-            else if (inputVideoBitrate.Substring(0, 3) == "N/A")
-            {
-                inputVideoBitrate = "N/A";
-            }
 
-            // If Video has a Bitrate, calculate Bitrate into decimal
-            //
-            if (inputVideoBitrate != "N/A" && !string.IsNullOrEmpty(inputVideoBitrate))
+            // -------------------------
+            // Input Video Bitrate does not exist
+            // -------------------------
+            else
             {
-                // e.g. (1000M / 1,000,000K)
-                if (Convert.ToInt32(inputVideoBitrate) >= 1000000000)
+                if (string.IsNullOrEmpty(inputVideoBitrate))
                 {
-                    inputVideoBitrate = Convert.ToString(int.Parse(inputVideoBitrate) * 0.00001);
-                }
-                // e.g. (100M / 100,000K) 
-                else if (Convert.ToInt32(inputVideoBitrate) >= 100000000)
-                {
-                    inputVideoBitrate = Convert.ToString(int.Parse(inputVideoBitrate) * 0.0001);
-                }
-                // e.g. (10M / 10,000K)
-                else if (Convert.ToInt32(inputVideoBitrate) >= 10000000)
-                {
-                    inputVideoBitrate = Convert.ToString(int.Parse(inputVideoBitrate) * 0.001);
-                }
-                // e.g. (1M /1000K)
-                else if (Convert.ToInt32(inputVideoBitrate) >= 100000)
-                {
-                    inputVideoBitrate = Convert.ToString(int.Parse(inputVideoBitrate) * 0.001);
-                }
-                // e.g. (100K)
-                else if (Convert.ToInt32(inputVideoBitrate) >= 10000)
-                {
-                    inputVideoBitrate = Convert.ToString(int.Parse(inputVideoBitrate) * 0.001);
-                }
-            }
-
-
-            // If Video Variable = N/A, Calculate Bitate (((Filesize*8)/1000)/Duration)
-            // Formats like WebM, MKV and with Missing Metadata can have New Bitrates calculated and applied
-            //
-            if (inputVideoBitrate == "N/A")
-            {
-                try // Calculating Bitrate will crash if jpg/png
-                {
-                    inputVideoBitrate = Convert.ToInt32((double.Parse(FFprobe.inputSize) * 8) / 1000 / double.Parse(FFprobe.inputDuration)).ToString();
-                    // convert to int to remove decimals
+                    // do nothing (dont remove, it will cause substring to overload)
 
                     // Log Console Message /////////
                     Log.WriteAction = () =>
                     {
                         Log.logParagraph.Inlines.Add(new LineBreak());
                         Log.logParagraph.Inlines.Add(new LineBreak());
-                        Log.logParagraph.Inlines.Add(new Bold(new Run("Calculating New Bitrate Information...")) { Foreground = Log.ConsoleAction });
-                        Log.logParagraph.Inlines.Add(new LineBreak());
-                        Log.logParagraph.Inlines.Add(new Run("((File Size * 8) / 1000) / File Time Duration") { Foreground = Log.ConsoleDefault });
-                    };
-                    Log.LogActions.Add(Log.WriteAction);
-                }
-                catch
-                {
-                    // Log Console Message /////////
-                    Log.WriteAction = () =>
-                    {
-                        Log.logParagraph.Inlines.Add(new LineBreak());
-                        Log.logParagraph.Inlines.Add(new LineBreak());
-                        Log.logParagraph.Inlines.Add(new Bold(new Run("Error: Could Not Calculate New Bitrate Information...")) { Foreground = Log.ConsoleError });
+                        Log.logParagraph.Inlines.Add(new Bold(new Run("Input Video Bitrate does not exist or can't be detected")) { Foreground = Log.ConsoleWarning });
                     };
                     Log.LogActions.Add(Log.WriteAction);
                 }
             }
-
-
-            // WebM Video Bitrate Limiter
-            // If input video bitrate is greater than 1.5M, lower the bitrate to 1.5M
-            //
-            if (MainWindow.outputExt == ".webm" && Convert.ToDouble(inputVideoBitrate) >= 1500)
-            {
-                inputVideoBitrate = "1500";
-            }
-
-            // Round Bitrate, Remove Decimals
-            //
-            inputVideoBitrate = Math.Round(double.Parse(inputVideoBitrate)).ToString();
-
-            // Add K to end of Bitrate
-            //
-            inputVideoBitrate = inputVideoBitrate + "K";
 
 
             return inputVideoBitrate;
@@ -603,31 +621,34 @@ namespace Axiom
                     {
                         // Make List
                         List<string> BatchVideoAutoList = new List<string>()
-                    {
-                        // size
-                        "& for /F \"delims=\" %S in ('@" + FFprobe.ffprobe + " -v error -select_streams v:0 -show_entries format^=size -of default^=noprint_wrappers^=1:nokey^=1 \"%~f\" 2^>^&1') do (SET size=%S)",
-                        // set %S to %size%
-                        "\r\n\r\n" + "& for /F %S in ('echo %size%') do (echo)",
+                        {
+                            // size
+                            "& for /F \"delims=\" %S in ('@" + FFprobe.ffprobe + " -v error -select_streams v:0 -show_entries format^=size -of default^=noprint_wrappers^=1:nokey^=1 \"%~f\" 2^>^&1') do (SET size=%S)",
+                            // set %S to %size%
+                            "\r\n\r\n" + "& for /F %S in ('echo %size%') do (echo)",
 
-                        // duration
-                        "\r\n\r\n" + "& for /F \"delims=\" %D in ('@" + FFprobe.ffprobe + " -v error -select_streams v:0 -show_entries format^=duration -of default^=noprint_wrappers^=1:nokey^=1 \"%~f\" 2^>^&1') do (SET duration=%D)",
-                        // remove duration decimals
-                        "\r\n\r\n" + "& for /F \"tokens=1 delims=.\" %R in ('echo %duration%') do (SET duration=%R)",
-                        // set %D to %duration%
-                        "\r\n\r\n" + "& for /F %D in ('echo %duration%') do (echo)",
+                            // duration
+                            "\r\n\r\n" + "& for /F \"delims=\" %D in ('@" + FFprobe.ffprobe + " -v error -select_streams v:0 -show_entries format^=duration -of default^=noprint_wrappers^=1:nokey^=1 \"%~f\" 2^>^&1') do (SET duration=%D)",
+                            // remove duration decimals
+                            "\r\n\r\n" + "& for /F \"tokens=1 delims=.\" %R in ('echo %duration%') do (SET duration=%R)",
+                            // set %D to %duration%
+                            "\r\n\r\n" + "& for /F %D in ('echo %duration%') do (echo)",
 
-                        // vBitrate
-                        "\r\n\r\n" + "& for /F \"delims=\" %V in ('@" + FFprobe.ffprobe + " -v error -select_streams v:0 -show_entries " + FFprobe.vEntryTypeBatch + " -of default^=noprint_wrappers^=1:nokey^=1 \"%~f\" 2^>^&1') do (SET vBitrate=%V)",
-                        // set %V to %vBitrate%
-                        "\r\n\r\n" + "& for /F %V in ('echo %vBitrate%') do (echo)",
-                        // auto bitrate calcuate
-                        "\r\n\r\n" + "& (if %V EQU N/A (SET /a vBitrate=%S*8/1000/%D*1000) ELSE (echo Video Bitrate Detected))",
-                        // set %V to %vBitrate%
-                        "\r\n\r\n" + "& for /F %V in ('echo %vBitrate%') do (echo)",
-                    };
+                            // vBitrate
+                            "\r\n\r\n" + "& for /F \"delims=\" %V in ('@" + FFprobe.ffprobe + " -v error -select_streams v:0 -show_entries " + FFprobe.vEntryTypeBatch + " -of default^=noprint_wrappers^=1:nokey^=1 \"%~f\" 2^>^&1') do (SET vBitrate=%V)",
+                            // set %V to %vBitrate%
+                            "\r\n\r\n" + "& for /F %V in ('echo %vBitrate%') do (echo)",
+                            // auto bitrate calcuate
+                            "\r\n\r\n" + "& (if %V EQU N/A (SET /a vBitrate=%S*8/1000/%D*1000) ELSE (echo Video Bitrate Detected))",
+                            // set %V to %vBitrate%
+                            "\r\n\r\n" + "& for /F %V in ('echo %vBitrate%') do (echo)",
+                        };
 
+                        // -------------------------
                         // Join List with Spaces, Remove Empty Strings
-                        Video.batchVideoAuto = string.Join(" ", BatchVideoAutoList.Where(s => !string.IsNullOrEmpty(s)));
+                        // -------------------------
+                        Video.batchVideoAuto = string.Join(" ", BatchVideoAutoList
+                                                                .Where(s => !string.IsNullOrEmpty(s)));
 
                     }
                 }
@@ -635,6 +656,582 @@ namespace Axiom
 
             // Return Value
             return batchVideoAuto;
+        }
+
+
+        /// <summary>
+        ///     Video Quality Presets
+        /// <summary>
+        public static void VideoQualityPresets(
+                                                MainWindow mainwindow,
+                                                //string encoding_Pass,
+                                                //string video_Quality,
+                                                //bool vbr_IsChecked,
+
+                                                // Option Flags
+                                                //string video_Options,
+
+                                                // Auto
+                                                string auto_bitrate,
+                                                string auto_minrate,
+                                                string auto_maxrate,
+                                                string auto_bufsize,
+
+                                                // Lossless
+                                                string lossless,
+
+                                                // CBR 1 & 2-Pass
+                                                // Ultra
+                                                string cbr_ultra_pass_bitrate,
+                                                string cbr_high_pass_bitrate,
+                                                string cbr_medium_pass_bitrate,
+                                                string cbr_low_pass_bitrate,
+                                                string cbr_sub_pass_bitrate,
+
+                                                // VBR 1 & 2-Pass
+                                                string vbr_ultra_pass_bitrate,
+                                                string vbr_high_pass_bitrate,
+                                                string vbr_medium_pass_bitrate,
+                                                string vbr_low_pass_bitrate,
+                                                string vbr_sub_pass_bitrate,
+
+                                                // CRF
+                                                string ultra_crf_rate,
+                                                string ultra_crf_bitrate,
+                                                string high_crf_rate,
+                                                string high_crf_bitrate,
+                                                string medium_crf_rate,
+                                                string medium_crf_bitrate,
+                                                string low_crf_rate,
+                                                string low_crf_bitrate,
+                                                string sub_crf_rate,
+                                                string sub_crf_bitrate,
+
+                                                // Mirate
+                                                string ultra_minrate,
+                                                string high_minrate,
+                                                string medium_minrate,
+                                                string low_minrate,
+                                                string sub_minrate,
+                                                // Maxrate
+                                                string ultra_maxrate,
+                                                string high_maxrate,
+                                                string medium_maxrate,
+                                                string low_maxrate,
+                                                string sub_maxrate,
+                                                // Bufsize
+                                                string ultra_bufsize,
+                                                string high_bufsize,
+                                                string medium_bufsize,
+                                                string low_bufsize,
+                                                string sub_bufsize
+                                                )
+        {
+            // -------------------------
+            // Auto
+            // -------------------------
+            if ((string)mainwindow.cboVideoQuality.SelectedItem == "Auto")
+            {
+                // -------------------------
+                // Single
+                // -------------------------
+                if (mainwindow.tglBatch.IsChecked == false)
+                {
+                    // -------------------------
+                    // Input File Has Video
+                    // Input Video Bitrate NOT Detected
+                    // Input Video Codec Detected
+                    // -------------------------
+                    if (string.IsNullOrEmpty(FFprobe.inputVideoBitrate) ||
+                        FFprobe.inputVideoBitrate == "N/A")
+                    {
+                        // -------------------------
+                        // Codec Detected
+                        // -------------------------
+                        if (!string.IsNullOrEmpty(FFprobe.inputVideoCodec))
+                        {
+                            // 1 Pass / CRF
+                            //
+                            if ((string)mainwindow.cboPass.SelectedItem == "1 Pass" ||
+                                (string)mainwindow.cboPass.SelectedItem == "CRF")
+                            {
+                                crf = string.Empty;
+
+                                if (!string.IsNullOrEmpty(auto_bitrate))
+                                {
+                                    vBitMode = VideoBitrateMode(mainwindow);
+                                    vBitrate = auto_bitrate;
+                                    vMinrate = auto_minrate;
+                                    vMaxrate = auto_maxrate;
+                                    vBufsize = auto_bufsize;
+                                }
+                            }
+
+                            // 2 Pass
+                            //
+                            else if ((string)mainwindow.cboPass.SelectedItem == "2 Pass")
+                            {
+                                crf = string.Empty;
+
+                                if (!string.IsNullOrEmpty(auto_bitrate))
+                                {
+                                    vBitMode = VideoBitrateMode(mainwindow);
+                                    vBitrate = auto_bitrate;
+                                    vMinrate = auto_minrate;
+                                    vMaxrate = auto_maxrate;
+                                    vBufsize = auto_bufsize;
+                                }
+                            }
+
+                            // Pixel Format
+                            vOptions = PixFmt(mainwindow);
+                        }
+                        // -------------------------
+                        // Codec Not Detected
+                        // -------------------------
+                        else
+                        {
+                            crf = string.Empty;
+
+                            vBitMode = string.Empty;
+                            vBitrate = string.Empty;
+                            vMinrate = string.Empty;
+                            vMaxrate = string.Empty;
+                            vBufsize = string.Empty;
+
+                            // Pixel Format
+                            vOptions = string.Empty;
+                        }
+                    }
+
+                    // -------------------------
+                    // Input File Has Video
+                    // Input Video Bitrate IS Detected
+                    // Input Video Codec Detected
+                    // -------------------------
+                    else if (!string.IsNullOrEmpty(FFprobe.inputVideoBitrate) &&
+                             FFprobe.inputVideoBitrate != "N/A")
+                    {
+                        crf = string.Empty;
+
+                        if (!string.IsNullOrEmpty(auto_bitrate))
+                        {
+                            vBitMode = VideoBitrateMode(mainwindow);
+                            vBitrate = auto_bitrate;
+                            vMinrate = auto_minrate;
+                            vMaxrate = auto_maxrate;
+                            vBufsize = auto_bufsize;
+                        }
+                    }
+                }
+
+                // -------------------------
+                // Batch
+                // -------------------------
+                else if (mainwindow.tglBatch.IsChecked == true)
+                {
+                    // Use the CMD Batch Video Variable
+                    vBitMode = "-b:v";
+                    vBitrate = "%V";
+
+                    // Pixel Format
+                    vOptions = PixFmt(mainwindow);
+                }
+            }
+
+            // -------------------------
+            // Lossless
+            // -------------------------
+            else if ((string)mainwindow.cboVideoQuality.SelectedItem == "Lossless")
+            {
+
+                VideoQualityBitrate(mainwindow,
+                                    (string)mainwindow.cboVideoCodec.SelectedItem,
+                                    (string)mainwindow.cboPass.SelectedItem,
+                                    (string)mainwindow.cboVideoQuality.SelectedItem,
+                                    (bool)mainwindow.tglVideoVBR.IsChecked,
+
+                                    // Lossless
+                                    lossless,
+
+                                    // CBR 1 & 2-Pass
+                                    string.Empty,
+
+                                    // VBR 1 & 2-Pass
+                                    string.Empty,
+
+                                    // CRF
+                                    string.Empty,
+                                    string.Empty,
+
+                                    // Mirate, Maxrate, Bufsize
+                                    string.Empty,
+                                    string.Empty,
+                                    string.Empty
+                                    );
+            }
+
+            // -------------------------
+            // Ultra
+            // -------------------------
+            else if ((string)mainwindow.cboVideoQuality.SelectedItem == "Ultra")
+            {
+
+                VideoQualityBitrate(mainwindow,
+                                    (string)mainwindow.cboVideoCodec.SelectedItem,
+                                    (string)mainwindow.cboPass.SelectedItem,
+                                    (string)mainwindow.cboVideoQuality.SelectedItem,
+                                    (bool)mainwindow.tglVideoVBR.IsChecked,
+
+                                    // Lossless
+                                    string.Empty,
+
+                                    // CBR 1 & 2-Pass
+                                    cbr_ultra_pass_bitrate,
+
+                                    // VBR 1 & 2-Pass
+                                    vbr_ultra_pass_bitrate,
+
+                                    // CRF
+                                    ultra_crf_rate,
+                                    ultra_crf_bitrate,
+
+                                    // Mirate, Maxrate, Bufsize
+                                    ultra_minrate,
+                                    ultra_maxrate,
+                                    ultra_bufsize
+                                    );
+            }
+
+            // -------------------------
+            // High
+            // -------------------------
+            else if ((string)mainwindow.cboVideoQuality.SelectedItem == "High")
+            {
+
+                VideoQualityBitrate(mainwindow,
+                                    (string)mainwindow.cboVideoCodec.SelectedItem,
+                                    (string)mainwindow.cboPass.SelectedItem,
+                                    (string)mainwindow.cboVideoQuality.SelectedItem,
+                                    (bool)mainwindow.tglVideoVBR.IsChecked,
+
+                                    // Lossless
+                                    string.Empty,
+
+                                    // CBR 1 & 2-Pass
+                                    cbr_high_pass_bitrate,
+
+                                    // VBR 1 & 2-Pass
+                                    vbr_high_pass_bitrate,
+
+                                    // CRF
+                                    high_crf_rate,
+                                    high_crf_bitrate,
+
+                                    // Mirate, Maxrate, Bufsize
+                                    high_minrate,
+                                    high_maxrate,
+                                    high_bufsize
+                                    );
+            }
+
+            // -------------------------
+            // Medium
+            // -------------------------
+            else if ((string)mainwindow.cboVideoQuality.SelectedItem == "Medium")
+            {
+
+                VideoQualityBitrate(mainwindow,
+                                    (string)mainwindow.cboVideoCodec.SelectedItem,
+                                    (string)mainwindow.cboPass.SelectedItem,
+                                    (string)mainwindow.cboVideoQuality.SelectedItem,
+                                    (bool)mainwindow.tglVideoVBR.IsChecked,
+
+                                    // Lossless
+                                    string.Empty,
+
+                                    // CBR 1 & 2-Pass
+                                    cbr_medium_pass_bitrate,
+
+                                    // VBR 1 & 2-Pass
+                                    vbr_medium_pass_bitrate,
+
+                                    // CRF
+                                    medium_crf_rate,
+                                    medium_crf_bitrate,
+
+                                    // Mirate, Maxrate, Bufsize
+                                    medium_minrate,
+                                    medium_maxrate,
+                                    medium_bufsize
+                                    );
+            }
+
+            // -------------------------
+            // Low
+            // -------------------------
+            else if ((string)mainwindow.cboVideoQuality.SelectedItem == "Low")
+            {
+
+                VideoQualityBitrate(mainwindow,
+                                    (string)mainwindow.cboVideoCodec.SelectedItem,
+                                    (string)mainwindow.cboPass.SelectedItem,
+                                    (string)mainwindow.cboVideoQuality.SelectedItem,
+                                    (bool)mainwindow.tglVideoVBR.IsChecked,
+
+                                    // Lossless
+                                    string.Empty,
+
+                                    // CBR 1 & 2-Pass
+                                    cbr_low_pass_bitrate,
+
+                                    // VBR 1 & 2-Pass
+                                    vbr_low_pass_bitrate,
+
+                                    // CRF
+                                    low_crf_rate,
+                                    low_crf_bitrate,
+
+                                    // Mirate, Maxrate, Bufsize
+                                    low_minrate,
+                                    low_maxrate,
+                                    low_bufsize
+                                    );
+            }
+
+            // -------------------------
+            // Sub
+            // -------------------------
+            else if ((string)mainwindow.cboVideoQuality.SelectedItem == "Sub")
+            {
+
+                VideoQualityBitrate(mainwindow,
+                                    (string)mainwindow.cboVideoCodec.SelectedItem,
+                                    (string)mainwindow.cboPass.SelectedItem,
+                                    (string)mainwindow.cboVideoQuality.SelectedItem,
+                                    (bool)mainwindow.tglVideoVBR.IsChecked,
+
+                                    // Lossless
+                                    string.Empty,
+
+                                    // CBR 1 & 2-Pass
+                                    cbr_sub_pass_bitrate,
+
+                                    // VBR 1 & 2-Pass
+                                    vbr_sub_pass_bitrate,
+
+                                    // CRF
+                                    sub_crf_rate,
+                                    sub_crf_bitrate,
+
+                                    // Mirate, Maxrate, Bufsize
+                                    sub_minrate,
+                                    sub_maxrate,
+                                    sub_bufsize
+                                    );
+            }
+
+            // -------------------------
+            // Custom
+            // -------------------------
+            else if ((string)mainwindow.cboVideoQuality.SelectedItem == "Custom")
+            {
+
+                VideoQualityBitrate(mainwindow,
+                                    (string)mainwindow.cboVideoCodec.SelectedItem,
+                                    (string)mainwindow.cboPass.SelectedItem,
+                                    (string)mainwindow.cboVideoQuality.SelectedItem,
+                                    (bool)mainwindow.tglVideoVBR.IsChecked,
+
+                                    // Lossless
+                                    string.Empty,
+
+                                    // CBR 1 & 2-Pass
+                                    mainwindow.vBitrateCustom.Text,
+
+                                    // VBR 1 & 2-Pass
+                                    mainwindow.vBitrateCustom.Text,
+
+                                    // CRF
+                                    mainwindow.crfCustom.Text,
+                                    mainwindow.vBitrateCustom.Text,
+
+                                    // Mirate, Maxrate, Bufsize
+                                    mainwindow.vMinrateCustom.Text,
+                                    mainwindow.vMaxrateCustom.Text,
+                                    mainwindow.vBufsizeCustom.Text
+                                    );
+            }
+
+        }
+
+
+        /// <summary>
+        ///     Video Quality Bitrate
+        /// <summary>
+        public static void VideoQualityBitrate(
+                                                MainWindow mainwindow,
+                                                string video_Codec,
+                                                string encoding_Pass,
+                                                string video_Quality,
+                                                bool vbr_IsChecked,
+
+                                                // Lossless
+                                                string lossless,
+
+                                                // CBR 1 & 2-Pass
+                                                string cbr_pass_bitrate,
+
+                                                // VBR 1 & 2-Pass
+                                                string vbr_pass_bitrate,
+
+                                                // CRF
+                                                string crf_rate,
+                                                string crf_bitrate,
+
+                                                // Minrate, Maxrate, Bufsize
+                                                string cbr_minrate,
+                                                string cbr_maxrate,
+                                                string cbr_bufsize
+                                                )
+        {
+            // --------------------------------------------------
+            // Lossless
+            // --------------------------------------------------
+            if (video_Quality == "Lossless")
+            {
+                // -------------------------
+                // x265 Params
+                // -------------------------
+                if (video_Codec == "x265")
+                {
+                    // e.g. -x265-params "lossless"
+                    x265paramsList.Add("lossless");
+                }
+                // -------------------------
+                // All Other Codecs
+                // -------------------------
+                else
+                {
+                    vLossless = lossless;
+                }
+            }
+
+            // --------------------------------------------------
+            // CBR
+            // --------------------------------------------------
+            if (vbr_IsChecked == false)
+            {
+                // -------------------------
+                // CRF
+                // -------------------------
+                if (encoding_Pass == "CRF")
+                {
+                    // -------------------------
+                    // x265 Params
+                    // -------------------------
+                    if (video_Codec == "x265")
+                    {
+                        if (!string.IsNullOrEmpty(crf_rate))
+                        {
+                            // e.g. -x265-params "crf=18"
+                            x265paramsList.Add("crf=" + crf_rate);
+                        }
+                    }
+
+                    // -------------------------
+                    // All Other Codecs
+                    // -------------------------
+                    else
+                    {
+                        // -------------------------
+                        // Bitrate
+                        // -------------------------
+                        // e.g. VP8 -b:v 2000K -crf 12 
+                        if (!string.IsNullOrEmpty(crf_bitrate))
+                        {
+                            // Bitrate Mode
+                            vBitMode = VideoBitrateMode(mainwindow);
+                            // Bitrate
+                            vBitrate = crf_bitrate;
+                        }
+                        // -------------------------
+                        // CRF
+                        // -------------------------
+                        if (!string.IsNullOrEmpty(crf_rate))
+                        {
+                            crf = "-crf " + crf_rate;
+                        }
+                    }
+                }
+
+                // -------------------------
+                // 1 & 2-Pass, auto
+                // -------------------------
+                else if (encoding_Pass == "1 Pass" ||
+                         encoding_Pass == "2 Pass")
+                {
+                    // -------------------------
+                    // Bitrate
+                    // -------------------------
+                    // e.g. x264 -b:v 2500K
+                    if (!string.IsNullOrEmpty(cbr_pass_bitrate))
+                    {
+                        // Bitrate Mode
+                        vBitMode = VideoBitrateMode(mainwindow);
+
+                        // Bitrate
+                        vBitrate = cbr_pass_bitrate;
+                    }
+                    // -------------------------
+                    // CRF
+                    // -------------------------
+                    crf = string.Empty; // disabled
+                }
+            }
+
+            // --------------------------------------------------
+            // VBR
+            // --------------------------------------------------
+            else if (vbr_IsChecked == true)
+            {
+                // CRF VBR Toggle Disabled
+
+                // -------------------------
+                // 1 & 2-Pass
+                // -------------------------
+                if (encoding_Pass == "1 Pass" ||
+                    encoding_Pass == "2 Pass")
+                {
+                    // -------------------------
+                    // Bitrate
+                    // -------------------------
+                    // e.g. MPEG-4 -q:a 4
+                    if (!string.IsNullOrEmpty(vbr_pass_bitrate))
+                    {
+                        vBitMode = VideoBitrateMode(mainwindow);
+                        vBitrate = vbr_pass_bitrate;
+                    }
+                    // -------------------------
+                    // CRF
+                    // -------------------------
+                    crf = string.Empty; // disabled
+                }
+            }
+
+            // MessageBox.Show(encoding_Pass); //debug
+
+            // --------------------------------------------------
+            // Minrate, Maxrate, Bufsize - Custom
+            // --------------------------------------------------
+            vMinrate = cbr_minrate;
+            vMaxrate = cbr_maxrate;
+            vBufsize = cbr_bufsize;
+
+            // --------------------------------------------------
+            // Pixel Foramt
+            // --------------------------------------------------
+            vOptions = PixFmt(mainwindow);
         }
 
 
@@ -652,10 +1249,6 @@ namespace Axiom
                 && (string)mainwindow.cboVideoCodec.SelectedItem != "Copy"
                 && (string)mainwindow.cboMediaType.SelectedItem != "Audio")
             {
-                // Video Bitrate Mode
-                //
-                vBitMode = VideoBitrateMode(mainwindow);
-
 
                 // Log Console Message /////////
                 Log.WriteAction = () =>
@@ -666,1693 +1259,784 @@ namespace Axiom
                 };
                 Log.LogActions.Add(Log.WriteAction);
 
+
                 // -------------------------
-                // Auto
+                // VP8
                 // -------------------------
-                if ((string)mainwindow.cboVideoQuality.SelectedItem == "Auto")
+                if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8")
                 {
-                    // -------------------------
-                    // Single
-                    // -------------------------
-                    if (mainwindow.tglBatch.IsChecked == false)
-                    {
-                        // -------------------------
-                        // Input File Has Video
-                        // Input Video Bitrate Not Detected
-                        // Input Video Codec Detected
-                        // -------------------------
-                        if (string.IsNullOrEmpty(FFprobe.inputVideoBitrate) 
-                            || FFprobe.inputVideoBitrate == "N/A")
-                        {
-                            // Codec Detected
-                            //
-                            if (!string.IsNullOrEmpty(FFprobe.inputVideoCodec))
-                            {
-                                // 1 Pass / CRF Quality
-                                //
-                                if ((string)mainwindow.cboPass.SelectedItem == "1 Pass" 
-                                    || (string)mainwindow.cboPass.SelectedItem == "CRF")
-                                {
-                                    // Default to a High value
-                                    //
-                                    if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" 
-                                        || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9")
-                                    {
-                                        crf = "-b:v 0 -crf 16"; //crf value different than x264
-                                    }
-                                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264")
-                                    {
-                                        crf = "-crf 18";
-                                    }
-                                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265")
-                                    {
-                                        //crf = "-x265-params crf=23";
-                                        x265paramsList.Add("crf=23");
-                                    }
-                                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "AV1")
-                                    {
-                                        crf = "-crf 18";
-                                    }
-                                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "MPEG-2")
-                                    {
-                                        //vBitMode = "-b:v";
-                                        crf = "-b:v 5M";
-                                        vMaxrate = "9.8M";
-                                        vBufsize = "9.8M";
-                                    }
-                                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "MPEG-4")
-                                    {
-                                        crf = "-b:v 5M";
-                                        vMaxrate = "5M";
-                                        vBufsize = "5M";
-                                    }
-                                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "Theora")
-                                    {
-                                        crf = "-q:v 10"; // Theora can't have Auto Value, default to highest -q:v 10
-                                    }
+                    VideoQualityPresets(
+                                        mainwindow,
 
-                                    // Remove vBitrate
-                                    vBitrate = string.Empty;
-                                }
+                                        // Encoding Pass
+                                        //(string)mainwindow.cboPass.SelectedItem,
 
-                                // 2 Pass Quality
-                                // (Can't use CRF)
-                                //
-                                else if ((string)mainwindow.cboPass.SelectedItem == "2 Pass")
-                                {
-                                    // Default to a High value
-                                    //
-                                    if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8" 
-                                        || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9")
-                                    {
-                                        vBitrate = "3M"; //crf value different than x264
-                                    }
-                                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264")
-                                    {
-                                        vBitrate = "3M";
-                                    }
-                                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265")
-                                    {
-                                        vBitrate = "3M";
-                                    }
-                                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "AV1")
-                                    {
-                                        vBitrate = "3M";
-                                    }
-                                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "MPEG-2")
-                                    {
-                                        vBitrate = "3M";
-                                        vMaxrate = "9.8M";
-                                        vBufsize = "9.8M";
-                                    }
-                                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "MPEG-4")
-                                    {
-                                        vBitrate = "3M";
-                                        vMaxrate = "3M";
-                                        vBufsize = "4M";
-                                    }
-                                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "Theora")
-                                    {
-                                        vBitrate = "10"; // Theora can't have Auto Value, default to highest -q:v 10
-                                    }
+                                        // Quality Selected
+                                        //(string)mainwindow.cboVideoQuality.SelectedItem,
 
-                                    // Remove CRF
-                                    crf = string.Empty;
-                                }
+                                        // VBR Toggle
+                                        //(bool)mainwindow.tglVideoVBR.IsChecked,
 
+                                        // Auto
+                                        VideoBitrateCalculator(mainwindow, FFprobe.vEntryType, FFprobe.inputVideoBitrate), // Bitrate
+                                        "",         // Minrate
+                                        "",         // Maxrate
+                                        "",         // Bufsize
 
-                                vOptions = PixFmt(mainwindow);
-                            }
+                                        // Lossless
+                                        "", // disabled
 
-                            // Codec Not Detected
-                            //
-                            else
-                            {
-                                crf = string.Empty;
-                                vBitMode = string.Empty;
-                                vBitrate = string.Empty;
-                                vMinrate = string.Empty;
-                                vMaxrate = string.Empty;
-                                vBufsize = string.Empty;
-                                vOptions = string.Empty;
-                            }
-                        }
+                                        // CBR 1 & 2-Pass
+                                        "4000K",    // Ultra Bitrate
+                                        "2000K",    // High Bitrate
+                                        "1300K",    // Medium Bitrate
+                                        "600K",     // Low Bitrate
+                                        "250K",     // Sub Bitrate
 
-                        // -------------------------
-                        // Input File Has Video
-                        // Input Video Bitrate Detected
-                        // Input Video Codec Detected
-                        // -------------------------
-                        else if (!string.IsNullOrEmpty(FFprobe.inputVideoBitrate) && FFprobe.inputVideoBitrate != "N/A")
-                        {
-                            // Codec Detected
-                            //
-                            if (!string.IsNullOrEmpty(FFprobe.inputVideoCodec))
-                            {
-                                // VP8
-                                // VP9
-                                // x264
-                                // x265
-                                // AV1
-                                if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8"
-                                    || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9"
-                                    || (string)mainwindow.cboVideoCodec.SelectedItem == "x264"
-                                    || (string)mainwindow.cboVideoCodec.SelectedItem == "x265"
-                                    || (string)mainwindow.cboVideoCodec.SelectedItem == "AV1")
-                                {
-                                    vBitrate = VideoBitrateCalculator(mainwindow, FFprobe.vEntryType, FFprobe.inputVideoBitrate);
-                                }
+                                        // VBR 1 & 2-Pass
+                                        "",         // Ultra Bitrate
+                                        "",         // High Bitrate
+                                        "",         // Medium Bitrate
+                                        "",         // Low Bitrate
+                                        "",         // Sub Bitrate
 
-                                // MPEG-2
-                                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "MPEG-2")
-                                {
-                                    // CBR
-                                    if (mainwindow.tglVideoVBR.IsChecked == false)
-                                    {
-                                        vBitrate = VideoBitrateCalculator(mainwindow, FFprobe.vEntryType, FFprobe.inputVideoBitrate);
-                                        vMaxrate = "9.8M";
-                                        vBufsize = "9.8M";
-                                    }
-                                    // VBR
-                                    else if (mainwindow.tglVideoVBR.IsChecked == true)
-                                    {
-                                        vBitrate = "5";
-                                        vMaxrate = "9.8M";
-                                        vBufsize = "9.8M";
-                                    }
-                                }
+                                        // CRF
+                                        "10",       // Ultra Rate
+                                        "4000K",    // Ultra Bitrate
+                                        "12",       // High Rate
+                                        "2000K",    // High Bitrate
+                                        "16",       // Medium Rate
+                                        "1300K",    // Medium Bitrate
+                                        "20",       // Low Rate
+                                        "600K",     // Low Bitrate
+                                        "25",       // Sub Rate
+                                        "250K",     // Sub Bitrate
 
-                                // MPEG-4
-                                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "MPEG-4")
-                                {
-                                    // CBR
-                                    if (mainwindow.tglVideoVBR.IsChecked == false)
-                                    {
-                                        vBitrate = VideoBitrateCalculator(mainwindow, FFprobe.vEntryType, FFprobe.inputVideoBitrate);
-                                        vMaxrate = VideoBitrateCalculator(mainwindow, FFprobe.vEntryType, FFprobe.inputVideoBitrate);
-                                        vBufsize = VideoBitrateCalculator(mainwindow, FFprobe.vEntryType, FFprobe.inputVideoBitrate);
-                                    }
-                                    // VBR
-                                    else if (mainwindow.tglVideoVBR.IsChecked == true)
-                                    {
-                                        vBitrate = "5";
-                                        vMaxrate = "6M";
-                                        vBufsize = "6M";
-                                    }       
-                                }
-
-                                // Theora
-                                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "Theora")
-                                {
-                                    vBitrate = "10"; // Theora can't have Auto Value, default to highest -q:v 10
-                                }
-
-                                vOptions = PixFmt(mainwindow);
-                            }
-
-                            // Codec Not Detected
-                            //
-                            else
-                            {
-                                crf = string.Empty;
-                                vBitMode = string.Empty;
-                                vBitrate = string.Empty;
-                                vMinrate = string.Empty;
-                                vMaxrate = string.Empty;
-                                vBufsize = string.Empty;
-                                vOptions = string.Empty;
-                            }
-                        }
-                    }
-
-                    // -------------------------
-                    // Batch
-                    // -------------------------
-                    else if (mainwindow.tglBatch.IsChecked == true)
-                    {
-                        // Use the CMD Batch Video Variable
-                        vBitMode = "-b:v";
-                        vBitrate = "%V";
-                    }
-
-                    // -------------------------
-                    // IMAGE
-                    // -------------------------
-                    if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG")
-                    {
-                        crf = string.Empty;
-                        vBitrate = "2"; //use highest jpeg quality
-                        vMinrate = string.Empty;
-                        vMaxrate = string.Empty;
-                        vBufsize = string.Empty;
-                        vOptions = string.Empty;
-
-                        vOptions = PixFmt(mainwindow);
-                    }
-                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "PNG")
-                    {
-                        // png is lossless
-                        crf = string.Empty;
-                        vBitMode = string.Empty;
-                        vBitrate = string.Empty;
-                        vMinrate = string.Empty;
-                        vMaxrate = string.Empty;
-                        vBufsize = string.Empty;
-                        vOptions = string.Empty;
-
-                        vOptions = PixFmt(mainwindow);
-                    }
-                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "WebP")
-                    {
-                        crf = string.Empty;
-                        vBitrate = "85";
-                        vMinrate = string.Empty;
-                        vMaxrate = string.Empty;
-                        vBufsize = string.Empty;
-                        vOptions = string.Empty;
-
-                        vOptions = PixFmt(mainwindow);
-                    }
+                                        // Minrate
+                                        "",         // Ultra Bitrate
+                                        "",         // High Bitrate
+                                        "",         // Medium Bitrate
+                                        "",         // Low Bitrate
+                                        "",         // Sub Bitrate
+                                        // Maxrate
+                                        "",         // Ultra Bitrate
+                                        "",         // High Bitrate
+                                        "",         // Medium Bitrate
+                                        "",         // Low Bitrate
+                                        "",         // Sub Bitrate
+                                        // Bufsize
+                                        "",         // Ultra Bitrate
+                                        "",         // High Bitrate
+                                        "",         // Medium Bitrate
+                                        "",         // Low Bitrate
+                                        ""          // Sub Bitrate
+                                    );
                 }
 
                 // -------------------------
-                // Lossless
+                // VP9
                 // -------------------------
-                else if ((string)mainwindow.cboVideoQuality.SelectedItem == "Lossless")
+                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9")
                 {
-                    // VP8 cannot be Lossless
+                    VideoQualityPresets(
+                                        mainwindow,
 
-                    // Theora cannot be Lossless
+                                        // Auto
+                                        VideoBitrateCalculator(mainwindow, FFprobe.vEntryType, FFprobe.inputVideoBitrate), // Bitrate
+                                        "",         // Minrate
+                                        "",         // Maxrate
+                                        "",         // Bufsize
 
-                    // -------------------------
-                    // VP9
-                    // -------------------------
-                    if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9")
-                    {
-                        if ((string)mainwindow.cboPass.SelectedItem == "CRF")
-                        {
-                            vBitMode = string.Empty;
-                            vBitrate = string.Empty;
-                            crf = "-lossless 1";
-                        }
-                        else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
-                            || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
-                        {
-                            vBitrate = "-lossless 1";
-                        }
+                                        // Lossless
+                                        "-lossless 1",
 
-                        vMinrate = string.Empty;
-                        vMaxrate = string.Empty;
-                        vBufsize = string.Empty;
+                                        // CBR 1 & 2-Pass
+                                        "4000K",    // Ultra Bitrate
+                                        "2000K",    // High Bitrate
+                                        "1300K",    // Medium Bitrate
+                                        "600K",     // Low Bitrate
+                                        "250K",     // Sub Bitrate
 
-                        vOptions = PixFmt(mainwindow);
-                    }
-                    // -------------------------
-                    // x264
-                    // -------------------------
-                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264")
-                    {
-                        if ((string)mainwindow.cboPass.SelectedItem == "CRF")
-                        {
-                            vBitMode = string.Empty;
-                            vBitrate = string.Empty;
-                            crf = "-qp 0";
-                        }
-                        else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
-                            || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
-                        {
-                            vBitrate = "-qp 0"; /* for 2 pass */
-                        }
+                                        // VBR 1 & 2-Pass
+                                        "",         // Ultra Bitrate
+                                        "",         // High Bitrate
+                                        "",         // Medium Bitrate
+                                        "",         // Low Bitrate
+                                        "",         // Sub Bitrate
 
-                        vMinrate = string.Empty;
-                        vMaxrate = string.Empty;
-                        vBufsize = string.Empty;
+                                        // CRF
+                                        "10",       // Ultra Rate
+                                        "4000K",    // Ultra Bitrate
+                                        "12",       // High Rate
+                                        "2000K",    // High Bitrate
+                                        "16",       // Medium Rate
+                                        "1300K",    // Medium Bitrate
+                                        "20",       // Low Rate
+                                        "600K",     // Low Bitrate
+                                        "25",       // Sub Rate
+                                        "250K",     // Sub Bitrate
 
-                        vOptions = PixFmt(mainwindow);
-                    }
-                    // -------------------------
-                    // x265
-                    // -------------------------
-                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265")
-                    {
-                        if ((string)mainwindow.cboPass.SelectedItem == "CRF")
-                        {
-                            vBitMode = string.Empty;
-                            vBitrate = string.Empty;
-                            //crf = "-qp 0 -x265-params lossless";
-                            crf = "-qp 0";
-                            x265paramsList.Add("lossless");
-                        }
-                        else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
-                            || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
-                        {
-                            //vBitrate = "-qp 0 -x265-params lossless";
-                            vBitrate = "-qp 0";
-                            x265paramsList.Add("lossless");
-                        }
-
-                        vMinrate = string.Empty;
-                        vMaxrate = string.Empty;
-                        vBufsize = string.Empty;
-
-                        vOptions = PixFmt(mainwindow);
-                    }
-                    // -------------------------
-                    // AV1
-                    // -------------------------
-                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "AV1")
-                    {
-                        // Lossless Disabled
-                    }
-                    // -------------------------
-                    // MPEG-2
-                    // -------------------------
-                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "MPEG-2")
-                    {
-                        // CBR
-                        if (mainwindow.tglVideoVBR.IsChecked == false)
-                        {
-                            vBitMode = "-q:v"; // force vbr
-                            vBitrate = "2";
-                            vMinrate = string.Empty;
-                            vMaxrate = "9.8M";
-                            vBufsize = "9.8M";
-                        }
-                        // VBR
-                        else if (mainwindow.tglVideoVBR.IsChecked == true)
-                        {
-                            vBitrate = "2";
-                            vMinrate = string.Empty;
-                            vMaxrate = "9.8M";
-                            vBufsize = "9.8M";
-                        }
-
-                        vOptions = PixFmt(mainwindow);
-                    }
-                    // -------------------------
-                    // MPEG-4
-                    // -------------------------
-                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "MPEG-4")
-                    {
-                        // CBR
-                        if (mainwindow.tglVideoVBR.IsChecked == false)
-                        {
-                            vBitMode = "-q:v"; // force vbr
-                            vBitrate = "2";
-                            vMinrate = string.Empty;
-                            vMaxrate = "9.8M";
-                            vBufsize = "9.8M";
-                        }
-                        // VBR
-                        else if (mainwindow.tglVideoVBR.IsChecked == true)
-                        {
-                            vBitrate = "2";
-                            vMinrate = string.Empty;
-                            vMaxrate = "9.8M";
-                            vBufsize = "9.8M";
-                        }
-
-                        vOptions = PixFmt(mainwindow);
-                    }
-                    // -------------------------
-                    // PNG
-                    // -------------------------
-                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "PNG")
-                    {
-                        // png is lossless
-                        crf = string.Empty;
-                        vBitMode = string.Empty;
-                        vBitrate = string.Empty;
-                        vMinrate = string.Empty;
-                        vMaxrate = string.Empty;
-                        vBufsize = string.Empty;
-                        vOptions = PixFmt(mainwindow);
-                    }
-                    // -------------------------
-                    // WebP
-                    // -------------------------
-                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "WebP")
-                    {
-                        crf = string.Empty;
-                        vBitMode = string.Empty;
-                        vBitrate = "-lossless 1";
-                        vMinrate = string.Empty;
-                        vMaxrate = string.Empty;
-                        vBufsize = string.Empty;
-                        vOptions = PixFmt(mainwindow);
-                    }
+                                        // Minrate
+                                        "",         // Ultra Bitrate
+                                        "",         // High Bitrate
+                                        "",         // Medium Bitrate
+                                        "",         // Low Bitrate
+                                        "",         // Sub Bitrate
+                                        // Maxrate
+                                        "",         // Ultra Bitrate
+                                        "",         // High Bitrate
+                                        "",         // Medium Bitrate
+                                        "",         // Low Bitrate
+                                        "",         // Sub Bitrate
+                                        // Bufsize
+                                        "",         // Ultra Bitrate
+                                        "",         // High Bitrate
+                                        "",         // Medium Bitrate
+                                        "",         // Low Bitrate
+                                        ""          // Sub Bitrate
+                                    );
                 }
 
                 // -------------------------
-                // Ultra
+                // x264
                 // -------------------------
-                else if ((string)mainwindow.cboVideoQuality.SelectedItem == "Ultra")
+                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264")
                 {
-                    // -------------------------
-                    // VP8
-                    // -------------------------
-                    if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8")
-                    {
-                        if ((string)mainwindow.cboPass.SelectedItem == "CRF")
-                        {
-                            vBitrate = "4M";
-                            crf = "-crf 10" /* crf needs b:v 0*/;
-                        }
-                        else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass" 
-                            || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
-                        {
-                            vBitrate = "4M";
-                            crf = string.Empty;
-                        }
+                    VideoQualityPresets(
+                                        mainwindow,
 
-                        vMinrate = string.Empty;
-                        vMaxrate = string.Empty;
-                        vBufsize = string.Empty;
+                                        // Auto
+                                        VideoBitrateCalculator(mainwindow, FFprobe.vEntryType, FFprobe.inputVideoBitrate), // Bitrate
+                                        "",         // Minrate
+                                        "",         // Maxrate
+                                        "",         // Bufsize
 
-                        vOptions = PixFmt(mainwindow);
-                    }
-                    // -------------------------
-                    // VP9
-                    // -------------------------
-                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9")
-                    {
-                        if ((string)mainwindow.cboPass.SelectedItem == "CRF")
-                        {
-                            vBitrate = "4M";
-                            crf = "-crf 10"/* crf needs b:v 0*/;
-                        }
-                        else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
-                            || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
-                        {
-                            vBitrate = "4M";
-                            crf = string.Empty;
-                        }
+                                        // Lossless
+                                        "-qp 0",
 
-                        vMinrate = string.Empty;
-                        vMaxrate = string.Empty;
-                        vBufsize = string.Empty;
+                                        // CBR 1 & 2-Pass
+                                        "5000K",    // Ultra Bitrate
+                                        "2500K",    // High Bitrate
+                                        "1300K",    // Medium Bitrate
+                                        "600K",     // Low Bitrate
+                                        "250K",     // Sub Bitrate
 
-                        vOptions = PixFmt(mainwindow);
-                    }
-                    // -------------------------
-                    // x264
-                    // -------------------------
-                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264")
-                    {
-                        if ((string)mainwindow.cboPass.SelectedItem == "CRF")
-                        {
-                            vBitMode = string.Empty;
-                            vBitrate = string.Empty;
-                            crf = "-crf 16";
-                        }
-                        else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
-                            || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
-                        {
-                            vBitrate = "5M";
-                            crf = string.Empty;
-                        }
+                                        // VBR 1 & 2-Pass
+                                        "",         // Ultra Bitrate
+                                        "",         // High Bitrate
+                                        "",         // Medium Bitrate
+                                        "",         // Low Bitrate
+                                        "",         // Sub Bitrate
 
-                        vMinrate = string.Empty;
-                        vMaxrate = string.Empty;
-                        vBufsize = string.Empty;
+                                        // CRF
+                                        "16",       // Ultra Rate
+                                        "",         // Ultra Bitrate
+                                        "20",       // High Rate
+                                        "",         // High Bitrate
+                                        "28",       // Medium Rate
+                                        "",         // Medium Bitrate
+                                        "37",       // Low Rate
+                                        "",         // Low Bitrate
+                                        "45",       // Sub Rate
+                                        "",         // Sub Bitrate
 
-                        vOptions = PixFmt(mainwindow) + " -qcomp 0.8";
-                    }
-                    // -------------------------
-                    // x265
-                    // -------------------------
-                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265")
-                    {
-                        if ((string)mainwindow.cboPass.SelectedItem == "CRF")
-                        {
-                            vBitMode = string.Empty;
-                            vBitrate = string.Empty;
-                            crf = string.Empty; // use -x265-params List instead
-                            x265paramsList.Add("crf=18");
-
-                            //crf = "-x265-params \"crf=18\"";
-                        }
-                        else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
-                            || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
-                        {
-                            vBitrate = "5M";
-                            crf = string.Empty;
-                        }
-
-                        vMinrate = string.Empty;
-                        vMaxrate = string.Empty;
-                        vBufsize = string.Empty;
-
-                        vOptions = PixFmt(mainwindow);
-                    }
-                    // -------------------------
-                    // AV1
-                    // -------------------------
-                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "AV1")
-                    {
-                        if ((string)mainwindow.cboPass.SelectedItem == "CRF")
-                        {
-                            vBitMode = string.Empty;
-                            vBitrate = string.Empty;
-                            crf = "-crf 16";
-                        }
-                        else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
-                            || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
-                        {
-                            vBitrate = "5M";
-                            crf = string.Empty;
-                        }
-
-                        vMinrate = string.Empty;
-                        vMaxrate = string.Empty;
-                        vBufsize = string.Empty;
-
-                        vOptions = PixFmt(mainwindow);
-                    }
-                    // -------------------------
-                    // mpeg2
-                    // -------------------------
-                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "MPEG-2")
-                    {
-                        // CBR
-                        if (mainwindow.tglVideoVBR.IsChecked == false)
-                        {
-                            vBitrate = "5M";
-                        }
-                        // VBR
-                        else if (mainwindow.tglVideoVBR.IsChecked == true)
-                        {
-                            vBitrate = "4";
-                        }
-
-                        vMinrate = string.Empty;
-                        vMaxrate = "5M";
-                        vBufsize = "6M";
-                        crf = string.Empty;
-
-                        vOptions = PixFmt(mainwindow);
-                    }
-                    // -------------------------
-                    // mpeg4
-                    // -------------------------
-                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "MPEG-4")
-                    {
-                        // CBR
-                        if (mainwindow.tglVideoVBR.IsChecked == false)
-                        {
-                            vBitrate = "5M";
-                        }
-                        // VBR
-                        else if (mainwindow.tglVideoVBR.IsChecked == true)
-                        {
-                            vBitrate = "4";
-                        }
-
-                        vMinrate = string.Empty;
-                        vMaxrate = "5M";
-                        vBufsize = "6M";
-                        crf = string.Empty;
-
-                        vOptions = PixFmt(mainwindow);
-                    }
-                    // -------------------------
-                    // Theora
-                    // -------------------------
-                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "Theora")
-                    {
-                        if ((string)mainwindow.cboPass.SelectedItem == "CRF")
-                        {
-                            // OGV uses forced q:v instead of CRF
-                            vBitrate = "10";
-                            crf = string.Empty;
-                        }
-                        else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
-                            || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
-                        {
-                            vBitrate = "10";
-                            crf = string.Empty;
-                        }
-
-                        vMinrate = string.Empty;
-                        vMaxrate = string.Empty;
-                        vBufsize = string.Empty;
-
-                        vOptions = PixFmt(mainwindow);
-                    }
-                    // -------------------------
-                    // JPEG
-                    // -------------------------
-                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG")
-                    {
-                        vBitrate = "2";
-                        vMinrate = string.Empty;
-                        vMaxrate = string.Empty;
-                        vBufsize = string.Empty;
-
-                        crf = string.Empty;
-
-                        vOptions = PixFmt(mainwindow);
-                    }
-                    // -------------------------
-                    // WebP
-                    // -------------------------
-                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "WebP")
-                    {
-                        vBitrate = "100";
-                        vMinrate = string.Empty;
-                        vMaxrate = string.Empty;
-                        vBufsize = string.Empty;
-
-                        crf = string.Empty;
-
-                        vOptions = PixFmt(mainwindow);
-                    }
+                                        // Minrate
+                                        "",         // Ultra Bitrate
+                                        "",         // High Bitrate
+                                        "",         // Medium Bitrate
+                                        "",         // Low Bitrate
+                                        "",         // Sub Bitrate
+                                        // Maxrate
+                                        "",         // Ultra Bitrate
+                                        "",         // High Bitrate
+                                        "",         // Medium Bitrate
+                                        "",         // Low Bitrate
+                                        "",         // Sub Bitrate
+                                        // Bufsize
+                                        "",         // Ultra Bitrate
+                                        "",         // High Bitrate
+                                        "",         // Medium Bitrate
+                                        "",         // Low Bitrate
+                                        ""          // Sub Bitrate
+                                    );
                 }
 
                 // -------------------------
-                // High
+                // x265
                 // -------------------------
-                else if ((string)mainwindow.cboVideoQuality.SelectedItem == "High")
+                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265")
                 {
-                    // -------------------------
-                    // VP8
-                    // -------------------------
-                    if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8")
-                    {
-                        if ((string)mainwindow.cboPass.SelectedItem == "CRF")
-                        {
-                            vBitrate = "2M";
-                            crf = "-crf 12";
-                        }
-                        else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
-                            || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
-                        {
-                            vBitrate = "2M";
-                            crf = string.Empty;
-                        }
+                    VideoQualityPresets(
+                                        mainwindow,
 
-                        vMinrate = string.Empty;
-                        vMaxrate = string.Empty;
-                        vBufsize = string.Empty;
+                                        // Auto
+                                        VideoBitrateCalculator(mainwindow, FFprobe.vEntryType, FFprobe.inputVideoBitrate), // Bitrate
+                                        "",         // Minrate
+                                        "",         // Maxrate
+                                        "",         // Bufsize
 
-                        vOptions = PixFmt(mainwindow);
-                    }
-                    // -------------------------
-                    // VP9
-                    // -------------------------
-                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9")
-                    {
-                        if ((string)mainwindow.cboPass.SelectedItem == "CRF")
-                        {
-                            vBitrate = "2M";
-                            crf = "-crf 12";
-                        }
-                        else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
-                            || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
-                        {
-                            vBitrate = "2M";
-                            crf = string.Empty;
-                        }
+                                        // Lossless
+                                        "-qp 0", //-x265-params "lossless" in VideoQualityBitrate()
 
-                        vMinrate = string.Empty;
-                        vMaxrate = string.Empty;
-                        vBufsize = string.Empty;
+                                        // CBR 1 & 2-Pass
+                                        "5000K",    // Ultra Bitrate
+                                        "2500K",    // High Bitrate
+                                        "1300K",    // Medium Bitrate
+                                        "600K",     // Low Bitrate
+                                        "250K",     // Sub Bitrate
 
-                        vOptions = PixFmt(mainwindow);
-                    }
-                    // -------------------------
-                    // x264
-                    // -------------------------
-                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264")
-                    {
-                        if ((string)mainwindow.cboPass.SelectedItem == "CRF")
-                        {
-                            vBitMode = string.Empty;
-                            vBitrate = string.Empty;
-                            crf = "-crf 20";
-                        }
-                        else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
-                            || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
-                        {
-                            vBitrate = "2500K";
-                            crf = string.Empty;
-                        }
+                                        // VBR 1 & 2-Pass
+                                        "",         // Ultra Bitrate
+                                        "",         // High Bitrate
+                                        "",         // Medium Bitrate
+                                        "",         // Low Bitrate
+                                        "",         // Sub Bitrate
 
-                        vMinrate = string.Empty;
-                        vMaxrate = string.Empty;
-                        vBufsize = string.Empty;
+                                        // CRF
+                                        "18",       // Ultra Rate
+                                        "",         // Ultra Bitrate
+                                        "21",       // High Rate
+                                        "",         // High Bitrate
+                                        "26",       // Medium Rate
+                                        "",         // Medium Bitrate
+                                        "35",       // Low Rate
+                                        "",         // Low Bitrate
+                                        "42",       // Sub Rate
+                                        "",         // Sub Bitrate
 
-                        vOptions = PixFmt(mainwindow) + " -qcomp 0.8";
-                    }
-                    // -------------------------
-                    // x265
-                    // -------------------------
-                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265")
-                    {
-                        if ((string)mainwindow.cboPass.SelectedItem == "CRF")
-                        {
-                            vBitMode = string.Empty;
-                            vBitrate = string.Empty;
-                            crf = string.Empty; // use -x265-params List instead
-                            x265paramsList.Add("crf=21");
-                            //crf = "-x265-params \"crf=21\"";
-                        }
-                        else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
-                            || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
-                        {
-                            vBitrate = "2M";
-                            crf = string.Empty;
-                        }
-
-                        vMinrate = string.Empty;
-                        vMaxrate = string.Empty;
-                        vBufsize = string.Empty;
-
-                        vOptions = PixFmt(mainwindow);
-                    }
-                    // -------------------------
-                    // AV1
-                    // -------------------------
-                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "AV1")
-                    {
-                        if ((string)mainwindow.cboPass.SelectedItem == "CRF")
-                        {
-                            vBitMode = string.Empty;
-                            vBitrate = string.Empty;
-                            crf = "-crf 20";
-                        }
-                        else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
-                            || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
-                        {
-                            vBitrate = "2500K";
-                            crf = string.Empty;
-                        }
-
-                        vMinrate = string.Empty;
-                        vMaxrate = string.Empty;
-                        vBufsize = string.Empty;
-
-                        vOptions = PixFmt(mainwindow);
-                    }
-                    // -------------------------
-                    // mpeg2
-                    // -------------------------
-                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "MPEG-2")
-                    {
-                        // CBR
-                        if (mainwindow.tglVideoVBR.IsChecked == false)
-                        {
-                            vBitrate = "2M";
-                        }
-                        // VBR
-                        else if (mainwindow.tglVideoVBR.IsChecked == true)
-                        {
-                            vBitrate = "6";
-                        }
-
-                        vMinrate = string.Empty;
-                        vMaxrate = "2M";
-                        vBufsize = "3M";
-                        crf = string.Empty;
-
-                        vOptions = PixFmt(mainwindow);
-                    }
-                    // -------------------------
-                    // mpeg4
-                    // -------------------------
-                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "MPEG-4")
-                    {
-                        // CBR
-                        if (mainwindow.tglVideoVBR.IsChecked == false)
-                        {
-                            vBitrate = "2M";
-                        }
-                        // VBR
-                        else if (mainwindow.tglVideoVBR.IsChecked == true)
-                        {
-                            vBitrate = "6";
-                        }
-
-                        vMinrate = string.Empty;
-                        vMaxrate = "2M";
-                        vBufsize = "3M";
-                        crf = string.Empty;
-
-                        vOptions = PixFmt(mainwindow);
-                    }
-                    // -------------------------
-                    // Theora
-                    // -------------------------
-                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "Theora")
-                    {
-                        if ((string)mainwindow.cboPass.SelectedItem == "CRF")
-                        {
-                            // OGV uses forced q:v instead of CRF
-                            vBitrate = "8";
-                            crf = string.Empty;
-                        }
-                        else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
-                            || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
-                        {
-                            vBitrate = "8";
-                            crf = string.Empty;
-                        }
-
-                        vMinrate = string.Empty;
-                        vMaxrate = string.Empty;
-                        vBufsize = string.Empty;
-
-                        vOptions = PixFmt(mainwindow);
-                    }
-                    // -------------------------
-                    // JPEG
-                    // -------------------------
-                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG")
-                    {
-                        vBitrate = "4";
-                        vMinrate = string.Empty;
-                        vMaxrate = string.Empty;
-                        vBufsize = string.Empty;
-
-                        crf = string.Empty;
-                        vOptions = string.Empty;
-
-                        vOptions = PixFmt(mainwindow);
-                    }
-                    // -------------------------
-                    // WebP
-                    // -------------------------
-                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "WebP")
-                    {
-                        vBitrate = "85";
-                        vMinrate = string.Empty;
-                        vMaxrate = string.Empty;
-                        vBufsize = string.Empty;
-
-                        crf = string.Empty;
-
-                        vOptions = PixFmt(mainwindow);
-                    }
+                                        // Minrate
+                                        "",         // Ultra Bitrate
+                                        "",         // High Bitrate
+                                        "",         // Medium Bitrate
+                                        "",         // Low Bitrate
+                                        "",         // Sub Bitrate
+                                        // Maxrate
+                                        "",         // Ultra Bitrate
+                                        "",         // High Bitrate
+                                        "",         // Medium Bitrate
+                                        "",         // Low Bitrate
+                                        "",         // Sub Bitrate
+                                        // Bufsize
+                                        "",         // Ultra Bitrate
+                                        "",         // High Bitrate
+                                        "",         // Medium Bitrate
+                                        "",         // Low Bitrate
+                                        ""          // Sub Bitrate
+                                    );
                 }
 
                 // -------------------------
-                // Medium
+                // AV1
                 // -------------------------
-                else if ((string)mainwindow.cboVideoQuality.SelectedItem == "Medium")
+                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "AV1")
                 {
-                    // -------------------------
-                    // VP8
-                    // -------------------------
-                    if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8")
-                    {
-                        if ((string)mainwindow.cboPass.SelectedItem == "CRF")
-                        {
-                            vBitrate = "1300K";
-                            crf = "-crf 16";
-                        }
-                        else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
-                            || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
-                        {
-                            vBitrate = "1300K";
-                            crf = string.Empty;
-                        }
+                    VideoQualityPresets(
+                                        mainwindow,
 
-                        vMinrate = string.Empty;
-                        vMaxrate = string.Empty;
-                        vBufsize = string.Empty;
+                                        // Auto
+                                        VideoBitrateCalculator(mainwindow, FFprobe.vEntryType, FFprobe.inputVideoBitrate), // Bitrate
+                                        "",         // Minrate
+                                        "",         // Maxrate
+                                        "",         // Bufsize
 
-                        vOptions = PixFmt(mainwindow);
-                    }
-                    // -------------------------
-                    // VP9
-                    // -------------------------
-                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9")
-                    {
-                        if ((string)mainwindow.cboPass.SelectedItem == "CRF")
-                        {
-                            vBitrate = "1300K";
-                            crf = "-crf 16";
-                        }
-                        else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
-                            || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
-                        {
-                            vBitrate = "1300K";
-                            crf = string.Empty;
-                        }
+                                        // Lossless
+                                        "",
 
-                        vMinrate = string.Empty;
-                        vMaxrate = string.Empty;
-                        vBufsize = string.Empty;
+                                        // CBR 1 & 2-Pass
+                                        "5000K",    // Ultra Bitrate
+                                        "2500K",    // High Bitrate
+                                        "1300K",    // Medium Bitrate
+                                        "600K",     // Low Bitrate
+                                        "250K",     // Sub Bitrate
 
-                        vOptions = PixFmt(mainwindow);
-                    }
-                    // -------------------------
-                    // x264
-                    // -------------------------
-                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264")
-                    {
-                        if ((string)mainwindow.cboPass.SelectedItem == "CRF")
-                        {
-                            vBitMode = string.Empty;
-                            vBitrate = string.Empty;
-                            crf = "-crf 28";
-                        }
-                        else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
-                            || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
-                        {
-                            vBitrate = "1300K";
-                            crf = string.Empty;
-                        }
+                                        // VBR 1 & 2-Pass
+                                        "",         // Ultra Bitrate 
+                                        "",         // High Bitrate
+                                        "",         // Medium Bitrate
+                                        "",         // Low Bitrate
+                                        "",         // Sub Bitrate
 
-                        vMinrate = string.Empty;
-                        vMaxrate = string.Empty;
-                        vBufsize = string.Empty;
+                                        // CRF
+                                        "16",       // Ultra Rate
+                                        "",         // Ultra Bitrate
+                                        "20",       // High Rate
+                                        "",         // High Bitrate
+                                        "28",       // Medium Rate
+                                        "",         // Medium Bitrate
+                                        "37",       // Low Rate
+                                        "",         // Low Bitrate
+                                        "45",       // Sub Rate
+                                        "",         // Sub Bitrate
 
-                        vOptions = PixFmt(mainwindow);
-                    }
-                    // -------------------------
-                    // x265
-                    // -------------------------
-                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265")
-                    {
-                        if ((string)mainwindow.cboPass.SelectedItem == "CRF")
-                        {
-                            vBitMode = string.Empty;
-                            vBitrate = string.Empty;
-                            crf = string.Empty; // use -x265-params List instead
-                            x265paramsList.Add("crf=26");
-                            //crf = "-x265-params \"crf=26\"";
-                        }
-                        else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
-                            || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
-                        {
-                            vBitrate = "1300K";
-                            crf = string.Empty;
-                        }
-
-                        vMinrate = string.Empty;
-                        vMaxrate = string.Empty;
-                        vBufsize = string.Empty;
-
-                        vOptions = PixFmt(mainwindow);
-                    }
-                    // -------------------------
-                    // AV1
-                    // -------------------------
-                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "AV1")
-                    {
-                        if ((string)mainwindow.cboPass.SelectedItem == "CRF")
-                        {
-                            vBitMode = string.Empty;
-                            vBitrate = string.Empty;
-                            crf = "-crf 28";
-                        }
-                        else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
-                            || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
-                        {
-                            vBitrate = "1300K";
-                            crf = string.Empty;
-                        }
-
-                        vMinrate = string.Empty;
-                        vMaxrate = string.Empty;
-                        vBufsize = string.Empty;
-
-                        vOptions = PixFmt(mainwindow);
-                    }
-                    // -------------------------
-                    // mpeg2
-                    // -------------------------
-                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "MPEG-2")
-                    {
-                        // CBR
-                        if (mainwindow.tglVideoVBR.IsChecked == false)
-                        {
-                            vBitrate = "1300K";
-                        }
-                        // VBR
-                        else if (mainwindow.tglVideoVBR.IsChecked == true)
-                        {
-                            vBitrate = "8";
-                        }
-
-                        vMinrate = string.Empty;
-                        vMaxrate = "1300K";
-                        vBufsize = "1800K";
-                        crf = string.Empty;
-
-                        vOptions = PixFmt(mainwindow);
-                    }
-                    // -------------------------
-                    // mpeg4
-                    // -------------------------
-                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "MPEG-4")
-                    {
-                        // CBR
-                        if (mainwindow.tglVideoVBR.IsChecked == false)
-                        {
-                            vBitrate = "1300K";
-                        }
-                        // VBR
-                        else if (mainwindow.tglVideoVBR.IsChecked == true)
-                        {
-                            vBitrate = "8";
-                        }
-
-                        vMinrate = string.Empty;
-                        vMaxrate = "1300K";
-                        vBufsize = "1800K";
-                        crf = string.Empty;
-
-                        vOptions = PixFmt(mainwindow);
-                    }
-                    // -------------------------
-                    // Theora
-                    // -------------------------
-                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "Theora")
-                    {
-                        if ((string)mainwindow.cboPass.SelectedItem == "CRF")
-                        {
-                            // OGV uses forced q:v instead of CRF
-                            vBitrate = "6";
-                            crf = string.Empty;
-                        }
-                        else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
-                            || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
-                        {
-                            vBitrate = "6";
-                            crf = string.Empty;
-                        }
-
-                        vMinrate = string.Empty;
-                        vMaxrate = string.Empty;
-                        vBufsize = string.Empty;
-
-                        vOptions = PixFmt(mainwindow);
-                    }
-                    // -------------------------
-                    // JPEG
-                    // -------------------------
-                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG")
-                    {
-                        vBitrate = "8";
-                        vMinrate = string.Empty;
-                        vMaxrate = string.Empty;
-                        vBufsize = string.Empty;
-
-                        crf = string.Empty;
-
-                        vOptions = PixFmt(mainwindow);
-                    }
-                    // -------------------------
-                    // WebP
-                    // -------------------------
-                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "WebP")
-                    {
-                        vBitrate = "70";
-                        vMinrate = string.Empty;
-                        vMaxrate = string.Empty;
-                        vBufsize = string.Empty;
-
-                        crf = string.Empty;
-
-                        vOptions = PixFmt(mainwindow);
-                    }
+                                        // Minrate
+                                        "",         // Ultra Bitrate
+                                        "",         // High Bitrate
+                                        "",         // Medium Bitrate
+                                        "",         // Low Bitrate
+                                        "",         // Sub Bitrate
+                                        // Maxrate
+                                        "",         // Ultra Bitrate
+                                        "",         // High Bitrate
+                                        "",         // Medium Bitrate
+                                        "",         // Low Bitrate
+                                        "",         // Sub Bitrate
+                                        // Bufsize
+                                        "",         // Ultra Bitrate
+                                        "",         // High Bitrate
+                                        "",         // Medium Bitrate
+                                        "",         // Low Bitrate
+                                        ""          // Sub Bitrate
+                                    );
                 }
 
                 // -------------------------
-                // Low
+                // MPEG-2
                 // -------------------------
-                else if ((string)mainwindow.cboVideoQuality.SelectedItem == "Low")
+                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "MPEG-2")
                 {
-                    // -------------------------
-                    // VP8
-                    // -------------------------
-                    if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8")
-                    {
-                        if ((string)mainwindow.cboPass.SelectedItem == "CRF")
-                        {
-                            vBitrate = "600K";
-                            crf = "-crf 20";
-                        }
-                        else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
-                            || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
-                        {
-                            vBitrate = "600K";
-                            crf = string.Empty;
-                        }
+                    VideoQualityPresets(
+                                        mainwindow,
 
-                        vMinrate = string.Empty;
-                        vMaxrate = string.Empty;
-                        vBufsize = string.Empty;
+                                        // Auto
+                                        VideoBitrateCalculator(mainwindow, FFprobe.vEntryType, FFprobe.inputVideoBitrate), // Bitrate
+                                        "",         // Minrate
+                                        "9800K",    // Maxrate
+                                        "9800K",    // Bufsize
 
-                        vOptions = PixFmt(mainwindow);
-                    }
-                    // -------------------------
-                    // VP9
-                    // -------------------------
-                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9")
-                    {
-                        if ((string)mainwindow.cboPass.SelectedItem == "CRF")
-                        {
-                            vBitrate = "600K";
-                            crf = "-crf 20";
-                        }
-                        else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
-                            || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
-                        {
-                            vBitrate = "600K";
-                            crf = string.Empty;
-                        }
+                                        // Lossless
+                                        "-q:v 2",
 
-                        vMinrate = string.Empty;
-                        vMaxrate = string.Empty;
-                        vBufsize = string.Empty;
+                                        // CBR 1 & 2-Pass
+                                        "5000K",    // Ultra Bitrate
+                                        "2500K",    // High Bitrate
+                                        "1300K",    // Medium Bitrate
+                                        "600K",     // Low Bitrate
+                                        "250K",     // Sub Bitrate
 
-                        vOptions = PixFmt(mainwindow);
-                    }
-                    // -------------------------
-                    // x264
-                    // -------------------------
-                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264")
-                    {
-                        if ((string)mainwindow.cboPass.SelectedItem == "CRF")
-                        {
-                            vBitMode = string.Empty;
-                            vBitrate = string.Empty;
-                            crf = "-crf 37";
-                        }
-                        else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
-                            || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
-                        {
-                            vBitrate = "600K";
-                            crf = string.Empty;
-                        }
+                                        // VBR 1 & 2-Pass
+                                        "4",        // Ultra Bitrate
+                                        "6",        // High Bitrate
+                                        "8",        // Medium Bitrate
+                                        "10",       // Low Bitrate
+                                        "12",       // Sub Bitrate
 
-                        vMinrate = string.Empty;
-                        vMaxrate = string.Empty;
-                        vBufsize = string.Empty;
+                                        // CRF
+                                        "",         // Ultra Rate
+                                        "",         // Ultra Bitrate
+                                        "",         // High Rate
+                                        "",         // High Bitrate
+                                        "",         // Medium Rate
+                                        "",         // Medium Bitrate
+                                        "",         // Low Rate
+                                        "",         // Low Bitrate
+                                        "",         // Sub Rate
+                                        "",         // Sub Bitrate
 
-                        vOptions = PixFmt(mainwindow);
-                    }
-                    // -------------------------
-                    // x265
-                    // -------------------------
-                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265")
-                    {
-                        if ((string)mainwindow.cboPass.SelectedItem == "CRF")
-                        {
-                            vBitMode = string.Empty;
-                            vBitrate = string.Empty;
-                            crf = string.Empty; // use -x265-params List instead
-                            x265paramsList.Add("crf=35");
-                            //crf = "-x265-params \"crf=35\"";
-                        }
-                        else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
-                            || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
-                        {
-                            vBitrate = "600K";
-                            crf = string.Empty;
-                        }
-
-                        vMinrate = string.Empty;
-                        vMaxrate = string.Empty;
-                        vBufsize = string.Empty;
-
-                        vOptions = PixFmt(mainwindow);
-                    }
-                    // -------------------------
-                    // AV1
-                    // -------------------------
-                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "AV1")
-                    {
-                        if ((string)mainwindow.cboPass.SelectedItem == "CRF")
-                        {
-                            vBitMode = string.Empty;
-                            vBitrate = string.Empty;
-                            crf = "-crf 37";
-                        }
-                        else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
-                            || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
-                        {
-                            vBitrate = "600K";
-                            crf = string.Empty;
-                        }
-
-                        vMinrate = string.Empty;
-                        vMaxrate = string.Empty;
-                        vBufsize = string.Empty;
-
-                        vOptions = PixFmt(mainwindow);
-                    }
-                    // -------------------------
-                    // mpeg2
-                    // -------------------------
-                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "MPEG-2")
-                    {
-                        // CBR
-                        if (mainwindow.tglVideoVBR.IsChecked == false)
-                        {
-                            vBitrate = "600K";
-                        }
-                        // VBR
-                        else if (mainwindow.tglVideoVBR.IsChecked == true)
-                        {
-                            vBitrate = "10";
-                        }
-
-                        vMinrate = string.Empty;
-                        vMaxrate = "600K";
-                        vBufsize = "1000K";
-                        crf = string.Empty;
-
-                        vOptions = PixFmt(mainwindow);
-                    }
-                    // -------------------------
-                    // mpeg4
-                    // -------------------------
-                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "MPEG-4")
-                    {
-                        // CBR
-                        if (mainwindow.tglVideoVBR.IsChecked == false)
-                        {
-                            vBitrate = "600K";
-                        }
-                        // VBR
-                        else if (mainwindow.tglVideoVBR.IsChecked == true)
-                        {
-                            vBitrate = "10";
-                        }
-
-                        vMinrate = string.Empty;
-                        vMaxrate = "600K";
-                        vBufsize = "1000K";
-                        crf = string.Empty;
-
-                        vOptions = PixFmt(mainwindow);
-                    }
-                    // -------------------------
-                    // Theora
-                    // -------------------------
-                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "Theora")
-                    {
-                        if ((string)mainwindow.cboPass.SelectedItem == "CRF")
-                        {
-                            // OGV uses forced q:v instead of CRF
-                            vBitrate = "4";
-                            crf = string.Empty;
-                        }
-                        else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
-                            || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
-                        {
-                            vBitrate = "4";
-                            crf = string.Empty;
-                        }
-
-                        vMinrate = string.Empty;
-                        vMaxrate = string.Empty;
-                        vBufsize = string.Empty;
-
-                        vOptions = PixFmt(mainwindow);
-                    }
-                    // -------------------------
-                    // JPEG
-                    // -------------------------
-                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG")
-                    {
-                        vBitrate = "15";
-                        vMinrate = string.Empty;
-                        vMaxrate = string.Empty;
-                        vBufsize = string.Empty;
-
-                        crf = string.Empty;
-
-                        vOptions = PixFmt(mainwindow);
-                    }
-                    // -------------------------
-                    // WebP
-                    // -------------------------
-                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "WebP")
-                    {
-                        vBitrate = "55";
-                        vMinrate = string.Empty;
-                        vMaxrate = string.Empty;
-                        vBufsize = string.Empty;
-
-                        crf = string.Empty;
-
-                        vOptions = PixFmt(mainwindow);
-                    }
+                                        // Minrate
+                                        "",         // Ultra Bitrate
+                                        "",         // High Bitrate
+                                        "",         // Medium Bitrate
+                                        "",         // Low Bitrate
+                                        "",         // Sub Bitrate
+                                        // Maxrate
+                                        "5000K",    // Ultra Bitrate
+                                        "2500K",    // High Bitrate
+                                        "1300K",    // Medium Bitrate
+                                        "600K",     // Low Bitrate
+                                        "250K",     // Sub Bitrate
+                                        // Bufsize
+                                        "7500K",    // Ultra Bitrate
+                                        "3300K",    // High Bitrate
+                                        "2000K",    // Medium Bitrate
+                                        "1000K",    // Low Bitrate
+                                        "400K"      // Sub Bitrate
+                                    );
                 }
 
                 // -------------------------
-                // Sub
+                // MPEG-4
                 // -------------------------
-                else if ((string)mainwindow.cboVideoQuality.SelectedItem == "Sub")
+                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "MPEG-4")
                 {
-                    // -------------------------
-                    // VP8
-                    // -------------------------
-                    if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8")
-                    {
-                        if ((string)mainwindow.cboPass.SelectedItem == "CRF")
-                        {
-                            vBitrate = "250K";
-                            crf = "-crf 25";
-                        }
-                        else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
-                            || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
-                        {
-                            vBitrate = "250K";
-                            crf = string.Empty;
-                        }
+                    VideoQualityPresets(
+                                        mainwindow,
 
-                        vMinrate = string.Empty;
-                        vMaxrate = string.Empty;
-                        vBufsize = string.Empty;
+                                        // Auto
+                                        VideoBitrateCalculator(mainwindow, FFprobe.vEntryType, FFprobe.inputVideoBitrate), // Bitrate
+                                        "",         // Minrate
+                                        "6000K",    // Maxrate
+                                        "6000K",    // Bufsize
 
-                        vOptions = PixFmt(mainwindow);
-                    }
-                    // -------------------------
-                    // VP9
-                    // -------------------------
-                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9")
-                    {
-                        if ((string)mainwindow.cboPass.SelectedItem == "CRF")
-                        {
-                            vBitrate = "250K";
-                            crf = "-crf 25";
-                        }
-                        else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
-                            || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
-                        {
-                            vBitrate = "250K";
-                            crf = string.Empty;
-                        }
+                                        // Lossless
+                                        "-q:v 2",
 
-                        vMinrate = string.Empty;
-                        vMaxrate = string.Empty;
-                        vBufsize = string.Empty;
+                                        // CBR 1 & 2-Pass
+                                        "5000K",    // Ultra Bitrate
+                                        "2500K",    // High Bitrate
+                                        "1300K",    // Medium Bitrate
+                                        "600K",     // Low Bitrate
+                                        "250K",     // Sub Bitrate
 
-                        vOptions = PixFmt(mainwindow);
-                    }
-                    // -------------------------
-                    // x264
-                    // -------------------------
-                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264")
-                    {
-                        if ((string)mainwindow.cboPass.SelectedItem == "CRF")
-                        {
-                            vBitMode = string.Empty;
-                            vBitrate = string.Empty;
-                            crf = "-crf 45";
-                        }
-                        else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
-                            || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
-                        {
-                            vBitrate = "250K";
-                            crf = string.Empty;
-                        }
+                                        // VBR 1 & 2-Pass
+                                        "4",         // Ultra Bitrate
+                                        "6",         // High Bitrate
+                                        "8",         // Medium Bitrate
+                                        "10",        // Low Bitrate
+                                        "12",        // Sub Bitrate
 
-                        vMinrate = string.Empty;
-                        vMaxrate = string.Empty;
-                        vBufsize = string.Empty;
+                                        // CRF
+                                        "",         // Ultra Rate
+                                        "",         // Ultra Bitrate
+                                        "",         // High Rate
+                                        "",         // High Bitrate
+                                        "",         // Medium Rate
+                                        "",         // Medium Bitrate
+                                        "",         // Low Rate
+                                        "",         // Low Bitrate
+                                        "",         // Sub Rate
+                                        "",         // Sub Bitrate
 
-                        vOptions = PixFmt(mainwindow);
-                    }
-                    // -------------------------
-                    // x265
-                    // -------------------------
-                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265")
-                    {
-                        if ((string)mainwindow.cboPass.SelectedItem == "CRF")
-                        {
-                            vBitMode = string.Empty;
-                            vBitrate = string.Empty;
-                            crf = string.Empty; // use -x265-params List instead
-                            x265paramsList.Add("crf=42");
-                            //crf = "-x265-params \"crf=42\"";
-                        }
-                        else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
-                            || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
-                        {
-                            vBitrate = "250K";
-                            crf = string.Empty;
-                        }
-
-                        vMinrate = string.Empty;
-                        vMaxrate = string.Empty;
-                        vBufsize = string.Empty;
-
-                        vOptions = PixFmt(mainwindow);
-                    }
-                    // -------------------------
-                    // AV1
-                    // -------------------------
-                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "AV1")
-                    {
-                        if ((string)mainwindow.cboPass.SelectedItem == "CRF")
-                        {
-                            vBitMode = string.Empty;
-                            vBitrate = string.Empty;
-                            crf = "-crf 45";
-                        }
-                        else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
-                            || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
-                        {
-                            vBitrate = "250K";
-                            crf = string.Empty;
-                        }
-
-                        vMinrate = string.Empty;
-                        vMaxrate = string.Empty;
-                        vBufsize = string.Empty;
-
-                        vOptions = PixFmt(mainwindow);
-                    }
-                    // -------------------------
-                    // mpeg2
-                    // -------------------------
-                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "MPEG-2")
-                    {
-                        // CBR
-                        if (mainwindow.tglVideoVBR.IsChecked == false)
-                        {
-                            vBitrate = "250K";
-                        }
-                        // VBR
-                        else if (mainwindow.tglVideoVBR.IsChecked == true)
-                        {
-                            vBitrate = "12";
-                        }
-
-                        vMinrate = string.Empty;
-                        vMaxrate = "250K";
-                        vBufsize = "500K";
-                        crf = string.Empty;
-
-                        vOptions = PixFmt(mainwindow);
-                    }
-                    // -------------------------
-                    // mpeg4
-                    // -------------------------
-                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "MPEG-4")
-                    {
-                        // CBR
-                        if (mainwindow.tglVideoVBR.IsChecked == false)
-                        {
-                            vBitrate = "250K";
-                        }
-                        // VBR
-                        else if (mainwindow.tglVideoVBR.IsChecked == true)
-                        {
-                            vBitrate = "12";
-                        }
-
-                        vMinrate = string.Empty;
-                        vMaxrate = "250K";
-                        vBufsize = "500K";
-                        crf = string.Empty;
-
-                        vOptions = PixFmt(mainwindow);
-                    }
-                    // -------------------------
-                    // Theora
-                    // -------------------------
-                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "Theora")
-                    {
-                        if ((string)mainwindow.cboPass.SelectedItem == "CRF")
-                        {
-                            // OGV uses forced q:v instead of CRF
-                            vBitrate = "2";
-                            crf = string.Empty;
-                        }
-                        else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
-                            || (string)mainwindow.cboPass.SelectedItem == "2 Pass")
-                        {
-                            vBitrate = "2";
-                            crf = string.Empty;
-                        }
-
-                        vMinrate = string.Empty;
-                        vMaxrate = string.Empty;
-                        vBufsize = string.Empty;
-
-                        vOptions = PixFmt(mainwindow);
-                    }
-                    // -------------------------
-                    // JPEG
-                    // -------------------------
-                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG")
-                    {
-                        vBitrate = "25";
-                        vMinrate = string.Empty;
-                        vMaxrate = string.Empty;
-                        vBufsize = string.Empty;
-
-                        crf = string.Empty;
-
-                        vOptions = PixFmt(mainwindow);
-                    }
-                    // -------------------------
-                    // WebP
-                    // -------------------------
-                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "WebP")
-                    {
-                        vBitrate = "40";
-                        vMinrate = string.Empty;
-                        vMaxrate = string.Empty;
-                        vBufsize = string.Empty;
-
-                        crf = string.Empty;
-
-                        vOptions = PixFmt(mainwindow);
-                    }
+                                        // Minrate
+                                        "",         // Ultra Bitrate
+                                        "",         // High Bitrate
+                                        "",         // Medium Bitrate
+                                        "",         // Low Bitrate
+                                        "",         // Sub Bitrate
+                                        // Maxrate
+                                        "5000K",    // Ultra Bitrate
+                                        "2500K",    // High Bitrate
+                                        "1300K",    // Medium Bitrate
+                                        "600K",     // Low Bitrate
+                                        "250K",     // Sub Bitrate
+                                        // Bufsize
+                                        "7500K",    // Ultra Bitrate
+                                        "3300K",    // High Bitrate
+                                        "2000K",    // Medium Bitrate
+                                        "1000K",    // Low Bitrate
+                                        "400K"      // Sub Bitrate
+                                    );
                 }
 
                 // -------------------------
-                // Custom
+                // Theora
                 // -------------------------
-                else if ((string)mainwindow.cboVideoQuality.SelectedItem == "Custom")
+                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "Theora")
                 {
-                    // -------------------------
-                    // Bitrate
-                    // -------------------------
-                    // Textbox Default or Empty
-                    if (string.IsNullOrWhiteSpace(mainwindow.vBitrateCustom.Text))
-                    {
-                        vBitMode = string.Empty;
-                        vBitrate = string.Empty;
-                    }
-                    // Textbox Not Empty
-                    else if (!string.IsNullOrWhiteSpace(mainwindow.vBitrateCustom.Text))
-                    {
-                        vBitrate = mainwindow.vBitrateCustom.Text.ToString();
-                    }
+                    VideoQualityPresets(
+                                        mainwindow,
 
-                    // -------------------------
-                    // Minrate
-                    // -------------------------
-                    // Textbox Default or Empty
-                    if (string.IsNullOrWhiteSpace(mainwindow.vMinrateCustom.Text))
-                    {
-                        vMinrate = string.Empty;
-                    }
-                    // Textbox Not Empty
-                    else if (!string.IsNullOrWhiteSpace(mainwindow.vMinrateCustom.Text))
-                    {
-                        vMinrate = mainwindow.vMinrateCustom.Text.ToString();
-                    }
+                                        // Auto
+                                        // Theora can't have Auto Value, default to highest -q:v 10
+                                        "10",       // Bitrate
+                                        "",         // Minrate
+                                        "",         // Maxrate
+                                        "",         // Bufsize
 
-                    // -------------------------
-                    // Maxrate
-                    // -------------------------
-                    // Textbox Default or Empty
-                    if (string.IsNullOrWhiteSpace(mainwindow.vMaxrateCustom.Text))
-                    {
-                        vMaxrate = string.Empty;
-                    }
-                    // Textbox Not Empty
-                    else if (!string.IsNullOrWhiteSpace(mainwindow.vMaxrateCustom.Text))
-                    {
-                        vMaxrate = mainwindow.vMaxrateCustom.Text.ToString();
-                    }
+                                        // Lossless
+                                        "", // disabled
 
-                    // -------------------------
-                    // Bufsize
-                    // -------------------------
-                    // Textbox Default or Empty
-                    if (string.IsNullOrWhiteSpace(mainwindow.vBufsizeCustom.Text))
-                    {
-                        vBufsize = string.Empty;
-                    }
-                    // Textbox Not Empty
-                    else if (!string.IsNullOrWhiteSpace(mainwindow.vBufsizeCustom.Text))
-                    {
-                        vBufsize = mainwindow.vBufsizeCustom.Text.ToString();
-                    }
+                                        // CBR 1 & 2-Pass
+                                        "10",       // Ultra Bitrate
+                                        "8",        // High Bitrate
+                                        "6",        // Medium Bitrate
+                                        "4",        // Low Bitrate
+                                        "2",        // Sub Bitrate
 
-                    // -------------------------
-                    // CRF
-                    // -------------------------
-                    // Textbox Default or Empty
-                    if (string.IsNullOrWhiteSpace(mainwindow.crfCustom.Text))
-                    {
-                        crf = string.Empty;
-                    }
-                    // Textbox Not Empty
-                    else if (!string.IsNullOrWhiteSpace(mainwindow.crfCustom.Text))
-                    {
-                        // x264
-                        crf = "-crf " + mainwindow.crfCustom.Text; // crf needs b:v 0
+                                        // VBR 1 & 2-Pass
+                                        "10",       // Ultra Bitrate
+                                        "8",        // High Bitrate
+                                        "6",        // Medium Bitrate
+                                        "4",        // Low Bitrate
+                                        "2",        // Sub Bitrate
 
-                        // x265
-                        if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265")
-                        {
-                            //crf = "-x265-params \"crf=" + mainwindow.crfCustom.Text + "\"";
-                            crf = string.Empty; // use -x265-params List instead
-                            x265paramsList.Add("crf=" + mainwindow.crfCustom.Text);
-                        }
-                    }
+                                        // CRF
+                                        "",         // Ultra Rate
+                                        "",         // Ultra Bitrate
+                                        "",         // High Rate
+                                        "",         // High Bitrate
+                                        "",         // Medium Rate
+                                        "",         // Medium Bitrate
+                                        "",         // Low Rate
+                                        "",         // Low Bitrate
+                                        "",         // Sub Rate
+                                        "",         // Sub Bitrate
 
-                    // -------------------------
-                    // VP9 crf -b:v 0
-                    // -------------------------
-                    // vBitrate is Default or Empty 
-                    // & CRF is Custom value
-                    if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9")
-                    {
-                        if (string.IsNullOrWhiteSpace(mainwindow.vBitrateCustom.Text))
-                        {
-                            if (!string.IsNullOrWhiteSpace(mainwindow.crfCustom.Text))
-                            {
-                                vBitrate = "0";
-                            }
-                        }
-                    }
-
-                    // -------------------------
-                    // Pix Format
-                    // -------------------------
-                    vOptions = PixFmt(mainwindow);
-
+                                        // Minrate
+                                        "",         // Ultra Bitrate
+                                        "",         // High Bitrate
+                                        "",         // Medium Bitrate
+                                        "",         // Low Bitrate
+                                        "",         // Sub Bitrate
+                                        // Maxrate
+                                        "",         // Ultra Bitrate
+                                        "",         // High Bitrate
+                                        "",         // Medium Bitrate
+                                        "",         // Low Bitrate
+                                        "",         // Sub Bitrate
+                                        // Bufsize
+                                        "",         // Ultra Bitrate
+                                        "",         // High Bitrate
+                                        "",         // Medium Bitrate
+                                        "",         // Low Bitrate
+                                        ""          // Sub Bitrate
+                                    );
                 }
 
                 // -------------------------
-                // None
+                // JPEG
                 // -------------------------
-                else if ((string)mainwindow.cboVideoQuality.SelectedItem == "None")
+                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG")
                 {
-                    crf = string.Empty;
-                    vBitMode = string.Empty;
-                    vBitrate = string.Empty;
-                    vMinrate = string.Empty;
-                    vMaxrate = string.Empty;
-                    vBufsize = string.Empty;
-                    x265params = string.Empty;
-                    vOptions = string.Empty;
+                    VideoQualityPresets(
+                                        mainwindow,
+
+                                        // Auto
+                                        "2",        // Bitrate
+                                        "",         // Minrate
+                                        "",         // Maxrate
+                                        "",         // Bufsize
+
+                                        // Lossless
+                                        "",
+
+                                        // CBR 1 & 2-Pass
+                                        "2",        // Ultra Bitrate
+                                        "4",        // High Bitrate
+                                        "8",        // Medium Bitrate
+                                        "15",       // Low Bitrate
+                                        "25",       // Sub Bitrate
+
+                                        // VBR 1 & 2-Pass
+                                        "2",        // Ultra Bitrate 
+                                        "4",        // High Bitrate
+                                        "8",        // Medium Bitrate
+                                        "15",       // Low Bitrate
+                                        "25",       // Sub Bitrate
+
+                                        // CRF
+                                        "",         // Ultra Rate
+                                        "",         // Ultra Bitrate
+                                        "",         // High Rate
+                                        "",         // High Bitrate
+                                        "",         // Medium Rate
+                                        "",         // Medium Bitrate
+                                        "",         // Low Rate
+                                        "",         // Low Bitrate
+                                        "",         // Sub Rate
+                                        "",         // Sub Bitrate
+
+                                        // Minrate
+                                        "",         // Ultra Bitrate
+                                        "",         // High Bitrate
+                                        "",         // Medium Bitrate
+                                        "",         // Low Bitrate
+                                        "",         // Sub Bitrate
+                                        // Maxrate
+                                        "",         // Ultra Bitrate
+                                        "",         // High Bitrate
+                                        "",         // Medium Bitrate
+                                        "",         // Low Bitrate
+                                        "",         // Sub Bitrate
+                                        // Bufsize
+                                        "",         // Ultra Bitrate
+                                        "",         // High Bitrate
+                                        "",         // Medium Bitrate
+                                        "",         // Low Bitrate
+                                        ""          // Sub Bitrate
+                                    );
                 }
 
+                // -------------------------
+                // PNG
+                // -------------------------
+                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "PNG")
+                {
+                    VideoQualityPresets(
+                                        mainwindow,
+
+                                        // Auto
+                                        "",         // Bitrate
+                                        "",         // Minrate
+                                        "",         // Maxrate
+                                        "",         // Bufsize
+
+                                        // Lossless
+                                        "", // Don't need to define, leave default
+
+                                        // CBR 1 & 2-Pass
+                                        "",         // Ultra Bitrate
+                                        "",         // High Bitrate
+                                        "",         // Medium Bitrate
+                                        "",         // Low Bitrate
+                                        "",         // Sub Bitrate
+
+                                        // VBR 1 & 2-Pass
+                                        "",         // Ultra Bitrate 
+                                        "",         // High Bitrate
+                                        "",         // Medium Bitrate
+                                        "",         // Low Bitrate
+                                        "",         // Sub Bitrate
+
+                                        // CRF
+                                        "",         // Ultra Rate
+                                        "",         // Ultra Bitrate
+                                        "",         // High Rate
+                                        "",         // High Bitrate
+                                        "",         // Medium Rate
+                                        "",         // Medium Bitrate
+                                        "",         // Low Rate
+                                        "",         // Low Bitrate
+                                        "",         // Sub Rate
+                                        "",         // Sub Bitrate
+
+                                        // Minrate
+                                        "",         // Ultra Bitrate
+                                        "",         // High Bitrate
+                                        "",         // Medium Bitrate
+                                        "",         // Low Bitrate
+                                        "",         // Sub Bitrate
+                                        // Maxrate
+                                        "",         // Ultra Bitrate
+                                        "",         // High Bitrate
+                                        "",         // Medium Bitrate
+                                        "",         // Low Bitrate
+                                        "",         // Sub Bitrate
+                                        // Bufsize
+                                        "",         // Ultra Bitrate
+                                        "",         // High Bitrate
+                                        "",         // Medium Bitrate
+                                        "",         // Low Bitrate
+                                        ""          // Sub Bitrate
+                                    );
+                }
+
+                // -------------------------
+                // WebP
+                // -------------------------
+                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "WebP")
+                {
+                    VideoQualityPresets(
+                                        mainwindow,
+
+                                        // Auto
+                                        "85",       // Bitrate
+                                        "",         // Minrate
+                                        "",         // Maxrate
+                                        "",         // Bufsize
+
+                                        // Lossless
+                                        "-lossless 1", // Don't need to define, leave default
+
+                                        // CBR 1 & 2-Pass
+                                        "100",      // Ultra Bitrate
+                                        "85",       // High Bitrate
+                                        "60",       // Medium Bitrate
+                                        "45",       // Low Bitrate
+                                        "25",       // Sub Bitrate
+
+                                        // VBR 1 & 2-Pass
+                                        "100",      // Ultra Bitrate
+                                        "85",       // High Bitrate
+                                        "60",       // Medium Bitrate
+                                        "45",       // Low Bitrate
+                                        "25",       // Sub Bitrate
+
+                                        // CRF
+                                        "",         // Ultra Rate
+                                        "",         // Ultra Bitrate
+                                        "",         // High Rate
+                                        "",         // High Bitrate
+                                        "",         // Medium Rate
+                                        "",         // Medium Bitrate
+                                        "",         // Low Rate
+                                        "",         // Low Bitrate
+                                        "",         // Sub Rate
+                                        "",         // Sub Bitrate
+
+                                        // Minrate
+                                        "",         // Ultra Bitrate
+                                        "",         // High Bitrate
+                                        "",         // Medium Bitrate
+                                        "",         // Low Bitrate
+                                        "",         // Sub Bitrate
+                                        // Maxrate
+                                        "",         // Ultra Bitrate
+                                        "",         // High Bitrate
+                                        "",         // Medium Bitrate
+                                        "",         // Low Bitrate
+                                        "",         // Sub Bitrate
+                                        // Bufsize
+                                        "",         // Ultra Bitrate
+                                        "",         // High Bitrate
+                                        "",         // Medium Bitrate
+                                        "",         // Low Bitrate
+                                        ""          // Sub Bitrate
+                                    );
+                }
+
+                // -------------------------
+                // Copy
+                // -------------------------
+                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "Copy")
+                {
+                    VideoQualityPresets(
+                                        mainwindow,
+
+                                        // Auto
+                                        "",         // Bitrate
+                                        "",         // Minrate
+                                        "",         // Maxrate
+                                        "",         // Bufsize
+
+                                        // Lossless
+                                        "",
+
+                                        // CBR 1 & 2-Pass
+                                        "",          // Ultra Bitrate
+                                        "",          // High Bitrate
+                                        "",          // Medium Bitrate
+                                        "",          // Low Bitrate
+                                        "",          // Sub Bitrate
+
+                                        // VBR 1 & 2-Pass
+                                        "",         // Ultra Bitrate
+                                        "",         // High Bitrate
+                                        "",         // Medium Bitrate
+                                        "",         // Low Bitrate
+                                        "",         // Sub Bitrate
+
+                                        // CRF
+                                        "",         // Ultra Rate
+                                        "",         // Ultra Bitrate
+                                        "",         // High Rate
+                                        "",         // High Bitrate
+                                        "",         // Medium Rate
+                                        "",         // Medium Bitrate
+                                        "",         // Low Rate
+                                        "",         // Low Bitrate
+                                        "",         // Sub Rate
+                                        "",         // Sub Bitrate
+
+                                        // Minrate
+                                        "",         // Ultra Bitrate
+                                        "",         // High Bitrate
+                                        "",         // Medium Bitrate
+                                        "",         // Low Bitrate
+                                        "",         // Sub Bitrate
+                                                    // Maxrate
+                                        "",         // Ultra Bitrate
+                                        "",         // High Bitrate
+                                        "",         // Medium Bitrate
+                                        "",         // Low Bitrate
+                                        "",         // Sub Bitrate
+                                                    // Bufsize
+                                        "",         // Ultra Bitrate
+                                        "",         // High Bitrate
+                                        "",         // Medium Bitrate
+                                        "",         // Low Bitrate
+                                        ""          // Sub Bitrate
+                                    );
+                }
 
                 // --------------------------------------------------
                 // Combine
@@ -2365,7 +2049,9 @@ namespace Axiom
                 if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265"
                     && x265paramsList.Count > 0)
                 {
-                    x265params = "-x265-params " + "\"" + string.Join(":", x265paramsList.Where(s => !string.IsNullOrEmpty(s))) + "\"";
+                    x265params = "-x265-params " + "\"" + string.Join(":", x265paramsList
+                                                                           .Where(s => !string.IsNullOrEmpty(s))) 
+                                                 + "\"";
                 }
                 else
                 {
@@ -2379,14 +2065,17 @@ namespace Axiom
                 string vMaxrateParam = string.Empty;
                 string vBufsizeParam = string.Empty;
 
+                // Minrate
                 if (!string.IsNullOrEmpty(vMinrate))
                 {
                     vMinrateParam = "-minrate";
                 }
+                // Maxrate
                 if (!string.IsNullOrEmpty(vMaxrate))
                 {
                     vMaxrateParam = "-maxrate";
                 }
+                // Bufsize
                 if (!string.IsNullOrEmpty(vBufsize))
                 {
                     vBufsizeParam = "-bufsize";
@@ -2399,6 +2088,7 @@ namespace Axiom
                 {
                     vQualityArgs = new List<string>()
                     {
+                        vLossless,
                         vBitMode,
                         vBitrate,
                         vMinrateParam,
@@ -2416,12 +2106,13 @@ namespace Axiom
                 // -------------------------
                 // 1 Pass, 2 Pass, auto
                 // -------------------------
-                else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass" 
+                else if ((string)mainwindow.cboPass.SelectedItem == "1 Pass"
                     || (string)mainwindow.cboPass.SelectedItem == "2 Pass"
                     || (string)mainwindow.cboPass.SelectedItem == "auto")
                 {
                     vQualityArgs = new List<string>()
                     {
+                        vLossless,
                         vBitMode,
                         vBitrate,
                         vMinrateParam,
@@ -2437,9 +2128,9 @@ namespace Axiom
 
                 // Join Video Quality Args List
                 vQuality = string.Join(" ", vQualityArgs
-                        .Where(s => !string.IsNullOrEmpty(s))
-                        .Where(s => !s.Equals("\n"))
-                        );
+                                            .Where(s => !string.IsNullOrEmpty(s))
+                                            .Where(s => !s.Equals("\n"))
+                                      );
 
 
                 // Log Console Message /////////        
@@ -2462,6 +2153,7 @@ namespace Axiom
                     Log.logParagraph.Inlines.Add(new Run(vOptions) { Foreground = Log.ConsoleDefault });
                 };
                 Log.LogActions.Add(Log.WriteAction);
+
 
             } // end Null Check
 

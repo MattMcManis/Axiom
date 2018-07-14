@@ -28,6 +28,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Management;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -358,10 +359,10 @@ namespace Axiom
 
             // Log Console Message /////////
             // Don't put in Configure Method, creates duplicate message /////////
-            Log.logParagraph.Inlines.Add(new LineBreak());
-            Log.logParagraph.Inlines.Add(new LineBreak());
-            Log.logParagraph.Inlines.Add(new Bold(new Run("Theme: ")) { Foreground = Log.ConsoleDefault });
-            Log.logParagraph.Inlines.Add(new Run(Configure.theme) { Foreground = Log.ConsoleDefault });
+            //Log.logParagraph.Inlines.Add(new LineBreak());
+            //Log.logParagraph.Inlines.Add(new LineBreak());
+            //Log.logParagraph.Inlines.Add(new Bold(new Run("Theme: ")) { Foreground = Log.ConsoleDefault });
+            //Log.logParagraph.Inlines.Add(new Run(Configure.theme) { Foreground = Log.ConsoleDefault });
 
 
             // -------------------------
@@ -715,6 +716,7 @@ namespace Axiom
             Video.vCodec = string.Empty;
             Video.vQuality = string.Empty;
             Video.vBitMode = string.Empty;
+            Video.vLossless = string.Empty;
             Video.vBitrate = string.Empty;
             Video.vMaxrate = string.Empty;
             Video.vOptions = string.Empty;
@@ -2685,6 +2687,13 @@ namespace Axiom
             // -------------------------
             if (UpdateWindow.CheckForInternetConnection() == true)
             {
+                ServicePointManager.Expect100Continue = true;
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+
+                WebClient wc = new WebClient();
+                wc.Headers.Add(HttpRequestHeader.UserAgent, "Axiom (https://github.com/MattMcManis/Axiom)" + " v" + currentVersion + "-" + currentBuildPhase + " Update Check");
+                //wc.Headers.Add("Accept-Encoding", "gzip,deflate"); //error
+
                 // -------------------------
                 // Parse GitHub .version file
                 // -------------------------
@@ -2692,7 +2701,7 @@ namespace Axiom
 
                 try
                 {
-                    parseLatestVersion = UpdateWindow.wc.DownloadString("https://raw.githubusercontent.com/MattMcManis/Axiom/master/.version");
+                    parseLatestVersion = wc.DownloadString("https://raw.githubusercontent.com/MattMcManis/Axiom/master/.version");
                 }
                 catch
                 {
@@ -2915,6 +2924,13 @@ namespace Axiom
             //if (tglUpdatesAutoCheck.IsChecked == true)
             if (tglUpdatesAutoCheck.Dispatcher.Invoke((() => { return tglUpdatesAutoCheck.IsChecked; })) == true)
             {
+                ServicePointManager.Expect100Continue = true;
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+
+                WebClient wc = new WebClient();
+                wc.Headers.Add(HttpRequestHeader.UserAgent, "Axiom (https://github.com/MattMcManis/Axiom)" + " v" + currentVersion + "-" + currentBuildPhase + " Update Check");
+                //wc.Headers.Add("Accept-Encoding", "gzip,deflate"); //error
+
                 // -------------------------
                 // Parse GitHub .version file
                 // -------------------------
@@ -2922,7 +2938,7 @@ namespace Axiom
 
                 try
                 {
-                    parseLatestVersion = UpdateWindow.wc.DownloadString("https://raw.githubusercontent.com/MattMcManis/Axiom/master/.version");
+                    parseLatestVersion = wc.DownloadString("https://raw.githubusercontent.com/MattMcManis/Axiom/master/.version");
                 }
                 catch
                 {
@@ -5487,8 +5503,8 @@ namespace Axiom
             if ((string)cboAudioQuality.SelectedItem == "Lossless" 
                 || (string)cboAudioQuality.SelectedItem == "Mute")
             {
-                tglVBR.IsEnabled = false;
-                tglVBR.IsChecked = false;
+                tglAudioVBR.IsEnabled = false;
+                tglAudioVBR.IsChecked = false;
             }
 
             // Disable VBR if AC3, ALAC, FLAC, PCM, Copy
@@ -5498,7 +5514,7 @@ namespace Axiom
                 || (string)cboAudioCodec.SelectedItem == "PCM"
                 || (string)cboAudioCodec.SelectedItem == "Copy")
             {
-                tglVBR.IsEnabled = false;
+                tglAudioVBR.IsEnabled = false;
             }
             // Enable VBR for Vorbis, Opus, LAME, AAC
             if ((string)cboAudioCodec.SelectedItem == "Vorbis" 
@@ -5506,7 +5522,7 @@ namespace Axiom
                 || (string)cboAudioCodec.SelectedItem == "LAME" 
                 || (string)cboAudioCodec.SelectedItem == "AAC")
             {
-                tglVBR.IsEnabled = true;
+                tglAudioVBR.IsEnabled = true;
             }
 
             // If AUTO, Check or Uncheck VBR
@@ -5514,7 +5530,7 @@ namespace Axiom
             {
                 if ((string)cboAudioCodec.SelectedItem == "Vorbis")
                 {
-                    tglVBR.IsChecked = true;
+                    tglAudioVBR.IsChecked = true;
                 }
                 if ((string)cboAudioCodec.SelectedItem == "Opus" 
                     || (string)cboAudioCodec.SelectedItem == "AAC" 
@@ -5525,7 +5541,7 @@ namespace Axiom
                     || (string)cboAudioCodec.SelectedItem == "PCM" 
                     || (string)cboAudioCodec.SelectedItem == "Copy")
                 {
-                    tglVBR.IsChecked = false;
+                    tglAudioVBR.IsChecked = false;
                 }
             }
 
@@ -5533,7 +5549,7 @@ namespace Axiom
             // Disable / Enable VBR
             if ((string)cboAudioQuality.SelectedItem == "Lossless" || (string)cboAudioQuality.SelectedItem == "Mute")
             {
-                tglVBR.IsEnabled = false;
+                tglAudioVBR.IsEnabled = false;
             }
 
             // Call Method (Needs to be at this location)

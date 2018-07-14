@@ -1120,6 +1120,7 @@
                                 Height="26" Grid.Column="1" />
 
                             <ComboBox x:Name="cboVideoCodec" 
+                                      SelectedItem="{Binding cboVideoCodec_SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                       Style="{DynamicResource ComboBoxWhite}" 
                                       ItemContainerStyle="{DynamicResource ComboBoxWhiteItem}"
                                       HorizontalAlignment="Left" 
@@ -1143,6 +1144,7 @@
                                 Grid.Column="1" />
 
                             <ComboBox x:Name="cboVideoQuality" 
+                                      SelectedItem="{Binding cboVideoQuality_SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                       Style="{DynamicResource ComboBoxWhite}"
                                       ItemContainerStyle="{DynamicResource ComboBoxWhiteItem}"
                                       HorizontalAlignment="Left" 
@@ -1279,6 +1281,7 @@
 
                             <!-- VBR -->
                             <ToggleButton x:Name="tglVideoVBR" 
+                                          IsChecked="{Binding tglVideoVBR_IsChecked}"
                                           Style="{DynamicResource ToggleButtonSmall}"
                                           Content="VBR"
                                           HorizontalAlignment="Left"
@@ -1415,6 +1418,7 @@
                                 FontFamily="Segoe UI Semilight" Grid.Row="3" Grid.Column="1" />
 
                             <ComboBox x:Name="cboPass"
+                                      SelectedItem="{Binding cboVideoEncodingPass_SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                       Style="{DynamicResource ComboBoxCustom}"
                                       ItemContainerStyle="{DynamicResource ComboBoxCustomItem}"
                                       HorizontalAlignment="Left"
@@ -1734,6 +1738,7 @@
 
                             <ComboBox x:Name="cboAudioCodec" 
                                       Style="{DynamicResource ComboBoxWhite}"
+                                      SelectedItem="{Binding cboAudioCodec_SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                       ItemContainerStyle="{DynamicResource ComboBoxWhiteItem}"
                                       HorizontalAlignment="Left" 
                                       Margin="0,2,0,0" 
@@ -1757,6 +1762,7 @@
                                 FontFamily="Segoe UI Semilight" Grid.Row="4" Grid.Column="1" />
 
                             <ComboBox x:Name="cboAudioQuality" 
+                                      SelectedItem="{Binding cboAudioQuality_SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                       Style="{DynamicResource ComboBoxWhite}" 
                                       ItemContainerStyle="{DynamicResource ComboBoxWhiteItem}" 
                                       HorizontalAlignment="Left"
@@ -1794,7 +1800,8 @@
                                      Grid.Row="5" Margin="0,2,0,0"/>
 
                             <!-- VBR -->
-                            <ToggleButton x:Name="tglVBR" 
+                            <ToggleButton x:Name="tglAudioVBR" 
+                                          IsChecked="{Binding Audio_VBR_IsChecked}"
                                           Style="{DynamicResource ToggleButtonSmall}"
                                           Content="VBR"
                                           HorizontalAlignment="Left"

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,8 +13,10 @@ using System.Windows.Controls;
 
 namespace Axiom
 {
-    public class ViewModel
+    public class ViewModel : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
         // --------------------------------------------------------------------------------------------------------
         /// <summary>
         ///     Format
@@ -66,6 +69,79 @@ namespace Axiom
         //}
         // Selected Item
         //public static string cboFormat_SelectedItem { get; set; }
+
+
+        // --------------------------------------------------------------------------------------------------------
+        /// <summary>
+        ///     Video
+        /// </summary>
+        // --------------------------------------------------------------------------------------------------------
+        // -------------------------
+        // Video Codec
+        // -------------------------
+        public static string cboVideoCodec_SelectedItem { get; set; }
+
+        // -------------------------
+        // Encoding Pass
+        // -------------------------
+        public static string cboVideoEncodingPass_SelectedItem { get; set; }
+
+        // -------------------------
+        // Video Quality
+        // -------------------------
+        public static string cboVideoQuality_SelectedItem { get; set; }
+
+        // -------------------------
+        // VBR
+        // -------------------------
+        private static bool _tglVideoVBR_IsChecked;
+        public static bool tglVideoVBR_IsChecked
+        {
+            get { return _tglVideoVBR_IsChecked; }
+            set
+            {
+                if (_tglVideoVBR_IsChecked == value) return;
+
+                _tglVideoVBR_IsChecked = value;
+
+                //NotifyPropertyChanged(() => IsSelected);
+            }
+        }
+
+
+        // --------------------------------------------------------------------------------------------------------
+        /// <summary>
+        ///     Audio
+        /// </summary>
+        // --------------------------------------------------------------------------------------------------------
+        // -------------------------
+        // Audio Codec
+        // -------------------------
+        public static string cboAudioCodec_SelectedItem { get; set; }
+
+        // -------------------------
+        // Audio Quality
+        // -------------------------
+        public static string cboAudioQuality_SelectedItem { get; set; }
+
+        // -------------------------
+        // VBR
+        // -------------------------
+        private static bool _Audio_VBR_IsChecked;
+        public static bool Audio_VBR_IsChecked
+        {
+            get { return _Audio_VBR_IsChecked; }
+            set
+            {
+                if (_Audio_VBR_IsChecked == value) return;
+
+                _Audio_VBR_IsChecked = value;
+
+                //NotifyPropertyChanged(() => IsSelected);
+            }
+        }
+
+
 
         // --------------------------------------------------------------------------------------------------------
         /// <summary>

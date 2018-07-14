@@ -46,7 +46,7 @@ namespace Axiom
         //public static string currentDir = Directory.GetCurrentDirectory().TrimEnd('\\') + @"\";
 
         // Web Downloads
-        public static WebClient wc = new WebClient();
+        //public static WebClient wc = new WebClient();
         public static ManualResetEvent waiter = new ManualResetEvent(false); // Download one at a time
 
         // Progress Label Info
@@ -135,18 +135,22 @@ namespace Axiom
                 // -------------------------
                 // Download
                 // -------------------------
-                waiter = new ManualResetEvent(false); //start a new waiter for next pass (clicking update again)
-
-                Uri downloadUrl = new Uri("https://github.com/MattMcManis/Axiom/releases/download/" + "v" + Convert.ToString(MainWindow.latestVersion) + "-" + MainWindow.latestBuildPhase + "/Axiom.zip"); // v1.0.0.0-alpha/Axiom.zip
-
                 ServicePointManager.Expect100Continue = true;
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
                 // Use SecurityProtocolType.Ssl3 if needed for compatibility reasons
 
+                WebClient wc = new WebClient();
+                wc.Headers.Add(HttpRequestHeader.UserAgent, "Axiom (https://github.com/MattMcManis/Axiom)" + " v" + MainWindow.currentVersion + "-" + MainWindow.currentBuildPhase + " Update");
+                //wc.Headers.Add("Accept-Encoding", "gzip,deflate"); //error
+
+                waiter = new ManualResetEvent(false); //start a new waiter for next pass (clicking update again)
+
+                Uri url = new Uri("https://github.com/MattMcManis/Axiom/releases/download/" + "v" + Convert.ToString(MainWindow.latestVersion) + "-" + MainWindow.latestBuildPhase + "/Axiom.zip"); // v1.0.0.0-alpha/Axiom.zip
+
                 //Async
                 wc.DownloadProgressChanged += new DownloadProgressChangedEventHandler(wc_DownloadProgressChanged);
                 wc.DownloadFileCompleted += new AsyncCompletedEventHandler(wc_DownloadFileCompleted);
-                wc.DownloadFileAsync(downloadUrl, tempDir + "Axiom.zip");
+                wc.DownloadFileAsync(url, tempDir + "Axiom.zip");
 
                 // Progress Info
                 progressInfo = "Downloading Axiom...";

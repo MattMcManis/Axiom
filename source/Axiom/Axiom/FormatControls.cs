@@ -497,7 +497,7 @@ namespace Axiom
             // Change Video Codec Items
 
             // -------------------------
-            // WEBM 
+            // webm 
             // -------------------------
             if ((string)mainwindow.cboFormat.SelectedItem == "webm")
             {
@@ -534,7 +534,7 @@ namespace Axiom
             }
 
             // -------------------------
-            // MP4 
+            // mp4 
             // -------------------------
             else if ((string)mainwindow.cboFormat.SelectedItem == "mp4")
             {
@@ -571,7 +571,7 @@ namespace Axiom
             }
 
             // -------------------------
-            // MKV 
+            // mkv 
             // -------------------------
             else if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
             {
@@ -587,7 +587,7 @@ namespace Axiom
                 // Subtitle
                 // -------------------------
                 // Item Source
-                VideoControls.SubtitleCodec_ItemSource = new List<string>() { "None", "mov_text", "ASS", "SSA", "SRT", "Burn", "Copy" };
+                VideoControls.SubtitleCodec_ItemSource = new List<string>() { "None", "mov_text", /*"ASS",*/ "SSA", "SRT", "Burn", "Copy" };
                 // Populate ComboBox
                 mainwindow.cboSubtitleCodec.ItemsSource = VideoControls.SubtitleCodec_ItemSource;
 
@@ -608,7 +608,7 @@ namespace Axiom
             }
 
             // -------------------------
-            // M2V 
+            // m2v 
             // -------------------------
             else if ((string)mainwindow.cboFormat.SelectedItem == "m2v")
             {
@@ -645,7 +645,7 @@ namespace Axiom
             }
 
             // -------------------------
-            // MPG 
+            // mpg 
             // -------------------------
             else if ((string)mainwindow.cboFormat.SelectedItem == "mpg")
             {
@@ -682,7 +682,7 @@ namespace Axiom
             }
 
             // -------------------------
-            // AVI 
+            // avi 
             // -------------------------
             else if ((string)mainwindow.cboFormat.SelectedItem == "avi")
             {
@@ -719,7 +719,7 @@ namespace Axiom
             }
 
             // -------------------------
-            // OGV 
+            // ogv 
             // -------------------------
             else if ((string)mainwindow.cboFormat.SelectedItem == "ogv")
             {
@@ -756,7 +756,7 @@ namespace Axiom
             }
 
             // -------------------------
-            // M4A 
+            // m4a 
             // -------------------------
             else if ((string)mainwindow.cboFormat.SelectedItem == "m4a")
             {
@@ -784,7 +784,7 @@ namespace Axiom
             }
 
             // -------------------------
-            // MP3
+            // mp3
             // -------------------------
             else if ((string)mainwindow.cboFormat.SelectedItem == "mp3")
             {
@@ -812,7 +812,7 @@ namespace Axiom
             }
 
             // -------------------------
-            // OGG 
+            // ogg 
             // -------------------------
             else if ((string)mainwindow.cboFormat.SelectedItem == "ogg")
             {
@@ -840,7 +840,7 @@ namespace Axiom
             }
 
             // -------------------------
-            // FLAC 
+            // flac 
             // -------------------------
             else if ((string)mainwindow.cboFormat.SelectedItem == "flac")
             {
@@ -868,7 +868,7 @@ namespace Axiom
             }
 
             // -------------------------
-            // WAV 
+            // wav 
             // -------------------------
             else if ((string)mainwindow.cboFormat.SelectedItem == "wav")
             {
@@ -893,11 +893,11 @@ namespace Axiom
                 // -------------------------
                 mainwindow.cboVideoCodec.SelectedItem = "None";
                 mainwindow.cboAudioCodec.SelectedItem = "PCM";
-                mainwindow.tglVBR.IsEnabled = false;
+                mainwindow.tglAudioVBR.IsEnabled = false;
             }
 
             // -------------------------
-            // JPG
+            // jpg
             // -------------------------
             else if ((string)mainwindow.cboFormat.SelectedItem == "jpg")
             {
@@ -925,7 +925,7 @@ namespace Axiom
             }
 
             // -------------------------
-            // PNG
+            // png
             // -------------------------
             else if ((string)mainwindow.cboFormat.SelectedItem == "png")
             {
@@ -953,7 +953,7 @@ namespace Axiom
             }
 
             // -------------------------
-            // WebP
+            // webp
             // -------------------------
             else if ((string)mainwindow.cboFormat.SelectedItem == "webp")
             {
@@ -985,36 +985,36 @@ namespace Axiom
             // Format Container Additional Rules
             // -------------------------
             // Disable VBR checkbox if Audio is Auto (ALWAYS) - This might not work, might be overridden by below
-            if ((string)mainwindow.cboAudioQuality.SelectedItem == "Auto"
-                && (string)mainwindow.cboFormat.SelectedItem == "mp4"
-                || (string)mainwindow.cboFormat.SelectedItem == "mkv"
-                || (string)mainwindow.cboFormat.SelectedItem == "m2v"
-                || (string)mainwindow.cboFormat.SelectedItem == "mpg"
-                || (string)mainwindow.cboFormat.SelectedItem == "avi"
-                || (string)mainwindow.cboFormat.SelectedItem == "ogv"
-                || (string)mainwindow.cboFormat.SelectedItem == "gif"
-                || (string)mainwindow.cboFormat.SelectedItem == "mp3"
-                || (string)mainwindow.cboFormat.SelectedItem == "m4a"
-                || (string)mainwindow.cboFormat.SelectedItem == "flac"
-                || (string)mainwindow.cboFormat.SelectedItem == "wav")
-            {
-                mainwindow.tglVBR.IsEnabled = false;
-                mainwindow.tglVBR.IsChecked = false;
-            }
-            // Check VBR for WebM (VBR-Only codec) (ALWAYS)
-            else if ((string)mainwindow.cboAudioQuality.SelectedItem == "Auto" 
-                && (string)mainwindow.cboFormat.SelectedItem == "webm")
-            {
-                mainwindow.tglVBR.IsEnabled = false;
-                mainwindow.tglVBR.IsChecked = true;
-            }
-            // Check VBR for OGV (VBR-Only codec) (ALWAYS)
-            else if ((string)mainwindow.cboAudioQuality.SelectedItem == "Auto" 
-                && (string)mainwindow.cboFormat.SelectedItem == "ogv")
-            {
-                mainwindow.tglVBR.IsEnabled = false;
-                mainwindow.tglVBR.IsChecked = true; //doesnt work
-            }
+            //if ((string)mainwindow.cboAudioQuality.SelectedItem == "Auto"
+            //    && (string)mainwindow.cboFormat.SelectedItem == "mp4"
+            //    || (string)mainwindow.cboFormat.SelectedItem == "mkv"
+            //    || (string)mainwindow.cboFormat.SelectedItem == "m2v"
+            //    || (string)mainwindow.cboFormat.SelectedItem == "mpg"
+            //    || (string)mainwindow.cboFormat.SelectedItem == "avi"
+            //    || (string)mainwindow.cboFormat.SelectedItem == "ogv"
+            //    || (string)mainwindow.cboFormat.SelectedItem == "gif"
+            //    || (string)mainwindow.cboFormat.SelectedItem == "mp3"
+            //    || (string)mainwindow.cboFormat.SelectedItem == "m4a"
+            //    || (string)mainwindow.cboFormat.SelectedItem == "flac"
+            //    || (string)mainwindow.cboFormat.SelectedItem == "wav")
+            //{
+            //    mainwindow.tglAudioVBR.IsEnabled = false;
+            //    mainwindow.tglAudioVBR.IsChecked = false;
+            //}
+            //// Check VBR for WebM (VBR-Only codec) (ALWAYS)
+            //else if ((string)mainwindow.cboAudioQuality.SelectedItem == "Auto" 
+            //    && (string)mainwindow.cboFormat.SelectedItem == "webm")
+            //{
+            //    mainwindow.tglAudioVBR.IsEnabled = false;
+            //    mainwindow.tglAudioVBR.IsChecked = true;
+            //}
+            //// Check VBR for OGV (VBR-Only codec) (ALWAYS)
+            //else if ((string)mainwindow.cboAudioQuality.SelectedItem == "Auto" 
+            //    && (string)mainwindow.cboFormat.SelectedItem == "ogv")
+            //{
+            //    mainwindow.tglAudioVBR.IsEnabled = false;
+            //    mainwindow.tglAudioVBR.IsChecked = true; //doesnt work
+            //}
 
 
             // Set Video & Audio Codec Combobox to "Copy" if Input Extension is Same as Output Extension and Video Quality is Auto

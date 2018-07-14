@@ -198,7 +198,7 @@ namespace Axiom
 
                 // Audio
                 mainwindow.cboAudioQuality.SelectedItem = "320";
-                mainwindow.tglVBR.IsChecked = false;
+                mainwindow.tglAudioVBR.IsChecked = false;
                 mainwindow.cboChannel.SelectedItem = "Source";
                 mainwindow.cboSamplerate.SelectedItem = "44.1k";
                 mainwindow.cboBitDepth.SelectedItem = "auto";
@@ -238,7 +238,7 @@ namespace Axiom
 
                 // Audio
                 mainwindow.cboAudioQuality.SelectedItem = "Auto";
-                mainwindow.tglVBR.IsChecked = false;
+                mainwindow.tglAudioVBR.IsChecked = false;
                 mainwindow.cboChannel.SelectedItem = "Source";
                 mainwindow.cboSamplerate.SelectedItem = "auto";
                 mainwindow.cboBitDepth.SelectedItem = "auto";
@@ -279,7 +279,7 @@ namespace Axiom
 
                 // Audio
                 mainwindow.cboAudioQuality.SelectedItem = "256";
-                mainwindow.tglVBR.IsChecked = false;
+                mainwindow.tglAudioVBR.IsChecked = false;
                 mainwindow.cboChannel.SelectedItem = "Stereo";
                 mainwindow.cboSamplerate.SelectedItem = "44.1k";
                 mainwindow.cboBitDepth.SelectedItem = "auto";
@@ -319,7 +319,7 @@ namespace Axiom
 
                 // Audio
                 mainwindow.cboAudioQuality.SelectedItem = "640";
-                mainwindow.tglVBR.IsChecked = false;
+                mainwindow.tglAudioVBR.IsChecked = false;
                 mainwindow.cboChannel.SelectedItem = "Source";
                 mainwindow.cboSamplerate.SelectedItem = "48k";
                 mainwindow.cboBitDepth.SelectedItem = "auto";
@@ -361,7 +361,7 @@ namespace Axiom
 
                 // Audio
                 mainwindow.cboAudioQuality.SelectedItem = "400";
-                mainwindow.tglVBR.IsChecked = true;
+                mainwindow.tglAudioVBR.IsChecked = true;
                 mainwindow.cboChannel.SelectedItem = "Stereo";
                 mainwindow.cboSamplerate.SelectedItem = "44.1k";
                 mainwindow.cboBitDepth.SelectedItem = "auto";
@@ -401,7 +401,7 @@ namespace Axiom
 
                 // Audio
                 mainwindow.cboAudioQuality.SelectedItem = "400";
-                mainwindow.tglVBR.IsChecked = true;
+                mainwindow.tglAudioVBR.IsChecked = true;
                 mainwindow.cboChannel.SelectedItem = "Stereo";
                 mainwindow.cboSamplerate.SelectedItem = "44.1k";
                 mainwindow.cboBitDepth.SelectedItem = "auto";
@@ -441,7 +441,7 @@ namespace Axiom
 
                 // Audio
                 mainwindow.cboAudioQuality.SelectedItem = "400";
-                mainwindow.tglVBR.IsChecked = true;
+                mainwindow.tglAudioVBR.IsChecked = true;
                 mainwindow.cboChannel.SelectedItem = "Stereo";
                 mainwindow.cboSamplerate.SelectedItem = "44.1k";
                 mainwindow.cboBitDepth.SelectedItem = "auto";
@@ -479,7 +479,7 @@ namespace Axiom
 
                 // Audio
                 mainwindow.cboAudioQuality.SelectedItem = "320";
-                mainwindow.tglVBR.IsChecked = true;
+                mainwindow.tglAudioVBR.IsChecked = true;
                 mainwindow.cboChannel.SelectedItem = "Stereo";
                 mainwindow.cboSamplerate.SelectedItem = "auto";
                 mainwindow.cboBitDepth.SelectedItem = "auto";
@@ -517,7 +517,7 @@ namespace Axiom
 
                 // Audio
                 mainwindow.cboAudioQuality.SelectedItem = "320";
-                mainwindow.tglVBR.IsChecked = true;
+                mainwindow.tglAudioVBR.IsChecked = true;
                 mainwindow.cboChannel.SelectedItem = "Joint Stereo";
                 mainwindow.cboSamplerate.SelectedItem = "auto";
                 mainwindow.cboBitDepth.SelectedItem = "auto";
@@ -557,7 +557,7 @@ namespace Axiom
 
                 // Audio
                 mainwindow.cboAudioQuality.SelectedItem = "400";
-                mainwindow.tglVBR.IsChecked = false;
+                mainwindow.tglAudioVBR.IsChecked = false;
                 mainwindow.cboChannel.SelectedItem = "Source";
                 mainwindow.cboSamplerate.SelectedItem = "48k";
                 mainwindow.cboBitDepth.SelectedItem = "auto";
@@ -600,7 +600,7 @@ namespace Axiom
                 mainwindow.cboChannel.SelectedItem = "Source";
                 mainwindow.cboSamplerate.SelectedItem = "auto";
                 mainwindow.cboBitDepth.SelectedItem = "auto";
-                mainwindow.tglVBR.IsChecked = false;
+                mainwindow.tglAudioVBR.IsChecked = false;
                 mainwindow.volumeUpDown.Text = "100";
                 mainwindow.slAudioLimiter.Value = 1;
                 //mainwindow.tglAudioLimiter.IsChecked = false;
@@ -640,7 +640,7 @@ namespace Axiom
                 mainwindow.cboChannel.SelectedItem = "Stereo";
                 mainwindow.cboSamplerate.SelectedItem = "48k";
                 mainwindow.cboBitDepth.SelectedItem = "auto";
-                mainwindow.tglVBR.IsChecked = false;
+                mainwindow.tglAudioVBR.IsChecked = false;
                 mainwindow.volumeUpDown.Text = "100";
                 mainwindow.slAudioLimiter.Value = 1;
                 //mainwindow.tglAudioLimiter.IsChecked = false;
@@ -680,7 +680,7 @@ namespace Axiom
                 mainwindow.cboChannel.SelectedItem = "Source";
                 mainwindow.cboSamplerate.SelectedItem = "auto";
                 mainwindow.cboBitDepth.SelectedItem = "auto";
-                mainwindow.tglVBR.IsChecked = false;
+                mainwindow.tglAudioVBR.IsChecked = false;
                 mainwindow.volumeUpDown.Text = "100";
                 mainwindow.slAudioLimiter.Value = 1;
                 //mainwindow.tglAudioLimiter.IsChecked = false;
@@ -717,7 +717,7 @@ namespace Axiom
 
                 // Audio
                 mainwindow.cboAudioQuality.SelectedItem = "192";
-                mainwindow.tglVBR.IsChecked = true;
+                mainwindow.tglAudioVBR.IsChecked = true;
                 mainwindow.cboAudioStream.SelectedItem = "1";
                 mainwindow.cboChannel.SelectedItem = "Stereo";
                 mainwindow.cboSamplerate.SelectedItem = "44.1k";
@@ -764,7 +764,7 @@ namespace Axiom
                 mainwindow.cboAudioStream.SelectedItem = "1";
                 mainwindow.cboAudioQuality.SelectedItem = "Custom";
                 mainwindow.audioCustom.Text = "380";
-                mainwindow.tglVBR.IsChecked = true;
+                mainwindow.tglAudioVBR.IsChecked = true;
                 mainwindow.cboChannel.SelectedItem = "Stereo";
                 mainwindow.cboSamplerate.SelectedItem = "48k";
                 mainwindow.cboBitDepth.SelectedItem = "auto";
