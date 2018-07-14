@@ -4,6 +4,49 @@ Axiom FFmpeg UI
 
 ## [alpha]
 
+## [1.2.8.0] - Jul 14, 2018
+### Added
+- Update User Agent
+- `JPEG` & `WebP` Custom Quality
+- Optimized Video Quality Function
+- Optimized Audio Quality Function
+- Optimized Video Bitrate Calculator
+- Adjusted Quality Presets
+
+### Removed
+- Additional VBR Rules from Format Controls
+- `Theora` Lossless
+- `Theora` 2 Pass
+
+### Changed
+- Image `auto Pass` to `1 Pass`
+
+### Fixed
+- `FLAC`, `ALAC`, `PCM` Bitrate if not Lossless
+- `SSA` Subtitles Codec
+
+
+## [1.2.7.0] - Jul 12, 2018
+### Added
+- `webp` Format
+- Script Edited Check
+- Pixel Format `bgra`
+- Pixel Format `rgb24`
+- Replace Line Breaks with Space
+- Convert Button Auto Sort Script
+
+### Changed
+- Improved Remove Linebreaks
+- Improved ScriptView ClearImproved Sort & Inline
+- Improved Sort & Inline
+- Optimized Remove Line Breaks
+- Auto Quality Notice
+- `JPEG` codec from auto to `-mjpeg`
+- `PNG` codec from `auto` to `-png`
+- `JPEG` pixel format to `yuvj444p`
+- Updated User Guide
+
+
 ## [1.2.6.1] - Jul 11, 2018
 ### Added
 - New Line Add Spaces between FFmpeg arguments
