@@ -969,14 +969,14 @@ namespace Axiom
                 Pass_ItemSource = new List<string>()
                 {
                     "1 Pass",
-                    "2 Pass"
+                    //"2 Pass" //disabled
                 };
 
                 ChangeItemSource(
                     mainwindow,
                     mainwindow.cboPass, // ComboBox
                     Pass_ItemSource, // New Items List
-                    (string)mainwindow.cboPass.SelectedItem); // Selected Item
+                    "1 Pass"); // Selected Item
 
 
                 // --------------------------------------------------
