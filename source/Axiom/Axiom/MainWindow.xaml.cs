@@ -189,7 +189,7 @@ namespace Axiom
             ///     Control Binding
             /// </summary>
             // -----------------------------------------------------------------
-            ViewModel vm = new ViewModel();
+            ViewModelBase vm = new ViewModelBase();
             DataContext = vm;
 
             // -----------------------------------------------------------------

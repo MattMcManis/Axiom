@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -13,9 +14,31 @@ using System.Windows.Controls;
 
 namespace Axiom
 {
-    public class ViewModel : INotifyPropertyChanged
+    public class ViewModelBase : INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler PropertyChanged;
+        public ViewModelBase()
+        {
+            //cbo1_Items = new ObservableCollection<string>();
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged = delegate { };
+        private void OnPropertyChanged(string name)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            handler(this, new PropertyChangedEventArgs(name));
+        }
+
+        //private ObservableCollection<string> _cbo1_Items;
+        //public ObservableCollection<string> cbo1_Items
+        //{
+        //    get { return _cbo1_Items; }
+        //    set
+        //    {
+        //        _cbo1_Items = value;
+        //        OnPropertyChanged("cbo1_Items");
+        //    }
+        //}
+
 
         // --------------------------------------------------------------------------------------------------------
         /// <summary>
@@ -79,6 +102,17 @@ namespace Axiom
         // -------------------------
         // Video Codec
         // -------------------------
+        // Items
+        public ObservableCollection<string> _cboVideoCodec_Items = new ObservableCollection<string>();
+        public ObservableCollection<string> cboVideoCodec_Items
+        {
+            get { return _cboVideoCodec_Items; }
+            set
+            {
+                _cboVideoCodec_Items = value;
+                OnPropertyChanged("cboVideoCodec_Items");
+            }
+        }
         public static string cboVideoCodec_SelectedItem { get; set; }
 
         // -------------------------

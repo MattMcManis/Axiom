@@ -40,6 +40,8 @@
         Height="432"
         Width="768"
         
+        DataContext="{Binding RelativeSource={RelativeSource self}}"
+        
         Top="{Binding Top, Source={x:Static settings:Settings.Default}, Mode=TwoWay}"
         Left="{Binding Left, Source={x:Static settings:Settings.Default}, Mode=TwoWay}" 
         Title="{Binding TitleVersion, RelativeSource={RelativeSource Mode=Self}}" 
@@ -1119,8 +1121,10 @@
                                 Grid.Row="0" 
                                 Height="26" Grid.Column="1" />
 
+                            <!--ItemsSource="{Binding cboVideoCodec_Items, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"-->
                             <ComboBox x:Name="cboVideoCodec" 
-                                      SelectedItem="{Binding cboVideoCodec_SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      ItemsSource="{Binding cboVideoCodec_Items}"
+                                      SelectedItem="{Binding cboVideoCodec_SelectedItem}"
                                       Style="{DynamicResource ComboBoxWhite}" 
                                       ItemContainerStyle="{DynamicResource ComboBoxWhiteItem}"
                                       HorizontalAlignment="Left" 

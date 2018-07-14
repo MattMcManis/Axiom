@@ -2045,7 +2045,7 @@ namespace Axiom
                         Pass_ItemSource.Clear();
                     }
 
-                    //Pass_ItemSource.ForEach(ViewModel._cboVideoPass_Items.Add);
+                    //Pass_ItemSource.ForEach(ViewModelBase._cboVideoPass_Items.Add);
 
                     for (int i = 0; i < Pass_ItemSource.Count; i++)
                     {

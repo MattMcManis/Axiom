@@ -109,8 +109,8 @@ namespace Axiom
         public static void Deband_Filter(/*MainWindow mainwindow*/)
         {
             //if ((string)mainwindow.cboFilterVideo_Deband.SelectedItem == "enabled")
-            //if (ViewModel.Filters.cboFilterVideo_Deband_SelectedItem == "enabled")
-            if (ViewModel.cboFilterVideo_Deband_SelectedItem == "enabled")
+            //if (ViewModelBase.Filters.cboFilterVideo_Deband_SelectedItem == "enabled")
+            if (ViewModelBase.cboFilterVideo_Deband_SelectedItem == "enabled")
             {
                 // -------------------------
                 // Add Filter to List
@@ -266,7 +266,7 @@ namespace Axiom
             {
                 // Reds
                 mainwindow.slFiltersVideo_SelectiveColor_Reds_Cyan.Value,
-                //ViewModel.Filters.slFiltersVideo_SelectiveColor_Reds_Cyan_Value,
+                //ViewModelBase.Filters.slFiltersVideo_SelectiveColor_Reds_Cyan_Value,
                 mainwindow.slFiltersVideo_SelectiveColor_Reds_Magenta.Value,
                 mainwindow.slFiltersVideo_SelectiveColor_Reds_Yellow.Value,
                 // Yellows
@@ -314,7 +314,7 @@ namespace Axiom
                 // -------------------------
                 // Cyan
                 string reds_cyan = SelectiveColor_Normalize(mainwindow.slFiltersVideo_SelectiveColor_Reds_Cyan.Value);
-                //string reds_cyan = SelectiveColor_Normalize(ViewModel.Filters.slFiltersVideo_SelectiveColor_Reds_Cyan_Value);
+                //string reds_cyan = SelectiveColor_Normalize(ViewModelBase.Filters.slFiltersVideo_SelectiveColor_Reds_Cyan_Value);
                 //if (string.IsNullOrEmpty(reds_cyan)) { reds_cyan = "0"; };
                 // Magenta
                 string reds_magenta = SelectiveColor_Normalize(mainwindow.slFiltersVideo_SelectiveColor_Reds_Magenta.Value);
