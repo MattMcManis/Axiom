@@ -58,7 +58,35 @@ namespace Axiom
 
 
         /// <summary>
-        /// Define Log Path (Method)
+        ///     Lod Console Message Add (Method)
+        /// </summary>
+        public static void LogConsoleMessageAdd(string message, string emphasis, Brush color, int linebreaks)
+        {
+            WriteAction = () =>
+            {
+                // Linebreaks
+                for (var i = 0; i < linebreaks; i++)
+                {
+                    logParagraph.Inlines.Add(new LineBreak());
+                }
+                
+                // Message
+                if (emphasis == "normal")
+                {
+                    logParagraph.Inlines.Add(new Run(message) { Foreground = color });
+                }
+                else if (emphasis == "bold")
+                {
+                    logParagraph.Inlines.Add(new Bold(new Run(message)) { Foreground = color });
+                }
+                
+            };
+            LogActions.Add(WriteAction);
+        }
+
+
+        /// <summary>
+        ///     Define Log Path (Method)
         /// </summary>
         public static void DefineLogPath(MainWindow mainwindow)
         {
@@ -88,7 +116,7 @@ namespace Axiom
 
 
         /// <summary>
-        /// Create Output Log (Method)
+        ///     Create Output Log (Method)
         /// </summary>
         public static void CreateOutputLog(MainWindow mainwindow)
         {
@@ -139,7 +167,7 @@ namespace Axiom
 
 
         /// <summary>
-        /// Log Write All 
+        ///     Log Write All 
         /// </summary>
         public static void LogWriteAll(MainWindow mainwindow)
         {

@@ -340,6 +340,11 @@ namespace Axiom
 
             Log.logParagraph.Inlines.Add(new Bold(new Run(TitleVersion)) { Foreground = Log.ConsoleTitle });
 
+            //Log.LogConsoleMessageAdd(TitleVersion,      // Message
+            //                         "bold",            // Emphasis
+            //                         Log.ConsoleAction, // Color
+            //                         0);                // Linebreaks
+
             /// <summary>
             ///     System Info
             /// </summary>
@@ -355,7 +360,10 @@ namespace Axiom
             // Log Console Message /////////
             Log.logParagraph.Inlines.Add(new LineBreak());
             Log.logParagraph.Inlines.Add(new Bold(new Run("Loading Saved Settings...")) { Foreground = Log.ConsoleAction });
-
+            //Log.LogConsoleMessageAdd("Loading Saved Settings...", // Message
+            //                         "bold",                      // Emphasis
+            //                         Log.ConsoleAction,           // Color
+            //                         1);                          // Linebreaks
 
             // Log Console Message /////////
             // Don't put in Configure Method, creates duplicate message /////////

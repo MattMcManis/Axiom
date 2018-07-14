@@ -673,7 +673,9 @@ namespace Axiom
 
                                                 // Auto
                                                 string auto_bitrate,
+                                                string auto_bitrate_na,
                                                 string auto_minrate,
+      
                                                 string auto_maxrate,
                                                 string auto_bufsize,
 
@@ -757,10 +759,10 @@ namespace Axiom
                             {
                                 crf = string.Empty;
 
-                                if (!string.IsNullOrEmpty(auto_bitrate))
+                                if (!string.IsNullOrEmpty(auto_bitrate_na))
                                 {
                                     vBitMode = VideoBitrateMode(mainwindow);
-                                    vBitrate = auto_bitrate;
+                                    vBitrate = auto_bitrate_na; // N/A e.g. Define 3000K
                                     vMinrate = auto_minrate;
                                     vMaxrate = auto_maxrate;
                                     vBufsize = auto_bufsize;
@@ -773,10 +775,12 @@ namespace Axiom
                             {
                                 crf = string.Empty;
 
-                                if (!string.IsNullOrEmpty(auto_bitrate))
+                                //MessageBox.Show(auto_bitrate_na); //debug
+
+                                if (!string.IsNullOrEmpty(auto_bitrate_na))
                                 {
                                     vBitMode = VideoBitrateMode(mainwindow);
-                                    vBitrate = auto_bitrate;
+                                    vBitrate = auto_bitrate_na; // N/A e.g. Define 3000K
                                     vMinrate = auto_minrate;
                                     vMaxrate = auto_maxrate;
                                     vBufsize = auto_bufsize;
@@ -812,15 +816,40 @@ namespace Axiom
                     else if (!string.IsNullOrEmpty(FFprobe.inputVideoBitrate) &&
                              FFprobe.inputVideoBitrate != "N/A")
                     {
-                        crf = string.Empty;
-
-                        if (!string.IsNullOrEmpty(auto_bitrate))
+                        // -------------------------
+                        // Codec Detected
+                        // -------------------------
+                        if (!string.IsNullOrEmpty(FFprobe.inputVideoCodec))
                         {
-                            vBitMode = VideoBitrateMode(mainwindow);
-                            vBitrate = auto_bitrate;
-                            vMinrate = auto_minrate;
-                            vMaxrate = auto_maxrate;
-                            vBufsize = auto_bufsize;
+                            crf = string.Empty;
+
+                            if (!string.IsNullOrEmpty(auto_bitrate))
+                            {
+                                vBitMode = VideoBitrateMode(mainwindow);
+                                vBitrate = auto_bitrate; // FFprobe Detected Bitrate
+                                vMinrate = auto_minrate;
+                                vMaxrate = auto_maxrate;
+                                vBufsize = auto_bufsize;
+                            }
+
+                            // Pixel Format
+                            vOptions = PixFmt(mainwindow);
+                        }
+                        // -------------------------
+                        // Codec Not Detected
+                        // -------------------------
+                        else
+                        {
+                            crf = string.Empty;
+
+                            vBitMode = string.Empty;
+                            vBitrate = string.Empty;
+                            vMinrate = string.Empty;
+                            vMaxrate = string.Empty;
+                            vBufsize = string.Empty;
+
+                            // Pixel Format
+                            vOptions = string.Empty;
                         }
                     }
                 }
@@ -1166,7 +1195,7 @@ namespace Axiom
                 }
 
                 // -------------------------
-                // 1 & 2-Pass, auto
+                // 1 & 2-Pass
                 // -------------------------
                 else if (encoding_Pass == "1 Pass" ||
                          encoding_Pass == "2 Pass")
@@ -1279,6 +1308,7 @@ namespace Axiom
 
                                         // Auto
                                         VideoBitrateCalculator(mainwindow, FFprobe.vEntryType, FFprobe.inputVideoBitrate), // Bitrate
+                                        "3000K",    // Bitrate N/A
                                         "",         // Minrate
                                         "",         // Maxrate
                                         "",         // Bufsize
@@ -1343,6 +1373,7 @@ namespace Axiom
 
                                         // Auto
                                         VideoBitrateCalculator(mainwindow, FFprobe.vEntryType, FFprobe.inputVideoBitrate), // Bitrate
+                                        "3000K",    // Bitrate N/A
                                         "",         // Minrate
                                         "",         // Maxrate
                                         "",         // Bufsize
@@ -1407,6 +1438,7 @@ namespace Axiom
 
                                         // Auto
                                         VideoBitrateCalculator(mainwindow, FFprobe.vEntryType, FFprobe.inputVideoBitrate), // Bitrate
+                                        "3000K",    // Bitrate N/A
                                         "",         // Minrate
                                         "",         // Maxrate
                                         "",         // Bufsize
@@ -1471,12 +1503,13 @@ namespace Axiom
 
                                         // Auto
                                         VideoBitrateCalculator(mainwindow, FFprobe.vEntryType, FFprobe.inputVideoBitrate), // Bitrate
+                                        "3000K",    // Bitrate N/A
                                         "",         // Minrate
                                         "",         // Maxrate
                                         "",         // Bufsize
 
                                         // Lossless
-                                        "-qp 0", //-x265-params "lossless" in VideoQualityBitrate()
+                                        "-qp 0",    //-x265-params "lossless" in VideoQualityBitrate()
 
                                         // CBR 1 & 2-Pass
                                         "5000K",    // Ultra Bitrate
@@ -1535,6 +1568,7 @@ namespace Axiom
 
                                         // Auto
                                         VideoBitrateCalculator(mainwindow, FFprobe.vEntryType, FFprobe.inputVideoBitrate), // Bitrate
+                                        "3000K",    // Bitrate N/A
                                         "",         // Minrate
                                         "",         // Maxrate
                                         "",         // Bufsize
@@ -1599,6 +1633,7 @@ namespace Axiom
 
                                         // Auto
                                         VideoBitrateCalculator(mainwindow, FFprobe.vEntryType, FFprobe.inputVideoBitrate), // Bitrate
+                                        "3000K",    // Bitrate N/A
                                         "",         // Minrate
                                         "9800K",    // Maxrate
                                         "9800K",    // Bufsize
@@ -1663,9 +1698,10 @@ namespace Axiom
 
                                         // Auto
                                         VideoBitrateCalculator(mainwindow, FFprobe.vEntryType, FFprobe.inputVideoBitrate), // Bitrate
+                                        "3000K",    // Bitrate N/A
                                         "",         // Minrate
-                                        "6000K",    // Maxrate
-                                        "6000K",    // Bufsize
+                                        "3000K",    // Maxrate
+                                        "4500K",    // Bufsize
 
                                         // Lossless
                                         "-q:v 2",
@@ -1728,6 +1764,7 @@ namespace Axiom
                                         // Auto
                                         // Theora can't have Auto Value, default to highest -q:v 10
                                         "10",       // Bitrate
+                                        "10",       // Bitrate N/A
                                         "",         // Minrate
                                         "",         // Maxrate
                                         "",         // Bufsize
@@ -1792,6 +1829,7 @@ namespace Axiom
 
                                         // Auto
                                         "2",        // Bitrate
+                                        "2",        // Bitrate N/A
                                         "",         // Minrate
                                         "",         // Maxrate
                                         "",         // Bufsize
@@ -1856,12 +1894,13 @@ namespace Axiom
 
                                         // Auto
                                         "",         // Bitrate
+                                        "",         // Bitrate N/A
                                         "",         // Minrate
                                         "",         // Maxrate
                                         "",         // Bufsize
 
                                         // Lossless
-                                        "", // Don't need to define, leave default
+                                        "",         // Don't need to define, leave default
 
                                         // CBR 1 & 2-Pass
                                         "",         // Ultra Bitrate
@@ -1920,12 +1959,13 @@ namespace Axiom
 
                                         // Auto
                                         "85",       // Bitrate
+                                        "85",       // Bitrate N/A
                                         "",         // Minrate
                                         "",         // Maxrate
                                         "",         // Bufsize
 
                                         // Lossless
-                                        "-lossless 1", // Don't need to define, leave default
+                                        "-lossless 1",
 
                                         // CBR 1 & 2-Pass
                                         "100",      // Ultra Bitrate
@@ -1984,6 +2024,7 @@ namespace Axiom
 
                                         // Auto
                                         "",         // Bitrate
+                                        "",         // Bitrate N/A
                                         "",         // Minrate
                                         "",         // Maxrate
                                         "",         // Bufsize
@@ -2061,21 +2102,25 @@ namespace Axiom
                 // -------------------------
                 // Add Parameter to Minrate, Maxrate, Bufsize
                 // -------------------------
-                string vMinrateParam = string.Empty;
-                string vMaxrateParam = string.Empty;
-                string vBufsizeParam = string.Empty;
-
                 // Minrate
+                string vMinrateParam = string.Empty;
+
                 if (!string.IsNullOrEmpty(vMinrate))
                 {
                     vMinrateParam = "-minrate";
                 }
+
                 // Maxrate
+                string vMaxrateParam = string.Empty;
+
                 if (!string.IsNullOrEmpty(vMaxrate))
                 {
                     vMaxrateParam = "-maxrate";
                 }
+
                 // Bufsize
+                string vBufsizeParam = string.Empty;
+
                 if (!string.IsNullOrEmpty(vBufsize))
                 {
                     vBufsizeParam = "-bufsize";
@@ -2535,7 +2580,7 @@ namespace Axiom
                         {
                             height = "-1";
                         }
-                    } //end vp8/vp9/theora
+                    } 
 
 
                     // -------------------------

@@ -664,7 +664,7 @@ namespace Axiom
                             // CBR
                             if (vbr_IsChecked == false)
                             {
-                                //aBitMode = "-b:a";
+                                // aBitMode = "-b:a";
                                 aBitrate = AudioBitrateCalculator(mainwindow, FFprobe.aEntryType, FFprobe.inputAudioBitrate);
 
                                 // add k to value
@@ -695,7 +695,7 @@ namespace Axiom
                             if (FFprobe.inputAudioBitrate == "N/A"
                                 && !string.Equals(MainWindow.inputExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase))
                             {
-                                //aBitMode = "-b:a";
+                                // aBitMode = "-b:a";
                                 aBitrate = "320k";
                             }
                         }
