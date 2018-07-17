@@ -67,7 +67,7 @@ namespace Axiom
 
                     Video.Subtitles(mainwindow),
 
-                    //Video.VideoCodec(mainwindow),
+                    //Video.VideoCodec(),
                     //Video.Speed(mainwindow),
                     //Video.VideoQuality(mainwindow),
                     Video.FPS(mainwindow),

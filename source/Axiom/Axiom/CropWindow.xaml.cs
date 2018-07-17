@@ -246,7 +246,7 @@ namespace Axiom
             }
 
             // Set Button Text to show Crop is Active
-            mainwindow.buttonCropClearTextBox.Text = "~";
+            mainwindow.buttonCropClearTextBox.Text = "Clear*";
 
             this.Close();
         }

@@ -1676,9 +1676,9 @@ namespace Axiom
                     // -------------------------
                     // Set Video Codec Combobox Selected Item to Copy
                     // -------------------------
-                    if (VideoCodec_ItemSource.Count > 0)
+                    if (mainwindow.cboVideoCodec.Items.Count > 0)
                     {
-                        if (VideoCodec_ItemSource.Contains("Copy"))
+                        if (mainwindow.cboVideoCodec.Items.Contains("Copy"))
                         {
                             mainwindow.cboVideoCodec.SelectedItem = "Copy";
 
@@ -1690,15 +1690,15 @@ namespace Axiom
                 // -------------------------
                 // Select Copy - Batch
                 // -------------------------
-                else if ((string)mainwindow.cboVideoQuality.SelectedItem == "Auto"
-                    && (string)mainwindow.cboSize.SelectedItem == "Source"
-                    && string.IsNullOrEmpty(CropWindow.crop)
-                    && (string)mainwindow.cboFPS.SelectedItem == "auto"
-                    && (string)mainwindow.cboOptimize.SelectedItem == "None"
+                else if ((string)mainwindow.cboVideoQuality.SelectedItem == "Auto" &&
+                         (string)mainwindow.cboSize.SelectedItem == "Source" &&
+                         string.IsNullOrEmpty(CropWindow.crop) &&
+                         (string)mainwindow.cboFPS.SelectedItem == "auto" &&
+                         (string)mainwindow.cboOptimize.SelectedItem == "None" &&
 
-                    // Batch Extension Match
-                    && mainwindow.tglBatch.IsChecked == true
-                    && string.Equals(MainWindow.batchExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase)
+                         // Batch Extension Match
+                         mainwindow.tglBatch.IsChecked == true &&
+                         string.Equals(MainWindow.batchExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase)
                     )
                 {
                     //// -------------------------
@@ -1714,9 +1714,9 @@ namespace Axiom
                     // -------------------------
                     // Set Video Codec Combobox Selected Item to Copy
                     // -------------------------
-                    if (VideoCodec_ItemSource.Count > 0)
+                    if (mainwindow.cboVideoCodec.Items.Count > 0)
                     {
-                        if (VideoCodec_ItemSource.Contains("Copy"))
+                        if (mainwindow.cboVideoCodec.Items.Contains("Copy"))
                         {
                             mainwindow.cboVideoCodec.SelectedItem = "Copy";
 
@@ -1864,9 +1864,9 @@ namespace Axiom
                     // -------------------------
                     // Set Subtitle Codec Combobox Selected Item to Copy
                     // -------------------------
-                    if (SubtitleCodec_ItemSource.Count > 0)
+                    if (mainwindow.cboSubtitleCodec.Items.Count > 0)
                     {
-                        if (SubtitleCodec_ItemSource.Contains("Copy"))
+                        if (mainwindow.cboSubtitleCodec.Items.Contains("Copy"))
                         {
                             mainwindow.cboSubtitleCodec.SelectedItem = "Copy";
 
@@ -1902,9 +1902,9 @@ namespace Axiom
                     // -------------------------
                     // Set Video Codec Combobox Selected Item to Copy
                     // -------------------------
-                    if (SubtitleCodec_ItemSource.Count > 0)
+                    if (mainwindow.cboSubtitleCodec.Items.Count > 0)
                     {
-                        if (SubtitleCodec_ItemSource.Contains("Copy"))
+                        if (mainwindow.cboSubtitleCodec.Items.Contains("Copy"))
                         {
                             mainwindow.cboSubtitleCodec.SelectedItem = "Copy";
 

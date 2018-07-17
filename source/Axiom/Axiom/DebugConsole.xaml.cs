@@ -449,12 +449,20 @@ namespace Axiom
             debugParagraph.Inlines.Add(new Bold(new Run("Video ")) { Foreground = Heading });
             debugParagraph.Inlines.Add(new LineBreak());
 
+            debugParagraph.Inlines.Add(new Bold(new Run("hwaccel ")) { Foreground = Variable });
+            debugParagraph.Inlines.Add(new Run(Video.hwaccel) { Foreground = Value });
+            debugParagraph.Inlines.Add(new LineBreak());
+
             debugParagraph.Inlines.Add(new Bold(new Run("vCodec ")) { Foreground = Variable });
             debugParagraph.Inlines.Add(new Run(Video.vCodec) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("vQuality ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(Video.vCodec) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Video.vQuality) { Foreground = Value });
+            debugParagraph.Inlines.Add(new LineBreak());
+
+            debugParagraph.Inlines.Add(new Bold(new Run("vLossless ")) { Foreground = Variable });
+            debugParagraph.Inlines.Add(new Run(Video.vLossless) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             //debugParagraph.Inlines.Add(new Bold(new Run("vBitMode ")) { Foreground = Variable });
@@ -479,6 +487,10 @@ namespace Axiom
 
             debugParagraph.Inlines.Add(new Bold(new Run("crf ")) { Foreground = Variable });
             debugParagraph.Inlines.Add(new Run(Video.crf) { Foreground = Value });
+            debugParagraph.Inlines.Add(new LineBreak());
+
+            debugParagraph.Inlines.Add(new Bold(new Run("x265params ")) { Foreground = Variable });
+            debugParagraph.Inlines.Add(new Run(Video.x265params) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("fps ")) { Foreground = Variable });

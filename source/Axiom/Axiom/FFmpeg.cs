@@ -110,7 +110,7 @@ namespace Axiom
                     Video.Subtitles(mainwindow),
 
                     "\r\n\r\n" + 
-                    Video.VideoCodec(mainwindow),
+                    Video.VideoCodec(),
                     "\r\n" + 
                     Video.Speed(mainwindow, "pass single"),
                     Video.VideoQuality(mainwindow),
@@ -187,9 +187,9 @@ namespace Axiom
             // Enabled 
             //
             if ((string)mainwindow.cboPass.SelectedItem == "2 Pass" 
-                && (string)mainwindow.cboMediaType.SelectedItem == "Video" //video only
-                && (string)mainwindow.cboVideoCodec.SelectedItem != "Copy" //exclude copy
-                && (string)mainwindow.cboFormat.SelectedItem != "ogv" //exclude ogv (special rule)
+                && (string)mainwindow.cboMediaType.SelectedItem == "Video" // video only
+                && (string)mainwindow.cboVideoCodec.SelectedItem != "Copy" // exclude copy
+                && (string)mainwindow.cboFormat.SelectedItem != "ogv" // exclude ogv (special rule)
                 )
             {
                 // -------------------------
@@ -205,7 +205,7 @@ namespace Axiom
                     //Video.Subtitles(mainwindow),
 
                     "\r\n\r\n" + 
-                    Video.VideoCodec(mainwindow),
+                    Video.VideoCodec(),
                     "\r\n" +
                     Video.Speed(mainwindow, "pass 1"),
                     Video.VideoQuality(mainwindow),
@@ -263,7 +263,7 @@ namespace Axiom
                     "-y",
 
                     "\r\n\r\n" + 
-                    Video.HWAcceleration(mainwindow),
+                    Video.HWAcceleration(),
 
                     "\r\n\r\n" + 
                     "-i " + "\"" + MainWindow.InputPath(mainwindow) + "\"",
@@ -360,7 +360,7 @@ namespace Axiom
                     //MainWindow.YouTubeDownload(MainWindow.InputPath(mainwindow)),
                     MainWindow.FFmpegPath(),
                     "-y",
-                    "\r\n\r\n" + Video.HWAcceleration(mainwindow),
+                    "\r\n\r\n" + Video.HWAcceleration(),
                     FFmpeg.OnePassArgs(mainwindow), //disabled if 2-Pass
                     FFmpeg.TwoPassArgs(mainwindow) //disabled if 1-Pass
                 };
@@ -461,7 +461,7 @@ namespace Axiom
 
                     "\r\n\r\n" + "&&",
                     "\r\n\r\n" + MainWindow.FFmpegPath(),
-                    "\r\n\r\n" + Video.HWAcceleration(mainwindow),
+                    "\r\n\r\n" + Video.HWAcceleration(),
                     "-y",
                     //%~f added in InputPath()
 

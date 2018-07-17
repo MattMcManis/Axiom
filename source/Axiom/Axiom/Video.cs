@@ -104,7 +104,7 @@ namespace Axiom
         /// Hardware Acceleration (Method)
         /// <summary>
         /// https://trac.ffmpeg.org/wiki/HWAccelIntro
-        public static String HWAcceleration(MainWindow mainwindow)
+        public static String HWAcceleration()
         {
             // Hardware Acceleration Codec in VideoCodec() Method
 
@@ -117,43 +117,54 @@ namespace Axiom
             //    hwaccel = string.Empty;
             //}
 
+            // -------------------------
             // Only x264/x265
-            //
-            if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264"
-                || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
+            // -------------------------
+            if (ViewModelBase.cboVideoCodec_SelectedItem == "x264" || 
+                ViewModelBase.cboVideoCodec_SelectedItem == "x265")
             {
+                // -------------------------
                 // Off
-                if ((string)mainwindow.cboHWAccel.SelectedItem == "off")
+                // -------------------------
+                if (ViewModelBase.cboHWAccel_SelectedItem == "off")
                 {
                     hwaccel = string.Empty;
                 }
+                // -------------------------
                 // DXVA2
-                else if ((string)mainwindow.cboHWAccel.SelectedItem == "dxva2")
+                // -------------------------
+                else if (ViewModelBase.cboHWAccel_SelectedItem == "dxva2")
                 {
                     // ffmpeg -hwaccel dxva2 -threads 1 -i INPUT -f null
                     hwaccel = "-hwaccel dxva2";
                 }
+                // -------------------------
                 // CUVID
-                else if ((string)mainwindow.cboHWAccel.SelectedItem == "cuvid")
+                // -------------------------
+                else if (ViewModelBase.cboHWAccel_SelectedItem == "cuvid")
                 {
                     // ffmpeg -c:v h264_cuvid -i input output.mkv
                     hwaccel = string.Empty;
                 }
+                // -------------------------
                 // NVENC
-                else if ((string)mainwindow.cboHWAccel.SelectedItem == "nvenc")
+                // -------------------------
+                else if (ViewModelBase.cboHWAccel_SelectedItem == "nvenc")
                 {
                     // ffmpeg -i input -c:v h264_nvenc -profile high444p -pix_fmt yuv444p -preset default output.mp4
                     hwaccel = string.Empty;
                 }
+                // -------------------------
                 // CUVID + NVENC
-                else if ((string)mainwindow.cboHWAccel.SelectedItem == "cuvid+nvenc")
+                // -------------------------
+                else if (ViewModelBase.cboHWAccel_SelectedItem == "cuvid+nvenc")
                 {
                     // ffmpeg -hwaccel cuvid -c:v h264_cuvid -i input -c:v h264_nvenc -preset slow output.mkv
-                    if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264")
+                    if (ViewModelBase.cboVideoCodec_SelectedItem == "x264")
                     {
                         hwaccel = "-hwaccel cuvid -c:v h264_cuvid";
                     }
-                    else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265")
+                    else if (ViewModelBase.cboVideoCodec_SelectedItem == "x265")
                     {
                         hwaccel = "-hwaccel cuvid -c:v hevc_cuvid";
                     }
@@ -166,80 +177,82 @@ namespace Axiom
         /// <summary>
         /// Video Codecs (Method)
         /// <summary>
-        public static String VideoCodec(MainWindow mainwindow)
+        public static String VideoCodec()
         {
+            // -------------------------
             // Video None Check
             // Video Codec None Check
             // Media Type Check
-            if ((string)mainwindow.cboVideoQuality.SelectedItem != "None"
-                && (string)mainwindow.cboVideoCodec.SelectedItem != "None"
-                && (string)mainwindow.cboMediaType.SelectedItem != "Audio")
+            // -------------------------
+            if (ViewModelBase.cboVideoCodec_SelectedItem != "None" && 
+                ViewModelBase.cboVideoCodec_SelectedItem != "None" && 
+                ViewModelBase.cboVideoCodec_SelectedItem != "Audio")
             {
                 // -------------------------
                 // Video
                 // -------------------------
                 // None
-                if ((string)mainwindow.cboVideoCodec.SelectedItem == "None")
+                if (ViewModelBase.cboVideoCodec_SelectedItem == "None")
                 {
                     vCodec = string.Empty;
                 }
                 // VP8
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8")
+                else if (ViewModelBase.cboVideoCodec_SelectedItem == "VP8")
                 {
                     vCodec = "-c:v libvpx";
                 }
                 // VP9
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9")
+                else if (ViewModelBase.cboVideoCodec_SelectedItem == "VP9")
                 {
                     vCodec = "-c:v libvpx-vp9 -tile-columns 6 -frame-parallel 1 -auto-alt-ref 1 -lag-in-frames 25";
                 }
                 // AV1
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "AV1")
+                else if (ViewModelBase.cboVideoCodec_SelectedItem == "AV1")
                 {
                     vCodec = "-c:v libaom-av1 -strict experimental";
                 }
                 // Theora
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "Theora")
+                else if (ViewModelBase.cboVideoCodec_SelectedItem == "Theora")
                 {
                     vCodec = "-c:v libtheora";
                 }
                 // x264
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264")
+                else if (ViewModelBase.cboVideoCodec_SelectedItem == "x264")
                 {
                     vCodec = "-c:v libx264"; //leave profile:v main here so MKV can choose other ???
                 }
                 // x265
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265")
+                else if (ViewModelBase.cboVideoCodec_SelectedItem == "x265")
                 {
                     vCodec = "-c:v libx265"; //does not use profile:v
                 }
                 // mpeg2
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "MPEG-2")
+                else if (ViewModelBase.cboVideoCodec_SelectedItem == "MPEG-2")
                 {
                     vCodec = "-c:v mpeg2video";
                 }
                 // mpeg4
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "MPEG-4")
+                else if (ViewModelBase.cboVideoCodec_SelectedItem == "MPEG-4")
                 {
                     vCodec = "-c:v mpeg4 -vtag xvid";
                 }
                 // JPEG
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG")
+                else if (ViewModelBase.cboVideoCodec_SelectedItem == "JPEG")
                 {
                     vCodec = "-c:v mjpeg";
                 }
                 // PNG
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "PNG")
+                else if (ViewModelBase.cboVideoCodec_SelectedItem == "PNG")
                 {
                     vCodec = "-c:v png";
                 }
                 // WebP
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "WebP")
+                else if (ViewModelBase.cboVideoCodec_SelectedItem == "WebP")
                 {
                     vCodec = "-c:v libwebp";
                 }
                 // Copy
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "Copy")
+                else if (ViewModelBase.cboVideoCodec_SelectedItem == "Copy")
                 {
                     vCodec = "-c:v copy";
                 }
@@ -253,49 +266,49 @@ namespace Axiom
                 // Hardware Acceleration Codec
                 // HW options in HWAcceleration() Method
                 //
-                if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264"
-                    || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
+                if (ViewModelBase.cboVideoCodec_SelectedItem == "x264"
+                    || ViewModelBase.cboVideoCodec_SelectedItem == "x265")
                 {
-                    if ((string)mainwindow.cboHWAccel.SelectedItem == "dxva2")
+                    if (ViewModelBase.cboHWAccel_SelectedItem == "dxva2")
                     {
                         // default
                     }
                     // CUVID
-                    else if ((string)mainwindow.cboHWAccel.SelectedItem == "cuvid")
+                    else if (ViewModelBase.cboHWAccel_SelectedItem == "cuvid")
                     {
                         // x264
-                        if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264")
+                        if (ViewModelBase.cboVideoCodec_SelectedItem == "x264")
                         {
                             vCodec = "-c:v h264_cuvid";
                         }
                         // x265
-                        else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265")
+                        else if (ViewModelBase.cboVideoCodec_SelectedItem == "x265")
                         {
                             vCodec = "-c:v hevc_cuvid";
                         }
                     }
-                    else if ((string)mainwindow.cboHWAccel.SelectedItem == "nvenc")
+                    else if (ViewModelBase.cboHWAccel_SelectedItem == "nvenc")
                     {
                         // x264
-                        if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264")
+                        if (ViewModelBase.cboVideoCodec_SelectedItem == "x264")
                         {
                             vCodec = "-c:v h264_nvenc";
                         }
                         // x265
-                        else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265")
+                        else if (ViewModelBase.cboVideoCodec_SelectedItem == "x265")
                         {
                             vCodec = "-c:v hevc_nvenc";
                         }
                     }
-                    else if ((string)mainwindow.cboHWAccel.SelectedItem == "cuvid+nvenc")
+                    else if (ViewModelBase.cboHWAccel_SelectedItem == "cuvid+nvenc")
                     {
                         // x264
-                        if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264")
+                        if (ViewModelBase.cboVideoCodec_SelectedItem == "x264")
                         {
                             vCodec = "-c:v h264_nvenc";
                         }
                         // x265
-                        else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265")
+                        else if (ViewModelBase.cboVideoCodec_SelectedItem == "x265")
                         {
                             vCodec = "-c:v hevc_nvenc";
                         }
@@ -312,7 +325,7 @@ namespace Axiom
 
                     Log.logParagraph.Inlines.Add(new LineBreak());
                     Log.logParagraph.Inlines.Add(new Bold(new Run("Codec: ")) { Foreground = Log.ConsoleDefault });
-                    Log.logParagraph.Inlines.Add(new Run(Convert.ToString(mainwindow.cboVideoCodec.SelectedItem)) { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new Run(Convert.ToString(ViewModelBase.cboVideoCodec_SelectedItem)) { Foreground = Log.ConsoleDefault });
                 };
                 Log.LogActions.Add(Log.WriteAction);
             }
@@ -1261,6 +1274,18 @@ namespace Axiom
             // Pixel Foramt
             // --------------------------------------------------
             vOptions = PixFmt(mainwindow);
+
+
+            // --------------------------------------------------
+            // Display Bitrate in TextBoxes
+            // --------------------------------------------------
+            // CRF
+            mainwindow.crfCustom.Text = crf_rate;
+            // 1 & 2 Pass
+            mainwindow.vBitrateCustom.Text = vBitrate; // Also for CRF Bitrate
+            mainwindow.vMinrateCustom.Text = cbr_minrate;
+            mainwindow.vMaxrateCustom.Text = cbr_maxrate;
+            mainwindow.vBufsizeCustom.Text = cbr_bufsize;
         }
 
 
@@ -1509,7 +1534,7 @@ namespace Axiom
                                         "",         // Bufsize
 
                                         // Lossless
-                                        "-qp 0",    //-x265-params "lossless" in VideoQualityBitrate()
+                                        "",    //-x265-params "lossless" in VideoQualityBitrate()
 
                                         // CBR 1 & 2-Pass
                                         "5000K",    // Ultra Bitrate
@@ -2608,7 +2633,7 @@ namespace Axiom
                             {
                                 // Only if Crop is already Empty
                                 // User Defined Crop should always override Divisible Crop
-                                // CropClearButton ~ is used as an Identifier, Divisible Crop does not leave "~"
+                                // CropClearButton ~ is used as an Identifier, Divisible Crop does not leave "Clear*"
                                 //
                                 if (mainwindow.buttonCropClearTextBox.Text == "") // Crop Set Check
                                 {
@@ -2885,7 +2910,7 @@ namespace Axiom
             // Clear
             // -------------------------
             // Clear leftover Divisible Crop if not x264/x265
-            // CropClearButton is used as an Identifier, Divisible Crop does not leave "~"
+            // CropClearButton is used as an Identifier, Divisible Crop does not leave "Clear*"
             if ((string)mainwindow.cboVideoCodec.SelectedItem != "x264"
                 && (string)mainwindow.cboVideoCodec.SelectedItem != "x265"
                 && (string)mainwindow.cboVideoCodec.SelectedItem != "MPEG-2"

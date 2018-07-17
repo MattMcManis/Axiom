@@ -653,7 +653,9 @@
 
 
         <!-- Input / Output Grid -->
-        <Grid Height="56" VerticalAlignment="Top" Margin="10,10,295,0">
+        <Grid Height="56" 
+              VerticalAlignment="Top" 
+              Margin="10,10,295,0">
 
             <!-- Browse Button -->
             <Button x:Name="btnInput" 
@@ -1038,6 +1040,7 @@
                                 Height="26" Grid.Column="1" />
 
                             <ComboBox x:Name="cboHWAccel" 
+                                      SelectedItem="{Binding cboHWAccel_SelectedItem}"
                                       Style="{DynamicResource ComboBoxCustom}"
                                       ItemContainerStyle="{DynamicResource ComboBoxCustomItem}"
                                       HorizontalAlignment="Left" 
@@ -2555,13 +2558,13 @@
                                                             </Grid.ColumnDefinitions>
 
                                                             <Border Background="{Binding SelectiveColorPreviewStr}" 
-                                                                Height="12" 
-                                                                Width="12" 
-                                                                Margin="2"/>
+                                                                    Height="12" 
+                                                                    Width="12" 
+                                                                    Margin="2"/>
                                                             <TextBlock Grid.Column="1" 
-                                                       Margin="5,0" 
-                                                       VerticalAlignment="Center" 
-                                                       Text="{Binding SelectiveColorName}"/>
+                                                                       Margin="5,0" 
+                                                                       VerticalAlignment="Center" 
+                                                                       Text="{Binding SelectiveColorName}"/>
                                                         </Grid>
                                                     </DataTemplate>
                                                 </ComboBox.ItemTemplate>

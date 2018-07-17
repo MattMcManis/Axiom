@@ -720,7 +720,7 @@ namespace Axiom
                 // -------------------------
                 // Audio
                 // ------------------------- 
-                AudioControls.AudioCodec_ItemSource = new List<string>() { "AAC", "AC3", "LAME", "PCM", "Copy" };
+                AudioControls.AudioCodec_ItemSource = new List<string>() { "AAC", "AC3", "MP2", "LAME", "PCM", "Copy" };
 
                 // Populate ComboBox from ItemSource
                 mainwindow.cboAudioCodec.ItemsSource = AudioControls.AudioCodec_ItemSource;
@@ -763,7 +763,7 @@ namespace Axiom
                 // -------------------------
                 // Audio
                 // ------------------------- 
-                AudioControls.AudioCodec_ItemSource = new List<string>() { "AAC", "AC3", "LAME", "PCM", "Copy" };
+                AudioControls.AudioCodec_ItemSource = new List<string>() { "AAC", "AC3", "MP2", "LAME", "PCM", "Copy" };
 
                 // Populate ComboBox from ItemSource
                 mainwindow.cboAudioCodec.ItemsSource = AudioControls.AudioCodec_ItemSource;
@@ -1123,7 +1123,7 @@ namespace Axiom
 
 
         /// <summary>
-        /// MediaType Controls (Method)
+        ///     MediaType Controls (Method)
         /// </summary>
         public static void MediaType(MainWindow mainwindow)
         {

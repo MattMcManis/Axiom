@@ -548,6 +548,12 @@ namespace Axiom
             dispatcherTimerUp.Tick += new EventHandler(dispatcherTimerUp_Tick);
             dispatcherTimerDown.Tick += new EventHandler(dispatcherTimerDown_Tick);
 
+            // --------------------------
+            // ScriptView Copy/Paste
+            // --------------------------
+            DataObject.AddCopyingHandler(rtbScriptView, new DataObjectCopyingEventHandler(OnScriptCopy));
+            DataObject.AddPastingHandler(rtbScriptView, new DataObjectPastingEventHandler(OnScriptPaste));
+
         } // End MainWindow
 
         
@@ -1626,18 +1632,29 @@ namespace Axiom
         public static void BatchExtCheck(MainWindow mainwindow)
         {
             // Add period if Batch Extension if User did not enter
-            if (!mainwindow.batchExtensionTextBox.Text.Contains(".")
-                && mainwindow.batchExtensionTextBox.Text != "extension")
+            if (!string.IsNullOrWhiteSpace(mainwindow.batchExtensionTextBox.Text) &&
+                mainwindow.batchExtensionTextBox.Text != "extension" &&
+                mainwindow.batchExtensionTextBox.Text != ".")
             {
-                mainwindow.batchExtensionTextBox.Text = "." + mainwindow.batchExtensionTextBox.Text;
+                batchExt = "." + batchExt;
+            }
+            else
+            {
+                batchExt = string.Empty;
             }
 
-            // Clear Batch Extension Text if Only period
-            if (mainwindow.batchExtensionTextBox.Text == ".")
-            {
-                mainwindow.batchExtensionTextBox.Text = "";
-                batchExt = "";
-            }
+            //// Add period if Batch Extension if User did not enter
+            //if (!mainwindow.batchExtensionTextBox.Text.Contains("."))
+            //{
+            //    mainwindow.batchExtensionTextBox.Text = "." + mainwindow.batchExtensionTextBox.Text;
+            //}
+
+            //// Clear Batch Extension Text if Only period
+            //if (mainwindow.batchExtensionTextBox.Text == ".")
+            //{
+            //    mainwindow.batchExtensionTextBox.Text = string.Empty;
+            //    batchExt = string.Empty;
+            //}
         }
 
 
@@ -3878,6 +3895,41 @@ namespace Axiom
 
 
         /// <summary>
+        ///    Script View Copy/Paste
+        /// </summary>
+        private void OnScriptPaste(object sender, DataObjectPastingEventArgs e)
+        {
+            // Copy Pasted Script
+            //string script = ScriptView.GetScriptRichTextBoxContents(this);
+
+            //// Select All Text
+            //TextRange textRange = new TextRange(
+            //    rtbScriptView.Document.ContentStart,
+            //    rtbScriptView.Document.ContentEnd
+            //);
+
+            //// Remove Formatting
+            //textRange.ClearAllProperties();
+
+            // Clear Text
+            //ScriptView.ClearScriptView(this);
+            //ScriptView.scriptParagraph.Inlines.Clear();
+
+            // Remove Double Paragraph Spaces
+            //rtbScriptView.Document = new FlowDocument(ScriptView.scriptParagraph);
+
+            //rtbScriptView.BeginChange();
+            //ScriptView.scriptParagraph.Inlines.Add(new Run(script.Replace("\n","")));
+            //rtbScriptView.EndChange();
+        }
+
+        private void OnScriptCopy(object sender, DataObjectCopyingEventArgs e)
+        {
+            
+        }
+
+
+        /// <summary>
         ///    Script Button
         /// </summary>
         private void btnScript_Click(object sender, RoutedEventArgs e)
@@ -4280,7 +4332,7 @@ namespace Axiom
             // -------------------------
             // Display Bit-rate in TextBox
             // -------------------------
-            VideoDisplayBitrate();
+            VideoBitrateDisplay();
         }
         private void cboPass_DropDownClosed(object sender, EventArgs e)
         {
@@ -4837,7 +4889,7 @@ namespace Axiom
             // -------------------------
             // Display Bit-rate in TextBox
             // -------------------------
-            VideoDisplayBitrate();
+            VideoBitrateDisplay();
         }
 
         /// <summary>
@@ -4868,7 +4920,7 @@ namespace Axiom
             // -------------------------
             // Display Bit-rate in TextBox
             // -------------------------
-            VideoDisplayBitrate();
+            VideoBitrateDisplay();
         }
 
 
@@ -5095,7 +5147,7 @@ namespace Axiom
             // Display Video Bit-rate in TextBox
             // -------------------------
             // Must be after EncodingPass
-            VideoDisplayBitrate();
+            VideoBitrateDisplay();
 
             // -------------------------
             // Enable/Disable Video VBR
@@ -5344,37 +5396,6 @@ namespace Axiom
                 vBufsizeCustom.IsEnabled = false;
             }
 
-
-            // -------------------------
-            // VBR
-            // -------------------------
-            // MPEG-4
-            //if ((string)cboVideoCodec.SelectedItem == "MPEG-4")
-            //{
-            //    // Lossless - Force VBR
-            //    if ((string)cboVideoQuality.SelectedItem == "Lossless")
-            //    {
-            //        tglVideoVBR.IsChecked = true;
-            //    }
-            //    else
-            //    {
-            //        tglVideoVBR.IsChecked = false;
-            //    }
-            //}
-
-
-            // -------------------------
-            // Set Encoding Speed
-            // -------------------------
-            //if ((string)cboVideoQuality.SelectedItem == "Auto") { cboSpeed.SelectedItem = "Medium"; }
-            //else if ((string)cboVideoQuality.SelectedItem == "Lossless") { cboSpeed.SelectedItem = "Very Slow"; }
-            //else if ((string)cboVideoQuality.SelectedItem == "Ultra") { cboSpeed.SelectedItem = "Slow"; }
-            //else if ((string)cboVideoQuality.SelectedItem == "High") { cboSpeed.SelectedItem = "Medium"; }
-            //else if ((string)cboVideoQuality.SelectedItem == "Medium") { cboSpeed.SelectedItem = "Medium"; }
-            //else if ((string)cboVideoQuality.SelectedItem == "Low") { cboSpeed.SelectedItem = "Fast"; }
-            //else if ((string)cboVideoQuality.SelectedItem == "Sub") { cboSpeed.SelectedItem = "Fast"; }
-            //else if ((string)cboVideoQuality.SelectedItem == "Custom") { cboSpeed.SelectedItem = "Medium"; }
-
             // -------------------------
             // Pass Controls Method
             // -------------------------
@@ -5395,7 +5416,7 @@ namespace Axiom
             // -------------------------
             // Display Bit-rate in TextBox
             // -------------------------
-            VideoDisplayBitrate();
+            VideoBitrateDisplay();
 
         } // End Video Combobox
 
@@ -5403,7 +5424,7 @@ namespace Axiom
         /// <summary>
         ///    Video Display Bit-rate
         /// </summary>
-        public void VideoDisplayBitrate()
+        public void VideoBitrateDisplay()
         {
             // -------------------------
             // Clear Variables before Run
@@ -5422,47 +5443,53 @@ namespace Axiom
                 && (string)cboVideoQuality.SelectedItem != "None"
                 && !string.IsNullOrEmpty((string)cboVideoQuality.SelectedItem))
             {
-                // TextBox Displayed placed at the end of VideoQuality Method
+                // Display Bitrate in TextBox
+                // Display Controls at the end of VideoQuality() Method
                 Video.VideoQuality(this);
 
-                // Display Bit-rate in TextBox
-                if (!string.IsNullOrEmpty(Video.vBitrate))
-                {
-                    vBitrateCustom.Text = Video.vBitrate;
-                }
+                //if ((string)cboVideoCodec.SelectedItem == "x265")
+                //{
+                //    vBitrateCustom.Text = Video.vBitrate;
+                //}
 
-                // Display Minrate in TextBox
-                if (!string.IsNullOrEmpty(Video.vMinrate))
-                {
-                    vMinrateCustom.Text = Video.vMinrate;
-                }
+                //// Display Bit-rate in TextBox
+                //if (!string.IsNullOrEmpty(Video.vBitrate))
+                //{
+                //    vBitrateCustom.Text = Video.vBitrate;
+                //}
 
-                // Display Maxrate in TextBox
-                if (!string.IsNullOrEmpty(Video.vMaxrate))
-                {
-                    vMaxrateCustom.Text = Video.vMaxrate;
-                }
+                //// Display Minrate in TextBox
+                //if (!string.IsNullOrEmpty(Video.vMinrate))
+                //{
+                //    vMinrateCustom.Text = Video.vMinrate;
+                //}
 
-                // Display Bufsize in TextBox
-                if (!string.IsNullOrEmpty(Video.vBufsize))
-                {
-                    vBufsizeCustom.Text = Video.vBufsize;
-                }
+                //// Display Maxrate in TextBox
+                //if (!string.IsNullOrEmpty(Video.vMaxrate))
+                //{
+                //    vMaxrateCustom.Text = Video.vMaxrate;
+                //}
 
-                // Display CRF in TextBox
-                if (!string.IsNullOrEmpty(Video.crf))
-                {
-                    crfCustom.Text = Video.crf.Replace("-crf ", "");
-                }
+                //// Display Bufsize in TextBox
+                //if (!string.IsNullOrEmpty(Video.vBufsize))
+                //{
+                //    vBufsizeCustom.Text = Video.vBufsize;
+                //}
+
+                //// Display CRF in TextBox
+                //if (!string.IsNullOrEmpty(Video.crf))
+                //{
+                //    crfCustom.Text = Video.crf.Replace("-crf ", "");
+                //}
             }
             else
             {
+                crfCustom.Text = string.Empty;
+
                 vBitrateCustom.Text = string.Empty;
                 vMinrateCustom.Text = string.Empty;
                 vMaxrateCustom.Text = string.Empty;
                 vBufsizeCustom.Text = string.Empty;
-
-                crfCustom.Text = string.Empty;
             }
         }
 
@@ -5982,9 +6009,32 @@ namespace Axiom
         /// </summary>
         private void batchExtension_TextChanged(object sender, TextChangedEventArgs e)
         {
+            //// Enabled Check
+            //if (batchExtensionTextBox.IsEnabled == true)
+            //{
+            //    batchExt = batchExtensionTextBox.Text;
+
+            //    // Add period to batchExt if user did not enter (This helps enable Copy)
+            //    if (!string.IsNullOrWhiteSpace(batchExtensionTextBox.Text) &&
+            //        !batchExt.StartsWith("."))
+            //    {
+            //        batchExt = "." + batchExt;
+            //    }
+            //}
+            //else
+            //{
+            //    batchExt = string.Empty;
+            //}
+
+            //// Set Video and AudioCodec Combobox to "Copy" if Input Extension is Same as Output Extension and Video Quality is Auto
+            //VideoControls.AutoCopyVideoCodec(this);
+            //VideoControls.AutoCopySubtitleCodec(this);
+            //AudioControls.AutoCopyAudioCodec(this);
+
             // Remove Default Value
-            if (batchExtensionTextBox.Text == "extension"
-                || string.IsNullOrWhiteSpace(batchExtensionTextBox.Text))
+            if (string.IsNullOrWhiteSpace(batchExtensionTextBox.Text) || 
+                batchExtensionTextBox.Text == "extension"
+                )
             {
                 batchExt = string.Empty;
             }
@@ -5995,9 +6045,9 @@ namespace Axiom
             }
 
             // Add period to batchExt if user did not enter (This helps enable Copy)
-            if (!batchExt.StartsWith(".")
-                && !string.IsNullOrWhiteSpace(batchExtensionTextBox.Text)
-                && batchExtensionTextBox.Text != "extension")
+            if (!batchExt.StartsWith(".") &&
+                !string.IsNullOrWhiteSpace(batchExtensionTextBox.Text) &&
+                batchExtensionTextBox.Text != "extension")
             {
                 batchExt = "." + batchExt;
             }
@@ -6006,6 +6056,7 @@ namespace Axiom
             VideoControls.AutoCopyVideoCodec(this);
             VideoControls.AutoCopySubtitleCodec(this);
             AudioControls.AutoCopyAudioCodec(this);
+
         }
 
 
@@ -6156,16 +6207,16 @@ namespace Axiom
             listViewSubtitles.Items.Clear();
 
             // Clear Paths List
-            if (Video.subtitleFilePathsList != null
-                && Video.subtitleFilePathsList.Count > 0)
+            if (Video.subtitleFilePathsList != null && 
+                Video.subtitleFilePathsList.Count > 0)
             {
                 Video.subtitleFilePathsList.Clear();
                 Video.subtitleFilePathsList.TrimExcess();
             }
 
             // Clear Names List
-            if (Video.subtitleFileNamesList != null
-                && Video.subtitleFileNamesList.Count > 0)
+            if (Video.subtitleFileNamesList != null &&
+                Video.subtitleFileNamesList.Count > 0)
             {
                 Video.subtitleFileNamesList.Clear();
                 Video.subtitleFileNamesList.TrimExcess();

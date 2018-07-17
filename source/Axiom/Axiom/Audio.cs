@@ -110,6 +110,11 @@ namespace Axiom
                 {
                     aCodec = "-c:a ac3";
                 }
+                // MP2
+                else if ((string)mainwindow.cboAudioCodec.SelectedItem == "MP2")
+                {
+                    aCodec = "-c:a mp2";
+                }
                 // LAME
                 else if ((string)mainwindow.cboAudioCodec.SelectedItem == "LAME")
                 {
@@ -203,6 +208,7 @@ namespace Axiom
                 if ((string)mainwindow.cboAudioCodec.SelectedItem == "Vorbis") { aBitMode = "-q:a"; }
                 else if ((string)mainwindow.cboAudioCodec.SelectedItem == "Opus") { aBitMode = "-vbr on -compression_level 10 -b:a"; } //special rule for opus -b:a -vbr on
                 else if ((string)mainwindow.cboAudioCodec.SelectedItem == "AAC") { aBitMode = "-q:a"; }
+                else if ((string)mainwindow.cboAudioCodec.SelectedItem == "MP2") { aBitMode = "-q:a"; }
                 else if ((string)mainwindow.cboAudioCodec.SelectedItem == "LAME") { aBitMode = "-q:a"; }
                 else if ((string)mainwindow.cboAudioCodec.SelectedItem == "Copy") { aBitMode = string.Empty; }
 
@@ -233,6 +239,7 @@ namespace Axiom
                 if ((string)mainwindow.cboAudioCodec.SelectedItem == "Vorbis") { aBitMode = "-b:a"; }
                 else if ((string)mainwindow.cboAudioCodec.SelectedItem == "Opus") { aBitMode = "-b:a"; }
                 else if ((string)mainwindow.cboAudioCodec.SelectedItem == "AAC") { aBitMode = "-b:a"; }
+                else if ((string)mainwindow.cboAudioCodec.SelectedItem == "MP2") { aBitMode = "-b:a"; }
                 else if ((string)mainwindow.cboAudioCodec.SelectedItem == "LAME") { aBitMode = "-b:a"; }
                 else if ((string)mainwindow.cboAudioCodec.SelectedItem == "ALAC") { aBitMode = string.Empty; }
                 else if ((string)mainwindow.cboAudioCodec.SelectedItem == "AC3") { aBitMode = "-b:a"; }
@@ -312,6 +319,14 @@ namespace Axiom
                         && double.Parse(inputAudioBitrate) > 510)
                     {
                         inputAudioBitrate = Convert.ToString(510); //was 510,000 (before converting to decimal)
+                    }
+                    // -------------------------
+                    // MP2
+                    // -------------------------
+                    else if ((string)mainwindow.cboAudioCodec.SelectedItem == "MP2"
+                        && double.Parse(inputAudioBitrate) > 320)
+                    {
+                        inputAudioBitrate = Convert.ToString(320); //was 320,000 before converting to decimal)
                     }
                     // -------------------------
                     // LAME
@@ -458,9 +473,11 @@ namespace Axiom
                 }
 
                 // -------------------------
+                // MP2
                 // LAME (MP3) User Custom VBR
                 // -------------------------
-                else if ((string)mainwindow.cboAudioCodec.SelectedItem == "LAME")
+                else if ((string)mainwindow.cboAudioCodec.SelectedItem == "MP2" ||
+                         (string)mainwindow.cboAudioCodec.SelectedItem == "LAME")
                 {
                     // Above 245k set to V0
                     if (aBitrateVBR > 260)
@@ -530,6 +547,11 @@ namespace Axiom
                     else if ((string)mainwindow.cboAudioCodec.SelectedItem == "AC3")
                     {
                         aBitrateLimiter = "& (IF %A gtr 640000 (SET aBitrate=640000) ELSE (echo Bitrate within AC3 Limit of 640k)) & for /F %A in ('echo %aBitrate%') do (echo)";
+                    }
+                    // Limit MP2 bitrate to 320k through cmd.exe
+                    else if ((string)mainwindow.cboAudioCodec.SelectedItem == "MP2")
+                    {
+                        aBitrateLimiter = "& (IF %A gtr 320000 (SET aBitrate=320000) ELSE (echo Bitrate within MP2 Limit of 320k)) & for /F %A in ('echo %aBitrate%') do (echo)";
                     }
                     // Limit LAME bitrate to 320k through cmd.exe
                     else if ((string)mainwindow.cboAudioCodec.SelectedItem == "LAME")
@@ -894,6 +916,7 @@ namespace Axiom
             // Opus low 0-10 high
             // AAC low 0.1-2 high
             // LAME low 9-0 high
+            // MP2 low 9-0 high
             // -------------------------
 
             // Audio Bitrate None Check
@@ -1106,6 +1129,53 @@ namespace Axiom
                                 "",         // 160k
                                 "",         // 128k
                                 ""          // 96k
+                            );
+                }
+
+                // -------------------------
+                // MP2
+                // -------------------------
+                else if ((string)mainwindow.cboAudioCodec.SelectedItem == "MP2")
+                {
+                    AudioQualityPresets(
+                                mainwindow,
+                                // Quality Selected
+                                (string)mainwindow.cboAudioQuality.SelectedItem,
+
+                                // VBR Toggle
+                                (bool)mainwindow.tglAudioVBR.IsChecked,
+
+                                // Lossless
+                                "",
+
+                                // CBR
+                                "",         // 640k
+                                "",         // 510k
+                                "",         // 500k
+                                "",         // 448k
+                                "",         // 400k
+                                //"384k",     // 384k
+                                "320k",     // 320k
+                                "256k",     // 256k
+                                "224k",     // 224k
+                                "192k",     // 192k
+                                "160k",     // 160k
+                                "128k",     // 128k
+                                "96k",      // 96k
+
+                                // VBR
+                                "",         // 640k
+                                "",         // 510k
+                                "",         // 500k
+                                "",         // 448k
+                                "",         // 400k
+                                "0",        // 320k
+                                "0",        // 256k
+                                "1",        // 224k
+                                "2",        // 192k
+                                "3",        // 160k
+                                "5",        // 128k
+                                "7"         // 96k
                             );
                 }
 

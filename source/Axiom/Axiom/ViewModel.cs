@@ -93,6 +93,11 @@ namespace Axiom
         // Selected Item
         //public static string cboFormat_SelectedItem { get; set; }
 
+        // -------------------------
+        // Hardware Accel
+        // -------------------------
+        public static string cboHWAccel_SelectedItem { get; set; }
+
 
         // --------------------------------------------------------------------------------------------------------
         /// <summary>
