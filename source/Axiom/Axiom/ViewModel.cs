@@ -14,9 +14,9 @@ using System.Windows.Controls;
 
 namespace Axiom
 {
-    public class ViewModelBase : INotifyPropertyChanged
+    public class ViewModel : INotifyPropertyChanged
     {
-        public ViewModelBase()
+        public ViewModel()
         {
             //cbo1_Items = new ObservableCollection<string>();
         }
@@ -108,17 +108,34 @@ namespace Axiom
         // Video Codec
         // -------------------------
         // Items
-        public ObservableCollection<string> _cboVideoCodec_Items = new ObservableCollection<string>();
-        public ObservableCollection<string> cboVideoCodec_Items
+        //public List<string> _cboVideoCodec_Items = new List<string>();
+        //public List<string> cboVideoCodec_Items
+        //{
+        //    get { return _cboVideoCodec_Items; }
+        //    set
+        //    {
+        //        _cboVideoCodec_Items = value;
+        //        OnPropertyChanged("cboVideoCodec_Items");
+        //    }
+        //}
+
+        // Selected Item
+        //public static string cboVideoCodec_SelectedItem { get; set; }
+        public string _cboVideoCodec_SelectedItem { get; set; }
+        public string cboVideoCodec_SelectedItem
         {
-            get { return _cboVideoCodec_Items; }
+            get { return _cboVideoCodec_SelectedItem; }
             set
             {
-                _cboVideoCodec_Items = value;
-                OnPropertyChanged("cboVideoCodec_Items");
+                if (_cboVideoCodec_SelectedItem == value)
+                {
+                    return;
+                }
+
+                _cboVideoCodec_SelectedItem = value;
+                OnPropertyChanged("cboVideoCodec_SelectedItem");
             }
         }
-        public static string cboVideoCodec_SelectedItem { get; set; }
 
         // -------------------------
         // Encoding Pass

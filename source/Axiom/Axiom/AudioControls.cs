@@ -1297,9 +1297,9 @@ namespace Axiom
                     // -------------------------
                     // Set Video Codec Combobox Selected Item to Copy
                     // -------------------------
-                    if (mainwindow.cboAudioCodec.Items.Count > 0)
+                    if (AudioCodec_ItemSource.Count > 0)
                     {
-                        if (mainwindow.cboAudioCodec.Items.Contains("Copy"))
+                        if (AudioCodec_ItemSource.Contains("Copy"))
                         {
                             mainwindow.cboAudioCodec.SelectedItem = "Copy";
 
@@ -1335,9 +1335,9 @@ namespace Axiom
                     // -------------------------
                     // Set Video Codec Combobox Selected Item to Copy
                     // -------------------------
-                    if (mainwindow.cboAudioCodec.Items.Count > 0)
+                    if (AudioCodec_ItemSource.Count > 0)
                     {
-                        if (mainwindow.cboAudioCodec.Items.Contains("Copy"))
+                        if (AudioCodec_ItemSource.Contains("Copy"))
                         {
                             mainwindow.cboAudioCodec.SelectedItem = "Copy";
 

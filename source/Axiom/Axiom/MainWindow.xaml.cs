@@ -49,6 +49,8 @@ namespace Axiom
     /// </summary>
     public partial class MainWindow : Window
     {
+        public ViewModel vm = new ViewModel();
+
         // Axiom Current Version
         public static Version currentVersion;
         // Axiom GitHub Latest Version
@@ -189,7 +191,7 @@ namespace Axiom
             ///     Control Binding
             /// </summary>
             // -----------------------------------------------------------------
-            ViewModelBase vm = new ViewModelBase();
+            //ViewModel vm = new ViewModel();
             DataContext = vm;
 
             // -----------------------------------------------------------------
@@ -5367,6 +5369,7 @@ namespace Axiom
             // Pixel Format
             // -------------------------
             VideoControls.PixelFormat(this);
+
 
             // -------------------------
             // Enable Video Bitrate Custom

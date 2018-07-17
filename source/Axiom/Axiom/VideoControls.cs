@@ -1673,14 +1673,19 @@ namespace Axiom
                     //// Populate ComboBox from ItemSource
                     //mainwindow.cboVideoCodec.ItemsSource = VideoCodecItemSource;
 
+                    //System.Windows.MessageBox.Show(string.Join("\n", vm.cboVideoCodec_Items)); //debug
+
                     // -------------------------
                     // Set Video Codec Combobox Selected Item to Copy
                     // -------------------------
-                    if (mainwindow.cboVideoCodec.Items.Count > 0)
+                    //if (vm.cboVideoCodec_Items.Count > 0)
+                    if (VideoCodec_ItemSource.Count > 0)
                     {
-                        if (mainwindow.cboVideoCodec.Items.Contains("Copy"))
+                        if (VideoCodec_ItemSource.Contains("Copy"))
                         {
                             mainwindow.cboVideoCodec.SelectedItem = "Copy";
+
+                            //System.Windows.MessageBox.Show("Copy"); //debug
 
                             //return;
                         }
@@ -1714,9 +1719,9 @@ namespace Axiom
                     // -------------------------
                     // Set Video Codec Combobox Selected Item to Copy
                     // -------------------------
-                    if (mainwindow.cboVideoCodec.Items.Count > 0)
+                    if (VideoCodec_ItemSource.Count > 0)
                     {
-                        if (mainwindow.cboVideoCodec.Items.Contains("Copy"))
+                        if (VideoCodec_ItemSource.Contains("Copy"))
                         {
                             mainwindow.cboVideoCodec.SelectedItem = "Copy";
 
@@ -1864,9 +1869,9 @@ namespace Axiom
                     // -------------------------
                     // Set Subtitle Codec Combobox Selected Item to Copy
                     // -------------------------
-                    if (mainwindow.cboSubtitleCodec.Items.Count > 0)
+                    if (SubtitleCodec_ItemSource.Count > 0)
                     {
-                        if (mainwindow.cboSubtitleCodec.Items.Contains("Copy"))
+                        if (SubtitleCodec_ItemSource.Contains("Copy"))
                         {
                             mainwindow.cboSubtitleCodec.SelectedItem = "Copy";
 
@@ -1900,11 +1905,11 @@ namespace Axiom
                     //mainwindow.cboSubtitleCodec.ItemsSource = SubtitleCodecItemSource;
 
                     // -------------------------
-                    // Set Video Codec Combobox Selected Item to Copy
+                    // Set Subtitle Codec Combobox Selected Item to Copy
                     // -------------------------
-                    if (mainwindow.cboSubtitleCodec.Items.Count > 0)
+                    if (SubtitleCodec_ItemSource.Count > 0)
                     {
-                        if (mainwindow.cboSubtitleCodec.Items.Contains("Copy"))
+                        if (SubtitleCodec_ItemSource.Contains("Copy"))
                         {
                             mainwindow.cboSubtitleCodec.SelectedItem = "Copy";
 
@@ -2045,7 +2050,7 @@ namespace Axiom
                         Pass_ItemSource.Clear();
                     }
 
-                    //Pass_ItemSource.ForEach(ViewModelBase._cboVideoPass_Items.Add);
+                    //Pass_ItemSource.ForEach(ViewModel._cboVideoPass_Items.Add);
 
                     for (int i = 0; i < Pass_ItemSource.Count; i++)
                     {
@@ -2281,6 +2286,14 @@ namespace Axiom
             {
                 mainwindow.cboPixelFormat.SelectedItem = "auto";
                 mainwindow.cboPixelFormat.IsEnabled = false;
+            }
+
+            // -------------------------
+            // Auto
+            // -------------------------
+            if ((string)mainwindow.cboVideoQuality.SelectedItem == "Auto")
+            {
+                mainwindow.cboPixelFormat.SelectedItem = "auto";
             }
         }
 
