@@ -764,6 +764,7 @@ namespace Axiom
             Format.trim = string.Empty;
             Format.trimStart = string.Empty;
             Format.trimEnd = string.Empty;
+            //batchExt = string.Empty;
 
             VideoFilters.vFilter = string.Empty;
             VideoFilters.geq = string.Empty;
@@ -1638,7 +1639,7 @@ namespace Axiom
                 mainwindow.batchExtensionTextBox.Text != "extension" &&
                 mainwindow.batchExtensionTextBox.Text != ".")
             {
-                batchExt = "." + batchExt;
+                batchExt = "." + mainwindow.batchExtensionTextBox.Text;
             }
             else
             {

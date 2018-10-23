@@ -156,8 +156,8 @@ namespace Axiom
                     "\r\n\r\n" + 
                     MainWindow.ThreadDetect(mainwindow),
 
-                    "\r\n\r\n" + "\"" + 
-                    MainWindow.OutputPath(mainwindow) + "\""
+                    "\r\n\r\n" + 
+                    "\"" + MainWindow.OutputPath(mainwindow) + "\""
                 };
 
                 // Join List with Spaces

@@ -1176,7 +1176,6 @@ namespace Axiom
                 mainwindow.volumeDownButton.IsEnabled = true;
 
                 // Limiter
-                //mainwindow.tglAudioLimiter.IsEnabled = true;
                 mainwindow.slAudioLimiter.IsEnabled = true;
 
                 // Audio Stream
@@ -1319,10 +1318,6 @@ namespace Axiom
                 // Limiter
                 mainwindow.slAudioLimiter.IsEnabled = false;
                 mainwindow.slAudioLimiter.Value = 1;
-                //mainwindow.tglAudioLimiter.IsChecked = false;
-                //mainwindow.tglAudioLimiter.IsEnabled = false;
-                //mainwindow.audioLimiter.Text = string.Empty;
-
             }
 
             // -------------------------
@@ -1386,15 +1381,12 @@ namespace Axiom
                 // Limiter
                 mainwindow.slAudioLimiter.IsEnabled = false;
                 mainwindow.slAudioLimiter.Value = 1;
-                //mainwindow.tglAudioLimiter.IsChecked = false;
-                //mainwindow.tglAudioLimiter.IsEnabled = false;
-                //mainwindow.audioLimiter.Text = string.Empty;
             }
         }
 
 
         /// <summary>
-        /// Cut Controls (Method)
+        ///     Cut Controls (Method)
         /// </summary>
         //On Selection Change
         public static void CutControls(MainWindow mainwindow)

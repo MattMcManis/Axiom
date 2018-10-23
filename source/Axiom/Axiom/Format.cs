@@ -229,7 +229,7 @@ namespace Axiom
             }
             else if ((string)mainwindow.cboFormat.SelectedItem == "m4a")
             {
-                format = "-f m4a";
+                format = string.Empty;
             }
             else if ((string)mainwindow.cboFormat.SelectedItem == "ogg")
             {

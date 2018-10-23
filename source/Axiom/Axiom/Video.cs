@@ -175,7 +175,7 @@ namespace Axiom
         }
 
         /// <summary>
-        /// Video Codecs (Method)
+        ///     Video Codecs (Method)
         /// <summary>
         public static String VideoCodec(MainWindow mainwindow)
         {
@@ -574,7 +574,15 @@ namespace Axiom
                 // -------------------------
                 // Round Bitrate, Remove Decimals
                 // -------------------------
-                inputVideoBitrate = Math.Round(double.Parse(inputVideoBitrate)).ToString();
+                try
+                {
+                    inputVideoBitrate = Math.Round(double.Parse(inputVideoBitrate)).ToString();
+                }
+                catch
+                {
+                    inputVideoBitrate = "2000";
+                }
+                
 
                 // -------------------------
                 // Add K to end of Bitrate
@@ -3206,7 +3214,7 @@ namespace Axiom
                     else if ((string)mainwindow.cboSpeed.SelectedItem == "Very Fast")
                     {
                         // CRF / 2-Pass Pass 1
-                        if (pass == "single" // CRF & 1-Pass
+                        if (pass == "pass single" // CRF & 1-Pass
                          || pass == "pass 1")
                         {
                             speed = "-quality good -cpu-used 3";
@@ -3220,7 +3228,7 @@ namespace Axiom
                     else if ((string)mainwindow.cboSpeed.SelectedItem == "Super Fast")
                     {
                         // CRF / 2-Pass Pass 1
-                        if (pass == "single" // CRF & 1-Pass
+                        if (pass == "pass single" // CRF & 1-Pass
                          || pass == "pass 1")
                         {
                             speed = "-quality good -cpu-used 4";
@@ -3234,7 +3242,7 @@ namespace Axiom
                     else if ((string)mainwindow.cboSpeed.SelectedItem == "Ultra Fast")
                     {
                         // CRF / 2-Pass Pass 1
-                        if (pass == "single" // CRF & 1-Pass
+                        if (pass == "pass single" // CRF & 1-Pass
                          || pass == "pass 1")
                         {
                             speed = "-quality good -cpu-used 5";
