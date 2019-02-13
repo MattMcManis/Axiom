@@ -4,6 +4,38 @@ Axiom FFmpeg UI
 
 ## [alpha]
 
+## [1.2.9.2] - Feb 13, 2019
+### Changed
+- Priority of Video Filters `Size` and `Crop`
+
+### Fixed
+- `Codec Copy Controls`
+
+
+## [1.2.9.1] - Jul 17, 2018
+### Removed
+- force `m4a` format
+
+### Fixed
+- Batch extension duplicate
+
+
+## [1.2.9.0] - Jul 17, 2018
+### Added
+- Added `MP2` Audio Codec
+- Added Subtitle Codec to Presets
+
+### Changed
+- Improved MVVM
+- Improved Video Bitrate Display
+- Improved Batch Extension Check
+- Crop Clear Notification from `~` to `Clear*`
+
+### Fixed
+- Codec Copy Item Source check
+- Batch Codec Copy
+
+
 ## [1.2.8.0] - Jul 14, 2018
 ### Added
 - Update User Agent
