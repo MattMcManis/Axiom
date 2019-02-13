@@ -2202,6 +2202,11 @@ namespace Axiom
                     {
                         mainwindow.cboPixelFormat.SelectedItem = "yuv444p";
                     }
+                    // Auto
+                    else if ((string)mainwindow.cboVideoQuality.SelectedItem == "Auto")
+                    {
+                        mainwindow.cboPixelFormat.SelectedItem = "auto";
+                    }
                     // All Other Quality
                     else
                     {
@@ -2220,7 +2225,7 @@ namespace Axiom
 
                     // Lossless can't be yuv444p
                     // All Pixel Formats yuv420p
-                    mainwindow.cboPixelFormat.SelectedItem = "yuv420p"; 
+                    mainwindow.cboPixelFormat.SelectedItem = "yuv420p";
                 }
 
                 // -------------------------
@@ -2253,6 +2258,11 @@ namespace Axiom
                     {
                         mainwindow.cboPixelFormat.SelectedItem = "bgra";
                     }
+                    // Auto
+                    else if ((string)mainwindow.cboVideoQuality.SelectedItem == "Auto")
+                    {
+                        mainwindow.cboPixelFormat.SelectedItem = "auto";
+                    }
                     // All Other Quality
                     else
                     {
@@ -2277,6 +2287,14 @@ namespace Axiom
                     mainwindow.cboPixelFormat.IsEnabled = false;
                     mainwindow.cboPixelFormat.SelectedItem = "auto";
                 }
+
+                //// -------------------------
+                //// Auto
+                //// -------------------------
+                //if ((string)mainwindow.cboVideoQuality.SelectedItem == "Auto")
+                //{
+                //    mainwindow.cboPixelFormat.SelectedItem = "auto";
+                //}
             }
 
             // -------------------------
@@ -2286,14 +2304,6 @@ namespace Axiom
             {
                 mainwindow.cboPixelFormat.SelectedItem = "auto";
                 mainwindow.cboPixelFormat.IsEnabled = false;
-            }
-
-            // -------------------------
-            // Auto
-            // -------------------------
-            if ((string)mainwindow.cboVideoQuality.SelectedItem == "Auto")
-            {
-                mainwindow.cboPixelFormat.SelectedItem = "auto";
             }
         }
 
