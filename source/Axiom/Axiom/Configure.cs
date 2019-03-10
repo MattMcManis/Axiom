@@ -30,8 +30,6 @@ namespace Axiom
 {
     public class Configure
     {
-        //private MainWindow mainwindow;
-
         // --------------------------------------------------------------------------------------------------------
         // Variables
         // --------------------------------------------------------------------------------------------------------
@@ -46,18 +44,9 @@ namespace Axiom
 
 
         /// <summary>
-        /// Load Theme
+        ///     Load FFmpeg Path
         /// </summary>
-        //public static void LoadTheme(MainWindow mainwindow)
-        //{
-        //
-        //}
-
-
-        /// <summary>
-        /// Load FFmpeg Path
-        /// </summary>
-        public static void LoadFFmpegPath(MainWindow mainwindow)
+        public static void LoadFFmpegPath(ViewModel vm)
         {
             // --------------------------------------------------
             // Safeguard Against Corrupt Saved Settings
@@ -67,26 +56,26 @@ namespace Axiom
                 // --------------------------
                 // First time use
                 // --------------------------
-                if (string.IsNullOrEmpty(Settings.Default["ffmpegPath"].ToString()))
+                if (string.IsNullOrEmpty(Settings.Default.FFmpegPath.ToString()))
                 {
-                    Configure.ffmpegPath = "<auto>";
+                    ffmpegPath = "<auto>";
 
                     // Set ComboBox if Configure Window is Open
-                    mainwindow.textBoxFFmpegPathConfig.Text = Configure.ffmpegPath;
+                    vm.FFmpegPath_Text = ffmpegPath;
 
                     // Save for next launch
-                    Settings.Default["ffmpegPath"] = Configure.ffmpegPath;
+                    Settings.Default.FFmpegPath = ffmpegPath;
                     Settings.Default.Save();
                 }
                 // --------------------------
                 // Load Saved Settings Override
                 // --------------------------
-                else if (!string.IsNullOrEmpty(Settings.Default["ffmpegPath"].ToString())) // null check
+                else if (!string.IsNullOrEmpty(Settings.Default.FFmpegPath.ToString())) // null check
                 {
-                    Configure.ffmpegPath = Settings.Default["ffmpegPath"].ToString();
+                    ffmpegPath = Settings.Default.FFmpegPath.ToString();
 
                     // Set ComboBox if Configure Window is Open
-                    mainwindow.textBoxFFmpegPathConfig.Text = Settings.Default["ffmpegPath"].ToString();
+                    vm.FFmpegPath_Text = Settings.Default.FFmpegPath.ToString();
                 }
             }
             catch
@@ -97,9 +86,9 @@ namespace Axiom
 
 
         /// <summary>
-        /// Load FFprobe Path
+        ///     Load FFprobe Path
         /// </summary>
-        public static void LoadFFprobePath(MainWindow mainwindow)
+        public static void LoadFFprobePath(ViewModel vm)
         {
             // --------------------------------------------------
             // Safeguard Against Corrupt Saved Settings
@@ -109,26 +98,26 @@ namespace Axiom
                 // --------------------------
                 // First time use
                 // --------------------------
-                if (string.IsNullOrEmpty(Settings.Default["ffprobePath"].ToString()))
+                if (string.IsNullOrEmpty(Settings.Default.FFprobePath.ToString()))
                 {
-                    Configure.ffprobePath = "<auto>";
+                    ffprobePath = "<auto>";
 
                     // Set ComboBox if Configure Window is Open
-                    mainwindow.textBoxFFprobePathConfig.Text = Configure.ffprobePath;
+                    vm.FFprobePath_Text = ffprobePath;
 
                     // Save for next launch
-                    Settings.Default["ffprobePath"] = Configure.ffprobePath;
+                    Settings.Default.FFprobePath = ffprobePath;
                     Settings.Default.Save();
                 }
                 // --------------------------
                 // Load Saved Settings Override
                 // --------------------------
-                else if (!string.IsNullOrEmpty(Settings.Default["ffprobePath"].ToString())) // null check
+                else if (!string.IsNullOrEmpty(Settings.Default.FFprobePath.ToString())) // null check
                 {
-                    Configure.ffprobePath = Settings.Default["ffprobePath"].ToString();
+                    ffprobePath = Settings.Default.FFprobePath.ToString();
 
                     // Set ComboBox if Configure Window is Open
-                    mainwindow.textBoxFFprobePathConfig.Text = Settings.Default["ffprobePath"].ToString();
+                    vm.FFprobePath_Text = Settings.Default.FFprobePath.ToString();
                 }
             }
             catch
@@ -139,9 +128,9 @@ namespace Axiom
 
 
         /// <summary>
-        /// Load FFplay Path
+        ///     Load FFplay Path
         /// </summary>
-        public static void LoadFFplayPath(MainWindow mainwindow)
+        public static void LoadFFplayPath(ViewModel vm)
         {
             // --------------------------------------------------
             // Safeguard Against Corrupt Saved Settings
@@ -151,26 +140,26 @@ namespace Axiom
                 // --------------------------
                 // First time use
                 // --------------------------
-                if (string.IsNullOrEmpty(Settings.Default["ffplayPath"].ToString()))
+                if (string.IsNullOrEmpty(Settings.Default.FFplayPath.ToString()))
                 {
-                    Configure.ffplayPath = "<auto>";
+                    ffplayPath = "<auto>";
 
                     // Set ComboBox if Configure Window is Open
-                    mainwindow.textBoxFFplayPathConfig.Text = Configure.ffplayPath;
+                    vm.FFplayPath_Text = ffplayPath;
 
                     // Save for next launch
-                    Settings.Default["ffplayPath"] = Configure.ffplayPath;
+                    Settings.Default.FFplayPath = ffplayPath;
                     Settings.Default.Save();
                 }
                 // --------------------------
                 // Load Saved Settings Override
                 // --------------------------
-                else if (!string.IsNullOrEmpty(Settings.Default["ffplayPath"].ToString())) // null check
+                else if (!string.IsNullOrEmpty(Settings.Default.FFplayPath.ToString())) // null check
                 {
-                    Configure.ffplayPath = Settings.Default["ffplayPath"].ToString();
+                    ffplayPath = Settings.Default.FFplayPath.ToString();
 
                     // Set ComboBox if Configure Window is Open
-                    mainwindow.textBoxFFplayPathConfig.Text = Settings.Default["ffplayPath"].ToString();
+                    vm.FFplayPath_Text = Settings.Default.FFplayPath.ToString();
                 }
             }
             catch
@@ -180,9 +169,9 @@ namespace Axiom
         }
 
         /// <summary>
-        /// Load Log Checkbox
+        ///     Load Log Checkbox
         /// </summary>
-        public static void LoadLogCheckbox(MainWindow mainwindow)
+        public static void LoadLogCheckbox(ViewModel vm)
         {
             // --------------------------------------------------
             // Safeguard Against Corrupt Saved Settings
@@ -192,68 +181,26 @@ namespace Axiom
                 // --------------------------
                 // First time use
                 // --------------------------
-                if (string.IsNullOrEmpty(Convert.ToString(Settings.Default.checkBoxLog)))
+                if (string.IsNullOrEmpty(Convert.ToString(Settings.Default.Log_IsChecked)))
                 {
-                    Configure.logEnable = false;
+                    logEnable = false;
 
                     // Set ComboBox if Configure Window is Open
-                    mainwindow.checkBoxLogConfig.IsChecked = false;
+                    vm.LogCheckBox_IsChecked = false;
 
                     // Save for next launch
-                    Settings.Default["checkBoxLog"] = Configure.logEnable;
+                    Settings.Default.Log_IsChecked = logEnable;
                     Settings.Default.Save();
                 }
                 // --------------------------
                 // Load Saved Settings Override
                 // --------------------------
-                else if (!string.IsNullOrEmpty(Convert.ToString(Settings.Default.checkBoxLog)))
+                else if (!string.IsNullOrEmpty(Convert.ToString(Settings.Default.Log_IsChecked)))
                 {
-                    Configure.logEnable = Convert.ToBoolean(Settings.Default.logEnable);
+                    logEnable = Convert.ToBoolean(Settings.Default.Log_IsChecked);
 
                     // Set ComboBox if Configure Window is Open
-                    mainwindow.checkBoxLogConfig.IsChecked = Convert.ToBoolean(Settings.Default.checkBoxLog);
-                }
-            }
-            catch
-            {
-
-            }
-        }
-
-
-        /// <summary>
-        /// Load Log Path
-        /// </summary>
-        public static void LoadLogPath(MainWindow mainwindow)
-        {
-            // --------------------------------------------------
-            // Safeguard Against Corrupt Saved Settings
-            // --------------------------------------------------
-            try
-            {
-                // --------------------------
-                // First time use
-                // --------------------------
-                if (string.IsNullOrEmpty(Settings.Default["logPath"].ToString()))
-                {
-                    Configure.logPath = string.Empty;
-
-                    // Set ComboBox if Configure Window is Open
-                    mainwindow.textBoxLogConfig.Text = Configure.logPath;
-
-                    // Save for next launch
-                    Settings.Default["logPath"] = Configure.logPath;
-                    Settings.Default.Save();
-                }
-                // --------------------------
-                // Load Saved Settings Override
-                // --------------------------
-                if (!string.IsNullOrEmpty(Settings.Default["logPath"].ToString())) // null check
-                {
-                    Configure.logPath = Settings.Default["logPath"].ToString();
-
-                    // Set ComboBox if Configure Window is Open
-                    mainwindow.textBoxLogConfig.Text = Settings.Default["logPath"].ToString();
+                    vm.LogCheckBox_IsChecked = Convert.ToBoolean(Settings.Default.Log_IsChecked);
                 }
             }
             catch
@@ -264,9 +211,9 @@ namespace Axiom
 
 
         /// <summary>
-        /// Load Threads
+        ///     Load Log Path
         /// </summary>
-        public static void LoadThreads(MainWindow mainwindow)
+        public static void LoadLogPath(ViewModel vm)
         {
             // --------------------------------------------------
             // Safeguard Against Corrupt Saved Settings
@@ -276,26 +223,68 @@ namespace Axiom
                 // --------------------------
                 // First time use
                 // --------------------------
-                if (string.IsNullOrEmpty(Settings.Default["threads"].ToString()))
+                if (string.IsNullOrEmpty(Settings.Default.LogPath.ToString()))
                 {
-                    Configure.threads = "optimal";
+                    logPath = string.Empty;
 
                     // Set ComboBox if Configure Window is Open
-                    mainwindow.cboThreads.SelectedItem = Configure.threads;
+                    vm.LogPath_Text = logPath;
 
                     // Save for next launch
-                    Settings.Default["threads"] = Configure.threads;
+                    Settings.Default.LogPath = logPath;
                     Settings.Default.Save();
                 }
                 // --------------------------
                 // Load Saved Settings Override
                 // --------------------------
-                else if (!string.IsNullOrEmpty(Settings.Default["threads"].ToString())) // null check
+                if (!string.IsNullOrEmpty(Settings.Default.LogPath.ToString())) // null check
                 {
-                    Configure.threads = Settings.Default["threads"].ToString();
+                    logPath = Settings.Default.LogPath.ToString();
 
                     // Set ComboBox if Configure Window is Open
-                    mainwindow.cboThreads.SelectedItem = Settings.Default["threads"].ToString();
+                    vm.LogPath_Text = Settings.Default.LogPath.ToString();
+                }
+            }
+            catch
+            {
+
+            }
+        }
+
+
+        /// <summary>
+        ///     Load Threads
+        /// </summary>
+        public static void LoadThreads(ViewModel vm)
+        {
+            // --------------------------------------------------
+            // Safeguard Against Corrupt Saved Settings
+            // --------------------------------------------------
+            try
+            {
+                // --------------------------
+                // First time use
+                // --------------------------
+                if (string.IsNullOrEmpty(Settings.Default.Threads.ToString()))
+                {
+                    threads = "optimal";
+
+                    // Set ComboBox if Configure Window is Open
+                    vm.Threads_SelectedItem = threads;
+
+                    // Save for next launch
+                    Settings.Default.Threads = threads;
+                    Settings.Default.Save();
+                }
+                // --------------------------
+                // Load Saved Settings Override
+                // --------------------------
+                else if (!string.IsNullOrEmpty(Settings.Default.Threads.ToString())) // null check
+                {
+                    threads = Settings.Default.Threads.ToString();
+
+                    // Set ComboBox if Configure Window is Open
+                    vm.Threads_SelectedItem = Settings.Default.Threads.ToString();
                 }
             }
             catch
@@ -316,7 +305,7 @@ namespace Axiom
         // --------------------------------------------------
         // FFmpeg Folder Browser Dialog
         // --------------------------------------------------
-        public static void FFmpegFolderBrowser(MainWindow mainwindow) // Method
+        public static void FFmpegFolderBrowser(ViewModel vm) 
         {
             var OpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             System.Windows.Forms.DialogResult result = OpenFileDialog.ShowDialog();
@@ -325,13 +314,13 @@ namespace Axiom
             if (result == System.Windows.Forms.DialogResult.OK)
             {
                 // Display Folder Path in Textbox
-                mainwindow.textBoxFFmpegPathConfig.Text = OpenFileDialog.FileName;
+                vm.FFmpegPath_Text = OpenFileDialog.FileName;
 
                 // Set the ffmpegPath string
-                ffmpegPath = mainwindow.textBoxFFmpegPathConfig.Text;
+                ffmpegPath = vm.FFmpegPath_Text;
 
                 // Save 7-zip Path for next launch
-                Settings.Default["ffmpegPath"] = mainwindow.textBoxFFmpegPathConfig.Text;
+                Settings.Default.FFmpegPath = vm.FFmpegPath_Text;
                 Settings.Default.Save();
                 Settings.Default.Reload();
             }
@@ -341,7 +330,7 @@ namespace Axiom
         // --------------------------------------------------
         // FFprobe Folder Browser Dialog
         // --------------------------------------------------
-        public static void FFprobeFolderBrowser(MainWindow mainwindow) // Method
+        public static void FFprobeFolderBrowser(ViewModel vm)
         {
             var OpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             System.Windows.Forms.DialogResult result = OpenFileDialog.ShowDialog();
@@ -350,13 +339,13 @@ namespace Axiom
             if (result == System.Windows.Forms.DialogResult.OK)
             {
                 // Display Folder Path in Textbox
-                mainwindow.textBoxFFprobePathConfig.Text = OpenFileDialog.FileName;
+                vm.FFprobePath_Text = OpenFileDialog.FileName;
 
                 // Set the ffprobePath string
-                ffprobePath = mainwindow.textBoxFFprobePathConfig.Text;
+                ffprobePath = vm.FFprobePath_Text;
 
                 // Save WinRAR Path for next launch
-                Settings.Default["ffprobePath"] = mainwindow.textBoxFFprobePathConfig.Text;
+                Settings.Default.FFprobePath = vm.FFprobePath_Text;
                 Settings.Default.Save();
                 Settings.Default.Reload();
             }
@@ -366,7 +355,7 @@ namespace Axiom
         // --------------------------------------------------
         // FFplay Folder Browser Dialog
         // --------------------------------------------------
-        public static void FFplayFolderBrowser(MainWindow mainwindow) // Method
+        public static void FFplayFolderBrowser(ViewModel vm) // Method
         {
             var OpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             System.Windows.Forms.DialogResult result = OpenFileDialog.ShowDialog();
@@ -375,13 +364,13 @@ namespace Axiom
             if (result == System.Windows.Forms.DialogResult.OK)
             {
                 // Display Folder Path in Textbox
-                mainwindow.textBoxFFplayPathConfig.Text = OpenFileDialog.FileName;
+                vm.FFplayPath_Text = OpenFileDialog.FileName;
 
                 // Set the ffplayPath string
-                ffplayPath = mainwindow.textBoxFFplayPathConfig.Text;
+                ffplayPath = vm.FFplayPath_Text;
 
                 // Save WinRAR Path for next launch
-                Settings.Default["ffplayPath"] = mainwindow.textBoxFFplayPathConfig.Text;
+                Settings.Default.FFplayPath = vm.FFplayPath_Text;
                 Settings.Default.Save();
                 Settings.Default.Reload();
             }
@@ -391,7 +380,7 @@ namespace Axiom
         // --------------------------------------------------
         // Log Folder Browser Dialog 
         // --------------------------------------------------
-        public static void logFolderBrowser(MainWindow mainwindow) // Method
+        public static void logFolderBrowser(ViewModel vm) // Method
         {
             var folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             System.Windows.Forms.DialogResult result = folderBrowserDialog.ShowDialog();
@@ -400,17 +389,17 @@ namespace Axiom
             if (result == System.Windows.Forms.DialogResult.OK)
             {
                 // Display Folder Path in Textbox
-                mainwindow.textBoxLogConfig.Text = folderBrowserDialog.SelectedPath;
+                vm.LogPath_Text = folderBrowserDialog.SelectedPath;
 
                 // Add backslash if missing
-                mainwindow.textBoxLogConfig.Text = mainwindow.textBoxLogConfig.Text.TrimEnd('\\') + @"\";
+                vm.LogPath_Text = vm.LogPath_Text.TrimEnd('\\') + @"\";
 
                 // Set the ffprobePath string
-                logPath = mainwindow.textBoxLogConfig.Text;
+                logPath = vm.LogPath_Text;
 
 
                 // Save FFmpeg Path for next launch
-                Settings.Default["logPath"] = mainwindow.textBoxLogConfig.Text;
+                Settings.Default["logPath"] = vm.LogPath_Text;
                 Settings.Default.Save();
                 Settings.Default.Reload();
             }

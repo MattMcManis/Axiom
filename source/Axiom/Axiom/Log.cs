@@ -1,6 +1,6 @@
 ﻿/* ----------------------------------------------------------------------
 Axiom UI
-Copyright (C) 2017, 2018 Matt McManis
+Copyright (C) 2017-2019 Matt McManis
 http://github.com/MattMcManis/Axiom
 http://axiomui.github.io
 mattmcmanis@outlook.com
@@ -60,35 +60,35 @@ namespace Axiom
         /// <summary>
         ///     Lod Console Message Add (Method)
         /// </summary>
-        public static void LogConsoleMessageAdd(string message, string emphasis, Brush color, int linebreaks)
-        {
-            WriteAction = () =>
-            {
-                // Linebreaks
-                for (var i = 0; i < linebreaks; i++)
-                {
-                    logParagraph.Inlines.Add(new LineBreak());
-                }
-                
-                // Message
-                if (emphasis == "normal")
-                {
-                    logParagraph.Inlines.Add(new Run(message) { Foreground = color });
-                }
-                else if (emphasis == "bold")
-                {
-                    logParagraph.Inlines.Add(new Bold(new Run(message)) { Foreground = color });
-                }
-                
-            };
-            LogActions.Add(WriteAction);
-        }
+        //public static void LogConsoleMessageAdd(string message, string emphasis, Brush color, int linebreaks)
+        //{
+        //    WriteAction = () =>
+        //    {
+        //        // Linebreaks
+        //        for (var i = 0; i < linebreaks; i++)
+        //        {
+        //            logParagraph.Inlines.Add(new LineBreak());
+        //        }
+
+        //        // Message
+        //        if (emphasis == "normal")
+        //        {
+        //            logParagraph.Inlines.Add(new Run(message) { Foreground = color });
+        //        }
+        //        else if (emphasis == "bold")
+        //        {
+        //            logParagraph.Inlines.Add(new Bold(new Run(message)) { Foreground = color });
+        //        }
+
+        //    };
+        //    LogActions.Add(WriteAction);
+        //}
 
 
         /// <summary>
         ///     Define Log Path (Method)
         /// </summary>
-        public static void DefineLogPath(MainWindow mainwindow)
+        public static void DefineLogPath()
         {
             // Only if Log is Enabled through Configure Checkbox
             if (Configure.logEnable == true)
@@ -225,7 +225,7 @@ namespace Axiom
                 // -------------------------
                 // Create Output Log File
                 // -------------------------
-                DefineLogPath(mainwindow);
+                DefineLogPath();
                 CreateOutputLog(mainwindow); //write output log to text file
 
                 // set script back to 0 for next convert

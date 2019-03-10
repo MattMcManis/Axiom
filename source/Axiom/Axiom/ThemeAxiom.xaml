@@ -1,6 +1,6 @@
 ﻿<!-- 
     Axiom UI
-    Copyright (C) 2017, 2018 Matt McManis
+    Copyright (C) 2017-2019 Matt McManis
     http://github.com/MattMcManis/Axiom
     http://axiomui.github.io
     mattmcmanis@outlook.com
@@ -1037,7 +1037,7 @@
 
     <!-- ComboBox Custom Item -->
     <Style x:Key="ComboBoxCustomItem" TargetType="{x:Type ComboBoxItem}">
-        <Setter Property="Template" Value="{StaticResource ComboBoxCustom.Item.ControlTemplate}"/>
+        <Setter Property="Template" Value="{DynamicResource ComboBoxCustom.Item.ControlTemplate}"/>
         <Setter Property="Foreground" Value="#FFFFFFFF" />
         <Setter Property="Background" Value="#FF1049BB" />
         <Setter Property="BorderBrush" Value="#FF1049BB" />

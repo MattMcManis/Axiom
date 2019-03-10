@@ -1,6 +1,6 @@
 ﻿/* ----------------------------------------------------------------------
 Axiom UI
-Copyright (C) 2017, 2018 Matt McManis
+Copyright (C) 2017-2019 Matt McManis
 http://github.com/MattMcManis/Axiom
 http://axiomui.github.io
 mattmcmanis@outlook.com
@@ -65,12 +65,12 @@ namespace Axiom
         ///     CMD.exe command, /k = keep, /c = close
         ///     Do not .Close(); if using /c, it will throw a Dispose exception
         /// </remarks>
-        public static String KeepWindow(MainWindow mainwindow)
+        public static String KeepWindow(ViewModel vm)
         {
             string cmdWindow = string.Empty;
 
             // Keep
-            if (mainwindow.tglWindowKeep.IsChecked == true)
+            if (vm.CMDWindowKeep_IsChecked == true)
             {
                 cmdWindow = "/k ";
             }
@@ -84,18 +84,18 @@ namespace Axiom
         }
 
         /// <summary>
-        /// OnePassArgs
+        ///     1-Pass Arguments
         /// </summary>
         // 1-Pass, CRF, & Auto
-        public static String OnePassArgs(MainWindow mainwindow)
+        public static String OnePassArgs(MainWindow mainwindow, ViewModel vm)
         {
             // -------------------------
             //  Single Pass
             // -------------------------
-            if ((string)mainwindow.cboPass.SelectedItem == "1 Pass" 
-                || (string)mainwindow.cboPass.SelectedItem == "CRF" 
-                || (string)mainwindow.cboPass.SelectedItem == "auto"
-                || (string)mainwindow.cboFormat.SelectedItem == "ogv" //ogv (special rule)
+            if (vm.Pass_SelectedItem == "1 Pass"
+                || vm.Pass_SelectedItem == "CRF"
+                || vm.Pass_SelectedItem == "auto"
+                || vm.Container_SelectedItem == "ogv" //ogv (special rule)
                 )
             {
                 // -------------------------
@@ -103,61 +103,86 @@ namespace Axiom
                 // -------------------------
                 List<string> FFmpegArgsSinglePassList = new List<string>()
                 {
-                    "\r\n\r\n" + 
-                    "-i "+ "\"" + MainWindow.InputPath(mainwindow) + "\"",
+                    "\r\n\r\n" +
+                    "-i "+ "\"" + MainWindow.InputPath(vm) + "\"",
 
-                    "\r\n\r\n" + 
-                    Video.Subtitles(mainwindow),
+                    "\r\n\r\n" +
+                    Subtitle.SubtitlesExternal(vm),
 
-                    "\r\n\r\n" + 
-                    Video.VideoCodec(mainwindow),
-                    "\r\n" + 
-                    Video.Speed(mainwindow, "pass single"),
-                    Video.VideoQuality(mainwindow),
-                    "\r\n" + 
-                    Video.FPS(mainwindow),
-                    "\r\n" + 
-                    VideoFilters.VideoFilter(mainwindow),
-                    "\r\n" + 
-                    Video.ScalingAlgorithm(mainwindow),
-                    "\r\n" + 
-                    Video.Images(mainwindow),
-                    "\r\n" + 
-                    Video.Optimize(mainwindow),
-                    "\r\n" + 
-                    Streams.VideoStreamMaps(mainwindow),
-
-                    "\r\n\r\n" + 
-                    Video.SubtitleCodec(mainwindow),
-                    "\r\n" + 
-                    Streams.SubtitleMaps(mainwindow),
-
-                    "\r\n\r\n" + 
-                    Audio.AudioCodec(mainwindow),
-                    "\r\n" + 
-                    Audio.AudioQuality(mainwindow),
-                    Audio.SampleRate(mainwindow),
-                    Audio.BitDepth(mainwindow),
-                    Audio.Channel(mainwindow),
+                    "\r\n\r\n" +
+                    Video.VideoCodec(vm, vm.VideoCodec_Command),
                     "\r\n" +
-                    AudioFilters.AudioFilter(mainwindow),
-                    "\r\n" + 
-                    Streams.AudioStreamMaps(mainwindow),
+                    Video.Speed(vm,
+                                vm.VideoEncodeSpeed_Items,
+                                vm.VideoEncodeSpeed_SelectedItem,
+                                vm.Pass_SelectedItem
+                                ),
+                    Video.VideoQuality(vm,
+                                       vm.VideoQuality_Items,
+                                       vm.VideoQuality_SelectedItem,
+                                       vm.Pass_SelectedItem
+                                        ),
+                    "\r\n" +
+                    Video.PixFmt(vm,
+                                 vm.PixelFormat_SelectedItem
+                                 ),
+                    "\r\n" +
+                    Video.FPS(vm,
+                              vm.FPS_SelectedItem
+                              ),
+                    "\r\n" +
+                    VideoFilters.VideoFilter(mainwindow, vm),
+                    //"\r\n" +
+                    //Video.ScalingAlgorithm(vm),
+                    "\r\n" +
+                    Video.Images(vm),
+                    "\r\n" +
+                    Video.Optimize(vm,
+                                   vm.Video_Optimize_Items,
+                                   vm.Video_Optimize_SelectedItem
+                                   ),
+                    "\r\n" +
+                    Streams.VideoStreamMaps(vm),
 
-                    "\r\n\r\n" + 
-                    Format.Cut(mainwindow),
+                    "\r\n\r\n" +
+                    Subtitle.SubtitleCodec(vm.SubtitleCodec_Command),
+                    "\r\n" +
+                    Streams.SubtitleMaps(mainwindow, vm),
 
-                    "\r\n\r\n" + 
-                    Streams.FormatMaps(mainwindow),
+                    "\r\n\r\n" +
+                    Audio.AudioCodec(vm, vm.AudioCodec_Command),
+                    "\r\n" +
+                    Audio.AudioQuality(vm,
+                                       vm.AudioQuality_Items,
+                                       vm.AudioQuality_SelectedItem
+                                      ),
+                    Audio.SampleRate(vm),
+                    Audio.BitDepth(vm,
+                                   vm.AudioBitDepth_Items,
+                                   vm.AudioBitDepth_SelectedItem
+                                  ),
+                    Audio.Channel(vm,
+                                  vm.AudioChannel_SelectedItem
+                                 ),
+                    "\r\n" +
+                    AudioFilters.AudioFilter(mainwindow, vm),
+                    "\r\n" +
+                    Streams.AudioStreamMaps(vm),
 
-                    "\r\n\r\n" + 
-                    Format.ForceFormat(mainwindow),
+                    "\r\n\r\n" +
+                    Format.Cut(vm),
 
-                    "\r\n\r\n" + 
-                    MainWindow.ThreadDetect(mainwindow),
+                    "\r\n\r\n" +
+                    Streams.FormatMaps(vm),
 
-                    "\r\n\r\n" + 
-                    "\"" + MainWindow.OutputPath(mainwindow) + "\""
+                    "\r\n\r\n" +
+                    Format.ForceFormat(vm),
+
+                    "\r\n\r\n" +
+                    MainWindow.ThreadDetect(vm),
+
+                    "\r\n\r\n" +
+                    "\"" + MainWindow.OutputPath(vm) + "\""
                 };
 
                 // Join List with Spaces
@@ -177,19 +202,19 @@ namespace Axiom
 
 
         /// <summary>
-        /// Batch 2Pass Args
+        ///     2-Pass Arguments
         /// </summary>      
-        public static String TwoPassArgs(MainWindow mainwindow)
+        public static String TwoPassArgs(MainWindow mainwindow, ViewModel vm)
         {
             // -------------------------
             //  2-Pass Auto Quality
             // -------------------------
             // Enabled 
             //
-            if ((string)mainwindow.cboPass.SelectedItem == "2 Pass" 
-                && (string)mainwindow.cboMediaType.SelectedItem == "Video" // video only
-                && (string)mainwindow.cboVideoCodec.SelectedItem != "Copy" // exclude copy
-                && (string)mainwindow.cboFormat.SelectedItem != "ogv" // exclude ogv (special rule)
+            if (vm.Pass_SelectedItem == "2 Pass"
+                && vm.MediaType_SelectedItem == "Video" // video only
+                && vm.VideoCodec_SelectedItem != "Copy" // exclude copy
+                && vm.Container_SelectedItem != "ogv" // exclude ogv (special rule)
                 )
             {
                 // -------------------------
@@ -197,43 +222,60 @@ namespace Axiom
                 // -------------------------
                 List<string> FFmpegArgsPass1List = new List<string>()
                 {
-                    "\r\n\r\n" + 
-                    "-i "+ "\"" + 
-                    MainWindow.InputPath(mainwindow) + "\"",
+                    "\r\n\r\n" +
+                    "-i "+ "\"" +
+                    MainWindow.InputPath(vm) + "\"",
 
                     //"\r\n\r\n" + 
-                    //Video.Subtitles(mainwindow),
+                    //Video.Subtitles(vm),
 
-                    "\r\n\r\n" + 
-                    Video.VideoCodec(mainwindow),
+                    "\r\n\r\n" +
+                    Video.VideoCodec(vm, vm.VideoCodec_Command),
                     "\r\n" +
-                    Video.Speed(mainwindow, "pass 1"),
-                    Video.VideoQuality(mainwindow),
-                    "\r\n" + 
-                    Video.FPS(mainwindow),
-                    "\r\n" + 
-                    VideoFilters.VideoFilter(mainwindow),
-                    "\r\n" + 
-                    Video.ScalingAlgorithm(mainwindow),
-                    "\r\n" + 
-                    Video.Images(mainwindow),
-                    "\r\n" + 
-                    Video.Optimize(mainwindow),
-                    "\r\n" + 
-                    Video.Pass1Modifier(mainwindow), // -pass 1, -x265-params pass=2
+                    Video.Speed(vm,
+                                vm.VideoEncodeSpeed_Items,
+                                vm.VideoEncodeSpeed_SelectedItem,
+                                vm.Pass_SelectedItem
+                                ),
+                    Video.VideoQuality(vm,
+                                       vm.VideoQuality_Items,
+                                       vm.VideoQuality_SelectedItem,
+                                       vm.Pass_SelectedItem
+                                        ),
+                    "\r\n" +
+                    Video.PixFmt(vm,
+                                 vm.PixelFormat_SelectedItem
+                                 ),
+                    "\r\n" +
+                    Video.FPS(vm,
+                              vm.FPS_SelectedItem
+                             ),
+                    "\r\n" +
+                    VideoFilters.VideoFilter(mainwindow, vm),
+                    //"\r\n" +
+                    //Video.ScalingAlgorithm(vm),
+                    "\r\n" +
+                    Video.Images(vm),
+                    "\r\n" +
+                    Video.Optimize(vm,
+                                   vm.Video_Optimize_Items,
+                                   vm.Video_Optimize_SelectedItem
+                                   ),
+                    "\r\n" +
+                    Video.Pass1Modifier(vm), // -pass 1, -x265-params pass=2
 
-                    "\r\n\r\n" + 
+                    "\r\n\r\n" +
                     "-sn -an", // Disable Audio & Subtitles for Pass 1 to speed up encoding
 
-                    "\r\n\r\n" + 
-                    Format.Cut(mainwindow),
-                    "\r\n\r\n" + 
-                    Format.ForceFormat(mainwindow),
-                    "\r\n\r\n" + 
-                    MainWindow.ThreadDetect(mainwindow),
+                    "\r\n\r\n" +
+                    Format.Cut(vm),
+                    "\r\n\r\n" +
+                    Format.ForceFormat(vm),
+                    "\r\n\r\n" +
+                    MainWindow.ThreadDetect(vm),
 
-                    //"\r\n\r\n" + "\"" + MainWindow.OutputPath(mainwindow) + "\""
-                    "\r\n\r\n" + 
+                    //"\r\n\r\n" + "\"" + MainWindow.OutputPath(vm) + "\""
+                    "\r\n\r\n" +
                     "NUL"
                 };
 
@@ -255,73 +297,92 @@ namespace Axiom
                     // Video Methods have already defined Global Strings in Pass 1
                     // Use Strings instead of Methods
                     //
-                    "\r\n\r\n" + 
+                    "\r\n\r\n" +
                     "&&",
 
-                    "\r\n\r\n" + 
+                    "\r\n\r\n" +
                     MainWindow.FFmpegPath(),
                     "-y",
 
-                    "\r\n\r\n" + 
-                    Video.HWAcceleration(mainwindow),
-
-                    "\r\n\r\n" + 
-                    "-i " + "\"" + MainWindow.InputPath(mainwindow) + "\"",
+                    "\r\n\r\n" +
+                    Video.HWAcceleration(vm),
 
                     "\r\n\r\n" +
-                    Video.Subtitles(mainwindow),
+                    "-i " + "\"" + MainWindow.InputPath(vm) + "\"",
 
-                    "\r\n\r\n" + 
+                    "\r\n\r\n" +
+                    Subtitle.SubtitlesExternal(vm),
+
+                    "\r\n\r\n" +
                     Video.vCodec,
-                    "\r\n" + 
-                    Video.Speed(mainwindow, "pass 2"),
-                    Video.vQuality,
-                    "\r\n" + 
-                    Video.fps,
-                    "\r\n" + 
-                    VideoFilters.vFilter,
-                    "\r\n" + 
-                    Video.ScalingAlgorithm(mainwindow),
-                    "\r\n" + 
-                    Video.image,
-                    "\r\n" + 
-                    Video.optimize,
-                    "\r\n" + 
-                    Streams.VideoStreamMaps(mainwindow),
-                    "\r\n" + 
-                    Video.Pass2Modifier(mainwindow), // -pass 2, -x265-params pass=2
-
-                    "\r\n\r\n" + 
-                    Video.SubtitleCodec(mainwindow),
-                    "\r\n" + 
-                    Streams.SubtitleMaps(mainwindow),
-
-                    "\r\n\r\n" + 
-                    Audio.AudioCodec(mainwindow),
-                    "\r\n" + 
-                    Audio.AudioQuality(mainwindow),
-                    Audio.SampleRate(mainwindow),
-                    Audio.BitDepth(mainwindow),
-                    Audio.Channel(mainwindow),
+                    //Video.VideoCodec(vm, vm.VideoCodec_Command),
                     "\r\n" +
-                    AudioFilters.AudioFilter(mainwindow),
-                    "\r\n" + 
-                    Streams.AudioStreamMaps(mainwindow),
+                    Video.vEncodeSpeed,
+                    //Video.Speed(vm,
+                    //            vm.VideoEncodeSpeed_Items,
+                    //            vm.VideoEncodeSpeed_SelectedItem,
+                    //            vm.Pass_SelectedItem
+                    //            ),
+                    Video.vQuality,
+                    "\r\n" +
+                    Video.pix_fmt,
+                    //Video.PixFmt(vm,
+                    //             vm.PixelFormat_SelectedItem
+                    //             ),
+                    "\r\n" +
+                    Video.fps,
+                    "\r\n" +
+                    VideoFilters.vFilter,
+                    //"\r\n" +
+                    //Video.ScalingAlgorithm(vm),
+                    "\r\n" +
+                    Video.image,
+                    "\r\n" +
+                    Video.optimize,
+                    "\r\n" +
+                    Streams.VideoStreamMaps(vm),
+                    "\r\n" +
+                    Video.Pass2Modifier(vm), // -pass 2, -x265-params pass=2
 
-                    "\r\n\r\n" + 
+                    "\r\n\r\n" +
+                    Subtitle.SubtitleCodec(vm.SubtitleCodec_Command),
+                    "\r\n" +
+                    Streams.SubtitleMaps(mainwindow, vm),
+
+                    "\r\n\r\n" +
+                    Audio.AudioCodec(vm, vm.AudioCodec_Command),
+                    "\r\n" +
+                    Audio.AudioQuality(vm,
+                                       vm.AudioQuality_Items,
+                                       vm.AudioQuality_SelectedItem
+                                       ),
+                    Audio.SampleRate(vm),
+                    Audio.BitDepth(vm,
+                                   vm.AudioBitDepth_Items,
+                                   vm.AudioBitDepth_SelectedItem
+                                   ),
+                    Audio.Channel(vm,
+                                  vm.AudioChannel_SelectedItem
+                                  ),
+                    "\r\n" +
+                    AudioFilters.AudioFilter(mainwindow, vm),
+                    "\r\n" +
+                    Streams.AudioStreamMaps(vm),
+
+                    "\r\n\r\n" +
                     Format.trim,
 
-                    "\r\n\r\n" + 
-                    Streams.FormatMaps(mainwindow),
+                    "\r\n\r\n" +
+                    Streams.FormatMaps(vm),
 
-                    "\r\n\r\n" + 
-                    Format.ForceFormat(mainwindow),
+                    "\r\n\r\n" +
+                    Format.ForceFormat(vm),
 
-                    "\r\n\r\n" + 
+                    "\r\n\r\n" +
                     Configure.threads,
 
-                    "\r\n\r\n" + 
-                    "\"" + MainWindow.OutputPath(mainwindow) + "\""
+                    "\r\n\r\n" +
+                    "\"" + MainWindow.OutputPath(vm) + "\""
                 };
 
                 // Join List with Spaces
@@ -348,21 +409,21 @@ namespace Axiom
 
 
         /// <summary>
-        /// FFmpeg Single File - Generate Args
+        ///     FFmpeg Single File - Generate Args
         /// </summary>
-        public static String FFmpegSingleGenerateArgs(MainWindow mainwindow)
+        public static String FFmpegSingleGenerateArgs(MainWindow mainwindow, ViewModel vm)
         {
-            if (mainwindow.tglBatch.IsChecked == false)
+            if (vm.Batch_IsChecked == false)
             {
                 // Make Arugments List
                 List<string> FFmpegArgsList = new List<string>()
                 {
-                    //MainWindow.YouTubeDownload(MainWindow.InputPath(mainwindow)),
+                    //MainWindow.YouTubeDownload(MainWindow.InputPath(vm)),
                     MainWindow.FFmpegPath(),
                     "-y",
-                    "\r\n\r\n" + Video.HWAcceleration(mainwindow),
-                    FFmpeg.OnePassArgs(mainwindow), //disabled if 2-Pass
-                    FFmpeg.TwoPassArgs(mainwindow) //disabled if 1-Pass
+                    "\r\n\r\n" + Video.HWAcceleration(vm),
+                    OnePassArgs(mainwindow, vm), //disabled if 2-Pass
+                    TwoPassArgs(mainwindow, vm) //disabled if 1-Pass
                 };
 
                 // Join List with Spaces
@@ -384,8 +445,8 @@ namespace Axiom
                                                         )
                                         );
 
-                                   //.Replace("\r\n", "") //Remove Linebreaks
-                                   //.Replace(Environment.NewLine, "")
+                //.Replace("\r\n", "") //Remove Linebreaks
+                //.Replace(Environment.NewLine, "")
             }
 
 
@@ -412,11 +473,11 @@ namespace Axiom
 
 
         /// <summary>
-        /// FFmpeg Batch - Generate Args
+        ///     FFmpeg Batch - Generate Args
         /// </summary>
-        public static void FFmpegBatchGenerateArgs(MainWindow mainwindow)
+        public static void FFmpegBatchGenerateArgs(MainWindow mainwindow, ViewModel vm)
         {
-            if (mainwindow.tglBatch.IsChecked == true)
+            if (vm.Batch_IsChecked == true)
             {
                 // Replace ( with ^( to avoid Windows 7 CMD Error //important!
                 // This is only used in select areas
@@ -429,7 +490,7 @@ namespace Axiom
                     Log.logParagraph.Inlines.Add(new LineBreak());
                     Log.logParagraph.Inlines.Add(new LineBreak());
                     Log.logParagraph.Inlines.Add(new Bold(new Run("Batch: ")) { Foreground = Log.ConsoleDefault });
-                    Log.logParagraph.Inlines.Add(new Run(Convert.ToString(mainwindow.tglBatch.IsChecked)) { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new Run(Convert.ToString(vm.Batch_IsChecked)) { Foreground = Log.ConsoleDefault });
                     Log.logParagraph.Inlines.Add(new LineBreak());
                     Log.logParagraph.Inlines.Add(new LineBreak());
                     Log.logParagraph.Inlines.Add(new Bold(new Run("Generating Batch Script...")) { Foreground = Log.ConsoleTitle });
@@ -448,25 +509,25 @@ namespace Axiom
                 List<string> FFmpegBatchArgsList = new List<string>()
                 {
                     "cd /d",
-                    "\"" + MainWindow.BatchInputDirectory(mainwindow) + "\"",
+                    "\"" + MainWindow.BatchInputDirectory(vm) + "\"",
 
                     "\r\n\r\n" + "&& for %f in",
                     "(*" + MainWindow.batchExt + ")",
                     "do (echo)",
 
-                    "\r\n\r\n" + Video.BatchVideoQualityAuto(mainwindow),
+                    "\r\n\r\n" + Video.BatchVideoQualityAuto(vm),
 
-                    "\r\n\r\n" + Audio.BatchAudioQualityAuto(mainwindow),
-                    "\r\n\r\n" + Audio.BatchAudioBitrateLimiter(mainwindow),
+                    "\r\n\r\n" + Audio.BatchAudioQualityAuto(vm),
+                    "\r\n\r\n" + Audio.BatchAudioBitrateLimiter(vm),
 
                     "\r\n\r\n" + "&&",
                     "\r\n\r\n" + MainWindow.FFmpegPath(),
-                    "\r\n\r\n" + Video.HWAcceleration(mainwindow),
+                    "\r\n\r\n" + Video.HWAcceleration(vm),
                     "-y",
                     //%~f added in InputPath()
 
-                    FFmpeg.OnePassArgs(mainwindow), //disabled if 2-Pass       
-                    FFmpeg.TwoPassArgs(mainwindow) //disabled if 1-Pass
+                    OnePassArgs(mainwindow, vm), //disabled if 2-Pass       
+                    TwoPassArgs(mainwindow, vm) //disabled if 1-Pass
                 };
 
                 // Join List with Spaces
@@ -487,8 +548,8 @@ namespace Axiom
                                                             .Where(s => !s.Equals("\r\n"))
                                                         )
                                         );
-                                   //.Replace("\r\n", " ") // Replace Linebreaks with Spaces to avoid arguments touching
-                                   //.Replace(Environment.NewLine, "");
+                //.Replace("\r\n", " ") // Replace Linebreaks with Spaces to avoid arguments touching
+                //.Replace(Environment.NewLine, "");
             }
         }
 
@@ -497,7 +558,7 @@ namespace Axiom
 
 
         /// <summary>
-        /// FFmpeg Generate Script
+        ///     FFmpeg Generate Script
         /// </summary>
         public static void FFmpegScript(MainWindow mainwindow)
         {
@@ -516,11 +577,11 @@ namespace Axiom
         /// <summary>
         /// FFmpeg Start
         /// </summary>
-        public static void FFmpegStart(MainWindow mainwindow)
+        public static void FFmpegStart(ViewModel vm)
         {
             System.Diagnostics.Process.Start(
                 "cmd.exe",
-                KeepWindow(mainwindow)
+                KeepWindow(vm)
                 + " cd " + "\"" + MainWindow.outputDir + "\""
                 + " & "
                 + ffmpegArgs
@@ -530,21 +591,21 @@ namespace Axiom
         /// <summary>
         /// FFmpeg Convert
         /// </summary>
-        public static void FFmpegConvert(MainWindow mainwindow)
+        public static void FFmpegConvert(MainWindow mainwindow, ViewModel vm)
         {
             //// -------------------------
             //// Use User Custom Script Args
             //// -------------------------
             //// Check if Set Controls Differ from Script TextBox. If so, Script has been edited and is custom..
-            //if (!string.IsNullOrWhiteSpace(ScriptView.GetScriptRichTextBoxContents(mainwindow)) // Script is not Empty
-            //    && MainWindow.ReplaceLineBreaksWithSpaces(ScriptView.GetScriptRichTextBoxContents(mainwindow))
+            //if (!string.IsNullOrWhiteSpace(ScriptView.GetScriptRichTextBoxContents(vm)) // Script is not Empty
+            //    && MainWindow.ReplaceLineBreaksWithSpaces(ScriptView.GetScriptRichTextBoxContents(vm))
 
             //    != ffmpegArgs // Set Controls Args
             //    )
             //{
             //    // CMD Arguments are from Script TextBox
             //    // Stays Sorted
-            //    ffmpegArgs = MainWindow.ReplaceLineBreaksWithSpaces(ScriptView.GetScriptRichTextBoxContents(mainwindow));
+            //    ffmpegArgs = MainWindow.ReplaceLineBreaksWithSpaces(ScriptView.GetScriptRichTextBoxContents(vm));
             //}
 
             //// -------------------------
@@ -553,7 +614,7 @@ namespace Axiom
             //else
             //{
             //    // Inline
-            //    FFmpegScript(mainwindow);
+            //    FFmpegScript(vm);
             //}
 
 
@@ -566,7 +627,7 @@ namespace Axiom
             // -------------------------
             // Start FFmpeg
             // -------------------------
-            FFmpegStart(mainwindow);
+            FFmpegStart(vm);
         }
 
     }

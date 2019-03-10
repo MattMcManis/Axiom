@@ -1,6 +1,6 @@
 ﻿/* ----------------------------------------------------------------------
 Axiom UI
-Copyright (C) 2017, 2018 Matt McManis
+Copyright (C) 2017-2019 Matt McManis
 http://github.com/MattMcManis/Axiom
 http://axiomui.github.io
 mattmcmanis@outlook.com
@@ -19,10 +19,22 @@ You should have received a copy of the GNU General Public License
 along with this program.If not, see <http://www.gnu.org/licenses/>. 
 ---------------------------------------------------------------------- */
 
+/* ----------------------------------
+ METHODS
+
+ * Set Controls
+ * Bitrate Display
+ * Quality Controls
+ * Pixel Format Controls
+ * Optimize Controls
+ * Encoding Pass Controls
+ * Auto Codec Copy
+---------------------------------- */
+
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Windows.Controls;
+using System.Linq;
+using System.Windows;
 // Disable XML Comment warnings
 #pragma warning disable 1591
 #pragma warning disable 1587
@@ -32,2153 +44,977 @@ namespace Axiom
 {
     public class VideoControls
     {
-        // --------------------------------------------------------------------------------------------------------
+        // ----------------------------------------------------------------------------------------------------
+        //
+        // Order of Operations
+        //
+        // Container -> Codec -> Quality / Pixel Format / Optimize
+        // 
+        // Codec Class -> ComboBox Item Source -> Video Controls Class -> Pass to ViewModel
+        //
+        // ----------------------------------------------------------------------------------------------------
+
+
         /// <summary>
-        ///     ComboBoxes Item Sources
+        ///     Controls
         /// </summary>
-        // --------------------------------------------------------------------------------------------------------
-
-        // -------------------------
-        // Video
-        // -------------------------
-        public static List<string> VideoCodec_ItemSource;
-        public static List<string> SubtitleCodec_ItemSource;
-        public static List<string> VideoQuality_ItemSource;
-        public static List<string> Pass_ItemSource;
-        public static List<string> ResizeItemSource;
-        public static List<string> CutItemSource;
-        public static List<string> Optimize_ItemSource;
-        public static List<string> SpeedItemSource;
-
-        public static List<string> Optimize_Tune_ItemSource;
-        public static List<string> Optimize_Profile_ItemSource;
-        public static List<string> Optimize_Level_ItemSource;
-
         public static bool passUserSelected = false; // Used to determine if User willingly selected CRF, 1 Pass or 2 Pass
 
 
-        // --------------------------------------------------------------------------------------------------------
-        // --------------------------------------------------------------------------------------------------------
-        // Control Methods
-        // --------------------------------------------------------------------------------------------------------
-        // --------------------------------------------------------------------------------------------------------
 
         /// <summary>
-        ///     Change Item Source (Method)
+        ///     Set Controls
         /// </summary>
-        private static void ChangeItemSource(
-            MainWindow mainwindow,
-            ComboBox cbo,           // ComboBox
-            List<string> items,     // New Items List
-            string selectedItem)    // Selected Item
+        public static void SetControls(ViewModel vm, string selectedCodec)
         {
-            // -------------------------
-            // Change Item Source
-            // -------------------------
-            cbo.ItemsSource = items;
-
-            // -------------------------
-            // Select Item
-            // -------------------------
-            // Get Previous Item
-            string previousItem = selectedItem;
-
-            // Select
-            if (!string.IsNullOrEmpty(previousItem))
-            {
-                if (items.Contains(previousItem))
-                {
-                    cbo.SelectedItem = previousItem;
-                }
-                else
-                {
-                    cbo.SelectedIndex = 0; // Auto
-                }
-            }
-
-            return;
-        }
-
-
-
-        /// <summary>
-        ///     Video Codec Controls (Method)
-        /// </summary>
-        /// <remarks>
-        ///     Changes Other ComboBox Items and Selections based on Video Codec
-        /// </remarks>
-        public static void VideoCodecControls(MainWindow mainwindow)
-        {
-            // On ComboBox Selection Change, Through Method
-
-            // -------------------------
-            // Encoding Speed
-            // -------------------------
+            // --------------------------------------------------
             // Codec
-            //
-            if ((string)mainwindow.cboVideoCodec.SelectedItem == "Copy") { mainwindow.cboSpeed.IsEnabled = true; }
-            else if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8") { mainwindow.cboSpeed.IsEnabled = true; }
-            else if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9") { mainwindow.cboSpeed.IsEnabled = true; }
-            else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264") { mainwindow.cboSpeed.IsEnabled = true; }
-            else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265") { mainwindow.cboSpeed.IsEnabled = true; }
-            else if ((string)mainwindow.cboVideoCodec.SelectedItem == "AV1") { mainwindow.cboSpeed.IsEnabled = true; }
-            else if ((string)mainwindow.cboVideoCodec.SelectedItem == "MPEG-2") { mainwindow.cboSpeed.IsEnabled = true; }
-            else if ((string)mainwindow.cboVideoCodec.SelectedItem == "MPEG-4") { mainwindow.cboSpeed.IsEnabled = true; }
-            else if ((string)mainwindow.cboVideoCodec.SelectedItem == "Theora") { mainwindow.cboSpeed.IsEnabled = false; }
-            else if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG") { mainwindow.cboSpeed.IsEnabled = false; }
-            else if ((string)mainwindow.cboVideoCodec.SelectedItem == "PNG") { mainwindow.cboSpeed.IsEnabled = false; }
-            else if ((string)mainwindow.cboVideoCodec.SelectedItem == "WebP") { mainwindow.cboSpeed.IsEnabled = false; }
-            else if (string.IsNullOrEmpty((string)mainwindow.cboVideoCodec.SelectedItem)) { mainwindow.cboSpeed.IsEnabled = false; }
-
-            // Container
-            //
-            // Video
-            if ((string)mainwindow.cboFormat.SelectedItem == "ogv") { mainwindow.cboSpeed.IsEnabled = false; }
-            // Image
-            else if ((string)mainwindow.cboFormat.SelectedItem == "jpg") { mainwindow.cboSpeed.IsEnabled = false; }
-            else if ((string)mainwindow.cboFormat.SelectedItem == "png") { mainwindow.cboSpeed.IsEnabled = false; }
-            else if ((string)mainwindow.cboFormat.SelectedItem == "webp") { mainwindow.cboSpeed.IsEnabled = false; }
-            // Audio
-            else if ((string)mainwindow.cboFormat.SelectedItem == "mp3") { mainwindow.cboSpeed.IsEnabled = false; }
-            else if ((string)mainwindow.cboFormat.SelectedItem == "m4a") { mainwindow.cboSpeed.IsEnabled = false; }
-            else if ((string)mainwindow.cboFormat.SelectedItem == "ogg") { mainwindow.cboSpeed.IsEnabled = false; }
-            else if ((string)mainwindow.cboFormat.SelectedItem == "flac") { mainwindow.cboSpeed.IsEnabled = false; }
-            else if ((string)mainwindow.cboFormat.SelectedItem == "wav") { mainwindow.cboSpeed.IsEnabled = false; }
-
-
-            // -------------------------
-            // MKV Special Inustrctions - If Video Codec = Copy, select Video Quality Dropdown to Auto
-            // -------------------------
-            if ((string)mainwindow.cboFormat.SelectedItem == "mkv" 
-                && (string)mainwindow.cboVideoCodec.SelectedItem == "Copy")
-            {
-                mainwindow.cboVideoQuality.SelectedItem = "Auto";
-            }
-
-
             // --------------------------------------------------
+
+            // -------------------------
             // VP8
-            // --------------------------------------------------
-            if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8")
+            // -------------------------
+            if (selectedCodec == "VP8")
             {
-                // --------------------------------------------------
-                // Video
-                // --------------------------------------------------
-                // -------------------------
-                // Change ItemSource
-                // -------------------------
-                VideoQuality_ItemSource = new List<string>()
-                {
-                    "Auto",
-                    "Ultra",
-                    "High",
-                    "Medium",
-                    "Low",
-                    "Sub",
-                    "Custom"
-                };
+                // Codec
+                vm.VideoCodec_Command = VP8.codec;
 
-                ChangeItemSource(
-                    mainwindow, 
-                    mainwindow.cboVideoQuality, // ComboBox
-                    VideoQuality_ItemSource, // New Items List
-                    (string)mainwindow.cboVideoQuality.SelectedItem); // Selected Item
+                // Encode Speed
+                vm.VideoEncodeSpeed_Items = VP8.encodeSpeed;
+                //if (vm.VideoEncodeSpeed_SelectedItem == "None")
+                //{
+                //    vm.VideoEncodeSpeed_SelectedItem = "Medium";
+                //}
 
-
-                // --------------------------------------------------
                 // Pass
-                // --------------------------------------------------
-                // -------------------------
-                // Change ItemSource
-                // -------------------------
-                Pass_ItemSource = new List<string>()
-                {
-                    "CRF",
-                    "1 Pass",
-                    "2 Pass"
-                };
+                vm.Pass_Items = VP8.pass;
 
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboPass, // ComboBox
-                    Pass_ItemSource, // New Items List
-                    (string)mainwindow.cboPass.SelectedItem); // Selected Item
+                // Quality Items
+                vm.VideoQuality_Items = VP8.quality;
 
+                // Pixel Format
+                vm.PixelFormat_SelectedItem = VP8.pixfmt;
 
-                // --------------------------------------------------
+                // Framerate
+                vm.FPS_SelectedItem = VP8.fps;
+
                 // Optimize
-                // --------------------------------------------------
-                // -------------------------
-                // Change ItemSource
-                // -------------------------
-                Optimize_ItemSource = new List<string>()
-                {
-                    "None",
-                    "Web"
-                };
+                vm.Video_Optimize_Items = VP8.optimize;
+                // Tune
+                vm.Optimize_Tune_Items = VP8.tune;
+                // Profile
+                vm.Optimize_Profile_Items = VP8.profile;
+                // Level
+                vm.Optimize_Level_Items = VP8.level;
 
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboOptimize, // ComboBox
-                    Optimize_ItemSource, // New Items List
-                    "None"); // Selected Item
+                // Checked
+                VP8.controlsChecked(vm);
 
-
-                // --------------------------------------------------
-                // Controls
-                // --------------------------------------------------
-                // -------------------------
                 // Enabled
-                // -------------------------
-                List<Control> Controls_Enabled = new List<Control>()
-                {
-                    // Video Quality ComboBox
-                    mainwindow.cboVideoQuality,
-                    // FPS ComboBox
-                    mainwindow.cboFPS,
-                    // Optimize ComboBox
-                    mainwindow.cboOptimize,
-                    // Scaling ComboBox
-                    mainwindow.cboScaling
-                };
+                VP8.controlsEnable(vm);
 
-                // Add CRF Custom Textbox
-                if ((string)mainwindow.cboVideoQuality.SelectedItem == "Custom")
-                {
-                    Controls_Enabled.Add(mainwindow.crfCustom);
-                }
-
-                // Enable
-                for (int i = 0; i < Controls_Enabled.Count; i++)
-                {
-                    Controls_Enabled[i].IsEnabled = true;
-                }
-
-                // -------------------------
                 // Disabled
-                // -------------------------
-                // None
+                VP8.controlsDisable(vm);
             }
 
-            // --------------------------------------------------
+            // -------------------------
             // VP9
-            // --------------------------------------------------
-            else if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9")
+            // -------------------------
+            else if (selectedCodec == "VP9")
             {
-                // --------------------------------------------------
-                // Video
-                // --------------------------------------------------
-                // -------------------------
-                // Change ItemSource
-                // -------------------------
-                List<string> VideoQuality_ItemSource = new List<string>()
-                {
-                    "Auto",
-                    "Lossless",
-                    "Ultra",
-                    "High",
-                    "Medium",
-                    "Low",
-                    "Sub",
-                    "Custom"
-                };
+                // Codec
+                vm.VideoCodec_Command = VP9.codec;
 
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboVideoQuality, // ComboBox
-                    VideoQuality_ItemSource, // New Items List
-                    (string)mainwindow.cboVideoQuality.SelectedItem); // Selected Item
+                // Encode Speed
+                vm.VideoEncodeSpeed_Items = VP9.encodeSpeed;
 
-                // --------------------------------------------------
                 // Pass
-                // --------------------------------------------------
-                // -------------------------
-                // Change ItemSource
-                // -------------------------
-                Pass_ItemSource = new List<string>()
-                {
-                    "CRF",
-                    "1 Pass",
-                    "2 Pass"
-                };
+                vm.Pass_Items = VP9.pass;
 
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboPass, // ComboBox
-                    Pass_ItemSource, // New Items List
-                    (string)mainwindow.cboPass.SelectedItem); // Selected Item
+                // Quality Items
+                vm.VideoQuality_Items = VP9.quality;
 
+                // Pixel Format
+                vm.PixelFormat_SelectedItem = VP9.pixfmt;
 
-                // --------------------------------------------------
+                // Framerate
+                vm.FPS_SelectedItem = VP9.fps;
+
                 // Optimize
-                // --------------------------------------------------
-                // -------------------------
-                // Change ItemSource
-                // -------------------------
-                Optimize_ItemSource = new List<string>()
-                {
-                    "None",
-                    "Web"
-                };
+                vm.Video_Optimize_Items = VP9.optimize;
+                // Tune
+                vm.Optimize_Tune_Items = VP9.tune;
+                // Profile
+                vm.Optimize_Profile_Items = VP9.profile;
+                // Level
+                vm.Optimize_Level_Items = VP9.level;
 
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboOptimize, // ComboBox
-                    Optimize_ItemSource, // New Items List
-                    "None"); // Selected Item
+                // Checked
+                VP9.controlsChecked(vm);
 
-
-                // --------------------------------------------------
-                // Controls
-                // --------------------------------------------------
-                // -------------------------
                 // Enabled
-                // -------------------------
-                List<Control> Controls_Enabled = new List<Control>()
-                {
-                    // Video Quality ComboBox
-                    mainwindow.cboVideoQuality,
-                    // FPS ComboBox
-                    mainwindow.cboFPS,
-                    // Optimize ComboBox
-                    mainwindow.cboOptimize,
-                    // Scaling ComboBox
-                    mainwindow.cboScaling
-                };
+                VP9.controlsEnable(vm);
 
-                // Add CRF Custom Textbox
-                if ((string)mainwindow.cboVideoQuality.SelectedItem == "Custom")
-                {
-                    Controls_Enabled.Add(mainwindow.crfCustom);
-                }
-
-                // Enable
-                for (int i = 0; i < Controls_Enabled.Count; i++)
-                {
-                    Controls_Enabled[i].IsEnabled = true;
-                }
-
-                // -------------------------
                 // Disabled
-                // -------------------------
-                // None
+                VP9.controlsDisable(vm);
             }
 
-
-            // --------------------------------------------------
+            // -------------------------
             // x264
-            // --------------------------------------------------
-            else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264")
+            // -------------------------
+            else if (selectedCodec == "x264")
             {
-                // --------------------------------------------------
-                // Video
-                // --------------------------------------------------
-                // -------------------------
-                // Change ItemSource
-                // -------------------------
-                List<string> VideoQuality_ItemSource = new List<string>()
-                {
-                    "Auto",
-                    "Lossless",
-                    "Ultra",
-                    "High",
-                    "Medium",
-                    "Low",
-                    "Sub",
-                    "Custom"
-                };
+                // Codec
+                vm.VideoCodec_Command = x264.codec;
 
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboVideoQuality, // ComboBox
-                    VideoQuality_ItemSource, // New Items List
-                    (string)mainwindow.cboVideoQuality.SelectedItem); // Selected Item
+                // Encode Speed
+                vm.VideoEncodeSpeed_Items = x264.encodeSpeed;
 
-
-                // --------------------------------------------------
                 // Pass
-                // --------------------------------------------------
-                // -------------------------
-                // Change ItemSource
-                // -------------------------
-                Pass_ItemSource = new List<string>()
-                {
-                    "CRF",
-                    "1 Pass",
-                    "2 Pass"
-                };
+                vm.Pass_Items = x264.pass;
 
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboPass, // ComboBox
-                    Pass_ItemSource, // New Items List
-                    (string)mainwindow.cboPass.SelectedItem); // Selected Item
+                // Quality Items
+                vm.VideoQuality_Items = x264.quality;
 
+                // Pixel Format
+                vm.PixelFormat_SelectedItem = x264.pixfmt;
 
-                // -------------------------
-                // MP4 Container
-                // -------------------------
-                if ((string)mainwindow.cboFormat.SelectedItem == "mp4")
-                {
-                    // -------------------------
-                    // Change ItemSource
-                    // -------------------------
-                    Optimize_ItemSource = new List<string>()
-                    {
-                        "None",
-                        "Custom",
-                        "Web",
-                        "PC HD",
-                        "PC SD",
-                        //"DVD",
-                        "Blu-ray",
-                        "Windows",
-                        "Animation",
-                        "Apple",
-                        "Android",
-                        "PS3",
-                        "PS4",
-                        "Xbox 360",
-                        "Xbox One"
-                    };
+                // Framerate
+                vm.FPS_SelectedItem = x264.fps;
 
-                    ChangeItemSource(
-                        mainwindow,
-                        mainwindow.cboOptimize, // ComboBox
-                        Optimize_ItemSource, // New Items List
-                        (string)mainwindow.cboOptimize.SelectedItem); // Selected Item
-                }
-                // -------------------------
-                // MKV Container
-                // -------------------------
-                else if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
-                {
-                    // -------------------------
-                    // Change ItemSource
-                    // -------------------------
-                    Optimize_ItemSource = new List<string>()
-                    {
-                        "None",
-                        "Custom",
-                        "PC HD",
-                        "PC SD",
-                        "Windows",
-                        "Animation",
-                        "Apple",
-                        "Android",
-                        "PS3",
-                        "PS4",
-                        "Xbox 360",
-                        "Xbox One"
-                    };
+                // Optimize
+                vm.Video_Optimize_Items = x264.optimize;
+                // Tune
+                vm.Optimize_Tune_Items = x264.tune;
+                // Profile
+                vm.Optimize_Profile_Items = x264.profile;
+                // Level
+                vm.Optimize_Level_Items = x264.level;
 
-                    ChangeItemSource(
-                        mainwindow,
-                        mainwindow.cboOptimize, // ComboBox
-                        Optimize_ItemSource, // New Items List
-                        (string)mainwindow.cboOptimize.SelectedItem); // Selected Item
-                }
+                // Checked
+                x264.controlsChecked(vm);
 
-
-                // --------------------------------------------------
-                // Controls
-                // --------------------------------------------------
-                // -------------------------
                 // Enabled
-                // -------------------------
-                List<Control> Controls_Enabled = new List<Control>()
-                {
-                    // Video Quality ComboBox
-                    mainwindow.cboVideoQuality,
-                    // FPS ComboBox
-                    mainwindow.cboFPS,
-                    // Optimize ComboBox
-                    mainwindow.cboOptimize,
-                    // Scaling ComboBox
-                    mainwindow.cboScaling
-                };
+                x264.controlsEnable(vm);
 
-                // Add CRF Custom Textbox
-                if ((string)mainwindow.cboVideoQuality.SelectedItem == "Custom")
-                {
-                    Controls_Enabled.Add(mainwindow.crfCustom);
-                }
-
-                // Enable
-                for (int i = 0; i < Controls_Enabled.Count; i++)
-                {
-                    Controls_Enabled[i].IsEnabled = true;
-                }
-
-                // -------------------------
                 // Disabled
-                // -------------------------
-                // None
+                x264.controlsDisable(vm);
             }
 
-            // --------------------------------------------------
+            // -------------------------
             // x265
-            // --------------------------------------------------
-            else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265")
+            // -------------------------
+            else if (selectedCodec == "x265")
             {
-                // --------------------------------------------------
-                // Video
-                // --------------------------------------------------
-                // -------------------------
-                // Change ItemSource
-                // -------------------------
-                List<string> VideoQuality_ItemSource = new List<string>()
-                {
-                    "Auto",
-                    "Lossless",
-                    "Ultra",
-                    "High",
-                    "Medium",
-                    "Low",
-                    "Sub",
-                    "Custom"
-                };
+                // Codec
+                vm.VideoCodec_Command = x265.codec;
 
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboVideoQuality, // ComboBox
-                    VideoQuality_ItemSource, // New Items List
-                    (string)mainwindow.cboVideoQuality.SelectedItem); // Selected Item
+                // Encode Speed
+                vm.VideoEncodeSpeed_Items = x265.encodeSpeed;
 
-
-                // --------------------------------------------------
                 // Pass
-                // --------------------------------------------------
-                // -------------------------
-                // Change ItemSource
-                // -------------------------
-                Pass_ItemSource = new List<string>()
-                {
-                    "CRF",
-                    "1 Pass",
-                    "2 Pass"
-                };
+                vm.Pass_Items = x265.pass;
 
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboPass, // ComboBox
-                    Pass_ItemSource, // New Items List
-                    (string)mainwindow.cboPass.SelectedItem); // Selected Item
+                // Quality Items
+                vm.VideoQuality_Items = x265.quality;
 
+                // Pixel Format
+                vm.PixelFormat_SelectedItem = x265.pixfmt;
 
-                // --------------------------------------------------
+                // Framerate
+                vm.FPS_SelectedItem = x265.fps;
+
                 // Optimize
-                // --------------------------------------------------
-                // -------------------------
-                // Change ItemSource
-                // -------------------------
-                Optimize_ItemSource = new List<string>()
-                {
-                    "None",
-                    "Custom",
-                    "Web"
-                };
+                vm.Video_Optimize_Items = x265.optimize;
+                // Tune
+                vm.Optimize_Tune_Items = x265.tune;
+                // Profile
+                vm.Optimize_Profile_Items = x265.profile;
+                // Level
+                vm.Optimize_Level_Items = x265.level;
 
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboOptimize, // ComboBox
-                    Optimize_ItemSource, // New Items List
-                    (string)mainwindow.cboOptimize.SelectedItem); // Selected Item
+                // Checked
+                x265.controlsChecked(vm);
 
-
-                // --------------------------------------------------
-                // Controls
-                // --------------------------------------------------
-                // -------------------------
                 // Enabled
-                // -------------------------
-                List<Control> Controls_Enabled = new List<Control>()
-                {
-                    // Video Quality ComboBox
-                    mainwindow.cboVideoQuality,
-                    // FPS ComboBox
-                    mainwindow.cboFPS,
-                    // Optimize ComboBox
-                    mainwindow.cboOptimize,
-                    // Scaling ComboBox
-                    mainwindow.cboScaling
-                };
+                x265.controlsEnable(vm);
 
-                // Add CRF Custom Textbox
-                if ((string)mainwindow.cboVideoQuality.SelectedItem == "Custom")
-                {
-                    Controls_Enabled.Add(mainwindow.crfCustom);
-                }
-
-                // Enable
-                for (int i = 0; i < Controls_Enabled.Count; i++)
-                {
-                    Controls_Enabled[i].IsEnabled = true;
-                }
-
-                // -------------------------
                 // Disabled
-                // -------------------------
-                // None
+                x265.controlsDisable(vm);
             }
 
-            // --------------------------------------------------
+            // -------------------------
             // MPEG-2
-            // --------------------------------------------------
-            else if ((string)mainwindow.cboVideoCodec.SelectedItem == "MPEG-2")
+            // -------------------------
+            else if (selectedCodec == "MPEG-2")
             {
-                // -------------------------
-                // Video
-                // -------------------------
-                // -------------------------
-                // Change ItemSource
-                // -------------------------
-                List<string> VideoQuality_ItemSource = new List<string>()
-                {
-                    "Auto",
-                    "Lossless",
-                    "Ultra",
-                    "High",
-                    "Medium",
-                    "Low",
-                    "Sub",
-                    "Custom"
-                };
+                // Codec
+                vm.VideoCodec_Command = MPEG_2.codec;
 
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboVideoQuality, // ComboBox
-                    VideoQuality_ItemSource, // New Items List
-                    (string)mainwindow.cboVideoQuality.SelectedItem); // Selected Item
+                // Encode Speed
+                vm.VideoEncodeSpeed_Items = MPEG_2.encodeSpeed;
 
-
-                // --------------------------------------------------
                 // Pass
-                // --------------------------------------------------
-                // -------------------------
-                // Change ItemSource
-                // -------------------------
-                Pass_ItemSource = new List<string>()
-                {
-                    "1 Pass",
-                    "2 Pass"
-                };
+                vm.Pass_Items = MPEG_2.pass;
 
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboPass, // ComboBox
-                    Pass_ItemSource, // New Items List
-                    (string)mainwindow.cboPass.SelectedItem); // Selected Item
+                // Quality Items
+                vm.VideoQuality_Items = MPEG_2.quality;
 
+                // Pixel Format
+                vm.PixelFormat_SelectedItem = MPEG_2.pixfmt;
 
-                // --------------------------------------------------
+                // Framerate
+                vm.FPS_SelectedItem = MPEG_2.fps;
+
                 // Optimize
-                // --------------------------------------------------
-                // -------------------------
-                // Change ItemSource
-                // -------------------------
-                Optimize_ItemSource = new List<string>()
-                {
-                    "None"
-                };
+                vm.Video_Optimize_Items = MPEG_2.optimize;
+                // Tune
+                vm.Optimize_Tune_Items = MPEG_2.tune;
+                // Profile
+                vm.Optimize_Profile_Items = MPEG_2.profile;
+                // Level
+                vm.Optimize_Level_Items = MPEG_2.level;
 
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboOptimize, // ComboBox
-                    Optimize_ItemSource, // New Items List
-                    (string)mainwindow.cboOptimize.SelectedItem); // Selected Item
+                // Checked
+                MPEG_2.controlsChecked(vm);
 
-                // --------------------------------------------------
-                // Controls
-                // --------------------------------------------------
-                // -------------------------
                 // Enabled
-                // -------------------------
-                List<Control> Controls_Enabled = new List<Control>()
-                {
-                    // Video Quality ComboBox
-                    mainwindow.cboVideoQuality,
-                    // FPS ComboBox
-                    mainwindow.cboFPS,
-                    // Optimize ComboBox
-                    mainwindow.cboOptimize,
-                    // Scaling ComboBox
-                    mainwindow.cboScaling
-                };
+                MPEG_2.controlsEnable(vm);
 
-                // Add CRF Custom Textbox
-                if ((string)mainwindow.cboVideoQuality.SelectedItem == "Custom")
-                {
-                    Controls_Enabled.Add(mainwindow.crfCustom);
-                }
-
-                // Enable
-                for (int i = 0; i < Controls_Enabled.Count; i++)
-                {
-                    Controls_Enabled[i].IsEnabled = true;
-                }
-
-                // -------------------------
                 // Disabled
-                // -------------------------
-                // None
+                MPEG_2.controlsDisable(vm);
             }
 
-            // --------------------------------------------------
+            // -------------------------
             // MPEG-4
-            // --------------------------------------------------
-            else if ((string)mainwindow.cboVideoCodec.SelectedItem == "MPEG-4")
+            // -------------------------
+            else if (selectedCodec == "MPEG-4")
             {
-                // -------------------------
-                // Video
-                // -------------------------
-                // -------------------------
-                // Change ItemSource
-                // -------------------------
-                List<string> VideoQuality_ItemSource = new List<string>()
-                {
-                    "Auto",
-                    "Lossless",
-                    "Ultra",
-                    "High",
-                    "Medium",
-                    "Low",
-                    "Sub",
-                    "Custom"
-                };
+                // Codec
+                vm.VideoCodec_Command = MPEG_4.codec;
 
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboVideoQuality, // ComboBox
-                    VideoQuality_ItemSource, // New Items List
-                    (string)mainwindow.cboVideoQuality.SelectedItem); // Selected Item
+                // Encode Speed
+                vm.VideoEncodeSpeed_Items = MPEG_4.encodeSpeed;
 
-
-                // --------------------------------------------------
                 // Pass
-                // --------------------------------------------------
-                // -------------------------
-                // Change ItemSource
-                // -------------------------
-                Pass_ItemSource = new List<string>()
-                {
-                    "1 Pass",
-                    "2 Pass"
-                };
+                vm.Pass_Items = MPEG_4.pass;
 
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboPass, // ComboBox
-                    Pass_ItemSource, // New Items List
-                    (string)mainwindow.cboPass.SelectedItem); // Selected Item
+                // Quality Items
+                vm.VideoQuality_Items = MPEG_4.quality;
 
+                // Pixel Format
+                vm.PixelFormat_SelectedItem = MPEG_4.pixfmt;
 
-                // --------------------------------------------------
+                // Framerate
+                vm.FPS_SelectedItem = MPEG_4.fps;
+
                 // Optimize
-                // --------------------------------------------------
-                // -------------------------
-                // Change ItemSource
-                // -------------------------
-                Optimize_ItemSource = new List<string>()
-                {
-                    "None"
-                };
+                vm.Video_Optimize_Items = MPEG_4.optimize;
+                // Tune
+                vm.Optimize_Tune_Items = MPEG_4.tune;
+                // Profile
+                vm.Optimize_Profile_Items = MPEG_4.profile;
+                // Level
+                vm.Optimize_Level_Items = MPEG_4.level;
 
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboOptimize, // ComboBox
-                    Optimize_ItemSource, // New Items List
-                    (string)mainwindow.cboOptimize.SelectedItem); // Selected Item
+                // Checked
+                MPEG_4.controlsChecked(vm);
 
-                // --------------------------------------------------
-                // Controls
-                // --------------------------------------------------
-                // -------------------------
                 // Enabled
-                // -------------------------
-                List<Control> Controls_Enabled = new List<Control>()
-                {
-                    // Video Quality ComboBox
-                    mainwindow.cboVideoQuality,
-                    // FPS ComboBox
-                    mainwindow.cboFPS,
-                    // Optimize ComboBox
-                    mainwindow.cboOptimize,
-                    // Scaling ComboBox
-                    mainwindow.cboScaling
-                };
+                MPEG_4.controlsEnable(vm);
 
-                // Add CRF Custom Textbox
-                if ((string)mainwindow.cboVideoQuality.SelectedItem == "Custom")
-                {
-                    Controls_Enabled.Add(mainwindow.crfCustom);
-                }
-
-                // Enable
-                for (int i = 0; i < Controls_Enabled.Count; i++)
-                {
-                    Controls_Enabled[i].IsEnabled = true;
-                }
-
-                // -------------------------
                 // Disabled
-                // -------------------------
-                // None
+                MPEG_4.controlsDisable(vm);
             }
 
-            // --------------------------------------------------
+            // -------------------------
             // AV1
-            // --------------------------------------------------
-            else if ((string)mainwindow.cboVideoCodec.SelectedItem == "AV1")
+            // -------------------------
+            else if (selectedCodec == "AV1")
             {
-                // -------------------------
-                // Video
-                // -------------------------
-                // -------------------------
-                // Change ItemSource
-                // -------------------------
-                List<string> VideoQuality_ItemSource = new List<string>()
-                {
-                    "Auto",
-                    //"Lossless", // disabled
-                    "Ultra",
-                    "High",
-                    "Medium",
-                    "Low",
-                    "Sub",
-                    "Custom"
-                };
+                // Codec
+                vm.VideoCodec_Command = AV1.codec;
 
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboVideoQuality, // ComboBox
-                    VideoQuality_ItemSource, // New Items List
-                    (string)mainwindow.cboVideoQuality.SelectedItem); // Selected Item
+                // Encode Speed
+                vm.VideoEncodeSpeed_Items = AV1.encodeSpeed;
 
-
-                // --------------------------------------------------
                 // Pass
-                // --------------------------------------------------
-                // -------------------------
-                // Change ItemSource
-                // -------------------------
-                Pass_ItemSource = new List<string>()
-                {
-                    "CRF",
-                    "1 Pass",
-                    "2 Pass"
-                };
+                vm.Pass_Items = AV1.pass;
 
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboPass, // ComboBox
-                    Pass_ItemSource, // New Items List
-                    (string)mainwindow.cboPass.SelectedItem); // Selected Item
+                // Quality Items
+                vm.VideoQuality_Items = AV1.quality;
 
+                // Pixel Format
+                vm.PixelFormat_SelectedItem = AV1.pixfmt;
 
-                // --------------------------------------------------
+                // Framerate
+                vm.FPS_SelectedItem = AV1.fps;
+
                 // Optimize
-                // --------------------------------------------------
-                // -------------------------
-                // Change ItemSource
-                // -------------------------
-                Optimize_ItemSource = new List<string>()
-                {
-                    "None",
-                };
+                vm.Video_Optimize_Items = AV1.optimize;
+                // Tune
+                vm.Optimize_Tune_Items = AV1.tune;
+                // Profile
+                vm.Optimize_Profile_Items = AV1.profile;
+                // Level
+                vm.Optimize_Level_Items = AV1.level;
 
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboOptimize, // ComboBox
-                    Optimize_ItemSource, // New Items List
-                    (string)mainwindow.cboOptimize.SelectedItem); // Selected Item
+                // Checked
+                AV1.controlsChecked(vm);
 
-
-                // --------------------------------------------------
-                // Controls
-                // --------------------------------------------------
-                // -------------------------
                 // Enabled
-                // -------------------------
-                List<Control> Controls_Enabled = new List<Control>()
-                {
-                    // Video Quality ComboBox
-                    mainwindow.cboVideoQuality,
-                    // FPS ComboBox
-                    mainwindow.cboFPS,
-                    // Optimize ComboBox
-                    mainwindow.cboOptimize,
-                    // Scaling ComboBox
-                    mainwindow.cboScaling
-                };
+                AV1.controlsEnable(vm);
 
-                // Add CRF Custom Textbox
-                if ((string)mainwindow.cboVideoQuality.SelectedItem == "Custom")
-                {
-                    Controls_Enabled.Add(mainwindow.crfCustom);
-                }
-
-                // Enable
-                for (int i = 0; i < Controls_Enabled.Count; i++)
-                {
-                    Controls_Enabled[i].IsEnabled = true;
-                }
-
-                // -------------------------
                 // Disabled
-                // -------------------------
-                // None
+                AV1.controlsDisable(vm);
             }
 
-            // --------------------------------------------------
+            // -------------------------
             // Theora
-            // --------------------------------------------------
-            else if ((string)mainwindow.cboVideoCodec.SelectedItem == "Theora")
+            // -------------------------
+            else if (selectedCodec == "Theora")
             {
-                // -------------------------
-                // Video
-                // -------------------------
-                // -------------------------
-                // Change ItemSource
-                // -------------------------
-                List<string> VideoQuality_ItemSource = new List<string>()
-                {
-                    "Auto",
-                    //"Lossless", //disabled
-                    "Ultra",
-                    "High",
-                    "Medium",
-                    "Low",
-                    "Sub",
-                    "Custom"
-                };
+                // Codec
+                vm.VideoCodec_Command = Theora.codec;
 
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboVideoQuality, // ComboBox
-                    VideoQuality_ItemSource, // New Items List
-                    (string)mainwindow.cboVideoQuality.SelectedItem); // Selected Item
+                // Encode Speed
+                vm.VideoEncodeSpeed_Items = Theora.encodeSpeed;
 
-
-                // --------------------------------------------------
                 // Pass
-                // --------------------------------------------------
-                // -------------------------
-                // Change ItemSource
-                // -------------------------
-                Pass_ItemSource = new List<string>()
-                {
-                    "1 Pass",
-                    //"2 Pass" //disabled
-                };
+                vm.Pass_Items = Theora.pass;
+                //vm.Pass_SelectedItem = "1 Pass";
 
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboPass, // ComboBox
-                    Pass_ItemSource, // New Items List
-                    "1 Pass"); // Selected Item
+                // Quality Items
+                vm.VideoQuality_Items = Theora.quality;
 
+                // Pixel Format
+                vm.PixelFormat_SelectedItem = Theora.pixfmt;
 
-                // --------------------------------------------------
+                // Framerate
+                vm.FPS_SelectedItem = Theora.fps;
+
                 // Optimize
-                // --------------------------------------------------
-                // -------------------------
-                // Change ItemSource
-                // -------------------------
-                Optimize_ItemSource = new List<string>()
-                {
-                    "None",
-                    "Web"
-                };
+                vm.Video_Optimize_Items = Theora.optimize;
+                // Tune
+                vm.Optimize_Tune_Items = Theora.tune;
+                // Profile
+                vm.Optimize_Profile_Items = Theora.profile;
+                // Level
+                vm.Optimize_Level_Items = Theora.level;
 
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboOptimize, // ComboBox
-                    Optimize_ItemSource, // New Items List
-                    (string)mainwindow.cboOptimize.SelectedItem); // Selected Item
+                // Checked
+                Theora.controlsChecked(vm);
 
-
-                // --------------------------------------------------
-                // Controls
-                // --------------------------------------------------
-                // -------------------------
                 // Enabled
-                // -------------------------
-                List<Control> Controls_Enabled = new List<Control>()
-                {
-                    // Video Quality ComboBox
-                    mainwindow.cboVideoQuality,
-                    // FPS ComboBox
-                    mainwindow.cboFPS,
-                    // Optimize ComboBox
-                    mainwindow.cboOptimize,
-                    // Scaling ComboBox
-                    mainwindow.cboScaling
-                };
+                Theora.controlsEnable(vm);
 
-                // Enable
-                for (int i = 0; i < Controls_Enabled.Count; i++)
-                {
-                    Controls_Enabled[i].IsEnabled = true;
-                }
-
-                // -------------------------
                 // Disabled
-                // -------------------------
-                List<Control> Controls_Disabled = new List<Control>()
-                {
-                    // Speed
-                    mainwindow.cboSpeed,
-                };
-
-                // Add CRF Custom Textbox
-                if ((string)mainwindow.cboVideoQuality.SelectedItem == "Custom")
-                {
-                    Controls_Disabled.Add(mainwindow.crfCustom);
-                }
-
-                // Disable
-                for (int i = 0; i < Controls_Disabled.Count; i++)
-                {
-                    Controls_Disabled[i].IsEnabled = false;
-                }
+                Theora.controlsDisable(vm);
             }
 
-            // --------------------------------------------------
+            // -------------------------
             // JPEG
-            // --------------------------------------------------
-            else if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG")
+            // -------------------------
+            else if (selectedCodec == "JPEG")
             {
-                // -------------------------
-                // Video
-                // -------------------------
-                // -------------------------
-                // Change ItemSource
-                // -------------------------
-                List<string> VideoQuality_ItemSource = new List<string>()
-                {
-                    "Auto",
-                    "Ultra",
-                    "High",
-                    "Medium",
-                    "Low",
-                    "Sub",
-                    "Custom"
-                };
+                // Codec
+                vm.VideoCodec_Command = JPEG.codec;
 
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboVideoQuality, // ComboBox
-                    VideoQuality_ItemSource, // New Items List
-                    (string)mainwindow.cboVideoQuality.SelectedItem); // Selected Item
+                // Encode Speed
+                vm.VideoEncodeSpeed_Items = JPEG.encodeSpeed;
 
-
-                // --------------------------------------------------
                 // Pass
-                // --------------------------------------------------
-                // -------------------------
-                // Change ItemSource
-                // -------------------------
-                Pass_ItemSource = new List<string>()
-                {
-                    "1 Pass"
-                };
+                vm.Pass_Items = JPEG.pass;
 
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboPass, // ComboBox
-                    Pass_ItemSource, // New Items List
-                    "1 Pass"); // Selected Item
+                // Quality Items
+                vm.VideoQuality_Items = JPEG.quality;
 
+                // Pixel Format
+                vm.PixelFormat_SelectedItem = JPEG.pixfmt;
 
-                // --------------------------------------------------
+                // Framerate
+                vm.FPS_SelectedItem = JPEG.fps;
+
                 // Optimize
-                // --------------------------------------------------
-                // -------------------------
-                // Change ItemSource
-                // -------------------------
-                Optimize_ItemSource = new List<string>()
-                {
-                    "None"
-                };
+                vm.Video_Optimize_Items = JPEG.optimize;
+                // Tune
+                vm.Optimize_Tune_Items = JPEG.tune;
+                // Profile
+                vm.Optimize_Profile_Items = JPEG.profile;
+                // Level
+                vm.Optimize_Level_Items = JPEG.level;
 
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboOptimize, // ComboBox
-                    Optimize_ItemSource, // New Items List
-                    "None"); // Selected Item
+                // Checked
+                JPEG.controlsChecked(vm);
 
-
-                // --------------------------------------------------
-                // Controls
-                // --------------------------------------------------
-                // -------------------------
                 // Enabled
-                // -------------------------
-                List<Control> Controls_Enabled = new List<Control>()
-                {
-                    // Video Quality ComboBox
-                    mainwindow.cboVideoQuality,
-                    // Scaling ComboBox
-                    mainwindow.cboScaling
-                };
+                JPEG.controlsEnable(vm);
 
-                // Enable
-                for (int i = 0; i < Controls_Enabled.Count; i++)
-                {
-                    Controls_Enabled[i].IsEnabled = true;
-                }
-
-                // -------------------------
                 // Disabled
-                // -------------------------
-                List<Control> Controls_Disabled = new List<Control>()
-                {
-                    // Speed ComboBox
-                    mainwindow.cboSpeed,
-                    // CRF Custom Textbox
-                    mainwindow.crfCustom,
-                    // Pass ComboBox
-                    mainwindow.cboPass,
-                    // FPS ComboBox
-                    mainwindow.cboFPS,
-                    // Optimize ComboBox
-                    mainwindow.cboOptimize,
-                };
-
-                // Disable
-                for (int i = 0; i < Controls_Disabled.Count; i++)
-                {
-                    Controls_Disabled[i].IsEnabled = false;
-                }
+                JPEG.controlsDisable(vm);
             }
 
-            // --------------------------------------------------
+            // -------------------------
             // PNG
-            // --------------------------------------------------
-            else if ((string)mainwindow.cboVideoCodec.SelectedItem == "PNG")
+            // -------------------------
+            else if (selectedCodec == "PNG")
             {
-                // -------------------------
-                // Video
-                // -------------------------
-                // -------------------------
-                // Change ItemSource
-                // -------------------------
-                List<string> VideoQuality_ItemSource = new List<string>()
-                {
-                    "Auto",
-                    "Lossless",
-                    "Ultra",
-                    "High",
-                    "Medium",
-                    "Low",
-                    "Sub"
-                };
+                // Codec
+                vm.VideoCodec_Command = PNG.codec;
 
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboVideoQuality, // ComboBox
-                    VideoQuality_ItemSource, // New Items List
-                    "Lossless"); // Selected Item
+                // Encode Speed
+                vm.VideoEncodeSpeed_Items = PNG.encodeSpeed;
 
-
-                // --------------------------------------------------
                 // Pass
-                // --------------------------------------------------
-                // -------------------------
-                // Change ItemSource
-                // -------------------------
-                Pass_ItemSource = new List<string>()
-                {
-                    "1 Pass"
-                };
+                vm.Pass_Items = PNG.pass;
 
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboPass, // ComboBox
-                    Pass_ItemSource, // New Items List
-                    "1 Pass"); // Selected Item
+                // Quality Items
+                vm.VideoQuality_Items = PNG.quality;
 
+                // Pixel Format
+                vm.PixelFormat_SelectedItem = PNG.pixfmt;
 
-                // --------------------------------------------------
+                // Framerate
+                vm.FPS_SelectedItem = PNG.fps;
+
                 // Optimize
-                // --------------------------------------------------
-                // -------------------------
-                // Change ItemSource
-                // -------------------------
-                Optimize_ItemSource = new List<string>()
-                {
-                    "None"
-                };
+                vm.Video_Optimize_Items = PNG.optimize;
+                // Tune
+                vm.Optimize_Tune_Items = PNG.tune;
+                // Profile
+                vm.Optimize_Profile_Items = PNG.profile;
+                // Level
+                vm.Optimize_Level_Items = PNG.level;
 
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboOptimize, // ComboBox
-                    Optimize_ItemSource, // New Items List
-                    "None"); // Selected Item
+                // Checked
+                PNG.controlsChecked(vm);
 
-
-                // --------------------------------------------------
-                // Controls
-                // --------------------------------------------------
-                // -------------------------
                 // Enabled
-                // -------------------------
-                List<Control> Controls_Enabled = new List<Control>()
-                {
-                    // Scaling ComboBox
-                    mainwindow.cboScaling
-                };
+                PNG.controlsEnable(vm);
 
-                // Enable
-                for (int i = 0; i < Controls_Enabled.Count; i++)
-                {
-                    Controls_Enabled[i].IsEnabled = true;
-                }
-
-                // -------------------------
                 // Disabled
-                // -------------------------
-                List<Control> Controls_Disabled = new List<Control>()
-                {
-                    // Speed ComboBox
-                    mainwindow.cboSpeed,
-                    // Video Quality ComboBox
-                    mainwindow.cboVideoQuality,
-                    // CRF Custom Textbox
-                    mainwindow.crfCustom,
-                    // Pass ComboBox
-                    mainwindow.cboPass,
-                    // FPS ComboBox
-                    mainwindow.cboFPS,
-                    // Optimize ComboBox
-                    mainwindow.cboOptimize,
-                };
-
-                // Disable
-                for (int i = 0; i < Controls_Disabled.Count; i++)
-                {
-                    Controls_Disabled[i].IsEnabled = false;
-                }
+                PNG.controlsDisable(vm);
             }
 
-            // --------------------------------------------------
+            // -------------------------
             // WebP
-            // --------------------------------------------------
-            else if ((string)mainwindow.cboVideoCodec.SelectedItem == "WebP")
+            // -------------------------
+            else if (selectedCodec == "WebP")
             {
-                // -------------------------
-                // Video
-                // -------------------------
-                // -------------------------
-                // Change ItemSource
-                // -------------------------
-                List<string> VideoQuality_ItemSource = new List<string>()
-                {
-                    "Auto",
-                    "Lossless",
-                    "Ultra",
-                    "High",
-                    "Medium",
-                    "Low",
-                    "Sub",
-                    "Custom"
-                };
+                // Codec
+                vm.VideoCodec_Command = WebP.codec;
 
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboVideoQuality, // ComboBox
-                    VideoQuality_ItemSource, // New Items List
-                    (string)mainwindow.cboVideoQuality.SelectedItem); // Selected Item
+                // Encode Speed
+                vm.VideoEncodeSpeed_Items = WebP.encodeSpeed;
 
-
-                // --------------------------------------------------
                 // Pass
-                // --------------------------------------------------
-                // -------------------------
-                // Change ItemSource
-                // -------------------------
-                Pass_ItemSource = new List<string>()
-                {
-                    "1 Pass"
-                };
+                vm.Pass_Items = WebP.pass;
 
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboPass, // ComboBox
-                    Pass_ItemSource, // New Items List
-                    "1 Pass"); // Selected Item
+                // Quality Items
+                vm.VideoQuality_Items = WebP.quality;
 
+                // Pixel Format
+                vm.PixelFormat_SelectedItem = WebP.pixfmt;
 
-                // --------------------------------------------------
+                // Framerate
+                vm.FPS_SelectedItem = WebP.fps;
+
                 // Optimize
-                // --------------------------------------------------
-                // -------------------------
-                // Change ItemSource
-                // -------------------------
-                Optimize_ItemSource = new List<string>()
-                {
-                    "None"
-                };
+                vm.Video_Optimize_Items = WebP.optimize;
+                // Tune
+                vm.Optimize_Tune_Items = WebP.tune;
+                // Profile
+                vm.Optimize_Profile_Items = WebP.profile;
+                // Level
+                vm.Optimize_Level_Items = WebP.level;
 
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboOptimize, // ComboBox
-                    Optimize_ItemSource, // New Items List
-                    "None"); // Selected Item
+                // Checked
+                WebP.controlsChecked(vm);
 
-
-                // --------------------------------------------------
-                // Controls
-                // --------------------------------------------------
-                // -------------------------
                 // Enabled
-                // -------------------------
-                List<Control> Controls_Enabled = new List<Control>()
-                {
-                    // Video Quality ComboBox
-                    mainwindow.cboVideoQuality,
-                    // Scaling ComboBox
-                    mainwindow.cboScaling
-                };
+                WebP.controlsEnable(vm);
 
-                // Enable
-                for (int i = 0; i < Controls_Enabled.Count; i++)
-                {
-                    Controls_Enabled[i].IsEnabled = true;
-                }
-
-                // -------------------------
                 // Disabled
-                // -------------------------
-                List<Control> Controls_Disabled = new List<Control>()
-                {
-                    // Speed ComboBox
-                    mainwindow.cboSpeed,
-                    // CRF Custom Textbox
-                    mainwindow.crfCustom,
-                    // Pass ComboBox
-                    mainwindow.cboPass,
-                    // FPS ComboBox
-                    mainwindow.cboFPS,
-                    // Optimize ComboBox
-                    mainwindow.cboOptimize,
-                };
-
-                // Disable
-                for (int i = 0; i < Controls_Disabled.Count; i++)
-                {
-                    Controls_Disabled[i].IsEnabled = false;
-                }
+                WebP.controlsDisable(vm);
             }
 
-
-            // --------------------------------------------------
+            // -------------------------
             // Copy
-            // --------------------------------------------------
-            else if ((string)mainwindow.cboVideoCodec.SelectedItem == "Copy")
+            // -------------------------
+            else if (selectedCodec == "Copy")
             {
-                // -------------------------
-                // Video
-                // -------------------------
-                // -------------------------
-                // Change ItemSource
-                // -------------------------
-                List<string> VideoQuality_ItemSource = new List<string>()
-                {
-                    "Auto",
-                    "Lossless",
-                    "Ultra",
-                    "High",
-                    "Medium",
-                    "Low",
-                    "Sub",
-                    "Custom"
-                };
+                // Codec
+                vm.VideoCodec_Command = VideoCopy.codec;
 
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboVideoQuality, // ComboBox
-                    VideoQuality_ItemSource, // New Items List
-                    "Auto"); // Selected Item
+                // Encode Speed
+                vm.VideoEncodeSpeed_Items = VideoCopy.encodeSpeed;
 
-
-                // --------------------------------------------------
                 // Pass
-                // --------------------------------------------------
-                // -------------------------
-                // Change ItemSource
-                // -------------------------
-                Pass_ItemSource = new List<string>()
-                {
-                    "auto"
-                };
+                vm.Pass_Items = VideoCopy.pass;
 
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboPass, // ComboBox
-                    Pass_ItemSource, // New Items List
-                    "auto"); // Selected Item
+                // Quality Items
+                vm.VideoQuality_Items = VideoCopy.quality;
 
+                // Pixel Format
+                vm.PixelFormat_SelectedItem = VideoCopy.pixfmt;
 
-                // --------------------------------------------------
+                // Framerate
+                vm.FPS_SelectedItem = VideoCopy.fps;
+
                 // Optimize
-                // --------------------------------------------------
-                // -------------------------
-                // Change ItemSource
-                // -------------------------
-                Optimize_ItemSource = new List<string>()
-                {
-                    "None"
-                };
+                vm.Video_Optimize_Items = VideoCopy.optimize;
+                // Tune
+                vm.Optimize_Tune_Items = VideoCopy.tune;
+                // Profile
+                vm.Optimize_Profile_Items = VideoCopy.profile;
+                // Level
+                vm.Optimize_Level_Items = VideoCopy.level;
 
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboOptimize, // ComboBox
-                    Optimize_ItemSource, // New Items List
-                    "None"); // Selected Item
+                // Checked
+                VideoCopy.controlsChecked(vm);
 
-
-                // --------------------------------------------------
-                // Controls
-                // --------------------------------------------------
-                // -------------------------
                 // Enabled
-                // -------------------------
-                List<Control> Controls_Enabled = new List<Control>()
-                {
-                    // Video Quality ComboBox
-                    mainwindow.cboVideoQuality,
-                };
+                VideoCopy.controlsEnable(vm);
 
-                // Enable
-                for (int i = 0; i < Controls_Enabled.Count; i++)
-                {
-                    Controls_Enabled[i].IsEnabled = true;
-                }
-
-                // -------------------------
                 // Disabled
-                // -------------------------
-                List<Control> Controls_Disabled = new List<Control>()
-                {
-                    // Speed ComboBox
-                    mainwindow.cboSpeed,
-                    // CRF Custom Textbox
-                    mainwindow.crfCustom,
-                    // Pass ComboBox
-                    mainwindow.cboPass,
-                    // FPS ComboBox
-                    mainwindow.cboFPS,
-                    // Optimize ComboBox
-                    mainwindow.cboOptimize,
-                    // Scaling ComboBox
-                    mainwindow.cboScaling
-                };
-
-                // Disable
-                for (int i = 0; i < Controls_Disabled.Count; i++)
-                {
-                    Controls_Disabled[i].IsEnabled = false;
-                }
+                VideoCopy.controlsDisable(vm);
             }
 
-            // --------------------------------------------------
+            // -------------------------
             // None
-            // --------------------------------------------------
-            else if ((string)mainwindow.cboVideoCodec.SelectedItem == "None")
+            // -------------------------
+            else if (selectedCodec == "None")
             {
-                // -------------------------
-                // Video
-                // -------------------------
-                // -------------------------
-                // Change ItemSource
-                // -------------------------
-                List<string> VideoQuality_ItemSource = new List<string>()
-                {
-                    "None"
-                };
+                // Codec
+                vm.VideoCodec_Command = VideoNone.codec;
 
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboVideoQuality, // ComboBox
-                    VideoQuality_ItemSource, // New Items List
-                    "None"); // Selected Item
+                // Encode Speed
+                vm.VideoEncodeSpeed_Items = VideoNone.encodeSpeed;
 
-
-                // --------------------------------------------------
                 // Pass
-                // --------------------------------------------------
-                // -------------------------
-                // Change ItemSource
-                // -------------------------
-                Pass_ItemSource = new List<string>()
-                {
-                    "auto"
-                };
+                vm.Pass_Items = VideoNone.pass;
 
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboPass, // ComboBox
-                    Pass_ItemSource, // New Items List
-                    "auto"); // Selected Item
+                // Quality Items
+                vm.VideoQuality_Items = VideoNone.quality;
 
+                // Pixel Format
+                vm.PixelFormat_SelectedItem = VideoNone.pixfmt;
 
-                // --------------------------------------------------
+                // Framerate
+                vm.FPS_SelectedItem = VideoNone.fps;
+
                 // Optimize
-                // --------------------------------------------------
-                // -------------------------
-                // Change ItemSource
-                // -------------------------
-                Optimize_ItemSource = new List<string>()
-                {
-                    "None"
-                };
+                vm.Video_Optimize_Items = VideoNone.optimize;
+                // Tune
+                vm.Optimize_Tune_Items = VideoNone.tune;
+                // Profile
+                vm.Optimize_Profile_Items = VideoNone.profile;
+                // Level
+                vm.Optimize_Level_Items = VideoNone.level;
 
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboOptimize, // ComboBox
-                    Optimize_ItemSource, // New Items List
-                    "None"); // Selected Item
+                // Checked
+                VideoNone.controlsChecked(vm);
 
-
-                // --------------------------------------------------
-                // Controls
-                // --------------------------------------------------
-                // -------------------------
                 // Enabled
-                // -------------------------
-                // None
+                VideoNone.controlsEnable(vm);
 
-                // -------------------------
                 // Disabled
-                // -------------------------
-                List<Control> Controls_Disabled = new List<Control>()
-                {
-                    // Video Quality ComboBox
-                    mainwindow.cboVideoQuality,
-                    // Speed ComboBox
-                    mainwindow.cboSpeed,
-                    // CRF Custom Textbox
-                    mainwindow.crfCustom,
-                    // Pass ComboBox
-                    mainwindow.cboPass,
-                    // FPS ComboBox
-                    mainwindow.cboFPS,
-                    // Optimize ComboBox
-                    mainwindow.cboOptimize,
-                    // Scaling ComboBox
-                    mainwindow.cboScaling
-                };
-
-                // Disable
-                for (int i = 0; i < Controls_Disabled.Count; i++)
-                {
-                    Controls_Disabled[i].IsEnabled = false;
-                }
+                VideoNone.controlsDisable(vm);
             }
 
+            // --------------------------------------------------
+            // Default Selected Item
+            // --------------------------------------------------
+            // Previous Items set in ViewModel _SelectedItem
 
-            // If Video ComboBox Null, Select Default Auto
-            else if (string.IsNullOrEmpty((string)mainwindow.cboVideoQuality.SelectedItem))
+            // -------------------------
+            // Video Encode Speed Selected Item
+            // -------------------------
+            if (!string.IsNullOrEmpty(vm.VideoEncodeSpeed_SelectedItem) &&
+                vm.VideoEncodeSpeed_SelectedItem != "None" &&
+                vm.VideoEncodeSpeed_SelectedItem != "none")
             {
-                mainwindow.cboVideoQuality.SelectedIndex = 0;
+                MainWindow.VideoEncodeSpeed_PreviousItem = vm.VideoEncodeSpeed_SelectedItem;
             }
 
-        } // End Video Codec Controls 
+            vm.VideoEncodeSpeed_SelectedItem = MainWindow.SelectedItem(vm.VideoEncodeSpeed_Items.Select(c => c.Name).ToList(),
+                                                                       MainWindow.VideoEncodeSpeed_PreviousItem
+                                                                       );
 
-
-
-        /// <summary>
-        ///     Video - Auto Codec Copy (Method)
-        /// <summary>
-        public static void AutoCopyVideoCodec(MainWindow mainwindow)
-        {
-            if (!string.IsNullOrEmpty(MainWindow.inputExt) || !string.IsNullOrEmpty(MainWindow.batchExt)) // Null Check
+            // -------------------------
+            // Video Quality Selected Item
+            // -------------------------
+            if (!string.IsNullOrEmpty(vm.VideoQuality_SelectedItem) &&
+                vm.VideoQuality_SelectedItem != "None" &&
+                vm.VideoQuality_SelectedItem != "none")
             {
-                // -------------------------
-                // Select Copy - Single
-                // -------------------------
-                // Input Extension is Same as Output Extension and Video Quality is Auto
-                if ((string)mainwindow.cboVideoQuality.SelectedItem == "Auto"
-                    && (string)mainwindow.cboSize.SelectedItem == "Source"
-                    && string.IsNullOrEmpty(CropWindow.crop)
-                    && (string)mainwindow.cboFPS.SelectedItem == "auto"
-                    && (string)mainwindow.cboPixelFormat.SelectedItem == "auto"
-                    && (string)mainwindow.cboOptimize.SelectedItem == "None"
-                    && (string)mainwindow.cboScaling.SelectedItem == "default"
+                MainWindow.VideoQuality_PreviousItem = vm.VideoQuality_SelectedItem;
+            }
 
-                    // Filters
-                    // Fix
-                    && (string)mainwindow.cboFilterVideo_Deband.SelectedItem == "disabled"
-                    && (string)mainwindow.cboFilterVideo_Deshake.SelectedItem == "disabled"
-                    && (string)mainwindow.cboFilterVideo_Deflicker.SelectedItem == "disabled"
-                    && (string)mainwindow.cboFilterVideo_Dejudder.SelectedItem == "disabled"
-                    && (string)mainwindow.cboFilterVideo_Denoise.SelectedItem == "disabled"
-                    // Selective Color
-                    // Reds
-                    && mainwindow.slFiltersVideo_SelectiveColor_Reds_Cyan.Value == 0
-                    && mainwindow.slFiltersVideo_SelectiveColor_Reds_Magenta.Value == 0
-                    && mainwindow.slFiltersVideo_SelectiveColor_Reds_Yellow.Value == 0
-                    // Yellows
-                    && mainwindow.slFiltersVideo_SelectiveColor_Yellows_Cyan.Value == 0
-                    && mainwindow.slFiltersVideo_SelectiveColor_Yellows_Magenta.Value == 0
-                    && mainwindow.slFiltersVideo_SelectiveColor_Yellows_Yellow.Value == 0
-                    // Greens
-                    && mainwindow.slFiltersVideo_SelectiveColor_Greens_Cyan.Value == 0
-                    && mainwindow.slFiltersVideo_SelectiveColor_Greens_Magenta.Value == 0
-                    && mainwindow.slFiltersVideo_SelectiveColor_Greens_Yellow.Value == 0
-                    // Cyans
-                    && mainwindow.slFiltersVideo_SelectiveColor_Cyans_Cyan.Value == 0
-                    && mainwindow.slFiltersVideo_SelectiveColor_Cyans_Magenta.Value == 0
-                    && mainwindow.slFiltersVideo_SelectiveColor_Cyans_Yellow.Value == 0
-                    // Blues
-                    && mainwindow.slFiltersVideo_SelectiveColor_Blues_Cyan.Value == 0
-                    && mainwindow.slFiltersVideo_SelectiveColor_Blues_Magenta.Value == 0
-                    && mainwindow.slFiltersVideo_SelectiveColor_Blues_Yellow.Value == 0
-                    // Magentas
-                    && mainwindow.slFiltersVideo_SelectiveColor_Magentas_Cyan.Value == 0
-                    && mainwindow.slFiltersVideo_SelectiveColor_Magentas_Magenta.Value == 0
-                    && mainwindow.slFiltersVideo_SelectiveColor_Magentas_Yellow.Value == 0
-                    // Whites
-                    && mainwindow.slFiltersVideo_SelectiveColor_Whites_Cyan.Value == 0
-                    && mainwindow.slFiltersVideo_SelectiveColor_Whites_Magenta.Value == 0
-                    && mainwindow.slFiltersVideo_SelectiveColor_Whites_Yellow.Value == 0
-                    // Neutrals
-                    && mainwindow.slFiltersVideo_SelectiveColor_Neutrals_Cyan.Value == 0
-                    && mainwindow.slFiltersVideo_SelectiveColor_Neutrals_Magenta.Value == 0
-                    && mainwindow.slFiltersVideo_SelectiveColor_Neutrals_Yellow.Value == 0
-                    // Blacks
-                    && mainwindow.slFiltersVideo_SelectiveColor_Blacks_Cyan.Value == 0
-                    && mainwindow.slFiltersVideo_SelectiveColor_Blacks_Magenta.Value == 0
-                    && mainwindow.slFiltersVideo_SelectiveColor_Blacks_Yellow.Value == 0
+            vm.VideoQuality_SelectedItem = MainWindow.SelectedItem(vm.VideoQuality_Items.Select(c => c.Name).ToList(),
+                                                                   MainWindow.VideoQuality_PreviousItem
+                                                                   );
 
-                    // EQ
-                    && mainwindow.slFiltersVideo_EQ_Brightness.Value == 0
-                    && mainwindow.slFiltersVideo_EQ_Contrast.Value == 0
-                    && mainwindow.slFiltersVideo_EQ_Saturation.Value == 0
-                    && mainwindow.slFiltersVideo_EQ_Gamma.Value == 0
+            // -------------------------
+            // Video Pass Selected Item
+            // -------------------------
+            //if (!string.IsNullOrEmpty(vm.Pass_SelectedItem))
+            //{
+            //    MainWindow.VideoEncodeSpeed_PreviousItem = vm.Pass_SelectedItem;
+            //}
 
-                    // Extension Match
-                    && string.Equals(MainWindow.inputExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase)
-                    )
-                {
-                    //// -------------------------
-                    //// Insert Copy if Does Not Contain
-                    //// -------------------------
-                    //if (!VideoCodecItemSource.Contains("Copy"))
-                    //{
-                    //    VideoCodecItemSource.Insert(0, "Copy");
-                    //}
-                    //// Populate ComboBox from ItemSource
-                    //mainwindow.cboVideoCodec.ItemsSource = VideoCodecItemSource;
+            //vm.Pass_SelectedItem = MainWindow.SelectedItem(vm.Pass_Items,
+            //                                               MainWindow.Pass_PreviousItem
+            //                                               );
 
-                    //System.Windows.MessageBox.Show(string.Join("\n", vm.cboVideoCodec_Items)); //debug
-
-                    // -------------------------
-                    // Set Video Codec Combobox Selected Item to Copy
-                    // -------------------------
-                    //if (vm.cboVideoCodec_Items.Count > 0)
-                    if (VideoCodec_ItemSource.Count > 0)
-                    {
-                        if (VideoCodec_ItemSource.Contains("Copy"))
-                        {
-                            mainwindow.cboVideoCodec.SelectedItem = "Copy";
-
-                            //System.Windows.MessageBox.Show("Copy"); //debug
-
-                            //return;
-                        }
-                    }
-                }
-
-                // -------------------------
-                // Select Copy - Batch
-                // -------------------------
-                else if ((string)mainwindow.cboVideoQuality.SelectedItem == "Auto" &&
-                         (string)mainwindow.cboSize.SelectedItem == "Source" &&
-                         string.IsNullOrEmpty(CropWindow.crop) &&
-                         (string)mainwindow.cboFPS.SelectedItem == "auto" &&
-                         (string)mainwindow.cboOptimize.SelectedItem == "None" &&
-
-                         // Batch Extension Match
-                         mainwindow.tglBatch.IsChecked == true &&
-                         string.Equals(MainWindow.batchExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase)
-                    )
-                {
-                    //// -------------------------
-                    //// Insert Copy if Does Not Contain
-                    //// -------------------------
-                    //if (!VideoCodecItemSource.Contains("Copy"))
-                    //{
-                    //    VideoCodecItemSource.Insert(0, "Copy");
-                    //}
-                    //// Populate ComboBox from ItemSource
-                    //mainwindow.cboVideoCodec.ItemsSource = VideoCodecItemSource;
-
-                    // -------------------------
-                    // Set Video Codec Combobox Selected Item to Copy
-                    // -------------------------
-                    if (VideoCodec_ItemSource.Count > 0)
-                    {
-                        if (VideoCodec_ItemSource.Contains("Copy"))
-                        {
-                            mainwindow.cboVideoCodec.SelectedItem = "Copy";
-
-                            //return;
-                        }
-                    }
-                }
-
-                // -------------------------
-                // Reset to Default Codec
-                // -------------------------
-                else
-                {
-                    // -------------------------
-                    // Disable Copy if:
-                    // Input / Output Extensions don't match
-                    // Batch / Output Extensions don't match
-                    // Size is Not No
-                    // Crop is Not Empty
-                    // FPS is Not Auto
-                    // Optimize is Not None
-                    // -------------------------
-                    // -------------------------
-                    // Null Check
-                    // -------------------------
-                    if (!string.IsNullOrEmpty((string)mainwindow.cboVideoQuality.SelectedItem))
-                    {
-                        // -------------------------
-                        // Copy Selected
-                        // -------------------------
-                        if ((string)mainwindow.cboVideoCodec.SelectedItem == "Copy")
-                        {
-                            // -------------------------
-                            // Switch back to format's default codec
-                            // -------------------------
-                            if (!string.Equals(MainWindow.inputExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase)
-                                || !string.Equals(MainWindow.batchExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase)
-                                )
-                            {
-                                // -------------------------
-                                // WebM
-                                // -------------------------
-                                if ((string)mainwindow.cboFormat.SelectedItem == "webm")
-                                {
-                                    mainwindow.cboVideoCodec.SelectedItem = "VP8";
-                                }
-                                // -------------------------
-                                // MP4
-                                // -------------------------
-                                else if ((string)mainwindow.cboFormat.SelectedItem == "mp4")
-                                {
-                                    mainwindow.cboVideoCodec.SelectedItem = "x264";
-                                }
-                                // -------------------------
-                                // MKV
-                                // -------------------------
-                                else if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
-                                {
-                                    mainwindow.cboVideoCodec.SelectedItem = "x264";
-                                }
-                                // -------------------------
-                                // MPG
-                                // -------------------------
-                                else if ((string)mainwindow.cboFormat.SelectedItem == "mpg")
-                                {
-                                    mainwindow.cboVideoCodec.SelectedItem = "MPEG-2";
-                                }
-                                // -------------------------
-                                // AVI
-                                // -------------------------
-                                else if ((string)mainwindow.cboFormat.SelectedItem == "avi")
-                                {
-                                    mainwindow.cboVideoCodec.SelectedItem = "MPEG-4";
-                                }
-                                // -------------------------
-                                // OGV
-                                // -------------------------
-                                else if ((string)mainwindow.cboFormat.SelectedItem == "ogv")
-                                {
-                                    mainwindow.cboVideoCodec.SelectedItem = "Theora";
-                                }
-                                // -------------------------
-                                // JPG
-                                // -------------------------
-                                else if ((string)mainwindow.cboFormat.SelectedItem == "jpg")
-                                {
-                                    mainwindow.cboVideoCodec.SelectedItem = "JPEG";
-                                }
-                                // -------------------------
-                                // PNG
-                                // -------------------------
-                                else if ((string)mainwindow.cboFormat.SelectedItem == "png")
-                                {
-                                    mainwindow.cboVideoCodec.SelectedItem = "PNG";
-                                }
-                                // -------------------------
-                                // WebP
-                                // -------------------------
-                                else if ((string)mainwindow.cboFormat.SelectedItem == "webp")
-                                {
-                                    mainwindow.cboVideoCodec.SelectedItem = "WebP";
-                                }
-                            }
-                        }
-                    }
-
-                } // End Disable Copy
-
-            } // End Input / Batch Null Check
-
-        } // End AutoCopyVideoCodec
-
-
-        /// <summary>
-        ///     Subtitle - Auto Codec Copy (Method)
-        /// <summary>
-        public static void AutoCopySubtitleCodec(MainWindow mainwindow)
-        {
-            if (!string.IsNullOrEmpty(MainWindow.inputExt) || !string.IsNullOrEmpty(MainWindow.batchExt)) // Null Check
+            // -------------------------
+            // Video Optimize Selected Item
+            // -------------------------
+            if (!string.IsNullOrEmpty(vm.Video_Optimize_SelectedItem) &&
+                vm.Video_Optimize_SelectedItem != "None" &&
+                vm.Video_Optimize_SelectedItem != "none")
             {
-                // -------------------------
-                // Select Copy - Single
-                // -------------------------
-                // Input Extension is Same as Output Extension and Subtitle Quality is Auto
-                if ((string)mainwindow.cboVideoQuality.SelectedItem == "Auto"
-                    && (string)mainwindow.cboSize.SelectedItem == "Source"
-                    && string.IsNullOrEmpty(CropWindow.crop)
-                    && (string)mainwindow.cboFPS.SelectedItem == "auto"
-                    && (string)mainwindow.cboOptimize.SelectedItem == "None"
+                MainWindow.VideoOptimize_PreviousItem = vm.Video_Optimize_SelectedItem;
+            }
 
-                    // Extension Match
-                    && string.Equals(MainWindow.inputExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase)
-                    )
-                {
-                    //// -------------------------
-                    //// Insert Copy if Does Not Contain
-                    //// -------------------------
-                    //if (!SubtitleCodecItemSource.Contains("Copy"))
-                    //{
-                    //    SubtitleCodecItemSource.Insert(0, "Copy");
-                    //}
-                    //// Populate ComboBox from ItemSource
-                    //mainwindow.cboSubtitleCodec.ItemsSource = SubtitleCodecItemSource;
+            vm.Video_Optimize_SelectedItem = MainWindow.SelectedItem(vm.Video_Optimize_Items.Select(c => c.Name).ToList(),
+                                                                     MainWindow.VideoOptimize_PreviousItem
+                                                                     );
+        }
 
-                    // -------------------------
-                    // Set Subtitle Codec Combobox Selected Item to Copy
-                    // -------------------------
-                    if (SubtitleCodec_ItemSource.Count > 0)
-                    {
-                        if (SubtitleCodec_ItemSource.Contains("Copy"))
-                        {
-                            mainwindow.cboSubtitleCodec.SelectedItem = "Copy";
-
-                            //return;
-                        }
-                    }
-                }
-
-                // -------------------------
-                // Select Copy - Batch
-                // -------------------------
-                else if ((string)mainwindow.cboVideoQuality.SelectedItem == "Auto"
-                    && (string)mainwindow.cboSize.SelectedItem == "Source"
-                    && string.IsNullOrEmpty(CropWindow.crop)
-                    && (string)mainwindow.cboFPS.SelectedItem == "auto"
-                    && (string)mainwindow.cboOptimize.SelectedItem == "None"
-
-                    // Batch Extension Match
-                    && mainwindow.tglBatch.IsChecked == true
-                    && string.Equals(MainWindow.batchExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase)
-                    )
-                {
-                    //// -------------------------
-                    //// Insert Copy if Does Not Contain
-                    //// -------------------------
-                    //if (!SubtitleCodecItemSource.Contains("Copy"))
-                    //{
-                    //    SubtitleCodecItemSource.Insert(0, "Copy");
-                    //}
-                    //// Populate ComboBox from ItemSource
-                    //mainwindow.cboSubtitleCodec.ItemsSource = SubtitleCodecItemSource;
-
-                    // -------------------------
-                    // Set Subtitle Codec Combobox Selected Item to Copy
-                    // -------------------------
-                    if (SubtitleCodec_ItemSource.Count > 0)
-                    {
-                        if (SubtitleCodec_ItemSource.Contains("Copy"))
-                        {
-                            mainwindow.cboSubtitleCodec.SelectedItem = "Copy";
-
-                            //return;
-                        }
-                    }
-                }
-
-                // -------------------------
-                // Reset to Default Codec
-                // -------------------------
-                else
-                {
-                    // -------------------------
-                    // Disable Copy if:
-                    // Input / Output Extensions don't match
-                    // Batch / Output Extensions don't match
-                    // Size is Not No
-                    // Crop is Not Empty
-                    // FPS is Not Auto
-                    // Optimize is Not None
-                    // -------------------------
-                    // -------------------------
-                    // Null Check
-                    // -------------------------
-                    if (!string.IsNullOrEmpty((string)mainwindow.cboSubtitlesStream.SelectedItem))
-                    {
-                        // -------------------------
-                        // Copy Selected 
-                        // -------------------------
-                        if ((string)mainwindow.cboSubtitleCodec.SelectedItem == "Copy")
-                        {
-                            // -------------------------
-                            // Switch back to format's default codec
-                            // -------------------------
-                            if (!string.Equals(MainWindow.inputExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase)
-                                || !string.Equals(MainWindow.batchExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase))
-                            {
-                                // -------------------------
-                                // WebM
-                                // -------------------------
-                                if ((string)mainwindow.cboFormat.SelectedItem == "webm")
-                                {
-                                    mainwindow.cboSubtitleCodec.SelectedItem = "None";
-                                }
-                                // -------------------------
-                                // MP4
-                                // -------------------------
-                                else if ((string)mainwindow.cboFormat.SelectedItem == "mp4")
-                                {
-                                    mainwindow.cboSubtitleCodec.SelectedItem = "mov_text";
-                                }
-                                // -------------------------
-                                // MKV
-                                // -------------------------
-                                else if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
-                                {
-                                    mainwindow.cboSubtitleCodec.SelectedItem = "Copy";
-                                }
-                                // -------------------------
-                                // MPG
-                                // -------------------------
-                                else if ((string)mainwindow.cboFormat.SelectedItem == "mpg")
-                                {
-                                    mainwindow.cboSubtitleCodec.SelectedItem = "Copy";
-                                }
-                                // -------------------------
-                                // AVI
-                                // -------------------------
-                                else if ((string)mainwindow.cboFormat.SelectedItem == "avi")
-                                {
-                                    mainwindow.cboSubtitleCodec.SelectedItem = "SRT";
-                                }
-                                // -------------------------
-                                // OGV
-                                // -------------------------
-                                else if ((string)mainwindow.cboFormat.SelectedItem == "ogv")
-                                {
-                                    mainwindow.cboSubtitleCodec.SelectedItem = "None";
-                                }
-                                // -------------------------
-                                // JPG
-                                // -------------------------
-                                else if ((string)mainwindow.cboFormat.SelectedItem == "jpg")
-                                {
-                                    mainwindow.cboSubtitleCodec.SelectedItem = "None";
-                                }
-                                // -------------------------
-                                // PNG
-                                // -------------------------
-                                else if ((string)mainwindow.cboFormat.SelectedItem == "png")
-                                {
-                                    mainwindow.cboSubtitleCodec.SelectedItem = "None";
-                                }
-                                // -------------------------
-                                // WebP
-                                // -------------------------
-                                else if ((string)mainwindow.cboFormat.SelectedItem == "webp")
-                                {
-                                    mainwindow.cboSubtitleCodec.SelectedItem = "None";
-                                }
-                            }
-                        }
-                    }
-                }
-
-            } // End Input / Batch Null Check
-
-        } // End AutoCopySubtitleCodec
 
 
         /// <summary>
-        ///     Video Quality Controls (Method)
+        ///    Bitrate Display
         /// </summary>
-        public static void VideoQualityControls(MainWindow mainwindow)
+        public static void VideoBitrateDisplay(ViewModel vm,
+                                               List<ViewModel.VideoQuality> items,
+                                               string selectedQuality,
+                                               string selectedPass)
         {
-            // -------------------------
-            // MPEG-2 / MPEG-4 Lossless (Special Rules)
-            // -------------------------
-            if ((string)mainwindow.cboVideoCodec.SelectedItem == "MPEG-2"
-                || (string)mainwindow.cboVideoCodec.SelectedItem == "MPEG-4")
+            // Condition Check
+            if (!string.IsNullOrEmpty(vm.VideoQuality_SelectedItem) &&
+                vm.VideoQuality_SelectedItem != "Auto" &&
+                vm.VideoQuality_SelectedItem != "Lossless" &&
+                vm.VideoQuality_SelectedItem != "Custom" &&
+                vm.VideoQuality_SelectedItem != "None")
             {
                 // -------------------------
-                // Lossless is VBR -q:v 2
-                // VBR can only be 1 Pass
+                // Display in TextBox
                 // -------------------------
-                if ((string)mainwindow.cboVideoQuality.SelectedItem == "Lossless")
+
+                // -------------------------
+                // auto
+                // -------------------------
+                if (selectedPass == "auto")
                 {
-                    // Change ItemSource
-                    Pass_ItemSource = new List<string>()
-                    {
-                        "1 Pass",
-                    };
-
-                    //Change Item Source
-                    if (Pass_ItemSource.Count > 0)
-                    {
-                        Pass_ItemSource.Clear();
-                    }
-
-                    //Pass_ItemSource.ForEach(ViewModel._cboVideoPass_Items.Add);
-
-                    for (int i = 0; i < Pass_ItemSource.Count; i++)
-                    {
-                        Pass_ItemSource.Add(Pass_ItemSource[i]);
-                    }
-
-                    // Select Item
-                    mainwindow.cboPass.SelectedItem = "1 Pass";
+                    vm.CRF_Text = string.Empty;
+                    vm.VideoBitrate_Text = string.Empty;
+                    vm.VideoMinrate_Text = string.Empty;
+                    vm.VideoMaxrate_Text = string.Empty;
+                    vm.VideoBufsize_Text = string.Empty;
                 }
 
                 // -------------------------
-                // High, Medium, Low, Sub is CBR/VBR
-                // CBR can be 1 Pass or 2 Pass
+                // CRF
                 // -------------------------
-                else
+                else if (selectedPass == "CRF")
                 {
-                    // Change ItemSource
-                    Pass_ItemSource = new List<string>()
-                    {
-                        "1 Pass",
-                        "2 Pass",
-                    };
+                    // VP8/VP9 CRF is combined with Bitrate e.g. -b:v 2000K -crf 16
+                    // Other Codecs just use CRF
 
-                    // Populate ComboBox from ItemSource
-                    mainwindow.cboPass.ItemsSource = Pass_ItemSource;
+                    // CRF Bitrate
+                    vm.VideoBitrate_Text = items.FirstOrDefault(item => item.Name == selectedQuality) ?.CRF_Bitrate;
+
+                    // CRF
+                    vm.CRF_Text = items.FirstOrDefault(item => item.Name == selectedQuality)?.CRF;
+                }
+
+                // -------------------------
+                // Bitrate
+                // -------------------------
+                else if (selectedPass == "1 Pass" ||
+                         selectedPass == "2 Pass")
+                {
+                    // CRF
+                    vm.CRF_Text = string.Empty;
+
+                    // Bitrate CBR
+                    if (vm.VideoVBR_IsChecked == false)
+                    {
+                        vm.VideoBitrate_Text = items.FirstOrDefault(item => item.Name == selectedQuality) ?.CBR;
+                    }
+
+                    // Bitrate VBR
+                    else if (vm.VideoVBR_IsChecked == true)
+                    {
+                        vm.VideoBitrate_Text = items.FirstOrDefault(item => item.Name == selectedQuality) ?.VBR;
+                    }
+
+                    // Minrate
+                    vm.VideoMinrate_Text = items.FirstOrDefault(item => item.Name == selectedQuality) ?.Minrate;
+
+                    // Maxrate
+                    vm.VideoMaxrate_Text = items.FirstOrDefault(item => item.Name == selectedQuality) ?.Maxrate;
+
+                    // Bufsize
+                    vm.VideoBufsize_Text = items.FirstOrDefault(item => item.Name == selectedQuality) ?.Bufsize;
                 }
             }
         }
 
 
         /// <summary>
-        /// Pass Controls (Method)
+        ///     Quality Controls
         /// <summary>
-        public static void EncodingPass(MainWindow mainwindow)
+        public static void QualityControls(ViewModel vm)
         {
             // -------------------------
-            // Encoding Pass ComboBox Custom
+            // Enable / Disable
             // -------------------------
-            if ((string)mainwindow.cboVideoQuality.SelectedItem == "Custom")
-            {
-                // -------------------------
-                // Disable CRF TextBox if 1 Pass or 2 Pass
-                // -------------------------
-                if ((string)mainwindow.cboPass.SelectedItem == "1 Pass" ||
-                    (string)mainwindow.cboPass.SelectedItem == "2 Pass")
-                {
-                    mainwindow.crfCustom.IsEnabled = false;
-                    mainwindow.cboPass.IsEnabled = true;
 
-                    // Set CRF back to Default value
-                    //mainwindow.crfCustom.Text = "CRF";
-                    mainwindow.crfCustom.Text = string.Empty;
+            // -------------------------
+            // Custom
+            // -------------------------
+            if (vm.VideoQuality_SelectedItem == "Custom")
+            {
+                // Enable and Clear Bitrate Text Display
+
+                // Pass
+                vm.Pass_IsEnabled = true;
+
+                // CRF
+                if (vm.VideoCodec_SelectedItem != "JPEG" || // Special Rule
+                    vm.VideoCodec_SelectedItem != "PNG" ||
+                    vm.VideoCodec_SelectedItem != "WebP"
+                    ) 
+                {
+                    vm.CRF_IsEnabled = true;
+                }
+                vm.CRF_Text = "";
+
+                // Bitrate
+                vm.VideoBitrate_IsEnabled = true;
+                vm.VideoBitrate_Text = "";
+
+                // VBR
+                vm.VideoVBR_IsEnabled = true;
+
+                // Minrate
+                vm.VideoMinrate_IsEnabled = true;
+                vm.VideoMinrate_Text = "";
+
+                // Maxrate
+                vm.VideoMaxrate_IsEnabled = true;
+                vm.VideoMaxrate_Text = "";
+
+                // Bufsize
+                vm.VideoBufsize_IsEnabled = true;
+                vm.VideoBufsize_Text = "";
+
+                // Size
+                vm.Size_IsEnabled = true;
+            }
+
+            // -------------------------
+            // Auto
+            // -------------------------
+            else if (vm.VideoQuality_SelectedItem == "Auto")
+            {
+                // Disable and Clear Bitrate Text Dispaly
+
+                // Pass
+                vm.Pass_IsEnabled = false;
+
+                // CRF
+                vm.CRF_IsEnabled = false;
+                vm.CRF_Text = "";
+
+                // Bitrate
+                vm.VideoBitrate_IsEnabled = false;
+                vm.VideoBitrate_Text = "";
+
+                // VBR
+                vm.VideoVBR_IsEnabled = false;
+
+                // Minrate
+                vm.VideoMinrate_IsEnabled = false;
+                vm.VideoMinrate_Text = "";
+
+                // Maxrate
+                vm.VideoMaxrate_IsEnabled = false;
+                vm.VideoMaxrate_Text = "";
+
+                // Bufsize
+                vm.VideoBufsize_IsEnabled = false;
+                vm.VideoBufsize_Text = "";
+
+                // Size
+                vm.Size_IsEnabled = true;
+            }
+
+            // -------------------------
+            // None
+            // -------------------------
+            else if (vm.VideoQuality_SelectedItem == "None")
+            {
+                // Bitrate Text is Displayed through VideoBitrateDisplay()
+
+                // Pass
+                vm.Pass_IsEnabled = false; 
+
+                // CRF
+                vm.CRF_IsEnabled = false;
+
+                // Bitrate
+                vm.VideoBitrate_IsEnabled = false;
+                // VBR
+                vm.VideoVBR_IsEnabled = false;
+                // Minrate
+                vm.VideoMinrate_IsEnabled = false;
+                // Maxrate
+                vm.VideoMaxrate_IsEnabled = false;
+                // Bufsize
+                vm.VideoBufsize_IsEnabled = false;
+
+                // Size
+                vm.Size_IsEnabled = false;
+            }
+
+            // -------------------------
+            // Empty
+            // -------------------------
+            //else if (string.IsNullOrEmpty(vm.VideoQuality_SelectedItem))
+            //{
+            //    // Bitrate Text is Displayed through VideoBitrateDisplay()
+
+            //    // Pass
+            //    vm.Pass_IsEnabled = false;
+
+            //    // CRF
+            //    vm.CRF_IsEnabled = false;
+
+            //    // Bitrate
+            //    vm.VideoBitrate_IsEnabled = false;
+            //    // VBR
+            //    vm.VideoVBR_IsEnabled = false;
+            //    // Minrate
+            //    vm.VideoMinrate_IsEnabled = false;
+            //    // Maxrate
+            //    vm.VideoMaxrate_IsEnabled = false;
+            //    // Bufsize
+            //    vm.VideoBufsize_IsEnabled = false;
+
+            //    // Size
+            //    vm.Size_IsEnabled = false;
+            //}
+
+            // -------------------------
+            // All Other Qualities
+            // -------------------------
+            else
+            {
+                // Bitrate Text is Displayed through VideoBitrateDisplay()
+
+                // Pass
+                vm.Pass_IsEnabled = true; // always enabled
+
+                // CRF
+                vm.CRF_IsEnabled = false;
+
+                // Bitrate
+                vm.VideoBitrate_IsEnabled = false;
+
+                // VBR
+                if (vm.VideoCodec_SelectedItem == "AV1" || // special rules
+                    //vm.VideoCodec_SelectedItem == "VP9" ||
+                    vm.VideoCodec_SelectedItem == "Copy" ||
+                    vm.VideoCodec_SelectedItem == "None") 
+                {
+                    vm.VideoVBR_IsEnabled = false;
+                }
+                else
+                {
+                    vm.VideoVBR_IsEnabled = true;
                 }
 
-                // -------------------------
-                // Enable CRF TextBox if CRF
-                // -------------------------
-                if ((string)mainwindow.cboPass.SelectedItem == "CRF")
-                {
-                    mainwindow.crfCustom.IsEnabled = true;
-                    mainwindow.cboPass.IsEnabled = true;
+                // Minrate
+                vm.VideoMinrate_IsEnabled = false;
 
-                    // Theora - Special Rule
-                    if ((string)mainwindow.cboVideoCodec.SelectedItem == "Theora")
+                // Maxrate
+                vm.VideoMaxrate_IsEnabled = false;
+
+                // Bufsize
+                vm.VideoBufsize_IsEnabled = false;
+
+                // Size
+                vm.Size_IsEnabled = true;
+
+                // -------------------------
+                // Pass - Default to CRF
+                // -------------------------
+                // Keep in Video SelectionChanged
+                // If Video Not Auto and User Willingly Selected Pass is false
+
+                // Check if CRF Exists in ComboBox
+                if (vm.Pass_Items?.Contains("CRF") == true)
+                {
+                    if (passUserSelected == false)
                     {
-                        mainwindow.crfCustom.IsEnabled = false;
-                        mainwindow.cboPass.IsEnabled = true;
+                        vm.Pass_SelectedItem = "CRF";
                     }
                 }
-            }
-
-
-            // -------------------------
-            // Encoding Pass ComboBox - Auto
-            // -------------------------
-            if ((string)mainwindow.cboVideoQuality.SelectedItem == "Auto")
-            {
-                // -------------------------
-                // // If Auto Disable 2-Pass Always
-                // -------------------------
-                if ((string)mainwindow.cboPass.SelectedItem == "2 Pass")
+                // If does not contain, select first available (CRF or 1 Pass)
+                else
                 {
-                    mainwindow.cboPass.IsEnabled = false;
-
-                    // Reset the User willing selected bool
-                    passUserSelected = false;
+                    vm.Pass_SelectedItem = vm.Pass_Items.FirstOrDefault();
                 }
 
-                // -------------------------
-                // Set Pass ComboBox to 2-Pass and Disable 
-                // -------------------------
-                else if ((string)mainwindow.cboPass.SelectedItem != "2 Pass")
-                {
-                    mainwindow.cboPass.SelectedItem = "2 Pass";
-                    // Disable Pass ComboBox if 2-Pass
-                    mainwindow.cboPass.IsEnabled = false;
-                }
-            }
-
-            // -------------------------
-            // Encoding Pass ComboBox - Not Auto
-            // -------------------------
-            else if ((string)mainwindow.cboVideoQuality.SelectedItem != "Auto")
-            {
-                mainwindow.cboPass.IsEnabled = true;
             }
         }
 
 
         /// <summary>
-        ///     Pixel Format
+        ///     Pixel Format Controls
         /// </summary>
-        public static void PixelFormat(MainWindow mainwindow)
+        public static void PixelFormat(ViewModel vm)
         {
             // -------------------------
             // MediaType
             // -------------------------
-            if ((string)mainwindow.cboMediaType.SelectedItem == "Video"
-                || (string)mainwindow.cboMediaType.SelectedItem == "Image"
-                || (string)mainwindow.cboMediaType.SelectedItem == "Sequence")
+            if (vm.MediaType_SelectedItem == "Video" || 
+                vm.MediaType_SelectedItem == "Image" || 
+                vm.MediaType_SelectedItem == "Sequence")
             {
                 // -------------------------
                 // VP8
                 // -------------------------
-                if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8")
+                if (vm.VideoCodec_SelectedItem == "VP8")
                 {
-                    mainwindow.cboPixelFormat.IsEnabled = true;
-                    mainwindow.cboPixelFormat.SelectedItem = "yuv420p";
+                    vm.PixelFormat_IsEnabled = true;
+                    vm.PixelFormat_SelectedItem = "yuv420p";
+
+                    //// Auto
+                    //if (vm.VideoQuality_SelectedItem == "Auto")
+                    //{
+                    //    vm.PixelFormat_SelectedItem = "auto";
+                    //    //// Copy
+                    //    //if (vm.VideoCodec_SelectedItem == "Copy")
+                    //    //{
+                    //    //    vm.PixelFormat_SelectedItem = "auto";
+                    //    //}
+                    //    //// All Other Codecs
+                    //    //else
+                    //    //{
+                    //    //    vm.PixelFormat_SelectedItem = "yuv420p";
+                    //    //}
+                    //}
+                    //// All Other Quality
+                    //else
+                    //{
+                    //    vm.PixelFormat_SelectedItem = "yuv420p";
+                    //}
+
                     // VP8 Lossless Disabled
                 }
 
@@ -2189,28 +1025,40 @@ namespace Axiom
                 // AV1
                 // Theora
                 // -------------------------
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP9"
-                    || (string)mainwindow.cboVideoCodec.SelectedItem == "x264"
-                    || (string)mainwindow.cboVideoCodec.SelectedItem == "x265"
-                    || (string)mainwindow.cboVideoCodec.SelectedItem == "AV1"
-                    || (string)mainwindow.cboVideoCodec.SelectedItem == "Theora")
+                else if (vm.VideoCodec_SelectedItem == "VP9" || 
+                    vm.VideoCodec_SelectedItem == "x264" || 
+                    vm.VideoCodec_SelectedItem == "x265" || 
+                    vm.VideoCodec_SelectedItem == "AV1" ||
+                    vm.VideoCodec_SelectedItem == "Theora")
                 {
-                    mainwindow.cboPixelFormat.IsEnabled = true;
+                    vm.PixelFormat_IsEnabled = true;
 
                     // Lossless
-                    if ((string)mainwindow.cboVideoQuality.SelectedItem == "Lossless")
+                    if (vm.VideoQuality_SelectedItem == "Lossless")
                     {
-                        mainwindow.cboPixelFormat.SelectedItem = "yuv444p";
+                        vm.PixelFormat_SelectedItem = "yuv444p";
                     }
                     // Auto
-                    else if ((string)mainwindow.cboVideoQuality.SelectedItem == "Auto")
+                    else if (vm.VideoQuality_SelectedItem == "Auto")
                     {
-                        mainwindow.cboPixelFormat.SelectedItem = "auto";
+                        vm.PixelFormat_SelectedItem = "yuv420p";
+                        //vm.PixelFormat_SelectedItem = "auto";
+
+                        //// Copy
+                        //if (vm.VideoCodec_SelectedItem == "Copy")
+                        //{
+                        //    vm.PixelFormat_SelectedItem = "auto";
+                        //}
+                        //// All Other Codecs
+                        //else
+                        //{
+                        //    vm.PixelFormat_SelectedItem = "yuv420p";
+                        //}
                     }
                     // All Other Quality
                     else
                     {
-                        mainwindow.cboPixelFormat.SelectedItem = "yuv420p";
+                        vm.PixelFormat_SelectedItem = "yuv420p";
                     }
                 }
 
@@ -2218,65 +1066,65 @@ namespace Axiom
                 // MPEG-2
                 // MPEG-4
                 // -------------------------
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "MPEG-2"
-                    || (string)mainwindow.cboVideoCodec.SelectedItem == "MPEG-4")
+                else if (vm.VideoCodec_SelectedItem == "MPEG-2" || 
+                         vm.VideoCodec_SelectedItem == "MPEG-4")
                 {
-                    mainwindow.cboPixelFormat.IsEnabled = true;
+                    vm.PixelFormat_IsEnabled = true;
 
                     // Lossless can't be yuv444p
                     // All Pixel Formats yuv420p
-                    mainwindow.cboPixelFormat.SelectedItem = "yuv420p";
+                    vm.PixelFormat_SelectedItem = "yuv420p";
                 }
 
                 // -------------------------
                 // JPG
                 // -------------------------
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG")
+                else if (vm.VideoCodec_SelectedItem == "JPEG")
                 {
-                    mainwindow.cboPixelFormat.IsEnabled = true;
-                    mainwindow.cboPixelFormat.SelectedItem = "yuvj444p";
+                    vm.PixelFormat_IsEnabled = true;
+                    vm.PixelFormat_SelectedItem = "yuvj444p";
                 }
 
                 // -------------------------
                 // PNG
                 // -------------------------
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "PNG")
+                else if (vm.VideoCodec_SelectedItem == "PNG")
                 {
-                    mainwindow.cboPixelFormat.IsEnabled = true;
-                    mainwindow.cboPixelFormat.SelectedItem = "rgb24";
+                    vm.PixelFormat_IsEnabled = true;
+                    vm.PixelFormat_SelectedItem = "rgb24";
                 }
 
                 // -------------------------
                 // WebP
                 // -------------------------
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "WebP")
+                else if (vm.VideoCodec_SelectedItem == "WebP")
                 {
-                    mainwindow.cboPixelFormat.IsEnabled = true;
+                    vm.PixelFormat_IsEnabled = true;
 
                     // Lossless
-                    if ((string)mainwindow.cboVideoQuality.SelectedItem == "Lossless")
+                    if (vm.VideoQuality_SelectedItem == "Lossless")
                     {
-                        mainwindow.cboPixelFormat.SelectedItem = "bgra";
+                        vm.PixelFormat_SelectedItem = "bgra";
                     }
                     // Auto
-                    else if ((string)mainwindow.cboVideoQuality.SelectedItem == "Auto")
+                    else if (vm.VideoQuality_SelectedItem == "Auto")
                     {
-                        mainwindow.cboPixelFormat.SelectedItem = "auto";
+                        vm.PixelFormat_SelectedItem = "auto";
                     }
                     // All Other Quality
                     else
                     {
-                        mainwindow.cboPixelFormat.SelectedItem = "yuv420p";
+                        vm.PixelFormat_SelectedItem = "yuv420p";
                     }
                 }
 
                 // -------------------------
                 // Copy
                 // -------------------------
-                else if ((string)mainwindow.cboVideoCodec.SelectedItem == "Copy")
+                else if (vm.VideoCodec_SelectedItem == "Copy")
                 {
-                    mainwindow.cboPixelFormat.IsEnabled = false;
-                    mainwindow.cboPixelFormat.SelectedItem = "auto";
+                    //vm.PixelFormat_IsEnabled = false;
+                    //vm.PixelFormat_SelectedItem = "auto";
                 }
 
                 // -------------------------
@@ -2284,519 +1132,468 @@ namespace Axiom
                 // -------------------------
                 else
                 {
-                    mainwindow.cboPixelFormat.IsEnabled = false;
-                    mainwindow.cboPixelFormat.SelectedItem = "auto";
+                    vm.PixelFormat_IsEnabled = false;
+                    vm.PixelFormat_SelectedItem = "auto";
                 }
 
                 //// -------------------------
                 //// Auto
                 //// -------------------------
-                //if ((string)mainwindow.cboVideoQuality.SelectedItem == "Auto")
+                //if (vm.VideoQuality_SelectedItem == "Auto")
                 //{
-                //    mainwindow.cboPixelFormat.SelectedItem = "auto";
+                //    vm.PixelFormat_SelectedItem = "auto";
                 //}
             }
 
             // -------------------------
             // MediaType Audio
             // -------------------------
-            else if ((string)mainwindow.cboMediaType.SelectedItem == "Audio")
+            else if (vm.MediaType_SelectedItem == "Audio")
             {
-                mainwindow.cboPixelFormat.SelectedItem = "auto";
-                mainwindow.cboPixelFormat.IsEnabled = false;
+                vm.PixelFormat_SelectedItem = "auto";
+                vm.PixelFormat_IsEnabled = false;
             }
         }
 
 
+
         /// <summary>
-        ///    Optimize Controls
-        /// </summary>
-        public static void OptimizeControls(MainWindow mainwindow)
+        ///     Optimize Controls
+        /// <summary>
+        public static void OptimizeControls(ViewModel vm)
         {
-            // --------------------------------------------------
-            // Optimize ComboBox Items
-            // --------------------------------------------------
             // -------------------------
-            // x264
+            // Only for x264 & x265 Video Codecs
             // -------------------------
-            if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264")
+            if (vm.VideoCodec_SelectedItem == "x264" ||
+                vm.VideoCodec_SelectedItem == "x265")
             {
-                // Change ItemSource
+                // -------------------------
+                // Disable
+                // -------------------------
+                if (vm.Video_Optimize_SelectedItem == "None")
+                {
+                    // Tune
+                    vm.Optimize_Tune_IsEnabled = false;
+
+                    // Profile
+                    vm.Optimize_Profile_IsEnabled = false;
+
+                    // Level
+                    vm.Optimize_Level_IsEnabled = false;
+                }
 
                 // -------------------------
-                // Tune
+                // Enable
                 // -------------------------
-                Optimize_Tune_ItemSource = new List<string>()
+                // All Other Qualities
+                else
                 {
-                    "none",
-                    "film",
-                    "animation",
-                    "grain",
-                    "stillimage",
-                    "fastdecode",
-                    "zerolatency"
-                };
+                    // Tune
+                    vm.Optimize_Tune_IsEnabled = true;
 
-                // -------------------------
-                // Profile
-                // -------------------------
-                Optimize_Profile_ItemSource = new List<string>()
-                {
-                    "none",
-                    "baseline",
-                    "main",
-                    "high"
-                };
+                    // Profile
+                    vm.Optimize_Profile_IsEnabled = true;
 
-                // -------------------------
-                // Level
-                // -------------------------
-                Optimize_Level_ItemSource = new List<string>()
-                {
-                    "none",
-                    "1.0",
-                    "1.1",
-                    "1.2",
-                    "1.3",
-                    "2.0",
-                    "2.2",
-                    "2.2",
-                    "3.0",
-                    "3.1",
-                    "3.2",
-                    "4.0",
-                    "4.1",
-                    "4.2",
-                    "5.0",
-                    "5.1",
-                    "5.2"
-                };
+                    // Level
+                    vm.Optimize_Level_IsEnabled = true;
+                }
             }
 
             // -------------------------
-            // x265
-            // -------------------------
-            else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265")
-            {
-                // Change ItemSource
-
-                // -------------------------
-                // Tune
-                // -------------------------
-                Optimize_Tune_ItemSource = new List<string>()
-                {
-                    "none",
-                    "psnr",
-                    "ssim",
-                    "grain",
-                    "fastdecode",
-                    "zerolatency"
-                };
-
-                // -------------------------
-                // Profile
-                // -------------------------
-                Optimize_Profile_ItemSource = new List<string>()
-                {
-                    "none",
-                    "main",
-                    //"main-intra",
-                    "mainstillpicture",
-                    "main444-8",
-                    //"main444-intra",
-                    "main444-stillpicture",
-                    "main10",
-                    //"main10-intra",
-                    "main422-10",
-                    //"main422-10-intra",
-                    "main444-10",
-                    //"main444-10-intra",
-                    "main12",
-                    "main422-12",
-                    //"main422-12-intra",
-                    "main444-12",
-                    //"main444-12-intra",
-                };
-
-                // -------------------------
-                // Level
-                // -------------------------
-                Optimize_Level_ItemSource = new List<string>()
-                {
-                    "none",
-                    "1",
-                    "2",
-                    "2.1",
-                    "3",
-                    "3.1",
-                    "4",
-                    "4.1",
-                    "5",
-                    "5.1",
-                    "5.2",
-                    "6",
-                    "6.1",
-                    "6.2",
-                    "8.5",
-                };
-            }
-
-            // -------------------------
-            // All Other Codecs
+            // Disable Tune, Profile, Level if not x264 & x265
             // -------------------------
             else
             {
-                // Change ItemSource
-
-                // -------------------------
                 // Tune
-                // -------------------------
-                Optimize_Tune_ItemSource = new List<string>()
-                {
-                    "none"
-                };
+                vm.Optimize_Tune_IsEnabled = false;
 
-                // -------------------------
                 // Profile
+                vm.Optimize_Profile_IsEnabled = false;
+
+                // Level
+                vm.Optimize_Level_IsEnabled = false;
+            }
+
+
+            // -------------------------
+            // Select Controls
+            // -------------------------
+            // Tune
+            vm.Optimize_Tune_SelectedItem = vm.Video_Optimize_Items.FirstOrDefault(item => item.Name == vm.Video_Optimize_SelectedItem)?.Tune;
+            // Profile
+            vm.Optimize_Profile_SelectedItem = vm.Video_Optimize_Items.FirstOrDefault(item => item.Name == vm.Video_Optimize_SelectedItem)?.Profile;
+            // Level
+            vm.Optimize_Level_SelectedItem = vm.Video_Optimize_Items.FirstOrDefault(item => item.Name == vm.Video_Optimize_SelectedItem)?.Level;
+
+        }
+
+
+        /// <summary>
+        ///     Encoding Pass Controls
+        /// <summary>
+        public static void EncodingPass(ViewModel vm)
+        {
+            // --------------------------------------------------
+            // Encoding Pass ComboBox
+            // --------------------------------------------------
+
+            // -------------------------
+            // Auto
+            // -------------------------
+            if (vm.VideoQuality_SelectedItem == "Auto")
+            {
                 // -------------------------
-                Optimize_Profile_ItemSource = new List<string>()
+                // Check if 2-Pass Exists in ComboBox
+                // -------------------------
+                if (vm.Pass_Items?.Contains("2 Pass") == true)
                 {
-                    "none"
-                };
+                    // -------------------------
+                    // Disable 2-Pass Always
+                    // -------------------------
+                    if (vm.Pass_SelectedItem == "2 Pass")
+                    {
+                        vm.Pass_IsEnabled = false;
+
+                        // Reset the User willing selected bool
+                        passUserSelected = false;
+                    }
+                    // -------------------------
+                    // Select and Disable 2-Pass
+                    // -------------------------
+                    else
+                    {
+                        vm.Pass_SelectedItem = "2 Pass";
+                        // Disable Pass ComboBox if 2-Pass
+                        vm.Pass_IsEnabled = false;
+                    }
+                }
 
                 // -------------------------
-                // Level
+                // If does not contain 2 Pass, select first available (CRF, 1 Pass, or auto)
                 // -------------------------
-                Optimize_Level_ItemSource = new List<string>()
+                else
                 {
-                    "none"
-                };
+                    vm.Pass_SelectedItem = vm.Pass_Items.FirstOrDefault();
+                }
             }
 
             // -------------------------
-            // Populate Optimize Tune, Profile, Level ComboBox from ItemSource
+            // Lossless
             // -------------------------
-            mainwindow.cboOptTune.ItemsSource = Optimize_Tune_ItemSource;
-            mainwindow.cboOptProfile.ItemsSource = Optimize_Profile_ItemSource;
-            mainwindow.cboOptLevel.ItemsSource = Optimize_Level_ItemSource;
-
-            mainwindow.cboOptTune.SelectedIndex = 0;
-            mainwindow.cboOptProfile.SelectedIndex = 0;
-            mainwindow.cboOptLevel.SelectedIndex = 0;
-
-
-            // --------------------------------------------------
-            // Enable / Disable - Optimize Tune, Profile, Level
-            // --------------------------------------------------
-            // -------------------------
-            // x264 / x265
-            // -------------------------
-            if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264"
-                || (string)mainwindow.cboVideoCodec.SelectedItem == "x265")
+            else if (vm.VideoQuality_SelectedItem == "Lossless")
             {
-                if ((string)mainwindow.cboOptimize.SelectedItem == "None")
+                if (vm.Pass_Items?.Contains("1 Pass") == true)
                 {
-                    // Disabled
-                    mainwindow.cboOptTune.IsEnabled = false;
-                    mainwindow.cboOptProfile.IsEnabled = false;
-                    mainwindow.cboOptLevel.IsEnabled = false;
-                    Video.optFlags = string.Empty;
+                    vm.Pass_SelectedItem = "1 Pass";
                 }
                 else
                 {
-                    // Enable 
-                    mainwindow.cboOptTune.IsEnabled = true;
-                    mainwindow.cboOptProfile.IsEnabled = true;
-                    mainwindow.cboOptLevel.IsEnabled = true;
+                    vm.Pass_SelectedItem = vm.Pass_Items.FirstOrDefault();
                 }
+
+                vm.Pass_IsEnabled = false;
+                vm.CRF_IsEnabled = false;
+
+                // Set CRF & Bitrate back to Default value
+                vm.CRF_Text = string.Empty;
+                vm.VideoBitrate_Text = string.Empty;
+                vm.VideoMinrate_Text = string.Empty;
+                vm.VideoMaxrate_Text = string.Empty;
+                vm.VideoBufsize_Text = string.Empty;
             }
 
             // -------------------------
-            // All other Codecs
+            // Custom
             // -------------------------
-            else
+            else if (vm.VideoQuality_SelectedItem == "Custom")
             {
-                // Disable All
-                // Tune, Profile, Level not available for other codecs
-                mainwindow.cboOptTune.IsEnabled = false;
-                mainwindow.cboOptProfile.IsEnabled = false;
-                mainwindow.cboOptLevel.IsEnabled = false;
-
-                mainwindow.cboOptTune.SelectedItem = "none";
-                mainwindow.cboOptProfile.SelectedItem = "none";
-                mainwindow.cboOptLevel.SelectedItem = "none";
-                Video.optFlags = string.Empty;
-            }
-
-
-
-            // --------------------------------------------------
-            // Presets
-            // --------------------------------------------------
-            // -------------------------
-            // VP8, VP9, Theora
-            // -------------------------
-            if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8"
-                || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9"
-                || (string)mainwindow.cboVideoCodec.SelectedItem == "Theora"
-            )
-            {
-                // Web
-                if ((string)mainwindow.cboOptimize.SelectedItem == "Web")
+                // -------------------------
+                // Disable CRF TextBox if 1 Pass or 2 Pass
+                // -------------------------
+                if (vm.Pass_SelectedItem == "1 Pass" ||
+                    vm.Pass_SelectedItem == "2 Pass")
                 {
-                    Video.optFlags = "-movflags faststart";
+                    vm.CRF_IsEnabled = false;
+                    vm.Pass_IsEnabled = true;
+
+                    // Set CRF back to Default value
+                    vm.CRF_Text = string.Empty;
+                }
+
+                // -------------------------
+                // Enable CRF TextBox if CRF
+                // -------------------------
+                else if (vm.Pass_SelectedItem == "CRF")
+                {
+                    vm.Pass_IsEnabled = true;
+                    vm.CRF_IsEnabled = true;
+
+                    // Theora - Special Rule
+                    if (vm.VideoCodec_SelectedItem == "Theora")
+                    {
+                        vm.Pass_IsEnabled = true;
+                        vm.CRF_IsEnabled = false;
+                    }
                 }
             }
-
-            // -------------------------
-            // x264
-            // -------------------------
-            else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x264")
-            {
-                // Web
-                if ((string)mainwindow.cboOptimize.SelectedItem == "Web")
-                {
-                    mainwindow.cboOptTune.SelectedItem = "none";
-                    mainwindow.cboOptProfile.SelectedItem = "baseline";
-                    mainwindow.cboOptLevel.SelectedItem = "3.0";
-                    Video.optFlags = "-movflags +faststart";
-                }
-                // DVD
-                //else if ((string)mainwindow.cboOptimize.SelectedItem == "DVD")
-                //{
-                //    mainwindow.cboOptTune.SelectedItem = "none";
-                //    mainwindow.cboOptProfile.SelectedItem = "baseline";
-                //    mainwindow.cboOptLevel.SelectedItem = "3.0";
-                //    Video.optFlags = "-maxrate 9.6M";
-                //}
-                // HD Video
-                else if ((string)mainwindow.cboOptimize.SelectedItem == "HD Video")
-                {
-                    mainwindow.cboOptTune.SelectedItem = "none";
-                    mainwindow.cboOptProfile.SelectedItem = "main";
-                    mainwindow.cboOptLevel.SelectedItem = "4.2";
-                    Video.optFlags = string.Empty;
-                }
-                // PC HD
-                else if ((string)mainwindow.cboOptimize.SelectedItem == "PC HD")
-                {
-                    mainwindow.cboOptTune.SelectedItem = "none";
-                    mainwindow.cboOptProfile.SelectedItem = "main";
-                    mainwindow.cboOptLevel.SelectedItem = "4.2";
-                    Video.optFlags = string.Empty;
-                }
-                // PC SD
-                else if ((string)mainwindow.cboOptimize.SelectedItem == "PC SD")
-                {
-                    mainwindow.cboOptTune.SelectedItem = "none";
-                    mainwindow.cboOptProfile.SelectedItem = "baseline";
-                    mainwindow.cboOptLevel.SelectedItem = "3.1";
-                }
-                // Animation
-                else if ((string)mainwindow.cboOptimize.SelectedItem == "Animation")
-                {
-                    mainwindow.cboOptTune.SelectedItem = "animation";
-                    mainwindow.cboOptProfile.SelectedItem = "main";
-                    mainwindow.cboOptLevel.SelectedItem = "4.2";
-                    Video.optFlags = string.Empty;
-                }
-                // Blu-ray
-                else if ((string)mainwindow.cboOptimize.SelectedItem == "Blu-ray")
-                {
-                    mainwindow.cboOptTune.SelectedItem = "none";
-                    mainwindow.cboOptProfile.SelectedItem = "main";
-                    mainwindow.cboOptLevel.SelectedItem = "4.1";
-                    Video.optFlags = "-deblock 0:0 -sar 1/1 -x264-params \"bluray-compat=1:level=4.1:open-gop=1:slices=4:tff=1:colorprim=bt709:colormatrix=bt709:vbv-maxrate=40000:vbv-bufsize=30000:me=umh:ref=4:nal-hrd=vbr:aud=1:b-pyramid=strict\"";
-                }
-                // Windows Device
-                else if ((string)mainwindow.cboOptimize.SelectedItem == "Windows")
-                {
-
-                    mainwindow.cboOptTune.SelectedItem = "none";
-                    mainwindow.cboOptProfile.SelectedItem = "baseline";
-                    mainwindow.cboOptLevel.SelectedItem = "3.1";
-                    Video.optFlags = "-movflags faststart";
-                }
-                // Apple Device
-                else if ((string)mainwindow.cboOptimize.SelectedItem == "Apple")
-                {
-                    mainwindow.cboOptTune.SelectedItem = "none";
-                    mainwindow.cboOptProfile.SelectedItem = "baseline";
-                    mainwindow.cboOptLevel.SelectedItem = "3.1";
-                    Video.optFlags = "-x264-params ref=4";
-                }
-                // Android Device
-                else if ((string)mainwindow.cboOptimize.SelectedItem == "Android")
-                {
-                    mainwindow.cboOptTune.SelectedItem = "none";
-                    mainwindow.cboOptProfile.SelectedItem = "baseline";
-                    mainwindow.cboOptLevel.SelectedItem = "3.0";
-                    Video.optFlags = "-movflags faststart";
-                }
-                // PS3
-                else if ((string)mainwindow.cboOptimize.SelectedItem == "PS3")
-                {
-                    mainwindow.cboOptTune.SelectedItem = "none";
-                    mainwindow.cboOptProfile.SelectedItem = "main";
-                    mainwindow.cboOptLevel.SelectedItem = "4.0";
-                    Video.optFlags = string.Empty;
-                }
-                // PS4
-                else if ((string)mainwindow.cboOptimize.SelectedItem == "PS4")
-                {
-                    mainwindow.cboOptTune.SelectedItem = "none";
-                    mainwindow.cboOptProfile.SelectedItem = "main";
-                    mainwindow.cboOptLevel.SelectedItem = "4.1";
-                    Video.optFlags = string.Empty;
-                }
-                // Xbox 360
-                else if ((string)mainwindow.cboOptimize.SelectedItem == "Xbox 360")
-                {
-                    mainwindow.cboOptTune.SelectedItem = "none";
-                    mainwindow.cboOptProfile.SelectedItem = "high";
-                    mainwindow.cboOptLevel.SelectedItem = "4.1";
-                    //mainwindow.vMaxrateCustom.Text = "9.8M";
-                    //Video.optFlags = "-maxrate 9.8M";
-                    Video.optFlags = string.Empty;
-                }
-                // Xbox One
-                else if ((string)mainwindow.cboOptimize.SelectedItem == "Xbox One")
-                {
-                    mainwindow.cboOptTune.SelectedItem = "none";
-                    mainwindow.cboOptProfile.SelectedItem = "high";
-                    mainwindow.cboOptLevel.SelectedItem = "4.1";
-                    Video.optFlags = string.Empty;
-                }
-                // Custom
-                else if ((string)mainwindow.cboOptimize.SelectedItem == "Custom")
-                {
-                    mainwindow.cboOptTune.SelectedItem = "none";
-                    mainwindow.cboOptProfile.SelectedItem = "none";
-                    mainwindow.cboOptLevel.SelectedItem = "none";
-                    Video.optFlags = string.Empty;
-                }
-            }
-
-            // -------------------------
-            // x265
-            // -------------------------
-            else if ((string)mainwindow.cboVideoCodec.SelectedItem == "x265")
-            {
-                // Web
-                if ((string)mainwindow.cboOptimize.SelectedItem == "Web")
-                {
-                    mainwindow.cboOptTune.SelectedItem = "none";
-                    mainwindow.cboOptProfile.SelectedItem = "none";
-                    mainwindow.cboOptLevel.SelectedItem = "none";
-                    Video.optFlags = "-movflags faststart";
-                }
-            }
-
-
 
             // -------------------------
             // None
             // -------------------------
-            if ((string)mainwindow.cboOptimize.SelectedItem == "None")
+            else if (vm.VideoQuality_SelectedItem == "None")
             {
-                mainwindow.cboOptTune.SelectedItem = "none";
-                mainwindow.cboOptProfile.SelectedItem = "none";
-                mainwindow.cboOptLevel.SelectedItem = "none";
-                Video.optFlags = string.Empty;
+                // Disable Pass
+                vm.Pass_SelectedItem = vm.Pass_Items.FirstOrDefault();
+                vm.Pass_IsEnabled = false;
             }
+
+            // -------------------------
+            // All Other Quality
+            // -------------------------
+            else
+            {
+                // Enable Pass
+                vm.Pass_IsEnabled = true;
+
+                //vm.CRF_IsEnabled = true;
+            }
+
         }
 
 
 
         /// <summary>
-        ///     Subtitle Codec Controls
-        /// </summary>
-        public static void SubtitleCodecControls(MainWindow mainwindow)
+        ///    Auto Copy Conditions Check
+        /// <summary>
+        public static bool AutoCopyConditionsCheck(MainWindow mainwindow, 
+                                                   ViewModel vm, 
+                                                   string inputExt, 
+                                                   string outputExt)
         {
-            // -------------------------
-            // Video
-            // -------------------------
-            if ((string)mainwindow.cboMediaType.SelectedItem == "Video")
-            {
-                // -------------------------
-                // None Stream
-                // -------------------------
-                if ((string)mainwindow.cboSubtitlesStream.SelectedItem == "none")
+            //try // try/catch to prevent crash until mainwindow has been converted to viewmodel
+            //{
+                // Input Extension is Same as Output Extension and Video Quality is Auto
+                if (vm.VideoQuality_SelectedItem == "Auto" &&
+                    vm.Size_SelectedItem == "Source" &&
+                    string.IsNullOrEmpty(CropWindow.crop) &&
+                    vm.FPS_SelectedItem == "auto" &&
+                    vm.PixelFormat_SelectedItem == "auto" &&
+                    vm.Video_Optimize_SelectedItem == "None" &&
+                    vm.Scaling_SelectedItem == "default" &&
+
+                    // Filters
+                    // Fix
+                    (string)mainwindow.cboFilterVideo_Deband.SelectedItem == "disabled" &&
+                    (string)mainwindow.cboFilterVideo_Deshake.SelectedItem == "disabled" &&
+                    (string)mainwindow.cboFilterVideo_Deflicker.SelectedItem == "disabled" &&
+                    (string)mainwindow.cboFilterVideo_Dejudder.SelectedItem == "disabled" &&
+                    (string)mainwindow.cboFilterVideo_Denoise.SelectedItem == "disabled" &&
+                    // Selective Color
+                    // Reds
+                    mainwindow.slFiltersVideo_SelectiveColor_Reds_Cyan.Value == 0 &&
+                    mainwindow.slFiltersVideo_SelectiveColor_Reds_Magenta.Value == 0 &&
+                    mainwindow.slFiltersVideo_SelectiveColor_Reds_Yellow.Value == 0 &&
+                    // Yellows
+                    mainwindow.slFiltersVideo_SelectiveColor_Yellows_Cyan.Value == 0 &&
+                    mainwindow.slFiltersVideo_SelectiveColor_Yellows_Magenta.Value == 0 &&
+                    mainwindow.slFiltersVideo_SelectiveColor_Yellows_Yellow.Value == 0 &&
+                    // Greens
+                    mainwindow.slFiltersVideo_SelectiveColor_Greens_Cyan.Value == 0 &&
+                    mainwindow.slFiltersVideo_SelectiveColor_Greens_Magenta.Value == 0 &&
+                    mainwindow.slFiltersVideo_SelectiveColor_Greens_Yellow.Value == 0 &&
+                    // Cyans
+                    mainwindow.slFiltersVideo_SelectiveColor_Cyans_Cyan.Value == 0 &&
+                    mainwindow.slFiltersVideo_SelectiveColor_Cyans_Magenta.Value == 0 &&
+                    mainwindow.slFiltersVideo_SelectiveColor_Cyans_Yellow.Value == 0 &&
+                    // Blues
+                    mainwindow.slFiltersVideo_SelectiveColor_Blues_Cyan.Value == 0 &&
+                    mainwindow.slFiltersVideo_SelectiveColor_Blues_Magenta.Value == 0 &&
+                    mainwindow.slFiltersVideo_SelectiveColor_Blues_Yellow.Value == 0 &&
+                    // Magentas
+                    mainwindow.slFiltersVideo_SelectiveColor_Magentas_Cyan.Value == 0 &&
+                    mainwindow.slFiltersVideo_SelectiveColor_Magentas_Magenta.Value == 0 &&
+                    mainwindow.slFiltersVideo_SelectiveColor_Magentas_Yellow.Value == 0 &&
+                    // Whites
+                    mainwindow.slFiltersVideo_SelectiveColor_Whites_Cyan.Value == 0 &&
+                    mainwindow.slFiltersVideo_SelectiveColor_Whites_Magenta.Value == 0 &&
+                    mainwindow.slFiltersVideo_SelectiveColor_Whites_Yellow.Value == 0 &&
+                    // Neutrals
+                    mainwindow.slFiltersVideo_SelectiveColor_Neutrals_Cyan.Value == 0 &&
+                    mainwindow.slFiltersVideo_SelectiveColor_Neutrals_Magenta.Value == 0 &&
+                    mainwindow.slFiltersVideo_SelectiveColor_Neutrals_Yellow.Value == 0 &&
+                    // Blacks
+                    mainwindow.slFiltersVideo_SelectiveColor_Blacks_Cyan.Value == 0 &&
+                    mainwindow.slFiltersVideo_SelectiveColor_Blacks_Magenta.Value == 0 &&
+                    mainwindow.slFiltersVideo_SelectiveColor_Blacks_Yellow.Value == 0 &&
+
+                    // EQ
+                    mainwindow.slFiltersVideo_EQ_Brightness.Value == 0 &&
+                    mainwindow.slFiltersVideo_EQ_Contrast.Value == 0 &&
+                    mainwindow.slFiltersVideo_EQ_Saturation.Value == 0 &&
+                    mainwindow.slFiltersVideo_EQ_Gamma.Value == 0 &&
+
+                    // Extension Match
+                    //!string.IsNullOrEmpty(inputExt) &&
+                    //!string.IsNullOrEmpty(outputExt) &&
+                    string.Equals(inputExt, outputExt, StringComparison.CurrentCultureIgnoreCase)
+                )
                 {
-                    mainwindow.cboSubtitleCodec.SelectedItem = "None";
-                    //mainwindow.cboSubtitleCodec.IsEnabled = false;
+                    return true;
+                }
+
+                // Did Not Pass Check
+                else
+                {
+                    return false;
+                }
+            //}
+            //catch
+            //{
+            //    return false;
+            //}
+        }
+
+
+        /// <summary>
+        ///    Auto Codec Copy
+        /// <summary>
+        /// <remarks>
+        ///     Input Extension is Same as Output Extension and Video Quality is Auto
+        /// </remarks>
+        public static void AutoCopyVideoCodec(MainWindow mainwindow, ViewModel vm)
+        {
+            // Merge extensions for Null Check
+            string extension = string.Empty;
+            if (!string.IsNullOrEmpty(MainWindow.inputExt))
+            {
+                extension = MainWindow.inputExt;
+            }
+            else if (!string.IsNullOrEmpty(MainWindow.batchExt))
+            {
+                extension = MainWindow.batchExt;
+            }
+
+            // Null Check
+            if (!string.IsNullOrEmpty(extension))
+            {
+                // Condition Check
+                if (AutoCopyConditionsCheck(mainwindow, vm, extension, MainWindow.outputExt))
+                {
+                    // -------------------------
+                    // Set Video Codec Combobox Selected Item to Copy
+                    // -------------------------
+                    if (vm.VideoCodec_Items.Count > 0)
+                    {
+                        if (vm.VideoCodec_Items?.Contains("Copy") == true)
+                        {
+                            vm.VideoCodec_SelectedItem = "Copy";
+                        }
+                    }
                 }
 
                 // -------------------------
-                // All, External, & Stream Number
+                // Reset to Default Codec
                 // -------------------------
                 else
                 {
-                    // Formats
-
-                    if ((string)mainwindow.cboSubtitleCodec.SelectedItem != "Burn") // Ignore if Burn
+                    // -------------------------
+                    // Disable Copy if:
+                    // Input / Output Extensions don't match
+                    // Batch / Output Extensions don't match
+                    // Size is Not No
+                    // Crop is Not Empty
+                    // FPS is Not Auto
+                    // Optimize is Not None
+                    // -------------------------
+                    // -------------------------
+                    // Null Check
+                    // -------------------------
+                    if (!string.IsNullOrEmpty(vm.VideoQuality_SelectedItem))
                     {
-                        // WebM
-                        if ((string)mainwindow.cboFormat.SelectedItem == "webm")
+                        // -------------------------
+                        // Copy Selected
+                        // -------------------------
+                        if (vm.VideoCodec_SelectedItem == "Copy")
                         {
-                            mainwindow.cboSubtitleCodec.SelectedItem = "None";
-                            mainwindow.cboSubtitleCodec.IsEnabled = false;
-                        }
-
-                        // MP4
-                        else if ((string)mainwindow.cboFormat.SelectedItem == "mp4")
-                        {
-                            mainwindow.cboSubtitleCodec.SelectedItem = "mov_text";
-                            mainwindow.cboSubtitleCodec.IsEnabled = true;
-                        }
-
-                        // MKV
-                        else if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
-                        {
-                            mainwindow.cboSubtitleCodec.SelectedItem = "Copy";
-                            mainwindow.cboSubtitleCodec.IsEnabled = true;
-                        }
-
-                        // MPG
-                        else if ((string)mainwindow.cboFormat.SelectedItem == "mpg")
-                        {
-                            mainwindow.cboSubtitleCodec.SelectedItem = "Copy";
-                            mainwindow.cboSubtitleCodec.IsEnabled = true;
-                        }
-
-                        // AVI
-                        else if ((string)mainwindow.cboFormat.SelectedItem == "avi")
-                        {
-                            mainwindow.cboSubtitleCodec.SelectedItem = "SRT";
-                            mainwindow.cboSubtitleCodec.IsEnabled = true;
-                        }
-
-                        // OGV
-                        else if ((string)mainwindow.cboFormat.SelectedItem == "ogv")
-                        {
-                            mainwindow.cboSubtitleCodec.SelectedItem = "None";
-                            mainwindow.cboSubtitleCodec.IsEnabled = false;
+                            // -------------------------
+                            // Switch back to format's default codec
+                            // -------------------------
+                            if (!string.Equals(MainWindow.inputExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase) ||
+                                !string.Equals(MainWindow.batchExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase)
+                                )
+                            {
+                                // -------------------------
+                                // WebM
+                                // -------------------------
+                                if (vm.Container_SelectedItem == "webm")
+                                {
+                                    vm.VideoCodec_SelectedItem = "VP8";
+                                }
+                                // -------------------------
+                                // MP4
+                                // -------------------------
+                                else if (vm.Container_SelectedItem == "mp4")
+                                {
+                                    vm.VideoCodec_SelectedItem = "x264";
+                                }
+                                // -------------------------
+                                // MKV
+                                // -------------------------
+                                else if (vm.Container_SelectedItem == "mkv")
+                                {
+                                    vm.VideoCodec_SelectedItem = "x264";
+                                }
+                                // -------------------------
+                                // MPG
+                                // -------------------------
+                                else if (vm.Container_SelectedItem == "mpg")
+                                {
+                                    vm.VideoCodec_SelectedItem = "MPEG-2";
+                                }
+                                // -------------------------
+                                // AVI
+                                // -------------------------
+                                else if (vm.Container_SelectedItem == "avi")
+                                {
+                                    vm.VideoCodec_SelectedItem = "MPEG-4";
+                                }
+                                // -------------------------
+                                // OGV
+                                // -------------------------
+                                else if (vm.Container_SelectedItem == "ogv")
+                                {
+                                    vm.VideoCodec_SelectedItem = "Theora";
+                                }
+                                // -------------------------
+                                // JPG
+                                // -------------------------
+                                else if (vm.Container_SelectedItem == "jpg")
+                                {
+                                    vm.VideoCodec_SelectedItem = "JPEG";
+                                }
+                                // -------------------------
+                                // PNG
+                                // -------------------------
+                                else if (vm.Container_SelectedItem == "png")
+                                {
+                                    vm.VideoCodec_SelectedItem = "PNG";
+                                }
+                                // -------------------------
+                                // WebP
+                                // -------------------------
+                                else if (vm.Container_SelectedItem == "webp")
+                                {
+                                    vm.VideoCodec_SelectedItem = "WebP";
+                                }
+                            }
                         }
                     }
                 }
             }
-            // -------------------------
-            // Image
-            // -------------------------
-            else if ((string)mainwindow.cboMediaType.SelectedItem == "Image"
-                || (string)mainwindow.cboMediaType.SelectedItem == "Sequence")
-            {
-                mainwindow.cboSubtitleCodec.SelectedItem = "None";
-                mainwindow.cboSubtitleCodec.IsEnabled = false;
-            }
-            // -------------------------
-            // Audio
-            // -------------------------
-            else if ((string)mainwindow.cboMediaType.SelectedItem == "Audio")
-            {
-                mainwindow.cboSubtitleCodec.SelectedItem = "None";
-                mainwindow.cboSubtitleCodec.IsEnabled = false;
-            }
-         }
+        }
+
+
+
     }
 }

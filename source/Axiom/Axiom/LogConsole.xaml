@@ -1,6 +1,6 @@
 ﻿<!-- 
     Axiom UI
-    Copyright (C) 2017, 2018 Matt McManis
+    Copyright (C) 2017-2019 Matt McManis
     http://github.com/MattMcManis/Axiom
     http://axiomui.github.io
     mattmcmanis@outlook.com
@@ -28,15 +28,42 @@
         xmlns:Themes1="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2" 
         mc:Ignorable="d"
         
-        Title="Log Console" Height="500" Width="400" Icon="Resources/Images/Icons/LogConsole.ico"
+        Height="500" 
+        Width="400" 
+        
+        Icon="Resources/Images/Icons/LogConsole.ico"
+        Title="Log Console" 
+        
         Style="{DynamicResource WindowLogConsole}">
     <Grid>
 
-        <RichTextBox Name="rtbLog" Margin="0" Background="{x:Null}" Foreground="White" VerticalScrollBarVisibility="Visible" RenderOptions.ClearTypeHint="Enabled" FontFamily="Consolas" Padding="10" IsReadOnly="True" IsUndoEnabled="False" />
-        <!--TextOptions.TextFormattingMode="Display"-->
+        <RichTextBox Name="rtbLog" 
+                     Margin="0" 
+                     Background="{x:Null}" 
+                     Foreground="White" 
+                     VerticalScrollBarVisibility="Visible" 
+                     RenderOptions.ClearTypeHint="Enabled" 
+                     FontFamily="Consolas" 
+                     Padding="10" 
+                     IsReadOnly="True" 
+                     IsUndoEnabled="False" />
 
-        <Button x:Name="buttonExpand" Margin="0,10,28,0" BorderBrush="#7FFFFFFF" Background="{x:Null}" Foreground="White" Cursor="Hand" Click="buttonExpand_Click" HorizontalAlignment="Right" Width="20" ToolTip="Expand Window" Height="20" VerticalAlignment="Top">
-            <TextBlock x:Name="textBlockExpand" Text="+" Margin="0,-2,0,0" Foreground="#99FFFFFF" />
+        <Button x:Name="btnExpand"
+                Margin="0,10,28,0"
+                BorderBrush="#7FFFFFFF" 
+                Background="{x:Null}" 
+                Foreground="White" 
+                Cursor="Hand" 
+                Click="btnExpand_Click" 
+                HorizontalAlignment="Right" 
+                Width="20" 
+                ToolTip="Expand Window" 
+                Height="20" 
+                VerticalAlignment="Top">
+            <TextBlock x:Name="textBlockExpand" 
+                       Text="+" 
+                       Margin="0,-2,0,0" 
+                       Foreground="#99FFFFFF" />
         </Button>
 
     </Grid>

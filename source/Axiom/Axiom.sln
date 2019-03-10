@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Axiom", "Axiom\Axiom.csproj", "{4936F4FC-D32D-406A-B674-A41471AF692D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Axiom", "Axiom\Axiom.csproj", "{6AC014C0-8CC1-47A0-9E31-2CF9A5A16885}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{4936F4FC-D32D-406A-B674-A41471AF692D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4936F4FC-D32D-406A-B674-A41471AF692D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4936F4FC-D32D-406A-B674-A41471AF692D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4936F4FC-D32D-406A-B674-A41471AF692D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6AC014C0-8CC1-47A0-9E31-2CF9A5A16885}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6AC014C0-8CC1-47A0-9E31-2CF9A5A16885}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6AC014C0-8CC1-47A0-9E31-2CF9A5A16885}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6AC014C0-8CC1-47A0-9E31-2CF9A5A16885}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

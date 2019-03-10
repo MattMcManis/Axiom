@@ -1,6 +1,6 @@
 ﻿<!-- 
     Axiom UI
-    Copyright (C) 2017, 2018 Matt McManis
+    Copyright (C) 2017-2019 Matt McManis
     http://github.com/MattMcManis/Axiom
     http://axiomui.github.io
     mattmcmanis@outlook.com
@@ -17,8 +17,7 @@
 
     You should have received a copy of the GNU General Public License
     along with this program. If not, see<http://www.gnu.org/licenses/>. 
- -->
-
+-->
 <Window x:Class="Axiom.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -30,24 +29,21 @@
         xmlns:my="clr-namespace:Axiom"
         xmlns:settings="clr-namespace:Axiom.Properties"
         mc:Ignorable="d"
-               
+        
         Loaded="Window_Loaded" 
         Closing="Window_Closing"  
-        Icon="Resources/Images/Icons/axiom.ico"
+        Icon="axiom.ico"
         
         RenderOptions.BitmapScalingMode="Fant"
         UseLayoutRounding="True"
         Height="432"
         Width="768"
         
-        DataContext="{Binding RelativeSource={RelativeSource self}}"
-        
         Top="{Binding Top, Source={x:Static settings:Settings.Default}, Mode=TwoWay}"
         Left="{Binding Left, Source={x:Static settings:Settings.Default}, Mode=TwoWay}" 
         Title="{Binding TitleVersion, RelativeSource={RelativeSource Mode=Self}}" 
         Style="{DynamicResource WindowStyleCustom}"
         >
-
     <Grid>
 
         <!-- Script View -->
@@ -72,8 +68,7 @@
                 Height="22" 
                 HorizontalAlignment="Left"
                 VerticalAlignment="Bottom"
-                Width="56"
-                Click="btnScriptSave_Click">
+                Width="56" Click="btnScriptSave_Click">
             <TextBlock Text="Save" 
                 Margin="0,-2,0,0"/>
         </Button>
@@ -82,7 +77,6 @@
         <Button x:Name="btnScriptCopy"
                 Style="{DynamicResource ButtonCustom}"
                 Margin="89,0,0,66"
-                Click="btnScriptCopy_Click"
                 Cursor="Hand" 
                 MaxWidth="60" 
                 MaxHeight="22"
@@ -91,7 +85,7 @@
                 Height="22" 
                 HorizontalAlignment="Left"
                 VerticalAlignment="Bottom"
-                Width="54">
+                Width="54" Click="btnScriptCopy_Click">
             <TextBlock Text="Copy" 
                 Margin="0,-2,0,0"/>
         </Button>
@@ -108,8 +102,8 @@
                 Height="22" 
                 HorizontalAlignment="Left"
                 VerticalAlignment="Bottom" 
-                Width="53" 
-                Click="btnScriptSort_Click">
+                Width="53"
+                Click="btnScriptSort_Click" >
             <TextBlock x:Name="txblScriptSort" 
                        Text="Sort"
                        Width="50"
@@ -129,15 +123,13 @@
                 Height="22" 
                 HorizontalAlignment="Left"
                 VerticalAlignment="Bottom" 
-                Width="53" 
-                Click="btnScriptClear_Click">
+                Width="53" Click="btnScriptClear_Click" >
             <TextBlock x:Name="txblScriptClear" 
                        Text="Clear"
                        Width="50"
                        Margin="0,-2,0,0"
                        TextAlignment="Center"/>
         </Button>
-
 
         <!-- Script Button -->
         <Button x:Name="btnScript" 
@@ -148,8 +140,8 @@
                 Width="60" 
                 Height="22" 
                 Cursor="Hand"
-                Click="btnScript_Click"
-                ToolTip="Generate FFmpeg Commands">
+                ToolTip="Generate FFmpeg Commands" 
+                Click="btnScript_Click">
             <TextBlock Text="Script" 
                        Margin="0,-2,0,0" />
         </Button>
@@ -158,7 +150,6 @@
         <Button x:Name="btnScriptRun"
                 Style="{DynamicResource ButtonCustom}"
                 Margin="361,0,0,66"
-                Click="btnScriptRun_Click" 
                 Cursor="Hand" 
                 MaxWidth="60" 
                 MaxHeight="22"
@@ -170,486 +161,11 @@
                 ToolTip="Run the customized Script." 
                 HorizontalAlignment="Left"
                 VerticalAlignment="Bottom"
-                Width="54">
+                Width="54" 
+                Click="btnScriptRun_Click">
             <TextBlock Text="Run" 
                 Margin="0,-2,0,0"/>
         </Button>
-
-        <!-- Input List -->
-        <!--<ListView x:Name="listViewFileQueue" 
-                  Margin="11,71,280,56" 
-                  Background="Transparent"
-                  Foreground="White" 
-              SelectionMode="Multiple"
-              ItemsSource="{Binding}"
-              IsSynchronizedWithCurrentItem="True"
-              SelectionChanged="listViewFileQueue_SelectionChanged">
-            <ListView.Resources>
-                <Style TargetType="{x:Type GridViewColumnHeader}">
-                    <Setter Property="Visibility" Value="Collapsed" />
-                </Style>
-                <Style TargetType="ListViewItem">
-
-                </Style>
-            </ListView.Resources>
-            <ListView.ItemContainerStyle>
-                <Style TargetType="{x:Type ListViewItem}">
-                    <Style.Resources>
-                        <LinearGradientBrush x:Key="ListItemHoverFill" EndPoint="0,1" StartPoint="0,0">
-                            <GradientStop Color="#FF06b025" Offset="0"/>
-                            <GradientStop Color="#FF06b025" Offset="1"/>
-                        </LinearGradientBrush>
-                    </Style.Resources>
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="{x:Type ListViewItem}">
-                                <Border CornerRadius="2" SnapsToDevicePixels="True"  
-                                BorderThickness="{TemplateBinding BorderThickness}"   
-                                BorderBrush="{TemplateBinding BorderBrush}"   
-                                Background="{TemplateBinding Background}">
-                                    <Border Name="InnerBorder" CornerRadius="1" BorderThickness="1">
-                                        <Grid>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition MaxHeight="11" />
-                                                <RowDefinition />
-                                            </Grid.RowDefinitions>
-
-                                            <Rectangle Name="UpperHighlight" Visibility="Collapsed" Fill="#75FFFFFF" />
-                                            <GridViewRowPresenter Grid.RowSpan="2"   
-                                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"   
-                                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
-                                        </Grid>
-                                    </Border>
-                                </Border>
-                                <ControlTemplate.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Background" Value="{StaticResource ListItemHoverFill}" />
-                                        <Setter Property="BorderBrush" Value="#FF06b025" />
-                                        <Setter TargetName="UpperHighlight" Property="Visibility" Value="Visible" />
-                                    </Trigger>
-                                    -->
-        <!--<Trigger Property="IsSelected" Value="True">
-                                <Setter Property="Background" Value="{StaticResource ListItemSelectedFill}" />
-                                <Setter Property="BorderBrush" Value="#FF98DDFB" />
-                                <Setter TargetName="InnerBorder" Property="BorderBrush" Value="#80FFFFFF" />
-                                <Setter TargetName="UpperHighlight" Property="Visibility" Value="Visible" />
-                                <Setter TargetName="UpperHighlight" Property="Fill" Value="#40FFFFFF" />
-                            </Trigger>-->
-        <!--<MultiTrigger> 
-                <MultiTrigger.Conditions> 
-                    <Condition Property="IsSelected" Value="True" /> 
-                    <Condition Property="Selector.IsSelectionActive" Value="False" /> 
-                </MultiTrigger.Conditions> 
-                <Setter Property="Background" Value="{StaticResource ListItemSelectedInactiveFill}" /> 
-                <Setter Property="BorderBrush" Value="#FFCFCFCF" /> 
-            </MultiTrigger>-->
-        <!--<MultiTrigger>
-                                <MultiTrigger.Conditions>
-                                    <Condition Property="IsSelected" Value="True" />
-                                    <Condition Property="IsMouseOver" Value="True" />
-                                </MultiTrigger.Conditions>
-                                <Setter Property="Background" Value="{StaticResource ListItemSelectedHoverFill}" />
-                                <Setter Property="BorderBrush" Value="#FF98DDFB" />
-                            </MultiTrigger>-->
-        <!--
-                                    <Trigger Property="IsEnabled" Value="False">
-                                        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
-                                    </Trigger>
-                                </ControlTemplate.Triggers>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-            </ListView.ItemContainerStyle>
-            -->
-        <!-- List Checkboxes -->
-        <!--
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn>
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <CheckBox Tag="{Binding ItemCore}" IsChecked="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}}" />
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn>
-                        <GridViewColumn/>
-                    </GridViewColumn>
-                </GridView>
-            </ListView.View>
-        </ListView>-->
-
-
-
-
-
-
-
-
-        <!-- Tool Buttons Grid -->
-        <Grid HorizontalAlignment="Left" 
-              Width="343" 
-              Height="35" 
-              VerticalAlignment="Bottom" 
-              Margin="10,0,0,0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="30"/>
-                <ColumnDefinition Width="30"/>
-                <ColumnDefinition Width="30"/>
-                <ColumnDefinition Width="30"/>
-                <ColumnDefinition Width="30"/>
-                <ColumnDefinition Width="30"/>
-                <ColumnDefinition Width="30"/>
-                <ColumnDefinition Width="30"/>
-                <ColumnDefinition Width="30"/>
-                <ColumnDefinition Width="30"/>
-                <ColumnDefinition Width="30"/>
-
-            </Grid.ColumnDefinitions>
-
-            <!-- Info Button -->
-            <Button x:Name="buttonInfo" 
-                    HorizontalAlignment="Left"
-                    Margin="0,0,0,0" 
-                    VerticalAlignment="Top" 
-                    Width="22" 
-                    Height="22" 
-                    Cursor="Hand" 
-                    Click="buttonInfo_Click" 
-                    Background="{x:Null}"
-                    Style="{DynamicResource ButtonSmallCustom}"
-                    ToolTip="About this program">
-                <Image Width="5"
-                       Height="10"
-                       Stretch="Uniform"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center" 
-                       Margin="1,0,0,0" 
-                       Style="{DynamicResource ButtonInfo}"/>
-            </Button>
-
-            <!-- Website Button -->
-            <Button x:Name="buttonWebsite" 
-                    HorizontalAlignment="Left" 
-                    VerticalAlignment="Top" 
-                    Width="22" 
-                    Height="22" 
-                    Cursor="Hand" 
-                    Click="buttonWebsite_Click" 
-                    Background="{x:Null}" 
-                    Style="{DynamicResource ButtonSmallCustom}" 
-                    ToolTip="Visit Website" 
-                    Grid.Column="1">
-                <Image Width="11" 
-                       Height="11"
-                       Stretch="Uniform" 
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center"
-                       Margin="1,-1,0,0" 
-                       Style="{DynamicResource ButtonWebsite}" />
-            </Button>
-
-            <!-- Update Button -->
-            <Button x:Name="buttonUpdate" 
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top" 
-                    Width="22" 
-                    Height="22" 
-                    Cursor="Hand" 
-                    Background="{x:Null}" 
-                    Style="{DynamicResource ButtonSmallCustom}" 
-                    ToolTip="Check for Updates"
-                    Click="buttonUpdate_Click" 
-                    Grid.Column="2">
-                <Image Width="10" 
-                       Height="10"
-                       Stretch="Uniform" 
-                       HorizontalAlignment="Center" 
-                       VerticalAlignment="Center"
-                       Margin="0,0,0,0" 
-                       Style="{DynamicResource ButtonUpdate}" />
-            </Button>
-
-            <!-- Window Toggle  -->
-            <ToggleButton x:Name="tglWindowKeep"
-                          Cursor="Hand" 
-                          HorizontalAlignment="Left" 
-                          VerticalAlignment="Top" 
-                          ToolTip="Keep FFmpeg window open after converting" 
-                          Width="22" 
-                          Height="22" 
-                          Style="{DynamicResource ToggleButtonCustom}" 
-                          Checked="tglWindowKeep_Checked"
-                          Unchecked="tglWindowKeep_Unchecked"
-                          Grid.Column="3">
-                <Image Width="10"
-                       Height="10" 
-                       Stretch="Uniform" 
-                       HorizontalAlignment="Center" 
-                       VerticalAlignment="Center" 
-                       Margin="0,0,0,0" 
-                       Style="{DynamicResource ButtonWindow}" />
-            </ToggleButton>
-
-            <!-- Auto Sort Script Button -->
-            <ToggleButton x:Name="tglAutoSortScript"
-                          Style="{DynamicResource ToggleButtonCustom}"
-                          Margin="0,0,0,0"
-                          Cursor="Hand" 
-                          Width="22" 
-                          Height="22" 
-                          ToolTipService.InitialShowDelay="1000" 
-                          ToolTipService.ShowOnDisabled="True"
-                          ToolTip="Auto Sort Script" 
-                          HorizontalAlignment="Left"
-                          VerticalAlignment="Top"
-                          Grid.Column="4" 
-                          Checked="tglAutoSortScript_Checked"
-                          Unchecked="tglAutoSortScript_Unchecked">
-                <Image Width="10"
-                       Height="11" 
-                       Stretch="Uniform" 
-                       HorizontalAlignment="Center" 
-                       VerticalAlignment="Center" 
-                       Margin="0,0,0,0" 
-                       Style="{DynamicResource ButtonAutoSortScript}" />
-            </ToggleButton>
-
-            <!-- Debug Console -->
-            <Button x:Name="buttonDebugConsole"
-                    HorizontalAlignment="Left" 
-                    VerticalAlignment="Top" 
-                    Width="22"
-                    Height="22"
-                    Cursor="Hand" 
-                    Click="buttonDebugConsole_Click" 
-                    Background="{x:Null}" 
-                    Style="{DynamicResource ButtonSmallCustom}" 
-                    ToolTip="Show Debug Console" 
-                    Grid.Column="5" 
-                    Margin="1,0,0,0">
-                <Image Width="12" 
-                       Height="10" 
-                       Stretch="Uniform"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center"
-                       Margin="-1,0,0,0"
-                       Style="{DynamicResource ButtonDebugConsole}" />
-            </Button>
-
-            <!-- Log Console -->
-            <Button x:Name="buttonLogConsole" 
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top" 
-                    Width="22"
-                    Height="22"
-                    Cursor="Hand" 
-                    Click="buttonLogConsole_Click" 
-                    Background="{x:Null}"
-                    Style="{DynamicResource ButtonSmallCustom}"
-                    ToolTip="Show Log Console" 
-                    Grid.Column="6">
-                <Image Width="10"
-                       Height="11"
-                       Stretch="Uniform"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center"
-                       Margin="0,0,0,0" 
-                       Style="{DynamicResource ButtonLogConsole}" />
-            </Button>
-
-            <!-- Log Button -->
-            <Button x:Name="buttonLog"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top"
-                    Width="22" 
-                    Height="22"
-                    Cursor="Hand"
-                    Click="buttonLog_Click"
-                    ToolTip="View the last Output Log"
-                    Background="{x:Null}"
-                    Style="{DynamicResource ButtonSmallCustom}"
-                    Grid.Column="7">
-                <Image Width="9" 
-                       Height="11" 
-                       Stretch="Uniform" 
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center" 
-                       Margin="0,-1,0,0" 
-                       Style="{DynamicResource ButtonLog}" />
-            </Button>
-
-            <!-- CMD Button -->
-            <Button x:Name="buttonCmd"
-                    HorizontalAlignment="Left" 
-                    VerticalAlignment="Top" 
-                    Width="22" 
-                    Height="22" 
-                    Cursor="Hand" 
-                    Click="buttonCmd_Click" 
-                    Background="{x:Null}" 
-                    Style="{DynamicResource ButtonSmallCustom}" 
-                    ToolTip="Launch Command Prompt"
-                    Grid.Column="8">
-                <Image Width="11" 
-                       Height="11" 
-                       Stretch="Uniform"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center"
-                       Margin="0,0,0,0"
-                       Style="{DynamicResource ButtonCMD}" />
-            </Button>
-
-            <!-- Properties Button -->
-            <Button x:Name="buttonProperties" 
-                    HorizontalAlignment="Left" 
-                    VerticalAlignment="Top"
-                    Width="22"
-                    Height="22" 
-                    Cursor="Hand" 
-                    Click="buttonProperties_Click"
-                    Background="{x:Null}" 
-                    Style="{DynamicResource ButtonSmallCustom}" 
-                    ToolTip="View File Properties"
-                    Grid.Column="9">
-                <Image Width="10"
-                       Height="11" 
-                       Stretch="Uniform" 
-                       HorizontalAlignment="Center" 
-                       VerticalAlignment="Center" 
-                       Margin="0,0,0,0"
-                       Style="{DynamicResource ButtonProperties}" />
-            </Button>
-
-            <!-- Play File -->
-            <Button x:Name="buttonPlayFile"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top"
-                    Width="22" 
-                    Height="22"
-                    Cursor="Hand" 
-                    Click="buttonPlayFile_Click" 
-                    Background="{x:Null}" 
-                    Style="{DynamicResource ButtonSmallCustom}" 
-                    ToolTip="Play Converted File"
-                    Grid.Column="10">
-                <Image Width="11" 
-                       Height="11"
-                       Stretch="Uniform" 
-                       HorizontalAlignment="Center" 
-                       VerticalAlignment="Center" 
-                       Margin="-1,0,0,0" 
-                       Style="{DynamicResource ButtonPlay}" />
-            </Button>
-
-        </Grid>
-
-
-        <!-- Process Buttons Grid -->
-        <Grid Margin="0,0,10,0" 
-              Height="35" 
-              VerticalAlignment="Bottom" 
-              HorizontalAlignment="Right" 
-              Width="380">
-
-            <!-- Preset -->
-            <ComboBox x:Name="cboPreset"
-                      Style="{DynamicResource ComboBoxWhite}" 
-                      ItemContainerStyle="{DynamicResource ComboBoxWhiteItem}" 
-                      HorizontalAlignment="Right"
-                      Margin="0,0,300,0" 
-                      VerticalAlignment="Top" 
-                      Width="75" 
-                      SelectionChanged="cboPreset_SelectionChanged"  >
-                <System:String>Preset</System:String>
-                <System:String>Default</System:String>
-                <!-- <System:String>Custom</System:String> -->
-                <System:String>DVD</System:String>
-                <System:String>Blu-ray</System:String>
-                <System:String>HD Video</System:String>
-                <System:String>SD Video</System:String>
-                <System:String>HTML5</System:String>
-                <System:String>Android</System:String>
-                <System:String>iOS</System:String>
-                <System:String>iTunes</System:String>
-                <System:String>MP3 HQ</System:String>
-                <System:String>PS3</System:String>
-                <System:String>PS4</System:String>
-                <System:String>Xbox 360</System:String>
-                <System:String>Xbox One</System:String>
-                <System:String>Debug</System:String>
-            </ComboBox>
-
-            <!-- Preview Button -->
-            <Button x:Name="btnPreview"
-                    Style="{DynamicResource ButtonCustom}" 
-                    HorizontalAlignment="Right" 
-                    Margin="0,0,87,0" 
-                    VerticalAlignment="Top"
-                    Width="75" 
-                    Height="22"
-                    Cursor="Hand"
-                    Click="btnPreview_Click">
-                <TextBlock x:Name="btnPreviewTextBlock" 
-                           Text="Preview"
-                           Margin="0,-2,0,0"/>
-            </Button>
-
-            <!-- Convert Button -->
-            <Button x:Name="btnConvert"
-                    Style="{DynamicResource ButtonCustom}" 
-                    HorizontalAlignment="Right" 
-                    Margin="0,0,4,0" 
-                    VerticalAlignment="Top"
-                    Width="75" 
-                    Height="22"
-                    Cursor="Hand"
-                    Click="btnConvert_Click">
-                <TextBlock x:Name="btnConvertTextBlock" 
-                           Text="Convert"
-                           Margin="0,-2,0,0"/>
-            </Button>
-
-            <!-- Batch Checkbox -->
-            <ToggleButton x:Name="tglBatch" 
-                          HorizontalAlignment="Right" 
-                          VerticalAlignment="Top" 
-                          Checked="tglBatch_Checked" 
-                          Unchecked="tglBatch_Unchecked" 
-                          IsChecked="False" 
-                          Cursor="Hand" 
-                          ToolTip="Enable, Browse for folder, Enter file extention to batch process."
-                          Width="45"
-                          Height="22"
-                          Style="{DynamicResource ToggleButtonCustom}"
-                          Margin="0,0,241,0">
-                <TextBlock x:Name="batchTextBlock" 
-                           Style="{DynamicResource TextBlockCustom}" 
-                           Text="Batch"
-                           Margin="0,-2,0,0" />
-            </ToggleButton>
-            <!-- Batch Textbox -->
-            <TextBox x:Name="batchExtensionTextBox" 
-                     HorizontalAlignment="Right" 
-                     Height="23" 
-                     Margin="0,0,176,0" 
-                     TextWrapping="NoWrap"
-                     Padding="2, 1, 0, 0" 
-                     Text="extension" 
-                     VerticalAlignment="Top" 
-                     Width="60" 
-                     TextChanged="batchExtension_TextChanged"
-                     Style="{DynamicResource TextBoxCustom}" 
-                     ToolTipService.InitialShowDelay="1000" 
-                     ToolTipService.ShowOnDisabled="True" 
-                     ToolTip="File Extension in Folder to Batch Process (e.g. mp4)"/>
-
-        </Grid>
-
-
-
-
 
 
         <!-- Input / Output Grid -->
@@ -672,6 +188,7 @@
 
             <!-- Browse Textbox -->
             <TextBox x:Name="tbxInput" 
+                     Text="{Binding Input_Text, Mode=TwoWay}"
                      Style="{DynamicResource TextBoxBrowseCustom}" 
                      Height="22"
                      Margin="75,0,-14,0" 
@@ -722,6 +239,7 @@
             </Button>
             <!-- Output Textbox-->
             <TextBox x:Name="tbxOutput" 
+                     Text="{Binding Output_Text, Mode=TwoWay}"
                      Style="{DynamicResource TextBoxBrowseCustom}"
                      Height="22"
                      Margin="75,29,-14,0"
@@ -809,36 +327,18 @@
                                     Width="86" 
                                     FontFamily="Segoe UI Semilight" 
                                     Height="26" Grid.Column="1" />
-
-                            <ComboBox x:Name="cboFormat"
-                                      ItemsSource="{Binding cboFormat_Items}"
-                                      Style="{DynamicResource ComboBoxWhite}" 
-                                      ItemContainerStyle="{DynamicResource ComboBoxWhiteItem}"
+                            <ComboBox x:Name="cboContainer" 
+                                      Style="{DynamicResource ComboBoxWhite}"
+                                      ItemsSource="{Binding Container_Items}"
+                                      SelectedIndex="{Binding Container_SelectedIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      SelectedItem="{Binding Container_SelectedItem, Mode=TwoWay}"
                                       HorizontalAlignment="Left" 
                                       Margin="0,2,0,0" 
                                       VerticalAlignment="Top" 
                                       Width="105" 
-                                      ToolTipService.InitialShowDelay="1000" 
-                                      ToolTipService.ShowOnDisabled="True" 
-                                      ToolTip="Container" 
-                                      SelectionChanged="cboFormat_SelectionChanged" 
-                                      Grid.Column="2" 
-                                      Height="22">
-                                <!--<ComboBox.GroupStyle>
-                                    <GroupStyle>
-                                        <GroupStyle.HeaderTemplate>
-                                            <DataTemplate>
-                                                <TextBlock Text="{Binding Name}"/>
-                                            </DataTemplate>
-                                        </GroupStyle.HeaderTemplate>
-                                    </GroupStyle>
-                                </ComboBox.GroupStyle>
-                                <ComboBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding Name}"/>
-                                    </DataTemplate>
-                                </ComboBox.ItemTemplate>-->
-                            </ComboBox>
+                                      Height="22"
+                                      SelectionChanged="cboContainer_SelectionChanged" 
+                                      Grid.Column="2"/>
 
                             <!-- MediaType -->
                             <Label Style="{DynamicResource LabelCustom}"
@@ -851,6 +351,10 @@
                                     Height="26" Grid.Column="1" />
 
                             <ComboBox x:Name="cboMediaType" 
+                                      ItemsSource="{Binding MediaType_Items}"
+                                      SelectedIndex="{Binding MediaType_SelectedIndex}"
+                                      SelectedItem="{Binding MediaType_SelectedItem, Mode=TwoWay}"
+                                      IsEnabled="{Binding MediaType_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                       Style="{DynamicResource ComboBoxCustom}"
                                       ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" 
                                       HorizontalAlignment="Left"
@@ -862,6 +366,97 @@
                                       Grid.Column="2"
                                       Height="22"/>
 
+                            <!-- Encode Speed -->
+                            <Label 
+                                Style="{DynamicResource LabelCustom}" 
+                                Content="Encode Speed" 
+                                HorizontalAlignment="Left" 
+                                VerticalAlignment="Top"
+                                Width="91" 
+                                FontFamily="Segoe UI Semilight" 
+                                Grid.Row="3" 
+                                Height="26" Grid.Column="1" />
+
+                            <ComboBox x:Name="cboEncodeSpeed" 
+                                      Style="{DynamicResource ComboBoxWhite}"
+                                      ItemsSource="{Binding VideoEncodeSpeed_Items}"
+                                      DisplayMemberPath="Name"
+                                      SelectedValuePath="Name"
+                                      SelectedIndex="{Binding VideoEncodeSpeed_SelectedIndex}"
+                                      SelectedValue="{Binding VideoEncodeSpeed_SelectedItem, Mode=TwoWay}"
+                                      IsEnabled="{Binding VideoEncodeSpeed_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      HorizontalAlignment="Left" 
+                                      VerticalAlignment="Top" 
+                                      Width="105" 
+                                      Height="22"
+                                      Grid.Column="2" 
+                                      Grid.Row="3" 
+                                      Margin="0,2,0,0"
+                                      ToolTipService.InitialShowDelay="1000" 
+                                      ToolTipService.ShowOnDisabled="True" 
+                                      ToolTip="Encoding Speed. Slower = Better Quality &amp; Compression." 
+                                      />
+
+
+
+                            <!-- HW Acceleration -->
+                            <Label 
+                                Style="{DynamicResource LabelCustom}" 
+                                Content="HW Accel" 
+                                HorizontalAlignment="Left" 
+                                VerticalAlignment="Top"
+                                Width="91" 
+                                FontFamily="Segoe UI Semilight" 
+                                Grid.Row="4
+                                " 
+                                Height="26" Grid.Column="1" />
+
+                            <ComboBox x:Name="cboHWAccel" 
+                                      ItemsSource="{Binding HWAccel_Items}"
+                                      SelectedIndex="{Binding HWAccel_SelectedIndex}"
+                                      SelectedItem="{Binding HWAccel_SelectedItem, Mode=TwoWay}"
+                                      IsEnabled="{Binding HWAccel_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      Style="{DynamicResource ComboBoxCustom}"
+                                      IsSynchronizedWithCurrentItem="True"
+                                      ItemContainerStyle="{DynamicResource ComboBoxCustomItem}"
+                                      HorizontalAlignment="Left" 
+                                      VerticalAlignment="Top" 
+                                      Width="105" 
+                                      ToolTipService.InitialShowDelay="1000" 
+                                      ToolTipService.ShowOnDisabled="True" 
+                                      ToolTip="Hardware Acceleration" 
+                                      Grid.Row="4"
+                                      Grid.Column="2"
+                                      Height="22" 
+                                      Margin="0,4,0,0" />
+
+
+                            <!-- Cut -->
+                            <Label 
+                                   Style="{DynamicResource LabelCustom}" 
+                                   Content="Cut" 
+                                   HorizontalAlignment="Left" 
+                                   VerticalAlignment="Top" 
+                                   Width="86" 
+                                   FontFamily="Segoe UI Semilight" 
+                                   Grid.Row="6"
+                                   Height="26" 
+                                   Grid.Column="1" />
+
+                            <ComboBox x:Name="cboCut" 
+                                      ItemsSource="{Binding Cut_Items}"
+                                      SelectedIndex="{Binding Cut_SelectedIndex}"
+                                      SelectedItem="{Binding Cut_SelectedItem, Mode=TwoWay}"
+                                      IsEnabled="{Binding Cut_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      Style="{DynamicResource ComboBoxWhite}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxWhiteItem}" 
+                                      HorizontalAlignment="Left" VerticalAlignment="Top"
+                                      Width="105" 
+                                      SelectionChanged="cboCut_SelectionChanged" 
+                                      Grid.Column="2" 
+                                      Grid.Row="6" 
+                                      Height="22" 
+                                      Margin="0,3,0,0" />
 
                             <!-- Cut Start -->
                             <Label 
@@ -874,18 +469,19 @@
                                 Grid.Row="7"
                                 Height="26" Grid.Column="1" />
 
-                            <TextBox x:Name="cutStart"
+                            <TextBox x:Name="tbxCutStart"
+                                     Text="{Binding CutStart_Text, Mode=TwoWay}"
+                                     IsEnabled="{Binding CutStart_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                      Style="{DynamicResource TextBoxCustom}"
                                      HorizontalAlignment="Left"
                                      Height="22" 
                                      Padding="1, 1, 0, 0" 
                                      TextWrapping="NoWrap"
-                                     Text="00:00:00.000" 
                                      VerticalAlignment="Top" 
                                      Width="105" 
                                      ToolTipService.InitialShowDelay="1000" 
                                      ToolTipService.ShowOnDisabled="True" 
-                                     ToolTip="Start Time (hh:mm:ss.ms)" 
+                                     ToolTip="Start Time (HH:MM:SS.ms)" 
                                      Grid.Column="2" 
                                      Grid.Row="7"
                                      Margin="0,3,0,0"/>
@@ -901,47 +497,22 @@
                                 Grid.Row="8"
                                 Height="26" Grid.Column="1" />
 
-                            <TextBox x:Name="cutEnd"
+                            <TextBox x:Name="tbxCutEnd"
+                                     Text="{Binding CutEnd_Text, Mode=TwoWay}"
+                                     IsEnabled="{Binding CutEnd_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                      Style="{DynamicResource TextBoxCustom}" 
                                      HorizontalAlignment="Left" 
                                      Height="22" 
                                      Padding="1, 1, 0, 0" 
                                      TextWrapping="NoWrap" 
-                                     Text="00:00:00.000"
                                      VerticalAlignment="Top" 
                                      Width="105"
                                      ToolTipService.InitialShowDelay="1000"
                                      ToolTipService.ShowOnDisabled="True"
-                                     ToolTip="End Time (hh:mm:ss.ms)"
+                                     ToolTip="End Time (HH:MM:SS.ms)"
                                      Grid.Column="2" 
                                      Grid.Row="8"
                                      Margin="0,3,0,0"/>
-
-                            <!-- Cut -->
-                            <Label 
-                                   Style="{DynamicResource LabelCustom}" 
-                                   Content="Cut" 
-                                   HorizontalAlignment="Left" 
-                                   VerticalAlignment="Top" 
-                                   Width="86" 
-                                   FontFamily="Segoe UI Semilight" 
-                                   Grid.Row="6"
-                                   Height="26" 
-                                   Grid.Column="1" />
-
-                            <ComboBox x:Name="cboCut" 
-                                      Style="{DynamicResource ComboBoxWhite}"
-                                      ItemContainerStyle="{DynamicResource ComboBoxWhiteItem}" 
-                                      HorizontalAlignment="Left" VerticalAlignment="Top"
-                                      Width="105" 
-                                      SelectionChanged="cboCut_SelectionChanged" 
-                                      Grid.Column="2" 
-                                      Grid.Row="6" 
-                                      Height="22" 
-                                      Margin="0,3,0,0" >
-                                <System:String>No</System:String>
-                                <System:String>Yes</System:String>
-                            </ComboBox>
 
                             <!-- Frame Range -->
                             <Label
@@ -952,9 +523,13 @@
                                 VerticalAlignment="Top"
                                 Width="86"
                                 FontFamily="Segoe UI Semilight"
-                                Grid.Row="9" Height="26" Grid.Column="1" />
+                                Grid.Row="9" 
+                                Height="26" 
+                                Grid.Column="1" />
 
                             <TextBox x:Name="frameStart"
+                                     Text="{Binding FrameStart_Text, Mode=TwoWay}"
+                                     IsEnabled="{Binding FrameEnd_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                      Style="{DynamicResource TextBoxCustom}"
                                      HorizontalAlignment="Left" 
                                      Height="22" 
@@ -968,11 +543,12 @@
                                      ToolTipService.InitialShowDelay="1000" 
                                      ToolTipService.ShowOnDisabled="True"
                                      ToolTip="Start Frame" 
-                                     Text="Frame" 
                                      Grid.Column="2" 
                                      Grid.Row="9" Margin="0,3,0,0" />
 
-                            <TextBox x:Name="frameEnd" 
+                            <TextBox x:Name="frameEnd"
+                                     Text="{Binding FrameEnd_Text, Mode=TwoWay}"
+                                     IsEnabled="{Binding FrameEnd_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                      Style="{DynamicResource TextBoxCustom}"
                                      HorizontalAlignment="Left"
                                      Height="22" 
@@ -987,77 +563,10 @@
                                      ToolTipService.InitialShowDelay="1000"
                                      ToolTipService.ShowOnDisabled="True"
                                      ToolTip="End Frame" 
-                                     Text="Range"
                                      Grid.Column="2" 
                                      Grid.Row="9" />
 
-                            <!-- Encode Speed -->
-                            <Label 
-                                Style="{DynamicResource LabelCustom}" 
-                                Content="Encode Speed" 
-                                HorizontalAlignment="Left" 
-                                VerticalAlignment="Top"
-                                Width="91" 
-                                FontFamily="Segoe UI Semilight" 
-                                Grid.Row="3" 
-                                Height="26" Grid.Column="1" />
 
-                            <ComboBox x:Name="cboSpeed" 
-                                      Style="{DynamicResource ComboBoxWhite}"
-                                      ItemContainerStyle="{DynamicResource ComboBoxWhiteItem}" 
-                                      HorizontalAlignment="Left" 
-                                      VerticalAlignment="Top" 
-                                      Width="105" 
-                                      ToolTipService.InitialShowDelay="1000" 
-                                      ToolTipService.ShowOnDisabled="True" 
-                                      ToolTip="Encoding Speed. Slower = Better Quality &amp; Compression." 
-                                      Grid.Row="3"
-                                      Grid.Column="2"
-                                      Height="22" Margin="0,4,0,0" >
-                                <System:String>None</System:String>
-                                <System:String>Placebo</System:String>
-                                <System:String>Very Slow</System:String>
-                                <System:String>Slower</System:String>
-                                <System:String>Slow</System:String>
-                                <System:String>Medium</System:String>
-                                <System:String>Fast</System:String>
-                                <System:String>Faster</System:String>
-                                <System:String>Very Fast</System:String>
-                                <System:String>Super Fast</System:String>
-                                <System:String>Ultra Fast</System:String>
-                            </ComboBox>
-
-                            <!-- HW Acceleration -->
-                            <Label 
-                                Style="{DynamicResource LabelCustom}" 
-                                Content="HW Accel" 
-                                HorizontalAlignment="Left" 
-                                VerticalAlignment="Top"
-                                Width="91" 
-                                FontFamily="Segoe UI Semilight" 
-                                Grid.Row="4
-                                " 
-                                Height="26" Grid.Column="1" />
-
-                            <ComboBox x:Name="cboHWAccel" 
-                                      SelectedItem="{Binding cboHWAccel_SelectedItem}"
-                                      Style="{DynamicResource ComboBoxCustom}"
-                                      ItemContainerStyle="{DynamicResource ComboBoxCustomItem}"
-                                      HorizontalAlignment="Left" 
-                                      VerticalAlignment="Top" 
-                                      Width="105" 
-                                      ToolTipService.InitialShowDelay="1000" 
-                                      ToolTipService.ShowOnDisabled="True" 
-                                      ToolTip="Hardware Acceleration" 
-                                      Grid.Row="4"
-                                      Grid.Column="2"
-                                      Height="22" Margin="0,4,0,0" >
-                                <System:String>off</System:String>
-                                <System:String>dxva2</System:String>
-                                <System:String>cuvid</System:String>
-                                <System:String>nvenc</System:String>
-                                <System:String>cuvid+nvenc</System:String>
-                            </ComboBox>
                         </Grid>
 
                     </ScrollViewer>
@@ -1113,182 +622,150 @@
                             </Grid.RowDefinitions>
 
                             <!-- Video Codec -->
-                            <Label 
-                                Style="{DynamicResource LabelCustom}"
-                                Content="Video Codec" 
-                                HorizontalAlignment="Left"
-                                Margin="0,0,0,0" 
-                                VerticalAlignment="Top" 
-                                Width="75" 
-                                FontFamily="Segoe UI Semilight" 
-                                Grid.Row="0" 
-                                Height="26" Grid.Column="1" />
-
-                            <!--ItemsSource="{Binding cboVideoCodec_Items, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"-->
+                            <Label Style="{DynamicResource LabelCustom}"
+                                   Content="Video Codec" 
+                                   HorizontalAlignment="Left"
+                                   Margin="0,0,0,0" 
+                                   VerticalAlignment="Top" 
+                                   Width="75" 
+                                   FontFamily="Segoe UI Semilight" 
+                                   Grid.Row="0" 
+                                   Height="26" 
+                                   Grid.Column="1" />
                             <ComboBox x:Name="cboVideoCodec" 
-                                      ItemsSource="{Binding cboVideoCodec_Items}"
-                                      SelectedItem="{Binding cboVideoCodec_SelectedItem}"
-                                      Style="{DynamicResource ComboBoxWhite}" 
-                                      ItemContainerStyle="{DynamicResource ComboBoxWhiteItem}"
-                                      HorizontalAlignment="Left" 
-                                      Margin="0,2,0,0"
-                                      VerticalAlignment="Top"
-                                      Width="105" 
-                                      SelectionChanged="cboVideoCodec_SelectionChanged"  
-                                      Grid.Row="0"
-                                      Grid.Column="2"
-                                      Height="22" />
-
-                            <!-- Video Quality -->
-                            <Label 
-                                Style="{DynamicResource LabelCustom}" 
-                                Content="Quality" 
-                                HorizontalAlignment="Left"
-                                Width="56"  
-                                FontFamily="Segoe UI Semilight"
-                                Margin="0,0,0,4"
-                                Grid.Row="2"
-                                Grid.Column="1" />
-
-                            <ComboBox x:Name="cboVideoQuality" 
-                                      SelectedItem="{Binding cboVideoQuality_SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                       Style="{DynamicResource ComboBoxWhite}"
-                                      ItemContainerStyle="{DynamicResource ComboBoxWhiteItem}"
+                                      ItemsSource="{Binding VideoCodec_Items}"
+                                      SelectedIndex="{Binding VideoCodec_SelectedIndex}"
+                                      SelectedItem="{Binding VideoCodec_SelectedItem}"
+                                      IsEnabled="{Binding VideoCodec_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      IsSynchronizedWithCurrentItem="True"
                                       HorizontalAlignment="Left" 
                                       VerticalAlignment="Top" 
-                                      Width="105"
-                                      SelectionChanged="cboVideo_SelectionChanged" 
-                                      Grid.Column="2"
-                                      Grid.Row="2"
+                                      Width="105" 
+                                      Height="22"
+                                      SelectionChanged="cboVideoCodec_SelectionChanged" 
+                                      Grid.Row="0"
+                                      Grid.Column="2" 
                                       Margin="0,2,0,0" />
 
-                            <!-- Pix Format -->
-                            <Label
-                                Style="{DynamicResource LabelCustom}" 
-                                Content="Pixel Format" 
-                                HorizontalAlignment="Left" 
-                                VerticalAlignment="Top"
-                                Width="80" 
-                                ToolTip="Pixel Format" 
-                                FontFamily="Segoe UI Semilight"
-                                Grid.Row="9" Grid.Column="1" />
-
-                            <ComboBox x:Name="cboPixelFormat" 
-                                      Style="{DynamicResource ComboBoxCustom}" 
-                                      ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" 
+                            <!-- Video Quality -->
+                            <Label Style="{DynamicResource LabelCustom}" 
+                                   Content="Quality" 
+                                   HorizontalAlignment="Left"
+                                   Width="56"  
+                                   FontFamily="Segoe UI Semilight"
+                                   Margin="0,0,0,4"
+                                   Grid.Row="2"
+                                   Grid.Column="1" />
+                            <ComboBox x:Name="cboVideoQuality" 
+                                      Style="{DynamicResource ComboBoxWhite}"
+                                      ItemsSource="{Binding VideoQuality_Items}"
+                                      DisplayMemberPath="Name"
+                                      SelectedValuePath="Name"
+                                      SelectedIndex="{Binding VideoQuality_SelectedIndex}"
+                                      SelectedValue="{Binding VideoQuality_SelectedItem, Mode=TwoWay}"
+                                      IsEnabled="{Binding VideoQuality_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      IsSynchronizedWithCurrentItem="True"
                                       HorizontalAlignment="Left" 
                                       VerticalAlignment="Top" 
                                       Width="105" 
-                                      ToolTipService.InitialShowDelay="1000"
-                                      ToolTipService.ShowOnDisabled="True" 
-                                      ToolTip="Pixel Format" 
-                                      IsTextSearchEnabled="False"
-                                      Grid.Row="9" 
-                                      Grid.Column="2" Margin="0,2,0,0" SelectionChanged="cboPixelFormat_SelectionChanged">
-                                <System:String>auto</System:String>
-                                <System:String>gray</System:String>
-                                <System:String>bgra</System:String>
-                                <System:String>rgb24</System:String>
-                                <System:String>yuv420p</System:String>
-                                <System:String>yuv422p</System:String>
-                                <System:String>yuv440p</System:String>
-                                <System:String>yuv444p</System:String>
-                                <System:String>yuv420p10be</System:String>
-                                <System:String>yuv422p10be</System:String>
-                                <System:String>yuv444p10be</System:String>
-                                <System:String>yuv420p10le</System:String>
-                                <System:String>yuv422p10le</System:String>
-                                <System:String>yuv444p10le</System:String>
-                                <System:String>yuva420p</System:String>
-                                <System:String>yuva422p</System:String>
-                                <System:String>yuva444p</System:String>
-                                <System:String>yuva420p10be</System:String>
-                                <System:String>yuva422p10be</System:String>
-                                <System:String>yuva440p10be</System:String>
-                                <System:String>yuva444p10be</System:String>
-                                <System:String>yuva420p10le</System:String>
-                                <System:String>yuva422p10le</System:String>
-                                <System:String>yuva440p10le</System:String>
-                                <System:String>yuva444p10le</System:String>
-                                <System:String>yuv420p12be</System:String>
-                                <System:String>yuv422p12be</System:String>
-                                <System:String>yuv444p12be</System:String>
-                                <System:String>yuv420p12le</System:String>
-                                <System:String>yuv422p12le</System:String>
-                                <System:String>yuv444p12le</System:String>
-                                <System:String>yuvj420p</System:String>
-                                <System:String>yuvj422p</System:String>
-                                <System:String>yuvj440p</System:String>
-                                <System:String>yuvj444p</System:String>
-                            </ComboBox>
+                                      Height="22"
+                                      SelectionChanged="cboVideoQuality_SelectionChanged" 
+                                      Grid.Column="2" 
+                                      Grid.Row="2" 
+                                      Margin="0,2,0,0"/>
 
-                            <!-- Framerate -->
-                            <Label
-                            Style="{DynamicResource LabelCustom}" 
-                            Content="Framerate" 
-                            HorizontalAlignment="Left" 
-                            VerticalAlignment="Top"
-                            Width="75" 
-                            ToolTip="Frames Per Second" 
-                            FontFamily="Segoe UI Semilight" Grid.Row="10" Grid.Column="1" />
+                            <!-- Pass -->
+                            <Label Style="{DynamicResource LabelCustom}" 
+                                   Content="Pass" 
+                                   HorizontalAlignment="Left" 
+                                   VerticalAlignment="Top" 
+                                   Width="56"
+                                   ToolTip="Encoding Pass Method"
+                                   FontFamily="Segoe UI Semilight" 
+                                   Grid.Row="3" 
+                                   Grid.Column="1" />
 
-                            <ComboBox x:Name="cboFPS" 
-                                      Style="{DynamicResource ComboBoxCustom}" 
-                                      ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" 
-                                      HorizontalAlignment="Left" 
-                                      VerticalAlignment="Top" 
+                            <ComboBox x:Name="cboPass"
+                                      ItemsSource="{Binding Pass_Items}"
+                                      SelectedIndex="{Binding Pass_SelectedIndex}"
+                                      SelectedValue="{Binding Pass_SelectedItem}"
+                                      IsEnabled="{Binding Pass_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      IsSynchronizedWithCurrentItem="True"
+                                      Style="{DynamicResource ComboBoxCustom}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxCustomItem}"
+                                      HorizontalAlignment="Left"
+                                      VerticalAlignment="Top"
                                       Width="105" 
-                                      ToolTipService.InitialShowDelay="1000"
-                                      ToolTipService.ShowOnDisabled="True" 
-                                      ToolTip="Frames Per Second" 
-                                      SelectionChanged="cboFPS_SelectionChanged"
-                                      IsTextSearchEnabled="False" Grid.Row="10" Grid.Column="2" Margin="0,2,0,0">
-                                <System:String>auto</System:String>
-                                <System:String>nstc</System:String>
-                                <System:String>pal</System:String>
-                                <System:String>film</System:String>
-                                <System:String>23.976</System:String>
-                                <System:String>24</System:String>
-                                <System:String>25</System:String>
-                                <System:String>29.97</System:String>
-                                <System:String>30</System:String>
-                                <System:String>48</System:String>
-                                <System:String>50</System:String>
-                                <System:String>59.94</System:String>
-                                <System:String>60</System:String>
-                                <System:String>Custom</System:String>
-                            </ComboBox>
+                                      ToolTipService.InitialShowDelay="1000" 
+                                      ToolTipService.ShowOnDisabled="True"
+                                      ToolTip="Encoding Pass Method" 
+                                      SelectionChanged="cboPass_SelectionChanged"
+                                      DropDownClosed="cboPass_DropDownClosed" 
+                                      Grid.Row="3" 
+                                      Grid.Column="2" 
+                                      Margin="0,2,0,0" />
+
+                            <!-- CRF -->
+                            <Label Style="{DynamicResource LabelCustom}" 
+                                   Content="CRF" 
+                                   HorizontalAlignment="Left" 
+                                   VerticalAlignment="Top"
+                                   Width="56" 
+                                   FontFamily="Segoe UI Semilight" 
+                                   Grid.Row="4"
+                                   Grid.Column="1" />
+
+                            <TextBox x:Name="tbxCRF" 
+                                     Text="{Binding CRF_Text, Mode=TwoWay}"
+                                     IsEnabled="{Binding CRF_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                     Style="{DynamicResource TextBoxCustom}"
+                                     HorizontalAlignment="Left" 
+                                     Height="22"
+                                     Padding="1, 1, 0, 0" 
+                                     TextWrapping="NoWrap"
+                                     VerticalAlignment="Top"
+                                     Width="105"
+                                     KeyDown="tbxCRF_KeyDown" 
+                                     MaxLines="1"
+                                     MaxLength="2"
+                                     ToolTipService.InitialShowDelay="1000"
+                                     ToolTipService.ShowOnDisabled="True"
+                                     ToolTip="Custom Constant Rate Factor value (e.g. 18)"
+                                     Grid.Row="4" 
+                                     Grid.Column="2" 
+                                     Margin="0,2,0,0"/>
 
                             <!-- Video Bitrate-->
                             <Label Style="{DynamicResource LabelCustom}" 
-                                    Content="Bitrate" 
-                                    HorizontalAlignment="Left" 
-                                    Margin="0,31,0,0" 
-                                    VerticalAlignment="Top"
-                                    Width="56" 
-                                    FontFamily="Segoe UI Semilight" Grid.Row="4" Grid.RowSpan="2" Grid.Column="1" />
+                                   Content="Bitrate" 
+                                   HorizontalAlignment="Left" 
+                                   Margin="0,31,0,0" 
+                                   VerticalAlignment="Top"
+                                   Width="56" 
+                                   FontFamily="Segoe UI Semilight" Grid.Row="4" Grid.RowSpan="2" Grid.Column="1" />
 
-                            <TextBox x:Name="vBitrateCustom" 
-                                    Style="{DynamicResource TextBoxCustom}"
-                                    HorizontalAlignment="Left" 
-                                    Height="22" 
-                                    Padding="1, 1, 0, 0" 
-                                    TextWrapping="NoWrap" 
-                                    Text="" 
-                                    VerticalAlignment="Top" 
-                                    Width="70"
-                                    MaxLines="1" 
-                                    MaxLength="10"
-                                    GotFocus="vBitrateCustom_GotFocus"
-                                    LostFocus="vBitrateCustom_LostFocus"
-                                    ToolTipService.InitialShowDelay="1000" 
-                                    ToolTipService.ShowOnDisabled="True"
-                                    ToolTip="Video Bitrate (e.g. 1M or 1000K)" 
+                            <TextBox x:Name="tbxVideoBitrate"
+                                     Text="{Binding VideoBitrate_Text, Mode=TwoWay}"
+                                     IsEnabled="{Binding VideoBitrate_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                     Style="{DynamicResource TextBoxCustom}"
+                                     HorizontalAlignment="Left" 
+                                     Height="22" 
+                                     Padding="1, 1, 0, 0" 
+                                     TextWrapping="NoWrap" 
+                                     VerticalAlignment="Top" 
+                                     Width="70"
+                                     MaxLines="1" 
+                                     MaxLength="10"
+                                     ToolTipService.InitialShowDelay="1000" 
+                                     ToolTipService.ShowOnDisabled="True"
+                                     ToolTip="Video Bitrate (e.g. 1M or 1000K)" 
                                      Grid.Row="5" Grid.Column="2"/>
 
-                            <!-- VBR -->
+                            <!-- Video VBR -->
                             <ToggleButton x:Name="tglVideoVBR" 
-                                          IsChecked="{Binding tglVideoVBR_IsChecked}"
+                                          IsChecked="{Binding VideoVBR_IsChecked}"
+                                          IsEnabled="{Binding VideoVBR_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                           Style="{DynamicResource ToggleButtonSmall}"
                                           Content="VBR"
                                           HorizontalAlignment="Left"
@@ -1305,34 +782,6 @@
                                           Grid.Row="5" 
                                           Grid.Column="2" />
 
-                            <!-- Video Maxrate -->
-                            <Label Style="{DynamicResource LabelCustom}" 
-                                   Content="Maxrate" 
-                                   HorizontalAlignment="Left" 
-                                   VerticalAlignment="Top"
-                                   Width="56" 
-                                   FontFamily="Segoe UI Semilight" 
-                                   Grid.Row="7" Grid.Column="1" />
-                            <TextBox x:Name="vMaxrateCustom" 
-                                    Style="{DynamicResource TextBoxCustom}"
-                                    HorizontalAlignment="Left" 
-                                    Height="22" 
-                                    Padding="1, 1, 0, 0" 
-                                    TextWrapping="NoWrap" 
-                                    Text="" 
-                                    VerticalAlignment="Top" 
-                                    Width="105"
-                                    MaxLines="1" 
-                                    MaxLength="10"
-                                    GotFocus="vMaxrateCustom_GotFocus"
-                                    LostFocus="vMaxrateCustom_LostFocus"
-                                    ToolTipService.InitialShowDelay="1000" 
-                                    ToolTipService.ShowOnDisabled="True"
-                                    ToolTip="Video Maxrate (e.g. 1M or 1000K)" 
-                                    Grid.Row="7"
-                                     Grid.Column="2"
-                                     Margin="0,2,0,0"/>
-
                             <!-- Video Minrate -->
                             <Label Style="{DynamicResource LabelCustom}" 
                                    Content="Minrate" 
@@ -1341,23 +790,49 @@
                                    Width="56" 
                                    FontFamily="Segoe UI Semilight" 
                                    Grid.Row="6" Grid.Column="1" />
-                            <TextBox x:Name="vMinrateCustom" 
-                                    Style="{DynamicResource TextBoxCustom}"
-                                    HorizontalAlignment="Left" 
-                                    Height="22" 
-                                    Padding="1, 1, 0, 0" 
-                                    TextWrapping="NoWrap" 
-                                    Text="" 
-                                    VerticalAlignment="Top" 
-                                    Width="105"
-                                    MaxLines="1" 
-                                    MaxLength="10"
-                                    GotFocus="vMinrateCustom_GotFocus"
-                                    LostFocus="vMinrateCustom_LostFocus"
-                                    ToolTipService.InitialShowDelay="1000" 
-                                    ToolTipService.ShowOnDisabled="True"
-                                    ToolTip="Video Minrate (e.g. 1M or 1000K)" 
-                                    Grid.Row="6"
+                            <TextBox x:Name="tbxMinrate" 
+                                     Text="{Binding VideoMinrate_Text, Mode=TwoWay}"
+                                     IsEnabled="{Binding VideoMinrate_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                     Style="{DynamicResource TextBoxCustom}"
+                                     HorizontalAlignment="Left" 
+                                     Height="22" 
+                                     Padding="1, 1, 0, 0" 
+                                     TextWrapping="NoWrap" 
+                                     VerticalAlignment="Top" 
+                                     Width="105"
+                                     MaxLines="1" 
+                                     MaxLength="10"
+                                     ToolTipService.InitialShowDelay="1000" 
+                                     ToolTipService.ShowOnDisabled="True"
+                                     ToolTip="Video Minrate (e.g. 1M or 1000K)" 
+                                     Grid.Row="6"
+                                     Grid.Column="2"
+                                     Margin="0,2,0,0"/>
+
+                            <!-- Video Maxrate -->
+                            <Label Style="{DynamicResource LabelCustom}" 
+                                   Content="Maxrate" 
+                                   HorizontalAlignment="Left" 
+                                   VerticalAlignment="Top"
+                                   Width="56" 
+                                   FontFamily="Segoe UI Semilight" 
+                                   Grid.Row="7" Grid.Column="1" />
+                            <TextBox x:Name="tbxMaxrate" 
+                                     Text="{Binding VideoMaxrate_Text, Mode=TwoWay}"
+                                     IsEnabled="{Binding VideoMaxrate_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                     Style="{DynamicResource TextBoxCustom}"
+                                     HorizontalAlignment="Left" 
+                                     Height="22" 
+                                     Padding="1, 1, 0, 0" 
+                                     TextWrapping="NoWrap" 
+                                     VerticalAlignment="Top" 
+                                     Width="105"
+                                     MaxLines="1" 
+                                     MaxLength="10"
+                                     ToolTipService.InitialShowDelay="1000" 
+                                     ToolTipService.ShowOnDisabled="True"
+                                     ToolTip="Video Maxrate (e.g. 1M or 1000K)" 
+                                     Grid.Row="7"
                                      Grid.Column="2"
                                      Margin="0,2,0,0"/>
 
@@ -1369,98 +844,117 @@
                                    Width="56" 
                                    FontFamily="Segoe UI Semilight" 
                                    Grid.Row="8" Grid.Column="1" />
-                            <TextBox x:Name="vBufsizeCustom" 
-                                    Style="{DynamicResource TextBoxCustom}"
-                                    HorizontalAlignment="Left" 
-                                    Height="22" 
-                                    Padding="1, 1, 0, 0" 
-                                    TextWrapping="NoWrap" 
-                                    Text="" 
-                                    VerticalAlignment="Top" 
-                                    Width="105"
-                                    MaxLines="1" 
-                                    MaxLength="10"
-                                    GotFocus="vBufsizeCustom_GotFocus"
-                                    LostFocus="vBufsizeCustom_LostFocus"
-                                    ToolTipService.InitialShowDelay="1000" 
-                                    ToolTipService.ShowOnDisabled="True"
-                                    ToolTip="Video Bufsize (e.g. 1M or 1000K)" 
-                                    Grid.Row="8"
+                            <TextBox x:Name="tbxBufsize" 
+                                     Text="{Binding VideoBufsize_Text, Mode=TwoWay}"
+                                     IsEnabled="{Binding VideoBufsize_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                     Style="{DynamicResource TextBoxCustom}"
+                                     HorizontalAlignment="Left" 
+                                     Height="22" 
+                                     Padding="1, 1, 0, 0" 
+                                     TextWrapping="NoWrap" 
+                                     VerticalAlignment="Top" 
+                                     Width="105"
+                                     MaxLines="1" 
+                                     MaxLength="10"
+                                     ToolTipService.InitialShowDelay="1000" 
+                                     ToolTipService.ShowOnDisabled="True"
+                                     ToolTip="Video Bufsize (e.g. 1M or 1000K)" 
+                                     Grid.Row="8"
                                      Grid.Column="2"
                                      Margin="0,2,0,0"/>
 
-                            <!-- CRF -->
+                            <!-- Pix Format -->
                             <Label Style="{DynamicResource LabelCustom}" 
-                                   Content="CRF" 
+                                   Content="Pixel Format" 
                                    HorizontalAlignment="Left" 
                                    VerticalAlignment="Top"
-                                   Width="56" 
-                                   FontFamily="Segoe UI Semilight" Grid.Row="4" Grid.Column="1" />
+                                   Width="80" 
+                                   ToolTip="Pixel Format" 
+                                   FontFamily="Segoe UI Semilight"
+                                   Grid.Row="9" 
+                                   Grid.Column="1" />
 
-                            <TextBox x:Name="crfCustom" 
-                                    Style="{DynamicResource TextBoxCustom}"
-                                    HorizontalAlignment="Left" 
-                                    Height="22"
-                                    Padding="1, 1, 0, 0" 
-                                    TextWrapping="NoWrap"
-                                    Text=""
-                                    VerticalAlignment="Top"
-                                    Width="105"
-                                    GotFocus="crfCustom_GotFocus"
-                                    LostFocus="crfCustom_LostFocus"
-                                    KeyDown="crfCustom_KeyDown" 
-                                    MaxLines="1"
-                                    MaxLength="2"
-                                    ToolTipService.InitialShowDelay="1000"
-                                    ToolTipService.ShowOnDisabled="True"
-                                    ToolTip="Custom Constant Rate Factor value (e.g. 18)" Grid.Row="4" Grid.Column="2" Margin="0,2,0,0"/>
-
-                            <!-- Pass -->
-                            <Label Style="{DynamicResource LabelCustom}" 
-                                Content="Pass" 
-                                HorizontalAlignment="Left" 
-                                VerticalAlignment="Top" 
-                                Width="56"
-                                ToolTip="Encoding Pass Method"
-                                FontFamily="Segoe UI Semilight" Grid.Row="3" Grid.Column="1" />
-
-                            <ComboBox x:Name="cboPass"
-                                      SelectedItem="{Binding cboVideoEncodingPass_SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                      Style="{DynamicResource ComboBoxCustom}"
-                                      ItemContainerStyle="{DynamicResource ComboBoxCustomItem}"
-                                      HorizontalAlignment="Left"
-                                      VerticalAlignment="Top"
-                                      Width="105" 
-                                      ToolTipService.InitialShowDelay="1000" 
-                                      ToolTipService.ShowOnDisabled="True"
-                                      ToolTip="Encoding Pass Method" 
-                                      SelectionChanged="cboPass_SelectionChanged"
-                                      DropDownClosed="cboPass_DropDownClosed" 
-                                      Grid.Row="3" 
-                                      Grid.Column="2" Margin="0,2,0,0" />
-
-                            <!-- Optimize -->
-                            <Label 
-                                Style="{DynamicResource LabelCustom}" 
-                                Content="Optimize"
-                                HorizontalAlignment="Left" 
-                                VerticalAlignment="Top"
-                                Width="75"
-                                FontFamily="Segoe UI Semilight" Grid.Row="12" Height="26" Grid.Column="1" />
-
-                            <ComboBox x:Name="cboOptimize" 
-                                      Style="{DynamicResource ComboBoxWhite}"
-                                      ItemContainerStyle="{DynamicResource ComboBoxWhiteItem}"
+                            <ComboBox x:Name="cboPixelFormat" 
+                                      ItemsSource="{Binding PixelFormat_Items}"
+                                      SelectedIndex="{Binding PixelFormat_SelectedIndex}"
+                                      SelectedItem="{Binding PixelFormat_SelectedItem}"
+                                      IsEnabled="{Binding PixelFormat_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      IsSynchronizedWithCurrentItem="True"
+                                      Style="{DynamicResource ComboBoxCustom}" 
+                                      ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" 
                                       HorizontalAlignment="Left" 
                                       VerticalAlignment="Top" 
                                       Width="105" 
+                                      ToolTipService.InitialShowDelay="1000"
                                       ToolTipService.ShowOnDisabled="True" 
-                                      ToolTip="Optimize file for device type." 
-                                      Grid.Row="12" 
+                                      ToolTip="Pixel Format" 
+                                      IsTextSearchEnabled="False"
+                                      Grid.Row="9" 
                                       Grid.Column="2" 
-                                      Height="22" Margin="0,4,0,0" 
-                                      SelectionChanged="cboOptimize_SelectionChanged" />
+                                      Margin="0,2,0,0" 
+                                      SelectionChanged="cboPixelFormat_SelectionChanged"/>
 
+                            <!-- Framerate -->
+                            <Label Style="{DynamicResource LabelCustom}" 
+                                   Content="Framerate" 
+                                   HorizontalAlignment="Left" 
+                                   VerticalAlignment="Top"
+                                   Width="75" 
+                                   ToolTip="Frames Per Second" 
+                                   FontFamily="Segoe UI Semilight" 
+                                   Grid.Row="10"
+                                   Grid.Column="1" />
+
+                            <ComboBox x:Name="cboFPS" 
+                                      ItemsSource="{Binding FPS_Items}"
+                                      SelectedIndex="{Binding FPS_SelectedIndex}"
+                                      SelectedItem="{Binding FPS_SelectedItem}"
+                                      IsEnabled="{Binding FPS_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      IsSynchronizedWithCurrentItem="True"
+                                      Style="{DynamicResource ComboBoxCustom}" 
+                                      Text="{Binding FPS_Text}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" 
+                                      HorizontalAlignment="Left" 
+                                      VerticalAlignment="Top" 
+                                      Width="105" 
+                                      ToolTipService.InitialShowDelay="1000"
+                                      ToolTipService.ShowOnDisabled="True" 
+                                      ToolTip="Frames Per Second" 
+                                      SelectionChanged="cboFPS_SelectionChanged"
+                                      IsTextSearchEnabled="False" 
+                                      Grid.Row="10" 
+                                      Grid.Column="2" 
+                                      Margin="0,2,0,0"/>
+
+                            <!-- Optimize -->
+                            <Label Style="{DynamicResource LabelCustom}" 
+                                   Content="Optimize"
+                                   HorizontalAlignment="Left" 
+                                   VerticalAlignment="Top"
+                                   Width="75"
+                                   FontFamily="Segoe UI Semilight" 
+                                   Grid.Row="12" 
+                                   Height="26" 
+                                   Grid.Column="1" />
+
+                            <ComboBox x:Name="cboOptimize" 
+                                      Style="{DynamicResource ComboBoxWhite}"
+                                      ItemsSource="{Binding Video_Optimize_Items}"
+                                      DisplayMemberPath="Name"
+                                      SelectedValuePath="Name"
+                                      SelectedIndex="{Binding Video_Optimize_SelectedIndex}"
+                                      SelectedValue="{Binding Video_Optimize_SelectedItem, Mode=TwoWay}"
+                                      IsEnabled="{Binding Video_Optimize_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      IsSynchronizedWithCurrentItem="True"
+                                      HorizontalAlignment="Left" 
+                                      VerticalAlignment="Top" 
+                                      Width="105" 
+                                      Height="22"
+                                      SelectionChanged="cboOptimize_SelectionChanged" 
+                                      Grid.Column="2" 
+                                      Grid.Row="12" 
+                                      ToolTipService.ShowOnDisabled="True" 
+                                      ToolTip="Optimize file for device type." Margin="0,1,0,0"/>
 
                             <!-- Tune -->
                             <Label x:Name="labelTune" 
@@ -1470,9 +964,13 @@
                                    VerticalAlignment="Top" 
                                    Width="75" 
                                    Grid.Row="13" 
-                                   Grid.Column="1" 
-                                   />
+                                   Grid.Column="1"/>
                             <ComboBox x:Name="cboOptTune" 
+                                      ItemsSource="{Binding Optimize_Tune_Items}"
+                                      SelectedIndex="{Binding Optimize_Tune_SelectedIndex}"
+                                      SelectedItem="{Binding Optimize_Tune_SelectedItem, Mode=TwoWay}"
+                                      IsEnabled="{Binding Optimize_Tune_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      IsSynchronizedWithCurrentItem="True"
                                       Style="{DynamicResource ComboBoxCustom}" 
                                       ItemContainerStyle="{DynamicResource ComboBoxCustomItem}"
                                       HorizontalAlignment="Left"
@@ -1488,16 +986,19 @@
                             </ComboBox>
 
                             <!-- Profile -->
-                            <Label 
-                                Style="{DynamicResource LabelCustom}" 
-                                Content="Profile" 
-                                HorizontalAlignment="Left" 
-                                VerticalAlignment="Top" 
-                                Width="75" 
-                                Grid.Row="14" 
-                                Grid.Column="1" 
-                                   />
-                            <ComboBox x:Name="cboOptProfile" 
+                            <Label Style="{DynamicResource LabelCustom}" 
+                                   Content="Profile" 
+                                   HorizontalAlignment="Left" 
+                                   VerticalAlignment="Top" 
+                                   Width="75" 
+                                   Grid.Row="14" 
+                                   Grid.Column="1"/>
+                            <ComboBox x:Name="cboOptProfile"
+                                      ItemsSource="{Binding Optimize_Profile_Items}"
+                                      SelectedIndex="{Binding Optimize_Profile_SelectedIndex}"
+                                      SelectedItem="{Binding Optimize_Profile_SelectedItem, Mode=TwoWay}"
+                                      IsEnabled="{Binding Optimize_Profile_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      IsSynchronizedWithCurrentItem="True"
                                       Style="{DynamicResource ComboBoxCustom}" 
                                       ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" 
                                       HorizontalAlignment="Left" 
@@ -1510,37 +1011,44 @@
                             </ComboBox>
 
                             <!-- Level -->
-                            <Label 
-                                Style="{DynamicResource LabelCustom}" 
-                                Content="Level" 
-                                HorizontalAlignment="Left" 
-                                VerticalAlignment="Top" 
-                                Width="75" 
-                                Grid.Row="15" 
-                                Grid.Column="1" 
-                                   />
+                            <Label Style="{DynamicResource LabelCustom}" 
+                                   Content="Level" 
+                                   HorizontalAlignment="Left" 
+                                   VerticalAlignment="Top" 
+                                   Width="75" 
+                                   Grid.Row="15" 
+                                   Grid.Column="1"/>
                             <ComboBox x:Name="cboOptLevel" 
-                                Style="{DynamicResource ComboBoxCustom}" 
-                                ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" 
-                                HorizontalAlignment="Left" 
-                                Margin="0,2,0,0" 
-                                VerticalAlignment="Top" 
-                                Width="105" 
-                                Grid.Row="15" 
-                                Grid.Column="2" >
+                                      ItemsSource="{Binding Optimize_Level_Items}"
+                                      SelectedIndex="{Binding Optimize_Level_SelectedIndex}"
+                                      SelectedItem="{Binding Optimize_Level_SelectedItem, Mode=TwoWay}"
+                                      IsEnabled="{Binding Optimize_Level_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      IsSynchronizedWithCurrentItem="True"
+                                      Style="{DynamicResource ComboBoxCustom}" 
+                                      ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" 
+                                      HorizontalAlignment="Left" 
+                                      Margin="0,2,0,0" 
+                                      VerticalAlignment="Top" 
+                                      Width="105" 
+                                      Grid.Row="15" 
+                                      Grid.Column="2" >
                                 <!-- Items added by Optimize Controls Method -->
                             </ComboBox>
 
                             <!-- Size -->
-                            <Label 
-                                Style="{DynamicResource LabelCustom}"
-                                Content="Size" 
-                                HorizontalAlignment="Left" 
-                                VerticalAlignment="Top"
-                                Width="75" 
-                                Grid.Row="17" Grid.Column="1" />
-
+                            <Label Style="{DynamicResource LabelCustom}"
+                                    Content="Size" 
+                                    HorizontalAlignment="Left" 
+                                    VerticalAlignment="Top"
+                                    Width="75" 
+                                    Grid.Row="17" 
+                                    Grid.Column="1" />
                             <ComboBox x:Name="cboSize" 
+                                      ItemsSource="{Binding Size_Items}"
+                                      SelectedIndex="{Binding Size_SelectedIndex}"
+                                      SelectedItem="{Binding Size_SelectedItem, Mode=TwoWay}"
+                                      IsEnabled="{Binding Size_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      IsSynchronizedWithCurrentItem="True"
                                       Style="{DynamicResource ComboBoxWhite}"
                                       ItemContainerStyle="{DynamicResource ComboBoxWhiteItem}" 
                                       HorizontalAlignment="Left"
@@ -1548,21 +1056,8 @@
                                       Width="105" 
                                       SelectionChanged="cboSize_SelectionChanged" 
                                       Grid.Row="17" 
-                                      Grid.Column="2" Margin="0,2,0,0" >
-                                <System:String>Source</System:String>
-                                <System:String>8K</System:String>
-                                <System:String>4K</System:String>
-                                <System:String>4K UHD</System:String>
-                                <System:String>2K</System:String>
-                                <System:String>1440p</System:String>
-                                <System:String>1200p</System:String>
-                                <System:String>1080p</System:String>
-                                <System:String>720p</System:String>
-                                <System:String>480p</System:String>
-                                <System:String>320p</System:String>
-                                <System:String>240p</System:String>
-                                <System:String>Custom</System:String>
-                            </ComboBox>
+                                      Grid.Column="2" 
+                                      Margin="0,2,0,0" />
 
                             <!-- Width -->
                             <Label 
@@ -1570,20 +1065,22 @@
                                 Content="Width" 
                                 HorizontalAlignment="Left" 
                                 VerticalAlignment="Top"
-                                Width="75" Grid.Row="18" Grid.Column="1" />
-
-                            <TextBox x:Name="widthCustom" 
+                                Width="75" 
+                                Grid.Row="18" 
+                                Grid.Column="1" />
+                            <TextBox x:Name="tbxWidth"
+                                     Text="{Binding Width_Text, Mode=TwoWay}"
+                                     IsEnabled="{Binding Width_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                      Style="{DynamicResource TextBoxCustom}" 
                                      HorizontalAlignment="Left"
                                      Height="22" 
                                      Padding="2, 1, 0, 0" 
                                      TextWrapping="NoWrap" 
-                                     Text="" 
                                      VerticalAlignment="Top" 
                                      Width="105"
                                      MaxLines="1"
-                                     GotFocus="widthCustom_GotFocus" 
-                                     LostFocus="widthCustom_LostFocus" 
+                                     GotFocus="tbxWidth_GotFocus" 
+                                     LostFocus="tbxWidth_LostFocus" 
                                      Grid.Row="18" 
                                      Grid.Column="2" Margin="0,2,0,0" />
 
@@ -1593,19 +1090,25 @@
                                 Content="Height" 
                                 HorizontalAlignment="Left" 
                                 VerticalAlignment="Top"
-                                Width="75" Grid.Row="19" Grid.Column="1" />
-                            <TextBox x:Name="heightCustom" 
+                                Width="75" 
+                                Grid.Row="19" 
+                                Grid.Column="1" />
+                            <TextBox x:Name="tbxHeight" 
+                                     Text="{Binding Height_Text, Mode=TwoWay}"
+                                     IsEnabled="{Binding Height_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                      Style="{DynamicResource TextBoxCustom}"
                                      HorizontalAlignment="Left"
                                      Height="22" 
                                      Padding="2, 1, 0, 0"
                                      TextWrapping="NoWrap"
-                                     Text="" 
                                      VerticalAlignment="Top" 
                                      Width="105" 
                                      MaxLines="1" 
-                                     GotFocus="heightCustom_GotFocus" 
-                                     LostFocus="heightCustom_LostFocus" Grid.Row="19" Grid.Column="2" Margin="0,2,0,0" />
+                                     GotFocus="tbxHeight_GotFocus" 
+                                     LostFocus="tbxHeight_LostFocus"
+                                     Grid.Row="19" 
+                                     Grid.Column="2" 
+                                     Margin="0,2,0,0" />
 
                             <!-- Scaling -->
                             <Label 
@@ -1619,6 +1122,11 @@
                                 Height="26" Grid.Column="1" />
 
                             <ComboBox x:Name="cboScaling" 
+                                      ItemsSource="{Binding Scaling_Items}"
+                                      SelectedIndex="{Binding Scaling_SelectedIndex}"
+                                      SelectedItem="{Binding Scaling_SelectedItem}"
+                                      IsEnabled="{Binding Scaling_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      IsSynchronizedWithCurrentItem="True"
                                       Style="{DynamicResource ComboBoxCustom}"
                                       ItemContainerStyle="{DynamicResource ComboBoxCustomItem}"
                                       HorizontalAlignment="Left" 
@@ -1630,20 +1138,7 @@
                                       Grid.Column="2" 
                                       Height="22" 
                                       Margin="0,2,0,0" 
-                                      SelectionChanged="cboScaling_SelectionChanged">
-                                <System:String>default</System:String>
-                                <System:String>neighbor</System:String>
-                                <System:String>area</System:String>
-                                <System:String>fast_bilinear</System:String>
-                                <System:String>bilinear</System:String>
-                                <System:String>bicubic</System:String>
-                                <System:String>experimental</System:String>
-                                <System:String>bicublin</System:String>
-                                <System:String>gauss</System:String>
-                                <System:String>sinc</System:String>
-                                <System:String>lanczos</System:String>
-                                <System:String>spline</System:String>
-                            </ComboBox>
+                                      SelectionChanged="cboScaling_SelectionChanged"/>
 
                             <!-- Crop -->
                             <Label 
@@ -1653,7 +1148,7 @@
                                 VerticalAlignment="Top"
                                 Width="75" 
                                 Grid.Row="21" Grid.Column="1" />
-                            <Button x:Name="buttonCrop"
+                            <Button x:Name="btnCrop"
                                     Style="{DynamicResource ButtonCropCustom}"
                                     Padding="0" 
                                     HorizontalAlignment="Left" 
@@ -1661,18 +1156,19 @@
                                     Width="50" 
                                     Height="22" 
                                     Cursor="Hand" 
-                                    Click="buttonCrop_Click" 
+                                    Click="btnCrop_Click" 
                                     ToolTipService.InitialShowDelay="1000"
                                     ToolTipService.ShowOnDisabled="True" 
                                     ToolTip="Open Crop Window" 
                                     Grid.Row="21"
-                                    Grid.Column="2" Margin="0,2,0,0">
+                                    Grid.Column="2" 
+                                    Margin="0,2,0,0">
                                 <TextBlock Style="{DynamicResource ButtonCropTextBlock}"
                                            Text="Crop"
                                            Margin="0,-2,0,0"/>
                             </Button>
 
-                            <Button x:Name="buttonCropClear"
+                            <Button x:Name="btnCropClear"
                                     Style="{DynamicResource ButtonCropCustom}"
                                     Padding="0" 
                                     HorizontalAlignment="Left"
@@ -1681,14 +1177,14 @@
                                     Width="50" 
                                     Height="22" 
                                     Cursor="Hand" 
-                                    Click="buttonCropClear_Click" 
+                                    Click="btnCropClear_Click" 
                                     ToolTipService.InitialShowDelay="1000"
                                     ToolTipService.ShowOnDisabled="True"
                                     ToolTip="Clear Last Used Crop Settings" 
                                     Grid.Row="21"
                                     Grid.Column="2">
-                                <TextBlock x:Name="buttonCropClearTextBox" 
-                                           Text="Clear"
+                                <TextBlock x:Name="tblkCropClear" 
+                                           Text="{Binding CropClear_Text, Mode=TwoWay}"
                                            Margin="0,-2,0,0" />
                             </Button>
 
@@ -1731,51 +1227,109 @@
                                 <RowDefinition Height="33"/>
                             </Grid.RowDefinitions>
 
-
                             <!-- Audio Codec -->
-                            <Label 
-                                Style="{DynamicResource LabelCustom}"
-                                Content="Audio Codec" 
-                                HorizontalAlignment="Left" 
-                                VerticalAlignment="Top" 
-                                Width="85" 
-                                FontFamily="Segoe UI Semilight" 
-                                Grid.Row="0" 
-                                Height="26" Grid.Column="1" />
-
+                            <Label Style="{DynamicResource LabelCustom}"
+                                   Content="Audio Codec" 
+                                   HorizontalAlignment="Left" 
+                                   VerticalAlignment="Top" 
+                                   Width="85" 
+                                   FontFamily="Segoe UI Semilight" 
+                                   Grid.Row="0" 
+                                   Height="26" 
+                                   Grid.Column="1" />
                             <ComboBox x:Name="cboAudioCodec" 
                                       Style="{DynamicResource ComboBoxWhite}"
-                                      SelectedItem="{Binding cboAudioCodec_SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                      ItemContainerStyle="{DynamicResource ComboBoxWhiteItem}"
+                                      ItemsSource="{Binding AudioCodec_Items}"
+                                      SelectedIndex="{Binding AudioCodec_SelectedIndex}"
+                                      SelectedItem="{Binding AudioCodec_SelectedItem }"
+                                      IsEnabled="{Binding AudioCodec_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      IsSynchronizedWithCurrentItem="True"
                                       HorizontalAlignment="Left" 
-                                      Margin="0,2,0,0" 
                                       VerticalAlignment="Top" 
+                                      Width="105"
+                                      Height="22"
+                                      SelectionChanged="cboAudioCodec_SelectionChanged" 
+                                      Grid.Column="2"
+                                      Margin="0,2,0,0"/>
+
+                            <!-- Stream Track -->
+                            <Label Style="{DynamicResource LabelCustom}" 
+                                   Content="Stream"
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Top" 
+                                   Width="65"  
+                                   FontFamily="Segoe UI Semilight"
+                                   ToolTip="Audio Stream to keep."
+                                   Grid.Row="1" 
+                                   Grid.Column="1" />
+
+                            <ComboBox x:Name="cboAudioStream" 
+                                      ItemsSource="{Binding AudioStream_Items}"
+                                      SelectedIndex="{Binding AudioStream_SelectedIndex}"
+                                      SelectedItem="{Binding AudioStream_SelectedItem}"
+                                      IsEnabled="{Binding AudioStream_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      IsSynchronizedWithCurrentItem="True"
+                                      Style="{DynamicResource ComboBoxCustom}" 
+                                      ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" 
+                                      HorizontalAlignment="Left"
+                                      VerticalAlignment="Top"
                                       Width="105" 
-                                      SelectionChanged="cboAudioCodec_SelectionChanged"  
                                       ToolTipService.InitialShowDelay="1000" 
                                       ToolTipService.ShowOnDisabled="True" 
-                                      ToolTip="Audio Codec" 
-                                      Grid.Row="0" 
+                                      ToolTip="Audio Stream to keep." 
+                                      Grid.Row="1"
                                       Grid.Column="2" 
-                                      Height="22" />
+                                      Margin="0,2,0,0" />
 
-                            <!-- Audio Quality -->
-                            <Label 
-                                Style="{DynamicResource LabelCustom}" 
-                                Content="Quality" 
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Top"
-                                Width="76"
-                                FontFamily="Segoe UI Semilight" Grid.Row="4" Grid.Column="1" />
-
-                            <ComboBox x:Name="cboAudioQuality" 
-                                      SelectedItem="{Binding cboAudioQuality_SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                      Style="{DynamicResource ComboBoxWhite}" 
-                                      ItemContainerStyle="{DynamicResource ComboBoxWhiteItem}" 
-                                      HorizontalAlignment="Left"
+                            <!-- Channel -->
+                            <Label Style="{DynamicResource LabelCustom}" 
+                                   Content="Channel" 
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Top" 
+                                   Width="75" 
+                                   Grid.Row="2" 
+                                   Grid.Column="1" />
+                            <ComboBox x:Name="cboChannel"
+                                      ItemsSource="{Binding AudioChannel_Items}"
+                                      SelectedIndex="{Binding AudioChannel_SelectedIndex}"
+                                      SelectedItem="{Binding AudioChannel_SelectedItem}"
+                                      IsEnabled="{Binding AudioChannel_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      IsSynchronizedWithCurrentItem="True"
+                                      Style="{DynamicResource ComboBoxCustom}" 
+                                      ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" 
+                                      HorizontalAlignment="Left" 
                                       VerticalAlignment="Top" 
                                       Width="105" 
-                                      SelectionChanged="cboAudio_SelectionChanged" Grid.Column="2" Grid.Row="4" Margin="0,2,0,0" />
+                                      Grid.Row="2"
+                                      Grid.Column="2" 
+                                      Margin="0,2,0,0" SelectionChanged="cboChannel_SelectionChanged" />
+
+                            <!-- Audio Quality -->
+                            <Label Style="{DynamicResource LabelCustom}" 
+                                   Content="Quality" 
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Top"
+                                   Width="76"
+                                   FontFamily="Segoe UI Semilight" 
+                                   Grid.Row="4" 
+                                   Grid.Column="1" />
+                            <ComboBox x:Name="cboAudioQuality" 
+                                      Style="{DynamicResource ComboBoxWhite}"
+                                      ItemsSource="{Binding AudioQuality_Items}"
+                                      DisplayMemberPath="Name"
+                                      SelectedValuePath="Name"
+                                      SelectedIndex="{Binding AudioQuality_SelectedIndex}"
+                                      SelectedValue="{Binding AudioQuality_SelectedItem, Mode=TwoWay}"
+                                      IsEnabled="{Binding AudioQuality_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      IsSynchronizedWithCurrentItem="True"
+                                      HorizontalAlignment="Left" 
+                                      VerticalAlignment="Top" 
+                                      Width="105"
+                                      Height="22"
+                                      SelectionChanged="cboAudioQuality_SelectionChanged" 
+                                      Grid.Column="2" 
+                                      Grid.Row="4" 
+                                      Margin="0,2,0,0"/>
 
                             <!-- Bit Rate -->
                             <Label 
@@ -1784,31 +1338,36 @@
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Top"
                                 Width="76" 
-                                FontFamily="Segoe UI Semilight" Grid.Row="5" Grid.Column="1" />
+                                FontFamily="Segoe UI Semilight" 
+                                Grid.Row="5" 
+                                Grid.Column="1" />
 
-                            <TextBox x:Name="audioCustom"
+                            <TextBox x:Name="tbxAudioBitrate"
+                                     Text="{Binding AudioBitrate_Text, Mode=TwoWay}"
+                                     IsEnabled="{Binding AudioBitrate_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                      Style="{DynamicResource TextBoxCustom}" 
                                      HorizontalAlignment="Left"
                                      Height="22" 
                                      Width="70" 
                                      Padding="2, 1, 0, 0" 
                                      TextWrapping="NoWrap"
-                                     Text="kbps" 
                                      VerticalAlignment="Top" 
                                      MaxLines="1" 
                                      MaxLength="5" 
-                                     GotFocus="audioCustom_GotFocus"
-                                     LostFocus="audioCustom_LostFocus"
-                                     KeyDown="audioCustom_KeyDown" 
+                                     GotFocus="tbxAudioBitrate_GotFocus"
+                                     LostFocus="tbxAudioBitrate_LostFocus"
+                                     KeyDown="tbxAudioBitrate_KeyDown" 
                                      ToolTipService.InitialShowDelay="1000" 
                                      ToolTipService.ShowOnDisabled="True"
                                      ToolTip="Custom Audio Bitrate (e.g. 245)" 
                                      Grid.Column="2" 
-                                     Grid.Row="5" Margin="0,2,0,0"/>
+                                     Grid.Row="5" 
+                                     Margin="0,2,0,0"/>
 
-                            <!-- VBR -->
+                            <!-- VBR Toggle -->
                             <ToggleButton x:Name="tglAudioVBR" 
-                                          IsChecked="{Binding Audio_VBR_IsChecked}"
+                                          IsChecked="{Binding AudioVBR_IsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                          IsEnabled="{Binding AudioVBR_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                           Style="{DynamicResource ToggleButtonSmall}"
                                           Content="VBR"
                                           HorizontalAlignment="Left"
@@ -1819,7 +1378,11 @@
                                           ToolTipService.ShowOnDisabled="True" 
                                           ToolTip="Toggle Variable Bitrate for Vorbis (always), Opus, Lame, AAC, (if not Auto)." 
                                           Width="30" 
-                                          Height="22" Grid.Column="2" Grid.Row="5" />
+                                          Height="22"
+                                          Grid.Column="2" 
+                                          Grid.Row="5" 
+                                          Checked="tglAudioVBR_Checked"
+                                          Unchecked="tglAudioVBR_Unchecked"/>
 
                             <!-- Sample Rate -->
                             <Label Style="{DynamicResource LabelCustom}" 
@@ -1830,17 +1393,52 @@
                                    ToolTip="Audio Sample Rate" 
                                    FontFamily="Segoe UI Semilight" Grid.Row="6" Grid.Column="1" />
 
-                            <ComboBox x:Name="cboSamplerate" 
+                            <!--<ComboBox x:Name="cboSampleRate" 
                                       Style="{DynamicResource ComboBoxCustom}"
                                       ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" 
+                                      ItemsSource="{Binding AudioSampleRate_Items}"
+                                      DisplayMemberPath="Name"
+                                      SelectedValuePath="Name"
+                                      SelectedIndex="{Binding AudioSampleRate_SelectedIndex}"
+                                      SelectedValue="{Binding AudioSampleRate_SelectedItem}"
+                                      IsEnabled="{Binding AudioSampleRate_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                       HorizontalAlignment="Left" 
-                                      VerticalAlignment="Top"
+                                      VerticalAlignment="Top" 
                                       Width="105"
+                                      Height="22"
+                                      SelectionChanged="cboSampleRate_SelectionChanged" 
                                       ToolTip="Audio Sample Rate"
-                                      SelectionChanged="cboSamplerate_SelectionChanged"
                                       Grid.Column="2" 
                                       Grid.Row="6" 
-                                      Margin="0,2,0,0" />
+                                      Margin="0,2,0,0">-->
+
+                            <ComboBox x:Name="cboSampleRate" 
+                                      Style="{DynamicResource ComboBoxCustom}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" 
+                                      ItemsSource="{Binding AudioSampleRate_Items}"
+                                      SelectedValuePath="Name"
+                                      SelectedIndex="{Binding AudioSampleRate_SelectedIndex}"
+                                      SelectedValue="{Binding AudioSampleRate_SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      IsEnabled="{Binding AudioSampleRate_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      IsSynchronizedWithCurrentItem="True"
+                                      HorizontalAlignment="Left" 
+                                      VerticalAlignment="Top" 
+                                      Width="105"
+                                      Height="22"
+                                      SelectionChanged="cboSampleRate_SelectionChanged" 
+                                      ToolTip="Audio Bit Depth"
+                                      Grid.Column="2" 
+                                      Grid.Row="6" 
+                                      Margin="0,2,0,0"
+                                        >
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <TextBlock Text="{Binding Name}"></TextBlock>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
 
                             <!-- Bit Depth -->
                             <Label x:Name="labelBitdepth"
@@ -1852,68 +1450,52 @@
                                    ToolTip="Audio Bit Depth" 
                                    FontFamily="Segoe UI Semilight" Grid.Row="7" Grid.Column="1" />
 
-                            <ComboBox x:Name="cboBitDepth" 
-                                      Style="{DynamicResource ComboBoxCustom}" 
+                            <!--<ComboBox x:Name="cboBitDepth" 
+                                      Style="{DynamicResource ComboBoxCustom}"
                                       ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" 
+                                      ItemsSource="{Binding AudioBitDepth_Items}"
+                                      DisplayMemberPath="Name"
+                                      SelectedValuePath="Name"
+                                      SelectedIndex="{Binding AudioBitDepth_SelectedIndex}"
+                                      SelectedValue="{Binding AudioBitDepth_SelectedItem}"
+                                      IsEnabled="{Binding AudioBitDepth_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                       HorizontalAlignment="Left" 
                                       VerticalAlignment="Top" 
                                       Width="105"
-                                      ToolTipService.InitialShowDelay="1000" 
-                                      ToolTipService.ShowOnDisabled="True" 
-                                      ToolTip="Audio Bit Depth" 
+                                      Height="22"
                                       SelectionChanged="cboBitDepth_SelectionChanged" 
-                                      Grid.Column="2"
+                                      ToolTip="Audio Bit Depth"
+                                      Grid.Column="2" 
                                       Grid.Row="7" 
-                                      Margin="0,2,0,0" />
-
-                            <!-- Stream Track -->
-                            <Label 
-                                Style="{DynamicResource LabelCustom}" 
-                                Content="Stream"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Top" 
-                                Width="65"  
-                                FontFamily="Segoe UI Semilight"
-                                ToolTip="Audio Stream to keep." Grid.Row="1" Grid.Column="1" />
-
-                            <ComboBox x:Name="cboAudioStream" 
-                                      Style="{DynamicResource ComboBoxCustom}" 
+                                      Margin="0,2,0,0"/>-->
+                            <ComboBox x:Name="cboBitDepth" 
+                                      Style="{DynamicResource ComboBoxCustom}"
                                       ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" 
-                                      HorizontalAlignment="Left"
-                                      VerticalAlignment="Top"
-                                      Width="105" 
-                                      ToolTipService.InitialShowDelay="1000" 
-                                      ToolTipService.ShowOnDisabled="True" 
-                                      ToolTip="Audio Stream to keep." Grid.Row="1" Grid.Column="2" Margin="0,2,0,0" >
-                                <System:String>none</System:String>
-                                <System:String>all</System:String>
-                                <System:String>1</System:String>
-                                <System:String>2</System:String>
-                                <System:String>3</System:String>
-                                <System:String>4</System:String>
-                                <System:String>5</System:String>
-                                <System:String>6</System:String>
-                                <System:String>7</System:String>
-                                <System:String>8</System:String>
-                            </ComboBox>
-
-                            <!-- Channel -->
-                            <Label
-                                Style="{DynamicResource LabelCustom}" 
-                                Content="Channel" 
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Top" 
-                                Width="75" Grid.Row="2" Grid.Column="1" />
-
-                            <ComboBox x:Name="cboChannel"
-                                      Style="{DynamicResource ComboBoxCustom}" 
-                                      ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" 
+                                      ItemsSource="{Binding AudioBitDepth_Items}"
+                                      SelectedValuePath="Name"
+                                      SelectedIndex="{Binding AudioBitDepth_SelectedIndex}"
+                                      
+                                      SelectedValue="{Binding AudioBitDepth_SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      IsEnabled="{Binding AudioBitDepth_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      IsSynchronizedWithCurrentItem="True"
                                       HorizontalAlignment="Left" 
                                       VerticalAlignment="Top" 
-                                      Width="105" 
-                                      Grid.Row="2"
+                                      Width="105"
+                                      Height="22"
+                                      SelectionChanged="cboBitDepth_SelectionChanged" 
+                                      ToolTip="Audio Bit Depth"
                                       Grid.Column="2" 
-                                      Margin="0,2,0,0" />
+                                      Grid.Row="7" 
+                                      Margin="0,2,0,0"
+                                        >
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <TextBlock Text="{Binding Name}"></TextBlock>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
 
                             <!-- Volume -->
                             <Label 
@@ -1926,7 +1508,9 @@
                                    FontFamily="Segoe UI Semilight" 
                                    Grid.Row="9" Grid.Column="1" />
 
-                            <TextBox x:Name="volumeUpDown" 
+                            <TextBox x:Name="tbxVolume" 
+                                     Text="{Binding Volume_Text, Mode=TwoWay}"
+                                     IsEnabled="{Binding Volume_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                      Style="{DynamicResource TextBoxCustom}" 
                                      HorizontalAlignment="Left" 
                                      TextAlignment="Right"
@@ -1936,19 +1520,19 @@
                                      TextWrapping="NoWrap"
                                      VerticalAlignment="Top"
                                      Width="105" 
-                                     KeyDown="volumeUpDown_KeyDown"
+                                     KeyDown="tbxVolume_KeyDown"
                                      MaxLines="1"
                                      MaxLength="6" 
                                      ToolTipService.InitialShowDelay="1000"
                                      ToolTipService.ShowOnDisabled="True" 
                                      ToolTip="Volume" 
-                                     Text="100" 
-                                     TextChanged="volumeUpDown_TextChanged" 
+                                     TextChanged="tbxVolume_TextChanged" 
                                      Grid.Column="2" 
                                      Grid.Row="9" />
 
                             <!-- Vol Up -->
-                            <Button x:Name="volumeUpButton" 
+                            <Button x:Name="btnVolumeUp" 
+                                    IsEnabled="{Binding Volume_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     Style="{DynamicResource ButtonVolume}"
                                     BorderBrush="{x:Null}"
                                     Background="{x:Null}" 
@@ -1958,12 +1542,12 @@
                                     VerticalAlignment="Top" 
                                     Width="14" 
                                     Height="10" 
-                                    Click="volumeUpButton_Click"
-                                    PreviewMouseLeftButtonDown="volumeUpButton_PreviewMouseLeftButtonDown"
-                                    PreviewMouseUp="volumeUpButton_PreviewMouseUp" 
+                                    Click="btnVolumeUp_Click"
+                                    PreviewMouseLeftButtonDown="btnVolumeUp_PreviewMouseLeftButtonDown"
+                                    PreviewMouseUp="btnVolumeUp_PreviewMouseUp" 
                                     Grid.Column="2"
                                     Grid.Row="9">
-                                <Image x:Name="volumeUpButtonGlyph" 
+                                <Image x:Name="glyphVolumeUp" 
                                        Style="{DynamicResource ButtonVolumeUp}"
                                        Width="6" 
                                        Height="5" 
@@ -1974,7 +1558,8 @@
                             </Button>
 
                             <!-- Vol Down -->
-                            <Button x:Name="volumeDownButton" 
+                            <Button x:Name="btnVolumeDown"
+                                    IsEnabled="{Binding Volume_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     Style="{DynamicResource ButtonVolume}"
                                     BorderBrush="{x:Null}" 
                                     Background="{x:Null}"
@@ -1984,12 +1569,12 @@
                                     VerticalAlignment="Top"
                                     Width="14"
                                     Height="10" 
-                                    Click="volumeDownButton_Click"
-                                    PreviewMouseLeftButtonDown="volumeDownButton_PreviewMouseLeftButtonDown"
-                                    PreviewMouseUp="volumeDownButton_PreviewMouseUp" 
+                                    Click="btnVolumeDown_Click"
+                                    PreviewMouseLeftButtonDown="btnVolumeDown_PreviewMouseLeftButtonDown"
+                                    PreviewMouseUp="btnVolumeDown_PreviewMouseUp" 
                                     Grid.Column="2" 
                                     Grid.Row="9"  >
-                                <Image x:Name="volumeDownButtonGlyph"
+                                <Image x:Name="glyphVolumeDown"
                                        Style="{DynamicResource ButtonVolumeDown}" 
                                        Width="6"
                                        Height="5" 
@@ -2002,29 +1587,15 @@
                             <!-- Audio Limiter Toggle -->
                             <Label 
                                 Style="{DynamicResource LabelCustom}"  
-                                Content="Hardlimiter" 
+                                Content="Hard Limiter" 
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Top"
                                 Width="75"
                                 ToolTip="Prevents audio from rising over a desired threshold, [0.0625 - 1]." 
                                 FontFamily="Segoe UI Semilight" 
                                 Grid.Row="10" Grid.Column="1" />
-                            <!--<ToggleButton x:Name="tglAudioLimiter"
-                                          Style="{DynamicResource ToggleButtonSmall}"
-                                          Content="Limit"
-                                          HorizontalAlignment="Left"
-                                          Margin="58,114,0,-103" 
-                                          VerticalAlignment="Top"
-                                          Cursor="Hand"
-                                          ToolTipService.ShowOnDisabled="True" 
-                                          ToolTip="Turn Limiter On or Off" 
-                                          Width="34" 
-                                          Height="22" 
-                                          Checked="tglAudioLimiter_Checked"
-                                          Unchecked="tglAudioLimiter_Unchecked" 
-                                          Grid.Column="2" 
-                                          Grid.Row="11"/>-->
-                            <Slider x:Name="slAudioLimiter" 
+                            <Slider x:Name="slAudioHardLimiter" 
+                                    IsEnabled="{Binding AudioHardLimiter_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     HorizontalAlignment="Right"
                                     Margin="0,4,60,0" 
                                     VerticalAlignment="Top" 
@@ -2032,41 +1603,24 @@
                                     IsMoveToPointEnabled="True"
                                     Minimum="0"
                                     Maximum="1" 
-                                    Value="1"
-                                    MouseDoubleClick="slAudioLimiter_MouseDoubleClick"
-                                    PreviewMouseUp="slAudioLimiter_PreviewMouseUp"
+                                    Value="{Binding AudioHardLimiter_Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    MouseDoubleClick="slAudioHardLimiter_MouseDoubleClick"
+                                    PreviewMouseUp="slAudioHardLimiter_PreviewMouseUp"
                                     Grid.Column="2" 
                                     Grid.Row="10" 
                                     Height="18"/>
-                            <TextBox x:Name="tbxAudioLimiter"
-                                     Text="{Binding Value, ElementName=slAudioLimiter, StringFormat=N2, UpdateSourceTrigger=PropertyChanged}"
+                            <TextBox x:Name="tbxAudioHardLimiter"
+                                     IsEnabled="{Binding AudioHardLimiter_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                     Text="{Binding Value, ElementName=slAudioHardLimiter, StringFormat=N2, UpdateSourceTrigger=PropertyChanged}"
                                      Height="22" 
                                      TextWrapping="Wrap" 
                                      Margin="0,2,17,0"
                                      HorizontalAlignment="Right"
                                      Width="39" 
                                      VerticalAlignment="Top"   
-                                     PreviewKeyUp="tbxAudioLimiter_PreviewKeyUp"  
+                                     PreviewKeyUp="tbxAudioHardLimiter_PreviewKeyUp"  
                                      Grid.Column="2" 
                                      Grid.Row="10"/>
-
-                            <!--<TextBox x:Name="audioLimiter"
-                                     Style="{DynamicResource TextBoxCustom}"
-                                     HorizontalAlignment="Left"
-                                     Height="22"
-                                     Margin="0,2,0,0" 
-                                     Padding="2, 1, 0, 0"
-                                     TextWrapping="NoWrap" 
-                                     VerticalAlignment="Top"
-                                     Width="65" 
-                                     MaxLines="1"
-                                     MaxLength="11"
-                                     ToolTipService.InitialShowDelay="1000" 
-                                     ToolTipService.ShowOnDisabled="True"
-                                     ToolTip="Prevents audio from rising over a desired threshold, [0.0625 - 1]." 
-                                     IsEnabled="False" 
-                                     Grid.Row="10"
-                                     Grid.Column="2"/>-->
 
                         </Grid>
 
@@ -2118,6 +1672,11 @@
                                 Height="26" Grid.Column="1" />
 
                             <ComboBox x:Name="cboSubtitleCodec" 
+                                      ItemsSource="{Binding SubtitleCodec_Items}"
+                                      SelectedIndex="{Binding SubtitleCodec_SelectedIndex}"
+                                      SelectedItem="{Binding SubtitleCodec_SelectedItem}"
+                                      IsEnabled="{Binding SubtitleCodec_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      IsSynchronizedWithCurrentItem="True"
                                       Style="{DynamicResource ComboBoxWhite}"
                                       ItemContainerStyle="{DynamicResource ComboBoxWhiteItem}"
                                       HorizontalAlignment="Left" 
@@ -2131,16 +1690,22 @@
 
                             <!-- Subtitles -->
                             <Label Style="{DynamicResource LabelCustom}"
-                                    Content="Stream" 
-                                    HorizontalAlignment="Left" 
-                                    VerticalAlignment="Top"
-                                    Width="54" 
-                                    ToolTipService.ShowOnDisabled="True"
-                                    ToolTip="Subtitle Stream to keep. Add External Subtitle files. Mark CheckBox for Default." 
-                                    FontFamily="Segoe UI Semilight" 
-                                    Grid.Row="1" Grid.Column="1" />
+                                   Content="Stream" 
+                                   HorizontalAlignment="Left" 
+                                   VerticalAlignment="Top"
+                                   Width="54" 
+                                   ToolTipService.ShowOnDisabled="True"
+                                   ToolTip="Subtitle Stream to keep. Add External Subtitle files. Mark CheckBox for Default." 
+                                   FontFamily="Segoe UI Semilight" 
+                                   Grid.Row="1" 
+                                   Grid.Column="1" />
 
                             <ComboBox x:Name="cboSubtitlesStream" 
+                                      ItemsSource="{Binding SubtitleStream_Items}"
+                                      SelectedIndex="{Binding SubtitleStream_SelectedIndex}"
+                                      SelectedItem="{Binding SubtitleStream_SelectedItem}"
+                                      IsEnabled="{Binding SubtitleStream_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      IsSynchronizedWithCurrentItem="True"
                                       Style="{DynamicResource ComboBoxCustom}"
                                       ItemContainerStyle="{DynamicResource ComboBoxCustomItem}"
                                       HorizontalAlignment="Left" 
@@ -2151,30 +1716,20 @@
                                       ToolTip="Subtitle Stream to keep." 
                                       Grid.Row="1" 
                                       Grid.Column="2" 
-                                      SelectionChanged="cboSubtitle_SelectionChanged" 
-                                      Margin="0,4,0,0" >
-                                <System:String>none</System:String>
-                                <System:String>external</System:String>
-                                <System:String>all</System:String>
-                                <System:String>1</System:String>
-                                <System:String>2</System:String>
-                                <System:String>3</System:String>
-                                <System:String>4</System:String>
-                                <System:String>5</System:String>
-                                <System:String>6</System:String>
-                                <System:String>7</System:String>
-                                <System:String>8</System:String>
-                            </ComboBox>
+                                      SelectionChanged="cboSubtitleStream_SelectionChanged" 
+                                      Margin="0,4,0,0" />
 
                             <!-- Subtitles List -->
                             <ListView x:Name="listViewSubtitles" 
-                                        Height="130" 
-                                        Margin="5,7,48,0"
-                                        VerticalAlignment="Top"
-                                        BorderThickness="0"
-                                        Style="{DynamicResource ListViewStyle}" 
-                                        Grid.ColumnSpan="2" 
-                                        Grid.Row="2" Grid.Column="1">
+                                      IsEnabled="{Binding SubtitleListView_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      Height="130" 
+                                      Margin="5,7,48,0"
+                                      VerticalAlignment="Top"
+                                      BorderThickness="0"
+                                      Style="{DynamicResource ListViewStyle}" 
+                                      Grid.ColumnSpan="2" 
+                                      Grid.Row="2" 
+                                      Grid.Column="1">
 
                                 <ListView.Resources>
                                     <Style TargetType="{x:Type GridViewColumnHeader}">
@@ -2206,6 +1761,7 @@
 
                             <!-- Add -->
                             <Button x:Name="btnAddSubtitles"
+                                    IsEnabled="{Binding SubtitleListView_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     Style="{DynamicResource ButtonNavigationStyle}"
                                     HorizontalAlignment="Left" 
                                     VerticalAlignment="Top" 
@@ -2222,6 +1778,7 @@
                             </Button>
                             <!-- Remove -->
                             <Button x:Name="btnRemoveSubtitle"
+                                    IsEnabled="{Binding SubtitleListView_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     Style="{DynamicResource ButtonNavigationStyle}"
                                     HorizontalAlignment="Left" 
                                     VerticalAlignment="Top" 
@@ -2238,6 +1795,7 @@
                             </Button>
                             <!-- Sort Up -->
                             <Button x:Name="btnSortSubtitleUp"
+                                    IsEnabled="{Binding SubtitleListView_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     Style="{DynamicResource ButtonNavigationStyle}"
                                     VerticalAlignment="Top" 
                                     Height="22"
@@ -2252,6 +1810,7 @@
                             </Button>
                             <!-- Sort Down -->
                             <Button x:Name="btnSortSubtitleDown"
+                                    IsEnabled="{Binding SubtitleListView_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     Style="{DynamicResource ButtonNavigationStyle}"
                                     HorizontalAlignment="Left" 
                                     VerticalAlignment="Top" 
@@ -2266,6 +1825,7 @@
                             </Button>
                             <!-- Clear All -->
                             <Button x:Name="btnClearSubtitles" 
+                                    IsEnabled="{Binding SubtitleListView_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     Style="{DynamicResource ButtonNavigationStyle}"
                                     HorizontalAlignment="Left" 
                                     VerticalAlignment="Top" 
@@ -2386,7 +1946,7 @@
 
                                             <ComboBox x:Name="cboFilterVideo_Deband" 
                                                       ItemsSource="{Binding cboFilterVideo_Deband_Items}"
-                                                      SelectedItem="{Binding cboFilterVideo_Deband_SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                      SelectedItem="{Binding cboFilterVideo_Deband_SelectedItem, Mode=TwoWay}"
                                                       Style="{DynamicResource ComboBoxCustom}"
                                                       ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" 
                                                       HorizontalAlignment="Left"
@@ -2414,7 +1974,7 @@
 
                                             <ComboBox x:Name="cboFilterVideo_Deshake" 
                                                       ItemsSource="{Binding cboFilterVideo_Deshake_Items}"
-                                                      SelectedItem="{Binding cboFilterVideo_Deshake_SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                      SelectedItem="{Binding cboFilterVideo_Deshake_SelectedItem, Mode=TwoWay}"
                                                       Style="{DynamicResource ComboBoxCustom}"
                                                       ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" 
                                                       HorizontalAlignment="Left"
@@ -2442,7 +2002,7 @@
 
                                             <ComboBox x:Name="cboFilterVideo_Deflicker"
                                                       ItemsSource="{Binding cboFilterVideo_Deflicker_Items}"
-                                                      SelectedItem="{Binding cboFilterVideo_Deflicker_SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                      SelectedItem="{Binding cboFilterVideo_Deflicker_SelectedItem, Mode=TwoWay}"
                                                       Style="{DynamicResource ComboBoxCustom}"
                                                       ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" 
                                                       HorizontalAlignment="Left"
@@ -2470,7 +2030,7 @@
 
                                             <ComboBox x:Name="cboFilterVideo_Dejudder" 
                                                       ItemsSource="{Binding cboFilterVideo_Dejudder_Items}"
-                                                      SelectedItem="{Binding cboFilterVideo_Dejudder_SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                      SelectedItem="{Binding cboFilterVideo_Dejudder_SelectedItem, Mode=TwoWay}"
                                                       Style="{DynamicResource ComboBoxCustom}"
                                                       ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" 
                                                       HorizontalAlignment="Left"
@@ -2498,7 +2058,7 @@
 
                                             <ComboBox x:Name="cboFilterVideo_Denoise" 
                                                       ItemsSource="{Binding cboFilterVideo_Denoise_Items}"
-                                                      SelectedItem="{Binding cboFilterVideo_Denoise_SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                      SelectedItem="{Binding cboFilterVideo_Denoise_SelectedItem, Mode=TwoWay}"
                                                       Style="{DynamicResource ComboBoxCustom}"
                                                       ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" 
                                                       HorizontalAlignment="Left"
@@ -2595,7 +2155,7 @@
 
                                             <ComboBox x:Name="cboFilterVideo_SelectiveColor_Correction_Method" 
                                                       ItemsSource="{Binding cboFilterVideo_SelectiveColor_Correction_Method_Items}"
-                                                      SelectedItem="{Binding cboFilterVideo_SelectiveColor_Correction_Method_SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                      SelectedItem="{Binding cboFilterVideo_SelectiveColor_Correction_Method_SelectedItem, Mode=TwoWay}"
                                                       Style="{DynamicResource ComboBoxCustom}"
                                                       ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" 
                                                       HorizontalAlignment="Left" 
@@ -4082,7 +3642,7 @@
                                                    Grid.Row="4"/>
                                             <ComboBox x:Name="cboFilterAudio_Lowpass" 
                                                       ItemsSource="{Binding cboFilterAudio_Lowpass_Items}"
-                                                      SelectedItem="{Binding cboFilterAudio_Lowpass_SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                      SelectedItem="{Binding cboFilterAudio_Lowpass_SelectedItem, Mode=TwoWay}"
                                                       Style="{DynamicResource ComboBoxCustom}"
                                                       ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" 
                                                       HorizontalAlignment="Left"
@@ -4106,7 +3666,7 @@
                                                    Grid.Row="5"/>
                                             <ComboBox x:Name="cboFilterAudio_Highpass" 
                                                       ItemsSource="{Binding cboFilterAudio_Highpass_Items}"
-                                                      SelectedItem="{Binding cboFilterAudio_Highpass_SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                      SelectedItem="{Binding cboFilterAudio_Highpass_SelectedItem, Mode=TwoWay}"
                                                       Style="{DynamicResource ComboBoxCustom}"
                                                       ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" 
                                                       HorizontalAlignment="Left"
@@ -4213,7 +3773,7 @@
                                                    Grid.Row="10"/>
                                             <ComboBox x:Name="cboFilterAudio_Headphones" 
                                                       ItemsSource="{Binding cboFilterAudio_Headphones_Items}"
-                                                      SelectedItem="{Binding cboFilterAudio_Headphones_SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                      SelectedItem="{Binding cboFilterAudio_Headphones_SelectedItem, Mode=TwoWay}"
                                                       Style="{DynamicResource ComboBoxCustom}"
                                                       ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" 
                                                       HorizontalAlignment="Left"
@@ -4328,8 +3888,10 @@
                                    HorizontalAlignment="Left" 
                                    VerticalAlignment="Top"
                                    Height="26" 
-                                   ToolTip="Path to FFmpeg.exe" Grid.Column="1"/>
-                            <TextBox x:Name="textBoxFFmpegPathConfig" 
+                                   ToolTip="Path to FFmpeg.exe" Grid.Column="1" Width="56"/>
+                            <TextBox x:Name="tbxFFmpegPathConfig" 
+                                     Text="{Binding FFmpegPath_Text, Mode=TwoWay}"
+                                     IsEnabled="{Binding FFmpegPath_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                      Style="{DynamicResource TextBoxBrowseCustom}"
                                      HorizontalAlignment="Left" 
                                      Height="20"
@@ -4338,13 +3900,12 @@
                                      VerticalAlignment="Top"
                                      Width="105"
                                      IsReadOnly="True" 
-                                     PreviewMouseDown="textBoxFFmpegPathConfig_PreviewMouseDown"
-                                     TextChanged="textBoxFFmpegPathConfig_TextChanged"
+                                     PreviewMouseDown="tbxFFmpegPath_PreviewMouseDown"
                                      ToolTip="Path to FFmpeg.exe" 
                                      Grid.Column="2"/>
 
                             <!-- FFmpeg Path Revert Button -->
-                            <Button x:Name="buttonFFmpegAuto"
+                            <Button x:Name="btnFFmpegAuto"
                                     HorizontalAlignment="Left"
                                     Margin="122,0,0,0" 
                                     VerticalAlignment="Top"
@@ -4352,7 +3913,7 @@
                                     Height="23" 
                                     Cursor="Hand"
                                     ToolTip="Revert to Auto"
-                                    Click="buttonFFmpegAuto_Click"
+                                    Click="btnFFmpegAuto_Click"
                                     Style="{DynamicResource ButtonFolderCustom}" Grid.Column="2" >
                                 <Image Width="9" 
                                        Height="11" 
@@ -4368,8 +3929,10 @@
                                    HorizontalAlignment="Left" 
                                    VerticalAlignment="Top"
                                    Height="26" 
-                                   ToolTip="Path to FFprobe.exe" Grid.Row="1" Grid.Column="1"/>
-                            <TextBox x:Name="textBoxFFprobePathConfig" 
+                                   ToolTip="Path to FFprobe.exe" Grid.Row="1" Grid.Column="1" Width="56"/>
+                            <TextBox x:Name="tbxFFprobePathConfig" 
+                                     Text="{Binding FFprobePath_Text, Mode=TwoWay}"
+                                     IsEnabled="{Binding FFprobePath_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                      Style="{DynamicResource TextBoxBrowseCustom}"
                                      HorizontalAlignment="Left" 
                                      Height="20"
@@ -4378,14 +3941,13 @@
                                      VerticalAlignment="Top"
                                      Width="105"
                                      IsReadOnly="True" 
-                                     PreviewMouseDown="textBoxFFprobePathConfig_PreviewMouseDown"
-                                     TextChanged="textBoxFFprobePathConfig_TextChanged"
+                                     PreviewMouseDown="tbxFFprobePath_PreviewMouseDown"
                                      ToolTip="Path to FFprobe.exe"
                                      Grid.Column="2" 
                                      Grid.Row="1"/>
 
                             <!-- FFprobe Path Revert Button -->
-                            <Button x:Name="buttonFFprobeAuto"
+                            <Button x:Name="btnFFprobeAuto"
                                     HorizontalAlignment="Left"
                                     Margin="122,1,0,0" 
                                     VerticalAlignment="Top"
@@ -4393,7 +3955,7 @@
                                     Height="23" 
                                     Cursor="Hand"
                                     ToolTip="Revert to Auto"
-                                    Click="buttonFFprobeAuto_Click"
+                                    Click="btnFFprobeAuto_Click"
                                     Style="{DynamicResource ButtonFolderCustom}" Grid.Column="2" Grid.Row="1" >
                                 <Image Width="9" 
                                        Height="11" 
@@ -4410,8 +3972,10 @@
                                    VerticalAlignment="Top"
                                    Height="26" 
                                    ToolTip="Path to FFplay.exe"
-                                   Grid.Row="2" Grid.Column="1"/>
+                                   Grid.Row="2" Grid.Column="1" Width="56"/>
                             <TextBox x:Name="textBoxFFplayPathConfig" 
+                                     Text="{Binding FFplayPath_Text, Mode=TwoWay}"
+                                     IsEnabled="{Binding FFplayPath_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                      Style="{DynamicResource TextBoxBrowseCustom}"
                                      HorizontalAlignment="Left" 
                                      Height="20"
@@ -4420,14 +3984,13 @@
                                      VerticalAlignment="Top"
                                      Width="105"
                                      IsReadOnly="True" 
-                                     PreviewMouseDown="textBoxFFplayPathConfig_PreviewMouseDown"
-                                     TextChanged="textBoxFFplayPathConfig_TextChanged"
+                                     PreviewMouseDown="tbxFFplayPath_PreviewMouseDown"
                                      ToolTip="Path to FFplay.exe" 
                                      Grid.Column="2" 
                                      Grid.Row="2"/>
 
                             <!-- FFplay Path Revert Button -->
-                            <Button x:Name="buttonFFplayAuto"
+                            <Button x:Name="btnFFplayAuto"
                                             HorizontalAlignment="Left"
                                             Margin="122,1,0,0" 
                                             VerticalAlignment="Top"
@@ -4435,7 +3998,7 @@
                                             Height="23" 
                                             Cursor="Hand"
                                             ToolTip="Revert to Auto"
-                                            Click="buttonFFplayAuto_Click"
+                                            Click="btnFFplayAuto_Click"
                                             Style="{DynamicResource ButtonFolderCustom}" 
                                             Grid.Column="2" 
                                             Grid.Row="2" >
@@ -4455,8 +4018,10 @@
                                    VerticalAlignment="Top"
                                    Height="26" 
                                    ToolTip="Path to Save Log" 
-                                   Grid.Row="3" Grid.Column="1"/>
+                                   Grid.Row="3" Grid.Column="1" Width="36"/>
                             <TextBox x:Name="textBoxLogConfig" 
+                                     Text="{Binding LogPath_Text, Mode=TwoWay}"
+                                     IsEnabled="{Binding LogPath_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                      Style="{DynamicResource TextBoxBrowseCustom}" 
                                      HorizontalAlignment="Left" 
                                      Height="20" 
@@ -4465,15 +4030,14 @@
                                      VerticalAlignment="Top"
                                      Width="105"
                                      IsReadOnly="True" 
-                                     PreviewMouseDown="textBoxLogConfig_PreviewMouseDown" 
+                                     PreviewMouseDown="tbxLog_PreviewMouseDown" 
                                      ToolTipService.ShowOnDisabled="True" 
                                      ToolTip="Path to save output log." 
-                                     IsEnabled="{Binding IsChecked, ElementName=checkBoxLogConfig}" 
                                      Grid.Column="2" 
                                      Grid.Row="3"/>
 
                             <!-- Log Revert Button -->
-                            <Button x:Name="buttonLogAuto" 
+                            <Button x:Name="btnLogAuto" 
                                     HorizontalAlignment="Left" 
                                     Margin="122,1,0,0" 
                                     VerticalAlignment="Top"
@@ -4481,7 +4045,7 @@
                                     Height="23" 
                                     Cursor="Hand"
                                     ToolTip="Clear Path" 
-                                    Click="buttonLogAuto_Click" 
+                                    Click="btnLogAuto_Click" 
                                     Style="{DynamicResource ButtonFolderCustom}" 
                                     Grid.Column="2"
                                     Grid.Row="3">
@@ -4495,14 +4059,15 @@
                             </Button>
 
                             <!-- Log Enable/Disable Checkbox -->
-                            <CheckBox x:Name="checkBoxLogConfig" 
-                                      Content=""
+                            <CheckBox x:Name="cbxLog" 
+                                      IsChecked="{Binding LogCheckBox_IsChecked}"
+                                      IsEnabled="{Binding LogCheckBox_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                       HorizontalAlignment="Left" 
                                       Margin="36,6,0,0" 
                                       VerticalAlignment="Top" 
                                       ToolTip="Enable/Disable Log"
-                                      Checked="checkBoxLogConfig_Checked" 
-                                      Unchecked="checkBoxLogConfig_Unchecked" 
+                                      Checked="cbxLog_Checked" 
+                                      Unchecked="cbxLog_Unchecked" 
                                       Style="{DynamicResource CheckBoxCustom}" 
                                       Grid.Row="3" Grid.Column="1"/>
 
@@ -4516,6 +4081,10 @@
                                    ToolTip="Path to Save Log"
                                    Grid.Row="5" Grid.Column="1"/>
                             <ComboBox x:Name="cboThreads"
+                                      ItemsSource="{Binding Threads_Items}"
+                                      SelectedIndex="{Binding Threads_SelectedIndex}"
+                                      SelectedItem="{Binding Threads_SelectedItem}"
+                                      IsEnabled="{Binding Threads_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                       Style="{DynamicResource ComboBoxCustom}" 
                                       ItemContainerStyle="{DynamicResource ComboBoxCustomItem}"
                                       HorizontalAlignment="Left" 
@@ -4526,55 +4095,7 @@
                                       KeyDown="threadSelect_KeyDown" 
                                       Grid.Column="2"
                                       Grid.Row="5" 
-                                      Margin="10,2,0,0">
-                                <System:String>default</System:String>
-                                <System:String>optimal</System:String>
-                                <System:String>all</System:String>
-                                <System:String>1</System:String>
-                                <System:String>2</System:String>
-                                <System:String>3</System:String>
-                                <System:String>4</System:String>
-                                <System:String>5</System:String>
-                                <System:String>6</System:String>
-                                <System:String>7</System:String>
-                                <System:String>8</System:String>
-                                <System:String>9</System:String>
-                                <System:String>10</System:String>
-                                <System:String>11</System:String>
-                                <System:String>12</System:String>
-                                <System:String>13</System:String>
-                                <System:String>14</System:String>
-                                <System:String>15</System:String>
-                                <System:String>16</System:String>
-                                <!-- <System:String>Custom</System:String> -->
-                            </ComboBox>
-
-
-                            <!-- Hardware Acceleration -->
-                            <!--<Label Style="{DynamicResource LabelCustom}"
-                                   Content="HW Accel" 
-                                   HorizontalAlignment="Left"
-                                   Margin="10,0,0,0" 
-                                   VerticalAlignment="Top" 
-                                   Height="26" 
-                                   ToolTip="Path to Save Log"
-                                   Grid.Row="5"/>
-                            <ToggleButton x:Name="tglHWAccel" 
-                                          Style="{DynamicResource ToggleButtonSmall}"
-                                          Content="Off"
-                                          HorizontalAlignment="Left" 
-                                          VerticalAlignment="Top" 
-                                          Cursor="Hand" 
-                                          ToolTipService.InitialShowDelay="1000" 
-                                          ToolTipService.ShowOnDisabled="True" 
-                                          ToolTip="Toggle Variable Bitrate." 
-                                          Width="58" 
-                                          Height="22" 
-                                          Grid.Row="5" 
-                                          Grid.Column="1"
-                                          Margin="0,2,0,0" 
-                                          Checked="tglHWAccel_Checked" 
-                                          Unchecked="tglHWAccel_Unchecked"/>-->
+                                      Margin="10,2,0,0"/>
 
                             <!-- Theme -->
                             <Label x:Name="labelTheme" 
@@ -4586,6 +4107,10 @@
                                    ToolTip="Path to Save Log" 
                                    Grid.Row="6" Grid.Column="1"/>
                             <ComboBox x:Name="cboTheme" 
+                                      ItemsSource="{Binding Theme_Items}"
+                                      SelectedIndex="{Binding Theme_SelectedIndex}"
+                                      SelectedItem="{Binding Theme_SelectedItem}"
+                                      IsEnabled="{Binding Theme_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                       Style="{DynamicResource ComboBoxCustom}"
                                       ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" 
                                       HorizontalAlignment="Left" VerticalAlignment="Top" 
@@ -4594,15 +4119,7 @@
                                       SelectionChanged="themeSelect_SelectionChanged" 
                                       Grid.Column="2" 
                                       Grid.Row="6"
-                                      Margin="10,2,0,0">
-                                <System:String>Axiom</System:String>
-                                <System:String>FFmpeg</System:String>
-                                <System:String>Cyberpunk</System:String>
-                                <System:String>Onyx</System:String>
-                                <System:String>Circuit</System:String>
-                                <!--<System:String>Prelude</System:String>-->
-                                <System:String>System</System:String>
-                            </ComboBox>
+                                      Margin="10,2,0,0"/>
 
                             <!-- Check for Updates -->
                             <Label Style="{DynamicResource LabelCustom}" 
@@ -4613,7 +4130,9 @@
                                    ToolTip="Path to Save Log" 
                                    Grid.Row="8" Grid.Column="1"/>
                             <!-- Window Toggle  -->
-                            <ToggleButton x:Name="tglUpdatesAutoCheck"
+                            <ToggleButton x:Name="tglUpdateAutoCheck"
+                                          IsChecked="{Binding UpdateAutoCheck_IsChecked}"
+                                          IsEnabled="{Binding UpdateAutoCheck_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                           Cursor="Hand" 
                                           HorizontalAlignment="Left" 
                                           VerticalAlignment="Top" 
@@ -4621,8 +4140,8 @@
                                           Width="58" 
                                           Height="22" 
                                           Style="{DynamicResource ToggleButtonCustom}" 
-                                          Checked="tglUpdatesAutoCheck_Checked"
-                                          Unchecked="tglUpdatesAutoCheck_Unchecked"
+                                          Checked="tglUpdateAutoCheck_Checked"
+                                          Unchecked="tglUpdateAutoCheck_Unchecked"
                                           Grid.Column="2" 
                                           Grid.Row="8" 
                                           Margin="10,2,0,0">
@@ -4650,7 +4169,7 @@
                                    Grid.Row="10" Grid.Column="1" />
 
                             <!-- Reset Saved Settings Button -->
-                            <Button x:Name="buttonClearAllSavedSettings"
+                            <Button x:Name="btnClearAllSavedSettings"
                                     HorizontalAlignment="Left" 
                                     VerticalAlignment="Top"
                                     Width="55" 
@@ -4658,7 +4177,7 @@
                                     Height="23" 
                                     ToolTip="Reset the Saved Settings to Default." 
                                     Cursor="Hand" 
-                                    Click="buttonClearAllSavedSettings_Click" 
+                                    Click="btnClearAllSavedSettings_Click" 
                                     Style="{DynamicResource ButtonSmallCustom}" 
                                     Grid.Column="2" 
                                     Grid.Row="10" Margin="10,2,0,0">
@@ -4668,7 +4187,7 @@
                             </Button>
 
                             <!-- Delete Saved Settings Button -->
-                            <Button x:Name="buttonDeleteSettings"
+                            <Button x:Name="btnDeleteSettings"
                                     HorizontalAlignment="Left"
                                     Margin="72,2,0,0"
                                     VerticalAlignment="Top"
@@ -4678,12 +4197,14 @@
                                     ToolTip="Delete the Settings File in AppData." 
                                     Cursor="Hand" 
                                     Style="{DynamicResource ButtonSmallCustom}" 
-                                    Click="buttonDeleteSettings_Click" 
+                                    Click="btnDeleteSettings_Click" 
                                     Grid.Column="2" 
                                     Grid.Row="10">
                                 <TextBlock Style="{DynamicResource TextBlockCustom}" 
-                                           Text="Delete" Margin="0,-1,0,0"/>
+                                           Text="Delete" 
+                                           Margin="0,-1,0,0"/>
                             </Button>
+
                         </Grid>
 
 
@@ -4697,10 +4218,359 @@
         </TabControl>
 
 
-        <!-- File Queue
-        <Button x:Name="buttonFileQueue" HorizontalAlignment="Left" Margin="-135,233,0,0" VerticalAlignment="Top" Width="22" Height="22" Cursor="Hand" Background="{x:Null}" Style="{DynamicResource ButtonSmallCustom}" ToolTip="Show File Queue" Click="buttonFileQueue_Click">
-            <Image Source="Resources/Images/logconsole.png" Width="10" Height="11" Stretch="Fill" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0"/>
-        </Button> -->
+        <!-- Tool Buttons Grid -->
+        <Grid HorizontalAlignment="Left" 
+              Width="343" 
+              Height="35" 
+              VerticalAlignment="Bottom" 
+              Margin="10,0,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="30"/>
+
+            </Grid.ColumnDefinitions>
+
+            <!-- Info Button -->
+            <Button x:Name="buttonInfo" 
+                    HorizontalAlignment="Left"
+                    Margin="0,0,0,0" 
+                    VerticalAlignment="Top" 
+                    Width="22" 
+                    Height="22" 
+                    Cursor="Hand" 
+                    Click="buttonInfo_Click" 
+                    Background="{x:Null}"
+                    Style="{DynamicResource ButtonSmallCustom}"
+                    ToolTip="About this program">
+                <Image Width="5"
+                       Height="10"
+                       Stretch="Uniform"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center" 
+                       Margin="1,0,0,0" 
+                       Style="{DynamicResource ButtonInfo}"/>
+            </Button>
+
+            <!-- Website Button -->
+            <Button x:Name="buttonWebsite" 
+                    HorizontalAlignment="Left" 
+                    VerticalAlignment="Top" 
+                    Width="22" 
+                    Height="22" 
+                    Cursor="Hand" 
+                    Click="buttonWebsite_Click" 
+                    Background="{x:Null}" 
+                    Style="{DynamicResource ButtonSmallCustom}" 
+                    ToolTip="Visit Website" 
+                    Grid.Column="1">
+                <Image Width="11" 
+                       Height="11"
+                       Stretch="Uniform" 
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Margin="1,-1,0,0" 
+                       Style="{DynamicResource ButtonWebsite}" />
+            </Button>
+
+            <!-- Update Button -->
+            <Button x:Name="buttonUpdate" 
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top" 
+                    Width="22" 
+                    Height="22" 
+                    Cursor="Hand" 
+                    Background="{x:Null}" 
+                    Style="{DynamicResource ButtonSmallCustom}" 
+                    ToolTip="Check for Updates"
+                    Click="buttonUpdate_Click" 
+                    Grid.Column="2">
+                <Image Width="10" 
+                       Height="10"
+                       Stretch="Uniform" 
+                       HorizontalAlignment="Center" 
+                       VerticalAlignment="Center"
+                       Margin="0,0,0,0" 
+                       Style="{DynamicResource ButtonUpdate}" />
+            </Button>
+
+            <!-- Window Toggle  -->
+            <ToggleButton x:Name="tglCMDWindowKeep"
+                          IsChecked="{Binding CMDWindowKeep_IsChecked}"
+                          Cursor="Hand" 
+                          HorizontalAlignment="Left" 
+                          VerticalAlignment="Top" 
+                          ToolTip="Keep FFmpeg window open after converting" 
+                          Width="22" 
+                          Height="22" 
+                          Style="{DynamicResource ToggleButtonCustom}" 
+                          Checked="tglCMDWindowKeep_Checked"
+                          Unchecked="tglCMDWindowKeep_Unchecked"
+                          Grid.Column="3">
+                <Image Width="10"
+                       Height="10" 
+                       Stretch="Uniform" 
+                       HorizontalAlignment="Center" 
+                       VerticalAlignment="Center" 
+                       Margin="0,0,0,0" 
+                       Style="{DynamicResource ButtonWindow}" />
+            </ToggleButton>
+
+            <!-- Auto Sort Script Button -->
+            <ToggleButton x:Name="tglAutoSortScript"
+                          Style="{DynamicResource ToggleButtonCustom}"
+                          IsChecked="{Binding AutoSortScript_IsChecked}"
+                          Margin="0,0,0,0"
+                          Cursor="Hand" 
+                          Width="22" 
+                          Height="22" 
+                          ToolTipService.InitialShowDelay="1000" 
+                          ToolTipService.ShowOnDisabled="True"
+                          ToolTip="Auto Sort Script" 
+                          HorizontalAlignment="Left"
+                          VerticalAlignment="Top"
+                          Grid.Column="4" 
+                          Checked="tglAutoSortScript_Checked"
+                          Unchecked="tglAutoSortScript_Unchecked">
+                <Image Width="10"
+                       Height="11" 
+                       Stretch="Uniform" 
+                       HorizontalAlignment="Center" 
+                       VerticalAlignment="Center" 
+                       Margin="0,0,0,0" 
+                       Style="{DynamicResource ButtonAutoSortScript}" />
+            </ToggleButton>
+
+            <!-- Debug Console -->
+            <Button x:Name="buttonDebugConsole"
+                    HorizontalAlignment="Left" 
+                    VerticalAlignment="Top" 
+                    Width="22"
+                    Height="22"
+                    Cursor="Hand" 
+                    Click="buttonDebugConsole_Click" 
+                    Background="{x:Null}" 
+                    Style="{DynamicResource ButtonSmallCustom}" 
+                    ToolTip="Show Debug Console" 
+                    Grid.Column="5" 
+                    Margin="1,0,0,0">
+                <Image Width="12" 
+                       Height="10" 
+                       Stretch="Uniform"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Margin="-1,0,0,0"
+                       Style="{DynamicResource ButtonDebugConsole}" />
+            </Button>
+
+            <!-- Log Console -->
+            <Button x:Name="buttonLogConsole" 
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top" 
+                    Width="22"
+                    Height="22"
+                    Cursor="Hand" 
+                    Click="buttonLogConsole_Click" 
+                    Background="{x:Null}"
+                    Style="{DynamicResource ButtonSmallCustom}"
+                    ToolTip="Show Log Console" 
+                    Grid.Column="6">
+                <Image Width="10"
+                       Height="11"
+                       Stretch="Uniform"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Margin="0,0,0,0" 
+                       Style="{DynamicResource ButtonLogConsole}" />
+            </Button>
+
+            <!-- Log Button -->
+            <Button x:Name="buttonLog"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Width="22" 
+                    Height="22"
+                    Cursor="Hand"
+                    Click="buttonLog_Click"
+                    ToolTip="View the last Output Log"
+                    Background="{x:Null}"
+                    Style="{DynamicResource ButtonSmallCustom}"
+                    Grid.Column="7">
+                <Image Width="9" 
+                       Height="11" 
+                       Stretch="Uniform" 
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center" 
+                       Margin="0,-1,0,0" 
+                       Style="{DynamicResource ButtonLog}" />
+            </Button>
+
+            <!-- CMD Button -->
+            <Button x:Name="buttonCmd"
+                    HorizontalAlignment="Left" 
+                    VerticalAlignment="Top" 
+                    Width="22" 
+                    Height="22" 
+                    Cursor="Hand" 
+                    Click="buttonCmd_Click" 
+                    Background="{x:Null}" 
+                    Style="{DynamicResource ButtonSmallCustom}" 
+                    ToolTip="Launch Command Prompt"
+                    Grid.Column="8">
+                <Image Width="11" 
+                       Height="11" 
+                       Stretch="Uniform"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Margin="0,0,0,0"
+                       Style="{DynamicResource ButtonCMD}" />
+            </Button>
+
+            <!-- Properties Button -->
+            <Button x:Name="buttonProperties" 
+                    HorizontalAlignment="Left" 
+                    VerticalAlignment="Top"
+                    Width="22"
+                    Height="22" 
+                    Cursor="Hand" 
+                    Click="buttonProperties_Click"
+                    Background="{x:Null}" 
+                    Style="{DynamicResource ButtonSmallCustom}" 
+                    ToolTip="View File Properties"
+                    Grid.Column="9">
+                <Image Width="10"
+                       Height="11" 
+                       Stretch="Uniform" 
+                       HorizontalAlignment="Center" 
+                       VerticalAlignment="Center" 
+                       Margin="0,0,0,0"
+                       Style="{DynamicResource ButtonProperties}" />
+            </Button>
+
+            <!-- Play File -->
+            <Button x:Name="buttonPlayFile"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Width="22" 
+                    Height="22"
+                    Cursor="Hand" 
+                    Click="buttonPlayFile_Click" 
+                    Background="{x:Null}" 
+                    Style="{DynamicResource ButtonSmallCustom}" 
+                    ToolTip="Play Converted File"
+                    Grid.Column="10">
+                <Image Width="11" 
+                       Height="11"
+                       Stretch="Uniform" 
+                       HorizontalAlignment="Center" 
+                       VerticalAlignment="Center" 
+                       Margin="-1,0,0,0" 
+                       Style="{DynamicResource ButtonPlay}" />
+            </Button>
+
+        </Grid>
+
+
+        <!-- Process Buttons Grid -->
+        <Grid Margin="0,0,10,0" 
+              Height="35" 
+              VerticalAlignment="Bottom" 
+              HorizontalAlignment="Right" 
+              Width="380">
+
+            <!-- Preset -->
+            <ComboBox x:Name="cboPreset"
+                      ItemsSource="{Binding Preset_Items}"
+                      SelectedIndex="{Binding Preset_SelectedIndex}"
+                      SelectedValue="{Binding Preset_SelectedItem}"
+                      IsEnabled="{Binding Preset_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      Style="{DynamicResource ComboBoxWhite}" 
+                      ItemContainerStyle="{DynamicResource ComboBoxWhiteItem}" 
+                      HorizontalAlignment="Right"
+                      Margin="0,0,300,0" 
+                      VerticalAlignment="Top" 
+                      Width="75" 
+                      SelectionChanged="cboPreset_SelectionChanged"/>
+
+            <!-- Preview Button -->
+            <Button x:Name="btnPreview"
+                    Style="{DynamicResource ButtonCustom}" 
+                    HorizontalAlignment="Right" 
+                    Margin="0,0,87,0" 
+                    VerticalAlignment="Top"
+                    Width="75" 
+                    Height="22"
+                    Cursor="Hand" Click="btnPreview_Click">
+                <TextBlock x:Name="btnPreviewTextBlock" 
+                           Text="Preview"
+                           Margin="0,-2,0,0"/>
+            </Button>
+
+            <!-- Convert Button -->
+            <Button x:Name="btnConvert"
+                    Style="{DynamicResource ButtonCustom}" 
+                    HorizontalAlignment="Right" 
+                    Margin="0,0,4,0" 
+                    VerticalAlignment="Top"
+                    Width="75" 
+                    Height="22"
+                    Cursor="Hand" Click="btnConvert_Click">
+                <TextBlock x:Name="btnConvertTextBlock" 
+                           Text="Convert"
+                           Margin="0,-2,0,0"/>
+            </Button>
+
+            <!-- Batch Checkbox -->
+            <ToggleButton x:Name="tglBatch" 
+                          IsChecked="{Binding Batch_IsChecked, Mode=TwoWay}"
+                          HorizontalAlignment="Right" 
+                          VerticalAlignment="Top" 
+                          Checked="tglBatch_Checked" 
+                          Unchecked="tglBatch_Unchecked" 
+                          Cursor="Hand" 
+                          ToolTip="Enable, Browse for folder, Enter file extention to batch process."
+                          Width="45"
+                          Height="22"
+                          Style="{DynamicResource ToggleButtonCustom}"
+                          Margin="0,0,241,0">
+                <TextBlock x:Name="batchTextBlock" 
+                           Style="{DynamicResource TextBlockCustom}" 
+                           Text="Batch"
+                           Margin="0,-2,0,0" />
+            </ToggleButton>
+            <!-- Batch Textbox -->
+            <TextBox x:Name="batchExtensionTextBox" 
+                     Text="{Binding BatchExtension_Text, Mode=TwoWay}"
+                     IsEnabled="{Binding BatchExtension_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     HorizontalAlignment="Right" 
+                     Height="23" 
+                     Margin="0,0,176,0" 
+                     TextWrapping="NoWrap"
+                     Padding="2, 1, 0, 0" 
+                     VerticalAlignment="Top" 
+                     Width="60" 
+                     TextChanged="batchExtension_TextChanged"
+                     Style="{DynamicResource TextBoxCustom}" 
+                     ToolTipService.InitialShowDelay="1000" 
+                     ToolTipService.ShowOnDisabled="True" 
+                     ToolTip="File Extension in Folder to Batch Process (e.g. mp4)"/>
+
+        </Grid>
+
+
+
+
+
+
+
 
     </Grid>
 </Window>

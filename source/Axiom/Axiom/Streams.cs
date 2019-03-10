@@ -1,6 +1,6 @@
 ﻿/* ----------------------------------------------------------------------
 Axiom UI
-Copyright (C) 2017, 2018 Matt McManis
+Copyright (C) 2017-2019 Matt McManis
 http://github.com/MattMcManis/Axiom
 http://axiomui.github.io
 mattmcmanis@outlook.com
@@ -55,9 +55,9 @@ namespace Axiom
         // --------------------------------------------------------------------------------------------------------
 
         /// <summary>
-        /// Video Stream Maps (Method)
+        /// Video Stream Maps
         /// </summary>
-        public static String VideoStreamMaps(MainWindow mainwindow)
+        public static String VideoStreamMaps(ViewModel vm)
         {
             // WARNING: If a map is enabled, all other map types must be specified or they will be removed !!!
             // Question Mark ? = ignore warnings
@@ -68,31 +68,31 @@ namespace Axiom
             // -------------------------
             // Video Formats
             // -------------------------
-            if ((string)mainwindow.cboFormat.SelectedItem == "webm")
+            if (vm.Container_SelectedItem == "webm")
             {
                 vMap = "-map 0:v:0?"; // only video track 1
             }
-            else if ((string)mainwindow.cboFormat.SelectedItem == "mp4")
+            else if (vm.Container_SelectedItem == "mp4")
             {
                 vMap = "-map 0:v:0?"; // only video track 1
             }
-            else if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
+            else if (vm.Container_SelectedItem == "mkv")
             {
                 vMap = "-map 0:v?"; // all video tracks
             }
-            else if ((string)mainwindow.cboFormat.SelectedItem == "m2v")
+            else if (vm.Container_SelectedItem == "m2v")
             {
                 vMap = "-map 0:v?"; // all video tracks
             }
-            else if ((string)mainwindow.cboFormat.SelectedItem == "mpg")
+            else if (vm.Container_SelectedItem == "mpg")
             {
                 vMap = "-map 0:v?"; // all video tracks
             }
-            else if ((string)mainwindow.cboFormat.SelectedItem == "avi")
+            else if (vm.Container_SelectedItem == "avi")
             {
                 vMap = "-map 0:v:0?"; // only video track 1
             }
-            else if ((string)mainwindow.cboFormat.SelectedItem == "ogv")
+            else if (vm.Container_SelectedItem == "ogv")
             {
                 vMap = "-map 0:v?"; // all video tracks
             }
@@ -107,7 +107,7 @@ namespace Axiom
             // -------------------------
             // Video Codecs
             // -------------------------
-            if ((string)mainwindow.cboVideoCodec.SelectedItem == "None")
+            if (vm.VideoCodec_SelectedItem == "None")
             {
                 vMap = "-vn"; // only video track 1
             }
@@ -139,31 +139,31 @@ namespace Axiom
             // -------------------------
             // Video Formats
             // -------------------------
-            if ((string)mainwindow.cboFormat.SelectedItem == "webm")
+            if (vm.Container_SelectedItem == "webm")
             {
                 cMap = "-map_chapters -1"; // remove chapters
             }
-            else if ((string)mainwindow.cboFormat.SelectedItem == "mp4")
+            else if (vm.Container_SelectedItem == "mp4")
             {
                 cMap = "-map_chapters 0"; // all chapters
             }
-            else if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
+            else if (vm.Container_SelectedItem == "mkv")
             {
                 cMap = "-map_chapters 0"; // all chapters
             }
-            else if ((string)mainwindow.cboFormat.SelectedItem == "m2v")
+            else if (vm.Container_SelectedItem == "m2v")
             {
                 cMap = "-map_chapters -1"; // remove chapters
             }
-            else if ((string)mainwindow.cboFormat.SelectedItem == "mpg")
+            else if (vm.Container_SelectedItem == "mpg")
             {
                 cMap = "-map_chapters 0"; // all chapters
             }
-            else if ((string)mainwindow.cboFormat.SelectedItem == "avi")
+            else if (vm.Container_SelectedItem == "avi")
             {
                 cMap = "-map_chapters 0"; // all chapters
             }
-            else if ((string)mainwindow.cboFormat.SelectedItem == "ogv")
+            else if (vm.Container_SelectedItem == "ogv")
             {
                 cMap = "-map_chapters 0"; // all chapters
             }
@@ -210,37 +210,37 @@ namespace Axiom
 
 
         /// <summary>
-        /// Subtitle Maps (Method)
+        /// Subtitle Maps
         /// </summary>
-        public static String SubtitleMaps(MainWindow mainwindow)
+        public static String SubtitleMaps(MainWindow mainwindow, ViewModel vm)
         {
             // --------------------------------------------------------------------
             // Subtitle Map
             // --------------------------------------------------------------------
 
-            if ((string)mainwindow.cboSubtitleCodec.SelectedItem != "Burn") // Ignore if Burn
+            if (vm.SubtitleCodec_SelectedItem != "Burn") // Ignore if Burn
             {
                 // -------------------------
                 // None
                 // -------------------------
-                if ((string)mainwindow.cboSubtitlesStream.SelectedItem == "none")
+                if (vm.SubtitleStream_SelectedItem == "none")
                 {
                     sMap = "-sn";
                 }
                 // -------------------------
                 // External
                 // -------------------------
-                else if ((string)mainwindow.cboSubtitlesStream.SelectedItem == "external")
+                else if (vm.SubtitleStream_SelectedItem == "external")
                 {
                     // -------------------------
                     // Map
                     // -------------------------
                     List<string> subtitleMapsList = new List<string>();
 
-                    if (Video.subtitleFilePathsList.Count > 0)
+                    if (Subtitle.subtitleFilePathsList.Count > 0)
                     {
                         // Give each Subtitle File it's own map
-                        for (var i = 0; i < Video.subtitleFilePathsList.Count; i++)
+                        for (var i = 0; i < Subtitle.subtitleFilePathsList.Count; i++)
                         {
                             subtitleMapsList.Add("-map " + (i + 1).ToString() + ":s?");
                         }
@@ -274,51 +274,51 @@ namespace Axiom
                     // Combine Map + Default
                     sMap = sMap + disposition;
                 }
-                //
+
                 // -------------------------
                 // All
                 // -------------------------
-                else if ((string)mainwindow.cboSubtitlesStream.SelectedItem == "all")
+                else if (vm.SubtitleStream_SelectedItem == "all")
                 {
                     // Formats
                     //
-                    if ((string)mainwindow.cboFormat.SelectedItem == "webm")
+                    if (vm.Container_SelectedItem == "webm")
                     {
                         sMap = "-sn"; // no subtitles
                     }
-                    else if ((string)mainwindow.cboFormat.SelectedItem == "mp4")
+                    else if (vm.Container_SelectedItem == "mp4")
                     {
                         sMap = "-map 0:s?"; // all subtitles (:? at the end ignores error if subtitle is not available)
                     }
-                    else if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
+                    else if (vm.Container_SelectedItem == "mkv")
                     {
                         sMap = "-map 0:s?"; // all subtitles
                     }
-                    else if ((string)mainwindow.cboFormat.SelectedItem == "m2v")
+                    else if (vm.Container_SelectedItem == "m2v")
                     {
                         sMap = "-sn"; //  no subtitles
                     }
-                    else if ((string)mainwindow.cboFormat.SelectedItem == "mpg")
+                    else if (vm.Container_SelectedItem == "mpg")
                     {
                         sMap = "-map 0:s?"; // all subtitles
                     }
-                    else if ((string)mainwindow.cboFormat.SelectedItem == "avi")
+                    else if (vm.Container_SelectedItem == "avi")
                     {
                         sMap = "-map 0:s?"; // all subtitles
                     }
-                    else if ((string)mainwindow.cboFormat.SelectedItem == "ogv")
+                    else if (vm.Container_SelectedItem == "ogv")
                     {
                         sMap = "-map 0:s?"; // all subtitles, OGV has problem using Subtitles
                     }
-                    else if ((string)mainwindow.cboFormat.SelectedItem == "jpg")
+                    else if (vm.Container_SelectedItem == "jpg")
                     {
                         sMap = "-sn"; // disable subtitles
                     }
-                    else if ((string)mainwindow.cboFormat.SelectedItem == "png")
+                    else if (vm.Container_SelectedItem == "png")
                     {
                         sMap = "-sn"; // disable subtitles
                     }
-                    else if ((string)mainwindow.cboFormat.SelectedItem == "webp")
+                    else if (vm.Container_SelectedItem == "webp")
                     {
                         sMap = "-sn"; // disable subtitles
                     }
@@ -335,14 +335,14 @@ namespace Axiom
                 else
                 {
                     // Subtract 1, Map starts at 0
-                    int sMapNumber = Int32.Parse(mainwindow.cboSubtitlesStream.SelectedItem.ToString()) - 1;
+                    int sMapNumber = Int32.Parse(vm.SubtitleStream_SelectedItem) - 1;
 
                     sMap = "-map 1:s:" + sMapNumber + "?";
 
                     // Image
-                    if ((string)mainwindow.cboFormat.SelectedItem == "jpg"
-                        || (string)mainwindow.cboFormat.SelectedItem == "png"
-                        || (string)mainwindow.cboFormat.SelectedItem == "webp")
+                    if (vm.Container_SelectedItem == "jpg"
+                        || vm.Container_SelectedItem == "png"
+                        || vm.Container_SelectedItem == "webp")
                     {
                         sMap = "-sn";
                     }
@@ -363,7 +363,7 @@ namespace Axiom
             {
                 Log.logParagraph.Inlines.Add(new LineBreak());
                 Log.logParagraph.Inlines.Add(new Bold(new Run("Subtitle Stream: ")) { Foreground = Log.ConsoleDefault });
-                Log.logParagraph.Inlines.Add(new Run(mainwindow.cboSubtitlesStream.SelectedItem.ToString()) { Foreground = Log.ConsoleDefault });
+                Log.logParagraph.Inlines.Add(new Run(vm.SubtitleStream_SelectedItem) { Foreground = Log.ConsoleDefault });
             };
             Log.LogActions.Add(Log.WriteAction);
 
@@ -383,9 +383,9 @@ namespace Axiom
 
 
         /// <summary>
-        /// Audio Stream Maps (Method)
+        /// Audio Stream Maps
         /// </summary>
-        public static String AudioStreamMaps(MainWindow mainwindow)
+        public static String AudioStreamMaps(ViewModel vm)
         {
             // --------------------------------------------------------------------
             // Audio Map
@@ -396,61 +396,61 @@ namespace Axiom
             // -------------------------
             // None
             // -------------------------
-            if ((string)mainwindow.cboAudioStream.SelectedItem == "none")
+            if (vm.AudioStream_SelectedItem == "none")
             {
                 aMap = "-an";
             }
             // -------------------------
             // All
             // -------------------------
-            else if ((string)mainwindow.cboAudioStream.SelectedItem == "all")
+            else if (vm.AudioStream_SelectedItem == "all")
             {
                 // Video/Image Format
                 //
-                if ((string)mainwindow.cboFormat.SelectedItem == "webm")
+                if (vm.Container_SelectedItem == "webm")
                 {
                     aMap = "-map 0:a:0?"; // only audio track 1
                 }
-                else if ((string)mainwindow.cboFormat.SelectedItem == "mp4")
+                else if (vm.Container_SelectedItem == "mp4")
                 {
                     aMap = "-map 0:a?"; // all audio tracks 
                 }
-                else if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
+                else if (vm.Container_SelectedItem == "mkv")
                 {
                     aMap = "-map 0:a?"; // all audio tracks 
                 }
-                else if ((string)mainwindow.cboFormat.SelectedItem == "m2v")
+                else if (vm.Container_SelectedItem == "m2v")
                 {
                     aMap = "-an"; // disable audio
                 }
-                else if ((string)mainwindow.cboFormat.SelectedItem == "mpg")
+                else if (vm.Container_SelectedItem == "mpg")
                 {
                     aMap = "-map 0:a?"; // all audio tracks 
                 }
-                else if ((string)mainwindow.cboFormat.SelectedItem == "avi")
+                else if (vm.Container_SelectedItem == "avi")
                 {
                     aMap = "-map 0:a?"; // all audio tracks 
                 }
-                else if ((string)mainwindow.cboFormat.SelectedItem == "ogv")
+                else if (vm.Container_SelectedItem == "ogv")
                 {
                     aMap = "-map 0:a?"; // all audio tracks 
                 }
-                else if ((string)mainwindow.cboFormat.SelectedItem == "jpg")
+                else if (vm.Container_SelectedItem == "jpg")
                 {
                     aMap = "-an"; // disable audio
                 }
-                else if ((string)mainwindow.cboFormat.SelectedItem == "png")
+                else if (vm.Container_SelectedItem == "png")
                 {
                     aMap = "-an"; // disable audio
                 }
-                else if ((string)mainwindow.cboFormat.SelectedItem == "webp")
+                else if (vm.Container_SelectedItem == "webp")
                 {
                     aMap = "-an"; // disable audio
                 }
 
                 // Audio Media Type
                 //
-                else if ((string)mainwindow.cboMediaType.SelectedItem == "Audio")
+                else if (vm.MediaType_SelectedItem == "Audio")
                 {
                     aMap = "-map 0:a:0?"; // only audio track 1
                 }
@@ -461,7 +461,7 @@ namespace Axiom
             else
             {
                 // Subtract 1, Map starts at 0
-                int aMapNumber = Int32.Parse(mainwindow.cboAudioStream.SelectedItem.ToString()) - 1;
+                int aMapNumber = Int32.Parse(vm.AudioStream_SelectedItem) - 1;
 
                 aMap = "-map 0:a:" + aMapNumber + "?";
             }
@@ -478,7 +478,7 @@ namespace Axiom
             // -------------------------
             // Mute
             // -------------------------
-            if ((string)mainwindow.cboAudioQuality.SelectedItem == "Mute")
+            if (vm.AudioQuality_SelectedItem == "Mute")
             {
                 aMap = "-an";
             }
@@ -498,7 +498,7 @@ namespace Axiom
             {
                 Log.logParagraph.Inlines.Add(new LineBreak());
                 Log.logParagraph.Inlines.Add(new Bold(new Run("Audio Stream: ")) { Foreground = Log.ConsoleDefault });
-                Log.logParagraph.Inlines.Add(new Run(mainwindow.cboAudioStream.SelectedItem.ToString()) { Foreground = Log.ConsoleDefault });
+                Log.logParagraph.Inlines.Add(new Run(vm.AudioStream_SelectedItem) { Foreground = Log.ConsoleDefault });
             };
             Log.LogActions.Add(Log.WriteAction);
 
@@ -510,9 +510,9 @@ namespace Axiom
 
 
         /// <summary>
-        /// Format Maps (Method)
+        /// Format Maps
         /// </summary>
-        public static String FormatMaps(MainWindow mainwindow)
+        public static String FormatMaps(ViewModel vm)
         {
             // --------------------------------------------------------------------
             // Metadata Map
@@ -522,28 +522,28 @@ namespace Axiom
             // -------------------------
             // mp3
             // -------------------------
-            if ((string)mainwindow.cboFormat.SelectedItem == "mp3")
+            if (vm.Container_SelectedItem == "mp3")
             {
                 mMap = "-map_metadata 0 -id3v2_version 3";
             }
             // -------------------------
             // jpg
             // -------------------------
-            else if ((string)mainwindow.cboFormat.SelectedItem == "jpg")
+            else if (vm.Container_SelectedItem == "jpg")
             {
                 mMap = string.Empty; // do not copy metadata
             }
             // -------------------------
             // png
             // -------------------------
-            else if ((string)mainwindow.cboFormat.SelectedItem == "png")
+            else if (vm.Container_SelectedItem == "png")
             {
                 mMap = string.Empty; // do not copy metadata
             }
             // -------------------------
             // webp
             // -------------------------
-            else if ((string)mainwindow.cboFormat.SelectedItem == "webp")
+            else if (vm.Container_SelectedItem == "webp")
             {
                 mMap = string.Empty; // do not copy metadata
             }

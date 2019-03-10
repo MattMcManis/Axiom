@@ -1,6 +1,6 @@
 ﻿/* ----------------------------------------------------------------------
 Axiom UI
-Copyright (C) 2017, 2018 Matt McManis
+Copyright (C) 2017-2019 Matt McManis
 http://github.com/MattMcManis/Axiom
 http://axiomui.github.io
 mattmcmanis@outlook.com
@@ -49,6 +49,7 @@ namespace Axiom
     /// </summary>
     public partial class MainWindow : Window
     {
+        // View Model
         public ViewModel vm = new ViewModel();
 
         // Axiom Current Version
@@ -60,67 +61,11 @@ namespace Axiom
         public static string latestBuildPhase;
         public static string[] splitVersionBuildPhase;
 
-        public string TitleVersion {
+        public string TitleVersion
+        {
             get { return (string)GetValue(TitleProperty); }
             set { SetValue(TitleProperty, value); }
         }
-
-        // --------------------------------------------------------------------------------------------------------
-        /// <summary>
-        ///     Other Windows
-        /// </summary>
-        // --------------------------------------------------------------------------------------------------------
-
-        /// <summary>
-        ///     Log Console
-        /// </summary>
-        public LogConsole logconsole = new LogConsole(((MainWindow)Application.Current.MainWindow));
-
-        /// <summary>
-        ///     Debug Console
-        /// </summary>
-        public static DebugConsole debugconsole;
-
-        /// <summary>
-        ///     File Properties Console
-        /// </summary>
-        public FilePropertiesWindow filepropwindow;
-
-        /// <summary>
-        ///     Script View
-        /// </summary>
-        //public static ScriptView scriptview; 
-
-        /// <summary>
-        ///     Configure Window
-        /// </summary>
-        //public static ConfigureWindow configurewindow;
-
-        /// <summary>
-        ///     File Queue
-        /// </summary>
-        //public FileQueue filequeue = new FileQueue();
-
-        /// <summary>
-        ///     Crop Window
-        /// </summary>
-        public static CropWindow cropwindow;
-
-        /// <summary>
-        ///     Optimize Advanced Window
-        /// </summary>
-        //public static OptimizeAdvancedWindow optadvwindow;
-
-        /// <summary>
-        ///     Optimize Advanced Window
-        /// </summary>
-        public static InfoWindow infowindow;
-
-        /// <summary>
-        ///     Update Window
-        /// </summary>
-        public static UpdateWindow updatewindow;
-
 
         // --------------------------------------------------------------------------------------------------------
         /// <summary>
@@ -154,8 +99,6 @@ namespace Axiom
         public static string batchExt; // Batch user entered extension (eg. mp4 or .mp4)
         public static string batchInputAuto;
 
-
-        // --------------------------------------------------------------------------------------------------------
         /// <summary>
         ///     Volume Up Down
         /// </summary>
@@ -163,9 +106,46 @@ namespace Axiom
         ///     Used for Volume Up Down buttons. Integer += 1 for each tick of the timer.
         ///     Timer Tick in MainWindow Initialize
         /// </remarks>
-        // --------------------------------------------------------------------------------------------------------
         public DispatcherTimer dispatcherTimerUp = new DispatcherTimer(DispatcherPriority.Render);
         public DispatcherTimer dispatcherTimerDown = new DispatcherTimer(DispatcherPriority.Render);
+
+
+        // --------------------------------------------------------------------------------------------------------
+        /// <summary>
+        ///     Other Windows
+        /// </summary>
+        // --------------------------------------------------------------------------------------------------------
+
+        /// <summary>
+        ///     Log Console
+        /// </summary>
+        public LogConsole logconsole = new LogConsole(((MainWindow)Application.Current.MainWindow));
+
+        /// <summary>
+        ///     Debug Console
+        /// </summary>
+        public static DebugConsole debugconsole;
+
+        /// <summary>
+        ///     File Properties Console
+        /// </summary>
+        public FilePropertiesWindow filepropwindow;
+
+        /// <summary>
+        ///     Crop Window
+        /// </summary>
+        public static CropWindow cropwindow;
+
+        /// <summary>
+        ///     Optimize Advanced Window
+        /// </summary>
+        public static InfoWindow infowindow;
+
+        /// <summary>
+        ///     Update Window
+        /// </summary>
+        public static UpdateWindow updatewindow;
+
 
 
         // --------------------------------------------------------------------------------------------------------
@@ -183,30 +163,8 @@ namespace Axiom
             /// </summary>
             // -----------------------------------------------------------------
             // Set Min/Max Width/Height to prevent Tablets maximizing
-            this.MinWidth = 768;
-            this.MinHeight = 432;
-
-            // -----------------------------------------------------------------
-            /// <summary>
-            ///     Control Binding
-            /// </summary>
-            // -----------------------------------------------------------------
-            //ViewModel vm = new ViewModel();
-            DataContext = vm;
-
-            // -----------------------------------------------------------------
-            /// <summary>
-            /// Start the File Queue (Hidden)
-            /// </summary>
-            // disabled
-            //StartFileQueue(); 
-            // -----------------------------------------------------------------
-
-            // -----------------------------------------------------------------
-            /// <summary>
-            /// Start the Log Console (Hidden)
-            /// </summary>
-            StartLogConsole();
+            MinWidth = 768;
+            MinHeight = 432;
 
             // -------------------------
             // Set Current Version to Assembly Version
@@ -216,11 +174,22 @@ namespace Axiom
             string assemblyVersion = fvi.FileVersion;
             currentVersion = new Version(assemblyVersion);
 
+            // -----------------------------------------------------------------
+            /// <summary>
+            ///     Control Binding
+            /// </summary>
+            // -----------------------------------------------------------------
+            DataContext = vm;
+
+            // -------------------------
+            // Start the Log Console (Hidden)
+            // -------------------------
+            StartLogConsole();
+
             // -------------------------
             // Title + Version
             // -------------------------
             TitleVersion = "Axiom ~ FFmpeg UI (" + Convert.ToString(currentVersion) + "-" + currentBuildPhase + ")";
-            //DataContext = this;
 
             // -------------------------
             // Load Theme
@@ -362,18 +331,6 @@ namespace Axiom
             // Log Console Message /////////
             Log.logParagraph.Inlines.Add(new LineBreak());
             Log.logParagraph.Inlines.Add(new Bold(new Run("Loading Saved Settings...")) { Foreground = Log.ConsoleAction });
-            //Log.LogConsoleMessageAdd("Loading Saved Settings...", // Message
-            //                         "bold",                      // Emphasis
-            //                         Log.ConsoleAction,           // Color
-            //                         1);                          // Linebreaks
-
-            // Log Console Message /////////
-            // Don't put in Configure Method, creates duplicate message /////////
-            //Log.logParagraph.Inlines.Add(new LineBreak());
-            //Log.logParagraph.Inlines.Add(new LineBreak());
-            //Log.logParagraph.Inlines.Add(new Bold(new Run("Theme: ")) { Foreground = Log.ConsoleDefault });
-            //Log.logParagraph.Inlines.Add(new Run(Configure.theme) { Foreground = Log.ConsoleDefault });
-
 
             // -------------------------
             // Prevent Loading Corrupt App.Config
@@ -420,11 +377,10 @@ namespace Axiom
                 }
             }
 
-
             // -------------------------
             // Load FFmpeg.exe Path
             // -------------------------
-            Configure.LoadFFmpegPath(this);
+            Configure.LoadFFmpegPath(vm);
 
             // Log Console Message /////////
             Log.logParagraph.Inlines.Add(new LineBreak());
@@ -435,7 +391,7 @@ namespace Axiom
             // -------------------------
             // Load FFprobe.exe Path
             // -------------------------
-            Configure.LoadFFprobePath(this);
+            Configure.LoadFFprobePath(vm);
 
             // Log Console Message /////////
             Log.logParagraph.Inlines.Add(new LineBreak());
@@ -445,7 +401,7 @@ namespace Axiom
             // -------------------------
             // Load FFplay.exe Path
             // -------------------------
-            Configure.LoadFFplayPath(this);
+            Configure.LoadFFplayPath(vm);
 
             // Log Console Message /////////
             Log.logParagraph.Inlines.Add(new LineBreak());
@@ -455,7 +411,7 @@ namespace Axiom
             // -------------------------
             // Load Log Enabled
             // -------------------------
-            Configure.LoadLogCheckbox(this);
+            Configure.LoadLogCheckbox(vm);
 
             // Log Console Message /////////
             Log.logParagraph.Inlines.Add(new LineBreak());
@@ -466,7 +422,7 @@ namespace Axiom
             // -------------------------
             // Load Log Path
             // -------------------------
-            Configure.LoadLogPath(this);
+            Configure.LoadLogPath(vm);
 
             // Log Console Message /////////
             Log.logParagraph.Inlines.Add(new LineBreak());
@@ -476,7 +432,7 @@ namespace Axiom
             // -------------------------
             // Load Threads
             // -------------------------
-            Configure.LoadThreads(this);
+            Configure.LoadThreads(vm);
 
             // Log Console Message /////////
             Log.logParagraph.Inlines.Add(new LineBreak());
@@ -490,7 +446,7 @@ namespace Axiom
 
 
             // -------------------------
-            // Load Keep Window Toggle
+            // Load CMD Keep Window Toggle
             // -------------------------
             // Log Checkbox     
             // Safeguard Against Corrupt Saved Settings
@@ -499,7 +455,8 @@ namespace Axiom
                 // --------------------------
                 // First time use
                 // --------------------------
-                tglWindowKeep.IsChecked = Convert.ToBoolean(Settings.Default.KeepWindow);
+                //tglCMDWindowKeep.IsChecked = Convert.ToBoolean(Settings.Default.CMDWindowKeep);
+                vm.CMDWindowKeep_IsChecked = Convert.ToBoolean(Settings.Default.CMDWindowKeep);
             }
             catch
             {
@@ -516,7 +473,8 @@ namespace Axiom
                 // --------------------------
                 // First time use
                 // --------------------------
-                tglAutoSortScript.IsChecked = Convert.ToBoolean(Settings.Default.AutoSortScript);
+                //tglAutoSortScript.IsChecked = Convert.ToBoolean(Settings.Default.AutoSortScript);
+                vm.AutoSortScript_IsChecked = Convert.ToBoolean(Settings.Default.AutoSortScript);
             }
             catch
             {
@@ -534,13 +492,13 @@ namespace Axiom
                 // --------------------------
                 // First time use
                 // --------------------------
-                tglUpdatesAutoCheck.IsChecked = Convert.ToBoolean(Settings.Default.UpdatesAutoCheck);
+                //tglUpdateAutoCheck.IsChecked = Convert.ToBoolean(Settings.Default.UpdateAutoCheck);
+                vm.UpdateAutoCheck_IsChecked = Convert.ToBoolean(Settings.Default.UpdateAutoCheck);
             }
             catch
             {
 
             }
-
 
             // -------------------------
             // Volume Up/Down Button Timer Tick
@@ -555,22 +513,9 @@ namespace Axiom
             // --------------------------
             DataObject.AddCopyingHandler(rtbScriptView, new DataObjectCopyingEventHandler(OnScriptCopy));
             DataObject.AddPastingHandler(rtbScriptView, new DataObjectPastingEventHandler(OnScriptPaste));
-
-        } // End MainWindow
-
-        
+        }
 
 
-        // --------------------------------------------------------------------------------------------------------
-        // --------------------------------------------------------------------------------------------------------
-        /// <summary>
-        ///     MAIN METHODS
-        /// </summary>
-        /// <remarks>
-        ///     Methods that belong to the MainWindow Class
-        /// </remarks>
-        // --------------------------------------------------------------------------------------------------------
-        // --------------------------------------------------------------------------------------------------------
 
         /// <summary>
         ///    Window Loaded
@@ -580,33 +525,26 @@ namespace Axiom
             // -------------------------
             // Control Defaults
             // -------------------------
-            // ComboBox Item Sources
-            //cboFormat.ItemsSource = FormatControls.FormatItemSource;
-            cboMediaType.ItemsSource = FormatControls.MediaTypeItemSource;
-
             listViewSubtitles.SelectionMode = SelectionMode.Single;
 
-            // Main
-            cboPreset.SelectedIndex = 0;
+            //// Format
+            //vm.Format_SelectedIndex = 0;
+            //cboCut.SelectedIndex = 0;
+            //cboSpeed.SelectedItem = "Medium";
+            //cboHWAccel.SelectedIndex = 0;
 
-            // Format
-            cboFormat.SelectedIndex = 0;
-            cboCut.SelectedIndex = 0;
-            cboSpeed.SelectedItem = "Medium";
-            cboHWAccel.SelectedIndex = 0;
+            //// Video
+            //cboVideoQuality.SelectedIndex = 0;
+            //cboFPS.SelectedIndex = 0;
+            //cboSize.SelectedIndex = 0;
+            //cboOptimize.SelectedIndex = 0;
 
-            // Video
-            cboVideoQuality.SelectedIndex = 0;
-            cboFPS.SelectedIndex = 0;
-            cboSize.SelectedIndex = 0;
-            cboOptimize.SelectedIndex = 0;
-
-            // Audio
-            cboAudioQuality.SelectedIndex = 0;
-            cboChannel.SelectedIndex = 0;
-            cboSamplerate.SelectedIndex = 0;
-            cboBitDepth.SelectedIndex = 0;
-            cboBitDepth.IsEnabled = false;
+            //// Audio
+            //cboAudioQuality.SelectedIndex = 0;
+            //cboChannel.SelectedIndex = 0;
+            //cboSamplerate.SelectedIndex = 0;
+            //cboBitDepth.SelectedIndex = 0;
+            //cboBitDepth.IsEnabled = false;
 
             // Video Filters
             cboFilterVideo_Deband.SelectedIndex = 0;
@@ -624,7 +562,7 @@ namespace Axiom
             cboFilterAudio_Headphones.SelectedIndex = 0;
 
             // Preset
-            cboPreset.SelectedIndex = 0;
+            //cboPreset.SelectedIndex = 0;
 
             // Batch Extension Box Disabled
             batchExtensionTextBox.IsEnabled = false;
@@ -644,11 +582,11 @@ namespace Axiom
             // Startup Preset
             // -------------------------
             // Default Format is WebM
-            if ((string)cboFormat.SelectedItem == "webm")
-            {
-                cboSubtitlesStream.SelectedItem = "none";
-                cboAudioStream.SelectedItem = "1";
-            }
+            //if ((string)cboFormat.SelectedItem == "webm")
+            //{
+            //    cboSubtitlesStream.SelectedItem = "none";
+            //    cboAudioStream.SelectedItem = "1";
+            //}
 
             // -------------------------
             // Check for Available Updates
@@ -659,6 +597,7 @@ namespace Axiom
             });
         }
 
+
         /// <summary>
         ///     Close / Exit (Method)
         /// </summary>
@@ -666,6 +605,7 @@ namespace Axiom
         {
             // Force Exit All Executables
             base.OnClosed(e);
+            System.Windows.Forms.Application.ExitThread();
             Application.Current.Shutdown();
         }
 
@@ -702,7 +642,7 @@ namespace Axiom
         /// <summary>
         ///     Clear Variables (Method)
         /// </summary>
-        public static void ClearVariables(MainWindow mainwindow)
+        public static void ClearVariables(ViewModel vm)
         {
             // FFmpeg
             //FFmpeg.cmdWindow = string.Empty;
@@ -729,23 +669,30 @@ namespace Axiom
 
             // Video
             Video.passSingle = string.Empty;
+            Video.vEncodeSpeed = string.Empty;
             Video.vCodec = string.Empty;
-            Video.vQuality = string.Empty;
             Video.vBitMode = string.Empty;
+            Video.vQuality = string.Empty;
+            Video.vBitrateNA = string.Empty;
             Video.vLossless = string.Empty;
             Video.vBitrate = string.Empty;
             Video.vMaxrate = string.Empty;
+            Video.vBufsize = string.Empty;
             Video.vOptions = string.Empty;
             Video.crf = string.Empty;
+            Video.pix_fmt = string.Empty;
+            Video.vScaling = string.Empty;
             Video.fps = string.Empty;
             Video.optTune = string.Empty;
             Video.optProfile = string.Empty;
             Video.optLevel = string.Empty;
-            Video.aspect = string.Empty;
+            Video.optFlags = string.Empty;
             Video.width = string.Empty;
             Video.height = string.Empty;
+            //Video.size = string.Empty;
 
-            if (Video.x265paramsList != null)
+            if (Video.x265paramsList != null &&
+                Video.x265paramsList.Count > 0)
             {
                 Video.x265paramsList.Clear();
                 Video.x265paramsList.TrimExcess();
@@ -754,7 +701,7 @@ namespace Axiom
             Video.x265params = string.Empty;
 
             // Clear Crop if ClearCrop Button Identifier is Empty
-            if (mainwindow.buttonCropClearTextBox.Text == "Clear")
+            if (vm.CropClear_Text == "Clear")
             {
                 CropWindow.crop = string.Empty;
                 CropWindow.divisibleCropWidth = null; //int
@@ -769,7 +716,8 @@ namespace Axiom
             VideoFilters.vFilter = string.Empty;
             VideoFilters.geq = string.Empty;
 
-            if (VideoFilters.vFiltersList != null)
+            if (VideoFilters.vFiltersList != null && 
+                VideoFilters.vFiltersList.Count > 0)
             {
                 VideoFilters.vFiltersList.Clear();
                 VideoFilters.vFiltersList.TrimExcess();
@@ -782,17 +730,19 @@ namespace Axiom
             Video.pass2 = string.Empty;
             Video.image = string.Empty;
             Video.optimize = string.Empty;
-            Video.speed = string.Empty;
+            Video.vEncodeSpeed = string.Empty;
             Video.hwaccel = string.Empty;
 
             // Subtitle
-            Video.sCodec = string.Empty;
+            Subtitle.sCodec = string.Empty;
+            Subtitle.subtitles = string.Empty;
 
             // Audio
             Audio.aCodec = string.Empty;
-            Audio.aQuality = string.Empty;
             Audio.aBitMode = string.Empty;
             Audio.aBitrate = string.Empty;
+            Audio.aBitrateNA = string.Empty;
+            Audio.aQuality = string.Empty;
             Audio.aChannel = string.Empty;
             Audio.aSamplerate = string.Empty;
             Audio.aBitDepth = string.Empty;
@@ -801,7 +751,8 @@ namespace Axiom
             Audio.aVolume = string.Empty;
             Audio.aLimiter = string.Empty;
 
-            if (AudioFilters.aFiltersList != null)
+            if (AudioFilters.aFiltersList != null &&
+                AudioFilters.aFiltersList.Count > 0)
             {
                 AudioFilters.aFiltersList.Clear();
                 AudioFilters.aFiltersList.TrimExcess();
@@ -913,196 +864,483 @@ namespace Axiom
 
 
         /// <summary>
-        ///     System Info
+        ///     Selected Item
         /// </summary>
-        public void SystemInfoDisplay()
+        public static string VideoEncodeSpeed_PreviousItem;
+        public static string VideoQuality_PreviousItem;
+        public static string Pass_PreviousItem;
+        public static string VideoOptimize_PreviousItem;
+        public static string AudioQuality_PreviousItem;
+        public static string AudioSampleRate_PreviousItem;
+        public static string AudioBitDepth_PreviousItem;
+        public static string SelectedItem(List<string> itemsName,
+                                          string selectedItem
+                                          )
         {
-            // -----------------------------------------------------------------
-            /// <summary>
-            ///     System Info
-            /// </summary>
-            /// <remarks>
-            ///     Detect and Display System Hardware
-            /// </remarks>
-            // -----------------------------------------------------------------
-            // Log Console Message /////////
-            Log.logParagraph.Inlines.Add(new LineBreak());
-            Log.logParagraph.Inlines.Add(new LineBreak());
-            Log.logParagraph.Inlines.Add(new Bold(new Run("System Info:")) { Foreground = Log.ConsoleAction });
-            Log.logParagraph.Inlines.Add(new LineBreak());
-
-            /// <summary>
-            /// OS
-            /// </summary>
-            try
+            // -------------------------
+            // Save Previous Selected Item
+            // -------------------------
+            //if (!string.IsNullOrEmpty(selectedItem))
+            //{
+            // Select Previous Item
+            if (itemsName?.Contains(selectedItem) == true)
             {
-                ManagementClass os = new ManagementClass("Win32_OperatingSystem");
-
-                foreach (ManagementObject obj in os.GetInstances())
-                {
-                    // Log Console Message /////////
-                    Log.logParagraph.Inlines.Add(new Run(Convert.ToString(obj["Caption"])) { Foreground = Log.ConsoleDefault });
-                    Log.logParagraph.Inlines.Add(new LineBreak());
-
-                }
-                os.Dispose();
-            }
-            catch
-            {
-
-            }
-
-
-            /// <summary>
-            /// CPU
-            /// </summary>
-            try
-            {
-                ManagementObjectSearcher cpu = new ManagementObjectSearcher("root\\CIMV2", "SELECT Name FROM Win32_Processor");
-
-                foreach (ManagementObject obj in cpu.Get())
-                {
-                    // Log Console Message /////////
-                    Log.logParagraph.Inlines.Add(new Run(Convert.ToString(obj["Name"])) { Foreground = Log.ConsoleDefault });
-                    Log.logParagraph.Inlines.Add(new LineBreak());
-                }
-                cpu.Dispose();
-
-                // Max Threads
-                foreach (var item in new System.Management.ManagementObjectSearcher("Select NumberOfLogicalProcessors FROM Win32_ComputerSystem").Get())
-                {
-                    Configure.maxthreads = String.Format("{0}", item["NumberOfLogicalProcessors"]);
-                }
-            }
-            catch
-            {
-
-            }
-
-
-            /// <summary>
-            /// GPU
-            /// </summary>
-            try
-            {
-                ManagementObjectSearcher gpu = new ManagementObjectSearcher("root\\CIMV2", "SELECT Name, AdapterRAM FROM Win32_VideoController");
-
-                foreach (ManagementObject obj in gpu.Get())
-                {
-                    Log.logParagraph.Inlines.Add(new Run(Convert.ToString(obj["Name"]) + " " + Convert.ToString(Math.Round(Convert.ToDouble(obj["AdapterRAM"]) * 0.000000001, 3) + "GB")) { Foreground = Log.ConsoleDefault });
-                    Log.logParagraph.Inlines.Add(new LineBreak());
-                }
-            }
-            catch
-            {
-
-            }
-
-
-            /// <summary>
-            /// RAM
-            /// </summary>
-            try
-            {
-                Log.logParagraph.Inlines.Add(new Run("RAM ") { Foreground = Log.ConsoleDefault });
-
-                double capacity = 0;
-                int memtype = 0;
-                string type;
-                int speed = 0;
-
-                ManagementObjectSearcher ram = new ManagementObjectSearcher("root\\CIMV2", "SELECT Capacity, MemoryType, Speed FROM Win32_PhysicalMemory");
-
-                foreach (ManagementObject obj in ram.Get())
-                {
-                    capacity += Convert.ToDouble(obj["Capacity"]);
-                    memtype = Int32.Parse(obj.GetPropertyValue("MemoryType").ToString());
-                    speed = Int32.Parse(obj.GetPropertyValue("Speed").ToString());
-                }
-
-                capacity *= 0.000000001; // Convert Byte to GB
-                capacity = Math.Round(capacity, 3); // Round to 3 decimal places
-
-                // Select RAM Type
-                switch (memtype)
-                {
-                    case 20:
-                        type = "DDR";
-                        break;
-                    case 21:
-                        type = "DDR2";
-                        break;
-                    case 17:
-                        type = "SDRAM";
-                        break;
-                    default:
-                        if (memtype == 0 || memtype > 22)
-                            type = "DDR3";
-                        else
-                            type = "Unknown";
-                        break;
-                }
-
-                // Log Console Message /////////
-                Log.logParagraph.Inlines.Add(new Run(Convert.ToString(capacity) + "GB " + type + " " + Convert.ToString(speed) + "MHz") { Foreground = Log.ConsoleDefault });
-                Log.logParagraph.Inlines.Add(new LineBreak());
-
-                ram.Dispose();
-            }
-            catch
-            {
-
-            }
-
-            // End System Info
-        }
-
-        /// <summary>
-        ///     Start File Queue (Method)
-        /// </summary>
-        //public void StartFileQueue()
-        //{
-        //    MainWindow mainwindow = this;
-
-        //    // Open File Queue Window
-        //    filequeue = new FileQueue(mainwindow);
-        //    filequeue.Hide();
-
-        //    // Position with Show();
-        //}
-
-
-        /// <summary>
-        ///     Normalize Value (Method)
-        /// <summary>
-        public static double NormalizeValue(double val, double valmin, double valmax, double min, double max, double midpoint)
-        {
-            double mid = (valmin + valmax) / 2.0;
-            if (val < mid)
-            {
-                return (val - valmin) / (mid - valmin) * (midpoint - min) + min;
+                //MessageBox.Show(selectedItem); //debug
+                return selectedItem;
             }
             else
             {
-                return (val - mid) / (valmax - mid) * (max - midpoint) + midpoint;
+                //MessageBox.Show("null"); //debug
+                return itemsName.FirstOrDefault();
+            }
+            //}
+            // Default to First Item
+            //else
+            //{
+            //    return itemsName.FirstOrDefault();
+            //}
+
+            //return selectedItem;
+        }
+
+
+        // --------------------------------------------------------------------------------------------------------
+        // Configure
+        // --------------------------------------------------------------------------------------------------------
+
+        // --------------------------------------------------
+        // FFmpeg Path - Textbox
+        // --------------------------------------------------
+        private void tbxFFmpegPath_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Configure.FFmpegFolderBrowser(vm);
+        }
+
+
+        // --------------------------------------------------
+        // FFmpeg Auto Path - Button
+        // --------------------------------------------------
+        private void btnFFmpegAuto_Click(object sender, RoutedEventArgs e)
+        {
+            // Set the ffmpegPath string
+            Configure.ffmpegPath = "<auto>";
+
+            // Display Folder Path in Textbox
+            vm.FFmpegPath_Text = "<auto>";
+
+            // FFmpeg Path path for next launch
+            Settings.Default.FFmpegPath = "<auto>";
+            Settings.Default.Save();
+            Settings.Default.Reload();
+        }
+
+
+        // --------------------------------------------------
+        // FFprobe Path - Textbox
+        // --------------------------------------------------
+        private void tbxFFprobePath_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Configure.FFprobeFolderBrowser(vm);
+        }
+
+
+        // --------------------------------------------------
+        // FFprobe Auto Path - Button
+        // --------------------------------------------------
+        private void btnFFprobeAuto_Click(object sender, RoutedEventArgs e)
+        {
+            // Set the ffprobePath string
+            Configure.ffprobePath = "<auto>"; //<auto>
+
+            // Display Folder Path in Textbox
+            vm.FFprobePath_Text = "<auto>";
+
+            // Save 7-zip Path path for next launch
+            Settings.Default.FFprobePath = "<auto>";
+            Settings.Default.Save();
+            Settings.Default.Reload();
+        }
+
+
+        // --------------------------------------------------
+        // FFplay Path - Textbox
+        // --------------------------------------------------
+        private void tbxFFplayPath_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Configure.FFplayFolderBrowser(vm);
+        }
+
+
+        // --------------------------------------------------
+        // FFplay Auto Path - Button
+        // --------------------------------------------------
+        private void btnFFplayAuto_Click(object sender, RoutedEventArgs e)
+        {
+            // Set the ffplayPath string
+            Configure.ffplayPath = "<auto>"; //<auto>
+
+            // Display Folder Path in Textbox
+            vm.FFplayPath_Text = "<auto>";
+
+            // Save 7-zip Path path for next launch
+            Settings.Default.FFplayPath = "<auto>";
+            Settings.Default.Save();
+            Settings.Default.Reload();
+        }
+
+        // --------------------------------------------------
+        // Log Checkbox - Checked
+        // --------------------------------------------------
+        private void cbxLog_Checked(object sender, RoutedEventArgs e)
+        {
+            // Enable the Log
+            Configure.logEnable = true;
+
+            // -------------------------
+            // Prevent Loading Corrupt App.Config
+            // -------------------------
+            try
+            {
+                // must be done this way or you get "convert object to bool error"
+                if (vm.LogCheckBox_IsChecked == true)
+                {
+                    // Save Checkbox Settings
+                    Settings.Default.Log_IsChecked = true;
+                    Settings.Default.Save();
+                    Settings.Default.Reload();
+
+                    // Save Log Enable Settings
+                    Settings.Default.Log_IsEnabled = true;
+                    Settings.Default.Save();
+                    Settings.Default.Reload();
+                }
+                if (vm.LogCheckBox_IsChecked == false)
+                {
+                    // Save Checkbox Settings
+                    Settings.Default.Log_IsChecked = false;
+                    Settings.Default.Save();
+                    Settings.Default.Reload();
+
+                    // Save Log Enable Settings
+                    Settings.Default.Log_IsEnabled = false;
+                    Settings.Default.Save();
+                    Settings.Default.Reload();
+                }
+            }
+            catch (ConfigurationErrorsException ex)
+            {
+                // Delete Old App.Config
+                string filename = ex.Filename;
+
+                if (File.Exists(filename) == true)
+                {
+                    File.Delete(filename);
+                    Properties.Settings.Default.Upgrade();
+                    // Properties.Settings.Default.Reload();
+                }
+                else
+                {
+
+                }
+            }
+
+        }
+
+
+        // --------------------------------------------------
+        // Log Checkbox - Unchecked
+        // --------------------------------------------------
+        private void cbxLog_Unchecked(object sender, RoutedEventArgs e)
+        {
+            // Disable the Log
+            Configure.logEnable = false;
+
+            // -------------------------
+            // Prevent Loading Corrupt App.Config
+            // -------------------------
+            try
+            {
+                // must be done this way or you get "convert object to bool error"
+                if (vm.LogCheckBox_IsChecked == true)
+                {
+                    // Save Checkbox Settings
+                    Settings.Default.Log_IsChecked = true;
+                    Settings.Default.Save();
+                    Settings.Default.Reload();
+
+                    // Save Log Enable Settings
+                    Settings.Default.Log_IsEnabled = true;
+                    Settings.Default.Save();
+                    Settings.Default.Reload();
+                }
+                if (vm.LogCheckBox_IsChecked == false)
+                {
+                    // Save Checkbox Settings
+                    Settings.Default.Log_IsChecked = false;
+                    Settings.Default.Save();
+                    Settings.Default.Reload();
+
+                    // Save Log Enable Settings
+                    Settings.Default.Log_IsEnabled = false;
+                    Settings.Default.Save();
+                    Settings.Default.Reload();
+                }
+            }
+            catch (ConfigurationErrorsException ex)
+            {
+                // Delete Old App.Config
+                string filename = ex.Filename;
+
+                if (File.Exists(filename) == true)
+                {
+                    File.Delete(filename);
+                    Settings.Default.Upgrade();
+                    // Properties.Settings.Default.Reload();
+                }
+                else
+                {
+
+                }
             }
         }
-        //public static double NormalizeValue(double val, double valmin, double valmax, double min, double max, double ffdefault)
-        //{
-        //    // (((sliderValue - sliderValueMin) / (sliderValueMax - sliderValueMin)) * (NormalizeMax - NormalizeMin)) + NormalizeMin
-
-        //    return (((val - valmin) / (valmax - valmin)) * (max - min)) + min;
-        //}
 
 
-        /// <summary>
-        ///     Limit to Range (Method)
-        /// <summary>
-        public static double LimitToRange(double value, double inclusiveMinimum, double inclusiveMaximum)
+        // --------------------------------------------------
+        // Log Path - Textbox
+        // --------------------------------------------------
+        private void tbxLog_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (value < inclusiveMinimum) { return inclusiveMinimum; }
-            if (value > inclusiveMaximum) { return inclusiveMaximum; }
-            return value;
+            Configure.logFolderBrowser(vm);
+        }
+
+        // --------------------------------------------------
+        // Log Auto Path - Button
+        // --------------------------------------------------
+        private void btnLogAuto_Click(object sender, RoutedEventArgs e)
+        {
+            // Uncheck Log Checkbox
+            vm.LogCheckBox_IsChecked = false;
+
+            // Clear Path in Textbox
+            vm.LogPath_Text = string.Empty;
+
+            // Set the logPath string
+            Configure.logPath = string.Empty;
+
+            // Save Log Path path for next launch
+            Settings.Default.LogPath = string.Empty;
+            Settings.Default.Save();
+            Settings.Default.Reload();
+        }
+
+
+        // --------------------------------------------------
+        // Threads - ComboBox
+        // --------------------------------------------------
+        private void threadSelect_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // Custom ComboBox Editable
+            //if (vm.Threads_SelectedItem == "Custom" || cboThreads.SelectedValue == null)
+            //{
+            //    cboThreads.IsEditable = true;
+            //}
+
+            // Other Items Disable Editable
+            //if (vm.Threads_SelectedItem != "Custom" && cboThreads.SelectedValue != null)
+            //{
+            //    cboThreads.IsEditable = false;
+            //}
+
+            // Maintain Editable Combobox while typing
+            //if (cboThreads.IsEditable == true)
+            //{
+            //    cboThreads.IsEditable = true;
+
+            //    // Clear Custom Text
+            //    cboThreads.SelectedIndex = -1;
+            //}
+
+            // Set the threads to pass to MainWindow
+            Configure.threads = vm.Threads_SelectedItem;
+
+            // Save Thread Number for next launch
+            Settings.Default.Threads = vm.Threads_SelectedItem;
+            Settings.Default.Save();
+            Settings.Default.Reload();
+        }
+        // --------------------------------------------------
+        // Thread Select ComboBox - Allow Only Numbers
+        // --------------------------------------------------
+        private void threadSelect_KeyDown(object sender, KeyEventArgs e)
+        {
+            // Only allow Numbers or Backspace
+            if (!(e.Key >= Key.D0 && e.Key <= Key.D9) && e.Key != Key.Back)
+            {
+                e.Handled = true;
+            }
+        }
+
+        // --------------------------------------------------
+        // Theme Select - ComboBox
+        // --------------------------------------------------
+        private void themeSelect_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Configure.theme = vm.Theme_SelectedItem;
+
+            // Change Theme Resource
+            App.Current.Resources.MergedDictionaries.Clear();
+            App.Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
+            {
+                Source = new Uri("Theme" + Configure.theme + ".xaml", UriKind.RelativeOrAbsolute)
+            });
+
+            // Save Theme for next launch
+            Settings.Default.Theme = vm.Theme_SelectedItem;
+            Settings.Default.Save();
+            Settings.Default.Reload();
+        }
+
+
+        /// <summary>
+        ///    Updates Auto Check - Checked
+        /// </summary>
+        private void tglUpdateAutoCheck_Checked(object sender, RoutedEventArgs e)
+        {
+            // Update Toggle Text
+            tblkUpdatesAutoCheck.Text = "On";
+
+            // Prevent Loading Corrupt App.Config
+            try
+            {
+                Settings.Default.UpdateAutoCheck = vm.UpdateAutoCheck_IsChecked;
+                Settings.Default.Save();
+            }
+            catch
+            {
+
+            }
+        }
+        /// <summary>
+        ///    Updates Auto Check - Unchecked
+        /// </summary>
+        private void tglUpdateAutoCheck_Unchecked(object sender, RoutedEventArgs e)
+        {
+            // Update Toggle Text
+            tblkUpdatesAutoCheck.Text = "Off";
+
+            // Prevent Loading Corrupt App.Config
+            try
+            {
+                Settings.Default.UpdateAutoCheck = vm.UpdateAutoCheck_IsChecked;
+                Settings.Default.Save();
+            }
+            catch
+            {
+
+            }
+        }
+
+
+        // --------------------------------------------------
+        // Reset Saved Settings - Button
+        // --------------------------------------------------
+        private void btnClearAllSavedSettings_Click(object sender, RoutedEventArgs e)
+        {
+            // Revert FFmpeg
+            vm.FFmpegPath_Text = "<auto>";
+            Configure.ffmpegPath = vm.FFmpegPath_Text;
+
+            // Revert FFprobe
+            vm.FFprobePath_Text = "<auto>";
+            Configure.ffprobePath = vm.FFprobePath_Text;
+
+            // Revert FFplay
+            vm.FFplayPath_Text = "<auto>";
+            Configure.ffprobePath = vm.FFplayPath_Text;
+
+            // Revert Log
+            vm.LogCheckBox_IsChecked = false;
+            vm.LogPath_Text = string.Empty;
+            Configure.logPath = string.Empty;
+
+            // Revert Threads
+            vm.Threads_SelectedItem = "optimal";
+            Configure.threads = string.Empty;
+
+
+            // Yes/No Dialog Confirmation
+            //
+            MessageBoxResult result = MessageBox.Show(
+                                                "Reset Saved Settings?",
+                                                "Settings",
+                                                MessageBoxButton.YesNo,
+                                                MessageBoxImage.Exclamation
+                                                );
+            switch (result)
+            {
+                case MessageBoxResult.Yes:
+
+                    // Reset AppData Settings
+                    Settings.Default.Reset();
+                    Settings.Default.Reload();
+
+                    // Restart Program
+                    Process.Start(Application.ResourceAssembly.Location);
+                    Application.Current.Shutdown();
+
+                    break;
+
+                case MessageBoxResult.No:
+
+                    break;
+            }
+        }
+
+
+        // --------------------------------------------------
+        // Delete Saved Settings - Button
+        // --------------------------------------------------
+        private void btnDeleteSettings_Click(object sender, RoutedEventArgs e)
+        {
+            string userProfile = Environment.ExpandEnvironmentVariables(@"%USERPROFILE%");
+            string appDataPath = "\\AppData\\Local\\Axiom";
+
+            // Check if Directory Exists
+            if (Directory.Exists(userProfile + appDataPath))
+            {
+                // Show Yes No Window
+                System.Windows.Forms.DialogResult dialogResult = System.Windows.Forms.MessageBox.Show(
+                    "Delete " + userProfile + appDataPath, "Delete Directory Confirm", System.Windows.Forms.MessageBoxButtons.YesNo);
+                // Yes
+                if (dialogResult == System.Windows.Forms.DialogResult.Yes)
+                {
+                    // Delete leftover 2 Pass Logs in Program's folder and Input Files folder
+                    using (Process delete = new Process())
+                    {
+                        delete.StartInfo.UseShellExecute = false;
+                        delete.StartInfo.CreateNoWindow = false;
+                        delete.StartInfo.RedirectStandardOutput = true;
+                        delete.StartInfo.FileName = "cmd.exe";
+                        delete.StartInfo.Arguments = "/c RD /Q /S " + "\"" + userProfile + appDataPath;
+                        delete.Start();
+                        delete.WaitForExit();
+                        //delete.Close();
+                    }
+                }
+                // No
+                else if (dialogResult == System.Windows.Forms.DialogResult.No)
+                {
+                    //do nothing
+                }
+            }
+            // If Axiom Folder Not Found
+            else
+            {
+                MessageBox.Show("No Previous Settings Found.",
+                                "Notice",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Information);
+            }
         }
 
 
@@ -1112,7 +1350,7 @@ namespace Axiom
         /// <remarks>
         ///     Check if FFmpeg and FFprobe is on Computer 
         /// </remarks>
-        public void FFcheck()
+        public static void FFcheck()
         {
             try
             {
@@ -1389,14 +1627,14 @@ namespace Axiom
 
 
         /// <summary>
-        ///    Thread Detect (Method)
+        ///    Thread Detect
         /// </summary>
-        public static String ThreadDetect(MainWindow mainwindow)
+        public static String ThreadDetect(ViewModel vm)
         {
             // -------------------------
             // Default
             // -------------------------
-            if ((string)mainwindow.cboThreads.SelectedItem == "default")
+            if (vm.Threads_SelectedItem == "default")
             {
                 Configure.threads = string.Empty;
             }
@@ -1404,7 +1642,7 @@ namespace Axiom
             // -------------------------
             // Optimal
             // -------------------------
-            else if ((string)mainwindow.cboThreads.SelectedItem == "optimal"
+            else if (vm.Threads_SelectedItem == "optimal"
                 || string.IsNullOrEmpty(Configure.threads))
             {
                 Configure.threads = "-threads 0";
@@ -1413,7 +1651,7 @@ namespace Axiom
             // -------------------------
             // All
             // -------------------------
-            else if ((string)mainwindow.cboThreads.SelectedItem == "all"
+            else if (vm.Threads_SelectedItem == "all"
                 || string.IsNullOrEmpty(Configure.threads))
             {
                 Configure.threads = "-threads " + Configure.maxthreads;
@@ -1424,320 +1662,12 @@ namespace Axiom
             // -------------------------
             else
             {
-                Configure.threads = "-threads " + mainwindow.cboThreads.SelectedItem.ToString();
+                Configure.threads = "-threads " + vm.Threads_SelectedItem;
             }
 
             // Return Value
             return Configure.threads;
         }
-
-
-
-        /// <summary>
-        ///    Batch Input Directory (Method)
-        /// </summary>
-        // Directory Only, Needed for Batch
-        public static String BatchInputDirectory(MainWindow mainwindow)
-        {
-            // -------------------------
-            // Batch
-            // -------------------------
-            if (mainwindow.tglBatch.IsChecked == true)
-            {
-                inputDir = mainwindow.tbxInput.Text; // (eg. C:\Input Folder\)
-            }
-
-            // -------------------------
-            // Empty
-            // -------------------------
-            // Input Textbox & Output Textbox Both Empty
-            if (string.IsNullOrWhiteSpace(mainwindow.tbxInput.Text))
-            {
-                inputDir = string.Empty;
-            }
-
-
-            // Return Value
-            return inputDir;
-        }
-
-
-
-        /// <summary>
-        ///    Input Path (Method)
-        /// </summary>
-        public static String InputPath(MainWindow mainwindow)
-        {
-            // -------------------------
-            // Single File
-            // -------------------------
-            if (mainwindow.tglBatch.IsChecked == false)
-            {
-                // Input Directory
-                // If not Empty
-                //if (!mainwindow.tbxInput.Text.Contains("www.youtube.com")
-                //    && !mainwindow.tbxInput.Text.Contains("youtube.com"))
-                //{
-                if (!string.IsNullOrWhiteSpace(mainwindow.tbxInput.Text))
-                {
-                    //inputDir = Path.GetDirectoryName(mainwindow.tbxInput.Text.TrimEnd('\\') + @"\"); // (eg. C:\Input Folder\)
-                    inputDir = Path.GetDirectoryName(mainwindow.tbxInput.Text).TrimEnd('\\') + @"\"; // (eg. C:\Input Folder\)
-                    inputFileName = Path.GetFileNameWithoutExtension(mainwindow.tbxInput.Text);
-                    inputExt = Path.GetExtension(mainwindow.tbxInput.Text);
-                }
-
-                // Input
-                input = mainwindow.tbxInput.Text; // (eg. C:\Input Folder\file.wmv)
-                //}
-                //else
-                //{
-                //    input = "\"" + "%appdata%/YouTube/" + "" + "\"";
-                //}
-            }
-
-            // -------------------------
-            // Batch
-            // -------------------------
-            else if (mainwindow.tglBatch.IsChecked == true)
-            {
-                // Add slash to Batch Browse Text folder path if missing
-                mainwindow.tbxInput.Text = mainwindow.tbxInput.Text.TrimEnd('\\') + @"\";
-
-                inputDir = mainwindow.tbxInput.Text; // (eg. C:\Input Folder\)
-
-                inputFileName = "%~f";
-
-                // Input
-                input = inputDir + inputFileName; // (eg. C:\Input Folder\)
-            }
-
-            // -------------------------
-            // Empty
-            // -------------------------
-            // Input Textbox & Output Textbox Both Empty
-            if (string.IsNullOrWhiteSpace(mainwindow.tbxInput.Text))
-            {
-                inputDir = string.Empty;
-                inputFileName = string.Empty;
-                input = string.Empty;
-            }
-
-
-            // Return Value
-            return input;
-        }
-
-
-
-        /// <summary>
-        ///    Output Path (Method)
-        /// </summary>
-        public static String OutputPath(MainWindow mainwindow)
-        {
-            // Get Output Extension (Method)
-            FormatControls.OutputFormatExt(mainwindow);
-
-            // -------------------------
-            // Single File
-            // -------------------------
-            if (mainwindow.tglBatch.IsChecked == false)
-            {
-                // Input Not Empty, Output Empty
-                // Default Output to be same as Input Directory
-                if (!string.IsNullOrWhiteSpace(mainwindow.tbxInput.Text)
-                    && string.IsNullOrWhiteSpace(mainwindow.tbxOutput.Text))
-                {
-                    mainwindow.tbxOutput.Text = inputDir + inputFileName + outputExt;
-                }
-
-                // Input Empty, Output Not Empty
-                if (!string.IsNullOrWhiteSpace(mainwindow.tbxOutput.Text))
-                {
-                    outputDir = Path.GetDirectoryName(mainwindow.tbxOutput.Text).TrimEnd('\\') + @"\";
-
-                    outputFileName = Path.GetFileNameWithoutExtension(mainwindow.tbxOutput.Text);
-                }
-
-                // -------------------------
-                // File Renamer
-                // -------------------------
-                // Auto Renamer
-                // Pressing Script or Convert while Output is empty
-                if (inputDir == outputDir
-                    && inputFileName == outputFileName
-                    && string.Equals(inputExt, outputExt, StringComparison.CurrentCultureIgnoreCase))
-                {
-                    outputFileName = mainwindow.FileRenamer(inputFileName);
-                }
-
-                // -------------------------
-                // Image Sequence Renamer
-                // -------------------------
-                if ((string)mainwindow.cboMediaType.SelectedItem == "Sequence")
-                {
-                    outputFileName = "image-%03d"; //must be this name
-                }
-
-                // -------------------------
-                // Output
-                // -------------------------
-                output = outputDir + outputFileName + outputExt; // (eg. C:\Output Folder\ + file + .mp4)    
-
-                // Update TextBox
-                if (!string.IsNullOrWhiteSpace(mainwindow.tbxOutput.Text))
-                {
-                    mainwindow.tbxOutput.Text = output;
-                }
-            }
-
-            // -------------------------
-            // Batch
-            // -------------------------
-            else if (mainwindow.tglBatch.IsChecked == true)
-            {
-                // Add slash to Batch Output Text folder path if missing
-                mainwindow.tbxOutput.Text = mainwindow.tbxOutput.Text.TrimEnd('\\') + @"\";
-
-                // Input Not Empty, Output Empty
-                // Default Output to be same as Input Directory
-                if (!string.IsNullOrWhiteSpace(mainwindow.tbxInput.Text) && string.IsNullOrWhiteSpace(mainwindow.tbxOutput.Text))
-                {
-                    mainwindow.tbxOutput.Text = mainwindow.tbxInput.Text;
-                }
-
-                outputDir = mainwindow.tbxOutput.Text;
-
-                // Output             
-                output = outputDir + "%~nf" + outputExt; // (eg. C:\Output Folder\%~nf.mp4)
-            }
-
-            // -------------------------
-            // Empty
-            // -------------------------
-            // Input Textbox & Output Textbox Both Empty
-            if (string.IsNullOrWhiteSpace(mainwindow.tbxOutput.Text))
-            {
-                outputDir = string.Empty;
-                outputFileName = string.Empty;
-                output = string.Empty;
-            }
-
-
-            // Return Value
-            return output;
-        }
-
-
-
-        /// <summary>
-        ///    Batch Extension Period Check (Method)
-        /// </summary>
-        public static void BatchExtCheck(MainWindow mainwindow)
-        {
-            // Add period if Batch Extension if User did not enter
-            if (!string.IsNullOrWhiteSpace(mainwindow.batchExtensionTextBox.Text) &&
-                mainwindow.batchExtensionTextBox.Text != "extension" &&
-                mainwindow.batchExtensionTextBox.Text != ".")
-            {
-                batchExt = "." + mainwindow.batchExtensionTextBox.Text;
-            }
-            else
-            {
-                batchExt = string.Empty;
-            }
-
-            //// Add period if Batch Extension if User did not enter
-            //if (!mainwindow.batchExtensionTextBox.Text.Contains("."))
-            //{
-            //    mainwindow.batchExtensionTextBox.Text = "." + mainwindow.batchExtensionTextBox.Text;
-            //}
-
-            //// Clear Batch Extension Text if Only period
-            //if (mainwindow.batchExtensionTextBox.Text == ".")
-            //{
-            //    mainwindow.batchExtensionTextBox.Text = string.Empty;
-            //    batchExt = string.Empty;
-            //}
-        }
-
-
-        /// <summary>
-        ///    Delete 2 Pass Logs Lock Check (Method)
-        /// </summary>
-        /// <remarks>
-        ///     Check if File is in use by another Process (FFmpeg writing 2 Pass log)
-        /// </remarks>
-        //protected virtual bool IsFileLocked(FileInfo file)
-        //{
-        //    FileStream stream = null;
-
-        //    try
-        //    {
-        //        stream = file.Open(FileMode.Open, FileAccess.ReadWrite, FileShare.None);
-        //    }
-        //    catch (IOException)
-        //    {
-        //        //the file is unavailable because it is:
-        //        //still being written to
-        //        //or being processed by another thread
-        //        //or does not exist (has already been processed)
-        //        return true;
-        //    }
-        //    finally
-        //    {
-        //        if (stream != null)
-        //            stream.Close();
-        //    }
-
-        //    //file is not locked
-        //    return false;
-        //}
-
-
-
-        /// <summary>
-        ///    File Renamer (Method)
-        /// </summary>
-        public String FileRenamer(string filename)
-        {
-            string output = outputDir + filename + outputExt;
-            string outputNewFileName = string.Empty;
-
-            int count = 1;
-
-            if (File.Exists(output))
-            {
-                while (File.Exists(output))
-                {
-                    outputNewFileName = string.Format("{0}({1})", filename + " ", count++);
-                    output = Path.Combine(outputDir, outputNewFileName + outputExt);
-                }
-            }
-            else
-            {
-                // stay default
-                outputNewFileName = filename;
-            }
-
-            return outputNewFileName;
-        }
-
-
-
-        /// <summary>
-        ///    YouTube Download (Method)
-        /// </summary>
-        public static String YouTubeDownload(string input)
-        {
-            if (input.Contains("www.youtube.com")
-                || input.Contains("youtube.com"))
-            {
-                youtubedl = "cd " + "\"" + appDir + "youtube-dl" + "\"" + " && youtube-dl.exe " + input + " -o %appdata%/YouTube/%(title)s.%(ext)s &&";
-            }
-
-            return youtubedl;
-        }
-
 
 
         /// <summary>
@@ -1750,8 +1680,8 @@ namespace Axiom
             // -------------------------
             // Check if Script has been modified
             // -------------------------
-            if (!string.IsNullOrWhiteSpace(ScriptView.GetScriptRichTextBoxContents(mainwindow))
-                && !string.IsNullOrEmpty(FFmpeg.ffmpegArgs))
+            if (!string.IsNullOrWhiteSpace(ScriptView.GetScriptRichTextBoxContents(mainwindow)) && 
+                !string.IsNullOrEmpty(FFmpeg.ffmpegArgs))
             {
                 //MessageBox.Show(RemoveLineBreaks(ScriptView.GetScriptRichTextBoxContents(mainwindow))); //debug
                 //MessageBox.Show(FFmpeg.ffmpegArgs); //debug
@@ -1784,18 +1714,17 @@ namespace Axiom
         }
 
 
-
         /// <summary>
         ///    Ready Halts (Method)
         /// </summary>
-        public static void ReadyHalts(MainWindow mainwindow)
+        public static void ReadyHalts(ViewModel vm)
         {
             // -------------------------
             // Check if FFmpeg & FFprobe Exists
             // -------------------------
             if (ffCheckCleared == false)
             {
-                mainwindow.FFcheck();
+                MainWindow.FFcheck();
             }
 
             // -------------------------
@@ -1803,8 +1732,8 @@ namespace Axiom
             // -------------------------
             if (string.IsNullOrEmpty(FFprobe.ffprobe))
             {
-                if ((string)mainwindow.cboVideoQuality.SelectedItem == "Auto"
-                    || (string)mainwindow.cboAudioQuality.SelectedItem == "Auto")
+                if (vm.VideoQuality_SelectedItem == "Auto" ||
+                    vm.AudioQuality_SelectedItem == "Auto")
                 {
                     // Log Console Message /////////
                     Log.logParagraph.Inlines.Add(new LineBreak());
@@ -1823,18 +1752,18 @@ namespace Axiom
             // -------------------------
             // Do not allow Script to generate if Browse Empty & Auto, since there is no file to detect bitrates/codecs
             // -------------------------
-            if (mainwindow.tglBatch.IsChecked == false) // Ignore if Batch
+            if (vm.Batch_IsChecked == false) // Ignore if Batch
             {
-                if (string.IsNullOrWhiteSpace(mainwindow.tbxInput.Text)) // empty check
+                if (string.IsNullOrEmpty(vm.Input_Text)) // empty check
                 {
                     // -------------------------
                     // Both Video & Audio are Auto Quality
                     // Combined Single Warning
                     // -------------------------
-                    if ((string)mainwindow.cboVideoQuality.SelectedItem == "Auto"
-                        && (string)mainwindow.cboAudioQuality.SelectedItem == "Auto"
-                        && (string)mainwindow.cboVideoCodec.SelectedItem != "Copy"
-                        && (string)mainwindow.cboAudioCodec.SelectedItem != "Copy"
+                    if (vm.VideoQuality_SelectedItem == "Auto" && 
+                        vm.AudioQuality_SelectedItem == "Auto" && 
+                        vm.VideoCodec_SelectedItem != "Copy" && 
+                        vm.AudioCodec_SelectedItem != "Copy"
                         )
                     {
                         // Log Console Message /////////
@@ -1861,9 +1790,9 @@ namespace Axiom
                         // -------------------------
                         // Video Auto Quality
                         // -------------------------
-                        if ((string)mainwindow.cboVideoQuality.SelectedItem == "Auto")
+                        if (vm.VideoQuality_SelectedItem == "Auto")
                         {
-                            if ((string)mainwindow.cboVideoCodec.SelectedItem != "Copy")
+                            if (vm.VideoCodec_SelectedItem != "Copy")
                             {
                                 // Log Console Message /////////
                                 Log.logParagraph.Inlines.Add(new LineBreak());
@@ -1884,9 +1813,9 @@ namespace Axiom
                         // -------------------------
                         // Audio Auto Quality
                         // -------------------------
-                        if ((string)mainwindow.cboAudioQuality.SelectedItem == "Auto")
+                        if (vm.AudioQuality_SelectedItem == "Auto")
                         {
-                            if ((string)mainwindow.cboAudioCodec.SelectedItem != "Copy")
+                            if (vm.AudioCodec_SelectedItem != "Copy")
                             {
                                 // Log Console Message /////////
                                 Log.logParagraph.Inlines.Add(new LineBreak());
@@ -1903,14 +1832,15 @@ namespace Axiom
                                                 MessageBoxImage.Information);
                             }
                         }
-                    }                  
+                    }
                 }
             }
 
             // -------------------------
             // Halt if Single File Input with no Extension
             // -------------------------
-            if (mainwindow.tglBatch.IsChecked == false && mainwindow.tbxInput.Text.EndsWith("\\"))
+            if (vm.Batch_IsChecked == false && 
+                vm.Input_Text.EndsWith("\\"))
             {
                 // Log Console Message /////////
                 Log.logParagraph.Inlines.Add(new LineBreak());
@@ -1929,35 +1859,57 @@ namespace Axiom
             // -------------------------
             // Do not allow Batch Copy to same folder if file extensions are the same (to avoid file overwrite)
             // -------------------------
-            if (mainwindow.tglBatch.IsChecked == true
-                && string.Equals(inputDir, outputDir, StringComparison.CurrentCultureIgnoreCase)
-                | string.Equals(batchExt, outputExt, StringComparison.CurrentCultureIgnoreCase))
+            if (vm.Batch_IsChecked == true)
             {
-                //MessageBox.Show(inputDir); //debug
-                //MessageBox.Show(outputDir); //debug
+                if (string.Equals(inputDir, outputDir, StringComparison.CurrentCultureIgnoreCase) &&
+                    string.Equals(batchExt, outputExt, StringComparison.CurrentCultureIgnoreCase))
+                {
+                    //MessageBox.Show(inputDir); //debug
+                    //MessageBox.Show(outputDir); //debug
 
-                // Log Console Message /////////
-                Log.logParagraph.Inlines.Add(new LineBreak());
-                Log.logParagraph.Inlines.Add(new LineBreak());
-                Log.logParagraph.Inlines.Add(new Bold(new Run("Notice: Please choose an output folder different than the input folder to avoid file overwrite.")) { Foreground = Log.ConsoleWarning });
+                    // Log Console Message /////////
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new Bold(new Run("Notice: Please choose an output folder different than the input folder to avoid file overwrite.")) { Foreground = Log.ConsoleWarning });
 
-                /* lock */
-                ready = false;
-                // Warning
-                MessageBox.Show("Please choose an output folder different than the input folder to avoid file overwrite.",
-                                "Notice",
-                                MessageBoxButton.OK,
-                                MessageBoxImage.Exclamation);
+                    /* lock */
+                    ready = false;
+                    // Warning
+                    MessageBox.Show("Please choose an output folder different than the input folder to avoid file overwrite.",
+                                    "Notice",
+                                    MessageBoxButton.OK,
+                                    MessageBoxImage.Exclamation);
+                }
             }
+            //if (vm.Batch_IsChecked == true
+            //    && string.Equals(inputDir, outputDir, StringComparison.CurrentCultureIgnoreCase)
+            //    | string.Equals(batchExt, outputExt, StringComparison.CurrentCultureIgnoreCase))
+            //{
+            //    //MessageBox.Show(inputDir); //debug
+            //    //MessageBox.Show(outputDir); //debug
+
+            //    // Log Console Message /////////
+            //    Log.logParagraph.Inlines.Add(new LineBreak());
+            //    Log.logParagraph.Inlines.Add(new LineBreak());
+            //    Log.logParagraph.Inlines.Add(new Bold(new Run("Notice: Please choose an output folder different than the input folder to avoid file overwrite.")) { Foreground = Log.ConsoleWarning });
+
+            //    /* lock */
+            //    ready = false;
+            //    // Warning
+            //    MessageBox.Show("Please choose an output folder different than the input folder to avoid file overwrite.",
+            //                    "Notice",
+            //                    MessageBoxButton.OK,
+            //                    MessageBoxImage.Exclamation);
+            //}
 
             // -------------------------
             // Throw Error if VP8/VP9 & CRF does not have Bitrate -b:v
             // -------------------------
-            if ((string)mainwindow.cboVideoCodec.SelectedItem == "VP8"
-                || (string)mainwindow.cboVideoCodec.SelectedItem == "VP9")
+            if (vm.VideoCodec_SelectedItem == "VP8"
+                || vm.VideoCodec_SelectedItem == "VP9")
             {
-                if (!string.IsNullOrWhiteSpace(mainwindow.crfCustom.Text)
-                    && string.IsNullOrWhiteSpace(mainwindow.vBitrateCustom.Text))
+                if (!string.IsNullOrEmpty(vm.CRF_Text)
+                    && string.IsNullOrEmpty(vm.CRF_Text))
                 {
                     // Log Console Message /////////
                     Log.logParagraph.Inlines.Add(new LineBreak());
@@ -1976,6 +1928,175 @@ namespace Axiom
         }
 
 
+        /// <summary>
+        ///     System Info
+        /// </summary>
+        public void SystemInfoDisplay()
+        {
+            // -----------------------------------------------------------------
+            /// <summary>
+            ///     System Info
+            /// </summary>
+            /// <remarks>
+            ///     Detect and Display System Hardware
+            /// </remarks>
+            // -----------------------------------------------------------------
+            // Log Console Message /////////
+            Log.logParagraph.Inlines.Add(new LineBreak());
+            Log.logParagraph.Inlines.Add(new LineBreak());
+            Log.logParagraph.Inlines.Add(new Bold(new Run("System Info:")) { Foreground = Log.ConsoleAction });
+            Log.logParagraph.Inlines.Add(new LineBreak());
+
+            /// <summary>
+            /// OS
+            /// </summary>
+            try
+            {
+                ManagementClass os = new ManagementClass("Win32_OperatingSystem");
+
+                foreach (ManagementObject obj in os.GetInstances())
+                {
+                    // Log Console Message /////////
+                    Log.logParagraph.Inlines.Add(new Run(Convert.ToString(obj["Caption"])) { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+
+                }
+                os.Dispose();
+            }
+            catch
+            {
+
+            }
+
+
+            /// <summary>
+            /// CPU
+            /// </summary>
+            try
+            {
+                ManagementObjectSearcher cpu = new ManagementObjectSearcher("root\\CIMV2", "SELECT Name FROM Win32_Processor");
+
+                foreach (ManagementObject obj in cpu.Get())
+                {
+                    // Log Console Message /////////
+                    Log.logParagraph.Inlines.Add(new Run(Convert.ToString(obj["Name"])) { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                }
+                cpu.Dispose();
+
+                // Max Threads
+                foreach (var item in new System.Management.ManagementObjectSearcher("Select NumberOfLogicalProcessors FROM Win32_ComputerSystem").Get())
+                {
+                    Configure.maxthreads = String.Format("{0}", item["NumberOfLogicalProcessors"]);
+                }
+            }
+            catch
+            {
+
+            }
+
+
+            /// <summary>
+            /// GPU
+            /// </summary>
+            try
+            {
+                ManagementObjectSearcher gpu = new ManagementObjectSearcher("root\\CIMV2", "SELECT Name, AdapterRAM FROM Win32_VideoController");
+
+                foreach (ManagementObject obj in gpu.Get())
+                {
+                    Log.logParagraph.Inlines.Add(new Run(Convert.ToString(obj["Name"]) + " " + Convert.ToString(Math.Round(Convert.ToDouble(obj["AdapterRAM"]) * 0.000000001, 3) + "GB")) { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                }
+            }
+            catch
+            {
+
+            }
+
+
+            /// <summary>
+            /// RAM
+            /// </summary>
+            try
+            {
+                Log.logParagraph.Inlines.Add(new Run("RAM ") { Foreground = Log.ConsoleDefault });
+
+                double capacity = 0;
+                int memtype = 0;
+                string type;
+                int speed = 0;
+
+                ManagementObjectSearcher ram = new ManagementObjectSearcher("root\\CIMV2", "SELECT Capacity, MemoryType, Speed FROM Win32_PhysicalMemory");
+
+                foreach (ManagementObject obj in ram.Get())
+                {
+                    capacity += Convert.ToDouble(obj["Capacity"]);
+                    memtype = Int32.Parse(obj.GetPropertyValue("MemoryType").ToString());
+                    speed = Int32.Parse(obj.GetPropertyValue("Speed").ToString());
+                }
+
+                capacity *= 0.000000001; // Convert Byte to GB
+                capacity = Math.Round(capacity, 3); // Round to 3 decimal places
+
+                // Select RAM Type
+                switch (memtype)
+                {
+                    case 20:
+                        type = "DDR";
+                        break;
+                    case 21:
+                        type = "DDR2";
+                        break;
+                    case 17:
+                        type = "SDRAM";
+                        break;
+                    default:
+                        if (memtype == 0 || memtype > 22)
+                            type = "DDR3";
+                        else
+                            type = "Unknown";
+                        break;
+                }
+
+                // Log Console Message /////////
+                Log.logParagraph.Inlines.Add(new Run(Convert.ToString(capacity) + "GB " + type + " " + Convert.ToString(speed) + "MHz") { Foreground = Log.ConsoleDefault });
+                Log.logParagraph.Inlines.Add(new LineBreak());
+
+                ram.Dispose();
+            }
+            catch
+            {
+
+            }
+
+            // End System Info
+        }
+
+
+        /// <summary>
+        ///     Normalize Value (Method)
+        /// <summary>
+        public static double NormalizeValue(double val, double valmin, double valmax, double min, double max, double midpoint)
+        {
+            double mid = (valmin + valmax) / 2.0;
+            if (val < mid)
+            {
+                return (val - valmin) / (mid - valmin) * (midpoint - min) + min;
+            }
+            else
+            {
+                return (val - mid) / (valmax - mid) * (max - midpoint) + midpoint;
+            }
+        }
+        //public static double NormalizeValue(double val, double valmin, double valmax, double min, double max, double ffdefault)
+        //{
+        //    // (((sliderValue - sliderValueMin) / (sliderValueMax - sliderValueMin)) * (NormalizeMax - NormalizeMin)) + NormalizeMin
+
+        //    return (((val - valmin) / (valmax - valmin)) * (max - min)) + min;
+        //}
+
+
 
         // --------------------------------------------------------------------------------------------------------
         // --------------------------------------------------------------------------------------------------------
@@ -1983,446 +2104,6 @@ namespace Axiom
         ///     CONTROLS
         /// </summary>
         // --------------------------------------------------------------------------------------------------------
-        // --------------------------------------------------------------------------------------------------------
-
-        // --------------------------------------------------------------------------------------------------------
-        // Configure
-        // --------------------------------------------------------------------------------------------------------
-
-        // --------------------------------------------------
-        // FFmpeg Textbox Click
-        // --------------------------------------------------
-        private void textBoxFFmpegPathConfig_PreviewMouseDown(object sender, MouseButtonEventArgs e)
-        {
-            Configure.FFmpegFolderBrowser(this);
-        }
-
-
-        // --------------------------------------------------
-        // FFmpeg Textbox (Text Changed)
-        // --------------------------------------------------
-        private void textBoxFFmpegPathConfig_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            // dont use
-        }
-
-
-        // --------------------------------------------------
-        // FFmpeg Auto Path Button (On Click)
-        // --------------------------------------------------
-        private void buttonFFmpegAuto_Click(object sender, RoutedEventArgs e)
-        {
-            // Set the ffmpegPath string
-            Configure.ffmpegPath = "<auto>";
-
-            // Display Folder Path in Textbox
-            textBoxFFmpegPathConfig.Text = "<auto>";
-
-            // FFmpeg Path path for next launch
-            Settings.Default["ffmpegPath"] = "<auto>";
-            Settings.Default.Save();
-            Settings.Default.Reload();
-        }
-
-
-        // --------------------------------------------------
-        // FFprobe Textbox Click
-        // --------------------------------------------------
-        private void textBoxFFprobePathConfig_PreviewMouseDown(object sender, MouseButtonEventArgs e)
-        {
-            Configure.FFprobeFolderBrowser(this);
-        }
-
-
-        // --------------------------------------------------
-        // FFprobe Textbox (Text Changed)
-        // --------------------------------------------------
-        private void textBoxFFprobePathConfig_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            // dont use
-        }
-
-
-        // --------------------------------------------------
-        // FFprobe Auto Path Button (On Click)
-        // --------------------------------------------------
-        private void buttonFFprobeAuto_Click(object sender, RoutedEventArgs e)
-        {
-            // Set the ffprobePath string
-            Configure.ffprobePath = "<auto>"; //<auto>
-
-            // Display Folder Path in Textbox
-            textBoxFFprobePathConfig.Text = "<auto>";
-
-            // Save 7-zip Path path for next launch
-            Settings.Default["ffprobePath"] = "<auto>";
-            Settings.Default.Save();
-            Settings.Default.Reload();
-        }
-
-
-        // --------------------------------------------------
-        // FFplay Textbox Click
-        // --------------------------------------------------
-        private void textBoxFFplayPathConfig_PreviewMouseDown(object sender, MouseButtonEventArgs e)
-        {
-            Configure.FFplayFolderBrowser(this);
-        }
-
-
-        // --------------------------------------------------
-        // FFplay Textbox (Text Changed)
-        // --------------------------------------------------
-        private void textBoxFFplayPathConfig_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            // dont use
-        }
-
-
-        // --------------------------------------------------
-        // FFplay Auto Path Button (On Click)
-        // --------------------------------------------------
-        private void buttonFFplayAuto_Click(object sender, RoutedEventArgs e)
-        {
-            // Set the ffplayPath string
-            Configure.ffplayPath = "<auto>"; //<auto>
-
-            // Display Folder Path in Textbox
-            textBoxFFplayPathConfig.Text = "<auto>";
-
-            // Save 7-zip Path path for next launch
-            Settings.Default["ffplayPath"] = "<auto>";
-            Settings.Default.Save();
-            Settings.Default.Reload();
-        }
-
-        // --------------------------------------------------
-        // Log Checkbox (Checked)
-        // --------------------------------------------------
-        private void checkBoxLogConfig_Checked(object sender, RoutedEventArgs e)
-        {
-            // Enable the Log
-            Configure.logEnable = true;
-
-            // -------------------------
-            // Prevent Loading Corrupt App.Config
-            // -------------------------
-            try
-            {
-                // must be done this way or you get "convert object to bool error"
-                if (checkBoxLogConfig.IsChecked == true)
-                {
-                    // Save Checkbox Settings
-                    Settings.Default.checkBoxLog = true;
-                    Settings.Default.Save();
-                    Settings.Default.Reload();
-
-                    // Save Log Enable Settings
-                    Settings.Default.logEnable = true;
-                    Settings.Default.Save();
-                    Settings.Default.Reload();
-                }
-                if (checkBoxLogConfig.IsChecked == false)
-                {
-                    // Save Checkbox Settings
-                    Settings.Default.checkBoxLog = false;
-                    Settings.Default.Save();
-                    Settings.Default.Reload();
-
-                    // Save Log Enable Settings
-                    Settings.Default.logEnable = false;
-                    Settings.Default.Save();
-                    Settings.Default.Reload();
-                }
-            }
-            catch (ConfigurationErrorsException ex)
-            {
-                // Delete Old App.Config
-                string filename = ex.Filename;
-
-                if (File.Exists(filename) == true)
-                {
-                    File.Delete(filename);
-                    Properties.Settings.Default.Upgrade();
-                    // Properties.Settings.Default.Reload();
-                }
-                else
-                {
-
-                }
-            }
-
-        }
-
-
-        // --------------------------------------------------
-        // Log Checkbox (Unchecked)
-        // --------------------------------------------------
-        private void checkBoxLogConfig_Unchecked(object sender, RoutedEventArgs e)
-        {
-            // Disable the Log
-            Configure.logEnable = false;
-
-            // -------------------------
-            // Prevent Loading Corrupt App.Config
-            // -------------------------
-            try
-            {
-                // must be done this way or you get "convert object to bool error"
-                if (checkBoxLogConfig.IsChecked == true)
-                {
-                    // Save Checkbox Settings
-                    Settings.Default.checkBoxLog = true;
-                    Settings.Default.Save();
-                    Settings.Default.Reload();
-
-                    // Save Log Enable Settings
-                    Settings.Default.logEnable = true;
-                    Settings.Default.Save();
-                    Settings.Default.Reload();
-                }
-                if (checkBoxLogConfig.IsChecked == false)
-                {
-                    // Save Checkbox Settings
-                    Settings.Default.checkBoxLog = false;
-                    Settings.Default.Save();
-                    Settings.Default.Reload();
-
-                    // Save Log Enable Settings
-                    Settings.Default.logEnable = false;
-                    Settings.Default.Save();
-                    Settings.Default.Reload();
-                }
-            }
-            catch (ConfigurationErrorsException ex)
-            {
-                // Delete Old App.Config
-                string filename = ex.Filename;
-
-                if (File.Exists(filename) == true)
-                {
-                    File.Delete(filename);
-                    Properties.Settings.Default.Upgrade();
-                    // Properties.Settings.Default.Reload();
-                }
-                else
-                {
-
-                }
-            }
-        }
-
-
-        // --------------------------------------------------
-        // Log Textbox (On Click)
-        // --------------------------------------------------
-        private void textBoxLogConfig_PreviewMouseDown(object sender, MouseButtonEventArgs e)
-        {
-            Configure.logFolderBrowser(this);
-        }
-
-        // --------------------------------------------------
-        // Log Auto Path Button (On Click)
-        // --------------------------------------------------
-        private void buttonLogAuto_Click(object sender, RoutedEventArgs e)
-        {
-            // Uncheck Log Checkbox
-            checkBoxLogConfig.IsChecked = false;
-
-            // Clear Path in Textbox
-            textBoxLogConfig.Text = string.Empty;
-
-            // Set the logPath string
-            Configure.logPath = string.Empty;
-
-            // Save Log Path path for next launch
-            Settings.Default["logPath"] = string.Empty;
-            Settings.Default.Save();
-            Settings.Default.Reload();
-        }
-
-
-        // --------------------------------------------------
-        // Thread Select ComboBox
-        // --------------------------------------------------
-        private void threadSelect_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            // Custom ComboBox Editable
-            if ((string)cboThreads.SelectedItem == "Custom" || cboThreads.SelectedValue == null)
-            {
-                cboThreads.IsEditable = true;
-            }
-
-            // Other Items Disable Editable
-            if ((string)cboThreads.SelectedItem != "Custom" && cboThreads.SelectedValue != null)
-            {
-                cboThreads.IsEditable = false;
-            }
-
-            // Maintain Editable Combobox while typing
-            if (cboThreads.IsEditable == true)
-            {
-                cboThreads.IsEditable = true;
-
-                // Clear Custom Text
-                cboThreads.SelectedIndex = -1;
-            }
-
-            // Set the threads to pass to MainWindow
-            Configure.threads = cboThreads.SelectedItem.ToString();
-
-            // Save Thread Number for next launch
-            //Settings.Default["cboThreads"] = cboThreads.SelectedItem.ToString();
-            Settings.Default["threads"] = cboThreads.SelectedItem.ToString();
-            Settings.Default.Save();
-            Settings.Default.Reload();
-        }
-        // --------------------------------------------------
-        // Thread Select ComboBox - Allow Only Numbers
-        // --------------------------------------------------
-        private void threadSelect_KeyDown(object sender, KeyEventArgs e)
-        {
-            // Only allow Numbers or Backspace
-            if (!(e.Key >= Key.D0 && e.Key <= Key.D9) && e.Key != Key.Back)
-            {
-                e.Handled = true;
-            }
-        }
-
-        // --------------------------------------------------
-        // Theme Select ComboBox
-        // --------------------------------------------------
-        private void themeSelect_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            Configure.theme = cboTheme.SelectedItem.ToString();
-
-            // Change Theme Resource
-            App.Current.Resources.MergedDictionaries.Clear();
-            App.Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
-            {
-                Source = new Uri("Theme" + Configure.theme + ".xaml", UriKind.RelativeOrAbsolute)
-            });
-
-            // Save Theme for next launch
-            Settings.Default["Theme"] = cboTheme.SelectedItem.ToString();
-            Settings.Default.Save();
-            Settings.Default.Reload();
-        }
-
-        // --------------------------------------------------
-        // Hardware Acceleration
-        // --------------------------------------------------
-        //private void tglHWAccel_Checked(object sender, RoutedEventArgs e)
-        //{
-        //    tglHWAccel.Content = "On";
-        //}
-        //private void tglHWAccel_Unchecked(object sender, RoutedEventArgs e)
-        //{
-        //    tglHWAccel.Content = "Off";
-        //}
-
-
-        // --------------------------------------------------
-        // Reset Saved Settings Button
-        // --------------------------------------------------
-        private void buttonClearAllSavedSettings_Click(object sender, RoutedEventArgs e)
-        {
-            // Revert FFmpeg
-            textBoxFFmpegPathConfig.Text = "<auto>";
-            Configure.ffmpegPath = textBoxFFmpegPathConfig.Text;
-
-            // Revert FFprobe
-            textBoxFFprobePathConfig.Text = "<auto>";
-            Configure.ffprobePath = textBoxFFprobePathConfig.Text;
-
-            // Revert Log
-            checkBoxLogConfig.IsChecked = false;
-            textBoxLogConfig.Text = string.Empty;
-            Configure.logPath = string.Empty;
-
-            // Revert Threads
-            cboThreads.SelectedItem = "optimal";
-            Configure.threads = string.Empty;
-
-
-            // Yes/No Dialog Confirmation
-            //
-            MessageBoxResult result = MessageBox.Show(
-                                                "Reset Saved Settings?",
-                                                "Settings",
-                                                MessageBoxButton.YesNo,
-                                                MessageBoxImage.Exclamation
-                                                );
-            switch (result)
-            {
-                case MessageBoxResult.Yes:
-
-                    // Reset AppData Settings
-                    Settings.Default.Reset();
-                    Settings.Default.Reload();
-
-                    // Restart Program
-                    Process.Start(Application.ResourceAssembly.Location);
-                    Application.Current.Shutdown();
-
-                    break;
-
-                case MessageBoxResult.No:
-
-                    break;
-            }
-        }
-
-
-        // --------------------------------------------------
-        // Delete Saved Settings Button
-        // --------------------------------------------------
-        private void buttonDeleteSettings_Click(object sender, RoutedEventArgs e)
-        {
-            string userProfile = Environment.ExpandEnvironmentVariables(@"%USERPROFILE%");
-            string appDataPath = "\\AppData\\Local\\Axiom";
-
-            // Check if Directory Exists
-            if (Directory.Exists(userProfile + appDataPath))
-            {
-                // Show Yes No Window
-                System.Windows.Forms.DialogResult dialogResult = System.Windows.Forms.MessageBox.Show(
-                    "Delete " + userProfile + appDataPath, "Delete Directory Confirm", System.Windows.Forms.MessageBoxButtons.YesNo);
-                // Yes
-                if (dialogResult == System.Windows.Forms.DialogResult.Yes)
-                {
-                    // Delete leftover 2 Pass Logs in Program's folder and Input Files folder
-                    using (Process delete = new Process())
-                    {
-                        delete.StartInfo.UseShellExecute = false;
-                        delete.StartInfo.CreateNoWindow = false;
-                        delete.StartInfo.RedirectStandardOutput = true;
-                        delete.StartInfo.FileName = "cmd.exe";
-                        delete.StartInfo.Arguments = "/c RD /Q /S " + "\"" + userProfile + appDataPath;
-                        delete.Start();
-                        delete.WaitForExit();
-                        //delete.Close();
-                    }
-                }
-                // No
-                else if (dialogResult == System.Windows.Forms.DialogResult.No)
-                {
-                    //do nothing
-                }
-            }
-            // If Axiom Folder Not Found
-            else
-            {
-                MessageBox.Show("No Previous Settings Found.",
-                                "Notice",
-                                MessageBoxButton.OK,
-                                MessageBoxImage.Information);
-            }
-        }
-
-
-        // --------------------------------------------------------------------------------------------------------
-        // Main
         // --------------------------------------------------------------------------------------------------------
 
         /// <summary>
@@ -2485,214 +2166,6 @@ namespace Axiom
             }
         }
 
-
-        /// <summary>
-        ///     Configure Settings Window Button
-        /// </summary>
-        private void buttonConfigure_Click(object sender, RoutedEventArgs e)
-        {
-            //// Prevent Monitor Resolution Window Crash
-            ////
-            //try
-            //{
-            //    // Detect which screen we're on
-            //    var allScreens = System.Windows.Forms.Screen.AllScreens.ToList();
-            //    var thisScreen = allScreens.SingleOrDefault(s => this.Left >= s.WorkingArea.Left && this.Left < s.WorkingArea.Right);
-            //    if (thisScreen == null) thisScreen = allScreens.First();
-
-            //    // Open Configure Window
-            //    configurewindow = new ConfigureWindow(this);
-
-            //    // Keep Window on Top
-            //    configurewindow.Owner = Window.GetWindow(this);
-
-            //    // Position Relative to MainWindow
-            //    // Keep from going off screen
-            //    configurewindow.Left = Math.Max((this.Left + (this.Width - configurewindow.Width) / 2), thisScreen.WorkingArea.Left);
-            //    configurewindow.Top = Math.Max(this.Top - configurewindow.Height - 12, thisScreen.WorkingArea.Top);
-
-            //    // Open Winndow
-            //    configurewindow.ShowDialog();
-            //}
-            //// Simplified
-            //catch
-            //{
-            //    // Open Configure Window
-            //    configurewindow = new ConfigureWindow(this);
-
-            //    // Keep Window on Top
-            //    configurewindow.Owner = Window.GetWindow(this);
-
-            //    // Position Relative to MainWindow
-            //    configurewindow.Left = Math.Max((this.Left + (this.Width - configurewindow.Width) / 2), this.Left);
-            //    configurewindow.Top = Math.Max((this.Top + (this.Height - configurewindow.Height) / 2), this.Top);
-
-            //    // Open Winndow
-            //    configurewindow.ShowDialog();
-            //}
-        }
-
-
-        /// <summary>
-        ///     Log Console Window Button
-        /// </summary>
-        private void buttonLogConsole_Click(object sender, RoutedEventArgs e)
-        {
-            // Prevent Monitor Resolution Window Crash
-            //
-            try
-            {
-                // Detect which screen we're on
-                var allScreens = System.Windows.Forms.Screen.AllScreens.ToList();
-                var thisScreen = allScreens.SingleOrDefault(s => this.Left >= s.WorkingArea.Left && this.Left < s.WorkingArea.Right);
-                if (thisScreen == null) thisScreen = allScreens.First();
-
-                // Position Relative to MainWindow
-                // Keep from going off screen
-                logconsole.Left = Math.Min(this.Left + this.ActualWidth + 12, thisScreen.WorkingArea.Right - logconsole.Width);
-                logconsole.Top = Math.Min(this.Top + 0, thisScreen.WorkingArea.Bottom - logconsole.Height);
-
-                // Open Winndow
-                logconsole.Show();
-            }
-            // Simplified
-            catch
-            {
-                // Position Relative to MainWindow
-                // Keep from going off screen
-                logconsole.Left = this.Left + this.ActualWidth + 12;
-                logconsole.Top = this.Top;
-
-                // Open Winndow
-                logconsole.Show();
-            }
-        }
-
-        /// <summary>
-        ///     Debug Console Window Button
-        /// </summary>
-        private Boolean IsDebugConsoleOpened = false;
-        private void buttonDebugConsole_Click(object sender, RoutedEventArgs e)
-        {
-            // Prevent Monitor Resolution Window Crash
-            //
-            try
-            {
-                // Check if Window is already open
-                if (IsDebugConsoleOpened) return;
-
-                // Start Window
-                debugconsole = new DebugConsole(this);
-
-                // Only allow 1 Window instance
-                debugconsole.ContentRendered += delegate { IsDebugConsoleOpened = true; };
-                debugconsole.Closed += delegate { IsDebugConsoleOpened = false; };
-
-                // Detect which screen we're on
-                var allScreens = System.Windows.Forms.Screen.AllScreens.ToList();
-                var thisScreen = allScreens.SingleOrDefault(s => this.Left >= s.WorkingArea.Left && this.Left < s.WorkingArea.Right);
-                if (thisScreen == null) thisScreen = allScreens.First();
-
-
-                // Position Relative to MainWindow
-                // Keep from going off screen
-                debugconsole.Left = Math.Max(this.Left - debugconsole.Width - 12, thisScreen.WorkingArea.Left);
-                debugconsole.Top = Math.Max(this.Top - 0, thisScreen.WorkingArea.Top);
-
-                // Write Variables to Debug Window (Method)
-                DebugConsole.DebugWrite(debugconsole, this);
-
-                // Open Window
-                debugconsole.Show();
-            }
-            // Simplified
-            catch
-            {
-                // Check if Window is already open
-                if (IsDebugConsoleOpened) return;
-
-                // Start Window
-                debugconsole = new DebugConsole(this);
-
-                // Only allow 1 Window instance
-                debugconsole.ContentRendered += delegate { IsDebugConsoleOpened = true; };
-                debugconsole.Closed += delegate { IsDebugConsoleOpened = false; };
-
-                // Position Relative to MainWindow
-                // Keep from going off screen
-                debugconsole.Left = this.Left - debugconsole.Width - 12;
-                debugconsole.Top = this.Top;
-
-                // Write Variables to Debug Window (Method)
-                DebugConsole.DebugWrite(debugconsole, this);
-
-                // Open Window
-                debugconsole.Show();
-            }
-        }
-
-        /// <summary>
-        ///     File Properties Button
-        /// </summary>
-        private Boolean IsFilePropertiesOpened = false;
-        private void buttonProperties_Click(object sender, RoutedEventArgs e)
-        {
-            // Prevent Monitor Resolution Window Crash
-            //
-            try
-            {
-                // Check if Window is already open
-                if (IsFilePropertiesOpened) return;
-
-                // Start window
-                //MainWindow mainwindow = this;
-                filepropwindow = new FilePropertiesWindow(this);
-
-                // Only allow 1 Window instance
-                filepropwindow.ContentRendered += delegate { IsFilePropertiesOpened = true; };
-                filepropwindow.Closed += delegate { IsFilePropertiesOpened = false; };
-
-                // Detect which screen we're on
-                var allScreens = System.Windows.Forms.Screen.AllScreens.ToList();
-                var thisScreen = allScreens.SingleOrDefault(s => this.Left >= s.WorkingArea.Left && this.Left < s.WorkingArea.Right);
-                if (thisScreen == null) thisScreen = allScreens.First();
-
-                // Position Relative to MainWindow
-                // Keep from going off screen
-                filepropwindow.Left = Math.Max((this.Left + (this.Width - filepropwindow.Width) / 2), thisScreen.WorkingArea.Left);
-                filepropwindow.Top = Math.Max((this.Top + (this.Height - filepropwindow.Height) / 2), thisScreen.WorkingArea.Top);
-
-                // Write Properties to Textbox in FilePropertiesWindow Initialize
-
-                // Open Window
-                filepropwindow.Show();
-            }
-            // Simplified
-            catch
-            {
-                // Check if Window is already open
-                if (IsFilePropertiesOpened) return;
-
-                // Start window
-                filepropwindow = new FilePropertiesWindow(this);
-
-                // Only allow 1 Window instance
-                filepropwindow.ContentRendered += delegate { IsFilePropertiesOpened = true; };
-                filepropwindow.Closed += delegate { IsFilePropertiesOpened = false; };
-
-                // Position Relative to MainWindow
-                // Keep from going off screen
-                filepropwindow.Left = Math.Max((this.Left + (this.Width - filepropwindow.Width) / 2), this.Left);
-                filepropwindow.Top = Math.Max((this.Top + (this.Height - filepropwindow.Height) / 2), this.Top);
-
-                // Write Properties to Textbox in FilePropertiesWindow Initialize
-
-                // Open Window
-                filepropwindow.Show();
-            }
-        }
-
-
         /// <summary>
         ///    Website Button
         /// </summary>
@@ -2702,7 +2175,6 @@ namespace Axiom
             Process.Start("https://axiomui.github.io");
 
         }
-
 
         /// <summary>
         ///    Update Button
@@ -2720,7 +2192,11 @@ namespace Axiom
 
                 WebClient wc = new WebClient();
                 wc.Headers.Add(HttpRequestHeader.UserAgent, "Axiom (https://github.com/MattMcManis/Axiom)" + " v" + currentVersion + "-" + currentBuildPhase + " Update Check");
-                //wc.Headers.Add("Accept-Encoding", "gzip,deflate"); //error
+                wc.Headers.Add("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8");
+                wc.Headers.Add("accept-language", "en-US,en;q=0.9");
+                wc.Headers.Add("dnt", "1");
+                wc.Headers.Add("upgrade-insecure-requests", "1");
+                //wc.Headers.Add("accept-encoding", "gzip, deflate, br"); //error
 
                 // -------------------------
                 // Parse GitHub .version file
@@ -2858,106 +2334,23 @@ namespace Axiom
         }
 
         /// <summary>
-        ///    Updates Auto Check - Checked
-        /// </summary>
-        private void tglUpdatesAutoCheck_Checked(object sender, RoutedEventArgs e)
-        {
-            // Update Toggle Text
-            tblkUpdatesAutoCheck.Text = "On";
-
-            //Prevent Loading Corrupt App.Config
-            try
-            {
-                // Save Toggle Settings
-                // must be done this way or you get "convert object to bool error"
-                if (tglUpdatesAutoCheck.IsChecked == true)
-                {
-                    Settings.Default.UpdatesAutoCheck = true;
-                    Settings.Default.Save();
-                    Settings.Default.Reload();
-                }
-                else if (tglUpdatesAutoCheck.IsChecked == false)
-                {
-                    Settings.Default.UpdatesAutoCheck = false;
-                    Settings.Default.Save();
-                    Settings.Default.Reload();
-                }
-            }
-            catch (ConfigurationErrorsException ex)
-            {
-                // Delete Old App.Config
-                string filename = ex.Filename;
-
-                if (File.Exists(filename) == true)
-                {
-                    File.Delete(filename);
-                    Settings.Default.Upgrade();
-                    // Properties.Settings.Default.Reload();
-                }
-                else
-                {
-
-                }
-            }
-        }
-        /// <summary>
-        ///    Updates Auto Check - Unchecked
-        /// </summary>
-        private void tglUpdatesAutoCheck_Unchecked(object sender, RoutedEventArgs e)
-        {
-            // Update Toggle Text
-            tblkUpdatesAutoCheck.Text = "Off";
-
-            // Prevent Loading Corrupt App.Config
-            try
-            {
-                // Save Toggle Settings
-                // must be done this way or you get "convert object to bool error"
-                if (tglUpdatesAutoCheck.IsChecked == true)
-                {
-                    Settings.Default.UpdatesAutoCheck = true;
-                    Settings.Default.Save();
-                    Settings.Default.Reload();
-                }
-                else if (tglUpdatesAutoCheck.IsChecked == false)
-                {
-                    Settings.Default.UpdatesAutoCheck = false;
-                    Settings.Default.Save();
-                    Settings.Default.Reload();
-                }
-            }
-            catch (ConfigurationErrorsException ex)
-            {
-                // Delete Old App.Config
-                string filename = ex.Filename;
-
-                if (File.Exists(filename) == true)
-                {
-                    File.Delete(filename);
-                    Settings.Default.Upgrade();
-                    // Properties.Settings.Default.Reload();
-                }
-                else
-                {
-
-                }
-            }
-        }
-
-        /// <summary>
         ///    Update Available Check
         /// </summary>
         public void UpdateAvailableCheck()
         {
             //if (tglUpdatesAutoCheck.IsChecked == true)
-            if (tglUpdatesAutoCheck.Dispatcher.Invoke((() => { return tglUpdatesAutoCheck.IsChecked; })) == true)
+            if (tglUpdateAutoCheck.Dispatcher.Invoke((() => { return tglUpdateAutoCheck.IsChecked; })) == true)
             {
                 ServicePointManager.Expect100Continue = true;
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
                 WebClient wc = new WebClient();
                 wc.Headers.Add(HttpRequestHeader.UserAgent, "Axiom (https://github.com/MattMcManis/Axiom)" + " v" + currentVersion + "-" + currentBuildPhase + " Update Check");
-                //wc.Headers.Add("Accept-Encoding", "gzip,deflate"); //error
+                wc.Headers.Add("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8");
+                wc.Headers.Add("accept-language", "en-US,en;q=0.9");
+                wc.Headers.Add("dnt", "1");
+                wc.Headers.Add("upgrade-insecure-requests", "1");
+                //wc.Headers.Add("accept-encoding", "gzip, deflate, br"); //error
 
                 // -------------------------
                 // Parse GitHub .version file
@@ -3014,6 +2407,193 @@ namespace Axiom
         }
 
 
+        /// <summary>
+        ///    Keep Window - Toggle - Checked
+        /// </summary>
+        private void tglCMDWindowKeep_Checked(object sender, RoutedEventArgs e)
+        {
+            // Log Console Message /////////
+            Log.logParagraph.Inlines.Add(new LineBreak());
+            Log.logParagraph.Inlines.Add(new LineBreak());
+            Log.logParagraph.Inlines.Add(new Bold(new Run("Keep FFmpeg Window Toggle: ")) { Foreground = Log.ConsoleDefault });
+            Log.logParagraph.Inlines.Add(new Run("On") { Foreground = Log.ConsoleDefault });
+
+            // Prevent Loading Corrupt App.Config
+            try
+            {
+                Settings.Default.CMDWindowKeep = vm.CMDWindowKeep_IsChecked;
+                Settings.Default.Save();
+            }
+            catch
+            {
+
+            }
+        }
+        /// <summary>
+        ///    Keep Window - Toggle - Unchecked
+        /// </summary>
+        private void tglCMDWindowKeep_Unchecked(object sender, RoutedEventArgs e)
+        {
+            // Log Console Message /////////
+            Log.logParagraph.Inlines.Add(new LineBreak());
+            Log.logParagraph.Inlines.Add(new LineBreak());
+            Log.logParagraph.Inlines.Add(new Bold(new Run("Keep FFmpeg Window Toggle: ")) { Foreground = Log.ConsoleDefault });
+            Log.logParagraph.Inlines.Add(new Run("Off") { Foreground = Log.ConsoleDefault });
+
+            // Prevent Loading Corrupt App.Config
+            try
+            {
+                Settings.Default.CMDWindowKeep = vm.CMDWindowKeep_IsChecked;
+                Settings.Default.Save();
+            }
+            catch
+            {
+
+            }
+        }
+
+        /// <summary>
+        ///    Auto Sort Script - Toggle - Checked
+        /// </summary>
+        private void tglAutoSortScript_Checked(object sender, RoutedEventArgs e)
+        {
+            // Log Console Message /////////
+            Log.logParagraph.Inlines.Add(new LineBreak());
+            Log.logParagraph.Inlines.Add(new LineBreak());
+            Log.logParagraph.Inlines.Add(new Bold(new Run("Auto Sort Script Toggle: ")) { Foreground = Log.ConsoleDefault });
+            Log.logParagraph.Inlines.Add(new Run("On") { Foreground = Log.ConsoleDefault });
+
+            // Prevent Loading Corrupt App.Config
+            try
+            {
+                Settings.Default.AutoSortScript = vm.AutoSortScript_IsChecked;
+                Settings.Default.Save();
+            }
+            catch
+            {
+
+            }
+        }
+        /// <summary>
+        ///    Auto Sort Script - Toggle - Unchecked
+        /// </summary>
+        private void tglAutoSortScript_Unchecked(object sender, RoutedEventArgs e)
+        {
+            // Log Console Message /////////
+            Log.logParagraph.Inlines.Add(new LineBreak());
+            Log.logParagraph.Inlines.Add(new LineBreak());
+            Log.logParagraph.Inlines.Add(new Bold(new Run("Auto Sort Script Toggle: ")) { Foreground = Log.ConsoleDefault });
+            Log.logParagraph.Inlines.Add(new Run("Off") { Foreground = Log.ConsoleDefault });
+
+            // Prevent Loading Corrupt App.Config
+            try
+            {
+                Settings.Default.AutoSortScript = vm.AutoSortScript_IsChecked;
+                Settings.Default.Save();
+            }
+            catch
+            {
+
+            }
+        }
+
+        /// <summary>
+        ///     Debug Console Window Button
+        /// </summary>
+        private Boolean IsDebugConsoleOpened = false;
+        private void buttonDebugConsole_Click(object sender, RoutedEventArgs e)
+        {
+            // Prevent Monitor Resolution Window Crash
+            //
+            try
+            {
+                // Check if Window is already open
+                if (IsDebugConsoleOpened) return;
+
+                // Start Window
+                debugconsole = new DebugConsole(this, vm);
+
+                // Only allow 1 Window instance
+                debugconsole.ContentRendered += delegate { IsDebugConsoleOpened = true; };
+                debugconsole.Closed += delegate { IsDebugConsoleOpened = false; };
+
+                // Detect which screen we're on
+                var allScreens = System.Windows.Forms.Screen.AllScreens.ToList();
+                var thisScreen = allScreens.SingleOrDefault(s => this.Left >= s.WorkingArea.Left && this.Left < s.WorkingArea.Right);
+                if (thisScreen == null) thisScreen = allScreens.First();
+
+
+                // Position Relative to MainWindow
+                // Keep from going off screen
+                debugconsole.Left = Math.Max(this.Left - debugconsole.Width - 12, thisScreen.WorkingArea.Left);
+                debugconsole.Top = Math.Max(this.Top - 0, thisScreen.WorkingArea.Top);
+
+                // Write Variables to Debug Window (Method)
+                DebugConsole.DebugWrite(debugconsole, this);
+
+                // Open Window
+                debugconsole.Show();
+            }
+            // Simplified
+            catch
+            {
+                // Check if Window is already open
+                if (IsDebugConsoleOpened) return;
+
+                // Start Window
+                debugconsole = new DebugConsole(this, vm);
+
+                // Only allow 1 Window instance
+                debugconsole.ContentRendered += delegate { IsDebugConsoleOpened = true; };
+                debugconsole.Closed += delegate { IsDebugConsoleOpened = false; };
+
+                // Position Relative to MainWindow
+                // Keep from going off screen
+                debugconsole.Left = this.Left - debugconsole.Width - 12;
+                debugconsole.Top = this.Top;
+
+                // Write Variables to Debug Window (Method)
+                DebugConsole.DebugWrite(debugconsole, this);
+
+                // Open Window
+                debugconsole.Show();
+            }
+        }
+
+        /// <summary>
+        ///     Log Console Window Button
+        /// </summary>
+        private void buttonLogConsole_Click(object sender, RoutedEventArgs e)
+        {
+            // Prevent Monitor Resolution Window Crash
+            //
+            try
+            {
+                // Detect which screen we're on
+                var allScreens = System.Windows.Forms.Screen.AllScreens.ToList();
+                var thisScreen = allScreens.SingleOrDefault(s => this.Left >= s.WorkingArea.Left && this.Left < s.WorkingArea.Right);
+                if (thisScreen == null) thisScreen = allScreens.First();
+
+                // Position Relative to MainWindow
+                // Keep from going off screen
+                logconsole.Left = Math.Min(this.Left + this.ActualWidth + 12, thisScreen.WorkingArea.Right - logconsole.Width);
+                logconsole.Top = Math.Min(this.Top + 0, thisScreen.WorkingArea.Bottom - logconsole.Height);
+
+                // Open Winndow
+                logconsole.Show();
+            }
+            // Simplified
+            catch
+            {
+                // Position Relative to MainWindow
+                // Keep from going off screen
+                logconsole.Left = this.Left + this.ActualWidth + 12;
+                logconsole.Top = this.Top;
+
+                // Open Winndow
+                logconsole.Show();
+            }
+        }
 
         /// <summary>
         ///    Log Button
@@ -3021,7 +2601,7 @@ namespace Axiom
         private void buttonLog_Click(object sender, RoutedEventArgs e)
         {
             // Call Method to get Log Path
-            Log.DefineLogPath(this);
+            Log.DefineLogPath();
 
             //MessageBox.Show(Configure.logPath.ToString()); //debug
 
@@ -3043,6 +2623,2108 @@ namespace Axiom
             }
         }
 
+        /// <summary>
+        ///    CMD Button
+        /// </summary>
+        private void buttonCmd_Click(object sender, RoutedEventArgs e)
+        {
+            // launch command prompt
+            Process.Start("CMD.exe", "/k cd %userprofile%");
+
+        }
+
+        /// <summary>
+        ///     File Properties Button
+        /// </summary>
+        private Boolean IsFilePropertiesOpened = false;
+        private void buttonProperties_Click(object sender, RoutedEventArgs e)
+        {
+            // Prevent Monitor Resolution Window Crash
+            //
+            try
+            {
+                // Check if Window is already open
+                if (IsFilePropertiesOpened) return;
+
+                // Start window
+                //MainWindow mainwindow = this;
+                filepropwindow = new FilePropertiesWindow(this, vm);
+
+                // Only allow 1 Window instance
+                filepropwindow.ContentRendered += delegate { IsFilePropertiesOpened = true; };
+                filepropwindow.Closed += delegate { IsFilePropertiesOpened = false; };
+
+                // Detect which screen we're on
+                var allScreens = System.Windows.Forms.Screen.AllScreens.ToList();
+                var thisScreen = allScreens.SingleOrDefault(s => this.Left >= s.WorkingArea.Left && this.Left < s.WorkingArea.Right);
+                if (thisScreen == null) thisScreen = allScreens.First();
+
+                // Position Relative to MainWindow
+                // Keep from going off screen
+                filepropwindow.Left = Math.Max((this.Left + (this.Width - filepropwindow.Width) / 2), thisScreen.WorkingArea.Left);
+                filepropwindow.Top = Math.Max((this.Top + (this.Height - filepropwindow.Height) / 2), thisScreen.WorkingArea.Top);
+
+                // Write Properties to Textbox in FilePropertiesWindow Initialize
+
+                // Open Window
+                filepropwindow.Show();
+            }
+            // Simplified
+            catch
+            {
+                // Check if Window is already open
+                if (IsFilePropertiesOpened) return;
+
+                // Start window
+                filepropwindow = new FilePropertiesWindow(this, vm);
+
+                // Only allow 1 Window instance
+                filepropwindow.ContentRendered += delegate { IsFilePropertiesOpened = true; };
+                filepropwindow.Closed += delegate { IsFilePropertiesOpened = false; };
+
+                // Position Relative to MainWindow
+                // Keep from going off screen
+                filepropwindow.Left = Math.Max((this.Left + (this.Width - filepropwindow.Width) / 2), this.Left);
+                filepropwindow.Top = Math.Max((this.Top + (this.Height - filepropwindow.Height) / 2), this.Top);
+
+                // Write Properties to Textbox in FilePropertiesWindow Initialize
+
+                // Open Window
+                filepropwindow.Show();
+            }
+        }
+
+        /// <summary>
+        ///    Play File Button
+        /// </summary>
+        private void buttonPlayFile_Click(object sender, RoutedEventArgs e)
+        {
+            if (File.Exists(@output))
+            {
+                Process.Start("\"" + output + "\"");
+            }
+            else
+            {
+                Log.logParagraph.Inlines.Add(new LineBreak());
+                Log.logParagraph.Inlines.Add(new LineBreak());
+                Log.logParagraph.Inlines.Add(new Bold(new Run("Notice: File does not yet exist.")) { Foreground = Log.ConsoleWarning });
+
+                MessageBox.Show("File does not yet exist.",
+                                "Notice",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Warning);
+            }
+        }
+
+
+
+        /// <summary>
+        ///    Input Button
+        /// </summary>
+        private void btnInput_Click(object sender, RoutedEventArgs e)
+        {
+            // -------------------------
+            // Single File
+            // -------------------------
+            if (vm.Batch_IsChecked == false)
+            {
+                // Open Select File Window
+                Microsoft.Win32.OpenFileDialog selectFile = new Microsoft.Win32.OpenFileDialog();
+
+                // Remember Last Dir
+                //
+                try
+                {
+                    string previousPath = Settings.Default.InputDir.ToString();
+
+                    // Use Previous Path if Not Null
+                    if (!string.IsNullOrEmpty(previousPath))
+                    {
+                        selectFile.InitialDirectory = previousPath;
+                    }
+                }
+                catch
+                {
+
+                }
+
+                // Show Dialog Box
+                Nullable<bool> result = selectFile.ShowDialog();
+
+                // Process Dialog Box
+                if (result == true)
+                {
+                    // Display path and file in Output Textbox
+                    vm.Input_Text = selectFile.FileName;
+
+                    // Set Input Dir, Name, Ext
+                    inputDir = Path.GetDirectoryName(vm.Input_Text).TrimEnd('\\') + @"\";
+
+                    inputFileName = Path.GetFileNameWithoutExtension(vm.Input_Text);
+
+                    inputExt = Path.GetExtension(vm.Input_Text);
+
+                    // Save Previous Path
+                    Settings.Default.InputDir = inputDir;
+                    Settings.Default.Save();
+
+                }
+
+                // --------------------------------------------------
+                // Default Auto if Input Extension matches Output Extsion
+                // This will trigger Auto Codec Copy
+                // --------------------------------------------------
+                ExtensionMatchCheckAuto(vm);
+
+                // -------------------------
+                // Prevent Losing Codec Copy after cancel closing Browse Folder Dialog Box 
+                // Set Video & Audio Codec Combobox to "Copy" if Input Extension is Same as Output Extension and Video Quality is Auto
+                // -------------------------
+                VideoControls.AutoCopyVideoCodec(this, vm);
+                SubtitleControls.AutoCopySubtitleCodec(vm);
+                AudioControls.AutoCopyAudioCodec(this, vm);
+            }
+            // -------------------------
+            // Batch
+            // -------------------------
+            else if (vm.Batch_IsChecked == true)
+            {
+                // Open Batch Folder
+                System.Windows.Forms.FolderBrowserDialog inputFolder = new System.Windows.Forms.FolderBrowserDialog();
+                System.Windows.Forms.DialogResult result = inputFolder.ShowDialog();
+
+
+                // Show Input Dialog Box
+                if (result == System.Windows.Forms.DialogResult.OK)
+                {
+                    // Display Folder Path in Textbox
+                    vm.Input_Text = inputFolder.SelectedPath.TrimEnd('\\') + @"\";
+
+                    // Input Directory
+                    inputDir = Path.GetDirectoryName(vm.Input_Text.TrimEnd('\\') + @"\");
+                }
+
+                // -------------------------
+                // Prevent Losing Codec Copy after cancel closing Browse Folder Dialog Box 
+                // Set Video & Audio Codec Combobox to "Copy" if Input Extension is Same as Output Extension and Video Quality is Auto
+                // -------------------------
+                VideoControls.AutoCopyVideoCodec(this, vm);
+                SubtitleControls.AutoCopySubtitleCodec(vm);
+                AudioControls.AutoCopyAudioCodec(this, vm);
+            }
+        }
+
+        /// <summary>
+        ///    Input Textbox
+        /// </summary>
+        private void tbxInput_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            //if (!vm.Input_Text.Contains("www.youtube.com")
+            //    && !vm.Input_Text.Contains("youtube.com"))
+            //{
+            if (!string.IsNullOrEmpty(vm.Input_Text))
+            {
+                // Remove stray slash if closed out early (duplicate code?)
+                if (vm.Input_Text == "\\")
+                {
+                    vm.Input_Text = string.Empty;
+                }
+
+                // Get input file extension
+                inputExt = Path.GetExtension(vm.Input_Text);
+
+
+                // Enable / Disable "Open Input Location" Buttion
+                if (!string.IsNullOrEmpty(vm.Input_Text))
+                {
+                    bool exists = Directory.Exists(Path.GetDirectoryName(vm.Input_Text));
+
+                    if (exists)
+                    {
+                        openLocationInput.IsEnabled = true;
+                    }
+                    else
+                    {
+                        openLocationInput.IsEnabled = false;
+                    }
+                }
+
+                // Set Video & Audio Codec Combobox to "Copy" if Input Extension is Same as Output Extension and Video Quality is Auto
+                VideoControls.AutoCopyVideoCodec(this, vm);
+                SubtitleControls.AutoCopySubtitleCodec(vm);
+                AudioControls.AutoCopyAudioCodec(this, vm);
+            }
+            //}
+        }
+
+        /// <summary>
+        ///    Input Textbox - Drag and Drop
+        /// </summary>
+        private void tbxInput_PreviewDragOver(object sender, DragEventArgs e)
+        {
+            e.Handled = true;
+            e.Effects = DragDropEffects.Copy;
+        }
+
+        private void tbxInput_PreviewDrop(object sender, DragEventArgs e)
+        {
+            var buffer = e.Data.GetData(DataFormats.FileDrop, false) as string[];
+            vm.Input_Text = buffer.First();
+
+            // Set Input Dir, Name, Ext
+            inputDir = Path.GetDirectoryName(vm.Input_Text).TrimEnd('\\') + @"\";
+            inputFileName = Path.GetFileNameWithoutExtension(vm.Input_Text);
+            inputExt = Path.GetExtension(vm.Input_Text);
+
+            // Set Video & Audio Codec Combobox to "Copy" if Input Extension is Same as Output Extension and Video Quality is Auto
+            VideoControls.AutoCopyVideoCodec(this, vm);
+            SubtitleControls.AutoCopySubtitleCodec(vm);
+            AudioControls.AutoCopyAudioCodec(this, vm);
+        }
+
+        /// <summary>
+        ///    Open Input Folder Button
+        /// </summary>
+        private void openLocationInput_Click(object sender, RoutedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(inputDir))
+            {
+                Process.Start("explorer.exe", @inputDir);
+            }
+        }
+
+
+
+        /// <summary>
+        ///    Output Button
+        /// </summary>
+        private void btnOutput_Click(object sender, RoutedEventArgs e)
+        {
+            // -------------------------
+            // Single File
+            // -------------------------
+            if (vm.Batch_IsChecked == false)
+            {
+                // Get Output Ext
+                FormatControls.OutputFormatExt(vm);
+
+
+                // Open 'Save File'
+                Microsoft.Win32.SaveFileDialog saveFile = new Microsoft.Win32.SaveFileDialog();
+
+
+                // 'Save File' Default Path same as Input Directory
+                //
+                try
+                {
+                    string previousPath = Settings.Default.OutputDir.ToString();
+                    // Use Input Path if Previous Path is Null
+                    if (string.IsNullOrEmpty(previousPath))
+                    {
+                        saveFile.InitialDirectory = inputDir;
+                    }
+                }
+                catch
+                {
+
+                }
+
+                // Remember Last Dir
+                //saveFile.RestoreDirectory = true;
+                // Default Extension
+                saveFile.DefaultExt = outputExt;
+
+                // Default file name if empty
+                if (string.IsNullOrEmpty(inputFileName))
+                {
+                    saveFile.FileName = "File";
+                }
+                // If file name exists
+                else
+                {
+                    // Output Path
+                    outputDir = inputDir;
+
+                    // File Renamer
+                    // Get new output file name (1) if already exists
+                    outputFileName = FileRenamer(inputFileName);
+
+                    // Same as input file name
+                    saveFile.FileName = outputFileName;
+                }
+
+
+                // Show Dialog Box
+                Nullable<bool> result = saveFile.ShowDialog();
+
+                // Process Dialog Box
+                if (result == true)
+                {
+                    // Display path and file in Output Textbox
+                    vm.Output_Text = saveFile.FileName;
+
+                    // Output Path
+                    outputDir = Path.GetDirectoryName(vm.Output_Text).TrimEnd('\\') + @"\";
+
+                    // Output Filename (without extension)
+                    outputFileName = Path.GetFileNameWithoutExtension(vm.Output_Text);
+
+                    // Add slash to inputDir path if missing
+                    if (!string.IsNullOrEmpty(outputDir))
+                    {
+                        if (!outputDir.EndsWith("\\"))
+                        {
+                            outputDir = outputDir.TrimEnd('\\') + @"\";
+                        }
+                    }
+
+                    // Save Previous Path
+                    Settings.Default.OutputDir = outputDir;
+                    Settings.Default.Save();
+                }
+            }
+
+            // -------------------------
+            // Batch
+            // -------------------------
+            else if (vm.Batch_IsChecked == true)
+            {
+                // Open 'Select Folder'
+                System.Windows.Forms.FolderBrowserDialog outputFolder = new System.Windows.Forms.FolderBrowserDialog();
+                System.Windows.Forms.DialogResult result = outputFolder.ShowDialog();
+
+
+                // Process Dialog Box
+                if (result == System.Windows.Forms.DialogResult.OK)
+                {
+                    // Display path and file in Output Textbox
+                    vm.Output_Text = outputFolder.SelectedPath.TrimEnd('\\') + @"\";
+
+                    // Remove Double Slash in Root Dir, such as C:\
+                    vm.Output_Text = vm.Output_Text.Replace(@"\\", @"\");
+
+                    // Output Path
+                    outputDir = Path.GetDirectoryName(vm.Output_Text.TrimEnd('\\') + @"\");
+
+                    // Add slash to inputDir path if missing
+                    if (!string.IsNullOrEmpty(outputDir))
+                    {
+                        if (!outputDir.EndsWith("\\"))
+                        {
+                            outputDir = outputDir.TrimEnd('\\') + @"\";
+                        }
+                    }
+                }
+            }
+
+        }
+
+
+        /// <summary>
+        ///    Output Textbox
+        /// </summary>
+        private void tbxOutput_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            // Remove stray slash if closed out early
+            if (vm.Output_Text == "\\")
+            {
+                vm.Output_Text = string.Empty;
+            }
+
+            // Enable / Disable "Open Output Location" Buttion
+            if (!string.IsNullOrEmpty(vm.Output_Text))
+            {
+                bool exists = Directory.Exists(Path.GetDirectoryName(vm.Output_Text));
+
+                if (exists)
+                {
+                    openLocationOutput.IsEnabled = true;
+                }
+                else
+                {
+                    openLocationOutput.IsEnabled = false;
+                }
+            }
+        }
+
+
+        /// <summary>
+        ///    Output Textbox - Drag and Drop
+        /// </summary>
+        private void tbxOutput_PreviewDragOver(object sender, DragEventArgs e)
+        {
+            e.Handled = true;
+            e.Effects = DragDropEffects.Copy;
+        }
+
+        private void tbxOutput_PreviewDrop(object sender, DragEventArgs e)
+        {
+            var buffer = e.Data.GetData(DataFormats.FileDrop, false) as string[];
+            vm.Output_Text = buffer.First();
+        }
+
+
+        /// <summary>
+        ///    Open Output Folder Button
+        /// </summary>
+        private void openLocationOutput_Click(object sender, RoutedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(outputDir))
+            {
+                Process.Start("explorer.exe", @outputDir);
+            }
+        }
+
+
+        /// <summary>
+        ///    Batch Extension Period Check (Method)
+        /// </summary>
+        public static void BatchExtCheck(ViewModel vm)
+        {
+            // Add period to Batch Extension if User did not enter one
+            if (!string.IsNullOrEmpty(vm.BatchExtension_Text))
+            {
+                if (vm.BatchExtension_Text != "extension" &&
+                    vm.BatchExtension_Text != "." &&
+                    !vm.BatchExtension_Text.StartsWith(".")
+                    )
+                {
+                    batchExt = "." + vm.BatchExtension_Text;
+                }
+            }
+            else
+            {
+                batchExt = string.Empty;
+            }
+        }
+
+
+        /// <summary>
+        ///    Batch Toggle
+        /// </summary>
+        // Checked
+        private void tglBatch_Checked(object sender, RoutedEventArgs e)
+        {
+            // Enable / Disable batch extension textbox
+            if (vm.Batch_IsChecked == true)
+            {
+                vm.BatchExtension_IsEnabled = true;
+                vm.BatchExtension_Text = string.Empty;
+            }
+
+            // Clear Browse Textbox, Input Filename, Dir, Ext
+            if (!string.IsNullOrEmpty(vm.Input_Text))
+            {
+                vm.Input_Text = string.Empty;
+                inputFileName = string.Empty;
+                inputDir = string.Empty;
+                inputExt = string.Empty;
+            }
+
+            // Clear Output Textbox, Output Filename, Dir, Ext
+            if (!string.IsNullOrEmpty(vm.Output_Text))
+            {
+                vm.Output_Text = string.Empty;
+                outputFileName = string.Empty;
+                outputDir = string.Empty;
+                outputExt = string.Empty;
+            }
+
+        }
+        // Unchecked
+        private void tglBatch_Unchecked(object sender, RoutedEventArgs e)
+        {
+            // Enable / Disable batch extension textbox
+            if (vm.Batch_IsChecked == false)
+            {
+                vm.BatchExtension_IsEnabled = false;
+                vm.BatchExtension_Text = "extension";
+            }
+
+            // Clear Browse Textbox, Input Filename, Dir, Ext
+            if (!string.IsNullOrEmpty(vm.Input_Text))
+            {
+                vm.Input_Text = string.Empty;
+                inputFileName = string.Empty;
+                inputDir = string.Empty;
+                inputExt = string.Empty;
+            }
+
+            // Clear Output Textbox, Output Filename, Dir, Ext
+            if (!string.IsNullOrEmpty(vm.Output_Text))
+            {
+                vm.Output_Text = string.Empty;
+                outputFileName = string.Empty;
+                outputDir = string.Empty;
+                outputExt = string.Empty;
+            }
+
+            // Set Video and AudioCodec Combobox to "Copy" if Input Extension is Same as Output Extension and Video Quality is Auto
+            VideoControls.AutoCopyVideoCodec(this, vm);
+            SubtitleControls.AutoCopySubtitleCodec(vm);
+            AudioControls.AutoCopyAudioCodec(this, vm);
+        }
+
+
+        /// <summary>
+        ///    Batch Extension Textbox
+        /// </summary>
+        private void batchExtension_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            // Remove Default Value
+            if (string.IsNullOrEmpty(vm.BatchExtension_Text) ||
+                vm.BatchExtension_Text == "extension"
+                )
+            {
+                batchExt = string.Empty;
+            }
+            // TextBox Value
+            else
+            {
+                batchExt = vm.BatchExtension_Text;
+            }
+
+            // Add period to batchExt if user did not enter (This helps enable Copy)
+            if (!batchExt.StartsWith(".") &&
+                !string.IsNullOrEmpty(vm.BatchExtension_Text) &&
+                vm.BatchExtension_Text != "extension")
+            {
+                batchExt = "." + batchExt;
+            }
+
+            // Set Video and AudioCodec Combobox to "Copy" if Input Extension is Same as Output Extension and Video Quality is Auto
+            VideoControls.AutoCopyVideoCodec(this, vm);
+            SubtitleControls.AutoCopySubtitleCodec(vm);
+            AudioControls.AutoCopyAudioCodec(this, vm);
+        }
+
+
+        /// <summary>
+        ///    File Renamer (Method)
+        /// </summary>
+        public static String FileRenamer(string filename)
+        {
+            string output = outputDir + filename + outputExt;
+            string outputNewFileName = string.Empty;
+
+            int count = 1;
+
+            if (File.Exists(output))
+            {
+                while (File.Exists(output))
+                {
+                    outputNewFileName = string.Format("{0}({1})", filename + " ", count++);
+                    output = Path.Combine(outputDir, outputNewFileName + outputExt);
+                }
+            }
+            else
+            {
+                // stay default
+                outputNewFileName = filename;
+            }
+
+            return outputNewFileName;
+        }
+
+
+
+        /// <summary>
+        ///    Input Path
+        /// </summary>
+        public static String InputPath(ViewModel vm)
+        {
+            // -------------------------
+            // Single File
+            // -------------------------
+            if (vm.Batch_IsChecked == false)
+            {
+                // Input Directory
+                if (!string.IsNullOrEmpty(vm.Input_Text))
+                {
+                    inputDir = Path.GetDirectoryName(vm.Input_Text).TrimEnd('\\') + @"\"; // (eg. C:\Input Folder\)
+                    inputFileName = Path.GetFileNameWithoutExtension(vm.Input_Text);
+                    inputExt = Path.GetExtension(vm.Input_Text);
+                }
+
+                // Input
+                input = vm.Input_Text; // (eg. C:\Input Folder\file.wmv)
+            }
+
+            // -------------------------
+            // Batch
+            // -------------------------
+            else if (vm.Batch_IsChecked == true)
+            {
+                // Add slash to Batch Browse Text folder path if missing
+                vm.Input_Text = vm.Input_Text.TrimEnd('\\') + @"\";
+
+                inputDir = vm.Input_Text; // (eg. C:\Input Folder\)
+
+                inputFileName = "%~f";
+
+                // Input
+                input = inputDir + inputFileName; // (eg. C:\Input Folder\)
+            }
+
+            // -------------------------
+            // Empty
+            // -------------------------
+            // Input Textbox & Output Textbox Both Empty
+            if (string.IsNullOrEmpty(vm.Input_Text))
+            {
+                inputDir = string.Empty;
+                inputFileName = string.Empty;
+                input = string.Empty;
+            }
+
+
+            // Return Value
+            return input;
+        }
+
+
+
+        /// <summary>
+        ///    Batch Input Directory
+        /// </summary>
+        // Directory Only, Needed for Batch
+        public static String BatchInputDirectory(ViewModel vm)
+        {
+            // -------------------------
+            // Batch
+            // -------------------------
+            if (vm.Batch_IsChecked == true)
+            {
+                inputDir = vm.Input_Text; // (eg. C:\Input Folder\)
+            }
+
+            // -------------------------
+            // Empty
+            // -------------------------
+            // Input Textbox & Output Textbox Both Empty
+            if (string.IsNullOrEmpty(vm.Input_Text))
+            {
+                inputDir = string.Empty;
+            }
+
+
+            // Return Value
+            return inputDir;
+        }
+
+
+        /// <summary>
+        ///    Output Path
+        /// </summary>
+        public static String OutputPath(ViewModel vm)
+        {
+            // Get Output Extension (Method)
+            FormatControls.OutputFormatExt(vm);
+
+            // -------------------------
+            // Single File
+            // -------------------------
+            if (vm.Batch_IsChecked == false)
+            {
+                // Input Not Empty, Output Empty
+                // Default Output to be same as Input Directory
+                if (!string.IsNullOrEmpty(vm.Input_Text) && 
+                    string.IsNullOrEmpty(vm.Output_Text))
+                {
+                    vm.Output_Text = inputDir + inputFileName + outputExt;
+                }
+
+                // Input Empty, Output Not Empty
+                if (!string.IsNullOrEmpty(vm.Output_Text))
+                {
+                    outputDir = Path.GetDirectoryName(vm.Output_Text).TrimEnd('\\') + @"\";
+
+                    outputFileName = Path.GetFileNameWithoutExtension(vm.Output_Text);
+                }
+
+                // -------------------------
+                // File Renamer
+                // -------------------------
+                // Auto Renamer
+                // Pressing Script or Convert while Output is empty
+                if (inputDir == outputDir
+                    && inputFileName == outputFileName
+                    && string.Equals(inputExt, outputExt, StringComparison.CurrentCultureIgnoreCase))
+                {
+                    outputFileName = FileRenamer(inputFileName);
+                }
+
+                // -------------------------
+                // Image Sequence Renamer
+                // -------------------------
+                if (vm.MediaType_SelectedItem == "Sequence")
+                {
+                    outputFileName = "image-%03d"; //must be this name
+                }
+
+                // -------------------------
+                // Output
+                // -------------------------
+                output = outputDir + outputFileName + outputExt; // (eg. C:\Output Folder\ + file + .mp4)    
+
+                // Update TextBox
+                if (!string.IsNullOrEmpty(vm.Output_Text))
+                {
+                    vm.Output_Text = output;
+                }
+            }
+
+            // -------------------------
+            // Batch
+            // -------------------------
+            else if (vm.Batch_IsChecked == true)
+            {
+                // Add slash to Batch Output Text folder path if missing
+                vm.Output_Text = vm.Output_Text.TrimEnd('\\') + @"\";
+
+                // Input Not Empty, Output Empty
+                // Default Output to be same as Input Directory
+                if (!string.IsNullOrEmpty(vm.Input_Text) && string.IsNullOrEmpty(vm.Output_Text))
+                {
+                    vm.Output_Text = vm.Input_Text;
+                }
+
+                outputDir = vm.Output_Text;
+
+                // Output             
+                output = outputDir + "%~nf" + outputExt; // (eg. C:\Output Folder\%~nf.mp4)
+            }
+
+            // -------------------------
+            // Empty
+            // -------------------------
+            // Input Textbox & Output Textbox Both Empty
+            if (string.IsNullOrEmpty(vm.Output_Text))
+            {
+                outputDir = string.Empty;
+                outputFileName = string.Empty;
+                output = string.Empty;
+            }
+
+
+            // Return Value
+            return output;
+        }
+
+
+        /// <summary>
+        ///    Extension Match Check Auto
+        /// </summary>
+        public void ExtensionMatchCheckAuto(ViewModel vm)
+        {
+            // --------------------------------------------------
+            // Default Auto if Input Extension matches Output Extsion
+            // This will trigger Auto Codec Copy
+            // --------------------------------------------------
+            //MessageBox.Show(inputExt + " " + outputExt); //debug
+            // -------------------------
+            // Video
+            // -------------------------
+            if (vm.VideoQuality_SelectedItem == "Auto" &&
+                string.Equals(inputExt, outputExt, StringComparison.CurrentCultureIgnoreCase))
+            {
+                vm.VideoQuality_SelectedItem = "Auto";
+                vm.PixelFormat_SelectedItem = "auto";
+                vm.FPS_SelectedItem = "auto";
+                vm.Video_Optimize_SelectedItem = "None";
+                vm.Size_SelectedItem = "Source";
+                vm.Scaling_SelectedItem = "default";
+
+                // Filters
+                // Fix
+                cboFilterVideo_Deband.SelectedItem = "disabled";
+                cboFilterVideo_Deshake.SelectedItem = "disabled";
+                cboFilterVideo_Deflicker.SelectedItem = "disabled";
+                cboFilterVideo_Dejudder.SelectedItem = "disabled";
+                cboFilterVideo_Denoise.SelectedItem = "disabled";
+                // Selective Color
+                // Reds
+                slFiltersVideo_SelectiveColor_Reds_Cyan.Value = 0;
+                slFiltersVideo_SelectiveColor_Reds_Magenta.Value = 0;
+                slFiltersVideo_SelectiveColor_Reds_Yellow.Value = 0;
+                // Yellows
+                slFiltersVideo_SelectiveColor_Yellows_Cyan.Value = 0;
+                slFiltersVideo_SelectiveColor_Yellows_Magenta.Value = 0;
+                slFiltersVideo_SelectiveColor_Yellows_Yellow.Value = 0;
+                // Greens
+                slFiltersVideo_SelectiveColor_Greens_Cyan.Value = 0;
+                slFiltersVideo_SelectiveColor_Greens_Magenta.Value = 0;
+                slFiltersVideo_SelectiveColor_Greens_Yellow.Value = 0;
+                // Cyans
+                slFiltersVideo_SelectiveColor_Cyans_Cyan.Value = 0;
+                slFiltersVideo_SelectiveColor_Cyans_Magenta.Value = 0;
+                slFiltersVideo_SelectiveColor_Cyans_Yellow.Value = 0;
+                // Blues
+                slFiltersVideo_SelectiveColor_Blues_Cyan.Value = 0;
+                slFiltersVideo_SelectiveColor_Blues_Magenta.Value = 0;
+                slFiltersVideo_SelectiveColor_Blues_Yellow.Value = 0;
+                // Magentas
+                slFiltersVideo_SelectiveColor_Magentas_Cyan.Value = 0;
+                slFiltersVideo_SelectiveColor_Magentas_Magenta.Value = 0;
+                slFiltersVideo_SelectiveColor_Magentas_Yellow.Value = 0;
+                // Whites
+                slFiltersVideo_SelectiveColor_Whites_Cyan.Value = 0;
+                slFiltersVideo_SelectiveColor_Whites_Magenta.Value = 0;
+                slFiltersVideo_SelectiveColor_Whites_Yellow.Value = 0;
+                // Neutrals
+                slFiltersVideo_SelectiveColor_Neutrals_Cyan.Value = 0;
+                slFiltersVideo_SelectiveColor_Neutrals_Magenta.Value = 0;
+                slFiltersVideo_SelectiveColor_Neutrals_Yellow.Value = 0;
+                // Blacks
+                slFiltersVideo_SelectiveColor_Blacks_Cyan.Value = 0;
+                slFiltersVideo_SelectiveColor_Blacks_Magenta.Value = 0;
+                slFiltersVideo_SelectiveColor_Blacks_Yellow.Value = 0;
+
+                // EQ
+                slFiltersVideo_EQ_Brightness.Value = 0;
+                slFiltersVideo_EQ_Contrast.Value = 0;
+                slFiltersVideo_EQ_Saturation.Value = 0;
+                slFiltersVideo_EQ_Gamma.Value = 0;
+            }
+
+            // -------------------------
+            // Audio
+            // -------------------------
+            if (vm.AudioQuality_SelectedItem == "Auto" &&
+                string.Equals(inputExt, outputExt, StringComparison.CurrentCultureIgnoreCase))
+            {
+                vm.AudioQuality_SelectedItem = "Auto";
+                vm.AudioChannel_SelectedItem = "Source";
+                vm.AudioSampleRate_SelectedItem = "auto";
+                vm.AudioBitDepth_SelectedItem = "auto";
+                vm.Volume_Text = "100";
+                vm.AudioHardLimiter_Value = 1;
+            }
+        }
+
+
+        /// <summary>
+        ///    Container - ComboBox
+        /// </summary>
+        private void cboContainer_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // -------------------------
+            // Set Controls
+            // -------------------------
+            FormatControls.SetControls(vm, vm.Container_SelectedItem);
+
+            // -------------------------
+            // Output Control Selections
+            // -------------------------
+            ///FormatControls.OuputFormatDefaults(this);
+
+            // -------------------------
+            // Get Output Extension
+            // -------------------------
+            FormatControls.OutputFormatExt(vm);
+
+            // -------------------------
+            // Output ComboBox Options
+            // -------------------------
+            //FormatControls.OutputFormat(this);
+
+            // -------------------------
+            // Video Encoding Pass
+            // -------------------------
+            VideoControls.EncodingPass(vm);
+
+            // -------------------------
+            // Optimize Controls
+            // -------------------------
+            VideoControls.OptimizeControls(vm);
+
+
+            // -------------------------
+            // File Renamer
+            // -------------------------
+            // Add (1) if File Names are the same
+            if (!string.IsNullOrEmpty(inputDir) && 
+                string.Equals(inputFileName, outputFileName, StringComparison.CurrentCultureIgnoreCase))
+            {
+                outputFileName = FileRenamer(inputFileName);
+            }
+
+            // --------------------------------------------------
+            // Default Auto if Input Extension matches Output Extsion
+            // This will trigger Auto Codec Copy
+            // --------------------------------------------------
+            ExtensionMatchCheckAuto(vm);
+            //MessageBox.Show(inputExt + " " + outputExt); //debug
+            // -------------------------
+            // Video
+            // -------------------------
+            //if (vm.VideoQuality_SelectedItem != "Auto" &&
+            //    string.Equals(inputExt, outputExt, StringComparison.CurrentCultureIgnoreCase))
+            //{
+            //    vm.VideoQuality_SelectedItem = "Auto";
+            //    vm.PixelFormat_SelectedItem = "auto";
+            //    vm.FPS_SelectedItem = "auto";
+            //    vm.Video_Optimize_SelectedItem = "None";
+            //    vm.Size_SelectedItem = "Source";
+            //    vm.Scaling_SelectedItem = "default";
+
+            //    // Filters
+            //    // Fix
+            //    cboFilterVideo_Deband.SelectedItem = "disabled";
+            //    cboFilterVideo_Deshake.SelectedItem = "disabled";
+            //    cboFilterVideo_Deflicker.SelectedItem = "disabled";
+            //    cboFilterVideo_Dejudder.SelectedItem = "disabled";
+            //    cboFilterVideo_Denoise.SelectedItem = "disabled";
+            //    // Selective Color
+            //    // Reds
+            //    slFiltersVideo_SelectiveColor_Reds_Cyan.Value = 0;
+            //    slFiltersVideo_SelectiveColor_Reds_Magenta.Value = 0;
+            //    slFiltersVideo_SelectiveColor_Reds_Yellow.Value = 0;
+            //    // Yellows
+            //    slFiltersVideo_SelectiveColor_Yellows_Cyan.Value = 0;
+            //    slFiltersVideo_SelectiveColor_Yellows_Magenta.Value = 0;
+            //    slFiltersVideo_SelectiveColor_Yellows_Yellow.Value = 0;
+            //    // Greens
+            //    slFiltersVideo_SelectiveColor_Greens_Cyan.Value = 0;
+            //    slFiltersVideo_SelectiveColor_Greens_Magenta.Value = 0;
+            //    slFiltersVideo_SelectiveColor_Greens_Yellow.Value = 0;
+            //    // Cyans
+            //    slFiltersVideo_SelectiveColor_Cyans_Cyan.Value = 0;
+            //    slFiltersVideo_SelectiveColor_Cyans_Magenta.Value = 0;
+            //    slFiltersVideo_SelectiveColor_Cyans_Yellow.Value = 0;
+            //    // Blues
+            //    slFiltersVideo_SelectiveColor_Blues_Cyan.Value = 0;
+            //    slFiltersVideo_SelectiveColor_Blues_Magenta.Value = 0;
+            //    slFiltersVideo_SelectiveColor_Blues_Yellow.Value = 0;
+            //    // Magentas
+            //    slFiltersVideo_SelectiveColor_Magentas_Cyan.Value = 0;
+            //    slFiltersVideo_SelectiveColor_Magentas_Magenta.Value = 0;
+            //    slFiltersVideo_SelectiveColor_Magentas_Yellow.Value = 0;
+            //    // Whites
+            //    slFiltersVideo_SelectiveColor_Whites_Cyan.Value = 0;
+            //    slFiltersVideo_SelectiveColor_Whites_Magenta.Value = 0;
+            //    slFiltersVideo_SelectiveColor_Whites_Yellow.Value = 0;
+            //    // Neutrals
+            //    slFiltersVideo_SelectiveColor_Neutrals_Cyan.Value = 0;
+            //    slFiltersVideo_SelectiveColor_Neutrals_Magenta.Value = 0;
+            //    slFiltersVideo_SelectiveColor_Neutrals_Yellow.Value = 0;
+            //    // Blacks
+            //    slFiltersVideo_SelectiveColor_Blacks_Cyan.Value = 0;
+            //    slFiltersVideo_SelectiveColor_Blacks_Magenta.Value = 0;
+            //    slFiltersVideo_SelectiveColor_Blacks_Yellow.Value = 0;
+
+            //    // EQ
+            //    slFiltersVideo_EQ_Brightness.Value = 0;
+            //    slFiltersVideo_EQ_Contrast.Value = 0;
+            //    slFiltersVideo_EQ_Saturation.Value = 0;
+            //    slFiltersVideo_EQ_Gamma.Value = 0;
+            //}
+
+            //// -------------------------
+            //// Audio
+            //// -------------------------
+            //if (vm.AudioQuality_SelectedItem != "Auto" &&
+            //    string.Equals(inputExt, outputExt, StringComparison.CurrentCultureIgnoreCase))
+            //{
+            //    vm.AudioQuality_SelectedItem = "Auto";
+            //    vm.AudioChannel_SelectedItem = "Source";
+            //    vm.AudioSampleRate_SelectedItem = "auto";
+            //    vm.AudioBitDepth_SelectedItem = "auto";
+            //    vm.Volume_Text = "100";
+            //    vm.AudioHardLimiter_Value = 1;
+            //}
+
+            // -------------------------
+            // Update Ouput Textbox with current Format extension
+            // -------------------------
+            if (vm.Batch_IsChecked == false && // Single File
+                !string.IsNullOrEmpty(vm.Output_Text))
+            {
+                //MessageBox.Show(outputExt); //debug
+                vm.Output_Text = outputDir + outputFileName + outputExt;
+            }
+
+            // -------------------------
+            // Force MediaType ComboBox to fire SelectionChanged Event
+            // to update Format changes such as AudioStream_SelectedItem
+            // -------------------------
+            cboMediaType_SelectionChanged(cboMediaType, null);
+        }
+
+
+
+        /// <summary>
+        ///    Media Type - Combobox
+        /// </summary>
+        private void cboMediaType_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            FormatControls.MediaType(vm);
+        }
+
+
+        /// <summary>
+        ///    Cut Combobox
+        /// </summary>
+        private void cboCut_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            FormatControls.CutControls(vm);
+        }
+
+        // -------------------------
+        // Frame Start Textbox Change
+        // -------------------------
+        // Got Focus
+        private void frameStart_GotFocus(object sender, RoutedEventArgs e)
+        {
+            // Clear textbox on focus if default text "width"
+            if (frameStart.Focus() == true && vm.FrameStart_Text == "Frame")
+            {
+                vm.FrameStart_Text = string.Empty;
+            }
+        }
+        // Lost Focus
+        private void frameStart_LostFocus(object sender, RoutedEventArgs e)
+        {
+            // Change textbox back to "auto" if left empty
+            if (string.IsNullOrEmpty(vm.FrameStart_Text))
+            {
+                vm.FrameStart_Text = "Frame";
+            }
+        }
+
+        // -------------------------
+        // Frame End Textbox Change
+        // -------------------------
+        // Got Focus
+        private void frameEnd_GotFocus(object sender, RoutedEventArgs e)
+        {
+            // Clear textbox on focus if default text "auto"
+            if (frameEnd.Focus() == true && vm.FrameEnd_Text == "Range")
+            {
+                vm.FrameEnd_Text = string.Empty;
+            }
+        }
+        // Lost Focus
+        private void frameEnd_LostFocus(object sender, RoutedEventArgs e)
+        {
+            // Change textbox back to "auto" if left empty
+            if (string.IsNullOrEmpty(vm.FrameEnd_Text))
+            {
+                vm.FrameEnd_Text = "Range";
+            }
+        }
+
+
+        /// <summary>
+        ///    Video Codec - ComboBox
+        /// </summary>
+        private void cboVideoCodec_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // PROBLEM - This Control is being triggered twice?
+            //Change 1 - Is Clicked
+            //Selection is Medium
+            //Change 2 - New Items Loaded from Codec
+            //Selection is Null
+
+            //MessageBox.Show(vm.VideoQuality_SelectedItem); //debug
+            //MessageBox.Show("cboVideoCodec_SelectionChanged"); //debug
+
+            // -------------------------
+            // Set Controls
+            // -------------------------
+            VideoControls.SetControls(vm, vm.VideoCodec_SelectedItem);
+
+            // -------------------------
+            // Video Encoding Pass
+            // -------------------------
+            VideoControls.EncodingPass(vm);
+
+            // -------------------------
+            // Pixel Format
+            // -------------------------
+            VideoControls.PixelFormat(vm);
+
+            // -------------------------
+            // Optimize Controls
+            // -------------------------
+            VideoControls.OptimizeControls(vm);
+        }
+
+
+        /// <summary>
+        ///    Pass - ComboBox
+        /// </summary>
+        private void cboPass_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // -------------------------
+            // Set Controls
+            // -------------------------
+            //VideoControls.SetControls(vm, vm.VideoQuality_SelectedItem);
+
+            // -------------------------
+            // Pass Controls
+            // -------------------------
+            VideoControls.EncodingPass(vm);
+
+            // -------------------------
+            // Display Bit-rate in TextBox
+            // -------------------------
+            VideoControls.VideoBitrateDisplay(vm,
+                                              vm.VideoQuality_Items,
+                                              vm.VideoQuality_SelectedItem,
+                                              vm.Pass_SelectedItem);
+        }
+        private void cboPass_DropDownClosed(object sender, EventArgs e)
+        {
+            // User willingly selected a Pass
+            VideoControls.passUserSelected = true;
+        }
+
+
+        /// <summary>
+        ///    Video Quality - ComboBox
+        /// </summary>
+        private void cboVideoQuality_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // Set Controls
+            //VideoControls.SetControls(vm, vm.cboVideoCodec_SelectedItem);
+
+            // Video Quality
+            //Video.VideoQuality(vm,
+            //                   vm.VideoQuality_Items,
+            //                   vm.VideoQuality_SelectedItem);
+
+            // -------------------------
+            // Quality Controls
+            // -------------------------
+            VideoControls.QualityControls(vm);
+
+
+            // -------------------------
+            // Display Bit-rate in TextBox
+            // -------------------------
+            VideoControls.VideoBitrateDisplay(vm,
+                                              vm.VideoQuality_Items,
+                                              vm.VideoQuality_SelectedItem,
+                                              vm.Pass_SelectedItem);
+
+            // -------------------------
+            // Video Encoding Pass
+            // -------------------------
+            VideoControls.EncodingPass(vm);
+
+            // -------------------------
+            // Pixel Format
+            // -------------------------
+            VideoControls.PixelFormat(vm);
+        }
+
+
+        /// <summary>
+        ///     Video CRF Custom Number Textbox
+        /// </summary>
+        private void tbxCRF_KeyDown(object sender, KeyEventArgs e)
+        {
+            // Only allow Numbers or Backspace
+            if (!(e.Key >= Key.D0 && e.Key <= Key.D9) && e.Key != Key.Back)
+            {
+                e.Handled = true;
+            }
+        }
+
+        /// <summary>
+        ///     Video VBR Toggle - Checked
+        /// </summary>
+        private void tglVideoVBR_Checked(object sender, RoutedEventArgs e)
+        {
+            // -------------------------
+            // Quality Controls
+            // -------------------------
+            VideoControls.QualityControls(vm);
+
+            // -------------------------
+            // MPEG-4 VBR can only use 1 Pass
+            // -------------------------
+            if (vm.VideoCodec_SelectedItem == "MPEG-2" || 
+                vm.VideoCodec_SelectedItem == "MPEG-4")
+            {
+                // Change ItemSource
+                vm.Pass_Items = new List<string>()
+                {
+                    "1 Pass",
+                };
+
+                // Populate ComboBox from ItemSource
+                //vm.Pass_Items = VideoControls.Pass_ItemSource;
+
+                // Select Item
+                vm.Pass_SelectedItem = "1 Pass";
+            }
+
+
+            // -------------------------
+            // Display Bit-rate in TextBox
+            // -------------------------
+            VideoControls.VideoBitrateDisplay(vm,
+                                              vm.VideoQuality_Items,
+                                              vm.VideoQuality_SelectedItem,
+                                              vm.Pass_SelectedItem);
+        }
+
+        /// <summary>
+        ///     Video VBR Toggle - Unchecked
+        /// </summary>
+        private void tglVideoVBR_Unchecked(object sender, RoutedEventArgs e)
+        {
+            // -------------------------
+            // Quality Controls
+            // -------------------------
+            VideoControls.QualityControls(vm);
+
+            // -------------------------
+            // MPEG-2 / MPEG-4 CBR Reset
+            // -------------------------
+            if (vm.VideoCodec_SelectedItem == "MPEG-2" || 
+                vm.VideoCodec_SelectedItem == "MPEG-4")
+            {
+                // Change ItemSource
+                vm.Pass_Items = new List<string>()
+                {
+                    "2 Pass",
+                    "1 Pass",
+                };
+
+                // Populate ComboBox from ItemSource
+                //cboPass.ItemsSource = VideoControls.Pass_ItemSource;
+
+                // Select Item
+                vm.Pass_SelectedItem = "2 Pass";
+            }
+
+            // -------------------------
+            // Display Bit-rate in TextBox
+            // -------------------------
+            VideoControls.VideoBitrateDisplay(vm,
+                                              vm.VideoQuality_Items,
+                                              vm.VideoQuality_SelectedItem,
+                                              vm.Pass_SelectedItem);
+        }
+
+
+        /// <summary>
+        ///     Pixel Format
+        /// </summary>
+        private void cboPixelFormat_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            //VideoControls.AutoCopyVideoCodec(this, vm);
+        }
+
+
+        /// <summary>
+        ///     FPS ComboBox
+        /// </summary>
+        private void cboFPS_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // -------------------------
+            // Custom ComboBox Editable
+            // -------------------------
+            if (vm.FPS_SelectedItem == "Custom" || 
+                string.IsNullOrEmpty(vm.FPS_SelectedItem))
+            {
+                cboFPS.IsEditable = true;
+            }
+
+            // -------------------------
+            // Other Items Disable Editable
+            // -------------------------
+            if (vm.FPS_SelectedItem != "Custom" && 
+                !string.IsNullOrEmpty(vm.FPS_SelectedItem))
+            {
+                cboFPS.IsEditable = false;
+            }
+
+            // -------------------------
+            // Maintain Editable Combobox while typing
+            // -------------------------
+            if (cboFPS.IsEditable == true)
+            {
+                cboFPS.IsEditable = true;
+
+                // Clear Custom Text
+                cboFPS.SelectedIndex = -1;
+            }
+
+            // -------------------------
+            // Disable Copy on change
+            // -------------------------
+            //VideoControls.AutoCopyVideoCodec(this, vm);
+            //SubtitleControls.AutoCopySubtitleCodec(vm);
+        }
+
+
+        /// <summary>
+        ///    Presets
+        /// </summary>
+        private void cboPreset_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Presets.Preset(vm);
+        }
+
+
+        /// <summary>
+        ///    Optimize Combobox
+        /// </summary>
+        private void cboOptimize_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // -------------------------
+            // Optimize Controls
+            // -------------------------
+            VideoControls.OptimizeControls(vm);
+        }
+
+
+        /// <summary>
+        ///    Size Combobox
+        /// </summary>
+        private void cboSize_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // Set Video Codec Combobox to "Copy" if Input Extension is Same as Output Extension and Video Quality is Auto
+            //VideoControls.AutoCopyVideoCodec(this, vm);
+            //SubtitleControls.AutoCopySubtitleCodec(vm);
+
+            // Enable Aspect Custom
+            if (vm.Size_SelectedItem == "Custom")
+            {
+                vm.Width_IsEnabled = true;
+                vm.Height_IsEnabled = true;
+
+                vm.Width_Text = "auto";
+                vm.Height_Text = "auto";
+            }
+            else
+            {
+                vm.Width_IsEnabled = false;
+                vm.Height_IsEnabled = false;
+                vm.Width_Text = "auto";
+                vm.Height_Text = "auto";
+            }
+
+            // Change TextBox Resolution numbers
+            if (vm.Size_SelectedItem == "Source")
+            {
+                vm.Width_Text = "auto";
+                vm.Height_Text = "auto";
+            }
+            else if (vm.Size_SelectedItem == "8K")
+            {
+                vm.Width_Text = "7680";
+                vm.Height_Text = "auto";
+            }
+            else if (vm.Size_SelectedItem == "4K")
+            {
+                vm.Width_Text = "4096";
+                vm.Height_Text = "auto";
+            }
+            else if (vm.Size_SelectedItem == "4K UHD")
+            {
+                vm.Width_Text = "3840";
+                vm.Height_Text = "auto";
+            }
+            else if (vm.Size_SelectedItem == "2K")
+            {
+                vm.Width_Text = "2048";
+                vm.Height_Text = "auto";
+            }
+            else if (vm.Size_SelectedItem == "1440p")
+            {
+                vm.Width_Text = "auto";
+                vm.Height_Text = "1440";
+            }
+            else if (vm.Size_SelectedItem == "1200p")
+            {
+                vm.Width_Text = "auto";
+                vm.Height_Text = "1200";
+            }
+            else if (vm.Size_SelectedItem == "1080p")
+            {
+                vm.Width_Text = "auto";
+                vm.Height_Text = "1080";
+            }
+            else if (vm.Size_SelectedItem == "720p")
+            {
+                vm.Width_Text = "auto";
+                vm.Height_Text = "720";
+            }
+            else if (vm.Size_SelectedItem == "480p")
+            {
+                vm.Width_Text = "auto";
+                vm.Height_Text = "480";
+            }
+            else if (vm.Size_SelectedItem == "320p")
+            {
+                vm.Width_Text = "auto";
+                vm.Height_Text = "320";
+            }
+            else if (vm.Size_SelectedItem == "240p")
+            {
+                vm.Width_Text = "auto";
+                vm.Height_Text = "240";
+            }
+        }
+        // -------------------------
+        // Width Textbox Change
+        // -------------------------
+        // Got Focus
+        private void tbxWidth_GotFocus(object sender, RoutedEventArgs e)
+        {
+            // Clear textbox on focus if default text "width"
+            if (tbxWidth.Focus() == true && vm.Width_Text == "auto")
+            {
+                vm.Width_Text = string.Empty;
+            }
+        }
+        // Lost Focus
+        private void tbxWidth_LostFocus(object sender, RoutedEventArgs e)
+        {
+            // Change textbox back to "width" if left empty
+            if (string.IsNullOrEmpty(vm.Width_Text))
+            {
+                vm.Width_Text = "auto";
+            }
+        }
+
+        // -------------------------
+        // Height Textbox Change
+        // -------------------------
+        // Got Focus
+        private void tbxHeight_GotFocus(object sender, RoutedEventArgs e)
+        {
+            // Clear textbox on focus if default text "width"
+            if (tbxHeight.Focus() == true && vm.Height_Text == "auto")
+            {
+                vm.Height_Text = string.Empty;
+            }
+        }
+        // Lost Focus
+        private void tbxHeight_LostFocus(object sender, RoutedEventArgs e)
+        {
+            // Change textbox back to "width" if left empty
+            if (string.IsNullOrEmpty(vm.Height_Text))
+            {
+                vm.Height_Text = "auto";
+            }
+        }
+
+
+
+        /// <summary>
+        ///     Scaling Video
+        /// </summary>
+        private void cboScaling_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            //VideoControls.AutoCopyVideoCodec(this, vm);
+        }
+
+
+        /// <summary>
+        ///    Crop Window - Button
+        /// </summary>
+        private void btnCrop_Click(object sender, RoutedEventArgs e)
+        {
+            // Start Window
+            cropwindow = new CropWindow(this, vm);
+
+            // Detect which screen we're on
+            var allScreens = System.Windows.Forms.Screen.AllScreens.ToList();
+            var thisScreen = allScreens.SingleOrDefault(s => this.Left >= s.WorkingArea.Left && this.Left < s.WorkingArea.Right);
+
+            // Position Relative to MainWindow
+            // Keep from going off screen
+            cropwindow.Left = Math.Max((this.Left + (this.Width - cropwindow.Width) / 2), thisScreen.WorkingArea.Left);
+            cropwindow.Top = Math.Max(this.Top - cropwindow.Height - 12, thisScreen.WorkingArea.Top);
+
+            // Keep Window on Top
+            cropwindow.Owner = Window.GetWindow(this);
+
+            // Open Window
+            cropwindow.ShowDialog();
+        }
+
+
+        /// <summary>
+        ///    Crop Clear Button
+        /// </summary>
+        private void btnCropClear_Click(object sender, RoutedEventArgs e)
+        {
+            VideoFilters.vFilter = string.Empty;
+
+            if (VideoFilters.vFiltersList != null)
+            {
+                VideoFilters.vFiltersList.Clear();
+                VideoFilters.vFiltersList.TrimExcess();
+            }
+
+            // Trigger the CropWindow Clear Button (only way it will clear the string)
+            CropWindow.CropClear(vm);
+        }
+
+
+
+        /// <summary>
+        ///    Subtitle Codec - ComboBox
+        /// </summary>
+        private void cboSubtitleCodec_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // -------------------------
+            // Set Controls
+            // -------------------------
+            SubtitleControls.SetControls(vm, vm.SubtitleCodec_SelectedItem);
+
+            // -------------------------
+            // None Codec
+            // -------------------------
+            if (vm.SubtitleCodec_SelectedItem == "None")
+            {
+                cboSubtitlesStream.SelectedItem = "none";
+                cboSubtitlesStream.IsEnabled = false;
+            }
+
+            // -------------------------
+            // Burn Codec
+            // -------------------------
+            else if (vm.SubtitleCodec_SelectedItem == "Burn")
+            {
+                // Force Select External
+                // Can't burn All subtitle streams
+                cboSubtitlesStream.SelectedItem = "external";
+                cboSubtitlesStream.IsEnabled = true;
+            }
+
+            // -------------------------
+            // Copy Codec
+            // -------------------------
+            else if (vm.SubtitleCodec_SelectedItem == "Copy")
+            {
+                cboSubtitlesStream.IsEnabled = true;
+            }
+
+            // -------------------------
+            // All Other Codecs
+            // -------------------------
+            else
+            {
+                cboSubtitlesStream.IsEnabled = true;
+            }
+        }
+
+
+        /// <summary>
+        ///    Subtitle Stream - ComboBox
+        /// </summary>
+        private void cboSubtitleStream_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // -------------------------
+            // External
+            // -------------------------
+            if (vm.SubtitleStream_SelectedItem == "external")
+            {
+                // Enable External ListView and Buttons
+                vm.SubtitleListView_IsEnabled = true;
+
+                //listViewSubtitles.IsEnabled = true;
+
+                //btnAddSubtitles.IsEnabled = true;
+                //btnRemoveSubtitle.IsEnabled = true;
+                //btnSortSubtitleUp.IsEnabled = true;
+                //btnSortSubtitleDown.IsEnabled = true;
+                //btnClearSubtitles.IsEnabled = true;
+
+                listViewSubtitles.Opacity = 1;
+            }
+            else
+            {
+                // Disable External ListView and Buttons
+                vm.SubtitleListView_IsEnabled = false;
+
+                //listViewSubtitles.IsEnabled = false;
+
+                //btnAddSubtitles.IsEnabled = false;
+                //btnRemoveSubtitle.IsEnabled = false;
+                //btnSortSubtitleUp.IsEnabled = false;
+                //btnSortSubtitleDown.IsEnabled = false;
+                //btnClearSubtitles.IsEnabled = false;
+
+                listViewSubtitles.Opacity = 0.1;
+            }
+        }
+
+
+        /// <summary>
+        /// Subtitle Add
+        /// </summary>
+        private void btnAddSubtitles_Click(object sender, RoutedEventArgs e)
+        {
+            // Open Select File Window
+            Microsoft.Win32.OpenFileDialog selectFiles = new Microsoft.Win32.OpenFileDialog();
+
+            // Defaults
+            selectFiles.Multiselect = true;
+            selectFiles.Filter = "All files (*.*)|*.*|SRT (*.srt)|*.srt|SUB (*.sub)|*.sub|SBV (*.sbv)|*.sbv|ASS (*.ass)|*.ass|SSA (*.ssa)|*.ssa|MPSUB (*.mpsub)|*.mpsub|LRC (*.lrc)|*.lrc|CAP (*.cap)|*.cap";
+
+            // Process Dialog Box
+            Nullable<bool> result = selectFiles.ShowDialog();
+            if (result == true)
+            {
+                // Reset
+                //SubtitlesClear();
+
+                // Add Selected Files to List
+                for (var i = 0; i < selectFiles.FileNames.Length; i++)
+                {
+                    // Wrap in quotes for ffmpeg -i
+                    Subtitle.subtitleFilePathsList.Add("\"" + selectFiles.FileNames[i] + "\"");
+                    //MessageBox.Show(Video.subtitleFiles[i]); //debug
+
+                    Subtitle.subtitleFileNamesList.Add(Path.GetFileName(selectFiles.FileNames[i]));
+
+                    // ListView Display File Names + Ext
+                    listViewSubtitles.Items.Add(Path.GetFileName(selectFiles.FileNames[i]));
+                }
+            }
+        }
+
+        /// <summary>
+        /// Subtitle Remove
+        /// </summary>
+        private void btnRemoveSubtitle_Click(object sender, RoutedEventArgs e)
+        {
+            if (listViewSubtitles.SelectedItems.Count > 0)
+            {
+                var selectedIndex = listViewSubtitles.SelectedIndex;
+
+                // ListView Items
+                var itemlsvFileNames = listViewSubtitles.Items[selectedIndex];
+                listViewSubtitles.Items.RemoveAt(selectedIndex);
+
+                // List File Paths
+                string itemFilePaths = Subtitle.subtitleFilePathsList[selectedIndex];
+                Subtitle.subtitleFilePathsList.RemoveAt(selectedIndex);
+
+                // List File Names
+                string itemFileNames = Subtitle.subtitleFileNamesList[selectedIndex];
+                Subtitle.subtitleFileNamesList.RemoveAt(selectedIndex);
+            }
+        }
+
+        /// <summary>
+        /// Subtitle Clear All
+        /// </summary>
+        private void btnClearSubtitles_Click(object sender, RoutedEventArgs e)
+        {
+            SubtitlesClear();
+        }
+
+        /// <summary>
+        /// Subtitle Clear - Method
+        /// </summary>
+        public void SubtitlesClear()
+        {
+            // Clear List View
+            listViewSubtitles.Items.Clear();
+
+            // Clear Paths List
+            if (Subtitle.subtitleFilePathsList != null &&
+                Subtitle.subtitleFilePathsList.Count > 0)
+            {
+                Subtitle.subtitleFilePathsList.Clear();
+                Subtitle.subtitleFilePathsList.TrimExcess();
+            }
+
+            // Clear Names List
+            if (Subtitle.subtitleFileNamesList != null &&
+                Subtitle.subtitleFileNamesList.Count > 0)
+            {
+                Subtitle.subtitleFileNamesList.Clear();
+                Subtitle.subtitleFileNamesList.TrimExcess();
+            }
+        }
+
+        /// <summary>
+        /// Subtitle Sort Up
+        /// </summary>
+        private void btnSortSubtitleUp_Click(object sender, RoutedEventArgs e)
+        {
+            if (listViewSubtitles.SelectedItems.Count > 0)
+            {
+                var selectedIndex = listViewSubtitles.SelectedIndex;
+
+                if (selectedIndex > 0)
+                {
+                    // ListView Items
+                    var itemlsvFileNames = listViewSubtitles.Items[selectedIndex];
+                    listViewSubtitles.Items.RemoveAt(selectedIndex);
+                    listViewSubtitles.Items.Insert(selectedIndex - 1, itemlsvFileNames);
+
+                    // List File Paths
+                    string itemFilePaths = Subtitle.subtitleFilePathsList[selectedIndex];
+                    Subtitle.subtitleFilePathsList.RemoveAt(selectedIndex);
+                    Subtitle.subtitleFilePathsList.Insert(selectedIndex - 1, itemFilePaths);
+
+                    // List File Names
+                    string itemFileNames = Subtitle.subtitleFileNamesList[selectedIndex];
+                    Subtitle.subtitleFileNamesList.RemoveAt(selectedIndex);
+                    Subtitle.subtitleFileNamesList.Insert(selectedIndex - 1, itemFileNames);
+
+                    // Highlight Selected Index
+                    listViewSubtitles.SelectedIndex = selectedIndex - 1;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Subtitle Sort Down
+        /// </summary>
+        private void btnSortSubtitleDown_Click(object sender, RoutedEventArgs e)
+        {
+            if (listViewSubtitles.SelectedItems.Count > 0)
+            {
+                var selectedIndex = listViewSubtitles.SelectedIndex;
+
+                if (selectedIndex + 1 < listViewSubtitles.Items.Count)
+                {
+                    // ListView Items
+                    var itemlsvFileNames = listViewSubtitles.Items[selectedIndex];
+                    listViewSubtitles.Items.RemoveAt(selectedIndex);
+                    listViewSubtitles.Items.Insert(selectedIndex + 1, itemlsvFileNames);
+
+                    // List FilePaths
+                    string itemFilePaths = Subtitle.subtitleFilePathsList[selectedIndex];
+                    Subtitle.subtitleFilePathsList.RemoveAt(selectedIndex);
+                    Subtitle.subtitleFilePathsList.Insert(selectedIndex + 1, itemFilePaths);
+
+                    // List File Names
+                    string itemFileNames = Subtitle.subtitleFileNamesList[selectedIndex];
+                    Subtitle.subtitleFileNamesList.RemoveAt(selectedIndex);
+                    Subtitle.subtitleFileNamesList.Insert(selectedIndex + 1, itemFileNames);
+
+                    // Highlight Selected Index
+                    listViewSubtitles.SelectedIndex = selectedIndex + 1;
+                }
+            }
+        }
+
+
+
+        /// <summary>
+        ///    Audio Codec - ComboBox
+        /// </summary>
+        private void cboAudioCodec_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // -------------------------
+            // Set Controls
+            // -------------------------
+            AudioControls.SetControls(vm, vm.AudioCodec_SelectedItem);
+
+            //// -------------------------
+            //// Quality Controls
+            //// -------------------------
+            //AudioControls.QualityControls(vm);
+
+            //// -------------------------
+            //// Display Bit-rate in TextBox
+            //// -------------------------
+            //AudioControls.AudioBitrateDisplay(vm,
+            //                                  vm.AudioQuality_Items,
+            //                                  vm.AudioQuality_SelectedItem
+            //                                  );
+
+        }
+
+
+        /// <summary>
+        ///    Audio Channel - ComboBox
+        /// </summary>
+        private void cboChannel_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            //AudioControls.AutoCopyAudioCodec(this, vm);
+        }
+
+
+        /// <summary>
+        ///    Audio Quality - ComboBox
+        /// </summary>
+        private void cboAudioQuality_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // -------------------------
+            // Set Controls
+            // -------------------------
+            //AudioControls.SetControls(vm, vm.AudioCodec_SelectedItem);
+
+            // -------------------------
+            // Quality Controls
+            // -------------------------
+            AudioControls.QualityControls(vm);
+
+            // -------------------------
+            // Display Bit-rate in TextBox
+            // -------------------------
+            AudioControls.AudioBitrateDisplay(vm,
+                                              vm.AudioQuality_Items,
+                                              vm.AudioQuality_SelectedItem
+                                              );
+
+        }
+
+
+        /// <summary>
+        ///    Audio VBR - Toggle
+        /// </summary>
+        // Checked
+        private void tglAudioVBR_Checked(object sender, RoutedEventArgs e)
+        {
+            // -------------------------
+            // Quality Controls
+            // -------------------------
+            AudioControls.QualityControls(vm);
+
+            // -------------------------
+            // Display Bit-rate in TextBox
+            // -------------------------
+            AudioControls.AudioBitrateDisplay(vm,
+                                              vm.AudioQuality_Items,
+                                              vm.AudioQuality_SelectedItem
+                                              );
+        }
+        // Unchecked
+        private void tglAudioVBR_Unchecked(object sender, RoutedEventArgs e)
+        {
+            // -------------------------
+            // Quality Controls
+            // -------------------------
+            AudioControls.QualityControls(vm);
+
+            // -------------------------
+            // Display Bit-rate in TextBox
+            // -------------------------
+            AudioControls.AudioBitrateDisplay(vm,
+                                              vm.AudioQuality_Items,
+                                              vm.AudioQuality_SelectedItem
+                                              );
+        }
+
+
+        /// <summary>
+        ///     Audio Custom Bitrate kbps - Textbox
+        /// </summary>
+        private void tbxAudioBitrate_KeyDown(object sender, KeyEventArgs e)
+        {
+            // Only allow Numbers or Backspace
+            if (!(e.Key >= Key.D0 && e.Key <= Key.D9) && e.Key != Key.Back)
+            {
+                e.Handled = true;
+            }
+        }
+        // Got Focus
+        private void tbxAudioBitrate_GotFocus(object sender, RoutedEventArgs e)
+        {
+            // Clear Textbox on first use
+            if (vm.AudioBitrate_Text == string.Empty)
+            {
+                TextBox tbac = (TextBox)sender;
+                tbac.Text = string.Empty;
+                tbac.GotFocus += tbxAudioBitrate_GotFocus; //used to be -=
+            }
+        }
+        // Lost Focus
+        private void tbxAudioBitrate_LostFocus(object sender, RoutedEventArgs e)
+        {
+            // Change Textbox back to kbps
+            TextBox tbac = sender as TextBox;
+            if (tbac.Text.Trim().Equals(string.Empty))
+            {
+                tbac.Text = string.Empty;
+                tbac.GotFocus -= tbxAudioBitrate_GotFocus; //used to be +=
+            }
+        }
+
+
+        /// <summary>
+        ///     Samplerate ComboBox
+        /// </summary>
+        private void cboSampleRate_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            //if (!string.IsNullOrEmpty(vm.AudioSampleRate_SelectedItem))
+            //{
+            //    AudioSampleRate_PreviousItem = vm.AudioSampleRate_SelectedItem;
+            //}
+
+            //MessageBox.Show("Previous: " + AudioSampleRate_PreviousItem); //debug
+            //MessageBox.Show("Current: " + vm.AudioSampleRate_SelectedItem); //debug
+
+            //if (AudioSampleRate_PreviousItem != vm.AudioSampleRate_SelectedItem)
+            //{
+            //    // Switch to Copy if inputExt & outputExt match
+            //    AudioControls.AutoCopyAudioCodec(this, vm);
+            //}
+
+            //MessageBox.Show("Current Changed: " + vm.AudioSampleRate_SelectedItem); //debug
+        }
+
+
+        /// <summary>
+        ///     Bit Depth ComboBox
+        /// </summary>
+        private void cboBitDepth_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            //if (!string.IsNullOrEmpty(vm.AudioSampleRate_SelectedItem))
+            //{
+            //    AudioSampleRate_PreviousItem = vm.AudioSampleRate_SelectedItem;
+            //}
+
+            //MessageBox.Show("Previous: " + AudioSampleRate_PreviousItem); //debug
+            //MessageBox.Show("Current: " + vm.AudioSampleRate_SelectedItem); //debug
+
+            //if (AudioSampleRate_PreviousItem != vm.AudioSampleRate_SelectedItem)
+            //{
+            //    // Switch to Copy if inputExt & outputExt match
+            //    AudioControls.AutoCopyAudioCodec(this, vm);
+            //}
+
+        }
+
+
+        /// <summary>
+        ///    Volume TextBox Changed
+        /// </summary>
+        private void tbxVolume_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            // Disable Volume instead of running AutoCopyAudioCodec each time 
+            // This needs to be re-thought, calling method on every timer tick
+            //AudioControls.AutoCopyAudioCodec(this, vm);
+        }
+        /// <summary>
+        ///    Volume TextBox KeyDown
+        /// </summary>
+        private void tbxVolume_KeyDown(object sender, KeyEventArgs e)
+        {
+            try //error if other letters or symbols get in
+            {
+                // Only allow Numbers or Backspace
+                if (!(e.Key >= Key.D0 && e.Key <= Key.D9) && e.Key != Key.Back)
+                {
+                    e.Handled = true;
+                }
+                // Allow Percent %
+                if ((e.Key == Key.D5) && e.Key == Key.RightShift | e.Key == Key.LeftShift)
+                {
+                    e.Handled = true;
+                }
+            }
+            catch
+            {
+
+            }
+        }
+
+        /// <summary>
+        ///    Volume Buttons
+        /// </summary>
+        // -------------------------
+        // Up
+        // -------------------------
+        // Volume Up Button Click
+        private void btnVolumeUp_Click(object sender, RoutedEventArgs e)
+        {
+            int value;
+            int.TryParse(vm.Volume_Text, out value);
+
+            value += 1;
+            vm.Volume_Text = value.ToString();
+        }
+        // Up Button Each Timer Tick
+        private void dispatcherTimerUp_Tick(object sender, EventArgs e)
+        {
+            int value;
+            int.TryParse(vm.Volume_Text, out value);
+
+            value += 1;
+            vm.Volume_Text = value.ToString();
+        }
+        // Hold Up Button
+        private void btnVolumeUp_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            // Timer      
+            dispatcherTimerUp.Interval = new TimeSpan(0, 0, 0, 0, 100); //100ms
+            dispatcherTimerUp.Start();
+        }
+        // Up Button Released
+        private void btnVolumeUp_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            // Disable Timer
+            dispatcherTimerUp.Stop();
+        }
+        // -------------------------
+        // Down
+        // -------------------------
+        // Volume Down Button Click
+        private void btnVolumeDown_Click(object sender, RoutedEventArgs e)
+        {
+            int value;
+            int.TryParse(vm.Volume_Text, out value);
+
+            value -= 1;
+            vm.Volume_Text = value.ToString();
+        }
+        // Down Button Each Timer Tick
+        private void dispatcherTimerDown_Tick(object sender, EventArgs e)
+        {
+            int value;
+            int.TryParse(vm.Volume_Text, out value);
+
+            value -= 1;
+            vm.Volume_Text = value.ToString();
+        }
+        // Hold Down Button
+        private void btnVolumeDown_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            // Timer      
+            dispatcherTimerDown.Interval = new TimeSpan(0, 0, 0, 0, 100); //100ms
+            dispatcherTimerDown.Start();
+        }
+        // Down Button Released
+        private void btnVolumeDown_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            // Disable Timer
+            dispatcherTimerDown.Stop();
+        }
+
+
+        /// <summary>
+        ///     Audio Hard Limiter - Slider
+        /// </summary>
+        private void slAudioHardLimiter_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            // Reset to default
+            slAudioHardLimiter.Value = 1;
+
+            AudioControls.AutoCopyAudioCodec(this, vm);
+        }
+
+        private void slAudioHardLimiter_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            AudioControls.AutoCopyAudioCodec(this, vm);
+        }
+
+        private void tbxAudioHardLimiter_PreviewKeyUp(object sender, KeyEventArgs e)
+        {
+            AudioControls.AutoCopyAudioCodec(this, vm);
+        }
+
+
+
+        // --------------------------------------------------------------------------------------------------------
+        // Filters
+        // --------------------------------------------------------------------------------------------------------
 
         /// <summary>
         ///     Filter - Selective SelectiveColorPreview - ComboBox
@@ -3129,15 +4811,15 @@ namespace Axiom
             // Reset to default
             slFiltersVideo_SelectiveColor_Reds_Cyan.Value = 0;
 
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
         private void slFiltersVideo_SelectiveColor_Reds_Cyan_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
         private void tbxFiltersVideo_SelectiveColor_Reds_Cyan_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
         // Reds Magenta
         private void slFiltersVideo_SelectiveColor_Reds_Magenta_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -3145,11 +4827,11 @@ namespace Axiom
             // Reset to default
             slFiltersVideo_SelectiveColor_Reds_Magenta.Value = 0;
 
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
         private void slFiltersVideo_SelectiveColor_Reds_Magenta_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
         // Regs Yellow
         private void slFiltersVideo_SelectiveColor_Reds_Yellow_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -3157,11 +4839,11 @@ namespace Axiom
             // Reset to default
             slFiltersVideo_SelectiveColor_Reds_Yellow.Value = 0;
 
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
         private void slFiltersVideo_SelectiveColor_Reds_Yellow_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
 
         // Yellows Cyan
@@ -3170,16 +4852,16 @@ namespace Axiom
             // Reset to default
             slFiltersVideo_SelectiveColor_Yellows_Cyan.Value = 0;
 
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
         private void slFiltersVideo_SelectiveColor_Yellows_Cyan_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
 
         private void tbxFiltersVideo_SelectiveColor_Yellows_Cyan_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
         // Yellows Magenta
         private void slFiltersVideo_SelectiveColor_Yellows_Magenta_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -3187,15 +4869,15 @@ namespace Axiom
             // Reset to default
             slFiltersVideo_SelectiveColor_Yellows_Magenta.Value = 0;
 
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
         private void slFiltersVideo_SelectiveColor_Yellows_Magenta_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
         private void tbxFiltersVideo_SelectiveColor_Yellows_Magenta_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
 
         // Yellows Yellow
@@ -3204,15 +4886,15 @@ namespace Axiom
             // Reset to default
             slFiltersVideo_SelectiveColor_Yellows_Yellow.Value = 0;
 
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
         private void slFiltersVideo_SelectiveColor_Yellows_Yellow_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
         private void tbxFiltersVideo_SelectiveColor_Yellows_Yellow_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
 
         // Greens Cyan
@@ -3221,15 +4903,15 @@ namespace Axiom
             // Reset to default
             slFiltersVideo_SelectiveColor_Greens_Cyan.Value = 0;
 
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
         private void slFiltersVideo_SelectiveColor_Greens_Cyan_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
         private void tbxFiltersVideo_SelectiveColor_Greens_Cyan_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
         // Greens Magenta
         private void slFiltersVideo_SelectiveColor_Greens_Magenta_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -3237,15 +4919,15 @@ namespace Axiom
             // Reset to default
             slFiltersVideo_SelectiveColor_Greens_Magenta.Value = 0;
 
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
         private void slFiltersVideo_SelectiveColor_Greens_Magenta_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
         private void tbxFiltersVideo_SelectiveColor_Greens_Magenta_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
         // Greens Yellow
         private void slFiltersVideo_SelectiveColor_Greens_Yellow_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -3253,15 +4935,15 @@ namespace Axiom
             // Reset to default
             slFiltersVideo_SelectiveColor_Greens_Yellow.Value = 0;
 
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
         private void slFiltersVideo_SelectiveColor_Greens_Yellow_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
         private void tbxFiltersVideo_SelectiveColor_Greens_Yellow_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
 
         // Cyans Cyan
@@ -3270,15 +4952,15 @@ namespace Axiom
             // Reset to default
             slFiltersVideo_SelectiveColor_Cyans_Cyan.Value = 0;
 
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
         private void slFiltersVideo_SelectiveColor_Cyans_Cyan_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
         private void tbxFiltersVideo_SelectiveColor_Cyans_Cyan_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
 
         // Cyans Magenta
@@ -3287,15 +4969,15 @@ namespace Axiom
             // Reset to default
             slFiltersVideo_SelectiveColor_Cyans_Magenta.Value = 0;
 
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
         private void slFiltersVideo_SelectiveColor_Cyans_Magenta_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
         private void tbxFiltersVideo_SelectiveColor_Cyans_Magenta_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
         // Cyans Yellow
         private void slFiltersVideo_SelectiveColor_Cyans_Yellow_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -3303,15 +4985,15 @@ namespace Axiom
             // Reset to default
             slFiltersVideo_SelectiveColor_Cyans_Yellow.Value = 0;
 
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
         private void slFiltersVideo_SelectiveColor_Cyans_Yellow_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
         private void tbxFiltersVideo_SelectiveColor_Cyans_Yellow_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
 
         // Blues Cyan
@@ -3320,15 +5002,15 @@ namespace Axiom
             // Reset to default
             slFiltersVideo_SelectiveColor_Blues_Cyan.Value = 0;
 
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
         private void slFiltersVideo_SelectiveColor_Blues_Cyan_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
         private void tbxFiltersVideo_SelectiveColor_Blues_Cyan_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
         // Blues Magneta
         private void slFiltersVideo_SelectiveColor_Blues_Magenta_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -3336,15 +5018,15 @@ namespace Axiom
             // Reset to default
             slFiltersVideo_SelectiveColor_Blues_Magenta.Value = 0;
 
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
         private void slFiltersVideo_SelectiveColor_Blues_Magenta_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
         private void tbxFiltersVideo_SelectiveColor_Blues_Magenta_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
         // Blues Yellow
         private void slFiltersVideo_SelectiveColor_Blues_Yellow_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -3352,15 +5034,15 @@ namespace Axiom
             // Reset to default
             slFiltersVideo_SelectiveColor_Blues_Yellow.Value = 0;
 
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
         private void slFiltersVideo_SelectiveColor_Blues_Yellow_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
         private void tbxFiltersVideo_SelectiveColor_Blues_Yellow_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
 
         // Magentas Cyan
@@ -3369,15 +5051,15 @@ namespace Axiom
             // Reset to default
             slFiltersVideo_SelectiveColor_Magentas_Cyan.Value = 0;
 
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
         private void slFiltersVideo_SelectiveColor_Magentas_Cyan_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
         private void tbxFiltersVideo_SelectiveColor_Magentas_Cyan_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
         // Magentas Magenta
         private void slFiltersVideo_SelectiveColor_Magentas_Magenta_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -3385,16 +5067,16 @@ namespace Axiom
             // Reset to default
             slFiltersVideo_SelectiveColor_Magentas_Magenta.Value = 0;
 
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
         private void slFiltersVideo_SelectiveColor_Magentas_Magenta_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
 
         private void tbxFiltersVideo_SelectiveColor_Magentas_Magenta_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
         // Magentas Yellow
         private void slFiltersVideo_SelectiveColor_Magentas_Yellow_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -3402,15 +5084,15 @@ namespace Axiom
             // Reset to default
             slFiltersVideo_SelectiveColor_Magentas_Yellow.Value = 0;
 
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
         private void slFiltersVideo_SelectiveColor_Magentas_Yellow_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
         private void tbxFiltersVideo_SelectiveColor_Magentas_Yellow_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
 
         // Whites Cyan
@@ -3419,15 +5101,15 @@ namespace Axiom
             // Reset to default
             slFiltersVideo_SelectiveColor_Whites_Cyan.Value = 0;
 
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
         private void slFiltersVideo_SelectiveColor_Whites_Cyan_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
         private void tbxFiltersVideo_SelectiveColor_Whites_Cyan_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
         // Whites Magenta
         private void slFiltersVideo_SelectiveColor_Whites_Magenta_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -3435,15 +5117,15 @@ namespace Axiom
             // Reset to default
             slFiltersVideo_SelectiveColor_Whites_Magenta.Value = 0;
 
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
         private void slFiltersVideo_SelectiveColor_Whites_Magenta_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
         private void tbxFiltersVideo_SelectiveColor_Whites_Magenta_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
         // Whites Yellow
         private void slFiltersVideo_SelectiveColor_Whites_Yellow_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -3451,15 +5133,15 @@ namespace Axiom
             // Reset to default
             slFiltersVideo_SelectiveColor_Whites_Yellow.Value = 0;
 
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
         private void slFiltersVideo_SelectiveColor_Whites_Yellow_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
         private void tbxFiltersVideo_SelectiveColor_Whites_Yellow_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
 
         // Neutrals Cyan
@@ -3468,15 +5150,15 @@ namespace Axiom
             // Reset to default
             slFiltersVideo_SelectiveColor_Neutrals_Cyan.Value = 0;
 
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
         private void slFiltersVideo_SelectiveColor_Neutrals_Cyan_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
         private void tbxFiltersVideo_SelectiveColor_Neutrals_Cyan_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
         // Neutrals Magenta
         private void slFiltersVideo_SelectiveColor_Neutrals_Magenta_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -3484,15 +5166,15 @@ namespace Axiom
             // Reset to default
             slFiltersVideo_SelectiveColor_Neutrals_Magenta.Value = 0;
 
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
         private void slFiltersVideo_SelectiveColor_Neutrals_Magenta_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
         private void tbxFiltersVideo_SelectiveColor_Neutrals_Magenta_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
         // Neutrals Yellow
         private void slFiltersVideo_SelectiveColor_Neutrals_Yellow_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -3500,15 +5182,15 @@ namespace Axiom
             // Reset to default
             slFiltersVideo_SelectiveColor_Neutrals_Yellow.Value = 0;
 
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
         private void slFiltersVideo_SelectiveColor_Neutrals_Yellow_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
         private void tbxFiltersVideo_SelectiveColor_Neutrals_Yellow_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
 
         // Blacks Cyan
@@ -3517,15 +5199,15 @@ namespace Axiom
             // Reset to default
             slFiltersVideo_SelectiveColor_Blacks_Cyan.Value = 0;
 
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
         private void slFiltersVideo_SelectiveColor_Blacks_Cyan_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
         private void tbxFiltersVideo_SelectiveColor_Blacks_Cyan_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
         // Blacks Magenta
         private void slFiltersVideo_SelectiveColor_Blacks_Magenta_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -3533,15 +5215,15 @@ namespace Axiom
             // Reset to default
             slFiltersVideo_SelectiveColor_Blacks_Magenta.Value = 0;
 
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
         private void slFiltersVideo_SelectiveColor_Blacks_Magenta_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
         private void tbxFiltersVideo_SelectiveColor_Blacks_Magenta_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
         // Blacks Yellow
         private void slFiltersVideo_SelectiveColor_Blacks_Yellow_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -3549,15 +5231,15 @@ namespace Axiom
             // Reset to default
             slFiltersVideo_SelectiveColor_Blacks_Yellow.Value = 0;
 
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
         private void slFiltersVideo_SelectiveColor_Blacks_Yellow_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
         private void tbxFiltersVideo_SelectiveColor_Blacks_Yellow_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
 
 
@@ -3632,7 +5314,7 @@ namespace Axiom
             slFiltersVideo_SelectiveColor_Blacks_Yellow.Value = 0;
 
 
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
 
 
@@ -3645,11 +5327,11 @@ namespace Axiom
             // Reset to default
             slFiltersVideo_EQ_Brightness.Value = 0;
 
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
         private void slFiltersVideo_EQ_Brightness_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
         private void tbxFiltersVideo_EQ_Brightness_PreviewKeyUp(object sender, KeyEventArgs e)
         {
@@ -3659,7 +5341,7 @@ namespace Axiom
                 tbxFiltersVideo_EQ_Brightness.Text = "0";
             }
 
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
 
         // Contrast
@@ -3668,15 +5350,15 @@ namespace Axiom
             // Reset to default
             slFiltersVideo_EQ_Contrast.Value = 0;
 
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
         private void slFiltersVideo_EQ_Contrast_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
         private void tbxFiltersVideo_EQ_Contrast_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
 
         // Saturation
@@ -3685,15 +5367,15 @@ namespace Axiom
             // Reset to default
             slFiltersVideo_EQ_Saturation.Value = 0;
 
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
         private void slFiltersVideo_EQ_Saturation_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
         private void tbxFiltersVideo_EQ_Saturation_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
 
         // Gamma
@@ -3702,15 +5384,15 @@ namespace Axiom
             // Reset to default
             slFiltersVideo_EQ_Gamma.Value = 0;
 
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
         private void slFiltersVideo_EQ_Gamma_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
         private void tbxFiltersVideo_EQ_Gamma_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
 
         // Reset
@@ -3727,7 +5409,7 @@ namespace Axiom
             // Gamma
             slFiltersVideo_EQ_Gamma.Value = 0;
 
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
 
 
@@ -3737,7 +5419,7 @@ namespace Axiom
         /// </summary>
         private void cboFilterVideo_Deband_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
 
         /// <summary>
@@ -3745,7 +5427,7 @@ namespace Axiom
         /// </summary>
         private void cboFilterVideo_Deshake_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
 
         /// <summary>
@@ -3753,7 +5435,7 @@ namespace Axiom
         /// </summary>
         private void cboFilterVideo_Deflicker_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
 
         /// <summary>
@@ -3761,7 +5443,7 @@ namespace Axiom
         /// </summary>
         private void cboFilterVideo_Dejudder_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
 
         /// <summary>
@@ -3769,26 +5451,9 @@ namespace Axiom
         /// </summary>
         private void cboFilterVideo_Denoise_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(this);
+            VideoControls.AutoCopyVideoCodec(this, vm);
         }
 
-
-
-        /// <summary>
-        ///     Scaling Video
-        /// </summary>
-        private void cboScaling_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            VideoControls.AutoCopyVideoCodec(this);
-        }
-
-        /// <summary>
-        ///     Pixel Format
-        /// </summary>
-        private void cboPixelFormat_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            VideoControls.AutoCopyVideoCodec(this);
-        }
 
 
 
@@ -3798,19 +5463,19 @@ namespace Axiom
         private void slAudioLimiter_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             // Reset to default
-            slAudioLimiter.Value = 1;
+            slAudioHardLimiter.Value = 1;
 
-            AudioControls.AutoCopyAudioCodec(this);
+            AudioControls.AutoCopyAudioCodec(this, vm);
         }
 
         private void slAudioLimiter_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            AudioControls.AutoCopyAudioCodec(this);
+            AudioControls.AutoCopyAudioCodec(this, vm);
         }
 
         private void tbxAudioLimiter_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            AudioControls.AutoCopyAudioCodec(this);
+            AudioControls.AutoCopyAudioCodec(this, vm);
         }
 
         /// <summary>
@@ -3821,17 +5486,17 @@ namespace Axiom
         //    // Reset to default
         //    slFilterAudio_RemoveClick.Value = 0;
 
-        //    AudioControls.AutoCopyAudioCodec(this);
+        //    AudioControls.AutoCopyAudioCodec(this, vm);
         //}
 
         //private void slFilterAudio_RemoveClick_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         //{
-        //    AudioControls.AutoCopyAudioCodec(this);
+        //    AudioControls.AutoCopyAudioCodec(this, vm);
         //}
 
         //private void tbxFilterAudio_RemoveClick_PreviewKeyUp(object sender, KeyEventArgs e)
         //{
-        //    AudioControls.AutoCopyAudioCodec(this);
+        //    AudioControls.AutoCopyAudioCodec(this, vm);
         //}
 
 
@@ -3843,16 +5508,16 @@ namespace Axiom
             // Reset to default
             slFilterAudio_Contrast.Value = 0;
 
-            AudioControls.AutoCopyAudioCodec(this);
+            AudioControls.AutoCopyAudioCodec(this, vm);
         }
 
         private void slFilterAudio_Contrast_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            AudioControls.AutoCopyAudioCodec(this);
+            AudioControls.AutoCopyAudioCodec(this, vm);
         }
         private void tbxFilterAudio_Contrast_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            AudioControls.AutoCopyAudioCodec(this);
+            AudioControls.AutoCopyAudioCodec(this, vm);
         }
 
         /// <summary>
@@ -3863,16 +5528,16 @@ namespace Axiom
             // Reset to default
             slFilterAudio_ExtraStereo.Value = 0;
 
-            AudioControls.AutoCopyAudioCodec(this);
+            AudioControls.AutoCopyAudioCodec(this, vm);
         }
 
         private void slFilterAudio_ExtraStereo_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            AudioControls.AutoCopyAudioCodec(this);
+            AudioControls.AutoCopyAudioCodec(this, vm);
         }
         private void tbxFilterAudio_ExtraStereo_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            AudioControls.AutoCopyAudioCodec(this);
+            AudioControls.AutoCopyAudioCodec(this, vm);
         }
 
         /// <summary>
@@ -3883,17 +5548,147 @@ namespace Axiom
             // Reset to default
             slFilterAudio_Tempo.Value = 100;
 
-            AudioControls.AutoCopyAudioCodec(this);
+            AudioControls.AutoCopyAudioCodec(this, vm);
         }
 
         private void slFilterAudio_Tempo_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            AudioControls.AutoCopyAudioCodec(this);
+            AudioControls.AutoCopyAudioCodec(this, vm);
         }
 
         private void tbxFilterAudio_Tempo_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            AudioControls.AutoCopyAudioCodec(this);
+            AudioControls.AutoCopyAudioCodec(this, vm);
+        }
+
+
+
+
+
+        /// <summary>
+        ///     Sort (Method)
+        /// </summary>
+        public void Sort()
+        {
+            // Check if Rich TextBox is Empty
+            //TextRange textRange = new TextRange(rtbScriptView.Document.ContentStart, rtbScriptView.Document.ContentEnd);
+            //string rtb = textRange.Text;
+            //if (string.IsNullOrWhiteSpace(rtb))
+            //{
+            //    //MessageBox.Show("Empty"); //debug
+            //    return;
+            //}
+
+            // Debug Sort
+            //if (ScriptView.sort == false)
+            //{
+            //    MessageBox.Show("sort false");
+            //}
+            //else if(ScriptView.sort == true)
+            //{
+            //    MessageBox.Show("sort true");
+            //}
+
+
+            // Only if Script not empty
+            if (!string.IsNullOrWhiteSpace(ScriptView.GetScriptRichTextBoxContents(this)))
+            {
+                // -------------------------
+                // Has Not Been Edited
+                // -------------------------
+                if (ScriptView.sort == false
+                    && RemoveLineBreaks(ScriptView.GetScriptRichTextBoxContents(this))
+                                 //.Replace(Environment.NewLine, "")
+                                 //.Replace("\r\n", "")
+                                 //.Replace("\u2028", "")
+                                 //.Replace("\u000A", "")
+                                 //.Replace("\u000B", "")
+                                 //.Replace("\u000C", "")
+                                 //.Replace("\u000D", "")
+                                 //.Replace("\u0085", "")
+                                 //.Replace("\u2028", "")
+                                 //.Replace("\u2029", "")
+
+                                 == FFmpeg.ffmpegArgs)
+                {
+                    // Clear Old Text
+                    //ScriptView.scriptParagraph.Inlines.Clear();
+                    ScriptView.ClearScriptView(this);
+
+                    // Write FFmpeg Args Sort
+                    rtbScriptView.Document = new FlowDocument(ScriptView.scriptParagraph);
+                    rtbScriptView.BeginChange();
+                    ScriptView.scriptParagraph.Inlines.Add(new Run(FFmpeg.ffmpegArgsSort));
+                    rtbScriptView.EndChange();
+
+                    // Sort is Off
+                    ScriptView.sort = true;
+                    // Change Button Back to Inline
+                    txblScriptSort.Text = "Inline";
+                }
+
+                // -------------------------
+                // Has Been Edited
+                // -------------------------
+                else if (ScriptView.sort == false &&
+                         RemoveLineBreaks(ScriptView.GetScriptRichTextBoxContents(this))
+                                          //.Replace(Environment.NewLine, "")
+                                          //.Replace("\r\n", "")
+                                          //.Replace("\u2028", "")
+                                          //.Replace("\u000A", "")
+                                          //.Replace("\u000B", "")
+                                          //.Replace("\u000C", "")
+                                          //.Replace("\u000D", "")
+                                          //.Replace("\u0085", "")
+                                          //.Replace("\u2028", "")
+                                          //.Replace("\u2029", "")
+
+                                        != FFmpeg.ffmpegArgs)
+                {
+                    MessageBox.Show("Cannot sort edited text.",
+                                    "Notice",
+                                    MessageBoxButton.OK,
+                                    MessageBoxImage.Exclamation);
+
+                    return;
+                }
+
+
+                // -------------------------
+                // Inline
+                // -------------------------
+                else if (ScriptView.sort == true)
+                {
+                    // CMD Arguments are from Script TextBox
+                    FFmpeg.ffmpegArgs = RemoveLineBreaks(ScriptView.GetScriptRichTextBoxContents(this));
+                    //.Replace(Environment.NewLine, "") //Remove Linebreaks
+                    //.Replace("\n", "")
+                    //.Replace("\r\n", "")
+                    //.Replace("\u2028", "")
+                    //.Replace("\u000A", "")
+                    //.Replace("\u000B", "")
+                    //.Replace("\u000C", "")
+                    //.Replace("\u000D", "")
+                    //.Replace("\u0085", "")
+                    //.Replace("\u2028", "")
+                    //.Replace("\u2029", "");
+
+                    // Clear Old Text
+                    ScriptView.ClearScriptView(this);
+                    //ScriptView.scriptParagraph.Inlines.Clear();
+
+                    // Write FFmpeg Args
+                    rtbScriptView.Document = new FlowDocument(ScriptView.scriptParagraph);
+                    rtbScriptView.BeginChange();
+                    ScriptView.scriptParagraph.Inlines.Add(new Run(FFmpeg.ffmpegArgs));
+                    rtbScriptView.EndChange();
+
+                    // Sort is On
+                    ScriptView.sort = false;
+                    // Change Button Back to Sort
+                    txblScriptSort.Text = "Sort";
+                }
+            }
         }
 
 
@@ -3928,19 +5723,18 @@ namespace Axiom
 
         private void OnScriptCopy(object sender, DataObjectCopyingEventArgs e)
         {
-            
+
         }
 
-
         /// <summary>
-        ///    Script Button
+        ///    Script - Button
         /// </summary>
         private void btnScript_Click(object sender, RoutedEventArgs e)
         {
             // -------------------------
             // Clear Variables before Run
             // -------------------------
-            ClearVariables(this);
+            ClearVariables(vm);
 
 
             // Log Console Message /////////
@@ -3958,14 +5752,14 @@ namespace Axiom
             // Log Console Message /////////
             Log.WriteAction = () =>
             {
-                
+
                 Log.logParagraph.Inlines.Add(new LineBreak());
                 Log.logParagraph.Inlines.Add(new LineBreak());
                 Log.logParagraph.Inlines.Add(new Bold(new Run(Convert.ToString(localDate))) { Foreground = Log.ConsoleAction });
                 Log.logParagraph.Inlines.Add(new LineBreak());
                 Log.logParagraph.Inlines.Add(new LineBreak());
                 Log.logParagraph.Inlines.Add(new Bold(new Run("Generating Script...")) { Foreground = Log.ConsoleTitle });
-                
+
             };
             Log.LogActions.Add(Log.WriteAction);
 
@@ -3984,7 +5778,7 @@ namespace Axiom
             // -------------------------
             // Batch Extention Period Check
             // -------------------------
-            BatchExtCheck(this);
+            BatchExtCheck(vm);
 
             // -------------------------
             // Set FFprobe Path
@@ -3994,7 +5788,7 @@ namespace Axiom
             // -------------------------
             // Ready Halts
             // -------------------------
-            ReadyHalts(this);
+            ReadyHalts(vm);
 
             // -------------------------
             // Single
@@ -4004,13 +5798,13 @@ namespace Axiom
                 // -------------------------
                 // FFprobe Detect Metadata
                 // -------------------------
-                FFprobe.Metadata(this);
+                FFprobe.Metadata(vm);
 
                 // -------------------------
                 // FFmpeg Generate Arguments (Single)
                 // -------------------------
                 //disabled if batch
-                FFmpeg.FFmpegSingleGenerateArgs(this);
+                FFmpeg.FFmpegSingleGenerateArgs(this, vm);
             }
 
             // -------------------------
@@ -4021,18 +5815,18 @@ namespace Axiom
                 // -------------------------
                 // FFprobe Video Entry Type Containers
                 // -------------------------
-                FFprobe.VideoEntryType(this);
+                FFprobe.VideoEntryType(vm);
 
                 // -------------------------
                 // FFprobe Video Entry Type Containers
                 // -------------------------
-                FFprobe.AudioEntryType(this);
+                FFprobe.AudioEntryType(vm);
 
                 // -------------------------
                 // FFmpeg Generate Arguments (Batch)
                 // -------------------------
                 //disabled if single file
-                FFmpeg.FFmpegBatchGenerateArgs(this);
+                FFmpeg.FFmpegBatchGenerateArgs(this, vm);
             }
 
             // -------------------------
@@ -4046,33 +5840,6 @@ namespace Axiom
             FFmpeg.FFmpegScript(this);
 
             // -------------------------
-            // Re-Sort
-            // Reset Sort
-            // -------------------------
-            //if (ScriptView.sort == true)
-            //{
-            //    MessageBox.Show("here");
-
-            //    // Clear Old Text
-            //    //ClearScriptView();
-            //    ScriptView.scriptParagraph.Inlines.Clear();
-
-            //    // Write FFmpeg Args Sort
-            //    rtbScriptView.Document = new FlowDocument(ScriptView.scriptParagraph);
-            //    rtbScriptView.BeginChange();
-            //    ScriptView.scriptParagraph.Inlines.Add(new Run(FFmpeg.ffmpegArgsSort));
-            //    rtbScriptView.EndChange();
-
-            //    // Change Button Back to Inline
-            //    txblScriptSort.Text = "Inline";
-
-            //}
-            //else if (ScriptView.sort == false)
-            //{
-            //    txblScriptSort.Text = "Sort";
-            //}
-
-            // -------------------------
             // Auto Sort Toggle
             // -------------------------
             if (tglAutoSortScript.IsChecked == true)
@@ -4083,33 +5850,71 @@ namespace Axiom
             // -------------------------
             // Clear Variables for next Run
             // -------------------------
-            ClearVariables(this);
+            ClearVariables(vm);
             GC.Collect();
         }
+
+
+        /// <summary>
+        ///     Save Script
+        /// </summary>
+        private void btnScriptSave_Click(object sender, RoutedEventArgs e)
+        {
+            // Open 'Save File'
+            Microsoft.Win32.SaveFileDialog saveFile = new Microsoft.Win32.SaveFileDialog();
+
+            //saveFile.InitialDirectory = inputDir;
+            saveFile.RestoreDirectory = true;
+            saveFile.Filter = "Text file (*.txt)|*.txt";
+            saveFile.DefaultExt = ".txt";
+            saveFile.FileName = "Script";
+
+            // Show save file dialog box
+            Nullable<bool> result = saveFile.ShowDialog();
+
+            // Process dialog box
+            if (result == true)
+            {
+                // Save document
+                File.WriteAllText(saveFile.FileName, ScriptView.GetScriptRichTextBoxContents(this), Encoding.Unicode);
+            }
+        }
+
+
+        /// <summary>
+        ///     Copy All Button
+        /// </summary>
+        private void btnScriptCopy_Click(object sender, RoutedEventArgs e)
+        {
+            Clipboard.SetText(ScriptView.GetScriptRichTextBoxContents(this), TextDataFormat.UnicodeText);
+        }
+
+
+        /// <summary>
+        ///     Clear Button
+        /// </summary>
+        private void btnScriptClear_Click(object sender, RoutedEventArgs e)
+        {
+            //ScriptView.scriptParagraph.Inlines.Clear();
+
+            ScriptView.ClearScriptView(this);
+        }
+
+
+        /// <summary>
+        ///     Sort Button
+        /// </summary>
+        private void btnScriptSort_Click(object sender, RoutedEventArgs e)
+        {
+            Sort();
+        }
+
 
         /// <summary>
         /// Run Button
         /// </summary>
         private void btnScriptRun_Click(object sender, RoutedEventArgs e)
         {
-            // Use Arguments from Script TextBox
-            //FFmpeg.ffmpegArgs = ScriptView.GetScriptRichTextBoxContents(this)
-            //    .Replace(Environment.NewLine, "") //Remove Linebreaks
-            //    .Replace("\n", "")
-            //    .Replace("\r\n", "")
-            //    .Replace("\u2028", "")
-            //    .Replace("\u000A", "")
-            //    .Replace("\u000B", "")
-            //    .Replace("\u000C", "")
-            //    .Replace("\u000D", "")
-            //    .Replace("\u0085", "")
-            //    .Replace("\u2028", "")
-            //    .Replace("\u2029", "")
-            //    ;
-
-            //// Run FFmpeg
-            //FFmpeg.FFmpegConvert(this);
-
             // -------------------------
             // Use Arguments from Script TextBox
             // -------------------------
@@ -4120,2177 +5925,7 @@ namespace Axiom
             // -------------------------
             // Start FFmpeg
             // -------------------------
-            FFmpeg.FFmpegStart(this);
-        }
-
-
-        /// <summary>
-        ///    CMD Button
-        /// </summary>
-        private void buttonCmd_Click(object sender, RoutedEventArgs e)
-        {
-            // launch command prompt
-            Process.Start("CMD.exe", "/k cd %userprofile%");
-
-        }
-
-
-        /// <summary>
-        ///    Keep Window Toggle Checked
-        /// </summary>
-        private void tglWindowKeep_Checked(object sender, RoutedEventArgs e)
-        {
-            // Log Console Message /////////
-            Log.logParagraph.Inlines.Add(new LineBreak());
-            Log.logParagraph.Inlines.Add(new LineBreak());
-            Log.logParagraph.Inlines.Add(new Bold(new Run("Keep FFmpeg Window Toggle: ")) { Foreground = Log.ConsoleDefault });
-            Log.logParagraph.Inlines.Add(new Run("On") { Foreground = Log.ConsoleDefault });
-
-            //Prevent Loading Corrupt App.Config
-            try
-            {
-                // Save Toggle Settings
-                // must be done this way or you get "convert object to bool error"
-                if (tglWindowKeep.IsChecked == true)
-                {
-                    Settings.Default.KeepWindow = true;
-                    Settings.Default.Save();
-                    Settings.Default.Reload();
-                }
-                else if (tglWindowKeep.IsChecked == false)
-                {
-                    Settings.Default.KeepWindow = false;
-                    Settings.Default.Save();
-                    Settings.Default.Reload();
-                }
-            }
-            catch (ConfigurationErrorsException ex)
-            {
-                // Delete Old App.Config
-                string filename = ex.Filename;
-
-                if (File.Exists(filename) == true)
-                {
-                    File.Delete(filename);
-                    Settings.Default.Upgrade();
-                    // Properties.Settings.Default.Reload();
-                }
-                else
-                {
-
-                }
-            }
-        }
-        /// <summary>
-        ///    Keep Window Toggle Unchecked
-        /// </summary>
-        private void tglWindowKeep_Unchecked(object sender, RoutedEventArgs e)
-        {
-            // Log Console Message /////////
-            Log.logParagraph.Inlines.Add(new LineBreak());
-            Log.logParagraph.Inlines.Add(new LineBreak());
-            Log.logParagraph.Inlines.Add(new Bold(new Run("Keep FFmpeg Window Toggle: ")) { Foreground = Log.ConsoleDefault });
-            Log.logParagraph.Inlines.Add(new Run("Off") { Foreground = Log.ConsoleDefault });
-
-            // Prevent Loading Corrupt App.Config
-            try
-            {
-                // Save Toggle Settings
-                // must be done this way or you get "convert object to bool error"
-                if (tglWindowKeep.IsChecked == true)
-                {
-                    Settings.Default.KeepWindow = true;
-                    Settings.Default.Save();
-                    Settings.Default.Reload();
-                }
-                else if (tglWindowKeep.IsChecked == false)
-                {
-                    Settings.Default.KeepWindow = false;
-                    Settings.Default.Save();
-                    Settings.Default.Reload();
-                }
-            }
-            catch (ConfigurationErrorsException ex)
-            {
-                // Delete Old App.Config
-                string filename = ex.Filename;
-
-                if (File.Exists(filename) == true)
-                {
-                    File.Delete(filename);
-                    Settings.Default.Upgrade();
-                    // Properties.Settings.Default.Reload();
-                }
-                else
-                {
-
-                }
-            }
-        }
-
-        /// <summary>
-        ///    Auto Sort Script Toggle - Checked
-        /// </summary>
-        private void tglAutoSortScript_Checked(object sender, RoutedEventArgs e)
-        {
-            // Log Console Message /////////
-            Log.logParagraph.Inlines.Add(new LineBreak());
-            Log.logParagraph.Inlines.Add(new LineBreak());
-            Log.logParagraph.Inlines.Add(new Bold(new Run("Auto Sort Script Toggle: ")) { Foreground = Log.ConsoleDefault });
-            Log.logParagraph.Inlines.Add(new Run("On") { Foreground = Log.ConsoleDefault });
-
-            //Prevent Loading Corrupt App.Config
-            try
-            {
-                // Save Toggle Settings
-                // must be done this way or you get "convert object to bool error"
-                if (tglAutoSortScript.IsChecked == true)
-                {
-                    Settings.Default.AutoSortScript = true;
-                    Settings.Default.Save();
-                    Settings.Default.Reload();
-                }
-                else if (tglAutoSortScript.IsChecked == false)
-                {
-                    Settings.Default.AutoSortScript = false;
-                    Settings.Default.Save();
-                    Settings.Default.Reload();
-                }
-            }
-            catch (ConfigurationErrorsException ex)
-            {
-                // Delete Old App.Config
-                string filename = ex.Filename;
-
-                if (File.Exists(filename) == true)
-                {
-                    File.Delete(filename);
-                    Settings.Default.Upgrade();
-                    // Properties.Settings.Default.Reload();
-                }
-                else
-                {
-
-                }
-            }
-        }
-        /// <summary>
-        ///    Auto Sort Script Toggle - Unchecked
-        /// </summary>
-        private void tglAutoSortScript_Unchecked(object sender, RoutedEventArgs e)
-        {
-            // Log Console Message /////////
-            Log.logParagraph.Inlines.Add(new LineBreak());
-            Log.logParagraph.Inlines.Add(new LineBreak());
-            Log.logParagraph.Inlines.Add(new Bold(new Run("Auto Sort Script Toggle: ")) { Foreground = Log.ConsoleDefault });
-            Log.logParagraph.Inlines.Add(new Run("Off") { Foreground = Log.ConsoleDefault });
-
-            // Prevent Loading Corrupt App.Config
-            try
-            {
-                // Save Toggle Settings
-                // must be done this way or you get "convert object to bool error"
-                if (tglAutoSortScript.IsChecked == true)
-                {
-                    Settings.Default.AutoSortScript = true;
-                    Settings.Default.Save();
-                    Settings.Default.Reload();
-                }
-                else if (tglAutoSortScript.IsChecked == false)
-                {
-                    Settings.Default.AutoSortScript = false;
-                    Settings.Default.Save();
-                    Settings.Default.Reload();
-                }
-            }
-            catch (ConfigurationErrorsException ex)
-            {
-                // Delete Old App.Config
-                string filename = ex.Filename;
-
-                if (File.Exists(filename) == true)
-                {
-                    File.Delete(filename);
-                    Settings.Default.Upgrade();
-                    // Properties.Settings.Default.Reload();
-                }
-                else
-                {
-
-                }
-            }
-        }
-
-
-        /// <summary>
-        ///    Pass ComboBox
-        /// </summary>
-        private void cboPass_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            // -------------------------
-            // Pass Controls
-            // -------------------------
-            VideoControls.EncodingPass(this);
-
-            // -------------------------
-            // Display Bit-rate in TextBox
-            // -------------------------
-            VideoBitrateDisplay();
-        }
-        private void cboPass_DropDownClosed(object sender, EventArgs e)
-        {
-            // User willingly selected a Pass
-            VideoControls.passUserSelected = true;
-        }
-
-
-        /// <summary>
-        ///    Play File Button
-        /// </summary>
-        private void buttonPlayFile_Click(object sender, RoutedEventArgs e)
-        {
-            if (File.Exists(@output))
-            {
-                Process.Start("\"" + output + "\"");
-            }
-            else
-            {
-                Log.logParagraph.Inlines.Add(new LineBreak());
-                Log.logParagraph.Inlines.Add(new LineBreak());
-                Log.logParagraph.Inlines.Add(new Bold(new Run("Notice: File does not yet exist.")) { Foreground = Log.ConsoleWarning });
-
-                MessageBox.Show("File does not yet exist.",
-                                "Notice",
-                                MessageBoxButton.OK,
-                                MessageBoxImage.Warning);
-            }
-        }
-
-
-        /// <summary>
-        ///    Input Button
-        /// </summary>
-        private void btnInput_Click(object sender, RoutedEventArgs e)
-        {
-            // -------------------------
-            // Single File
-            // -------------------------
-            if (tglBatch.IsChecked == false)
-            {
-                // Open Select File Window
-                Microsoft.Win32.OpenFileDialog selectFile = new Microsoft.Win32.OpenFileDialog();
-
-                // Remember Last Dir
-                //
-                try
-                {
-                    string previousPath = Settings.Default.inputDir.ToString();
-
-                    // Use Previous Path if Not Null
-                    if (!string.IsNullOrEmpty(previousPath))
-                    {
-                        selectFile.InitialDirectory = previousPath;
-                    }
-                }
-                catch
-                {
-
-                }
-
-                // Show Dialog Box
-                Nullable<bool> result = selectFile.ShowDialog();
-
-                // Process Dialog Box
-                if (result == true)
-                {
-                    // Display path and file in Output Textbox
-                    tbxInput.Text = selectFile.FileName;
-
-                    // Set Input Dir, Name, Ext
-                    inputDir = Path.GetDirectoryName(tbxInput.Text).TrimEnd('\\') + @"\";
-
-                    inputFileName = Path.GetFileNameWithoutExtension(tbxInput.Text);
-
-                    inputExt = Path.GetExtension(tbxInput.Text);
-
-                    // Save Previous Path
-                    Settings.Default.inputDir = inputDir;
-                    Settings.Default.Save();
-
-                }
-
-                // -------------------------
-                // Prevent Losing Codec Copy after cancel closing Browse Folder Dialog Box 
-                // Set Video & Audio Codec Combobox to "Copy" if Input Extension is Same as Output Extension and Video Quality is Auto
-                // -------------------------
-                VideoControls.AutoCopyVideoCodec(this);
-                VideoControls.AutoCopySubtitleCodec(this);
-                AudioControls.AutoCopyAudioCodec(this);
-            }
-            // -------------------------
-            // Batch
-            // -------------------------
-            else if (tglBatch.IsChecked == true)
-            {
-                // Open Batch Folder
-                System.Windows.Forms.FolderBrowserDialog inputFolder = new System.Windows.Forms.FolderBrowserDialog();
-                System.Windows.Forms.DialogResult result = inputFolder.ShowDialog();
-                
-
-                // Show Input Dialog Box
-                if (result == System.Windows.Forms.DialogResult.OK)
-                {
-                    // Display Folder Path in Textbox
-                    tbxInput.Text = inputFolder.SelectedPath.TrimEnd('\\') + @"\";
-
-                    // Input Directory
-                    inputDir = Path.GetDirectoryName(tbxInput.Text.TrimEnd('\\') + @"\");
-                }
-
-                // -------------------------
-                // Prevent Losing Codec Copy after cancel closing Browse Folder Dialog Box 
-                // Set Video & Audio Codec Combobox to "Copy" if Input Extension is Same as Output Extension and Video Quality is Auto
-                // -------------------------
-                VideoControls.AutoCopyVideoCodec(this);
-                VideoControls.AutoCopySubtitleCodec(this);
-                AudioControls.AutoCopyAudioCodec(this);
-            }
-        }
-
-
-        /// <summary>
-        ///    Input Textbox
-        /// </summary>
-        private void tbxInput_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            //if (!tbxInput.Text.Contains("www.youtube.com")
-            //    && !tbxInput.Text.Contains("youtube.com"))
-            //{
-            if (!string.IsNullOrEmpty(tbxInput.Text))
-            {
-                // Remove stray slash if closed out early (duplicate code?)
-                if (tbxInput.Text == "\\")
-                {
-                    tbxInput.Text = string.Empty;
-                }
-
-                // Get input file extension
-                inputExt = Path.GetExtension(tbxInput.Text);
-
-
-                // Enable / Disable "Open Input Location" Buttion
-                if (!string.IsNullOrWhiteSpace(tbxInput.Text))
-                {
-                    bool exists = Directory.Exists(Path.GetDirectoryName(tbxInput.Text));
-
-                    if (exists)
-                    {
-                        openLocationInput.IsEnabled = true;
-                    }
-                    else
-                    {
-                        openLocationInput.IsEnabled = false;
-                    }
-                }
-
-                // Set Video & Audio Codec Combobox to "Copy" if Input Extension is Same as Output Extension and Video Quality is Auto
-                VideoControls.AutoCopyVideoCodec(this);
-                VideoControls.AutoCopySubtitleCodec(this);
-                AudioControls.AutoCopyAudioCodec(this);
-            }             
-            //}
-        }
-
-        /// <summary>
-        ///    Input Textbox - Drag and Drop
-        /// </summary>
-        private void tbxInput_PreviewDragOver(object sender, DragEventArgs e)
-        {
-            e.Handled = true;
-            e.Effects = DragDropEffects.Copy;
-        }
-
-        private void tbxInput_PreviewDrop(object sender, DragEventArgs e)
-        {
-            var buffer = e.Data.GetData(DataFormats.FileDrop, false) as string[];
-            tbxInput.Text = buffer.First();
-
-            // Set Input Dir, Name, Ext
-            inputDir = Path.GetDirectoryName(tbxInput.Text).TrimEnd('\\') + @"\";
-            inputFileName = Path.GetFileNameWithoutExtension(tbxInput.Text);
-            inputExt = Path.GetExtension(tbxInput.Text);
-
-            // Set Video & Audio Codec Combobox to "Copy" if Input Extension is Same as Output Extension and Video Quality is Auto
-            VideoControls.AutoCopyVideoCodec(this);
-            VideoControls.AutoCopySubtitleCodec(this);
-            AudioControls.AutoCopyAudioCodec(this);
-        }
-
-        /// <summary>
-        ///    Output Textbox - Drag and Drop
-        /// </summary>
-        private void tbxOutput_PreviewDragOver(object sender, DragEventArgs e)
-        {
-            e.Handled = true;
-            e.Effects = DragDropEffects.Copy;
-        }
-
-        private void tbxOutput_PreviewDrop(object sender, DragEventArgs e)
-        {
-            var buffer = e.Data.GetData(DataFormats.FileDrop, false) as string[];
-            tbxOutput.Text = buffer.First();
-        }
-
-
-        /// <summary>
-        ///    Open Input Folder Button
-        /// </summary>
-        private void openLocationInput_Click(object sender, RoutedEventArgs e)
-        {
-            if (!string.IsNullOrEmpty(inputDir))
-            {
-                Process.Start("explorer.exe", @inputDir);
-            }
-        }
-
-
-        /// <summary>
-        ///    Output Button
-        /// </summary>
-        private void btnOutput_Click(object sender, RoutedEventArgs e)
-        {
-            // -------------------------
-            // Single File
-            // -------------------------
-            if (tglBatch.IsChecked == false)
-            {
-                // Get Output Ext
-                FormatControls.OutputFormatExt(this);
-
-
-                // Open 'Save File'
-                Microsoft.Win32.SaveFileDialog saveFile = new Microsoft.Win32.SaveFileDialog();
-
-
-                // 'Save File' Default Path same as Input Directory
-                //
-                try
-                {
-                    string previousPath = Settings.Default.outputDir.ToString();
-                    // Use Input Path if Previous Path is Null
-                    if (string.IsNullOrEmpty(previousPath))
-                    {
-                        saveFile.InitialDirectory = inputDir;
-                    }
-                }
-                catch
-                {
-
-                }
-                                
-                // Remember Last Dir
-                //saveFile.RestoreDirectory = true;
-                // Default Extension
-                saveFile.DefaultExt = outputExt;
-
-                // Default file name if empty
-                if (string.IsNullOrEmpty(inputFileName))
-                {
-                    saveFile.FileName = "File";
-                }
-                // If file name exists
-                else
-                {
-                    // Output Path
-                    outputDir = inputDir;
-
-                    // File Renamer
-                    // Get new output file name (1) if already exists
-                    outputFileName = FileRenamer(inputFileName);
-
-                    // Same as input file name
-                    saveFile.FileName = outputFileName;
-                }
-
-
-                // Show Dialog Box
-                Nullable<bool> result = saveFile.ShowDialog();
-
-                // Process Dialog Box
-                if (result == true)
-                {
-                    // Display path and file in Output Textbox
-                    tbxOutput.Text = saveFile.FileName;
-
-                    // Output Path
-                    outputDir = Path.GetDirectoryName(tbxOutput.Text).TrimEnd('\\') + @"\";
-
-                    // Output Filename (without extension)
-                    outputFileName = Path.GetFileNameWithoutExtension(tbxOutput.Text);
-
-                    // Add slash to inputDir path if missing
-                    if (!string.IsNullOrEmpty(outputDir))
-                    {
-                        if (!outputDir.EndsWith("\\"))
-                        {
-                            outputDir = outputDir.TrimEnd('\\') + @"\";
-                        }
-                    }
-
-                    // Save Previous Path
-                    Settings.Default.outputDir = outputDir;
-                    Settings.Default.Save();
-                }
-            }
-
-            // -------------------------
-            // Batch
-            // -------------------------
-            else if (tglBatch.IsChecked == true)
-            {
-                // Open 'Select Folder'
-                System.Windows.Forms.FolderBrowserDialog outputFolder = new System.Windows.Forms.FolderBrowserDialog();
-                System.Windows.Forms.DialogResult result = outputFolder.ShowDialog();
-
-
-                // Process Dialog Box
-                if (result == System.Windows.Forms.DialogResult.OK)
-                {
-                    // Display path and file in Output Textbox
-                    tbxOutput.Text = outputFolder.SelectedPath.TrimEnd('\\') + @"\";
-
-                    // Remove Double Slash in Root Dir, such as C:\
-                    tbxOutput.Text = tbxOutput.Text.Replace(@"\\", @"\");
-
-                    // Output Path
-                    outputDir = Path.GetDirectoryName(tbxOutput.Text.TrimEnd('\\') + @"\");
-
-                    // Add slash to inputDir path if missing
-                    if (!string.IsNullOrEmpty(outputDir))
-                    {
-                        if (!outputDir.EndsWith("\\"))
-                        {
-                            outputDir = outputDir.TrimEnd('\\') + @"\";
-                        }   
-                    }
-                }
-            }
-
-        }
-
-
-        /// <summary>
-        ///    Output Textbox
-        /// </summary>
-        private void tbxOutput_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            // Remove stray slash if closed out early
-            if (tbxOutput.Text == "\\")
-            {
-                tbxOutput.Text = string.Empty;
-            }
-
-            // Enable / Disable "Open Output Location" Buttion
-            if (!string.IsNullOrWhiteSpace(tbxOutput.Text))
-            {
-                bool exists = Directory.Exists(Path.GetDirectoryName(tbxOutput.Text));
-
-                if (exists)
-                {
-                    openLocationOutput.IsEnabled = true;
-                }
-                else
-                {
-                    openLocationOutput.IsEnabled = false;
-                }
-            }
-        }
-
-
-        /// <summary>
-        ///    Open Output Folder Button
-        /// </summary>
-        private void openLocationOutput_Click(object sender, RoutedEventArgs e)
-        {
-            if (!string.IsNullOrEmpty(outputDir))
-            {
-                Process.Start("explorer.exe", @outputDir);
-            }
-        }
-
-
-        /// <summary>
-        ///     Video Bitrate Custom Number Textbox
-        /// </summary>
-        // Got Focus
-        private void vBitrateCustom_GotFocus(object sender, RoutedEventArgs e)
-        {
-            //// Clear Textbox on first use
-            //if (vBitrateCustom.Text == string.Empty)
-            //{
-            //    TextBox tbvb = (TextBox)sender;
-            //    tbvb.Text = string.Empty;
-            //    tbvb.GotFocus += vBitrateCustom_GotFocus; //used to be -=
-            //}
-        }
-        // Lost Focus
-        private void vBitrateCustom_LostFocus(object sender, RoutedEventArgs e)
-        {
-            //// Change Textbox back to Bitrate
-            //TextBox tbvb = sender as TextBox;
-            //if (tbvb.Text.Trim().Equals(string.Empty))
-            //{
-            //    tbvb.Text = string.Empty;
-            //    tbvb.GotFocus -= vBitrateCustom_GotFocus; //used to be +=
-
-            //    //vBitrateCustom.Foreground = TextBoxDarkBlue;
-            //}
-        }
-
-
-        /// <summary>
-        ///     Video Minrate Custom Number Textbox
-        /// </summary>
-        // Got Focus
-        private void vMinrateCustom_GotFocus(object sender, RoutedEventArgs e)
-        {
-            //// Clear Textbox on first use
-            //if (vMinrateCustom.Text == string.Empty)
-            //{
-            //    TextBox tbvb = (TextBox)sender;
-            //    tbvb.Text = string.Empty;
-            //    tbvb.GotFocus += vMinrateCustom_GotFocus; //used to be -=
-            //}
-        }
-        // Lost Focus
-        private void vMinrateCustom_LostFocus(object sender, RoutedEventArgs e)
-        {
-            //// Change Textbox back to Bitrate
-            //TextBox tbvb = sender as TextBox;
-            //if (tbvb.Text.Trim().Equals(string.Empty))
-            //{
-            //    tbvb.Text = string.Empty;
-            //    tbvb.GotFocus -= vMinrateCustom_GotFocus; //used to be +=
-            //}
-        }
-
-
-        /// <summary>
-        ///     Video Maxrate Custom Number Textbox
-        /// </summary>
-        // Got Focus
-        private void vMaxrateCustom_GotFocus(object sender, RoutedEventArgs e)
-        {
-            //// Clear Textbox on first use
-            //if (vMinrateCustom.Text == string.Empty)
-            //{
-            //    TextBox tbvb = (TextBox)sender;
-            //    tbvb.Text = string.Empty;
-            //    tbvb.GotFocus += vMaxrateCustom_GotFocus; //used to be -=
-            //}
-        }
-        // Lost Focus
-        private void vMaxrateCustom_LostFocus(object sender, RoutedEventArgs e)
-        {
-            //// Change Textbox back to Bitrate
-            //TextBox tbvb = sender as TextBox;
-            //if (tbvb.Text.Trim().Equals(string.Empty))
-            //{
-            //    tbvb.Text = string.Empty;
-            //    tbvb.GotFocus -= vMaxrateCustom_GotFocus; //used to be +=
-            //}
-        }
-
-
-        /// <summary>
-        ///     Video Bufsize Custom Number Textbox
-        /// </summary>
-        // Got Focus
-        private void vBufsizeCustom_GotFocus(object sender, RoutedEventArgs e)
-        {
-            //// Clear Textbox on first use
-            //if (vBufsizeCustom.Text == string.Empty)
-            //{
-            //    TextBox tbvb = (TextBox)sender;
-            //    tbvb.Text = string.Empty;
-            //    tbvb.GotFocus += vBufsizeCustom_GotFocus; //used to be -=
-            //}
-        }
-        // Lost Focus
-        private void vBufsizeCustom_LostFocus(object sender, RoutedEventArgs e)
-        {
-            //// Change Textbox back to Bitrate
-            //TextBox tbvb = sender as TextBox;
-            //if (tbvb.Text.Trim().Equals(string.Empty))
-            //{
-            //    tbvb.Text = string.Empty;
-            //    tbvb.GotFocus -= vBufsizeCustom_GotFocus; //used to be +=
-            //}
-        }
-
-
-        /// <summary>
-        ///     Video CRF Custom Number Textbox
-        /// </summary>
-        private void crfCustom_KeyDown(object sender, KeyEventArgs e)
-        {
-            // Only allow Numbers or Backspace
-            if (!(e.Key >= Key.D0 && e.Key <= Key.D9) && e.Key != Key.Back)
-            {
-                e.Handled = true;
-            }
-        }
-        // Got Focus
-        private void crfCustom_GotFocus(object sender, RoutedEventArgs e)
-        {
-            // Clear Textbox on first use
-            if (crfCustom.Text == string.Empty)
-            {
-                TextBox tbcrf = (TextBox)sender;
-                tbcrf.Text = string.Empty;
-                tbcrf.GotFocus += crfCustom_GotFocus; //used to be -=
-            }
-        }
-        // Lost Focus
-        private void crfCustom_LostFocus(object sender, RoutedEventArgs e)
-        {
-            // Change Textbox back to CRF
-            TextBox tbcrf = sender as TextBox;
-            if (tbcrf.Text.Trim().Equals(string.Empty))
-            {
-                tbcrf.Text = string.Empty;
-                tbcrf.GotFocus -= crfCustom_GotFocus; //used to be +=
-            }
-        }
-
-
-        /// <summary>
-        /// Video VBR Toggle - Checked
-        /// </summary>
-        private void tglVideoVBR_Checked(object sender, RoutedEventArgs e)
-        {
-            // -------------------------
-            // MPEG-4 VBR can only use 1 Pass
-            // -------------------------
-            if ((string)cboVideoCodec.SelectedItem == "MPEG-2"
-                || (string)cboVideoCodec.SelectedItem == "MPEG-4")
-            {
-                // Change ItemSource
-                VideoControls.Pass_ItemSource = new List<string>()
-                {
-                    "1 Pass",
-                };
-
-                // Populate ComboBox from ItemSource
-                cboPass.ItemsSource = VideoControls.Pass_ItemSource;
-
-                // Select Item
-                cboPass.SelectedItem = "1 Pass";
-            }
-
-
-            // -------------------------
-            // Display Bit-rate in TextBox
-            // -------------------------
-            VideoBitrateDisplay();
-        }
-
-        /// <summary>
-        /// Video VBR Toggle - Unchecked
-        /// </summary>
-        private void tglVideoVBR_Unchecked(object sender, RoutedEventArgs e)
-        {
-            // -------------------------
-            // MPEG-2 / MPEG-4 CBR Reset
-            // -------------------------
-            if ((string)cboVideoCodec.SelectedItem == "MPEG-2"
-                || (string)cboVideoCodec.SelectedItem == "MPEG-4")
-            {
-                // Change ItemSource
-                VideoControls.Pass_ItemSource = new List<string>()
-                {
-                    "2 Pass",
-                    "1 Pass",
-                };
-
-                // Populate ComboBox from ItemSource
-                cboPass.ItemsSource = VideoControls.Pass_ItemSource;
-
-                // Select Item
-                cboPass.SelectedItem = "2 Pass";
-            }
-
-            // -------------------------
-            // Display Bit-rate in TextBox
-            // -------------------------
-            VideoBitrateDisplay();
-        }
-
-
-        /// <summary>
-        ///     FPS ComboBox
-        /// </summary>
-        private void cboFPS_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            // Custom ComboBox Editable
-            if ((string)cboFPS.SelectedItem == "Custom" || string.IsNullOrEmpty((string)cboFPS.SelectedItem))
-            {
-                cboFPS.IsEditable = true;
-            }
-
-            // Other Items Disable Editable
-            if ((string)cboFPS.SelectedItem != "Custom" && !string.IsNullOrEmpty((string)cboFPS.SelectedItem))
-            {
-                cboFPS.IsEditable = false;
-            }
-
-            // Maintain Editable Combobox while typing
-            if (cboFPS.IsEditable == true)
-            {
-                cboFPS.IsEditable = true;
-
-                // Clear Custom Text
-                cboFPS.SelectedIndex = -1;
-            }
-
-            // Disable Copy on change
-            VideoControls.AutoCopyVideoCodec(this);
-            VideoControls.AutoCopySubtitleCodec(this);
-
-        }
-
-
-        /// <summary>
-        ///     Audio Custom Bitrate kbps Textbox
-        /// </summary>
-        private void audioCustom_KeyDown(object sender, KeyEventArgs e)
-        {
-            // Only allow Numbers or Backspace
-            if (!(e.Key >= Key.D0 && e.Key <= Key.D9) && e.Key != Key.Back)
-            {
-                e.Handled = true;
-            }
-        }
-        // Got Focus
-        private void audioCustom_GotFocus(object sender, RoutedEventArgs e)
-        {
-            // Clear Textbox on first use
-            if (audioCustom.Text == string.Empty)
-            {
-                TextBox tbac = (TextBox)sender;
-                tbac.Text = string.Empty;
-                tbac.GotFocus += audioCustom_GotFocus; //used to be -=
-            }
-        }
-        // Lost Focus
-        private void audioCustom_LostFocus(object sender, RoutedEventArgs e)
-        {
-            // Change Textbox back to kbps
-            TextBox tbac = sender as TextBox;
-            if (tbac.Text.Trim().Equals(string.Empty))
-            {
-                tbac.Text = string.Empty;
-                tbac.GotFocus -= audioCustom_GotFocus; //used to be +=
-            }
-        }
-
-
-        /// <summary>
-        ///     Samplerate ComboBox
-        /// </summary>
-        private void cboSamplerate_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            // Switch to Copy if inputExt & outputExt match
-            AudioControls.AutoCopyAudioCodec(this);
-        }
-
-
-        /// <summary>
-        ///     Bit Depth ComboBox
-        /// </summary>
-        private void cboBitDepth_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            // Switch to Copy if inputExt & outputExt match
-            AudioControls.AutoCopyAudioCodec(this);
-        }
-
-
-        /// <summary>
-        ///    Volume TextBox Changed
-        /// </summary>
-        private void volumeUpDown_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            // Disable Volume instead of running AutoCopyAudioCodec each time 
-            // This needs to be re-thought, calling method on every timer tick
-            AudioControls.AutoCopyAudioCodec(this);
-        }
-        /// <summary>
-        ///    Volume TextBox KeyDown
-        /// </summary>
-        private void volumeUpDown_KeyDown(object sender, KeyEventArgs e)
-        {
-            try //error if other letters or symbols get in
-            {
-                // Only allow Numbers or Backspace
-                if (!(e.Key >= Key.D0 && e.Key <= Key.D9) && e.Key != Key.Back)
-                {
-                    e.Handled = true;
-                }
-                // Allow Percent %
-                if ((e.Key == Key.D5) && e.Key == Key.RightShift | e.Key == Key.LeftShift)
-                {
-                    e.Handled = true;
-                }
-            }
-            catch
-            {
-
-            }
-        }
-
-        /// <summary>
-        ///    Volume Buttons
-        /// </summary>
-        // -------------------------
-        // Up
-        // -------------------------
-        // Volume Up Button Click
-        private void volumeUpButton_Click(object sender, RoutedEventArgs e)
-        {
-            int value;
-            int.TryParse(volumeUpDown.Text, out value);
-
-            value += 1;
-            volumeUpDown.Text = value.ToString();
-        }
-        // Up Button Each Timer Tick
-        private void dispatcherTimerUp_Tick(object sender, EventArgs e)
-        {
-            int value;
-            int.TryParse(volumeUpDown.Text, out value);
-
-            value += 1;
-            volumeUpDown.Text = value.ToString();
-        }
-        // Hold Up Button
-        private void volumeUpButton_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            // Timer      
-            dispatcherTimerUp.Interval = new TimeSpan(0, 0, 0, 0, 100); //100ms
-            dispatcherTimerUp.Start();
-        }
-        // Up Button Released
-        private void volumeUpButton_PreviewMouseUp(object sender, MouseButtonEventArgs e)
-        {
-            // Disable Timer
-            dispatcherTimerUp.Stop();
-        }
-        // -------------------------
-        // Down
-        // -------------------------
-        // Volume Down Button Click
-        private void volumeDownButton_Click(object sender, RoutedEventArgs e)
-        {
-            int value;
-            int.TryParse(volumeUpDown.Text, out value);
-
-            value -= 1;
-            volumeUpDown.Text = value.ToString();
-        }
-        // Down Button Each Timer Tick
-        private void dispatcherTimerDown_Tick(object sender, EventArgs e)
-        {
-            int value;
-            int.TryParse(volumeUpDown.Text, out value);
-
-            value -= 1;
-            volumeUpDown.Text = value.ToString();
-        }
-        // Hold Down Button
-        private void volumeDownButton_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            // Timer      
-            dispatcherTimerDown.Interval = new TimeSpan(0, 0, 0, 0, 100); //100ms
-            dispatcherTimerDown.Start();
-        }
-        // Down Button Released
-        private void volumeDownButton_PreviewMouseUp(object sender, MouseButtonEventArgs e)
-        {
-            // Disable Timer
-            dispatcherTimerDown.Stop();
-        }
-
-
-        /// <summary>
-        ///    Video Codec Combobox
-        /// </summary>
-        private void cboVideoCodec_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            // -------------------------
-            // Video Codec Controls
-            // -------------------------
-            VideoControls.VideoCodecControls(this);
-
-            // -------------------------
-            // Video Encoding Pass Controls
-            // -------------------------
-            VideoControls.EncodingPass(this);
-
-            // -------------------------
-            // Pixel Format
-            // -------------------------
-            VideoControls.PixelFormat(this);
-
-            // -------------------------
-            // Optimize Controls
-            // -------------------------
-            VideoControls.OptimizeControls(this);
-
-            // -------------------------
-            // Display Video Bit-rate in TextBox
-            // -------------------------
-            // Must be after EncodingPass
-            VideoBitrateDisplay();
-
-            // -------------------------
-            // Enable/Disable Video VBR
-            // -------------------------
-            if ((string)cboVideoCodec.SelectedItem == "VP8"
-                || (string)cboVideoCodec.SelectedItem == "VP9"
-                || (string)cboVideoCodec.SelectedItem == "x264" 
-                || (string)cboVideoCodec.SelectedItem == "x265"
-                || (string)cboVideoCodec.SelectedItem == "Copy")
-            {
-                tglVideoVBR.IsChecked = false;
-                tglVideoVBR.IsEnabled = false;
-            }
-            // All other codecs
-            else
-            {
-                // Do not check, only enable
-                tglVideoVBR.IsEnabled = true;
-            }
-
-            // -------------------------
-            // Enable/Disable Hardware Acceleration
-            // -------------------------
-            if ((string)cboVideoCodec.SelectedItem == "x264" 
-                || (string)cboVideoCodec.SelectedItem == "x265")
-            {
-                cboHWAccel.IsEnabled = true;
-            }
-            else
-            {
-                cboHWAccel.SelectedItem = "off";
-                cboHWAccel.IsEnabled = false;
-            }
-
-            // -------------------------
-            // Enable/Disable Optimize Tune, Profile, Level
-            // -------------------------
-            //if ((string)cboVideoCodec.SelectedItem == "x264")
-            //{
-            //    // Enable
-            //    cboOptTune.IsEnabled = true;
-            //    cboOptProfile.IsEnabled = true;
-            //    cboOptLevel.IsEnabled = true;
-            //}
-            //else
-            //{
-            //    // Disable
-            //    cboOptTune.IsEnabled = false;
-            //    cboOptProfile.IsEnabled = false;
-            //    cboOptLevel.IsEnabled = false;
-
-            //    cboOptTune.SelectedItem = "none";
-            //    cboOptProfile.SelectedItem = "none";
-            //    cboOptLevel.SelectedItem = "none";
-            //    Video.optFlags = string.Empty;
-            //}
-        }
-
-        /// <summary>
-        ///    Subtitle Codec Combobox
-        /// </summary>
-        private void cboSubtitleCodec_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            VideoControls.VideoCodecControls(this);
-
-            // -------------------------
-            // None Codec
-            // -------------------------
-            if ((string)cboSubtitleCodec.SelectedItem == "None")
-            {
-                cboSubtitlesStream.SelectedItem = "none";
-                cboSubtitlesStream.IsEnabled = false;
-            }
-
-            // -------------------------
-            // Burn Codec
-            // -------------------------
-            else if((string)cboSubtitleCodec.SelectedItem == "Burn")
-            {
-                // Force Select External
-                // Can't burn All subtitle streams
-                cboSubtitlesStream.SelectedItem = "external";
-                cboSubtitlesStream.IsEnabled = true;
-            }
-
-            // -------------------------
-            // Copy Codec
-            // -------------------------
-            else if ((string)cboSubtitleCodec.SelectedItem == "Copy")
-            {
-                //cboSubtitlesStream.SelectedItem = "all";
-                cboSubtitlesStream.IsEnabled = true;
-            }
-
-            // -------------------------
-            // All Other Codecs
-            // -------------------------
-            else
-            {
-                cboSubtitlesStream.IsEnabled = true;
-            }
-        }
-
-
-        /// <summary>
-        ///    Audio Codec Combobox
-        /// </summary>
-        private void cboAudioCodec_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            AudioControls.AudioCodecControls(this);
-        }
-
-
-        /// <summary>
-        ///    Format Combobox
-        /// </summary>
-        private void cboFormat_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            // -------------------------
-            // Output Control Selections
-            // -------------------------
-            FormatControls.OuputFormatDefaults(this);
-
-            // -------------------------
-            // Get Output Extension
-            // -------------------------
-            FormatControls.OutputFormatExt(this);
-
-            // -------------------------
-            // Output ComboBox Options
-            // -------------------------
-            FormatControls.OutputFormat(this);
-
-            // -------------------------
-            // Change All MainWindow Items
-            // -------------------------
-            VideoControls.VideoCodecControls(this);
-            AudioControls.AudioCodecControls(this);
-
-            // -------------------------
-            // Pass Controls
-            // -------------------------
-            VideoControls.EncodingPass(this);
-
-            // -------------------------
-            // Optimize Controls
-            // -------------------------
-            VideoControls.OptimizeControls(this);
-
-            // -------------------------
-            // File Renamer
-            // -------------------------
-            // Add (1) if File Names are the same
-            if (!string.IsNullOrEmpty(inputDir)
-                && string.Equals(inputFileName, outputFileName, StringComparison.CurrentCultureIgnoreCase))
-            {
-                outputFileName = FileRenamer(inputFileName);
-            }
-
-            // -------------------------
-            // Default to Auto
-            // -------------------------
-            // Always Default Video to Auto if Input Ext matches Format Output Ext
-            if ((string)cboVideoQuality.SelectedItem != "Auto" 
-                && string.Equals(inputExt, outputExt, StringComparison.CurrentCultureIgnoreCase))
-            {
-                cboVideoQuality.SelectedItem = "Auto";
-            }
-            // Always Default Video to Auto if Input Ext matches Format Output Ext
-            if ((string)cboAudioQuality.SelectedItem != "Auto" 
-                && string.Equals(inputExt, outputExt, StringComparison.CurrentCultureIgnoreCase))
-            {
-                cboAudioQuality.SelectedItem = "Auto";
-            }
-
-            // -------------------------
-            // Single File - Update Ouput Textbox with current Format extension
-            // -------------------------
-            if (tglBatch.IsChecked == false && !string.IsNullOrWhiteSpace(tbxOutput.Text))
-            {
-                tbxOutput.Text = outputDir + outputFileName + outputExt;
-            }
-            
-        }
-
-
-        /// <summary>
-        ///    Media Type Combobox
-        /// </summary>
-        private void cboMediaType_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            FormatControls.MediaType(this); 
-        }
-
-
-        /// <summary>
-        ///    Video Quality Combobox
-        /// </summary>
-        private void cboVideo_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            // -------------------------
-            // Auto Copy Video Codec Controls
-            // -------------------------
-            VideoControls.AutoCopyVideoCodec(this);
-
-            // -------------------------
-            // Auto Copy Subtitle Codec Controls
-            // -------------------------
-            VideoControls.AutoCopySubtitleCodec(this);
-
-            // -------------------------
-            // Video Quality Controls
-            // -------------------------
-            VideoControls.VideoQualityControls(this);
-
-            // -------------------------
-            // Pixel Format
-            // -------------------------
-            VideoControls.PixelFormat(this);
-
-
-            // -------------------------
-            // Enable Video Bitrate Custom
-            // -------------------------
-            // Enable
-            if ((string)cboVideoQuality.SelectedItem == "Custom")
-            {
-                crfCustom.IsEnabled = true;
-                vBitrateCustom.IsEnabled = true;
-                vMinrateCustom.IsEnabled = true;
-                vMaxrateCustom.IsEnabled = true;
-                vBufsizeCustom.IsEnabled = true;
-
-                // Disable CRF for Theora
-                if ((string)cboVideoCodec.SelectedItem == "Theora")
-                {
-                    crfCustom.IsEnabled = false;
-                }
-            }
-            // Disable
-            else
-            {
-                crfCustom.IsEnabled = false;
-                vBitrateCustom.IsEnabled = false;
-                vMinrateCustom.IsEnabled = false;
-                vMaxrateCustom.IsEnabled = false;
-                vBufsizeCustom.IsEnabled = false;
-            }
-
-            // -------------------------
-            // Pass Controls Method
-            // -------------------------
-            VideoControls.EncodingPass(this);
-
-            // -------------------------
-            // Pass - Default to CRF
-            // -------------------------
-            // Keep in Video SelectionChanged
-            // If Video Not Auto and User Willingly Selected Pass is false
-            if ((string)cboVideoQuality.SelectedItem != "Auto" 
-                && VideoControls.passUserSelected == false)
-            {
-                cboPass.SelectedItem = "CRF";
-            }
-
-
-            // -------------------------
-            // Display Bit-rate in TextBox
-            // -------------------------
-            VideoBitrateDisplay();
-
-        } // End Video Combobox
-
-
-        /// <summary>
-        ///    Video Display Bit-rate
-        /// </summary>
-        public void VideoBitrateDisplay()
-        {
-            // -------------------------
-            // Clear Variables before Run
-            // -------------------------
-            ClearVariables(this);
-            vBitrateCustom.Text = string.Empty;
-            vMinrateCustom.Text = string.Empty;
-            vMaxrateCustom.Text = string.Empty;
-            vBufsizeCustom.Text = string.Empty;
-            crfCustom.Text = string.Empty;
-
-
-            if ((string)cboVideoQuality.SelectedItem != "Auto"
-                && (string)cboVideoQuality.SelectedItem != "Lossless"
-                && (string)cboVideoQuality.SelectedItem != "Custom"
-                && (string)cboVideoQuality.SelectedItem != "None"
-                && !string.IsNullOrEmpty((string)cboVideoQuality.SelectedItem))
-            {
-                // Display Bitrate in TextBox
-                // Display Controls at the end of VideoQuality() Method
-                Video.VideoQuality(this);
-
-                //if ((string)cboVideoCodec.SelectedItem == "x265")
-                //{
-                //    vBitrateCustom.Text = Video.vBitrate;
-                //}
-
-                //// Display Bit-rate in TextBox
-                //if (!string.IsNullOrEmpty(Video.vBitrate))
-                //{
-                //    vBitrateCustom.Text = Video.vBitrate;
-                //}
-
-                //// Display Minrate in TextBox
-                //if (!string.IsNullOrEmpty(Video.vMinrate))
-                //{
-                //    vMinrateCustom.Text = Video.vMinrate;
-                //}
-
-                //// Display Maxrate in TextBox
-                //if (!string.IsNullOrEmpty(Video.vMaxrate))
-                //{
-                //    vMaxrateCustom.Text = Video.vMaxrate;
-                //}
-
-                //// Display Bufsize in TextBox
-                //if (!string.IsNullOrEmpty(Video.vBufsize))
-                //{
-                //    vBufsizeCustom.Text = Video.vBufsize;
-                //}
-
-                //// Display CRF in TextBox
-                //if (!string.IsNullOrEmpty(Video.crf))
-                //{
-                //    crfCustom.Text = Video.crf.Replace("-crf ", "");
-                //}
-            }
-            else
-            {
-                crfCustom.Text = string.Empty;
-
-                vBitrateCustom.Text = string.Empty;
-                vMinrateCustom.Text = string.Empty;
-                vMaxrateCustom.Text = string.Empty;
-                vBufsizeCustom.Text = string.Empty;
-            }
-        }
-
-        /// <summary>
-        ///    Audio Quality Combobox
-        /// </summary>
-        private void cboAudio_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            // -------------------------
-            // Custom
-            // -------------------------
-            //enable Audio Custom
-            if ((string)cboAudioQuality.SelectedItem == "Custom")
-            {
-                audioCustom.IsEnabled = true;
-            }
-            else
-            {
-                audioCustom.IsEnabled = false;
-                //audioCustom.Text = "kbps";
-                audioCustom.Text = string.Empty;
-            }
-
-            // -------------------------
-            // Audio
-            // -------------------------
-            // Always Enable Audio for AAC codec
-            if ((string)cboAudioCodec.SelectedItem == "AAC")
-            {
-                cboAudioQuality.IsEnabled = true;
-            }
-
-            // -------------------------
-            // Audio Codec
-            // -------------------------
-            // Always switch to ALAC if M4A is Lossless
-            if ((string)cboFormat.SelectedItem == "m4a" && (string)cboAudioQuality.SelectedItem == "Lossless")
-            {
-                cboAudioCodec.SelectedItem = "ALAC";
-            }
-
-            // -------------------------
-            // VBR
-            // -------------------------
-            // Disable and Uncheck VBR if, Lossless or Mute
-            if ((string)cboAudioQuality.SelectedItem == "Lossless" 
-                || (string)cboAudioQuality.SelectedItem == "Mute")
-            {
-                tglAudioVBR.IsEnabled = false;
-                tglAudioVBR.IsChecked = false;
-            }
-
-            // Disable VBR if AC3, ALAC, FLAC, PCM, Copy
-            if ((string)cboAudioCodec.SelectedItem == "AC3"
-                || (string)cboAudioCodec.SelectedItem == "ALAC"
-                || (string)cboAudioCodec.SelectedItem == "FLAC"
-                || (string)cboAudioCodec.SelectedItem == "PCM"
-                || (string)cboAudioCodec.SelectedItem == "Copy")
-            {
-                tglAudioVBR.IsEnabled = false;
-            }
-            // Enable VBR for Vorbis, Opus, LAME, AAC
-            if ((string)cboAudioCodec.SelectedItem == "Vorbis" 
-                || (string)cboAudioCodec.SelectedItem == "Opus" 
-                || (string)cboAudioCodec.SelectedItem == "LAME" 
-                || (string)cboAudioCodec.SelectedItem == "AAC")
-            {
-                tglAudioVBR.IsEnabled = true;
-            }
-
-            // If AUTO, Check or Uncheck VBR
-            if ((string)cboAudioQuality.SelectedItem == "Auto")
-            {
-                if ((string)cboAudioCodec.SelectedItem == "Vorbis")
-                {
-                    tglAudioVBR.IsChecked = true;
-                }
-                if ((string)cboAudioCodec.SelectedItem == "Opus" 
-                    || (string)cboAudioCodec.SelectedItem == "AAC" 
-                    || (string)cboAudioCodec.SelectedItem == "AC3" 
-                    || (string)cboAudioCodec.SelectedItem == "LAME" 
-                    || (string)cboAudioCodec.SelectedItem == "ALAC" 
-                    || (string)cboAudioCodec.SelectedItem == "FLAC" 
-                    || (string)cboAudioCodec.SelectedItem == "PCM" 
-                    || (string)cboAudioCodec.SelectedItem == "Copy")
-                {
-                    tglAudioVBR.IsChecked = false;
-                }
-            }
-
-            // Quality VBR Override
-            // Disable / Enable VBR
-            if ((string)cboAudioQuality.SelectedItem == "Lossless" || (string)cboAudioQuality.SelectedItem == "Mute")
-            {
-                tglAudioVBR.IsEnabled = false;
-            }
-
-            // Call Method (Needs to be at this location)
-            // Set Audio Codec Combobox to "Copy" if Input Extension is Same as Output Extension and Audio Quality is Auto
-            AudioControls.AutoCopyAudioCodec(this);
-
-
-            // -------------------------
-            // Display Bit-rate in TextBox
-            // -------------------------
-            if ((string)cboAudioQuality.SelectedItem != "Auto"
-                && (string)cboAudioQuality.SelectedItem != "Lossless"
-                && (string)cboAudioQuality.SelectedItem != "Custom"
-                && (string)cboAudioQuality.SelectedItem != "Mute"
-                && (string)cboAudioQuality.SelectedItem != "None"
-                && !string.IsNullOrEmpty((string)cboAudioQuality.SelectedItem))
-            {
-                audioCustom.Text = cboAudioQuality.SelectedItem.ToString() + "k";
-            }
-            else
-            {
-                //audioCustom.Text = "kbps";
-                audioCustom.Text = string.Empty;
-            }
-
-            // -------------------------
-            // Mute
-            // -------------------------
-            if ((string)cboAudioQuality.SelectedItem == "Mute")
-            {
-                // -------------------------
-                // Disable
-                // -------------------------
-
-                // Channel
-                //cboChannel.SelectedItem = "Source";
-                cboChannel.IsEnabled = false;
-
-                // Stream
-                //cboAudioStream.SelectedItem = "none";
-                cboAudioStream.IsEnabled = false;
-
-                // Samplerate
-                //cboSamplerate.SelectedItem = "auto";
-                cboSamplerate.IsEnabled = false;
-
-                // BitDepth
-                //cboBitDepth.SelectedItem = "auto";
-                cboBitDepth.IsEnabled = false;
-
-                // Volume
-                volumeUpDown.IsEnabled = false;
-                volumeUpButton.IsEnabled = false;
-                volumeDownButton.IsEnabled = false;
-            }
-            else
-            {
-                // -------------------------
-                // Enable
-                // -------------------------
-
-                // Don't select item, to avoid changing user selection each time Quality is changed.
-
-                // Channel
-                cboChannel.IsEnabled = true;
-
-                // Stream
-                cboAudioStream.IsEnabled = true;
-
-                // Samplerate
-                cboSamplerate.IsEnabled = true;
-
-                // BitDepth
-                cboBitDepth.IsEnabled = true;
-
-                // Volume
-                volumeUpDown.IsEnabled = true;
-                volumeUpButton.IsEnabled = true;
-                volumeDownButton.IsEnabled = true;
-            }
-
-        } // End audio_SelectionChanged
-
-
-
-        /// <summary>
-        ///    Size Combobox
-        /// </summary>
-        private void cboSize_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            // Set Video Codec Combobox to "Copy" if Input Extension is Same as Output Extension and Video Quality is Auto
-            VideoControls.AutoCopyVideoCodec(this);
-            VideoControls.AutoCopySubtitleCodec(this);
-
-            // Enable Aspect Custom
-            if ((string)cboSize.SelectedItem == "Custom")
-            {
-                widthCustom.IsEnabled = true;
-                heightCustom.IsEnabled = true;
-
-                widthCustom.Text = "auto";
-                heightCustom.Text = "auto";
-            }
-            else
-            {
-                widthCustom.IsEnabled = false;
-                heightCustom.IsEnabled = false;
-                widthCustom.Text = "auto";
-                heightCustom.Text = "auto";
-            }
-
-            // Change TextBox Resolution numbers
-            if ((string)cboSize.SelectedItem == "Source")
-            {
-                widthCustom.Text = "auto";
-                heightCustom.Text = "auto";
-            }
-            else if ((string)cboSize.SelectedItem == "8K")
-            {
-                widthCustom.Text = "7680";
-                heightCustom.Text = "auto";
-            }
-            else if ((string)cboSize.SelectedItem == "4K")
-            {
-                widthCustom.Text = "4096";
-                heightCustom.Text = "auto";
-            }
-            else if ((string)cboSize.SelectedItem == "4K UHD")
-            {
-                widthCustom.Text = "3840";
-                heightCustom.Text = "auto";
-            }
-            else if ((string)cboSize.SelectedItem == "2K")
-            {
-                widthCustom.Text = "2048";
-                heightCustom.Text = "auto";
-            }
-            else if ((string)cboSize.SelectedItem == "1440p")
-            {
-                widthCustom.Text = "auto";
-                heightCustom.Text = "1440";
-            }
-            else if ((string)cboSize.SelectedItem == "1200p")
-            {
-                widthCustom.Text = "auto";
-                heightCustom.Text = "1200";
-            }
-            else if ((string)cboSize.SelectedItem == "1080p")
-            {
-                widthCustom.Text = "auto";
-                heightCustom.Text = "1080";
-            }
-            else if ((string)cboSize.SelectedItem == "720p")
-            {
-                widthCustom.Text = "auto";
-                heightCustom.Text = "720";
-            }
-            else if ((string)cboSize.SelectedItem == "480p")
-            {
-                widthCustom.Text = "auto";
-                heightCustom.Text = "480";
-            }
-            else if ((string)cboSize.SelectedItem == "320p")
-            {
-                widthCustom.Text = "auto";
-                heightCustom.Text = "320";
-            }
-            else if ((string)cboSize.SelectedItem == "240p")
-            {
-                widthCustom.Text = "auto";
-                heightCustom.Text = "240";
-            }
-        }
-        // -------------------------
-        // Width Textbox Change
-        // -------------------------
-        // Got Focus
-        private void widthCustom_GotFocus(object sender, RoutedEventArgs e)
-        {
-            // Clear textbox on focus if default text "width"
-            if (widthCustom.Focus() == true && widthCustom.Text == "auto")
-            {
-                widthCustom.Text = string.Empty;
-            }
-        }
-        // Lost Focus
-        private void widthCustom_LostFocus(object sender, RoutedEventArgs e)
-        {
-            // Change textbox back to "width" if left empty
-            if (string.IsNullOrWhiteSpace(widthCustom.Text))
-            {
-                widthCustom.Text = "auto";
-            }
-        }
-
-        // -------------------------
-        // Height Textbox Change
-        // -------------------------
-        // Got Focus
-        private void heightCustom_GotFocus(object sender, RoutedEventArgs e)
-        {
-            // Clear textbox on focus if default text "width"
-            if (heightCustom.Focus() == true && heightCustom.Text == "auto")
-            {
-                heightCustom.Text = string.Empty;
-            }
-        }
-        // Lost Focus
-        private void heightCustom_LostFocus(object sender, RoutedEventArgs e)
-        {
-            // Change textbox back to "width" if left empty
-            if (string.IsNullOrWhiteSpace(heightCustom.Text))
-            {
-                heightCustom.Text = "auto";
-            }
-        }
-
-
-        /// <summary>
-        ///    Cut Combobox
-        /// </summary>
-        private void cboCut_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            FormatControls.CutControls(this); 
-        }
-
-        // -------------------------
-        // Frame Start Textbox Change
-        // -------------------------
-        // Got Focus
-        private void frameStart_GotFocus(object sender, RoutedEventArgs e)
-        {
-            // Clear textbox on focus if default text "width"
-            if (frameStart.Focus() == true && frameStart.Text == "Frame")
-            {
-                frameStart.Text = string.Empty;
-            }
-        }
-        // Lost Focus
-        private void frameStart_LostFocus(object sender, RoutedEventArgs e)
-        {
-            // Change textbox back to "auto" if left empty
-            if (string.IsNullOrWhiteSpace(frameStart.Text))
-            {
-                frameStart.Text = "Frame";
-            }
-        }
-
-        // -------------------------
-        // Frame End Textbox Change
-        // -------------------------
-        // Got Focus
-        private void frameEnd_GotFocus(object sender, RoutedEventArgs e)
-        {
-            // Clear textbox on focus if default text "auto"
-            if (frameEnd.Focus() == true && frameEnd.Text == "Range")
-            {
-                frameEnd.Text = string.Empty;
-            }
-        }
-        // Lost Focus
-        private void frameEnd_LostFocus(object sender, RoutedEventArgs e)
-        {
-            // Change textbox back to "auto" if left empty
-            if (string.IsNullOrWhiteSpace(frameEnd.Text))
-            {
-                frameEnd.Text = "Range";
-            }
-        }
-
-
-        /// <summary>
-        ///    Crop Window Button
-        /// </summary>
-        private void buttonCrop_Click(object sender, RoutedEventArgs e)
-        {
-            // Start Window
-            cropwindow = new CropWindow(this);
-
-            // Detect which screen we're on
-            var allScreens = System.Windows.Forms.Screen.AllScreens.ToList();
-            var thisScreen = allScreens.SingleOrDefault(s => this.Left >= s.WorkingArea.Left && this.Left < s.WorkingArea.Right);
-
-            // Position Relative to MainWindow
-            // Keep from going off screen
-            cropwindow.Left = Math.Max((this.Left + (this.Width - cropwindow.Width) / 2), thisScreen.WorkingArea.Left);
-            cropwindow.Top = Math.Max(this.Top - cropwindow.Height - 12, thisScreen.WorkingArea.Top);
-
-            // Keep Window on Top
-            cropwindow.Owner = Window.GetWindow(this);
-
-            // Open Window
-            cropwindow.ShowDialog();
-        }
-
-
-        /// <summary>
-        ///    Crop Clear Button
-        /// </summary>
-        private void buttonCropClear_Click(object sender, RoutedEventArgs e)
-        {
-            //try
-            //{
-            //cropwindow.textBoxCropWidth.Text = string.Empty;
-            //cropwindow.textBoxCropHeight.Text = string.Empty;
-            //cropwindow.textBoxCropX.Text = string.Empty;
-            //cropwindow.textBoxCropY.Text = string.Empty;
-
-            VideoFilters.vFilter = string.Empty;
-
-                if (VideoFilters.vFiltersList != null)
-                {
-                    VideoFilters.vFiltersList.Clear();
-                    VideoFilters.vFiltersList.TrimExcess();
-                }
-
-            // Trigger the CropWindow Clear Button (only way it will clear the string)
-            //cropwindow.buttonClear_Click(sender, e);
-            CropWindow.CropClear(this);
-
-            //}
-            //catch
-            //{
-
-            //}
-        }
-
-        /// <summary>
-        ///    Subtitle
-        /// </summary>
-        private void cboSubtitle_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            // -------------------------
-            // External
-            // -------------------------
-            if ((string)cboSubtitlesStream.SelectedItem == "external")
-            {
-                // Enable External ListView and Buttons
-                listViewSubtitles.IsEnabled = true;
-
-                btnAddSubtitles.IsEnabled = true;
-                btnRemoveSubtitle.IsEnabled = true;
-                btnSortSubtitleUp.IsEnabled = true;
-                btnSortSubtitleDown.IsEnabled = true;
-                btnClearSubtitles.IsEnabled = true;
-
-                listViewSubtitles.Opacity = 1;
-            }
-            else
-            {
-                // Disable External ListView and Buttons
-                listViewSubtitles.IsEnabled = false;
-
-                btnAddSubtitles.IsEnabled = false;
-                btnRemoveSubtitle.IsEnabled = false;
-                btnSortSubtitleUp.IsEnabled = false;
-                btnSortSubtitleDown.IsEnabled = false;
-                btnClearSubtitles.IsEnabled = false;
-
-                listViewSubtitles.Opacity = 0.1;
-            }
-
-            // -------------------------
-            // Select Subtitle Codec
-            // -------------------------
-            //VideoControls.SubtitleCodecControls(this);
-        }
-
-
-        /// <summary>
-        ///    Presets
-        /// </summary>
-        private void cboPreset_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            Presets.Preset(this); // Method
-        }
-
-
-        /// <summary>
-        ///    Optimize Combobox
-        /// </summary>
-        private void cboOptimize_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            // -------------------------
-            // Optimize Controls
-            // -------------------------
-            VideoControls.OptimizeControls(this);
-        }
-
-
-
-
-        /// <summary>
-        ///    Audio Limiter Toggle
-        /// </summary>
-        //private void tglAudioLimiter_Checked(object sender, RoutedEventArgs e)
-        //{
-        //    //// Enable Limit TextBox
-        //    //if (tglAudioLimiter.IsChecked == true)
-        //    //{
-        //    //    audioLimiter.IsEnabled = true;
-        //    //}
-
-        //    //// Disable Audio Codec Copy
-        //    //AudioControls.AutoCopyAudioCodec(this);
-        //}
-        //private void tglAudioLimiter_Unchecked(object sender, RoutedEventArgs e)
-        //{
-        //    //// Disable Limit TextBox
-        //    //if (tglAudioLimiter.IsChecked == false)
-        //    //{
-        //    //    audioLimiter.IsEnabled = false;
-        //    //}
-
-        //    //// Enable Audio Codec Copy if InputExt / outputExt match
-        //    //AudioControls.AutoCopyAudioCodec(this);
-        //}
-
-
-        /// <summary>
-        ///    Batch Extension Textbox
-        /// </summary>
-        private void batchExtension_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            //// Enabled Check
-            //if (batchExtensionTextBox.IsEnabled == true)
-            //{
-            //    batchExt = batchExtensionTextBox.Text;
-
-            //    // Add period to batchExt if user did not enter (This helps enable Copy)
-            //    if (!string.IsNullOrWhiteSpace(batchExtensionTextBox.Text) &&
-            //        !batchExt.StartsWith("."))
-            //    {
-            //        batchExt = "." + batchExt;
-            //    }
-            //}
-            //else
-            //{
-            //    batchExt = string.Empty;
-            //}
-
-            //// Set Video and AudioCodec Combobox to "Copy" if Input Extension is Same as Output Extension and Video Quality is Auto
-            //VideoControls.AutoCopyVideoCodec(this);
-            //VideoControls.AutoCopySubtitleCodec(this);
-            //AudioControls.AutoCopyAudioCodec(this);
-
-            // Remove Default Value
-            if (string.IsNullOrWhiteSpace(batchExtensionTextBox.Text) || 
-                batchExtensionTextBox.Text == "extension"
-                )
-            {
-                batchExt = string.Empty;
-            }
-            // Batch Extension Variable
-            else
-            {
-                batchExt = batchExtensionTextBox.Text;
-            }
-
-            // Add period to batchExt if user did not enter (This helps enable Copy)
-            if (!batchExt.StartsWith(".") &&
-                !string.IsNullOrWhiteSpace(batchExtensionTextBox.Text) &&
-                batchExtensionTextBox.Text != "extension")
-            {
-                batchExt = "." + batchExt;
-            }
-
-            // Set Video and AudioCodec Combobox to "Copy" if Input Extension is Same as Output Extension and Video Quality is Auto
-            VideoControls.AutoCopyVideoCodec(this);
-            VideoControls.AutoCopySubtitleCodec(this);
-            AudioControls.AutoCopyAudioCodec(this);
-
-        }
-
-
-        /// <summary>
-        /// Subtitle Sort Up
-        /// </summary>
-        private void btnSortSubtitleUp_Click(object sender, RoutedEventArgs e)
-        {
-            if (listViewSubtitles.SelectedItems.Count > 0)
-            {
-                var selectedIndex = listViewSubtitles.SelectedIndex;
-
-                if (selectedIndex > 0)
-                {
-                    // ListView Items
-                    var itemlsvFileNames = listViewSubtitles.Items[selectedIndex];
-                    listViewSubtitles.Items.RemoveAt(selectedIndex);
-                    listViewSubtitles.Items.Insert(selectedIndex - 1, itemlsvFileNames);
-
-                    // List File Paths
-                    string itemFilePaths = Video.subtitleFilePathsList[selectedIndex];
-                    Video.subtitleFilePathsList.RemoveAt(selectedIndex);
-                    Video.subtitleFilePathsList.Insert(selectedIndex - 1, itemFilePaths);
-
-                    // List File Names
-                    string itemFileNames = Video.subtitleFileNamesList[selectedIndex];
-                    Video.subtitleFileNamesList.RemoveAt(selectedIndex);
-                    Video.subtitleFileNamesList.Insert(selectedIndex - 1, itemFileNames);
-
-                    // Highlight Selected Index
-                    listViewSubtitles.SelectedIndex = selectedIndex - 1;
-                }
-            }
-        }
-
-        /// <summary>
-        /// Subtitle Sort Down
-        /// </summary>
-        private void btnSortSubtitleDown_Click(object sender, RoutedEventArgs e)
-        {
-            if (listViewSubtitles.SelectedItems.Count > 0)
-            {
-                var selectedIndex = listViewSubtitles.SelectedIndex;
-
-                if (selectedIndex + 1 < listViewSubtitles.Items.Count)
-                {
-                    // ListView Items
-                    var itemlsvFileNames = listViewSubtitles.Items[selectedIndex];
-                    listViewSubtitles.Items.RemoveAt(selectedIndex);
-                    listViewSubtitles.Items.Insert(selectedIndex + 1, itemlsvFileNames);
-
-                    // List FilePaths
-                    string itemFilePaths = Video.subtitleFilePathsList[selectedIndex];
-                    Video.subtitleFilePathsList.RemoveAt(selectedIndex);
-                    Video.subtitleFilePathsList.Insert(selectedIndex + 1, itemFilePaths);
-
-                    // List File Names
-                    string itemFileNames = Video.subtitleFileNamesList[selectedIndex];
-                    Video.subtitleFileNamesList.RemoveAt(selectedIndex);
-                    Video.subtitleFileNamesList.Insert(selectedIndex + 1, itemFileNames);
-
-                    // Highlight Selected Index
-                    listViewSubtitles.SelectedIndex = selectedIndex + 1;
-                }
-            }
-        }
-
-        /// <summary>
-        /// Subtitle Add
-        /// </summary>
-        private void btnAddSubtitles_Click(object sender, RoutedEventArgs e)
-        {
-            // Open Select File Window
-            Microsoft.Win32.OpenFileDialog selectFiles = new Microsoft.Win32.OpenFileDialog();
-
-            // Defaults
-            selectFiles.Multiselect = true;
-            selectFiles.Filter = "All files (*.*)|*.*|SRT (*.srt)|*.srt|SUB (*.sub)|*.sub|SBV (*.sbv)|*.sbv|ASS (*.ass)|*.ass|SSA (*.ssa)|*.ssa|MPSUB (*.mpsub)|*.mpsub|LRC (*.lrc)|*.lrc|CAP (*.cap)|*.cap";
-
-            // Remember Last Dir
-            //
-            //string previousPath = Settings.Default.subsDir.ToString();
-            //// Use Previous Path if Not Null
-            //if (!string.IsNullOrEmpty(previousPath))
-            //{
-            //    selectFiles.InitialDirectory = previousPath;
-            //}
-
-            // Process Dialog Box
-            Nullable<bool> result = selectFiles.ShowDialog();
-            if (result == true)
-            {
-                // Reset
-                //SubtitlesClear();
-
-                // Add Selected Files to List
-                for (var i = 0; i < selectFiles.FileNames.Length; i++)
-                {
-                    // Wrap in quotes for ffmpeg -i
-                    Video.subtitleFilePathsList.Add("\"" + selectFiles.FileNames[i] + "\"");
-                    //MessageBox.Show(Video.subtitleFiles[i]); //debug
-
-                    Video.subtitleFileNamesList.Add(Path.GetFileName(selectFiles.FileNames[i]));
-
-                    // ListView Display File Names + Ext
-                    listViewSubtitles.Items.Add(Path.GetFileName(selectFiles.FileNames[i]));
-                }
-            }
-        }
-
-        /// <summary>
-        /// Subtitle Remove
-        /// </summary>
-        private void btnRemoveSubtitle_Click(object sender, RoutedEventArgs e)
-        {
-            if (listViewSubtitles.SelectedItems.Count > 0)
-            {
-                var selectedIndex = listViewSubtitles.SelectedIndex;
-
-                // ListView Items
-                var itemlsvFileNames = listViewSubtitles.Items[selectedIndex];
-                listViewSubtitles.Items.RemoveAt(selectedIndex);
-
-                // List File Paths
-                string itemFilePaths = Video.subtitleFilePathsList[selectedIndex];
-                Video.subtitleFilePathsList.RemoveAt(selectedIndex);
-
-                // List File Names
-                string itemFileNames = Video.subtitleFileNamesList[selectedIndex];
-                Video.subtitleFileNamesList.RemoveAt(selectedIndex);
-            }
-        }
-
-        /// <summary>
-        /// Subtitle Clear All
-        /// </summary>
-        private void btnClearSubtitles_Click(object sender, RoutedEventArgs e)
-        {
-            SubtitlesClear();
-        }
-
-        /// <summary>
-        /// Subtitle Clear (Method)
-        /// </summary>
-        public void SubtitlesClear()
-        {
-            // Clear List View
-            listViewSubtitles.Items.Clear();
-
-            // Clear Paths List
-            if (Video.subtitleFilePathsList != null && 
-                Video.subtitleFilePathsList.Count > 0)
-            {
-                Video.subtitleFilePathsList.Clear();
-                Video.subtitleFilePathsList.TrimExcess();
-            }
-
-            // Clear Names List
-            if (Video.subtitleFileNamesList != null &&
-                Video.subtitleFileNamesList.Count > 0)
-            {
-                Video.subtitleFileNamesList.Clear();
-                Video.subtitleFileNamesList.TrimExcess();
-            }
-        }
-
-        /// <summary>
-        ///    Batch Toggle
-        /// </summary>
-        // Checked
-        private void tglBatch_Checked(object sender, RoutedEventArgs e)
-        {
-            // Enable / Disable batch extension textbox
-            if (tglBatch.IsChecked == true)
-            {
-                batchExtensionTextBox.IsEnabled = true;
-                batchExtensionTextBox.Text = string.Empty;
-            }
-
-            // Clear Browse Textbox, Input Filename, Dir, Ext
-            if (!string.IsNullOrWhiteSpace(tbxInput.Text))
-            {
-                tbxInput.Text = string.Empty;
-                inputFileName = string.Empty;
-                inputDir = string.Empty;
-                inputExt = string.Empty;
-            }
-
-            // Clear Output Textbox, Output Filename, Dir, Ext
-            if (!string.IsNullOrWhiteSpace(tbxOutput.Text))
-            {
-                tbxOutput.Text = string.Empty;
-                outputFileName = string.Empty;
-                outputDir = string.Empty;
-                outputExt = string.Empty;
-            }
-
-        }
-        // Unchecked
-        private void tglBatch_Unchecked(object sender, RoutedEventArgs e)
-        {
-            // Enable / Disable batch extension textbox
-            if (tglBatch.IsChecked == false)
-            {
-                batchExtensionTextBox.IsEnabled = false;
-                batchExtensionTextBox.Text = "extension";
-            }
-
-            // Clear Browse Textbox, Input Filename, Dir, Ext
-            if (!string.IsNullOrWhiteSpace(tbxInput.Text))
-            {
-                tbxInput.Text = string.Empty;
-                inputFileName = string.Empty;
-                inputDir = string.Empty;
-                inputExt = string.Empty;
-            }
-
-            // Clear Output Textbox, Output Filename, Dir, Ext
-            if (!string.IsNullOrWhiteSpace(tbxOutput.Text))
-            {
-                tbxOutput.Text = string.Empty;
-                outputFileName = string.Empty;
-                outputDir = string.Empty;
-                outputExt = string.Empty;
-            }
-
-            // Set Video and AudioCodec Combobox to "Copy" if Input Extension is Same as Output Extension and Video Quality is Auto
-            VideoControls.AutoCopyVideoCodec(this);
-            VideoControls.AutoCopySubtitleCodec(this);
-            AudioControls.AutoCopyAudioCodec(this);
+            FFmpeg.FFmpegStart(vm);
         }
 
 
@@ -6301,10 +5936,8 @@ namespace Axiom
         /// --------------------------------------------------------------------------------------------------------
         private void btnPreview_Click(object sender, RoutedEventArgs e)
         {
-            FFplay.Preview(this);
+            FFplay.Preview(this, vm);
         }
-
-
 
 
         /// --------------------------------------------------------------------------------------------------------
@@ -6326,7 +5959,7 @@ namespace Axiom
             // -------------------------
             // Clear Variables before Run
             // -------------------------
-            ClearVariables(this);
+            ClearVariables(vm);
 
             // -------------------------
             // Enable Script
@@ -6336,7 +5969,7 @@ namespace Axiom
             // -------------------------
             // Batch Extention Period Check
             // -------------------------
-            BatchExtCheck(this);
+            BatchExtCheck(vm);
 
             // -------------------------
             // Set FFprobe Path
@@ -6346,7 +5979,7 @@ namespace Axiom
             // -------------------------
             // Ready Halts
             // -------------------------
-            ReadyHalts(this);
+            ReadyHalts(vm);
 
 
             // Log Console Message /////////
@@ -6363,7 +5996,7 @@ namespace Axiom
                     DateTime localDate = DateTime.Now;
 
                     // Log Console Message /////////
-                    
+
                     Log.logParagraph.Inlines.Add(new LineBreak());
                     Log.logParagraph.Inlines.Add(new LineBreak());
                     Log.logParagraph.Inlines.Add(new Bold(new Run(Convert.ToString(localDate))) { Foreground = Log.ConsoleAction });
@@ -6389,13 +6022,13 @@ namespace Axiom
                     // -------------------------
                     // FFprobe Detect Metadata
                     // -------------------------
-                    FFprobe.Metadata(this);
+                    FFprobe.Metadata(vm);
 
                     // -------------------------
                     // FFmpeg Generate Arguments (Single)
                     // -------------------------
                     //disabled if batch
-                    FFmpeg.FFmpegSingleGenerateArgs(this);
+                    FFmpeg.FFmpegSingleGenerateArgs(this, vm);
                 }
 
                 // -------------------------
@@ -6406,24 +6039,24 @@ namespace Axiom
                     // -------------------------
                     // FFprobe Video Entry Type Containers
                     // -------------------------
-                    FFprobe.VideoEntryType(this);
+                    FFprobe.VideoEntryType(vm);
 
                     // -------------------------
                     // FFprobe Video Entry Type Containers
                     // -------------------------
-                    FFprobe.AudioEntryType(this);
+                    FFprobe.AudioEntryType(vm);
 
                     // -------------------------
                     // FFmpeg Generate Arguments (Batch)
                     // -------------------------
                     //disabled if single file
-                    FFmpeg.FFmpegBatchGenerateArgs(this);
+                    FFmpeg.FFmpegBatchGenerateArgs(this, vm);
                 }
 
                 // -------------------------
                 // FFmpeg Convert
                 // -------------------------
-                FFmpeg.FFmpegConvert(this);
+                FFmpeg.FFmpegConvert(this, vm);
 
                 // -------------------------
                 // Sort Script
@@ -6474,7 +6107,7 @@ namespace Axiom
                 // -------------------------
                 // Clear Strings for next Run
                 // -------------------------
-                ClearVariables(this);
+                ClearVariables(vm);
                 GC.Collect();
             }
             else
@@ -6511,7 +6144,7 @@ namespace Axiom
                 // -------------------------
                 // Clear Variables for next Run
                 // -------------------------
-                ClearVariables(this);
+                ClearVariables(vm);
                 GC.Collect();
 
             }
@@ -6519,211 +6152,5 @@ namespace Axiom
         } //end convert button
 
 
-
-
-        /// <summary>
-        ///     Save Script
-        /// </summary>
-        private void btnScriptSave_Click(object sender, RoutedEventArgs e)
-        {
-            // Open 'Save File'
-            Microsoft.Win32.SaveFileDialog saveFile = new Microsoft.Win32.SaveFileDialog();
-
-            //saveFile.InitialDirectory = inputDir;
-            saveFile.RestoreDirectory = true;
-            saveFile.Filter = "Text file (*.txt)|*.txt";
-            saveFile.DefaultExt = ".txt";
-            saveFile.FileName = "Script";
-
-            // Show save file dialog box
-            Nullable<bool> result = saveFile.ShowDialog();
-
-            // Process dialog box
-            if (result == true)
-            {
-                // Save document
-                File.WriteAllText(saveFile.FileName, ScriptView.GetScriptRichTextBoxContents(this), Encoding.Unicode);
-            }
-        }
-
-        /// <summary>
-        ///     Copy All Button
-        /// </summary>
-        private void btnScriptCopy_Click(object sender, RoutedEventArgs e)
-        {
-            Clipboard.SetText(ScriptView.GetScriptRichTextBoxContents(this), TextDataFormat.UnicodeText);
-        }
-
-        /// <summary>
-        ///     Sort Button
-        /// </summary>
-        private void btnScriptSort_Click(object sender, RoutedEventArgs e)
-        {
-            Sort();
-        }
-
-        /// <summary>
-        ///     Sort (Method)
-        /// </summary>
-        public void Sort()
-        {
-            // Check if Rich TextBox is Empty
-            //TextRange textRange = new TextRange(rtbScriptView.Document.ContentStart, rtbScriptView.Document.ContentEnd);
-            //string rtb = textRange.Text;
-            //if (string.IsNullOrWhiteSpace(rtb))
-            //{
-            //    //MessageBox.Show("Empty"); //debug
-            //    return;
-            //}
-
-            // Debug Sort
-            //if (ScriptView.sort == false)
-            //{
-            //    MessageBox.Show("sort false");
-            //}
-            //else if(ScriptView.sort == true)
-            //{
-            //    MessageBox.Show("sort true");
-            //}
-            
-
-            // Only if Script not empty
-            if (!string.IsNullOrWhiteSpace(ScriptView.GetScriptRichTextBoxContents(this)))
-            {
-                // -------------------------
-                // Has Not Been Edited
-                // -------------------------
-                if (ScriptView.sort == false
-                    && RemoveLineBreaks(ScriptView.GetScriptRichTextBoxContents(this))
-                                 //.Replace(Environment.NewLine, "")
-                                 //.Replace("\r\n", "")
-                                 //.Replace("\u2028", "")
-                                 //.Replace("\u000A", "")
-                                 //.Replace("\u000B", "")
-                                 //.Replace("\u000C", "")
-                                 //.Replace("\u000D", "")
-                                 //.Replace("\u0085", "")
-                                 //.Replace("\u2028", "")
-                                 //.Replace("\u2029", "")
-
-                                 == FFmpeg.ffmpegArgs)
-                {
-                    // Clear Old Text
-                    //ScriptView.scriptParagraph.Inlines.Clear();
-                    ScriptView.ClearScriptView(this);
-
-                    // Write FFmpeg Args Sort
-                    rtbScriptView.Document = new FlowDocument(ScriptView.scriptParagraph);
-                    rtbScriptView.BeginChange();
-                    ScriptView.scriptParagraph.Inlines.Add(new Run(FFmpeg.ffmpegArgsSort));
-                    rtbScriptView.EndChange();
-
-                    // Sort is Off
-                    ScriptView.sort = true;
-                    // Change Button Back to Inline
-                    txblScriptSort.Text = "Inline";
-                }
-
-                // -------------------------
-                // Has Been Edited
-                // -------------------------
-                else if (ScriptView.sort == false
-                      && RemoveLineBreaks(ScriptView.GetScriptRichTextBoxContents(this))
-                                   //.Replace(Environment.NewLine, "")
-                                   //.Replace("\r\n", "")
-                                   //.Replace("\u2028", "")
-                                   //.Replace("\u000A", "")
-                                   //.Replace("\u000B", "")
-                                   //.Replace("\u000C", "")
-                                   //.Replace("\u000D", "")
-                                   //.Replace("\u0085", "")
-                                   //.Replace("\u2028", "")
-                                   //.Replace("\u2029", "")
-
-                                   != FFmpeg.ffmpegArgs)
-                {
-                    MessageBox.Show("Cannot sort edited text.",
-                                    "Notice",
-                                    MessageBoxButton.OK,
-                                    MessageBoxImage.Exclamation);
-
-                    return;
-                }
-
-
-                // -------------------------
-                // Inline
-                // -------------------------
-                else if (ScriptView.sort == true)
-                {
-                    // CMD Arguments are from Script TextBox
-                    FFmpeg.ffmpegArgs = RemoveLineBreaks(ScriptView.GetScriptRichTextBoxContents(this));
-                    //.Replace(Environment.NewLine, "") //Remove Linebreaks
-                    //.Replace("\n", "")
-                    //.Replace("\r\n", "")
-                    //.Replace("\u2028", "")
-                    //.Replace("\u000A", "")
-                    //.Replace("\u000B", "")
-                    //.Replace("\u000C", "")
-                    //.Replace("\u000D", "")
-                    //.Replace("\u0085", "")
-                    //.Replace("\u2028", "")
-                    //.Replace("\u2029", "");
-
-                    // Clear Old Text
-                    ScriptView.ClearScriptView(this);
-                    //ScriptView.scriptParagraph.Inlines.Clear();
-
-                    // Write FFmpeg Args
-                    rtbScriptView.Document = new FlowDocument(ScriptView.scriptParagraph);
-                    rtbScriptView.BeginChange();
-                    ScriptView.scriptParagraph.Inlines.Add(new Run(FFmpeg.ffmpegArgs));
-                    rtbScriptView.EndChange();
-
-                    // Sort is On
-                    ScriptView.sort = false;
-                    // Change Button Back to Sort
-                    txblScriptSort.Text = "Sort";
-                }
-            }
-        }
-
-
-        /// <summary>
-        ///     Clear Button
-        /// </summary>
-        private void btnScriptClear_Click(object sender, RoutedEventArgs e)
-        {
-            //ScriptView.scriptParagraph.Inlines.Clear();
-
-            ScriptView.ClearScriptView(this);
-        }
-
-
-        /// <summary>
-        ///     Run Button
-        /// </summary>
-        private void buttonRun_Click(object sender, RoutedEventArgs e)
-        {
-            // CMD Arguments are from Script TextBox
-            FFmpeg.ffmpegArgs = RemoveLineBreaks(ScriptView.GetScriptRichTextBoxContents(this));
-                                //.Replace(Environment.NewLine, "") //Remove Linebreaks
-                                //.Replace("\r\n", "")
-                                //.Replace("\n", "")
-                                //.Replace("\u2028", "")
-                                //.Replace("\u000A", "")
-                                //.Replace("\u000B", "")
-                                //.Replace("\u000C", "")
-                                //.Replace("\u000D", "")
-                                //.Replace("\u0085", "")
-                                //.Replace("\u2028", "")
-                                //.Replace("\u2029", "")
-                                //;
-
-            // Run FFmpeg Arguments
-            FFmpeg.FFmpegConvert(this);
-        }
-
     }
-
 }

@@ -1,6 +1,6 @@
 ﻿/* ----------------------------------------------------------------------
 Axiom UI
-Copyright (C) 2017, 2018 Matt McManis
+Copyright (C) 2017-2019 Matt McManis
 http://github.com/MattMcManis/Axiom
 http://axiomui.github.io
 mattmcmanis@outlook.com
@@ -23,6 +23,8 @@ using System;
 using System.Windows.Documents;
 // Disable XML Comment warnings
 #pragma warning disable 1591
+#pragma warning disable 1587
+#pragma warning disable 1570
 
 namespace Axiom
 {

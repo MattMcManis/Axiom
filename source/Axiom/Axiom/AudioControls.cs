@@ -1,6 +1,6 @@
 ﻿/* ----------------------------------------------------------------------
 Axiom UI
-Copyright (C) 2017, 2018 Matt McManis
+Copyright (C) 2017-2019 Matt McManis
 http://github.com/MattMcManis/Axiom
 http://axiomui.github.io
 mattmcmanis@outlook.com
@@ -19,12 +19,18 @@ You should have received a copy of the GNU General Public License
 along with this program.If not, see <http://www.gnu.org/licenses/>. 
 ---------------------------------------------------------------------- */
 
+/* ----------------------------------
+ METHODS
+
+ * Set Controls
+ * Bitrate Display
+ * Auto Codec Copy
+---------------------------------- */
+
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
+using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
 // Disable XML Comment warnings
 #pragma warning disable 1591
 #pragma warning disable 1587
@@ -34,1314 +40,525 @@ namespace Axiom
 {
     public class AudioControls
     {
-        // --------------------------------------------------------------------------------------------------------
         /// <summary>
-        ///     ComboBoxes Item Sources
+        ///     Set Controls
         /// </summary>
-        // --------------------------------------------------------------------------------------------------------
-
-        // -------------------------
-        // Audio
-        // -------------------------
-        public static List<string> AudioCodec_ItemSource;
-        public static List<string> AudioQuality_ItemSource;
-        public static List<string> Channel_ItemSource;
-        public static List<string> SampleRate_ItemSource;
-        public static List<string> BitDepth_ItemSource;
-
-
-        // --------------------------------------------------------------------------------------------------------
-        // --------------------------------------------------------------------------------------------------------
-        // Control Methods
-        // --------------------------------------------------------------------------------------------------------
-        // --------------------------------------------------------------------------------------------------------
-
-        /// <summary>
-        ///     Change Item Source (Method)
-        /// </summary>
-        private static void ChangeItemSource(
-            MainWindow mainwindow,
-            ComboBox cbo,           // ComboBox
-            List<string> items,     // New Items List
-            string selectedItem)    // Selected Item
+        public static void SetControls(ViewModel vm, string selectedCodec)
         {
-            // -------------------------
-            // Change Item Source
-            // -------------------------
-            cbo.ItemsSource = items;
+            // --------------------------------------------------
+            // Codec
+            // --------------------------------------------------
 
             // -------------------------
-            // Select Item
+            // Vorbis
             // -------------------------
-            // Get Previous Item
-            string previousItem = selectedItem;
-
-            // Select
-            if (!string.IsNullOrEmpty(previousItem))
+            if (selectedCodec == "Vorbis")
             {
-                if (items.Contains(previousItem))
-                {
-                    cbo.SelectedItem = previousItem;
-                }
-                else
-                {
-                    cbo.SelectedIndex = 0; // Auto
-                }
+                // Codec
+                vm.AudioCodec_Command = Vorbis.codec;
+
+                // Quality
+                vm.AudioQuality_Items = Vorbis.quality;
+
+                // Stream
+                //vm.AudioStream_SelectedItem = Vorbis.stream;
+
+                // Channel
+                vm.AudioChannel_Items = Vorbis.channel;
+
+                // Samplerate
+                vm.AudioSampleRate_Items = Vorbis.sampleRate;
+
+                // Bit Depth
+                vm.AudioBitDepth_Items = Vorbis.bitDepth;
+
+                // Checked
+                Vorbis.controlsChecked(vm);
+
+                // Enabled
+                Vorbis.controlsEnable(vm);
+
+                // Disabled
+                Vorbis.controlsDisable(vm);
             }
 
-            return;
+            // -------------------------
+            // Opus
+            // -------------------------
+            else if (selectedCodec == "Opus")
+            {
+                // Codec
+                vm.AudioCodec_Command = Opus.codec;
+
+                // Quality
+                vm.AudioQuality_Items = Opus.quality;
+
+                // Stream
+                //vm.AudioStream_SelectedItem = Opus.stream;
+
+                // Channel
+                vm.AudioChannel_Items = Opus.channel;
+
+                // Samplerate
+                vm.AudioSampleRate_Items = Opus.sampleRate;
+
+                // Bit Depth
+                vm.AudioBitDepth_Items = Opus.bitDepth;
+
+                // Checked
+                Opus.controlsChecked(vm);
+
+                // Enabled
+                Opus.controlsEnable(vm);
+
+                // Disabled
+                Opus.controlsDisable(vm);
+            }
+
+            // -------------------------
+            // AC3
+            // -------------------------
+            else if (selectedCodec == "AC3")
+            {
+                // Codec
+                vm.AudioCodec_Command = AC3.codec;
+
+                // Quality
+                vm.AudioQuality_Items = AC3.quality;
+
+                // Stream
+                //vm.AudioStream_SelectedItem = AC3.stream;
+
+                // Channel
+                vm.AudioChannel_Items = AC3.channel;
+
+                // Samplerate
+                vm.AudioSampleRate_Items = AC3.sampleRate;
+
+                // Bit Depth
+                vm.AudioBitDepth_Items = AC3.bitDepth;
+
+                // Checked
+                AC3.controlsChecked(vm);
+
+                // Enabled
+                AC3.controlsEnable(vm);
+
+                // Disabled
+                AC3.controlsDisable(vm);
+            }
+
+            // -------------------------
+            // AAC
+            // -------------------------
+            else if (selectedCodec == "AAC")
+            {
+                // Codec
+                vm.AudioCodec_Command = AAC.codec;
+
+                // Quality
+                vm.AudioQuality_Items = AAC.quality;
+
+                // Stream
+                //vm.AudioStream_SelectedItem = AAC.stream;
+
+                // Channel
+                vm.AudioChannel_Items = AAC.channel;
+
+                // Samplerate
+                vm.AudioSampleRate_Items = AAC.sampleRate;
+
+                // Bit Depth
+                vm.AudioBitDepth_Items = AAC.bitDepth;
+
+                // Checked
+                AAC.controlsChecked(vm);
+
+                // Enabled
+                AAC.controlsEnable(vm);
+
+                // Disabled
+                AAC.controlsDisable(vm);
+            }
+
+            // -------------------------
+            // ALAC
+            // -------------------------
+            else if (selectedCodec == "ALAC")
+            {
+                // Codec
+                vm.AudioCodec_Command = ALAC.codec;
+
+                // Quality
+                vm.AudioQuality_Items = ALAC.quality;
+
+                // Stream
+                //vm.AudioStream_SelectedItem = ALAC.stream;
+
+                // Channel
+                vm.AudioChannel_Items = ALAC.channel;
+
+                // Samplerate
+                vm.AudioSampleRate_Items = ALAC.sampleRate;
+
+                // Bit Depth
+                vm.AudioBitDepth_Items = ALAC.bitDepth;
+
+                // Checked
+                ALAC.controlsChecked(vm);
+
+                // Enabled
+                ALAC.controlsEnable(vm);
+
+                // Disabled
+                ALAC.controlsDisable(vm);
+            }
+
+            // -------------------------
+            // FLAC
+            // -------------------------
+            else if (selectedCodec == "FLAC")
+            {
+                // Codec
+                vm.AudioCodec_Command = FLAC.codec;
+
+                // Quality
+                vm.AudioQuality_Items = FLAC.quality;
+
+                // Stream
+                //vm.AudioStream_SelectedItem = FLAC.stream;
+
+                // Channel
+                vm.AudioChannel_Items = FLAC.channel;
+
+                // Samplerate
+                vm.AudioSampleRate_Items = FLAC.sampleRate;
+
+                // Bit Depth
+                vm.AudioBitDepth_Items = FLAC.bitDepth;
+
+                // Checked
+                FLAC.controlsChecked(vm);
+
+                // Enabled
+                FLAC.controlsEnable(vm);
+
+                // Disabled
+                FLAC.controlsDisable(vm);
+            }
+
+            // -------------------------
+            // PCM
+            // -------------------------
+            else if (selectedCodec == "PCM")
+            {
+                // Codec
+                vm.AudioCodec_Command = PCM.codec;
+
+                // Quality
+                vm.AudioQuality_Items = PCM.quality;
+
+                // Stream
+                //vm.AudioStream_SelectedItem = PCM.stream;
+
+                // Channel
+                vm.AudioChannel_Items = PCM.channel;
+
+                // Samplerate
+                vm.AudioSampleRate_Items = PCM.sampleRate;
+
+                // Bit Depth
+                vm.AudioBitDepth_Items = PCM.bitDepth;
+
+                // Checked
+                PCM.controlsChecked(vm);
+
+                // Enabled
+                PCM.controlsEnable(vm);
+
+                // Disabled
+                PCM.controlsDisable(vm);
+            }
+
+            // -------------------------
+            // LAME
+            // -------------------------
+            else if (selectedCodec == "LAME")
+            {
+                // Codec
+                vm.AudioCodec_Command = LAME.codec;
+
+                // Quality
+                vm.AudioQuality_Items = LAME.quality;
+
+                // Stream
+                //vm.AudioStream_SelectedItem = LAME.stream;
+
+                // Channel
+                vm.AudioChannel_Items = LAME.channel;
+
+                // Samplerate
+                vm.AudioSampleRate_Items = LAME.sampleRate;
+
+                // Bit Depth
+                vm.AudioBitDepth_Items = LAME.bitDepth;
+
+                // Checked
+                LAME.controlsChecked(vm);
+
+                // Enabled
+                LAME.controlsEnable(vm);
+
+                // Disabled
+                LAME.controlsDisable(vm);
+            }
+
+            // -------------------------
+            // Copy
+            // -------------------------
+            else if (selectedCodec == "Copy")
+            {
+                // Codec
+                vm.AudioCodec_Command = AudioCopy.codec;
+
+                // Quality
+                vm.AudioQuality_Items = AudioCopy.quality;
+
+                // Stream
+                //vm.AudioStream_SelectedItem = AudioCopy.stream;
+
+                // Channel
+                vm.AudioChannel_Items = AudioCopy.channel;
+
+                // Samplerate
+                vm.AudioSampleRate_Items = AudioCopy.sampleRate;
+
+                // Bit Depth
+                vm.AudioBitDepth_Items = AudioCopy.bitDepth;
+
+                // Checked
+                AudioCopy.controlsChecked(vm);
+
+                // Enabled
+                AudioCopy.controlsEnable(vm);
+
+                // Disabled
+                AudioCopy.controlsDisable(vm);
+            }
+
+            // -------------------------
+            // None
+            // -------------------------
+            else if (selectedCodec == "None")
+            {
+                // Codec
+                vm.AudioCodec_Command = AudioNone.codec;
+
+                // Quality
+                vm.AudioQuality_Items = AudioNone.quality;
+
+                // Stream
+                //vm.AudioStream_SelectedItem = AudioNone.stream;
+
+                // Channel
+                vm.AudioChannel_Items = AudioNone.channel;
+
+                // Samplerate
+                vm.AudioSampleRate_Items = AudioNone.sampleRate;
+
+                // Bit Depth
+                vm.AudioBitDepth_Items = AudioNone.bitDepth;
+
+                // Checked
+                AudioNone.controlsChecked(vm);
+
+                // Enabled
+                AudioNone.controlsEnable(vm);
+
+                // Disabled
+                AudioNone.controlsDisable(vm);
+            }
+
+            // --------------------------------------------------
+            // Default Selected Item
+            // --------------------------------------------------
+            // -------------------------
+            // Audio Quality Selected Item
+            // -------------------------
+            if (!string.IsNullOrEmpty(vm.AudioQuality_SelectedItem) &&
+                vm.AudioQuality_SelectedItem != "None" &&
+                vm.AudioQuality_SelectedItem != "none")
+            {
+                MainWindow.AudioQuality_PreviousItem = vm.AudioQuality_SelectedItem;
+            }
+
+            vm.AudioQuality_SelectedItem = MainWindow.SelectedItem(vm.AudioQuality_Items.Select(c => c.Name).ToList(),
+                                                                       MainWindow.AudioQuality_PreviousItem
+                                                                       );
+
+            // -------------------------
+            // Audio SampleRate Selected Item
+            // -------------------------
+            if (!string.IsNullOrEmpty(vm.AudioSampleRate_SelectedItem) &&
+                vm.AudioSampleRate_SelectedItem != "None" &&
+                vm.AudioSampleRate_SelectedItem != "none")
+            {
+                MainWindow.AudioSampleRate_PreviousItem = vm.AudioSampleRate_SelectedItem;
+            }
+
+            vm.AudioSampleRate_SelectedItem = MainWindow.SelectedItem(vm.AudioSampleRate_Items.Select(c => c.Name).ToList(),
+                                                                      MainWindow.AudioSampleRate_PreviousItem
+                                                                      );
+
+            // -------------------------
+            // Audio BitDepth Selected Item
+            // -------------------------
+            if (!string.IsNullOrEmpty(vm.AudioBitDepth_SelectedItem) &&
+                vm.AudioBitDepth_SelectedItem != "None" &&
+                vm.AudioBitDepth_SelectedItem != "none")
+            {
+                MainWindow.AudioBitDepth_PreviousItem = vm.AudioBitDepth_SelectedItem;
+            }
+
+            vm.AudioBitDepth_SelectedItem = MainWindow.SelectedItem(vm.AudioBitDepth_Items.Select(c => c.Name).ToList(),
+                                                                    MainWindow.AudioBitDepth_PreviousItem
+                                                                    );
+
+
         }
 
+
         /// <summary>
-        /// Audio Codec Controls (Method)
-        /// 
-        /// Changes Other ComboBox Items and Selections based on Audio Codec
+        ///    Audio Bitrate Display
         /// </summary>
-        public static void AudioCodecControls(MainWindow mainwindow)
+        public static void AudioBitrateDisplay(ViewModel vm,
+                                               List<ViewModel.AudioQuality> items,
+                                               string selectedQuality
+                                               )
         {
-            // --------------------------------------------------
-            // Audio Codec Rules
-            // --------------------------------------------------
-            // MKV Special Inustrctions - If Audio Codec = Copy, select Audio Dropdown to Auto
-            if ((string)mainwindow.cboFormat.SelectedItem == "mkv" 
-                && (string)mainwindow.cboAudioCodec.SelectedItem == "Copy")
-            {
-                mainwindow.cboAudioQuality.SelectedItem = "Auto";
-            }
-
-            // --------------------------------------------------
-            // Opus
-            // --------------------------------------------------
-            if ((string)mainwindow.cboAudioCodec.SelectedItem == "Opus")
-            {
-                // --------------------------------------------------
-                // Audio Quality
-                // --------------------------------------------------
-                // -------------------------
-                // Change ItemSource
-                // -------------------------
-                // Add 510k to Audio Quality ComboBox
-                AudioQuality_ItemSource = new List<string>() { "Auto", "510", "320", "256", "224", "192", "160", "128", "96", "Custom", "Mute" };
-
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboAudioQuality, // ComboBox
-                    AudioQuality_ItemSource, // New Items List
-                    (string)mainwindow.cboAudioQuality.SelectedItem); // Selected Item
-
-
-                // --------------------------------------------------
-                // Channel
-                // --------------------------------------------------
-                // -------------------------
-                // Change ItemSource
-                // -------------------------
-                Channel_ItemSource = new List<string>() { "Source", "Stereo", "Mono", "5.1" };
-
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboChannel, // ComboBox
-                    Channel_ItemSource, // New Items List
-                    (string)mainwindow.cboChannel.SelectedItem); // Selected Item
-
-
-                // --------------------------------------------------
-                // Sample Rate
-                // --------------------------------------------------
-                // -------------------------
-                // Change ItemSource
-                // -------------------------
-                SampleRate_ItemSource = new List<string>() { "auto", "8k", "12k", "16k", "24k", "48k" };
-
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboSamplerate, // ComboBox
-                    SampleRate_ItemSource, // New Items List
-                    (string)mainwindow.cboSamplerate.SelectedItem); // Selected Item
-
-
-                // --------------------------------------------------
-                // Bit Depth
-                // --------------------------------------------------
-                // -------------------------
-                // Change ItemSource
-                // -------------------------
-                BitDepth_ItemSource = new List<string>() { "auto" };
-
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboBitDepth, // ComboBox
-                    BitDepth_ItemSource, // New Items List
-                    (string)mainwindow.cboBitDepth.SelectedItem); // Selected Item
-
-
-                // --------------------------------------------------
-                // Controls
-                // --------------------------------------------------
-                // -------------------------
-                // Enabled
-                // -------------------------
-                // Audio Quality
-                mainwindow.cboAudioQuality.IsEnabled = true;
-
-                // Stream
-                mainwindow.cboAudioStream.IsEnabled = true;
-
-                // Channel
-                mainwindow.cboChannel.IsEnabled = true;
-
-                // SampleRate
-                mainwindow.cboSamplerate.IsEnabled = true;
-
-                // VBR Button
-                mainwindow.tglAudioVBR.IsEnabled = true;
-                mainwindow.tglAudioVBR.IsChecked = false;
-
-                // Volume
-                mainwindow.volumeUpDown.IsEnabled = true;
-                mainwindow.volumeUpButton.IsEnabled = true;
-                mainwindow.volumeDownButton.IsEnabled = true;
-
-                // -------------------------
-                // Disabled
-                // -------------------------
-                mainwindow.cboBitDepth.IsEnabled = false;
-            }
-
-
-            // --------------------------------------------------
-            // Vorbis
-            // --------------------------------------------------
-            else if ((string)mainwindow.cboAudioCodec.SelectedItem == "Vorbis")
+            // Condition Check
+            if (!string.IsNullOrEmpty(vm.AudioQuality_SelectedItem) &&
+                vm.AudioQuality_SelectedItem != "None" &&
+                vm.AudioQuality_SelectedItem != "Auto" &&
+                vm.AudioQuality_SelectedItem != "Lossless" &&
+                vm.AudioQuality_SelectedItem != "Custom" &&
+                vm.AudioQuality_SelectedItem != "Mute")
             {
                 // -------------------------
-                // Audio
-                // -------------------------
-                // Change ItemSource
-                // Add 500k to Audio Quality Combobox
-                AudioQuality_ItemSource = new List<string>() { "Auto", "500", "320", "256", "224", "192", "160", "128", "96", "Custom", "Mute" };
-
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboAudioQuality, // ComboBox
-                    AudioQuality_ItemSource, // New Items List
-                    (string)mainwindow.cboAudioQuality.SelectedItem); // Selected Item
-
-
-                // -------------------------
-                // Channel
-                // -------------------------
-                // Change ItemSource
-                Channel_ItemSource = new List<string>() { "Source", "Stereo", "Mono", "5.1" };
-
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboChannel, // ComboBox
-                    Channel_ItemSource, // New Items List
-                    (string)mainwindow.cboChannel.SelectedItem); // Selected Item
-
-
-                // -------------------------
-                // Sample Rate
-                // -------------------------
-                // Change ItemSource
-                SampleRate_ItemSource = new List<string>() { "auto", "8k", "11.025k", "12k", "16k", "22.05k", "24k", "32k", "44.1k", "48k" };
-
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboSamplerate, // ComboBox
-                    SampleRate_ItemSource, // New Items List
-                    (string)mainwindow.cboSamplerate.SelectedItem); // Selected Item
-
-
-                // -------------------------
-                // Bit Depth
-                // -------------------------
-                // Change ItemSource
-                BitDepth_ItemSource = new List<string>() { "auto" };
-
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboBitDepth, // ComboBox
-                    BitDepth_ItemSource, // New Items List
-                    (string)mainwindow.cboBitDepth.SelectedItem); // Selected Item
-
-
-                // --------------------------------------------------
-                // Controls
-                // --------------------------------------------------
-                // -------------------------
-                // Enabled
-                // -------------------------
-                // Audio Quality
-                mainwindow.cboAudioQuality.IsEnabled = true;
-
-                // Stream
-                mainwindow.cboAudioStream.IsEnabled = true;
-
-                // Channel
-                mainwindow.cboChannel.IsEnabled = true;
-
-                // SampleRate
-                mainwindow.cboSamplerate.IsEnabled = true;
-
-                // VBR Button
-                mainwindow.tglAudioVBR.IsEnabled = true;
-                mainwindow.tglAudioVBR.IsChecked = true;
-
-                // Volume
-                mainwindow.volumeUpDown.IsEnabled = true;
-                mainwindow.volumeUpButton.IsEnabled = true;
-                mainwindow.volumeDownButton.IsEnabled = true;
-
-                // -------------------------
-                // Disabled
-                // -------------------------
-                mainwindow.cboBitDepth.IsEnabled = false;
-            }
-
-
-            // --------------------------------------------------
-            // AAC
-            // --------------------------------------------------
-            else if ((string)mainwindow.cboAudioCodec.SelectedItem == "AAC")
-            {
-                // -------------------------
-                // Audio
-                // -------------------------
-                // Change ItemSource
-                AudioQuality_ItemSource = new List<string>() { "Auto", "400", "320", "256", "224", "192", "160", "128", "96", "Custom", "Mute" };
-
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboAudioQuality, // ComboBox
-                    AudioQuality_ItemSource, // New Items List
-                    (string)mainwindow.cboAudioQuality.SelectedItem); // Selected Item
-
-
-                // -------------------------
-                // Channel
-                // -------------------------
-                // Change ItemSource
-                Channel_ItemSource = new List<string>() { "Source", "Stereo", "Mono", "5.1" };
-
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboChannel, // ComboBox
-                    Channel_ItemSource, // New Items List
-                    (string)mainwindow.cboChannel.SelectedItem); // Selected Item
-
-
-                // -------------------------
-                // Sample Rate
-                // -------------------------
-                // Change ItemSource
-                SampleRate_ItemSource = new List<string>() { "auto", "8k", "11.025k", "12k", "16k", "22.05k", "24k", "32k", "44.1k", "48k", "64k", "88.2k", "96k" };
-
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboSamplerate, // ComboBox
-                    SampleRate_ItemSource, // New Items List
-                    (string)mainwindow.cboSamplerate.SelectedItem); // Selected Item
-
-
-                // -------------------------
-                // Bit Depth
-                // -------------------------
-                // Change ItemSource
-                BitDepth_ItemSource = new List<string>() { "auto" };
-
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboBitDepth, // ComboBox
-                    BitDepth_ItemSource, // New Items List
-                    (string)mainwindow.cboBitDepth.SelectedItem); // Selected Item
-
-
-                // --------------------------------------------------
-                // Controls
-                // --------------------------------------------------
-                // -------------------------
-                // Enabled
-                // -------------------------
-                // Audio Quality
-                mainwindow.cboAudioQuality.IsEnabled = true;
-
-                // Stream
-                mainwindow.cboAudioStream.IsEnabled = true;
-
-                // Channel
-                mainwindow.cboChannel.IsEnabled = true;
-
-                // SampleRate
-                mainwindow.cboSamplerate.IsEnabled = true;
-
-                // VBR Button
-                mainwindow.tglAudioVBR.IsEnabled = true;
-                mainwindow.tglAudioVBR.IsChecked = false;
-
-                // Volume
-                mainwindow.volumeUpDown.IsEnabled = true;
-                mainwindow.volumeUpButton.IsEnabled = true;
-                mainwindow.volumeDownButton.IsEnabled = true;
-
-                // -------------------------
-                // Disabled
-                // -------------------------
-                mainwindow.cboBitDepth.IsEnabled = false;
-
-            }
-
-
-            // --------------------------------------------------
-            // ALAC
-            // --------------------------------------------------
-            // Set Audio to Lossless if Codec is ALAC
-            else if ((string)mainwindow.cboAudioCodec.SelectedItem == "ALAC") // May cause LOOP ERROR
-            {
-                // -------------------------
-                // Audio
-                // -------------------------
-                // Change ItemSource
-                AudioQuality_ItemSource = new List<string>() { "Auto", "Lossless", "320", "256", "224", "192", "160", "128", "96", "Custom", "Mute" };
-
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboAudioQuality, // ComboBox
-                    AudioQuality_ItemSource, // New Items List
-                    "Lossless"); // Selected Item
-
-
-                // -------------------------
-                // Channel
-                // -------------------------
-                // Change ItemSource
-                Channel_ItemSource = new List<string>() { "Source", "Stereo", "Mono", "5.1" };
-
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboChannel, // ComboBox
-                    Channel_ItemSource, // New Items List
-                    (string)mainwindow.cboChannel.SelectedItem); // Selected Item
-
-
-                // -------------------------
-                // Sample Rate
-                // -------------------------
-                // Change ItemSource
-                SampleRate_ItemSource = new List<string>() { "auto", "8k", "11.025k", "12k", "16k", "22.05k", "24k", "32k", "44.1k", "48k", "64k", "88.2k", "96k" };
-
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboSamplerate, // ComboBox
-                    SampleRate_ItemSource, // New Items List
-                    (string)mainwindow.cboSamplerate.SelectedItem); // Selected Item
-
-
-                // -------------------------
-                // Bit Depth
-                // -------------------------
-                // Change ItemSource
-                BitDepth_ItemSource = new List<string>() { "auto", "16", "32" };
-
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboBitDepth, // ComboBox
-                    BitDepth_ItemSource, // New Items List
-                    (string)mainwindow.cboBitDepth.SelectedItem); // Selected Item
-
-
-                // --------------------------------------------------
-                // Controls
-                // --------------------------------------------------
-                // -------------------------
-                // Enabled
-                // -------------------------
-                // Stream
-                mainwindow.cboAudioStream.IsEnabled = true;
-
-                // Channel
-                mainwindow.cboChannel.IsEnabled = true;
-
-                // SampleRate
-                mainwindow.cboSamplerate.IsEnabled = true;
-
-                // BitDepth
-                mainwindow.cboBitDepth.IsEnabled = true;
-
-                // Volume
-                mainwindow.volumeUpDown.IsEnabled = true;
-                mainwindow.volumeUpButton.IsEnabled = true;
-                mainwindow.volumeDownButton.IsEnabled = true;
-
-                // -------------------------
-                // Disabled
-                // -------------------------
-                // Audio Quality
-                mainwindow.cboAudioQuality.IsEnabled = true;
-
-                // VBR Button
-                mainwindow.tglAudioVBR.IsEnabled = false;
-                mainwindow.tglAudioVBR.IsChecked = false;
-            }
-
-
-            // --------------------------------------------------
-            // AC3
-            // --------------------------------------------------
-            else if ((string)mainwindow.cboAudioCodec.SelectedItem == "AC3")
-            {
-                // -------------------------
-                // Audio
-                // -------------------------
-                // Change ItemSource
-                // Add 640k & 448k to Audio Quality ComboBox
-                AudioQuality_ItemSource = new List<string>() { "Auto", "640", "448", "320", "256", "224", "192", "160", "128", "96", "Custom", "Mute" };
-
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboAudioQuality, // ComboBox
-                    AudioQuality_ItemSource, // New Items List
-                    (string)mainwindow.cboAudioQuality.SelectedItem); // Selected Item
-
-
-                // -------------------------
-                // Channel
-                // -------------------------
-                // Change ItemSource
-                Channel_ItemSource = new List<string>() { "Source", "Stereo", "Mono", "5.1" };
-
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboChannel, // ComboBox
-                    Channel_ItemSource, // New Items List
-                    (string)mainwindow.cboChannel.SelectedItem); // Selected Item
-
-
-                // -------------------------
-                // Sample Rate
-                // -------------------------
-                // Change ItemSource
-                SampleRate_ItemSource = new List<string>() { "auto", "8k", "11.025k", "12k", "16k", "22.05k", "24k", "32k", "44.1k", "48k", "64k", "88.2k", "96k" };
-
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboSamplerate, // ComboBox
-                    SampleRate_ItemSource, // New Items List
-                    (string)mainwindow.cboSamplerate.SelectedItem); // Selected Item
-
-
-                // -------------------------
-                // Bit Depth
-                // -------------------------
-                // Change ItemSource
-                BitDepth_ItemSource = new List<string>() { "auto" };
-
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboBitDepth, // ComboBox
-                    BitDepth_ItemSource, // New Items List
-                    (string)mainwindow.cboBitDepth.SelectedItem); // Selected Item
-
-
-                // --------------------------------------------------
-                // Controls
-                // --------------------------------------------------
-                // -------------------------
-                // Enabled
-                // -------------------------
-                // Audio Quality
-                mainwindow.cboAudioQuality.IsEnabled = true;
-
-                // Stream
-                mainwindow.cboAudioStream.IsEnabled = true;
-
-                // Channel
-                mainwindow.cboChannel.IsEnabled = true;
-
-                // SampleRate
-                mainwindow.cboSamplerate.IsEnabled = true;
-
-                // Volume
-                mainwindow.volumeUpDown.IsEnabled = true;
-                mainwindow.volumeUpButton.IsEnabled = true;
-                mainwindow.volumeDownButton.IsEnabled = true;
-
-                // -------------------------
-                // Disabled
-                // -------------------------
-                // VBR Button
-                mainwindow.tglAudioVBR.IsEnabled = false;
-                mainwindow.tglAudioVBR.IsChecked = false;
-
-                // Bit Depth
-                mainwindow.cboBitDepth.IsEnabled = false;
-            }
-
-            // --------------------------------------------------
-            // MP2
-            // --------------------------------------------------  
-            else if ((string)mainwindow.cboAudioCodec.SelectedItem == "MP2")
-            {
-                // -------------------------
-                // Audio
-                // -------------------------
-                // Change ItemSource
-                AudioQuality_ItemSource = new List<string>() { "Auto", "384", "320", "256", "224", "192", "160", "128", "96", "Custom", "Mute" };
-
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboAudioQuality, // ComboBox
-                    AudioQuality_ItemSource, // New Items List
-                    (string)mainwindow.cboAudioQuality.SelectedItem); // Selected Item
-
-
-                // -------------------------
-                // Channel
-                // -------------------------
-                // Change ItemSource
-                Channel_ItemSource = new List<string>() { "Source", "Stereo", "Joint Stereo", "Mono", "5.1" };
-
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboChannel, // ComboBox
-                    Channel_ItemSource, // New Items List
-                    "Joint Stereo"); // Selected Item
-
-
-                // -------------------------
-                // Sample Rate
-                // -------------------------
-                // Change ItemSource
-                SampleRate_ItemSource = new List<string>() { "auto", "8k", "11.025k", "12k", "16k", "22.05k", "24k", "32k", "44.1k", "48k" };
-
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboSamplerate, // ComboBox
-                    SampleRate_ItemSource, // New Items List
-                    (string)mainwindow.cboSamplerate.SelectedItem); // Selected Item
-
-
-                // -------------------------
-                // Bit Depth
-                // -------------------------
-                // Change ItemSource
-                BitDepth_ItemSource = new List<string>() { "auto" };
-
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboBitDepth, // ComboBox
-                    BitDepth_ItemSource, // New Items List
-                    (string)mainwindow.cboBitDepth.SelectedItem); // Selected Item
-
-
-                // --------------------------------------------------
-                // Controls
-                // --------------------------------------------------
-                // -------------------------
-                // Enabled
-                // -------------------------
-                // Audio Quality
-                mainwindow.cboAudioQuality.IsEnabled = true;
-
-                // Stream
-                mainwindow.cboAudioStream.IsEnabled = true;
-
-                // Channel
-                mainwindow.cboChannel.IsEnabled = true;
-
-                // VBR Button
-                mainwindow.tglAudioVBR.IsEnabled = true;
-                mainwindow.tglAudioVBR.IsChecked = false;
-
-                // SampleRate
-                mainwindow.cboSamplerate.IsEnabled = true;
-
-                // Volume
-                mainwindow.volumeUpDown.IsEnabled = true;
-                mainwindow.volumeUpButton.IsEnabled = true;
-                mainwindow.volumeDownButton.IsEnabled = true;
-
-                // -------------------------
-                // Disabled
-                // -------------------------
-                // Bit Depth
-                mainwindow.cboBitDepth.IsEnabled = false;
-            }
-
-            // --------------------------------------------------
-            // LAME
-            // --------------------------------------------------  
-            else if ((string)mainwindow.cboAudioCodec.SelectedItem == "LAME")
-            {
-                // -------------------------
-                // Audio
-                // -------------------------
-                // Change ItemSource
-                AudioQuality_ItemSource = new List<string>() { "Auto", "320", "256", "224", "192", "160", "128", "96", "Custom", "Mute" };
-
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboAudioQuality, // ComboBox
-                    AudioQuality_ItemSource, // New Items List
-                    (string)mainwindow.cboAudioQuality.SelectedItem); // Selected Item
-
-
-                // -------------------------
-                // Channel
-                // -------------------------
-                // Change ItemSource
-                Channel_ItemSource = new List<string>() { "Source", "Stereo", "Joint Stereo", "Mono", "5.1" };
-
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboChannel, // ComboBox
-                    Channel_ItemSource, // New Items List
-                    "Joint Stereo"); // Selected Item
-
-
-                // -------------------------
-                // Sample Rate
-                // -------------------------
-                // Change ItemSource
-                SampleRate_ItemSource = new List<string>() { "auto", "8k", "11.025k", "12k", "16k", "22.05k", "24k", "32k", "44.1k", "48k" };
-
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboSamplerate, // ComboBox
-                    SampleRate_ItemSource, // New Items List
-                    (string)mainwindow.cboSamplerate.SelectedItem); // Selected Item
-
-
-                // -------------------------
-                // Bit Depth
-                // -------------------------
-                // Change ItemSource
-                BitDepth_ItemSource = new List<string>() { "auto" };
-
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboBitDepth, // ComboBox
-                    BitDepth_ItemSource, // New Items List
-                    (string)mainwindow.cboBitDepth.SelectedItem); // Selected Item
-
-
-                // --------------------------------------------------
-                // Controls
-                // --------------------------------------------------
-                // -------------------------
-                // Enabled
-                // -------------------------
-                // Audio Quality
-                mainwindow.cboAudioQuality.IsEnabled = true;
-
-                // Stream
-                mainwindow.cboAudioStream.IsEnabled = true;
-
-                // Channel
-                mainwindow.cboChannel.IsEnabled = true;
-
-                // VBR Button
-                mainwindow.tglAudioVBR.IsEnabled = true;
-                mainwindow.tglAudioVBR.IsChecked = false;
-
-                // SampleRate
-                mainwindow.cboSamplerate.IsEnabled = true;
-
-                // Volume
-                mainwindow.volumeUpDown.IsEnabled = true;
-                mainwindow.volumeUpButton.IsEnabled = true;
-                mainwindow.volumeDownButton.IsEnabled = true;
-
-                // -------------------------
-                // Disabled
-                // -------------------------
-                // Bit Depth
-                mainwindow.cboBitDepth.IsEnabled = false;
-            }
-
-            // --------------------------------------------------
-            // FLAC
-            // --------------------------------------------------
-            else if ((string)mainwindow.cboAudioCodec.SelectedItem == "FLAC")
-            {
-                // -------------------------
-                // Audio
-                // -------------------------
-                // Change ItemSource
-                AudioQuality_ItemSource = new List<string>() { "Auto", "Lossless", "320", "256", "224", "192", "160", "128", "96", "Custom", "Mute" };
-
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboAudioQuality, // ComboBox
-                    AudioQuality_ItemSource, // New Items List
-                    "Lossless"); // Selected Item
-
-                // Enable Control
-                
-
-
-                // -------------------------
-                // Channel
-                // -------------------------
-                // Change ItemSource
-                Channel_ItemSource = new List<string>() { "Source", "Stereo", "Mono", "5.1" };
-
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboChannel, // ComboBox
-                    Channel_ItemSource, // New Items List
-                    (string)mainwindow.cboChannel.SelectedItem); // Selected Item
-
-                // -------------------------
-                // Sample Rate
-                // -------------------------
-                // Change ItemSource
-                SampleRate_ItemSource = new List<string>() { "auto", "8k", "11.025k", "12k", "16k", "22.05k", "24k", "32k", "44.1k", "48k" };
-
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboSamplerate, // ComboBox
-                    SampleRate_ItemSource, // New Items List
-                    (string)mainwindow.cboSamplerate.SelectedItem); // Selected Item
-
-
-                // -------------------------
-                // Bit Depth
-                // -------------------------
-                // Change ItemSource
-                BitDepth_ItemSource = new List<string>() { "auto", "16", "32" };
-
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboBitDepth, // ComboBox
-                    BitDepth_ItemSource, // New Items List
-                    (string)mainwindow.cboBitDepth.SelectedItem); // Selected Item
-
-
-                // --------------------------------------------------
-                // Controls
-                // --------------------------------------------------
-                // -------------------------
-                // Enabled
-                // -------------------------
-                // Stream
-                mainwindow.cboAudioStream.IsEnabled = true;
-
-                // Channel
-                mainwindow.cboChannel.IsEnabled = true;
-
-                // SampleRate
-                mainwindow.cboSamplerate.IsEnabled = true;
-
-                // BitDepth
-                mainwindow.cboBitDepth.IsEnabled = true;
-
-                // Volume
-                mainwindow.volumeUpDown.IsEnabled = true;
-                mainwindow.volumeUpButton.IsEnabled = true;
-                mainwindow.volumeDownButton.IsEnabled = true;
-
-                // -------------------------
-                // Disabled
-                // -------------------------
-                // Audio Quality
-                mainwindow.cboAudioQuality.IsEnabled = true;
-
-                // VBR Button
-                mainwindow.tglAudioVBR.IsEnabled = false;
-                mainwindow.tglAudioVBR.IsChecked = false;
-
-            }
-
-            // --------------------------------------------------
-            // PCM
-            // --------------------------------------------------
-            else if ((string)mainwindow.cboAudioCodec.SelectedItem == "PCM")
-            {
-                // -------------------------
-                // Audio
-                // -------------------------
-                // Change ItemSource
-                AudioQuality_ItemSource = new List<string>() { "Auto", "Lossless", "320", "256", "224", "192", "160", "128", "96", "Custom", "Mute" };
-
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboAudioQuality, // ComboBox
-                    AudioQuality_ItemSource, // New Items List
-                    "Lossless"); // Selected Item
-
-
-                // -------------------------
-                // Channel
-                // -------------------------
-                // Change ItemSource
-                Channel_ItemSource = new List<string>() { "Source", "Stereo", "Mono", "5.1" };
-
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboChannel, // ComboBox
-                    Channel_ItemSource, // New Items List
-                    (string)mainwindow.cboChannel.SelectedItem); // Selected Item
-
-
-                // -------------------------
-                // Sample Rate
-                // -------------------------
-                // Change ItemSource
-                SampleRate_ItemSource = new List<string>() { "auto", "8k", "11.025k", "12k", "16k", "22.05k", "24k", "32k", "44.1k", "48k" };
-
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboSamplerate, // ComboBox
-                    SampleRate_ItemSource, // New Items List
-                    (string)mainwindow.cboSamplerate.SelectedItem); // Selected Item
-
-
-                // -------------------------
-                // Bit Depth
-                // -------------------------
-                // Change ItemSource
-                BitDepth_ItemSource = new List<string>() { "auto", "8", "16", "24", "32", "64" };
-
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboBitDepth, // ComboBox
-                    BitDepth_ItemSource, // New Items List
-                    (string)mainwindow.cboBitDepth.SelectedItem); // Selected Item
-
-
-                // --------------------------------------------------
-                // Controls
-                // --------------------------------------------------
-                // -------------------------
-                // Enabled
-                // -------------------------
-                // Stream
-                mainwindow.cboAudioStream.IsEnabled = true;
-
-                // Channel
-                mainwindow.cboChannel.IsEnabled = true;
-
-                // SampleRate
-                mainwindow.cboSamplerate.IsEnabled = true;
-
-                // BitDepth
-                mainwindow.cboBitDepth.IsEnabled = true;
-
-                // Volume
-                mainwindow.volumeUpDown.IsEnabled = true;
-                mainwindow.volumeUpButton.IsEnabled = true;
-                mainwindow.volumeDownButton.IsEnabled = true;
-
-                // -------------------------
-                // Disabled
-                // -------------------------
-                // Audio Quality
-                mainwindow.cboAudioQuality.IsEnabled = true;
-
-                // VBR Button
-                mainwindow.tglAudioVBR.IsEnabled = false;
-                mainwindow.tglAudioVBR.IsChecked = false;
-            }
-
-
-            // --------------------------------------------------
-            // Copy
-            // --------------------------------------------------
-            else if ((string)mainwindow.cboAudioCodec.SelectedItem == "Copy")
-            {
-                // -------------------------
-                // Audio
-                // -------------------------
-                // Change ItemSource
-                AudioQuality_ItemSource = new List<string>() { "Auto", "Lossless", "320", "256", "224", "192", "160", "128", "96", "Custom", "Mute" };
-
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboAudioQuality, // ComboBox
-                    AudioQuality_ItemSource, // New Items List
-                    "Auto"); // Selected Item
-
-
-                // -------------------------
-                // Channel
-                // -------------------------
-                // Change ItemSource
-                Channel_ItemSource = new List<string>() { "Source", "Stereo", "Mono", "5.1" };
-
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboChannel, // ComboBox
-                    Channel_ItemSource, // New Items List
-                    "Source"); // Selected Item
-
-
-                // -------------------------
-                // Sample Rate
-                // -------------------------
-                // Change ItemSource
-                SampleRate_ItemSource = new List<string>() { "auto", "8k", "11.025k", "12k", "16k", "22.05k", "24k", "32k", "44.1k", "48k" };
-
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboSamplerate, // ComboBox
-                    SampleRate_ItemSource, // New Items List
-                    "auto"); // Selected Item
-
-
-                // -------------------------
-                // Bit Depth
-                // -------------------------
-                // Change ItemSource
-                BitDepth_ItemSource = new List<string>() { "auto", "8", "16", "24", "32", "64" };
-
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboBitDepth, // ComboBox
-                    BitDepth_ItemSource, // New Items List
-                    "auto"); // Selected Item
-
-
-
-                // --------------------------------------------------
-                // Controls
-                // --------------------------------------------------
-                // -------------------------
-                // Enabled
-                // -------------------------
-                // Audio Quality
-                mainwindow.cboAudioQuality.IsEnabled = true;
-
-                // Stream
-                mainwindow.cboAudioStream.IsEnabled = true;
-
-                // Channel
-                mainwindow.cboChannel.IsEnabled = true;
-
-                // VBR Button
-                mainwindow.tglAudioVBR.IsEnabled = true;
-                mainwindow.tglAudioVBR.IsChecked = false;
-
-                // Volume
-                mainwindow.volumeUpDown.IsEnabled = true;
-                mainwindow.volumeUpButton.IsEnabled = true;
-                mainwindow.volumeDownButton.IsEnabled = true;
-
-
-                // -------------------------
-                // Disabled
-                // -------------------------
-                // SampleRate
-                mainwindow.cboSamplerate.IsEnabled = true;
-
-                // Bit Depth
-                mainwindow.cboBitDepth.IsEnabled = false;
-            }
-
-
-            // --------------------------------------------------
-            // None
-            // -------------------------------------------------- 
-            else if ((string)mainwindow.cboAudioCodec.SelectedItem == "None")
-            {
-                // -------------------------
-                // Audio
-                // -------------------------
-                // Change ItemSource
-                AudioQuality_ItemSource = new List<string>() { "None" };
-
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboAudioQuality, // ComboBox
-                    AudioQuality_ItemSource, // New Items List
-                    "None"); // Selected Item
-
-
-                // -------------------------
-                // Channel
-                // -------------------------
-                // Change ItemSource
-                Channel_ItemSource = new List<string>() { "Source", "Stereo", "Mono", "5.1" };
-
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboChannel, // ComboBox
-                    Channel_ItemSource, // New Items List
-                    "Source"); // Selected Item
-
-
-                // -------------------------
-                // Sample Rate
-                // -------------------------
-                // Change ItemSource
-                SampleRate_ItemSource = new List<string>() { "auto" };
-
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboSamplerate, // ComboBox
-                    SampleRate_ItemSource, // New Items List
-                    "auto"); // Selected Item
-
-
-                // -------------------------
-                // Bit Depth
-                // -------------------------
-                // Change ItemSource
-                BitDepth_ItemSource = new List<string>() { "auto" };
-
-                ChangeItemSource(
-                    mainwindow,
-                    mainwindow.cboBitDepth, // ComboBox
-                    BitDepth_ItemSource, // New Items List
-                    "auto"); // Selected Item
-
-
-                // --------------------------------------------------
-                // Controls
-                // --------------------------------------------------
-                // -------------------------
-                // Enabled
-                // -------------------------
-                // None
-
-                // -------------------------
-                // Disabled
-                // -------------------------
-                // Audio Quality
-                mainwindow.cboAudioQuality.IsEnabled = false;
-
-                // Stream
-                mainwindow.cboAudioStream.IsEnabled = false;
-
-                // Channel
-                mainwindow.cboChannel.IsEnabled = false;
-
-                // VBR Button
-                mainwindow.tglAudioVBR.IsEnabled = false;
-                mainwindow.tglAudioVBR.IsChecked = false;
-
-                // SampleRate
-                mainwindow.cboSamplerate.IsEnabled = false;
-
-                // Bit Depth
-                mainwindow.cboBitDepth.IsEnabled = false;
-
-                // Volume
-                mainwindow.volumeUpDown.IsEnabled = false;
-                mainwindow.volumeUpButton.IsEnabled = false;
-                mainwindow.volumeDownButton.IsEnabled = false;
-            }
-
-
-            // --------------------------------------------------
-            // Not Auto
-            // --------------------------------------------------
-            // Default to the Highest Value Available when switching codecs
-            // Only if Audio is Not Auto, None, Custom, Mute
-            if ((string)mainwindow.cboAudioQuality.SelectedItem != "Auto"
-                && (string)mainwindow.cboAudioQuality.SelectedItem != "None"
-                && (string)mainwindow.cboAudioQuality.SelectedItem != "Custom"
-                && (string)mainwindow.cboAudioQuality.SelectedItem != "Mute"
-                && (string)mainwindow.cboAudioQuality.SelectedItem != "Lossless"
-                || string.IsNullOrEmpty((string)mainwindow.cboAudioQuality.SelectedItem)) // If on Auto, leave it while switching codecs
-            {
-                //System.Windows.MessageBox.Show((string)audio.SelectedValue); // debug
-
-                // Only if Audio Codec is Not Empty
-                if (!string.IsNullOrEmpty((string)mainwindow.cboAudioCodec.SelectedItem))
+                // Display in TextBox
+                // -------------------------
+                //MessageBox.Show(vm.AudioQuality_SelectedItem);
+                //MessageBox.Show(vm.AudioVBR_IsChecked.ToString());
+                //vm.AudioBitrate_Text = "test";
+                // Bitrate CBR
+                if (vm.AudioVBR_IsChecked == false)
                 {
-                    // -------------------------
-                    // 640
-                    // -------------------------
-                    if (AudioQuality_ItemSource.Contains("640")
-                        && (string)mainwindow.cboAudioCodec.SelectedItem != "ALAC"
-                        && (string)mainwindow.cboAudioCodec.SelectedItem != "FLAC"
-                        && (string)mainwindow.cboAudioCodec.SelectedItem != "PCM")
-                    {
-                        if (Convert.ToInt32((string)mainwindow.cboAudioQuality.SelectedItem) >= 320
-                            || string.IsNullOrEmpty((string)mainwindow.cboAudioQuality.SelectedItem))
-                        {
-                            mainwindow.cboAudioQuality.SelectedItem = "640";
-                        }
-                    }
-                    // -------------------------
-                    // 510
-                    // -------------------------
-                    else if (AudioQuality_ItemSource.Contains("510")
-                        && (string)mainwindow.cboAudioCodec.SelectedItem != "ALAC"
-                        && (string)mainwindow.cboAudioCodec.SelectedItem != "FLAC"
-                        && (string)mainwindow.cboAudioCodec.SelectedItem != "PCM")
-                    {
-                        if (Convert.ToInt32((string)mainwindow.cboAudioQuality.SelectedItem) >= 320
-                            || string.IsNullOrEmpty((string)mainwindow.cboAudioQuality.SelectedItem))
-                        {
-                            mainwindow.cboAudioQuality.SelectedItem = "510";
-                        }
-                    }
-                    // -------------------------
-                    // 500
-                    // -------------------------
-                    else if (AudioQuality_ItemSource.Contains("500")
-                        && (string)mainwindow.cboAudioCodec.SelectedItem != "ALAC"
-                        && (string)mainwindow.cboAudioCodec.SelectedItem != "FLAC"
-                        && (string)mainwindow.cboAudioCodec.SelectedItem != "PCM")
-                    {
-                        if (Convert.ToInt32((string)mainwindow.cboAudioQuality.SelectedItem) >= 320
-                            || string.IsNullOrEmpty((string)mainwindow.cboAudioQuality.SelectedItem))
-                        {
-                            mainwindow.cboAudioQuality.SelectedItem = "500";
-                        }
-                    }
-                    // -------------------------
-                    // 448
-                    // -------------------------
-                    else if (AudioQuality_ItemSource.Contains("448")
-                        && (string)mainwindow.cboAudioCodec.SelectedItem != "ALAC"
-                        && (string)mainwindow.cboAudioCodec.SelectedItem != "FLAC"
-                        && (string)mainwindow.cboAudioCodec.SelectedItem != "PCM")
-                    {
-                        if (Convert.ToInt32((string)mainwindow.cboAudioQuality.SelectedItem) >= 320
-                            || string.IsNullOrEmpty((string)mainwindow.cboAudioQuality.SelectedItem))
-                        {
-                            mainwindow.cboAudioQuality.SelectedItem = "448";
-                        }
-                    }
-                    // -------------------------
-                    // 400
-                    // -------------------------
-                    else if (AudioQuality_ItemSource.Contains("400")
-                        && (string)mainwindow.cboAudioCodec.SelectedItem != "ALAC"
-                        && (string)mainwindow.cboAudioCodec.SelectedItem != "FLAC"
-                        && (string)mainwindow.cboAudioCodec.SelectedItem != "PCM")
-                    {
-                        if (Convert.ToInt32((string)mainwindow.cboAudioQuality.SelectedItem) >= 320
-                            || string.IsNullOrEmpty((string)mainwindow.cboAudioQuality.SelectedItem))
-                        {
-                            mainwindow.cboAudioQuality.SelectedItem = "400";
-                        }
-                    }
-                    // -------------------------
-                    // 320
-                    // -------------------------
-                    else if (AudioQuality_ItemSource.Contains("320")
-                        && (string)mainwindow.cboAudioCodec.SelectedItem != "ALAC"
-                        && (string)mainwindow.cboAudioCodec.SelectedItem != "FLAC"
-                        && (string)mainwindow.cboAudioCodec.SelectedItem != "PCM")
-                    {
-                        if (Convert.ToInt32((string)mainwindow.cboAudioQuality.SelectedItem) >= 320
-                            || string.IsNullOrEmpty((string)mainwindow.cboAudioQuality.SelectedItem))
-                        {
-                            mainwindow.cboAudioQuality.SelectedItem = "320";
-                        }
-                    }
-
+                    vm.AudioBitrate_Text = items.FirstOrDefault(item => item.Name == selectedQuality) ?.CBR;
                 }
 
-                // -------------------------
-                // Default to Lossless if ALAC or FLAC
-                // -------------------------
-                if (mainwindow.cboAudioQuality.Items.Contains("Lossless")
-                    && (string)mainwindow.cboAudioCodec.SelectedItem == "ALAC"
-                    | (string)mainwindow.cboAudioCodec.SelectedItem == "FLAC"
-                    | (string)mainwindow.cboAudioCodec.SelectedItem == "PCM")
+                // Bitrate VBR
+                else if (vm.AudioVBR_IsChecked == true)
                 {
-                    mainwindow.cboAudioQuality.SelectedItem = "Lossless";
-                    mainwindow.cboAudioQuality.IsEnabled = false;
-                    mainwindow.cboBitDepth.IsEnabled = true;
-                    if ((string)mainwindow.cboAudioCodec.SelectedItem == "PCM") { mainwindow.cboBitDepth.SelectedItem = "24"; } //special rules for PCM codec
-                    else { mainwindow.cboBitDepth.SelectedItem = "auto"; }
-                    mainwindow.cboSamplerate.SelectedItem = "auto";
+                    vm.AudioBitrate_Text = items.FirstOrDefault(item => item.Name == selectedQuality) ?.VBR;
                 }
             }
-
-
-            // Call Cut Controls Method from MainWindow
-            FormatControls.CutControls(mainwindow); //method
-
-        } // EndAudio Codec Controls
+        }
 
 
         /// <summary>
-        ///     Audio - Auto Codec Copy (Method)
+        ///     Quality Controls
         /// <summary>
-        public static void AutoCopyAudioCodec(MainWindow mainwindow) // Method
+        public static void QualityControls(ViewModel vm)
         {
-            if (!string.IsNullOrEmpty(MainWindow.inputExt) || !string.IsNullOrEmpty(MainWindow.batchExt)) // Null Check
+            // -------------------------
+            // Enable
+            // -------------------------
+            // Only for Custom
+            if (vm.AudioQuality_SelectedItem == "Custom")
             {
-                // -------------------------
-                // Select Copy - Single
-                // -------------------------
-                // Input Extension is Same as Output Extension and Audio Quality is Auto
-                if ((string)mainwindow.cboAudioQuality.SelectedItem == "Auto"
-                    && (string)mainwindow.cboChannel.SelectedItem == "Source"
-                    && (string)mainwindow.cboSamplerate.SelectedItem == "auto"
-                    //&& mainwindow.tglAudioLimiter.IsChecked == false
-                    && mainwindow.slAudioLimiter.Value == 1
-                    && mainwindow.volumeUpDown.Text.ToString().Equals("100")
+                // Bitrate
+                vm.AudioBitrate_IsEnabled = true;
+                vm.AudioBitrate_Text = "";
+            }
 
-                    // Extension Match
-                    && string.Equals(MainWindow.inputExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase)
-                    )
+            // -------------------------
+            // Disable
+            // -------------------------
+            // Only for Custom
+            else if (vm.AudioQuality_SelectedItem == "Auto")
+            {
+                // Bitrate
+                vm.AudioBitrate_IsEnabled = false;
+                vm.AudioBitrate_Text = "";
+            }
+            // All Other Qualities
+            else
+            {
+                // Bitrate
+                vm.AudioBitrate_IsEnabled = false;
+            }
+        }
+
+
+        /// <summary>
+        ///    Auto Copy Conditions Check
+        /// <summary>
+        public static bool AutoCopyConditionsCheck(MainWindow mainwindow,
+                                                   ViewModel vm,
+                                                   string inputExt,
+                                                   string outputExt)
+        {
+            // Pass Check
+            if (vm.AudioQuality_SelectedItem == "Auto" &&
+                vm.AudioChannel_SelectedItem == "Source" &&
+                vm.AudioSampleRate_SelectedItem == "auto" &&
+                vm.AudioBitDepth_SelectedItem == "auto" &&
+                vm.AudioHardLimiter_Value == 1 &&
+                vm.Volume_Text == "100" &&
+                string.Equals(inputExt, outputExt, StringComparison.CurrentCultureIgnoreCase)
+                )
+            {
+                return true;
+            }
+
+            // Did Not Pass Check
+            else
+            {
+                //MessageBox.Show("did not pass"); //debug
+                return false;
+            }
+        }
+
+
+        /// <summary>
+        ///    Auto Codec Copy
+        /// <summary>
+        public static void AutoCopyAudioCodec(MainWindow mainwindow, ViewModel vm)
+        {
+            // Merge extensions for Null Check
+            string extension = string.Empty;
+            if (!string.IsNullOrEmpty(MainWindow.inputExt))
+            {
+                extension = MainWindow.inputExt;
+            }
+            else if (!string.IsNullOrEmpty(MainWindow.batchExt))
+            {
+                extension = MainWindow.batchExt;
+            }
+
+            // Null Check
+            if (!string.IsNullOrEmpty(extension))
+            {
+                if (AutoCopyConditionsCheck(mainwindow, vm, extension, MainWindow.outputExt))
                 {
-                    //// -------------------------
-                    //// Insert Copy if Does Not Contain
-                    //// -------------------------
-                    //if (!AudioCodecItemSource.Contains("Copy"))
-                    //{
-                    //    AudioCodecItemSource.Insert(0, "Copy");
-                    //}
-                    //// Populate ComboBox from ItemSource
-                    //mainwindow.cboAudioCodec.ItemsSource = AudioCodecItemSource;
-
                     // -------------------------
-                    // Set Video Codec Combobox Selected Item to Copy
+                    // Set Audio Codec Combobox Selected Item to Copy
                     // -------------------------
-                    if (AudioCodec_ItemSource.Count > 0)
+                    if (vm.AudioCodec_Items.Count > 0)
                     {
-                        if (AudioCodec_ItemSource.Contains("Copy"))
+                        if (vm.AudioCodec_Items?.Contains("Copy") == true)
                         {
-                            mainwindow.cboAudioCodec.SelectedItem = "Copy";
-
-                            //return;
-                        }
-                    }
-                }
-
-                // -------------------------
-                // Select Copy - Batch
-                // -------------------------
-                else if ((string)mainwindow.cboAudioQuality.SelectedItem == "Auto"
-                    && (string)mainwindow.cboSamplerate.SelectedItem == "auto"
-                    //&& mainwindow.tglAudioLimiter.IsChecked == false
-                    && mainwindow.slAudioLimiter.Value == 1
-                    && mainwindow.volumeUpDown.Text == "100"
-
-                    // Batch Extension Match
-                    && mainwindow.tglBatch.IsChecked == true
-                    && string.Equals(MainWindow.batchExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase)
-                    )
-                {
-                    //// -------------------------
-                    //// Insert Copy if Does Not Contain
-                    //// -------------------------
-                    //if (!AudioCodecItemSource.Contains("Copy"))
-                    //{
-                    //    AudioCodecItemSource.Insert(0, "Copy");
-                    //}
-                    //// Populate ComboBox from ItemSource
-                    //mainwindow.cboAudioCodec.ItemsSource = AudioCodecItemSource;
-
-                    // -------------------------
-                    // Set Video Codec Combobox Selected Item to Copy
-                    // -------------------------
-                    if (AudioCodec_ItemSource.Count > 0)
-                    {
-                        if (AudioCodec_ItemSource.Contains("Copy"))
-                        {
-                            mainwindow.cboAudioCodec.SelectedItem = "Copy";
-
-                            //return;
+                            vm.AudioCodec_SelectedItem = "Copy";
                         }
                     }
                 }
@@ -1364,96 +581,100 @@ namespace Axiom
                     // -------------------------
                     // Null Check
                     // -------------------------
-                    if (!string.IsNullOrEmpty((string)mainwindow.cboAudioQuality.SelectedItem))
+                    if (!string.IsNullOrEmpty(vm.AudioQuality_SelectedItem))
                     {
                         // -------------------------
                         // Copy Selected
                         // -------------------------
-                        if ((string)mainwindow.cboAudioCodec.SelectedItem == "Copy")
+                        if (vm.AudioCodec_SelectedItem == "Copy")
                         {
                             // -------------------------
                             // Switch back to format's default codec
                             // -------------------------
-                            if (!string.Equals(MainWindow.inputExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase)
-                                || !string.Equals(MainWindow.batchExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase)
+                            if (!string.Equals(MainWindow.inputExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase) ||
+                                !string.Equals(MainWindow.batchExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase)
                                 )
                             {
                                 // -------------------------
                                 // Video Container
                                 // -------------------------
-                                if ((string)mainwindow.cboFormat.SelectedItem == "webm")
+                                if (vm.Container_SelectedItem == "webm")
                                 {
-                                    mainwindow.cboAudioCodec.SelectedItem = "Vorbis";
+                                    vm.AudioCodec_SelectedItem = "Vorbis";
                                 }
-                                else if ((string)mainwindow.cboFormat.SelectedItem == "mp4")
+                                else if (vm.Container_SelectedItem == "mp4")
                                 {
-                                    mainwindow.cboAudioCodec.SelectedItem = "AAC";
+                                    vm.AudioCodec_SelectedItem = "AAC";
                                 }
-                                else if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
+                                else if (vm.Container_SelectedItem == "mkv")
                                 {
-                                    mainwindow.cboAudioCodec.SelectedItem = "AC3";
+                                    vm.AudioCodec_SelectedItem = "AC3";
                                 }
-                                else if ((string)mainwindow.cboFormat.SelectedItem == "m2v")
+                                else if (vm.Container_SelectedItem == "m2v")
                                 {
-                                    mainwindow.cboAudioCodec.SelectedItem = "None";
+                                    vm.AudioCodec_SelectedItem = "None";
                                 }
-                                else if ((string)mainwindow.cboFormat.SelectedItem == "mpg")
+                                else if (vm.Container_SelectedItem == "mpg")
                                 {
-                                    mainwindow.cboAudioCodec.SelectedItem = "AC3";
+                                    vm.AudioCodec_SelectedItem = "AC3";
                                 }
-                                else if ((string)mainwindow.cboFormat.SelectedItem == "avi")
+                                else if (vm.Container_SelectedItem == "avi")
                                 {
-                                    mainwindow.cboAudioCodec.SelectedItem = "LAME";
+                                    vm.AudioCodec_SelectedItem = "LAME";
                                 }
-                                else if ((string)mainwindow.cboFormat.SelectedItem == "ogv")
+                                else if (vm.Container_SelectedItem == "ogv")
                                 {
-                                    mainwindow.cboAudioCodec.SelectedItem = "Vorbis";
+                                    vm.AudioCodec_SelectedItem = "Vorbis";
                                 }
 
                                 // -------------------------
                                 // Audio Container
                                 // -------------------------
-                                if ((string)mainwindow.cboFormat.SelectedItem == "m4a")
+                                if (vm.Container_SelectedItem == "m4a")
                                 {
-                                    mainwindow.cboAudioCodec.SelectedItem = "AAC";
+                                    vm.AudioCodec_SelectedItem = "AAC";
                                 }
-                                else if ((string)mainwindow.cboFormat.SelectedItem == "mp3")
+                                else if (vm.Container_SelectedItem == "mp3")
                                 {
-                                    mainwindow.cboAudioCodec.SelectedItem = "LAME";
+                                    vm.AudioCodec_SelectedItem = "LAME";
                                 }
-                                else if ((string)mainwindow.cboFormat.SelectedItem == "ogg")
+                                else if (vm.Container_SelectedItem == "ogg")
                                 {
-                                    mainwindow.cboAudioCodec.SelectedItem = "Opus";
+                                    vm.AudioCodec_SelectedItem = "Opus";
                                 }
-                                else if ((string)mainwindow.cboFormat.SelectedItem == "flac")
+                                else if (vm.Container_SelectedItem == "flac")
                                 {
-                                    mainwindow.cboAudioCodec.SelectedItem = "FLAC";
+                                    vm.AudioCodec_SelectedItem = "FLAC";
                                 }
-                                else if ((string)mainwindow.cboFormat.SelectedItem == "wav")
+                                else if (vm.Container_SelectedItem == "wav")
                                 {
-                                    mainwindow.cboAudioCodec.SelectedItem = "PCM";
+                                    vm.AudioCodec_SelectedItem = "PCM";
                                 }
 
                                 // -------------------------
                                 // Image Container
                                 // -------------------------
-                                //if ((string)mainwindow.cboFormat.SelectedItem == "jpg")
+                                //if (vm.Container_SelectedItem == "jpg")
                                 //{
-                                //    mainwindow.cboAudioCodec.SelectedItem = "None";
+                                //    vm.AudioCodec_SelectedItem = "None";
                                 //}
-                                //else if ((string)mainwindow.cboFormat.SelectedItem == "png")
+                                //else if (vm.Container_SelectedItem == "png")
                                 //{
-                                //    mainwindow.cboAudioCodec.SelectedItem = "None";
+                                //    vm.AudioCodec_SelectedItem = "None";
                                 //}
-                                //else if ((string)mainwindow.cboFormat.SelectedItem == "webp")
+                                //else if (vm.Container_SelectedItem == "webp")
                                 //{
-                                //    mainwindow.cboAudioCodec.SelectedItem = "None";
+                                //    vm.AudioCodec_SelectedItem = "None";
                                 //}
                             }
                         }
                     }
                 }
             }
-        } // End AutoCopyAudioCodec
+        }
+
+
+
+
     }
 }

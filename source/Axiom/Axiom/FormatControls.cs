@@ -1,6 +1,6 @@
 ﻿/* ----------------------------------------------------------------------
 Axiom UI
-Copyright (C) 2017, 2018 Matt McManis
+Copyright (C) 2017-2019 Matt McManis
 http://github.com/MattMcManis/Axiom
 http://axiomui.github.io
 mattmcmanis@outlook.com
@@ -19,10 +19,7 @@ You should have received a copy of the GNU General Public License
 along with this program.If not, see <http://www.gnu.org/licenses/>. 
 ---------------------------------------------------------------------- */
 
-
-using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 // Disable XML Comment warnings
 #pragma warning disable 1591
 #pragma warning disable 1587
@@ -49,1423 +46,738 @@ namespace Axiom
             "Sequence"
         };
 
-        // Format
-        //public static List<string> FormatItemSource = new List<string>()
-        //{
-        //    "webm",
-        //    "mp4",
-        //    "mkv",
-        //    "avi",
-        //    "ogv",
-        //    "mp3",
-        //    "m4a",
-        //    "ogg",
-        //    "flac",
-        //    "wav",
-        //    "jpg",
-        //    "png"
-        //};
-
-        // --------------------------------------------------------------------------------------------------------
-        // --------------------------------------------------------------------------------------------------------
-        // Control Methods
-        // --------------------------------------------------------------------------------------------------------
-        // --------------------------------------------------------------------------------------------------------
 
         /// <summary>
-        /// Get Output Extension (Method)
+        ///     Set Controls
         /// </summary>
-        public static void OutputFormatExt(MainWindow mainwindow)
+        public static void SetControls(ViewModel vm, string container)
         {
-            // Output Extension is Format ComboBox's Selected Item (eg mp4)
-            MainWindow.outputExt = "." + mainwindow.cboFormat.SelectedItem.ToString();
-        }
-
-
-        /// <summary>
-        /// File Output Format Defaults (Method)
-        /// </summary>
-        // Output Control Selections
-        public static void OuputFormatDefaults(MainWindow mainwindow)
-        {
-            // Get Output Extension (Method)
-            //Format.GetOutputExt(mainwindow);
-
-            // Previous Subtitle Item
-            string previousSubtitleItem = string.Empty;
-            if ((string)mainwindow.cboSubtitlesStream.SelectedItem == "external")
-            {
-                previousSubtitleItem = "external";
-            }
-
-            //var selectedItem = (ViewModel.FormatItem)mainwindow.cboFormat.SelectedItem;
-            //string format = selectedItem.Name;
+            // --------------------------------------------------
+            // Containers
+            // --------------------------------------------------
+            // Select Codecs and Default Selected Items per container
 
             // --------------------------------------------------
-            // Output Format Container Rules
+            // Video
             // --------------------------------------------------
             // -------------------------
             // webm
             // -------------------------
-            if ((string)mainwindow.cboFormat.SelectedItem == "webm")
+            if (container == "webm")
             {
-                // Media Type
-                mainwindow.cboMediaType.SelectedItem = "Video";
-                mainwindow.cboMediaType.IsEnabled = false;
+                // MediaType
+                vm.MediaType_SelectedItem = "Video";
 
-                // Subtitle
-                mainwindow.cboSubtitlesStream.SelectedItem = "none";
-                mainwindow.cboSubtitlesStream.IsEnabled = false;
+                // Video Codec
+                vm.VideoCodec_Items = Containers.WebM.video;
+                vm.VideoCodec_SelectedItem = "VP8";
 
-                // Audio
-                mainwindow.cboAudioStream.SelectedItem = "1";
+                // Audio Codec
+                vm.AudioCodec_Items = Containers.WebM.audio;
+                vm.AudioCodec_SelectedItem = "Vorbis";
 
-                // FPS
-                mainwindow.cboFPS.IsEnabled = true;
-
-                // Optimize
-                mainwindow.cboOptimize.IsEnabled = true;
-
-                //mainwindow.cboOptimize.SelectedItem = "Web";
-
-                //webm has no video tuning available
+                // Subtitle Codec
+                vm.SubtitleCodec_Items = Containers.WebM.subtitle;
+                vm.SubtitleCodec_SelectedItem = "None";
             }
 
             // -------------------------
             // mp4
             // -------------------------
-            else if ((string)mainwindow.cboFormat.SelectedItem == "mp4")
+            else if (container == "mp4")
             {
-                // Media Type
-                mainwindow.cboMediaType.SelectedItem = "Video";
-                mainwindow.cboMediaType.IsEnabled = false;
+                // MediaType
+                vm.MediaType_SelectedItem = "Video";
 
-                // Subtitle
-                mainwindow.cboSubtitlesStream.SelectedItem = "all";
-                mainwindow.cboSubtitlesStream.IsEnabled = true;
+                // Video Codec
+                vm.VideoCodec_Items = Containers.MP4.video;
+                vm.VideoCodec_SelectedItem = "x264";
 
-                // Audio
-                mainwindow.cboAudioStream.SelectedItem = "all";
+                // Audio Codec
+                vm.AudioCodec_Items = Containers.MP4.audio;
+                vm.AudioCodec_SelectedItem = "AAC";
 
-                // FPS
-                mainwindow.cboFPS.IsEnabled = true;
-
-                // Optimize
-                mainwindow.cboOptimize.IsEnabled = true;
-
-                //video tuning is under videoCodec method
+                // Subtitle Codec
+                vm.SubtitleCodec_Items = Containers.MP4.subtitle;
+                vm.SubtitleCodec_SelectedItem = "MOV Text";
             }
 
             // -------------------------
             // mkv
             // -------------------------
-            else if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
+            else if (container == "mkv")
             {
-                // Media Type
-                mainwindow.cboMediaType.SelectedItem = "Video";
-                mainwindow.cboMediaType.IsEnabled = false;
+                // MediaType
+                vm.MediaType_SelectedItem = "Video";
 
-                // Subtitle
-                mainwindow.cboSubtitlesStream.SelectedItem = "all";
-                mainwindow.cboSubtitlesStream.IsEnabled = true;
+                // Video Codec
+                vm.VideoCodec_Items = Containers.MKV.video;
+                vm.VideoCodec_SelectedItem = "x264";
 
-                // Audio
-                mainwindow.cboAudioStream.SelectedItem = "all";
+                // Audio Codec
+                vm.AudioCodec_Items = Containers.MKV.audio;
+                vm.AudioCodec_SelectedItem = "AC3";
 
-                // FPS
-                mainwindow.cboFPS.IsEnabled = true;
-
-                // Optimize
-                mainwindow.cboOptimize.IsEnabled = true;
+                // Subtitle Codec
+                vm.SubtitleCodec_Items = Containers.MKV.subtitle;
+                vm.SubtitleCodec_SelectedItem = "SSA";
             }
 
             // -------------------------
             // m2v
             // -------------------------
-            else if ((string)mainwindow.cboFormat.SelectedItem == "m2v")
+            else if (container == "m2v")
             {
-                // Media Type
-                mainwindow.cboMediaType.SelectedItem = "Video";
-                mainwindow.cboMediaType.IsEnabled = false;
+                // MediaType
+                vm.MediaType_SelectedItem = "Video";
 
-                // Subtitle
-                mainwindow.cboSubtitlesStream.SelectedItem = "none";
-                mainwindow.cboSubtitlesStream.IsEnabled = false;
+                // Video Codec
+                vm.VideoCodec_Items = Containers.M2V.video;
+                vm.VideoCodec_SelectedItem = "MPEG-2";
 
-                // Audio
-                mainwindow.cboAudioStream.SelectedItem = "none";
+                // Audio Codec
+                vm.AudioCodec_Items = Containers.M2V.audio;
+                vm.AudioCodec_SelectedItem = "None";
 
-                // FPS
-                mainwindow.cboFPS.IsEnabled = true;
-
-                // Optimize
-                mainwindow.cboOptimize.IsEnabled = false;
+                // Subtitle Codec
+                vm.SubtitleCodec_Items = Containers.M2V.subtitle;
+                vm.SubtitleCodec_SelectedItem = "None";
             }
 
             // -------------------------
             // mpg
             // -------------------------
-            else if ((string)mainwindow.cboFormat.SelectedItem == "mpg")
+            else if (container == "mpg")
             {
-                // Media Type
-                mainwindow.cboMediaType.SelectedItem = "Video";
-                mainwindow.cboMediaType.IsEnabled = false;
+                // MediaType
+                vm.MediaType_SelectedItem = "Video";
 
-                // Subtitle
-                mainwindow.cboSubtitlesStream.SelectedItem = "all";
-                mainwindow.cboSubtitlesStream.IsEnabled = true;
+                // Video Codec
+                vm.VideoCodec_Items = Containers.MPG.video;
+                vm.VideoCodec_SelectedItem = "MPEG-2";
 
-                // Audio
-                mainwindow.cboAudioStream.SelectedItem = "all";
+                // Audio Codec
+                vm.AudioCodec_Items = Containers.MPG.audio;
+                vm.AudioCodec_SelectedItem = "AC3";
 
-                // FPS
-                mainwindow.cboFPS.IsEnabled = true;
-
-                // Optimize
-                mainwindow.cboOptimize.IsEnabled = false;
+                // Subtitle Codec
+                vm.SubtitleCodec_Items = Containers.MPG.subtitle;
+                vm.SubtitleCodec_SelectedItem = "SRT";
             }
 
             // -------------------------
             // avi
             // -------------------------
-            else if ((string)mainwindow.cboFormat.SelectedItem == "avi")
+            else if (container == "avi")
             {
-                // Media Type
-                mainwindow.cboMediaType.SelectedItem = "Video";
-                mainwindow.cboMediaType.IsEnabled = false;
+                // MediaType
+                vm.MediaType_SelectedItem = "Video";
 
-                // Subtitle
-                mainwindow.cboSubtitlesStream.SelectedItem = "all";
-                mainwindow.cboSubtitlesStream.IsEnabled = true;
+                // Video Codec
+                vm.VideoCodec_Items = Containers.AVI.video;
+                vm.VideoCodec_SelectedItem = "MPEG-4";
 
-                // Audio
-                mainwindow.cboAudioStream.SelectedItem = "all";
+                // Audio Codec
+                vm.AudioCodec_Items = Containers.AVI.audio;
+                vm.AudioCodec_SelectedItem = "AC3";
 
-                // FPS
-                mainwindow.cboFPS.IsEnabled = true;
-
-                // Optimize
-                mainwindow.cboOptimize.IsEnabled = false;
+                // Subtitle Codec
+                vm.SubtitleCodec_Items = Containers.AVI.subtitle;
+                vm.SubtitleCodec_SelectedItem = "SRT";
             }
 
             // -------------------------
             // ogv
             // -------------------------
-            else if ((string)mainwindow.cboFormat.SelectedItem == "ogv")
+            else if (container == "ogv")
             {
-                // Media Type
-                mainwindow.cboMediaType.SelectedItem = "Video";
-                mainwindow.cboMediaType.IsEnabled = false;
+                // MediaType
+                vm.MediaType_SelectedItem = "Video";
 
-                // Subtitle
-                mainwindow.cboSubtitlesStream.SelectedItem = "none";
-                mainwindow.cboSubtitlesStream.IsEnabled = false;
+                // Video Codec
+                vm.VideoCodec_Items = Containers.OGV.video;
+                vm.VideoCodec_SelectedItem = "Theora";
 
-                // Audio
-                mainwindow.cboAudioStream.SelectedItem = "all";
+                // Audio Codec
+                vm.AudioCodec_Items = Containers.OGV.audio;
+                vm.AudioCodec_SelectedItem = "Opus";
 
-                // FPS
-                mainwindow.cboFPS.IsEnabled = true;
-
-                // Optimize
-                mainwindow.cboOptimize.IsEnabled = true;
+                // Subtitle Codec
+                vm.SubtitleCodec_Items = Containers.OGV.subtitle;
+                vm.SubtitleCodec_SelectedItem = "None";
             }
 
-            // -------------------------
-            // gif
-            // -------------------------
-            else if ((string)mainwindow.cboFormat.SelectedItem == "gif")
-            {
-                // Media Type
-                mainwindow.cboMediaType.SelectedItem = "Image";
-                mainwindow.cboMediaType.IsEnabled = true;
-
-                // Subtitle
-                mainwindow.cboSubtitlesStream.SelectedItem = "none";
-                mainwindow.cboSubtitlesStream.IsEnabled = false;
-
-                // FPS
-                mainwindow.cboFPS.SelectedItem = "auto";
-                mainwindow.cboFPS.IsEnabled = true;
-
-                // Optimize
-                mainwindow.cboOptimize.IsEnabled = false;
-            }
-
+            // --------------------------------------------------
+            // Audio
+            // --------------------------------------------------
             // -------------------------
             // mp3
             // -------------------------
-            else if ((string)mainwindow.cboFormat.SelectedItem == "mp3")
+            else if (container == "mp3")
             {
-                // Media Type
-                mainwindow.cboMediaType.SelectedItem = "Audio";
-                mainwindow.cboMediaType.IsEnabled = false;
+                // MediaType
+                vm.MediaType_SelectedItem = "Audio";
 
-                // Subtitle
-                mainwindow.cboSubtitlesStream.SelectedItem = "none";
-                mainwindow.cboSubtitlesStream.IsEnabled = false;
+                // Video Codec
+                vm.VideoCodec_Items = Containers.LAME.video;
+                vm.VideoCodec_SelectedItem = "None";
 
-                // Audio
-                mainwindow.cboAudioStream.SelectedItem = "1";
+                // Audio Codec
+                vm.AudioCodec_Items = Containers.LAME.audio;
+                vm.AudioCodec_SelectedItem = "LAME";
 
-                // FPS
-                mainwindow.cboFPS.SelectedItem = "auto";
-                mainwindow.cboFPS.IsEnabled = false;
-
-                // Optimize
-                mainwindow.cboOptimize.IsEnabled = false;
+                // Subtitle Codec
+                vm.SubtitleCodec_Items = Containers.LAME.subtitle;
+                vm.SubtitleCodec_SelectedItem = "None";
             }
 
             // -------------------------
             // m4a
             // -------------------------
-            else if ((string)mainwindow.cboFormat.SelectedItem == "m4a")
+            else if (container == "m4a")
             {
-                // Media Type
-                mainwindow.cboMediaType.SelectedItem = "Audio";
-                mainwindow.cboMediaType.IsEnabled = false;
+                // Video Codec
+                vm.VideoCodec_Items = Containers.M4A.video;
+                vm.VideoCodec_SelectedItem = "None";
 
-                // Subtitle
-                mainwindow.cboSubtitlesStream.SelectedItem = "none";
-                mainwindow.cboSubtitlesStream.IsEnabled = false;
+                // Audio Codec
+                vm.AudioCodec_Items = Containers.M4A.audio;
+                vm.AudioCodec_SelectedItem = "AAC";
 
-                // Audio
-                mainwindow.cboAudioStream.SelectedItem = "1";
-
-                // FPS
-                mainwindow.cboFPS.SelectedItem = "auto";
-                mainwindow.cboFPS.IsEnabled = false;
-
-                // Optimize
-                mainwindow.cboOptimize.IsEnabled = false;
+                // Subtitle Codec
+                vm.SubtitleCodec_Items = Containers.M4A.subtitle;
+                vm.SubtitleCodec_SelectedItem = "None";
             }
 
             // -------------------------
             // ogg
             // -------------------------
-            else if ((string)mainwindow.cboFormat.SelectedItem == "ogg")
+            else if (container == "ogg")
             {
-                // Media Type
-                mainwindow.cboMediaType.SelectedItem = "Audio";
-                mainwindow.cboMediaType.IsEnabled = false;
+                // MediaType
+                vm.MediaType_SelectedItem = "Audio";
 
-                // Subtitle
-                mainwindow.cboSubtitlesStream.SelectedItem = "none";
-                mainwindow.cboSubtitlesStream.IsEnabled = false;
+                // Video Codec
+                vm.VideoCodec_Items = Containers.OGG.video;
+                vm.VideoCodec_SelectedItem = "None";
 
-                // Audio
-                mainwindow.cboAudioStream.SelectedItem = "1";
+                // Audio Codec
+                vm.AudioCodec_Items = Containers.OGG.audio;
+                vm.AudioCodec_SelectedItem = "Opus";
 
-                // FPS
-                mainwindow.cboFPS.SelectedItem = "auto";
-                mainwindow.cboFPS.IsEnabled = false;
-
-                // Optimize
-                mainwindow.cboOptimize.IsEnabled = false;
+                // Subtitle Codec
+                vm.SubtitleCodec_Items = Containers.OGG.subtitle;
+                vm.SubtitleCodec_SelectedItem = "None";
             }
 
             // -------------------------
             // flac
             // -------------------------
-            else if ((string)mainwindow.cboFormat.SelectedItem == "flac")
+            else if (container == "flac")
             {
-                // Media Type
-                mainwindow.cboMediaType.SelectedItem = "Audio";
-                mainwindow.cboMediaType.IsEnabled = false;
+                // MediaType
+                vm.MediaType_SelectedItem = "Audio";
 
-                // Subtitle
-                mainwindow.cboSubtitlesStream.SelectedItem = "none";
-                mainwindow.cboSubtitlesStream.IsEnabled = false;
+                // Video Codec
+                vm.VideoCodec_Items = Containers.FLAC.video;
+                vm.VideoCodec_SelectedItem = "None";
 
-                // Audio
-                mainwindow.cboAudioStream.SelectedItem = "1";
+                // Audio Codec
+                vm.AudioCodec_Items = Containers.FLAC.audio;
+                vm.AudioCodec_SelectedItem = "FLAC";
 
-                // Optimize
-                mainwindow.cboOptimize.IsEnabled = false;
+                // Subtitle Codec
+                vm.SubtitleCodec_Items = Containers.FLAC.subtitle;
+                vm.SubtitleCodec_SelectedItem = "None";
             }
 
             // -------------------------
             // wav
             // -------------------------
-            else if ((string)mainwindow.cboFormat.SelectedItem == "wav")
+            else if (container == "wav")
             {
-                // Media Type
-                mainwindow.cboMediaType.SelectedItem = "Audio";
-                mainwindow.cboMediaType.IsEnabled = false;
+                // MediaType
+                vm.MediaType_SelectedItem = "Audio";
 
-                // Subtitle
-                mainwindow.cboSubtitlesStream.SelectedItem = "none";
-                mainwindow.cboSubtitlesStream.IsEnabled = false;
+                // Video Codec
+                vm.VideoCodec_Items = Containers.WAV.video;
+                vm.VideoCodec_SelectedItem = "None";
 
-                // Optimize
-                mainwindow.cboOptimize.IsEnabled = false;
+                // Audio Codec
+                vm.AudioCodec_Items = Containers.WAV.audio;
+                vm.AudioCodec_SelectedItem = "PCM";
+
+                // Subtitle Codec
+                vm.SubtitleCodec_Items = Containers.WAV.subtitle;
+                vm.SubtitleCodec_SelectedItem = "None";
             }
 
+
+            // --------------------------------------------------
+            // Image
+            // --------------------------------------------------
             // -------------------------
             // jpg
             // -------------------------
-            else if ((string)mainwindow.cboFormat.SelectedItem == "jpg")
+            else if (container == "jpg")
             {
-                // Media Type
-                // Remove all other options but Image and Sequence
-                MediaTypeItemSource = new List<string>() { "Image", "Sequence" };
-                mainwindow.cboMediaType.ItemsSource = MediaTypeItemSource;
+                // MediaType
+                vm.MediaType_SelectedItem = "Image";
 
-                mainwindow.cboMediaType.SelectedItem = "Image";
-                mainwindow.cboMediaType.IsEnabled = true;
+                // Video Codec
+                vm.VideoCodec_Items = Containers.JPG.video;
+                vm.VideoCodec_SelectedItem = "JPEG";
 
-                // Subtitle
-                mainwindow.cboSubtitlesStream.SelectedItem = "none";
-                mainwindow.cboSubtitlesStream.IsEnabled = false;
+                // Audio Codec
+                vm.AudioCodec_Items = Containers.JPG.audio;
+                vm.AudioCodec_SelectedItem = "None";
 
-                // Optimize
-                mainwindow.cboOptimize.IsEnabled = false;
-
-                // more options enable/disable in MediaType Section
+                // Subtitle Codec
+                vm.SubtitleCodec_Items = Containers.JPG.subtitle;
+                vm.SubtitleCodec_SelectedItem = "None";
             }
 
             // -------------------------
             // png
             // -------------------------
-            else if ((string)mainwindow.cboFormat.SelectedItem == "png")
+            else if (container == "png")
             {
-                // Media Type
-                // Remove all other options but Image and Sequence
-                MediaTypeItemSource = new List<string>() { "Image", "Sequence" };
-                mainwindow.cboMediaType.ItemsSource = MediaTypeItemSource;
-
-                mainwindow.cboMediaType.SelectedItem = "Image";
-                mainwindow.cboMediaType.IsEnabled = true;
-
-                // Subtitle
-                mainwindow.cboSubtitlesStream.SelectedItem = "none";
-                mainwindow.cboSubtitlesStream.IsEnabled = false;
-
-                // Optimize
-                mainwindow.cboOptimize.IsEnabled = false;
-
-                // more options enable/disable in MediaType Section
-            }
-
-            // -------------------------
-            // WebP
-            // -------------------------
-            else if ((string)mainwindow.cboFormat.SelectedItem == "webp")
-            {
-                // Media Type
-                // Remove all other options but Image and Sequence
-                MediaTypeItemSource = new List<string>() { "Image", "Sequence" };
-                mainwindow.cboMediaType.ItemsSource = MediaTypeItemSource;
-
-                mainwindow.cboMediaType.SelectedItem = "Image";
-                mainwindow.cboMediaType.IsEnabled = true;
-
-                // Subtitle
-                mainwindow.cboSubtitlesStream.SelectedItem = "none";
-                mainwindow.cboSubtitlesStream.IsEnabled = false;
-
-                // Optimize
-                mainwindow.cboOptimize.IsEnabled = false;
-
-                // more options enable/disable in MediaType Section
-            }
-        }
-
-
-
-        /// <summary>
-        /// Output Format (Method)
-        /// </summary>
-        // On Format Combobox Change
-        // Output ComboBox Options
-        public static void OutputFormat(MainWindow mainwindow)
-        {
-            // -------------------------
-            // Set ViewModel DataContext
-            // -------------------------
-            ViewModel vm = mainwindow.DataContext as ViewModel;
-
-            // Reset MediaType ComboBox back to Default if not jpg/png and does not contain video/audio (must be above other format options)
-            if ((string)mainwindow.cboFormat.SelectedItem != "jpg"
-                && (string)mainwindow.cboFormat.SelectedItem != "png"
-                && (string)mainwindow.cboFormat.SelectedItem != "webp"
-                && !mainwindow.cboMediaType.Items.Contains("Video")
-                && !mainwindow.cboMediaType.Items.Contains("Audio"))
-            {
-                MediaTypeItemSource = new List<string>() { "Video", "Audio", "Image", "Sequence" };
-
-                mainwindow.cboMediaType.ItemsSource = MediaTypeItemSource;
-            }
-
-            // --------------------------------------------------------------------------------------------------------
-            // Codecs Per Container
-            // --------------------------------------------------------------------------------------------------------
-            // Change Video Codec Items
-
-            // -------------------------
-            // webm 
-            // -------------------------
-            if ((string)mainwindow.cboFormat.SelectedItem == "webm")
-            {
-                //ViewModel vm = mainwindow.DataContext as ViewModel;
-
-                // -------------------------
-                // Video
-                // -------------------------
-                //vm.cboVideoCodec_Items = new List<string>()
-                //{
-                //    "VP8",
-                //    "VP9",
-                //    "Copy"
-                //};
-
-                // Item Source
-                VideoControls.VideoCodec_ItemSource = new List<string>()
-                {
-                    "VP8",
-                    "VP9",
-                    "Copy"
-                };
-                // Populate ComboBox from ItemSource
-                mainwindow.cboVideoCodec.ItemsSource = VideoControls.VideoCodec_ItemSource;
-
-                // -------------------------
-                // Subtitle
-                // -------------------------
-                // Item Source
-                VideoControls.SubtitleCodec_ItemSource = new List<string>() { "None" };
-                // Populate ComboBox
-                mainwindow.cboSubtitleCodec.ItemsSource = VideoControls.SubtitleCodec_ItemSource;
-
-                // -------------------------
-                // Audio
-                // ------------------------- 
-                AudioControls.AudioCodec_ItemSource = new List<string>() { "Vorbis", "Opus", "Copy" };
-
-                // Populate ComboBox from ItemSource
-                mainwindow.cboAudioCodec.ItemsSource = AudioControls.AudioCodec_ItemSource;
-
-                // -------------------------
-                // Set the List Defaults
-                // -------------------------
-                mainwindow.cboVideoCodec.SelectedItem = "VP8";
-                mainwindow.cboSubtitleCodec.SelectedItem = "None";
-                mainwindow.cboAudioCodec.SelectedItem = "Vorbis";
-            }
-
-            // -------------------------
-            // mp4 
-            // -------------------------
-            else if ((string)mainwindow.cboFormat.SelectedItem == "mp4")
-            {
-                // -------------------------
-                // Video
-                // -------------------------
-                //vm.cboVideoCodec_Items = new List<string>()
-                //{
-                //    "x264",
-                //    "x265",
-                //    "Copy"
-                //};
-                VideoControls.VideoCodec_ItemSource = new List<string>()
-                {
-                    "x264",
-                    "x265",
-                    "Copy"
-                };
-
-                // Populate ComboBox from ItemSource
-                mainwindow.cboVideoCodec.ItemsSource = VideoControls.VideoCodec_ItemSource;
-
-                // -------------------------
-                // Subtitle
-                // -------------------------
-                // Item Source
-                VideoControls.SubtitleCodec_ItemSource = new List<string>() { "None", "mov_text", "Burn", "Copy" };
-                // Populate ComboBox
-                mainwindow.cboSubtitleCodec.ItemsSource = VideoControls.SubtitleCodec_ItemSource;
-
-                // -------------------------
-                // Audio
-                // -------------------------  
-                AudioControls.AudioCodec_ItemSource = new List<string>() { "AAC", "AC3", "Copy" };
-
-                // Populate ComboBox from ItemSource
-                mainwindow.cboAudioCodec.ItemsSource = AudioControls.AudioCodec_ItemSource;
-
-                // -------------------------
-                // Set the List Defaults
-                // -------------------------
-                mainwindow.cboVideoCodec.SelectedItem = "x264";
-                mainwindow.cboSubtitleCodec.SelectedItem = "mov_text";
-                mainwindow.cboAudioCodec.SelectedItem = "AAC";
-            }
-
-            // -------------------------
-            // mkv 
-            // -------------------------
-            else if ((string)mainwindow.cboFormat.SelectedItem == "mkv")
-            {
-                // -------------------------
-                // Video
-                // -------------------------
-                //vm.cboVideoCodec_Items = new List<string>()
-                //{
-                //    "x264",
-                //    "x265",
-                //    "VP8",
-                //    "VP9",
-                //    "AV1",
-                //    "Theora",
-                //    "Copy"
-                //};
-                VideoControls.VideoCodec_ItemSource = new List<string>() { "x264", "x265", "VP8", "VP9", "AV1", "Theora", "Copy" };
-
-                //Populate ComboBox from ItemSource
-                mainwindow.cboVideoCodec.ItemsSource = VideoControls.VideoCodec_ItemSource;
-
-                // -------------------------
-                // Subtitle
-                // -------------------------
-                // Item Source
-                VideoControls.SubtitleCodec_ItemSource = new List<string>() { "None", "mov_text", /*"ASS",*/ "SSA", "SRT", "Burn", "Copy" };
-                // Populate ComboBox
-                mainwindow.cboSubtitleCodec.ItemsSource = VideoControls.SubtitleCodec_ItemSource;
-
-                // -------------------------
-                // Audio
-                // ------------------------- 
-                AudioControls.AudioCodec_ItemSource = new List<string>() { "AAC", "AC3", "Vorbis", "Opus", "LAME", "FLAC", "PCM", "Copy" };
-
-                // Populate ComboBox from ItemSource
-                mainwindow.cboAudioCodec.ItemsSource = AudioControls.AudioCodec_ItemSource;
-
-                // -------------------------
-                // Set the List Defaults
-                // -------------------------
-                mainwindow.cboVideoCodec.SelectedItem = "x264";
-                mainwindow.cboSubtitleCodec.SelectedItem = "Copy";
-                mainwindow.cboAudioCodec.SelectedItem = "AC3";
-            }
-
-            // -------------------------
-            // m2v 
-            // -------------------------
-            else if ((string)mainwindow.cboFormat.SelectedItem == "m2v")
-            {
-                // -------------------------
-                // Video
-                // -------------------------
-                //vm.cboVideoCodec_Items = new List<string>()
-                //{
-                //    "MPEG-2",
-                //    "Copy"
-                //};
-                VideoControls.VideoCodec_ItemSource = new List<string>() { "MPEG-2", "Copy" };
-
-                // Populate ComboBox from ItemSource
-                mainwindow.cboVideoCodec.ItemsSource = VideoControls.VideoCodec_ItemSource;
-
-                // -------------------------
-                // Subtitle
-                // -------------------------
-                // Item Source
-                VideoControls.SubtitleCodec_ItemSource = new List<string>() { "None" };
-                // Populate ComboBox
-                mainwindow.cboSubtitleCodec.ItemsSource = VideoControls.SubtitleCodec_ItemSource;
-
-                // -------------------------
-                // Audio
-                // ------------------------- 
-                AudioControls.AudioCodec_ItemSource = new List<string>() { "None" };
-
-                // Populate ComboBox from ItemSource
-                mainwindow.cboAudioCodec.ItemsSource = AudioControls.AudioCodec_ItemSource;
-
-                // -------------------------
-                // Set the List Defaults
-                // -------------------------
-                mainwindow.cboVideoCodec.SelectedItem = "MPEG-2";
-                mainwindow.cboSubtitleCodec.SelectedItem = "None";
-                mainwindow.cboAudioCodec.SelectedItem = "None";
-            }
-
-            // -------------------------
-            // mpg 
-            // -------------------------
-            else if ((string)mainwindow.cboFormat.SelectedItem == "mpg")
-            {
-                // -------------------------
-                // Video
-                // -------------------------
-                //vm.cboVideoCodec_Items = new List<string>()
-                //{
-                //    "MPEG-2",
-                //    "MPEG-4",
-                //    "Copy"
-                //};
-                VideoControls.VideoCodec_ItemSource = new List<string>() { "MPEG-2", "MPEG-4", "Copy" };
-
-                // Populate ComboBox from ItemSource
-                mainwindow.cboVideoCodec.ItemsSource = VideoControls.VideoCodec_ItemSource;
-
-                // -------------------------
-                // Subtitle
-                // -------------------------
-                // Item Source
-                VideoControls.SubtitleCodec_ItemSource = new List<string>() { "None", "SRT", "Burn", "Copy" };
-                // Populate ComboBox
-                mainwindow.cboSubtitleCodec.ItemsSource = VideoControls.SubtitleCodec_ItemSource;
-
-                // -------------------------
-                // Audio
-                // ------------------------- 
-                AudioControls.AudioCodec_ItemSource = new List<string>() { "AAC", "AC3", "MP2", "LAME", "PCM", "Copy" };
-
-                // Populate ComboBox from ItemSource
-                mainwindow.cboAudioCodec.ItemsSource = AudioControls.AudioCodec_ItemSource;
-
-                // -------------------------
-                // Set the List Defaults
-                // -------------------------
-                mainwindow.cboVideoCodec.SelectedItem = "MPEG-2";
-                mainwindow.cboSubtitleCodec.SelectedItem = "SRT";
-                mainwindow.cboAudioCodec.SelectedItem = "AC3";
-            }
-
-            // -------------------------
-            // avi 
-            // -------------------------
-            else if ((string)mainwindow.cboFormat.SelectedItem == "avi")
-            {
-                // -------------------------
-                // Video
-                // -------------------------
-                //vm.cboVideoCodec_Items = new List<string>()
-                //{
-                //    "MPEG-2",
-                //    "MPEG-4",
-                //    "Copy"
-                //};
-                VideoControls.VideoCodec_ItemSource = new List<string>() { "MPEG-2", "MPEG-4", "Copy" };
-
-                // Populate ComboBox from ItemSource
-                mainwindow.cboVideoCodec.ItemsSource = VideoControls.VideoCodec_ItemSource;
-
-                // -------------------------
-                // Subtitle
-                // -------------------------
-                // Item Source
-                VideoControls.SubtitleCodec_ItemSource = new List<string>() { "None", "SRT", "Burn", "Copy" };
-                // Populate ComboBox
-                mainwindow.cboSubtitleCodec.ItemsSource = VideoControls.SubtitleCodec_ItemSource;
-
-                // -------------------------
-                // Audio
-                // ------------------------- 
-                AudioControls.AudioCodec_ItemSource = new List<string>() { "AAC", "AC3", "MP2", "LAME", "PCM", "Copy" };
-
-                // Populate ComboBox from ItemSource
-                mainwindow.cboAudioCodec.ItemsSource = AudioControls.AudioCodec_ItemSource;
-
-                // -------------------------
-                // Set the List Defaults
-                // -------------------------
-                mainwindow.cboVideoCodec.SelectedItem = "MPEG-4";
-                mainwindow.cboSubtitleCodec.SelectedItem = "SRT";
-                mainwindow.cboAudioCodec.SelectedItem = "LAME";
-            }
-
-            // -------------------------
-            // ogv 
-            // -------------------------
-            else if ((string)mainwindow.cboFormat.SelectedItem == "ogv")
-            {
-                // -------------------------
-                // Video
-                // -------------------------
-                //vm.cboVideoCodec_Items = new List<string>()
-                //{
-                //    "Theora",
-                //    "Copy"
-                //};
-                VideoControls.VideoCodec_ItemSource = new List<string>() { "Theora", "Copy" };
-
-                // Populate ComboBox from ItemSource
-                mainwindow.cboVideoCodec.ItemsSource = VideoControls.VideoCodec_ItemSource;
-
-                // -------------------------
-                // Subtitle
-                // -------------------------
-                // Item Source
-                VideoControls.SubtitleCodec_ItemSource = new List<string>() { "None" };
-                // Populate ComboBox
-                mainwindow.cboSubtitleCodec.ItemsSource = VideoControls.SubtitleCodec_ItemSource;
-
-                // -------------------------
-                // Audio
-                // ------------------------- 
-                AudioControls.AudioCodec_ItemSource = new List<string>() { "Vorbis", "Copy" };
-
-                // Populate ComboBox from ItemSource
-                mainwindow.cboAudioCodec.ItemsSource = AudioControls.AudioCodec_ItemSource;
-
-                // -------------------------
-                // Set the List Defaults
-                // -------------------------
-                mainwindow.cboVideoCodec.SelectedItem = "Theora";
-                mainwindow.cboSubtitleCodec.SelectedItem = "None";
-                mainwindow.cboAudioCodec.SelectedItem = "Vorbis";
-            }
-
-            // -------------------------
-            // m4a 
-            // -------------------------
-            else if ((string)mainwindow.cboFormat.SelectedItem == "m4a")
-            {
-                // -------------------------
-                // Video
-                // -------------------------
-                //vm.cboVideoCodec_Items = new List<string>()
-                //{
-                //    "None"
-                //};
-                VideoControls.VideoCodec_ItemSource = new List<string>() { "None" };
-
-                // Populate ComboBox from ItemSource
-                mainwindow.cboVideoCodec.ItemsSource = VideoControls.VideoCodec_ItemSource;
-
-                // -------------------------
-                // Audio
-                // ------------------------- 
-                AudioControls.AudioCodec_ItemSource = new List<string>() { "AAC", "ALAC", "Copy" };
-
-                // Populate ComboBox from ItemSource
-                mainwindow.cboAudioCodec.ItemsSource = AudioControls.AudioCodec_ItemSource;
-
-                // -------------------------
-                // Set the List Defaults
-                // -------------------------
-                mainwindow.cboVideoCodec.SelectedItem = "None";
-                mainwindow.cboAudioCodec.SelectedItem = "AAC";
-            }
-
-            // -------------------------
-            // mp3
-            // -------------------------
-            else if ((string)mainwindow.cboFormat.SelectedItem == "mp3")
-            {
-                // -------------------------
-                // Video
-                // -------------------------
-                //vm.cboVideoCodec_Items = new List<string>()
-                //{
-                //    "None"
-                //};
-                VideoControls.VideoCodec_ItemSource = new List<string>() { "None" };
-
-                // Populate ComboBox from ItemSource
-                mainwindow.cboVideoCodec.ItemsSource = VideoControls.VideoCodec_ItemSource;
-
-                // -------------------------
-                // Audio
-                // ------------------------- 
-                AudioControls.AudioCodec_ItemSource = new List<string>() { "LAME", "Copy" };
-
-                // Populate ComboBox from ItemSource
-                mainwindow.cboAudioCodec.ItemsSource = AudioControls.AudioCodec_ItemSource;
-
-                // -------------------------
-                // Set the List Defaults
-                // -------------------------
-                mainwindow.cboVideoCodec.SelectedItem = "None";
-                mainwindow.cboAudioCodec.SelectedItem = "LAME";
-            }
-
-            // -------------------------
-            // ogg 
-            // -------------------------
-            else if ((string)mainwindow.cboFormat.SelectedItem == "ogg")
-            {
-                // -------------------------
-                // Video
-                // -------------------------
-                //vm.cboVideoCodec_Items = new List<string>()
-                //{
-                //    "None"
-                //};
-                VideoControls.VideoCodec_ItemSource = new List<string>() { "None" };
-
-                // Populate ComboBox from ItemSource
-                mainwindow.cboVideoCodec.ItemsSource = VideoControls.VideoCodec_ItemSource;
-
-                // -------------------------
-                // Audio
-                // ------------------------- 
-                AudioControls.AudioCodec_ItemSource = new List<string>() { "Opus", "Vorbis", "Copy" };
-
-                // Populate ComboBox from ItemSource
-                mainwindow.cboAudioCodec.ItemsSource = AudioControls.AudioCodec_ItemSource;
-
-                // -------------------------
-                // Set the List Defaults
-                // -------------------------
-                mainwindow.cboVideoCodec.SelectedItem = "None";
-                mainwindow.cboAudioCodec.SelectedItem = "Opus";
-            }
-
-            // -------------------------
-            // flac 
-            // -------------------------
-            else if ((string)mainwindow.cboFormat.SelectedItem == "flac")
-            {
-                // -------------------------
-                // Video
-                // -------------------------
-                //vm.cboVideoCodec_Items = new List<string>()
-                //{
-                //    "None"
-                //};
-                VideoControls.VideoCodec_ItemSource = new List<string>() { "None" };
-
-                // Populate ComboBox from ItemSource
-                mainwindow.cboVideoCodec.ItemsSource = VideoControls.VideoCodec_ItemSource;
-
-                // -------------------------
-                // Audio
-                // ------------------------- 
-                AudioControls.AudioCodec_ItemSource = new List<string>() { "FLAC", "Copy" };
-
-                // Populate ComboBox from ItemSource
-                mainwindow.cboAudioCodec.ItemsSource = AudioControls.AudioCodec_ItemSource;
-
-                // -------------------------
-                // Set the List Defaults
-                // -------------------------
-                mainwindow.cboVideoCodec.SelectedItem = "None";
-                mainwindow.cboAudioCodec.SelectedItem = "FLAC";
-            }
-
-            // -------------------------
-            // wav 
-            // -------------------------
-            else if ((string)mainwindow.cboFormat.SelectedItem == "wav")
-            {
-                // -------------------------
-                // Video
-                // -------------------------
-                //vm.cboVideoCodec_Items = new List<string>()
-                //{
-                //    "None"
-                //};
-                VideoControls.VideoCodec_ItemSource = new List<string>() { "None" };
-
-                // Populate ComboBox from ItemSource
-                mainwindow.cboVideoCodec.ItemsSource = VideoControls.VideoCodec_ItemSource;
-
-                // -------------------------
-                // Audio
-                // ------------------------- 
-                AudioControls.AudioCodec_ItemSource = new List<string>() { "PCM", "Copy" };
-
-                // Populate ComboBox from ItemSource
-                mainwindow.cboAudioCodec.ItemsSource = AudioControls.AudioCodec_ItemSource;
-
-                // -------------------------
-                // Set the List Defaults
-                // -------------------------
-                mainwindow.cboVideoCodec.SelectedItem = "None";
-                mainwindow.cboAudioCodec.SelectedItem = "PCM";
-                mainwindow.tglAudioVBR.IsEnabled = false;
-            }
-
-            // -------------------------
-            // jpg
-            // -------------------------
-            else if ((string)mainwindow.cboFormat.SelectedItem == "jpg")
-            {
-                // -------------------------
-                // Video
-                // -------------------------
-                //vm.cboVideoCodec_Items = new List<string>()
-                //{
-                //    "JPEG"
-                //};
-                VideoControls.VideoCodec_ItemSource = new List<string>() { "JPEG" };
-
-                // Populate ComboBox from ItemSource
-                mainwindow.cboVideoCodec.ItemsSource = VideoControls.VideoCodec_ItemSource;
-
-                // -------------------------
-                // Audio
-                // ------------------------- 
-                AudioControls.AudioCodec_ItemSource = new List<string>() { "None" };
-
-                // Populate ComboBox from ItemSource
-                mainwindow.cboAudioCodec.ItemsSource = AudioControls.AudioCodec_ItemSource;
-
-                // -------------------------
-                // Set the List Defaults
-                // -------------------------
-                mainwindow.cboVideoCodec.SelectedItem = "JPEG";
-                mainwindow.cboAudioCodec.SelectedItem = "None";  //important
-            }
-
-            // -------------------------
-            // png
-            // -------------------------
-            else if ((string)mainwindow.cboFormat.SelectedItem == "png")
-            {
-                // -------------------------
-                // Video
-                // -------------------------
-                //vm.cboVideoCodec_Items = new List<string>()
-                //{
-                //    "PNG"
-                //};
-                VideoControls.VideoCodec_ItemSource = new List<string>() { "PNG" };
-
-                // Populate ComboBox from ItemSource
-                mainwindow.cboVideoCodec.ItemsSource = VideoControls.VideoCodec_ItemSource;
-
-                // -------------------------
-                // Audio
-                // ------------------------- 
-                AudioControls.AudioCodec_ItemSource = new List<string>() { "None" };
-
-                // Populate ComboBox from ItemSource
-                mainwindow.cboAudioCodec.ItemsSource = AudioControls.AudioCodec_ItemSource;
-
-                // -------------------------
-                // Set the List Defaults
-                // -------------------------
-                mainwindow.cboVideoCodec.SelectedItem = "PNG";
-                mainwindow.cboAudioCodec.SelectedItem = "None";  //important
+                // MediaType
+                vm.MediaType_SelectedItem = "Image";
+
+                // Video Codec
+                vm.VideoCodec_Items = Containers.PNG.video;
+                vm.VideoCodec_SelectedItem = "PNG";
+
+                // Audio Codec
+                vm.AudioCodec_Items = Containers.PNG.audio;
+                vm.AudioCodec_SelectedItem = "None";
+
+                // Subtitle Codec
+                vm.SubtitleCodec_Items = Containers.PNG.subtitle;
+                vm.SubtitleCodec_SelectedItem = "None";
             }
 
             // -------------------------
             // webp
             // -------------------------
-            else if ((string)mainwindow.cboFormat.SelectedItem == "webp")
+            else if (container == "webp")
             {
-                // -------------------------
-                // Video
-                // -------------------------
-                //vm.cboVideoCodec_Items = new List<string>()
-                //{
-                //    "WebP"
-                //};
-                VideoControls.VideoCodec_ItemSource = new List<string>() { "WebP" };
+                // MediaType
+                vm.MediaType_SelectedItem = "Image";
 
-                // Populate ComboBox from ItemSource
-                mainwindow.cboVideoCodec.ItemsSource = VideoControls.VideoCodec_ItemSource;
+                // Video Codec
+                vm.VideoCodec_Items = Containers.WebP.video;
+                vm.VideoCodec_SelectedItem = "WebP";
 
-                // -------------------------
-                // Audio
-                // ------------------------- 
-                AudioControls.AudioCodec_ItemSource = new List<string>() { "None" };
+                // Audio Codec
+                vm.AudioCodec_Items = Containers.WebP.audio;
+                vm.AudioCodec_SelectedItem = "None";
 
-                // Populate ComboBox from ItemSource
-                mainwindow.cboAudioCodec.ItemsSource = AudioControls.AudioCodec_ItemSource;
-
-                // -------------------------
-                // Set the List Defaults
-                // -------------------------
-                mainwindow.cboVideoCodec.SelectedItem = "WebP";
-                mainwindow.cboAudioCodec.SelectedItem = "None";  //important
+                // Subtitle Codec
+                vm.SubtitleCodec_Items = Containers.WebP.subtitle;
+                vm.SubtitleCodec_SelectedItem = "None";
             }
-
-
-            // -------------------------
-            // Format Container Additional Rules
-            // -------------------------
-            // Disable VBR checkbox if Audio is Auto (ALWAYS) - This might not work, might be overridden by below
-            //if ((string)mainwindow.cboAudioQuality.SelectedItem == "Auto"
-            //    && (string)mainwindow.cboFormat.SelectedItem == "mp4"
-            //    || (string)mainwindow.cboFormat.SelectedItem == "mkv"
-            //    || (string)mainwindow.cboFormat.SelectedItem == "m2v"
-            //    || (string)mainwindow.cboFormat.SelectedItem == "mpg"
-            //    || (string)mainwindow.cboFormat.SelectedItem == "avi"
-            //    || (string)mainwindow.cboFormat.SelectedItem == "ogv"
-            //    || (string)mainwindow.cboFormat.SelectedItem == "gif"
-            //    || (string)mainwindow.cboFormat.SelectedItem == "mp3"
-            //    || (string)mainwindow.cboFormat.SelectedItem == "m4a"
-            //    || (string)mainwindow.cboFormat.SelectedItem == "flac"
-            //    || (string)mainwindow.cboFormat.SelectedItem == "wav")
-            //{
-            //    mainwindow.tglAudioVBR.IsEnabled = false;
-            //    mainwindow.tglAudioVBR.IsChecked = false;
-            //}
-            //// Check VBR for WebM (VBR-Only codec) (ALWAYS)
-            //else if ((string)mainwindow.cboAudioQuality.SelectedItem == "Auto" 
-            //    && (string)mainwindow.cboFormat.SelectedItem == "webm")
-            //{
-            //    mainwindow.tglAudioVBR.IsEnabled = false;
-            //    mainwindow.tglAudioVBR.IsChecked = true;
-            //}
-            //// Check VBR for OGV (VBR-Only codec) (ALWAYS)
-            //else if ((string)mainwindow.cboAudioQuality.SelectedItem == "Auto" 
-            //    && (string)mainwindow.cboFormat.SelectedItem == "ogv")
-            //{
-            //    mainwindow.tglAudioVBR.IsEnabled = false;
-            //    mainwindow.tglAudioVBR.IsChecked = true; //doesnt work
-            //}
-
-
-            // Set Video & Audio Codec Combobox to "Copy" if Input Extension is Same as Output Extension and Video Quality is Auto
-            VideoControls.AutoCopyVideoCodec(mainwindow);
-            VideoControls.AutoCopySubtitleCodec(mainwindow);
-            AudioControls.AutoCopyAudioCodec(mainwindow);
         }
 
 
 
+        /// <summary>
+        ///     Get Output Extension
+        /// </summary>
+        public static void OutputFormatExt(ViewModel vm)
+        {
+            // Output Extension is Format ComboBox's Selected Item (eg mp4)
+            MainWindow.outputExt = "." + vm.Container_SelectedItem;
+        }
+
 
 
         /// <summary>
-        ///     MediaType Controls (Method)
+        ///     MediaType Controls
         /// </summary>
-        public static void MediaType(MainWindow mainwindow)
+        public static void MediaType(ViewModel vm)
         {
-            // Note: Try to Only Use *Disabled*. Enable will unnecessarily override.
-
             // -------------------------
             // Video MediaType
             // -------------------------
             // Enable Frame Textbox for Image Screenshot
-            if ((string)mainwindow.cboMediaType.SelectedItem == "Video")
+            if (vm.MediaType_SelectedItem == "Video")
             {
-                // -------------------------
-                // Codec
-                // -------------------------
-                mainwindow.cboVideoCodec.IsEnabled = true;
-                mainwindow.cboAudioCodec.IsEnabled = true;
-
                 // -------------------------
                 // Video
                 // -------------------------
+                // Codec
+                vm.VideoCodec_IsEnabled = true;
+
                 // Size
-                mainwindow.cboSize.IsEnabled = true;
+                vm.Size_IsEnabled = true;
 
                 // Scaling
-                mainwindow.cboScaling.SelectedItem = "default";
-                mainwindow.cboScaling.IsEnabled = true;
+                vm.Scaling_IsEnabled = true;
+                vm.Scaling_SelectedItem = "default";
 
                 // Cut
                 // Cut Change - If coming back from JPEG or PNG
-                if (mainwindow.cutStart.IsEnabled == true && mainwindow.cutEnd.IsEnabled == false)
+                if (vm.CutStart_IsEnabled == true && 
+                    vm.CutEnd_IsEnabled == false)
                 {
-                    mainwindow.cboCut.SelectedItem = "No";
+                    vm.Cut_SelectedItem = "No";
                 }
 
                 // Crop
-                mainwindow.buttonCrop.IsEnabled = true;
+                vm.Crop_IsEnabled = true;
 
-                //Speed
-                mainwindow.cboSpeed.IsEnabled = true;
+                // Encode Speed
+                vm.VideoEncodeSpeed_IsEnabled = true;
 
                 // -------------------------
                 // Audio
                 // -------------------------
+                // Codec
+                vm.AudioCodec_IsEnabled = true;
+
                 // Channel
-                mainwindow.cboChannel.IsEnabled = true;
+                vm.AudioChannel_IsEnabled = true;
 
                 // Volume
-                mainwindow.volumeUpDown.IsEnabled = true;
-                mainwindow.volumeUpButton.IsEnabled = true;
-                mainwindow.volumeDownButton.IsEnabled = true;
+                vm.Volume_IsEnabled = true;
 
                 // Limiter
-                mainwindow.slAudioLimiter.IsEnabled = true;
+                vm.AudioHardLimiter_IsEnabled = true;
 
                 // Audio Stream
-                mainwindow.cboAudioStream.IsEnabled = true;
-                mainwindow.cboAudioStream.SelectedItem = "all";
+                vm.AudioStream_IsEnabled = true;
+                vm.AudioStream_SelectedItem = "all";
+
+
+                // -------------------------
+                // Subtitle
+                // -------------------------
+                // Codec
+                vm.SubtitleCodec_IsEnabled = true;
             }
 
             // -------------------------
             // Audio MediaType
             // -------------------------
-            else if ((string)mainwindow.cboMediaType.SelectedItem == "Audio")
+            else if (vm.MediaType_SelectedItem == "Audio")
             {
-                // -------------------------
-                // Codec
-                // -------------------------
-                mainwindow.cboVideoCodec.IsEnabled = false;
-                mainwindow.cboAudioCodec.IsEnabled = true;
-
                 // -------------------------
                 // Video
                 // -------------------------
-                //Size
-                mainwindow.cboSize.SelectedItem = "Source";
-                mainwindow.cboSize.IsEnabled = false;
+                // Codec
+                vm.VideoCodec_IsEnabled = false;
+
+                // Size
+                vm.Size_SelectedItem = "Source";
+                vm.Size_IsEnabled = false;
 
                 // Scaling
-                mainwindow.cboScaling.SelectedItem = "default";
-                mainwindow.cboScaling.IsEnabled = false;
+                vm.Scaling_SelectedItem = "default";
+                vm.Scaling_IsEnabled = false;
 
                 // Cut
                 // Cut Change - If coming back from JPEG or PNG
-                if (mainwindow.cutStart.IsEnabled == true && mainwindow.cutEnd.IsEnabled == false)
+                if (vm.CutStart_IsEnabled == true && vm.CutEnd_IsEnabled == false)
                 {
-                    mainwindow.cboCut.SelectedItem = "No";
+                    vm.Cut_SelectedItem = "No";
                 }
 
                 // Frame
-                mainwindow.frameEnd.IsEnabled = false;
-                mainwindow.frameEnd.Text = string.Empty;
+                vm.FrameEnd_IsEnabled = false;
+                vm.FrameEnd_Text = "";
 
                 // Crop
-                mainwindow.buttonCrop.IsEnabled = false;
+                vm.Crop_IsEnabled = false;
 
-                // Fps
-                mainwindow.cboFPS.SelectedItem = "auto";
-                mainwindow.cboFPS.IsEnabled = false;
+                // FPS
+                vm.FPS_SelectedItem = "auto";
+                vm.FPS_IsEnabled = false;
 
-                //Speed
-                mainwindow.cboSpeed.IsEnabled = false;
+                // Encode Speed
+                vm.VideoEncodeSpeed_IsEnabled = false;
+
 
                 // -------------------------
                 // Audio
                 // -------------------------
+                // Codec
+                vm.AudioCodec_IsEnabled = true;
+
                 // Channel
-                mainwindow.cboChannel.IsEnabled = true; //always
+                vm.AudioChannel_IsEnabled = true;
 
                 // Audio Stream
-                mainwindow.cboAudioStream.IsEnabled = true;
-                mainwindow.cboAudioStream.SelectedItem = "1";
+                vm.AudioStream_IsEnabled = true;
+                vm.AudioStream_SelectedItem = "1";
 
                 // Sample Rate
-                //samplerateSelect.SelectedItem = true;
+                // Controled Through Codec Class
 
                 // Bit Depth
-                //bitdepthSelect.SelectedItem = true;
+                // Controled Through Codec Class
 
                 // Volume
-                mainwindow.volumeUpDown.IsEnabled = true;
-                mainwindow.volumeUpButton.IsEnabled = true;
-                mainwindow.volumeDownButton.IsEnabled = true;
+                vm.Volume_IsEnabled = true;
 
                 // Limiter
-                //mainwindow.tglAudioLimiter.IsEnabled = true;
-                mainwindow.slAudioLimiter.IsEnabled = true;
+                vm.AudioHardLimiter_IsEnabled = true;
 
+
+                // -------------------------
+                // Subtitle
+                // -------------------------
+                // Codec
+                vm.SubtitleCodec_IsEnabled = false;
             }
 
             // -------------------------
             // Image MediaType
             // -------------------------
-            else if ((string)mainwindow.cboMediaType.SelectedItem == "Image")
+            else if (vm.MediaType_SelectedItem == "Image")
             {
-                // -------------------------
-                // Codec
-                // -------------------------
-                mainwindow.cboVideoCodec.IsEnabled = true;
-                mainwindow.cboAudioCodec.IsEnabled = false;
-
                 // -------------------------
                 // Video
                 // -------------------------
+                // Codec
+                vm.VideoCodec_IsEnabled = true;
+
                 //Size
-                mainwindow.cboSize.IsEnabled = true;
+                vm.Size_IsEnabled = true;
 
                 // Scaling
-                mainwindow.cboScaling.SelectedItem = "default";
-                mainwindow.cboScaling.IsEnabled = true;
+                vm.Scaling_SelectedItem = "default";
+                vm.Scaling_IsEnabled = true;
 
                 // Cut
                 // Enable Cut Start Time for Frame Selection
-                mainwindow.cboCut.SelectedItem = "Yes";
-                mainwindow.cutStart.IsEnabled = true; //important
-                mainwindow.cutEnd.Text = "00:00:00.000"; //important
-                mainwindow.cutEnd.IsEnabled = false; //important
+                vm.Cut_SelectedItem = "Yes";
+                vm.CutStart_IsEnabled = true;
+                vm.CutEnd_Text = "00:00:00.000";
+                vm.CutEnd_IsEnabled = false;
 
                 // Frame
-                mainwindow.frameEnd.IsEnabled = false; //important
-                mainwindow.frameEnd.Text = string.Empty; //important
+                vm.FrameEnd_IsEnabled = false;
+                vm.FrameEnd_Text = "";
 
                 // Crop
+                vm.Crop_IsEnabled = true;
 
                 // Fps
-                mainwindow.cboFPS.SelectedItem = "auto";
-                mainwindow.cboFPS.IsEnabled = false;
+                vm.FPS_SelectedItem = "auto";
+                vm.FPS_IsEnabled = false;
 
-                //Speed
-                mainwindow.cboSpeed.IsEnabled = false;
+                // Encode Speed
+                vm.VideoEncodeSpeed_IsEnabled = false;
 
                 // -------------------------
                 // Audio
                 // -------------------------
+                // Codec
+                vm.AudioCodec_IsEnabled = false;
+
+                // Quality
+                vm.AudioQuality_SelectedItem = "Auto";
+                vm.AudioQuality_IsEnabled = false;
+
                 // Channel
-                mainwindow.cboChannel.IsEnabled = false;
+                vm.AudioChannel_SelectedItem = "Source";
+                vm.AudioChannel_IsEnabled = false;
 
                 // Audio Stream
-                mainwindow.cboAudioStream.IsEnabled = false;
-                mainwindow.cboAudioStream.SelectedItem = "none";
+                vm.AudioStream_SelectedItem = "none";
+                vm.AudioStream_IsEnabled = false;
 
                 // Sample Rate
-                mainwindow.cboSamplerate.SelectedItem = false;
+                vm.AudioSampleRate_SelectedItem = "auto";
+                vm.AudioSampleRate_IsEnabled = false;
 
                 // Bit Depth
-                mainwindow.cboBitDepth.SelectedItem = false;
+                vm.AudioBitDepth_SelectedItem = "auto";
+                vm.AudioBitDepth_IsEnabled = false;
 
                 // Volume
-                mainwindow.volumeUpDown.IsEnabled = false;
-                mainwindow.volumeUpButton.IsEnabled = false;
-                mainwindow.volumeDownButton.IsEnabled = false;
+                vm.Volume_IsEnabled = false;
 
                 // Limiter
-                mainwindow.slAudioLimiter.IsEnabled = false;
-                mainwindow.slAudioLimiter.Value = 1;
+                vm.AudioHardLimiter_IsEnabled = false;
+                vm.AudioHardLimiter_Value = 1;
+
+
+                // -------------------------
+                // Subtitle
+                // -------------------------
+                // Codec
+                vm.SubtitleCodec_IsEnabled = false;
             }
 
             // -------------------------
             // Sequence MediaType
             // -------------------------
-            else if ((string)mainwindow.cboMediaType.SelectedItem == "Sequence")
+            else if (vm.MediaType_SelectedItem == "Sequence")
             {
-                // -------------------------
-                // Codec
-                // -------------------------
-                mainwindow.cboVideoCodec.IsEnabled = true;
-                mainwindow.cboAudioCodec.IsEnabled = false;
-
                 // -------------------------
                 // Video
                 // -------------------------
+                // Codec 
+                vm.VideoCodec_IsEnabled = true;
+
                 //Size
-                mainwindow.cboSize.IsEnabled = true;
+                vm.Size_IsEnabled = true;
 
                 // Scaling
-                mainwindow.cboScaling.SelectedItem = "default";
-                mainwindow.cboScaling.IsEnabled = true;
+                vm.Scaling_SelectedItem = "default";
+                vm.Scaling_IsEnabled = true;
 
                 // Cut
                 // Enable Cut for Time Selection
-                mainwindow.cboCut.SelectedItem = "No";
-
-                // Frame
+                vm.Cut_SelectedItem = "No";
 
                 // Crop
-                mainwindow.buttonCrop.IsEnabled = true;
+                vm.Crop_IsEnabled = true;
 
-                //Speed
-                mainwindow.cboSpeed.IsEnabled = false;
+                // Speed
+                vm.VideoEncodeSpeed_IsEnabled = false;
 
-                // Fps
-                //fpsSelect.SelectedItem = "24";
-                mainwindow.cboFPS.IsEnabled = true;
+                // FPS
+                vm.FPS_IsEnabled = true;
+
 
                 // -------------------------
                 // Audio
                 // -------------------------
+                // Codec
+                vm.AudioCodec_IsEnabled = false;
+
+                // Quality
+                vm.AudioQuality_SelectedItem = "Auto";
+                vm.AudioQuality_IsEnabled = false;
+
                 // Channel
-                mainwindow.cboChannel.IsEnabled = false;
+                vm.AudioChannel_SelectedItem = "Source";
+                vm.AudioChannel_IsEnabled = false;
 
                 // Audio Stream
-                mainwindow.cboAudioStream.IsEnabled = false;
-                mainwindow.cboAudioStream.SelectedItem = "none";
+                vm.AudioStream_SelectedItem = "none";
+                vm.AudioStream_IsEnabled = false;
 
                 // Sample Rate
-                mainwindow.cboSamplerate.SelectedItem = false;
+                vm.AudioSampleRate_SelectedItem = "auto";
+                vm.AudioSampleRate_IsEnabled = false;
 
                 // Bit Depth
-                mainwindow.cboBitDepth.SelectedItem = false;
+                vm.AudioBitDepth_SelectedItem = "auto";
+                vm.AudioBitDepth_IsEnabled = false;
 
                 // Volume
-                mainwindow.volumeUpDown.IsEnabled = false;
-                mainwindow.volumeUpButton.IsEnabled = false;
-                mainwindow.volumeDownButton.IsEnabled = false;
+                vm.Volume_IsEnabled = false;
 
                 // Limiter
-                mainwindow.slAudioLimiter.IsEnabled = false;
-                mainwindow.slAudioLimiter.Value = 1;
+                vm.AudioHardLimiter_IsEnabled = false;
+                vm.AudioHardLimiter_Value = 1;
+
+
+                // -------------------------
+                // Subtitle
+                // -------------------------
+                // Codec
+                vm.SubtitleCodec_IsEnabled = false;
             }
         }
 
 
         /// <summary>
-        ///     Cut Controls (Method)
+        ///     Cut Controls
         /// </summary>
-        //On Selection Change
-        public static void CutControls(MainWindow mainwindow)
+        public static void CutControls(ViewModel vm)
         {
-            //Enable Aspect Custom
+            // Enable Aspect Custom
+
+            // -------------------------
             // No
-            //
-            if ((string)mainwindow.cboCut.SelectedItem == "No")
+            // -------------------------
+            if (vm.Cut_SelectedItem == "No")
             {
                 // Time
-                mainwindow.cutStart.IsEnabled = false;
-                mainwindow.cutEnd.IsEnabled = false;
+                vm.CutStart_IsEnabled = false;
+                vm.CutEnd_IsEnabled = false;
 
-                mainwindow.cutStart.Text = "00:00:00.000";
-                mainwindow.cutEnd.Text = "00:00:00.000";
+                vm.CutStart_Text = "00:00:00.000";
+                vm.CutEnd_Text = "00:00:00.000";
 
                 // Frames
-                mainwindow.frameStart.IsEnabled = false;
-                mainwindow.frameEnd.IsEnabled = false;
+                vm.FrameStart_IsEnabled = false;
+                vm.FrameEnd_IsEnabled = false;
 
                 // Reset Text
-                mainwindow.frameStart.Text = "Frame";
-                mainwindow.frameEnd.Text = "Range";
-
-                //trim = string.Empty;
+                vm.FrameStart_Text = "Frame";
+                vm.FrameEnd_Text = "Range";
             }
 
+            // -------------------------
             // Yes
-            //
-            else if ((string)mainwindow.cboCut.SelectedItem == "Yes")
+            // -------------------------
+            else if (vm.Cut_SelectedItem == "Yes")
             {
                 // Frames
-                if ((string)mainwindow.cboMediaType.SelectedItem == "Video") // only for video
+
+                // Only for Video
+                if (vm.MediaType_SelectedItem == "Video") 
                 {
                     // Time
-                    mainwindow.cutStart.IsEnabled = true;
-                    mainwindow.cutEnd.IsEnabled = true;
+                    vm.CutStart_IsEnabled = true;
+                    vm.CutEnd_IsEnabled = true;
 
                     // Frames
-                    mainwindow.frameStart.IsEnabled = true;
-                    mainwindow.frameEnd.IsEnabled = true;
+                    vm.FrameStart_IsEnabled = true;
+                    vm.FrameEnd_IsEnabled = true;
                 }
-                else if ((string)mainwindow.cboMediaType.SelectedItem == "Audio") // only for video
+
+                // Only for Video
+                else if (vm.MediaType_SelectedItem == "Audio")
                 {
                     // Time
-                    mainwindow.cutStart.IsEnabled = true;
-                    mainwindow.cutEnd.IsEnabled = true;
+                    vm.CutStart_IsEnabled = true;
+                    vm.CutEnd_IsEnabled = true;
 
                     // Frames
-                    mainwindow.frameStart.IsEnabled = false;
-                    mainwindow.frameEnd.IsEnabled = false;
+                    vm.FrameStart_IsEnabled = false;
+                    vm.FrameEnd_IsEnabled = false;
 
                     // Text
-                    mainwindow.frameStart.Text = "Frame";
-                    mainwindow.frameEnd.Text = "Range";
+                    vm.FrameStart_Text = "Frame";
+                    vm.FrameEnd_Text = "Range";
                 }
-                else if ((string)mainwindow.cboMediaType.SelectedItem == "Image") // only for video
+
+                // Only for Video
+                else if (vm.MediaType_SelectedItem == "Image")
                 {
                     // Time
-                    mainwindow.cutStart.IsEnabled = true;
-                    mainwindow.cutEnd.IsEnabled = false;
-                    mainwindow.cutEnd.Text = "00:00:00.000"; //important
+                    vm.CutStart_IsEnabled = true;
+                    vm.CutEnd_IsEnabled = false;
+                    vm.CutEnd_Text = "00:00:00.000"; //important
 
                     // Frames
-                    mainwindow.frameStart.IsEnabled = true;
-                    mainwindow.frameEnd.IsEnabled = false;
-                    mainwindow.frameEnd.Text = string.Empty; //important
+                    vm.FrameStart_IsEnabled = true;
+                    vm.FrameEnd_IsEnabled = false;
+                    vm.FrameEnd_Text = string.Empty; //important
                 }
-                else if ((string)mainwindow.cboMediaType.SelectedItem == "Sequence") // only for video
+
+                // Only for Video
+                else if (vm.MediaType_SelectedItem == "Sequence")
                 {
                     // Time
-                    mainwindow.cutStart.IsEnabled = true;
-                    mainwindow.cutEnd.IsEnabled = true;
+                    vm.CutStart_IsEnabled = true;
+                    vm.CutEnd_IsEnabled = true;
 
                     // Frames
-                    mainwindow.frameStart.IsEnabled = true;
-                    mainwindow.frameEnd.IsEnabled = true;
+                    vm.FrameStart_IsEnabled = true;
+                    vm.FrameEnd_IsEnabled = true;
                 }
             }
-        } // End Cut Controls
+        } 
+
+
     }
 }

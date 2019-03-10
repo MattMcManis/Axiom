@@ -11,7 +11,7 @@
         UseLayoutRounding="True"
         Title="Update" 
         Height="200" Width="400"
-        Icon="Resources/Images/Icons/axiom.ico"
+        Icon="axiom.ico"
         Style="{DynamicResource WindowConfigure}">
 
     <Grid>

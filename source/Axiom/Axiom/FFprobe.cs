@@ -1,6 +1,6 @@
 ﻿/* ----------------------------------------------------------------------
 Axiom UI
-Copyright (C) 2017, 2018 Matt McManis
+Copyright (C) 2017-2019 Matt McManis
 http://github.com/MattMcManis/Axiom
 http://axiomui.github.io
 mattmcmanis@outlook.com
@@ -67,11 +67,10 @@ namespace Axiom
         public static string batchFFprobeAuto;
 
 
-
         /// <summary>
         ///    FFprobe Detect Metadata (Method)
         /// </summary> 
-        public static void Metadata(MainWindow mainwindow)
+        public static void Metadata(ViewModel vm)
         {
             // --------------------------------------------------------------------
             // Section: FFprobe
@@ -90,38 +89,37 @@ namespace Axiom
             // Only Run FFprobe if Input File is Not Null
             // Strange FFprobe Class problem - methods halting after InputFileInfo() 
             // unless Null Check is put here instead of inside the Class.
-            if (!string.IsNullOrWhiteSpace(mainwindow.tbxInput.Text)
-                //&& !string.IsNullOrEmpty(MainWindow.inputDir)
-                && !string.IsNullOrEmpty(FFprobe.ffprobe))
+            if (!string.IsNullOrEmpty(vm.Input_Text) && 
+                !string.IsNullOrEmpty(ffprobe))
             {
                 // -------------------------
                 //    FFprobe Video Entry Type Containers
                 // -------------------------
-                FFprobe.VideoEntryType(mainwindow);
+                VideoEntryType(vm);
 
                 // -------------------------
                 //    FFprobe Audio Entry Type Containers
                 // -------------------------
-                FFprobe.AudioEntryType(mainwindow);
+                AudioEntryType(vm);
 
                 // -------------------------
                 //    FFprobe File Info
                 // -------------------------
-                argsFrameRate = " -i " + "\"" + mainwindow.tbxInput.Text + "\"" + " -select_streams v:0 -show_entries stream=r_frame_rate -v quiet -of csv=\"p=0\"";
-                argsSize = " -i " + "\"" + mainwindow.tbxInput.Text + "\"" + " -select_streams v:0 -show_entries format=size -v quiet -of csv=\"p=0\"";
-                argsDuration = " -i " + "\"" + mainwindow.tbxInput.Text + "\"" + " -select_streams v:0 -show_entries format=duration -v quiet -of csv=\"p=0\"";
-                argsVideoCodec = " -i " + "\"" + mainwindow.tbxInput.Text + "\"" + " -select_streams v:0 -show_entries stream=codec_name -v quiet -of csv=\"p=0\"";
-                argsVideoBitrate = " -i " + "\"" + mainwindow.tbxInput.Text + "\"" + " -select_streams v:0 -show_entries " + vEntryType + " -v quiet -of csv=\"p=0\"";
-                argsAudioCodec = " -i " + "\"" + mainwindow.tbxInput.Text + "\"" + " -select_streams a:0 -show_entries stream=codec_name -v quiet -of csv=\"p=0\"";
-                argsAudioBitrate = " -i" + " " + "\"" + mainwindow.tbxInput.Text + "\"" + " -select_streams a:0 -show_entries " + aEntryType + " -v quiet -of csv=\"p=0\"";
+                argsFrameRate = " -i " + "\"" + vm.Input_Text + "\"" + " -select_streams v:0 -show_entries stream=r_frame_rate -v quiet -of csv=\"p=0\"";
+                argsSize = " -i " + "\"" + vm.Input_Text + "\"" + " -select_streams v:0 -show_entries format=size -v quiet -of csv=\"p=0\"";
+                argsDuration = " -i " + "\"" + vm.Input_Text + "\"" + " -select_streams v:0 -show_entries format=duration -v quiet -of csv=\"p=0\"";
+                argsVideoCodec = " -i " + "\"" + vm.Input_Text + "\"" + " -select_streams v:0 -show_entries stream=codec_name -v quiet -of csv=\"p=0\"";
+                argsVideoBitrate = " -i " + "\"" + vm.Input_Text + "\"" + " -select_streams v:0 -show_entries " + vEntryType + " -v quiet -of csv=\"p=0\"";
+                argsAudioCodec = " -i " + "\"" + vm.Input_Text + "\"" + " -select_streams a:0 -show_entries stream=codec_name -v quiet -of csv=\"p=0\"";
+                argsAudioBitrate = " -i" + " " + "\"" + vm.Input_Text + "\"" + " -select_streams a:0 -show_entries " + aEntryType + " -v quiet -of csv=\"p=0\"";
 
-                inputFrameRate = MainWindow.RemoveLineBreaks(InputFileInfo(mainwindow, argsFrameRate));
-                inputSize = MainWindow.RemoveLineBreaks(InputFileInfo(mainwindow, argsSize));
-                inputDuration = MainWindow.RemoveLineBreaks(InputFileInfo(mainwindow, argsDuration));
-                inputVideoCodec = MainWindow.RemoveLineBreaks(InputFileInfo(mainwindow, argsVideoCodec));
-                inputVideoBitrate = MainWindow.RemoveLineBreaks(InputFileInfo(mainwindow, argsVideoBitrate));
-                inputAudioCodec = MainWindow.RemoveLineBreaks(InputFileInfo(mainwindow, argsAudioCodec));
-                inputAudioBitrate = MainWindow.RemoveLineBreaks(InputFileInfo(mainwindow, argsAudioBitrate));
+                inputFrameRate = MainWindow.RemoveLineBreaks(InputFileInfo(vm, argsFrameRate));
+                inputSize = MainWindow.RemoveLineBreaks(InputFileInfo(vm, argsSize));
+                inputDuration = MainWindow.RemoveLineBreaks(InputFileInfo(vm, argsDuration));
+                inputVideoCodec = MainWindow.RemoveLineBreaks(InputFileInfo(vm, argsVideoCodec));
+                inputVideoBitrate = MainWindow.RemoveLineBreaks(InputFileInfo(vm, argsVideoBitrate));
+                inputAudioCodec = MainWindow.RemoveLineBreaks(InputFileInfo(vm, argsAudioCodec));
+                inputAudioBitrate = MainWindow.RemoveLineBreaks(InputFileInfo(vm, argsAudioBitrate));
 
                 // Log won't write the input data unless we pass it to a new string
                 string logInputFrameRate = inputFrameRate;
@@ -267,12 +265,12 @@ namespace Axiom
         /// FFprobe Video Entry Type Containers (Method)
         /// </summary>
         // Used for Auto Quality to pass Bit-rate Entry Type to FFprobe
-        public static void VideoEntryType(MainWindow mainwindow)
+        public static void VideoEntryType(ViewModel vm)
         {
             // -------------------------
             // Single
             // -------------------------
-            if (mainwindow.tglBatch.IsChecked == false)
+            if (vm.Batch_IsChecked == false)
             {
                 if (Format.VideoFormats_EntryType_Stream.Any(s => s.Equals(MainWindow.inputExt, StringComparison.OrdinalIgnoreCase)))
                 {
@@ -291,7 +289,7 @@ namespace Axiom
             // -------------------------
             // Batch
             // -------------------------
-            else if (mainwindow.tglBatch.IsChecked == true)
+            else if (vm.Batch_IsChecked == true)
             {
                 if (Format.VideoFormats_EntryType_Stream.Any(s => s.Equals(MainWindow.batchExt, StringComparison.OrdinalIgnoreCase)))
                 {
@@ -305,7 +303,7 @@ namespace Axiom
                 {
                     vEntryTypeBatch = "stream^=bit_rate";
                 }
-            }          
+            }
         }
 
 
@@ -313,12 +311,12 @@ namespace Axiom
         /// FFprobe Audio Entry Type Containers (Method)
         /// </summary>
         // Used for Auto Quality to pass Bit-rate Entry Type to FFprobe
-        public static void AudioEntryType(MainWindow mainwindow)
+        public static void AudioEntryType(ViewModel vm)
         {
             // -------------------------
             // Single
             // -------------------------
-            if (mainwindow.tglBatch.IsChecked == false)
+            if (vm.Batch_IsChecked == false)
             {
                 // These file types need special instructions for FFprobe to detect
                 if (string.Equals(MainWindow.inputExt, ".flac", StringComparison.CurrentCultureIgnoreCase)
@@ -336,7 +334,7 @@ namespace Axiom
             // -------------------------
             // Batch
             // -------------------------
-            else if (mainwindow.tglBatch.IsChecked == true)
+            else if (vm.Batch_IsChecked == true)
             {
                 // Choose FFprobe Entry Type based on Input file extension
                 if (string.Equals(MainWindow.batchExt, ".flac", StringComparison.CurrentCultureIgnoreCase)
@@ -356,10 +354,10 @@ namespace Axiom
         /// <summary>
         /// FFprobe Cut Duration
         /// </summary>
-        public static String CutDuration(MainWindow mainwindow)
+        public static String CutDuration(ViewModel vm)
         {
-            string argsDuration = " -i " + "\"" + mainwindow.tbxInput.Text + "\"" + " -select_streams v:0 -show_entries format=duration -v quiet -of csv=\"p=0\"";
-            inputDuration = InputFileInfo(mainwindow, argsDuration);
+            string argsDuration = " -i " + "\"" + vm.Input_Text + "\"" + " -select_streams v:0 -show_entries format=duration -v quiet -of csv=\"p=0\"";
+            inputDuration = InputFileInfo(vm, argsDuration);
 
             // Format Time for FFmpeg 00:00:00.000
             //
@@ -377,21 +375,21 @@ namespace Axiom
             return inputDuration;
         }
 
-        
+
 
         /// <summary>
         /// FFprobe Input File Info Parse (Method)
         /// </summary>
-        public static String InputFileInfo(MainWindow mainwindow, string arguments)
+        public static String InputFileInfo(ViewModel vm, string arguments)
         {
             string inputMetaData = string.Empty;
 
             // Ignore if Batch
             // Input Empty Check
             // FFprobe.exe Null Check
-            if (mainwindow.tglBatch.IsChecked == false
-                && !string.IsNullOrWhiteSpace(mainwindow.tbxInput.Text)
-                && !string.IsNullOrEmpty(FFprobe.ffprobe))
+            if (vm.Batch_IsChecked == false && 
+                !string.IsNullOrEmpty(vm.Input_Text) && 
+                !string.IsNullOrEmpty(ffprobe))
             {
                 // Start FFprobe Process
                 using (Process FFprobeParse = new Process())

@@ -1,6 +1,6 @@
 ﻿/* ----------------------------------------------------------------------
 Axiom UI
-Copyright (C) 2017, 2018 Matt McManis
+Copyright (C) 2017-2019 Matt McManis
 http://github.com/MattMcManis/Axiom
 http://axiomui.github.io
 mattmcmanis@outlook.com
@@ -19,12 +19,8 @@ You should have received a copy of the GNU General Public License
 along with this program.If not, see <http://www.gnu.org/licenses/>. 
 ---------------------------------------------------------------------- */
 
-using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Linq;
 using System.Windows;
-using System.Windows.Documents;
 // Disable XML Comment warnings
 #pragma warning disable 1591
 #pragma warning disable 1587
@@ -40,16 +36,16 @@ namespace Axiom
         /// <summary>
         ///     Preview FFplay
         /// </summary>
-        public static void Preview(MainWindow mainwindow)
+        public static void Preview(MainWindow mainwindow, ViewModel vm)
         {
             // -------------------------
             // Clear Variables before Run
             // -------------------------
             ffplay = string.Empty;
-            MainWindow.ClearVariables(mainwindow);
+            MainWindow.ClearVariables(vm);
 
             // Ignore if Batch
-            if (mainwindow.tglBatch.IsChecked == false)
+            if (vm.Batch_IsChecked == false)
             {
                 // -------------------------
                 // Set FFprobe Path
@@ -63,17 +59,19 @@ namespace Axiom
                 {
                     //ffplay,
 
-                    "-i " + "\"" + MainWindow.InputPath(mainwindow) + "\"",
+                    "-i " + "\"" + MainWindow.InputPath(vm) + "\"",
 
-                    Video.Subtitles(mainwindow),
+                    Subtitle.SubtitlesExternal(vm),
 
                     //Video.VideoCodec(),
                     //Video.Speed(mainwindow),
                     //Video.VideoQuality(mainwindow),
-                    Video.FPS(mainwindow),
-                    VideoFilters.VideoFilter(mainwindow),
-                    Video.ScalingAlgorithm(mainwindow),
-                    Video.Images(mainwindow),
+                    Video.FPS(vm,
+                              vm.FPS_SelectedItem
+                              ),
+                    VideoFilters.VideoFilter(mainwindow, vm),
+                    //Video.ScalingAlgorithm(vm),
+                    Video.Images(vm),
                     //Video.Optimize(mainwindow),
                     //Streams.VideoStreamMaps(mainwindow),
 
@@ -82,10 +80,15 @@ namespace Axiom
 
                     //Audio.AudioCodec(mainwindow),
                     //Audio.AudioQuality(mainwindow),
-                    Audio.SampleRate(mainwindow),
-                    Audio.BitDepth(mainwindow),
-                    Audio.Channel(mainwindow),
-                    AudioFilters.AudioFilter(mainwindow),
+                    Audio.SampleRate(vm),
+                    Audio.BitDepth(vm,
+                                   vm.AudioBitDepth_Items,
+                                   vm.AudioBitDepth_SelectedItem
+                                  ),
+                    Audio.Channel(vm,
+                                  vm.AudioChannel_SelectedItem
+                                 ),
+                    AudioFilters.AudioFilter(mainwindow, vm),
                     //Streams.AudioStreamMaps(mainwindow),
 
                     //Format.Cut(mainwindow),

@@ -1,6 +1,6 @@
 ﻿/* ----------------------------------------------------------------------
 Axiom UI
-Copyright (C) 2017, 2018 Matt McManis
+Copyright (C) 2017-2019 Matt McManis
 http://github.com/MattMcManis/Axiom
 http://axiomui.github.io
 mattmcmanis@outlook.com
@@ -38,6 +38,8 @@ namespace Axiom
     {
         private MainWindow mainwindow;
 
+        //private ViewModel vm;
+
         public static Paragraph debugParagraph = new Paragraph(); //RichTextBox
 
         public static Brush Heading;
@@ -45,11 +47,13 @@ namespace Axiom
         public static Brush Value;
 
 
-        public DebugConsole(MainWindow mainwindow)
+        public DebugConsole(MainWindow mainwindow, ViewModel vm)
         {
             InitializeComponent();
 
             this.mainwindow = mainwindow;
+
+            //vm = mainwindow.DataContext as ViewModel;
 
             //this.Width = 400;
             //this.Height = 500;
@@ -152,15 +156,22 @@ namespace Axiom
         /// </summary>
         private void btnDebugTest_Click(object sender, RoutedEventArgs e)
         {
+            ViewModel vm = mainwindow.DataContext as ViewModel;
+
             // -------------------------
             // Keep FFmpeg Window Toggle
             // -------------------------
             //MainWindow.KeepWindow(mainwindow);
 
             // -------------------------
+            // Clear Variables before Run
+            // -------------------------
+            MainWindow.ClearVariables(vm);
+
+            // -------------------------
             // Batch Extention Period Check
             // -------------------------
-            MainWindow.BatchExtCheck(mainwindow);
+            MainWindow.BatchExtCheck(/*mainwindow, */vm);
 
             // -------------------------
             // Set FFprobe Path
@@ -170,7 +181,7 @@ namespace Axiom
             // -------------------------
             // Ready Halts
             // -------------------------
-            MainWindow.ReadyHalts(mainwindow);
+            MainWindow.ReadyHalts(/*mainwindow, */vm);
 
 
             // -------------------------
@@ -191,42 +202,42 @@ namespace Axiom
                     // -------------------------
                     // Single
                     // -------------------------
-                    if (mainwindow.tglBatch.IsChecked == false)
+                    if (vm.Batch_IsChecked == false)
                     {
                         // -------------------------
                         // FFprobe Detect Metadata
                         // -------------------------
-                        FFprobe.Metadata(mainwindow);
+                        FFprobe.Metadata(vm);
 
                         // -------------------------
                         // FFmpeg Generate Arguments (Single)
                         // -------------------------
                         //disabled if batch
-                        FFmpeg.FFmpegSingleGenerateArgs(mainwindow);
+                        FFmpeg.FFmpegSingleGenerateArgs(mainwindow, vm);
                     }
 
                     // -------------------------
                     // Batch
                     // -------------------------
-                    else if (mainwindow.tglBatch.IsChecked == true)
+                    else if (vm.Batch_IsChecked == true)
                     {
                         // -------------------------
                         // FFprobe Video Entry Type Containers
                         // -------------------------
                         //FFprobe.VideoEntryTypeBatch(this);
-                        FFprobe.VideoEntryType(mainwindow);
+                        FFprobe.VideoEntryType(vm);
 
                         // -------------------------
                         // FFprobe Video Entry Type Containers
                         // -------------------------
                         //FFprobe.AudioEntryTypeBatch(this);
-                        FFprobe.AudioEntryType(mainwindow);
+                        FFprobe.AudioEntryType(vm);
 
                         // -------------------------
                         // FFmpeg Generate Arguments (Batch)
                         // -------------------------
                         //disabled if single file
-                        FFmpeg.FFmpegBatchGenerateArgs(mainwindow);
+                        FFmpeg.FFmpegBatchGenerateArgs(mainwindow, vm);
                     }
 
             //    }); //end dispatcher
@@ -251,7 +262,7 @@ namespace Axiom
                 // -------------------------
                 // Clear Variables for next Run
                 // -------------------------
-                MainWindow.ClearVariables(mainwindow);
+                MainWindow.ClearVariables(vm);
                 GC.Collect();
 
         //    }); //end worker completed task
@@ -453,6 +464,10 @@ namespace Axiom
             debugParagraph.Inlines.Add(new Run(Video.hwaccel) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
+            debugParagraph.Inlines.Add(new Bold(new Run("vEncodeSpeed ")) { Foreground = Variable });
+            debugParagraph.Inlines.Add(new Run(Video.vEncodeSpeed) { Foreground = Value });
+            debugParagraph.Inlines.Add(new LineBreak());
+
             debugParagraph.Inlines.Add(new Bold(new Run("vCodec ")) { Foreground = Variable });
             debugParagraph.Inlines.Add(new Run(Video.vCodec) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
@@ -501,8 +516,8 @@ namespace Axiom
             debugParagraph.Inlines.Add(new Run(Video.image) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
-            debugParagraph.Inlines.Add(new Bold(new Run("speed ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(Video.speed) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Bold(new Run("vEncodeSpeed ")) { Foreground = Variable });
+            debugParagraph.Inlines.Add(new Run(Video.vEncodeSpeed) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new LineBreak());
@@ -550,12 +565,6 @@ namespace Axiom
 
             debugParagraph.Inlines.Add(new Bold(new Run("height ")) { Foreground = Variable });
             debugParagraph.Inlines.Add(new Run(Video.height) { Foreground = Value });
-            debugParagraph.Inlines.Add(new LineBreak());
-
-            debugParagraph.Inlines.Add(new Bold(new Run("aspect ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(Video.aspect) { Foreground = Value });
-            debugParagraph.Inlines.Add(new LineBreak());
-
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("cropWidth ")) { Foreground = Variable });

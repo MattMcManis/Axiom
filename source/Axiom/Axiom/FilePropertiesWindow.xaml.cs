@@ -1,6 +1,6 @@
 ﻿/* ----------------------------------------------------------------------
 Axiom UI
-Copyright (C) 2017, 2018 Matt McManis
+Copyright (C) 2017-2019 Matt McManis
 http://github.com/MattMcManis/Axiom
 http://axiomui.github.io
 mattmcmanis@outlook.com
@@ -33,7 +33,9 @@ namespace Axiom
     {
         private MainWindow mainwindow;
 
-        public FilePropertiesWindow(MainWindow mainwindow)
+        //private ViewModel vm;
+
+        public FilePropertiesWindow(MainWindow mainwindow, ViewModel vm)
         {
             InitializeComponent();
 
@@ -51,10 +53,18 @@ namespace Axiom
         /// </summary>
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            // Display FFprobe File Properties
+            ViewModel vm = mainwindow.DataContext as ViewModel;
 
+            // -------------------------
+            // Display FFprobe File Properties
+            // -------------------------
+
+            // Get FFprobe Path
             MainWindow.FFprobePath();
 
+            // -------------------------
+            // Write Properties to Window
+            // -------------------------
             try
             {
                 Paragraph propertiesParagraph = new Paragraph(); //RichTextBox
@@ -65,8 +75,8 @@ namespace Axiom
                 // Start
                 rtbFileProperties.Document = new FlowDocument(propertiesParagraph); 
 
-                FFprobe.argsFileProperties = " -i" + " " + "\"" + mainwindow.tbxInput.Text + "\"" + " -v quiet -print_format ini -show_format -show_streams";
-                FFprobe.inputFileProperties = FFprobe.InputFileInfo(mainwindow, FFprobe.argsFileProperties);
+                FFprobe.argsFileProperties = " -i" + " " + "\"" + vm.Input_Text + "\"" + " -v quiet -print_format ini -show_format -show_streams";
+                FFprobe.inputFileProperties = FFprobe.InputFileInfo(vm, FFprobe.argsFileProperties);
 
                 // Write All File Properties to Rich Text Box
                 if (!string.IsNullOrEmpty(FFprobe.inputFileProperties))

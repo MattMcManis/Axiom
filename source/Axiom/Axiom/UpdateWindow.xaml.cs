@@ -1,6 +1,6 @@
 ﻿/* ----------------------------------------------------------------------
 Axiom UI
-Copyright (C) 2017, 2018 Matt McManis
+Copyright (C) 2017-2019 Matt McManis
 http://github.com/MattMcManis/Axiom
 http://axiomui.github.io
 mattmcmanis@outlook.com
@@ -141,7 +141,11 @@ namespace Axiom
 
                 WebClient wc = new WebClient();
                 wc.Headers.Add(HttpRequestHeader.UserAgent, "Axiom (https://github.com/MattMcManis/Axiom)" + " v" + MainWindow.currentVersion + "-" + MainWindow.currentBuildPhase + " Update");
-                //wc.Headers.Add("Accept-Encoding", "gzip,deflate"); //error
+                //wc.Headers.Add("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8"); //error
+                //wc.Headers.Add("accept-language", "en-US,en;q=0.9"); //error
+                //wc.Headers.Add("dnt", "1"); //error
+                //wc.Headers.Add("upgrade-insecure-requests", "1"); //error
+                //wc.Headers.Add("accept-encoding", "gzip, deflate, br"); //error
 
                 waiter = new ManualResetEvent(false); //start a new waiter for next pass (clicking update again)
 

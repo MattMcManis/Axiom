@@ -4,6 +4,12 @@ Axiom FFmpeg UI
 
 ## [alpha]
 
+## [1.5.0.0] - Mar 10, 2019
+### Changed
+- Complete program redesign
+- Migrated to `MVVM`
+
+
 ## [1.2.9.2] - Feb 13, 2019
 ### Changed
 - Priority of Video Filters `Size` and `Crop`

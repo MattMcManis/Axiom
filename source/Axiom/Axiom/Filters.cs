@@ -1,6 +1,6 @@
 ﻿/* ----------------------------------------------------------------------
 Axiom UI
-Copyright (C) 2017, 2018 Matt McManis
+Copyright (C) 2017-2019 Matt McManis
 http://github.com/MattMcManis/Axiom
 http://axiomui.github.io
 mattmcmanis@outlook.com
@@ -22,8 +22,6 @@ along with this program.If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Documents;
 using System.Windows.Media;
 // Disable XML Comment warnings
@@ -47,9 +45,9 @@ namespace Axiom
         /// <summary>
         ///     PNG to JPG (Method)
         /// <summary>
-        public static void PNGtoJPG_Filter(MainWindow mainwindow)
+        public static void PNGtoJPG_Filter(/*MainWindow mainwindow, */ViewModel vm)
         {
-            if ((string)mainwindow.cboVideoCodec.SelectedItem == "JPEG")
+            if (vm.VideoCodec_SelectedItem == "JPEG")
             {
                 // Turn on PNG to JPG Filter
                 if (string.Equals(MainWindow.inputExt, ".png", StringComparison.CurrentCultureIgnoreCase)
@@ -72,12 +70,12 @@ namespace Axiom
         /// <summary>
         /// Subtitles Burn Filter (Method)
         /// <summary>
-        public static void SubtitlesBurn_Filter(MainWindow mainwindow)
+        public static void SubtitlesBurn_Filter(/*MainWindow mainwindow, */ViewModel vm)
         {
             string burn = string.Empty;
 
-            if ((string)mainwindow.cboSubtitleCodec.SelectedItem == "Burn"
-                && Video.subtitleFileNamesList.Count > 0)
+            if (vm.SubtitleCodec_SelectedItem == "Burn"
+                && Subtitle.subtitleFileNamesList.Count > 0)
             {
                 // Join File Names List
                 //string files = string.Join(",", subtitleFileNamesList.Where(s => !string.IsNullOrEmpty(s)));
@@ -88,7 +86,7 @@ namespace Axiom
                 // -------------------------
                 // Get First Subtitle File
                 // -------------------------
-                string file = Video.subtitleFilePathsList.First().Replace("\"", "'");
+                string file = Subtitle.subtitleFilePathsList.First().Replace("\"", "'");
 
                 // -------------------------
                 // Create Subtitles Filter
@@ -106,7 +104,7 @@ namespace Axiom
         /// <summary>
         ///     Deband (Method)
         /// <summary>
-        public static void Deband_Filter(/*MainWindow mainwindow*/)
+        public static void Deband_Filter(ViewModel vm)
         {
             //if ((string)mainwindow.cboFilterVideo_Deband.SelectedItem == "enabled")
             //if (ViewModel.Filters.cboFilterVideo_Deband_SelectedItem == "enabled")
@@ -406,9 +404,9 @@ namespace Axiom
                 // -------------------------
                 List<string> selectiveColorList = new List<string>()
                 {
-                    "selectivecolor=" 
+                    "selectivecolor="
                     + "\r\n"
-                    + "correction_method=" + mainwindow.cboFilterVideo_SelectiveColor_Correction_Method.SelectedItem.ToString() 
+                    + "correction_method=" + mainwindow.cboFilterVideo_SelectiveColor_Correction_Method.SelectedItem.ToString()
                     + "\r\n",
 
                     "reds="     + reds_cyan     + " " + reds_magenta     + " " + reds_yellow     + "\r\n",
@@ -680,16 +678,16 @@ namespace Axiom
         /// <summary>
         ///     Video Filter Combine (Method)
         /// <summary>
-        public static String VideoFilter(MainWindow mainwindow)
+        public static String VideoFilter(MainWindow mainwindow, ViewModel vm)
         {
             // Video Bitrate None Check
             // Video Codec None Check
             // Codec Copy Check
             // Media Type Check
-            if ((string)mainwindow.cboVideoQuality.SelectedItem != "None"
-                && (string)mainwindow.cboVideoCodec.SelectedItem != "None"
-                && (string)mainwindow.cboVideoCodec.SelectedItem != "Copy"
-                && (string)mainwindow.cboMediaType.SelectedItem != "Audio")
+            if (vm.VideoQuality_SelectedItem != "None"
+                && vm.VideoCodec_SelectedItem != "None"
+                && vm.VideoCodec_SelectedItem != "Copy"
+                && vm.MediaType_SelectedItem != "Audio")
             {
                 // --------------------------------------------------
                 // Add Each Filter to Master Filters List
@@ -698,28 +696,27 @@ namespace Axiom
                 // -------------------------
                 //  Crop
                 // -------------------------
-                Video.Crop(mainwindow, Video.cropwindow);
+                Video.Crop(mainwindow, Video.cropwindow, vm);
 
                 // -------------------------
                 //  Resize
                 // -------------------------
-                Video.Size(mainwindow);
-
+                Video.Size(vm);
 
                 // -------------------------
                 // PNG to JPEG
                 // -------------------------
-                VideoFilters.PNGtoJPG_Filter(mainwindow);
+                VideoFilters.PNGtoJPG_Filter(/*mainwindow, */ vm);
 
                 // -------------------------
                 //    Subtitles Burn
                 // -------------------------
-                VideoFilters.SubtitlesBurn_Filter(mainwindow);
+                VideoFilters.SubtitlesBurn_Filter(/*mainwindow*/ vm);
 
                 // -------------------------
                 //  Deband
                 // -------------------------
-                VideoFilters.Deband_Filter(/*mainwindow*/);
+                VideoFilters.Deband_Filter(vm);
 
                 // -------------------------
                 //  Deshake
@@ -755,7 +752,7 @@ namespace Axiom
                 // -------------------------
                 // Filter Combine
                 // -------------------------
-                if ((string)mainwindow.cboVideoCodec.SelectedItem != "None") // None Check
+                if (vm.VideoCodec_SelectedItem != "None") // None Check
                 {
                     //System.Windows.MessageBox.Show(string.Join(",\r\n\r\n", vFiltersList.Where(s => !string.IsNullOrEmpty(s)))); //debug
                     //System.Windows.MessageBox.Show(Convert.ToString(vFiltersList.Count())); //debug
@@ -767,7 +764,7 @@ namespace Axiom
                     {
                         // Always wrap in quotes
                         vFilter = "-vf \"" + string.Join(", \r\n\r\n", vFiltersList
-                                                   .Where(s => !string.IsNullOrEmpty(s))) 
+                                                   .Where(s => !string.IsNullOrEmpty(s)))
                                                    + "\"";
                     }
 
@@ -779,7 +776,7 @@ namespace Axiom
                         // Always wrap in quotes
                         // Linebreak beginning and end
                         vFilter = "-vf \"\r\n" + string.Join(", \r\n\r\n", vFiltersList
-                                                       .Where(s => !string.IsNullOrEmpty(s))) 
+                                                       .Where(s => !string.IsNullOrEmpty(s)))
                                                        + "\r\n\"";
                     }
 
@@ -904,7 +901,7 @@ namespace Axiom
         /// <summary>
         ///     Extra Stereo (Method)
         /// <summary>
-        public static void ExtraStereo_Filter(MainWindow mainwindow)
+        public static void ExtraStereo_Filter(MainWindow mainwindow, ViewModel vm)
         {
             // FFmpeg Range 0 to ??
             // FFmpeg Default 2.5
@@ -999,7 +996,7 @@ namespace Axiom
         /// <summary>
         ///     Audio Filter Combine (Method)
         /// <summary>
-        public static String AudioFilter(MainWindow mainwindow)
+        public static String AudioFilter(MainWindow mainwindow, ViewModel vm)
         {
             // Audio Bitrate None Check
             // Audio Codec None
@@ -1007,13 +1004,13 @@ namespace Axiom
             // Mute Check
             // Stream None Check
             // Media Type Check
-            if ((string)mainwindow.cboAudioQuality.SelectedItem != "None"
-                && (string)mainwindow.cboAudioCodec.SelectedItem != "None"
-                && (string)mainwindow.cboAudioCodec.SelectedItem != "Copy"
-                && (string)mainwindow.cboAudioQuality.SelectedItem != "Mute"
-                && (string)mainwindow.cboAudioStream.SelectedItem != "none"
-                && (string)mainwindow.cboMediaType.SelectedItem != "Image"
-                && (string)mainwindow.cboMediaType.SelectedItem != "Sequence")
+            if (vm.AudioQuality_SelectedItem != "None"
+                && vm.AudioCodec_SelectedItem != "None"
+                && vm.AudioCodec_SelectedItem != "Copy"
+                && vm.AudioQuality_SelectedItem != "Mute"
+                && vm.AudioStream_SelectedItem != "none"
+                && vm.MediaType_SelectedItem != "Image"
+                && vm.MediaType_SelectedItem != "Sequence")
             {
                 // --------------------------------------------------
                 // Filters
@@ -1021,7 +1018,7 @@ namespace Axiom
                 // -------------------------
                 // Volume
                 // -------------------------
-                Audio.Volume(mainwindow);
+                Audio.Volume(vm);
 
                 // -------------------------
                 // Hard Limiter
@@ -1051,7 +1048,7 @@ namespace Axiom
                 // -------------------------
                 // Extra Stereo
                 // -------------------------
-                ExtraStereo_Filter(mainwindow);
+                ExtraStereo_Filter(mainwindow, vm);
 
                 // -------------------------
                 // Headphones
@@ -1067,7 +1064,7 @@ namespace Axiom
                 // -------------------------
                 // Filter Combine
                 // -------------------------
-                if ((string)mainwindow.cboAudioCodec.SelectedItem != "None") // None Check
+                if (vm.AudioCodec_SelectedItem != "None") // None Check
                 {
                     // -------------------------
                     // 1 Filter

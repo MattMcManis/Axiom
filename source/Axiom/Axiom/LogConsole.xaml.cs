@@ -1,6 +1,6 @@
 ﻿/* ----------------------------------------------------------------------
 Axiom UI
-Copyright (C) 2017, 2018 Matt McManis
+Copyright (C) 2017-2019 Matt McManis
 http://github.com/MattMcManis/Axiom
 http://axiomui.github.io
 mattmcmanis@outlook.com
@@ -28,7 +28,7 @@ using System.Windows.Media;
 namespace Axiom
 {
     /// <summary>
-    /// Interaction logic for Console.xaml
+    ///     Interaction logic for Console.xaml
     /// </summary>
     public partial class LogConsole : Window
     {
@@ -41,16 +41,11 @@ namespace Axiom
             //this.Height = 500;
             this.MinWidth = 200;
             this.MinHeight = 200;
-
-            // -------------------------
-            // Text Theme SelectiveColorPreview
-            // -------------------------
-            //Configure.LoadTheme(mainwindow);
         }
 
 
         /// <summary>
-        /// Close
+        ///     Close
         /// </summary>
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
@@ -60,9 +55,22 @@ namespace Axiom
 
 
         /// <summary>
-        /// Expand Button
+        ///     Hide Window Instead of Closing
         /// </summary>
-        private void buttonExpand_Click(object sender, RoutedEventArgs e)
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            this.Hide();
+            this.Width = 400;
+            this.Height = 500;
+            e.Cancel = true;
+            base.OnClosing(e);
+        }
+
+
+        /// <summary>
+        ///     Expand Button
+        /// </summary>
+        private void btnExpand_Click(object sender, RoutedEventArgs e)
         {
             // If less than 600px Height
             if (this.Height <= 650)
@@ -79,17 +87,5 @@ namespace Axiom
             }
         }
 
-
-        /// <summary>
-        /// Hide Window Instead of Closing
-        /// </summary>
-        protected override void OnClosing(CancelEventArgs e)
-        {
-            this.Hide();
-            this.Width = 400;
-            this.Height = 500;
-            e.Cancel = true;
-            base.OnClosing(e);
-        }
     }
 }
