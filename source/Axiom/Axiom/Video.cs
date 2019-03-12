@@ -1916,10 +1916,10 @@ namespace Axiom
             // -------------------------
             // Clear leftover Divisible Crop if not x264/x265
             // CropClearButton is used as an Identifier, Divisible Crop does not leave "Clear*"
-            if ((string)mainwindow.cboVideoCodec.SelectedItem != "x264" &&
-                (string)mainwindow.cboVideoCodec.SelectedItem != "x265" &&
-                (string)mainwindow.cboVideoCodec.SelectedItem != "MPEG-2" &&
-                (string)mainwindow.cboVideoCodec.SelectedItem != "MPEG-4" &&
+            if (vm.VideoCodec_SelectedItem != "x264" &&
+                vm.VideoCodec_SelectedItem != "x265" &&
+                vm.VideoCodec_SelectedItem != "MPEG-2" &&
+                vm.VideoCodec_SelectedItem != "MPEG-4" &&
                 vm.CropClear_Text == "Clear"
                 //&& string.IsNullOrWhiteSpace(mainwindow.buttonCropClearTextBox.Text)
                 )
@@ -1928,7 +1928,7 @@ namespace Axiom
             }
 
             // Clear Crop if MediaType is Audio
-            if ((string)mainwindow.cboMediaType.SelectedItem == "Audio")
+            if (vm.MediaType_SelectedItem == "Audio")
             {
                 CropWindow.crop = string.Empty;
             }
@@ -1938,7 +1938,7 @@ namespace Axiom
             // -------------------------
             // Crop Codec Copy Check
             // Switch Copy to Codec to avoid error
-            if (!string.IsNullOrEmpty(CropWindow.crop) && (string)mainwindow.cboVideoCodec.SelectedItem == "Copy") //null check
+            if (!string.IsNullOrEmpty(CropWindow.crop) && vm.VideoCodec_SelectedItem == "Copy") //null check
             {
                 // Log Console Message /////////
                 Log.WriteAction = () =>

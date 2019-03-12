@@ -200,138 +200,149 @@ namespace Axiom
 
 
         /// <summary>
-        ///    Auto Codec Copy
+        ///    Copy Controls
         /// <summary>
-        public static void AutoCopySubtitleCodec(ViewModel vm)
+        public static void CopyControls(ViewModel vm)
         {
-            // Merge extensions for Null Check
-            string extension = string.Empty;
-            if (!string.IsNullOrEmpty(MainWindow.inputExt))
+            // -------------------------
+            // Conditions Check
+            // Enable
+            // -------------------------
+            if (AutoCopyConditionsCheck(vm, MainWindow.inputExt, MainWindow.outputExt) == true)
             {
-                extension = MainWindow.inputExt;
-            }
-            else if (!string.IsNullOrEmpty(MainWindow.batchExt))
-            {
-                extension = MainWindow.batchExt;
-            }
-
-            // Null Check
-            if (!string.IsNullOrEmpty(extension))
-            {
-                if (AutoCopyConditionsCheck(vm, extension, MainWindow.outputExt))
+                // -------------------------
+                // Set Subtitle Codec Combobox Selected Item to Copy
+                // -------------------------
+                if (vm.SubtitleCodec_Items.Count > 0)
                 {
-                    // -------------------------
-                    // Set Subtitle Codec Combobox Selected Item to Copy
-                    // -------------------------
-                    if (vm.SubtitleCodec_Items.Count > 0)
+                    if (vm.SubtitleCodec_Items?.Contains("Copy") == true)
                     {
-                        if (vm.SubtitleCodec_Items?.Contains("Copy") == true)
-                        {
-                            vm.SubtitleCodec_SelectedItem = "Copy";
-                        }
+                        vm.SubtitleCodec_SelectedItem = "Copy";
                     }
                 }
+            }
 
+            // -------------------------
+            // Reset to Default Codec
+            // -------------------------
+            // Disable Copy if:
+            // Input / Output Extensions don't match
+            // Batch / Output Extensions don't match
+            // Size is Not No
+            // Crop is Not Empty
+            // FPS is Not Auto
+            // Optimize is Not None
+            // -------------------------
+            else
+            {
                 // -------------------------
-                // Reset to Default Codec
+                // Null Check
                 // -------------------------
-                else
+                if (!string.IsNullOrEmpty(vm.SubtitleStream_SelectedItem))
                 {
                     // -------------------------
-                    // Disable Copy if:
-                    // Input / Output Extensions don't match
-                    // Batch / Output Extensions don't match
-                    // Size is Not No
-                    // Crop is Not Empty
-                    // FPS is Not Auto
-                    // Optimize is Not None
+                    // Copy Selected 
                     // -------------------------
-                    // -------------------------
-                    // Null Check
-                    // -------------------------
-                    if (!string.IsNullOrEmpty(vm.SubtitleStream_SelectedItem))
+                    if (vm.SubtitleCodec_SelectedItem == "Copy")
                     {
                         // -------------------------
-                        // Copy Selected 
+                        // Switch back to format's default codec
                         // -------------------------
-                        if (vm.SubtitleCodec_SelectedItem == "Copy")
+                        if (!string.Equals(MainWindow.inputExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase)
+                            )
                         {
                             // -------------------------
-                            // Switch back to format's default codec
+                            // WebM
                             // -------------------------
-                            if (!string.Equals(MainWindow.inputExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase) ||
-                                !string.Equals(MainWindow.batchExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase))
+                            if (vm.Container_SelectedItem == "webm")
                             {
-                                // -------------------------
-                                // WebM
-                                // -------------------------
-                                if (vm.Container_SelectedItem == "webm")
-                                {
-                                    vm.SubtitleCodec_SelectedItem = "None";
-                                }
-                                // -------------------------
-                                // MP4
-                                // -------------------------
-                                else if (vm.Container_SelectedItem == "mp4")
-                                {
-                                    vm.SubtitleCodec_SelectedItem = "mov_text";
-                                }
-                                // -------------------------
-                                // MKV
-                                // -------------------------
-                                else if (vm.Container_SelectedItem == "mkv")
-                                {
-                                    vm.SubtitleCodec_SelectedItem = "Copy";
-                                }
-                                // -------------------------
-                                // MPG
-                                // -------------------------
-                                else if (vm.Container_SelectedItem == "mpg")
-                                {
-                                    vm.SubtitleCodec_SelectedItem = "Copy";
-                                }
-                                // -------------------------
-                                // AVI
-                                // -------------------------
-                                else if (vm.Container_SelectedItem == "avi")
-                                {
-                                    vm.SubtitleCodec_SelectedItem = "SRT";
-                                }
-                                // -------------------------
-                                // OGV
-                                // -------------------------
-                                else if (vm.Container_SelectedItem == "ogv")
-                                {
-                                    vm.SubtitleCodec_SelectedItem = "None";
-                                }
-                                // -------------------------
-                                // JPG
-                                // -------------------------
-                                else if (vm.Container_SelectedItem == "jpg")
-                                {
-                                    vm.SubtitleCodec_SelectedItem = "None";
-                                }
-                                // -------------------------
-                                // PNG
-                                // -------------------------
-                                else if (vm.Container_SelectedItem == "png")
-                                {
-                                    vm.SubtitleCodec_SelectedItem = "None";
-                                }
-                                // -------------------------
-                                // WebP
-                                // -------------------------
-                                else if (vm.Container_SelectedItem == "webp")
-                                {
-                                    vm.SubtitleCodec_SelectedItem = "None";
-                                }
+                                vm.SubtitleCodec_SelectedItem = "None";
+                            }
+                            // -------------------------
+                            // MP4
+                            // -------------------------
+                            else if (vm.Container_SelectedItem == "mp4")
+                            {
+                                vm.SubtitleCodec_SelectedItem = "mov_text";
+                            }
+                            // -------------------------
+                            // MKV
+                            // -------------------------
+                            else if (vm.Container_SelectedItem == "mkv")
+                            {
+                                vm.SubtitleCodec_SelectedItem = "Copy";
+                            }
+                            // -------------------------
+                            // MPG
+                            // -------------------------
+                            else if (vm.Container_SelectedItem == "mpg")
+                            {
+                                vm.SubtitleCodec_SelectedItem = "Copy";
+                            }
+                            // -------------------------
+                            // AVI
+                            // -------------------------
+                            else if (vm.Container_SelectedItem == "avi")
+                            {
+                                vm.SubtitleCodec_SelectedItem = "SRT";
+                            }
+                            // -------------------------
+                            // OGV
+                            // -------------------------
+                            else if (vm.Container_SelectedItem == "ogv")
+                            {
+                                vm.SubtitleCodec_SelectedItem = "None";
+                            }
+                            // -------------------------
+                            // JPG
+                            // -------------------------
+                            else if (vm.Container_SelectedItem == "jpg")
+                            {
+                                vm.SubtitleCodec_SelectedItem = "None";
+                            }
+                            // -------------------------
+                            // PNG
+                            // -------------------------
+                            else if (vm.Container_SelectedItem == "png")
+                            {
+                                vm.SubtitleCodec_SelectedItem = "None";
+                            }
+                            // -------------------------
+                            // WebP
+                            // -------------------------
+                            else if (vm.Container_SelectedItem == "webp")
+                            {
+                                vm.SubtitleCodec_SelectedItem = "None";
                             }
                         }
                     }
                 }
             }
+        }
 
-        } // End AutoCopySubtitleCodec
+
+        /// <summary>
+        ///    Auto Codec Copy
+        /// <summary>
+        public static void AutoCopySubtitleCodec(ViewModel vm)
+        {
+            // --------------------------------------------------
+            // When Input Extension is Not Empty
+            // --------------------------------------------------
+            if (!string.IsNullOrEmpty(MainWindow.inputExt))
+            {
+                CopyControls(vm);
+            }
+
+            // --------------------------------------------------
+            // When Input Extension is Empty
+            // --------------------------------------------------
+            else if (string.IsNullOrEmpty(MainWindow.inputExt) &&
+                vm.AudioCodec_SelectedItem == "Copy")
+            {
+                CopyControls(vm);
+            }
+        } 
 
 
 

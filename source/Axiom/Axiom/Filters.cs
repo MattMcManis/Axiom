@@ -51,7 +51,8 @@ namespace Axiom
             {
                 // Turn on PNG to JPG Filter
                 if (string.Equals(MainWindow.inputExt, ".png", StringComparison.CurrentCultureIgnoreCase)
-                    || string.Equals(MainWindow.batchExt, "png", StringComparison.CurrentCultureIgnoreCase))
+                    //|| string.Equals(MainWindow.batchExt, "png", StringComparison.CurrentCultureIgnoreCase)
+                    )
                 {
                     // png transparent to white background
                     geq = "format=yuva444p,geq='if(lte(alpha(X,Y),16),255,p(X,Y))':'if(lte(alpha(X,Y),16),128,p(X,Y))':'if(lte(alpha(X,Y),16),128,p(X,Y))'";

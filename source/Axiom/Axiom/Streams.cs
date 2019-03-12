@@ -116,7 +116,8 @@ namespace Axiom
             // Remove Video Map if Input File is Audio Format
             // -------------------------
             if (Format.AudioFormats.Any(s => s.Equals(MainWindow.inputExt, StringComparison.OrdinalIgnoreCase))
-                || Format.AudioFormats.Any(s => s.Equals(MainWindow.batchExt, StringComparison.OrdinalIgnoreCase)))
+                //|| Format.AudioFormats.Any(s => s.Equals(MainWindow.batchExt, StringComparison.OrdinalIgnoreCase))
+                )
             {
                 vMap = string.Empty;
             }
@@ -179,7 +180,8 @@ namespace Axiom
             // Remove Chapters Map if Input File is Audio Format
             // -------------------------
             if (Format.AudioFormats.Any(s => s.Equals(MainWindow.inputExt, StringComparison.OrdinalIgnoreCase))
-                || Format.AudioFormats.Any(s => s.Equals(MainWindow.batchExt, StringComparison.OrdinalIgnoreCase)))
+                //|| Format.AudioFormats.Any(s => s.Equals(MainWindow.batchExt, StringComparison.OrdinalIgnoreCase))
+                )
             {
                 cMap = string.Empty;
             }
@@ -352,7 +354,8 @@ namespace Axiom
                 // Remove Subtitle Map if Input File is Audio Format
                 // -------------------------
                 if (Format.AudioFormats.Any(s => s.Equals(MainWindow.inputExt, StringComparison.OrdinalIgnoreCase))
-                    || Format.AudioFormats.Any(s => s.Equals(MainWindow.batchExt, StringComparison.OrdinalIgnoreCase)))
+                    //|| Format.AudioFormats.Any(s => s.Equals(MainWindow.batchExt, StringComparison.OrdinalIgnoreCase))
+                    )
                 {
                     sMap = string.Empty;
                 }
@@ -470,7 +473,8 @@ namespace Axiom
             // Remove Audio Map if Input File is Audio Format
             // -------------------------
             if (Format.AudioFormats.Any(s => s.Equals(MainWindow.inputExt, StringComparison.OrdinalIgnoreCase))
-                || Format.AudioFormats.Any(s => s.Equals(MainWindow.batchExt, StringComparison.OrdinalIgnoreCase)))
+                //|| Format.AudioFormats.Any(s => s.Equals(MainWindow.batchExt, StringComparison.OrdinalIgnoreCase))
+                )
             {
                 aMap = string.Empty;
             }

@@ -436,9 +436,9 @@ namespace Axiom
             debugParagraph.Inlines.Add(new Run(MainWindow.batchInputAuto) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
-            debugParagraph.Inlines.Add(new Bold(new Run("batchExt ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(MainWindow.batchExt) { Foreground = Value });
-            debugParagraph.Inlines.Add(new LineBreak());
+            //debugParagraph.Inlines.Add(new Bold(new Run("batchExt ")) { Foreground = Variable });
+            //debugParagraph.Inlines.Add(new Run(MainWindow.batchExt) { Foreground = Value });
+            //debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("batchFFprobeAuto ")) { Foreground = Variable });
             debugParagraph.Inlines.Add(new Run(FFprobe.batchFFprobeAuto) { Foreground = Value });

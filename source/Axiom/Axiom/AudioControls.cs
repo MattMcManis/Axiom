@@ -531,145 +531,157 @@ namespace Axiom
 
 
         /// <summary>
+        ///    Copy Controls
+        /// <summary>
+        public static void CopyControls(MainWindow mainwindow, ViewModel vm)
+        {
+            // -------------------------
+            // Conditions Check
+            // Enable
+            // -------------------------
+            if (AutoCopyConditionsCheck(mainwindow, vm, MainWindow.inputExt, MainWindow.outputExt) == true)
+            {
+                // -------------------------
+                // Set Audio Codec Combobox Selected Item to Copy
+                // -------------------------
+                if (vm.AudioCodec_Items.Count > 0)
+                {
+                    if (vm.AudioCodec_Items?.Contains("Copy") == true)
+                    {
+                        vm.AudioCodec_SelectedItem = "Copy";
+                    }
+                }
+            }
+
+            // -------------------------
+            // Reset to Default Codec
+            // -------------------------
+            // Disable Copy if:
+            // Input / Output Extensions don't match
+            // Audio is Not Auto 
+            // VBR is Checked
+            // Samplerate is Not auto
+            // BitDepth is Not auto
+            // Alimiter is Checked
+            // Volume is Not 100
+            // -------------------------
+            else
+            {
+                // -------------------------
+                // Null Check
+                // -------------------------
+                if (!string.IsNullOrEmpty(vm.AudioQuality_SelectedItem))
+                {
+                    // -------------------------
+                    // Copy Selected
+                    // -------------------------
+                    if (vm.AudioCodec_SelectedItem == "Copy")
+                    {
+                        // -------------------------
+                        // Switch back to format's default codec
+                        // -------------------------
+                        if (vm.AudioCodec_SelectedItem != "Auto" ||
+                            !string.Equals(MainWindow.inputExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase)
+                            )
+                        {
+                            // -------------------------
+                            // Video Container
+                            // -------------------------
+                            if (vm.Container_SelectedItem == "webm")
+                            {
+                                vm.AudioCodec_SelectedItem = "Vorbis";
+                            }
+                            else if (vm.Container_SelectedItem == "mp4")
+                            {
+                                vm.AudioCodec_SelectedItem = "AAC";
+                            }
+                            else if (vm.Container_SelectedItem == "mkv")
+                            {
+                                vm.AudioCodec_SelectedItem = "AC3";
+                            }
+                            else if (vm.Container_SelectedItem == "m2v")
+                            {
+                                vm.AudioCodec_SelectedItem = "None";
+                            }
+                            else if (vm.Container_SelectedItem == "mpg")
+                            {
+                                vm.AudioCodec_SelectedItem = "AC3";
+                            }
+                            else if (vm.Container_SelectedItem == "avi")
+                            {
+                                vm.AudioCodec_SelectedItem = "LAME";
+                            }
+                            else if (vm.Container_SelectedItem == "ogv")
+                            {
+                                vm.AudioCodec_SelectedItem = "Vorbis";
+                            }
+
+                            // -------------------------
+                            // Audio Container
+                            // -------------------------
+                            if (vm.Container_SelectedItem == "m4a")
+                            {
+                                vm.AudioCodec_SelectedItem = "AAC";
+                            }
+                            else if (vm.Container_SelectedItem == "mp3")
+                            {
+                                vm.AudioCodec_SelectedItem = "LAME";
+                            }
+                            else if (vm.Container_SelectedItem == "ogg")
+                            {
+                                vm.AudioCodec_SelectedItem = "Opus";
+                            }
+                            else if (vm.Container_SelectedItem == "flac")
+                            {
+                                vm.AudioCodec_SelectedItem = "FLAC";
+                            }
+                            else if (vm.Container_SelectedItem == "wav")
+                            {
+                                vm.AudioCodec_SelectedItem = "PCM";
+                            }
+
+                            // -------------------------
+                            // Image Container
+                            // -------------------------
+                            //if (vm.Container_SelectedItem == "jpg")
+                            //{
+                            //    vm.AudioCodec_SelectedItem = "None";
+                            //}
+                            //else if (vm.Container_SelectedItem == "png")
+                            //{
+                            //    vm.AudioCodec_SelectedItem = "None";
+                            //}
+                            //else if (vm.Container_SelectedItem == "webp")
+                            //{
+                            //    vm.AudioCodec_SelectedItem = "None";
+                            //}
+                        }
+                    }
+                }
+            }
+        }
+
+
+        /// <summary>
         ///    Auto Codec Copy
         /// <summary>
         public static void AutoCopyAudioCodec(MainWindow mainwindow, ViewModel vm)
         {
-            // Merge extensions for Null Check
-            string extension = string.Empty;
+            // --------------------------------------------------
+            // When Input Extension is Not Empty
+            // --------------------------------------------------
             if (!string.IsNullOrEmpty(MainWindow.inputExt))
             {
-                extension = MainWindow.inputExt;
-            }
-            else if (!string.IsNullOrEmpty(MainWindow.batchExt))
-            {
-                extension = MainWindow.batchExt;
+                CopyControls(mainwindow, vm);
             }
 
-            // Null Check
-            if (!string.IsNullOrEmpty(extension))
+            // --------------------------------------------------
+            // When Input Extension is Empty
+            // --------------------------------------------------
+            else if (string.IsNullOrEmpty(MainWindow.inputExt) &&
+                vm.AudioCodec_SelectedItem == "Copy")
             {
-                if (AutoCopyConditionsCheck(mainwindow, vm, extension, MainWindow.outputExt))
-                {
-                    // -------------------------
-                    // Set Audio Codec Combobox Selected Item to Copy
-                    // -------------------------
-                    if (vm.AudioCodec_Items.Count > 0)
-                    {
-                        if (vm.AudioCodec_Items?.Contains("Copy") == true)
-                        {
-                            vm.AudioCodec_SelectedItem = "Copy";
-                        }
-                    }
-                }
-
-                // -------------------------
-                // Reset to Default Codec
-                // -------------------------
-                else
-                {
-                    // -------------------------
-                    // Disable Copy if:
-                    // Input / Output Extensions don't match
-                    // Audio is Not Auto 
-                    // VBR is Checked
-                    // Samplerate is Not auto
-                    // BitDepth is Not auto
-                    // Alimiter is Checked
-                    // Volume is Not 100
-                    // -------------------------
-                    // -------------------------
-                    // Null Check
-                    // -------------------------
-                    if (!string.IsNullOrEmpty(vm.AudioQuality_SelectedItem))
-                    {
-                        // -------------------------
-                        // Copy Selected
-                        // -------------------------
-                        if (vm.AudioCodec_SelectedItem == "Copy")
-                        {
-                            // -------------------------
-                            // Switch back to format's default codec
-                            // -------------------------
-                            if (!string.Equals(MainWindow.inputExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase) ||
-                                !string.Equals(MainWindow.batchExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase)
-                                )
-                            {
-                                // -------------------------
-                                // Video Container
-                                // -------------------------
-                                if (vm.Container_SelectedItem == "webm")
-                                {
-                                    vm.AudioCodec_SelectedItem = "Vorbis";
-                                }
-                                else if (vm.Container_SelectedItem == "mp4")
-                                {
-                                    vm.AudioCodec_SelectedItem = "AAC";
-                                }
-                                else if (vm.Container_SelectedItem == "mkv")
-                                {
-                                    vm.AudioCodec_SelectedItem = "AC3";
-                                }
-                                else if (vm.Container_SelectedItem == "m2v")
-                                {
-                                    vm.AudioCodec_SelectedItem = "None";
-                                }
-                                else if (vm.Container_SelectedItem == "mpg")
-                                {
-                                    vm.AudioCodec_SelectedItem = "AC3";
-                                }
-                                else if (vm.Container_SelectedItem == "avi")
-                                {
-                                    vm.AudioCodec_SelectedItem = "LAME";
-                                }
-                                else if (vm.Container_SelectedItem == "ogv")
-                                {
-                                    vm.AudioCodec_SelectedItem = "Vorbis";
-                                }
-
-                                // -------------------------
-                                // Audio Container
-                                // -------------------------
-                                if (vm.Container_SelectedItem == "m4a")
-                                {
-                                    vm.AudioCodec_SelectedItem = "AAC";
-                                }
-                                else if (vm.Container_SelectedItem == "mp3")
-                                {
-                                    vm.AudioCodec_SelectedItem = "LAME";
-                                }
-                                else if (vm.Container_SelectedItem == "ogg")
-                                {
-                                    vm.AudioCodec_SelectedItem = "Opus";
-                                }
-                                else if (vm.Container_SelectedItem == "flac")
-                                {
-                                    vm.AudioCodec_SelectedItem = "FLAC";
-                                }
-                                else if (vm.Container_SelectedItem == "wav")
-                                {
-                                    vm.AudioCodec_SelectedItem = "PCM";
-                                }
-
-                                // -------------------------
-                                // Image Container
-                                // -------------------------
-                                //if (vm.Container_SelectedItem == "jpg")
-                                //{
-                                //    vm.AudioCodec_SelectedItem = "None";
-                                //}
-                                //else if (vm.Container_SelectedItem == "png")
-                                //{
-                                //    vm.AudioCodec_SelectedItem = "None";
-                                //}
-                                //else if (vm.Container_SelectedItem == "webp")
-                                //{
-                                //    vm.AudioCodec_SelectedItem = "None";
-                                //}
-                            }
-                        }
-                    }
-                }
+                CopyControls(mainwindow, vm);
             }
         }
 

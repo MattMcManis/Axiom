@@ -578,7 +578,7 @@ namespace Axiom
                 vm.AudioCodec_IsEnabled = false;
 
                 // Quality
-                vm.AudioQuality_SelectedItem = "Auto";
+                vm.AudioQuality_SelectedItem = "None";
                 vm.AudioQuality_IsEnabled = false;
 
                 // Channel

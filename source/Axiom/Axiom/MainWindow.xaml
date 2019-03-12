@@ -53,7 +53,13 @@
                      FontSize="14" 
                      Grid.ColumnSpan="1" 
                      VerticalScrollBarVisibility="Auto" 
+                     RenderOptions.ClearTypeHint="Enabled"
                      Style="{DynamicResource RichTextBoxStyle}">
+            <FlowDocument>
+                <Paragraph>
+                    <Run Text="{Binding ScriptView_Text, Mode=TwoWay}" />
+                </Paragraph>
+            </FlowDocument>
         </RichTextBox>
 
         <!-- Save Button -->
@@ -1082,7 +1088,8 @@
                                      GotFocus="tbxWidth_GotFocus" 
                                      LostFocus="tbxWidth_LostFocus" 
                                      Grid.Row="18" 
-                                     Grid.Column="2" Margin="0,2,0,0" />
+                                     Grid.Column="2"
+                                     Margin="0,2,0,0" />
 
                             <!-- Height -->
                             <Label 
@@ -1119,7 +1126,8 @@
                                 Width="75"
                                 FontFamily="Segoe UI Semilight"
                                 Grid.Row="20" 
-                                Height="26" Grid.Column="1" />
+                                Height="26" 
+                                Grid.Column="1" />
 
                             <ComboBox x:Name="cboScaling" 
                                       ItemsSource="{Binding Scaling_Items}"
@@ -1426,7 +1434,7 @@
                                       Width="105"
                                       Height="22"
                                       SelectionChanged="cboSampleRate_SelectionChanged" 
-                                      ToolTip="Audio Bit Depth"
+                                      ToolTip="Audio Sample Rate"
                                       Grid.Column="2" 
                                       Grid.Row="6" 
                                       Margin="0,2,0,0"
@@ -2668,16 +2676,16 @@
                                                     Grid.Row="2" 
                                                     Grid.ColumnSpan="2" />
                                                             <TextBox x:Name="tbxFiltersVideo_SelectiveColor_Cyans_Yellow"
-                                                     Text="{Binding Value, ElementName=slFiltersVideo_SelectiveColor_Cyans_Yellow, UpdateSourceTrigger=PropertyChanged}"
-                                                     Height="22" 
-                                                     TextWrapping="Wrap" 
-                                                     Margin="0,2,16,0"
-                                                     HorizontalAlignment="Right"
-                                                     Width="39" 
-                                                     VerticalAlignment="Top" 
-                                                     PreviewKeyUp="tbxFiltersVideo_SelectiveColor_Cyans_Yellow_PreviewKeyUp"
-                                                     Grid.Column="1" 
-                                                     Grid.Row="2"/>
+                                                                     Text="{Binding Value, ElementName=slFiltersVideo_SelectiveColor_Cyans_Yellow, UpdateSourceTrigger=PropertyChanged}"
+                                                                     Height="22" 
+                                                                     TextWrapping="Wrap" 
+                                                                     Margin="0,2,16,0"
+                                                                     HorizontalAlignment="Right"
+                                                                     Width="39" 
+                                                                     VerticalAlignment="Top" 
+                                                                     PreviewKeyUp="tbxFiltersVideo_SelectiveColor_Cyans_Yellow_PreviewKeyUp"
+                                                                     Grid.Column="1" 
+                                                                     Grid.Row="2"/>
 
                                                         </Grid>
                                                     </Grid>
@@ -2685,13 +2693,13 @@
 
                                                 <!-- Blues -->
                                                 <TabItem x:Name="tabItem_SelectiveColor_Blues" 
-                                         Header="Blues" 
-                                         Width="0"
-                                         Height="0">
+                                                         Header="Blues" 
+                                                         Width="0"
+                                                         Height="0">
                                                     <Grid Background="Transparent">
                                                         <!-- Grid -->
                                                         <Grid Margin="0,0,0,0"  
-                                              VerticalAlignment="Top" >
+                                                              VerticalAlignment="Top" >
 
                                                             <Grid.ColumnDefinitions>
                                                                 <ColumnDefinition Width="110"/>
@@ -2706,13 +2714,13 @@
 
                                                             <!-- Blues Cyan -->
                                                             <Label Style="{DynamicResource LabelCustom}"
-                                                    Content="Cyan" 
-                                                    HorizontalAlignment="Left"
-                                                    Margin="20,0,0,0" 
-                                                    VerticalAlignment="Top" 
-                                                    Width="85" 
-                                                    FontFamily="Segoe UI Semilight" 
-                                                    Height="26" />
+                                                                   Content="Cyan" 
+                                                                   HorizontalAlignment="Left"
+                                                                   Margin="20,0,0,0" 
+                                                                   VerticalAlignment="Top" 
+                                                                   Width="85" 
+                                                                   FontFamily="Segoe UI Semilight" 
+                                                                   Height="26" />
                                                             <Slider x:Name="slFiltersVideo_SelectiveColor_Blues_Cyan" 
                                                     HorizontalAlignment="Right"
                                                     Margin="0,4,60,0" 
@@ -3066,13 +3074,13 @@
 
                                                 <!-- Neutrals -->
                                                 <TabItem x:Name="tabItem_SelectiveColor_Neutrals" 
-                                         Header="Neutrals" 
-                                         Width="0"
-                                         Height="0">
+                                                         Header="Neutrals" 
+                                                         Width="0"
+                                                         Height="0">
                                                     <Grid Background="Transparent">
                                                         <!-- Grid -->
                                                         <Grid Margin="0,0,0,0"  
-                                              VerticalAlignment="Top" >
+                                                              VerticalAlignment="Top" >
 
                                                             <Grid.ColumnDefinitions>
                                                                 <ColumnDefinition Width="110"/>
@@ -3511,7 +3519,8 @@
                                                     VerticalAlignment="Bottom"
                                                     Width="50"
                                                     Grid.Column="2" 
-                                                    Grid.Row="13" Click="btnFilterVideo_EQ_Reset_Click"
+                                                    Grid.Row="13" 
+                                                    Click="btnFilterVideo_EQ_Reset_Click"
                                                     >
                                                 <TextBlock Text="Reset" 
                                                              Margin="0,-2,0,0"/>
@@ -4105,7 +4114,8 @@
                                    VerticalAlignment="Top"
                                    Height="26" 
                                    ToolTip="Path to Save Log" 
-                                   Grid.Row="6" Grid.Column="1"/>
+                                   Grid.Row="6" 
+                                   Grid.Column="1"/>
                             <ComboBox x:Name="cboTheme" 
                                       ItemsSource="{Binding Theme_Items}"
                                       SelectedIndex="{Binding Theme_SelectedIndex}"
@@ -4113,7 +4123,8 @@
                                       IsEnabled="{Binding Theme_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                       Style="{DynamicResource ComboBoxCustom}"
                                       ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" 
-                                      HorizontalAlignment="Left" VerticalAlignment="Top" 
+                                      HorizontalAlignment="Left" 
+                                      VerticalAlignment="Top" 
                                       Width="105"
                                       IsTextSearchEnabled="False"
                                       SelectionChanged="themeSelect_SelectionChanged" 
@@ -4548,7 +4559,7 @@
             </ToggleButton>
             <!-- Batch Textbox -->
             <TextBox x:Name="batchExtensionTextBox" 
-                     Text="{Binding BatchExtension_Text, Mode=TwoWay}"
+                     Text="{Binding BatchExtension_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                      IsEnabled="{Binding BatchExtension_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                      HorizontalAlignment="Right" 
                      Height="23" 

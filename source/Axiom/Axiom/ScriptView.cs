@@ -32,40 +32,41 @@ namespace Axiom
     {
         public static bool sort = false;
 
-        public static Paragraph scriptParagraph = new Paragraph(); //RichTextBox
+        //public static Paragraph scriptParagraph = new Paragraph(); //RichTextBox
 
 
         /// <summary>
         ///     Script RichTextBox Edited
         /// </summary>
         // Current RichTextBox Text
-        public static String GetScriptRichTextBoxContents(MainWindow mainwindow)
-        {
-            // Select All Text
-            TextRange textRange = new TextRange(
-                mainwindow.rtbScriptView.Document.ContentStart,
-                mainwindow.rtbScriptView.Document.ContentEnd
-            );
+        //public static String GetScriptRichTextBoxContents(MainWindow mainwindow)
+        //{
+        //    // Select All Text
+        //    TextRange textRange = new TextRange(
+        //        mainwindow.rtbScriptView.Document.ContentStart,
+        //        mainwindow.rtbScriptView.Document.ContentEnd
+        //    );
 
-            // Remove Formatting
-            textRange.ClearAllProperties();
+        //    // Remove Formatting
+        //    textRange.ClearAllProperties();
 
-            // Return Text
-            return textRange.Text;
-        }
+        //    // Return Text
+        //    return textRange.Text;
+        //}
 
 
         /// <summary>
         ///     Clear RichTextBox
         /// </summary>
-        public static void ClearScriptView(MainWindow mainwindow)
+        public static void ClearScriptView(ViewModel vm)
         {
             // Clear Old Text
-            mainwindow.rtbScriptView.Document = new FlowDocument(scriptParagraph);
-            mainwindow.rtbScriptView.BeginChange();
-            mainwindow.rtbScriptView.SelectAll();
-            mainwindow.rtbScriptView.Selection.Text = "";
-            mainwindow.rtbScriptView.EndChange();
+            //mainwindow.rtbScriptView.Document = new FlowDocument(scriptParagraph);
+            //mainwindow.rtbScriptView.BeginChange();
+            //mainwindow.rtbScriptView.SelectAll();
+            //mainwindow.rtbScriptView.Selection.Text = "";
+            //mainwindow.rtbScriptView.EndChange();
+            vm.ScriptView_Text = string.Empty;
         }
 
     }

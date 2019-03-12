@@ -318,103 +318,103 @@
     <!-- Info Button -->
     <Style x:Key="ButtonInfo" TargetType="{x:Type Image}">
         <Setter Property="FlowDirection" Value="LeftToRight"/>
-        <Setter Property="Source" Value="Resources/Images/Buttons/Black/info.png"/>
+        <Setter Property="Source" Value="../Resources/Images/Buttons/Black/info.png"/>
         <Setter Property="Opacity" Value="0.8"/>
     </Style>
 
     <!-- Website Button -->
     <Style x:Key="ButtonWebsite" TargetType="{x:Type Image}">
         <Setter Property="FlowDirection" Value="LeftToRight"/>
-        <Setter Property="Source" Value="Resources/Images/Buttons/Black/web.png"/>
+        <Setter Property="Source" Value="../Resources/Images/Buttons/Black/web.png"/>
         <Setter Property="Opacity" Value="0.8"/>
     </Style>
 
     <!-- Update Button -->
     <Style x:Key="ButtonUpdate" TargetType="{x:Type Image}">
         <Setter Property="FlowDirection" Value="LeftToRight"/>
-        <Setter Property="Source" Value="Resources/Images/Buttons/Black/update.png"/>
+        <Setter Property="Source" Value="../Resources/Images/Buttons/Black/update.png"/>
     </Style>
 
     <!-- Configure Button -->
     <Style x:Key="ButtonConfigure" TargetType="{x:Type Image}">
         <Setter Property="FlowDirection" Value="LeftToRight"/>
-        <Setter Property="Source" Value="Resources/Images/Buttons/Black/configuregear.png"/>
+        <Setter Property="Source" Value="../Resources/Images/Buttons/Black/configuregear.png"/>
         <Setter Property="Opacity" Value="0.8"/>
     </Style>
 
     <!-- Window Button -->
     <Style x:Key="ButtonWindow" TargetType="{x:Type Image}">
         <Setter Property="FlowDirection" Value="LeftToRight"/>
-        <Setter Property="Source" Value="Resources/Images/Buttons/Black/window.png"/>
+        <Setter Property="Source" Value="../Resources/Images/Buttons/Black/window.png"/>
         <Setter Property="Opacity" Value="0.8"/>
     </Style>
 
     <!-- Auto Sort Script Button -->
     <Style x:Key="ButtonAutoSortScript" TargetType="{x:Type Image}">
         <Setter Property="FlowDirection" Value="LeftToRight"/>
-        <Setter Property="Source" Value="Resources/Images/Buttons/Black/autosortscript.png"/>
+        <Setter Property="Source" Value="../Resources/Images/Buttons/Black/autosortscript.png"/>
     </Style>
 
     <!-- Debug Console Button -->
     <Style x:Key="ButtonDebugConsole" TargetType="{x:Type Image}">
         <Setter Property="FlowDirection" Value="LeftToRight"/>
-        <Setter Property="Source" Value="Resources/Images/Buttons/Black/debugconsole.png"/>
+        <Setter Property="Source" Value="../Resources/Images/Buttons/Black/debugconsole.png"/>
         <Setter Property="Opacity" Value="0.8"/>
     </Style>
 
     <!-- Log Console Button -->
     <Style x:Key="ButtonLogConsole" TargetType="{x:Type Image}">
         <Setter Property="FlowDirection" Value="LeftToRight"/>
-        <Setter Property="Source" Value="Resources/Images/Buttons/Black/logconsole.png"/>
+        <Setter Property="Source" Value="../Resources/Images/Buttons/Black/logconsole.png"/>
         <Setter Property="Opacity" Value="0.8"/>
     </Style>
 
     <!-- Log Button -->
     <Style x:Key="ButtonLog" TargetType="{x:Type Image}">
         <Setter Property="FlowDirection" Value="LeftToRight"/>
-        <Setter Property="Source" Value="Resources/Images/Buttons/Black/log.png"/>
+        <Setter Property="Source" Value="../Resources/Images/Buttons/Black/log.png"/>
         <Setter Property="Opacity" Value="0.8"/>
     </Style>
 
     <!-- CMD Button -->
     <Style x:Key="ButtonCMD" TargetType="{x:Type Image}">
         <Setter Property="FlowDirection" Value="LeftToRight"/>
-        <Setter Property="Source" Value="Resources/Images/Buttons/Black/cmd.png"/>
+        <Setter Property="Source" Value="../Resources/Images/Buttons/Black/cmd.png"/>
         <Setter Property="Opacity" Value="0.8"/>
     </Style>
 
     <!-- Properties Button -->
     <Style x:Key="ButtonProperties" TargetType="{x:Type Image}">
         <Setter Property="FlowDirection" Value="LeftToRight"/>
-        <Setter Property="Source" Value="Resources/Images/Buttons/Black/properties.png"/>
+        <Setter Property="Source" Value="../Resources/Images/Buttons/Black/properties.png"/>
         <Setter Property="Opacity" Value="0.8"/>
     </Style>
 
     <!-- Play Button -->
     <Style x:Key="ButtonPlay" TargetType="{x:Type Image}">
         <Setter Property="FlowDirection" Value="LeftToRight"/>
-        <Setter Property="Source" Value="Resources/Images/Buttons/Black/autoplay.png"/>
+        <Setter Property="Source" Value="../Resources/Images/Buttons/Black/autoplay.png"/>
         <Setter Property="Opacity" Value="0.8"/>
     </Style>
 
     <!-- Folder Button -->
     <Style x:Key="ButtonQuickFolder" TargetType="{x:Type Image}">
         <Setter Property="FlowDirection" Value="LeftToRight"/>
-        <Setter Property="Source" Value="Resources/Images/Buttons/Black/folder.png"/>
+        <Setter Property="Source" Value="../Resources/Images/Buttons/Black/folder.png"/>
         <Setter Property="Opacity" Value="0.8"/>
     </Style>
 
     <!-- Revert Arrow Button -->
     <Style x:Key="ButtonRevertArrow" TargetType="{x:Type Image}">
         <Setter Property="FlowDirection" Value="LeftToRight"/>
-        <Setter Property="Source" Value="Resources/Images/Buttons/Black/revertarrow.png"/>
+        <Setter Property="Source" Value="../Resources/Images/Buttons/Black/revertarrow.png"/>
         <Setter Property="Opacity" Value="0.8"/>
     </Style>
 
     <!-- Volume Up Button -->
     <Style x:Key="ButtonVolumeUp" TargetType="{x:Type Image}">
         <Setter Property="FlowDirection" Value="LeftToRight"/>
-        <Setter Property="Source" Value="Resources/Images/Buttons/Black/ArrowUp.png"/>
+        <Setter Property="Source" Value="../Resources/Images/Buttons/Black/ArrowUp.png"/>
         <Setter Property="Opacity" Value="0.8"/>
         <Style.Triggers>
             <Trigger Property="IsEnabled" Value="false">
@@ -426,7 +426,7 @@
     <!-- Volume Down Button -->
     <Style x:Key="ButtonVolumeDown" TargetType="{x:Type Image}">
         <Setter Property="FlowDirection" Value="LeftToRight"/>
-        <Setter Property="Source" Value="Resources/Images/Buttons/Black/ArrowDown.png"/>
+        <Setter Property="Source" Value="../Resources/Images/Buttons/Black/ArrowDown.png"/>
         <Setter Property="Opacity" Value="0.8"/>
         <Style.Triggers>
             <Trigger Property="IsEnabled" Value="false">

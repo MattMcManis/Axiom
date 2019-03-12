@@ -33,7 +33,7 @@ namespace Axiom
 {
     public class ViewModel : INotifyPropertyChanged
     {
-        private MainWindow mainwindow;
+        private MainWindow mainwindow = (MainWindow)System.Windows.Application.Current.MainWindow;
 
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
         private void OnPropertyChanged(string prop)
@@ -274,19 +274,19 @@ namespace Axiom
         // Script View
         // --------------------------------------------------
         // Text
-        private string _Script_Text;
-        public string Script_Text
+        private string _ScriptView_Text;
+        public string ScriptView_Text
         {
-            get { return _Script_Text; }
+            get { return _ScriptView_Text; }
             set
             {
-                if (_Script_Text == value)
+                if (_ScriptView_Text == value)
                 {
                     return;
                 }
 
-                _Script_Text = value;
-                OnPropertyChanged("Script_Text");
+                _ScriptView_Text = value;
+                OnPropertyChanged("ScriptView_Text");
             }
         }
 
@@ -1169,7 +1169,7 @@ namespace Axiom
 
                 if (previousItem != value)
                 {
-                    VideoControls.AutoCopyVideoCodec(mainwindow, this);
+                    VideoControls.AutoCopyVideoCodec(System.Windows.Application.Current.Windows.OfType<MainWindow>().FirstOrDefault(), this);
                     SubtitleControls.AutoCopySubtitleCodec(this);
                 }
 
@@ -1512,7 +1512,7 @@ namespace Axiom
 
                 if (previousItem != value)
                 {
-                    //VideoControls.AutoCopyVideoCodec(mainwindow, this); // Crash Problem
+                    //VideoControls.AutoCopyVideoCodec(System.Windows.Application.Current.Windows.OfType<MainWindow>().FirstOrDefault(), this); // Crash Problem
                     SubtitleControls.AutoCopySubtitleCodec(this);
                 }
                 //if (_PixelFormat_SelectedItem == value)
@@ -1604,7 +1604,7 @@ namespace Axiom
 
                 if (previousItem != value)
                 {
-                    VideoControls.AutoCopyVideoCodec(mainwindow, this);
+                    VideoControls.AutoCopyVideoCodec(System.Windows.Application.Current.Windows.OfType<MainWindow>().FirstOrDefault(), this);
                     SubtitleControls.AutoCopySubtitleCodec(this);
                 }
 
@@ -1707,7 +1707,7 @@ namespace Axiom
 
                 if (previousItem != value)
                 {
-                    VideoControls.AutoCopyVideoCodec(mainwindow, this);
+                    VideoControls.AutoCopyVideoCodec(System.Windows.Application.Current.Windows.OfType<MainWindow>().FirstOrDefault(), this);
                     SubtitleControls.AutoCopySubtitleCodec(this);
                 }
 
@@ -2000,7 +2000,7 @@ namespace Axiom
 
                 if (previousItem != value)
                 {
-                    VideoControls.AutoCopyVideoCodec(mainwindow, this);
+                    VideoControls.AutoCopyVideoCodec(System.Windows.Application.Current.Windows.OfType<MainWindow>().FirstOrDefault(), this);
                     SubtitleControls.AutoCopySubtitleCodec(this);
                 }
 
@@ -2162,7 +2162,7 @@ namespace Axiom
 
                 if (previousItem != value)
                 {
-                    VideoControls.AutoCopyVideoCodec(mainwindow, this);
+                    VideoControls.AutoCopyVideoCodec(System.Windows.Application.Current.Windows.OfType<MainWindow>().FirstOrDefault(), this);
                     SubtitleControls.AutoCopySubtitleCodec(this);
                 }
 
@@ -2436,7 +2436,7 @@ namespace Axiom
 
                 if (previousItem != value)
                 {
-                    AudioControls.AutoCopyAudioCodec(mainwindow, this);
+                    AudioControls.AutoCopyAudioCodec(System.Windows.Application.Current.Windows.OfType<MainWindow>().FirstOrDefault(), this);
                 }
 
                 //if (_AudioChannel_SelectedItem == value)
@@ -2534,7 +2534,7 @@ namespace Axiom
 
                 if (previousItem != value)
                 {
-                    AudioControls.AutoCopyAudioCodec(mainwindow, this);
+                    AudioControls.AutoCopyAudioCodec(System.Windows.Application.Current.Windows.OfType<MainWindow>().FirstOrDefault(), this);
                 }
 
                 //if (_AudioQuality_SelectedItem == value)
@@ -2708,7 +2708,7 @@ namespace Axiom
 
                 if (previousItem != value)
                 {
-                    AudioControls.AutoCopyAudioCodec(mainwindow, this);
+                    AudioControls.AutoCopyAudioCodec(System.Windows.Application.Current.Windows.OfType<MainWindow>().FirstOrDefault(), this);
                 }
 
                 //if (_AudioSampleRate_SelectedItem == value)
@@ -2800,7 +2800,7 @@ namespace Axiom
 
                 if (previousItem != value)
                 {
-                    AudioControls.AutoCopyAudioCodec(mainwindow, this);
+                    AudioControls.AutoCopyAudioCodec(System.Windows.Application.Current.Windows.OfType<MainWindow>().FirstOrDefault(), this);
                 }
 
                 //if (_AudioBitDepth_SelectedItem == value)

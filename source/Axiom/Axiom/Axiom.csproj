@@ -165,31 +165,31 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="ThemeAxiom.xaml">
+    <Page Include="Themes\ThemeAxiom.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ThemeCircuit.xaml">
+    <Page Include="Themes\ThemeCircuit.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ThemeCyberpunk.xaml">
+    <Page Include="Themes\ThemeCyberpunk.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ThemeFFmpeg.xaml">
+    <Page Include="Themes\ThemeFFmpeg.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ThemeOnyx.xaml">
+    <Page Include="Themes\ThemeOnyx.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ThemePrelude.xaml">
+    <Page Include="Themes\ThemePrelude.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ThemeSystem.xaml">
+    <Page Include="Themes\ThemeSystem.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -221,7 +221,6 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-    <None Include="Resources\Images\Themes\Axiom\Thumbs.db" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

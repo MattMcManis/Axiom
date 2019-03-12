@@ -163,12 +163,6 @@ namespace Axiom
 
             // Crop
             vm.Crop_IsEnabled = true;
-
-            // Subtitle Codec
-            vm.SubtitleCodec_IsEnabled = true;
-
-            // Subtitle Stream
-            vm.SubtitleStream_IsEnabled = true;
         }
 
         // -------------------------
@@ -176,7 +170,11 @@ namespace Axiom
         // -------------------------
         public static void controlsDisable(ViewModel vm)
         {
-            // None
+            // Subtitle Codec
+            vm.SubtitleCodec_IsEnabled = false;
+
+            // Subtitle Stream
+            vm.SubtitleStream_IsEnabled = false;
         }
 
     }

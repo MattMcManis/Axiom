@@ -96,7 +96,7 @@ namespace Axiom
         public static string outputNewFileName; // File Rename if File already exists
 
         // Batch
-        public static string batchExt; // Batch user entered extension (eg. mp4 or .mp4)
+        //public static string batchExt; // Batch user entered extension (eg. mp4 or .mp4)
         public static string batchInputAuto;
 
         /// <summary>
@@ -199,7 +199,7 @@ namespace Axiom
             // --------------------------
             try
             {
-                if (string.IsNullOrEmpty(Settings.Default["Theme"].ToString()))
+                if (string.IsNullOrEmpty(Settings.Default.Theme.ToString()))
                 {
                     Configure.theme = "Axiom";
 
@@ -207,22 +207,22 @@ namespace Axiom
                     cboTheme.SelectedItem = "Axiom";
 
                     // Save Theme for next launch
-                    Settings.Default["Theme"] = Configure.theme;
+                    Settings.Default.Theme = Configure.theme;
                     Settings.Default.Save();
 
                     // Change Theme Resource
                     App.Current.Resources.MergedDictionaries.Clear();
                     App.Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
                     {
-                        Source = new Uri("Theme" + Configure.theme + ".xaml", UriKind.RelativeOrAbsolute)
+                        Source = new Uri("Themes/" + "Theme" + Configure.theme + ".xaml", UriKind.RelativeOrAbsolute)
                     });
                 }
                 // --------------------------
                 // Load Saved Settings Override
                 // --------------------------
-                else if (!string.IsNullOrEmpty(Settings.Default["Theme"].ToString())) // null check
+                else if (!string.IsNullOrEmpty(Settings.Default.Theme.ToString())) // null check
                 {
-                    Configure.theme = Settings.Default["Theme"].ToString();
+                    Configure.theme = Settings.Default.Theme.ToString();
 
                     // Set ComboBox
                     cboTheme.SelectedItem = Configure.theme;
@@ -231,7 +231,7 @@ namespace Axiom
                     App.Current.Resources.MergedDictionaries.Clear();
                     App.Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
                     {
-                        Source = new Uri("Theme" + Configure.theme + ".xaml", UriKind.RelativeOrAbsolute)
+                        Source = new Uri("Themes/" + "Theme" + Configure.theme + ".xaml", UriKind.RelativeOrAbsolute)
                     });
                 }
 
@@ -358,8 +358,8 @@ namespace Axiom
             // -------------------------
             // Window Position
             // -------------------------
-            if (Convert.ToDouble(Settings.Default["Left"]) == 0
-                && Convert.ToDouble(Settings.Default["Top"]) == 0)
+            if (Convert.ToDouble(Settings.Default.Left) == 0
+                && Convert.ToDouble(Settings.Default.Top) == 0)
             {
                 this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             }
@@ -522,6 +522,8 @@ namespace Axiom
         /// </summary>
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            Application.Current.MainWindow = this;
+
             // -------------------------
             // Control Defaults
             // -------------------------
@@ -1191,7 +1193,7 @@ namespace Axiom
             App.Current.Resources.MergedDictionaries.Clear();
             App.Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
             {
-                Source = new Uri("Theme" + Configure.theme + ".xaml", UriKind.RelativeOrAbsolute)
+                Source = new Uri("Themes/" + "Theme" + Configure.theme + ".xaml", UriKind.RelativeOrAbsolute)
             });
 
             // Save Theme for next launch
@@ -1673,21 +1675,21 @@ namespace Axiom
         /// <summary>
         ///    Check if Script has been Edited (Method)
         /// </summary>
-        public static bool CheckScriptEdited(MainWindow mainwindow)
+        public static bool CheckScriptEdited(/*MainWindow mainwindow, */ViewModel vm)
         {
             bool edited = false;
 
             // -------------------------
             // Check if Script has been modified
             // -------------------------
-            if (!string.IsNullOrWhiteSpace(ScriptView.GetScriptRichTextBoxContents(mainwindow)) && 
+            if (!string.IsNullOrEmpty(vm.ScriptView_Text) && 
                 !string.IsNullOrEmpty(FFmpeg.ffmpegArgs))
             {
                 //MessageBox.Show(RemoveLineBreaks(ScriptView.GetScriptRichTextBoxContents(mainwindow))); //debug
                 //MessageBox.Show(FFmpeg.ffmpegArgs); //debug
 
                 // Compare RichTextBox Script Against FFmpeg Generated Args
-                if (RemoveLineBreaks(ScriptView.GetScriptRichTextBoxContents(mainwindow)) != FFmpeg.ffmpegArgs)
+                if (RemoveLineBreaks(vm.ScriptView_Text) != FFmpeg.ffmpegArgs)
                 {
                     // Yes/No Dialog Confirmation
                     MessageBoxResult result = MessageBox.Show("The Convert button will override and replace your custom script with the selected controls."
@@ -1862,7 +1864,7 @@ namespace Axiom
             if (vm.Batch_IsChecked == true)
             {
                 if (string.Equals(inputDir, outputDir, StringComparison.CurrentCultureIgnoreCase) &&
-                    string.Equals(batchExt, outputExt, StringComparison.CurrentCultureIgnoreCase))
+                    string.Equals(/*batchExt*/inputExt, outputExt, StringComparison.CurrentCultureIgnoreCase))
                 {
                     //MessageBox.Show(inputDir); //debug
                     //MessageBox.Show(outputDir); //debug
@@ -3089,12 +3091,14 @@ namespace Axiom
                     !vm.BatchExtension_Text.StartsWith(".")
                     )
                 {
-                    batchExt = "." + vm.BatchExtension_Text;
+                    //batchExt = "." + vm.BatchExtension_Text;
+                    inputExt = "." + vm.BatchExtension_Text;
                 }
             }
             else
             {
-                batchExt = string.Empty;
+                //batchExt = string.Empty;
+                inputExt = string.Empty;
             }
         }
 
@@ -3141,13 +3145,14 @@ namespace Axiom
                 vm.BatchExtension_Text = "extension";
             }
 
-            // Clear Browse Textbox, Input Filename, Dir, Ext
+            // Clear Browse Textbox, Batch Filename, Dir, Ext
             if (!string.IsNullOrEmpty(vm.Input_Text))
             {
                 vm.Input_Text = string.Empty;
                 inputFileName = string.Empty;
                 inputDir = string.Empty;
                 inputExt = string.Empty;
+                //batchExt = string.Empty;
             }
 
             // Clear Output Textbox, Output Filename, Dir, Ext
@@ -3176,21 +3181,31 @@ namespace Axiom
                 vm.BatchExtension_Text == "extension"
                 )
             {
-                batchExt = string.Empty;
+                //batchExt = string.Empty;
+                inputExt = string.Empty;
             }
             // TextBox Value
             else
             {
-                batchExt = vm.BatchExtension_Text;
+                //batchExt = vm.BatchExtension_Text;
+                inputExt = vm.BatchExtension_Text;
             }
 
             // Add period to batchExt if user did not enter (This helps enable Copy)
-            if (!batchExt.StartsWith(".") &&
-                !string.IsNullOrEmpty(vm.BatchExtension_Text) &&
+            if (!string.IsNullOrEmpty(vm.BatchExtension_Text) &&
+                //!batchExt.StartsWith(".") &&
+                !inputExt.StartsWith(".") &&
                 vm.BatchExtension_Text != "extension")
             {
-                batchExt = "." + batchExt;
+                //batchExt = "." + batchExt;
+                inputExt = "." + inputExt;
             }
+
+            // --------------------------------------------------
+            // Default Auto if Input Extension matches Output Extsion
+            // This will trigger Auto Codec Copy
+            // --------------------------------------------------
+            ExtensionMatchCheckAuto(vm);
 
             // Set Video and AudioCodec Combobox to "Copy" if Input Extension is Same as Output Extension and Video Quality is Auto
             VideoControls.AutoCopyVideoCodec(this, vm);
@@ -3415,19 +3430,23 @@ namespace Axiom
         /// <summary>
         ///    Extension Match Check Auto
         /// </summary>
+        /// <remarks>
+        ///    Change the Controls to Auto if Input Extension matches Output Extsion
+        ///    This will trigger Auto Codec Copy
+        /// </remarks>
         public void ExtensionMatchCheckAuto(ViewModel vm)
         {
-            // --------------------------------------------------
-            // Default Auto if Input Extension matches Output Extsion
-            // This will trigger Auto Codec Copy
-            // --------------------------------------------------
             //MessageBox.Show(inputExt + " " + outputExt); //debug
+
             // -------------------------
             // Video
             // -------------------------
             if (vm.VideoQuality_SelectedItem == "Auto" &&
                 string.Equals(inputExt, outputExt, StringComparison.CurrentCultureIgnoreCase))
             {
+                // Set Controls:
+
+                // Main
                 vm.VideoQuality_SelectedItem = "Auto";
                 vm.PixelFormat_SelectedItem = "auto";
                 vm.FPS_SelectedItem = "auto";
@@ -3493,10 +3512,15 @@ namespace Axiom
             if (vm.AudioQuality_SelectedItem == "Auto" &&
                 string.Equals(inputExt, outputExt, StringComparison.CurrentCultureIgnoreCase))
             {
+                // Set Controls:
+
+                // Main
                 vm.AudioQuality_SelectedItem = "Auto";
                 vm.AudioChannel_SelectedItem = "Source";
                 vm.AudioSampleRate_SelectedItem = "auto";
                 vm.AudioBitDepth_SelectedItem = "auto";
+
+                // Filters
                 vm.Volume_Text = "100";
                 vm.AudioHardLimiter_Value = 1;
             }
@@ -3531,7 +3555,7 @@ namespace Axiom
             // -------------------------
             // Video Encoding Pass
             // -------------------------
-            VideoControls.EncodingPass(vm);
+            VideoControls.EncodingPassControls(vm);
 
             // -------------------------
             // Optimize Controls
@@ -3555,6 +3579,7 @@ namespace Axiom
             // --------------------------------------------------
             ExtensionMatchCheckAuto(vm);
             //MessageBox.Show(inputExt + " " + outputExt); //debug
+
             // -------------------------
             // Video
             // -------------------------
@@ -3737,12 +3762,12 @@ namespace Axiom
             // -------------------------
             // Video Encoding Pass
             // -------------------------
-            VideoControls.EncodingPass(vm);
+            VideoControls.EncodingPassControls(vm);
 
             // -------------------------
             // Pixel Format
             // -------------------------
-            VideoControls.PixelFormat(vm);
+            //VideoControls.PixelFormatControls(vm);
 
             // -------------------------
             // Optimize Controls
@@ -3764,7 +3789,7 @@ namespace Axiom
             // -------------------------
             // Pass Controls
             // -------------------------
-            VideoControls.EncodingPass(vm);
+            VideoControls.EncodingPassControls(vm);
 
             // -------------------------
             // Display Bit-rate in TextBox
@@ -3786,19 +3811,10 @@ namespace Axiom
         /// </summary>
         private void cboVideoQuality_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            // Set Controls
-            //VideoControls.SetControls(vm, vm.cboVideoCodec_SelectedItem);
-
-            // Video Quality
-            //Video.VideoQuality(vm,
-            //                   vm.VideoQuality_Items,
-            //                   vm.VideoQuality_SelectedItem);
-
             // -------------------------
             // Quality Controls
             // -------------------------
             VideoControls.QualityControls(vm);
-
 
             // -------------------------
             // Display Bit-rate in TextBox
@@ -3811,12 +3827,15 @@ namespace Axiom
             // -------------------------
             // Video Encoding Pass
             // -------------------------
-            VideoControls.EncodingPass(vm);
+            VideoControls.EncodingPassControls(vm);
 
             // -------------------------
             // Pixel Format
             // -------------------------
-            VideoControls.PixelFormat(vm);
+            VideoControls.PixelFormatControls(vm,
+                                              vm.MediaType_SelectedItem,
+                                              vm.VideoCodec_SelectedItem,
+                                              vm.VideoQuality_SelectedItem);
         }
 
 
@@ -5591,35 +5610,38 @@ namespace Axiom
 
 
             // Only if Script not empty
-            if (!string.IsNullOrWhiteSpace(ScriptView.GetScriptRichTextBoxContents(this)))
+            if (!string.IsNullOrEmpty(/*ScriptView.GetScriptRichTextBoxContents(this)*/vm.ScriptView_Text))
             {
                 // -------------------------
                 // Has Not Been Edited
                 // -------------------------
-                if (ScriptView.sort == false
-                    && RemoveLineBreaks(ScriptView.GetScriptRichTextBoxContents(this))
-                                 //.Replace(Environment.NewLine, "")
-                                 //.Replace("\r\n", "")
-                                 //.Replace("\u2028", "")
-                                 //.Replace("\u000A", "")
-                                 //.Replace("\u000B", "")
-                                 //.Replace("\u000C", "")
-                                 //.Replace("\u000D", "")
-                                 //.Replace("\u0085", "")
-                                 //.Replace("\u2028", "")
-                                 //.Replace("\u2029", "")
+                if (ScriptView.sort == false &&
+                    RemoveLineBreaks(vm.ScriptView_Text)
+                    //RemoveLineBreaks(ScriptView.GetScriptRichTextBoxContents(this))
+                                     //.Replace(Environment.NewLine, "")
+                                     //.Replace("\r\n", "")
+                                     //.Replace("\u2028", "")
+                                     //.Replace("\u000A", "")
+                                     //.Replace("\u000B", "")
+                                     //.Replace("\u000C", "")
+                                     //.Replace("\u000D", "")
+                                     //.Replace("\u0085", "")
+                                     //.Replace("\u2028", "")
+                                     //.Replace("\u2029", "")
 
-                                 == FFmpeg.ffmpegArgs)
+                                     == FFmpeg.ffmpegArgs)
                 {
                     // Clear Old Text
                     //ScriptView.scriptParagraph.Inlines.Clear();
-                    ScriptView.ClearScriptView(this);
+                    //ScriptView.ClearScriptView(this, vm);
 
                     // Write FFmpeg Args Sort
-                    rtbScriptView.Document = new FlowDocument(ScriptView.scriptParagraph);
-                    rtbScriptView.BeginChange();
-                    ScriptView.scriptParagraph.Inlines.Add(new Run(FFmpeg.ffmpegArgsSort));
-                    rtbScriptView.EndChange();
+                    //rtbScriptView.Document = new FlowDocument(ScriptView.scriptParagraph);
+                    //rtbScriptView.BeginChange();
+                    //ScriptView.scriptParagraph.Inlines.Add(new Run(FFmpeg.ffmpegArgsSort));
+                    //rtbScriptView.EndChange();
+                    //vm.ScriptView_Text = string.Join<char>(" ", FFmpeg.ffmpegArgsSort);
+                    vm.ScriptView_Text = FFmpeg.ffmpegArgsSort;
 
                     // Sort is Off
                     ScriptView.sort = true;
@@ -5631,17 +5653,18 @@ namespace Axiom
                 // Has Been Edited
                 // -------------------------
                 else if (ScriptView.sort == false &&
-                         RemoveLineBreaks(ScriptView.GetScriptRichTextBoxContents(this))
-                                          //.Replace(Environment.NewLine, "")
-                                          //.Replace("\r\n", "")
-                                          //.Replace("\u2028", "")
-                                          //.Replace("\u000A", "")
-                                          //.Replace("\u000B", "")
-                                          //.Replace("\u000C", "")
-                                          //.Replace("\u000D", "")
-                                          //.Replace("\u0085", "")
-                                          //.Replace("\u2028", "")
-                                          //.Replace("\u2029", "")
+                         RemoveLineBreaks(vm.ScriptView_Text)
+                                        //RemoveLineBreaks(ScriptView.GetScriptRichTextBoxContents(this))
+                                        //.Replace(Environment.NewLine, "")
+                                        //.Replace("\r\n", "")
+                                        //.Replace("\u2028", "")
+                                        //.Replace("\u000A", "")
+                                        //.Replace("\u000B", "")
+                                        //.Replace("\u000C", "")
+                                        //.Replace("\u000D", "")
+                                        //.Replace("\u0085", "")
+                                        //.Replace("\u2028", "")
+                                        //.Replace("\u2029", "")
 
                                         != FFmpeg.ffmpegArgs)
                 {
@@ -5660,7 +5683,8 @@ namespace Axiom
                 else if (ScriptView.sort == true)
                 {
                     // CMD Arguments are from Script TextBox
-                    FFmpeg.ffmpegArgs = RemoveLineBreaks(ScriptView.GetScriptRichTextBoxContents(this));
+                    //FFmpeg.ffmpegArgs = RemoveLineBreaks(ScriptView.GetScriptRichTextBoxContents(this));
+                    FFmpeg.ffmpegArgs = RemoveLineBreaks(vm.ScriptView_Text);
                     //.Replace(Environment.NewLine, "") //Remove Linebreaks
                     //.Replace("\n", "")
                     //.Replace("\r\n", "")
@@ -5674,14 +5698,16 @@ namespace Axiom
                     //.Replace("\u2029", "");
 
                     // Clear Old Text
-                    ScriptView.ClearScriptView(this);
+                    //ScriptView.ClearScriptView(this, vm);
                     //ScriptView.scriptParagraph.Inlines.Clear();
 
                     // Write FFmpeg Args
-                    rtbScriptView.Document = new FlowDocument(ScriptView.scriptParagraph);
-                    rtbScriptView.BeginChange();
-                    ScriptView.scriptParagraph.Inlines.Add(new Run(FFmpeg.ffmpegArgs));
-                    rtbScriptView.EndChange();
+                    //rtbScriptView.Document = new FlowDocument(ScriptView.scriptParagraph);
+                    //rtbScriptView.BeginChange();
+                    //ScriptView.scriptParagraph.Inlines.Add(new Run(FFmpeg.ffmpegArgs));
+                    //rtbScriptView.EndChange();
+                    //vm.ScriptView_Text = string.Join<char>(" ", FFmpeg.ffmpegArgs);
+                    vm.ScriptView_Text = FFmpeg.ffmpegArgs;
 
                     // Sort is On
                     ScriptView.sort = false;
@@ -5837,7 +5863,7 @@ namespace Axiom
             // -------------------------
             // Generate Script
             // -------------------------
-            FFmpeg.FFmpegScript(this);
+            FFmpeg.FFmpegScript(vm);
 
             // -------------------------
             // Auto Sort Toggle
@@ -5876,7 +5902,8 @@ namespace Axiom
             if (result == true)
             {
                 // Save document
-                File.WriteAllText(saveFile.FileName, ScriptView.GetScriptRichTextBoxContents(this), Encoding.Unicode);
+                //File.WriteAllText(saveFile.FileName, ScriptView.GetScriptRichTextBoxContents(this), Encoding.Unicode);
+                File.WriteAllText(saveFile.FileName, vm.ScriptView_Text, Encoding.Unicode);
             }
         }
 
@@ -5886,7 +5913,8 @@ namespace Axiom
         /// </summary>
         private void btnScriptCopy_Click(object sender, RoutedEventArgs e)
         {
-            Clipboard.SetText(ScriptView.GetScriptRichTextBoxContents(this), TextDataFormat.UnicodeText);
+            //Clipboard.SetText(ScriptView.GetScriptRichTextBoxContents(this), TextDataFormat.UnicodeText);
+            Clipboard.SetText(vm.ScriptView_Text, TextDataFormat.UnicodeText);
         }
 
 
@@ -5897,7 +5925,7 @@ namespace Axiom
         {
             //ScriptView.scriptParagraph.Inlines.Clear();
 
-            ScriptView.ClearScriptView(this);
+            ScriptView.ClearScriptView(vm);
         }
 
 
@@ -5918,9 +5946,12 @@ namespace Axiom
             // -------------------------
             // Use Arguments from Script TextBox
             // -------------------------
+            //FFmpeg.ffmpegArgs = ReplaceLineBreaksWithSpaces(
+            //                            ScriptView.GetScriptRichTextBoxContents(this)
+            //                        );
             FFmpeg.ffmpegArgs = ReplaceLineBreaksWithSpaces(
-                                        ScriptView.GetScriptRichTextBoxContents(this)
-                                    );
+                                    vm.ScriptView_Text
+                                );
 
             // -------------------------
             // Start FFmpeg
@@ -5950,7 +5981,7 @@ namespace Axiom
             // -------------------------
             // Check if Script has been Edited
             // -------------------------
-            if (CheckScriptEdited(this) == true)
+            if (CheckScriptEdited(/*this*/vm) == true)
             {
                 // Halt
                 return;
@@ -6056,7 +6087,7 @@ namespace Axiom
                 // -------------------------
                 // FFmpeg Convert
                 // -------------------------
-                FFmpeg.FFmpegConvert(this, vm);
+                FFmpeg.FFmpegConvert(vm);
 
                 // -------------------------
                 // Sort Script

@@ -21,8 +21,6 @@ along with this program.If not, see <http://www.gnu.org/licenses/>.
 
 using Axiom.Properties;
 using System;
-using System.Windows;
-using System.Windows.Media;
 // Disable XML Comment warnings
 #pragma warning disable 1591
 
@@ -399,7 +397,7 @@ namespace Axiom
 
 
                 // Save FFmpeg Path for next launch
-                Settings.Default["logPath"] = vm.LogPath_Text;
+                Settings.Default.LogPath = vm.LogPath_Text;
                 Settings.Default.Save();
                 Settings.Default.Reload();
             }

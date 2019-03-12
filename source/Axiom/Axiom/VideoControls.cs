@@ -60,6 +60,73 @@ namespace Axiom
         /// </summary>
         public static bool passUserSelected = false; // Used to determine if User willingly selected CRF, 1 Pass or 2 Pass
 
+        //public static void VideoContainerDefaults(ViewModel vm)
+        //{
+        //    // -------------------------
+        //    // WebM
+        //    // -------------------------
+        //    if (vm.Container_SelectedItem == "webm")
+        //    {
+        //        vm.VideoCodec_SelectedItem = "VP8";
+        //    }
+        //    // -------------------------
+        //    // MP4
+        //    // -------------------------
+        //    else if (vm.Container_SelectedItem == "mp4")
+        //    {
+        //        vm.VideoCodec_SelectedItem = "x264";
+        //    }
+        //    // -------------------------
+        //    // MKV
+        //    // -------------------------
+        //    else if (vm.Container_SelectedItem == "mkv")
+        //    {
+        //        vm.VideoCodec_SelectedItem = "x264";
+        //    }
+        //    // -------------------------
+        //    // MPG
+        //    // -------------------------
+        //    else if (vm.Container_SelectedItem == "mpg")
+        //    {
+        //        vm.VideoCodec_SelectedItem = "MPEG-2";
+        //    }
+        //    // -------------------------
+        //    // AVI
+        //    // -------------------------
+        //    else if (vm.Container_SelectedItem == "avi")
+        //    {
+        //        vm.VideoCodec_SelectedItem = "MPEG-4";
+        //    }
+        //    // -------------------------
+        //    // OGV
+        //    // -------------------------
+        //    else if (vm.Container_SelectedItem == "ogv")
+        //    {
+        //        vm.VideoCodec_SelectedItem = "Theora";
+        //    }
+        //    // -------------------------
+        //    // JPG
+        //    // -------------------------
+        //    else if (vm.Container_SelectedItem == "jpg")
+        //    {
+        //        vm.VideoCodec_SelectedItem = "JPEG";
+        //    }
+        //    // -------------------------
+        //    // PNG
+        //    // -------------------------
+        //    else if (vm.Container_SelectedItem == "png")
+        //    {
+        //        vm.VideoCodec_SelectedItem = "PNG";
+        //    }
+        //    // -------------------------
+        //    // WebP
+        //    // -------------------------
+        //    else if (vm.Container_SelectedItem == "webp")
+        //    {
+        //        vm.VideoCodec_SelectedItem = "WebP";
+        //    }
+        //}
+
 
 
         /// <summary>
@@ -977,83 +1044,38 @@ namespace Axiom
         /// <summary>
         ///     Pixel Format Controls
         /// </summary>
-        public static void PixelFormat(ViewModel vm)
+        public static void PixelFormatControls(ViewModel vm, 
+                                               string mediaType, 
+                                               string codec, 
+                                               string quality)
         {
             // -------------------------
             // MediaType
-            // -------------------------
-            if (vm.MediaType_SelectedItem == "Video" || 
-                vm.MediaType_SelectedItem == "Image" || 
-                vm.MediaType_SelectedItem == "Sequence")
+            // ------------------------- 
+            if (mediaType == "Video" ||
+                mediaType == "Image" ||
+                mediaType == "Sequence")
             {
-                // -------------------------
-                // VP8
-                // -------------------------
-                if (vm.VideoCodec_SelectedItem == "VP8")
-                {
-                    vm.PixelFormat_IsEnabled = true;
-                    vm.PixelFormat_SelectedItem = "yuv420p";
-
-                    //// Auto
-                    //if (vm.VideoQuality_SelectedItem == "Auto")
-                    //{
-                    //    vm.PixelFormat_SelectedItem = "auto";
-                    //    //// Copy
-                    //    //if (vm.VideoCodec_SelectedItem == "Copy")
-                    //    //{
-                    //    //    vm.PixelFormat_SelectedItem = "auto";
-                    //    //}
-                    //    //// All Other Codecs
-                    //    //else
-                    //    //{
-                    //    //    vm.PixelFormat_SelectedItem = "yuv420p";
-                    //    //}
-                    //}
-                    //// All Other Quality
-                    //else
-                    //{
-                    //    vm.PixelFormat_SelectedItem = "yuv420p";
-                    //}
-
-                    // VP8 Lossless Disabled
-                }
-
                 // -------------------------
                 // VP9
                 // x264
                 // x265
                 // AV1
-                // Theora
                 // -------------------------
-                else if (vm.VideoCodec_SelectedItem == "VP9" || 
-                    vm.VideoCodec_SelectedItem == "x264" || 
-                    vm.VideoCodec_SelectedItem == "x265" || 
-                    vm.VideoCodec_SelectedItem == "AV1" ||
-                    vm.VideoCodec_SelectedItem == "Theora")
+                if (codec == "VP9" ||
+                    codec == "x264" ||
+                    codec == "x265" ||
+                    codec == "AV1")
                 {
-                    vm.PixelFormat_IsEnabled = true;
-
+                    // Auto
+                    //if (quality == "Auto")
+                    //{
+                    //    vm.PixelFormat_SelectedItem = "yuv420p";
+                    //}
                     // Lossless
-                    if (vm.VideoQuality_SelectedItem == "Lossless")
+                    if (quality == "Lossless")
                     {
                         vm.PixelFormat_SelectedItem = "yuv444p";
-                    }
-                    // Auto
-                    else if (vm.VideoQuality_SelectedItem == "Auto")
-                    {
-                        vm.PixelFormat_SelectedItem = "yuv420p";
-                        //vm.PixelFormat_SelectedItem = "auto";
-
-                        //// Copy
-                        //if (vm.VideoCodec_SelectedItem == "Copy")
-                        //{
-                        //    vm.PixelFormat_SelectedItem = "auto";
-                        //}
-                        //// All Other Codecs
-                        //else
-                        //{
-                        //    vm.PixelFormat_SelectedItem = "yuv420p";
-                        //}
                     }
                     // All Other Quality
                     else
@@ -1066,50 +1088,30 @@ namespace Axiom
                 // MPEG-2
                 // MPEG-4
                 // -------------------------
-                else if (vm.VideoCodec_SelectedItem == "MPEG-2" || 
-                         vm.VideoCodec_SelectedItem == "MPEG-4")
+                else if (codec == "MPEG-2" ||
+                         codec == "MPEG-4")
                 {
-                    vm.PixelFormat_IsEnabled = true;
-
                     // Lossless can't be yuv444p
-                    // All Pixel Formats yuv420p
+                    // All Pixel Formats must be yuv420p
                     vm.PixelFormat_SelectedItem = "yuv420p";
-                }
-
-                // -------------------------
-                // JPG
-                // -------------------------
-                else if (vm.VideoCodec_SelectedItem == "JPEG")
-                {
-                    vm.PixelFormat_IsEnabled = true;
-                    vm.PixelFormat_SelectedItem = "yuvj444p";
-                }
-
-                // -------------------------
-                // PNG
-                // -------------------------
-                else if (vm.VideoCodec_SelectedItem == "PNG")
-                {
-                    vm.PixelFormat_IsEnabled = true;
-                    vm.PixelFormat_SelectedItem = "rgb24";
                 }
 
                 // -------------------------
                 // WebP
                 // -------------------------
-                else if (vm.VideoCodec_SelectedItem == "WebP")
+                else if (codec == "WebP")
                 {
                     vm.PixelFormat_IsEnabled = true;
 
+                    // Auto
+                    //if (quality == "yuv420p")
+                    //{
+                    //    //vm.PixelFormat_SelectedItem = "auto";
+                    //}
                     // Lossless
-                    if (vm.VideoQuality_SelectedItem == "Lossless")
+                    if (quality == "Lossless")
                     {
                         vm.PixelFormat_SelectedItem = "bgra";
-                    }
-                    // Auto
-                    else if (vm.VideoQuality_SelectedItem == "Auto")
-                    {
-                        vm.PixelFormat_SelectedItem = "auto";
                     }
                     // All Other Quality
                     else
@@ -1119,40 +1121,17 @@ namespace Axiom
                 }
 
                 // -------------------------
+                // Excluded Codecs
+                // -------------------------
+                // JPEG
+                // PNG
                 // Copy
-                // -------------------------
-                else if (vm.VideoCodec_SelectedItem == "Copy")
-                {
-                    //vm.PixelFormat_IsEnabled = false;
-                    //vm.PixelFormat_SelectedItem = "auto";
-                }
-
-                // -------------------------
-                // All Other Codecs
-                // -------------------------
-                else
-                {
-                    vm.PixelFormat_IsEnabled = false;
-                    vm.PixelFormat_SelectedItem = "auto";
-                }
-
-                //// -------------------------
-                //// Auto
-                //// -------------------------
-                //if (vm.VideoQuality_SelectedItem == "Auto")
-                //{
-                //    vm.PixelFormat_SelectedItem = "auto";
-                //}
             }
 
             // -------------------------
-            // MediaType Audio
+            // Excluded Media Types
             // -------------------------
-            else if (vm.MediaType_SelectedItem == "Audio")
-            {
-                vm.PixelFormat_SelectedItem = "auto";
-                vm.PixelFormat_IsEnabled = false;
-            }
+            // Audio
         }
 
 
@@ -1232,7 +1211,7 @@ namespace Axiom
         /// <summary>
         ///     Encoding Pass Controls
         /// <summary>
-        public static void EncodingPass(ViewModel vm)
+        public static void EncodingPassControls(ViewModel vm)
         {
             // --------------------------------------------------
             // Encoding Pass ComboBox
@@ -1373,85 +1352,210 @@ namespace Axiom
         {
             //try // try/catch to prevent crash until mainwindow has been converted to viewmodel
             //{
-                // Input Extension is Same as Output Extension and Video Quality is Auto
-                if (vm.VideoQuality_SelectedItem == "Auto" &&
-                    vm.Size_SelectedItem == "Source" &&
-                    string.IsNullOrEmpty(CropWindow.crop) &&
-                    vm.FPS_SelectedItem == "auto" &&
-                    vm.PixelFormat_SelectedItem == "auto" &&
-                    vm.Video_Optimize_SelectedItem == "None" &&
-                    vm.Scaling_SelectedItem == "default" &&
+            // Input Extension is Same as Output Extension and Video Quality is Auto
+            if (vm.VideoQuality_SelectedItem == "Auto" &&
+                vm.Size_SelectedItem == "Source" &&
+                string.IsNullOrEmpty(CropWindow.crop) &&
+                vm.FPS_SelectedItem == "auto" &&
+                vm.PixelFormat_SelectedItem == "auto" &&
+                vm.Video_Optimize_SelectedItem == "None" &&
+                vm.Scaling_SelectedItem == "default" &&
 
-                    // Filters
-                    // Fix
-                    (string)mainwindow.cboFilterVideo_Deband.SelectedItem == "disabled" &&
-                    (string)mainwindow.cboFilterVideo_Deshake.SelectedItem == "disabled" &&
-                    (string)mainwindow.cboFilterVideo_Deflicker.SelectedItem == "disabled" &&
-                    (string)mainwindow.cboFilterVideo_Dejudder.SelectedItem == "disabled" &&
-                    (string)mainwindow.cboFilterVideo_Denoise.SelectedItem == "disabled" &&
-                    // Selective Color
-                    // Reds
-                    mainwindow.slFiltersVideo_SelectiveColor_Reds_Cyan.Value == 0 &&
-                    mainwindow.slFiltersVideo_SelectiveColor_Reds_Magenta.Value == 0 &&
-                    mainwindow.slFiltersVideo_SelectiveColor_Reds_Yellow.Value == 0 &&
-                    // Yellows
-                    mainwindow.slFiltersVideo_SelectiveColor_Yellows_Cyan.Value == 0 &&
-                    mainwindow.slFiltersVideo_SelectiveColor_Yellows_Magenta.Value == 0 &&
-                    mainwindow.slFiltersVideo_SelectiveColor_Yellows_Yellow.Value == 0 &&
-                    // Greens
-                    mainwindow.slFiltersVideo_SelectiveColor_Greens_Cyan.Value == 0 &&
-                    mainwindow.slFiltersVideo_SelectiveColor_Greens_Magenta.Value == 0 &&
-                    mainwindow.slFiltersVideo_SelectiveColor_Greens_Yellow.Value == 0 &&
-                    // Cyans
-                    mainwindow.slFiltersVideo_SelectiveColor_Cyans_Cyan.Value == 0 &&
-                    mainwindow.slFiltersVideo_SelectiveColor_Cyans_Magenta.Value == 0 &&
-                    mainwindow.slFiltersVideo_SelectiveColor_Cyans_Yellow.Value == 0 &&
-                    // Blues
-                    mainwindow.slFiltersVideo_SelectiveColor_Blues_Cyan.Value == 0 &&
-                    mainwindow.slFiltersVideo_SelectiveColor_Blues_Magenta.Value == 0 &&
-                    mainwindow.slFiltersVideo_SelectiveColor_Blues_Yellow.Value == 0 &&
-                    // Magentas
-                    mainwindow.slFiltersVideo_SelectiveColor_Magentas_Cyan.Value == 0 &&
-                    mainwindow.slFiltersVideo_SelectiveColor_Magentas_Magenta.Value == 0 &&
-                    mainwindow.slFiltersVideo_SelectiveColor_Magentas_Yellow.Value == 0 &&
-                    // Whites
-                    mainwindow.slFiltersVideo_SelectiveColor_Whites_Cyan.Value == 0 &&
-                    mainwindow.slFiltersVideo_SelectiveColor_Whites_Magenta.Value == 0 &&
-                    mainwindow.slFiltersVideo_SelectiveColor_Whites_Yellow.Value == 0 &&
-                    // Neutrals
-                    mainwindow.slFiltersVideo_SelectiveColor_Neutrals_Cyan.Value == 0 &&
-                    mainwindow.slFiltersVideo_SelectiveColor_Neutrals_Magenta.Value == 0 &&
-                    mainwindow.slFiltersVideo_SelectiveColor_Neutrals_Yellow.Value == 0 &&
-                    // Blacks
-                    mainwindow.slFiltersVideo_SelectiveColor_Blacks_Cyan.Value == 0 &&
-                    mainwindow.slFiltersVideo_SelectiveColor_Blacks_Magenta.Value == 0 &&
-                    mainwindow.slFiltersVideo_SelectiveColor_Blacks_Yellow.Value == 0 &&
+                // Filters
+                // Fix
+                (string)mainwindow.cboFilterVideo_Deband.SelectedItem == "disabled" &&
+                (string)mainwindow.cboFilterVideo_Deshake.SelectedItem == "disabled" &&
+                (string)mainwindow.cboFilterVideo_Deflicker.SelectedItem == "disabled" &&
+                (string)mainwindow.cboFilterVideo_Dejudder.SelectedItem == "disabled" &&
+                (string)mainwindow.cboFilterVideo_Denoise.SelectedItem == "disabled" &&
+                // Selective Color
+                // Reds
+                mainwindow.slFiltersVideo_SelectiveColor_Reds_Cyan.Value == 0 &&
+                mainwindow.slFiltersVideo_SelectiveColor_Reds_Magenta.Value == 0 &&
+                mainwindow.slFiltersVideo_SelectiveColor_Reds_Yellow.Value == 0 &&
+                // Yellows
+                mainwindow.slFiltersVideo_SelectiveColor_Yellows_Cyan.Value == 0 &&
+                mainwindow.slFiltersVideo_SelectiveColor_Yellows_Magenta.Value == 0 &&
+                mainwindow.slFiltersVideo_SelectiveColor_Yellows_Yellow.Value == 0 &&
+                // Greens
+                mainwindow.slFiltersVideo_SelectiveColor_Greens_Cyan.Value == 0 &&
+                mainwindow.slFiltersVideo_SelectiveColor_Greens_Magenta.Value == 0 &&
+                mainwindow.slFiltersVideo_SelectiveColor_Greens_Yellow.Value == 0 &&
+                // Cyans
+                mainwindow.slFiltersVideo_SelectiveColor_Cyans_Cyan.Value == 0 &&
+                mainwindow.slFiltersVideo_SelectiveColor_Cyans_Magenta.Value == 0 &&
+                mainwindow.slFiltersVideo_SelectiveColor_Cyans_Yellow.Value == 0 &&
+                // Blues
+                mainwindow.slFiltersVideo_SelectiveColor_Blues_Cyan.Value == 0 &&
+                mainwindow.slFiltersVideo_SelectiveColor_Blues_Magenta.Value == 0 &&
+                mainwindow.slFiltersVideo_SelectiveColor_Blues_Yellow.Value == 0 &&
+                // Magentas
+                mainwindow.slFiltersVideo_SelectiveColor_Magentas_Cyan.Value == 0 &&
+                mainwindow.slFiltersVideo_SelectiveColor_Magentas_Magenta.Value == 0 &&
+                mainwindow.slFiltersVideo_SelectiveColor_Magentas_Yellow.Value == 0 &&
+                // Whites
+                mainwindow.slFiltersVideo_SelectiveColor_Whites_Cyan.Value == 0 &&
+                mainwindow.slFiltersVideo_SelectiveColor_Whites_Magenta.Value == 0 &&
+                mainwindow.slFiltersVideo_SelectiveColor_Whites_Yellow.Value == 0 &&
+                // Neutrals
+                mainwindow.slFiltersVideo_SelectiveColor_Neutrals_Cyan.Value == 0 &&
+                mainwindow.slFiltersVideo_SelectiveColor_Neutrals_Magenta.Value == 0 &&
+                mainwindow.slFiltersVideo_SelectiveColor_Neutrals_Yellow.Value == 0 &&
+                // Blacks
+                mainwindow.slFiltersVideo_SelectiveColor_Blacks_Cyan.Value == 0 &&
+                mainwindow.slFiltersVideo_SelectiveColor_Blacks_Magenta.Value == 0 &&
+                mainwindow.slFiltersVideo_SelectiveColor_Blacks_Yellow.Value == 0 &&
 
-                    // EQ
-                    mainwindow.slFiltersVideo_EQ_Brightness.Value == 0 &&
-                    mainwindow.slFiltersVideo_EQ_Contrast.Value == 0 &&
-                    mainwindow.slFiltersVideo_EQ_Saturation.Value == 0 &&
-                    mainwindow.slFiltersVideo_EQ_Gamma.Value == 0 &&
+                // EQ
+                mainwindow.slFiltersVideo_EQ_Brightness.Value == 0 &&
+                mainwindow.slFiltersVideo_EQ_Contrast.Value == 0 &&
+                mainwindow.slFiltersVideo_EQ_Saturation.Value == 0 &&
+                mainwindow.slFiltersVideo_EQ_Gamma.Value == 0 &&
 
-                    // Extension Match
-                    //!string.IsNullOrEmpty(inputExt) &&
-                    //!string.IsNullOrEmpty(outputExt) &&
-                    string.Equals(inputExt, outputExt, StringComparison.CurrentCultureIgnoreCase)
-                )
-                {
-                    return true;
-                }
+                // Extension Match
+                //!string.IsNullOrEmpty(inputExt) &&
+                //!string.IsNullOrEmpty(outputExt) &&
+                string.Equals(inputExt, outputExt, StringComparison.CurrentCultureIgnoreCase)
+            )
+            {
+                return true;
+            }
 
-                // Did Not Pass Check
-                else
-                {
-                    return false;
-                }
+            // Did Not Pass Check
+            else
+            {
+                return false;
+            }
             //}
             //catch
             //{
             //    return false;
             //}
+
+        }
+
+
+
+        /// <summary>
+        ///    Copy Controls
+        /// <summary>
+        public static void CopyControls(MainWindow mainwindow, ViewModel vm)
+        {
+            // -------------------------
+            // Conditions Check
+            // Enable
+            // -------------------------
+            if (AutoCopyConditionsCheck(mainwindow, vm, MainWindow.inputExt, MainWindow.outputExt) == true)
+            {
+                // -------------------------
+                // Set Video Codec Combobox Selected Item to Copy
+                // -------------------------
+                if (vm.VideoCodec_Items.Count > 0)
+                {
+                    if (vm.VideoCodec_Items?.Contains("Copy") == true)
+                    {
+                        vm.VideoCodec_SelectedItem = "Copy";
+                    }
+                }
+            }
+
+            // -------------------------
+            // Reset to Default Codec
+            // -------------------------
+            // Disable Copy if:
+            // Input / Output Extensions don't match
+            // Batch / Output Extensions don't match
+            // Size is Not No
+            // Crop is Not Empty
+            // FPS is Not Auto
+            // Optimize is Not None
+            // -------------------------
+            else
+            {
+                // -------------------------
+                // Null Check
+                // -------------------------
+                if (!string.IsNullOrEmpty(vm.VideoQuality_SelectedItem))
+                {
+                    // -------------------------
+                    // Copy Selected
+                    // -------------------------
+                    if (vm.VideoCodec_SelectedItem == "Copy")
+                    {
+                        // -------------------------
+                        // Switch back to format's default codec
+                        // -------------------------
+                        if (vm.VideoCodec_SelectedItem != "Auto" ||
+                            !string.Equals(MainWindow.inputExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase)
+                            )
+                        {
+                            // -------------------------
+                            // WebM
+                            // -------------------------
+                            if (vm.Container_SelectedItem == "webm")
+                            {
+                                vm.VideoCodec_SelectedItem = "VP8";
+                            }
+                            // -------------------------
+                            // MP4
+                            // -------------------------
+                            else if (vm.Container_SelectedItem == "mp4")
+                            {
+                                vm.VideoCodec_SelectedItem = "x264";
+                            }
+                            // -------------------------
+                            // MKV
+                            // -------------------------
+                            else if (vm.Container_SelectedItem == "mkv")
+                            {
+                                vm.VideoCodec_SelectedItem = "x264";
+                            }
+                            // -------------------------
+                            // MPG
+                            // -------------------------
+                            else if (vm.Container_SelectedItem == "mpg")
+                            {
+                                vm.VideoCodec_SelectedItem = "MPEG-2";
+                            }
+                            // -------------------------
+                            // AVI
+                            // -------------------------
+                            else if (vm.Container_SelectedItem == "avi")
+                            {
+                                vm.VideoCodec_SelectedItem = "MPEG-4";
+                            }
+                            // -------------------------
+                            // OGV
+                            // -------------------------
+                            else if (vm.Container_SelectedItem == "ogv")
+                            {
+                                vm.VideoCodec_SelectedItem = "Theora";
+                            }
+                            // -------------------------
+                            // JPG
+                            // -------------------------
+                            else if (vm.Container_SelectedItem == "jpg")
+                            {
+                                vm.VideoCodec_SelectedItem = "JPEG";
+                            }
+                            // -------------------------
+                            // PNG
+                            // -------------------------
+                            else if (vm.Container_SelectedItem == "png")
+                            {
+                                vm.VideoCodec_SelectedItem = "PNG";
+                            }
+                            // -------------------------
+                            // WebP
+                            // -------------------------
+                            else if (vm.Container_SelectedItem == "webp")
+                            {
+                                vm.VideoCodec_SelectedItem = "WebP";
+                            }
+                        }
+                    }
+                }
+            }
         }
 
 
@@ -1463,135 +1567,23 @@ namespace Axiom
         /// </remarks>
         public static void AutoCopyVideoCodec(MainWindow mainwindow, ViewModel vm)
         {
-            // Merge extensions for Null Check
-            string extension = string.Empty;
+            // --------------------------------------------------
+            // When Input Extension is Not Empty
+            // --------------------------------------------------
             if (!string.IsNullOrEmpty(MainWindow.inputExt))
             {
-                extension = MainWindow.inputExt;
-            }
-            else if (!string.IsNullOrEmpty(MainWindow.batchExt))
-            {
-                extension = MainWindow.batchExt;
+                CopyControls(mainwindow, vm);
             }
 
-            // Null Check
-            if (!string.IsNullOrEmpty(extension))
+            // --------------------------------------------------
+            // When Input Extension is Empty
+            // --------------------------------------------------
+            else if (string.IsNullOrEmpty(MainWindow.inputExt) && 
+                vm.VideoCodec_SelectedItem == "Copy")
             {
-                // Condition Check
-                if (AutoCopyConditionsCheck(mainwindow, vm, extension, MainWindow.outputExt))
-                {
-                    // -------------------------
-                    // Set Video Codec Combobox Selected Item to Copy
-                    // -------------------------
-                    if (vm.VideoCodec_Items.Count > 0)
-                    {
-                        if (vm.VideoCodec_Items?.Contains("Copy") == true)
-                        {
-                            vm.VideoCodec_SelectedItem = "Copy";
-                        }
-                    }
-                }
-
-                // -------------------------
-                // Reset to Default Codec
-                // -------------------------
-                else
-                {
-                    // -------------------------
-                    // Disable Copy if:
-                    // Input / Output Extensions don't match
-                    // Batch / Output Extensions don't match
-                    // Size is Not No
-                    // Crop is Not Empty
-                    // FPS is Not Auto
-                    // Optimize is Not None
-                    // -------------------------
-                    // -------------------------
-                    // Null Check
-                    // -------------------------
-                    if (!string.IsNullOrEmpty(vm.VideoQuality_SelectedItem))
-                    {
-                        // -------------------------
-                        // Copy Selected
-                        // -------------------------
-                        if (vm.VideoCodec_SelectedItem == "Copy")
-                        {
-                            // -------------------------
-                            // Switch back to format's default codec
-                            // -------------------------
-                            if (!string.Equals(MainWindow.inputExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase) ||
-                                !string.Equals(MainWindow.batchExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase)
-                                )
-                            {
-                                // -------------------------
-                                // WebM
-                                // -------------------------
-                                if (vm.Container_SelectedItem == "webm")
-                                {
-                                    vm.VideoCodec_SelectedItem = "VP8";
-                                }
-                                // -------------------------
-                                // MP4
-                                // -------------------------
-                                else if (vm.Container_SelectedItem == "mp4")
-                                {
-                                    vm.VideoCodec_SelectedItem = "x264";
-                                }
-                                // -------------------------
-                                // MKV
-                                // -------------------------
-                                else if (vm.Container_SelectedItem == "mkv")
-                                {
-                                    vm.VideoCodec_SelectedItem = "x264";
-                                }
-                                // -------------------------
-                                // MPG
-                                // -------------------------
-                                else if (vm.Container_SelectedItem == "mpg")
-                                {
-                                    vm.VideoCodec_SelectedItem = "MPEG-2";
-                                }
-                                // -------------------------
-                                // AVI
-                                // -------------------------
-                                else if (vm.Container_SelectedItem == "avi")
-                                {
-                                    vm.VideoCodec_SelectedItem = "MPEG-4";
-                                }
-                                // -------------------------
-                                // OGV
-                                // -------------------------
-                                else if (vm.Container_SelectedItem == "ogv")
-                                {
-                                    vm.VideoCodec_SelectedItem = "Theora";
-                                }
-                                // -------------------------
-                                // JPG
-                                // -------------------------
-                                else if (vm.Container_SelectedItem == "jpg")
-                                {
-                                    vm.VideoCodec_SelectedItem = "JPEG";
-                                }
-                                // -------------------------
-                                // PNG
-                                // -------------------------
-                                else if (vm.Container_SelectedItem == "png")
-                                {
-                                    vm.VideoCodec_SelectedItem = "PNG";
-                                }
-                                // -------------------------
-                                // WebP
-                                // -------------------------
-                                else if (vm.Container_SelectedItem == "webp")
-                                {
-                                    vm.VideoCodec_SelectedItem = "WebP";
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
+                CopyControls(mainwindow, vm);
+            } 
+        } 
 
 
 

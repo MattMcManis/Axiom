@@ -512,7 +512,7 @@ namespace Axiom
                     "\"" + MainWindow.BatchInputDirectory(vm) + "\"",
 
                     "\r\n\r\n" + "&& for %f in",
-                    "(*" + MainWindow.batchExt + ")",
+                    "(*" + /*MainWindow.batchExt*/ MainWindow.inputExt + ")",
                     "do (echo)",
 
                     "\r\n\r\n" + Video.BatchVideoQualityAuto(vm),
@@ -560,17 +560,19 @@ namespace Axiom
         /// <summary>
         ///     FFmpeg Generate Script
         /// </summary>
-        public static void FFmpegScript(MainWindow mainwindow)
+        public static void FFmpegScript(ViewModel vm)
         {
             // Clear Old Text
-            ScriptView.ClearScriptView(mainwindow);
+            //ScriptView.ClearScriptView(mainwindow, vm);
             //ScriptView.scriptParagraph.Inlines.Clear();
 
             // Write FFmpeg Args
-            mainwindow.rtbScriptView.Document = new FlowDocument(ScriptView.scriptParagraph);
-            mainwindow.rtbScriptView.BeginChange();
-            ScriptView.scriptParagraph.Inlines.Add(new Run(ffmpegArgs));
-            mainwindow.rtbScriptView.EndChange();
+            //mainwindow.rtbScriptView.Document = new FlowDocument(ScriptView.scriptParagraph);
+            //mainwindow.rtbScriptView.BeginChange();
+            //ScriptView.scriptParagraph.Inlines.Add(new Run(ffmpegArgs));
+            //mainwindow.rtbScriptView.EndChange();
+            //vm.ScriptView_Text = string.Join<char>(" ", ffmpegArgs);
+            vm.ScriptView_Text = ffmpegArgs;
         }
 
 
@@ -591,7 +593,7 @@ namespace Axiom
         /// <summary>
         /// FFmpeg Convert
         /// </summary>
-        public static void FFmpegConvert(MainWindow mainwindow, ViewModel vm)
+        public static void FFmpegConvert(ViewModel vm)
         {
             //// -------------------------
             //// Use User Custom Script Args
@@ -622,7 +624,7 @@ namespace Axiom
             // Generate Controls Script
             // -------------------------
             // Inline
-            FFmpegScript(mainwindow);
+            FFmpegScript(vm);
 
             // -------------------------
             // Start FFmpeg
