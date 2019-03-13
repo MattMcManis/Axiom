@@ -95,7 +95,7 @@ namespace Axiom
         public static List<ViewModel.VideoOptimize> optimize = new List<ViewModel.VideoOptimize>()
         {
             new ViewModel.VideoOptimize() { Name = "None",      Tune = "none",      Profile = "none",     Level = "none", Command = "" },
-            new ViewModel.VideoOptimize() { Name = "Custom",    Tune = "none",      Profile = "none",     Level = "none", Command = "" },
+            new ViewModel.VideoOptimize() { Name = "Custom",    Tune = "",          Profile = "",         Level = "",     Command = "" },
             new ViewModel.VideoOptimize() { Name = "Web",       Tune = "none",      Profile = "baseline", Level = "3.0",  Command = "-movflags +faststart" },
             new ViewModel.VideoOptimize() { Name = "Animation", Tune = "animation", Profile = "main",     Level = "4.1",  Command = "" },
             new ViewModel.VideoOptimize() { Name = "PC HD",     Tune = "none",      Profile = "high",     Level = "4.2",  Command = "" },

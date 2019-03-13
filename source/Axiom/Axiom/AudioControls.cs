@@ -542,13 +542,13 @@ namespace Axiom
         /// <summary>
         ///    Copy Controls
         /// <summary>
-        public static void CopyControls(/*MainWindow mainwindow, */ViewModel vm)
+        public static void CopyControls(ViewModel vm)
         {
             // -------------------------
             // Conditions Check
             // Enable
             // -------------------------
-            if (AutoCopyConditionsCheck(/*mainwindow, */vm, MainWindow.inputExt, MainWindow.outputExt) == true)
+            if (AutoCopyConditionsCheck(vm, MainWindow.inputExt, MainWindow.outputExt) == true)
             {
                 // -------------------------
                 // Set Audio Codec Combobox Selected Item to Copy
@@ -674,14 +674,14 @@ namespace Axiom
         /// <summary>
         ///    Auto Codec Copy
         /// <summary>
-        public static void AutoCopyAudioCodec(/*MainWindow mainwindow, */ViewModel vm)
+        public static void AutoCopyAudioCodec(ViewModel vm)
         {
             // --------------------------------------------------
             // When Input Extension is Not Empty
             // --------------------------------------------------
             if (!string.IsNullOrEmpty(MainWindow.inputExt))
             {
-                CopyControls(/*mainwindow, */vm);
+                CopyControls(vm);
             }
 
             // --------------------------------------------------
@@ -690,7 +690,7 @@ namespace Axiom
             else if (string.IsNullOrEmpty(MainWindow.inputExt) &&
                 vm.AudioCodec_SelectedItem == "Copy")
             {
-                CopyControls(/*mainwindow, */vm);
+                CopyControls(vm);
             }
         }
 

@@ -214,7 +214,7 @@ namespace Axiom
         /// <summary>
         /// Subtitle Maps
         /// </summary>
-        public static String SubtitleMaps(/*MainWindow mainwindow, */ViewModel vm)
+        public static String SubtitleMaps(ViewModel vm)
         {
             // --------------------------------------------------------------------
             // Subtitle Map

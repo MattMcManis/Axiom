@@ -158,10 +158,10 @@ namespace Axiom
                         Log.logParagraph.Inlines.Add(new Run(MainWindow.inputExt) { Foreground = Log.ConsoleDefault });
                     }
                     // Batch
-                    if (!string.IsNullOrEmpty(/*MainWindow.batchExt*/MainWindow.inputExt) &&
-                    /*MainWindow.batchExt*/ MainWindow.inputExt != "extension")
+                    if (!string.IsNullOrEmpty(MainWindow.inputExt) &&
+                    MainWindow.inputExt != "extension")
                     {
-                        Log.logParagraph.Inlines.Add(new Run(/*MainWindow.batchExt*/MainWindow.inputExt) { Foreground = Log.ConsoleDefault });
+                        Log.logParagraph.Inlines.Add(new Run(MainWindow.inputExt) { Foreground = Log.ConsoleDefault });
                     }
 
                     Log.logParagraph.Inlines.Add(new LineBreak());
@@ -292,11 +292,11 @@ namespace Axiom
             // -------------------------
             else if (vm.Batch_IsChecked == true)
             {
-                if (Format.VideoFormats_EntryType_Stream.Any(s => s.Equals(/*MainWindow.batchExt*/MainWindow.inputExt, StringComparison.OrdinalIgnoreCase)))
+                if (Format.VideoFormats_EntryType_Stream.Any(s => s.Equals(MainWindow.inputExt, StringComparison.OrdinalIgnoreCase)))
                 {
                     vEntryType = "stream^=bit_rate";
                 }
-                else if (Format.VideoFormats_EntryType_Format.Any(s => s.Equals(/*MainWindow.batchExt*/MainWindow.inputExt, StringComparison.OrdinalIgnoreCase)))
+                else if (Format.VideoFormats_EntryType_Format.Any(s => s.Equals(MainWindow.inputExt, StringComparison.OrdinalIgnoreCase)))
                 {
                     vEntryType = "format^=bit_rate";
                 }
@@ -338,8 +338,8 @@ namespace Axiom
             else if (vm.Batch_IsChecked == true)
             {
                 // Choose FFprobe Entry Type based on Input file extension
-                if (string.Equals(/*MainWindow.batchExt*/MainWindow.inputExt, ".flac", StringComparison.CurrentCultureIgnoreCase) ||
-                    string.Equals(/*MainWindow.batchExt*/MainWindow.inputExt, ".wav", StringComparison.CurrentCultureIgnoreCase))
+                if (string.Equals(MainWindow.inputExt, ".flac", StringComparison.CurrentCultureIgnoreCase) ||
+                    string.Equals(MainWindow.inputExt, ".wav", StringComparison.CurrentCultureIgnoreCase))
                 {
                     aEntryType = "format^=bit_rate";
                 }

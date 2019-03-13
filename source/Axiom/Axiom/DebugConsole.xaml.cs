@@ -172,7 +172,7 @@ namespace Axiom
             // -------------------------
             // Batch Extention Period Check
             // -------------------------
-            MainWindow.BatchExtCheck(/*mainwindow, */vm);
+            MainWindow.BatchExtCheck(vm);
 
             // -------------------------
             // Set FFprobe Path
@@ -182,7 +182,7 @@ namespace Axiom
             // -------------------------
             // Ready Halts
             // -------------------------
-            MainWindow.ReadyHalts(/*mainwindow, */vm);
+            MainWindow.ReadyHalts(vm);
 
 
             // -------------------------
@@ -214,7 +214,7 @@ namespace Axiom
                         // FFmpeg Generate Arguments (Single)
                         // -------------------------
                         //disabled if batch
-                        FFmpeg.FFmpegSingleGenerateArgs(/*mainwindow, */vm);
+                        FFmpeg.FFmpegSingleGenerateArgs(vm);
                     }
 
                     // -------------------------
@@ -238,7 +238,7 @@ namespace Axiom
                         // FFmpeg Generate Arguments (Batch)
                         // -------------------------
                         //disabled if single file
-                        FFmpeg.FFmpegBatchGenerateArgs(/*mainwindow, */vm);
+                        FFmpeg.FFmpegBatchGenerateArgs(vm);
                     }
 
             //    }); //end dispatcher

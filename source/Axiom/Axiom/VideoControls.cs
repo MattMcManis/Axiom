@@ -1345,7 +1345,7 @@ namespace Axiom
         /// <summary>
         ///    Auto Copy Conditions Check
         /// <summary>
-        public static bool AutoCopyConditionsCheck(/*MainWindow mainwindow, */
+        public static bool AutoCopyConditionsCheck(
                                                    ViewModel vm, 
                                                    string inputExt, 
                                                    string outputExt)
@@ -1439,13 +1439,13 @@ namespace Axiom
         /// <summary>
         ///    Copy Controls
         /// <summary>
-        public static void CopyControls(/*MainWindow mainwindow, */ViewModel vm)
+        public static void CopyControls(ViewModel vm)
         {
             // -------------------------
             // Conditions Check
             // Enable
             // -------------------------
-            if (AutoCopyConditionsCheck(/*mainwindow, */vm, MainWindow.inputExt, MainWindow.outputExt) == true)
+            if (AutoCopyConditionsCheck(vm, MainWindow.inputExt, MainWindow.outputExt) == true)
             {
                 // -------------------------
                 // Set Video Codec Combobox Selected Item to Copy
@@ -1565,14 +1565,14 @@ namespace Axiom
         /// <remarks>
         ///     Input Extension is Same as Output Extension and Video Quality is Auto
         /// </remarks>
-        public static void AutoCopyVideoCodec(/*MainWindow mainwindow, */ViewModel vm)
+        public static void AutoCopyVideoCodec(ViewModel vm)
         {
             // --------------------------------------------------
             // When Input Extension is Not Empty
             // --------------------------------------------------
             if (!string.IsNullOrEmpty(MainWindow.inputExt))
             {
-                CopyControls(/*mainwindow, */vm);
+                CopyControls(vm);
             }
 
             // --------------------------------------------------
@@ -1581,7 +1581,7 @@ namespace Axiom
             else if (string.IsNullOrEmpty(MainWindow.inputExt) && 
                 vm.VideoCodec_SelectedItem == "Copy")
             {
-                CopyControls(/*mainwindow, */vm);
+                CopyControls(vm);
             } 
         } 
 

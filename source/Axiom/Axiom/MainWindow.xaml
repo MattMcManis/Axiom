@@ -708,10 +708,9 @@
 
                             <ComboBox x:Name="cboPass"
                                       ItemsSource="{Binding Pass_Items}"
-                                      SelectedIndex="{Binding Pass_SelectedIndex}"
-                                      SelectedValue="{Binding Pass_SelectedItem}"
+                                      SelectedIndex="{Binding Pass_SelectedIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      SelectedValue="{Binding Pass_SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                       IsEnabled="{Binding Pass_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                      IsSynchronizedWithCurrentItem="True"
                                       Style="{DynamicResource ComboBoxCustom}"
                                       ItemContainerStyle="{DynamicResource ComboBoxCustomItem}"
                                       HorizontalAlignment="Left"

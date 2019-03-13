@@ -45,7 +45,7 @@ namespace Axiom
         /// <summary>
         ///     PNG to JPG (Method)
         /// <summary>
-        public static void PNGtoJPG_Filter(/*MainWindow mainwindow, */ViewModel vm)
+        public static void PNGtoJPG_Filter(ViewModel vm)
         {
             if (vm.VideoCodec_SelectedItem == "JPEG")
             {
@@ -71,7 +71,7 @@ namespace Axiom
         /// <summary>
         /// Subtitles Burn Filter (Method)
         /// <summary>
-        public static void SubtitlesBurn_Filter(/*MainWindow mainwindow, */ViewModel vm)
+        public static void SubtitlesBurn_Filter(ViewModel vm)
         {
             string burn = string.Empty;
 
@@ -257,7 +257,7 @@ namespace Axiom
         /// <summary>
         ///     Selective SelectiveColorPreview (Method)
         /// <summary>
-        public static void SelectiveColor_Filter(/*MainWindow mainwindow, */ViewModel vm)
+        public static void SelectiveColor_Filter(ViewModel vm)
         {
             string selectiveColor = string.Empty;
 
@@ -676,7 +676,7 @@ namespace Axiom
         /// <summary>
         ///     Video Filter Combine (Method)
         /// <summary>
-        public static String VideoFilter(/*MainWindow mainwindow, */ViewModel vm)
+        public static String VideoFilter(ViewModel vm)
         {
             // Video Bitrate None Check
             // Video Codec None Check
@@ -694,7 +694,7 @@ namespace Axiom
                 // -------------------------
                 //  Crop
                 // -------------------------
-                Video.Crop(/*mainwindow, */Video.cropwindow, vm);
+                Video.Crop(Video.cropwindow, vm);
 
                 // -------------------------
                 //  Resize
@@ -704,7 +704,7 @@ namespace Axiom
                 // -------------------------
                 // PNG to JPEG
                 // -------------------------
-                VideoFilters.PNGtoJPG_Filter(/*mainwindow, */ vm);
+                VideoFilters.PNGtoJPG_Filter( vm);
 
                 // -------------------------
                 //    Subtitles Burn
@@ -899,7 +899,7 @@ namespace Axiom
         /// <summary>
         ///     Extra Stereo (Method)
         /// <summary>
-        public static void ExtraStereo_Filter(/*MainWindow mainwindow, */ViewModel vm)
+        public static void ExtraStereo_Filter(ViewModel vm)
         {
             // FFmpeg Range 0 to ??
             // FFmpeg Default 2.5
@@ -994,7 +994,7 @@ namespace Axiom
         /// <summary>
         ///     Audio Filter Combine (Method)
         /// <summary>
-        public static String AudioFilter(/*MainWindow mainwindow, */ViewModel vm)
+        public static String AudioFilter(ViewModel vm)
         {
             // Audio Bitrate None Check
             // Audio Codec None

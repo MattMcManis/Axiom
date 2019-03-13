@@ -315,15 +315,28 @@ namespace Axiom
             get { return _ScriptView_Text; }
             set
             {
-                if (_ScriptView_Text == value)
+                if (value != _ScriptView_Text)
                 {
-                    return;
+                    _ScriptView_Text = value;
+                    OnPropertyChanged("ScriptView_Text");
                 }
-
-                _ScriptView_Text = value;
-                OnPropertyChanged("ScriptView_Text");
             }
         }
+        //private string _ScriptView_Text;
+        //public string ScriptView_Text
+        //{
+        //    get { return _ScriptView_Text; }
+        //    set
+        //    {
+        //        if (_ScriptView_Text == value)
+        //        {
+        //            return;
+        //        }
+
+        //        _ScriptView_Text = value;
+        //        OnPropertyChanged("ScriptView_Text");
+        //    }
+        //}
 
         // --------------------------------------------------------------------------------------------------------
         /// <summary>

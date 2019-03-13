@@ -1233,7 +1233,31 @@ namespace Axiom
                 }
 
                 // -------------------------
-                // All Other Qualities
+                // Custom
+                // -------------------------
+                else if (vm.Video_Optimize_SelectedItem == "Custom")
+                {
+                    // Tune
+                    if (vm.Optimize_Tune_SelectedItem != "none")
+                    {
+                        optTune = "-tune " + vm.Optimize_Tune_SelectedItem;
+                    }
+
+                    // Profile
+                    if (vm.Optimize_Profile_SelectedItem != "none")
+                    {
+                        optProfile = "-profile:v " + vm.Optimize_Profile_SelectedItem;
+                    }
+
+                    // Level
+                    if (vm.Optimize_Level_SelectedItem != "none")
+                    {
+                        optLevel = "-level " + vm.Optimize_Level_SelectedItem;
+                    }
+                }
+
+                // -------------------------
+                // All Other Options
                 // -------------------------
                 else
                 {
@@ -1909,7 +1933,7 @@ namespace Axiom
         /// <summary>
         /// Crop (Method)
         /// <summary>
-        public static void Crop(/*MainWindow mainwindow, */CropWindow cropwindow, ViewModel vm)
+        public static void Crop(CropWindow cropwindow, ViewModel vm)
         {
             // -------------------------
             // Clear
