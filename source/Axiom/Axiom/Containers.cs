@@ -108,6 +108,7 @@ namespace Axiom
                 "VP8",
                 "VP9",
                 "AV1",
+                "FFV1",
                 "Theora",
                 "Copy"
             };

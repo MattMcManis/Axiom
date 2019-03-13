@@ -4,6 +4,17 @@ Axiom FFmpeg UI
 
 ## [alpha]
 
+## [1.5.3.0] - Mar 13, 2019
+### Added
+- Added FFV1 Video Codec
+
+
+## [1.5.2.1] - Mar 13, 2019
+### Fixed
+- Fixed Video Pass ComboBox Display
+- Fixed Optimize Custom x264 x265
+
+
 ## [1.5.2.0] - Mar 12, 2019
 ### Added
 - Audio Auto Codec Copy Filter Checks
@@ -13,6 +24,7 @@ Axiom FFmpeg UI
 
 ### Fixed
 - ScriptView Modify and Clear
+
 
 ## [1.5.1.0] - Mar 11, 2019
 ### Fixed

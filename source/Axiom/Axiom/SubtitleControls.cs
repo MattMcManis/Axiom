@@ -128,16 +128,16 @@ namespace Axiom
             else if (selectedCodec == "Copy")
             {
                 // Codec
-                vm.SubtitleCodec_Command = SSA.codec;
+                vm.SubtitleCodec_Command = SubtitleCopy.codec;
 
                 // Checked
-                SSA.controlsChecked(vm);
+                SubtitleCopy.controlsChecked(vm);
 
                 // Enabled
-                SSA.controlsEnable(vm);
+                SubtitleCopy.controlsEnable(vm);
 
                 // Disabled
-                SSA.controlsDisable(vm);
+                SubtitleCopy.controlsDisable(vm);
             }
 
             // -------------------------

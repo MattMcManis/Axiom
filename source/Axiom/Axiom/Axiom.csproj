@@ -73,7 +73,7 @@
     <Compile Include="Codecs\Audio\AAC.cs" />
     <Compile Include="Codecs\Audio\AC3.cs" />
     <Compile Include="Codecs\Audio\ALAC.cs" />
-    <Compile Include="Codecs\Audio\AudioNone.cs" />
+    <Compile Include="Codecs\Audio\None.cs" />
     <Compile Include="Codecs\Audio\FLAC.cs" />
     <Compile Include="Codecs\Audio\LAME.cs" />
     <Compile Include="Codecs\Audio\Opus.cs" />
@@ -81,16 +81,18 @@
     <Compile Include="Codecs\Image\PNG.cs" />
     <Compile Include="Codecs\Image\WebP.cs" />
     <Compile Include="Codecs\Subtitle\Burn.cs" />
+    <Compile Include="Codecs\Subtitle\Copy.cs" />
     <Compile Include="Codecs\Subtitle\MOV_Text.cs" />
     <Compile Include="Codecs\Subtitle\SRT.cs" />
     <Compile Include="Codecs\Subtitle\SubtitleNone.cs" />
     <Compile Include="Codecs\Subtitle\SSA.cs" />
     <Compile Include="Codecs\Video\AV1.cs" />
     <Compile Include="Codecs\Image\JPEG.cs" />
+    <Compile Include="Codecs\Video\FFV1.cs" />
     <Compile Include="Codecs\Video\MPEG-2.cs" />
     <Compile Include="Codecs\Video\MPEG-4.cs" />
     <Compile Include="Codecs\Video\Theora.cs" />
-    <Compile Include="Codecs\Video\VideoNone.cs" />
+    <Compile Include="Codecs\Video\None.cs" />
     <Compile Include="Configure.cs" />
     <Compile Include="CropWindow.xaml.cs">
       <DependentUpon>CropWindow.xaml</DependentUpon>

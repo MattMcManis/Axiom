@@ -118,7 +118,7 @@ namespace Axiom
 
 
         /// <summary>
-        /// Hardware Acceleration
+        ///     Hardware Acceleration
         /// <summary>
         /// https://trac.ffmpeg.org/wiki/HWAccelIntro
         public static String HWAcceleration(ViewModel vm)
@@ -389,7 +389,8 @@ namespace Axiom
                 // -------------------------
                 // Auto
                 // -------------------------
-                if (selectedQuality == "Auto")
+                if (selectedQuality == "Auto" &&
+                    vm.VideoCodec_SelectedItem != "FFV1") // Special Rule, FFV1 cannot use Auto Bitrate, Lossless Only, Auto FFV1 is used for Codec Copy
                 {
                     vBitrate = VideoBitrateCalculator(vm, FFprobe.vEntryType, FFprobe.inputVideoBitrate);
                     vBitrateNA = items.FirstOrDefault(item => item.Name == selectedQuality)?.NA;
@@ -795,7 +796,7 @@ namespace Axiom
 
 
         /// <summary>
-        /// Batch Video Quality Auto (Method)
+        ///     Batch Video Quality Auto (Method)
         /// <summary>
         public static String BatchVideoQualityAuto(ViewModel vm)
         {
@@ -861,7 +862,7 @@ namespace Axiom
 
 
         /// <summary>
-        /// Video Bitrate Calculator (Method)
+        ///     Video Bitrate Calculator (Method)
         /// <summary>
         public static String VideoBitrateCalculator(ViewModel vm, string vEntryType, string inputVideoBitrate)
         {
@@ -1013,7 +1014,7 @@ namespace Axiom
 
 
         /// <summary>
-        /// Pass 1 Modifier (Method)
+        ///     Pass 1 Modifier (Method)
         /// <summary>
         // x265 Pass 1
         public static String Pass1Modifier(ViewModel vm)
@@ -1055,7 +1056,7 @@ namespace Axiom
 
 
         /// <summary>
-        /// Pass 2 Modifier (Method)
+        ///     Pass 2 Modifier (Method)
         /// <summary>
         // x265 Pass 2
         public static String Pass2Modifier(ViewModel vm)
@@ -1304,7 +1305,7 @@ namespace Axiom
 
 
         /// <summary>
-        /// FPS
+        ///     FPS
         /// <summary>
         public static String FPS(ViewModel vm, 
                                  string selectedFPS)
@@ -1409,13 +1410,14 @@ namespace Axiom
 
 
         /// <summary>
-        /// Size Width Auto
+        ///     Size Width Auto
         /// <summary>
         public static void SizeWidthAuto(ViewModel vm)
         {
             if (vm.VideoCodec_SelectedItem == "VP8" ||
                 vm.VideoCodec_SelectedItem == "VP9" ||
                 vm.VideoCodec_SelectedItem == "AV1" ||
+                vm.VideoCodec_SelectedItem == "FFV1" ||
                 vm.VideoCodec_SelectedItem == "Theora" ||
                 vm.VideoCodec_SelectedItem == "JPEG" ||
                 vm.VideoCodec_SelectedItem == "PNG" ||
@@ -1433,13 +1435,14 @@ namespace Axiom
         }
 
         /// <summary>
-        /// Size Height Auto
+        ///     Size Height Auto
         /// <summary>
         public static void SizeHeightAuto(ViewModel vm)
         {
             if (vm.VideoCodec_SelectedItem == "VP8" ||
                 vm.VideoCodec_SelectedItem == "VP9" ||
                 vm.VideoCodec_SelectedItem == "AV1" ||
+                vm.VideoCodec_SelectedItem == "FFV1" ||
                 vm.VideoCodec_SelectedItem == "Theora" ||
                 vm.VideoCodec_SelectedItem == "JPEG" ||
                 vm.VideoCodec_SelectedItem == "PNG" ||

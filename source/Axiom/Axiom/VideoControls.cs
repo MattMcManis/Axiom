@@ -60,74 +60,6 @@ namespace Axiom
         /// </summary>
         public static bool passUserSelected = false; // Used to determine if User willingly selected CRF, 1 Pass or 2 Pass
 
-        //public static void VideoContainerDefaults(ViewModel vm)
-        //{
-        //    // -------------------------
-        //    // WebM
-        //    // -------------------------
-        //    if (vm.Container_SelectedItem == "webm")
-        //    {
-        //        vm.VideoCodec_SelectedItem = "VP8";
-        //    }
-        //    // -------------------------
-        //    // MP4
-        //    // -------------------------
-        //    else if (vm.Container_SelectedItem == "mp4")
-        //    {
-        //        vm.VideoCodec_SelectedItem = "x264";
-        //    }
-        //    // -------------------------
-        //    // MKV
-        //    // -------------------------
-        //    else if (vm.Container_SelectedItem == "mkv")
-        //    {
-        //        vm.VideoCodec_SelectedItem = "x264";
-        //    }
-        //    // -------------------------
-        //    // MPG
-        //    // -------------------------
-        //    else if (vm.Container_SelectedItem == "mpg")
-        //    {
-        //        vm.VideoCodec_SelectedItem = "MPEG-2";
-        //    }
-        //    // -------------------------
-        //    // AVI
-        //    // -------------------------
-        //    else if (vm.Container_SelectedItem == "avi")
-        //    {
-        //        vm.VideoCodec_SelectedItem = "MPEG-4";
-        //    }
-        //    // -------------------------
-        //    // OGV
-        //    // -------------------------
-        //    else if (vm.Container_SelectedItem == "ogv")
-        //    {
-        //        vm.VideoCodec_SelectedItem = "Theora";
-        //    }
-        //    // -------------------------
-        //    // JPG
-        //    // -------------------------
-        //    else if (vm.Container_SelectedItem == "jpg")
-        //    {
-        //        vm.VideoCodec_SelectedItem = "JPEG";
-        //    }
-        //    // -------------------------
-        //    // PNG
-        //    // -------------------------
-        //    else if (vm.Container_SelectedItem == "png")
-        //    {
-        //        vm.VideoCodec_SelectedItem = "PNG";
-        //    }
-        //    // -------------------------
-        //    // WebP
-        //    // -------------------------
-        //    else if (vm.Container_SelectedItem == "webp")
-        //    {
-        //        vm.VideoCodec_SelectedItem = "WebP";
-        //    }
-        //}
-
-
 
         /// <summary>
         ///     Set Controls
@@ -148,10 +80,6 @@ namespace Axiom
 
                 // Encode Speed
                 vm.VideoEncodeSpeed_Items = VP8.encodeSpeed;
-                //if (vm.VideoEncodeSpeed_SelectedItem == "None")
-                //{
-                //    vm.VideoEncodeSpeed_SelectedItem = "Medium";
-                //}
 
                 // Pass
                 vm.Pass_Items = VP8.pass;
@@ -434,6 +362,48 @@ namespace Axiom
 
                 // Disabled
                 AV1.controlsDisable(vm);
+            }
+
+            // -------------------------
+            // FFV1
+            // -------------------------
+            else if (selectedCodec == "FFV1")
+            {
+                // Codec
+                vm.VideoCodec_Command = FFV1.codec;
+
+                // Encode Speed
+                vm.VideoEncodeSpeed_Items = FFV1.encodeSpeed;
+
+                // Pass
+                vm.Pass_Items = FFV1.pass;
+
+                // Quality Items
+                vm.VideoQuality_Items = FFV1.quality;
+
+                // Pixel Format
+                vm.PixelFormat_SelectedItem = FFV1.pixfmt;
+
+                // Framerate
+                vm.FPS_SelectedItem = FFV1.fps;
+
+                // Optimize
+                vm.Video_Optimize_Items = FFV1.optimize;
+                // Tune
+                vm.Optimize_Tune_Items = FFV1.tune;
+                // Profile
+                vm.Optimize_Profile_Items = FFV1.profile;
+                // Level
+                vm.Optimize_Level_Items = FFV1.level;
+
+                // Checked
+                FFV1.controlsChecked(vm);
+
+                // Enabled
+                FFV1.controlsEnable(vm);
+
+                // Disabled
+                FFV1.controlsDisable(vm);
             }
 
             // -------------------------
@@ -949,34 +919,6 @@ namespace Axiom
             }
 
             // -------------------------
-            // Empty
-            // -------------------------
-            //else if (string.IsNullOrEmpty(vm.VideoQuality_SelectedItem))
-            //{
-            //    // Bitrate Text is Displayed through VideoBitrateDisplay()
-
-            //    // Pass
-            //    vm.Pass_IsEnabled = false;
-
-            //    // CRF
-            //    vm.CRF_IsEnabled = false;
-
-            //    // Bitrate
-            //    vm.VideoBitrate_IsEnabled = false;
-            //    // VBR
-            //    vm.VideoVBR_IsEnabled = false;
-            //    // Minrate
-            //    vm.VideoMinrate_IsEnabled = false;
-            //    // Maxrate
-            //    vm.VideoMaxrate_IsEnabled = false;
-            //    // Bufsize
-            //    vm.VideoBufsize_IsEnabled = false;
-
-            //    // Size
-            //    vm.Size_IsEnabled = false;
-            //}
-
-            // -------------------------
             // All Other Qualities
             // -------------------------
             else
@@ -994,7 +936,8 @@ namespace Axiom
 
                 // VBR
                 if (vm.VideoCodec_SelectedItem == "AV1" || // special rules
-                    //vm.VideoCodec_SelectedItem == "VP9" ||
+                   //vm.VideoCodec_SelectedItem == "VP9" ||
+                    vm.VideoCodec_SelectedItem == "FFV1" ||
                     vm.VideoCodec_SelectedItem == "Copy" ||
                     vm.VideoCodec_SelectedItem == "None") 
                 {
@@ -1061,11 +1004,13 @@ namespace Axiom
                 // x264
                 // x265
                 // AV1
+                // FFV1
                 // -------------------------
                 if (codec == "VP9" ||
                     codec == "x264" ||
                     codec == "x265" ||
-                    codec == "AV1")
+                    codec == "AV1"
+                    )
                 {
                     // Auto
                     //if (quality == "Auto")
@@ -1082,6 +1027,14 @@ namespace Axiom
                     {
                         vm.PixelFormat_SelectedItem = "yuv420p";
                     }
+                }
+
+                // -------------------------
+                // FFV1
+                // -------------------------
+                else if (codec == "FFV1")
+                {
+                    vm.PixelFormat_SelectedItem = "yuv422p10le";
                 }
 
                 // -------------------------
@@ -1262,16 +1215,33 @@ namespace Axiom
             // -------------------------
             else if (vm.VideoQuality_SelectedItem == "Lossless")
             {
+                // Select 1 Pass
                 if (vm.Pass_Items?.Contains("1 Pass") == true)
                 {
-                    vm.Pass_SelectedItem = "1 Pass";
+                    if (vm.VideoCodec_SelectedItem != "FFV1") // FFV1 (Special Lossless Rule)
+                    {
+                        vm.Pass_SelectedItem = "1 Pass";
+                    }
                 }
+                // Default to First Item Available
                 else
                 {
                     vm.Pass_SelectedItem = vm.Pass_Items.FirstOrDefault();
                 }
 
-                vm.Pass_IsEnabled = false;
+                // Enable/Disable Encoding Pass
+                // FFV1 (Special Lossless Rule)
+                if (vm.VideoCodec_SelectedItem == "FFV1")
+                {
+                    vm.Pass_IsEnabled = true;
+                }
+                // All Other Codecs
+                else
+                {
+                    vm.Pass_IsEnabled = false;
+                }
+                
+                // Disable CRF
                 vm.CRF_IsEnabled = false;
 
                 // Set CRF & Bitrate back to Default value
