@@ -2110,7 +2110,7 @@ namespace Axiom
                 }
 
                 _Width_IsEnabled = value;
-                OnPropertyChanged("Size_IsEnabled");
+                OnPropertyChanged("Width_IsEnabled");
             }
         }
         // --------------------------------------------------
