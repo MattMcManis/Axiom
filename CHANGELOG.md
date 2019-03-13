@@ -4,6 +4,30 @@ Axiom FFmpeg UI
 
 ## [alpha]
 
+## [1.5.2.0] - Mar 12, 2019
+### Added
+- Audio Auto Codec Copy Filter Checks
+
+### Changed
+- Filters to MVVM
+
+### Fixed
+- ScriptView Modify and Clear
+
+## [1.5.1.0] - Mar 11, 2019
+### Fixed
+- LogPath Settings Save
+- Media Type Image Audio Quality Controls
+- VP8 Subtitle Enable Controls
+- Preset ComboBox Crash on Auto Codec Copy
+
+### Changed
+- Improved Auto Codec Copy Controls
+- Modified Video Pixel Format Controls
+- Organized Theme files
+- ScriptView RichTextBox to MVVM
+
+
 ## [1.5.0.0] - Mar 10, 2019
 ### Changed
 - Complete program redesign
