@@ -36,7 +36,7 @@ namespace Axiom
     /// </summary>
     public partial class DebugConsole : Window
     {
-        private MainWindow mainwindow;
+        //private MainWindow mainwindow;
 
         //private ViewModel vm;
 
@@ -51,7 +51,7 @@ namespace Axiom
         {
             InitializeComponent();
 
-            this.mainwindow = mainwindow;
+            //this.mainwindow = mainwindow;
 
             //vm = mainwindow.DataContext as ViewModel;
 
@@ -156,6 +156,7 @@ namespace Axiom
         /// </summary>
         private void btnDebugTest_Click(object sender, RoutedEventArgs e)
         {
+            MainWindow mainwindow = (MainWindow)System.Windows.Application.Current.MainWindow;
             ViewModel vm = mainwindow.DataContext as ViewModel;
 
             // -------------------------
@@ -213,7 +214,7 @@ namespace Axiom
                         // FFmpeg Generate Arguments (Single)
                         // -------------------------
                         //disabled if batch
-                        FFmpeg.FFmpegSingleGenerateArgs(mainwindow, vm);
+                        FFmpeg.FFmpegSingleGenerateArgs(/*mainwindow, */vm);
                     }
 
                     // -------------------------
@@ -237,7 +238,7 @@ namespace Axiom
                         // FFmpeg Generate Arguments (Batch)
                         // -------------------------
                         //disabled if single file
-                        FFmpeg.FFmpegBatchGenerateArgs(mainwindow, vm);
+                        FFmpeg.FFmpegBatchGenerateArgs(/*mainwindow, */vm);
                     }
 
             //    }); //end dispatcher

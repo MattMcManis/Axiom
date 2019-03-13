@@ -2061,6 +2061,70 @@
     </Style>
 
 
+    <!--/////////////////////////////////////
+          TextBox Script View
+        /////////////////////////////////////-->
+    <SolidColorBrush x:Key="TextBoxScriptView.Static.Background" Color="#FF000012"/>
+    <SolidColorBrush x:Key="TextBoxScriptView.Disabled.Background" Color="#FF000000"/>
+    <SolidColorBrush x:Key="TextBoxScriptView.Static.Foreground" Color="#FFFFFFFF"/>
+    <SolidColorBrush x:Key="TextBoxScriptView.Static.Border" Color="#FFABAdB3"/>
+    <SolidColorBrush x:Key="TextBoxScriptView.MouseOver.Border" Color="#FF7EB4EA"/>
+    <SolidColorBrush x:Key="TextBoxScriptView.Focus.Border" Color="#FF569DE5"/>
+
+    <Style x:Key="TextBoxScriptView" TargetType="{x:Type TextBox}">
+        <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource TextBoxScriptView.Static.Border}"/>
+        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+        <Setter Property="CaretBrush" Value="{DynamicResource TextBoxScriptView.Static.Foreground}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="KeyboardNavigation.TabNavigation" Value="None"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="AllowDrop" Value="true"/>
+        <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst"/>
+        <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TextBox}">
+                    <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                        <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                    </Border>
+                    <!-- TextBox Triggers -->
+                    <ControlTemplate.Triggers>
+                        <!-- Enabled / Disabled TextBox Colors & Opacity -->
+                        <Trigger Property="IsEnabled" Value="true">
+                            <Setter Property="Foreground" Value="{StaticResource TextBoxScriptView.Static.Foreground}"/>
+                            <Setter Property="Background"  Value="{StaticResource TextBoxScriptView.Static.Background}" />
+                            <Setter Property="BorderBrush" Value="{StaticResource TextBoxScriptView.Static.Border}" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Background" Value="{StaticResource TextBoxScriptView.Disabled.Background}" />
+                            <Setter Property="Opacity" TargetName="border" Value="0.50"/>
+                            <Setter Property="Foreground" Value="#FFADD5FF"/>
+                            <Setter Property="BorderBrush" Value="{StaticResource TextBoxScriptView.Static.Border}" />
+                        </Trigger>
+
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource TextBoxScriptView.MouseOver.Border}"/>
+                        </Trigger>
+                        <Trigger Property="IsKeyboardFocused" Value="true">
+                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource TextBoxScriptView.Focus.Border}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsInactiveSelectionHighlightEnabled" Value="true"/>
+                    <Condition Property="IsSelectionActive" Value="false"/>
+                </MultiTrigger.Conditions>
+                <Setter Property="SelectionBrush" Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}"/>
+            </MultiTrigger>
+        </Style.Triggers>
+    </Style>
+
 
     <!--/////////////////////////////////////
         RichTextBox
@@ -2070,6 +2134,7 @@
     <SolidColorBrush x:Key="TextBox.Static.Border" Color="#FFABAdB3"/>
     <SolidColorBrush x:Key="TextBox.MouseOver.Border" Color="#FF7EB4EA"/>
     <SolidColorBrush x:Key="TextBox.Focus.Border" Color="#FF569DE5"/>
+    
     <Style x:Key="{x:Type TextBoxBase}" TargetType="{x:Type TextBoxBase}">
         <Setter Property="Background" Value="{DynamicResource TextBox.Static.Background}"/>
         <Setter Property="BorderBrush" Value="{StaticResource TextBox.Static.Border}"/>

@@ -87,7 +87,7 @@ namespace Axiom
         ///     1-Pass Arguments
         /// </summary>
         // 1-Pass, CRF, & Auto
-        public static String OnePassArgs(MainWindow mainwindow, ViewModel vm)
+        public static String OnePassArgs(/*MainWindow mainwindow, */ViewModel vm)
         {
             // -------------------------
             //  Single Pass
@@ -131,7 +131,7 @@ namespace Axiom
                               vm.FPS_SelectedItem
                               ),
                     "\r\n" +
-                    VideoFilters.VideoFilter(mainwindow, vm),
+                    VideoFilters.VideoFilter(/*mainwindow, */vm),
                     //"\r\n" +
                     //Video.ScalingAlgorithm(vm),
                     "\r\n" +
@@ -147,7 +147,7 @@ namespace Axiom
                     "\r\n\r\n" +
                     Subtitle.SubtitleCodec(vm.SubtitleCodec_Command),
                     "\r\n" +
-                    Streams.SubtitleMaps(mainwindow, vm),
+                    Streams.SubtitleMaps(/*mainwindow, */vm),
 
                     "\r\n\r\n" +
                     Audio.AudioCodec(vm, vm.AudioCodec_Command),
@@ -165,7 +165,7 @@ namespace Axiom
                                   vm.AudioChannel_SelectedItem
                                  ),
                     "\r\n" +
-                    AudioFilters.AudioFilter(mainwindow, vm),
+                    AudioFilters.AudioFilter(/*mainwindow, */vm),
                     "\r\n" +
                     Streams.AudioStreamMaps(vm),
 
@@ -204,7 +204,7 @@ namespace Axiom
         /// <summary>
         ///     2-Pass Arguments
         /// </summary>      
-        public static String TwoPassArgs(MainWindow mainwindow, ViewModel vm)
+        public static String TwoPassArgs(/*MainWindow mainwindow, */ViewModel vm)
         {
             // -------------------------
             //  2-Pass Auto Quality
@@ -251,7 +251,7 @@ namespace Axiom
                               vm.FPS_SelectedItem
                              ),
                     "\r\n" +
-                    VideoFilters.VideoFilter(mainwindow, vm),
+                    VideoFilters.VideoFilter(/*mainwindow, */vm),
                     //"\r\n" +
                     //Video.ScalingAlgorithm(vm),
                     "\r\n" +
@@ -347,7 +347,7 @@ namespace Axiom
                     "\r\n\r\n" +
                     Subtitle.SubtitleCodec(vm.SubtitleCodec_Command),
                     "\r\n" +
-                    Streams.SubtitleMaps(mainwindow, vm),
+                    Streams.SubtitleMaps(/*mainwindow, */vm),
 
                     "\r\n\r\n" +
                     Audio.AudioCodec(vm, vm.AudioCodec_Command),
@@ -365,7 +365,7 @@ namespace Axiom
                                   vm.AudioChannel_SelectedItem
                                   ),
                     "\r\n" +
-                    AudioFilters.AudioFilter(mainwindow, vm),
+                    AudioFilters.AudioFilter(/*mainwindow, */vm),
                     "\r\n" +
                     Streams.AudioStreamMaps(vm),
 
@@ -411,7 +411,7 @@ namespace Axiom
         /// <summary>
         ///     FFmpeg Single File - Generate Args
         /// </summary>
-        public static String FFmpegSingleGenerateArgs(MainWindow mainwindow, ViewModel vm)
+        public static String FFmpegSingleGenerateArgs(/*MainWindow mainwindow, */ViewModel vm)
         {
             if (vm.Batch_IsChecked == false)
             {
@@ -422,8 +422,8 @@ namespace Axiom
                     MainWindow.FFmpegPath(),
                     "-y",
                     "\r\n\r\n" + Video.HWAcceleration(vm),
-                    OnePassArgs(mainwindow, vm), //disabled if 2-Pass
-                    TwoPassArgs(mainwindow, vm) //disabled if 1-Pass
+                    OnePassArgs(/*mainwindow, */vm), //disabled if 2-Pass
+                    TwoPassArgs(/*mainwindow, */vm) //disabled if 1-Pass
                 };
 
                 // Join List with Spaces
@@ -475,7 +475,7 @@ namespace Axiom
         /// <summary>
         ///     FFmpeg Batch - Generate Args
         /// </summary>
-        public static void FFmpegBatchGenerateArgs(MainWindow mainwindow, ViewModel vm)
+        public static void FFmpegBatchGenerateArgs(/*MainWindow mainwindow, */ViewModel vm)
         {
             if (vm.Batch_IsChecked == true)
             {
@@ -526,8 +526,8 @@ namespace Axiom
                     "-y",
                     //%~f added in InputPath()
 
-                    OnePassArgs(mainwindow, vm), //disabled if 2-Pass       
-                    TwoPassArgs(mainwindow, vm) //disabled if 1-Pass
+                    OnePassArgs(/*mainwindow, */vm), //disabled if 2-Pass       
+                    TwoPassArgs(/*mainwindow, */vm) //disabled if 1-Pass
                 };
 
                 // Join List with Spaces
@@ -563,7 +563,7 @@ namespace Axiom
         public static void FFmpegScript(ViewModel vm)
         {
             // Clear Old Text
-            //ScriptView.ClearScriptView(mainwindow, vm);
+            //ScriptView.ClearScriptView(/*mainwindow, */vm);
             //ScriptView.scriptParagraph.Inlines.Clear();
 
             // Write FFmpeg Args

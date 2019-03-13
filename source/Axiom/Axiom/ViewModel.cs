@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Windows.Documents;
 // Disable XML Comment warnings
 #pragma warning disable 1591
 #pragma warning disable 1587
@@ -33,7 +34,7 @@ namespace Axiom
 {
     public class ViewModel : INotifyPropertyChanged
     {
-        private MainWindow mainwindow = (MainWindow)System.Windows.Application.Current.MainWindow;
+        //private MainWindow mainwindow = (MainWindow)System.Windows.Application.Current.MainWindow;
 
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
         private void OnPropertyChanged(string prop)
@@ -273,6 +274,40 @@ namespace Axiom
         // --------------------------------------------------
         // Script View
         // --------------------------------------------------
+        // FlowDocument
+        private FlowDocument _ScriptView_FlowDocument;
+        public FlowDocument ScriptView_FlowDocument
+        {
+            get { return _ScriptView_FlowDocument; }
+            set
+            {
+                if (_ScriptView_FlowDocument == value)
+                {
+                    return;
+                }
+
+                _ScriptView_FlowDocument = value;
+                OnPropertyChanged("ScriptView_FlowDocument");
+            }
+        }
+
+        // Paragraph
+        private Paragraph _ScriptView_Paragraph;
+        public Paragraph ScriptView_Paragraph
+        {
+            get { return _ScriptView_Paragraph; }
+            set
+            {
+                if (_ScriptView_Paragraph == value)
+                {
+                    return;
+                }
+
+                _ScriptView_Paragraph = value;
+                OnPropertyChanged("ScriptView_Paragraph");
+            }
+        }
+
         // Text
         private string _ScriptView_Text;
         public string ScriptView_Text
@@ -1169,7 +1204,7 @@ namespace Axiom
 
                 if (previousItem != value)
                 {
-                    VideoControls.AutoCopyVideoCodec(System.Windows.Application.Current.Windows.OfType<MainWindow>().FirstOrDefault(), this);
+                    VideoControls.AutoCopyVideoCodec(/*/*System.Windows.Application.Current.Windows.OfType<MainWindow>().FirstOrDefault(), */this);
                     SubtitleControls.AutoCopySubtitleCodec(this);
                 }
 
@@ -1512,7 +1547,7 @@ namespace Axiom
 
                 if (previousItem != value)
                 {
-                    //VideoControls.AutoCopyVideoCodec(System.Windows.Application.Current.Windows.OfType<MainWindow>().FirstOrDefault(), this); // Crash Problem
+                    //VideoControls.AutoCopyVideoCodec(/*System.Windows.Application.Current.Windows.OfType<MainWindow>().FirstOrDefault(), */this); // Crash Problem
                     SubtitleControls.AutoCopySubtitleCodec(this);
                 }
                 //if (_PixelFormat_SelectedItem == value)
@@ -1604,7 +1639,7 @@ namespace Axiom
 
                 if (previousItem != value)
                 {
-                    VideoControls.AutoCopyVideoCodec(System.Windows.Application.Current.Windows.OfType<MainWindow>().FirstOrDefault(), this);
+                    VideoControls.AutoCopyVideoCodec(/*System.Windows.Application.Current.Windows.OfType<MainWindow>().FirstOrDefault(), */this);
                     SubtitleControls.AutoCopySubtitleCodec(this);
                 }
 
@@ -1707,7 +1742,7 @@ namespace Axiom
 
                 if (previousItem != value)
                 {
-                    VideoControls.AutoCopyVideoCodec(System.Windows.Application.Current.Windows.OfType<MainWindow>().FirstOrDefault(), this);
+                    VideoControls.AutoCopyVideoCodec(/*System.Windows.Application.Current.Windows.OfType<MainWindow>().FirstOrDefault(), */this);
                     SubtitleControls.AutoCopySubtitleCodec(this);
                 }
 
@@ -2000,7 +2035,7 @@ namespace Axiom
 
                 if (previousItem != value)
                 {
-                    VideoControls.AutoCopyVideoCodec(System.Windows.Application.Current.Windows.OfType<MainWindow>().FirstOrDefault(), this);
+                    VideoControls.AutoCopyVideoCodec(/*System.Windows.Application.Current.Windows.OfType<MainWindow>().FirstOrDefault(), */this);
                     SubtitleControls.AutoCopySubtitleCodec(this);
                 }
 
@@ -2162,7 +2197,7 @@ namespace Axiom
 
                 if (previousItem != value)
                 {
-                    VideoControls.AutoCopyVideoCodec(System.Windows.Application.Current.Windows.OfType<MainWindow>().FirstOrDefault(), this);
+                    VideoControls.AutoCopyVideoCodec(/*System.Windows.Application.Current.Windows.OfType<MainWindow>().FirstOrDefault(), */this);
                     SubtitleControls.AutoCopySubtitleCodec(this);
                 }
 
@@ -2436,7 +2471,7 @@ namespace Axiom
 
                 if (previousItem != value)
                 {
-                    AudioControls.AutoCopyAudioCodec(System.Windows.Application.Current.Windows.OfType<MainWindow>().FirstOrDefault(), this);
+                    AudioControls.AutoCopyAudioCodec(/*System.Windows.Application.Current.Windows.OfType<MainWindow>().FirstOrDefault(), */this);
                 }
 
                 //if (_AudioChannel_SelectedItem == value)
@@ -2534,7 +2569,7 @@ namespace Axiom
 
                 if (previousItem != value)
                 {
-                    AudioControls.AutoCopyAudioCodec(System.Windows.Application.Current.Windows.OfType<MainWindow>().FirstOrDefault(), this);
+                    AudioControls.AutoCopyAudioCodec(/*System.Windows.Application.Current.Windows.OfType<MainWindow>().FirstOrDefault(), */this);
                 }
 
                 //if (_AudioQuality_SelectedItem == value)
@@ -2708,7 +2743,7 @@ namespace Axiom
 
                 if (previousItem != value)
                 {
-                    AudioControls.AutoCopyAudioCodec(System.Windows.Application.Current.Windows.OfType<MainWindow>().FirstOrDefault(), this);
+                    AudioControls.AutoCopyAudioCodec(/*System.Windows.Application.Current.Windows.OfType<MainWindow>().FirstOrDefault(), */this);
                 }
 
                 //if (_AudioSampleRate_SelectedItem == value)
@@ -2800,7 +2835,7 @@ namespace Axiom
 
                 if (previousItem != value)
                 {
-                    AudioControls.AutoCopyAudioCodec(System.Windows.Application.Current.Windows.OfType<MainWindow>().FirstOrDefault(), this);
+                    AudioControls.AutoCopyAudioCodec(/*System.Windows.Application.Current.Windows.OfType<MainWindow>().FirstOrDefault(), */this);
                 }
 
                 //if (_AudioBitDepth_SelectedItem == value)
@@ -2885,23 +2920,6 @@ namespace Axiom
 
                 _AudioHardLimiter_Value = value;
                 OnPropertyChanged("AudioHardLimiter_Value");
-            }
-        }
-
-        // Text
-        private string _AudioHardLimiter_Text = "100";
-        public string AudioHardLimiter_Text
-        {
-            get { return _AudioHardLimiter_Text; }
-            set
-            {
-                if (_AudioHardLimiter_Text == value)
-                {
-                    return;
-                }
-
-                _AudioHardLimiter_Text = value;
-                OnPropertyChanged("AudioHardLimiter_Text");
             }
         }
 
@@ -3488,6 +3506,44 @@ namespace Axiom
         // --------------------------------------------------
         // Subtitle ListView
         // --------------------------------------------------
+        // Item Source
+        private ObservableCollection<string> _SubtitleListView_Items = new ObservableCollection<string>();
+        public ObservableCollection<string> SubtitleListView_Items
+        {
+            get { return _SubtitleListView_Items; }
+            set
+            {
+                _SubtitleListView_Items = value;
+                OnPropertyChanged("SubtitleListView_Items");
+            }
+        }
+        // Selected Items
+        private List<string> _SubtitleListView_SelectedItems = new List<string>();
+        public List<string> SubtitleListView_SelectedItems
+        {
+            get { return _SubtitleListView_SelectedItems; }
+            set
+            {
+                _SubtitleListView_SelectedItems = value;
+                OnPropertyChanged("SubtitleListView_SelectedItems");
+            }
+        }
+        // Selected Idnex
+        private int _SubtitleListView_SelectedIndex { get; set; }
+        public int SubtitleListView_SelectedIndex
+        {
+            get { return _SubtitleListView_SelectedIndex; }
+            set
+            {
+                if (_SubtitleListView_SelectedIndex == value)
+                {
+                    return;
+                }
+
+                _SubtitleListView_SelectedIndex = value;
+                OnPropertyChanged("SubtitleListView_SelectedIndex");
+            }
+        }
         // Controls Enable
         public bool _SubtitleListView_IsEnabled = true;
         public bool SubtitleListView_IsEnabled
@@ -3523,75 +3579,135 @@ namespace Axiom
         // Deband
         // -------------------------
         // Items
-        public static ObservableCollection<string> _cboFilterVideo_Deband_Items = new ObservableCollection<string>()
+        public static List<string> _FilterVideo_Deband_Items = new List<string>()
         {
             "disabled",
             "enabled"
         };
-        public static ObservableCollection<string> cboFilterVideo_Deband_Items
+        public static List<string> FilterVideo_Deband_Items
         {
-            get { return _cboFilterVideo_Deband_Items; }
-            set { _cboFilterVideo_Deband_Items = value; }
+            get { return _FilterVideo_Deband_Items; }
+            set { _FilterVideo_Deband_Items = value; }
         }
 
         // Selected Item
-        public static string cboFilterVideo_Deband_SelectedItem { get; set; }
+        private string _FilterVideo_Deband_SelectedItem { get; set; }
+        public string FilterVideo_Deband_SelectedItem
+        {
+            get { return _FilterVideo_Deband_SelectedItem; }
+            set
+            {
+                if (_FilterVideo_Deband_SelectedItem == value)
+                {
+                    return;
+                }
+
+                _FilterVideo_Deband_SelectedItem = value;
+                OnPropertyChanged("FilterVideo_Deband_SelectedItem");
+            }
+        }
 
         // -------------------------
         // Deshake
         // -------------------------
-        public static ObservableCollection<string> _cboFilterVideo_Deshake_Items = new ObservableCollection<string>()
+        // Items
+        public static List<string> _FilterVideo_Deshake_Items = new List<string>()
         {
             "disabled",
             "enabled"
         };
-        public static ObservableCollection<string> cboFilterVideo_Deshake_Items
+        public static List<string> FilterVideo_Deshake_Items
         {
-            get { return _cboFilterVideo_Deshake_Items; }
-            set { _cboFilterVideo_Deshake_Items = value; }
+            get { return _FilterVideo_Deshake_Items; }
+            set { _FilterVideo_Deshake_Items = value; }
         }
 
         // Selected Item
-        public static string cboFilterVideo_Deshake_SelectedItem { get; set; }
+        private string _FilterVideo_Deshake_SelectedItem { get; set; }
+        public string FilterVideo_Deshake_SelectedItem
+        {
+            get { return _FilterVideo_Deshake_SelectedItem; }
+            set
+            {
+                if (_FilterVideo_Deshake_SelectedItem == value)
+                {
+                    return;
+                }
+
+                _FilterVideo_Deshake_SelectedItem = value;
+                OnPropertyChanged("FilterVideo_Deshake_SelectedItem");
+            }
+        }
 
 
         // -------------------------
         // Deflicker
         // -------------------------
-        public static ObservableCollection<string> _cboFilterVideo_Deflicker_Items = new ObservableCollection<string>()
+        // Items
+        public static List<string> _FilterVideo_Deflicker_Items = new List<string>()
         {
             "disabled",
             "enabled"
         };
-        public static ObservableCollection<string> cboFilterVideo_Deflicker_Items
+        public static List<string> FilterVideo_Deflicker_Items
         {
-            get { return _cboFilterVideo_Deflicker_Items; }
-            set { _cboFilterVideo_Deflicker_Items = value; }
+            get { return _FilterVideo_Deflicker_Items; }
+            set { _FilterVideo_Deflicker_Items = value; }
         }
+        // Selected Item
+        private string _FilterVideo_Deflicker_SelectedItem { get; set; }
+        public string FilterVideo_Deflicker_SelectedItem
+        {
+            get { return _FilterVideo_Deflicker_SelectedItem; }
+            set
+            {
+                if (_FilterVideo_Deflicker_SelectedItem == value)
+                {
+                    return;
+                }
 
-        public static string cboFilterVideo_Deflicker_SelectedItem { get; set; }
+                _FilterVideo_Deflicker_SelectedItem = value;
+                OnPropertyChanged("FilterVideo_Deflicker_SelectedItem");
+            }
+        }
 
 
         // -------------------------
         // Dejudder
         // -------------------------
-        public static ObservableCollection<string> _cboFilterVideo_Dejudder_Items = new ObservableCollection<string>()
+        // Items
+        public static List<string> _FilterVideo_Dejudder_Items = new List<string>()
         {
             "disabled",
             "enabled"
         };
-        public static ObservableCollection<string> cboFilterVideo_Dejudder_Items
+        public static List<string> FilterVideo_Dejudder_Items
         {
-            get { return _cboFilterVideo_Dejudder_Items; }
-            set { _cboFilterVideo_Dejudder_Items = value; }
+            get { return _FilterVideo_Dejudder_Items; }
+            set { _FilterVideo_Dejudder_Items = value; }
         }
+        // Selected Item
+        private string _FilterVideo_Dejudder_SelectedItem { get; set; }
+        public string FilterVideo_Dejudder_SelectedItem
+        {
+            get { return _FilterVideo_Dejudder_SelectedItem; }
+            set
+            {
+                if (_FilterVideo_Dejudder_SelectedItem == value)
+                {
+                    return;
+                }
 
-        public static string cboFilterVideo_Dejudder_SelectedItem { get; set; }
+                _FilterVideo_Dejudder_SelectedItem = value;
+                OnPropertyChanged("FilterVideo_Dejudder_SelectedItem");
+            }
+        }
 
         // -------------------------
         // Denoise
         // -------------------------
-        public static ObservableCollection<string> _cboFilterVideo_Denoise_Items = new ObservableCollection<string>()
+        // Items
+        public static List<string> _FilterVideo_Denoise_Items = new List<string>()
         {
             "disabled",
             "default",
@@ -3599,13 +3715,108 @@ namespace Axiom
             "medium",
             "heavy",
         };
-        public static ObservableCollection<string> cboFilterVideo_Denoise_Items
+        public static List<string> FilterVideo_Denoise_Items
         {
-            get { return _cboFilterVideo_Denoise_Items; }
-            set { _cboFilterVideo_Denoise_Items = value; }
+            get { return _FilterVideo_Denoise_Items; }
+            set { _FilterVideo_Denoise_Items = value; }
+        }
+        // Selected Item
+        private string _FilterVideo_Denoise_SelectedItem { get; set; }
+        public string FilterVideo_Denoise_SelectedItem
+        {
+            get { return _FilterVideo_Denoise_SelectedItem; }
+            set
+            {
+                if (_FilterVideo_Denoise_SelectedItem == value)
+                {
+                    return;
+                }
+
+                _FilterVideo_Denoise_SelectedItem = value;
+                OnPropertyChanged("FilterVideo_Denoise_SelectedItem");
+            }
         }
 
-        public static string cboFilterVideo_Denoise_SelectedItem { get; set; }
+
+        // -------------------------
+        // EQ Brightness
+        // -------------------------
+        // Value
+        private double _FilterVideo_EQ_Brightness_Value = 0;
+        public double FilterVideo_EQ_Brightness_Value
+        {
+            get { return _FilterVideo_EQ_Brightness_Value; }
+            set
+            {
+                if (_FilterVideo_EQ_Brightness_Value == value)
+                {
+                    return;
+                }
+
+                _FilterVideo_EQ_Brightness_Value = value;
+                OnPropertyChanged("FilterVideo_EQ_Brightness_Value");
+            }
+        }
+
+        // -------------------------
+        // EQ Contrast
+        // -------------------------
+        // Value
+        private double _FilterVideo_EQ_Contrast_Value = 0;
+        public double FilterVideo_EQ_Contrast_Value
+        {
+            get { return _FilterVideo_EQ_Contrast_Value; }
+            set
+            {
+                if (_FilterVideo_EQ_Contrast_Value == value)
+                {
+                    return;
+                }
+
+                _FilterVideo_EQ_Contrast_Value = value;
+                OnPropertyChanged("FilterVideo_EQ_Contrast_Value");
+            }
+        }
+
+        // -------------------------
+        // EQ Saturation
+        // -------------------------
+        // Value
+        private double _FilterVideo_EQ_Saturation_Value = 0;
+        public double FilterVideo_EQ_Saturation_Value
+        {
+            get { return _FilterVideo_EQ_Saturation_Value; }
+            set
+            {
+                if (_FilterVideo_EQ_Saturation_Value == value)
+                {
+                    return;
+                }
+
+                _FilterVideo_EQ_Saturation_Value = value;
+                OnPropertyChanged("FilterVideo_EQ_Saturation_Value");
+            }
+        }
+
+        // -------------------------
+        // EQ Gamma
+        // -------------------------
+        // Value
+        private double _FilterVideo_EQ_Gamma_Value = 0;
+        public double FilterVideo_EQ_Gamma_Value
+        {
+            get { return _FilterVideo_EQ_Gamma_Value; }
+            set
+            {
+                if (_FilterVideo_EQ_Gamma_Value == value)
+                {
+                    return;
+                }
+
+                _FilterVideo_EQ_Gamma_Value = value;
+                OnPropertyChanged("FilterVideo_EQ_Gamma_Value");
+            }
+        }
 
 
         // -------------------------
@@ -3614,18 +3825,605 @@ namespace Axiom
         // -------------------------
         // Correction Method
         // -------------------------
-        public static ObservableCollection<string> _cboFilterVideo_SelectiveColor_Correction_Method_Items = new ObservableCollection<string>()
+        // Items
+        public static List<string> _FilterVideo_SelectiveColor_Correction_Method_Items = new List<string>()
         {
             "relative",
             "absolute"
         };
-        public static ObservableCollection<string> cboFilterVideo_SelectiveColor_Correction_Method_Items
+        public static List<string> FilterVideo_SelectiveColor_Correction_Method_Items
         {
-            get { return _cboFilterVideo_SelectiveColor_Correction_Method_Items; }
-            set { _cboFilterVideo_SelectiveColor_Correction_Method_Items = value; }
+            get { return _FilterVideo_SelectiveColor_Correction_Method_Items; }
+            set { _FilterVideo_SelectiveColor_Correction_Method_Items = value; }
         }
 
-        public static string cboFilterVideo_SelectiveColor_Correction_Method_SelectedItem { get; set; }
+        // Selected Item
+        private string _FilterVideo_SelectiveColor_Correction_Method_SelectedItem { get; set; }
+        public string FilterVideo_SelectiveColor_Correction_Method_SelectedItem
+        {
+            get { return _FilterVideo_SelectiveColor_Correction_Method_SelectedItem; }
+            set
+            {
+                if (_FilterVideo_SelectiveColor_Correction_Method_SelectedItem == value)
+                {
+                    return;
+                }
+
+                _FilterVideo_SelectiveColor_Correction_Method_SelectedItem = value;
+                OnPropertyChanged("FilterVideo_SelectiveColor_Correction_Method_SelectedItem");
+            }
+        }
+
+
+        // --------------------------------------------------
+        // Reds
+        // --------------------------------------------------
+        // -------------------------
+        // Reds Cyan
+        // -------------------------
+        // Value
+        private double _FilterVideo_SelectiveColor_Reds_Cyan_Value = 0;
+        public double FilterVideo_SelectiveColor_Reds_Cyan_Value
+        {
+            get { return _FilterVideo_SelectiveColor_Reds_Cyan_Value; }
+            set
+            {
+                if (_FilterVideo_SelectiveColor_Reds_Cyan_Value == value)
+                {
+                    return;
+                }
+
+                _FilterVideo_SelectiveColor_Reds_Cyan_Value = value;
+                OnPropertyChanged("FilterVideo_SelectiveColor_Reds_Cyan_Value");
+            }
+        }
+
+        // -------------------------
+        // Reds Magenta
+        // -------------------------
+        // Value
+        private double _FilterVideo_SelectiveColor_Reds_Magenta_Value = 0;
+        public double FilterVideo_SelectiveColor_Reds_Magenta_Value
+        {
+            get { return _FilterVideo_SelectiveColor_Reds_Magenta_Value; }
+            set
+            {
+                if (_FilterVideo_SelectiveColor_Reds_Magenta_Value == value)
+                {
+                    return;
+                }
+
+                _FilterVideo_SelectiveColor_Reds_Magenta_Value = value;
+                OnPropertyChanged("FilterVideo_SelectiveColor_Reds_Magenta_Value");
+            }
+        }
+
+        // -------------------------
+        // Reds Yellow
+        // -------------------------
+        // Value
+        private double _FilterVideo_SelectiveColor_Reds_Yellow_Value = 0;
+        public double FilterVideo_SelectiveColor_Reds_Yellow_Value
+        {
+            get { return _FilterVideo_SelectiveColor_Reds_Yellow_Value; }
+            set
+            {
+                if (_FilterVideo_SelectiveColor_Reds_Yellow_Value == value)
+                {
+                    return;
+                }
+
+                _FilterVideo_SelectiveColor_Reds_Yellow_Value = value;
+                OnPropertyChanged("FilterVideo_SelectiveColor_Reds_Yellow_Value");
+            }
+        }
+
+
+        // --------------------------------------------------
+        // Yellows
+        // --------------------------------------------------
+        // -------------------------
+        // Yellows Cyan
+        // -------------------------
+        // Value
+        private double _FilterVideo_SelectiveColor_Yellows_Cyan_Value = 0;
+        public double FilterVideo_SelectiveColor_Yellows_Cyan_Value
+        {
+            get { return _FilterVideo_SelectiveColor_Yellows_Cyan_Value; }
+            set
+            {
+                if (_FilterVideo_SelectiveColor_Yellows_Cyan_Value == value)
+                {
+                    return;
+                }
+
+                _FilterVideo_SelectiveColor_Yellows_Cyan_Value = value;
+                OnPropertyChanged("FilterVideo_SelectiveColor_Yellows_Cyan_Value");
+            }
+        }
+
+        // -------------------------
+        // Yellows Magenta
+        // -------------------------
+        // Value
+        private double _FilterVideo_SelectiveColor_Yellows_Magenta_Value = 0;
+        public double FilterVideo_SelectiveColor_Yellows_Magenta_Value
+        {
+            get { return _FilterVideo_SelectiveColor_Yellows_Magenta_Value; }
+            set
+            {
+                if (_FilterVideo_SelectiveColor_Yellows_Magenta_Value == value)
+                {
+                    return;
+                }
+
+                _FilterVideo_SelectiveColor_Yellows_Magenta_Value = value;
+                OnPropertyChanged("FilterVideo_SelectiveColor_Yellows_Magenta_Value");
+            }
+        }
+
+        // -------------------------
+        // Yellows Yellow
+        // -------------------------
+        // Value
+        private double _FilterVideo_SelectiveColor_Yellows_Yellow_Value = 0;
+        public double FilterVideo_SelectiveColor_Yellows_Yellow_Value
+        {
+            get { return _FilterVideo_SelectiveColor_Yellows_Yellow_Value; }
+            set
+            {
+                if (_FilterVideo_SelectiveColor_Yellows_Yellow_Value == value)
+                {
+                    return;
+                }
+
+                _FilterVideo_SelectiveColor_Yellows_Yellow_Value = value;
+                OnPropertyChanged("FilterVideo_SelectiveColor_Yellows_Yellow_Value");
+            }
+        }
+
+
+        // --------------------------------------------------
+        // Greens
+        // --------------------------------------------------
+        // -------------------------
+        // Greens Cyan
+        // -------------------------
+        // Value
+        private double _FilterVideo_SelectiveColor_Greens_Cyan_Value = 0;
+        public double FilterVideo_SelectiveColor_Greens_Cyan_Value
+        {
+            get { return _FilterVideo_SelectiveColor_Greens_Cyan_Value; }
+            set
+            {
+                if (_FilterVideo_SelectiveColor_Greens_Cyan_Value == value)
+                {
+                    return;
+                }
+
+                _FilterVideo_SelectiveColor_Greens_Cyan_Value = value;
+                OnPropertyChanged("FilterVideo_SelectiveColor_Greens_Cyan_Value");
+            }
+        }
+
+        // -------------------------
+        // Greens Magenta
+        // -------------------------
+        // Value
+        private double _FilterVideo_SelectiveColor_Greens_Magenta_Value = 0;
+        public double FilterVideo_SelectiveColor_Greens_Magenta_Value
+        {
+            get { return _FilterVideo_SelectiveColor_Greens_Magenta_Value; }
+            set
+            {
+                if (_FilterVideo_SelectiveColor_Greens_Magenta_Value == value)
+                {
+                    return;
+                }
+
+                _FilterVideo_SelectiveColor_Greens_Magenta_Value = value;
+                OnPropertyChanged("FilterVideo_SelectiveColor_Greens_Magenta_Value");
+            }
+        }
+
+        // -------------------------
+        // Greens Yellow
+        // -------------------------
+        // Value
+        private double _FilterVideo_SelectiveColor_Greens_Yellow_Value = 0;
+        public double FilterVideo_SelectiveColor_Greens_Yellow_Value
+        {
+            get { return _FilterVideo_SelectiveColor_Greens_Yellow_Value; }
+            set
+            {
+                if (_FilterVideo_SelectiveColor_Greens_Yellow_Value == value)
+                {
+                    return;
+                }
+
+                _FilterVideo_SelectiveColor_Greens_Yellow_Value = value;
+                OnPropertyChanged("FilterVideo_SelectiveColor_Greens_Yellow_Value");
+            }
+        }
+
+        // --------------------------------------------------
+        // Cyans
+        // --------------------------------------------------
+        // -------------------------
+        // Cyans Cyan
+        // -------------------------
+        // Value
+        private double _FilterVideo_SelectiveColor_Cyans_Cyan_Value = 0;
+        public double FilterVideo_SelectiveColor_Cyans_Cyan_Value
+        {
+            get { return _FilterVideo_SelectiveColor_Cyans_Cyan_Value; }
+            set
+            {
+                if (_FilterVideo_SelectiveColor_Cyans_Cyan_Value == value)
+                {
+                    return;
+                }
+
+                _FilterVideo_SelectiveColor_Cyans_Cyan_Value = value;
+                OnPropertyChanged("FilterVideo_SelectiveColor_Cyans_Cyan_Value");
+            }
+        }
+
+        // -------------------------
+        // Cyans Magenta
+        // -------------------------
+        // Value
+        private double _FilterVideo_SelectiveColor_Cyans_Magenta_Value = 0;
+        public double FilterVideo_SelectiveColor_Cyans_Magenta_Value
+        {
+            get { return _FilterVideo_SelectiveColor_Cyans_Magenta_Value; }
+            set
+            {
+                if (_FilterVideo_SelectiveColor_Cyans_Magenta_Value == value)
+                {
+                    return;
+                }
+
+                _FilterVideo_SelectiveColor_Cyans_Magenta_Value = value;
+                OnPropertyChanged("FilterVideo_SelectiveColor_Cyans_Magenta_Value");
+            }
+        }
+
+        // -------------------------
+        // Cyans Yellow
+        // -------------------------
+        // Value
+        private double _FilterVideo_SelectiveColor_Cyans_Yellow_Value = 0;
+        public double FilterVideo_SelectiveColor_Cyans_Yellow_Value
+        {
+            get { return _FilterVideo_SelectiveColor_Cyans_Yellow_Value; }
+            set
+            {
+                if (_FilterVideo_SelectiveColor_Cyans_Yellow_Value == value)
+                {
+                    return;
+                }
+
+                _FilterVideo_SelectiveColor_Cyans_Yellow_Value = value;
+                OnPropertyChanged("FilterVideo_SelectiveColor_Cyans_Yellow_Value");
+            }
+        }
+
+        // --------------------------------------------------
+        // Blues
+        // --------------------------------------------------
+        // -------------------------
+        // Blues Cyan
+        // -------------------------
+        // Value
+        private double _FilterVideo_SelectiveColor_Blues_Cyan_Value = 0;
+        public double FilterVideo_SelectiveColor_Blues_Cyan_Value
+        {
+            get { return _FilterVideo_SelectiveColor_Blues_Cyan_Value; }
+            set
+            {
+                if (_FilterVideo_SelectiveColor_Blues_Cyan_Value == value)
+                {
+                    return;
+                }
+
+                _FilterVideo_SelectiveColor_Blues_Cyan_Value = value;
+                OnPropertyChanged("FilterVideo_SelectiveColor_Blues_Cyan_Value");
+            }
+        }
+
+        // -------------------------
+        // Blues Magenta
+        // -------------------------
+        // Value
+        private double _FilterVideo_SelectiveColor_Blues_Magenta_Value = 0;
+        public double FilterVideo_SelectiveColor_Blues_Magenta_Value
+        {
+            get { return _FilterVideo_SelectiveColor_Blues_Magenta_Value; }
+            set
+            {
+                if (_FilterVideo_SelectiveColor_Blues_Magenta_Value == value)
+                {
+                    return;
+                }
+
+                _FilterVideo_SelectiveColor_Blues_Magenta_Value = value;
+                OnPropertyChanged("FilterVideo_SelectiveColor_Blues_Magenta_Value");
+            }
+        }
+
+        // -------------------------
+        // Blues Yellow
+        // -------------------------
+        // Value
+        private double _FilterVideo_SelectiveColor_Blues_Yellow_Value = 0;
+        public double FilterVideo_SelectiveColor_Blues_Yellow_Value
+        {
+            get { return _FilterVideo_SelectiveColor_Blues_Yellow_Value; }
+            set
+            {
+                if (_FilterVideo_SelectiveColor_Blues_Yellow_Value == value)
+                {
+                    return;
+                }
+
+                _FilterVideo_SelectiveColor_Blues_Yellow_Value = value;
+                OnPropertyChanged("FilterVideo_SelectiveColor_Blues_Yellow_Value");
+            }
+        }
+
+        // --------------------------------------------------
+        // Magentas
+        // --------------------------------------------------
+        // -------------------------
+        // Magentas Cyan
+        // -------------------------
+        // Value
+        private double _FilterVideo_SelectiveColor_Magentas_Cyan_Value = 0;
+        public double FilterVideo_SelectiveColor_Magentas_Cyan_Value
+        {
+            get { return _FilterVideo_SelectiveColor_Magentas_Cyan_Value; }
+            set
+            {
+                if (_FilterVideo_SelectiveColor_Magentas_Cyan_Value == value)
+                {
+                    return;
+                }
+
+                _FilterVideo_SelectiveColor_Magentas_Cyan_Value = value;
+                OnPropertyChanged("FilterVideo_SelectiveColor_Magentas_Cyan_Value");
+            }
+        }
+
+        // -------------------------
+        // Magentas Magenta
+        // -------------------------
+        // Value
+        private double _FilterVideo_SelectiveColor_Magentas_Magenta_Value = 0;
+        public double FilterVideo_SelectiveColor_Magentas_Magenta_Value
+        {
+            get { return _FilterVideo_SelectiveColor_Magentas_Magenta_Value; }
+            set
+            {
+                if (_FilterVideo_SelectiveColor_Magentas_Magenta_Value == value)
+                {
+                    return;
+                }
+
+                _FilterVideo_SelectiveColor_Magentas_Magenta_Value = value;
+                OnPropertyChanged("FilterVideo_SelectiveColor_Magentas_Magenta_Value");
+            }
+        }
+
+        // -------------------------
+        // Magentas Yellow
+        // -------------------------
+        // Value
+        private double _FilterVideo_SelectiveColor_Magentas_Yellow_Value = 0;
+        public double FilterVideo_SelectiveColor_Magentas_Yellow_Value
+        {
+            get { return _FilterVideo_SelectiveColor_Magentas_Yellow_Value; }
+            set
+            {
+                if (_FilterVideo_SelectiveColor_Magentas_Yellow_Value == value)
+                {
+                    return;
+                }
+
+                _FilterVideo_SelectiveColor_Magentas_Yellow_Value = value;
+                OnPropertyChanged("FilterVideo_SelectiveColor_Magentas_Yellow_Value");
+            }
+        }
+
+        // --------------------------------------------------
+        // Whites
+        // --------------------------------------------------
+        // -------------------------
+        // Whites Cyan
+        // -------------------------
+        // Value
+        private double _FilterVideo_SelectiveColor_Whites_Cyan_Value = 0;
+        public double FilterVideo_SelectiveColor_Whites_Cyan_Value
+        {
+            get { return _FilterVideo_SelectiveColor_Whites_Cyan_Value; }
+            set
+            {
+                if (_FilterVideo_SelectiveColor_Whites_Cyan_Value == value)
+                {
+                    return;
+                }
+
+                _FilterVideo_SelectiveColor_Whites_Cyan_Value = value;
+                OnPropertyChanged("FilterVideo_SelectiveColor_Whites_Cyan_Value");
+            }
+        }
+
+        // -------------------------
+        // Whites Magenta
+        // -------------------------
+        // Value
+        private double _FilterVideo_SelectiveColor_Whites_Magenta_Value = 0;
+        public double FilterVideo_SelectiveColor_Whites_Magenta_Value
+        {
+            get { return _FilterVideo_SelectiveColor_Whites_Magenta_Value; }
+            set
+            {
+                if (_FilterVideo_SelectiveColor_Whites_Magenta_Value == value)
+                {
+                    return;
+                }
+
+                _FilterVideo_SelectiveColor_Whites_Magenta_Value = value;
+                OnPropertyChanged("FilterVideo_SelectiveColor_Whites_Magenta_Value");
+            }
+        }
+
+        // -------------------------
+        // Whites Yellow
+        // -------------------------
+        // Value
+        private double _FilterVideo_SelectiveColor_Whites_Yellow_Value = 0;
+        public double FilterVideo_SelectiveColor_Whites_Yellow_Value
+        {
+            get { return _FilterVideo_SelectiveColor_Whites_Yellow_Value; }
+            set
+            {
+                if (_FilterVideo_SelectiveColor_Whites_Yellow_Value == value)
+                {
+                    return;
+                }
+
+                _FilterVideo_SelectiveColor_Whites_Yellow_Value = value;
+                OnPropertyChanged("FilterVideo_SelectiveColor_Whites_Yellow_Value");
+            }
+        }
+
+        // --------------------------------------------------
+        // Neutrals
+        // --------------------------------------------------
+        // -------------------------
+        // Neutrals Cyan
+        // -------------------------
+        // Value
+        private double _FilterVideo_SelectiveColor_Neutrals_Cyan_Value = 0;
+        public double FilterVideo_SelectiveColor_Neutrals_Cyan_Value
+        {
+            get { return _FilterVideo_SelectiveColor_Neutrals_Cyan_Value; }
+            set
+            {
+                if (_FilterVideo_SelectiveColor_Neutrals_Cyan_Value == value)
+                {
+                    return;
+                }
+
+                _FilterVideo_SelectiveColor_Neutrals_Cyan_Value = value;
+                OnPropertyChanged("FilterVideo_SelectiveColor_Neutrals_Cyan_Value");
+            }
+        }
+
+        // -------------------------
+        // Neutrals Magenta
+        // -------------------------
+        // Value
+        private double _FilterVideo_SelectiveColor_Neutrals_Magenta_Value = 0;
+        public double FilterVideo_SelectiveColor_Neutrals_Magenta_Value
+        {
+            get { return _FilterVideo_SelectiveColor_Neutrals_Magenta_Value; }
+            set
+            {
+                if (_FilterVideo_SelectiveColor_Neutrals_Magenta_Value == value)
+                {
+                    return;
+                }
+
+                _FilterVideo_SelectiveColor_Neutrals_Magenta_Value = value;
+                OnPropertyChanged("FilterVideo_SelectiveColor_Neutrals_Magenta_Value");
+            }
+        }
+
+        // -------------------------
+        // Neutrals Yellow
+        // -------------------------
+        // Value
+        private double _FilterVideo_SelectiveColor_Neutrals_Yellow_Value = 0;
+        public double FilterVideo_SelectiveColor_Neutrals_Yellow_Value
+        {
+            get { return _FilterVideo_SelectiveColor_Neutrals_Yellow_Value; }
+            set
+            {
+                if (_FilterVideo_SelectiveColor_Neutrals_Yellow_Value == value)
+                {
+                    return;
+                }
+
+                _FilterVideo_SelectiveColor_Neutrals_Yellow_Value = value;
+                OnPropertyChanged("FilterVideo_SelectiveColor_Neutrals_Yellow_Value");
+            }
+        }
+
+        // --------------------------------------------------
+        // Blacks
+        // --------------------------------------------------
+        // -------------------------
+        // Blacks Cyan
+        // -------------------------
+        // Value
+        private double _FilterVideo_SelectiveColor_Blacks_Cyan_Value = 0;
+        public double FilterVideo_SelectiveColor_Blacks_Cyan_Value
+        {
+            get { return _FilterVideo_SelectiveColor_Blacks_Cyan_Value; }
+            set
+            {
+                if (_FilterVideo_SelectiveColor_Blacks_Cyan_Value == value)
+                {
+                    return;
+                }
+
+                _FilterVideo_SelectiveColor_Blacks_Cyan_Value = value;
+                OnPropertyChanged("FilterVideo_SelectiveColor_Blacks_Cyan_Value");
+            }
+        }
+
+        // -------------------------
+        // Blacks Magenta
+        // -------------------------
+        // Value
+        private double _FilterVideo_SelectiveColor_Blacks_Magenta_Value = 0;
+        public double FilterVideo_SelectiveColor_Blacks_Magenta_Value
+        {
+            get { return _FilterVideo_SelectiveColor_Blacks_Magenta_Value; }
+            set
+            {
+                if (_FilterVideo_SelectiveColor_Blacks_Magenta_Value == value)
+                {
+                    return;
+                }
+
+                _FilterVideo_SelectiveColor_Blacks_Magenta_Value = value;
+                OnPropertyChanged("FilterVideo_SelectiveColor_Blacks_Magenta_Value");
+            }
+        }
+
+        // -------------------------
+        // Blacks Yellow
+        // -------------------------
+        // Value
+        private double _FilterVideo_SelectiveColor_Blacks_Yellow_Value = 0;
+        public double FilterVideo_SelectiveColor_Blacks_Yellow_Value
+        {
+            get { return _FilterVideo_SelectiveColor_Blacks_Yellow_Value; }
+            set
+            {
+                if (_FilterVideo_SelectiveColor_Blacks_Yellow_Value == value)
+                {
+                    return;
+                }
+
+                _FilterVideo_SelectiveColor_Blacks_Yellow_Value = value;
+                OnPropertyChanged("FilterVideo_SelectiveColor_Blacks_Yellow_Value");
+            }
+        }
+
 
 
         // --------------------------------------------------------------------------------------------------------
@@ -3634,51 +4432,157 @@ namespace Axiom
         // -------------------------
         // Lowpass
         // -------------------------
-        public static ObservableCollection<string> _cboFilterAudio_Lowpass_Items = new ObservableCollection<string>()
+        // Items
+        public static List<string> _FilterAudio_Lowpass_Items = new List<string>()
         {
             "disabled",
             "enabled"
         };
-        public static ObservableCollection<string> cboFilterAudio_Lowpass_Items
+        public static List<string> FilterAudio_Lowpass_Items
         {
-            get { return _cboFilterAudio_Lowpass_Items; }
-            set { _cboFilterAudio_Lowpass_Items = value; }
+            get { return _FilterAudio_Lowpass_Items; }
+            set { _FilterAudio_Lowpass_Items = value; }
         }
 
-        public static string cboFilterAudio_Lowpass_SelectedItem { get; set; }
+        // Selected Item
+        private string _FilterAudio_Lowpass_SelectedItem { get; set; }
+        public string FilterAudio_Lowpass_SelectedItem
+        {
+            get { return _FilterAudio_Lowpass_SelectedItem; }
+            set
+            {
+                if (_FilterAudio_Lowpass_SelectedItem == value)
+                {
+                    return;
+                }
+
+                _FilterAudio_Lowpass_SelectedItem = value;
+                OnPropertyChanged("FilterAudio_Lowpass_SelectedItem");
+            }
+        }
 
         // -------------------------
         // Highpass
         // -------------------------
-        public static ObservableCollection<string> _cboFilterAudio_Highpass_Items = new ObservableCollection<string>()
+        // Items
+        public static List<string> _FilterAudio_Highpass_Items = new List<string>()
         {
             "disabled",
             "enabled"
         };
-        public static ObservableCollection<string> cboFilterAudio_Highpass_Items
+        public static List<string> FilterAudio_Highpass_Items
         {
-            get { return _cboFilterAudio_Highpass_Items; }
-            set { _cboFilterAudio_Highpass_Items = value; }
+            get { return _FilterAudio_Highpass_Items; }
+            set { _FilterAudio_Highpass_Items = value; }
         }
+        // Selected Item
+        private string _FilterAudio_Highpass_SelectedItem { get; set; }
+        public string FilterAudio_Highpass_SelectedItem
+        {
+            get { return _FilterAudio_Highpass_SelectedItem; }
+            set
+            {
+                if (_FilterAudio_Highpass_SelectedItem == value)
+                {
+                    return;
+                }
 
-        public static string cboFilterAudio_Highpass_SelectedItem { get; set; }
+                _FilterAudio_Highpass_SelectedItem = value;
+                OnPropertyChanged("FilterAudio_Highpass_SelectedItem");
+            }
+        }
 
         // -------------------------
         // Headphones (Earwax)
         // -------------------------
-        public static ObservableCollection<string> _cboFilterAudio_Headphones_Items = new ObservableCollection<string>()
+        // Items
+        public static List<string> _FilterAudio_Headphones_Items = new List<string>()
         {
             "disabled",
             "enabled"
         };
-        public static ObservableCollection<string> cboFilterAudio_Headphones_Items
+        public static List<string> FilterAudio_Headphones_Items
         {
-            get { return _cboFilterAudio_Headphones_Items; }
-            set { _cboFilterAudio_Headphones_Items = value; }
+            get { return _FilterAudio_Headphones_Items; }
+            set { _FilterAudio_Headphones_Items = value; }
         }
 
-        public static string cboFilterAudio_Headphones_SelectedItem { get; set; }
+        // Selected Item
+        private string _FilterAudio_Headphones_SelectedItem { get; set; }
+        public string FilterAudio_Headphones_SelectedItem
+        {
+            get { return _FilterAudio_Headphones_SelectedItem; }
+            set
+            {
+                if (_FilterAudio_Headphones_SelectedItem == value)
+                {
+                    return;
+                }
 
+                _FilterAudio_Headphones_SelectedItem = value;
+                OnPropertyChanged("FilterAudio_Headphones_SelectedItem");
+            }
+        }
+
+        // -------------------------
+        // Contrast
+        // -------------------------
+        // Value
+        private double _FilterAudio_Contrast_Value = 0;
+        public double FilterAudio_Contrast_Value
+        {
+            get { return _FilterAudio_Contrast_Value; }
+            set
+            {
+                if (_FilterAudio_Contrast_Value == value)
+                {
+                    return;
+                }
+
+                _FilterAudio_Contrast_Value = value;
+                OnPropertyChanged("FilterAudio_Contrast_Value");
+            }
+        }
+
+        // -------------------------
+        // Extra Stereo
+        // -------------------------
+        // Value
+        private double _FilterAudio_ExtraStereo_Value = 0;
+        public double FilterAudio_ExtraStereo_Value
+        {
+            get { return _FilterAudio_ExtraStereo_Value; }
+            set
+            {
+                if (_FilterAudio_ExtraStereo_Value == value)
+                {
+                    return;
+                }
+
+                _FilterAudio_ExtraStereo_Value = value;
+                OnPropertyChanged("FilterAudio_ExtraStereo_Value");
+            }
+        }
+
+        // -------------------------
+        // Tempo
+        // -------------------------
+        // Value
+        private double _FilterAudio_Tempo_Value = 100;
+        public double FilterAudio_Tempo_Value
+        {
+            get { return _FilterAudio_Tempo_Value; }
+            set
+            {
+                if (_FilterAudio_Tempo_Value == value)
+                {
+                    return;
+                }
+
+                _FilterAudio_Tempo_Value = value;
+                OnPropertyChanged("FilterAudio_Tempo_Value");
+            }
+        }
 
 
     }

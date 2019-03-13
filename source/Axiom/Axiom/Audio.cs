@@ -983,12 +983,12 @@ namespace Axiom
         /// <summary>
         ///     Hard Limiter Filter (Method)
         /// <summary>
-        public static void HardLimiter(MainWindow mainwindow)
+        public static void HardLimiter(ViewModel vm)
         {
-            double value = mainwindow.slAudioHardLimiter.Value;
+            double value = vm.AudioHardLimiter_Value;
 
             // If enabled and not default
-            if (mainwindow.slAudioHardLimiter.IsEnabled == true && 
+            if (vm.AudioHardLimiter_IsEnabled == true && 
                 value != 1)
             {
                 aLimiter = "alimiter=level_in=1:level_out=1:limit=" + Convert.ToString(Math.Round(value, 2)) + ":attack=7:release=100:level=disabled";

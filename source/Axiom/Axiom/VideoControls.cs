@@ -1345,7 +1345,7 @@ namespace Axiom
         /// <summary>
         ///    Auto Copy Conditions Check
         /// <summary>
-        public static bool AutoCopyConditionsCheck(MainWindow mainwindow, 
+        public static bool AutoCopyConditionsCheck(/*MainWindow mainwindow, */
                                                    ViewModel vm, 
                                                    string inputExt, 
                                                    string outputExt)
@@ -1363,56 +1363,56 @@ namespace Axiom
 
                 // Filters
                 // Fix
-                (string)mainwindow.cboFilterVideo_Deband.SelectedItem == "disabled" &&
-                (string)mainwindow.cboFilterVideo_Deshake.SelectedItem == "disabled" &&
-                (string)mainwindow.cboFilterVideo_Deflicker.SelectedItem == "disabled" &&
-                (string)mainwindow.cboFilterVideo_Dejudder.SelectedItem == "disabled" &&
-                (string)mainwindow.cboFilterVideo_Denoise.SelectedItem == "disabled" &&
+                vm.FilterVideo_Deband_SelectedItem == "disabled" &&
+                vm.FilterVideo_Deshake_SelectedItem == "disabled" &&
+                vm.FilterVideo_Deflicker_SelectedItem == "disabled" &&
+                vm.FilterVideo_Dejudder_SelectedItem == "disabled" &&
+                vm.FilterVideo_Denoise_SelectedItem == "disabled" &&
                 // Selective Color
                 // Reds
-                mainwindow.slFiltersVideo_SelectiveColor_Reds_Cyan.Value == 0 &&
-                mainwindow.slFiltersVideo_SelectiveColor_Reds_Magenta.Value == 0 &&
-                mainwindow.slFiltersVideo_SelectiveColor_Reds_Yellow.Value == 0 &&
+                vm.FilterVideo_SelectiveColor_Reds_Cyan_Value == 0 &&
+                vm.FilterVideo_SelectiveColor_Reds_Magenta_Value == 0 &&
+                vm.FilterVideo_SelectiveColor_Reds_Yellow_Value == 0 &&
                 // Yellows
-                mainwindow.slFiltersVideo_SelectiveColor_Yellows_Cyan.Value == 0 &&
-                mainwindow.slFiltersVideo_SelectiveColor_Yellows_Magenta.Value == 0 &&
-                mainwindow.slFiltersVideo_SelectiveColor_Yellows_Yellow.Value == 0 &&
+                vm.FilterVideo_SelectiveColor_Yellows_Cyan_Value == 0 &&
+                vm.FilterVideo_SelectiveColor_Yellows_Magenta_Value == 0 &&
+                vm.FilterVideo_SelectiveColor_Yellows_Yellow_Value == 0 &&
                 // Greens
-                mainwindow.slFiltersVideo_SelectiveColor_Greens_Cyan.Value == 0 &&
-                mainwindow.slFiltersVideo_SelectiveColor_Greens_Magenta.Value == 0 &&
-                mainwindow.slFiltersVideo_SelectiveColor_Greens_Yellow.Value == 0 &&
+                vm.FilterVideo_SelectiveColor_Greens_Cyan_Value == 0 &&
+                vm.FilterVideo_SelectiveColor_Greens_Magenta_Value == 0 &&
+                vm.FilterVideo_SelectiveColor_Greens_Yellow_Value == 0 &&
                 // Cyans
-                mainwindow.slFiltersVideo_SelectiveColor_Cyans_Cyan.Value == 0 &&
-                mainwindow.slFiltersVideo_SelectiveColor_Cyans_Magenta.Value == 0 &&
-                mainwindow.slFiltersVideo_SelectiveColor_Cyans_Yellow.Value == 0 &&
+                vm.FilterVideo_SelectiveColor_Cyans_Cyan_Value == 0 &&
+                vm.FilterVideo_SelectiveColor_Cyans_Magenta_Value == 0 &&
+                vm.FilterVideo_SelectiveColor_Cyans_Yellow_Value == 0 &&
                 // Blues
-                mainwindow.slFiltersVideo_SelectiveColor_Blues_Cyan.Value == 0 &&
-                mainwindow.slFiltersVideo_SelectiveColor_Blues_Magenta.Value == 0 &&
-                mainwindow.slFiltersVideo_SelectiveColor_Blues_Yellow.Value == 0 &&
+                vm.FilterVideo_SelectiveColor_Blues_Cyan_Value == 0 &&
+                vm.FilterVideo_SelectiveColor_Blues_Magenta_Value == 0 &&
+                vm.FilterVideo_SelectiveColor_Blues_Yellow_Value == 0 &&
                 // Magentas
-                mainwindow.slFiltersVideo_SelectiveColor_Magentas_Cyan.Value == 0 &&
-                mainwindow.slFiltersVideo_SelectiveColor_Magentas_Magenta.Value == 0 &&
-                mainwindow.slFiltersVideo_SelectiveColor_Magentas_Yellow.Value == 0 &&
+                vm.FilterVideo_SelectiveColor_Magentas_Cyan_Value == 0 &&
+                vm.FilterVideo_SelectiveColor_Magentas_Magenta_Value == 0 &&
+                vm.FilterVideo_SelectiveColor_Magentas_Yellow_Value == 0 &&
                 // Whites
-                mainwindow.slFiltersVideo_SelectiveColor_Whites_Cyan.Value == 0 &&
-                mainwindow.slFiltersVideo_SelectiveColor_Whites_Magenta.Value == 0 &&
-                mainwindow.slFiltersVideo_SelectiveColor_Whites_Yellow.Value == 0 &&
+                vm.FilterVideo_SelectiveColor_Whites_Cyan_Value == 0 &&
+                vm.FilterVideo_SelectiveColor_Whites_Magenta_Value == 0 &&
+                vm.FilterVideo_SelectiveColor_Whites_Yellow_Value == 0 &&
                 // Neutrals
-                mainwindow.slFiltersVideo_SelectiveColor_Neutrals_Cyan.Value == 0 &&
-                mainwindow.slFiltersVideo_SelectiveColor_Neutrals_Magenta.Value == 0 &&
-                mainwindow.slFiltersVideo_SelectiveColor_Neutrals_Yellow.Value == 0 &&
+                vm.FilterVideo_SelectiveColor_Neutrals_Cyan_Value == 0 &&
+                vm.FilterVideo_SelectiveColor_Neutrals_Magenta_Value == 0 &&
+                vm.FilterVideo_SelectiveColor_Neutrals_Yellow_Value == 0 &&
                 // Blacks
-                mainwindow.slFiltersVideo_SelectiveColor_Blacks_Cyan.Value == 0 &&
-                mainwindow.slFiltersVideo_SelectiveColor_Blacks_Magenta.Value == 0 &&
-                mainwindow.slFiltersVideo_SelectiveColor_Blacks_Yellow.Value == 0 &&
+                vm.FilterVideo_SelectiveColor_Blacks_Cyan_Value == 0 &&
+                vm.FilterVideo_SelectiveColor_Blacks_Magenta_Value == 0 &&
+                vm.FilterVideo_SelectiveColor_Blacks_Yellow_Value == 0 &&
 
                 // EQ
-                mainwindow.slFiltersVideo_EQ_Brightness.Value == 0 &&
-                mainwindow.slFiltersVideo_EQ_Contrast.Value == 0 &&
-                mainwindow.slFiltersVideo_EQ_Saturation.Value == 0 &&
-                mainwindow.slFiltersVideo_EQ_Gamma.Value == 0 &&
+                vm.FilterVideo_EQ_Brightness_Value == 0 &&
+                vm.FilterVideo_EQ_Contrast_Value == 0 &&
+                vm.FilterVideo_EQ_Saturation_Value == 0 &&
+                vm.FilterVideo_EQ_Gamma_Value == 0 &&
 
-                // Extension Match
+                // File Extension Match
                 //!string.IsNullOrEmpty(inputExt) &&
                 //!string.IsNullOrEmpty(outputExt) &&
                 string.Equals(inputExt, outputExt, StringComparison.CurrentCultureIgnoreCase)
@@ -1439,13 +1439,13 @@ namespace Axiom
         /// <summary>
         ///    Copy Controls
         /// <summary>
-        public static void CopyControls(MainWindow mainwindow, ViewModel vm)
+        public static void CopyControls(/*MainWindow mainwindow, */ViewModel vm)
         {
             // -------------------------
             // Conditions Check
             // Enable
             // -------------------------
-            if (AutoCopyConditionsCheck(mainwindow, vm, MainWindow.inputExt, MainWindow.outputExt) == true)
+            if (AutoCopyConditionsCheck(/*mainwindow, */vm, MainWindow.inputExt, MainWindow.outputExt) == true)
             {
                 // -------------------------
                 // Set Video Codec Combobox Selected Item to Copy
@@ -1565,14 +1565,14 @@ namespace Axiom
         /// <remarks>
         ///     Input Extension is Same as Output Extension and Video Quality is Auto
         /// </remarks>
-        public static void AutoCopyVideoCodec(MainWindow mainwindow, ViewModel vm)
+        public static void AutoCopyVideoCodec(/*MainWindow mainwindow, */ViewModel vm)
         {
             // --------------------------------------------------
             // When Input Extension is Not Empty
             // --------------------------------------------------
             if (!string.IsNullOrEmpty(MainWindow.inputExt))
             {
-                CopyControls(mainwindow, vm);
+                CopyControls(/*mainwindow, */vm);
             }
 
             // --------------------------------------------------
@@ -1581,7 +1581,7 @@ namespace Axiom
             else if (string.IsNullOrEmpty(MainWindow.inputExt) && 
                 vm.VideoCodec_SelectedItem == "Copy")
             {
-                CopyControls(mainwindow, vm);
+                CopyControls(/*mainwindow, */vm);
             } 
         } 
 

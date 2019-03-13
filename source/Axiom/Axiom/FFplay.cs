@@ -69,7 +69,7 @@ namespace Axiom
                     Video.FPS(vm,
                               vm.FPS_SelectedItem
                               ),
-                    VideoFilters.VideoFilter(mainwindow, vm),
+                    VideoFilters.VideoFilter(/*mainwindow, */vm),
                     //Video.ScalingAlgorithm(vm),
                     Video.Images(vm),
                     //Video.Optimize(mainwindow),
@@ -88,7 +88,7 @@ namespace Axiom
                     Audio.Channel(vm,
                                   vm.AudioChannel_SelectedItem
                                  ),
-                    AudioFilters.AudioFilter(mainwindow, vm),
+                    AudioFilters.AudioFilter(/*mainwindow, */vm),
                     //Streams.AudioStreamMaps(mainwindow),
 
                     //Format.Cut(mainwindow),

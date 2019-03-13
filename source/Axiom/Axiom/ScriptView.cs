@@ -60,12 +60,21 @@ namespace Axiom
         /// </summary>
         public static void ClearScriptView(ViewModel vm)
         {
+            //MainWindow mainwindow = (MainWindow)System.Windows.Application.Current.MainWindow;
+
             // Clear Old Text
             //mainwindow.rtbScriptView.Document = new FlowDocument(scriptParagraph);
             //mainwindow.rtbScriptView.BeginChange();
             //mainwindow.rtbScriptView.SelectAll();
+            //mainwindow.rtbScriptView.Selection.Text = string.Empty;
+            //mainwindow.rtbScriptView.EndChange();
+
+            //vm.ScriptView_FlowDocument = new FlowDocument(vm.ScriptView_Paragraph);
+            //mainwindow.rtbScriptView.BeginChange();
+            //mainwindow.rtbScriptView.SelectAll();
             //mainwindow.rtbScriptView.Selection.Text = "";
             //mainwindow.rtbScriptView.EndChange();
+
             vm.ScriptView_Text = string.Empty;
         }
 

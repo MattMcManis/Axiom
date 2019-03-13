@@ -214,7 +214,7 @@ namespace Axiom
         /// <summary>
         /// Subtitle Maps
         /// </summary>
-        public static String SubtitleMaps(MainWindow mainwindow, ViewModel vm)
+        public static String SubtitleMaps(/*MainWindow mainwindow, */ViewModel vm)
         {
             // --------------------------------------------------------------------
             // Subtitle Map
@@ -256,15 +256,24 @@ namespace Axiom
                     // Default Subtitle
                     // -------------------------
                     string checkedItem = string.Empty;
-                    for (var i = 0; i < mainwindow.listViewSubtitles.Items.Count; i++)
+                    for (var i = 0; i < vm.SubtitleListView_Items.Count; i++)
                     {
                         // If list contains a checked item
-                        if (mainwindow.listViewSubtitles.SelectedItems.Contains(mainwindow.listViewSubtitles.Items[i]))
+                        if (vm.SubtitleListView_SelectedItems.Contains(vm.SubtitleListView_Items[i]))
                         {
                             // Get Index Position
                             checkedItem = i.ToString();
                         }
                     }
+                    //for (var i = 0; i < mainwindow.listViewSubtitles.Items.Count; i++)
+                    //{
+                    //    // If list contains a checked item
+                    //    if (mainwindow.listViewSubtitles.SelectedItems.Contains(mainwindow.listViewSubtitles.Items[i]))
+                    //    {
+                    //        // Get Index Position
+                    //        checkedItem = i.ToString();
+                    //    }
+                    //}
 
                     // Create Default Subtitle
                     string disposition = string.Empty;

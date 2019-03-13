@@ -1909,7 +1909,7 @@ namespace Axiom
         /// <summary>
         /// Crop (Method)
         /// <summary>
-        public static void Crop(MainWindow mainwindow, CropWindow cropwindow, ViewModel vm)
+        public static void Crop(/*MainWindow mainwindow, */CropWindow cropwindow, ViewModel vm)
         {
             // -------------------------
             // Clear

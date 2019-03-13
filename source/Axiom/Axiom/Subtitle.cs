@@ -75,10 +75,10 @@ namespace Axiom
             // -------------------------
             // External
             // -------------------------
-            if (vm.SubtitleStream_SelectedItem == "external"
-                && vm.SubtitleCodec_SelectedItem != "Burn" // Ignore if Burn
-                && subtitleFilePathsList != null
-                && subtitleFilePathsList.Count > 0)
+            if (vm.SubtitleStream_SelectedItem == "external" &&
+                vm.SubtitleCodec_SelectedItem != "Burn" &&  // Ignore if Burn
+                subtitleFilePathsList != null &&
+                subtitleFilePathsList.Count > 0)
             {
                 subtitles = "-i " + string.Join(" \r\n\r\n-i ", subtitleFilePathsList
                                           .Where(s => !string.IsNullOrEmpty(s))

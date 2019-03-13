@@ -503,7 +503,7 @@ namespace Axiom
         /// <summary>
         ///    Auto Copy Conditions Check
         /// <summary>
-        public static bool AutoCopyConditionsCheck(MainWindow mainwindow,
+        public static bool AutoCopyConditionsCheck(/*MainWindow mainwindow,*/
                                                    ViewModel vm,
                                                    string inputExt,
                                                    string outputExt)
@@ -515,6 +515,15 @@ namespace Axiom
                 vm.AudioBitDepth_SelectedItem == "auto" &&
                 vm.AudioHardLimiter_Value == 1 &&
                 vm.Volume_Text == "100" &&
+                // Filters
+                vm.FilterAudio_Lowpass_SelectedItem == "disabled" &&
+                vm.FilterAudio_Highpass_SelectedItem == "disabled" &&
+                vm.FilterAudio_Headphones_SelectedItem == "disabled" &&
+                vm.FilterAudio_Contrast_Value == 0 &&
+                vm.FilterAudio_ExtraStereo_Value == 0 &&
+                vm.FilterAudio_Tempo_Value == 100 &&
+                vm.FilterVideo_EQ_Gamma_Value == 0 &&
+                // File Extension Match
                 string.Equals(inputExt, outputExt, StringComparison.CurrentCultureIgnoreCase)
                 )
             {
@@ -533,13 +542,13 @@ namespace Axiom
         /// <summary>
         ///    Copy Controls
         /// <summary>
-        public static void CopyControls(MainWindow mainwindow, ViewModel vm)
+        public static void CopyControls(/*MainWindow mainwindow, */ViewModel vm)
         {
             // -------------------------
             // Conditions Check
             // Enable
             // -------------------------
-            if (AutoCopyConditionsCheck(mainwindow, vm, MainWindow.inputExt, MainWindow.outputExt) == true)
+            if (AutoCopyConditionsCheck(/*mainwindow, */vm, MainWindow.inputExt, MainWindow.outputExt) == true)
             {
                 // -------------------------
                 // Set Audio Codec Combobox Selected Item to Copy
@@ -665,14 +674,14 @@ namespace Axiom
         /// <summary>
         ///    Auto Codec Copy
         /// <summary>
-        public static void AutoCopyAudioCodec(MainWindow mainwindow, ViewModel vm)
+        public static void AutoCopyAudioCodec(/*MainWindow mainwindow, */ViewModel vm)
         {
             // --------------------------------------------------
             // When Input Extension is Not Empty
             // --------------------------------------------------
             if (!string.IsNullOrEmpty(MainWindow.inputExt))
             {
-                CopyControls(mainwindow, vm);
+                CopyControls(/*mainwindow, */vm);
             }
 
             // --------------------------------------------------
@@ -681,7 +690,7 @@ namespace Axiom
             else if (string.IsNullOrEmpty(MainWindow.inputExt) &&
                 vm.AudioCodec_SelectedItem == "Copy")
             {
-                CopyControls(mainwindow, vm);
+                CopyControls(/*mainwindow, */vm);
             }
         }
 
