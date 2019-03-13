@@ -107,7 +107,7 @@ namespace Axiom
         public static string pass2; // x265 Modifier
 
         // Crop
-        public static CropWindow cropwindow;
+        //public static CropWindow cropwindow;
 
         // Batch
         public static string batchVideoAuto;

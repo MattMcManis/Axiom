@@ -179,6 +179,19 @@ namespace Axiom
             ///     Control Binding
             /// </summary>
             // -----------------------------------------------------------------
+            // Default Items
+            // WebM, VP8, Vorbis
+            //vm.VideoCodec_Items = Containers.WebM.video;
+            //vm.VideoEncodeSpeed_Items = VP8.encodeSpeed;
+            //vm.VideoQuality_Items = VP8.quality;
+            //vm.Video_Optimize_Items = VP8.optimize;
+            //vm.Optimize_Tune_Items = VP8.tune;
+            //vm.Optimize_Profile_Items = VP8.profile;
+            //vm.Optimize_Level_Items = VP8.level;
+            //vm.SubtitleCodec_Items = Containers.WebM.subtitle;
+            //vm.AudioCodec_Items = Containers.WebM.audio;
+            //vm.AudioQuality_Items = Vorbis.quality;
+
             DataContext = vm;
 
             // -------------------------

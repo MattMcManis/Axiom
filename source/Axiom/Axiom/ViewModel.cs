@@ -1153,7 +1153,6 @@ namespace Axiom
         {
             public string Name { get; set; }
             public string NA { get; set; }
-            //public string Auto { get; set; }
             public string Lossless { get; set; }
             public string CRF { get; set; }
             public string CRF_Bitrate { get; set; }

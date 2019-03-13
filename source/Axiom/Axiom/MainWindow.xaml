@@ -349,6 +349,7 @@
                                     Height="26" Grid.Column="1" />
                             <ComboBox x:Name="cboContainer" 
                                       Style="{DynamicResource ComboBoxWhite}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxWhiteItem}" 
                                       ItemsSource="{Binding Container_Items}"
                                       SelectedIndex="{Binding Container_SelectedIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                       SelectedItem="{Binding Container_SelectedItem, Mode=TwoWay}"
@@ -399,8 +400,8 @@
 
                             <ComboBox x:Name="cboEncodeSpeed" 
                                       Style="{DynamicResource ComboBoxWhite}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxWhiteItem}" 
                                       ItemsSource="{Binding VideoEncodeSpeed_Items}"
-                                      DisplayMemberPath="Name"
                                       SelectedValuePath="Name"
                                       SelectedIndex="{Binding VideoEncodeSpeed_SelectedIndex}"
                                       SelectedValue="{Binding VideoEncodeSpeed_SelectedItem, Mode=TwoWay}"
@@ -415,7 +416,19 @@
                                       ToolTipService.InitialShowDelay="1000" 
                                       ToolTipService.ShowOnDisabled="True" 
                                       ToolTip="Encoding Speed. Slower = Better Quality &amp; Compression." 
-                                      />
+                                      >
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <TextBlock DataContext="{Binding}">
+                                                <TextBlock.Text>
+                                                    <Binding Path="Name"/>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
 
 
 
@@ -654,6 +667,7 @@
                                    Grid.Column="1" />
                             <ComboBox x:Name="cboVideoCodec" 
                                       Style="{DynamicResource ComboBoxWhite}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxWhiteItem}" 
                                       ItemsSource="{Binding VideoCodec_Items}"
                                       SelectedIndex="{Binding VideoCodec_SelectedIndex}"
                                       SelectedItem="{Binding VideoCodec_SelectedItem}"
@@ -679,8 +693,8 @@
                                    Grid.Column="1" />
                             <ComboBox x:Name="cboVideoQuality" 
                                       Style="{DynamicResource ComboBoxWhite}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxWhiteItem}" 
                                       ItemsSource="{Binding VideoQuality_Items}"
-                                      DisplayMemberPath="Name"
                                       SelectedValuePath="Name"
                                       SelectedIndex="{Binding VideoQuality_SelectedIndex}"
                                       SelectedValue="{Binding VideoQuality_SelectedItem, Mode=TwoWay}"
@@ -693,7 +707,20 @@
                                       SelectionChanged="cboVideoQuality_SelectionChanged" 
                                       Grid.Column="2" 
                                       Grid.Row="2" 
-                                      Margin="0,2,0,0"/>
+                                      Margin="0,2,0,0"
+                                      >
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <TextBlock DataContext="{Binding}">
+                                                <TextBlock.Text>
+                                                    <Binding Path="Name"/>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
 
                             <!-- Pass -->
                             <Label Style="{DynamicResource LabelCustom}" 
@@ -958,8 +985,8 @@
 
                             <ComboBox x:Name="cboOptimize" 
                                       Style="{DynamicResource ComboBoxWhite}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxWhiteItem}" 
                                       ItemsSource="{Binding Video_Optimize_Items}"
-                                      DisplayMemberPath="Name"
                                       SelectedValuePath="Name"
                                       SelectedIndex="{Binding Video_Optimize_SelectedIndex}"
                                       SelectedValue="{Binding Video_Optimize_SelectedItem, Mode=TwoWay}"
@@ -973,7 +1000,20 @@
                                       Grid.Column="2" 
                                       Grid.Row="12" 
                                       ToolTipService.ShowOnDisabled="True" 
-                                      ToolTip="Optimize file for device type." Margin="0,1,0,0"/>
+                                      ToolTip="Optimize file for device type." Margin="0,1,0,0"
+                                      >
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <TextBlock DataContext="{Binding}">
+                                                <TextBlock.Text>
+                                                    <Binding Path="Name"/>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
 
                             <!-- Tune -->
                             <Label x:Name="labelTune" 
@@ -1260,6 +1300,7 @@
                                    Grid.Column="1" />
                             <ComboBox x:Name="cboAudioCodec" 
                                       Style="{DynamicResource ComboBoxWhite}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxWhiteItem}" 
                                       ItemsSource="{Binding AudioCodec_Items}"
                                       SelectedIndex="{Binding AudioCodec_SelectedIndex}"
                                       SelectedItem="{Binding AudioCodec_SelectedItem }"
@@ -1336,8 +1377,8 @@
                                    Grid.Column="1" />
                             <ComboBox x:Name="cboAudioQuality" 
                                       Style="{DynamicResource ComboBoxWhite}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxWhiteItem}" 
                                       ItemsSource="{Binding AudioQuality_Items}"
-                                      DisplayMemberPath="Name"
                                       SelectedValuePath="Name"
                                       SelectedIndex="{Binding AudioQuality_SelectedIndex}"
                                       SelectedValue="{Binding AudioQuality_SelectedItem, Mode=TwoWay}"
@@ -1350,7 +1391,20 @@
                                       SelectionChanged="cboAudioQuality_SelectionChanged" 
                                       Grid.Column="2" 
                                       Grid.Row="4" 
-                                      Margin="0,2,0,0"/>
+                                      Margin="0,2,0,0"
+                                      >
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <TextBlock DataContext="{Binding}">
+                                                <TextBlock.Text>
+                                                    <Binding Path="Name"/>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
 
                             <!-- Bit Rate -->
                             <Label 
@@ -1451,11 +1505,15 @@
                                       Grid.Column="2" 
                                       Grid.Row="6" 
                                       Margin="0,2,0,0"
-                                        >
+                                      >
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
                                         <Grid>
-                                            <TextBlock Text="{Binding Name}"></TextBlock>
+                                            <TextBlock DataContext="{Binding}">
+                                                <TextBlock.Text>
+                                                    <Binding Path="Name"/>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                         </Grid>
                                     </DataTemplate>
                                 </ComboBox.ItemTemplate>
@@ -1507,11 +1565,15 @@
                                       Grid.Column="2" 
                                       Grid.Row="7" 
                                       Margin="0,2,0,0"
-                                        >
+                                      >
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
                                         <Grid>
-                                            <TextBlock Text="{Binding Name}"></TextBlock>
+                                            <TextBlock DataContext="{Binding}">
+                                                <TextBlock.Text>
+                                                    <Binding Path="Name"/>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                         </Grid>
                                     </DataTemplate>
                                 </ComboBox.ItemTemplate>

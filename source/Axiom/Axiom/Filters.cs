@@ -694,7 +694,7 @@ namespace Axiom
                 // -------------------------
                 //  Crop
                 // -------------------------
-                Video.Crop(Video.cropwindow, vm);
+                Video.Crop(MainWindow.cropwindow, vm);
 
                 // -------------------------
                 //  Resize
