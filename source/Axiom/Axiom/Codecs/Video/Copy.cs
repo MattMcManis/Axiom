@@ -29,23 +29,21 @@ namespace Axiom
 {
     class VideoCopy
     {
+        // ---------------------------------------------------------------------------
+        // Arguments
+        // ---------------------------------------------------------------------------
+
         // -------------------------
         // Codec
         // -------------------------
         // command
         public static string codec = "-c:v copy";
 
-        // -------------------------
-        // Pixel Format
-        // -------------------------
-        // selected item
-        public static string pixfmt = "auto";
 
-        // -------------------------
-        // Framerate
-        // -------------------------
-        // selected item
-        public static string fps = "auto";
+
+        // ---------------------------------------------------------------------------
+        // Item Source
+        // ---------------------------------------------------------------------------
 
         // -------------------------
         // Encode Speed
@@ -110,15 +108,62 @@ namespace Axiom
         };
 
 
+        // ---------------------------------------------------------------------------
+        // Controls Behavior
+        // ---------------------------------------------------------------------------
+
+        // -------------------------
+        // Item Source
+        // -------------------------
+        public static void controlsItemSource(ViewModel vm)
+        {
+            // Encode Speed
+            vm.VideoEncodeSpeed_Items = encodeSpeed;
+
+            // Pass
+            vm.Pass_Items = pass;
+
+            // Video Quality
+            vm.VideoQuality_Items = quality;
+
+            // Optimize
+            vm.Video_Optimize_Items = optimize;
+            // Tune
+            vm.Optimize_Tune_Items = tune;
+            // Profile
+            vm.Optimize_Profile_Items = profile;
+            // Level
+            vm.Optimize_Level_Items = level;
+        }
+
+        // -------------------------
+        // Selected Items
+        // -------------------------
+        public static void controlsSelected(ViewModel vm)
+        {
+            // Pixel Format
+            vm.PixelFormat_SelectedItem = "auto";
+
+            // Framerate
+            vm.FPS_SelectedItem = "auto";
+        }
+
         // -------------------------
         // Checked
         // -------------------------
         public static void controlsChecked(ViewModel vm)
         {
+            // None
+        }
+
+        // -------------------------
+        // Unchecked
+        // -------------------------
+        public static void controlsUnhecked(ViewModel vm)
+        {
             // Bitrate Mode
             vm.VideoVBR_IsChecked = false;
         }
-
 
         // -------------------------
         // Enabled

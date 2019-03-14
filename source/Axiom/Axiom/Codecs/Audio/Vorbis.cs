@@ -29,10 +29,20 @@ namespace Axiom
 {
     public class Vorbis
     {
+        // ---------------------------------------------------------------------------
+        // Arguments
+
+        // ---------------------------------------------------------------------------
         // -------------------------
         // Codec
         // -------------------------
         public static string codec = "-c:a libvorbis";
+
+
+
+        // ---------------------------------------------------------------------------
+        // Item Source
+        // ---------------------------------------------------------------------------
 
         // -------------------------
         // Quality
@@ -51,11 +61,6 @@ namespace Axiom
              new ViewModel.AudioQuality() { Name = "Custom", CBR_BitMode = "-b:a", CBR = "",    VBR_BitMode = "-q:a", VBR = ""   },
              new ViewModel.AudioQuality() { Name = "Mute",   CBR_BitMode = "",     CBR = "",    VBR_BitMode = "",     VBR = ""   }
         };
-
-        // -------------------------
-        // Stream
-        // -------------------------
-        public static string stream = "all";
 
         // -------------------------
         // Channel
@@ -84,19 +89,6 @@ namespace Axiom
              new ViewModel.AudioSampleRate() { Name = "44.1k",    Frequency = "44100" },
              new ViewModel.AudioSampleRate() { Name = "48k",      Frequency = "48000" }
         };
-        //public static List<string> sampleRate = new List<string>()
-        //{
-        //    "auto",
-        //    "8k",
-        //    "11.025k",
-        //    "12k",
-        //    "16k",
-        //    "22.05k",
-        //    "24k",
-        //    "32k",
-        //    "44.1k",
-        //    "48k"
-        //};
 
         // -------------------------
         // Bit Depth
@@ -105,10 +97,39 @@ namespace Axiom
         {
              new ViewModel.AudioBitDepth() { Name = "auto", Depth = "" }
         };
-        //public static List<string> bitDepth = new List<string>()
-        //{
-        //    "auto"
-        //};
+
+
+
+        // ---------------------------------------------------------------------------
+        // Controls Behavior
+        // ---------------------------------------------------------------------------
+
+        // -------------------------
+        // Item Source
+        // -------------------------
+        public static void controlsItemSource(ViewModel vm)
+        {
+            // Quality
+            vm.AudioQuality_Items = quality;
+
+            // Channel
+            vm.AudioChannel_Items = channel;
+
+            // Samplerate
+            vm.AudioSampleRate_Items = sampleRate;
+
+            // Bit Depth
+            vm.AudioBitDepth_Items = bitDepth;
+        }
+
+        // -------------------------
+        // Selected Items
+        // -------------------------
+        public static void controlsSelected(ViewModel vm)
+        {
+
+            //vm.AudioStream_SelectedItem = "all";
+        }
 
         // -------------------------
         // Checked
@@ -117,6 +138,14 @@ namespace Axiom
         {
             // Bitrate Mode
             vm.AudioVBR_IsChecked = true;
+        }
+
+        // -------------------------
+        // Unchecked
+        // -------------------------
+        public static void controlsUnhecked(ViewModel vm)
+        {
+            // None
         }
 
         // -------------------------

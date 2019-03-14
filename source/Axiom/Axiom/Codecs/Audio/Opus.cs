@@ -29,10 +29,20 @@ namespace Axiom
 {
     public class Opus
     {
+        // ---------------------------------------------------------------------------
+        // Arguments
+        // ---------------------------------------------------------------------------
+
         // -------------------------
         // Codec
         // -------------------------
         public static string codec = "-c:a libopus";
+
+
+
+        // ---------------------------------------------------------------------------
+        // Item Source
+        // ---------------------------------------------------------------------------
 
         // -------------------------
         // Quality
@@ -53,11 +63,6 @@ namespace Axiom
         };
 
         // -------------------------
-        // Stream
-        // -------------------------
-        public static string stream = "all";
-
-        // -------------------------
         // Channel
         // -------------------------
         public static List<string> channel = new List<string>()
@@ -71,9 +76,6 @@ namespace Axiom
         // -------------------------
         // Sample Rate
         // -------------------------
-        // -------------------------
-        // Sample Rate
-        // -------------------------
         public static List<ViewModel.AudioSampleRate> sampleRate = new List<ViewModel.AudioSampleRate>()
         {
              new ViewModel.AudioSampleRate() { Name = "auto",     Frequency = "" },
@@ -83,15 +85,6 @@ namespace Axiom
              new ViewModel.AudioSampleRate() { Name = "24k",      Frequency = "24000" },
              new ViewModel.AudioSampleRate() { Name = "48k",      Frequency = "48000" },
         };
-        //public static List<string> sampleRate = new List<string>()
-        //{
-        //    "auto",
-        //    "8k",
-        //    "12k",
-        //    "16k",
-        //    "24k",
-        //    "48k"
-        //};
 
         // -------------------------
         // Bit Depth
@@ -100,10 +93,37 @@ namespace Axiom
         {
              new ViewModel.AudioBitDepth() { Name = "auto", Depth = "" }
         };
-        //public static List<string> bitDepth = new List<string>()
-        //{
-        //    "auto"
-        //};
+
+
+        // ---------------------------------------------------------------------------
+        // Controls Behavior
+        // ---------------------------------------------------------------------------
+
+        // -------------------------
+        // Item Source
+        // -------------------------
+        public static void controlsItemSource(ViewModel vm)
+        {
+            // Quality
+            vm.AudioQuality_Items = quality;
+
+            // Channel
+            vm.AudioChannel_Items = channel;
+
+            // Samplerate
+            vm.AudioSampleRate_Items = sampleRate;
+
+            // Bit Depth
+            vm.AudioBitDepth_Items = bitDepth;
+        }
+
+        // -------------------------
+        // Selected Items
+        // -------------------------
+        public static void controlsSelected(ViewModel vm)
+        {
+            //vm.AudioStream_SelectedItem = "all";
+        }
 
         // -------------------------
         // Checked
@@ -112,6 +132,14 @@ namespace Axiom
         {
             // Bitrate Mode
             vm.AudioVBR_IsChecked = true;
+        }
+
+        // -------------------------
+        // Unchecked
+        // -------------------------
+        public static void controlsUnhecked(ViewModel vm)
+        {
+            // None
         }
 
         // -------------------------

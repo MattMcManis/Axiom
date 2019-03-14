@@ -29,21 +29,49 @@ namespace Axiom
 {
     public class SubtitleCopy
     {
+        // ---------------------------------------------------------------------------
+        // Arguments
+        // ---------------------------------------------------------------------------
+
         // -------------------------
         // Codec
         // -------------------------
         public static string codec = "-c:s copy";
 
+
+        // ---------------------------------------------------------------------------
+        // Controls Behavior
+        // ---------------------------------------------------------------------------
+
         // -------------------------
-        // Stream
+        // Item Source
         // -------------------------
-        // selected item
-        public static string stream = "all";
+        public static void controlsItemSource(ViewModel vm)
+        {
+            // None
+        }
+
+        // -------------------------
+        // Selected Items
+        // -------------------------
+        public static void controlsSelected(ViewModel vm)
+        {
+            // Stream
+            vm.SubtitleStream_SelectedItem = "all";
+        }
 
         // -------------------------
         // Checked
         // -------------------------
         public static void controlsChecked(ViewModel vm)
+        {
+            // None
+        }
+
+        // -------------------------
+        // Unchecked
+        // -------------------------
+        public static void controlsUnhecked(ViewModel vm)
         {
             // None
         }

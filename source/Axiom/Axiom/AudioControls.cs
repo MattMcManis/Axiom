@@ -54,26 +54,20 @@ namespace Axiom
             // -------------------------
             if (selectedCodec == "Vorbis")
             {
-                // Codec
+                // Audio Codec
                 vm.AudioCodec_Command = Vorbis.codec;
 
-                // Quality
-                vm.AudioQuality_Items = Vorbis.quality;
+                // Item Source
+                Vorbis.controlsItemSource(vm);
 
-                // Stream
-                //vm.AudioStream_SelectedItem = Vorbis.stream;
-
-                // Channel
-                vm.AudioChannel_Items = Vorbis.channel;
-
-                // Samplerate
-                vm.AudioSampleRate_Items = Vorbis.sampleRate;
-
-                // Bit Depth
-                vm.AudioBitDepth_Items = Vorbis.bitDepth;
+                // Selected Items
+                Vorbis.controlsSelected(vm);
 
                 // Checked
                 Vorbis.controlsChecked(vm);
+
+                // Unhecked
+                Vorbis.controlsUnhecked(vm);
 
                 // Enabled
                 Vorbis.controlsEnable(vm);
@@ -87,26 +81,20 @@ namespace Axiom
             // -------------------------
             else if (selectedCodec == "Opus")
             {
-                // Codec
+                // Audio Codec
                 vm.AudioCodec_Command = Opus.codec;
 
-                // Quality
-                vm.AudioQuality_Items = Opus.quality;
+                // Item Source
+                Opus.controlsItemSource(vm);
 
-                // Stream
-                //vm.AudioStream_SelectedItem = Opus.stream;
-
-                // Channel
-                vm.AudioChannel_Items = Opus.channel;
-
-                // Samplerate
-                vm.AudioSampleRate_Items = Opus.sampleRate;
-
-                // Bit Depth
-                vm.AudioBitDepth_Items = Opus.bitDepth;
+                // Selected Items
+                Opus.controlsSelected(vm);
 
                 // Checked
                 Opus.controlsChecked(vm);
+
+                // Unhecked
+                Opus.controlsUnhecked(vm);
 
                 // Enabled
                 Opus.controlsEnable(vm);
@@ -120,26 +108,20 @@ namespace Axiom
             // -------------------------
             else if (selectedCodec == "AC3")
             {
-                // Codec
+                // Audio Codec
                 vm.AudioCodec_Command = AC3.codec;
 
-                // Quality
-                vm.AudioQuality_Items = AC3.quality;
+                // Item Source
+                AC3.controlsItemSource(vm);
 
-                // Stream
-                //vm.AudioStream_SelectedItem = AC3.stream;
-
-                // Channel
-                vm.AudioChannel_Items = AC3.channel;
-
-                // Samplerate
-                vm.AudioSampleRate_Items = AC3.sampleRate;
-
-                // Bit Depth
-                vm.AudioBitDepth_Items = AC3.bitDepth;
+                // Selected Items
+                AC3.controlsSelected(vm);
 
                 // Checked
                 AC3.controlsChecked(vm);
+
+                // Unhecked
+                AC3.controlsUnhecked(vm);
 
                 // Enabled
                 AC3.controlsEnable(vm);
@@ -153,26 +135,20 @@ namespace Axiom
             // -------------------------
             else if (selectedCodec == "AAC")
             {
-                // Codec
+                // Audio Codec
                 vm.AudioCodec_Command = AAC.codec;
 
-                // Quality
-                vm.AudioQuality_Items = AAC.quality;
+                // Item Source
+                AAC.controlsItemSource(vm);
 
-                // Stream
-                //vm.AudioStream_SelectedItem = AAC.stream;
-
-                // Channel
-                vm.AudioChannel_Items = AAC.channel;
-
-                // Samplerate
-                vm.AudioSampleRate_Items = AAC.sampleRate;
-
-                // Bit Depth
-                vm.AudioBitDepth_Items = AAC.bitDepth;
+                // Selected Items
+                AAC.controlsSelected(vm);
 
                 // Checked
                 AAC.controlsChecked(vm);
+
+                // Unhecked
+                AAC.controlsUnhecked(vm);
 
                 // Enabled
                 AAC.controlsEnable(vm);
@@ -186,26 +162,20 @@ namespace Axiom
             // -------------------------
             else if (selectedCodec == "ALAC")
             {
-                // Codec
+                // Audio Codec
                 vm.AudioCodec_Command = ALAC.codec;
 
-                // Quality
-                vm.AudioQuality_Items = ALAC.quality;
+                // Item Source
+                ALAC.controlsItemSource(vm);
 
-                // Stream
-                //vm.AudioStream_SelectedItem = ALAC.stream;
-
-                // Channel
-                vm.AudioChannel_Items = ALAC.channel;
-
-                // Samplerate
-                vm.AudioSampleRate_Items = ALAC.sampleRate;
-
-                // Bit Depth
-                vm.AudioBitDepth_Items = ALAC.bitDepth;
+                // Selected Items
+                ALAC.controlsSelected(vm);
 
                 // Checked
                 ALAC.controlsChecked(vm);
+
+                // Unhecked
+                ALAC.controlsUnhecked(vm);
 
                 // Enabled
                 ALAC.controlsEnable(vm);
@@ -219,26 +189,20 @@ namespace Axiom
             // -------------------------
             else if (selectedCodec == "FLAC")
             {
-                // Codec
+                // Audio Codec
                 vm.AudioCodec_Command = FLAC.codec;
 
-                // Quality
-                vm.AudioQuality_Items = FLAC.quality;
+                // Item Source
+                FLAC.controlsItemSource(vm);
 
-                // Stream
-                //vm.AudioStream_SelectedItem = FLAC.stream;
-
-                // Channel
-                vm.AudioChannel_Items = FLAC.channel;
-
-                // Samplerate
-                vm.AudioSampleRate_Items = FLAC.sampleRate;
-
-                // Bit Depth
-                vm.AudioBitDepth_Items = FLAC.bitDepth;
+                // Selected Items
+                FLAC.controlsSelected(vm);
 
                 // Checked
                 FLAC.controlsChecked(vm);
+
+                // Unhecked
+                FLAC.controlsUnhecked(vm);
 
                 // Enabled
                 FLAC.controlsEnable(vm);
@@ -252,26 +216,20 @@ namespace Axiom
             // -------------------------
             else if (selectedCodec == "PCM")
             {
-                // Codec
+                // Audio Codec
                 vm.AudioCodec_Command = PCM.codec;
 
-                // Quality
-                vm.AudioQuality_Items = PCM.quality;
+                // Item Source
+                PCM.controlsItemSource(vm);
 
-                // Stream
-                //vm.AudioStream_SelectedItem = PCM.stream;
-
-                // Channel
-                vm.AudioChannel_Items = PCM.channel;
-
-                // Samplerate
-                vm.AudioSampleRate_Items = PCM.sampleRate;
-
-                // Bit Depth
-                vm.AudioBitDepth_Items = PCM.bitDepth;
+                // Selected Items
+                PCM.controlsSelected(vm);
 
                 // Checked
                 PCM.controlsChecked(vm);
+
+                // Unhecked
+                PCM.controlsUnhecked(vm);
 
                 // Enabled
                 PCM.controlsEnable(vm);
@@ -285,26 +243,20 @@ namespace Axiom
             // -------------------------
             else if (selectedCodec == "LAME")
             {
-                // Codec
+                // Audio Codec
                 vm.AudioCodec_Command = LAME.codec;
 
-                // Quality
-                vm.AudioQuality_Items = LAME.quality;
+                // Item Source
+                LAME.controlsItemSource(vm);
 
-                // Stream
-                //vm.AudioStream_SelectedItem = LAME.stream;
-
-                // Channel
-                vm.AudioChannel_Items = LAME.channel;
-
-                // Samplerate
-                vm.AudioSampleRate_Items = LAME.sampleRate;
-
-                // Bit Depth
-                vm.AudioBitDepth_Items = LAME.bitDepth;
+                // Selected Items
+                LAME.controlsSelected(vm);
 
                 // Checked
                 LAME.controlsChecked(vm);
+
+                // Unhecked
+                LAME.controlsUnhecked(vm);
 
                 // Enabled
                 LAME.controlsEnable(vm);
@@ -318,26 +270,20 @@ namespace Axiom
             // -------------------------
             else if (selectedCodec == "Copy")
             {
-                // Codec
+                // Audio Codec
                 vm.AudioCodec_Command = AudioCopy.codec;
 
-                // Quality
-                vm.AudioQuality_Items = AudioCopy.quality;
+                // Item Source
+                AudioCopy.controlsItemSource(vm);
 
-                // Stream
-                //vm.AudioStream_SelectedItem = AudioCopy.stream;
-
-                // Channel
-                vm.AudioChannel_Items = AudioCopy.channel;
-
-                // Samplerate
-                vm.AudioSampleRate_Items = AudioCopy.sampleRate;
-
-                // Bit Depth
-                vm.AudioBitDepth_Items = AudioCopy.bitDepth;
+                // Selected Items
+                AudioCopy.controlsSelected(vm);
 
                 // Checked
                 AudioCopy.controlsChecked(vm);
+
+                // Unhecked
+                AudioCopy.controlsUnhecked(vm);
 
                 // Enabled
                 AudioCopy.controlsEnable(vm);
@@ -351,26 +297,20 @@ namespace Axiom
             // -------------------------
             else if (selectedCodec == "None")
             {
-                // Codec
+                // Audio Codec
                 vm.AudioCodec_Command = AudioNone.codec;
 
-                // Quality
-                vm.AudioQuality_Items = AudioNone.quality;
+                // Item Source
+                AudioNone.controlsItemSource(vm);
 
-                // Stream
-                //vm.AudioStream_SelectedItem = AudioNone.stream;
-
-                // Channel
-                vm.AudioChannel_Items = AudioNone.channel;
-
-                // Samplerate
-                vm.AudioSampleRate_Items = AudioNone.sampleRate;
-
-                // Bit Depth
-                vm.AudioBitDepth_Items = AudioNone.bitDepth;
+                // Selected Items
+                AudioNone.controlsSelected(vm);
 
                 // Checked
                 AudioNone.controlsChecked(vm);
+
+                // Unhecked
+                AudioNone.controlsUnhecked(vm);
 
                 // Enabled
                 AudioNone.controlsEnable(vm);
@@ -503,8 +443,7 @@ namespace Axiom
         /// <summary>
         ///    Auto Copy Conditions Check
         /// <summary>
-        public static bool AutoCopyConditionsCheck(/*MainWindow mainwindow,*/
-                                                   ViewModel vm,
+        public static bool AutoCopyConditionsCheck(ViewModel vm,
                                                    string inputExt,
                                                    string outputExt)
         {

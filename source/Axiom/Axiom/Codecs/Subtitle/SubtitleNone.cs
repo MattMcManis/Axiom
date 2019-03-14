@@ -29,15 +29,50 @@ namespace Axiom
 {
     public class SubtitleNone
     {
+        // ---------------------------------------------------------------------------
+        // Arguments
+        // ---------------------------------------------------------------------------
+
         // -------------------------
         // Codec
         // -------------------------
         public static string codec = "";
 
+
+
+        // ---------------------------------------------------------------------------
+        // Controls Behavior
+        // ---------------------------------------------------------------------------
+
+        // -------------------------
+        // Item Source
+        // -------------------------
+        public static void controlsItemSource(ViewModel vm)
+        {
+            // None
+        }
+
+        // -------------------------
+        // Selected Items
+        // -------------------------
+        public static void controlsSelected(ViewModel vm)
+        {
+            // Stream
+            vm.SubtitleStream_SelectedItem = "none";
+        }
+
         // -------------------------
         // Checked
         // -------------------------
         public static void controlsChecked(ViewModel vm)
+        {
+            // None
+        }
+
+        // -------------------------
+        // Unchecked
+        // -------------------------
+        public static void controlsUnhecked(ViewModel vm)
         {
             // None
         }
@@ -55,14 +90,7 @@ namespace Axiom
         // -------------------------
         public static void controlsDisable(ViewModel vm)
         {
-            // Subtitle Codec
-            //vm.SubtitleCodec_IsEnabled = false;
-
-            // Subtitle Stream
-            //vm.SubtitleStream_IsEnabled = false;
-
-            // Subtitle List View
-            // Controlled in cboSubtitleStream_SelectionChanged
+            // None
         }
 
 

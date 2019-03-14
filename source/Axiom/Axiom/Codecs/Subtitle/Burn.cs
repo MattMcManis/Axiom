@@ -29,21 +29,50 @@ namespace Axiom
 {
     public class Burn
     {
+        // ---------------------------------------------------------------------------
+        // Arguments
+        // ---------------------------------------------------------------------------
+
         // -------------------------
         // Codec
         // -------------------------
         public static string codec = "";
 
+
+
+        // ---------------------------------------------------------------------------
+        // Controls Behavior
+        // ---------------------------------------------------------------------------
+
         // -------------------------
-        // Stream
+        // Item Source
         // -------------------------
-        // selected item
-        public static string stream = "external";
+        public static void controlsItemSource(ViewModel vm)
+        {
+            // None
+        }
+
+        // -------------------------
+        // Selected Items
+        // -------------------------
+        public static void controlsSelected(ViewModel vm)
+        {
+            // Stream
+            vm.SubtitleStream_SelectedItem = "external";
+        }
 
         // -------------------------
         // Checked
         // -------------------------
         public static void controlsChecked(ViewModel vm)
+        {
+            // None
+        }
+
+        // -------------------------
+        // Unchecked
+        // -------------------------
+        public static void controlsUnhecked(ViewModel vm)
         {
             // None
         }

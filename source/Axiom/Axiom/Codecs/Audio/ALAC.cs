@@ -29,10 +29,20 @@ namespace Axiom
 {
     public class ALAC
     {
+        // ---------------------------------------------------------------------------
+        // Arguments
+        // ---------------------------------------------------------------------------
+
         // -------------------------
         // Codec
         // -------------------------
         public static string codec = "-c:a alac";
+
+
+
+        // ---------------------------------------------------------------------------
+        // Item Source
+        // ---------------------------------------------------------------------------
 
         // -------------------------
         // Quality
@@ -51,11 +61,6 @@ namespace Axiom
              new ViewModel.AudioQuality() { Name = "Custom",   CBR_BitMode = "-b:a", CBR = "",    VBR_BitMode = "", VBR = ""   },
              new ViewModel.AudioQuality() { Name = "Mute",     CBR_BitMode = "",     CBR = "",    VBR_BitMode = "", VBR = ""   }
         };
-
-        // -------------------------
-        // Stream
-        // -------------------------
-        public static string stream = "all";
 
         // -------------------------
         // Channel
@@ -99,10 +104,49 @@ namespace Axiom
         };
 
 
+
+        // ---------------------------------------------------------------------------
+        // Controls Behavior
+        // ---------------------------------------------------------------------------
+
+        // -------------------------
+        // Item Source
+        // -------------------------
+        public static void controlsItemSource(ViewModel vm)
+        {
+            // Quality
+            vm.AudioQuality_Items = quality;
+
+            // Channel
+            vm.AudioChannel_Items = channel;
+
+            // Samplerate
+            vm.AudioSampleRate_Items = sampleRate;
+
+            // Bit Depth
+            vm.AudioBitDepth_Items = bitDepth;
+        }
+
+        // -------------------------
+        // Selected Items
+        // -------------------------
+        public static void controlsSelected(ViewModel vm)
+        {
+            //vm.AudioStream_SelectedItem = "all";
+        }
+
         // -------------------------
         // Checked
         // -------------------------
         public static void controlsChecked(ViewModel vm)
+        {
+            // None
+        }
+
+        // -------------------------
+        // Unchecked
+        // -------------------------
+        public static void controlsUnhecked(ViewModel vm)
         {
             // Bitrate Mode
             vm.AudioVBR_IsChecked = false;

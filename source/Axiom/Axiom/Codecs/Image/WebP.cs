@@ -29,22 +29,20 @@ namespace Axiom
 {
     public class WebP
     {
+        // ---------------------------------------------------------------------------
+        // Arguments
+        // ---------------------------------------------------------------------------
+
         // -------------------------
         // Codec
         // -------------------------
         public static string codec = "-c:v libwebp";
 
-        // -------------------------
-        // Pixel Format
-        // -------------------------
-        // selected item
-        public static string pixfmt = "bgra";
 
-        // -------------------------
-        // Framerate
-        // -------------------------
-        // selected item
-        public static string fps = "auto";
+
+        // ---------------------------------------------------------------------------
+        // Item Source
+        // ---------------------------------------------------------------------------
 
         // -------------------------
         // Encode Speed
@@ -110,6 +108,51 @@ namespace Axiom
         };
 
 
+
+        // ---------------------------------------------------------------------------
+        // Controls Behavior
+        // ---------------------------------------------------------------------------
+
+        // -------------------------
+        // Item Source
+        // -------------------------
+        public static void controlsItemSource(ViewModel vm)
+        {
+            // Video Codec
+            vm.VideoCodec_Command = codec;
+
+            // Encode Speed
+            vm.VideoEncodeSpeed_Items = encodeSpeed;
+
+            // Pass
+            vm.Pass_Items = pass;
+
+            // Video Quality
+            vm.VideoQuality_Items = quality;
+
+            // Optimize
+            vm.Video_Optimize_Items = optimize;
+            // Tune
+            vm.Optimize_Tune_Items = tune;
+            // Profile
+            vm.Optimize_Profile_Items = profile;
+            // Level
+            vm.Optimize_Level_Items = level;
+        }
+
+        // -------------------------
+        // Selected Items
+        // -------------------------
+        public static void controlsSelected(ViewModel vm)
+        {
+
+            // Pixel Format
+            vm.PixelFormat_SelectedItem = "bgra";
+
+            // Framerate
+            vm.FPS_SelectedItem = "auto";
+        }
+
         // -------------------------
         // Checked
         // -------------------------
@@ -117,6 +160,14 @@ namespace Axiom
         {
             // Bitrate Mode
             vm.VideoVBR_IsChecked = true;
+        }
+
+        // -------------------------
+        // Unchecked
+        // -------------------------
+        public static void controlsUnhecked(ViewModel vm)
+        {
+            // None
         }
 
         // -------------------------

@@ -46,11 +46,17 @@ namespace Axiom
                 // Codec
                 vm.SubtitleCodec_Command = MOV_Text.codec;
 
-                // Stream
-                vm.SubtitleStream_SelectedItem = MOV_Text.stream;
+                // Item Source
+                MOV_Text.controlsItemSource(vm);
+
+                // Selected Items
+                MOV_Text.controlsSelected(vm);
 
                 // Checked
                 MOV_Text.controlsChecked(vm);
+
+                // Unhecked
+                MOV_Text.controlsUnhecked(vm);
 
                 // Enabled
                 MOV_Text.controlsEnable(vm);
@@ -67,11 +73,17 @@ namespace Axiom
                 // Codec
                 vm.SubtitleCodec_Command = SSA.codec;
 
-                // Stream
-                vm.SubtitleStream_SelectedItem = SSA.stream;
+                // Item Source
+                SSA.controlsItemSource(vm);
+
+                // Selected Items
+                SSA.controlsSelected(vm);
 
                 // Checked
                 SSA.controlsChecked(vm);
+
+                // Unhecked
+                SSA.controlsUnhecked(vm);
 
                 // Enabled
                 SSA.controlsEnable(vm);
@@ -88,11 +100,17 @@ namespace Axiom
                 // Codec
                 vm.SubtitleCodec_Command = SRT.codec;
 
-                // Stream
-                vm.SubtitleStream_SelectedItem = SRT.stream;
+                // Item Source
+                SRT.controlsItemSource(vm);
+
+                // Selected Items
+                SRT.controlsSelected(vm);
 
                 // Checked
                 SRT.controlsChecked(vm);
+
+                // Unhecked
+                SRT.controlsUnhecked(vm);
 
                 // Enabled
                 SRT.controlsEnable(vm);
@@ -109,11 +127,17 @@ namespace Axiom
                 // Codec
                 vm.SubtitleCodec_Command = Burn.codec;
 
-                // Stream
-                vm.SubtitleStream_SelectedItem = Burn.stream;
+                // Item Source
+                Burn.controlsItemSource(vm);
+
+                // Selected Items
+                Burn.controlsSelected(vm);
 
                 // Checked
                 Burn.controlsChecked(vm);
+
+                // Unhecked
+                Burn.controlsUnhecked(vm);
 
                 // Enabled
                 Burn.controlsEnable(vm);
@@ -130,8 +154,17 @@ namespace Axiom
                 // Codec
                 vm.SubtitleCodec_Command = SubtitleCopy.codec;
 
+                // Item Source
+                SubtitleCopy.controlsItemSource(vm);
+
+                // Selected Items
+                SubtitleCopy.controlsSelected(vm);
+
                 // Checked
                 SubtitleCopy.controlsChecked(vm);
+
+                // Unhecked
+                SubtitleCopy.controlsUnhecked(vm);
 
                 // Enabled
                 SubtitleCopy.controlsEnable(vm);
@@ -148,8 +181,17 @@ namespace Axiom
                 // Codec
                 vm.SubtitleCodec_Command = SubtitleNone.codec;
 
+                // Item Source
+                SubtitleNone.controlsItemSource(vm);
+
+                // Selected Items
+                SubtitleNone.controlsSelected(vm);
+
                 // Checked
                 SubtitleNone.controlsChecked(vm);
+
+                // Unhecked
+                SubtitleNone.controlsUnhecked(vm);
 
                 // Enabled
                 SubtitleNone.controlsEnable(vm);

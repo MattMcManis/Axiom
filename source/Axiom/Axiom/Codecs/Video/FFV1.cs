@@ -114,9 +114,6 @@ namespace Axiom
         // -------------------------
         public static void controlsItemSource(ViewModel vm)
         {
-            // Video Codec
-            vm.VideoCodec_Command = codec;
-
             // Encode Speed
             vm.VideoEncodeSpeed_Items = encodeSpeed;
 
@@ -138,7 +135,7 @@ namespace Axiom
 
 
         // -------------------------
-        // Selected
+        // Selected Item
         // -------------------------
         public static void controlsSelected(ViewModel vm)
         {

@@ -433,7 +433,7 @@ namespace Axiom
         /// <summary>
         ///     Video EQ (Method)
         /// <summary>
-        public static void Video_EQ_Filter(/*MainWindow mainwindow*/ViewModel vm)
+        public static void Video_EQ_Filter(ViewModel vm)
         {
             if (vm.FilterVideo_EQ_Brightness_Value != 0 ||
                 vm.FilterVideo_EQ_Contrast_Value != 0 ||
@@ -466,7 +466,7 @@ namespace Axiom
         /// <summary>
         ///     Video EQ - Brightness (Method)
         /// <summary>
-        public static String Video_EQ_Brightness_Filter(/*MainWindow mainwindow*/ViewModel vm)
+        public static String Video_EQ_Brightness_Filter(ViewModel vm)
         {
             double value = vm.FilterVideo_EQ_Brightness_Value;
 
@@ -517,7 +517,7 @@ namespace Axiom
         /// <summary>
         ///     Video EQ - Contrast (Method)
         /// <summary>
-        public static String Video_EQ_Contrast_Filter(/*MainWindow mainwindow*/ViewModel vm)
+        public static String Video_EQ_Contrast_Filter(ViewModel vm)
         {
             double value = vm.FilterVideo_EQ_Contrast_Value;
 
@@ -570,7 +570,7 @@ namespace Axiom
         /// <summary>
         ///     Video EQ - Saturation (Method)
         /// <summary>
-        public static String Video_EQ_Saturation_Filter(/*MainWindow mainwindow*/ViewModel vm)
+        public static String Video_EQ_Saturation_Filter(ViewModel vm)
         {
             double value = vm.FilterVideo_EQ_Saturation_Value;
 
@@ -623,7 +623,7 @@ namespace Axiom
         /// <summary>
         ///     Video EQ - Gamma (Method)
         /// <summary>
-        public static String Video_EQ_Gamma_Filter(/*MainWindow mainwindow*/ViewModel vm)
+        public static String Video_EQ_Gamma_Filter(ViewModel vm)
         {
             double value = vm.FilterVideo_EQ_Gamma_Value;
 
@@ -845,7 +845,7 @@ namespace Axiom
         /// <summary>
         ///     Lowpass (Method)
         /// <summary>
-        public static void Lowpass_Filter(/*MainWindow mainwindow*/ViewModel vm)
+        public static void Lowpass_Filter(ViewModel vm)
         {
             if (vm.FilterAudio_Lowpass_SelectedItem == "enabled")
             {
@@ -859,7 +859,7 @@ namespace Axiom
         /// <summary>
         ///     Highpass (Method)
         /// <summary>
-        public static void Highpass_Filter(/*MainWindow mainwindow*/ViewModel vm)
+        public static void Highpass_Filter(ViewModel vm)
         {
             if (vm.FilterAudio_Highpass_SelectedItem == "enabled")
             {
@@ -874,7 +874,7 @@ namespace Axiom
         /// <summary>
         ///     Contrast (Method)
         /// <summary>
-        public static void Contrast_Filter(/*MainWindow mainwindow*/ViewModel vm)
+        public static void Contrast_Filter(ViewModel vm)
         {
             // FFmpeg Range 0 to 100
             // FFmpeg Default 33
@@ -951,7 +951,7 @@ namespace Axiom
         /// <summary>
         ///     Headphones (Method)
         /// <summary>
-        public static void Headphones_Filter(/*MainWindow mainwindow*/ViewModel vm)
+        public static void Headphones_Filter(ViewModel vm)
         {
             if (vm.FilterAudio_Headphones_SelectedItem == "enabled")
             {
@@ -966,7 +966,7 @@ namespace Axiom
         /// <summary>
         ///     Tempo (Method)
         /// <summary>
-        public static void Tempo_Filter(/*MainWindow mainwindow*/ViewModel vm)
+        public static void Tempo_Filter(ViewModel vm)
         {
             // FFmpeg Range 0.5 to 2
             // FFmpeg Default 1.0

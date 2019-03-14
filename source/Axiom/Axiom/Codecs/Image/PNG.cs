@@ -29,22 +29,20 @@ namespace Axiom
 {
     public class PNG
     {
+        // ---------------------------------------------------------------------------
+        // Arguments
+        // ---------------------------------------------------------------------------
+
         // -------------------------
         // Codec
         // -------------------------
         public static string codec = "-c:v png";
 
-        // -------------------------
-        // Pixel Format
-        // -------------------------
-        // selected item
-        public static string pixfmt = "rgb24";
 
-        // -------------------------
-        // Framerate
-        // -------------------------
-        // selected item
-        public static string fps = "auto";
+
+        // ---------------------------------------------------------------------------
+        // Item Source
+        // ---------------------------------------------------------------------------
 
         // -------------------------
         // Encode Speed
@@ -103,10 +101,63 @@ namespace Axiom
         };
 
 
+
+        // ---------------------------------------------------------------------------
+        // Controls Behavior
+        // ---------------------------------------------------------------------------
+
+        // -------------------------
+        // Item Source
+        // -------------------------
+        public static void controlsItemSource(ViewModel vm)
+        {
+            // Video Codec
+            vm.VideoCodec_Command = codec;
+
+            // Encode Speed
+            vm.VideoEncodeSpeed_Items = encodeSpeed;
+
+            // Pass
+            vm.Pass_Items = pass;
+
+            // Video Quality
+            vm.VideoQuality_Items = quality;
+
+            // Optimize
+            vm.Video_Optimize_Items = optimize;
+            // Tune
+            vm.Optimize_Tune_Items = tune;
+            // Profile
+            vm.Optimize_Profile_Items = profile;
+            // Level
+            vm.Optimize_Level_Items = level;
+        }
+
+        // -------------------------
+        // Selected Items
+        // -------------------------
+        public static void controlsSelected(ViewModel vm)
+        {
+
+            // Pixel Format
+            vm.PixelFormat_SelectedItem = "rgb24";
+
+            // Framerate
+            vm.FPS_SelectedItem = "auto";
+        }
+
         // -------------------------
         // Checked
         // -------------------------
         public static void controlsChecked(ViewModel vm)
+        {
+            // None
+        }
+
+        // -------------------------
+        // Unchecked
+        // -------------------------
+        public static void controlsUnhecked(ViewModel vm)
         {
             // Bitrate Mode
             vm.VideoVBR_IsChecked = false;

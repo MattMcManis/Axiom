@@ -75,35 +75,20 @@ namespace Axiom
             // -------------------------
             if (selectedCodec == "VP8")
             {
-                // Codec
+                // Video Codec
                 vm.VideoCodec_Command = VP8.codec;
 
-                // Encode Speed
-                vm.VideoEncodeSpeed_Items = VP8.encodeSpeed;
+                // Item Source
+                VP8.controlsItemSource(vm);
 
-                // Pass
-                vm.Pass_Items = VP8.pass;
-
-                // Quality Items
-                vm.VideoQuality_Items = VP8.quality;
-
-                // Pixel Format
-                vm.PixelFormat_SelectedItem = VP8.pixfmt;
-
-                // Framerate
-                vm.FPS_SelectedItem = VP8.fps;
-
-                // Optimize
-                vm.Video_Optimize_Items = VP8.optimize;
-                // Tune
-                vm.Optimize_Tune_Items = VP8.tune;
-                // Profile
-                vm.Optimize_Profile_Items = VP8.profile;
-                // Level
-                vm.Optimize_Level_Items = VP8.level;
+                // Selected Items
+                VP8.controlsSelected(vm);
 
                 // Checked
                 VP8.controlsChecked(vm);
+
+                // Unhecked
+                VP8.controlsUnhecked(vm);
 
                 // Enabled
                 VP8.controlsEnable(vm);
@@ -117,35 +102,20 @@ namespace Axiom
             // -------------------------
             else if (selectedCodec == "VP9")
             {
-                // Codec
+                // Video Codec
                 vm.VideoCodec_Command = VP9.codec;
 
-                // Encode Speed
-                vm.VideoEncodeSpeed_Items = VP9.encodeSpeed;
+                // Item Source
+                VP9.controlsItemSource(vm);
 
-                // Pass
-                vm.Pass_Items = VP9.pass;
-
-                // Quality Items
-                vm.VideoQuality_Items = VP9.quality;
-
-                // Pixel Format
-                vm.PixelFormat_SelectedItem = VP9.pixfmt;
-
-                // Framerate
-                vm.FPS_SelectedItem = VP9.fps;
-
-                // Optimize
-                vm.Video_Optimize_Items = VP9.optimize;
-                // Tune
-                vm.Optimize_Tune_Items = VP9.tune;
-                // Profile
-                vm.Optimize_Profile_Items = VP9.profile;
-                // Level
-                vm.Optimize_Level_Items = VP9.level;
+                // Selected Items
+                VP9.controlsSelected(vm);
 
                 // Checked
                 VP9.controlsChecked(vm);
+
+                // Unhecked
+                VP9.controlsUnhecked(vm);
 
                 // Enabled
                 VP9.controlsEnable(vm);
@@ -159,35 +129,20 @@ namespace Axiom
             // -------------------------
             else if (selectedCodec == "x264")
             {
-                // Codec
+                // Video Codec
                 vm.VideoCodec_Command = x264.codec;
 
-                // Encode Speed
-                vm.VideoEncodeSpeed_Items = x264.encodeSpeed;
+                // Item Source
+                x264.controlsItemSource(vm);
 
-                // Pass
-                vm.Pass_Items = x264.pass;
-
-                // Quality Items
-                vm.VideoQuality_Items = x264.quality;
-
-                // Pixel Format
-                vm.PixelFormat_SelectedItem = x264.pixfmt;
-
-                // Framerate
-                vm.FPS_SelectedItem = x264.fps;
-
-                // Optimize
-                vm.Video_Optimize_Items = x264.optimize;
-                // Tune
-                vm.Optimize_Tune_Items = x264.tune;
-                // Profile
-                vm.Optimize_Profile_Items = x264.profile;
-                // Level
-                vm.Optimize_Level_Items = x264.level;
+                // Selected Items
+                x264.controlsSelected(vm);
 
                 // Checked
                 x264.controlsChecked(vm);
+
+                // Unhecked
+                x264.controlsUnhecked(vm);
 
                 // Enabled
                 x264.controlsEnable(vm);
@@ -201,35 +156,20 @@ namespace Axiom
             // -------------------------
             else if (selectedCodec == "x265")
             {
-                // Codec
+                // Video Codec
                 vm.VideoCodec_Command = x265.codec;
 
-                // Encode Speed
-                vm.VideoEncodeSpeed_Items = x265.encodeSpeed;
+                // Item Source
+                x265.controlsItemSource(vm);
 
-                // Pass
-                vm.Pass_Items = x265.pass;
-
-                // Quality Items
-                vm.VideoQuality_Items = x265.quality;
-
-                // Pixel Format
-                vm.PixelFormat_SelectedItem = x265.pixfmt;
-
-                // Framerate
-                vm.FPS_SelectedItem = x265.fps;
-
-                // Optimize
-                vm.Video_Optimize_Items = x265.optimize;
-                // Tune
-                vm.Optimize_Tune_Items = x265.tune;
-                // Profile
-                vm.Optimize_Profile_Items = x265.profile;
-                // Level
-                vm.Optimize_Level_Items = x265.level;
+                // Selected Items
+                x265.controlsSelected(vm);
 
                 // Checked
                 x265.controlsChecked(vm);
+
+                // Unhecked
+                x265.controlsUnhecked(vm);
 
                 // Enabled
                 x265.controlsEnable(vm);
@@ -243,35 +183,20 @@ namespace Axiom
             // -------------------------
             else if (selectedCodec == "MPEG-2")
             {
-                // Codec
+                // Video Codec
                 vm.VideoCodec_Command = MPEG_2.codec;
 
-                // Encode Speed
-                vm.VideoEncodeSpeed_Items = MPEG_2.encodeSpeed;
+                // Item Source
+                MPEG_2.controlsItemSource(vm);
 
-                // Pass
-                vm.Pass_Items = MPEG_2.pass;
-
-                // Quality Items
-                vm.VideoQuality_Items = MPEG_2.quality;
-
-                // Pixel Format
-                vm.PixelFormat_SelectedItem = MPEG_2.pixfmt;
-
-                // Framerate
-                vm.FPS_SelectedItem = MPEG_2.fps;
-
-                // Optimize
-                vm.Video_Optimize_Items = MPEG_2.optimize;
-                // Tune
-                vm.Optimize_Tune_Items = MPEG_2.tune;
-                // Profile
-                vm.Optimize_Profile_Items = MPEG_2.profile;
-                // Level
-                vm.Optimize_Level_Items = MPEG_2.level;
+                // Selected Items
+                MPEG_2.controlsSelected(vm);
 
                 // Checked
                 MPEG_2.controlsChecked(vm);
+
+                // Unhecked
+                MPEG_2.controlsUnhecked(vm);
 
                 // Enabled
                 MPEG_2.controlsEnable(vm);
@@ -285,35 +210,20 @@ namespace Axiom
             // -------------------------
             else if (selectedCodec == "MPEG-4")
             {
-                // Codec
+                // Video Codec
                 vm.VideoCodec_Command = MPEG_4.codec;
 
-                // Encode Speed
-                vm.VideoEncodeSpeed_Items = MPEG_4.encodeSpeed;
+                // Item Source
+                MPEG_4.controlsItemSource(vm);
 
-                // Pass
-                vm.Pass_Items = MPEG_4.pass;
-
-                // Quality Items
-                vm.VideoQuality_Items = MPEG_4.quality;
-
-                // Pixel Format
-                vm.PixelFormat_SelectedItem = MPEG_4.pixfmt;
-
-                // Framerate
-                vm.FPS_SelectedItem = MPEG_4.fps;
-
-                // Optimize
-                vm.Video_Optimize_Items = MPEG_4.optimize;
-                // Tune
-                vm.Optimize_Tune_Items = MPEG_4.tune;
-                // Profile
-                vm.Optimize_Profile_Items = MPEG_4.profile;
-                // Level
-                vm.Optimize_Level_Items = MPEG_4.level;
+                // Selected Items
+                MPEG_4.controlsSelected(vm);
 
                 // Checked
                 MPEG_4.controlsChecked(vm);
+
+                // Unhecked
+                MPEG_4.controlsUnhecked(vm);
 
                 // Enabled
                 MPEG_4.controlsEnable(vm);
@@ -327,35 +237,20 @@ namespace Axiom
             // -------------------------
             else if (selectedCodec == "AV1")
             {
-                // Codec
+                // Video Codec
                 vm.VideoCodec_Command = AV1.codec;
 
-                // Encode Speed
-                vm.VideoEncodeSpeed_Items = AV1.encodeSpeed;
+                // Item Source
+                AV1.controlsItemSource(vm);
 
-                // Pass
-                vm.Pass_Items = AV1.pass;
-
-                // Quality Items
-                vm.VideoQuality_Items = AV1.quality;
-
-                // Pixel Format
-                vm.PixelFormat_SelectedItem = AV1.pixfmt;
-
-                // Framerate
-                vm.FPS_SelectedItem = AV1.fps;
-
-                // Optimize
-                vm.Video_Optimize_Items = AV1.optimize;
-                // Tune
-                vm.Optimize_Tune_Items = AV1.tune;
-                // Profile
-                vm.Optimize_Profile_Items = AV1.profile;
-                // Level
-                vm.Optimize_Level_Items = AV1.level;
+                // Selected Items
+                AV1.controlsSelected(vm);
 
                 // Checked
                 AV1.controlsChecked(vm);
+
+                // Unhecked
+                AV1.controlsUnhecked(vm);
 
                 // Enabled
                 AV1.controlsEnable(vm);
@@ -369,37 +264,13 @@ namespace Axiom
             // -------------------------
             else if (selectedCodec == "FFV1")
             {
-                // Codec
-                //vm.VideoCodec_Command = FFV1.codec;
-
-                // Encode Speed
-                //vm.VideoEncodeSpeed_Items = FFV1.encodeSpeed;
-
-                // Pass
-                //vm.Pass_Items = FFV1.pass;
-
-                // Quality Items
-                //vm.VideoQuality_Items = FFV1.quality;
-
-                // Pixel Format
-                //vm.PixelFormat_SelectedItem = FFV1.pixfmt;
-
-                // Framerate
-                //vm.FPS_SelectedItem = FFV1.fps;
-
-                //// Optimize
-                //vm.Video_Optimize_Items = FFV1.optimize;
-                //// Tune
-                //vm.Optimize_Tune_Items = FFV1.tune;
-                //// Profile
-                //vm.Optimize_Profile_Items = FFV1.profile;
-                //// Level
-                //vm.Optimize_Level_Items = FFV1.level;
+                // Video Codec
+                vm.VideoCodec_Command = FFV1.codec;
 
                 // Item Source
                 FFV1.controlsItemSource(vm);
 
-                // Selected
+                // Selected Items
                 FFV1.controlsSelected(vm);
 
                 // Checked
@@ -420,36 +291,20 @@ namespace Axiom
             // -------------------------
             else if (selectedCodec == "Theora")
             {
-                // Codec
+                // Video Codec
                 vm.VideoCodec_Command = Theora.codec;
 
-                // Encode Speed
-                vm.VideoEncodeSpeed_Items = Theora.encodeSpeed;
+                // Item Source
+                Theora.controlsItemSource(vm);
 
-                // Pass
-                vm.Pass_Items = Theora.pass;
-                //vm.Pass_SelectedItem = "1 Pass";
-
-                // Quality Items
-                vm.VideoQuality_Items = Theora.quality;
-
-                // Pixel Format
-                vm.PixelFormat_SelectedItem = Theora.pixfmt;
-
-                // Framerate
-                vm.FPS_SelectedItem = Theora.fps;
-
-                // Optimize
-                vm.Video_Optimize_Items = Theora.optimize;
-                // Tune
-                vm.Optimize_Tune_Items = Theora.tune;
-                // Profile
-                vm.Optimize_Profile_Items = Theora.profile;
-                // Level
-                vm.Optimize_Level_Items = Theora.level;
+                // Selected Items
+                Theora.controlsSelected(vm);
 
                 // Checked
                 Theora.controlsChecked(vm);
+
+                // Unhecked
+                Theora.controlsUnhecked(vm);
 
                 // Enabled
                 Theora.controlsEnable(vm);
@@ -463,35 +318,20 @@ namespace Axiom
             // -------------------------
             else if (selectedCodec == "JPEG")
             {
-                // Codec
+                // Video Codec
                 vm.VideoCodec_Command = JPEG.codec;
 
-                // Encode Speed
-                vm.VideoEncodeSpeed_Items = JPEG.encodeSpeed;
+                // Item Source
+                JPEG.controlsItemSource(vm);
 
-                // Pass
-                vm.Pass_Items = JPEG.pass;
-
-                // Quality Items
-                vm.VideoQuality_Items = JPEG.quality;
-
-                // Pixel Format
-                vm.PixelFormat_SelectedItem = JPEG.pixfmt;
-
-                // Framerate
-                vm.FPS_SelectedItem = JPEG.fps;
-
-                // Optimize
-                vm.Video_Optimize_Items = JPEG.optimize;
-                // Tune
-                vm.Optimize_Tune_Items = JPEG.tune;
-                // Profile
-                vm.Optimize_Profile_Items = JPEG.profile;
-                // Level
-                vm.Optimize_Level_Items = JPEG.level;
+                // Selected Items
+                JPEG.controlsSelected(vm);
 
                 // Checked
                 JPEG.controlsChecked(vm);
+
+                // Unhecked
+                JPEG.controlsUnhecked(vm);
 
                 // Enabled
                 JPEG.controlsEnable(vm);
@@ -505,35 +345,20 @@ namespace Axiom
             // -------------------------
             else if (selectedCodec == "PNG")
             {
-                // Codec
+                // Video Codec
                 vm.VideoCodec_Command = PNG.codec;
 
-                // Encode Speed
-                vm.VideoEncodeSpeed_Items = PNG.encodeSpeed;
+                // Item Source
+                PNG.controlsItemSource(vm);
 
-                // Pass
-                vm.Pass_Items = PNG.pass;
-
-                // Quality Items
-                vm.VideoQuality_Items = PNG.quality;
-
-                // Pixel Format
-                vm.PixelFormat_SelectedItem = PNG.pixfmt;
-
-                // Framerate
-                vm.FPS_SelectedItem = PNG.fps;
-
-                // Optimize
-                vm.Video_Optimize_Items = PNG.optimize;
-                // Tune
-                vm.Optimize_Tune_Items = PNG.tune;
-                // Profile
-                vm.Optimize_Profile_Items = PNG.profile;
-                // Level
-                vm.Optimize_Level_Items = PNG.level;
+                // Selected Items
+                PNG.controlsSelected(vm);
 
                 // Checked
                 PNG.controlsChecked(vm);
+
+                // Unhecked
+                PNG.controlsUnhecked(vm);
 
                 // Enabled
                 PNG.controlsEnable(vm);
@@ -547,35 +372,20 @@ namespace Axiom
             // -------------------------
             else if (selectedCodec == "WebP")
             {
-                // Codec
+                // Video Codec
                 vm.VideoCodec_Command = WebP.codec;
 
-                // Encode Speed
-                vm.VideoEncodeSpeed_Items = WebP.encodeSpeed;
+                // Item Source
+                WebP.controlsItemSource(vm);
 
-                // Pass
-                vm.Pass_Items = WebP.pass;
-
-                // Quality Items
-                vm.VideoQuality_Items = WebP.quality;
-
-                // Pixel Format
-                vm.PixelFormat_SelectedItem = WebP.pixfmt;
-
-                // Framerate
-                vm.FPS_SelectedItem = WebP.fps;
-
-                // Optimize
-                vm.Video_Optimize_Items = WebP.optimize;
-                // Tune
-                vm.Optimize_Tune_Items = WebP.tune;
-                // Profile
-                vm.Optimize_Profile_Items = WebP.profile;
-                // Level
-                vm.Optimize_Level_Items = WebP.level;
+                // Selected Items
+                WebP.controlsSelected(vm);
 
                 // Checked
                 WebP.controlsChecked(vm);
+
+                // Unhecked
+                WebP.controlsUnhecked(vm);
 
                 // Enabled
                 WebP.controlsEnable(vm);
@@ -589,35 +399,20 @@ namespace Axiom
             // -------------------------
             else if (selectedCodec == "Copy")
             {
-                // Codec
+                // Video Codec
                 vm.VideoCodec_Command = VideoCopy.codec;
 
-                // Encode Speed
-                vm.VideoEncodeSpeed_Items = VideoCopy.encodeSpeed;
+                // Item Source
+                VideoCopy.controlsItemSource(vm);
 
-                // Pass
-                vm.Pass_Items = VideoCopy.pass;
-
-                // Quality Items
-                vm.VideoQuality_Items = VideoCopy.quality;
-
-                // Pixel Format
-                vm.PixelFormat_SelectedItem = VideoCopy.pixfmt;
-
-                // Framerate
-                vm.FPS_SelectedItem = VideoCopy.fps;
-
-                // Optimize
-                vm.Video_Optimize_Items = VideoCopy.optimize;
-                // Tune
-                vm.Optimize_Tune_Items = VideoCopy.tune;
-                // Profile
-                vm.Optimize_Profile_Items = VideoCopy.profile;
-                // Level
-                vm.Optimize_Level_Items = VideoCopy.level;
+                // Selected Items
+                VideoCopy.controlsSelected(vm);
 
                 // Checked
                 VideoCopy.controlsChecked(vm);
+
+                // Unhecked
+                VideoCopy.controlsUnhecked(vm);
 
                 // Enabled
                 VideoCopy.controlsEnable(vm);
@@ -631,35 +426,20 @@ namespace Axiom
             // -------------------------
             else if (selectedCodec == "None")
             {
-                // Codec
+                // Video Codec
                 vm.VideoCodec_Command = VideoNone.codec;
 
-                // Encode Speed
-                vm.VideoEncodeSpeed_Items = VideoNone.encodeSpeed;
+                // Item Source
+                VideoNone.controlsItemSource(vm);
 
-                // Pass
-                vm.Pass_Items = VideoNone.pass;
-
-                // Quality Items
-                vm.VideoQuality_Items = VideoNone.quality;
-
-                // Pixel Format
-                vm.PixelFormat_SelectedItem = VideoNone.pixfmt;
-
-                // Framerate
-                vm.FPS_SelectedItem = VideoNone.fps;
-
-                // Optimize
-                vm.Video_Optimize_Items = VideoNone.optimize;
-                // Tune
-                vm.Optimize_Tune_Items = VideoNone.tune;
-                // Profile
-                vm.Optimize_Profile_Items = VideoNone.profile;
-                // Level
-                vm.Optimize_Level_Items = VideoNone.level;
+                // Selected Items
+                VideoNone.controlsSelected(vm);
 
                 // Checked
                 VideoNone.controlsChecked(vm);
+
+                // Unhecked
+                VideoNone.controlsUnhecked(vm);
 
                 // Enabled
                 VideoNone.controlsEnable(vm);

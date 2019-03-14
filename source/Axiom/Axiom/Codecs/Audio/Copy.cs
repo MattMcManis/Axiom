@@ -29,10 +29,20 @@ namespace Axiom
 {
     public class AudioCopy
     {
+        // ---------------------------------------------------------------------------
+        // Arguments
+        // ---------------------------------------------------------------------------
+
         // -------------------------
         // Codec
         // -------------------------
         public static string codec = "-c:a copy";
+
+
+
+        // ---------------------------------------------------------------------------
+        // Item Source
+        // ---------------------------------------------------------------------------
 
         // -------------------------
         // Quality
@@ -98,10 +108,50 @@ namespace Axiom
              new ViewModel.AudioBitDepth() { Name = "64",   Depth = "" },
         };
 
+
+
+        // ---------------------------------------------------------------------------
+        // Controls Behavior
+        // ---------------------------------------------------------------------------
+
+        // -------------------------
+        // Item Source
+        // -------------------------
+        public static void controlsItemSource(ViewModel vm)
+        {
+            // Quality
+            vm.AudioQuality_Items = quality;
+
+            // Channel
+            vm.AudioChannel_Items = channel;
+
+            // Samplerate
+            vm.AudioSampleRate_Items = sampleRate;
+
+            // Bit Depth
+            vm.AudioBitDepth_Items = bitDepth;
+        }
+
+        // -------------------------
+        // Selected Items
+        // -------------------------
+        public static void controlsSelected(ViewModel vm)
+        {
+            //vm.AudioStream_SelectedItem = "all";
+        }
+
         // -------------------------
         // Checked
         // -------------------------
         public static void controlsChecked(ViewModel vm)
+        {
+            // None
+        }
+
+        // -------------------------
+        // Unchecked
+        // -------------------------
+        public static void controlsUnhecked(ViewModel vm)
         {
             // Bitrate Mode
             vm.AudioVBR_IsChecked = false;
