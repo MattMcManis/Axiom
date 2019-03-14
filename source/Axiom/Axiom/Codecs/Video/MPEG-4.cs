@@ -60,7 +60,7 @@ namespace Axiom
         public static List<ViewModel.VideoQuality> quality = new List<ViewModel.VideoQuality>()
         {
              new ViewModel.VideoQuality() { Name = "Auto",      CRF = "",   CBR_BitMode = "-b:v", CBR = "",      VBR_BitMode = "-q:v", VBR = "",   Minrate = "", Maxrate = "3000K", Bufsize ="4500K", NA = "3000K" },
-             new ViewModel.VideoQuality() { Name = "Lossless",  CRF = "",   CBR_BitMode = "-q:v", CBR = "",      VBR_BitMode = "-q:v", VBR = "",   Minrate = "", Maxrate = "",      Bufsize ="",      Lossless = "2" },
+             new ViewModel.VideoQuality() { Name = "Lossless",  CRF = "",   CBR_BitMode = "",     CBR = "",      VBR_BitMode = "",     VBR = "",   Minrate = "", Maxrate = "",      Bufsize ="",      Lossless = "-q:v 2" },
              new ViewModel.VideoQuality() { Name = "Ultra",     CRF = "",   CBR_BitMode = "-b:v", CBR = "5000K", VBR_BitMode = "-q:v", VBR = "4",  Minrate = "", Maxrate = "5000K", Bufsize ="7500K" },
              new ViewModel.VideoQuality() { Name = "High",      CRF = "",   CBR_BitMode = "-b:v", CBR = "2500K", VBR_BitMode = "-q:v", VBR = "6",  Minrate = "", Maxrate = "2500K", Bufsize ="3300K" },
              new ViewModel.VideoQuality() { Name = "Medium",    CRF = "",   CBR_BitMode = "-b:v", CBR = "1300K", VBR_BitMode = "-q:v", VBR = "8",  Minrate = "", Maxrate = "1300K", Bufsize ="2000K" },

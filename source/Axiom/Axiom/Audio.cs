@@ -258,6 +258,33 @@ namespace Axiom
                     }
 
                     // -------------------------
+                    // Custom
+                    // -------------------------
+                    else if (selectedQuality == "Custom")
+                    {
+                        // -------------------------
+                        // Bitrate
+                        // -------------------------
+                        // -------------------------
+                        // CBR
+                        // -------------------------
+                        if (vm.AudioVBR_IsChecked == false)
+                        {
+                            // .e.g. 320k
+                            aBitrate = vm.AudioBitrate_Text + "k";
+                        }
+
+                        // -------------------------
+                        // VBR
+                        // -------------------------
+                        else if (vm.AudioVBR_IsChecked == true)
+                        {
+                            // e.g. 320k converted to -q:a 2
+                            aBitrate = AudioVBRCalculator(vm, vm.AudioBitrate_Text);
+                        }
+                    }
+
+                    // -------------------------
                     // Lossless
                     // -------------------------
                     else if (selectedQuality == "Lossless")

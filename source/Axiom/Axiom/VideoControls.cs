@@ -370,34 +370,43 @@ namespace Axiom
             else if (selectedCodec == "FFV1")
             {
                 // Codec
-                vm.VideoCodec_Command = FFV1.codec;
+                //vm.VideoCodec_Command = FFV1.codec;
 
                 // Encode Speed
-                vm.VideoEncodeSpeed_Items = FFV1.encodeSpeed;
+                //vm.VideoEncodeSpeed_Items = FFV1.encodeSpeed;
 
                 // Pass
-                vm.Pass_Items = FFV1.pass;
+                //vm.Pass_Items = FFV1.pass;
 
                 // Quality Items
-                vm.VideoQuality_Items = FFV1.quality;
+                //vm.VideoQuality_Items = FFV1.quality;
 
                 // Pixel Format
-                vm.PixelFormat_SelectedItem = FFV1.pixfmt;
+                //vm.PixelFormat_SelectedItem = FFV1.pixfmt;
 
                 // Framerate
-                vm.FPS_SelectedItem = FFV1.fps;
+                //vm.FPS_SelectedItem = FFV1.fps;
 
-                // Optimize
-                vm.Video_Optimize_Items = FFV1.optimize;
-                // Tune
-                vm.Optimize_Tune_Items = FFV1.tune;
-                // Profile
-                vm.Optimize_Profile_Items = FFV1.profile;
-                // Level
-                vm.Optimize_Level_Items = FFV1.level;
+                //// Optimize
+                //vm.Video_Optimize_Items = FFV1.optimize;
+                //// Tune
+                //vm.Optimize_Tune_Items = FFV1.tune;
+                //// Profile
+                //vm.Optimize_Profile_Items = FFV1.profile;
+                //// Level
+                //vm.Optimize_Level_Items = FFV1.level;
+
+                // Item Source
+                FFV1.controlsItemSource(vm);
+
+                // Selected
+                FFV1.controlsSelected(vm);
 
                 // Checked
                 FFV1.controlsChecked(vm);
+
+                // Unhecked
+                FFV1.controlsUnhecked(vm);
 
                 // Enabled
                 FFV1.controlsEnable(vm);

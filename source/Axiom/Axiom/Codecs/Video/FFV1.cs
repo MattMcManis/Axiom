@@ -29,22 +29,21 @@ namespace Axiom
 {
     public class FFV1
     {
+        // ---------------------------------------------------------------------------
+        // Arguments
+        // ---------------------------------------------------------------------------
+
         // -------------------------
         // Codec
         // -------------------------
+
         public static string codec = "-c:v ffv1 -level 3 -coder 1 -context 1 -g 1 -slices 24 -slicecrc 1";
 
-        // -------------------------
-        // Pixel Format
-        // -------------------------
-        // selected item
-        public static string pixfmt = "yuv422p10le";
 
-        // -------------------------
-        // Framerate
-        // -------------------------
-        // selected item
-        public static string fps = "auto";
+
+        // ---------------------------------------------------------------------------
+        // Item Source
+        // ---------------------------------------------------------------------------
 
         // -------------------------
         // Encode Speed
@@ -105,10 +104,64 @@ namespace Axiom
         };
 
 
+
+        // ---------------------------------------------------------------------------
+        // Controls Behavior
+        // ---------------------------------------------------------------------------
+
+        // -------------------------
+        // Item Source
+        // -------------------------
+        public static void controlsItemSource(ViewModel vm)
+        {
+            // Video Codec
+            vm.VideoCodec_Command = codec;
+
+            // Encode Speed
+            vm.VideoEncodeSpeed_Items = encodeSpeed;
+
+            // Pass
+            vm.Pass_Items = pass;
+
+            // Video Quality
+            vm.VideoQuality_Items = quality;
+
+            // Optimize
+            vm.Video_Optimize_Items = optimize;
+            // Tune
+            vm.Optimize_Tune_Items = tune;
+            // Profile
+            vm.Optimize_Profile_Items = profile;
+            // Level
+            vm.Optimize_Level_Items = level;
+        }
+
+
+        // -------------------------
+        // Selected
+        // -------------------------
+        public static void controlsSelected(ViewModel vm)
+        {
+
+            // Pixel Format
+            vm.PixelFormat_SelectedItem = "yuv422p10le";
+
+            // Framerate
+            vm.FPS_SelectedItem = "auto";
+        }
+
         // -------------------------
         // Checked
         // -------------------------
         public static void controlsChecked(ViewModel vm)
+        {
+            // None
+        }
+
+        // -------------------------
+        // Unchecked
+        // -------------------------
+        public static void controlsUnhecked(ViewModel vm)
         {
             // Bitrate Mode
             vm.VideoVBR_IsChecked = false;
@@ -128,10 +181,10 @@ namespace Axiom
             // Pixel Format
             vm.PixelFormat_IsEnabled = true;
 
-            // FPS ComboBox
+            // Framerate
             vm.FPS_IsEnabled = true;
 
-            // Scaling ComboBox
+            // Scaling
             vm.Scaling_IsEnabled = true;
 
             // Crop
@@ -155,8 +208,10 @@ namespace Axiom
             // Video VBR
             vm.VideoVBR_IsEnabled = false;
 
-            // Optimize ComboBox
+            // Optimize
             vm.Video_Optimize_IsEnabled = false;
         }
+
+
     }
 }
