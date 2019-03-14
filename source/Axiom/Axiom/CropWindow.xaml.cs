@@ -20,6 +20,8 @@ along with this program.If not, see <http://www.gnu.org/licenses/>.
 ---------------------------------------------------------------------- */
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 // Disable XML Comment warnings
@@ -32,7 +34,7 @@ namespace Axiom
     /// </summary>
     public partial class CropWindow : Window
     {
-        private MainWindow mainwindow;
+        private MainWindow mainwindow = (MainWindow)System.Windows.Application.Current.MainWindow;
 
         //private ViewModel vm;
 
@@ -52,7 +54,7 @@ namespace Axiom
 
             this.mainwindow = mainwindow;
 
-            //vm = mainwindow.DataContext as ViewModel;
+            DataContext = vm;
 
             // Set Min/Max Width/Height to prevent Tablets maximizing
             this.MinWidth = 480;
@@ -69,12 +71,12 @@ namespace Axiom
             // First time use
             if (string.IsNullOrEmpty(cropWidth))
             {
-                textBoxCropWidth.Text = string.Empty;
+                vm.CropWidth_Text = string.Empty;
             }
             // Load Temp Saved String
             else if (!string.IsNullOrEmpty(cropWidth))
             {
-                textBoxCropWidth.Text = cropWidth;
+                vm.CropWidth_Text = cropWidth;
             }
 
             // -------------------------
@@ -83,12 +85,12 @@ namespace Axiom
             // First time use
             if (string.IsNullOrEmpty(cropHeight))
             {
-                textBoxCropHeight.Text = string.Empty;
+                vm.CropHeight_Text = string.Empty;
             }
             // Load Temp Saved String
             else if (!string.IsNullOrEmpty(cropHeight))
             {
-                textBoxCropHeight.Text = cropHeight;
+                vm.CropHeight_Text = cropHeight;
             }
 
             // -------------------------
@@ -97,12 +99,12 @@ namespace Axiom
             // First time use
             if (string.IsNullOrEmpty(cropX))
             {
-                textBoxCropX.Text = string.Empty;
+                vm.CropX_Text = string.Empty;
             }
             // Load Temp Saved String
             else if (!string.IsNullOrEmpty(cropX))
             {
-                textBoxCropX.Text = cropX;
+                vm.CropX_Text = cropX;
             }
 
             // -------------------------
@@ -111,18 +113,18 @@ namespace Axiom
             // First time use
             if (string.IsNullOrEmpty(cropY))
             {
-                textBoxCropY.Text = string.Empty;
+                vm.CropY_Text = string.Empty;
             }
             // Load Temp Saved String
             else if (!string.IsNullOrEmpty(cropY))
             {
-                textBoxCropY.Text = cropY;
+                vm.CropY_Text = cropY;
             }
         }
 
 
         /// <summary>
-        /// Close All
+        ///     Close All
         /// </summary>
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
@@ -131,7 +133,7 @@ namespace Axiom
         }
 
         /// <summary>
-        /// Crop Width
+        ///     Crop Width
         /// </summary>
         private void textBoxCropWidth_KeyDown(object sender, KeyEventArgs e)
         {
@@ -143,7 +145,7 @@ namespace Axiom
         }
 
         /// <summary>
-        /// Crop Height
+        ///     Crop Height
         /// </summary>
         private void textBoxCropHeight_KeyDown(object sender, KeyEventArgs e)
         {
@@ -155,7 +157,7 @@ namespace Axiom
         }
 
         /// <summary>
-        /// Crop X
+        ///     Crop X
         /// </summary>
         private void textBoxCropX_KeyDown(object sender, KeyEventArgs e)
         {
@@ -167,7 +169,7 @@ namespace Axiom
         }
 
         /// <summary>
-        /// Crop Y
+        ///     Crop Y
         /// </summary>
         private void textBoxCropY_KeyDown(object sender, KeyEventArgs e)
         {
@@ -180,7 +182,7 @@ namespace Axiom
 
 
         /// <summary>
-        /// SET Button
+        ///     SET Button
         /// </summary>
         public void buttonSet_Click(object sender, RoutedEventArgs e)
         {
@@ -188,96 +190,163 @@ namespace Axiom
 
             crop = string.Empty;
 
+            // -------------------------
             // Save Temp TextBox String Holder
-            cropWidth = textBoxCropWidth.Text;
-            cropHeight = textBoxCropHeight.Text;
-            cropX = textBoxCropX.Text;
-            cropY = textBoxCropY.Text;
+            // -------------------------
+            cropWidth = vm.CropWidth_Text;
+            cropHeight = vm.CropHeight_Text;
+            cropX = vm.CropX_Text;
+            cropY = vm.CropY_Text;
 
+
+            // Set Empty Crop Width Textbox to 0
+            //
+            if (string.IsNullOrEmpty(cropWidth))
+            {
+                vm.CropWidth_Text = "0";
+                cropWidth = vm.CropWidth_Text;
+            }
+            // Set Empty Crop Height Textbox to 0
+            //
+            if (string.IsNullOrEmpty(cropHeight))
+            {
+                vm.CropHeight_Text = "0";
+                cropHeight = vm.CropHeight_Text;
+            }
             // Set Empty Crop X Textbox to 0
             //
-            if (string.IsNullOrWhiteSpace(textBoxCropX.Text))
+            if (string.IsNullOrEmpty(cropX))
             {
-                textBoxCropX.Text = "0";
-                cropX = textBoxCropX.Text;
+                vm.CropX_Text = "0";
+                cropX = vm.CropX_Text;
             }
             // Set Empty Crop Y Textbox to 0
             //
-            if (string.IsNullOrWhiteSpace(textBoxCropY.Text))
+            if (string.IsNullOrEmpty(cropY))
             {
-                textBoxCropY.Text = "0";
-                cropY = textBoxCropY.Text;
+                vm.CropY_Text = "0";
+                cropY = vm.CropY_Text;
             }
 
-            // Make x264 & x265 Width/Height Divisible by 2
-            //
-            if (vm.VideoCodec_SelectedItem == "x264" || 
-                vm.VideoCodec_SelectedItem == "x265")
+            // -------------------------
+            // Crop Values Null Check
+            // -------------------------
+            List<int> cropValues = new List<int>()
             {
-                try // will error if wrong characters input
+                Convert.ToInt32(cropWidth),
+                Convert.ToInt32(cropHeight),
+                Convert.ToInt32(cropX),
+                Convert.ToInt32(cropY)
+            };
+
+            if (cropValues.Sum() != 0)
+            {
+                // Make x264 & x265 Width/Height Divisible by 2
+                //
+                if (vm.VideoCodec_SelectedItem == "x264" ||
+                    vm.VideoCodec_SelectedItem == "x265")
                 {
-                    divisibleCropWidth = Convert.ToInt32(cropWidth);
-                    divisibleCropHeight = Convert.ToInt32(cropHeight);
-
-                    // If not divisible by 2, subtract 1 from total
-                    if (divisibleCropWidth % 2 != 0)
+                    try // will error if wrong characters input
                     {
-                        divisibleCropWidth -= 1;
+                        divisibleCropWidth = Convert.ToInt32(cropWidth);
+                        divisibleCropHeight = Convert.ToInt32(cropHeight);
+
+                        // If not divisible by 2, subtract 1 from total
+                        if (divisibleCropWidth % 2 != 0)
+                        {
+                            divisibleCropWidth -= 1;
+                        }
+                        if (divisibleCropHeight % 2 != 0)
+                        {
+                            divisibleCropHeight -= 1;
+                        }
+
+                        crop = Convert.ToString("crop=" + divisibleCropWidth + ":" + divisibleCropHeight + ":" + cropX + ":" + cropY);
                     }
-                    if (divisibleCropHeight % 2 != 0)
+                    catch
                     {
-                        divisibleCropHeight -= 1;
+                        MessageBox.Show("Error: Must enter numbers only.");
                     }
-
-                    crop = Convert.ToString("crop=" + divisibleCropWidth + ":" + divisibleCropHeight + ":" + cropX + ":" + cropY);
-
-                    // Video Filter Add
-                    //Video.VideoFilters.Add(crop);
-
                 }
-                catch
+
+                // Use Normal Width, Height, X, Y
+                //
+                else
                 {
-                    MessageBox.Show("Error: Must enter numbers only.");
+                    crop = "crop=" + cropWidth + ":" + cropHeight + ":" + cropX + ":" + cropY;
                 }
+
+                // Set Button Text to show Crop is Active
+                vm.CropClear_Text = "Clear*";
             }
 
-            // Use Normal Width, Height, X, Y
-            //
+            // -------------------------
+            // Reset TextBoxes to Empty for next Window open
+            // -------------------------
             else
             {
-                crop = "crop=" + cropWidth + ":" + cropHeight + ":" + cropX + ":" + cropY;
+                CropClear(vm);
+                //// Crop
+                //crop = string.Empty;
 
-                // Video Filter Add
-                //Video.VideoFilters.Add(crop);
+                //// Width
+                //vm.CropWidth_Text = string.Empty;
+                //cropWidth = string.Empty;
+
+                //// Height
+                //vm.CropHeight_Text = string.Empty;
+                //cropHeight = string.Empty;
+
+                //// X
+                //vm.CropX_Text = string.Empty;
+                //cropX = string.Empty;
+
+                //// Y
+                //vm.CropY_Text = string.Empty;
+                //cropY = string.Empty;
+
+                //// Set Button Text to show Crop is Nonactive
+                //vm.CropClear_Text = "Clear";
             }
-
-            // Set Button Text to show Crop is Active
-            vm.CropClear_Text = "Clear*";
 
             this.Close();
         }
 
 
         /// <summary>
-        /// Clear Button
+        ///     Clear Button
         /// </summary>
         public void buttonClear_Click(object sender, RoutedEventArgs e)
         {
             ViewModel vm = mainwindow.DataContext as ViewModel;
 
-            textBoxCropWidth.Text = string.Empty;
-            textBoxCropHeight.Text = string.Empty;
-            textBoxCropX.Text = string.Empty;
-            textBoxCropY.Text = string.Empty;
+            //vm.CropWidth_Text = string.Empty;
+            //vm.CropHeight_Text = string.Empty;
+            //vm.CropX_Text = string.Empty;
+            //vm.CropY_Text = string.Empty;
 
             CropClear(vm);
         }
 
         /// <summary>
-        /// Crop Clear (Method)
+        ///     Crop Clear (Method)
         /// </summary>
         public static void CropClear(ViewModel vm)
         {
+            VideoFilters.vFilter = string.Empty;
+
+            if (VideoFilters.vFiltersList != null && 
+                VideoFilters.vFiltersList.Count > 0)
+            {
+                VideoFilters.vFiltersList.Clear();
+                VideoFilters.vFiltersList.TrimExcess();
+            }
+
+            vm.CropWidth_Text = string.Empty;
+            vm.CropHeight_Text = string.Empty;
+            vm.CropX_Text = string.Empty;
+            vm.CropY_Text = string.Empty;
+
             divisibleCropWidth = null;
             divisibleCropHeight = null;
 

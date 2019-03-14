@@ -48,6 +48,7 @@
                VerticalAlignment="Top" 
                Width="20" />
         <TextBox x:Name="textBoxCropX" 
+                 Text="{Binding CropX_Text, Mode=TwoWay}"
                  HorizontalAlignment="Left" 
                  Height="22" 
                  Margin="32,109,0,0" 
@@ -69,6 +70,7 @@
                VerticalAlignment="Top" 
                Width="21" />
         <TextBox x:Name="textBoxCropY" 
+                 Text="{Binding CropY_Text, Mode=TwoWay}"
                  HorizontalAlignment="Left" 
                  Height="22" 
                  Margin="202,17,0,0" 
@@ -82,8 +84,25 @@
                  ToolTip="Position of Crop from Top"/>
 
         <!-- Crop Width -->
-        <Label x:Name="labelCropWidth" Style="{DynamicResource LabelCustom}" Content="Width" HorizontalAlignment="Left" Margin="178,84,0,0" VerticalAlignment="Top" Width="44" />
-        <TextBox x:Name="textBoxCropWidth" HorizontalAlignment="Left" Height="22" Margin="170,109,0,0" TextWrapping="NoWrap" MaxLines="1" VerticalAlignment="Top" Width="60" Style="{DynamicResource TextBoxCustom}" KeyDown="textBoxCropWidth_KeyDown" ToolTipService.ShowOnDisabled="True" ToolTip="Width of Cropped Area"/>
+        <Label x:Name="labelCropWidth"
+               Style="{DynamicResource LabelCustom}"
+               Content="Width" HorizontalAlignment="Left"
+               Margin="178,84,0,0" 
+               VerticalAlignment="Top"
+               Width="44" />
+        <TextBox x:Name="textBoxCropWidth" 
+                 Text="{Binding CropWidth_Text, Mode=TwoWay}"
+                 HorizontalAlignment="Left" 
+                 Height="22" 
+                 Margin="170,109,0,0" 
+                 TextWrapping="NoWrap" 
+                 MaxLines="1" 
+                 VerticalAlignment="Top"
+                 Width="60" 
+                 Style="{DynamicResource TextBoxCustom}" 
+                 KeyDown="textBoxCropWidth_KeyDown" 
+                 ToolTipService.ShowOnDisabled="True" 
+                 ToolTip="Width of Cropped Area"/>
 
         <!-- Crop Height -->
         <Label x:Name="labelCropHeight" 
@@ -93,6 +112,7 @@
                VerticalAlignment="Top" 
                Width="48" />
         <TextBox x:Name="textBoxCropHeight" 
+                 Text="{Binding CropHeight_Text, Mode=TwoWay}"
                  HorizontalAlignment="Left"
                  Height="22"
                  Margin="235,109,0,0" 

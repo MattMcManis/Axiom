@@ -90,7 +90,7 @@
                 VerticalAlignment="Bottom"
                 Width="56" Click="btnScriptSave_Click">
             <TextBlock Text="Save" 
-                Margin="0,-2,0,0"/>
+                       Margin="0,-2,0,0"/>
         </Button>
 
         <!-- Copy Button -->
@@ -216,9 +216,7 @@
                      TextWrapping="NoWrap"
                      MaxLines="1" 
                      VerticalAlignment="Top" 
-                     
                      TextChanged="tbxInput_TextChanged"
-      
                      AllowDrop="True"
                      PreviewDragOver="tbxInput_PreviewDragOver"
                      PreviewDragEnter="tbxInput_PreviewDragOver"

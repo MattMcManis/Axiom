@@ -28,9 +28,11 @@
         xmlns:Themes1="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2" 
         mc:Ignorable="d"
         
-        ResizeMode="CanMinimize" UseLayoutRounding="True"
+        ResizeMode="CanMinimize" 
+        UseLayoutRounding="True"
         Title="Info" 
-        Height="335" Width="445" 
+        Height="335"
+        Width="445" 
         Icon="Resources/Images/Icons/info.ico"
         >
     <Window.Resources>
@@ -81,8 +83,17 @@
         </Style>
     </Window.Resources>
     <Grid>
-        <TextBox ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                 ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalAlignment="Left" Height="272" Margin="10,10,0,0" TextWrapping="Wrap" TextAlignment="Justify" 
-                 Text="Axiom generates command scripts to be interpreted and processed by multimedia encoder FFmpeg and stream analyzer FFprobe. &#xA;&#xA;Axiom UI&#xA;Copyright © 2017-2019 Matt McManis&#xA;github.com/MattMcManis/Axiom&#xA;axiomui.github.io&#xA;mattmcmanis@outlook.com&#xA;&#xA;This program is free software: you can redistribute it and/or modify&#xA;it under the terms of the GNU General Public License as published by&#xA;the Free Software Foundation, either version 3 of the License, or&#xA;(at your option) any later version.&#xA;&#xA;This program is distributed in the hope that it will be useful,&#xA;but WITHOUT ANY WARRANTY; without even the implied warranty of&#xA;MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the&#xA;GNU General Public License for more details.&#xA;&#xA;You should have received a copy of the GNU General Public License&#xA;along with this program.  If not, see http://www.gnu.org/licenses/." VerticalAlignment="Top" Width="409" IsReadOnly="True" Style="{DynamicResource TextBoxStyleInfo}" TextChanged="TextBox_TextChanged"/>
+        <TextBox Style="{DynamicResource TextBoxStyleInfo}"
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                 ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                 HorizontalAlignment="Left" 
+                 VerticalAlignment="Top" 
+                 Width="409"
+                 Height="272"
+                 Margin="10,10,0,0" 
+                 TextWrapping="Wrap" 
+                 TextAlignment="Justify" 
+                 IsReadOnly="True"
+                 Text="Axiom generates command scripts to be interpreted and processed by multimedia encoder FFmpeg and stream analyzer FFprobe. &#xA;&#xA;Axiom UI&#xA;Copyright © 2017-2019 Matt McManis&#xA;github.com/MattMcManis/Axiom&#xA;axiomui.github.io&#xA;mattmcmanis@outlook.com&#xA;&#xA;This program is free software: you can redistribute it and/or modify&#xA;it under the terms of the GNU General Public License as published by&#xA;the Free Software Foundation, either version 3 of the License, or&#xA;(at your option) any later version.&#xA;&#xA;This program is distributed in the hope that it will be useful,&#xA;but WITHOUT ANY WARRANTY; without even the implied warranty of&#xA;MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the&#xA;GNU General Public License for more details.&#xA;&#xA;You should have received a copy of the GNU General Public License&#xA;along with this program.  If not, see http://www.gnu.org/licenses/."/>
     </Grid>
 </Window>

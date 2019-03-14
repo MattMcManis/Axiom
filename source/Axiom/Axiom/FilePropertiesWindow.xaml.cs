@@ -39,6 +39,8 @@ namespace Axiom
         {
             InitializeComponent();
 
+            DataContext = vm;
+
             // Set Width/Height to prevent Tablets maximizing
             //this.Width = 420;
             //this.Height = 400;

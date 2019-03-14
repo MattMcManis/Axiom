@@ -52,8 +52,8 @@ namespace Axiom
             InitializeComponent();
 
             //this.mainwindow = mainwindow;
-
             //vm = mainwindow.DataContext as ViewModel;
+            DataContext = vm;
 
             //this.Width = 400;
             //this.Height = 500;
@@ -638,8 +638,8 @@ namespace Axiom
             debugParagraph.Inlines.Add(new Run(Audio.aVolume) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
-            debugParagraph.Inlines.Add(new Bold(new Run("aLimiter ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(Audio.aLimiter) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Bold(new Run("aHardLimiter ")) { Foreground = Variable });
+            debugParagraph.Inlines.Add(new Run(Audio.aHardLimiter) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new LineBreak());

@@ -40,15 +40,5 @@ namespace Axiom
             this.MaxWidth = 445;
             this.MaxHeight = 335;
         }
-
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-
-        }
-
-        private void TextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-
-        }
     }
 }

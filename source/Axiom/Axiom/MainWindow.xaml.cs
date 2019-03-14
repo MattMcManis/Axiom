@@ -713,7 +713,6 @@ namespace Axiom
             Format.trim = string.Empty;
             Format.trimStart = string.Empty;
             Format.trimEnd = string.Empty;
-            //batchExt = string.Empty;
 
             VideoFilters.vFilter = string.Empty;
             VideoFilters.geq = string.Empty;
@@ -751,7 +750,7 @@ namespace Axiom
             Audio.aBitrateLimiter = string.Empty;
             AudioFilters.aFilter = string.Empty;
             Audio.aVolume = string.Empty;
-            Audio.aLimiter = string.Empty;
+            Audio.aHardLimiter = string.Empty;
 
             if (AudioFilters.aFiltersList != null &&
                 AudioFilters.aFiltersList.Count > 0)
@@ -4155,15 +4154,7 @@ namespace Axiom
         /// </summary>
         private void btnCropClear_Click(object sender, RoutedEventArgs e)
         {
-            VideoFilters.vFilter = string.Empty;
-
-            if (VideoFilters.vFiltersList != null)
-            {
-                VideoFilters.vFiltersList.Clear();
-                VideoFilters.vFiltersList.TrimExcess();
-            }
-
-            // Trigger the CropWindow Clear Button (only way it will clear the string)
+            // Clear Crop Values
             CropWindow.CropClear(vm);
         }
 
@@ -5428,7 +5419,7 @@ namespace Axiom
             // Reset Empty to 0
             if (string.IsNullOrWhiteSpace(tbxFilterVideo_EQ_Brightness.Text))
             {
-                tbxFilterVideo_EQ_Brightness.Text = "0";
+                vm.FilterVideo_EQ_Brightness_Value = 0;
             }
 
             VideoControls.AutoCopyVideoCodec(vm);

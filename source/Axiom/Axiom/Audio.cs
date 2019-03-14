@@ -57,16 +57,16 @@ namespace Axiom
         // --------------------------------------------------------------------------------------------------------
         // Audio
         public static string aCodec;
-        public static string aBitMode;
+        public static string aBitMode; // -b:a, -q:a
         public static string aBitrate;
-        public static string aBitrateNA;
+        public static string aBitrateNA; // fallback default if not available
         public static string aQuality;
         public static string aLossless;
         public static string aChannel;
         public static string aSamplerate;
         public static string aBitDepth;
         public static string aVolume;
-        public static string aLimiter;
+        public static string aHardLimiter;
 
         // Batch
         public static string aBitrateLimiter; // limits the bitrate value of webm and ogg
@@ -185,7 +185,7 @@ namespace Axiom
                                     // VBR
                                     else if (vm.AudioVBR_IsChecked == true)
                                     {
-                                        //vbr does not have 'k'
+                                        //VBR does not have 'k'
 
                                         aBitrate = AudioVBRCalculator(vm, FFprobe.inputAudioBitrate);
 
@@ -293,15 +293,10 @@ namespace Axiom
                     }
 
                     // -------------------------
-                    // 640, 400, 320, 128, etc
+                    // Preset: 640, 400, 320, 128, etc
                     // -------------------------
                     else
                     {
-                        // -------------------------
-                        // Bitrate Mode
-                        // -------------------------
-                        //aBitMode = BitrateMode(vm, vm.AudioVBR_IsChecked);
-
                         // -------------------------
                         // Bitrate
                         // -------------------------
@@ -348,6 +343,7 @@ namespace Axiom
                 }
 
             }
+
             return aQuality;
         }
 
@@ -366,25 +362,25 @@ namespace Axiom
             try
             {
                 // -------------------------
-                // If Video is Mute, don't set Audio Bitrate
+                // If Video is has no Audio, don't set Audio Bitrate
                 // -------------------------
-                if (string.IsNullOrEmpty(FFprobe.inputAudioBitrate))
+                if (!string.IsNullOrEmpty(FFprobe.inputAudioBitrate))
                 {
-                    // do nothing (dont remove, it will cause substring to overload)
-                }
-
-                // -------------------------
-                // Filter out any extra spaces after the first 3 characters IMPORTANT
-                // -------------------------
-                else if (inputAudioBitrate.Substring(0, 3) == "N/A")
-                {
-                    inputAudioBitrate = "N/A";
+                    // -------------------------
+                    // Filter out any extra spaces after the first 3 characters IMPORTANT
+                    // -------------------------
+                    if (inputAudioBitrate.Substring(0, 3) == "N/A")
+                    {
+                        MessageBox.Show("1");
+                        inputAudioBitrate = "N/A";
+                    }
                 }
 
                 // -------------------------
                 // If Video has Audio, calculate Bitrate into decimal
                 // -------------------------
-                if (inputAudioBitrate != "N/A" && !string.IsNullOrEmpty(FFprobe.inputAudioBitrate))
+                if (inputAudioBitrate != "N/A" && 
+                    !string.IsNullOrEmpty(FFprobe.inputAudioBitrate))
                 {
                     // -------------------------
                     // Convert to Decimal
@@ -397,48 +393,48 @@ namespace Axiom
                     // -------------------------
                     // Vorbis
                     // -------------------------
-                    if (vm.AudioCodec_SelectedItem == "Vorbis"
-                        && double.Parse(inputAudioBitrate) > 500)
+                    if (vm.AudioCodec_SelectedItem == "Vorbis" &&
+                        double.Parse(inputAudioBitrate) > 500)
                     {
                         inputAudioBitrate = Convert.ToString(500); //was 500,000 (before converting to decimal)
                     }
                     // -------------------------
                     // Opus
                     // -------------------------
-                    else if (vm.AudioCodec_SelectedItem == "Opus"
-                        && double.Parse(inputAudioBitrate) > 510)
+                    else if (vm.AudioCodec_SelectedItem == "Opus" &&
+                             double.Parse(inputAudioBitrate) > 510)
                     {
                         inputAudioBitrate = Convert.ToString(510); //was 510,000 (before converting to decimal)
                     }
                     // -------------------------
                     // MP2
                     // -------------------------
-                    else if (vm.AudioCodec_SelectedItem == "MP2"
-                        && double.Parse(inputAudioBitrate) > 320)
+                    else if (vm.AudioCodec_SelectedItem == "MP2" &&
+                            double.Parse(inputAudioBitrate) > 320)
                     {
                         inputAudioBitrate = Convert.ToString(320); //was 320,000 before converting to decimal)
                     }
                     // -------------------------
                     // LAME
                     // -------------------------
-                    else if (vm.AudioCodec_SelectedItem == "LAME"
-                        && double.Parse(inputAudioBitrate) > 320)
+                    else if (vm.AudioCodec_SelectedItem == "LAME" &&
+                            double.Parse(inputAudioBitrate) > 320)
                     {
                         inputAudioBitrate = Convert.ToString(320); //was 320,000 before converting to decimal)
                     }
                     // -------------------------
                     // AAC
                     // -------------------------
-                    else if (vm.AudioCodec_SelectedItem == "AAC"
-                        && double.Parse(inputAudioBitrate) > 400)
+                    else if (vm.AudioCodec_SelectedItem == "AAC" &&
+                            double.Parse(inputAudioBitrate) > 400)
                     {
                         inputAudioBitrate = Convert.ToString(400); //was 400,000 (before converting to decimal)
                     }
                     // -------------------------
                     // AC3
                     // -------------------------
-                    else if (vm.AudioCodec_SelectedItem == "AC3"
-                        && double.Parse(inputAudioBitrate) > 640)
+                    else if (vm.AudioCodec_SelectedItem == "AC3" &&
+                            double.Parse(inputAudioBitrate) > 640)
                     {
                         inputAudioBitrate = Convert.ToString(640); //was 640,000 (before converting to decimal)
                     }
@@ -454,8 +450,8 @@ namespace Axiom
                     // Vorbis
                     // -------------------------
                     // Vorbis has a minimum bitrate limit of 45k, if less than, set to 45k
-                    else if (vm.AudioCodec_SelectedItem == "Vorbis"
-                        && double.Parse(inputAudioBitrate) < 45)
+                    else if (vm.AudioCodec_SelectedItem == "Vorbis" &&
+                             double.Parse(inputAudioBitrate) < 45)
                     {
                         inputAudioBitrate = Convert.ToString(45);
                     }
@@ -464,8 +460,8 @@ namespace Axiom
                     // Opus
                     // -------------------------
                     // Opus has a minimum bitrate limit of 6k, if less than, set to 6k
-                    else if (vm.AudioCodec_SelectedItem == "Opus"
-                        && double.Parse(inputAudioBitrate) < 6)
+                    else if (vm.AudioCodec_SelectedItem == "Opus" &&
+                             double.Parse(inputAudioBitrate) < 6)
                     {
                         inputAudioBitrate = Convert.ToString(6);
                     }
@@ -1018,10 +1014,10 @@ namespace Axiom
             if (vm.AudioHardLimiter_IsEnabled == true && 
                 value != 1)
             {
-                aLimiter = "alimiter=level_in=1:level_out=1:limit=" + Convert.ToString(Math.Round(value, 2)) + ":attack=7:release=100:level=disabled";
+                aHardLimiter = "alimiter=level_in=1:level_out=1:limit=" + Convert.ToString(Math.Round(value, 2)) + ":attack=7:release=100:level=disabled";
 
                 // Add to Audio Filters
-                AudioFilters.aFiltersList.Add(aLimiter);
+                AudioFilters.aFiltersList.Add(aHardLimiter);
             }
         }
 

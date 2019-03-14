@@ -2260,6 +2260,88 @@ namespace Axiom
                 OnPropertyChanged("Crop_IsEnabled");
             }
         }
+
+        // -------------------------
+        // Crop Width
+        // -------------------------
+        // Text
+        private string _CropWidth_Text;
+        public string CropWidth_Text
+        {
+            get { return _CropWidth_Text; }
+            set
+            {
+                if (_CropWidth_Text == value)
+                {
+                    return;
+                }
+
+                _CropWidth_Text = value;
+                OnPropertyChanged("CropWidth_Text");
+            }
+        }
+
+        // -------------------------
+        // Crop Height
+        // -------------------------
+        // Text
+        private string _CropHeight_Text;
+        public string CropHeight_Text
+        {
+            get { return _CropHeight_Text; }
+            set
+            {
+                if (_CropHeight_Text == value)
+                {
+                    return;
+                }
+
+                _CropHeight_Text = value;
+                OnPropertyChanged("CropHeight_Text");
+            }
+        }
+
+        // -------------------------
+        // Crop X
+        // -------------------------
+        // Text
+        private string _CropX_Text;
+        public string CropX_Text
+        {
+            get { return _CropX_Text; }
+            set
+            {
+                if (_CropX_Text == value)
+                {
+                    return;
+                }
+
+                _CropX_Text = value;
+                OnPropertyChanged("CropX_Text");
+            }
+        }
+
+        // -------------------------
+        // Crop X
+        // -------------------------
+        private string _CropY_Text;
+        public string CropY_Text
+        {
+            get { return _CropY_Text; }
+            set
+            {
+                if (_CropY_Text == value)
+                {
+                    return;
+                }
+
+                _CropY_Text = value;
+                OnPropertyChanged("CropY_Text");
+            }
+        }
+
+
+
         // --------------------------------------------------
         // Crop Clear Button
         // --------------------------------------------------
