@@ -57,7 +57,7 @@ namespace Axiom
         // -------------------------
         public static List<ViewModel.VideoQuality> quality = new List<ViewModel.VideoQuality>()
         {
-             new ViewModel.VideoQuality() { Name = "Auto",      CRF = "",   CBR_BitMode = "", CBR = "", VBR_BitMode = "-q:v", VBR = "85",  Minrate = "", Maxrate = "", Bufsize ="", NA = "" },
+             new ViewModel.VideoQuality() { Name = "Auto",      CRF = "",   CBR_BitMode = "", CBR = "", VBR_BitMode = "-q:v", VBR = "85",  Minrate = "", Maxrate = "", Bufsize ="", NA = "85" },
              new ViewModel.VideoQuality() { Name = "Lossless",  CRF = "",   CBR_BitMode = "", CBR = "", VBR_BitMode = "-q:v", VBR = "",    Minrate = "", Maxrate = "", Bufsize ="", Lossless = "-lossless 1" },
              new ViewModel.VideoQuality() { Name = "Ultra",     CRF = "",   CBR_BitMode = "", CBR = "", VBR_BitMode = "-q:v", VBR = "100", Minrate = "", Maxrate = "", Bufsize ="" },
              new ViewModel.VideoQuality() { Name = "High",      CRF = "",   CBR_BitMode = "", CBR = "", VBR_BitMode = "-q:v", VBR = "85",  Minrate = "", Maxrate = "", Bufsize ="" },

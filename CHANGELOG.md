@@ -4,25 +4,36 @@ Axiom FFmpeg UI
 
 ## [alpha]
 
-## [1.5.3.1] - Mar 13, 2019
-### Added
-- Added VP8, VP9, x264, x265 Video VBR
-- Added VBR Calculator to Audio Quality Custom
+## [1.5.3.2] - Mar 14, 2019
+### Changed
+- Refactored Codec Classes and Controls
+- Improved MediaType ComboBox Control
+- Disabled CRF VBR Button for `VP8`, `x264`
+- CropWindow ViewModel Binding
 
 ### Fixed
-- Fixed Video Quality Custom
-- Fixed MPEG-2, MPEG-4 Lossless
+- Fixed CRF Custom
+
+
+## [1.5.3.1] - Mar 13, 2019
+### Added
+- `VP8`, `VP9`, `x264`, `x265` Video VBR
+- VBR Calculator to Audio Quality Custom
+
+### Fixed
+- Video Quality Custom
+- `MPEG-2`, `MPEG-4` Lossless
 
 
 ## [1.5.3.0] - Mar 13, 2019
 ### Added
-- Added FFV1 Video Codec
+- `FFV1` Video Codec
 
 
 ## [1.5.2.1] - Mar 13, 2019
 ### Fixed
-- Fixed Video Pass ComboBox Display
-- Fixed Optimize Custom x264 x265
+- Video Pass ComboBox Display
+- Optimize Custom `x264`, `x265`
 
 
 ## [1.5.2.0] - Mar 12, 2019
@@ -30,7 +41,7 @@ Axiom FFmpeg UI
 - Audio Auto Codec Copy Filter Checks
 
 ### Changed
-- Filters to MVVM
+- Filters to `MVVM`
 
 ### Fixed
 - ScriptView Modify and Clear
@@ -47,7 +58,7 @@ Axiom FFmpeg UI
 - Improved Auto Codec Copy Controls
 - Modified Video Pixel Format Controls
 - Organized Theme files
-- ScriptView RichTextBox to MVVM
+- ScriptView RichTextBox to `MVVM`
 
 
 ## [1.5.0.0] - Mar 10, 2019
@@ -61,7 +72,7 @@ Axiom FFmpeg UI
 - Priority of Video Filters `Size` and `Crop`
 
 ### Fixed
-- `Codec Copy Controls`
+- Codec Copy Controls
 
 
 ## [1.2.9.1] - Jul 17, 2018

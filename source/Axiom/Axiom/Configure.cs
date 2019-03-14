@@ -36,7 +36,7 @@ namespace Axiom
         public static string ffprobePath; // Config Settings Path
         public static string ffplayPath; // Config Settings Path
         public static string logPath; // output.log Config Settings Path
-        public static bool logEnable; //checkBoxLogConfig, Enable or Disable Log, true or false
+        //public static bool logEnable; //checkBoxLogConfig, Enable or Disable Log, true or false
         public static string threads; // Set FFmpeg -threads
         public static string maxthreads; // All CPU Threads
 
@@ -181,13 +181,13 @@ namespace Axiom
                 // --------------------------
                 if (string.IsNullOrEmpty(Convert.ToString(Settings.Default.Log_IsChecked)))
                 {
-                    logEnable = false;
+                    //logEnable = false;
 
                     // Set ComboBox if Configure Window is Open
                     vm.LogCheckBox_IsChecked = false;
 
                     // Save for next launch
-                    Settings.Default.Log_IsChecked = logEnable;
+                    Settings.Default.Log_IsChecked = false;
                     Settings.Default.Save();
                 }
                 // --------------------------
@@ -195,7 +195,7 @@ namespace Axiom
                 // --------------------------
                 else if (!string.IsNullOrEmpty(Convert.ToString(Settings.Default.Log_IsChecked)))
                 {
-                    logEnable = Convert.ToBoolean(Settings.Default.Log_IsChecked);
+                    //logEnable = Convert.ToBoolean(Settings.Default.Log_IsChecked);
 
                     // Set ComboBox if Configure Window is Open
                     vm.LogCheckBox_IsChecked = Convert.ToBoolean(Settings.Default.Log_IsChecked);

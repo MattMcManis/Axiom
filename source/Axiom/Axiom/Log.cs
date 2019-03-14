@@ -88,26 +88,28 @@ namespace Axiom
         /// <summary>
         ///     Define Log Path (Method)
         /// </summary>
-        public static void DefineLogPath()
+        public static void DefineLogPath(ViewModel vm)
         {
-            // Only if Log is Enabled through Configure Checkbox
-            if (Configure.logEnable == true)
+            // --------------------------
+            // Checked
+            // --------------------------
+            if (vm.LogCheckBox_IsChecked == true)
             {
-                // If checkbox is enabled but textbox is empty, put log in exe's current directory
-                if (string.IsNullOrEmpty(Configure.logPath))
+                // TextBox is Not Empty
+                if (!string.IsNullOrEmpty(vm.LogPath_Text))
                 {
-                    //configure.logPath = appDir + "\\";
-                    //System.Windows.MessageBox.Show(log); //debug
+                    Configure.logPath = vm.LogPath_Text;
+                }
 
+                // Empty, use App Directory
+                else
+                {
                     Configure.logPath = MainWindow.appDir;
                 }
-                // If textbox is not empty, use User custom path
-                else if (!string.IsNullOrEmpty(Configure.logPath))
-                {
-                    // do nothing
-                }
             }
-            // If checkbox disabled
+            // --------------------------
+            // Unchecked
+            // --------------------------
             else
             {
                 Configure.logPath = string.Empty;
@@ -118,10 +120,10 @@ namespace Axiom
         /// <summary>
         ///     Create Output Log (Method)
         /// </summary>
-        public static void CreateOutputLog(MainWindow mainwindow)
+        public static void CreateOutputLog(MainWindow mainwindow, ViewModel vm)
         {
             // Log Path
-            if (Configure.logEnable == true) // Only if Log is Enabled through Configure Checkbox
+            if (vm.LogCheckBox_IsChecked == true) // Only if Log is Enabled through Configure Checkbox
             {
                 // Start Log /////////
                 if (MainWindow.script == false) // do not log if Script Button clicked
@@ -132,7 +134,8 @@ namespace Axiom
                     try
                     {
                         //Write Log Console to File
-                        TextRange t = new TextRange(mainwindow.logconsole.rtbLog.Document.ContentStart, mainwindow.logconsole.rtbLog.Document.ContentEnd);
+                        TextRange t = new TextRange(mainwindow.logconsole.rtbLog.Document.ContentStart, 
+                                                    mainwindow.logconsole.rtbLog.Document.ContentEnd);
                         FileStream file = new FileStream(@Configure.logPath + "output.log", FileMode.Create);
                         t.Save(file, System.Windows.DataFormats.Text);
                         file.Close();
@@ -169,7 +172,7 @@ namespace Axiom
         /// <summary>
         ///     Log Write All 
         /// </summary>
-        public static void LogWriteAll(MainWindow mainwindow)
+        public static void LogWriteAll(MainWindow mainwindow, ViewModel vm)
         {
             // -------------------------
             // Background Thread Worker
@@ -225,8 +228,8 @@ namespace Axiom
                 // -------------------------
                 // Create Output Log File
                 // -------------------------
-                DefineLogPath();
-                CreateOutputLog(mainwindow); //write output log to text file
+                DefineLogPath(vm);
+                CreateOutputLog(mainwindow, vm); //write output log to text file
 
                 // set script back to 0 for next convert
                 MainWindow.script = false;

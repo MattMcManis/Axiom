@@ -32,7 +32,7 @@ namespace Axiom
     /// </summary>
     public partial class LogConsole : Window
     {
-        public LogConsole(MainWindow mainwindow)
+        public LogConsole()
         {
             InitializeComponent();
 

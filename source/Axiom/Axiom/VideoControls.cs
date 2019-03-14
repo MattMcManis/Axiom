@@ -724,16 +724,20 @@ namespace Axiom
                 vm.VideoBitrate_IsEnabled = false;
 
                 // VBR
-                if (vm.VideoCodec_SelectedItem == "AV1" || // special rules
-                   //vm.VideoCodec_SelectedItem == "VP9" ||
+                if (vm.VideoCodec_SelectedItem == "VP8" || // special rules
+                    vm.VideoCodec_SelectedItem == "x264" ||
+                    vm.VideoCodec_SelectedItem == "JPEG" ||
+                    vm.VideoCodec_SelectedItem == "AV1" ||
                     vm.VideoCodec_SelectedItem == "FFV1" ||
                     vm.VideoCodec_SelectedItem == "Copy" ||
                     vm.VideoCodec_SelectedItem == "None") 
                 {
+                    // Disabled
                     vm.VideoVBR_IsEnabled = false;
                 }
                 else
                 {
+                    // Enabled
                     vm.VideoVBR_IsEnabled = true;
                 }
 
@@ -1093,10 +1097,7 @@ namespace Axiom
             {
                 // Enable Pass
                 vm.Pass_IsEnabled = true;
-
-                //vm.CRF_IsEnabled = true;
             }
-
         }
 
 

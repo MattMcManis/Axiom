@@ -3148,6 +3148,28 @@ namespace Axiom
             }
         }
 
+
+        // -------------------------
+        // Log Console
+        // -------------------------
+        // Text
+        private string _LogConsole_Text;
+        public string LogConsole_Text
+        {
+            get { return _LogConsole_Text; }
+            set
+            {
+                if (_LogConsole_Text == value)
+                {
+                    return;
+                }
+
+                _LogConsole_Text = value;
+                OnPropertyChanged("LogConsole_Text");
+            }
+        }
+
+
         // -------------------------
         // Log Path
         // -------------------------
@@ -3201,17 +3223,6 @@ namespace Axiom
                 }
             }
         }
-        //private bool _LogCheckBox_IsChecked;
-        //public bool LogCheckBox_IsChecked
-        //{
-        //    get { return _LogCheckBox_IsChecked; }
-        //    set
-        //    {
-        //        if (_LogCheckBox_IsChecked == value) return;
-
-        //        _LogCheckBox_IsChecked = value;
-        //    }
-        //}
         // Enabled
         private bool _LogCheckBox_IsEnabled = true;
         public bool LogCheckBox_IsEnabled

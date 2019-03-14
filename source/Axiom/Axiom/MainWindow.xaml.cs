@@ -119,7 +119,7 @@ namespace Axiom
         /// <summary>
         ///     Log Console
         /// </summary>
-        public LogConsole logconsole = new LogConsole(((MainWindow)Application.Current.MainWindow));
+        public LogConsole logconsole = new LogConsole(/*((MainWindow)Application.Current.MainWindow)*/);
 
         /// <summary>
         ///     Debug Console
@@ -417,7 +417,7 @@ namespace Axiom
             Log.logParagraph.Inlines.Add(new LineBreak());
             Log.logParagraph.Inlines.Add(new LineBreak());
             Log.logParagraph.Inlines.Add(new Bold(new Run("Log Enabled: ")) { Foreground = Log.ConsoleDefault });
-            Log.logParagraph.Inlines.Add(new Run(Convert.ToString(Configure.logEnable)) { Foreground = Log.ConsoleDefault });
+            Log.logParagraph.Inlines.Add(new Run(Convert.ToString(vm.LogCheckBox_IsChecked.ToString())) { Foreground = Log.ConsoleDefault });
 
             // -------------------------
             // Load Log Path
@@ -855,7 +855,7 @@ namespace Axiom
         public void StartLogConsole()
         {
             // Open LogConsole Window
-            logconsole = new LogConsole(this);
+            logconsole = new LogConsole(/*this*/);
             logconsole.Hide();
 
             // Position with Show();
@@ -995,55 +995,64 @@ namespace Axiom
         private void cbxLog_Checked(object sender, RoutedEventArgs e)
         {
             // Enable the Log
-            Configure.logEnable = true;
+            //Configure.logEnable = true;
+            //vm.LogCheckBox_IsChecked = true;
 
-            // -------------------------
             // Prevent Loading Corrupt App.Config
-            // -------------------------
             try
             {
-                // must be done this way or you get "convert object to bool error"
-                if (vm.LogCheckBox_IsChecked == true)
-                {
-                    // Save Checkbox Settings
-                    Settings.Default.Log_IsChecked = true;
-                    Settings.Default.Save();
-                    Settings.Default.Reload();
-
-                    // Save Log Enable Settings
-                    Settings.Default.Log_IsEnabled = true;
-                    Settings.Default.Save();
-                    Settings.Default.Reload();
-                }
-                if (vm.LogCheckBox_IsChecked == false)
-                {
-                    // Save Checkbox Settings
-                    Settings.Default.Log_IsChecked = false;
-                    Settings.Default.Save();
-                    Settings.Default.Reload();
-
-                    // Save Log Enable Settings
-                    Settings.Default.Log_IsEnabled = false;
-                    Settings.Default.Save();
-                    Settings.Default.Reload();
-                }
+                Settings.Default.Log_IsChecked = vm.LogCheckBox_IsChecked;
+                Settings.Default.Save();
             }
-            catch (ConfigurationErrorsException ex)
+            catch
             {
-                // Delete Old App.Config
-                string filename = ex.Filename;
 
-                if (File.Exists(filename) == true)
-                {
-                    File.Delete(filename);
-                    Properties.Settings.Default.Upgrade();
-                    // Properties.Settings.Default.Reload();
-                }
-                else
-                {
-
-                }
             }
+
+            //try
+            //{
+            //    // must be done this way or you get "convert object to bool error"
+            //    if (vm.LogCheckBox_IsChecked == true)
+            //    {
+            //        // Save Checkbox Settings
+            //        Settings.Default.Log_IsChecked = true;
+            //        Settings.Default.Save();
+            //        Settings.Default.Reload();
+
+            //        // Save Log Enable Settings
+            //        Settings.Default.Log_IsEnabled = true;
+            //        Settings.Default.Save();
+            //        Settings.Default.Reload();
+            //    }
+            //    if (vm.LogCheckBox_IsChecked == false)
+            //    {
+            //        // Save Checkbox Settings
+            //        Settings.Default.Log_IsChecked = false;
+            //        Settings.Default.Save();
+            //        Settings.Default.Reload();
+
+            //        // Save Log Enable Settings
+            //        Settings.Default.Log_IsEnabled = false;
+            //        Settings.Default.Save();
+            //        Settings.Default.Reload();
+            //    }
+            //}
+            //catch (ConfigurationErrorsException ex)
+            //{
+            //    // Delete Old App.Config
+            //    string filename = ex.Filename;
+
+            //    if (File.Exists(filename) == true)
+            //    {
+            //        File.Delete(filename);
+            //        Properties.Settings.Default.Upgrade();
+            //        // Properties.Settings.Default.Reload();
+            //    }
+            //    else
+            //    {
+
+            //    }
+            //}
 
         }
 
@@ -1053,56 +1062,67 @@ namespace Axiom
         // --------------------------------------------------
         private void cbxLog_Unchecked(object sender, RoutedEventArgs e)
         {
-            // Disable the Log
-            Configure.logEnable = false;
-
-            // -------------------------
             // Prevent Loading Corrupt App.Config
-            // -------------------------
             try
             {
-                // must be done this way or you get "convert object to bool error"
-                if (vm.LogCheckBox_IsChecked == true)
-                {
-                    // Save Checkbox Settings
-                    Settings.Default.Log_IsChecked = true;
-                    Settings.Default.Save();
-                    Settings.Default.Reload();
-
-                    // Save Log Enable Settings
-                    Settings.Default.Log_IsEnabled = true;
-                    Settings.Default.Save();
-                    Settings.Default.Reload();
-                }
-                if (vm.LogCheckBox_IsChecked == false)
-                {
-                    // Save Checkbox Settings
-                    Settings.Default.Log_IsChecked = false;
-                    Settings.Default.Save();
-                    Settings.Default.Reload();
-
-                    // Save Log Enable Settings
-                    Settings.Default.Log_IsEnabled = false;
-                    Settings.Default.Save();
-                    Settings.Default.Reload();
-                }
+                Settings.Default.Log_IsChecked = vm.LogCheckBox_IsChecked;
+                Settings.Default.Save();
             }
-            catch (ConfigurationErrorsException ex)
+            catch
             {
-                // Delete Old App.Config
-                string filename = ex.Filename;
 
-                if (File.Exists(filename) == true)
-                {
-                    File.Delete(filename);
-                    Settings.Default.Upgrade();
-                    // Properties.Settings.Default.Reload();
-                }
-                else
-                {
-
-                }
             }
+
+            //// Disable the Log
+            //Configure.logEnable = false;
+
+            //// -------------------------
+            //// Prevent Loading Corrupt App.Config
+            //// -------------------------
+            //try
+            //{
+            //    // must be done this way or you get "convert object to bool error"
+            //    if (vm.LogCheckBox_IsChecked == true)
+            //    {
+            //        // Save Checkbox Settings
+            //        Settings.Default.Log_IsChecked = true;
+            //        Settings.Default.Save();
+            //        Settings.Default.Reload();
+
+            //        // Save Log Enable Settings
+            //        Settings.Default.Log_IsEnabled = true;
+            //        Settings.Default.Save();
+            //        Settings.Default.Reload();
+            //    }
+            //    if (vm.LogCheckBox_IsChecked == false)
+            //    {
+            //        // Save Checkbox Settings
+            //        Settings.Default.Log_IsChecked = false;
+            //        Settings.Default.Save();
+            //        Settings.Default.Reload();
+
+            //        // Save Log Enable Settings
+            //        Settings.Default.Log_IsEnabled = false;
+            //        Settings.Default.Save();
+            //        Settings.Default.Reload();
+            //    }
+            //}
+            //catch (ConfigurationErrorsException ex)
+            //{
+            //    // Delete Old App.Config
+            //    string filename = ex.Filename;
+
+            //    if (File.Exists(filename) == true)
+            //    {
+            //        File.Delete(filename);
+            //        Settings.Default.Upgrade();
+            //        // Properties.Settings.Default.Reload();
+            //    }
+            //    else
+            //    {
+
+            //    }
+            //}
         }
 
 
@@ -2510,7 +2530,7 @@ namespace Axiom
                 debugconsole.Top = Math.Max(Top - 0, thisScreen.WorkingArea.Top);
 
                 // Write Variables to Debug Window (Method)
-                DebugConsole.DebugWrite(debugconsole, this);
+                DebugConsole.DebugWrite(debugconsole, vm/*, this*/);
 
                 // Open Window
                 debugconsole.Show();
@@ -2534,7 +2554,7 @@ namespace Axiom
                 debugconsole.Top = Top;
 
                 // Write Variables to Debug Window (Method)
-                DebugConsole.DebugWrite(debugconsole, this);
+                DebugConsole.DebugWrite(debugconsole, vm/*, this*/);
 
                 // Open Window
                 debugconsole.Show();
@@ -2582,7 +2602,7 @@ namespace Axiom
         private void buttonLog_Click(object sender, RoutedEventArgs e)
         {
             // Call Method to get Log Path
-            Log.DefineLogPath();
+            Log.DefineLogPath(vm);
 
             //MessageBox.Show(Configure.logPath.ToString()); //debug
 
@@ -5864,7 +5884,7 @@ namespace Axiom
             // -------------------------
             // Write All Log Actions to Console
             // -------------------------
-            Log.LogWriteAll(this);
+            Log.LogWriteAll(this, vm);
 
             // -------------------------
             // Generate Script
@@ -6129,7 +6149,7 @@ namespace Axiom
                 // -------------------------
                 // Write All Log Actions to Console
                 // -------------------------
-                Log.LogWriteAll(this);
+                Log.LogWriteAll(this, vm);
 
                 // -------------------------
                 // Generate Script
@@ -6160,7 +6180,7 @@ namespace Axiom
                 /// <summary>
                 ///    Write All Log Actions to Console
                 /// </summary> 
-                Log.LogWriteAll(this);
+                Log.LogWriteAll(this, vm);
 
                 /// <summary>
                 ///    Restart

@@ -46,7 +46,13 @@
                      FontFamily="Consolas" 
                      Padding="10" 
                      IsReadOnly="True" 
-                     IsUndoEnabled="False" />
+                     IsUndoEnabled="False"/>
+        <!--<FlowDocument>
+                <Paragraph>
+                    <Run Text="{Binding LogConsole_Text, Mode=OneWay}" />
+                </Paragraph>
+            </FlowDocument>
+        </RichTextBox>-->
 
         <Button x:Name="btnExpand"
                 Margin="0,10,28,0"

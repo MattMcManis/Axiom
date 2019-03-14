@@ -38,13 +38,13 @@ namespace Axiom
         // Load in Intialize Component
         //
         // MediaType
-        public static List<string> MediaTypeItemSource = new List<string>()
-        {
-            "Video",
-            "Audio",
-            "Image",
-            "Sequence"
-        };
+        //public static List<string> MediaTypeItemSource = new List<string>()
+        //{
+        //    "Video",
+        //    "Audio",
+        //    "Image",
+        //    "Sequence"
+        //};
 
 
         /// <summary>
@@ -65,8 +65,10 @@ namespace Axiom
             // -------------------------
             if (container == "webm")
             {
-                // MediaType
+                // Media Type
+                vm.MediaType_Items = Containers.WebM.media;
                 vm.MediaType_SelectedItem = "Video";
+                vm.MediaType_IsEnabled = false;
 
                 // Video Codec
                 vm.VideoCodec_Items = Containers.WebM.video;
@@ -86,8 +88,10 @@ namespace Axiom
             // -------------------------
             else if (container == "mp4")
             {
-                // MediaType
+                // Media Type
+                vm.MediaType_Items = Containers.MP4.media;
                 vm.MediaType_SelectedItem = "Video";
+                vm.MediaType_IsEnabled = false;
 
                 // Video Codec
                 vm.VideoCodec_Items = Containers.MP4.video;
@@ -107,8 +111,10 @@ namespace Axiom
             // -------------------------
             else if (container == "mkv")
             {
-                // MediaType
+                // Media Type
+                vm.MediaType_Items = Containers.MKV.media;
                 vm.MediaType_SelectedItem = "Video";
+                vm.MediaType_IsEnabled = false;
 
                 // Video Codec
                 vm.VideoCodec_Items = Containers.MKV.video;
@@ -128,8 +134,10 @@ namespace Axiom
             // -------------------------
             else if (container == "m2v")
             {
-                // MediaType
+                // Media Type
+                vm.MediaType_Items = Containers.M2V.media;
                 vm.MediaType_SelectedItem = "Video";
+                vm.MediaType_IsEnabled = false;
 
                 // Video Codec
                 vm.VideoCodec_Items = Containers.M2V.video;
@@ -149,8 +157,10 @@ namespace Axiom
             // -------------------------
             else if (container == "mpg")
             {
-                // MediaType
+                // Media Type
+                vm.MediaType_Items = Containers.MPG.media;
                 vm.MediaType_SelectedItem = "Video";
+                vm.MediaType_IsEnabled = false;
 
                 // Video Codec
                 vm.VideoCodec_Items = Containers.MPG.video;
@@ -170,8 +180,10 @@ namespace Axiom
             // -------------------------
             else if (container == "avi")
             {
-                // MediaType
+                // Media Type
+                vm.MediaType_Items = Containers.AVI.media;
                 vm.MediaType_SelectedItem = "Video";
+                vm.MediaType_IsEnabled = false;
 
                 // Video Codec
                 vm.VideoCodec_Items = Containers.AVI.video;
@@ -191,8 +203,10 @@ namespace Axiom
             // -------------------------
             else if (container == "ogv")
             {
-                // MediaType
+                // Media Type
+                vm.MediaType_Items = Containers.OGV.media;
                 vm.MediaType_SelectedItem = "Video";
+                vm.MediaType_IsEnabled = false;
 
                 // Video Codec
                 vm.VideoCodec_Items = Containers.OGV.video;
@@ -207,6 +221,7 @@ namespace Axiom
                 vm.SubtitleCodec_SelectedItem = "None";
             }
 
+
             // --------------------------------------------------
             // Audio
             // --------------------------------------------------
@@ -215,8 +230,10 @@ namespace Axiom
             // -------------------------
             else if (container == "mp3")
             {
-                // MediaType
+                // Media Type
+                vm.MediaType_Items = Containers.LAME.media;
                 vm.MediaType_SelectedItem = "Audio";
+                vm.MediaType_IsEnabled = false;
 
                 // Video Codec
                 vm.VideoCodec_Items = Containers.LAME.video;
@@ -236,6 +253,11 @@ namespace Axiom
             // -------------------------
             else if (container == "m4a")
             {
+                // Media Type
+                vm.MediaType_Items = Containers.M4A.media;
+                vm.MediaType_SelectedItem = "Audio";
+                vm.MediaType_IsEnabled = false;
+
                 // Video Codec
                 vm.VideoCodec_Items = Containers.M4A.video;
                 vm.VideoCodec_SelectedItem = "None";
@@ -254,8 +276,10 @@ namespace Axiom
             // -------------------------
             else if (container == "ogg")
             {
-                // MediaType
+                // Media Type
+                vm.MediaType_Items = Containers.OGG.media;
                 vm.MediaType_SelectedItem = "Audio";
+                vm.MediaType_IsEnabled = false;
 
                 // Video Codec
                 vm.VideoCodec_Items = Containers.OGG.video;
@@ -275,8 +299,10 @@ namespace Axiom
             // -------------------------
             else if (container == "flac")
             {
-                // MediaType
+                // Media Type
+                vm.MediaType_Items = Containers.FLAC.media;
                 vm.MediaType_SelectedItem = "Audio";
+                vm.MediaType_IsEnabled = false;
 
                 // Video Codec
                 vm.VideoCodec_Items = Containers.FLAC.video;
@@ -296,8 +322,10 @@ namespace Axiom
             // -------------------------
             else if (container == "wav")
             {
-                // MediaType
+                // Media Type
+                vm.MediaType_Items = Containers.WAV.media;
                 vm.MediaType_SelectedItem = "Audio";
+                vm.MediaType_IsEnabled = false;
 
                 // Video Codec
                 vm.VideoCodec_Items = Containers.WAV.video;
@@ -321,8 +349,10 @@ namespace Axiom
             // -------------------------
             else if (container == "jpg")
             {
-                // MediaType
+                // Media Type
+                vm.MediaType_Items = Containers.JPG.media;
                 vm.MediaType_SelectedItem = "Image";
+                vm.MediaType_IsEnabled = true;
 
                 // Video Codec
                 vm.VideoCodec_Items = Containers.JPG.video;
@@ -342,8 +372,10 @@ namespace Axiom
             // -------------------------
             else if (container == "png")
             {
-                // MediaType
+                // Media Type
+                vm.MediaType_Items = Containers.JPG.media;
                 vm.MediaType_SelectedItem = "Image";
+                vm.MediaType_IsEnabled = true;
 
                 // Video Codec
                 vm.VideoCodec_Items = Containers.PNG.video;
@@ -363,8 +395,10 @@ namespace Axiom
             // -------------------------
             else if (container == "webp")
             {
-                // MediaType
+                // Media Type
+                vm.MediaType_Items = Containers.JPG.media;
                 vm.MediaType_SelectedItem = "Image";
+                vm.MediaType_IsEnabled = true;
 
                 // Video Codec
                 vm.VideoCodec_Items = Containers.WebP.video;

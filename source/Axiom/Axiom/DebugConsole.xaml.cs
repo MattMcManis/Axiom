@@ -252,7 +252,7 @@ namespace Axiom
                 // -------------------------
                 // Write Variables to Debug Window
                 // -------------------------
-                DebugWrite(this, mainwindow);
+                DebugWrite(this, vm);
 
                 // -------------------------
                 // Close the Background Worker
@@ -279,7 +279,7 @@ namespace Axiom
         /// <summary>
         ///     Debug Write
         /// </summary>
-        public static void DebugWrite(DebugConsole debugconsole, MainWindow mainwindow)
+        public static void DebugWrite(DebugConsole debugconsole, ViewModel vm)
         {
             // -------------------------
             // Write Variables to Console
@@ -370,7 +370,7 @@ namespace Axiom
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("logEnable ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(Configure.logEnable.ToString()) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(vm.LogCheckBox_IsChecked.ToString()) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new LineBreak());

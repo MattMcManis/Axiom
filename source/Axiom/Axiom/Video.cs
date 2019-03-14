@@ -478,7 +478,6 @@ namespace Axiom
                                 // Default to NA Bitrate
                                 vBitMode = BitrateMode(vm, vm.VideoVBR_IsChecked);
                                 vBitrate = VideoBitrateCalculator(vm, FFprobe.vEntryType, vBitrateNA);
-                                //MessageBox.Show(vBitrate); //debug
                                 vMinrate = string.Empty;
                                 vMaxrate = string.Empty;
                                 vBufsize = string.Empty;
@@ -543,32 +542,38 @@ namespace Axiom
                 // -------------------------
                 // Custom
                 // -------------------------
-                else if (selectedQuality == "Custom")
-                {
-                    // Bitrate Mode
-                    vBitMode = BitrateMode(vm, vm.VideoVBR_IsChecked);
+                //else if (selectedQuality == "Custom")
+                //{
+                //    // CRF
+                //    if (!string.IsNullOrEmpty(vm.CRF_Text))
+                //    {
+                //        crf = "-crf " + crf;
+                //    }
 
-                    // Bitrate
-                    vBitrate = vm.VideoBitrate_Text;
+                //    // Bitrate Mode
+                //    vBitMode = BitrateMode(vm, vm.VideoVBR_IsChecked);
 
-                    // Minrate
-                    if (!string.IsNullOrEmpty(vm.VideoMinrate_Text))
-                    {
-                        vMinrate = "-minrate " + vm.VideoMinrate_Text;
-                    }
+                //    // Bitrate
+                //    vBitrate = vm.VideoBitrate_Text;
 
-                    // Maxrate
-                    if (!string.IsNullOrEmpty(vm.VideoMaxrate_Text))
-                    {
-                        vMaxrate = "-maxrate " + vm.VideoMaxrate_Text;
-                    }
+                //    // Minrate
+                //    if (!string.IsNullOrEmpty(vm.VideoMinrate_Text))
+                //    {
+                //        vMinrate = "-minrate " + vm.VideoMinrate_Text;
+                //    }
 
-                    // Bufsize
-                    if (!string.IsNullOrEmpty(vm.VideoBufsize_Text))
-                    {
-                        vBufsize = "-bufsize " + vm.VideoBufsize_Text;
-                    }
-                }
+                //    // Maxrate
+                //    if (!string.IsNullOrEmpty(vm.VideoMaxrate_Text))
+                //    {
+                //        vMaxrate = "-maxrate " + vm.VideoMaxrate_Text;
+                //    }
+
+                //    // Bufsize
+                //    if (!string.IsNullOrEmpty(vm.VideoBufsize_Text))
+                //    {
+                //        vBufsize = "-bufsize " + vm.VideoBufsize_Text;
+                //    }
+                //}
 
                 // -------------------------
                 // Lossless
@@ -598,10 +603,33 @@ namespace Axiom
                 // -------------------------
                 else
                 {
-                    // -------------------------
                     // Bitrate Mode
-                    // -------------------------
                     vBitMode = BitrateMode(vm, vm.VideoVBR_IsChecked);
+
+                    // Minrate Value
+                    minrate = vm.VideoMinrate_Text;
+                    // Maxrate Value
+                    maxrate = vm.VideoMaxrate_Text;
+                    // Bufsize Value
+                    bufsize = vm.VideoBufsize_Text;
+
+                    // Minrate
+                    if (!string.IsNullOrEmpty(minrate))
+                    {
+                        vMinrate = "-minrate " + minrate;
+                    }
+
+                    // Maxrate
+                    if (!string.IsNullOrEmpty(maxrate))
+                    {
+                        vMaxrate = "-maxrate " + maxrate;
+                    }
+
+                    // Bufsize
+                    if (!string.IsNullOrEmpty(bufsize))
+                    {
+                        vBufsize = "-bufsize " + bufsize;
+                    }
 
                     // --------------------------------------------------
                     // Encoding Pass
@@ -657,34 +685,17 @@ namespace Axiom
                         // -------------------------
                         // Bitrate
                         // -------------------------
-                        // CBR
-                        if (vm.VideoVBR_IsChecked == false)
-                        {
-                            vBitrate = vm.VideoBitrate_Text;
-                        }
-                        // VBR
-                        else if (vm.VideoVBR_IsChecked == true)
-                        {
-                            vBitrate = vm.VideoBitrate_Text;
-                        }
-
-                        // Minrate
-                        if (!string.IsNullOrEmpty(minrate))
-                        {
-                            vMinrate = "-minrate " + minrate;
-                        }
-
-                        // Maxrate
-                        if (!string.IsNullOrEmpty(maxrate))
-                        {
-                            vMaxrate = "-maxrate " + maxrate;
-                        }
-
-                        // Bufsize
-                        if (!string.IsNullOrEmpty(bufsize))
-                        {
-                            vBufsize = "-bufsize " + bufsize;
-                        }
+                        vBitrate = vm.VideoBitrate_Text;
+                        //// CBR
+                        //if (vm.VideoVBR_IsChecked == false)
+                        //{
+                        //    vBitrate = vm.VideoBitrate_Text;
+                        //}
+                        //// VBR
+                        //else if (vm.VideoVBR_IsChecked == true)
+                        //{
+                        //    vBitrate = vm.VideoBitrate_Text;
+                        //}
                     }
                 }
 
@@ -974,7 +985,11 @@ namespace Axiom
                 // -------------------------
                 // Add K to end of Bitrate
                 // -------------------------
-                inputVideoBitrate = inputVideoBitrate + "K";
+                if (vm.MediaType_SelectedItem != "Image" ||
+                    vm.MediaType_SelectedItem != "Sequence")
+                {
+                    inputVideoBitrate = inputVideoBitrate + "K";
+                }
             }
 
             // -------------------------

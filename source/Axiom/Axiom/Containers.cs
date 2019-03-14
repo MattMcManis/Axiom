@@ -38,8 +38,13 @@ namespace Axiom
         // -------------------------
         public class WebM
         {
-            // Codecs
+            // Media Type
+            public static List<string> media = new List<string>()
+            {
+                "Video"
+            };
 
+            // Codecs
             public static List<string> video = new List<string>()
             {
                 "VP8",
@@ -67,8 +72,13 @@ namespace Axiom
         // -------------------------
         public class MP4
         {
-            // Codecs
+            // Media Type
+            public static List<string> media = new List<string>()
+            {
+                "Video"
+            };
 
+            // Codecs
             public static List<string> video = new List<string>()
             {
                 "x264",
@@ -99,8 +109,13 @@ namespace Axiom
         // -------------------------
         public class MKV
         {
-            // Codecs
+            // Media Type
+            public static List<string> media = new List<string>()
+            {
+                "Video"
+            };
 
+            // Codecs
             public static List<string> video = new List<string>()
             {
                 "x264",
@@ -143,8 +158,13 @@ namespace Axiom
         // -------------------------
         public class M2V
         {
-            // Codecs
+            // Media Type
+            public static List<string> media = new List<string>()
+            {
+                "Video"
+            };
 
+            // Codecs
             public static List<string> video = new List<string>()
             {
                 "MPEG-2",
@@ -169,8 +189,13 @@ namespace Axiom
         // -------------------------
         public class MPG
         {
-            // Codecs
+            // Media Type
+            public static List<string> media = new List<string>()
+            {
+                "Video"
+            };
 
+            // Codecs
             public static List<string> video = new List<string>()
             {
                 "MPEG-2",
@@ -204,8 +229,13 @@ namespace Axiom
         // -------------------------
         public class AVI
         {
-            // Codecs
+            // Media Type
+            public static List<string> media = new List<string>()
+            {
+                "Video"
+            };
 
+            // Codecs
             public static List<string> video = new List<string>()
             {
                 "MPEG-2",
@@ -239,8 +269,13 @@ namespace Axiom
         // -------------------------
         public class OGV
         {
-            // Codecs
+            // Media Type
+            public static List<string> media = new List<string>()
+            {
+                "Video"
 
+            };
+            // Codecs
             public static List<string> video = new List<string>()
             {
                 "Theora",
@@ -267,8 +302,13 @@ namespace Axiom
         // -------------------------
         public class LAME
         {
-            // Codecs
+            // Media Type
+            public static List<string> media = new List<string>()
+            {
+                "Audio"
+            };
 
+            // Codecs
             public static List<string> video = new List<string>()
             {
                 "None"
@@ -293,8 +333,13 @@ namespace Axiom
         // -------------------------
         public class M4A
         {
-            // Codecs
+            // Media Type
+            public static List<string> media = new List<string>()
+            {
+                "Audio"
+            };
 
+            // Codecs
             public static List<string> video = new List<string>()
             {
                 "None"
@@ -320,8 +365,13 @@ namespace Axiom
         // -------------------------
         public class OGG
         {
-            // Codecs
+            // Media Type
+            public static List<string> media = new List<string>()
+            {
+                "Audio"
+            };
 
+            // Codecs
             public static List<string> video = new List<string>()
             {
                 "None"
@@ -347,8 +397,13 @@ namespace Axiom
         // -------------------------
         public class FLAC
         {
-            // Codecs
+            // Media Type
+            public static List<string> media = new List<string>()
+            {
+                "Audio"
+            };
 
+            // Codecs
             public static List<string> video = new List<string>()
             {
                 "None"
@@ -373,8 +428,13 @@ namespace Axiom
         // -------------------------
         public class WAV
         {
-            // Codecs
+            // Media Type
+            public static List<string> media = new List<string>()
+            {
+                "Audio"
+            };
 
+            // Codecs
             public static List<string> video = new List<string>()
             {
                 "None"
@@ -399,8 +459,14 @@ namespace Axiom
         // -------------------------
         public class JPG
         {
-            // Codecs
+            // Media Type
+            public static List<string> media = new List<string>()
+            {
+                "Image",
+                "Sequence"
+            };
 
+            // Codecs
             public static List<string> video = new List<string>()
             {
                 "JPEG"
@@ -425,8 +491,14 @@ namespace Axiom
         // -------------------------
         public class PNG
         {
-            // Codecs
+            // Media Type
+            public static List<string> media = new List<string>()
+            {
+                "Image",
+                "Sequence"
+            };
 
+            // Codecs
             public static List<string> video = new List<string>()
             {
                 "PNG"
@@ -451,8 +523,14 @@ namespace Axiom
         // -------------------------
         public class WebP
         {
-            // Codecs
+            // Media Type
+            public static List<string> media = new List<string>()
+            {
+                "Image",
+                "Sequence"
+            };
 
+            // Codecs
             public static List<string> video = new List<string>()
             {
                 "WebP"
