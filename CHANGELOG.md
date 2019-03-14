@@ -4,6 +4,16 @@ Axiom FFmpeg UI
 
 ## [alpha]
 
+## [1.5.3.1] - Mar 13, 2019
+### Added
+- Added VP8, VP9, x264, x265 Video VBR
+- Added VBR Calculator to Audio Quality Custom
+
+### Fixed
+- Fixed Video Quality Custom
+- Fixed MPEG-2, MPEG-4 Lossless
+
+
 ## [1.5.3.0] - Mar 13, 2019
 ### Added
 - Added FFV1 Video Codec
