@@ -554,6 +554,15 @@ namespace Axiom
 
                     // CRF
                     vm.CRF_Text = items.FirstOrDefault(item => item.Name == selectedQuality)?.CRF;
+
+                    // Minrate
+                    vm.VideoMinrate_Text = items.FirstOrDefault(item => item.Name == selectedQuality)?.Minrate;
+
+                    // Maxrate
+                    vm.VideoMaxrate_Text = items.FirstOrDefault(item => item.Name == selectedQuality)?.Maxrate;
+
+                    // Bufsize
+                    vm.VideoBufsize_Text = items.FirstOrDefault(item => item.Name == selectedQuality)?.Bufsize;
                 }
 
                 // -------------------------

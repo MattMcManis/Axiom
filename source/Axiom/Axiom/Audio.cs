@@ -258,9 +258,18 @@ namespace Axiom
                     }
 
                     // -------------------------
+                    // Lossless
+                    // -------------------------
+                    else if (selectedQuality == "Lossless")
+                    {
+                        aLossless = items.FirstOrDefault(item => item.Name == "Lossless")?.Lossless;
+                    }
+
+                    // -------------------------
+                    // Preset: 640, 400, 320, 128, etc
                     // Custom
                     // -------------------------
-                    else if (selectedQuality == "Custom")
+                    else
                     {
                         // -------------------------
                         // Bitrate
@@ -281,39 +290,12 @@ namespace Axiom
                         {
                             // e.g. 320k converted to -q:a 2
                             aBitrate = AudioVBRCalculator(vm, vm.AudioBitrate_Text);
-                        }
-                    }
 
-                    // -------------------------
-                    // Lossless
-                    // -------------------------
-                    else if (selectedQuality == "Lossless")
-                    {
-                        aLossless = items.FirstOrDefault(item => item.Name == "Lossless")?.Lossless;
-                    }
-
-                    // -------------------------
-                    // Preset: 640, 400, 320, 128, etc
-                    // -------------------------
-                    else
-                    {
-                        // -------------------------
-                        // Bitrate
-                        // -------------------------
-                        // -------------------------
-                        // CBR
-                        // -------------------------
-                        if (vm.AudioVBR_IsChecked == false)
-                        {
-                            aBitrate = vm.AudioBitrate_Text + "k";
-                        }
-
-                        // -------------------------
-                        // VBR
-                        // -------------------------
-                        else if (vm.AudioVBR_IsChecked == true)
-                        {
-                            aBitrate = vm.AudioBitrate_Text;
+                            // Opus uses -b:a (value)k -vbr on
+                            if (vm.AudioCodec_SelectedItem == "Opus")
+                            {
+                                aBitrate = aBitrate + "k";
+                            }
                         }
                     }
 

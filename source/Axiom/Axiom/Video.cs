@@ -390,6 +390,13 @@ namespace Axiom
                 // Bufsize Value
                 string bufsize = items.FirstOrDefault(item => item.Name == selectedQuality)?.Bufsize;
 
+                //// Minrate Value
+                //string minrate = vm.VideoMinrate_Text;
+                //// Maxrate Value
+                //string maxrate = vm.VideoMaxrate_Text;
+                //// Bufsize Value
+                //string bufsize = vm.VideoBufsize_Text;
+
                 // -------------------------
                 // Auto
                 // -------------------------
@@ -540,42 +547,6 @@ namespace Axiom
                 }
 
                 // -------------------------
-                // Custom
-                // -------------------------
-                //else if (selectedQuality == "Custom")
-                //{
-                //    // CRF
-                //    if (!string.IsNullOrEmpty(vm.CRF_Text))
-                //    {
-                //        crf = "-crf " + crf;
-                //    }
-
-                //    // Bitrate Mode
-                //    vBitMode = BitrateMode(vm, vm.VideoVBR_IsChecked);
-
-                //    // Bitrate
-                //    vBitrate = vm.VideoBitrate_Text;
-
-                //    // Minrate
-                //    if (!string.IsNullOrEmpty(vm.VideoMinrate_Text))
-                //    {
-                //        vMinrate = "-minrate " + vm.VideoMinrate_Text;
-                //    }
-
-                //    // Maxrate
-                //    if (!string.IsNullOrEmpty(vm.VideoMaxrate_Text))
-                //    {
-                //        vMaxrate = "-maxrate " + vm.VideoMaxrate_Text;
-                //    }
-
-                //    // Bufsize
-                //    if (!string.IsNullOrEmpty(vm.VideoBufsize_Text))
-                //    {
-                //        vBufsize = "-bufsize " + vm.VideoBufsize_Text;
-                //    }
-                //}
-
-                // -------------------------
                 // Lossless
                 // -------------------------
                 else if (selectedQuality == "Lossless")
@@ -600,6 +571,7 @@ namespace Axiom
 
                 // -------------------------
                 // Preset: Ultra, High, Medium, Low, Sub
+                // Custom
                 // -------------------------
                 else
                 {
@@ -985,7 +957,7 @@ namespace Axiom
                 // -------------------------
                 // Add K to end of Bitrate
                 // -------------------------
-                if (vm.MediaType_SelectedItem != "Image" ||
+                if (vm.MediaType_SelectedItem != "Image" &&
                     vm.MediaType_SelectedItem != "Sequence")
                 {
                     inputVideoBitrate = inputVideoBitrate + "K";
