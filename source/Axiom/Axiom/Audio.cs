@@ -82,16 +82,19 @@ namespace Axiom
         /// <summary>
         ///     Audio Codec
         /// <summary>
-        public static String AudioCodec(ViewModel vm, string codec)
+        public static String AudioCodec(string codec_SelectedItem,
+                                        string codec_Command,
+                                        string bitDepth_SelectedItem
+                                        )
         {
-            //string aCodec = string.Empty;
-
             // Passed Command
-            aCodec = codec;
+            aCodec = codec_Command;
 
-            if (vm.AudioCodec_SelectedItem == "PCM") // Special
+            if (codec_SelectedItem == "PCM") // Special
             {
-                aCodec = PCM_BitDepth(vm);
+                aCodec = PCM_BitDepth(codec_SelectedItem, 
+                                      bitDepth_SelectedItem
+                                      );
             }
                 
             return aCodec;
@@ -101,26 +104,27 @@ namespace Axiom
         /// <summary>
         ///     Bitrate Mode
         /// <summary>
-        public static String BitrateMode(bool vbr,
-                                         List<ViewModel.AudioQuality> items,
-                                         string quality,
-                                         string bitrate)
+        public static String BitrateMode(bool vbr_IsChecked,
+                                         List<ViewModel.AudioQuality> quality_Items,
+                                         string quality_SelectedItem,
+                                         string bitrate_Text)
         {
             // Only if Bitrate Textbox is not Empty (except for Auto Quality)
-            if (quality == "Auto" || !string.IsNullOrEmpty(bitrate))
+            if (quality_SelectedItem == "Auto" || 
+                !string.IsNullOrEmpty(bitrate_Text))
             {
                 // CBR
-                if (vbr == false)
+                if (vbr_IsChecked == false)
                 {
                     //aBitmode = "-b:a";
-                    aBitMode = items.FirstOrDefault(item => item.Name == quality)?.CBR_BitMode;
+                    aBitMode = quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.CBR_BitMode;
                 }
 
                 // VBR
-                else if (vbr == true)
+                else if (vbr_IsChecked == true)
                 {
                     //aBitmode = "-q:a";
-                    aBitMode = items.FirstOrDefault(item => item.Name == quality)?.VBR_BitMode;
+                    aBitMode = quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.VBR_BitMode;
                 }
             }
 
@@ -132,16 +136,16 @@ namespace Axiom
         /// <summary>
         ///     Audio Quality - Auto
         /// <summary>
-        public static void QualityAuto(bool batch,
-                                       bool vbr,
-                                       string codec,
-                                       string quality
+        public static void QualityAuto(bool batch_IsChecked,
+                                       bool vbr_IsChecked,
+                                       string codec_SelectedItem,
+                                       string quality_SelectedItem
                                        )
         {
             // --------------------------------------------------
             // Single
             // --------------------------------------------------
-            if (batch == false)
+            if (batch_IsChecked == false)
             {
                 // -------------------------
                 // Input Has Audio
@@ -152,18 +156,18 @@ namespace Axiom
                     if (FFprobe.inputAudioBitrate != "N/A")
                     {
                         // CBR
-                        if (vbr == false)
+                        if (vbr_IsChecked == false)
                         {
                             // aBitMode = "-b:a";
-                            aBitrate = AudioBitrateCalculator(codec, FFprobe.aEntryType, FFprobe.inputAudioBitrate);
+                            aBitrate = AudioBitrateCalculator(codec_SelectedItem, FFprobe.aEntryType, FFprobe.inputAudioBitrate);
                         }
 
                         // VBR
-                        else if (vbr == true)
+                        else if (vbr_IsChecked == true)
                         {
                             //VBR does not have 'k'
 
-                            aBitrate = AudioVBRCalculator(vbr, codec, FFprobe.inputAudioBitrate);
+                            aBitrate = AudioVBRCalculator(vbr_IsChecked, codec_SelectedItem, FFprobe.inputAudioBitrate);
                         }
                     }
 
@@ -211,7 +215,7 @@ namespace Axiom
             // --------------------------------------------------
             // Batch
             // --------------------------------------------------
-            else if (batch == true)
+            else if (batch_IsChecked == true)
             {
                 // Use the CMD Batch Audio Variable
                 aBitrate = "%A";
@@ -224,39 +228,30 @@ namespace Axiom
         /// <summary>
         ///     Audio Quality - Lossless
         /// <summary>
-        public static void QualityLossless(List<ViewModel.AudioQuality> items)
+        public static void QualityLossless(List<ViewModel.AudioQuality> quality_Items)
         {
-            aLossless = items.FirstOrDefault(item => item.Name == "Lossless")?.Lossless;
+            aLossless = quality_Items.FirstOrDefault(item => item.Name == "Lossless")?.Lossless;
         }
 
 
         /// <summary>
         ///     Audio Quality - Preset
         /// <summary>
-        public static void QualityPreset(bool batch,
-                                         bool vbr,
-                                         string codec,
-                                         List<ViewModel.AudioQuality> items,
-                                         string quality,
-                                         string bitrate
-                                         )
+        public static void QualityPreset(string bitrate_Text)
         {
             // -------------------------
             // Bitrate
             // -------------------------
-            aBitrate = bitrate;
+            aBitrate = bitrate_Text;
         }
 
 
         /// <summary>
         ///     Audio Quality - Custom
         /// <summary>
-        public static void QualityCustom(bool batch,
-                                         bool vbr,
-                                         string codec,
-                                         List<ViewModel.AudioQuality> items,
-                                         string quality,
-                                         string bitrate
+        public static void QualityCustom(bool vbr_IsChecked,
+                                         string codec_SelectedItem,
+                                         string bitrate_Text
                                          )
         {
             // --------------------------------------------------
@@ -265,19 +260,22 @@ namespace Axiom
             // -------------------------
             // CBR
             // -------------------------
-            if (vbr == false)
+            if (vbr_IsChecked == false)
             {
                 // .e.g. 320k
-                aBitrate = bitrate;
+                aBitrate = bitrate_Text;
             }
 
             // -------------------------
             // VBR
             // -------------------------
-            else if (vbr == true)
+            else if (vbr_IsChecked == true)
             {
                 // e.g. 320k converted to -q:a 2
-                aBitrate = AudioVBRCalculator(vbr, codec, bitrate);
+                aBitrate = AudioVBRCalculator(vbr_IsChecked, 
+                                              codec_SelectedItem, 
+                                              bitrate_Text
+                                              );
             }
         }
 
@@ -285,30 +283,30 @@ namespace Axiom
         /// <summary>
         ///     Audio Quality
         /// <summary>
-        public static String AudioQuality(bool batch,
-                                          bool vbr,
-                                          string codec,
-                                          List<ViewModel.AudioQuality> items,
-                                          string quality,
-                                          string bitrate
+        public static String AudioQuality(bool batch_IsChecked,
+                                          bool vbr_IsChecked,
+                                          string codec_SelectedItem,
+                                          List<ViewModel.AudioQuality> quality_Items,
+                                          string quality_SelectedItem,
+                                          string bitrate_Text
                                           )
         {
             // Audio Quality None Check
             // Audio Codec None Check
             // Audio Codec Copy Check
-            if (quality != "None" &&
-                codec != "None" &&
-                codec != "Copy")
+            if (quality_SelectedItem != "None" &&
+                codec_SelectedItem != "None" &&
+                codec_SelectedItem != "Copy")
             {
                 // Bitrate Mode
-                aBitMode = BitrateMode(vbr,
-                                      items, 
-                                      quality, 
-                                      bitrate
+                aBitMode = BitrateMode(vbr_IsChecked,
+                                      quality_Items,
+                                      quality_SelectedItem,
+                                      bitrate_Text
                                       );
 
                 // No Detectable Bitrate Default
-                aBitrateNA = items.FirstOrDefault(item => item.Name == quality)?.NA;
+                aBitrateNA = quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.NA;
                 //aBitrateNA = vm.AudioQuality_Items.FirstOrDefault(item => item.Name == vm.AudioQuality_SelectedItem)?.NA;
 
                 if (!string.IsNullOrEmpty(aBitMode)) // Null Check
@@ -316,34 +314,31 @@ namespace Axiom
                     // -------------------------
                     // Auto
                     // -------------------------
-                    if (quality == "Auto")
+                    if (quality_SelectedItem == "Auto")
                     {
-                        QualityAuto(batch,
-                                    vbr,
-                                    codec,
-                                    quality
+                        QualityAuto(batch_IsChecked,
+                                    vbr_IsChecked,
+                                    codec_SelectedItem,
+                                    quality_SelectedItem
                                     );
                     }
 
                     // -------------------------
                     // Lossless
                     // -------------------------
-                    else if (quality == "Lossless")
+                    else if (quality_SelectedItem == "Lossless")
                     {
-                        QualityLossless(items);
+                        QualityLossless(quality_Items);
                     }
 
                     // -------------------------
                     // Custom
                     // -------------------------
-                    else if (quality == "Custom")
+                    else if (quality_SelectedItem == "Custom")
                     {
-                        QualityCustom(batch,
-                                      vbr,
-                                      codec,
-                                      items,
-                                      quality,
-                                      bitrate);
+                        QualityCustom(vbr_IsChecked,
+                                      codec_SelectedItem,
+                                      bitrate_Text);
                     }
 
                     // -------------------------
@@ -352,12 +347,7 @@ namespace Axiom
                     else
                     {
                         // Preset & Custom
-                        QualityPreset(batch,
-                                      vbr,
-                                      codec,
-                                      items,
-                                      quality,
-                                      bitrate);
+                        QualityPreset(bitrate_Text);
                     }
 
                     // --------------------------------------------------
@@ -398,7 +388,10 @@ namespace Axiom
         /// <summary>
         ///     Audio Bitrate Calculator
         /// <summary>
-        public static String AudioBitrateCalculator(string codec, string aEntryType, string inputAudioBitrate)
+        public static String AudioBitrateCalculator(string codec_SelectedItem, 
+                                                    string aEntryType, 
+                                                    string inputAudioBitrate
+                                                    )
         {
             // -------------------------
             // Remove k from input if any
@@ -439,7 +432,7 @@ namespace Axiom
                     // -------------------------
                     // Vorbis
                     // -------------------------
-                    if (codec == "Vorbis" &&
+                    if (codec_SelectedItem == "Vorbis" &&
                         double.Parse(inputAudioBitrate) > 500)
                     {
                         inputAudioBitrate = Convert.ToString(500); //was 500,000 (before converting to decimal)
@@ -447,7 +440,7 @@ namespace Axiom
                     // -------------------------
                     // Opus
                     // -------------------------
-                    else if (codec == "Opus" &&
+                    else if (codec_SelectedItem == "Opus" &&
                              double.Parse(inputAudioBitrate) > 510)
                     {
                         inputAudioBitrate = Convert.ToString(510); //was 510,000 (before converting to decimal)
@@ -455,7 +448,7 @@ namespace Axiom
                     // -------------------------
                     // MP2
                     // -------------------------
-                    else if (codec == "MP2" &&
+                    else if (codec_SelectedItem == "MP2" &&
                              double.Parse(inputAudioBitrate) > 320)
                     {
                         inputAudioBitrate = Convert.ToString(320); //was 320,000 before converting to decimal)
@@ -463,7 +456,7 @@ namespace Axiom
                     // -------------------------
                     // LAME
                     // -------------------------
-                    else if (codec == "LAME" &&
+                    else if (codec_SelectedItem == "LAME" &&
                              double.Parse(inputAudioBitrate) > 320)
                     {
                         inputAudioBitrate = Convert.ToString(320); //was 320,000 before converting to decimal)
@@ -471,7 +464,7 @@ namespace Axiom
                     // -------------------------
                     // AAC
                     // -------------------------
-                    else if (codec == "AAC" &&
+                    else if (codec_SelectedItem == "AAC" &&
                              double.Parse(inputAudioBitrate) > 400)
                     {
                         inputAudioBitrate = Convert.ToString(400); //was 400,000 (before converting to decimal)
@@ -479,7 +472,7 @@ namespace Axiom
                     // -------------------------
                     // AC3
                     // -------------------------
-                    else if (codec == "AC3" &&
+                    else if (codec_SelectedItem == "AC3" &&
                             double.Parse(inputAudioBitrate) > 640)
                     {
                         inputAudioBitrate = Convert.ToString(640); //was 640,000 (before converting to decimal)
@@ -496,7 +489,7 @@ namespace Axiom
                     // Vorbis
                     // -------------------------
                     // Vorbis has a minimum bitrate limit of 45k, if less than, set to 45k
-                    else if (codec == "Vorbis" &&
+                    else if (codec_SelectedItem == "Vorbis" &&
                              double.Parse(inputAudioBitrate) < 45)
                     {
                         inputAudioBitrate = Convert.ToString(45);
@@ -506,7 +499,7 @@ namespace Axiom
                     // Opus
                     // -------------------------
                     // Opus has a minimum bitrate limit of 6k, if less than, set to 6k
-                    else if (codec == "Opus" &&
+                    else if (codec_SelectedItem == "Opus" &&
                              double.Parse(inputAudioBitrate) < 6)
                     {
                         inputAudioBitrate = Convert.ToString(6);
@@ -530,13 +523,16 @@ namespace Axiom
         /// <summary>
         ///     Audio VBR Calculator
         /// <summary>
-        public static String AudioVBRCalculator(bool vbr, string codec, string inputBitrate)
+        public static String AudioVBRCalculator(bool vbr_IsChecked, 
+                                                string codec_SelectedItem, 
+                                                string inputBitrate
+                                                )
         {
             // -------------------------
             // VBR 
             // User entered value
             // -------------------------
-            if (vbr == true)
+            if (vbr_IsChecked == true)
             {
                 // Used to Calculate VBR Double
                 //
@@ -546,7 +542,7 @@ namespace Axiom
                 // -------------------------
                 // AAC
                 // -------------------------
-                if (codec == "AAC")
+                if (codec_SelectedItem == "AAC")
                 {
                     // Calculate VBR
                     aBitrateVBR = aBitrateVBR * 0.00625;
@@ -576,7 +572,7 @@ namespace Axiom
                 // -------------------------
                 // Vorbis
                 // -------------------------
-                else if (codec == "Vorbis")
+                else if (codec_SelectedItem == "Vorbis")
                 {
                     // Above 290k set to 10 Quality
                     if (aBitrateVBR > 290)
@@ -607,7 +603,7 @@ namespace Axiom
                 // -------------------------
                 // Opus
                 // -------------------------
-                else if (codec == "Opus")
+                else if (codec_SelectedItem == "Opus")
                 {
                     // e.g. 128000 to 128k
                     aBitrateVBR = aBitrateVBR * 0.001;
@@ -618,8 +614,8 @@ namespace Axiom
                 // -------------------------
                 // LAME MP3
                 // -------------------------
-                else if (codec == "MP2" ||
-                         codec == "LAME")
+                else if (codec_SelectedItem == "MP2" ||
+                         codec_SelectedItem == "LAME")
                 {
                     // Above 260k set to V0
                     if (aBitrateVBR > 260)
@@ -649,8 +645,11 @@ namespace Axiom
         /// <summary>
         ///     Channel
         /// <summary>
-        public static String Channel(ViewModel vm,
-                                     string selectedChannel)
+        public static String Channel(string mediaType_SelectedItem,
+                                     string codec_SelectedItem,
+                                     string stream_SelectedItem,
+                                     string quality_SelectedItem,
+                                     string channel_SelectedItem)
         {
             // Audio Bitrate None Check
             // Audio Codec None Check
@@ -658,47 +657,47 @@ namespace Axiom
             // Mute Check
             // Stream None Check
             // Media Type Check
-            if (vm.MediaType_SelectedItem != "Image" &&
-                vm.MediaType_SelectedItem != "Sequence" &&
-                vm.AudioCodec_SelectedItem != "None" &&
-                vm.AudioCodec_SelectedItem != "Copy" &&
-                vm.AudioQuality_SelectedItem != "None" &&
-                vm.AudioQuality_SelectedItem != "Mute" &&
-                vm.AudioStream_SelectedItem != "none" 
+            if (mediaType_SelectedItem != "Image" &&
+                mediaType_SelectedItem != "Sequence" &&
+                codec_SelectedItem != "None" &&
+                codec_SelectedItem != "Copy" &&
+                quality_SelectedItem != "None" &&
+                quality_SelectedItem != "Mute" &&
+                stream_SelectedItem != "none" 
                 )
             {
                 // -------------------------
                 // Auto
                 // -------------------------
-                if (selectedChannel == "Auto")
+                if (channel_SelectedItem == "Auto")
                 {
                     aChannel = string.Empty;
                 }
                 // -------------------------
                 // Mono
                 // -------------------------
-                else if (selectedChannel == "Mono")
+                else if (channel_SelectedItem == "Mono")
                 {
                     aChannel = "-ac 1";
                 }
                 // -------------------------
                 // Stereo
                 // -------------------------
-                else if (selectedChannel == "Stereo")
+                else if (channel_SelectedItem == "Stereo")
                 {
                     aChannel = "-ac 2";
                 }
                 // -------------------------
                 // Joint Stereo
                 // -------------------------
-                else if (selectedChannel == "Joint Stereo")
+                else if (channel_SelectedItem == "Joint Stereo")
                 {
                     aChannel = "-ac 2 -joint_stereo 1";
                 }
                 // -------------------------
                 // 5.1
                 // -------------------------
-                else if (selectedChannel == "5.1")
+                else if (channel_SelectedItem == "5.1")
                 {
                     aChannel = "-ac 6";
                 }
@@ -706,7 +705,7 @@ namespace Axiom
                 // -------------------------
                 // Prevent Downmix Clipping
                 // -------------------------
-                if (selectedChannel != "Source")
+                if (channel_SelectedItem != "Source")
                 {
                     aChannel = "-rematrix_maxval 1.0 " + aChannel;
                 }
@@ -717,7 +716,7 @@ namespace Axiom
                 {
                     Log.logParagraph.Inlines.Add(new LineBreak());
                     Log.logParagraph.Inlines.Add(new Bold(new Run("Channel: ")) { Foreground = Log.ConsoleDefault });
-                    Log.logParagraph.Inlines.Add(new Run(selectedChannel) { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new Run(channel_SelectedItem) { Foreground = Log.ConsoleDefault });
                 };
                 Log.LogActions.Add(Log.WriteAction);
             }
@@ -731,7 +730,14 @@ namespace Axiom
         /// <summary>
         ///     Sample Rate
         /// <summary>
-        public static String SampleRate(ViewModel vm)
+        public static String SampleRate(string mediaType_SelectedItem,
+                                        string codec_SelectedItem,
+                                        string stream_SelectedItem,
+                                        string quality_SelectedItem,
+                                        string channel_SelectedItem,
+                                        List<ViewModel.AudioSampleRate> sampleRate_Items,
+                                        string sampleRate_SelectedItem
+                                        )
         {
             // Audio Bitrate None Check
             // Audio Codec None
@@ -739,24 +745,24 @@ namespace Axiom
             // Mute Check
             // Stream None Check
             // Media Type Check
-            if (vm.MediaType_SelectedItem != "Image" &&
-                vm.MediaType_SelectedItem != "Sequence" &&
-                vm.AudioCodec_SelectedItem != "None" &&
-                vm.AudioCodec_SelectedItem != "Copy" &&
-                vm.AudioQuality_SelectedItem != "None" &&
-                vm.AudioQuality_SelectedItem != "Mute" &&
-                vm.AudioStream_SelectedItem != "none"
+            if (mediaType_SelectedItem != "Image" &&
+                mediaType_SelectedItem != "Sequence" &&
+                codec_SelectedItem != "None" &&
+                codec_SelectedItem != "Copy" &&
+                quality_SelectedItem != "None" &&
+                quality_SelectedItem != "Mute" &&
+                stream_SelectedItem != "none"
                 )
             {
                 // Auto
-                if (vm.AudioSampleRate_SelectedItem == "auto")
+                if (sampleRate_SelectedItem == "auto")
                 {
                     aSamplerate = string.Empty;
                 }
                 // All other Sample Rates
                 else
                 {
-                    aSamplerate = "-ar " + vm.AudioSampleRate_Items.FirstOrDefault(item => item.Name == vm.AudioSampleRate_SelectedItem)?.Frequency;
+                    aSamplerate = "-ar " + sampleRate_Items.FirstOrDefault(item => item.Name == sampleRate_SelectedItem)?.Frequency;
                 }
 
                 // Log Console Message /////////
@@ -764,7 +770,7 @@ namespace Axiom
                 {
                     Log.logParagraph.Inlines.Add(new LineBreak());
                     Log.logParagraph.Inlines.Add(new Bold(new Run("Sample Rate: ")) { Foreground = Log.ConsoleDefault });
-                    Log.logParagraph.Inlines.Add(new Run(vm.AudioSampleRate_SelectedItem) { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new Run(sampleRate_SelectedItem) { Foreground = Log.ConsoleDefault });
                 };
                 Log.LogActions.Add(Log.WriteAction);
             }
@@ -780,49 +786,51 @@ namespace Axiom
         /// <remarks>
         ///     Changes the PCM Codec depending on BitDepth Selected
         /// </remarks>
-        public static String PCM_BitDepth(ViewModel vm)
+        public static String PCM_BitDepth(string codec_SelectedItem,
+                                          string bitDepth_SelectedItem
+                                          )
         {
-            if (vm.AudioCodec_SelectedItem == "PCM")
+            if (codec_SelectedItem == "PCM")
             {
                 // -------------------------
                 // auto
                 // -------------------------
-                if (vm.AudioBitDepth_SelectedItem == "auto")
+                if (bitDepth_SelectedItem == "auto")
                 {
                     aCodec = "-c:a pcm_s24le";
                 }
                 // -------------------------
                 // 8
                 // -------------------------
-                else if (vm.AudioBitDepth_SelectedItem == "8")
+                else if (bitDepth_SelectedItem == "8")
                 {
                     aCodec = "-c:a pcm_u8";
                 }
                 // -------------------------
                 // 16
                 // -------------------------
-                else if (vm.AudioBitDepth_SelectedItem == "16")
+                else if (bitDepth_SelectedItem == "16")
                 {
                     aCodec = "-c:a pcm_s16le";
                 }
                 // -------------------------
                 // 24
                 // -------------------------
-                else if (vm.AudioBitDepth_SelectedItem == "24")
+                else if (bitDepth_SelectedItem == "24")
                 {
                     aCodec = "-c:a pcm_s24le";
                 }
                 // -------------------------
                 // 32
                 // -------------------------
-                else if (vm.AudioBitDepth_SelectedItem == "32")
+                else if (bitDepth_SelectedItem == "32")
                 {
                     aCodec = "-c:a pcm_f32le";
                 }
                 // -------------------------
                 // 64
                 // -------------------------
-                else if (vm.AudioBitDepth_SelectedItem == "64")
+                else if (bitDepth_SelectedItem == "64")
                 {
                     aCodec = "-c:a pcm_f64le";
                 }
@@ -835,9 +843,12 @@ namespace Axiom
         /// <summary>
         ///     Bit Depth
         /// <summary>
-        public static String BitDepth(ViewModel vm,
-                                     List<ViewModel.AudioBitDepth> items,
-                                     string selectedBitDepth)
+        public static String BitDepth(string mediaType_SelectedItem,
+                                      string codec_SelectedItem,
+                                      string stream_SelectedItem,
+                                      string quality_SelectedItem,
+                                      List<ViewModel.AudioBitDepth> bitDepth_Items,
+                                      string bitDepth_SelectedItem)
         {
             // Audio Bitrate None Check
             // Audio Codec None
@@ -845,13 +856,13 @@ namespace Axiom
             // Mute Check
             // Stream None Check
             // Media Type Check
-            if (vm.MediaType_SelectedItem != "Image" &&
-                vm.MediaType_SelectedItem != "Sequence" &&
-                vm.AudioCodec_SelectedItem != "None" &&
-                vm.AudioCodec_SelectedItem != "Copy" &&
-                vm.AudioQuality_SelectedItem != "None" &&
-                vm.AudioQuality_SelectedItem != "Mute" &&
-                vm.AudioStream_SelectedItem != "none"
+            if (mediaType_SelectedItem != "Image" &&
+                mediaType_SelectedItem != "Sequence" &&
+                codec_SelectedItem != "None" &&
+                codec_SelectedItem != "Copy" &&
+                quality_SelectedItem != "None" &&
+                quality_SelectedItem != "Mute" &&
+                stream_SelectedItem != "none"
                 )
             {
                 // PCM has Bitdepth defined by Codec instead of sample_fmt, can use 8, 16, 24, 32, 64-bit
@@ -861,7 +872,7 @@ namespace Axiom
                 // -------------------------
                 // auto
                 // -------------------------
-                if (selectedBitDepth == "auto")
+                if (bitDepth_SelectedItem == "auto")
                 {
                     aBitDepth = string.Empty;        
                 }
@@ -870,7 +881,7 @@ namespace Axiom
                 // -------------------------
                 else
                 {
-                    aBitDepth = items.FirstOrDefault(item => item.Name == selectedBitDepth) ?.Depth;
+                    aBitDepth = bitDepth_Items.FirstOrDefault(item => item.Name == bitDepth_SelectedItem) ?.Depth;
                 }
 
                 // Log Console Message /////////
@@ -878,7 +889,7 @@ namespace Axiom
                 {
                     Log.logParagraph.Inlines.Add(new LineBreak());
                     Log.logParagraph.Inlines.Add(new Bold(new Run("Bit Depth: ")) { Foreground = Log.ConsoleDefault });
-                    Log.logParagraph.Inlines.Add(new Run(vm.AudioBitDepth_SelectedItem) { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new Run(bitDepth_SelectedItem) { Foreground = Log.ConsoleDefault });
                 };
                 Log.LogActions.Add(Log.WriteAction);
             }

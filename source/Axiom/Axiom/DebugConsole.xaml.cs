@@ -462,7 +462,7 @@ namespace Axiom
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("hwaccel ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(Video.hwaccel) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Video.hwacceleration) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("vEncodeSpeed ")) { Foreground = Variable });
@@ -502,7 +502,7 @@ namespace Axiom
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("crf ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(Video.crf) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(Video.vCRF) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("x265params ")) { Foreground = Variable });

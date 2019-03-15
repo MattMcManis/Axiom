@@ -110,18 +110,32 @@ namespace Axiom
                     Subtitle.SubtitlesExternal(vm),
 
                     "\r\n\r\n" +
-                    Video.VideoCodec(vm, vm.VideoCodec_Command),
+                    Video.VideoCodec(vm.HWAccel_SelectedItem,
+                                     vm.VideoCodec_SelectedItem,
+                                     vm.VideoCodec_Command),
                     "\r\n" +
-                    Video.Speed(vm,
-                                vm.VideoEncodeSpeed_Items,
+                    Video.Speed(vm.VideoEncodeSpeed_Items,
                                 vm.VideoEncodeSpeed_SelectedItem,
+                                vm.MediaType_SelectedItem,
+                                vm.VideoCodec_SelectedItem,
+                                vm.VideoQuality_SelectedItem,
                                 vm.Pass_SelectedItem
                                 ),
-                    Video.VideoQuality(vm,
+
+                    Video.VideoQuality(vm.Batch_IsChecked,
+                                       vm.AudioVBR_IsChecked,
+                                       vm.Container_SelectedItem,
+                                       vm.MediaType_SelectedItem,
+                                       vm.VideoCodec_SelectedItem,
                                        vm.VideoQuality_Items,
                                        vm.VideoQuality_SelectedItem,
-                                       vm.Pass_SelectedItem
-                                        ),
+                                       vm.Pass_SelectedItem,
+                                       vm.CRF_Text,
+                                       vm.VideoBitrate_Text,
+                                       vm.VideoMinrate_Text,
+                                       vm.VideoMaxrate_Text,
+                                       vm.VideoBufsize_Text
+                                       ),
                     "\r\n" +
                     Video.PixFmt(vm,
                                  vm.PixelFormat_SelectedItem
@@ -150,24 +164,39 @@ namespace Axiom
                     Streams.SubtitleMaps(vm),
 
                     "\r\n\r\n" +
-                    Audio.AudioCodec(vm, vm.AudioCodec_Command),
+                    Audio.AudioCodec(vm.AudioCodec_SelectedItem,
+                                     vm.AudioCodec_Command,
+                                     vm.AudioBitDepth_SelectedItem
+                                     ),
                     "\r\n" +
-                    Audio.AudioQuality(//vm
-                                       vm.Batch_IsChecked,
+                    Audio.AudioQuality(vm.Batch_IsChecked,
                                        vm.AudioVBR_IsChecked,
                                        vm.AudioCodec_SelectedItem,
                                        vm.AudioQuality_Items,
                                        vm.AudioQuality_SelectedItem,
                                        vm.AudioBitrate_Text
                                        ),
-                    Audio.SampleRate(vm),
-                    Audio.BitDepth(vm,
+                    Audio.SampleRate(vm.MediaType_SelectedItem,
+                                     vm.AudioCodec_SelectedItem,
+                                     vm.AudioStream_SelectedItem,
+                                     vm.AudioQuality_SelectedItem,
+                                     vm.AudioChannel_SelectedItem,
+                                     vm.AudioSampleRate_Items,
+                                     vm.AudioSampleRate_SelectedItem
+                                     ),
+                    Audio.BitDepth(vm.MediaType_SelectedItem,
+                                   vm.AudioCodec_SelectedItem,
+                                   vm.AudioStream_SelectedItem,
+                                   vm.AudioQuality_SelectedItem,
                                    vm.AudioBitDepth_Items,
                                    vm.AudioBitDepth_SelectedItem
-                                  ),
-                    Audio.Channel(vm,
+                                   ),
+                    Audio.Channel(vm.MediaType_SelectedItem,
+                                  vm.AudioCodec_SelectedItem,
+                                  vm.AudioStream_SelectedItem,
+                                  vm.AudioQuality_SelectedItem,
                                   vm.AudioChannel_SelectedItem
-                                 ),
+                                  ),
                     "\r\n" +
                     AudioFilters.AudioFilter(vm),
                     "\r\n" +
@@ -234,18 +263,32 @@ namespace Axiom
                     //Video.Subtitles(vm),
 
                     "\r\n\r\n" +
-                    Video.VideoCodec(vm, vm.VideoCodec_Command),
+                    Video.VideoCodec(vm.HWAccel_SelectedItem,
+                                     vm.VideoCodec_SelectedItem,
+                                     vm.VideoCodec_Command),
                     "\r\n" +
-                    Video.Speed(vm,
-                                vm.VideoEncodeSpeed_Items,
+                    Video.Speed(vm.VideoEncodeSpeed_Items,
                                 vm.VideoEncodeSpeed_SelectedItem,
+                                vm.MediaType_SelectedItem,
+                                vm.VideoCodec_SelectedItem,
+                                vm.VideoQuality_SelectedItem,
                                 vm.Pass_SelectedItem
                                 ),
-                    Video.VideoQuality(vm,
+
+                    Video.VideoQuality(vm.Batch_IsChecked,
+                                       vm.AudioVBR_IsChecked,
+                                       vm.Container_SelectedItem,
+                                       vm.MediaType_SelectedItem,
+                                       vm.VideoCodec_SelectedItem,
                                        vm.VideoQuality_Items,
                                        vm.VideoQuality_SelectedItem,
-                                       vm.Pass_SelectedItem
-                                        ),
+                                       vm.Pass_SelectedItem,
+                                       vm.CRF_Text,
+                                       vm.VideoBitrate_Text,
+                                       vm.VideoMinrate_Text,
+                                       vm.VideoMaxrate_Text,
+                                       vm.VideoBufsize_Text
+                                       ),
                     "\r\n" +
                     Video.PixFmt(vm,
                                  vm.PixelFormat_SelectedItem
@@ -319,20 +362,11 @@ namespace Axiom
 
                     "\r\n\r\n" +
                     Video.vCodec,
-                    //Video.VideoCodec(vm, vm.VideoCodec_Command),
                     "\r\n" +
                     Video.vEncodeSpeed,
-                    //Video.Speed(vm,
-                    //            vm.VideoEncodeSpeed_Items,
-                    //            vm.VideoEncodeSpeed_SelectedItem,
-                    //            vm.Pass_SelectedItem
-                    //            ),
                     Video.vQuality,
                     "\r\n" +
                     Video.pix_fmt,
-                    //Video.PixFmt(vm,
-                    //             vm.PixelFormat_SelectedItem
-                    //             ),
                     "\r\n" +
                     Video.fps,
                     "\r\n" +
@@ -354,22 +388,37 @@ namespace Axiom
                     Streams.SubtitleMaps(vm),
 
                     "\r\n\r\n" +
-                    Audio.AudioCodec(vm, vm.AudioCodec_Command),
+                    Audio.AudioCodec(vm.AudioCodec_SelectedItem,
+                                     vm.AudioCodec_Command,
+                                     vm.AudioBitDepth_SelectedItem
+                                     ),
                     "\r\n" +
-                    Audio.AudioQuality(//vm
-                                       vm.Batch_IsChecked,
+                    Audio.AudioQuality(vm.Batch_IsChecked,
                                        vm.AudioVBR_IsChecked,
                                        vm.AudioCodec_SelectedItem,
                                        vm.AudioQuality_Items,
                                        vm.AudioQuality_SelectedItem,
                                        vm.AudioBitrate_Text
                                        ),
-                    Audio.SampleRate(vm),
-                    Audio.BitDepth(vm,
+                    Audio.SampleRate(vm.MediaType_SelectedItem,
+                                     vm.AudioCodec_SelectedItem,
+                                     vm.AudioStream_SelectedItem,
+                                     vm.AudioQuality_SelectedItem,
+                                     vm.AudioChannel_SelectedItem,
+                                     vm.AudioSampleRate_Items,
+                                     vm.AudioSampleRate_SelectedItem
+                                     ),
+                    Audio.BitDepth(vm.MediaType_SelectedItem,
+                                   vm.AudioCodec_SelectedItem,
+                                   vm.AudioStream_SelectedItem,
+                                   vm.AudioQuality_SelectedItem,
                                    vm.AudioBitDepth_Items,
                                    vm.AudioBitDepth_SelectedItem
                                    ),
-                    Audio.Channel(vm,
+                    Audio.Channel(vm.MediaType_SelectedItem,
+                                  vm.AudioCodec_SelectedItem,
+                                  vm.AudioStream_SelectedItem,
+                                  vm.AudioQuality_SelectedItem,
                                   vm.AudioChannel_SelectedItem
                                   ),
                     "\r\n" +

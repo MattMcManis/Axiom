@@ -80,14 +80,27 @@ namespace Axiom
 
                     //Audio.AudioCodec(mainwindow),
                     //Audio.AudioQuality(mainwindow),
-                    Audio.SampleRate(vm),
-                    Audio.BitDepth(vm,
+                    Audio.SampleRate(vm.MediaType_SelectedItem,
+                                     vm.AudioCodec_SelectedItem,
+                                     vm.AudioStream_SelectedItem,
+                                     vm.AudioQuality_SelectedItem,
+                                     vm.AudioChannel_SelectedItem,
+                                     vm.AudioSampleRate_Items,
+                                     vm.AudioSampleRate_SelectedItem
+                                     ),
+                    Audio.BitDepth(vm.MediaType_SelectedItem,
+                                   vm.AudioCodec_SelectedItem,
+                                   vm.AudioStream_SelectedItem,
+                                   vm.AudioQuality_SelectedItem,
                                    vm.AudioBitDepth_Items,
                                    vm.AudioBitDepth_SelectedItem
-                                  ),
-                    Audio.Channel(vm,
+                                   ),
+                    Audio.Channel(vm.MediaType_SelectedItem,
+                                  vm.AudioCodec_SelectedItem,
+                                  vm.AudioStream_SelectedItem,
+                                  vm.AudioQuality_SelectedItem,
                                   vm.AudioChannel_SelectedItem
-                                 ),
+                                  ),
                     AudioFilters.AudioFilter(vm),
                     //Streams.AudioStreamMaps(mainwindow),
 

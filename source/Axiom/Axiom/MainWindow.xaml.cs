@@ -678,10 +678,11 @@ namespace Axiom
             Video.vBitrateNA = string.Empty;
             Video.vLossless = string.Empty;
             Video.vBitrate = string.Empty;
+            Video.vMinrate = string.Empty;
             Video.vMaxrate = string.Empty;
             Video.vBufsize = string.Empty;
             Video.vOptions = string.Empty;
-            Video.crf = string.Empty;
+            Video.vCRF = string.Empty;
             Video.pix_fmt = string.Empty;
             Video.vScaling = string.Empty;
             Video.fps = string.Empty;
@@ -732,7 +733,7 @@ namespace Axiom
             Video.image = string.Empty;
             Video.optimize = string.Empty;
             Video.vEncodeSpeed = string.Empty;
-            Video.hwaccel = string.Empty;
+            Video.hwacceleration = string.Empty;
 
             // Subtitle
             Subtitle.sCodec = string.Empty;
