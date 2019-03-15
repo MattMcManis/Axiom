@@ -152,10 +152,14 @@ namespace Axiom
                     "\r\n\r\n" +
                     Audio.AudioCodec(vm, vm.AudioCodec_Command),
                     "\r\n" +
-                    Audio.AudioQuality(vm,
+                    Audio.AudioQuality(//vm
+                                       vm.Batch_IsChecked,
+                                       vm.AudioVBR_IsChecked,
+                                       vm.AudioCodec_SelectedItem,
                                        vm.AudioQuality_Items,
-                                       vm.AudioQuality_SelectedItem
-                                      ),
+                                       vm.AudioQuality_SelectedItem,
+                                       vm.AudioBitrate_Text
+                                       ),
                     Audio.SampleRate(vm),
                     Audio.BitDepth(vm,
                                    vm.AudioBitDepth_Items,
@@ -352,9 +356,13 @@ namespace Axiom
                     "\r\n\r\n" +
                     Audio.AudioCodec(vm, vm.AudioCodec_Command),
                     "\r\n" +
-                    Audio.AudioQuality(vm,
+                    Audio.AudioQuality(//vm
+                                       vm.Batch_IsChecked,
+                                       vm.AudioVBR_IsChecked,
+                                       vm.AudioCodec_SelectedItem,
                                        vm.AudioQuality_Items,
-                                       vm.AudioQuality_SelectedItem
+                                       vm.AudioQuality_SelectedItem,
+                                       vm.AudioBitrate_Text
                                        ),
                     Audio.SampleRate(vm),
                     Audio.BitDepth(vm,

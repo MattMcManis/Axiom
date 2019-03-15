@@ -101,27 +101,26 @@ namespace Axiom
         /// <summary>
         ///     Bitrate Mode
         /// <summary>
-        public static String BitrateMode(ViewModel vm,
-                                         bool vbrIsChecked)
+        public static String BitrateMode(bool vbr,
+                                         List<ViewModel.AudioQuality> items,
+                                         string quality,
+                                         string bitrate)
         {
-            //string aBitMode = string.Empty;
-
             // Only if Bitrate Textbox is not Empty (except for Auto Quality)
-            if (vm.AudioQuality_SelectedItem == "Auto" || 
-                !string.IsNullOrEmpty(vm.AudioBitrate_Text))
+            if (quality == "Auto" || !string.IsNullOrEmpty(bitrate))
             {
                 // CBR
-                if (vbrIsChecked == false)
+                if (vbr == false)
                 {
                     //aBitmode = "-b:a";
-                    aBitMode = vm.AudioQuality_Items.FirstOrDefault(item => item.Name == vm.AudioQuality_SelectedItem)?.CBR_BitMode;
+                    aBitMode = items.FirstOrDefault(item => item.Name == quality)?.CBR_BitMode;
                 }
 
                 // VBR
-                else if (vbrIsChecked == true)
+                else if (vbr == true)
                 {
                     //aBitmode = "-q:a";
-                    aBitMode = vm.AudioQuality_Items.FirstOrDefault(item => item.Name == vm.AudioQuality_SelectedItem)?.VBR_BitMode;
+                    aBitMode = items.FirstOrDefault(item => item.Name == quality)?.VBR_BitMode;
                 }
             }
 
@@ -129,190 +128,252 @@ namespace Axiom
         }
 
 
+
+        /// <summary>
+        ///     Audio Quality - Auto
+        /// <summary>
+        public static void QualityAuto(bool batch,
+                                       bool vbr,
+                                       string codec,
+                                       string quality
+                                       )
+        {
+            // --------------------------------------------------
+            // Single
+            // --------------------------------------------------
+            if (batch == false)
+            {
+                // -------------------------
+                // Input Has Audio
+                // -------------------------
+                if (!string.IsNullOrEmpty(FFprobe.inputAudioBitrate))
+                {
+                    // Input Bitrate was detected
+                    if (FFprobe.inputAudioBitrate != "N/A")
+                    {
+                        // CBR
+                        if (vbr == false)
+                        {
+                            // aBitMode = "-b:a";
+                            aBitrate = AudioBitrateCalculator(codec, FFprobe.aEntryType, FFprobe.inputAudioBitrate);
+                        }
+
+                        // VBR
+                        else if (vbr == true)
+                        {
+                            //VBR does not have 'k'
+
+                            aBitrate = AudioVBRCalculator(vbr, codec, FFprobe.inputAudioBitrate);
+                        }
+                    }
+
+                    // -------------------------
+                    // Input Does Not Have Audio Codec
+                    // -------------------------
+                    if (!string.IsNullOrEmpty(FFprobe.inputAudioCodec))
+                    {
+                        // Default to a new bitrate if Input & Output formats Do Not match
+                        if (FFprobe.inputAudioBitrate == "N/A" &&
+                            !string.Equals(MainWindow.inputExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase))
+                        {
+                            // Default to NA value
+                            if (!string.IsNullOrEmpty(aBitrateNA))
+                            {
+                                aBitrate = aBitrateNA;
+                            }
+                            // Default to 320k if NA value is empty
+                            else
+                            {
+                                aBitrate = "320k";
+                            }
+                        }
+                    }
+                }
+
+                // -------------------------
+                // Input No Audio
+                // -------------------------
+                else if (string.IsNullOrEmpty(FFprobe.inputAudioBitrate))
+                {
+                    aBitMode = string.Empty;
+                    aBitrate = string.Empty;
+                }
+
+                // -------------------------
+                // Bitrate Returned Empty, Disable BitMode
+                // -------------------------
+                if (string.IsNullOrEmpty(aBitrate))
+                {
+                    aBitMode = string.Empty;
+                }
+            }
+
+            // --------------------------------------------------
+            // Batch
+            // --------------------------------------------------
+            else if (batch == true)
+            {
+                // Use the CMD Batch Audio Variable
+                aBitrate = "%A";
+
+                //MessageBox.Show(aBitrate); //debug
+            }
+        }
+
+
+        /// <summary>
+        ///     Audio Quality - Lossless
+        /// <summary>
+        public static void QualityLossless(List<ViewModel.AudioQuality> items)
+        {
+            aLossless = items.FirstOrDefault(item => item.Name == "Lossless")?.Lossless;
+        }
+
+
+        /// <summary>
+        ///     Audio Quality - Preset
+        /// <summary>
+        public static void QualityPreset(bool batch,
+                                         bool vbr,
+                                         string codec,
+                                         List<ViewModel.AudioQuality> items,
+                                         string quality,
+                                         string bitrate
+                                         )
+        {
+            // -------------------------
+            // Bitrate
+            // -------------------------
+            aBitrate = bitrate;
+        }
+
+
+        /// <summary>
+        ///     Audio Quality - Custom
+        /// <summary>
+        public static void QualityCustom(bool batch,
+                                         bool vbr,
+                                         string codec,
+                                         List<ViewModel.AudioQuality> items,
+                                         string quality,
+                                         string bitrate
+                                         )
+        {
+            // --------------------------------------------------
+            // Bitrate
+            // --------------------------------------------------
+            // -------------------------
+            // CBR
+            // -------------------------
+            if (vbr == false)
+            {
+                // .e.g. 320k
+                aBitrate = bitrate;
+            }
+
+            // -------------------------
+            // VBR
+            // -------------------------
+            else if (vbr == true)
+            {
+                // e.g. 320k converted to -q:a 2
+                aBitrate = AudioVBRCalculator(vbr, codec, bitrate);
+            }
+        }
+
+
         /// <summary>
         ///     Audio Quality
         /// <summary>
-        public static String AudioQuality(ViewModel vm,
+        public static String AudioQuality(bool batch,
+                                          bool vbr,
+                                          string codec,
                                           List<ViewModel.AudioQuality> items,
-                                          string selectedQuality
+                                          string quality,
+                                          string bitrate
                                           )
         {
-            //string aQuality = string.Empty;
-
             // Audio Quality None Check
             // Audio Codec None Check
             // Audio Codec Copy Check
-            if (vm.AudioQuality_SelectedItem != "None" &&
-                vm.AudioCodec_SelectedItem != "None" &&
-                vm.AudioCodec_SelectedItem != "Copy")
+            if (quality != "None" &&
+                codec != "None" &&
+                codec != "Copy")
             {
                 // Bitrate Mode
-                aBitMode = BitrateMode(vm, vm.AudioVBR_IsChecked);
+                aBitMode = BitrateMode(vbr,
+                                      items, 
+                                      quality, 
+                                      bitrate
+                                      );
 
                 // No Detectable Bitrate Default
-                aBitrateNA = items.FirstOrDefault(item => item.Name == selectedQuality)?.NA;
+                aBitrateNA = items.FirstOrDefault(item => item.Name == quality)?.NA;
+                //aBitrateNA = vm.AudioQuality_Items.FirstOrDefault(item => item.Name == vm.AudioQuality_SelectedItem)?.NA;
 
                 if (!string.IsNullOrEmpty(aBitMode)) // Null Check
                 {
                     // -------------------------
                     // Auto
                     // -------------------------
-                    if (selectedQuality == "Auto")
+                    if (quality == "Auto")
                     {
-                        // -------------------------
-                        // Single
-                        // -------------------------
-                        if (vm.Batch_IsChecked == false)
-                        {
-                            // -------------------------
-                            // Input Has Audio
-                            // -------------------------
-                            if (!string.IsNullOrEmpty(FFprobe.inputAudioBitrate))
-                            {
-                                // Input Bitrate was detected
-                                if (FFprobe.inputAudioBitrate != "N/A")
-                                {
-                                    // CBR
-                                    if (vm.AudioVBR_IsChecked == false)
-                                    {
-                                        // aBitMode = "-b:a";
-                                        aBitrate = AudioBitrateCalculator(vm, FFprobe.aEntryType, FFprobe.inputAudioBitrate);
-
-                                        // add k to value
-                                        aBitrate = aBitrate + "k";
-                                    }
-
-                                    // VBR
-                                    else if (vm.AudioVBR_IsChecked == true)
-                                    {
-                                        //VBR does not have 'k'
-
-                                        aBitrate = AudioVBRCalculator(vm, FFprobe.inputAudioBitrate);
-
-                                        // Opus uses -b:a (value)k -vbr on
-                                        if (vm.AudioCodec_SelectedItem == "Opus")
-                                        {
-                                            aBitrate = aBitrate + "k";
-                                        }
-                                    }
-                                }
-
-                                // -------------------------
-                                // Input Does Not Have Audio Codec
-                                // -------------------------
-                                if (!string.IsNullOrEmpty(FFprobe.inputAudioCodec))
-                                {
-                                    // Default to a new bitrate if Input & Output formats Do Not match
-                                    if (FFprobe.inputAudioBitrate == "N/A" &&
-                                        !string.Equals(MainWindow.inputExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase))
-                                    {
-                                        // aBitMode = "-b:a";
-                                        //aBitrate = "320k";
-
-                                        // Default to NA value
-                                        if (!string.IsNullOrEmpty(aBitrateNA))
-                                        {
-                                            aBitrate = aBitrateNA;
-                                        }
-                                        // Default to 320k if NA value is empty
-                                        else
-                                        {
-                                            aBitrate = "320k";
-                                        }
-                                    }
-                                }
-
-                            }
-
-                            // -------------------------
-                            // Input No Audio
-                            // -------------------------
-                            else if (string.IsNullOrEmpty(FFprobe.inputAudioBitrate))
-                            {
-                                aBitMode = string.Empty;
-                                aBitrate = string.Empty;
-                            }
-
-
-                            // -------------------------
-                            // Bitrate Returned Empty
-                            // -------------------------
-                            if (string.IsNullOrEmpty(aBitrate))
-                            {
-                                // Disable Bit Mode
-                                aBitMode = string.Empty;
-                            }
-                        }
-
-                        // -------------------------
-                        // Batch
-                        // -------------------------
-                        else if (vm.Batch_IsChecked == true)
-                        {
-                            // Use the CMD Batch Audio Variable
-                            aBitrate = "%A";
-
-                            //MessageBox.Show(aBitrate); //debug
-                        }
-
+                        QualityAuto(batch,
+                                    vbr,
+                                    codec,
+                                    quality
+                                    );
                     }
 
                     // -------------------------
                     // Lossless
                     // -------------------------
-                    else if (selectedQuality == "Lossless")
+                    else if (quality == "Lossless")
                     {
-                        aLossless = items.FirstOrDefault(item => item.Name == "Lossless")?.Lossless;
+                        QualityLossless(items);
+                    }
+
+                    // -------------------------
+                    // Custom
+                    // -------------------------
+                    else if (quality == "Custom")
+                    {
+                        QualityCustom(batch,
+                                      vbr,
+                                      codec,
+                                      items,
+                                      quality,
+                                      bitrate);
                     }
 
                     // -------------------------
                     // Preset: 640, 400, 320, 128, etc
                     // -------------------------
-                    // Custom
-                    // -------------------------
                     else
                     {
-                        // -------------------------
-                        // Bitrate
-                        // -------------------------
-                        // -------------------------
-                        // CBR
-                        // -------------------------
-                        if (vm.AudioVBR_IsChecked == false)
-                        {
-                            // .e.g. 320k
-                            aBitrate = vm.AudioBitrate_Text + "k";
-                        }
-
-                        // -------------------------
-                        // VBR
-                        // -------------------------
-                        else if (vm.AudioVBR_IsChecked == true)
-                        {
-                            // e.g. 320k converted to -q:a 2
-                            aBitrate = AudioVBRCalculator(vm, vm.AudioBitrate_Text);
-
-                            // Opus Special Rule
-                            // Opus uses -b:a (value)k -vbr on
-                            if (vm.AudioCodec_SelectedItem == "Opus")
-                            {
-                                aBitrate = aBitrate + "k";
-                            }
-                        }
+                        // Preset & Custom
+                        QualityPreset(batch,
+                                      vbr,
+                                      codec,
+                                      items,
+                                      quality,
+                                      bitrate);
                     }
 
                     // --------------------------------------------------
                     // Add kbps
                     // --------------------------------------------------
-                    //if (!string.IsNullOrEmpty(aBitrate) &&
-                    //    aBitMode != "-q:a" // ignore VBR
-                    //    )
-                    //{
-                    //    aBitrate = aBitrate + "k";
-                    //}
+                    if (!string.IsNullOrEmpty(aBitrate) && // Bitrate Null
+                        aBitMode != "-q:a"                 // Ignore VBR
+                        )
+                    {
+                        //aBitrate = aBitrate + "k";
+                        aBitrate += "k";
+                    }
+
 
                     // --------------------------------------------------
-                    // Combine
+                    // Combine Options
                     // --------------------------------------------------
                     List<string> aQualityArgs = new List<string>()
                     {
@@ -320,6 +381,7 @@ namespace Axiom
                         aBitrate
                     };
 
+                    // Quality
                     aQuality = string.Join(" ", aQualityArgs
                                                 .Where(s => !string.IsNullOrEmpty(s))
                                                 .Where(s => !s.Equals("\n"))
@@ -336,12 +398,12 @@ namespace Axiom
         /// <summary>
         ///     Audio Bitrate Calculator
         /// <summary>
-        public static String AudioBitrateCalculator(ViewModel vm, string aEntryType, string inputAudioBitrate)
+        public static String AudioBitrateCalculator(string codec, string aEntryType, string inputAudioBitrate)
         {
             // -------------------------
-            // Remove K from input if any
+            // Remove k from input if any
             // -------------------------
-            inputAudioBitrate = Regex.Replace(inputAudioBitrate, "k", "", RegexOptions.IgnoreCase);
+            //inputAudioBitrate = Regex.Replace(inputAudioBitrate, "k", "", RegexOptions.IgnoreCase);
 
             try
             {
@@ -377,7 +439,7 @@ namespace Axiom
                     // -------------------------
                     // Vorbis
                     // -------------------------
-                    if (vm.AudioCodec_SelectedItem == "Vorbis" &&
+                    if (codec == "Vorbis" &&
                         double.Parse(inputAudioBitrate) > 500)
                     {
                         inputAudioBitrate = Convert.ToString(500); //was 500,000 (before converting to decimal)
@@ -385,7 +447,7 @@ namespace Axiom
                     // -------------------------
                     // Opus
                     // -------------------------
-                    else if (vm.AudioCodec_SelectedItem == "Opus" &&
+                    else if (codec == "Opus" &&
                              double.Parse(inputAudioBitrate) > 510)
                     {
                         inputAudioBitrate = Convert.ToString(510); //was 510,000 (before converting to decimal)
@@ -393,31 +455,31 @@ namespace Axiom
                     // -------------------------
                     // MP2
                     // -------------------------
-                    else if (vm.AudioCodec_SelectedItem == "MP2" &&
-                            double.Parse(inputAudioBitrate) > 320)
+                    else if (codec == "MP2" &&
+                             double.Parse(inputAudioBitrate) > 320)
                     {
                         inputAudioBitrate = Convert.ToString(320); //was 320,000 before converting to decimal)
                     }
                     // -------------------------
                     // LAME
                     // -------------------------
-                    else if (vm.AudioCodec_SelectedItem == "LAME" &&
-                            double.Parse(inputAudioBitrate) > 320)
+                    else if (codec == "LAME" &&
+                             double.Parse(inputAudioBitrate) > 320)
                     {
                         inputAudioBitrate = Convert.ToString(320); //was 320,000 before converting to decimal)
                     }
                     // -------------------------
                     // AAC
                     // -------------------------
-                    else if (vm.AudioCodec_SelectedItem == "AAC" &&
-                            double.Parse(inputAudioBitrate) > 400)
+                    else if (codec == "AAC" &&
+                             double.Parse(inputAudioBitrate) > 400)
                     {
                         inputAudioBitrate = Convert.ToString(400); //was 400,000 (before converting to decimal)
                     }
                     // -------------------------
                     // AC3
                     // -------------------------
-                    else if (vm.AudioCodec_SelectedItem == "AC3" &&
+                    else if (codec == "AC3" &&
                             double.Parse(inputAudioBitrate) > 640)
                     {
                         inputAudioBitrate = Convert.ToString(640); //was 640,000 (before converting to decimal)
@@ -434,7 +496,7 @@ namespace Axiom
                     // Vorbis
                     // -------------------------
                     // Vorbis has a minimum bitrate limit of 45k, if less than, set to 45k
-                    else if (vm.AudioCodec_SelectedItem == "Vorbis" &&
+                    else if (codec == "Vorbis" &&
                              double.Parse(inputAudioBitrate) < 45)
                     {
                         inputAudioBitrate = Convert.ToString(45);
@@ -444,7 +506,7 @@ namespace Axiom
                     // Opus
                     // -------------------------
                     // Opus has a minimum bitrate limit of 6k, if less than, set to 6k
-                    else if (vm.AudioCodec_SelectedItem == "Opus" &&
+                    else if (codec == "Opus" &&
                              double.Parse(inputAudioBitrate) < 6)
                     {
                         inputAudioBitrate = Convert.ToString(6);
@@ -468,13 +530,13 @@ namespace Axiom
         /// <summary>
         ///     Audio VBR Calculator
         /// <summary>
-        public static String AudioVBRCalculator(ViewModel vm, string inputBitrate)
+        public static String AudioVBRCalculator(bool vbr, string codec, string inputBitrate)
         {
             // -------------------------
             // VBR 
             // User entered value
             // -------------------------
-            if (vm.AudioVBR_IsChecked == true)
+            if (vbr == true)
             {
                 // Used to Calculate VBR Double
                 //
@@ -484,7 +546,7 @@ namespace Axiom
                 // -------------------------
                 // AAC
                 // -------------------------
-                if (vm.AudioCodec_SelectedItem == "AAC")
+                if (codec == "AAC")
                 {
                     // Calculate VBR
                     aBitrateVBR = aBitrateVBR * 0.00625;
@@ -514,7 +576,7 @@ namespace Axiom
                 // -------------------------
                 // Vorbis
                 // -------------------------
-                else if (vm.AudioCodec_SelectedItem == "Vorbis")
+                else if (codec == "Vorbis")
                 {
                     // Above 290k set to 10 Quality
                     if (aBitrateVBR > 290)
@@ -545,7 +607,7 @@ namespace Axiom
                 // -------------------------
                 // Opus
                 // -------------------------
-                else if (vm.AudioCodec_SelectedItem == "Opus")
+                else if (codec == "Opus")
                 {
                     // e.g. 128000 to 128k
                     aBitrateVBR = aBitrateVBR * 0.001;
@@ -556,10 +618,10 @@ namespace Axiom
                 // -------------------------
                 // LAME MP3
                 // -------------------------
-                else if (vm.AudioCodec_SelectedItem == "MP2" ||
-                         vm.AudioCodec_SelectedItem == "LAME")
+                else if (codec == "MP2" ||
+                         codec == "LAME")
                 {
-                    // Above 245k set to V0
+                    // Above 260k set to V0
                     if (aBitrateVBR > 260)
                     {
                         aBitrateVBR = 0;
