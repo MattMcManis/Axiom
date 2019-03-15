@@ -267,6 +267,7 @@ namespace Axiom
 
                     // -------------------------
                     // Preset: 640, 400, 320, 128, etc
+                    // -------------------------
                     // Custom
                     // -------------------------
                     else
@@ -291,6 +292,7 @@ namespace Axiom
                             // e.g. 320k converted to -q:a 2
                             aBitrate = AudioVBRCalculator(vm, vm.AudioBitrate_Text);
 
+                            // Opus Special Rule
                             // Opus uses -b:a (value)k -vbr on
                             if (vm.AudioCodec_SelectedItem == "Opus")
                             {
@@ -480,7 +482,7 @@ namespace Axiom
 
 
                 // -------------------------
-                // AAC (M4A, MP4, MKV) User Custom VBR
+                // AAC
                 // -------------------------
                 if (vm.AudioCodec_SelectedItem == "AAC")
                 {
@@ -510,7 +512,7 @@ namespace Axiom
 
 
                 // -------------------------
-                // Vorbis (WebM, OGG) User Custom VBR
+                // Vorbis
                 // -------------------------
                 else if (vm.AudioCodec_SelectedItem == "Vorbis")
                 {
@@ -541,8 +543,18 @@ namespace Axiom
                 }
 
                 // -------------------------
+                // Opus
+                // -------------------------
+                else if (vm.AudioCodec_SelectedItem == "Opus")
+                {
+                    // e.g. 128000 to 128k
+                    aBitrateVBR = aBitrateVBR * 0.001;
+                }
+
+                // -------------------------
                 // MP2
-                // LAME (MP3) User Custom VBR
+                // -------------------------
+                // LAME MP3
                 // -------------------------
                 else if (vm.AudioCodec_SelectedItem == "MP2" ||
                          vm.AudioCodec_SelectedItem == "LAME")

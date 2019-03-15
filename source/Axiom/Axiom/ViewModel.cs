@@ -1487,33 +1487,47 @@ namespace Axiom
             "gray",
             "bgra",
             "rgb24",
+
+            // yuv420p
             "yuv420p",
-            "yuv422p",
-            "yuv440p",
-            "yuv444p",
-            "yuv420p10be",
-            "yuv422p10be",
-            "yuv444p10be",
             "yuv420p10le",
-            "yuv422p10le",
-            "yuv444p10le",
-            "yuva420p",
-            "yuva422p",
-            "yuva444p",
-            "yuva420p10be",
-            "yuva422p10be",
-            "yuva440p10be",
-            "yuva444p10be",
-            "yuva420p10le",
-            "yuva422p10le",
-            "yuva440p10le",
-            "yuva444p10le",
-            "yuv420p12be",
-            "yuv422p12be",
-            "yuv444p12be",
+            "yuv420p10be",
             "yuv420p12le",
+            "yuv420p12be",
+
+            // yuv422p
+            "yuv422p",
+            "yuv422p10le",
+            "yuv422p10be",
             "yuv422p12le",
+            "yuv422p12be",
+
+            // yuv440p
+            "yuv440p",
+
+            // yuv440p
+            "yuv444p",
+            "yuv444p10le",
+            "yuv444p10be",
             "yuv444p12le",
+            "yuv444p12be",
+
+            // yuva420p
+            "yuva420p",
+            "yuva420p10le",
+            "yuva420p10be",
+
+            // yuva422p
+            "yuva422p",
+            "yuva422p10le",
+            "yuva422p10be",
+
+            // yuva444p
+            "yuva444p",
+            "yuva444p10le",
+            "yuva444p10be",
+            
+            // yuvj
             "yuvj420p",
             "yuvj422p",
             "yuvj440p",
@@ -1559,7 +1573,7 @@ namespace Axiom
 
                 if (previousItem != value)
                 {
-                    //VideoControls.AutoCopyVideoCodec(/*System.Windows.Application.Current.Windows.OfType<MainWindow>().FirstOrDefault(), */this); // Crash Problem
+                    //VideoControls.AutoCopyVideoCodec(this); // Crash Problem
                     SubtitleControls.AutoCopySubtitleCodec(this);
                 }
                 //if (_PixelFormat_SelectedItem == value)
