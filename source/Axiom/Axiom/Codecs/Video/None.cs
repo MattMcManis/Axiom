@@ -207,7 +207,7 @@ namespace Axiom
             vm.Video_Optimize_IsEnabled = false;
 
             // Scaling ComboBox
-            vm.Scaling_IsEnabled = false;
+            vm.ScalingAlgorithm_IsEnabled = false;
 
             // Crop
             vm.Crop_IsEnabled = false;

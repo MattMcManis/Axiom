@@ -195,7 +195,7 @@ namespace Axiom
             vm.FPS_IsEnabled = true;
 
             // Scaling ComboBox
-            vm.Scaling_IsEnabled = true;
+            vm.ScalingAlgorithm_IsEnabled = true;
 
             // Crop
             vm.Crop_IsEnabled = true;

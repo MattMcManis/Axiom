@@ -80,7 +80,8 @@ namespace Axiom
             Optimize_Level_SelectedItem = "none";
 
             Size_SelectedItem = "Source";
-            Scaling_SelectedItem = "default";
+            AspectRatio_SelectedItem = "auto";
+            ScalingAlgorithm_SelectedItem = "default";
 
             // Subtitle
             SubtitleCodec_SelectedItem = "None";
@@ -2114,10 +2115,101 @@ namespace Axiom
 
 
         // --------------------------------------------------
+        // Aspect Ratio
+        // --------------------------------------------------
+        // Item Source
+        private List<string> _AspectRatio_Items = new List<string>()
+        {
+            "auto",
+            "1:1",
+            "3:2",
+            "4:3",
+            "5:4",
+            "8:7",
+            "14:10",
+            "16:9",
+            "16:10",
+            "19:10",
+            "21:9",
+            "32:9"
+        };
+        public List<string> AspectRatio_Items
+        {
+            get { return _AspectRatio_Items; }
+            set
+            {
+                _AspectRatio_Items = value;
+                OnPropertyChanged("AspectRatio_Items");
+            }
+        }
+
+        // Selected Index
+        private int _AspectRatio_SelectedIndex { get; set; }
+        public int AspectRatio_SelectedIndex
+        {
+            get { return _AspectRatio_SelectedIndex; }
+            set
+            {
+                if (_AspectRatio_SelectedIndex == value)
+                {
+                    return;
+                }
+
+                _AspectRatio_SelectedIndex = value;
+                OnPropertyChanged("AspectRatio_SelectedIndex");
+            }
+        }
+
+        // Selected Item
+        private string _AspectRatio_SelectedItem { get; set; }
+        public string AspectRatio_SelectedItem
+        {
+            get { return _AspectRatio_SelectedItem; }
+            set
+            {
+                var previousItem = _AspectRatio_SelectedItem;
+                _AspectRatio_SelectedItem = value;
+                OnPropertyChanged("AspectRatio_SelectedItem");
+
+                if (previousItem != value)
+                {
+                    VideoControls.AutoCopyVideoCodec(this);
+                    SubtitleControls.AutoCopySubtitleCodec(this);
+                }
+
+                //if (_AspectRatio_SelectedItem == value)
+                //{
+                //    return;
+                //}
+
+                //_AspectRatio_SelectedItem = value;
+                //OnPropertyChanged("AspectRatio_SelectedItem");
+            }
+        }
+
+        // Controls Enable
+        private bool _AspectRatio_IsEnabled = true;
+        public bool AspectRatio_IsEnabled
+        {
+            get { return _AspectRatio_IsEnabled; }
+            set
+            {
+                if (_AspectRatio_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _AspectRatio_IsEnabled = value;
+                OnPropertyChanged("AspectRatio_IsEnabled");
+            }
+        }
+
+
+        // --------------------------------------------------
         // Scaling
         // --------------------------------------------------
         // Item Source
-        private List<string> _Scaling_Items = new List<string>()
+        private List<string> _ScalingAlgorithm_Items = new List<string>()
         {
             "default",
             "neighbor",
@@ -2132,43 +2224,43 @@ namespace Axiom
             "lanczos",
             "spline"
         };
-        public List<string> Scaling_Items
+        public List<string> ScalingAlgorithm_Items
         {
-            get { return _Scaling_Items; }
+            get { return _ScalingAlgorithm_Items; }
             set
             {
-                _Scaling_Items = value;
-                OnPropertyChanged("Scaling_Items");
+                _ScalingAlgorithm_Items = value;
+                OnPropertyChanged("ScalingAlgorithm_Items");
             }
         }
 
         // Selected Index
-        private int _Scaling_SelectedIndex { get; set; }
-        public int Scaling_SelectedIndex
+        private int _ScalingAlgorithm_SelectedIndex { get; set; }
+        public int ScalingAlgorithm_SelectedIndex
         {
-            get { return _Scaling_SelectedIndex; }
+            get { return _ScalingAlgorithm_SelectedIndex; }
             set
             {
-                if (_Scaling_SelectedIndex == value)
+                if (_ScalingAlgorithm_SelectedIndex == value)
                 {
                     return;
                 }
 
-                _Scaling_SelectedIndex = value;
-                OnPropertyChanged("Scaling_SelectedIndex");
+                _ScalingAlgorithm_SelectedIndex = value;
+                OnPropertyChanged("ScalingAlgorithm_SelectedIndex");
             }
         }
 
         // Selected Item
-        private string _Scaling_SelectedItem { get; set; }
-        public string Scaling_SelectedItem
+        private string _ScalingAlgorithm_SelectedItem { get; set; }
+        public string ScalingAlgorithm_SelectedItem
         {
-            get { return _Scaling_SelectedItem; }
+            get { return _ScalingAlgorithm_SelectedItem; }
             set
             {
-                var previousItem = _Scaling_SelectedItem;
-                _Scaling_SelectedItem = value;
-                OnPropertyChanged("Scaling_SelectedItem");
+                var previousItem = _ScalingAlgorithm_SelectedItem;
+                _ScalingAlgorithm_SelectedItem = value;
+                OnPropertyChanged("ScalingAlgorithm_SelectedItem");
 
                 if (previousItem != value)
                 {
@@ -2176,30 +2268,30 @@ namespace Axiom
                     SubtitleControls.AutoCopySubtitleCodec(this);
                 }
 
-                //if (_Scaling_SelectedItem == value)
+                //if (_ScalingAlgorithm_SelectedItem == value)
                 //{
                 //    return;
                 //}
 
-                //_Scaling_SelectedItem = value;
-                //OnPropertyChanged("Scaling_SelectedItem");
+                //_ScalingAlgorithm_SelectedItem = value;
+                //OnPropertyChanged("ScalingAlgorithm_SelectedItem");
             }
         }
 
         // Controls Enable
-        private bool _Scaling_IsEnabled = true;
-        public bool Scaling_IsEnabled
+        private bool _ScalingAlgorithm_IsEnabled = true;
+        public bool ScalingAlgorithm_IsEnabled
         {
-            get { return _Scaling_IsEnabled; }
+            get { return _ScalingAlgorithm_IsEnabled; }
             set
             {
-                if (_Scaling_IsEnabled == value)
+                if (_ScalingAlgorithm_IsEnabled == value)
                 {
                     return;
                 }
 
-                _Scaling_IsEnabled = value;
-                OnPropertyChanged("Scaling_IsEnabled");
+                _ScalingAlgorithm_IsEnabled = value;
+                OnPropertyChanged("ScalingAlgorithm_IsEnabled");
             }
         }
 

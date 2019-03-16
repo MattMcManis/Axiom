@@ -239,6 +239,33 @@ namespace Axiom
             }
 
             // -------------------------
+            // MP2
+            // -------------------------
+            else if (selectedCodec == "MP2")
+            {
+                // Audio Codec
+                vm.AudioCodec_Command = MP2.codec;
+
+                // Item Source
+                MP2.controlsItemSource(vm);
+
+                // Selected Items
+                MP2.controlsSelected(vm);
+
+                // Checked
+                MP2.controlsChecked(vm);
+
+                // Unhecked
+                MP2.controlsUnhecked(vm);
+
+                // Enabled
+                MP2.controlsEnable(vm);
+
+                // Disabled
+                MP2.controlsDisable(vm);
+            }
+
+            // -------------------------
             // LAME
             // -------------------------
             else if (selectedCodec == "LAME")
@@ -553,7 +580,7 @@ namespace Axiom
                             }
                             else if (vm.Container_SelectedItem == "mpg")
                             {
-                                vm.AudioCodec_SelectedItem = "AC3";
+                                vm.AudioCodec_SelectedItem = "MP2";
                             }
                             else if (vm.Container_SelectedItem == "avi")
                             {

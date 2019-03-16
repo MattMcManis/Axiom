@@ -246,7 +246,7 @@ namespace Axiom
             vm.FPS_IsEnabled = true;
 
             // Scaling
-            vm.Scaling_IsEnabled = true;
+            vm.ScalingAlgorithm_IsEnabled = true;
 
             // Crop
             vm.Crop_IsEnabled = true;

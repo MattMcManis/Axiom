@@ -69,11 +69,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Audio.cs" />
-    <Compile Include="AudioControls.cs" />
+    <Compile Include="Audio\Audio.cs" />
+    <Compile Include="Audio\AudioControls.cs" />
+    <Compile Include="Audio\AudioFilters.cs" />
     <Compile Include="Codecs\Audio\AAC.cs" />
     <Compile Include="Codecs\Audio\AC3.cs" />
     <Compile Include="Codecs\Audio\ALAC.cs" />
+    <Compile Include="Codecs\Audio\MP2.cs" />
     <Compile Include="Codecs\Audio\None.cs" />
     <Compile Include="Codecs\Audio\FLAC.cs" />
     <Compile Include="Codecs\Audio\LAME.cs" />
@@ -105,34 +107,34 @@
     <Compile Include="DebugConsole.xaml.cs">
       <DependentUpon>DebugConsole.xaml</DependentUpon>
     </Compile>
-    <Compile Include="FFmpeg.cs" />
-    <Compile Include="FFplay.cs" />
-    <Compile Include="FFprobe.cs" />
+    <Compile Include="FFmpeg\FFmpeg.cs" />
+    <Compile Include="FFmpeg\FFplay.cs" />
+    <Compile Include="FFmpeg\FFprobe.cs" />
     <Compile Include="FilePropertiesWindow.xaml.cs">
       <DependentUpon>FilePropertiesWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Filters.cs" />
-    <Compile Include="Format.cs" />
+    <Compile Include="Video\VideoFilters.cs" />
+    <Compile Include="Format\Format.cs" />
     <Compile Include="InfoWindow.xaml.cs">
       <DependentUpon>InfoWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Log.cs" />
-    <Compile Include="LogConsole.xaml.cs">
+    <Compile Include="Log\Log.cs" />
+    <Compile Include="Log\LogConsole.xaml.cs">
       <DependentUpon>LogConsole.xaml</DependentUpon>
     </Compile>
     <Compile Include="Presets.cs" />
     <Compile Include="ScriptView.cs" />
     <Compile Include="Streams.cs" />
-    <Compile Include="Subtitle.cs" />
-    <Compile Include="SubtitleControls.cs" />
+    <Compile Include="Subtitle\Subtitle.cs" />
+    <Compile Include="Subtitle\SubtitleControls.cs" />
     <Compile Include="UpdateWindow.xaml.cs">
       <DependentUpon>UpdateWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Video.cs" />
+    <Compile Include="Video\Video.cs" />
     <Compile Include="Codecs\Video\VP8.cs" />
-    <Compile Include="Containers.cs" />
-    <Compile Include="FormatControls.cs" />
-    <Compile Include="VideoControls.cs" />
+    <Compile Include="Format\Containers.cs" />
+    <Compile Include="Format\FormatControls.cs" />
+    <Compile Include="Video\VideoControls.cs" />
     <Compile Include="ViewModel.cs" />
     <Compile Include="Codecs\Audio\Vorbis.cs" />
     <Compile Include="Codecs\Video\x264.cs" />
@@ -152,7 +154,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="LogConsole.xaml">
+    <Page Include="Log\LogConsole.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

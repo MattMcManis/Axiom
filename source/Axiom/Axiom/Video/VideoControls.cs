@@ -1128,7 +1128,7 @@ namespace Axiom
                 vm.FPS_SelectedItem == "auto" &&
                 vm.PixelFormat_SelectedItem == "auto" &&
                 vm.Video_Optimize_SelectedItem == "None" &&
-                vm.Scaling_SelectedItem == "default" &&
+                vm.ScalingAlgorithm_SelectedItem == "default" &&
 
                 // Filters
                 // Fix

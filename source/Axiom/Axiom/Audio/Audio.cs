@@ -449,9 +449,9 @@ namespace Axiom
                     // MP2
                     // -------------------------
                     else if (codec_SelectedItem == "MP2" &&
-                             double.Parse(inputAudioBitrate) > 320)
+                             double.Parse(inputAudioBitrate) > 384)
                     {
-                        inputAudioBitrate = Convert.ToString(320); //was 320,000 before converting to decimal)
+                        inputAudioBitrate = Convert.ToString(384); //was 320,000 before converting to decimal)
                     }
                     // -------------------------
                     // LAME
@@ -951,10 +951,10 @@ namespace Axiom
                     {
                         aBitrateLimiter = "& (IF %A gtr 640000 (SET aBitrate=640000) ELSE (echo Bitrate within AC3 Limit of 640k)) & for /F %A in ('echo %aBitrate%') do (echo)";
                     }
-                    // Limit MP2 bitrate to 320k through cmd.exe
+                    // Limit MP2 bitrate to 384k through cmd.exe
                     else if (codec_SelectedItem == "MP2")
                     {
-                        aBitrateLimiter = "& (IF %A gtr 320000 (SET aBitrate=320000) ELSE (echo Bitrate within MP2 Limit of 320k)) & for /F %A in ('echo %aBitrate%') do (echo)";
+                        aBitrateLimiter = "& (IF %A gtr 384000 (SET aBitrate=384000) ELSE (echo Bitrate within MP2 Limit of 384k)) & for /F %A in ('echo %aBitrate%') do (echo)";
                     }
                     // Limit LAME bitrate to 320k through cmd.exe
                     else if (codec_SelectedItem == "LAME")

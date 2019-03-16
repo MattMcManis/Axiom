@@ -83,7 +83,8 @@ namespace Axiom
                     vm.VideoMaxrate_Text = "";
                     vm.VideoBufsize_Text = "";
                     vm.Size_SelectedItem = "Source";
-                    vm.Scaling_SelectedItem = "default";
+                    vm.AspectRatio_SelectedItem = "auto";
+                    vm.ScalingAlgorithm_SelectedItem = "default";
                     vm.Cut_SelectedItem = "No";
                     vm.CutStart_Text = "00:00:00.000";
                     vm.CutEnd_Text = "00:00:00.000";
@@ -140,7 +141,8 @@ namespace Axiom
                     vm.VideoMaxrate_Text = "";
                     vm.VideoBufsize_Text = "";
                     vm.Size_SelectedItem = "Source";
-                    vm.Scaling_SelectedItem = "default";
+                    vm.AspectRatio_SelectedItem = "auto";
+                    vm.ScalingAlgorithm_SelectedItem = "default";
                     vm.Cut_SelectedItem = "No";
                     vm.CutStart_Text = "00:00:00.000";
                     vm.CutEnd_Text = "00:00:00.000";
@@ -185,7 +187,7 @@ namespace Axiom
                 // Format
                 vm.Container_SelectedItem = "mpg";
                 vm.VideoCodec_SelectedItem = "MPEG-2";
-                vm.AudioCodec_SelectedItem = "AC3";
+                vm.AudioCodec_SelectedItem = "MP2";
 
                 // Video
                 vm.VideoQuality_SelectedItem = "Custom";
@@ -195,9 +197,10 @@ namespace Axiom
                 vm.VideoMaxrate_Text = "9.8M";
                 vm.VideoBufsize_Text = "9.8M";
                 vm.Size_SelectedItem = "Custom";
-                vm.Scaling_SelectedItem = "default";
+                vm.AspectRatio_SelectedItem = "auto";
+                vm.ScalingAlgorithm_SelectedItem = "default";
                 vm.Width_Text = "720";
-                vm.Height_Text = "-2";
+                vm.Height_Text = "auto";
                 vm.Cut_SelectedItem = "No";
                 vm.CutStart_Text = "00:00:00.000";
                 vm.CutEnd_Text = "00:00:00.000";
@@ -243,7 +246,8 @@ namespace Axiom
                 vm.VideoMaxrate_Text = "";
                 vm.VideoBufsize_Text = "";
                 vm.Size_SelectedItem = "Source";
-                vm.Scaling_SelectedItem = "default";
+                vm.AspectRatio_SelectedItem = "auto";
+                vm.ScalingAlgorithm_SelectedItem = "default";
                 vm.Video_Optimize_SelectedItem = "PC HD";
                 vm.FPS_SelectedItem = "auto";
                 vm.FPS_IsEnabled = true;
@@ -290,7 +294,8 @@ namespace Axiom
                 vm.VideoMaxrate_Text = "";
                 vm.VideoBufsize_Text = "";
                 vm.Size_SelectedItem = "Source";
-                vm.Scaling_SelectedItem = "default";
+                vm.AspectRatio_SelectedItem = "auto";
+                vm.ScalingAlgorithm_SelectedItem = "default";
                 vm.FPS_SelectedItem = "auto";
                 vm.FPS_IsEnabled = true;
                 vm.Cut_SelectedItem = "No";
@@ -336,7 +341,8 @@ namespace Axiom
                 vm.VideoMaxrate_Text = "";
                 vm.VideoBufsize_Text = "";
                 vm.Size_SelectedItem = "1080p";
-                vm.Scaling_SelectedItem = "default";
+                vm.AspectRatio_SelectedItem = "auto";
+                vm.ScalingAlgorithm_SelectedItem = "default";
                 vm.FPS_SelectedItem = "23.976";
                 vm.FPS_IsEnabled = true;
                 vm.Video_Optimize_SelectedItem = "Blu-ray";
@@ -382,7 +388,8 @@ namespace Axiom
                 vm.VideoMaxrate_Text = "";
                 vm.VideoBufsize_Text = "";
                 vm.Size_SelectedItem = "Source";
-                vm.Scaling_SelectedItem = "default";
+                vm.AspectRatio_SelectedItem = "auto";
+                vm.ScalingAlgorithm_SelectedItem = "default";
                 vm.FPS_SelectedItem = "23.976";
                 vm.FPS_IsEnabled = true;
                 vm.Cut_SelectedItem = "No";
@@ -428,7 +435,8 @@ namespace Axiom
                 vm.VideoMaxrate_Text = "";
                 vm.VideoBufsize_Text = "";
                 vm.Size_SelectedItem = "Source";
-                vm.Scaling_SelectedItem = "default";
+                vm.AspectRatio_SelectedItem = "auto";
+                vm.ScalingAlgorithm_SelectedItem = "default";
                 vm.Video_Optimize_SelectedItem = "Android";
                 vm.FPS_SelectedItem = "23.976";
                 vm.FPS_IsEnabled = true;
@@ -473,7 +481,8 @@ namespace Axiom
                 vm.VideoMaxrate_Text = "";
                 vm.VideoBufsize_Text = "";
                 vm.Size_SelectedItem = "Source";
-                vm.Scaling_SelectedItem = "default";
+                vm.AspectRatio_SelectedItem = "auto";
+                vm.ScalingAlgorithm_SelectedItem = "default";
                 vm.Cut_SelectedItem = "No";
                 vm.CutStart_Text = "00:00:00.000";
                 vm.CutEnd_Text = "00:00:00.000";
@@ -518,7 +527,8 @@ namespace Axiom
                 vm.VideoMaxrate_Text = "";
                 vm.VideoBufsize_Text = "";
                 vm.Size_SelectedItem = "Source";
-                vm.Scaling_SelectedItem = "default";
+                vm.AspectRatio_SelectedItem = "auto";
+                vm.ScalingAlgorithm_SelectedItem = "default";
                 vm.Cut_SelectedItem = "No";
                 vm.CutStart_Text = "00:00:00.000";
                 vm.CutEnd_Text = "00:00:00.000";
@@ -564,7 +574,8 @@ namespace Axiom
                 vm.VideoMaxrate_Text = "";
                 vm.VideoBufsize_Text = "";
                 vm.Size_SelectedItem = "Source";
-                vm.Scaling_SelectedItem = "default";
+                vm.AspectRatio_SelectedItem = "auto";
+                vm.ScalingAlgorithm_SelectedItem = "default";
                 vm.FPS_SelectedItem = "23.976";
                 vm.FPS_IsEnabled = true;
                 vm.Cut_SelectedItem = "No";
@@ -610,7 +621,8 @@ namespace Axiom
                 vm.VideoMaxrate_Text = "";
                 vm.VideoBufsize_Text = "";
                 vm.Size_SelectedItem = "Source";
-                vm.Scaling_SelectedItem = "default";
+                vm.AspectRatio_SelectedItem = "auto";
+                vm.ScalingAlgorithm_SelectedItem = "default";
                 vm.Cut_SelectedItem = "No";
                 vm.CutStart_Text = "00:00:00.000";
                 vm.CutEnd_Text = "00:00:00.000";
@@ -656,7 +668,8 @@ namespace Axiom
                 vm.VideoMaxrate_Text = "";
                 vm.VideoBufsize_Text = "";
                 vm.Size_SelectedItem = "Source";
-                vm.Scaling_SelectedItem = "default";
+                vm.AspectRatio_SelectedItem = "auto";
+                vm.ScalingAlgorithm_SelectedItem = "default";
                 vm.Cut_SelectedItem = "No";
                 vm.CutStart_Text = "00:00:00.000";
                 vm.CutEnd_Text = "00:00:00.000";
@@ -702,7 +715,8 @@ namespace Axiom
                 vm.VideoMaxrate_Text = "";
                 vm.VideoBufsize_Text = "";
                 vm.Size_SelectedItem = "Source";
-                vm.Scaling_SelectedItem = "default";
+                vm.AspectRatio_SelectedItem = "auto";
+                vm.ScalingAlgorithm_SelectedItem = "default";
                 vm.Cut_SelectedItem = "No";
                 vm.CutStart_Text = "00:00:00.000";
                 vm.CutEnd_Text = "00:00:00.000";
@@ -748,7 +762,8 @@ namespace Axiom
                 vm.VideoMaxrate_Text = "";
                 vm.VideoBufsize_Text = "";
                 vm.Size_SelectedItem = "Source";
-                vm.Scaling_SelectedItem = "defualt";
+                vm.AspectRatio_SelectedItem = "auto";
+                vm.ScalingAlgorithm_SelectedItem = "defualt";
                 vm.Cut_SelectedItem = "No";
                 vm.CutStart_Text = "00:00:00.000";
                 vm.CutEnd_Text = "00:00:00.000";
@@ -797,7 +812,8 @@ namespace Axiom
                 vm.FPS_IsEnabled = true;
                 vm.VideoCodec_SelectedItem = "x264";
                 vm.Size_SelectedItem = "Custom";
-                vm.Scaling_SelectedItem = "spline";
+                vm.AspectRatio_SelectedItem = "16:9";
+                vm.ScalingAlgorithm_SelectedItem = "spline";
                 vm.Width_Text = "545";
                 vm.Height_Text = "307";
                 vm.Cut_SelectedItem = "Yes";

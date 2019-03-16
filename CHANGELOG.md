@@ -4,6 +4,31 @@ Axiom FFmpeg UI
 
 ## [alpha]
 
+## [1.5.4.0] - Mar 16, 2019
+### Added
+- Aspect Ratio ComboBox
+
+### Changed
+- Each Video Codec given its own Pixel Format List
+- `AVI` Default Audio Changed from `AC3` to `LAME`
+- `MPG` Default Audio Changed from `AC3` to `MP2`
+
+### Fixed
+- `MP2` Audio Codec
+- Size Custom
+
+
+## [1.5.3.3] - Mar 15, 2019
+### Changed
+- Optimized Audio Class
+- Reordered Pixel Format ComboBox
+
+### Fixed
+- Audio VBR Calculator
+- Opus VBR Auto
+- Custom Minrate, Maxrate, Bufsize Preset Clear
+
+
 ## [1.5.3.2] - Mar 14, 2019
 ### Changed
 - Refactored Codec Classes and Controls
@@ -12,7 +37,7 @@ Axiom FFmpeg UI
 - CropWindow ViewModel Binding
 
 ### Fixed
-- Fixed CRF Custom
+- CRF Custom
 
 
 ## [1.5.3.1] - Mar 13, 2019

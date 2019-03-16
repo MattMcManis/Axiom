@@ -144,6 +144,8 @@ namespace Axiom
                     //"\r\n" +
                     //Video.ScalingAlgorithm(vm),
                     "\r\n" +
+                    Video.AspectRatio(vm.AspectRatio_SelectedItem),
+                    "\r\n" +
                     Video.Images(vm),
                     "\r\n" +
                     Video.Optimize(vm.MediaType_SelectedItem,
@@ -303,6 +305,8 @@ namespace Axiom
                     //"\r\n" +
                     //Video.ScalingAlgorithm(vm),
                     "\r\n" +
+                    Video.AspectRatio(vm.AspectRatio_SelectedItem),
+                    "\r\n" +
                     Video.Images(vm),
                     "\r\n" +
                     Video.Optimize(vm.MediaType_SelectedItem,
@@ -381,6 +385,8 @@ namespace Axiom
                     VideoFilters.vFilter,
                     //"\r\n" +
                     //Video.ScalingAlgorithm(vm),
+                    "\r\n" +
+                    Video.vAspectRatio,
                     "\r\n" +
                     Video.image,
                     "\r\n" +

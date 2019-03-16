@@ -650,6 +650,7 @@
                                 <RowDefinition Height="33"/>
                                 <RowDefinition Height="33"/>
                                 <RowDefinition Height="33"/>
+                                <RowDefinition Height="33"/>
                             </Grid.RowDefinitions>
 
                             <!-- Video Codec -->
@@ -1105,7 +1106,6 @@
                                       SelectedIndex="{Binding Size_SelectedIndex}"
                                       SelectedItem="{Binding Size_SelectedItem, Mode=TwoWay}"
                                       IsEnabled="{Binding Size_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                      IsSynchronizedWithCurrentItem="True"
                                       Style="{DynamicResource ComboBoxWhite}"
                                       ItemContainerStyle="{DynamicResource ComboBoxWhiteItem}" 
                                       HorizontalAlignment="Left"
@@ -1168,23 +1168,51 @@
                                      Grid.Column="2" 
                                      Margin="0,2,0,0" />
 
-                            <!-- Scaling -->
-                            <Label 
-                                Style="{DynamicResource LabelCustom}" 
-                                Content="Scaling"
-                                HorizontalAlignment="Left" 
-                                VerticalAlignment="Top"
-                                Width="75"
-                                FontFamily="Segoe UI Semilight"
-                                Grid.Row="20" 
-                                Height="26" 
-                                Grid.Column="1" />
+                            <!-- Aspect Ratio -->
+                            <Label Style="{DynamicResource LabelCustom}" 
+                                   Content="Aspect Ratio"
+                                   HorizontalAlignment="Left" 
+                                   VerticalAlignment="Top"
+                                   Width="75"
+                                   FontFamily="Segoe UI Semilight"
+                                   Height="26" 
+                                   Grid.Row="20" 
+                                   Grid.Column="1" />
 
-                            <ComboBox x:Name="cboScaling" 
-                                      ItemsSource="{Binding Scaling_Items}"
-                                      SelectedIndex="{Binding Scaling_SelectedIndex}"
-                                      SelectedItem="{Binding Scaling_SelectedItem}"
-                                      IsEnabled="{Binding Scaling_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            <ComboBox x:Name="cboAspectRatio" 
+                                      ItemsSource="{Binding AspectRatio_Items}"
+                                      SelectedIndex="{Binding AspectRatio_SelectedIndex}"
+                                      SelectedItem="{Binding AspectRatio_SelectedItem}"
+                                      IsEnabled="{Binding AspectRatio_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      Style="{DynamicResource ComboBoxCustom}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxCustomItem}"
+                                      HorizontalAlignment="Left" 
+                                      VerticalAlignment="Top" 
+                                      Width="105" 
+                                      ToolTipService.ShowOnDisabled="True" 
+                                      ToolTip="Aspect Ratio" 
+                                      Grid.Row="20" 
+                                      Grid.Column="2" 
+                                      Height="22" 
+                                      Margin="0,2,0,0" 
+                                      SelectionChanged="cboAspectRatio_SelectionChanged"/>
+                            
+                            <!-- Scaling -->
+                            <Label Style="{DynamicResource LabelCustom}" 
+                                   Content="Scaling"
+                                   HorizontalAlignment="Left" 
+                                   VerticalAlignment="Top"
+                                   Width="75"
+                                   FontFamily="Segoe UI Semilight"
+                                   Height="26" 
+                                   Grid.Row="21" 
+                                   Grid.Column="1" />
+
+                            <ComboBox x:Name="cboScalingAlgorithm" 
+                                      ItemsSource="{Binding ScalingAlgorithm_Items}"
+                                      SelectedIndex="{Binding ScalingAlgorithm_SelectedIndex}"
+                                      SelectedItem="{Binding ScalingAlgorithm_SelectedItem}"
+                                      IsEnabled="{Binding ScalingAlgorithm_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                       IsSynchronizedWithCurrentItem="True"
                                       Style="{DynamicResource ComboBoxCustom}"
                                       ItemContainerStyle="{DynamicResource ComboBoxCustomItem}"
@@ -1193,20 +1221,20 @@
                                       Width="105" 
                                       ToolTipService.ShowOnDisabled="True" 
                                       ToolTip="Algorithm used for resizing." 
-                                      Grid.Row="20" 
+                                      Grid.Row="21" 
                                       Grid.Column="2" 
                                       Height="22" 
                                       Margin="0,2,0,0" 
-                                      SelectionChanged="cboScaling_SelectionChanged"/>
+                                      SelectionChanged="cboScalingAlgorithm_SelectionChanged"/>
 
                             <!-- Crop -->
-                            <Label 
-                                Style="{DynamicResource LabelCustom}"
-                                Content="Crop" 
-                                HorizontalAlignment="Left" 
-                                VerticalAlignment="Top"
-                                Width="75" 
-                                Grid.Row="21" Grid.Column="1" />
+                            <Label Style="{DynamicResource LabelCustom}"
+                                   Content="Crop" 
+                                   HorizontalAlignment="Left" 
+                                   VerticalAlignment="Top"
+                                   Width="75" 
+                                   Grid.Row="22" 
+                                   Grid.Column="1" />
                             <Button x:Name="btnCrop"
                                     Style="{DynamicResource ButtonCropCustom}"
                                     Padding="0" 
@@ -1219,7 +1247,7 @@
                                     ToolTipService.InitialShowDelay="1000"
                                     ToolTipService.ShowOnDisabled="True" 
                                     ToolTip="Open Crop Window" 
-                                    Grid.Row="21"
+                                    Grid.Row="22"
                                     Grid.Column="2" 
                                     Margin="0,2,0,0">
                                 <TextBlock Style="{DynamicResource ButtonCropTextBlock}"
@@ -1240,7 +1268,7 @@
                                     ToolTipService.InitialShowDelay="1000"
                                     ToolTipService.ShowOnDisabled="True"
                                     ToolTip="Clear Last Used Crop Settings" 
-                                    Grid.Row="21"
+                                    Grid.Row="22"
                                     Grid.Column="2">
                                 <TextBlock x:Name="tblkCropClear" 
                                            Text="{Binding CropClear_Text, Mode=TwoWay}"

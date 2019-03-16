@@ -78,6 +78,7 @@ namespace Axiom
         public static string vOptions; // -pix_fmt, -qcomp
         public static string vCRF; // Constant Rate Factor
         public static string pix_fmt;
+        public static string vAspectRatio;
         public static string vScalingAlgorithm;
         public static string fps; // Frames Per Second
         public static string image; // JPEG & PNG options
@@ -708,9 +709,9 @@ namespace Axiom
                 // -------------------------
                 // x265 Params
                 // -------------------------
-                if (pass_SelectedItem == "x265")
+                if (codec_SelectedItem == "x265")
                 {
-                    // x256 Params
+                    // x265 Params
                     x265paramsList.Add("crf=" + quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.CRF);
                     vCRF = string.Empty;
                 }
@@ -1786,6 +1787,9 @@ namespace Axiom
                 // -------------------------
                 else if (size_SelectedItem == "Custom")
                 {
+                    MainWindow mainwindow = (MainWindow)System.Windows.Application.Current.MainWindow;
+                    ViewModel vm = mainwindow.DataContext as ViewModel;
+
                     // Get width height from custom textbox
                     width = width_Text;
                     height = height_Text;
@@ -1793,12 +1797,12 @@ namespace Axiom
                     // Change the left over Default empty text to "auto"
                     if (string.Equals(width_Text, "", StringComparison.CurrentCultureIgnoreCase))
                     {
-                        width_Text = "auto";
+                        vm.Width_Text = "auto";
                     }
 
                     if (string.Equals(height_Text, "", StringComparison.CurrentCultureIgnoreCase))
                     {
-                        height_Text = "auto";
+                        vm.Height_Text = "auto";
                     }
 
                     // -------------------------
@@ -2072,10 +2076,33 @@ namespace Axiom
 
 
         /// <summary>
-        /// Scaling Algorithm
+        ///     Aspect Ratio
         /// <summary>
-        public static String ScalingAlgorithm(string scalingAlgorithm_SelectedItem
-                                              )
+        public static String AspectRatio(string aspectRatio_SelectedItem)
+        {
+            // None & Default
+            //
+            if (aspectRatio_SelectedItem == "auto")
+            {
+                vAspectRatio = string.Empty;
+            }
+
+            // Aspect, eg. 4:3, 16:9
+            //
+            else
+            {
+                vAspectRatio = "-aspect " + aspectRatio_SelectedItem;
+            }
+
+            return vAspectRatio;
+        }
+
+
+
+        /// <summary>
+        ///     Scaling Algorithm
+        /// <summary>
+        public static String ScalingAlgorithm(string scalingAlgorithm_SelectedItem)
         {
             // None & Default
             //
@@ -2096,7 +2123,7 @@ namespace Axiom
 
 
         /// <summary>
-        /// Crop (Method)
+        ///     Crop (Method)
         /// <summary>
         public static void Crop(CropWindow cropwindow, ViewModel vm)
         {
@@ -2159,7 +2186,7 @@ namespace Axiom
 
 
         /// <summary>
-        /// Images
+        ///     Images
         /// <summary>
         public static String Images(ViewModel vm)
         {

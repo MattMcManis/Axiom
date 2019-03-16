@@ -168,7 +168,7 @@ namespace Axiom
 
                 // Audio Codec
                 vm.AudioCodec_Items = Containers.MPG.audio;
-                vm.AudioCodec_SelectedItem = "AC3";
+                vm.AudioCodec_SelectedItem = "MP2";
 
                 // Subtitle Codec
                 vm.SubtitleCodec_Items = Containers.MPG.subtitle;
@@ -191,7 +191,7 @@ namespace Axiom
 
                 // Audio Codec
                 vm.AudioCodec_Items = Containers.AVI.audio;
-                vm.AudioCodec_SelectedItem = "AC3";
+                vm.AudioCodec_SelectedItem = "LAME";
 
                 // Subtitle Codec
                 vm.SubtitleCodec_Items = Containers.AVI.subtitle;
@@ -448,8 +448,8 @@ namespace Axiom
                 vm.Size_IsEnabled = true;
 
                 // Scaling
-                vm.Scaling_IsEnabled = true;
-                vm.Scaling_SelectedItem = "default";
+                vm.ScalingAlgorithm_IsEnabled = true;
+                vm.ScalingAlgorithm_SelectedItem = "default";
 
                 // Cut
                 // Cut Change - If coming back from JPEG or PNG
@@ -508,8 +508,8 @@ namespace Axiom
                 vm.Size_IsEnabled = false;
 
                 // Scaling
-                vm.Scaling_SelectedItem = "default";
-                vm.Scaling_IsEnabled = false;
+                vm.ScalingAlgorithm_SelectedItem = "default";
+                vm.ScalingAlgorithm_IsEnabled = false;
 
                 // Cut
                 // Cut Change - If coming back from JPEG or PNG
@@ -581,8 +581,8 @@ namespace Axiom
                 vm.Size_IsEnabled = true;
 
                 // Scaling
-                vm.Scaling_SelectedItem = "default";
-                vm.Scaling_IsEnabled = true;
+                vm.ScalingAlgorithm_SelectedItem = "default";
+                vm.ScalingAlgorithm_IsEnabled = true;
 
                 // Cut
                 // Enable Cut Start Time for Frame Selection
@@ -661,8 +661,8 @@ namespace Axiom
                 vm.Size_IsEnabled = true;
 
                 // Scaling
-                vm.Scaling_SelectedItem = "default";
-                vm.Scaling_IsEnabled = true;
+                vm.ScalingAlgorithm_SelectedItem = "default";
+                vm.ScalingAlgorithm_IsEnabled = true;
 
                 // Cut
                 // Enable Cut for Time Selection

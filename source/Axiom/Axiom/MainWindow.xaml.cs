@@ -684,6 +684,7 @@ namespace Axiom
             Video.vOptions = string.Empty;
             Video.vCRF = string.Empty;
             Video.pix_fmt = string.Empty;
+            Video.vAspectRatio = string.Empty;
             Video.vScalingAlgorithm = string.Empty;
             Video.fps = string.Empty;
             Video.optTune = string.Empty;
@@ -3452,7 +3453,7 @@ namespace Axiom
                 vm.FPS_SelectedItem = "auto";
                 vm.Video_Optimize_SelectedItem = "None";
                 vm.Size_SelectedItem = "Source";
-                vm.Scaling_SelectedItem = "default";
+                vm.ScalingAlgorithm_SelectedItem = "default";
 
                 // Filters
                 // Fix
@@ -3591,7 +3592,7 @@ namespace Axiom
             //    vm.FPS_SelectedItem = "auto";
             //    vm.Video_Optimize_SelectedItem = "None";
             //    vm.Size_SelectedItem = "Source";
-            //    vm.Scaling_SelectedItem = "default";
+            //    vm.ScalingAlgorithm_SelectedItem = "default";
 
             //    // Filters
             //    // Fix
@@ -4011,93 +4012,160 @@ namespace Axiom
             //VideoControls.AutoCopyVideoCodec(vm);
             //SubtitleControls.AutoCopySubtitleCodec(vm);
 
-            // Enable Aspect Custom
+            // --------------------------------------------------
+            // Enable/Disable Size
+            // --------------------------------------------------
+            // -------------------------
+            // Custom
+            // -------------------------
             if (vm.Size_SelectedItem == "Custom")
             {
                 vm.Width_IsEnabled = true;
                 vm.Height_IsEnabled = true;
 
-                vm.Width_Text = "auto";
-                vm.Height_Text = "auto";
+                vm.ScalingAlgorithm_IsEnabled = true;
             }
+            // -------------------------
+            // Source
+            // -------------------------
+            else if (vm.Size_SelectedItem == "Source")
+            {
+                vm.Width_IsEnabled = false;
+                vm.Height_IsEnabled = false;
+
+                vm.ScalingAlgorithm_IsEnabled = false;
+            }
+            // -------------------------
+            // All Other Sizes
+            // -------------------------
             else
             {
                 vm.Width_IsEnabled = false;
                 vm.Height_IsEnabled = false;
-                vm.Width_Text = "auto";
-                vm.Height_Text = "auto";
+
+                vm.ScalingAlgorithm_IsEnabled = true;
             }
 
-            // Change TextBox Resolution numbers
+            // --------------------------------------------------
+            // Change TextBox Resolution Numbers
+            // --------------------------------------------------
+            // -------------------------
+            // Source
+            // -------------------------
             if (vm.Size_SelectedItem == "Source")
             {
                 vm.Width_Text = "auto";
                 vm.Height_Text = "auto";
+
+                vm.ScalingAlgorithm_SelectedItem = "default";
             }
+            // -------------------------
+            // 8K
+            // -------------------------
             else if (vm.Size_SelectedItem == "8K")
             {
                 vm.Width_Text = "7680";
                 vm.Height_Text = "auto";
             }
+            // -------------------------
+            // 4K
+            // -------------------------
             else if (vm.Size_SelectedItem == "4K")
             {
                 vm.Width_Text = "4096";
                 vm.Height_Text = "auto";
             }
+            // -------------------------
+            // 4K UHD
+            // -------------------------
             else if (vm.Size_SelectedItem == "4K UHD")
             {
                 vm.Width_Text = "3840";
                 vm.Height_Text = "auto";
             }
+            // -------------------------
+            // 2K
+            // -------------------------
             else if (vm.Size_SelectedItem == "2K")
             {
                 vm.Width_Text = "2048";
                 vm.Height_Text = "auto";
             }
+            // -------------------------
+            // 1440p
+            // -------------------------
             else if (vm.Size_SelectedItem == "1440p")
             {
                 vm.Width_Text = "auto";
                 vm.Height_Text = "1440";
             }
+            // -------------------------
+            // 1200p
+            // -------------------------
             else if (vm.Size_SelectedItem == "1200p")
             {
                 vm.Width_Text = "auto";
                 vm.Height_Text = "1200";
             }
+            // -------------------------
+            // 1080p
+            // -------------------------
             else if (vm.Size_SelectedItem == "1080p")
             {
                 vm.Width_Text = "auto";
                 vm.Height_Text = "1080";
             }
+            // -------------------------
+            // 720p
+            // -------------------------
             else if (vm.Size_SelectedItem == "720p")
             {
                 vm.Width_Text = "auto";
                 vm.Height_Text = "720";
             }
+            // -------------------------
+            // 480p
+            // -------------------------
             else if (vm.Size_SelectedItem == "480p")
             {
                 vm.Width_Text = "auto";
                 vm.Height_Text = "480";
             }
+            // -------------------------
+            // 320p
+            // -------------------------
             else if (vm.Size_SelectedItem == "320p")
             {
                 vm.Width_Text = "auto";
                 vm.Height_Text = "320";
             }
+            // -------------------------
+            // 240p
+            // -------------------------
             else if (vm.Size_SelectedItem == "240p")
             {
                 vm.Width_Text = "auto";
                 vm.Height_Text = "240";
             }
+            // -------------------------
+            // Custom
+            // -------------------------
+            else if (vm.Size_SelectedItem == "Custom")
+            {
+                vm.Width_Text = "auto";
+                vm.Height_Text = "auto";
+            }
         }
+
         // -------------------------
         // Width Textbox Change
         // -------------------------
         // Got Focus
         private void tbxWidth_GotFocus(object sender, RoutedEventArgs e)
         {
-            // Clear textbox on focus if default text "width"
-            if (tbxWidth.Focus() == true && vm.Width_Text == "auto")
+            // Clear textbox on focus if default text "auto"
+            if (tbxWidth.Focus() == true && 
+                vm.Width_Text == "auto")
             {
                 vm.Width_Text = string.Empty;
             }
@@ -4105,7 +4173,9 @@ namespace Axiom
         // Lost Focus
         private void tbxWidth_LostFocus(object sender, RoutedEventArgs e)
         {
-            // Change textbox back to "width" if left empty
+            vm.Width_Text = tbxWidth.Text;
+
+            // Change textbox back to "auto" if left empty
             if (string.IsNullOrEmpty(vm.Width_Text))
             {
                 vm.Width_Text = "auto";
@@ -4118,8 +4188,9 @@ namespace Axiom
         // Got Focus
         private void tbxHeight_GotFocus(object sender, RoutedEventArgs e)
         {
-            // Clear textbox on focus if default text "width"
-            if (tbxHeight.Focus() == true && vm.Height_Text == "auto")
+            // Clear textbox on focus if default text "auto"
+            if (tbxHeight.Focus() == true && 
+                vm.Height_Text == "auto")
             {
                 vm.Height_Text = string.Empty;
             }
@@ -4127,7 +4198,9 @@ namespace Axiom
         // Lost Focus
         private void tbxHeight_LostFocus(object sender, RoutedEventArgs e)
         {
-            // Change textbox back to "width" if left empty
+            vm.Height_Text = tbxHeight.Text;
+
+            // Change textbox back to "height" if left empty
             if (string.IsNullOrEmpty(vm.Height_Text))
             {
                 vm.Height_Text = "auto";
@@ -4135,11 +4208,19 @@ namespace Axiom
         }
 
 
+        /// <summary>
+        ///     Video Aspect Ratio
+        /// </summary>
+        private void cboAspectRatio_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            //VideoControls.AutoCopyVideoCodec(vm);
+        }
+
 
         /// <summary>
-        ///     Scaling Video
+        ///     Video Scaling Algorithm
         /// </summary>
-        private void cboScaling_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void cboScalingAlgorithm_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             //VideoControls.AutoCopyVideoCodec(vm);
         }
@@ -6203,7 +6284,5 @@ namespace Axiom
             }
 
         } //end convert button
-
-
     }
 }

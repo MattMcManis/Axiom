@@ -160,11 +160,6 @@ namespace Axiom
             ViewModel vm = mainwindow.DataContext as ViewModel;
 
             // -------------------------
-            // Keep FFmpeg Window Toggle
-            // -------------------------
-            //MainWindow.KeepWindow(mainwindow);
-
-            // -------------------------
             // Clear Variables before Run
             // -------------------------
             MainWindow.ClearVariables(vm);
@@ -294,7 +289,6 @@ namespace Axiom
             //debugconsole.rtbDebug.SelectAll();
             //debugconsole.rtbDebug.Selection.Text = "";
             //debugconsole.rtbDebug.EndChange();
-
 
             // Write New Text
             //debugconsole.rtbDebug.Document = new FlowDocument(debugParagraph); // start
@@ -586,6 +580,10 @@ namespace Axiom
 
             debugParagraph.Inlines.Add(new Bold(new Run("crop ")) { Foreground = Variable });
             debugParagraph.Inlines.Add(new Run(CropWindow.crop) { Foreground = Value });
+            debugParagraph.Inlines.Add(new LineBreak());
+
+            debugParagraph.Inlines.Add(new Bold(new Run("vAspectRatio ")) { Foreground = Variable });
+            debugParagraph.Inlines.Add(new Run(Video.vAspectRatio) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new LineBreak());
