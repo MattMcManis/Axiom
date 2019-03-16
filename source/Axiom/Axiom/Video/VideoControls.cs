@@ -64,7 +64,7 @@ namespace Axiom
         /// <summary>
         ///     Set Controls
         /// </summary>
-        public static void SetControls(ViewModel vm, string selectedCodec)
+        public static void SetControls(ViewModel vm, string codec_SelectedItem)
         {
             // --------------------------------------------------
             // Codec
@@ -73,7 +73,7 @@ namespace Axiom
             // -------------------------
             // VP8
             // -------------------------
-            if (selectedCodec == "VP8")
+            if (codec_SelectedItem == "VP8")
             {
                 // Video Codec
                 vm.VideoCodec_Command = VP8.codec;
@@ -100,7 +100,7 @@ namespace Axiom
             // -------------------------
             // VP9
             // -------------------------
-            else if (selectedCodec == "VP9")
+            else if (codec_SelectedItem == "VP9")
             {
                 // Video Codec
                 vm.VideoCodec_Command = VP9.codec;
@@ -127,7 +127,7 @@ namespace Axiom
             // -------------------------
             // x264
             // -------------------------
-            else if (selectedCodec == "x264")
+            else if (codec_SelectedItem == "x264")
             {
                 // Video Codec
                 vm.VideoCodec_Command = x264.codec;
@@ -154,7 +154,7 @@ namespace Axiom
             // -------------------------
             // x265
             // -------------------------
-            else if (selectedCodec == "x265")
+            else if (codec_SelectedItem == "x265")
             {
                 // Video Codec
                 vm.VideoCodec_Command = x265.codec;
@@ -181,7 +181,7 @@ namespace Axiom
             // -------------------------
             // MPEG-2
             // -------------------------
-            else if (selectedCodec == "MPEG-2")
+            else if (codec_SelectedItem == "MPEG-2")
             {
                 // Video Codec
                 vm.VideoCodec_Command = MPEG_2.codec;
@@ -208,7 +208,7 @@ namespace Axiom
             // -------------------------
             // MPEG-4
             // -------------------------
-            else if (selectedCodec == "MPEG-4")
+            else if (codec_SelectedItem == "MPEG-4")
             {
                 // Video Codec
                 vm.VideoCodec_Command = MPEG_4.codec;
@@ -235,7 +235,7 @@ namespace Axiom
             // -------------------------
             // AV1
             // -------------------------
-            else if (selectedCodec == "AV1")
+            else if (codec_SelectedItem == "AV1")
             {
                 // Video Codec
                 vm.VideoCodec_Command = AV1.codec;
@@ -262,7 +262,7 @@ namespace Axiom
             // -------------------------
             // FFV1
             // -------------------------
-            else if (selectedCodec == "FFV1")
+            else if (codec_SelectedItem == "FFV1")
             {
                 // Video Codec
                 vm.VideoCodec_Command = FFV1.codec;
@@ -289,7 +289,7 @@ namespace Axiom
             // -------------------------
             // Theora
             // -------------------------
-            else if (selectedCodec == "Theora")
+            else if (codec_SelectedItem == "Theora")
             {
                 // Video Codec
                 vm.VideoCodec_Command = Theora.codec;
@@ -316,7 +316,7 @@ namespace Axiom
             // -------------------------
             // JPEG
             // -------------------------
-            else if (selectedCodec == "JPEG")
+            else if (codec_SelectedItem == "JPEG")
             {
                 // Video Codec
                 vm.VideoCodec_Command = JPEG.codec;
@@ -343,7 +343,7 @@ namespace Axiom
             // -------------------------
             // PNG
             // -------------------------
-            else if (selectedCodec == "PNG")
+            else if (codec_SelectedItem == "PNG")
             {
                 // Video Codec
                 vm.VideoCodec_Command = PNG.codec;
@@ -370,7 +370,7 @@ namespace Axiom
             // -------------------------
             // WebP
             // -------------------------
-            else if (selectedCodec == "WebP")
+            else if (codec_SelectedItem == "WebP")
             {
                 // Video Codec
                 vm.VideoCodec_Command = WebP.codec;
@@ -397,7 +397,7 @@ namespace Axiom
             // -------------------------
             // Copy
             // -------------------------
-            else if (selectedCodec == "Copy")
+            else if (codec_SelectedItem == "Copy")
             {
                 // Video Codec
                 vm.VideoCodec_Command = VideoCopy.codec;
@@ -424,7 +424,7 @@ namespace Axiom
             // -------------------------
             // None
             // -------------------------
-            else if (selectedCodec == "None")
+            else if (codec_SelectedItem == "None")
             {
                 // Video Codec
                 vm.VideoCodec_Command = VideoNone.codec;

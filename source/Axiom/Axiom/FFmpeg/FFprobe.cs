@@ -113,13 +113,13 @@ namespace Axiom
                 argsAudioCodec = " -i " + "\"" + vm.Input_Text + "\"" + " -select_streams a:0 -show_entries stream=codec_name -v quiet -of csv=\"p=0\"";
                 argsAudioBitrate = " -i" + " " + "\"" + vm.Input_Text + "\"" + " -select_streams a:0 -show_entries " + aEntryType + " -v quiet -of csv=\"p=0\"";
 
-                inputFrameRate = MainWindow.RemoveLineBreaks(InputFileInfo(vm, argsFrameRate));
-                inputSize = MainWindow.RemoveLineBreaks(InputFileInfo(vm, argsSize));
-                inputDuration = MainWindow.RemoveLineBreaks(InputFileInfo(vm, argsDuration));
-                inputVideoCodec = MainWindow.RemoveLineBreaks(InputFileInfo(vm, argsVideoCodec));
-                inputVideoBitrate = MainWindow.RemoveLineBreaks(InputFileInfo(vm, argsVideoBitrate));
-                inputAudioCodec = MainWindow.RemoveLineBreaks(InputFileInfo(vm, argsAudioCodec));
-                inputAudioBitrate = MainWindow.RemoveLineBreaks(InputFileInfo(vm, argsAudioBitrate));
+                inputFrameRate = MainWindow.RemoveLineBreaks(InputFileInfo(vm.Input_Text, vm.Batch_IsChecked, argsFrameRate));
+                inputSize = MainWindow.RemoveLineBreaks(InputFileInfo(vm.Input_Text, vm.Batch_IsChecked, argsSize));
+                inputDuration = MainWindow.RemoveLineBreaks(InputFileInfo(vm.Input_Text, vm.Batch_IsChecked, argsDuration));
+                inputVideoCodec = MainWindow.RemoveLineBreaks(InputFileInfo(vm.Input_Text, vm.Batch_IsChecked, argsVideoCodec));
+                inputVideoBitrate = MainWindow.RemoveLineBreaks(InputFileInfo(vm.Input_Text, vm.Batch_IsChecked, argsVideoBitrate));
+                inputAudioCodec = MainWindow.RemoveLineBreaks(InputFileInfo(vm.Input_Text, vm.Batch_IsChecked, argsAudioCodec));
+                inputAudioBitrate = MainWindow.RemoveLineBreaks(InputFileInfo(vm.Input_Text, vm.Batch_IsChecked, argsAudioBitrate));
 
                 // Log won't write the input data unless we pass it to a new string
                 string logInputFrameRate = inputFrameRate;
@@ -355,10 +355,12 @@ namespace Axiom
         /// <summary>
         /// FFprobe Cut Duration
         /// </summary>
-        public static String CutDuration(ViewModel vm)
+        public static String CutDuration(string input_Text,
+                                         bool batch_IsChecked
+                                         )
         {
-            string argsDuration = " -i " + "\"" + vm.Input_Text + "\"" + " -select_streams v:0 -show_entries format=duration -v quiet -of csv=\"p=0\"";
-            inputDuration = InputFileInfo(vm, argsDuration);
+            string argsDuration = " -i " + "\"" + input_Text + "\"" + " -select_streams v:0 -show_entries format=duration -v quiet -of csv=\"p=0\"";
+            inputDuration = InputFileInfo(input_Text, batch_IsChecked, argsDuration);
 
             // Format Time for FFmpeg 00:00:00.000
             //
@@ -381,15 +383,18 @@ namespace Axiom
         /// <summary>
         /// FFprobe Input File Info Parse (Method)
         /// </summary>
-        public static String InputFileInfo(ViewModel vm, string arguments)
+        public static String InputFileInfo(string input_Text, 
+                                           bool batch_IsChecked, 
+                                           string arguments
+                                           )
         {
             string inputMetaData = string.Empty;
 
             // Ignore if Batch
             // Input Empty Check
             // FFprobe.exe Null Check
-            if (vm.Batch_IsChecked == false && 
-                !string.IsNullOrEmpty(vm.Input_Text) && 
+            if (batch_IsChecked == false && 
+                !string.IsNullOrEmpty(input_Text) && 
                 !string.IsNullOrEmpty(ffprobe))
             {
                 // Start FFprobe Process

@@ -31,26 +31,14 @@ namespace Axiom
     {
         // --------------------------------------------------------------------------------------------------------
         /// <summary>
-        /// ComboBoxes Item Sources
+        ///     ComboBoxes Item Sources
         /// </summary>
         // --------------------------------------------------------------------------------------------------------
-
-        // Load in Intialize Component
-        //
-        // MediaType
-        //public static List<string> MediaTypeItemSource = new List<string>()
-        //{
-        //    "Video",
-        //    "Audio",
-        //    "Image",
-        //    "Sequence"
-        //};
-
 
         /// <summary>
         ///     Set Controls
         /// </summary>
-        public static void SetControls(ViewModel vm, string container)
+        public static void SetControls(ViewModel vm, string container_SelectedItem)
         {
             // --------------------------------------------------
             // Containers
@@ -63,7 +51,7 @@ namespace Axiom
             // -------------------------
             // webm
             // -------------------------
-            if (container == "webm")
+            if (container_SelectedItem == "webm")
             {
                 // Media Type
                 vm.MediaType_Items = Containers.WebM.media;
@@ -86,7 +74,7 @@ namespace Axiom
             // -------------------------
             // mp4
             // -------------------------
-            else if (container == "mp4")
+            else if (container_SelectedItem == "mp4")
             {
                 // Media Type
                 vm.MediaType_Items = Containers.MP4.media;
@@ -109,7 +97,7 @@ namespace Axiom
             // -------------------------
             // mkv
             // -------------------------
-            else if (container == "mkv")
+            else if (container_SelectedItem == "mkv")
             {
                 // Media Type
                 vm.MediaType_Items = Containers.MKV.media;
@@ -132,7 +120,7 @@ namespace Axiom
             // -------------------------
             // m2v
             // -------------------------
-            else if (container == "m2v")
+            else if (container_SelectedItem == "m2v")
             {
                 // Media Type
                 vm.MediaType_Items = Containers.M2V.media;
@@ -155,7 +143,7 @@ namespace Axiom
             // -------------------------
             // mpg
             // -------------------------
-            else if (container == "mpg")
+            else if (container_SelectedItem == "mpg")
             {
                 // Media Type
                 vm.MediaType_Items = Containers.MPG.media;
@@ -178,7 +166,7 @@ namespace Axiom
             // -------------------------
             // avi
             // -------------------------
-            else if (container == "avi")
+            else if (container_SelectedItem == "avi")
             {
                 // Media Type
                 vm.MediaType_Items = Containers.AVI.media;
@@ -201,7 +189,7 @@ namespace Axiom
             // -------------------------
             // ogv
             // -------------------------
-            else if (container == "ogv")
+            else if (container_SelectedItem == "ogv")
             {
                 // Media Type
                 vm.MediaType_Items = Containers.OGV.media;
@@ -228,7 +216,7 @@ namespace Axiom
             // -------------------------
             // mp3
             // -------------------------
-            else if (container == "mp3")
+            else if (container_SelectedItem == "mp3")
             {
                 // Media Type
                 vm.MediaType_Items = Containers.LAME.media;
@@ -251,7 +239,7 @@ namespace Axiom
             // -------------------------
             // m4a
             // -------------------------
-            else if (container == "m4a")
+            else if (container_SelectedItem == "m4a")
             {
                 // Media Type
                 vm.MediaType_Items = Containers.M4A.media;
@@ -274,7 +262,7 @@ namespace Axiom
             // -------------------------
             // ogg
             // -------------------------
-            else if (container == "ogg")
+            else if (container_SelectedItem == "ogg")
             {
                 // Media Type
                 vm.MediaType_Items = Containers.OGG.media;
@@ -297,7 +285,7 @@ namespace Axiom
             // -------------------------
             // flac
             // -------------------------
-            else if (container == "flac")
+            else if (container_SelectedItem == "flac")
             {
                 // Media Type
                 vm.MediaType_Items = Containers.FLAC.media;
@@ -320,7 +308,7 @@ namespace Axiom
             // -------------------------
             // wav
             // -------------------------
-            else if (container == "wav")
+            else if (container_SelectedItem == "wav")
             {
                 // Media Type
                 vm.MediaType_Items = Containers.WAV.media;
@@ -347,7 +335,7 @@ namespace Axiom
             // -------------------------
             // jpg
             // -------------------------
-            else if (container == "jpg")
+            else if (container_SelectedItem == "jpg")
             {
                 // Media Type
                 vm.MediaType_Items = Containers.JPG.media;
@@ -370,7 +358,7 @@ namespace Axiom
             // -------------------------
             // png
             // -------------------------
-            else if (container == "png")
+            else if (container_SelectedItem == "png")
             {
                 // Media Type
                 vm.MediaType_Items = Containers.JPG.media;
@@ -393,7 +381,7 @@ namespace Axiom
             // -------------------------
             // webp
             // -------------------------
-            else if (container == "webp")
+            else if (container_SelectedItem == "webp")
             {
                 // Media Type
                 vm.MediaType_Items = Containers.JPG.media;

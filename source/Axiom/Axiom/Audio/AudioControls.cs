@@ -43,7 +43,7 @@ namespace Axiom
         /// <summary>
         ///     Set Controls
         /// </summary>
-        public static void SetControls(ViewModel vm, string selectedCodec)
+        public static void SetControls(ViewModel vm, string codec_SelectedItem)
         {
             // --------------------------------------------------
             // Codec
@@ -52,7 +52,7 @@ namespace Axiom
             // -------------------------
             // Vorbis
             // -------------------------
-            if (selectedCodec == "Vorbis")
+            if (codec_SelectedItem == "Vorbis")
             {
                 // Audio Codec
                 vm.AudioCodec_Command = Vorbis.codec;
@@ -79,7 +79,7 @@ namespace Axiom
             // -------------------------
             // Opus
             // -------------------------
-            else if (selectedCodec == "Opus")
+            else if (codec_SelectedItem == "Opus")
             {
                 // Audio Codec
                 vm.AudioCodec_Command = Opus.codec;
@@ -106,7 +106,7 @@ namespace Axiom
             // -------------------------
             // AC3
             // -------------------------
-            else if (selectedCodec == "AC3")
+            else if (codec_SelectedItem == "AC3")
             {
                 // Audio Codec
                 vm.AudioCodec_Command = AC3.codec;
@@ -133,7 +133,7 @@ namespace Axiom
             // -------------------------
             // AAC
             // -------------------------
-            else if (selectedCodec == "AAC")
+            else if (codec_SelectedItem == "AAC")
             {
                 // Audio Codec
                 vm.AudioCodec_Command = AAC.codec;
@@ -160,7 +160,7 @@ namespace Axiom
             // -------------------------
             // ALAC
             // -------------------------
-            else if (selectedCodec == "ALAC")
+            else if (codec_SelectedItem == "ALAC")
             {
                 // Audio Codec
                 vm.AudioCodec_Command = ALAC.codec;
@@ -187,7 +187,7 @@ namespace Axiom
             // -------------------------
             // FLAC
             // -------------------------
-            else if (selectedCodec == "FLAC")
+            else if (codec_SelectedItem == "FLAC")
             {
                 // Audio Codec
                 vm.AudioCodec_Command = FLAC.codec;
@@ -214,7 +214,7 @@ namespace Axiom
             // -------------------------
             // PCM
             // -------------------------
-            else if (selectedCodec == "PCM")
+            else if (codec_SelectedItem == "PCM")
             {
                 // Audio Codec
                 vm.AudioCodec_Command = PCM.codec;
@@ -241,7 +241,7 @@ namespace Axiom
             // -------------------------
             // MP2
             // -------------------------
-            else if (selectedCodec == "MP2")
+            else if (codec_SelectedItem == "MP2")
             {
                 // Audio Codec
                 vm.AudioCodec_Command = MP2.codec;
@@ -268,7 +268,7 @@ namespace Axiom
             // -------------------------
             // LAME
             // -------------------------
-            else if (selectedCodec == "LAME")
+            else if (codec_SelectedItem == "LAME")
             {
                 // Audio Codec
                 vm.AudioCodec_Command = LAME.codec;
@@ -295,7 +295,7 @@ namespace Axiom
             // -------------------------
             // Copy
             // -------------------------
-            else if (selectedCodec == "Copy")
+            else if (codec_SelectedItem == "Copy")
             {
                 // Audio Codec
                 vm.AudioCodec_Command = AudioCopy.codec;
@@ -322,7 +322,7 @@ namespace Axiom
             // -------------------------
             // None
             // -------------------------
-            else if (selectedCodec == "None")
+            else if (codec_SelectedItem == "None")
             {
                 // Audio Codec
                 vm.AudioCodec_Command = AudioNone.codec;

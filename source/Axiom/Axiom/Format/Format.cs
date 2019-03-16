@@ -174,7 +174,7 @@ namespace Axiom
         ///     Force Format
         /// </summary>
         // Used for Two-Pass, Pass 1
-        public static String ForceFormat(ViewModel vm)
+        public static String ForceFormat(string container_SelectedItem)
         {
             string format = string.Empty;
 
@@ -184,7 +184,7 @@ namespace Axiom
             // -------------------------
             // webm
             // -------------------------
-            if (vm.Container_SelectedItem == "webm")
+            if (container_SelectedItem == "webm")
             {
                 format = "-f webm";
             }
@@ -192,7 +192,7 @@ namespace Axiom
             // -------------------------
             // mp4
             // -------------------------
-            else if (vm.Container_SelectedItem == "mp4")
+            else if (container_SelectedItem == "mp4")
             {
                 format = "-f mp4";
             }
@@ -200,7 +200,7 @@ namespace Axiom
             // -------------------------
             // mkv
             // -------------------------
-            else if (vm.Container_SelectedItem == "mkv")
+            else if (container_SelectedItem == "mkv")
             {
                 format = "-f matroska";
             }
@@ -208,7 +208,7 @@ namespace Axiom
             // -------------------------
             // m2v
             // -------------------------
-            else if (vm.Container_SelectedItem == "m2v")
+            else if (container_SelectedItem == "m2v")
             {
                 format = "-f mpeg2video";
             }
@@ -216,7 +216,7 @@ namespace Axiom
             // -------------------------
             // mpg
             // -------------------------
-            else if (vm.Container_SelectedItem == "mpg")
+            else if (container_SelectedItem == "mpg")
             {
                 format = "-f mpeg";
             }
@@ -224,7 +224,7 @@ namespace Axiom
             // -------------------------
             // avi
             // -------------------------
-            else if (vm.Container_SelectedItem == "avi")
+            else if (container_SelectedItem == "avi")
             {
                 format = "-f avi";
             }
@@ -232,7 +232,7 @@ namespace Axiom
             // -------------------------
             // ogv
             // -------------------------
-            else if (vm.Container_SelectedItem == "ogv")
+            else if (container_SelectedItem == "ogv")
             {
                 format = "-f ogv";
             }
@@ -243,7 +243,7 @@ namespace Axiom
             // -------------------------
             // jpg
             // -------------------------
-            else if (vm.Container_SelectedItem == "jpg")
+            else if (container_SelectedItem == "jpg")
             {
                 // do not use
             }
@@ -251,7 +251,7 @@ namespace Axiom
             // -------------------------
             // png
             // -------------------------
-            else if (vm.Container_SelectedItem == "png")
+            else if (container_SelectedItem == "png")
             {
                 // do not use
             }
@@ -259,7 +259,7 @@ namespace Axiom
             // -------------------------
             // webp
             // -------------------------
-            else if (vm.Container_SelectedItem == "webp")
+            else if (container_SelectedItem == "webp")
             {
                 format = "-f webp";
             }
@@ -270,7 +270,7 @@ namespace Axiom
             // -------------------------
             // mp3
             // -------------------------
-            else if (vm.Container_SelectedItem == "mp3")
+            else if (container_SelectedItem == "mp3")
             {
                 format = "-f mp3";
             }
@@ -278,7 +278,7 @@ namespace Axiom
             // -------------------------
             // m4a
             // -------------------------
-            else if (vm.Container_SelectedItem == "m4a")
+            else if (container_SelectedItem == "m4a")
             {
                 format = string.Empty;
             }
@@ -286,7 +286,7 @@ namespace Axiom
             // -------------------------
             // ogg
             // -------------------------
-            else if (vm.Container_SelectedItem == "ogg")
+            else if (container_SelectedItem == "ogg")
             {
                 format = "-f ogg";
             }
@@ -294,7 +294,7 @@ namespace Axiom
             // -------------------------
             // flac
             // -------------------------
-            else if (vm.Container_SelectedItem == "flac")
+            else if (container_SelectedItem == "flac")
             {
                 format = "-f flac";
             }
@@ -302,7 +302,7 @@ namespace Axiom
             // -------------------------
             // wav
             // -------------------------
-            else if (vm.Container_SelectedItem == "wav")
+            else if (container_SelectedItem == "wav")
             {
                 format = "-f wav";
             }
@@ -315,46 +315,65 @@ namespace Axiom
         ///     Cut
         /// </summary>
         /// <remarks>
-        public static String Cut(ViewModel vm)
+        public static String Cut(string input_Text,
+                                 bool batch_IsChecked,
+                                 string mediaType_SelectedItem,
+                                 string codec_SelectedItem,
+                                 string quality_SelectedItem,
+                                 string cut_SelectedItem,
+                                 string cutStart_Text,
+                                 string cutEnd_Text,
+                                 bool frameEnd_IsEnabled,
+                                 string frameStart_Text,
+                                 string frameEnd_Text
+            )
         {
             // -------------------------
             // Yes
             // -------------------------
             // VIDEO
             //
-            if (vm.Cut_SelectedItem == "Yes")
+            if (cut_SelectedItem == "Yes")
             {
-                if (vm.MediaType_SelectedItem == "Video")
+                if (mediaType_SelectedItem == "Video")
                 {
                     // Use Time
                     // If Frame Textboxes Default Use Time
-                    if (vm.FrameStart_Text == "Frame" || 
-                        vm.FrameEnd_Text == "Range" || 
-                        string.IsNullOrEmpty(vm.FrameStart_Text) ||
-                        string.IsNullOrEmpty(vm.FrameEnd_Text))
+                    if (frameStart_Text == "Frame" || 
+                        frameEnd_Text == "Range" || 
+                        string.IsNullOrEmpty(frameStart_Text) ||
+                        string.IsNullOrEmpty(frameEnd_Text))
                     {
-                        trimStart = vm.CutStart_Text;
-                        trimEnd = vm.CutEnd_Text;
+                        trimStart = cutStart_Text;
+                        trimEnd = cutEnd_Text;
                     }
 
                     // Use Frames
                     // If Frame Textboxes have Text, but not Default, use FramesToDecimal Method (Override Time)
-                    else if (vm.FrameStart_Text != "Frame" &&
-                        vm.FrameEnd_Text != "Range" &&
-                        !string.IsNullOrEmpty(vm.FrameStart_Text) &&
-                        !string.IsNullOrEmpty(vm.FrameEnd_Text))
+                    else if (frameStart_Text != "Frame" &&
+                        frameEnd_Text != "Range" &&
+                        !string.IsNullOrEmpty(frameStart_Text) &&
+                        !string.IsNullOrEmpty(frameEnd_Text))
                     {
-                        Video.FramesToDecimal(vm);
+                        Video.FramesToDecimal(mediaType_SelectedItem,
+                                              codec_SelectedItem,
+                                              quality_SelectedItem,
+                                              frameEnd_IsEnabled,
+                                              frameStart_Text,
+                                              frameEnd_Text
+                                              );
                     }
 
                     // If End Time is Empty, Default to Full Duration
                     // Input Null Check
-                    if (!string.IsNullOrEmpty(vm.Input_Text))
+                    if (!string.IsNullOrEmpty(input_Text))
                     {
-                        if (vm.CutEnd_Text == "00:00:00.000" || 
-                            string.IsNullOrEmpty(vm.CutEnd_Text))
+                        if (cutEnd_Text == "00:00:00.000" || 
+                            string.IsNullOrEmpty(cutEnd_Text))
                         {
-                            trimEnd = FFprobe.CutDuration(vm);
+                            trimEnd = FFprobe.CutDuration(input_Text, 
+                                                          batch_IsChecked
+                                                          );
                         }
                     }
 
@@ -364,19 +383,21 @@ namespace Axiom
 
                 // AUDIO
                 //
-                else if (vm.MediaType_SelectedItem == "Audio")
+                else if (mediaType_SelectedItem == "Audio")
                 {
-                    trimStart = vm.CutStart_Text;
-                    trimEnd = vm.CutEnd_Text;
+                    trimStart = cutStart_Text;
+                    trimEnd = cutEnd_Text;
 
                     // If End Time is Empty, Default to Full Duration
                     // Input Null Check
-                    if (!string.IsNullOrEmpty(vm.Input_Text))
+                    if (!string.IsNullOrEmpty(input_Text))
                     {
-                        if (vm.CutEnd_Text == "00:00:00.000" || 
-                            string.IsNullOrEmpty(vm.CutEnd_Text))
+                        if (cutEnd_Text == "00:00:00.000" || 
+                            string.IsNullOrEmpty(cutEnd_Text))
                         {
-                            trimEnd = FFprobe.CutDuration(vm);
+                            trimEnd = FFprobe.CutDuration(input_Text, 
+                                                          batch_IsChecked
+                                                          );
                         }
                     }
 
@@ -386,24 +407,30 @@ namespace Axiom
 
                 // JPEG & PNG Screenshot
                 //
-                else if (vm.MediaType_SelectedItem == "Image")
+                else if (mediaType_SelectedItem == "Image")
                 {
                     // Use Time
                     // If Frame Textbox Default Use Time
-                    if (vm.FrameStart_Text == "Frame" || 
-                        string.IsNullOrEmpty(vm.FrameStart_Text))
+                    if (frameStart_Text == "Frame" || 
+                        string.IsNullOrEmpty(frameStart_Text))
                     {
-                        trimStart = vm.CutStart_Text;
+                        trimStart = cutStart_Text;
                     }
 
                     // Use Frames
                     // If Frame Textboxes have Text, but not Default, use FramesToDecimal Method (Override Time)
-                    else if (vm.FrameStart_Text != "Frame" &&
-                        vm.FrameEnd_Text != "Range" &&
-                        !string.IsNullOrEmpty(vm.FrameStart_Text) &&
-                        string.IsNullOrEmpty(vm.FrameEnd_Text))
+                    else if (frameStart_Text != "Frame" &&
+                        frameEnd_Text != "Range" &&
+                        !string.IsNullOrEmpty(frameStart_Text) &&
+                        string.IsNullOrEmpty(frameEnd_Text))
                     {
-                        Video.FramesToDecimal(vm);
+                        Video.FramesToDecimal(mediaType_SelectedItem,
+                                              codec_SelectedItem,
+                                              quality_SelectedItem,
+                                              frameEnd_IsEnabled,
+                                              frameStart_Text,
+                                              frameEnd_Text
+                                              );
                     }
 
                     trim = "-ss " + trimStart;
@@ -411,27 +438,33 @@ namespace Axiom
 
                 // JPEG & PNG Sequence
                 //
-                else if (vm.MediaType_SelectedItem == "Sequence")
+                else if (mediaType_SelectedItem == "Sequence")
                 {
                     // Use Time
                     // If Frame Textboxes Default Use Time
-                    if (vm.FrameStart_Text == "Frame" ||
-                        vm.FrameEnd_Text == "Range" ||
-                        string.IsNullOrEmpty(vm.FrameStart_Text) ||
-                        string.IsNullOrEmpty(vm.FrameEnd_Text))
+                    if (frameStart_Text == "Frame" ||
+                        frameEnd_Text == "Range" ||
+                        string.IsNullOrEmpty(frameStart_Text) ||
+                        string.IsNullOrEmpty(frameEnd_Text))
                     {
-                        trimStart = vm.CutStart_Text;
-                        trimEnd = vm.CutEnd_Text;
+                        trimStart = cutStart_Text;
+                        trimEnd = cutEnd_Text;
                     }
 
                     // Use Frames
                     // If Frame Textboxes have Text, but not Default, use FramesToDecimal Method (Override Time)
-                    else if (vm.FrameStart_Text != "Frame" &&
-                        vm.FrameEnd_Text != "Range" &&
-                        !string.IsNullOrEmpty(vm.FrameStart_Text) &&
-                        !string.IsNullOrEmpty(vm.FrameEnd_Text))
+                    else if (frameStart_Text != "Frame" &&
+                        frameEnd_Text != "Range" &&
+                        !string.IsNullOrEmpty(frameStart_Text) &&
+                        !string.IsNullOrEmpty(frameEnd_Text))
                     {
-                        Video.FramesToDecimal(vm);
+                        Video.FramesToDecimal(mediaType_SelectedItem,
+                                              codec_SelectedItem,
+                                              quality_SelectedItem,
+                                              frameEnd_IsEnabled,
+                                              frameStart_Text,
+                                              frameEnd_Text
+                                              );
                     }
 
                     trim = "-ss " + trimStart + " " + "-to " + trimEnd;
@@ -441,7 +474,7 @@ namespace Axiom
             // -------------------------
             // No
             // -------------------------
-            else if (vm.Cut_SelectedItem == "No")
+            else if (cut_SelectedItem == "No")
             {
                 trim = string.Empty;
             }
@@ -458,139 +491,7 @@ namespace Axiom
         ///     When used as an output option (before an output filename), decodes but discards 
         ///     input until the timestamps reach position. This is slower, but more accurate.
         /// </remarks>
-        //public static String CutFastSeek(ViewModel vm)
-        //{
-        //    // -------------------------
-        //    // Yes
-        //    // -------------------------
-        //    // VIDEO
-        //    //
-        //    if (vm.Cut_SelectedItem == "Yes")
-        //    {
-        //        if (vm.MediaType_SelectedItem == "Video")
-        //        {
-        //            // Use Time
-        //            // If Frame Textboxes Default Use Time
-        //            if (vm.FrameStart_Text == "Frame" ||
-        //                vm.FrameEnd_Text == "Range" ||
-        //                string.IsNullOrEmpty(vm.FrameStart_Text) ||
-        //                string.IsNullOrEmpty(vm.FrameEnd_Text))
-        //            {
-        //                trimStart = vm.CutStart_Text;
-        //            }
-
-        //            // Use Frames
-        //            // If Frame Textboxes have Text, but not Default, use FramesToDecimal Method (Override Time)
-        //            else if (vm.FrameStart_Text != "Frame" &&
-        //                vm.FrameEnd_Text != "Range" &&
-        //                !string.IsNullOrEmpty(vm.FrameStart_Text) &&
-        //                !string.IsNullOrEmpty(vm.FrameEnd_Text))
-        //            {
-        //                Video.FramesToDecimal(vm);
-        //            }
-
-        //            // If End Time is Empty, Default to Full Duration
-        //            // Input Null Check
-        //            if (!string.IsNullOrEmpty(vm.Input_Text))
-        //            {
-        //                if (vm.CutEnd_Text == "00:00:00.000" ||
-        //                    string.IsNullOrEmpty(vm.CutEnd_Text))
-        //                {
-        //                    trimEnd = FFprobe.CutDuration(vm);
-        //                }
-        //            }
-
-        //            // Combine
-        //            trim = "-ss " + trimStart + " " + "-to " + trimEnd;
-        //        }
-
-        //        // AUDIO
-        //        //
-        //        else if (vm.MediaType_SelectedItem == "Audio")
-        //        {
-        //            trimStart = vm.CutStart_Text;
-        //            trimEnd = vm.CutEnd_Text;
-
-        //            // If End Time is Empty, Default to Full Duration
-        //            // Input Null Check
-        //            if (!string.IsNullOrEmpty(vm.Input_Text))
-        //            {
-        //                if (vm.CutEnd_Text == "00:00:00.000" ||
-        //                    string.IsNullOrEmpty(vm.CutEnd_Text))
-        //                {
-        //                    trimEnd = FFprobe.CutDuration(vm);
-        //                }
-        //            }
-
-        //            // Combine
-        //            trim = "-ss " + trimStart + " " + "-to " + trimEnd;
-        //        }
-
-        //        // JPEG & PNG Screenshot
-        //        //
-        //        else if (vm.MediaType_SelectedItem == "Image")
-        //        {
-        //            // Use Time
-        //            // If Frame Textbox Default Use Time
-        //            if (vm.FrameStart_Text == "Frame" ||
-        //                string.IsNullOrEmpty(vm.FrameStart_Text))
-        //            {
-        //                trimStart = vm.CutStart_Text;
-        //            }
-
-        //            // Use Frames
-        //            // If Frame Textboxes have Text, but not Default, use FramesToDecimal Method (Override Time)
-        //            else if (vm.FrameStart_Text != "Frame" &&
-        //                vm.FrameEnd_Text != "Range" &&
-        //                !string.IsNullOrEmpty(vm.FrameStart_Text) &&
-        //                string.IsNullOrEmpty(vm.FrameEnd_Text))
-        //            {
-        //                Video.FramesToDecimal(vm);
-        //            }
-
-        //            trim = "-ss " + trimStart;
-        //        }
-
-        //        // JPEG & PNG Sequence
-        //        //
-        //        else if (vm.MediaType_SelectedItem == "Sequence")
-        //        {
-        //            // Use Time
-        //            // If Frame Textboxes Default Use Time
-        //            if (vm.FrameStart_Text == "Frame" ||
-        //                vm.FrameEnd_Text == "Range" ||
-        //                string.IsNullOrEmpty(vm.FrameStart_Text) ||
-        //                string.IsNullOrEmpty(vm.FrameEnd_Text))
-        //            {
-        //                trimStart = vm.CutStart_Text;
-        //                trimEnd = vm.CutEnd_Text;
-        //            }
-
-        //            // Use Frames
-        //            // If Frame Textboxes have Text, but not Default, use FramesToDecimal Method (Override Time)
-        //            else if (vm.FrameStart_Text != "Frame" &&
-        //                vm.FrameEnd_Text != "Range" &&
-        //                !string.IsNullOrEmpty(vm.FrameStart_Text) &&
-        //                !string.IsNullOrEmpty(vm.FrameEnd_Text))
-        //            {
-        //                Video.FramesToDecimal(vm);
-        //            }
-
-        //            trim = "-ss " + trimStart + " " + "-to " + trimEnd;
-        //        }
-        //    }
-
-        //    // -------------------------
-        //    // No
-        //    // -------------------------
-        //    else if (vm.Cut_SelectedItem == "No")
-        //    {
-        //        trim = string.Empty;
-        //    }
-
-        //    // Return Value
-        //    return trim;
-        //}
+        
 
 
 

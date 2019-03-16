@@ -33,8 +33,6 @@ namespace Axiom
     {
         private MainWindow mainwindow;
 
-        //private ViewModel vm;
-
         public FilePropertiesWindow(MainWindow mainwindow, ViewModel vm)
         {
             InitializeComponent();
@@ -78,7 +76,11 @@ namespace Axiom
                 rtbFileProperties.Document = new FlowDocument(propertiesParagraph); 
 
                 FFprobe.argsFileProperties = " -i" + " " + "\"" + vm.Input_Text + "\"" + " -v quiet -print_format ini -show_format -show_streams";
-                FFprobe.inputFileProperties = FFprobe.InputFileInfo(vm, FFprobe.argsFileProperties);
+
+                FFprobe.inputFileProperties = FFprobe.InputFileInfo(vm.Input_Text, 
+                                                                    vm.Batch_IsChecked, 
+                                                                    FFprobe.argsFileProperties
+                                                                    );
 
                 // Write All File Properties to Rich Text Box
                 if (!string.IsNullOrEmpty(FFprobe.inputFileProperties))

@@ -205,13 +205,24 @@ namespace Axiom
                     Streams.AudioStreamMaps(vm),
 
                     "\r\n\r\n" +
-                    Format.Cut(vm),
+                    Format.Cut(vm.Input_Text,
+                               vm.Batch_IsChecked,
+                               vm.MediaType_SelectedItem,
+                               vm.VideoCodec_SelectedItem,
+                               vm.VideoQuality_SelectedItem,
+                               vm.Cut_SelectedItem,
+                               vm.CutStart_Text,
+                               vm.CutEnd_Text,
+                               vm.FrameEnd_IsEnabled,
+                               vm.FrameStart_Text,
+                               vm.FrameEnd_Text
+                               ),
 
                     "\r\n\r\n" +
                     Streams.FormatMaps(vm),
 
                     "\r\n\r\n" +
-                    Format.ForceFormat(vm),
+                    Format.ForceFormat(vm.Container_SelectedItem),
 
                     "\r\n\r\n" +
                     MainWindow.ThreadDetect(vm),
@@ -327,9 +338,20 @@ namespace Axiom
                     "-sn -an", // Disable Audio & Subtitles for Pass 1 to speed up encoding
 
                     "\r\n\r\n" +
-                    Format.Cut(vm),
+                    Format.Cut(vm.Input_Text,
+                               vm.Batch_IsChecked,
+                               vm.MediaType_SelectedItem,
+                               vm.VideoCodec_SelectedItem,
+                               vm.VideoQuality_SelectedItem,
+                               vm.Cut_SelectedItem,
+                               vm.CutStart_Text,
+                               vm.CutEnd_Text,
+                               vm.FrameEnd_IsEnabled,
+                               vm.FrameStart_Text,
+                               vm.FrameEnd_Text
+                               ),
                     "\r\n\r\n" +
-                    Format.ForceFormat(vm),
+                    Format.ForceFormat(vm.Container_SelectedItem),
                     "\r\n\r\n" +
                     MainWindow.ThreadDetect(vm),
 
@@ -449,7 +471,7 @@ namespace Axiom
                     Streams.FormatMaps(vm),
 
                     "\r\n\r\n" +
-                    Format.ForceFormat(vm),
+                    Format.ForceFormat(vm.Container_SelectedItem),
 
                     "\r\n\r\n" +
                     Configure.threads,
