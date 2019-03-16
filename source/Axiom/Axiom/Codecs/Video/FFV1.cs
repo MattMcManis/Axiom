@@ -54,6 +54,67 @@ namespace Axiom
         };
 
         // -------------------------
+        // Pixel Format
+        // -------------------------
+        public static List<string> pixelFormat = new List<string>()
+        {
+            "auto",
+            "yuv420p",
+            "yuva420p",
+            "yuva422p",
+            "yuv444p",
+            "yuva444p",
+            "yuv440p",
+            "yuv422p",
+            "yuv411p",
+            "yuv410p",
+            "bgr0",
+            "bgra",
+            "yuv420p16le",
+            "yuv422p16le",
+            "yuv444p16le",
+            "yuv444p9le",
+            "yuv422p9le",
+            "yuv420p9le",
+            "yuv420p10le",
+            "yuv422p10le",
+            "yuv444p10le",
+            "yuv420p12le",
+            "yuv422p12le",
+            "yuv444p12le",
+            "yuva444p16le",
+            "yuva422p16le",
+            "yuva420p16le",
+            "yuva444p10le",
+            "yuva422p10le",
+            "yuva420p10le",
+            "yuva444p9le",
+            "yuva422p9le",
+            "yuva420p9le",
+            "gray16le",
+            "gray",
+            "gbrp9le",
+            "gbrp10le",
+            "gbrp12le",
+            "gbrp14le",
+            "gbrap10le",
+            "gbrap12le",
+            "ya8",
+            "gray10le",
+            "gray12le",
+            "gbrp16le",
+            "rgb48le",
+            "gbrap16le",
+            "rgba64le",
+            "gray9le",
+            "yuv420p14le",
+            "yuv422p14le",
+            "yuv444p14le",
+            "yuv440p10le",
+            "yuv440p12le"
+        };
+
+        // -------------------------
         // Quality
         // -------------------------
         public static List<ViewModel.VideoQuality> quality = new List<ViewModel.VideoQuality>()
@@ -116,6 +177,9 @@ namespace Axiom
         {
             // Encode Speed
             vm.VideoEncodeSpeed_Items = encodeSpeed;
+
+            // Pixel Format
+            vm.PixelFormat_Items = pixelFormat;
 
             // Pass
             vm.Pass_Items = pass;

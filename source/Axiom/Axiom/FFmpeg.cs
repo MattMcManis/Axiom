@@ -42,12 +42,6 @@ namespace Axiom
         public static string ffmpeg; // ffmpeg.exe
         public static string ffmpegArgs; // FFmpeg Arguments
         public static string ffmpegArgsSort; // FFmpeg Arguments Sorted
-        //public static string cmdWindow; // Keep / Close Batch Argument
-
-        // Sorted Argument Colors
-        //public static System.Windows.Media.Brush Blue = (SolidColorBrush)(new BrushConverter().ConvertFrom("#0000CC"));
-        //public static System.Windows.Media.Brush Purple = (SolidColorBrush)(new BrushConverter().ConvertFrom("#9900CC"));
-        //public static System.Windows.Media.Brush Red = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FF0000"));
 
 
         // --------------------------------------------------------------------------------------------------------
@@ -137,12 +131,13 @@ namespace Axiom
                                        vm.VideoBufsize_Text
                                        ),
                     "\r\n" +
-                    Video.PixFmt(vm,
-                                 vm.PixelFormat_SelectedItem
-                                 ),
+                    Video.PixFmt(vm.PixelFormat_SelectedItem),
                     "\r\n" +
-                    Video.FPS(vm,
-                              vm.FPS_SelectedItem
+                    Video.FPS(vm.MediaType_SelectedItem,
+                              vm.VideoCodec_SelectedItem,
+                              vm.VideoQuality_SelectedItem,
+                              vm.FPS_SelectedItem,
+                              vm.FPS_Text
                               ),
                     "\r\n" +
                     VideoFilters.VideoFilter(vm),
@@ -151,9 +146,14 @@ namespace Axiom
                     "\r\n" +
                     Video.Images(vm),
                     "\r\n" +
-                    Video.Optimize(vm,
+                    Video.Optimize(vm.MediaType_SelectedItem,
+                                   vm.VideoCodec_SelectedItem,
+                                   vm.VideoQuality_SelectedItem,
                                    vm.Video_Optimize_Items,
-                                   vm.Video_Optimize_SelectedItem
+                                   vm.Video_Optimize_SelectedItem,
+                                   vm.Optimize_Tune_SelectedItem,
+                                   vm.Optimize_Profile_SelectedItem,
+                                   vm.Optimize_Level_SelectedItem
                                    ),
                     "\r\n" +
                     Streams.VideoStreamMaps(vm),
@@ -290,13 +290,14 @@ namespace Axiom
                                        vm.VideoBufsize_Text
                                        ),
                     "\r\n" +
-                    Video.PixFmt(vm,
-                                 vm.PixelFormat_SelectedItem
-                                 ),
+                    Video.PixFmt(vm.PixelFormat_SelectedItem),
                     "\r\n" +
-                    Video.FPS(vm,
-                              vm.FPS_SelectedItem
-                             ),
+                    Video.FPS(vm.MediaType_SelectedItem,
+                              vm.VideoCodec_SelectedItem,
+                              vm.VideoQuality_SelectedItem,
+                              vm.FPS_SelectedItem,
+                              vm.FPS_Text
+                              ),
                     "\r\n" +
                     VideoFilters.VideoFilter(vm),
                     //"\r\n" +
@@ -304,12 +305,19 @@ namespace Axiom
                     "\r\n" +
                     Video.Images(vm),
                     "\r\n" +
-                    Video.Optimize(vm,
+                    Video.Optimize(vm.MediaType_SelectedItem,
+                                   vm.VideoCodec_SelectedItem,
+                                   vm.VideoQuality_SelectedItem,
                                    vm.Video_Optimize_Items,
-                                   vm.Video_Optimize_SelectedItem
+                                   vm.Video_Optimize_SelectedItem,
+                                   vm.Optimize_Tune_SelectedItem,
+                                   vm.Optimize_Profile_SelectedItem,
+                                   vm.Optimize_Level_SelectedItem
                                    ),
                     "\r\n" +
-                    Video.Pass1Modifier(vm), // -pass 1, -x265-params pass=2
+                    Video.Pass1Modifier(vm.VideoCodec_SelectedItem, // -pass 1, -x265-params pass=2
+                                        vm.Pass_SelectedItem
+                                        ),  
 
                     "\r\n\r\n" +
                     "-sn -an", // Disable Audio & Subtitles for Pass 1 to speed up encoding
@@ -380,7 +388,9 @@ namespace Axiom
                     "\r\n" +
                     Streams.VideoStreamMaps(vm),
                     "\r\n" +
-                    Video.Pass2Modifier(vm), // -pass 2, -x265-params pass=2
+                    Video.Pass2Modifier(vm.VideoCodec_SelectedItem, // -pass 2, -x265-params pass=2
+                                        vm.Pass_SelectedItem
+                                        ), 
 
                     "\r\n\r\n" +
                     Subtitle.SubtitleCodec(vm.SubtitleCodec_Command),
@@ -572,10 +582,25 @@ namespace Axiom
                     "(*" + MainWindow.inputExt + ")",
                     "do (echo)",
 
-                    "\r\n\r\n" + Video.BatchVideoQualityAuto(vm),
+                    // Video
+                    "\r\n\r\n" + Video.BatchVideoQualityAuto(vm.Batch_IsChecked,
+                                                             vm.MediaType_SelectedItem,
+                                                             vm.VideoCodec_SelectedItem,
+                                                             vm.VideoQuality_SelectedItem 
+                                                             ),
 
-                    "\r\n\r\n" + Audio.BatchAudioQualityAuto(vm),
-                    "\r\n\r\n" + Audio.BatchAudioBitrateLimiter(vm),
+                    // Audio
+                    "\r\n\r\n" + Audio.BatchAudioQualityAuto(vm.Batch_IsChecked,
+                                                             vm.MediaType_SelectedItem,
+                                                             vm.AudioCodec_SelectedItem,
+                                                             vm.AudioStream_SelectedItem,
+                                                             vm.AudioQuality_SelectedItem
+                                                             ),
+                    "\r\n\r\n" + Audio.BatchAudioBitrateLimiter(vm.MediaType_SelectedItem,
+                                                                vm.AudioCodec_SelectedItem,
+                                                                vm.AudioStream_SelectedItem,
+                                                                vm.AudioQuality_SelectedItem
+                                                                ),
 
                     "\r\n\r\n" + "&&",
                     "\r\n\r\n" + MainWindow.FFmpegPath(),

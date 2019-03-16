@@ -66,8 +66,11 @@ namespace Axiom
                     //Video.VideoCodec(),
                     //Video.Speed(mainwindow),
                     //Video.VideoQuality(mainwindow),
-                    Video.FPS(vm,
-                              vm.FPS_SelectedItem
+                    Video.FPS(vm.MediaType_SelectedItem,
+                              vm.VideoCodec_SelectedItem,
+                              vm.VideoQuality_SelectedItem,
+                              vm.FPS_SelectedItem,
+                              vm.FPS_Text
                               ),
                     VideoFilters.VideoFilter(vm),
                     //Video.ScalingAlgorithm(vm),

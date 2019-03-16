@@ -511,8 +511,8 @@ namespace Axiom
             // --------------------------
             // ScriptView Copy/Paste
             // --------------------------
-            DataObject.AddCopyingHandler(rtbScriptView, new DataObjectCopyingEventHandler(OnScriptCopy));
-            DataObject.AddPastingHandler(rtbScriptView, new DataObjectPastingEventHandler(OnScriptPaste));
+            DataObject.AddCopyingHandler(tbxScriptView, new DataObjectCopyingEventHandler(OnScriptCopy));
+            DataObject.AddPastingHandler(tbxScriptView, new DataObjectPastingEventHandler(OnScriptPaste));
         }
 
 
@@ -616,7 +616,7 @@ namespace Axiom
         {
             if (WindowState == WindowState.Maximized)
             {
-                // Use the RestoreBounds as the current values will be 0, 0 and the size of the screen
+                // Use the RestoreBounds as the current values will be 0, 0 and the scale of the screen
                 Settings.Default.Top = RestoreBounds.Top;
                 Settings.Default.Left = RestoreBounds.Left;
                 Settings.Default.Height = RestoreBounds.Height;
@@ -684,7 +684,7 @@ namespace Axiom
             Video.vOptions = string.Empty;
             Video.vCRF = string.Empty;
             Video.pix_fmt = string.Empty;
-            Video.vScaling = string.Empty;
+            Video.vScalingAlgorithm = string.Empty;
             Video.fps = string.Empty;
             Video.optTune = string.Empty;
             Video.optProfile = string.Empty;
@@ -692,7 +692,7 @@ namespace Axiom
             Video.optFlags = string.Empty;
             Video.width = string.Empty;
             Video.height = string.Empty;
-            //Video.size = string.Empty;
+            //Video.scale = string.Empty;
 
             if (Video.x265paramsList != null &&
                 Video.x265paramsList.Count > 0)

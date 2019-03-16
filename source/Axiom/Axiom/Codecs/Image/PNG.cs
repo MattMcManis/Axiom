@@ -53,6 +53,23 @@ namespace Axiom
         };
 
         // -------------------------
+        // Pixel Format
+        // -------------------------
+        public static List<string> pixelFormat = new List<string>()
+        {
+            "rgb24",
+            "rgba",
+            "rgb48be",
+            "rgba64be",
+            "pal8",
+            "gray",
+            "ya8",
+            "gray16be",
+            "ya16be",
+            "monob"
+        };
+
+        // -------------------------
         // Quality
         // -------------------------
         public static List<ViewModel.VideoQuality> quality = new List<ViewModel.VideoQuality>()

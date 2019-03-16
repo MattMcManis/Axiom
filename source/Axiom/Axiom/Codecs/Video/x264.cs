@@ -63,6 +63,29 @@ namespace Axiom
         };
 
         // -------------------------
+        // Pixel Format
+        // -------------------------
+        public static List<string> pixelFormat = new List<string>()
+        {
+            "auto",
+            "yuv420p",
+            "yuvj420p",
+            "yuv422p",
+            "yuvj422p",
+            "yuv444p",
+            "yuvj444p",
+            "nv12",
+            "nv16",
+            "nv21",
+            "yuv420p10le",
+            "yuv422p10le",
+            "yuv444p10le",
+            "nv20le",
+            "gray",
+            "gray10le"
+        };
+
+        // -------------------------
         // Quality
         // -------------------------
         public static List<ViewModel.VideoQuality> quality = new List<ViewModel.VideoQuality>()
@@ -170,6 +193,9 @@ namespace Axiom
         {
             // Encode Speed
             vm.VideoEncodeSpeed_Items = encodeSpeed;
+
+            // Pixel Format
+            vm.PixelFormat_Items = pixelFormat;
 
             // Pass
             vm.Pass_Items = pass;

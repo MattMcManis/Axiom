@@ -106,7 +106,7 @@ namespace Axiom
                 //    FFprobe File Info
                 // -------------------------
                 argsFrameRate = " -i " + "\"" + vm.Input_Text + "\"" + " -select_streams v:0 -show_entries stream=r_frame_rate -v quiet -of csv=\"p=0\"";
-                argsSize = " -i " + "\"" + vm.Input_Text + "\"" + " -select_streams v:0 -show_entries format=size -v quiet -of csv=\"p=0\"";
+                argsSize = " -i " + "\"" + vm.Input_Text + "\"" + " -select_streams v:0 -show_entries format=scale -v quiet -of csv=\"p=0\"";
                 argsDuration = " -i " + "\"" + vm.Input_Text + "\"" + " -select_streams v:0 -show_entries format=duration -v quiet -of csv=\"p=0\"";
                 argsVideoCodec = " -i " + "\"" + vm.Input_Text + "\"" + " -select_streams v:0 -show_entries stream=codec_name -v quiet -of csv=\"p=0\"";
                 argsVideoBitrate = " -i " + "\"" + vm.Input_Text + "\"" + " -select_streams v:0 -show_entries " + vEntryType + " -v quiet -of csv=\"p=0\"";

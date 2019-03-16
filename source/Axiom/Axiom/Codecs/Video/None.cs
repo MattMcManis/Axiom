@@ -54,6 +54,14 @@ namespace Axiom
         };
 
         // -------------------------
+        // Pixel Format
+        // -------------------------
+        public static List<string> pixelFormat = new List<string>()
+        {
+            "none"
+        };
+
+        // -------------------------
         // Quality
         // -------------------------
         public static List<ViewModel.VideoQuality> quality = new List<ViewModel.VideoQuality>()
@@ -115,6 +123,9 @@ namespace Axiom
             // Encode Speed
             vm.VideoEncodeSpeed_Items = encodeSpeed;
 
+            // Pixel Format
+            vm.PixelFormat_Items = pixelFormat;
+
             // Pass
             vm.Pass_Items = pass;
 
@@ -138,7 +149,7 @@ namespace Axiom
         {
 
             // Pixel Format
-            vm.PixelFormat_SelectedItem = "auto";
+            vm.PixelFormat_SelectedItem = "none";
 
             // Framerate
             vm.FPS_SelectedItem = "auto";

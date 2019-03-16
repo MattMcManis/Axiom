@@ -78,7 +78,7 @@ namespace Axiom
         public static string vOptions; // -pix_fmt, -qcomp
         public static string vCRF; // Constant Rate Factor
         public static string pix_fmt;
-        public static string vScaling;
+        public static string vScalingAlgorithm;
         public static string fps; // Frames Per Second
         public static string image; // JPEG & PNG options
         public static string optTune; // x264/x265 tuning modes
@@ -94,7 +94,7 @@ namespace Axiom
         // Scale
         public static string width;
         public static string height;
-        public static string size; // contains scale, width, height
+        public static string scale; // contains scale, width, height
 
         // Pass
         public static string v2PassArgs; // 2-Pass Arguments
@@ -935,7 +935,11 @@ namespace Axiom
         /// <summary>
         ///     Batch Video Quality Auto (Method)
         /// <summary>
-        public static String BatchVideoQualityAuto(ViewModel vm)
+        public static String BatchVideoQualityAuto(bool batch_IsChecked,
+                                                   string mediaType_SelectedItem,
+                                                   string codec_SelectedItem,
+                                                   string quality_SelectedItem
+                                                   )
         {
             // -------------------------
             // Batch Auto
@@ -944,26 +948,26 @@ namespace Axiom
             // Video Codec None Check
             // Video Codec Copy Check
             // Media Type Check
-            if (vm.VideoQuality_SelectedItem != "None"
-                && vm.VideoCodec_SelectedItem != "None"
-                && vm.VideoCodec_SelectedItem != "Copy"
-                && vm.MediaType_SelectedItem != "Audio")
+            if (quality_SelectedItem != "None" &&
+                codec_SelectedItem != "None" &&
+                codec_SelectedItem != "Copy" &&
+                mediaType_SelectedItem != "Audio")
             {
                 // Batch Check
-                if (vm.Batch_IsChecked == true)
+                if (batch_IsChecked == true)
                 {
                     // -------------------------
                     // Video Auto Bitrates
                     // -------------------------
-                    if (vm.VideoQuality_SelectedItem == "Auto")
+                    if (quality_SelectedItem == "Auto")
                     {
                         // Make List
                         List<string> BatchVideoAutoList = new List<string>()
                         {
-                            // size
-                            "& for /F \"delims=\" %S in ('@" + FFprobe.ffprobe + " -v error -select_streams v:0 -show_entries format^=size -of default^=noprint_wrappers^=1:nokey^=1 \"%~f\" 2^>^&1') do (SET size=%S)",
-                            // set %S to %size%
-                            "\r\n\r\n" + "& for /F %S in ('echo %size%') do (echo)",
+                            // scale
+                            "& for /F \"delims=\" %S in ('@" + FFprobe.ffprobe + " -v error -select_streams v:0 -show_entries format^=scale -of default^=noprint_wrappers^=1:nokey^=1 \"%~f\" 2^>^&1') do (SET scale=%S)",
+                            // set %S to %scale%
+                            "\r\n\r\n" + "& for /F %S in ('echo %scale%') do (echo)",
 
                             // duration
                             "\r\n\r\n" + "& for /F \"delims=\" %D in ('@" + FFprobe.ffprobe + " -v error -select_streams v:0 -show_entries format^=duration -of default^=noprint_wrappers^=1:nokey^=1 \"%~f\" 2^>^&1') do (SET duration=%D)",
@@ -1162,20 +1166,20 @@ namespace Axiom
         ///     Pass 1 Modifier (Method)
         /// <summary>
         // x265 Pass 1
-        public static String Pass1Modifier(ViewModel vm)
+        public static String Pass1Modifier(string codec_SelectedItem,
+                                           string pass_SelectedItem
+                                           )
         {
             // -------------------------
             // Enabled
             // -------------------------
-            if (vm.Pass_SelectedItem == "2 Pass")
+            if (pass_SelectedItem == "2 Pass")
             {
                 // Enable pass parameters in the FFmpeg Arguments
                 // x265 Pass 2 Params
-                if (vm.VideoCodec_SelectedItem == "x265")
+                if (codec_SelectedItem == "x265")
                 {
                     pass1 = "-x265-params pass=1";
-                    //Video.pass1 = string.Empty;
-                    //x265paramsList.Add("pass=1");
                 }
                 // All other codecs
                 else
@@ -1187,9 +1191,9 @@ namespace Axiom
             // -------------------------
             // Disabled
             // -------------------------
-            else if (vm.Pass_SelectedItem == "1 Pass" ||
-                     vm.Pass_SelectedItem == "CRF" ||
-                     vm.Pass_SelectedItem == "auto") //jpg/png
+            else if (pass_SelectedItem == "1 Pass" ||
+                     pass_SelectedItem == "CRF" ||
+                     pass_SelectedItem == "auto") // JPG, PNG, WebP
             {
                 pass1 = string.Empty;
             }
@@ -1204,20 +1208,20 @@ namespace Axiom
         ///     Pass 2 Modifier (Method)
         /// <summary>
         // x265 Pass 2
-        public static String Pass2Modifier(ViewModel vm)
+        public static String Pass2Modifier(string codec_SelectedItem,
+                                           string pass_SelectedItem
+                                           )
         {
             // -------------------------
             // Enabled
             // -------------------------
-            if (vm.Pass_SelectedItem == "2 Pass")
+            if (pass_SelectedItem == "2 Pass")
             {
                 // Enable pass parameters in the FFmpeg Arguments
                 // x265 Pass 2 Params
-                if (vm.VideoCodec_SelectedItem == "x265")
+                if (codec_SelectedItem == "x265")
                 {
                     pass2 = "-x265-params pass=2";
-                    //Video.pass2 = string.Empty;
-                    //x265paramsList.Add("pass=2");
                 }
                 // All other codecs
                 else
@@ -1229,9 +1233,9 @@ namespace Axiom
             // -------------------------
             // Disabled
             // -------------------------
-            else if (vm.Pass_SelectedItem == "1 Pass" ||
-                     vm.Pass_SelectedItem == "CRF" || 
-                     vm.Pass_SelectedItem == "auto") //jpg/png
+            else if (pass_SelectedItem == "1 Pass" ||
+                     pass_SelectedItem == "CRF" ||
+                     pass_SelectedItem == "auto") //jpg/png
             {
                 pass2 = string.Empty;
             }
@@ -1334,16 +1338,16 @@ namespace Axiom
         /// <summary>
         ///     Pixel Foramt
         /// <summary>
-        public static String PixFmt(ViewModel vm,
-                                    string selectedPixFmt)
+        public static String PixFmt(string pixelFormat_SelectedItem)
         {
             //pix_fmt = string.Empty;
 
             // If Auto, Use Empty
             // If Not Auto, use Selected Item
-            if (selectedPixFmt != "auto")
+            if (pixelFormat_SelectedItem != "auto" &&
+                pixelFormat_SelectedItem != "none")
             {
-                pix_fmt = "-pix_fmt " + selectedPixFmt;
+                pix_fmt = "-pix_fmt " + pixelFormat_SelectedItem;
             }
 
             return pix_fmt;
@@ -1355,23 +1359,29 @@ namespace Axiom
         /// <summary>
         ///     Optimize
         /// <summary>
-        public static String Optimize(ViewModel vm,
-                                      List<ViewModel.VideoOptimize> items,
-                                      string selectedOptimize)
+        public static String Optimize(string mediaType_SelectedItem,
+                                      string codec_SelectedItem,
+                                      string quality_SelectedItem,
+                                      List<ViewModel.VideoOptimize> optimize_Items,
+                                      string optimize_SelectedItem,
+                                      string tune_SelectedItem,
+                                      string profile_SelectedItem,
+                                      string level_SelectedItem
+                                      )
         {
             // Video Bitrate None Check
             // Video Codec None Check
             // Video Codec Copy Check
             // Media Type Check
-            if (vm.VideoQuality_SelectedItem != "None" && 
-                vm.VideoCodec_SelectedItem != "None" && 
-                vm.VideoCodec_SelectedItem != "Copy" && 
-                vm.MediaType_SelectedItem != "Audio")
+            if (quality_SelectedItem != "None" &&
+                codec_SelectedItem != "None" &&
+                codec_SelectedItem != "Copy" &&
+                mediaType_SelectedItem != "Audio")
             {
                 // -------------------------
                 // None
                 // -------------------------
-                if (selectedOptimize == "None")
+                if (optimize_SelectedItem == "None")
                 {
                     optTune = string.Empty;
                     optProfile = string.Empty;
@@ -1381,24 +1391,24 @@ namespace Axiom
                 // -------------------------
                 // Custom
                 // -------------------------
-                else if (selectedOptimize == "Custom")
+                else if (optimize_SelectedItem == "Custom")
                 {
                     // Tune
-                    if (vm.Optimize_Tune_SelectedItem != "none")
+                    if (tune_SelectedItem != "none")
                     {
-                        optTune = "-tune " + vm.Optimize_Tune_SelectedItem;
+                        optTune = "-tune " + tune_SelectedItem;
                     }
 
                     // Profile
-                    if (vm.Optimize_Profile_SelectedItem != "none")
+                    if (profile_SelectedItem != "none")
                     {
-                        optProfile = "-profile:v " + vm.Optimize_Profile_SelectedItem;
+                        optProfile = "-profile:v " + profile_SelectedItem;
                     }
 
                     // Level
-                    if (vm.Optimize_Level_SelectedItem != "none")
+                    if (level_SelectedItem != "none")
                     {
-                        optLevel = "-level " + vm.Optimize_Level_SelectedItem;
+                        optLevel = "-level " + level_SelectedItem;
                     }
                 }
 
@@ -1408,25 +1418,25 @@ namespace Axiom
                 else
                 {
                     // Tune
-                    if (vm.Optimize_Tune_SelectedItem != "none")
+                    if (tune_SelectedItem != "none")
                     {
-                        optTune = "-tune " + vm.Video_Optimize_Items.FirstOrDefault(item => item.Name == selectedOptimize)?.Tune;
+                        optTune = "-tune " + optimize_Items.FirstOrDefault(item => item.Name == optimize_SelectedItem)?.Tune;
                     }
                     
                     // Profile
-                    if (vm.Optimize_Profile_SelectedItem != "none")
+                    if (profile_SelectedItem != "none")
                     {
-                        optProfile = "-profile:v " + vm.Video_Optimize_Items.FirstOrDefault(item => item.Name == selectedOptimize)?.Profile;
+                        optProfile = "-profile:v " + optimize_Items.FirstOrDefault(item => item.Name == optimize_SelectedItem)?.Profile;
                     }
                     
                     // Level
-                    if (vm.Optimize_Level_SelectedItem != "none")
+                    if (level_SelectedItem != "none")
                     {
-                        optLevel = "-level " + vm.Video_Optimize_Items.FirstOrDefault(item => item.Name == selectedOptimize)?.Level;
+                        optLevel = "-level " + optimize_Items.FirstOrDefault(item => item.Name == optimize_SelectedItem)?.Level;
                     }
 
                     // Additional Options
-                    optFlags = vm.Video_Optimize_Items.FirstOrDefault(item => item.Name == selectedOptimize)?.Command;
+                    optFlags = optimize_Items.FirstOrDefault(item => item.Name == optimize_SelectedItem)?.Command;
                 }
 
                 // -------------------------
@@ -1451,70 +1461,74 @@ namespace Axiom
         /// <summary>
         ///     FPS
         /// <summary>
-        public static String FPS(ViewModel vm, 
-                                 string selectedFPS)
+        public static String FPS(string mediaType_SelectedItem,
+                                 string codec_SelectedItem,
+                                 string quality_SelectedItem,
+                                 string fps_SelectedItem,
+                                 string fps_Text
+                                 )
         {
             // Video Bitrate None Check
             // Video Codec None Check
             // Video Codec Copy Check
             // Media Type Check
-            if (vm.VideoQuality_SelectedItem != "None" && 
-                vm.VideoCodec_SelectedItem != "None" && 
-                vm.VideoCodec_SelectedItem != "Copy" && 
-                vm.MediaType_SelectedItem != "Audio")
+            if (quality_SelectedItem != "None" &&
+                codec_SelectedItem != "None" &&
+                mediaType_SelectedItem != "Copy" &&
+                mediaType_SelectedItem != "Audio")
             {
                 //fps = string.Empty;
 
-                if (selectedFPS == "auto")
+                if (fps_SelectedItem == "auto")
                 {
                     fps = string.Empty;
                 }
-                else if (selectedFPS == "film")
+                else if (fps_SelectedItem == "film")
                 {
                     fps = "-r film";
                 }
-                else if (selectedFPS == "pal")
+                else if (fps_SelectedItem == "pal")
                 {
                     fps = "-r pal";
                 }
-                else if (selectedFPS == "ntsc")
+                else if (fps_SelectedItem == "ntsc")
                 {
                     fps = "-r ntsc";
                 }
-                else if (selectedFPS == "23.976")
+                else if (fps_SelectedItem == "23.976")
                 {
                     fps = "-r 24000/1001";
                 }
-                else if (selectedFPS == "24")
+                else if (fps_SelectedItem == "24")
                 {
                     fps = "24";
                 }
-                else if (selectedFPS == "25")
+                else if (fps_SelectedItem == "25")
                 {
                     fps = "-r 25";
                 }
-                else if (selectedFPS == "ntsc" || 
-                         selectedFPS == "29.97")
+                else if (fps_SelectedItem == "ntsc" ||
+                         fps_SelectedItem == "29.97")
                 {
                     fps = "-r 30000/1001";
                 }
-                else if (selectedFPS == "30")
+                else if (fps_SelectedItem == "30")
                 {
                     fps = "-r 30";
                 }
-                else if (selectedFPS == "48")
+                else if (fps_SelectedItem == "48")
                 {
                     fps = "-r 48";
                 }
-                else if (selectedFPS == "50")
+                else if (fps_SelectedItem == "50")
                 {
                     fps = "-r 50";
                 }
-                else if (selectedFPS == "59.94")
+                else if (fps_SelectedItem == "59.94")
                 {
                     fps = "-r 60000/1001";
                 }
-                else if (selectedFPS == "60")
+                else if (fps_SelectedItem == "60")
                 {
                     fps = "-r 60";
                 }
@@ -1522,7 +1536,7 @@ namespace Axiom
                 {
                     try
                     {
-                        fps = "-r " + vm.FPS_Text;
+                        fps = "-r " + fps_Text;
                     }
                     catch
                     {
@@ -1542,7 +1556,7 @@ namespace Axiom
                 {
                     Log.logParagraph.Inlines.Add(new LineBreak());
                     Log.logParagraph.Inlines.Add(new Bold(new Run("FPS: ")) { Foreground = Log.ConsoleDefault });
-                    Log.logParagraph.Inlines.Add(new Run(vm.FPS_Text) { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new Run(fps_Text) { Foreground = Log.ConsoleDefault });
                 };
                 Log.LogActions.Add(Log.WriteAction);
             }
@@ -1556,23 +1570,23 @@ namespace Axiom
         /// <summary>
         ///     Size Width Auto
         /// <summary>
-        public static void SizeWidthAuto(ViewModel vm)
+        public static void SizeWidthAuto(string codec_SelectedItem)
         {
-            if (vm.VideoCodec_SelectedItem == "VP8" ||
-                vm.VideoCodec_SelectedItem == "VP9" ||
-                vm.VideoCodec_SelectedItem == "AV1" ||
-                vm.VideoCodec_SelectedItem == "FFV1" ||
-                vm.VideoCodec_SelectedItem == "Theora" ||
-                vm.VideoCodec_SelectedItem == "JPEG" ||
-                vm.VideoCodec_SelectedItem == "PNG" ||
-                vm.VideoCodec_SelectedItem == "WebP")
+            if (codec_SelectedItem == "VP8" ||
+                codec_SelectedItem == "VP9" ||
+                codec_SelectedItem == "AV1" ||
+                codec_SelectedItem == "FFV1" ||
+                codec_SelectedItem == "Theora" ||
+                codec_SelectedItem == "JPEG" ||
+                codec_SelectedItem == "PNG" ||
+                codec_SelectedItem == "WebP")
             {
                 width = "-1";
             }
-            else if (vm.VideoCodec_SelectedItem == "x264" ||
-                     vm.VideoCodec_SelectedItem == "x265" ||
-                     vm.VideoCodec_SelectedItem == "MPEG-2" ||
-                     vm.VideoCodec_SelectedItem == "MPEG-4")
+            else if (codec_SelectedItem == "x264" ||
+                     codec_SelectedItem == "x265" ||
+                     codec_SelectedItem == "MPEG-2" ||
+                     codec_SelectedItem == "MPEG-4")
             {
                 width = "-2";
             }
@@ -1581,44 +1595,50 @@ namespace Axiom
         /// <summary>
         ///     Size Height Auto
         /// <summary>
-        public static void SizeHeightAuto(ViewModel vm)
+        public static void SizeHeightAuto(string codec_SelectedItem)
         {
-            if (vm.VideoCodec_SelectedItem == "VP8" ||
-                vm.VideoCodec_SelectedItem == "VP9" ||
-                vm.VideoCodec_SelectedItem == "AV1" ||
-                vm.VideoCodec_SelectedItem == "FFV1" ||
-                vm.VideoCodec_SelectedItem == "Theora" ||
-                vm.VideoCodec_SelectedItem == "JPEG" ||
-                vm.VideoCodec_SelectedItem == "PNG" ||
-                vm.VideoCodec_SelectedItem == "WebP")
+            if (codec_SelectedItem == "VP8" ||
+                codec_SelectedItem == "VP9" ||
+                codec_SelectedItem == "AV1" ||
+                codec_SelectedItem == "FFV1" ||
+                codec_SelectedItem == "Theora" ||
+                codec_SelectedItem == "JPEG" ||
+                codec_SelectedItem == "PNG" ||
+                codec_SelectedItem == "WebP")
             {
                 height = "-1";
             }
-            else if (vm.VideoCodec_SelectedItem == "x264" ||
-                     vm.VideoCodec_SelectedItem == "x265" ||
-                     vm.VideoCodec_SelectedItem == "MPEG-2" ||
-                     vm.VideoCodec_SelectedItem == "MPEG-4")
+            else if (codec_SelectedItem == "x264" ||
+                     codec_SelectedItem == "x265" ||
+                     codec_SelectedItem == "MPEG-2" ||
+                     codec_SelectedItem == "MPEG-4")
             {
                 height = "-2";
             }
         }
 
         /// <summary>
-        /// Size
+        ///     Size
         /// <summary>
         // Size is a Filter
-        public static void Size(ViewModel vm)
+        public static void Scale(string codec_SelectedItem,
+                                 string size_SelectedItem,
+                                 string width_Text,
+                                 string height_Text,
+                                 string scalingAlgorithm_SelectedItem,
+                                 string cropClear_Text
+                                 )
         {
             // -------------------------
             // No
             // -------------------------
-            if (vm.Size_SelectedItem == "Source")
+            if (size_SelectedItem == "Source")
             {
                 // MP4/MKV Width/Height Fix
-                if (vm.VideoCodec_SelectedItem == "x264" ||
-                    vm.VideoCodec_SelectedItem == "x265" ||
-                    vm.VideoCodec_SelectedItem == "MPEG-2" ||
-                    vm.VideoCodec_SelectedItem == "MPEG-4")
+                if (codec_SelectedItem == "x264" ||
+                    codec_SelectedItem == "x265" ||
+                    codec_SelectedItem == "MPEG-2" ||
+                    codec_SelectedItem == "MPEG-4")
                 {
                     width = "trunc(iw/2)*2";
                     height = "trunc(ih/2)*2";
@@ -1627,10 +1647,10 @@ namespace Axiom
                     // Combine & Add Aspect Filter
                     // -------------------------
                     //combine
-                    size = "scale=" + width + ":" + height + ScalingAlgorithm(vm);
+                    scale = "scale=" + width + ":" + height + ScalingAlgorithm(scalingAlgorithm_SelectedItem);
 
                     // Video Filter Add
-                    VideoFilters.vFiltersList.Add(size);
+                    VideoFilters.vFiltersList.Add(scale);
                 }
             }
             // -------------------------
@@ -1641,55 +1661,55 @@ namespace Axiom
                 // -------------------------
                 // 8K
                 // -------------------------
-                if (vm.Size_SelectedItem == "8K")
+                if (size_SelectedItem == "8K")
                 {
                     // Width
                     width = "7680"; // Note: 8K is measured width first
 
                     // Height
-                    SizeHeightAuto(vm);
+                    SizeHeightAuto(codec_SelectedItem);
                 }
                 // -------------------------
                 // 4K
                 // -------------------------
-                else if (vm.Size_SelectedItem == "4K")
+                else if (size_SelectedItem == "4K")
                 {
                     // Width
                     width = "4096"; // Note: 4K is measured width first
 
                     // Height
-                    SizeHeightAuto(vm);
+                    SizeHeightAuto(codec_SelectedItem);
                 }
                 // -------------------------
                 // 4K UHD
                 // -------------------------
-                else if (vm.Size_SelectedItem == "4K UHD")
+                else if (size_SelectedItem == "4K UHD")
                 {
                     // Width
                     width = "3840"; // Note: 4K is measured width first
 
                     // Height
-                    SizeHeightAuto(vm);
+                    SizeHeightAuto(codec_SelectedItem);
 
                 }
                 // -------------------------
                 // 2K
                 // -------------------------
-                else if (vm.Size_SelectedItem == "2K")
+                else if (size_SelectedItem == "2K")
                 {
                     // Width
                     width = "2048"; // Note: 2K is measured width first
 
                     // Height
-                    SizeHeightAuto(vm);
+                    SizeHeightAuto(codec_SelectedItem);
                 }
                 // -------------------------
                 // 1440p
                 // -------------------------
-                else if (vm.Size_SelectedItem == "1440p")
+                else if (size_SelectedItem == "1440p")
                 {
                     // Width
-                    SizeWidthAuto(vm);
+                    SizeWidthAuto(codec_SelectedItem);
 
                     // Height
                     height = "1440";
@@ -1697,10 +1717,10 @@ namespace Axiom
                 // -------------------------
                 // 1200p
                 // -------------------------
-                else if (vm.Size_SelectedItem == "1200p")
+                else if (size_SelectedItem == "1200p")
                 {
                     // Width
-                    SizeWidthAuto(vm);
+                    SizeWidthAuto(codec_SelectedItem);
 
                     // Height
                     height = "1200";
@@ -1708,10 +1728,10 @@ namespace Axiom
                 // -------------------------
                 // 1080p
                 // -------------------------
-                else if (vm.Size_SelectedItem == "1080p")
+                else if (size_SelectedItem == "1080p")
                 {
                     // Width
-                    SizeWidthAuto(vm);
+                    SizeWidthAuto(codec_SelectedItem);
 
                     // Height
                     height = "1080";
@@ -1719,10 +1739,10 @@ namespace Axiom
                 // -------------------------
                 // 720p
                 // -------------------------
-                else if (vm.Size_SelectedItem == "720p")
+                else if (size_SelectedItem == "720p")
                 {
                     // Width
-                    SizeWidthAuto(vm);
+                    SizeWidthAuto(codec_SelectedItem);
 
                     // Height
                     height = "720";
@@ -1730,10 +1750,10 @@ namespace Axiom
                 // -------------------------
                 // 480p
                 // -------------------------
-                else if (vm.Size_SelectedItem == "480p")
+                else if (size_SelectedItem == "480p")
                 {
                     // Width
-                    SizeWidthAuto(vm);
+                    SizeWidthAuto(codec_SelectedItem);
 
                     // Height
                     height = "480";
@@ -1742,10 +1762,10 @@ namespace Axiom
                 // -------------------------
                 // 320p
                 // -------------------------
-                else if (vm.Size_SelectedItem == "320p")
+                else if (size_SelectedItem == "320p")
                 {
                     // Width
-                    SizeWidthAuto(vm);
+                    SizeWidthAuto(codec_SelectedItem);
 
                     // Height
                     height = "320";
@@ -1753,10 +1773,10 @@ namespace Axiom
                 // -------------------------
                 // 240p
                 // -------------------------
-                else if (vm.Size_SelectedItem == "240p")
+                else if (size_SelectedItem == "240p")
                 {
                     // Width
-                    SizeWidthAuto(vm);
+                    SizeWidthAuto(codec_SelectedItem);
 
                     // Height
                     height = "240";
@@ -1764,39 +1784,39 @@ namespace Axiom
                 // -------------------------
                 // Custom Size
                 // -------------------------
-                else if (vm.Size_SelectedItem == "Custom")
+                else if (size_SelectedItem == "Custom")
                 {
                     // Get width height from custom textbox
-                    width = vm.Width_Text;
-                    height = vm.Height_Text;
+                    width = width_Text;
+                    height = height_Text;
 
                     // Change the left over Default empty text to "auto"
-                    if (string.Equals(vm.Width_Text, "", StringComparison.CurrentCultureIgnoreCase))
+                    if (string.Equals(width_Text, "", StringComparison.CurrentCultureIgnoreCase))
                     {
-                        vm.Width_Text = "auto";
+                        width_Text = "auto";
                     }
 
-                    if (string.Equals(vm.Height_Text, "", StringComparison.CurrentCultureIgnoreCase))
+                    if (string.Equals(height_Text, "", StringComparison.CurrentCultureIgnoreCase))
                     {
-                        vm.Height_Text = "auto";
+                        height_Text = "auto";
                     }
 
                     // -------------------------
                     // VP8, VP9, Theora
                     // -------------------------
-                    if (vm.VideoCodec_SelectedItem == "VP8" ||
-                        vm.VideoCodec_SelectedItem == "VP9" ||
-                        vm.VideoCodec_SelectedItem == "Theora" ||
-                        vm.VideoCodec_SelectedItem == "JPEG" ||
-                        vm.VideoCodec_SelectedItem == "PNG" ||
-                        vm.VideoCodec_SelectedItem == "WebP")
+                    if (codec_SelectedItem == "VP8" ||
+                        codec_SelectedItem == "VP9" ||
+                        codec_SelectedItem == "Theora" ||
+                        codec_SelectedItem == "JPEG" ||
+                        codec_SelectedItem == "PNG" ||
+                        codec_SelectedItem == "WebP")
                     {
                         // If User enters "auto" or textbox is empty
-                        if (string.Equals(vm.Width_Text, "auto", StringComparison.CurrentCultureIgnoreCase))
+                        if (string.Equals(width_Text, "auto", StringComparison.CurrentCultureIgnoreCase))
                         {
                             width = "-1";
                         }
-                        if (string.Equals(vm.Height_Text, "auto", StringComparison.CurrentCultureIgnoreCase))
+                        if (string.Equals(height_Text, "auto", StringComparison.CurrentCultureIgnoreCase))
                         {
                             height = "-1";
                         }
@@ -1809,17 +1829,17 @@ namespace Axiom
                     // Fix FFmpeg MP4 but (User entered value)
                     // Apply Fix to all scale effects above
                     //
-                    if (vm.VideoCodec_SelectedItem == "x264" ||
-                        vm.VideoCodec_SelectedItem == "x265" ||
-                        vm.VideoCodec_SelectedItem == "MPEG-2" ||
-                        vm.VideoCodec_SelectedItem == "MPEG-4")
+                    if (codec_SelectedItem == "x264" ||
+                        codec_SelectedItem == "x265" ||
+                        codec_SelectedItem == "MPEG-2" ||
+                        codec_SelectedItem == "MPEG-4")
                     {
                         // -------------------------
                         // Width = Custom value
                         // Height = Custom value
                         // -------------------------
-                        if (!string.Equals(vm.Width_Text, "auto", StringComparison.CurrentCultureIgnoreCase)
-                            && !string.Equals(vm.Height_Text, "auto", StringComparison.CurrentCultureIgnoreCase))
+                        if (!string.Equals(width_Text, "auto", StringComparison.CurrentCultureIgnoreCase) &&
+                            !string.Equals(height_Text, "auto", StringComparison.CurrentCultureIgnoreCase))
                         {
                             // Aspect Must be Cropped to be divisible by 2
                             // e.g. -vf "scale=777:777, crop=776:776:0:0"
@@ -1830,7 +1850,7 @@ namespace Axiom
                                 // User Defined Crop should always override Divisible Crop
                                 // CropClearButton ~ is used as an Identifier, Divisible Crop does not leave "Clear*"
                                 //
-                                if (vm.CropClear_Text == "") // Crop Set Check
+                                if (cropClear_Text == "") // Crop Set Check
                                 {
                                     // Temporary Strings
                                     // So not to Override User Defined Crop
@@ -1840,8 +1860,8 @@ namespace Axiom
                                     string cropY = "0";
 
                                     // int convert check
-                                    if (Int32.TryParse(width, out divisibleCropWidth)
-                                        && Int32.TryParse(height, out divisibleCropHeight))
+                                    if (Int32.TryParse(width, out divisibleCropWidth) &&
+                                        Int32.TryParse(height, out divisibleCropHeight))
                                     {
                                         // If not divisible by 2, subtract 1 from total
 
@@ -1881,12 +1901,13 @@ namespace Axiom
                             }
 
                         }
+
                         // -------------------------
                         // Width = auto
                         // Height = Custom value
                         // -------------------------
-                        else if (string.Equals(vm.Width_Text, "auto", StringComparison.CurrentCultureIgnoreCase) &&
-                                !string.Equals(vm.Height_Text, "auto", StringComparison.CurrentCultureIgnoreCase))
+                        else if (string.Equals(width_Text, "auto", StringComparison.CurrentCultureIgnoreCase) &&
+                                !string.Equals(height_Text, "auto", StringComparison.CurrentCultureIgnoreCase))
                         {
                             //Width
                             width = "-2";
@@ -1934,8 +1955,8 @@ namespace Axiom
                         // Width = Custom value
                         // Height = auto
                         // -------------------------
-                        else if (!string.Equals(vm.Width_Text, "auto", StringComparison.CurrentCultureIgnoreCase) &&
-                                 string.Equals(vm.Height_Text, "auto", StringComparison.CurrentCultureIgnoreCase))
+                        else if (!string.Equals(width_Text, "auto", StringComparison.CurrentCultureIgnoreCase) &&
+                                 string.Equals(height_Text, "auto", StringComparison.CurrentCultureIgnoreCase))
                         {
                             // Height
                             height = "-2";
@@ -1978,26 +1999,27 @@ namespace Axiom
                                         MessageBoxImage.Exclamation);
                             }
                         }
+
                         // -------------------------
                         // Width = auto
                         // Height = auto
                         // -------------------------
-                        else if (string.Equals(vm.Width_Text, "auto", StringComparison.CurrentCultureIgnoreCase) &&
-                                 string.Equals(vm.Height_Text, "auto", StringComparison.CurrentCultureIgnoreCase))
+                        else if (string.Equals(width_Text, "auto", StringComparison.CurrentCultureIgnoreCase) &&
+                                 string.Equals(height_Text, "auto", StringComparison.CurrentCultureIgnoreCase))
                         {
                             // If User enters "auto" or textbox is empty
-                            if (string.Equals(vm.Width_Text, "auto", StringComparison.CurrentCultureIgnoreCase))
+                            if (string.Equals(width_Text, "auto", StringComparison.CurrentCultureIgnoreCase))
                             {
                                 width = "trunc(iw/2)*2";
 
                             }
-                            if (string.Equals(vm.Height_Text, "auto", StringComparison.CurrentCultureIgnoreCase))
+                            if (string.Equals(height_Text, "auto", StringComparison.CurrentCultureIgnoreCase))
                             {
                                 height = "trunc(ih/2)*2";
                             }
                         }
 
-                    } //end x264 & x265
+                    } //end codec check
 
                 } //end custom
 
@@ -2005,10 +2027,10 @@ namespace Axiom
                 // -------------------------
                 // Combine & Add Aspect Filter
                 // -------------------------
-                size = "scale=" + width + ":" + height + ScalingAlgorithm(vm);
+                scale = "scale=" + width + ":" + height + ScalingAlgorithm(scalingAlgorithm_SelectedItem);
 
                 // Video Filter Add
-                VideoFilters.vFiltersList.Add(size);
+                VideoFilters.vFiltersList.Add(scale);
 
             } //end Yes
 
@@ -2017,9 +2039,9 @@ namespace Axiom
             // Filter Clear
             // -------------------------
             // Copy
-            if (vm.VideoCodec_SelectedItem == "Copy")
+            if (codec_SelectedItem == "Copy")
             {
-                size = string.Empty;
+                scale = string.Empty;
 
                 // Video Filter Add
                 if (VideoFilters.vFiltersList != null)
@@ -2035,7 +2057,7 @@ namespace Axiom
             {
                 Log.logParagraph.Inlines.Add(new LineBreak());
                 Log.logParagraph.Inlines.Add(new Bold(new Run("Resize: ")) { Foreground = Log.ConsoleDefault });
-                Log.logParagraph.Inlines.Add(new Run(vm.Size_SelectedItem.ToString()) { Foreground = Log.ConsoleDefault });
+                Log.logParagraph.Inlines.Add(new Run(size_SelectedItem.ToString()) { Foreground = Log.ConsoleDefault });
                 Log.logParagraph.Inlines.Add(new LineBreak());
                 Log.logParagraph.Inlines.Add(new Bold(new Run("Width: ")) { Foreground = Log.ConsoleDefault });
                 Log.logParagraph.Inlines.Add(new Run(width) { Foreground = Log.ConsoleDefault });
@@ -2052,25 +2074,24 @@ namespace Axiom
         /// <summary>
         /// Scaling Algorithm
         /// <summary>
-        public static String ScalingAlgorithm(ViewModel vm)
+        public static String ScalingAlgorithm(string scalingAlgorithm_SelectedItem
+                                              )
         {
-            //string vScaling = string.Empty;
-
             // None & Default
             //
-            if (vm.Scaling_SelectedItem == "default")
+            if (scalingAlgorithm_SelectedItem == "default")
             {
-                vScaling = string.Empty;
+                vScalingAlgorithm = string.Empty;
             }
 
             // Scaler
             //
             else
             {
-                vScaling = ":flags=" + vm.Scaling_SelectedItem;
+                vScalingAlgorithm = ":flags=" + scalingAlgorithm_SelectedItem;
             }
 
-            return vScaling;
+            return vScalingAlgorithm;
         }
 
 

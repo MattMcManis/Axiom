@@ -699,7 +699,13 @@ namespace Axiom
                 // -------------------------
                 //  Resize
                 // -------------------------
-                Video.Size(vm);
+                Video.Scale(vm.VideoCodec_SelectedItem,
+                            vm.Size_SelectedItem,
+                            vm.Width_Text,
+                            vm.Height_Text,
+                            vm.Scaling_SelectedItem,
+                            vm.CropClear_Text
+                            );
 
                 // -------------------------
                 // PNG to JPEG

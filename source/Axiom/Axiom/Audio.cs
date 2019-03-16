@@ -300,10 +300,10 @@ namespace Axiom
             {
                 // Bitrate Mode
                 aBitMode = BitrateMode(vbr_IsChecked,
-                                      quality_Items,
-                                      quality_SelectedItem,
-                                      bitrate_Text
-                                      );
+                                       quality_Items,
+                                       quality_SelectedItem,
+                                       bitrate_Text
+                                       );
 
                 // No Detectable Bitrate Default
                 aBitrateNA = quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.NA;
@@ -904,7 +904,11 @@ namespace Axiom
         /// <summary>
         ///     Batch Audio Bitrate Limiter (Method)
         /// <summary>
-        public static String BatchAudioBitrateLimiter(ViewModel vm)
+        public static String BatchAudioBitrateLimiter(string mediaType_SelectedItem,
+                                                      string codec_SelectedItem,
+                                                      string stream_SelectedItem,
+                                                      string quality_SelectedItem
+                                                      )
         {
             // Audio Bitrate None Check
             // Audio Codec None
@@ -912,48 +916,48 @@ namespace Axiom
             // Mute Check
             // Stream None Check
             // Media Type Check
-            if (vm.MediaType_SelectedItem != "Image" &&
-                vm.MediaType_SelectedItem != "Sequence" &&
-                vm.AudioCodec_SelectedItem != "None" &&
-                vm.AudioCodec_SelectedItem != "Copy" &&
-                vm.AudioQuality_SelectedItem != "None" &&
-                vm.AudioQuality_SelectedItem != "Mute" &&
-                vm.AudioStream_SelectedItem != "none"
+            if (mediaType_SelectedItem != "Image" &&
+                mediaType_SelectedItem != "Sequence" &&
+                codec_SelectedItem != "None" &&
+                codec_SelectedItem != "Copy" &&
+                quality_SelectedItem != "None" &&
+                quality_SelectedItem != "Mute" &&
+                stream_SelectedItem != "none"
                 )
             {
                 // -------------------------
                 // Batch Limit Bitrates
                 // -------------------------
                 // Only if Audio ComboBox Auto
-                if (vm.AudioQuality_SelectedItem == "Auto")
+                if (quality_SelectedItem == "Auto")
                 {
                     // Limit Vorbis bitrate to 500k through cmd.exe
-                    if (vm.AudioCodec_SelectedItem == "Vorbis")
+                    if (codec_SelectedItem == "Vorbis")
                     {
                         aBitrateLimiter = "& (IF %A gtr 500000 (SET aBitrate=500000) ELSE (echo Bitrate within Vorbis Limit of 500k)) & for /F %A in ('echo %aBitrate%') do (echo)";
                     }
                     // Limit Opus bitrate to 510k through cmd.exe
-                    else if (vm.AudioCodec_SelectedItem == "Opus")
+                    else if (codec_SelectedItem == "Opus")
                     {
                         aBitrateLimiter = "& (IF %A gtr 510000 (SET aBitrate=510000) ELSE (echo Bitrate within Opus Limit of 510k)) & for /F %A in ('echo %aBitrate%') do (echo)";
                     }
                     // Limit AAC bitrate to 400k through cmd.exe
-                    else if (vm.AudioCodec_SelectedItem == "AAC")
+                    else if (codec_SelectedItem == "AAC")
                     {
                         aBitrateLimiter = "& (IF %A gtr 400000 (SET aBitrate=400000) ELSE (echo Bitrate within AAC Limit of 400k)) & for /F %A in ('echo %aBitrate%') do (echo)";
                     }
                     // Limit AC3 bitrate to 640k through cmd.exe
-                    else if (vm.AudioCodec_SelectedItem == "AC3")
+                    else if (codec_SelectedItem == "AC3")
                     {
                         aBitrateLimiter = "& (IF %A gtr 640000 (SET aBitrate=640000) ELSE (echo Bitrate within AC3 Limit of 640k)) & for /F %A in ('echo %aBitrate%') do (echo)";
                     }
                     // Limit MP2 bitrate to 320k through cmd.exe
-                    else if (vm.AudioCodec_SelectedItem == "MP2")
+                    else if (codec_SelectedItem == "MP2")
                     {
                         aBitrateLimiter = "& (IF %A gtr 320000 (SET aBitrate=320000) ELSE (echo Bitrate within MP2 Limit of 320k)) & for /F %A in ('echo %aBitrate%') do (echo)";
                     }
                     // Limit LAME bitrate to 320k through cmd.exe
-                    else if (vm.AudioCodec_SelectedItem == "LAME")
+                    else if (codec_SelectedItem == "LAME")
                     {
                         aBitrateLimiter = "& (IF %A gtr 320000 (SET aBitrate=320000) ELSE (echo Bitrate within LAME Limit of 320k)) & for /F %A in ('echo %aBitrate%') do (echo)";
                     }
@@ -969,7 +973,11 @@ namespace Axiom
         /// <summary>
         ///     Batch Audio Quality Auto
         /// <summary>
-        public static String BatchAudioQualityAuto(ViewModel vm)
+        public static String BatchAudioQualityAuto(bool batch_IsChecked,
+                                                   string mediaType_SelectedItem,
+                                                   string codec_SelectedItem,
+                                                   string stream_SelectedItem,
+                                                   string quality_SelectedItem)
         {
             // Audio Bitrate None Check
             // Audio Codec None
@@ -977,18 +985,18 @@ namespace Axiom
             // Mute Check
             // Stream None Check
             // Media Type Check
-            if (vm.AudioQuality_SelectedItem != "None" &&
-                vm.AudioCodec_SelectedItem != "None" &&
-                vm.AudioCodec_SelectedItem != "Copy" &&
-                vm.AudioQuality_SelectedItem != "Mute" &&
-                vm.AudioStream_SelectedItem != "none" &&
-                vm.MediaType_SelectedItem != "Image" &&
-                vm.MediaType_SelectedItem != "Sequence")
+            if (quality_SelectedItem != "None" &&
+                quality_SelectedItem != "Mute" &&
+                codec_SelectedItem != "None" &&
+                codec_SelectedItem != "Copy" &&
+                stream_SelectedItem != "none" &&
+                mediaType_SelectedItem != "Image" &&
+                mediaType_SelectedItem != "Sequence")
             {
                 // -------------------------
                 // Batch Auto
                 // -------------------------
-                if (vm.Batch_IsChecked == true)
+                if (batch_IsChecked == true)
                 {
                     // -------------------------
                     // Batch Audio Auto Bitrates
@@ -996,7 +1004,7 @@ namespace Axiom
 
                     // Batch CMD Detect
                     //
-                    if (vm.AudioQuality_SelectedItem == "Auto")
+                    if (quality_SelectedItem == "Auto")
                     {
                         // Make List
                         List<string> BatchAudioAutoList = new List<string>()

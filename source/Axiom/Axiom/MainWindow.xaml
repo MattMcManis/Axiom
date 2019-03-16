@@ -47,7 +47,7 @@
     <Grid>
 
         <!-- Script View -->
-        <TextBox x:Name="rtbScriptView" 
+        <TextBox x:Name="tbxScriptView" 
                  Text="{Binding ScriptView_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  Style="{DynamicResource TextBoxScriptView}"
                  FontSize="14" 
