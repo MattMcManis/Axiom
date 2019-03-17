@@ -176,7 +176,8 @@
     <SolidColorBrush x:Key="ComboBoxWhite.Static.Background" Color="#FF000000"/>
     <SolidColorBrush x:Key="ComboBoxWhite.Static.Foreground" Color="#FFFFFFFF"/>
     <SolidColorBrush x:Key="ComboBoxWhite.Static.Border" Color="#FF000000"/>
-
+    <SolidColorBrush x:Key="ComboBoxWhiteHeader.Static.Foreground" Color="#FF222222"/>
+    
     <!-- Disabled-->
     <SolidColorBrush x:Key="ComboBoxWhite.Disabled.Foreground" Color="#FFFFFFFF"/>
     <SolidColorBrush x:Key="ComboBoxWhite.Disabled.Background" Color="#FF222222"/>
@@ -345,8 +346,9 @@
             <ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
         </Border>
         <ControlTemplate.Triggers>
+            <!-- Item Header -->
             <Trigger Property="IsEnabled" Value="False">
-                <Setter Property="TextElement.Foreground" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                <Setter Property="TextElement.Foreground" TargetName="Bd" Value="{StaticResource ComboBoxWhiteHeader.Static.Foreground}"/>
             </Trigger>
             <!-- Background Mouse Over Not Selected -->
             <MultiTrigger>
@@ -425,6 +427,17 @@
                 <Setter Property="Foreground" Value="{StaticResource ComboBoxWhite.MouseOver.Foreground}" />
                 <Setter Property="Background" Value="{StaticResource ComboBoxWhite.MouseOver.Background}" />
             </Trigger>
+
+            <!-- Headers -->
+            <DataTrigger Binding="{Binding IsHeader}" Value="True">
+                <Setter Property="IsEnabled" Value="False"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="Margin" Value="0,5,0,0"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IsHeader}" Value="False">
+                <Setter Property="Margin" Value="0,0,0,0"/>
+            </DataTrigger>
+
         </Style.Triggers>
     </Style>
 

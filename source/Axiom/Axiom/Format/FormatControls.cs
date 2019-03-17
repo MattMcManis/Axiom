@@ -20,6 +20,8 @@ along with this program.If not, see <http://www.gnu.org/licenses/>.
 ---------------------------------------------------------------------- */
 
 using System.Collections.Generic;
+using System.Linq;
+using System.Windows;
 // Disable XML Comment warnings
 #pragma warning disable 1591
 #pragma warning disable 1587

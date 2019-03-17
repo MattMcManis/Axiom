@@ -346,7 +346,7 @@
                                     FontFamily="Segoe UI Semilight" 
                                     Height="26" 
                                    Grid.Column="1" />
-                            <ComboBox x:Name="cboContainer" 
+                            <!--<ComboBox x:Name="cboContainer" 
                                       Style="{DynamicResource ComboBoxWhite}"
                                       ItemContainerStyle="{DynamicResource ComboBoxWhiteItem}" 
                                       ItemsSource="{Binding Format_Container_Items}"
@@ -358,7 +358,33 @@
                                       Width="105" 
                                       Height="22"
                                       SelectionChanged="cboContainer_SelectionChanged" 
-                                      Grid.Column="2"/>
+                                      Grid.Column="2"/>-->
+                            <ComboBox x:Name="cboContainer" 
+                                      ItemsSource="{Binding Format_Container_Items}"
+                                      SelectedIndex="{Binding Format_Container_SelectedIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      SelectedValuePath="Name"
+                                      SelectedValue="{Binding Format_Container_SelectedItem, Mode=TwoWay}"
+                                      Style="{DynamicResource ComboBoxWhite}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxWhiteItem}" 
+                                      HorizontalAlignment="Left"
+                                      VerticalAlignment="Top" 
+                                      Width="105" 
+                                      Height="22"
+                                      SelectionChanged="cboContainer_SelectionChanged" 
+                                      Grid.Column="2" 
+                                      Margin="0,2,0,0">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <TextBlock DataContext="{Binding}">
+                                                <TextBlock.Text>
+                                                    <Binding Path="Name"/>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
 
                             <!-- MediaType -->
                             <Label Style="{DynamicResource LabelCustom}"
@@ -411,11 +437,10 @@
                                       Width="105" 
                                       Height="22"
                                       Grid.Column="2" 
-                                      Grid.Row="3" 
-                                      Margin="0,2,0,0"
+                                      Grid.Row="3"
                                       ToolTipService.InitialShowDelay="1000" 
                                       ToolTipService.ShowOnDisabled="True" 
-                                      ToolTip="Encoding Speed. Slower = Better Quality &amp; Compression." 
+                                      ToolTip="Encoding Speed. Slower = Better Quality &amp; Compression." Margin="0,2,0,0" 
                                       >
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
@@ -1200,7 +1225,7 @@
                                       Height="22" 
                                       Margin="0,2,0,0" 
                                       SelectionChanged="cboVideo_AspectRatio_SelectionChanged"/>
-                            
+
                             <!-- Scaling -->
                             <Label Style="{DynamicResource LabelCustom}" 
                                    Content="Scaling"
@@ -1521,8 +1546,8 @@
                                       Style="{DynamicResource ComboBoxCustom}"
                                       ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" 
                                       ItemsSource="{Binding Audio_SampleRate_Items}"
-                                      SelectedValuePath="Name"
                                       SelectedIndex="{Binding Audio_SampleRate_SelectedIndex}"
+                                      SelectedValuePath="Name"
                                       SelectedValue="{Binding Audio_SampleRate_SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                       IsEnabled="{Binding Audio_SampleRate_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                       IsSynchronizedWithCurrentItem="True"
@@ -1581,8 +1606,8 @@
                                       Style="{DynamicResource ComboBoxCustom}"
                                       ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" 
                                       ItemsSource="{Binding Audio_BitDepth_Items}"
-                                      SelectedValuePath="Name"
                                       SelectedIndex="{Binding Audio_BitDepth_SelectedIndex}"
+                                      SelectedValuePath="Name"
                                       SelectedValue="{Binding Audio_BitDepth_SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                       IsEnabled="{Binding Audio_BitDepth_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                       IsSynchronizedWithCurrentItem="True"
@@ -2375,7 +2400,7 @@
                                                                     PreviewMouseUp="slFilterVideo_SelectiveColor_Reds_Magenta_PreviewMouseUp"
                                                                     MouseDoubleClick="slFilterVideo_SelectiveColor_Reds_Magenta_MouseDoubleClick" 
                                                                     Grid.Column="1"/>
-                                                              <TextBox x:Name="tbxFilterVideo_SelectiveColor_Reds_Magenta"
+                                                            <TextBox x:Name="tbxFilterVideo_SelectiveColor_Reds_Magenta"
                                                                          Text="{Binding FilterVideo_SelectiveColor_Reds_Magenta_Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                                          Height="22" 
                                                                          TextWrapping="Wrap" 

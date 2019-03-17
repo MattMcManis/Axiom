@@ -3539,19 +3539,9 @@ namespace Axiom
             FormatControls.SetControls(vm, vm.Format_Container_SelectedItem);
 
             // -------------------------
-            // Output Control Selections
-            // -------------------------
-            ///FormatControls.OuputFormatDefaults(this);
-
-            // -------------------------
             // Get Output Extension
             // -------------------------
             FormatControls.OutputFormatExt(vm);
-
-            // -------------------------
-            // Output ComboBox Options
-            // -------------------------
-            //FormatControls.OutputFormat(this);
 
             // -------------------------
             // Video Encoding Pass
@@ -3580,85 +3570,6 @@ namespace Axiom
             // --------------------------------------------------
             ExtensionMatchCheckAuto(vm);
             //MessageBox.Show(inputExt + " " + outputExt); //debug
-
-            // -------------------------
-            // Video
-            // -------------------------
-            //if (vm.Video_Quality_SelectedItem != "Auto" &&
-            //    string.Equals(inputExt, outputExt, StringComparison.CurrentCultureIgnoreCase))
-            //{
-            //    vm.Video_Quality_SelectedItem = "Auto";
-            //    vm.Video_PixelFormat_SelectedItem = "auto";
-            //    vm.Video_FPS_SelectedItem = "auto";
-            //    vm.Video_Optimize_SelectedItem = "None";
-            //    vm.Video_Scale_SelectedItem = "Source";
-            //    vm.Video_ScalingAlgorithm_SelectedItem = "default";
-
-            //    // Filters
-            //    // Fix
-            //    cboFilterVideo_Deband_SelectedItem = "disabled";
-            //    cboFilterVideo_Deshake_SelectedItem = "disabled";
-            //    cboFilterVideo_Deflicker_SelectedItem = "disabled";
-            //    cboFilterVideo_Dejudder_SelectedItem = "disabled";
-            //    cboFilterVideo_Denoise_SelectedItem = "disabled";
-            //    // Selective Color
-            //    // Reds
-            //    vm.FilterVideo_SelectiveColor_Reds_Cyan_Value = 0;
-            //    vm.FilterVideo_SelectiveColor_Reds_Magenta_Value = 0;
-            //    vm.FilterVideo_SelectiveColor_Reds_Yellow_Value = 0;
-            //    // Yellows
-            //    vm.FilterVideo_SelectiveColor_Yellows_Cyan_Value = 0;
-            //    vm.FilterVideo_SelectiveColor_Yellows_Magenta_Value = 0;
-            //    vm.FilterVideo_SelectiveColor_Yellows_Yellow_Value = 0;
-            //    // Greens
-            //    vm.FilterVideo_SelectiveColor_Greens_Cyan_Value = 0;
-            //    vm.FilterVideo_SelectiveColor_Greens_Magenta_Value = 0;
-            //    vm.FilterVideo_SelectiveColor_Greens_Yellow_Value = 0;
-            //    // Cyans
-            //    vm.FilterVideo_SelectiveColor_Cyans_Cyan_Value = 0;
-            //    vm.FilterVideo_SelectiveColor_Cyans_Magenta_Value = 0;
-            //    vm.FilterVideo_SelectiveColor_Cyans_Yellow_Value = 0;
-            //    // Blues
-            //    vm.FilterVideo_SelectiveColor_Blues_Cyan_Value = 0;
-            //    vm.FilterVideo_SelectiveColor_Blues_Magenta_Value = 0;
-            //    vm.FilterVideo_SelectiveColor_Blues_Yellow_Value = 0;
-            //    // Magentas
-            //    vm.FilterVideo_SelectiveColor_Magentas_Cyan_Value = 0;
-            //    vm.FilterVideo_SelectiveColor_Magentas_Magenta_Value = 0;
-            //    vm.FilterVideo_SelectiveColor_Magentas_Yellow_Value = 0;
-            //    // Whites
-            //    vm.FilterVideo_SelectiveColor_Whites_Cyan_Value = 0;
-            //    vm.FilterVideo_SelectiveColor_Whites_Magenta_Value = 0;
-            //    vm.FilterVideo_SelectiveColor_Whites_Yellow_Value = 0;
-            //    // Neutrals
-            //    vm.FilterVideo_SelectiveColor_Neutrals_Cyan_Value = 0;
-            //    vm.FilterVideo_SelectiveColor_Neutrals_Magenta_Value = 0;
-            //    vm.FilterVideo_SelectiveColor_Neutrals_Yellow_Value = 0;
-            //    // Blacks
-            //    vm.FilterVideo_SelectiveColor_Blacks_Cyan_Value = 0;
-            //    vm.FilterVideo_SelectiveColor_Blacks_Magenta_Value = 0;
-            //    vm.FilterVideo_SelectiveColor_Blacks_Yellow_Value = 0;
-
-            //    // EQ
-            //    slFilterVideo_EQ_Brightness_Value = 0;
-            //    slFilterVideo_EQ_Contrast_Value = 0;
-            //    slFilterVideo_EQ_Saturation_Value = 0;
-            //    slFilterVideo_EQ_Gamma_Value = 0;
-            //}
-
-            //// -------------------------
-            //// Audio
-            //// -------------------------
-            //if (vm.Audio_Quality_SelectedItem != "Auto" &&
-            //    string.Equals(inputExt, outputExt, StringComparison.CurrentCultureIgnoreCase))
-            //{
-            //    vm.Audio_Quality_SelectedItem = "Auto";
-            //    vm.Audio_Channel_SelectedItem = "Source";
-            //    vm.Audio_SampleRate_SelectedItem = "auto";
-            //    vm.Audio_BitDepth_SelectedItem = "auto";
-            //    vm.Audio_Volume_Text = "100";
-            //    vm.Audio_HardLimiter_Value = 1;
-            //}
 
             // -------------------------
             // Update Ouput Textbox with current Format extension

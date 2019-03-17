@@ -73,7 +73,9 @@ namespace Axiom
                     //vm.Preset.IsEditable = false;
 
                     // Format
-                    vm.Format_Container_SelectedItem = vm.Format_Container_Items.FirstOrDefault();
+                    vm.Format_Container_SelectedItem = "webm";
+                    //vm.Format_Container_SelectedIndex = 1;
+                    //vm.Format_Container_SelectedItem = vm.Format_Container_Items.FirstOrDefault();
 
                     // Video
                     vm.Video_Quality_SelectedItem = "Auto";
@@ -134,7 +136,9 @@ namespace Axiom
                     //vm.Preset.IsEditable = false;
 
                     // Format
-                    vm.Format_Container_SelectedItem = vm.Format_Container_Items.FirstOrDefault();
+                    //vm.Format_Container_SelectedItem = vm.Format_Container_Items.FirstOrDefault();
+                    vm.Format_Container_SelectedItem = "webm";
+                    vm.Format_Container_SelectedIndex = 1;
                     vm.Format_Cut_SelectedItem = "No";
                     vm.Format_CutStart_Text = "00:00:00.000";
                     vm.Format_CutEnd_Text = "00:00:00.000";

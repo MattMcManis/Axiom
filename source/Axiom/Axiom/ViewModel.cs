@@ -60,7 +60,10 @@ namespace Axiom
             Preset_SelectedItem = Preset_Items.FirstOrDefault();
 
             // Format
-            Format_Container_SelectedItem = Format_Container_Items.FirstOrDefault();
+            Format_Container_SelectedItem = "webm";
+            //Format_Container_SelectedItem = Format_Container_Items.FirstOrDefault();
+            //Format_Container_Items = _Format_Container_Items;
+            //Format_Container_SelectedIndex = 1;
             Format_MediaType_SelectedItem = "Video";
             //Format_Container_SelectedIndex = 0;
             //Format_Container_SelectedItem = "webm";
@@ -438,25 +441,36 @@ namespace Axiom
         // Containers
         // --------------------------------------------------
         // Item Source
-        private List<string> _Format_Container_Items = new List<string>()
+        public class FormatContainer
         {
-            "webm",
-            "mp4",
-            "mkv",
-            "m2v",
-            "mpg",
-            "avi",
-            "ogv",
-            "mp3",
-            "m4a",
-            "ogg",
-            "flac",
-            "wav",
-            "jpg",
-            "png",
-            "webp"
+            public string Name { get; set; }
+            public bool IsHeader { get; set; }
+        }
+
+        public List<FormatContainer> _Format_Container_Items = new List<FormatContainer>()
+        {
+            new FormatContainer() { Name = "Video", IsHeader = true  },
+            new FormatContainer() { Name = "webm",  IsHeader = false },
+            new FormatContainer() { Name = "mp4",   IsHeader = false },
+            new FormatContainer() { Name = "mkv",   IsHeader = false },
+            new FormatContainer() { Name = "mpg",   IsHeader = false },
+            new FormatContainer() { Name = "avi",   IsHeader = false },
+            new FormatContainer() { Name = "ogv",   IsHeader = false },
+
+            new FormatContainer() { Name = "Audio", IsHeader = true  },
+            new FormatContainer() { Name = "mp3",   IsHeader = false },
+            new FormatContainer() { Name = "m4a",   IsHeader = false },
+            new FormatContainer() { Name = "ogg",   IsHeader = false },
+            new FormatContainer() { Name = "flac",  IsHeader = false },
+            new FormatContainer() { Name = "wav",   IsHeader = false },
+
+            new FormatContainer() { Name = "Image", IsHeader = true  },
+            new FormatContainer() { Name = "jpg",   IsHeader = false },
+            new FormatContainer() { Name = "png",   IsHeader = false },
+            new FormatContainer() { Name = "webp",  IsHeader = false },
         };
-        public List<string> Format_Container_Items
+
+        public List<FormatContainer> Format_Container_Items
         {
             get { return _Format_Container_Items; }
             set
@@ -466,32 +480,33 @@ namespace Axiom
             }
         }
 
-        // Selected Index
-        //private int _Format_Container_SelectedIndex { get; set; }
-        //public int Format_Container_SelectedIndex
-        //{
-        //    get
-        //    {
-        //        if (_Format_Container_SelectedIndex == 0)
-        //        {
-        //            Format_Container_Items.FirstOrDefault();
-        //        }
 
-        //        return _Format_Container_SelectedIndex;
-        //    }
-        //    set
-        //    {
-        //        _Format_Container_SelectedIndex = value;
-        //        OnPropertyChanged("Format_Container_SelectedIndex");
-        //    }
-        //}
-        //public int Format_Container_SelectedIndex
+        // Item Source
+        //private List<string> _Format_Container_Items = new List<string>()
         //{
-        //    get { return _Format_Container_SelectedIndex; }
+        //    "webm",
+        //    "mp4",
+        //    "mkv",
+        //    "m2v",
+        //    "mpg",
+        //    "avi",
+        //    "ogv",
+        //    "mp3",
+        //    "m4a",
+        //    "ogg",
+        //    "flac",
+        //    "wav",
+        //    "jpg",
+        //    "png",
+        //    "webp"
+        //};
+        //public List<string> Format_Container_Items
+        //{
+        //    get { return _Format_Container_Items; }
         //    set
         //    {
-        //        _Format_Container_SelectedIndex = value;
-        //        OnPropertyChanged("Format_Container_SelectedIndex");
+        //        _Format_Container_Items = value;
+        //        OnPropertyChanged("Format_Container_Items");
         //    }
         //}
         private int _Format_Container_SelectedIndex { get; set; }

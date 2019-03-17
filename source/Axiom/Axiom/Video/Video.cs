@@ -280,7 +280,7 @@ namespace Axiom
         ///     Speed
         /// <summary>
         public static String Speed(List<ViewModel.VideoEncodeSpeed> encodeSpeedItems,
-                                   string encodeSpeed,
+                                   string encodeSpeed_SelectedItem,
                                    string mediaType_SelectedItem,
                                    string codec_SelectedItem,
                                    string quality_SelectedItem,
@@ -305,11 +305,11 @@ namespace Axiom
                     if (pass == "CRF" ||
                         pass == "1 Pass")
                     {
-                        vEncodeSpeed = encodeSpeedItems.FirstOrDefault(item => item.Name == encodeSpeed)?.Command;
+                        vEncodeSpeed = encodeSpeedItems.FirstOrDefault(item => item.Name == encodeSpeed_SelectedItem)?.Command;
                     }
                     else if (pass == "2 Pass")
                     {
-                        vEncodeSpeed = encodeSpeedItems.FirstOrDefault(item => item.Name == encodeSpeed)?.Command_2Pass;
+                        vEncodeSpeed = encodeSpeedItems.FirstOrDefault(item => item.Name == encodeSpeed_SelectedItem)?.Command_2Pass;
                     }
                 }
 
@@ -318,7 +318,7 @@ namespace Axiom
                 // -------------------------
                 else
                 {
-                    vEncodeSpeed = encodeSpeedItems.FirstOrDefault(item => item.Name == encodeSpeed) ?.Command;
+                    vEncodeSpeed = encodeSpeedItems.FirstOrDefault(item => item.Name == encodeSpeed_SelectedItem) ?.Command;
                 }
 
 
@@ -327,7 +327,7 @@ namespace Axiom
                 {
                     Log.logParagraph.Inlines.Add(new LineBreak());
                     Log.logParagraph.Inlines.Add(new Bold(new Run("Encoding Speed: ")) { Foreground = Log.ConsoleDefault });
-                    Log.logParagraph.Inlines.Add(new Run(encodeSpeed) { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new Run(encodeSpeed_SelectedItem) { Foreground = Log.ConsoleDefault });
                 };
                 Log.LogActions.Add(Log.WriteAction);
             }
