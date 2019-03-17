@@ -68,31 +68,31 @@ namespace Axiom
             // -------------------------
             // Video Formats
             // -------------------------
-            if (vm.Container_SelectedItem == "webm")
+            if (vm.Format_Container_SelectedItem == "webm")
             {
                 vMap = "-map 0:v:0?"; // only video track 1
             }
-            else if (vm.Container_SelectedItem == "mp4")
+            else if (vm.Format_Container_SelectedItem == "mp4")
             {
                 vMap = "-map 0:v:0?"; // only video track 1
             }
-            else if (vm.Container_SelectedItem == "mkv")
+            else if (vm.Format_Container_SelectedItem == "mkv")
             {
                 vMap = "-map 0:v?"; // all video tracks
             }
-            else if (vm.Container_SelectedItem == "m2v")
+            else if (vm.Format_Container_SelectedItem == "m2v")
             {
                 vMap = "-map 0:v?"; // all video tracks
             }
-            else if (vm.Container_SelectedItem == "mpg")
+            else if (vm.Format_Container_SelectedItem == "mpg")
             {
                 vMap = "-map 0:v?"; // all video tracks
             }
-            else if (vm.Container_SelectedItem == "avi")
+            else if (vm.Format_Container_SelectedItem == "avi")
             {
                 vMap = "-map 0:v:0?"; // only video track 1
             }
-            else if (vm.Container_SelectedItem == "ogv")
+            else if (vm.Format_Container_SelectedItem == "ogv")
             {
                 vMap = "-map 0:v?"; // all video tracks
             }
@@ -107,7 +107,7 @@ namespace Axiom
             // -------------------------
             // Video Codecs
             // -------------------------
-            if (vm.VideoCodec_SelectedItem == "None")
+            if (vm.Video_Codec_SelectedItem == "None")
             {
                 vMap = "-vn"; // only video track 1
             }
@@ -140,31 +140,31 @@ namespace Axiom
             // -------------------------
             // Video Formats
             // -------------------------
-            if (vm.Container_SelectedItem == "webm")
+            if (vm.Format_Container_SelectedItem == "webm")
             {
                 cMap = "-map_chapters -1"; // remove chapters
             }
-            else if (vm.Container_SelectedItem == "mp4")
+            else if (vm.Format_Container_SelectedItem == "mp4")
             {
                 cMap = "-map_chapters 0"; // all chapters
             }
-            else if (vm.Container_SelectedItem == "mkv")
+            else if (vm.Format_Container_SelectedItem == "mkv")
             {
                 cMap = "-map_chapters 0"; // all chapters
             }
-            else if (vm.Container_SelectedItem == "m2v")
+            else if (vm.Format_Container_SelectedItem == "m2v")
             {
                 cMap = "-map_chapters -1"; // remove chapters
             }
-            else if (vm.Container_SelectedItem == "mpg")
+            else if (vm.Format_Container_SelectedItem == "mpg")
             {
                 cMap = "-map_chapters 0"; // all chapters
             }
-            else if (vm.Container_SelectedItem == "avi")
+            else if (vm.Format_Container_SelectedItem == "avi")
             {
                 cMap = "-map_chapters 0"; // all chapters
             }
-            else if (vm.Container_SelectedItem == "ogv")
+            else if (vm.Format_Container_SelectedItem == "ogv")
             {
                 cMap = "-map_chapters 0"; // all chapters
             }
@@ -220,19 +220,19 @@ namespace Axiom
             // Subtitle Map
             // --------------------------------------------------------------------
 
-            if (vm.SubtitleCodec_SelectedItem != "Burn") // Ignore if Burn
+            if (vm.Subtitle_Codec_SelectedItem != "Burn") // Ignore if Burn
             {
                 // -------------------------
                 // None
                 // -------------------------
-                if (vm.SubtitleStream_SelectedItem == "none")
+                if (vm.Subtitle_Stream_SelectedItem == "none")
                 {
                     sMap = "-sn";
                 }
                 // -------------------------
                 // External
                 // -------------------------
-                else if (vm.SubtitleStream_SelectedItem == "external")
+                else if (vm.Subtitle_Stream_SelectedItem == "external")
                 {
                     // -------------------------
                     // Map
@@ -256,10 +256,10 @@ namespace Axiom
                     // Default Subtitle
                     // -------------------------
                     string checkedItem = string.Empty;
-                    for (var i = 0; i < vm.SubtitleListView_Items.Count; i++)
+                    for (var i = 0; i < vm.Subtitle_ListView_Items.Count; i++)
                     {
                         // If list contains a checked item
-                        if (vm.SubtitleListView_SelectedItems.Contains(vm.SubtitleListView_Items[i]))
+                        if (vm.Subtitle_ListView_SelectedItems.Contains(vm.Subtitle_ListView_Items[i]))
                         {
                             // Get Index Position
                             checkedItem = i.ToString();
@@ -289,47 +289,47 @@ namespace Axiom
                 // -------------------------
                 // All
                 // -------------------------
-                else if (vm.SubtitleStream_SelectedItem == "all")
+                else if (vm.Subtitle_Stream_SelectedItem == "all")
                 {
                     // Formats
                     //
-                    if (vm.Container_SelectedItem == "webm")
+                    if (vm.Format_Container_SelectedItem == "webm")
                     {
                         sMap = "-sn"; // no subtitles
                     }
-                    else if (vm.Container_SelectedItem == "mp4")
+                    else if (vm.Format_Container_SelectedItem == "mp4")
                     {
                         sMap = "-map 0:s?"; // all subtitles (:? at the end ignores error if subtitle is not available)
                     }
-                    else if (vm.Container_SelectedItem == "mkv")
+                    else if (vm.Format_Container_SelectedItem == "mkv")
                     {
                         sMap = "-map 0:s?"; // all subtitles
                     }
-                    else if (vm.Container_SelectedItem == "m2v")
+                    else if (vm.Format_Container_SelectedItem == "m2v")
                     {
                         sMap = "-sn"; //  no subtitles
                     }
-                    else if (vm.Container_SelectedItem == "mpg")
+                    else if (vm.Format_Container_SelectedItem == "mpg")
                     {
                         sMap = "-map 0:s?"; // all subtitles
                     }
-                    else if (vm.Container_SelectedItem == "avi")
+                    else if (vm.Format_Container_SelectedItem == "avi")
                     {
                         sMap = "-map 0:s?"; // all subtitles
                     }
-                    else if (vm.Container_SelectedItem == "ogv")
+                    else if (vm.Format_Container_SelectedItem == "ogv")
                     {
                         sMap = "-map 0:s?"; // all subtitles, OGV has problem using Subtitles
                     }
-                    else if (vm.Container_SelectedItem == "jpg")
+                    else if (vm.Format_Container_SelectedItem == "jpg")
                     {
                         sMap = "-sn"; // disable subtitles
                     }
-                    else if (vm.Container_SelectedItem == "png")
+                    else if (vm.Format_Container_SelectedItem == "png")
                     {
                         sMap = "-sn"; // disable subtitles
                     }
-                    else if (vm.Container_SelectedItem == "webp")
+                    else if (vm.Format_Container_SelectedItem == "webp")
                     {
                         sMap = "-sn"; // disable subtitles
                     }
@@ -346,14 +346,14 @@ namespace Axiom
                 else
                 {
                     // Subtract 1, Map starts at 0
-                    int sMapNumber = Int32.Parse(vm.SubtitleStream_SelectedItem) - 1;
+                    int sMapNumber = Int32.Parse(vm.Subtitle_Stream_SelectedItem) - 1;
 
                     sMap = "-map 1:s:" + sMapNumber + "?";
 
                     // Image
-                    if (vm.Container_SelectedItem == "jpg"
-                        || vm.Container_SelectedItem == "png"
-                        || vm.Container_SelectedItem == "webp")
+                    if (vm.Format_Container_SelectedItem == "jpg"
+                        || vm.Format_Container_SelectedItem == "png"
+                        || vm.Format_Container_SelectedItem == "webp")
                     {
                         sMap = "-sn";
                     }
@@ -375,7 +375,7 @@ namespace Axiom
             {
                 Log.logParagraph.Inlines.Add(new LineBreak());
                 Log.logParagraph.Inlines.Add(new Bold(new Run("Subtitle Stream: ")) { Foreground = Log.ConsoleDefault });
-                Log.logParagraph.Inlines.Add(new Run(vm.SubtitleStream_SelectedItem) { Foreground = Log.ConsoleDefault });
+                Log.logParagraph.Inlines.Add(new Run(vm.Subtitle_Stream_SelectedItem) { Foreground = Log.ConsoleDefault });
             };
             Log.LogActions.Add(Log.WriteAction);
 
@@ -408,61 +408,61 @@ namespace Axiom
             // -------------------------
             // None
             // -------------------------
-            if (vm.AudioStream_SelectedItem == "none")
+            if (vm.Audio_Stream_SelectedItem == "none")
             {
                 aMap = "-an";
             }
             // -------------------------
             // All
             // -------------------------
-            else if (vm.AudioStream_SelectedItem == "all")
+            else if (vm.Audio_Stream_SelectedItem == "all")
             {
                 // Video/Image Format
                 //
-                if (vm.Container_SelectedItem == "webm")
+                if (vm.Format_Container_SelectedItem == "webm")
                 {
                     aMap = "-map 0:a:0?"; // only audio track 1
                 }
-                else if (vm.Container_SelectedItem == "mp4")
+                else if (vm.Format_Container_SelectedItem == "mp4")
                 {
                     aMap = "-map 0:a?"; // all audio tracks 
                 }
-                else if (vm.Container_SelectedItem == "mkv")
+                else if (vm.Format_Container_SelectedItem == "mkv")
                 {
                     aMap = "-map 0:a?"; // all audio tracks 
                 }
-                else if (vm.Container_SelectedItem == "m2v")
+                else if (vm.Format_Container_SelectedItem == "m2v")
                 {
                     aMap = "-an"; // disable audio
                 }
-                else if (vm.Container_SelectedItem == "mpg")
+                else if (vm.Format_Container_SelectedItem == "mpg")
                 {
                     aMap = "-map 0:a?"; // all audio tracks 
                 }
-                else if (vm.Container_SelectedItem == "avi")
+                else if (vm.Format_Container_SelectedItem == "avi")
                 {
                     aMap = "-map 0:a?"; // all audio tracks 
                 }
-                else if (vm.Container_SelectedItem == "ogv")
+                else if (vm.Format_Container_SelectedItem == "ogv")
                 {
                     aMap = "-map 0:a?"; // all audio tracks 
                 }
-                else if (vm.Container_SelectedItem == "jpg")
+                else if (vm.Format_Container_SelectedItem == "jpg")
                 {
                     aMap = "-an"; // disable audio
                 }
-                else if (vm.Container_SelectedItem == "png")
+                else if (vm.Format_Container_SelectedItem == "png")
                 {
                     aMap = "-an"; // disable audio
                 }
-                else if (vm.Container_SelectedItem == "webp")
+                else if (vm.Format_Container_SelectedItem == "webp")
                 {
                     aMap = "-an"; // disable audio
                 }
 
                 // Audio Media Type
                 //
-                else if (vm.MediaType_SelectedItem == "Audio")
+                else if (vm.Format_MediaType_SelectedItem == "Audio")
                 {
                     aMap = "-map 0:a:0?"; // only audio track 1
                 }
@@ -473,7 +473,7 @@ namespace Axiom
             else
             {
                 // Subtract 1, Map starts at 0
-                int aMapNumber = Int32.Parse(vm.AudioStream_SelectedItem) - 1;
+                int aMapNumber = Int32.Parse(vm.Audio_Stream_SelectedItem) - 1;
 
                 aMap = "-map 0:a:" + aMapNumber + "?";
             }
@@ -491,7 +491,7 @@ namespace Axiom
             // -------------------------
             // Mute
             // -------------------------
-            if (vm.AudioQuality_SelectedItem == "Mute")
+            if (vm.Audio_Quality_SelectedItem == "Mute")
             {
                 aMap = "-an";
             }
@@ -511,7 +511,7 @@ namespace Axiom
             {
                 Log.logParagraph.Inlines.Add(new LineBreak());
                 Log.logParagraph.Inlines.Add(new Bold(new Run("Audio Stream: ")) { Foreground = Log.ConsoleDefault });
-                Log.logParagraph.Inlines.Add(new Run(vm.AudioStream_SelectedItem) { Foreground = Log.ConsoleDefault });
+                Log.logParagraph.Inlines.Add(new Run(vm.Audio_Stream_SelectedItem) { Foreground = Log.ConsoleDefault });
             };
             Log.LogActions.Add(Log.WriteAction);
 
@@ -535,28 +535,28 @@ namespace Axiom
             // -------------------------
             // mp3
             // -------------------------
-            if (vm.Container_SelectedItem == "mp3")
+            if (vm.Format_Container_SelectedItem == "mp3")
             {
                 mMap = "-map_metadata 0 -id3v2_version 3";
             }
             // -------------------------
             // jpg
             // -------------------------
-            else if (vm.Container_SelectedItem == "jpg")
+            else if (vm.Format_Container_SelectedItem == "jpg")
             {
                 mMap = string.Empty; // do not copy metadata
             }
             // -------------------------
             // png
             // -------------------------
-            else if (vm.Container_SelectedItem == "png")
+            else if (vm.Format_Container_SelectedItem == "png")
             {
                 mMap = string.Empty; // do not copy metadata
             }
             // -------------------------
             // webp
             // -------------------------
-            else if (vm.Container_SelectedItem == "webp")
+            else if (vm.Format_Container_SelectedItem == "webp")
             {
                 mMap = string.Empty; // do not copy metadata
             }

@@ -75,8 +75,8 @@ namespace Axiom
             // -------------------------
             // External
             // -------------------------
-            if (vm.SubtitleStream_SelectedItem == "external" &&
-                vm.SubtitleCodec_SelectedItem != "Burn" &&  // Ignore if Burn
+            if (vm.Subtitle_Stream_SelectedItem == "external" &&
+                vm.Subtitle_Codec_SelectedItem != "Burn" &&  // Ignore if Burn
                 subtitleFilePathsList != null &&
                 subtitleFilePathsList.Count > 0)
             {

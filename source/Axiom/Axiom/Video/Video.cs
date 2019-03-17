@@ -122,20 +122,20 @@ namespace Axiom
             // -------------------------
             // Only x264/x265
             // -------------------------
-            if (vm.VideoCodec_SelectedItem == "x264" ||
-                vm.VideoCodec_SelectedItem == "x265")
+            if (vm.Video_Codec_SelectedItem == "x264" ||
+                vm.Video_Codec_SelectedItem == "x265")
             {
                 // -------------------------
                 // Off
                 // -------------------------
-                if (vm.HWAccel_SelectedItem == "off")
+                if (vm.Format_HWAccel_SelectedItem == "off")
                 {
                     hwacceleration = string.Empty;
                 }
                 // -------------------------
                 // DXVA2
                 // -------------------------
-                else if (vm.HWAccel_SelectedItem == "dxva2")
+                else if (vm.Format_HWAccel_SelectedItem == "dxva2")
                 {
                     // ffmpeg -hwaccel dxva2 -threads 1 -i INPUT -f null
                     hwacceleration = "-hwaccel dxva2";
@@ -143,16 +143,16 @@ namespace Axiom
                 // -------------------------
                 // CUVID
                 // -------------------------
-                else if (vm.HWAccel_SelectedItem == "cuvid")
+                else if (vm.Format_HWAccel_SelectedItem == "cuvid")
                 {
                     // ffmpeg -c:v h264_cuvid -i input output.mkv
 
                     // Override Codecs
-                    if (vm.VideoCodec_SelectedItem == "x264")
+                    if (vm.Video_Codec_SelectedItem == "x264")
                     {
                         vCodec = "-c:v h264_cuvid";
                     }
-                    else if (vm.VideoCodec_SelectedItem == "x264")
+                    else if (vm.Video_Codec_SelectedItem == "x264")
                     {
                         vCodec = "-c:v h265_cuvid";
                     }
@@ -162,16 +162,16 @@ namespace Axiom
                 // -------------------------
                 // NVENC
                 // -------------------------
-                else if (vm.HWAccel_SelectedItem == "nvenc")
+                else if (vm.Format_HWAccel_SelectedItem == "nvenc")
                 {
                     // ffmpeg -i input -c:v h264_nvenc -profile high444p -pix_fmt yuv444p -preset default output.mp4
 
                     // Override Codecs
-                    if (vm.VideoCodec_SelectedItem == "x264")
+                    if (vm.Video_Codec_SelectedItem == "x264")
                     {
                         vCodec = "-c:v h264_nvenc";
                     }
-                    else if (vm.VideoCodec_SelectedItem == "x264")
+                    else if (vm.Video_Codec_SelectedItem == "x264")
                     {
                         vCodec = "-c:v h265_nvenc";
                     }
@@ -181,14 +181,14 @@ namespace Axiom
                 // -------------------------
                 // CUVID + NVENC
                 // -------------------------
-                else if (vm.HWAccel_SelectedItem == "cuvid+nvenc")
+                else if (vm.Format_HWAccel_SelectedItem == "cuvid+nvenc")
                 {
                     // ffmpeg -hwaccel cuvid -c:v h264_cuvid -i input -c:v h264_nvenc -preset slow output.mkv
-                    if (vm.VideoCodec_SelectedItem == "x264")
+                    if (vm.Video_Codec_SelectedItem == "x264")
                     {
                         hwacceleration = "-hwaccel cuvid -c:v h264_cuvid";
                     }
-                    else if (vm.VideoCodec_SelectedItem == "x265")
+                    else if (vm.Video_Codec_SelectedItem == "x265")
                     {
                         hwacceleration = "-hwaccel cuvid -c:v hevc_cuvid";
                     }
@@ -1820,12 +1820,12 @@ namespace Axiom
                     // Change the left over Default empty text to "auto"
                     if (string.Equals(width_Text, "", StringComparison.CurrentCultureIgnoreCase))
                     {
-                        vm.Width_Text = "auto";
+                        vm.Video_Width_Text = "auto";
                     }
 
                     if (string.Equals(height_Text, "", StringComparison.CurrentCultureIgnoreCase))
                     {
-                        vm.Height_Text = "auto";
+                        vm.Video_Height_Text = "auto";
                     }
 
                     // -------------------------
@@ -2155,18 +2155,18 @@ namespace Axiom
             // -------------------------
             // Clear leftover Divisible Crop if not x264/x265
             // CropClearButton is used as an Identifier, Divisible Crop does not leave "Clear*"
-            if (vm.VideoCodec_SelectedItem != "x264" &&
-                vm.VideoCodec_SelectedItem != "x265" &&
-                vm.VideoCodec_SelectedItem != "MPEG-2" &&
-                vm.VideoCodec_SelectedItem != "MPEG-4" &&
-                vm.CropClear_Text == "Clear"
+            if (vm.Video_Codec_SelectedItem != "x264" &&
+                vm.Video_Codec_SelectedItem != "x265" &&
+                vm.Video_Codec_SelectedItem != "MPEG-2" &&
+                vm.Video_Codec_SelectedItem != "MPEG-4" &&
+                vm.Video_CropClear_Text == "Clear"
                 )
             {
                 CropWindow.crop = string.Empty;
             }
 
             // Clear Crop if MediaType is Audio
-            if (vm.MediaType_SelectedItem == "Audio")
+            if (vm.Format_MediaType_SelectedItem == "Audio")
             {
                 CropWindow.crop = string.Empty;
             }
@@ -2176,7 +2176,7 @@ namespace Axiom
             // -------------------------
             // Crop Codec Copy Check
             // Switch Copy to Codec to avoid error
-            if (!string.IsNullOrEmpty(CropWindow.crop) && vm.VideoCodec_SelectedItem == "Copy") //null check
+            if (!string.IsNullOrEmpty(CropWindow.crop) && vm.Video_Codec_SelectedItem == "Copy") //null check
             {
                 // Log Console Message /////////
                 Log.WriteAction = () =>
@@ -2219,15 +2219,15 @@ namespace Axiom
             // Video Codec None Check
             // Video Codec Copy Check
             // Media Type Check
-            if (vm.VideoQuality_SelectedItem != "None" &&
-                vm.VideoCodec_SelectedItem != "None" &&
-                vm.VideoCodec_SelectedItem != "Copy" &&
-                vm.MediaType_SelectedItem != "Audio")
+            if (vm.Video_Quality_SelectedItem != "None" &&
+                vm.Video_Codec_SelectedItem != "None" &&
+                vm.Video_Codec_SelectedItem != "Copy" &&
+                vm.Format_MediaType_SelectedItem != "Audio")
             {
                 // -------------------------
                 // Image
                 // -------------------------
-                if (vm.MediaType_SelectedItem == "Image")
+                if (vm.Format_MediaType_SelectedItem == "Image")
                 {
                     image = "-vframes 1"; //important
                 }
@@ -2235,7 +2235,7 @@ namespace Axiom
                 // -------------------------
                 // Sequence
                 // -------------------------
-                else if (vm.MediaType_SelectedItem == "Sequence")
+                else if (vm.Format_MediaType_SelectedItem == "Sequence")
                 {
                     image = string.Empty; //disable -vframes
                 }

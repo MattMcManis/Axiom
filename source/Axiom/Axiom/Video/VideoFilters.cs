@@ -47,7 +47,7 @@ namespace Axiom
         /// <summary>
         public static void PNGtoJPG_Filter(ViewModel vm)
         {
-            if (vm.VideoCodec_SelectedItem == "JPEG")
+            if (vm.Video_Codec_SelectedItem == "JPEG")
             {
                 // Turn on PNG to JPG Filter
                 if (string.Equals(MainWindow.inputExt, ".png", StringComparison.CurrentCultureIgnoreCase)
@@ -75,7 +75,7 @@ namespace Axiom
         {
             string burn = string.Empty;
 
-            if (vm.SubtitleCodec_SelectedItem == "Burn" &&
+            if (vm.Subtitle_Codec_SelectedItem == "Burn" &&
                 Subtitle.subtitleFileNamesList.Count > 0)
             {
                 // Join File Names List
@@ -682,10 +682,10 @@ namespace Axiom
             // Video Codec None Check
             // Codec Copy Check
             // Media Type Check
-            if (vm.VideoQuality_SelectedItem != "None" &&
-                vm.VideoCodec_SelectedItem != "None" &&
-                vm.VideoCodec_SelectedItem != "Copy" &&
-                vm.MediaType_SelectedItem != "Audio")
+            if (vm.Video_Quality_SelectedItem != "None" &&
+                vm.Video_Codec_SelectedItem != "None" &&
+                vm.Video_Codec_SelectedItem != "Copy" &&
+                vm.Format_MediaType_SelectedItem != "Audio")
             {
                 // --------------------------------------------------
                 // Add Each Filter to Master Filters List
@@ -699,12 +699,12 @@ namespace Axiom
                 // -------------------------
                 //  Resize
                 // -------------------------
-                Video.Scale(vm.VideoCodec_SelectedItem,
-                            vm.Size_SelectedItem,
-                            vm.Width_Text,
-                            vm.Height_Text,
-                            vm.ScalingAlgorithm_SelectedItem,
-                            vm.CropClear_Text
+                Video.Scale(vm.Video_Codec_SelectedItem,
+                            vm.Video_Scale_SelectedItem,
+                            vm.Video_Width_Text,
+                            vm.Video_Height_Text,
+                            vm.Video_ScalingAlgorithm_SelectedItem,
+                            vm.Video_CropClear_Text
                             );
 
                 // -------------------------
@@ -756,7 +756,7 @@ namespace Axiom
                 // -------------------------
                 // Filter Combine
                 // -------------------------
-                if (vm.VideoCodec_SelectedItem != "None") // None Check
+                if (vm.Video_Codec_SelectedItem != "None") // None Check
                 {
                     //System.Windows.MessageBox.Show(string.Join(",\r\n\r\n", vFiltersList.Where(s => !string.IsNullOrEmpty(s)))); //debug
                     //System.Windows.MessageBox.Show(Convert.ToString(vFiltersList.Count())); //debug

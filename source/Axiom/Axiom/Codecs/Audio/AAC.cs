@@ -110,16 +110,16 @@ namespace Axiom
         public static void controlsItemSource(ViewModel vm)
         {
             // Quality
-            vm.AudioQuality_Items = quality;
+            vm.Audio_Quality_Items = quality;
 
             // Channel
-            vm.AudioChannel_Items = channel;
+            vm.Audio_Channel_Items = channel;
 
             // Samplerate
-            vm.AudioSampleRate_Items = sampleRate;
+            vm.Audio_SampleRate_Items = sampleRate;
 
             // Bit Depth
-            vm.AudioBitDepth_Items = bitDepth;
+            vm.Audio_BitDepth_Items = bitDepth;
         }
 
         // -------------------------
@@ -128,7 +128,7 @@ namespace Axiom
         public static void controlsSelected(ViewModel vm)
         {
 
-            //vm.AudioStream_SelectedItem = "all";
+            //vm.Audio_Stream_SelectedItem = "all";
         }
 
         // -------------------------
@@ -145,7 +145,7 @@ namespace Axiom
         public static void controlsUnhecked(ViewModel vm)
         {
             // Bitrate Mode
-            vm.AudioVBR_IsChecked = false;
+            vm.Audio_VBR_IsChecked = false;
         }
 
         // -------------------------
@@ -154,25 +154,25 @@ namespace Axiom
         public static void controlsEnable(ViewModel vm)
         {
             // Audio Codec
-            vm.AudioCodec_IsEnabled = true;
+            vm.Audio_Codec_IsEnabled = true;
 
             // Stream
-            vm.AudioStream_IsEnabled = true;
+            vm.Audio_Stream_IsEnabled = true;
 
             // Channel
-            vm.AudioChannel_IsEnabled = true;
+            vm.Audio_Channel_IsEnabled = true;
 
             // Audio Quality
-            vm.AudioQuality_IsEnabled = true;
+            vm.Audio_Quality_IsEnabled = true;
 
             // Audio VBR
-            vm.AudioVBR_IsEnabled = true;
+            vm.Audio_VBR_IsEnabled = true;
 
             // SampleRate
-            vm.AudioSampleRate_IsEnabled = true;
+            vm.Audio_SampleRate_IsEnabled = true;
 
             // Volume
-            vm.Volume_IsEnabled = true;
+            vm.Audio_Volume_IsEnabled = true;
         }
 
         // -------------------------
@@ -181,7 +181,7 @@ namespace Axiom
         public static void controlsDisable(ViewModel vm)
         {
             // Bit Depth
-            vm.AudioBitDepth_IsEnabled = false;
+            vm.Audio_BitDepth_IsEnabled = false;
         }
     }
 }

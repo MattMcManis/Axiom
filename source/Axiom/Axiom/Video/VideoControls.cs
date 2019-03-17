@@ -76,7 +76,7 @@ namespace Axiom
             if (codec_SelectedItem == "VP8")
             {
                 // Video Codec
-                vm.VideoCodec_Command = VP8.codec;
+                vm.Video_Codec_Command = VP8.codec;
 
                 // Item Source
                 VP8.controlsItemSource(vm);
@@ -103,7 +103,7 @@ namespace Axiom
             else if (codec_SelectedItem == "VP9")
             {
                 // Video Codec
-                vm.VideoCodec_Command = VP9.codec;
+                vm.Video_Codec_Command = VP9.codec;
 
                 // Item Source
                 VP9.controlsItemSource(vm);
@@ -130,7 +130,7 @@ namespace Axiom
             else if (codec_SelectedItem == "x264")
             {
                 // Video Codec
-                vm.VideoCodec_Command = x264.codec;
+                vm.Video_Codec_Command = x264.codec;
 
                 // Item Source
                 x264.controlsItemSource(vm);
@@ -157,7 +157,7 @@ namespace Axiom
             else if (codec_SelectedItem == "x265")
             {
                 // Video Codec
-                vm.VideoCodec_Command = x265.codec;
+                vm.Video_Codec_Command = x265.codec;
 
                 // Item Source
                 x265.controlsItemSource(vm);
@@ -184,7 +184,7 @@ namespace Axiom
             else if (codec_SelectedItem == "MPEG-2")
             {
                 // Video Codec
-                vm.VideoCodec_Command = MPEG_2.codec;
+                vm.Video_Codec_Command = MPEG_2.codec;
 
                 // Item Source
                 MPEG_2.controlsItemSource(vm);
@@ -211,7 +211,7 @@ namespace Axiom
             else if (codec_SelectedItem == "MPEG-4")
             {
                 // Video Codec
-                vm.VideoCodec_Command = MPEG_4.codec;
+                vm.Video_Codec_Command = MPEG_4.codec;
 
                 // Item Source
                 MPEG_4.controlsItemSource(vm);
@@ -238,7 +238,7 @@ namespace Axiom
             else if (codec_SelectedItem == "AV1")
             {
                 // Video Codec
-                vm.VideoCodec_Command = AV1.codec;
+                vm.Video_Codec_Command = AV1.codec;
 
                 // Item Source
                 AV1.controlsItemSource(vm);
@@ -265,7 +265,7 @@ namespace Axiom
             else if (codec_SelectedItem == "FFV1")
             {
                 // Video Codec
-                vm.VideoCodec_Command = FFV1.codec;
+                vm.Video_Codec_Command = FFV1.codec;
 
                 // Item Source
                 FFV1.controlsItemSource(vm);
@@ -292,7 +292,7 @@ namespace Axiom
             else if (codec_SelectedItem == "Theora")
             {
                 // Video Codec
-                vm.VideoCodec_Command = Theora.codec;
+                vm.Video_Codec_Command = Theora.codec;
 
                 // Item Source
                 Theora.controlsItemSource(vm);
@@ -319,7 +319,7 @@ namespace Axiom
             else if (codec_SelectedItem == "JPEG")
             {
                 // Video Codec
-                vm.VideoCodec_Command = JPEG.codec;
+                vm.Video_Codec_Command = JPEG.codec;
 
                 // Item Source
                 JPEG.controlsItemSource(vm);
@@ -346,7 +346,7 @@ namespace Axiom
             else if (codec_SelectedItem == "PNG")
             {
                 // Video Codec
-                vm.VideoCodec_Command = PNG.codec;
+                vm.Video_Codec_Command = PNG.codec;
 
                 // Item Source
                 PNG.controlsItemSource(vm);
@@ -373,7 +373,7 @@ namespace Axiom
             else if (codec_SelectedItem == "WebP")
             {
                 // Video Codec
-                vm.VideoCodec_Command = WebP.codec;
+                vm.Video_Codec_Command = WebP.codec;
 
                 // Item Source
                 WebP.controlsItemSource(vm);
@@ -400,7 +400,7 @@ namespace Axiom
             else if (codec_SelectedItem == "Copy")
             {
                 // Video Codec
-                vm.VideoCodec_Command = VideoCopy.codec;
+                vm.Video_Codec_Command = VideoCopy.codec;
 
                 // Item Source
                 VideoCopy.controlsItemSource(vm);
@@ -427,7 +427,7 @@ namespace Axiom
             else if (codec_SelectedItem == "None")
             {
                 // Video Codec
-                vm.VideoCodec_Command = VideoNone.codec;
+                vm.Video_Codec_Command = VideoNone.codec;
 
                 // Item Source
                 VideoNone.controlsItemSource(vm);
@@ -456,41 +456,41 @@ namespace Axiom
             // -------------------------
             // Video Encode Speed Selected Item
             // -------------------------
-            if (!string.IsNullOrEmpty(vm.VideoEncodeSpeed_SelectedItem) &&
-                vm.VideoEncodeSpeed_SelectedItem != "None" &&
-                vm.VideoEncodeSpeed_SelectedItem != "none")
+            if (!string.IsNullOrEmpty(vm.Video_EncodeSpeed_SelectedItem) &&
+                vm.Video_EncodeSpeed_SelectedItem != "None" &&
+                vm.Video_EncodeSpeed_SelectedItem != "none")
             {
-                MainWindow.VideoEncodeSpeed_PreviousItem = vm.VideoEncodeSpeed_SelectedItem;
+                MainWindow.Video_EncodeSpeed_PreviousItem = vm.Video_EncodeSpeed_SelectedItem;
             }
 
-            vm.VideoEncodeSpeed_SelectedItem = MainWindow.SelectedItem(vm.VideoEncodeSpeed_Items.Select(c => c.Name).ToList(),
-                                                                       MainWindow.VideoEncodeSpeed_PreviousItem
+            vm.Video_EncodeSpeed_SelectedItem = MainWindow.SelectedItem(vm.Video_EncodeSpeed_Items.Select(c => c.Name).ToList(),
+                                                                       MainWindow.Video_EncodeSpeed_PreviousItem
                                                                        );
 
             // -------------------------
             // Video Quality Selected Item
             // -------------------------
-            if (!string.IsNullOrEmpty(vm.VideoQuality_SelectedItem) &&
-                vm.VideoQuality_SelectedItem != "None" &&
-                vm.VideoQuality_SelectedItem != "none")
+            if (!string.IsNullOrEmpty(vm.Video_Quality_SelectedItem) &&
+                vm.Video_Quality_SelectedItem != "None" &&
+                vm.Video_Quality_SelectedItem != "none")
             {
-                MainWindow.VideoQuality_PreviousItem = vm.VideoQuality_SelectedItem;
+                MainWindow.Video_Quality_PreviousItem = vm.Video_Quality_SelectedItem;
             }
 
-            vm.VideoQuality_SelectedItem = MainWindow.SelectedItem(vm.VideoQuality_Items.Select(c => c.Name).ToList(),
-                                                                   MainWindow.VideoQuality_PreviousItem
+            vm.Video_Quality_SelectedItem = MainWindow.SelectedItem(vm.Video_Quality_Items.Select(c => c.Name).ToList(),
+                                                                   MainWindow.Video_Quality_PreviousItem
                                                                    );
 
             // -------------------------
             // Video Pass Selected Item
             // -------------------------
-            //if (!string.IsNullOrEmpty(vm.Pass_SelectedItem))
+            //if (!string.IsNullOrEmpty(vm.Video_Pass_SelectedItem))
             //{
-            //    MainWindow.VideoEncodeSpeed_PreviousItem = vm.Pass_SelectedItem;
+            //    MainWindow.Video_EncodeSpeed_PreviousItem = vm.Video_Pass_SelectedItem;
             //}
 
-            //vm.Pass_SelectedItem = MainWindow.SelectedItem(vm.Pass_Items,
-            //                                               MainWindow.Pass_PreviousItem
+            //vm.Video_Pass_SelectedItem = MainWindow.SelectedItem(vm.Video_Pass_Items,
+            //                                               MainWindow.Video_Pass_PreviousItem
             //                                               );
 
             // -------------------------
@@ -519,11 +519,11 @@ namespace Axiom
                                                string selectedPass)
         {
             // Condition Check
-            if (!string.IsNullOrEmpty(vm.VideoQuality_SelectedItem) &&
-                vm.VideoQuality_SelectedItem != "Auto" &&
-                vm.VideoQuality_SelectedItem != "Lossless" &&
-                vm.VideoQuality_SelectedItem != "Custom" &&
-                vm.VideoQuality_SelectedItem != "None")
+            if (!string.IsNullOrEmpty(vm.Video_Quality_SelectedItem) &&
+                vm.Video_Quality_SelectedItem != "Auto" &&
+                vm.Video_Quality_SelectedItem != "Lossless" &&
+                vm.Video_Quality_SelectedItem != "Custom" &&
+                vm.Video_Quality_SelectedItem != "None")
             {
                 // -------------------------
                 // Display in TextBox
@@ -534,11 +534,11 @@ namespace Axiom
                 // -------------------------
                 if (selectedPass == "auto")
                 {
-                    vm.CRF_Text = string.Empty;
-                    vm.VideoBitrate_Text = string.Empty;
-                    vm.VideoMinrate_Text = string.Empty;
-                    vm.VideoMaxrate_Text = string.Empty;
-                    vm.VideoBufsize_Text = string.Empty;
+                    vm.Video_CRF_Text = string.Empty;
+                    vm.Video_Bitrate_Text = string.Empty;
+                    vm.Video_Minrate_Text = string.Empty;
+                    vm.Video_Maxrate_Text = string.Empty;
+                    vm.Video_Bufsize_Text = string.Empty;
                 }
 
                 // -------------------------
@@ -550,19 +550,19 @@ namespace Axiom
                     // Other Codecs just use CRF
 
                     // CRF Bitrate
-                    vm.VideoBitrate_Text = items.FirstOrDefault(item => item.Name == selectedQuality) ?.CRF_Bitrate;
+                    vm.Video_Bitrate_Text = items.FirstOrDefault(item => item.Name == selectedQuality) ?.Video_CRF_Bitrate;
 
                     // CRF
-                    vm.CRF_Text = items.FirstOrDefault(item => item.Name == selectedQuality)?.CRF;
+                    vm.Video_CRF_Text = items.FirstOrDefault(item => item.Name == selectedQuality)?.CRF;
 
                     // Minrate
-                    vm.VideoMinrate_Text = items.FirstOrDefault(item => item.Name == selectedQuality)?.Minrate;
+                    vm.Video_Minrate_Text = items.FirstOrDefault(item => item.Name == selectedQuality)?.Minrate;
 
                     // Maxrate
-                    vm.VideoMaxrate_Text = items.FirstOrDefault(item => item.Name == selectedQuality)?.Maxrate;
+                    vm.Video_Maxrate_Text = items.FirstOrDefault(item => item.Name == selectedQuality)?.Maxrate;
 
                     // Bufsize
-                    vm.VideoBufsize_Text = items.FirstOrDefault(item => item.Name == selectedQuality)?.Bufsize;
+                    vm.Video_Bufsize_Text = items.FirstOrDefault(item => item.Name == selectedQuality)?.Bufsize;
                 }
 
                 // -------------------------
@@ -572,28 +572,28 @@ namespace Axiom
                          selectedPass == "2 Pass")
                 {
                     // CRF
-                    vm.CRF_Text = string.Empty;
+                    vm.Video_CRF_Text = string.Empty;
 
                     // Bitrate CBR
-                    if (vm.VideoVBR_IsChecked == false)
+                    if (vm.Video_VBR_IsChecked == false)
                     {
-                        vm.VideoBitrate_Text = items.FirstOrDefault(item => item.Name == selectedQuality) ?.CBR;
+                        vm.Video_Bitrate_Text = items.FirstOrDefault(item => item.Name == selectedQuality) ?.CBR;
                     }
 
                     // Bitrate VBR
-                    else if (vm.VideoVBR_IsChecked == true)
+                    else if (vm.Video_VBR_IsChecked == true)
                     {
-                        vm.VideoBitrate_Text = items.FirstOrDefault(item => item.Name == selectedQuality) ?.VBR;
+                        vm.Video_Bitrate_Text = items.FirstOrDefault(item => item.Name == selectedQuality) ?.VBR;
                     }
 
                     // Minrate
-                    vm.VideoMinrate_Text = items.FirstOrDefault(item => item.Name == selectedQuality) ?.Minrate;
+                    vm.Video_Minrate_Text = items.FirstOrDefault(item => item.Name == selectedQuality) ?.Minrate;
 
                     // Maxrate
-                    vm.VideoMaxrate_Text = items.FirstOrDefault(item => item.Name == selectedQuality) ?.Maxrate;
+                    vm.Video_Maxrate_Text = items.FirstOrDefault(item => item.Name == selectedQuality) ?.Maxrate;
 
                     // Bufsize
-                    vm.VideoBufsize_Text = items.FirstOrDefault(item => item.Name == selectedQuality) ?.Bufsize;
+                    vm.Video_Bufsize_Text = items.FirstOrDefault(item => item.Name == selectedQuality) ?.Bufsize;
                 }
             }
         }
@@ -611,109 +611,109 @@ namespace Axiom
             // -------------------------
             // Custom
             // -------------------------
-            if (vm.VideoQuality_SelectedItem == "Custom")
+            if (vm.Video_Quality_SelectedItem == "Custom")
             {
                 // Enable and Clear Bitrate Text Display
 
                 // Pass
-                vm.Pass_IsEnabled = true;
+                vm.Video_Pass_IsEnabled = true;
 
                 // CRF
-                if (vm.VideoCodec_SelectedItem != "JPEG" || // Special Rule
-                    vm.VideoCodec_SelectedItem != "PNG" ||
-                    vm.VideoCodec_SelectedItem != "WebP"
+                if (vm.Video_Codec_SelectedItem != "JPEG" || // Special Rule
+                    vm.Video_Codec_SelectedItem != "PNG" ||
+                    vm.Video_Codec_SelectedItem != "WebP"
                     ) 
                 {
-                    vm.CRF_IsEnabled = true;
+                    vm.Video_CRF_IsEnabled = true;
                 }
-                vm.CRF_Text = "";
+                vm.Video_CRF_Text = "";
 
                 // Bitrate
-                vm.VideoBitrate_IsEnabled = true;
-                vm.VideoBitrate_Text = "";
+                vm.Video_Bitrate_IsEnabled = true;
+                vm.Video_Bitrate_Text = "";
 
                 // VBR
-                vm.VideoVBR_IsEnabled = true;
+                vm.Video_VBR_IsEnabled = true;
 
                 // Minrate
-                vm.VideoMinrate_IsEnabled = true;
-                vm.VideoMinrate_Text = "";
+                vm.Video_Minrate_IsEnabled = true;
+                vm.Video_Minrate_Text = "";
 
                 // Maxrate
-                vm.VideoMaxrate_IsEnabled = true;
-                vm.VideoMaxrate_Text = "";
+                vm.Video_Maxrate_IsEnabled = true;
+                vm.Video_Maxrate_Text = "";
 
                 // Bufsize
-                vm.VideoBufsize_IsEnabled = true;
-                vm.VideoBufsize_Text = "";
+                vm.Video_Bufsize_IsEnabled = true;
+                vm.Video_Bufsize_Text = "";
 
                 // Size
-                vm.Size_IsEnabled = true;
+                vm.Video_Scale_IsEnabled = true;
             }
 
             // -------------------------
             // Auto
             // -------------------------
-            else if (vm.VideoQuality_SelectedItem == "Auto")
+            else if (vm.Video_Quality_SelectedItem == "Auto")
             {
                 // Disable and Clear Bitrate Text Dispaly
 
                 // Pass
-                vm.Pass_IsEnabled = false;
+                vm.Video_Pass_IsEnabled = false;
 
                 // CRF
-                vm.CRF_IsEnabled = false;
-                vm.CRF_Text = "";
+                vm.Video_CRF_IsEnabled = false;
+                vm.Video_CRF_Text = "";
 
                 // Bitrate
-                vm.VideoBitrate_IsEnabled = false;
-                vm.VideoBitrate_Text = "";
+                vm.Video_Bitrate_IsEnabled = false;
+                vm.Video_Bitrate_Text = "";
 
                 // VBR
-                vm.VideoVBR_IsEnabled = false;
+                vm.Video_VBR_IsEnabled = false;
 
                 // Minrate
-                vm.VideoMinrate_IsEnabled = false;
-                vm.VideoMinrate_Text = "";
+                vm.Video_Minrate_IsEnabled = false;
+                vm.Video_Minrate_Text = "";
 
                 // Maxrate
-                vm.VideoMaxrate_IsEnabled = false;
-                vm.VideoMaxrate_Text = "";
+                vm.Video_Maxrate_IsEnabled = false;
+                vm.Video_Maxrate_Text = "";
 
                 // Bufsize
-                vm.VideoBufsize_IsEnabled = false;
-                vm.VideoBufsize_Text = "";
+                vm.Video_Bufsize_IsEnabled = false;
+                vm.Video_Bufsize_Text = "";
 
                 // Size
-                vm.Size_IsEnabled = true;
+                vm.Video_Scale_IsEnabled = true;
             }
 
             // -------------------------
             // None
             // -------------------------
-            else if (vm.VideoQuality_SelectedItem == "None")
+            else if (vm.Video_Quality_SelectedItem == "None")
             {
                 // Bitrate Text is Displayed through VideoBitrateDisplay()
 
                 // Pass
-                vm.Pass_IsEnabled = false; 
+                vm.Video_Pass_IsEnabled = false; 
 
                 // CRF
-                vm.CRF_IsEnabled = false;
+                vm.Video_CRF_IsEnabled = false;
 
                 // Bitrate
-                vm.VideoBitrate_IsEnabled = false;
+                vm.Video_Bitrate_IsEnabled = false;
                 // VBR
-                vm.VideoVBR_IsEnabled = false;
+                vm.Video_VBR_IsEnabled = false;
                 // Minrate
-                vm.VideoMinrate_IsEnabled = false;
+                vm.Video_Minrate_IsEnabled = false;
                 // Maxrate
-                vm.VideoMaxrate_IsEnabled = false;
+                vm.Video_Maxrate_IsEnabled = false;
                 // Bufsize
-                vm.VideoBufsize_IsEnabled = false;
+                vm.Video_Bufsize_IsEnabled = false;
 
                 // Size
-                vm.Size_IsEnabled = false;
+                vm.Video_Scale_IsEnabled = false;
             }
 
             // -------------------------
@@ -724,43 +724,43 @@ namespace Axiom
                 // Bitrate Text is Displayed through VideoBitrateDisplay()
 
                 // Pass
-                vm.Pass_IsEnabled = true; // always enabled
+                vm.Video_Pass_IsEnabled = true; // always enabled
 
                 // CRF
-                vm.CRF_IsEnabled = false;
+                vm.Video_CRF_IsEnabled = false;
 
                 // Bitrate
-                vm.VideoBitrate_IsEnabled = false;
+                vm.Video_Bitrate_IsEnabled = false;
 
                 // VBR
-                if (vm.VideoCodec_SelectedItem == "VP8" || // special rules
-                    vm.VideoCodec_SelectedItem == "x264" ||
-                    vm.VideoCodec_SelectedItem == "JPEG" ||
-                    vm.VideoCodec_SelectedItem == "AV1" ||
-                    vm.VideoCodec_SelectedItem == "FFV1" ||
-                    vm.VideoCodec_SelectedItem == "Copy" ||
-                    vm.VideoCodec_SelectedItem == "None") 
+                if (vm.Video_Codec_SelectedItem == "VP8" || // special rules
+                    vm.Video_Codec_SelectedItem == "x264" ||
+                    vm.Video_Codec_SelectedItem == "JPEG" ||
+                    vm.Video_Codec_SelectedItem == "AV1" ||
+                    vm.Video_Codec_SelectedItem == "FFV1" ||
+                    vm.Video_Codec_SelectedItem == "Copy" ||
+                    vm.Video_Codec_SelectedItem == "None") 
                 {
                     // Disabled
-                    vm.VideoVBR_IsEnabled = false;
+                    vm.Video_VBR_IsEnabled = false;
                 }
                 else
                 {
                     // Enabled
-                    vm.VideoVBR_IsEnabled = true;
+                    vm.Video_VBR_IsEnabled = true;
                 }
 
                 // Minrate
-                vm.VideoMinrate_IsEnabled = false;
+                vm.Video_Minrate_IsEnabled = false;
 
                 // Maxrate
-                vm.VideoMaxrate_IsEnabled = false;
+                vm.Video_Maxrate_IsEnabled = false;
 
                 // Bufsize
-                vm.VideoBufsize_IsEnabled = false;
+                vm.Video_Bufsize_IsEnabled = false;
 
                 // Size
-                vm.Size_IsEnabled = true;
+                vm.Video_Scale_IsEnabled = true;
 
                 // -------------------------
                 // Pass - Default to CRF
@@ -769,17 +769,17 @@ namespace Axiom
                 // If Video Not Auto and User Willingly Selected Pass is false
 
                 // Check if CRF Exists in ComboBox
-                if (vm.Pass_Items?.Contains("CRF") == true)
+                if (vm.Video_Pass_Items?.Contains("CRF") == true)
                 {
                     if (passUserSelected == false)
                     {
-                        vm.Pass_SelectedItem = "CRF";
+                        vm.Video_Pass_SelectedItem = "CRF";
                     }
                 }
                 // If does not contain, select first available (CRF or 1 Pass)
                 else
                 {
-                    vm.Pass_SelectedItem = vm.Pass_Items.FirstOrDefault();
+                    vm.Video_Pass_SelectedItem = vm.Video_Pass_Items.FirstOrDefault();
                 }
 
             }
@@ -817,17 +817,17 @@ namespace Axiom
                     // Auto
                     //if (quality == "Auto")
                     //{
-                    //    vm.PixelFormat_SelectedItem = "yuv420p";
+                    //    vm.Video_PixelFormat_SelectedItem = "yuv420p";
                     //}
                     // Lossless
                     if (quality == "Lossless")
                     {
-                        vm.PixelFormat_SelectedItem = "yuv444p";
+                        vm.Video_PixelFormat_SelectedItem = "yuv444p";
                     }
                     // All Other Quality
                     else
                     {
-                        vm.PixelFormat_SelectedItem = "yuv420p";
+                        vm.Video_PixelFormat_SelectedItem = "yuv420p";
                     }
                 }
 
@@ -836,7 +836,7 @@ namespace Axiom
                 // -------------------------
                 else if (codec == "FFV1")
                 {
-                    vm.PixelFormat_SelectedItem = "yuv422p10le";
+                    vm.Video_PixelFormat_SelectedItem = "yuv422p10le";
                 }
 
                 // -------------------------
@@ -848,7 +848,7 @@ namespace Axiom
                 {
                     // Lossless can't be yuv444p
                     // All Pixel Formats must be yuv420p
-                    vm.PixelFormat_SelectedItem = "yuv420p";
+                    vm.Video_PixelFormat_SelectedItem = "yuv420p";
                 }
 
                 // -------------------------
@@ -856,22 +856,22 @@ namespace Axiom
                 // -------------------------
                 else if (codec == "WebP")
                 {
-                    vm.PixelFormat_IsEnabled = true;
+                    vm.Video_PixelFormat_IsEnabled = true;
 
                     // Auto
                     //if (quality == "yuv420p")
                     //{
-                    //    //vm.PixelFormat_SelectedItem = "auto";
+                    //    //vm.Video_PixelFormat_SelectedItem = "auto";
                     //}
                     // Lossless
                     if (quality == "Lossless")
                     {
-                        vm.PixelFormat_SelectedItem = "bgra";
+                        vm.Video_PixelFormat_SelectedItem = "bgra";
                     }
                     // All Other Quality
                     else
                     {
-                        vm.PixelFormat_SelectedItem = "yuv420p";
+                        vm.Video_PixelFormat_SelectedItem = "yuv420p";
                     }
                 }
 
@@ -899,8 +899,8 @@ namespace Axiom
             // -------------------------
             // Only for x264 & x265 Video Codecs
             // -------------------------
-            if (vm.VideoCodec_SelectedItem == "x264" ||
-                vm.VideoCodec_SelectedItem == "x265")
+            if (vm.Video_Codec_SelectedItem == "x264" ||
+                vm.Video_Codec_SelectedItem == "x265")
             {
                 // -------------------------
                 // Disable
@@ -914,7 +914,7 @@ namespace Axiom
                     vm.Optimize_Profile_IsEnabled = false;
 
                     // Level
-                    vm.Optimize_Level_IsEnabled = false;
+                    vm.Video_Optimize_Level_IsEnabled = false;
                 }
 
                 // -------------------------
@@ -930,7 +930,7 @@ namespace Axiom
                     vm.Optimize_Profile_IsEnabled = true;
 
                     // Level
-                    vm.Optimize_Level_IsEnabled = true;
+                    vm.Video_Optimize_Level_IsEnabled = true;
                 }
             }
 
@@ -946,7 +946,7 @@ namespace Axiom
                 vm.Optimize_Profile_IsEnabled = false;
 
                 // Level
-                vm.Optimize_Level_IsEnabled = false;
+                vm.Video_Optimize_Level_IsEnabled = false;
             }
 
 
@@ -954,11 +954,11 @@ namespace Axiom
             // Select Controls
             // -------------------------
             // Tune
-            vm.Optimize_Tune_SelectedItem = vm.Video_Optimize_Items.FirstOrDefault(item => item.Name == vm.Video_Optimize_SelectedItem)?.Tune;
+            vm.Video_Optimize_Tune_SelectedItem = vm.Video_Optimize_Items.FirstOrDefault(item => item.Name == vm.Video_Optimize_SelectedItem)?.Tune;
             // Profile
-            vm.Optimize_Profile_SelectedItem = vm.Video_Optimize_Items.FirstOrDefault(item => item.Name == vm.Video_Optimize_SelectedItem)?.Profile;
+            vm.Video_Optimize_Profile_SelectedItem = vm.Video_Optimize_Items.FirstOrDefault(item => item.Name == vm.Video_Optimize_SelectedItem)?.Profile;
             // Level
-            vm.Optimize_Level_SelectedItem = vm.Video_Optimize_Items.FirstOrDefault(item => item.Name == vm.Video_Optimize_SelectedItem)?.Level;
+            vm.Video_Optimize_Level_SelectedItem = vm.Video_Optimize_Items.FirstOrDefault(item => item.Name == vm.Video_Optimize_SelectedItem)?.Level;
 
         }
 
@@ -975,19 +975,19 @@ namespace Axiom
             // -------------------------
             // Auto
             // -------------------------
-            if (vm.VideoQuality_SelectedItem == "Auto")
+            if (vm.Video_Quality_SelectedItem == "Auto")
             {
                 // -------------------------
                 // Check if 2-Pass Exists in ComboBox
                 // -------------------------
-                if (vm.Pass_Items?.Contains("2 Pass") == true)
+                if (vm.Video_Pass_Items?.Contains("2 Pass") == true)
                 {
                     // -------------------------
                     // Disable 2-Pass Always
                     // -------------------------
-                    if (vm.Pass_SelectedItem == "2 Pass")
+                    if (vm.Video_Pass_SelectedItem == "2 Pass")
                     {
-                        vm.Pass_IsEnabled = false;
+                        vm.Video_Pass_IsEnabled = false;
 
                         // Reset the User willing selected bool
                         passUserSelected = false;
@@ -997,9 +997,9 @@ namespace Axiom
                     // -------------------------
                     else
                     {
-                        vm.Pass_SelectedItem = "2 Pass";
+                        vm.Video_Pass_SelectedItem = "2 Pass";
                         // Disable Pass ComboBox if 2-Pass
-                        vm.Pass_IsEnabled = false;
+                        vm.Video_Pass_IsEnabled = false;
                     }
                 }
 
@@ -1008,83 +1008,83 @@ namespace Axiom
                 // -------------------------
                 else
                 {
-                    vm.Pass_SelectedItem = vm.Pass_Items.FirstOrDefault();
+                    vm.Video_Pass_SelectedItem = vm.Video_Pass_Items.FirstOrDefault();
                 }
             }
 
             // -------------------------
             // Lossless
             // -------------------------
-            else if (vm.VideoQuality_SelectedItem == "Lossless")
+            else if (vm.Video_Quality_SelectedItem == "Lossless")
             {
                 // Select 1 Pass
-                if (vm.Pass_Items?.Contains("1 Pass") == true)
+                if (vm.Video_Pass_Items?.Contains("1 Pass") == true)
                 {
-                    if (vm.VideoCodec_SelectedItem != "FFV1") // FFV1 (Special Lossless Rule)
+                    if (vm.Video_Codec_SelectedItem != "FFV1") // FFV1 (Special Lossless Rule)
                     {
-                        vm.Pass_SelectedItem = "1 Pass";
+                        vm.Video_Pass_SelectedItem = "1 Pass";
                     }
                 }
                 // Default to First Item Available
                 else
                 {
-                    vm.Pass_SelectedItem = vm.Pass_Items.FirstOrDefault();
+                    vm.Video_Pass_SelectedItem = vm.Video_Pass_Items.FirstOrDefault();
                 }
 
                 // Enable/Disable Encoding Pass
                 // FFV1 (Special Lossless Rule)
-                if (vm.VideoCodec_SelectedItem == "FFV1")
+                if (vm.Video_Codec_SelectedItem == "FFV1")
                 {
-                    vm.Pass_IsEnabled = true;
+                    vm.Video_Pass_IsEnabled = true;
                 }
                 // All Other Codecs
                 else
                 {
-                    vm.Pass_IsEnabled = false;
+                    vm.Video_Pass_IsEnabled = false;
                 }
                 
                 // Disable CRF
-                vm.CRF_IsEnabled = false;
+                vm.Video_CRF_IsEnabled = false;
 
                 // Set CRF & Bitrate back to Default value
-                vm.CRF_Text = string.Empty;
-                vm.VideoBitrate_Text = string.Empty;
-                vm.VideoMinrate_Text = string.Empty;
-                vm.VideoMaxrate_Text = string.Empty;
-                vm.VideoBufsize_Text = string.Empty;
+                vm.Video_CRF_Text = string.Empty;
+                vm.Video_Bitrate_Text = string.Empty;
+                vm.Video_Minrate_Text = string.Empty;
+                vm.Video_Maxrate_Text = string.Empty;
+                vm.Video_Bufsize_Text = string.Empty;
             }
 
             // -------------------------
             // Custom
             // -------------------------
-            else if (vm.VideoQuality_SelectedItem == "Custom")
+            else if (vm.Video_Quality_SelectedItem == "Custom")
             {
                 // -------------------------
                 // Disable CRF TextBox if 1 Pass or 2 Pass
                 // -------------------------
-                if (vm.Pass_SelectedItem == "1 Pass" ||
-                    vm.Pass_SelectedItem == "2 Pass")
+                if (vm.Video_Pass_SelectedItem == "1 Pass" ||
+                    vm.Video_Pass_SelectedItem == "2 Pass")
                 {
-                    vm.CRF_IsEnabled = false;
-                    vm.Pass_IsEnabled = true;
+                    vm.Video_CRF_IsEnabled = false;
+                    vm.Video_Pass_IsEnabled = true;
 
                     // Set CRF back to Default value
-                    vm.CRF_Text = string.Empty;
+                    vm.Video_CRF_Text = string.Empty;
                 }
 
                 // -------------------------
                 // Enable CRF TextBox if CRF
                 // -------------------------
-                else if (vm.Pass_SelectedItem == "CRF")
+                else if (vm.Video_Pass_SelectedItem == "CRF")
                 {
-                    vm.Pass_IsEnabled = true;
-                    vm.CRF_IsEnabled = true;
+                    vm.Video_Pass_IsEnabled = true;
+                    vm.Video_CRF_IsEnabled = true;
 
                     // Theora - Special Rule
-                    if (vm.VideoCodec_SelectedItem == "Theora")
+                    if (vm.Video_Codec_SelectedItem == "Theora")
                     {
-                        vm.Pass_IsEnabled = true;
-                        vm.CRF_IsEnabled = false;
+                        vm.Video_Pass_IsEnabled = true;
+                        vm.Video_CRF_IsEnabled = false;
                     }
                 }
             }
@@ -1092,11 +1092,11 @@ namespace Axiom
             // -------------------------
             // None
             // -------------------------
-            else if (vm.VideoQuality_SelectedItem == "None")
+            else if (vm.Video_Quality_SelectedItem == "None")
             {
                 // Disable Pass
-                vm.Pass_SelectedItem = vm.Pass_Items.FirstOrDefault();
-                vm.Pass_IsEnabled = false;
+                vm.Video_Pass_SelectedItem = vm.Video_Pass_Items.FirstOrDefault();
+                vm.Video_Pass_IsEnabled = false;
             }
 
             // -------------------------
@@ -1105,7 +1105,7 @@ namespace Axiom
             else
             {
                 // Enable Pass
-                vm.Pass_IsEnabled = true;
+                vm.Video_Pass_IsEnabled = true;
             }
         }
 
@@ -1122,13 +1122,13 @@ namespace Axiom
             //try // try/catch to prevent crash until mainwindow has been converted to viewmodel
             //{
             // Input Extension is Same as Output Extension and Video Quality is Auto
-            if (vm.VideoQuality_SelectedItem == "Auto" &&
-                vm.Size_SelectedItem == "Source" &&
+            if (vm.Video_Quality_SelectedItem == "Auto" &&
+                vm.Video_Scale_SelectedItem == "Source" &&
                 string.IsNullOrEmpty(CropWindow.crop) &&
-                vm.FPS_SelectedItem == "auto" &&
-                vm.PixelFormat_SelectedItem == "auto" &&
+                vm.Video_FPS_SelectedItem == "auto" &&
+                vm.Video_PixelFormat_SelectedItem == "auto" &&
                 vm.Video_Optimize_SelectedItem == "None" &&
-                vm.ScalingAlgorithm_SelectedItem == "default" &&
+                vm.Video_ScalingAlgorithm_SelectedItem == "default" &&
 
                 // Filters
                 // Fix
@@ -1219,11 +1219,11 @@ namespace Axiom
                 // -------------------------
                 // Set Video Codec Combobox Selected Item to Copy
                 // -------------------------
-                if (vm.VideoCodec_Items.Count > 0)
+                if (vm.Video_Codec_Items.Count > 0)
                 {
-                    if (vm.VideoCodec_Items?.Contains("Copy") == true)
+                    if (vm.Video_Codec_Items?.Contains("Copy") == true)
                     {
-                        vm.VideoCodec_SelectedItem = "Copy";
+                        vm.Video_Codec_SelectedItem = "Copy";
                     }
                 }
             }
@@ -1244,82 +1244,82 @@ namespace Axiom
                 // -------------------------
                 // Null Check
                 // -------------------------
-                if (!string.IsNullOrEmpty(vm.VideoQuality_SelectedItem))
+                if (!string.IsNullOrEmpty(vm.Video_Quality_SelectedItem))
                 {
                     // -------------------------
                     // Copy Selected
                     // -------------------------
-                    if (vm.VideoCodec_SelectedItem == "Copy")
+                    if (vm.Video_Codec_SelectedItem == "Copy")
                     {
                         // -------------------------
                         // Switch back to format's default codec
                         // -------------------------
-                        if (vm.VideoCodec_SelectedItem != "Auto" ||
+                        if (vm.Video_Codec_SelectedItem != "Auto" ||
                             !string.Equals(MainWindow.inputExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase)
                             )
                         {
                             // -------------------------
                             // WebM
                             // -------------------------
-                            if (vm.Container_SelectedItem == "webm")
+                            if (vm.Format_Container_SelectedItem == "webm")
                             {
-                                vm.VideoCodec_SelectedItem = "VP8";
+                                vm.Video_Codec_SelectedItem = "VP8";
                             }
                             // -------------------------
                             // MP4
                             // -------------------------
-                            else if (vm.Container_SelectedItem == "mp4")
+                            else if (vm.Format_Container_SelectedItem == "mp4")
                             {
-                                vm.VideoCodec_SelectedItem = "x264";
+                                vm.Video_Codec_SelectedItem = "x264";
                             }
                             // -------------------------
                             // MKV
                             // -------------------------
-                            else if (vm.Container_SelectedItem == "mkv")
+                            else if (vm.Format_Container_SelectedItem == "mkv")
                             {
-                                vm.VideoCodec_SelectedItem = "x264";
+                                vm.Video_Codec_SelectedItem = "x264";
                             }
                             // -------------------------
                             // MPG
                             // -------------------------
-                            else if (vm.Container_SelectedItem == "mpg")
+                            else if (vm.Format_Container_SelectedItem == "mpg")
                             {
-                                vm.VideoCodec_SelectedItem = "MPEG-2";
+                                vm.Video_Codec_SelectedItem = "MPEG-2";
                             }
                             // -------------------------
                             // AVI
                             // -------------------------
-                            else if (vm.Container_SelectedItem == "avi")
+                            else if (vm.Format_Container_SelectedItem == "avi")
                             {
-                                vm.VideoCodec_SelectedItem = "MPEG-4";
+                                vm.Video_Codec_SelectedItem = "MPEG-4";
                             }
                             // -------------------------
                             // OGV
                             // -------------------------
-                            else if (vm.Container_SelectedItem == "ogv")
+                            else if (vm.Format_Container_SelectedItem == "ogv")
                             {
-                                vm.VideoCodec_SelectedItem = "Theora";
+                                vm.Video_Codec_SelectedItem = "Theora";
                             }
                             // -------------------------
                             // JPG
                             // -------------------------
-                            else if (vm.Container_SelectedItem == "jpg")
+                            else if (vm.Format_Container_SelectedItem == "jpg")
                             {
-                                vm.VideoCodec_SelectedItem = "JPEG";
+                                vm.Video_Codec_SelectedItem = "JPEG";
                             }
                             // -------------------------
                             // PNG
                             // -------------------------
-                            else if (vm.Container_SelectedItem == "png")
+                            else if (vm.Format_Container_SelectedItem == "png")
                             {
-                                vm.VideoCodec_SelectedItem = "PNG";
+                                vm.Video_Codec_SelectedItem = "PNG";
                             }
                             // -------------------------
                             // WebP
                             // -------------------------
-                            else if (vm.Container_SelectedItem == "webp")
+                            else if (vm.Format_Container_SelectedItem == "webp")
                             {
-                                vm.VideoCodec_SelectedItem = "WebP";
+                                vm.Video_Codec_SelectedItem = "WebP";
                             }
                         }
                     }
@@ -1348,7 +1348,7 @@ namespace Axiom
             // When Input Extension is Empty
             // --------------------------------------------------
             else if (string.IsNullOrEmpty(MainWindow.inputExt) && 
-                vm.VideoCodec_SelectedItem == "Copy")
+                vm.Video_Codec_SelectedItem == "Copy")
             {
                 CopyControls(vm);
             } 

@@ -58,7 +58,7 @@ namespace Axiom
         public static void controlsSelected(ViewModel vm)
         {
             // Stream
-            vm.SubtitleStream_SelectedItem = "none";
+            vm.Subtitle_Stream_SelectedItem = "none";
         }
 
         // -------------------------

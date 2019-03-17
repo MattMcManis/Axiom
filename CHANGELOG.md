@@ -189,12 +189,12 @@ Axiom FFmpeg UI
 ### Changed
 - Moved Update Check to Window_Loaded
 - Format - Speed to Encode Speed
-- mpeg2 to MPEG-2
-- mpeg4 to MPEG-4
+- `mpeg2` to `MPEG-2`
+- `mpeg4` to `MPEG-4`
 - Audio Hard Limiter TextBox to Slider
 
 ### Removed
-- x264 DVD Optimize
+- `x264` DVD Optimize
 
 
 ## [1.2.5.0] - Jul 7, 2018

@@ -86,10 +86,10 @@ namespace Axiom
             // -------------------------
             //  Single Pass
             // -------------------------
-            if (vm.Pass_SelectedItem == "1 Pass" ||
-                vm.Pass_SelectedItem == "CRF" ||
-                vm.Pass_SelectedItem == "auto" ||
-                vm.Container_SelectedItem == "ogv" //ogv (special rule)
+            if (vm.Video_Pass_SelectedItem == "1 Pass" ||
+                vm.Video_Pass_SelectedItem == "CRF" ||
+                vm.Video_Pass_SelectedItem == "auto" ||
+                vm.Format_Container_SelectedItem == "ogv" //ogv (special rule)
                 )
             {
                 // -------------------------
@@ -104,100 +104,100 @@ namespace Axiom
                     Subtitle.SubtitlesExternal(vm),
 
                     "\r\n\r\n" +
-                    Video.VideoCodec(vm.HWAccel_SelectedItem,
-                                     vm.VideoCodec_SelectedItem,
-                                     vm.VideoCodec_Command),
+                    Video.VideoCodec(vm.Format_HWAccel_SelectedItem,
+                                     vm.Video_Codec_SelectedItem,
+                                     vm.Video_Codec_Command),
                     "\r\n" +
-                    Video.Speed(vm.VideoEncodeSpeed_Items,
-                                vm.VideoEncodeSpeed_SelectedItem,
-                                vm.MediaType_SelectedItem,
-                                vm.VideoCodec_SelectedItem,
-                                vm.VideoQuality_SelectedItem,
-                                vm.Pass_SelectedItem
+                    Video.Speed(vm.Video_EncodeSpeed_Items,
+                                vm.Video_EncodeSpeed_SelectedItem,
+                                vm.Format_MediaType_SelectedItem,
+                                vm.Video_Codec_SelectedItem,
+                                vm.Video_Quality_SelectedItem,
+                                vm.Video_Pass_SelectedItem
                                 ),
 
                     Video.VideoQuality(vm.Batch_IsChecked,
-                                       vm.AudioVBR_IsChecked,
-                                       vm.Container_SelectedItem,
-                                       vm.MediaType_SelectedItem,
-                                       vm.VideoCodec_SelectedItem,
-                                       vm.VideoQuality_Items,
-                                       vm.VideoQuality_SelectedItem,
-                                       vm.Pass_SelectedItem,
-                                       vm.CRF_Text,
-                                       vm.VideoBitrate_Text,
-                                       vm.VideoMinrate_Text,
-                                       vm.VideoMaxrate_Text,
-                                       vm.VideoBufsize_Text
+                                       vm.Audio_VBR_IsChecked,
+                                       vm.Format_Container_SelectedItem,
+                                       vm.Format_MediaType_SelectedItem,
+                                       vm.Video_Codec_SelectedItem,
+                                       vm.Video_Quality_Items,
+                                       vm.Video_Quality_SelectedItem,
+                                       vm.Video_Pass_SelectedItem,
+                                       vm.Video_CRF_Text,
+                                       vm.Video_Bitrate_Text,
+                                       vm.Video_Minrate_Text,
+                                       vm.Video_Maxrate_Text,
+                                       vm.Video_Bufsize_Text
                                        ),
                     "\r\n" +
-                    Video.PixFmt(vm.PixelFormat_SelectedItem),
+                    Video.PixFmt(vm.Video_PixelFormat_SelectedItem),
                     "\r\n" +
-                    Video.FPS(vm.MediaType_SelectedItem,
-                              vm.VideoCodec_SelectedItem,
-                              vm.VideoQuality_SelectedItem,
-                              vm.FPS_SelectedItem,
-                              vm.FPS_Text
+                    Video.FPS(vm.Format_MediaType_SelectedItem,
+                              vm.Video_Codec_SelectedItem,
+                              vm.Video_Quality_SelectedItem,
+                              vm.Video_FPS_SelectedItem,
+                              vm.Video_FPS_Text
                               ),
                     "\r\n" +
                     VideoFilters.VideoFilter(vm),
                     //"\r\n" +
                     //Video.ScalingAlgorithm(vm),
                     "\r\n" +
-                    Video.AspectRatio(vm.AspectRatio_SelectedItem),
+                    Video.AspectRatio(vm.Video_AspectRatio_SelectedItem),
                     "\r\n" +
                     Video.Images(vm),
                     "\r\n" +
-                    Video.Optimize(vm.MediaType_SelectedItem,
-                                   vm.VideoCodec_SelectedItem,
-                                   vm.VideoQuality_SelectedItem,
+                    Video.Optimize(vm.Format_MediaType_SelectedItem,
+                                   vm.Video_Codec_SelectedItem,
+                                   vm.Video_Quality_SelectedItem,
                                    vm.Video_Optimize_Items,
                                    vm.Video_Optimize_SelectedItem,
-                                   vm.Optimize_Tune_SelectedItem,
-                                   vm.Optimize_Profile_SelectedItem,
-                                   vm.Optimize_Level_SelectedItem
+                                   vm.Video_Optimize_Tune_SelectedItem,
+                                   vm.Video_Optimize_Profile_SelectedItem,
+                                   vm.Video_Optimize_Level_SelectedItem
                                    ),
                     "\r\n" +
                     Streams.VideoStreamMaps(vm),
 
                     "\r\n\r\n" +
-                    Subtitle.SubtitleCodec(vm.SubtitleCodec_Command),
+                    Subtitle.SubtitleCodec(vm.Subtitle_Codec_Command),
                     "\r\n" +
                     Streams.SubtitleMaps(vm),
 
                     "\r\n\r\n" +
-                    Audio.AudioCodec(vm.AudioCodec_SelectedItem,
-                                     vm.AudioCodec_Command,
-                                     vm.AudioBitDepth_SelectedItem
+                    Audio.AudioCodec(vm.Audio_Codec_SelectedItem,
+                                     vm.Audio_Codec_Command,
+                                     vm.Audio_BitDepth_SelectedItem
                                      ),
                     "\r\n" +
                     Audio.AudioQuality(vm.Batch_IsChecked,
-                                       vm.AudioVBR_IsChecked,
-                                       vm.AudioCodec_SelectedItem,
-                                       vm.AudioQuality_Items,
-                                       vm.AudioQuality_SelectedItem,
-                                       vm.AudioBitrate_Text
+                                       vm.Audio_VBR_IsChecked,
+                                       vm.Audio_Codec_SelectedItem,
+                                       vm.Audio_Quality_Items,
+                                       vm.Audio_Quality_SelectedItem,
+                                       vm.Audio_Bitrate_Text
                                        ),
-                    Audio.SampleRate(vm.MediaType_SelectedItem,
-                                     vm.AudioCodec_SelectedItem,
-                                     vm.AudioStream_SelectedItem,
-                                     vm.AudioQuality_SelectedItem,
-                                     vm.AudioChannel_SelectedItem,
-                                     vm.AudioSampleRate_Items,
-                                     vm.AudioSampleRate_SelectedItem
+                    Audio.SampleRate(vm.Format_MediaType_SelectedItem,
+                                     vm.Audio_Codec_SelectedItem,
+                                     vm.Audio_Stream_SelectedItem,
+                                     vm.Audio_Quality_SelectedItem,
+                                     vm.Audio_Channel_SelectedItem,
+                                     vm.Audio_SampleRate_Items,
+                                     vm.Audio_SampleRate_SelectedItem
                                      ),
-                    Audio.BitDepth(vm.MediaType_SelectedItem,
-                                   vm.AudioCodec_SelectedItem,
-                                   vm.AudioStream_SelectedItem,
-                                   vm.AudioQuality_SelectedItem,
-                                   vm.AudioBitDepth_Items,
-                                   vm.AudioBitDepth_SelectedItem
+                    Audio.BitDepth(vm.Format_MediaType_SelectedItem,
+                                   vm.Audio_Codec_SelectedItem,
+                                   vm.Audio_Stream_SelectedItem,
+                                   vm.Audio_Quality_SelectedItem,
+                                   vm.Audio_BitDepth_Items,
+                                   vm.Audio_BitDepth_SelectedItem
                                    ),
-                    Audio.Channel(vm.MediaType_SelectedItem,
-                                  vm.AudioCodec_SelectedItem,
-                                  vm.AudioStream_SelectedItem,
-                                  vm.AudioQuality_SelectedItem,
-                                  vm.AudioChannel_SelectedItem
+                    Audio.Channel(vm.Format_MediaType_SelectedItem,
+                                  vm.Audio_Codec_SelectedItem,
+                                  vm.Audio_Stream_SelectedItem,
+                                  vm.Audio_Quality_SelectedItem,
+                                  vm.Audio_Channel_SelectedItem
                                   ),
                     "\r\n" +
                     AudioFilters.AudioFilter(vm),
@@ -207,22 +207,22 @@ namespace Axiom
                     "\r\n\r\n" +
                     Format.Cut(vm.Input_Text,
                                vm.Batch_IsChecked,
-                               vm.MediaType_SelectedItem,
-                               vm.VideoCodec_SelectedItem,
-                               vm.VideoQuality_SelectedItem,
-                               vm.Cut_SelectedItem,
-                               vm.CutStart_Text,
-                               vm.CutEnd_Text,
-                               vm.FrameEnd_IsEnabled,
-                               vm.FrameStart_Text,
-                               vm.FrameEnd_Text
+                               vm.Format_MediaType_SelectedItem,
+                               vm.Video_Codec_SelectedItem,
+                               vm.Video_Quality_SelectedItem,
+                               vm.Format_Cut_SelectedItem,
+                               vm.Format_CutStart_Text,
+                               vm.Format_CutEnd_Text,
+                               vm.Format_FrameEnd_IsEnabled,
+                               vm.Format_FrameStart_Text,
+                               vm.Format_FrameEnd_Text
                                ),
 
                     "\r\n\r\n" +
                     Streams.FormatMaps(vm),
 
                     "\r\n\r\n" +
-                    Format.ForceFormat(vm.Container_SelectedItem),
+                    Format.ForceFormat(vm.Format_Container_SelectedItem),
 
                     "\r\n\r\n" +
                     MainWindow.ThreadDetect(vm),
@@ -257,10 +257,10 @@ namespace Axiom
             // -------------------------
             // Enabled 
             //
-            if (vm.Pass_SelectedItem == "2 Pass"
-                && vm.MediaType_SelectedItem == "Video" // video only
-                && vm.VideoCodec_SelectedItem != "Copy" // exclude copy
-                && vm.Container_SelectedItem != "ogv" // exclude ogv (special rule)
+            if (vm.Video_Pass_SelectedItem == "2 Pass"
+                && vm.Format_MediaType_SelectedItem == "Video" // video only
+                && vm.Video_Codec_SelectedItem != "Copy" // exclude copy
+                && vm.Format_Container_SelectedItem != "ogv" // exclude ogv (special rule)
                 )
             {
                 // -------------------------
@@ -276,62 +276,62 @@ namespace Axiom
                     //Video.Subtitles(vm),
 
                     "\r\n\r\n" +
-                    Video.VideoCodec(vm.HWAccel_SelectedItem,
-                                     vm.VideoCodec_SelectedItem,
-                                     vm.VideoCodec_Command),
+                    Video.VideoCodec(vm.Format_HWAccel_SelectedItem,
+                                     vm.Video_Codec_SelectedItem,
+                                     vm.Video_Codec_Command),
                     "\r\n" +
-                    Video.Speed(vm.VideoEncodeSpeed_Items,
-                                vm.VideoEncodeSpeed_SelectedItem,
-                                vm.MediaType_SelectedItem,
-                                vm.VideoCodec_SelectedItem,
-                                vm.VideoQuality_SelectedItem,
-                                vm.Pass_SelectedItem
+                    Video.Speed(vm.Video_EncodeSpeed_Items,
+                                vm.Video_EncodeSpeed_SelectedItem,
+                                vm.Format_MediaType_SelectedItem,
+                                vm.Video_Codec_SelectedItem,
+                                vm.Video_Quality_SelectedItem,
+                                vm.Video_Pass_SelectedItem
                                 ),
 
                     Video.VideoQuality(vm.Batch_IsChecked,
-                                       vm.AudioVBR_IsChecked,
-                                       vm.Container_SelectedItem,
-                                       vm.MediaType_SelectedItem,
-                                       vm.VideoCodec_SelectedItem,
-                                       vm.VideoQuality_Items,
-                                       vm.VideoQuality_SelectedItem,
-                                       vm.Pass_SelectedItem,
-                                       vm.CRF_Text,
-                                       vm.VideoBitrate_Text,
-                                       vm.VideoMinrate_Text,
-                                       vm.VideoMaxrate_Text,
-                                       vm.VideoBufsize_Text
+                                       vm.Audio_VBR_IsChecked,
+                                       vm.Format_Container_SelectedItem,
+                                       vm.Format_MediaType_SelectedItem,
+                                       vm.Video_Codec_SelectedItem,
+                                       vm.Video_Quality_Items,
+                                       vm.Video_Quality_SelectedItem,
+                                       vm.Video_Pass_SelectedItem,
+                                       vm.Video_CRF_Text,
+                                       vm.Video_Bitrate_Text,
+                                       vm.Video_Minrate_Text,
+                                       vm.Video_Maxrate_Text,
+                                       vm.Video_Bufsize_Text
                                        ),
                     "\r\n" +
-                    Video.PixFmt(vm.PixelFormat_SelectedItem),
+                    Video.PixFmt(vm.Video_PixelFormat_SelectedItem),
                     "\r\n" +
-                    Video.FPS(vm.MediaType_SelectedItem,
-                              vm.VideoCodec_SelectedItem,
-                              vm.VideoQuality_SelectedItem,
-                              vm.FPS_SelectedItem,
-                              vm.FPS_Text
+                    Video.FPS(vm.Format_MediaType_SelectedItem,
+                              vm.Video_Codec_SelectedItem,
+                              vm.Video_Quality_SelectedItem,
+                              vm.Video_FPS_SelectedItem,
+                              vm.Video_FPS_Text
                               ),
                     "\r\n" +
                     VideoFilters.VideoFilter(vm),
                     //"\r\n" +
                     //Video.ScalingAlgorithm(vm),
                     "\r\n" +
-                    Video.AspectRatio(vm.AspectRatio_SelectedItem),
+                    Video.AspectRatio(vm.Video_AspectRatio_SelectedItem),
                     "\r\n" +
                     Video.Images(vm),
                     "\r\n" +
-                    Video.Optimize(vm.MediaType_SelectedItem,
-                                   vm.VideoCodec_SelectedItem,
-                                   vm.VideoQuality_SelectedItem,
+                    Video.Optimize(vm.Format_MediaType_SelectedItem,
+                                   vm.Video_Codec_SelectedItem,
+                                   vm.Video_Quality_SelectedItem,
                                    vm.Video_Optimize_Items,
                                    vm.Video_Optimize_SelectedItem,
-                                   vm.Optimize_Tune_SelectedItem,
-                                   vm.Optimize_Profile_SelectedItem,
-                                   vm.Optimize_Level_SelectedItem
+                                   vm.Video_Optimize_Tune_SelectedItem,
+                                   vm.Video_Optimize_Profile_SelectedItem,
+                                   vm.Video_Optimize_Level_SelectedItem
                                    ),
                     "\r\n" +
-                    Video.Pass1Modifier(vm.VideoCodec_SelectedItem, // -pass 1, -x265-params pass=2
-                                        vm.Pass_SelectedItem
+                    Video.Pass1Modifier(vm.Video_Codec_SelectedItem, // -pass 1, -x265-params pass=2
+                                        vm.Video_Pass_SelectedItem
                                         ),  
 
                     "\r\n\r\n" +
@@ -340,18 +340,18 @@ namespace Axiom
                     "\r\n\r\n" +
                     Format.Cut(vm.Input_Text,
                                vm.Batch_IsChecked,
-                               vm.MediaType_SelectedItem,
-                               vm.VideoCodec_SelectedItem,
-                               vm.VideoQuality_SelectedItem,
-                               vm.Cut_SelectedItem,
-                               vm.CutStart_Text,
-                               vm.CutEnd_Text,
-                               vm.FrameEnd_IsEnabled,
-                               vm.FrameStart_Text,
-                               vm.FrameEnd_Text
+                               vm.Format_MediaType_SelectedItem,
+                               vm.Video_Codec_SelectedItem,
+                               vm.Video_Quality_SelectedItem,
+                               vm.Format_Cut_SelectedItem,
+                               vm.Format_CutStart_Text,
+                               vm.Format_CutEnd_Text,
+                               vm.Format_FrameEnd_IsEnabled,
+                               vm.Format_FrameStart_Text,
+                               vm.Format_FrameEnd_Text
                                ),
                     "\r\n\r\n" +
-                    Format.ForceFormat(vm.Container_SelectedItem),
+                    Format.ForceFormat(vm.Format_Container_SelectedItem),
                     "\r\n\r\n" +
                     MainWindow.ThreadDetect(vm),
 
@@ -416,48 +416,48 @@ namespace Axiom
                     "\r\n" +
                     Streams.VideoStreamMaps(vm),
                     "\r\n" +
-                    Video.Pass2Modifier(vm.VideoCodec_SelectedItem, // -pass 2, -x265-params pass=2
-                                        vm.Pass_SelectedItem
+                    Video.Pass2Modifier(vm.Video_Codec_SelectedItem, // -pass 2, -x265-params pass=2
+                                        vm.Video_Pass_SelectedItem
                                         ), 
 
                     "\r\n\r\n" +
-                    Subtitle.SubtitleCodec(vm.SubtitleCodec_Command),
+                    Subtitle.SubtitleCodec(vm.Subtitle_Codec_Command),
                     "\r\n" +
                     Streams.SubtitleMaps(vm),
 
                     "\r\n\r\n" +
-                    Audio.AudioCodec(vm.AudioCodec_SelectedItem,
-                                     vm.AudioCodec_Command,
-                                     vm.AudioBitDepth_SelectedItem
+                    Audio.AudioCodec(vm.Audio_Codec_SelectedItem,
+                                     vm.Audio_Codec_Command,
+                                     vm.Audio_BitDepth_SelectedItem
                                      ),
                     "\r\n" +
                     Audio.AudioQuality(vm.Batch_IsChecked,
-                                       vm.AudioVBR_IsChecked,
-                                       vm.AudioCodec_SelectedItem,
-                                       vm.AudioQuality_Items,
-                                       vm.AudioQuality_SelectedItem,
-                                       vm.AudioBitrate_Text
+                                       vm.Audio_VBR_IsChecked,
+                                       vm.Audio_Codec_SelectedItem,
+                                       vm.Audio_Quality_Items,
+                                       vm.Audio_Quality_SelectedItem,
+                                       vm.Audio_Bitrate_Text
                                        ),
-                    Audio.SampleRate(vm.MediaType_SelectedItem,
-                                     vm.AudioCodec_SelectedItem,
-                                     vm.AudioStream_SelectedItem,
-                                     vm.AudioQuality_SelectedItem,
-                                     vm.AudioChannel_SelectedItem,
-                                     vm.AudioSampleRate_Items,
-                                     vm.AudioSampleRate_SelectedItem
+                    Audio.SampleRate(vm.Format_MediaType_SelectedItem,
+                                     vm.Audio_Codec_SelectedItem,
+                                     vm.Audio_Stream_SelectedItem,
+                                     vm.Audio_Quality_SelectedItem,
+                                     vm.Audio_Channel_SelectedItem,
+                                     vm.Audio_SampleRate_Items,
+                                     vm.Audio_SampleRate_SelectedItem
                                      ),
-                    Audio.BitDepth(vm.MediaType_SelectedItem,
-                                   vm.AudioCodec_SelectedItem,
-                                   vm.AudioStream_SelectedItem,
-                                   vm.AudioQuality_SelectedItem,
-                                   vm.AudioBitDepth_Items,
-                                   vm.AudioBitDepth_SelectedItem
+                    Audio.BitDepth(vm.Format_MediaType_SelectedItem,
+                                   vm.Audio_Codec_SelectedItem,
+                                   vm.Audio_Stream_SelectedItem,
+                                   vm.Audio_Quality_SelectedItem,
+                                   vm.Audio_BitDepth_Items,
+                                   vm.Audio_BitDepth_SelectedItem
                                    ),
-                    Audio.Channel(vm.MediaType_SelectedItem,
-                                  vm.AudioCodec_SelectedItem,
-                                  vm.AudioStream_SelectedItem,
-                                  vm.AudioQuality_SelectedItem,
-                                  vm.AudioChannel_SelectedItem
+                    Audio.Channel(vm.Format_MediaType_SelectedItem,
+                                  vm.Audio_Codec_SelectedItem,
+                                  vm.Audio_Stream_SelectedItem,
+                                  vm.Audio_Quality_SelectedItem,
+                                  vm.Audio_Channel_SelectedItem
                                   ),
                     "\r\n" +
                     AudioFilters.AudioFilter(vm),
@@ -471,7 +471,7 @@ namespace Axiom
                     Streams.FormatMaps(vm),
 
                     "\r\n\r\n" +
-                    Format.ForceFormat(vm.Container_SelectedItem),
+                    Format.ForceFormat(vm.Format_Container_SelectedItem),
 
                     "\r\n\r\n" +
                     Configure.threads,
@@ -612,22 +612,22 @@ namespace Axiom
 
                     // Video
                     "\r\n\r\n" + Video.BatchVideoQualityAuto(vm.Batch_IsChecked,
-                                                             vm.MediaType_SelectedItem,
-                                                             vm.VideoCodec_SelectedItem,
-                                                             vm.VideoQuality_SelectedItem 
+                                                             vm.Format_MediaType_SelectedItem,
+                                                             vm.Video_Codec_SelectedItem,
+                                                             vm.Video_Quality_SelectedItem 
                                                              ),
 
                     // Audio
                     "\r\n\r\n" + Audio.BatchAudioQualityAuto(vm.Batch_IsChecked,
-                                                             vm.MediaType_SelectedItem,
-                                                             vm.AudioCodec_SelectedItem,
-                                                             vm.AudioStream_SelectedItem,
-                                                             vm.AudioQuality_SelectedItem
+                                                             vm.Format_MediaType_SelectedItem,
+                                                             vm.Audio_Codec_SelectedItem,
+                                                             vm.Audio_Stream_SelectedItem,
+                                                             vm.Audio_Quality_SelectedItem
                                                              ),
-                    "\r\n\r\n" + Audio.BatchAudioBitrateLimiter(vm.MediaType_SelectedItem,
-                                                                vm.AudioCodec_SelectedItem,
-                                                                vm.AudioStream_SelectedItem,
-                                                                vm.AudioQuality_SelectedItem
+                    "\r\n\r\n" + Audio.BatchAudioBitrateLimiter(vm.Format_MediaType_SelectedItem,
+                                                                vm.Audio_Codec_SelectedItem,
+                                                                vm.Audio_Stream_SelectedItem,
+                                                                vm.Audio_Quality_SelectedItem
                                                                 ),
 
                     "\r\n\r\n" + "&&",

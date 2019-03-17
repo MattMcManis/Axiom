@@ -53,70 +53,71 @@ namespace Axiom
             // -------------------------
             // Default
             // -------------------------
-            if (vm.Preset_SelectedItem == "Preset" || 
+            if (vm.Preset_SelectedItem == "Preset" ||
                 vm.Preset_SelectedItem == "Default")
             {
                 // -------------------------
                 // Default Video
                 // -------------------------
-                if (vm.Container_SelectedItem == "webm"
-                    || vm.Container_SelectedItem == "mp4"
-                    || vm.Container_SelectedItem == "mkv"
-                    || vm.Container_SelectedItem == "m2v"
-                    || vm.Container_SelectedItem == "mpg"
-                    || vm.Container_SelectedItem == "avi"
-                    || vm.Container_SelectedItem == "ogv"
-                    || vm.Container_SelectedItem == "jpg"
-                    || vm.Container_SelectedItem == "png"
-                    || vm.Container_SelectedItem == "webp")
+                if (vm.Format_Container_SelectedItem == "webm" ||
+                    vm.Format_Container_SelectedItem == "mp4" ||
+                    vm.Format_Container_SelectedItem == "mkv" ||
+                    vm.Format_Container_SelectedItem == "m2v" ||
+                    vm.Format_Container_SelectedItem == "mpg" ||
+                    vm.Format_Container_SelectedItem == "avi" ||
+                    vm.Format_Container_SelectedItem == "ogv" ||
+                    vm.Format_Container_SelectedItem == "jpg" ||
+                    vm.Format_Container_SelectedItem == "png" ||
+                    vm.Format_Container_SelectedItem == "webp")
                 {
                     //vm.Preset.IsEditable = false;
 
                     // Format
-                    vm.Container_SelectedItem = vm.Container_Items.FirstOrDefault();
+                    vm.Format_Container_SelectedItem = vm.Format_Container_Items.FirstOrDefault();
 
                     // Video
-                    vm.VideoQuality_SelectedItem = "Auto";
-                    vm.Pass_SelectedItem = "CRF";
-                    vm.VideoBitrate_Text = "";
-                    vm.VideoMinrate_Text = "";
-                    vm.VideoMaxrate_Text = "";
-                    vm.VideoBufsize_Text = "";
-                    vm.Size_SelectedItem = "Source";
-                    vm.AspectRatio_SelectedItem = "auto";
-                    vm.ScalingAlgorithm_SelectedItem = "default";
-                    vm.Cut_SelectedItem = "No";
-                    vm.CutStart_Text = "00:00:00.000";
-                    vm.CutEnd_Text = "00:00:00.000";
-                    vm.VideoEncodeSpeed_SelectedItem = "Medium";
-                    vm.FPS_SelectedItem = "auto";
-                    vm.FPS_IsEnabled = true;
+                    vm.Video_Quality_SelectedItem = "Auto";
+                    vm.Video_Pass_SelectedItem = "CRF";
+                    vm.Video_Bitrate_Text = "";
+                    vm.Video_Minrate_Text = "";
+                    vm.Video_Maxrate_Text = "";
+                    vm.Video_Bufsize_Text = "";
+                    vm.Video_Scale_SelectedItem = "Source";
+                    vm.Video_AspectRatio_SelectedItem = "auto";
+                    vm.Video_ScalingAlgorithm_SelectedItem = "default";
+                    vm.Format_Cut_SelectedItem = "No";
+                    vm.Format_CutStart_Text = "00:00:00.000";
+                    vm.Format_CutEnd_Text = "00:00:00.000";
+                    vm.Video_EncodeSpeed_SelectedItem = "Medium";
+                    vm.Video_FPS_SelectedItem = "auto";
+                    vm.Video_FPS_IsEnabled = true;
 
                     // Subtitle
-                    vm.SubtitleCodec_SelectedItem = "None";
-                    vm.SubtitleStream_SelectedItem = "none";
+                    vm.Subtitle_Codec_SelectedItem = "None";
+                    vm.Subtitle_Stream_SelectedItem = "none";
 
                     // Audio
-                    vm.AudioStream_SelectedItem = "all";
-                    vm.AudioQuality_SelectedItem = "Auto";
-                    vm.AudioChannel_SelectedItem = "Source";
-                    vm.AudioSampleRate_SelectedItem = "auto";
-                    vm.AudioBitDepth_SelectedItem = "auto";
-                    vm.Volume_Text = "100";
-                    vm.AudioHardLimiter_Value = 1;
-                    ////mainwindow.tglAudioLimiter.IsChecked = false;
-                    ////mainwindow.audioLimiter.Text = string.Empty;
+                    vm.Audio_Stream_SelectedItem = "all";
+                    vm.Audio_Quality_SelectedItem = "Auto";
+                    vm.Audio_Channel_SelectedItem = "Source";
+                    vm.Audio_SampleRate_SelectedItem = "auto";
+                    vm.Audio_BitDepth_SelectedItem = "auto";
+                    vm.Audio_Volume_Text = "100";
+                    vm.Audio_HardLimiter_Value = 1;
 
                     // special rules for webm
-                    if (vm.Container_SelectedItem == "webm")
+                    if (vm.Format_Container_SelectedItem == "webm")
                     {
-                        vm.SubtitleStream_SelectedItem = "none";
-                        vm.AudioStream_SelectedItem = "1";
+                        vm.Subtitle_Stream_SelectedItem = "none";
+                        vm.Audio_Stream_SelectedItem = "1";
                         //vm.Video_Optimize_SelectedItem = "Web";
                     }
                     else
                     {
                         vm.Video_Optimize_SelectedItem = "None";
+                        vm.Video_Optimize_Tune_SelectedItem = "none";
+                        vm.Video_Optimize_Profile_SelectedItem = "main";
+                        vm.Video_Optimize_Level_SelectedItem = "5.2";
                     }
 
                 }
@@ -124,56 +125,56 @@ namespace Axiom
                 // -------------------------
                 // Default Audio
                 // -------------------------
-                else if (vm.Container_SelectedItem == "m4a"
-                    || vm.Container_SelectedItem == "mp3"
-                    || vm.Container_SelectedItem == "ogg"
-                    || vm.Container_SelectedItem == "flac"
-                    || vm.Container_SelectedItem == "wav")
+                else if (vm.Format_Container_SelectedItem == "m4a" ||
+                         vm.Format_Container_SelectedItem == "mp3" ||
+                         vm.Format_Container_SelectedItem == "ogg" ||
+                         vm.Format_Container_SelectedItem == "flac" ||
+                         vm.Format_Container_SelectedItem == "wav")
                 {
                     //vm.Preset.IsEditable = false;
 
+                    // Format
+                    vm.Format_Container_SelectedItem = vm.Format_Container_Items.FirstOrDefault();
+                    vm.Format_Cut_SelectedItem = "No";
+                    vm.Format_CutStart_Text = "00:00:00.000";
+                    vm.Format_CutEnd_Text = "00:00:00.000";
+
                     // Video
-                    vm.Container_SelectedItem = vm.Container_Items.FirstOrDefault();
-                    vm.VideoQuality_SelectedItem = "None";
-                    vm.Pass_SelectedItem = "auto";
-                    vm.VideoBitrate_Text = "";
-                    vm.VideoMinrate_Text = "";
-                    vm.VideoMaxrate_Text = "";
-                    vm.VideoBufsize_Text = "";
-                    vm.Size_SelectedItem = "Source";
-                    vm.AspectRatio_SelectedItem = "auto";
-                    vm.ScalingAlgorithm_SelectedItem = "default";
-                    vm.Cut_SelectedItem = "No";
-                    vm.CutStart_Text = "00:00:00.000";
-                    vm.CutEnd_Text = "00:00:00.000";
-                    vm.VideoEncodeSpeed_SelectedItem = "None";
-                    vm.FPS_SelectedItem = "auto";
-                    vm.FPS_IsEnabled = false;
+                    vm.Video_Quality_SelectedItem = "None";
+                    vm.Video_Pass_SelectedItem = "auto";
+                    vm.Video_Bitrate_Text = "";
+                    vm.Video_Minrate_Text = "";
+                    vm.Video_Maxrate_Text = "";
+                    vm.Video_Bufsize_Text = "";
+                    vm.Video_Scale_SelectedItem = "Source";
+                    vm.Video_AspectRatio_SelectedItem = "auto";
+                    vm.Video_ScalingAlgorithm_SelectedItem = "default";
+                    vm.Video_EncodeSpeed_SelectedItem = "None";
+                    vm.Video_FPS_SelectedItem = "auto";
+                    vm.Video_FPS_IsEnabled = false;
                     vm.Video_Optimize_SelectedItem = "None";
 
                     // Subtitle
-                    vm.SubtitleCodec_SelectedItem = "None";
-                    vm.SubtitleStream_SelectedItem = "none";
+                    vm.Subtitle_Codec_SelectedItem = "None";
+                    vm.Subtitle_Stream_SelectedItem = "none";
 
                     // Audio
-                    vm.AudioStream_SelectedItem = "1";
-                    vm.AudioQuality_SelectedItem = "Auto";
-                    vm.AudioChannel_SelectedItem = "Source";
-                    vm.AudioSampleRate_SelectedItem = "auto";
+                    vm.Audio_Stream_SelectedItem = "1";
+                    vm.Audio_Quality_SelectedItem = "Auto";
+                    vm.Audio_Channel_SelectedItem = "Source";
+                    vm.Audio_SampleRate_SelectedItem = "auto";
                     // special rules for PCM codec
-                    if ((string)vm.AudioCodec_SelectedItem == "PCM")
+                    if ((string)vm.Audio_Codec_SelectedItem == "PCM")
                     {
-                        vm.AudioBitDepth_SelectedItem = "24";
+                        vm.Audio_BitDepth_SelectedItem = "24";
                     }
                     else
                     {
-                        vm.AudioBitDepth_SelectedItem = "auto";
+                        vm.Audio_BitDepth_SelectedItem = "auto";
                     }
 
-                    vm.Volume_Text = "100";
-                    vm.AudioHardLimiter_Value = 1;
-                    //mainwindow.tglAudioLimiter.IsChecked = false;
-                    //mainwindow.audioLimiter.Text = string.Empty;
+                    vm.Audio_Volume_Text = "100";
+                    vm.Audio_HardLimiter_Value = 1;
                 }
             }
 
@@ -185,45 +186,94 @@ namespace Axiom
                 //vm.Preset.IsEditable = false;
 
                 // Format
-                vm.Container_SelectedItem = "mpg";
-                vm.VideoCodec_SelectedItem = "MPEG-2";
-                vm.AudioCodec_SelectedItem = "MP2";
+                vm.Format_Container_SelectedItem = "mpg";
+                vm.Video_Codec_SelectedItem = "MPEG-2";
+                vm.Audio_Codec_SelectedItem = "MP2";
+                vm.Format_Cut_SelectedItem = "No";
+                vm.Format_CutStart_Text = "00:00:00.000";
+                vm.Format_CutEnd_Text = "00:00:00.000";
 
                 // Video
-                vm.VideoQuality_SelectedItem = "Custom";
-                vm.Pass_SelectedItem = "2 Pass";
-                vm.VideoBitrate_Text = "3M";
-                vm.VideoMinrate_Text = "";
-                vm.VideoMaxrate_Text = "9.8M";
-                vm.VideoBufsize_Text = "9.8M";
-                vm.Size_SelectedItem = "Custom";
-                vm.AspectRatio_SelectedItem = "auto";
-                vm.ScalingAlgorithm_SelectedItem = "default";
-                vm.Width_Text = "720";
-                vm.Height_Text = "auto";
-                vm.Cut_SelectedItem = "No";
-                vm.CutStart_Text = "00:00:00.000";
-                vm.CutEnd_Text = "00:00:00.000";
-                vm.VideoEncodeSpeed_SelectedItem = "None";
-                vm.FPS_SelectedItem = "ntsc";
-                vm.FPS_IsEnabled = true;
+                vm.Video_Quality_SelectedItem = "Custom";
+                vm.Video_Pass_SelectedItem = "2 Pass";
+                vm.Video_Bitrate_Text = "3M";
+                vm.Video_Minrate_Text = "";
+                vm.Video_Maxrate_Text = "9.8M";
+                vm.Video_Bufsize_Text = "9.8M";
+                vm.Video_Scale_SelectedItem = "Custom";
+                vm.Video_AspectRatio_SelectedItem = "auto";
+                vm.Video_ScalingAlgorithm_SelectedItem = "default";
+                vm.Video_Width_Text = "720";
+                vm.Video_Height_Text = "auto";
+                vm.Video_EncodeSpeed_SelectedItem = "None";
+                vm.Video_FPS_SelectedItem = "ntsc";
+                vm.Video_FPS_IsEnabled = true;
                 vm.Video_Optimize_SelectedItem = "None";
 
                 // Subtitle
-                vm.SubtitleCodec_SelectedItem = "SRT";
-                vm.SubtitleStream_SelectedItem = "all";
+                vm.Subtitle_Codec_SelectedItem = "SRT";
+                vm.Subtitle_Stream_SelectedItem = "all";
 
                 // Audio
-                vm.AudioStream_SelectedItem = "all";
-                vm.AudioQuality_SelectedItem = "320";
-                vm.AudioVBR_IsChecked = false;
-                vm.AudioChannel_SelectedItem = "Source";
-                vm.AudioSampleRate_SelectedItem = "44.1k";
-                vm.AudioBitDepth_SelectedItem = "auto";
-                vm.Volume_Text = "100";
-                vm.AudioHardLimiter_Value = 1;
-                //mainwindow.tglAudioLimiter.IsChecked = false;
-                //mainwindow.audioLimiter.Text = string.Empty;
+                vm.Audio_Stream_SelectedItem = "all";
+                vm.Audio_Quality_SelectedItem = "320";
+                vm.Audio_VBR_IsChecked = false;
+                vm.Audio_Channel_SelectedItem = "Source";
+                vm.Audio_SampleRate_SelectedItem = "44.1k";
+                vm.Audio_BitDepth_SelectedItem = "auto";
+                vm.Audio_Volume_Text = "100";
+                vm.Audio_HardLimiter_Value = 1;
+            }
+
+            // -------------------------
+            // HEVC
+            // -------------------------
+            else if (vm.Preset_SelectedItem == "HEVC")
+            {
+                //vm.Preset.IsEditable = false;
+
+                // Format
+                vm.Format_Container_SelectedItem = "mkv";
+                vm.Video_Codec_SelectedItem = "x265";
+                vm.Subtitle_Codec_SelectedItem = "Copy";
+                vm.Audio_Codec_SelectedItem = "AAC";
+                vm.Format_Cut_SelectedItem = "No";
+                vm.Format_CutStart_Text = "00:00:00.000";
+                vm.Format_CutEnd_Text = "00:00:00.000";
+
+                // Video
+                vm.Video_Quality_SelectedItem = "Ultra";
+                vm.Video_Pass_SelectedItem = "CRF";
+                //vm.Video_CRF_Text = "18";
+                vm.Video_Bitrate_Text = "";
+                vm.Video_Minrate_Text = "";
+                vm.Video_Maxrate_Text = "";
+                vm.Video_Bufsize_Text = "";
+                vm.Video_PixelFormat_SelectedItem = "yuv420p10le";
+                vm.Video_Scale_SelectedItem = "Source";
+                vm.Video_AspectRatio_SelectedItem = "auto";
+                vm.Video_ScalingAlgorithm_SelectedItem = "default";
+                vm.Video_Optimize_SelectedItem = "Custom";
+                vm.Video_Optimize_Tune_SelectedItem = "none";
+                vm.Video_Optimize_Profile_SelectedItem = "main10";
+                vm.Video_Optimize_Level_SelectedItem = "5.2";
+                vm.Video_FPS_SelectedItem = "auto";
+                vm.Video_FPS_IsEnabled = true;
+                vm.Video_EncodeSpeed_SelectedItem = "Slow";
+
+                // Subtitle
+                vm.Subtitle_Codec_SelectedItem = "mov_text";
+                vm.Subtitle_Stream_SelectedItem = "all";
+
+                // Audio
+                vm.Audio_Stream_SelectedItem = "all";
+                vm.Audio_Quality_SelectedItem = "Auto";
+                vm.Audio_VBR_IsChecked = false;
+                vm.Audio_Channel_SelectedItem = "Source";
+                vm.Audio_SampleRate_SelectedItem = "auto";
+                vm.Audio_BitDepth_SelectedItem = "auto";
+                vm.Audio_Volume_Text = "100";
+                vm.Audio_HardLimiter_Value = 1;
             }
 
             // -------------------------
@@ -234,43 +284,41 @@ namespace Axiom
                 //vm.Preset.IsEditable = false;
 
                 // Format
-                vm.Container_SelectedItem = "mp4";
-                vm.VideoCodec_SelectedItem = "x264";
-                vm.AudioCodec_SelectedItem = "AAC";
+                vm.Format_Container_SelectedItem = "mp4";
+                vm.Video_Codec_SelectedItem = "x264";
+                vm.Audio_Codec_SelectedItem = "AAC";
+                vm.Format_Cut_SelectedItem = "No";
+                vm.Format_CutStart_Text = "00:00:00.000";
+                vm.Format_CutEnd_Text = "00:00:00.000";
 
                 // Video
-                vm.VideoQuality_SelectedItem = "Ultra";
-                vm.Pass_SelectedItem = "CRF";
-                vm.VideoBitrate_Text = "";
-                vm.VideoMinrate_Text = "";
-                vm.VideoMaxrate_Text = "";
-                vm.VideoBufsize_Text = "";
-                vm.Size_SelectedItem = "Source";
-                vm.AspectRatio_SelectedItem = "auto";
-                vm.ScalingAlgorithm_SelectedItem = "default";
+                vm.Video_Quality_SelectedItem = "Ultra";
+                vm.Video_Pass_SelectedItem = "CRF";
+                vm.Video_Bitrate_Text = "";
+                vm.Video_Minrate_Text = "";
+                vm.Video_Maxrate_Text = "";
+                vm.Video_Bufsize_Text = "";
+                vm.Video_Scale_SelectedItem = "Source";
+                vm.Video_AspectRatio_SelectedItem = "auto";
+                vm.Video_ScalingAlgorithm_SelectedItem = "default";
                 vm.Video_Optimize_SelectedItem = "PC HD";
-                vm.FPS_SelectedItem = "auto";
-                vm.FPS_IsEnabled = true;
-                vm.Cut_SelectedItem = "No";
-                vm.CutStart_Text = "00:00:00.000";
-                vm.CutEnd_Text = "00:00:00.000";
-                vm.VideoEncodeSpeed_SelectedItem = "Medium";
+                vm.Video_FPS_SelectedItem = "auto";
+                vm.Video_FPS_IsEnabled = true;
+                vm.Video_EncodeSpeed_SelectedItem = "Medium";
 
                 // Subtitle
-                vm.SubtitleCodec_SelectedItem = "mov_text";
-                vm.SubtitleStream_SelectedItem = "all";
+                vm.Subtitle_Codec_SelectedItem = "mov_text";
+                vm.Subtitle_Stream_SelectedItem = "all";
 
                 // Audio
-                vm.AudioStream_SelectedItem = "all";
-                vm.AudioQuality_SelectedItem = "Auto";
-                vm.AudioVBR_IsChecked = false;
-                vm.AudioChannel_SelectedItem = "Source";
-                vm.AudioSampleRate_SelectedItem = "auto";
-                vm.AudioBitDepth_SelectedItem = "auto";
-                vm.Volume_Text = "100";
-                vm.AudioHardLimiter_Value = 1;
-                //mainwindow.tglAudioLimiter.IsChecked = false;
-                //mainwindow.audioLimiter.Text = string.Empty;
+                vm.Audio_Stream_SelectedItem = "all";
+                vm.Audio_Quality_SelectedItem = "Auto";
+                vm.Audio_VBR_IsChecked = false;
+                vm.Audio_Channel_SelectedItem = "Source";
+                vm.Audio_SampleRate_SelectedItem = "auto";
+                vm.Audio_BitDepth_SelectedItem = "auto";
+                vm.Audio_Volume_Text = "100";
+                vm.Audio_HardLimiter_Value = 1;
             }
 
             // -------------------------
@@ -281,44 +329,41 @@ namespace Axiom
                 //vm.Preset.IsEditable = false;
 
                 // Format
-                vm.Container_SelectedItem = "mp4";
-                vm.VideoCodec_SelectedItem = "x264";
-                vm.AudioCodec_SelectedItem = "AC3";
-
+                vm.Format_Container_SelectedItem = "mp4";
+                vm.Video_Codec_SelectedItem = "x264";
+                vm.Audio_Codec_SelectedItem = "AC3";
+                vm.Format_Cut_SelectedItem = "No";
+                vm.Format_CutStart_Text = "00:00:00.000";
+                vm.Format_CutEnd_Text = "00:00:00.000";
 
                 // Video
-                vm.VideoQuality_SelectedItem = "High";
-                vm.Pass_SelectedItem = "CRF";
-                vm.VideoBitrate_Text = "";
-                vm.VideoMinrate_Text = "";
-                vm.VideoMaxrate_Text = "";
-                vm.VideoBufsize_Text = "";
-                vm.Size_SelectedItem = "Source";
-                vm.AspectRatio_SelectedItem = "auto";
-                vm.ScalingAlgorithm_SelectedItem = "default";
-                vm.FPS_SelectedItem = "auto";
-                vm.FPS_IsEnabled = true;
-                vm.Cut_SelectedItem = "No";
-                vm.CutStart_Text = "00:00:00.000";
-                vm.CutEnd_Text = "00:00:00.000";
-                vm.VideoEncodeSpeed_SelectedItem = "Medium";
+                vm.Video_Quality_SelectedItem = "High";
+                vm.Video_Pass_SelectedItem = "CRF";
+                vm.Video_Bitrate_Text = "";
+                vm.Video_Minrate_Text = "";
+                vm.Video_Maxrate_Text = "";
+                vm.Video_Bufsize_Text = "";
+                vm.Video_Scale_SelectedItem = "Source";
+                vm.Video_AspectRatio_SelectedItem = "auto";
+                vm.Video_ScalingAlgorithm_SelectedItem = "default";
+                vm.Video_FPS_SelectedItem = "auto";
+                vm.Video_FPS_IsEnabled = true;
+                vm.Video_EncodeSpeed_SelectedItem = "Medium";
                 vm.Video_Optimize_SelectedItem = "PC SD";
 
                 // Subtitle
-                vm.SubtitleCodec_SelectedItem = "mov_text";
-                vm.SubtitleStream_SelectedItem = "all";
+                vm.Subtitle_Codec_SelectedItem = "mov_text";
+                vm.Subtitle_Stream_SelectedItem = "all";
 
                 // Audio
-                vm.AudioStream_SelectedItem = "all";
-                vm.AudioQuality_SelectedItem = "256";
-                vm.AudioVBR_IsChecked = false;
-                vm.AudioChannel_SelectedItem = "Stereo";
-                vm.AudioSampleRate_SelectedItem = "44.1k";
-                vm.AudioBitDepth_SelectedItem = "auto";
-                vm.Volume_Text = "100";
-                vm.AudioHardLimiter_Value = 1;
-                //mainwindow.tglAudioLimiter.IsChecked = false;
-                //mainwindow.audioLimiter.Text = string.Empty;
+                vm.Audio_Stream_SelectedItem = "all";
+                vm.Audio_Quality_SelectedItem = "256";
+                vm.Audio_VBR_IsChecked = false;
+                vm.Audio_Channel_SelectedItem = "Stereo";
+                vm.Audio_SampleRate_SelectedItem = "44.1k";
+                vm.Audio_BitDepth_SelectedItem = "auto";
+                vm.Audio_Volume_Text = "100";
+                vm.Audio_HardLimiter_Value = 1;
             }
 
             // -------------------------
@@ -329,43 +374,41 @@ namespace Axiom
                 //vm.Preset.IsEditable = false;
 
                 // Format
-                vm.Container_SelectedItem = "mp4";
-                vm.VideoCodec_SelectedItem = "x264";
-                vm.AudioCodec_SelectedItem = "AC3";
+                vm.Format_Container_SelectedItem = "mp4";
+                vm.Video_Codec_SelectedItem = "x264";
+                vm.Audio_Codec_SelectedItem = "AC3";
+                vm.Format_Cut_SelectedItem = "No";
+                vm.Format_CutStart_Text = "00:00:00.000";
+                vm.Format_CutEnd_Text = "00:00:00.000";
 
                 // Video
-                vm.VideoQuality_SelectedItem = "Ultra";
-                vm.Pass_SelectedItem = "CRF";
-                vm.VideoBitrate_Text = "";
-                vm.VideoMinrate_Text = "";
-                vm.VideoMaxrate_Text = "";
-                vm.VideoBufsize_Text = "";
-                vm.Size_SelectedItem = "1080p";
-                vm.AspectRatio_SelectedItem = "auto";
-                vm.ScalingAlgorithm_SelectedItem = "default";
-                vm.FPS_SelectedItem = "23.976";
-                vm.FPS_IsEnabled = true;
+                vm.Video_Quality_SelectedItem = "Ultra";
+                vm.Video_Pass_SelectedItem = "CRF";
+                vm.Video_Bitrate_Text = "";
+                vm.Video_Minrate_Text = "";
+                vm.Video_Maxrate_Text = "";
+                vm.Video_Bufsize_Text = "";
+                vm.Video_Scale_SelectedItem = "1080p";
+                vm.Video_AspectRatio_SelectedItem = "auto";
+                vm.Video_ScalingAlgorithm_SelectedItem = "default";
+                vm.Video_FPS_SelectedItem = "23.976";
+                vm.Video_FPS_IsEnabled = true;
                 vm.Video_Optimize_SelectedItem = "Blu-ray";
-                vm.Cut_SelectedItem = "No";
-                vm.CutStart_Text = "00:00:00.000";
-                vm.CutEnd_Text = "00:00:00.000";
-                vm.VideoEncodeSpeed_SelectedItem = "Medium";
+                vm.Video_EncodeSpeed_SelectedItem = "Medium";
 
                 // Subtitle
-                vm.SubtitleCodec_SelectedItem = "mov_text";
-                vm.SubtitleStream_SelectedItem = "all";
+                vm.Subtitle_Codec_SelectedItem = "mov_text";
+                vm.Subtitle_Stream_SelectedItem = "all";
 
                 // Audio
-                vm.AudioStream_SelectedItem = "all";
-                vm.AudioQuality_SelectedItem = "640";
-                vm.AudioVBR_IsChecked = false;
-                vm.AudioChannel_SelectedItem = "Source";
-                vm.AudioSampleRate_SelectedItem = "48k";
-                vm.AudioBitDepth_SelectedItem = "auto";
-                vm.Volume_Text = "100";
-                vm.AudioHardLimiter_Value = 1;
-                //mainwindow.tglAudioLimiter.IsChecked = false;
-                //mainwindow.audioLimiter.Text = string.Empty;
+                vm.Audio_Stream_SelectedItem = "all";
+                vm.Audio_Quality_SelectedItem = "640";
+                vm.Audio_VBR_IsChecked = false;
+                vm.Audio_Channel_SelectedItem = "Source";
+                vm.Audio_SampleRate_SelectedItem = "48k";
+                vm.Audio_BitDepth_SelectedItem = "auto";
+                vm.Audio_Volume_Text = "100";
+                vm.Audio_HardLimiter_Value = 1;
             }
 
             // -------------------------
@@ -376,43 +419,41 @@ namespace Axiom
                 //vm.Preset.IsEditable = false;
 
                 // Format
-                vm.Container_SelectedItem = "mp4";
-                vm.VideoCodec_SelectedItem = "x264";
-                vm.AudioCodec_SelectedItem = "AAC";
+                vm.Format_Container_SelectedItem = "mp4";
+                vm.Video_Codec_SelectedItem = "x264";
+                vm.Audio_Codec_SelectedItem = "AAC";
+                vm.Format_Cut_SelectedItem = "No";
+                vm.Format_CutStart_Text = "00:00:00.000";
+                vm.Format_CutEnd_Text = "00:00:00.000";
 
                 // Video
-                vm.VideoQuality_SelectedItem = "High";
-                vm.Pass_SelectedItem = "CRF";
-                vm.VideoBitrate_Text = "";
-                vm.VideoMinrate_Text = "";
-                vm.VideoMaxrate_Text = "";
-                vm.VideoBufsize_Text = "";
-                vm.Size_SelectedItem = "Source";
-                vm.AspectRatio_SelectedItem = "auto";
-                vm.ScalingAlgorithm_SelectedItem = "default";
-                vm.FPS_SelectedItem = "23.976";
-                vm.FPS_IsEnabled = true;
-                vm.Cut_SelectedItem = "No";
-                vm.CutStart_Text = "00:00:00.000";
-                vm.CutEnd_Text = "00:00:00.000";
-                vm.VideoEncodeSpeed_SelectedItem = "Medium";
+                vm.Video_Quality_SelectedItem = "High";
+                vm.Video_Pass_SelectedItem = "CRF";
+                vm.Video_Bitrate_Text = "";
+                vm.Video_Minrate_Text = "";
+                vm.Video_Maxrate_Text = "";
+                vm.Video_Bufsize_Text = "";
+                vm.Video_Scale_SelectedItem = "Source";
+                vm.Video_AspectRatio_SelectedItem = "auto";
+                vm.Video_ScalingAlgorithm_SelectedItem = "default";
+                vm.Video_FPS_SelectedItem = "23.976";
+                vm.Video_FPS_IsEnabled = true;
+                vm.Video_EncodeSpeed_SelectedItem = "Medium";
                 vm.Video_Optimize_SelectedItem = "Apple";
 
                 // Subtitle
-                vm.SubtitleCodec_SelectedItem = "mov_text";
-                vm.SubtitleStream_SelectedItem = "all";
+                vm.Subtitle_Codec_SelectedItem = "mov_text";
+                vm.Subtitle_Stream_SelectedItem = "all";
 
                 // Audio
-                vm.AudioStream_SelectedItem = "all";
-                vm.AudioQuality_SelectedItem = "400";
-                vm.AudioVBR_IsChecked = true;
-                vm.AudioChannel_SelectedItem = "Stereo";
-                vm.AudioSampleRate_SelectedItem = "44.1k";
-                vm.AudioBitDepth_SelectedItem = "auto";
-                vm.Volume_Text = "100";
-                vm.AudioHardLimiter_Value = 1;
-                //mainwindow.tglAudioLimiter.IsChecked = false;
-                //mainwindow.audioLimiter.Text = string.Empty;
+                vm.Audio_Stream_SelectedItem = "all";
+                vm.Audio_Quality_SelectedItem = "400";
+                vm.Audio_VBR_IsChecked = true;
+                vm.Audio_Channel_SelectedItem = "Stereo";
+                vm.Audio_SampleRate_SelectedItem = "44.1k";
+                vm.Audio_BitDepth_SelectedItem = "auto";
+                vm.Audio_Volume_Text = "100";
+                vm.Audio_HardLimiter_Value = 1;
             }
 
             // -------------------------
@@ -423,43 +464,41 @@ namespace Axiom
                 //vm.Preset.IsEditable = false;
 
                 // Format
-                vm.Container_SelectedItem = "mp4";
-                vm.VideoCodec_SelectedItem = "x264";
-                vm.AudioCodec_SelectedItem = "AAC";
+                vm.Format_Container_SelectedItem = "mp4";
+                vm.Video_Codec_SelectedItem = "x264";
+                vm.Audio_Codec_SelectedItem = "AAC";
+                vm.Format_Cut_SelectedItem = "No";
+                vm.Format_CutStart_Text = "00:00:00.000";
+                vm.Format_CutEnd_Text = "00:00:00.000";
 
                 // Video
-                vm.VideoQuality_SelectedItem = "High";
-                vm.Pass_SelectedItem = "CRF";
-                vm.VideoBitrate_Text = "";
-                vm.VideoMinrate_Text = "";
-                vm.VideoMaxrate_Text = "";
-                vm.VideoBufsize_Text = "";
-                vm.Size_SelectedItem = "Source";
-                vm.AspectRatio_SelectedItem = "auto";
-                vm.ScalingAlgorithm_SelectedItem = "default";
+                vm.Video_Quality_SelectedItem = "High";
+                vm.Video_Pass_SelectedItem = "CRF";
+                vm.Video_Bitrate_Text = "";
+                vm.Video_Minrate_Text = "";
+                vm.Video_Maxrate_Text = "";
+                vm.Video_Bufsize_Text = "";
+                vm.Video_Scale_SelectedItem = "Source";
+                vm.Video_AspectRatio_SelectedItem = "auto";
+                vm.Video_ScalingAlgorithm_SelectedItem = "default";
                 vm.Video_Optimize_SelectedItem = "Android";
-                vm.FPS_SelectedItem = "23.976";
-                vm.FPS_IsEnabled = true;
-                vm.Cut_SelectedItem = "No";
-                vm.CutStart_Text = "00:00:00.000";
-                vm.CutEnd_Text = "00:00:00.000";
-                vm.VideoEncodeSpeed_SelectedItem = "Medium";
+                vm.Video_FPS_SelectedItem = "23.976";
+                vm.Video_FPS_IsEnabled = true;
+                vm.Video_EncodeSpeed_SelectedItem = "Medium";
 
                 // Subtitle
-                vm.SubtitleCodec_SelectedItem = "mov_text";
-                vm.SubtitleStream_SelectedItem = "all";
+                vm.Subtitle_Codec_SelectedItem = "mov_text";
+                vm.Subtitle_Stream_SelectedItem = "all";
 
                 // Audio
-                vm.AudioStream_SelectedItem = "all";
-                vm.AudioQuality_SelectedItem = "400";
-                vm.AudioVBR_IsChecked = true;
-                vm.AudioChannel_SelectedItem = "Stereo";
-                vm.AudioSampleRate_SelectedItem = "44.1k";
-                vm.AudioBitDepth_SelectedItem = "auto";
-                vm.Volume_Text = "100";
-                vm.AudioHardLimiter_Value = 1;
-                //mainwindow.tglAudioLimiter.IsChecked = false;
-                //mainwindow.audioLimiter.Text = string.Empty;
+                vm.Audio_Stream_SelectedItem = "all";
+                vm.Audio_Quality_SelectedItem = "400";
+                vm.Audio_VBR_IsChecked = true;
+                vm.Audio_Channel_SelectedItem = "Stereo";
+                vm.Audio_SampleRate_SelectedItem = "44.1k";
+                vm.Audio_BitDepth_SelectedItem = "auto";
+                vm.Audio_Volume_Text = "100";
+                vm.Audio_HardLimiter_Value = 1;
             }
 
             // -------------------------
@@ -470,42 +509,40 @@ namespace Axiom
                 //vm.Preset.IsEditable = false;
 
                 // Format
-                vm.Container_SelectedItem = "m4a";
-                vm.AudioCodec_SelectedItem = "AAC";
+                vm.Format_Container_SelectedItem = "m4a";
+                vm.Audio_Codec_SelectedItem = "AAC";
+                vm.Format_Cut_SelectedItem = "No";
+                vm.Format_CutStart_Text = "00:00:00.000";
+                vm.Format_CutEnd_Text = "00:00:00.000";
 
                 // Video
-                vm.VideoQuality_SelectedItem = "None";
-                vm.Pass_SelectedItem = "auto";
-                vm.VideoBitrate_Text = "";
-                vm.VideoMinrate_Text = "";
-                vm.VideoMaxrate_Text = "";
-                vm.VideoBufsize_Text = "";
-                vm.Size_SelectedItem = "Source";
-                vm.AspectRatio_SelectedItem = "auto";
-                vm.ScalingAlgorithm_SelectedItem = "default";
-                vm.Cut_SelectedItem = "No";
-                vm.CutStart_Text = "00:00:00.000";
-                vm.CutEnd_Text = "00:00:00.000";
-                vm.VideoEncodeSpeed_SelectedItem = "None";
-                vm.FPS_SelectedItem = "auto";
-                vm.FPS_IsEnabled = false;
+                vm.Video_Quality_SelectedItem = "None";
+                vm.Video_Pass_SelectedItem = "auto";
+                vm.Video_Bitrate_Text = "";
+                vm.Video_Minrate_Text = "";
+                vm.Video_Maxrate_Text = "";
+                vm.Video_Bufsize_Text = "";
+                vm.Video_Scale_SelectedItem = "Source";
+                vm.Video_AspectRatio_SelectedItem = "auto";
+                vm.Video_ScalingAlgorithm_SelectedItem = "default";
+                vm.Video_EncodeSpeed_SelectedItem = "None";
+                vm.Video_FPS_SelectedItem = "auto";
+                vm.Video_FPS_IsEnabled = false;
                 vm.Video_Optimize_SelectedItem = "None";
 
                 // Subtitle
-                vm.SubtitleCodec_SelectedItem = "None";
-                vm.SubtitleStream_SelectedItem = "none";
+                vm.Subtitle_Codec_SelectedItem = "None";
+                vm.Subtitle_Stream_SelectedItem = "none";
 
                 // Audio
-                vm.AudioStream_SelectedItem = "1";
-                vm.AudioQuality_SelectedItem = "320";
-                vm.AudioVBR_IsChecked = true;
-                vm.AudioChannel_SelectedItem = "Stereo";
-                vm.AudioSampleRate_SelectedItem = "auto";
-                vm.AudioBitDepth_SelectedItem = "auto";
-                vm.Volume_Text = "100";
-                vm.AudioHardLimiter_Value = 1;
-                //mainwindow.tglAudioLimiter.IsChecked = false;
-                //mainwindow.audioLimiter.Text = string.Empty;
+                vm.Audio_Stream_SelectedItem = "1";
+                vm.Audio_Quality_SelectedItem = "320";
+                vm.Audio_VBR_IsChecked = true;
+                vm.Audio_Channel_SelectedItem = "Stereo";
+                vm.Audio_SampleRate_SelectedItem = "auto";
+                vm.Audio_BitDepth_SelectedItem = "auto";
+                vm.Audio_Volume_Text = "100";
+                vm.Audio_HardLimiter_Value = 1;
             }
 
             // -------------------------
@@ -516,42 +553,40 @@ namespace Axiom
                 //vm.Preset.IsEditable = false;
 
                 // Format
-                vm.Container_SelectedItem = "mp3";
-                vm.AudioCodec_SelectedItem = "LAME";
+                vm.Format_Container_SelectedItem = "mp3";
+                vm.Audio_Codec_SelectedItem = "LAME";
+                vm.Format_Cut_SelectedItem = "No";
+                vm.Format_CutStart_Text = "00:00:00.000";
+                vm.Format_CutEnd_Text = "00:00:00.000";
 
                 // Video
-                vm.VideoQuality_SelectedItem = "None";
-                vm.Pass_SelectedItem = "auto";
-                vm.VideoBitrate_Text = "";
-                vm.VideoMinrate_Text = "";
-                vm.VideoMaxrate_Text = "";
-                vm.VideoBufsize_Text = "";
-                vm.Size_SelectedItem = "Source";
-                vm.AspectRatio_SelectedItem = "auto";
-                vm.ScalingAlgorithm_SelectedItem = "default";
-                vm.Cut_SelectedItem = "No";
-                vm.CutStart_Text = "00:00:00.000";
-                vm.CutEnd_Text = "00:00:00.000";
-                vm.VideoEncodeSpeed_SelectedItem = "None";
-                vm.FPS_SelectedItem = "auto";
-                vm.FPS_IsEnabled = false;
+                vm.Video_Quality_SelectedItem = "None";
+                vm.Video_Pass_SelectedItem = "auto";
+                vm.Video_Bitrate_Text = "";
+                vm.Video_Minrate_Text = "";
+                vm.Video_Maxrate_Text = "";
+                vm.Video_Bufsize_Text = "";
+                vm.Video_Scale_SelectedItem = "Source";
+                vm.Video_AspectRatio_SelectedItem = "auto";
+                vm.Video_ScalingAlgorithm_SelectedItem = "default";
+                vm.Video_EncodeSpeed_SelectedItem = "None";
+                vm.Video_FPS_SelectedItem = "auto";
+                vm.Video_FPS_IsEnabled = false;
                 vm.Video_Optimize_SelectedItem = "None";
 
                 // Subtitle
-                vm.SubtitleCodec_SelectedItem = "None";
-                vm.SubtitleStream_SelectedItem = "none";
+                vm.Subtitle_Codec_SelectedItem = "None";
+                vm.Subtitle_Stream_SelectedItem = "none";
 
                 // Audio
-                vm.AudioStream_SelectedItem = "1";
-                vm.AudioQuality_SelectedItem = "320";
-                vm.AudioVBR_IsChecked = true;
-                vm.AudioChannel_SelectedItem = "Joint Stereo";
-                vm.AudioSampleRate_SelectedItem = "auto";
-                vm.AudioBitDepth_SelectedItem = "auto";
-                vm.Volume_Text = "100";
-                vm.AudioHardLimiter_Value = 1;
-                //mainwindow.tglAudioLimiter.IsChecked = false;
-                //mainwindow.audioLimiter.Text = string.Empty;
+                vm.Audio_Stream_SelectedItem = "1";
+                vm.Audio_Quality_SelectedItem = "320";
+                vm.Audio_VBR_IsChecked = true;
+                vm.Audio_Channel_SelectedItem = "Joint Stereo";
+                vm.Audio_SampleRate_SelectedItem = "auto";
+                vm.Audio_BitDepth_SelectedItem = "auto";
+                vm.Audio_Volume_Text = "100";
+                vm.Audio_HardLimiter_Value = 1;
             }
 
             // -------------------------
@@ -562,43 +597,41 @@ namespace Axiom
                 //vm.Preset.IsEditable = false;
 
                 // Format
-                vm.Container_SelectedItem = "mp4";
-                vm.VideoCodec_SelectedItem = "x264";
-                vm.AudioCodec_SelectedItem = "AAC";
+                vm.Format_Container_SelectedItem = "mp4";
+                vm.Video_Codec_SelectedItem = "x264";
+                vm.Audio_Codec_SelectedItem = "AAC";
+                vm.Format_Cut_SelectedItem = "No";
+                vm.Format_CutStart_Text = "00:00:00.000";
+                vm.Format_CutEnd_Text = "00:00:00.000";
 
                 // Video
-                vm.VideoQuality_SelectedItem = "Ultra";
-                vm.Pass_SelectedItem = "CRF";
-                vm.VideoBitrate_Text = "";
-                vm.VideoMinrate_Text = "";
-                vm.VideoMaxrate_Text = "";
-                vm.VideoBufsize_Text = "";
-                vm.Size_SelectedItem = "Source";
-                vm.AspectRatio_SelectedItem = "auto";
-                vm.ScalingAlgorithm_SelectedItem = "default";
-                vm.FPS_SelectedItem = "23.976";
-                vm.FPS_IsEnabled = true;
-                vm.Cut_SelectedItem = "No";
-                vm.CutStart_Text = "00:00:00.000";
-                vm.CutEnd_Text = "00:00:00.000";
-                vm.VideoEncodeSpeed_SelectedItem = "Medium";
+                vm.Video_Quality_SelectedItem = "Ultra";
+                vm.Video_Pass_SelectedItem = "CRF";
+                vm.Video_Bitrate_Text = "";
+                vm.Video_Minrate_Text = "";
+                vm.Video_Maxrate_Text = "";
+                vm.Video_Bufsize_Text = "";
+                vm.Video_Scale_SelectedItem = "Source";
+                vm.Video_AspectRatio_SelectedItem = "auto";
+                vm.Video_ScalingAlgorithm_SelectedItem = "default";
+                vm.Video_FPS_SelectedItem = "23.976";
+                vm.Video_FPS_IsEnabled = true;
+                vm.Video_EncodeSpeed_SelectedItem = "Medium";
                 vm.Video_Optimize_SelectedItem = "PS3";
 
                 // Subtitle
-                vm.SubtitleCodec_SelectedItem = "mov_text";
-                vm.SubtitleStream_SelectedItem = "all";
+                vm.Subtitle_Codec_SelectedItem = "mov_text";
+                vm.Subtitle_Stream_SelectedItem = "all";
 
                 // Audio
-                vm.AudioStream_SelectedItem = "all";
-                vm.AudioQuality_SelectedItem = "400";
-                vm.AudioVBR_IsChecked = false;
-                vm.AudioChannel_SelectedItem = "Source";
-                vm.AudioSampleRate_SelectedItem = "48k";
-                vm.AudioBitDepth_SelectedItem = "auto";
-                vm.Volume_Text = "100";
-                vm.AudioHardLimiter_Value = 1;
-                //mainwindow.tglAudioLimiter.IsChecked = false;
-                //mainwindow.audioLimiter.Text = string.Empty;
+                vm.Audio_Stream_SelectedItem = "all";
+                vm.Audio_Quality_SelectedItem = "400";
+                vm.Audio_VBR_IsChecked = false;
+                vm.Audio_Channel_SelectedItem = "Source";
+                vm.Audio_SampleRate_SelectedItem = "48k";
+                vm.Audio_BitDepth_SelectedItem = "auto";
+                vm.Audio_Volume_Text = "100";
+                vm.Audio_HardLimiter_Value = 1;
             }
 
             // -------------------------
@@ -609,43 +642,41 @@ namespace Axiom
                 //vm.Preset.IsEditable = false;
 
                 // Format
-                vm.Container_SelectedItem = "mp4";
-                vm.VideoCodec_SelectedItem = "x264";
-                vm.AudioCodec_SelectedItem = "AAC";
+                vm.Format_Container_SelectedItem = "mp4";
+                vm.Video_Codec_SelectedItem = "x264";
+                vm.Audio_Codec_SelectedItem = "AAC";
+                vm.Format_Cut_SelectedItem = "No";
+                vm.Format_CutStart_Text = "00:00:00.000";
+                vm.Format_CutEnd_Text = "00:00:00.000";
 
                 // Video
-                vm.VideoQuality_SelectedItem = "Ultra";
-                vm.Pass_SelectedItem = "CRF";
-                vm.VideoBitrate_Text = "";
-                vm.VideoMinrate_Text = "";
-                vm.VideoMaxrate_Text = "";
-                vm.VideoBufsize_Text = "";
-                vm.Size_SelectedItem = "Source";
-                vm.AspectRatio_SelectedItem = "auto";
-                vm.ScalingAlgorithm_SelectedItem = "default";
-                vm.Cut_SelectedItem = "No";
-                vm.CutStart_Text = "00:00:00.000";
-                vm.CutEnd_Text = "00:00:00.000";
-                vm.VideoEncodeSpeed_SelectedItem = "Medium";
-                vm.FPS_SelectedItem = "auto";
-                vm.FPS_IsEnabled = true;
+                vm.Video_Quality_SelectedItem = "Ultra";
+                vm.Video_Pass_SelectedItem = "CRF";
+                vm.Video_Bitrate_Text = "";
+                vm.Video_Minrate_Text = "";
+                vm.Video_Maxrate_Text = "";
+                vm.Video_Bufsize_Text = "";
+                vm.Video_Scale_SelectedItem = "Source";
+                vm.Video_AspectRatio_SelectedItem = "auto";
+                vm.Video_ScalingAlgorithm_SelectedItem = "default";
+                vm.Video_EncodeSpeed_SelectedItem = "Medium";
+                vm.Video_FPS_SelectedItem = "auto";
+                vm.Video_FPS_IsEnabled = true;
                 vm.Video_Optimize_SelectedItem = "PS4";
 
                 // Subtitle
-                vm.SubtitleCodec_SelectedItem = "mov_text";
-                vm.SubtitleStream_SelectedItem = "all";
+                vm.Subtitle_Codec_SelectedItem = "mov_text";
+                vm.Subtitle_Stream_SelectedItem = "all";
 
                 // Audio
-                vm.AudioStream_SelectedItem = "all";
-                vm.AudioQuality_SelectedItem = "Auto";
-                vm.AudioChannel_SelectedItem = "Source";
-                vm.AudioSampleRate_SelectedItem = "auto";
-                vm.AudioBitDepth_SelectedItem = "auto";
-                vm.AudioVBR_IsChecked = false;
-                vm.Volume_Text = "100";
-                vm.AudioHardLimiter_Value = 1;
-                //mainwindow.tglAudioLimiter.IsChecked = false;
-                //mainwindow.audioLimiter.Text = string.Empty;
+                vm.Audio_Stream_SelectedItem = "all";
+                vm.Audio_Quality_SelectedItem = "Auto";
+                vm.Audio_Channel_SelectedItem = "Source";
+                vm.Audio_SampleRate_SelectedItem = "auto";
+                vm.Audio_BitDepth_SelectedItem = "auto";
+                vm.Audio_VBR_IsChecked = false;
+                vm.Audio_Volume_Text = "100";
+                vm.Audio_HardLimiter_Value = 1;
             }
 
             // -------------------------
@@ -656,43 +687,41 @@ namespace Axiom
                 //vm.Preset.IsEditable = false;
 
                 // Format
-                vm.Container_SelectedItem = "mp4";
-                vm.VideoCodec_SelectedItem = "x264";
-                vm.AudioCodec_SelectedItem = "AAC";
+                vm.Format_Container_SelectedItem = "mp4";
+                vm.Video_Codec_SelectedItem = "x264";
+                vm.Audio_Codec_SelectedItem = "AAC";
+                vm.Format_Cut_SelectedItem = "No";
+                vm.Format_CutStart_Text = "00:00:00.000";
+                vm.Format_CutEnd_Text = "00:00:00.000";
 
                 // Video
-                vm.VideoQuality_SelectedItem = "High";
-                vm.Pass_SelectedItem = "CRF";
-                vm.VideoBitrate_Text = "";
-                vm.VideoMinrate_Text = "";
-                vm.VideoMaxrate_Text = "";
-                vm.VideoBufsize_Text = "";
-                vm.Size_SelectedItem = "Source";
-                vm.AspectRatio_SelectedItem = "auto";
-                vm.ScalingAlgorithm_SelectedItem = "default";
-                vm.Cut_SelectedItem = "No";
-                vm.CutStart_Text = "00:00:00.000";
-                vm.CutEnd_Text = "00:00:00.000";
-                vm.VideoEncodeSpeed_SelectedItem = "Medium";
-                vm.FPS_SelectedItem = "23.976";
-                vm.FPS_IsEnabled = true;
+                vm.Video_Quality_SelectedItem = "High";
+                vm.Video_Pass_SelectedItem = "CRF";
+                vm.Video_Bitrate_Text = "";
+                vm.Video_Minrate_Text = "";
+                vm.Video_Maxrate_Text = "";
+                vm.Video_Bufsize_Text = "";
+                vm.Video_Scale_SelectedItem = "Source";
+                vm.Video_AspectRatio_SelectedItem = "auto";
+                vm.Video_ScalingAlgorithm_SelectedItem = "default";
+                vm.Video_EncodeSpeed_SelectedItem = "Medium";
+                vm.Video_FPS_SelectedItem = "23.976";
+                vm.Video_FPS_IsEnabled = true;
                 vm.Video_Optimize_SelectedItem = "Xbox 360";
 
                 // Subtitle
-                vm.SubtitleCodec_SelectedItem = "mov_text";
-                vm.SubtitleStream_SelectedItem = "all";
+                vm.Subtitle_Codec_SelectedItem = "mov_text";
+                vm.Subtitle_Stream_SelectedItem = "all";
 
                 // Audio
-                vm.AudioStream_SelectedItem = "all";
-                vm.AudioQuality_SelectedItem = "320";
-                vm.AudioChannel_SelectedItem = "Stereo";
-                vm.AudioSampleRate_SelectedItem = "48k";
-                vm.AudioBitDepth_SelectedItem = "auto";
-                vm.AudioVBR_IsChecked = false;
-                vm.Volume_Text = "100";
-                vm.AudioHardLimiter_Value = 1;
-                //mainwindow.tglAudioLimiter.IsChecked = false;
-                //mainwindow.audioLimiter.Text = string.Empty;
+                vm.Audio_Stream_SelectedItem = "all";
+                vm.Audio_Quality_SelectedItem = "320";
+                vm.Audio_Channel_SelectedItem = "Stereo";
+                vm.Audio_SampleRate_SelectedItem = "48k";
+                vm.Audio_BitDepth_SelectedItem = "auto";
+                vm.Audio_VBR_IsChecked = false;
+                vm.Audio_Volume_Text = "100";
+                vm.Audio_HardLimiter_Value = 1;
             }
 
             // -------------------------
@@ -703,43 +732,42 @@ namespace Axiom
                 //vm.Preset.IsEditable = false;
 
                 // Format
-                vm.Container_SelectedItem = "mp4";
-                vm.VideoCodec_SelectedItem = "x264";
-                vm.AudioCodec_SelectedItem = "AAC";
+                vm.Format_Container_SelectedItem = "mp4";
+                vm.Video_Codec_SelectedItem = "x264";
+                vm.Audio_Codec_SelectedItem = "AAC";
+                vm.Format_Cut_SelectedItem = "No";
+                vm.Format_CutStart_Text = "00:00:00.000";
+                vm.Format_CutEnd_Text = "00:00:00.000";
 
                 // Video
-                vm.VideoQuality_SelectedItem = "Ultra";
-                vm.Pass_SelectedItem = "CRF";
-                vm.VideoBitrate_Text = "";
-                vm.VideoMinrate_Text = "";
-                vm.VideoMaxrate_Text = "";
-                vm.VideoBufsize_Text = "";
-                vm.Size_SelectedItem = "Source";
-                vm.AspectRatio_SelectedItem = "auto";
-                vm.ScalingAlgorithm_SelectedItem = "default";
-                vm.Cut_SelectedItem = "No";
-                vm.CutStart_Text = "00:00:00.000";
-                vm.CutEnd_Text = "00:00:00.000";
-                vm.VideoEncodeSpeed_SelectedItem = "Medium";
+                vm.Video_Quality_SelectedItem = "Ultra";
+                vm.Video_Pass_SelectedItem = "CRF";
+                vm.Video_Bitrate_Text = "";
+                vm.Video_Minrate_Text = "";
+                vm.Video_Maxrate_Text = "";
+                vm.Video_Bufsize_Text = "";
+                vm.Video_Scale_SelectedItem = "Source";
+                vm.Video_AspectRatio_SelectedItem = "auto";
+                vm.Video_ScalingAlgorithm_SelectedItem = "default";
+                vm.Video_EncodeSpeed_SelectedItem = "Medium";
                 vm.Video_Optimize_SelectedItem = "Xbox One";
-                vm.FPS_SelectedItem = "auto";
-                vm.FPS_IsEnabled = true;
+                vm.Video_FPS_SelectedItem = "auto";
+                vm.Video_FPS_IsEnabled = true;
 
                 // Subtitle
-                vm.SubtitleCodec_SelectedItem = "mov_text";
-                vm.SubtitleStream_SelectedItem = "all";
+                vm.Subtitle_Codec_SelectedItem = "mov_text";
+                vm.Subtitle_Stream_SelectedItem = "all";
 
                 // Audio
-                vm.AudioStream_SelectedItem = "all";
-                vm.AudioQuality_SelectedItem = "Auto";
-                vm.AudioChannel_SelectedItem = "Source";
-                vm.AudioSampleRate_SelectedItem = "auto";
-                vm.AudioBitDepth_SelectedItem = "auto";
-                vm.AudioVBR_IsChecked = false;
-                vm.Volume_Text = "100";
-                vm.AudioHardLimiter_Value = 1;
-                //mainwindow.tglAudioLimiter.IsChecked = false;
-                //mainwindow.audioLimiter.Text = string.Empty;
+                vm.Audio_Stream_SelectedItem = "all";
+                vm.Audio_Quality_SelectedItem = "Auto";
+                vm.Audio_Channel_SelectedItem = "Source";
+                vm.Audio_SampleRate_SelectedItem = "auto";
+                vm.Audio_BitDepth_SelectedItem = "auto";
+                vm.Audio_VBR_IsChecked = false;
+                vm.Audio_Volume_Text = "100";
+                vm.Audio_HardLimiter_Value = 1;
+
             }
 
             // -------------------------
@@ -750,43 +778,41 @@ namespace Axiom
                 //vm.Preset.IsEditable = false;
 
                 // Format
-                vm.Container_SelectedItem = "webm";
-                vm.VideoCodec_SelectedItem = "VP8";
-                vm.AudioCodec_SelectedItem = "Vorbis";
+                vm.Format_Container_SelectedItem = "webm";
+                vm.Video_Codec_SelectedItem = "VP8";
+                vm.Audio_Codec_SelectedItem = "Vorbis";
+                vm.Format_Cut_SelectedItem = "No";
+                vm.Format_CutStart_Text = "00:00:00.000";
+                vm.Format_CutEnd_Text = "00:00:00.000";
 
                 // Video
-                vm.VideoQuality_SelectedItem = "Medium";
-                vm.Pass_SelectedItem = "CRF";
-                //vm.VideoBitrate_Text = ""; // use quality preset bitrate
-                vm.VideoMinrate_Text = "";
-                vm.VideoMaxrate_Text = "";
-                vm.VideoBufsize_Text = "";
-                vm.Size_SelectedItem = "Source";
-                vm.AspectRatio_SelectedItem = "auto";
-                vm.ScalingAlgorithm_SelectedItem = "defualt";
-                vm.Cut_SelectedItem = "No";
-                vm.CutStart_Text = "00:00:00.000";
-                vm.CutEnd_Text = "00:00:00.000";
-                vm.VideoEncodeSpeed_SelectedItem = "Medium";
-                vm.FPS_SelectedItem = "auto";
-                vm.FPS_IsEnabled = true;
+                vm.Video_Quality_SelectedItem = "Medium";
+                vm.Video_Pass_SelectedItem = "CRF";
+                //vm.Video_Bitrate_Text = ""; // use quality preset bitrate
+                vm.Video_Minrate_Text = "";
+                vm.Video_Maxrate_Text = "";
+                vm.Video_Bufsize_Text = "";
+                vm.Video_Scale_SelectedItem = "Source";
+                vm.Video_AspectRatio_SelectedItem = "auto";
+                vm.Video_ScalingAlgorithm_SelectedItem = "defualt";
+                vm.Video_EncodeSpeed_SelectedItem = "Medium";
+                vm.Video_FPS_SelectedItem = "auto";
+                vm.Video_FPS_IsEnabled = true;
                 vm.Video_Optimize_SelectedItem = "Web";
 
                 // Subtitle
-                vm.SubtitleCodec_SelectedItem = "None";
-                vm.SubtitleStream_SelectedItem = "none";
+                vm.Subtitle_Codec_SelectedItem = "None";
+                vm.Subtitle_Stream_SelectedItem = "none";
 
                 // Audio
-                vm.AudioStream_SelectedItem = "1";
-                vm.AudioQuality_SelectedItem = "192";
-                vm.AudioVBR_IsChecked = true;
-                vm.AudioChannel_SelectedItem = "Stereo";
-                vm.AudioSampleRate_SelectedItem = "44.1k";
-                vm.AudioBitDepth_SelectedItem = "auto";
-                vm.Volume_Text = "100";
-                vm.AudioHardLimiter_Value = 1;
-                //mainwindow.tglAudioLimiter.IsChecked = false;
-                //mainwindow.audioLimiter.Text = string.Empty;
+                vm.Audio_Stream_SelectedItem = "1";
+                vm.Audio_Quality_SelectedItem = "192";
+                vm.Audio_VBR_IsChecked = true;
+                vm.Audio_Channel_SelectedItem = "Stereo";
+                vm.Audio_SampleRate_SelectedItem = "44.1k";
+                vm.Audio_BitDepth_SelectedItem = "auto";
+                vm.Audio_Volume_Text = "100";
+                vm.Audio_HardLimiter_Value = 1;
             }
 
             // -------------------------
@@ -797,47 +823,45 @@ namespace Axiom
                 //vm.Preset.IsEditable = false;
 
                 // Format
-                vm.Container_SelectedItem = "mkv";
-                vm.AudioCodec_SelectedItem = "Opus";
+                vm.Format_Container_SelectedItem = "mkv";
+                vm.Audio_Codec_SelectedItem = "Opus";
+                vm.Format_Cut_SelectedItem = "Yes";
+                vm.Format_CutStart_Text = "00:00:00.000";
+                vm.Format_CutEnd_Text = "00:00:05.300";
 
                 // Video
-                vm.VideoQuality_SelectedItem = "Custom";
-                vm.Pass_SelectedItem = "CRF";
-                vm.VideoBitrate_Text = "1250K";
-                vm.VideoMinrate_Text = "";
-                vm.VideoMaxrate_Text = "";
-                vm.VideoBufsize_Text = "";
-                vm.CRF_Text = "26";
-                vm.FPS_SelectedItem = "29.97";
-                vm.FPS_IsEnabled = true;
-                vm.VideoCodec_SelectedItem = "x264";
-                vm.Size_SelectedItem = "Custom";
-                vm.AspectRatio_SelectedItem = "16:9";
-                vm.ScalingAlgorithm_SelectedItem = "spline";
-                vm.Width_Text = "545";
-                vm.Height_Text = "307";
-                vm.Cut_SelectedItem = "Yes";
-                vm.CutStart_Text = "00:00:00.000";
-                vm.CutEnd_Text = "00:00:05.300";
+                vm.Video_Quality_SelectedItem = "Custom";
+                vm.Video_Pass_SelectedItem = "CRF";
+                vm.Video_Bitrate_Text = "1250K";
+                vm.Video_Minrate_Text = "";
+                vm.Video_Maxrate_Text = "";
+                vm.Video_Bufsize_Text = "";
+                vm.Video_CRF_Text = "26";
+                vm.Video_FPS_SelectedItem = "29.97";
+                vm.Video_FPS_IsEnabled = true;
+                vm.Video_Codec_SelectedItem = "x264";
+                vm.Video_Scale_SelectedItem = "Custom";
+                vm.Video_AspectRatio_SelectedItem = "16:9";
+                vm.Video_ScalingAlgorithm_SelectedItem = "spline";
+                vm.Video_Width_Text = "545";
+                vm.Video_Height_Text = "307";
                 vm.Video_Optimize_SelectedItem = "Windows";
-                vm.VideoEncodeSpeed_SelectedItem = "Faster";
+                vm.Video_EncodeSpeed_SelectedItem = "Faster";
 
                 // Subtitle
-                vm.SubtitleCodec_SelectedItem = "SSA";
-                vm.SubtitleStream_SelectedItem = "all";
+                vm.Subtitle_Codec_SelectedItem = "SSA";
+                vm.Subtitle_Stream_SelectedItem = "all";
 
                 // Audio
-                vm.AudioStream_SelectedItem = "1";
-                vm.AudioQuality_SelectedItem = "Custom";
-                vm.AudioBitrate_Text = "380";
-                vm.AudioVBR_IsChecked = true;
-                vm.AudioChannel_SelectedItem = "Stereo";
-                vm.AudioSampleRate_SelectedItem = "48k";
-                vm.AudioBitDepth_SelectedItem = "auto";
-                vm.Volume_Text = "120";
-                vm.AudioHardLimiter_Value = 0.9;
-                //mainwindow.tglAudioLimiter.IsChecked = true;
-                //mainwindow.audioLimiter.Text = "0.90";
+                vm.Audio_Stream_SelectedItem = "1";
+                vm.Audio_Quality_SelectedItem = "Custom";
+                vm.Audio_Bitrate_Text = "380";
+                vm.Audio_VBR_IsChecked = true;
+                vm.Audio_Channel_SelectedItem = "Stereo";
+                vm.Audio_SampleRate_SelectedItem = "48k";
+                vm.Audio_BitDepth_SelectedItem = "auto";
+                vm.Audio_Volume_Text = "120";
+                vm.Audio_HardLimiter_Value = 0.9;
             }
         }
     }

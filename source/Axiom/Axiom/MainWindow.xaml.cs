@@ -587,7 +587,7 @@ namespace Axiom
             //if ((string)cboFormat_SelectedItem == "webm")
             //{
             //    cboSubtitlesStream_SelectedItem = "none";
-            //    cboAudioStream_SelectedItem = "1";
+            //    cboAudio_Stream_SelectedItem = "1";
             //}
 
             // -------------------------
@@ -705,7 +705,7 @@ namespace Axiom
             Video.x265params = string.Empty;
 
             // Clear Crop if ClearCrop Button Identifier is Empty
-            if (vm.CropClear_Text == "Clear")
+            if (vm.Video_CropClear_Text == "Clear")
             {
                 CropWindow.crop = string.Empty;
                 CropWindow.divisibleCropWidth = null; //int
@@ -869,13 +869,13 @@ namespace Axiom
         /// <summary>
         ///     Selected Item
         /// </summary>
-        public static string VideoEncodeSpeed_PreviousItem;
-        public static string VideoQuality_PreviousItem;
-        public static string Pass_PreviousItem;
+        public static string Video_EncodeSpeed_PreviousItem;
+        public static string Video_Quality_PreviousItem;
+        public static string Video_Pass_PreviousItem;
         public static string VideoOptimize_PreviousItem;
-        public static string AudioQuality_PreviousItem;
-        public static string AudioSampleRate_PreviousItem;
-        public static string AudioBitDepth_PreviousItem;
+        public static string Audio_Quality_PreviousItem;
+        public static string Audio_SampleRate_PreviousItem;
+        public static string Audio_BitDepth_PreviousItem;
         public static string SelectedItem(List<string> itemsName,
                                           string selectedItem
                                           )
@@ -1755,8 +1755,8 @@ namespace Axiom
             // -------------------------
             if (string.IsNullOrEmpty(FFprobe.ffprobe))
             {
-                if (vm.VideoQuality_SelectedItem == "Auto" ||
-                    vm.AudioQuality_SelectedItem == "Auto")
+                if (vm.Video_Quality_SelectedItem == "Auto" ||
+                    vm.Audio_Quality_SelectedItem == "Auto")
                 {
                     // Log Console Message /////////
                     Log.logParagraph.Inlines.Add(new LineBreak());
@@ -1783,10 +1783,10 @@ namespace Axiom
                     // Both Video & Audio are Auto Quality
                     // Combined Single Warning
                     // -------------------------
-                    if (vm.VideoQuality_SelectedItem == "Auto" && 
-                        vm.AudioQuality_SelectedItem == "Auto" && 
-                        vm.VideoCodec_SelectedItem != "Copy" && 
-                        vm.AudioCodec_SelectedItem != "Copy"
+                    if (vm.Video_Quality_SelectedItem == "Auto" && 
+                        vm.Audio_Quality_SelectedItem == "Auto" && 
+                        vm.Video_Codec_SelectedItem != "Copy" && 
+                        vm.Audio_Codec_SelectedItem != "Copy"
                         )
                     {
                         // Log Console Message /////////
@@ -1813,9 +1813,9 @@ namespace Axiom
                         // -------------------------
                         // Video Auto Quality
                         // -------------------------
-                        if (vm.VideoQuality_SelectedItem == "Auto")
+                        if (vm.Video_Quality_SelectedItem == "Auto")
                         {
-                            if (vm.VideoCodec_SelectedItem != "Copy")
+                            if (vm.Video_Codec_SelectedItem != "Copy")
                             {
                                 // Log Console Message /////////
                                 Log.logParagraph.Inlines.Add(new LineBreak());
@@ -1836,9 +1836,9 @@ namespace Axiom
                         // -------------------------
                         // Audio Auto Quality
                         // -------------------------
-                        if (vm.AudioQuality_SelectedItem == "Auto")
+                        if (vm.Audio_Quality_SelectedItem == "Auto")
                         {
-                            if (vm.AudioCodec_SelectedItem != "Copy")
+                            if (vm.Audio_Codec_SelectedItem != "Copy")
                             {
                                 // Log Console Message /////////
                                 Log.logParagraph.Inlines.Add(new LineBreak());
@@ -1908,11 +1908,11 @@ namespace Axiom
             // -------------------------
             // Throw Error if VP8/VP9 & CRF does not have Bitrate -b:v
             // -------------------------
-            if (vm.VideoCodec_SelectedItem == "VP8"
-                || vm.VideoCodec_SelectedItem == "VP9")
+            if (vm.Video_Codec_SelectedItem == "VP8"
+                || vm.Video_Codec_SelectedItem == "VP9")
             {
-                if (!string.IsNullOrEmpty(vm.CRF_Text)
-                    && string.IsNullOrEmpty(vm.CRF_Text))
+                if (!string.IsNullOrEmpty(vm.Video_CRF_Text)
+                    && string.IsNullOrEmpty(vm.Video_CRF_Text))
                 {
                     // Log Console Message /////////
                     Log.logParagraph.Inlines.Add(new LineBreak());
@@ -3373,7 +3373,7 @@ namespace Axiom
                 // -------------------------
                 // Image Sequence Renamer
                 // -------------------------
-                if (vm.MediaType_SelectedItem == "Sequence")
+                if (vm.Format_MediaType_SelectedItem == "Sequence")
                 {
                     outputFileName = "image-%03d"; //must be this name
                 }
@@ -3442,18 +3442,18 @@ namespace Axiom
             // -------------------------
             // Video
             // -------------------------
-            if (vm.VideoQuality_SelectedItem == "Auto" &&
+            if (vm.Video_Quality_SelectedItem == "Auto" &&
                 string.Equals(inputExt, outputExt, StringComparison.CurrentCultureIgnoreCase))
             {
                 // Set Controls:
 
                 // Main
-                vm.VideoQuality_SelectedItem = "Auto";
-                vm.PixelFormat_SelectedItem = "auto";
-                vm.FPS_SelectedItem = "auto";
+                vm.Video_Quality_SelectedItem = "Auto";
+                vm.Video_PixelFormat_SelectedItem = "auto";
+                vm.Video_FPS_SelectedItem = "auto";
                 vm.Video_Optimize_SelectedItem = "None";
-                vm.Size_SelectedItem = "Source";
-                vm.ScalingAlgorithm_SelectedItem = "default";
+                vm.Video_Scale_SelectedItem = "Source";
+                vm.Video_ScalingAlgorithm_SelectedItem = "default";
 
                 // Filters
                 // Fix
@@ -3510,20 +3510,20 @@ namespace Axiom
             // -------------------------
             // Audio
             // -------------------------
-            if (vm.AudioQuality_SelectedItem == "Auto" &&
+            if (vm.Audio_Quality_SelectedItem == "Auto" &&
                 string.Equals(inputExt, outputExt, StringComparison.CurrentCultureIgnoreCase))
             {
                 // Set Controls:
 
                 // Main
-                vm.AudioQuality_SelectedItem = "Auto";
-                vm.AudioChannel_SelectedItem = "Source";
-                vm.AudioSampleRate_SelectedItem = "auto";
-                vm.AudioBitDepth_SelectedItem = "auto";
+                vm.Audio_Quality_SelectedItem = "Auto";
+                vm.Audio_Channel_SelectedItem = "Source";
+                vm.Audio_SampleRate_SelectedItem = "auto";
+                vm.Audio_BitDepth_SelectedItem = "auto";
 
                 // Filters
-                vm.Volume_Text = "100";
-                vm.AudioHardLimiter_Value = 1;
+                vm.Audio_Volume_Text = "100";
+                vm.Audio_HardLimiter_Value = 1;
             }
         }
 
@@ -3536,7 +3536,7 @@ namespace Axiom
             // -------------------------
             // Set Controls
             // -------------------------
-            FormatControls.SetControls(vm, vm.Container_SelectedItem);
+            FormatControls.SetControls(vm, vm.Format_Container_SelectedItem);
 
             // -------------------------
             // Output Control Selections
@@ -3584,15 +3584,15 @@ namespace Axiom
             // -------------------------
             // Video
             // -------------------------
-            //if (vm.VideoQuality_SelectedItem != "Auto" &&
+            //if (vm.Video_Quality_SelectedItem != "Auto" &&
             //    string.Equals(inputExt, outputExt, StringComparison.CurrentCultureIgnoreCase))
             //{
-            //    vm.VideoQuality_SelectedItem = "Auto";
-            //    vm.PixelFormat_SelectedItem = "auto";
-            //    vm.FPS_SelectedItem = "auto";
+            //    vm.Video_Quality_SelectedItem = "Auto";
+            //    vm.Video_PixelFormat_SelectedItem = "auto";
+            //    vm.Video_FPS_SelectedItem = "auto";
             //    vm.Video_Optimize_SelectedItem = "None";
-            //    vm.Size_SelectedItem = "Source";
-            //    vm.ScalingAlgorithm_SelectedItem = "default";
+            //    vm.Video_Scale_SelectedItem = "Source";
+            //    vm.Video_ScalingAlgorithm_SelectedItem = "default";
 
             //    // Filters
             //    // Fix
@@ -3649,15 +3649,15 @@ namespace Axiom
             //// -------------------------
             //// Audio
             //// -------------------------
-            //if (vm.AudioQuality_SelectedItem != "Auto" &&
+            //if (vm.Audio_Quality_SelectedItem != "Auto" &&
             //    string.Equals(inputExt, outputExt, StringComparison.CurrentCultureIgnoreCase))
             //{
-            //    vm.AudioQuality_SelectedItem = "Auto";
-            //    vm.AudioChannel_SelectedItem = "Source";
-            //    vm.AudioSampleRate_SelectedItem = "auto";
-            //    vm.AudioBitDepth_SelectedItem = "auto";
-            //    vm.Volume_Text = "100";
-            //    vm.AudioHardLimiter_Value = 1;
+            //    vm.Audio_Quality_SelectedItem = "Auto";
+            //    vm.Audio_Channel_SelectedItem = "Source";
+            //    vm.Audio_SampleRate_SelectedItem = "auto";
+            //    vm.Audio_BitDepth_SelectedItem = "auto";
+            //    vm.Audio_Volume_Text = "100";
+            //    vm.Audio_HardLimiter_Value = 1;
             //}
 
             // -------------------------
@@ -3672,7 +3672,7 @@ namespace Axiom
 
             // -------------------------
             // Force MediaType ComboBox to fire SelectionChanged Event
-            // to update Format changes such as AudioStream_SelectedItem
+            // to update Format changes such as Audio_Stream_SelectedItem
             // -------------------------
             cboMediaType_SelectionChanged(cboMediaType, null);
         }
@@ -3691,7 +3691,7 @@ namespace Axiom
         /// <summary>
         ///    Cut Combobox
         /// </summary>
-        private void cboCut_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void cboFormat_Cut_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             FormatControls.CutControls(vm);
         }
@@ -3700,21 +3700,21 @@ namespace Axiom
         // Frame Start Textbox Change
         // -------------------------
         // Got Focus
-        private void frameStart_GotFocus(object sender, RoutedEventArgs e)
+        private void tbxFrameStart_GotFocus(object sender, RoutedEventArgs e)
         {
             // Clear textbox on focus if default text "width"
-            if (frameStart.Focus() == true && vm.FrameStart_Text == "Frame")
+            if (tbxFrameStart.Focus() == true && vm.Format_FrameStart_Text == "Frame")
             {
-                vm.FrameStart_Text = string.Empty;
+                vm.Format_FrameStart_Text = string.Empty;
             }
         }
         // Lost Focus
-        private void frameStart_LostFocus(object sender, RoutedEventArgs e)
+        private void tbxFrameStart_LostFocus(object sender, RoutedEventArgs e)
         {
             // Change textbox back to "auto" if left empty
-            if (string.IsNullOrEmpty(vm.FrameStart_Text))
+            if (string.IsNullOrEmpty(vm.Format_FrameStart_Text))
             {
-                vm.FrameStart_Text = "Frame";
+                vm.Format_FrameStart_Text = "Frame";
             }
         }
 
@@ -3722,21 +3722,21 @@ namespace Axiom
         // Frame End Textbox Change
         // -------------------------
         // Got Focus
-        private void frameEnd_GotFocus(object sender, RoutedEventArgs e)
+        private void tbxFrameEnd_GotFocus(object sender, RoutedEventArgs e)
         {
             // Clear textbox on focus if default text "auto"
-            if (frameEnd.Focus() == true && vm.FrameEnd_Text == "Range")
+            if (tbxFrameEnd.Focus() == true && vm.Format_FrameEnd_Text == "Range")
             {
-                vm.FrameEnd_Text = string.Empty;
+                vm.Format_FrameEnd_Text = string.Empty;
             }
         }
         // Lost Focus
-        private void frameEnd_LostFocus(object sender, RoutedEventArgs e)
+        private void tbxFrameEnd_LostFocus(object sender, RoutedEventArgs e)
         {
             // Change textbox back to "auto" if left empty
-            if (string.IsNullOrEmpty(vm.FrameEnd_Text))
+            if (string.IsNullOrEmpty(vm.Format_FrameEnd_Text))
             {
-                vm.FrameEnd_Text = "Range";
+                vm.Format_FrameEnd_Text = "Range";
             }
         }
 
@@ -3744,7 +3744,7 @@ namespace Axiom
         /// <summary>
         ///    Video Codec - ComboBox
         /// </summary>
-        private void cboVideoCodec_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void cboVideo_Codec_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // PROBLEM - This Control is being triggered twice?
             //Change 1 - Is Clicked
@@ -3752,13 +3752,13 @@ namespace Axiom
             //Change 2 - New Items Loaded from Codec
             //Selection is Null
 
-            //MessageBox.Show(vm.VideoQuality_SelectedItem); //debug
-            //MessageBox.Show("cboVideoCodec_SelectionChanged"); //debug
+            //MessageBox.Show(vm.Video_Quality_SelectedItem); //debug
+            //MessageBox.Show("cboVideo_Codec_SelectionChanged"); //debug
 
             // -------------------------
             // Set Controls
             // -------------------------
-            VideoControls.SetControls(vm, vm.VideoCodec_SelectedItem);
+            VideoControls.SetControls(vm, vm.Video_Codec_SelectedItem);
 
             // -------------------------
             // Video Encoding Pass
@@ -3780,12 +3780,12 @@ namespace Axiom
         /// <summary>
         ///    Pass - ComboBox
         /// </summary>
-        private void cboPass_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void cboVideo_Pass_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // -------------------------
             // Set Controls
             // -------------------------
-            //VideoControls.SetControls(vm, vm.VideoQuality_SelectedItem);
+            //VideoControls.SetControls(vm, vm.Video_Quality_SelectedItem);
 
             // -------------------------
             // Pass Controls
@@ -3796,11 +3796,11 @@ namespace Axiom
             // Display Bit-rate in TextBox
             // -------------------------
             VideoControls.VideoBitrateDisplay(vm,
-                                              vm.VideoQuality_Items,
-                                              vm.VideoQuality_SelectedItem,
-                                              vm.Pass_SelectedItem);
+                                              vm.Video_Quality_Items,
+                                              vm.Video_Quality_SelectedItem,
+                                              vm.Video_Pass_SelectedItem);
         }
-        private void cboPass_DropDownClosed(object sender, EventArgs e)
+        private void cboVideo_Pass_DropDownClosed(object sender, EventArgs e)
         {
             // User willingly selected a Pass
             VideoControls.passUserSelected = true;
@@ -3810,7 +3810,7 @@ namespace Axiom
         /// <summary>
         ///    Video Quality - ComboBox
         /// </summary>
-        private void cboVideoQuality_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void cboVideo_Quality_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // -------------------------
             // Quality Controls
@@ -3821,9 +3821,9 @@ namespace Axiom
             // Display Bit-rate in TextBox
             // -------------------------
             VideoControls.VideoBitrateDisplay(vm,
-                                              vm.VideoQuality_Items,
-                                              vm.VideoQuality_SelectedItem,
-                                              vm.Pass_SelectedItem);
+                                              vm.Video_Quality_Items,
+                                              vm.Video_Quality_SelectedItem,
+                                              vm.Video_Pass_SelectedItem);
 
             // -------------------------
             // Video Encoding Pass
@@ -3834,16 +3834,16 @@ namespace Axiom
             // Pixel Format
             // -------------------------
             VideoControls.PixelFormatControls(vm,
-                                              vm.MediaType_SelectedItem,
-                                              vm.VideoCodec_SelectedItem,
-                                              vm.VideoQuality_SelectedItem);
+                                              vm.Format_MediaType_SelectedItem,
+                                              vm.Video_Codec_SelectedItem,
+                                              vm.Video_Quality_SelectedItem);
         }
 
 
         /// <summary>
         ///     Video CRF Custom Number Textbox
         /// </summary>
-        private void tbxCRF_KeyDown(object sender, KeyEventArgs e)
+        private void tbxVideo_CRF_KeyDown(object sender, KeyEventArgs e)
         {
             // Only allow Numbers or Backspace
             if (!(e.Key >= Key.D0 && e.Key <= Key.D9) && e.Key != Key.Back)
@@ -3855,7 +3855,7 @@ namespace Axiom
         /// <summary>
         ///     Video VBR Toggle - Checked
         /// </summary>
-        private void tglVideoVBR_Checked(object sender, RoutedEventArgs e)
+        private void tglVideo_VBR_Checked(object sender, RoutedEventArgs e)
         {
             // -------------------------
             // Quality Controls
@@ -3865,20 +3865,20 @@ namespace Axiom
             // -------------------------
             // MPEG-4 VBR can only use 1 Pass
             // -------------------------
-            if (vm.VideoCodec_SelectedItem == "MPEG-2" || 
-                vm.VideoCodec_SelectedItem == "MPEG-4")
+            if (vm.Video_Codec_SelectedItem == "MPEG-2" || 
+                vm.Video_Codec_SelectedItem == "MPEG-4")
             {
                 // Change ItemSource
-                vm.Pass_Items = new List<string>()
+                vm.Video_Pass_Items = new List<string>()
                 {
                     "1 Pass",
                 };
 
                 // Populate ComboBox from ItemSource
-                //vm.Pass_Items = VideoControls.Pass_ItemSource;
+                //vm.Video_Pass_Items = VideoControls.Video_Pass_ItemSource;
 
                 // Select Item
-                vm.Pass_SelectedItem = "1 Pass";
+                vm.Video_Pass_SelectedItem = "1 Pass";
             }
 
 
@@ -3886,15 +3886,15 @@ namespace Axiom
             // Display Bit-rate in TextBox
             // -------------------------
             VideoControls.VideoBitrateDisplay(vm,
-                                              vm.VideoQuality_Items,
-                                              vm.VideoQuality_SelectedItem,
-                                              vm.Pass_SelectedItem);
+                                              vm.Video_Quality_Items,
+                                              vm.Video_Quality_SelectedItem,
+                                              vm.Video_Pass_SelectedItem);
         }
 
         /// <summary>
         ///     Video VBR Toggle - Unchecked
         /// </summary>
-        private void tglVideoVBR_Unchecked(object sender, RoutedEventArgs e)
+        private void tglVideo_VBR_Unchecked(object sender, RoutedEventArgs e)
         {
             // -------------------------
             // Quality Controls
@@ -3904,37 +3904,37 @@ namespace Axiom
             // -------------------------
             // MPEG-2 / MPEG-4 CBR Reset
             // -------------------------
-            if (vm.VideoCodec_SelectedItem == "MPEG-2" || 
-                vm.VideoCodec_SelectedItem == "MPEG-4")
+            if (vm.Video_Codec_SelectedItem == "MPEG-2" || 
+                vm.Video_Codec_SelectedItem == "MPEG-4")
             {
                 // Change ItemSource
-                vm.Pass_Items = new List<string>()
+                vm.Video_Pass_Items = new List<string>()
                 {
                     "2 Pass",
                     "1 Pass",
                 };
 
                 // Populate ComboBox from ItemSource
-                //cboPass.ItemsSource = VideoControls.Pass_ItemSource;
+                //cboPass.ItemsSource = VideoControls.Video_Pass_ItemSource;
 
                 // Select Item
-                vm.Pass_SelectedItem = "2 Pass";
+                vm.Video_Pass_SelectedItem = "2 Pass";
             }
 
             // -------------------------
             // Display Bit-rate in TextBox
             // -------------------------
             VideoControls.VideoBitrateDisplay(vm,
-                                              vm.VideoQuality_Items,
-                                              vm.VideoQuality_SelectedItem,
-                                              vm.Pass_SelectedItem);
+                                              vm.Video_Quality_Items,
+                                              vm.Video_Quality_SelectedItem,
+                                              vm.Video_Pass_SelectedItem);
         }
 
 
         /// <summary>
         ///     Pixel Format
         /// </summary>
-        private void cboPixelFormat_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void cboVideo_PixelFormat_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             //VideoControls.AutoCopyVideoCodec(vm);
         }
@@ -3943,13 +3943,13 @@ namespace Axiom
         /// <summary>
         ///     FPS ComboBox
         /// </summary>
-        private void cboFPS_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void cboVideo_FPS_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // -------------------------
             // Custom ComboBox Editable
             // -------------------------
-            if (vm.FPS_SelectedItem == "Custom" || 
-                string.IsNullOrEmpty(vm.FPS_SelectedItem))
+            if (vm.Video_FPS_SelectedItem == "Custom" || 
+                string.IsNullOrEmpty(vm.Video_FPS_SelectedItem))
             {
                 cboFPS.IsEditable = true;
             }
@@ -3957,8 +3957,8 @@ namespace Axiom
             // -------------------------
             // Other Items Disable Editable
             // -------------------------
-            if (vm.FPS_SelectedItem != "Custom" && 
-                !string.IsNullOrEmpty(vm.FPS_SelectedItem))
+            if (vm.Video_FPS_SelectedItem != "Custom" && 
+                !string.IsNullOrEmpty(vm.Video_FPS_SelectedItem))
             {
                 cboFPS.IsEditable = false;
             }
@@ -4006,7 +4006,7 @@ namespace Axiom
         /// <summary>
         ///    Size Combobox
         /// </summary>
-        private void cboSize_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void cboVideo_Scale_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // Set Video Codec Combobox to "Copy" if Input Extension is Same as Output Extension and Video Quality is Auto
             //VideoControls.AutoCopyVideoCodec(vm);
@@ -4018,32 +4018,32 @@ namespace Axiom
             // -------------------------
             // Custom
             // -------------------------
-            if (vm.Size_SelectedItem == "Custom")
+            if (vm.Video_Scale_SelectedItem == "Custom")
             {
-                vm.Width_IsEnabled = true;
-                vm.Height_IsEnabled = true;
+                vm.Video_Width_IsEnabled = true;
+                vm.Video_Height_IsEnabled = true;
 
-                vm.ScalingAlgorithm_IsEnabled = true;
+                vm.Video_ScalingAlgorithm_IsEnabled = true;
             }
             // -------------------------
             // Source
             // -------------------------
-            else if (vm.Size_SelectedItem == "Source")
+            else if (vm.Video_Scale_SelectedItem == "Source")
             {
-                vm.Width_IsEnabled = false;
-                vm.Height_IsEnabled = false;
+                vm.Video_Width_IsEnabled = false;
+                vm.Video_Height_IsEnabled = false;
 
-                vm.ScalingAlgorithm_IsEnabled = false;
+                vm.Video_ScalingAlgorithm_IsEnabled = false;
             }
             // -------------------------
             // All Other Sizes
             // -------------------------
             else
             {
-                vm.Width_IsEnabled = false;
-                vm.Height_IsEnabled = false;
+                vm.Video_Width_IsEnabled = false;
+                vm.Video_Height_IsEnabled = false;
 
-                vm.ScalingAlgorithm_IsEnabled = true;
+                vm.Video_ScalingAlgorithm_IsEnabled = true;
             }
 
             // --------------------------------------------------
@@ -4052,108 +4052,108 @@ namespace Axiom
             // -------------------------
             // Source
             // -------------------------
-            if (vm.Size_SelectedItem == "Source")
+            if (vm.Video_Scale_SelectedItem == "Source")
             {
-                vm.Width_Text = "auto";
-                vm.Height_Text = "auto";
+                vm.Video_Width_Text = "auto";
+                vm.Video_Height_Text = "auto";
 
-                vm.ScalingAlgorithm_SelectedItem = "default";
+                vm.Video_ScalingAlgorithm_SelectedItem = "default";
             }
             // -------------------------
             // 8K
             // -------------------------
-            else if (vm.Size_SelectedItem == "8K")
+            else if (vm.Video_Scale_SelectedItem == "8K")
             {
-                vm.Width_Text = "7680";
-                vm.Height_Text = "auto";
+                vm.Video_Width_Text = "7680";
+                vm.Video_Height_Text = "auto";
             }
             // -------------------------
             // 4K
             // -------------------------
-            else if (vm.Size_SelectedItem == "4K")
+            else if (vm.Video_Scale_SelectedItem == "4K")
             {
-                vm.Width_Text = "4096";
-                vm.Height_Text = "auto";
+                vm.Video_Width_Text = "4096";
+                vm.Video_Height_Text = "auto";
             }
             // -------------------------
             // 4K UHD
             // -------------------------
-            else if (vm.Size_SelectedItem == "4K UHD")
+            else if (vm.Video_Scale_SelectedItem == "4K UHD")
             {
-                vm.Width_Text = "3840";
-                vm.Height_Text = "auto";
+                vm.Video_Width_Text = "3840";
+                vm.Video_Height_Text = "auto";
             }
             // -------------------------
             // 2K
             // -------------------------
-            else if (vm.Size_SelectedItem == "2K")
+            else if (vm.Video_Scale_SelectedItem == "2K")
             {
-                vm.Width_Text = "2048";
-                vm.Height_Text = "auto";
+                vm.Video_Width_Text = "2048";
+                vm.Video_Height_Text = "auto";
             }
             // -------------------------
             // 1440p
             // -------------------------
-            else if (vm.Size_SelectedItem == "1440p")
+            else if (vm.Video_Scale_SelectedItem == "1440p")
             {
-                vm.Width_Text = "auto";
-                vm.Height_Text = "1440";
+                vm.Video_Width_Text = "auto";
+                vm.Video_Height_Text = "1440";
             }
             // -------------------------
             // 1200p
             // -------------------------
-            else if (vm.Size_SelectedItem == "1200p")
+            else if (vm.Video_Scale_SelectedItem == "1200p")
             {
-                vm.Width_Text = "auto";
-                vm.Height_Text = "1200";
+                vm.Video_Width_Text = "auto";
+                vm.Video_Height_Text = "1200";
             }
             // -------------------------
             // 1080p
             // -------------------------
-            else if (vm.Size_SelectedItem == "1080p")
+            else if (vm.Video_Scale_SelectedItem == "1080p")
             {
-                vm.Width_Text = "auto";
-                vm.Height_Text = "1080";
+                vm.Video_Width_Text = "auto";
+                vm.Video_Height_Text = "1080";
             }
             // -------------------------
             // 720p
             // -------------------------
-            else if (vm.Size_SelectedItem == "720p")
+            else if (vm.Video_Scale_SelectedItem == "720p")
             {
-                vm.Width_Text = "auto";
-                vm.Height_Text = "720";
+                vm.Video_Width_Text = "auto";
+                vm.Video_Height_Text = "720";
             }
             // -------------------------
             // 480p
             // -------------------------
-            else if (vm.Size_SelectedItem == "480p")
+            else if (vm.Video_Scale_SelectedItem == "480p")
             {
-                vm.Width_Text = "auto";
-                vm.Height_Text = "480";
+                vm.Video_Width_Text = "auto";
+                vm.Video_Height_Text = "480";
             }
             // -------------------------
             // 320p
             // -------------------------
-            else if (vm.Size_SelectedItem == "320p")
+            else if (vm.Video_Scale_SelectedItem == "320p")
             {
-                vm.Width_Text = "auto";
-                vm.Height_Text = "320";
+                vm.Video_Width_Text = "auto";
+                vm.Video_Height_Text = "320";
             }
             // -------------------------
             // 240p
             // -------------------------
-            else if (vm.Size_SelectedItem == "240p")
+            else if (vm.Video_Scale_SelectedItem == "240p")
             {
-                vm.Width_Text = "auto";
-                vm.Height_Text = "240";
+                vm.Video_Width_Text = "auto";
+                vm.Video_Height_Text = "240";
             }
             // -------------------------
             // Custom
             // -------------------------
-            else if (vm.Size_SelectedItem == "Custom")
+            else if (vm.Video_Scale_SelectedItem == "Custom")
             {
-                vm.Width_Text = "auto";
-                vm.Height_Text = "auto";
+                vm.Video_Width_Text = "auto";
+                vm.Video_Height_Text = "auto";
             }
         }
 
@@ -4161,24 +4161,24 @@ namespace Axiom
         // Width Textbox Change
         // -------------------------
         // Got Focus
-        private void tbxWidth_GotFocus(object sender, RoutedEventArgs e)
+        private void tbxVideo_Width_GotFocus(object sender, RoutedEventArgs e)
         {
             // Clear textbox on focus if default text "auto"
             if (tbxWidth.Focus() == true && 
-                vm.Width_Text == "auto")
+                vm.Video_Width_Text == "auto")
             {
-                vm.Width_Text = string.Empty;
+                vm.Video_Width_Text = string.Empty;
             }
         }
         // Lost Focus
-        private void tbxWidth_LostFocus(object sender, RoutedEventArgs e)
+        private void tbxVideo_Width_LostFocus(object sender, RoutedEventArgs e)
         {
-            vm.Width_Text = tbxWidth.Text;
+            vm.Video_Width_Text = tbxWidth.Text;
 
             // Change textbox back to "auto" if left empty
-            if (string.IsNullOrEmpty(vm.Width_Text))
+            if (string.IsNullOrEmpty(vm.Video_Width_Text))
             {
-                vm.Width_Text = "auto";
+                vm.Video_Width_Text = "auto";
             }
         }
 
@@ -4186,24 +4186,24 @@ namespace Axiom
         // Height Textbox Change
         // -------------------------
         // Got Focus
-        private void tbxHeight_GotFocus(object sender, RoutedEventArgs e)
+        private void tbxVideo_Height_GotFocus(object sender, RoutedEventArgs e)
         {
             // Clear textbox on focus if default text "auto"
             if (tbxHeight.Focus() == true && 
-                vm.Height_Text == "auto")
+                vm.Video_Height_Text == "auto")
             {
-                vm.Height_Text = string.Empty;
+                vm.Video_Height_Text = string.Empty;
             }
         }
         // Lost Focus
-        private void tbxHeight_LostFocus(object sender, RoutedEventArgs e)
+        private void tbxVideo_Height_LostFocus(object sender, RoutedEventArgs e)
         {
-            vm.Height_Text = tbxHeight.Text;
+            vm.Video_Height_Text = tbxHeight.Text;
 
             // Change textbox back to "height" if left empty
-            if (string.IsNullOrEmpty(vm.Height_Text))
+            if (string.IsNullOrEmpty(vm.Video_Height_Text))
             {
-                vm.Height_Text = "auto";
+                vm.Video_Height_Text = "auto";
             }
         }
 
@@ -4211,7 +4211,7 @@ namespace Axiom
         /// <summary>
         ///     Video Aspect Ratio
         /// </summary>
-        private void cboAspectRatio_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void cboVideo_AspectRatio_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             //VideoControls.AutoCopyVideoCodec(vm);
         }
@@ -4220,7 +4220,7 @@ namespace Axiom
         /// <summary>
         ///     Video Scaling Algorithm
         /// </summary>
-        private void cboScalingAlgorithm_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void cboVideo_ScalingAlgorithm_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             //VideoControls.AutoCopyVideoCodec(vm);
         }
@@ -4229,7 +4229,7 @@ namespace Axiom
         /// <summary>
         ///    Crop Window - Button
         /// </summary>
-        private void btnCrop_Click(object sender, RoutedEventArgs e)
+        private void btnVideo_Crop_Click(object sender, RoutedEventArgs e)
         {
             // Start Window
             cropwindow = new CropWindow(this, vm);
@@ -4254,7 +4254,7 @@ namespace Axiom
         /// <summary>
         ///    Crop Clear Button
         /// </summary>
-        private void btnCropClear_Click(object sender, RoutedEventArgs e)
+        private void btnVideo_CropClear_Click(object sender, RoutedEventArgs e)
         {
             // Clear Crop Values
             CropWindow.CropClear(vm);
@@ -4265,37 +4265,37 @@ namespace Axiom
         /// <summary>
         ///    Subtitle Codec - ComboBox
         /// </summary>
-        private void cboSubtitleCodec_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void cboSubtitle_Codec_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // -------------------------
             // Set Controls
             // -------------------------
-            SubtitleControls.SetControls(vm, vm.SubtitleCodec_SelectedItem);
+            SubtitleControls.SetControls(vm, vm.Subtitle_Codec_SelectedItem);
 
             // -------------------------
             // None Codec
             // -------------------------
-            if (vm.SubtitleCodec_SelectedItem == "None")
+            if (vm.Subtitle_Codec_SelectedItem == "None")
             {
-                vm.SubtitleStream_SelectedItem = "none";
+                vm.Subtitle_Stream_SelectedItem = "none";
                 cboSubtitlesStream.IsEnabled = false;
             }
 
             // -------------------------
             // Burn Codec
             // -------------------------
-            else if (vm.SubtitleCodec_SelectedItem == "Burn")
+            else if (vm.Subtitle_Codec_SelectedItem == "Burn")
             {
                 // Force Select External
                 // Can't burn All subtitle streams
-                vm.SubtitleStream_SelectedItem = "external";
+                vm.Subtitle_Stream_SelectedItem = "external";
                 cboSubtitlesStream.IsEnabled = true;
             }
 
             // -------------------------
             // Copy Codec
             // -------------------------
-            else if (vm.SubtitleCodec_SelectedItem == "Copy")
+            else if (vm.Subtitle_Codec_SelectedItem == "Copy")
             {
                 cboSubtitlesStream.IsEnabled = true;
             }
@@ -4313,15 +4313,15 @@ namespace Axiom
         /// <summary>
         ///    Subtitle Stream - ComboBox
         /// </summary>
-        private void cboSubtitleStream_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void cboSubtitle_Stream_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // -------------------------
             // External
             // -------------------------
-            if (vm.SubtitleStream_SelectedItem == "external")
+            if (vm.Subtitle_Stream_SelectedItem == "external")
             {
                 // Enable External ListView and Buttons
-                vm.SubtitleListView_IsEnabled = true;
+                vm.Subtitle_ListView_IsEnabled = true;
 
                 //listViewSubtitles.IsEnabled = true;
 
@@ -4336,7 +4336,7 @@ namespace Axiom
             else
             {
                 // Disable External ListView and Buttons
-                vm.SubtitleListView_IsEnabled = false;
+                vm.Subtitle_ListView_IsEnabled = false;
 
                 //listViewSubtitles.IsEnabled = false;
 
@@ -4356,15 +4356,15 @@ namespace Axiom
         private void listViewSubtitles_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // Clear before adding new selected items
-            if (vm.SubtitleListView_SelectedItems != null &&
-                vm.SubtitleListView_SelectedItems.Count > 0)
+            if (vm.Subtitle_ListView_SelectedItems != null &&
+                vm.Subtitle_ListView_SelectedItems.Count > 0)
             {
-                vm.SubtitleListView_SelectedItems.Clear();
-                vm.SubtitleListView_SelectedItems.TrimExcess();
+                vm.Subtitle_ListView_SelectedItems.Clear();
+                vm.Subtitle_ListView_SelectedItems.TrimExcess();
             }
            
             // Create Selected Items List for ViewModel
-            vm.SubtitleListView_SelectedItems = listViewSubtitles.SelectedItems
+            vm.Subtitle_ListView_SelectedItems = listViewSubtitles.SelectedItems
                                                 .Cast<string>()
                                                 .ToList();
         }
@@ -4400,7 +4400,7 @@ namespace Axiom
 
                     // ListView Display File Names + Ext
                     //listViewSubtitles.Items.Add(Path.GetFileName(selectFiles.FileNames[i]));
-                    vm.SubtitleListView_Items.Add(Path.GetFileName(selectFiles.FileNames[i]));
+                    vm.Subtitle_ListView_Items.Add(Path.GetFileName(selectFiles.FileNames[i]));
                 }
             }
         }
@@ -4410,13 +4410,13 @@ namespace Axiom
         /// </summary>
         private void btnRemoveSubtitle_Click(object sender, RoutedEventArgs e)
         {
-            if (vm.SubtitleListView_SelectedItems.Count > 0)
+            if (vm.Subtitle_ListView_SelectedItems.Count > 0)
             {
-                var selectedIndex = vm.SubtitleListView_SelectedIndex;
+                var selectedIndex = vm.Subtitle_ListView_SelectedIndex;
 
                 // ListView Items
-                var itemlsvFileNames = vm.SubtitleListView_Items[selectedIndex];
-                vm.SubtitleListView_Items.RemoveAt(selectedIndex);
+                var itemlsvFileNames = vm.Subtitle_ListView_Items[selectedIndex];
+                vm.Subtitle_ListView_Items.RemoveAt(selectedIndex);
 
                 // List File Paths
                 string itemFilePaths = Subtitle.subtitleFilePathsList[selectedIndex];
@@ -4459,10 +4459,10 @@ namespace Axiom
         {
             // Clear List View
             //listViewSubtitles.Items.Clear();
-            if (vm.SubtitleListView_Items != null &&
-                vm.SubtitleListView_Items.Count > 0)
+            if (vm.Subtitle_ListView_Items != null &&
+                vm.Subtitle_ListView_Items.Count > 0)
             {
-                vm.SubtitleListView_Items.Clear();
+                vm.Subtitle_ListView_Items.Clear();
             }
 
             // Clear Paths List
@@ -4487,16 +4487,16 @@ namespace Axiom
         /// </summary>
         private void btnSortSubtitleUp_Click(object sender, RoutedEventArgs e)
         {
-            if (vm.SubtitleListView_SelectedItems.Count > 0)
+            if (vm.Subtitle_ListView_SelectedItems.Count > 0)
             {
-                var selectedIndex = vm.SubtitleListView_SelectedIndex;
+                var selectedIndex = vm.Subtitle_ListView_SelectedIndex;
 
                 if (selectedIndex > 0)
                 {
                     // ListView Items
-                    var itemlsvFileNames = vm.SubtitleListView_Items[selectedIndex];
-                    vm.SubtitleListView_Items.RemoveAt(selectedIndex);
-                    vm.SubtitleListView_Items.Insert(selectedIndex - 1, itemlsvFileNames);
+                    var itemlsvFileNames = vm.Subtitle_ListView_Items[selectedIndex];
+                    vm.Subtitle_ListView_Items.RemoveAt(selectedIndex);
+                    vm.Subtitle_ListView_Items.Insert(selectedIndex - 1, itemlsvFileNames);
 
                     // List File Paths
                     string itemFilePaths = Subtitle.subtitleFilePathsList[selectedIndex];
@@ -4509,7 +4509,7 @@ namespace Axiom
                     Subtitle.subtitleFileNamesList.Insert(selectedIndex - 1, itemFileNames);
 
                     // Highlight Selected Index
-                    vm.SubtitleListView_SelectedIndex = selectedIndex - 1;
+                    vm.Subtitle_ListView_SelectedIndex = selectedIndex - 1;
                 }
             }
             //if (listViewSubtitles.SelectedItems.Count > 0)
@@ -4544,16 +4544,16 @@ namespace Axiom
         /// </summary>
         private void btnSortSubtitleDown_Click(object sender, RoutedEventArgs e)
         {
-            if (vm.SubtitleListView_SelectedItems.Count > 0)
+            if (vm.Subtitle_ListView_SelectedItems.Count > 0)
             {
-                var selectedIndex = vm.SubtitleListView_SelectedIndex;
+                var selectedIndex = vm.Subtitle_ListView_SelectedIndex;
 
-                if (selectedIndex + 1 < vm.SubtitleListView_Items.Count)
+                if (selectedIndex + 1 < vm.Subtitle_ListView_Items.Count)
                 {
                     // ListView Items
-                    var itemlsvFileNames = vm.SubtitleListView_Items[selectedIndex];
-                    vm.SubtitleListView_Items.RemoveAt(selectedIndex);
-                    vm.SubtitleListView_Items.Insert(selectedIndex + 1, itemlsvFileNames);
+                    var itemlsvFileNames = vm.Subtitle_ListView_Items[selectedIndex];
+                    vm.Subtitle_ListView_Items.RemoveAt(selectedIndex);
+                    vm.Subtitle_ListView_Items.Insert(selectedIndex + 1, itemlsvFileNames);
 
                     // List FilePaths
                     string itemFilePaths = Subtitle.subtitleFilePathsList[selectedIndex];
@@ -4566,7 +4566,7 @@ namespace Axiom
                     Subtitle.subtitleFileNamesList.Insert(selectedIndex + 1, itemFileNames);
 
                     // Highlight Selected Index
-                    vm.SubtitleListView_SelectedIndex = selectedIndex + 1;
+                    vm.Subtitle_ListView_SelectedIndex = selectedIndex + 1;
                 }
             }
             //if (listViewSubtitles.SelectedItems.Count > 0)
@@ -4601,12 +4601,12 @@ namespace Axiom
         /// <summary>
         ///    Audio Codec - ComboBox
         /// </summary>
-        private void cboAudioCodec_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void cboAudio_Codec_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // -------------------------
             // Set Controls
             // -------------------------
-            AudioControls.SetControls(vm, vm.AudioCodec_SelectedItem);
+            AudioControls.SetControls(vm, vm.Audio_Codec_SelectedItem);
 
             //// -------------------------
             //// Quality Controls
@@ -4617,8 +4617,8 @@ namespace Axiom
             //// Display Bit-rate in TextBox
             //// -------------------------
             //AudioControls.AudioBitrateDisplay(vm,
-            //                                  vm.AudioQuality_Items,
-            //                                  vm.AudioQuality_SelectedItem
+            //                                  vm.Audio_Quality_Items,
+            //                                  vm.Audio_Quality_SelectedItem
             //                                  );
 
         }
@@ -4636,12 +4636,12 @@ namespace Axiom
         /// <summary>
         ///    Audio Quality - ComboBox
         /// </summary>
-        private void cboAudioQuality_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void cboAudio_Quality_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // -------------------------
             // Set Controls
             // -------------------------
-            //AudioControls.SetControls(vm, vm.AudioCodec_SelectedItem);
+            //AudioControls.SetControls(vm, vm.Audio_Codec_SelectedItem);
 
             // -------------------------
             // Quality Controls
@@ -4652,8 +4652,8 @@ namespace Axiom
             // Display Bit-rate in TextBox
             // -------------------------
             AudioControls.AudioBitrateDisplay(vm,
-                                              vm.AudioQuality_Items,
-                                              vm.AudioQuality_SelectedItem
+                                              vm.Audio_Quality_Items,
+                                              vm.Audio_Quality_SelectedItem
                                               );
 
         }
@@ -4663,7 +4663,7 @@ namespace Axiom
         ///    Audio VBR - Toggle
         /// </summary>
         // Checked
-        private void tglAudioVBR_Checked(object sender, RoutedEventArgs e)
+        private void tglAudio_VBR_Checked(object sender, RoutedEventArgs e)
         {
             // -------------------------
             // Quality Controls
@@ -4674,12 +4674,12 @@ namespace Axiom
             // Display Bit-rate in TextBox
             // -------------------------
             AudioControls.AudioBitrateDisplay(vm,
-                                              vm.AudioQuality_Items,
-                                              vm.AudioQuality_SelectedItem
+                                              vm.Audio_Quality_Items,
+                                              vm.Audio_Quality_SelectedItem
                                               );
         }
         // Unchecked
-        private void tglAudioVBR_Unchecked(object sender, RoutedEventArgs e)
+        private void tglAudio_VBR_Unchecked(object sender, RoutedEventArgs e)
         {
             // -------------------------
             // Quality Controls
@@ -4690,8 +4690,8 @@ namespace Axiom
             // Display Bit-rate in TextBox
             // -------------------------
             AudioControls.AudioBitrateDisplay(vm,
-                                              vm.AudioQuality_Items,
-                                              vm.AudioQuality_SelectedItem
+                                              vm.Audio_Quality_Items,
+                                              vm.Audio_Quality_SelectedItem
                                               );
         }
 
@@ -4699,7 +4699,7 @@ namespace Axiom
         /// <summary>
         ///     Audio Custom Bitrate kbps - Textbox
         /// </summary>
-        private void tbxAudioBitrate_KeyDown(object sender, KeyEventArgs e)
+        private void tbxAudio_Bitrate_KeyDown(object sender, KeyEventArgs e)
         {
             // Only allow Numbers or Backspace
             if (!(e.Key >= Key.D0 && e.Key <= Key.D9) && e.Key != Key.Back)
@@ -4708,25 +4708,25 @@ namespace Axiom
             }
         }
         // Got Focus
-        private void tbxAudioBitrate_GotFocus(object sender, RoutedEventArgs e)
+        private void tbxAudio_Bitrate_GotFocus(object sender, RoutedEventArgs e)
         {
             // Clear Textbox on first use
-            if (vm.AudioBitrate_Text == string.Empty)
+            if (vm.Audio_Bitrate_Text == string.Empty)
             {
                 TextBox tbac = (TextBox)sender;
                 tbac.Text = string.Empty;
-                tbac.GotFocus += tbxAudioBitrate_GotFocus; //used to be -=
+                tbac.GotFocus += tbxAudio_Bitrate_GotFocus; //used to be -=
             }
         }
         // Lost Focus
-        private void tbxAudioBitrate_LostFocus(object sender, RoutedEventArgs e)
+        private void tbxAudio_Bitrate_LostFocus(object sender, RoutedEventArgs e)
         {
             // Change Textbox back to kbps
             TextBox tbac = sender as TextBox;
             if (tbac.Text.Trim().Equals(string.Empty))
             {
                 tbac.Text = string.Empty;
-                tbac.GotFocus -= tbxAudioBitrate_GotFocus; //used to be +=
+                tbac.GotFocus -= tbxAudio_Bitrate_GotFocus; //used to be +=
             }
         }
 
@@ -4736,21 +4736,21 @@ namespace Axiom
         /// </summary>
         private void cboSampleRate_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //if (!string.IsNullOrEmpty(vm.AudioSampleRate_SelectedItem))
+            //if (!string.IsNullOrEmpty(vm.Audio_SampleRate_SelectedItem))
             //{
-            //    AudioSampleRate_PreviousItem = vm.AudioSampleRate_SelectedItem;
+            //    Audio_SampleRate_PreviousItem = vm.Audio_SampleRate_SelectedItem;
             //}
 
-            //MessageBox.Show("Previous: " + AudioSampleRate_PreviousItem); //debug
-            //MessageBox.Show("Current: " + vm.AudioSampleRate_SelectedItem); //debug
+            //MessageBox.Show("Previous: " + Audio_SampleRate_PreviousItem); //debug
+            //MessageBox.Show("Current: " + vm.Audio_SampleRate_SelectedItem); //debug
 
-            //if (AudioSampleRate_PreviousItem != vm.AudioSampleRate_SelectedItem)
+            //if (Audio_SampleRate_PreviousItem != vm.Audio_SampleRate_SelectedItem)
             //{
             //    // Switch to Copy if inputExt & outputExt match
             //    AudioControls.AutoCopyAudioCodec(vm);
             //}
 
-            //MessageBox.Show("Current Changed: " + vm.AudioSampleRate_SelectedItem); //debug
+            //MessageBox.Show("Current Changed: " + vm.Audio_SampleRate_SelectedItem); //debug
         }
 
 
@@ -4759,15 +4759,15 @@ namespace Axiom
         /// </summary>
         private void cboBitDepth_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //if (!string.IsNullOrEmpty(vm.AudioSampleRate_SelectedItem))
+            //if (!string.IsNullOrEmpty(vm.Audio_SampleRate_SelectedItem))
             //{
-            //    AudioSampleRate_PreviousItem = vm.AudioSampleRate_SelectedItem;
+            //    Audio_SampleRate_PreviousItem = vm.Audio_SampleRate_SelectedItem;
             //}
 
-            //MessageBox.Show("Previous: " + AudioSampleRate_PreviousItem); //debug
-            //MessageBox.Show("Current: " + vm.AudioSampleRate_SelectedItem); //debug
+            //MessageBox.Show("Previous: " + Audio_SampleRate_PreviousItem); //debug
+            //MessageBox.Show("Current: " + vm.Audio_SampleRate_SelectedItem); //debug
 
-            //if (AudioSampleRate_PreviousItem != vm.AudioSampleRate_SelectedItem)
+            //if (Audio_SampleRate_PreviousItem != vm.Audio_SampleRate_SelectedItem)
             //{
             //    // Switch to Copy if inputExt & outputExt match
             //    AudioControls.AutoCopyAudioCodec(vm);
@@ -4779,7 +4779,7 @@ namespace Axiom
         /// <summary>
         ///    Volume TextBox Changed
         /// </summary>
-        private void tbxVolume_TextChanged(object sender, TextChangedEventArgs e)
+        private void tbxAudio_Volume_TextChanged(object sender, TextChangedEventArgs e)
         {
             // Disable Volume instead of running AutoCopyAudioCodec each time 
             // This needs to be re-thought, calling method on every timer tick
@@ -4788,7 +4788,7 @@ namespace Axiom
         /// <summary>
         ///    Volume TextBox KeyDown
         /// </summary>
-        private void tbxVolume_KeyDown(object sender, KeyEventArgs e)
+        private void tbxAudio_Volume_KeyDown(object sender, KeyEventArgs e)
         {
             try //error if other letters or symbols get in
             {
@@ -4819,19 +4819,19 @@ namespace Axiom
         private void btnVolumeUp_Click(object sender, RoutedEventArgs e)
         {
             int value;
-            int.TryParse(vm.Volume_Text, out value);
+            int.TryParse(vm.Audio_Volume_Text, out value);
 
             value += 1;
-            vm.Volume_Text = value.ToString();
+            vm.Audio_Volume_Text = value.ToString();
         }
         // Up Button Each Timer Tick
         private void dispatcherTimerUp_Tick(object sender, EventArgs e)
         {
             int value;
-            int.TryParse(vm.Volume_Text, out value);
+            int.TryParse(vm.Audio_Volume_Text, out value);
 
             value += 1;
-            vm.Volume_Text = value.ToString();
+            vm.Audio_Volume_Text = value.ToString();
         }
         // Hold Up Button
         private void btnVolumeUp_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -4853,19 +4853,19 @@ namespace Axiom
         private void btnVolumeDown_Click(object sender, RoutedEventArgs e)
         {
             int value;
-            int.TryParse(vm.Volume_Text, out value);
+            int.TryParse(vm.Audio_Volume_Text, out value);
 
             value -= 1;
-            vm.Volume_Text = value.ToString();
+            vm.Audio_Volume_Text = value.ToString();
         }
         // Down Button Each Timer Tick
         private void dispatcherTimerDown_Tick(object sender, EventArgs e)
         {
             int value;
-            int.TryParse(vm.Volume_Text, out value);
+            int.TryParse(vm.Audio_Volume_Text, out value);
 
             value -= 1;
-            vm.Volume_Text = value.ToString();
+            vm.Audio_Volume_Text = value.ToString();
         }
         // Hold Down Button
         private void btnVolumeDown_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -4885,20 +4885,20 @@ namespace Axiom
         /// <summary>
         ///     Audio Hard Limiter - Slider
         /// </summary>
-        private void slAudioHardLimiter_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void slAudio_HardLimiter_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             // Reset to default
-            vm.AudioHardLimiter_Value = 1;
+            vm.Audio_HardLimiter_Value = 1;
 
             AudioControls.AutoCopyAudioCodec(vm);
         }
 
-        private void slAudioHardLimiter_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        private void slAudio_HardLimiter_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
             AudioControls.AutoCopyAudioCodec(vm);
         }
 
-        private void tbxAudioHardLimiter_PreviewKeyUp(object sender, KeyEventArgs e)
+        private void tbxAudio_HardLimiter_PreviewKeyUp(object sender, KeyEventArgs e)
         {
             AudioControls.AutoCopyAudioCodec(vm);
         }
@@ -5646,7 +5646,7 @@ namespace Axiom
         private void slAudioLimiter_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             // Reset to default
-            vm.AudioHardLimiter_Value = 1;
+            vm.Audio_HardLimiter_Value = 1;
 
             AudioControls.AutoCopyAudioCodec(vm);
         }

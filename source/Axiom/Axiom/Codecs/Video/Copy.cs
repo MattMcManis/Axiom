@@ -66,13 +66,13 @@ namespace Axiom
         // -------------------------
         public static List<ViewModel.VideoQuality> quality = new List<ViewModel.VideoQuality>()
         {
-             new ViewModel.VideoQuality() { Name = "Auto",   CRF = "",  CRF_Bitrate = "", CBR_BitMode = "", CBR = "", VBR_BitMode = "", VBR = "", Minrate = "", Maxrate = "", Bufsize ="", NA = "" },
-             new ViewModel.VideoQuality() { Name = "Ultra",  CRF = "",  CRF_Bitrate = "", CBR_BitMode = "", CBR = "", VBR_BitMode = "", VBR = "", Minrate = "", Maxrate = "", Bufsize ="" },
-             new ViewModel.VideoQuality() { Name = "High",   CRF = "",  CRF_Bitrate = "", CBR_BitMode = "", CBR = "", VBR_BitMode = "", VBR = "", Minrate = "", Maxrate = "", Bufsize ="" },
-             new ViewModel.VideoQuality() { Name = "Medium", CRF = "",  CRF_Bitrate = "", CBR_BitMode = "", CBR = "", VBR_BitMode = "", VBR = "", Minrate = "", Maxrate = "", Bufsize ="" },
-             new ViewModel.VideoQuality() { Name = "Low",    CRF = "",  CRF_Bitrate = "", CBR_BitMode = "", CBR = "", VBR_BitMode = "", VBR = "", Minrate = "", Maxrate = "", Bufsize ="" },
-             new ViewModel.VideoQuality() { Name = "Sub",    CRF = "",  CRF_Bitrate = "", CBR_BitMode = "", CBR = "", VBR_BitMode = "", VBR = "", Minrate = "", Maxrate = "", Bufsize ="" },
-             new ViewModel.VideoQuality() { Name = "Custom", CRF = "",  CRF_Bitrate = "", CBR_BitMode = "", CBR = "", VBR_BitMode = "", VBR = "", Minrate = "", Maxrate = "", Bufsize ="" }
+             new ViewModel.VideoQuality() { Name = "Auto",   CRF = "",  Video_CRF_Bitrate = "", CBR_BitMode = "", CBR = "", VBR_BitMode = "", VBR = "", Minrate = "", Maxrate = "", Bufsize ="", NA = "" },
+             new ViewModel.VideoQuality() { Name = "Ultra",  CRF = "",  Video_CRF_Bitrate = "", CBR_BitMode = "", CBR = "", VBR_BitMode = "", VBR = "", Minrate = "", Maxrate = "", Bufsize ="" },
+             new ViewModel.VideoQuality() { Name = "High",   CRF = "",  Video_CRF_Bitrate = "", CBR_BitMode = "", CBR = "", VBR_BitMode = "", VBR = "", Minrate = "", Maxrate = "", Bufsize ="" },
+             new ViewModel.VideoQuality() { Name = "Medium", CRF = "",  Video_CRF_Bitrate = "", CBR_BitMode = "", CBR = "", VBR_BitMode = "", VBR = "", Minrate = "", Maxrate = "", Bufsize ="" },
+             new ViewModel.VideoQuality() { Name = "Low",    CRF = "",  Video_CRF_Bitrate = "", CBR_BitMode = "", CBR = "", VBR_BitMode = "", VBR = "", Minrate = "", Maxrate = "", Bufsize ="" },
+             new ViewModel.VideoQuality() { Name = "Sub",    CRF = "",  Video_CRF_Bitrate = "", CBR_BitMode = "", CBR = "", VBR_BitMode = "", VBR = "", Minrate = "", Maxrate = "", Bufsize ="" },
+             new ViewModel.VideoQuality() { Name = "Custom", CRF = "",  Video_CRF_Bitrate = "", CBR_BitMode = "", CBR = "", VBR_BitMode = "", VBR = "", Minrate = "", Maxrate = "", Bufsize ="" }
         };
 
         // -------------------------
@@ -126,16 +126,16 @@ namespace Axiom
         public static void controlsItemSource(ViewModel vm)
         {
             // Encode Speed
-            vm.VideoEncodeSpeed_Items = encodeSpeed;
+            vm.Video_EncodeSpeed_Items = encodeSpeed;
 
             // Pixel Format
-            vm.PixelFormat_Items = pixelFormat;
+            vm.Video_PixelFormat_Items = pixelFormat;
 
             // Pass
-            vm.Pass_Items = pass;
+            vm.Video_Pass_Items = pass;
 
             // Video Quality
-            vm.VideoQuality_Items = quality;
+            vm.Video_Quality_Items = quality;
 
             // Optimize
             vm.Video_Optimize_Items = optimize;
@@ -144,7 +144,7 @@ namespace Axiom
             // Profile
             vm.Optimize_Profile_Items = profile;
             // Level
-            vm.Optimize_Level_Items = level;
+            vm.Video_Optimize_Level_Items = level;
         }
 
         // -------------------------
@@ -153,10 +153,10 @@ namespace Axiom
         public static void controlsSelected(ViewModel vm)
         {
             // Pixel Format
-            vm.PixelFormat_SelectedItem = "auto";
+            vm.Video_PixelFormat_SelectedItem = "auto";
 
             // Framerate
-            vm.FPS_SelectedItem = "auto";
+            vm.Video_FPS_SelectedItem = "auto";
         }
 
         // -------------------------
@@ -173,7 +173,7 @@ namespace Axiom
         public static void controlsUnhecked(ViewModel vm)
         {
             // Bitrate Mode
-            vm.VideoVBR_IsChecked = false;
+            vm.Video_VBR_IsChecked = false;
         }
 
         // -------------------------
@@ -182,34 +182,34 @@ namespace Axiom
         public static void controlsEnable(ViewModel vm)
         {
             // Video Codec
-            vm.VideoCodec_IsEnabled = true;
+            vm.Video_Codec_IsEnabled = true;
 
             // Video Quality
-            vm.VideoQuality_IsEnabled = true;
+            vm.Video_Quality_IsEnabled = true;
 
             // Video VBR
-            vm.AudioVBR_IsEnabled = true;
+            vm.Audio_VBR_IsEnabled = true;
 
             // Pixel Format
-            vm.PixelFormat_IsEnabled = true;
+            vm.Video_PixelFormat_IsEnabled = true;
 
             // FPS ComboBox
-            vm.FPS_IsEnabled = true;
+            vm.Video_FPS_IsEnabled = true;
 
             // Optimize ComboBox
             vm.Video_Optimize_IsEnabled = true;
 
             // Scaling ComboBox
-            vm.ScalingAlgorithm_IsEnabled = true;
+            vm.Video_ScalingAlgorithm_IsEnabled = true;
 
             // Crop
-            vm.Crop_IsEnabled = true;
+            vm.Video_Crop_IsEnabled = true;
 
             // Subtitle Codec
-            vm.SubtitleCodec_IsEnabled = true;
+            vm.Subtitle_Codec_IsEnabled = true;
 
             // Subtitle Stream
-            vm.SubtitleStream_IsEnabled = true;
+            vm.Subtitle_Stream_IsEnabled = true;
         }
 
         // -------------------------
@@ -218,7 +218,7 @@ namespace Axiom
         public static void controlsDisable(ViewModel vm)
         {
             // Video Encode Speed
-            vm.VideoEncodeSpeed_IsEnabled = false;
+            vm.Video_EncodeSpeed_IsEnabled = false;
         }
     }
 }

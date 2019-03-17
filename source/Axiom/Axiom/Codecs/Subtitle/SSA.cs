@@ -57,7 +57,7 @@ namespace Axiom
         public static void controlsSelected(ViewModel vm)
         {
             // Stream
-            vm.SubtitleStream_SelectedItem = "all";
+            vm.Subtitle_Stream_SelectedItem = "all";
         }
 
         // -------------------------
@@ -82,13 +82,13 @@ namespace Axiom
         public static void controlsEnable(ViewModel vm)
         {
             // Subtitle Codec
-            vm.SubtitleCodec_IsEnabled = true;
+            vm.Subtitle_Codec_IsEnabled = true;
 
             // Subtitle Stream
-            vm.SubtitleStream_IsEnabled = true;
+            vm.Subtitle_Stream_IsEnabled = true;
 
             // Subtitle List View
-            // Controlled in cboSubtitleStream_SelectionChanged
+            // Controlled in cboSubtitle_Stream_SelectionChanged
         }
 
         // -------------------------

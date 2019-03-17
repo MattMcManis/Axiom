@@ -48,7 +48,7 @@
                VerticalAlignment="Top" 
                Width="20" />
         <TextBox x:Name="textBoxCropX" 
-                 Text="{Binding CropX_Text, Mode=TwoWay}"
+                 Text="{Binding Video_Crop_X_Text, Mode=TwoWay}"
                  HorizontalAlignment="Left" 
                  Height="22" 
                  Margin="32,109,0,0" 
@@ -57,7 +57,7 @@
                  VerticalAlignment="Top" 
                  Width="60" 
                  Style="{DynamicResource TextBoxCustom}" 
-                 KeyDown="textBoxCropX_KeyDown" 
+                 KeyDown="textBoxVideo_Crop_X_KeyDown" 
                  ToolTipService.ShowOnDisabled="True" 
                  ToolTip="Position of Crop from Left"/>
 
@@ -70,7 +70,7 @@
                VerticalAlignment="Top" 
                Width="21" />
         <TextBox x:Name="textBoxCropY" 
-                 Text="{Binding CropY_Text, Mode=TwoWay}"
+                 Text="{Binding Video_Crop_Y_Text, Mode=TwoWay}"
                  HorizontalAlignment="Left" 
                  Height="22" 
                  Margin="202,17,0,0" 
@@ -79,7 +79,7 @@
                  VerticalAlignment="Top"
                  Width="60" 
                  Style="{DynamicResource TextBoxCustom}" 
-                 KeyDown="textBoxCropY_KeyDown" 
+                 KeyDown="textBoxVideo_Crop_Y_KeyDown" 
                  ToolTipService.ShowOnDisabled="True" 
                  ToolTip="Position of Crop from Top"/>
 
@@ -91,7 +91,7 @@
                VerticalAlignment="Top"
                Width="44" />
         <TextBox x:Name="textBoxCropWidth" 
-                 Text="{Binding CropWidth_Text, Mode=TwoWay}"
+                 Text="{Binding Video_Crop_Width_Text, Mode=TwoWay}"
                  HorizontalAlignment="Left" 
                  Height="22" 
                  Margin="170,109,0,0" 
@@ -100,7 +100,7 @@
                  VerticalAlignment="Top"
                  Width="60" 
                  Style="{DynamicResource TextBoxCustom}" 
-                 KeyDown="textBoxCropWidth_KeyDown" 
+                 KeyDown="textBoxVideo_Crop_Width_KeyDown" 
                  ToolTipService.ShowOnDisabled="True" 
                  ToolTip="Width of Cropped Area"/>
 
@@ -112,7 +112,7 @@
                VerticalAlignment="Top" 
                Width="48" />
         <TextBox x:Name="textBoxCropHeight" 
-                 Text="{Binding CropHeight_Text, Mode=TwoWay}"
+                 Text="{Binding Video_Crop_Height_Text, Mode=TwoWay}"
                  HorizontalAlignment="Left"
                  Height="22"
                  Margin="235,109,0,0" 
@@ -121,7 +121,7 @@
                  VerticalAlignment="Top"
                  Width="60"
                  Style="{DynamicResource TextBoxCustom}" 
-                 KeyDown="textBoxCropHeight_KeyDown" 
+                 KeyDown="textBoxVideo_Crop_Height_KeyDown" 
                  ToolTipService.ShowOnDisabled="True" 
                  ToolTip="Height of Cropped Area"/>
 

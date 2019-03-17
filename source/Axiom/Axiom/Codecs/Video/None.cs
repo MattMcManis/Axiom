@@ -121,16 +121,16 @@ namespace Axiom
         public static void controlsItemSource(ViewModel vm)
         {
             // Encode Speed
-            vm.VideoEncodeSpeed_Items = encodeSpeed;
+            vm.Video_EncodeSpeed_Items = encodeSpeed;
 
             // Pixel Format
-            vm.PixelFormat_Items = pixelFormat;
+            vm.Video_PixelFormat_Items = pixelFormat;
 
             // Pass
-            vm.Pass_Items = pass;
+            vm.Video_Pass_Items = pass;
 
             // Video Quality
-            vm.VideoQuality_Items = quality;
+            vm.Video_Quality_Items = quality;
 
             // Optimize
             vm.Video_Optimize_Items = optimize;
@@ -139,7 +139,7 @@ namespace Axiom
             // Profile
             vm.Optimize_Profile_Items = profile;
             // Level
-            vm.Optimize_Level_Items = level;
+            vm.Video_Optimize_Level_Items = level;
         }
 
         // -------------------------
@@ -149,10 +149,10 @@ namespace Axiom
         {
 
             // Pixel Format
-            vm.PixelFormat_SelectedItem = "none";
+            vm.Video_PixelFormat_SelectedItem = "none";
 
             // Framerate
-            vm.FPS_SelectedItem = "auto";
+            vm.Video_FPS_SelectedItem = "auto";
         }
 
         // -------------------------
@@ -169,7 +169,7 @@ namespace Axiom
         public static void controlsUnhecked(ViewModel vm)
         {
             // Bitrate Mode
-            vm.VideoVBR_IsChecked = false;
+            vm.Video_VBR_IsChecked = false;
         }
 
         // -------------------------
@@ -186,37 +186,37 @@ namespace Axiom
         public static void controlsDisable(ViewModel vm)
         {
             // Video Encode Speed
-            vm.VideoEncodeSpeed_IsEnabled = false;
+            vm.Video_EncodeSpeed_IsEnabled = false;
 
             // Video Codec
-            vm.VideoCodec_IsEnabled = false;
+            vm.Video_Codec_IsEnabled = false;
 
             // Video Quality
-            vm.VideoQuality_IsEnabled = false;
+            vm.Video_Quality_IsEnabled = false;
 
             // Video VBR
-            vm.VideoVBR_IsEnabled = false;
+            vm.Video_VBR_IsEnabled = false;
 
             // Pixel Format
-            vm.PixelFormat_IsEnabled = false;
+            vm.Video_PixelFormat_IsEnabled = false;
 
             // FPS ComboBox
-            vm.FPS_IsEnabled = false;
+            vm.Video_FPS_IsEnabled = false;
 
             // Optimize ComboBox
             vm.Video_Optimize_IsEnabled = false;
 
             // Scaling ComboBox
-            vm.ScalingAlgorithm_IsEnabled = false;
+            vm.Video_ScalingAlgorithm_IsEnabled = false;
 
             // Crop
-            vm.Crop_IsEnabled = false;
+            vm.Video_Crop_IsEnabled = false;
 
             // Subtitle Codec
-            vm.SubtitleCodec_IsEnabled = false;
+            vm.Subtitle_Codec_IsEnabled = false;
 
             // Subtitle Stream
-            vm.SubtitleStream_IsEnabled = false;
+            vm.Subtitle_Stream_IsEnabled = false;
         }
 
     }

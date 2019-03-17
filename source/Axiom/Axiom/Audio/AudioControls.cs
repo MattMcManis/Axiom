@@ -55,7 +55,7 @@ namespace Axiom
             if (codec_SelectedItem == "Vorbis")
             {
                 // Audio Codec
-                vm.AudioCodec_Command = Vorbis.codec;
+                vm.Audio_Codec_Command = Vorbis.codec;
 
                 // Item Source
                 Vorbis.controlsItemSource(vm);
@@ -82,7 +82,7 @@ namespace Axiom
             else if (codec_SelectedItem == "Opus")
             {
                 // Audio Codec
-                vm.AudioCodec_Command = Opus.codec;
+                vm.Audio_Codec_Command = Opus.codec;
 
                 // Item Source
                 Opus.controlsItemSource(vm);
@@ -109,7 +109,7 @@ namespace Axiom
             else if (codec_SelectedItem == "AC3")
             {
                 // Audio Codec
-                vm.AudioCodec_Command = AC3.codec;
+                vm.Audio_Codec_Command = AC3.codec;
 
                 // Item Source
                 AC3.controlsItemSource(vm);
@@ -136,7 +136,7 @@ namespace Axiom
             else if (codec_SelectedItem == "AAC")
             {
                 // Audio Codec
-                vm.AudioCodec_Command = AAC.codec;
+                vm.Audio_Codec_Command = AAC.codec;
 
                 // Item Source
                 AAC.controlsItemSource(vm);
@@ -163,7 +163,7 @@ namespace Axiom
             else if (codec_SelectedItem == "ALAC")
             {
                 // Audio Codec
-                vm.AudioCodec_Command = ALAC.codec;
+                vm.Audio_Codec_Command = ALAC.codec;
 
                 // Item Source
                 ALAC.controlsItemSource(vm);
@@ -190,7 +190,7 @@ namespace Axiom
             else if (codec_SelectedItem == "FLAC")
             {
                 // Audio Codec
-                vm.AudioCodec_Command = FLAC.codec;
+                vm.Audio_Codec_Command = FLAC.codec;
 
                 // Item Source
                 FLAC.controlsItemSource(vm);
@@ -217,7 +217,7 @@ namespace Axiom
             else if (codec_SelectedItem == "PCM")
             {
                 // Audio Codec
-                vm.AudioCodec_Command = PCM.codec;
+                vm.Audio_Codec_Command = PCM.codec;
 
                 // Item Source
                 PCM.controlsItemSource(vm);
@@ -244,7 +244,7 @@ namespace Axiom
             else if (codec_SelectedItem == "MP2")
             {
                 // Audio Codec
-                vm.AudioCodec_Command = MP2.codec;
+                vm.Audio_Codec_Command = MP2.codec;
 
                 // Item Source
                 MP2.controlsItemSource(vm);
@@ -271,7 +271,7 @@ namespace Axiom
             else if (codec_SelectedItem == "LAME")
             {
                 // Audio Codec
-                vm.AudioCodec_Command = LAME.codec;
+                vm.Audio_Codec_Command = LAME.codec;
 
                 // Item Source
                 LAME.controlsItemSource(vm);
@@ -298,7 +298,7 @@ namespace Axiom
             else if (codec_SelectedItem == "Copy")
             {
                 // Audio Codec
-                vm.AudioCodec_Command = AudioCopy.codec;
+                vm.Audio_Codec_Command = AudioCopy.codec;
 
                 // Item Source
                 AudioCopy.controlsItemSource(vm);
@@ -325,7 +325,7 @@ namespace Axiom
             else if (codec_SelectedItem == "None")
             {
                 // Audio Codec
-                vm.AudioCodec_Command = AudioNone.codec;
+                vm.Audio_Codec_Command = AudioNone.codec;
 
                 // Item Source
                 AudioNone.controlsItemSource(vm);
@@ -352,43 +352,43 @@ namespace Axiom
             // -------------------------
             // Audio Quality Selected Item
             // -------------------------
-            if (!string.IsNullOrEmpty(vm.AudioQuality_SelectedItem) &&
-                vm.AudioQuality_SelectedItem != "None" &&
-                vm.AudioQuality_SelectedItem != "none")
+            if (!string.IsNullOrEmpty(vm.Audio_Quality_SelectedItem) &&
+                vm.Audio_Quality_SelectedItem != "None" &&
+                vm.Audio_Quality_SelectedItem != "none")
             {
-                MainWindow.AudioQuality_PreviousItem = vm.AudioQuality_SelectedItem;
+                MainWindow.Audio_Quality_PreviousItem = vm.Audio_Quality_SelectedItem;
             }
 
-            vm.AudioQuality_SelectedItem = MainWindow.SelectedItem(vm.AudioQuality_Items.Select(c => c.Name).ToList(),
-                                                                       MainWindow.AudioQuality_PreviousItem
+            vm.Audio_Quality_SelectedItem = MainWindow.SelectedItem(vm.Audio_Quality_Items.Select(c => c.Name).ToList(),
+                                                                       MainWindow.Audio_Quality_PreviousItem
                                                                        );
 
             // -------------------------
             // Audio SampleRate Selected Item
             // -------------------------
-            if (!string.IsNullOrEmpty(vm.AudioSampleRate_SelectedItem) &&
-                vm.AudioSampleRate_SelectedItem != "None" &&
-                vm.AudioSampleRate_SelectedItem != "none")
+            if (!string.IsNullOrEmpty(vm.Audio_SampleRate_SelectedItem) &&
+                vm.Audio_SampleRate_SelectedItem != "None" &&
+                vm.Audio_SampleRate_SelectedItem != "none")
             {
-                MainWindow.AudioSampleRate_PreviousItem = vm.AudioSampleRate_SelectedItem;
+                MainWindow.Audio_SampleRate_PreviousItem = vm.Audio_SampleRate_SelectedItem;
             }
 
-            vm.AudioSampleRate_SelectedItem = MainWindow.SelectedItem(vm.AudioSampleRate_Items.Select(c => c.Name).ToList(),
-                                                                      MainWindow.AudioSampleRate_PreviousItem
+            vm.Audio_SampleRate_SelectedItem = MainWindow.SelectedItem(vm.Audio_SampleRate_Items.Select(c => c.Name).ToList(),
+                                                                      MainWindow.Audio_SampleRate_PreviousItem
                                                                       );
 
             // -------------------------
             // Audio BitDepth Selected Item
             // -------------------------
-            if (!string.IsNullOrEmpty(vm.AudioBitDepth_SelectedItem) &&
-                vm.AudioBitDepth_SelectedItem != "None" &&
-                vm.AudioBitDepth_SelectedItem != "none")
+            if (!string.IsNullOrEmpty(vm.Audio_BitDepth_SelectedItem) &&
+                vm.Audio_BitDepth_SelectedItem != "None" &&
+                vm.Audio_BitDepth_SelectedItem != "none")
             {
-                MainWindow.AudioBitDepth_PreviousItem = vm.AudioBitDepth_SelectedItem;
+                MainWindow.Audio_BitDepth_PreviousItem = vm.Audio_BitDepth_SelectedItem;
             }
 
-            vm.AudioBitDepth_SelectedItem = MainWindow.SelectedItem(vm.AudioBitDepth_Items.Select(c => c.Name).ToList(),
-                                                                    MainWindow.AudioBitDepth_PreviousItem
+            vm.Audio_BitDepth_SelectedItem = MainWindow.SelectedItem(vm.Audio_BitDepth_Items.Select(c => c.Name).ToList(),
+                                                                    MainWindow.Audio_BitDepth_PreviousItem
                                                                     );
 
 
@@ -404,29 +404,29 @@ namespace Axiom
                                                )
         {
             // Condition Check
-            if (!string.IsNullOrEmpty(vm.AudioQuality_SelectedItem) &&
-                vm.AudioQuality_SelectedItem != "None" &&
-                vm.AudioQuality_SelectedItem != "Auto" &&
-                vm.AudioQuality_SelectedItem != "Lossless" &&
-                vm.AudioQuality_SelectedItem != "Custom" &&
-                vm.AudioQuality_SelectedItem != "Mute")
+            if (!string.IsNullOrEmpty(vm.Audio_Quality_SelectedItem) &&
+                vm.Audio_Quality_SelectedItem != "None" &&
+                vm.Audio_Quality_SelectedItem != "Auto" &&
+                vm.Audio_Quality_SelectedItem != "Lossless" &&
+                vm.Audio_Quality_SelectedItem != "Custom" &&
+                vm.Audio_Quality_SelectedItem != "Mute")
             {
                 // -------------------------
                 // Display in TextBox
                 // -------------------------
-                //MessageBox.Show(vm.AudioQuality_SelectedItem);
-                //MessageBox.Show(vm.AudioVBR_IsChecked.ToString());
-                //vm.AudioBitrate_Text = "test";
+                //MessageBox.Show(vm.Audio_Quality_SelectedItem);
+                //MessageBox.Show(vm.Audio_VBR_IsChecked.ToString());
+                //vm.Audio_Bitrate_Text = "test";
                 // Bitrate CBR
-                if (vm.AudioVBR_IsChecked == false)
+                if (vm.Audio_VBR_IsChecked == false)
                 {
-                    vm.AudioBitrate_Text = items.FirstOrDefault(item => item.Name == selectedQuality) ?.CBR;
+                    vm.Audio_Bitrate_Text = items.FirstOrDefault(item => item.Name == selectedQuality) ?.CBR;
                 }
 
                 // Bitrate VBR
-                else if (vm.AudioVBR_IsChecked == true)
+                else if (vm.Audio_VBR_IsChecked == true)
                 {
-                    vm.AudioBitrate_Text = items.FirstOrDefault(item => item.Name == selectedQuality) ?.VBR;
+                    vm.Audio_Bitrate_Text = items.FirstOrDefault(item => item.Name == selectedQuality) ?.VBR;
                 }
             }
         }
@@ -441,28 +441,28 @@ namespace Axiom
             // Enable
             // -------------------------
             // Only for Custom
-            if (vm.AudioQuality_SelectedItem == "Custom")
+            if (vm.Audio_Quality_SelectedItem == "Custom")
             {
                 // Bitrate
-                vm.AudioBitrate_IsEnabled = true;
-                vm.AudioBitrate_Text = "";
+                vm.Audio_Bitrate_IsEnabled = true;
+                vm.Audio_Bitrate_Text = "";
             }
 
             // -------------------------
             // Disable
             // -------------------------
             // Only for Custom
-            else if (vm.AudioQuality_SelectedItem == "Auto")
+            else if (vm.Audio_Quality_SelectedItem == "Auto")
             {
                 // Bitrate
-                vm.AudioBitrate_IsEnabled = false;
-                vm.AudioBitrate_Text = "";
+                vm.Audio_Bitrate_IsEnabled = false;
+                vm.Audio_Bitrate_Text = "";
             }
             // All Other Qualities
             else
             {
                 // Bitrate
-                vm.AudioBitrate_IsEnabled = false;
+                vm.Audio_Bitrate_IsEnabled = false;
             }
         }
 
@@ -475,12 +475,12 @@ namespace Axiom
                                                    string outputExt)
         {
             // Pass Check
-            if (vm.AudioQuality_SelectedItem == "Auto" &&
-                vm.AudioChannel_SelectedItem == "Source" &&
-                vm.AudioSampleRate_SelectedItem == "auto" &&
-                vm.AudioBitDepth_SelectedItem == "auto" &&
-                vm.AudioHardLimiter_Value == 1 &&
-                vm.Volume_Text == "100" &&
+            if (vm.Audio_Quality_SelectedItem == "Auto" &&
+                vm.Audio_Channel_SelectedItem == "Source" &&
+                vm.Audio_SampleRate_SelectedItem == "auto" &&
+                vm.Audio_BitDepth_SelectedItem == "auto" &&
+                vm.Audio_HardLimiter_Value == 1 &&
+                vm.Audio_Volume_Text == "100" &&
                 // Filters
                 vm.FilterAudio_Lowpass_SelectedItem == "disabled" &&
                 vm.FilterAudio_Highpass_SelectedItem == "disabled" &&
@@ -519,11 +519,11 @@ namespace Axiom
                 // -------------------------
                 // Set Audio Codec Combobox Selected Item to Copy
                 // -------------------------
-                if (vm.AudioCodec_Items.Count > 0)
+                if (vm.Audio_Codec_Items.Count > 0)
                 {
-                    if (vm.AudioCodec_Items?.Contains("Copy") == true)
+                    if (vm.Audio_Codec_Items?.Contains("Copy") == true)
                     {
-                        vm.AudioCodec_SelectedItem = "Copy";
+                        vm.Audio_Codec_SelectedItem = "Copy";
                     }
                 }
             }
@@ -545,90 +545,90 @@ namespace Axiom
                 // -------------------------
                 // Null Check
                 // -------------------------
-                if (!string.IsNullOrEmpty(vm.AudioQuality_SelectedItem))
+                if (!string.IsNullOrEmpty(vm.Audio_Quality_SelectedItem))
                 {
                     // -------------------------
                     // Copy Selected
                     // -------------------------
-                    if (vm.AudioCodec_SelectedItem == "Copy")
+                    if (vm.Audio_Codec_SelectedItem == "Copy")
                     {
                         // -------------------------
                         // Switch back to format's default codec
                         // -------------------------
-                        if (vm.AudioCodec_SelectedItem != "Auto" ||
+                        if (vm.Audio_Codec_SelectedItem != "Auto" ||
                             !string.Equals(MainWindow.inputExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase)
                             )
                         {
                             // -------------------------
                             // Video Container
                             // -------------------------
-                            if (vm.Container_SelectedItem == "webm")
+                            if (vm.Format_Container_SelectedItem == "webm")
                             {
-                                vm.AudioCodec_SelectedItem = "Vorbis";
+                                vm.Audio_Codec_SelectedItem = "Vorbis";
                             }
-                            else if (vm.Container_SelectedItem == "mp4")
+                            else if (vm.Format_Container_SelectedItem == "mp4")
                             {
-                                vm.AudioCodec_SelectedItem = "AAC";
+                                vm.Audio_Codec_SelectedItem = "AAC";
                             }
-                            else if (vm.Container_SelectedItem == "mkv")
+                            else if (vm.Format_Container_SelectedItem == "mkv")
                             {
-                                vm.AudioCodec_SelectedItem = "AC3";
+                                vm.Audio_Codec_SelectedItem = "AC3";
                             }
-                            else if (vm.Container_SelectedItem == "m2v")
+                            else if (vm.Format_Container_SelectedItem == "m2v")
                             {
-                                vm.AudioCodec_SelectedItem = "None";
+                                vm.Audio_Codec_SelectedItem = "None";
                             }
-                            else if (vm.Container_SelectedItem == "mpg")
+                            else if (vm.Format_Container_SelectedItem == "mpg")
                             {
-                                vm.AudioCodec_SelectedItem = "MP2";
+                                vm.Audio_Codec_SelectedItem = "MP2";
                             }
-                            else if (vm.Container_SelectedItem == "avi")
+                            else if (vm.Format_Container_SelectedItem == "avi")
                             {
-                                vm.AudioCodec_SelectedItem = "LAME";
+                                vm.Audio_Codec_SelectedItem = "LAME";
                             }
-                            else if (vm.Container_SelectedItem == "ogv")
+                            else if (vm.Format_Container_SelectedItem == "ogv")
                             {
-                                vm.AudioCodec_SelectedItem = "Vorbis";
+                                vm.Audio_Codec_SelectedItem = "Vorbis";
                             }
 
                             // -------------------------
                             // Audio Container
                             // -------------------------
-                            if (vm.Container_SelectedItem == "m4a")
+                            if (vm.Format_Container_SelectedItem == "m4a")
                             {
-                                vm.AudioCodec_SelectedItem = "AAC";
+                                vm.Audio_Codec_SelectedItem = "AAC";
                             }
-                            else if (vm.Container_SelectedItem == "mp3")
+                            else if (vm.Format_Container_SelectedItem == "mp3")
                             {
-                                vm.AudioCodec_SelectedItem = "LAME";
+                                vm.Audio_Codec_SelectedItem = "LAME";
                             }
-                            else if (vm.Container_SelectedItem == "ogg")
+                            else if (vm.Format_Container_SelectedItem == "ogg")
                             {
-                                vm.AudioCodec_SelectedItem = "Opus";
+                                vm.Audio_Codec_SelectedItem = "Opus";
                             }
-                            else if (vm.Container_SelectedItem == "flac")
+                            else if (vm.Format_Container_SelectedItem == "flac")
                             {
-                                vm.AudioCodec_SelectedItem = "FLAC";
+                                vm.Audio_Codec_SelectedItem = "FLAC";
                             }
-                            else if (vm.Container_SelectedItem == "wav")
+                            else if (vm.Format_Container_SelectedItem == "wav")
                             {
-                                vm.AudioCodec_SelectedItem = "PCM";
+                                vm.Audio_Codec_SelectedItem = "PCM";
                             }
 
                             // -------------------------
                             // Image Container
                             // -------------------------
-                            //if (vm.Container_SelectedItem == "jpg")
+                            //if (vm.Format_Container_SelectedItem == "jpg")
                             //{
-                            //    vm.AudioCodec_SelectedItem = "None";
+                            //    vm.Audio_Codec_SelectedItem = "None";
                             //}
-                            //else if (vm.Container_SelectedItem == "png")
+                            //else if (vm.Format_Container_SelectedItem == "png")
                             //{
-                            //    vm.AudioCodec_SelectedItem = "None";
+                            //    vm.Audio_Codec_SelectedItem = "None";
                             //}
-                            //else if (vm.Container_SelectedItem == "webp")
+                            //else if (vm.Format_Container_SelectedItem == "webp")
                             //{
-                            //    vm.AudioCodec_SelectedItem = "None";
+                            //    vm.Audio_Codec_SelectedItem = "None";
                             //}
                         }
                     }
@@ -654,7 +654,7 @@ namespace Axiom
             // When Input Extension is Empty
             // --------------------------------------------------
             else if (string.IsNullOrEmpty(MainWindow.inputExt) &&
-                vm.AudioCodec_SelectedItem == "Copy")
+                vm.Audio_Codec_SelectedItem == "Copy")
             {
                 CopyControls(vm);
             }

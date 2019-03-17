@@ -88,16 +88,16 @@ namespace Axiom
         public static void controlsItemSource(ViewModel vm)
         {
             // Quality
-            vm.AudioQuality_Items = quality;
+            vm.Audio_Quality_Items = quality;
 
             // Channel
-            vm.AudioChannel_Items = channel;
+            vm.Audio_Channel_Items = channel;
 
             // Samplerate
-            vm.AudioSampleRate_Items = sampleRate;
+            vm.Audio_SampleRate_Items = sampleRate;
 
             // Bit Depth
-            vm.AudioBitDepth_Items = bitDepth;
+            vm.Audio_BitDepth_Items = bitDepth;
         }
 
         // -------------------------
@@ -105,7 +105,7 @@ namespace Axiom
         // -------------------------
         public static void controlsSelected(ViewModel vm)
         {
-            //vm.AudioStream_SelectedItem = "all";
+            //vm.Audio_Stream_SelectedItem = "all";
         }
 
         // -------------------------
@@ -122,7 +122,7 @@ namespace Axiom
         public static void controlsUnhecked(ViewModel vm)
         {
             // Bitrate Mode
-            vm.AudioVBR_IsChecked = false;
+            vm.Audio_VBR_IsChecked = false;
         }
 
         // -------------------------
@@ -131,7 +131,7 @@ namespace Axiom
         public static void controlsEnable(ViewModel vm)
         {
             // Bitrate Mode
-            vm.AudioVBR_IsChecked = false;
+            vm.Audio_VBR_IsChecked = false;
         }
 
         // -------------------------
@@ -140,28 +140,28 @@ namespace Axiom
         public static void controlsDisable(ViewModel vm)
         {
             // Codec
-            vm.AudioCodec_IsEnabled = false;
+            vm.Audio_Codec_IsEnabled = false;
 
             // Stream
-            vm.AudioStream_IsEnabled = false;
+            vm.Audio_Stream_IsEnabled = false;
 
             // Channel
-            vm.AudioChannel_IsEnabled = false;
+            vm.Audio_Channel_IsEnabled = false;
 
             // Audio Quality
-            vm.AudioQuality_IsEnabled = false;
+            vm.Audio_Quality_IsEnabled = false;
 
             // VBR Button
-            vm.AudioVBR_IsEnabled = false;
+            vm.Audio_VBR_IsEnabled = false;
 
             // SampleRate
-            vm.AudioSampleRate_IsEnabled = false;
+            vm.Audio_SampleRate_IsEnabled = false;
 
             // Volume
-            vm.Volume_IsEnabled = false;
+            vm.Audio_Volume_IsEnabled = false;
 
             // Bit Depth
-            vm.AudioBitDepth_IsEnabled = false;
+            vm.Audio_BitDepth_IsEnabled = false;
         }
 
     }

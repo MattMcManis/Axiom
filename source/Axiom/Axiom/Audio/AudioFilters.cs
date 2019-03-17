@@ -226,13 +226,13 @@ namespace Axiom
             // Mute Check
             // Stream None Check
             // Media Type Check
-            if (vm.AudioQuality_SelectedItem != "None"
-                && vm.AudioCodec_SelectedItem != "None"
-                && vm.AudioCodec_SelectedItem != "Copy"
-                && vm.AudioQuality_SelectedItem != "Mute"
-                && vm.AudioStream_SelectedItem != "none"
-                && vm.MediaType_SelectedItem != "Image"
-                && vm.MediaType_SelectedItem != "Sequence")
+            if (vm.Audio_Quality_SelectedItem != "None"
+                && vm.Audio_Codec_SelectedItem != "None"
+                && vm.Audio_Codec_SelectedItem != "Copy"
+                && vm.Audio_Quality_SelectedItem != "Mute"
+                && vm.Audio_Stream_SelectedItem != "none"
+                && vm.Format_MediaType_SelectedItem != "Image"
+                && vm.Format_MediaType_SelectedItem != "Sequence")
             {
                 // --------------------------------------------------
                 // Filters
@@ -286,7 +286,7 @@ namespace Axiom
                 // -------------------------
                 // Filter Combine
                 // -------------------------
-                if (vm.AudioCodec_SelectedItem != "None") // None Check
+                if (vm.Audio_Codec_SelectedItem != "None") // None Check
                 {
                     // -------------------------
                     // 1 Filter

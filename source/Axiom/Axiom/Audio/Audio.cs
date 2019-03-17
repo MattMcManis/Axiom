@@ -307,7 +307,7 @@ namespace Axiom
 
                 // No Detectable Bitrate Default
                 aBitrateNA = quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.NA;
-                //aBitrateNA = vm.AudioQuality_Items.FirstOrDefault(item => item.Name == vm.AudioQuality_SelectedItem)?.NA;
+                //aBitrateNA = vm.Audio_Quality_Items.FirstOrDefault(item => item.Name == vm.Audio_Quality_SelectedItem)?.NA;
 
                 if (!string.IsNullOrEmpty(aBitMode)) // Null Check
                 {
@@ -1043,12 +1043,12 @@ namespace Axiom
             // -------------------------
             // Only if Audio Codec is Not Empty
             // -------------------------
-            if (!string.IsNullOrEmpty(vm.AudioCodec_SelectedItem))
+            if (!string.IsNullOrEmpty(vm.Audio_Codec_SelectedItem))
             {
                 // If TextBox is 100% or Empty
-                if (vm.Volume_Text == "100%" ||
-                    vm.Volume_Text == "100" ||
-                    string.IsNullOrEmpty(vm.Volume_Text))
+                if (vm.Audio_Volume_Text == "100%" ||
+                    vm.Audio_Volume_Text == "100" ||
+                    string.IsNullOrEmpty(vm.Audio_Volume_Text))
                 {
                     aVolume = string.Empty;
                 }
@@ -1057,7 +1057,7 @@ namespace Axiom
                 else
                 {
                     // If user enters value, turn on Filter
-                    string volumePercent = vm.Volume_Text;
+                    string volumePercent = vm.Audio_Volume_Text;
                     double volumeDecimal = double.Parse(volumePercent.TrimEnd(new[] { '%' })) / 100;
                     aVolume = "volume=" + volumeDecimal;
 
@@ -1071,7 +1071,7 @@ namespace Axiom
             {
                 Log.logParagraph.Inlines.Add(new LineBreak());
                 Log.logParagraph.Inlines.Add(new Bold(new Run("Volume: ")) { Foreground = Log.ConsoleDefault });
-                Log.logParagraph.Inlines.Add(new Run(vm.Volume_Text) { Foreground = Log.ConsoleDefault });
+                Log.logParagraph.Inlines.Add(new Run(vm.Audio_Volume_Text) { Foreground = Log.ConsoleDefault });
             };
             Log.LogActions.Add(Log.WriteAction);
         }
@@ -1083,10 +1083,10 @@ namespace Axiom
         /// <summary>
         public static void HardLimiter(ViewModel vm)
         {
-            double value = vm.AudioHardLimiter_Value;
+            double value = vm.Audio_HardLimiter_Value;
 
             // If enabled and not default
-            if (vm.AudioHardLimiter_IsEnabled == true && 
+            if (vm.Audio_HardLimiter_IsEnabled == true && 
                 value != 1)
             {
                 aHardLimiter = "alimiter=level_in=1:level_out=1:limit=" + Convert.ToString(Math.Round(value, 2)) + ":attack=7:release=100:level=disabled";
