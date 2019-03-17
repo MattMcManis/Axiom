@@ -71,6 +71,7 @@ namespace Axiom
             // Video
             Video_Codec_SelectedItem = "VP8";
             Video_Quality_SelectedItem = "Auto";
+            Video_VBR_IsChecked = false;
             Video_Pass_SelectedItem = "2 Pass";
             Video_PixelFormat_SelectedItem = "auto";
             Video_FPS_SelectedItem = "auto";

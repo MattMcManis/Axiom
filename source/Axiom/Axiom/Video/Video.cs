@@ -398,7 +398,6 @@ namespace Axiom
                                        string bufsize_Text
                                        )
         {
-
             // Bitrate
             // Video
             if (mediaType_SelectedItem == "Video")
@@ -780,6 +779,8 @@ namespace Axiom
                                           string bufsize_Text
                                           )
         {
+            //MessageBox.Show(vbr_IsChecked.ToString()); //debug
+
             // Video Quality None Check
             // Video Codec None Check
             // Video Codec Copy Check

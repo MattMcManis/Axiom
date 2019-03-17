@@ -671,6 +671,7 @@ namespace Axiom
 
                 // VBR
                 vm.Video_VBR_IsEnabled = false;
+                vm.Video_VBR_IsChecked = false;
 
                 // Minrate
                 vm.Video_Minrate_IsEnabled = false;

@@ -117,7 +117,7 @@ namespace Axiom
                                 ),
 
                     Video.VideoQuality(vm.Batch_IsChecked,
-                                       vm.Audio_VBR_IsChecked,
+                                       vm.Video_VBR_IsChecked,
                                        vm.Format_Container_SelectedItem,
                                        vm.Format_MediaType_SelectedItem,
                                        vm.Video_Codec_SelectedItem,
@@ -289,7 +289,7 @@ namespace Axiom
                                 ),
 
                     Video.VideoQuality(vm.Batch_IsChecked,
-                                       vm.Audio_VBR_IsChecked,
+                                       vm.Video_VBR_IsChecked,
                                        vm.Format_Container_SelectedItem,
                                        vm.Format_MediaType_SelectedItem,
                                        vm.Video_Codec_SelectedItem,
