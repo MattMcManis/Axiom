@@ -1783,9 +1783,9 @@ namespace Axiom
             //        // Both Video & Audio are Auto Quality
             //        // Combined Single Warning
             //        // -------------------------
-            //        if (vm.Video_Quality_SelectedItem == "Auto" && 
-            //            vm.Audio_Quality_SelectedItem == "Auto" && 
-            //            vm.Video_Codec_SelectedItem != "Copy" && 
+            //        if (vm.Video_Quality_SelectedItem == "Auto" &&
+            //            vm.Audio_Quality_SelectedItem == "Auto" &&
+            //            vm.Video_Codec_SelectedItem != "Copy" &&
             //            vm.Audio_Codec_SelectedItem != "Copy"
             //            )
             //        {

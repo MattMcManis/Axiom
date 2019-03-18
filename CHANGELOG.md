@@ -4,6 +4,25 @@ Axiom FFmpeg UI
 
 ## [alpha]
 
+## [1.5.5.0] - Mar 18, 2019
+### Added
+- Container ComboBox Headers
+- Video `HuffYUV` Codec
+- Video Codec Parameters
+- CBR to `Theora`
+
+### Fixed
+- Audio Bitrate VBR FFprobe `NA`
+
+
+## [1.5.4.1] - Mar 17, 2019
+### Added
+- Preset `HEVC`
+
+### Fixed
+- WebM Video VBR
+
+
 ## [1.5.4.0] - Mar 16, 2019
 ### Added
 - Aspect Ratio ComboBox

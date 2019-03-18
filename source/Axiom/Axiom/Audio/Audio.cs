@@ -160,6 +160,8 @@ namespace Axiom
                 // -------------------------
                 if (!string.IsNullOrEmpty(FFprobe.inputAudioBitrate))
                 {
+                    //MessageBox.Show(FFprobe.inputAudioBitrate); //debug
+
                     // Input Bitrate was detected
                     if (FFprobe.inputAudioBitrate != "N/A")
                     {
@@ -174,10 +176,27 @@ namespace Axiom
                         else if (vbr_IsChecked == true)
                         {
                             //VBR does not have 'k'
-
+                            // aBitMode = "-q:a";
                             aBitrate = AudioVBRCalculator(vbr_IsChecked, codec_SelectedItem, FFprobe.inputAudioBitrate);
                         }
                     }
+
+                    // Input Bitrate is N/A
+                    //else if (FFprobe.inputAudioBitrate == "N/A")
+                    //{
+                    //    // CBR
+                    //    if (vbr_IsChecked == false)
+                    //    {
+                    //        aBitrate = AudioBitrateCalculator(codec_SelectedItem, FFprobe.aEntryType, aBitrateNA);
+                    //    }
+
+                    //    // VBR
+                    //    else if (vbr_IsChecked == true)
+                    //    {
+                    //        //VBR does not have 'k'
+                    //        aBitrate = AudioVBRCalculator(vbr_IsChecked, codec_SelectedItem, aBitrateNA);
+                    //    }
+                    //}
 
                     // -------------------------
                     // Input Does Not Have Audio Codec
@@ -191,7 +210,20 @@ namespace Axiom
                             // Default to NA value
                             if (!string.IsNullOrEmpty(aBitrateNA))
                             {
-                                aBitrate = aBitrateNA;
+                                //aBitrate = aBitrateNA;
+
+                                // CBR
+                                if (vbr_IsChecked == false)
+                                {
+                                    aBitrate = AudioBitrateCalculator(codec_SelectedItem, FFprobe.aEntryType, aBitrateNA);
+                                }
+
+                                // VBR
+                                else if (vbr_IsChecked == true)
+                                {
+                                    //VBR does not have 'k'
+                                    aBitrate = AudioVBRCalculator(vbr_IsChecked, codec_SelectedItem, aBitrateNA);
+                                }
                             }
                             // Default to 320k if NA value is empty
                             else
@@ -216,20 +248,17 @@ namespace Axiom
                 // -------------------------
                 if (string.IsNullOrEmpty(input_Text))
                 {
-                    //// CBR
-                    //if (vbr_IsChecked == false)
-                    //{
-                    //    aBitMode = quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.CBR_BitMode;
-                    //}
-
-                    //// VBR
-                    //else if (vbr_IsChecked == true)
-                    //{
-                    //    aBitMode = quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.VBR_BitMode;
-                    //}
-
                     aBitMode = "-b:a";
                     aBitrate = "320";
+                }
+
+                // -------------------------
+                // Bitrate is 0 (Happens with NA)
+                // -------------------------
+                if (aBitrate == "0")
+                {
+                    aBitMode = string.Empty;
+                    aBitrate = string.Empty;
                 }
 
                 // -------------------------
@@ -251,6 +280,8 @@ namespace Axiom
 
                 //MessageBox.Show(aBitrate); //debug
             }
+
+            //MessageBox.Show(aBitrate); //debug
         }
 
 
@@ -556,6 +587,9 @@ namespace Axiom
                                                 string inputBitrate
                                                 )
         {
+            //MessageBox.Show(inputBitrate); //debug
+            //MessageBox.Show(codec_SelectedItem); //debug
+
             // -------------------------
             // VBR 
             // User entered value
@@ -626,6 +660,8 @@ namespace Axiom
                     {
                         aBitrateVBR = 0;
                     }
+
+                    //MessageBox.Show(aBitrateVBR.ToString()); //debug
                 }
 
                 // -------------------------
@@ -663,7 +699,9 @@ namespace Axiom
                 // -------------------------
                 aBitrate = Convert.ToString(aBitrateVBR);
 
-            } 
+            }
+
+            //MessageBox.Show(aBitrate); //debug
 
             return aBitrate;
         }

@@ -408,19 +408,6 @@ namespace Axiom
                                        string bufsize_Text
                                        )
         {
-            //if (string.IsNullOrEmpty(input_Text))
-            //{
-            //    vBitrate = "3000K";
-            //    //if (vbr_IsChecked == false)
-            //    //{
-
-            //    //}
-            //    //else if (vbr_IsChecked == true)
-            //    //{
-            //    //    vBitrate = "3000K";
-            //    //}
-            //}
-
             // Bitrate
             // Video
             if (mediaType_SelectedItem == "Video")

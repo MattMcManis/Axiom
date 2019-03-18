@@ -1043,13 +1043,26 @@ namespace Axiom
             // -------------------------
             if (vm.Video_Quality_SelectedItem == "Auto")
             {
-                // Change Items Source
-                vm.Video_Pass_Items = new List<string>()
+                // Copy
+                if (vm.Video_Codec_SelectedItem == "Copy")
                 {
-                    "CRF",
-                    "1 Pass",
-                    "2 Pass"
-                };
+                    // Change Items Source
+                    vm.Video_Pass_Items = new List<string>()
+                    {
+                        "auto"
+                    };
+                }
+                // All Other Codecs
+                else
+                {
+                    // Change Items Source
+                    vm.Video_Pass_Items = new List<string>()
+                    {
+                        "CRF",
+                        "1 Pass",
+                        "2 Pass"
+                    };
+                }
 
                 // -------------------------
                 // Check if 2-Pass Exists in ComboBox
