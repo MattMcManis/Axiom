@@ -176,7 +176,7 @@
     <SolidColorBrush x:Key="ComboBoxWhite.Static.Foreground" Color="#FFFFFFFF"/>
     <SolidColorBrush x:Key="ComboBoxWhite.Static.Background" Color="#FFFFFFFF"/>
     <SolidColorBrush x:Key="ComboBoxWhite.Static.Border" Color="#FFFFFFFF"/>
-    <SolidColorBrush x:Key="ComboBoxWhiteHeader.Static.Foreground" Color="#FF1049bb"/>
+    <SolidColorBrush x:Key="ComboBoxWhiteHeader.Static.Foreground" Color="#FF224fb7"/>
 
     <!-- Disabled-->
     <SolidColorBrush x:Key="ComboBoxWhite.Disabled.Foreground" Color="#FF000000"/>
@@ -411,7 +411,40 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
+    <!-- ComboBox White Item - Format Containers -->
+    <Style x:Key="ComboBoxWhiteItem_FormatContainer" TargetType="{x:Type ComboBoxItem}">
+        <Setter Property="Template" Value="{StaticResource ComboBoxWhite.Item.ControlTemplate}"/>
+        <Setter Property="Foreground" Value="#FF000000" />
+        <Setter Property="Background" Value="#FFFFFFFF" />
+        <Setter Property="BorderBrush" Value="#FFFFFFFF" />
+        <Style.Triggers>
 
+            <!-- Selected -->
+            <Trigger Property="IsSelected" Value="true">
+                <Setter Property="Foreground" Value="{StaticResource ComboBoxWhite.Static.Foreground}" />
+                <Setter Property="Background" Value="{StaticResource ComboBoxWhite.Static.Background}" />
+            </Trigger>
+
+            <!-- Mouse Over -->
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter Property="Foreground" Value="{StaticResource ComboBoxWhite.MouseOver.Foreground}" />
+                <Setter Property="Background" Value="{StaticResource ComboBoxWhite.MouseOver.Background}" />
+            </Trigger>
+
+            <!-- Headers -->
+            <DataTrigger Binding="{Binding Category}" Value="True">
+                <Setter Property="IsEnabled" Value="False"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="Margin" Value="0,7,0,0"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Category}" Value="False">
+                <Setter Property="Margin" Value="0,0,0,0"/>
+            </DataTrigger>
+
+        </Style.Triggers>
+    </Style>
+    
+    
     <!-- ComboBox White Item -->
     <Style x:Key="ComboBoxWhiteItem" TargetType="{x:Type ComboBoxItem}">
         <Setter Property="Template" Value="{StaticResource ComboBoxWhite.Item.ControlTemplate}"/>
@@ -419,25 +452,19 @@
         <Setter Property="Background" Value="#FFFFFFFF" />
         <Setter Property="BorderBrush" Value="#FFFFFFFF" />
         <Style.Triggers>
+
+            <!-- Selected -->
             <Trigger Property="IsSelected" Value="true">
                 <Setter Property="Foreground" Value="{StaticResource ComboBoxWhite.Static.Foreground}" />
                 <Setter Property="Background" Value="{StaticResource ComboBoxWhite.Static.Background}" />
             </Trigger>
+
+            <!-- Mouse Over -->
             <Trigger Property="IsMouseOver" Value="true">
                 <Setter Property="Foreground" Value="{StaticResource ComboBoxWhite.MouseOver.Foreground}" />
                 <Setter Property="Background" Value="{StaticResource ComboBoxWhite.MouseOver.Background}" />
             </Trigger>
 
-            <!-- Headers -->
-            <DataTrigger Binding="{Binding IsHeader}" Value="True">
-                <Setter Property="IsEnabled" Value="False"/>
-                <Setter Property="FontWeight" Value="Bold"/>
-                <Setter Property="Margin" Value="0,5,0,0"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding IsHeader}" Value="False">
-                <Setter Property="Margin" Value="0,0,0,0"/>
-            </DataTrigger>
-            
         </Style.Triggers>
     </Style>
 

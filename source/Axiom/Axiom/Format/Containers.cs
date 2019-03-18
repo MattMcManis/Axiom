@@ -124,6 +124,7 @@ namespace Axiom
                 "VP9",
                 "AV1",
                 "FFV1",
+                "HuffYUV",
                 "Theora",
                 "Copy"
             };

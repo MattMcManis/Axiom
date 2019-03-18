@@ -57,8 +57,27 @@
     
     <!--/////////////////////////////////////
          ComboBox White
-        /////////////////////////////////////-->  
-
+        /////////////////////////////////////-->
+    <!-- ComboBox White Item - Format Containers -->
+    <Style x:Key="ComboBoxWhiteItem_FormatContainer" TargetType="{x:Type ComboBoxItem}">
+        <Style.Triggers>
+            <!-- Headers -->
+            <DataTrigger Binding="{Binding Category}" Value="True">
+                <Setter Property="IsEnabled" Value="False"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="Margin" Value="0,7,0,0"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Category}" Value="False">
+                <Setter Property="Margin" Value="0,0,0,0"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+    
+    <!-- ComboBox White Item -->
+    <Style x:Key="ComboBoxWhiteItem" TargetType="{x:Type ComboBoxItem}">
+        <Style.Triggers>
+        </Style.Triggers>
+    </Style>
 
     <!--/////////////////////////////////////
          TextBox White

@@ -36,13 +36,16 @@ namespace Axiom
         // -------------------------
         // Codec
         // -------------------------
-        // command
-        public static string codec = "-c:v copy";
+        // Codec
+        public static string codec = "copy";
+
+        // Codec Parameters
+        public static string codecParameters = "";
 
 
 
         // ---------------------------------------------------------------------------
-        // Item Source
+        // Items Source
         // ---------------------------------------------------------------------------
 
         // -------------------------
@@ -121,7 +124,7 @@ namespace Axiom
         // ---------------------------------------------------------------------------
 
         // -------------------------
-        // Item Source
+        // Items Source
         // -------------------------
         public static void controlsItemSource(ViewModel vm)
         {

@@ -251,26 +251,36 @@ namespace Axiom
         /// <summary>
         ///     Video Codec
         /// <summary>
-        public static String VideoCodec(string hwAccel, 
+        public static String VideoCodec(string hwAccel_SelectedItem, 
                                         string codec_SelectedItem, 
-                                        string codecCommand
+                                        string codec_Command,
+                                        string codec_Paramters
                                         )
         {
             // Passed Command
-            vCodec = codecCommand;
-
-            // HW Acceleration Override
-            if (hwAccel == "cuvid" ||
-                hwAccel == "nvenc"
-                )
+            if (codec_SelectedItem != "None")
             {
-                vCodec = HWAccelerationCodecOverride(hwAccel, 
-                                                     codec_SelectedItem
-                                                     );
+                List<string> codec = new List<string>()
+                {
+                    "-c:v",
+                    codec_Command,
+                    codec_Paramters
+                };
 
-                //MessageBox.Show(vCodec); //debug
-            }
-                
+                vCodec =  string.Join(" ", codec.Where(s => !string.IsNullOrEmpty(s)));
+
+                // HW Acceleration Override
+                if (hwAccel_SelectedItem == "cuvid" ||
+                    hwAccel_SelectedItem == "nvenc"
+                    )
+                {
+                    vCodec = HWAccelerationCodecOverride(hwAccel_SelectedItem,
+                                                         codec_SelectedItem
+                                                         );
+
+                    //MessageBox.Show(vCodec); //debug
+                }
+            }              
 
             return vCodec;
         }
@@ -398,6 +408,19 @@ namespace Axiom
                                        string bufsize_Text
                                        )
         {
+            //if (string.IsNullOrEmpty(input_Text))
+            //{
+            //    vBitrate = "3000K";
+            //    //if (vbr_IsChecked == false)
+            //    //{
+
+            //    //}
+            //    //else if (vbr_IsChecked == true)
+            //    //{
+            //    //    vBitrate = "3000K";
+            //    //}
+            //}
+
             // Bitrate
             // Video
             if (mediaType_SelectedItem == "Video")
@@ -792,7 +815,8 @@ namespace Axiom
                 // Auto
                 // -------------------------
                 if (quality_SelectedItem == "Auto" &&
-                    codec_SelectedItem != "FFV1") // Special Rule, FFV1 cannot use Auto Bitrate, Lossless Only, Auto FFV1 is used for Codec Copy
+                    codec_SelectedItem != "FFV1" &&   // Special Rule
+                    codec_SelectedItem != "HuffYUV")  // FFV1, HuffYUV cannot use Auto Bitrate, Lossless Only, Auto is used for Codec Copy
                 {
                     QualityAuto(batch_IsChecked,
                                 vbr_IsChecked,
@@ -1601,6 +1625,7 @@ namespace Axiom
                 codec_SelectedItem == "VP9" ||
                 codec_SelectedItem == "AV1" ||
                 codec_SelectedItem == "FFV1" ||
+                codec_SelectedItem == "HuffYUV" ||
                 codec_SelectedItem == "Theora" ||
                 codec_SelectedItem == "JPEG" ||
                 codec_SelectedItem == "PNG" ||
@@ -1626,6 +1651,7 @@ namespace Axiom
                 codec_SelectedItem == "VP9" ||
                 codec_SelectedItem == "AV1" ||
                 codec_SelectedItem == "FFV1" ||
+                codec_SelectedItem == "HuffYUV" ||
                 codec_SelectedItem == "Theora" ||
                 codec_SelectedItem == "JPEG" ||
                 codec_SelectedItem == "PNG" ||

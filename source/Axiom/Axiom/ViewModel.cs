@@ -350,7 +350,7 @@ namespace Axiom
         // --------------------------------------------------
         // Preset
         // --------------------------------------------------
-        // Item Source
+        // Items Source
         private List<string> _Preset_Items = new List<string>()
         {
             "Preset",
@@ -440,34 +440,34 @@ namespace Axiom
         // --------------------------------------------------
         // Containers
         // --------------------------------------------------
-        // Item Source
+        // Items Source
         public class FormatContainer
         {
             public string Name { get; set; }
-            public bool IsHeader { get; set; }
+            public bool Category { get; set; }
         }
 
         public List<FormatContainer> _Format_Container_Items = new List<FormatContainer>()
         {
-            new FormatContainer() { Name = "Video", IsHeader = true  },
-            new FormatContainer() { Name = "webm",  IsHeader = false },
-            new FormatContainer() { Name = "mp4",   IsHeader = false },
-            new FormatContainer() { Name = "mkv",   IsHeader = false },
-            new FormatContainer() { Name = "mpg",   IsHeader = false },
-            new FormatContainer() { Name = "avi",   IsHeader = false },
-            new FormatContainer() { Name = "ogv",   IsHeader = false },
+            new FormatContainer() { Name = "Video", Category = true  },
+            new FormatContainer() { Name = "webm",  Category = false },
+            new FormatContainer() { Name = "mp4",   Category = false },
+            new FormatContainer() { Name = "mkv",   Category = false },
+            new FormatContainer() { Name = "mpg",   Category = false },
+            new FormatContainer() { Name = "avi",   Category = false },
+            new FormatContainer() { Name = "ogv",   Category = false },
 
-            new FormatContainer() { Name = "Audio", IsHeader = true  },
-            new FormatContainer() { Name = "mp3",   IsHeader = false },
-            new FormatContainer() { Name = "m4a",   IsHeader = false },
-            new FormatContainer() { Name = "ogg",   IsHeader = false },
-            new FormatContainer() { Name = "flac",  IsHeader = false },
-            new FormatContainer() { Name = "wav",   IsHeader = false },
+            new FormatContainer() { Name = "Audio", Category = true  },
+            new FormatContainer() { Name = "mp3",   Category = false },
+            new FormatContainer() { Name = "m4a",   Category = false },
+            new FormatContainer() { Name = "ogg",   Category = false },
+            new FormatContainer() { Name = "flac",  Category = false },
+            new FormatContainer() { Name = "wav",   Category = false },
 
-            new FormatContainer() { Name = "Image", IsHeader = true  },
-            new FormatContainer() { Name = "jpg",   IsHeader = false },
-            new FormatContainer() { Name = "png",   IsHeader = false },
-            new FormatContainer() { Name = "webp",  IsHeader = false },
+            new FormatContainer() { Name = "Image", Category = true  },
+            new FormatContainer() { Name = "jpg",   Category = false },
+            new FormatContainer() { Name = "png",   Category = false },
+            new FormatContainer() { Name = "webp",  Category = false },
         };
 
         public List<FormatContainer> Format_Container_Items
@@ -481,7 +481,7 @@ namespace Axiom
         }
 
 
-        // Item Source
+        // Items Source
         //private List<string> _Format_Container_Items = new List<string>()
         //{
         //    "webm",
@@ -552,7 +552,7 @@ namespace Axiom
         // --------------------------------------------------
         // Media Type
         // --------------------------------------------------
-        // Item Source
+        // Items Source
         private List<string> _Format_MediaType_Items = new List<string>()
         {
             "Video",
@@ -624,7 +624,7 @@ namespace Axiom
         // --------------------------------------------------
         // Encode Speed
         // --------------------------------------------------
-        // Item Source
+        // Items Source
         public class VideoEncodeSpeed
         {
             public string Name { get; set; }
@@ -728,7 +728,7 @@ namespace Axiom
         // --------------------------------------------------
         // HW Accel
         // --------------------------------------------------
-        // Item Source
+        // Items Source
         private List<string> _Format_HWAccel_Items = new List<string>()
         {
             "off",
@@ -801,7 +801,7 @@ namespace Axiom
         // --------------------------------------------------
         // Cut
         // --------------------------------------------------
-        // Item Source
+        // Items Source
         private List<string> _Format_Cut_Items = new List<string>()
         {
             "No",
@@ -1024,7 +1024,7 @@ namespace Axiom
         // --------------------------------------------------
         // Video Codec
         // --------------------------------------------------
-        // Item Source
+        // Items Source
         private List<string> _Video_Codec_Items = new List<string>();
         public List<string> Video_Codec_Items
         {
@@ -1038,6 +1038,9 @@ namespace Axiom
 
         // Command
         public string Video_Codec_Command;
+
+        // Parameters
+        public string Video_Codec_Parameters;
 
         // Selected Index
         private int _Video_Codec_SelectedIndex { get; set; }
@@ -1094,7 +1097,7 @@ namespace Axiom
         // --------------------------------------------------
         // Pass
         // --------------------------------------------------
-        // Item Source
+        // Items Source
         private List<string> _Video_Pass_Items = new List<string>()
         {
             "CRF",
@@ -1497,7 +1500,7 @@ namespace Axiom
         // --------------------------------------------------
         // Pixel Format
         // --------------------------------------------------
-        // Item Source
+        // Items Source
         private List<string> _Video_PixelFormat_Items = new List<string>();
         public List<string> Video_PixelFormat_Items
         {
@@ -1573,7 +1576,7 @@ namespace Axiom
         // --------------------------------------------------
         // FPS
         // --------------------------------------------------
-        // Item Source
+        // Items Source
         private List<string> _Video_FPS_Items = new List<string>()
         {
             "auto",
@@ -1692,7 +1695,7 @@ namespace Axiom
             public string Level { get; set; }
         }
         private List<VideoOptimize> _Video_Optimize_Items = new List<VideoOptimize>();
-        // Item Source
+        // Items Source
         //private List<string> _Optimize_Items = new List<string>();
         public List<VideoOptimize> Video_Optimize_Items
         {
@@ -1769,7 +1772,7 @@ namespace Axiom
         // --------------------------------------------------
         // Optimize Tune
         // --------------------------------------------------
-        // Item Source
+        // Items Source
         private List<string> _Optimize_Tune_Items = new List<string>();
         public List<string> Optimize_Tune_Items
         {
@@ -1836,7 +1839,7 @@ namespace Axiom
         // --------------------------------------------------
         // Optimize Profile
         // --------------------------------------------------
-        // Item Source
+        // Items Source
         private List<string> _Optimize_Profile_Items = new List<string>();
         public List<string> Optimize_Profile_Items
         {
@@ -1903,7 +1906,7 @@ namespace Axiom
         // --------------------------------------------------
         // Optimize Level
         // --------------------------------------------------
-        // Item Source
+        // Items Source
         private List<string> _Video_Optimize_Level_Items = new List<string>();
         public List<string> Video_Optimize_Level_Items
         {
@@ -1970,7 +1973,7 @@ namespace Axiom
         // --------------------------------------------------
         // Size
         // --------------------------------------------------
-        // Item Source
+        // Items Source
         private List<string> _Video_Scale_Items = new List<string>()
         {
             "Source",
@@ -2133,7 +2136,7 @@ namespace Axiom
         // --------------------------------------------------
         // Aspect Ratio
         // --------------------------------------------------
-        // Item Source
+        // Items Source
         private List<string> _Video_AspectRatio_Items = new List<string>()
         {
             "auto",
@@ -2224,7 +2227,7 @@ namespace Axiom
         // --------------------------------------------------
         // Scaling
         // --------------------------------------------------
-        // Item Source
+        // Items Source
         private List<string> _Video_ScalingAlgorithm_Items = new List<string>()
         {
             "default",
@@ -2445,7 +2448,7 @@ namespace Axiom
         // --------------------------------------------------
         // Audio Codec
         // --------------------------------------------------
-        // Item Source
+        // Items Source
         private List<string> _Audio_Codec_Items = new List<string>();
         public List<string> Audio_Codec_Items
         {
@@ -2515,7 +2518,7 @@ namespace Axiom
         // --------------------------------------------------
         // Audio Stream
         // --------------------------------------------------
-        // Item Source
+        // Items Source
         private List<string> _Audio_Stream_Items = new List<string>()
         {
             "none",
@@ -2594,7 +2597,7 @@ namespace Axiom
         // --------------------------------------------------
         // Audio Channel
         // --------------------------------------------------
-        // Item Source
+        // Items Source
         private List<string> _Audio_Channel_Items = new List<string>();
         public List<string> Audio_Channel_Items
         {
@@ -2670,7 +2673,7 @@ namespace Axiom
         // --------------------------------------------------
         // Audio Quality
         // --------------------------------------------------
-        // Item Source
+        // Items Source
         public class AudioQuality
         {
             public string Name { get; set; }
@@ -2851,7 +2854,7 @@ namespace Axiom
         // --------------------------------------------------
         // Audio Sample Rate
         // --------------------------------------------------
-        // Item Source
+        // Items Source
         public class AudioSampleRate
         {
             public string Name { get; set; }
@@ -2942,7 +2945,7 @@ namespace Axiom
         // --------------------------------------------------
         // Audio Bit Depth
         // --------------------------------------------------
-        // Item Source
+        // Items Source
         public class AudioBitDepth
         {
             public string Name { get; set; }
@@ -3314,7 +3317,7 @@ namespace Axiom
         // --------------------------------------------------
         // Threads
         // --------------------------------------------------
-        // Item Source
+        // Items Source
         private List<string> _Threads_Items = new List<string>()
         {
            "default",
@@ -3402,7 +3405,7 @@ namespace Axiom
         // --------------------------------------------------
         // Theme
         // --------------------------------------------------
-        // Item Source
+        // Items Source
         private List<string> _Theme_Items = new List<string>()
         {
             "Axiom",
@@ -3531,7 +3534,7 @@ namespace Axiom
         // --------------------------------------------------
         // Subtitle Codec
         // --------------------------------------------------
-        // Item Source
+        // Items Source
         public List<string> _Subtitle_Codec_Items = new List<string>();
         public List<string> Subtitle_Codec_Items
         {
@@ -3601,7 +3604,7 @@ namespace Axiom
         // --------------------------------------------------
         // Subtitle Stream
         // --------------------------------------------------
-        // Item Source
+        // Items Source
         public List<string> _Subtitle_Stream_Items = new List<string>()
         {
             "none",
@@ -3682,7 +3685,7 @@ namespace Axiom
         // --------------------------------------------------
         // Subtitle ListView
         // --------------------------------------------------
-        // Item Source
+        // Items Source
         private ObservableCollection<string> _Subtitle_ListView_Items = new ObservableCollection<string>();
         public ObservableCollection<string> Subtitle_ListView_Items
         {

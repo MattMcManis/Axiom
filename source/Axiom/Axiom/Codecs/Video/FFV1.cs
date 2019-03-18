@@ -36,13 +36,16 @@ namespace Axiom
         // -------------------------
         // Codec
         // -------------------------
+        // Codec
+        public static string codec = "ffv1";
 
-        public static string codec = "-c:v ffv1 -level 3 -coder 1 -context 1 -g 1 -slices 24 -slicecrc 1";
+        // Codec Parameters
+        public static string codecParameters = "-level 3 -coder 1 -context 1 -g 1 -slices 24 -slicecrc 1";
 
 
 
         // ---------------------------------------------------------------------------
-        // Item Source
+        // Items Source
         // ---------------------------------------------------------------------------
 
         // -------------------------
@@ -171,7 +174,7 @@ namespace Axiom
         // ---------------------------------------------------------------------------
 
         // -------------------------
-        // Item Source
+        // Items Source
         // -------------------------
         public static void controlsItemSource(ViewModel vm)
         {

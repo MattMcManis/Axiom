@@ -137,7 +137,9 @@ namespace Axiom
 
                     // Format
                     //vm.Format_Container_SelectedItem = vm.Format_Container_Items.FirstOrDefault();
-                    vm.Format_Container_SelectedItem = "webm";
+                    vm.Format_Container_SelectedItem = "mp3";
+                    vm.Video_Codec_SelectedItem = "None";
+                    vm.Audio_Codec_SelectedItem = "LAME";
                     vm.Format_Container_SelectedIndex = 1;
                     vm.Format_Cut_SelectedItem = "No";
                     vm.Format_CutStart_Text = "00:00:00.000";
@@ -168,7 +170,7 @@ namespace Axiom
                     vm.Audio_Channel_SelectedItem = "Source";
                     vm.Audio_SampleRate_SelectedItem = "auto";
                     // special rules for PCM codec
-                    if ((string)vm.Audio_Codec_SelectedItem == "PCM")
+                    if (vm.Audio_Codec_SelectedItem == "PCM")
                     {
                         vm.Audio_BitDepth_SelectedItem = "24";
                     }
@@ -514,6 +516,7 @@ namespace Axiom
 
                 // Format
                 vm.Format_Container_SelectedItem = "m4a";
+                vm.Video_Codec_SelectedItem = "None";
                 vm.Audio_Codec_SelectedItem = "AAC";
                 vm.Format_Cut_SelectedItem = "No";
                 vm.Format_CutStart_Text = "00:00:00.000";
@@ -558,6 +561,7 @@ namespace Axiom
 
                 // Format
                 vm.Format_Container_SelectedItem = "mp3";
+                vm.Video_Codec_SelectedItem = "None";
                 vm.Audio_Codec_SelectedItem = "LAME";
                 vm.Format_Cut_SelectedItem = "No";
                 vm.Format_CutStart_Text = "00:00:00.000";
@@ -828,6 +832,7 @@ namespace Axiom
 
                 // Format
                 vm.Format_Container_SelectedItem = "mkv";
+                vm.Video_Codec_SelectedItem = "x264";
                 vm.Audio_Codec_SelectedItem = "Opus";
                 vm.Format_Cut_SelectedItem = "Yes";
                 vm.Format_CutStart_Text = "00:00:00.000";
@@ -843,7 +848,6 @@ namespace Axiom
                 vm.Video_CRF_Text = "26";
                 vm.Video_FPS_SelectedItem = "29.97";
                 vm.Video_FPS_IsEnabled = true;
-                vm.Video_Codec_SelectedItem = "x264";
                 vm.Video_Scale_SelectedItem = "Custom";
                 vm.Video_AspectRatio_SelectedItem = "16:9";
                 vm.Video_ScalingAlgorithm_SelectedItem = "spline";

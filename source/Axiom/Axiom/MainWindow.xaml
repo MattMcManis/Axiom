@@ -365,7 +365,7 @@
                                       SelectedValuePath="Name"
                                       SelectedValue="{Binding Format_Container_SelectedItem, Mode=TwoWay}"
                                       Style="{DynamicResource ComboBoxWhite}"
-                                      ItemContainerStyle="{DynamicResource ComboBoxWhiteItem}" 
+                                      ItemContainerStyle="{DynamicResource ComboBoxWhiteItem_FormatContainer}" 
                                       HorizontalAlignment="Left"
                                       VerticalAlignment="Top" 
                                       Width="105" 
@@ -373,6 +373,11 @@
                                       SelectionChanged="cboContainer_SelectionChanged" 
                                       Grid.Column="2" 
                                       Margin="0,2,0,0">
+                                <ComboBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel Margin="0 -7 0 0"/>
+                                    </ItemsPanelTemplate>
+                                </ComboBox.ItemsPanel>
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
                                         <Grid>

@@ -36,12 +36,13 @@ namespace Axiom
         // -------------------------
         // Codec
         // -------------------------
-        public static string codec = "-c:v mpeg4 -vtag xvid";
+        public static string codec = "mpeg4";
 
-
+        // Codec Parameters
+        public static string codecParameters = "-vtag xvid";
 
         // ---------------------------------------------------------------------------
-        // Item Source
+        // Items Source
         // ---------------------------------------------------------------------------
 
         // -------------------------
@@ -124,7 +125,7 @@ namespace Axiom
         // ---------------------------------------------------------------------------
 
         // -------------------------
-        // Item Source
+        // Items Source
         // -------------------------
         public static void controlsItemSource(ViewModel vm)
         {

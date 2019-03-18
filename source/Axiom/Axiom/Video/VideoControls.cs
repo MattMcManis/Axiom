@@ -50,7 +50,7 @@ namespace Axiom
         //
         // Container -> Codec -> Quality / Pixel Format / Optimize
         // 
-        // Codec Class -> ComboBox Item Source -> Video Controls Class -> Pass to ViewModel
+        // Codec Class -> ComboBox Items Source -> Video Controls Class -> Pass to ViewModel
         //
         // ----------------------------------------------------------------------------------------------------
 
@@ -75,10 +75,12 @@ namespace Axiom
             // -------------------------
             if (codec_SelectedItem == "VP8")
             {
-                // Video Codec
+                // Codec
                 vm.Video_Codec_Command = VP8.codec;
+                // Codec Parameters
+                vm.Video_Codec_Parameters = VP8.codecParameters;
 
-                // Item Source
+                // Items Source
                 VP8.controlsItemSource(vm);
 
                 // Selected Items
@@ -102,10 +104,12 @@ namespace Axiom
             // -------------------------
             else if (codec_SelectedItem == "VP9")
             {
-                // Video Codec
+                // Codec
                 vm.Video_Codec_Command = VP9.codec;
+                // Codec Parameters
+                vm.Video_Codec_Parameters = VP9.codecParameters;
 
-                // Item Source
+                // Items Source
                 VP9.controlsItemSource(vm);
 
                 // Selected Items
@@ -129,10 +133,12 @@ namespace Axiom
             // -------------------------
             else if (codec_SelectedItem == "x264")
             {
-                // Video Codec
+                // Codec
                 vm.Video_Codec_Command = x264.codec;
+                // Codec Parameters
+                vm.Video_Codec_Parameters = x264.codecParameters;
 
-                // Item Source
+                // Items Source
                 x264.controlsItemSource(vm);
 
                 // Selected Items
@@ -156,10 +162,12 @@ namespace Axiom
             // -------------------------
             else if (codec_SelectedItem == "x265")
             {
-                // Video Codec
+                // Codec
                 vm.Video_Codec_Command = x265.codec;
+                // Codec Parameters
+                vm.Video_Codec_Parameters = x265.codecParameters;
 
-                // Item Source
+                // Items Source
                 x265.controlsItemSource(vm);
 
                 // Selected Items
@@ -183,10 +191,12 @@ namespace Axiom
             // -------------------------
             else if (codec_SelectedItem == "MPEG-2")
             {
-                // Video Codec
+                // Codec
                 vm.Video_Codec_Command = MPEG_2.codec;
+                // Codec Parameters
+                vm.Video_Codec_Parameters = MPEG_2.codecParameters;
 
-                // Item Source
+                // Items Source
                 MPEG_2.controlsItemSource(vm);
 
                 // Selected Items
@@ -210,10 +220,12 @@ namespace Axiom
             // -------------------------
             else if (codec_SelectedItem == "MPEG-4")
             {
-                // Video Codec
+                // Codec
                 vm.Video_Codec_Command = MPEG_4.codec;
+                // Codec Parameters
+                vm.Video_Codec_Parameters = MPEG_4.codecParameters;
 
-                // Item Source
+                // Items Source
                 MPEG_4.controlsItemSource(vm);
 
                 // Selected Items
@@ -237,10 +249,12 @@ namespace Axiom
             // -------------------------
             else if (codec_SelectedItem == "AV1")
             {
-                // Video Codec
+                // Codec
                 vm.Video_Codec_Command = AV1.codec;
+                // Codec Parameters
+                vm.Video_Codec_Parameters = AV1.codecParameters;
 
-                // Item Source
+                // Items Source
                 AV1.controlsItemSource(vm);
 
                 // Selected Items
@@ -264,10 +278,12 @@ namespace Axiom
             // -------------------------
             else if (codec_SelectedItem == "FFV1")
             {
-                // Video Codec
+                // Codec
                 vm.Video_Codec_Command = FFV1.codec;
+                // Codec Parameters
+                vm.Video_Codec_Parameters = FFV1.codecParameters;
 
-                // Item Source
+                // Items Source
                 FFV1.controlsItemSource(vm);
 
                 // Selected Items
@@ -287,14 +303,45 @@ namespace Axiom
             }
 
             // -------------------------
+            // HuffYUV
+            // -------------------------
+            else if (codec_SelectedItem == "HuffYUV")
+            {
+                // Codec
+                vm.Video_Codec_Command = HuffYUV.codec;
+                // Codec Parameters
+                vm.Video_Codec_Parameters = HuffYUV.codecParameters;
+
+                // Items Source
+                HuffYUV.controlsItemSource(vm);
+
+                // Selected Items
+                HuffYUV.controlsSelected(vm);
+
+                // Checked
+                HuffYUV.controlsChecked(vm);
+
+                // Unhecked
+                HuffYUV.controlsUnhecked(vm);
+
+                // Enabled
+                HuffYUV.controlsEnable(vm);
+
+                // Disabled
+                HuffYUV.controlsDisable(vm);
+            }
+
+            // -------------------------
             // Theora
             // -------------------------
             else if (codec_SelectedItem == "Theora")
             {
-                // Video Codec
+                // Codec
                 vm.Video_Codec_Command = Theora.codec;
+                // Codec Parameters
+                vm.Video_Codec_Parameters = Theora.codecParameters;
 
-                // Item Source
+                // Items Source
                 Theora.controlsItemSource(vm);
 
                 // Selected Items
@@ -318,10 +365,12 @@ namespace Axiom
             // -------------------------
             else if (codec_SelectedItem == "JPEG")
             {
-                // Video Codec
+                // Codec
                 vm.Video_Codec_Command = JPEG.codec;
+                // Codec Parameters
+                vm.Video_Codec_Parameters = JPEG.codecParameters;
 
-                // Item Source
+                // Items Source
                 JPEG.controlsItemSource(vm);
 
                 // Selected Items
@@ -345,10 +394,12 @@ namespace Axiom
             // -------------------------
             else if (codec_SelectedItem == "PNG")
             {
-                // Video Codec
+                // Codec
                 vm.Video_Codec_Command = PNG.codec;
+                // Codec Parameters
+                vm.Video_Codec_Parameters = PNG.codecParameters;
 
-                // Item Source
+                // Items Source
                 PNG.controlsItemSource(vm);
 
                 // Selected Items
@@ -372,10 +423,12 @@ namespace Axiom
             // -------------------------
             else if (codec_SelectedItem == "WebP")
             {
-                // Video Codec
+                // Codec
                 vm.Video_Codec_Command = WebP.codec;
+                // Codec Parameters
+                vm.Video_Codec_Parameters = WebP.codecParameters;
 
-                // Item Source
+                // Items Source
                 WebP.controlsItemSource(vm);
 
                 // Selected Items
@@ -399,10 +452,12 @@ namespace Axiom
             // -------------------------
             else if (codec_SelectedItem == "Copy")
             {
-                // Video Codec
+                // Codec
                 vm.Video_Codec_Command = VideoCopy.codec;
+                // Codec Parameters
+                vm.Video_Codec_Parameters = VideoCopy.codecParameters;
 
-                // Item Source
+                // Items Source
                 VideoCopy.controlsItemSource(vm);
 
                 // Selected Items
@@ -426,10 +481,12 @@ namespace Axiom
             // -------------------------
             else if (codec_SelectedItem == "None")
             {
-                // Video Codec
+                // Codec
                 vm.Video_Codec_Command = VideoNone.codec;
+                // Codec Parameters
+                vm.Video_Codec_Parameters = VideoNone.codecParameters;
 
-                // Item Source
+                // Items Source
                 VideoNone.controlsItemSource(vm);
 
                 // Selected Items
@@ -739,6 +796,7 @@ namespace Axiom
                     vm.Video_Codec_SelectedItem == "JPEG" ||
                     vm.Video_Codec_SelectedItem == "AV1" ||
                     vm.Video_Codec_SelectedItem == "FFV1" ||
+                    vm.Video_Codec_SelectedItem == "HuffYUV" ||
                     vm.Video_Codec_SelectedItem == "Copy" ||
                     vm.Video_Codec_SelectedItem == "None") 
                 {
@@ -807,7 +865,6 @@ namespace Axiom
                 // x264
                 // x265
                 // AV1
-                // FFV1
                 // -------------------------
                 if (codec == "VP9" ||
                     codec == "x264" ||
@@ -836,6 +893,14 @@ namespace Axiom
                 // FFV1
                 // -------------------------
                 else if (codec == "FFV1")
+                {
+                    vm.Video_PixelFormat_SelectedItem = "yuv422p";
+                }
+
+                // -------------------------
+                // HuffYUV
+                // -------------------------
+                else if (codec == "HuffYUV")
                 {
                     vm.Video_PixelFormat_SelectedItem = "yuv422p10le";
                 }
@@ -978,6 +1043,14 @@ namespace Axiom
             // -------------------------
             if (vm.Video_Quality_SelectedItem == "Auto")
             {
+                // Change Items Source
+                vm.Video_Pass_Items = new List<string>()
+                {
+                    "CRF",
+                    "1 Pass",
+                    "2 Pass"
+                };
+
                 // -------------------------
                 // Check if 2-Pass Exists in ComboBox
                 // -------------------------
@@ -992,6 +1065,13 @@ namespace Axiom
 
                         // Reset the User willing selected bool
                         passUserSelected = false;
+
+                        // Set Codec Parameters
+                        // 2 Pass Parameters -context 2
+                        //if (vm.Video_Codec_SelectedItem == "HuffYUV")
+                        //{
+                        //    HuffYUV.codecParameters = "-context 2 -vstrict -2 -pred 2";
+                        //}
                     }
                     // -------------------------
                     // Select and Disable 2-Pass
@@ -1001,6 +1081,13 @@ namespace Axiom
                         vm.Video_Pass_SelectedItem = "2 Pass";
                         // Disable Pass ComboBox if 2-Pass
                         vm.Video_Pass_IsEnabled = false;
+
+                        // Set Codec Parameters
+                        // 2 Pass Parameters -context 2
+                        //if (vm.Video_Codec_SelectedItem == "HuffYUV")
+                        //{
+                        //    HuffYUV.codecParameters = "-context 2 -vstrict -2 -pred 2";
+                        //}
                     }
                 }
 
@@ -1010,6 +1097,15 @@ namespace Axiom
                 else
                 {
                     vm.Video_Pass_SelectedItem = vm.Video_Pass_Items.FirstOrDefault();
+
+                    // -------------------------
+                    // Set Codec Parameters
+                    // -------------------------
+                    // 1 Pass Parameters -context 1
+                    //if (vm.Video_Codec_SelectedItem == "HuffYUV")
+                    //{
+                    //    HuffYUV.codecParameters = "-context 1 -vstrict -2 -pred 2";
+                    //}
                 }
             }
 
@@ -1018,32 +1114,57 @@ namespace Axiom
             // -------------------------
             else if (vm.Video_Quality_SelectedItem == "Lossless")
             {
-                // Select 1 Pass
-                if (vm.Video_Pass_Items?.Contains("1 Pass") == true)
+                // Change Items Source
+                vm.Video_Pass_Items = new List<string>()
                 {
-                    if (vm.Video_Codec_SelectedItem != "FFV1") // FFV1 (Special Lossless Rule)
+                    "1 Pass",
+                    "2 Pass"
+                };
+
+                // Select Pass
+                if (string.IsNullOrEmpty(vm.Video_Pass_SelectedItem))
+                {
+                    // Select 1 Pass
+                    if (vm.Video_Pass_Items?.Contains("1 Pass") == true)
                     {
                         vm.Video_Pass_SelectedItem = "1 Pass";
                     }
-                }
-                // Default to First Item Available
-                else
-                {
-                    vm.Video_Pass_SelectedItem = vm.Video_Pass_Items.FirstOrDefault();
+                    // Default to First Item Available
+                    else
+                    {
+                        vm.Video_Pass_SelectedItem = vm.Video_Pass_Items.FirstOrDefault();
+                    }
                 }
 
+                //if (vm.Video_Pass_Items?.Contains("1 Pass") == true)
+                //{
+                //    vm.Video_Pass_SelectedItem = "1 Pass";
+
+                //    //if (vm.Video_Codec_SelectedItem != "FFV1" || // Special Lossless Rule
+                //    //    vm.Video_Codec_SelectedItem != "HuffYUV") 
+                //    //{
+                //    //    vm.Video_Pass_SelectedItem = "1 Pass";
+                //    //}
+                //}
+                //// Default to First Item Available
+                //else
+                //{
+                //    vm.Video_Pass_SelectedItem = vm.Video_Pass_Items.FirstOrDefault();
+                //}
+
                 // Enable/Disable Encoding Pass
-                // FFV1 (Special Lossless Rule)
-                if (vm.Video_Codec_SelectedItem == "FFV1")
-                {
-                    vm.Video_Pass_IsEnabled = true;
-                }
-                // All Other Codecs
-                else
-                {
-                    vm.Video_Pass_IsEnabled = false;
-                }
-                
+                // Special Lossless Rule
+                //if (vm.Video_Codec_SelectedItem == "FFV1" ||
+                //    vm.Video_Codec_SelectedItem == "HuffYUV")
+                //{
+                //    vm.Video_Pass_IsEnabled = true;
+                //}
+                //// All Other Codecs
+                //else
+                //{
+                //    vm.Video_Pass_IsEnabled = false;
+                //}
+
                 // Disable CRF
                 vm.Video_CRF_IsEnabled = false;
 
@@ -1060,6 +1181,14 @@ namespace Axiom
             // -------------------------
             else if (vm.Video_Quality_SelectedItem == "Custom")
             {
+                // Change Items Source
+                vm.Video_Pass_Items = new List<string>()
+                {
+                    "CRF",
+                    "1 Pass",
+                    "2 Pass"
+                };
+
                 // -------------------------
                 // Disable CRF TextBox if 1 Pass or 2 Pass
                 // -------------------------
@@ -1095,6 +1224,12 @@ namespace Axiom
             // -------------------------
             else if (vm.Video_Quality_SelectedItem == "None")
             {
+                // Change Items Source
+                vm.Video_Pass_Items = new List<string>()
+                {
+                    "auto"
+                };
+
                 // Disable Pass
                 vm.Video_Pass_SelectedItem = vm.Video_Pass_Items.FirstOrDefault();
                 vm.Video_Pass_IsEnabled = false;
@@ -1105,6 +1240,13 @@ namespace Axiom
             // -------------------------
             else
             {
+                vm.Video_Pass_Items = new List<string>()
+                {
+                    "CRF",
+                    "1 Pass",
+                    "2 Pass"
+                };
+
                 // Enable Pass
                 vm.Video_Pass_IsEnabled = true;
             }

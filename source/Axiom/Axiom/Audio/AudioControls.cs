@@ -57,7 +57,7 @@ namespace Axiom
                 // Audio Codec
                 vm.Audio_Codec_Command = Vorbis.codec;
 
-                // Item Source
+                // Items Source
                 Vorbis.controlsItemSource(vm);
 
                 // Selected Items
@@ -84,7 +84,7 @@ namespace Axiom
                 // Audio Codec
                 vm.Audio_Codec_Command = Opus.codec;
 
-                // Item Source
+                // Items Source
                 Opus.controlsItemSource(vm);
 
                 // Selected Items
@@ -111,7 +111,7 @@ namespace Axiom
                 // Audio Codec
                 vm.Audio_Codec_Command = AC3.codec;
 
-                // Item Source
+                // Items Source
                 AC3.controlsItemSource(vm);
 
                 // Selected Items
@@ -138,7 +138,7 @@ namespace Axiom
                 // Audio Codec
                 vm.Audio_Codec_Command = AAC.codec;
 
-                // Item Source
+                // Items Source
                 AAC.controlsItemSource(vm);
 
                 // Selected Items
@@ -165,7 +165,7 @@ namespace Axiom
                 // Audio Codec
                 vm.Audio_Codec_Command = ALAC.codec;
 
-                // Item Source
+                // Items Source
                 ALAC.controlsItemSource(vm);
 
                 // Selected Items
@@ -192,7 +192,7 @@ namespace Axiom
                 // Audio Codec
                 vm.Audio_Codec_Command = FLAC.codec;
 
-                // Item Source
+                // Items Source
                 FLAC.controlsItemSource(vm);
 
                 // Selected Items
@@ -219,7 +219,7 @@ namespace Axiom
                 // Audio Codec
                 vm.Audio_Codec_Command = PCM.codec;
 
-                // Item Source
+                // Items Source
                 PCM.controlsItemSource(vm);
 
                 // Selected Items
@@ -246,7 +246,7 @@ namespace Axiom
                 // Audio Codec
                 vm.Audio_Codec_Command = MP2.codec;
 
-                // Item Source
+                // Items Source
                 MP2.controlsItemSource(vm);
 
                 // Selected Items
@@ -273,7 +273,7 @@ namespace Axiom
                 // Audio Codec
                 vm.Audio_Codec_Command = LAME.codec;
 
-                // Item Source
+                // Items Source
                 LAME.controlsItemSource(vm);
 
                 // Selected Items
@@ -300,7 +300,7 @@ namespace Axiom
                 // Audio Codec
                 vm.Audio_Codec_Command = AudioCopy.codec;
 
-                // Item Source
+                // Items Source
                 AudioCopy.controlsItemSource(vm);
 
                 // Selected Items
@@ -327,7 +327,7 @@ namespace Axiom
                 // Audio Codec
                 vm.Audio_Codec_Command = AudioNone.codec;
 
-                // Item Source
+                // Items Source
                 AudioNone.controlsItemSource(vm);
 
                 // Selected Items

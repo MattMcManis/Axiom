@@ -36,12 +36,12 @@ namespace Axiom
         // -------------------------
         // Codec
         // -------------------------
-        public static string codec = "-c:a pcm_s24le"; // Determined by SampleRate
+        public static string codec = "pcm_s24le"; // Determined by SampleRate
 
 
 
         // ---------------------------------------------------------------------------
-        // Item Source
+        // Items Source
         // ---------------------------------------------------------------------------
 
         // -------------------------
@@ -115,7 +115,7 @@ namespace Axiom
         // ---------------------------------------------------------------------------
 
         // -------------------------
-        // Item Source
+        // Items Source
         // -------------------------
         public static void controlsItemSource(ViewModel vm)
         {

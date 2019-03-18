@@ -106,7 +106,8 @@ namespace Axiom
                     "\r\n\r\n" +
                     Video.VideoCodec(vm.Format_HWAccel_SelectedItem,
                                      vm.Video_Codec_SelectedItem,
-                                     vm.Video_Codec_Command),
+                                     vm.Video_Codec_Command,
+                                     vm.Video_Codec_Parameters),
                     "\r\n" +
                     Video.Speed(vm.Video_EncodeSpeed_Items,
                                 vm.Video_EncodeSpeed_SelectedItem,
@@ -171,7 +172,8 @@ namespace Axiom
                                      vm.Audio_BitDepth_SelectedItem
                                      ),
                     "\r\n" +
-                    Audio.AudioQuality(vm.Batch_IsChecked,
+                    Audio.AudioQuality(vm.Input_Text,
+                                       vm.Batch_IsChecked,
                                        vm.Audio_VBR_IsChecked,
                                        vm.Audio_Codec_SelectedItem,
                                        vm.Audio_Quality_Items,
@@ -278,7 +280,8 @@ namespace Axiom
                     "\r\n\r\n" +
                     Video.VideoCodec(vm.Format_HWAccel_SelectedItem,
                                      vm.Video_Codec_SelectedItem,
-                                     vm.Video_Codec_Command),
+                                     vm.Video_Codec_Command,
+                                     vm.Video_Codec_Parameters),
                     "\r\n" +
                     Video.Speed(vm.Video_EncodeSpeed_Items,
                                 vm.Video_EncodeSpeed_SelectedItem,
@@ -431,7 +434,8 @@ namespace Axiom
                                      vm.Audio_BitDepth_SelectedItem
                                      ),
                     "\r\n" +
-                    Audio.AudioQuality(vm.Batch_IsChecked,
+                    Audio.AudioQuality(vm.Input_Text,
+                                       vm.Batch_IsChecked,
                                        vm.Audio_VBR_IsChecked,
                                        vm.Audio_Codec_SelectedItem,
                                        vm.Audio_Quality_Items,
@@ -650,12 +654,11 @@ namespace Axiom
                                             );
 
                 // Inline 
-                ffmpegArgs = MainWindow.RemoveLineBreaks(
-                                            string.Join(" ", FFmpegBatchArgsList
-                                                            .Where(s => !string.IsNullOrEmpty(s))
-                                                            .Where(s => !s.Equals(Environment.NewLine))
-                                                            .Where(s => !s.Equals("\r\n\r\n"))
-                                                            .Where(s => !s.Equals("\r\n"))
+                ffmpegArgs = MainWindow.RemoveLineBreaks(string.Join(" ", FFmpegBatchArgsList
+                                                               .Where(s => !string.IsNullOrEmpty(s))
+                                                               .Where(s => !s.Equals(Environment.NewLine))
+                                                               .Where(s => !s.Equals("\r\n\r\n"))
+                                                               .Where(s => !s.Equals("\r\n"))
                                                         )
                                         );
             }

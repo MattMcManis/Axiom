@@ -36,12 +36,13 @@ namespace Axiom
         // -------------------------
         // Codec
         // -------------------------
-        public static string codec = "-c:v mpeg2video";
+        public static string codec = "mpeg2video";
 
-
+        // Codec Parameters
+        public static string codecParameters = "";
 
         // ---------------------------------------------------------------------------
-        // Item Source
+        // Items Source
         // ---------------------------------------------------------------------------
 
         // -------------------------
@@ -125,7 +126,7 @@ namespace Axiom
         // ---------------------------------------------------------------------------
 
         // -------------------------
-        // Item Source
+        // Items Source
         // -------------------------
         public static void controlsItemSource(ViewModel vm)
         {

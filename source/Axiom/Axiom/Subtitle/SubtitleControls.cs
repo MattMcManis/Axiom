@@ -46,7 +46,7 @@ namespace Axiom
                 // Codec
                 vm.Subtitle_Codec_Command = MOV_Text.codec;
 
-                // Item Source
+                // Items Source
                 MOV_Text.controlsItemSource(vm);
 
                 // Selected Items
@@ -73,7 +73,7 @@ namespace Axiom
                 // Codec
                 vm.Subtitle_Codec_Command = SSA.codec;
 
-                // Item Source
+                // Items Source
                 SSA.controlsItemSource(vm);
 
                 // Selected Items
@@ -100,7 +100,7 @@ namespace Axiom
                 // Codec
                 vm.Subtitle_Codec_Command = SRT.codec;
 
-                // Item Source
+                // Items Source
                 SRT.controlsItemSource(vm);
 
                 // Selected Items
@@ -127,7 +127,7 @@ namespace Axiom
                 // Codec
                 vm.Subtitle_Codec_Command = Burn.codec;
 
-                // Item Source
+                // Items Source
                 Burn.controlsItemSource(vm);
 
                 // Selected Items
@@ -154,7 +154,7 @@ namespace Axiom
                 // Codec
                 vm.Subtitle_Codec_Command = SubtitleCopy.codec;
 
-                // Item Source
+                // Items Source
                 SubtitleCopy.controlsItemSource(vm);
 
                 // Selected Items
@@ -181,7 +181,7 @@ namespace Axiom
                 // Codec
                 vm.Subtitle_Codec_Command = SubtitleNone.codec;
 
-                // Item Source
+                // Items Source
                 SubtitleNone.controlsItemSource(vm);
 
                 // Selected Items

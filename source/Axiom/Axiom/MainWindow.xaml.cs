@@ -1775,89 +1775,89 @@ namespace Axiom
             // -------------------------
             // Do not allow Script to generate if Browse Empty & Auto, since there is no file to detect bitrates/codecs
             // -------------------------
-            if (vm.Batch_IsChecked == false) // Ignore if Batch
-            {
-                if (string.IsNullOrEmpty(vm.Input_Text)) // empty check
-                {
-                    // -------------------------
-                    // Both Video & Audio are Auto Quality
-                    // Combined Single Warning
-                    // -------------------------
-                    if (vm.Video_Quality_SelectedItem == "Auto" && 
-                        vm.Audio_Quality_SelectedItem == "Auto" && 
-                        vm.Video_Codec_SelectedItem != "Copy" && 
-                        vm.Audio_Codec_SelectedItem != "Copy"
-                        )
-                    {
-                        // Log Console Message /////////
-                        Log.logParagraph.Inlines.Add(new LineBreak());
-                        Log.logParagraph.Inlines.Add(new LineBreak());
-                        Log.logParagraph.Inlines.Add(new Bold(new Run("Notice: Video & Audio Quality require an input file in order to detect bitrate settings.")) { Foreground = Log.ConsoleWarning });
+            //if (vm.Batch_IsChecked == false) // Ignore if Batch
+            //{
+            //    if (string.IsNullOrEmpty(vm.Input_Text)) // empty check
+            //    {
+            //        // -------------------------
+            //        // Both Video & Audio are Auto Quality
+            //        // Combined Single Warning
+            //        // -------------------------
+            //        if (vm.Video_Quality_SelectedItem == "Auto" && 
+            //            vm.Audio_Quality_SelectedItem == "Auto" && 
+            //            vm.Video_Codec_SelectedItem != "Copy" && 
+            //            vm.Audio_Codec_SelectedItem != "Copy"
+            //            )
+            //        {
+            //            // Log Console Message /////////
+            //            Log.logParagraph.Inlines.Add(new LineBreak());
+            //            Log.logParagraph.Inlines.Add(new LineBreak());
+            //            Log.logParagraph.Inlines.Add(new Bold(new Run("Notice: Video & Audio Quality require an input file in order to detect bitrate settings.")) { Foreground = Log.ConsoleWarning });
 
-                        /* lock */
-                        ready = false;
-                        script = false;
-                        // Warning
-                        MessageBox.Show("Video & Audio Auto Quality require an input file in order to detect bitrate settings.",
-                                        "Notice",
-                                        MessageBoxButton.OK,
-                                        MessageBoxImage.Information);
-                    }
+            //            /* lock */
+            //            ready = false;
+            //            script = false;
+            //            // Warning
+            //            MessageBox.Show("Video & Audio Auto Quality require an input file in order to detect bitrate settings.",
+            //                            "Notice",
+            //                            MessageBoxButton.OK,
+            //                            MessageBoxImage.Information);
+            //        }
 
-                    // -------------------------
-                    // Either Video & Audio are Auto Quality
-                    // Warning for each
-                    // -------------------------
-                    else
-                    {
-                        // -------------------------
-                        // Video Auto Quality
-                        // -------------------------
-                        if (vm.Video_Quality_SelectedItem == "Auto")
-                        {
-                            if (vm.Video_Codec_SelectedItem != "Copy")
-                            {
-                                // Log Console Message /////////
-                                Log.logParagraph.Inlines.Add(new LineBreak());
-                                Log.logParagraph.Inlines.Add(new LineBreak());
-                                Log.logParagraph.Inlines.Add(new Bold(new Run("Notice: Video Auto Quality requires an input file in order to detect bitrate settings.")) { Foreground = Log.ConsoleWarning });
+            //        // -------------------------
+            //        // Either Video & Audio are Auto Quality
+            //        // Warning for each
+            //        // -------------------------
+            //        else
+            //        {
+            //            // -------------------------
+            //            // Video Auto Quality
+            //            // -------------------------
+            //            if (vm.Video_Quality_SelectedItem == "Auto")
+            //            {
+            //                if (vm.Video_Codec_SelectedItem != "Copy")
+            //                {
+            //                    // Log Console Message /////////
+            //                    Log.logParagraph.Inlines.Add(new LineBreak());
+            //                    Log.logParagraph.Inlines.Add(new LineBreak());
+            //                    Log.logParagraph.Inlines.Add(new Bold(new Run("Notice: Video Auto Quality requires an input file in order to detect bitrate settings.")) { Foreground = Log.ConsoleWarning });
 
-                                /* lock */
-                                ready = false;
-                                script = false;
-                                // Warning
-                                MessageBox.Show("Video Auto Quality requires an input file in order to detect bitrate settings.",
-                                                "Notice",
-                                                MessageBoxButton.OK,
-                                                MessageBoxImage.Information);
-                            }
-                        }
+            //                    /* lock */
+            //                    ready = false;
+            //                    script = false;
+            //                    // Warning
+            //                    MessageBox.Show("Video Auto Quality requires an input file in order to detect bitrate settings.",
+            //                                    "Notice",
+            //                                    MessageBoxButton.OK,
+            //                                    MessageBoxImage.Information);
+            //                }
+            //            }
 
-                        // -------------------------
-                        // Audio Auto Quality
-                        // -------------------------
-                        if (vm.Audio_Quality_SelectedItem == "Auto")
-                        {
-                            if (vm.Audio_Codec_SelectedItem != "Copy")
-                            {
-                                // Log Console Message /////////
-                                Log.logParagraph.Inlines.Add(new LineBreak());
-                                Log.logParagraph.Inlines.Add(new LineBreak());
-                                Log.logParagraph.Inlines.Add(new Bold(new Run("Notice: Audio Auto Quality requires an input file in order to detect bitrate settings.")) { Foreground = Log.ConsoleWarning });
+            //            // -------------------------
+            //            // Audio Auto Quality
+            //            // -------------------------
+            //            if (vm.Audio_Quality_SelectedItem == "Auto")
+            //            {
+            //                if (vm.Audio_Codec_SelectedItem != "Copy")
+            //                {
+            //                    // Log Console Message /////////
+            //                    Log.logParagraph.Inlines.Add(new LineBreak());
+            //                    Log.logParagraph.Inlines.Add(new LineBreak());
+            //                    Log.logParagraph.Inlines.Add(new Bold(new Run("Notice: Audio Auto Quality requires an input file in order to detect bitrate settings.")) { Foreground = Log.ConsoleWarning });
 
-                                /* lock */
-                                ready = false;
-                                script = false;
-                                // Warning
-                                MessageBox.Show("Audio Auto Quality requires an input file in order to detect bitrate settings.",
-                                                "Notice",
-                                                MessageBoxButton.OK,
-                                                MessageBoxImage.Information);
-                            }
-                        }
-                    }
-                }
-            }
+            //                    /* lock */
+            //                    ready = false;
+            //                    script = false;
+            //                    // Warning
+            //                    MessageBox.Show("Audio Auto Quality requires an input file in order to detect bitrate settings.",
+            //                                    "Notice",
+            //                                    MessageBoxButton.OK,
+            //                                    MessageBoxImage.Information);
+            //                }
+            //            }
+            //        }
+            //    }
+            //}
 
             // -------------------------
             // Halt if Single File Input with no Extension

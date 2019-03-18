@@ -92,6 +92,7 @@
     <Compile Include="Codecs\Video\AV1.cs" />
     <Compile Include="Codecs\Image\JPEG.cs" />
     <Compile Include="Codecs\Video\FFV1.cs" />
+    <Compile Include="Codecs\Video\HuffYUV.cs" />
     <Compile Include="Codecs\Video\MPEG-2.cs" />
     <Compile Include="Codecs\Video\MPEG-4.cs" />
     <Compile Include="Codecs\Video\Theora.cs" />
