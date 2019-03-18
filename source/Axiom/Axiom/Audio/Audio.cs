@@ -147,18 +147,6 @@ namespace Axiom
                                        string quality_SelectedItem
                                        )
         {
-            // CBR
-            if (vbr_IsChecked == false)
-            {
-                aBitMode = quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.CBR_BitMode;
-            }
-
-            // VBR
-            else if (vbr_IsChecked == true)
-            {
-                aBitMode = quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.VBR_BitMode;
-            }
-
             // No Detectable Bitrate Default
             aBitrateNA = quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.NA;
 
@@ -173,23 +161,23 @@ namespace Axiom
                 if (!string.IsNullOrEmpty(FFprobe.inputAudioBitrate))
                 {
                     // Input Bitrate was detected
-                    //if (FFprobe.inputAudioBitrate != "N/A")
-                    //{
-                    //    // CBR
-                    //    if (vbr_IsChecked == false)
-                    //    {
-                    //        // aBitMode = "-b:a";
-                    //        aBitrate = AudioBitrateCalculator(codec_SelectedItem, FFprobe.aEntryType, FFprobe.inputAudioBitrate);
-                    //    }
+                    if (FFprobe.inputAudioBitrate != "N/A")
+                    {
+                        // CBR
+                        if (vbr_IsChecked == false)
+                        {
+                            // aBitMode = "-b:a";
+                            aBitrate = AudioBitrateCalculator(codec_SelectedItem, FFprobe.aEntryType, FFprobe.inputAudioBitrate);
+                        }
 
-                    //    // VBR
-                    //    else if (vbr_IsChecked == true)
-                    //    {
-                    //        //VBR does not have 'k'
+                        // VBR
+                        else if (vbr_IsChecked == true)
+                        {
+                            //VBR does not have 'k'
 
-                    //        aBitrate = AudioVBRCalculator(vbr_IsChecked, codec_SelectedItem, FFprobe.inputAudioBitrate);
-                    //    }
-                    //}
+                            aBitrate = AudioVBRCalculator(vbr_IsChecked, codec_SelectedItem, FFprobe.inputAudioBitrate);
+                        }
+                    }
 
                     // -------------------------
                     // Input Does Not Have Audio Codec
