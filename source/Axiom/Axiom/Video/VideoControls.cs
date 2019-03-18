@@ -1056,69 +1056,101 @@ namespace Axiom
                 else
                 {
                     // Change Items Source
-                    vm.Video_Pass_Items = new List<string>()
+                    // Video
+                    if (vm.Format_MediaType_SelectedItem == "Video")
                     {
-                        "CRF",
-                        "1 Pass",
-                        "2 Pass"
-                    };
+                        vm.Video_Pass_Items = new List<string>()
+                        {
+                            "CRF",
+                            "1 Pass",
+                            "2 Pass"
+                        };
+                    }
+                    // Image
+                    else if (vm.Format_MediaType_SelectedItem == "Image" ||
+                         vm.Format_MediaType_SelectedItem == "Sequence")
+                    {
+                        vm.Video_Pass_Items = new List<string>()
+                        {
+                            "1 Pass"
+                        };
+                    }
                 }
 
                 // -------------------------
-                // Check if 2-Pass Exists in ComboBox
+                // Video
                 // -------------------------
-                if (vm.Video_Pass_Items?.Contains("2 Pass") == true)
+                if (vm.Format_MediaType_SelectedItem == "Video")
                 {
                     // -------------------------
-                    // Disable 2-Pass Always
+                    // Check if 2-Pass Exists in ComboBox
                     // -------------------------
-                    if (vm.Video_Pass_SelectedItem == "2 Pass")
+                    if (vm.Video_Pass_Items?.Contains("2 Pass") == true)
                     {
-                        vm.Video_Pass_IsEnabled = false;
+                        // -------------------------
+                        // Disable 2-Pass Always
+                        // -------------------------
+                        if (vm.Video_Pass_SelectedItem == "2 Pass")
+                        {
+                            vm.Video_Pass_IsEnabled = false;
 
-                        // Reset the User willing selected bool
-                        passUserSelected = false;
+                            // Reset the User willing selected bool
+                            passUserSelected = false;
 
-                        // Set Codec Parameters
-                        // 2 Pass Parameters -context 2
-                        //if (vm.Video_Codec_SelectedItem == "HuffYUV")
-                        //{
-                        //    HuffYUV.codecParameters = "-context 2 -vstrict -2 -pred 2";
-                        //}
+                            // Set Codec Parameters
+                            // 2 Pass Parameters -context 2
+                            //if (vm.Video_Codec_SelectedItem == "HuffYUV")
+                            //{
+                            //    HuffYUV.codecParameters = "-context 2 -vstrict -2 -pred 2";
+                            //}
+                        }
+                        // -------------------------
+                        // Select and Disable 2-Pass
+                        // -------------------------
+                        else
+                        {
+                            vm.Video_Pass_SelectedItem = "2 Pass";
+                            // Disable Pass ComboBox if 2-Pass
+                            vm.Video_Pass_IsEnabled = false;
+
+                            // Set Codec Parameters
+                            // 2 Pass Parameters -context 2
+                            //if (vm.Video_Codec_SelectedItem == "HuffYUV")
+                            //{
+                            //    HuffYUV.codecParameters = "-context 2 -vstrict -2 -pred 2";
+                            //}
+                        }
                     }
+
                     // -------------------------
-                    // Select and Disable 2-Pass
+                    // If does not contain 2 Pass, select first available (CRF, 1 Pass, or auto)
                     // -------------------------
                     else
                     {
-                        vm.Video_Pass_SelectedItem = "2 Pass";
-                        // Disable Pass ComboBox if 2-Pass
-                        vm.Video_Pass_IsEnabled = false;
+                        vm.Video_Pass_SelectedItem = vm.Video_Pass_Items.FirstOrDefault();
 
+                        // -------------------------
                         // Set Codec Parameters
-                        // 2 Pass Parameters -context 2
+                        // -------------------------
+                        // 1 Pass Parameters -context 1
                         //if (vm.Video_Codec_SelectedItem == "HuffYUV")
                         //{
-                        //    HuffYUV.codecParameters = "-context 2 -vstrict -2 -pred 2";
+                        //    HuffYUV.codecParameters = "-context 1 -vstrict -2 -pred 2";
                         //}
                     }
                 }
 
                 // -------------------------
-                // If does not contain 2 Pass, select first available (CRF, 1 Pass, or auto)
+                // Image
                 // -------------------------
-                else
+                else if (vm.Format_MediaType_SelectedItem == "Image" ||
+                         vm.Format_MediaType_SelectedItem == "Sequence")
                 {
-                    vm.Video_Pass_SelectedItem = vm.Video_Pass_Items.FirstOrDefault();
-
-                    // -------------------------
-                    // Set Codec Parameters
-                    // -------------------------
-                    // 1 Pass Parameters -context 1
-                    //if (vm.Video_Codec_SelectedItem == "HuffYUV")
-                    //{
-                    //    HuffYUV.codecParameters = "-context 1 -vstrict -2 -pred 2";
-                    //}
+                    // 1 Pass
+                    if (vm.Video_Pass_Items?.Contains("1 Pass") == true)
+                    {
+                        vm.Video_Pass_SelectedItem = "1 Pass";
+                    } 
                 }
             }
 
@@ -1127,12 +1159,27 @@ namespace Axiom
             // -------------------------
             else if (vm.Video_Quality_SelectedItem == "Lossless")
             {
+                // -------------------------
                 // Change Items Source
-                vm.Video_Pass_Items = new List<string>()
+                // -------------------------
+                // Video
+                if (vm.Format_MediaType_SelectedItem == "Video")
                 {
-                    "1 Pass",
-                    "2 Pass"
-                };
+                    vm.Video_Pass_Items = new List<string>()
+                    {
+                        "1 Pass",
+                        "2 Pass"
+                    };
+                }
+                // Image
+                else if (vm.Format_MediaType_SelectedItem == "Image" ||
+                     vm.Format_MediaType_SelectedItem == "Sequence")
+                {
+                    vm.Video_Pass_Items = new List<string>()
+                    {
+                        "1 Pass"
+                    };
+                }
 
                 // Select Pass
                 if (string.IsNullOrEmpty(vm.Video_Pass_SelectedItem))
@@ -1194,13 +1241,28 @@ namespace Axiom
             // -------------------------
             else if (vm.Video_Quality_SelectedItem == "Custom")
             {
+                // -------------------------
                 // Change Items Source
-                vm.Video_Pass_Items = new List<string>()
+                // -------------------------
+                // Video
+                if (vm.Format_MediaType_SelectedItem == "Video")
                 {
-                    "CRF",
-                    "1 Pass",
-                    "2 Pass"
-                };
+                    vm.Video_Pass_Items = new List<string>()
+                    {
+                        "CRF",
+                        "1 Pass",
+                        "2 Pass"
+                    };
+                }
+                // Image
+                else if (vm.Format_MediaType_SelectedItem == "Image" ||
+                     vm.Format_MediaType_SelectedItem == "Sequence")
+                {
+                    vm.Video_Pass_Items = new List<string>()
+                    {
+                        "1 Pass"
+                    };
+                }
 
                 // -------------------------
                 // Disable CRF TextBox if 1 Pass or 2 Pass
@@ -1253,12 +1315,28 @@ namespace Axiom
             // -------------------------
             else
             {
-                vm.Video_Pass_Items = new List<string>()
+                // -------------------------
+                // Change Items Source
+                // -------------------------
+                // Video
+                if (vm.Format_MediaType_SelectedItem == "Video")
                 {
-                    "CRF",
-                    "1 Pass",
-                    "2 Pass"
-                };
+                    vm.Video_Pass_Items = new List<string>()
+                    {
+                        "CRF",
+                        "1 Pass",
+                        "2 Pass"
+                    };
+                }
+                // Image
+                else if (vm.Format_MediaType_SelectedItem == "Image" ||
+                     vm.Format_MediaType_SelectedItem == "Sequence")
+                {
+                    vm.Video_Pass_Items = new List<string>()
+                    {
+                        "1 Pass"
+                    };
+                }
 
                 // Enable Pass
                 vm.Video_Pass_IsEnabled = true;
