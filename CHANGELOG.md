@@ -7,7 +7,8 @@ Axiom FFmpeg UI
 ## [1.5.6.0] - Mar 19, 2019
 ### Changed
 - Redesigned Encoding Pass Controls
-- Changed FFmpeg, FFprobe, FFplay, Log Paths to MVVM
+- Changed Video/Image Frame Range Controls
+- Changed FFmpeg, FFprobe, FFplay, Log Paths to `MVVM`
 
 ### Fixed
 - Output Log
@@ -299,7 +300,7 @@ Axiom FFmpeg UI
 
 ## [1.2.2.1] - Jun 26, 2018
 ### Fixed
-- `jpeg` and `png` Codec Copy
+- `JPEG` and `PNG` Codec Copy
 
 
 ## [1.2.2.0] - Jun 26, 2018
@@ -308,7 +309,7 @@ Axiom FFmpeg UI
 
 ### Removed
 - Codec Copy Controls Insert
-- `jpeg` and `png` Codec Copy
+- `JPEG` and `PNG` Codec Copy
 
 ### Fixed
 - Selected Threads Custom Number Duplicate
