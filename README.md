@@ -57,7 +57,7 @@ Axiom is portable and can be run from any location on the computer.
 1. Extract `Axiom.FFmpeg.7z` to a location of your choice.
 2. Run the program `Axiom.exe` or create a shortcut on the Desktop.
 3. It will automatically detect `ffmpeg.exe` and `ffprobe.exe` in the included `ffmpeg` folder.
-4. If you move the `ffmpeg` folder, set Windows Environment Variables or choose path in the Axiom Configure Window.
+4. If you move the `ffmpeg` folder, set Windows Environment Variables or choose path in the Axiom Settings Tab.
 
 #### Add FFmpeg to Environment Variables (optional):
 
