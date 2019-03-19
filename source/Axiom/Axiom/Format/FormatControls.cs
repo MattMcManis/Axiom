@@ -503,7 +503,8 @@ namespace Axiom
 
                 // Cut
                 // Cut Change - If coming back from JPEG or PNG
-                if (vm.Format_CutStart_IsEnabled == true && vm.Format_CutEnd_IsEnabled == false)
+                if (vm.Format_CutStart_IsEnabled == true && 
+                    vm.Format_CutEnd_IsEnabled == false)
                 {
                     vm.Format_Cut_SelectedItem = "No";
                 }
@@ -578,7 +579,8 @@ namespace Axiom
                 // Enable Cut Start Time for Frame Selection
                 vm.Format_Cut_SelectedItem = "Yes";
                 vm.Format_CutStart_IsEnabled = true;
-                vm.Format_CutEnd_Text = "00:00:00.000";
+                //vm.Format_CutEnd_Text = "00:00:00.000";
+                vm.Format_CutEnd_Text = string.Empty;
                 vm.Format_CutEnd_IsEnabled = false;
 
                 // Frame
@@ -727,16 +729,29 @@ namespace Axiom
                 vm.Format_CutStart_IsEnabled = false;
                 vm.Format_CutEnd_IsEnabled = false;
 
-                vm.Format_CutStart_Text = "00:00:00.000";
-                vm.Format_CutEnd_Text = "00:00:00.000";
+                // Video / Sequence
+                if (vm.Format_MediaType_SelectedItem == "Video" ||
+                    vm.Format_MediaType_SelectedItem == "Sequence")
+                {
+                    vm.Format_CutStart_Text = "00:00:00.000";
+                    vm.Format_CutEnd_Text = "00:00:00.000";
+                }
+                // Image
+                else if (vm.Format_MediaType_SelectedItem == "Image")
+                {
+                    vm.Format_CutStart_Text = "00:00:00.000";
+                    vm.Format_CutEnd_Text = string.Empty;
+                }
 
                 // Frames
                 vm.Format_FrameStart_IsEnabled = false;
                 vm.Format_FrameEnd_IsEnabled = false;
 
                 // Reset Text
-                vm.Format_FrameStart_Text = "Frame";
-                vm.Format_FrameEnd_Text = "Range";
+                vm.Format_FrameStart_Text = string.Empty;
+                vm.Format_FrameEnd_Text = string.Empty;
+                //vm.Format_FrameStart_Text = "Frame";
+                //vm.Format_FrameEnd_Text = "Range";
             }
 
             // -------------------------
@@ -770,8 +785,10 @@ namespace Axiom
                     vm.Format_FrameEnd_IsEnabled = false;
 
                     // Text
-                    vm.Format_FrameStart_Text = "Frame";
-                    vm.Format_FrameEnd_Text = "Range";
+                    vm.Format_FrameStart_Text = string.Empty;
+                    vm.Format_FrameEnd_Text = string.Empty;
+                    //vm.Format_FrameStart_Text = "Frame";
+                    //vm.Format_FrameEnd_Text = "Range";
                 }
 
                 // Only for Video
@@ -780,12 +797,12 @@ namespace Axiom
                     // Time
                     vm.Format_CutStart_IsEnabled = true;
                     vm.Format_CutEnd_IsEnabled = false;
-                    vm.Format_CutEnd_Text = "00:00:00.000"; //important
+                    vm.Format_CutEnd_Text = string.Empty;
 
                     // Frames
                     vm.Format_FrameStart_IsEnabled = true;
                     vm.Format_FrameEnd_IsEnabled = false;
-                    vm.Format_FrameEnd_Text = string.Empty; //important
+                    vm.Format_FrameEnd_Text = string.Empty;
                 }
 
                 // Only for Video

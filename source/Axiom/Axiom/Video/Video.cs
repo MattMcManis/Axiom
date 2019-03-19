@@ -1307,7 +1307,7 @@ namespace Axiom
 
                     // Trim Start Frame
                     //
-                    if (frameStart_Text != "Frame" &&
+                    if (//frameStart_Text != "Frame" &&
                         !string.IsNullOrEmpty(frameStart_Text) &&
                         !string.IsNullOrEmpty(frameStart_Text)) // Default/Null Check
                     {
@@ -1325,7 +1325,7 @@ namespace Axiom
 
                     // Trim End Frame
                     //
-                    if (frameEnd_Text != "Range" &&
+                    if (//frameEnd_Text != "Range" &&
                         !string.IsNullOrEmpty(frameEnd_Text) &&
                         !string.IsNullOrEmpty(frameEnd_Text)) // Default/Null Check
                     {

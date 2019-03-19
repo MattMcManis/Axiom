@@ -114,7 +114,7 @@ namespace Axiom
                     "1 Pass"
                 };
 
-                vm.Video_Pass_IsEnabled = true;
+                vm.Video_Pass_IsEnabled = false;
                 vm.Video_CRF_IsEnabled = false;
             }
             // Custom
@@ -125,7 +125,7 @@ namespace Axiom
                     "1 Pass"
                 };
 
-                vm.Video_Pass_IsEnabled = true;
+                vm.Video_Pass_IsEnabled = false;
                 vm.Video_CRF_IsEnabled = true;
             }
             // None
@@ -147,7 +147,7 @@ namespace Axiom
                     "1 Pass"
                 };
 
-                vm.Video_Pass_IsEnabled = true;
+                vm.Video_Pass_IsEnabled = false;
                 vm.Video_CRF_IsEnabled = false;
 
                 // Default to 1 Pass

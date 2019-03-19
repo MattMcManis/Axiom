@@ -3513,20 +3513,22 @@ namespace Axiom
         // Got Focus
         private void tbxFrameStart_GotFocus(object sender, RoutedEventArgs e)
         {
-            // Clear textbox on focus if default text "width"
-            if (tbxFrameStart.Focus() == true && vm.Format_FrameStart_Text == "Frame")
-            {
-                vm.Format_FrameStart_Text = string.Empty;
-            }
+            // Clear textbox on focus if default text "Frame"
+            //if (tbxFrameStart.Focus() == true && vm.Format_FrameStart_Text == "Frame")
+            //{
+            //    vm.Format_FrameStart_Text = string.Empty;
+            //}
         }
         // Lost Focus
         private void tbxFrameStart_LostFocus(object sender, RoutedEventArgs e)
         {
+            //vm.Format_FrameStart_Text = tbxFrameStart.Text;
+
             // Change textbox back to "auto" if left empty
-            if (string.IsNullOrEmpty(vm.Format_FrameStart_Text))
-            {
-                vm.Format_FrameStart_Text = "Frame";
-            }
+            //if (string.IsNullOrEmpty(vm.Format_FrameStart_Text))
+            //{
+            //    vm.Format_FrameStart_Text = "Frame";
+            //}
         }
 
         // -------------------------
@@ -3535,20 +3537,22 @@ namespace Axiom
         // Got Focus
         private void tbxFrameEnd_GotFocus(object sender, RoutedEventArgs e)
         {
-            // Clear textbox on focus if default text "auto"
-            if (tbxFrameEnd.Focus() == true && vm.Format_FrameEnd_Text == "Range")
-            {
-                vm.Format_FrameEnd_Text = string.Empty;
-            }
+            // Clear textbox on focus if default text "Range"
+            //if (tbxFrameEnd.Focus() == true && vm.Format_FrameEnd_Text == "Range")
+            //{
+            //    vm.Format_FrameEnd_Text = string.Empty;
+            //}
         }
         // Lost Focus
         private void tbxFrameEnd_LostFocus(object sender, RoutedEventArgs e)
         {
+            //vm.Format_FrameEnd_Text = tbxFrameEnd.Text;
+
             // Change textbox back to "auto" if left empty
-            if (string.IsNullOrEmpty(vm.Format_FrameEnd_Text))
-            {
-                vm.Format_FrameEnd_Text = "Range";
-            }
+            //if (string.IsNullOrEmpty(vm.Format_FrameEnd_Text))
+            //{
+            //    vm.Format_FrameEnd_Text = "Range";
+            //}
         }
 
 

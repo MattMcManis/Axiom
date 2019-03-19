@@ -331,29 +331,43 @@ namespace Axiom
             // -------------------------
             // Yes
             // -------------------------
-            // VIDEO
-            //
             if (cut_SelectedItem == "Yes")
             {
+                // -------------------------
+                // Video
+                // -------------------------
                 if (mediaType_SelectedItem == "Video")
                 {
-                    // Use Time
+                    // -------------------------
+                    // Time
+                    // -------------------------
                     // If Frame Textboxes Default Use Time
-                    if (frameStart_Text == "Frame" || 
-                        frameEnd_Text == "Range" || 
-                        string.IsNullOrEmpty(frameStart_Text) ||
+                    if (string.IsNullOrEmpty(frameStart_Text) ||
                         string.IsNullOrEmpty(frameEnd_Text))
                     {
                         trimStart = cutStart_Text;
                         trimEnd = cutEnd_Text;
+
+                        // If End Time is Empty, Default to Full Duration
+                        // Input Null Check
+                        if (!string.IsNullOrEmpty(input_Text))
+                        {
+                            if (cutEnd_Text == "00:00:00.000" ||
+                                string.IsNullOrEmpty(cutEnd_Text))
+                            {
+                                trimEnd = FFprobe.CutDuration(input_Text,
+                                                              batch_IsChecked
+                                                              );
+                            }
+                        }
                     }
 
-                    // Use Frames
+                    // -------------------------
+                    // Frames
+                    // -------------------------
                     // If Frame Textboxes have Text, but not Default, use FramesToDecimal Method (Override Time)
-                    else if (frameStart_Text != "Frame" &&
-                        frameEnd_Text != "Range" &&
-                        !string.IsNullOrEmpty(frameStart_Text) &&
-                        !string.IsNullOrEmpty(frameEnd_Text))
+                    else if (!string.IsNullOrEmpty(frameStart_Text) &&
+                             !string.IsNullOrEmpty(frameEnd_Text))
                     {
                         Video.FramesToDecimal(mediaType_SelectedItem,
                                               codec_SelectedItem,
@@ -364,18 +378,6 @@ namespace Axiom
                                               );
                     }
 
-                    // If End Time is Empty, Default to Full Duration
-                    // Input Null Check
-                    if (!string.IsNullOrEmpty(input_Text))
-                    {
-                        if (cutEnd_Text == "00:00:00.000" || 
-                            string.IsNullOrEmpty(cutEnd_Text))
-                        {
-                            trimEnd = FFprobe.CutDuration(input_Text, 
-                                                          batch_IsChecked
-                                                          );
-                        }
-                    }
 
                     // Combine
                     trim = "-ss " + trimStart + " " + "-to " + trimEnd;
@@ -411,7 +413,7 @@ namespace Axiom
                 {
                     // Use Time
                     // If Frame Textbox Default Use Time
-                    if (frameStart_Text == "Frame" || 
+                    if (//frameStart_Text == "Frame" || 
                         string.IsNullOrEmpty(frameStart_Text))
                     {
                         trimStart = cutStart_Text;
@@ -419,10 +421,10 @@ namespace Axiom
 
                     // Use Frames
                     // If Frame Textboxes have Text, but not Default, use FramesToDecimal Method (Override Time)
-                    else if (frameStart_Text != "Frame" &&
-                        frameEnd_Text != "Range" &&
-                        !string.IsNullOrEmpty(frameStart_Text) &&
-                        string.IsNullOrEmpty(frameEnd_Text))
+                    else if (//frameStart_Text != "Frame" &&
+                             //frameEnd_Text != "Range" &&
+                             !string.IsNullOrEmpty(frameStart_Text) &&
+                             string.IsNullOrEmpty(frameEnd_Text))
                     {
                         Video.FramesToDecimal(mediaType_SelectedItem,
                                               codec_SelectedItem,
@@ -442,8 +444,8 @@ namespace Axiom
                 {
                     // Use Time
                     // If Frame Textboxes Default Use Time
-                    if (frameStart_Text == "Frame" ||
-                        frameEnd_Text == "Range" ||
+                    if (//frameStart_Text == "Frame" ||
+                        //frameEnd_Text == "Range" ||
                         string.IsNullOrEmpty(frameStart_Text) ||
                         string.IsNullOrEmpty(frameEnd_Text))
                     {
@@ -453,10 +455,10 @@ namespace Axiom
 
                     // Use Frames
                     // If Frame Textboxes have Text, but not Default, use FramesToDecimal Method (Override Time)
-                    else if (frameStart_Text != "Frame" &&
-                        frameEnd_Text != "Range" &&
-                        !string.IsNullOrEmpty(frameStart_Text) &&
-                        !string.IsNullOrEmpty(frameEnd_Text))
+                    else if (//frameStart_Text != "Frame" &&
+                             //frameEnd_Text != "Range" &&
+                             !string.IsNullOrEmpty(frameStart_Text) &&
+                             !string.IsNullOrEmpty(frameEnd_Text))
                     {
                         Video.FramesToDecimal(mediaType_SelectedItem,
                                               codec_SelectedItem,

@@ -843,7 +843,7 @@ namespace Axiom
         // Frame Start
         // --------------------------------------------------
         // Text
-        private string _Format_FrameStart_Text = "Frame";
+        private string _Format_FrameStart_Text;
         public string Format_FrameStart_Text
         {
             get { return _Format_FrameStart_Text; }
@@ -879,7 +879,7 @@ namespace Axiom
         // Frame End
         // --------------------------------------------------
         // Text
-        private string _Format_FrameEnd_Text = "Range";
+        private string _Format_FrameEnd_Text;
         public string Format_FrameEnd_Text
         {
             get { return _Format_FrameEnd_Text; }
