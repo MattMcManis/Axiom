@@ -62,12 +62,9 @@ namespace Axiom
             // Format
             Format_Container_SelectedItem = "webm";
             //Format_Container_SelectedItem = Format_Container_Items.FirstOrDefault();
-            //Format_Container_Items = _Format_Container_Items;
             //Format_Container_SelectedIndex = 1;
             Format_MediaType_SelectedItem = "Video";
-            //Format_Container_SelectedIndex = 0;
-            //Format_Container_SelectedItem = "webm";
-            //Video_EncodeSpeed_SelectedItem = "Medium";
+            Video_EncodeSpeed_SelectedItem = "Medium";
             Format_HWAccel_SelectedItem = "off";
             Format_Cut_SelectedItem = "No";
 
@@ -124,17 +121,6 @@ namespace Axiom
                 }
             }
         }
-        //private static bool _CMDWindowKeep_IsChecked;
-        //public bool CMDWindowKeep_IsChecked
-        //{
-        //    get { return _CMDWindowKeep_IsChecked; }
-        //    set
-        //    {
-        //        if (_CMDWindowKeep_IsChecked == value) return;
-
-        //        _CMDWindowKeep_IsChecked = value;
-        //    }
-        //}
 
         // --------------------------------------------------
         // Auto Sort Script - Toggle
@@ -152,17 +138,6 @@ namespace Axiom
                 }
             }
         }
-        //private static bool _AutoSortScript_IsChecked;
-        //public bool AutoSortScript_IsChecked
-        //{
-        //    get { return _AutoSortScript_IsChecked; }
-        //    set
-        //    {
-        //        if (_AutoSortScript_IsChecked == value) return;
-
-        //        _AutoSortScript_IsChecked = value;
-        //    }
-        //}
 
 
         // --------------------------------------------------------------------------------------------------------
@@ -227,17 +202,6 @@ namespace Axiom
                 }
             }
         }
-        //private static bool _Batch_IsChecked = false;
-        //public bool Batch_IsChecked
-        //{
-        //    get { return _Batch_IsChecked; }
-        //    set
-        //    {
-        //        if (_Batch_IsChecked == value) return;
-
-        //        _Batch_IsChecked = value;
-        //    }
-        //}
 
         // --------------------------------------------------
         // Batch Extension - TextBox
@@ -326,21 +290,6 @@ namespace Axiom
                 }
             }
         }
-        //private string _ScriptView_Text;
-        //public string ScriptView_Text
-        //{
-        //    get { return _ScriptView_Text; }
-        //    set
-        //    {
-        //        if (_ScriptView_Text == value)
-        //        {
-        //            return;
-        //        }
-
-        //        _ScriptView_Text = value;
-        //        OnPropertyChanged("ScriptView_Text");
-        //    }
-        //}
 
         // --------------------------------------------------------------------------------------------------------
         /// <summary>
@@ -480,35 +429,6 @@ namespace Axiom
             }
         }
 
-
-        // Items Source
-        //private List<string> _Format_Container_Items = new List<string>()
-        //{
-        //    "webm",
-        //    "mp4",
-        //    "mkv",
-        //    "m2v",
-        //    "mpg",
-        //    "avi",
-        //    "ogv",
-        //    "mp3",
-        //    "m4a",
-        //    "ogg",
-        //    "flac",
-        //    "wav",
-        //    "jpg",
-        //    "png",
-        //    "webp"
-        //};
-        //public List<string> Format_Container_Items
-        //{
-        //    get { return _Format_Container_Items; }
-        //    set
-        //    {
-        //        _Format_Container_Items = value;
-        //        OnPropertyChanged("Format_Container_Items");
-        //    }
-        //}
         private int _Format_Container_SelectedIndex { get; set; }
         public int Format_Container_SelectedIndex
         {
@@ -641,28 +561,6 @@ namespace Axiom
                 OnPropertyChanged("Video_EncodeSpeed_Items");
             }
         }
-        //private List<string> _EncodeSpeed_Items = new List<string>()
-        //{
-        //    "Placebo",
-        //    "Very Slow",
-        //    "Slower",
-        //    "Slow",
-        //    "Medium",
-        //    "Fast",
-        //    "Faster",
-        //    "Very Fast",
-        //    "Super Fast",
-        //    "Ultra Fast"
-        //};
-        //public List<string> EncodeSpeed_Items
-        //{
-        //    get { return _EncodeSpeed_Items; }
-        //    set
-        //    {
-        //        _EncodeSpeed_Items = value;
-        //        OnPropertyChanged("EncodeSpeed_Items");
-        //    }
-        //}
 
         // Selected Index
         private int _Video_EncodeSpeed_SelectedIndex { get; set; }
@@ -1227,16 +1125,9 @@ namespace Axiom
                 _Video_Quality_SelectedItem = value;
                 OnPropertyChanged("Video_Quality_SelectedItem");
 
-
-                //if (!string.IsNullOrEmpty(Video_Quality_SelectedItem) &&
-                //    Video_Quality_SelectedItem != "None")
-                //{
-                //    MainWindow.Video_Quality_PreviousItem = previousItem;
-                //}
-
                 if (previousItem != value)
                 {
-                    VideoControls.AutoCopyVideoCodec(/*/*System.Windows.Application.Current.Windows.OfType<MainWindow>().FirstOrDefault(), */this);
+                    VideoControls.AutoCopyVideoCodec(this);
                     SubtitleControls.AutoCopySubtitleCodec(this);
                 }
 
@@ -1634,7 +1525,7 @@ namespace Axiom
 
                 if (previousItem != value)
                 {
-                    VideoControls.AutoCopyVideoCodec(/*System.Windows.Application.Current.Windows.OfType<MainWindow>().FirstOrDefault(), */this);
+                    VideoControls.AutoCopyVideoCodec(this);
                     SubtitleControls.AutoCopySubtitleCodec(this);
                 }
 
@@ -1737,7 +1628,7 @@ namespace Axiom
 
                 if (previousItem != value)
                 {
-                    VideoControls.AutoCopyVideoCodec(/*System.Windows.Application.Current.Windows.OfType<MainWindow>().FirstOrDefault(), */this);
+                    VideoControls.AutoCopyVideoCodec(this);
                     SubtitleControls.AutoCopySubtitleCodec(this);
                 }
 
@@ -2030,7 +1921,7 @@ namespace Axiom
 
                 if (previousItem != value)
                 {
-                    VideoControls.AutoCopyVideoCodec(/*System.Windows.Application.Current.Windows.OfType<MainWindow>().FirstOrDefault(), */this);
+                    VideoControls.AutoCopyVideoCodec(this);
                     SubtitleControls.AutoCopySubtitleCodec(this);
                 }
 
@@ -2283,7 +2174,7 @@ namespace Axiom
 
                 if (previousItem != value)
                 {
-                    VideoControls.AutoCopyVideoCodec(/*System.Windows.Application.Current.Windows.OfType<MainWindow>().FirstOrDefault(), */this);
+                    VideoControls.AutoCopyVideoCodec(this);
                     SubtitleControls.AutoCopySubtitleCodec(this);
                 }
 
@@ -2639,7 +2530,7 @@ namespace Axiom
 
                 if (previousItem != value)
                 {
-                    AudioControls.AutoCopyAudioCodec(/*System.Windows.Application.Current.Windows.OfType<MainWindow>().FirstOrDefault(), */this);
+                    AudioControls.AutoCopyAudioCodec(this);
                 }
 
                 //if (_Audio_Channel_SelectedItem == value)
@@ -2696,16 +2587,6 @@ namespace Axiom
                 OnPropertyChanged("Audio_Quality_Items");
             }
         }
-        //private List<string> _Audio_Quality_Items = new List<string>();
-        //public List<string> Audio_Quality_Items
-        //{
-        //    get { return _Audio_Quality_Items; }
-        //    set
-        //    {
-        //        _Audio_Quality_Items = value;
-        //        OnPropertyChanged("Audio_Quality_Items");
-        //    }
-        //}
 
         // Selected Index
         private int _Audio_Quality_SelectedIndex { get; set; }
@@ -2737,7 +2618,7 @@ namespace Axiom
 
                 if (previousItem != value)
                 {
-                    AudioControls.AutoCopyAudioCodec(/*System.Windows.Application.Current.Windows.OfType<MainWindow>().FirstOrDefault(), */this);
+                    AudioControls.AutoCopyAudioCodec(this);
                 }
 
                 //if (_Audio_Quality_SelectedItem == value)
@@ -2822,17 +2703,7 @@ namespace Axiom
                 }
             }
         }
-        //private bool _Audio_VBR_IsChecked;
-        //public bool Audio_VBR_IsChecked
-        //{
-        //    get { return _Audio_VBR_IsChecked; }
-        //    set
-        //    {
-        //        if (_Audio_VBR_IsChecked == value) return;
 
-        //        _Audio_VBR_IsChecked = value;
-        //    }
-        //}
         // Enabled
         private bool _Audio_VBR_IsEnabled = true;
         public bool Audio_VBR_IsEnabled
@@ -2870,16 +2741,6 @@ namespace Axiom
                 OnPropertyChanged("Audio_SampleRate_Items");
             }
         }
-        //private List<string> _Audio_SampleRate_Items = new List<string>();
-        //public List<string> Audio_SampleRate_Items
-        //{
-        //    get { return _Audio_SampleRate_Items; }
-        //    set
-        //    {
-        //        _Audio_SampleRate_Items = value;
-        //        OnPropertyChanged("Audio_SampleRate_Items");
-        //    }
-        //}
 
         // Selected Index
         private int _Audio_SampleRate_SelectedIndex { get; set; }
@@ -2911,7 +2772,7 @@ namespace Axiom
 
                 if (previousItem != value)
                 {
-                    AudioControls.AutoCopyAudioCodec(/*System.Windows.Application.Current.Windows.OfType<MainWindow>().FirstOrDefault(), */this);
+                    AudioControls.AutoCopyAudioCodec(this);
                 }
 
                 //if (_Audio_SampleRate_SelectedItem == value)
@@ -2962,17 +2823,6 @@ namespace Axiom
             }
         }
 
-        //private List<string> _Audio_BitDepth_Items = new List<string>();
-        //public List<string> Audio_BitDepth_Items
-        //{
-        //    get { return _Audio_BitDepth_Items; }
-        //    set
-        //    {
-        //        _Audio_BitDepth_Items = value;
-        //        OnPropertyChanged("Audio_BitDepth_Items");
-        //    }
-        //}
-
         // Selected Index
         private int _Audio_BitDepth_SelectedIndex { get; set; }
         public int Audio_BitDepth_SelectedIndex
@@ -3003,7 +2853,7 @@ namespace Axiom
 
                 if (previousItem != value)
                 {
-                    AudioControls.AutoCopyAudioCodec(/*System.Windows.Application.Current.Windows.OfType<MainWindow>().FirstOrDefault(), */this);
+                    AudioControls.AutoCopyAudioCodec(this);
                 }
 
                 //if (_Audio_BitDepth_SelectedItem == value)
@@ -3494,17 +3344,7 @@ namespace Axiom
                 }
             }
         }
-        //private bool _UpdateAutoCheck_IsChecked;
-        //public bool UpdateAutoCheck_IsChecked
-        //{
-        //    get { return _UpdateAutoCheck_IsChecked; }
-        //    set
-        //    {
-        //        if (_UpdateAutoCheck_IsChecked == value) return;
 
-        //        _UpdateAutoCheck_IsChecked = value;
-        //    }
-        //}
         // Enabled
         private bool _UpdateAutoCheck_IsEnabled = true;
         public bool UpdateAutoCheck_IsEnabled

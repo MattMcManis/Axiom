@@ -386,7 +386,7 @@ namespace Axiom
             Log.logParagraph.Inlines.Add(new LineBreak());
             Log.logParagraph.Inlines.Add(new LineBreak());
             Log.logParagraph.Inlines.Add(new Bold(new Run("FFmpeg: ")) { Foreground = Log.ConsoleDefault });
-            Log.logParagraph.Inlines.Add(new Run(Configure.ffmpegPath) { Foreground = Log.ConsoleDefault });
+            Log.logParagraph.Inlines.Add(new Run(vm.FFmpegPath_Text) { Foreground = Log.ConsoleDefault });
 
             // -------------------------
             // Load FFprobe.exe Path
@@ -396,7 +396,7 @@ namespace Axiom
             // Log Console Message /////////
             Log.logParagraph.Inlines.Add(new LineBreak());
             Log.logParagraph.Inlines.Add(new Bold(new Run("FFprobe: ")) { Foreground = Log.ConsoleDefault });
-            Log.logParagraph.Inlines.Add(new Run(Configure.ffprobePath) { Foreground = Log.ConsoleDefault });
+            Log.logParagraph.Inlines.Add(new Run(vm.FFprobePath_Text) { Foreground = Log.ConsoleDefault });
 
             // -------------------------
             // Load FFplay.exe Path
@@ -406,7 +406,7 @@ namespace Axiom
             // Log Console Message /////////
             Log.logParagraph.Inlines.Add(new LineBreak());
             Log.logParagraph.Inlines.Add(new Bold(new Run("FFplay: ")) { Foreground = Log.ConsoleDefault });
-            Log.logParagraph.Inlines.Add(new Run(Configure.ffplayPath) { Foreground = Log.ConsoleDefault });
+            Log.logParagraph.Inlines.Add(new Run(vm.FFplayPath_Text) { Foreground = Log.ConsoleDefault });
 
             // -------------------------
             // Load Log Enabled
@@ -427,7 +427,7 @@ namespace Axiom
             // Log Console Message /////////
             Log.logParagraph.Inlines.Add(new LineBreak());
             Log.logParagraph.Inlines.Add(new Bold(new Run("Log Path: ")) { Foreground = Log.ConsoleDefault });
-            Log.logParagraph.Inlines.Add(new Run(Configure.logPath) { Foreground = Log.ConsoleDefault });
+            Log.logParagraph.Inlines.Add(new Run(vm.LogPath_Text) { Foreground = Log.ConsoleDefault });
 
             // -------------------------
             // Load Threads
@@ -455,7 +455,6 @@ namespace Axiom
                 // --------------------------
                 // First time use
                 // --------------------------
-                //tglCMDWindowKeep.IsChecked = Convert.ToBoolean(Settings.Default.CMDWindowKeep);
                 vm.CMDWindowKeep_IsChecked = Convert.ToBoolean(Settings.Default.CMDWindowKeep);
             }
             catch
@@ -473,7 +472,6 @@ namespace Axiom
                 // --------------------------
                 // First time use
                 // --------------------------
-                //tglAutoSortScript.IsChecked = Convert.ToBoolean(Settings.Default.AutoSortScript);
                 vm.AutoSortScript_IsChecked = Convert.ToBoolean(Settings.Default.AutoSortScript);
             }
             catch
@@ -492,7 +490,6 @@ namespace Axiom
                 // --------------------------
                 // First time use
                 // --------------------------
-                //tglUpdateAutoCheck.IsChecked = Convert.ToBoolean(Settings.Default.UpdateAutoCheck);
                 vm.UpdateAutoCheck_IsChecked = Convert.ToBoolean(Settings.Default.UpdateAutoCheck);
             }
             catch
@@ -926,7 +923,7 @@ namespace Axiom
         private void btnFFmpegAuto_Click(object sender, RoutedEventArgs e)
         {
             // Set the ffmpegPath string
-            Configure.ffmpegPath = "<auto>";
+            //Configure.ffmpegPath = "<auto>";
 
             // Display Folder Path in Textbox
             vm.FFmpegPath_Text = "<auto>";
@@ -953,7 +950,7 @@ namespace Axiom
         private void btnFFprobeAuto_Click(object sender, RoutedEventArgs e)
         {
             // Set the ffprobePath string
-            Configure.ffprobePath = "<auto>"; //<auto>
+            //Configure.ffprobePath = "<auto>"; //<auto>
 
             // Display Folder Path in Textbox
             vm.FFprobePath_Text = "<auto>";
@@ -980,7 +977,7 @@ namespace Axiom
         private void btnFFplayAuto_Click(object sender, RoutedEventArgs e)
         {
             // Set the ffplayPath string
-            Configure.ffplayPath = "<auto>"; //<auto>
+            //Configure.ffplayPath = "<auto>"; //<auto>
 
             // Display Folder Path in Textbox
             vm.FFplayPath_Text = "<auto>";
@@ -997,8 +994,6 @@ namespace Axiom
         private void cbxLog_Checked(object sender, RoutedEventArgs e)
         {
             // Enable the Log
-            //Configure.logEnable = true;
-            //vm.LogCheckBox_IsChecked = true;
 
             // Prevent Loading Corrupt App.Config
             try
@@ -1010,52 +1005,6 @@ namespace Axiom
             {
 
             }
-
-            //try
-            //{
-            //    // must be done this way or you get "convert object to bool error"
-            //    if (vm.LogCheckBox_IsChecked == true)
-            //    {
-            //        // Save Checkbox Settings
-            //        Settings.Default.Log_IsChecked = true;
-            //        Settings.Default.Save();
-            //        Settings.Default.Reload();
-
-            //        // Save Log Enable Settings
-            //        Settings.Default.Log_IsEnabled = true;
-            //        Settings.Default.Save();
-            //        Settings.Default.Reload();
-            //    }
-            //    if (vm.LogCheckBox_IsChecked == false)
-            //    {
-            //        // Save Checkbox Settings
-            //        Settings.Default.Log_IsChecked = false;
-            //        Settings.Default.Save();
-            //        Settings.Default.Reload();
-
-            //        // Save Log Enable Settings
-            //        Settings.Default.Log_IsEnabled = false;
-            //        Settings.Default.Save();
-            //        Settings.Default.Reload();
-            //    }
-            //}
-            //catch (ConfigurationErrorsException ex)
-            //{
-            //    // Delete Old App.Config
-            //    string filename = ex.Filename;
-
-            //    if (File.Exists(filename) == true)
-            //    {
-            //        File.Delete(filename);
-            //        Properties.Settings.Default.Upgrade();
-            //        // Properties.Settings.Default.Reload();
-            //    }
-            //    else
-            //    {
-
-            //    }
-            //}
-
         }
 
 
@@ -1064,6 +1013,8 @@ namespace Axiom
         // --------------------------------------------------
         private void cbxLog_Unchecked(object sender, RoutedEventArgs e)
         {
+            // Disable the Log
+
             // Prevent Loading Corrupt App.Config
             try
             {
@@ -1074,57 +1025,6 @@ namespace Axiom
             {
 
             }
-
-            //// Disable the Log
-            //Configure.logEnable = false;
-
-            //// -------------------------
-            //// Prevent Loading Corrupt App.Config
-            //// -------------------------
-            //try
-            //{
-            //    // must be done this way or you get "convert object to bool error"
-            //    if (vm.LogCheckBox_IsChecked == true)
-            //    {
-            //        // Save Checkbox Settings
-            //        Settings.Default.Log_IsChecked = true;
-            //        Settings.Default.Save();
-            //        Settings.Default.Reload();
-
-            //        // Save Log Enable Settings
-            //        Settings.Default.Log_IsEnabled = true;
-            //        Settings.Default.Save();
-            //        Settings.Default.Reload();
-            //    }
-            //    if (vm.LogCheckBox_IsChecked == false)
-            //    {
-            //        // Save Checkbox Settings
-            //        Settings.Default.Log_IsChecked = false;
-            //        Settings.Default.Save();
-            //        Settings.Default.Reload();
-
-            //        // Save Log Enable Settings
-            //        Settings.Default.Log_IsEnabled = false;
-            //        Settings.Default.Save();
-            //        Settings.Default.Reload();
-            //    }
-            //}
-            //catch (ConfigurationErrorsException ex)
-            //{
-            //    // Delete Old App.Config
-            //    string filename = ex.Filename;
-
-            //    if (File.Exists(filename) == true)
-            //    {
-            //        File.Delete(filename);
-            //        Settings.Default.Upgrade();
-            //        // Properties.Settings.Default.Reload();
-            //    }
-            //    else
-            //    {
-
-            //    }
-            //}
         }
 
 
@@ -1148,7 +1048,7 @@ namespace Axiom
             vm.LogPath_Text = string.Empty;
 
             // Set the logPath string
-            Configure.logPath = string.Empty;
+            //Configure.logPath = string.Empty;
 
             // Save Log Path path for next launch
             Settings.Default.LogPath = string.Empty;
@@ -1271,24 +1171,24 @@ namespace Axiom
         {
             // Revert FFmpeg
             vm.FFmpegPath_Text = "<auto>";
-            Configure.ffmpegPath = vm.FFmpegPath_Text;
+            //Configure.ffmpegPath = vm.FFmpegPath_Text;
 
             // Revert FFprobe
             vm.FFprobePath_Text = "<auto>";
-            Configure.ffprobePath = vm.FFprobePath_Text;
+            //Configure.ffprobePath = vm.FFprobePath_Text;
 
             // Revert FFplay
             vm.FFplayPath_Text = "<auto>";
-            Configure.ffprobePath = vm.FFplayPath_Text;
+            //Configure.ffprobePath = vm.FFplayPath_Text;
 
             // Revert Log
             vm.LogCheckBox_IsChecked = false;
             vm.LogPath_Text = string.Empty;
-            Configure.logPath = string.Empty;
+            //Configure.logPath = string.Empty;
 
             // Revert Threads
             vm.Threads_SelectedItem = "optimal";
-            Configure.threads = string.Empty;
+            //Configure.threads = string.Empty;
 
 
             // Yes/No Dialog Confirmation
@@ -1373,7 +1273,7 @@ namespace Axiom
         /// <remarks>
         ///     Check if FFmpeg and FFprobe is on Computer 
         /// </remarks>
-        public static void FFcheck()
+        public static void FFcheck(ViewModel vm)
         {
             try
             {
@@ -1386,7 +1286,7 @@ namespace Axiom
                 // FFmpeg
                 // -------------------------
                 // If Auto Mode
-                if (Configure.ffmpegPath == "<auto>")
+                if (vm.FFmpegPath_Text == "<auto>")
                 {
                     // Check default current directory
                     if (File.Exists(appDir + "ffmpeg\\bin\\ffmpeg.exe"))
@@ -1424,9 +1324,9 @@ namespace Axiom
                     }
                 }
                 // If User Defined Path
-                else if (Configure.ffmpegPath != "<auto>" && !string.IsNullOrEmpty(Configure.ffprobePath))
+                else if (vm.FFmpegPath_Text != "<auto>" && !string.IsNullOrEmpty(vm.FFprobePath_Text))
                 {
-                    var dirPath = Path.GetDirectoryName(Configure.ffmpegPath).TrimEnd('\\') + @"\";
+                    var dirPath = Path.GetDirectoryName(vm.FFmpegPath_Text).TrimEnd('\\') + @"\";
                     var fullPath = Path.Combine(dirPath, "ffmpeg.exe");
 
                     // Make Sure ffmpeg.exe Exists
@@ -1447,7 +1347,7 @@ namespace Axiom
                     }
 
                     // If Configure Path is ffmpeg.exe and not another Program
-                    if (string.Equals(Configure.ffmpegPath, fullPath, StringComparison.CurrentCultureIgnoreCase))
+                    if (string.Equals(vm.FFmpegPath_Text, fullPath, StringComparison.CurrentCultureIgnoreCase))
                     {
                         // let pass
                         ffCheckCleared = true;
@@ -1468,7 +1368,7 @@ namespace Axiom
                 // FFprobe
                 // -------------------------
                 // If Auto Mode
-                if (Configure.ffprobePath == "<auto>")
+                if (vm.FFprobePath_Text == "<auto>")
                 {
                     // Check default current directory
                     if (File.Exists(appDir + "ffmpeg\\bin\\ffprobe.exe"))
@@ -1506,9 +1406,9 @@ namespace Axiom
                     }
                 }
                 // If User Defined Path
-                else if (Configure.ffprobePath != "<auto>" && !string.IsNullOrEmpty(Configure.ffprobePath))
+                else if (vm.FFprobePath_Text != "<auto>" && !string.IsNullOrEmpty(vm.FFprobePath_Text))
                 {
-                    var dirPath = Path.GetDirectoryName(Configure.ffprobePath).TrimEnd('\\') + @"\";
+                    var dirPath = Path.GetDirectoryName(vm.FFprobePath_Text).TrimEnd('\\') + @"\";
                     var fullPath = Path.Combine(dirPath, "ffprobe.exe");
 
                     // Make Sure ffprobe.exe Exists
@@ -1529,7 +1429,7 @@ namespace Axiom
                     }
 
                     // If Configure Path is FFmpeg.exe and not another Program
-                    if (string.Equals(Configure.ffprobePath, fullPath, StringComparison.CurrentCultureIgnoreCase))
+                    if (string.Equals(vm.FFprobePath_Text, fullPath, StringComparison.CurrentCultureIgnoreCase))
                     {
                         // let pass
                         ffCheckCleared = true;
@@ -1559,13 +1459,13 @@ namespace Axiom
         /// <summary>
         ///    FFmpeg Path (Method)
         /// </summary>
-        public static String FFmpegPath()
+        public static String FFmpegPath(ViewModel vm)
         {
             // -------------------------
             // FFmpeg.exe and FFprobe.exe Paths
             // -------------------------
             // If Configure FFmpeg Path is <auto>
-            if (Configure.ffmpegPath == "<auto>")
+            if (vm.FFmpegPath_Text == "<auto>")
             {
                 if (File.Exists(appDir + "ffmpeg\\bin\\ffmpeg.exe"))
                 {
@@ -1581,7 +1481,7 @@ namespace Axiom
             // Use User Custom Path
             else
             {
-                FFmpeg.ffmpeg = "\"" + Configure.ffmpegPath + "\"";
+                FFmpeg.ffmpeg = "\"" + vm.FFmpegPath_Text + "\"";
             }
 
             // Return Value
@@ -1592,10 +1492,10 @@ namespace Axiom
         /// <remarks>
         ///     FFprobe Path
         /// </remarks>
-        public static void FFprobePath()
+        public static void FFprobePath(ViewModel vm)
         {
             // If Configure FFprobe Path is <auto>
-            if (Configure.ffprobePath == "<auto>")
+            if (vm.FFprobePath_Text == "<auto>")
             {
                 if (File.Exists(appDir + "ffmpeg\\bin\\ffprobe.exe"))
                 {
@@ -1611,7 +1511,7 @@ namespace Axiom
             // Use User Custom Path
             else
             {
-                FFprobe.ffprobe = "\"" + Configure.ffprobePath + "\"";
+                FFprobe.ffprobe = "\"" + vm.FFprobePath_Text + "\"";
             }
 
             // Return Value
@@ -1622,10 +1522,10 @@ namespace Axiom
         /// <remarks>
         ///     FFplay Path
         /// </remarks>
-        public static void FFplayPath()
+        public static void FFplayPath(ViewModel vm)
         {
             // If Configure FFprobe Path is <auto>
-            if (Configure.ffplayPath == "<auto>")
+            if (vm.FFplayPath_Text == "<auto>")
             {
                 if (File.Exists(appDir + "ffmpeg\\bin\\ffplay.exe"))
                 {
@@ -1641,7 +1541,7 @@ namespace Axiom
             // Use User Custom Path
             else
             {
-                FFplay.ffplay = "\"" + Configure.ffplayPath + "\"";
+                FFplay.ffplay = "\"" + vm.FFplayPath_Text + "\"";
             }
 
             // Return Value
@@ -1665,8 +1565,8 @@ namespace Axiom
             // -------------------------
             // Optimal
             // -------------------------
-            else if (vm.Threads_SelectedItem == "optimal"
-                || string.IsNullOrEmpty(Configure.threads))
+            else if (vm.Threads_SelectedItem == "optimal" ||
+                     string.IsNullOrEmpty(Configure.threads))
             {
                 Configure.threads = "-threads 0";
             }
@@ -1674,8 +1574,8 @@ namespace Axiom
             // -------------------------
             // All
             // -------------------------
-            else if (vm.Threads_SelectedItem == "all"
-                || string.IsNullOrEmpty(Configure.threads))
+            else if (vm.Threads_SelectedItem == "all" ||
+                     string.IsNullOrEmpty(Configure.threads))
             {
                 Configure.threads = "-threads " + Configure.maxthreads;
             }
@@ -1747,7 +1647,7 @@ namespace Axiom
             // -------------------------
             if (ffCheckCleared == false)
             {
-                MainWindow.FFcheck();
+                MainWindow.FFcheck(vm);
             }
 
             // -------------------------
@@ -2609,9 +2509,9 @@ namespace Axiom
             //MessageBox.Show(Configure.logPath.ToString()); //debug
 
             // Open Log
-            if (File.Exists(Configure.logPath + "output.log"))
+            if (File.Exists(vm.LogPath_Text + "output.log"))
             {
-                Process.Start("notepad.exe", "\"" + Configure.logPath + "output.log" + "\"");
+                Process.Start("notepad.exe", "\"" + vm.LogPath_Text + "output.log" + "\"");
             }
             else
             {
@@ -5828,7 +5728,7 @@ namespace Axiom
             // -------------------------
             // Set FFprobe Path
             // -------------------------
-            FFprobePath();
+            FFprobePath(vm);
 
             // -------------------------
             // Ready Halts
@@ -5971,6 +5871,11 @@ namespace Axiom
             // Start FFmpeg
             // -------------------------
             FFmpeg.FFmpegStart(vm);
+
+            // -------------------------
+            // Create output.log
+            // -------------------------
+            Log.CreateOutputLog(this, vm);
         }
 
 
@@ -6019,7 +5924,7 @@ namespace Axiom
             // -------------------------
             // Set FFprobe Path
             // -------------------------
-            FFprobePath();
+            FFprobePath(vm);
 
             // -------------------------
             // Ready Halts
@@ -6140,9 +6045,14 @@ namespace Axiom
 
 
                 // -------------------------
-                // Write All Log Actions to Console
+                // Write All Log Actions to Log Console
                 // -------------------------
                 Log.LogWriteAll(this, vm);
+
+                // -------------------------
+                // Create output.log
+                // -------------------------
+                Log.CreateOutputLog(this, vm);
 
                 // -------------------------
                 // Generate Script

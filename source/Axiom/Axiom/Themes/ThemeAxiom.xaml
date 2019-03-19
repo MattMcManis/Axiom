@@ -411,7 +411,7 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    <!-- ComboBox White Item - Format Containers -->
+    <!-- ComboBox White Item - Format Container -->
     <Style x:Key="ComboBoxWhiteItem_FormatContainer" TargetType="{x:Type ComboBoxItem}">
         <Setter Property="Template" Value="{StaticResource ComboBoxWhite.Item.ControlTemplate}"/>
         <Setter Property="Foreground" Value="#FF000000" />

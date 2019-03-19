@@ -81,10 +81,25 @@ namespace Axiom
         // -------------------------
         // Pass
         // -------------------------
-        public static List<string> pass = new List<string>()
+        public static void EncodingPass(ViewModel vm)
         {
-            "auto"
-        };
+            // Items Source
+            vm.Video_Pass_Items = new List<string>()
+            {
+                "auto"
+            };
+
+            vm.Video_Pass_SelectedItem = "auto";
+            vm.Video_Pass_IsEnabled = false;
+            VideoControls.passUserSelected = false;
+
+            vm.Video_CRF_IsEnabled = false;
+            vm.Video_CRF_Text = string.Empty;
+            vm.Video_Bitrate_Text = string.Empty;
+            vm.Video_Minrate_Text = string.Empty;
+            vm.Video_Maxrate_Text = string.Empty;
+            vm.Video_Bufsize_Text = string.Empty;
+        }
 
         // -------------------------
         // Optimize
@@ -135,7 +150,8 @@ namespace Axiom
             vm.Video_PixelFormat_Items = pixelFormat;
 
             // Pass
-            vm.Video_Pass_Items = pass;
+            //vm.Video_Pass_Items = pass;
+            EncodingPass(vm);
 
             // Video Quality
             vm.Video_Quality_Items = quality;

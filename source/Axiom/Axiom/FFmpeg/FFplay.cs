@@ -50,7 +50,7 @@ namespace Axiom
                 // -------------------------
                 // Set FFprobe Path
                 // -------------------------
-                MainWindow.FFplayPath();
+                MainWindow.FFplayPath(vm);
 
                 // -------------------------
                 //  Arguments List

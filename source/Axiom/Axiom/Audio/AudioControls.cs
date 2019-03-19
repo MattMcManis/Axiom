@@ -158,6 +158,60 @@ namespace Axiom
             }
 
             // -------------------------
+            // MP2
+            // -------------------------
+            else if (codec_SelectedItem == "MP2")
+            {
+                // Audio Codec
+                vm.Audio_Codec_Command = MP2.codec;
+
+                // Items Source
+                MP2.controlsItemSource(vm);
+
+                // Selected Items
+                MP2.controlsSelected(vm);
+
+                // Checked
+                MP2.controlsChecked(vm);
+
+                // Unhecked
+                MP2.controlsUnhecked(vm);
+
+                // Enabled
+                MP2.controlsEnable(vm);
+
+                // Disabled
+                MP2.controlsDisable(vm);
+            }
+
+            // -------------------------
+            // LAME
+            // -------------------------
+            else if (codec_SelectedItem == "LAME")
+            {
+                // Audio Codec
+                vm.Audio_Codec_Command = LAME.codec;
+
+                // Items Source
+                LAME.controlsItemSource(vm);
+
+                // Selected Items
+                LAME.controlsSelected(vm);
+
+                // Checked
+                LAME.controlsChecked(vm);
+
+                // Unhecked
+                LAME.controlsUnhecked(vm);
+
+                // Enabled
+                LAME.controlsEnable(vm);
+
+                // Disabled
+                LAME.controlsDisable(vm);
+            }
+
+            // -------------------------
             // ALAC
             // -------------------------
             else if (codec_SelectedItem == "ALAC")
@@ -236,60 +290,6 @@ namespace Axiom
 
                 // Disabled
                 PCM.controlsDisable(vm);
-            }
-
-            // -------------------------
-            // MP2
-            // -------------------------
-            else if (codec_SelectedItem == "MP2")
-            {
-                // Audio Codec
-                vm.Audio_Codec_Command = MP2.codec;
-
-                // Items Source
-                MP2.controlsItemSource(vm);
-
-                // Selected Items
-                MP2.controlsSelected(vm);
-
-                // Checked
-                MP2.controlsChecked(vm);
-
-                // Unhecked
-                MP2.controlsUnhecked(vm);
-
-                // Enabled
-                MP2.controlsEnable(vm);
-
-                // Disabled
-                MP2.controlsDisable(vm);
-            }
-
-            // -------------------------
-            // LAME
-            // -------------------------
-            else if (codec_SelectedItem == "LAME")
-            {
-                // Audio Codec
-                vm.Audio_Codec_Command = LAME.codec;
-
-                // Items Source
-                LAME.controlsItemSource(vm);
-
-                // Selected Items
-                LAME.controlsSelected(vm);
-
-                // Checked
-                LAME.controlsChecked(vm);
-
-                // Unhecked
-                LAME.controlsUnhecked(vm);
-
-                // Enabled
-                LAME.controlsEnable(vm);
-
-                // Disabled
-                LAME.controlsDisable(vm);
             }
 
             // -------------------------
@@ -414,9 +414,6 @@ namespace Axiom
                 // -------------------------
                 // Display in TextBox
                 // -------------------------
-                //MessageBox.Show(vm.Audio_Quality_SelectedItem);
-                //MessageBox.Show(vm.Audio_VBR_IsChecked.ToString());
-                //vm.Audio_Bitrate_Text = "test";
                 // Bitrate CBR
                 if (vm.Audio_VBR_IsChecked == false)
                 {
@@ -659,8 +656,6 @@ namespace Axiom
                 CopyControls(vm);
             }
         }
-
-
 
 
     }

@@ -4,6 +4,15 @@ Axiom FFmpeg UI
 
 ## [alpha]
 
+## [1.5.6.0] - Mar 19, 2019
+### Changed
+- Redesigned Encoding Pass Controls
+- Changed FFmpeg, FFprobe, FFplay, Log Paths to MVVM
+
+### Fixed
+- Output Log
+
+
 ## [1.5.5.0] - Mar 18, 2019
 ### Added
 - Container ComboBox Headers

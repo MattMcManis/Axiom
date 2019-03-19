@@ -172,7 +172,7 @@ namespace Axiom
             // -------------------------
             // Set FFprobe Path
             // -------------------------
-            MainWindow.FFprobePath();
+            MainWindow.FFprobePath(vm);
 
             // -------------------------
             // Ready Halts
@@ -352,15 +352,15 @@ namespace Axiom
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("ffmpegPath ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(Configure.ffmpegPath) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(vm.FFmpegPath_Text) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("ffprobePath ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(Configure.ffprobePath) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(vm.FFprobePath_Text) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("logPath ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(Configure.logPath) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(vm.LogPath_Text) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("logEnable ")) { Foreground = Variable });

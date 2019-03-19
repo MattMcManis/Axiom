@@ -225,8 +225,6 @@ namespace Axiom
                 vm.Video_Optimize_SelectedItem == "None" &&
 
                 // Extension Match
-                //!string.IsNullOrEmpty(inputExt) &&
-                //!string.IsNullOrEmpty(outputExt) &&
                 string.Equals(inputExt, outputExt, StringComparison.CurrentCultureIgnoreCase)
             )
             {

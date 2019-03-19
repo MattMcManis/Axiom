@@ -118,11 +118,109 @@ namespace Axiom
         // -------------------------
         // Pass
         // -------------------------
-        public static List<string> pass = new List<string>()
+        public static void EncodingPass(ViewModel vm)
         {
-            "1 Pass",
-            "2 Pass"
-        };
+            // -------------------------
+            // Quality
+            // -------------------------
+            // Auto
+            if (vm.Video_Quality_SelectedItem == "Auto")
+            {
+                vm.Video_Pass_Items = new List<string>()
+                {
+                    "2 Pass"
+                };
+
+                vm.Video_Pass_SelectedItem = "2 Pass";
+                vm.Video_Pass_IsEnabled = false;
+                VideoControls.passUserSelected = false;
+
+                vm.Video_CRF_IsEnabled = false;
+            }
+            // Lossless
+            else if (vm.Video_Quality_SelectedItem == "Lossless")
+            {
+                vm.Video_Pass_Items = new List<string>()
+                {
+                    "1 Pass",
+                    "2 Pass"
+                };
+
+                vm.Video_Pass_IsEnabled = true;
+                vm.Video_CRF_IsEnabled = false;
+            }
+            // Custom
+            else if (vm.Video_Quality_SelectedItem == "Custom")
+            {
+                vm.Video_Pass_Items = new List<string>()
+                {
+                    "1 Pass",
+                    "2 Pass"
+                };
+
+                vm.Video_Pass_IsEnabled = true;
+                vm.Video_CRF_IsEnabled = true;
+            }
+            // None
+            else if (vm.Video_Quality_SelectedItem == "None")
+            {
+                vm.Video_Pass_Items = new List<string>()
+                {
+                    "auto"
+                };
+
+                vm.Video_Pass_IsEnabled = false;
+                vm.Video_CRF_IsEnabled = false;
+            }
+            // Presets: Ultra, High, Medium, Low, Sub
+            else
+            {
+                vm.Video_Pass_Items = new List<string>()
+                {
+                    "1 Pass",
+                    "2 Pass"
+                };
+
+                vm.Video_Pass_IsEnabled = true;
+                vm.Video_CRF_IsEnabled = false;
+
+                // Default to CRF
+                if (VideoControls.passUserSelected == false)
+                {
+                    vm.Video_Pass_SelectedItem = "2 Pass";
+                    VideoControls.passUserSelected = true;
+                }
+            }
+
+
+            // Change Codec Parameters Context
+            // 1 Pass
+            if (vm.Video_Pass_SelectedItem == "1 Pass")
+            {
+                codecParameters = "-context 1 -vstrict -2 -pred 2";
+            }
+            // 2 Pass
+            else if (vm.Video_Pass_SelectedItem == "2 Pass")
+            {
+                codecParameters = "-context 2 -vstrict -2 -pred 2";
+            }
+
+
+            // Clear TextBoxes
+            if (vm.Video_Quality_SelectedItem == "Auto" ||
+                vm.Video_Quality_SelectedItem == "Lossless" ||
+                vm.Video_Quality_SelectedItem == "Custom" ||
+                vm.Video_Quality_SelectedItem == "None"
+                )
+            {
+                vm.Video_CRF_Text = string.Empty;
+                vm.Video_Bitrate_Text = string.Empty;
+                vm.Video_Minrate_Text = string.Empty;
+                vm.Video_Maxrate_Text = string.Empty;
+                vm.Video_Bufsize_Text = string.Empty;
+            }
+
+        }
 
         // -------------------------
         // Optimize
@@ -174,7 +272,8 @@ namespace Axiom
             vm.Video_PixelFormat_Items = pixelFormat;
 
             // Pass
-            vm.Video_Pass_Items = pass;
+            //vm.Video_Pass_Items = pass;
+            EncodingPass(vm);
 
             // Video Quality
             vm.Video_Quality_Items = quality;

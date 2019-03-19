@@ -60,7 +60,7 @@ namespace Axiom
             // -------------------------
 
             // Get FFprobe Path
-            MainWindow.FFprobePath();
+            MainWindow.FFprobePath(vm);
 
             // -------------------------
             // Write Properties to Window

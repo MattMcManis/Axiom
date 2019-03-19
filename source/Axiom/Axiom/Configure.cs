@@ -32,10 +32,10 @@ namespace Axiom
         // Variables
         // --------------------------------------------------------------------------------------------------------
         public static string theme; // Set Theme
-        public static string ffmpegPath; // Config Settings Path
-        public static string ffprobePath; // Config Settings Path
-        public static string ffplayPath; // Config Settings Path
-        public static string logPath; // output.log Config Settings Path
+        //public static string ffmpegPath; // Config Settings Path
+        //public static string ffprobePath; // Config Settings Path
+        //public static string ffplayPath; // Config Settings Path
+        //public static string logPath; // output.log Config Settings Path
         //public static bool logEnable; //checkBoxLogConfig, Enable or Disable Log, true or false
         public static string threads; // Set FFmpeg -threads
         public static string maxthreads; // All CPU Threads
@@ -54,26 +54,26 @@ namespace Axiom
                 // --------------------------
                 // First time use
                 // --------------------------
-                if (string.IsNullOrEmpty(Settings.Default.FFmpegPath.ToString()))
+                if (string.IsNullOrEmpty(Settings.Default.FFmpegPath))
                 {
-                    ffmpegPath = "<auto>";
+                    //ffmpegPath = "<auto>";
 
                     // Set ComboBox if Configure Window is Open
-                    vm.FFmpegPath_Text = ffmpegPath;
+                    vm.FFmpegPath_Text = "<auto>";
 
                     // Save for next launch
-                    Settings.Default.FFmpegPath = ffmpegPath;
+                    Settings.Default.FFmpegPath = vm.FFmpegPath_Text;
                     Settings.Default.Save();
                 }
                 // --------------------------
                 // Load Saved Settings Override
                 // --------------------------
-                else if (!string.IsNullOrEmpty(Settings.Default.FFmpegPath.ToString())) // null check
+                else if (!string.IsNullOrEmpty(Settings.Default.FFmpegPath)) // null check
                 {
-                    ffmpegPath = Settings.Default.FFmpegPath.ToString();
+                    //ffmpegPath = Settings.Default.FFmpegPath.ToString();
 
                     // Set ComboBox if Configure Window is Open
-                    vm.FFmpegPath_Text = Settings.Default.FFmpegPath.ToString();
+                    vm.FFmpegPath_Text = Settings.Default.FFmpegPath;
                 }
             }
             catch
@@ -98,13 +98,13 @@ namespace Axiom
                 // --------------------------
                 if (string.IsNullOrEmpty(Settings.Default.FFprobePath.ToString()))
                 {
-                    ffprobePath = "<auto>";
+                    //ffprobePath = "<auto>";
 
                     // Set ComboBox if Configure Window is Open
-                    vm.FFprobePath_Text = ffprobePath;
+                    vm.FFprobePath_Text = "<auto>";
 
                     // Save for next launch
-                    Settings.Default.FFprobePath = ffprobePath;
+                    Settings.Default.FFprobePath = vm.FFprobePath_Text;
                     Settings.Default.Save();
                 }
                 // --------------------------
@@ -112,10 +112,10 @@ namespace Axiom
                 // --------------------------
                 else if (!string.IsNullOrEmpty(Settings.Default.FFprobePath.ToString())) // null check
                 {
-                    ffprobePath = Settings.Default.FFprobePath.ToString();
+                    //ffprobePath = Settings.Default.FFprobePath.ToString();
 
                     // Set ComboBox if Configure Window is Open
-                    vm.FFprobePath_Text = Settings.Default.FFprobePath.ToString();
+                    vm.FFprobePath_Text = Settings.Default.FFprobePath;
                 }
             }
             catch
@@ -140,13 +140,13 @@ namespace Axiom
                 // --------------------------
                 if (string.IsNullOrEmpty(Settings.Default.FFplayPath.ToString()))
                 {
-                    ffplayPath = "<auto>";
+                    //ffplayPath = "<auto>";
 
                     // Set ComboBox if Configure Window is Open
-                    vm.FFplayPath_Text = ffplayPath;
+                    vm.FFplayPath_Text = "<auto>";
 
                     // Save for next launch
-                    Settings.Default.FFplayPath = ffplayPath;
+                    Settings.Default.FFplayPath = vm.FFplayPath_Text;
                     Settings.Default.Save();
                 }
                 // --------------------------
@@ -154,7 +154,7 @@ namespace Axiom
                 // --------------------------
                 else if (!string.IsNullOrEmpty(Settings.Default.FFplayPath.ToString())) // null check
                 {
-                    ffplayPath = Settings.Default.FFplayPath.ToString();
+                    //ffplayPath = Settings.Default.FFplayPath.ToString();
 
                     // Set ComboBox if Configure Window is Open
                     vm.FFplayPath_Text = Settings.Default.FFplayPath.ToString();
@@ -221,26 +221,26 @@ namespace Axiom
                 // --------------------------
                 // First time use
                 // --------------------------
-                if (string.IsNullOrEmpty(Settings.Default.LogPath.ToString()))
+                if (string.IsNullOrEmpty(Settings.Default.LogPath))
                 {
-                    logPath = string.Empty;
+                    //logPath = string.Empty;
 
                     // Set ComboBox if Configure Window is Open
-                    vm.LogPath_Text = logPath;
+                    vm.LogPath_Text = string.Empty;
 
                     // Save for next launch
-                    Settings.Default.LogPath = logPath;
+                    Settings.Default.LogPath = vm.LogPath_Text;
                     Settings.Default.Save();
                 }
                 // --------------------------
                 // Load Saved Settings Override
                 // --------------------------
-                if (!string.IsNullOrEmpty(Settings.Default.LogPath.ToString())) // null check
+                if (!string.IsNullOrEmpty(Settings.Default.LogPath)) // null check
                 {
-                    logPath = Settings.Default.LogPath.ToString();
+                    //logPath = Settings.Default.LogPath.ToString();
 
                     // Set ComboBox if Configure Window is Open
-                    vm.LogPath_Text = Settings.Default.LogPath.ToString();
+                    vm.LogPath_Text = Settings.Default.LogPath;
                 }
             }
             catch
@@ -315,7 +315,7 @@ namespace Axiom
                 vm.FFmpegPath_Text = OpenFileDialog.FileName;
 
                 // Set the ffmpegPath string
-                ffmpegPath = vm.FFmpegPath_Text;
+                //ffmpegPath = vm.FFmpegPath_Text;
 
                 // Save 7-zip Path for next launch
                 Settings.Default.FFmpegPath = vm.FFmpegPath_Text;
@@ -340,7 +340,7 @@ namespace Axiom
                 vm.FFprobePath_Text = OpenFileDialog.FileName;
 
                 // Set the ffprobePath string
-                ffprobePath = vm.FFprobePath_Text;
+                //ffprobePath = vm.FFprobePath_Text;
 
                 // Save WinRAR Path for next launch
                 Settings.Default.FFprobePath = vm.FFprobePath_Text;
@@ -365,7 +365,7 @@ namespace Axiom
                 vm.FFplayPath_Text = OpenFileDialog.FileName;
 
                 // Set the ffplayPath string
-                ffplayPath = vm.FFplayPath_Text;
+                //ffplayPath = vm.FFplayPath_Text;
 
                 // Save WinRAR Path for next launch
                 Settings.Default.FFplayPath = vm.FFplayPath_Text;
@@ -393,7 +393,7 @@ namespace Axiom
                 vm.LogPath_Text = vm.LogPath_Text.TrimEnd('\\') + @"\";
 
                 // Set the ffprobePath string
-                logPath = vm.LogPath_Text;
+                //logPath = vm.LogPath_Text;
 
 
                 // Save FFmpeg Path for next launch
