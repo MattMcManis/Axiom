@@ -235,6 +235,10 @@ namespace Axiom
                 vm.Video_Bufsize_Text = string.Empty;
             }
 
+            // Set New Codec Parameter on Pass Change
+            // 1 Pass -context 1
+            // 2 Pass -context 2
+            Codec_Set(vm);
         }
 
         // -------------------------

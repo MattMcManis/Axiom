@@ -579,7 +579,6 @@ namespace Axiom
                 // Enable Cut Start Time for Frame Selection
                 vm.Format_Cut_SelectedItem = "Yes";
                 vm.Format_CutStart_IsEnabled = true;
-                //vm.Format_CutEnd_Text = "00:00:00.000";
                 vm.Format_CutEnd_Text = string.Empty;
                 vm.Format_CutEnd_IsEnabled = false;
 
@@ -750,8 +749,6 @@ namespace Axiom
                 // Reset Text
                 vm.Format_FrameStart_Text = string.Empty;
                 vm.Format_FrameEnd_Text = string.Empty;
-                //vm.Format_FrameStart_Text = "Frame";
-                //vm.Format_FrameEnd_Text = "Range";
             }
 
             // -------------------------
@@ -787,8 +784,6 @@ namespace Axiom
                     // Text
                     vm.Format_FrameStart_Text = string.Empty;
                     vm.Format_FrameEnd_Text = string.Empty;
-                    //vm.Format_FrameStart_Text = "Frame";
-                    //vm.Format_FrameEnd_Text = "Range";
                 }
 
                 // Only for Video
