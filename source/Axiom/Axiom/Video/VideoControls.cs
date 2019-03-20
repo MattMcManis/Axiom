@@ -893,7 +893,7 @@ namespace Axiom
                     // All Other Quality
                     else
                     {
-                        vm.Video_PixelFormat_SelectedItem = "yuv420p";
+                        vm.Video_PixelFormat_SelectedItem = "yuva420p";
                     }
                 }
 

@@ -267,7 +267,7 @@ namespace Axiom
         {
 
             // Pixel Format
-            vm.Video_PixelFormat_SelectedItem = "bgra";
+            vm.Video_PixelFormat_SelectedItem = "yuva420p";
 
             // Framerate
             vm.Video_FPS_SelectedItem = "auto";
