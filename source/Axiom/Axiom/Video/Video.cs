@@ -253,21 +253,14 @@ namespace Axiom
         /// <summary>
         public static String VideoCodec(string hwAccel_SelectedItem, 
                                         string codec_SelectedItem, 
-                                        string codec_Command,
-                                        string codec_Paramters
+                                        string codec_Command
+                                        //string codec_Paramters
                                         )
         {
             // Passed Command
             if (codec_SelectedItem != "None")
             {
-                List<string> codec = new List<string>()
-                {
-                    "-c:v",
-                    codec_Command,
-                    codec_Paramters
-                };
-
-                vCodec =  string.Join(" ", codec.Where(s => !string.IsNullOrEmpty(s)));
+                vCodec = codec_Command;
 
                 // HW Acceleration Override
                 if (hwAccel_SelectedItem == "cuvid" ||

@@ -30,17 +30,45 @@ namespace Axiom
     public class HuffYUV
     {
         // ---------------------------------------------------------------------------
-        // Arguments
+        // Codec
         // ---------------------------------------------------------------------------
+        public static List<ViewModel.VideoCodec> codec = new List<ViewModel.VideoCodec>()
+        {
+             new ViewModel.VideoCodec()
+             {
+                 Codec = "huffyuv",
+                 Parameters_1Pass = "-context 1 -vstrict -2 -pred 2",
+                 Parameters_2Pass = "-context 2 -vstrict -2 -pred 2",
+             }
+        };
 
-        // -------------------------
-        // Codec
-        // -------------------------
-        // Codec
-        public static string codec = "huffyuv";
+        public static void Codec_Set(ViewModel vm)
+        {
+            string parameters = string.Empty;
 
-        // Codec Parameters
-        public static string codecParameters = /*-context 1*/ "-vstrict -2 -pred 2";
+            // 1 Pass
+            if (vm.Video_Pass_SelectedItem == "1 Pass")
+            {
+                parameters = HuffYUV.codec.FirstOrDefault()?.Parameters_1Pass;
+            }
+            // 2 Pass
+            else if (vm.Video_Pass_SelectedItem == "2 Pass")
+            {
+                parameters = HuffYUV.codec.FirstOrDefault()?.Parameters_2Pass;
+            }
+
+            // Combine Codec + Parameters
+            List<string> codec = new List<string>()
+            {
+                "-c:v",
+                HuffYUV.codec.FirstOrDefault()?.Codec,
+                parameters
+            };
+
+            vm.Video_Codec = string.Join(" ", codec.Where(s => !string.IsNullOrEmpty(s)));
+        }
+
+
 
         // ---------------------------------------------------------------------------
         // Items Source
@@ -193,19 +221,6 @@ namespace Axiom
             }
 
 
-            // Change Codec Parameters Context
-            // 1 Pass
-            if (vm.Video_Pass_SelectedItem == "1 Pass")
-            {
-                codecParameters = "-context 1 -vstrict -2 -pred 2";
-            }
-            // 2 Pass
-            else if (vm.Video_Pass_SelectedItem == "2 Pass")
-            {
-                codecParameters = "-context 2 -vstrict -2 -pred 2";
-            }
-
-
             // Clear TextBoxes
             if (vm.Video_Quality_SelectedItem == "Auto" ||
                 vm.Video_Quality_SelectedItem == "Lossless" ||
@@ -263,7 +278,7 @@ namespace Axiom
         // -------------------------
         // Items Source
         // -------------------------
-        public static void controlsItemSource(ViewModel vm)
+        public static void Controls_ItemsSource(ViewModel vm)
         {
             // Encode Speed
             vm.Video_EncodeSpeed_Items = encodeSpeed;
@@ -292,7 +307,7 @@ namespace Axiom
         // -------------------------
         // Selected Item
         // -------------------------
-        public static void controlsSelected(ViewModel vm)
+        public static void Controls_Selected(ViewModel vm)
         {
 
             // Pixel Format
@@ -305,7 +320,7 @@ namespace Axiom
         // -------------------------
         // Checked
         // -------------------------
-        public static void controlsChecked(ViewModel vm)
+        public static void Controls_Checked(ViewModel vm)
         {
             // None
         }
@@ -313,7 +328,7 @@ namespace Axiom
         // -------------------------
         // Unchecked
         // -------------------------
-        public static void controlsUnhecked(ViewModel vm)
+        public static void Controls_Unhecked(ViewModel vm)
         {
             // Bitrate Mode
             vm.Video_VBR_IsChecked = false;
@@ -322,7 +337,7 @@ namespace Axiom
         // -------------------------
         // Enabled
         // -------------------------
-        public static void controlsEnable(ViewModel vm)
+        public static void Controls_Enable(ViewModel vm)
         {
             // Video Codec
             vm.Video_Codec_IsEnabled = true;
@@ -352,7 +367,7 @@ namespace Axiom
         // -------------------------
         // Disabled
         // -------------------------
-        public static void controlsDisable(ViewModel vm)
+        public static void Controls_Disable(ViewModel vm)
         {
             // Video Encode Speed
             vm.Video_EncodeSpeed_IsEnabled = false;

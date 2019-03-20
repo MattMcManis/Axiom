@@ -47,22 +47,22 @@ namespace Axiom
                 vm.Subtitle_Codec_Command = MOV_Text.codec;
 
                 // Items Source
-                MOV_Text.controlsItemSource(vm);
+                MOV_Text.Controls_ItemsSource(vm);
 
                 // Selected Items
-                MOV_Text.controlsSelected(vm);
+                MOV_Text.Controls_Selected(vm);
 
                 // Checked
-                MOV_Text.controlsChecked(vm);
+                MOV_Text.Controls_Checked(vm);
 
                 // Unhecked
-                MOV_Text.controlsUnhecked(vm);
+                MOV_Text.Controls_Unhecked(vm);
 
                 // Enabled
-                MOV_Text.controlsEnable(vm);
+                MOV_Text.Controls_Enable(vm);
 
                 // Disabled
-                MOV_Text.controlsDisable(vm);
+                MOV_Text.Controls_Disable(vm);
             }
 
             // -------------------------
@@ -74,22 +74,22 @@ namespace Axiom
                 vm.Subtitle_Codec_Command = SSA.codec;
 
                 // Items Source
-                SSA.controlsItemSource(vm);
+                SSA.Controls_ItemsSource(vm);
 
                 // Selected Items
-                SSA.controlsSelected(vm);
+                SSA.Controls_Selected(vm);
 
                 // Checked
-                SSA.controlsChecked(vm);
+                SSA.Controls_Checked(vm);
 
                 // Unhecked
-                SSA.controlsUnhecked(vm);
+                SSA.Controls_Unhecked(vm);
 
                 // Enabled
-                SSA.controlsEnable(vm);
+                SSA.Controls_Enable(vm);
 
                 // Disabled
-                SSA.controlsDisable(vm);
+                SSA.Controls_Disable(vm);
             }
 
             // -------------------------
@@ -101,22 +101,22 @@ namespace Axiom
                 vm.Subtitle_Codec_Command = SRT.codec;
 
                 // Items Source
-                SRT.controlsItemSource(vm);
+                SRT.Controls_ItemsSource(vm);
 
                 // Selected Items
-                SRT.controlsSelected(vm);
+                SRT.Controls_Selected(vm);
 
                 // Checked
-                SRT.controlsChecked(vm);
+                SRT.Controls_Checked(vm);
 
                 // Unhecked
-                SRT.controlsUnhecked(vm);
+                SRT.Controls_Unhecked(vm);
 
                 // Enabled
-                SRT.controlsEnable(vm);
+                SRT.Controls_Enable(vm);
 
                 // Disabled
-                SRT.controlsDisable(vm);
+                SRT.Controls_Disable(vm);
             }
 
             // -------------------------
@@ -128,22 +128,22 @@ namespace Axiom
                 vm.Subtitle_Codec_Command = Burn.codec;
 
                 // Items Source
-                Burn.controlsItemSource(vm);
+                Burn.Controls_ItemsSource(vm);
 
                 // Selected Items
-                Burn.controlsSelected(vm);
+                Burn.Controls_Selected(vm);
 
                 // Checked
-                Burn.controlsChecked(vm);
+                Burn.Controls_Checked(vm);
 
                 // Unhecked
-                Burn.controlsUnhecked(vm);
+                Burn.Controls_Unhecked(vm);
 
                 // Enabled
-                Burn.controlsEnable(vm);
+                Burn.Controls_Enable(vm);
 
                 // Disabled
-                Burn.controlsDisable(vm);
+                Burn.Controls_Disable(vm);
             }
 
             // -------------------------
@@ -155,22 +155,22 @@ namespace Axiom
                 vm.Subtitle_Codec_Command = SubtitleCopy.codec;
 
                 // Items Source
-                SubtitleCopy.controlsItemSource(vm);
+                SubtitleCopy.Controls_ItemsSource(vm);
 
                 // Selected Items
-                SubtitleCopy.controlsSelected(vm);
+                SubtitleCopy.Controls_Selected(vm);
 
                 // Checked
-                SubtitleCopy.controlsChecked(vm);
+                SubtitleCopy.Controls_Checked(vm);
 
                 // Unhecked
-                SubtitleCopy.controlsUnhecked(vm);
+                SubtitleCopy.Controls_Unhecked(vm);
 
                 // Enabled
-                SubtitleCopy.controlsEnable(vm);
+                SubtitleCopy.Controls_Enable(vm);
 
                 // Disabled
-                SubtitleCopy.controlsDisable(vm);
+                SubtitleCopy.Controls_Disable(vm);
             }
 
             // -------------------------
@@ -182,22 +182,22 @@ namespace Axiom
                 vm.Subtitle_Codec_Command = SubtitleNone.codec;
 
                 // Items Source
-                SubtitleNone.controlsItemSource(vm);
+                SubtitleNone.Controls_ItemsSource(vm);
 
                 // Selected Items
-                SubtitleNone.controlsSelected(vm);
+                SubtitleNone.Controls_Selected(vm);
 
                 // Checked
-                SubtitleNone.controlsChecked(vm);
+                SubtitleNone.Controls_Checked(vm);
 
                 // Unhecked
-                SubtitleNone.controlsUnhecked(vm);
+                SubtitleNone.Controls_Unhecked(vm);
 
                 // Enabled
-                SubtitleNone.controlsEnable(vm);
+                SubtitleNone.Controls_Enable(vm);
 
                 // Disabled
-                SubtitleNone.controlsDisable(vm);
+                SubtitleNone.Controls_Disable(vm);
             }
 
             // --------------------------------------------------

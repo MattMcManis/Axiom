@@ -117,7 +117,7 @@ namespace Axiom
         // -------------------------
         // Items Source
         // -------------------------
-        public static void controlsItemSource(ViewModel vm)
+        public static void Controls_ItemsSource(ViewModel vm)
         {
             // Quality
             vm.Audio_Quality_Items = quality;
@@ -135,7 +135,7 @@ namespace Axiom
         // -------------------------
         // Selected Items
         // -------------------------
-        public static void controlsSelected(ViewModel vm)
+        public static void Controls_Selected(ViewModel vm)
         {
             //vm.Audio_Stream_SelectedItem = "all";
         }
@@ -143,7 +143,7 @@ namespace Axiom
         // -------------------------
         // Checked
         // -------------------------
-        public static void controlsChecked(ViewModel vm)
+        public static void Controls_Checked(ViewModel vm)
         {
             // None
         }
@@ -151,7 +151,7 @@ namespace Axiom
         // -------------------------
         // Unchecked
         // -------------------------
-        public static void controlsUnhecked(ViewModel vm)
+        public static void Controls_Unhecked(ViewModel vm)
         {
             // Bitrate Mode
             vm.Audio_VBR_IsChecked = false;
@@ -160,7 +160,7 @@ namespace Axiom
         // -------------------------
         // Enabled
         // -------------------------
-        public static void controlsEnable(ViewModel vm)
+        public static void Controls_Enable(ViewModel vm)
         {
             // Audio Codec
             vm.Audio_Codec_IsEnabled = true;
@@ -187,7 +187,7 @@ namespace Axiom
         // -------------------------
         // Disabled
         // -------------------------
-        public static void controlsDisable(ViewModel vm)
+        public static void Controls_Disable(ViewModel vm)
         {
             // VBR Button
             vm.Audio_VBR_IsEnabled = false;

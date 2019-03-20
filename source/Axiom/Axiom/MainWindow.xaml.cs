@@ -3683,14 +3683,14 @@ namespace Axiom
             if (vm.Video_Codec_SelectedItem == "MPEG-2" || 
                 vm.Video_Codec_SelectedItem == "MPEG-4")
             {
-                // Change ItemSource
+                // Change ItemsSource
                 vm.Video_Pass_Items = new List<string>()
                 {
                     "1 Pass",
                 };
 
-                // Populate ComboBox from ItemSource
-                //vm.Video_Pass_Items = VideoControls.Video_Pass_ItemSource;
+                // Populate ComboBox from ItemsSource
+                //vm.Video_Pass_Items = VideoControls.Video_Pass_ItemsSource;
 
                 // Select Item
                 vm.Video_Pass_SelectedItem = "1 Pass";
@@ -3722,15 +3722,15 @@ namespace Axiom
             if (vm.Video_Codec_SelectedItem == "MPEG-2" || 
                 vm.Video_Codec_SelectedItem == "MPEG-4")
             {
-                // Change ItemSource
+                // Change ItemsSource
                 vm.Video_Pass_Items = new List<string>()
                 {
                     "2 Pass",
                     "1 Pass",
                 };
 
-                // Populate ComboBox from ItemSource
-                //cboPass.ItemsSource = VideoControls.Video_Pass_ItemSource;
+                // Populate ComboBox from ItemsSource
+                //cboPass.ItemsSource = VideoControls.Video_Pass_ItemsSource;
 
                 // Select Item
                 vm.Video_Pass_SelectedItem = "2 Pass";

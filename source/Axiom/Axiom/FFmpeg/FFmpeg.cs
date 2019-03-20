@@ -107,8 +107,9 @@ namespace Axiom
                     "\r\n\r\n" +
                     Video.VideoCodec(vm.Format_HWAccel_SelectedItem,
                                      vm.Video_Codec_SelectedItem,
-                                     vm.Video_Codec_Command,
-                                     vm.Video_Codec_Parameters),
+                                     vm.Video_Codec
+                                     //vm.Video_Codec_Parameters
+                                     ),
                     "\r\n" +
                     Video.Speed(vm.Video_EncodeSpeed_Items,
                                 vm.Video_EncodeSpeed_SelectedItem,
@@ -281,8 +282,9 @@ namespace Axiom
                     "\r\n\r\n" +
                     Video.VideoCodec(vm.Format_HWAccel_SelectedItem,
                                      vm.Video_Codec_SelectedItem,
-                                     vm.Video_Codec_Command,
-                                     vm.Video_Codec_Parameters),
+                                     vm.Video_Codec
+                                     //vm.Video_Codec_Parameters
+                                     ),
                     "\r\n" +
                     Video.Speed(vm.Video_EncodeSpeed_Items,
                                 vm.Video_EncodeSpeed_SelectedItem,

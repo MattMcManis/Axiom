@@ -58,22 +58,22 @@ namespace Axiom
                 vm.Audio_Codec_Command = Vorbis.codec;
 
                 // Items Source
-                Vorbis.controlsItemSource(vm);
+                Vorbis.Controls_ItemsSource(vm);
 
                 // Selected Items
-                Vorbis.controlsSelected(vm);
+                Vorbis.Controls_Selected(vm);
 
                 // Checked
-                Vorbis.controlsChecked(vm);
+                Vorbis.Controls_Checked(vm);
 
                 // Unhecked
-                Vorbis.controlsUnhecked(vm);
+                Vorbis.Controls_Unhecked(vm);
 
                 // Enabled
-                Vorbis.controlsEnable(vm);
+                Vorbis.Controls_Enable(vm);
 
                 // Disabled
-                Vorbis.controlsDisable(vm);
+                Vorbis.Controls_Disable(vm);
             }
 
             // -------------------------
@@ -85,22 +85,22 @@ namespace Axiom
                 vm.Audio_Codec_Command = Opus.codec;
 
                 // Items Source
-                Opus.controlsItemSource(vm);
+                Opus.Controls_ItemsSource(vm);
 
                 // Selected Items
-                Opus.controlsSelected(vm);
+                Opus.Controls_Selected(vm);
 
                 // Checked
-                Opus.controlsChecked(vm);
+                Opus.Controls_Checked(vm);
 
                 // Unhecked
-                Opus.controlsUnhecked(vm);
+                Opus.Controls_Unhecked(vm);
 
                 // Enabled
-                Opus.controlsEnable(vm);
+                Opus.Controls_Enable(vm);
 
                 // Disabled
-                Opus.controlsDisable(vm);
+                Opus.Controls_Disable(vm);
             }
 
             // -------------------------
@@ -112,22 +112,22 @@ namespace Axiom
                 vm.Audio_Codec_Command = AC3.codec;
 
                 // Items Source
-                AC3.controlsItemSource(vm);
+                AC3.Controls_ItemsSource(vm);
 
                 // Selected Items
-                AC3.controlsSelected(vm);
+                AC3.Controls_Selected(vm);
 
                 // Checked
-                AC3.controlsChecked(vm);
+                AC3.Controls_Checked(vm);
 
                 // Unhecked
-                AC3.controlsUnhecked(vm);
+                AC3.Controls_Unhecked(vm);
 
                 // Enabled
-                AC3.controlsEnable(vm);
+                AC3.Controls_Enable(vm);
 
                 // Disabled
-                AC3.controlsDisable(vm);
+                AC3.Controls_Disable(vm);
             }
 
             // -------------------------
@@ -139,22 +139,22 @@ namespace Axiom
                 vm.Audio_Codec_Command = AAC.codec;
 
                 // Items Source
-                AAC.controlsItemSource(vm);
+                AAC.Controls_ItemsSource(vm);
 
                 // Selected Items
-                AAC.controlsSelected(vm);
+                AAC.Controls_Selected(vm);
 
                 // Checked
-                AAC.controlsChecked(vm);
+                AAC.Controls_Checked(vm);
 
                 // Unhecked
-                AAC.controlsUnhecked(vm);
+                AAC.Controls_Unhecked(vm);
 
                 // Enabled
-                AAC.controlsEnable(vm);
+                AAC.Controls_Enable(vm);
 
                 // Disabled
-                AAC.controlsDisable(vm);
+                AAC.Controls_Disable(vm);
             }
 
             // -------------------------
@@ -166,22 +166,22 @@ namespace Axiom
                 vm.Audio_Codec_Command = MP2.codec;
 
                 // Items Source
-                MP2.controlsItemSource(vm);
+                MP2.Controls_ItemsSource(vm);
 
                 // Selected Items
-                MP2.controlsSelected(vm);
+                MP2.Controls_Selected(vm);
 
                 // Checked
-                MP2.controlsChecked(vm);
+                MP2.Controls_Checked(vm);
 
                 // Unhecked
-                MP2.controlsUnhecked(vm);
+                MP2.Controls_Unhecked(vm);
 
                 // Enabled
-                MP2.controlsEnable(vm);
+                MP2.Controls_Enable(vm);
 
                 // Disabled
-                MP2.controlsDisable(vm);
+                MP2.Controls_Disable(vm);
             }
 
             // -------------------------
@@ -193,22 +193,22 @@ namespace Axiom
                 vm.Audio_Codec_Command = LAME.codec;
 
                 // Items Source
-                LAME.controlsItemSource(vm);
+                LAME.Controls_ItemsSource(vm);
 
                 // Selected Items
-                LAME.controlsSelected(vm);
+                LAME.Controls_Selected(vm);
 
                 // Checked
-                LAME.controlsChecked(vm);
+                LAME.Controls_Checked(vm);
 
                 // Unhecked
-                LAME.controlsUnhecked(vm);
+                LAME.Controls_Unhecked(vm);
 
                 // Enabled
-                LAME.controlsEnable(vm);
+                LAME.Controls_Enable(vm);
 
                 // Disabled
-                LAME.controlsDisable(vm);
+                LAME.Controls_Disable(vm);
             }
 
             // -------------------------
@@ -220,22 +220,22 @@ namespace Axiom
                 vm.Audio_Codec_Command = ALAC.codec;
 
                 // Items Source
-                ALAC.controlsItemSource(vm);
+                ALAC.Controls_ItemsSource(vm);
 
                 // Selected Items
-                ALAC.controlsSelected(vm);
+                ALAC.Controls_Selected(vm);
 
                 // Checked
-                ALAC.controlsChecked(vm);
+                ALAC.Controls_Checked(vm);
 
                 // Unhecked
-                ALAC.controlsUnhecked(vm);
+                ALAC.Controls_Unhecked(vm);
 
                 // Enabled
-                ALAC.controlsEnable(vm);
+                ALAC.Controls_Enable(vm);
 
                 // Disabled
-                ALAC.controlsDisable(vm);
+                ALAC.Controls_Disable(vm);
             }
 
             // -------------------------
@@ -247,22 +247,22 @@ namespace Axiom
                 vm.Audio_Codec_Command = FLAC.codec;
 
                 // Items Source
-                FLAC.controlsItemSource(vm);
+                FLAC.Controls_ItemsSource(vm);
 
                 // Selected Items
-                FLAC.controlsSelected(vm);
+                FLAC.Controls_Selected(vm);
 
                 // Checked
-                FLAC.controlsChecked(vm);
+                FLAC.Controls_Checked(vm);
 
                 // Unhecked
-                FLAC.controlsUnhecked(vm);
+                FLAC.Controls_Unhecked(vm);
 
                 // Enabled
-                FLAC.controlsEnable(vm);
+                FLAC.Controls_Enable(vm);
 
                 // Disabled
-                FLAC.controlsDisable(vm);
+                FLAC.Controls_Disable(vm);
             }
 
             // -------------------------
@@ -274,22 +274,22 @@ namespace Axiom
                 vm.Audio_Codec_Command = PCM.codec;
 
                 // Items Source
-                PCM.controlsItemSource(vm);
+                PCM.Controls_ItemsSource(vm);
 
                 // Selected Items
-                PCM.controlsSelected(vm);
+                PCM.Controls_Selected(vm);
 
                 // Checked
-                PCM.controlsChecked(vm);
+                PCM.Controls_Checked(vm);
 
                 // Unhecked
-                PCM.controlsUnhecked(vm);
+                PCM.Controls_Unhecked(vm);
 
                 // Enabled
-                PCM.controlsEnable(vm);
+                PCM.Controls_Enable(vm);
 
                 // Disabled
-                PCM.controlsDisable(vm);
+                PCM.Controls_Disable(vm);
             }
 
             // -------------------------
@@ -301,22 +301,22 @@ namespace Axiom
                 vm.Audio_Codec_Command = AudioCopy.codec;
 
                 // Items Source
-                AudioCopy.controlsItemSource(vm);
+                AudioCopy.Controls_ItemsSource(vm);
 
                 // Selected Items
-                AudioCopy.controlsSelected(vm);
+                AudioCopy.Controls_Selected(vm);
 
                 // Checked
-                AudioCopy.controlsChecked(vm);
+                AudioCopy.Controls_Checked(vm);
 
                 // Unhecked
-                AudioCopy.controlsUnhecked(vm);
+                AudioCopy.Controls_Unhecked(vm);
 
                 // Enabled
-                AudioCopy.controlsEnable(vm);
+                AudioCopy.Controls_Enable(vm);
 
                 // Disabled
-                AudioCopy.controlsDisable(vm);
+                AudioCopy.Controls_Disable(vm);
             }
 
             // -------------------------
@@ -328,22 +328,22 @@ namespace Axiom
                 vm.Audio_Codec_Command = AudioNone.codec;
 
                 // Items Source
-                AudioNone.controlsItemSource(vm);
+                AudioNone.Controls_ItemsSource(vm);
 
                 // Selected Items
-                AudioNone.controlsSelected(vm);
+                AudioNone.Controls_Selected(vm);
 
                 // Checked
-                AudioNone.controlsChecked(vm);
+                AudioNone.Controls_Checked(vm);
 
                 // Unhecked
-                AudioNone.controlsUnhecked(vm);
+                AudioNone.Controls_Unhecked(vm);
 
                 // Enabled
-                AudioNone.controlsEnable(vm);
+                AudioNone.Controls_Enable(vm);
 
                 // Disabled
-                AudioNone.controlsDisable(vm);
+                AudioNone.Controls_Disable(vm);
             }
 
             // --------------------------------------------------

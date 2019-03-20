@@ -30,17 +30,14 @@ namespace Axiom
     public class VideoNone
     {
         // ---------------------------------------------------------------------------
-        // Arguments
+        // Codec
         // ---------------------------------------------------------------------------
+        public static void Codec_Set(ViewModel vm)
+        {
+            vm.Video_Codec = string.Empty;
+        }
 
-        // -------------------------
-        // Codec
-        // -------------------------
-        // Codec
-        public static string codec = "";
 
-        // Codec Parameters
-        public static string codecParameters = "";
 
         // ---------------------------------------------------------------------------
         // Items Source
@@ -134,7 +131,7 @@ namespace Axiom
         // -------------------------
         // Items Source
         // -------------------------
-        public static void controlsItemSource(ViewModel vm)
+        public static void Controls_ItemsSource(ViewModel vm)
         {
             // Encode Speed
             vm.Video_EncodeSpeed_Items = encodeSpeed;
@@ -162,7 +159,7 @@ namespace Axiom
         // -------------------------
         // Selected Items
         // -------------------------
-        public static void controlsSelected(ViewModel vm)
+        public static void Controls_Selected(ViewModel vm)
         {
 
             // Pixel Format
@@ -175,7 +172,7 @@ namespace Axiom
         // -------------------------
         // Checked
         // -------------------------
-        public static void controlsChecked(ViewModel vm)
+        public static void Controls_Checked(ViewModel vm)
         {
             // None
         }
@@ -183,7 +180,7 @@ namespace Axiom
         // -------------------------
         // Unchecked
         // -------------------------
-        public static void controlsUnhecked(ViewModel vm)
+        public static void Controls_Unhecked(ViewModel vm)
         {
             // Bitrate Mode
             vm.Video_VBR_IsChecked = false;
@@ -192,7 +189,7 @@ namespace Axiom
         // -------------------------
         // Enabled
         // -------------------------
-        public static void controlsEnable(ViewModel vm)
+        public static void Controls_Enable(ViewModel vm)
         {
             // None
         }
@@ -200,7 +197,7 @@ namespace Axiom
         // -------------------------
         // Disabled
         // -------------------------
-        public static void controlsDisable(ViewModel vm)
+        public static void Controls_Disable(ViewModel vm)
         {
             // Video Encode Speed
             vm.Video_EncodeSpeed_IsEnabled = false;

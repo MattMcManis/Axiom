@@ -30,23 +30,35 @@ namespace Axiom
     public class VP9
     {
         // ---------------------------------------------------------------------------
-        // Arguments
+        // Codec
         // ---------------------------------------------------------------------------
+        public static List<ViewModel.VideoCodec> codec = new List<ViewModel.VideoCodec>()
+        {
+             new ViewModel.VideoCodec()
+             {
+                 Codec = "libvpx-vp9",
+                 Parameters = "-tile-columns 6 -frame-parallel 1 -auto-alt-ref 1 -lag-in-frames 25"
+             }
+        };
 
-        // -------------------------
-        // Codec
-        // -------------------------
-        // Codec
-        public static string codec = "libvpx-vp9";
+        public static void Codec_Set(ViewModel vm)
+        {
+            // Combine Codec + Parameters
+            List<string> codec = new List<string>()
+            {
+                "-c:v",
+                VP9.codec.FirstOrDefault()?.Codec,
+                VP9.codec.FirstOrDefault()?.Parameters
+            };
 
-        // Codec Parameters
-        public static string codecParameters = "-tile-columns 6 -frame-parallel 1 -auto-alt-ref 1 -lag-in-frames 25";
+            vm.Video_Codec = string.Join(" ", codec.Where(s => !string.IsNullOrEmpty(s)));
+        }
+
 
 
         // ---------------------------------------------------------------------------
         // Items Source
         // ---------------------------------------------------------------------------
-
         // -------------------------
         // Encode Speed
         // -------------------------
@@ -242,7 +254,7 @@ namespace Axiom
         // -------------------------
         // Items Source
         // -------------------------
-        public static void controlsItemSource(ViewModel vm)
+        public static void Controls_ItemsSource(ViewModel vm)
         {
             // Encode Speed
             vm.Video_EncodeSpeed_Items = encodeSpeed;
@@ -270,7 +282,7 @@ namespace Axiom
         // -------------------------
         // Selected Items
         // -------------------------
-        public static void controlsSelected(ViewModel vm)
+        public static void Controls_Selected(ViewModel vm)
         {
 
             // Pixel Format
@@ -283,7 +295,7 @@ namespace Axiom
         // -------------------------
         // Checked
         // -------------------------
-        public static void controlsChecked(ViewModel vm)
+        public static void Controls_Checked(ViewModel vm)
         {
             // None
         }
@@ -291,7 +303,7 @@ namespace Axiom
         // -------------------------
         // Unchecked
         // -------------------------
-        public static void controlsUnhecked(ViewModel vm)
+        public static void Controls_Unhecked(ViewModel vm)
         {
             // Bitrate Mode
             vm.Video_VBR_IsChecked = false;
@@ -300,7 +312,7 @@ namespace Axiom
         // -------------------------
         // Enabled
         // -------------------------
-        public static void controlsEnable(ViewModel vm)
+        public static void Controls_Enable(ViewModel vm)
         {
             // Video Encode Speed
             vm.Video_EncodeSpeed_IsEnabled = true;
@@ -333,7 +345,7 @@ namespace Axiom
         // -------------------------
         // Disabled
         // -------------------------
-        public static void controlsDisable(ViewModel vm)
+        public static void Controls_Disable(ViewModel vm)
         {
             // Subtitle Codec
             vm.Subtitle_Codec_IsEnabled = false;

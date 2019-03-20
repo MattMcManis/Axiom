@@ -79,27 +79,25 @@ namespace Axiom
             if (codec_SelectedItem == "VP8")
             {
                 // Codec
-                vm.Video_Codec_Command = VP8.codec;
-                // Codec Parameters
-                vm.Video_Codec_Parameters = VP8.codecParameters;
+                VP8.Codec_Set(vm);
 
                 // Items Source
-                VP8.controlsItemSource(vm);
+                VP8.Controls_ItemsSource(vm);
 
                 // Selected Items
-                VP8.controlsSelected(vm);
+                VP8.Controls_Selected(vm);
 
                 // Checked
-                VP8.controlsChecked(vm);
+                VP8.Controls_Checked(vm);
 
                 // Unhecked
-                VP8.controlsUnhecked(vm);
+                VP8.Controls_Unhecked(vm);
 
                 // Enabled
-                VP8.controlsEnable(vm);
+                VP8.Controls_Enable(vm);
 
                 // Disabled
-                VP8.controlsDisable(vm);
+                VP8.Controls_Disable(vm);
             }
 
             // -------------------------
@@ -108,27 +106,25 @@ namespace Axiom
             else if (codec_SelectedItem == "VP9")
             {
                 // Codec
-                vm.Video_Codec_Command = VP9.codec;
-                // Codec Parameters
-                vm.Video_Codec_Parameters = VP9.codecParameters;
+                VP9.Codec_Set(vm);
 
                 // Items Source
-                VP9.controlsItemSource(vm);
+                VP9.Controls_ItemsSource(vm);
 
                 // Selected Items
-                VP9.controlsSelected(vm);
+                VP9.Controls_Selected(vm);
 
                 // Checked
-                VP9.controlsChecked(vm);
+                VP9.Controls_Checked(vm);
 
                 // Unhecked
-                VP9.controlsUnhecked(vm);
+                VP9.Controls_Unhecked(vm);
 
                 // Enabled
-                VP9.controlsEnable(vm);
+                VP9.Controls_Enable(vm);
 
                 // Disabled
-                VP9.controlsDisable(vm);
+                VP9.Controls_Disable(vm);
             }
 
             // -------------------------
@@ -137,27 +133,25 @@ namespace Axiom
             else if (codec_SelectedItem == "x264")
             {
                 // Codec
-                vm.Video_Codec_Command = x264.codec;
-                // Codec Parameters
-                vm.Video_Codec_Parameters = x264.codecParameters;
+                x264.Codec_Set(vm);
 
                 // Items Source
-                x264.controlsItemSource(vm);
+                x264.Controls_ItemsSource(vm);
 
                 // Selected Items
-                x264.controlsSelected(vm);
+                x264.Controls_Selected(vm);
 
                 // Checked
-                x264.controlsChecked(vm);
+                x264.Controls_Checked(vm);
 
                 // Unhecked
-                x264.controlsUnhecked(vm);
+                x264.Controls_Unhecked(vm);
 
                 // Enabled
-                x264.controlsEnable(vm);
+                x264.Controls_Enable(vm);
 
                 // Disabled
-                x264.controlsDisable(vm);
+                x264.Controls_Disable(vm);
             }
 
             // -------------------------
@@ -166,27 +160,25 @@ namespace Axiom
             else if (codec_SelectedItem == "x265")
             {
                 // Codec
-                vm.Video_Codec_Command = x265.codec;
-                // Codec Parameters
-                vm.Video_Codec_Parameters = x265.codecParameters;
+                x265.Codec_Set(vm);
 
                 // Items Source
-                x265.controlsItemSource(vm);
+                x265.Controls_ItemsSource(vm);
 
                 // Selected Items
-                x265.controlsSelected(vm);
+                x265.Controls_Selected(vm);
 
                 // Checked
-                x265.controlsChecked(vm);
+                x265.Controls_Checked(vm);
 
                 // Unhecked
-                x265.controlsUnhecked(vm);
+                x265.Controls_Unhecked(vm);
 
                 // Enabled
-                x265.controlsEnable(vm);
+                x265.Controls_Enable(vm);
 
                 // Disabled
-                x265.controlsDisable(vm);
+                x265.Controls_Disable(vm);
             }
 
             // -------------------------
@@ -195,27 +187,25 @@ namespace Axiom
             else if (codec_SelectedItem == "AV1")
             {
                 // Codec
-                vm.Video_Codec_Command = AV1.codec;
-                // Codec Parameters
-                vm.Video_Codec_Parameters = AV1.codecParameters;
+                AV1.Codec_Set(vm);
 
                 // Items Source
-                AV1.controlsItemSource(vm);
+                AV1.Controls_ItemsSource(vm);
 
                 // Selected Items
-                AV1.controlsSelected(vm);
+                AV1.Controls_Selected(vm);
 
                 // Checked
-                AV1.controlsChecked(vm);
+                AV1.Controls_Checked(vm);
 
                 // Unhecked
-                AV1.controlsUnhecked(vm);
+                AV1.Controls_Unhecked(vm);
 
                 // Enabled
-                AV1.controlsEnable(vm);
+                AV1.Controls_Enable(vm);
 
                 // Disabled
-                AV1.controlsDisable(vm);
+                AV1.Controls_Disable(vm);
             }
 
             // -------------------------
@@ -224,27 +214,25 @@ namespace Axiom
             else if (codec_SelectedItem == "FFV1")
             {
                 // Codec
-                vm.Video_Codec_Command = FFV1.codec;
-                // Codec Parameters
-                vm.Video_Codec_Parameters = FFV1.codecParameters;
+                FFV1.Codec_Set(vm);
 
                 // Items Source
-                FFV1.controlsItemSource(vm);
+                FFV1.Controls_ItemsSource(vm);
 
                 // Selected Items
-                FFV1.controlsSelected(vm);
+                FFV1.Controls_Selected(vm);
 
                 // Checked
-                FFV1.controlsChecked(vm);
+                FFV1.Controls_Checked(vm);
 
                 // Unhecked
-                FFV1.controlsUnhecked(vm);
+                FFV1.Controls_Unhecked(vm);
 
                 // Enabled
-                FFV1.controlsEnable(vm);
+                FFV1.Controls_Enable(vm);
 
                 // Disabled
-                FFV1.controlsDisable(vm);
+                FFV1.Controls_Disable(vm);
             }
 
             // -------------------------
@@ -253,27 +241,25 @@ namespace Axiom
             else if (codec_SelectedItem == "HuffYUV")
             {
                 // Codec
-                vm.Video_Codec_Command = HuffYUV.codec;
-                // Codec Parameters
-                vm.Video_Codec_Parameters = HuffYUV.codecParameters;
+                HuffYUV.Codec_Set(vm);
 
                 // Items Source
-                HuffYUV.controlsItemSource(vm);
+                HuffYUV.Controls_ItemsSource(vm);
 
                 // Selected Items
-                HuffYUV.controlsSelected(vm);
+                HuffYUV.Controls_Selected(vm);
 
                 // Checked
-                HuffYUV.controlsChecked(vm);
+                HuffYUV.Controls_Checked(vm);
 
                 // Unhecked
-                HuffYUV.controlsUnhecked(vm);
+                HuffYUV.Controls_Unhecked(vm);
 
                 // Enabled
-                HuffYUV.controlsEnable(vm);
+                HuffYUV.Controls_Enable(vm);
 
                 // Disabled
-                HuffYUV.controlsDisable(vm);
+                HuffYUV.Controls_Disable(vm);
             }
 
             // -------------------------
@@ -282,27 +268,25 @@ namespace Axiom
             else if (codec_SelectedItem == "Theora")
             {
                 // Codec
-                vm.Video_Codec_Command = Theora.codec;
-                // Codec Parameters
-                vm.Video_Codec_Parameters = Theora.codecParameters;
+                Theora.Codec_Set(vm);
 
                 // Items Source
-                Theora.controlsItemSource(vm);
+                Theora.Controls_ItemsSource(vm);
 
                 // Selected Items
-                Theora.controlsSelected(vm);
+                Theora.Controls_Selected(vm);
 
                 // Checked
-                Theora.controlsChecked(vm);
+                Theora.Controls_Checked(vm);
 
                 // Unhecked
-                Theora.controlsUnhecked(vm);
+                Theora.Controls_Unhecked(vm);
 
                 // Enabled
-                Theora.controlsEnable(vm);
+                Theora.Controls_Enable(vm);
 
                 // Disabled
-                Theora.controlsDisable(vm);
+                Theora.Controls_Disable(vm);
             }
 
             // -------------------------
@@ -311,27 +295,25 @@ namespace Axiom
             else if (codec_SelectedItem == "MPEG-2")
             {
                 // Codec
-                vm.Video_Codec_Command = MPEG_2.codec;
-                // Codec Parameters
-                vm.Video_Codec_Parameters = MPEG_2.codecParameters;
+                MPEG_2.Codec_Set(vm);
 
                 // Items Source
-                MPEG_2.controlsItemSource(vm);
+                MPEG_2.Controls_ItemsSource(vm);
 
                 // Selected Items
-                MPEG_2.controlsSelected(vm);
+                MPEG_2.Controls_Selected(vm);
 
                 // Checked
-                MPEG_2.controlsChecked(vm);
+                MPEG_2.Controls_Checked(vm);
 
                 // Unhecked
-                MPEG_2.controlsUnhecked(vm);
+                MPEG_2.Controls_Unhecked(vm);
 
                 // Enabled
-                MPEG_2.controlsEnable(vm);
+                MPEG_2.Controls_Enable(vm);
 
                 // Disabled
-                MPEG_2.controlsDisable(vm);
+                MPEG_2.Controls_Disable(vm);
             }
 
             // -------------------------
@@ -340,27 +322,25 @@ namespace Axiom
             else if (codec_SelectedItem == "MPEG-4")
             {
                 // Codec
-                vm.Video_Codec_Command = MPEG_4.codec;
-                // Codec Parameters
-                vm.Video_Codec_Parameters = MPEG_4.codecParameters;
+                MPEG_4.Codec_Set(vm);
 
                 // Items Source
-                MPEG_4.controlsItemSource(vm);
+                MPEG_4.Controls_ItemsSource(vm);
 
                 // Selected Items
-                MPEG_4.controlsSelected(vm);
+                MPEG_4.Controls_Selected(vm);
 
                 // Checked
-                MPEG_4.controlsChecked(vm);
+                MPEG_4.Controls_Checked(vm);
 
                 // Unhecked
-                MPEG_4.controlsUnhecked(vm);
+                MPEG_4.Controls_Unhecked(vm);
 
                 // Enabled
-                MPEG_4.controlsEnable(vm);
+                MPEG_4.Controls_Enable(vm);
 
                 // Disabled
-                MPEG_4.controlsDisable(vm);
+                MPEG_4.Controls_Disable(vm);
             }
 
 
@@ -373,27 +353,25 @@ namespace Axiom
             else if (codec_SelectedItem == "JPEG")
             {
                 // Codec
-                vm.Video_Codec_Command = JPEG.codec;
-                // Codec Parameters
-                vm.Video_Codec_Parameters = JPEG.codecParameters;
+                JPEG.Codec_Set(vm);
 
                 // Items Source
-                JPEG.controlsItemSource(vm);
+                JPEG.Controls_ItemsSource(vm);
 
                 // Selected Items
-                JPEG.controlsSelected(vm);
+                JPEG.Controls_Selected(vm);
 
                 // Checked
-                JPEG.controlsChecked(vm);
+                JPEG.Controls_Checked(vm);
 
                 // Unhecked
-                JPEG.controlsUnhecked(vm);
+                JPEG.Controls_Unhecked(vm);
 
                 // Enabled
-                JPEG.controlsEnable(vm);
+                JPEG.Controls_Enable(vm);
 
                 // Disabled
-                JPEG.controlsDisable(vm);
+                JPEG.Controls_Disable(vm);
             }
 
             // -------------------------
@@ -402,27 +380,25 @@ namespace Axiom
             else if (codec_SelectedItem == "PNG")
             {
                 // Codec
-                vm.Video_Codec_Command = PNG.codec;
-                // Codec Parameters
-                vm.Video_Codec_Parameters = PNG.codecParameters;
+                PNG.Codec_Set(vm);
 
                 // Items Source
-                PNG.controlsItemSource(vm);
+                PNG.Controls_ItemsSource(vm);
 
                 // Selected Items
-                PNG.controlsSelected(vm);
+                PNG.Controls_Selected(vm);
 
                 // Checked
-                PNG.controlsChecked(vm);
+                PNG.Controls_Checked(vm);
 
                 // Unhecked
-                PNG.controlsUnhecked(vm);
+                PNG.Controls_Unhecked(vm);
 
                 // Enabled
-                PNG.controlsEnable(vm);
+                PNG.Controls_Enable(vm);
 
                 // Disabled
-                PNG.controlsDisable(vm);
+                PNG.Controls_Disable(vm);
             }
 
             // -------------------------
@@ -431,27 +407,25 @@ namespace Axiom
             else if (codec_SelectedItem == "WebP")
             {
                 // Codec
-                vm.Video_Codec_Command = WebP.codec;
-                // Codec Parameters
-                vm.Video_Codec_Parameters = WebP.codecParameters;
+                WebP.Codec_Set(vm);
 
                 // Items Source
-                WebP.controlsItemSource(vm);
+                WebP.Controls_ItemsSource(vm);
 
                 // Selected Items
-                WebP.controlsSelected(vm);
+                WebP.Controls_Selected(vm);
 
                 // Checked
-                WebP.controlsChecked(vm);
+                WebP.Controls_Checked(vm);
 
                 // Unhecked
-                WebP.controlsUnhecked(vm);
+                WebP.Controls_Unhecked(vm);
 
                 // Enabled
-                WebP.controlsEnable(vm);
+                WebP.Controls_Enable(vm);
 
                 // Disabled
-                WebP.controlsDisable(vm);
+                WebP.Controls_Disable(vm);
             }
 
             // -------------------------
@@ -460,27 +434,25 @@ namespace Axiom
             else if (codec_SelectedItem == "Copy")
             {
                 // Codec
-                vm.Video_Codec_Command = VideoCopy.codec;
-                // Codec Parameters
-                vm.Video_Codec_Parameters = VideoCopy.codecParameters;
+                VideoCopy.Codec_Set(vm);
 
                 // Items Source
-                VideoCopy.controlsItemSource(vm);
+                VideoCopy.Controls_ItemsSource(vm);
 
                 // Selected Items
-                VideoCopy.controlsSelected(vm);
+                VideoCopy.Controls_Selected(vm);
 
                 // Checked
-                VideoCopy.controlsChecked(vm);
+                VideoCopy.Controls_Checked(vm);
 
                 // Unhecked
-                VideoCopy.controlsUnhecked(vm);
+                VideoCopy.Controls_Unhecked(vm);
 
                 // Enabled
-                VideoCopy.controlsEnable(vm);
+                VideoCopy.Controls_Enable(vm);
 
                 // Disabled
-                VideoCopy.controlsDisable(vm);
+                VideoCopy.Controls_Disable(vm);
             }
 
             // -------------------------
@@ -489,27 +461,25 @@ namespace Axiom
             else if (codec_SelectedItem == "None")
             {
                 // Codec
-                vm.Video_Codec_Command = VideoNone.codec;
-                // Codec Parameters
-                vm.Video_Codec_Parameters = VideoNone.codecParameters;
+                VideoNone.Codec_Set(vm);
 
                 // Items Source
-                VideoNone.controlsItemSource(vm);
+                VideoNone.Controls_ItemsSource(vm);
 
                 // Selected Items
-                VideoNone.controlsSelected(vm);
+                VideoNone.Controls_Selected(vm);
 
                 // Checked
-                VideoNone.controlsChecked(vm);
+                VideoNone.Controls_Checked(vm);
 
                 // Unhecked
-                VideoNone.controlsUnhecked(vm);
+                VideoNone.Controls_Unhecked(vm);
 
                 // Enabled
-                VideoNone.controlsEnable(vm);
+                VideoNone.Controls_Enable(vm);
 
                 // Disabled
-                VideoNone.controlsDisable(vm);
+                VideoNone.Controls_Disable(vm);
             }
 
             // --------------------------------------------------
@@ -880,7 +850,7 @@ namespace Axiom
                 // -------------------------
                 else if (codec == "FFV1")
                 {
-                    vm.Video_PixelFormat_SelectedItem = "yuv422p";
+                    vm.Video_PixelFormat_SelectedItem = "yuv422p10le";
                 }
 
                 // -------------------------
@@ -888,7 +858,7 @@ namespace Axiom
                 // -------------------------
                 else if (codec == "HuffYUV")
                 {
-                    vm.Video_PixelFormat_SelectedItem = "yuv422p10le";
+                    vm.Video_PixelFormat_SelectedItem = "yuv422p";
                 }
 
                 // -------------------------

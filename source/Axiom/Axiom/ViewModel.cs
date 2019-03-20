@@ -934,11 +934,23 @@ namespace Axiom
             }
         }
 
-        // Command
-        public string Video_Codec_Command;
+        // --------------------------------------------------
+        // Encode Speed
+        // --------------------------------------------------
+        // Items Source
+        public class VideoCodec
+        {
+            public string Codec { get; set; }
+            public string Parameters { get; set; }
+            public string Parameters_Auto { get; set; }
+            public string Parameters_CRF { get; set; }
+            public string Parameters_1Pass { get; set; }
+            public string Parameters_2Pass { get; set; }
+            public string Parameters_None { get; set; }
+        }
 
-        // Parameters
-        public string Video_Codec_Parameters;
+        // Codec Command
+        public string Video_Codec;
 
         // Selected Index
         private int _Video_Codec_SelectedIndex { get; set; }
