@@ -900,8 +900,21 @@ namespace Axiom
                 // -------------------------
                 // Excluded Codecs
                 // -------------------------
+                else if (codec == "PNG")
+                {
+                    vm.Video_PixelFormat_IsEnabled = true;
+
+                    // Lossless
+                    if (quality == "Lossless")
+                    {
+                        vm.Video_PixelFormat_SelectedItem = "rgba";
+                    }
+                }
+
+                // -------------------------
+                // Excluded Codecs
+                // -------------------------
                 // JPEG
-                // PNG
                 // Copy
             }
 

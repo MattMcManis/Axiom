@@ -57,11 +57,7 @@ namespace Axiom
 
             vm.Video_Codec = string.Join(" ", codec.Where(s => !string.IsNullOrEmpty(s)));
         }
-        //// Codec
-        //public static string codec = "png";
 
-        //// Codec Parameters
-        //public static string codecParameters = "";
 
 
         // ---------------------------------------------------------------------------
@@ -241,6 +237,9 @@ namespace Axiom
             // Encode Speed
             vm.Video_EncodeSpeed_Items = encodeSpeed;
 
+            // Pixel Format
+            vm.Video_PixelFormat_Items = pixelFormat;
+
             // Pass
             //vm.Video_Pass_Items = pass;
             EncodingPass(vm);
@@ -263,9 +262,8 @@ namespace Axiom
         // -------------------------
         public static void Controls_Selected(ViewModel vm)
         {
-
             // Pixel Format
-            vm.Video_PixelFormat_SelectedItem = "rgb24";
+            vm.Video_PixelFormat_SelectedItem = "rgba";
 
             // Framerate
             vm.Video_FPS_SelectedItem = "auto";
