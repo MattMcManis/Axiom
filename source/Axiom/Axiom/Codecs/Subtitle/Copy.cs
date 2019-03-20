@@ -30,13 +30,29 @@ namespace Axiom
     public class SubtitleCopy
     {
         // ---------------------------------------------------------------------------
-        // Arguments
-        // ---------------------------------------------------------------------------
-
-        // -------------------------
         // Codec
-        // -------------------------
-        public static string codec = "-c:s copy";
+        // ---------------------------------------------------------------------------
+        public static List<ViewModel.SubtitleCodec> codec = new List<ViewModel.SubtitleCodec>()
+        {
+             new ViewModel.SubtitleCodec()
+             {
+                 Codec = "copy",
+                 Parameters = ""
+             }
+        };
+
+        public static void Codec_Set(ViewModel vm)
+        {
+            // Combine Codec + Parameters
+            List<string> codec = new List<string>()
+            {
+                "-c:s",
+                SubtitleCopy.codec.FirstOrDefault()?.Codec,
+                SubtitleCopy.codec.FirstOrDefault()?.Parameters
+            };
+
+            vm.Subtitle_Codec = string.Join(" ", codec.Where(s => !string.IsNullOrEmpty(s)));
+        }
 
 
         // ---------------------------------------------------------------------------

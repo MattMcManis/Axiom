@@ -4574,6 +4574,12 @@ namespace Axiom
         /// </summary>
         private void cboBitDepth_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (vm.Audio_Codec_SelectedItem == "PCM")
+            {
+                PCM.Codec_Set(vm);
+            }
+            
+
             //if (!string.IsNullOrEmpty(vm.Audio_SampleRate_SelectedItem))
             //{
             //    Audio_SampleRate_PreviousItem = vm.Audio_SampleRate_SelectedItem;

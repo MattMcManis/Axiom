@@ -117,25 +117,27 @@ namespace Axiom
         ///     Hardware Acceleration
         /// <summary>
         /// https://trac.ffmpeg.org/wiki/HWAccelIntro
-        public static String HWAcceleration(ViewModel vm)
+        public static String HWAcceleration(string hwaccel_SelectedItem,
+                                            string codec_SelectedItem
+                                            )
         {
             // -------------------------
             // Only x264/x265
             // -------------------------
-            if (vm.Video_Codec_SelectedItem == "x264" ||
-                vm.Video_Codec_SelectedItem == "x265")
+            if (codec_SelectedItem == "x264" ||
+                codec_SelectedItem == "x265")
             {
                 // -------------------------
                 // Off
                 // -------------------------
-                if (vm.Format_HWAccel_SelectedItem == "off")
+                if (hwaccel_SelectedItem == "off")
                 {
                     hwacceleration = string.Empty;
                 }
                 // -------------------------
                 // DXVA2
                 // -------------------------
-                else if (vm.Format_HWAccel_SelectedItem == "dxva2")
+                else if (hwaccel_SelectedItem == "dxva2")
                 {
                     // ffmpeg -hwaccel dxva2 -threads 1 -i INPUT -f null
                     hwacceleration = "-hwaccel dxva2";
@@ -143,16 +145,16 @@ namespace Axiom
                 // -------------------------
                 // CUVID
                 // -------------------------
-                else if (vm.Format_HWAccel_SelectedItem == "cuvid")
+                else if (hwaccel_SelectedItem == "cuvid")
                 {
                     // ffmpeg -c:v h264_cuvid -i input output.mkv
 
                     // Override Codecs
-                    if (vm.Video_Codec_SelectedItem == "x264")
+                    if (codec_SelectedItem == "x264")
                     {
                         vCodec = "-c:v h264_cuvid";
                     }
-                    else if (vm.Video_Codec_SelectedItem == "x264")
+                    else if (codec_SelectedItem == "x264")
                     {
                         vCodec = "-c:v h265_cuvid";
                     }
@@ -162,16 +164,16 @@ namespace Axiom
                 // -------------------------
                 // NVENC
                 // -------------------------
-                else if (vm.Format_HWAccel_SelectedItem == "nvenc")
+                else if (hwaccel_SelectedItem == "nvenc")
                 {
                     // ffmpeg -i input -c:v h264_nvenc -profile high444p -pix_fmt yuv444p -preset default output.mp4
 
                     // Override Codecs
-                    if (vm.Video_Codec_SelectedItem == "x264")
+                    if (codec_SelectedItem == "x264")
                     {
                         vCodec = "-c:v h264_nvenc";
                     }
-                    else if (vm.Video_Codec_SelectedItem == "x264")
+                    else if (codec_SelectedItem == "x264")
                     {
                         vCodec = "-c:v h265_nvenc";
                     }
@@ -181,14 +183,14 @@ namespace Axiom
                 // -------------------------
                 // CUVID + NVENC
                 // -------------------------
-                else if (vm.Format_HWAccel_SelectedItem == "cuvid+nvenc")
+                else if (hwaccel_SelectedItem == "cuvid+nvenc")
                 {
                     // ffmpeg -hwaccel cuvid -c:v h264_cuvid -i input -c:v h264_nvenc -preset slow output.mkv
-                    if (vm.Video_Codec_SelectedItem == "x264")
+                    if (codec_SelectedItem == "x264")
                     {
                         hwacceleration = "-hwaccel cuvid -c:v h264_cuvid";
                     }
-                    else if (vm.Video_Codec_SelectedItem == "x265")
+                    else if (codec_SelectedItem == "x265")
                     {
                         hwacceleration = "-hwaccel cuvid -c:v hevc_cuvid";
                     }
@@ -203,24 +205,24 @@ namespace Axiom
         ///     Hardware Acceleration Codec Override
         /// <summary>
         /// https://trac.ffmpeg.org/wiki/HWAccelIntro
-        public static String HWAccelerationCodecOverride(string hwAccel, 
-                                                         string codec
+        public static String HWAccelerationCodecOverride(string hwaccel_SelectedItem, 
+                                                         string codec_SelectedItem
                                                          )
         {
             // -------------------------
             // Cuvid
             // -------------------------
-            if (hwAccel == "cuvid")
+            if (hwaccel_SelectedItem == "cuvid")
             {
                 // Only x264/ x265
                 // e.g. ffmpeg -c:v h264_cuvid -i input output.mkv
 
                 // Override Codecs
-                if (codec == "x264")
+                if (codec_SelectedItem == "x264")
                 {
                     vCodec = "-c:v h264_cuvid";
                 }
-                else if (codec == "x264")
+                else if (codec_SelectedItem == "x264")
                 {
                     vCodec = "-c:v h265_cuvid";
                 }
@@ -228,17 +230,17 @@ namespace Axiom
             // -------------------------
             // NVENC
             // -------------------------
-            else if (hwAccel == "nvenc")
+            else if (hwaccel_SelectedItem == "nvenc")
             {
                 // Only x264/ x265
                 // e.g. ffmpeg -i input -c:v h264_nvenc -profile high444p -pix_fmt yuv444p -preset default output.mp4
 
                 // Override Codecs
-                if (codec == "x264")
+                if (codec_SelectedItem == "x264")
                 {
                     vCodec = "-c:v h264_nvenc";
                 }
-                else if (codec == "x264")
+                else if (codec_SelectedItem == "x264")
                 {
                     vCodec = "-c:v h265_nvenc";
                 }
@@ -254,7 +256,6 @@ namespace Axiom
         public static String VideoCodec(string hwAccel_SelectedItem, 
                                         string codec_SelectedItem, 
                                         string codec_Command
-                                        //string codec_Paramters
                                         )
         {
             // Passed Command

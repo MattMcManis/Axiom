@@ -30,13 +30,29 @@ namespace Axiom
     public class MP2
     {
         // ---------------------------------------------------------------------------
-        // Arguments
-        // ---------------------------------------------------------------------------
-
-        // -------------------------
         // Codec
-        // -------------------------
-        public static string codec = "mp2";
+        // ---------------------------------------------------------------------------
+        public static List<ViewModel.AudioCodec> codec = new List<ViewModel.AudioCodec>()
+        {
+             new ViewModel.AudioCodec()
+             {
+                 Codec = "mp2",
+                 Parameters = ""
+             }
+        };
+
+        public static void Codec_Set(ViewModel vm)
+        {
+            // Combine Codec + Parameters
+            List<string> codec = new List<string>()
+            {
+                "-c:a",
+                MP2.codec.FirstOrDefault()?.Codec,
+                MP2.codec.FirstOrDefault()?.Parameters
+            };
+
+            vm.Audio_Codec = string.Join(" ", codec.Where(s => !string.IsNullOrEmpty(s)));
+        }
 
 
 

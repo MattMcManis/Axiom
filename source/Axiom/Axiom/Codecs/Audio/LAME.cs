@@ -30,13 +30,29 @@ namespace Axiom
     public class LAME
     {
         // ---------------------------------------------------------------------------
-        // Arguments
-        // ---------------------------------------------------------------------------
-
-        // -------------------------
         // Codec
-        // -------------------------
-        public static string codec = "libmp3lame";
+        // ---------------------------------------------------------------------------
+        public static List<ViewModel.AudioCodec> codec = new List<ViewModel.AudioCodec>()
+        {
+             new ViewModel.AudioCodec()
+             {
+                 Codec = "libmp3lame",
+                 Parameters = ""
+             }
+        };
+
+        public static void Codec_Set(ViewModel vm)
+        {
+            // Combine Codec + Parameters
+            List<string> codec = new List<string>()
+            {
+                "-c:a",
+                LAME.codec.FirstOrDefault()?.Codec,
+                LAME.codec.FirstOrDefault()?.Parameters
+            };
+
+            vm.Audio_Codec = string.Join(" ", codec.Where(s => !string.IsNullOrEmpty(s)));
+        }
 
 
 

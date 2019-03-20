@@ -30,13 +30,29 @@ namespace Axiom
     public class ALAC
     {
         // ---------------------------------------------------------------------------
-        // Arguments
-        // ---------------------------------------------------------------------------
-
-        // -------------------------
         // Codec
-        // -------------------------
-        public static string codec = "alac";
+        // ---------------------------------------------------------------------------
+        public static List<ViewModel.AudioCodec> codec = new List<ViewModel.AudioCodec>()
+        {
+             new ViewModel.AudioCodec()
+             {
+                 Codec = "alac",
+                 Parameters = ""
+             }
+        };
+
+        public static void Codec_Set(ViewModel vm)
+        {
+            // Combine Codec + Parameters
+            List<string> codec = new List<string>()
+            {
+                "-c:a",
+                ALAC.codec.FirstOrDefault()?.Codec,
+                ALAC.codec.FirstOrDefault()?.Parameters
+            };
+
+            vm.Audio_Codec = string.Join(" ", codec.Where(s => !string.IsNullOrEmpty(s)));
+        }
 
 
 

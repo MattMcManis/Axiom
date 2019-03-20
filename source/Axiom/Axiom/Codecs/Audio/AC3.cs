@@ -30,13 +30,29 @@ namespace Axiom
     public class AC3
     {
         // ---------------------------------------------------------------------------
-        // Arguments
-        // ---------------------------------------------------------------------------
-
-        // -------------------------
         // Codec
-        // -------------------------
-        public static string codec = "ac3";
+        // ---------------------------------------------------------------------------
+        public static List<ViewModel.AudioCodec> codec = new List<ViewModel.AudioCodec>()
+        {
+             new ViewModel.AudioCodec()
+             {
+                 Codec = "ac3",
+                 Parameters = ""
+             }
+        };
+
+        public static void Codec_Set(ViewModel vm)
+        {
+            // Combine Codec + Parameters
+            List<string> codec = new List<string>()
+            {
+                "-c:a",
+                AC3.codec.FirstOrDefault()?.Codec,
+                AC3.codec.FirstOrDefault()?.Parameters
+            };
+
+            vm.Audio_Codec = string.Join(" ", codec.Where(s => !string.IsNullOrEmpty(s)));
+        }
 
 
 

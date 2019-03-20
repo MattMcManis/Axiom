@@ -934,10 +934,7 @@ namespace Axiom
             }
         }
 
-        // --------------------------------------------------
-        // Encode Speed
-        // --------------------------------------------------
-        // Items Source
+        // Codec and Parameters
         public class VideoCodec
         {
             public string Codec { get; set; }
@@ -2363,8 +2360,15 @@ namespace Axiom
             }
         }
 
-        // Command
-        public string Audio_Codec_Command;
+        // Codec and Parameters
+        public class AudioCodec
+        {
+            public string Codec { get; set; }
+            public string Parameters { get; set; }
+        }
+
+        // Codec Command
+        public string Audio_Codec;
 
         // Selected Index
         private int _Audio_Codec_SelectedIndex { get; set; }
@@ -3398,8 +3402,15 @@ namespace Axiom
             }
         }
 
-        // Command
-        public string Subtitle_Codec_Command;
+        // Codec and Parameters
+        public class SubtitleCodec
+        {
+            public string Codec { get; set; }
+            public string Parameters { get; set; }
+        }
+
+        // Codec Command
+        public string Subtitle_Codec;
 
         // Selected Index
         public int _Subtitle_Codec_SelectedIndex { get; set; }

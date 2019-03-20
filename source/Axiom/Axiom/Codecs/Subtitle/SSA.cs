@@ -30,13 +30,29 @@ namespace Axiom
     public class SSA
     {
         // ---------------------------------------------------------------------------
-        // Arguments
-        // ---------------------------------------------------------------------------
-
-        // -------------------------
         // Codec
-        // -------------------------
-        public static string codec = "-c:s ass";
+        // ---------------------------------------------------------------------------
+        public static List<ViewModel.SubtitleCodec> codec = new List<ViewModel.SubtitleCodec>()
+        {
+             new ViewModel.SubtitleCodec()
+             {
+                 Codec = "ass",
+                 Parameters = ""
+             }
+        };
+
+        public static void Codec_Set(ViewModel vm)
+        {
+            // Combine Codec + Parameters
+            List<string> codec = new List<string>()
+            {
+                "-c:s",
+                SSA.codec.FirstOrDefault()?.Codec,
+                SSA.codec.FirstOrDefault()?.Parameters
+            };
+
+            vm.Subtitle_Codec = string.Join(" ", codec.Where(s => !string.IsNullOrEmpty(s)));
+        }
 
 
         // ---------------------------------------------------------------------------

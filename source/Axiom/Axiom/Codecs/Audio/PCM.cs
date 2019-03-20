@@ -30,13 +30,62 @@ namespace Axiom
     public class PCM
     {
         // ---------------------------------------------------------------------------
-        // Arguments
-        // ---------------------------------------------------------------------------
-
-        // -------------------------
         // Codec
-        // -------------------------
-        public static string codec = "pcm_s24le"; // Determined by SampleRate
+        // ---------------------------------------------------------------------------
+        public static List<ViewModel.AudioCodec> codec = new List<ViewModel.AudioCodec>()
+        {
+             new ViewModel.AudioCodec()
+             {
+                 Codec = "pcm_s24le", // Determined by SampleRate
+                 Parameters = ""
+             }
+        };
+
+        public static void Codec_Set(ViewModel vm)
+        {
+            //string codec = string.Empty;
+
+            // auto
+            if (vm.Audio_BitDepth_SelectedItem == "auto")
+            {
+                PCM.codec.FirstOrDefault().Codec = "pcm_s24le";
+            }
+            // 8
+            else if (vm.Audio_BitDepth_SelectedItem == "8")
+            {
+                PCM.codec.FirstOrDefault().Codec = "pcm_u8";
+            }
+            // 16
+            else if (vm.Audio_BitDepth_SelectedItem == "16")
+            {
+                PCM.codec.FirstOrDefault().Codec = "pcm_s16le";
+            }
+            // 24
+            else if (vm.Audio_BitDepth_SelectedItem == "24")
+            {
+                PCM.codec.FirstOrDefault().Codec = "pcm_s24le";
+            }
+            // 32
+            else if (vm.Audio_BitDepth_SelectedItem == "32")
+            {
+                PCM.codec.FirstOrDefault().Codec = "pcm_f32le";
+            }
+            // 64
+            else if (vm.Audio_BitDepth_SelectedItem == "64")
+            {
+                PCM.codec.FirstOrDefault().Codec = "pcm_f64le";
+            }
+
+            // Combine Codec + Parameters
+            List<string> codec_parameters = new List<string>()
+            {
+                "-c:a",
+                PCM.codec.FirstOrDefault()?.Codec,
+                PCM.codec.FirstOrDefault()?.Parameters
+            };
+
+            vm.Audio_Codec = string.Join(" ", codec_parameters.Where(s => !string.IsNullOrEmpty(s)));
+        }
 
 
 
@@ -104,8 +153,11 @@ namespace Axiom
         public static List<ViewModel.AudioBitDepth> bitDepth = new List<ViewModel.AudioBitDepth>()
         {
              new ViewModel.AudioBitDepth() { Name = "auto", Depth = "" },
+             new ViewModel.AudioBitDepth() { Name = "8",    Depth = "" },
              new ViewModel.AudioBitDepth() { Name = "16",   Depth = "" },
-             new ViewModel.AudioBitDepth() { Name = "32",   Depth = "" }
+             new ViewModel.AudioBitDepth() { Name = "24",   Depth = "" },
+             new ViewModel.AudioBitDepth() { Name = "32",   Depth = "" },
+             new ViewModel.AudioBitDepth() { Name = "64",   Depth = "" }
         };
 
 

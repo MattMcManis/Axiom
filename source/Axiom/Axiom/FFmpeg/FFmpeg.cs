@@ -102,7 +102,9 @@ namespace Axiom
                     "-i "+ "\"" + MainWindow.InputPath(vm) + "\"",
 
                     "\r\n\r\n" +
-                    Subtitle.SubtitlesExternal(vm),
+                    Subtitle.SubtitlesExternal(vm.Subtitle_Codec_SelectedItem,
+                                               vm.Subtitle_Stream_SelectedItem
+                                               ),
 
                     "\r\n\r\n" +
                     Video.VideoCodec(vm.Format_HWAccel_SelectedItem,
@@ -164,13 +166,15 @@ namespace Axiom
                     Streams.VideoStreamMaps(vm),
 
                     "\r\n\r\n" +
-                    Subtitle.SubtitleCodec(vm.Subtitle_Codec_Command),
+                    Subtitle.SubtitleCodec(vm.Subtitle_Codec_SelectedItem,
+                                           vm.Subtitle_Codec
+                                           ),
                     "\r\n" +
                     Streams.SubtitleMaps(vm),
 
                     "\r\n\r\n" +
                     Audio.AudioCodec(vm.Audio_Codec_SelectedItem,
-                                     vm.Audio_Codec_Command,
+                                     vm.Audio_Codec,
                                      vm.Audio_BitDepth_SelectedItem
                                      ),
                     "\r\n" +
@@ -392,13 +396,17 @@ namespace Axiom
                     "-y",
 
                     "\r\n\r\n" +
-                    Video.HWAcceleration(vm),
+                    Video.HWAcceleration(vm.Format_HWAccel_SelectedItem,
+                                         vm.Video_Codec_SelectedItem
+                                         ),
 
                     "\r\n\r\n" +
                     "-i " + "\"" + MainWindow.InputPath(vm) + "\"",
 
                     "\r\n\r\n" +
-                    Subtitle.SubtitlesExternal(vm),
+                    Subtitle.SubtitlesExternal(vm.Subtitle_Codec_SelectedItem,
+                                               vm.Subtitle_Stream_SelectedItem
+                                               ),
 
                     "\r\n\r\n" +
                     Video.vCodec,
@@ -427,13 +435,15 @@ namespace Axiom
                                         ), 
 
                     "\r\n\r\n" +
-                    Subtitle.SubtitleCodec(vm.Subtitle_Codec_Command),
+                    Subtitle.SubtitleCodec(vm.Subtitle_Codec_SelectedItem,
+                                           vm.Subtitle_Codec
+                                           ),
                     "\r\n" +
                     Streams.SubtitleMaps(vm),
 
                     "\r\n\r\n" +
                     Audio.AudioCodec(vm.Audio_Codec_SelectedItem,
-                                     vm.Audio_Codec_Command,
+                                     vm.Audio_Codec,
                                      vm.Audio_BitDepth_SelectedItem
                                      ),
                     "\r\n" +
@@ -523,7 +533,9 @@ namespace Axiom
                     //MainWindow.YouTubeDownload(MainWindow.InputPath(vm)),
                     MainWindow.FFmpegPath(vm),
                     "-y",
-                    "\r\n\r\n" + Video.HWAcceleration(vm),
+                    "\r\n\r\n" + Video.HWAcceleration(vm.Format_HWAccel_SelectedItem,
+                                                      vm.Video_Codec_SelectedItem
+                                                      ),
                     OnePassArgs(vm), //disabled if 2-Pass
                     TwoPassArgs(vm) //disabled if 1-Pass
                 };
@@ -639,7 +651,9 @@ namespace Axiom
 
                     "\r\n\r\n" + "&&",
                     "\r\n\r\n" + MainWindow.FFmpegPath(vm),
-                    "\r\n\r\n" + Video.HWAcceleration(vm),
+                    "\r\n\r\n" + Video.HWAcceleration(vm.Format_HWAccel_SelectedItem,
+                                                      vm.Video_Codec_SelectedItem
+                                                      ),
                     "-y",
                     //%~f added in InputPath()
 

@@ -30,13 +30,29 @@ namespace Axiom
     public class Vorbis
     {
         // ---------------------------------------------------------------------------
-        // Arguments
-
-        // ---------------------------------------------------------------------------
-        // -------------------------
         // Codec
-        // -------------------------
-        public static string codec = "libvorbis";
+        // ---------------------------------------------------------------------------
+        public static List<ViewModel.AudioCodec> codec = new List<ViewModel.AudioCodec>()
+        {
+             new ViewModel.AudioCodec()
+             {
+                 Codec = "libvorbis", // Determined by SampleRate
+                 Parameters = ""
+             }
+        };
+
+        public static void Codec_Set(ViewModel vm)
+        {
+            // Combine Codec + Parameters
+            List<string> codec = new List<string>()
+            {
+                "-c:a",
+                Vorbis.codec.FirstOrDefault()?.Codec,
+                Vorbis.codec.FirstOrDefault()?.Parameters
+            };
+
+            vm.Audio_Codec = string.Join(" ", codec.Where(s => !string.IsNullOrEmpty(s)));
+        }
 
 
 

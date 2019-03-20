@@ -53,30 +53,35 @@ namespace Axiom
         // --------------------------------------------------------------------------------------------------------
 
         /// <summary>
-        /// Subtitle Codec
+        ///     Subtitle Codec
         /// <summary>
-        public static String SubtitleCodec(string codec)
+        public static String SubtitleCodec(string codec_SelectedItem,
+                                           string codec_Command
+                                           )
         {
-            //string sCodec = string.Empty;
-
             // Passed Command
-            sCodec = codec;
+            if (codec_SelectedItem != "None")
+            {
+                // e.g. -c:s srt
+                sCodec = codec_Command;
+            }
 
             return sCodec;
         }
 
-        /// <summary>
-        /// Subtitles External
-        /// <summary>
-        public static String SubtitlesExternal(ViewModel vm)
-        {
-            //string subtitles = string.Empty;
 
+        /// <summary>
+        ///     Subtitles External
+        /// <summary>
+        public static String SubtitlesExternal(string codec_SelectedItem,
+                                               string stream_SelectedItem
+                                               )
+        {
             // -------------------------
             // External
             // -------------------------
-            if (vm.Subtitle_Stream_SelectedItem == "external" &&
-                vm.Subtitle_Codec_SelectedItem != "Burn" &&  // Ignore if Burn
+            if (codec_SelectedItem != "Burn" &&  // Ignore if Burn
+                stream_SelectedItem == "external" &&
                 subtitleFilePathsList != null &&
                 subtitleFilePathsList.Count > 0)
             {
@@ -87,7 +92,6 @@ namespace Axiom
 
             return subtitles;
         }
-
 
 
     }

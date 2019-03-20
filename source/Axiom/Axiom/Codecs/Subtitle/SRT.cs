@@ -30,13 +30,31 @@ namespace Axiom
     public class SRT
     {
         // ---------------------------------------------------------------------------
-        // Arguments
-        // ---------------------------------------------------------------------------
-
-        // -------------------------
         // Codec
-        // -------------------------
-        public static string codec = "-c:s srt";
+        // ---------------------------------------------------------------------------
+        public static List<ViewModel.SubtitleCodec> codec = new List<ViewModel.SubtitleCodec>()
+        {
+             new ViewModel.SubtitleCodec()
+             {
+                 Codec = "srt",
+                 Parameters = ""
+             }
+        };
+
+        public static void Codec_Set(ViewModel vm)
+        {
+            // Combine Codec + Parameters
+            List<string> codec = new List<string>()
+            {
+                "-c:s",
+                SRT.codec.FirstOrDefault()?.Codec,
+                SRT.codec.FirstOrDefault()?.Parameters
+            };
+
+            vm.Subtitle_Codec = string.Join(" ", codec.Where(s => !string.IsNullOrEmpty(s)));
+        }
+
+
 
         // ---------------------------------------------------------------------------
         // Controls Behavior

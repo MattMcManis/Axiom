@@ -54,8 +54,8 @@ namespace Axiom
             // -------------------------
             if (codec_SelectedItem == "Vorbis")
             {
-                // Audio Codec
-                vm.Audio_Codec_Command = Vorbis.codec;
+                // Codec
+                Vorbis.Codec_Set(vm);
 
                 // Items Source
                 Vorbis.Controls_ItemsSource(vm);
@@ -81,8 +81,8 @@ namespace Axiom
             // -------------------------
             else if (codec_SelectedItem == "Opus")
             {
-                // Audio Codec
-                vm.Audio_Codec_Command = Opus.codec;
+                // Codec
+                Opus.Codec_Set(vm);
 
                 // Items Source
                 Opus.Controls_ItemsSource(vm);
@@ -108,8 +108,8 @@ namespace Axiom
             // -------------------------
             else if (codec_SelectedItem == "AC3")
             {
-                // Audio Codec
-                vm.Audio_Codec_Command = AC3.codec;
+                // Codec
+                AC3.Codec_Set(vm);
 
                 // Items Source
                 AC3.Controls_ItemsSource(vm);
@@ -135,8 +135,8 @@ namespace Axiom
             // -------------------------
             else if (codec_SelectedItem == "AAC")
             {
-                // Audio Codec
-                vm.Audio_Codec_Command = AAC.codec;
+                // Codec
+                AAC.Codec_Set(vm);
 
                 // Items Source
                 AAC.Controls_ItemsSource(vm);
@@ -162,8 +162,8 @@ namespace Axiom
             // -------------------------
             else if (codec_SelectedItem == "MP2")
             {
-                // Audio Codec
-                vm.Audio_Codec_Command = MP2.codec;
+                // Codec
+                MP2.Codec_Set(vm);
 
                 // Items Source
                 MP2.Controls_ItemsSource(vm);
@@ -189,8 +189,8 @@ namespace Axiom
             // -------------------------
             else if (codec_SelectedItem == "LAME")
             {
-                // Audio Codec
-                vm.Audio_Codec_Command = LAME.codec;
+                // Codec
+                LAME.Codec_Set(vm);
 
                 // Items Source
                 LAME.Controls_ItemsSource(vm);
@@ -216,8 +216,8 @@ namespace Axiom
             // -------------------------
             else if (codec_SelectedItem == "ALAC")
             {
-                // Audio Codec
-                vm.Audio_Codec_Command = ALAC.codec;
+                // Codec
+                ALAC.Codec_Set(vm);
 
                 // Items Source
                 ALAC.Controls_ItemsSource(vm);
@@ -243,8 +243,8 @@ namespace Axiom
             // -------------------------
             else if (codec_SelectedItem == "FLAC")
             {
-                // Audio Codec
-                vm.Audio_Codec_Command = FLAC.codec;
+                // Codec
+                FLAC.Codec_Set(vm);
 
                 // Items Source
                 FLAC.Controls_ItemsSource(vm);
@@ -270,8 +270,8 @@ namespace Axiom
             // -------------------------
             else if (codec_SelectedItem == "PCM")
             {
-                // Audio Codec
-                vm.Audio_Codec_Command = PCM.codec;
+                // Codec
+                PCM.Codec_Set(vm);
 
                 // Items Source
                 PCM.Controls_ItemsSource(vm);
@@ -297,8 +297,8 @@ namespace Axiom
             // -------------------------
             else if (codec_SelectedItem == "Copy")
             {
-                // Audio Codec
-                vm.Audio_Codec_Command = AudioCopy.codec;
+                // Codec
+                AudioCopy.Codec_Set(vm);
 
                 // Items Source
                 AudioCopy.Controls_ItemsSource(vm);
@@ -324,8 +324,8 @@ namespace Axiom
             // -------------------------
             else if (codec_SelectedItem == "None")
             {
-                // Audio Codec
-                vm.Audio_Codec_Command = AudioNone.codec;
+                // Codec
+                AudioNone.Codec_Set(vm);
 
                 // Items Source
                 AudioNone.Controls_ItemsSource(vm);

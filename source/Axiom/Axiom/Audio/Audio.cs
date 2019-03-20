@@ -90,14 +90,7 @@ namespace Axiom
             // Passed Command
             if (codec_SelectedItem != "None")
             {
-                aCodec = "-c:a " + codec_Command;
-
-                if (codec_SelectedItem == "PCM") // Special
-                {
-                    aCodec = PCM_BitDepth(codec_SelectedItem,
-                                          bitDepth_SelectedItem
-                                          );
-                }
+                aCodec = codec_Command;
             }
                 
             return aCodec;
@@ -180,23 +173,6 @@ namespace Axiom
                             aBitrate = AudioVBRCalculator(vbr_IsChecked, codec_SelectedItem, FFprobe.inputAudioBitrate);
                         }
                     }
-
-                    // Input Bitrate is N/A
-                    //else if (FFprobe.inputAudioBitrate == "N/A")
-                    //{
-                    //    // CBR
-                    //    if (vbr_IsChecked == false)
-                    //    {
-                    //        aBitrate = AudioBitrateCalculator(codec_SelectedItem, FFprobe.aEntryType, aBitrateNA);
-                    //    }
-
-                    //    // VBR
-                    //    else if (vbr_IsChecked == true)
-                    //    {
-                    //        //VBR does not have 'k'
-                    //        aBitrate = AudioVBRCalculator(vbr_IsChecked, codec_SelectedItem, aBitrateNA);
-                    //    }
-                    //}
 
                     // -------------------------
                     // Input Does Not Have Audio Codec
@@ -843,66 +819,6 @@ namespace Axiom
 
             // Return Value
             return aSamplerate;
-        }
-
-
-        /// <summary>
-        ///     PCM Bit Depth
-        /// <summary>
-        /// <remarks>
-        ///     Changes the PCM Codec depending on BitDepth Selected
-        /// </remarks>
-        public static String PCM_BitDepth(string codec_SelectedItem,
-                                          string bitDepth_SelectedItem
-                                          )
-        {
-            if (codec_SelectedItem == "PCM")
-            {
-                // -------------------------
-                // auto
-                // -------------------------
-                if (bitDepth_SelectedItem == "auto")
-                {
-                    aCodec = "-c:a pcm_s24le";
-                }
-                // -------------------------
-                // 8
-                // -------------------------
-                else if (bitDepth_SelectedItem == "8")
-                {
-                    aCodec = "-c:a pcm_u8";
-                }
-                // -------------------------
-                // 16
-                // -------------------------
-                else if (bitDepth_SelectedItem == "16")
-                {
-                    aCodec = "-c:a pcm_s16le";
-                }
-                // -------------------------
-                // 24
-                // -------------------------
-                else if (bitDepth_SelectedItem == "24")
-                {
-                    aCodec = "-c:a pcm_s24le";
-                }
-                // -------------------------
-                // 32
-                // -------------------------
-                else if (bitDepth_SelectedItem == "32")
-                {
-                    aCodec = "-c:a pcm_f32le";
-                }
-                // -------------------------
-                // 64
-                // -------------------------
-                else if (bitDepth_SelectedItem == "64")
-                {
-                    aCodec = "-c:a pcm_f64le";
-                }
-            }
-
-            return aCodec;
         }
 
 

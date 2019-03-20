@@ -30,13 +30,29 @@ namespace Axiom
     public class MOV_Text
     {
         // ---------------------------------------------------------------------------
-        // Arguments
-        // ---------------------------------------------------------------------------
-
-        // -------------------------
         // Codec
-        // -------------------------
-        public static string codec = "-c:s mov_text";
+        // ---------------------------------------------------------------------------
+        public static List<ViewModel.SubtitleCodec> codec = new List<ViewModel.SubtitleCodec>()
+        {
+             new ViewModel.SubtitleCodec()
+             {
+                 Codec = "mov_text",
+                 Parameters = ""
+             }
+        };
+
+        public static void Codec_Set(ViewModel vm)
+        {
+            // Combine Codec + Parameters
+            List<string> codec = new List<string>()
+            {
+                "-c:s",
+                MOV_Text.codec.FirstOrDefault()?.Codec,
+                MOV_Text.codec.FirstOrDefault()?.Parameters
+            };
+
+            vm.Subtitle_Codec = string.Join(" ", codec.Where(s => !string.IsNullOrEmpty(s)));
+        }
 
 
 

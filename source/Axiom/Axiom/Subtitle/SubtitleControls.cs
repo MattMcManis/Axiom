@@ -44,7 +44,7 @@ namespace Axiom
             if (selectedCodec == "MOV Text")
             {
                 // Codec
-                vm.Subtitle_Codec_Command = MOV_Text.codec;
+                MOV_Text.Codec_Set(vm);
 
                 // Items Source
                 MOV_Text.Controls_ItemsSource(vm);
@@ -71,7 +71,7 @@ namespace Axiom
             else if (selectedCodec == "SSA")
             {
                 // Codec
-                vm.Subtitle_Codec_Command = SSA.codec;
+                SSA.Codec_Set(vm);
 
                 // Items Source
                 SSA.Controls_ItemsSource(vm);
@@ -98,7 +98,7 @@ namespace Axiom
             else if (selectedCodec == "SRT")
             {
                 // Codec
-                vm.Subtitle_Codec_Command = SRT.codec;
+                SRT.Codec_Set(vm);
 
                 // Items Source
                 SRT.Controls_ItemsSource(vm);
@@ -125,7 +125,7 @@ namespace Axiom
             else if (selectedCodec == "Burn")
             {
                 // Codec
-                vm.Subtitle_Codec_Command = Burn.codec;
+                Burn.Codec_Set(vm);
 
                 // Items Source
                 Burn.Controls_ItemsSource(vm);
@@ -152,7 +152,7 @@ namespace Axiom
             else if (selectedCodec == "Copy")
             {
                 // Codec
-                vm.Subtitle_Codec_Command = SubtitleCopy.codec;
+                SubtitleCopy.Codec_Set(vm);
 
                 // Items Source
                 SubtitleCopy.Controls_ItemsSource(vm);
@@ -179,7 +179,7 @@ namespace Axiom
             else if (selectedCodec == "None")
             {
                 // Codec
-                vm.Subtitle_Codec_Command = SubtitleNone.codec;
+                SubtitleNone.Codec_Set(vm);
 
                 // Items Source
                 SubtitleNone.Controls_ItemsSource(vm);

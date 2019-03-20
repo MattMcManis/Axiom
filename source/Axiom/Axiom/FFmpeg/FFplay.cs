@@ -61,7 +61,9 @@ namespace Axiom
 
                     "-i " + "\"" + MainWindow.InputPath(vm) + "\"",
 
-                    Subtitle.SubtitlesExternal(vm),
+                    Subtitle.SubtitlesExternal(vm.Subtitle_Codec_SelectedItem,
+                                               vm.Subtitle_Stream_SelectedItem
+                                               ),
 
                     //Video.VideoCodec(),
                     //Video.Speed(mainwindow),
