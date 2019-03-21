@@ -1408,66 +1408,41 @@ namespace Axiom
                 codec_SelectedItem != "Copy" &&
                 mediaType_SelectedItem != "Audio")
             {
+                //MessageBox.Show(tune_SelectedItem); //debug
+                //MessageBox.Show(profile_SelectedItem); //debug
+                //MessageBox.Show(level_SelectedItem); //debug
+
                 // -------------------------
-                // None
+                // Tune
                 // -------------------------
-                if (optimize_SelectedItem == "None")
+                if (!string.IsNullOrEmpty(tune_SelectedItem) && 
+                    tune_SelectedItem != "none")
                 {
-                    optTune = string.Empty;
-                    optProfile = string.Empty;
-                    optLevel = string.Empty;
+                    optTune = "-tune " + tune_SelectedItem;
                 }
 
                 // -------------------------
-                // Custom
+                // Profile
                 // -------------------------
-                else if (optimize_SelectedItem == "Custom")
+                if (!string.IsNullOrEmpty(profile_SelectedItem) && 
+                    profile_SelectedItem != "none")
                 {
-                    // Tune
-                    if (tune_SelectedItem != "none")
-                    {
-                        optTune = "-tune " + tune_SelectedItem;
-                    }
-
-                    // Profile
-                    if (profile_SelectedItem != "none")
-                    {
-                        optProfile = "-profile:v " + profile_SelectedItem;
-                    }
-
-                    // Level
-                    if (level_SelectedItem != "none")
-                    {
-                        optLevel = "-level " + level_SelectedItem;
-                    }
+                    optProfile = "-profile:v " + profile_SelectedItem;
                 }
 
                 // -------------------------
-                // All Other Options
+                // Level
                 // -------------------------
-                else
+                if (!string.IsNullOrEmpty(level_SelectedItem) && 
+                    level_SelectedItem != "none")
                 {
-                    // Tune
-                    if (tune_SelectedItem != "none")
-                    {
-                        optTune = "-tune " + optimize_Items.FirstOrDefault(item => item.Name == optimize_SelectedItem)?.Tune;
-                    }
-                    
-                    // Profile
-                    if (profile_SelectedItem != "none")
-                    {
-                        optProfile = "-profile:v " + optimize_Items.FirstOrDefault(item => item.Name == optimize_SelectedItem)?.Profile;
-                    }
-                    
-                    // Level
-                    if (level_SelectedItem != "none")
-                    {
-                        optLevel = "-level " + optimize_Items.FirstOrDefault(item => item.Name == optimize_SelectedItem)?.Level;
-                    }
-
-                    // Additional Options
-                    optFlags = optimize_Items.FirstOrDefault(item => item.Name == optimize_SelectedItem)?.Command;
+                    optLevel = "-level " + level_SelectedItem;
                 }
+
+                // -------------------------
+                // Additional Options
+                // -------------------------
+                optFlags = optimize_Items.FirstOrDefault(item => item.Name == optimize_SelectedItem)?.Command;
 
                 // -------------------------
                 // Combine Optimize = Tune + Profile + Level
