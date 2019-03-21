@@ -3468,20 +3468,7 @@ namespace Axiom
         // Subtitle Stream
         // --------------------------------------------------
         // Items Source
-        public List<string> _Subtitle_Stream_Items = new List<string>()
-        {
-            "none",
-            "external",
-            "all",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-        };
+        public List<string> _Subtitle_Stream_Items = new List<string>();
         public List<string> Subtitle_Stream_Items
         {
             get { return _Subtitle_Stream_Items; }

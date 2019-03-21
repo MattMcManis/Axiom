@@ -37,6 +37,14 @@ namespace Axiom
             vm.Subtitle_Codec = string.Empty;
         }
 
+        // -------------------------
+        // Stream
+        // -------------------------
+        public static List<string> stream = new List<string>()
+        {
+            "none"
+        };
+
 
 
         // ---------------------------------------------------------------------------
@@ -48,7 +56,7 @@ namespace Axiom
         // -------------------------
         public static void Controls_ItemsSource(ViewModel vm)
         {
-            // None
+            vm.Subtitle_Stream_Items = stream;
         }
 
         // -------------------------
