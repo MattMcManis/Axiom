@@ -4,6 +4,28 @@ Axiom FFmpeg UI
 
 ## [alpha]
 
+## [1.5.6.2] - Mar 21, 2019
+### Added
+- More `PCM` Codec Bit Depth options
+
+### Changed
+Redesigned Audio Codec Controls
+Redesigned Subtitle Codec Controls
+Redesigned Subtitle Stream Controls
+
+### Fixed
+- `HuffYUV` 1 Pass Codec Parameters
+
+
+## [1.5.6.1] - Mar 20, 2019
+### Changed
+- Redesigned Video Codec Controls
+- Changed WebP Default Pixel Format to yuva420p
+
+### Fixed
+- `PNG` Pixel Format
+
+
 ## [1.5.6.0] - Mar 19, 2019
 ### Changed
 - Redesigned Encoding Pass Controls
