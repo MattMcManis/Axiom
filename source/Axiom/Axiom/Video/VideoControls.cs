@@ -938,9 +938,25 @@ namespace Axiom
                 vm.Video_Codec_SelectedItem == "x265")
             {
                 // -------------------------
-                // Disable
+                // Enable - Tune, Profile, Level
                 // -------------------------
-                if (vm.Video_Optimize_SelectedItem == "None")
+                // Custom
+                if (vm.Video_Optimize_SelectedItem == "Custom")
+                {
+                    // Tune
+                    vm.Optimize_Tune_IsEnabled = true;
+
+                    // Profile
+                    vm.Optimize_Profile_IsEnabled = true;
+
+                    // Level
+                    vm.Video_Optimize_Level_IsEnabled = true;
+                }
+                // -------------------------
+                // Disable - Tune, Profile, Level
+                // -------------------------
+                // Web, PC HD, HEVC, None, etc.
+                else
                 {
                     // Tune
                     vm.Optimize_Tune_IsEnabled = false;
@@ -952,25 +968,40 @@ namespace Axiom
                     vm.Video_Optimize_Level_IsEnabled = false;
                 }
 
-                // -------------------------
-                // Enable
-                // -------------------------
-                // All Other Qualities
-                else
-                {
-                    // Tune
-                    vm.Optimize_Tune_IsEnabled = true;
+                //// -------------------------
+                //// Disable
+                //// -------------------------
+                //if (vm.Video_Optimize_SelectedItem == "None")
+                //{
+                //    // Tune
+                //    vm.Optimize_Tune_IsEnabled = false;
 
-                    // Profile
-                    vm.Optimize_Profile_IsEnabled = true;
+                //    // Profile
+                //    vm.Optimize_Profile_IsEnabled = false;
 
-                    // Level
-                    vm.Video_Optimize_Level_IsEnabled = true;
-                }
+                //    // Level
+                //    vm.Video_Optimize_Level_IsEnabled = false;
+                //}
+
+                //// -------------------------
+                //// Enable
+                //// -------------------------
+                //// All Other Qualities
+                //else
+                //{
+                //    // Tune
+                //    vm.Optimize_Tune_IsEnabled = true;
+
+                //    // Profile
+                //    vm.Optimize_Profile_IsEnabled = true;
+
+                //    // Level
+                //    vm.Video_Optimize_Level_IsEnabled = true;
+                //}
             }
 
             // -------------------------
-            // Disable Tune, Profile, Level if not x264 & x265
+            // Disable Tune, Profile, Level if Codec not x264/x265
             // -------------------------
             else
             {
