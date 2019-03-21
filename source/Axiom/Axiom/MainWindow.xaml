@@ -59,22 +59,6 @@
                  Padding="10,10,10,48"
                  Grid.ColumnSpan="1" >
         </TextBox>
-        <!--<RichTextBox x:Name="rtbScriptView" 
-                     Margin="11,71,280,56" 
-                     Padding="10,10,10,48"
-                     FontSize="14" 
-                     Grid.ColumnSpan="1" 
-                     VerticalScrollBarVisibility="Auto" 
-                     RenderOptions.ClearTypeHint="Enabled"
-                     Style="{DynamicResource RichTextBoxStyle}">
-            <FlowDocument>
-                <Paragraph>
-                    <Run Text="{Binding ScriptView_Text, 
-                                        Mode=TwoWay, 
-                                        UpdateSourceTrigger=PropertyChanged}" />
-                </Paragraph>
-            </FlowDocument>
-        </RichTextBox>-->
 
         <!-- Save Button -->
         <Button x:Name="btnScriptSave" 
@@ -672,6 +656,7 @@
                                 <RowDefinition Height="33"/>
                                 <RowDefinition Height="33"/>
                                 <RowDefinition Height="33"/>
+                                <RowDefinition Height="33"/>
                                 <RowDefinition Height="22"/>
                                 <RowDefinition Height="33"/>
                                 <RowDefinition Height="33"/>
@@ -983,13 +968,12 @@
                                    FontFamily="Segoe UI Semilight" 
                                    Grid.Row="10"
                                    Grid.Column="1" />
-
                             <ComboBox x:Name="cboFPS" 
                                       ItemsSource="{Binding Video_FPS_Items}"
                                       SelectedIndex="{Binding Video_FPS_SelectedIndex}"
                                       SelectedItem="{Binding Video_FPS_SelectedItem}"
                                       IsEnabled="{Binding Video_FPS_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                      IsSynchronizedWithCurrentItem="True"
+                                      IsEditable="{Binding Video_FPS_IsEditable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                       Style="{DynamicResource ComboBoxCustom}" 
                                       Text="{Binding Video_FPS_Text}"
                                       ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" 
@@ -1000,8 +984,41 @@
                                       ToolTipService.ShowOnDisabled="True" 
                                       ToolTip="Frames Per Second" 
                                       SelectionChanged="cboVideo_FPS_SelectionChanged"
+                                      TextBoxBase.KeyDown="cboFPS_KeyDown"
                                       IsTextSearchEnabled="False" 
                                       Grid.Row="10" 
+                                      Grid.Column="2" 
+                                      Margin="0,2,0,0"/>
+
+                            <!-- Speed -->
+                            <Label Style="{DynamicResource LabelCustom}" 
+                                   Content="Speed" 
+                                   HorizontalAlignment="Left" 
+                                   VerticalAlignment="Top"
+                                   Width="75" 
+                                   ToolTip="Speed Up / Slow Down Video" 
+                                   FontFamily="Segoe UI Semilight" 
+                                   Grid.Row="11"
+                                   Grid.Column="1" />
+                            <ComboBox x:Name="cboSpeed" 
+                                      ItemsSource="{Binding Video_Speed_Items}"
+                                      SelectedIndex="{Binding Video_Speed_SelectedIndex}"
+                                      SelectedItem="{Binding Video_Speed_SelectedItem}"
+                                      IsEnabled="{Binding Video_Speed_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      IsEditable="{Binding Video_Speed_IsEditable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      Style="{DynamicResource ComboBoxCustom}" 
+                                      Text="{Binding Video_Speed_Text}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" 
+                                      HorizontalAlignment="Left" 
+                                      VerticalAlignment="Top" 
+                                      Width="105" 
+                                      SelectionChanged="cboVideo_Speed_SelectionChanged"
+                                      TextBoxBase.KeyDown="cboSpeed_KeyDown"
+                                      ToolTipService.InitialShowDelay="1000"
+                                      ToolTipService.ShowOnDisabled="True" 
+                                      ToolTip="Speed Up / Slow Down Video" 
+                                      IsTextSearchEnabled="False" 
+                                      Grid.Row="11" 
                                       Grid.Column="2" 
                                       Margin="0,2,0,0"/>
 
@@ -1012,7 +1029,7 @@
                                    VerticalAlignment="Top"
                                    Width="75"
                                    FontFamily="Segoe UI Semilight" 
-                                   Grid.Row="12" 
+                                   Grid.Row="13" 
                                    Height="26" 
                                    Grid.Column="1" />
 
@@ -1031,7 +1048,7 @@
                                       Height="22"
                                       SelectionChanged="cboOptimize_SelectionChanged" 
                                       Grid.Column="2" 
-                                      Grid.Row="12" 
+                                      Grid.Row="13" 
                                       ToolTipService.ShowOnDisabled="True" 
                                       ToolTip="Optimize file for device type." Margin="0,1,0,0"
                                       >
@@ -1055,13 +1072,12 @@
                                    HorizontalAlignment="Left" 
                                    VerticalAlignment="Top" 
                                    Width="75" 
-                                   Grid.Row="13" 
+                                   Grid.Row="14" 
                                    Grid.Column="1"/>
                             <ComboBox x:Name="cboOptTune" 
                                       ItemsSource="{Binding Optimize_Tune_Items}"
                                       SelectedIndex="{Binding Optimize_Tune_SelectedIndex}"
                                       SelectedItem="{Binding Video_Optimize_Tune_SelectedItem, Mode=TwoWay}"
-                                      SelectedValuePath="Tune"
                                       IsEnabled="{Binding Optimize_Tune_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                       IsSynchronizedWithCurrentItem="True"
                                       Style="{DynamicResource ComboBoxCustom}" 
@@ -1070,7 +1086,7 @@
                                       Margin="0,2,0,0"
                                       VerticalAlignment="Top"
                                       Width="105" 
-                                      Grid.Row="13" 
+                                      Grid.Row="14" 
                                       Grid.Column="2" 
                                       ToolTipService.InitialShowDelay="1000" 
                                       ToolTipService.ShowOnDisabled="True"
@@ -1084,40 +1100,13 @@
                                    HorizontalAlignment="Left" 
                                    VerticalAlignment="Top" 
                                    Width="75" 
-                                   Grid.Row="14" 
+                                   Grid.Row="15" 
                                    Grid.Column="1"/>
                             <ComboBox x:Name="cboOptProfile"
                                       ItemsSource="{Binding Optimize_Profile_Items}"
                                       SelectedIndex="{Binding Optimize_Profile_SelectedIndex}"
                                       SelectedItem="{Binding Video_Optimize_Profile_SelectedItem, Mode=TwoWay}"
-                                      SelectedValuePath="Profile"
                                       IsEnabled="{Binding Optimize_Profile_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                      IsSynchronizedWithCurrentItem="True"
-                                      Style="{DynamicResource ComboBoxCustom}" 
-                                      ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" 
-                                      HorizontalAlignment="Left" 
-                                      Margin="0,2,0,0" 
-                                      VerticalAlignment="Top" 
-                                      Width="105" 
-                                      Grid.Row="14" 
-                                      Grid.Column="2" >
-                                <!-- Items added by Optimize Controls Method -->
-                            </ComboBox>
-
-                            <!-- Level -->
-                            <Label Style="{DynamicResource LabelCustom}" 
-                                   Content="Level" 
-                                   HorizontalAlignment="Left" 
-                                   VerticalAlignment="Top" 
-                                   Width="75" 
-                                   Grid.Row="15" 
-                                   Grid.Column="1"/>
-                            <ComboBox x:Name="cboOptLevel" 
-                                      ItemsSource="{Binding Video_Optimize_Level_Items}"
-                                      SelectedIndex="{Binding Video_Optimize_Level_SelectedIndex}"
-                                      SelectedItem="{Binding Video_Optimize_Level_SelectedItem, Mode=TwoWay}"
-                                      SelectedValuePath="Level"
-                                      IsEnabled="{Binding Video_Optimize_Level_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                       IsSynchronizedWithCurrentItem="True"
                                       Style="{DynamicResource ComboBoxCustom}" 
                                       ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" 
@@ -1130,13 +1119,38 @@
                                 <!-- Items added by Optimize Controls Method -->
                             </ComboBox>
 
+                            <!-- Level -->
+                            <Label Style="{DynamicResource LabelCustom}" 
+                                   Content="Level" 
+                                   HorizontalAlignment="Left" 
+                                   VerticalAlignment="Top" 
+                                   Width="75" 
+                                   Grid.Row="16" 
+                                   Grid.Column="1"/>
+                            <ComboBox x:Name="cboOptLevel" 
+                                      ItemsSource="{Binding Video_Optimize_Level_Items}"
+                                      SelectedIndex="{Binding Video_Optimize_Level_SelectedIndex}"
+                                      SelectedItem="{Binding Video_Optimize_Level_SelectedItem, Mode=TwoWay}"
+                                      IsEnabled="{Binding Video_Optimize_Level_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      IsSynchronizedWithCurrentItem="True"
+                                      Style="{DynamicResource ComboBoxCustom}" 
+                                      ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" 
+                                      HorizontalAlignment="Left" 
+                                      Margin="0,2,0,0" 
+                                      VerticalAlignment="Top" 
+                                      Width="105" 
+                                      Grid.Row="16" 
+                                      Grid.Column="2" >
+                                <!-- Items added by Optimize Controls Method -->
+                            </ComboBox>
+
                             <!-- Size -->
                             <Label Style="{DynamicResource LabelCustom}"
                                     Content="Size" 
                                     HorizontalAlignment="Left" 
                                     VerticalAlignment="Top"
                                     Width="75" 
-                                    Grid.Row="17" 
+                                    Grid.Row="18" 
                                     Grid.Column="1" />
                             <ComboBox x:Name="cboSize" 
                                       ItemsSource="{Binding Video_Scale_Items}"
@@ -1149,7 +1163,7 @@
                                       VerticalAlignment="Top"
                                       Width="105" 
                                       SelectionChanged="cboVideo_Scale_SelectionChanged" 
-                                      Grid.Row="17" 
+                                      Grid.Row="18" 
                                       Grid.Column="2" 
                                       Margin="0,2,0,0" />
 
@@ -1160,7 +1174,7 @@
                                 HorizontalAlignment="Left" 
                                 VerticalAlignment="Top"
                                 Width="75" 
-                                Grid.Row="18" 
+                                Grid.Row="19" 
                                 Grid.Column="1" />
                             <TextBox x:Name="tbxWidth"
                                      Text="{Binding Video_Width_Text, Mode=TwoWay}"
@@ -1175,7 +1189,7 @@
                                      MaxLines="1"
                                      GotFocus="tbxVideo_Width_GotFocus" 
                                      LostFocus="tbxVideo_Width_LostFocus" 
-                                     Grid.Row="18" 
+                                     Grid.Row="19" 
                                      Grid.Column="2"
                                      Margin="0,2,0,0" />
 
@@ -1186,7 +1200,7 @@
                                 HorizontalAlignment="Left" 
                                 VerticalAlignment="Top"
                                 Width="75" 
-                                Grid.Row="19" 
+                                Grid.Row="20" 
                                 Grid.Column="1" />
                             <TextBox x:Name="tbxHeight" 
                                      Text="{Binding Video_Height_Text, Mode=TwoWay}"
@@ -1201,7 +1215,7 @@
                                      MaxLines="1" 
                                      GotFocus="tbxVideo_Height_GotFocus" 
                                      LostFocus="tbxVideo_Height_LostFocus"
-                                     Grid.Row="19" 
+                                     Grid.Row="20" 
                                      Grid.Column="2" 
                                      Margin="0,2,0,0" />
 
@@ -1213,7 +1227,8 @@
                                    Width="75"
                                    FontFamily="Segoe UI Semilight"
                                    Height="26" 
-                                   Grid.Row="20" 
+                                   ToolTip="Aspect Ratio" 
+                                   Grid.Row="21" 
                                    Grid.Column="1" />
 
                             <ComboBox x:Name="cboAspectRatio" 
@@ -1228,7 +1243,7 @@
                                       Width="105" 
                                       ToolTipService.ShowOnDisabled="True" 
                                       ToolTip="Aspect Ratio" 
-                                      Grid.Row="20" 
+                                      Grid.Row="21" 
                                       Grid.Column="2" 
                                       Height="22" 
                                       Margin="0,2,0,0" 
@@ -1241,8 +1256,9 @@
                                    VerticalAlignment="Top"
                                    Width="75"
                                    FontFamily="Segoe UI Semilight"
-                                   Height="26" 
-                                   Grid.Row="21" 
+                                   Height="26"
+                                   ToolTip="Algorithm used for resizing." 
+                                   Grid.Row="22" 
                                    Grid.Column="1" />
 
                             <ComboBox x:Name="cboScalingAlgorithm" 
@@ -1258,7 +1274,7 @@
                                       Width="105" 
                                       ToolTipService.ShowOnDisabled="True" 
                                       ToolTip="Algorithm used for resizing." 
-                                      Grid.Row="21" 
+                                      Grid.Row="22" 
                                       Grid.Column="2" 
                                       Height="22" 
                                       Margin="0,2,0,0" 
@@ -1270,7 +1286,7 @@
                                    HorizontalAlignment="Left" 
                                    VerticalAlignment="Top"
                                    Width="75" 
-                                   Grid.Row="22" 
+                                   Grid.Row="23" 
                                    Grid.Column="1" />
                             <Button x:Name="btnCrop"
                                     Style="{DynamicResource ButtonCropCustom}"
@@ -1284,7 +1300,7 @@
                                     ToolTipService.InitialShowDelay="1000"
                                     ToolTipService.ShowOnDisabled="True" 
                                     ToolTip="Open Crop Window" 
-                                    Grid.Row="22"
+                                    Grid.Row="23"
                                     Grid.Column="2" 
                                     Margin="0,2,0,0">
                                 <TextBlock Style="{DynamicResource ButtonCropTextBlock}"
@@ -1305,7 +1321,7 @@
                                     ToolTipService.InitialShowDelay="1000"
                                     ToolTipService.ShowOnDisabled="True"
                                     ToolTip="Clear Last Used Crop Settings" 
-                                    Grid.Row="22"
+                                    Grid.Row="23"
                                     Grid.Column="2">
                                 <TextBlock x:Name="tblkCropClear" 
                                            Text="{Binding Video_CropClear_Text, Mode=TwoWay}"

@@ -75,6 +75,7 @@ namespace Axiom
             Video_Pass_SelectedItem = "2 Pass";
             Video_PixelFormat_SelectedItem = "auto";
             Video_FPS_SelectedItem = "auto";
+            Video_Speed_SelectedItem = "auto";
             Video_Optimize_SelectedItem = "None";
             Video_Optimize_Tune_SelectedItem = "none";
             Video_Optimize_Profile_SelectedItem = "none";
@@ -1565,7 +1566,24 @@ namespace Axiom
             }
         }
 
-        // Controls Enable
+        // Controls Is Editable
+        private bool _Video_FPS_IsEditable = false;
+        public bool Video_FPS_IsEditable
+        {
+            get { return _Video_FPS_IsEditable; }
+            set
+            {
+                if (_Video_FPS_IsEditable == value)
+                {
+                    return;
+                }
+
+                _Video_FPS_IsEditable = value;
+                OnPropertyChanged("Video_FPS_IsEditable");
+            }
+        }
+
+         // Controls Enable
         private bool _Video_FPS_IsEnabled = true;
         public bool Video_FPS_IsEnabled
         {
@@ -1579,6 +1597,131 @@ namespace Axiom
 
                 _Video_FPS_IsEnabled = value;
                 OnPropertyChanged("Video_FPS_IsEnabled");
+            }
+        }
+
+
+        // --------------------------------------------------
+        // Speed
+        // --------------------------------------------------
+        // Items Source
+        private List<string> _Video_Speed_Items = new List<string>()
+        {
+            "auto",
+            "10%",
+            "25%",
+            "50%",
+            "75%",
+            //"100%", default
+            "150%",
+            "200%",
+            "250%",
+            "300%",
+            "500%",
+            "Custom"
+        };
+        public List<string> Video_Speed_Items
+        {
+            get { return _Video_Speed_Items; }
+            set
+            {
+                _Video_Speed_Items = value;
+                OnPropertyChanged("Video_Speed_Items");
+            }
+        }
+
+        // Selected Index
+        private int _Video_Speed_SelectedIndex { get; set; }
+        public int Video_Speed_SelectedIndex
+        {
+            get { return _Video_Speed_SelectedIndex; }
+            set
+            {
+                if (_Video_Speed_SelectedIndex == value)
+                {
+                    return;
+                }
+
+                _Video_Speed_SelectedIndex = value;
+                OnPropertyChanged("Video_Speed_SelectedIndex");
+            }
+        }
+
+        // Selected Item
+        private string _Video_Speed_SelectedItem { get; set; }
+        public string Video_Speed_SelectedItem
+        {
+            get { return _Video_Speed_SelectedItem; }
+            set
+            {
+                var previousItem = _Video_Speed_SelectedItem;
+                _Video_Speed_SelectedItem = value;
+                OnPropertyChanged("Video_Speed_SelectedItem");
+
+                if (previousItem != value)
+                {
+                    VideoControls.AutoCopyVideoCodec(this);
+                    SubtitleControls.AutoCopySubtitleCodec(this);
+                }
+
+                //if (_Video_Speed_SelectedItem == value)
+                //{
+                //    return;
+                //}
+
+                //_Video_Speed_SelectedItem = value;
+                //OnPropertyChanged("Video_Speed_SelectedItem");
+            }
+        }
+
+        // Text
+        private string _Video_Speed_Text;
+        public string Video_Speed_Text
+        {
+            get { return _Video_Speed_Text; }
+            set
+            {
+                if (_Video_Speed_Text == value)
+                {
+                    return;
+                }
+
+                _Video_Speed_Text = value;
+                OnPropertyChanged("Video_Speed_Text");
+            }
+        }
+
+        // Controls Is Editable
+        private bool _Video_Speed_IsEditable = false;
+        public bool Video_Speed_IsEditable
+        {
+            get { return _Video_Speed_IsEditable; }
+            set
+            {
+                if (_Video_Speed_IsEditable == value)
+                {
+                    return;
+                }
+
+                _Video_Speed_IsEditable = value;
+                OnPropertyChanged("Video_Speed_IsEditable");
+            }
+        }
+
+        // Controls Enable
+        private bool _Video_Speed_IsEnabled = true;
+        public bool Video_Speed_IsEnabled
+        {
+            get { return _Video_Speed_IsEnabled; }
+            set
+            {
+                if (_Video_Speed_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _Video_Speed_IsEnabled = value;
+                OnPropertyChanged("Video_Speed_IsEnabled");
             }
         }
 

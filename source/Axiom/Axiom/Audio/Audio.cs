@@ -1038,13 +1038,20 @@ namespace Axiom
                 // Convert Volume % to Decimal
                 else
                 {
-                    // If user enters value, turn on Filter
-                    string volumePercent = vm.Audio_Volume_Text;
-                    double volumeDecimal = double.Parse(volumePercent.TrimEnd(new[] { '%' })) / 100;
-                    aVolume = "volume=" + volumeDecimal;
+                    try
+                    {
+                        // If user enters value, turn on Filter
+                        double volumeDecimal = Convert.ToDouble(vm.Audio_Volume_Text.Trim()) * 0.01;
 
-                    // Audio Filter Add
-                    AudioFilters.aFiltersList.Add(aVolume);
+                        aVolume = "volume=" + volumeDecimal;
+
+                        // Audio Filter Add
+                        AudioFilters.aFiltersList.Add(aVolume);
+                    }
+                    catch
+                    {
+
+                    }
                 }
             }
 

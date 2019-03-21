@@ -1189,7 +1189,7 @@ namespace Axiom
         /// <summary>
         ///     Pass 1 Modifier (Method)
         /// <summary>
-        // x265 Pass 1
+            // x265 Pass 1
         public static String Pass1Modifier(string codec_SelectedItem,
                                            string pass_SelectedItem
                                            )
@@ -1473,14 +1473,15 @@ namespace Axiom
                                  string fps_Text
                                  )
         {
-            // Video Bitrate None Check
-            // Video Codec None Check
-            // Video Codec Copy Check
-            // Media Type Check
-            if (quality_SelectedItem != "None" &&
+            // Media Type
+            // Video Codec None
+            // Video Codec Copy
+            // Video Bitrate None
+            if (mediaType_SelectedItem != "Audio" &&
                 codec_SelectedItem != "None" &&
-                mediaType_SelectedItem != "Copy" &&
-                mediaType_SelectedItem != "Audio")
+                codec_SelectedItem != "Copy" &&
+                quality_SelectedItem != "None"
+                )
             {
                 //fps = string.Empty;
 
@@ -1567,6 +1568,53 @@ namespace Axiom
             }
 
             return fps;
+        }
+
+
+
+        /// <summary>
+        ///     Video Speed Calculator (Method)
+        /// <summary>
+        public static void Speed(string mediaType_SelectedItem,
+                                 string codec_SelectedItem,
+                                 string quality_SelectedItem,
+                                 string speed_SelectedItem,
+                                 string speed_Text
+                                 )
+        {
+            // Media Type
+            // Video Codec None
+            // Video Codec Copy
+            // Video Bitrate None
+            // Speed Auto/Null
+            if (mediaType_SelectedItem != "Audio" &&
+                codec_SelectedItem != "None" &&
+                codec_SelectedItem != "Copy" &&
+                quality_SelectedItem != "None" &&
+                speed_SelectedItem != "auto" &&
+                !string.IsNullOrEmpty(speed_SelectedItem)
+                )
+            {
+                // Slow Down 50% -vf "setpts=2.0*PTS"
+                // Speed Up 200% -vf "setpts=0.5*PTS"
+
+                // Convert to setpts:
+                // 50%: (100 / (50 * 0.01)) * 0.01) = 200
+                // 2.0: 200 * 0.01 = 2.0
+                try
+                {
+                    double val = Convert.ToDouble(speed_Text.Replace("%", "").Trim());
+                    val = (100 / (val * 0.01)) * 0.01;
+
+                    string speed = "setpts=" + val.ToString("#.#####") + "*PTS";
+
+                    VideoFilters.vFiltersList.Add(speed);
+                }
+                catch
+                {
+
+                }
+            }
         }
 
 

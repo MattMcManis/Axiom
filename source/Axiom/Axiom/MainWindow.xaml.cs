@@ -849,6 +849,50 @@ namespace Axiom
 
 
         /// <summary>
+        ///     Deny Special Keys
+        /// </summary>
+        public void DenySpecialKeys(KeyEventArgs e)
+        {
+            if (Keyboard.IsKeyDown(Key.LeftShift) && e.Key == Key.D8 // *
+                || Keyboard.IsKeyDown(Key.RightShift) && e.Key == Key.D8 // *
+
+                || Keyboard.IsKeyDown(Key.LeftShift) && e.Key == Key.OemPeriod // >
+                || Keyboard.IsKeyDown(Key.RightShift) && e.Key == Key.OemPeriod // >
+
+                || Keyboard.IsKeyDown(Key.LeftShift) && e.Key == Key.OemComma // <
+                || Keyboard.IsKeyDown(Key.RightShift) && e.Key == Key.OemComma // <
+
+                || e.Key == Key.Tab // tab
+                || e.Key == Key.Oem2 // forward slash
+                || e.Key == Key.OemBackslash // backslash
+                || e.Key == Key.OemQuestion // ?
+                || e.Key == Key.OemQuotes // "
+                || e.Key == Key.OemSemicolon // ;
+                || e.Key == Key.OemPipe // |
+                )
+            {
+                e.Handled = true;
+            }
+        }
+
+        /// <summary>
+        ///     Allow Only Numbers
+        /// </summary>
+        public void AllowOnlyNumbers(KeyEventArgs e)
+        {
+            // Only allow Numbers and Backspace
+            // Deny Symbols (Shift + Number)
+            if (!(e.Key >= Key.D0 && e.Key <= Key.D9) && e.Key != Key.Back ||
+                Keyboard.IsKeyDown(Key.LeftShift) && (e.Key >= Key.D0 && e.Key <= Key.D9) ||
+                Keyboard.IsKeyDown(Key.RightShift) && (e.Key >= Key.D0 && e.Key <= Key.D9)
+                )
+            {
+                e.Handled = true;
+            }
+        }
+
+
+        /// <summary>
         ///     Start Log Console (Method)
         /// </summary>
         public void StartLogConsole()
@@ -1096,11 +1140,8 @@ namespace Axiom
         // --------------------------------------------------
         private void threadSelect_KeyDown(object sender, KeyEventArgs e)
         {
-            // Only allow Numbers or Backspace
-            if (!(e.Key >= Key.D0 && e.Key <= Key.D9) && e.Key != Key.Back)
-            {
-                e.Handled = true;
-            }
+            // Only allow Numbers and Backspace
+            AllowOnlyNumbers(e);
         }
 
         // --------------------------------------------------
@@ -3660,11 +3701,8 @@ namespace Axiom
         /// </summary>
         private void tbxVideo_CRF_KeyDown(object sender, KeyEventArgs e)
         {
-            // Only allow Numbers or Backspace
-            if (!(e.Key >= Key.D0 && e.Key <= Key.D9) && e.Key != Key.Back)
-            {
-                e.Handled = true;
-            }
+            // Only allow Numbers and Backspace
+            AllowOnlyNumbers(e);
         }
 
         /// <summary>
@@ -3763,30 +3801,35 @@ namespace Axiom
             // -------------------------
             // Custom ComboBox Editable
             // -------------------------
-            if (vm.Video_FPS_SelectedItem == "Custom" || 
+            if (vm.Video_FPS_SelectedItem == "Custom" ||
                 string.IsNullOrEmpty(vm.Video_FPS_SelectedItem))
             {
-                cboFPS.IsEditable = true;
+                //cboFPS.IsEditable = true;
+                vm.Video_FPS_IsEditable = true;
+                //vm.Video_FPS_Text = string.Empty;
             }
 
             // -------------------------
             // Other Items Disable Editable
             // -------------------------
-            if (vm.Video_FPS_SelectedItem != "Custom" && 
+            if (vm.Video_FPS_SelectedItem != "Custom" &&
                 !string.IsNullOrEmpty(vm.Video_FPS_SelectedItem))
             {
-                cboFPS.IsEditable = false;
+                //cboFPS.IsEditable = false;
+                vm.Video_FPS_IsEditable = false;
             }
 
             // -------------------------
             // Maintain Editable Combobox while typing
             // -------------------------
-            if (cboFPS.IsEditable == true)
+            if (vm.Video_FPS_IsEditable == true)
             {
-                cboFPS.IsEditable = true;
+                //cboFPS.IsEditable = true;
+                vm.Video_FPS_IsEditable = true;
 
                 // Clear Custom Text
-                cboFPS.SelectedIndex = -1;
+                //cboFPS.SelectedIndex = -1;
+                vm.Video_FPS_SelectedIndex = -1;
             }
 
             // -------------------------
@@ -3794,6 +3837,80 @@ namespace Axiom
             // -------------------------
             //VideoControls.AutoCopyVideoCodec(vm);
             //SubtitleControls.AutoCopySubtitleCodec(vm);
+        }
+
+        // Speed Custom KeyDown
+        private void cboFPS_KeyDown(object sender, KeyEventArgs e)
+        {
+            // Only allow Numbers and Backspace
+            // Deny Symbols (Shift + Number)
+            // Allow Forward Slash
+            if (!(e.Key >= Key.D0 && e.Key <= Key.D9) && e.Key != Key.Back ||
+                Keyboard.IsKeyDown(Key.LeftShift) && (e.Key >= Key.D0 && e.Key <= Key.D9) ||
+                Keyboard.IsKeyDown(Key.RightShift) && (e.Key >= Key.D0 && e.Key <= Key.D9)
+                )
+            {
+                e.Handled = true;
+            }
+
+            //if (e.Key != Key.OemQuestion)
+            //{
+            //    e.Handled = true;
+            //}
+        }
+
+
+        /// <summary>
+        ///     Speed ComboBox
+        /// </summary>
+        private void cboVideo_Speed_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // -------------------------
+            // Custom ComboBox Editable
+            // -------------------------
+            if (vm.Video_Speed_SelectedItem == "Custom" ||
+                string.IsNullOrEmpty(vm.Video_Speed_SelectedItem))
+            {
+                //cboFPS.IsEditable = true;
+                vm.Video_Speed_IsEditable = true;
+                //vm.Video_Speed_Text = string.Empty;
+            }
+
+            // -------------------------
+            // Other Items Disable Editable
+            // -------------------------
+            if (vm.Video_Speed_SelectedItem != "Custom" &&
+                !string.IsNullOrEmpty(vm.Video_Speed_SelectedItem))
+            {
+                //cboFPS.IsEditable = false;
+                vm.Video_Speed_IsEditable = false;
+            }
+
+            // -------------------------
+            // Maintain Editable Combobox while typing
+            // -------------------------
+            if (vm.Video_Speed_IsEditable == true)
+            {
+                //cboFPS.IsEditable = true;
+                vm.Video_Speed_IsEditable = true;
+
+                // Clear Custom Text
+                //cboFPS.SelectedIndex = -1;
+                vm.Video_Speed_SelectedIndex = -1;
+            }
+
+            // -------------------------
+            // Disable Copy on change
+            // -------------------------
+            //VideoControls.AutoCopyVideoCodec(vm);
+            //SubtitleControls.AutoCopySubtitleCodec(vm);
+        }
+
+        // Speed Custom KeyDown
+        private void cboSpeed_KeyDown(object sender, KeyEventArgs e)
+        {
+            // Only allow Numbers and Backspace
+            AllowOnlyNumbers(e);
         }
 
 
@@ -4516,11 +4633,8 @@ namespace Axiom
         /// </summary>
         private void tbxAudio_Bitrate_KeyDown(object sender, KeyEventArgs e)
         {
-            // Only allow Numbers or Backspace
-            if (!(e.Key >= Key.D0 && e.Key <= Key.D9) && e.Key != Key.Back)
-            {
-                e.Handled = true;
-            }
+            // Only allow Numbers and Backspace
+            AllowOnlyNumbers(e);
         }
         // Got Focus
         private void tbxAudio_Bitrate_GotFocus(object sender, RoutedEventArgs e)
@@ -4611,23 +4725,8 @@ namespace Axiom
         /// </summary>
         private void tbxAudio_Volume_KeyDown(object sender, KeyEventArgs e)
         {
-            try //error if other letters or symbols get in
-            {
-                // Only allow Numbers or Backspace
-                if (!(e.Key >= Key.D0 && e.Key <= Key.D9) && e.Key != Key.Back)
-                {
-                    e.Handled = true;
-                }
-                // Allow Percent %
-                if ((e.Key == Key.D5) && e.Key == Key.RightShift | e.Key == Key.LeftShift)
-                {
-                    e.Handled = true;
-                }
-            }
-            catch
-            {
-
-            }
+            // Only allow Numbers and Backspace
+            AllowOnlyNumbers(e);
         }
 
         /// <summary>
@@ -6115,5 +6214,6 @@ namespace Axiom
             }
 
         } //end convert button
+
     }
 }
