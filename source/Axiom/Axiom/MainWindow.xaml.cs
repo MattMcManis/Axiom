@@ -3523,7 +3523,7 @@ namespace Axiom
             }
 
             // -------------------------
-            // Force MediaType ComboBox to fire SelectionChanged Event
+            // Force MediaTypeControls ComboBox to fire SelectionChanged Event
             // to update Format changes such as Audio_Stream_SelectedItem
             // -------------------------
             cboMediaType_SelectionChanged(cboMediaType, null);
@@ -3536,7 +3536,7 @@ namespace Axiom
         /// </summary>
         private void cboMediaType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            FormatControls.MediaType(vm);
+            FormatControls.MediaTypeControls(vm);
         }
 
 
@@ -3547,6 +3547,215 @@ namespace Axiom
         {
             FormatControls.CutControls(vm);
         }
+
+        /// <summary>
+        ///    Cut Start - Textbox
+        /// </summary>
+        // -------------------------
+        // Cut Start - Hours - Textbox Change
+        // -------------------------
+        // Got Focus
+        private void tbxCutStartHours_GotFocus(object sender, RoutedEventArgs e)
+        {
+            // Clear textbox on focus if default text "auto"
+            if (tbxCutStartHours.Focus() == true &&
+                vm.Format_CutStart_Hours_Text == "00")
+            {
+                vm.Format_CutStart_Hours_Text = string.Empty;
+            }
+        }
+        // Lost Focus
+        private void tbxCutStartHours_LostFocus(object sender, RoutedEventArgs e)
+        {
+            vm.Format_CutStart_Hours_Text = tbxCutStartHours.Text;
+
+            // Change textbox back to "00" if left empty
+            if (string.IsNullOrEmpty(vm.Format_CutStart_Hours_Text))
+            {
+                vm.Format_CutStart_Hours_Text = "00";
+            }
+        }
+
+        // -------------------------
+        // Cut Start - Minutes - Textbox Change
+        // -------------------------
+        // Got Focus
+        private void tbxCutStartMinutes_GotFocus(object sender, RoutedEventArgs e)
+        {
+            // Clear textbox on focus if default text "auto"
+            if (tbxCutStartMinutes.Focus() == true &&
+                vm.Format_CutStart_Minutes_Text == "00")
+            {
+                vm.Format_CutStart_Minutes_Text = string.Empty;
+            }
+        }
+        // Lost Focus
+        private void tbxCutStartMinutes_LostFocus(object sender, RoutedEventArgs e)
+        {
+            vm.Format_CutStart_Minutes_Text = tbxCutStartMinutes.Text;
+
+            // Change textbox back to "00" if left empty
+            if (string.IsNullOrEmpty(vm.Format_CutStart_Minutes_Text))
+            {
+                vm.Format_CutStart_Minutes_Text = "00";
+            }
+        }
+
+        // -------------------------
+        // Cut Start - Seconds - Textbox Change
+        // -------------------------
+        // Got Focus
+        private void tbxCutStartSeconds_GotFocus(object sender, RoutedEventArgs e)
+        {
+            // Clear textbox on focus if default text "auto"
+            if (tbxCutStartSeconds.Focus() == true &&
+                vm.Format_CutStart_Seconds_Text == "00")
+            {
+                vm.Format_CutStart_Seconds_Text = string.Empty;
+            }
+        }
+        // Lost Focus
+        private void tbxCutStartSeconds_LostFocus(object sender, RoutedEventArgs e)
+        {
+            vm.Format_CutStart_Seconds_Text = tbxCutStartSeconds.Text;
+
+            // Change textbox back to "00" if left empty
+            if (string.IsNullOrEmpty(vm.Format_CutStart_Seconds_Text))
+            {
+                vm.Format_CutStart_Seconds_Text = "00";
+            }
+        }
+
+        // -------------------------
+        // Cut Start - Milliseconds - Textbox Change
+        // -------------------------
+        // Got Focus
+        private void tbxCutStartMilliseconds_GotFocus(object sender, RoutedEventArgs e)
+        {
+            // Clear textbox on focus if default text "auto"
+            if (tbxCutStartMilliseconds.Focus() == true &&
+                vm.Format_CutStart_Milliseconds_Text == "000")
+            {
+                vm.Format_CutStart_Milliseconds_Text = string.Empty;
+            }
+        }
+        // Lost Focus
+        private void tbxCutStartMilliseconds_LostFocus(object sender, RoutedEventArgs e)
+        {
+            vm.Format_CutStart_Milliseconds_Text = tbxCutStartMilliseconds.Text;
+
+            // Change textbox back to "00" if left empty
+            if (string.IsNullOrEmpty(vm.Format_CutStart_Milliseconds_Text))
+            {
+                vm.Format_CutStart_Milliseconds_Text = "000";
+            }
+        }
+
+
+        /// <summary>
+        ///    Cut End - Textbox
+        /// </summary>
+        // -------------------------
+        // Cut End - Hours - Textbox Change
+        // -------------------------
+        // Got Focus
+        private void tbxCutEndHours_GotFocus(object sender, RoutedEventArgs e)
+        {
+            // Clear textbox on focus if default text "auto"
+            if (tbxCutEndHours.Focus() == true &&
+                vm.Format_CutEnd_Hours_Text == "00")
+            {
+                vm.Format_CutEnd_Hours_Text = string.Empty;
+            }
+        }
+        // Lost Focus
+        private void tbxCutEndHours_LostFocus(object sender, RoutedEventArgs e)
+        {
+            vm.Format_CutEnd_Hours_Text = tbxCutEndHours.Text;
+
+            // Change textbox back to "00" if left empty
+            if (string.IsNullOrEmpty(vm.Format_CutEnd_Hours_Text))
+            {
+                vm.Format_CutEnd_Hours_Text = "00";
+            }
+        }
+
+        // -------------------------
+        // Cut End - Minutes - Textbox Change
+        // -------------------------
+        // Got Focus
+        private void tbxCutEndMinutes_GotFocus(object sender, RoutedEventArgs e)
+        {
+            // Clear textbox on focus if default text "auto"
+            if (tbxCutEndMinutes.Focus() == true &&
+                vm.Format_CutEnd_Minutes_Text == "00")
+            {
+                vm.Format_CutEnd_Minutes_Text = string.Empty;
+            }
+        }
+        // Lost Focus
+        private void tbxCutEndMinutes_LostFocus(object sender, RoutedEventArgs e)
+        {
+            vm.Format_CutEnd_Minutes_Text = tbxCutEndMinutes.Text;
+
+            // Change textbox back to "00" if left empty
+            if (string.IsNullOrEmpty(vm.Format_CutEnd_Minutes_Text))
+            {
+                vm.Format_CutEnd_Minutes_Text = "00";
+            }
+        }
+
+        // -------------------------
+        // Cut End - Seconds - Textbox Change
+        // -------------------------
+        // Got Focus
+        private void tbxCutEndSeconds_GotFocus(object sender, RoutedEventArgs e)
+        {
+            // Clear textbox on focus if default text "auto"
+            if (tbxCutEndSeconds.Focus() == true &&
+                vm.Format_CutEnd_Seconds_Text == "00")
+            {
+                vm.Format_CutEnd_Seconds_Text = string.Empty;
+            }
+        }
+        // Lost Focus
+        private void tbxCutEndSeconds_LostFocus(object sender, RoutedEventArgs e)
+        {
+            vm.Format_CutEnd_Seconds_Text = tbxCutEndSeconds.Text;
+
+            // Change textbox back to "00" if left empty
+            if (string.IsNullOrEmpty(vm.Format_CutEnd_Seconds_Text))
+            {
+                vm.Format_CutEnd_Seconds_Text = "00";
+            }
+        }
+
+        // -------------------------
+        // Cut End - Milliseconds - Textbox Change
+        // -------------------------
+        // Got Focus
+        private void tbxCutEndMilliseconds_GotFocus(object sender, RoutedEventArgs e)
+        {
+            // Clear textbox on focus if default text "auto"
+            if (tbxCutEndMilliseconds.Focus() == true &&
+                vm.Format_CutEnd_Milliseconds_Text == "000")
+            {
+                vm.Format_CutEnd_Milliseconds_Text = string.Empty;
+            }
+        }
+        // Lost Focus
+        private void tbxCutEndMilliseconds_LostFocus(object sender, RoutedEventArgs e)
+        {
+            vm.Format_CutEnd_Milliseconds_Text = tbxCutEndMilliseconds.Text;
+
+            // Change textbox back to "00" if left empty
+            if (string.IsNullOrEmpty(vm.Format_CutEnd_Milliseconds_Text))
+            {
+                vm.Format_CutEnd_Milliseconds_Text = "000";
+            }
+        }
+
+
 
         // -------------------------
         // Frame Start Textbox Change
@@ -3685,6 +3894,21 @@ namespace Axiom
             // Video Encoding Pass
             // -------------------------
             VideoControls.EncodingPassControls(vm);
+
+            // Custom
+            if (vm.Video_Quality_SelectedItem == "Custom")
+            {
+                // Default to CRF
+                if (vm.Video_Pass_Items?.Contains("CRF") == true)
+                {
+                    vm.Video_Pass_SelectedItem = "CRF";
+                }
+                // Select first available (1 Pass, 2 Pass, auto)
+                else
+                {
+                    vm.Video_Pass_SelectedItem = vm.Video_Pass_Items.FirstOrDefault();
+                }
+            }
 
             // -------------------------
             // Pixel Format

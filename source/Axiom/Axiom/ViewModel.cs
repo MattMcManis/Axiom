@@ -804,6 +804,152 @@ namespace Axiom
         }
 
         // --------------------------------------------------
+        // Cut Start - Hours
+        // --------------------------------------------------
+        // Text
+        private string _Format_CutStart_Hours_Text;
+        public string Format_CutStart_Hours_Text
+        {
+            get { return _Format_CutStart_Hours_Text; }
+            set
+            {
+                if (_Format_CutStart_Hours_Text == value)
+                {
+                    return;
+                }
+
+                _Format_CutStart_Hours_Text = value;
+                OnPropertyChanged("Format_CutStart_Hours_Text");
+            }
+        }
+        // Controls Enable
+        private bool _Format_CutStart_Hours_IsEnabled = true;
+        public bool Format_CutStart_Hours_IsEnabled
+        {
+            get { return _Format_CutStart_Hours_IsEnabled; }
+            set
+            {
+                if (_Format_CutStart_Hours_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _Format_CutStart_Hours_IsEnabled = value;
+                OnPropertyChanged("Format_CutStart_Hours_IsEnabled");
+            }
+        }
+
+        // --------------------------------------------------
+        // Cut Start - Minutes
+        // --------------------------------------------------
+        // Text
+        private string _Format_CutStart_Minutes_Text;
+        public string Format_CutStart_Minutes_Text
+        {
+            get { return _Format_CutStart_Minutes_Text; }
+            set
+            {
+                if (_Format_CutStart_Minutes_Text == value)
+                {
+                    return;
+                }
+
+                _Format_CutStart_Minutes_Text = value;
+                OnPropertyChanged("Format_CutStart_Minutes_Text");
+            }
+        }
+        // Controls Enable
+        private bool _Format_CutStart_Minutes_IsEnabled = true;
+        public bool Format_CutStart_Minutes_IsEnabled
+        {
+            get { return _Format_CutStart_Minutes_IsEnabled; }
+            set
+            {
+                if (_Format_CutStart_Minutes_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _Format_CutStart_Minutes_IsEnabled = value;
+                OnPropertyChanged("Format_CutStart_Minutes_IsEnabled");
+            }
+        }
+
+        // --------------------------------------------------
+        // Cut Start - Seconds
+        // --------------------------------------------------
+        // Text
+        private string _Format_CutStart_Seconds_Text;
+        public string Format_CutStart_Seconds_Text
+        {
+            get { return _Format_CutStart_Seconds_Text; }
+            set
+            {
+                if (_Format_CutStart_Seconds_Text == value)
+                {
+                    return;
+                }
+
+                _Format_CutStart_Seconds_Text = value;
+                OnPropertyChanged("Format_CutStart_Seconds_Text");
+            }
+        }
+        // Controls Enable
+        private bool _Format_CutStart_Seconds_IsEnabled = true;
+        public bool Format_CutStart_Seconds_IsEnabled
+        {
+            get { return _Format_CutStart_Seconds_IsEnabled; }
+            set
+            {
+                if (_Format_CutStart_Seconds_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _Format_CutStart_Seconds_IsEnabled = value;
+                OnPropertyChanged("Format_CutStart_Seconds_IsEnabled");
+            }
+        }
+
+        // --------------------------------------------------
+        // Cut Start - Milliseconds
+        // --------------------------------------------------
+        // Text
+        private string _Format_CutStart_Milliseconds_Text = "000";
+        public string Format_CutStart_Milliseconds_Text
+        {
+            get { return _Format_CutStart_Milliseconds_Text; }
+            set
+            {
+                if (_Format_CutStart_Milliseconds_Text == value)
+                {
+                    return;
+                }
+
+                _Format_CutStart_Milliseconds_Text = value;
+                OnPropertyChanged("Format_CutStart_Milliseconds_Text");
+            }
+        }
+        // Controls Enable
+        private bool _Format_CutStart_Milliseconds_IsEnabled = true;
+        public bool Format_CutStart_Milliseconds_IsEnabled
+        {
+            get { return _Format_CutStart_Milliseconds_IsEnabled; }
+            set
+            {
+                if (_Format_CutStart_Milliseconds_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _Format_CutStart_Milliseconds_IsEnabled = value;
+                OnPropertyChanged("Format_CutStart_Milliseconds_IsEnabled");
+            }
+        }
+
+
+
+        // --------------------------------------------------
         // Cut End
         // --------------------------------------------------
         // Text
@@ -838,6 +984,151 @@ namespace Axiom
                 OnPropertyChanged("Format_CutEnd_IsEnabled");
             }
         }
+
+        // --------------------------------------------------
+        // Cut End - Hours
+        // --------------------------------------------------
+        // Text
+        private string _Format_CutEnd_Hours_Text;
+        public string Format_CutEnd_Hours_Text
+        {
+            get { return _Format_CutEnd_Hours_Text; }
+            set
+            {
+                if (_Format_CutEnd_Hours_Text == value)
+                {
+                    return;
+                }
+
+                _Format_CutEnd_Hours_Text = value;
+                OnPropertyChanged("Format_CutEnd_Hours_Text");
+            }
+        }
+        // Controls Enable
+        private bool _Format_CutEnd_Hours_IsEnabled = true;
+        public bool Format_CutEnd_Hours_IsEnabled
+        {
+            get { return _Format_CutEnd_Hours_IsEnabled; }
+            set
+            {
+                if (_Format_CutEnd_Hours_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _Format_CutEnd_Hours_IsEnabled = value;
+                OnPropertyChanged("Format_CutEnd_Hours_IsEnabled");
+            }
+        }
+
+        // --------------------------------------------------
+        // Cut End - Minutes
+        // --------------------------------------------------
+        // Text
+        private string _Format_CutEnd_Minutes_Text;
+        public string Format_CutEnd_Minutes_Text
+        {
+            get { return _Format_CutEnd_Minutes_Text; }
+            set
+            {
+                if (_Format_CutEnd_Minutes_Text == value)
+                {
+                    return;
+                }
+
+                _Format_CutEnd_Minutes_Text = value;
+                OnPropertyChanged("Format_CutEnd_Minutes_Text");
+            }
+        }
+        // Controls Enable
+        private bool _Format_CutEnd_Minutes_IsEnabled = true;
+        public bool Format_CutEnd_Minutes_IsEnabled
+        {
+            get { return _Format_CutEnd_Minutes_IsEnabled; }
+            set
+            {
+                if (_Format_CutEnd_Minutes_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _Format_CutEnd_Minutes_IsEnabled = value;
+                OnPropertyChanged("Format_CutEnd_Minutes_IsEnabled");
+            }
+        }
+
+        // --------------------------------------------------
+        // Cut End - Seconds
+        // --------------------------------------------------
+        // Text
+        private string _Format_CutEnd_Seconds_Text;
+        public string Format_CutEnd_Seconds_Text
+        {
+            get { return _Format_CutEnd_Seconds_Text; }
+            set
+            {
+                if (_Format_CutEnd_Seconds_Text == value)
+                {
+                    return;
+                }
+
+                _Format_CutEnd_Seconds_Text = value;
+                OnPropertyChanged("Format_CutEnd_Seconds_Text");
+            }
+        }
+        // Controls Enable
+        private bool _Format_CutEnd_Seconds_IsEnabled = true;
+        public bool Format_CutEnd_Seconds_IsEnabled
+        {
+            get { return _Format_CutEnd_Seconds_IsEnabled; }
+            set
+            {
+                if (_Format_CutEnd_Seconds_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _Format_CutEnd_Seconds_IsEnabled = value;
+                OnPropertyChanged("Format_CutEnd_Seconds_IsEnabled");
+            }
+        }
+
+        // --------------------------------------------------
+        // Cut End - Milliseconds
+        // --------------------------------------------------
+        // Text
+        private string _Format_CutEnd_Milliseconds_Text;
+        public string Format_CutEnd_Milliseconds_Text
+        {
+            get { return _Format_CutEnd_Milliseconds_Text; }
+            set
+            {
+                if (_Format_CutEnd_Milliseconds_Text == value)
+                {
+                    return;
+                }
+
+                _Format_CutEnd_Milliseconds_Text = value;
+                OnPropertyChanged("Format_CutEnd_Milliseconds_Text");
+            }
+        }
+        // Controls Enable
+        private bool _Format_CutEnd_Milliseconds_IsEnabled = true;
+        public bool Format_CutEnd_Milliseconds_IsEnabled
+        {
+            get { return _Format_CutEnd_Milliseconds_IsEnabled; }
+            set
+            {
+                if (_Format_CutEnd_Milliseconds_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _Format_CutEnd_Milliseconds_IsEnabled = value;
+                OnPropertyChanged("Format_CutEnd_Milliseconds_IsEnabled");
+            }
+        }
+
 
 
         // --------------------------------------------------

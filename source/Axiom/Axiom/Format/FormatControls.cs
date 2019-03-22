@@ -418,12 +418,12 @@ namespace Axiom
 
 
         /// <summary>
-        ///     MediaType Controls
+        ///     MediaType Controls Controls
         /// </summary>
-        public static void MediaType(ViewModel vm)
+        public static void MediaTypeControls(ViewModel vm)
         {
             // -------------------------
-            // Video MediaType
+            // Video MediaTypeControls
             // -------------------------
             // Enable Frame Textbox for Image Screenshot
             if (vm.Format_MediaType_SelectedItem == "Video")
@@ -483,7 +483,7 @@ namespace Axiom
             }
 
             // -------------------------
-            // Audio MediaType
+            // Audio MediaTypeControls
             // -------------------------
             else if (vm.Format_MediaType_SelectedItem == "Audio")
             {
@@ -558,7 +558,7 @@ namespace Axiom
             }
 
             // -------------------------
-            // Image MediaType
+            // Image MediaTypeControls
             // -------------------------
             else if (vm.Format_MediaType_SelectedItem == "Image")
             {
@@ -579,8 +579,22 @@ namespace Axiom
                 // Enable Cut Start Time for Frame Selection
                 vm.Format_Cut_SelectedItem = "Yes";
                 vm.Format_CutStart_IsEnabled = true;
-                vm.Format_CutEnd_Text = string.Empty;
+                vm.Format_CutStart_Hours_IsEnabled = true;
+                vm.Format_CutStart_Minutes_IsEnabled = true;
+                vm.Format_CutStart_Seconds_IsEnabled = true;
+                vm.Format_CutStart_Milliseconds_IsEnabled = true;
+
                 vm.Format_CutEnd_IsEnabled = false;
+                vm.Format_CutEnd_Hours_IsEnabled = false;
+                vm.Format_CutEnd_Minutes_IsEnabled = false;
+                vm.Format_CutEnd_Seconds_IsEnabled = false;
+                vm.Format_CutEnd_Milliseconds_IsEnabled = false;
+
+                vm.Format_CutEnd_Text = string.Empty;
+                vm.Format_CutEnd_Hours_Text = string.Empty;
+                vm.Format_CutEnd_Minutes_Text = string.Empty;
+                vm.Format_CutEnd_Seconds_Text = string.Empty;
+                vm.Format_CutEnd_Milliseconds_Text = string.Empty;
 
                 // Frame
                 vm.Format_FrameEnd_IsEnabled = false;
@@ -638,7 +652,7 @@ namespace Axiom
             }
 
             // -------------------------
-            // Sequence MediaType
+            // Sequence MediaTypeControls
             // -------------------------
             else if (vm.Format_MediaType_SelectedItem == "Sequence")
             {
@@ -657,7 +671,15 @@ namespace Axiom
 
                 // Cut
                 // Enable Cut for Time Selection
-                vm.Format_Cut_SelectedItem = "No";
+                //vm.Format_Cut_SelectedItem = "No";
+
+                // Cut
+                // Cut Change - If coming back from JPEG or PNG
+                if (vm.Format_CutStart_IsEnabled == true &&
+                    vm.Format_CutEnd_IsEnabled == false)
+                {
+                    vm.Format_Cut_SelectedItem = "No";
+                }
 
                 // Crop
                 vm.Video_Crop_IsEnabled = true;
@@ -709,6 +731,25 @@ namespace Axiom
                 // Codec
                 vm.Subtitle_Codec_IsEnabled = false;
             }
+
+
+            // -------------------------
+            // Reset to 0 if Disabled
+            // -------------------------
+            if (vm.Format_CutStart_IsEnabled == false &&
+                vm.Format_CutEnd_IsEnabled == false)
+            {
+                // Start
+                vm.Format_CutStart_Hours_Text = "00";
+                vm.Format_CutStart_Minutes_Text = "00";
+                vm.Format_CutStart_Seconds_Text = "00";
+                vm.Format_CutStart_Milliseconds_Text = "000";
+                // End
+                vm.Format_CutEnd_Hours_Text = "00";
+                vm.Format_CutEnd_Minutes_Text = "00";
+                vm.Format_CutEnd_Seconds_Text = "00";
+                vm.Format_CutEnd_Milliseconds_Text = "000";
+            }
         }
 
 
@@ -724,22 +765,52 @@ namespace Axiom
             // -------------------------
             if (vm.Format_Cut_SelectedItem == "No")
             {
-                // Time
+                // Cut
                 vm.Format_CutStart_IsEnabled = false;
+                vm.Format_CutStart_Hours_IsEnabled = false;
+                vm.Format_CutStart_Minutes_IsEnabled = false;
+                vm.Format_CutStart_Seconds_IsEnabled = false;
+                vm.Format_CutStart_Milliseconds_IsEnabled = false;
+
                 vm.Format_CutEnd_IsEnabled = false;
+                vm.Format_CutEnd_Hours_IsEnabled = false;
+                vm.Format_CutEnd_Minutes_IsEnabled = false;
+                vm.Format_CutEnd_Seconds_IsEnabled = false;
+                vm.Format_CutEnd_Milliseconds_IsEnabled = false;
 
                 // Video / Sequence
                 if (vm.Format_MediaType_SelectedItem == "Video" ||
                     vm.Format_MediaType_SelectedItem == "Sequence")
                 {
-                    vm.Format_CutStart_Text = "00:00:00.000";
-                    vm.Format_CutEnd_Text = "00:00:00.000";
+                    //vm.Format_CutStart_Text = "00:00:00.000";
+                    //vm.Format_CutEnd_Text = "00:00:00.000";
+                    // Start
+                    vm.Format_CutStart_Hours_Text = "00";
+                    vm.Format_CutStart_Minutes_Text = "00";
+                    vm.Format_CutStart_Seconds_Text = "00";
+                    vm.Format_CutStart_Milliseconds_Text = "000";
+                    // End
+                    vm.Format_CutEnd_Hours_Text = "00";
+                    vm.Format_CutEnd_Minutes_Text = "00";
+                    vm.Format_CutEnd_Seconds_Text = "00";
+                    vm.Format_CutEnd_Milliseconds_Text = "000";
                 }
                 // Image
                 else if (vm.Format_MediaType_SelectedItem == "Image")
                 {
-                    vm.Format_CutStart_Text = "00:00:00.000";
-                    vm.Format_CutEnd_Text = string.Empty;
+                    //vm.Format_CutStart_Text = "00:00:00.000";
+                    //vm.Format_CutEnd_Text = string.Empty;
+
+                    // Start
+                    vm.Format_CutStart_Hours_Text = "00";
+                    vm.Format_CutStart_Minutes_Text = "00";
+                    vm.Format_CutStart_Seconds_Text = "00";
+                    vm.Format_CutStart_Milliseconds_Text = "000";
+                    // End
+                    vm.Format_CutEnd_Hours_Text = string.Empty;
+                    vm.Format_CutEnd_Minutes_Text = string.Empty;
+                    vm.Format_CutEnd_Seconds_Text = string.Empty;
+                    vm.Format_CutEnd_Milliseconds_Text = string.Empty;
                 }
 
                 // Frames
@@ -763,7 +834,16 @@ namespace Axiom
                 {
                     // Time
                     vm.Format_CutStart_IsEnabled = true;
+                    vm.Format_CutStart_Hours_IsEnabled = true;
+                    vm.Format_CutStart_Minutes_IsEnabled = true;
+                    vm.Format_CutStart_Seconds_IsEnabled = true;
+                    vm.Format_CutStart_Milliseconds_IsEnabled = true;
+
                     vm.Format_CutEnd_IsEnabled = true;
+                    vm.Format_CutEnd_Hours_IsEnabled = true;
+                    vm.Format_CutEnd_Minutes_IsEnabled = true;
+                    vm.Format_CutEnd_Seconds_IsEnabled = true;
+                    vm.Format_CutEnd_Milliseconds_IsEnabled = true;
 
                     // Frames
                     vm.Format_FrameStart_IsEnabled = true;
@@ -775,7 +855,16 @@ namespace Axiom
                 {
                     // Time
                     vm.Format_CutStart_IsEnabled = true;
+                    vm.Format_CutStart_Hours_IsEnabled = true;
+                    vm.Format_CutStart_Minutes_IsEnabled = true;
+                    vm.Format_CutStart_Seconds_IsEnabled = true;
+                    vm.Format_CutStart_Milliseconds_IsEnabled = true;
+
                     vm.Format_CutEnd_IsEnabled = true;
+                    vm.Format_CutEnd_Hours_IsEnabled = true;
+                    vm.Format_CutEnd_Minutes_IsEnabled = true;
+                    vm.Format_CutEnd_Seconds_IsEnabled = true;
+                    vm.Format_CutEnd_Milliseconds_IsEnabled = true;
 
                     // Frames
                     vm.Format_FrameStart_IsEnabled = false;
@@ -791,8 +880,22 @@ namespace Axiom
                 {
                     // Time
                     vm.Format_CutStart_IsEnabled = true;
+                    vm.Format_CutStart_Hours_IsEnabled = true;
+                    vm.Format_CutStart_Minutes_IsEnabled = true;
+                    vm.Format_CutStart_Seconds_IsEnabled = true;
+                    vm.Format_CutStart_Milliseconds_IsEnabled = true;
+
                     vm.Format_CutEnd_IsEnabled = false;
+                    vm.Format_CutEnd_Hours_IsEnabled = false;
+                    vm.Format_CutEnd_Minutes_IsEnabled = false;
+                    vm.Format_CutEnd_Seconds_IsEnabled = false;
+                    vm.Format_CutEnd_Milliseconds_IsEnabled = false;
+
                     vm.Format_CutEnd_Text = string.Empty;
+                    vm.Format_CutEnd_Hours_Text = string.Empty;
+                    vm.Format_CutEnd_Minutes_Text = string.Empty;
+                    vm.Format_CutEnd_Seconds_Text = string.Empty;
+                    vm.Format_CutEnd_Milliseconds_Text = string.Empty;
 
                     // Frames
                     vm.Format_FrameStart_IsEnabled = true;
@@ -805,7 +908,16 @@ namespace Axiom
                 {
                     // Time
                     vm.Format_CutStart_IsEnabled = true;
+                    vm.Format_CutStart_Hours_IsEnabled = true;
+                    vm.Format_CutStart_Minutes_IsEnabled = true;
+                    vm.Format_CutStart_Seconds_IsEnabled = true;
+                    vm.Format_CutStart_Milliseconds_IsEnabled = true;
+
                     vm.Format_CutEnd_IsEnabled = true;
+                    vm.Format_CutEnd_Hours_IsEnabled = true;
+                    vm.Format_CutEnd_Minutes_IsEnabled = true;
+                    vm.Format_CutEnd_Seconds_IsEnabled = true;
+                    vm.Format_CutEnd_Milliseconds_IsEnabled = true;
 
                     // Frames
                     vm.Format_FrameStart_IsEnabled = true;

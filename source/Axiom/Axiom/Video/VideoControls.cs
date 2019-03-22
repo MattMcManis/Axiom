@@ -660,6 +660,7 @@ namespace Axiom
                 {
                     vm.Video_CRF_IsEnabled = true;
                 }
+
                 vm.Video_CRF_Text = "";
 
                 // Bitrate
@@ -810,7 +811,7 @@ namespace Axiom
                                                string quality)
         {
             // -------------------------
-            // MediaType
+            // MediaTypeControls
             // ------------------------- 
             if (mediaType == "Video" ||
                 mediaType == "Image" ||
@@ -1149,6 +1150,26 @@ namespace Axiom
             else if (vm.Video_Codec_SelectedItem == "None")
             {
                 VideoNone.EncodingPass(vm);
+            }
+
+
+            // -------------------------
+            // CRF TextBox
+            // -------------------------
+            if (vm.Video_Quality_SelectedItem == "Custom")
+            {
+                // Disable
+                if (vm.Video_Pass_SelectedItem == "CRF")
+                {
+                    vm.Video_CRF_IsEnabled = true;
+                }
+                // Enable
+                else if (vm.Video_Pass_SelectedItem == "1 Pass" ||
+                         vm.Video_Pass_SelectedItem == "2 Pass" ||
+                         vm.Video_Pass_SelectedItem == "auto")
+                {
+                    vm.Video_CRF_IsEnabled = false;
+                }
             }
 
         }

@@ -1480,7 +1480,8 @@ namespace Axiom
             if (mediaType_SelectedItem != "Audio" &&
                 codec_SelectedItem != "None" &&
                 codec_SelectedItem != "Copy" &&
-                quality_SelectedItem != "None"
+                quality_SelectedItem != "None" &&
+                !string.IsNullOrEmpty(fps_Text)
                 )
             {
                 //fps = string.Empty;
@@ -1592,7 +1593,7 @@ namespace Axiom
                 codec_SelectedItem != "Copy" &&
                 quality_SelectedItem != "None" &&
                 speed_SelectedItem != "auto" &&
-                !string.IsNullOrEmpty(speed_SelectedItem)
+                !string.IsNullOrEmpty(speed_Text)
                 )
             {
                 // Slow Down 50% -vf "setpts=2.0*PTS"
@@ -2196,7 +2197,7 @@ namespace Axiom
                 CropWindow.crop = string.Empty;
             }
 
-            // Clear Crop if MediaType is Audio
+            // Clear Crop if MediaTypeControls is Audio
             if (vm.Format_MediaType_SelectedItem == "Audio")
             {
                 CropWindow.crop = string.Empty;

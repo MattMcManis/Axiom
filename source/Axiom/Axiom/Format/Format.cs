@@ -321,8 +321,14 @@ namespace Axiom
                                  string codec_SelectedItem,
                                  string quality_SelectedItem,
                                  string cut_SelectedItem,
-                                 string cutStart_Text,
-                                 string cutEnd_Text,
+                                 string cutStart_Text_Hours,
+                                 string cutStart_Text_Minutes,
+                                 string cutStart_Text_Seconds,
+                                 string cutStart_Text_Milliseconds,
+                                 string cutEnd_Text_Hours,
+                                 string cutEnd_Text_Minutes,
+                                 string cutEnd_Text_Seconds,
+                                 string cutEnd_Text_Milliseconds,
                                  bool frameEnd_IsEnabled,
                                  string frameStart_Text,
                                  string frameEnd_Text
@@ -345,19 +351,48 @@ namespace Axiom
                     if (string.IsNullOrEmpty(frameStart_Text) ||
                         string.IsNullOrEmpty(frameEnd_Text))
                     {
-                        trimStart = cutStart_Text;
-                        trimEnd = cutEnd_Text;
+                        //// Start
+                        //int? timeStart = Convert.ToInt32(cutStart_Text_Hours + 
+                        //                                 cutStart_Text_Minutes + 
+                        //                                 cutStart_Text_Seconds + 
+                        //                                 cutStart_Text_Milliseconds);
+                        //trimStart = timeStart.Value.ToString("##:##:##.###");
+
+                        //// End
+                        //int? timeEnd = Convert.ToInt32(cutEnd_Text_Hours + 
+                        //                               cutEnd_Text_Minutes + 
+                        //                               cutEnd_Text_Seconds + 
+                        //                               cutEnd_Text_Milliseconds);
+                        //trimEnd = timeEnd.Value.ToString("##:##:##.###");
+
+                        // Start
+                        trimStart = cutStart_Text_Hours.PadLeft(2, '0') + ":" + 
+                                    cutStart_Text_Minutes.PadLeft(2, '0') + ":" + 
+                                    cutStart_Text_Seconds.PadLeft(2, '0') + "." + 
+                                    cutStart_Text_Milliseconds.PadLeft(3, '0');
+
+                        // End
+                        trimEnd = cutEnd_Text_Hours.PadLeft(2, '0') + ":" + 
+                                  cutEnd_Text_Minutes.PadLeft(2, '0') + ":" + 
+                                  cutEnd_Text_Seconds.PadLeft(2, '0') + "." + 
+                                  cutEnd_Text_Milliseconds.PadLeft(3, '0');
 
                         // If End Time is Empty, Default to Full Duration
                         // Input Null Check
                         if (!string.IsNullOrEmpty(input_Text))
                         {
-                            if (cutEnd_Text == "00:00:00.000" ||
-                                string.IsNullOrEmpty(cutEnd_Text))
+                            if (trimEnd == "00:00:00.000" ||
+                                trimEnd == "::." ||
+                                string.IsNullOrEmpty(trimEnd))
                             {
-                                trimEnd = FFprobe.CutDuration(input_Text,
+                                // Ignore if Both Start and End are 0
+                                if (trimStart == "00:00:00.000" &&
+                                    trimEnd == "00:00:00.000")
+                                {
+                                    trimEnd = FFprobe.CutDuration(input_Text,
                                                               batch_IsChecked
                                                               );
+                                }
                             }
                         }
                     }
@@ -387,19 +422,33 @@ namespace Axiom
                 //
                 else if (mediaType_SelectedItem == "Audio")
                 {
-                    trimStart = cutStart_Text;
-                    trimEnd = cutEnd_Text;
+                    // Start
+                    trimStart = cutStart_Text_Hours.PadLeft(2, '0') + ":" +
+                                cutStart_Text_Minutes.PadLeft(2, '0') + ":" +
+                                cutStart_Text_Seconds.PadLeft(2, '0') + "." +
+                                cutStart_Text_Milliseconds.PadLeft(3, '0');
 
-                    // If End Time is Empty, Default to Full Duration
-                    // Input Null Check
-                    if (!string.IsNullOrEmpty(input_Text))
+                    // End
+                    trimEnd = cutEnd_Text_Hours.PadLeft(2, '0') + ":" +
+                              cutEnd_Text_Minutes.PadLeft(2, '0') + ":" +
+                              cutEnd_Text_Seconds.PadLeft(2, '0') + "." +
+                              cutEnd_Text_Milliseconds.PadLeft(3, '0');
+
+                    // If End Time is Empty, Default to Full Time Duration
+                    if (!string.IsNullOrEmpty(input_Text)) // Input Null Check
                     {
-                        if (cutEnd_Text == "00:00:00.000" || 
-                            string.IsNullOrEmpty(cutEnd_Text))
+                        if (trimEnd == "00:00:00.000" ||
+                            trimEnd == "::." ||
+                            string.IsNullOrEmpty(trimEnd))
                         {
-                            trimEnd = FFprobe.CutDuration(input_Text, 
-                                                          batch_IsChecked
-                                                          );
+                            // Ignore if Both Start and End are 0
+                            if (trimStart == "00:00:00.000" &&
+                                trimEnd == "00:00:00.000")
+                            {
+                                trimEnd = FFprobe.CutDuration(input_Text,
+                                                              batch_IsChecked
+                                                              );
+                            }
                         }
                     }
 
@@ -413,17 +462,19 @@ namespace Axiom
                 {
                     // Use Time
                     // If Frame Textbox Default Use Time
-                    if (//frameStart_Text == "Frame" || 
-                        string.IsNullOrEmpty(frameStart_Text))
+                    if (string.IsNullOrEmpty(frameStart_Text))
                     {
-                        trimStart = cutStart_Text;
+                        //trimStart = cutStart_Text;
+                        // Start
+                        trimStart = cutStart_Text_Hours.PadLeft(2, '0') + ":" + 
+                                    cutStart_Text_Minutes.PadLeft(2, '0') + ":" + 
+                                    cutStart_Text_Seconds.PadLeft(2, '0') + "." + 
+                                    cutStart_Text_Milliseconds.PadLeft(3, '0');
                     }
 
                     // Use Frames
                     // If Frame Textboxes have Text, but not Default, use FramesToDecimal Method (Override Time)
-                    else if (//frameStart_Text != "Frame" &&
-                             //frameEnd_Text != "Range" &&
-                             !string.IsNullOrEmpty(frameStart_Text) &&
+                    else if (!string.IsNullOrEmpty(frameStart_Text) &&
                              string.IsNullOrEmpty(frameEnd_Text))
                     {
                         Video.FramesToDecimal(mediaType_SelectedItem,
@@ -444,20 +495,25 @@ namespace Axiom
                 {
                     // Use Time
                     // If Frame Textboxes Default Use Time
-                    if (//frameStart_Text == "Frame" ||
-                        //frameEnd_Text == "Range" ||
-                        string.IsNullOrEmpty(frameStart_Text) ||
+                    if (string.IsNullOrEmpty(frameStart_Text) ||
                         string.IsNullOrEmpty(frameEnd_Text))
                     {
-                        trimStart = cutStart_Text;
-                        trimEnd = cutEnd_Text;
+                        // Start
+                        trimStart = cutStart_Text_Hours.PadLeft(2, '0') + ":" +
+                                    cutStart_Text_Minutes.PadLeft(2, '0') + ":" +
+                                    cutStart_Text_Seconds.PadLeft(2, '0') + "." +
+                                    cutStart_Text_Milliseconds.PadLeft(3, '0');
+
+                        // End
+                        trimEnd = cutEnd_Text_Hours.PadLeft(2, '0') + ":" +
+                                  cutEnd_Text_Minutes.PadLeft(2, '0') + ":" +
+                                  cutEnd_Text_Seconds.PadLeft(2, '0') + "." +
+                                  cutEnd_Text_Milliseconds.PadLeft(3, '0');
                     }
 
                     // Use Frames
                     // If Frame Textboxes have Text, but not Default, use FramesToDecimal Method (Override Time)
-                    else if (//frameStart_Text != "Frame" &&
-                             //frameEnd_Text != "Range" &&
-                             !string.IsNullOrEmpty(frameStart_Text) &&
+                    else if (!string.IsNullOrEmpty(frameStart_Text) &&
                              !string.IsNullOrEmpty(frameEnd_Text))
                     {
                         Video.FramesToDecimal(mediaType_SelectedItem,
