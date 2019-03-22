@@ -429,6 +429,17 @@ namespace Axiom
             if (vm.Format_MediaType_SelectedItem == "Video")
             {
                 // -------------------------
+                // Format
+                // -------------------------
+                // Cut
+                // Cut Change - If coming back from JPEG or PNG
+                if (vm.Format_CutStart_IsEnabled == true &&
+                    vm.Format_CutEnd_IsEnabled == false)
+                {
+                    vm.Format_Cut_SelectedItem = "No";
+                }
+
+                // -------------------------
                 // Video
                 // -------------------------
                 // Codec
@@ -439,15 +450,13 @@ namespace Axiom
 
                 // Scaling
                 vm.Video_ScalingAlgorithm_IsEnabled = true;
-                vm.Video_ScalingAlgorithm_SelectedItem = "default";
+                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
 
-                // Cut
-                // Cut Change - If coming back from JPEG or PNG
-                if (vm.Format_CutStart_IsEnabled == true && 
-                    vm.Format_CutEnd_IsEnabled == false)
-                {
-                    vm.Format_Cut_SelectedItem = "No";
-                }
+                // Speed
+                vm.Video_Speed_IsEnabled = true;
+
+                // Aspect Ratio
+                vm.Video_AspectRatio_IsEnabled = true;
 
                 // Crop
                 vm.Video_Crop_IsEnabled = true;
@@ -488,6 +497,21 @@ namespace Axiom
             else if (vm.Format_MediaType_SelectedItem == "Audio")
             {
                 // -------------------------
+                // Format
+                // -------------------------
+                // Cut
+                // Cut Change - If coming back from JPEG or PNG
+                if (vm.Format_CutStart_IsEnabled == true &&
+                    vm.Format_CutEnd_IsEnabled == false)
+                {
+                    vm.Format_Cut_SelectedItem = "No";
+                }
+
+                // Frame
+                vm.Format_FrameEnd_IsEnabled = false;
+                vm.Format_FrameEnd_Text = "";
+
+                // -------------------------
                 // Video
                 // -------------------------
                 // Codec
@@ -498,20 +522,14 @@ namespace Axiom
                 vm.Video_Scale_IsEnabled = false;
 
                 // Scaling
-                vm.Video_ScalingAlgorithm_SelectedItem = "default";
+                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
                 vm.Video_ScalingAlgorithm_IsEnabled = false;
 
-                // Cut
-                // Cut Change - If coming back from JPEG or PNG
-                if (vm.Format_CutStart_IsEnabled == true && 
-                    vm.Format_CutEnd_IsEnabled == false)
-                {
-                    vm.Format_Cut_SelectedItem = "No";
-                }
+                // Speed
+                vm.Video_Speed_IsEnabled = false;
 
-                // Frame
-                vm.Format_FrameEnd_IsEnabled = false;
-                vm.Format_FrameEnd_Text = "";
+                // Aspect Ratio
+                vm.Video_AspectRatio_IsEnabled = false;
 
                 // Crop
                 vm.Video_Crop_IsEnabled = false;
@@ -563,18 +581,8 @@ namespace Axiom
             else if (vm.Format_MediaType_SelectedItem == "Image")
             {
                 // -------------------------
-                // Video
+                // Format
                 // -------------------------
-                // Codec
-                vm.Video_Codec_IsEnabled = true;
-
-                //Size
-                vm.Video_Scale_IsEnabled = true;
-
-                // Scaling
-                vm.Video_ScalingAlgorithm_SelectedItem = "default";
-                vm.Video_ScalingAlgorithm_IsEnabled = true;
-
                 // Cut
                 // Enable Cut Start Time for Frame Selection
                 vm.Format_Cut_SelectedItem = "Yes";
@@ -599,6 +607,25 @@ namespace Axiom
                 // Frame
                 vm.Format_FrameEnd_IsEnabled = false;
                 vm.Format_FrameEnd_Text = "";
+
+                // -------------------------
+                // Video
+                // -------------------------
+                // Codec
+                vm.Video_Codec_IsEnabled = true;
+
+                //Size
+                vm.Video_Scale_IsEnabled = true;
+
+                // Scaling
+                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
+                vm.Video_ScalingAlgorithm_IsEnabled = true;
+
+                // Speed
+                vm.Video_Speed_IsEnabled = false;
+
+                // Aspect Ratio
+                vm.Video_AspectRatio_IsEnabled = true;
 
                 // Crop
                 vm.Video_Crop_IsEnabled = true;
@@ -657,18 +684,8 @@ namespace Axiom
             else if (vm.Format_MediaType_SelectedItem == "Sequence")
             {
                 // -------------------------
-                // Video
+                // Format
                 // -------------------------
-                // Codec 
-                vm.Video_Codec_IsEnabled = true;
-
-                //Size
-                vm.Video_Scale_IsEnabled = true;
-
-                // Scaling
-                vm.Video_ScalingAlgorithm_SelectedItem = "default";
-                vm.Video_ScalingAlgorithm_IsEnabled = true;
-
                 // Cut
                 // Enable Cut for Time Selection
                 //vm.Format_Cut_SelectedItem = "No";
@@ -680,6 +697,25 @@ namespace Axiom
                 {
                     vm.Format_Cut_SelectedItem = "No";
                 }
+
+                // -------------------------
+                // Video
+                // -------------------------
+                // Codec 
+                vm.Video_Codec_IsEnabled = true;
+
+                //Size
+                vm.Video_Scale_IsEnabled = true;
+
+                // Scaling
+                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
+                vm.Video_ScalingAlgorithm_IsEnabled = true;
+
+                // Speed
+                vm.Video_Speed_IsEnabled = true;
+
+                // Aspect Ratio
+                vm.Video_AspectRatio_IsEnabled = true;
 
                 // Crop
                 vm.Video_Crop_IsEnabled = true;

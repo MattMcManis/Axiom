@@ -3394,7 +3394,7 @@ namespace Axiom
                 vm.Video_FPS_SelectedItem = "auto";
                 vm.Video_Optimize_SelectedItem = "None";
                 vm.Video_Scale_SelectedItem = "Source";
-                vm.Video_ScalingAlgorithm_SelectedItem = "default";
+                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
 
                 // Filters
                 // Fix
@@ -4213,7 +4213,7 @@ namespace Axiom
                 vm.Video_Width_Text = "auto";
                 vm.Video_Height_Text = "auto";
 
-                vm.Video_ScalingAlgorithm_SelectedItem = "default";
+                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
             }
             // -------------------------
             // 8K

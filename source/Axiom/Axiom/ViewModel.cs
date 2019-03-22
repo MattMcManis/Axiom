@@ -82,7 +82,7 @@ namespace Axiom
             Video_Optimize_Level_SelectedItem = "none";
             Video_Scale_SelectedItem = "Source";
             Video_AspectRatio_SelectedItem = "auto";
-            Video_ScalingAlgorithm_SelectedItem = "default";
+            Video_ScalingAlgorithm_SelectedItem = "auto";
 
             // Subtitle
             Subtitle_Codec_SelectedItem = "None";
@@ -2564,7 +2564,7 @@ namespace Axiom
         // Items Source
         private List<string> _Video_ScalingAlgorithm_Items = new List<string>()
         {
-            "default",
+            "auto",
             "neighbor",
             "area",
             "fast_bilinear",

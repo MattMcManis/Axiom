@@ -2161,7 +2161,7 @@ namespace Axiom
         {
             // None & Default
             //
-            if (scalingAlgorithm_SelectedItem == "default")
+            if (scalingAlgorithm_SelectedItem == "auto")
             {
                 vScalingAlgorithm = string.Empty;
             }

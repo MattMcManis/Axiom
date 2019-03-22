@@ -1189,7 +1189,7 @@ namespace Axiom
                 vm.Video_PixelFormat_SelectedItem == "auto" &&
                 string.IsNullOrEmpty(CropWindow.crop) &&
                 vm.Video_Scale_SelectedItem == "Source" &&
-                vm.Video_ScalingAlgorithm_SelectedItem == "default" &&
+                vm.Video_ScalingAlgorithm_SelectedItem == "auto" &&
                 vm.Video_FPS_SelectedItem == "auto" &&
                 vm.Video_Optimize_SelectedItem == "None" &&
 
