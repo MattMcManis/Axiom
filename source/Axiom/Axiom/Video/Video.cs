@@ -281,9 +281,9 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Speed
+        ///    Encode Speed
         /// <summary>
-        public static String Speed(List<ViewModel.VideoEncodeSpeed> encodeSpeedItems,
+        public static String EncodeSpeed(List<ViewModel.VideoEncodeSpeed> encodeSpeedItems,
                                    string encodeSpeed_SelectedItem,
                                    string mediaType_SelectedItem,
                                    string codec_SelectedItem,
@@ -330,7 +330,7 @@ namespace Axiom
                 Log.WriteAction = () =>
                 {
                     Log.logParagraph.Inlines.Add(new LineBreak());
-                    Log.logParagraph.Inlines.Add(new Bold(new Run("Encoding Speed: ")) { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new Bold(new Run("Encoding EncodeSpeed: ")) { Foreground = Log.ConsoleDefault });
                     Log.logParagraph.Inlines.Add(new Run(encodeSpeed_SelectedItem) { Foreground = Log.ConsoleDefault });
                 };
                 Log.LogActions.Add(Log.WriteAction);
@@ -1574,7 +1574,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Video Speed Calculator (Method)
+        ///     Video Speed (Method)
         /// <summary>
         public static void Speed(string mediaType_SelectedItem,
                                  string codec_SelectedItem,

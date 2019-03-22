@@ -135,7 +135,7 @@ namespace Axiom
                                      //vm.Video_Codec_Parameters
                                      ),
                     "\r\n" +
-                    Video.Speed(vm.Video_EncodeSpeed_Items,
+                    Video.EncodeSpeed(vm.Video_EncodeSpeed_Items,
                                 vm.Video_EncodeSpeed_SelectedItem,
                                 vm.Format_MediaType_SelectedItem,
                                 vm.Video_Codec_SelectedItem,
@@ -334,7 +334,7 @@ namespace Axiom
                                      //vm.Video_Codec_Parameters
                                      ),
                     "\r\n" +
-                    Video.Speed(vm.Video_EncodeSpeed_Items,
+                    Video.EncodeSpeed(vm.Video_EncodeSpeed_Items,
                                 vm.Video_EncodeSpeed_SelectedItem,
                                 vm.Format_MediaType_SelectedItem,
                                 vm.Video_Codec_SelectedItem,

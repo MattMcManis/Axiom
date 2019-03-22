@@ -4,6 +4,17 @@ Axiom FFmpeg UI
 
 ## [alpha]
 
+## [1.5.7.0] - Mar 22, 2019
+### Added
+- Video Speed
+
+### Changed
+Adjusted Format Controls
+Redesigned Format Cut
+Moved Cut before input `-i` for Fast Seek
+Redesigned Audio Volume Calculator
+
+
 ## [1.5.6.2] - Mar 21, 2019
 ### Added
 - More `PCM` Codec Bit Depth options
