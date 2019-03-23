@@ -6,26 +6,26 @@ Axiom FFmpeg UI
 
 ## [1.5.8.0] - Mar 23, 2019
 ### Added
-Video Filter Yadif Deinterlace
-Video Bitrate warning "Missing M or K" check
+- Video Filter Yadif Deinterlace
+- Video Bitrate warning "Missing M or K" check
 
 ### Changed
-`FFV1` and `HuffYUV` default Pixel Format to `yuv44410le`
+- `FFV1` and `HuffYUV` default Pixel Format to `yuv44410le`
 
 ### Fixed
-Cut End Time Auto-Detect
-Image Sequence Audio Quality ComboBox Empty
-`mpg`, `avi`, `ogv` Encode Speed Controls disable
+- Cut End Time Auto-Detect
+- Image Sequence Audio Quality ComboBox Empty
+- `mpg`, `avi`, `ogv` Encode Speed Controls disable
 
 ## [1.5.7.0] - Mar 22, 2019
 ### Added
 - Video Speed
 
 ### Changed
-Adjusted Format Controls
-Redesigned Format Cut
-Moved Cut before input `-i` for Fast Seek
-Redesigned Audio Volume Calculator
+- Adjusted Format Controls
+- Redesigned Format Cut
+- Moved Cut before input `-i` for Fast Seek
+- Redesigned Audio Volume Calculator
 
 
 ## [1.5.6.2] - Mar 21, 2019
@@ -33,9 +33,9 @@ Redesigned Audio Volume Calculator
 - More `PCM` Codec Bit Depth options
 
 ### Changed
-Redesigned Audio Codec Controls
-Redesigned Subtitle Codec Controls
-Redesigned Subtitle Stream Controls
+- Redesigned Audio Codec Controls
+- Redesigned Subtitle Codec Controls
+- Redesigned Subtitle Stream Controls
 
 ### Fixed
 - `HuffYUV` 1 Pass Codec Parameters
