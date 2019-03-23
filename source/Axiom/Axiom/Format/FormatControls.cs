@@ -432,7 +432,7 @@ namespace Axiom
                 // Format
                 // -------------------------
                 // Cut
-                // Cut Change - If coming back from JPEG or PNG
+                // Change if coming back from JPEG, PNG, WebP
                 if (vm.Format_CutStart_IsEnabled == true &&
                     vm.Format_CutEnd_IsEnabled == false)
                 {
@@ -462,7 +462,7 @@ namespace Axiom
                 vm.Video_Crop_IsEnabled = true;
 
                 // Encode Speed
-                vm.Video_EncodeSpeed_IsEnabled = true;
+                //vm.Video_EncodeSpeed_IsEnabled = true;
 
                 // -------------------------
                 // Audio
@@ -500,7 +500,7 @@ namespace Axiom
                 // Format
                 // -------------------------
                 // Cut
-                // Cut Change - If coming back from JPEG or PNG
+                // Change if coming back from JPEG, PNG, WebP
                 if (vm.Format_CutStart_IsEnabled == true &&
                     vm.Format_CutEnd_IsEnabled == false)
                 {
@@ -691,7 +691,7 @@ namespace Axiom
                 //vm.Format_Cut_SelectedItem = "No";
 
                 // Cut
-                // Cut Change - If coming back from JPEG or PNG
+                // Change if coming back from JPEG, PNG, WebP
                 if (vm.Format_CutStart_IsEnabled == true &&
                     vm.Format_CutEnd_IsEnabled == false)
                 {
@@ -734,7 +734,7 @@ namespace Axiom
                 vm.Audio_Codec_IsEnabled = false;
 
                 // Quality
-                vm.Audio_Quality_SelectedItem = "Auto";
+                vm.Audio_Quality_SelectedItem = "None";
                 vm.Audio_Quality_IsEnabled = false;
 
                 // Channel

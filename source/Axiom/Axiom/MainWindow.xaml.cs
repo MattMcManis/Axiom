@@ -546,19 +546,20 @@ namespace Axiom
             //cboBitDepth.IsEnabled = false;
 
             // Video Filters
-            cboFilterVideo_Deband.SelectedIndex = 0;
-            cboFilterVideo_Deshake.SelectedIndex = 0;
-            cboFilterVideo_Deflicker.SelectedIndex = 0;
-            cboFilterVideo_Dejudder.SelectedIndex = 0;
-            cboFilterVideo_Dejudder.SelectedIndex = 0;
-            cboFilterVideo_Denoise.SelectedIndex = 0;
-            cboFilterVideo_SelectiveColor.SelectedIndex = 0;
-            cboFilterVideo_SelectiveColor_Correction_Method.SelectedIndex = 0;
+            //cboFilterVideo_Deband.SelectedIndex = 0;
+            //cboFilterVideo_Deshake.SelectedIndex = 0;
+            //cboFilterVideo_Deflicker.SelectedIndex = 0;
+            //cboFilterVideo_Dejudder.SelectedIndex = 0;
+            //cboFilterVideo_Dejudder.SelectedIndex = 0;
+            //cboFilterVideo_Denoise.SelectedIndex = 0;
+            //cboFilterVideo_Deinterlace.SelectedIndex = 0;
+            //cboFilterVideo_SelectiveColor.SelectedIndex = 0;
+            //cboFilterVideo_SelectiveColor_Correction_Method.SelectedIndex = 0;
 
             // Audio Filters
-            cboFilterAudio_Lowpass.SelectedIndex = 0;
-            cboFilterAudio_Highpass.SelectedIndex = 0;
-            cboFilterAudio_Headphones.SelectedIndex = 0;
+            //cboFilterAudio_Lowpass.SelectedIndex = 0;
+            //cboFilterAudio_Highpass.SelectedIndex = 0;
+            //cboFilterAudio_Headphones.SelectedIndex = 0;
 
             // Preset
             //cboPreset.SelectedIndex = 0;
@@ -1714,91 +1715,30 @@ namespace Axiom
             }
 
             // -------------------------
-            // Do not allow Script to generate if Browse Empty & Auto, since there is no file to detect bitrates/codecs
+            // Video Bitrate is missing K or M at end of value
             // -------------------------
-            //if (vm.Batch_IsChecked == false) // Ignore if Batch
-            //{
-            //    if (string.IsNullOrEmpty(vm.Input_Text)) // empty check
-            //    {
-            //        // -------------------------
-            //        // Both Video & Audio are Auto Quality
-            //        // Combined Single Warning
-            //        // -------------------------
-            //        if (vm.Video_Quality_SelectedItem == "Auto" &&
-            //            vm.Audio_Quality_SelectedItem == "Auto" &&
-            //            vm.Video_Codec_SelectedItem != "Copy" &&
-            //            vm.Audio_Codec_SelectedItem != "Copy"
-            //            )
-            //        {
-            //            // Log Console Message /////////
-            //            Log.logParagraph.Inlines.Add(new LineBreak());
-            //            Log.logParagraph.Inlines.Add(new LineBreak());
-            //            Log.logParagraph.Inlines.Add(new Bold(new Run("Notice: Video & Audio Quality require an input file in order to detect bitrate settings.")) { Foreground = Log.ConsoleWarning });
+            if (vm.Video_Quality_SelectedItem == "Custom" &&
+                vm.Video_Bitrate_IsEnabled == true &&
+                !string.IsNullOrEmpty(vm.Video_Bitrate_Text) &&
+                vm.Video_VBR_IsChecked != true)
+            {
+                if (vm.Video_Bitrate_Text.ToUpper()?.Contains("K") != true &&
+                    vm.Video_Bitrate_Text.ToUpper()?.Contains("M") != true)
+                {
+                    // Log Console Message /////////
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new Bold(new Run("Notice: Video Bitrate is missing K or M at end of value.")) { Foreground = Log.ConsoleWarning });
 
-            //            /* lock */
-            //            ready = false;
-            //            script = false;
-            //            // Warning
-            //            MessageBox.Show("Video & Audio Auto Quality require an input file in order to detect bitrate settings.",
-            //                            "Notice",
-            //                            MessageBoxButton.OK,
-            //                            MessageBoxImage.Information);
-            //        }
-
-            //        // -------------------------
-            //        // Either Video & Audio are Auto Quality
-            //        // Warning for each
-            //        // -------------------------
-            //        else
-            //        {
-            //            // -------------------------
-            //            // Video Auto Quality
-            //            // -------------------------
-            //            if (vm.Video_Quality_SelectedItem == "Auto")
-            //            {
-            //                if (vm.Video_Codec_SelectedItem != "Copy")
-            //                {
-            //                    // Log Console Message /////////
-            //                    Log.logParagraph.Inlines.Add(new LineBreak());
-            //                    Log.logParagraph.Inlines.Add(new LineBreak());
-            //                    Log.logParagraph.Inlines.Add(new Bold(new Run("Notice: Video Auto Quality requires an input file in order to detect bitrate settings.")) { Foreground = Log.ConsoleWarning });
-
-            //                    /* lock */
-            //                    ready = false;
-            //                    script = false;
-            //                    // Warning
-            //                    MessageBox.Show("Video Auto Quality requires an input file in order to detect bitrate settings.",
-            //                                    "Notice",
-            //                                    MessageBoxButton.OK,
-            //                                    MessageBoxImage.Information);
-            //                }
-            //            }
-
-            //            // -------------------------
-            //            // Audio Auto Quality
-            //            // -------------------------
-            //            if (vm.Audio_Quality_SelectedItem == "Auto")
-            //            {
-            //                if (vm.Audio_Codec_SelectedItem != "Copy")
-            //                {
-            //                    // Log Console Message /////////
-            //                    Log.logParagraph.Inlines.Add(new LineBreak());
-            //                    Log.logParagraph.Inlines.Add(new LineBreak());
-            //                    Log.logParagraph.Inlines.Add(new Bold(new Run("Notice: Audio Auto Quality requires an input file in order to detect bitrate settings.")) { Foreground = Log.ConsoleWarning });
-
-            //                    /* lock */
-            //                    ready = false;
-            //                    script = false;
-            //                    // Warning
-            //                    MessageBox.Show("Audio Auto Quality requires an input file in order to detect bitrate settings.",
-            //                                    "Notice",
-            //                                    MessageBoxButton.OK,
-            //                                    MessageBoxImage.Information);
-            //                }
-            //            }
-            //        }
-            //    }
-            //}
+                    /* lock */
+                    ready = false;
+                    // Warning
+                    MessageBox.Show("Video Bitrate is missing K or M at end of value.",
+                                    "Notice",
+                                    MessageBoxButton.OK,
+                                    MessageBoxImage.Warning);
+                }
+            }
 
             // -------------------------
             // Halt if Single File Input with no Extension
@@ -1849,11 +1789,11 @@ namespace Axiom
             // -------------------------
             // Throw Error if VP8/VP9 & CRF does not have Bitrate -b:v
             // -------------------------
-            if (vm.Video_Codec_SelectedItem == "VP8"
-                || vm.Video_Codec_SelectedItem == "VP9")
+            if (vm.Video_Codec_SelectedItem == "VP8" ||
+                vm.Video_Codec_SelectedItem == "VP9")
             {
-                if (!string.IsNullOrEmpty(vm.Video_CRF_Text)
-                    && string.IsNullOrEmpty(vm.Video_CRF_Text))
+                if (!string.IsNullOrEmpty(vm.Video_CRF_Text) &&
+                    string.IsNullOrEmpty(vm.Video_CRF_Text))
                 {
                     // Log Console Message /////////
                     Log.logParagraph.Inlines.Add(new LineBreak());
@@ -3403,6 +3343,7 @@ namespace Axiom
                 vm.FilterVideo_Deflicker_SelectedItem = "disabled";
                 vm.FilterVideo_Dejudder_SelectedItem = "disabled";
                 vm.FilterVideo_Denoise_SelectedItem = "disabled";
+                vm.FilterVideo_Deinterlace_SelectedItem = "disabled";
                 // Selective Color
                 // Reds
                 vm.FilterVideo_SelectiveColor_Reds_Cyan_Value = 0;
@@ -5781,6 +5722,13 @@ namespace Axiom
             VideoControls.AutoCopyVideoCodec(vm);
         }
 
+        /// <summary>
+        ///     Filter Video - Deinterlace
+        /// </summary>
+        private void cboFilterVideo_Deinterlace_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            VideoControls.AutoCopyVideoCodec(vm);
+        }
 
 
 

@@ -311,7 +311,7 @@ namespace Axiom
         {
 
             // Pixel Format
-            vm.Video_PixelFormat_SelectedItem = "yuv422p10le";
+            vm.Video_PixelFormat_SelectedItem = "yuv444p10le";
 
             // Framerate
             vm.Video_FPS_SelectedItem = "auto";

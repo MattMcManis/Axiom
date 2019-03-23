@@ -52,23 +52,27 @@ namespace Axiom
 
         public ViewModel()
         {
-            // -------------------------
+            // --------------------------------------------------
             // ComboBox Defaults
+            // --------------------------------------------------
             // -------------------------
             // Main
+            // -------------------------
             Preset_IsEnabled = true;
             Preset_SelectedItem = Preset_Items.FirstOrDefault();
 
+            // -------------------------
             // Format
+            // -------------------------
             Format_Container_SelectedItem = "webm";
-            //Format_Container_SelectedItem = Format_Container_Items.FirstOrDefault();
-            //Format_Container_SelectedIndex = 1;
             Format_MediaType_SelectedItem = "Video";
             Video_EncodeSpeed_SelectedItem = "Medium";
             Format_HWAccel_SelectedItem = "off";
             Format_Cut_SelectedItem = "No";
 
+            // -------------------------
             // Video
+            // -------------------------
             Video_Codec_SelectedItem = "VP8";
             Video_Quality_SelectedItem = "Auto";
             Video_VBR_IsChecked = false;
@@ -84,11 +88,15 @@ namespace Axiom
             Video_AspectRatio_SelectedItem = "auto";
             Video_ScalingAlgorithm_SelectedItem = "auto";
 
+            // -------------------------
             // Subtitle
+            // -------------------------
             Subtitle_Codec_SelectedItem = "None";
             Subtitle_Stream_SelectedItem = "none";
 
+            // -------------------------
             // Audio
+            // -------------------------
             Audio_Codec_SelectedItem = "Vorbis";
             Audio_Stream_SelectedItem = "1";
             Audio_Channel_SelectedItem = "Source";
@@ -96,7 +104,79 @@ namespace Axiom
             Audio_SampleRate_SelectedItem = "auto";
             Audio_BitDepth_SelectedItem = "auto";
 
+            // -------------------------
+            // Filters
+            // -------------------------
+            // Video
+            // -------------------------
+            // Fix
+            FilterVideo_Deband_SelectedItem = "disabled";
+            FilterVideo_Deshake_SelectedItem = "disabled";
+            FilterVideo_Deflicker_SelectedItem = "disabled";
+            FilterVideo_Dejudder_SelectedItem = "disabled";
+            FilterVideo_Denoise_SelectedItem = "disabled";
+            FilterVideo_Deinterlace_SelectedItem = "disabled";
+
+            // Selective Color
+
+            FilterVideo_SelectiveColor_SelectedIndex = 0;
+            FilterVideo_SelectiveColor_Correction_Method_SelectedItem = "relative";
+
+            // Reds
+            FilterVideo_SelectiveColor_Reds_Cyan_Value = 0;
+            FilterVideo_SelectiveColor_Reds_Magenta_Value = 0;
+            FilterVideo_SelectiveColor_Reds_Yellow_Value = 0;
+            // Yellows
+            FilterVideo_SelectiveColor_Yellows_Cyan_Value = 0;
+            FilterVideo_SelectiveColor_Yellows_Magenta_Value = 0;
+            FilterVideo_SelectiveColor_Yellows_Yellow_Value = 0;
+            // Greens
+            FilterVideo_SelectiveColor_Greens_Cyan_Value = 0;
+            FilterVideo_SelectiveColor_Greens_Magenta_Value = 0;
+            FilterVideo_SelectiveColor_Greens_Yellow_Value = 0;
+            // Cyans
+            FilterVideo_SelectiveColor_Cyans_Cyan_Value = 0;
+            FilterVideo_SelectiveColor_Cyans_Magenta_Value = 0;
+            FilterVideo_SelectiveColor_Cyans_Yellow_Value = 0;
+            // Blues
+            FilterVideo_SelectiveColor_Blues_Cyan_Value = 0;
+            FilterVideo_SelectiveColor_Blues_Magenta_Value = 0;
+            FilterVideo_SelectiveColor_Blues_Yellow_Value = 0;
+            // Magentas
+            FilterVideo_SelectiveColor_Magentas_Cyan_Value = 0;
+            FilterVideo_SelectiveColor_Magentas_Magenta_Value = 0;
+            FilterVideo_SelectiveColor_Magentas_Yellow_Value = 0;
+            // Whites
+            FilterVideo_SelectiveColor_Whites_Cyan_Value = 0;
+            FilterVideo_SelectiveColor_Whites_Magenta_Value = 0;
+            FilterVideo_SelectiveColor_Whites_Yellow_Value = 0;
+            // Neutrals
+            FilterVideo_SelectiveColor_Neutrals_Cyan_Value = 0;
+            FilterVideo_SelectiveColor_Neutrals_Magenta_Value = 0;
+            FilterVideo_SelectiveColor_Neutrals_Yellow_Value = 0;
+            // Blacks
+            FilterVideo_SelectiveColor_Blacks_Cyan_Value = 0;
+            FilterVideo_SelectiveColor_Blacks_Magenta_Value = 0;
+            FilterVideo_SelectiveColor_Blacks_Yellow_Value = 0;
+
+            // EQ
+            FilterVideo_EQ_Brightness_Value = 0;
+            FilterVideo_EQ_Contrast_Value = 0;
+            FilterVideo_EQ_Saturation_Value = 0;
+            FilterVideo_EQ_Gamma_Value = 0;
+
+            // -------------------------
+            // Filters
+            // -------------------------
+            // Audio
+            // -------------------------
+            FilterAudio_Lowpass_SelectedItem = "disabled";
+            FilterAudio_Highpass_SelectedItem = "disabled";
+            FilterAudio_Headphones_SelectedItem = "disabled";
+
+            // -------------------------
             // Configure
+            // -------------------------
             Theme_SelectedItem = "Axiom";
             Threads_SelectedItem = "optimal";
         }
@@ -315,11 +395,11 @@ namespace Axiom
             "iOS",
             "iTunes",
             "MP3 HQ",
-            "PS3",
+            //"PS3",
             "PS4",
-            "Xbox 360",
+            //"Xbox 360",
             "Xbox One",
-            "Debug"
+            //"Debug"
         };
         public List<string> Preset_Items
         {
@@ -4200,6 +4280,39 @@ namespace Axiom
             }
         }
 
+        // -------------------------
+        // Deinterlace
+        // -------------------------
+        // Items
+        public static List<string> _FilterVideo_Deinterlace_Items = new List<string>()
+        {
+            "disabled",
+            "frame",
+            "field",
+            "cuda frame",
+            "cuda field"
+        };
+        public static List<string> FilterVideo_Deinterlace_Items
+        {
+            get { return _FilterVideo_Deinterlace_Items; }
+            set { _FilterVideo_Deinterlace_Items = value; }
+        }
+        // Selected Item
+        private string _FilterVideo_Deinterlace_SelectedItem { get; set; }
+        public string FilterVideo_Deinterlace_SelectedItem
+        {
+            get { return _FilterVideo_Deinterlace_SelectedItem; }
+            set
+            {
+                if (_FilterVideo_Deinterlace_SelectedItem == value)
+                {
+                    return;
+                }
+
+                _FilterVideo_Deinterlace_SelectedItem = value;
+                OnPropertyChanged("FilterVideo_Deinterlace_SelectedItem");
+            }
+        }
 
         // -------------------------
         // EQ Brightness
@@ -4285,6 +4398,23 @@ namespace Axiom
         // -------------------------
         // Selective Color
         // -------------------------
+        // Selected Idnex
+        private int _FilterVideo_SelectiveColor_SelectedIndex { get; set; }
+        public int FilterVideo_SelectiveColor_SelectedIndex
+        {
+            get { return _FilterVideo_SelectiveColor_SelectedIndex; }
+            set
+            {
+                if (_FilterVideo_SelectiveColor_SelectedIndex == value)
+                {
+                    return;
+                }
+
+                _FilterVideo_SelectiveColor_SelectedIndex = value;
+                OnPropertyChanged("FilterVideo_SelectiveColor_SelectedIndex");
+            }
+        }
+
         // -------------------------
         // Correction Method
         // -------------------------

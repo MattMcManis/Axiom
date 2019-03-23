@@ -2316,6 +2316,7 @@
                                                 <RowDefinition Height="33"/>
                                                 <RowDefinition Height="33"/>
                                                 <RowDefinition Height="33"/>
+                                                <RowDefinition Height="33"/>
                                                 <RowDefinition Height="22"/>
                                                 <RowDefinition Height="33"/>
                                                 <RowDefinition Height="33"/>
@@ -2369,8 +2370,6 @@
                                                       Grid.Column="2"
                                                       Height="22" 
                                                       SelectionChanged="cboFilterVideo_Deband_SelectionChanged">
-                                                <!--<System:String>disabled</System:String>
-                                                <System:String>enabled</System:String>-->
                                             </ComboBox>
 
                                             <!-- Deshake -->
@@ -2397,21 +2396,17 @@
                                                       Grid.Column="2"
                                                       Height="22" 
                                                       SelectionChanged="cboFilterVideo_Deshake_SelectionChanged">
-                                                <!--<System:String>disabled</System:String>
-                                                <System:String>enabled</System:String>-->
                                             </ComboBox>
 
                                             <!-- Deflicker -->
-                                            <Label 
-                                                    Style="{DynamicResource LabelCustom}"
-                                                    Content="Deflicker" 
-                                                    HorizontalAlignment="Left" 
-                                                    VerticalAlignment="Top" 
-                                                    Width="85" 
-                                                    FontFamily="Segoe UI Semilight" 
-                                                    Grid.Row="4" 
-                                                    Height="26" Grid.Column="1" />
-
+                                            <Label Style="{DynamicResource LabelCustom}"
+                                                   Content="Deflicker" 
+                                                   HorizontalAlignment="Left" 
+                                                   VerticalAlignment="Top" 
+                                                   Width="85" 
+                                                   FontFamily="Segoe UI Semilight" 
+                                                   Grid.Row="4" 
+                                                   Height="26" Grid.Column="1" />
                                             <ComboBox x:Name="cboFilterVideo_Deflicker"
                                                       ItemsSource="{Binding FilterVideo_Deflicker_Items}"
                                                       SelectedItem="{Binding FilterVideo_Deflicker_SelectedItem, Mode=TwoWay}"
@@ -2425,8 +2420,6 @@
                                                       Grid.Column="2"
                                                       Height="22" 
                                                       SelectionChanged="cboFilterVideo_Deflicker_SelectionChanged">
-                                                <!--<System:String>disabled</System:String>
-                                                <System:String>enabled</System:String>-->
                                             </ComboBox>
 
                                             <!-- Dejudder -->
@@ -2439,7 +2432,6 @@
                                                     FontFamily="Segoe UI Semilight" 
                                                     Grid.Row="5" 
                                                     Height="26" Grid.Column="1" />
-
                                             <ComboBox x:Name="cboFilterVideo_Dejudder" 
                                                       ItemsSource="{Binding FilterVideo_Dejudder_Items}"
                                                       SelectedItem="{Binding FilterVideo_Dejudder_SelectedItem, Mode=TwoWay}"
@@ -2453,8 +2445,6 @@
                                                       Grid.Column="2"
                                                       Height="22" 
                                                       SelectionChanged="cboFilterVideo_Dejudder_SelectionChanged">
-                                                <!--<System:String>disabled</System:String>
-                                                <System:String>enabled</System:String>-->
                                             </ComboBox>
 
                                             <!-- Denoise -->
@@ -2467,7 +2457,6 @@
                                                     FontFamily="Segoe UI Semilight" 
                                                     Grid.Row="6" 
                                                     Height="26" Grid.Column="1" />
-
                                             <ComboBox x:Name="cboFilterVideo_Denoise" 
                                                       ItemsSource="{Binding FilterVideo_Denoise_Items}"
                                                       SelectedItem="{Binding FilterVideo_Denoise_SelectedItem, Mode=TwoWay}"
@@ -2481,13 +2470,32 @@
                                                       Grid.Column="2"
                                                       Height="22" 
                                                       SelectionChanged="cboFilterVideo_Denoise_SelectionChanged">
-                                                <!--<System:String>disabled</System:String>
-                                                <System:String>default</System:String>
-                                                <System:String>light</System:String>
-                                                <System:String>medium</System:String>
-                                                <System:String>heavy</System:String>-->
                                             </ComboBox>
 
+                                            <!-- Deinterlace -->
+                                            <Label Style="{DynamicResource LabelCustom}"
+                                                   Content="Deinterlace" 
+                                                   HorizontalAlignment="Left" 
+                                                   VerticalAlignment="Top" 
+                                                   Width="85" 
+                                                   FontFamily="Segoe UI Semilight" 
+                                                   Grid.Row="7" 
+                                                   Height="26" 
+                                                   Grid.Column="1" />
+                                            <ComboBox x:Name="cboFilterVideo_Deinterlace" 
+                                                      ItemsSource="{Binding FilterVideo_Deinterlace_Items}"
+                                                      SelectedItem="{Binding FilterVideo_Deinterlace_SelectedItem, Mode=TwoWay}"
+                                                      Style="{DynamicResource ComboBoxCustom}"
+                                                      ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" 
+                                                      HorizontalAlignment="Left"
+                                                      Margin="0,2,0,0" 
+                                                      VerticalAlignment="Top" 
+                                                      Width="105"
+                                                      Grid.Row="7"
+                                                      Grid.Column="2"
+                                                      Height="22" 
+                                                      SelectionChanged="cboFilterVideo_Deinterlace_SelectionChanged" />
+                                            
                                             <!-- Color Group -->
                                             <!-- Selective Color -->
                                             <Label Style="{DynamicResource LabelCustom}"
@@ -2496,8 +2504,9 @@
                                                    VerticalAlignment="Top" 
                                                    Width="95" 
                                                    FontFamily="Segoe UI Semibold" 
-                                                   Grid.Row="15" 
-                                                   Height="26" Grid.Column="1" />
+                                                   Grid.Row="16" 
+                                                   Height="26"
+                                                   Grid.Column="1" />
 
                                             <!-- Color -->
                                             <Label Style="{DynamicResource LabelCustom}"
@@ -2506,16 +2515,18 @@
                                                    VerticalAlignment="Top" 
                                                    Width="80" 
                                                    FontFamily="Segoe UI Semilight" 
-                                                   Grid.Row="16" 
-                                                   Height="26" Grid.Column="1" />
+                                                   Grid.Row="17" 
+                                                   Height="26"
+                                                   Grid.Column="1" />
 
                                             <ComboBox x:Name="cboFilterVideo_SelectiveColor" 
                                                       Style="{DynamicResource ComboBoxCustom}"
+                                                      SelectedIndex="{Binding FilterVideo_SelectiveColor_SelectedIndex, Mode=TwoWay}"
                                                       ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" 
                                                       HorizontalAlignment="Left" 
                                                       VerticalAlignment="Top" 
                                                       Width="105"
-                                                      Grid.Row="16"
+                                                      Grid.Row="17"
                                                       Grid.Column="2"
                                                       Height="22" 
                                                       SelectionChanged="cboFilterVideo_SelectiveColor_SelectionChanged" 
@@ -2560,7 +2571,7 @@
                                                    VerticalAlignment="Top" 
                                                    Width="80" 
                                                    FontFamily="Segoe UI Semilight" 
-                                                   Grid.Row="16" 
+                                                   Grid.Row="17" 
                                                    Height="26"
                                                    Grid.RowSpan="2" 
                                                    Grid.Column="1" />
@@ -2573,7 +2584,7 @@
                                                       HorizontalAlignment="Left" 
                                                       VerticalAlignment="Top" 
                                                       Width="105"
-                                                      Grid.Row="17"
+                                                      Grid.Row="18"
                                                       Grid.Column="2"
                                                       Height="22" 
                                                       Margin="0,1,0,0" >
@@ -2588,7 +2599,7 @@
                                                         Width="237"
                                                         Padding="0"
                                                         Background="Transparent"
-                                                        Grid.Row="18" 
+                                                        Grid.Row="19" 
                                                         Grid.ColumnSpan="3">
 
                                                 <!-- Reds -->
@@ -3780,7 +3791,8 @@
                                                     VerticalAlignment="Bottom"
                                                     Width="50"
                                                     Grid.Column="2" 
-                                                    Grid.Row="19" Click="btnFilterVideo_SelectiveColorReset_Click"
+                                                    Grid.Row="20" 
+                                                    Click="btnFilterVideo_SelectiveColorReset_Click"
                                                     >
                                                 <TextBlock Text="Reset" 
                                                            Margin="0,-2,0,0"/>
@@ -3795,8 +3807,9 @@
                                                 VerticalAlignment="Top" 
                                                 Width="95" 
                                                 FontFamily="Segoe UI Semibold" 
-                                                Grid.Row="8" 
-                                                Height="26" Grid.Column="1" />
+                                                Grid.Row="9" 
+                                                Height="26" 
+                                                Grid.Column="1" />
 
                                             <!-- Brightness -->
                                             <Label Style="{DynamicResource LabelCustom}"
@@ -3806,7 +3819,8 @@
                                                    Width="85" 
                                                    FontFamily="Segoe UI Semilight" 
                                                    Height="26" 
-                                                   Grid.Row="9" Grid.Column="1" />
+                                                   Grid.Row="10" 
+                                                   Grid.Column="1" />
                                             <Slider x:Name="slFilterVideo_EQ_Brightness" 
                                                     HorizontalAlignment="Right"
                                                     Margin="0,4,61,0" 
@@ -3820,7 +3834,7 @@
                                                     MouseDoubleClick="slFilterVideo_EQ_Brightness_MouseDoubleClick"
                                                     PreviewMouseUp="slFilterVideo_EQ_Brightness_PreviewMouseUp"
                                                     Grid.Column="2" 
-                                                    Grid.Row="9" 
+                                                    Grid.Row="10" 
                                                     Height="18"/>
                                             <TextBox x:Name="tbxFilterVideo_EQ_Brightness"
                                                      Text="{Binding Value, ElementName=slFilterVideo_EQ_Brightness, UpdateSourceTrigger=PropertyChanged}"
@@ -3832,7 +3846,7 @@
                                                      VerticalAlignment="Top"   
                                                      PreviewKeyUp="tbxFilterVideo_EQ_Brightness_PreviewKeyUp"  
                                                      Grid.Column="2" 
-                                                     Grid.Row="9"/>
+                                                     Grid.Row="10"/>
 
                                             <!-- Contrast -->
                                             <Label Style="{DynamicResource LabelCustom}"
@@ -3842,7 +3856,8 @@
                                                    Width="85" 
                                                    FontFamily="Segoe UI Semilight" 
                                                    Height="26" 
-                                                   Grid.Row="10" Grid.Column="1" />
+                                                   Grid.Row="11" 
+                                                   Grid.Column="1" />
                                             <Slider x:Name="slFilterVideo_EQ_Contrast" 
                                                     HorizontalAlignment="Right"
                                                     Margin="0,4,61,0" 
@@ -3856,7 +3871,8 @@
                                                     PreviewMouseUp="slFilterVideo_EQ_Contrast_PreviewMouseUp"
                                                     MouseDoubleClick="slFilterVideo_EQ_Contrast_MouseDoubleClick"
                                                     Grid.Column="2" 
-                                                    Grid.Row="10" Height="18"/>
+                                                    Grid.Row="11" 
+                                                    Height="18"/>
                                             <TextBox x:Name="tbxFilterVideo_EQ_Contrast"
                                                     Text="{Binding Value, ElementName=slFilterVideo_EQ_Contrast, UpdateSourceTrigger=PropertyChanged}"
                                                     Height="22" 
@@ -3867,7 +3883,7 @@
                                                     VerticalAlignment="Top" 
                                                     PreviewKeyUp="tbxFilterVideo_EQ_Contrast_PreviewKeyUp"
                                                     Grid.Column="2" 
-                                                    Grid.Row="10"/>
+                                                    Grid.Row="11"/>
 
                                             <!-- Saturation -->
                                             <Label Style="{DynamicResource LabelCustom}"
@@ -3877,7 +3893,8 @@
                                                    Width="85" 
                                                    FontFamily="Segoe UI Semilight" 
                                                    Height="26" 
-                                                   Grid.Row="11" Grid.Column="1" />
+                                                   Grid.Row="12" 
+                                                   Grid.Column="1" />
                                             <Slider x:Name="slFilterVideo_EQ_Saturation" 
                                                     HorizontalAlignment="Right"
                                                     Margin="0,4,61,0" 
@@ -3891,7 +3908,8 @@
                                                     PreviewMouseUp="slFilterVideo_EQ_Saturation_PreviewMouseUp"
                                                     MouseDoubleClick="slFilterVideo_EQ_Saturation_MouseDoubleClick"
                                                     Grid.Column="2" 
-                                                    Grid.Row="11" Height="18"/>
+                                                    Grid.Row="12" 
+                                                    Height="18"/>
                                             <TextBox x:Name="tbxFilterVideo_EQ_Saturation"
                                                     Text="{Binding Value, ElementName=slFilterVideo_EQ_Saturation, UpdateSourceTrigger=PropertyChanged}"
                                                     Height="22" 
@@ -3902,7 +3920,7 @@
                                                     VerticalAlignment="Top" 
                                                     PreviewKeyUp="tbxFilterVideo_EQ_Saturation_PreviewKeyUp"
                                                     Grid.Column="2" 
-                                                    Grid.Row="11"/>
+                                                    Grid.Row="12"/>
 
                                             <!-- Gamma -->
                                             <Label Style="{DynamicResource LabelCustom}"
@@ -3912,7 +3930,8 @@
                                                    Width="85" 
                                                    FontFamily="Segoe UI Semilight" 
                                                    Height="26" 
-                                                   Grid.Row="12" Grid.Column="1" />
+                                                   Grid.Row="13" 
+                                                   Grid.Column="1" />
                                             <Slider x:Name="slFilterVideo_EQ_Gamma" 
                                                     HorizontalAlignment="Right"
                                                     Margin="0,4,61,0" 
@@ -3926,7 +3945,8 @@
                                                     PreviewMouseUp="slFilterVideo_EQ_Gamma_PreviewMouseUp"
                                                     MouseDoubleClick="slFilterVideo_EQ_Gamma_MouseDoubleClick"
                                                     Grid.Column="2" 
-                                                    Grid.Row="12" Height="18"/>
+                                                    Grid.Row="13" 
+                                                    Height="18"/>
                                             <TextBox x:Name="tbxFilterVideo_EQ_Gamma"
                                                     Text="{Binding Value, ElementName=slFilterVideo_EQ_Gamma, UpdateSourceTrigger=PropertyChanged}"
                                                     Height="22" 
@@ -3937,7 +3957,7 @@
                                                     VerticalAlignment="Top" 
                                                     PreviewKeyUp="tbxFilterVideo_EQ_Gamma_PreviewKeyUp"
                                                     Grid.Column="2" 
-                                                    Grid.Row="12"/>
+                                                    Grid.Row="13"/>
 
                                             <!-- EQ Reset Button -->
                                             <Button x:Name="btnFilterVideo_EQ_Reset"
@@ -3955,7 +3975,7 @@
                                                     VerticalAlignment="Bottom"
                                                     Width="50"
                                                     Grid.Column="2" 
-                                                    Grid.Row="13" 
+                                                    Grid.Row="14" 
                                                     Click="btnFilterVideo_EQ_Reset_Click"
                                                     >
                                                 <TextBlock Text="Reset" 

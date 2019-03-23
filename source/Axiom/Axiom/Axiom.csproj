@@ -114,6 +114,7 @@
     <Compile Include="FilePropertiesWindow.xaml.cs">
       <DependentUpon>FilePropertiesWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Profiles.cs" />
     <Compile Include="Video\VideoFilters.cs" />
     <Compile Include="Format\Format.cs" />
     <Compile Include="InfoWindow.xaml.cs">

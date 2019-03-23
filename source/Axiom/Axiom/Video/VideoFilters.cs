@@ -69,7 +69,7 @@ namespace Axiom
 
 
         /// <summary>
-        /// Subtitles Burn Filter (Method)
+        /// Subtitles Burn Filter
         /// <summary>
         public static void SubtitlesBurn_Filter(ViewModel vm)
         {
@@ -103,7 +103,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Deband (Method)
+        ///     Deband
         /// <summary>
         public static void Deband_Filter(ViewModel vm)
         {
@@ -120,7 +120,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Deshake (Method)
+        ///     Deshake
         /// <summary>
         public static void Deshake_Filter(ViewModel vm)
         {
@@ -150,7 +150,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Dejudder (Method)
+        ///     Dejudder
         /// <summary>
         public static void Dejudder_Filter(ViewModel vm)
         {
@@ -165,7 +165,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Denoise (Method)
+        ///     Denoise
         /// <summary>
         public static void Denoise_Filter(ViewModel vm)
         {
@@ -206,6 +206,55 @@ namespace Axiom
                 // Add Filter to List
                 // -------------------------
                 vFiltersList.Add(denoise);
+            }
+        }
+
+
+        /// <summary>
+        ///     Deinterlace
+        /// <summary>
+        /// <remarks>
+        /// https://ffmpeg.org/ffmpeg-filters.html#yadif-1
+        /// </remarks>
+        public static void Deinterlace_Filter(ViewModel vm)
+        {
+            if (vm.FilterVideo_Deinterlace_SelectedItem != "disabled")
+            {
+                string deinterlace = string.Empty;
+
+                // -------------------------
+                // Send Frame
+                // -------------------------
+                if (vm.FilterVideo_Deinterlace_SelectedItem == "frame")
+                {
+                    deinterlace = "yadif=0:-1:0";
+                }
+                // -------------------------
+                // Send Field
+                // -------------------------
+                else if (vm.FilterVideo_Deinterlace_SelectedItem == "field")
+                {
+                    deinterlace = "yadif=1:-1:0";
+                }
+                // -------------------------
+                // Cuda Frame
+                // -------------------------
+                else if (vm.FilterVideo_Deinterlace_SelectedItem == "cuda frame")
+                {
+                    deinterlace = "yadif_cuda=0:-1:0";
+                }
+                // -------------------------
+                // Cuda Field
+                // -------------------------
+                else if (vm.FilterVideo_Deinterlace_SelectedItem == "cuda field")
+                {
+                    deinterlace = "yadif_cuda=1:-1:0";
+                }
+
+                // -------------------------
+                // Add Filter to List
+                // -------------------------
+                vFiltersList.Add(deinterlace);
             }
         }
 
@@ -751,6 +800,11 @@ namespace Axiom
                 //  Denoise
                 // -------------------------
                 VideoFilters.Denoise_Filter(vm);
+
+                // -------------------------
+                //  Denoise
+                // -------------------------
+                VideoFilters.Deinterlace_Filter(vm);
 
                 // -------------------------
                 //  EQ - Brightness, Contrast, Saturation, Gamma

@@ -1200,6 +1200,7 @@ namespace Axiom
                 vm.FilterVideo_Deflicker_SelectedItem == "disabled" &&
                 vm.FilterVideo_Dejudder_SelectedItem == "disabled" &&
                 vm.FilterVideo_Denoise_SelectedItem == "disabled" &&
+                vm.FilterVideo_Deinterlace_SelectedItem == "disabled" &&
                 // Selective Color
                 // Reds
                 vm.FilterVideo_SelectiveColor_Reds_Cyan_Value == 0 &&
