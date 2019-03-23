@@ -851,7 +851,7 @@ namespace Axiom
                 // -------------------------
                 else if (codec == "FFV1")
                 {
-                    vm.Video_PixelFormat_SelectedItem = "yuv422p10le";
+                    vm.Video_PixelFormat_SelectedItem = "yuv444p10le";
                 }
 
                 // -------------------------
@@ -859,7 +859,7 @@ namespace Axiom
                 // -------------------------
                 else if (codec == "HuffYUV")
                 {
-                    vm.Video_PixelFormat_SelectedItem = "yuv422p";
+                    vm.Video_PixelFormat_SelectedItem = "yuv444p";
                 }
 
                 // -------------------------

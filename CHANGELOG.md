@@ -4,6 +4,19 @@ Axiom FFmpeg UI
 
 ## [alpha]
 
+## [1.5.8.0] - Mar 23, 2019
+### Added
+Video Filter Yadif Deinterlace
+Video Bitrate warning "Missing M or K" check
+
+### Changed
+`FFV1` and `HuffYUV` default Pixel Format to `yuv44410le`
+
+### Fixed
+Cut End Time Auto-Detect
+Image Sequence Audio Quality ComboBox Empty
+`mpg`, `avi`, `ogv` Encode Speed Controls disable
+
 ## [1.5.7.0] - Mar 22, 2019
 ### Added
 - Video Speed

@@ -22,7 +22,7 @@ Convert to `webm`, `mp4`, `mkv`, `avi`, `ogv`, `mp3`, `m4a`, `ogg`, `flac`, `wav
 &nbsp;
 
 ### Features
-* The Power of FFmpeg through a Minimal Interface
+* The Power of FFmpeg in a Minimal Interface
 * Convert any media file to multiple formats
 * Cut Video and Audio timeline
 * Resize Video to standard aspect ratios
