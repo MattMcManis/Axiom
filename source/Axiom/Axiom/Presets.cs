@@ -420,22 +420,19 @@ namespace Axiom
 
                 // Video
                 vm.Video_Codec_SelectedItem = "x264";
-                // Ultra
+
                 if (vm.Preset_SelectedItem == "HD Ultra")
                 {
                     vm.Video_Quality_SelectedItem = "Ultra";
                 }
-                // High
                 else if (vm.Preset_SelectedItem == "HD High")
                 {
                     vm.Video_Quality_SelectedItem = "High";
                 }
-                // Medium
                 else if (vm.Preset_SelectedItem == "HD Medium")
                 {
                     vm.Video_Quality_SelectedItem = "Medium";
                 }
-                // Low
                 else if (vm.Preset_SelectedItem == "HD Low")
                 {
                     vm.Video_Quality_SelectedItem = "Low";
@@ -491,18 +488,16 @@ namespace Axiom
 
                 // Video
                 vm.Video_Codec_SelectedItem = "x264";
-                // High
-                if (vm.Preset_SelectedItem == "HD High")
+
+                if (vm.Preset_SelectedItem == "SD High")
                 {
                     vm.Video_Quality_SelectedItem = "High";
                 }
-                // Medium
-                else if (vm.Preset_SelectedItem == "HD Medium")
+                else if (vm.Preset_SelectedItem == "SD Medium")
                 {
                     vm.Video_Quality_SelectedItem = "Medium";
                 }
-                // Low
-                else if (vm.Preset_SelectedItem == "HD Low")
+                else if (vm.Preset_SelectedItem == "SD Low")
                 {
                     vm.Video_Quality_SelectedItem = "Low";
                 }

@@ -1705,6 +1705,11 @@ namespace Axiom
             {
                 if (!File.Exists(input))
                 {
+                    MessageBox.Show("Input file does not exist.",
+                                    "Notice",
+                                    MessageBoxButton.OK,
+                                    MessageBoxImage.Exclamation);
+
                     // Halt
                     //ready = false;
                     return false;
@@ -2822,6 +2827,8 @@ namespace Axiom
         /// </summary>
         private void tbxInput_TextChanged(object sender, TextChangedEventArgs e)
         {
+            input = vm.Input_Text;
+
             //if (!vm.Input_Text.Contains("www.youtube.com")
             //    && !vm.Input_Text.Contains("youtube.com"))
             //{
