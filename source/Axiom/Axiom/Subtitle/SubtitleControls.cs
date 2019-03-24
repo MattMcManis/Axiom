@@ -1,8 +1,8 @@
 ﻿/* ----------------------------------------------------------------------
 Axiom UI
 Copyright (C) 2017-2019 Matt McManis
-http://github.com/MattMcManis/Axiom
-http://axiomui.github.io
+https://github.com/MattMcManis/Axiom
+https://axiomui.github.io
 mattmcmanis@outlook.com
 
 This program is free software: you can redistribute it and/or modify
@@ -303,7 +303,7 @@ namespace Axiom
                             // -------------------------
                             else if (vm.Format_Container_SelectedItem == "mp4")
                             {
-                                vm.Subtitle_Codec_SelectedItem = "mov_text";
+                                vm.Subtitle_Codec_SelectedItem = "MOV Text";
                             }
                             // -------------------------
                             // MKV

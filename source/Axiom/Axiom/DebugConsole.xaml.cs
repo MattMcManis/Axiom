@@ -1,8 +1,8 @@
 ﻿/* ----------------------------------------------------------------------
 Axiom UI
 Copyright (C) 2017-2019 Matt McManis
-http://github.com/MattMcManis/Axiom
-http://axiomui.github.io
+https://github.com/MattMcManis/Axiom
+https://axiomui.github.io
 mattmcmanis@outlook.com
 
 This program is free software: you can redistribute it and/or modify
@@ -177,73 +177,74 @@ namespace Axiom
             // -------------------------
             // Ready Halts
             // -------------------------
-            MainWindow.ReadyHalts(vm);
+            //MainWindow.ReadyHalts(vm);
 
+            if (MainWindow.ReadyHalts(vm) == true)
+            {
+                // -------------------------
+                // Background Thread Worker
+                // -------------------------
+                //BackgroundWorker fileprocess = new BackgroundWorker();
 
-            // -------------------------
-            // Background Thread Worker
-            // -------------------------
-            //BackgroundWorker fileprocess = new BackgroundWorker();
+                //fileprocess.WorkerSupportsCancellation = true;
+                //fileprocess.WorkerReportsProgress = true;
 
-            //fileprocess.WorkerSupportsCancellation = true;
-            //fileprocess.WorkerReportsProgress = true;
+                //fileprocess.DoWork += new DoWorkEventHandler(delegate (object o, DoWorkEventArgs args)
+                //{
+                //    BackgroundWorker b = o as BackgroundWorker;
 
-            //fileprocess.DoWork += new DoWorkEventHandler(delegate (object o, DoWorkEventArgs args)
-            //{
-            //    BackgroundWorker b = o as BackgroundWorker;
-
-            //    // Cross-Thread Communication
-            //    this.Dispatcher.Invoke(() =>
-            //    {
+                //    // Cross-Thread Communication
+                //    this.Dispatcher.Invoke(() =>
+                //    {
+                // -------------------------
+                // Single
+                // -------------------------
+                if (vm.Batch_IsChecked == false)
+                {
                     // -------------------------
-                    // Single
+                    // FFprobe Detect Metadata
                     // -------------------------
-                    if (vm.Batch_IsChecked == false)
-                    {
-                        // -------------------------
-                        // FFprobe Detect Metadata
-                        // -------------------------
-                        FFprobe.Metadata(vm);
-
-                        // -------------------------
-                        // FFmpeg Generate Arguments (Single)
-                        // -------------------------
-                        //disabled if batch
-                        FFmpeg.FFmpegSingleGenerateArgs(vm);
-                    }
+                    FFprobe.Metadata(vm);
 
                     // -------------------------
-                    // Batch
+                    // FFmpeg Generate Arguments (Single)
                     // -------------------------
-                    else if (vm.Batch_IsChecked == true)
-                    {
-                        // -------------------------
-                        // FFprobe Video Entry Type Containers
-                        // -------------------------
-                        //FFprobe.VideoEntryTypeBatch(this);
-                        FFprobe.VideoEntryType(vm);
+                    //disabled if batch
+                    FFmpeg.FFmpegSingleGenerateArgs(vm);
+                }
 
-                        // -------------------------
-                        // FFprobe Video Entry Type Containers
-                        // -------------------------
-                        //FFprobe.AudioEntryTypeBatch(this);
-                        FFprobe.AudioEntryType(vm);
+                // -------------------------
+                // Batch
+                // -------------------------
+                else if (vm.Batch_IsChecked == true)
+                {
+                    // -------------------------
+                    // FFprobe Video Entry Type Containers
+                    // -------------------------
+                    //FFprobe.VideoEntryTypeBatch(this);
+                    FFprobe.VideoEntryType(vm);
 
-                        // -------------------------
-                        // FFmpeg Generate Arguments (Batch)
-                        // -------------------------
-                        //disabled if single file
-                        FFmpeg.FFmpegBatchGenerateArgs(vm);
-                    }
+                    // -------------------------
+                    // FFprobe Video Entry Type Containers
+                    // -------------------------
+                    //FFprobe.AudioEntryTypeBatch(this);
+                    FFprobe.AudioEntryType(vm);
 
-            //    }); //end dispatcher
+                    // -------------------------
+                    // FFmpeg Generate Arguments (Batch)
+                    // -------------------------
+                    //disabled if single file
+                    FFmpeg.FFmpegBatchGenerateArgs(vm);
+                }
 
-            //}); //end thread
+                //    }); //end dispatcher
+
+                //}); //end thread
 
 
-            // When background worker completes task
-            //fileprocess.RunWorkerCompleted += new RunWorkerCompletedEventHandler(delegate (object o, RunWorkerCompletedEventArgs args)
-            //{
+                // When background worker completes task
+                //fileprocess.RunWorkerCompleted += new RunWorkerCompletedEventHandler(delegate (object o, RunWorkerCompletedEventArgs args)
+                //{
                 // -------------------------
                 // Write Variables to Debug Window
                 // -------------------------
@@ -261,13 +262,14 @@ namespace Axiom
                 MainWindow.ClearVariables(vm);
                 GC.Collect();
 
-        //    }); //end worker completed task
+                //    }); //end worker completed task
 
 
-        //    // -------------------------
-        //    // Background Worker Run Async
-        //    // -------------------------
-        //    fileprocess.RunWorkerAsync();
+                //    // -------------------------
+                //    // Background Worker Run Async
+                //    // -------------------------
+                //    fileprocess.RunWorkerAsync();
+            }
         }
 
 
@@ -307,16 +309,24 @@ namespace Axiom
             debugParagraph.Inlines.Add(new Bold(new Run("System ")) { Foreground = Heading });
             debugParagraph.Inlines.Add(new LineBreak());
 
+            //debugParagraph.Inlines.Add(new Bold(new Run("ready ")) { Foreground = Variable });
+            //debugParagraph.Inlines.Add(new Run(MainWindow.ready.ToString()) { Foreground = Value });
+            //debugParagraph.Inlines.Add(new LineBreak());
+
             debugParagraph.Inlines.Add(new Bold(new Run("ready ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(MainWindow.ready.ToString()) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(MainWindow.ReadyHalts(vm).ToString()) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
-            debugParagraph.Inlines.Add(new Bold(new Run("script ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(MainWindow.script.ToString()) { Foreground = Value });
-            debugParagraph.Inlines.Add(new LineBreak());
+            //debugParagraph.Inlines.Add(new Bold(new Run("script ")) { Foreground = Variable });
+            //debugParagraph.Inlines.Add(new Run(MainWindow.script.ToString()) { Foreground = Value });
+            //debugParagraph.Inlines.Add(new LineBreak());
+
+            //debugParagraph.Inlines.Add(new Bold(new Run("ffCheckCleared ")) { Foreground = Variable });
+            //debugParagraph.Inlines.Add(new Run(MainWindow.ffCheckCleared.ToString()) { Foreground = Value });
+            //debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("ffCheckCleared ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(MainWindow.ffCheckCleared.ToString()) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(MainWindow.FFcheck(vm).ToString()) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("threads ")) { Foreground = Variable });

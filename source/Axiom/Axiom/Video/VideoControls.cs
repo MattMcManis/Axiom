@@ -1,8 +1,8 @@
 ﻿/* ----------------------------------------------------------------------
 Axiom UI
 Copyright (C) 2017-2019 Matt McManis
-http://github.com/MattMcManis/Axiom
-http://axiomui.github.io
+https://github.com/MattMcManis/Axiom
+https://axiomui.github.io
 mattmcmanis@outlook.com
 
 This program is free software: you can redistribute it and/or modify
@@ -829,11 +829,6 @@ namespace Axiom
                     codec == "AV1"
                     )
                 {
-                    // Auto
-                    //if (quality == "Auto")
-                    //{
-                    //    vm.Video_PixelFormat_SelectedItem = "yuv420p";
-                    //}
                     // Lossless
                     if (quality == "Lossless")
                     {
@@ -881,11 +876,6 @@ namespace Axiom
                 {
                     vm.Video_PixelFormat_IsEnabled = true;
 
-                    // Auto
-                    //if (quality == "yuv420p")
-                    //{
-                    //    //vm.Video_PixelFormat_SelectedItem = "auto";
-                    //}
                     // Lossless
                     if (quality == "Lossless")
                     {
@@ -968,37 +958,6 @@ namespace Axiom
                     // Level
                     vm.Video_Optimize_Level_IsEnabled = false;
                 }
-
-                //// -------------------------
-                //// Disable
-                //// -------------------------
-                //if (vm.Video_Optimize_SelectedItem == "None")
-                //{
-                //    // Tune
-                //    vm.Optimize_Tune_IsEnabled = false;
-
-                //    // Profile
-                //    vm.Optimize_Profile_IsEnabled = false;
-
-                //    // Level
-                //    vm.Video_Optimize_Level_IsEnabled = false;
-                //}
-
-                //// -------------------------
-                //// Enable
-                //// -------------------------
-                //// All Other Qualities
-                //else
-                //{
-                //    // Tune
-                //    vm.Optimize_Tune_IsEnabled = true;
-
-                //    // Profile
-                //    vm.Optimize_Profile_IsEnabled = true;
-
-                //    // Level
-                //    vm.Video_Optimize_Level_IsEnabled = true;
-                //}
             }
 
             // -------------------------

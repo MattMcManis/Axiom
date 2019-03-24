@@ -1,8 +1,8 @@
 ﻿/* ----------------------------------------------------------------------
 Axiom UI
 Copyright (C) 2017-2019 Matt McManis
-http://github.com/MattMcManis/Axiom
-http://axiomui.github.io
+https://github.com/MattMcManis/Axiom
+https://axiomui.github.io
 mattmcmanis@outlook.com
 
 This program is free software: you can redistribute it and/or modify
@@ -1301,8 +1301,7 @@ namespace Axiom
 
                     // Trim Start Frame
                     //
-                    if (//frameStart_Text != "Frame" &&
-                        !string.IsNullOrEmpty(frameStart_Text) &&
+                    if (!string.IsNullOrEmpty(frameStart_Text) &&
                         !string.IsNullOrEmpty(frameStart_Text)) // Default/Null Check
                     {
                         Format.trimStart = Convert.ToString(Convert.ToDouble(frameStart_Text) / detectedFramerate); // Divide Frame Start Number by Video's Framerate
@@ -1351,12 +1350,12 @@ namespace Axiom
                     Log.LogActions.Add(Log.WriteAction);
 
                     /* lock */
-                    MainWindow.ready = false;
+                    //MainWindow.ready = false;
                     // Warning
                     MessageBox.Show("No input file or Framerate not detected.",
-                                        "Notice",
-                                        MessageBoxButton.OK,
-                                        MessageBoxImage.Warning);
+                                    "Notice",
+                                    MessageBoxButton.OK,
+                                    MessageBoxImage.Warning);
                 }
             }
 
@@ -1548,7 +1547,7 @@ namespace Axiom
                     catch
                     {
                         /* lock */
-                        MainWindow.ready = false;
+                        //MainWindow.ready = false;
                         // Warning
                         MessageBox.Show("Invalid Custom FPS.",
                                         "Notice",
@@ -1951,12 +1950,12 @@ namespace Axiom
                                 Log.LogActions.Add(Log.WriteAction);
 
                                 /* lock */
-                                MainWindow.ready = false;
+                                //MainWindow.ready = false;
                                 // Warning
                                 MessageBox.Show("Must enter numbers only.",
-                                        "Notice",
-                                        MessageBoxButton.OK,
-                                        MessageBoxImage.Exclamation);
+                                                "Notice",
+                                                MessageBoxButton.OK,
+                                                MessageBoxImage.Exclamation);
                             }
 
                         }
@@ -2001,12 +2000,12 @@ namespace Axiom
                                 Log.LogActions.Add(Log.WriteAction);
 
                                 /* lock */
-                                MainWindow.ready = false;
+                                //MainWindow.ready = false;
                                 // Warning
                                 MessageBox.Show("Must enter numbers only.",
-                                        "Notice",
-                                        MessageBoxButton.OK,
-                                        MessageBoxImage.Exclamation);
+                                                "Notice",
+                                                MessageBoxButton.OK,
+                                                MessageBoxImage.Exclamation);
                             }
                         }
 
@@ -2050,12 +2049,12 @@ namespace Axiom
                                 Log.LogActions.Add(Log.WriteAction);
 
                                 /* lock */
-                                MainWindow.ready = false;
+                                //MainWindow.ready = false;
                                 // Warning
                                 MessageBox.Show("Must enter numbers only.",
-                                        "Notice",
-                                        MessageBoxButton.OK,
-                                        MessageBoxImage.Exclamation);
+                                                "Notice",
+                                                MessageBoxButton.OK,
+                                                MessageBoxImage.Exclamation);
                             }
                         }
 
@@ -2203,30 +2202,31 @@ namespace Axiom
                 CropWindow.crop = string.Empty;
             }
 
-            // -------------------------
-            // Halt
-            // -------------------------
-            // Crop Codec Copy Check
-            // Switch Copy to Codec to avoid error
-            if (!string.IsNullOrEmpty(CropWindow.crop) && vm.Video_Codec_SelectedItem == "Copy") //null check
-            {
-                // Log Console Message /////////
-                Log.WriteAction = () =>
-                {
-                    Log.logParagraph.Inlines.Add(new LineBreak());
-                    Log.logParagraph.Inlines.Add(new LineBreak());
-                    Log.logParagraph.Inlines.Add(new Bold(new Run("Warning: Crop cannot use Codec Copy. Please select a Video Codec.")) { Foreground = Log.ConsoleDefault });
-                };
-                Log.LogActions.Add(Log.WriteAction);
+            //// -------------------------
+            //// Halt
+            //// -------------------------
+            //// Crop Codec Copy Check
+            //// Switch Copy to Codec to avoid error
+            //if (!string.IsNullOrEmpty(CropWindow.crop) && 
+            //    vm.Video_Codec_SelectedItem == "Copy") //null check
+            //{
+            //    // Log Console Message /////////
+            //    Log.WriteAction = () =>
+            //    {
+            //        Log.logParagraph.Inlines.Add(new LineBreak());
+            //        Log.logParagraph.Inlines.Add(new LineBreak());
+            //        Log.logParagraph.Inlines.Add(new Bold(new Run("Warning: Crop cannot use Codec Copy. Please select a Video Codec.")) { Foreground = Log.ConsoleDefault });
+            //    };
+            //    Log.LogActions.Add(Log.WriteAction);
 
-                /* lock */
-                MainWindow.ready = false;
-                // Warning
-                MessageBox.Show("Crop cannot use Codec Copy. Please select a Video Codec.",
-                                "Notice",
-                                MessageBoxButton.OK,
-                                MessageBoxImage.Exclamation);
-            }
+            //    /* lock */
+            //    //MainWindow.ready = false;
+            //    // Warning
+            //    MessageBox.Show("Crop cannot use Codec Copy. Please select a Video Codec.",
+            //                    "Notice",
+            //                    MessageBoxButton.OK,
+            //                    MessageBoxImage.Exclamation);
+            //}
 
             // -------------------------
             // Add Crop to Video Filters if Not Null

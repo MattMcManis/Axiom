@@ -1,8 +1,8 @@
 ﻿/* ----------------------------------------------------------------------
 Axiom UI
 Copyright (C) 2017-2019 Matt McManis
-http://github.com/MattMcManis/Axiom
-http://axiomui.github.io
+https://github.com/MattMcManis/Axiom
+https://axiomui.github.io
 mattmcmanis@outlook.com
 
 This program is free software: you can redistribute it and/or modify
@@ -508,7 +508,7 @@ namespace Axiom
                     // AC3
                     // -------------------------
                     else if (codec_SelectedItem == "AC3" &&
-                            double.Parse(inputAudioBitrate) > 640)
+                             double.Parse(inputAudioBitrate) > 640)
                     {
                         inputAudioBitrate = Convert.ToString(640); //was 640,000 (before converting to decimal)
                     }
@@ -586,7 +586,7 @@ namespace Axiom
                     aBitrateVBR = aBitrateVBR * 0.00625;
 
 
-                    // AAC VBR Above 320k Error (look into this)
+                    // AAC VBR Above 400k Error
                     if (aBitrateVBR > 400)
                     {
                         // Log Console Message /////////
@@ -600,9 +600,12 @@ namespace Axiom
                         Log.LogActions.Add(Log.WriteAction);
 
                         /* lock */
-                        MainWindow.ready = false;
+                        //MainWindow.ready = false;
                         // Error
                         MessageBox.Show("Error: AAC VBR cannot be above 400k.");
+
+                        // Default to 400
+                        aBitrateVBR = 400;
                     }
                 }
 

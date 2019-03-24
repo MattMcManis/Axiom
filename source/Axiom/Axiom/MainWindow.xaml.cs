@@ -1,8 +1,8 @@
 ﻿/* ----------------------------------------------------------------------
 Axiom UI
 Copyright (C) 2017-2019 Matt McManis
-http://github.com/MattMcManis/Axiom
-http://axiomui.github.io
+https://github.com/MattMcManis/Axiom
+https://axiomui.github.io
 mattmcmanis@outlook.com
 
 This program is free software: you can redistribute it and/or modify
@@ -72,11 +72,6 @@ namespace Axiom
         ///     Variables
         /// </summary>
         // --------------------------------------------------------------------------------------------------------
-
-        // Locks
-        public static bool ready = true; // If 1 allow conversion, else stop
-        public static bool script = false; // If 0 run ffmpeg, if 1 run generate script
-        public static bool ffCheckCleared = false; // If 1, FFcheck no longer has to run for each convert
 
         // System
         public static string appDir = AppDomain.CurrentDomain.BaseDirectory.TrimEnd('\\') + @"\"; // Axiom.exe directory
@@ -526,67 +521,11 @@ namespace Axiom
             // -------------------------
             listViewSubtitles.SelectionMode = SelectionMode.Single;
 
-            //// Format
-            //vm.Format_SelectedIndex = 0;
-            //cboCut.SelectedIndex = 0;
-            //cboSpeed_SelectedItem = "Medium";
-            //cboHWAccel.SelectedIndex = 0;
-
-            //// Video
-            //cboVideoQuality.SelectedIndex = 0;
-            //cboFPS.SelectedIndex = 0;
-            //cboSize.SelectedIndex = 0;
-            //cboOptimize.SelectedIndex = 0;
-
-            //// Audio
-            //cboAudioQuality.SelectedIndex = 0;
-            //cboChannel.SelectedIndex = 0;
-            //cboSamplerate.SelectedIndex = 0;
-            //cboBitDepth.SelectedIndex = 0;
-            //cboBitDepth.IsEnabled = false;
-
-            // Video Filters
-            //cboFilterVideo_Deband.SelectedIndex = 0;
-            //cboFilterVideo_Deshake.SelectedIndex = 0;
-            //cboFilterVideo_Deflicker.SelectedIndex = 0;
-            //cboFilterVideo_Dejudder.SelectedIndex = 0;
-            //cboFilterVideo_Dejudder.SelectedIndex = 0;
-            //cboFilterVideo_Denoise.SelectedIndex = 0;
-            //cboFilterVideo_Deinterlace.SelectedIndex = 0;
-            //cboFilterVideo_SelectiveColor.SelectedIndex = 0;
-            //cboFilterVideo_SelectiveColor_Correction_Method.SelectedIndex = 0;
-
-            // Audio Filters
-            //cboFilterAudio_Lowpass.SelectedIndex = 0;
-            //cboFilterAudio_Highpass.SelectedIndex = 0;
-            //cboFilterAudio_Headphones.SelectedIndex = 0;
-
-            // Preset
-            //cboPreset.SelectedIndex = 0;
-
-            // Batch Extension Box Disabled
-            batchExtensionTextBox.IsEnabled = false;
-
-            // Open Input/Output Location Disabled
-            openLocationInput.IsEnabled = false;
-            openLocationOutput.IsEnabled = false;
-
-
             // -------------------------
             // Load ComboBox Items
             // -------------------------
             // Filter Selective SelectiveColorPreview
             cboFilterVideo_SelectiveColor.ItemsSource = cboSelectiveColor_Items;
-
-            // -------------------------
-            // Startup Preset
-            // -------------------------
-            // Default Format is WebM
-            //if ((string)cboFormat_SelectedItem == "webm")
-            //{
-            //    cboSubtitlesStream_SelectedItem = "none";
-            //    cboAudio_Stream_SelectedItem = "1";
-            //}
 
             // -------------------------
             // Check for Available Updates
@@ -854,22 +793,22 @@ namespace Axiom
         /// </summary>
         public void DenySpecialKeys(KeyEventArgs e)
         {
-            if (Keyboard.IsKeyDown(Key.LeftShift) && e.Key == Key.D8 // *
-                || Keyboard.IsKeyDown(Key.RightShift) && e.Key == Key.D8 // *
+            if (Keyboard.IsKeyDown(Key.LeftShift) && e.Key == Key.D8 || // *
+                Keyboard.IsKeyDown(Key.RightShift) && e.Key == Key.D8 ||  // *
 
-                || Keyboard.IsKeyDown(Key.LeftShift) && e.Key == Key.OemPeriod // >
-                || Keyboard.IsKeyDown(Key.RightShift) && e.Key == Key.OemPeriod // >
+                Keyboard.IsKeyDown(Key.LeftShift) && e.Key == Key.OemPeriod ||  // >
+                Keyboard.IsKeyDown(Key.RightShift) && e.Key == Key.OemPeriod ||  // >
 
-                || Keyboard.IsKeyDown(Key.LeftShift) && e.Key == Key.OemComma // <
-                || Keyboard.IsKeyDown(Key.RightShift) && e.Key == Key.OemComma // <
+                Keyboard.IsKeyDown(Key.LeftShift) && e.Key == Key.OemComma ||  // <
+                Keyboard.IsKeyDown(Key.RightShift) && e.Key == Key.OemComma ||  // <
 
-                || e.Key == Key.Tab // tab
-                || e.Key == Key.Oem2 // forward slash
-                || e.Key == Key.OemBackslash // backslash
-                || e.Key == Key.OemQuestion // ?
-                || e.Key == Key.OemQuotes // "
-                || e.Key == Key.OemSemicolon // ;
-                || e.Key == Key.OemPipe // |
+                e.Key == Key.Tab ||  // tab
+                e.Key == Key.Oem2 ||  // forward slash
+                e.Key == Key.OemBackslash ||  // backslash
+                e.Key == Key.OemQuestion ||  // ?
+                e.Key == Key.OemQuotes ||  // "
+                e.Key == Key.OemSemicolon ||  // ;
+                e.Key == Key.OemPipe // |
                 )
             {
                 e.Handled = true;
@@ -881,9 +820,29 @@ namespace Axiom
         /// </summary>
         public void AllowOnlyNumbers(KeyEventArgs e)
         {
+            // Only allow Numbers
+            // Deny Symbols (Shift + Number)
+            if (!(e.Key >= Key.D0 && e.Key <= Key.D9) ||
+                e.Key == Key.Back ||
+                e.Key == Key.Delete ||
+                Keyboard.IsKeyDown(Key.LeftShift) && (e.Key >= Key.D0 && e.Key <= Key.D9) ||
+                Keyboard.IsKeyDown(Key.RightShift) && (e.Key >= Key.D0 && e.Key <= Key.D9)
+                )
+            {
+                e.Handled = true;
+            }
+        }
+
+        /// <summary>
+        ///     Allow Only Numbers and Backspace
+        /// </summary>
+        public void AllowOnlyNumbersAndBackspace(KeyEventArgs e)
+        {
             // Only allow Numbers and Backspace
             // Deny Symbols (Shift + Number)
-            if (!(e.Key >= Key.D0 && e.Key <= Key.D9) && e.Key != Key.Back ||
+            if (!(e.Key >= Key.D0 && e.Key <= Key.D9) &&
+                e.Key != Key.Back &&
+                e.Key != Key.Delete ||
                 Keyboard.IsKeyDown(Key.LeftShift) && (e.Key >= Key.D0 && e.Key <= Key.D9) ||
                 Keyboard.IsKeyDown(Key.RightShift) && (e.Key >= Key.D0 && e.Key <= Key.D9)
                 )
@@ -1142,7 +1101,7 @@ namespace Axiom
         private void threadSelect_KeyDown(object sender, KeyEventArgs e)
         {
             // Only allow Numbers and Backspace
-            AllowOnlyNumbers(e);
+            AllowOnlyNumbersAndBackspace(e);
         }
 
         // --------------------------------------------------
@@ -1315,8 +1274,10 @@ namespace Axiom
         /// <remarks>
         ///     Check if FFmpeg and FFprobe is on Computer 
         /// </remarks>
-        public static void FFcheck(ViewModel vm)
+        public static bool FFcheck(ViewModel vm)
         {
+            bool ready = true;
+
             try
             {
                 // Environment Variables
@@ -1334,7 +1295,8 @@ namespace Axiom
                     if (File.Exists(appDir + "ffmpeg\\bin\\ffmpeg.exe"))
                     {
                         // let pass
-                        ffCheckCleared = true;
+                        //ffCheckCleared = true;
+                        ready = true;
                     }
                     else
                     {
@@ -1350,23 +1312,27 @@ namespace Axiom
                         if (found == 1)
                         {
                             // let pass
-                            ffCheckCleared = true;
+                            //ffCheckCleared = true;
+                            ready = true;
                         }
                         else
                         {
                             /* lock */
-                            ready = false;
-                            ffCheckCleared = false;
+                            //ready = false;
+                            //ffCheckCleared = false;
                             MessageBox.Show("Cannot locate FFmpeg Path in Environment Variables or Current Folder.",
                                             "Error",
                                             MessageBoxButton.OK,
                                             MessageBoxImage.Warning);
+
+                            ready = false;
                         }
 
                     }
                 }
                 // If User Defined Path
-                else if (vm.FFmpegPath_Text != "<auto>" && !string.IsNullOrEmpty(vm.FFprobePath_Text))
+                else if (vm.FFmpegPath_Text != "<auto>" && 
+                        !string.IsNullOrEmpty(vm.FFprobePath_Text))
                 {
                     var dirPath = Path.GetDirectoryName(vm.FFmpegPath_Text).TrimEnd('\\') + @"\";
                     var fullPath = Path.Combine(dirPath, "ffmpeg.exe");
@@ -1375,35 +1341,42 @@ namespace Axiom
                     if (File.Exists(fullPath))
                     {
                         // let pass
-                        ffCheckCleared = true;
+                        //ffCheckCleared = true;
+                        ready = true;
                     }
                     else
                     {
                         /* lock */
-                        ready = false;
-                        ffCheckCleared = false;
+                        //ready = false;
+                        //ffCheckCleared = false;
+
                         MessageBox.Show("Cannot locate FFmpeg Path in User Defined Path.",
                                         "Error",
                                         MessageBoxButton.OK,
                                         MessageBoxImage.Warning);
+
+                        ready = false;
                     }
 
-                    // If Configure Path is ffmpeg.exe and not another Program
-                    if (string.Equals(vm.FFmpegPath_Text, fullPath, StringComparison.CurrentCultureIgnoreCase))
-                    {
-                        // let pass
-                        ffCheckCleared = true;
-                    }
-                    else
-                    {
-                        /* lock */
-                        ready = false;
-                        ffCheckCleared = false;
-                        MessageBox.Show("FFmpeg Path must link to ffmpeg.exe.",
-                                        "Error",
-                                        MessageBoxButton.OK,
-                                        MessageBoxImage.Warning);
-                    }
+                    //// If Configure Path is ffmpeg.exe and not another Program
+                    //if (string.Equals(vm.FFmpegPath_Text, fullPath, StringComparison.CurrentCultureIgnoreCase))
+                    //{
+                    //    // let pass
+                    //    //ffCheckCleared = true;
+                    //    ready =  true;
+                    //}
+                    //else
+                    //{
+                    //    /* lock */
+                    //    //ready = false;
+                    //    //ffCheckCleared = false;
+                    //    MessageBox.Show("FFmpeg Path must link to ffmpeg.exe.",
+                    //                    "Error",
+                    //                    MessageBoxButton.OK,
+                    //                    MessageBoxImage.Warning);
+
+                    //    ready =  false;
+                    //}
                 }
 
                 // -------------------------
@@ -1416,7 +1389,8 @@ namespace Axiom
                     if (File.Exists(appDir + "ffmpeg\\bin\\ffprobe.exe"))
                     {
                         // let pass
-                        ffCheckCleared = true;
+                        //ffCheckCleared = true;
+                        ready = true;
                     }
                     else
                     {
@@ -1432,17 +1406,20 @@ namespace Axiom
                         if (found == 1)
                         {
                             // let pass
-                            ffCheckCleared = true;
+                            //ffCheckCleared = true;
+                            ready = true;
                         }
                         else
                         {
                             /* lock */
-                            ready = false;
-                            ffCheckCleared = false;
+                            //ready = false;
+                            //ffCheckCleared = false;
                             MessageBox.Show("Cannot locate FFprobe Path in Environment Variables or Current Folder.",
                                         "Error",
                                         MessageBoxButton.OK,
                                         MessageBoxImage.Warning);
+
+                            ready = false;
                         }
 
                     }
@@ -1457,35 +1434,41 @@ namespace Axiom
                     if (File.Exists(fullPath))
                     {
                         // let pass
-                        ffCheckCleared = true;
+                        //ffCheckCleared = true;
+                        ready = true;
                     }
                     else
                     {
                         /* lock */
-                        ready = false;
-                        ffCheckCleared = false;
+                        //ready = false;
+                        //ffCheckCleared = false;
                         MessageBox.Show("Cannot locate FFprobe Path in User Defined Path.",
                                         "Error",
                                         MessageBoxButton.OK,
                                         MessageBoxImage.Warning);
+
+                        ready = true;
                     }
 
                     // If Configure Path is FFmpeg.exe and not another Program
-                    if (string.Equals(vm.FFprobePath_Text, fullPath, StringComparison.CurrentCultureIgnoreCase))
-                    {
-                        // let pass
-                        ffCheckCleared = true;
-                    }
-                    else
-                    {
-                        /* lock */
-                        ready = false;
-                        ffCheckCleared = false;
-                        MessageBox.Show("Error: FFprobe Path must link to ffprobe.exe.",
-                                        "Error",
-                                        MessageBoxButton.OK,
-                                        MessageBoxImage.Warning);
-                    }
+                    //if (string.Equals(vm.FFprobePath_Text, fullPath, StringComparison.CurrentCultureIgnoreCase))
+                    //{
+                    //    // let pass
+                    //    //ffCheckCleared = true;
+                    //    ready =  true;
+                    //}
+                    //else
+                    //{
+                    //    /* lock */
+                    //    //ready = false;
+                    //    //ffCheckCleared = false;
+                    //    MessageBox.Show("Error: FFprobe Path must link to ffprobe.exe.",
+                    //                    "Error",
+                    //                    MessageBoxButton.OK,
+                    //                    MessageBoxImage.Warning);
+
+                    //    ready =  false;
+                    //}
                 }
             }
             catch
@@ -1495,6 +1478,8 @@ namespace Axiom
                                 MessageBoxButton.OK,
                                 MessageBoxImage.Warning);
             }
+
+            return ready;
         }
 
 
@@ -1682,18 +1667,35 @@ namespace Axiom
         /// <summary>
         ///    Ready Halts (Method)
         /// </summary>
-        public static void ReadyHalts(ViewModel vm)
+        public static bool ReadyHalts(ViewModel vm)
         {
+            bool ready = true;
+
             // -------------------------
             // Check if FFmpeg & FFprobe Exists
             // -------------------------
-            if (ffCheckCleared == false)
+            if (FFcheck(vm) == false)
             {
-                MainWindow.FFcheck(vm);
+                // Halt
+                ready = false;
             }
 
+
             // -------------------------
-            // Do not allow Auto without FFprobe being installed or linked
+            // Input File does not exist
+            // -------------------------
+            if (!string.IsNullOrEmpty(input))
+            {
+                if (!File.Exists(input))
+                {
+                    // Halt
+                    ready = false;
+                }
+            }
+
+
+            // -------------------------
+            // Do Not allow Auto without FFprobe being installed or linked
             // -------------------------
             if (string.IsNullOrEmpty(FFprobe.ffprobe))
             {
@@ -1706,24 +1708,98 @@ namespace Axiom
                     Log.logParagraph.Inlines.Add(new Bold(new Run("Auto Quality Mode Requires FFprobe in order to Detect File Info.")) { Foreground = Log.ConsoleWarning });
 
                     /* lock */
-                    ready = false;
+                    //ready = false;
                     MessageBox.Show("Auto Quality Mode Requires FFprobe in order to Detect File Info.",
                                     "Notice",
                                     MessageBoxButton.OK,
                                     MessageBoxImage.Exclamation);
+
+                    // Halt
+                    ready = false;
                 }
             }
+
+
+            // -------------------------
+            // Crop Codec Copy
+            // -------------------------
+            if (!string.IsNullOrEmpty(CropWindow.crop) &&
+                vm.Video_Codec_SelectedItem == "Copy") //null check
+            {
+                // Log Console Message /////////
+                Log.WriteAction = () =>
+                {
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new Bold(new Run("Warning: Crop cannot use Codec Copy. Please select a Video Codec.")) { Foreground = Log.ConsoleDefault });
+                };
+                Log.LogActions.Add(Log.WriteAction);
+
+                /* lock */
+                //MainWindow.ready = false;
+                // Warning
+                MessageBox.Show("Crop cannot use Codec Copy. Please select a Video Codec.",
+                                "Notice",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Exclamation);
+            }
+
 
             // -------------------------
             // Video Bitrate is missing K or M at end of value
             // -------------------------
             if (vm.Video_Quality_SelectedItem == "Custom" &&
                 vm.Video_Bitrate_IsEnabled == true &&
-                !string.IsNullOrEmpty(vm.Video_Bitrate_Text) &&
+                //!string.IsNullOrEmpty(vm.Video_Bitrate_Text) &&
                 vm.Video_VBR_IsChecked != true)
             {
-                if (vm.Video_Bitrate_Text.ToUpper()?.Contains("K") != true &&
-                    vm.Video_Bitrate_Text.ToUpper()?.Contains("M") != true)
+                // Error List
+                List<string> errors = new List<string>();
+
+                // Bitrate
+                if (!string.IsNullOrEmpty(vm.Video_Bitrate_Text))
+                {
+                    if (vm.Video_Bitrate_Text.ToUpper()?.Contains("K") != true &&
+                        vm.Video_Bitrate_Text.ToUpper()?.Contains("M") != true)
+                    {
+                        errors.Add("Bitrate");
+                    }
+                }
+
+                // Minrate
+                if (!string.IsNullOrEmpty(vm.Video_Minrate_Text))
+                {
+                    if (vm.Video_Minrate_Text.ToUpper()?.Contains("K") != true &&
+                        vm.Video_Minrate_Text.ToUpper()?.Contains("M") != true)
+                    {
+                        errors.Add("Minrate");
+                    }
+                }
+
+                // Maxrate
+                if (!string.IsNullOrEmpty(vm.Video_Maxrate_Text))
+                {
+                    if (vm.Video_Maxrate_Text.ToUpper()?.Contains("K") != true &&
+                        vm.Video_Maxrate_Text.ToUpper()?.Contains("M") != true)
+                    {
+                        errors.Add("Maxrate");
+                    }
+                }
+
+                // Bufsize
+                if (!string.IsNullOrEmpty(vm.Video_Bufsize_Text))
+                {
+                    if (vm.Video_Bufsize_Text.ToUpper()?.Contains("K") != true &&
+                        vm.Video_Bufsize_Text.ToUpper()?.Contains("M") != true)
+                    {
+                        errors.Add("Bufsize");
+                    }
+                }
+
+
+                // Halt and Display Errors
+                if (errors != null &&
+                    errors.Count > 0)
                 {
                     // Log Console Message /////////
                     Log.logParagraph.Inlines.Add(new LineBreak());
@@ -1731,17 +1807,21 @@ namespace Axiom
                     Log.logParagraph.Inlines.Add(new Bold(new Run("Notice: Video Bitrate is missing K or M at end of value.")) { Foreground = Log.ConsoleWarning });
 
                     /* lock */
-                    ready = false;
+                    //ready = false;
                     // Warning
-                    MessageBox.Show("Video Bitrate is missing K or M at end of value.",
+                    MessageBox.Show("Video " + string.Join(", ", errors) + " missing K or M at end of value.",
                                     "Notice",
                                     MessageBoxButton.OK,
                                     MessageBoxImage.Warning);
+
+                    // Halt
+                    ready = false;
                 }
             }
 
+
             // -------------------------
-            // Halt if Single File Input with no Extension
+            // Single File Input with no Extension
             // -------------------------
             if (vm.Batch_IsChecked == false && 
                 vm.Input_Text.EndsWith("\\"))
@@ -1752,16 +1832,20 @@ namespace Axiom
                 Log.logParagraph.Inlines.Add(new Bold(new Run("Notice: Please choose an input file.")) { Foreground = Log.ConsoleWarning });
 
                 /* lock */
-                ready = false;
+                //ready = false;
                 // Warning
                 MessageBox.Show("Please choose an input file.",
                                 "Notice",
                                 MessageBoxButton.OK,
                                 MessageBoxImage.Exclamation);
+
+                // Halt
+                ready = false;
             }
 
+
             // -------------------------
-            // Do not allow Batch Copy to same folder if file extensions are the same (to avoid file overwrite)
+            // Do Not allow Batch Copy to same folder if file extensions are the same (to avoid file overwrite)
             // -------------------------
             if (vm.Batch_IsChecked == true)
             {
@@ -1777,17 +1861,21 @@ namespace Axiom
                     Log.logParagraph.Inlines.Add(new Bold(new Run("Notice: Please choose an output folder different than the input folder to avoid file overwrite.")) { Foreground = Log.ConsoleWarning });
 
                     /* lock */
-                    ready = false;
+                    //ready = false;
                     // Warning
                     MessageBox.Show("Please choose an output folder different than the input folder to avoid file overwrite.",
                                     "Notice",
                                     MessageBoxButton.OK,
                                     MessageBoxImage.Exclamation);
+
+                    // Halt
+                    ready = false;
                 }
             }
 
+
             // -------------------------
-            // Throw Error if VP8/VP9 & CRF does not have Bitrate -b:v
+            // VP8/VP9 & CRF does not have Bitrate -b:v
             // -------------------------
             if (vm.Video_Codec_SelectedItem == "VP8" ||
                 vm.Video_Codec_SelectedItem == "VP9")
@@ -1801,14 +1889,19 @@ namespace Axiom
                     Log.logParagraph.Inlines.Add(new Bold(new Run("Notice: VP8/VP9 CRF must also have Bitrate. \n(e.g. 0 for Constant, 1234k for Constrained)")) { Foreground = Log.ConsoleWarning });
 
                     /* lock */
-                    ready = false;
+                    //ready = false;
                     // Notice
                     MessageBox.Show("VP8/VP9 CRF must also have Bitrate. \n(e.g. 0 for Constant, 1234k for Constrained)",
                                 "Notice",
                                 MessageBoxButton.OK,
                                 MessageBoxImage.Exclamation);
+
+                    // Halt
+                    ready = false;
                 }
             }
+
+            return ready;
         }
 
 
@@ -2725,11 +2818,11 @@ namespace Axiom
 
                     if (exists)
                     {
-                        openLocationInput.IsEnabled = true;
+                        vm.Input_Location_IsEnabled = true;
                     }
                     else
                     {
-                        openLocationInput.IsEnabled = false;
+                        vm.Input_Location_IsEnabled = false;
                     }
                 }
 
@@ -2922,11 +3015,11 @@ namespace Axiom
 
                 if (exists)
                 {
-                    openLocationOutput.IsEnabled = true;
+                    vm.Output_Location_IsEnabled = true;
                 }
                 else
                 {
-                    openLocationOutput.IsEnabled = false;
+                    vm.Output_Location_IsEnabled = false;
                 }
             }
         }
@@ -3337,56 +3430,58 @@ namespace Axiom
                 vm.Video_ScalingAlgorithm_SelectedItem = "auto";
 
                 // Filters
-                // Fix
-                vm.FilterVideo_Deband_SelectedItem = "disabled";
-                vm.FilterVideo_Deshake_SelectedItem = "disabled";
-                vm.FilterVideo_Deflicker_SelectedItem = "disabled";
-                vm.FilterVideo_Dejudder_SelectedItem = "disabled";
-                vm.FilterVideo_Denoise_SelectedItem = "disabled";
-                vm.FilterVideo_Deinterlace_SelectedItem = "disabled";
-                // Selective Color
-                // Reds
-                vm.FilterVideo_SelectiveColor_Reds_Cyan_Value = 0;
-                vm.FilterVideo_SelectiveColor_Reds_Magenta_Value = 0;
-                vm.FilterVideo_SelectiveColor_Reds_Yellow_Value = 0;
-                // Yellows
-                vm.FilterVideo_SelectiveColor_Yellows_Cyan_Value = 0;
-                vm.FilterVideo_SelectiveColor_Yellows_Magenta_Value = 0;
-                vm.FilterVideo_SelectiveColor_Yellows_Yellow_Value = 0;
-                // Greens
-                vm.FilterVideo_SelectiveColor_Greens_Cyan_Value = 0;
-                vm.FilterVideo_SelectiveColor_Greens_Magenta_Value = 0;
-                vm.FilterVideo_SelectiveColor_Greens_Yellow_Value = 0;
-                // Cyans
-                vm.FilterVideo_SelectiveColor_Cyans_Cyan_Value = 0;
-                vm.FilterVideo_SelectiveColor_Cyans_Magenta_Value = 0;
-                vm.FilterVideo_SelectiveColor_Cyans_Yellow_Value = 0;
-                // Blues
-                vm.FilterVideo_SelectiveColor_Blues_Cyan_Value = 0;
-                vm.FilterVideo_SelectiveColor_Blues_Magenta_Value = 0;
-                vm.FilterVideo_SelectiveColor_Blues_Yellow_Value = 0;
-                // Magentas
-                vm.FilterVideo_SelectiveColor_Magentas_Cyan_Value = 0;
-                vm.FilterVideo_SelectiveColor_Magentas_Magenta_Value = 0;
-                vm.FilterVideo_SelectiveColor_Magentas_Yellow_Value = 0;
-                // Whites
-                vm.FilterVideo_SelectiveColor_Whites_Cyan_Value = 0;
-                vm.FilterVideo_SelectiveColor_Whites_Magenta_Value = 0;
-                vm.FilterVideo_SelectiveColor_Whites_Yellow_Value = 0;
-                // Neutrals
-                vm.FilterVideo_SelectiveColor_Neutrals_Cyan_Value = 0;
-                vm.FilterVideo_SelectiveColor_Neutrals_Magenta_Value = 0;
-                vm.FilterVideo_SelectiveColor_Neutrals_Yellow_Value = 0;
-                // Blacks
-                vm.FilterVideo_SelectiveColor_Blacks_Cyan_Value = 0;
-                vm.FilterVideo_SelectiveColor_Blacks_Magenta_Value = 0;
-                vm.FilterVideo_SelectiveColor_Blacks_Yellow_Value = 0;
+                vm.FiltersSetDefault();
 
-                // EQ
-                vm.FilterVideo_EQ_Brightness_Value = 0;
-                vm.FilterVideo_EQ_Contrast_Value = 0;
-                vm.FilterVideo_EQ_Saturation_Value = 0;
-                vm.FilterVideo_EQ_Gamma_Value = 0;
+                //// Fix
+                //vm.FilterVideo_Deband_SelectedItem = "disabled";
+                //vm.FilterVideo_Deshake_SelectedItem = "disabled";
+                //vm.FilterVideo_Deflicker_SelectedItem = "disabled";
+                //vm.FilterVideo_Dejudder_SelectedItem = "disabled";
+                //vm.FilterVideo_Denoise_SelectedItem = "disabled";
+                //vm.FilterVideo_Deinterlace_SelectedItem = "disabled";
+                //// Selective Color
+                //// Reds
+                //vm.FilterVideo_SelectiveColor_Reds_Cyan_Value = 0;
+                //vm.FilterVideo_SelectiveColor_Reds_Magenta_Value = 0;
+                //vm.FilterVideo_SelectiveColor_Reds_Yellow_Value = 0;
+                //// Yellows
+                //vm.FilterVideo_SelectiveColor_Yellows_Cyan_Value = 0;
+                //vm.FilterVideo_SelectiveColor_Yellows_Magenta_Value = 0;
+                //vm.FilterVideo_SelectiveColor_Yellows_Yellow_Value = 0;
+                //// Greens
+                //vm.FilterVideo_SelectiveColor_Greens_Cyan_Value = 0;
+                //vm.FilterVideo_SelectiveColor_Greens_Magenta_Value = 0;
+                //vm.FilterVideo_SelectiveColor_Greens_Yellow_Value = 0;
+                //// Cyans
+                //vm.FilterVideo_SelectiveColor_Cyans_Cyan_Value = 0;
+                //vm.FilterVideo_SelectiveColor_Cyans_Magenta_Value = 0;
+                //vm.FilterVideo_SelectiveColor_Cyans_Yellow_Value = 0;
+                //// Blues
+                //vm.FilterVideo_SelectiveColor_Blues_Cyan_Value = 0;
+                //vm.FilterVideo_SelectiveColor_Blues_Magenta_Value = 0;
+                //vm.FilterVideo_SelectiveColor_Blues_Yellow_Value = 0;
+                //// Magentas
+                //vm.FilterVideo_SelectiveColor_Magentas_Cyan_Value = 0;
+                //vm.FilterVideo_SelectiveColor_Magentas_Magenta_Value = 0;
+                //vm.FilterVideo_SelectiveColor_Magentas_Yellow_Value = 0;
+                //// Whites
+                //vm.FilterVideo_SelectiveColor_Whites_Cyan_Value = 0;
+                //vm.FilterVideo_SelectiveColor_Whites_Magenta_Value = 0;
+                //vm.FilterVideo_SelectiveColor_Whites_Yellow_Value = 0;
+                //// Neutrals
+                //vm.FilterVideo_SelectiveColor_Neutrals_Cyan_Value = 0;
+                //vm.FilterVideo_SelectiveColor_Neutrals_Magenta_Value = 0;
+                //vm.FilterVideo_SelectiveColor_Neutrals_Yellow_Value = 0;
+                //// Blacks
+                //vm.FilterVideo_SelectiveColor_Blacks_Cyan_Value = 0;
+                //vm.FilterVideo_SelectiveColor_Blacks_Magenta_Value = 0;
+                //vm.FilterVideo_SelectiveColor_Blacks_Yellow_Value = 0;
+
+                //// EQ
+                //vm.FilterVideo_EQ_Brightness_Value = 0;
+                //vm.FilterVideo_EQ_Contrast_Value = 0;
+                //vm.FilterVideo_EQ_Saturation_Value = 0;
+                //vm.FilterVideo_EQ_Gamma_Value = 0;
             }
 
             // -------------------------
@@ -3516,6 +3611,11 @@ namespace Axiom
                 vm.Format_CutStart_Hours_Text = "00";
             }
         }
+        // Key Down
+        private void tbxCutStartHours_KeyDown(object sender, KeyEventArgs e)
+        {
+            AllowOnlyNumbersAndBackspace(e);
+        }
 
         // -------------------------
         // Cut Start - Minutes - Textbox Change
@@ -3540,6 +3640,11 @@ namespace Axiom
             {
                 vm.Format_CutStart_Minutes_Text = "00";
             }
+        }
+        // Key Down
+        private void tbxCutStartMinutes_KeyDown(object sender, KeyEventArgs e)
+        {
+            AllowOnlyNumbersAndBackspace(e);
         }
 
         // -------------------------
@@ -3566,6 +3671,11 @@ namespace Axiom
                 vm.Format_CutStart_Seconds_Text = "00";
             }
         }
+        // Key Down
+        private void tbxCutStartSeconds_KeyDown(object sender, KeyEventArgs e)
+        {
+            AllowOnlyNumbersAndBackspace(e);
+        }
 
         // -------------------------
         // Cut Start - Milliseconds - Textbox Change
@@ -3591,7 +3701,11 @@ namespace Axiom
                 vm.Format_CutStart_Milliseconds_Text = "000";
             }
         }
-
+        // Key Down
+        private void tbxCutStartMilliseconds_KeyDown(object sender, KeyEventArgs e)
+        {
+            AllowOnlyNumbersAndBackspace(e);
+        }
 
         /// <summary>
         ///    Cut End - Textbox
@@ -3620,6 +3734,11 @@ namespace Axiom
                 vm.Format_CutEnd_Hours_Text = "00";
             }
         }
+        // Key Down
+        private void tbxCutEndHours_KeyDown(object sender, KeyEventArgs e)
+        {
+            AllowOnlyNumbersAndBackspace(e);
+        }
 
         // -------------------------
         // Cut End - Minutes - Textbox Change
@@ -3644,6 +3763,11 @@ namespace Axiom
             {
                 vm.Format_CutEnd_Minutes_Text = "00";
             }
+        }
+        // Key Down
+        private void tbxCutEndMinutes_KeyDown(object sender, KeyEventArgs e)
+        {
+            AllowOnlyNumbersAndBackspace(e);
         }
 
         // -------------------------
@@ -3670,6 +3794,11 @@ namespace Axiom
                 vm.Format_CutEnd_Seconds_Text = "00";
             }
         }
+        // Key Down
+        private void tbxCutEndSeconds_KeyDown(object sender, KeyEventArgs e)
+        {
+            AllowOnlyNumbersAndBackspace(e);
+        }
 
         // -------------------------
         // Cut End - Milliseconds - Textbox Change
@@ -3695,7 +3824,11 @@ namespace Axiom
                 vm.Format_CutEnd_Milliseconds_Text = "000";
             }
         }
-
+        // Key Down
+        private void tbxCutEndMilliseconds_KeyDown(object sender, KeyEventArgs e)
+        {
+            AllowOnlyNumbersAndBackspace(e);
+        }
 
 
         // -------------------------
@@ -3704,22 +3837,15 @@ namespace Axiom
         // Got Focus
         private void tbxFrameStart_GotFocus(object sender, RoutedEventArgs e)
         {
-            // Clear textbox on focus if default text "Frame"
-            //if (tbxFrameStart.Focus() == true && vm.Format_FrameStart_Text == "Frame")
-            //{
-            //    vm.Format_FrameStart_Text = string.Empty;
-            //}
         }
         // Lost Focus
         private void tbxFrameStart_LostFocus(object sender, RoutedEventArgs e)
         {
-            //vm.Format_FrameStart_Text = tbxFrameStart.Text;
-
-            // Change textbox back to "auto" if left empty
-            //if (string.IsNullOrEmpty(vm.Format_FrameStart_Text))
-            //{
-            //    vm.Format_FrameStart_Text = "Frame";
-            //}
+        }
+        // Key Down
+        private void tbxFrameStart_KeyDown(object sender, KeyEventArgs e)
+        {
+            AllowOnlyNumbersAndBackspace(e);
         }
 
         // -------------------------
@@ -3728,23 +3854,17 @@ namespace Axiom
         // Got Focus
         private void tbxFrameEnd_GotFocus(object sender, RoutedEventArgs e)
         {
-            // Clear textbox on focus if default text "Range"
-            //if (tbxFrameEnd.Focus() == true && vm.Format_FrameEnd_Text == "Range")
-            //{
-            //    vm.Format_FrameEnd_Text = string.Empty;
-            //}
         }
         // Lost Focus
         private void tbxFrameEnd_LostFocus(object sender, RoutedEventArgs e)
         {
-            //vm.Format_FrameEnd_Text = tbxFrameEnd.Text;
-
-            // Change textbox back to "auto" if left empty
-            //if (string.IsNullOrEmpty(vm.Format_FrameEnd_Text))
-            //{
-            //    vm.Format_FrameEnd_Text = "Range";
-            //}
         }
+        // Key Down
+        private void tbxFrameEnd_KeyDown(object sender, KeyEventArgs e)
+        {
+            AllowOnlyNumbersAndBackspace(e);
+        }
+
 
 
         /// <summary>
@@ -3867,7 +3987,7 @@ namespace Axiom
         private void tbxVideo_CRF_KeyDown(object sender, KeyEventArgs e)
         {
             // Only allow Numbers and Backspace
-            AllowOnlyNumbers(e);
+            AllowOnlyNumbersAndBackspace(e);
         }
 
         /// <summary>
@@ -3969,9 +4089,7 @@ namespace Axiom
             if (vm.Video_FPS_SelectedItem == "Custom" ||
                 string.IsNullOrEmpty(vm.Video_FPS_SelectedItem))
             {
-                //cboFPS.IsEditable = true;
                 vm.Video_FPS_IsEditable = true;
-                //vm.Video_FPS_Text = string.Empty;
             }
 
             // -------------------------
@@ -3980,7 +4098,6 @@ namespace Axiom
             if (vm.Video_FPS_SelectedItem != "Custom" &&
                 !string.IsNullOrEmpty(vm.Video_FPS_SelectedItem))
             {
-                //cboFPS.IsEditable = false;
                 vm.Video_FPS_IsEditable = false;
             }
 
@@ -3989,11 +4106,9 @@ namespace Axiom
             // -------------------------
             if (vm.Video_FPS_IsEditable == true)
             {
-                //cboFPS.IsEditable = true;
                 vm.Video_FPS_IsEditable = true;
 
                 // Clear Custom Text
-                //cboFPS.SelectedIndex = -1;
                 vm.Video_FPS_SelectedIndex = -1;
             }
 
@@ -4036,9 +4151,7 @@ namespace Axiom
             if (vm.Video_Speed_SelectedItem == "Custom" ||
                 string.IsNullOrEmpty(vm.Video_Speed_SelectedItem))
             {
-                //cboFPS.IsEditable = true;
                 vm.Video_Speed_IsEditable = true;
-                //vm.Video_Speed_Text = string.Empty;
             }
 
             // -------------------------
@@ -4047,7 +4160,6 @@ namespace Axiom
             if (vm.Video_Speed_SelectedItem != "Custom" &&
                 !string.IsNullOrEmpty(vm.Video_Speed_SelectedItem))
             {
-                //cboFPS.IsEditable = false;
                 vm.Video_Speed_IsEditable = false;
             }
 
@@ -4056,11 +4168,9 @@ namespace Axiom
             // -------------------------
             if (vm.Video_Speed_IsEditable == true)
             {
-                //cboFPS.IsEditable = true;
                 vm.Video_Speed_IsEditable = true;
 
                 // Clear Custom Text
-                //cboFPS.SelectedIndex = -1;
                 vm.Video_Speed_SelectedIndex = -1;
             }
 
@@ -4075,7 +4185,7 @@ namespace Axiom
         private void cboSpeed_KeyDown(object sender, KeyEventArgs e)
         {
             // Only allow Numbers and Backspace
-            AllowOnlyNumbers(e);
+            AllowOnlyNumbersAndBackspace(e);
         }
 
 
@@ -4375,7 +4485,7 @@ namespace Axiom
             if (vm.Subtitle_Codec_SelectedItem == "None")
             {
                 vm.Subtitle_Stream_SelectedItem = "none";
-                cboSubtitlesStream.IsEnabled = false;
+                vm.Subtitle_Stream_IsEnabled = false;
             }
 
             // -------------------------
@@ -4386,7 +4496,7 @@ namespace Axiom
                 // Force Select External
                 // Can't burn All subtitle streams
                 vm.Subtitle_Stream_SelectedItem = "external";
-                cboSubtitlesStream.IsEnabled = true;
+                vm.Subtitle_Stream_IsEnabled = true;
             }
 
             // -------------------------
@@ -4394,7 +4504,7 @@ namespace Axiom
             // -------------------------
             else if (vm.Subtitle_Codec_SelectedItem == "Copy")
             {
-                cboSubtitlesStream.IsEnabled = true;
+                vm.Subtitle_Stream_IsEnabled = true;
             }
 
             // -------------------------
@@ -4402,7 +4512,7 @@ namespace Axiom
             // -------------------------
             else
             {
-                cboSubtitlesStream.IsEnabled = true;
+                vm.Subtitle_Stream_IsEnabled = true;
             }
         }
 
@@ -4420,28 +4530,12 @@ namespace Axiom
                 // Enable External ListView and Buttons
                 vm.Subtitle_ListView_IsEnabled = true;
 
-                //listViewSubtitles.IsEnabled = true;
-
-                //btnAddSubtitles.IsEnabled = true;
-                //btnRemoveSubtitle.IsEnabled = true;
-                //btnSortSubtitleUp.IsEnabled = true;
-                //btnSortSubtitleDown.IsEnabled = true;
-                //btnClearSubtitles.IsEnabled = true;
-
                 listViewSubtitles.Opacity = 1;
             }
             else
             {
                 // Disable External ListView and Buttons
                 vm.Subtitle_ListView_IsEnabled = false;
-
-                //listViewSubtitles.IsEnabled = false;
-
-                //btnAddSubtitles.IsEnabled = false;
-                //btnRemoveSubtitle.IsEnabled = false;
-                //btnSortSubtitleUp.IsEnabled = false;
-                //btnSortSubtitleDown.IsEnabled = false;
-                //btnClearSubtitles.IsEnabled = false;
 
                 listViewSubtitles.Opacity = 0.1;
             }
@@ -4496,7 +4590,6 @@ namespace Axiom
                     Subtitle.subtitleFileNamesList.Add(Path.GetFileName(selectFiles.FileNames[i]));
 
                     // ListView Display File Names + Ext
-                    //listViewSubtitles.Items.Add(Path.GetFileName(selectFiles.FileNames[i]));
                     vm.Subtitle_ListView_Items.Add(Path.GetFileName(selectFiles.FileNames[i]));
                 }
             }
@@ -4523,22 +4616,6 @@ namespace Axiom
                 string itemFileNames = Subtitle.subtitleFileNamesList[selectedIndex];
                 Subtitle.subtitleFileNamesList.RemoveAt(selectedIndex);
             }
-            //if (listViewSubtitles.SelectedItems.Count > 0)
-            //{
-            //    var selectedIndex = listViewSubtitles.SelectedIndex;
-
-            //    // ListView Items
-            //    var itemlsvFileNames = listViewSubtitles.Items[selectedIndex];
-            //    listViewSubtitles.Items.RemoveAt(selectedIndex);
-
-            //    // List File Paths
-            //    string itemFilePaths = Subtitle.subtitleFilePathsList[selectedIndex];
-            //    Subtitle.subtitleFilePathsList.RemoveAt(selectedIndex);
-
-            //    // List File Names
-            //    string itemFileNames = Subtitle.subtitleFileNamesList[selectedIndex];
-            //    Subtitle.subtitleFileNamesList.RemoveAt(selectedIndex);
-            //}
         }
 
         /// <summary>
@@ -4609,31 +4686,6 @@ namespace Axiom
                     vm.Subtitle_ListView_SelectedIndex = selectedIndex - 1;
                 }
             }
-            //if (listViewSubtitles.SelectedItems.Count > 0)
-            //{
-            //    var selectedIndex = listViewSubtitles.SelectedIndex;
-
-            //    if (selectedIndex > 0)
-            //    {
-            //        // ListView Items
-            //        var itemlsvFileNames = listViewSubtitles.Items[selectedIndex];
-            //        listViewSubtitles.Items.RemoveAt(selectedIndex);
-            //        listViewSubtitles.Items.Insert(selectedIndex - 1, itemlsvFileNames);
-
-            //        // List File Paths
-            //        string itemFilePaths = Subtitle.subtitleFilePathsList[selectedIndex];
-            //        Subtitle.subtitleFilePathsList.RemoveAt(selectedIndex);
-            //        Subtitle.subtitleFilePathsList.Insert(selectedIndex - 1, itemFilePaths);
-
-            //        // List File Names
-            //        string itemFileNames = Subtitle.subtitleFileNamesList[selectedIndex];
-            //        Subtitle.subtitleFileNamesList.RemoveAt(selectedIndex);
-            //        Subtitle.subtitleFileNamesList.Insert(selectedIndex - 1, itemFileNames);
-
-            //        // Highlight Selected Index
-            //        listViewSubtitles.SelectedIndex = selectedIndex - 1;
-            //    }
-            //}
         }
 
         /// <summary>
@@ -4666,31 +4718,6 @@ namespace Axiom
                     vm.Subtitle_ListView_SelectedIndex = selectedIndex + 1;
                 }
             }
-            //if (listViewSubtitles.SelectedItems.Count > 0)
-            //{
-            //    var selectedIndex = listViewSubtitles.SelectedIndex;
-
-            //    if (selectedIndex + 1 < listViewSubtitles.Items.Count)
-            //    {
-            //        // ListView Items
-            //        var itemlsvFileNames = listViewSubtitles.Items[selectedIndex];
-            //        listViewSubtitles.Items.RemoveAt(selectedIndex);
-            //        listViewSubtitles.Items.Insert(selectedIndex + 1, itemlsvFileNames);
-
-            //        // List FilePaths
-            //        string itemFilePaths = Subtitle.subtitleFilePathsList[selectedIndex];
-            //        Subtitle.subtitleFilePathsList.RemoveAt(selectedIndex);
-            //        Subtitle.subtitleFilePathsList.Insert(selectedIndex + 1, itemFilePaths);
-
-            //        // List File Names
-            //        string itemFileNames = Subtitle.subtitleFileNamesList[selectedIndex];
-            //        Subtitle.subtitleFileNamesList.RemoveAt(selectedIndex);
-            //        Subtitle.subtitleFileNamesList.Insert(selectedIndex + 1, itemFileNames);
-
-            //        // Highlight Selected Index
-            //        listViewSubtitles.SelectedIndex = selectedIndex + 1;
-            //    }
-            //}
         }
 
 
@@ -4704,20 +4731,6 @@ namespace Axiom
             // Set Controls
             // -------------------------
             AudioControls.SetControls(vm, vm.Audio_Codec_SelectedItem);
-
-            //// -------------------------
-            //// Quality Controls
-            //// -------------------------
-            //AudioControls.QualityControls(vm);
-
-            //// -------------------------
-            //// Display Bit-rate in TextBox
-            //// -------------------------
-            //AudioControls.AudioBitrateDisplay(vm,
-            //                                  vm.Audio_Quality_Items,
-            //                                  vm.Audio_Quality_SelectedItem
-            //                                  );
-
         }
 
 
@@ -4799,7 +4812,7 @@ namespace Axiom
         private void tbxAudio_Bitrate_KeyDown(object sender, KeyEventArgs e)
         {
             // Only allow Numbers and Backspace
-            AllowOnlyNumbers(e);
+            AllowOnlyNumbersAndBackspace(e);
         }
         // Got Focus
         private void tbxAudio_Bitrate_GotFocus(object sender, RoutedEventArgs e)
@@ -4857,22 +4870,6 @@ namespace Axiom
             {
                 PCM.Codec_Set(vm);
             }
-            
-
-            //if (!string.IsNullOrEmpty(vm.Audio_SampleRate_SelectedItem))
-            //{
-            //    Audio_SampleRate_PreviousItem = vm.Audio_SampleRate_SelectedItem;
-            //}
-
-            //MessageBox.Show("Previous: " + Audio_SampleRate_PreviousItem); //debug
-            //MessageBox.Show("Current: " + vm.Audio_SampleRate_SelectedItem); //debug
-
-            //if (Audio_SampleRate_PreviousItem != vm.Audio_SampleRate_SelectedItem)
-            //{
-            //    // Switch to Copy if inputExt & outputExt match
-            //    AudioControls.AutoCopyAudioCodec(vm);
-            //}
-
         }
 
 
@@ -4891,7 +4888,7 @@ namespace Axiom
         private void tbxAudio_Volume_KeyDown(object sender, KeyEventArgs e)
         {
             // Only allow Numbers and Backspace
-            AllowOnlyNumbers(e);
+            AllowOnlyNumbersAndBackspace(e);
         }
 
         /// <summary>
@@ -5611,6 +5608,10 @@ namespace Axiom
 
             VideoControls.AutoCopyVideoCodec(vm);
         }
+        private void tbxFilterVideo_EQ_Brightness_KeyDown(object sender, KeyEventArgs e)
+        {
+            AllowOnlyNumbers(e);
+        }
 
         // Contrast
         private void slFilterVideo_EQ_Contrast_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -5627,6 +5628,10 @@ namespace Axiom
         private void tbxFilterVideo_EQ_Contrast_PreviewKeyUp(object sender, KeyEventArgs e)
         {
             VideoControls.AutoCopyVideoCodec(vm);
+        }
+        private void tbxFilterVideo_EQ_Contrast_KeyDown(object sender, KeyEventArgs e)
+        {
+            AllowOnlyNumbers(e);
         }
 
         // Saturation
@@ -5645,6 +5650,10 @@ namespace Axiom
         {
             VideoControls.AutoCopyVideoCodec(vm);
         }
+        private void tbxFilterVideo_EQ_Saturation_KeyDown(object sender, KeyEventArgs e)
+        {
+            AllowOnlyNumbers(e);
+        }
 
         // Gamma
         private void slFilterVideo_EQ_Gamma_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -5661,6 +5670,10 @@ namespace Axiom
         private void tbxFilterVideo_EQ_Gamma_PreviewKeyUp(object sender, KeyEventArgs e)
         {
             VideoControls.AutoCopyVideoCodec(vm);
+        }
+        private void tbxFilterVideo_EQ_Gamma_KeyDown(object sender, KeyEventArgs e)
+        {
+            AllowOnlyNumbers(e);
         }
 
         // Reset
@@ -5778,6 +5791,7 @@ namespace Axiom
         /// <summary>
         ///     Filter Audio - Contrast
         /// </summary>
+        // Double Click
         private void slFilterAudio_Contrast_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             // Reset to default
@@ -5785,12 +5799,18 @@ namespace Axiom
 
             AudioControls.AutoCopyAudioCodec(vm);
         }
-
-        private void slFilterAudio_Contrast_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        // Key Down
+        private void tbxFilterAudio_Contrast_KeyDown(object sender, KeyEventArgs e)
+        {
+            AllowOnlyNumbers(e);
+        }
+        // Key Up
+        private void tbxFilterAudio_Contrast_PreviewKeyUp(object sender, KeyEventArgs e)
         {
             AudioControls.AutoCopyAudioCodec(vm);
         }
-        private void tbxFilterAudio_Contrast_PreviewKeyUp(object sender, KeyEventArgs e)
+        // Mouse Up
+        private void slFilterAudio_Contrast_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
             AudioControls.AutoCopyAudioCodec(vm);
         }
@@ -5798,6 +5818,7 @@ namespace Axiom
         /// <summary>
         ///     Filter Audio - Extra Stereo
         /// </summary>
+        // Double Click
         private void slFilterAudio_ExtraStereo_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             // Reset to default
@@ -5805,12 +5826,18 @@ namespace Axiom
 
             AudioControls.AutoCopyAudioCodec(vm);
         }
-
-        private void slFilterAudio_ExtraStereo_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        // Key Down
+        private void tbxFilterAudio_ExtraStereo_KeyDown(object sender, KeyEventArgs e)
+        {
+            AllowOnlyNumbers(e);
+        }
+        // Key Up
+        private void tbxFilterAudio_ExtraStereo_PreviewKeyUp(object sender, KeyEventArgs e)
         {
             AudioControls.AutoCopyAudioCodec(vm);
         }
-        private void tbxFilterAudio_ExtraStereo_PreviewKeyUp(object sender, KeyEventArgs e)
+        // Mouse Up
+        private void slFilterAudio_ExtraStereo_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
             AudioControls.AutoCopyAudioCodec(vm);
         }
@@ -5818,6 +5845,7 @@ namespace Axiom
         /// <summary>
         ///     Filter Audio - Tempo
         /// </summary>
+        // Double Click
         private void slFilterAudio_Tempo_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             // Reset to default
@@ -5825,18 +5853,21 @@ namespace Axiom
 
             AudioControls.AutoCopyAudioCodec(vm);
         }
-
-        private void slFilterAudio_Tempo_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        // Key Down
+        private void tbxFilterAudio_Tempo_KeyDown(object sender, KeyEventArgs e)
         {
-            AudioControls.AutoCopyAudioCodec(vm);
+            AllowOnlyNumbers(e);
         }
-
+        // Key Up
         private void tbxFilterAudio_Tempo_PreviewKeyUp(object sender, KeyEventArgs e)
         {
             AudioControls.AutoCopyAudioCodec(vm);
         }
-
-
+        // Mouse Up
+        private void slFilterAudio_Tempo_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            AudioControls.AutoCopyAudioCodec(vm);
+        }
 
 
 
@@ -5923,33 +5954,10 @@ namespace Axiom
         /// </summary>
         private void OnScriptPaste(object sender, DataObjectPastingEventArgs e)
         {
-            // Copy Pasted Script
-            //string script = ScriptView.GetScriptRichTextBoxContents(this);
-
-            //// Select All Text
-            //TextRange textRange = new TextRange(
-            //    rtbScriptView.Document.ContentStart,
-            //    rtbScriptView.Document.ContentEnd
-            //);
-
-            //// Remove Formatting
-            //textRange.ClearAllProperties();
-
-            // Clear Text
-            //ScriptView.ClearScriptView(this);
-            //ScriptView.scriptParagraph.Inlines.Clear();
-
-            // Remove Double Paragraph Spaces
-            //rtbScriptView.Document = new FlowDocument(ScriptView.scriptParagraph);
-
-            //rtbScriptView.BeginChange();
-            //ScriptView.scriptParagraph.Inlines.Add(new Run(script.Replace("\n","")));
-            //rtbScriptView.EndChange();
         }
 
         private void OnScriptCopy(object sender, DataObjectCopyingEventArgs e)
         {
-
         }
 
         /// <summary>
@@ -5993,7 +6001,7 @@ namespace Axiom
             // -------------------------
             // Enable Script
             // -------------------------
-            script = true;
+            //script = true;
 
             // -------------------------
             // Reset Sort
@@ -6014,70 +6022,87 @@ namespace Axiom
             // -------------------------
             // Ready Halts
             // -------------------------
-            ReadyHalts(vm);
+            //ReadyHalts(vm);
 
             // -------------------------
-            // Single
+            // Start Script
             // -------------------------
-            if (tglBatch.IsChecked == false)
+            //if (ready == true)
+            if (ReadyHalts(vm) == true)
             {
                 // -------------------------
-                // FFprobe Detect Metadata
+                // Single
                 // -------------------------
-                FFprobe.Metadata(vm);
+                if (tglBatch.IsChecked == false)
+                {
+                    // -------------------------
+                    // FFprobe Detect Metadata
+                    // -------------------------
+                    FFprobe.Metadata(vm);
+
+                    // -------------------------
+                    // FFmpeg Generate Arguments (Single)
+                    // -------------------------
+                    //disabled if batch
+                    FFmpeg.FFmpegSingleGenerateArgs(vm);
+                }
 
                 // -------------------------
-                // FFmpeg Generate Arguments (Single)
+                // Batch
                 // -------------------------
-                //disabled if batch
-                FFmpeg.FFmpegSingleGenerateArgs(vm);
+                else if (tglBatch.IsChecked == true)
+                {
+                    // -------------------------
+                    // FFprobe Video Entry Type Containers
+                    // -------------------------
+                    FFprobe.VideoEntryType(vm);
+
+                    // -------------------------
+                    // FFprobe Video Entry Type Containers
+                    // -------------------------
+                    FFprobe.AudioEntryType(vm);
+
+                    // -------------------------
+                    // FFmpeg Generate Arguments (Batch)
+                    // -------------------------
+                    //disabled if single file
+                    FFmpeg.FFmpegBatchGenerateArgs(vm);
+                }
+
+                // -------------------------
+                // Write All Log Actions to Console
+                // -------------------------
+                Log.LogWriteAll(this, vm);
+
+                // -------------------------
+                // Generate Script
+                // -------------------------
+                FFmpeg.FFmpegScript(vm);
+
+                // -------------------------
+                // Auto Sort Toggle
+                // -------------------------
+                if (tglAutoSortScript.IsChecked == true)
+                {
+                    Sort();
+                }
+
+                // -------------------------
+                // Clear Variables for next Run
+                // -------------------------
+                ClearVariables(vm);
+                GC.Collect();
             }
 
             // -------------------------
-            // Batch
+            // Restart
             // -------------------------
-            else if (tglBatch.IsChecked == true)
-            {
-                // -------------------------
-                // FFprobe Video Entry Type Containers
-                // -------------------------
-                FFprobe.VideoEntryType(vm);
+            //else
+            //{
+            //    /* unlock */
+            //    //ready = true;
+            //}
 
-                // -------------------------
-                // FFprobe Video Entry Type Containers
-                // -------------------------
-                FFprobe.AudioEntryType(vm);
-
-                // -------------------------
-                // FFmpeg Generate Arguments (Batch)
-                // -------------------------
-                //disabled if single file
-                FFmpeg.FFmpegBatchGenerateArgs(vm);
-            }
-
-            // -------------------------
-            // Write All Log Actions to Console
-            // -------------------------
-            Log.LogWriteAll(this, vm);
-
-            // -------------------------
-            // Generate Script
-            // -------------------------
-            FFmpeg.FFmpegScript(vm);
-
-            // -------------------------
-            // Auto Sort Toggle
-            // -------------------------
-            if (tglAutoSortScript.IsChecked == true)
-            {
-                Sort();
-            }
-
-            // -------------------------
-            // Clear Variables for next Run
-            // -------------------------
-            ClearVariables(vm);
-            GC.Collect();
         }
 
 
@@ -6195,7 +6220,7 @@ namespace Axiom
             // -------------------------
             // Enable Script
             // -------------------------
-            script = true;
+            //script = true;
 
             // -------------------------
             // Batch Extention Period Check
@@ -6210,11 +6235,12 @@ namespace Axiom
             // -------------------------
             // Ready Halts
             // -------------------------
-            ReadyHalts(vm);
+            //ReadyHalts(vm);
 
 
             // Log Console Message /////////
-            if (ready == true)
+            //if (ready == true)
+            if (ReadyHalts(vm) == true)
             {
                 // Log Console Message /////////
                 Log.WriteAction = () =>
@@ -6243,7 +6269,8 @@ namespace Axiom
             // Ready Check
             // If Ready, start conversion process
             // --------------------------------------------------------------------
-            if (ready == true)
+            //if (ready == true)
+            if (ReadyHalts(vm) == true)
             {
                 // -------------------------
                 // Single
@@ -6370,7 +6397,7 @@ namespace Axiom
                 ///    Restart
                 /// </summary> 
                 /* unlock */
-                ready = true;
+                //ready = true;
 
                 // -------------------------
                 // Write Variables to Debug Window (Method)
@@ -6386,6 +6413,7 @@ namespace Axiom
             }
 
         } //end convert button
+
 
     }
 }

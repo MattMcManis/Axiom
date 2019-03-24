@@ -1,8 +1,8 @@
 ﻿/* ----------------------------------------------------------------------
 Axiom UI
 Copyright (C) 2017-2019 Matt McManis
-http://github.com/MattMcManis/Axiom
-http://axiomui.github.io
+https://github.com/MattMcManis/Axiom
+https://axiomui.github.io
 mattmcmanis@outlook.com
 
 This program is free software: you can redistribute it and/or modify
@@ -237,19 +237,33 @@ namespace Axiom
                     deinterlace = "yadif=1:-1:0";
                 }
                 // -------------------------
-                // Cuda Frame
+                // Frame Skip Spatial
                 // -------------------------
-                else if (vm.FilterVideo_Deinterlace_SelectedItem == "cuda frame")
+                else if (vm.FilterVideo_Deinterlace_SelectedItem == "frame nospatial")
                 {
-                    deinterlace = "yadif_cuda=0:-1:0";
+                    deinterlace = "yadif_cuda=2:-1:0";
                 }
                 // -------------------------
-                // Cuda Field
+                // Field Skip Spatial
                 // -------------------------
-                else if (vm.FilterVideo_Deinterlace_SelectedItem == "cuda field")
+                else if (vm.FilterVideo_Deinterlace_SelectedItem == "field nospatial")
                 {
-                    deinterlace = "yadif_cuda=1:-1:0";
+                    deinterlace = "yadif_cuda=3:-1:0";
                 }
+                //// -------------------------
+                //// Cuda Frame
+                //// -------------------------
+                //else if (vm.FilterVideo_Deinterlace_SelectedItem == "cuda frame")
+                //{
+                //    deinterlace = "yadif_cuda=0:-1:0";
+                //}
+                //// -------------------------
+                //// Cuda Field
+                //// -------------------------
+                //else if (vm.FilterVideo_Deinterlace_SelectedItem == "cuda field")
+                //{
+                //    deinterlace = "yadif_cuda=1:-1:0";
+                //}
 
                 // -------------------------
                 // Add Filter to List

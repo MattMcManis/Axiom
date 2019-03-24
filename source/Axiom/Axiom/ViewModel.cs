@@ -1,8 +1,8 @@
 ﻿/* ----------------------------------------------------------------------
 Axiom UI
 Copyright (C) 2017-2019 Matt McManis
-http://github.com/MattMcManis/Axiom
-http://axiomui.github.io
+https://github.com/MattMcManis/Axiom
+https://axiomui.github.io
 mattmcmanis@outlook.com
 
 This program is free software: you can redistribute it and/or modify
@@ -59,7 +59,11 @@ namespace Axiom
             // Main
             // -------------------------
             Preset_IsEnabled = true;
-            Preset_SelectedItem = Preset_Items.FirstOrDefault();
+            Preset_SelectedItem = "Preset";
+            //Preset_SelectedItem = Preset_Items.FirstOrDefault();
+            Input_Location_IsEnabled = false;
+            Output_Location_IsEnabled = false;
+            BatchExtension_IsEnabled = false;
 
             // -------------------------
             // Format
@@ -107,6 +111,94 @@ namespace Axiom
             // -------------------------
             // Filters
             // -------------------------
+            FiltersSetDefault();
+
+            //// -------------------------
+            //// Filters
+            //// -------------------------
+            //// Video
+            //// -------------------------
+            //// Fix
+            //FilterVideo_Deband_SelectedItem = "disabled";
+            //FilterVideo_Deshake_SelectedItem = "disabled";
+            //FilterVideo_Deflicker_SelectedItem = "disabled";
+            //FilterVideo_Dejudder_SelectedItem = "disabled";
+            //FilterVideo_Denoise_SelectedItem = "disabled";
+            //FilterVideo_Deinterlace_SelectedItem = "disabled";
+
+            //// Selective Color
+
+            //FilterVideo_SelectiveColor_SelectedIndex = 0;
+            //FilterVideo_SelectiveColor_Correction_Method_SelectedItem = "relative";
+
+            //// Reds
+            //FilterVideo_SelectiveColor_Reds_Cyan_Value = 0;
+            //FilterVideo_SelectiveColor_Reds_Magenta_Value = 0;
+            //FilterVideo_SelectiveColor_Reds_Yellow_Value = 0;
+            //// Yellows
+            //FilterVideo_SelectiveColor_Yellows_Cyan_Value = 0;
+            //FilterVideo_SelectiveColor_Yellows_Magenta_Value = 0;
+            //FilterVideo_SelectiveColor_Yellows_Yellow_Value = 0;
+            //// Greens
+            //FilterVideo_SelectiveColor_Greens_Cyan_Value = 0;
+            //FilterVideo_SelectiveColor_Greens_Magenta_Value = 0;
+            //FilterVideo_SelectiveColor_Greens_Yellow_Value = 0;
+            //// Cyans
+            //FilterVideo_SelectiveColor_Cyans_Cyan_Value = 0;
+            //FilterVideo_SelectiveColor_Cyans_Magenta_Value = 0;
+            //FilterVideo_SelectiveColor_Cyans_Yellow_Value = 0;
+            //// Blues
+            //FilterVideo_SelectiveColor_Blues_Cyan_Value = 0;
+            //FilterVideo_SelectiveColor_Blues_Magenta_Value = 0;
+            //FilterVideo_SelectiveColor_Blues_Yellow_Value = 0;
+            //// Magentas
+            //FilterVideo_SelectiveColor_Magentas_Cyan_Value = 0;
+            //FilterVideo_SelectiveColor_Magentas_Magenta_Value = 0;
+            //FilterVideo_SelectiveColor_Magentas_Yellow_Value = 0;
+            //// Whites
+            //FilterVideo_SelectiveColor_Whites_Cyan_Value = 0;
+            //FilterVideo_SelectiveColor_Whites_Magenta_Value = 0;
+            //FilterVideo_SelectiveColor_Whites_Yellow_Value = 0;
+            //// Neutrals
+            //FilterVideo_SelectiveColor_Neutrals_Cyan_Value = 0;
+            //FilterVideo_SelectiveColor_Neutrals_Magenta_Value = 0;
+            //FilterVideo_SelectiveColor_Neutrals_Yellow_Value = 0;
+            //// Blacks
+            //FilterVideo_SelectiveColor_Blacks_Cyan_Value = 0;
+            //FilterVideo_SelectiveColor_Blacks_Magenta_Value = 0;
+            //FilterVideo_SelectiveColor_Blacks_Yellow_Value = 0;
+
+            //// EQ
+            //FilterVideo_EQ_Brightness_Value = 0;
+            //FilterVideo_EQ_Contrast_Value = 0;
+            //FilterVideo_EQ_Saturation_Value = 0;
+            //FilterVideo_EQ_Gamma_Value = 0;
+
+            //// -------------------------
+            //// Filters
+            //// -------------------------
+            //// Audio
+            //// -------------------------
+            //FilterAudio_Lowpass_SelectedItem = "disabled";
+            //FilterAudio_Highpass_SelectedItem = "disabled";
+            //FilterAudio_Headphones_SelectedItem = "disabled";
+
+            // -------------------------
+            // Configure
+            // -------------------------
+            Theme_SelectedItem = "Axiom";
+            Threads_SelectedItem = "optimal";
+        }
+
+
+        /// <summary>
+        ///     Filters Set Default
+        /// </summary>
+        public void FiltersSetDefault()
+        {
+            // -------------------------
+            // Filters
+            // -------------------------
             // Video
             // -------------------------
             // Fix
@@ -117,8 +209,13 @@ namespace Axiom
             FilterVideo_Denoise_SelectedItem = "disabled";
             FilterVideo_Deinterlace_SelectedItem = "disabled";
 
-            // Selective Color
+            // EQ
+            FilterVideo_EQ_Brightness_Value = 0;
+            FilterVideo_EQ_Contrast_Value = 0;
+            FilterVideo_EQ_Saturation_Value = 0;
+            FilterVideo_EQ_Gamma_Value = 0;
 
+            // Selective Color
             FilterVideo_SelectiveColor_SelectedIndex = 0;
             FilterVideo_SelectiveColor_Correction_Method_SelectedItem = "relative";
 
@@ -159,12 +256,6 @@ namespace Axiom
             FilterVideo_SelectiveColor_Blacks_Magenta_Value = 0;
             FilterVideo_SelectiveColor_Blacks_Yellow_Value = 0;
 
-            // EQ
-            FilterVideo_EQ_Brightness_Value = 0;
-            FilterVideo_EQ_Contrast_Value = 0;
-            FilterVideo_EQ_Saturation_Value = 0;
-            FilterVideo_EQ_Gamma_Value = 0;
-
             // -------------------------
             // Filters
             // -------------------------
@@ -173,13 +264,8 @@ namespace Axiom
             FilterAudio_Lowpass_SelectedItem = "disabled";
             FilterAudio_Highpass_SelectedItem = "disabled";
             FilterAudio_Headphones_SelectedItem = "disabled";
-
-            // -------------------------
-            // Configure
-            // -------------------------
-            Theme_SelectedItem = "Axiom";
-            Threads_SelectedItem = "optimal";
         }
+
 
         // --------------------------------------------------------------------------------------------------------
         /// <summary>
@@ -247,6 +333,26 @@ namespace Axiom
         }
 
         // --------------------------------------------------
+        // Input Location - Button
+        // --------------------------------------------------
+        // Controls Enable
+        private bool _Input_Location_IsEnabled { get; set; }
+        public bool Input_Location_IsEnabled
+        {
+            get { return _Input_Location_IsEnabled; }
+            set
+            {
+                if (_Input_Location_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _Input_Location_IsEnabled = value;
+                OnPropertyChanged("Input_Location_IsEnabled");
+            }
+        }
+
+        // --------------------------------------------------
         // Output - TextBox
         // --------------------------------------------------
         // Text
@@ -265,6 +371,27 @@ namespace Axiom
                 OnPropertyChanged("Output_Text");
             }
         }
+
+        // --------------------------------------------------
+        // Output Location - Button
+        // --------------------------------------------------
+        // Controls Enable
+        private bool _Output_Location_IsEnabled { get; set; }
+        public bool Output_Location_IsEnabled
+        {
+            get { return _Output_Location_IsEnabled; }
+            set
+            {
+                if (_Output_Location_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _Output_Location_IsEnabled = value;
+                OnPropertyChanged("Output_Location_IsEnabled");
+            }
+        }
+
 
         // --------------------------------------------------
         // Batch - Toggle
@@ -381,27 +508,70 @@ namespace Axiom
         // Preset
         // --------------------------------------------------
         // Items Source
-        private List<string> _Preset_Items = new List<string>()
+        public class Preset
         {
-            "Preset",
-            "Default",
-            "DVD",
-            "Blu-ray",
-            "HEVC",
-            "HD Video",
-            "SD Video",
-            "HTML5",
-            "Android",
-            "iOS",
-            "iTunes",
-            "MP3 HQ",
-            //"PS3",
-            "PS4",
-            //"Xbox 360",
-            "Xbox One",
-            //"Debug"
+            public string Name { get; set; }
+            public bool Category { get; set; }
+        }
+
+        public List<Preset> _Preset_Items = new List<Preset>()
+        {
+            new Preset() { Name = "Preset",    Category = false },
+            //new Preset() { Name = "Default",   Category = false },
+
+            // Web
+            new Preset() { Name = "Web",       Category = true  },
+            new Preset() { Name = "HTML5",     Category = false },
+            new Preset() { Name = "YouTube",   Category = false },
+
+            // PC
+            new Preset() { Name = "PC",        Category = true  },
+            new Preset() { Name = "Archive",   Category = false },
+            new Preset() { Name = "HEVC",      Category = false },
+            new Preset() { Name = "HD Ultra",  Category = false },
+            new Preset() { Name = "HD High",   Category = false },
+            new Preset() { Name = "HD Medium", Category = false },
+            new Preset() { Name = "HD Low",    Category = false },
+            new Preset() { Name = "SD High",   Category = false },
+            new Preset() { Name = "SD Medium", Category = false },
+            new Preset() { Name = "SD Low",    Category = false },
+
+            // Mobile
+            new Preset() { Name = "Mobile",    Category = true  },
+            new Preset() { Name = "Android",   Category = false },
+            new Preset() { Name = "iOS",       Category = false },
+
+            // Device
+            new Preset() { Name = "Device",        Category = true  },
+            new Preset() { Name = "Roku",          Category = false },
+            new Preset() { Name = "Amazon Fire",   Category = false },
+            new Preset() { Name = "Chromecast",    Category = false },
+            new Preset() { Name = "Apple TV",      Category = false },
+            new Preset() { Name = "Raspberry Pi",  Category = false },
+
+            // Console
+            new Preset() { Name = "Console",   Category = true  },
+            new Preset() { Name = "PS3",       Category = false },
+            new Preset() { Name = "PS4",       Category = false },
+            new Preset() { Name = "Xbox 360",  Category = false },
+            new Preset() { Name = "Xbox One",  Category = false },
+
+            // Disc
+            new Preset() { Name = "Disc",      Category = true  },
+            new Preset() { Name = "UHD",   Category = false },
+            new Preset() { Name = "Blu-ray",   Category = false },
+            new Preset() { Name = "DVD",       Category = false },          
+
+            // Music
+            new Preset() { Name = "Music",     Category = true  },
+            new Preset() { Name = "Lossless",  Category = false },
+            new Preset() { Name = "MP3 HQ",    Category = false },
+            new Preset() { Name = "MP3 Low",   Category = false },
+            new Preset() { Name = "iTunes",    Category = false },
+            new Preset() { Name = "Voice",     Category = false },
         };
-        public List<string> Preset_Items
+
+        public List<Preset> Preset_Items
         {
             get { return _Preset_Items; }
             set
@@ -410,6 +580,36 @@ namespace Axiom
                 OnPropertyChanged("Preset_Items");
             }
         }
+        //// Items Source
+        //private List<string> _Preset_Items = new List<string>()
+        //{
+        //    "Preset",
+        //    "Default",
+        //    "DVD",
+        //    "Blu-ray",
+        //    "HEVC",
+        //    "HD Video",
+        //    "SD Video",
+        //    "HTML5",
+        //    "Android",
+        //    "iOS",
+        //    "iTunes",
+        //    "MP3 HQ",
+        //    "PS3",
+        //    "PS4",
+        //    "Xbox 360",
+        //    "Xbox One",
+        //    //"Debug"
+        //};
+        //public List<string> Preset_Items
+        //{
+        //    get { return _Preset_Items; }
+        //    set
+        //    {
+        //        _Preset_Items = value;
+        //        OnPropertyChanged("Preset_Items");
+        //    }
+        //}
 
         // Selected Index
         private int _Preset_SelectedIndex { get; set; }
@@ -4289,8 +4489,10 @@ namespace Axiom
             "disabled",
             "frame",
             "field",
-            "cuda frame",
-            "cuda field"
+            "frame nospatial",
+            "field nospatial",
+            //"cuda frame",
+            //"cuda field"
         };
         public static List<string> FilterVideo_Deinterlace_Items
         {
