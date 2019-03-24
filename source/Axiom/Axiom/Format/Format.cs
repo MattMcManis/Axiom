@@ -313,26 +313,20 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Cut
+        ///     Cut Start
         /// </summary>
         /// <remarks>
-        public static String Cut(string input_Text,
-                                 bool batch_IsChecked,
-                                 string mediaType_SelectedItem,
-                                 string codec_SelectedItem,
-                                 string quality_SelectedItem,
-                                 string cut_SelectedItem,
-                                 string cutStart_Text_Hours,
-                                 string cutStart_Text_Minutes,
-                                 string cutStart_Text_Seconds,
-                                 string cutStart_Text_Milliseconds,
-                                 string cutEnd_Text_Hours,
-                                 string cutEnd_Text_Minutes,
-                                 string cutEnd_Text_Seconds,
-                                 string cutEnd_Text_Milliseconds,
-                                 bool frameEnd_IsEnabled,
-                                 string frameStart_Text,
-                                 string frameEnd_Text
+        public static String CutStart(string input_Text,
+                                      bool batch_IsChecked,
+                                      string mediaType_SelectedItem,
+                                      string codec_SelectedItem,
+                                      string quality_SelectedItem,
+                                      string cut_SelectedItem,
+                                      string cutStart_Text_Hours,
+                                      string cutStart_Text_Minutes,
+                                      string cutStart_Text_Seconds,
+                                      string cutStart_Text_Milliseconds,
+                                      string frameStart_Text
             )
         {
             // -------------------------
@@ -340,183 +334,31 @@ namespace Axiom
             // -------------------------
             if (cut_SelectedItem == "Yes")
             {
-                // Start
-                trimStart = cutStart_Text_Hours.PadLeft(2, '0') + ":" +
-                            cutStart_Text_Minutes.PadLeft(2, '0') + ":" +
-                            cutStart_Text_Seconds.PadLeft(2, '0') + "." +
-                            cutStart_Text_Milliseconds.PadLeft(3, '0');
-
-                // End
-                trimEnd = cutEnd_Text_Hours.PadLeft(2, '0') + ":" +
-                          cutEnd_Text_Minutes.PadLeft(2, '0') + ":" +
-                          cutEnd_Text_Seconds.PadLeft(2, '0') + "." +
-                          cutEnd_Text_Milliseconds.PadLeft(3, '0');
-
-                // --------------------------------------------------
-                // Video
-                // --------------------------------------------------
-                if (mediaType_SelectedItem == "Video")
+                // -------------------------
+                // Time
+                // -------------------------
+                // If Frame Textboxes Default Use Time
+                if (string.IsNullOrEmpty(frameStart_Text))
                 {
-                    // -------------------------
-                    // Time
-                    // -------------------------
-                    // If Frame Textboxes Default Use Time
-                    if (string.IsNullOrEmpty(frameStart_Text) ||
-                        string.IsNullOrEmpty(frameEnd_Text))
-                    {
-                        // If End Time is Empty, Default to Full Duration
-                        // Input Null Check
-                        if (!string.IsNullOrEmpty(input_Text))
-                        {
-                            if (trimEnd == "00:00:00.000" ||
-                                trimEnd == "::." ||
-                                string.IsNullOrEmpty(trimEnd))
-                            {
-                                // Ignore if Both Start and End are 0
-                                //if (trimStart != "00:00:00.000" &&
-                                //    trimEnd != "00:00:00.000")
-                                //{
-                                    trimEnd = FFprobe.CutDuration(input_Text,
-                                                              batch_IsChecked
-                                                              );
-                                //}
-                            }
-                        }
-                    }
-
-                    // -------------------------
-                    // Frames
-                    // -------------------------
-                    // If Frame Textboxes have Text, but not Default, 
-                    // use FramesToDecimal Method (Override Time)
-                    else if (!string.IsNullOrEmpty(frameStart_Text) &&
-                             !string.IsNullOrEmpty(frameEnd_Text))
-                    {
-                        Video.FramesToDecimal(mediaType_SelectedItem,
-                                              codec_SelectedItem,
-                                              quality_SelectedItem,
-                                              frameEnd_IsEnabled,
-                                              frameStart_Text,
-                                              frameEnd_Text
-                                              );
-                    }
-
-
-                    // Combine
-                    trim = "-ss " + trimStart + " -to " + trimEnd;
-                }
-
-                // --------------------------------------------------
-                // Audio
-                // --------------------------------------------------
-                else if (mediaType_SelectedItem == "Audio")
-                {
-                    // If End Time is Empty, Default to Full Time Duration
-                    if (!string.IsNullOrEmpty(input_Text)) // Input Null Check
-                    {
-                        if (trimEnd == "00:00:00.000" ||
-                            trimEnd == "::." ||
-                            string.IsNullOrEmpty(trimEnd))
-                        {
-                            // Ignore if Both Start and End are 0
-                            //if (trimStart != "00:00:00.000" &&
-                            //    trimEnd != "00:00:00.000")
-                            //{
-                                trimEnd = FFprobe.CutDuration(input_Text,
-                                                              batch_IsChecked
-                                                              );
-                            //}
-                        }
-                    }
-
-                    // Combine
-                    trim = "-ss " + trimStart + " -to " + trimEnd;
+                    // Start
+                    trimStart = "-ss " + cutStart_Text_Hours.PadLeft(2, '0') + ":" +
+                                         cutStart_Text_Minutes.PadLeft(2, '0') + ":" +
+                                         cutStart_Text_Seconds.PadLeft(2, '0') + "." +
+                                         cutStart_Text_Milliseconds.PadLeft(3, '0');
                 }
 
                 // -------------------------
-                // Image
+                // Frames
                 // -------------------------
-                else if (mediaType_SelectedItem == "Image")
+                // If Frame Textboxes have Text, but not Default, 
+                // use FramesToDecimal Method (Override Time)
+                else if (!string.IsNullOrEmpty(frameStart_Text))
                 {
-                    // -------------------------
-                    // Time
-                    // -------------------------
-                    // If Frame Textboxes Default Use Time
-                    if (string.IsNullOrEmpty(frameStart_Text) ||
-                        string.IsNullOrEmpty(frameEnd_Text))
-                    {
-                        trimEnd = string.Empty;
-                    }
-
-                    // -------------------------
-                    // Frames
-                    // -------------------------
-                    // If Frame Textboxes have Text, but not Default, use FramesToDecimal Method (Override Time)
-                    else if (!string.IsNullOrEmpty(frameStart_Text) &&
-                             !string.IsNullOrEmpty(frameEnd_Text))
-                    {
-                        Video.FramesToDecimal(mediaType_SelectedItem,
-                                              codec_SelectedItem,
-                                              quality_SelectedItem,
-                                              frameEnd_IsEnabled,
-                                              frameStart_Text,
-                                              frameEnd_Text
-                                              );
-                    }
-
-                    trim = "-ss " + trimStart;
-                }
-
-                // --------------------------------------------------
-                // Image Sequence
-                // --------------------------------------------------
-                else if (mediaType_SelectedItem == "Sequence")
-                {
-
-                    // -------------------------
-                    // Time
-                    // -------------------------
-                    // If Frame Textboxes Default Use Time
-                    if (string.IsNullOrEmpty(frameStart_Text) ||
-                        string.IsNullOrEmpty(frameEnd_Text))
-                    {
-                        // If End Time is Empty, Default to Full Duration
-                        // Input Null Check
-                        if (!string.IsNullOrEmpty(input_Text))
-                        {
-                            if (trimEnd == "00:00:00.000" ||
-                                trimEnd == "::." ||
-                                string.IsNullOrEmpty(trimEnd))
-                            {
-                                // Ignore if Both Start and End are 0
-                                //if (trimStart != "00:00:00.000" &&
-                                //    trimEnd != "00:00:00.000")
-                                //{
-                                    trimEnd = FFprobe.CutDuration(input_Text,
-                                                              batch_IsChecked
-                                                              );
-                                //}
-                            }
-                        }
-                    }
-
-                    // -------------------------
-                    // Frames
-                    // -------------------------
-                    // If Frame Textboxes have Text, but not Default, use FramesToDecimal Method (Override Time)
-                    else if (!string.IsNullOrEmpty(frameStart_Text) &&
-                             !string.IsNullOrEmpty(frameEnd_Text))
-                    {
-                        Video.FramesToDecimal(mediaType_SelectedItem,
-                                              codec_SelectedItem,
-                                              quality_SelectedItem,
-                                              frameEnd_IsEnabled,
-                                              frameStart_Text,
-                                              frameEnd_Text
-                                              );
-                    }
-
-                    trim = "-ss " + trimStart + " -to " + trimEnd;
+                    trimStart = "-ss " + Video.FramesToDecimal(mediaType_SelectedItem,
+                                                               codec_SelectedItem,
+                                                               quality_SelectedItem,
+                                                               frameStart_Text
+                                                               );
                 }
             }
 
@@ -525,103 +367,301 @@ namespace Axiom
             // -------------------------
             else if (cut_SelectedItem == "No")
             {
-                trim = string.Empty;
+                trimStart = string.Empty;
             }
 
             // Return Value
-            return trim;
+            return trimStart;
         }
 
 
+        /// <summary>
+        ///     Cut End
+        /// </summary>
+        /// <remarks>
+        public static String CutEnd(string input_Text,
+                                    bool batch_IsChecked,
+                                    string mediaType_SelectedItem,
+                                    string codec_SelectedItem,
+                                    string quality_SelectedItem,
+                                    string cut_SelectedItem,
+                                    string cutEnd_Text_Hours,
+                                    string cutEnd_Text_Minutes,
+                                    string cutEnd_Text_Seconds,
+                                    string cutEnd_Text_Milliseconds,
+                                    string frameEnd_Text
+            )
+        {
+            // -------------------------
+            // Yes
+            // -------------------------
+            if (cut_SelectedItem == "Yes")
+            {
+                // Video, Image Sequence, Audio
+                // Image only has Start, no End
+                if (mediaType_SelectedItem != "Image")
+                {
+                    // -------------------------
+                    // Time
+                    // -------------------------
+                    // If Frame Textboxes Default Use Time
+                    if (string.IsNullOrEmpty(frameEnd_Text))
+                    {
+                        // End
+                        trimEnd = "-to " + cutEnd_Text_Hours.PadLeft(2, '0') + ":" +
+                                           cutEnd_Text_Minutes.PadLeft(2, '0') + ":" +
+                                           cutEnd_Text_Seconds.PadLeft(2, '0') + "." +
+                                           cutEnd_Text_Milliseconds.PadLeft(3, '0');
+                    }
+
+                    // -------------------------
+                    // Frames
+                    // -------------------------
+                    // If Frame Textboxes have Text, but not Default, 
+                    // use FramesToDecimal Method (Override Time)
+                    else if (!string.IsNullOrEmpty(frameEnd_Text))
+                    {
+                        trimEnd = "-to " + Video.FramesToDecimal(mediaType_SelectedItem,
+                                                                 codec_SelectedItem,
+                                                                 quality_SelectedItem,
+                                                                 frameEnd_Text
+                                                                 );
+                    }
+                }
+            }
+
+            // -------------------------
+            // No
+            // -------------------------
+            else if (cut_SelectedItem == "No")
+            {
+                trimEnd = string.Empty;
+            }
+
+            // Return Value
+            return trimEnd;
+        }
+
 
         /// <summary>
-        ///     Cut Parser
+        ///     Cut
         /// </summary>
-        //public static String CutParser(string input_Text,
-        //                               bool batch_IsChecked,
-        //                               string mediaType_SelectedItem,
-        //                               string codec_SelectedItem,
-        //                               string quality_SelectedItem,
-        //                               string cut_SelectedItem,
-        //                               string cutStart_Text_Hours,
-        //                               string cutStart_Text_Minutes,
-        //                               string cutStart_Text_Seconds,
-        //                               string cutStart_Text_Milliseconds,
-        //                               string cutEnd_Text_Hours,
-        //                               string cutEnd_Text_Minutes,
-        //                               string cutEnd_Text_Seconds,
-        //                               string cutEnd_Text_Milliseconds,
-        //                               bool frameEnd_IsEnabled,
-        //                               string frameStart_Text,
-        //                               string frameEnd_Text
-        //                               )
+        /// <remarks>
+        //public static String CutEnd(string input_Text,
+        //                            bool batch_IsChecked,
+        //                            string mediaType_SelectedItem,
+        //                            string codec_SelectedItem,
+        //                            string quality_SelectedItem,
+        //                            string cut_SelectedItem,
+        //                            string cutStart_Text_Hours,
+        //                            string cutStart_Text_Minutes,
+        //                            string cutStart_Text_Seconds,
+        //                            string cutStart_Text_Milliseconds,
+        //                            string cutEnd_Text_Hours,
+        //                            string cutEnd_Text_Minutes,
+        //                            string cutEnd_Text_Seconds,
+        //                            string cutEnd_Text_Milliseconds,
+        //                            bool frameEnd_IsEnabled,
+        //                            string frameStart_Text,
+        //                            string frameEnd_Text
+        //    )
         //{
-        //    // Start
-        //    trimStart = cutStart_Text_Hours.PadLeft(2, '0') + ":" +
-        //                cutStart_Text_Minutes.PadLeft(2, '0') + ":" +
-        //                cutStart_Text_Seconds.PadLeft(2, '0') + "." +
-        //                cutStart_Text_Milliseconds.PadLeft(3, '0');
-
-        //    // End
-        //    trimEnd = cutEnd_Text_Hours.PadLeft(2, '0') + ":" +
-        //              cutEnd_Text_Minutes.PadLeft(2, '0') + ":" +
-        //              cutEnd_Text_Seconds.PadLeft(2, '0') + "." +
-        //              cutEnd_Text_Milliseconds.PadLeft(3, '0');
-
         //    // -------------------------
-        //    // Time
+        //    // Yes
         //    // -------------------------
-        //    // If Frame Textboxes Default Use Time
-        //    if (string.IsNullOrEmpty(frameStart_Text) ||
-        //        string.IsNullOrEmpty(frameEnd_Text))
+        //    if (cut_SelectedItem == "Yes")
         //    {
-        //        // If End Time is Empty, Default to Full Duration
-        //        // Input Null Check
-        //        if (!string.IsNullOrEmpty(input_Text))
+        //        // Start
+        //        trimStart = cutStart_Text_Hours.PadLeft(2, '0') + ":" +
+        //                    cutStart_Text_Minutes.PadLeft(2, '0') + ":" +
+        //                    cutStart_Text_Seconds.PadLeft(2, '0') + "." +
+        //                    cutStart_Text_Milliseconds.PadLeft(3, '0');
+
+        //        // End
+        //        trimEnd = cutEnd_Text_Hours.PadLeft(2, '0') + ":" +
+        //                  cutEnd_Text_Minutes.PadLeft(2, '0') + ":" +
+        //                  cutEnd_Text_Seconds.PadLeft(2, '0') + "." +
+        //                  cutEnd_Text_Milliseconds.PadLeft(3, '0');
+
+        //        // --------------------------------------------------
+        //        // Video
+        //        // --------------------------------------------------
+        //        if (mediaType_SelectedItem == "Video")
         //        {
-        //            if (trimEnd == "00:00:00.000" ||
-        //                trimEnd == "::." ||
-        //                string.IsNullOrEmpty(trimEnd))
+        //            // -------------------------
+        //            // Time
+        //            // -------------------------
+        //            // If Frame Textboxes Default Use Time
+        //            if (string.IsNullOrEmpty(frameStart_Text) ||
+        //                string.IsNullOrEmpty(frameEnd_Text))
         //            {
-        //                // Ignore if Both Start and End are 0
-        //                if (trimStart != "00:00:00.000" ||
-        //                    trimEnd != "00:00:00.000")
+        //                // If End Time is Empty, Default to Full Duration
+        //                // Input Null Check
+        //                if (!string.IsNullOrEmpty(input_Text))
         //                {
-        //                    trimEnd = FFprobe.CutDuration(input_Text,
-        //                                              batch_IsChecked
-        //                                              );
+        //                    if (trimEnd == "00:00:00.000" ||
+        //                        trimEnd == "::." ||
+        //                        string.IsNullOrEmpty(trimEnd))
+        //                    {
+        //                        // Ignore if Both Start and End are 0
+        //                        //if (trimStart != "00:00:00.000" &&
+        //                        //    trimEnd != "00:00:00.000")
+        //                        //{
+        //                        trimEnd = FFprobe.CutDuration(input_Text,
+        //                                                  batch_IsChecked
+        //                                                  );
+        //                        //}
+        //                    }
         //                }
         //            }
+
+        //            // -------------------------
+        //            // Frames
+        //            // -------------------------
+        //            // If Frame Textboxes have Text, but not Default, 
+        //            // use FramesToDecimal Method (Override Time)
+        //            else if (!string.IsNullOrEmpty(frameStart_Text) &&
+        //                     !string.IsNullOrEmpty(frameEnd_Text))
+        //            {
+        //                Video.FramesToDecimal(mediaType_SelectedItem,
+        //                                      codec_SelectedItem,
+        //                                      quality_SelectedItem,
+        //                                      frameEnd_IsEnabled,
+        //                                      frameStart_Text,
+        //                                      frameEnd_Text
+        //                                      );
+        //            }
+
+
+        //            // Combine
+        //            trim = "-ss " + trimStart + " -to " + trimEnd;
+        //        }
+
+        //        // --------------------------------------------------
+        //        // Audio
+        //        // --------------------------------------------------
+        //        else if (mediaType_SelectedItem == "Audio")
+        //        {
+        //            // If End Time is Empty, Default to Full Time Duration
+        //            if (!string.IsNullOrEmpty(input_Text)) // Input Null Check
+        //            {
+        //                if (trimEnd == "00:00:00.000" ||
+        //                    trimEnd == "::." ||
+        //                    string.IsNullOrEmpty(trimEnd))
+        //                {
+        //                    // Ignore if Both Start and End are 0
+        //                    //if (trimStart != "00:00:00.000" &&
+        //                    //    trimEnd != "00:00:00.000")
+        //                    //{
+        //                    trimEnd = FFprobe.CutDuration(input_Text,
+        //                                                  batch_IsChecked
+        //                                                  );
+        //                    //}
+        //                }
+        //            }
+
+        //            // Combine
+        //            trim = "-ss " + trimStart + " -to " + trimEnd;
+        //        }
+
+        //        // -------------------------
+        //        // Image
+        //        // -------------------------
+        //        else if (mediaType_SelectedItem == "Image")
+        //        {
+        //            // -------------------------
+        //            // Time
+        //            // -------------------------
+        //            // If Frame Textboxes Default Use Time
+        //            if (string.IsNullOrEmpty(frameStart_Text) ||
+        //                string.IsNullOrEmpty(frameEnd_Text))
+        //            {
+        //                trimEnd = string.Empty;
+        //            }
+
+        //            // -------------------------
+        //            // Frames
+        //            // -------------------------
+        //            // If Frame Textboxes have Text, but not Default, use FramesToDecimal Method (Override Time)
+        //            else if (!string.IsNullOrEmpty(frameStart_Text) &&
+        //                     !string.IsNullOrEmpty(frameEnd_Text))
+        //            {
+        //                Video.FramesToDecimal(mediaType_SelectedItem,
+        //                                      codec_SelectedItem,
+        //                                      quality_SelectedItem,
+        //                                      frameEnd_IsEnabled,
+        //                                      frameStart_Text,
+        //                                      frameEnd_Text
+        //                                      );
+        //            }
+
+        //            trim = "-ss " + trimStart;
+        //        }
+
+        //        // --------------------------------------------------
+        //        // Image Sequence
+        //        // --------------------------------------------------
+        //        else if (mediaType_SelectedItem == "Sequence")
+        //        {
+
+        //            // -------------------------
+        //            // Time
+        //            // -------------------------
+        //            // If Frame Textboxes Default Use Time
+        //            if (string.IsNullOrEmpty(frameStart_Text) ||
+        //                string.IsNullOrEmpty(frameEnd_Text))
+        //            {
+        //                // If End Time is Empty, Default to Full Duration
+        //                // Input Null Check
+        //                if (!string.IsNullOrEmpty(input_Text))
+        //                {
+        //                    if (trimEnd == "00:00:00.000" ||
+        //                        trimEnd == "::." ||
+        //                        string.IsNullOrEmpty(trimEnd))
+        //                    {
+        //                        // Ignore if Both Start and End are 0
+        //                        //if (trimStart != "00:00:00.000" &&
+        //                        //    trimEnd != "00:00:00.000")
+        //                        //{
+        //                        trimEnd = FFprobe.CutDuration(input_Text,
+        //                                                  batch_IsChecked
+        //                                                  );
+        //                        //}
+        //                    }
+        //                }
+        //            }
+
+        //            // -------------------------
+        //            // Frames
+        //            // -------------------------
+        //            // If Frame Textboxes have Text, but not Default, use FramesToDecimal Method (Override Time)
+        //            else if (!string.IsNullOrEmpty(frameStart_Text) &&
+        //                     !string.IsNullOrEmpty(frameEnd_Text))
+        //            {
+        //                Video.FramesToDecimal(mediaType_SelectedItem,
+        //                                      codec_SelectedItem,
+        //                                      quality_SelectedItem,
+        //                                      frameEnd_IsEnabled,
+        //                                      frameStart_Text,
+        //                                      frameEnd_Text
+        //                                      );
+        //            }
+
+        //            trim = "-ss " + trimStart + " -to " + trimEnd;
         //        }
         //    }
 
         //    // -------------------------
-        //    // Frames
+        //    // No
         //    // -------------------------
-        //    // If Frame Textboxes have Text, but not Default, use FramesToDecimal Method (Override Time)
-        //    else if (!string.IsNullOrEmpty(frameStart_Text) &&
-        //             !string.IsNullOrEmpty(frameEnd_Text))
+        //    else if (cut_SelectedItem == "No")
         //    {
-        //        Video.FramesToDecimal(mediaType_SelectedItem,
-        //                              codec_SelectedItem,
-        //                              quality_SelectedItem,
-        //                              frameEnd_IsEnabled,
-        //                              frameStart_Text,
-        //                              frameEnd_Text
-        //                              );
+        //        trim = string.Empty;
         //    }
+
+        //    // Return Value
+        //    return trim;
         //}
-
-        /// <summary>
-        ///     Cut - Fast Seek
-        /// </summary>
-        ///     When used as an input option (before -i), seeks in this input file to position. 
-        ///     When used as an output option (before an output filename), decodes but discards 
-        ///     input until the timestamps reach position. This is slower, but more accurate.
-        /// </remarks>
-
-
-
 
     }
 }

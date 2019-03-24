@@ -99,29 +99,35 @@ namespace Axiom
                 List<string> FFmpegArgsSinglePassList = new List<string>()
                 {
                     "\r\n\r\n" +
-                    Format.Cut(vm.Input_Text,
-                               vm.Batch_IsChecked,
-                               vm.Format_MediaType_SelectedItem,
-                               vm.Video_Codec_SelectedItem,
-                               vm.Video_Quality_SelectedItem,
-                               vm.Format_Cut_SelectedItem,
-                               vm.Format_CutStart_Hours_Text,
-                               vm.Format_CutStart_Minutes_Text,
-                               vm.Format_CutStart_Seconds_Text,
-                               vm.Format_CutStart_Milliseconds_Text,
-                               vm.Format_CutEnd_Hours_Text,
-                               vm.Format_CutEnd_Minutes_Text,
-                               vm.Format_CutEnd_Seconds_Text,
-                               vm.Format_CutEnd_Milliseconds_Text,
-                               //vm.Format_CutStart_Text,
-                               //vm.Format_CutEnd_Text,
-                               vm.Format_FrameEnd_IsEnabled,
-                               vm.Format_FrameStart_Text,
-                               vm.Format_FrameEnd_Text
-                               ),
+                    Format.CutStart(vm.Input_Text,
+                                    vm.Batch_IsChecked,
+                                    vm.Format_MediaType_SelectedItem,
+                                    vm.Video_Codec_SelectedItem,
+                                    vm.Video_Quality_SelectedItem,
+                                    vm.Format_Cut_SelectedItem,
+                                    vm.Format_CutStart_Hours_Text,
+                                    vm.Format_CutStart_Minutes_Text,
+                                    vm.Format_CutStart_Seconds_Text,
+                                    vm.Format_CutStart_Milliseconds_Text,
+                                    vm.Format_FrameStart_Text
+                                    ),
 
                     "\r\n\r\n" +
                     "-i "+ "\"" + MainWindow.InputPath(vm) + "\"",
+
+                    "\r\n\r\n" +
+                    Format.CutEnd(vm.Input_Text,
+                                  vm.Batch_IsChecked,
+                                  vm.Format_MediaType_SelectedItem,
+                                  vm.Video_Codec_SelectedItem,
+                                  vm.Video_Quality_SelectedItem,
+                                  vm.Format_Cut_SelectedItem,
+                                  vm.Format_CutEnd_Hours_Text,
+                                  vm.Format_CutEnd_Minutes_Text,
+                                  vm.Format_CutEnd_Seconds_Text,
+                                  vm.Format_CutEnd_Milliseconds_Text,
+                                  vm.Format_FrameEnd_Text
+                                  ),
 
                     "\r\n\r\n" +
                     Subtitle.SubtitlesExternal(vm.Subtitle_Codec_SelectedItem,
@@ -287,10 +293,10 @@ namespace Axiom
             // -------------------------
             // Enabled 
             //
-            if (vm.Video_Pass_SelectedItem == "2 Pass"
-                && vm.Format_MediaType_SelectedItem == "Video" // video only
-                && vm.Video_Codec_SelectedItem != "Copy" // exclude copy
-                && vm.Format_Container_SelectedItem != "ogv" // exclude ogv (special rule)
+            if (vm.Video_Pass_SelectedItem == "2 Pass" &&
+                vm.Format_MediaType_SelectedItem == "Video" &&  // video only
+                vm.Video_Codec_SelectedItem != "Copy" &&  // exclude copy
+                vm.Format_Container_SelectedItem != "ogv" // exclude ogv (special rule)
                 )
             {
                 // -------------------------
@@ -299,30 +305,36 @@ namespace Axiom
                 List<string> FFmpegArgsPass1List = new List<string>()
                 {
                     "\r\n\r\n" +
-                    Format.Cut(vm.Input_Text,
-                               vm.Batch_IsChecked,
-                               vm.Format_MediaType_SelectedItem,
-                               vm.Video_Codec_SelectedItem,
-                               vm.Video_Quality_SelectedItem,
-                               vm.Format_Cut_SelectedItem,
-                               vm.Format_CutStart_Hours_Text,
-                               vm.Format_CutStart_Minutes_Text,
-                               vm.Format_CutStart_Seconds_Text,
-                               vm.Format_CutStart_Milliseconds_Text,
-                               vm.Format_CutEnd_Hours_Text,
-                               vm.Format_CutEnd_Minutes_Text,
-                               vm.Format_CutEnd_Seconds_Text,
-                               vm.Format_CutEnd_Milliseconds_Text,
-                               //vm.Format_CutStart_Text,
-                               //vm.Format_CutEnd_Text,
-                               vm.Format_FrameEnd_IsEnabled,
-                               vm.Format_FrameStart_Text,
-                               vm.Format_FrameEnd_Text
-                               ),
+                    Format.CutStart(vm.Input_Text,
+                                    vm.Batch_IsChecked,
+                                    vm.Format_MediaType_SelectedItem,
+                                    vm.Video_Codec_SelectedItem,
+                                    vm.Video_Quality_SelectedItem,
+                                    vm.Format_Cut_SelectedItem,
+                                    vm.Format_CutStart_Hours_Text,
+                                    vm.Format_CutStart_Minutes_Text,
+                                    vm.Format_CutStart_Seconds_Text,
+                                    vm.Format_CutStart_Milliseconds_Text,
+                                    vm.Format_FrameStart_Text
+                                    ),
 
                     "\r\n\r\n" +
                     "-i "+ "\"" +
                     MainWindow.InputPath(vm) + "\"",
+
+                    "\r\n\r\n" +
+                    Format.CutEnd(vm.Input_Text,
+                                  vm.Batch_IsChecked,
+                                  vm.Format_MediaType_SelectedItem,
+                                  vm.Video_Codec_SelectedItem,
+                                  vm.Video_Quality_SelectedItem,
+                                  vm.Format_Cut_SelectedItem,
+                                  vm.Format_CutEnd_Hours_Text,
+                                  vm.Format_CutEnd_Minutes_Text,
+                                  vm.Format_CutEnd_Seconds_Text,
+                                  vm.Format_CutEnd_Milliseconds_Text,
+                                  vm.Format_FrameEnd_Text
+                                  ),
 
                     //"\r\n\r\n" + 
                     //Video.Subtitles(vm),
@@ -445,7 +457,13 @@ namespace Axiom
                                          ),
 
                     "\r\n\r\n" +
+                    Format.trimStart,
+
+                    "\r\n\r\n" +
                     "-i " + "\"" + MainWindow.InputPath(vm) + "\"",
+
+                    "\r\n\r\n" +
+                    Format.trimEnd,
 
                     "\r\n\r\n" +
                     Subtitle.SubtitlesExternal(vm.Subtitle_Codec_SelectedItem,
@@ -525,8 +543,8 @@ namespace Axiom
                     "\r\n" +
                     Streams.AudioStreamMaps(vm),
 
-                    "\r\n\r\n" +
-                    Format.trim,
+                    //"\r\n\r\n" +
+                    //Format.trim,
 
                     "\r\n\r\n" +
                     Streams.FormatMaps(vm),

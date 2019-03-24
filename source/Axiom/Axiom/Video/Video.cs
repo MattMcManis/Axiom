@@ -1274,13 +1274,15 @@ namespace Axiom
         ///     Frame Rate To Decimal
         /// <summary>
         // When using Video Frame Range instead of Time
-        public static void FramesToDecimal(string mediaType_SelectedItem,
-                                           string codec_SelectedItem,
-                                           string quality_SelectedItem,
-                                           bool frameEnd_IsEnabled,
-                                           string frameStart_Text,
-                                           string frameEnd_Text
-                                           )
+        public static String FramesToDecimal(string mediaType_SelectedItem,
+                                            string codec_SelectedItem,
+                                            string quality_SelectedItem,
+                                            //bool frame_IsEnabled,
+                                            string frame
+                                            //bool frameEnd_IsEnabled,
+                                            //string frameStart_Text,
+                                            //string frameEnd_Text
+                                            )
         {
             // Video Bitrate None Check
             // Video Codec None Check
@@ -1301,10 +1303,10 @@ namespace Axiom
 
                     // Trim Start Frame
                     //
-                    if (!string.IsNullOrEmpty(frameStart_Text) &&
-                        !string.IsNullOrEmpty(frameStart_Text)) // Default/Null Check
+                    if (!string.IsNullOrEmpty(frame)) // Default/Null Check
                     {
-                        Format.trimStart = Convert.ToString(Convert.ToDouble(frameStart_Text) / detectedFramerate); // Divide Frame Start Number by Video's Framerate
+                        // Divide Frame Start Number by Video's Framerate
+                        frame = Convert.ToString(Convert.ToDouble(frame) / detectedFramerate); 
                     }
 
                     // Log Console Message /////////
@@ -1312,30 +1314,28 @@ namespace Axiom
                     {
                         Log.logParagraph.Inlines.Add(new LineBreak());
                         Log.logParagraph.Inlines.Add(new Bold(new Run("Start Frame: ")) { Foreground = Log.ConsoleDefault });
-                        Log.logParagraph.Inlines.Add(new Run(frameStart_Text + " / " + detectedFramerate + " = " + Format.trimStart) { Foreground = Log.ConsoleDefault });
+                        Log.logParagraph.Inlines.Add(new Run(frame + " / " + detectedFramerate + " = " + Format.trimStart) { Foreground = Log.ConsoleDefault });
                     };
                     Log.LogActions.Add(Log.WriteAction);
 
-                    // Trim End Frame
-                    //
-                    if (//frameEnd_Text != "Range" &&
-                        !string.IsNullOrEmpty(frameEnd_Text) &&
-                        !string.IsNullOrEmpty(frameEnd_Text)) // Default/Null Check
-                    {
-                        Format.trimEnd = Convert.ToString(Convert.ToDouble(frameEnd_Text) / detectedFramerate); // Divide Frame End Number by Video's Framerate
-                    }
+                    //// Trim End Frame
+                    ////
+                    //if (!string.IsNullOrEmpty(frame_Text)) // Default/Null Check
+                    //{
+                    //    Format.trimEnd = Convert.ToString(Convert.ToDouble(frame_Text) / detectedFramerate); // Divide Frame End Number by Video's Framerate
+                    //}
 
-                    // Log Console Message /////////
-                    if (frameEnd_IsEnabled == true)
-                    {
-                        Log.WriteAction = () =>
-                        {
-                            Log.logParagraph.Inlines.Add(new LineBreak());
-                            Log.logParagraph.Inlines.Add(new Bold(new Run("End Frame: ")) { Foreground = Log.ConsoleDefault });
-                            Log.logParagraph.Inlines.Add(new Run(frameEnd_Text + " / " + detectedFramerate + " = " + Format.trimEnd) { Foreground = Log.ConsoleDefault });
-                        };
-                        Log.LogActions.Add(Log.WriteAction);
-                    }
+                    //// Log Console Message /////////
+                    //if (frame_IsEnabled == true)
+                    //{
+                    //    Log.WriteAction = () =>
+                    //    {
+                    //        Log.logParagraph.Inlines.Add(new LineBreak());
+                    //        Log.logParagraph.Inlines.Add(new Bold(new Run("End Frame: ")) { Foreground = Log.ConsoleDefault });
+                    //        Log.logParagraph.Inlines.Add(new Run(frame_Text + " / " + detectedFramerate + " = " + Format.trimEnd) { Foreground = Log.ConsoleDefault });
+                    //    };
+                    //    Log.LogActions.Add(Log.WriteAction);
+                    //}
 
                 }
                 catch
@@ -1359,6 +1359,8 @@ namespace Axiom
                 }
             }
 
+
+            return frame;
         }
 
 
