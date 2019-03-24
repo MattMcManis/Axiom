@@ -1296,7 +1296,8 @@ namespace Axiom
                     {
                         // let pass
                         //ffCheckCleared = true;
-                        ready = true;
+                        //ready = true;
+                        return true;
                     }
                     else
                     {
@@ -1313,7 +1314,8 @@ namespace Axiom
                         {
                             // let pass
                             //ffCheckCleared = true;
-                            ready = true;
+                            //ready = true;
+                            return true;
                         }
                         else
                         {
@@ -1325,7 +1327,8 @@ namespace Axiom
                                             MessageBoxButton.OK,
                                             MessageBoxImage.Warning);
 
-                            ready = false;
+                            //ready = false;
+                            return false;
                         }
 
                     }
@@ -1342,7 +1345,8 @@ namespace Axiom
                     {
                         // let pass
                         //ffCheckCleared = true;
-                        ready = true;
+                        //ready = true;
+                        return true;
                     }
                     else
                     {
@@ -1355,15 +1359,16 @@ namespace Axiom
                                         MessageBoxButton.OK,
                                         MessageBoxImage.Warning);
 
-                        ready = false;
+                        //ready = false;
+                        return false;
                     }
 
-                    //// If Configure Path is ffmpeg.exe and not another Program
+                    // If Configure Path is ffmpeg.exe and not another Program
                     //if (string.Equals(vm.FFmpegPath_Text, fullPath, StringComparison.CurrentCultureIgnoreCase))
                     //{
                     //    // let pass
                     //    //ffCheckCleared = true;
-                    //    ready =  true;
+                    //    ready = true;
                     //}
                     //else
                     //{
@@ -1375,7 +1380,7 @@ namespace Axiom
                     //                    MessageBoxButton.OK,
                     //                    MessageBoxImage.Warning);
 
-                    //    ready =  false;
+                    //    ready = false;
                     //}
                 }
 
@@ -1390,7 +1395,8 @@ namespace Axiom
                     {
                         // let pass
                         //ffCheckCleared = true;
-                        ready = true;
+                        //ready = true;
+                        return true;
                     }
                     else
                     {
@@ -1407,7 +1413,8 @@ namespace Axiom
                         {
                             // let pass
                             //ffCheckCleared = true;
-                            ready = true;
+                            //ready = true;
+                            return true;
                         }
                         else
                         {
@@ -1419,7 +1426,8 @@ namespace Axiom
                                         MessageBoxButton.OK,
                                         MessageBoxImage.Warning);
 
-                            ready = false;
+                            //ready = false;
+                            return false;
                         }
 
                     }
@@ -1435,7 +1443,8 @@ namespace Axiom
                     {
                         // let pass
                         //ffCheckCleared = true;
-                        ready = true;
+                        //ready = true;
+                        return true;
                     }
                     else
                     {
@@ -1447,15 +1456,17 @@ namespace Axiom
                                         MessageBoxButton.OK,
                                         MessageBoxImage.Warning);
 
-                        ready = true;
+                        //ready = true;
+                        return true;
                     }
 
-                    // If Configure Path is FFmpeg.exe and not another Program
+                    //// If Configure Path is FFmpeg.exe and not another Program
                     //if (string.Equals(vm.FFprobePath_Text, fullPath, StringComparison.CurrentCultureIgnoreCase))
                     //{
                     //    // let pass
                     //    //ffCheckCleared = true;
-                    //    ready =  true;
+                    //    //ready = true;
+                    //    return true;
                     //}
                     //else
                     //{
@@ -1467,7 +1478,8 @@ namespace Axiom
                     //                    MessageBoxButton.OK,
                     //                    MessageBoxImage.Warning);
 
-                    //    ready =  false;
+                    //    ready = false;
+                    //    return false;
                     //}
                 }
             }
@@ -1478,6 +1490,8 @@ namespace Axiom
                                 MessageBoxButton.OK,
                                 MessageBoxImage.Warning);
             }
+
+            //MessageBox.Show(ready.ToString()); //debug
 
             return ready;
         }
@@ -1677,9 +1691,12 @@ namespace Axiom
             if (FFcheck(vm) == false)
             {
                 // Halt
-                ready = false;
+                //ready = false;
+                return false;
             }
 
+            //MessageBox.Show(FFcheck(vm).ToString()); //debug
+            //MessageBox.Show(ready.ToString()); //debug
 
             // -------------------------
             // Input File does not exist
@@ -1689,7 +1706,8 @@ namespace Axiom
                 if (!File.Exists(input))
                 {
                     // Halt
-                    ready = false;
+                    //ready = false;
+                    return false;
                 }
             }
 
@@ -1715,7 +1733,8 @@ namespace Axiom
                                     MessageBoxImage.Exclamation);
 
                     // Halt
-                    ready = false;
+                    //ready = false;
+                    return false;
                 }
             }
 
@@ -1742,6 +1761,9 @@ namespace Axiom
                                 "Notice",
                                 MessageBoxButton.OK,
                                 MessageBoxImage.Exclamation);
+
+                //ready = false;
+                return false;
             }
 
 
@@ -1815,7 +1837,8 @@ namespace Axiom
                                     MessageBoxImage.Warning);
 
                     // Halt
-                    ready = false;
+                    //ready = false;
+                    return false;
                 }
             }
 
@@ -1840,7 +1863,8 @@ namespace Axiom
                                 MessageBoxImage.Exclamation);
 
                 // Halt
-                ready = false;
+                //ready = false;
+                return false;
             }
 
 
@@ -1869,7 +1893,8 @@ namespace Axiom
                                     MessageBoxImage.Exclamation);
 
                     // Halt
-                    ready = false;
+                    //ready = false;
+                    return false;
                 }
             }
 
@@ -1897,7 +1922,8 @@ namespace Axiom
                                 MessageBoxImage.Exclamation);
 
                     // Halt
-                    ready = false;
+                    //ready = false;
+                    return false;
                 }
             }
 

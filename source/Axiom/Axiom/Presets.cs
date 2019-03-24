@@ -1127,10 +1127,10 @@ namespace Axiom
                 vm.Video_Codec_SelectedItem = "x265";
                 vm.Video_Quality_SelectedItem = "Custom";
                 vm.Video_Pass_SelectedItem = "2 Pass";
-                vm.Video_Bitrate_Text = "50K";
+                vm.Video_Bitrate_Text = "50M";
                 vm.Video_Minrate_Text = "";
-                vm.Video_Maxrate_Text = "109K";
-                vm.Video_Bufsize_Text = "109K";
+                vm.Video_Maxrate_Text = "75M";
+                vm.Video_Bufsize_Text = "75M";
                 vm.Video_PixelFormat_SelectedItem = "yuv420p10le";
                 vm.Video_Scale_SelectedItem = "Source";
                 vm.Video_AspectRatio_SelectedItem = "auto";
