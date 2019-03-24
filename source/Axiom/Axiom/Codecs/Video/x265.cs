@@ -216,7 +216,7 @@ namespace Axiom
             new ViewModel.VideoOptimize() { Name = "Custom", Tune = "none", Profile = "none",   Level = "none", Command = "" },
             new ViewModel.VideoOptimize() { Name = "Web",    Tune = "none", Profile = "main",   Level = "3.1",  Command = "-movflags +faststart" },
             new ViewModel.VideoOptimize() { Name = "PC HD",  Tune = "none", Profile = "main10", Level = "5.1",  Command = "" },
-            new ViewModel.VideoOptimize() { Name = "UHD",    Tune = "none", Profile = "main10", Level = "5.1",  Command = "-uhd-bd -input-csp 1 -no-interlace -sar 1 -hrd -aud -chromaloc 2 -hdr-opt -colorprim bt2020 -transfer smpte2084 -colormatrix bt2020nc -max-cll \"1000,400\" -master-display \"G(13250,34500)B(7500,3000)R(34000,16000)WP(15635,16450)L(10000000,1)\"" },
+            new ViewModel.VideoOptimize() { Name = "UHD",    Tune = "none", Profile = "main10", Level = "5.1",  Command = "-sar 1:1 -x265-params \"colorprim=bt709:transfer=bt2020:colormatrix=bt2020\"" },
         };
 
         // -------------------------

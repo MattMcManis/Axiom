@@ -4,6 +4,19 @@ Axiom FFmpeg UI
 
 ## [alpha]
 
+## [1.5.9.0] - Mar 24, 2019
+### Added
+- Added New Presets
+- Added more Video Deinterlace Filter options
+
+### Changed
+- Improved Error Halts
+- Improved Cut
+
+### Fixed
+- Subtitle Select `MOV Text`
+
+
 ## [1.5.8.0] - Mar 23, 2019
 ### Added
 - Video Filter Yadif Deinterlace
@@ -16,6 +29,7 @@ Axiom FFmpeg UI
 - Cut End Time Auto-Detect
 - Image Sequence Audio Quality ComboBox Empty
 - `mpg`, `avi`, `ogv` Encode Speed Controls disable
+
 
 ## [1.5.7.0] - Mar 22, 2019
 ### Added
