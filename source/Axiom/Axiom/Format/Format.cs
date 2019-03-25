@@ -19,6 +19,15 @@ You should have received a copy of the GNU General Public License
 along with this program.If not, see <http://www.gnu.org/licenses/>. 
 ---------------------------------------------------------------------- */
 
+/* ----------------------------------
+ METHODS
+
+ * Force Format
+ * Cut Controls
+ * Cut Start
+ * Cut End
+---------------------------------- */
+
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -315,7 +324,6 @@ namespace Axiom
         /// <summary>
         ///     Cut Start
         /// </summary>
-        /// <remarks>
         public static String CutStart(string input_Text,
                                       bool batch_IsChecked,
                                       string mediaType_SelectedItem,
@@ -374,7 +382,6 @@ namespace Axiom
         /// <summary>
         ///     Cut End
         /// </summary>
-        /// <remarks>
         public static String CutEnd(string input_Text,
                                     bool batch_IsChecked,
                                     string mediaType_SelectedItem,

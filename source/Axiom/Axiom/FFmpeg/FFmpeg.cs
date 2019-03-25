@@ -19,6 +19,19 @@ You should have received a copy of the GNU General Public License
 along with this program.If not, see <http://www.gnu.org/licenses/>. 
 ---------------------------------------------------------------------- */
 
+/* ----------------------------------
+ METHODS
+
+ * KeepWindow
+ * OnePassArgs
+ * TwoPassArgs
+ * FFmpegSingleGenerateArgs
+ * FFmpegBatchGenerateArgs
+ * FFmpegScript
+ * FFmpegStart
+ * FFmpegConvert
+---------------------------------- */
+
 using System;
 using System.Collections.Generic;
 using System.Data;

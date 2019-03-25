@@ -19,6 +19,13 @@ You should have received a copy of the GNU General Public License
 along with this program.If not, see <http://www.gnu.org/licenses/>. 
 ---------------------------------------------------------------------- */
 
+/* ----------------------------------
+ METHODS
+
+ * Set Controls
+ * Cut Controls
+---------------------------------- */
+
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
@@ -423,7 +430,7 @@ namespace Axiom
         public static void MediaTypeControls(ViewModel vm)
         {
             // -------------------------
-            // Video MediaTypeControls
+            // Video
             // -------------------------
             // Enable Frame Textbox for Image Screenshot
             if (vm.Format_MediaType_SelectedItem == "Video")
@@ -461,9 +468,6 @@ namespace Axiom
                 // Crop
                 vm.Video_Crop_IsEnabled = true;
 
-                // Encode Speed
-                //vm.Video_EncodeSpeed_IsEnabled = true;
-
                 // -------------------------
                 // Audio
                 // -------------------------
@@ -492,7 +496,7 @@ namespace Axiom
             }
 
             // -------------------------
-            // Audio MediaTypeControls
+            // Audio
             // -------------------------
             else if (vm.Format_MediaType_SelectedItem == "Audio")
             {
@@ -576,7 +580,7 @@ namespace Axiom
             }
 
             // -------------------------
-            // Image MediaTypeControls
+            // Image
             // -------------------------
             else if (vm.Format_MediaType_SelectedItem == "Image")
             {
@@ -678,7 +682,7 @@ namespace Axiom
             }
 
             // -------------------------
-            // Sequence MediaTypeControls
+            // Sequence 
             // -------------------------
             else if (vm.Format_MediaType_SelectedItem == "Sequence")
             {
@@ -686,11 +690,7 @@ namespace Axiom
                 // Format
                 // -------------------------
                 // Cut
-                // Enable Cut for Time Selection
-                //vm.Format_Cut_SelectedItem = "No";
-
-                // Cut
-                // Change if coming back from JPEG, PNG, WebP
+                // Change if coming back from Image
                 if (vm.Format_CutStart_IsEnabled == true &&
                     vm.Format_CutEnd_IsEnabled == false)
                 {
@@ -817,8 +817,6 @@ namespace Axiom
                 if (vm.Format_MediaType_SelectedItem == "Video" ||
                     vm.Format_MediaType_SelectedItem == "Sequence")
                 {
-                    //vm.Format_CutStart_Text = "00:00:00.000";
-                    //vm.Format_CutEnd_Text = "00:00:00.000";
                     // Start
                     vm.Format_CutStart_Hours_Text = "00";
                     vm.Format_CutStart_Minutes_Text = "00";
