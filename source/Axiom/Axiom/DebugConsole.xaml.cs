@@ -708,9 +708,9 @@ namespace Axiom
             debugParagraph.Inlines.Add(new Run(Format.trimEnd) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
-            debugParagraph.Inlines.Add(new Bold(new Run("trim ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(Format.trim) { Foreground = Value });
-            debugParagraph.Inlines.Add(new LineBreak());
+            //debugParagraph.Inlines.Add(new Bold(new Run("trim ")) { Foreground = Variable });
+            //debugParagraph.Inlines.Add(new Run(Format.trim) { Foreground = Value });
+            //debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new LineBreak());
             debugParagraph.Inlines.Add(new LineBreak());

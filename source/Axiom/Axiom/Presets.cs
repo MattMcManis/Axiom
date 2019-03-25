@@ -73,12 +73,21 @@ namespace Axiom
                     //vm.Preset.IsEditable = false;
 
                     // Format
-                    vm.Format_Container_SelectedItem = "webm";
-                    //vm.Format_Container_SelectedIndex = 1;
                     //vm.Format_Container_SelectedItem = vm.Format_Container_Items.FirstOrDefault();
-
+                    vm.Format_Container_SelectedItem = "webm";
+                    vm.Format_Cut_SelectedItem = "No";
+                    vm.Format_CutStart_Hours_Text = "00";
+                    vm.Format_CutStart_Minutes_Text = "00";
+                    vm.Format_CutStart_Seconds_Text = "00";
+                    vm.Format_CutStart_Milliseconds_Text = "000";
+                    vm.Format_CutEnd_Hours_Text = "00";
+                    vm.Format_CutEnd_Minutes_Text = "00";
+                    vm.Format_CutEnd_Seconds_Text = "00";
+                    vm.Format_CutEnd_Milliseconds_Text = "000";
+                    
                     // Video
                     //vm.Video_Codec_SelectedItem = "VP8";
+                    vm.Video_EncodeSpeed_SelectedItem = "Medium";
                     vm.Video_Quality_SelectedItem = "Auto";
                     vm.Video_Pass_SelectedItem = "CRF";
                     vm.Video_Bitrate_Text = "";
@@ -86,14 +95,13 @@ namespace Axiom
                     vm.Video_Maxrate_Text = "";
                     vm.Video_Bufsize_Text = "";
                     vm.Video_Scale_SelectedItem = "Source";
-                    vm.Video_AspectRatio_SelectedItem = "auto";
+
                     vm.Video_ScalingAlgorithm_SelectedItem = "auto";
-                    vm.Format_Cut_SelectedItem = "No";
-                    vm.Format_CutStart_Text = "00:00:00.000";
-                    vm.Format_CutEnd_Text = "00:00:00.000";
-                    vm.Video_EncodeSpeed_SelectedItem = "Medium";
+
+
+                    vm.Video_AspectRatio_SelectedItem = "auto";
+
                     vm.Video_FPS_SelectedItem = "auto";
-                    //vm.Video_FPS_IsEnabled = true;
 
                     // Subtitle
                     //vm.Subtitle_Codec_SelectedItem = "None";
@@ -145,11 +153,18 @@ namespace Axiom
                     //vm.Format_Container_SelectedIndex = 1;
                     vm.Format_Container_SelectedItem = "mp3";
                     vm.Format_Cut_SelectedItem = "No";
-                    vm.Format_CutStart_Text = "00:00:00.000";
-                    vm.Format_CutEnd_Text = "00:00:00.000";
+                    vm.Format_CutStart_Hours_Text = "00";
+                    vm.Format_CutStart_Minutes_Text = "00";
+                    vm.Format_CutStart_Seconds_Text = "00";
+                    vm.Format_CutStart_Milliseconds_Text = "000";
+                    vm.Format_CutEnd_Hours_Text = "00";
+                    vm.Format_CutEnd_Minutes_Text = "00";
+                    vm.Format_CutEnd_Seconds_Text = "00";
+                    vm.Format_CutEnd_Milliseconds_Text = "000";
 
                     // Video
                     vm.Video_Codec_SelectedItem = "None";
+                    vm.Video_EncodeSpeed_SelectedItem = "None";
                     vm.Video_Quality_SelectedItem = "None";
                     vm.Video_Pass_SelectedItem = "auto";
                     vm.Video_Bitrate_Text = "";
@@ -157,13 +172,11 @@ namespace Axiom
                     vm.Video_Maxrate_Text = "";
                     vm.Video_Bufsize_Text = "";
                     vm.Video_PixelFormat_SelectedItem = "none";
-                    vm.Video_Scale_SelectedItem = "Source";
-                    vm.Video_AspectRatio_SelectedItem = "auto";
-                    vm.Video_ScalingAlgorithm_SelectedItem = "auto";
-                    vm.Video_EncodeSpeed_SelectedItem = "None";
                     vm.Video_FPS_SelectedItem = "auto";
-                    vm.Video_FPS_IsEnabled = false;
                     vm.Video_Optimize_SelectedItem = "None";
+                    vm.Video_Scale_SelectedItem = "Source";
+                    vm.Video_ScalingAlgorithm_SelectedItem = "auto";
+                    vm.Video_AspectRatio_SelectedItem = "auto";
 
                     // Subtitle
                     vm.Subtitle_Codec_SelectedItem = "None";
@@ -207,11 +220,18 @@ namespace Axiom
                 // Format
                 vm.Format_Container_SelectedItem = "webm";
                 vm.Format_Cut_SelectedItem = "No";
-                vm.Format_CutStart_Text = "00:00:00.000";
-                vm.Format_CutEnd_Text = "00:00:00.000";
+                vm.Format_CutStart_Hours_Text = "00";
+                vm.Format_CutStart_Minutes_Text = "00";
+                vm.Format_CutStart_Seconds_Text = "00";
+                vm.Format_CutStart_Milliseconds_Text = "000";
+                vm.Format_CutEnd_Hours_Text = "00";
+                vm.Format_CutEnd_Minutes_Text = "00";
+                vm.Format_CutEnd_Seconds_Text = "00";
+                vm.Format_CutEnd_Milliseconds_Text = "000";
 
                 // Video
                 vm.Video_Codec_SelectedItem = "VP8";
+                vm.Video_EncodeSpeed_SelectedItem = "Medium";
                 vm.Video_Quality_SelectedItem = "Medium";
                 vm.Video_Pass_SelectedItem = "CRF";
                 //vm.Video_Bitrate_Text = ""; // use quality preset bitrate
@@ -219,13 +239,11 @@ namespace Axiom
                 vm.Video_Maxrate_Text = "";
                 vm.Video_Bufsize_Text = "";
                 vm.Video_PixelFormat_SelectedItem = "yuv420p";
-                vm.Video_Scale_SelectedItem = "Source";
-                vm.Video_AspectRatio_SelectedItem = "auto";
-                vm.Video_ScalingAlgorithm_SelectedItem = "defualt";
-                vm.Video_EncodeSpeed_SelectedItem = "Medium";
                 vm.Video_FPS_SelectedItem = "auto";
-                //vm.Video_FPS_IsEnabled = true;
                 vm.Video_Optimize_SelectedItem = "Web";
+                vm.Video_Scale_SelectedItem = "Source";
+                vm.Video_ScalingAlgorithm_SelectedItem = "defualt";
+                vm.Video_AspectRatio_SelectedItem = "auto";
 
                 // Subtitle
                 vm.Subtitle_Codec_SelectedItem = "None";
@@ -256,12 +274,18 @@ namespace Axiom
                 // Format
                 vm.Format_Container_SelectedItem = "mp4";
                 vm.Format_Cut_SelectedItem = "No";
-                vm.Format_CutStart_Text = "00:00:00.000";
-                vm.Format_CutEnd_Text = "00:00:00.000";
+                vm.Format_CutStart_Hours_Text = "00";
+                vm.Format_CutStart_Minutes_Text = "00";
+                vm.Format_CutStart_Seconds_Text = "00";
+                vm.Format_CutStart_Milliseconds_Text = "000";
+                vm.Format_CutEnd_Hours_Text = "00";
+                vm.Format_CutEnd_Minutes_Text = "00";
+                vm.Format_CutEnd_Seconds_Text = "00";
+                vm.Format_CutEnd_Milliseconds_Text = "000";
 
                 // Video
                 vm.Video_Codec_SelectedItem = "x264";
-                // Ultra
+                vm.Video_EncodeSpeed_SelectedItem = "Medium";
                 vm.Video_Quality_SelectedItem = "Ultra";
                 vm.Video_Pass_SelectedItem = "CRF";
                 vm.Video_Bitrate_Text = "";
@@ -269,13 +293,11 @@ namespace Axiom
                 vm.Video_Maxrate_Text = "";
                 vm.Video_Bufsize_Text = "";
                 vm.Video_PixelFormat_SelectedItem = "yuv420p";
-                vm.Video_Scale_SelectedItem = "Source";
-                vm.Video_AspectRatio_SelectedItem = "auto";
-                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
-                vm.Video_Optimize_SelectedItem = "Web";
                 vm.Video_FPS_SelectedItem = "auto";
-                //vm.Video_FPS_IsEnabled = true;
-                vm.Video_EncodeSpeed_SelectedItem = "Medium";
+                vm.Video_Optimize_SelectedItem = "Web";
+                vm.Video_Scale_SelectedItem = "Source";
+                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
+                vm.Video_AspectRatio_SelectedItem = "auto";
 
                 // Subtitle
                 vm.Subtitle_Codec_SelectedItem = "MOV Text";
@@ -310,11 +332,18 @@ namespace Axiom
                 // Format
                 vm.Format_Container_SelectedItem = "mkv";
                 vm.Format_Cut_SelectedItem = "No";
-                vm.Format_CutStart_Text = "00:00:00.000";
-                vm.Format_CutEnd_Text = "00:00:00.000";
+                vm.Format_CutStart_Hours_Text = "00";
+                vm.Format_CutStart_Minutes_Text = "00";
+                vm.Format_CutStart_Seconds_Text = "00";
+                vm.Format_CutStart_Milliseconds_Text = "000";
+                vm.Format_CutEnd_Hours_Text = "00";
+                vm.Format_CutEnd_Minutes_Text = "00";
+                vm.Format_CutEnd_Seconds_Text = "00";
+                vm.Format_CutEnd_Milliseconds_Text = "000";
 
                 // Video
                 vm.Video_Codec_SelectedItem = "FFV1";
+                vm.Video_EncodeSpeed_SelectedItem = "None";
                 vm.Video_Quality_SelectedItem = "Lossless";
                 vm.Video_Pass_SelectedItem = "2 Pass";
                 vm.Video_Bitrate_Text = "";
@@ -322,12 +351,11 @@ namespace Axiom
                 vm.Video_Maxrate_Text = "";
                 vm.Video_Bufsize_Text = "";
                 vm.Video_PixelFormat_SelectedItem = "yuv444p10le";
-                vm.Video_Scale_SelectedItem = "Source";
-                vm.Video_AspectRatio_SelectedItem = "auto";
-                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
-                vm.Video_Optimize_SelectedItem = "None";
                 vm.Video_FPS_SelectedItem = "auto";
-                vm.Video_EncodeSpeed_SelectedItem = "None";
+                vm.Video_Optimize_SelectedItem = "None";
+                vm.Video_Scale_SelectedItem = "Source";
+                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
+                vm.Video_AspectRatio_SelectedItem = "auto";
 
                 // Subtitle
                 vm.Subtitle_Codec_SelectedItem = "Copy";
@@ -358,11 +386,18 @@ namespace Axiom
                 // Format
                 vm.Format_Container_SelectedItem = "mkv";
                 vm.Format_Cut_SelectedItem = "No";
-                vm.Format_CutStart_Text = "00:00:00.000";
-                vm.Format_CutEnd_Text = "00:00:00.000";
+                vm.Format_CutStart_Hours_Text = "00";
+                vm.Format_CutStart_Minutes_Text = "00";
+                vm.Format_CutStart_Seconds_Text = "00";
+                vm.Format_CutStart_Milliseconds_Text = "000";
+                vm.Format_CutEnd_Hours_Text = "00";
+                vm.Format_CutEnd_Minutes_Text = "00";
+                vm.Format_CutEnd_Seconds_Text = "00";
+                vm.Format_CutEnd_Milliseconds_Text = "000";
 
                 // Video
                 vm.Video_Codec_SelectedItem = "x265";
+                vm.Video_EncodeSpeed_SelectedItem = "Slow";
                 vm.Video_Quality_SelectedItem = "Ultra";
                 vm.Video_Pass_SelectedItem = "CRF";
                 //vm.Video_CRF_Text = "18";
@@ -371,16 +406,15 @@ namespace Axiom
                 vm.Video_Maxrate_Text = "";
                 vm.Video_Bufsize_Text = "";
                 vm.Video_PixelFormat_SelectedItem = "yuv420p10le";
-                vm.Video_Scale_SelectedItem = "Source";
-                vm.Video_AspectRatio_SelectedItem = "auto";
-                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
+                vm.Video_FPS_SelectedItem = "auto";
                 vm.Video_Optimize_SelectedItem = "Custom";
                 vm.Video_Optimize_Tune_SelectedItem = "none";
                 vm.Video_Optimize_Profile_SelectedItem = "main10";
                 vm.Video_Optimize_Level_SelectedItem = "5.2";
-                vm.Video_FPS_SelectedItem = "auto";
-                //vm.Video_FPS_IsEnabled = true;
-                vm.Video_EncodeSpeed_SelectedItem = "Slow";
+                vm.Video_Scale_SelectedItem = "Source";
+                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
+                vm.Video_AspectRatio_SelectedItem = "auto";
+
 
                 // Subtitle
                 vm.Subtitle_Codec_SelectedItem = "Copy";
@@ -415,11 +449,18 @@ namespace Axiom
                 // Format
                 vm.Format_Container_SelectedItem = "mp4";
                 vm.Format_Cut_SelectedItem = "No";
-                vm.Format_CutStart_Text = "00:00:00.000";
-                vm.Format_CutEnd_Text = "00:00:00.000";
+                vm.Format_CutStart_Hours_Text = "00";
+                vm.Format_CutStart_Minutes_Text = "00";
+                vm.Format_CutStart_Seconds_Text = "00";
+                vm.Format_CutStart_Milliseconds_Text = "000";
+                vm.Format_CutEnd_Hours_Text = "00";
+                vm.Format_CutEnd_Minutes_Text = "00";
+                vm.Format_CutEnd_Seconds_Text = "00";
+                vm.Format_CutEnd_Milliseconds_Text = "000";
 
                 // Video
                 vm.Video_Codec_SelectedItem = "x264";
+                vm.Video_EncodeSpeed_SelectedItem = "Medium";
 
                 if (vm.Preset_SelectedItem == "HD Ultra")
                 {
@@ -444,13 +485,11 @@ namespace Axiom
                 vm.Video_Maxrate_Text = "";
                 vm.Video_Bufsize_Text = "";
                 vm.Video_PixelFormat_SelectedItem = "yuv420p";
-                vm.Video_Scale_SelectedItem = "Source";
-                vm.Video_AspectRatio_SelectedItem = "auto";
-                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
-                vm.Video_Optimize_SelectedItem = "PC HD";
                 vm.Video_FPS_SelectedItem = "auto";
-                //vm.Video_FPS_IsEnabled = true;
-                vm.Video_EncodeSpeed_SelectedItem = "Medium";
+                vm.Video_Optimize_SelectedItem = "PC HD";
+                vm.Video_Scale_SelectedItem = "Source";
+                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
+                vm.Video_AspectRatio_SelectedItem = "auto";
 
                 // Subtitle
                 vm.Subtitle_Codec_SelectedItem = "MOV Text";
@@ -483,11 +522,18 @@ namespace Axiom
                 // Format
                 vm.Format_Container_SelectedItem = "mp4";
                 vm.Format_Cut_SelectedItem = "No";
-                vm.Format_CutStart_Text = "00:00:00.000";
-                vm.Format_CutEnd_Text = "00:00:00.000";
+                vm.Format_CutStart_Hours_Text = "00";
+                vm.Format_CutStart_Minutes_Text = "00";
+                vm.Format_CutStart_Seconds_Text = "00";
+                vm.Format_CutStart_Milliseconds_Text = "000";
+                vm.Format_CutEnd_Hours_Text = "00";
+                vm.Format_CutEnd_Minutes_Text = "00";
+                vm.Format_CutEnd_Seconds_Text = "00";
+                vm.Format_CutEnd_Milliseconds_Text = "000";
 
                 // Video
                 vm.Video_Codec_SelectedItem = "x264";
+                vm.Video_EncodeSpeed_SelectedItem = "Medium";
 
                 if (vm.Preset_SelectedItem == "SD High")
                 {
@@ -508,13 +554,11 @@ namespace Axiom
                 vm.Video_Maxrate_Text = "";
                 vm.Video_Bufsize_Text = "";
                 vm.Video_PixelFormat_SelectedItem = "yuv420p";
-                vm.Video_Scale_SelectedItem = "Source";
-                vm.Video_AspectRatio_SelectedItem = "auto";
-                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
                 vm.Video_FPS_SelectedItem = "auto";
-                //vm.Video_FPS_IsEnabled = true;
-                vm.Video_EncodeSpeed_SelectedItem = "Medium";
                 vm.Video_Optimize_SelectedItem = "PC SD";
+                vm.Video_Scale_SelectedItem = "Source";
+                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
+                vm.Video_AspectRatio_SelectedItem = "auto";
 
                 // Subtitle
                 vm.Subtitle_Codec_SelectedItem = "MOV Text";
@@ -549,11 +593,18 @@ namespace Axiom
                 // Format
                 vm.Format_Container_SelectedItem = "mkv";
                 vm.Format_Cut_SelectedItem = "No";
-                vm.Format_CutStart_Text = "00:00:00.000";
-                vm.Format_CutEnd_Text = "00:00:00.000";
+                vm.Format_CutStart_Hours_Text = "00";
+                vm.Format_CutStart_Minutes_Text = "00";
+                vm.Format_CutStart_Seconds_Text = "00";
+                vm.Format_CutStart_Milliseconds_Text = "000";
+                vm.Format_CutEnd_Hours_Text = "00";
+                vm.Format_CutEnd_Minutes_Text = "00";
+                vm.Format_CutEnd_Seconds_Text = "00";
+                vm.Format_CutEnd_Milliseconds_Text = "000";
 
                 // Video
                 vm.Video_Codec_SelectedItem = "x264";
+                vm.Video_EncodeSpeed_SelectedItem = "Medium";
                 vm.Video_Quality_SelectedItem = "Ultra";
                 vm.Video_Pass_SelectedItem = "CRF";
                 vm.Video_Bitrate_Text = "";
@@ -561,16 +612,14 @@ namespace Axiom
                 vm.Video_Maxrate_Text = "";
                 vm.Video_Bufsize_Text = "";
                 vm.Video_PixelFormat_SelectedItem = "yuv420p";
-                vm.Video_Scale_SelectedItem = "Source";
-                vm.Video_AspectRatio_SelectedItem = "auto";
-                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
+                vm.Video_FPS_SelectedItem = "auto";
                 vm.Video_Optimize_SelectedItem = "Custom";
                 vm.Video_Optimize_Tune_SelectedItem = "none";
                 vm.Video_Optimize_Profile_SelectedItem = "high";
                 vm.Video_Optimize_Level_SelectedItem = "4.0";
-                vm.Video_FPS_SelectedItem = "auto";
-                //vm.Video_FPS_IsEnabled = true;
-                vm.Video_EncodeSpeed_SelectedItem = "Medium";
+                vm.Video_Scale_SelectedItem = "Source";
+                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
+                vm.Video_AspectRatio_SelectedItem = "auto";
 
                 // Subtitle
                 vm.Subtitle_Codec_SelectedItem = "SRT";
@@ -601,11 +650,18 @@ namespace Axiom
                 // Format
                 vm.Format_Container_SelectedItem = "mp4";
                 vm.Format_Cut_SelectedItem = "No";
-                vm.Format_CutStart_Text = "00:00:00.000";
-                vm.Format_CutEnd_Text = "00:00:00.000";
+                vm.Format_CutStart_Hours_Text = "00";
+                vm.Format_CutStart_Minutes_Text = "00";
+                vm.Format_CutStart_Seconds_Text = "00";
+                vm.Format_CutStart_Milliseconds_Text = "000";
+                vm.Format_CutEnd_Hours_Text = "00";
+                vm.Format_CutEnd_Minutes_Text = "00";
+                vm.Format_CutEnd_Seconds_Text = "00";
+                vm.Format_CutEnd_Milliseconds_Text = "000";
 
                 // Video
                 vm.Video_Codec_SelectedItem = "x264";
+                vm.Video_EncodeSpeed_SelectedItem = "Medium";
                 vm.Video_Quality_SelectedItem = "Ultra";
                 vm.Video_Pass_SelectedItem = "CRF";
                 vm.Video_Bitrate_Text = "";
@@ -613,16 +669,14 @@ namespace Axiom
                 vm.Video_Maxrate_Text = "";
                 vm.Video_Bufsize_Text = "";
                 vm.Video_PixelFormat_SelectedItem = "yuv420p";
-                vm.Video_Scale_SelectedItem = "Source";
-                vm.Video_AspectRatio_SelectedItem = "auto";
-                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
+                vm.Video_FPS_SelectedItem = "auto";
                 vm.Video_Optimize_SelectedItem = "Custom";
                 vm.Video_Optimize_Tune_SelectedItem = "none";
                 vm.Video_Optimize_Profile_SelectedItem = "high";
                 vm.Video_Optimize_Level_SelectedItem = "4.2";
-                vm.Video_FPS_SelectedItem = "auto";
-                //vm.Video_FPS_IsEnabled = true;
-                vm.Video_EncodeSpeed_SelectedItem = "Medium";
+                vm.Video_Scale_SelectedItem = "Source";
+                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
+                vm.Video_AspectRatio_SelectedItem = "auto";
 
                 // Subtitle
                 vm.Subtitle_Codec_SelectedItem = "SRT";
@@ -653,11 +707,18 @@ namespace Axiom
                 // Format
                 vm.Format_Container_SelectedItem = "mp4";
                 vm.Format_Cut_SelectedItem = "No";
-                vm.Format_CutStart_Text = "00:00:00.000";
-                vm.Format_CutEnd_Text = "00:00:00.000";
+                vm.Format_CutStart_Hours_Text = "00";
+                vm.Format_CutStart_Minutes_Text = "00";
+                vm.Format_CutStart_Seconds_Text = "00";
+                vm.Format_CutStart_Milliseconds_Text = "000";
+                vm.Format_CutEnd_Hours_Text = "00";
+                vm.Format_CutEnd_Minutes_Text = "00";
+                vm.Format_CutEnd_Seconds_Text = "00";
+                vm.Format_CutEnd_Milliseconds_Text = "000";
 
                 // Video
                 vm.Video_Codec_SelectedItem = "x264";
+                vm.Video_EncodeSpeed_SelectedItem = "Medium";
                 vm.Video_Quality_SelectedItem = "Ultra";
                 vm.Video_Pass_SelectedItem = "CRF";
                 vm.Video_Bitrate_Text = "";
@@ -665,16 +726,14 @@ namespace Axiom
                 vm.Video_Maxrate_Text = "";
                 vm.Video_Bufsize_Text = "";
                 vm.Video_PixelFormat_SelectedItem = "yuv420p";
-                vm.Video_Scale_SelectedItem = "Source";
-                vm.Video_AspectRatio_SelectedItem = "auto";
-                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
+                vm.Video_FPS_SelectedItem = "auto";
                 vm.Video_Optimize_SelectedItem = "Custom";
                 vm.Video_Optimize_Tune_SelectedItem = "none";
                 vm.Video_Optimize_Profile_SelectedItem = "high";
                 vm.Video_Optimize_Level_SelectedItem = "4.2";
-                vm.Video_FPS_SelectedItem = "auto";
-                //vm.Video_FPS_IsEnabled = true;
-                vm.Video_EncodeSpeed_SelectedItem = "Medium";
+                vm.Video_Scale_SelectedItem = "Source";
+                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
+                vm.Video_AspectRatio_SelectedItem = "auto";
 
                 // Subtitle
                 vm.Subtitle_Codec_SelectedItem = "SRT";
@@ -705,11 +764,18 @@ namespace Axiom
                 // Format
                 vm.Format_Container_SelectedItem = "mp4";
                 vm.Format_Cut_SelectedItem = "No";
-                vm.Format_CutStart_Text = "00:00:00.000";
-                vm.Format_CutEnd_Text = "00:00:00.000";
+                vm.Format_CutStart_Hours_Text = "00";
+                vm.Format_CutStart_Minutes_Text = "00";
+                vm.Format_CutStart_Seconds_Text = "00";
+                vm.Format_CutStart_Milliseconds_Text = "000";
+                vm.Format_CutEnd_Hours_Text = "00";
+                vm.Format_CutEnd_Minutes_Text = "00";
+                vm.Format_CutEnd_Seconds_Text = "00";
+                vm.Format_CutEnd_Milliseconds_Text = "000";
 
                 // Video
                 vm.Video_Codec_SelectedItem = "x264";
+                vm.Video_EncodeSpeed_SelectedItem = "Medium";
                 vm.Video_Quality_SelectedItem = "Ultra";
                 vm.Video_Pass_SelectedItem = "CRF";
                 vm.Video_Bitrate_Text = "";
@@ -717,16 +783,14 @@ namespace Axiom
                 vm.Video_Maxrate_Text = "";
                 vm.Video_Bufsize_Text = "";
                 vm.Video_PixelFormat_SelectedItem = "yuv420p";
-                vm.Video_Scale_SelectedItem = "Source";
-                vm.Video_AspectRatio_SelectedItem = "auto";
-                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
+                vm.Video_FPS_SelectedItem = "auto";
                 vm.Video_Optimize_SelectedItem = "Custom";
                 vm.Video_Optimize_Tune_SelectedItem = "none";
                 vm.Video_Optimize_Profile_SelectedItem = "high";
                 vm.Video_Optimize_Level_SelectedItem = "4.2";
-                vm.Video_FPS_SelectedItem = "auto";
-                //vm.Video_FPS_IsEnabled = true;
-                vm.Video_EncodeSpeed_SelectedItem = "Medium";
+                vm.Video_Scale_SelectedItem = "Source";
+                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
+                vm.Video_AspectRatio_SelectedItem = "auto";
 
                 // Subtitle
                 vm.Subtitle_Codec_SelectedItem = "SRT";
@@ -757,11 +821,18 @@ namespace Axiom
                 // Format
                 vm.Format_Container_SelectedItem = "mp4";
                 vm.Format_Cut_SelectedItem = "No";
-                vm.Format_CutStart_Text = "00:00:00.000";
-                vm.Format_CutEnd_Text = "00:00:00.000";
+                vm.Format_CutStart_Hours_Text = "00";
+                vm.Format_CutStart_Minutes_Text = "00";
+                vm.Format_CutStart_Seconds_Text = "00";
+                vm.Format_CutStart_Milliseconds_Text = "000";
+                vm.Format_CutEnd_Hours_Text = "00";
+                vm.Format_CutEnd_Minutes_Text = "00";
+                vm.Format_CutEnd_Seconds_Text = "00";
+                vm.Format_CutEnd_Milliseconds_Text = "000";
 
                 // Video
                 vm.Video_Codec_SelectedItem = "x264";
+                vm.Video_EncodeSpeed_SelectedItem = "Medium";
                 vm.Video_Quality_SelectedItem = "High";
                 vm.Video_Pass_SelectedItem = "CRF";
                 vm.Video_Bitrate_Text = "";
@@ -769,16 +840,14 @@ namespace Axiom
                 vm.Video_Maxrate_Text = "";
                 vm.Video_Bufsize_Text = "";
                 vm.Video_PixelFormat_SelectedItem = "yuv420p";
-                vm.Video_Scale_SelectedItem = "Source";
-                vm.Video_AspectRatio_SelectedItem = "auto";
-                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
+                vm.Video_FPS_SelectedItem = "auto";
                 vm.Video_Optimize_SelectedItem = "Custom";
                 vm.Video_Optimize_Tune_SelectedItem = "none";
                 vm.Video_Optimize_Profile_SelectedItem = "main";
                 vm.Video_Optimize_Level_SelectedItem = "4.2";
-                vm.Video_FPS_SelectedItem = "auto";
-                //vm.Video_FPS_IsEnabled = true;
-                vm.Video_EncodeSpeed_SelectedItem = "Medium";
+                vm.Video_Scale_SelectedItem = "Source";
+                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
+                vm.Video_AspectRatio_SelectedItem = "auto";
 
                 // Subtitle
                 vm.Subtitle_Codec_SelectedItem = "SRT";
@@ -813,11 +882,18 @@ namespace Axiom
                 // Format
                 vm.Format_Container_SelectedItem = "mp4";
                 vm.Format_Cut_SelectedItem = "No";
-                vm.Format_CutStart_Text = "00:00:00.000";
-                vm.Format_CutEnd_Text = "00:00:00.000";
+                vm.Format_CutStart_Hours_Text = "00";
+                vm.Format_CutStart_Minutes_Text = "00";
+                vm.Format_CutStart_Seconds_Text = "00";
+                vm.Format_CutStart_Milliseconds_Text = "000";
+                vm.Format_CutEnd_Hours_Text = "00";
+                vm.Format_CutEnd_Minutes_Text = "00";
+                vm.Format_CutEnd_Seconds_Text = "00";
+                vm.Format_CutEnd_Milliseconds_Text = "000";
 
                 // Video
                 vm.Video_Codec_SelectedItem = "x264";
+                vm.Video_EncodeSpeed_SelectedItem = "Medium";
                 vm.Video_Quality_SelectedItem = "High";
                 vm.Video_Pass_SelectedItem = "CRF";
                 vm.Video_Bitrate_Text = "";
@@ -825,13 +901,11 @@ namespace Axiom
                 vm.Video_Maxrate_Text = "";
                 vm.Video_Bufsize_Text = "";
                 vm.Video_PixelFormat_SelectedItem = "yuv420p";
-                vm.Video_Scale_SelectedItem = "Source";
-                vm.Video_AspectRatio_SelectedItem = "auto";
-                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
                 vm.Video_Optimize_SelectedItem = "Android";
                 vm.Video_FPS_SelectedItem = "23.976";
-                //vm.Video_FPS_IsEnabled = true;
-                vm.Video_EncodeSpeed_SelectedItem = "Medium";
+                vm.Video_Scale_SelectedItem = "Source";
+                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
+                vm.Video_AspectRatio_SelectedItem = "auto";
 
                 // Subtitle
                 vm.Subtitle_Codec_SelectedItem = "MOV Text";
@@ -862,11 +936,18 @@ namespace Axiom
                 // Format
                 vm.Format_Container_SelectedItem = "mp4";
                 vm.Format_Cut_SelectedItem = "No";
-                vm.Format_CutStart_Text = "00:00:00.000";
-                vm.Format_CutEnd_Text = "00:00:00.000";
+                vm.Format_CutStart_Hours_Text = "00";
+                vm.Format_CutStart_Minutes_Text = "00";
+                vm.Format_CutStart_Seconds_Text = "00";
+                vm.Format_CutStart_Milliseconds_Text = "000";
+                vm.Format_CutEnd_Hours_Text = "00";
+                vm.Format_CutEnd_Minutes_Text = "00";
+                vm.Format_CutEnd_Seconds_Text = "00";
+                vm.Format_CutEnd_Milliseconds_Text = "000";
 
                 // Video
                 vm.Video_Codec_SelectedItem = "x264";
+                vm.Video_EncodeSpeed_SelectedItem = "Medium";
                 vm.Video_Quality_SelectedItem = "High";
                 vm.Video_Pass_SelectedItem = "CRF";
                 vm.Video_Bitrate_Text = "";
@@ -874,13 +955,11 @@ namespace Axiom
                 vm.Video_Maxrate_Text = "";
                 vm.Video_Bufsize_Text = "";
                 vm.Video_PixelFormat_SelectedItem = "yuv420p";
-                vm.Video_Scale_SelectedItem = "Source";
-                vm.Video_AspectRatio_SelectedItem = "auto";
-                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
                 vm.Video_FPS_SelectedItem = "23.976";
-                //vm.Video_FPS_IsEnabled = true;
-                vm.Video_EncodeSpeed_SelectedItem = "Medium";
                 vm.Video_Optimize_SelectedItem = "Apple";
+                vm.Video_Scale_SelectedItem = "Source";
+                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
+                vm.Video_AspectRatio_SelectedItem = "auto";
 
                 // Subtitle
                 vm.Subtitle_Codec_SelectedItem = "MOV Text";
@@ -915,11 +994,18 @@ namespace Axiom
                 // Format
                 vm.Format_Container_SelectedItem = "mp4";
                 vm.Format_Cut_SelectedItem = "No";
-                vm.Format_CutStart_Text = "00:00:00.000";
-                vm.Format_CutEnd_Text = "00:00:00.000";
+                vm.Format_CutStart_Hours_Text = "00";
+                vm.Format_CutStart_Minutes_Text = "00";
+                vm.Format_CutStart_Seconds_Text = "00";
+                vm.Format_CutStart_Milliseconds_Text = "000";
+                vm.Format_CutEnd_Hours_Text = "00";
+                vm.Format_CutEnd_Minutes_Text = "00";
+                vm.Format_CutEnd_Seconds_Text = "00";
+                vm.Format_CutEnd_Milliseconds_Text = "000";
 
                 // Video
                 vm.Video_Codec_SelectedItem = "x264";
+                vm.Video_EncodeSpeed_SelectedItem = "Medium";
                 vm.Video_Quality_SelectedItem = "Ultra";
                 vm.Video_Pass_SelectedItem = "CRF";
                 vm.Video_Bitrate_Text = "";
@@ -927,13 +1013,11 @@ namespace Axiom
                 vm.Video_Maxrate_Text = "";
                 vm.Video_Bufsize_Text = "";
                 vm.Video_PixelFormat_SelectedItem = "yuv420p";
-                vm.Video_Scale_SelectedItem = "Source";
-                vm.Video_AspectRatio_SelectedItem = "auto";
-                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
                 vm.Video_FPS_SelectedItem = "23.976";
-                //vm.Video_FPS_IsEnabled = true;
-                vm.Video_EncodeSpeed_SelectedItem = "Medium";
                 vm.Video_Optimize_SelectedItem = "PS3";
+                vm.Video_Scale_SelectedItem = "Source";
+                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
+                vm.Video_AspectRatio_SelectedItem = "auto";
 
                 // Subtitle
                 vm.Subtitle_Codec_SelectedItem = "MOV Text";
@@ -964,11 +1048,18 @@ namespace Axiom
                 // Format
                 vm.Format_Container_SelectedItem = "mp4";
                 vm.Format_Cut_SelectedItem = "No";
-                vm.Format_CutStart_Text = "00:00:00.000";
-                vm.Format_CutEnd_Text = "00:00:00.000";
+                vm.Format_CutStart_Hours_Text = "00";
+                vm.Format_CutStart_Minutes_Text = "00";
+                vm.Format_CutStart_Seconds_Text = "00";
+                vm.Format_CutStart_Milliseconds_Text = "000";
+                vm.Format_CutEnd_Hours_Text = "00";
+                vm.Format_CutEnd_Minutes_Text = "00";
+                vm.Format_CutEnd_Seconds_Text = "00";
+                vm.Format_CutEnd_Milliseconds_Text = "000";
 
                 // Video
                 vm.Video_Codec_SelectedItem = "x264";
+                vm.Video_EncodeSpeed_SelectedItem = "Medium";
                 vm.Video_Quality_SelectedItem = "Ultra";
                 vm.Video_Pass_SelectedItem = "CRF";
                 vm.Video_Bitrate_Text = "";
@@ -976,13 +1067,11 @@ namespace Axiom
                 vm.Video_Maxrate_Text = "";
                 vm.Video_Bufsize_Text = "";
                 vm.Video_PixelFormat_SelectedItem = "yuv420p";
-                vm.Video_Scale_SelectedItem = "Source";
-                vm.Video_AspectRatio_SelectedItem = "auto";
-                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
-                vm.Video_EncodeSpeed_SelectedItem = "Medium";
                 vm.Video_FPS_SelectedItem = "auto";
-                //vm.Video_FPS_IsEnabled = true;
                 vm.Video_Optimize_SelectedItem = "PS4";
+                vm.Video_Scale_SelectedItem = "Source";
+                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
+                vm.Video_AspectRatio_SelectedItem = "auto";
 
                 // Subtitle
                 vm.Subtitle_Codec_SelectedItem = "MOV Text";
@@ -1013,11 +1102,18 @@ namespace Axiom
                 // Format
                 vm.Format_Container_SelectedItem = "mp4";
                 vm.Format_Cut_SelectedItem = "No";
-                vm.Format_CutStart_Text = "00:00:00.000";
-                vm.Format_CutEnd_Text = "00:00:00.000";
+                vm.Format_CutStart_Hours_Text = "00";
+                vm.Format_CutStart_Minutes_Text = "00";
+                vm.Format_CutStart_Seconds_Text = "00";
+                vm.Format_CutStart_Milliseconds_Text = "000";
+                vm.Format_CutEnd_Hours_Text = "00";
+                vm.Format_CutEnd_Minutes_Text = "00";
+                vm.Format_CutEnd_Seconds_Text = "00";
+                vm.Format_CutEnd_Milliseconds_Text = "000";
 
                 // Video
                 vm.Video_Codec_SelectedItem = "x264";
+                vm.Video_EncodeSpeed_SelectedItem = "Medium";
                 vm.Video_Quality_SelectedItem = "High";
                 vm.Video_Pass_SelectedItem = "CRF";
                 vm.Video_Bitrate_Text = "";
@@ -1025,13 +1121,11 @@ namespace Axiom
                 vm.Video_Maxrate_Text = "";
                 vm.Video_Bufsize_Text = "";
                 vm.Video_PixelFormat_SelectedItem = "yuv420p";
-                vm.Video_Scale_SelectedItem = "Source";
-                vm.Video_AspectRatio_SelectedItem = "auto";
-                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
-                vm.Video_EncodeSpeed_SelectedItem = "Medium";
                 vm.Video_FPS_SelectedItem = "23.976";
-                //vm.Video_FPS_IsEnabled = true;
                 vm.Video_Optimize_SelectedItem = "Xbox 360";
+                vm.Video_Scale_SelectedItem = "Source";
+                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
+                vm.Video_AspectRatio_SelectedItem = "auto";
 
                 // Subtitle
                 vm.Subtitle_Codec_SelectedItem = "MOV Text";
@@ -1062,11 +1156,18 @@ namespace Axiom
                 // Format
                 vm.Format_Container_SelectedItem = "mp4";
                 vm.Format_Cut_SelectedItem = "No";
-                vm.Format_CutStart_Text = "00:00:00.000";
-                vm.Format_CutEnd_Text = "00:00:00.000";
+                vm.Format_CutStart_Hours_Text = "00";
+                vm.Format_CutStart_Minutes_Text = "00";
+                vm.Format_CutStart_Seconds_Text = "00";
+                vm.Format_CutStart_Milliseconds_Text = "000";
+                vm.Format_CutEnd_Hours_Text = "00";
+                vm.Format_CutEnd_Minutes_Text = "00";
+                vm.Format_CutEnd_Seconds_Text = "00";
+                vm.Format_CutEnd_Milliseconds_Text = "000";
 
                 // Video
                 vm.Video_Codec_SelectedItem = "x264";
+                vm.Video_EncodeSpeed_SelectedItem = "Medium";
                 vm.Video_Quality_SelectedItem = "Ultra";
                 vm.Video_Pass_SelectedItem = "CRF";
                 vm.Video_Bitrate_Text = "";
@@ -1074,13 +1175,11 @@ namespace Axiom
                 vm.Video_Maxrate_Text = "";
                 vm.Video_Bufsize_Text = "";
                 vm.Video_PixelFormat_SelectedItem = "yuv420p";
-                vm.Video_Scale_SelectedItem = "Source";
-                vm.Video_AspectRatio_SelectedItem = "auto";
-                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
-                vm.Video_EncodeSpeed_SelectedItem = "Medium";
-                vm.Video_Optimize_SelectedItem = "Xbox One";
                 vm.Video_FPS_SelectedItem = "auto";
-                //vm.Video_FPS_IsEnabled = true;
+                vm.Video_Optimize_SelectedItem = "Xbox One";
+                vm.Video_Scale_SelectedItem = "Source";
+                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
+                vm.Video_AspectRatio_SelectedItem = "auto";
 
                 // Subtitle
                 vm.Subtitle_Codec_SelectedItem = "MOV Text";
@@ -1115,11 +1214,18 @@ namespace Axiom
                 // Format
                 vm.Format_Container_SelectedItem = "mp4";
                 vm.Format_Cut_SelectedItem = "No";
-                vm.Format_CutStart_Text = "00:00:00.000";
-                vm.Format_CutEnd_Text = "00:00:00.000";
+                vm.Format_CutStart_Hours_Text = "00";
+                vm.Format_CutStart_Minutes_Text = "00";
+                vm.Format_CutStart_Seconds_Text = "00";
+                vm.Format_CutStart_Milliseconds_Text = "000";
+                vm.Format_CutEnd_Hours_Text = "00";
+                vm.Format_CutEnd_Minutes_Text = "00";
+                vm.Format_CutEnd_Seconds_Text = "00";
+                vm.Format_CutEnd_Milliseconds_Text = "000";
 
                 // Video
                 vm.Video_Codec_SelectedItem = "x265";
+                vm.Video_EncodeSpeed_SelectedItem = "Slow";
                 vm.Video_Quality_SelectedItem = "Custom";
                 vm.Video_Pass_SelectedItem = "2 Pass";
                 vm.Video_Bitrate_Text = "50M";
@@ -1127,13 +1233,11 @@ namespace Axiom
                 vm.Video_Maxrate_Text = "75M";
                 vm.Video_Bufsize_Text = "75M";
                 vm.Video_PixelFormat_SelectedItem = "yuv420p10le";
-                vm.Video_Scale_SelectedItem = "Source";
-                vm.Video_AspectRatio_SelectedItem = "auto";
-                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
                 vm.Video_FPS_SelectedItem = "23.976";
-                //vm.Video_FPS_IsEnabled = true;
                 vm.Video_Optimize_SelectedItem = "UHD";
-                vm.Video_EncodeSpeed_SelectedItem = "Slow";
+                vm.Video_Scale_SelectedItem = "Source";
+                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
+                vm.Video_AspectRatio_SelectedItem = "auto";
 
                 // Subtitle
                 vm.Subtitle_Codec_SelectedItem = "MOV Text";
@@ -1164,11 +1268,18 @@ namespace Axiom
                 // Format
                 vm.Format_Container_SelectedItem = "mp4";
                 vm.Format_Cut_SelectedItem = "No";
-                vm.Format_CutStart_Text = "00:00:00.000";
-                vm.Format_CutEnd_Text = "00:00:00.000";
+                vm.Format_CutStart_Hours_Text = "00";
+                vm.Format_CutStart_Minutes_Text = "00";
+                vm.Format_CutStart_Seconds_Text = "00";
+                vm.Format_CutStart_Milliseconds_Text = "000";
+                vm.Format_CutEnd_Hours_Text = "00";
+                vm.Format_CutEnd_Minutes_Text = "00";
+                vm.Format_CutEnd_Seconds_Text = "00";
+                vm.Format_CutEnd_Milliseconds_Text = "000";
 
                 // Video
                 vm.Video_Codec_SelectedItem = "x264";
+                vm.Video_EncodeSpeed_SelectedItem = "Slow";
                 vm.Video_Quality_SelectedItem = "Ultra";
                 vm.Video_Pass_SelectedItem = "CRF";
                 vm.Video_Bitrate_Text = "";
@@ -1176,13 +1287,11 @@ namespace Axiom
                 vm.Video_Maxrate_Text = "";
                 vm.Video_Bufsize_Text = "";
                 vm.Video_PixelFormat_SelectedItem = "yuv420p10le";
-                vm.Video_Scale_SelectedItem = "1080p";
-                vm.Video_AspectRatio_SelectedItem = "auto";
-                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
                 vm.Video_FPS_SelectedItem = "23.976";
-                //vm.Video_FPS_IsEnabled = true;
                 vm.Video_Optimize_SelectedItem = "Blu-ray";
-                vm.Video_EncodeSpeed_SelectedItem = "Slow";
+                vm.Video_Scale_SelectedItem = "1080p";
+                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
+                vm.Video_AspectRatio_SelectedItem = "auto";
 
                 // Subtitle
                 vm.Subtitle_Codec_SelectedItem = "MOV Text";
@@ -1213,11 +1322,18 @@ namespace Axiom
                 // Format
                 vm.Format_Container_SelectedItem = "mpg";
                 vm.Format_Cut_SelectedItem = "No";
-                vm.Format_CutStart_Text = "00:00:00.000";
-                vm.Format_CutEnd_Text = "00:00:00.000";
+                vm.Format_CutStart_Hours_Text = "00";
+                vm.Format_CutStart_Minutes_Text = "00";
+                vm.Format_CutStart_Seconds_Text = "00";
+                vm.Format_CutStart_Milliseconds_Text = "000";
+                vm.Format_CutEnd_Hours_Text = "00";
+                vm.Format_CutEnd_Minutes_Text = "00";
+                vm.Format_CutEnd_Seconds_Text = "00";
+                vm.Format_CutEnd_Milliseconds_Text = "000";
 
                 // Video
                 vm.Video_Codec_SelectedItem = "MPEG-2";
+                vm.Video_EncodeSpeed_SelectedItem = "None";
                 vm.Video_Quality_SelectedItem = "Custom";
                 vm.Video_Pass_SelectedItem = "2 Pass";
                 vm.Video_Bitrate_Text = "3M";
@@ -1225,15 +1341,13 @@ namespace Axiom
                 vm.Video_Maxrate_Text = "9.8M";
                 vm.Video_Bufsize_Text = "9.8M";
                 vm.Video_PixelFormat_SelectedItem = "yuv420p";
+                vm.Video_FPS_SelectedItem = "ntsc";
+                vm.Video_Optimize_SelectedItem = "None";
                 vm.Video_Scale_SelectedItem = "Custom";
-                vm.Video_AspectRatio_SelectedItem = "auto";
-                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
                 vm.Video_Width_Text = "720";
                 vm.Video_Height_Text = "auto";
-                vm.Video_EncodeSpeed_SelectedItem = "None";
-                vm.Video_FPS_SelectedItem = "ntsc";
-                //vm.Video_FPS_IsEnabled = true;
-                vm.Video_Optimize_SelectedItem = "None";
+                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
+                vm.Video_AspectRatio_SelectedItem = "auto";
 
                 // Subtitle
                 vm.Subtitle_Codec_SelectedItem = "SRT";
@@ -1268,11 +1382,18 @@ namespace Axiom
                 // Format
                 vm.Format_Container_SelectedItem = "flac";
                 vm.Format_Cut_SelectedItem = "No";
-                vm.Format_CutStart_Text = "00:00:00.000";
-                vm.Format_CutEnd_Text = "00:00:00.000";
+                vm.Format_CutStart_Hours_Text = "00";
+                vm.Format_CutStart_Minutes_Text = "00";
+                vm.Format_CutStart_Seconds_Text = "00";
+                vm.Format_CutStart_Milliseconds_Text = "000";
+                vm.Format_CutEnd_Hours_Text = "00";
+                vm.Format_CutEnd_Minutes_Text = "00";
+                vm.Format_CutEnd_Seconds_Text = "00";
+                vm.Format_CutEnd_Milliseconds_Text = "000";
 
                 // Video
                 vm.Video_Codec_SelectedItem = "None";
+                vm.Video_EncodeSpeed_SelectedItem = "None";
                 vm.Video_Quality_SelectedItem = "None";
                 vm.Video_Pass_SelectedItem = "auto";
                 vm.Video_Bitrate_Text = "";
@@ -1280,14 +1401,11 @@ namespace Axiom
                 vm.Video_Maxrate_Text = "";
                 vm.Video_Bufsize_Text = "";
                 vm.Video_PixelFormat_SelectedItem = "none";
-                vm.Video_PixelFormat_SelectedItem = "none";
-                vm.Video_Scale_SelectedItem = "Source";
-                vm.Video_AspectRatio_SelectedItem = "auto";
-                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
-                vm.Video_EncodeSpeed_SelectedItem = "None";
                 vm.Video_FPS_SelectedItem = "auto";
-                //vm.Video_FPS_IsEnabled = false;
                 vm.Video_Optimize_SelectedItem = "None";
+                vm.Video_Scale_SelectedItem = "Source";
+                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
+                vm.Video_AspectRatio_SelectedItem = "auto";
 
                 // Subtitle
                 vm.Subtitle_Codec_SelectedItem = "None";
@@ -1319,11 +1437,18 @@ namespace Axiom
                 // Format
                 vm.Format_Container_SelectedItem = "mp3";
                 vm.Format_Cut_SelectedItem = "No";
-                vm.Format_CutStart_Text = "00:00:00.000";
-                vm.Format_CutEnd_Text = "00:00:00.000";
+                vm.Format_CutStart_Hours_Text = "00";
+                vm.Format_CutStart_Minutes_Text = "00";
+                vm.Format_CutStart_Seconds_Text = "00";
+                vm.Format_CutStart_Milliseconds_Text = "000";
+                vm.Format_CutEnd_Hours_Text = "00";
+                vm.Format_CutEnd_Minutes_Text = "00";
+                vm.Format_CutEnd_Seconds_Text = "00";
+                vm.Format_CutEnd_Milliseconds_Text = "000";
 
                 // Video
                 vm.Video_Codec_SelectedItem = "None";
+                vm.Video_EncodeSpeed_SelectedItem = "None";
                 vm.Video_Quality_SelectedItem = "None";
                 vm.Video_Pass_SelectedItem = "auto";
                 vm.Video_Bitrate_Text = "";
@@ -1331,13 +1456,11 @@ namespace Axiom
                 vm.Video_Maxrate_Text = "";
                 vm.Video_Bufsize_Text = "";
                 vm.Video_PixelFormat_SelectedItem = "none";
-                vm.Video_Scale_SelectedItem = "Source";
-                vm.Video_AspectRatio_SelectedItem = "auto";
-                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
-                vm.Video_EncodeSpeed_SelectedItem = "None";
                 vm.Video_FPS_SelectedItem = "auto";
-                //vm.Video_FPS_IsEnabled = false;
                 vm.Video_Optimize_SelectedItem = "None";
+                vm.Video_Scale_SelectedItem = "Source";
+                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
+                vm.Video_AspectRatio_SelectedItem = "auto";
 
                 // Subtitle
                 vm.Subtitle_Codec_SelectedItem = "None";
@@ -1357,7 +1480,7 @@ namespace Axiom
                 {
                     vm.Audio_Quality_SelectedItem = "160";
                 }
-                
+
                 vm.Audio_VBR_IsChecked = true;
                 vm.Audio_Channel_SelectedItem = "Joint Stereo";
                 vm.Audio_SampleRate_SelectedItem = "auto";
@@ -1379,11 +1502,18 @@ namespace Axiom
                 // Format
                 vm.Format_Container_SelectedItem = "m4a";
                 vm.Format_Cut_SelectedItem = "No";
-                vm.Format_CutStart_Text = "00:00:00.000";
-                vm.Format_CutEnd_Text = "00:00:00.000";
+                vm.Format_CutStart_Hours_Text = "00";
+                vm.Format_CutStart_Minutes_Text = "00";
+                vm.Format_CutStart_Seconds_Text = "00";
+                vm.Format_CutStart_Milliseconds_Text = "000";
+                vm.Format_CutEnd_Hours_Text = "00";
+                vm.Format_CutEnd_Minutes_Text = "00";
+                vm.Format_CutEnd_Seconds_Text = "00";
+                vm.Format_CutEnd_Milliseconds_Text = "000";
 
                 // Video
                 vm.Video_Codec_SelectedItem = "None";
+                vm.Video_EncodeSpeed_SelectedItem = "None";
                 vm.Video_Quality_SelectedItem = "None";
                 vm.Video_Pass_SelectedItem = "auto";
                 vm.Video_Bitrate_Text = "";
@@ -1391,14 +1521,11 @@ namespace Axiom
                 vm.Video_Maxrate_Text = "";
                 vm.Video_Bufsize_Text = "";
                 vm.Video_PixelFormat_SelectedItem = "none";
-                vm.Video_PixelFormat_SelectedItem = "none";
-                vm.Video_Scale_SelectedItem = "Source";
-                vm.Video_AspectRatio_SelectedItem = "auto";
-                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
-                vm.Video_EncodeSpeed_SelectedItem = "None";
                 vm.Video_FPS_SelectedItem = "auto";
-                //vm.Video_FPS_IsEnabled = false;
                 vm.Video_Optimize_SelectedItem = "None";
+                vm.Video_Scale_SelectedItem = "Source";
+                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
+                vm.Video_AspectRatio_SelectedItem = "auto";
 
                 // Subtitle
                 vm.Subtitle_Codec_SelectedItem = "None";
@@ -1429,11 +1556,18 @@ namespace Axiom
                 // Format
                 vm.Format_Container_SelectedItem = "ogg";
                 vm.Format_Cut_SelectedItem = "No";
-                vm.Format_CutStart_Text = "00:00:00.000";
-                vm.Format_CutEnd_Text = "00:00:00.000";
+                vm.Format_CutStart_Hours_Text = "00";
+                vm.Format_CutStart_Minutes_Text = "00";
+                vm.Format_CutStart_Seconds_Text = "00";
+                vm.Format_CutStart_Milliseconds_Text = "000";
+                vm.Format_CutEnd_Hours_Text = "00";
+                vm.Format_CutEnd_Minutes_Text = "00";
+                vm.Format_CutEnd_Seconds_Text = "00";
+                vm.Format_CutEnd_Milliseconds_Text = "000";
 
                 // Video
                 vm.Video_Codec_SelectedItem = "None";
+                vm.Video_EncodeSpeed_SelectedItem = "None";
                 vm.Video_Quality_SelectedItem = "None";
                 vm.Video_Pass_SelectedItem = "auto";
                 vm.Video_Bitrate_Text = "";
@@ -1441,14 +1575,11 @@ namespace Axiom
                 vm.Video_Maxrate_Text = "";
                 vm.Video_Bufsize_Text = "";
                 vm.Video_PixelFormat_SelectedItem = "none";
-                vm.Video_PixelFormat_SelectedItem = "none";
-                vm.Video_Scale_SelectedItem = "Source";
-                vm.Video_AspectRatio_SelectedItem = "auto";
-                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
-                vm.Video_EncodeSpeed_SelectedItem = "None";
                 vm.Video_FPS_SelectedItem = "auto";
-                //vm.Video_FPS_IsEnabled = false;
                 vm.Video_Optimize_SelectedItem = "None";
+                vm.Video_Scale_SelectedItem = "Source";
+                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
+                vm.Video_AspectRatio_SelectedItem = "auto";
 
                 // Subtitle
                 vm.Subtitle_Codec_SelectedItem = "None";
@@ -1485,23 +1616,22 @@ namespace Axiom
 
                 // Video
                 vm.Video_Codec_SelectedItem = "x264";
+                vm.Video_EncodeSpeed_SelectedItem = "Faster";
                 vm.Video_Quality_SelectedItem = "Custom";
                 vm.Video_Pass_SelectedItem = "CRF";
                 vm.Video_Bitrate_Text = "1250K";
                 vm.Video_Minrate_Text = "";
                 vm.Video_Maxrate_Text = "";
                 vm.Video_Bufsize_Text = "";
-                vm.Video_PixelFormat_SelectedItem = "yuv444p";
                 vm.Video_CRF_Text = "26";
+                vm.Video_PixelFormat_SelectedItem = "yuv444p";
                 vm.Video_FPS_SelectedItem = "29.97";
-                //vm.Video_FPS_IsEnabled = true;
+                vm.Video_Optimize_SelectedItem = "Windows";
                 vm.Video_Scale_SelectedItem = "Custom";
-                vm.Video_AspectRatio_SelectedItem = "16:9";
-                vm.Video_ScalingAlgorithm_SelectedItem = "spline";
                 vm.Video_Width_Text = "545";
                 vm.Video_Height_Text = "307";
-                vm.Video_Optimize_SelectedItem = "Windows";
-                vm.Video_EncodeSpeed_SelectedItem = "Faster";
+                vm.Video_ScalingAlgorithm_SelectedItem = "spline";
+                vm.Video_AspectRatio_SelectedItem = "16:9";
 
                 // Subtitle
                 vm.Subtitle_Codec_SelectedItem = "SSA";

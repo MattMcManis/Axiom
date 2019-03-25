@@ -113,76 +113,6 @@ namespace Axiom
             // -------------------------
             FiltersSetDefault();
 
-            //// -------------------------
-            //// Filters
-            //// -------------------------
-            //// Video
-            //// -------------------------
-            //// Fix
-            //FilterVideo_Deband_SelectedItem = "disabled";
-            //FilterVideo_Deshake_SelectedItem = "disabled";
-            //FilterVideo_Deflicker_SelectedItem = "disabled";
-            //FilterVideo_Dejudder_SelectedItem = "disabled";
-            //FilterVideo_Denoise_SelectedItem = "disabled";
-            //FilterVideo_Deinterlace_SelectedItem = "disabled";
-
-            //// Selective Color
-
-            //FilterVideo_SelectiveColor_SelectedIndex = 0;
-            //FilterVideo_SelectiveColor_Correction_Method_SelectedItem = "relative";
-
-            //// Reds
-            //FilterVideo_SelectiveColor_Reds_Cyan_Value = 0;
-            //FilterVideo_SelectiveColor_Reds_Magenta_Value = 0;
-            //FilterVideo_SelectiveColor_Reds_Yellow_Value = 0;
-            //// Yellows
-            //FilterVideo_SelectiveColor_Yellows_Cyan_Value = 0;
-            //FilterVideo_SelectiveColor_Yellows_Magenta_Value = 0;
-            //FilterVideo_SelectiveColor_Yellows_Yellow_Value = 0;
-            //// Greens
-            //FilterVideo_SelectiveColor_Greens_Cyan_Value = 0;
-            //FilterVideo_SelectiveColor_Greens_Magenta_Value = 0;
-            //FilterVideo_SelectiveColor_Greens_Yellow_Value = 0;
-            //// Cyans
-            //FilterVideo_SelectiveColor_Cyans_Cyan_Value = 0;
-            //FilterVideo_SelectiveColor_Cyans_Magenta_Value = 0;
-            //FilterVideo_SelectiveColor_Cyans_Yellow_Value = 0;
-            //// Blues
-            //FilterVideo_SelectiveColor_Blues_Cyan_Value = 0;
-            //FilterVideo_SelectiveColor_Blues_Magenta_Value = 0;
-            //FilterVideo_SelectiveColor_Blues_Yellow_Value = 0;
-            //// Magentas
-            //FilterVideo_SelectiveColor_Magentas_Cyan_Value = 0;
-            //FilterVideo_SelectiveColor_Magentas_Magenta_Value = 0;
-            //FilterVideo_SelectiveColor_Magentas_Yellow_Value = 0;
-            //// Whites
-            //FilterVideo_SelectiveColor_Whites_Cyan_Value = 0;
-            //FilterVideo_SelectiveColor_Whites_Magenta_Value = 0;
-            //FilterVideo_SelectiveColor_Whites_Yellow_Value = 0;
-            //// Neutrals
-            //FilterVideo_SelectiveColor_Neutrals_Cyan_Value = 0;
-            //FilterVideo_SelectiveColor_Neutrals_Magenta_Value = 0;
-            //FilterVideo_SelectiveColor_Neutrals_Yellow_Value = 0;
-            //// Blacks
-            //FilterVideo_SelectiveColor_Blacks_Cyan_Value = 0;
-            //FilterVideo_SelectiveColor_Blacks_Magenta_Value = 0;
-            //FilterVideo_SelectiveColor_Blacks_Yellow_Value = 0;
-
-            //// EQ
-            //FilterVideo_EQ_Brightness_Value = 0;
-            //FilterVideo_EQ_Contrast_Value = 0;
-            //FilterVideo_EQ_Saturation_Value = 0;
-            //FilterVideo_EQ_Gamma_Value = 0;
-
-            //// -------------------------
-            //// Filters
-            //// -------------------------
-            //// Audio
-            //// -------------------------
-            //FilterAudio_Lowpass_SelectedItem = "disabled";
-            //FilterAudio_Highpass_SelectedItem = "disabled";
-            //FilterAudio_Headphones_SelectedItem = "disabled";
-
             // -------------------------
             // Configure
             // -------------------------
@@ -499,6 +429,8 @@ namespace Axiom
             }
         }
 
+
+
         // --------------------------------------------------------------------------------------------------------
         /// <summary>
         ///     Settings
@@ -516,8 +448,9 @@ namespace Axiom
 
         public List<Preset> _Preset_Items = new List<Preset>()
         {
+            // Default
+            new Preset() { Name = "Default",   Category = true  },
             new Preset() { Name = "Preset",    Category = false },
-            //new Preset() { Name = "Default",   Category = false },
 
             // Web
             new Preset() { Name = "Web",       Category = true  },
@@ -558,7 +491,7 @@ namespace Axiom
 
             // Disc
             new Preset() { Name = "Disc",      Category = true  },
-            new Preset() { Name = "UHD",   Category = false },
+            new Preset() { Name = "UHD",       Category = false },
             new Preset() { Name = "Blu-ray",   Category = false },
             new Preset() { Name = "DVD",       Category = false },          
 

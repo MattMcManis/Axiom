@@ -649,7 +649,7 @@ namespace Axiom
                 CropWindow.divisibleCropHeight = null; //int
             }
 
-            Format.trim = string.Empty;
+            //Format.trim = string.Empty;
             Format.trimStart = string.Empty;
             Format.trimEnd = string.Empty;
 

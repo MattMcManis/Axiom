@@ -283,17 +283,19 @@ namespace Axiom
         /// <summary>
         ///    Encode Speed
         /// <summary>
-        public static String EncodeSpeed(List<ViewModel.VideoEncodeSpeed> encodeSpeedItems,
-                                   string encodeSpeed_SelectedItem,
-                                   string mediaType_SelectedItem,
-                                   string codec_SelectedItem,
-                                   string quality_SelectedItem,
-                                   string pass)
+        public static String VideoEncodeSpeed(List<ViewModel.VideoEncodeSpeed> encodeSpeedItems,
+                                              string encodeSpeed_SelectedItem,
+                                              string mediaType_SelectedItem,
+                                              string codec_SelectedItem,
+                                              string quality_SelectedItem,
+                                              string pass
+                                              )
         {
-            // Video Bitrate None Check
-            // Video Codec None Check
-            // Codec Copy Check
-            // Media Type Check
+            // Check:
+            // Media Type Audio
+            // Video Codec None
+            // Video Codec Copy
+            // Video Quality None
             if (mediaType_SelectedItem != "Audio" &&
                 codec_SelectedItem != "None" &&
                 codec_SelectedItem != "Copy" &&
@@ -785,19 +787,24 @@ namespace Axiom
         {
             //MessageBox.Show(vbr_IsChecked.ToString()); //debug
 
-            // Video Quality None Check
-            // Video Codec None Check
-            // Video Codec Copy Check
-            if (quality_SelectedItem != "None" &&
+            // Check:
+            // Media Type Audio
+            // Video Quality None
+            // Video Codec None
+            // Video Codec Copy
+            if (mediaType_SelectedItem != "Audio" &&
                 codec_SelectedItem != "None" &&
-                codec_SelectedItem != "Copy")
+                codec_SelectedItem != "Copy" &&
+                quality_SelectedItem != "None"
+                )
             {
                 // -------------------------
                 // Auto
                 // -------------------------
                 if (quality_SelectedItem == "Auto" &&
                     codec_SelectedItem != "FFV1" &&   // Special Rule
-                    codec_SelectedItem != "HuffYUV")  // FFV1, HuffYUV cannot use Auto Bitrate, Lossless Only, Auto is used for Codec Copy
+                    codec_SelectedItem != "HuffYUV"   // FFV1, HuffYUV cannot use Auto Bitrate, Lossless Only, Auto is used for Codec Copy
+                    )  
                 {
                     QualityAuto(batch_IsChecked,
                                 vbr_IsChecked,
@@ -968,14 +975,16 @@ namespace Axiom
             // -------------------------
             // Batch Auto
             // -------------------------
-            // Video Quality None Check
-            // Video Codec None Check
-            // Video Codec Copy Check
-            // Media Type Check
-            if (quality_SelectedItem != "None" &&
+            // Check:
+            // Media Type Audio
+            // Video Codec None
+            // Video Codec Copy
+            // Video Quality None
+            if (mediaType_SelectedItem != "Audio" &&
                 codec_SelectedItem != "None" &&
                 codec_SelectedItem != "Copy" &&
-                mediaType_SelectedItem != "Audio")
+                quality_SelectedItem != "None"
+                )
             {
                 // Batch Check
                 if (batch_IsChecked == true)
@@ -1189,7 +1198,7 @@ namespace Axiom
         /// <summary>
         ///     Pass 1 Modifier (Method)
         /// <summary>
-            // x265 Pass 1
+        // x265 Pass 1
         public static String Pass1Modifier(string codec_SelectedItem,
                                            string pass_SelectedItem
                                            )
@@ -1273,90 +1282,54 @@ namespace Axiom
         /// <summary>
         ///     Frame Rate To Decimal
         /// <summary>
-        // When using Video Frame Range instead of Time
-        public static String FramesToDecimal(string mediaType_SelectedItem,
-                                            string codec_SelectedItem,
-                                            string quality_SelectedItem,
-                                            //bool frame_IsEnabled,
-                                            string frame
-                                            //bool frameEnd_IsEnabled,
-                                            //string frameStart_Text,
-                                            //string frameEnd_Text
-                                            )
+        /// <remarks>
+        ///     When using Video Frame Range instead of Time
+        /// </remarks>
+        public static String FramesToDecimal(string frame)
         {
-            // Video Bitrate None Check
-            // Video Codec None Check
-            // Video Codec Copy Check
-            // Media Type Check
-            if (quality_SelectedItem != "None" &&
-                codec_SelectedItem != "None" &&
-                codec_SelectedItem != "Copy" &&
-                mediaType_SelectedItem != "Audio")
+            // Separate FFprobe Result (e.g. 30000/1001)
+            string[] f = FFprobe.inputFrameRate.Split('/');
+
+            try
             {
-                // Separate FFprobe Result (e.g. 30000/1001)
-                string[] f = FFprobe.inputFrameRate.Split('/');
+                double detectedFramerate = Convert.ToDouble(f[0]) / Convert.ToDouble(f[1]); // divide FFprobe values
+                detectedFramerate = Math.Truncate(detectedFramerate * 1000) / 1000; // limit to 3 decimal places
 
-                try
+                // Trim Start Frame
+                //
+                if (!string.IsNullOrEmpty(frame)) // Default/Null Check
                 {
-                    double detectedFramerate = Convert.ToDouble(f[0]) / Convert.ToDouble(f[1]); // divide FFprobe values
-                    detectedFramerate = Math.Truncate(detectedFramerate * 1000) / 1000; // limit to 3 decimal places
-
-                    // Trim Start Frame
-                    //
-                    if (!string.IsNullOrEmpty(frame)) // Default/Null Check
-                    {
-                        // Divide Frame Start Number by Video's Framerate
-                        frame = Convert.ToString(Convert.ToDouble(frame) / detectedFramerate); 
-                    }
-
-                    // Log Console Message /////////
-                    Log.WriteAction = () =>
-                    {
-                        Log.logParagraph.Inlines.Add(new LineBreak());
-                        Log.logParagraph.Inlines.Add(new Bold(new Run("Start Frame: ")) { Foreground = Log.ConsoleDefault });
-                        Log.logParagraph.Inlines.Add(new Run(frame + " / " + detectedFramerate + " = " + Format.trimStart) { Foreground = Log.ConsoleDefault });
-                    };
-                    Log.LogActions.Add(Log.WriteAction);
-
-                    //// Trim End Frame
-                    ////
-                    //if (!string.IsNullOrEmpty(frame_Text)) // Default/Null Check
-                    //{
-                    //    Format.trimEnd = Convert.ToString(Convert.ToDouble(frame_Text) / detectedFramerate); // Divide Frame End Number by Video's Framerate
-                    //}
-
-                    //// Log Console Message /////////
-                    //if (frame_IsEnabled == true)
-                    //{
-                    //    Log.WriteAction = () =>
-                    //    {
-                    //        Log.logParagraph.Inlines.Add(new LineBreak());
-                    //        Log.logParagraph.Inlines.Add(new Bold(new Run("End Frame: ")) { Foreground = Log.ConsoleDefault });
-                    //        Log.logParagraph.Inlines.Add(new Run(frame_Text + " / " + detectedFramerate + " = " + Format.trimEnd) { Foreground = Log.ConsoleDefault });
-                    //    };
-                    //    Log.LogActions.Add(Log.WriteAction);
-                    //}
-
+                    // Divide Frame Start Number by Video's Framerate
+                    frame = Convert.ToString(Convert.ToDouble(frame) / detectedFramerate); 
                 }
-                catch
+
+                // Log Console Message /////////
+                Log.WriteAction = () =>
                 {
-                    // Log Console Message /////////
-                    Log.WriteAction = () =>
-                    {
-                        Log.logParagraph.Inlines.Add(new LineBreak());
-                        Log.logParagraph.Inlines.Add(new LineBreak());
-                        Log.logParagraph.Inlines.Add(new Bold(new Run("Warning: No input file or Framerate not detected.")) { Foreground = Log.ConsoleWarning });
-                    };
-                    Log.LogActions.Add(Log.WriteAction);
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new Bold(new Run("Frame: ")) { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new Run(frame + " / " + detectedFramerate + " = " + Format.trimStart) { Foreground = Log.ConsoleDefault });
+                };
+                Log.LogActions.Add(Log.WriteAction);
+            }
+            catch
+            {
+                // Log Console Message /////////
+                Log.WriteAction = () =>
+                {
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new Bold(new Run("Warning: No input file or Framerate not detected.")) { Foreground = Log.ConsoleWarning });
+                };
+                Log.LogActions.Add(Log.WriteAction);
 
-                    /* lock */
-                    //MainWindow.ready = false;
-                    // Warning
-                    MessageBox.Show("No input file or Framerate not detected.",
-                                    "Notice",
-                                    MessageBoxButton.OK,
-                                    MessageBoxImage.Warning);
-                }
+                /* lock */
+                //MainWindow.ready = false;
+                // Warning
+                MessageBox.Show("No input file or Framerate not detected.",
+                                "Notice",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Warning);
             }
 
 
@@ -1365,25 +1338,37 @@ namespace Axiom
 
 
 
-
         /// <summary>
         ///     Pixel Foramt
         /// <summary>
-        public static String PixFmt(string pixelFormat_SelectedItem)
+        public static String PixFmt(string mediaType_SelectedItem,
+                                    string codec_SelectedItem,
+                                    string quality_SelectedItem,
+                                    string pixelFormat_SelectedItem
+                                    )
         {
-            //pix_fmt = string.Empty;
-
-            // If Auto, Use Empty
-            // If Not Auto, use Selected Item
-            if (pixelFormat_SelectedItem != "auto" &&
-                pixelFormat_SelectedItem != "none")
+            // Check:
+            // Media Type Audio
+            // Video Codec None
+            // Video Codec Copy
+            // Video Quality None
+            if (mediaType_SelectedItem != "Audio" &&
+                codec_SelectedItem != "None" &&
+                codec_SelectedItem != "Copy" &&
+                quality_SelectedItem != "None"
+                )
             {
-                pix_fmt = "-pix_fmt " + pixelFormat_SelectedItem;
+                // If Auto, Use Empty
+                // If Not Auto, use Selected Item
+                if (pixelFormat_SelectedItem != "auto" &&
+                pixelFormat_SelectedItem != "none")
+                {
+                    pix_fmt = "-pix_fmt " + pixelFormat_SelectedItem;
+                }
             }
 
             return pix_fmt;
         }
-
 
 
 
@@ -1400,14 +1385,16 @@ namespace Axiom
                                       string level_SelectedItem
                                       )
         {
-            // Video Bitrate None Check
-            // Video Codec None Check
-            // Video Codec Copy Check
-            // Media Type Check
-            if (quality_SelectedItem != "None" &&
+            // Check:
+            // Media Type Audio
+            // Video Codec None
+            // Video Codec Copy
+            // Video Quality None
+            if (mediaType_SelectedItem != "Audio" &&
                 codec_SelectedItem != "None" &&
                 codec_SelectedItem != "Copy" &&
-                mediaType_SelectedItem != "Audio")
+                quality_SelectedItem != "None" 
+                )
             {
                 //MessageBox.Show(tune_SelectedItem); //debug
                 //MessageBox.Show(profile_SelectedItem); //debug
@@ -1474,10 +1461,11 @@ namespace Axiom
                                  string fps_Text
                                  )
         {
-            // Media Type
+            // Check:
+            // Media Type Audio
             // Video Codec None
             // Video Codec Copy
-            // Video Bitrate None
+            // Video Quality None
             if (mediaType_SelectedItem != "Audio" &&
                 codec_SelectedItem != "None" &&
                 codec_SelectedItem != "Copy" &&
@@ -1584,7 +1572,7 @@ namespace Axiom
                                  string speed_Text
                                  )
         {
-            // Media Type
+            // Media Type Audio
             // Video Codec None
             // Video Codec Copy
             // Video Bitrate None
@@ -1621,7 +1609,6 @@ namespace Axiom
 
 
 
-
         /// <summary>
         ///     Size Width Auto
         /// <summary>
@@ -1648,6 +1635,7 @@ namespace Axiom
             }
         }
 
+
         /// <summary>
         ///     Size Height Auto
         /// <summary>
@@ -1673,6 +1661,7 @@ namespace Axiom
                 height = "-2";
             }
         }
+
 
         /// <summary>
         ///     Size
@@ -2134,20 +2123,34 @@ namespace Axiom
         /// <summary>
         ///     Aspect Ratio
         /// <summary>
-        public static String AspectRatio(string aspectRatio_SelectedItem)
+        public static String AspectRatio(string mediaType_SelectedItem,
+                                         string codec_SelectedItem,
+                                         string quality_SelectedItem,
+                                         string aspectRatio_SelectedItem
+                                         )
         {
-            // None & Default
-            //
-            if (aspectRatio_SelectedItem == "auto")
+            // Check:
+            // Media Type Audio
+            // Video Codec None
+            // Video Quality None
+            if (mediaType_SelectedItem != "Audio" &&
+                codec_SelectedItem != "None" &&
+                quality_SelectedItem != "None"
+                )
             {
-                vAspectRatio = string.Empty;
-            }
+                // None & Default
+                //
+                if (aspectRatio_SelectedItem == "auto")
+                {
+                    vAspectRatio = string.Empty;
+                }
 
-            // Aspect, eg. 4:3, 16:9
-            //
-            else
-            {
-                vAspectRatio = "-aspect " + aspectRatio_SelectedItem;
+                // Aspect, eg. 4:3, 16:9
+                //
+                else
+                {
+                    vAspectRatio = "-aspect " + aspectRatio_SelectedItem;
+                }
             }
 
             return vAspectRatio;
@@ -2160,15 +2163,17 @@ namespace Axiom
         /// <summary>
         public static String ScalingAlgorithm(string scalingAlgorithm_SelectedItem)
         {
+            // -------------------------
             // None & Default
-            //
+            // -------------------------
             if (scalingAlgorithm_SelectedItem == "auto")
             {
                 vScalingAlgorithm = string.Empty;
             }
 
+            // -------------------------
             // Scaler
-            //
+            // -------------------------
             else
             {
                 vScalingAlgorithm = ":flags=" + scalingAlgorithm_SelectedItem;
@@ -2176,6 +2181,7 @@ namespace Axiom
 
             return vScalingAlgorithm;
         }
+
 
 
         /// <summary>
@@ -2204,32 +2210,6 @@ namespace Axiom
                 CropWindow.crop = string.Empty;
             }
 
-            //// -------------------------
-            //// Halt
-            //// -------------------------
-            //// Crop Codec Copy Check
-            //// Switch Copy to Codec to avoid error
-            //if (!string.IsNullOrEmpty(CropWindow.crop) && 
-            //    vm.Video_Codec_SelectedItem == "Copy") //null check
-            //{
-            //    // Log Console Message /////////
-            //    Log.WriteAction = () =>
-            //    {
-            //        Log.logParagraph.Inlines.Add(new LineBreak());
-            //        Log.logParagraph.Inlines.Add(new LineBreak());
-            //        Log.logParagraph.Inlines.Add(new Bold(new Run("Warning: Crop cannot use Codec Copy. Please select a Video Codec.")) { Foreground = Log.ConsoleDefault });
-            //    };
-            //    Log.LogActions.Add(Log.WriteAction);
-
-            //    /* lock */
-            //    //MainWindow.ready = false;
-            //    // Warning
-            //    MessageBox.Show("Crop cannot use Codec Copy. Please select a Video Codec.",
-            //                    "Notice",
-            //                    MessageBoxButton.OK,
-            //                    MessageBoxImage.Exclamation);
-            //}
-
             // -------------------------
             // Add Crop to Video Filters if Not Null
             // -------------------------
@@ -2245,23 +2225,25 @@ namespace Axiom
         /// <summary>
         ///     Images
         /// <summary>
-        public static String Images(ViewModel vm)
+        public static String Images(string mediaType_SelectedItem,
+                                    string codec_SelectedItem,
+                                    string quality_SelectedItem)
         {
-            //string image = string.Empty;
-
-            // Video Bitrate None Check
-            // Video Codec None Check
-            // Video Codec Copy Check
-            // Media Type Check
-            if (vm.Video_Quality_SelectedItem != "None" &&
-                vm.Video_Codec_SelectedItem != "None" &&
-                vm.Video_Codec_SelectedItem != "Copy" &&
-                vm.Format_MediaType_SelectedItem != "Audio")
+            // Check:
+            // Media Type Audio
+            // Video Codec None
+            // Video Codec Copy
+            // Video Quality None
+            if (mediaType_SelectedItem != "Audio" &&
+                codec_SelectedItem != "None" &&
+                codec_SelectedItem != "Copy" &&
+                quality_SelectedItem != "None" 
+                )
             {
                 // -------------------------
                 // Image
                 // -------------------------
-                if (vm.Format_MediaType_SelectedItem == "Image")
+                if (mediaType_SelectedItem == "Image")
                 {
                     image = "-vframes 1"; //important
                 }
@@ -2269,7 +2251,7 @@ namespace Axiom
                 // -------------------------
                 // Sequence
                 // -------------------------
-                else if (vm.Format_MediaType_SelectedItem == "Sequence")
+                else if (mediaType_SelectedItem == "Sequence")
                 {
                     image = string.Empty; //disable -vframes
                 }

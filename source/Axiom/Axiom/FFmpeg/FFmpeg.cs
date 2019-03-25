@@ -138,16 +138,15 @@ namespace Axiom
                     Video.VideoCodec(vm.Format_HWAccel_SelectedItem,
                                      vm.Video_Codec_SelectedItem,
                                      vm.Video_Codec
-                                     //vm.Video_Codec_Parameters
                                      ),
                     "\r\n" +
-                    Video.EncodeSpeed(vm.Video_EncodeSpeed_Items,
-                                vm.Video_EncodeSpeed_SelectedItem,
-                                vm.Format_MediaType_SelectedItem,
-                                vm.Video_Codec_SelectedItem,
-                                vm.Video_Quality_SelectedItem,
-                                vm.Video_Pass_SelectedItem
-                                ),
+                    Video.VideoEncodeSpeed(vm.Video_EncodeSpeed_Items,
+                                           vm.Video_EncodeSpeed_SelectedItem,
+                                           vm.Format_MediaType_SelectedItem,
+                                           vm.Video_Codec_SelectedItem,
+                                           vm.Video_Quality_SelectedItem,
+                                           vm.Video_Pass_SelectedItem
+                                           ),
 
                     Video.VideoQuality(vm.Batch_IsChecked,
                                        vm.Video_VBR_IsChecked,
@@ -164,7 +163,11 @@ namespace Axiom
                                        vm.Video_Bufsize_Text
                                        ),
                     "\r\n" +
-                    Video.PixFmt(vm.Video_PixelFormat_SelectedItem),
+                    Video.PixFmt(vm.Format_MediaType_SelectedItem,
+                                 vm.Video_Codec_SelectedItem,
+                                 vm.Video_Quality_SelectedItem,
+                                 vm.Video_PixelFormat_SelectedItem
+                                 ),
                     "\r\n" +
                     Video.FPS(vm.Format_MediaType_SelectedItem,
                               vm.Video_Codec_SelectedItem,
@@ -174,12 +177,17 @@ namespace Axiom
                               ),
                     "\r\n" +
                     VideoFilters.VideoFilter(vm),
-                    //"\r\n" +
-                    //Video.ScalingAlgorithm(vm),
                     "\r\n" +
-                    Video.AspectRatio(vm.Video_AspectRatio_SelectedItem),
+                    Video.AspectRatio(vm.Format_MediaType_SelectedItem,
+                                      vm.Video_Codec_SelectedItem,
+                                      vm.Video_Quality_SelectedItem,
+                                      vm.Video_AspectRatio_SelectedItem
+                                      ),
                     "\r\n" +
-                    Video.Images(vm),
+                    Video.Images(vm.Format_MediaType_SelectedItem,
+                                 vm.Video_Codec_SelectedItem,
+                                 vm.Video_Quality_SelectedItem
+                                 ),
                     "\r\n" +
                     Video.Optimize(vm.Format_MediaType_SelectedItem,
                                    vm.Video_Codec_SelectedItem,
@@ -209,6 +217,7 @@ namespace Axiom
                     Audio.AudioQuality(vm.Input_Text,
                                        vm.Batch_IsChecked,
                                        vm.Audio_VBR_IsChecked,
+                                       vm.Format_MediaType_SelectedItem,
                                        vm.Audio_Codec_SelectedItem,
                                        vm.Audio_Quality_Items,
                                        vm.Audio_Quality_SelectedItem,
@@ -239,20 +248,6 @@ namespace Axiom
                     AudioFilters.AudioFilter(vm),
                     "\r\n" +
                     Streams.AudioStreamMaps(vm),
-
-                    //"\r\n\r\n" +
-                    //Format.Cut(vm.Input_Text,
-                    //           vm.Batch_IsChecked,
-                    //           vm.Format_MediaType_SelectedItem,
-                    //           vm.Video_Codec_SelectedItem,
-                    //           vm.Video_Quality_SelectedItem,
-                    //           vm.Format_Cut_SelectedItem,
-                    //           vm.Format_CutStart_Text,
-                    //           vm.Format_CutEnd_Text,
-                    //           vm.Format_FrameEnd_IsEnabled,
-                    //           vm.Format_FrameStart_Text,
-                    //           vm.Format_FrameEnd_Text
-                    //           ),
 
                     "\r\n\r\n" +
                     Streams.FormatMaps(vm),
@@ -336,23 +331,19 @@ namespace Axiom
                                   vm.Format_FrameEnd_Text
                                   ),
 
-                    //"\r\n\r\n" + 
-                    //Video.Subtitles(vm),
-
                     "\r\n\r\n" +
                     Video.VideoCodec(vm.Format_HWAccel_SelectedItem,
                                      vm.Video_Codec_SelectedItem,
                                      vm.Video_Codec
-                                     //vm.Video_Codec_Parameters
                                      ),
                     "\r\n" +
-                    Video.EncodeSpeed(vm.Video_EncodeSpeed_Items,
-                                vm.Video_EncodeSpeed_SelectedItem,
-                                vm.Format_MediaType_SelectedItem,
-                                vm.Video_Codec_SelectedItem,
-                                vm.Video_Quality_SelectedItem,
-                                vm.Video_Pass_SelectedItem
-                                ),
+                    Video.VideoEncodeSpeed(vm.Video_EncodeSpeed_Items,
+                                           vm.Video_EncodeSpeed_SelectedItem,
+                                           vm.Format_MediaType_SelectedItem,
+                                           vm.Video_Codec_SelectedItem,
+                                           vm.Video_Quality_SelectedItem,
+                                           vm.Video_Pass_SelectedItem
+                                           ),
 
                     Video.VideoQuality(vm.Batch_IsChecked,
                                        vm.Video_VBR_IsChecked,
@@ -369,7 +360,11 @@ namespace Axiom
                                        vm.Video_Bufsize_Text
                                        ),
                     "\r\n" +
-                    Video.PixFmt(vm.Video_PixelFormat_SelectedItem),
+                    Video.PixFmt(vm.Format_MediaType_SelectedItem,
+                                 vm.Video_Codec_SelectedItem,
+                                 vm.Video_Quality_SelectedItem,
+                                 vm.Video_PixelFormat_SelectedItem
+                                 ),
                     "\r\n" +
                     Video.FPS(vm.Format_MediaType_SelectedItem,
                               vm.Video_Codec_SelectedItem,
@@ -379,12 +374,17 @@ namespace Axiom
                               ),
                     "\r\n" +
                     VideoFilters.VideoFilter(vm),
-                    //"\r\n" +
-                    //Video.ScalingAlgorithm(vm),
                     "\r\n" +
-                    Video.AspectRatio(vm.Video_AspectRatio_SelectedItem),
+                    Video.AspectRatio(vm.Format_MediaType_SelectedItem,
+                                      vm.Video_Codec_SelectedItem,
+                                      vm.Video_Quality_SelectedItem,
+                                      vm.Video_AspectRatio_SelectedItem
+                                      ),
                     "\r\n" +
-                    Video.Images(vm),
+                    Video.Images(vm.Format_MediaType_SelectedItem,
+                                 vm.Video_Codec_SelectedItem,
+                                 vm.Video_Quality_SelectedItem
+                                 ),
                     "\r\n" +
                     Video.Optimize(vm.Format_MediaType_SelectedItem,
                                    vm.Video_Codec_SelectedItem,
@@ -395,33 +395,23 @@ namespace Axiom
                                    vm.Video_Optimize_Profile_SelectedItem,
                                    vm.Video_Optimize_Level_SelectedItem
                                    ),
+
+                    // -pass 1, -x265-params pass=2
                     "\r\n" +
-                    Video.Pass1Modifier(vm.Video_Codec_SelectedItem, // -pass 1, -x265-params pass=2
+                    Video.Pass1Modifier(vm.Video_Codec_SelectedItem, 
                                         vm.Video_Pass_SelectedItem
                                         ),  
 
+                    // Disable Audio & Subtitles for Pass 1 to speed up encoding
                     "\r\n\r\n" +
-                    "-sn -an", // Disable Audio & Subtitles for Pass 1 to speed up encoding
+                    "-sn -an", 
 
-                    //"\r\n\r\n" +
-                    //Format.Cut(vm.Input_Text,
-                    //           vm.Batch_IsChecked,
-                    //           vm.Format_MediaType_SelectedItem,
-                    //           vm.Video_Codec_SelectedItem,
-                    //           vm.Video_Quality_SelectedItem,
-                    //           vm.Format_Cut_SelectedItem,
-                    //           vm.Format_CutStart_Text,
-                    //           vm.Format_CutEnd_Text,
-                    //           vm.Format_FrameEnd_IsEnabled,
-                    //           vm.Format_FrameStart_Text,
-                    //           vm.Format_FrameEnd_Text
-                    //           ),
                     "\r\n\r\n" +
                     Format.ForceFormat(vm.Format_Container_SelectedItem),
                     "\r\n\r\n" +
                     MainWindow.ThreadDetect(vm),
 
-                    //"\r\n\r\n" + "\"" + MainWindow.OutputPath(vm) + "\""
+                    // Output Path Null
                     "\r\n\r\n" +
                     "NUL"
                 };
@@ -481,8 +471,6 @@ namespace Axiom
                     Video.fps,
                     "\r\n" +
                     VideoFilters.vFilter,
-                    //"\r\n" +
-                    //Video.ScalingAlgorithm(vm),
                     "\r\n" +
                     Video.vAspectRatio,
                     "\r\n" +
@@ -512,6 +500,7 @@ namespace Axiom
                     Audio.AudioQuality(vm.Input_Text,
                                        vm.Batch_IsChecked,
                                        vm.Audio_VBR_IsChecked,
+                                       vm.Format_MediaType_SelectedItem,
                                        vm.Audio_Codec_SelectedItem,
                                        vm.Audio_Quality_Items,
                                        vm.Audio_Quality_SelectedItem,
@@ -542,9 +531,6 @@ namespace Axiom
                     AudioFilters.AudioFilter(vm),
                     "\r\n" +
                     Streams.AudioStreamMaps(vm),
-
-                    //"\r\n\r\n" +
-                    //Format.trim,
 
                     "\r\n\r\n" +
                     Streams.FormatMaps(vm),
@@ -580,6 +566,7 @@ namespace Axiom
 
 
         // --------------------------------------------------------------------------------------------------------
+        // --------------------------------------------------------------------------------------------------------
 
 
         /// <summary>
@@ -612,17 +599,13 @@ namespace Axiom
                                             );
 
                 // Inline 
-                ffmpegArgs = MainWindow.RemoveLineBreaks(
-                                            string.Join(" ", FFmpegArgsList
-                                                             .Where(s => !string.IsNullOrEmpty(s))
-                                                             .Where(s => !s.Equals(Environment.NewLine))
-                                                             .Where(s => !s.Equals("\r\n\r\n"))
-                                                             .Where(s => !s.Equals("\r\n"))
-                                                        )
-                                        );
-
-                //.Replace("\r\n", "") //Remove Linebreaks
-                //.Replace(Environment.NewLine, "")
+                ffmpegArgs = MainWindow.RemoveLineBreaks(string.Join(" ", FFmpegArgsList
+                                                               .Where(s => !string.IsNullOrEmpty(s))
+                                                               .Where(s => !s.Equals(Environment.NewLine))
+                                                               .Where(s => !s.Equals("\r\n\r\n"))
+                                                               .Where(s => !s.Equals("\r\n"))
+                                                                    )
+                                                        );
             }
 
 
@@ -644,7 +627,7 @@ namespace Axiom
         }
 
 
-
+        // --------------------------------------------------------------------------------------------------------
         // --------------------------------------------------------------------------------------------------------
 
 
@@ -745,6 +728,7 @@ namespace Axiom
 
 
         // --------------------------------------------------------------------------------------------------------
+        // --------------------------------------------------------------------------------------------------------
 
 
         /// <summary>
@@ -780,36 +764,12 @@ namespace Axiom
             );
         }
 
+
         /// <summary>
         /// FFmpeg Convert
         /// </summary>
         public static void FFmpegConvert(ViewModel vm)
         {
-            //// -------------------------
-            //// Use User Custom Script Args
-            //// -------------------------
-            //// Check if Set Controls Differ from Script TextBox. If so, Script has been edited and is custom..
-            //if (!string.IsNullOrWhiteSpace(ScriptView.GetScriptRichTextBoxContents(vm)) // Script is not Empty
-            //    && MainWindow.ReplaceLineBreaksWithSpaces(ScriptView.GetScriptRichTextBoxContents(vm))
-
-            //    != ffmpegArgs // Set Controls Args
-            //    )
-            //{
-            //    // CMD Arguments are from Script TextBox
-            //    // Stays Sorted
-            //    ffmpegArgs = MainWindow.ReplaceLineBreaksWithSpaces(ScriptView.GetScriptRichTextBoxContents(vm));
-            //}
-
-            //// -------------------------
-            //// Generate Controls Script
-            //// -------------------------
-            //else
-            //{
-            //    // Inline
-            //    FFmpegScript(vm);
-            //}
-
-
             // -------------------------
             // Generate Controls Script
             // -------------------------

@@ -19,6 +19,27 @@ You should have received a copy of the GNU General Public License
 along with this program.If not, see <http://www.gnu.org/licenses/>. 
 ---------------------------------------------------------------------- */
 
+/* ----------------------------------
+ METHODS
+
+ * PNG to JPG
+ * Subtitles Burn
+ * Deband
+ * Deshake
+ * Deflicker
+ * Dejudder
+ * Denoise
+ * Deinterlace
+ * Selective Color Normalize
+ * Selective Color
+ * EQ
+ * EQ Brightness
+ * EQ Contrast
+ * EQ Saturation
+ * EQ Gamma
+ * Video Filter Combine
+---------------------------------- */
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -318,7 +339,7 @@ namespace Axiom
         }
 
         /// <summary>
-        ///     Selective SelectiveColorPreview (Method)
+        ///     Selective Color (Method)
         /// <summary>
         public static void SelectiveColor_Filter(ViewModel vm)
         {

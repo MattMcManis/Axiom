@@ -74,9 +74,13 @@ namespace Axiom
                               vm.Video_FPS_SelectedItem,
                               vm.Video_FPS_Text
                               ),
+
                     VideoFilters.VideoFilter(vm),
-                    //Video.ScalingAlgorithm(vm),
-                    Video.Images(vm),
+
+                    Video.Images(vm.Format_MediaType_SelectedItem,
+                                 vm.Video_Codec_SelectedItem,
+                                 vm.Video_Quality_SelectedItem
+                                 ),
                     //Video.Optimize(mainwindow),
                     //Streams.VideoStreamMaps(mainwindow),
 
@@ -93,6 +97,7 @@ namespace Axiom
                                      vm.Audio_SampleRate_Items,
                                      vm.Audio_SampleRate_SelectedItem
                                      ),
+
                     Audio.BitDepth(vm.Format_MediaType_SelectedItem,
                                    vm.Audio_Codec_SelectedItem,
                                    vm.Audio_Stream_SelectedItem,
@@ -100,12 +105,14 @@ namespace Axiom
                                    vm.Audio_BitDepth_Items,
                                    vm.Audio_BitDepth_SelectedItem
                                    ),
+
                     Audio.Channel(vm.Format_MediaType_SelectedItem,
                                   vm.Audio_Codec_SelectedItem,
                                   vm.Audio_Stream_SelectedItem,
                                   vm.Audio_Quality_SelectedItem,
                                   vm.Audio_Channel_SelectedItem
                                   ),
+
                     AudioFilters.AudioFilter(vm),
                     //Streams.AudioStreamMaps(mainwindow),
 
@@ -126,11 +133,6 @@ namespace Axiom
                 string ffplayArgs = MainWindow.ReplaceLineBreaksWithSpaces(
                                         string.Join(" ", FFplayArgsList)
                                     );
-
-                //string ffplayArgs = string.Join(" ", FFplayArgsList
-                //                          .Where(s => !string.IsNullOrEmpty(s)))
-                //                          .Replace("\r\n", " ") //Remove Linebreaks
-                //                          .Replace(Environment.NewLine, " ");
 
 
                 //MessageBox.Show(ffplayArgs); //debug
