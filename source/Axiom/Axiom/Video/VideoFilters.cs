@@ -262,14 +262,14 @@ namespace Axiom
                 // -------------------------
                 else if (vm.FilterVideo_Deinterlace_SelectedItem == "frame nospatial")
                 {
-                    deinterlace = "yadif_cuda=2:-1:0";
+                    deinterlace = "yadif=2:-1:0";
                 }
                 // -------------------------
                 // Field Skip Spatial
                 // -------------------------
                 else if (vm.FilterVideo_Deinterlace_SelectedItem == "field nospatial")
                 {
-                    deinterlace = "yadif_cuda=3:-1:0";
+                    deinterlace = "yadif=3:-1:0";
                 }
                 //// -------------------------
                 //// Cuda Frame
