@@ -69,10 +69,10 @@ Axiom is portable and can be run from any location on the computer.
 6. Typing `ffmpeg` in Command Prompt will now execute without needing to specify a direct path.
 
 
-<a href="https://raw.githubusercontent.com/MattMcManis/Axiom/master/images/guide/1-Advanced-system-settings.png" target="_blank"><img src="https://raw.githubusercontent.com/MattMcManis/Axiom/master/images/guide/1-Advanced-system-settings.png" width="200"/></a>
-<a href="https://raw.githubusercontent.com/MattMcManis/Axiom/master/images/guide/2-System-Properties.png" target="_blank"><img src="https://raw.githubusercontent.com/MattMcManis/Axiom/master/images/guide/2-System-Properties.png" width="200"/></a>
-<a href="https://raw.githubusercontent.com/MattMcManis/Axiom/master/images/guide/3-Environment-Variables.png" target="_blank"><img src="https://raw.githubusercontent.com/MattMcManis/Axiom/master/images/guide/3-Environment-Variables.png" width="200"/></a>
-<a href="https://raw.githubusercontent.com/MattMcManis/Axiom/master/images/guide/4-Edit-environment-variable.png" target="_blank"><img src="https://raw.githubusercontent.com/MattMcManis/Axiom/master/images/guide/4-Edit-environment-variable.png" width="200"/></a>
+<a href="https://raw.githubusercontent.com/MattMcManis/Axiom/master/images/guide/1-Advanced-system-settings.png" target="_blank"><img src="https://raw.githubusercontent.com/MattMcManis/Axiom/master/images/guide/1-Advanced-system-settings.png" width="150"/></a> 
+<a href="https://raw.githubusercontent.com/MattMcManis/Axiom/master/images/guide/2-System-Properties.png" target="_blank"><img src="https://raw.githubusercontent.com/MattMcManis/Axiom/master/images/guide/2-System-Properties.png" width="150"/></a> 
+<a href="https://raw.githubusercontent.com/MattMcManis/Axiom/master/images/guide/3-Environment-Variables.png" target="_blank"><img src="https://raw.githubusercontent.com/MattMcManis/Axiom/master/images/guide/3-Environment-Variables.png" width="150"/></a> 
+<a href="https://raw.githubusercontent.com/MattMcManis/Axiom/master/images/guide/4-Edit-environment-variable.png" target="_blank"><img src="https://raw.githubusercontent.com/MattMcManis/Axiom/master/images/guide/4-Edit-environment-variable.png" width="150"/></a>
 
 &nbsp;
 
