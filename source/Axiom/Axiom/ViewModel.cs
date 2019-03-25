@@ -984,21 +984,21 @@ namespace Axiom
         // Cut Start
         // --------------------------------------------------
         // Text
-        private string _Format_CutStart_Text = "00:00:00.000";
-        public string Format_CutStart_Text
-        {
-            get { return _Format_CutStart_Text; }
-            set
-            {
-                if (_Format_CutStart_Text == value)
-                {
-                    return;
-                }
+        //private string _Format_CutStart_Text = "00:00:00.000";
+        //public string Format_CutStart_Text
+        //{
+        //    get { return _Format_CutStart_Text; }
+        //    set
+        //    {
+        //        if (_Format_CutStart_Text == value)
+        //        {
+        //            return;
+        //        }
 
-                _Format_CutStart_Text = value;
-                OnPropertyChanged("Format_CutStart_Text");
-            }
-        }
+        //        _Format_CutStart_Text = value;
+        //        OnPropertyChanged("Format_CutStart_Text");
+        //    }
+        //}
         // Controls Enable
         private bool _Format_CutStart_IsEnabled = true;
         public bool Format_CutStart_IsEnabled
@@ -1166,21 +1166,21 @@ namespace Axiom
         // Cut End
         // --------------------------------------------------
         // Text
-        private string _Format_CutEnd_Text = "00:00:00.000";
-        public string Format_CutEnd_Text
-        {
-            get { return _Format_CutEnd_Text; }
-            set
-            {
-                if (_Format_CutEnd_Text == value)
-                {
-                    return;
-                }
+        //private string _Format_CutEnd_Text = "00:00:00.000";
+        //public string Format_CutEnd_Text
+        //{
+        //    get { return _Format_CutEnd_Text; }
+        //    set
+        //    {
+        //        if (_Format_CutEnd_Text == value)
+        //        {
+        //            return;
+        //        }
 
-                _Format_CutEnd_Text = value;
-                OnPropertyChanged("Format_CutEnd_Text");
-            }
-        }
+        //        _Format_CutEnd_Text = value;
+        //        OnPropertyChanged("Format_CutEnd_Text");
+        //    }
+        //}
         // Controls Enable
         private bool _Format_CutEnd_IsEnabled = true;
         public bool Format_CutEnd_IsEnabled

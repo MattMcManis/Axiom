@@ -598,7 +598,6 @@ namespace Axiom
                 vm.Format_CutEnd_Seconds_IsEnabled = false;
                 vm.Format_CutEnd_Milliseconds_IsEnabled = false;
 
-                vm.Format_CutEnd_Text = string.Empty;
                 vm.Format_CutEnd_Hours_Text = string.Empty;
                 vm.Format_CutEnd_Minutes_Text = string.Empty;
                 vm.Format_CutEnd_Seconds_Text = string.Empty;
@@ -927,7 +926,6 @@ namespace Axiom
                     vm.Format_CutEnd_Seconds_IsEnabled = false;
                     vm.Format_CutEnd_Milliseconds_IsEnabled = false;
 
-                    vm.Format_CutEnd_Text = string.Empty;
                     vm.Format_CutEnd_Hours_Text = string.Empty;
                     vm.Format_CutEnd_Minutes_Text = string.Empty;
                     vm.Format_CutEnd_Seconds_Text = string.Empty;

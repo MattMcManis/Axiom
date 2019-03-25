@@ -332,19 +332,6 @@
                                     FontFamily="Segoe UI Semilight" 
                                     Height="26" 
                                    Grid.Column="1" />
-                            <!--<ComboBox x:Name="cboContainer" 
-                                      Style="{DynamicResource ComboBoxWhite}"
-                                      ItemContainerStyle="{DynamicResource ComboBoxWhiteItem}" 
-                                      ItemsSource="{Binding Format_Container_Items}"
-                                      SelectedIndex="{Binding Format_Container_SelectedIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                      SelectedItem="{Binding Format_Container_SelectedItem, Mode=TwoWay}"
-                                      HorizontalAlignment="Left" 
-                                      Margin="0,2,0,0" 
-                                      VerticalAlignment="Top" 
-                                      Width="105" 
-                                      Height="22"
-                                      SelectionChanged="cboContainer_SelectionChanged" 
-                                      Grid.Column="2"/>-->
                             <ComboBox x:Name="cboContainer" 
                                       ItemsSource="{Binding Format_Container_Items}"
                                       SelectedIndex="{Binding Format_Container_SelectedIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -5020,6 +5007,11 @@
                       Height="22"
                       SelectionChanged="cboPreset_SelectionChanged" 
                       Margin="0,0,87,0" >
+                <ComboBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Margin="0 -7 0 0"/>
+                    </ItemsPanelTemplate>
+                </ComboBox.ItemsPanel>
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <Grid Width="90">

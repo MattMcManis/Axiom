@@ -1611,8 +1611,14 @@ namespace Axiom
                 // Format
                 vm.Format_Container_SelectedItem = "mkv";
                 vm.Format_Cut_SelectedItem = "Yes";
-                vm.Format_CutStart_Text = "00:00:00.000";
-                vm.Format_CutEnd_Text = "00:00:05.300";
+                vm.Format_CutStart_Hours_Text = "00";
+                vm.Format_CutStart_Minutes_Text = "00";
+                vm.Format_CutStart_Seconds_Text = "03";
+                vm.Format_CutStart_Milliseconds_Text = "250";
+                vm.Format_CutEnd_Hours_Text = "00";
+                vm.Format_CutEnd_Minutes_Text = "00";
+                vm.Format_CutEnd_Seconds_Text = "12";
+                vm.Format_CutEnd_Milliseconds_Text = "400";
 
                 // Video
                 vm.Video_Codec_SelectedItem = "x264";
