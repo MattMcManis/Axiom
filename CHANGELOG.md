@@ -4,6 +4,16 @@ Axiom FFmpeg UI
 
 ## [alpha]
 
+## [1.5.9.1] - Mar 24, 2019
+### Changed
+- Improved Presets
+- Method Selected Item Checks
+- Code Cleanup
+
+### Fixed
+- Fixed Video Filter Deinterlace Yadif
+
+
 ## [1.5.9.0] - Mar 24, 2019
 ### Added
 - Added New Presets
