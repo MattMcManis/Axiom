@@ -75,6 +75,7 @@
     <Compile Include="Codecs\Audio\AAC.cs" />
     <Compile Include="Codecs\Audio\AC3.cs" />
     <Compile Include="Codecs\Audio\ALAC.cs" />
+    <Compile Include="Codecs\Audio\DTS.cs" />
     <Compile Include="Codecs\Audio\MP2.cs" />
     <Compile Include="Codecs\Audio\None.cs" />
     <Compile Include="Codecs\Audio\FLAC.cs" />

@@ -90,6 +90,7 @@ namespace Axiom
             {
                 "AC3",
                 "AAC",
+                "DTS",
                 "Copy"
             };
 
@@ -133,6 +134,7 @@ namespace Axiom
             {
                 "AC3",
                 "AAC",
+                "DTS",
                 "Vorbis",
                 "Opus",
                 "LAME",
@@ -209,6 +211,7 @@ namespace Axiom
                 "MP2",
                 "AC3",
                 "AAC",
+                "DTS",
                 "LAME",
                 "PCM",
                 "Copy"
@@ -249,6 +252,7 @@ namespace Axiom
                 "MP2",
                 "AC3",
                 "AAC",
+                "DTS",
                 "LAME",
                 "PCM",
                 "Copy"

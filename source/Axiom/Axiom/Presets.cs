@@ -242,7 +242,7 @@ namespace Axiom
                 vm.Video_FPS_SelectedItem = "auto";
                 vm.Video_Optimize_SelectedItem = "Web";
                 vm.Video_Scale_SelectedItem = "Source";
-                vm.Video_ScalingAlgorithm_SelectedItem = "defualt";
+                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
                 vm.Video_AspectRatio_SelectedItem = "auto";
 
                 // Subtitle
@@ -1600,6 +1600,119 @@ namespace Axiom
                 vm.FiltersSetDefault();
             }
 
+            // ---------------------------------------------------------------------------
+            // YouTube
+            // ---------------------------------------------------------------------------
+            // -------------------------
+            // Video
+            // -------------------------
+            else if (vm.Preset_SelectedItem == "Video")
+            {
+                //vm.Preset.IsEditable = false;
+
+                // Format
+                vm.Format_Container_SelectedItem = "mp4";
+                vm.Format_Cut_SelectedItem = "No";
+                vm.Format_CutStart_Hours_Text = "00";
+                vm.Format_CutStart_Minutes_Text = "00";
+                vm.Format_CutStart_Seconds_Text = "00";
+                vm.Format_CutStart_Milliseconds_Text = "000";
+                vm.Format_CutEnd_Hours_Text = "00";
+                vm.Format_CutEnd_Minutes_Text = "00";
+                vm.Format_CutEnd_Seconds_Text = "00";
+                vm.Format_CutEnd_Milliseconds_Text = "000";
+
+                // Video
+                vm.Video_Codec_SelectedItem = "Copy";
+                vm.Video_EncodeSpeed_SelectedItem = "None";
+                vm.Video_Quality_SelectedItem = "Auto";
+                vm.Video_Pass_SelectedItem = "auto";
+                vm.Video_Bitrate_Text = "";
+                vm.Video_Minrate_Text = "";
+                vm.Video_Maxrate_Text = "";
+                vm.Video_Bufsize_Text = "";
+                vm.Video_PixelFormat_SelectedItem = "auto";
+                vm.Video_FPS_SelectedItem = "auto";
+                vm.Video_Optimize_SelectedItem = "None";
+                vm.Video_Optimize_Tune_SelectedItem = "none";
+                vm.Video_Optimize_Profile_SelectedItem = "none";
+                vm.Video_Optimize_Level_SelectedItem = "none";
+                vm.Video_Scale_SelectedItem = "Source";
+                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
+                vm.Video_AspectRatio_SelectedItem = "auto";
+
+                // Subtitle
+                vm.Subtitle_Codec_SelectedItem = "None";
+                vm.Subtitle_Stream_SelectedItem = "none";
+
+                // Audio
+                vm.Audio_Codec_SelectedItem = "Copy";
+                vm.Audio_Stream_SelectedItem = "all";
+                vm.Audio_Quality_SelectedItem = "Auto";
+                vm.Audio_VBR_IsChecked = false;
+                vm.Audio_Channel_SelectedItem = "Source";
+                vm.Audio_SampleRate_SelectedItem = "auto";
+                vm.Audio_BitDepth_SelectedItem = "auto";
+                vm.Audio_Volume_Text = "100";
+                vm.Audio_HardLimiter_Value = 1;
+
+                // Filters
+                vm.FiltersSetDefault();
+            }
+
+            // -------------------------
+            // Music
+            // -------------------------
+            else if (vm.Preset_SelectedItem == "Music")
+            {
+                //vm.Preset.IsEditable = false;
+
+                // Format
+                vm.Format_Container_SelectedItem = "m4a";
+                vm.Format_Cut_SelectedItem = "No";
+                vm.Format_CutStart_Hours_Text = "00";
+                vm.Format_CutStart_Minutes_Text = "00";
+                vm.Format_CutStart_Seconds_Text = "00";
+                vm.Format_CutStart_Milliseconds_Text = "000";
+                vm.Format_CutEnd_Hours_Text = "00";
+                vm.Format_CutEnd_Minutes_Text = "00";
+                vm.Format_CutEnd_Seconds_Text = "00";
+                vm.Format_CutEnd_Milliseconds_Text = "000";
+
+                // Video
+                vm.Video_Codec_SelectedItem = "None";
+                vm.Video_EncodeSpeed_SelectedItem = "None";
+                vm.Video_Quality_SelectedItem = "None";
+                vm.Video_Pass_SelectedItem = "auto";
+                vm.Video_Bitrate_Text = "";
+                vm.Video_Minrate_Text = "";
+                vm.Video_Maxrate_Text = "";
+                vm.Video_Bufsize_Text = "";
+                vm.Video_PixelFormat_SelectedItem = "none";
+                vm.Video_FPS_SelectedItem = "auto";
+                vm.Video_Optimize_SelectedItem = "None";
+                vm.Video_Scale_SelectedItem = "Source";
+                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
+                vm.Video_AspectRatio_SelectedItem = "auto";
+
+                // Subtitle
+                vm.Subtitle_Codec_SelectedItem = "None";
+                vm.Subtitle_Stream_SelectedItem = "none";
+
+                // Audio
+                vm.Audio_Codec_SelectedItem = "Copy";
+                vm.Audio_Stream_SelectedItem = "1";
+                vm.Audio_Quality_SelectedItem = "Auto";
+                vm.Audio_VBR_IsChecked = true;
+                vm.Audio_Channel_SelectedItem = "Source";
+                vm.Audio_SampleRate_SelectedItem = "auto";
+                vm.Audio_BitDepth_SelectedItem = "auto";
+                vm.Audio_Volume_Text = "100";
+                vm.Audio_HardLimiter_Value = 1;
+
+                // Filters
+                vm.FiltersSetDefault();
+            }
 
             // ---------------------------------------------------------------------------
             // Debug

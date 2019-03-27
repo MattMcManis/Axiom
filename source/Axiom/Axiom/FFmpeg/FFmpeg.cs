@@ -34,6 +34,7 @@ along with this program.If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Linq;
 using System.Windows;
@@ -49,7 +50,7 @@ namespace Axiom
     {
         // --------------------------------------------------------------------------------------------------------
         /// <summary>
-        /// Variables
+        ///     Global Variables
         /// </summary>
         /// --------------------------------------------------------------------------------------------------------
         // FFmepg / FFprobe
@@ -61,13 +62,13 @@ namespace Axiom
         // --------------------------------------------------------------------------------------------------------
         // --------------------------------------------------------------------------------------------------------
         /// <summary>
-        /// Process Methods
+        ///     Process Methods
         /// </summary>
         // --------------------------------------------------------------------------------------------------------
         // --------------------------------------------------------------------------------------------------------
 
         /// <summary>
-        ///    Keep FFmpegWindow Switch (Method)
+        ///     Keep FFmpegWindow Switch (Method)
         /// </summary>
         /// <remarks>
         ///     CMD.exe command, /k = keep, /c = close
@@ -126,7 +127,7 @@ namespace Axiom
                                     ),
 
                     "\r\n\r\n" +
-                    "-i "+ "\"" + MainWindow.InputPath(vm) + "\"",
+                    "-i "+ "\"" + MainWindow.InputPath(vm, "pass 1") + "\"",
 
                     "\r\n\r\n" +
                     Format.CutEnd(vm.Input_Text,
@@ -328,7 +329,7 @@ namespace Axiom
 
                     "\r\n\r\n" +
                     "-i "+ "\"" +
-                    MainWindow.InputPath(vm) + "\"",
+                    MainWindow.InputPath(vm, "pass 1") + "\"",
 
                     "\r\n\r\n" +
                     Format.CutEnd(vm.Input_Text,
@@ -463,7 +464,8 @@ namespace Axiom
                     Format.trimStart,
 
                     "\r\n\r\n" +
-                    "-i " + "\"" + MainWindow.InputPath(vm) + "\"",
+                    "-i " + "\"" + MainWindow.InputPath(vm, "pass 2") + "\"",
+                    //"-i " + "\"" + MainWindow.input + "\"",
 
                     "\r\n\r\n" +
                     Format.trimEnd,
@@ -759,40 +761,101 @@ namespace Axiom
             //ScriptView.scriptParagraph.Inlines.Add(new Run(ffmpegArgs));
             //mainwindow.rtbScriptView.EndChange();
             //vm.ScriptView_Text = string.Join<char>(" ", ffmpegArgs);
+
             vm.ScriptView_Text = ffmpegArgs;
         }
 
 
         /// <summary>
-        /// FFmpeg Start
+        ///     FFmpeg Start
         /// </summary>
         public static void FFmpegStart(ViewModel vm)
         {
-            System.Diagnostics.Process.Start(
-                "cmd.exe",
-                KeepWindow(vm)
-                + " cd " + "\"" + MainWindow.outputDir + "\""
-                + " & "
-                + ffmpegArgs
-            );
+            // Start FFmpeg Process
+            System.Diagnostics.Process.Start("cmd.exe",
+                                             KeepWindow(vm)
+                                             + " cd " + "\"" + MainWindow.outputDir + "\""
+                                             + " & "
+                                             + ffmpegArgs
+                                             );
         }
 
 
         /// <summary>
-        /// FFmpeg Convert
+        ///     FFmpeg Convert
         /// </summary>
         public static void FFmpegConvert(ViewModel vm)
         {
             // -------------------------
-            // Generate Controls Script
+            // YouTube Download
             // -------------------------
-            // Inline
-            FFmpegScript(vm);
+            if (MainWindow.IsYouTube(vm.Input_Text) == true)
+            {
+                // Start Download
+                MainWindow.YouTubeDownload(vm);
+            
+                // Wait for Task to finish                                             
+                while (!vm.youtubedlInputWorker.IsCompleted)
+                {
+                    if (vm.youtubedlInputWorker.IsCompleted)
+                    {
+                        break;
+                    }
+                }
+            }
+
 
             // -------------------------
-            // Start FFmpeg
+            // Convert
             // -------------------------
-            FFmpegStart(vm);
+            if ((MainWindow.IsYouTube(vm.Input_Text) == true && // Download Only
+                 vm.Video_Codec_SelectedItem != "Copy" &&
+                 vm.Subtitle_Codec_SelectedItem != "Copy" &&
+                 vm.Audio_Codec_SelectedItem != "Copy" 
+                 ) 
+                 
+                 || 
+                
+                MainWindow.IsYouTube(vm.Input_Text) == false) // Convert
+            {
+                // -------------------------
+                // Generate Controls Script
+                // -------------------------
+                // Inline
+                FFmpegScript(vm);
+
+                // -------------------------
+                // Start FFmpeg
+                // -------------------------
+                FFmpegStart(vm);
+            }
+
+            // -------------------------
+            // Finished
+            // -------------------------
+            else
+            {
+                vm.ScriptView_Text = "Download Complete";
+            }
+
+            // -------------------------
+            // Local File Convert
+            // -------------------------
+            //if (MainWindow.IsYouTube(vm.Input_Text) == false)
+            //{
+            //    // -------------------------
+            //    // Generate Controls Script
+            //    // -------------------------
+            //    // Inline
+            //    FFmpegScript(vm);
+
+            //    // -------------------------
+            //    // Start FFmpeg
+            //    // -------------------------
+            //    FFmpegStart(vm);
+            //}
+
+
         }
 
     }

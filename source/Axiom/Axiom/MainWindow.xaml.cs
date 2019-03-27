@@ -30,6 +30,7 @@ using System.Linq;
 using System.Management;
 using System.Net;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -69,19 +70,19 @@ namespace Axiom
 
         // --------------------------------------------------------------------------------------------------------
         /// <summary>
-        ///     Variables
+        ///     Global Variables
         /// </summary>
         // --------------------------------------------------------------------------------------------------------
-
         // System
         public static string appDir = AppDomain.CurrentDomain.BaseDirectory.TrimEnd('\\') + @"\"; // Axiom.exe directory
+        public static string tempDir = Path.GetTempPath(); // Windows AppData Temp Directory
 
         // Input
         public static string inputDir; // Input File Directory
         public static string inputFileName; // (eg. myvideo.mp4 = myvideo)
         public static string inputExt; // (eg. .mp4)
         public static string input; // Single: Input Path + Filename No Ext + Input Ext (Browse Text Box) /// Batch: Input Path (Browse Text Box)
-        public static string youtubedl; // YouTube Download
+        //public static string youtubedl; // YouTube Download
 
         // Output
         public static string outputDir; // Output Path
@@ -532,7 +533,7 @@ namespace Axiom
             // -------------------------
             Task.Factory.StartNew(() =>
             {
-                UpdateAvailableCheck();
+                UpdateAvailableCheck(vm);
             });
         }
 
@@ -1226,8 +1227,8 @@ namespace Axiom
         // --------------------------------------------------
         private void btnDeleteSettings_Click(object sender, RoutedEventArgs e)
         {
-            string userProfile = Environment.ExpandEnvironmentVariables(@"%USERPROFILE%");
-            string appDataPath = "\\AppData\\Local\\Axiom";
+            string userProfile = Environment.ExpandEnvironmentVariables(@"%USERPROFILE%").TrimEnd('\\') + @"\";
+            string appDataPath = @"AppData\Local\Axiom";
 
             // Check if Directory Exists
             if (Directory.Exists(userProfile + appDataPath))
@@ -1634,6 +1635,249 @@ namespace Axiom
         }
 
 
+
+        /// <summary>
+        ///    Is YouTube
+        /// </summary>
+        public static bool IsYouTube(string input_Text)
+        {
+            // YouTube
+            if(// youtube (any domain extension)
+               input_Text.StartsWith("https://www.youtube") ||
+               input_Text.StartsWith("http://www.youtube") ||
+               input_Text.StartsWith("www.youtube") ||
+               input_Text.StartsWith("youtube") ||
+
+               // youtu.be
+               input_Text.StartsWith("https://youtu.be") ||
+               input_Text.StartsWith("http://youtu.be") ||
+               input_Text.StartsWith("www.youtu.be") ||
+               input_Text.StartsWith("youtu.be")
+               )
+            {
+                return true;
+            }
+
+            // Local File
+            else
+            {
+                return false;
+            }
+        }
+
+
+        /// <summary>
+        ///    YouTube Download Check (Method)
+        /// </summary>
+        /// <remarks>
+        ///     Check if youtube-dl.exe is on Computer 
+        /// </remarks>
+        public static bool YouTubeDownloadCheck(ViewModel vm)
+        {
+            bool ready = false;
+
+            if (File.Exists(appDir + @"youtube-dl\youtube-dl.exe"))
+            {
+                return true;
+            }
+
+            return ready;
+        }
+
+
+        /// <summary>
+        ///    YouTube Download - Input
+        /// </summary>
+        public static void YouTubeDownloadInput(ViewModel vm)
+        {
+            if (YouTubeDownloadCheck(vm) == true)
+            {
+                // -------------------------
+                // Start New Thread
+                // -------------------------
+                vm.youtubedlInputWorker = Task.Factory.StartNew(() =>
+                {
+                    if (vm.Batch_IsChecked == false) // Cannot batch YouTube videos
+                    {
+                        // -------------------------
+                        // Progress Info
+                        // -------------------------
+                        vm.ScriptView_Text = "Please wait while youtube-dl parses file info.";
+
+                        // -------------------------
+                        // Capture Title
+                        // -------------------------
+                        // youtube-dl --get-filename -o "%(title)s.mp4" "URL"
+
+                        string titleArgs = "--get-filename -o \"%(title)s\" " + "\"" + vm.Input_Text + "\"";
+
+                        string title = string.Empty;
+
+                        try
+                        {
+                            using (Process parseTitle = new Process())
+                            {
+                                parseTitle.StartInfo.UseShellExecute = false;
+                                parseTitle.StartInfo.CreateNoWindow = false;
+                                parseTitle.StartInfo.RedirectStandardOutput = true;
+                                parseTitle.StartInfo.StandardOutputEncoding = Encoding.UTF8;
+                                parseTitle.StartInfo.RedirectStandardError = true;
+                                parseTitle.StartInfo.StandardErrorEncoding = Encoding.UTF8;
+                                parseTitle.StartInfo.FileName = appDir + @"youtube-dl\youtube-dl.exe";
+                                parseTitle.StartInfo.Arguments = titleArgs;
+
+                                parseTitle.Start();
+                                parseTitle.WaitForExit();
+
+                                // Get Ouput Result
+                                var output = new List<string>();
+                                while (parseTitle.StandardOutput.Peek() > -1)
+                                {
+                                    output.Add(parseTitle.StandardOutput.ReadLine());
+                                }
+                                //title = youtubedlTitle.StandardOutput.ReadToEnd();
+                                title = string.Join("", output);
+
+                                // debug
+                                //foreach (var line in title.Split('\r'))
+                                //{
+                                //    MessageBox.Show(line);
+                                //}
+                            }
+                        }
+                        catch
+                        {
+                            MessageBox.Show("youtube-dl.exe could not start. Please move it to a location that does not require Administrator privileges.",
+                                            "Error",
+                                            MessageBoxButton.OK,
+                                            MessageBoxImage.Error);
+
+                            return;
+                        }
+
+
+                        // -------------------------
+                        // Set Input
+                        // -------------------------
+
+                        // Format
+                        string format = string.Empty;
+
+                        // Video + Audio
+                        if (vm.Format_YouTube_SelectedItem == "Video + Audio")
+                        {
+                            format = ".mp4";
+                        }
+
+                        // Audio Only
+                        else if (vm.Format_YouTube_SelectedItem == "Audio Only")
+                        {
+                            format = ".m4a";
+                        }
+
+                        // Download Directory
+                        string userProfile = Environment.ExpandEnvironmentVariables(@"%USERPROFILE%").TrimEnd('\\') + @"\";
+                        string downloadDir = userProfile + @"Downloads\";
+
+                        input = downloadDir + RemoveLineBreaks(title) + format;
+
+                        inputDir = Path.GetDirectoryName(input).TrimEnd('\\') + @"\";
+                        inputFileName = Path.GetFileNameWithoutExtension(input);
+                        inputExt = Path.GetExtension(input);
+                    }
+                });
+            }
+
+            // Error
+            else
+            {
+                MessageBox.Show("\"" + appDir + "youtube-dl\\youtube-dl.exe\" could not be found.",
+                "Error",
+                MessageBoxButton.OK,
+                MessageBoxImage.Error);
+
+                return;
+            }
+        }
+
+
+        /// <summary>
+        ///    YouTube Download
+        /// </summary>
+        public static void YouTubeDownload(ViewModel vm)
+        {
+            if (YouTubeDownloadCheck(vm) == true)
+            {
+                // -------------------------
+                // Start New Thread
+                // -------------------------
+                vm.youtubedlInputWorker = Task.Factory.StartNew(() =>
+                {
+                    // -------------------------
+                    // Download File
+                    // -------------------------
+                    // youtube-dl -f best "URL" -o "C:\path\title.mp4" --merge-output-format mp4
+                    // youtube-dl -f "bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio" "URL" -o "C:\path\title.mp4" --merge-output-format mp4
+
+                    // Format
+                    string format = string.Empty;
+                    // Quality
+                    string quality = string.Empty;
+
+                    // Video + Audio
+                    if (vm.Format_YouTube_SelectedItem == "Video + Audio")
+                    {
+                        format = ".mp4";
+
+                        if (vm.Format_YouTube_Quality_SelectedItem == "best")
+                        {
+                            quality = "bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio";
+                        }
+                    }
+
+                    // Audio Only
+                    else if (vm.Format_YouTube_SelectedItem == "Audio Only")
+                    {
+                        format = ".m4a";
+
+                        if (vm.Format_YouTube_Quality_SelectedItem == "best")
+                        {
+                            quality = "bestaudio[ext=m4a]/bestaudio";
+                        }
+                    }
+
+
+
+                    // Check if file already exists
+                    if (!File.Exists(input))
+                    {
+                        string url = vm.Input_Text;
+
+                        string downloadArgs = "-f " + quality + " " + "\"" + url + "\"" + " -o " + "\"" + input + "\"" + " --merge-output-format " + format;
+
+                        //try
+                        //{
+                        // Start download process
+                        using (Process youtubedlDownload = new Process())
+                        {
+                            youtubedlDownload.StartInfo.UseShellExecute = false;
+                            //youtubedlDownload.StartInfo.CreateNoWindow = true;
+                            youtubedlDownload.StartInfo.RedirectStandardOutput = false;
+                            youtubedlDownload.StartInfo.RedirectStandardError = false;
+                            youtubedlDownload.StartInfo.FileName = appDir + @"youtube-dl\youtube-dl.exe";
+                            youtubedlDownload.StartInfo.Arguments = downloadArgs;
+
+                            youtubedlDownload.Start();
+                            youtubedlDownload.WaitForExit();
+                        }
+                    }
+                });
+            }
+
+        }
+
+
+
         /// <summary>
         ///    Check if Script has been Edited (Method)
         /// </summary>
@@ -1645,7 +1889,8 @@ namespace Axiom
             // Check if Script has been modified
             // -------------------------
             if (!string.IsNullOrEmpty(vm.ScriptView_Text) && 
-                !string.IsNullOrEmpty(FFmpeg.ffmpegArgs))
+                !string.IsNullOrEmpty(FFmpeg.ffmpegArgs) &&
+                vm.ScriptView_Text != "Download Complete") // YouTube Download-Only
             {
                 //MessageBox.Show(RemoveLineBreaks(ScriptView.GetScriptRichTextBoxContents(mainwindow))); //debug
                 //MessageBox.Show(FFmpeg.ffmpegArgs); //debug
@@ -1701,18 +1946,21 @@ namespace Axiom
             // -------------------------
             // Input File does not exist
             // -------------------------
-            if (!string.IsNullOrEmpty(input))
+            if (IsYouTube(vm.Input_Text) == false) // Ignore YouTube URL's
             {
-                if (!File.Exists(input))
+                if (!string.IsNullOrEmpty(input))
                 {
-                    MessageBox.Show("Input file does not exist.",
-                                    "Notice",
-                                    MessageBoxButton.OK,
-                                    MessageBoxImage.Exclamation);
+                    if (!File.Exists(input))
+                    {
+                        MessageBox.Show("Input file does not exist.",
+                                        "Notice",
+                                        MessageBoxButton.OK,
+                                        MessageBoxImage.Exclamation);
 
-                    // Halt
-                    //ready = false;
-                    return false;
+                        // Halt
+                        //ready = false;
+                        return false;
+                    }
                 }
             }
 
@@ -2344,10 +2592,11 @@ namespace Axiom
         /// <summary>
         ///    Update Available Check
         /// </summary>
-        public void UpdateAvailableCheck()
+        public void UpdateAvailableCheck(ViewModel vm)
         {
             //if (tglUpdatesAutoCheck.IsChecked == true)
-            if (tglUpdateAutoCheck.Dispatcher.Invoke((() => { return tglUpdateAutoCheck.IsChecked; })) == true)
+            //if (tglUpdateAutoCheck.Dispatcher.Invoke((() => { return tglUpdateAutoCheck.IsChecked; })) == true)
+            if (vm.UpdateAutoCheck_IsChecked == true)
             {
                 ServicePointManager.Expect100Continue = true;
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
@@ -2829,9 +3078,6 @@ namespace Axiom
         {
             input = vm.Input_Text;
 
-            //if (!vm.Input_Text.Contains("www.youtube.com")
-            //    && !vm.Input_Text.Contains("youtube.com"))
-            //{
             if (!string.IsNullOrEmpty(vm.Input_Text))
             {
                 // Remove stray slash if closed out early (duplicate code?)
@@ -2864,7 +3110,6 @@ namespace Axiom
                 SubtitleControls.AutoCopySubtitleCodec(vm);
                 AudioControls.AutoCopyAudioCodec(vm);
             }
-            //}
         }
 
         /// <summary>
@@ -3091,22 +3336,25 @@ namespace Axiom
         /// </summary>
         public static void BatchExtCheck(ViewModel vm)
         {
-            // Add period to Batch Extension if User did not enter one
-            if (!string.IsNullOrEmpty(vm.BatchExtension_Text))
+            if (vm.Batch_IsChecked == true)
             {
-                if (vm.BatchExtension_Text != "extension" &&
-                    vm.BatchExtension_Text != "." &&
-                    !vm.BatchExtension_Text.StartsWith(".")
-                    )
+                // Add period to Batch Extension if User did not enter one
+                if (!string.IsNullOrEmpty(vm.BatchExtension_Text))
                 {
-                    //batchExt = "." + vm.BatchExtension_Text;
-                    inputExt = "." + vm.BatchExtension_Text;
+                    if (vm.BatchExtension_Text != "extension" &&
+                        vm.BatchExtension_Text != "." &&
+                        !vm.BatchExtension_Text.StartsWith(".")
+                        )
+                    {
+                        //batchExt = "." + vm.BatchExtension_Text;
+                        inputExt = "." + vm.BatchExtension_Text;
+                    }
                 }
-            }
-            else
-            {
-                //batchExt = string.Empty;
-                inputExt = string.Empty;
+                else
+                {
+                    //batchExt = string.Empty;
+                    inputExt = string.Empty;
+                }
             }
         }
 
@@ -3254,40 +3502,69 @@ namespace Axiom
         /// <summary>
         ///    Input Path
         /// </summary>
-        public static String InputPath(ViewModel vm)
+        public static String InputPath(ViewModel vm, string pass)
         {
             // -------------------------
-            // Single File
+            // Local File
             // -------------------------
-            if (vm.Batch_IsChecked == false)
+            if (IsYouTube(vm.Input_Text) == false) // Ignore YouTube URL's
             {
-                // Input Directory
-                if (!string.IsNullOrEmpty(vm.Input_Text))
+                // -------------------------
+                // Single File
+                // -------------------------
+                if (vm.Batch_IsChecked == false &&
+                    pass != "pass 2") // Ignore Pass 2, use existing input path
                 {
-                    inputDir = Path.GetDirectoryName(vm.Input_Text).TrimEnd('\\') + @"\"; // (eg. C:\Input Folder\)
-                    inputFileName = Path.GetFileNameWithoutExtension(vm.Input_Text);
-                    inputExt = Path.GetExtension(vm.Input_Text);
+                    // Input Directory
+                    if (!string.IsNullOrEmpty(vm.Input_Text))
+                    {
+                        inputDir = Path.GetDirectoryName(vm.Input_Text).TrimEnd('\\') + @"\"; // (eg. C:\Input Folder\)
+                        inputFileName = Path.GetFileNameWithoutExtension(vm.Input_Text);
+                        inputExt = Path.GetExtension(vm.Input_Text);
+                    }
+
+                    // Input
+                    input = vm.Input_Text; // (eg. C:\Input Folder\file.wmv)
                 }
 
-                // Input
-                input = vm.Input_Text; // (eg. C:\Input Folder\file.wmv)
+                // -------------------------
+                // Batch
+                // -------------------------
+                else if (vm.Batch_IsChecked == true)
+                {
+                    // Add slash to Batch Browse Text folder path if missing
+                    vm.Input_Text = vm.Input_Text.TrimEnd('\\') + @"\";
+
+                    inputDir = vm.Input_Text; // (eg. C:\Input Folder\)
+
+                    inputFileName = "%~f";
+
+                    // Input
+                    input = inputDir + inputFileName; // (eg. C:\Input Folder\)
+                }
             }
 
             // -------------------------
-            // Batch
+            // YouTube Download
             // -------------------------
-            else if (vm.Batch_IsChecked == true)
+            else if (IsYouTube(vm.Input_Text) == true &&
+                     pass != "pass 2") // Ignore Pass 2, use existing input path
             {
-                // Add slash to Batch Browse Text folder path if missing
-                vm.Input_Text = vm.Input_Text.TrimEnd('\\') + @"\";
+                YouTubeDownloadInput(vm);
 
-                inputDir = vm.Input_Text; // (eg. C:\Input Folder\)
-
-                inputFileName = "%~f";
-
-                // Input
-                input = inputDir + inputFileName; // (eg. C:\Input Folder\)
+                // Wait for Task to finish
+                if (YouTubeDownloadCheck(vm) == true)
+                {
+                    while (!vm.youtubedlInputWorker.IsCompleted)
+                    {
+                        if (vm.youtubedlInputWorker.IsCompleted)
+                        {
+                            break;
+                        }
+                    }
+                }
             }
+
 
             // -------------------------
             // Empty
@@ -3344,6 +3621,7 @@ namespace Axiom
             // Get Output Extension (Method)
             FormatControls.OutputFormatExt(vm);
 
+
             // -------------------------
             // Single File
             // -------------------------
@@ -3351,7 +3629,7 @@ namespace Axiom
             {
                 // Input Not Empty, Output Empty
                 // Default Output to be same as Input Directory
-                if (!string.IsNullOrEmpty(vm.Input_Text) && 
+                if (!string.IsNullOrEmpty(vm.Input_Text) &&
                     string.IsNullOrEmpty(vm.Output_Text))
                 {
                     vm.Output_Text = inputDir + inputFileName + outputExt;
@@ -3370,9 +3648,9 @@ namespace Axiom
                 // -------------------------
                 // Auto Renamer
                 // Pressing Script or Convert while Output is empty
-                if (inputDir == outputDir
-                    && inputFileName == outputFileName
-                    && string.Equals(inputExt, outputExt, StringComparison.CurrentCultureIgnoreCase))
+                if (inputDir == outputDir &&
+                    inputFileName == outputFileName &&
+                    string.Equals(inputExt, outputExt, StringComparison.CurrentCultureIgnoreCase))
                 {
                     outputFileName = FileRenamer(inputFileName);
                 }
@@ -3407,7 +3685,8 @@ namespace Axiom
 
                 // Input Not Empty, Output Empty
                 // Default Output to be same as Input Directory
-                if (!string.IsNullOrEmpty(vm.Input_Text) && string.IsNullOrEmpty(vm.Output_Text))
+                if (!string.IsNullOrEmpty(vm.Input_Text) && 
+                    string.IsNullOrEmpty(vm.Output_Text))
                 {
                     vm.Output_Text = vm.Input_Text;
                 }
@@ -5910,7 +6189,8 @@ namespace Axiom
         public void Sort()
         {
             // Only if Script not empty
-            if (!string.IsNullOrEmpty(vm.ScriptView_Text))
+            if (!string.IsNullOrEmpty(vm.ScriptView_Text) &&
+                vm.ScriptView_Text != "Download Complete") // YouTube Download-Only
             {
                 // -------------------------
                 // Has Not Been Edited
@@ -6053,37 +6333,34 @@ namespace Axiom
             FFprobePath(vm);
 
             // -------------------------
-            // Ready Halts
-            // -------------------------
-            //ReadyHalts(vm);
-
-            // -------------------------
             // Start Script
             // -------------------------
-            //if (ready == true)
             if (ReadyHalts(vm) == true)
             {
                 // -------------------------
                 // Single
                 // -------------------------
-                if (tglBatch.IsChecked == false)
+                if (vm.Batch_IsChecked == false)
                 {
                     // -------------------------
                     // FFprobe Detect Metadata
                     // -------------------------
-                    FFprobe.Metadata(vm);
+                    //if (IsYouTube(vm.Input_Text) == false) // Ignore YouTube URL's
+                    //{
+                        FFprobe.Metadata(vm);
+                    //}
 
                     // -------------------------
                     // FFmpeg Generate Arguments (Single)
                     // -------------------------
-                    //disabled if batch
+                    // disabled if batch
                     FFmpeg.FFmpegSingleGenerateArgs(vm);
                 }
 
                 // -------------------------
                 // Batch
                 // -------------------------
-                else if (tglBatch.IsChecked == true)
+                else if (vm.Batch_IsChecked == true)
                 {
                     // -------------------------
                     // FFprobe Video Entry Type Containers
@@ -6115,7 +6392,7 @@ namespace Axiom
                 // -------------------------
                 // Auto Sort Toggle
                 // -------------------------
-                if (tglAutoSortScript.IsChecked == true)
+                if (vm.AutoSortScript_IsChecked == true)
                 {
                     Sort();
                 }
@@ -6308,7 +6585,7 @@ namespace Axiom
                 // -------------------------
                 // Single
                 // -------------------------
-                if (tglBatch.IsChecked == false)
+                if (vm.Batch_IsChecked == false)
                 {
                     // -------------------------
                     // FFprobe Detect Metadata
@@ -6325,7 +6602,7 @@ namespace Axiom
                 // -------------------------
                 // Batch
                 // -------------------------
-                else if (tglBatch.IsChecked == true)
+                else if (vm.Batch_IsChecked == true)
                 {
                     // -------------------------
                     // FFprobe Video Entry Type Containers
@@ -6353,7 +6630,7 @@ namespace Axiom
                 // Sort Script
                 // -------------------------
                 // Only if Auto Sort is enabled
-                if (tglAutoSortScript.IsChecked == true)
+                if (vm.AutoSortScript_IsChecked == true)
                 {
                     ScriptView.sort = false;
                     Sort();

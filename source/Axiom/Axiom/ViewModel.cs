@@ -24,6 +24,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Documents;
 // Disable XML Comment warnings
 #pragma warning disable 1591
@@ -73,6 +75,9 @@ namespace Axiom
             Video_EncodeSpeed_SelectedItem = "Medium";
             Format_HWAccel_SelectedItem = "off";
             Format_Cut_SelectedItem = "No";
+            Format_YouTube_SelectedItem = "Video + Audio";
+            Format_YouTube_Quality_SelectedItem = "best";
+            Format_YouTube_Method_SelectedItem = "Download";
 
             // -------------------------
             // Video
@@ -196,6 +201,16 @@ namespace Axiom
             FilterAudio_Headphones_SelectedItem = "disabled";
         }
 
+
+        // --------------------------------------------------------------------------------------------------------
+        /// <summary>
+        ///     Threads
+        /// </summary>
+        // --------------------------------------------------------------------------------------------------------
+        public Task youtubedlInputWorker = null;
+        //public Thread youtubedlInputWorker = null;
+        //public BackgroundWorker youtubedlInputWorker = null;
+        //public bool threadFinished = false;
 
         // --------------------------------------------------------------------------------------------------------
         /// <summary>
@@ -502,6 +517,11 @@ namespace Axiom
             new Preset() { Name = "MP3 Low",   Category = false },
             new Preset() { Name = "iTunes",    Category = false },
             new Preset() { Name = "Voice",     Category = false },
+
+            // YouTube
+            new Preset() { Name = "YouTube-DL",       Category = true  },
+            new Preset() { Name = "Video",      Category = false },
+            new Preset() { Name = "Music",         Category = false },
         };
 
         public List<Preset> Preset_Items
@@ -1413,6 +1433,219 @@ namespace Axiom
 
                 _Format_FrameEnd_IsEnabled = value;
                 OnPropertyChanged("Format_FrameEnd_IsEnabled");
+            }
+        }
+
+
+        // --------------------------------------------------
+        // YouTube
+        // --------------------------------------------------
+        // Items Source
+        private List<string> _Format_YouTube_Items = new List<string>()
+        {
+            "Video + Audio",
+            //"Video Only",
+            "Audio Only"
+        };
+        public List<string> Format_YouTube_Items
+        {
+            get { return _Format_YouTube_Items; }
+            set
+            {
+                _Format_YouTube_Items = value;
+                OnPropertyChanged("Format_YouTube_Items");
+            }
+        }
+
+        // Selected Index
+        private int _Format_YouTube_SelectedIndex { get; set; }
+        public int Format_YouTube_SelectedIndex
+        {
+            get { return _Format_YouTube_SelectedIndex; }
+            set
+            {
+                if (_Format_YouTube_SelectedIndex == value)
+                {
+                    return;
+                }
+
+                _Format_YouTube_SelectedIndex = value;
+                OnPropertyChanged("Format_YouTube_SelectedIndex");
+            }
+        }
+
+        // Selected Item
+        private string _Format_YouTube_SelectedItem { get; set; }
+        public string Format_YouTube_SelectedItem
+        {
+            get { return _Format_YouTube_SelectedItem; }
+            set
+            {
+                if (_Format_YouTube_SelectedItem == value)
+                {
+                    return;
+                }
+
+                _Format_YouTube_SelectedItem = value;
+                OnPropertyChanged("Format_YouTube_SelectedItem");
+            }
+        }
+
+        // Controls Enable
+        private bool _Format_YouTube_IsEnabled = true;
+        public bool Format_YouTube_IsEnabled
+        {
+            get { return _Format_YouTube_IsEnabled; }
+            set
+            {
+                if (_Format_YouTube_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _Format_YouTube_IsEnabled = value;
+                OnPropertyChanged("Format_YouTube_IsEnabled");
+            }
+        }
+
+
+        // --------------------------------------------------
+        // YouTube_Quality
+        // --------------------------------------------------
+        // Items Source
+        private List<string> _Format_YouTube_Quality_Items = new List<string>()
+        {
+            "best"
+        };
+        public List<string> Format_YouTube_Quality_Items
+        {
+            get { return _Format_YouTube_Quality_Items; }
+            set
+            {
+                _Format_YouTube_Quality_Items = value;
+                OnPropertyChanged("Format_YouTube_Quality_Items");
+            }
+        }
+
+        // Selected Index
+        private int _Format_YouTube_Quality_SelectedIndex { get; set; }
+        public int Format_YouTube_Quality_SelectedIndex
+        {
+            get { return _Format_YouTube_Quality_SelectedIndex; }
+            set
+            {
+                if (_Format_YouTube_Quality_SelectedIndex == value)
+                {
+                    return;
+                }
+
+                _Format_YouTube_Quality_SelectedIndex = value;
+                OnPropertyChanged("Format_YouTube_Quality_SelectedIndex");
+            }
+        }
+
+        // Selected Item
+        private string _Format_YouTube_Quality_SelectedItem { get; set; }
+        public string Format_YouTube_Quality_SelectedItem
+        {
+            get { return _Format_YouTube_Quality_SelectedItem; }
+            set
+            {
+                if (_Format_YouTube_Quality_SelectedItem == value)
+                {
+                    return;
+                }
+
+                _Format_YouTube_Quality_SelectedItem = value;
+                OnPropertyChanged("Format_YouTube_Quality_SelectedItem");
+            }
+        }
+
+        // Controls Enable
+        private bool _Format_YouTube_Quality_IsEnabled = true;
+        public bool Format_YouTube_Quality_IsEnabled
+        {
+            get { return _Format_YouTube_Quality_IsEnabled; }
+            set
+            {
+                if (_Format_YouTube_Quality_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _Format_YouTube_Quality_IsEnabled = value;
+                OnPropertyChanged("Format_YouTube_Quality_IsEnabled");
+            }
+        }
+
+
+        // --------------------------------------------------
+        // YouTube_Method
+        // --------------------------------------------------
+        // Items Source
+        private List<string> _Format_YouTube_Method_Items = new List<string>()
+        {
+            "Download",
+            "Convert"
+        };
+        public List<string> Format_YouTube_Method_Items
+        {
+            get { return _Format_YouTube_Method_Items; }
+            set
+            {
+                _Format_YouTube_Method_Items = value;
+                OnPropertyChanged("Format_YouTube_Method_Items");
+            }
+        }
+
+        // Selected Index
+        private int _Format_YouTube_Method_SelectedIndex { get; set; }
+        public int Format_YouTube_Method_SelectedIndex
+        {
+            get { return _Format_YouTube_Method_SelectedIndex; }
+            set
+            {
+                if (_Format_YouTube_Method_SelectedIndex == value)
+                {
+                    return;
+                }
+
+                _Format_YouTube_Method_SelectedIndex = value;
+                OnPropertyChanged("Format_YouTube_Method_SelectedIndex");
+            }
+        }
+
+        // Selected Item
+        private string _Format_YouTube_Method_SelectedItem { get; set; }
+        public string Format_YouTube_Method_SelectedItem
+        {
+            get { return _Format_YouTube_Method_SelectedItem; }
+            set
+            {
+                if (_Format_YouTube_Method_SelectedItem == value)
+                {
+                    return;
+                }
+
+                _Format_YouTube_Method_SelectedItem = value;
+                OnPropertyChanged("Format_YouTube_Method_SelectedItem");
+            }
+        }
+
+        // Controls Enable
+        private bool _Format_YouTube_Method_IsEnabled = true;
+        public bool Format_YouTube_Method_IsEnabled
+        {
+            get { return _Format_YouTube_Method_IsEnabled; }
+            set
+            {
+                if (_Format_YouTube_Method_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _Format_YouTube_Method_IsEnabled = value;
+                OnPropertyChanged("Format_YouTube_Method_IsEnabled");
             }
         }
 

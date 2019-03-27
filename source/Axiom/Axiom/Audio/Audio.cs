@@ -53,8 +53,10 @@ namespace Axiom
     public class Audio
     {
         // --------------------------------------------------------------------------------------------------------
-        // Variables
-        // --------------------------------------------------------------------------------------------------------
+        /// <summary>
+        ///     Global Variables
+        /// </summary>
+        /// --------------------------------------------------------------------------------------------------------
         // Audio
         public static string aCodec;
         public static string aBitMode; // -b:a, -q:a
@@ -73,11 +75,12 @@ namespace Axiom
         public static string batchAudioAuto;
 
 
+
         // --------------------------------------------------------------------------------------------------------
-        // --------------------------------------------------------------------------------------------------------
-        // Process Methods
-        // --------------------------------------------------------------------------------------------------------
-        // --------------------------------------------------------------------------------------------------------
+        /// <summary>
+        ///     Methods
+        /// </summary>
+        /// --------------------------------------------------------------------------------------------------------
 
         /// <summary>
         ///     Audio Codec
@@ -505,6 +508,14 @@ namespace Axiom
                         inputAudioBitrate = Convert.ToString(320); //was 320,000 before converting to decimal)
                     }
                     // -------------------------
+                    // AC3
+                    // -------------------------
+                    else if (codec_SelectedItem == "AC3" &&
+                             double.Parse(inputAudioBitrate) > 640)
+                    {
+                        inputAudioBitrate = Convert.ToString(640); //was 640,000 (before converting to decimal)
+                    }
+                    // -------------------------
                     // AAC
                     // -------------------------
                     else if (codec_SelectedItem == "AAC" &&
@@ -513,12 +524,12 @@ namespace Axiom
                         inputAudioBitrate = Convert.ToString(400); //was 400,000 (before converting to decimal)
                     }
                     // -------------------------
-                    // AC3
+                    // DTS
                     // -------------------------
-                    else if (codec_SelectedItem == "AC3" &&
-                             double.Parse(inputAudioBitrate) > 640)
+                    else if (codec_SelectedItem == "DTS" &&
+                             double.Parse(inputAudioBitrate) > 1509)
                     {
-                        inputAudioBitrate = Convert.ToString(640); //was 640,000 (before converting to decimal)
+                        inputAudioBitrate = Convert.ToString(1509); //was 640,000 (before converting to decimal)
                     }
 
                     // -------------------------
@@ -947,6 +958,11 @@ namespace Axiom
                     else if (codec_SelectedItem == "AC3")
                     {
                         aBitrateLimiter = "& (IF %A gtr 640000 (SET aBitrate=640000) ELSE (echo Bitrate within AC3 Limit of 640k)) & for /F %A in ('echo %aBitrate%') do (echo)";
+                    }
+                    // Limit DTS bitrate to 640k through cmd.exe
+                    else if (codec_SelectedItem == "DTS")
+                    {
+                        aBitrateLimiter = "& (IF %A gtr 1509000 (SET aBitrate=640000) ELSE (echo Bitrate within DTS Limit of 1509k)) & for /F %A in ('echo %aBitrate%') do (echo)";
                     }
                     // Limit MP2 bitrate to 384k through cmd.exe
                     else if (codec_SelectedItem == "MP2")

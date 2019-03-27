@@ -158,6 +158,33 @@ namespace Axiom
             }
 
             // -------------------------
+            // DTS
+            // -------------------------
+            else if (codec_SelectedItem == "DTS")
+            {
+                // Codec
+                DTS.Codec_Set(vm);
+
+                // Items Source
+                DTS.Controls_ItemsSource(vm);
+
+                // Selected Items
+                DTS.Controls_Selected(vm);
+
+                // Checked
+                DTS.Controls_Checked(vm);
+
+                // Unhecked
+                DTS.Controls_Unhecked(vm);
+
+                // Enabled
+                DTS.Controls_Enable(vm);
+
+                // Disabled
+                DTS.Controls_Disable(vm);
+            }
+
+            // -------------------------
             // MP2
             // -------------------------
             else if (codec_SelectedItem == "MP2")

@@ -59,7 +59,7 @@ namespace Axiom
                 {
                     //ffplay,
 
-                    "-i " + "\"" + MainWindow.InputPath(vm) + "\"",
+                    "-i " + "\"" + MainWindow.InputPath(vm, "pass 1") + "\"",
 
                     Subtitle.SubtitlesExternal(vm.Subtitle_Codec_SelectedItem,
                                                vm.Subtitle_Stream_SelectedItem

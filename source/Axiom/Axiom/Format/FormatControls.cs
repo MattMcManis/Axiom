@@ -438,6 +438,9 @@ namespace Axiom
                 // -------------------------
                 // Format
                 // -------------------------
+                // Hardware Acceleration
+                vm.Format_HWAccel_IsEnabled = true;
+
                 // Cut
                 // Change if coming back from JPEG, PNG, WebP
                 if (vm.Format_CutStart_IsEnabled == true &&
@@ -445,6 +448,9 @@ namespace Axiom
                 {
                     vm.Format_Cut_SelectedItem = "No";
                 }
+
+                // YouTube
+                vm.Format_YouTube_SelectedItem = "Video + Audio";
 
                 // -------------------------
                 // Video
@@ -503,6 +509,10 @@ namespace Axiom
                 // -------------------------
                 // Format
                 // -------------------------
+                // Hardware Acceleration
+                vm.Format_HWAccel_IsEnabled = false;
+                vm.Format_HWAccel_SelectedItem = "off";
+
                 // Cut
                 // Change if coming back from JPEG, PNG, WebP
                 if (vm.Format_CutStart_IsEnabled == true &&
@@ -510,6 +520,9 @@ namespace Axiom
                 {
                     vm.Format_Cut_SelectedItem = "No";
                 }
+
+                // YouTube
+                vm.Format_YouTube_SelectedItem = "Audio Only";
 
                 // Frame
                 vm.Format_FrameEnd_IsEnabled = false;
@@ -587,6 +600,9 @@ namespace Axiom
                 // -------------------------
                 // Format
                 // -------------------------
+                // Hardware Acceleration
+                vm.Format_HWAccel_IsEnabled = true;
+
                 // Cut
                 // Enable Cut Start Time for Frame Selection
                 vm.Format_Cut_SelectedItem = "Yes";
@@ -610,6 +626,10 @@ namespace Axiom
                 // Frame
                 vm.Format_FrameEnd_IsEnabled = false;
                 vm.Format_FrameEnd_Text = "";
+
+                // YouTube
+                vm.Format_YouTube_SelectedItem = "Video + Audio";
+
 
                 // -------------------------
                 // Video
@@ -689,6 +709,9 @@ namespace Axiom
                 // -------------------------
                 // Format
                 // -------------------------
+                // Hardware Acceleration
+                vm.Format_HWAccel_IsEnabled = true;
+
                 // Cut
                 // Change if coming back from Image
                 if (vm.Format_CutStart_IsEnabled == true &&
@@ -696,6 +719,10 @@ namespace Axiom
                 {
                     vm.Format_Cut_SelectedItem = "No";
                 }
+
+                // YouTube
+                vm.Format_YouTube_SelectedItem = "Video + Audio";
+
 
                 // -------------------------
                 // Video

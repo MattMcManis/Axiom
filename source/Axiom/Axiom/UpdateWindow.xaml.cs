@@ -40,8 +40,6 @@ namespace Axiom
     /// </summary>
     public partial class UpdateWindow : Window
     {
-        // Windows AppData Temp Directory
-        public static string tempDir = Path.GetTempPath();
         // Axiom Exe Current Directory
         //public static string currentDir = Directory.GetCurrentDirectory().TrimEnd('\\') + @"\";
 
@@ -154,7 +152,7 @@ namespace Axiom
                 //Async
                 wc.DownloadProgressChanged += new DownloadProgressChangedEventHandler(wc_DownloadProgressChanged);
                 wc.DownloadFileCompleted += new AsyncCompletedEventHandler(wc_DownloadFileCompleted);
-                wc.DownloadFileAsync(url, tempDir + "Axiom.zip");
+                wc.DownloadFileAsync(url, MainWindow.tempDir + "Axiom.zip");
 
                 // Progress Info
                 progressInfo = "Downloading Axiom...";
@@ -181,12 +179,12 @@ namespace Axiom
                     "timeout 3;",
                     // Extract
                     "$shell = new-object -com shell.application;",
-                    "$zip = $shell.NameSpace('" + tempDir + "Axiom.zip');",
+                    "$zip = $shell.NameSpace('" + MainWindow.tempDir + "Axiom.zip');",
                     //"foreach ($item in $zip.items()) {$shell.Namespace('" + MainWindow.appDir + "').CopyHere($item, 0x14)};", //all files
                     "foreach ($item in $zip.items()) {$name = [string]$item.Name; if ($name -match 'Axiom.exe') {$shell.Namespace('" + MainWindow.appDir + "').CopyHere($item, 0x14)}};",
                     // Delete Temp
                     "Write-Host \"`nDeleting Temp File\";",
-                    "del " + "\"" + tempDir + "Axiom.zip" + "\";",
+                    "del " + "\"" + MainWindow.tempDir + "Axiom.zip" + "\";",
                     // Complete
                     "Write-Host \"`nUpdate Complete. Relaunching Axiom.\";",
                     "timeout 3;",

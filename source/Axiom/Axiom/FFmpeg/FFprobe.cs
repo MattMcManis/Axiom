@@ -320,8 +320,8 @@ namespace Axiom
             if (vm.Batch_IsChecked == false)
             {
                 // These file types need special instructions for FFprobe to detect
-                if (string.Equals(MainWindow.inputExt, ".flac", StringComparison.CurrentCultureIgnoreCase)
-                    || string.Equals(MainWindow.inputExt, ".wav", StringComparison.CurrentCultureIgnoreCase))
+                if (string.Equals(MainWindow.inputExt, ".flac", StringComparison.CurrentCultureIgnoreCase) ||
+                    string.Equals(MainWindow.inputExt, ".wav", StringComparison.CurrentCultureIgnoreCase))
                 {
                     aEntryType = "format=bit_rate";
                 }
