@@ -1927,7 +1927,7 @@ namespace Axiom
                     {
                         string url = vm.Input_Text;
 
-                        string downloadArgs = "-f " + quality + " " + "\"" + url + "\"" + " -o " + "\"" + input + "\"" + " --merge-output-format " + format;
+                        string downloadArgs = "-f " + quality + " " + "\"" + url + "\"" + " -o " + "\"" + input + "\""/* + " --merge-output-format " + format*/;
 
                         //try
                         //{
