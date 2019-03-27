@@ -4,6 +4,19 @@ Axiom FFmpeg UI
 
 ## [alpha]
 
+## [1.6.0.0] - Mar 27, 2019
+### Added
+- YouTube Download `youtube-dl`
+- Audio Codec `DTS`
+- New Presets
+
+### Changed
+- Moved Encode Speed and HW Accel to Video Tab
+
+### Fixed
+- Fixed Video Scaling Algorithm auto
+
+
 ## [1.5.9.1] - Mar 24, 2019
 ### Changed
 - Improved Presets
