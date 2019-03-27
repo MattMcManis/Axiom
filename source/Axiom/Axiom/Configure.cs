@@ -166,6 +166,49 @@ namespace Axiom
             }
         }
 
+
+        /// <summary>
+        ///     Load youtubedl Path
+        /// </summary>
+        public static void LoadyoutubedlPath(ViewModel vm)
+        {
+            // --------------------------------------------------
+            // Safeguard Against Corrupt Saved Settings
+            // --------------------------------------------------
+            try
+            {
+                // --------------------------
+                // First time use
+                // --------------------------
+                if (string.IsNullOrEmpty(Settings.Default.youtubedlPath.ToString()))
+                {
+                    //ffplayPath = "<auto>";
+
+                    // Set ComboBox if Configure Window is Open
+                    vm.youtubedlPath_Text = "<auto>";
+
+                    // Save for next launch
+                    Settings.Default.youtubedlPath = vm.youtubedlPath_Text;
+                    Settings.Default.Save();
+                }
+                // --------------------------
+                // Load Saved Settings Override
+                // --------------------------
+                else if (!string.IsNullOrEmpty(Settings.Default.youtubedlPath.ToString())) // null check
+                {
+                    //ffplayPath = Settings.Default.youtubedlPath.ToString();
+
+                    // Set ComboBox if Configure Window is Open
+                    vm.youtubedlPath_Text = Settings.Default.youtubedlPath.ToString();
+                }
+            }
+            catch
+            {
+
+            }
+        }
+
+
         /// <summary>
         ///     Load Log Checkbox
         /// </summary>
@@ -369,6 +412,31 @@ namespace Axiom
 
                 // Save WinRAR Path for next launch
                 Settings.Default.FFplayPath = vm.FFplayPath_Text;
+                Settings.Default.Save();
+                Settings.Default.Reload();
+            }
+        }
+
+
+        // --------------------------------------------------
+        // youtube-dl Folder Browser Dialog
+        // --------------------------------------------------
+        public static void youtubedlFolderBrowser(ViewModel vm)
+        {
+            var OpenFileDialog = new System.Windows.Forms.OpenFileDialog();
+            System.Windows.Forms.DialogResult result = OpenFileDialog.ShowDialog();
+
+            // Popup Folder Browse Window
+            if (result == System.Windows.Forms.DialogResult.OK)
+            {
+                // Display Folder Path in Textbox
+                vm.youtubedlPath_Text = OpenFileDialog.FileName;
+
+                // Set the ffmpegPath string
+                //ffmpegPath = vm.youtubedlPath_Text;
+
+                // Save 7-zip Path for next launch
+                Settings.Default.youtubedlPath = vm.youtubedlPath_Text;
                 Settings.Default.Save();
                 Settings.Default.Reload();
             }

@@ -250,5 +250,17 @@ namespace Axiom.Properties {
                 this["Log_IsChecked"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string youtubedlPath {
+            get {
+                return ((string)(this["youtubedlPath"]));
+            }
+            set {
+                this["youtubedlPath"] = value;
+            }
+        }
     }
 }

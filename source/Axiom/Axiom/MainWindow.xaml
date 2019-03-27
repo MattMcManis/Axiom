@@ -4525,6 +4525,7 @@
                                 <RowDefinition Height="33"/>
                                 <RowDefinition Height="33"/>
                                 <RowDefinition Height="33"/>
+                                <RowDefinition Height="33"/>
                                 <RowDefinition Height="22"/>
                                 <RowDefinition Height="33"/>
                                 <RowDefinition Height="33"/>
@@ -4537,7 +4538,7 @@
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="15"/>
-                                <ColumnDefinition Width="65"/>
+                                <ColumnDefinition Width="68"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
 
@@ -4547,7 +4548,9 @@
                                    HorizontalAlignment="Left" 
                                    VerticalAlignment="Top"
                                    Height="26" 
-                                   ToolTip="Path to FFmpeg.exe" Grid.Column="1" Width="56"/>
+                                   ToolTip="Path to FFmpeg.exe" 
+                                   Grid.Column="1"
+                                   Width="56"/>
                             <TextBox x:Name="tbxFFmpegPathConfig" 
                                      Text="{Binding FFmpegPath_Text, Mode=TwoWay}"
                                      IsEnabled="{Binding FFmpegPath_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -4588,7 +4591,10 @@
                                    HorizontalAlignment="Left" 
                                    VerticalAlignment="Top"
                                    Height="26" 
-                                   ToolTip="Path to FFprobe.exe" Grid.Row="1" Grid.Column="1" Width="56"/>
+                                   ToolTip="Path to FFprobe.exe" 
+                                   Grid.Row="1" 
+                                   Grid.Column="1" 
+                                   Width="56"/>
                             <TextBox x:Name="tbxFFprobePathConfig" 
                                      Text="{Binding FFprobePath_Text, Mode=TwoWay}"
                                      IsEnabled="{Binding FFprobePath_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -4631,7 +4637,9 @@
                                    VerticalAlignment="Top"
                                    Height="26" 
                                    ToolTip="Path to FFplay.exe"
-                                   Grid.Row="2" Grid.Column="1" Width="56"/>
+                                   Grid.Row="2"
+                                   Grid.Column="1" 
+                                   Width="56"/>
                             <TextBox x:Name="textBoxFFplayPathConfig" 
                                      Text="{Binding FFplayPath_Text, Mode=TwoWay}"
                                      IsEnabled="{Binding FFplayPath_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -4669,6 +4677,55 @@
                                            Style="{DynamicResource ButtonRevertArrow}" />
                             </Button>
 
+                            <!-- youtube-dl Path TextBox -->
+                            <Label Style="{DynamicResource LabelCustom}" 
+                                   Content="youtube-dl" 
+                                   HorizontalAlignment="Left" 
+                                   VerticalAlignment="Top"
+                                   Height="26" 
+                                   ToolTip="Path to youtube-dl.exe"
+                                   Grid.Row="3" 
+                                   Grid.Column="1" 
+                                   Width="70" 
+                                   Grid.ColumnSpan="2"/>
+                            <TextBox x:Name="textBoxyoutubedlPathConfig" 
+                                     Text="{Binding youtubedlPath_Text, Mode=TwoWay}"
+                                     IsEnabled="{Binding youtubedlPath_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                     Style="{DynamicResource TextBoxBrowseCustom}"
+                                     HorizontalAlignment="Left" 
+                                     Height="20"
+                                     Margin="10,2,0,0" 
+                                     TextWrapping="Wrap" 
+                                     VerticalAlignment="Top"
+                                     Width="105"
+                                     IsReadOnly="True" 
+                                     PreviewMouseDown="tbxyoutubedlPath_PreviewMouseDown"
+                                     ToolTip="Path to youtubedl.exe" 
+                                     Grid.Column="2" 
+                                     Grid.Row="3"/>
+
+                            <!-- youtubedl Path Revert Button -->
+                            <Button x:Name="btnyoutubedlAuto"
+                                            HorizontalAlignment="Left"
+                                            Margin="122,1,0,0" 
+                                            VerticalAlignment="Top"
+                                            Width="23" 
+                                            Height="23" 
+                                            Cursor="Hand"
+                                            ToolTip="Revert to Auto"
+                                            Click="btnyoutubedlAuto_Click"
+                                            Style="{DynamicResource ButtonFolderCustom}" 
+                                            Grid.Column="2" 
+                                            Grid.Row="3" >
+                                <Image Width="9" 
+                                           Height="11" 
+                                           Stretch="Uniform"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center" 
+                                           Style="{DynamicResource ButtonRevertArrow}" />
+                            </Button>
+                            
+
                             <!-- Log Path TextBox -->
                             <Label x:Name="labelLogConfig" 
                                    Style="{DynamicResource LabelCustom}" 
@@ -4677,7 +4734,9 @@
                                    VerticalAlignment="Top"
                                    Height="26" 
                                    ToolTip="Path to Save Log" 
-                                   Grid.Row="3" Grid.Column="1" Width="36"/>
+                                   Grid.Row="4"
+                                   Grid.Column="1" 
+                                   Width="36"/>
                             <TextBox x:Name="textBoxLogConfig" 
                                      Text="{Binding LogPath_Text, Mode=TwoWay}"
                                      IsEnabled="{Binding LogPath_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -4693,7 +4752,7 @@
                                      ToolTipService.ShowOnDisabled="True" 
                                      ToolTip="Path to save output log." 
                                      Grid.Column="2" 
-                                     Grid.Row="3"/>
+                                     Grid.Row="4"/>
 
                             <!-- Log Revert Button -->
                             <Button x:Name="btnLogAuto" 
@@ -4707,7 +4766,7 @@
                                     Click="btnLogAuto_Click" 
                                     Style="{DynamicResource ButtonFolderCustom}" 
                                     Grid.Column="2"
-                                    Grid.Row="3">
+                                    Grid.Row="4">
                                 <Image Width="9"
                                        Height="11" 
                                        Stretch="Uniform" 
@@ -4728,7 +4787,8 @@
                                       Checked="cbxLog_Checked" 
                                       Unchecked="cbxLog_Unchecked" 
                                       Style="{DynamicResource CheckBoxCustom}" 
-                                      Grid.Row="3" Grid.Column="1"/>
+                                      Grid.Row="4" 
+                                      Grid.Column="1"/>
 
                             <!-- Threads -->
                             <Label x:Name="labelThreads"
@@ -4738,7 +4798,8 @@
                                    VerticalAlignment="Top" 
                                    Height="26" 
                                    ToolTip="Path to Save Log"
-                                   Grid.Row="5" Grid.Column="1"/>
+                                   Grid.Row="6" 
+                                   Grid.Column="1"/>
                             <ComboBox x:Name="cboThreads"
                                       ItemsSource="{Binding Threads_Items}"
                                       SelectedIndex="{Binding Threads_SelectedIndex}"
@@ -4753,7 +4814,7 @@
                                       SelectionChanged="threadSelect_SelectionChanged" 
                                       KeyDown="threadSelect_KeyDown" 
                                       Grid.Column="2"
-                                      Grid.Row="5" 
+                                      Grid.Row="6" 
                                       Margin="10,2,0,0"/>
 
                             <!-- Theme -->
@@ -4764,7 +4825,7 @@
                                    VerticalAlignment="Top"
                                    Height="26" 
                                    ToolTip="Path to Save Log" 
-                                   Grid.Row="6" 
+                                   Grid.Row="7" 
                                    Grid.Column="1"/>
                             <ComboBox x:Name="cboTheme" 
                                       ItemsSource="{Binding Theme_Items}"
@@ -4779,7 +4840,7 @@
                                       IsTextSearchEnabled="False"
                                       SelectionChanged="themeSelect_SelectionChanged" 
                                       Grid.Column="2" 
-                                      Grid.Row="6"
+                                      Grid.Row="7"
                                       Margin="10,2,0,0"/>
 
                             <!-- Check for Updates -->
@@ -4789,7 +4850,8 @@
                                    VerticalAlignment="Top"
                                    Height="26" 
                                    ToolTip="Path to Save Log" 
-                                   Grid.Row="8" Grid.Column="1"/>
+                                   Grid.Row="9" 
+                                   Grid.Column="1"/>
                             <!-- Window Toggle  -->
                             <ToggleButton x:Name="tglUpdateAutoCheck"
                                           IsChecked="{Binding UpdateAutoCheck_IsChecked}"
@@ -4804,7 +4866,7 @@
                                           Checked="tglUpdateAutoCheck_Checked"
                                           Unchecked="tglUpdateAutoCheck_Unchecked"
                                           Grid.Column="2" 
-                                          Grid.Row="8" 
+                                          Grid.Row="9" 
                                           Margin="10,2,0,0">
                                 <TextBlock x:Name="tblkUpdatesAutoCheck" 
                                            Style="{DynamicResource TextBlockCustom}" 
@@ -4818,7 +4880,7 @@
                                    Height="26" 
                                    ToolTip="Path to Save Log" 
                                     Grid.Column="2" 
-                                    Grid.Row="8" 
+                                    Grid.Row="9" 
                                     Margin="73,0,0,0"/>
 
                             <!-- Reset Saved Settings -->
@@ -4827,7 +4889,8 @@
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Top" 
                                    Height="26" 
-                                   Grid.Row="10" Grid.Column="1" />
+                                   Grid.Row="11" 
+                                   Grid.Column="1" />
 
                             <!-- Reset Saved Settings Button -->
                             <Button x:Name="btnClearAllSavedSettings"
@@ -4841,7 +4904,8 @@
                                     Click="btnClearAllSavedSettings_Click" 
                                     Style="{DynamicResource ButtonSmallCustom}" 
                                     Grid.Column="2" 
-                                    Grid.Row="10" Margin="10,2,0,0">
+                                    Grid.Row="11" 
+                                    Margin="10,2,0,0">
                                 <TextBlock Style="{DynamicResource TextBlockCustom}" 
                                            Text="Reset" 
                                            Margin="0,-1,0,0"/>
@@ -4860,7 +4924,7 @@
                                     Style="{DynamicResource ButtonSmallCustom}" 
                                     Click="btnDeleteSettings_Click" 
                                     Grid.Column="2" 
-                                    Grid.Row="10">
+                                    Grid.Row="11">
                                 <TextBlock Style="{DynamicResource TextBlockCustom}" 
                                            Text="Delete" 
                                            Margin="0,-1,0,0"/>

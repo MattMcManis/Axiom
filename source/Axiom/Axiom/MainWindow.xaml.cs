@@ -77,6 +77,9 @@ namespace Axiom
         public static string appDir = AppDomain.CurrentDomain.BaseDirectory.TrimEnd('\\') + @"\"; // Axiom.exe directory
         public static string tempDir = Path.GetTempPath(); // Windows AppData Temp Directory
 
+        // Programs
+        public static string youtubedl; // youtube-dl.exe
+
         // Input
         public static string inputDir; // Input File Directory
         public static string inputFileName; // (eg. myvideo.mp4 = myvideo)
@@ -403,6 +406,16 @@ namespace Axiom
             Log.logParagraph.Inlines.Add(new LineBreak());
             Log.logParagraph.Inlines.Add(new Bold(new Run("FFplay: ")) { Foreground = Log.ConsoleDefault });
             Log.logParagraph.Inlines.Add(new Run(vm.FFplayPath_Text) { Foreground = Log.ConsoleDefault });
+
+            // -------------------------
+            // Load youtube-dl.exe Path
+            // -------------------------
+            Configure.LoadyoutubedlPath(vm);
+
+            // Log Console Message /////////
+            Log.logParagraph.Inlines.Add(new LineBreak());
+            Log.logParagraph.Inlines.Add(new Bold(new Run("youtube-dl: ")) { Foreground = Log.ConsoleDefault });
+            Log.logParagraph.Inlines.Add(new Run(vm.youtubedlPath_Text) { Foreground = Log.ConsoleDefault });
 
             // -------------------------
             // Load Log Enabled
@@ -993,6 +1006,34 @@ namespace Axiom
             Settings.Default.Reload();
         }
 
+
+        // --------------------------------------------------
+        // youtubedl Path - Textbox
+        // --------------------------------------------------
+        private void tbxyoutubedlPath_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Configure.youtubedlFolderBrowser(vm);
+        }
+
+
+        // --------------------------------------------------
+        // youtubedl Auto Path - Button
+        // --------------------------------------------------
+        private void btnyoutubedlAuto_Click(object sender, RoutedEventArgs e)
+        {
+            // Set the ffmpegPath string
+            //Configure.ffmpegPath = "<auto>";
+
+            // Display Folder Path in Textbox
+            vm.youtubedlPath_Text = "<auto>";
+
+            // youtubedl Path path for next launch
+            Settings.Default.youtubedlPath = "<auto>";
+            Settings.Default.Save();
+            Settings.Default.Reload();
+        }
+
+
         // --------------------------------------------------
         // Log Checkbox - Checked
         // --------------------------------------------------
@@ -1181,6 +1222,10 @@ namespace Axiom
 
             // Revert FFplay
             vm.FFplayPath_Text = "<auto>";
+            //Configure.ffprobePath = vm.FFplayPath_Text;
+
+            // Revert youtube-dl
+            vm.youtubedlPath_Text = "<auto>";
             //Configure.ffprobePath = vm.FFplayPath_Text;
 
             // Revert Log
@@ -1569,12 +1614,12 @@ namespace Axiom
             // If Configure FFprobe Path is <auto>
             if (vm.FFplayPath_Text == "<auto>")
             {
-                if (File.Exists(appDir + "ffmpeg\\bin\\ffplay.exe"))
+                if (File.Exists(appDir + @"ffmpeg\bin\ffplay.exe"))
                 {
                     // use included binary
-                    FFplay.ffplay = "\"" + appDir + "ffmpeg\\bin\\ffplay.exe" + "\"";
+                    FFplay.ffplay = "\"" + appDir + @"ffmpeg\bin\ffplay.exe" + "\"";
                 }
-                else if (!File.Exists(appDir + "ffmpeg\\bin\\ffplay.exe"))
+                else if (!File.Exists(appDir + @"ffmpeg\bin\ffplay.exe"))
                 {
                     // use system installed binaries
                     FFplay.ffplay = "ffplay";
@@ -1589,6 +1634,34 @@ namespace Axiom
             // Return Value
             //return FFplay.ffplay;
         }
+
+
+        /// <remarks>
+        ///     youtube-dl Path
+        /// </remarks>
+        public static void youtubedlPath(ViewModel vm)
+        {
+            // If Configure youtubedl Path is <auto>
+            if (vm.youtubedlPath_Text == "<auto>")
+            {
+                if (File.Exists(appDir + @"youtube-dl\youtube-dl.exe"))
+                {
+                    // use included binary
+                    youtubedl = appDir + @"youtube-dl\youtube-dl.exe";
+                }
+                else if (!File.Exists(appDir + @"youtube-dl\youtube-dl.exe"))
+                {
+                    // use system installed binaries
+                    youtubedl = @"youtube-dl";
+                }
+            }
+            // Use User Custom Path
+            else
+            {
+                youtubedl = vm.youtubedlPath_Text;
+            }
+        }
+
 
 
         /// <summary>
@@ -1676,7 +1749,8 @@ namespace Axiom
         {
             bool ready = false;
 
-            if (File.Exists(appDir + @"youtube-dl\youtube-dl.exe"))
+            //if (File.Exists(appDir + @"youtube-dl\youtube-dl.exe"))
+            if (File.Exists(youtubedl))
             {
                 return true;
             }
@@ -1723,7 +1797,7 @@ namespace Axiom
                                 parseTitle.StartInfo.StandardOutputEncoding = Encoding.UTF8;
                                 parseTitle.StartInfo.RedirectStandardError = true;
                                 parseTitle.StartInfo.StandardErrorEncoding = Encoding.UTF8;
-                                parseTitle.StartInfo.FileName = appDir + @"youtube-dl\youtube-dl.exe";
+                                parseTitle.StartInfo.FileName = youtubedl;
                                 parseTitle.StartInfo.Arguments = titleArgs;
 
                                 parseTitle.Start();
@@ -1791,7 +1865,7 @@ namespace Axiom
             // Error
             else
             {
-                MessageBox.Show("\"" + appDir + "youtube-dl\\youtube-dl.exe\" could not be found.",
+                MessageBox.Show(youtubedl + " could not be found.",
                 "Error",
                 MessageBoxButton.OK,
                 MessageBoxImage.Error);
@@ -1864,7 +1938,7 @@ namespace Axiom
                             //youtubedlDownload.StartInfo.CreateNoWindow = true;
                             youtubedlDownload.StartInfo.RedirectStandardOutput = false;
                             youtubedlDownload.StartInfo.RedirectStandardError = false;
-                            youtubedlDownload.StartInfo.FileName = appDir + @"youtube-dl\youtube-dl.exe";
+                            youtubedlDownload.StartInfo.FileName = youtubedl;
                             youtubedlDownload.StartInfo.Arguments = downloadArgs;
 
                             youtubedlDownload.Start();
@@ -6333,6 +6407,11 @@ namespace Axiom
             FFprobePath(vm);
 
             // -------------------------
+            // Set youtube-dl Path
+            // -------------------------
+            youtubedlPath(vm);
+
+            // -------------------------
             // Start Script
             // -------------------------
             if (ReadyHalts(vm) == true)
@@ -6541,6 +6620,11 @@ namespace Axiom
             // Set FFprobe Path
             // -------------------------
             FFprobePath(vm);
+
+            // -------------------------
+            // Set youtube-dl Path
+            // -------------------------
+            youtubedlPath(vm);
 
             // -------------------------
             // Ready Halts

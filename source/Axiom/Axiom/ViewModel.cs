@@ -3991,6 +3991,43 @@ namespace Axiom
 
 
         // -------------------------
+        // youtubedl Path
+        // -------------------------
+        // Text
+        private string _youtubedlPath_Text;
+        public string youtubedlPath_Text
+        {
+            get { return _youtubedlPath_Text; }
+            set
+            {
+                if (_youtubedlPath_Text == value)
+                {
+                    return;
+                }
+
+                _youtubedlPath_Text = value;
+                OnPropertyChanged("youtubedlPath_Text");
+            }
+        }
+        // Enabled
+        private bool _youtubedlPath_IsEnabled = true;
+        public bool youtubedlPath_IsEnabled
+        {
+            get { return _youtubedlPath_IsEnabled; }
+            set
+            {
+                if (_youtubedlPath_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _youtubedlPath_IsEnabled = value;
+                OnPropertyChanged("youtubedlPath_IsEnabled");
+            }
+        }
+
+
+        // -------------------------
         // Log Path
         // -------------------------
         // Text

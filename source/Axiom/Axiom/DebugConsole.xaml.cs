@@ -175,6 +175,11 @@ namespace Axiom
             MainWindow.FFprobePath(vm);
 
             // -------------------------
+            // Set youtube-dl Path
+            // -------------------------
+            MainWindow.youtubedlPath(vm);
+
+            // -------------------------
             // Ready Halts
             // -------------------------
             //MainWindow.ReadyHalts(vm);
