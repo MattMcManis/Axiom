@@ -4,6 +4,21 @@ Axiom FFmpeg UI
 
 ## [alpha]
 
+## [1.6.1.0] - Mar 28, 2019
+### Added
+- Drag and Drop to Settings Program Paths
+- Audio Compression Level ComboBox
+
+### Changed
+- Improved YouTube Download
+- Improved Tooltips
+- Refactoring x:Names
+- Styled Sliders
+
+### Fixed
+- Batch Input Error
+
+
 ## [1.6.0.0] - Mar 27, 2019
 ### Added
 - YouTube Download `youtube-dl`

@@ -70,6 +70,17 @@ Axiom is portable and can be run from any location on the computer.
 
 <a href="https://raw.githubusercontent.com/MattMcManis/Axiom/master/images/guide/Environment-Variables.png" target="_blank"><img src="https://raw.githubusercontent.com/MattMcManis/Axiom/master/images/guide/Environment-Variables.png" width="500"/></a> 
 
+#### YouTube Download
+`youtube-dl.exe` is included in `Axiom.FFmpeg.7z`. 
+
+`Axiom` will auto-detect it in its included folder, or you can specify a custom path in the Axiom Settings Tab.  
+Note: `youtube-dl` may not work correctly if located in `C:\Program Files\` due to Administrator Privileges.
+
+1. Paste a YouTube URL into the Input TextBox
+2. To Download the file without Converting, select Preset: YouTube-DL → Video or Music, Press Convert
+3. To Download and Convert, select any Presets or Settings you need and Press Convert 
+4. To Generate a Batch Script without Downloading, select any Settings you need and Press Script
+
 &nbsp;
 
 ## Build
