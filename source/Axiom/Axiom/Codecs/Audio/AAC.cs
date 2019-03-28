@@ -61,6 +61,17 @@ namespace Axiom
         // ---------------------------------------------------------------------------
 
         // -------------------------
+        // Channel
+        // -------------------------
+        public static List<string> channel = new List<string>()
+        {
+            "Source",
+            "Mono",
+            "Stereo",
+            "5.1"
+        };
+
+        // -------------------------
         // Quality
         // -------------------------
         public static List<ViewModel.AudioQuality> quality = new List<ViewModel.AudioQuality>()
@@ -79,14 +90,11 @@ namespace Axiom
         };
 
         // -------------------------
-        // Channel
+        // Compression Level
         // -------------------------
-        public static List<string> channel = new List<string>()
+        public static List<string> compressionLevel = new List<string>()
         {
-            "Source",
-            "Stereo",
-            "Mono",
-            "5.1"
+            "auto"
         };
 
         // -------------------------
@@ -95,6 +103,7 @@ namespace Axiom
         public static List<ViewModel.AudioSampleRate> sampleRate = new List<ViewModel.AudioSampleRate>()
         {
              new ViewModel.AudioSampleRate() { Name = "auto",     Frequency = "" },
+             new ViewModel.AudioSampleRate() { Name = "7.35k",       Frequency = "7350" },
              new ViewModel.AudioSampleRate() { Name = "8k",       Frequency = "8000" },
              new ViewModel.AudioSampleRate() { Name = "11.025k",  Frequency = "11025" },
              new ViewModel.AudioSampleRate() { Name = "12k",      Frequency = "12000" },
@@ -125,11 +134,14 @@ namespace Axiom
         // -------------------------
         public static void Controls_ItemsSource(ViewModel vm)
         {
+            // Channel
+            vm.Audio_Channel_Items = channel;
+
             // Quality
             vm.Audio_Quality_Items = quality;
 
-            // Channel
-            vm.Audio_Channel_Items = channel;
+            // Compression Level
+            vm.Audio_CompressionLevel_Items = compressionLevel;
 
             // Samplerate
             vm.Audio_SampleRate_Items = sampleRate;
@@ -145,6 +157,9 @@ namespace Axiom
         {
 
             //vm.Audio_Stream_SelectedItem = "all";
+
+            // Compression Level
+            vm.Audio_CompressionLevel_SelectedItem = "auto";
         }
 
         // -------------------------
@@ -196,6 +211,9 @@ namespace Axiom
         // -------------------------
         public static void Controls_Disable(ViewModel vm)
         {
+            // Compression Level
+            vm.Audio_CompressionLevel_IsEnabled = false;
+
             // Bit Depth
             vm.Audio_BitDepth_IsEnabled = false;
         }

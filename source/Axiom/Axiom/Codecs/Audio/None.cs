@@ -44,6 +44,14 @@ namespace Axiom
         // ---------------------------------------------------------------------------
 
         // -------------------------
+        // Channel
+        // -------------------------
+        public static List<string> channel = new List<string>()
+        {
+            "none"
+        };
+
+        // -------------------------
         // Quality
         // -------------------------
         public static List<ViewModel.AudioQuality> quality = new List<ViewModel.AudioQuality>()
@@ -52,11 +60,11 @@ namespace Axiom
         };
 
         // -------------------------
-        // Channel
+        // Compression Level
         // -------------------------
-        public static List<string> channel = new List<string>()
+        public static List<string> compressionLevel = new List<string>()
         {
-            "Source"
+            "none"
         };
 
         // -------------------------
@@ -86,11 +94,14 @@ namespace Axiom
         // -------------------------
         public static void Controls_ItemsSource(ViewModel vm)
         {
+            // Channel
+            vm.Audio_Channel_Items = channel;
+
             // Quality
             vm.Audio_Quality_Items = quality;
 
-            // Channel
-            vm.Audio_Channel_Items = channel;
+            // Compression Level
+            vm.Audio_CompressionLevel_Items = compressionLevel;
 
             // Samplerate
             vm.Audio_SampleRate_Items = sampleRate;
@@ -105,6 +116,9 @@ namespace Axiom
         public static void Controls_Selected(ViewModel vm)
         {
             //vm.Audio_Stream_SelectedItem = "all";
+
+            // Compression Level
+            vm.Audio_CompressionLevel_SelectedItem = "none";
         }
 
         // -------------------------
@@ -152,6 +166,9 @@ namespace Axiom
 
             // VBR Button
             vm.Audio_VBR_IsEnabled = false;
+
+            // Compression Level
+            vm.Audio_CompressionLevel_IsEnabled = false;
 
             // SampleRate
             vm.Audio_SampleRate_IsEnabled = false;

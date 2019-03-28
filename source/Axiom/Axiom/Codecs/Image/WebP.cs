@@ -103,10 +103,6 @@ namespace Axiom
         // -------------------------
         // Pass
         // -------------------------
-        //public static List<string> pass = new List<string>()
-        //{
-        //    "1 Pass"
-        //};
         public static void EncodingPass(ViewModel vm)
         {
             // -------------------------
@@ -265,12 +261,14 @@ namespace Axiom
         // -------------------------
         public static void Controls_Selected(ViewModel vm)
         {
-
             // Pixel Format
             vm.Video_PixelFormat_SelectedItem = "yuva420p";
 
             // Framerate
             vm.Video_FPS_SelectedItem = "auto";
+
+            // Channel
+            vm.Audio_Channel_SelectedItem = "none";
         }
 
         // -------------------------

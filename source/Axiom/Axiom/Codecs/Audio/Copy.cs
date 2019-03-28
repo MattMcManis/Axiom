@@ -61,6 +61,22 @@ namespace Axiom
         // ---------------------------------------------------------------------------
 
         // -------------------------
+        // Stream
+        // -------------------------
+        public static string stream = "all";
+
+        // -------------------------
+        // Channel
+        // -------------------------
+        public static List<string> channel = new List<string>()
+        {
+            "Source",
+            "Stereo",
+            "Mono",
+            "5.1"
+        };
+
+        // -------------------------
         // Quality
         // -------------------------
         public static List<ViewModel.AudioQuality> quality = new List<ViewModel.AudioQuality>()
@@ -79,19 +95,11 @@ namespace Axiom
         };
 
         // -------------------------
-        // Stream
+        // Compression Level
         // -------------------------
-        public static string stream = "all";
-
-        // -------------------------
-        // Channel
-        // -------------------------
-        public static List<string> channel = new List<string>()
+        public static List<string> compressionLevel = new List<string>()
         {
-            "Source",
-            "Stereo",
-            "Mono",
-            "5.1"
+            "none"
         };
 
         // -------------------------
@@ -135,11 +143,14 @@ namespace Axiom
         // -------------------------
         public static void Controls_ItemsSource(ViewModel vm)
         {
+            // Channel
+            vm.Audio_Channel_Items = channel;
+
             // Quality
             vm.Audio_Quality_Items = quality;
 
-            // Channel
-            vm.Audio_Channel_Items = channel;
+            // Compression Level
+            vm.Audio_CompressionLevel_Items = compressionLevel;
 
             // Samplerate
             vm.Audio_SampleRate_Items = sampleRate;
@@ -154,6 +165,9 @@ namespace Axiom
         public static void Controls_Selected(ViewModel vm)
         {
             //vm.Audio_Stream_SelectedItem = "all";
+
+            // Compression Level
+            vm.Audio_CompressionLevel_SelectedItem = "none";
         }
 
         // -------------------------
@@ -187,9 +201,6 @@ namespace Axiom
             // Audio Quality
             vm.Audio_Quality_IsEnabled = true;
 
-            // Audio VBR
-            vm.Audio_VBR_IsEnabled = true;
-
             // SampleRate
             vm.Audio_SampleRate_IsEnabled = true;
 
@@ -202,6 +213,12 @@ namespace Axiom
         // -------------------------
         public static void Controls_Disable(ViewModel vm)
         {
+            // Audio VBR
+            vm.Audio_VBR_IsEnabled = false;
+
+            // Compression Level
+            vm.Audio_CompressionLevel_IsEnabled = false;
+
             // Bit Depth
             vm.Audio_BitDepth_IsEnabled = false;
         }

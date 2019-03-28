@@ -110,8 +110,8 @@ namespace Axiom
                     // Audio
                     //vm.Audio_Codec_SelectedItem = "Vorbis";
                     vm.Audio_Stream_SelectedItem = "all";
-                    vm.Audio_Quality_SelectedItem = "Auto";
                     vm.Audio_Channel_SelectedItem = "Source";
+                    vm.Audio_Quality_SelectedItem = "Auto";
                     vm.Audio_SampleRate_SelectedItem = "auto";
                     vm.Audio_BitDepth_SelectedItem = "auto";
                     vm.Audio_Volume_Text = "100";
@@ -185,8 +185,9 @@ namespace Axiom
                     // Audio
                     vm.Audio_Codec_SelectedItem = "LAME";
                     vm.Audio_Stream_SelectedItem = "1";
-                    vm.Audio_Quality_SelectedItem = "Auto";
                     vm.Audio_Channel_SelectedItem = "Source";
+                    vm.Audio_Quality_SelectedItem = "Auto";
+                    vm.Audio_CompressionLevel_SelectedItem = "auto";
                     vm.Audio_SampleRate_SelectedItem = "auto";
                     // special rules for PCM codec
                     if (vm.Audio_Codec_SelectedItem == "PCM")
@@ -252,9 +253,10 @@ namespace Axiom
                 // Audio
                 vm.Audio_Codec_SelectedItem = "Vorbis";
                 vm.Audio_Stream_SelectedItem = "1";
+                vm.Audio_Channel_SelectedItem = "Stereo";
                 vm.Audio_Quality_SelectedItem = "192";
                 vm.Audio_VBR_IsChecked = true;
-                vm.Audio_Channel_SelectedItem = "Stereo";
+                vm.Audio_CompressionLevel_SelectedItem = "auto";
                 vm.Audio_SampleRate_SelectedItem = "44.1k";
                 vm.Audio_BitDepth_SelectedItem = "auto";
                 vm.Audio_Volume_Text = "100";
@@ -306,9 +308,10 @@ namespace Axiom
                 // Audio
                 vm.Audio_Codec_SelectedItem = "AAC";
                 vm.Audio_Stream_SelectedItem = "all";
+                vm.Audio_Channel_SelectedItem = "Source";
                 vm.Audio_Quality_SelectedItem = "Auto";
                 vm.Audio_VBR_IsChecked = false;
-                vm.Audio_Channel_SelectedItem = "Source";
+                vm.Audio_CompressionLevel_SelectedItem = "auto";
                 vm.Audio_SampleRate_SelectedItem = "auto";
                 vm.Audio_BitDepth_SelectedItem = "auto";
                 vm.Audio_Volume_Text = "100";
@@ -364,9 +367,10 @@ namespace Axiom
                 // Audio
                 vm.Audio_Codec_SelectedItem = "FLAC";
                 vm.Audio_Stream_SelectedItem = "all";
+                vm.Audio_Channel_SelectedItem = "Source";
                 vm.Audio_Quality_SelectedItem = "Auto";
                 vm.Audio_VBR_IsChecked = false;
-                vm.Audio_Channel_SelectedItem = "Source";
+                vm.Audio_CompressionLevel_SelectedItem = "auto";
                 vm.Audio_SampleRate_SelectedItem = "auto";
                 vm.Audio_BitDepth_SelectedItem = "auto";
                 vm.Audio_Volume_Text = "100";
@@ -423,9 +427,10 @@ namespace Axiom
                 // Audio
                 vm.Audio_Codec_SelectedItem = "AAC";
                 vm.Audio_Stream_SelectedItem = "all";
+                vm.Audio_Channel_SelectedItem = "Source";
                 vm.Audio_Quality_SelectedItem = "Auto";
                 vm.Audio_VBR_IsChecked = false;
-                vm.Audio_Channel_SelectedItem = "Source";
+                vm.Audio_CompressionLevel_SelectedItem = "auto";
                 vm.Audio_SampleRate_SelectedItem = "auto";
                 vm.Audio_BitDepth_SelectedItem = "auto";
                 vm.Audio_Volume_Text = "100";
@@ -498,9 +503,10 @@ namespace Axiom
                 // Audio
                 vm.Audio_Codec_SelectedItem = "AAC";
                 vm.Audio_Stream_SelectedItem = "all";
+                vm.Audio_Channel_SelectedItem = "Source";
                 vm.Audio_Quality_SelectedItem = "Auto";
                 vm.Audio_VBR_IsChecked = false;
-                vm.Audio_Channel_SelectedItem = "Source";
+                vm.Audio_CompressionLevel_SelectedItem = "auto";
                 vm.Audio_SampleRate_SelectedItem = "auto";
                 vm.Audio_BitDepth_SelectedItem = "auto";
                 vm.Audio_Volume_Text = "100";
@@ -567,9 +573,10 @@ namespace Axiom
                 // Audio
                 vm.Audio_Codec_SelectedItem = "AC3";
                 vm.Audio_Stream_SelectedItem = "all";
+                vm.Audio_Channel_SelectedItem = "Stereo";
                 vm.Audio_Quality_SelectedItem = "256";
                 vm.Audio_VBR_IsChecked = false;
-                vm.Audio_Channel_SelectedItem = "Stereo";
+                vm.Audio_CompressionLevel_SelectedItem = "auto";
                 vm.Audio_SampleRate_SelectedItem = "44.1k";
                 vm.Audio_BitDepth_SelectedItem = "auto";
                 vm.Audio_Volume_Text = "100";
@@ -628,9 +635,10 @@ namespace Axiom
                 // Audio
                 vm.Audio_Codec_SelectedItem = "AAC";
                 vm.Audio_Stream_SelectedItem = "all";
+                vm.Audio_Channel_SelectedItem = "Source";
                 vm.Audio_Quality_SelectedItem = "160";
                 vm.Audio_VBR_IsChecked = false;
-                vm.Audio_Channel_SelectedItem = "Source";
+                vm.Audio_CompressionLevel_SelectedItem = "auto";
                 vm.Audio_SampleRate_SelectedItem = "auto";
                 vm.Audio_BitDepth_SelectedItem = "auto";
                 vm.Audio_Volume_Text = "100";
@@ -685,9 +693,10 @@ namespace Axiom
                 // Audio
                 vm.Audio_Codec_SelectedItem = "AAC";
                 vm.Audio_Stream_SelectedItem = "all";
+                vm.Audio_Channel_SelectedItem = "Source";
                 vm.Audio_Quality_SelectedItem = "160";
                 vm.Audio_VBR_IsChecked = false;
-                vm.Audio_Channel_SelectedItem = "Source";
+                vm.Audio_CompressionLevel_SelectedItem = "auto";
                 vm.Audio_SampleRate_SelectedItem = "auto";
                 vm.Audio_BitDepth_SelectedItem = "auto";
                 vm.Audio_Volume_Text = "100";
@@ -742,9 +751,10 @@ namespace Axiom
                 // Audio
                 vm.Audio_Codec_SelectedItem = "AAC";
                 vm.Audio_Stream_SelectedItem = "all";
+                vm.Audio_Channel_SelectedItem = "Source";
                 vm.Audio_Quality_SelectedItem = "160";
                 vm.Audio_VBR_IsChecked = false;
-                vm.Audio_Channel_SelectedItem = "Source";
+                vm.Audio_CompressionLevel_SelectedItem = "auto";
                 vm.Audio_SampleRate_SelectedItem = "auto";
                 vm.Audio_BitDepth_SelectedItem = "auto";
                 vm.Audio_Volume_Text = "100";
@@ -799,9 +809,10 @@ namespace Axiom
                 // Audio
                 vm.Audio_Codec_SelectedItem = "AAC";
                 vm.Audio_Stream_SelectedItem = "all";
+                vm.Audio_Channel_SelectedItem = "Source";
                 vm.Audio_Quality_SelectedItem = "160";
                 vm.Audio_VBR_IsChecked = false;
-                vm.Audio_Channel_SelectedItem = "Source";
+                vm.Audio_CompressionLevel_SelectedItem = "auto";
                 vm.Audio_SampleRate_SelectedItem = "auto";
                 vm.Audio_BitDepth_SelectedItem = "auto";
                 vm.Audio_Volume_Text = "100";
@@ -856,9 +867,10 @@ namespace Axiom
                 // Audio
                 vm.Audio_Codec_SelectedItem = "AAC";
                 vm.Audio_Stream_SelectedItem = "all";
+                vm.Audio_Channel_SelectedItem = "Source";
                 vm.Audio_Quality_SelectedItem = "160";
                 vm.Audio_VBR_IsChecked = false;
-                vm.Audio_Channel_SelectedItem = "Source";
+                vm.Audio_CompressionLevel_SelectedItem = "auto";
                 vm.Audio_SampleRate_SelectedItem = "auto";
                 vm.Audio_BitDepth_SelectedItem = "auto";
                 vm.Audio_Volume_Text = "100";
@@ -914,9 +926,10 @@ namespace Axiom
                 // Audio
                 vm.Audio_Codec_SelectedItem = "AAC";
                 vm.Audio_Stream_SelectedItem = "all";
+                vm.Audio_Channel_SelectedItem = "Stereo";
                 vm.Audio_Quality_SelectedItem = "400";
                 vm.Audio_VBR_IsChecked = true;
-                vm.Audio_Channel_SelectedItem = "Stereo";
+                vm.Audio_CompressionLevel_SelectedItem = "auto";
                 vm.Audio_SampleRate_SelectedItem = "44.1k";
                 vm.Audio_BitDepth_SelectedItem = "auto";
                 vm.Audio_Volume_Text = "100";
@@ -968,9 +981,10 @@ namespace Axiom
                 // Audio
                 vm.Audio_Codec_SelectedItem = "AAC";
                 vm.Audio_Stream_SelectedItem = "all";
+                vm.Audio_Channel_SelectedItem = "Stereo";
                 vm.Audio_Quality_SelectedItem = "400";
                 vm.Audio_VBR_IsChecked = true;
-                vm.Audio_Channel_SelectedItem = "Stereo";
+                vm.Audio_CompressionLevel_SelectedItem = "auto";
                 vm.Audio_SampleRate_SelectedItem = "44.1k";
                 vm.Audio_BitDepth_SelectedItem = "auto";
                 vm.Audio_Volume_Text = "100";
@@ -1026,9 +1040,10 @@ namespace Axiom
                 // Audio
                 vm.Audio_Codec_SelectedItem = "AAC";
                 vm.Audio_Stream_SelectedItem = "all";
+                vm.Audio_Channel_SelectedItem = "Source";
                 vm.Audio_Quality_SelectedItem = "400";
                 vm.Audio_VBR_IsChecked = false;
-                vm.Audio_Channel_SelectedItem = "Source";
+                vm.Audio_CompressionLevel_SelectedItem = "auto";
                 vm.Audio_SampleRate_SelectedItem = "48k";
                 vm.Audio_BitDepth_SelectedItem = "auto";
                 vm.Audio_Volume_Text = "100";
@@ -1080,11 +1095,12 @@ namespace Axiom
                 // Audio
                 vm.Audio_Codec_SelectedItem = "AAC";
                 vm.Audio_Stream_SelectedItem = "all";
-                vm.Audio_Quality_SelectedItem = "Auto";
                 vm.Audio_Channel_SelectedItem = "Source";
+                vm.Audio_Quality_SelectedItem = "Auto";
                 vm.Audio_SampleRate_SelectedItem = "auto";
                 vm.Audio_BitDepth_SelectedItem = "auto";
                 vm.Audio_VBR_IsChecked = false;
+                vm.Audio_CompressionLevel_SelectedItem = "auto";
                 vm.Audio_Volume_Text = "100";
                 vm.Audio_HardLimiter_Value = 1;
 
@@ -1134,11 +1150,12 @@ namespace Axiom
                 // Audio
                 vm.Audio_Codec_SelectedItem = "AAC";
                 vm.Audio_Stream_SelectedItem = "all";
-                vm.Audio_Quality_SelectedItem = "320";
                 vm.Audio_Channel_SelectedItem = "Stereo";
+                vm.Audio_Quality_SelectedItem = "320";
                 vm.Audio_SampleRate_SelectedItem = "48k";
                 vm.Audio_BitDepth_SelectedItem = "auto";
                 vm.Audio_VBR_IsChecked = false;
+                vm.Audio_CompressionLevel_SelectedItem = "auto";
                 vm.Audio_Volume_Text = "100";
                 vm.Audio_HardLimiter_Value = 1;
 
@@ -1188,11 +1205,12 @@ namespace Axiom
                 // Audio
                 vm.Audio_Codec_SelectedItem = "AAC";
                 vm.Audio_Stream_SelectedItem = "all";
-                vm.Audio_Quality_SelectedItem = "Auto";
                 vm.Audio_Channel_SelectedItem = "Source";
+                vm.Audio_Quality_SelectedItem = "Auto";
                 vm.Audio_SampleRate_SelectedItem = "auto";
                 vm.Audio_BitDepth_SelectedItem = "auto";
                 vm.Audio_VBR_IsChecked = false;
+                vm.Audio_CompressionLevel_SelectedItem = "auto";
                 vm.Audio_Volume_Text = "100";
                 vm.Audio_HardLimiter_Value = 1;
 
@@ -1246,9 +1264,10 @@ namespace Axiom
                 // Audio
                 vm.Audio_Codec_SelectedItem = "AC3";
                 vm.Audio_Stream_SelectedItem = "all";
+                vm.Audio_Channel_SelectedItem = "Source";
                 vm.Audio_Quality_SelectedItem = "Auto";
                 vm.Audio_VBR_IsChecked = false;
-                vm.Audio_Channel_SelectedItem = "Source";
+                vm.Audio_CompressionLevel_SelectedItem = "auto";
                 vm.Audio_SampleRate_SelectedItem = "48k";
                 vm.Audio_BitDepth_SelectedItem = "auto";
                 vm.Audio_Volume_Text = "100";
@@ -1300,9 +1319,10 @@ namespace Axiom
                 // Audio
                 vm.Audio_Codec_SelectedItem = "AC3";
                 vm.Audio_Stream_SelectedItem = "all";
+                vm.Audio_Channel_SelectedItem = "Source";
                 vm.Audio_Quality_SelectedItem = "Auto";
                 vm.Audio_VBR_IsChecked = false;
-                vm.Audio_Channel_SelectedItem = "Source";
+                vm.Audio_CompressionLevel_SelectedItem = "auto";
                 vm.Audio_SampleRate_SelectedItem = "48k";
                 vm.Audio_BitDepth_SelectedItem = "auto";
                 vm.Audio_Volume_Text = "100";
@@ -1356,9 +1376,10 @@ namespace Axiom
                 // Audio
                 vm.Audio_Codec_SelectedItem = "MP2";
                 vm.Audio_Stream_SelectedItem = "all";
+                vm.Audio_Channel_SelectedItem = "Source";
                 vm.Audio_Quality_SelectedItem = "320";
                 vm.Audio_VBR_IsChecked = false;
-                vm.Audio_Channel_SelectedItem = "Source";
+                vm.Audio_CompressionLevel_SelectedItem = "auto";
                 vm.Audio_SampleRate_SelectedItem = "44.1k";
                 vm.Audio_BitDepth_SelectedItem = "auto";
                 vm.Audio_Volume_Text = "100";
@@ -1414,9 +1435,10 @@ namespace Axiom
                 // Audio
                 vm.Audio_Codec_SelectedItem = "FLAC";
                 vm.Audio_Stream_SelectedItem = "1";
+                vm.Audio_Channel_SelectedItem = "Source";
                 vm.Audio_Quality_SelectedItem = "Lossless";
                 vm.Audio_VBR_IsChecked = true;
-                vm.Audio_Channel_SelectedItem = "Source";
+                vm.Audio_CompressionLevel_SelectedItem = "auto";
                 vm.Audio_SampleRate_SelectedItem = "auto";
                 vm.Audio_BitDepth_SelectedItem = "auto";
                 vm.Audio_Volume_Text = "100";
@@ -1469,6 +1491,7 @@ namespace Axiom
                 // Audio
                 vm.Audio_Codec_SelectedItem = "LAME";
                 vm.Audio_Stream_SelectedItem = "1";
+                vm.Audio_Channel_SelectedItem = "Joint Stereo";
 
                 // HQ
                 if (vm.Preset_SelectedItem == "MP3 HQ")
@@ -1482,7 +1505,7 @@ namespace Axiom
                 }
 
                 vm.Audio_VBR_IsChecked = true;
-                vm.Audio_Channel_SelectedItem = "Joint Stereo";
+                vm.Audio_CompressionLevel_SelectedItem = "auto";
                 vm.Audio_SampleRate_SelectedItem = "auto";
                 vm.Audio_BitDepth_SelectedItem = "auto";
                 vm.Audio_Volume_Text = "100";
@@ -1534,9 +1557,10 @@ namespace Axiom
                 // Audio
                 vm.Audio_Codec_SelectedItem = "AAC";
                 vm.Audio_Stream_SelectedItem = "1";
+                vm.Audio_Channel_SelectedItem = "Stereo";
                 vm.Audio_Quality_SelectedItem = "320";
                 vm.Audio_VBR_IsChecked = true;
-                vm.Audio_Channel_SelectedItem = "Stereo";
+                vm.Audio_CompressionLevel_SelectedItem = "auto";
                 vm.Audio_SampleRate_SelectedItem = "auto";
                 vm.Audio_BitDepth_SelectedItem = "auto";
                 vm.Audio_Volume_Text = "100";
@@ -1588,9 +1612,10 @@ namespace Axiom
                 // Audio
                 vm.Audio_Codec_SelectedItem = "Opus";
                 vm.Audio_Stream_SelectedItem = "1";
+                vm.Audio_Channel_SelectedItem = "Source";
                 vm.Audio_Quality_SelectedItem = "96";
                 vm.Audio_VBR_IsChecked = true;
-                vm.Audio_Channel_SelectedItem = "Source";
+                vm.Audio_CompressionLevel_SelectedItem = "10";
                 vm.Audio_SampleRate_SelectedItem = "auto";
                 vm.Audio_BitDepth_SelectedItem = "auto";
                 vm.Audio_Volume_Text = "100";
@@ -1642,15 +1667,16 @@ namespace Axiom
                 vm.Video_AspectRatio_SelectedItem = "auto";
 
                 // Subtitle
-                vm.Subtitle_Codec_SelectedItem = "None";
+                vm.Subtitle_Codec_SelectedItem = "Copy";
                 vm.Subtitle_Stream_SelectedItem = "none";
 
                 // Audio
                 vm.Audio_Codec_SelectedItem = "Copy";
                 vm.Audio_Stream_SelectedItem = "all";
+                vm.Audio_Channel_SelectedItem = "Source";
                 vm.Audio_Quality_SelectedItem = "Auto";
                 vm.Audio_VBR_IsChecked = false;
-                vm.Audio_Channel_SelectedItem = "Source";
+                vm.Audio_CompressionLevel_SelectedItem = "auto";
                 vm.Audio_SampleRate_SelectedItem = "auto";
                 vm.Audio_BitDepth_SelectedItem = "auto";
                 vm.Audio_Volume_Text = "100";
@@ -1702,9 +1728,10 @@ namespace Axiom
                 // Audio
                 vm.Audio_Codec_SelectedItem = "Copy";
                 vm.Audio_Stream_SelectedItem = "1";
+                vm.Audio_Channel_SelectedItem = "Source";
                 vm.Audio_Quality_SelectedItem = "Auto";
                 vm.Audio_VBR_IsChecked = true;
-                vm.Audio_Channel_SelectedItem = "Source";
+                vm.Audio_CompressionLevel_SelectedItem = "auto";
                 vm.Audio_SampleRate_SelectedItem = "auto";
                 vm.Audio_BitDepth_SelectedItem = "auto";
                 vm.Audio_Volume_Text = "100";
@@ -1759,10 +1786,11 @@ namespace Axiom
                 // Audio
                 vm.Audio_Codec_SelectedItem = "Opus";
                 vm.Audio_Stream_SelectedItem = "1";
+                vm.Audio_Channel_SelectedItem = "Stereo";
                 vm.Audio_Quality_SelectedItem = "Custom";
                 vm.Audio_Bitrate_Text = "380";
                 vm.Audio_VBR_IsChecked = true;
-                vm.Audio_Channel_SelectedItem = "Stereo";
+                vm.Audio_CompressionLevel_SelectedItem = "8";
                 vm.Audio_SampleRate_SelectedItem = "48k";
                 vm.Audio_BitDepth_SelectedItem = "auto";
                 vm.Audio_Volume_Text = "120";

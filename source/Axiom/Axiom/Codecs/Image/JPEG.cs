@@ -254,6 +254,9 @@ namespace Axiom
 
             // Framerate
             vm.Video_FPS_SelectedItem = "auto";
+
+            // Channel
+            vm.Audio_Channel_SelectedItem = "none";
         }
 
         // -------------------------

@@ -76,6 +76,8 @@ namespace Axiom
         // System
         public static string appDir = AppDomain.CurrentDomain.BaseDirectory.TrimEnd('\\') + @"\"; // Axiom.exe directory
         public static string tempDir = Path.GetTempPath(); // Windows AppData Temp Directory
+        public static string userProfile = Environment.ExpandEnvironmentVariables(@"%USERPROFILE%").TrimEnd('\\') + @"\"; // C:\Users\Example\
+        public static string downloadDir = userProfile + @"Downloads\"; // C:\Users\Example\Downloads\
 
         // Programs
         public static string youtubedl; // youtube-dl.exe
@@ -533,7 +535,7 @@ namespace Axiom
             // -------------------------
             // Control Defaults
             // -------------------------
-            listViewSubtitles.SelectionMode = SelectionMode.Single;
+            lstv_Subtitles.SelectionMode = SelectionMode.Single;
 
             // -------------------------
             // Load ComboBox Items
@@ -693,11 +695,12 @@ namespace Axiom
 
             // Audio
             Audio.aCodec = string.Empty;
+            Audio.aChannel = string.Empty;
             Audio.aBitMode = string.Empty;
             Audio.aBitrate = string.Empty;
             Audio.aBitrateNA = string.Empty;
             Audio.aQuality = string.Empty;
-            Audio.aChannel = string.Empty;
+            Audio.aCompressionLevel = string.Empty;
             Audio.aSamplerate = string.Empty;
             Audio.aBitDepth = string.Empty;
             Audio.aBitrateLimiter = string.Empty;
@@ -934,6 +937,18 @@ namespace Axiom
             Configure.FFmpegFolderBrowser(vm);
         }
 
+        // Drag and Drop
+        private void tbxFFmpegPath_PreviewDragOver(object sender, DragEventArgs e)
+        {
+            e.Handled = true;
+            e.Effects = DragDropEffects.Copy;
+        }
+        private void tbxFFmpegPath_PreviewDrop(object sender, DragEventArgs e)
+        {
+            var buffer = e.Data.GetData(DataFormats.FileDrop, false) as string[];
+            vm.FFmpegPath_Text = buffer.First();
+        }
+
 
         // --------------------------------------------------
         // FFmpeg Auto Path - Button
@@ -961,6 +976,17 @@ namespace Axiom
             Configure.FFprobeFolderBrowser(vm);
         }
 
+        // Drag and Drop
+        private void tbxFFprobePath_PreviewDragOver(object sender, DragEventArgs e)
+        {
+            e.Handled = true;
+            e.Effects = DragDropEffects.Copy;
+        }
+        private void tbxFFprobePath_PreviewDrop(object sender, DragEventArgs e)
+        {
+            var buffer = e.Data.GetData(DataFormats.FileDrop, false) as string[];
+            vm.FFprobePath_Text = buffer.First();
+        }
 
         // --------------------------------------------------
         // FFprobe Auto Path - Button
@@ -988,6 +1014,17 @@ namespace Axiom
             Configure.FFplayFolderBrowser(vm);
         }
 
+        // Drag and Drop
+        private void tbxFFplayPath_PreviewDragOver(object sender, DragEventArgs e)
+        {
+            e.Handled = true;
+            e.Effects = DragDropEffects.Copy;
+        }
+        private void tbxFFplayPath_PreviewDrop(object sender, DragEventArgs e)
+        {
+            var buffer = e.Data.GetData(DataFormats.FileDrop, false) as string[];
+            vm.FFplayPath_Text = buffer.First();
+        }
 
         // --------------------------------------------------
         // FFplay Auto Path - Button
@@ -1015,6 +1052,17 @@ namespace Axiom
             Configure.youtubedlFolderBrowser(vm);
         }
 
+        // Drag and Drop
+        private void tbxyoutubedlPath_PreviewDragOver(object sender, DragEventArgs e)
+        {
+            e.Handled = true;
+            e.Effects = DragDropEffects.Copy;
+        }
+        private void tbxyoutubedlPath_PreviewDrop(object sender, DragEventArgs e)
+        {
+            var buffer = e.Data.GetData(DataFormats.FileDrop, false) as string[];
+            vm.youtubedlPath_Text = buffer.First();
+        }
 
         // --------------------------------------------------
         // youtubedl Auto Path - Button
@@ -1284,7 +1332,7 @@ namespace Axiom
                 // Yes
                 if (dialogResult == System.Windows.Forms.DialogResult.Yes)
                 {
-                    // Delete leftover 2 Pass Logs in Program's folder and Input Files folder
+                    // Delete
                     using (Process delete = new Process())
                     {
                         delete.StartInfo.UseShellExecute = false;
@@ -1295,7 +1343,17 @@ namespace Axiom
                         delete.Start();
                         delete.WaitForExit();
                         //delete.Close();
+
+                        delete.Dispose();
                     }
+
+                    // Reset AppData Settings
+                    Settings.Default.Reset();
+                    Settings.Default.Reload();
+
+                    // Restart Program
+                    Process.Start(Application.ResourceAssembly.Location);
+                    Application.Current.Shutdown();
                 }
                 // No
                 else if (dialogResult == System.Windows.Forms.DialogResult.No)
@@ -1716,22 +1774,68 @@ namespace Axiom
         {
             // YouTube
             if(// youtube (any domain extension)
-               input_Text.StartsWith("https://www.youtube") ||
-               input_Text.StartsWith("http://www.youtube") ||
-               input_Text.StartsWith("www.youtube") ||
-               input_Text.StartsWith("youtube") ||
+               input_Text.StartsWith("https://www.youtube.") ||
+               input_Text.StartsWith("http://www.youtube.") ||
+               input_Text.StartsWith("www.youtube.") ||
+               input_Text.StartsWith("youtube.") ||
 
                // youtu.be
                input_Text.StartsWith("https://youtu.be") ||
                input_Text.StartsWith("http://youtu.be") ||
                input_Text.StartsWith("www.youtu.be") ||
-               input_Text.StartsWith("youtu.be")
+               input_Text.StartsWith("youtu.be") ||
+
+               // YouTube Music
+               input_Text.StartsWith("https://music.youtube.") ||
+               input_Text.StartsWith("http://music.youtube.") ||
+               input_Text.StartsWith("music.youtube.")
                )
             {
                 return true;
             }
 
             // Local File
+            else
+            {
+                return false;
+            }
+        }
+
+
+        /// <summary>
+        ///    YouTube Download Only Check (Method)
+        /// </summary>
+        /// <remarks>
+        ///     If Axiom is in full Codec Copy mode Download the file without converting
+        /// </remarks>
+        public static bool IsYouTubeDownloadOnly(ViewModel vm)
+        {
+            if (// Video
+                (vm.Video_Codec_SelectedItem == "Copy" &&
+                 vm.Subtitle_Codec_SelectedItem == "Copy" &&
+                 vm.Audio_Codec_SelectedItem == "Copy") ||
+
+                (vm.Video_Codec_SelectedItem == "Copy" &&
+                 vm.Subtitle_Codec_SelectedItem == "Copy" //&&
+                                                         /*vm.Audio_Codec_SelectedItem == "None"*/) ||
+
+                (vm.Video_Codec_SelectedItem == "Copy" &&
+                 vm.Subtitle_Codec_SelectedItem == "None" //&&
+                                                         /*vm.Audio_Codec_SelectedItem == "None"*/) ||
+
+                (vm.Video_Codec_SelectedItem == "Copy" &&
+                 vm.Subtitle_Codec_SelectedItem == "None" &&
+                 vm.Audio_Codec_SelectedItem == "Copy") ||
+
+                // Music
+                (vm.Video_Codec_SelectedItem == "None" &&
+                vm.Subtitle_Codec_SelectedItem == "None" &&
+                vm.Audio_Codec_SelectedItem == "Copy")
+
+                )
+            {
+                return true;
+            }
             else
             {
                 return false;
@@ -1760,196 +1864,65 @@ namespace Axiom
 
 
         /// <summary>
-        ///    YouTube Download - Input
+        ///    YouTube Download - URL (Method)
         /// </summary>
-        public static void YouTubeDownloadInput(ViewModel vm)
+        public static String YouTubeDownloadURL(string url)
         {
-            if (YouTubeDownloadCheck(vm) == true)
-            {
-                // -------------------------
-                // Start New Thread
-                // -------------------------
-                vm.youtubedlInputWorker = Task.Factory.StartNew(() =>
-                {
-                    if (vm.Batch_IsChecked == false) // Cannot batch YouTube videos
-                    {
-                        // -------------------------
-                        // Progress Info
-                        // -------------------------
-                        vm.ScriptView_Text = "Please wait while youtube-dl parses file info.";
+            // Strip URL Parameters
+            int index = url.IndexOf("&");
+            if (index > 0)
+                url = url.Substring(0, index);
 
-                        // -------------------------
-                        // Capture Title
-                        // -------------------------
-                        // youtube-dl --get-filename -o "%(title)s.mp4" "URL"
-
-                        string titleArgs = "--get-filename -o \"%(title)s\" " + "\"" + vm.Input_Text + "\"";
-
-                        string title = string.Empty;
-
-                        try
-                        {
-                            using (Process parseTitle = new Process())
-                            {
-                                parseTitle.StartInfo.UseShellExecute = false;
-                                parseTitle.StartInfo.CreateNoWindow = false;
-                                parseTitle.StartInfo.RedirectStandardOutput = true;
-                                parseTitle.StartInfo.StandardOutputEncoding = Encoding.UTF8;
-                                parseTitle.StartInfo.RedirectStandardError = true;
-                                parseTitle.StartInfo.StandardErrorEncoding = Encoding.UTF8;
-                                parseTitle.StartInfo.FileName = youtubedl;
-                                parseTitle.StartInfo.Arguments = titleArgs;
-
-                                parseTitle.Start();
-                                parseTitle.WaitForExit();
-
-                                // Get Ouput Result
-                                var output = new List<string>();
-                                while (parseTitle.StandardOutput.Peek() > -1)
-                                {
-                                    output.Add(parseTitle.StandardOutput.ReadLine());
-                                }
-                                //title = youtubedlTitle.StandardOutput.ReadToEnd();
-                                title = string.Join("", output);
-
-                                // debug
-                                //foreach (var line in title.Split('\r'))
-                                //{
-                                //    MessageBox.Show(line);
-                                //}
-                            }
-                        }
-                        catch
-                        {
-                            MessageBox.Show("youtube-dl.exe could not start. Please move it to a location that does not require Administrator privileges.",
-                                            "Error",
-                                            MessageBoxButton.OK,
-                                            MessageBoxImage.Error);
-
-                            return;
-                        }
-
-
-                        // -------------------------
-                        // Set Input
-                        // -------------------------
-
-                        // Format
-                        string format = string.Empty;
-
-                        // Video + Audio
-                        if (vm.Format_YouTube_SelectedItem == "Video + Audio")
-                        {
-                            format = ".mp4";
-                        }
-
-                        // Audio Only
-                        else if (vm.Format_YouTube_SelectedItem == "Audio Only")
-                        {
-                            format = ".m4a";
-                        }
-
-                        // Download Directory
-                        string userProfile = Environment.ExpandEnvironmentVariables(@"%USERPROFILE%").TrimEnd('\\') + @"\";
-                        string downloadDir = userProfile + @"Downloads\";
-
-                        input = downloadDir + RemoveLineBreaks(title) + format;
-
-                        inputDir = Path.GetDirectoryName(input).TrimEnd('\\') + @"\";
-                        inputFileName = Path.GetFileNameWithoutExtension(input);
-                        inputExt = Path.GetExtension(input);
-                    }
-                });
-            }
-
-            // Error
-            else
-            {
-                MessageBox.Show(youtubedl + " could not be found.",
-                "Error",
-                MessageBoxButton.OK,
-                MessageBoxImage.Error);
-
-                return;
-            }
+            return url;
         }
 
 
         /// <summary>
-        ///    YouTube Download
+        ///    YouTube Download - Format (Method)
         /// </summary>
-        public static void YouTubeDownload(ViewModel vm)
+        public static String YouTubeDownloadFormat(string youtubedl_SelectedItem)
         {
-            if (YouTubeDownloadCheck(vm) == true)
+            // Video + Audio
+            if (youtubedl_SelectedItem == "Video + Audio")
             {
-                // -------------------------
-                // Start New Thread
-                // -------------------------
-                vm.youtubedlInputWorker = Task.Factory.StartNew(() =>
-                {
-                    // -------------------------
-                    // Download File
-                    // -------------------------
-                    // youtube-dl -f best "URL" -o "C:\path\title.mp4" --merge-output-format mp4
-                    // youtube-dl -f "bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio" "URL" -o "C:\path\title.mp4" --merge-output-format mp4
-
-                    // Format
-                    string format = string.Empty;
-                    // Quality
-                    string quality = string.Empty;
-
-                    // Video + Audio
-                    if (vm.Format_YouTube_SelectedItem == "Video + Audio")
-                    {
-                        format = ".mp4";
-
-                        if (vm.Format_YouTube_Quality_SelectedItem == "best")
-                        {
-                            quality = "bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio";
-                        }
-                    }
-
-                    // Audio Only
-                    else if (vm.Format_YouTube_SelectedItem == "Audio Only")
-                    {
-                        format = ".m4a";
-
-                        if (vm.Format_YouTube_Quality_SelectedItem == "best")
-                        {
-                            quality = "bestaudio[ext=m4a]/bestaudio";
-                        }
-                    }
-
-
-
-                    // Check if file already exists
-                    if (!File.Exists(input))
-                    {
-                        string url = vm.Input_Text;
-
-                        string downloadArgs = "-f " + quality + " " + "\"" + url + "\"" + " -o " + "\"" + input + "\""/* + " --merge-output-format " + format*/;
-
-                        //try
-                        //{
-                        // Start download process
-                        using (Process youtubedlDownload = new Process())
-                        {
-                            youtubedlDownload.StartInfo.UseShellExecute = false;
-                            //youtubedlDownload.StartInfo.CreateNoWindow = true;
-                            youtubedlDownload.StartInfo.RedirectStandardOutput = false;
-                            youtubedlDownload.StartInfo.RedirectStandardError = false;
-                            youtubedlDownload.StartInfo.FileName = youtubedl;
-                            youtubedlDownload.StartInfo.Arguments = downloadArgs;
-
-                            youtubedlDownload.Start();
-                            youtubedlDownload.WaitForExit();
-                        }
-                    }
-                });
+                return "mp4";
             }
 
+            // Audio Only
+            else if (youtubedl_SelectedItem == "Audio Only")
+            {
+                return "m4a";
+            }
+
+            return string.Empty;
         }
 
+
+        /// <summary>
+        ///    YouTube Download - Quality (Method)
+        /// </summary>
+        public static String YouTubeDownloadQuality(string youtubedl_SelectedItem, string youtubedl_Quality_SelectedItem)
+        {
+            // Video + Audio
+            if (youtubedl_SelectedItem == "Video + Audio")
+            {
+                if (youtubedl_Quality_SelectedItem == "best")
+                {
+                    return "bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio";
+                }
+            }
+
+            // Audio Only
+            else if (youtubedl_SelectedItem == "Audio Only")
+            {
+                if (youtubedl_Quality_SelectedItem == "best")
+                {
+                    return "bestaudio[ext=m4a]/bestaudio";
+                }
+            }
+
+            return string.Empty;
+        }
 
 
         /// <summary>
@@ -1963,8 +1936,7 @@ namespace Axiom
             // Check if Script has been modified
             // -------------------------
             if (!string.IsNullOrEmpty(vm.ScriptView_Text) && 
-                !string.IsNullOrEmpty(FFmpeg.ffmpegArgs) &&
-                vm.ScriptView_Text != "Download Complete") // YouTube Download-Only
+                !string.IsNullOrEmpty(FFmpeg.ffmpegArgs))
             {
                 //MessageBox.Show(RemoveLineBreaks(ScriptView.GetScriptRichTextBoxContents(mainwindow))); //debug
                 //MessageBox.Show(FFmpeg.ffmpegArgs); //debug
@@ -2022,7 +1994,8 @@ namespace Axiom
             // -------------------------
             if (IsYouTube(vm.Input_Text) == false) // Ignore YouTube URL's
             {
-                if (!string.IsNullOrEmpty(input))
+                if (!string.IsNullOrEmpty(input) &&
+                    vm.Batch_IsChecked == false)
                 {
                     if (!File.Exists(input))
                     {
@@ -2440,7 +2413,7 @@ namespace Axiom
         ///     Info Button
         /// </summary>
         private Boolean IsInfoWindowOpened = false;
-        private void buttonInfo_Click(object sender, RoutedEventArgs e)
+        private void btnInfo_Click(object sender, RoutedEventArgs e)
         {
             // Prevent Monitor Resolution Window Crash
             //
@@ -2499,7 +2472,7 @@ namespace Axiom
         /// <summary>
         ///    Website Button
         /// </summary>
-        private void buttonWebsite_Click(object sender, RoutedEventArgs e)
+        private void btbWebsite_Click(object sender, RoutedEventArgs e)
         {
             // Open Axiom Website URL in Default Browser
             Process.Start("https://axiomui.github.io");
@@ -2510,7 +2483,7 @@ namespace Axiom
         ///    Update Button
         /// </summary>
         private Boolean IsUpdateWindowOpened = false;
-        private void buttonUpdate_Click(object sender, RoutedEventArgs e)
+        private void btnUpdate_Click(object sender, RoutedEventArgs e)
         {
             // -------------------------
             // Proceed if Internet Connection
@@ -2832,7 +2805,7 @@ namespace Axiom
         ///     Debug Console Window Button
         /// </summary>
         private Boolean IsDebugConsoleOpened = false;
-        private void buttonDebugConsole_Click(object sender, RoutedEventArgs e)
+        private void btnDebugConsole_Click(object sender, RoutedEventArgs e)
         {
             // Prevent Monitor Resolution Window Crash
             //
@@ -2894,7 +2867,7 @@ namespace Axiom
         /// <summary>
         ///     Log Console Window Button
         /// </summary>
-        private void buttonLogConsole_Click(object sender, RoutedEventArgs e)
+        private void btnLogConsole_Click(object sender, RoutedEventArgs e)
         {
             // Prevent Monitor Resolution Window Crash
             //
@@ -2929,7 +2902,7 @@ namespace Axiom
         /// <summary>
         ///    Log Button
         /// </summary>
-        private void buttonLog_Click(object sender, RoutedEventArgs e)
+        private void btnLog_Click(object sender, RoutedEventArgs e)
         {
             // Call Method to get Log Path
             Log.DefineLogPath(vm);
@@ -2957,7 +2930,7 @@ namespace Axiom
         /// <summary>
         ///    CMD Button
         /// </summary>
-        private void buttonCmd_Click(object sender, RoutedEventArgs e)
+        private void btnCmd_Click(object sender, RoutedEventArgs e)
         {
             // launch command prompt
             Process.Start("CMD.exe", "/k cd %userprofile%");
@@ -2968,7 +2941,7 @@ namespace Axiom
         ///     File Properties Button
         /// </summary>
         private Boolean IsFilePropertiesOpened = false;
-        private void buttonProperties_Click(object sender, RoutedEventArgs e)
+        private void btnProperties_Click(object sender, RoutedEventArgs e)
         {
             // Prevent Monitor Resolution Window Crash
             //
@@ -3028,7 +3001,7 @@ namespace Axiom
         /// <summary>
         ///    Play File Button
         /// </summary>
-        private void buttonPlayFile_Click(object sender, RoutedEventArgs e)
+        private void btnPlayFile_Click(object sender, RoutedEventArgs e)
         {
             if (File.Exists(@output))
             {
@@ -3624,19 +3597,15 @@ namespace Axiom
             else if (IsYouTube(vm.Input_Text) == true &&
                      pass != "pass 2") // Ignore Pass 2, use existing input path
             {
-                YouTubeDownloadInput(vm);
+                inputDir = downloadDir;
+                inputFileName = "%f";
+                inputExt = "." + YouTubeDownloadFormat(vm.Format_YouTube_SelectedItem);
 
-                // Wait for Task to finish
-                if (YouTubeDownloadCheck(vm) == true)
-                {
-                    while (!vm.youtubedlInputWorker.IsCompleted)
-                    {
-                        if (vm.youtubedlInputWorker.IsCompleted)
-                        {
-                            break;
-                        }
-                    }
-                }
+                input = inputDir + inputFileName + inputExt; // eg. C:\Users\Example\Downloads\%f.mp4
+
+
+
+                //input = "%~f" + "." + YouTubeDownloadFormat(vm.Format_YouTube_SelectedItem);
             }
 
 
@@ -3695,91 +3664,128 @@ namespace Axiom
             // Get Output Extension (Method)
             FormatControls.OutputFormatExt(vm);
 
-
             // -------------------------
-            // Single File
+            // Local File
             // -------------------------
-            if (vm.Batch_IsChecked == false)
+            if (IsYouTube(vm.Input_Text) == false) // Ignore YouTube URL's
             {
-                // Input Not Empty, Output Empty
-                // Default Output to be same as Input Directory
-                if (!string.IsNullOrEmpty(vm.Input_Text) &&
-                    string.IsNullOrEmpty(vm.Output_Text))
+                // -------------------------
+                // Single File
+                // -------------------------
+                if (vm.Batch_IsChecked == false)
                 {
-                    vm.Output_Text = inputDir + inputFileName + outputExt;
+                    // Input Not Empty, Output Empty
+                    // Default Output to be same as Input Directory
+                    if (!string.IsNullOrEmpty(vm.Input_Text) &&
+                        string.IsNullOrEmpty(vm.Output_Text))
+                    {
+                        vm.Output_Text = inputDir + inputFileName + outputExt;
+                    }
+
+                    // Input Empty, Output Not Empty
+                    if (!string.IsNullOrEmpty(vm.Output_Text))
+                    {
+                        outputDir = Path.GetDirectoryName(vm.Output_Text).TrimEnd('\\') + @"\";
+
+                        outputFileName = Path.GetFileNameWithoutExtension(vm.Output_Text);
+                    }
+
+                    // -------------------------
+                    // File Renamer
+                    // -------------------------
+                    // Auto Renamer
+                    // Pressing Script or Convert while Output is empty
+                    if (inputDir == outputDir &&
+                        inputFileName == outputFileName &&
+                        string.Equals(inputExt, outputExt, StringComparison.CurrentCultureIgnoreCase))
+                    {
+                        outputFileName = FileRenamer(inputFileName);
+                    }
+
+                    // -------------------------
+                    // Image Sequence Renamer
+                    // -------------------------
+                    if (vm.Format_MediaType_SelectedItem == "Sequence")
+                    {
+                        outputFileName = "image-%03d"; //must be this name
+                    }
+
+                    // -------------------------
+                    // Output
+                    // -------------------------
+                    output = outputDir + outputFileName + outputExt; // eg. C:\Output Folder\ + file + .mp4
+
+                    // Update TextBox
+                    if (!string.IsNullOrEmpty(vm.Output_Text))
+                    {
+                        vm.Output_Text = output;
+                    }
                 }
 
-                // Input Empty, Output Not Empty
-                if (!string.IsNullOrEmpty(vm.Output_Text))
+                // -------------------------
+                // Batch
+                // -------------------------
+                else if (vm.Batch_IsChecked == true)
+                {
+                    // Add slash to Batch Output Text folder path if missing
+                    vm.Output_Text = vm.Output_Text.TrimEnd('\\') + @"\";
+
+                    // Input Not Empty, Output Empty
+                    // Default Output to be same as Input Directory
+                    if (!string.IsNullOrEmpty(vm.Input_Text) &&
+                        string.IsNullOrEmpty(vm.Output_Text))
+                    {
+                        vm.Output_Text = vm.Input_Text;
+                    }
+
+                    outputDir = vm.Output_Text.TrimEnd('\\') + @"\";
+
+                    // Output             
+                    output = outputDir + "%~nf" + outputExt; // (eg. C:\Output Folder\%~nf.mp4)
+                }
+
+                // -------------------------
+                // Empty
+                // -------------------------
+                // Input Textbox & Output Textbox Both Empty
+                if (string.IsNullOrEmpty(vm.Output_Text))
+                {
+                    outputDir = string.Empty;
+                    outputFileName = string.Empty;
+                    output = string.Empty;
+                }
+            }
+
+            // -------------------------
+            // YouTube Download
+            // -------------------------
+            else if (IsYouTube(vm.Input_Text) == true) // Ignore Pass 2, use existing input path
+            {
+                //MessageBox.Show("1"); //debug
+
+                // Note: %f is filename, %~f is full path
+
+                // Auto Output Path
+                if (string.IsNullOrEmpty(vm.Output_Text))
+                {
+                    outputDir = downloadDir;
+                    outputFileName = "%f";
+
+                    output = outputDir + outputFileName + outputExt; // eg. C:\Users\Example\Downloads\%f.webm
+
+
+
+                    //output = "%~f" + outputExt;
+                }
+
+                // User Defined Output Path
+                else
                 {
                     outputDir = Path.GetDirectoryName(vm.Output_Text).TrimEnd('\\') + @"\";
-
                     outputFileName = Path.GetFileNameWithoutExtension(vm.Output_Text);
+
+                    output = outputDir + outputFileName + outputExt;
                 }
-
-                // -------------------------
-                // File Renamer
-                // -------------------------
-                // Auto Renamer
-                // Pressing Script or Convert while Output is empty
-                if (inputDir == outputDir &&
-                    inputFileName == outputFileName &&
-                    string.Equals(inputExt, outputExt, StringComparison.CurrentCultureIgnoreCase))
-                {
-                    outputFileName = FileRenamer(inputFileName);
-                }
-
-                // -------------------------
-                // Image Sequence Renamer
-                // -------------------------
-                if (vm.Format_MediaType_SelectedItem == "Sequence")
-                {
-                    outputFileName = "image-%03d"; //must be this name
-                }
-
-                // -------------------------
-                // Output
-                // -------------------------
-                output = outputDir + outputFileName + outputExt; // (eg. C:\Output Folder\ + file + .mp4)    
-
-                // Update TextBox
-                if (!string.IsNullOrEmpty(vm.Output_Text))
-                {
-                    vm.Output_Text = output;
-                }
-            }
-
-            // -------------------------
-            // Batch
-            // -------------------------
-            else if (vm.Batch_IsChecked == true)
-            {
-                // Add slash to Batch Output Text folder path if missing
-                vm.Output_Text = vm.Output_Text.TrimEnd('\\') + @"\";
-
-                // Input Not Empty, Output Empty
-                // Default Output to be same as Input Directory
-                if (!string.IsNullOrEmpty(vm.Input_Text) && 
-                    string.IsNullOrEmpty(vm.Output_Text))
-                {
-                    vm.Output_Text = vm.Input_Text;
-                }
-
-                outputDir = vm.Output_Text;
-
-                // Output             
-                output = outputDir + "%~nf" + outputExt; // (eg. C:\Output Folder\%~nf.mp4)
-            }
-
-            // -------------------------
-            // Empty
-            // -------------------------
-            // Input Textbox & Output Textbox Both Empty
-            if (string.IsNullOrEmpty(vm.Output_Text))
-            {
-                outputDir = string.Empty;
-                outputFileName = string.Empty;
-                output = string.Empty;
             }
 
 
@@ -3817,57 +3823,6 @@ namespace Axiom
 
                 // Filters
                 vm.FiltersSetDefault();
-
-                //// Fix
-                //vm.FilterVideo_Deband_SelectedItem = "disabled";
-                //vm.FilterVideo_Deshake_SelectedItem = "disabled";
-                //vm.FilterVideo_Deflicker_SelectedItem = "disabled";
-                //vm.FilterVideo_Dejudder_SelectedItem = "disabled";
-                //vm.FilterVideo_Denoise_SelectedItem = "disabled";
-                //vm.FilterVideo_Deinterlace_SelectedItem = "disabled";
-                //// Selective Color
-                //// Reds
-                //vm.FilterVideo_SelectiveColor_Reds_Cyan_Value = 0;
-                //vm.FilterVideo_SelectiveColor_Reds_Magenta_Value = 0;
-                //vm.FilterVideo_SelectiveColor_Reds_Yellow_Value = 0;
-                //// Yellows
-                //vm.FilterVideo_SelectiveColor_Yellows_Cyan_Value = 0;
-                //vm.FilterVideo_SelectiveColor_Yellows_Magenta_Value = 0;
-                //vm.FilterVideo_SelectiveColor_Yellows_Yellow_Value = 0;
-                //// Greens
-                //vm.FilterVideo_SelectiveColor_Greens_Cyan_Value = 0;
-                //vm.FilterVideo_SelectiveColor_Greens_Magenta_Value = 0;
-                //vm.FilterVideo_SelectiveColor_Greens_Yellow_Value = 0;
-                //// Cyans
-                //vm.FilterVideo_SelectiveColor_Cyans_Cyan_Value = 0;
-                //vm.FilterVideo_SelectiveColor_Cyans_Magenta_Value = 0;
-                //vm.FilterVideo_SelectiveColor_Cyans_Yellow_Value = 0;
-                //// Blues
-                //vm.FilterVideo_SelectiveColor_Blues_Cyan_Value = 0;
-                //vm.FilterVideo_SelectiveColor_Blues_Magenta_Value = 0;
-                //vm.FilterVideo_SelectiveColor_Blues_Yellow_Value = 0;
-                //// Magentas
-                //vm.FilterVideo_SelectiveColor_Magentas_Cyan_Value = 0;
-                //vm.FilterVideo_SelectiveColor_Magentas_Magenta_Value = 0;
-                //vm.FilterVideo_SelectiveColor_Magentas_Yellow_Value = 0;
-                //// Whites
-                //vm.FilterVideo_SelectiveColor_Whites_Cyan_Value = 0;
-                //vm.FilterVideo_SelectiveColor_Whites_Magenta_Value = 0;
-                //vm.FilterVideo_SelectiveColor_Whites_Yellow_Value = 0;
-                //// Neutrals
-                //vm.FilterVideo_SelectiveColor_Neutrals_Cyan_Value = 0;
-                //vm.FilterVideo_SelectiveColor_Neutrals_Magenta_Value = 0;
-                //vm.FilterVideo_SelectiveColor_Neutrals_Yellow_Value = 0;
-                //// Blacks
-                //vm.FilterVideo_SelectiveColor_Blacks_Cyan_Value = 0;
-                //vm.FilterVideo_SelectiveColor_Blacks_Magenta_Value = 0;
-                //vm.FilterVideo_SelectiveColor_Blacks_Yellow_Value = 0;
-
-                //// EQ
-                //vm.FilterVideo_EQ_Brightness_Value = 0;
-                //vm.FilterVideo_EQ_Contrast_Value = 0;
-                //vm.FilterVideo_EQ_Saturation_Value = 0;
-                //vm.FilterVideo_EQ_Gamma_Value = 0;
             }
 
             // -------------------------
@@ -3894,7 +3849,7 @@ namespace Axiom
         /// <summary>
         ///    Container - ComboBox
         /// </summary>
-        private void cboContainer_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void cboFormat_Container_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // -------------------------
             // Set Controls
@@ -3948,7 +3903,7 @@ namespace Axiom
             // Force MediaTypeControls ComboBox to fire SelectionChanged Event
             // to update Format changes such as Audio_Stream_SelectedItem
             // -------------------------
-            cboMediaType_SelectionChanged(cboMediaType, null);
+            cboFormat_MediaType_SelectionChanged(cboFormat_MediaType, null);
         }
 
 
@@ -3956,7 +3911,7 @@ namespace Axiom
         /// <summary>
         ///    Media Type - Combobox
         /// </summary>
-        private void cboMediaType_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void cboFormat_MediaType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             FormatControls.MediaTypeControls(vm);
         }
@@ -4439,7 +4394,7 @@ namespace Axiom
                 };
 
                 // Populate ComboBox from ItemsSource
-                //cboPass.ItemsSource = VideoControls.Video_Pass_ItemsSource;
+                //cboVideo_Pass.ItemsSource = VideoControls.Video_Pass_ItemsSource;
 
                 // Select Item
                 vm.Video_Pass_SelectedItem = "2 Pass";
@@ -4506,7 +4461,7 @@ namespace Axiom
         }
 
         // Speed Custom KeyDown
-        private void cboFPS_KeyDown(object sender, KeyEventArgs e)
+        private void cboVideo_FrameRate_KeyDown(object sender, KeyEventArgs e)
         {
             // Only allow Numbers and Backspace
             // Deny Symbols (Shift + Number)
@@ -4568,7 +4523,7 @@ namespace Axiom
         }
 
         // Speed Custom KeyDown
-        private void cboSpeed_KeyDown(object sender, KeyEventArgs e)
+        private void cboVideo_Speed_KeyDown(object sender, KeyEventArgs e)
         {
             // Only allow Numbers and Backspace
             AllowOnlyNumbersAndBackspace(e);
@@ -4587,7 +4542,7 @@ namespace Axiom
         /// <summary>
         ///    Optimize Combobox
         /// </summary>
-        private void cboOptimize_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void cboVideo_Optimize_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // -------------------------
             // Optimize Controls
@@ -4757,7 +4712,7 @@ namespace Axiom
         private void tbxVideo_Width_GotFocus(object sender, RoutedEventArgs e)
         {
             // Clear textbox on focus if default text "auto"
-            if (tbxWidth.Focus() == true && 
+            if (tbxVideo_Width.Focus() == true && 
                 vm.Video_Width_Text == "auto")
             {
                 vm.Video_Width_Text = string.Empty;
@@ -4766,7 +4721,7 @@ namespace Axiom
         // Lost Focus
         private void tbxVideo_Width_LostFocus(object sender, RoutedEventArgs e)
         {
-            vm.Video_Width_Text = tbxWidth.Text;
+            vm.Video_Width_Text = tbxVideo_Width.Text;
 
             // Change textbox back to "auto" if left empty
             if (string.IsNullOrEmpty(vm.Video_Width_Text))
@@ -4782,7 +4737,7 @@ namespace Axiom
         private void tbxVideo_Height_GotFocus(object sender, RoutedEventArgs e)
         {
             // Clear textbox on focus if default text "auto"
-            if (tbxHeight.Focus() == true && 
+            if (tbxVideo_Height.Focus() == true && 
                 vm.Video_Height_Text == "auto")
             {
                 vm.Video_Height_Text = string.Empty;
@@ -4791,7 +4746,7 @@ namespace Axiom
         // Lost Focus
         private void tbxVideo_Height_LostFocus(object sender, RoutedEventArgs e)
         {
-            vm.Video_Height_Text = tbxHeight.Text;
+            vm.Video_Height_Text = tbxVideo_Height.Text;
 
             // Change textbox back to "height" if left empty
             if (string.IsNullOrEmpty(vm.Video_Height_Text))
@@ -4916,21 +4871,21 @@ namespace Axiom
                 // Enable External ListView and Buttons
                 vm.Subtitle_ListView_IsEnabled = true;
 
-                listViewSubtitles.Opacity = 1;
+                lstv_Subtitles.Opacity = 1;
             }
             else
             {
                 // Disable External ListView and Buttons
                 vm.Subtitle_ListView_IsEnabled = false;
 
-                listViewSubtitles.Opacity = 0.1;
+                lstv_Subtitles.Opacity = 0.1;
             }
         }
 
         /// <summary>
         ///     Subtitle ListView
         /// </summary>
-        private void listViewSubtitles_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void lstv_Subtitles_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // Clear before adding new selected items
             if (vm.Subtitle_ListView_SelectedItems != null &&
@@ -4941,7 +4896,7 @@ namespace Axiom
             }
            
             // Create Selected Items List for ViewModel
-            vm.Subtitle_ListView_SelectedItems = listViewSubtitles.SelectedItems
+            vm.Subtitle_ListView_SelectedItems = lstv_Subtitles.SelectedItems
                                                 .Cast<string>()
                                                 .ToList();
         }
@@ -4950,7 +4905,7 @@ namespace Axiom
         /// <summary>
         ///     Subtitle Add
         /// </summary>
-        private void btnAddSubtitles_Click(object sender, RoutedEventArgs e)
+        private void btnSubtitle_Add_Click(object sender, RoutedEventArgs e)
         {
             // Open Select File Window
             Microsoft.Win32.OpenFileDialog selectFiles = new Microsoft.Win32.OpenFileDialog();
@@ -4984,7 +4939,7 @@ namespace Axiom
         /// <summary>
         /// Subtitle Remove
         /// </summary>
-        private void btnRemoveSubtitle_Click(object sender, RoutedEventArgs e)
+        private void btnSubtitle_Remove_Click(object sender, RoutedEventArgs e)
         {
             if (vm.Subtitle_ListView_SelectedItems.Count > 0)
             {
@@ -5007,7 +4962,7 @@ namespace Axiom
         /// <summary>
         /// Subtitle Clear All
         /// </summary>
-        private void btnClearSubtitles_Click(object sender, RoutedEventArgs e)
+        private void btnSubtitle_Clear_Click(object sender, RoutedEventArgs e)
         {
             SubtitlesClear();
         }
@@ -5018,7 +4973,7 @@ namespace Axiom
         public void SubtitlesClear()
         {
             // Clear List View
-            //listViewSubtitles.Items.Clear();
+            //lstv_Subtitles.Items.Clear();
             if (vm.Subtitle_ListView_Items != null &&
                 vm.Subtitle_ListView_Items.Count > 0)
             {
@@ -5045,7 +5000,7 @@ namespace Axiom
         /// <summary>
         /// Subtitle Sort Up
         /// </summary>
-        private void btnSortSubtitleUp_Click(object sender, RoutedEventArgs e)
+        private void btnSubtitle_SortUp_Click(object sender, RoutedEventArgs e)
         {
             if (vm.Subtitle_ListView_SelectedItems.Count > 0)
             {
@@ -5077,7 +5032,7 @@ namespace Axiom
         /// <summary>
         /// Subtitle Sort Down
         /// </summary>
-        private void btnSortSubtitleDown_Click(object sender, RoutedEventArgs e)
+        private void btnSubtitle_SortDown_Click(object sender, RoutedEventArgs e)
         {
             if (vm.Subtitle_ListView_SelectedItems.Count > 0)
             {
@@ -5123,7 +5078,7 @@ namespace Axiom
         /// <summary>
         ///    Audio Channel - ComboBox
         /// </summary>
-        private void cboChannel_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void cboAudio_Channel_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             //AudioControls.AutoCopyAudioCodec(vm);
         }
@@ -5227,7 +5182,7 @@ namespace Axiom
         /// <summary>
         ///     Samplerate ComboBox
         /// </summary>
-        private void cboSampleRate_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void cboAudio_SampleRate_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             //if (!string.IsNullOrEmpty(vm.Audio_SampleRate_SelectedItem))
             //{
@@ -5250,7 +5205,7 @@ namespace Axiom
         /// <summary>
         ///     Bit Depth ComboBox
         /// </summary>
-        private void cboBitDepth_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void cboAudio_BitDepth_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (vm.Audio_Codec_SelectedItem == "PCM")
             {
@@ -5284,7 +5239,7 @@ namespace Axiom
         // Up
         // -------------------------
         // Volume Up Button Click
-        private void btnVolumeUp_Click(object sender, RoutedEventArgs e)
+        private void btnAudio_VolumeUp_Click(object sender, RoutedEventArgs e)
         {
             int value;
             int.TryParse(vm.Audio_Volume_Text, out value);
@@ -5302,14 +5257,14 @@ namespace Axiom
             vm.Audio_Volume_Text = value.ToString();
         }
         // Hold Up Button
-        private void btnVolumeUp_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void btnAudio_VolumeUp_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             // Timer      
             dispatcherTimerUp.Interval = new TimeSpan(0, 0, 0, 0, 100); //100ms
             dispatcherTimerUp.Start();
         }
         // Up Button Released
-        private void btnVolumeUp_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        private void btnAudio_VolumeUp_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
             // Disable Timer
             dispatcherTimerUp.Stop();
@@ -5318,7 +5273,7 @@ namespace Axiom
         // Down
         // -------------------------
         // Volume Down Button Click
-        private void btnVolumeDown_Click(object sender, RoutedEventArgs e)
+        private void btnAudio_VolumeDown_Click(object sender, RoutedEventArgs e)
         {
             int value;
             int.TryParse(vm.Audio_Volume_Text, out value);
@@ -5336,14 +5291,14 @@ namespace Axiom
             vm.Audio_Volume_Text = value.ToString();
         }
         // Hold Down Button
-        private void btnVolumeDown_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void btnAudio_VolumeDown_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             // Timer      
             dispatcherTimerDown.Interval = new TimeSpan(0, 0, 0, 0, 100); //100ms
             dispatcherTimerDown.Start();
         }
         // Down Button Released
-        private void btnVolumeDown_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        private void btnAudio_VolumeDown_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
             // Disable Timer
             dispatcherTimerDown.Stop();
@@ -6263,8 +6218,7 @@ namespace Axiom
         public void Sort()
         {
             // Only if Script not empty
-            if (!string.IsNullOrEmpty(vm.ScriptView_Text) &&
-                vm.ScriptView_Text != "Download Complete") // YouTube Download-Only
+            if (!string.IsNullOrEmpty(vm.ScriptView_Text))
             {
                 // -------------------------
                 // Has Not Been Edited
@@ -6416,47 +6370,81 @@ namespace Axiom
             // -------------------------
             if (ReadyHalts(vm) == true)
             {
+
                 // -------------------------
-                // Single
+                // Local File
                 // -------------------------
-                if (vm.Batch_IsChecked == false)
+                if (IsYouTube(vm.Input_Text) == false)
                 {
+                    // -------------------------
+                    // Single
+                    // -------------------------
+                    if (vm.Batch_IsChecked == false)
+                    {
+                        // -------------------------
+                        // FFprobe Detect Metadata
+                        // -------------------------
+                        FFprobe.Metadata(vm);
+
+                        // -------------------------
+                        // FFmpeg Generate Arguments (Single)
+                        // -------------------------
+                        // disabled if batch
+                        FFmpeg.FFmpegSingleGenerateArgs(vm);
+                    }
+
+                    // -------------------------
+                    // Batch
+                    // -------------------------
+                    else if (vm.Batch_IsChecked == true)
+                    {
+                        // -------------------------
+                        // FFprobe Video Entry Type Containers
+                        // -------------------------
+                        FFprobe.VideoEntryType(vm);
+
+                        // -------------------------
+                        // FFprobe Video Entry Type Containers
+                        // -------------------------
+                        FFprobe.AudioEntryType(vm);
+
+                        // -------------------------
+                        // FFmpeg Generate Arguments (Batch)
+                        // -------------------------
+                        //disabled if single file
+                        FFmpeg.FFmpegBatchGenerateArgs(vm);
+                    }
+                }
+
+                // -------------------------
+                // YouTube Download
+                // -------------------------
+                else if (IsYouTube(vm.Input_Text) == true)
+                {
+                    //// -------------------------
+                    //// FFprobe Video Entry Type Containers
+                    //// -------------------------
+                    //FFprobe.VideoEntryType(vm);
+
+                    //// -------------------------
+                    //// FFprobe Video Entry Type Containers
+                    //// -------------------------
+                    //FFprobe.AudioEntryType(vm);
+
                     // -------------------------
                     // FFprobe Detect Metadata
                     // -------------------------
-                    //if (IsYouTube(vm.Input_Text) == false) // Ignore YouTube URL's
+                    //if (IsYouTubeDownloadOnly(vm) == false) // Ignore Download Only
                     //{
-                        FFprobe.Metadata(vm);
+                    //    FFprobe.Metadata(vm);
                     //}
 
                     // -------------------------
-                    // FFmpeg Generate Arguments (Single)
+                    // Generate Arguments
                     // -------------------------
-                    // disabled if batch
-                    FFmpeg.FFmpegSingleGenerateArgs(vm);
+                    FFmpeg.YouTubeDownloadGenerateArgs(vm);
                 }
 
-                // -------------------------
-                // Batch
-                // -------------------------
-                else if (vm.Batch_IsChecked == true)
-                {
-                    // -------------------------
-                    // FFprobe Video Entry Type Containers
-                    // -------------------------
-                    FFprobe.VideoEntryType(vm);
-
-                    // -------------------------
-                    // FFprobe Video Entry Type Containers
-                    // -------------------------
-                    FFprobe.AudioEntryType(vm);
-
-                    // -------------------------
-                    // FFmpeg Generate Arguments (Batch)
-                    // -------------------------
-                    //disabled if single file
-                    FFmpeg.FFmpegBatchGenerateArgs(vm);
-                }
 
                 // -------------------------
                 // Write All Log Actions to Console
@@ -6667,43 +6655,79 @@ namespace Axiom
             if (ReadyHalts(vm) == true)
             {
                 // -------------------------
-                // Single
+                // Local File
                 // -------------------------
-                if (vm.Batch_IsChecked == false)
+                if (IsYouTube(vm.Input_Text) == false)
                 {
                     // -------------------------
-                    // FFprobe Detect Metadata
+                    // Single
                     // -------------------------
-                    FFprobe.Metadata(vm);
+                    if (vm.Batch_IsChecked == false)
+                    {
+                        // -------------------------
+                        // FFprobe Detect Metadata
+                        // -------------------------
+                        FFprobe.Metadata(vm);
+
+                        // -------------------------
+                        // FFmpeg Generate Arguments (Single)
+                        // -------------------------
+                        //disabled if batch
+                        FFmpeg.FFmpegSingleGenerateArgs(vm);
+                    }
 
                     // -------------------------
-                    // FFmpeg Generate Arguments (Single)
+                    // Batch
                     // -------------------------
-                    //disabled if batch
-                    FFmpeg.FFmpegSingleGenerateArgs(vm);
+                    else if (vm.Batch_IsChecked == true)
+                    {
+                        // -------------------------
+                        // FFprobe Video Entry Type Containers
+                        // -------------------------
+                        FFprobe.VideoEntryType(vm);
+
+                        // -------------------------
+                        // FFprobe Video Entry Type Containers
+                        // -------------------------
+                        FFprobe.AudioEntryType(vm);
+
+                        // -------------------------
+                        // FFmpeg Generate Arguments (Batch)
+                        // -------------------------
+                        //disabled if single file
+                        FFmpeg.FFmpegBatchGenerateArgs(vm);
+                    }
                 }
 
                 // -------------------------
-                // Batch
+                // YouTube Download
                 // -------------------------
-                else if (vm.Batch_IsChecked == true)
+                else if (IsYouTube(vm.Input_Text) == true)
                 {
-                    // -------------------------
-                    // FFprobe Video Entry Type Containers
-                    // -------------------------
-                    FFprobe.VideoEntryType(vm);
+                    //// -------------------------
+                    //// FFprobe Video Entry Type Containers
+                    //// -------------------------
+                    //FFprobe.VideoEntryType(vm);
+
+                    //// -------------------------
+                    //// FFprobe Video Entry Type Containers
+                    //// -------------------------
+                    //FFprobe.AudioEntryType(vm);
+
+                    //// -------------------------
+                    //// FFprobe Detect Metadata
+                    //// -------------------------
+                    //if (IsYouTubeDownloadOnly(vm) == false) // Ignore Download Only
+                    //{
+                    //    FFprobe.Metadata(vm);
+                    //}
 
                     // -------------------------
-                    // FFprobe Video Entry Type Containers
+                    // Generate Arguments
                     // -------------------------
-                    FFprobe.AudioEntryType(vm);
-
-                    // -------------------------
-                    // FFmpeg Generate Arguments (Batch)
-                    // -------------------------
-                    //disabled if single file
-                    FFmpeg.FFmpegBatchGenerateArgs(vm);
+                    FFmpeg.YouTubeDownloadGenerateArgs(vm);
                 }
+
 
                 // -------------------------
                 // FFmpeg Convert

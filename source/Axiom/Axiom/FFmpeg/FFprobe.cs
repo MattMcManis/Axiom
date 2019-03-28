@@ -22,6 +22,7 @@ along with this program.If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Diagnostics;
 using System.Linq;
+using System.Windows;
 using System.Windows.Documents;
 // Disable XML Comment warnings
 #pragma warning disable 1591
@@ -281,7 +282,8 @@ namespace Axiom
                 {
                     vEntryType = "format=bit_rate";
                 }
-                else // UNLISTED Filetypes & Audio to Video
+                // UNLISTED Filetypes & Audio to Video
+                else
                 {
                     vEntryTypeBatch = "stream=bit_rate";
                 }
@@ -300,11 +302,32 @@ namespace Axiom
                 {
                     vEntryType = "format^=bit_rate";
                 }
-                else // UNLISTED Filetypes & Audio to Video
+                // UNLISTED Filetypes & Audio to Video
+                else
                 {
                     vEntryTypeBatch = "stream^=bit_rate";
                 }
             }
+
+            //// -------------------------
+            //// YouTube Download
+            //// -------------------------
+            //if (MainWindow.IsYouTube(vm.Input_Text) == true)
+            //{
+            //    if (Format.VideoFormats_EntryType_Stream.Any(s => s.Equals(MainWindow.inputExt, StringComparison.OrdinalIgnoreCase)))
+            //    {
+            //        vEntryType = "stream^=bit_rate";
+            //    }
+            //    else if (Format.VideoFormats_EntryType_Format.Any(s => s.Equals(MainWindow.inputExt, StringComparison.OrdinalIgnoreCase)))
+            //    {
+            //        vEntryType = "format^=bit_rate";
+            //    }
+            //    // UNLISTED Filetypes & Audio to Video
+            //    else
+            //    {
+            //        vEntryTypeBatch = "stream^=bit_rate";
+            //    }
+            //}
         }
 
 
@@ -349,6 +372,24 @@ namespace Axiom
                     aEntryType = "stream^=bit_rate";
                 }
             }
+
+            //// -------------------------
+            //// YouTube Download
+            //// -------------------------
+            //if (MainWindow.IsYouTube(vm.Input_Text) == true)
+            //{
+            //    // These file types need special instructions for FFprobe to detect
+            //    if (string.Equals(MainWindow.inputExt, ".flac", StringComparison.CurrentCultureIgnoreCase) ||
+            //        string.Equals(MainWindow.inputExt, ".wav", StringComparison.CurrentCultureIgnoreCase))
+            //    {
+            //        aEntryType = "format=bit_rate";
+            //    }
+            //    else
+            //    {
+            //        // All other audio types use stream=bit_rate? -maybe
+            //        aEntryType = "stream=bit_rate";
+            //    }
+            //}
         }
 
 
@@ -419,6 +460,8 @@ namespace Axiom
                         inputMetaData = inputMetaData.Trim();
                         inputMetaData = inputMetaData.TrimEnd();
                     }
+
+                    FFprobeParse.Dispose();
                 }
             }
 

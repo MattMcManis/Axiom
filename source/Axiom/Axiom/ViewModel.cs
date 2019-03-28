@@ -110,6 +110,7 @@ namespace Axiom
             Audio_Stream_SelectedItem = "1";
             Audio_Channel_SelectedItem = "Source";
             Audio_Quality_SelectedItem = "Auto";
+            Audio_CompressionLevel_SelectedItem = "auto";
             Audio_SampleRate_SelectedItem = "auto";
             Audio_BitDepth_SelectedItem = "auto";
 
@@ -3614,6 +3615,90 @@ namespace Axiom
 
                 _Audio_VBR_IsEnabled = value;
                 OnPropertyChanged("Audio_VBR_IsEnabled");
+            }
+        }
+
+
+        // --------------------------------------------------
+        // Audio Compression Level
+        // --------------------------------------------------
+        // Items Source
+        private List<string> _Audio_CompressionLevel_Items = new List<string>();
+        public List<string> Audio_CompressionLevel_Items
+        {
+            get { return _Audio_CompressionLevel_Items; }
+            set
+            {
+                _Audio_CompressionLevel_Items = value;
+                OnPropertyChanged("Audio_CompressionLevel_Items");
+            }
+        }
+
+        // Selected Index
+        private int _Audio_CompressionLevel_SelectedIndex { get; set; }
+        public int Audio_CompressionLevel_SelectedIndex
+        {
+            get { return _Audio_CompressionLevel_SelectedIndex; }
+            set
+            {
+                if (_Audio_CompressionLevel_SelectedIndex == value)
+                {
+                    return;
+                }
+
+                _Audio_CompressionLevel_SelectedIndex = value;
+                OnPropertyChanged("Audio_CompressionLevel_SelectedIndex");
+            }
+        }
+
+        // Selected Item
+        private string _Audio_CompressionLevel_SelectedItem { get; set; }
+        public string Audio_CompressionLevel_SelectedItem
+        {
+            get { return _Audio_CompressionLevel_SelectedItem; }
+            set
+            {
+                if (_Audio_CompressionLevel_SelectedItem == value)
+                {
+                    return;
+                }
+
+                _Audio_CompressionLevel_SelectedItem = value;
+                OnPropertyChanged("Audio_CompressionLevel_SelectedItem");
+
+                //var previousItem = _Audio_CompressionLevel_SelectedItem;
+                //_Audio_CompressionLevel_SelectedItem = value;
+                //OnPropertyChanged("Audio_CompressionLevel_SelectedItem");
+
+                //if (previousItem != value)
+                //{
+                //    AudioControls.AutoCopyAudioCodec(this);
+                //}
+
+                //if (_Audio_CompressionLevel_SelectedItem == value)
+                //{
+                //    return;
+                //}
+
+                //_Audio_CompressionLevel_SelectedItem = value;
+                //OnPropertyChanged("Audio_CompressionLevel_SelectedItem");
+            }
+        }
+
+        // Controls Enable
+        private bool _Audio_CompressionLevel_IsEnabled = true;
+        public bool Audio_CompressionLevel_IsEnabled
+        {
+            get { return _Audio_CompressionLevel_IsEnabled; }
+            set
+            {
+                if (_Audio_CompressionLevel_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _Audio_CompressionLevel_IsEnabled = value;
+                OnPropertyChanged("Audio_CompressionLevel_IsEnabled");
             }
         }
 

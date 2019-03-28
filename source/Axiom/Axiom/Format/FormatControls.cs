@@ -565,12 +565,12 @@ namespace Axiom
                 // Codec
                 vm.Audio_Codec_IsEnabled = true;
 
-                // Channel
-                vm.Audio_Channel_IsEnabled = true;
-
                 // Audio Stream
                 vm.Audio_Stream_IsEnabled = true;
                 vm.Audio_Stream_SelectedItem = "1";
+
+                // Channel
+                vm.Audio_Channel_IsEnabled = true;
 
                 // Sample Rate
                 // Controled Through Codec Class
@@ -666,17 +666,21 @@ namespace Axiom
                 // Codec
                 vm.Audio_Codec_IsEnabled = false;
 
-                // Quality
-                vm.Audio_Quality_SelectedItem = "None";
-                vm.Audio_Quality_IsEnabled = false;
+                // Audio Stream
+                vm.Audio_Stream_SelectedItem = "none";
+                vm.Audio_Stream_IsEnabled = false;
 
                 // Channel
                 vm.Audio_Channel_SelectedItem = "Source";
                 vm.Audio_Channel_IsEnabled = false;
 
-                // Audio Stream
-                vm.Audio_Stream_SelectedItem = "none";
-                vm.Audio_Stream_IsEnabled = false;
+                // Quality
+                vm.Audio_Quality_SelectedItem = "None";
+                vm.Audio_Quality_IsEnabled = false;
+
+                // Compression Level
+                vm.Audio_CompressionLevel_SelectedItem = "auto";
+                vm.Audio_CompressionLevel_IsEnabled = false;
 
                 // Sample Rate
                 vm.Audio_SampleRate_SelectedItem = "auto";
@@ -759,17 +763,21 @@ namespace Axiom
                 // Codec
                 vm.Audio_Codec_IsEnabled = false;
 
-                // Quality
-                vm.Audio_Quality_SelectedItem = "None";
-                vm.Audio_Quality_IsEnabled = false;
+                // Audio Stream
+                vm.Audio_Stream_SelectedItem = "none";
+                vm.Audio_Stream_IsEnabled = false;
 
                 // Channel
                 vm.Audio_Channel_SelectedItem = "Source";
                 vm.Audio_Channel_IsEnabled = false;
 
-                // Audio Stream
-                vm.Audio_Stream_SelectedItem = "none";
-                vm.Audio_Stream_IsEnabled = false;
+                // Quality
+                vm.Audio_Quality_SelectedItem = "None";
+                vm.Audio_Quality_IsEnabled = false;
+
+                // Compression Level
+                vm.Audio_CompressionLevel_SelectedItem = "auto";
+                vm.Audio_CompressionLevel_IsEnabled = false;
 
                 // Sample Rate
                 vm.Audio_SampleRate_SelectedItem = "auto";

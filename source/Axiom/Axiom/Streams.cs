@@ -265,10 +265,10 @@ namespace Axiom
                             checkedItem = i.ToString();
                         }
                     }
-                    //for (var i = 0; i < mainwindow.listViewSubtitles.Items.Count; i++)
+                    //for (var i = 0; i < mainwindow.lstv_Subtitles.Items.Count; i++)
                     //{
                     //    // If list contains a checked item
-                    //    if (mainwindow.listViewSubtitles.SelectedItems.Contains(mainwindow.listViewSubtitles.Items[i]))
+                    //    if (mainwindow.lstv_Subtitles.SelectedItems.Contains(mainwindow.lstv_Subtitles.Items[i]))
                     //    {
                     //        // Get Index Position
                     //        checkedItem = i.ToString();

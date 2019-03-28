@@ -174,7 +174,8 @@ namespace Axiom
                                        vm.Video_Bitrate_Text,
                                        vm.Video_Minrate_Text,
                                        vm.Video_Maxrate_Text,
-                                       vm.Video_Bufsize_Text
+                                       vm.Video_Bufsize_Text,
+                                       vm.Input_Text
                                        ),
                     "\r\n" +
                     Video.PixFmt(vm.Format_MediaType_SelectedItem,
@@ -225,7 +226,8 @@ namespace Axiom
                     "\r\n\r\n" +
                     Audio.AudioCodec(vm.Audio_Codec_SelectedItem,
                                      vm.Audio_Codec,
-                                     vm.Audio_BitDepth_SelectedItem
+                                     vm.Audio_BitDepth_SelectedItem,
+                                     vm.Input_Text
                                      ),
                     "\r\n" +
                     Audio.AudioQuality(vm.Input_Text,
@@ -237,6 +239,12 @@ namespace Axiom
                                        vm.Audio_Quality_SelectedItem,
                                        vm.Audio_Bitrate_Text
                                        ),
+                    Audio.CompressionLevel(vm.Format_MediaType_SelectedItem,
+                                           vm.Audio_Codec_SelectedItem,
+                                           vm.Audio_Stream_SelectedItem,
+                                           vm.Audio_Quality_SelectedItem,
+                                           vm.Audio_CompressionLevel_SelectedItem
+                                           ),
                     Audio.SampleRate(vm.Format_MediaType_SelectedItem,
                                      vm.Audio_Codec_SelectedItem,
                                      vm.Audio_Stream_SelectedItem,
@@ -371,7 +379,8 @@ namespace Axiom
                                        vm.Video_Bitrate_Text,
                                        vm.Video_Minrate_Text,
                                        vm.Video_Maxrate_Text,
-                                       vm.Video_Bufsize_Text
+                                       vm.Video_Bufsize_Text,
+                                       vm.Input_Text
                                        ),
                     "\r\n" +
                     Video.PixFmt(vm.Format_MediaType_SelectedItem,
@@ -509,7 +518,8 @@ namespace Axiom
                     "\r\n\r\n" +
                     Audio.AudioCodec(vm.Audio_Codec_SelectedItem,
                                      vm.Audio_Codec,
-                                     vm.Audio_BitDepth_SelectedItem
+                                     vm.Audio_BitDepth_SelectedItem,
+                                     vm.Input_Text
                                      ),
                     "\r\n" +
                     Audio.AudioQuality(vm.Input_Text,
@@ -521,6 +531,12 @@ namespace Axiom
                                        vm.Audio_Quality_SelectedItem,
                                        vm.Audio_Bitrate_Text
                                        ),
+                    Audio.CompressionLevel(vm.Format_MediaType_SelectedItem,
+                                           vm.Audio_Codec_SelectedItem,
+                                           vm.Audio_Stream_SelectedItem,
+                                           vm.Audio_Quality_SelectedItem,
+                                           vm.Audio_CompressionLevel_SelectedItem
+                                           ),
                     Audio.SampleRate(vm.Format_MediaType_SelectedItem,
                                      vm.Audio_Codec_SelectedItem,
                                      vm.Audio_Stream_SelectedItem,
@@ -668,9 +684,11 @@ namespace Axiom
                     Log.logParagraph.Inlines.Add(new LineBreak());
                     Log.logParagraph.Inlines.Add(new LineBreak());
                     Log.logParagraph.Inlines.Add(new Bold(new Run("Generating Batch Script...")) { Foreground = Log.ConsoleTitle });
+                    //Log.logParagraph.Inlines.Add(new LineBreak());
+                    //Log.logParagraph.Inlines.Add(new LineBreak());
+                    //Log.logParagraph.Inlines.Add(new Bold(new Run("Running Batch Convert...")) { Foreground = Log.ConsoleAction });
                     Log.logParagraph.Inlines.Add(new LineBreak());
-                    Log.logParagraph.Inlines.Add(new LineBreak());
-                    Log.logParagraph.Inlines.Add(new Bold(new Run("Running Batch Convert...")) { Foreground = Log.ConsoleAction });
+                    Log.logParagraph.Inlines.Add(new Run(ffmpegArgs) { Foreground = Log.ConsoleDefault });
                 };
                 Log.LogActions.Add(Log.WriteAction);
 
@@ -747,8 +765,149 @@ namespace Axiom
 
 
         /// <summary>
-        ///     FFmpeg Generate Script
+        ///     YouTube Download - Generate Args
         /// </summary>
+        public static void YouTubeDownloadGenerateArgs(ViewModel vm)
+        {
+            // Log Console Message /////////
+            Log.WriteAction = () =>
+            {
+                Log.logParagraph.Inlines.Add(new LineBreak());
+                Log.logParagraph.Inlines.Add(new LineBreak());
+                Log.logParagraph.Inlines.Add(new Bold(new Run("YouTube Download: ")) { Foreground = Log.ConsoleDefault });
+                Log.logParagraph.Inlines.Add(new Run(Convert.ToString(vm.Batch_IsChecked)) { Foreground = Log.ConsoleDefault });
+                Log.logParagraph.Inlines.Add(new LineBreak());
+                Log.logParagraph.Inlines.Add(new LineBreak());
+                Log.logParagraph.Inlines.Add(new Bold(new Run("Generating Script...")) { Foreground = Log.ConsoleTitle });
+                //Log.logParagraph.Inlines.Add(new LineBreak());
+                //Log.logParagraph.Inlines.Add(new LineBreak());
+                //Log.logParagraph.Inlines.Add(new Bold(new Run("Running Convert...")) { Foreground = Log.ConsoleAction });
+                Log.logParagraph.Inlines.Add(new LineBreak());
+                Log.logParagraph.Inlines.Add(new Run(ffmpegArgs) { Foreground = Log.ConsoleDefault });
+            };
+            Log.LogActions.Add(Log.WriteAction);
+
+
+            // -------------------------
+            // YouTube Download Arguments Full
+            // -------------------------
+            // Download
+            //
+            List<string> youtubedlArgs = new List<string>()
+            {
+                "cd /d",
+                "\"" + MainWindow.downloadDir + "\"",
+
+                "\r\n\r\n" + "&&",
+
+                "\r\n\r\n" + "for /f \"delims=\" %f in",
+
+                // Get Title
+                //"\r\n\r\n" + "('@" + "\"" + MainWindow.youtubedl + "\"" + " --get-filename -o " + "\"" + MainWindow.downloadDir + "%(title)s" + "\"" + " " + "\"" + MainWindow.YouTubeDownloadURL(vm.Input_Text) + "\"" + "')",
+                "\r\n\r\n" + "('@" + "\"" + MainWindow.youtubedl + "\"" + " --get-filename -o \"%(title)s\" " + "\"" + MainWindow.YouTubeDownloadURL(vm.Input_Text) + "\"" + "')",
+
+                // Download Video
+                "\r\n\r\n" + "do (echo %~f)",
+                "\r\n\r\n" + "&&",
+                "\r\n\r\n" + "@" + "\"" + MainWindow.youtubedl + "\"" + " -f " + MainWindow.YouTubeDownloadQuality(vm.Format_YouTube_SelectedItem, vm.Format_YouTube_Quality_SelectedItem) + " " + "\"" + vm.Input_Text + "\"" + " -o " + "\"" + MainWindow.downloadDir + "%(title)s" + "." + MainWindow.YouTubeDownloadFormat(vm.Format_YouTube_SelectedItem) + "\"" + " --merge-output-format " + MainWindow.YouTubeDownloadFormat(vm.Format_YouTube_SelectedItem),
+            };
+
+            // FFmpeg Args
+            //
+            List<string> FFmpegArgs = new List<string>()
+            {
+                //// Video
+                //"\r\n\r\n" + Video.BatchVideoQualityAuto(vm.Batch_IsChecked,
+                //                                         vm.Format_MediaType_SelectedItem,
+                //                                         vm.Video_Codec_SelectedItem,
+                //                                         vm.Video_Quality_SelectedItem
+                //                                         ),
+
+                //// Audio
+                //"\r\n\r\n" + Audio.BatchAudioQualityAuto(vm.Batch_IsChecked,
+                //                                         vm.Format_MediaType_SelectedItem,
+                //                                         vm.Audio_Codec_SelectedItem,
+                //                                         vm.Audio_Stream_SelectedItem,
+                //                                         vm.Audio_Quality_SelectedItem
+                //                                         ),
+                //"\r\n\r\n" + Audio.BatchAudioBitrateLimiter(vm.Format_MediaType_SelectedItem,
+                //                                            vm.Audio_Codec_SelectedItem,
+                //                                            vm.Audio_Stream_SelectedItem,
+                //                                            vm.Audio_Quality_SelectedItem
+                //                                            ),
+
+                "\r\n\r\n" + "&&",
+                "\r\n\r\n" + MainWindow.FFmpegPath(vm),
+                "\r\n\r\n" + Video.HWAcceleration(vm.Format_HWAccel_SelectedItem,
+                                                  vm.Video_Codec_SelectedItem
+                                                  ),
+                "-y",
+
+                OnePassArgs(vm), //disabled if 2-Pass       
+                TwoPassArgs(vm) //disabled if 1-Pass
+            };
+
+
+            // -------------------------
+            // Download Only
+            // -------------------------
+            if (MainWindow.IsYouTubeDownloadOnly(vm) == true)
+            {
+                // Join List with Spaces
+                // Remove: Empty, Null, Standalone LineBreak
+                ffmpegArgsSort = string.Join(" ", youtubedlArgs
+                                                .Where(s => !string.IsNullOrEmpty(s))
+                                                .Where(s => !s.Equals(Environment.NewLine))
+                                                .Where(s => !s.Equals("\r\n\r\n"))
+                                                .Where(s => !s.Equals("\r\n"))
+                                        );
+
+                // Inline 
+                ffmpegArgs = MainWindow.RemoveLineBreaks(string.Join(" ", youtubedlArgs
+                                                               .Where(s => !string.IsNullOrEmpty(s))
+                                                               .Where(s => !s.Equals(Environment.NewLine))
+                                                               .Where(s => !s.Equals("\r\n\r\n"))
+                                                               .Where(s => !s.Equals("\r\n"))
+                                                        )
+                                        );
+            }
+
+            // -------------------------
+            // Download & Convert
+            // -------------------------
+            else
+            {
+                // Join YouTube Args & FFmpeg Args
+                youtubedlArgs.AddRange(FFmpegArgs); 
+
+                // Join List with Spaces
+                // Remove: Empty, Null, Standalone LineBreak
+                ffmpegArgsSort = string.Join(" ", youtubedlArgs
+                                                .Where(s => !string.IsNullOrEmpty(s))
+                                                .Where(s => !s.Equals(Environment.NewLine))
+                                                .Where(s => !s.Equals("\r\n\r\n"))
+                                                .Where(s => !s.Equals("\r\n"))
+                                        );
+
+                // Inline 
+                ffmpegArgs = MainWindow.RemoveLineBreaks(string.Join(" ", youtubedlArgs
+                                                                .Where(s => !string.IsNullOrEmpty(s))
+                                                                .Where(s => !s.Equals(Environment.NewLine))
+                                                                .Where(s => !s.Equals("\r\n\r\n"))
+                                                                .Where(s => !s.Equals("\r\n"))
+                                                        )
+                                        );
+            }
+        }
+
+
+        // --------------------------------------------------------------------------------------------------------
+        // --------------------------------------------------------------------------------------------------------
+
+
+            /// <summary>
+            ///     FFmpeg Generate Script
+            /// </summary>
         public static void FFmpegScript(ViewModel vm)
         {
             // Clear Old Text
@@ -786,77 +945,26 @@ namespace Axiom
         /// </summary>
         public static void FFmpegConvert(ViewModel vm)
         {
-            // -------------------------
-            // YouTube Download
-            // -------------------------
-            if (MainWindow.IsYouTube(vm.Input_Text) == true)
+            Log.WriteAction = () =>
             {
-                // Start Download
-                MainWindow.YouTubeDownload(vm);
-            
-                // Wait for Task to finish                                             
-                while (!vm.youtubedlInputWorker.IsCompleted)
-                {
-                    if (vm.youtubedlInputWorker.IsCompleted)
-                    {
-                        break;
-                    }
-                }
-            }
-
+                Log.logParagraph.Inlines.Add(new LineBreak());
+                Log.logParagraph.Inlines.Add(new LineBreak());
+                Log.logParagraph.Inlines.Add(new Bold(new Run("Running Convert...")) { Foreground = Log.ConsoleAction });
+            };
+            Log.LogActions.Add(Log.WriteAction);
 
             // -------------------------
-            // Convert
+            // Generate Controls Script
             // -------------------------
-            if ((MainWindow.IsYouTube(vm.Input_Text) == true && // Download Only
-                 vm.Video_Codec_SelectedItem != "Copy" &&
-                 vm.Subtitle_Codec_SelectedItem != "Copy" &&
-                 vm.Audio_Codec_SelectedItem != "Copy" 
-                 ) 
-                 
-                 || 
-                
-                MainWindow.IsYouTube(vm.Input_Text) == false) // Convert
-            {
-                // -------------------------
-                // Generate Controls Script
-                // -------------------------
-                // Inline
-                FFmpegScript(vm);
-
-                // -------------------------
-                // Start FFmpeg
-                // -------------------------
-                FFmpegStart(vm);
-            }
+            // Inline
+            FFmpegScript(vm);
 
             // -------------------------
-            // Finished
+            // Start FFmpeg
             // -------------------------
-            else
-            {
-                vm.ScriptView_Text = "Download Complete";
-            }
-
-            // -------------------------
-            // Local File Convert
-            // -------------------------
-            //if (MainWindow.IsYouTube(vm.Input_Text) == false)
-            //{
-            //    // -------------------------
-            //    // Generate Controls Script
-            //    // -------------------------
-            //    // Inline
-            //    FFmpegScript(vm);
-
-            //    // -------------------------
-            //    // Start FFmpeg
-            //    // -------------------------
-            //    FFmpegStart(vm);
-            //}
-
-
+            FFmpegStart(vm);
         }
+
 
     }
 }

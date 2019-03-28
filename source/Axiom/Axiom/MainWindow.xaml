@@ -146,6 +146,8 @@
                 Width="60" 
                 Height="22" 
                 Cursor="Hand"
+                ToolTipService.InitialShowDelay="1000" 
+                ToolTipService.ShowOnDisabled="True" 
                 ToolTip="Generate FFmpeg Commands" 
                 Click="btnScript_Click">
             <TextBlock Text="Script" 
@@ -216,6 +218,8 @@
                     Margin="0,1,-11,0"
                     Cursor="Hand"
                     Click="openLocationInput_Click"
+                    ToolTipService.InitialShowDelay="1000"
+                    ToolTipService.ShowOnDisabled="True"
                     ToolTip="Open this location"
                     HorizontalAlignment="Right"
                     Width="22" 
@@ -265,6 +269,8 @@
                     IsEnabled="{Binding Output_Location_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     Cursor="Hand" 
                     Click="openLocationOutput_Click" 
+                    ToolTipService.InitialShowDelay="1000"
+                    ToolTipService.ShowOnDisabled="True"
                     ToolTip="Open this location"
                     HorizontalAlignment="Right"
                     Width="22" 
@@ -324,7 +330,6 @@
                                 <RowDefinition Height="33"/>
                                 <RowDefinition Height="33"/>
                                 <RowDefinition Height="33"/>
-                                <RowDefinition Height="33"/>
                             </Grid.RowDefinitions>
 
                             <!-- Container -->
@@ -336,7 +341,7 @@
                                     FontFamily="Segoe UI Semilight" 
                                     Height="26" 
                                    Grid.Column="1" />
-                            <ComboBox x:Name="cboContainer" 
+                            <ComboBox x:Name="cboFormat_Container" 
                                       ItemsSource="{Binding Format_Container_Items}"
                                       SelectedIndex="{Binding Format_Container_SelectedIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                       SelectedValuePath="Name"
@@ -347,7 +352,7 @@
                                       VerticalAlignment="Top" 
                                       Width="105" 
                                       Height="22"
-                                      SelectionChanged="cboContainer_SelectionChanged" 
+                                      SelectionChanged="cboFormat_Container_SelectionChanged" 
                                       Grid.Column="2" 
                                       Margin="0,2,0,0">
                                 <ComboBox.ItemsPanel>
@@ -378,7 +383,7 @@
                                    Grid.Row="1" 
                                    Height="26" 
                                    Grid.Column="1" />
-                            <ComboBox x:Name="cboMediaType" 
+                            <ComboBox x:Name="cboFormat_MediaType" 
                                       ItemsSource="{Binding Format_MediaType_Items}"
                                       SelectedIndex="{Binding Format_MediaType_SelectedIndex}"
                                       SelectedItem="{Binding Format_MediaType_SelectedItem, Mode=TwoWay}"
@@ -389,7 +394,7 @@
                                       Margin="0,2,0,0" 
                                       VerticalAlignment="Top" 
                                       Width="105"
-                                      SelectionChanged="cboMediaType_SelectionChanged" 
+                                      SelectionChanged="cboFormat_MediaType_SelectionChanged" 
                                       Grid.Row="1"
                                       Grid.Column="2"
                                       Height="22"/>
@@ -439,7 +444,8 @@
 
 
 
-                            <!-- HW Acceleration --><!--
+                            <!-- HW Acceleration -->
+                            <!--
                             <Label 
                                 Style="{DynamicResource LabelCustom}" 
                                 Content="HW Accel" 
@@ -481,7 +487,7 @@
                                    Grid.Row="3"
                                    Height="26" 
                                    Grid.Column="1" />
-                            <ComboBox x:Name="cboCut" 
+                            <ComboBox x:Name="cboFormat_Cut" 
                                       ItemsSource="{Binding Format_Cut_Items}"
                                       SelectedIndex="{Binding Format_Cut_SelectedIndex}"
                                       SelectedItem="{Binding Format_Cut_SelectedItem, Mode=TwoWay}"
@@ -1010,7 +1016,7 @@
                                    Grid.Row="0" 
                                    Height="26" 
                                    Grid.Column="1" />
-                            <ComboBox x:Name="cboVideoCodec" 
+                            <ComboBox x:Name="cboVideo_Codec" 
                                       Style="{DynamicResource ComboBoxWhite}"
                                       ItemContainerStyle="{DynamicResource ComboBoxWhiteItem}" 
                                       ItemsSource="{Binding Video_Codec_Items}"
@@ -1098,7 +1104,7 @@
                                       Grid.Column="2"
                                       Height="22" 
                                       Margin="0,4,0,0" />
-                            
+
 
                             <!-- Video Quality -->
                             <Label Style="{DynamicResource LabelCustom}" 
@@ -1150,7 +1156,7 @@
                                    FontFamily="Segoe UI Semilight" 
                                    Grid.Row="5" 
                                    Grid.Column="1" />
-                            <ComboBox x:Name="cboPass"
+                            <ComboBox x:Name="cboVideo_Pass"
                                       ItemsSource="{Binding Video_Pass_Items}"
                                       SelectedIndex="{Binding Video_Pass_SelectedIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                       SelectedValue="{Binding Video_Pass_SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -1179,7 +1185,7 @@
                                    Grid.Row="6"
                                    Grid.Column="1" />
 
-                            <TextBox x:Name="tbxCRF" 
+                            <TextBox x:Name="tbxVideo_CRF" 
                                      Text="{Binding Video_CRF_Text, Mode=TwoWay}"
                                      IsEnabled="{Binding Video_CRF_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                      Style="{DynamicResource TextBoxCustom}"
@@ -1208,7 +1214,7 @@
                                    FontFamily="Segoe UI Semilight"
                                    Grid.Row="7" 
                                    Grid.Column="1"/>
-                            <TextBox x:Name="tbxVideoBitrate"
+                            <TextBox x:Name="tbxVideo_Bitrate"
                                      Text="{Binding Video_Bitrate_Text, Mode=TwoWay}"
                                      IsEnabled="{Binding Video_Bitrate_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                      Style="{DynamicResource TextBoxCustom}"
@@ -1256,7 +1262,7 @@
                                    FontFamily="Segoe UI Semilight" 
                                    Grid.Row="8"
                                    Grid.Column="1" />
-                            <TextBox x:Name="tbxMinrate" 
+                            <TextBox x:Name="tbxVideo_Minrate" 
                                      Text="{Binding Video_Minrate_Text, Mode=TwoWay}"
                                      IsEnabled="{Binding Video_Minrate_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                      Style="{DynamicResource TextBoxCustom}"
@@ -1284,7 +1290,7 @@
                                    FontFamily="Segoe UI Semilight" 
                                    Grid.Row="9" 
                                    Grid.Column="1" />
-                            <TextBox x:Name="tbxMaxrate" 
+                            <TextBox x:Name="tbxVideo_Maxrate" 
                                      Text="{Binding Video_Maxrate_Text, Mode=TwoWay}"
                                      IsEnabled="{Binding Video_Maxrate_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                      Style="{DynamicResource TextBoxCustom}"
@@ -1312,7 +1318,7 @@
                                    FontFamily="Segoe UI Semilight" 
                                    Grid.Row="10" 
                                    Grid.Column="1" />
-                            <TextBox x:Name="tbxBufsize" 
+                            <TextBox x:Name="tbxVideo_Bufsize" 
                                      Text="{Binding Video_Bufsize_Text, Mode=TwoWay}"
                                      IsEnabled="{Binding Video_Bufsize_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                      Style="{DynamicResource TextBoxCustom}"
@@ -1337,11 +1343,10 @@
                                    HorizontalAlignment="Left" 
                                    VerticalAlignment="Top"
                                    Width="80" 
-                                   ToolTip="Pixel Format" 
                                    FontFamily="Segoe UI Semilight"
                                    Grid.Row="11" 
                                    Grid.Column="1" />
-                            <ComboBox x:Name="cboPixelFormat" 
+                            <ComboBox x:Name="cboVideo_PixelFormat" 
                                       ItemsSource="{Binding Video_PixelFormat_Items}"
                                       SelectedIndex="{Binding Video_PixelFormat_SelectedIndex}"
                                       SelectedItem="{Binding Video_PixelFormat_SelectedItem}"
@@ -1352,9 +1357,6 @@
                                       HorizontalAlignment="Left" 
                                       VerticalAlignment="Top" 
                                       Width="105" 
-                                      ToolTipService.InitialShowDelay="1000"
-                                      ToolTipService.ShowOnDisabled="True" 
-                                      ToolTip="Pixel Format" 
                                       IsTextSearchEnabled="False"
                                       Grid.Row="11" 
                                       Grid.Column="2" 
@@ -1363,15 +1365,17 @@
 
                             <!-- Framerate -->
                             <Label Style="{DynamicResource LabelCustom}" 
-                                   Content="Framerate" 
+                                   Content="Frame Rate" 
                                    HorizontalAlignment="Left" 
                                    VerticalAlignment="Top"
                                    Width="75" 
+                                   ToolTipService.InitialShowDelay="1000"
+                                   ToolTipService.ShowOnDisabled="True"
                                    ToolTip="Frames Per Second" 
                                    FontFamily="Segoe UI Semilight" 
                                    Grid.Row="12"
                                    Grid.Column="1" />
-                            <ComboBox x:Name="cboFPS" 
+                            <ComboBox x:Name="cboVideo_FrameRate" 
                                       ItemsSource="{Binding Video_FPS_Items}"
                                       SelectedIndex="{Binding Video_FPS_SelectedIndex}"
                                       SelectedItem="{Binding Video_FPS_SelectedItem}"
@@ -1387,7 +1391,7 @@
                                       ToolTipService.ShowOnDisabled="True" 
                                       ToolTip="Frames Per Second" 
                                       SelectionChanged="cboVideo_FPS_SelectionChanged"
-                                      TextBoxBase.KeyDown="cboFPS_KeyDown"
+                                      TextBoxBase.KeyDown="cboVideo_FrameRate_KeyDown"
                                       IsTextSearchEnabled="False" 
                                       Grid.Row="12" 
                                       Grid.Column="2" 
@@ -1399,11 +1403,13 @@
                                    HorizontalAlignment="Left" 
                                    VerticalAlignment="Top"
                                    Width="75" 
+                                   ToolTipService.InitialShowDelay="1000"
+                                   ToolTipService.ShowOnDisabled="True"
                                    ToolTip="Speed Up / Slow Down Video" 
                                    FontFamily="Segoe UI Semilight" 
                                    Grid.Row="13"
                                    Grid.Column="1" />
-                            <ComboBox x:Name="cboSpeed" 
+                            <ComboBox x:Name="cboVideo_Speed" 
                                       ItemsSource="{Binding Video_Speed_Items}"
                                       SelectedIndex="{Binding Video_Speed_SelectedIndex}"
                                       SelectedItem="{Binding Video_Speed_SelectedItem}"
@@ -1416,7 +1422,7 @@
                                       VerticalAlignment="Top" 
                                       Width="105" 
                                       SelectionChanged="cboVideo_Speed_SelectionChanged"
-                                      TextBoxBase.KeyDown="cboSpeed_KeyDown"
+                                      TextBoxBase.KeyDown="cboVideo_Speed_KeyDown"
                                       ToolTipService.InitialShowDelay="1000"
                                       ToolTipService.ShowOnDisabled="True" 
                                       ToolTip="Speed Up / Slow Down Video" 
@@ -1435,7 +1441,7 @@
                                    Grid.Row="15" 
                                    Height="26" 
                                    Grid.Column="1" />
-                            <ComboBox x:Name="cboOptimize" 
+                            <ComboBox x:Name="cboVideo_Optimize" 
                                       Style="{DynamicResource ComboBoxWhite}"
                                       ItemContainerStyle="{DynamicResource ComboBoxWhiteItem}" 
                                       ItemsSource="{Binding Video_Optimize_Items}"
@@ -1448,11 +1454,13 @@
                                       VerticalAlignment="Top" 
                                       Width="105" 
                                       Height="22"
-                                      SelectionChanged="cboOptimize_SelectionChanged" 
+                                      SelectionChanged="cboVideo_Optimize_SelectionChanged" 
                                       Grid.Column="2" 
                                       Grid.Row="15" 
-                                      ToolTipService.ShowOnDisabled="True" 
-                                      ToolTip="Optimize file for device type." Margin="0,1,0,0"
+                                      ToolTipService.InitialShowDelay="1000"
+                                      ToolTipService.ShowOnDisabled="True"
+                                      ToolTip="Optimize file for device type." 
+                                      Margin="0,1,0,0"
                                       >
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
@@ -1468,15 +1476,14 @@
                             </ComboBox>
 
                             <!-- Tune -->
-                            <Label x:Name="labelTune" 
-                                   Style="{DynamicResource LabelCustom}" 
+                            <Label Style="{DynamicResource LabelCustom}" 
                                    Content="Tune" 
                                    HorizontalAlignment="Left" 
                                    VerticalAlignment="Top" 
                                    Width="75" 
                                    Grid.Row="16" 
                                    Grid.Column="1"/>
-                            <ComboBox x:Name="cboOptTune" 
+                            <ComboBox x:Name="cboVideo_Optimize_Tune" 
                                       ItemsSource="{Binding Optimize_Tune_Items}"
                                       SelectedIndex="{Binding Optimize_Tune_SelectedIndex}"
                                       SelectedItem="{Binding Video_Optimize_Tune_SelectedItem, Mode=TwoWay}"
@@ -1489,10 +1496,7 @@
                                       VerticalAlignment="Top"
                                       Width="105" 
                                       Grid.Row="16" 
-                                      Grid.Column="2" 
-                                      ToolTipService.InitialShowDelay="1000" 
-                                      ToolTipService.ShowOnDisabled="True"
-                                      ToolTip="">
+                                      Grid.Column="2">
                                 <!-- Items added by Optimize Controls Method -->
                             </ComboBox>
 
@@ -1504,7 +1508,7 @@
                                    Width="75" 
                                    Grid.Row="17" 
                                    Grid.Column="1"/>
-                            <ComboBox x:Name="cboOptProfile"
+                            <ComboBox x:Name="cboVideo_Optimize_Profile"
                                       ItemsSource="{Binding Optimize_Profile_Items}"
                                       SelectedIndex="{Binding Optimize_Profile_SelectedIndex}"
                                       SelectedItem="{Binding Video_Optimize_Profile_SelectedItem, Mode=TwoWay}"
@@ -1529,7 +1533,7 @@
                                    Width="75" 
                                    Grid.Row="18" 
                                    Grid.Column="1"/>
-                            <ComboBox x:Name="cboOptLevel" 
+                            <ComboBox x:Name="cboVideo_Optimize_Level" 
                                       ItemsSource="{Binding Video_Optimize_Level_Items}"
                                       SelectedIndex="{Binding Video_Optimize_Level_SelectedIndex}"
                                       SelectedItem="{Binding Video_Optimize_Level_SelectedItem, Mode=TwoWay}"
@@ -1554,7 +1558,7 @@
                                     Width="75" 
                                     Grid.Row="20" 
                                     Grid.Column="1" />
-                            <ComboBox x:Name="cboSize" 
+                            <ComboBox x:Name="cboVideo_Scale" 
                                       ItemsSource="{Binding Video_Scale_Items}"
                                       SelectedIndex="{Binding Video_Scale_SelectedIndex}"
                                       SelectedItem="{Binding Video_Scale_SelectedItem, Mode=TwoWay}"
@@ -1578,7 +1582,7 @@
                                 Width="75" 
                                 Grid.Row="21" 
                                 Grid.Column="1" />
-                            <TextBox x:Name="tbxWidth"
+                            <TextBox x:Name="tbxVideo_Width"
                                      Text="{Binding Video_Width_Text, Mode=TwoWay}"
                                      IsEnabled="{Binding Video_Width_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                      Style="{DynamicResource TextBoxCustom}" 
@@ -1604,7 +1608,7 @@
                                 Width="75" 
                                 Grid.Row="22" 
                                 Grid.Column="1" />
-                            <TextBox x:Name="tbxHeight" 
+                            <TextBox x:Name="tbxVideo_Height" 
                                      Text="{Binding Video_Height_Text, Mode=TwoWay}"
                                      IsEnabled="{Binding Video_Height_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                      Style="{DynamicResource TextBoxCustom}"
@@ -1629,10 +1633,12 @@
                                    Width="75"
                                    FontFamily="Segoe UI Semilight"
                                    Height="26" 
+                                   ToolTipService.InitialShowDelay="1000"
+                                   ToolTipService.ShowOnDisabled="True"
                                    ToolTip="Aspect Ratio" 
                                    Grid.Row="23" 
                                    Grid.Column="1" />
-                            <ComboBox x:Name="cboAspectRatio" 
+                            <ComboBox x:Name="cboVideo_AspectRatio" 
                                       ItemsSource="{Binding Video_AspectRatio_Items}"
                                       SelectedIndex="{Binding Video_AspectRatio_SelectedIndex}"
                                       SelectedItem="{Binding Video_AspectRatio_SelectedItem}"
@@ -1642,7 +1648,8 @@
                                       HorizontalAlignment="Left" 
                                       VerticalAlignment="Top" 
                                       Width="105" 
-                                      ToolTipService.ShowOnDisabled="True" 
+                                      ToolTipService.InitialShowDelay="1000"
+                                      ToolTipService.ShowOnDisabled="True"
                                       ToolTip="Aspect Ratio" 
                                       Grid.Row="23" 
                                       Grid.Column="2" 
@@ -1658,10 +1665,12 @@
                                    Width="75"
                                    FontFamily="Segoe UI Semilight"
                                    Height="26"
+                                   ToolTipService.InitialShowDelay="1000"
+                                   ToolTipService.ShowOnDisabled="True"
                                    ToolTip="Algorithm used for resizing." 
                                    Grid.Row="24" 
                                    Grid.Column="1" />
-                            <ComboBox x:Name="cboScalingAlgorithm" 
+                            <ComboBox x:Name="cboVideo_ScalingAlgorithm" 
                                       ItemsSource="{Binding Video_ScalingAlgorithm_Items}"
                                       SelectedIndex="{Binding Video_ScalingAlgorithm_SelectedIndex}"
                                       SelectedItem="{Binding Video_ScalingAlgorithm_SelectedItem}"
@@ -1672,6 +1681,7 @@
                                       HorizontalAlignment="Left" 
                                       VerticalAlignment="Top" 
                                       Width="105" 
+                                      ToolTipService.InitialShowDelay="1000"
                                       ToolTipService.ShowOnDisabled="True" 
                                       ToolTip="Algorithm used for resizing." 
                                       Grid.Row="24" 
@@ -1688,7 +1698,7 @@
                                    Width="75" 
                                    Grid.Row="25" 
                                    Grid.Column="1" />
-                            <Button x:Name="btnCrop"
+                            <Button x:Name="btnVideo_Crop"
                                     Style="{DynamicResource ButtonCropCustom}"
                                     Padding="0" 
                                     HorizontalAlignment="Left" 
@@ -1708,7 +1718,7 @@
                                            Margin="0,-2,0,0"/>
                             </Button>
 
-                            <Button x:Name="btnCropClear"
+                            <Button x:Name="btnVideo_CropClear"
                                     Style="{DynamicResource ButtonCropCustom}"
                                     Padding="0" 
                                     HorizontalAlignment="Left"
@@ -1761,6 +1771,7 @@
                                 <RowDefinition Height="33"/>
                                 <RowDefinition Height="33"/>
                                 <RowDefinition Height="33"/>
+                                <RowDefinition Height="33"/>
                                 <RowDefinition Height="22"/>
                                 <RowDefinition Height="33"/>
                                 <RowDefinition Height="33"/>
@@ -1777,7 +1788,7 @@
                                    Grid.Row="0" 
                                    Height="26" 
                                    Grid.Column="1" />
-                            <ComboBox x:Name="cboAudioCodec" 
+                            <ComboBox x:Name="cboAudio_Codec" 
                                       Style="{DynamicResource ComboBoxWhite}"
                                       ItemContainerStyle="{DynamicResource ComboBoxWhiteItem}" 
                                       ItemsSource="{Binding Audio_Codec_Items}"
@@ -1800,11 +1811,13 @@
                                    VerticalAlignment="Top" 
                                    Width="65"  
                                    FontFamily="Segoe UI Semilight"
+                                   ToolTipService.InitialShowDelay="1000"
+                                   ToolTipService.ShowOnDisabled="True"
                                    ToolTip="Audio Stream to keep."
                                    Grid.Row="1" 
                                    Grid.Column="1" />
 
-                            <ComboBox x:Name="cboAudioStream" 
+                            <ComboBox x:Name="cboAudio_Stream" 
                                       ItemsSource="{Binding Audio_Stream_Items}"
                                       SelectedIndex="{Binding Audio_Stream_SelectedIndex}"
                                       SelectedItem="{Binding Audio_Stream_SelectedItem}"
@@ -1830,7 +1843,7 @@
                                    Width="75" 
                                    Grid.Row="2" 
                                    Grid.Column="1" />
-                            <ComboBox x:Name="cboChannel"
+                            <ComboBox x:Name="cboAudio_Channel"
                                       ItemsSource="{Binding Audio_Channel_Items}"
                                       SelectedIndex="{Binding Audio_Channel_SelectedIndex}"
                                       SelectedItem="{Binding Audio_Channel_SelectedItem}"
@@ -1843,7 +1856,8 @@
                                       Width="105" 
                                       Grid.Row="2"
                                       Grid.Column="2" 
-                                      Margin="0,2,0,0" SelectionChanged="cboChannel_SelectionChanged" />
+                                      Margin="0,2,0,0" 
+                                      SelectionChanged="cboAudio_Channel_SelectionChanged" />
 
                             <!-- Audio Quality -->
                             <Label Style="{DynamicResource LabelCustom}" 
@@ -1854,7 +1868,7 @@
                                    FontFamily="Segoe UI Semilight" 
                                    Grid.Row="4" 
                                    Grid.Column="1" />
-                            <ComboBox x:Name="cboAudioQuality" 
+                            <ComboBox x:Name="cboAudio_Quality" 
                                       Style="{DynamicResource ComboBoxWhite}"
                                       ItemContainerStyle="{DynamicResource ComboBoxWhiteItem}" 
                                       ItemsSource="{Binding Audio_Quality_Items}"
@@ -1891,12 +1905,12 @@
                                 Content="Bit Rate"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Top"
-                                Width="76" 
+                                Width="85" 
                                 FontFamily="Segoe UI Semilight" 
                                 Grid.Row="5" 
                                 Grid.Column="1" />
 
-                            <TextBox x:Name="tbxAudioBitrate"
+                            <TextBox x:Name="tbxAudio_BitRate"
                                      Text="{Binding Audio_Bitrate_Text, Mode=TwoWay}"
                                      IsEnabled="{Binding Audio_Bitrate_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                      Style="{DynamicResource TextBoxCustom}" 
@@ -1938,35 +1952,89 @@
                                           Checked="tglAudio_VBR_Checked"
                                           Unchecked="tglAudio_VBR_Unchecked"/>
 
+                            <!-- Compression Level -->
+                            <Label Style="{DynamicResource LabelCustom}" 
+                                   Content="Compression" 
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Top" 
+                                   Width="85" 
+                                   Grid.Row="6" 
+                                   Grid.Column="1"
+                                   ToolTipService.InitialShowDelay="1000" 
+                                   ToolTipService.ShowOnDisabled="True" 
+                                   ToolTip="Compression Level. Higher value is more compression." 
+                                   />
+                            <ComboBox x:Name="cboAudio_CompressionLevel"
+                                      ItemsSource="{Binding Audio_CompressionLevel_Items}"
+                                      SelectedIndex="{Binding Audio_CompressionLevel_SelectedIndex}"
+                                      SelectedItem="{Binding Audio_CompressionLevel_SelectedItem}"
+                                      IsEnabled="{Binding Audio_CompressionLevel_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      IsSynchronizedWithCurrentItem="True"
+                                      Style="{DynamicResource ComboBoxCustom}" 
+                                      ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" 
+                                      HorizontalAlignment="Left" 
+                                      VerticalAlignment="Top" 
+                                      Width="105" 
+                                      Grid.Row="6"
+                                      Grid.Column="2" 
+                                      Margin="0,2,0,0"
+                                      ToolTipService.InitialShowDelay="1000" 
+                                      ToolTipService.ShowOnDisabled="True" 
+                                      ToolTip="Compression Level. Higher value is more compression." 
+                                      />
+                            <!--<Label Style="{DynamicResource LabelCustom}" 
+                                   Content="Compression" 
+                                   HorizontalAlignment="Left" 
+                                   VerticalAlignment="Top"
+                                   Width="85" 
+                                   ToolTip="Audio Sample Rate" 
+                                   FontFamily="Segoe UI Semilight" 
+                                   Grid.Row="6"
+                                   Grid.Column="1" />
+                            <ComboBox x:Name="cboAudio_CompressionLevel" 
+                                      Style="{DynamicResource ComboBoxCustom}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" 
+                                      ItemsSource="{Binding Audio_CompressionLevel_Items}"
+                                      SelectedIndex="{Binding Audio_CompressionLevel_SelectedIndex}"
+                                      SelectedValuePath="Name"
+                                      SelectedValue="{Binding Audio_CompressionLevel_SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      IsEnabled="{Binding Audio_CompressionLevel_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      IsSynchronizedWithCurrentItem="True"
+                                      HorizontalAlignment="Left" 
+                                      VerticalAlignment="Top" 
+                                      Width="105"
+                                      Height="22"
+                                      SelectionChanged="cboAudio_CompressionLevel_SelectionChanged" 
+                                      ToolTip="Audio Sample Rate"
+                                      Grid.Column="2" 
+                                      Grid.Row="6" 
+                                      Margin="0,2,0,0"
+                                      >
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <TextBlock DataContext="{Binding}">
+                                                <TextBlock.Text>
+                                                    <Binding Path="Name"/>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>-->
+
+
                             <!-- Sample Rate -->
                             <Label Style="{DynamicResource LabelCustom}" 
                                    Content="Sample Rate" 
                                    HorizontalAlignment="Left" 
                                    VerticalAlignment="Top"
-                                   Width="76" 
-                                   ToolTip="Audio Sample Rate" 
-                                   FontFamily="Segoe UI Semilight" Grid.Row="6" Grid.Column="1" />
-
-                            <!--<ComboBox x:Name="cboSampleRate" 
-                                      Style="{DynamicResource ComboBoxCustom}"
-                                      ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" 
-                                      ItemsSource="{Binding Audio_SampleRate_Items}"
-                                      DisplayMemberPath="Name"
-                                      SelectedValuePath="Name"
-                                      SelectedIndex="{Binding Audio_SampleRate_SelectedIndex}"
-                                      SelectedValue="{Binding Audio_SampleRate_SelectedItem}"
-                                      IsEnabled="{Binding Audio_SampleRate_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                      HorizontalAlignment="Left" 
-                                      VerticalAlignment="Top" 
-                                      Width="105"
-                                      Height="22"
-                                      SelectionChanged="cboSampleRate_SelectionChanged" 
-                                      ToolTip="Audio Sample Rate"
-                                      Grid.Column="2" 
-                                      Grid.Row="6" 
-                                      Margin="0,2,0,0">-->
-
-                            <ComboBox x:Name="cboSampleRate" 
+                                   Width="85" 
+                                   FontFamily="Segoe UI Semilight" 
+                                   Grid.Row="7"
+                                   Grid.Column="1"
+                                   />
+                            <ComboBox x:Name="cboAudio_SampleRate" 
                                       Style="{DynamicResource ComboBoxCustom}"
                                       ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" 
                                       ItemsSource="{Binding Audio_SampleRate_Items}"
@@ -1979,10 +2047,9 @@
                                       VerticalAlignment="Top" 
                                       Width="105"
                                       Height="22"
-                                      SelectionChanged="cboSampleRate_SelectionChanged" 
-                                      ToolTip="Audio Sample Rate"
+                                      SelectionChanged="cboAudio_SampleRate_SelectionChanged" 
                                       Grid.Column="2" 
-                                      Grid.Row="6" 
+                                      Grid.Row="7" 
                                       Margin="0,2,0,0"
                                       >
                                 <ComboBox.ItemTemplate>
@@ -2004,29 +2071,11 @@
                                    Content="Bit Depth" 
                                    HorizontalAlignment="Left" 
                                    VerticalAlignment="Top" 
-                                   Width="76" 
-                                   ToolTip="Audio Bit Depth" 
-                                   FontFamily="Segoe UI Semilight" Grid.Row="7" Grid.Column="1" />
-
-                            <!--<ComboBox x:Name="cboBitDepth" 
-                                      Style="{DynamicResource ComboBoxCustom}"
-                                      ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" 
-                                      ItemsSource="{Binding Audio_BitDepth_Items}"
-                                      DisplayMemberPath="Name"
-                                      SelectedValuePath="Name"
-                                      SelectedIndex="{Binding Audio_BitDepth_SelectedIndex}"
-                                      SelectedValue="{Binding Audio_BitDepth_SelectedItem}"
-                                      IsEnabled="{Binding Audio_BitDepth_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                      HorizontalAlignment="Left" 
-                                      VerticalAlignment="Top" 
-                                      Width="105"
-                                      Height="22"
-                                      SelectionChanged="cboBitDepth_SelectionChanged" 
-                                      ToolTip="Audio Bit Depth"
-                                      Grid.Column="2" 
-                                      Grid.Row="7" 
-                                      Margin="0,2,0,0"/>-->
-                            <ComboBox x:Name="cboBitDepth" 
+                                   Width="85" 
+                                   FontFamily="Segoe UI Semilight" 
+                                   Grid.Row="8" 
+                                   Grid.Column="1" />
+                            <ComboBox x:Name="cboAudio_BitDepth" 
                                       Style="{DynamicResource ComboBoxCustom}"
                                       ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" 
                                       ItemsSource="{Binding Audio_BitDepth_Items}"
@@ -2039,10 +2088,9 @@
                                       VerticalAlignment="Top" 
                                       Width="105"
                                       Height="22"
-                                      SelectionChanged="cboBitDepth_SelectionChanged" 
-                                      ToolTip="Audio Bit Depth"
+                                      SelectionChanged="cboAudio_BitDepth_SelectionChanged" 
                                       Grid.Column="2" 
-                                      Grid.Row="7" 
+                                      Grid.Row="8" 
                                       Margin="0,2,0,0"
                                       >
                                 <ComboBox.ItemTemplate>
@@ -2059,17 +2107,15 @@
                             </ComboBox>
 
                             <!-- Volume -->
-                            <Label 
-                                   Style="{DynamicResource LabelCustom}"  
+                            <Label Style="{DynamicResource LabelCustom}"  
                                    Content="Volume"
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Top" 
                                    Width="75" 
-                                   ToolTip="Volume"  
                                    FontFamily="Segoe UI Semilight" 
-                                   Grid.Row="9" Grid.Column="1" />
-
-                            <TextBox x:Name="tbxVolume" 
+                                   Grid.Row="10"
+                                   Grid.Column="1" />
+                            <TextBox x:Name="tbxAudio_Volume" 
                                      Text="{Binding Audio_Volume_Text, Mode=TwoWay}"
                                      IsEnabled="{Binding Audio_Volume_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                      Style="{DynamicResource TextBoxCustom}" 
@@ -2084,15 +2130,12 @@
                                      KeyDown="tbxAudio_Volume_KeyDown"
                                      MaxLines="1"
                                      MaxLength="6" 
-                                     ToolTipService.InitialShowDelay="1000"
-                                     ToolTipService.ShowOnDisabled="True" 
-                                     ToolTip="Volume" 
                                      TextChanged="tbxAudio_Volume_TextChanged" 
                                      Grid.Column="2" 
-                                     Grid.Row="9" />
+                                     Grid.Row="10" />
 
-                            <!-- Vol Up -->
-                            <Button x:Name="btnVolumeUp" 
+                            <!-- Volume Up -->
+                            <Button x:Name="btnAudio_VolumeUp" 
                                     IsEnabled="{Binding Audio_Volume_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     Style="{DynamicResource ButtonVolume}"
                                     BorderBrush="{x:Null}"
@@ -2103,12 +2146,12 @@
                                     VerticalAlignment="Top" 
                                     Width="14" 
                                     Height="10" 
-                                    Click="btnVolumeUp_Click"
-                                    PreviewMouseLeftButtonDown="btnVolumeUp_PreviewMouseLeftButtonDown"
-                                    PreviewMouseUp="btnVolumeUp_PreviewMouseUp" 
+                                    Click="btnAudio_VolumeUp_Click"
+                                    PreviewMouseLeftButtonDown="btnAudio_VolumeUp_PreviewMouseLeftButtonDown"
+                                    PreviewMouseUp="btnAudio_VolumeUp_PreviewMouseUp" 
                                     Grid.Column="2"
-                                    Grid.Row="9">
-                                <Image x:Name="glyphVolumeUp" 
+                                    Grid.Row="10">
+                                <Image x:Name="glyphAudio_VolumeUp" 
                                        Style="{DynamicResource ButtonVolumeUp}"
                                        Width="6" 
                                        Height="5" 
@@ -2118,8 +2161,8 @@
                                        Margin="1,1,0,0"/>
                             </Button>
 
-                            <!-- Vol Down -->
-                            <Button x:Name="btnVolumeDown"
+                            <!-- Volume Down -->
+                            <Button x:Name="btnAudio_VolumeDown"
                                     IsEnabled="{Binding Audio_Volume_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     Style="{DynamicResource ButtonVolume}"
                                     BorderBrush="{x:Null}" 
@@ -2130,12 +2173,12 @@
                                     VerticalAlignment="Top"
                                     Width="14"
                                     Height="10" 
-                                    Click="btnVolumeDown_Click"
-                                    PreviewMouseLeftButtonDown="btnVolumeDown_PreviewMouseLeftButtonDown"
-                                    PreviewMouseUp="btnVolumeDown_PreviewMouseUp" 
+                                    Click="btnAudio_VolumeDown_Click"
+                                    PreviewMouseLeftButtonDown="btnAudio_VolumeDown_PreviewMouseLeftButtonDown"
+                                    PreviewMouseUp="btnAudio_VolumeDown_PreviewMouseUp" 
                                     Grid.Column="2" 
-                                    Grid.Row="9"  >
-                                <Image x:Name="glyphVolumeDown"
+                                    Grid.Row="10"  >
+                                <Image x:Name="glyphAudio_VolumeDown"
                                        Style="{DynamicResource ButtonVolumeDown}" 
                                        Width="6"
                                        Height="5" 
@@ -2146,16 +2189,17 @@
                             </Button>
 
                             <!-- Audio Limiter Toggle -->
-                            <Label 
-                                Style="{DynamicResource LabelCustom}"  
-                                Content="Hard Limiter" 
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Top"
-                                Width="75"
-                                ToolTip="Prevents audio from rising over a desired threshold, [0.0625 - 1]." 
-                                FontFamily="Segoe UI Semilight" 
-                                Grid.Row="10" Grid.Column="1" />
-                            <Slider x:Name="slAudioHardLimiter" 
+                            <Label Style="{DynamicResource LabelCustom}"  
+                                   Content="Hard Limiter" 
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Top"
+                                   Width="85"
+                                   ToolTip="Prevents audio from rising over a desired threshold, [0.0625 - 1]." 
+                                   FontFamily="Segoe UI Semilight" 
+                                   Grid.Row="11"
+                                   Grid.Column="1" />
+                            <Slider x:Name="slAudio_HardLimiter" 
+                                    Style="{DynamicResource SliderStyle}"
                                     Value="{Binding Audio_HardLimiter_Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     IsEnabled="{Binding Audio_HardLimiter_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     HorizontalAlignment="Right"
@@ -2168,10 +2212,11 @@
                                     MouseDoubleClick="slAudio_HardLimiter_MouseDoubleClick"
                                     PreviewMouseUp="slAudio_HardLimiter_PreviewMouseUp"
                                     Grid.Column="2" 
-                                    Grid.Row="10" 
+                                    Grid.Row="11" 
                                     Height="18"/>
-                            <TextBox x:Name="tbxAudioHardLimiter"
-                                     Text="{Binding Value, ElementName=slAudioHardLimiter, StringFormat=N2, UpdateSourceTrigger=PropertyChanged}"
+                            <TextBox x:Name="tbxAudio_HardLimiter"
+                                     Style="{DynamicResource TextBoxCustom}" 
+                                     Text="{Binding Value, ElementName=slAudio_HardLimiter, StringFormat=N2, UpdateSourceTrigger=PropertyChanged}"
                                      IsEnabled="{Binding Audio_HardLimiter_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                      Height="22" 
                                      TextWrapping="Wrap" 
@@ -2181,7 +2226,7 @@
                                      VerticalAlignment="Top"   
                                      PreviewKeyUp="tbxAudio_HardLimiter_PreviewKeyUp"  
                                      Grid.Column="2" 
-                                     Grid.Row="10"/>
+                                     Grid.Row="11"/>
 
                         </Grid>
 
@@ -2217,8 +2262,6 @@
                                 <RowDefinition Height="22"/>
                                 <RowDefinition Height="33"/>
                                 <RowDefinition Height="33"/>
-                                <RowDefinition Height="33"/>
-                                <RowDefinition Height="33"/>
                             </Grid.RowDefinitions>
 
                             <!-- Subtitle Codec -->
@@ -2232,7 +2275,7 @@
                                 Grid.Row="0" 
                                 Height="26" Grid.Column="1" />
 
-                            <ComboBox x:Name="cboSubtitleCodec" 
+                            <ComboBox x:Name="cboSubtitle_Codec" 
                                       ItemsSource="{Binding Subtitle_Codec_Items}"
                                       SelectedIndex="{Binding Subtitle_Codec_SelectedIndex}"
                                       SelectedItem="{Binding Subtitle_Codec_SelectedItem}"
@@ -2261,7 +2304,7 @@
                                    Grid.Row="1" 
                                    Grid.Column="1" />
 
-                            <ComboBox x:Name="cboSubtitlesStream" 
+                            <ComboBox x:Name="cboSubtitles_Stream" 
                                       ItemsSource="{Binding Subtitle_Stream_Items}"
                                       SelectedIndex="{Binding Subtitle_Stream_SelectedIndex}"
                                       SelectedItem="{Binding Subtitle_Stream_SelectedItem}"
@@ -2281,7 +2324,7 @@
                                       Margin="0,4,0,0" />
 
                             <!-- Subtitles List -->
-                            <ListView x:Name="listViewSubtitles" 
+                            <ListView x:Name="lstv_Subtitles" 
                                       ItemsSource="{Binding Subtitle_ListView_Items}"
                                       SelectedIndex="{Binding Subtitle_ListView_SelectedIndex}"
                                       IsEnabled="{Binding Subtitle_ListView_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -2290,7 +2333,7 @@
                                       VerticalAlignment="Top"
                                       BorderThickness="0"
                                       Style="{DynamicResource ListViewStyle}" 
-                                      SelectionChanged="listViewSubtitles_SelectionChanged"
+                                      SelectionChanged="lstv_Subtitles_SelectionChanged"
                                       Grid.ColumnSpan="2" 
                                       Grid.Row="2" 
                                       Grid.Column="1">
@@ -2324,7 +2367,7 @@
                             </ListView>
 
                             <!-- Add -->
-                            <Button x:Name="btnAddSubtitles"
+                            <Button x:Name="btnSubtitle_Add"
                                     IsEnabled="{Binding Subtitle_ListView_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     Style="{DynamicResource ButtonNavigationStyle}"
                                     HorizontalAlignment="Left" 
@@ -2332,16 +2375,17 @@
                                     Width="22" 
                                     Height="22" 
                                     Cursor="Hand" 
-                                    Click="btnAddSubtitles_Click"
+                                    Click="btnSubtitle_Add_Click"
                                     Margin="83,7,0,0" 
-                                    ToolTipService.InitialShowDelay="500" 
+                                    ToolTipService.InitialShowDelay="1000" 
+                                    ToolTipService.ShowOnDisabled="True"
                                     ToolTip="Add"
                                     Grid.Column="2" 
                                     Grid.Row="2">
                                 <TextBlock Text="+" Margin="0,-2,0,0"/>
                             </Button>
                             <!-- Remove -->
-                            <Button x:Name="btnRemoveSubtitle"
+                            <Button x:Name="btnSubtitle_Remove"
                                     IsEnabled="{Binding Subtitle_ListView_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     Style="{DynamicResource ButtonNavigationStyle}"
                                     HorizontalAlignment="Left" 
@@ -2349,22 +2393,23 @@
                                     Width="22" 
                                     Height="22" 
                                     Cursor="Hand" 
-                                    Click="btnRemoveSubtitle_Click"
+                                    Click="btnSubtitle_Remove_Click"
                                     Margin="83,34,0,0" 
-                                    ToolTipService.InitialShowDelay="500" 
+                                    ToolTipService.InitialShowDelay="1000"
+                                    ToolTipService.ShowOnDisabled="True"
                                     ToolTip="Remove"
                                     Grid.Column="2"
                                     Grid.Row="2">
                                 <TextBlock Text="-" Margin="0,-2,0,0"/>
                             </Button>
                             <!-- Sort Up -->
-                            <Button x:Name="btnSortSubtitleUp"
+                            <Button x:Name="btnSubtitle_SortUp"
                                     IsEnabled="{Binding Subtitle_ListView_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     Style="{DynamicResource ButtonNavigationStyle}"
                                     VerticalAlignment="Top" 
                                     Height="22"
                                     Cursor="Hand"
-                                    Click="btnSortSubtitleUp_Click"
+                                    Click="btnSubtitle_SortUp_Click"
                                     Margin="83,88,0,0" 
                                     HorizontalAlignment="Left" 
                                     Width="22" 
@@ -2373,7 +2418,7 @@
                                 <TextBlock Text="▴" Margin="0,-2,0,0"/>
                             </Button>
                             <!-- Sort Down -->
-                            <Button x:Name="btnSortSubtitleDown"
+                            <Button x:Name="btnSubtitle_SortDown"
                                     IsEnabled="{Binding Subtitle_ListView_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     Style="{DynamicResource ButtonNavigationStyle}"
                                     HorizontalAlignment="Left" 
@@ -2381,14 +2426,14 @@
                                     Width="22" 
                                     Height="22" 
                                     Cursor="Hand" 
-                                    Click="btnSortSubtitleDown_Click"
+                                    Click="btnSubtitle_SortDown_Click"
                                     Margin="83,115,0,0" 
                                     Grid.Column="2" 
                                     Grid.Row="2">
                                 <TextBlock Text="▾" Margin="0,0,0,0"/>
                             </Button>
                             <!-- Clear All -->
-                            <Button x:Name="btnClearSubtitles" 
+                            <Button x:Name="btnSubtitle_Clear" 
                                     IsEnabled="{Binding Subtitle_ListView_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     Style="{DynamicResource ButtonNavigationStyle}"
                                     HorizontalAlignment="Left" 
@@ -2396,9 +2441,10 @@
                                     Width="22" 
                                     Height="22" 
                                     Cursor="Hand" 
-                                    Click="btnClearSubtitles_Click"
+                                    Click="btnSubtitle_Clear_Click"
                                     Margin="83,61,0,0" 
-                                    ToolTipService.InitialShowDelay="500" 
+                                    ToolTipService.InitialShowDelay="1000" 
+                                    ToolTipService.ShowOnDisabled="True"
                                     ToolTip="Clear All"
                                     Grid.Column="2"
                                     Grid.Row="2">
@@ -2787,6 +2833,7 @@
                                                                    Height="26" 
                                                                    Grid.ColumnSpan="2" />
                                                             <Slider x:Name="slFilterVideo_SelectiveColor_Reds_Cyan" 
+                                                                    Style="{DynamicResource SliderStyle}"
                                                                     Value="{Binding FilterVideo_SelectiveColor_Reds_Cyan_Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                                     HorizontalAlignment="Right"
                                                                     Margin="0,4,60,0" 
@@ -2800,10 +2847,11 @@
                                                                     MouseDoubleClick="slFilterVideo_SelectiveColor_Reds_Cyan_MouseDoubleClick"
                                                                     Grid.Column="1"/>
                                                             <TextBox x:Name="tbxFilterVideo_SelectiveColor_Reds_Cyan"
+                                                                    Style="{DynamicResource TextBoxCustom}" 
                                                                     Text="{Binding Value, ElementName=slFilterVideo_SelectiveColor_Reds_Cyan, UpdateSourceTrigger=PropertyChanged}"
                                                                     Height="22" 
                                                                     MaxLines="1"
-                                                                     MaxLength="4"
+                                                                    MaxLength="4"
                                                                     Margin="0,2,16,0"
                                                                     HorizontalAlignment="Right"
                                                                     Width="39" 
@@ -2823,6 +2871,7 @@
                                                                    Height="26"
                                                                    Grid.ColumnSpan="2" />
                                                             <Slider x:Name="slFilterVideo_SelectiveColor_Reds_Magenta" 
+                                                                    Style="{DynamicResource SliderStyle}"
                                                                     Value="{Binding FilterVideo_SelectiveColor_Reds_Magenta_Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                                     HorizontalAlignment="Right"
                                                                     Margin="0,4,60,0" 
@@ -2837,10 +2886,11 @@
                                                                     MouseDoubleClick="slFilterVideo_SelectiveColor_Reds_Magenta_MouseDoubleClick" 
                                                                     Grid.Column="1"/>
                                                             <TextBox x:Name="tbxFilterVideo_SelectiveColor_Reds_Magenta"
+                                                                    Style="{DynamicResource TextBoxCustom}" 
                                                                     Text="{Binding Value, ElementName=slFilterVideo_SelectiveColor_Reds_Magenta, UpdateSourceTrigger=PropertyChanged}"
                                                                     Height="22" 
                                                                     MaxLines="1"
-                                                                     MaxLength="4"
+                                                                    MaxLength="4"
                                                                     Margin="0,2,16,0"
                                                                     HorizontalAlignment="Right"
                                                                     Width="39" 
@@ -2860,6 +2910,7 @@
                                                                     Height="26" 
                                                                    Grid.ColumnSpan="2" />
                                                             <Slider x:Name="slFilterVideo_SelectiveColor_Reds_Yellow" 
+                                                                    Style="{DynamicResource SliderStyle}"
                                                                     Value="{Binding FilterVideo_SelectiveColor_Reds_Yellow_Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                                     HorizontalAlignment="Right"
                                                                     Margin="0,4,60,0" 
@@ -2874,7 +2925,8 @@
                                                                     PreviewMouseUp="slFilterVideo_SelectiveColor_Reds_Yellow_PreviewMouseUp"
                                                                     MouseDoubleClick="slFilterVideo_SelectiveColor_Reds_Yellow_MouseDoubleClick"/>
                                                             <TextBox x:Name="tbxFilterVideo_SelectiveColor_Reds_Yellow"
-                                                                     Text="{Binding Value, ElementName=slFilterVideo_SelectiveColor_Reds_Yellow, UpdateSourceTrigger=PropertyChanged}"
+                                                                     Style="{DynamicResource TextBoxCustom}" 
+                                                                    Text="{Binding Value, ElementName=slFilterVideo_SelectiveColor_Reds_Yellow, UpdateSourceTrigger=PropertyChanged}"
                                                                      Height="22" 
                                                                      MaxLines="1"
                                                                      MaxLength="4"
@@ -2920,6 +2972,7 @@
                                                                     FontFamily="Segoe UI Semilight" 
                                                                     Height="26" />
                                                             <Slider x:Name="slFilterVideo_SelectiveColor_Yellows_Cyan" 
+                                                                    Style="{DynamicResource SliderStyle}"
                                                                     Value="{Binding FilterVideo_SelectiveColor_Yellows_Cyan_Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                                     HorizontalAlignment="Right"
                                                                     Margin="0,4,60,0" 
@@ -2933,6 +2986,7 @@
                                                                     MouseDoubleClick="slFilterVideo_SelectiveColor_Yellows_Cyan_MouseDoubleClick"
                                                                     Grid.ColumnSpan="2" />
                                                             <TextBox x:Name="tbxFilterVideo_SelectiveColor_Yellows_Cyan"
+                                                                    Style="{DynamicResource TextBoxCustom}" 
                                                                     Text="{Binding Value, ElementName=slFilterVideo_SelectiveColor_Yellows_Cyan, UpdateSourceTrigger=PropertyChanged}"
                                                                     Height="22" 
                                                                     MaxLines="1"
@@ -2955,6 +3009,7 @@
                                                                     Grid.Row="1" 
                                                                     Height="26" />
                                                             <Slider x:Name="slFilterVideo_SelectiveColor_Yellows_Magenta" 
+                                                                    Style="{DynamicResource SliderStyle}"
                                                                     Value="{Binding FilterVideo_SelectiveColor_Yellows_Magenta_Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                                     HorizontalAlignment="Right"
                                                                     Margin="0,4,60,0" 
@@ -2969,7 +3024,8 @@
                                                                     Grid.Row="1" 
                                                                     Grid.Column="1" />
                                                             <TextBox x:Name="tbxFilterVideo_SelectiveColor_Yellows_Magenta"
-                                                                     Text="{Binding Value, ElementName=slFilterVideo_SelectiveColor_Yellows_Magenta, UpdateSourceTrigger=PropertyChanged}"
+                                                                     Style="{DynamicResource TextBoxCustom}" 
+                                                                    Text="{Binding Value, ElementName=slFilterVideo_SelectiveColor_Yellows_Magenta, UpdateSourceTrigger=PropertyChanged}"
                                                                      Height="22" 
                                                                      MaxLines="1"
                                                                      MaxLength="4"
@@ -2992,6 +3048,7 @@
                                                                     Grid.Row="2" 
                                                                     Height="26" />
                                                             <Slider x:Name="slFilterVideo_SelectiveColor_Yellows_Yellow" 
+                                                                    Style="{DynamicResource SliderStyle}"
                                                                     Value="{Binding FilterVideo_SelectiveColor_Yellows_Yellow_Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                                     HorizontalAlignment="Right"
                                                                     Margin="0,4,60,0" 
@@ -3006,7 +3063,8 @@
                                                                     Grid.Row="2" 
                                                                     Grid.ColumnSpan="2" />
                                                             <TextBox x:Name="tbxFilterVideo_SelectiveColor_Yellows_Yellow"
-                                                                     Text="{Binding Value, ElementName=slFilterVideo_SelectiveColor_Yellows_Yellow, UpdateSourceTrigger=PropertyChanged}"
+                                                                     Style="{DynamicResource TextBoxCustom}" 
+                                                                    Text="{Binding Value, ElementName=slFilterVideo_SelectiveColor_Yellows_Yellow, UpdateSourceTrigger=PropertyChanged}"
                                                                      Height="22" 
                                                                      MaxLines="1"
                                                                      MaxLength="4"
@@ -3053,6 +3111,7 @@
                                                                     FontFamily="Segoe UI Semilight" 
                                                                     Height="26" />
                                                             <Slider x:Name="slFilterVideo_SelectiveColor_Greens_Cyan" 
+                                                                    Style="{DynamicResource SliderStyle}"
                                                                     Value="{Binding FilterVideo_SelectiveColor_Greens_Cyan_Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                                     HorizontalAlignment="Right"
                                                                     Margin="0,4,60,0" 
@@ -3066,6 +3125,7 @@
                                                                     MouseDoubleClick="slFilterVideo_SelectiveColor_Greens_Cyan_MouseDoubleClick"
                                                                     Grid.ColumnSpan="2" />
                                                             <TextBox x:Name="tbxFilterVideo_SelectiveColor_Greens_Cyan"
+                                                                    Style="{DynamicResource TextBoxCustom}" 
                                                                     Text="{Binding Value, ElementName=slFilterVideo_SelectiveColor_Greens_Cyan, UpdateSourceTrigger=PropertyChanged}"
                                                                     Height="22" 
                                                                     MaxLines="1"
@@ -3088,6 +3148,7 @@
                                                                     Grid.Row="1" 
                                                                     Height="26" />
                                                             <Slider x:Name="slFilterVideo_SelectiveColor_Greens_Magenta" 
+                                                                    Style="{DynamicResource SliderStyle}"
                                                                     Value="{Binding FilterVideo_SelectiveColor_Greens_Magenta_Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                                     HorizontalAlignment="Right"
                                                                     Margin="0,4,60,0" 
@@ -3102,7 +3163,8 @@
                                                                     Grid.Row="1" 
                                                                     Grid.Column="1" />
                                                             <TextBox x:Name="tbxFilterVideo_SelectiveColor_Greens_Magenta"
-                                                                     Text="{Binding Value, ElementName=slFilterVideo_SelectiveColor_Greens_Magenta, UpdateSourceTrigger=PropertyChanged}"
+                                                                     Style="{DynamicResource TextBoxCustom}" 
+                                                                    Text="{Binding Value, ElementName=slFilterVideo_SelectiveColor_Greens_Magenta, UpdateSourceTrigger=PropertyChanged}"
                                                                      Height="22" 
                                                                      MaxLines="1"
                                                                      MaxLength="4"
@@ -3125,6 +3187,7 @@
                                                                     Grid.Row="2" 
                                                                     Height="26" />
                                                             <Slider x:Name="slFilterVideo_SelectiveColor_Greens_Yellow" 
+                                                                    Style="{DynamicResource SliderStyle}"
                                                                     Value="{Binding FilterVideo_SelectiveColor_Greens_Yellow_Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                                     HorizontalAlignment="Right"
                                                                     Margin="0,4,60,0" 
@@ -3139,7 +3202,8 @@
                                                                     Grid.Row="2" 
                                                                     Grid.ColumnSpan="2" />
                                                             <TextBox x:Name="tbxFilterVideo_SelectiveColor_Greens_Yellow"
-                                                                     Text="{Binding Value, ElementName=slFilterVideo_SelectiveColor_Greens_Yellow, UpdateSourceTrigger=PropertyChanged}"
+                                                                     Style="{DynamicResource TextBoxCustom}" 
+                                                                    Text="{Binding Value, ElementName=slFilterVideo_SelectiveColor_Greens_Yellow, UpdateSourceTrigger=PropertyChanged}"
                                                                      Height="22" 
                                                                      MaxLines="1"
                                                                      MaxLength="4"
@@ -3186,6 +3250,7 @@
                                                                     FontFamily="Segoe UI Semilight" 
                                                                     Height="26" />
                                                             <Slider x:Name="slFilterVideo_SelectiveColor_Cyans_Cyan" 
+                                                                    Style="{DynamicResource SliderStyle}"
                                                                     Value="{Binding FilterVideo_SelectiveColor_Cyans_Cyan_Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                                     HorizontalAlignment="Right"
                                                                     Margin="0,4,60,0" 
@@ -3199,7 +3264,8 @@
                                                                     MouseDoubleClick="slFilterVideo_SelectiveColor_Cyans_Cyan_MouseDoubleClick"
                                                                     Grid.ColumnSpan="2" />
                                                             <TextBox x:Name="tbxFilterVideo_SelectiveColor_Cyans_Cyan"
-                                                                     Text="{Binding Value, ElementName=slFilterVideo_SelectiveColor_Cyans_Cyan, UpdateSourceTrigger=PropertyChanged}"
+                                                                     Style="{DynamicResource TextBoxCustom}" 
+                                                                    Text="{Binding Value, ElementName=slFilterVideo_SelectiveColor_Cyans_Cyan, UpdateSourceTrigger=PropertyChanged}"
                                                                      Height="22" 
                                                                      MaxLines="1"
                                                                      MaxLength="4"
@@ -3221,6 +3287,7 @@
                                                                     Grid.Row="1" 
                                                                     Height="26" />
                                                             <Slider x:Name="slFilterVideo_SelectiveColor_Cyans_Magenta" 
+                                                                    Style="{DynamicResource SliderStyle}"
                                                                     Value="{Binding FilterVideo_SelectiveColor_Cyans_Magenta_Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                                     HorizontalAlignment="Right"
                                                                     Margin="0,4,60,0" 
@@ -3235,7 +3302,8 @@
                                                                     Grid.Row="1" 
                                                                     Grid.Column="1" />
                                                             <TextBox x:Name="tbxFilterVideo_SelectiveColor_Cyans_Magenta"
-                                                                     Text="{Binding Value, ElementName=slFilterVideo_SelectiveColor_Cyans_Magenta, UpdateSourceTrigger=PropertyChanged}"
+                                                                     Style="{DynamicResource TextBoxCustom}" 
+                                                                    Text="{Binding Value, ElementName=slFilterVideo_SelectiveColor_Cyans_Magenta, UpdateSourceTrigger=PropertyChanged}"
                                                                      Height="22" 
                                                                      MaxLines="1"
                                                                      MaxLength="4"
@@ -3258,6 +3326,7 @@
                                                                     Grid.Row="2" 
                                                                     Height="26" />
                                                             <Slider x:Name="slFilterVideo_SelectiveColor_Cyans_Yellow" 
+                                                                    Style="{DynamicResource SliderStyle}"
                                                                     Value="{Binding FilterVideo_SelectiveColor_Cyans_Yellow_Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                                     HorizontalAlignment="Right"
                                                                     Margin="0,4,60,0" 
@@ -3272,7 +3341,8 @@
                                                                     Grid.Row="2" 
                                                                     Grid.ColumnSpan="2" />
                                                             <TextBox x:Name="tbxFilterVideo_SelectiveColor_Cyans_Yellow"
-                                                                     Text="{Binding Value, ElementName=slFilterVideo_SelectiveColor_Cyans_Yellow, UpdateSourceTrigger=PropertyChanged}"
+                                                                     Style="{DynamicResource TextBoxCustom}" 
+                                                                    Text="{Binding Value, ElementName=slFilterVideo_SelectiveColor_Cyans_Yellow, UpdateSourceTrigger=PropertyChanged}"
                                                                      Height="22" 
                                                                      MaxLines="1"
                                                                      MaxLength="4"
@@ -3319,6 +3389,7 @@
                                                                    FontFamily="Segoe UI Semilight" 
                                                                    Height="26" />
                                                             <Slider x:Name="slFilterVideo_SelectiveColor_Blues_Cyan" 
+                                                                    Style="{DynamicResource SliderStyle}"
                                                                     Value="{Binding FilterVideo_SelectiveColor_Blues_Cyan_Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                                     HorizontalAlignment="Right"
                                                                     Margin="0,4,60,0" 
@@ -3332,6 +3403,7 @@
                                                                     MouseDoubleClick="slFilterVideo_SelectiveColor_Blues_Cyan_MouseDoubleClick"
                                                                     Grid.ColumnSpan="2" />
                                                             <TextBox x:Name="tbxFilterVideo_SelectiveColor_Blues_Cyan"
+                                                                    Style="{DynamicResource TextBoxCustom}" 
                                                                     Text="{Binding Value, ElementName=slFilterVideo_SelectiveColor_Blues_Cyan, UpdateSourceTrigger=PropertyChanged}"
                                                                     Height="22" 
                                                                     MaxLines="1"
@@ -3354,6 +3426,7 @@
                                                                     Grid.Row="1" 
                                                                     Height="26" />
                                                             <Slider x:Name="slFilterVideo_SelectiveColor_Blues_Magenta" 
+                                                                    Style="{DynamicResource SliderStyle}"
                                                                     Value="{Binding FilterVideo_SelectiveColor_Blues_Magenta_Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                                     HorizontalAlignment="Right"
                                                                     Margin="0,4,60,0" 
@@ -3368,7 +3441,8 @@
                                                                     Grid.Row="1" 
                                                                     Grid.Column="1" />
                                                             <TextBox x:Name="tbxFilterVideo_SelectiveColor_Blues_Magenta"
-                                                                     Text="{Binding Value, ElementName=slFilterVideo_SelectiveColor_Blues_Magenta, UpdateSourceTrigger=PropertyChanged}"
+                                                                     Style="{DynamicResource TextBoxCustom}" 
+                                                                    Text="{Binding Value, ElementName=slFilterVideo_SelectiveColor_Blues_Magenta, UpdateSourceTrigger=PropertyChanged}"
                                                                      Height="22" 
                                                                      MaxLines="1"
                                                                      MaxLength="4"
@@ -3391,6 +3465,7 @@
                                                                     Grid.Row="2" 
                                                                     Height="26" />
                                                             <Slider x:Name="slFilterVideo_SelectiveColor_Blues_Yellow" 
+                                                                    Style="{DynamicResource SliderStyle}"
                                                                     Value="{Binding FilterVideo_SelectiveColor_Blues_Yellow_Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                                     HorizontalAlignment="Right"
                                                                     Margin="0,4,60,0" 
@@ -3405,7 +3480,8 @@
                                                                     Grid.Row="2" 
                                                                     Grid.ColumnSpan="2" />
                                                             <TextBox x:Name="tbxFilterVideo_SelectiveColor_Blues_Yellow"
-                                                                     Text="{Binding Value, ElementName=slFilterVideo_SelectiveColor_Blues_Yellow, UpdateSourceTrigger=PropertyChanged}"
+                                                                     Style="{DynamicResource TextBoxCustom}" 
+                                                                    Text="{Binding Value, ElementName=slFilterVideo_SelectiveColor_Blues_Yellow, UpdateSourceTrigger=PropertyChanged}"
                                                                      Height="22" 
                                                                      MaxLines="1"
                                                                      MaxLength="4"
@@ -3452,6 +3528,7 @@
                                                                     FontFamily="Segoe UI Semilight" 
                                                                     Height="26" />
                                                             <Slider x:Name="slFilterVideo_SelectiveColor_Magentas_Cyan" 
+                                                                    Style="{DynamicResource SliderStyle}"
                                                                     Value="{Binding FilterVideo_SelectiveColor_Magentas_Cyan_Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                                     HorizontalAlignment="Right"
                                                                     Margin="0,4,60,0" 
@@ -3465,6 +3542,7 @@
                                                                     MouseDoubleClick="slFilterVideo_SelectiveColor_Magentas_Cyan_MouseDoubleClick"
                                                                     Grid.ColumnSpan="2" />
                                                             <TextBox x:Name="tbxFilterVideo_SelectiveColor_Magentas_Cyan"
+                                                                    Style="{DynamicResource TextBoxCustom}" 
                                                                     Text="{Binding Value, ElementName=slFilterVideo_SelectiveColor_Magentas_Cyan, UpdateSourceTrigger=PropertyChanged}"
                                                                     Height="22" 
                                                                     MaxLines="1"
@@ -3487,6 +3565,7 @@
                                                                     Grid.Row="1" 
                                                                     Height="26" />
                                                             <Slider x:Name="slFilterVideo_SelectiveColor_Magentas_Magenta" 
+                                                                    Style="{DynamicResource SliderStyle}"
                                                                     Value="{Binding FilterVideo_SelectiveColor_Magentas_Magenta_Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                                     HorizontalAlignment="Right"
                                                                     Margin="0,4,60,0" 
@@ -3501,7 +3580,8 @@
                                                                     Grid.Row="1" 
                                                                     Grid.Column="1" />
                                                             <TextBox x:Name="tbxFilterVideo_SelectiveColor_Magentas_Magenta"
-                                                                     Text="{Binding Value, ElementName=slFilterVideo_SelectiveColor_Magentas_Magenta, UpdateSourceTrigger=PropertyChanged}"
+                                                                     Style="{DynamicResource TextBoxCustom}" 
+                                                                    Text="{Binding Value, ElementName=slFilterVideo_SelectiveColor_Magentas_Magenta, UpdateSourceTrigger=PropertyChanged}"
                                                                      Height="22" 
                                                                      MaxLines="1"
                                                                      MaxLength="4"
@@ -3524,6 +3604,7 @@
                                                                     Grid.Row="2" 
                                                                     Height="26" />
                                                             <Slider x:Name="slFilterVideo_SelectiveColor_Magentas_Yellow" 
+                                                                    Style="{DynamicResource SliderStyle}"
                                                                     Value="{Binding FilterVideo_SelectiveColor_Magentas_Yellow_Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                                     HorizontalAlignment="Right"
                                                                     Margin="0,4,60,0" 
@@ -3538,7 +3619,8 @@
                                                                     Grid.Row="2" 
                                                                     Grid.ColumnSpan="2" />
                                                             <TextBox x:Name="tbxFilterVideo_SelectiveColor_Magentas_Yellow"
-                                                                     Text="{Binding Value, ElementName=slFilterVideo_SelectiveColor_Magentas_Yellow, UpdateSourceTrigger=PropertyChanged}"
+                                                                     Style="{DynamicResource TextBoxCustom}" 
+                                                                    Text="{Binding Value, ElementName=slFilterVideo_SelectiveColor_Magentas_Yellow, UpdateSourceTrigger=PropertyChanged}"
                                                                      Height="22" 
                                                                      MaxLines="1"
                                                                      MaxLength="4"
@@ -3585,6 +3667,7 @@
                                                                     FontFamily="Segoe UI Semilight" 
                                                                     Height="26" />
                                                             <Slider x:Name="slFilterVideo_SelectiveColor_Whites_Cyan" 
+                                                                    Style="{DynamicResource SliderStyle}"
                                                                     Value="{Binding FilterVideo_SelectiveColor_Whites_Cyan_Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                                     HorizontalAlignment="Right"
                                                                     Margin="0,4,60,0" 
@@ -3598,6 +3681,7 @@
                                                                     MouseDoubleClick="slFilterVideo_SelectiveColor_Whites_Cyan_MouseDoubleClick"
                                                                     Grid.ColumnSpan="2" />
                                                             <TextBox x:Name="tbxFilterVideo_SelectiveColor_Whites_Cyan"
+                                                                    Style="{DynamicResource TextBoxCustom}" 
                                                                     Text="{Binding Value, ElementName=slFilterVideo_SelectiveColor_Whites_Cyan, UpdateSourceTrigger=PropertyChanged}"
                                                                     Height="22" 
                                                                     MaxLines="1"
@@ -3620,6 +3704,7 @@
                                                                     Grid.Row="1" 
                                                                     Height="26" />
                                                             <Slider x:Name="slFilterVideo_SelectiveColor_Whites_Magenta" 
+                                                                    Style="{DynamicResource SliderStyle}"
                                                                     Value="{Binding FilterVideo_SelectiveColor_Whites_Magenta_Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                                     HorizontalAlignment="Right"
                                                                     Margin="0,4,60,0" 
@@ -3634,7 +3719,8 @@
                                                                     Grid.Row="1" 
                                                                     Grid.Column="1" />
                                                             <TextBox x:Name="tbxFilterVideo_SelectiveColor_Whites_Magenta"
-                                                                     Text="{Binding Value, ElementName=slFilterVideo_SelectiveColor_Whites_Magenta, UpdateSourceTrigger=PropertyChanged}"
+                                                                     Style="{DynamicResource TextBoxCustom}" 
+                                                                    Text="{Binding Value, ElementName=slFilterVideo_SelectiveColor_Whites_Magenta, UpdateSourceTrigger=PropertyChanged}"
                                                                      Height="22" 
                                                                      MaxLines="1"
                                                                      MaxLength="4"
@@ -3657,6 +3743,7 @@
                                                                     Grid.Row="2" 
                                                                     Height="26" />
                                                             <Slider x:Name="slFilterVideo_SelectiveColor_Whites_Yellow" 
+                                                                    Style="{DynamicResource SliderStyle}"
                                                                     Value="{Binding FilterVideo_SelectiveColor_Whites_Yellow_Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                                     HorizontalAlignment="Right"
                                                                     Margin="0,4,60,0" 
@@ -3671,7 +3758,8 @@
                                                                     Grid.Row="2" 
                                                                     Grid.ColumnSpan="2" />
                                                             <TextBox x:Name="tbxFilterVideo_SelectiveColor_Whites_Yellow"
-                                                                     Text="{Binding Value, ElementName=slFilterVideo_SelectiveColor_Whites_Yellow, UpdateSourceTrigger=PropertyChanged}"
+                                                                     Style="{DynamicResource TextBoxCustom}" 
+                                                                    Text="{Binding Value, ElementName=slFilterVideo_SelectiveColor_Whites_Yellow, UpdateSourceTrigger=PropertyChanged}"
                                                                      Height="22" 
                                                                      MaxLines="1"
                                                                      MaxLength="4"
@@ -3718,6 +3806,7 @@
                                                                     FontFamily="Segoe UI Semilight" 
                                                                     Height="26" />
                                                             <Slider x:Name="slFilterVideo_SelectiveColor_Neutrals_Cyan" 
+                                                                    Style="{DynamicResource SliderStyle}"
                                                                     Value="{Binding FilterVideo_SelectiveColor_Neutrals_Cyan_Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                                     HorizontalAlignment="Right"
                                                                     Margin="0,4,60,0" 
@@ -3731,6 +3820,7 @@
                                                                     MouseDoubleClick="slFilterVideo_SelectiveColor_Neutrals_Cyan_MouseDoubleClick"
                                                                     Grid.ColumnSpan="2" />
                                                             <TextBox x:Name="tbxFilterVideo_SelectiveColor_Neutrals_Cyan"
+                                                                    Style="{DynamicResource TextBoxCustom}" 
                                                                     Text="{Binding Value, ElementName=slFilterVideo_SelectiveColor_Neutrals_Cyan, UpdateSourceTrigger=PropertyChanged}"
                                                                     Height="22" 
                                                                     MaxLines="1"
@@ -3753,6 +3843,7 @@
                                                                     Grid.Row="1" 
                                                                     Height="26" />
                                                             <Slider x:Name="slFilterVideo_SelectiveColor_Neutrals_Magenta" 
+                                                                    Style="{DynamicResource SliderStyle}"
                                                                     Value="{Binding FilterVideo_SelectiveColor_Neutrals_Magenta_Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                                     HorizontalAlignment="Right"
                                                                     Margin="0,4,60,0" 
@@ -3767,7 +3858,8 @@
                                                                     Grid.Row="1" 
                                                                     Grid.Column="1" />
                                                             <TextBox x:Name="tbxFilterVideo_SelectiveColor_Neutrals_Magenta"
-                                                                     Text="{Binding Value, ElementName=slFilterVideo_SelectiveColor_Neutrals_Magenta, UpdateSourceTrigger=PropertyChanged}"
+                                                                     Style="{DynamicResource TextBoxCustom}" 
+                                                                    Text="{Binding Value, ElementName=slFilterVideo_SelectiveColor_Neutrals_Magenta, UpdateSourceTrigger=PropertyChanged}"
                                                                      Height="22" 
                                                                      MaxLines="1"
                                                                      MaxLength="4"
@@ -3790,6 +3882,7 @@
                                                                     Grid.Row="2" 
                                                                     Height="26" />
                                                             <Slider x:Name="slFilterVideo_SelectiveColor_Neutrals_Yellow" 
+                                                                    Style="{DynamicResource SliderStyle}"
                                                                     Value="{Binding FilterVideo_SelectiveColor_Neutrals_Yellow_Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                                     HorizontalAlignment="Right"
                                                                     Margin="0,4,60,0" 
@@ -3804,7 +3897,8 @@
                                                                     Grid.Row="2" 
                                                                     Grid.ColumnSpan="2" />
                                                             <TextBox x:Name="tbxFilterVideo_SelectiveColor_Neutrals_Yellow"
-                                                                     Text="{Binding Value, ElementName=slFilterVideo_SelectiveColor_Neutrals_Yellow, UpdateSourceTrigger=PropertyChanged}"
+                                                                     Style="{DynamicResource TextBoxCustom}" 
+                                                                    Text="{Binding Value, ElementName=slFilterVideo_SelectiveColor_Neutrals_Yellow, UpdateSourceTrigger=PropertyChanged}"
                                                                      Height="22" 
                                                                      MaxLines="1"
                                                                      MaxLength="4"
@@ -3851,6 +3945,7 @@
                                                                     FontFamily="Segoe UI Semilight" 
                                                                     Height="26" />
                                                             <Slider x:Name="slFilterVideo_SelectiveColor_Blacks_Cyan" 
+                                                                    Style="{DynamicResource SliderStyle}"
                                                                     Value="{Binding FilterVideo_SelectiveColor_Blacks_Cyan_Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                                     HorizontalAlignment="Right"
                                                                     Margin="0,4,60,0" 
@@ -3864,7 +3959,8 @@
                                                                     MouseDoubleClick="slFilterVideo_SelectiveColor_Blacks_Cyan_MouseDoubleClick"
                                                                     Grid.ColumnSpan="2" />
                                                             <TextBox x:Name="tbxFilterVideo_SelectiveColor_Blacks_Cyan"
-                                                                     Text="{Binding Value, ElementName=slFilterVideo_SelectiveColor_Blacks_Cyan, UpdateSourceTrigger=PropertyChanged}"
+                                                                     Style="{DynamicResource TextBoxCustom}" 
+                                                                    Text="{Binding Value, ElementName=slFilterVideo_SelectiveColor_Blacks_Cyan, UpdateSourceTrigger=PropertyChanged}"
                                                                      Height="22" 
                                                                      MaxLines="1"
                                                                      MaxLength="4"
@@ -3886,6 +3982,7 @@
                                                                     Grid.Row="1" 
                                                                     Height="26" />
                                                             <Slider x:Name="slFilterVideo_SelectiveColor_Blacks_Magenta" 
+                                                                    Style="{DynamicResource SliderStyle}"
                                                                     Value="{Binding FilterVideo_SelectiveColor_Blacks_Magenta_Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                                     HorizontalAlignment="Right"
                                                                     Margin="0,4,60,0" 
@@ -3900,7 +3997,8 @@
                                                                     Grid.Row="1" 
                                                                     Grid.Column="1" />
                                                             <TextBox x:Name="tbxFilterVideo_SelectiveColor_Blacks_Magenta"
-                                                                     Text="{Binding Value, ElementName=slFilterVideo_SelectiveColor_Blacks_Magenta, UpdateSourceTrigger=PropertyChanged}"
+                                                                     Style="{DynamicResource TextBoxCustom}" 
+                                                                    Text="{Binding Value, ElementName=slFilterVideo_SelectiveColor_Blacks_Magenta, UpdateSourceTrigger=PropertyChanged}"
                                                                      Height="22" 
                                                                      MaxLines="1"
                                                                      MaxLength="4"
@@ -3923,6 +4021,7 @@
                                                                     Grid.Row="2" 
                                                                     Height="26" />
                                                             <Slider x:Name="slFilterVideo_SelectiveColor_Blacks_Yellow" 
+                                                                    Style="{DynamicResource SliderStyle}"
                                                                     Value="{Binding FilterVideo_SelectiveColor_Blacks_Yellow_Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                                     HorizontalAlignment="Right"
                                                                     Margin="0,4,60,0" 
@@ -3937,7 +4036,8 @@
                                                                     Grid.Row="2" 
                                                                     Grid.ColumnSpan="2" />
                                                             <TextBox x:Name="tbxFilterVideo_SelectiveColor_Blacks_Yellow"
-                                                                     Text="{Binding Value, ElementName=slFilterVideo_SelectiveColor_Blacks_Yellow, UpdateSourceTrigger=PropertyChanged}"
+                                                                     Style="{DynamicResource TextBoxCustom}" 
+                                                                    Text="{Binding Value, ElementName=slFilterVideo_SelectiveColor_Blacks_Yellow, UpdateSourceTrigger=PropertyChanged}"
                                                                      Height="22" 
                                                                      MaxLines="1"
                                                                      MaxLength="4"
@@ -4002,6 +4102,7 @@
                                                    Grid.Row="10" 
                                                    Grid.Column="1" />
                                             <Slider x:Name="slFilterVideo_EQ_Brightness" 
+                                                    Style="{DynamicResource SliderStyle}"
                                                     HorizontalAlignment="Right"
                                                     Margin="0,4,61,0" 
                                                     VerticalAlignment="Top" 
@@ -4017,6 +4118,7 @@
                                                     Grid.Row="10" 
                                                     Height="18"/>
                                             <TextBox x:Name="tbxFilterVideo_EQ_Brightness"
+                                                     Style="{DynamicResource TextBoxCustom}" 
                                                      Text="{Binding Value, ElementName=slFilterVideo_EQ_Brightness, UpdateSourceTrigger=PropertyChanged}"
                                                      Height="22" 
                                                      MaxLines="1"
@@ -4041,6 +4143,7 @@
                                                    Grid.Row="11" 
                                                    Grid.Column="1" />
                                             <Slider x:Name="slFilterVideo_EQ_Contrast" 
+                                                    Style="{DynamicResource SliderStyle}"
                                                     HorizontalAlignment="Right"
                                                     Margin="0,4,61,0" 
                                                     VerticalAlignment="Top" 
@@ -4056,6 +4159,7 @@
                                                     Grid.Row="11" 
                                                     Height="18"/>
                                             <TextBox x:Name="tbxFilterVideo_EQ_Contrast"
+                                                    Style="{DynamicResource TextBoxCustom}" 
                                                     Text="{Binding Value, ElementName=slFilterVideo_EQ_Contrast, UpdateSourceTrigger=PropertyChanged}"
                                                     Height="22" 
                                                     MaxLines="1"
@@ -4080,6 +4184,7 @@
                                                    Grid.Row="12" 
                                                    Grid.Column="1" />
                                             <Slider x:Name="slFilterVideo_EQ_Saturation" 
+                                                    Style="{DynamicResource SliderStyle}"
                                                     HorizontalAlignment="Right"
                                                     Margin="0,4,61,0" 
                                                     VerticalAlignment="Top" 
@@ -4095,6 +4200,7 @@
                                                     Grid.Row="12" 
                                                     Height="18"/>
                                             <TextBox x:Name="tbxFilterVideo_EQ_Saturation"
+                                                    Style="{DynamicResource TextBoxCustom}" 
                                                     Text="{Binding Value, ElementName=slFilterVideo_EQ_Saturation, UpdateSourceTrigger=PropertyChanged}"
                                                     Height="22" 
                                                     MaxLines="1"
@@ -4119,6 +4225,7 @@
                                                    Grid.Row="13" 
                                                    Grid.Column="1" />
                                             <Slider x:Name="slFilterVideo_EQ_Gamma" 
+                                                    Style="{DynamicResource SliderStyle}"
                                                     HorizontalAlignment="Right"
                                                     Margin="0,4,61,0" 
                                                     VerticalAlignment="Top" 
@@ -4134,6 +4241,7 @@
                                                     Grid.Row="13" 
                                                     Height="18"/>
                                             <TextBox x:Name="tbxFilterVideo_EQ_Gamma"
+                                                    Style="{DynamicResource TextBoxCustom}" 
                                                     Text="{Binding Value, ElementName=slFilterVideo_EQ_Gamma, UpdateSourceTrigger=PropertyChanged}"
                                                     Height="22" 
                                                     MaxLines="1"
@@ -4353,6 +4461,7 @@
                                                    Grid.Column="1"
                                                    Grid.Row="8"/>
                                             <Slider x:Name="slFilterAudio_Contrast" 
+                                                    Style="{DynamicResource SliderStyle}"
                                                     HorizontalAlignment="Right"
                                                     Margin="0,4,61,0" 
                                                     VerticalAlignment="Top" 
@@ -4367,6 +4476,7 @@
                                                     Grid.Row="8" 
                                                     Height="18"/>
                                             <TextBox x:Name="tbxFilterAudio_Contrast"
+                                                     Style="{DynamicResource TextBoxCustom}" 
                                                      Text="{Binding Value, ElementName=slFilterAudio_Contrast, UpdateSourceTrigger=PropertyChanged}"
                                                      Height="22" 
                                                      MaxLines="1"
@@ -4391,6 +4501,7 @@
                                                    Grid.Column="1"
                                                    Grid.Row="9"/>
                                             <Slider x:Name="slFilterAudio_ExtraStereo" 
+                                                    Style="{DynamicResource SliderStyle}"
                                                     HorizontalAlignment="Right"
                                                     Margin="0,4,61,0" 
                                                     VerticalAlignment="Top" 
@@ -4405,6 +4516,7 @@
                                                     Grid.Row="9" 
                                                     Height="18"/>
                                             <TextBox x:Name="tbxFilterAudio_ExtraStereo"
+                                                     Style="{DynamicResource TextBoxCustom}" 
                                                      Text="{Binding Value, ElementName=slFilterAudio_ExtraStereo, UpdateSourceTrigger=PropertyChanged}"
                                                      Height="22" 
                                                      MaxLines="1"
@@ -4464,6 +4576,7 @@
                                                    Grid.Column="1"
                                                    Grid.Row="13"/>
                                             <Slider x:Name="slFilterAudio_Tempo" 
+                                                    Style="{DynamicResource SliderStyle}"
                                                     HorizontalAlignment="Right"
                                                     Margin="0,4,61,0" 
                                                     VerticalAlignment="Top" 
@@ -4478,6 +4591,7 @@
                                                     Grid.Row="13" 
                                                     Height="18"/>
                                             <TextBox x:Name="tbxFilterAudio_Tempo"
+                                                     Style="{DynamicResource TextBoxCustom}" 
                                                      Text="{Binding Value, ElementName=slFilterAudio_Tempo, UpdateSourceTrigger=PropertyChanged}"
                                                      MaxLines="1"
                                                      MaxLength="4"
@@ -4548,6 +4662,8 @@
                                    HorizontalAlignment="Left" 
                                    VerticalAlignment="Top"
                                    Height="26" 
+                                   ToolTipService.InitialShowDelay="1000"
+                                   ToolTipService.ShowOnDisabled="True"
                                    ToolTip="Path to FFmpeg.exe" 
                                    Grid.Column="1"
                                    Width="56"/>
@@ -4563,6 +4679,12 @@
                                      Width="105"
                                      IsReadOnly="True" 
                                      PreviewMouseDown="tbxFFmpegPath_PreviewMouseDown"
+                                     AllowDrop="True"
+                                     PreviewDragOver="tbxFFmpegPath_PreviewDragOver"
+                                     PreviewDragEnter="tbxFFmpegPath_PreviewDragOver"
+                                     PreviewDrop="tbxFFmpegPath_PreviewDrop"
+                                     ToolTipService.InitialShowDelay="1000" 
+                                     ToolTipService.ShowOnDisabled="True" 
                                      ToolTip="Path to FFmpeg.exe" 
                                      Grid.Column="2"/>
 
@@ -4574,6 +4696,8 @@
                                     Width="23" 
                                     Height="23" 
                                     Cursor="Hand"
+                                    ToolTipService.InitialShowDelay="1000"
+                                    ToolTipService.ShowOnDisabled="True"
                                     ToolTip="Revert to Auto"
                                     Click="btnFFmpegAuto_Click"
                                     Style="{DynamicResource ButtonFolderCustom}" Grid.Column="2" >
@@ -4591,6 +4715,8 @@
                                    HorizontalAlignment="Left" 
                                    VerticalAlignment="Top"
                                    Height="26" 
+                                   ToolTipService.InitialShowDelay="1000"
+                                   ToolTipService.ShowOnDisabled="True"
                                    ToolTip="Path to FFprobe.exe" 
                                    Grid.Row="1" 
                                    Grid.Column="1" 
@@ -4607,6 +4733,12 @@
                                      Width="105"
                                      IsReadOnly="True" 
                                      PreviewMouseDown="tbxFFprobePath_PreviewMouseDown"
+                                     AllowDrop="True"
+                                     PreviewDragOver="tbxFFprobePath_PreviewDragOver"
+                                     PreviewDragEnter="tbxFFprobePath_PreviewDragOver"
+                                     PreviewDrop="tbxFFprobePath_PreviewDrop"
+                                     ToolTipService.InitialShowDelay="1000" 
+                                     ToolTipService.ShowOnDisabled="True" 
                                      ToolTip="Path to FFprobe.exe"
                                      Grid.Column="2" 
                                      Grid.Row="1"/>
@@ -4619,6 +4751,8 @@
                                     Width="23" 
                                     Height="23" 
                                     Cursor="Hand"
+                                    ToolTipService.InitialShowDelay="1000"
+                                    ToolTipService.ShowOnDisabled="True"
                                     ToolTip="Revert to Auto"
                                     Click="btnFFprobeAuto_Click"
                                     Style="{DynamicResource ButtonFolderCustom}" Grid.Column="2" Grid.Row="1" >
@@ -4636,11 +4770,13 @@
                                    HorizontalAlignment="Left" 
                                    VerticalAlignment="Top"
                                    Height="26" 
+                                   ToolTipService.InitialShowDelay="1000"
+                                   ToolTipService.ShowOnDisabled="True"
                                    ToolTip="Path to FFplay.exe"
                                    Grid.Row="2"
                                    Grid.Column="1" 
                                    Width="56"/>
-                            <TextBox x:Name="textBoxFFplayPathConfig" 
+                            <TextBox x:Name="tbxFFplayPathConfig" 
                                      Text="{Binding FFplayPath_Text, Mode=TwoWay}"
                                      IsEnabled="{Binding FFplayPath_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                      Style="{DynamicResource TextBoxBrowseCustom}"
@@ -4652,6 +4788,12 @@
                                      Width="105"
                                      IsReadOnly="True" 
                                      PreviewMouseDown="tbxFFplayPath_PreviewMouseDown"
+                                     AllowDrop="True"
+                                     PreviewDragOver="tbxFFplayPath_PreviewDragOver"
+                                     PreviewDragEnter="tbxFFplayPath_PreviewDragOver"
+                                     PreviewDrop="tbxFFplayPath_PreviewDrop"
+                                     ToolTipService.InitialShowDelay="1000" 
+                                     ToolTipService.ShowOnDisabled="True" 
                                      ToolTip="Path to FFplay.exe" 
                                      Grid.Column="2" 
                                      Grid.Row="2"/>
@@ -4664,6 +4806,8 @@
                                             Width="23" 
                                             Height="23" 
                                             Cursor="Hand"
+                                            ToolTipService.InitialShowDelay="1000"
+                                            ToolTipService.ShowOnDisabled="True"
                                             ToolTip="Revert to Auto"
                                             Click="btnFFplayAuto_Click"
                                             Style="{DynamicResource ButtonFolderCustom}" 
@@ -4683,12 +4827,14 @@
                                    HorizontalAlignment="Left" 
                                    VerticalAlignment="Top"
                                    Height="26" 
+                                   ToolTipService.InitialShowDelay="1000"
+                                   ToolTipService.ShowOnDisabled="True"
                                    ToolTip="Path to youtube-dl.exe"
                                    Grid.Row="3" 
                                    Grid.Column="1" 
                                    Width="70" 
                                    Grid.ColumnSpan="2"/>
-                            <TextBox x:Name="textBoxyoutubedlPathConfig" 
+                            <TextBox x:Name="tbxyoutubedlPathConfig" 
                                      Text="{Binding youtubedlPath_Text, Mode=TwoWay}"
                                      IsEnabled="{Binding youtubedlPath_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                      Style="{DynamicResource TextBoxBrowseCustom}"
@@ -4700,31 +4846,39 @@
                                      Width="105"
                                      IsReadOnly="True" 
                                      PreviewMouseDown="tbxyoutubedlPath_PreviewMouseDown"
+                                     AllowDrop="True"
+                                     PreviewDragOver="tbxyoutubedlPath_PreviewDragOver"
+                                     PreviewDragEnter="tbxyoutubedlPath_PreviewDragOver"
+                                     PreviewDrop="tbxyoutubedlPath_PreviewDrop"
+                                     ToolTipService.InitialShowDelay="1000" 
+                                     ToolTipService.ShowOnDisabled="True" 
                                      ToolTip="Path to youtubedl.exe" 
                                      Grid.Column="2" 
                                      Grid.Row="3"/>
 
                             <!-- youtubedl Path Revert Button -->
                             <Button x:Name="btnyoutubedlAuto"
-                                            HorizontalAlignment="Left"
-                                            Margin="122,1,0,0" 
-                                            VerticalAlignment="Top"
-                                            Width="23" 
-                                            Height="23" 
-                                            Cursor="Hand"
-                                            ToolTip="Revert to Auto"
-                                            Click="btnyoutubedlAuto_Click"
-                                            Style="{DynamicResource ButtonFolderCustom}" 
-                                            Grid.Column="2" 
-                                            Grid.Row="3" >
+                                    HorizontalAlignment="Left"
+                                    Margin="122,1,0,0" 
+                                    VerticalAlignment="Top"
+                                    Width="23" 
+                                    Height="23" 
+                                    Cursor="Hand"
+                                    ToolTipService.InitialShowDelay="1000"
+                                    ToolTipService.ShowOnDisabled="True"
+                                    ToolTip="Revert to Auto"
+                                    Click="btnyoutubedlAuto_Click"
+                                    Style="{DynamicResource ButtonFolderCustom}" 
+                                    Grid.Column="2" 
+                                    Grid.Row="3" >
                                 <Image Width="9" 
-                                           Height="11" 
-                                           Stretch="Uniform"
-                                           HorizontalAlignment="Center"
-                                           VerticalAlignment="Center" 
-                                           Style="{DynamicResource ButtonRevertArrow}" />
+                                       Height="11" 
+                                       Stretch="Uniform"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center" 
+                                       Style="{DynamicResource ButtonRevertArrow}" />
                             </Button>
-                            
+
 
                             <!-- Log Path TextBox -->
                             <Label x:Name="labelLogConfig" 
@@ -4733,11 +4887,13 @@
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Top"
                                    Height="26" 
+                                   ToolTipService.InitialShowDelay="1000"
+                                   ToolTipService.ShowOnDisabled="True"
                                    ToolTip="Path to Save Log" 
                                    Grid.Row="4"
                                    Grid.Column="1" 
                                    Width="36"/>
-                            <TextBox x:Name="textBoxLogConfig" 
+                            <TextBox x:Name="tbxLogConfig" 
                                      Text="{Binding LogPath_Text, Mode=TwoWay}"
                                      IsEnabled="{Binding LogPath_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                      Style="{DynamicResource TextBoxBrowseCustom}" 
@@ -4749,6 +4905,7 @@
                                      Width="105"
                                      IsReadOnly="True" 
                                      PreviewMouseDown="tbxLog_PreviewMouseDown" 
+                                     ToolTipService.InitialShowDelay="1000"
                                      ToolTipService.ShowOnDisabled="True" 
                                      ToolTip="Path to save output log." 
                                      Grid.Column="2" 
@@ -4762,6 +4919,8 @@
                                     Width="23"
                                     Height="23" 
                                     Cursor="Hand"
+                                    ToolTipService.InitialShowDelay="1000"
+                                    ToolTipService.ShowOnDisabled="True"
                                     ToolTip="Clear Path" 
                                     Click="btnLogAuto_Click" 
                                     Style="{DynamicResource ButtonFolderCustom}" 
@@ -4783,6 +4942,8 @@
                                       HorizontalAlignment="Left" 
                                       Margin="36,6,0,0" 
                                       VerticalAlignment="Top" 
+                                      ToolTipService.InitialShowDelay="1000"
+                                      ToolTipService.ShowOnDisabled="True"
                                       ToolTip="Enable/Disable Log"
                                       Checked="cbxLog_Checked" 
                                       Unchecked="cbxLog_Unchecked" 
@@ -4797,7 +4958,9 @@
                                    HorizontalAlignment="Left" 
                                    VerticalAlignment="Top" 
                                    Height="26" 
-                                   ToolTip="Path to Save Log"
+                                   ToolTipService.InitialShowDelay="1000"
+                                   ToolTipService.ShowOnDisabled="True"
+                                   ToolTip="Amount of CPU threads to use."
                                    Grid.Row="6" 
                                    Grid.Column="1"/>
                             <ComboBox x:Name="cboThreads"
@@ -4824,7 +4987,9 @@
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Top"
                                    Height="26" 
-                                   ToolTip="Path to Save Log" 
+                                   ToolTipService.InitialShowDelay="1000"
+                                   ToolTipService.ShowOnDisabled="True"
+                                   ToolTip="Program Theme" 
                                    Grid.Row="7" 
                                    Grid.Column="1"/>
                             <ComboBox x:Name="cboTheme" 
@@ -4849,7 +5014,9 @@
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Top"
                                    Height="26" 
-                                   ToolTip="Path to Save Log" 
+                                   ToolTipService.InitialShowDelay="1000"
+                                   ToolTipService.ShowOnDisabled="True"
+                                   ToolTip="Automatically check for updates at startup." 
                                    Grid.Row="9" 
                                    Grid.Column="1"/>
                             <!-- Window Toggle  -->
@@ -4859,6 +5026,8 @@
                                           Cursor="Hand" 
                                           HorizontalAlignment="Left" 
                                           VerticalAlignment="Top" 
+                                          ToolTipService.InitialShowDelay="1000"
+                                          ToolTipService.ShowOnDisabled="True"
                                           ToolTip="Automatically check for updates at startup." 
                                           Width="58" 
                                           Height="22" 
@@ -4873,15 +5042,15 @@
                                            Text="Off"
                                            Margin="0,-2,0,0" />
                             </ToggleButton>
+
                             <Label Style="{DynamicResource LabelCustom}" 
                                    Content="Check" 
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Top"
                                    Height="26" 
-                                   ToolTip="Path to Save Log" 
-                                    Grid.Column="2" 
-                                    Grid.Row="9" 
-                                    Margin="73,0,0,0"/>
+                                   Grid.Column="2" 
+                                   Grid.Row="9" 
+                                   Margin="73,0,0,0"/>
 
                             <!-- Reset Saved Settings -->
                             <Label Style="{DynamicResource LabelCustom}" 
@@ -4899,6 +5068,8 @@
                                     Width="55" 
                                     Background="{x:Null}"
                                     Height="23" 
+                                    ToolTipService.InitialShowDelay="1000"
+                                    ToolTipService.ShowOnDisabled="True"
                                     ToolTip="Reset the Saved Settings to Default." 
                                     Cursor="Hand" 
                                     Click="btnClearAllSavedSettings_Click" 
@@ -4919,6 +5090,8 @@
                                     Width="55" 
                                     Background="{x:Null}" 
                                     Height="23"
+                                    ToolTipService.InitialShowDelay="1000"
+                                    ToolTipService.ShowOnDisabled="True"
                                     ToolTip="Delete the Settings File in AppData." 
                                     Cursor="Hand" 
                                     Style="{DynamicResource ButtonSmallCustom}" 
@@ -4965,16 +5138,18 @@
             </Grid.ColumnDefinitions>
 
             <!-- Info Button -->
-            <Button x:Name="buttonInfo" 
+            <Button x:Name="btnInfo" 
                     HorizontalAlignment="Left"
                     Margin="0,0,0,0" 
                     VerticalAlignment="Top" 
                     Width="22" 
                     Height="22" 
                     Cursor="Hand" 
-                    Click="buttonInfo_Click" 
+                    Click="btnInfo_Click" 
                     Background="{x:Null}"
                     Style="{DynamicResource ButtonSmallCustom}"
+                    ToolTipService.InitialShowDelay="1000"
+                    ToolTipService.ShowOnDisabled="True"
                     ToolTip="About this program">
                 <Image Width="5"
                        Height="10"
@@ -4986,15 +5161,17 @@
             </Button>
 
             <!-- Website Button -->
-            <Button x:Name="buttonWebsite" 
+            <Button x:Name="btbWebsite" 
                     HorizontalAlignment="Left" 
                     VerticalAlignment="Top" 
                     Width="22" 
                     Height="22" 
                     Cursor="Hand" 
-                    Click="buttonWebsite_Click" 
+                    Click="btbWebsite_Click" 
                     Background="{x:Null}" 
                     Style="{DynamicResource ButtonSmallCustom}" 
+                    ToolTipService.InitialShowDelay="1000"
+                    ToolTipService.ShowOnDisabled="True"
                     ToolTip="Visit Website" 
                     Grid.Column="1">
                 <Image Width="11" 
@@ -5007,7 +5184,7 @@
             </Button>
 
             <!-- Update Button -->
-            <Button x:Name="buttonUpdate" 
+            <Button x:Name="btnUpdate" 
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top" 
                     Width="22" 
@@ -5015,8 +5192,10 @@
                     Cursor="Hand" 
                     Background="{x:Null}" 
                     Style="{DynamicResource ButtonSmallCustom}" 
+                    ToolTipService.InitialShowDelay="1000"
+                    ToolTipService.ShowOnDisabled="True"
                     ToolTip="Check for Updates"
-                    Click="buttonUpdate_Click" 
+                    Click="btnUpdate_Click" 
                     Grid.Column="2">
                 <Image Width="10" 
                        Height="10"
@@ -5033,6 +5212,8 @@
                           Cursor="Hand" 
                           HorizontalAlignment="Left" 
                           VerticalAlignment="Top" 
+                          ToolTipService.InitialShowDelay="1000"
+                          ToolTipService.ShowOnDisabled="True"
                           ToolTip="Keep FFmpeg window open after converting" 
                           Width="22" 
                           Height="22" 
@@ -5075,15 +5256,17 @@
             </ToggleButton>
 
             <!-- Debug Console -->
-            <Button x:Name="buttonDebugConsole"
+            <Button x:Name="btnDebugConsole"
                     HorizontalAlignment="Left" 
                     VerticalAlignment="Top" 
                     Width="22"
                     Height="22"
                     Cursor="Hand" 
-                    Click="buttonDebugConsole_Click" 
+                    Click="btnDebugConsole_Click" 
                     Background="{x:Null}" 
                     Style="{DynamicResource ButtonSmallCustom}" 
+                    ToolTipService.InitialShowDelay="1000"
+                    ToolTipService.ShowOnDisabled="True"
                     ToolTip="Show Debug Console" 
                     Grid.Column="5" 
                     Margin="1,0,0,0">
@@ -5097,15 +5280,17 @@
             </Button>
 
             <!-- Log Console -->
-            <Button x:Name="buttonLogConsole" 
+            <Button x:Name="btnLogConsole" 
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top" 
                     Width="22"
                     Height="22"
                     Cursor="Hand" 
-                    Click="buttonLogConsole_Click" 
+                    Click="btnLogConsole_Click" 
                     Background="{x:Null}"
                     Style="{DynamicResource ButtonSmallCustom}"
+                    ToolTipService.InitialShowDelay="1000"
+                    ToolTipService.ShowOnDisabled="True"
                     ToolTip="Show Log Console" 
                     Grid.Column="6">
                 <Image Width="10"
@@ -5118,13 +5303,15 @@
             </Button>
 
             <!-- Log Button -->
-            <Button x:Name="buttonLog"
+            <Button x:Name="btnLog"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
                     Width="22" 
                     Height="22"
                     Cursor="Hand"
-                    Click="buttonLog_Click"
+                    Click="btnLog_Click"
+                    ToolTipService.InitialShowDelay="1000"
+                    ToolTipService.ShowOnDisabled="True"
                     ToolTip="View the last Output Log"
                     Background="{x:Null}"
                     Style="{DynamicResource ButtonSmallCustom}"
@@ -5139,15 +5326,17 @@
             </Button>
 
             <!-- CMD Button -->
-            <Button x:Name="buttonCmd"
+            <Button x:Name="btnCmd"
                     HorizontalAlignment="Left" 
                     VerticalAlignment="Top" 
                     Width="22" 
                     Height="22" 
                     Cursor="Hand" 
-                    Click="buttonCmd_Click" 
+                    Click="btnCmd_Click" 
                     Background="{x:Null}" 
                     Style="{DynamicResource ButtonSmallCustom}" 
+                    ToolTipService.InitialShowDelay="1000"
+                    ToolTipService.ShowOnDisabled="True"
                     ToolTip="Launch Command Prompt"
                     Grid.Column="8">
                 <Image Width="11" 
@@ -5160,15 +5349,17 @@
             </Button>
 
             <!-- Properties Button -->
-            <Button x:Name="buttonProperties" 
+            <Button x:Name="btnProperties" 
                     HorizontalAlignment="Left" 
                     VerticalAlignment="Top"
                     Width="22"
                     Height="22" 
                     Cursor="Hand" 
-                    Click="buttonProperties_Click"
+                    Click="btnProperties_Click"
                     Background="{x:Null}" 
                     Style="{DynamicResource ButtonSmallCustom}" 
+                    ToolTipService.InitialShowDelay="1000"
+                    ToolTipService.ShowOnDisabled="True"
                     ToolTip="View File Properties"
                     Grid.Column="9">
                 <Image Width="10"
@@ -5181,15 +5372,17 @@
             </Button>
 
             <!-- Play File -->
-            <Button x:Name="buttonPlayFile"
+            <Button x:Name="btnPlayFile"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
                     Width="22" 
                     Height="22"
                     Cursor="Hand" 
-                    Click="buttonPlayFile_Click" 
+                    Click="btnPlayFile_Click" 
                     Background="{x:Null}" 
                     Style="{DynamicResource ButtonSmallCustom}" 
+                    ToolTipService.InitialShowDelay="1000"
+                    ToolTipService.ShowOnDisabled="True"
                     ToolTip="Play Converted File"
                     Grid.Column="10">
                 <Image Width="11" 
@@ -5291,6 +5484,8 @@
                           Checked="tglBatch_Checked" 
                           Unchecked="tglBatch_Unchecked" 
                           Cursor="Hand" 
+                          ToolTipService.InitialShowDelay="1000"
+                          ToolTipService.ShowOnDisabled="True"
                           ToolTip="Enable, Browse for folder, Enter file extention to batch process."
                           Width="45"
                           Height="22"
@@ -5309,7 +5504,7 @@
                      Height="23" 
                      Margin="0,0,176,0" 
                      TextWrapping="NoWrap"
-                     Padding="2, 1, 0, 0" 
+                     Padding="2,1,0,0" 
                      VerticalAlignment="Top" 
                      Width="60" 
                      TextChanged="batchExtension_TextChanged"
@@ -5319,11 +5514,6 @@
                      ToolTip="File Extension in Folder to Batch Process (e.g. mp4)"/>
 
         </Grid>
-
-
-
-
-
 
 
 

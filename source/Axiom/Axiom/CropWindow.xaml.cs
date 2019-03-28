@@ -135,7 +135,7 @@ namespace Axiom
         /// <summary>
         ///     Crop Width
         /// </summary>
-        private void textBoxVideo_Crop_Width_KeyDown(object sender, KeyEventArgs e)
+        private void tbxVideo_Crop_Width_KeyDown(object sender, KeyEventArgs e)
         {
             // Only allow Numbers or Backspace
             if (!(e.Key >= Key.D0 && e.Key <= Key.D9) && e.Key != Key.Back)
@@ -147,7 +147,7 @@ namespace Axiom
         /// <summary>
         ///     Crop Height
         /// </summary>
-        private void textBoxVideo_Crop_Height_KeyDown(object sender, KeyEventArgs e)
+        private void tbxVideo_Crop_Height_KeyDown(object sender, KeyEventArgs e)
         {
             // Only allow Numbers or Backspace
             if (!(e.Key >= Key.D0 && e.Key <= Key.D9) && e.Key != Key.Back)
@@ -159,7 +159,7 @@ namespace Axiom
         /// <summary>
         ///     Crop X
         /// </summary>
-        private void textBoxVideo_Crop_X_KeyDown(object sender, KeyEventArgs e)
+        private void tbxVideo_Crop_X_KeyDown(object sender, KeyEventArgs e)
         {
             // Only allow Numbers or Backspace
             if (!(e.Key >= Key.D0 && e.Key <= Key.D9) && e.Key != Key.Back)
@@ -171,7 +171,7 @@ namespace Axiom
         /// <summary>
         ///     Crop Y
         /// </summary>
-        private void textBoxVideo_Crop_Y_KeyDown(object sender, KeyEventArgs e)
+        private void tbxVideo_Crop_Y_KeyDown(object sender, KeyEventArgs e)
         {
             // Only allow Numbers or Backspace
             if (!(e.Key >= Key.D0 && e.Key <= Key.D9) && e.Key != Key.Back)
@@ -184,7 +184,7 @@ namespace Axiom
         /// <summary>
         ///     SET Button
         /// </summary>
-        public void buttonSet_Click(object sender, RoutedEventArgs e)
+        public void btnSet_Click(object sender, RoutedEventArgs e)
         {
             ViewModel vm = mainwindow.DataContext as ViewModel;
 
@@ -316,7 +316,7 @@ namespace Axiom
         /// <summary>
         ///     Clear Button
         /// </summary>
-        public void buttonClear_Click(object sender, RoutedEventArgs e)
+        public void btnClear_Click(object sender, RoutedEventArgs e)
         {
             ViewModel vm = mainwindow.DataContext as ViewModel;
 

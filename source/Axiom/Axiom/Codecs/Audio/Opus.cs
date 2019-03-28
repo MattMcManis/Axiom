@@ -61,32 +61,51 @@ namespace Axiom
         // ---------------------------------------------------------------------------
 
         // -------------------------
-        // Quality
-        // -------------------------
-        public static List<ViewModel.AudioQuality> quality = new List<ViewModel.AudioQuality>()
-        {
-             new ViewModel.AudioQuality() { Name = "Auto",   CBR_BitMode = "-b:a", CBR = "",    VBR_BitMode="-vbr on -compression_level 10 -b:a", VBR = "", NA = "265" },
-             new ViewModel.AudioQuality() { Name = "510",    CBR_BitMode = "-b:a", CBR = "510", VBR_BitMode="-vbr on -compression_level 10 -b:a", VBR = "256" },
-             new ViewModel.AudioQuality() { Name = "320",    CBR_BitMode = "-b:a", CBR = "320", VBR_BitMode="-vbr on -compression_level 10 -b:a", VBR = "256" },
-             new ViewModel.AudioQuality() { Name = "256",    CBR_BitMode = "-b:a", CBR = "256", VBR_BitMode="-vbr on -compression_level 10 -b:a", VBR = "256" },
-             new ViewModel.AudioQuality() { Name = "224",    CBR_BitMode = "-b:a", CBR = "224", VBR_BitMode="-vbr on -compression_level 10 -b:a", VBR = "224" },
-             new ViewModel.AudioQuality() { Name = "192",    CBR_BitMode = "-b:a", CBR = "192", VBR_BitMode="-vbr on -compression_level 10 -b:a", VBR = "192" },
-             new ViewModel.AudioQuality() { Name = "160",    CBR_BitMode = "-b:a", CBR = "160", VBR_BitMode="-vbr on -compression_level 10 -b:a", VBR = "160" },
-             new ViewModel.AudioQuality() { Name = "128",    CBR_BitMode = "-b:a", CBR = "128", VBR_BitMode="-vbr on -compression_level 10 -b:a", VBR = "128" },
-             new ViewModel.AudioQuality() { Name = "96",     CBR_BitMode = "-b:a", CBR = "96",  VBR_BitMode="-vbr on -compression_level 10 -b:a", VBR = "96" },
-             new ViewModel.AudioQuality() { Name = "Custom", CBR_BitMode = "-b:a", CBR = "",    VBR_BitMode="-vbr on -compression_level 10 -b:a", VBR = "" },
-             new ViewModel.AudioQuality() { Name = "Mute",   CBR_BitMode = "",     CBR = "",    VBR_BitMode="",                                   VBR = "" }
-        };
-
-        // -------------------------
         // Channel
         // -------------------------
         public static List<string> channel = new List<string>()
         {
             "Source",
-            "Stereo",
             "Mono",
+            "Stereo",
             "5.1"
+        };
+
+        // -------------------------
+        // Quality
+        // -------------------------
+        public static List<ViewModel.AudioQuality> quality = new List<ViewModel.AudioQuality>()
+        {
+             new ViewModel.AudioQuality() { Name = "Auto",   CBR_BitMode = "-b:a", CBR = "",    VBR_BitMode="-vbr on -b:a", VBR = "", NA = "265" },
+             new ViewModel.AudioQuality() { Name = "510",    CBR_BitMode = "-b:a", CBR = "510", VBR_BitMode="-vbr on -b:a", VBR = "256" },
+             new ViewModel.AudioQuality() { Name = "320",    CBR_BitMode = "-b:a", CBR = "320", VBR_BitMode="-vbr on -b:a", VBR = "256" },
+             new ViewModel.AudioQuality() { Name = "256",    CBR_BitMode = "-b:a", CBR = "256", VBR_BitMode="-vbr on -b:a", VBR = "256" },
+             new ViewModel.AudioQuality() { Name = "224",    CBR_BitMode = "-b:a", CBR = "224", VBR_BitMode="-vbr on -b:a", VBR = "224" },
+             new ViewModel.AudioQuality() { Name = "192",    CBR_BitMode = "-b:a", CBR = "192", VBR_BitMode="-vbr on -b:a", VBR = "192" },
+             new ViewModel.AudioQuality() { Name = "160",    CBR_BitMode = "-b:a", CBR = "160", VBR_BitMode="-vbr on -b:a", VBR = "160" },
+             new ViewModel.AudioQuality() { Name = "128",    CBR_BitMode = "-b:a", CBR = "128", VBR_BitMode="-vbr on -b:a", VBR = "128" },
+             new ViewModel.AudioQuality() { Name = "96",     CBR_BitMode = "-b:a", CBR = "96",  VBR_BitMode="-vbr on -b:a", VBR = "96" },
+             new ViewModel.AudioQuality() { Name = "Custom", CBR_BitMode = "-b:a", CBR = "",    VBR_BitMode="-vbr on -b:a", VBR = "" },
+             new ViewModel.AudioQuality() { Name = "Mute",   CBR_BitMode = "",     CBR = "",    VBR_BitMode="",                                   VBR = "" }
+        };
+
+        // -------------------------
+        // Compression Level
+        // -------------------------
+        public static List<string> compressionLevel = new List<string>()
+        {
+            "auto",
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
         };
 
         // -------------------------
@@ -120,11 +139,14 @@ namespace Axiom
         // -------------------------
         public static void Controls_ItemsSource(ViewModel vm)
         {
+            // Channel
+            vm.Audio_Channel_Items = channel;
+
             // Quality
             vm.Audio_Quality_Items = quality;
 
-            // Channel
-            vm.Audio_Channel_Items = channel;
+            // Compression Level
+            vm.Audio_CompressionLevel_Items = compressionLevel;
 
             // Samplerate
             vm.Audio_SampleRate_Items = sampleRate;
@@ -139,6 +161,9 @@ namespace Axiom
         public static void Controls_Selected(ViewModel vm)
         {
             //vm.Audio_Stream_SelectedItem = "all";
+
+            // Compression Level
+            vm.Audio_CompressionLevel_SelectedItem = "10";
         }
 
         // -------------------------
@@ -174,6 +199,9 @@ namespace Axiom
 
             // Audio Quality
             vm.Audio_Quality_IsEnabled = true;
+
+            // Compression Level
+            vm.Audio_CompressionLevel_IsEnabled = true;
 
             // VBR Button
             vm.Audio_VBR_IsEnabled = true;
