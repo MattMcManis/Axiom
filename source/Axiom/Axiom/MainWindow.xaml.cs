@@ -2003,10 +2003,10 @@ namespace Axiom
             //MessageBox.Show(input); //debug
             if (IsYouTubeURL(vm.Input_Text) == false) // Ignore YouTube URL's
             {
-                if (!string.IsNullOrEmpty(input) &&
+                if (!string.IsNullOrEmpty(vm.Input_Text) &&
                     vm.Batch_IsChecked == false)
                 {
-                    if (!File.Exists(input))
+                    if (!File.Exists(vm.Input_Text))
                     {
                         MessageBox.Show("Input file does not exist.",
                                         "Notice",
