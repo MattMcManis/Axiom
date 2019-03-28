@@ -351,9 +351,9 @@ namespace Axiom
                     sMap = "-map 1:s:" + sMapNumber + "?";
 
                     // Image
-                    if (vm.Format_Container_SelectedItem == "jpg"
-                        || vm.Format_Container_SelectedItem == "png"
-                        || vm.Format_Container_SelectedItem == "webp")
+                    if (vm.Format_Container_SelectedItem == "jpg" ||
+                        vm.Format_Container_SelectedItem == "png" ||
+                        vm.Format_Container_SelectedItem == "webp")
                     {
                         sMap = "-sn";
                     }

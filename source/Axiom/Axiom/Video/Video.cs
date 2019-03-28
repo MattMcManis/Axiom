@@ -411,207 +411,190 @@ namespace Axiom
                                        string input_Text
                                        )
         {
+            // Bitrate
+            // Video
+            if (mediaType_SelectedItem == "Video")
+            {
+                vBitrate = VideoBitrateCalculator(container_SelectedItem,
+                                                    mediaType_SelectedItem,
+                                                    codec_SelectedItem,
+                                                    FFprobe.vEntryType,
+                                                    FFprobe.inputVideoBitrate);
+            }
+            // Images
+            else if (mediaType_SelectedItem == "Image" ||
+                        mediaType_SelectedItem == "Sequence"
+                    )
+            {
+                vBitrate = quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.VBR;
+            }
+
+
+
+            // Bitrate NA
+            vBitrateNA = quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.NA;
+
+            // Minrate
+            if (!string.IsNullOrEmpty(minrate_Text))
+            {
+                vMinrate = "-minrate " + quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.Minrate;
+            }
+
+            // Maxrate
+            if (!string.IsNullOrEmpty(maxrate_Text))
+            {
+                vMaxrate = "-maxrate " + quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.Maxrate;
+            }
+
+            // Bufsize
+            if (!string.IsNullOrEmpty(bufsize_Text))
+            {
+                vBufsize = "-bufsize " + quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.Bufsize;
+            }
+
+
             // -------------------------
-            // Local File
+            // Single
             // -------------------------
-            //if (MainWindow.IsYouTube(input_Text) == false)
-            //{
-                // Bitrate
-                // Video
-                if (mediaType_SelectedItem == "Video")
-                {
-                    vBitrate = VideoBitrateCalculator(container_SelectedItem,
-                                                      mediaType_SelectedItem,
-                                                      codec_SelectedItem,
-                                                      FFprobe.vEntryType,
-                                                      FFprobe.inputVideoBitrate);
-                }
-                // Images
-                else if (mediaType_SelectedItem == "Image" ||
-                         mediaType_SelectedItem == "Sequence"
-                        )
-                {
-                    vBitrate = quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.VBR;
-                }
-
-
-
-                // Bitrate NA
-                vBitrateNA = quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.NA;
-
-                // Minrate
-                if (!string.IsNullOrEmpty(minrate_Text))
-                {
-                    vMinrate = "-minrate " + quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.Minrate;
-                }
-
-                // Maxrate
-                if (!string.IsNullOrEmpty(maxrate_Text))
-                {
-                    vMaxrate = "-maxrate " + quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.Maxrate;
-                }
-
-                // Bufsize
-                if (!string.IsNullOrEmpty(bufsize_Text))
-                {
-                    vBufsize = "-bufsize " + quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.Bufsize;
-                }
-
-
+            if (batch_IsChecked == false)
+            {
                 // -------------------------
-                // Single
+                // Input File Has Video
+                // Input Video Bitrate NOT Detected
+                // Input Video Codec Detected
                 // -------------------------
-                if (batch_IsChecked == false)
+                if (string.IsNullOrEmpty(FFprobe.inputVideoBitrate) ||
+                    FFprobe.inputVideoBitrate == "N/A")
                 {
                     // -------------------------
-                    // Input File Has Video
-                    // Input Video Bitrate NOT Detected
-                    // Input Video Codec Detected
+                    // Codec Detected
                     // -------------------------
-                    if (string.IsNullOrEmpty(FFprobe.inputVideoBitrate) ||
-                        FFprobe.inputVideoBitrate == "N/A")
+                    if (!string.IsNullOrEmpty(FFprobe.inputVideoCodec))
                     {
-                        // -------------------------
-                        // Codec Detected
-                        // -------------------------
-                        if (!string.IsNullOrEmpty(FFprobe.inputVideoCodec))
-                        {
-                            // 1 Pass / CRF
-                            //
-                            if (pass_SelectedItem == "1 Pass" ||
-                                pass_SelectedItem == "CRF")
-                            {
-                                vCRF = string.Empty;
-
-                                if (!string.IsNullOrEmpty(vBitrateNA))
-                                {
-                                    vBitMode = BitrateMode(quality_Items,
-                                                           quality_SelectedItem,
-                                                           bitrate_Text,
-                                                           vbr_IsChecked
-                                                           );
-
-                                    vBitrate = vBitrateNA; // N/A e.g. Define 3000K
-                                }
-                            }
-
-                            // 2 Pass
-                            //
-                            else if (pass_SelectedItem == "2 Pass")
-                            {
-                                vCRF = string.Empty;
-
-                                //MessageBox.Show(auto_bitrate_na); //debug
-
-                                if (!string.IsNullOrEmpty(vBitrateNA))
-                                {
-                                    vBitMode = BitrateMode(quality_Items,
-                                                           quality_SelectedItem,
-                                                           bitrate_Text,
-                                                           vbr_IsChecked
-                                                           );
-                                    vBitrate = vBitrateNA; // N/A e.g. Define 3000K
-                                }
-                            }
-                        }
-                        // -------------------------
-                        // Codec Not Detected
-                        // -------------------------
-                        else
+                        // 1 Pass / CRF
+                        //
+                        if (pass_SelectedItem == "1 Pass" ||
+                            pass_SelectedItem == "CRF")
                         {
                             vCRF = string.Empty;
 
-                            // Default to NA Bitrate
-                            vBitMode = BitrateMode(quality_Items,
-                                                   quality_SelectedItem,
-                                                   bitrate_Text,
-                                                   vbr_IsChecked
-                                                   );
-
-                            vBitrate = VideoBitrateCalculator(container_SelectedItem,
-                                                              mediaType_SelectedItem,
-                                                              codec_SelectedItem,
-                                                              FFprobe.vEntryType,
-                                                              vBitrateNA);
-
-                            vMinrate = string.Empty;
-                            vMaxrate = string.Empty;
-                            vBufsize = string.Empty;
-
-                            // Pixel Format
-                            vOptions = string.Empty;
-                        }
-                    }
-
-                    // -------------------------
-                    // Input File Has Video
-                    // Input Video Bitrate IS Detected
-                    // Input Video Codec Detected
-                    // -------------------------
-                    else if (!string.IsNullOrEmpty(FFprobe.inputVideoBitrate) &&
-                             FFprobe.inputVideoBitrate != "N/A")
-                    {
-                        // -------------------------
-                        // Codec Detected
-                        // -------------------------
-                        if (!string.IsNullOrEmpty(FFprobe.inputVideoCodec))
-                        {
-                            //MessageBox.Show("5 " + vBitrate);
-
-                            vCRF = string.Empty;
-
-                            if (!string.IsNullOrEmpty(vBitrate))
+                            if (!string.IsNullOrEmpty(vBitrateNA))
                             {
                                 vBitMode = BitrateMode(quality_Items,
-                                                       quality_SelectedItem,
-                                                       bitrate_Text,
-                                                       vbr_IsChecked
-                                                       );
-                                //MessageBox.Show(vBitMode);
+                                                        quality_SelectedItem,
+                                                        bitrate_Text,
+                                                        vbr_IsChecked
+                                                        );
+
+                                vBitrate = vBitrateNA; // N/A e.g. Define 3000K
                             }
-
-
                         }
-                        // -------------------------
-                        // Codec Not Detected
-                        // -------------------------
-                        else
+
+                        // 2 Pass
+                        //
+                        else if (pass_SelectedItem == "2 Pass")
                         {
                             vCRF = string.Empty;
 
-                            vBitMode = string.Empty;
-                            vBitrate = string.Empty;
-                            vMinrate = string.Empty;
-                            vMaxrate = string.Empty;
-                            vBufsize = string.Empty;
+                            //MessageBox.Show(auto_bitrate_na); //debug
 
-                            // Pixel Format
-                            vOptions = string.Empty;
+                            if (!string.IsNullOrEmpty(vBitrateNA))
+                            {
+                                vBitMode = BitrateMode(quality_Items,
+                                                        quality_SelectedItem,
+                                                        bitrate_Text,
+                                                        vbr_IsChecked
+                                                        );
+                                vBitrate = vBitrateNA; // N/A e.g. Define 3000K
+                            }
                         }
+                    }
+                    // -------------------------
+                    // Codec Not Detected
+                    // -------------------------
+                    else
+                    {
+                        vCRF = string.Empty;
+
+                        // Default to NA Bitrate
+                        vBitMode = BitrateMode(quality_Items,
+                                                quality_SelectedItem,
+                                                bitrate_Text,
+                                                vbr_IsChecked
+                                                );
+
+                        vBitrate = VideoBitrateCalculator(container_SelectedItem,
+                                                            mediaType_SelectedItem,
+                                                            codec_SelectedItem,
+                                                            FFprobe.vEntryType,
+                                                            vBitrateNA);
+
+                        vMinrate = string.Empty;
+                        vMaxrate = string.Empty;
+                        vBufsize = string.Empty;
+
+                        // Pixel Format
+                        vOptions = string.Empty;
                     }
                 }
 
                 // -------------------------
-                // Batch
+                // Input File Has Video
+                // Input Video Bitrate IS Detected
+                // Input Video Codec Detected
                 // -------------------------
-                else if (batch_IsChecked == true)
+                else if (!string.IsNullOrEmpty(FFprobe.inputVideoBitrate) &&
+                            FFprobe.inputVideoBitrate != "N/A")
                 {
-                    // Use the CMD Batch Video Variable
-                    vBitMode = "-b:v";
-                    vBitrate = "%V";
+                    // -------------------------
+                    // Codec Detected
+                    // -------------------------
+                    if (!string.IsNullOrEmpty(FFprobe.inputVideoCodec))
+                    {
+                        //MessageBox.Show("5 " + vBitrate);
+
+                        vCRF = string.Empty;
+
+                        if (!string.IsNullOrEmpty(vBitrate))
+                        {
+                            vBitMode = BitrateMode(quality_Items,
+                                                    quality_SelectedItem,
+                                                    bitrate_Text,
+                                                    vbr_IsChecked
+                                                    );
+                            //MessageBox.Show(vBitMode);
+                        }
+
+
+                    }
+                    // -------------------------
+                    // Codec Not Detected
+                    // -------------------------
+                    else
+                    {
+                        vCRF = string.Empty;
+
+                        vBitMode = string.Empty;
+                        vBitrate = string.Empty;
+                        vMinrate = string.Empty;
+                        vMaxrate = string.Empty;
+                        vBufsize = string.Empty;
+
+                        // Pixel Format
+                        vOptions = string.Empty;
+                    }
                 }
-            //}
+            }
 
-            // --------------------------------------------------
-            // YouTube Download
-            // --------------------------------------------------
-            //if (MainWindow.IsYouTube(input_Text) == true)
-            //{
-            //    vBitMode = "-b:v";
-            //    vBitrate = "%V";
-            //}
-
-            //MessageBox.Show(vBitrate); //debug
+            // -------------------------
+            // Batch
+            // -------------------------
+            else if (batch_IsChecked == true)
+            {
+                // Use the CMD Batch Video Variable
+                vBitMode = "-b:v";
+                vBitrate = "%V";
+            }
         }
 
 

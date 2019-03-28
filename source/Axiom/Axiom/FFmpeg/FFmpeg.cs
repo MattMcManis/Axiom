@@ -803,39 +803,17 @@ namespace Axiom
                 "\r\n\r\n" + "for /f \"delims=\" %f in",
 
                 // Get Title
-                //"\r\n\r\n" + "('@" + "\"" + MainWindow.youtubedl + "\"" + " --get-filename -o " + "\"" + MainWindow.downloadDir + "%(title)s" + "\"" + " " + "\"" + MainWindow.YouTubeDownloadURL(vm.Input_Text) + "\"" + "')",
                 "\r\n\r\n" + "('@" + "\"" + MainWindow.youtubedl + "\"" + " --get-filename -o \"%(title)s\" " + "\"" + MainWindow.YouTubeDownloadURL(vm.Input_Text) + "\"" + "')",
 
                 // Download Video
-                "\r\n\r\n" + "do (echo %~f)",
-                "\r\n\r\n" + "&&",
-                "\r\n\r\n" + "@" + "\"" + MainWindow.youtubedl + "\"" + " -f " + MainWindow.YouTubeDownloadQuality(vm.Format_YouTube_SelectedItem, vm.Format_YouTube_Quality_SelectedItem) + " " + "\"" + vm.Input_Text + "\"" + " -o " + "\"" + MainWindow.downloadDir + "%(title)s" + "." + MainWindow.YouTubeDownloadFormat(vm.Format_YouTube_SelectedItem) + "\"" + " --merge-output-format " + MainWindow.YouTubeDownloadFormat(vm.Format_YouTube_SelectedItem),
+                "\r\n\r\n" + "do (",
+                "\r\n\r\n" + "@" + "\"" + MainWindow.youtubedl + "\"" + " -f " + MainWindow.YouTubeDownloadQuality(vm.Format_YouTube_SelectedItem, vm.Format_YouTube_Quality_SelectedItem) + " " + "\"" + vm.Input_Text + "\"" + " -o " + "\"" + MainWindow.downloadDir + "%f" + "." + MainWindow.YouTubeDownloadFormat(vm.Format_YouTube_SelectedItem) + "\"" + " --merge-output-format " + MainWindow.YouTubeDownloadFormat(vm.Format_YouTube_SelectedItem),
             };
 
             // FFmpeg Args
             //
             List<string> FFmpegArgs = new List<string>()
             {
-                //// Video
-                //"\r\n\r\n" + Video.BatchVideoQualityAuto(vm.Batch_IsChecked,
-                //                                         vm.Format_MediaType_SelectedItem,
-                //                                         vm.Video_Codec_SelectedItem,
-                //                                         vm.Video_Quality_SelectedItem
-                //                                         ),
-
-                //// Audio
-                //"\r\n\r\n" + Audio.BatchAudioQualityAuto(vm.Batch_IsChecked,
-                //                                         vm.Format_MediaType_SelectedItem,
-                //                                         vm.Audio_Codec_SelectedItem,
-                //                                         vm.Audio_Stream_SelectedItem,
-                //                                         vm.Audio_Quality_SelectedItem
-                //                                         ),
-                //"\r\n\r\n" + Audio.BatchAudioBitrateLimiter(vm.Format_MediaType_SelectedItem,
-                //                                            vm.Audio_Codec_SelectedItem,
-                //                                            vm.Audio_Stream_SelectedItem,
-                //                                            vm.Audio_Quality_SelectedItem
-                //                                            ),
-
                 "\r\n\r\n" + "&&",
                 "\r\n\r\n" + MainWindow.FFmpegPath(vm),
                 "\r\n\r\n" + Video.HWAcceleration(vm.Format_HWAccel_SelectedItem,
@@ -853,6 +831,9 @@ namespace Axiom
             // -------------------------
             if (MainWindow.IsYouTubeDownloadOnly(vm) == true)
             {
+                // Add "do" Closing Tag
+                youtubedlArgs.Add(")");
+
                 // Join List with Spaces
                 // Remove: Empty, Null, Standalone LineBreak
                 ffmpegArgsSort = string.Join(" ", youtubedlArgs
@@ -878,7 +859,9 @@ namespace Axiom
             else
             {
                 // Join YouTube Args & FFmpeg Args
-                youtubedlArgs.AddRange(FFmpegArgs); 
+                youtubedlArgs.AddRange(FFmpegArgs);
+                // Add "do" Closing Tag
+                youtubedlArgs.Add(")");
 
                 // Join List with Spaces
                 // Remove: Empty, Null, Standalone LineBreak
@@ -905,22 +888,12 @@ namespace Axiom
         // --------------------------------------------------------------------------------------------------------
 
 
-            /// <summary>
-            ///     FFmpeg Generate Script
-            /// </summary>
+        /// <summary>
+        ///     FFmpeg Generate Script
+        /// </summary>
         public static void FFmpegScript(ViewModel vm)
         {
-            // Clear Old Text
-            //ScriptView.ClearScriptView(vm);
-            //ScriptView.scriptParagraph.Inlines.Clear();
-
             // Write FFmpeg Args
-            //mainwindow.rtbScriptView.Document = new FlowDocument(ScriptView.scriptParagraph);
-            //mainwindow.rtbScriptView.BeginChange();
-            //ScriptView.scriptParagraph.Inlines.Add(new Run(ffmpegArgs));
-            //mainwindow.rtbScriptView.EndChange();
-            //vm.ScriptView_Text = string.Join<char>(" ", ffmpegArgs);
-
             vm.ScriptView_Text = ffmpegArgs;
         }
 

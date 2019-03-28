@@ -182,26 +182,8 @@ namespace Axiom
             // -------------------------
             // Ready Halts
             // -------------------------
-            //MainWindow.ReadyHalts(vm);
-
             if (MainWindow.ReadyHalts(vm) == true)
             {
-                // -------------------------
-                // Background Thread Worker
-                // -------------------------
-                //BackgroundWorker fileprocess = new BackgroundWorker();
-
-                //fileprocess.WorkerSupportsCancellation = true;
-                //fileprocess.WorkerReportsProgress = true;
-
-                //fileprocess.DoWork += new DoWorkEventHandler(delegate (object o, DoWorkEventArgs args)
-                //{
-                //    BackgroundWorker b = o as BackgroundWorker;
-
-                //    // Cross-Thread Communication
-                //    this.Dispatcher.Invoke(() =>
-                //    {
-
                 // -------------------------
                 // Single
                 // -------------------------
@@ -227,13 +209,11 @@ namespace Axiom
                     // -------------------------
                     // FFprobe Video Entry Type Containers
                     // -------------------------
-                    //FFprobe.VideoEntryTypeBatch(this);
                     FFprobe.VideoEntryType(vm);
 
                     // -------------------------
                     // FFprobe Video Entry Type Containers
                     // -------------------------
-                    //FFprobe.AudioEntryTypeBatch(this);
                     FFprobe.AudioEntryType(vm);
 
                     // -------------------------
@@ -243,38 +223,16 @@ namespace Axiom
                     FFmpeg.FFmpegBatchGenerateArgs(vm);
                 }
 
-                //    }); //end dispatcher
-
-                //}); //end thread
-
-
-                // When background worker completes task
-                //fileprocess.RunWorkerCompleted += new RunWorkerCompletedEventHandler(delegate (object o, RunWorkerCompletedEventArgs args)
-                //{
                 // -------------------------
                 // Write Variables to Debug Window
                 // -------------------------
                 DebugWrite(this, vm);
 
                 // -------------------------
-                // Close the Background Worker
-                // -------------------------
-                //fileprocess.CancelAsync();
-                //fileprocess.Dispose();
-
-                // -------------------------
                 // Clear Variables for next Run
                 // -------------------------
                 MainWindow.ClearVariables(vm);
                 GC.Collect();
-
-                //    }); //end worker completed task
-
-
-                //    // -------------------------
-                //    // Background Worker Run Async
-                //    // -------------------------
-                //    fileprocess.RunWorkerAsync();
             }
         }
 

@@ -397,38 +397,38 @@ namespace Axiom
         // Script View
         // --------------------------------------------------
         // FlowDocument
-        private FlowDocument _ScriptView_FlowDocument;
-        public FlowDocument ScriptView_FlowDocument
-        {
-            get { return _ScriptView_FlowDocument; }
-            set
-            {
-                if (_ScriptView_FlowDocument == value)
-                {
-                    return;
-                }
+        //private FlowDocument _ScriptView_FlowDocument;
+        //public FlowDocument ScriptView_FlowDocument
+        //{
+        //    get { return _ScriptView_FlowDocument; }
+        //    set
+        //    {
+        //        if (_ScriptView_FlowDocument == value)
+        //        {
+        //            return;
+        //        }
 
-                _ScriptView_FlowDocument = value;
-                OnPropertyChanged("ScriptView_FlowDocument");
-            }
-        }
+        //        _ScriptView_FlowDocument = value;
+        //        OnPropertyChanged("ScriptView_FlowDocument");
+        //    }
+        //}
 
-        // Paragraph
-        private Paragraph _ScriptView_Paragraph;
-        public Paragraph ScriptView_Paragraph
-        {
-            get { return _ScriptView_Paragraph; }
-            set
-            {
-                if (_ScriptView_Paragraph == value)
-                {
-                    return;
-                }
+        //// Paragraph
+        //private Paragraph _ScriptView_Paragraph;
+        //public Paragraph ScriptView_Paragraph
+        //{
+        //    get { return _ScriptView_Paragraph; }
+        //    set
+        //    {
+        //        if (_ScriptView_Paragraph == value)
+        //        {
+        //            return;
+        //        }
 
-                _ScriptView_Paragraph = value;
-                OnPropertyChanged("ScriptView_Paragraph");
-            }
-        }
+        //        _ScriptView_Paragraph = value;
+        //        OnPropertyChanged("ScriptView_Paragraph");
+        //    }
+        //}
 
         // Text
         private string _ScriptView_Text;
@@ -445,6 +445,58 @@ namespace Axiom
             }
         }
 
+
+        // --------------------------------------------------
+        // Debug
+        // --------------------------------------------------
+        // FlowDocument
+        private FlowDocument _Debug_FlowDocument;
+        public FlowDocument Debug_FlowDocument
+        {
+            get { return _Debug_FlowDocument; }
+            set
+            {
+                if (_Debug_FlowDocument == value)
+                {
+                    return;
+                }
+
+                _Debug_FlowDocument = value;
+                OnPropertyChanged("Debug_FlowDocument");
+            }
+        }
+
+        // Paragraph
+        private Paragraph _Debug_Paragraph;
+        public Paragraph Debug_Paragraph
+        {
+            get { return _Debug_Paragraph; }
+            set
+            {
+                if (_Debug_Paragraph == value)
+                {
+                    return;
+                }
+
+                _Debug_Paragraph = value;
+                OnPropertyChanged("Debug_Paragraph");
+            }
+        }
+
+        // Text
+        private string _Debug_Text;
+        public string Debug_Text
+        {
+            get { return _Debug_Text; }
+            set
+            {
+                if (value != _Debug_Text)
+                {
+                    _Debug_Text = value;
+                    OnPropertyChanged("Debug_Text");
+                }
+            }
+        }
 
 
         // --------------------------------------------------------------------------------------------------------
@@ -534,36 +586,6 @@ namespace Axiom
                 OnPropertyChanged("Preset_Items");
             }
         }
-        //// Items Source
-        //private List<string> _Preset_Items = new List<string>()
-        //{
-        //    "Preset",
-        //    "Default",
-        //    "DVD",
-        //    "Blu-ray",
-        //    "HEVC",
-        //    "HD Video",
-        //    "SD Video",
-        //    "HTML5",
-        //    "Android",
-        //    "iOS",
-        //    "iTunes",
-        //    "MP3 HQ",
-        //    "PS3",
-        //    "PS4",
-        //    "Xbox 360",
-        //    "Xbox One",
-        //    //"Debug"
-        //};
-        //public List<string> Preset_Items
-        //{
-        //    get { return _Preset_Items; }
-        //    set
-        //    {
-        //        _Preset_Items = value;
-        //        OnPropertyChanged("Preset_Items");
-        //    }
-        //}
 
         // Selected Index
         private int _Preset_SelectedIndex { get; set; }

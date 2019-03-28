@@ -87,7 +87,6 @@ namespace Axiom
         public static string inputFileName; // (eg. myvideo.mp4 = myvideo)
         public static string inputExt; // (eg. .mp4)
         public static string input; // Single: Input Path + Filename No Ext + Input Ext (Browse Text Box) /// Batch: Input Path (Browse Text Box)
-        //public static string youtubedl; // YouTube Download
 
         // Output
         public static string outputDir; // Output Path
@@ -1766,11 +1765,20 @@ namespace Axiom
         }
 
 
+        /// <summary>
+        ///    Is Valid URL
+        /// </summary>
+        public static bool IsValidURL(string source)
+        {
+            Uri uriResult;
+            return Uri.TryCreate(source, UriKind.Absolute, out uriResult) && (uriResult.Scheme == "http" || uriResult.Scheme == "https");
+        }
+
 
         /// <summary>
         ///    Is YouTube
         /// </summary>
-        public static bool IsYouTube(string input_Text)
+        public static bool IsYouTubeURL(string input_Text)
         {
             // YouTube
             if(// youtube (any domain extension)
@@ -1992,7 +2000,8 @@ namespace Axiom
             // -------------------------
             // Input File does not exist
             // -------------------------
-            if (IsYouTube(vm.Input_Text) == false) // Ignore YouTube URL's
+            //MessageBox.Show(input); //debug
+            if (IsYouTubeURL(vm.Input_Text) == false) // Ignore YouTube URL's
             {
                 if (!string.IsNullOrEmpty(input) &&
                     vm.Batch_IsChecked == false)
@@ -2833,7 +2842,7 @@ namespace Axiom
                 debugconsole.Top = Math.Max(Top - 0, thisScreen.WorkingArea.Top);
 
                 // Write Variables to Debug Window (Method)
-                DebugConsole.DebugWrite(debugconsole, vm/*, this*/);
+                //DebugConsole.DebugWrite(debugconsole, vm);
 
                 // Open Window
                 debugconsole.Show();
@@ -2857,7 +2866,7 @@ namespace Axiom
                 debugconsole.Top = Top;
 
                 // Write Variables to Debug Window (Method)
-                DebugConsole.DebugWrite(debugconsole, vm/*, this*/);
+                //DebugConsole.DebugWrite(debugconsole, vm);
 
                 // Open Window
                 debugconsole.Show();
@@ -3554,7 +3563,7 @@ namespace Axiom
             // -------------------------
             // Local File
             // -------------------------
-            if (IsYouTube(vm.Input_Text) == false) // Ignore YouTube URL's
+            if (IsYouTubeURL(vm.Input_Text) == false) // Ignore YouTube URL's
             {
                 // -------------------------
                 // Single File
@@ -3594,7 +3603,7 @@ namespace Axiom
             // -------------------------
             // YouTube Download
             // -------------------------
-            else if (IsYouTube(vm.Input_Text) == true &&
+            else if (IsYouTubeURL(vm.Input_Text) == true &&
                      pass != "pass 2") // Ignore Pass 2, use existing input path
             {
                 inputDir = downloadDir;
@@ -3602,10 +3611,6 @@ namespace Axiom
                 inputExt = "." + YouTubeDownloadFormat(vm.Format_YouTube_SelectedItem);
 
                 input = inputDir + inputFileName + inputExt; // eg. C:\Users\Example\Downloads\%f.mp4
-
-
-
-                //input = "%~f" + "." + YouTubeDownloadFormat(vm.Format_YouTube_SelectedItem);
             }
 
 
@@ -3667,7 +3672,7 @@ namespace Axiom
             // -------------------------
             // Local File
             // -------------------------
-            if (IsYouTube(vm.Input_Text) == false) // Ignore YouTube URL's
+            if (IsYouTubeURL(vm.Input_Text) == false) // Ignore YouTube URL's
             {
                 // -------------------------
                 // Single File
@@ -3759,10 +3764,8 @@ namespace Axiom
             // -------------------------
             // YouTube Download
             // -------------------------
-            else if (IsYouTube(vm.Input_Text) == true) // Ignore Pass 2, use existing input path
+            else if (IsYouTubeURL(vm.Input_Text) == true) // Ignore Pass 2, use existing input path
             {
-                //MessageBox.Show("1"); //debug
-
                 // Note: %f is filename, %~f is full path
 
                 // Auto Output Path
@@ -3772,10 +3775,6 @@ namespace Axiom
                     outputFileName = "%f";
 
                     output = outputDir + outputFileName + outputExt; // eg. C:\Users\Example\Downloads\%f.webm
-
-
-
-                    //output = "%~f" + outputExt;
                 }
 
                 // User Defined Output Path
@@ -6374,7 +6373,7 @@ namespace Axiom
                 // -------------------------
                 // Local File
                 // -------------------------
-                if (IsYouTube(vm.Input_Text) == false)
+                if (IsYouTubeURL(vm.Input_Text) == false)
                 {
                     // -------------------------
                     // Single
@@ -6419,29 +6418,13 @@ namespace Axiom
                 // -------------------------
                 // YouTube Download
                 // -------------------------
-                else if (IsYouTube(vm.Input_Text) == true)
+                else if (IsYouTubeURL(vm.Input_Text) == true)
                 {
-                    //// -------------------------
-                    //// FFprobe Video Entry Type Containers
-                    //// -------------------------
-                    //FFprobe.VideoEntryType(vm);
-
-                    //// -------------------------
-                    //// FFprobe Video Entry Type Containers
-                    //// -------------------------
-                    //FFprobe.AudioEntryType(vm);
-
-                    // -------------------------
-                    // FFprobe Detect Metadata
-                    // -------------------------
-                    //if (IsYouTubeDownloadOnly(vm) == false) // Ignore Download Only
-                    //{
-                    //    FFprobe.Metadata(vm);
-                    //}
-
                     // -------------------------
                     // Generate Arguments
                     // -------------------------
+                    // Do not use FFprobe Metadata Parsing
+                    // Video/Audio Auto Quality will add Bitrate
                     FFmpeg.YouTubeDownloadGenerateArgs(vm);
                 }
 
@@ -6614,11 +6597,6 @@ namespace Axiom
             // -------------------------
             youtubedlPath(vm);
 
-            // -------------------------
-            // Ready Halts
-            // -------------------------
-            //ReadyHalts(vm);
-
 
             // Log Console Message /////////
             //if (ready == true)
@@ -6657,7 +6635,7 @@ namespace Axiom
                 // -------------------------
                 // Local File
                 // -------------------------
-                if (IsYouTube(vm.Input_Text) == false)
+                if (IsYouTubeURL(vm.Input_Text) == false)
                 {
                     // -------------------------
                     // Single
@@ -6702,29 +6680,13 @@ namespace Axiom
                 // -------------------------
                 // YouTube Download
                 // -------------------------
-                else if (IsYouTube(vm.Input_Text) == true)
+                else if (IsYouTubeURL(vm.Input_Text) == true)
                 {
-                    //// -------------------------
-                    //// FFprobe Video Entry Type Containers
-                    //// -------------------------
-                    //FFprobe.VideoEntryType(vm);
-
-                    //// -------------------------
-                    //// FFprobe Video Entry Type Containers
-                    //// -------------------------
-                    //FFprobe.AudioEntryType(vm);
-
-                    //// -------------------------
-                    //// FFprobe Detect Metadata
-                    //// -------------------------
-                    //if (IsYouTubeDownloadOnly(vm) == false) // Ignore Download Only
-                    //{
-                    //    FFprobe.Metadata(vm);
-                    //}
-
                     // -------------------------
                     // Generate Arguments
                     // -------------------------
+                    // Do not use FFprobe Metadata Parsing
+                    // Video/Audio Auto Quality will add Bitrate
                     FFmpeg.YouTubeDownloadGenerateArgs(vm);
                 }
 
@@ -6744,31 +6706,6 @@ namespace Axiom
                     Sort();
                 }
 
-                // -------------------------
-                // Reset Sort
-                // -------------------------
-                // Auto Sort enabled
-                //if (tglAutoSortScript.IsChecked == true)
-                //{
-                //    ScriptView.sort = false;
-                //    txblScriptSort.Text = "Inline";
-                //}
-                //// Auto Sort disabled
-                //else if (tglAutoSortScript.IsChecked == false)
-                //{
-                //    ScriptView.sort = true;
-                //    txblScriptSort.Text = "Sort";
-                //}
-
-                // Log Console Message /////////
-                Log.WriteAction = () =>
-                {
-                    Log.logParagraph.Inlines.Add(new LineBreak());
-                    Log.logParagraph.Inlines.Add(new LineBreak());
-                    Log.logParagraph.Inlines.Add(new Run("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~") { Foreground = Log.ConsoleAction });
-                };
-                Log.LogActions.Add(Log.WriteAction);
-
 
                 // -------------------------
                 // Write All Log Actions to Log Console
@@ -6779,11 +6716,6 @@ namespace Axiom
                 // Create output.log
                 // -------------------------
                 Log.CreateOutputLog(this, vm);
-
-                // -------------------------
-                // Generate Script
-                // -------------------------
-                //FFmpeg.FFmpegScript(this); // moved to FFmpegConvert()
 
                 // -------------------------
                 // Clear Strings for next Run
@@ -6811,16 +6743,6 @@ namespace Axiom
                 /// </summary> 
                 Log.LogWriteAll(this, vm);
 
-                /// <summary>
-                ///    Restart
-                /// </summary> 
-                /* unlock */
-                //ready = true;
-
-                // -------------------------
-                // Write Variables to Debug Window (Method)
-                // -------------------------
-                //DebugConsole.DebugWrite(debugconsole, this);
 
                 // -------------------------
                 // Clear Variables for next Run

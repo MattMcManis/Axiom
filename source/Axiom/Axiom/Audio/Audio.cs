@@ -145,154 +145,132 @@ namespace Axiom
                                        string quality_SelectedItem
                                        )
         {
-            // -------------------------
-            // Local File
-            // -------------------------
-            //if (MainWindow.IsYouTube(input_Text) == false)
-            //{
-                // No Detectable Bitrate Default
-                aBitrateNA = quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.NA;
+            // No Detectable Bitrate Default
+            aBitrateNA = quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.NA;
 
-                // --------------------------------------------------
-                // Single
-                // --------------------------------------------------
-                if (batch_IsChecked == false)
+            // --------------------------------------------------
+            // Single
+            // --------------------------------------------------
+            if (batch_IsChecked == false)
+            {
+                // -------------------------
+                // Input Has Audio
+                // -------------------------
+                if (!string.IsNullOrEmpty(FFprobe.inputAudioBitrate))
                 {
-                    // -------------------------
-                    // Input Has Audio
-                    // -------------------------
-                    if (!string.IsNullOrEmpty(FFprobe.inputAudioBitrate))
+                    //MessageBox.Show(FFprobe.inputAudioBitrate); //debug
+
+                    // Input Bitrate was detected
+                    if (FFprobe.inputAudioBitrate != "N/A")
                     {
-                        //MessageBox.Show(FFprobe.inputAudioBitrate); //debug
-
-                        // Input Bitrate was detected
-                        if (FFprobe.inputAudioBitrate != "N/A")
+                        // CBR
+                        if (vbr_IsChecked == false)
                         {
-                            // CBR
-                            if (vbr_IsChecked == false)
-                            {
-                                // aBitMode = "-b:a";
-                                aBitrate = AudioBitrateCalculator(codec_SelectedItem, FFprobe.aEntryType, FFprobe.inputAudioBitrate);
-                            }
-
-                            // VBR
-                            else if (vbr_IsChecked == true)
-                            {
-                                //VBR does not have 'k'
-                                // aBitMode = "-q:a";
-                                aBitrate = AudioVBRCalculator(vbr_IsChecked, codec_SelectedItem, FFprobe.inputAudioBitrate);
-                            }
+                            // aBitMode = "-b:a";
+                            aBitrate = AudioBitrateCalculator(codec_SelectedItem, FFprobe.aEntryType, FFprobe.inputAudioBitrate);
                         }
 
-                        // -------------------------
-                        // Input Does Not Have Audio Codec
-                        // -------------------------
-                        if (!string.IsNullOrEmpty(FFprobe.inputAudioCodec))
+                        // VBR
+                        else if (vbr_IsChecked == true)
                         {
-                            // Default to a new bitrate if Input & Output formats Do Not match
-                            if (FFprobe.inputAudioBitrate == "N/A" &&
-                                !string.Equals(MainWindow.inputExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase))
-                            {
-                                // Default to NA value
-                                if (!string.IsNullOrEmpty(aBitrateNA))
-                                {
-                                    //aBitrate = aBitrateNA;
-
-                                    // CBR
-                                    if (vbr_IsChecked == false)
-                                    {
-                                        aBitrate = AudioBitrateCalculator(codec_SelectedItem, FFprobe.aEntryType, aBitrateNA);
-                                    }
-
-                                    // VBR
-                                    else if (vbr_IsChecked == true)
-                                    {
-                                        //VBR does not have 'k'
-                                        aBitrate = AudioVBRCalculator(vbr_IsChecked, codec_SelectedItem, aBitrateNA);
-                                    }
-                                }
-                                // Default to 320k if NA value is empty
-                                else
-                                {
-                                    aBitrate = "320";
-                                }
-                            }
+                            //VBR does not have 'k'
+                            // aBitMode = "-q:a";
+                            aBitrate = AudioVBRCalculator(vbr_IsChecked, codec_SelectedItem, FFprobe.inputAudioBitrate);
                         }
                     }
 
                     // -------------------------
-                    // Input No Audio
+                    // Input Does Not Have Audio Codec
                     // -------------------------
-                    else if (string.IsNullOrEmpty(FFprobe.inputAudioBitrate))
+                    if (!string.IsNullOrEmpty(FFprobe.inputAudioCodec))
                     {
-                        aBitMode = string.Empty;
-                        aBitrate = string.Empty;
-                    }
+                        // Default to a new bitrate if Input & Output formats Do Not match
+                        if (FFprobe.inputAudioBitrate == "N/A" &&
+                            !string.Equals(MainWindow.inputExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase))
+                        {
+                            // Default to NA value
+                            if (!string.IsNullOrEmpty(aBitrateNA))
+                            {
+                                //aBitrate = aBitrateNA;
 
-                    // -------------------------
-                    // Input TextBox is Empty - Auto Value
-                    // -------------------------
-                    if (string.IsNullOrEmpty(input_Text))
-                    {
-                        aBitMode = "-b:a";
-                        aBitrate = "320";
-                    }
+                                // CBR
+                                if (vbr_IsChecked == false)
+                                {
+                                    aBitrate = AudioBitrateCalculator(codec_SelectedItem, FFprobe.aEntryType, aBitrateNA);
+                                }
 
-                    // -------------------------
-                    // Bitrate is 0 (Happens with NA)
-                    // -------------------------
-                    if (aBitrate == "0")
-                    {
-                        aBitMode = string.Empty;
-                        aBitrate = string.Empty;
-                    }
-
-                    // -------------------------
-                    // YouTube Download
-                    // -------------------------
-                    // Can't detect bitrate from URL
-                    if (MainWindow.IsYouTube(input_Text) == true)
-                    {
-                        aBitMode = "-b:a";
-                        aBitrate = "320";
-                    }
-
-                    // -------------------------
-                    // Bitrate Returned Empty, Disable BitMode
-                    // -------------------------
-                    if (string.IsNullOrEmpty(aBitrate))
-                    {
-                        aBitMode = string.Empty;
+                                // VBR
+                                else if (vbr_IsChecked == true)
+                                {
+                                    //VBR does not have 'k'
+                                    aBitrate = AudioVBRCalculator(vbr_IsChecked, codec_SelectedItem, aBitrateNA);
+                                }
+                            }
+                            // Default to 320k if NA value is empty
+                            else
+                            {
+                                aBitrate = "320";
+                            }
+                        }
                     }
                 }
 
-                // --------------------------------------------------
-                // Batch
-                // --------------------------------------------------
-                else if (batch_IsChecked == true)
+                // -------------------------
+                // Input No Audio
+                // -------------------------
+                else if (string.IsNullOrEmpty(FFprobe.inputAudioBitrate))
                 {
-                    // Use the CMD Batch Audio Variable
-                    aBitrate = "%A";
-
-                    //MessageBox.Show(aBitrate); //debug
+                    aBitMode = string.Empty;
+                    aBitrate = string.Empty;
                 }
-            //}
+
+                // -------------------------
+                // Input TextBox is Empty - Auto Value
+                // -------------------------
+                if (string.IsNullOrEmpty(input_Text))
+                {
+                    aBitMode = "-b:a";
+                    aBitrate = "320";
+                }
+
+                // -------------------------
+                // Bitrate is 0 (Happens with NA)
+                // -------------------------
+                if (aBitrate == "0")
+                {
+                    aBitMode = string.Empty;
+                    aBitrate = string.Empty;
+                }
+
+                // -------------------------
+                // YouTube Download
+                // -------------------------
+                // Can't detect bitrate from URL
+                if (MainWindow.IsYouTubeURL(input_Text) == true)
+                {
+                    aBitMode = "-b:a";
+                    aBitrate = "320";
+                }
+
+                // -------------------------
+                // Bitrate Returned Empty, Disable BitMode
+                // -------------------------
+                if (string.IsNullOrEmpty(aBitrate))
+                {
+                    aBitMode = string.Empty;
+                }
+            }
 
             // --------------------------------------------------
-            // YouTube Download
+            // Batch
             // --------------------------------------------------
-            //if (MainWindow.IsYouTube(input_Text) == true)
-            //{
-            //    aBitrate = "%A";
+            else if (batch_IsChecked == true)
+            {
+                // Use the CMD Batch Audio Variable
+                aBitrate = "%A";
 
-            //    if (codec_SelectedItem == "PCM") // Special Rule
-            //    {
-            //        aBitMode = string.Empty;
-            //        aBitrate = string.Empty;
-            //    }
-            //}
-
-            //MessageBox.Show(aBitrate); //debug
+                //MessageBox.Show(aBitrate); //debug
+            }
         }
 
 
@@ -1104,39 +1082,33 @@ namespace Axiom
                 )
             {
                 // -------------------------
-                // Batch Auto
+                // Batch Audio Auto Bitrates
                 // -------------------------
-                //if (batch_IsChecked == true)
-                //{
-                    // -------------------------
-                    // Batch Audio Auto Bitrates
-                    // -------------------------
 
-                    // Batch CMD Detect
-                    //
-                    if (quality_SelectedItem == "Auto")
+                // Batch CMD Detect
+                //
+                if (quality_SelectedItem == "Auto")
+                {
+                    // Make List
+                    List<string> BatchAudioAutoList = new List<string>()
                     {
-                        // Make List
-                        List<string> BatchAudioAutoList = new List<string>()
-                        {
-                            // audio
-                            "& for /F \"delims=\" %A in ('@" + FFprobe.ffprobe + " -v error -select_streams a:0 -show_entries " + FFprobe.aEntryType + " -of default^=noprint_wrappers^=1:nokey^=1 \"%~f\" 2^>^&1') do (SET aBitrate=%A)",
+                        // audio
+                        "& for /F \"delims=\" %A in ('@" + FFprobe.ffprobe + " -v error -select_streams a:0 -show_entries " + FFprobe.aEntryType + " -of default^=noprint_wrappers^=1:nokey^=1 \"%~f\" 2^>^&1') do (SET aBitrate=%A)",
 
-                            // set %A to %aBitrate%
-                            "\r\n\r\n" + "& for /F %A in ('echo %aBitrate%') do (echo)",
+                        // set %A to %aBitrate%
+                        "\r\n\r\n" + "& for /F %A in ('echo %aBitrate%') do (echo)",
 
-                            // basic limiter
-                            "\r\n\r\n" + "& (IF %A EQU N/A (SET aBitrate=320000))",
+                        // basic limiter
+                        "\r\n\r\n" + "& (IF %A EQU N/A (SET aBitrate=320000))",
 
-                            // set %A to %aBitrate%
-                            "\r\n\r\n" + "& for /F %A in ('echo %aBitrate%') do (echo)"
-                        };
+                        // set %A to %aBitrate%
+                        "\r\n\r\n" + "& for /F %A in ('echo %aBitrate%') do (echo)"
+                    };
 
-                        // Join List with Spaces, Remove Empty Strings
-                        batchAudioAuto = string.Join(" ", BatchAudioAutoList
-                                                          .Where(s => !string.IsNullOrEmpty(s)));
-                    }
-                //}
+                    // Join List with Spaces, Remove Empty Strings
+                    batchAudioAuto = string.Join(" ", BatchAudioAutoList
+                                                        .Where(s => !string.IsNullOrEmpty(s)));
+                }
             }
 
             // Return Value
