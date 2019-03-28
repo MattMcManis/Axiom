@@ -10,9 +10,9 @@ Axiom FFmpeg UI
 - Audio Compression Level ComboBox
 
 ### Changed
-- Improved YouTube Download
+- Improved YouTube Download `youtube-dl`
 - Improved Tooltips
-- Refactoring x:Names
+- Refactored x:Names
 - Styled Sliders
 
 ### Fixed
@@ -61,7 +61,7 @@ Axiom FFmpeg UI
 - Video Bitrate warning "Missing M or K" check
 
 ### Changed
-- `FFV1` and `HuffYUV` default Pixel Format to `yuv44410le`
+- `FFV1` and `HuffYUV` default Pixel Format to `yuv444p10le`
 
 ### Fixed
 - Cut End Time Auto-Detect
