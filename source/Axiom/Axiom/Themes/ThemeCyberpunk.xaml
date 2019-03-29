@@ -2772,9 +2772,9 @@
     <!-- Static -->
     <SolidColorBrush x:Key="SliderThumb.Static.Foreground" Color="#FFFFFFFF"/>
     <SolidColorBrush x:Key="SliderThumb.Static.Background" Color="#FFFFFFFF"/>
-    <SolidColorBrush x:Key="SliderThumb.Static.Border" Color="#FF7b777e"/>
-    <SolidColorBrush x:Key="SliderThumb.Track.Border" Color="#FFb4b4b4"/>
-    <SolidColorBrush x:Key="SliderThumb.Track.Background" Color="#FFb4b4b4"/>
+    <SolidColorBrush x:Key="SliderThumb.Static.Border" Color="#FF7B777E"/>
+    <SolidColorBrush x:Key="SliderThumb.Track.Border" Color="#FF7B777E"/>
+    <SolidColorBrush x:Key="SliderThumb.Track.Background" Color="#FF7B777E"/>
     <!-- Mouse Over -->
     <SolidColorBrush x:Key="SliderThumb.MouseOver.Background" Color="#FFFFFFFF"/>
     <SolidColorBrush x:Key="SliderThumb.MouseOver.Border" Color="#FF9f3ed2"/>
@@ -2782,8 +2782,8 @@
     <SolidColorBrush x:Key="SliderThumb.Pressed.Background" Color="#FFE2E2E2"/>
     <SolidColorBrush x:Key="SliderThumb.Pressed.Border" Color="#FF9f3ed2"/>
     <!-- Disabled -->
-    <SolidColorBrush x:Key="SliderThumb.Disabled.Background" Color="#FFBDBDBD"/>
-    <SolidColorBrush x:Key="SliderThumb.Disabled.Border" Color="#FF400c5a"/>
+    <SolidColorBrush x:Key="SliderThumb.Disabled.Background" Color="#FF7B777E"/>
+    <SolidColorBrush x:Key="SliderThumb.Disabled.Border" Color="#FF241B2C"/>
 
     <ControlTemplate x:Key="SliderThumbHorizontalTop" TargetType="{x:Type Thumb}">
         <Grid HorizontalAlignment="Center" UseLayoutRounding="True" VerticalAlignment="Center">

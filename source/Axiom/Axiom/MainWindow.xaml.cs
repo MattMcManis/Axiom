@@ -2153,7 +2153,6 @@ namespace Axiom
             if (FFcheck(vm) == false)
             {
                 // Halt
-                //ready = false;
                 return false;
             }
 
@@ -2196,15 +2195,12 @@ namespace Axiom
                     Log.logParagraph.Inlines.Add(new LineBreak());
                     Log.logParagraph.Inlines.Add(new Bold(new Run("Auto Quality Mode Requires FFprobe in order to Detect File Info.")) { Foreground = Log.ConsoleWarning });
 
-                    /* lock */
-                    //ready = false;
                     MessageBox.Show("Auto Quality Mode Requires FFprobe in order to Detect File Info.",
                                     "Notice",
                                     MessageBoxButton.OK,
                                     MessageBoxImage.Exclamation);
 
                     // Halt
-                    //ready = false;
                     return false;
                 }
             }
@@ -2225,15 +2221,12 @@ namespace Axiom
                 };
                 Log.LogActions.Add(Log.WriteAction);
 
-                /* lock */
-                //MainWindow.ready = false;
                 // Warning
                 MessageBox.Show("Crop cannot use Codec Copy. Please select a Video Codec.",
                                 "Notice",
                                 MessageBoxButton.OK,
                                 MessageBoxImage.Exclamation);
 
-                //ready = false;
                 return false;
             }
 
@@ -2299,8 +2292,6 @@ namespace Axiom
                     Log.logParagraph.Inlines.Add(new LineBreak());
                     Log.logParagraph.Inlines.Add(new Bold(new Run("Notice: Video Bitrate is missing K or M at end of value.")) { Foreground = Log.ConsoleWarning });
 
-                    /* lock */
-                    //ready = false;
                     // Warning
                     MessageBox.Show("Video " + string.Join(", ", errors) + " missing K or M at end of value.",
                                     "Notice",
@@ -2308,7 +2299,6 @@ namespace Axiom
                                     MessageBoxImage.Warning);
 
                     // Halt
-                    //ready = false;
                     return false;
                 }
             }
@@ -2325,8 +2315,6 @@ namespace Axiom
                 Log.logParagraph.Inlines.Add(new LineBreak());
                 Log.logParagraph.Inlines.Add(new Bold(new Run("Notice: Please choose an input file.")) { Foreground = Log.ConsoleWarning });
 
-                /* lock */
-                //ready = false;
                 // Warning
                 MessageBox.Show("Please choose an input file.",
                                 "Notice",
@@ -2334,7 +2322,6 @@ namespace Axiom
                                 MessageBoxImage.Exclamation);
 
                 // Halt
-                //ready = false;
                 return false;
             }
 
@@ -2355,8 +2342,6 @@ namespace Axiom
                     Log.logParagraph.Inlines.Add(new LineBreak());
                     Log.logParagraph.Inlines.Add(new Bold(new Run("Notice: Please choose an output folder different than the input folder to avoid file overwrite.")) { Foreground = Log.ConsoleWarning });
 
-                    /* lock */
-                    //ready = false;
                     // Warning
                     MessageBox.Show("Please choose an output folder different than the input folder to avoid file overwrite.",
                                     "Notice",
@@ -2364,7 +2349,6 @@ namespace Axiom
                                     MessageBoxImage.Exclamation);
 
                     // Halt
-                    //ready = false;
                     return false;
                 }
             }
@@ -2377,23 +2361,20 @@ namespace Axiom
                 vm.Video_Codec_SelectedItem == "VP9")
             {
                 if (!string.IsNullOrEmpty(vm.Video_CRF_Text) &&
-                    string.IsNullOrEmpty(vm.Video_CRF_Text))
+                    string.IsNullOrEmpty(vm.Video_Bitrate_Text))
                 {
                     // Log Console Message /////////
                     Log.logParagraph.Inlines.Add(new LineBreak());
                     Log.logParagraph.Inlines.Add(new LineBreak());
                     Log.logParagraph.Inlines.Add(new Bold(new Run("Notice: VP8/VP9 CRF must also have Bitrate. \n(e.g. 0 for Constant, 1234k for Constrained)")) { Foreground = Log.ConsoleWarning });
 
-                    /* lock */
-                    //ready = false;
                     // Notice
-                    MessageBox.Show("VP8/VP9 CRF must also have Bitrate. \n(e.g. 0 for Constant, 1234k for Constrained)",
+                    MessageBox.Show("VP8/VP9 CRF must also have Bitrate. \n(e.g. 0 for Constant, 1234K for Constrained)",
                                 "Notice",
                                 MessageBoxButton.OK,
                                 MessageBoxImage.Exclamation);
 
                     // Halt
-                    //ready = false;
                     return false;
                 }
             }
@@ -4491,10 +4472,42 @@ namespace Axiom
         /// <summary>
         ///     Video CRF Custom Number Textbox
         /// </summary>
+        // TextBox TextChanged
+        private void tbxVideo_CRF_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            // Update Slider with entered value
+            if (!string.IsNullOrEmpty(vm.Video_CRF_Text))
+            {
+                vm.Video_CRF_Value = Convert.ToDouble(vm.Video_CRF_Text);
+            }
+
+            // TextBox Empty
+            //else if (string.IsNullOrEmpty(vm.Video_CRF_Text))
+            //{
+                //vm.Video_CRF_Value = 0;
+                //vm.Video_CRF_Text = string.Empty;
+            //}
+            
+        }
+        // TextBox Key Down
         private void tbxVideo_CRF_KeyDown(object sender, KeyEventArgs e)
         {
             // Only allow Numbers and Backspace
             AllowOnlyNumbersAndBackspace(e);
+        }
+        // Slider Value Change
+        private void slVideo_CRF_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            // Update TextBox with value
+            vm.Video_CRF_Text = vm.Video_CRF_Value.ToString();
+        }
+        // Slider Double Click
+        private void slVideo_CRF_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            // Reset to default
+            vm.Video_CRF_Value = 23;
+
+            //VideoControls.AutoCopyVideoCodec(vm);
         }
 
         /// <summary>

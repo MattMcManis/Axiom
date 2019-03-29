@@ -1981,17 +1981,6 @@ namespace Axiom
                 }
             }
         }
-        //private bool _Video_VBR_IsChecked;
-        //public bool Video_VBR_IsChecked
-        //{
-        //    get { return _Video_VBR_IsChecked; }
-        //    set
-        //    {
-        //        if (_Video_VBR_IsChecked == value) return;
-
-        //        _Video_VBR_IsChecked = value;
-        //    }
-        //}
         // Enabled
         private bool _Video_VBR_IsEnabled = true;
         public bool Video_VBR_IsEnabled
@@ -2013,6 +2002,22 @@ namespace Axiom
         // -------------------------
         // CRF
         // -------------------------
+        // Value
+        private double? _Video_CRF_Value = null;
+        public double? Video_CRF_Value
+        {
+            get { return _Video_CRF_Value; }
+            set
+            {
+                if (_Video_CRF_Value == value)
+                {
+                    return;
+                }
+
+                _Video_CRF_Value = value;
+                OnPropertyChanged("Video_CRF_Value");
+            }
+        }
         // Text
         private string _Video_CRF_Text;
         public string Video_CRF_Text
