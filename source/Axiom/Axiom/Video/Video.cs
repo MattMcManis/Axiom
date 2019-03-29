@@ -123,16 +123,20 @@ namespace Axiom
         ///     Hardware Acceleration
         /// <summary>
         /// https://trac.ffmpeg.org/wiki/HWAccelIntro
-        public static String HWAcceleration(string hwaccel_SelectedItem,
-                                            string codec_SelectedItem
+        public static String HWAcceleration(string mediaType_SelectedItem,
+                                            string codec_SelectedItem,
+                                            string hwaccel_SelectedItem
                                             )
         {
-            // -------------------------
-            // Only x264/x265
-            // -------------------------
-            if (codec_SelectedItem == "x264" ||
-                codec_SelectedItem == "x265")
+            // Check:
+            // Media Type Video, Image, Sequence
+            if (mediaType_SelectedItem == "Video" ||
+                mediaType_SelectedItem == "Image" ||
+                mediaType_SelectedItem == "Sequence")
             {
+                // --------------------------------------------------
+                // All Codecs
+                // --------------------------------------------------
                 // -------------------------
                 // Off
                 // -------------------------
@@ -148,57 +152,65 @@ namespace Axiom
                     // ffmpeg -hwaccel dxva2 -threads 1 -i INPUT -f null
                     hwacceleration = "-hwaccel dxva2";
                 }
-                // -------------------------
-                // CUVID
-                // -------------------------
-                else if (hwaccel_SelectedItem == "cuvid")
+
+                // --------------------------------------------------
+                // Only x264/x265
+                // --------------------------------------------------
+                if (codec_SelectedItem == "x264" ||
+                    codec_SelectedItem == "x265")
                 {
-                    // ffmpeg -c:v h264_cuvid -i input output.mkv
+                    // -------------------------
+                    // CUVID
+                    // -------------------------
+                    if (hwaccel_SelectedItem == "cuvid")
+                    {
+                        // ffmpeg -c:v h264_cuvid -i input output.mkv
 
-                    // Override Codecs
-                    if (codec_SelectedItem == "x264")
-                    {
-                        vCodec = "-c:v h264_cuvid";
-                    }
-                    else if (codec_SelectedItem == "x264")
-                    {
-                        vCodec = "-c:v h265_cuvid";
-                    }
+                        // Override Codecs
+                        if (codec_SelectedItem == "x264")
+                        {
+                            vCodec = "-c:v h264_cuvid";
+                        }
+                        else if (codec_SelectedItem == "x264")
+                        {
+                            vCodec = "-c:v h265_cuvid";
+                        }
 
-                    hwacceleration = string.Empty;
-                }
-                // -------------------------
-                // NVENC
-                // -------------------------
-                else if (hwaccel_SelectedItem == "nvenc")
-                {
-                    // ffmpeg -i input -c:v h264_nvenc -profile high444p -pix_fmt yuv444p -preset default output.mp4
+                        hwacceleration = string.Empty;
+                    }
+                    // -------------------------
+                    // NVENC
+                    // -------------------------
+                    else if (hwaccel_SelectedItem == "nvenc")
+                    {
+                        // ffmpeg -i input -c:v h264_nvenc -profile high444p -pix_fmt yuv444p -preset default output.mp4
 
-                    // Override Codecs
-                    if (codec_SelectedItem == "x264")
-                    {
-                        vCodec = "-c:v h264_nvenc";
-                    }
-                    else if (codec_SelectedItem == "x264")
-                    {
-                        vCodec = "-c:v h265_nvenc";
-                    }
+                        // Override Codecs
+                        if (codec_SelectedItem == "x264")
+                        {
+                            vCodec = "-c:v h264_nvenc";
+                        }
+                        else if (codec_SelectedItem == "x264")
+                        {
+                            vCodec = "-c:v h265_nvenc";
+                        }
 
-                    hwacceleration = string.Empty;
-                }
-                // -------------------------
-                // CUVID + NVENC
-                // -------------------------
-                else if (hwaccel_SelectedItem == "cuvid+nvenc")
-                {
-                    // ffmpeg -hwaccel cuvid -c:v h264_cuvid -i input -c:v h264_nvenc -preset slow output.mkv
-                    if (codec_SelectedItem == "x264")
-                    {
-                        hwacceleration = "-hwaccel cuvid -c:v h264_cuvid";
+                        hwacceleration = string.Empty;
                     }
-                    else if (codec_SelectedItem == "x265")
+                    // -------------------------
+                    // CUVID + NVENC
+                    // -------------------------
+                    else if (hwaccel_SelectedItem == "cuvid+nvenc")
                     {
-                        hwacceleration = "-hwaccel cuvid -c:v hevc_cuvid";
+                        // ffmpeg -hwaccel cuvid -c:v h264_cuvid -i input -c:v h264_nvenc -preset slow output.mkv
+                        if (codec_SelectedItem == "x264")
+                        {
+                            hwacceleration = "-hwaccel cuvid -c:v h264_cuvid";
+                        }
+                        else if (codec_SelectedItem == "x265")
+                        {
+                            hwacceleration = "-hwaccel cuvid -c:v hevc_cuvid";
+                        }
                     }
                 }
             }

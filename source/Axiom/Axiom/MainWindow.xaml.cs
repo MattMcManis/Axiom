@@ -2014,7 +2014,6 @@ namespace Axiom
                                         MessageBoxImage.Exclamation);
 
                         // Halt
-                        //ready = false;
                         return false;
                     }
                 }

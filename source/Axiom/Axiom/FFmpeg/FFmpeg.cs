@@ -54,7 +54,7 @@ namespace Axiom
         /// </summary>
         /// --------------------------------------------------------------------------------------------------------
         // FFmepg / FFprobe
-        public static string ffmpeg; // ffmpeg.exe
+        public static string ffmpeg; // ffmpeg.exe location
         public static string ffmpegArgs; // FFmpeg Arguments
         public static string ffmpegArgsSort; // FFmpeg Arguments Sorted
 
@@ -465,8 +465,9 @@ namespace Axiom
                     "-y",
 
                     "\r\n\r\n" +
-                    Video.HWAcceleration(vm.Format_HWAccel_SelectedItem,
-                                         vm.Video_Codec_SelectedItem
+                    Video.HWAcceleration(vm.Format_MediaType_SelectedItem,
+                                         vm.Video_Codec_SelectedItem,
+                                         vm.Format_HWAccel_SelectedItem
                                          ),
 
                     "\r\n\r\n" +
@@ -613,8 +614,9 @@ namespace Axiom
                     //MainWindow.YouTubeDownload(MainWindow.InputPath(vm)),
                     MainWindow.FFmpegPath(vm),
                     "-y",
-                    "\r\n\r\n" + Video.HWAcceleration(vm.Format_HWAccel_SelectedItem,
-                                                      vm.Video_Codec_SelectedItem
+                    "\r\n\r\n" + Video.HWAcceleration(vm.Format_MediaType_SelectedItem,
+                                                      vm.Video_Codec_SelectedItem,
+                                                      vm.Format_HWAccel_SelectedItem
                                                       ),
                     OnePassArgs(vm), //disabled if 2-Pass
                     TwoPassArgs(vm) //disabled if 1-Pass
@@ -729,8 +731,9 @@ namespace Axiom
 
                     "\r\n\r\n" + "&&",
                     "\r\n\r\n" + MainWindow.FFmpegPath(vm),
-                    "\r\n\r\n" + Video.HWAcceleration(vm.Format_HWAccel_SelectedItem,
-                                                      vm.Video_Codec_SelectedItem
+                    "\r\n\r\n" + Video.HWAcceleration(vm.Format_MediaType_SelectedItem,
+                                                      vm.Video_Codec_SelectedItem,
+                                                      vm.Format_HWAccel_SelectedItem
                                                       ),
                     "-y",
                     //%~f added in InputPath()
@@ -807,7 +810,7 @@ namespace Axiom
 
                 // Download Video
                 "\r\n\r\n" + "do (",
-                "\r\n\r\n" + "@" + "\"" + MainWindow.youtubedl + "\"" + " -f " + MainWindow.YouTubeDownloadQuality(vm.Format_YouTube_SelectedItem, vm.Format_YouTube_Quality_SelectedItem) + " " + "\"" + vm.Input_Text + "\"" + " -o " + "\"" + MainWindow.downloadDir + "%f" + "." + MainWindow.YouTubeDownloadFormat(vm.Format_YouTube_SelectedItem) + "\"" + " --merge-output-format " + MainWindow.YouTubeDownloadFormat(vm.Format_YouTube_SelectedItem),
+                "\r\n\r\n" + "@" + "\"" + MainWindow.youtubedl + "\"" + " -f " + MainWindow.YouTubeDownloadQuality(vm.Format_YouTube_SelectedItem, vm.Format_YouTube_Quality_SelectedItem) + " " + "\"" + vm.Input_Text + "\"" + " -o " + "\"" + MainWindow.downloadDir + "%f" + "." + MainWindow.YouTubeDownloadFormat(vm.Format_YouTube_SelectedItem) + "\"" + " --ffmpeg-location " + MainWindow.FFmpegPath(vm) + " " + " --merge-output-format " + MainWindow.YouTubeDownloadFormat(vm.Format_YouTube_SelectedItem),
             };
 
             // FFmpeg Args
@@ -816,8 +819,9 @@ namespace Axiom
             {
                 "\r\n\r\n" + "&&",
                 "\r\n\r\n" + MainWindow.FFmpegPath(vm),
-                "\r\n\r\n" + Video.HWAcceleration(vm.Format_HWAccel_SelectedItem,
-                                                  vm.Video_Codec_SelectedItem
+                "\r\n\r\n" + Video.HWAcceleration(vm.Format_MediaType_SelectedItem,
+                                                  vm.Video_Codec_SelectedItem,
+                                                  vm.Format_HWAccel_SelectedItem
                                                   ),
                 "-y",
 
