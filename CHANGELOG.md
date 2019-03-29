@@ -4,6 +4,17 @@ Axiom FFmpeg UI
 
 ## [alpha]
 
+## [1.6.2.0] - Mar 29, 2019
+### Added
+- More YouTube Download Qualities
+- YouTube Download FFmpeg Path Check for Merge Format
+- Convert Button Text Change on Download Mode
+- Audio CBR Bitrate Limiter
+
+### Fixed
+- Audio Codec `LAME` Auto Quality VBR
+
+
 ## [1.6.1.0] - Mar 28, 2019
 ### Added
 - Drag and Drop to Settings Program Paths
