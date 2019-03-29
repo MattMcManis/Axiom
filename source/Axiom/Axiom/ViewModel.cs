@@ -556,14 +556,21 @@ namespace Axiom
             new Preset() { Name = "HTML5",     Category = false },
             new Preset() { Name = "YouTube",   Category = false },
 
-            // PC
-            new Preset() { Name = "PC",        Category = true  },
+            // UHD
+            new Preset() { Name = "UHD",        Category = true  },
             new Preset() { Name = "Archive",   Category = false },
-            new Preset() { Name = "HEVC",      Category = false },
+            new Preset() { Name = "HEVC Ultra",      Category = false },
+            new Preset() { Name = "HEVC High",      Category = false },
+
+            // HD
+            new Preset() { Name = "HD",        Category = true  },
             new Preset() { Name = "HD Ultra",  Category = false },
             new Preset() { Name = "HD High",   Category = false },
             new Preset() { Name = "HD Medium", Category = false },
-            new Preset() { Name = "HD Low",    Category = false },
+            //new Preset() { Name = "HD Low",    Category = false },
+
+            // SD
+            new Preset() { Name = "SD",        Category = true  },
             new Preset() { Name = "SD High",   Category = false },
             new Preset() { Name = "SD Medium", Category = false },
             new Preset() { Name = "SD Low",    Category = false },
@@ -1570,6 +1577,7 @@ namespace Axiom
         private List<string> _Format_YouTube_Quality_Items = new List<string>()
         {
             "best",
+            "best 4K",
             "best 1080p",
             "best 720p",
             "best 480p",
@@ -2821,13 +2829,16 @@ namespace Axiom
         {
             "Source",
             "8K",
+            "8K UHD",
             "4K",
             "4K UHD",
             "2K",
             "1440p",
             "1200p",
             "1080p",
+            "900p",
             "720p",
+            "576p",
             "480p",
             "320p",
             "240p",

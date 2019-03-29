@@ -1637,7 +1637,7 @@ namespace Axiom
         /// <summary>
         ///     Size Width Auto
         /// <summary>
-        public static void SizeWidthAuto(string codec_SelectedItem)
+        public static String SizeWidthAuto(string codec_SelectedItem)
         {
             if (codec_SelectedItem == "VP8" ||
                 codec_SelectedItem == "VP9" ||
@@ -1649,22 +1649,24 @@ namespace Axiom
                 codec_SelectedItem == "PNG" ||
                 codec_SelectedItem == "WebP")
             {
-                width = "-1";
+                return "-1";
             }
             else if (codec_SelectedItem == "x264" ||
                      codec_SelectedItem == "x265" ||
                      codec_SelectedItem == "MPEG-2" ||
                      codec_SelectedItem == "MPEG-4")
             {
-                width = "-2";
+                return "-2";
             }
+
+            return "-1";
         }
 
 
         /// <summary>
         ///     Size Height Auto
         /// <summary>
-        public static void SizeHeightAuto(string codec_SelectedItem)
+        public static String SizeHeightAuto(string codec_SelectedItem)
         {
             if (codec_SelectedItem == "VP8" ||
                 codec_SelectedItem == "VP9" ||
@@ -1676,15 +1678,17 @@ namespace Axiom
                 codec_SelectedItem == "PNG" ||
                 codec_SelectedItem == "WebP")
             {
-                height = "-1";
+                return "-1";
             }
             else if (codec_SelectedItem == "x264" ||
                      codec_SelectedItem == "x265" ||
                      codec_SelectedItem == "MPEG-2" ||
                      codec_SelectedItem == "MPEG-4")
             {
-                height = "-2";
+                return "-2";
             }
+
+            return "-1";
         }
 
 
@@ -1696,6 +1700,7 @@ namespace Axiom
                                  string size_SelectedItem,
                                  string width_Text,
                                  string height_Text,
+                                 string aspectRatio_SelectedItem,
                                  string scalingAlgorithm_SelectedItem,
                                  string cropClear_Text
                                  )
@@ -1724,134 +1729,32 @@ namespace Axiom
                     VideoFilters.vFiltersList.Add(scale);
                 }
             }
+
             // -------------------------
             // Yes
             // -------------------------
             else
             {
                 // -------------------------
-                // 8K
+                // Preset Scale
                 // -------------------------
-                if (size_SelectedItem == "8K")
+                if (size_SelectedItem != "Custom")
                 {
-                    // Width
-                    width = "7680"; // Note: 8K is measured width first
+                    // Widescreen
+                    if (MainWindow.IsAspectRatioWidescreen(aspectRatio_SelectedItem) == true)
+                    {
+                        width = width_Text;
+                        height = SizeHeightAuto(codec_SelectedItem);
+                    }
 
-                    // Height
-                    SizeHeightAuto(codec_SelectedItem);
+                    // Full Screen
+                    else
+                    {
+                        width = SizeWidthAuto(codec_SelectedItem);
+                        height = height_Text;
+                    }
                 }
-                // -------------------------
-                // 4K
-                // -------------------------
-                else if (size_SelectedItem == "4K")
-                {
-                    // Width
-                    width = "4096"; // Note: 4K is measured width first
 
-                    // Height
-                    SizeHeightAuto(codec_SelectedItem);
-                }
-                // -------------------------
-                // 4K UHD
-                // -------------------------
-                else if (size_SelectedItem == "4K UHD")
-                {
-                    // Width
-                    width = "3840"; // Note: 4K is measured width first
-
-                    // Height
-                    SizeHeightAuto(codec_SelectedItem);
-
-                }
-                // -------------------------
-                // 2K
-                // -------------------------
-                else if (size_SelectedItem == "2K")
-                {
-                    // Width
-                    width = "2048"; // Note: 2K is measured width first
-
-                    // Height
-                    SizeHeightAuto(codec_SelectedItem);
-                }
-                // -------------------------
-                // 1440p
-                // -------------------------
-                else if (size_SelectedItem == "1440p")
-                {
-                    // Width
-                    SizeWidthAuto(codec_SelectedItem);
-
-                    // Height
-                    height = "1440";
-                }
-                // -------------------------
-                // 1200p
-                // -------------------------
-                else if (size_SelectedItem == "1200p")
-                {
-                    // Width
-                    SizeWidthAuto(codec_SelectedItem);
-
-                    // Height
-                    height = "1200";
-                }
-                // -------------------------
-                // 1080p
-                // -------------------------
-                else if (size_SelectedItem == "1080p")
-                {
-                    // Width
-                    SizeWidthAuto(codec_SelectedItem);
-
-                    // Height
-                    height = "1080";
-                }
-                // -------------------------
-                // 720p
-                // -------------------------
-                else if (size_SelectedItem == "720p")
-                {
-                    // Width
-                    SizeWidthAuto(codec_SelectedItem);
-
-                    // Height
-                    height = "720";
-                }
-                // -------------------------
-                // 480p
-                // -------------------------
-                else if (size_SelectedItem == "480p")
-                {
-                    // Width
-                    SizeWidthAuto(codec_SelectedItem);
-
-                    // Height
-                    height = "480";
-
-                }
-                // -------------------------
-                // 320p
-                // -------------------------
-                else if (size_SelectedItem == "320p")
-                {
-                    // Width
-                    SizeWidthAuto(codec_SelectedItem);
-
-                    // Height
-                    height = "320";
-                }
-                // -------------------------
-                // 240p
-                // -------------------------
-                else if (size_SelectedItem == "240p")
-                {
-                    // Width
-                    SizeWidthAuto(codec_SelectedItem);
-
-                    // Height
-                    height = "240";
-                }
                 // -------------------------
                 // Custom Size
                 // -------------------------

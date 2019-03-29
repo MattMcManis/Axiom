@@ -381,9 +381,10 @@ namespace Axiom
             }
 
             // -------------------------
-            // HEVC
+            // HEVC Ultra
             // -------------------------
-            else if (vm.Preset_SelectedItem == "HEVC")
+            else if (vm.Preset_SelectedItem == "HEVC Ultra" ||
+                     vm.Preset_SelectedItem == "HEVC High")
             {
                 //vm.Preset.IsEditable = false;
 
@@ -402,15 +403,24 @@ namespace Axiom
                 // Video
                 vm.Video_Codec_SelectedItem = "x265";
                 vm.Video_EncodeSpeed_SelectedItem = "Slow";
-                vm.Video_Quality_SelectedItem = "Ultra";
+
+                if (vm.Preset_SelectedItem == "HEVC Ultra")
+                {
+                    vm.Video_Quality_SelectedItem = "Ultra";
+                }
+                else if (vm.Preset_SelectedItem == "HEVC High")
+                {
+                    vm.Video_Quality_SelectedItem = "High";
+                }
+
                 vm.Video_Pass_SelectedItem = "CRF";
-                //vm.Video_CRF_Text = "18";
+                //vm.Video_CRF_Text = ""; // Use Quality Preset Value
                 vm.Video_Bitrate_Text = "";
                 vm.Video_Minrate_Text = "";
                 vm.Video_Maxrate_Text = "";
                 vm.Video_Bufsize_Text = "";
                 vm.Video_PixelFormat_SelectedItem = "yuv420p10le";
-                vm.Video_FPS_SelectedItem = "auto";
+                vm.Video_FPS_SelectedItem = "59.94";
                 vm.Video_Optimize_SelectedItem = "Custom";
                 vm.Video_Optimize_Tune_SelectedItem = "none";
                 vm.Video_Optimize_Profile_SelectedItem = "main10";
@@ -1251,7 +1261,7 @@ namespace Axiom
                 vm.Video_Maxrate_Text = "75M";
                 vm.Video_Bufsize_Text = "75M";
                 vm.Video_PixelFormat_SelectedItem = "yuv420p10le";
-                vm.Video_FPS_SelectedItem = "23.976";
+                vm.Video_FPS_SelectedItem = "60";
                 vm.Video_Optimize_SelectedItem = "UHD";
                 vm.Video_Scale_SelectedItem = "Source";
                 vm.Video_ScalingAlgorithm_SelectedItem = "auto";

@@ -797,6 +797,7 @@ namespace Axiom
                             vm.Video_Scale_SelectedItem,
                             vm.Video_Width_Text,
                             vm.Video_Height_Text,
+                            vm.Video_AspectRatio_SelectedItem,
                             vm.Video_ScalingAlgorithm_SelectedItem,
                             vm.Video_CropClear_Text
                             );

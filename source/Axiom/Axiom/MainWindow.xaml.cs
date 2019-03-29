@@ -1984,6 +1984,11 @@ namespace Axiom
                 {
                     return "bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio";
                 }
+                // Best 4K
+                else if (youtubedl_Quality_SelectedItem == "best 4K")
+                {
+                    return "bestvideo[height=2160][ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio";
+                }
                 // Best 1080p
                 else if (youtubedl_Quality_SelectedItem == "best 1080p")
                 {
@@ -2013,6 +2018,11 @@ namespace Axiom
                 if (youtubedl_Quality_SelectedItem == "best")
                 {
                     return "bestvideo[ext=mp4]/bestvideo";
+                }
+                // Best 4K
+                else if (youtubedl_Quality_SelectedItem == "best 4K")
+                {
+                    return "bestvideo[height=2160][ext=mp4]/bestvideo";
                 }
                 // Best 1080p
                 else if(youtubedl_Quality_SelectedItem == "best 1080p")
@@ -2069,6 +2079,7 @@ namespace Axiom
                 vm.Format_YouTube_Quality_Items = new List<string>()
                 {
                     "best",
+                    "best 4K",
                     "best 1080p",
                     "best 720p",
                     "best 480p",
@@ -2121,7 +2132,7 @@ namespace Axiom
                                                               + "\r\n\r\nContinue Convert?",
                                                               "Edited Script Detected",
                                                               MessageBoxButton.YesNo,
-                                                              MessageBoxImage.Warning);
+                                                              MessageBoxImage.Information);
 
                     switch (result)
                     {
@@ -2181,6 +2192,14 @@ namespace Axiom
                 }
             }
 
+            // -------------------------
+            // YouTube Download - URL Missing
+            // -------------------------
+            // Needs Preset Video/Music detection
+            //if (IsYouTubeDownloadOnly(vm) == true)
+            //{
+
+            //}
 
             // -------------------------
             // Do Not allow Auto without FFprobe being installed or linked
@@ -4752,6 +4771,7 @@ namespace Axiom
 
                 vm.Video_ScalingAlgorithm_IsEnabled = true;
             }
+
             // -------------------------
             // Source
             // -------------------------
@@ -4762,6 +4782,7 @@ namespace Axiom
 
                 vm.Video_ScalingAlgorithm_IsEnabled = false;
             }
+
             // -------------------------
             // All Other Sizes
             // -------------------------
@@ -4773,6 +4794,24 @@ namespace Axiom
                 vm.Video_ScalingAlgorithm_IsEnabled = true;
             }
 
+
+            // -------------------------
+            // Update Width/Height TextBox Display
+            // -------------------------
+            VideoScaleDisplay(vm);
+        }
+
+
+
+        /// <summary>
+        ///     Video Scale Display
+        /// </summary>
+        /// <remarks>
+        ///     If Aspect Ratio is Widescreen (16:9, 16:10, etc) or auto, scale by Width 
+        ///     If Aspect Ratio is Full Screen (4:3, 5:4, etc), scale by Height
+        /// </remarks>
+        public static void VideoScaleDisplay(ViewModel vm)
+        {
             // --------------------------------------------------
             // Change TextBox Resolution Numbers
             // --------------------------------------------------
@@ -4786,94 +4825,288 @@ namespace Axiom
 
                 vm.Video_ScalingAlgorithm_SelectedItem = "auto";
             }
+
             // -------------------------
             // 8K
             // -------------------------
             else if (vm.Video_Scale_SelectedItem == "8K")
             {
-                vm.Video_Width_Text = "7680";
-                vm.Video_Height_Text = "auto";
+                // Widescreen
+                if (IsAspectRatioWidescreen(vm.Video_AspectRatio_SelectedItem) == true)
+                {
+                    vm.Video_Width_Text = "8192";
+                    vm.Video_Height_Text = "auto";
+                }
+
+                // Full Screen
+                else
+                {
+                    vm.Video_Width_Text = "auto";
+                    vm.Video_Height_Text = "4320";
+                }
             }
+
+            // -------------------------
+            // 8K UHD
+            // -------------------------
+            else if (vm.Video_Scale_SelectedItem == "8K UHD")
+            {
+                // Widescreen
+                if (IsAspectRatioWidescreen(vm.Video_AspectRatio_SelectedItem) == true)
+                {
+                    vm.Video_Width_Text = "7680";
+                    vm.Video_Height_Text = "auto";
+                }
+
+                // Full Screen
+                else
+                {
+                    vm.Video_Width_Text = "auto";
+                    vm.Video_Height_Text = "4320";
+                }
+            }
+
             // -------------------------
             // 4K
             // -------------------------
             else if (vm.Video_Scale_SelectedItem == "4K")
             {
-                vm.Video_Width_Text = "4096";
-                vm.Video_Height_Text = "auto";
+                // Widescreen
+                if (IsAspectRatioWidescreen(vm.Video_AspectRatio_SelectedItem) == true)
+                {
+                    vm.Video_Width_Text = "4096";
+                    vm.Video_Height_Text = "auto";
+                }
+
+                // Full Screen
+                else
+                {
+                    vm.Video_Width_Text = "auto";
+                    vm.Video_Height_Text = "2160";
+                }
             }
+
             // -------------------------
             // 4K UHD
             // -------------------------
             else if (vm.Video_Scale_SelectedItem == "4K UHD")
             {
-                vm.Video_Width_Text = "3840";
-                vm.Video_Height_Text = "auto";
+                // Widescreen
+                if (IsAspectRatioWidescreen(vm.Video_AspectRatio_SelectedItem) == true)
+                {
+                    vm.Video_Width_Text = "3840";
+                    vm.Video_Height_Text = "auto";
+                }
+
+                // Full Screen
+                else
+                {
+                    vm.Video_Width_Text = "auto";
+                    vm.Video_Height_Text = "2160";
+                }
             }
+
             // -------------------------
             // 2K
             // -------------------------
             else if (vm.Video_Scale_SelectedItem == "2K")
             {
-                vm.Video_Width_Text = "2048";
-                vm.Video_Height_Text = "auto";
+                // Widescreen
+                if (IsAspectRatioWidescreen(vm.Video_AspectRatio_SelectedItem) == true)
+                {
+                    vm.Video_Width_Text = "2048";
+                    vm.Video_Height_Text = "auto";
+                }
+
+                // Full Screen
+                else
+                {
+                    vm.Video_Width_Text = "auto";
+                    vm.Video_Height_Text = "1556";
+                }
             }
+
             // -------------------------
             // 1440p
             // -------------------------
             else if (vm.Video_Scale_SelectedItem == "1440p")
             {
-                vm.Video_Width_Text = "auto";
-                vm.Video_Height_Text = "1440";
+                // Widescreen
+                if (IsAspectRatioWidescreen(vm.Video_AspectRatio_SelectedItem) == true)
+                {
+
+                    vm.Video_Width_Text = "2560";
+                    vm.Video_Height_Text = "auto";
+                }
+
+                // Full Screen
+                else
+                {
+                    vm.Video_Width_Text = "auto";
+                    vm.Video_Height_Text = "1440";
+                }
             }
+
             // -------------------------
             // 1200p
             // -------------------------
             else if (vm.Video_Scale_SelectedItem == "1200p")
             {
-                vm.Video_Width_Text = "auto";
-                vm.Video_Height_Text = "1200";
+                // Widescreen
+                if (IsAspectRatioWidescreen(vm.Video_AspectRatio_SelectedItem) == true)
+                {
+                    vm.Video_Width_Text = "1920";
+                    vm.Video_Height_Text = "auto";
+                }
+
+                // Full Screen
+                else
+                {
+                    vm.Video_Width_Text = "auto";
+                    vm.Video_Height_Text = "1200";
+                }
             }
+
             // -------------------------
             // 1080p
             // -------------------------
             else if (vm.Video_Scale_SelectedItem == "1080p")
             {
-                vm.Video_Width_Text = "auto";
-                vm.Video_Height_Text = "1080";
+                // Widescreen
+                if (IsAspectRatioWidescreen(vm.Video_AspectRatio_SelectedItem) == true)
+                {
+                    vm.Video_Width_Text = "1920";
+                    vm.Video_Height_Text = "auto";
+                }
+
+                // Full Screen
+                else
+                {
+                    vm.Video_Width_Text = "auto";
+                    vm.Video_Height_Text = "1080";
+                }
             }
+
+            // -------------------------
+            // 900p
+            // -------------------------
+            else if (vm.Video_Scale_SelectedItem == "900p")
+            {
+                // Widescreen
+                if (IsAspectRatioWidescreen(vm.Video_AspectRatio_SelectedItem) == true)
+                {
+                    vm.Video_Width_Text = "1600";
+                    vm.Video_Height_Text = "auto";
+                }
+
+                // Full Screen
+                else
+                {
+                    vm.Video_Width_Text = "auto";
+                    vm.Video_Height_Text = "1080";
+                }
+            }
+
             // -------------------------
             // 720p
             // -------------------------
             else if (vm.Video_Scale_SelectedItem == "720p")
             {
-                vm.Video_Width_Text = "auto";
-                vm.Video_Height_Text = "720";
+                // Widescreen
+                if (IsAspectRatioWidescreen(vm.Video_AspectRatio_SelectedItem) == true)
+                {
+                    vm.Video_Width_Text = "1280";
+                    vm.Video_Height_Text = "auto";
+                }
+
+                // Full Screen
+                else
+                {
+                    vm.Video_Width_Text = "auto";
+                    vm.Video_Height_Text = "720";
+                }
             }
+
+            // -------------------------
+            // 576p
+            // -------------------------
+            else if (vm.Video_Scale_SelectedItem == "576p")
+            {
+                // Widescreen
+                if (IsAspectRatioWidescreen(vm.Video_AspectRatio_SelectedItem) == true)
+                {
+                    vm.Video_Width_Text = "1024";
+                    vm.Video_Height_Text = "auto";
+                }
+
+                // Full Screen
+                else
+                {
+                    vm.Video_Width_Text = "auto";
+                    vm.Video_Height_Text = "576";
+                }
+            }
+
             // -------------------------
             // 480p
             // -------------------------
             else if (vm.Video_Scale_SelectedItem == "480p")
             {
-                vm.Video_Width_Text = "auto";
-                vm.Video_Height_Text = "480";
+                // Widescreen
+                if (IsAspectRatioWidescreen(vm.Video_AspectRatio_SelectedItem) == true)
+                {
+                    vm.Video_Width_Text = "720";
+                    vm.Video_Height_Text = "auto";
+                }
+
+                // Full Screen
+                else
+                {
+                    vm.Video_Width_Text = "auto";
+                    vm.Video_Height_Text = "480";
+                }
             }
+
             // -------------------------
             // 320p
             // -------------------------
             else if (vm.Video_Scale_SelectedItem == "320p")
             {
-                vm.Video_Width_Text = "auto";
-                vm.Video_Height_Text = "320";
+                // Widescreen
+                if (IsAspectRatioWidescreen(vm.Video_AspectRatio_SelectedItem) == true)
+                {
+                    vm.Video_Width_Text = "480";
+                    vm.Video_Height_Text = "auto";
+                }
+
+                // Full Screen
+                else
+                {
+                    vm.Video_Width_Text = "auto";
+                    vm.Video_Height_Text = "320";
+                }
             }
+
             // -------------------------
             // 240p
             // -------------------------
             else if (vm.Video_Scale_SelectedItem == "240p")
             {
-                vm.Video_Width_Text = "auto";
-                vm.Video_Height_Text = "240";
+                // Widescreen
+                if (IsAspectRatioWidescreen(vm.Video_AspectRatio_SelectedItem) == true)
+                {
+                    vm.Video_Width_Text = "320";
+                    vm.Video_Height_Text = "auto";
+                }
+
+                // Full Screen
+                else
+                {
+                    vm.Video_Width_Text = "auto";
+                    vm.Video_Height_Text = "240";
+                }
             }
+
             // -------------------------
             // Custom
             // -------------------------
@@ -4884,9 +5117,34 @@ namespace Axiom
             }
         }
 
-        // -------------------------
-        // Width Textbox Change
-        // -------------------------
+
+        /// <summary>
+        ///     Is Aspect Ratio Widescreen
+        /// </summary>
+        public static bool IsAspectRatioWidescreen(string aspectRatio_SelectedItem)
+        {
+            // Widescreen (16:9, 16:10, etc) or auto, scale by Width 
+            if (aspectRatio_SelectedItem == "auto" ||
+                aspectRatio_SelectedItem == "16:9" ||
+                aspectRatio_SelectedItem == "16:10" ||
+                aspectRatio_SelectedItem == "19:10" ||
+                aspectRatio_SelectedItem == "21:9" ||
+                aspectRatio_SelectedItem == "32:9"
+                )
+            {
+                return true;
+            }
+
+            // Full Screen (4:3, 5:4, etc), scale by Height
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        ///     Width Textbox Change
+        /// </summary>
         // Got Focus
         private void tbxVideo_Width_GotFocus(object sender, RoutedEventArgs e)
         {
@@ -4909,9 +5167,9 @@ namespace Axiom
             }
         }
 
-        // -------------------------
-        // Height Textbox Change
-        // -------------------------
+        /// <summary>
+        ///     Height Textbox Change
+        /// </summary>
         // Got Focus
         private void tbxVideo_Height_GotFocus(object sender, RoutedEventArgs e)
         {
@@ -4941,7 +5199,10 @@ namespace Axiom
         private void cboVideo_AspectRatio_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             //VideoControls.AutoCopyVideoCodec(vm);
+
+            VideoScaleDisplay(vm);
         }
+
 
 
         /// <summary>
