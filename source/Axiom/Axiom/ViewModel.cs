@@ -252,6 +252,59 @@ namespace Axiom
             }
         }
 
+        // --------------------------------------------------
+        // Debug
+        // --------------------------------------------------
+        // FlowDocument
+        private FlowDocument _Debug_FlowDocument;
+        public FlowDocument Debug_FlowDocument
+        {
+            get { return _Debug_FlowDocument; }
+            set
+            {
+                if (_Debug_FlowDocument == value)
+                {
+                    return;
+                }
+
+                _Debug_FlowDocument = value;
+                OnPropertyChanged("Debug_FlowDocument");
+            }
+        }
+
+        // Paragraph
+        private Paragraph _Debug_Paragraph;
+        public Paragraph Debug_Paragraph
+        {
+            get { return _Debug_Paragraph; }
+            set
+            {
+                if (_Debug_Paragraph == value)
+                {
+                    return;
+                }
+
+                _Debug_Paragraph = value;
+                OnPropertyChanged("Debug_Paragraph");
+            }
+        }
+
+        // Text
+        private string _Debug_Text;
+        public string Debug_Text
+        {
+            get { return _Debug_Text; }
+            set
+            {
+                if (value != _Debug_Text)
+                {
+                    _Debug_Text = value;
+                    OnPropertyChanged("Debug_Text");
+                }
+            }
+        }
+
+
 
         // --------------------------------------------------------------------------------------------------------
         /// <summary>
@@ -295,46 +348,6 @@ namespace Axiom
 
                 _Input_Location_IsEnabled = value;
                 OnPropertyChanged("Input_Location_IsEnabled");
-            }
-        }
-
-        // --------------------------------------------------
-        // Output - TextBox
-        // --------------------------------------------------
-        // Text
-        private string _Output_Text = string.Empty;
-        public string Output_Text
-        {
-            get { return _Output_Text; }
-            set
-            {
-                if (_Output_Text == value)
-                {
-                    return;
-                }
-
-                _Output_Text = value;
-                OnPropertyChanged("Output_Text");
-            }
-        }
-
-        // --------------------------------------------------
-        // Output Location - Button
-        // --------------------------------------------------
-        // Controls Enable
-        private bool _Output_Location_IsEnabled { get; set; }
-        public bool Output_Location_IsEnabled
-        {
-            get { return _Output_Location_IsEnabled; }
-            set
-            {
-                if (_Output_Location_IsEnabled == value)
-                {
-                    return;
-                }
-
-                _Output_Location_IsEnabled = value;
-                OnPropertyChanged("Output_Location_IsEnabled");
             }
         }
 
@@ -393,6 +406,54 @@ namespace Axiom
             }
         }
 
+
+
+        // --------------------------------------------------------------------------------------------------------
+        /// <summary>
+        ///     Output
+        /// </summary>
+        // --------------------------------------------------------------------------------------------------------
+
+        // --------------------------------------------------
+        // Output - TextBox
+        // --------------------------------------------------
+        // Text
+        private string _Output_Text = string.Empty;
+        public string Output_Text
+        {
+            get { return _Output_Text; }
+            set
+            {
+                if (_Output_Text == value)
+                {
+                    return;
+                }
+
+                _Output_Text = value;
+                OnPropertyChanged("Output_Text");
+            }
+        }
+
+        // --------------------------------------------------
+        // Output Location - Button
+        // --------------------------------------------------
+        // Controls Enable
+        private bool _Output_Location_IsEnabled { get; set; }
+        public bool Output_Location_IsEnabled
+        {
+            get { return _Output_Location_IsEnabled; }
+            set
+            {
+                if (_Output_Location_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _Output_Location_IsEnabled = value;
+                OnPropertyChanged("Output_Location_IsEnabled");
+            }
+        }
+
         // --------------------------------------------------
         // Script View
         // --------------------------------------------------
@@ -446,57 +507,27 @@ namespace Axiom
         }
 
 
+
         // --------------------------------------------------
-        // Debug
+        // Convert Button - TextBlock
         // --------------------------------------------------
-        // FlowDocument
-        private FlowDocument _Debug_FlowDocument;
-        public FlowDocument Debug_FlowDocument
-        {
-            get { return _Debug_FlowDocument; }
-            set
-            {
-                if (_Debug_FlowDocument == value)
-                {
-                    return;
-                }
-
-                _Debug_FlowDocument = value;
-                OnPropertyChanged("Debug_FlowDocument");
-            }
-        }
-
-        // Paragraph
-        private Paragraph _Debug_Paragraph;
-        public Paragraph Debug_Paragraph
-        {
-            get { return _Debug_Paragraph; }
-            set
-            {
-                if (_Debug_Paragraph == value)
-                {
-                    return;
-                }
-
-                _Debug_Paragraph = value;
-                OnPropertyChanged("Debug_Paragraph");
-            }
-        }
-
         // Text
-        private string _Debug_Text;
-        public string Debug_Text
+        private string _Convert_Text = "Convert";
+        public string Convert_Text
         {
-            get { return _Debug_Text; }
+            get { return _Convert_Text; }
             set
             {
-                if (value != _Debug_Text)
+                if (_Convert_Text == value)
                 {
-                    _Debug_Text = value;
-                    OnPropertyChanged("Debug_Text");
+                    return;
                 }
+
+                _Convert_Text = value;
+                OnPropertyChanged("Convert_Text");
             }
         }
+
 
 
         // --------------------------------------------------------------------------------------------------------
@@ -1467,7 +1498,7 @@ namespace Axiom
         private List<string> _Format_YouTube_Items = new List<string>()
         {
             "Video + Audio",
-            //"Video Only",
+            "Video Only",
             "Audio Only"
         };
         public List<string> Format_YouTube_Items
@@ -1538,7 +1569,11 @@ namespace Axiom
         // Items Source
         private List<string> _Format_YouTube_Quality_Items = new List<string>()
         {
-            "best"
+            "best",
+            "best 1080p",
+            "best 720p",
+            "best 480p",
+            "worst"
         };
         public List<string> Format_YouTube_Quality_Items
         {

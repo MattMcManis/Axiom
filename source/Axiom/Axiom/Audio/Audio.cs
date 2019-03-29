@@ -72,7 +72,7 @@ namespace Axiom
         public static string aHardLimiter;
 
         // Batch
-        public static string aBitrateLimiter; // limits the bitrate value of webm and ogg
+        //public static string aBitrateLimiter; // limits the bitrate value of webm and ogg
         public static string batchAudioAuto;
 
 
@@ -139,10 +139,12 @@ namespace Axiom
         /// <summary>
         public static void QualityAuto(string input_Text,
                                        bool batch_IsChecked,
-                                       bool vbr_IsChecked,
+                                       string mediaType_SelectedItem,
+                                       string stream_SelectedItem,
                                        string codec_SelectedItem,
                                        List<ViewModel.AudioQuality> quality_Items,
-                                       string quality_SelectedItem
+                                       string quality_SelectedItem,
+                                       bool vbr_IsChecked
                                        )
         {
             // No Detectable Bitrate Default
@@ -167,7 +169,20 @@ namespace Axiom
                         if (vbr_IsChecked == false)
                         {
                             // aBitMode = "-b:a";
-                            aBitrate = AudioBitrateCalculator(codec_SelectedItem, FFprobe.aEntryType, FFprobe.inputAudioBitrate);
+                            aBitrate = AudioBitrateCalculator(codec_SelectedItem, 
+                                                              FFprobe.aEntryType,
+
+                                                              //FFprobe.inputAudioBitrate
+
+                                                              // Limit FFprobe Input Audio Bitrate if higher than Codec's maximum bit rate
+                                                              AudioBitrateLimiter(mediaType_SelectedItem,
+                                                                                  stream_SelectedItem,
+                                                                                  codec_SelectedItem,
+                                                                                  quality_SelectedItem,
+                                                                                  Convert.ToInt32(FFprobe.inputAudioBitrate)
+                                                                                  )
+                                                                                  .ToString()
+                                                              );
                         }
 
                         // VBR
@@ -175,7 +190,12 @@ namespace Axiom
                         {
                             //VBR does not have 'k'
                             // aBitMode = "-q:a";
-                            aBitrate = AudioVBRCalculator(vbr_IsChecked, codec_SelectedItem, FFprobe.inputAudioBitrate);
+                            aBitrate = AudioVBRCalculator(vbr_IsChecked, 
+                                                          codec_SelectedItem,
+                                                          quality_Items,
+                                                          quality_SelectedItem,
+                                                          FFprobe.inputAudioBitrate // VBR Birate Limiter is handled in VBR Calculator
+                                                          );
                         }
                     }
 
@@ -196,14 +216,22 @@ namespace Axiom
                                 // CBR
                                 if (vbr_IsChecked == false)
                                 {
-                                    aBitrate = AudioBitrateCalculator(codec_SelectedItem, FFprobe.aEntryType, aBitrateNA);
+                                    aBitrate = AudioBitrateCalculator(codec_SelectedItem, 
+                                                                      FFprobe.aEntryType, 
+                                                                      aBitrateNA
+                                                                      );
                                 }
 
                                 // VBR
                                 else if (vbr_IsChecked == true)
                                 {
                                     //VBR does not have 'k'
-                                    aBitrate = AudioVBRCalculator(vbr_IsChecked, codec_SelectedItem, aBitrateNA);
+                                    aBitrate = AudioVBRCalculator(vbr_IsChecked, 
+                                                                  codec_SelectedItem,
+                                                                  quality_Items,
+                                                                  quality_SelectedItem,
+                                                                  aBitrateNA
+                                                                  );
                                 }
                             }
                             // Default to 320k if NA value is empty
@@ -236,7 +264,8 @@ namespace Axiom
                 // -------------------------
                 // Bitrate is 0 (Happens with NA)
                 // -------------------------
-                if (aBitrate == "0")
+                if (aBitrate == "0" &&
+                    vbr_IsChecked == false) // Ignore VBR, Some Codecs use VBR 0
                 {
                     aBitMode = string.Empty;
                     aBitrate = string.Empty;
@@ -300,6 +329,8 @@ namespace Axiom
         /// <summary>
         public static void QualityCustom(bool vbr_IsChecked,
                                          string codec_SelectedItem,
+                                         List<ViewModel.AudioQuality> quality_Items,
+                                         string quality_SelectedItem,
                                          string bitrate_Text
                                          )
         {
@@ -323,6 +354,8 @@ namespace Axiom
                 // e.g. 320k converted to -q:a 2
                 aBitrate = AudioVBRCalculator(vbr_IsChecked, 
                                               codec_SelectedItem, 
+                                              quality_Items,
+                                              quality_SelectedItem,
                                               bitrate_Text
                                               );
             }
@@ -334,12 +367,13 @@ namespace Axiom
         /// <summary>
         public static String AudioQuality(string input_Text,
                                           bool batch_IsChecked,
-                                          bool vbr_IsChecked,
                                           string mediaType_SelectedItem,
+                                          string stream_SelectedItem,
                                           string codec_SelectedItem,
                                           List<ViewModel.AudioQuality> quality_Items,
                                           string quality_SelectedItem,
-                                          string bitrate_Text
+                                          string bitrate_Text,
+                                          bool vbr_IsChecked
                                           )
         {
             // Check:
@@ -372,10 +406,12 @@ namespace Axiom
                     {
                         QualityAuto(input_Text,
                                     batch_IsChecked,
-                                    vbr_IsChecked,
+                                    mediaType_SelectedItem,
+                                    stream_SelectedItem,
                                     codec_SelectedItem,
                                     quality_Items,
-                                    quality_SelectedItem
+                                    quality_SelectedItem,
+                                    vbr_IsChecked
                                     );
                     }
 
@@ -394,6 +430,8 @@ namespace Axiom
                     {
                         QualityCustom(vbr_IsChecked,
                                       codec_SelectedItem,
+                                      quality_Items,
+                                      quality_SelectedItem,
                                       bitrate_Text);
                     }
 
@@ -467,7 +505,7 @@ namespace Axiom
                     // -------------------------
                     if (inputAudioBitrate.Substring(0, 3) == "N/A")
                     {
-                        MessageBox.Show("1");
+                        //MessageBox.Show("1");
                         inputAudioBitrate = "N/A";
                     }
                 }
@@ -578,7 +616,10 @@ namespace Axiom
             }
             catch
             {
-                MessageBox.Show("Error calculating Audio Bitrate.");
+                MessageBox.Show("Problem calculating Audio Bitrate.",
+                                "Error",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Error);
             }
 
             return inputAudioBitrate;
@@ -589,7 +630,9 @@ namespace Axiom
         ///     Audio VBR Calculator
         /// <summary>
         public static String AudioVBRCalculator(bool vbr_IsChecked, 
-                                                string codec_SelectedItem, 
+                                                string codec_SelectedItem,
+                                                List<ViewModel.AudioQuality> quality_Items,
+                                                string quality_SelectedItem,
                                                 string inputBitrate
                                                 )
         {
@@ -604,41 +647,34 @@ namespace Axiom
             {
                 // Used to Calculate VBR Double
                 //
-                double aBitrateVBR = double.Parse(inputBitrate); // passed parameter
+                double aBitrateVBR = (double.Parse(inputBitrate)); // If passed from
 
+                // If inputBitrate is from Auto Quality FFprobe Parse, divide by 1000 to get smaller value
+                // e.g. (320000 to 320)
+                // If inputBirate is from Custom Quality User Input value, leave the same
+                if (quality_SelectedItem == "Auto")
+                {
+                    aBitrateVBR = aBitrateVBR / 1000;
+                }
 
+                
                 // -------------------------
                 // AAC
                 // -------------------------
                 if (codec_SelectedItem == "AAC")
                 {
-                    // Calculate VBR
-                    aBitrateVBR = aBitrateVBR * 0.00625;
-
-
-                    // AAC VBR Above 400k Error
+                    // Above 400k 
                     if (aBitrateVBR > 400)
                     {
-                        // Log Console Message /////////
-                        Log.WriteAction = () =>
-                        {
-                            Log.logParagraph.Inlines.Add(new LineBreak());
-                            Log.logParagraph.Inlines.Add(new LineBreak());
-                            Log.logParagraph.Inlines.Add(new Bold(new Run("Warning: AAC VBR cannot be above 400k."))
-                            { Foreground = Log.ConsoleWarning });
-                        };
-                        Log.LogActions.Add(Log.WriteAction);
-
-                        /* lock */
-                        //MainWindow.ready = false;
-                        // Error
-                        MessageBox.Show("Error: AAC VBR cannot be above 400k.");
-
-                        // Default to 400
-                        aBitrateVBR = 400;
+                        //aBitrateVBR = 2;
+                        aBitrateVBR = Convert.ToDouble(quality_Items.FirstOrDefault(item => item.Name == "Auto")?.VBR);
+                    }
+                    else
+                    {
+                        // Calculate VBR
+                        aBitrateVBR = aBitrateVBR * 0.00625;
                     }
                 }
-
 
                 // -------------------------
                 // Vorbis
@@ -648,7 +684,7 @@ namespace Axiom
                     // Above 290k set to 10 Quality
                     if (aBitrateVBR > 290)
                     {
-                        aBitrateVBR = 10;
+                        aBitrateVBR = aBitrateVBR = Convert.ToDouble(quality_Items.FirstOrDefault(item => item.Name == "Auto")?.VBR);
                     }
                     // 32 bracket
                     else if (aBitrateVBR >= 128) //above 113kbps, use standard equation
@@ -678,22 +714,45 @@ namespace Axiom
                 // -------------------------
                 else if (codec_SelectedItem == "Opus")
                 {
-                    // e.g. 128000 to 128k
-                    aBitrateVBR = aBitrateVBR * 0.001;
+                    // Above 510k set to 256k
+                    if (aBitrateVBR > 510)
+                    {
+                        aBitrateVBR = Convert.ToDouble(quality_Items.FirstOrDefault(item => item.Name == "Auto")?.VBR);
+                    }
+                    else
+                    {
+                        // e.g. 128000 to 128k
+                        aBitrateVBR = aBitrateVBR * 0.001;
+                    }
+
                 }
 
                 // -------------------------
                 // MP2
                 // -------------------------
+                else if (codec_SelectedItem == "MP2")
+                {
+                    // Above 384k set to V0
+                    if (aBitrateVBR > 384)
+                    {
+                        aBitrateVBR = Convert.ToDouble(quality_Items.FirstOrDefault(item => item.Name == "Auto")?.VBR);
+                    }
+                    else
+                    {
+                        // VBR User entered value algorithm (0 high / 10 low)
+                        aBitrateVBR = (((aBitrateVBR * (-0.01)) / 2.60) + 1) * 10;
+                    }
+                }
+
+                // -------------------------
                 // LAME MP3
                 // -------------------------
-                else if (codec_SelectedItem == "MP2" ||
-                         codec_SelectedItem == "LAME")
+                else if (codec_SelectedItem == "LAME")
                 {
-                    // Above 260k set to V0
-                    if (aBitrateVBR > 260)
+                    // Above 320k set to V0
+                    if (aBitrateVBR > 320)
                     {
-                        aBitrateVBR = 0;
+                        aBitrateVBR = Convert.ToDouble(quality_Items.FirstOrDefault(item => item.Name == "Auto")?.VBR);
                     }
                     else
                     {
@@ -982,6 +1041,128 @@ namespace Axiom
 
 
         /// <summary>
+        ///    Audio Bitrate Limiter (Method)
+        /// <summary>
+        public static int AudioBitrateLimiter(string mediaType_SelectedItem,
+                                              string stream_SelectedItem,
+                                              string codec_SelectedItem,
+                                              string quality_SelectedItem,
+                                              int aBitrateLimit
+                                              )
+        {
+            // Check:
+            // Media Type Image/Sequence
+            // Audio Codec None
+            // Audio Codec Copy
+            // Audio Stream none
+            // Audio Quality None
+            // Audio Quality Mute
+            if (mediaType_SelectedItem != "Image" &&
+                mediaType_SelectedItem != "Sequence" &&
+                codec_SelectedItem != "None" &&
+                codec_SelectedItem != "Copy" &&
+                stream_SelectedItem != "none" &&
+                quality_SelectedItem != "None" &&
+                quality_SelectedItem != "Mute"
+                )
+            {
+                // -------------------------
+                // Batch Limit Bitrates
+                // -------------------------
+                // Only if Audio Quality Auto
+                if (quality_SelectedItem == "Auto")
+                {
+                    try
+                    {
+                        // Vorbis
+                        if (codec_SelectedItem == "Vorbis")
+                        {
+                            if (aBitrateLimit > 500000)
+                            {
+                                return 500000;
+                            }
+                        }
+                        // Opus
+                        else if (codec_SelectedItem == "Opus")
+                        {
+                            if (aBitrateLimit > 510000)
+                            {
+                                return 510000;
+                            }
+                        }
+                        // AAC
+                        else if (codec_SelectedItem == "AAC")
+                        {
+                            if (aBitrateLimit > 400000)
+                            {
+                                return 400000;
+                            }
+                        }
+                        // AC3
+                        else if (codec_SelectedItem == "AC3")
+                        {
+                            if (aBitrateLimit > 640000)
+                            {
+                                return 640000;
+                            }
+                        }
+                        // DTS
+                        else if (codec_SelectedItem == "DTS")
+                        {
+                            if (aBitrateLimit > 1509075)
+                            {
+                                return 1509075;
+                            }
+                        }
+                        // MP2
+                        else if (codec_SelectedItem == "MP2")
+                        {
+                            if (aBitrateLimit > 384000)
+                            {
+                                return 384000;
+                            }
+                        }
+                        // LAME
+                        else if (codec_SelectedItem == "LAME")
+                        {
+                            if (aBitrateLimit > 320000)
+                            {
+                                return 320000;
+                            }
+                        }
+                        // FLAC
+                        else if (codec_SelectedItem == "FLAC")
+                        {
+                            if (aBitrateLimit > 1411000)
+                            {
+                                return 1411000;
+                            }
+                        }
+                        // PCM
+                        else if (codec_SelectedItem == "PCM")
+                        {
+                            if (aBitrateLimit > 1536000)
+                            {
+                                return 1536000;
+                            }
+                        }
+                    }
+
+                    // Error comparing bit rate
+                    catch
+                    {
+                        // Return a sensible default
+                        return 320000;
+                    }
+                }
+            }
+
+            // Return Value
+            return aBitrateLimit;
+        }
+
+
+        /// <summary>
         ///     Batch Audio Bitrate Limiter (Method)
         /// <summary>
         public static String BatchAudioBitrateLimiter(string mediaType_SelectedItem,
@@ -1009,49 +1190,59 @@ namespace Axiom
                 // -------------------------
                 // Batch Limit Bitrates
                 // -------------------------
-                // Only if Audio ComboBox Auto
+                // Only if Audio Quality Auto
                 if (quality_SelectedItem == "Auto")
                 {
-                    // Limit Vorbis bitrate to 500k through cmd.exe
+                    // Vorbis
                     if (codec_SelectedItem == "Vorbis")
                     {
-                        aBitrateLimiter = "& (IF %A gtr 500000 (SET aBitrate=500000) ELSE (echo Bitrate within Vorbis Limit of 500k)) & for /F %A in ('echo %aBitrate%') do (echo)";
+                        return "& (IF %A gtr 500000 (SET aBitrate=500000) ELSE (echo Bitrate within Vorbis Limit of 500k)) & for /F %A in ('echo %aBitrate%') do (echo)";
                     }
-                    // Limit Opus bitrate to 510k through cmd.exe
+                    // Opus
                     else if (codec_SelectedItem == "Opus")
                     {
-                        aBitrateLimiter = "& (IF %A gtr 510000 (SET aBitrate=510000) ELSE (echo Bitrate within Opus Limit of 510k)) & for /F %A in ('echo %aBitrate%') do (echo)";
+                        return "& (IF %A gtr 510000 (SET aBitrate=510000) ELSE (echo Bitrate within Opus Limit of 510k)) & for /F %A in ('echo %aBitrate%') do (echo)";
                     }
-                    // Limit AAC bitrate to 400k through cmd.exe
+                    // AAC
                     else if (codec_SelectedItem == "AAC")
                     {
-                        aBitrateLimiter = "& (IF %A gtr 400000 (SET aBitrate=400000) ELSE (echo Bitrate within AAC Limit of 400k)) & for /F %A in ('echo %aBitrate%') do (echo)";
+                        return "& (IF %A gtr 400000 (SET aBitrate=400000) ELSE (echo Bitrate within AAC Limit of 400k)) & for /F %A in ('echo %aBitrate%') do (echo)";
                     }
-                    // Limit AC3 bitrate to 640k through cmd.exe
+                    // AC3
                     else if (codec_SelectedItem == "AC3")
                     {
-                        aBitrateLimiter = "& (IF %A gtr 640000 (SET aBitrate=640000) ELSE (echo Bitrate within AC3 Limit of 640k)) & for /F %A in ('echo %aBitrate%') do (echo)";
+                        return "& (IF %A gtr 640000 (SET aBitrate=640000) ELSE (echo Bitrate within AC3 Limit of 640k)) & for /F %A in ('echo %aBitrate%') do (echo)";
                     }
-                    // Limit DTS bitrate to 640k through cmd.exe
+                    // DTS
                     else if (codec_SelectedItem == "DTS")
                     {
-                        aBitrateLimiter = "& (IF %A gtr 1509000 (SET aBitrate=640000) ELSE (echo Bitrate within DTS Limit of 1509k)) & for /F %A in ('echo %aBitrate%') do (echo)";
+                        return "& (IF %A gtr 1509075 (SET aBitrate=640000) ELSE (echo Bitrate within DTS Limit of 1509.75k)) & for /F %A in ('echo %aBitrate%') do (echo)";
                     }
-                    // Limit MP2 bitrate to 384k through cmd.exe
+                    // MP2
                     else if (codec_SelectedItem == "MP2")
                     {
-                        aBitrateLimiter = "& (IF %A gtr 384000 (SET aBitrate=384000) ELSE (echo Bitrate within MP2 Limit of 384k)) & for /F %A in ('echo %aBitrate%') do (echo)";
+                        return "& (IF %A gtr 384000 (SET aBitrate=384000) ELSE (echo Bitrate within MP2 Limit of 384k)) & for /F %A in ('echo %aBitrate%') do (echo)";
                     }
-                    // Limit LAME bitrate to 320k through cmd.exe
+                    // LAME
                     else if (codec_SelectedItem == "LAME")
                     {
-                        aBitrateLimiter = "& (IF %A gtr 320000 (SET aBitrate=320000) ELSE (echo Bitrate within LAME Limit of 320k)) & for /F %A in ('echo %aBitrate%') do (echo)";
+                        return "& (IF %A gtr 320000 (SET aBitrate=320000) ELSE (echo Bitrate within LAME Limit of 320k)) & for /F %A in ('echo %aBitrate%') do (echo)";
                     }
+                    //// FLAC
+                    //else if (codec_SelectedItem == "FLAC")
+                    //{
+                    //    return "& (IF %A gtr 1411000 (SET aBitrate=1411000) ELSE (echo Bitrate within LAME Limit of 1411k)) & for /F %A in ('echo %aBitrate%') do (echo)";
+                    //}
+                    //// PCM
+                    //else if (codec_SelectedItem == "PCM")
+                    //{
+                    //    return "& (IF %A gtr 1536000 (SET aBitrate=1536000) ELSE (echo Bitrate within LAME Limit of 1536k)) & for /F %A in ('echo %aBitrate%') do (echo)";
+                    //}
                 }
             }
 
             // Return Value
-            return aBitrateLimiter;
+            return string.Empty;
         }
 
 

@@ -29,7 +29,7 @@ namespace Axiom
 {
     public class Presets
     {
-        public static void Preset(ViewModel vm)
+        public static void SetPreset(ViewModel vm)
         {
             // -------------------------
             // Custom
@@ -1799,6 +1799,7 @@ namespace Axiom
                 // Filters
                 vm.FiltersSetDefault();
             }
+
         }
     }
 }

@@ -232,12 +232,13 @@ namespace Axiom
                     "\r\n" +
                     Audio.AudioQuality(vm.Input_Text,
                                        vm.Batch_IsChecked,
-                                       vm.Audio_VBR_IsChecked,
                                        vm.Format_MediaType_SelectedItem,
+                                       vm.Audio_Stream_SelectedItem,
                                        vm.Audio_Codec_SelectedItem,
                                        vm.Audio_Quality_Items,
                                        vm.Audio_Quality_SelectedItem,
-                                       vm.Audio_Bitrate_Text
+                                       vm.Audio_Bitrate_Text,
+                                       vm.Audio_VBR_IsChecked
                                        ),
                     Audio.CompressionLevel(vm.Format_MediaType_SelectedItem,
                                            vm.Audio_Codec_SelectedItem,
@@ -525,12 +526,13 @@ namespace Axiom
                     "\r\n" +
                     Audio.AudioQuality(vm.Input_Text,
                                        vm.Batch_IsChecked,
-                                       vm.Audio_VBR_IsChecked,
                                        vm.Format_MediaType_SelectedItem,
+                                       vm.Audio_Stream_SelectedItem,
                                        vm.Audio_Codec_SelectedItem,
                                        vm.Audio_Quality_Items,
                                        vm.Audio_Quality_SelectedItem,
-                                       vm.Audio_Bitrate_Text
+                                       vm.Audio_Bitrate_Text,
+                                       vm.Audio_VBR_IsChecked
                                        ),
                     Audio.CompressionLevel(vm.Format_MediaType_SelectedItem,
                                            vm.Audio_Codec_SelectedItem,
@@ -810,7 +812,7 @@ namespace Axiom
 
                 // Download Video
                 "\r\n\r\n" + "do (",
-                "\r\n\r\n" + "@" + "\"" + MainWindow.youtubedl + "\"" + " -f " + MainWindow.YouTubeDownloadQuality(vm.Format_YouTube_SelectedItem, vm.Format_YouTube_Quality_SelectedItem) + " " + "\"" + vm.Input_Text + "\"" + " -o " + "\"" + MainWindow.downloadDir + "%f" + "." + MainWindow.YouTubeDownloadFormat(vm.Format_YouTube_SelectedItem) + "\"" + " --ffmpeg-location " + MainWindow.FFmpegPath(vm) + " " + " --merge-output-format " + MainWindow.YouTubeDownloadFormat(vm.Format_YouTube_SelectedItem),
+                "\r\n\r\n" + "@" + "\"" + MainWindow.youtubedl + "\"" + " -f " + MainWindow.YouTubeDownloadQuality(vm.Format_YouTube_SelectedItem, vm.Format_YouTube_Quality_SelectedItem) + " " + "\"" + vm.Input_Text + "\"" + " -o " + "\"" + MainWindow.downloadDir + "%f" + "." + MainWindow.YouTubeDownloadFormat(vm.Format_YouTube_SelectedItem) + "\"" + MainWindow.YouTubeDL_FFmpegPath(vm) + " --merge-output-format " + MainWindow.YouTubeDownloadFormat(vm.Format_YouTube_SelectedItem),
             };
 
             // FFmpeg Args

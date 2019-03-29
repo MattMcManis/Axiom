@@ -262,5 +262,17 @@ namespace Axiom.Properties {
                 this["youtubedlPath"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Debug {
+            get {
+                return ((string)(this["Debug"]));
+            }
+            set {
+                this["Debug"] = value;
+            }
+        }
     }
 }

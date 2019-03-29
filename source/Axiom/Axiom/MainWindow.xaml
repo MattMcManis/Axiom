@@ -5472,7 +5472,7 @@
                     Height="22"
                     Cursor="Hand" Click="btnConvert_Click">
                 <TextBlock x:Name="btnConvertTextBlock" 
-                           Text="Convert"
+                           Text="{Binding Convert_Text, Mode=TwoWay}"
                            Margin="0,-2,0,0"/>
             </Button>
 

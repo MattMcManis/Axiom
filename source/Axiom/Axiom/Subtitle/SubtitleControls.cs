@@ -207,6 +207,46 @@ namespace Axiom
             //vm.Video_Quality_SelectedItem = SelectedItem(vm.Video_Quality_Items,
             //                                            vm.Video_Quality_SelectedItem
             //                                            );
+
+
+            // --------------------------------------------------
+            // Selected Items
+            // --------------------------------------------------
+            // -------------------------
+            // None Codec
+            // -------------------------
+            if (vm.Subtitle_Codec_SelectedItem == "None")
+            {
+                vm.Subtitle_Stream_SelectedItem = "none";
+                vm.Subtitle_Stream_IsEnabled = false;
+            }
+
+            // -------------------------
+            // Burn Codec
+            // -------------------------
+            else if (vm.Subtitle_Codec_SelectedItem == "Burn")
+            {
+                // Force Select External
+                // Can't burn All subtitle streams
+                vm.Subtitle_Stream_SelectedItem = "external";
+                vm.Subtitle_Stream_IsEnabled = true;
+            }
+
+            // -------------------------
+            // Copy Codec
+            // -------------------------
+            else if (vm.Subtitle_Codec_SelectedItem == "Copy")
+            {
+                vm.Subtitle_Stream_IsEnabled = true;
+            }
+
+            // -------------------------
+            // All Other Codecs
+            // -------------------------
+            else
+            {
+                vm.Subtitle_Stream_IsEnabled = true;
+            }
         }
 
 

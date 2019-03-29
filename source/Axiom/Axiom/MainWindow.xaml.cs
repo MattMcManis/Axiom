@@ -702,7 +702,7 @@ namespace Axiom
             Audio.aCompressionLevel = string.Empty;
             Audio.aSamplerate = string.Empty;
             Audio.aBitDepth = string.Empty;
-            Audio.aBitrateLimiter = string.Empty;
+            //Audio.aBitrateLimiter = string.Empty;
             AudioFilters.aFilter = string.Empty;
             Audio.aVolume = string.Empty;
             Audio.aHardLimiter = string.Empty;
@@ -718,7 +718,7 @@ namespace Axiom
             FFprobe.batchFFprobeAuto = string.Empty;
             Video.batchVideoAuto = string.Empty;
             Audio.batchAudioAuto = string.Empty;
-            Audio.aBitrateLimiter = string.Empty;
+            //Audio.aBitrateLimiter = string.Empty;
 
             // Streams
             //Streams.map = string.Empty;
@@ -1818,18 +1818,20 @@ namespace Axiom
         /// </remarks>
         public static bool IsYouTubeDownloadOnly(ViewModel vm)
         {
-            if (// Video
+            if (//IsYouTubeURL(vm.Input_Text) == true &&
+                
+                // Video
                 (vm.Video_Codec_SelectedItem == "Copy" &&
                  vm.Subtitle_Codec_SelectedItem == "Copy" &&
                  vm.Audio_Codec_SelectedItem == "Copy") ||
 
                 (vm.Video_Codec_SelectedItem == "Copy" &&
                  vm.Subtitle_Codec_SelectedItem == "Copy" //&&
-                                                         /*vm.Audio_Codec_SelectedItem == "None"*/) ||
+                 /*vm.Audio_Codec_SelectedItem == "None"*/) ||
 
                 (vm.Video_Codec_SelectedItem == "Copy" &&
                  vm.Subtitle_Codec_SelectedItem == "None" //&&
-                                                         /*vm.Audio_Codec_SelectedItem == "None"*/) ||
+                 /*vm.Audio_Codec_SelectedItem == "None"*/) ||
 
                 (vm.Video_Codec_SelectedItem == "Copy" &&
                  vm.Subtitle_Codec_SelectedItem == "None" &&
@@ -1839,7 +1841,6 @@ namespace Axiom
                 (vm.Video_Codec_SelectedItem == "None" &&
                 vm.Subtitle_Codec_SelectedItem == "None" &&
                 vm.Audio_Codec_SelectedItem == "Copy")
-
                 )
             {
                 return true;
@@ -1847,6 +1848,62 @@ namespace Axiom
             else
             {
                 return false;
+            }
+        }
+
+
+        /// <remarks>
+        ///     YouTube Download - FFmpeg Path
+        /// </remarks>
+        public static String YouTubeDL_FFmpegPath(ViewModel vm)
+        {
+            // youtube-dl
+            // FFmpeg must be detected by youtube-dl to merge video+audio into a single file
+            // If using Environment Variables, path will be only 'ffmpeg'
+            // If defining ffmpeg location, do not use "--ffmpeg-location ffmpeg", it will fail
+            // You must use a full path --ffmpeg-location "C:\Path\To\ffmpeg.exe"
+
+            string path = FFmpegPath(vm);
+
+            // Environment Variables
+            if (path == "ffmpeg")
+            {
+                // Do not specify a path if using Environment Variables
+                // It will be detected by youtube-dl automatically
+                return string.Empty;
+            }
+
+            // Missing
+            else if (string.IsNullOrEmpty(path))
+            {
+                // Let youtube-dl throw error
+                return string.Empty;
+            }
+
+            // Specify ffmpeg.exe path
+            else
+            {
+                return " --ffmpeg-location " + path;
+            }
+        }
+
+
+        /// <summary>
+        ///    Convert Button Text Change (Method)
+        /// </summary>
+        public static void ConvertButtonText(ViewModel vm)
+        {
+            // Change to "Download" if YouTube Download Only Mode
+            if (IsYouTubeURL(vm.Input_Text) == true &&
+                IsYouTubeDownloadOnly(vm) == true)
+            {
+                vm.Convert_Text = "Download";
+            }
+
+            // Change to Convert if User Defined Custom Settings
+            else
+            {
+                vm.Convert_Text = "Convert";
             }
         }
 
@@ -1896,6 +1953,12 @@ namespace Axiom
                 return "mp4";
             }
 
+            // Video Only
+            else if (youtubedl_SelectedItem == "Video Only")
+            {
+                return "mp4";
+            }
+
             // Audio Only
             else if (youtubedl_SelectedItem == "Audio Only")
             {
@@ -1909,23 +1972,82 @@ namespace Axiom
         /// <summary>
         ///    YouTube Download - Quality (Method)
         /// </summary>
-        public static String YouTubeDownloadQuality(string youtubedl_SelectedItem, string youtubedl_Quality_SelectedItem)
+        public static String YouTubeDownloadQuality(string youtubedl_SelectedItem, 
+                                                    string youtubedl_Quality_SelectedItem
+                                                    )
         {
             // Video + Audio
             if (youtubedl_SelectedItem == "Video + Audio")
             {
+                // Best
                 if (youtubedl_Quality_SelectedItem == "best")
                 {
                     return "bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio";
+                }
+                // Best 1080p
+                else if (youtubedl_Quality_SelectedItem == "best 1080p")
+                {
+                    return "bestvideo[height=1080][ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio";
+                }
+                // Best 720p
+                else if (youtubedl_Quality_SelectedItem == "best 720p")
+                {
+                    return "bestvideo[height=720][ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio";
+                }
+                // Best 480p
+                else if (youtubedl_Quality_SelectedItem == "best 480p")
+                {
+                    return "bestvideo[height=480][ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio";
+                }
+                // Worst
+                else if (youtubedl_Quality_SelectedItem == "worst")
+                {
+                    return "worstvideo[ext=mp4]+worstaudio[ext=m4a]/worstvideo+worstaudio";
+                }
+            }
+
+            // Video Only
+            else if (youtubedl_SelectedItem == "Video Only")
+            {
+                // Best
+                if (youtubedl_Quality_SelectedItem == "best")
+                {
+                    return "bestvideo[ext=mp4]/bestvideo";
+                }
+                // Best 1080p
+                else if(youtubedl_Quality_SelectedItem == "best 1080p")
+                {
+                    return "bestvideo[height=1080][ext=mp4]/bestvideo";
+                }
+                // Best 720p
+                else if (youtubedl_Quality_SelectedItem == "best 720p")
+                {
+                    return "bestvideo[height=720p][ext=mp4]/bestvideo";
+                }
+                // Best 480p
+                else if (youtubedl_Quality_SelectedItem == "best 480p")
+                {
+                    return "bestvideo[height=480p][ext=mp4]/bestvideo";
+                }
+                // Worst
+                else if (youtubedl_Quality_SelectedItem == "worst")
+                {
+                    return "worstvideo[ext=mp4]/worstvideo";
                 }
             }
 
             // Audio Only
             else if (youtubedl_SelectedItem == "Audio Only")
             {
+                // Best
                 if (youtubedl_Quality_SelectedItem == "best")
                 {
                     return "bestaudio[ext=m4a]/bestaudio";
+                }
+                // Worst
+                else if (youtubedl_Quality_SelectedItem == "worst")
+                {
+                    return "worstaudio[ext=m4a]/worstaudio";
                 }
             }
 
@@ -4239,6 +4361,11 @@ namespace Axiom
             // Optimize Controls
             // -------------------------
             VideoControls.OptimizeControls(vm);
+
+            // -------------------------
+            // Convert Button Text Change
+            // -------------------------
+            ConvertButtonText(vm);
         }
 
 
@@ -4533,7 +4660,7 @@ namespace Axiom
         /// </summary>
         private void cboPreset_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Presets.Preset(vm);
+            Presets.SetPreset(vm);
         }
 
 
@@ -4818,41 +4945,47 @@ namespace Axiom
             // -------------------------
             SubtitleControls.SetControls(vm, vm.Subtitle_Codec_SelectedItem);
 
-            // -------------------------
-            // None Codec
-            // -------------------------
-            if (vm.Subtitle_Codec_SelectedItem == "None")
-            {
-                vm.Subtitle_Stream_SelectedItem = "none";
-                vm.Subtitle_Stream_IsEnabled = false;
-            }
+            //// -------------------------
+            //// None Codec
+            //// -------------------------
+            //if (vm.Subtitle_Codec_SelectedItem == "None")
+            //{
+            //    vm.Subtitle_Stream_SelectedItem = "none";
+            //    vm.Subtitle_Stream_IsEnabled = false;
+            //}
+
+            //// -------------------------
+            //// Burn Codec
+            //// -------------------------
+            //else if (vm.Subtitle_Codec_SelectedItem == "Burn")
+            //{
+            //    // Force Select External
+            //    // Can't burn All subtitle streams
+            //    vm.Subtitle_Stream_SelectedItem = "external";
+            //    vm.Subtitle_Stream_IsEnabled = true;
+            //}
+
+            //// -------------------------
+            //// Copy Codec
+            //// -------------------------
+            //else if (vm.Subtitle_Codec_SelectedItem == "Copy")
+            //{
+            //    vm.Subtitle_Stream_IsEnabled = true;
+            //}
+
+            //// -------------------------
+            //// All Other Codecs
+            //// -------------------------
+            //else
+            //{
+            //    vm.Subtitle_Stream_IsEnabled = true;
+            //}
+
 
             // -------------------------
-            // Burn Codec
+            // Convert Button Text Change
             // -------------------------
-            else if (vm.Subtitle_Codec_SelectedItem == "Burn")
-            {
-                // Force Select External
-                // Can't burn All subtitle streams
-                vm.Subtitle_Stream_SelectedItem = "external";
-                vm.Subtitle_Stream_IsEnabled = true;
-            }
-
-            // -------------------------
-            // Copy Codec
-            // -------------------------
-            else if (vm.Subtitle_Codec_SelectedItem == "Copy")
-            {
-                vm.Subtitle_Stream_IsEnabled = true;
-            }
-
-            // -------------------------
-            // All Other Codecs
-            // -------------------------
-            else
-            {
-                vm.Subtitle_Stream_IsEnabled = true;
-            }
+            ConvertButtonText(vm);
         }
 
 
@@ -5070,6 +5203,11 @@ namespace Axiom
             // Set Controls
             // -------------------------
             AudioControls.SetControls(vm, vm.Audio_Codec_SelectedItem);
+
+            // -------------------------
+            // Convert Button Text Change
+            // -------------------------
+            ConvertButtonText(vm);
         }
 
 
