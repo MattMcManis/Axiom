@@ -895,7 +895,7 @@
                                       Grid.Column="2" 
                                       Grid.Row="8" 
                                       Height="22" 
-                                      Margin="0,3,0,0" />
+                                      Margin="0,3,0,0" SelectionChanged="cboYouTube_SelectionChanged" />
 
                             <!-- YouTube Quality -->
                             <Label Style="{DynamicResource LabelCustom}"

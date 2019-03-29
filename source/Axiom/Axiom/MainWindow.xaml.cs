@@ -2056,6 +2056,47 @@ namespace Axiom
 
 
         /// <summary>
+        ///    YouTube Method - Selection Changed
+        /// </summary>
+        private void cboYouTube_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // Video + Audio
+            // Video Only
+            if (vm.Format_YouTube_SelectedItem == "Video + Audio" ||
+                vm.Format_YouTube_SelectedItem == "Video Only")
+            {
+                // Change Items Source
+                vm.Format_YouTube_Quality_Items = new List<string>()
+                {
+                    "best",
+                    "best 1080p",
+                    "best 720p",
+                    "best 480p",
+                    "worst"
+                };
+
+                // Select Default
+                vm.Format_YouTube_Quality_SelectedItem = "best";
+            }
+
+            // Audio Only
+            else if (vm.Format_YouTube_SelectedItem == "Audio Only")
+            {
+                // Change Items Source
+                vm.Format_YouTube_Quality_Items = new List<string>()
+                {
+                    "best",
+                    "worst"
+                };
+
+                // Select Default
+                vm.Format_YouTube_Quality_SelectedItem = "best";
+            }
+        }
+
+
+
+        /// <summary>
         ///    Check if Script has been Edited (Method)
         /// </summary>
         public static bool CheckScriptEdited(ViewModel vm)
