@@ -275,7 +275,7 @@ namespace Axiom
                 // YouTube Download
                 // -------------------------
                 // Can't detect bitrate from URL
-                if (MainWindow.IsYouTubeURL(input_Text) == true)
+                if (MainWindow.IsWebURL(input_Text) == true)
                 {
                     aBitMode = "-b:a";
                     aBitRate = "320";

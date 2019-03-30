@@ -816,7 +816,10 @@ namespace Axiom
                 "\r\n\r\n" + "do (",
                 "\r\n\r\n" + "@" + "\"" + MainWindow.youtubedl + "\"",
 
-                "\r\n\r\n" + " -f " + MainWindow.YouTubeDownloadQuality(vm.Format_YouTube_SelectedItem, vm.Format_YouTube_Quality_SelectedItem),
+                "\r\n\r\n" + " -f " + MainWindow.YouTubeDownloadQuality(vm.Input_Text, 
+                                                                        vm.Format_YouTube_SelectedItem, 
+                                                                        vm.Format_YouTube_Quality_SelectedItem
+                                                                        ),
                 "\r\n\r\n" + "\"" + vm.Input_Text + "\"",
                 "\r\n" +" -o " + "\"" + MainWindow.downloadDir + "%f" + "." + MainWindow.YouTubeDownloadFormat(vm.Format_YouTube_SelectedItem) + "\"",
 

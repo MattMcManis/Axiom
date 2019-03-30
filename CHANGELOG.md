@@ -17,7 +17,7 @@ Axiom FFmpeg UI
 - Adjusted UHD Presets
 
 ### Fixed
-- `VP8`/`VP9` Error Halt
+- `VP8`/`VP9` Ready Halt
 
 
 ## [1.6.2.0] - Mar 29, 2019

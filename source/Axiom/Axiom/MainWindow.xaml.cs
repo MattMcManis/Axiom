@@ -1778,15 +1778,74 @@ namespace Axiom
         /// <summary>
         ///    Is Valid URL
         /// </summary>
-        public static bool IsValidURL(string source)
+        //public static bool IsValidURL(string source)
+        //{
+        //    Uri uriResult;
+        //    return Uri.TryCreate(source, UriKind.Absolute, out uriResult) && (uriResult.Scheme == "http" || uriResult.Scheme == "https");
+        //}
+
+
+        /// <summary>
+        ///    Is Website URL
+        /// </summary>
+        public static bool IsWebURL(string input_Text)
         {
-            Uri uriResult;
-            return Uri.TryCreate(source, UriKind.Absolute, out uriResult) && (uriResult.Scheme == "http" || uriResult.Scheme == "https");
+            if (!string.IsNullOrEmpty(input_Text))
+            {
+                // URL
+                if ((input_Text.StartsWith("http://") ||
+                    input_Text.StartsWith("https://") ||
+                    input_Text.StartsWith("www.") ||
+                    input_Text.EndsWith(".com")) //&&
+                    //IsValidURL(input_Text) == true
+                   )
+                {
+                    return true;
+                }
+
+                // Local File
+                else
+                {
+                    return false;
+                }
+
+                //// YouTube
+                //if (// youtube (any domain extension)
+                //   input_Text.StartsWith("https://www.youtube.") ||
+                //   input_Text.StartsWith("http://www.youtube.") ||
+                //   input_Text.StartsWith("www.youtube.") ||
+                //   input_Text.StartsWith("youtube.") ||
+
+                //   // youtu.be
+                //   input_Text.StartsWith("https://youtu.be") ||
+                //   input_Text.StartsWith("http://youtu.be") ||
+                //   input_Text.StartsWith("www.youtu.be") ||
+                //   input_Text.StartsWith("youtu.be") ||
+
+                //   // YouTube Music
+                //   input_Text.StartsWith("https://music.youtube.") ||
+                //   input_Text.StartsWith("http://music.youtube.") ||
+                //   input_Text.StartsWith("music.youtube.")
+                //   )
+                //{
+                //    return true;
+                //}
+
+                //// Local File
+                //else
+                //{
+                //    return false;
+                //}
+            }
+            else
+            {
+                return false;
+            }
         }
 
 
         /// <summary>
-        ///    Is YouTube
+        ///    Is Website URL
         /// </summary>
         public static bool IsYouTubeURL(string input_Text)
         {
@@ -1814,7 +1873,6 @@ namespace Axiom
                     return true;
                 }
 
-                // Local File
                 else
                 {
                     return false;
@@ -1918,7 +1976,7 @@ namespace Axiom
         {
             //MessageBox.Show(vm.Input_Text);
             // Change to "Download" if YouTube Download Only Mode
-            if (IsYouTubeURL(vm.Input_Text) == true &&
+            if (IsWebURL(vm.Input_Text) == true &&
                 IsYouTubeDownloadOnly(vm.Video_Codec_SelectedItem, 
                                       vm.Subtitle_Codec_SelectedItem, 
                                       vm.Audio_Codec_SelectedItem) == true
@@ -1999,94 +2057,213 @@ namespace Axiom
         /// <summary>
         ///    YouTube Download - Quality (Method)
         /// </summary>
-        public static String YouTubeDownloadQuality(string youtubedl_SelectedItem, 
+        public static String YouTubeDownloadQuality(string input_Text,
+                                                    string youtubedl_SelectedItem, 
                                                     string youtubedl_Quality_SelectedItem
                                                     )
         {
-            // Video + Audio
-            if (youtubedl_SelectedItem == "Video + Audio")
+            // -------------------------
+            // YouTube URL
+            // -------------------------
+            if (IsYouTubeURL(input_Text) == true)
             {
-                // Best
-                if (youtubedl_Quality_SelectedItem == "best")
+                // -------------------------
+                // Video + Audio
+                // -------------------------
+                if (youtubedl_SelectedItem == "Video + Audio")
                 {
-                    return "bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio";
+                    // Best
+                    if (youtubedl_Quality_SelectedItem == "best")
+                    {
+                        return "bestvideo+bestaudio";
+                    }
+                    // Best 4K
+                    else if (youtubedl_Quality_SelectedItem == "best 4K")
+                    {
+                        return "bestvideo[height=2160]+bestaudio/bestvideo+bestaudio";
+                    }
+                    // Best 1080p
+                    else if (youtubedl_Quality_SelectedItem == "best 1080p")
+                    {
+                        return "bestvideo[height=1080]+bestaudio/bestvideo+bestaudio";
+                    }
+                    // Best 720p
+                    else if (youtubedl_Quality_SelectedItem == "best 720p")
+                    {
+                        return "bestvideo[height=720]+bestaudio/bestvideo+bestaudio";
+                    }
+                    // Best 480p
+                    else if (youtubedl_Quality_SelectedItem == "best 480p")
+                    {
+                        return "bestvideo[height=480]+bestaudio/bestvideo+bestaudio";
+                    }
+                    // Worst
+                    else if (youtubedl_Quality_SelectedItem == "worst")
+                    {
+                        return "worstvideo+worstaudio";
+                    }
                 }
-                // Best 4K
-                else if (youtubedl_Quality_SelectedItem == "best 4K")
+
+                // -------------------------
+                // Video Only
+                // -------------------------
+                else if (youtubedl_SelectedItem == "Video Only")
                 {
-                    return "bestvideo[height=2160][ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio";
+                    // Best
+                    if (youtubedl_Quality_SelectedItem == "best")
+                    {
+                        return "bestvideo";
+                    }
+                    // Best 4K
+                    else if (youtubedl_Quality_SelectedItem == "best 4K")
+                    {
+                        return "bestvideo[height=2160]/bestvideo";
+                    }
+                    // Best 1080p
+                    else if (youtubedl_Quality_SelectedItem == "best 1080p")
+                    {
+                        return "bestvideo[height=1080]/bestvideo";
+                    }
+                    // Best 720p
+                    else if (youtubedl_Quality_SelectedItem == "best 720p")
+                    {
+                        return "bestvideo[height=720p]/bestvideo";
+                    }
+                    // Best 480p
+                    else if (youtubedl_Quality_SelectedItem == "best 480p")
+                    {
+                        return "bestvideo[height=480p]/bestvideo";
+                    }
+                    // Worst
+                    else if (youtubedl_Quality_SelectedItem == "worst")
+                    {
+                        return "worstvideo";
+                    }
                 }
-                // Best 1080p
-                else if (youtubedl_Quality_SelectedItem == "best 1080p")
+
+                // -------------------------
+                // Audio Only
+                // -------------------------
+                else if (youtubedl_SelectedItem == "Audio Only")
                 {
-                    return "bestvideo[height=1080][ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio";
-                }
-                // Best 720p
-                else if (youtubedl_Quality_SelectedItem == "best 720p")
-                {
-                    return "bestvideo[height=720][ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio";
-                }
-                // Best 480p
-                else if (youtubedl_Quality_SelectedItem == "best 480p")
-                {
-                    return "bestvideo[height=480][ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio";
-                }
-                // Worst
-                else if (youtubedl_Quality_SelectedItem == "worst")
-                {
-                    return "worstvideo[ext=mp4]+worstaudio[ext=m4a]/worstvideo+worstaudio";
+                    // Best
+                    if (youtubedl_Quality_SelectedItem == "best")
+                    {
+                        return "bestaudio";
+                    }
+                    // Worst
+                    else if (youtubedl_Quality_SelectedItem == "worst")
+                    {
+                        return "worstaudio";
+                    }
                 }
             }
 
-            // Video Only
-            else if (youtubedl_SelectedItem == "Video Only")
+            // -------------------------
+            // Other Website
+            // -------------------------
+            else
             {
-                // Best
-                if (youtubedl_Quality_SelectedItem == "best")
+                // Do not use [ext=mp4] or [ext=m4a], it is not always found
+
+                // -------------------------
+                // Video + Audio
+                // -------------------------
+                if (youtubedl_SelectedItem == "Video + Audio")
                 {
-                    return "bestvideo[ext=mp4]/bestvideo";
+                    //return "bestvideo+bestaudio";
+
+                    // Best
+                    if (youtubedl_Quality_SelectedItem == "best")
+                    {
+                        return "bestvideo+bestaudio";
+                    }
+                    // Best 4K
+                    else if (youtubedl_Quality_SelectedItem == "best 4K")
+                    {
+                        return "bestvideo[height=2160]+bestaudio/bestvideo+bestaudio";
+                    }
+                    // Best 1080p
+                    else if (youtubedl_Quality_SelectedItem == "best 1080p")
+                    {
+                        return "bestvideo[height=1080]+bestaudio/bestvideo+bestaudio";
+                    }
+                    // Best 720p
+                    else if (youtubedl_Quality_SelectedItem == "best 720p")
+                    {
+                        return "bestvideo[height=720]+bestaudio/bestvideo+bestaudio";
+                    }
+                    // Best 480p
+                    else if (youtubedl_Quality_SelectedItem == "best 480p")
+                    {
+                        return "bestvideo[height=480]+bestaudio/bestvideo+bestaudio";
+                    }
+                    // Worst
+                    else if (youtubedl_Quality_SelectedItem == "worst")
+                    {
+                        return "worstvideo+worstaudio/worstvideo+worstaudio";
+                    }
                 }
-                // Best 4K
-                else if (youtubedl_Quality_SelectedItem == "best 4K")
+
+                // -------------------------
+                // Video Only
+                // -------------------------
+                else if (youtubedl_SelectedItem == "Video Only")
                 {
-                    return "bestvideo[height=2160][ext=mp4]/bestvideo";
+                    //return "bestvideo";
+
+                    // Best
+                    if (youtubedl_Quality_SelectedItem == "best")
+                    {
+                        return "bestvideo";
+                    }
+                    // Best 4K
+                    else if (youtubedl_Quality_SelectedItem == "best 4K")
+                    {
+                        return "bestvideo[height=2160]/bestvideo";
+                    }
+                    // Best 1080p
+                    else if (youtubedl_Quality_SelectedItem == "best 1080p")
+                    {
+                        return "bestvideo[height=1080]/bestvideo";
+                    }
+                    // Best 720p
+                    else if (youtubedl_Quality_SelectedItem == "best 720p")
+                    {
+                        return "bestvideo[height=720p]/bestvideo";
+                    }
+                    // Best 480p
+                    else if (youtubedl_Quality_SelectedItem == "best 480p")
+                    {
+                        return "bestvideo[height=480p]/bestvideo";
+                    }
+                    // Worst
+                    else if (youtubedl_Quality_SelectedItem == "worst")
+                    {
+                        return "worstvideo";
+                    }
                 }
-                // Best 1080p
-                else if(youtubedl_Quality_SelectedItem == "best 1080p")
+
+                // -------------------------
+                // Audio Only
+                // -------------------------
+                else if (youtubedl_SelectedItem == "Audio Only")
                 {
-                    return "bestvideo[height=1080][ext=mp4]/bestvideo";
-                }
-                // Best 720p
-                else if (youtubedl_Quality_SelectedItem == "best 720p")
-                {
-                    return "bestvideo[height=720p][ext=mp4]/bestvideo";
-                }
-                // Best 480p
-                else if (youtubedl_Quality_SelectedItem == "best 480p")
-                {
-                    return "bestvideo[height=480p][ext=mp4]/bestvideo";
-                }
-                // Worst
-                else if (youtubedl_Quality_SelectedItem == "worst")
-                {
-                    return "worstvideo[ext=mp4]/worstvideo";
+                    //return "bestaudio";
+
+                    // Best
+                    if (youtubedl_Quality_SelectedItem == "best")
+                    {
+                        return "bestaudio";
+                    }
+                    // Worst
+                    else if (youtubedl_Quality_SelectedItem == "worst")
+                    {
+                        return "worstaudio";
+                    }
                 }
             }
 
-            // Audio Only
-            else if (youtubedl_SelectedItem == "Audio Only")
-            {
-                // Best
-                if (youtubedl_Quality_SelectedItem == "best")
-                {
-                    return "bestaudio[ext=m4a]/bestaudio";
-                }
-                // Worst
-                else if (youtubedl_Quality_SelectedItem == "worst")
-                {
-                    return "worstaudio[ext=m4a]/worstaudio";
-                }
-            }
 
             return string.Empty;
         }
@@ -2201,7 +2378,7 @@ namespace Axiom
             // Input File does not exist
             // -------------------------
             //MessageBox.Show(input); //debug
-            if (IsYouTubeURL(vm.Input_Text) == false) // Ignore YouTube URL's
+            if (IsWebURL(vm.Input_Text) == false) // Ignore YouTube URL's
             {
                 if (!string.IsNullOrEmpty(vm.Input_Text) &&
                     vm.Batch_IsChecked == false)
@@ -3286,6 +3463,7 @@ namespace Axiom
                 SubtitleControls.AutoCopySubtitleCodec(vm);
                 AudioControls.AutoCopyAudioCodec(vm);
             }
+
             // -------------------------
             // Batch
             // -------------------------
@@ -3353,7 +3531,7 @@ namespace Axiom
                 // Set Video & Audio Codec Combobox to "Copy" 
                 // if Input Extension is Same as Output Extension and Video Quality is Auto
                 //
-                if (IsYouTubeURL(vm.Input_Text) == false) // Check if Input is a Windows Path, Not a URL
+                if (IsWebURL(vm.Input_Text) == false) // Check if Input is a Windows Path, Not a URL
                 {
                     if (Path.HasExtension(vm.Input_Text) == true) // Check if Input has file extension after it has passed URL check
                                                                   // to prevent path forward slash error in Path.HasExtension()
@@ -3768,7 +3946,7 @@ namespace Axiom
             // -------------------------
             // Local File
             // -------------------------
-            if (IsYouTubeURL(vm.Input_Text) == false) // Ignore YouTube URL's
+            if (IsWebURL(vm.Input_Text) == false) // Ignore YouTube URL's
             {
                 // -------------------------
                 // Single File
@@ -3808,7 +3986,7 @@ namespace Axiom
             // -------------------------
             // YouTube Download
             // -------------------------
-            else if (IsYouTubeURL(vm.Input_Text) == true &&
+            else if (IsWebURL(vm.Input_Text) == true &&
                      pass != "pass 2") // Ignore Pass 2, use existing input path
             {
                 inputDir = downloadDir;
@@ -3877,7 +4055,7 @@ namespace Axiom
             // -------------------------
             // Local File
             // -------------------------
-            if (IsYouTubeURL(vm.Input_Text) == false) // Ignore YouTube URL's
+            if (IsWebURL(vm.Input_Text) == false) // Ignore YouTube URL's
             {
                 // -------------------------
                 // Single File
@@ -3969,7 +4147,7 @@ namespace Axiom
             // -------------------------
             // YouTube Download
             // -------------------------
-            else if (IsYouTubeURL(vm.Input_Text) == true) // Ignore Pass 2, use existing input path
+            else if (IsWebURL(vm.Input_Text) == true) // Ignore Pass 2, use existing input path
             {
                 // Note: %f is filename, %~f is full path
 
@@ -6774,7 +6952,7 @@ namespace Axiom
             // -------------------------
             // Local File
             // -------------------------
-            if (IsYouTubeURL(vm.Input_Text) == false)
+            if (IsWebURL(vm.Input_Text) == false)
             {
                 // -------------------------
                 // Single
@@ -6819,7 +6997,7 @@ namespace Axiom
             // -------------------------
             // YouTube Download
             // -------------------------
-            else if (IsYouTubeURL(vm.Input_Text) == true)
+            else if (IsWebURL(vm.Input_Text) == true)
             {
                 // -------------------------
                 // Generate Arguments
