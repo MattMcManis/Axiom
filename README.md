@@ -57,7 +57,7 @@ Axiom is portable and can be run from any location on the computer.
 1. Extract `Axiom.FFmpeg.7z` to a location of your choice.
 2. Run the program `Axiom.exe` or create a shortcut on the Desktop.
 3. It will automatically detect `ffmpeg.exe` and `ffprobe.exe` in the included `ffmpeg` folder.
-4. If you move the `ffmpeg` folder, set Windows Environment Variables or choose path in the Axiom Settings Tab.
+4. If you move the `ffmpeg` folder, set Windows Environment Variables or specify a path in the Axiom Settings Tab.
 
 #### Add FFmpeg to Environment Variables (optional):
 
@@ -73,13 +73,15 @@ Axiom is portable and can be run from any location on the computer.
 #### YouTube Download
 `youtube-dl.exe` is included in `Axiom.FFmpeg.7z`. 
 
-`Axiom` will auto-detect it in its included folder, or you can specify a custom path in the Axiom Settings Tab.  
-Note: `youtube-dl` may not work correctly if located in `C:\Program Files\` due to Administrator Privileges.
+`Axiom` will auto-detect it in its included folder. You can also add it to Windows Environment Variables or specify a path in the Axiom Settings Tab.
 
 1. Paste a YouTube URL into the Input TextBox
-2. To Download the file without Converting, select Preset: YouTube-DL → Video or Music, Press Convert
-3. To Download and Convert, select any Presets or Settings you need and Press Convert 
-4. To Generate a Batch Script without Downloading, select any Settings you need and Press Script
+2. Download the file: 
+    - Select Preset: YouTube-DL → Video or Music, Press Convert
+3. Download and Convert: 
+    - Select any Presets or Settings you need and Press Convert 
+4. Generate a Script without Downloading:
+    - Select any Settings you need and Press Script
 
 &nbsp;
 
