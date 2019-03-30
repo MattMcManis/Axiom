@@ -821,10 +821,18 @@ namespace Axiom
                                                                         vm.Format_YouTube_Quality_SelectedItem
                                                                         ),
                 "\r\n\r\n" + "\"" + vm.Input_Text + "\"",
-                "\r\n" +" -o " + "\"" + MainWindow.downloadDir + "%f" + "." + MainWindow.YouTubeDownloadFormat(vm.Format_YouTube_SelectedItem) + "\"",
+                "\r\n" +" -o " + "\"" + MainWindow.downloadDir + "%f" + "." + MainWindow.YouTubeDownloadFormat(vm.Format_YouTube_SelectedItem,
+                                                                                                               vm.Video_Codec_SelectedItem,
+                                                                                                               vm.Subtitle_Codec_SelectedItem,
+                                                                                                               vm.Audio_Codec_SelectedItem
+                                                                                                               ) + "\"",
 
                 // Merge Output Format
-                "\r\n\r\n" + MainWindow.YouTubeDL_FFmpegPath(vm) + " --merge-output-format " + MainWindow.YouTubeDownloadFormat(vm.Format_YouTube_SelectedItem)
+                "\r\n\r\n" + MainWindow.YouTubeDL_FFmpegPath(vm) + " --merge-output-format " + MainWindow.YouTubeDownloadFormat(vm.Format_YouTube_SelectedItem,
+                                                                                                                                vm.Video_Codec_SelectedItem,
+                                                                                                                                vm.Subtitle_Codec_SelectedItem,
+                                                                                                                                vm.Audio_Codec_SelectedItem
+                                                                                                                                )
             };
 
             // FFmpeg Args
@@ -840,14 +848,23 @@ namespace Axiom
                 "-y",
 
                 OnePassArgs(vm), //disabled if 2-Pass       
-                TwoPassArgs(vm) //disabled if 1-Pass
+                TwoPassArgs(vm), //disabled if 1-Pass
+
+                "\r\n\r\n" + "&&",
+
+                // Delete Downloaded File
+                "\r\n\r\n" + "del " + "\"" + MainWindow.downloadDir + "%f" + "." + MainWindow.YouTubeDownloadFormat(vm.Format_YouTube_SelectedItem, 
+                                                                                                                    vm.Video_Codec_SelectedItem,
+                                                                                                                    vm.Subtitle_Codec_SelectedItem,
+                                                                                                                    vm.Audio_Codec_SelectedItem
+                                                                                                                    ) + "\"",
             };
 
 
             // -------------------------
             // Download Only
             // -------------------------
-            if (MainWindow.IsYouTubeDownloadOnly(vm.Video_Codec_SelectedItem,
+            if (MainWindow.IsWebDownloadOnly(vm.Video_Codec_SelectedItem,
                                                  vm.Subtitle_Codec_SelectedItem,
                                                  vm.Audio_Codec_SelectedItem) == true
                                                  )

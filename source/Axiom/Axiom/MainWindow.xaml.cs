@@ -1891,30 +1891,43 @@ namespace Axiom
         /// <remarks>
         ///     If Axiom is in full Codec Copy mode Download the file without converting
         /// </remarks>
-        public static bool IsYouTubeDownloadOnly(string videoCodec_SelectedItem,
-                                                 string subtitleCodec_SelectedItem,
-                                                 string audioCodec_SelectedItem
-                                                 )
+        public static bool IsWebDownloadOnly(string videoCodec_SelectedItem,
+                                             string subtitleCodec_SelectedItem,
+                                             string audioCodec_SelectedItem
+                                             )
         {
-            //MessageBox.Show("1");
             if (//IsYouTubeURL(vm.Input_Text) == true &&
                 
                 // Video
                 (videoCodec_SelectedItem == "Copy" &&
                  subtitleCodec_SelectedItem == "Copy" &&
-                 subtitleCodec_SelectedItem == "Copy") ||
+                 audioCodec_SelectedItem == "Copy") 
+                 
+                 ||
 
                 (videoCodec_SelectedItem == "Copy" &&
-                 subtitleCodec_SelectedItem == "Copy" //&&
-                 /*vm.Audio_Codec_SelectedItem == "None"*/) ||
+                 subtitleCodec_SelectedItem == "Copy") 
+                 
+                 ||
 
                 (videoCodec_SelectedItem == "Copy" &&
-                 subtitleCodec_SelectedItem == "None" //&&
-                 /*vm.Audio_Codec_SelectedItem == "None"*/) ||
+                 subtitleCodec_SelectedItem == "None") 
+                 
+                 ||
+
+                 //(videoCodec_SelectedItem == "Copy" &&
+                 //subtitleCodec_SelectedItem == "Copy" &&
+                 //audioCodec_SelectedItem == "None") ||
+
+                //(videoCodec_SelectedItem == "Copy" &&
+                // subtitleCodec_SelectedItem == "None" &&
+                // audioCodec_SelectedItem == "None") ||
 
                 (videoCodec_SelectedItem == "Copy" &&
                  subtitleCodec_SelectedItem == "None" &&
-                 audioCodec_SelectedItem == "Copy") ||
+                 audioCodec_SelectedItem == "Copy") 
+                 
+                 ||
 
                 // Music
                 (videoCodec_SelectedItem == "None" &&
@@ -1922,12 +1935,10 @@ namespace Axiom
                  audioCodec_SelectedItem == "Copy")
                 )
             {
-                //MessageBox.Show("2");
                 return true;
             }
             else
             {
-                //MessageBox.Show("3");
                 return false;
             }
         }
@@ -1977,9 +1988,9 @@ namespace Axiom
             //MessageBox.Show(vm.Input_Text);
             // Change to "Download" if YouTube Download Only Mode
             if (IsWebURL(vm.Input_Text) == true &&
-                IsYouTubeDownloadOnly(vm.Video_Codec_SelectedItem, 
-                                      vm.Subtitle_Codec_SelectedItem, 
-                                      vm.Audio_Codec_SelectedItem) == true
+                IsWebDownloadOnly(vm.Video_Codec_SelectedItem, 
+                                  vm.Subtitle_Codec_SelectedItem, 
+                                  vm.Audio_Codec_SelectedItem) == true
                 )
             {
                 vm.Convert_Text = "Download";
@@ -2028,25 +2039,61 @@ namespace Axiom
 
 
         /// <summary>
-        ///    YouTube Download - Format (Method)
+        ///     YouTube Download - Format (Method)
         /// </summary>
-        public static String YouTubeDownloadFormat(string youtubedl_SelectedItem)
+        /// <remarks>
+        ///     For YouTube downloads - use mp4, as most users can play this format on their PC
+        ///     For Other Websites - use mkv for merging format, in case the video+audio codecs can't be merged to mp4
+        /// </remarks>
+        public static String YouTubeDownloadFormat(string youtubedl_SelectedItem,
+                                                   string videoCodec_SelectedItem,
+                                                   string subtitleCodec_SelectedItem,
+                                                   string audioCodec_SelectedItem
+                                                   )
         {
             // Video + Audio
             if (youtubedl_SelectedItem == "Video + Audio")
             {
-                return "mp4";
+                // Use mp4 for Download-Only Mode
+                if (IsWebDownloadOnly(videoCodec_SelectedItem, 
+                                      subtitleCodec_SelectedItem, 
+                                      audioCodec_SelectedItem) == true
+                                      ) 
+                {
+                    return "mp4";
+                }
+
+                // Use mkv for converting
+                else
+                {
+                    return "mkv";
+                }
             }
 
             // Video Only
             else if (youtubedl_SelectedItem == "Video Only")
             {
-                return "mp4";
+                // Use mp4 for Download-Only Mode
+                if (IsWebDownloadOnly(videoCodec_SelectedItem,
+                                      subtitleCodec_SelectedItem,
+                                      audioCodec_SelectedItem) == true
+                                      ) 
+                {
+                    return "mp4";
+                }
+
+                // Use mkv for converting
+                else
+                {
+                    return "mkv";
+                }
             }
 
             // Audio Only
             else if (youtubedl_SelectedItem == "Audio Only")
             {
+                // Can only use m4a, not mp3
+
                 return "m4a";
             }
 
@@ -3991,7 +4038,11 @@ namespace Axiom
             {
                 inputDir = downloadDir;
                 inputFileName = "%f";
-                inputExt = "." + YouTubeDownloadFormat(vm.Format_YouTube_SelectedItem);
+                inputExt = "." + YouTubeDownloadFormat(vm.Format_YouTube_SelectedItem,
+                                                       vm.Video_Codec_SelectedItem, 
+                                                       vm.Subtitle_Codec_SelectedItem, 
+                                                       vm.Audio_Codec_SelectedItem
+                                                       );
 
                 input = inputDir + inputFileName + inputExt; // eg. C:\Users\Example\Downloads\%f.mp4
             }
@@ -4128,7 +4179,7 @@ namespace Axiom
 
                     outputDir = vm.Output_Text.TrimEnd('\\') + @"\";
 
-                    // Output             
+                    // Combine          
                     output = outputDir + "%~nf" + outputExt; // (eg. C:\Output Folder\%~nf.mp4)
                 }
 
@@ -4155,8 +4206,31 @@ namespace Axiom
                 if (string.IsNullOrEmpty(vm.Output_Text))
                 {
                     outputDir = downloadDir;
-                    outputFileName = "%f";
+                    //outputFileName = "%f";
 
+                    // Check if output filename already exists
+                    // Check if YouTube Download Format is the same as Output Extension
+                    // The youtub-dl merged format for converting should be mkv
+                    if ("." + YouTubeDownloadFormat(vm.Format_YouTube_SelectedItem,
+                                              vm.Video_Codec_SelectedItem,
+                                              vm.Subtitle_Codec_SelectedItem,
+                                              vm.Audio_Codec_SelectedItem
+                                              )
+
+                                              ==
+
+                                              outputExt
+                                              )
+                    {
+                        // Add (1)
+                        outputFileName = "%f" + " (1)";
+                    }
+                    else
+                    {
+                        outputFileName = "%f";
+                    }
+
+                    // Combine
                     output = outputDir + outputFileName + outputExt; // eg. C:\Users\Example\Downloads\%f.webm
                 }
 
@@ -4166,6 +4240,7 @@ namespace Axiom
                     outputDir = Path.GetDirectoryName(vm.Output_Text).TrimEnd('\\') + @"\";
                     outputFileName = Path.GetFileNameWithoutExtension(vm.Output_Text);
 
+                    // Combine
                     output = outputDir + outputFileName + outputExt;
                 }
             }
