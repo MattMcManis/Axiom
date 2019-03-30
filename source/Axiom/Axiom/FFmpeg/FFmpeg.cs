@@ -827,12 +827,15 @@ namespace Axiom
                                                                                                                vm.Audio_Codec_SelectedItem
                                                                                                                ) + "\"",
 
+                // FFmpeg Location
+                "\r\n\r\n" + MainWindow.YouTubeDL_FFmpegPath(vm),
+
                 // Merge Output Format
-                "\r\n\r\n" + MainWindow.YouTubeDL_FFmpegPath(vm) + " --merge-output-format " + MainWindow.YouTubeDownloadFormat(vm.Format_YouTube_SelectedItem,
-                                                                                                                                vm.Video_Codec_SelectedItem,
-                                                                                                                                vm.Subtitle_Codec_SelectedItem,
-                                                                                                                                vm.Audio_Codec_SelectedItem
-                                                                                                                                )
+                "\r\n\r\n" + "--merge-output-format " + MainWindow.YouTubeDownloadFormat(vm.Format_YouTube_SelectedItem,
+                                                                                         vm.Video_Codec_SelectedItem,
+                                                                                         vm.Subtitle_Codec_SelectedItem,
+                                                                                         vm.Audio_Codec_SelectedItem
+                                                                                         )
             };
 
             // FFmpeg Args

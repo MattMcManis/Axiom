@@ -1633,9 +1633,9 @@ namespace Axiom
         }
 
 
-        /// <remarks>
+        /// <summary>
         ///     FFprobe Path
-        /// </remarks>
+        /// </summary>
         public static void FFprobePath(ViewModel vm)
         {
             // If Configure FFprobe Path is <auto>
@@ -1663,9 +1663,9 @@ namespace Axiom
         }
 
 
-        /// <remarks>
+        /// <summary>
         ///     FFplay Path
-        /// </remarks>
+        /// </summary>
         public static void FFplayPath(ViewModel vm)
         {
             // If Configure FFprobe Path is <auto>
@@ -1693,9 +1693,9 @@ namespace Axiom
         }
 
 
-        /// <remarks>
+        /// <summary>
         ///     youtube-dl Path
-        /// </remarks>
+        /// </summary>
         public static void youtubedlPath(ViewModel vm)
         {
             // If Configure youtubedl Path is <auto>
@@ -1944,9 +1944,9 @@ namespace Axiom
         }
 
 
-        /// <remarks>
+        /// <summary>
         ///     YouTube Download - FFmpeg Path
-        /// </remarks>
+        /// </summary>
         public static String YouTubeDL_FFmpegPath(ViewModel vm)
         {
             // youtube-dl
@@ -1978,6 +1978,9 @@ namespace Axiom
                 return " --ffmpeg-location " + path;
             }
         }
+
+
+
 
 
         /// <summary>
@@ -2112,8 +2115,8 @@ namespace Axiom
             // -------------------------
             // YouTube URL
             // -------------------------
-            if (IsYouTubeURL(input_Text) == true)
-            {
+            //if (IsYouTubeURL(input_Text) == true)
+            //{
                 // -------------------------
                 // Video + Audio
                 // -------------------------
@@ -2122,32 +2125,32 @@ namespace Axiom
                     // Best
                     if (youtubedl_Quality_SelectedItem == "best")
                     {
-                        return "bestvideo+bestaudio";
+                        return "bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio/best";
                     }
                     // Best 4K
                     else if (youtubedl_Quality_SelectedItem == "best 4K")
                     {
-                        return "bestvideo[height=2160]+bestaudio/bestvideo+bestaudio";
+                        return "bestvideo[height=2160][ext=mp4]+bestaudio[ext=m4a]/bestvideo[height=2160]+bestaudio/bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio/best";
                     }
                     // Best 1080p
                     else if (youtubedl_Quality_SelectedItem == "best 1080p")
                     {
-                        return "bestvideo[height=1080]+bestaudio/bestvideo+bestaudio";
+                        return "bestvideo[height=1080][ext=mp4]+bestaudio[ext=m4a]/bestvideo[height=1080]+bestaudio/bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio/best";
                     }
                     // Best 720p
                     else if (youtubedl_Quality_SelectedItem == "best 720p")
                     {
-                        return "bestvideo[height=720]+bestaudio/bestvideo+bestaudio";
+                        return "bestvideo[height=720][ext=mp4]+bestaudio[ext=m4a]/bestvideo[height=720]+bestaudio/bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio/best";
                     }
                     // Best 480p
                     else if (youtubedl_Quality_SelectedItem == "best 480p")
                     {
-                        return "bestvideo[height=480]+bestaudio/bestvideo+bestaudio";
+                        return "bestvideo[height=480][ext=mp4]+bestaudio[ext=m4a]/bestvideo[height=480]+bestaudio/bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio/best";
                     }
                     // Worst
                     else if (youtubedl_Quality_SelectedItem == "worst")
                     {
-                        return "worstvideo+worstaudio";
+                        return "worstvideo[ext=mp4]+worstaudio[ext=m4a]/worstvideo+worstaudio/worst";
                     }
                 }
 
@@ -2159,32 +2162,32 @@ namespace Axiom
                     // Best
                     if (youtubedl_Quality_SelectedItem == "best")
                     {
-                        return "bestvideo";
+                        return "bestvideo[ext=mp4]/bestvideo";
                     }
                     // Best 4K
                     else if (youtubedl_Quality_SelectedItem == "best 4K")
                     {
-                        return "bestvideo[height=2160]/bestvideo";
+                        return "bestvideo[height=2160][ext=mp4]/bestvideo[ext=mp4]/bestvideo";
                     }
                     // Best 1080p
                     else if (youtubedl_Quality_SelectedItem == "best 1080p")
                     {
-                        return "bestvideo[height=1080]/bestvideo";
+                        return "bestvideo[height=1080][ext=mp4]/bestvideo[ext=mp4]/bestvideo";
                     }
                     // Best 720p
                     else if (youtubedl_Quality_SelectedItem == "best 720p")
                     {
-                        return "bestvideo[height=720p]/bestvideo";
+                        return "bestvideo[height=720p][ext=mp4]/bestvideo[ext=mp4]/bestvideo";
                     }
                     // Best 480p
                     else if (youtubedl_Quality_SelectedItem == "best 480p")
                     {
-                        return "bestvideo[height=480p]/bestvideo";
+                        return "bestvideo[height=480p][ext=mp4]/bestvideo[ext=mp4]/bestvideo";
                     }
                     // Worst
                     else if (youtubedl_Quality_SelectedItem == "worst")
                     {
-                        return "worstvideo";
+                        return "worstvideo[ext=mp4]/worstvideo";
                     }
                 }
 
@@ -2196,120 +2199,120 @@ namespace Axiom
                     // Best
                     if (youtubedl_Quality_SelectedItem == "best")
                     {
-                        return "bestaudio";
+                        return "bestaudio[ext=m4a]/bestaudio";
                     }
                     // Worst
                     else if (youtubedl_Quality_SelectedItem == "worst")
                     {
-                        return "worstaudio";
+                        return "worstaudio[ext=m4a]/worstaudio";
                     }
                 }
-            }
+            //}
 
-            // -------------------------
-            // Other Website
-            // -------------------------
-            else
-            {
-                // Do not use [ext=mp4] or [ext=m4a], it is not always found
+            //// -------------------------
+            //// Other Website
+            //// -------------------------
+            //else
+            //{
+            //    // Do not use [ext=mp4] or [ext=m4a], it is not always found
 
-                // -------------------------
-                // Video + Audio
-                // -------------------------
-                if (youtubedl_SelectedItem == "Video + Audio")
-                {
-                    //return "bestvideo+bestaudio";
+            //    // -------------------------
+            //    // Video + Audio
+            //    // -------------------------
+            //    if (youtubedl_SelectedItem == "Video + Audio")
+            //    {
+            //        //return "bestvideo+bestaudio";
 
-                    // Best
-                    if (youtubedl_Quality_SelectedItem == "best")
-                    {
-                        return "bestvideo+bestaudio";
-                    }
-                    // Best 4K
-                    else if (youtubedl_Quality_SelectedItem == "best 4K")
-                    {
-                        return "bestvideo[height=2160]+bestaudio/bestvideo+bestaudio";
-                    }
-                    // Best 1080p
-                    else if (youtubedl_Quality_SelectedItem == "best 1080p")
-                    {
-                        return "bestvideo[height=1080]+bestaudio/bestvideo+bestaudio";
-                    }
-                    // Best 720p
-                    else if (youtubedl_Quality_SelectedItem == "best 720p")
-                    {
-                        return "bestvideo[height=720]+bestaudio/bestvideo+bestaudio";
-                    }
-                    // Best 480p
-                    else if (youtubedl_Quality_SelectedItem == "best 480p")
-                    {
-                        return "bestvideo[height=480]+bestaudio/bestvideo+bestaudio";
-                    }
-                    // Worst
-                    else if (youtubedl_Quality_SelectedItem == "worst")
-                    {
-                        return "worstvideo+worstaudio/worstvideo+worstaudio";
-                    }
-                }
+            //        // Best
+            //        if (youtubedl_Quality_SelectedItem == "best")
+            //        {
+            //            return "best";
+            //        }
+            //        // Best 4K
+            //        else if (youtubedl_Quality_SelectedItem == "best 4K")
+            //        {
+            //            return "best[height=2160][ext=mp4]/best[ext=mp4]/best";
+            //        }
+            //        // Best 1080p
+            //        else if (youtubedl_Quality_SelectedItem == "best 1080p")
+            //        {
+            //            return "best[height=1080][ext=mp4]/best[ext=mp4]/best";
+            //        }
+            //        // Best 720p
+            //        else if (youtubedl_Quality_SelectedItem == "best 720p")
+            //        {
+            //            return "best[height=720][ext=mp4]/best[ext=mp4]/best";
+            //        }
+            //        // Best 480p
+            //        else if (youtubedl_Quality_SelectedItem == "best 480p")
+            //        {
+            //            return "best[height=480][ext=mp4]/best[ext=mp4]/best";
+            //        }
+            //        // Worst
+            //        else if (youtubedl_Quality_SelectedItem == "worst")
+            //        {
+            //            return "worst";
+            //        }
+            //    }
 
-                // -------------------------
-                // Video Only
-                // -------------------------
-                else if (youtubedl_SelectedItem == "Video Only")
-                {
-                    //return "bestvideo";
+            //    // -------------------------
+            //    // Video Only
+            //    // -------------------------
+            //    else if (youtubedl_SelectedItem == "Video Only")
+            //    {
+            //        //return "bestvideo";
 
-                    // Best
-                    if (youtubedl_Quality_SelectedItem == "best")
-                    {
-                        return "bestvideo";
-                    }
-                    // Best 4K
-                    else if (youtubedl_Quality_SelectedItem == "best 4K")
-                    {
-                        return "bestvideo[height=2160]/bestvideo";
-                    }
-                    // Best 1080p
-                    else if (youtubedl_Quality_SelectedItem == "best 1080p")
-                    {
-                        return "bestvideo[height=1080]/bestvideo";
-                    }
-                    // Best 720p
-                    else if (youtubedl_Quality_SelectedItem == "best 720p")
-                    {
-                        return "bestvideo[height=720p]/bestvideo";
-                    }
-                    // Best 480p
-                    else if (youtubedl_Quality_SelectedItem == "best 480p")
-                    {
-                        return "bestvideo[height=480p]/bestvideo";
-                    }
-                    // Worst
-                    else if (youtubedl_Quality_SelectedItem == "worst")
-                    {
-                        return "worstvideo";
-                    }
-                }
+            //        // Best
+            //        if (youtubedl_Quality_SelectedItem == "best")
+            //        {
+            //            return "best";
+            //        }
+            //        // Best 4K
+            //        else if (youtubedl_Quality_SelectedItem == "best 4K")
+            //        {
+            //            return "best";
+            //        }
+            //        // Best 1080p
+            //        else if (youtubedl_Quality_SelectedItem == "best 1080p")
+            //        {
+            //            return "best";
+            //        }
+            //        // Best 720p
+            //        else if (youtubedl_Quality_SelectedItem == "best 720p")
+            //        {
+            //            return "best";
+            //        }
+            //        // Best 480p
+            //        else if (youtubedl_Quality_SelectedItem == "best 480p")
+            //        {
+            //            return "best";
+            //        }
+            //        // Worst
+            //        else if (youtubedl_Quality_SelectedItem == "worst")
+            //        {
+            //            return "worst";
+            //        }
+            //    }
 
-                // -------------------------
-                // Audio Only
-                // -------------------------
-                else if (youtubedl_SelectedItem == "Audio Only")
-                {
-                    //return "bestaudio";
+            //    // -------------------------
+            //    // Audio Only
+            //    // -------------------------
+            //    else if (youtubedl_SelectedItem == "Audio Only")
+            //    {
+            //        //return "bestaudio";
 
-                    // Best
-                    if (youtubedl_Quality_SelectedItem == "best")
-                    {
-                        return "bestaudio";
-                    }
-                    // Worst
-                    else if (youtubedl_Quality_SelectedItem == "worst")
-                    {
-                        return "worstaudio";
-                    }
-                }
-            }
+            //        // Best
+            //        if (youtubedl_Quality_SelectedItem == "best")
+            //        {
+            //            return "bestaudio[ext=m4a]/bestaudio";
+            //        }
+            //        // Worst
+            //        else if (youtubedl_Quality_SelectedItem == "worst")
+            //        {
+            //            return "worstaudio[ext=m4a]/worstaudio";
+            //        }
+            //    }
+            //}
 
 
             return string.Empty;
@@ -2355,6 +2358,28 @@ namespace Axiom
                 vm.Format_YouTube_Quality_SelectedItem = "best";
             }
         }
+
+
+
+        /// <summary>
+        ///     YouTube Download - Merge Output Format
+        /// </summary>
+        //public static String YouTubeDownload_MergeOutputFormat(ViewModel vm)
+        //{
+
+        //    if (IsWebDownloadOnly() == true)
+        //    {
+        //        return string.Empty;
+        //    }
+        //    else
+        //    {
+        //        return "--merge-output-format " + YouTubeDownloadFormat(vm.Format_YouTube_SelectedItem,
+        //                                                                vm.Video_Codec_SelectedItem,
+        //                                                                vm.Subtitle_Codec_SelectedItem,
+        //                                                                vm.Audio_Codec_SelectedItem
+        //                                                                );
+        //    }
+        //}
 
 
 

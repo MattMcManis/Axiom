@@ -1103,7 +1103,7 @@
                                       Grid.Row="2"
                                       Grid.Column="2"
                                       Height="22" 
-                                      Margin="0,4,0,0" />
+                                      Margin="0,2,0,0" />
 
 
                             <!-- Video Quality -->
@@ -1495,6 +1495,28 @@
                                     </DataTemplate>
                                 </ComboBox.ItemTemplate>
                             </ComboBox>
+
+                            <!-- Expander -->
+                            <!--<Grid Margin="0,10,0,23"
+                                  Grid.Row="15" 
+                                  Grid.Column="1" 
+                                  Grid.RowSpan="2"
+                                  >
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Expander IsExpanded="True">
+                                    <Border BorderBrush="Red" BorderThickness="2">
+                                        <TextBlock Height="50" Text="Hello" />
+                                    </Border>
+                                </Expander>
+                                <Expander Grid.Row="1" IsExpanded="True">
+                                    <Border BorderBrush="Green" BorderThickness="2">
+                                        <TextBlock Height="50" Text="World" />
+                                    </Border>
+                                </Expander>
+                            </Grid>-->
 
                             <!-- Tune -->
                             <Label Style="{DynamicResource LabelCustom}" 
