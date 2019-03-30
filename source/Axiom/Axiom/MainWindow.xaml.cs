@@ -2255,7 +2255,7 @@ namespace Axiom
             // -------------------------
             if (vm.Video_Quality_SelectedItem == "Custom" &&
                 vm.Video_Bitrate_IsEnabled == true &&
-                //!string.IsNullOrEmpty(vm.Video_Bitrate_Text) &&
+                vm.Video_Bitrate_Text != "0" && // Constant Bit Rate 0 does not need K or M
                 vm.Video_VBR_IsChecked != true)
             {
                 // Error List

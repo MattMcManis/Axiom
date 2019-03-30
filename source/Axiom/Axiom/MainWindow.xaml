@@ -1931,7 +1931,7 @@
                                 Grid.Row="5" 
                                 Grid.Column="1" />
 
-                            <TextBox x:Name="tbxAudio_BitRate"
+                            <TextBox x:Name="tbxAudio_Bitrate"
                                      Text="{Binding Audio_Bitrate_Text, Mode=TwoWay}"
                                      IsEnabled="{Binding Audio_Bitrate_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                      Style="{DynamicResource TextBoxCustom}" 
