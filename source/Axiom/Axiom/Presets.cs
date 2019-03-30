@@ -53,8 +53,7 @@ namespace Axiom
             // ---------------------------------------------------------------------------
             // Default
             // ---------------------------------------------------------------------------
-            if (vm.Preset_SelectedItem == "Preset" ||
-                vm.Preset_SelectedItem == "Default")
+            if (vm.Preset_SelectedItem == "Preset")
             {
                 // -------------------------
                 // Default Video
@@ -95,13 +94,10 @@ namespace Axiom
                     vm.Video_Maxrate_Text = "";
                     vm.Video_Bufsize_Text = "";
                     vm.Video_Scale_SelectedItem = "Source";
-
                     vm.Video_ScalingAlgorithm_SelectedItem = "auto";
-
-
                     vm.Video_AspectRatio_SelectedItem = "auto";
-
                     vm.Video_FPS_SelectedItem = "auto";
+                    vm.Video_Speed_SelectedItem = "auto";
 
                     // Subtitle
                     //vm.Subtitle_Codec_SelectedItem = "None";
@@ -173,6 +169,7 @@ namespace Axiom
                     vm.Video_Bufsize_Text = "";
                     vm.Video_PixelFormat_SelectedItem = "none";
                     vm.Video_FPS_SelectedItem = "auto";
+                    vm.Video_Speed_SelectedItem = "auto";
                     vm.Video_Optimize_SelectedItem = "None";
                     vm.Video_Scale_SelectedItem = "Source";
                     vm.Video_ScalingAlgorithm_SelectedItem = "auto";
@@ -241,6 +238,7 @@ namespace Axiom
                 vm.Video_Bufsize_Text = "";
                 vm.Video_PixelFormat_SelectedItem = "yuv420p";
                 vm.Video_FPS_SelectedItem = "auto";
+                vm.Video_Speed_SelectedItem = "auto";
                 vm.Video_Optimize_SelectedItem = "Web";
                 vm.Video_Scale_SelectedItem = "Source";
                 vm.Video_ScalingAlgorithm_SelectedItem = "auto";
@@ -296,6 +294,7 @@ namespace Axiom
                 vm.Video_Bufsize_Text = "";
                 vm.Video_PixelFormat_SelectedItem = "yuv420p";
                 vm.Video_FPS_SelectedItem = "auto";
+                vm.Video_Speed_SelectedItem = "auto";
                 vm.Video_Optimize_SelectedItem = "Web";
                 vm.Video_Scale_SelectedItem = "Source";
                 vm.Video_ScalingAlgorithm_SelectedItem = "auto";
@@ -355,6 +354,7 @@ namespace Axiom
                 vm.Video_Bufsize_Text = "";
                 vm.Video_PixelFormat_SelectedItem = "yuv444p10le";
                 vm.Video_FPS_SelectedItem = "auto";
+                vm.Video_Speed_SelectedItem = "auto";
                 vm.Video_Optimize_SelectedItem = "None";
                 vm.Video_Scale_SelectedItem = "Source";
                 vm.Video_ScalingAlgorithm_SelectedItem = "auto";
@@ -421,6 +421,7 @@ namespace Axiom
                 vm.Video_Bufsize_Text = "";
                 vm.Video_PixelFormat_SelectedItem = "yuv420p10le";
                 vm.Video_FPS_SelectedItem = "59.94";
+                vm.Video_Speed_SelectedItem = "auto";
                 vm.Video_Optimize_SelectedItem = "Custom";
                 vm.Video_Optimize_Tune_SelectedItem = "none";
                 vm.Video_Optimize_Profile_SelectedItem = "main10";
@@ -501,6 +502,7 @@ namespace Axiom
                 vm.Video_Bufsize_Text = "";
                 vm.Video_PixelFormat_SelectedItem = "yuv420p";
                 vm.Video_FPS_SelectedItem = "auto";
+                vm.Video_Speed_SelectedItem = "auto";
                 vm.Video_Optimize_SelectedItem = "PC HD";
                 vm.Video_Scale_SelectedItem = "Source";
                 vm.Video_ScalingAlgorithm_SelectedItem = "auto";
@@ -571,6 +573,7 @@ namespace Axiom
                 vm.Video_Bufsize_Text = "";
                 vm.Video_PixelFormat_SelectedItem = "yuv420p";
                 vm.Video_FPS_SelectedItem = "auto";
+                vm.Video_Speed_SelectedItem = "auto";
                 vm.Video_Optimize_SelectedItem = "PC SD";
                 vm.Video_Scale_SelectedItem = "Source";
                 vm.Video_ScalingAlgorithm_SelectedItem = "auto";
@@ -630,6 +633,7 @@ namespace Axiom
                 vm.Video_Bufsize_Text = "";
                 vm.Video_PixelFormat_SelectedItem = "yuv420p";
                 vm.Video_FPS_SelectedItem = "auto";
+                vm.Video_Speed_SelectedItem = "auto";
                 vm.Video_Optimize_SelectedItem = "Custom";
                 vm.Video_Optimize_Tune_SelectedItem = "none";
                 vm.Video_Optimize_Profile_SelectedItem = "high";
@@ -688,6 +692,7 @@ namespace Axiom
                 vm.Video_Bufsize_Text = "";
                 vm.Video_PixelFormat_SelectedItem = "yuv420p";
                 vm.Video_FPS_SelectedItem = "auto";
+                vm.Video_Speed_SelectedItem = "auto";
                 vm.Video_Optimize_SelectedItem = "Custom";
                 vm.Video_Optimize_Tune_SelectedItem = "none";
                 vm.Video_Optimize_Profile_SelectedItem = "high";
@@ -746,6 +751,7 @@ namespace Axiom
                 vm.Video_Bufsize_Text = "";
                 vm.Video_PixelFormat_SelectedItem = "yuv420p";
                 vm.Video_FPS_SelectedItem = "auto";
+                vm.Video_Speed_SelectedItem = "auto";
                 vm.Video_Optimize_SelectedItem = "Custom";
                 vm.Video_Optimize_Tune_SelectedItem = "none";
                 vm.Video_Optimize_Profile_SelectedItem = "high";
@@ -804,6 +810,7 @@ namespace Axiom
                 vm.Video_Bufsize_Text = "";
                 vm.Video_PixelFormat_SelectedItem = "yuv420p";
                 vm.Video_FPS_SelectedItem = "auto";
+                vm.Video_Speed_SelectedItem = "auto";
                 vm.Video_Optimize_SelectedItem = "Custom";
                 vm.Video_Optimize_Tune_SelectedItem = "none";
                 vm.Video_Optimize_Profile_SelectedItem = "high";
@@ -862,6 +869,7 @@ namespace Axiom
                 vm.Video_Bufsize_Text = "";
                 vm.Video_PixelFormat_SelectedItem = "yuv420p";
                 vm.Video_FPS_SelectedItem = "auto";
+                vm.Video_Speed_SelectedItem = "auto";
                 vm.Video_Optimize_SelectedItem = "Custom";
                 vm.Video_Optimize_Tune_SelectedItem = "none";
                 vm.Video_Optimize_Profile_SelectedItem = "main";
@@ -925,6 +933,7 @@ namespace Axiom
                 vm.Video_PixelFormat_SelectedItem = "yuv420p";
                 vm.Video_Optimize_SelectedItem = "Android";
                 vm.Video_FPS_SelectedItem = "23.976";
+                vm.Video_Speed_SelectedItem = "auto";
                 vm.Video_Scale_SelectedItem = "Source";
                 vm.Video_ScalingAlgorithm_SelectedItem = "auto";
                 vm.Video_AspectRatio_SelectedItem = "auto";
@@ -979,6 +988,7 @@ namespace Axiom
                 vm.Video_Bufsize_Text = "";
                 vm.Video_PixelFormat_SelectedItem = "yuv420p";
                 vm.Video_FPS_SelectedItem = "23.976";
+                vm.Video_Speed_SelectedItem = "auto";
                 vm.Video_Optimize_SelectedItem = "Apple";
                 vm.Video_Scale_SelectedItem = "Source";
                 vm.Video_ScalingAlgorithm_SelectedItem = "auto";
@@ -1038,6 +1048,7 @@ namespace Axiom
                 vm.Video_Bufsize_Text = "";
                 vm.Video_PixelFormat_SelectedItem = "yuv420p";
                 vm.Video_FPS_SelectedItem = "23.976";
+                vm.Video_Speed_SelectedItem = "auto";
                 vm.Video_Optimize_SelectedItem = "PS3";
                 vm.Video_Scale_SelectedItem = "Source";
                 vm.Video_ScalingAlgorithm_SelectedItem = "auto";
@@ -1093,6 +1104,7 @@ namespace Axiom
                 vm.Video_Bufsize_Text = "";
                 vm.Video_PixelFormat_SelectedItem = "yuv420p";
                 vm.Video_FPS_SelectedItem = "auto";
+                vm.Video_Speed_SelectedItem = "auto";
                 vm.Video_Optimize_SelectedItem = "PS4";
                 vm.Video_Scale_SelectedItem = "Source";
                 vm.Video_ScalingAlgorithm_SelectedItem = "auto";
@@ -1148,6 +1160,7 @@ namespace Axiom
                 vm.Video_Bufsize_Text = "";
                 vm.Video_PixelFormat_SelectedItem = "yuv420p";
                 vm.Video_FPS_SelectedItem = "23.976";
+                vm.Video_Speed_SelectedItem = "auto";
                 vm.Video_Optimize_SelectedItem = "Xbox 360";
                 vm.Video_Scale_SelectedItem = "Source";
                 vm.Video_ScalingAlgorithm_SelectedItem = "auto";
@@ -1203,6 +1216,7 @@ namespace Axiom
                 vm.Video_Bufsize_Text = "";
                 vm.Video_PixelFormat_SelectedItem = "yuv420p";
                 vm.Video_FPS_SelectedItem = "auto";
+                vm.Video_Speed_SelectedItem = "auto";
                 vm.Video_Optimize_SelectedItem = "Xbox One";
                 vm.Video_Scale_SelectedItem = "Source";
                 vm.Video_ScalingAlgorithm_SelectedItem = "auto";
@@ -1262,6 +1276,7 @@ namespace Axiom
                 vm.Video_Bufsize_Text = "75M";
                 vm.Video_PixelFormat_SelectedItem = "yuv420p10le";
                 vm.Video_FPS_SelectedItem = "60";
+                vm.Video_Speed_SelectedItem = "auto";
                 vm.Video_Optimize_SelectedItem = "UHD";
                 vm.Video_Scale_SelectedItem = "Source";
                 vm.Video_ScalingAlgorithm_SelectedItem = "auto";
@@ -1317,6 +1332,7 @@ namespace Axiom
                 vm.Video_Bufsize_Text = "";
                 vm.Video_PixelFormat_SelectedItem = "yuv420p10le";
                 vm.Video_FPS_SelectedItem = "23.976";
+                vm.Video_Speed_SelectedItem = "auto";
                 vm.Video_Optimize_SelectedItem = "Blu-ray";
                 vm.Video_Scale_SelectedItem = "1080p";
                 vm.Video_ScalingAlgorithm_SelectedItem = "auto";
@@ -1372,6 +1388,7 @@ namespace Axiom
                 vm.Video_Bufsize_Text = "9.8M";
                 vm.Video_PixelFormat_SelectedItem = "yuv420p";
                 vm.Video_FPS_SelectedItem = "ntsc";
+                vm.Video_Speed_SelectedItem = "auto";
                 vm.Video_Optimize_SelectedItem = "None";
                 vm.Video_Scale_SelectedItem = "Custom";
                 vm.Video_Width_Text = "720";
@@ -1433,6 +1450,7 @@ namespace Axiom
                 vm.Video_Bufsize_Text = "";
                 vm.Video_PixelFormat_SelectedItem = "none";
                 vm.Video_FPS_SelectedItem = "auto";
+                vm.Video_Speed_SelectedItem = "auto";
                 vm.Video_Optimize_SelectedItem = "None";
                 vm.Video_Scale_SelectedItem = "Source";
                 vm.Video_ScalingAlgorithm_SelectedItem = "auto";
@@ -1489,6 +1507,7 @@ namespace Axiom
                 vm.Video_Bufsize_Text = "";
                 vm.Video_PixelFormat_SelectedItem = "none";
                 vm.Video_FPS_SelectedItem = "auto";
+                vm.Video_Speed_SelectedItem = "auto";
                 vm.Video_Optimize_SelectedItem = "None";
                 vm.Video_Scale_SelectedItem = "Source";
                 vm.Video_ScalingAlgorithm_SelectedItem = "auto";
@@ -1555,6 +1574,7 @@ namespace Axiom
                 vm.Video_Bufsize_Text = "";
                 vm.Video_PixelFormat_SelectedItem = "none";
                 vm.Video_FPS_SelectedItem = "auto";
+                vm.Video_Speed_SelectedItem = "auto";
                 vm.Video_Optimize_SelectedItem = "None";
                 vm.Video_Scale_SelectedItem = "Source";
                 vm.Video_ScalingAlgorithm_SelectedItem = "auto";
@@ -1610,6 +1630,7 @@ namespace Axiom
                 vm.Video_Bufsize_Text = "";
                 vm.Video_PixelFormat_SelectedItem = "none";
                 vm.Video_FPS_SelectedItem = "auto";
+                vm.Video_Speed_SelectedItem = "auto";
                 vm.Video_Optimize_SelectedItem = "None";
                 vm.Video_Scale_SelectedItem = "Source";
                 vm.Video_ScalingAlgorithm_SelectedItem = "auto";
@@ -1668,6 +1689,7 @@ namespace Axiom
                 vm.Video_Bufsize_Text = "";
                 vm.Video_PixelFormat_SelectedItem = "auto";
                 vm.Video_FPS_SelectedItem = "auto";
+                vm.Video_Speed_SelectedItem = "auto";
                 vm.Video_Optimize_SelectedItem = "None";
                 vm.Video_Optimize_Tune_SelectedItem = "none";
                 vm.Video_Optimize_Profile_SelectedItem = "none";
@@ -1726,6 +1748,7 @@ namespace Axiom
                 vm.Video_Bufsize_Text = "";
                 vm.Video_PixelFormat_SelectedItem = "none";
                 vm.Video_FPS_SelectedItem = "auto";
+                vm.Video_Speed_SelectedItem = "auto";
                 vm.Video_Optimize_SelectedItem = "None";
                 vm.Video_Scale_SelectedItem = "Source";
                 vm.Video_ScalingAlgorithm_SelectedItem = "auto";
@@ -1782,6 +1805,7 @@ namespace Axiom
                 vm.Video_CRF_Text = "26";
                 vm.Video_PixelFormat_SelectedItem = "yuv444p";
                 vm.Video_FPS_SelectedItem = "29.97";
+                vm.Video_Speed_SelectedItem = "auto";
                 vm.Video_Optimize_SelectedItem = "Windows";
                 vm.Video_Scale_SelectedItem = "Custom";
                 vm.Video_Width_Text = "545";

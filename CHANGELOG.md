@@ -4,6 +4,22 @@ Axiom FFmpeg UI
 
 ## [alpha]
 
+## [1.6.3.0] - Mar 29, 2019
+### Added
+- Video CRF Value Slider
+- YouTube Download Quality 4K
+- Video Speed default to Presets
+
+
+### Changed
+- Improved Video Scaling Widescreen & Full Screen
+- `AAC` Auto Quality NA value to 400
+- Adjusted UHD Presets
+
+### Fixed
+- `VP8`/`VP9` Error Halt
+
+
 ## [1.6.2.0] - Mar 29, 2019
 ### Added
 - More YouTube Download Qualities
