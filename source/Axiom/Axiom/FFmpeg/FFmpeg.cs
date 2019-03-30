@@ -113,6 +113,9 @@ namespace Axiom
                 List<string> FFmpegArgsSinglePassList = new List<string>()
                 {
                     "\r\n\r\n" +
+                    "-i "+ "\"" + MainWindow.InputPath(vm, "pass 1") + "\"",
+
+                    "\r\n\r\n" +
                     Format.CutStart(vm.Input_Text,
                                     vm.Batch_IsChecked,
                                     vm.Format_MediaType_SelectedItem,
@@ -125,11 +128,6 @@ namespace Axiom
                                     vm.Format_CutStart_Milliseconds_Text,
                                     vm.Format_FrameStart_Text
                                     ),
-
-                    "\r\n\r\n" +
-                    "-i "+ "\"" + MainWindow.InputPath(vm, "pass 1") + "\"",
-
-                    "\r\n\r\n" +
                     Format.CutEnd(vm.Input_Text,
                                   vm.Batch_IsChecked,
                                   vm.Format_MediaType_SelectedItem,
@@ -323,6 +321,10 @@ namespace Axiom
                 List<string> FFmpegArgsPass1List = new List<string>()
                 {
                     "\r\n\r\n" +
+                    "-i "+ "\"" +
+                    MainWindow.InputPath(vm, "pass 1") + "\"",
+
+                    "\r\n\r\n" +
                     Format.CutStart(vm.Input_Text,
                                     vm.Batch_IsChecked,
                                     vm.Format_MediaType_SelectedItem,
@@ -335,12 +337,6 @@ namespace Axiom
                                     vm.Format_CutStart_Milliseconds_Text,
                                     vm.Format_FrameStart_Text
                                     ),
-
-                    "\r\n\r\n" +
-                    "-i "+ "\"" +
-                    MainWindow.InputPath(vm, "pass 1") + "\"",
-
-                    "\r\n\r\n" +
                     Format.CutEnd(vm.Input_Text,
                                   vm.Batch_IsChecked,
                                   vm.Format_MediaType_SelectedItem,

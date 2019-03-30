@@ -4,12 +4,26 @@ Axiom FFmpeg UI
 
 ## [alpha]
 
+## [1.6.4.0] - Mar 30, 2019
+### Added
+- Added support for youtube-dl other websites
+
+### Changed
+- Refactored Script and Convert Methods
+- Changed term Bitrate/Bit-rate, to "Bit Rate"
+- Improved YouTube Download Script
+- Improved Convert Button Text to Download switch
+- Improved YouTube Download Quality Fallbacks
+
+### Fixed
+- Cut Seek
+
+
 ## [1.6.3.0] - Mar 29, 2019
 ### Added
 - Video CRF Value Slider
 - YouTube Download Quality 4K
 - Video Speed default to Presets
-
 
 ### Changed
 - Improved Video Scaling Widescreen & Full Screen
