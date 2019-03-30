@@ -762,7 +762,7 @@ namespace Axiom
         /// <summary>
         public static String VideoFilter(ViewModel vm)
         {
-            // Video Bitrate None Check
+            // Video BitRate None Check
             // Video Codec None Check
             // Codec Copy Check
             // Media Type Check

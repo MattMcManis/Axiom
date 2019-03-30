@@ -25,10 +25,10 @@ along with this program.If not, see <http://www.gnu.org/licenses/>.
  * Hardware Acceleration
  * Video Codec
  * Speed
- * Bitrate Mode
+ * BitRate Mode
  * Video Quality
  * Batch Video Quality Auto
- * Video Bitrate Calculator
+ * Video BitRate Calculator
  * Pass 1 Modifier
  * Pass 2 Modifier
  * Frame Rate To Decimal
@@ -70,11 +70,11 @@ namespace Axiom
         public static string vQuality; // Video Quality
         public static string vBitMode;
         public static string vLossless;
-        public static string vBitrate; // Video Bitrate
-        public static string vBitrateNA; // N/A e.g. Define 3000K
-        public static string vMinrate;
-        public static string vMaxrate;
-        public static string vBufsize;
+        public static string vBitRate; // Video BitRate
+        public static string vBitRateNA; // N/A e.g. Define 3000K
+        public static string vMinRate;
+        public static string vMaxRate;
+        public static string vBufSize;
         public static string vOptions; // -pix_fmt, -qcomp
         public static string vCRF; // Constant Rate Factor
         public static string pix_fmt;
@@ -364,16 +364,16 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Bitrate Mode
+        ///     BitRate Mode
         /// <summary>
-        public static String BitrateMode(List<ViewModel.VideoQuality> quality_Items,
+        public static String BitRateMode(List<ViewModel.VideoQuality> quality_Items,
                                          string quality_SelectedItem,
                                          string bitrate_Text,
                                          bool vbr_IsChecked)
         {
             //MessageBox.Show(vbr_IsChecked.ToString()); //debug
 
-            // Only if Bitrate Textbox is not Empty (except for Auto Quality)
+            // Only if BitRate Textbox is not Empty (except for Auto Quality)
             if (quality_SelectedItem == "Auto" || 
                 !string.IsNullOrEmpty(bitrate_Text))
             {
@@ -423,45 +423,45 @@ namespace Axiom
                                        string input_Text
                                        )
         {
-            // Bitrate
+            // BitRate
             // Video
             if (mediaType_SelectedItem == "Video")
             {
-                vBitrate = VideoBitrateCalculator(container_SelectedItem,
+                vBitRate = VideoBitRateCalculator(container_SelectedItem,
                                                     mediaType_SelectedItem,
                                                     codec_SelectedItem,
                                                     FFprobe.vEntryType,
-                                                    FFprobe.inputVideoBitrate);
+                                                    FFprobe.inputVideoBitRate);
             }
             // Images
             else if (mediaType_SelectedItem == "Image" ||
                         mediaType_SelectedItem == "Sequence"
                     )
             {
-                vBitrate = quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.VBR;
+                vBitRate = quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.VBR;
             }
 
 
 
-            // Bitrate NA
-            vBitrateNA = quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.NA;
+            // BitRate NA
+            vBitRateNA = quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.NA;
 
-            // Minrate
+            // MinRate
             if (!string.IsNullOrEmpty(minrate_Text))
             {
-                vMinrate = "-minrate " + quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.Minrate;
+                vMinRate = "-minrate " + quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.MinRate;
             }
 
-            // Maxrate
+            // MaxRate
             if (!string.IsNullOrEmpty(maxrate_Text))
             {
-                vMaxrate = "-maxrate " + quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.Maxrate;
+                vMaxRate = "-maxrate " + quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.MaxRate;
             }
 
-            // Bufsize
+            // BufSize
             if (!string.IsNullOrEmpty(bufsize_Text))
             {
-                vBufsize = "-bufsize " + quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.Bufsize;
+                vBufSize = "-bufsize " + quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.BufSize;
             }
 
 
@@ -472,11 +472,11 @@ namespace Axiom
             {
                 // -------------------------
                 // Input File Has Video
-                // Input Video Bitrate NOT Detected
+                // Input Video BitRate NOT Detected
                 // Input Video Codec Detected
                 // -------------------------
-                if (string.IsNullOrEmpty(FFprobe.inputVideoBitrate) ||
-                    FFprobe.inputVideoBitrate == "N/A")
+                if (string.IsNullOrEmpty(FFprobe.inputVideoBitRate) ||
+                    FFprobe.inputVideoBitRate == "N/A")
                 {
                     // -------------------------
                     // Codec Detected
@@ -490,15 +490,15 @@ namespace Axiom
                         {
                             vCRF = string.Empty;
 
-                            if (!string.IsNullOrEmpty(vBitrateNA))
+                            if (!string.IsNullOrEmpty(vBitRateNA))
                             {
-                                vBitMode = BitrateMode(quality_Items,
+                                vBitMode = BitRateMode(quality_Items,
                                                         quality_SelectedItem,
                                                         bitrate_Text,
                                                         vbr_IsChecked
                                                         );
 
-                                vBitrate = vBitrateNA; // N/A e.g. Define 3000K
+                                vBitRate = vBitRateNA; // N/A e.g. Define 3000K
                             }
                         }
 
@@ -510,14 +510,14 @@ namespace Axiom
 
                             //MessageBox.Show(auto_bitrate_na); //debug
 
-                            if (!string.IsNullOrEmpty(vBitrateNA))
+                            if (!string.IsNullOrEmpty(vBitRateNA))
                             {
-                                vBitMode = BitrateMode(quality_Items,
+                                vBitMode = BitRateMode(quality_Items,
                                                         quality_SelectedItem,
                                                         bitrate_Text,
                                                         vbr_IsChecked
                                                         );
-                                vBitrate = vBitrateNA; // N/A e.g. Define 3000K
+                                vBitRate = vBitRateNA; // N/A e.g. Define 3000K
                             }
                         }
                     }
@@ -528,22 +528,22 @@ namespace Axiom
                     {
                         vCRF = string.Empty;
 
-                        // Default to NA Bitrate
-                        vBitMode = BitrateMode(quality_Items,
+                        // Default to NA BitRate
+                        vBitMode = BitRateMode(quality_Items,
                                                 quality_SelectedItem,
                                                 bitrate_Text,
                                                 vbr_IsChecked
                                                 );
 
-                        vBitrate = VideoBitrateCalculator(container_SelectedItem,
+                        vBitRate = VideoBitRateCalculator(container_SelectedItem,
                                                             mediaType_SelectedItem,
                                                             codec_SelectedItem,
                                                             FFprobe.vEntryType,
-                                                            vBitrateNA);
+                                                            vBitRateNA);
 
-                        vMinrate = string.Empty;
-                        vMaxrate = string.Empty;
-                        vBufsize = string.Empty;
+                        vMinRate = string.Empty;
+                        vMaxRate = string.Empty;
+                        vBufSize = string.Empty;
 
                         // Pixel Format
                         vOptions = string.Empty;
@@ -552,24 +552,24 @@ namespace Axiom
 
                 // -------------------------
                 // Input File Has Video
-                // Input Video Bitrate IS Detected
+                // Input Video BitRate IS Detected
                 // Input Video Codec Detected
                 // -------------------------
-                else if (!string.IsNullOrEmpty(FFprobe.inputVideoBitrate) &&
-                            FFprobe.inputVideoBitrate != "N/A")
+                else if (!string.IsNullOrEmpty(FFprobe.inputVideoBitRate) &&
+                            FFprobe.inputVideoBitRate != "N/A")
                 {
                     // -------------------------
                     // Codec Detected
                     // -------------------------
                     if (!string.IsNullOrEmpty(FFprobe.inputVideoCodec))
                     {
-                        //MessageBox.Show("5 " + vBitrate);
+                        //MessageBox.Show("5 " + vBitRate);
 
                         vCRF = string.Empty;
 
-                        if (!string.IsNullOrEmpty(vBitrate))
+                        if (!string.IsNullOrEmpty(vBitRate))
                         {
-                            vBitMode = BitrateMode(quality_Items,
+                            vBitMode = BitRateMode(quality_Items,
                                                     quality_SelectedItem,
                                                     bitrate_Text,
                                                     vbr_IsChecked
@@ -587,10 +587,10 @@ namespace Axiom
                         vCRF = string.Empty;
 
                         vBitMode = string.Empty;
-                        vBitrate = string.Empty;
-                        vMinrate = string.Empty;
-                        vMaxrate = string.Empty;
-                        vBufsize = string.Empty;
+                        vBitRate = string.Empty;
+                        vMinRate = string.Empty;
+                        vMaxRate = string.Empty;
+                        vBufSize = string.Empty;
 
                         // Pixel Format
                         vOptions = string.Empty;
@@ -605,7 +605,7 @@ namespace Axiom
             {
                 // Use the CMD Batch Video Variable
                 vBitMode = "-b:v";
-                vBitrate = "%V";
+                vBitRate = "%V";
             }
         }
 
@@ -654,33 +654,33 @@ namespace Axiom
                 vCRF = "-crf " + crf_Text;
             }
 
-            // Bitrate Mode
-            vBitMode = BitrateMode(quality_Items,
+            // BitRate Mode
+            vBitMode = BitRateMode(quality_Items,
                                    quality_SelectedItem,
                                    bitrate_Text,
                                    vbr_IsChecked
                                    );
 
-            // Bitrate
-            vBitrate = bitrate_Text;
+            // BitRate
+            vBitRate = bitrate_Text;
 
 
-            // Minrate
+            // MinRate
             if (!string.IsNullOrEmpty(minrate_Text))
             {
-                vMinrate = "-minrate " + minrate_Text;
+                vMinRate = "-minrate " + minrate_Text;
             }
 
-            // Maxrate
+            // MaxRate
             if (!string.IsNullOrEmpty(maxrate_Text))
             {
-                vMaxrate = "-maxrate " + maxrate_Text;
+                vMaxRate = "-maxrate " + maxrate_Text;
             }
 
-            // Bufsize
+            // BufSize
             if (!string.IsNullOrEmpty(bufsize_Text))
             {
-                vBufsize = "-bufsize " + bufsize_Text;
+                vBufSize = "-bufsize " + bufsize_Text;
             }
         }
 
@@ -700,29 +700,29 @@ namespace Axiom
                                          string bufsize_Text
                                          )
         {
-            // Bitrate Mode
-            vBitMode = BitrateMode(quality_Items,
+            // BitRate Mode
+            vBitMode = BitRateMode(quality_Items,
                                    quality_SelectedItem,
                                    bitrate_Text,
                                    vbr_IsChecked
                                    );
 
-            // Minrate
+            // MinRate
             if (!string.IsNullOrEmpty(minrate_Text))
             {
-                vMinrate = "-minrate " + minrate_Text;
+                vMinRate = "-minrate " + minrate_Text;
             }
 
-            // Maxrate
+            // MaxRate
             if (!string.IsNullOrEmpty(maxrate_Text))
             {
-                vMaxrate = "-maxrate " + maxrate_Text;
+                vMaxRate = "-maxrate " + maxrate_Text;
             }
 
-            // Bufsize
+            // BufSize
             if (!string.IsNullOrEmpty(bufsize_Text))
             {
-                vBufsize = "-bufsize " + bufsize_Text;
+                vBufSize = "-bufsize " + bufsize_Text;
             }
 
             // --------------------------------------------------
@@ -734,10 +734,10 @@ namespace Axiom
             if (pass_SelectedItem == "auto")
             {
                 vCRF = string.Empty;
-                vBitrate = string.Empty;
-                vMinrate = string.Empty;
-                vMaxrate = string.Empty;
-                vBufsize = string.Empty;
+                vBitRate = string.Empty;
+                vMinRate = string.Empty;
+                vMaxRate = string.Empty;
+                vBufSize = string.Empty;
             }
 
             // -------------------------
@@ -760,7 +760,7 @@ namespace Axiom
                 else
                 {
                     //crf = items.FirstOrDefault(item => item.Name == selectedQuality) ?.CRF;
-                    vBitrate = bitrate_Text;
+                    vBitRate = bitrate_Text;
 
                     if (!string.IsNullOrEmpty(crf_Text))
                     {
@@ -776,9 +776,9 @@ namespace Axiom
                      pass_SelectedItem == "2 Pass")
             {
                 // -------------------------
-                // Bitrate
+                // BitRate
                 // -------------------------
-                vBitrate = bitrate_Text;
+                vBitRate = bitrate_Text;
             }
         }
 
@@ -821,7 +821,7 @@ namespace Axiom
                 // -------------------------
                 if (quality_SelectedItem == "Auto" &&
                     codec_SelectedItem != "FFV1" &&   // Special Rule
-                    codec_SelectedItem != "HuffYUV"   // FFV1, HuffYUV cannot use Auto Bitrate, Lossless Only, Auto is used for Codec Copy
+                    codec_SelectedItem != "HuffYUV"   // FFV1, HuffYUV cannot use Auto BitRate, Lossless Only, Auto is used for Codec Copy
                     )  
                 {
                     QualityAuto(batch_IsChecked,
@@ -885,7 +885,7 @@ namespace Axiom
                                   );
                 }
 
-                //MessageBox.Show(vBufsize); //debug
+                //MessageBox.Show(vBufSize); //debug
 
                 // --------------------------------------------------
                 // Combine
@@ -916,10 +916,10 @@ namespace Axiom
                     {
                         vLossless,
                         vBitMode,
-                        vBitrate,
-                        vMinrate,
-                        vMaxrate,
-                        vBufsize,
+                        vBitRate,
+                        vMinRate,
+                        vMaxRate,
+                        vBufSize,
                         vCRF,
                         x265params,
                         vOptions
@@ -938,10 +938,10 @@ namespace Axiom
                     {
                         vLossless,
                         vBitMode,
-                        vBitrate,
-                        vMinrate,
-                        vMaxrate,
-                        vBufsize,
+                        vBitRate,
+                        vMinRate,
+                        vMaxRate,
+                        vBufSize,
                         x265params,
                         vOptions
                     };
@@ -959,10 +959,10 @@ namespace Axiom
                 Log.WriteAction = () =>
                 {
                     Log.logParagraph.Inlines.Add(new LineBreak());
-                    Log.logParagraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
-                    if (!string.IsNullOrEmpty(vBitrate))
+                    Log.logParagraph.Inlines.Add(new Bold(new Run("BitRate: ")) { Foreground = Log.ConsoleDefault });
+                    if (!string.IsNullOrEmpty(vBitRate))
                     {
-                        Log.logParagraph.Inlines.Add(new Run(vBitrate) { Foreground = Log.ConsoleDefault });
+                        Log.logParagraph.Inlines.Add(new Run(vBitRate) { Foreground = Log.ConsoleDefault });
                     }
                     Log.logParagraph.Inlines.Add(new LineBreak());
                     Log.logParagraph.Inlines.Add(new Bold(new Run("CRF: ")) { Foreground = Log.ConsoleDefault });
@@ -1009,7 +1009,7 @@ namespace Axiom
                 //if (batch_IsChecked == true)
                 //{
                     // -------------------------
-                    // Video Auto Bitrates
+                    // Video Auto BitRates
                     // -------------------------
                     if (quality_SelectedItem == "Auto")
                     {
@@ -1028,14 +1028,14 @@ namespace Axiom
                             // set %D to %duration%
                             "\r\n\r\n" + "& for /F %D in ('echo %duration%') do (echo)",
 
-                            // vBitrate
-                            "\r\n\r\n" + "& for /F \"delims=\" %V in ('@" + FFprobe.ffprobe + " -v error -select_streams v:0 -show_entries " + FFprobe.vEntryTypeBatch + " -of default^=noprint_wrappers^=1:nokey^=1 \"%~f\" 2^>^&1') do (SET vBitrate=%V)",
-                            // set %V to %vBitrate%
-                            "\r\n\r\n" + "& for /F %V in ('echo %vBitrate%') do (echo)",
+                            // vBitRate
+                            "\r\n\r\n" + "& for /F \"delims=\" %V in ('@" + FFprobe.ffprobe + " -v error -select_streams v:0 -show_entries " + FFprobe.vEntryTypeBatch + " -of default^=noprint_wrappers^=1:nokey^=1 \"%~f\" 2^>^&1') do (SET vBitRate=%V)",
+                            // set %V to %vBitRate%
+                            "\r\n\r\n" + "& for /F %V in ('echo %vBitRate%') do (echo)",
                             // auto bitrate calcuate
-                            "\r\n\r\n" + "& (if %V EQU N/A (SET /a vBitrate=%S*8/1000/%D*1000) ELSE (echo Video Bitrate Detected))",
-                            // set %V to %vBitrate%
-                            "\r\n\r\n" + "& for /F %V in ('echo %vBitrate%') do (echo)",
+                            "\r\n\r\n" + "& (if %V EQU N/A (SET /a vBitRate=%S*8/1000/%D*1000) ELSE (echo Video BitRate Detected))",
+                            // set %V to %vBitRate%
+                            "\r\n\r\n" + "& for /F %V in ('echo %vBitRate%') do (echo)",
                         };
 
                         // -------------------------
@@ -1055,79 +1055,79 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Video Bitrate Calculator (Method)
+        ///     Video BitRate Calculator (Method)
         /// <summary>
-        public static String VideoBitrateCalculator(string container_SelectedItem,
+        public static String VideoBitRateCalculator(string container_SelectedItem,
                                                     string mediaType_SelectedItem,
                                                     string codec_SelectedItem,
                                                     string vEntryType, 
-                                                    string inputVideoBitrate)
+                                                    string inputVideoBitRate)
         {
             // -------------------------
             // Null Check
             // -------------------------
-            if (!string.IsNullOrEmpty(inputVideoBitrate))
+            if (!string.IsNullOrEmpty(inputVideoBitRate))
             {
                 // -------------------------
                 // Remove K & M from input if any
                 // -------------------------
-                inputVideoBitrate = Regex.Replace(inputVideoBitrate, "k", "", RegexOptions.IgnoreCase);
-                inputVideoBitrate = Regex.Replace(inputVideoBitrate, "m", "", RegexOptions.IgnoreCase);
+                inputVideoBitRate = Regex.Replace(inputVideoBitRate, "k", "", RegexOptions.IgnoreCase);
+                inputVideoBitRate = Regex.Replace(inputVideoBitRate, "m", "", RegexOptions.IgnoreCase);
 
                 // -------------------------
                 // Capture only "N/A" from FFprobe
                 // -------------------------
-                if (inputVideoBitrate.Length >= 3) // Out of Rang check
+                if (inputVideoBitRate.Length >= 3) // Out of Rang check
                 {
-                    if (inputVideoBitrate.Substring(0, 3) == "N/A")
+                    if (inputVideoBitRate.Substring(0, 3) == "N/A")
                     {
-                        inputVideoBitrate = "N/A";
+                        inputVideoBitRate = "N/A";
                     }
                 }
 
                 // -------------------------
-                // If Video has a Bitrate, calculate Bitrate into decimal
+                // If Video has a BitRate, calculate BitRate into decimal
                 // -------------------------
-                if (inputVideoBitrate != "N/A")
+                if (inputVideoBitRate != "N/A")
                 {
                     // e.g. (1000M / 1,000,000K)
-                    if (Convert.ToInt32(inputVideoBitrate) >= 1000000000)
+                    if (Convert.ToInt32(inputVideoBitRate) >= 1000000000)
                     {
-                        inputVideoBitrate = Convert.ToString(int.Parse(inputVideoBitrate) * 0.00001);
+                        inputVideoBitRate = Convert.ToString(int.Parse(inputVideoBitRate) * 0.00001);
                     }
                     // e.g. (100M / 100,000K) 
-                    else if (Convert.ToInt32(inputVideoBitrate) >= 100000000)
+                    else if (Convert.ToInt32(inputVideoBitRate) >= 100000000)
                     {
-                        inputVideoBitrate = Convert.ToString(int.Parse(inputVideoBitrate) * 0.0001);
+                        inputVideoBitRate = Convert.ToString(int.Parse(inputVideoBitRate) * 0.0001);
                     }
                     // e.g. (10M / 10,000K)
-                    else if (Convert.ToInt32(inputVideoBitrate) >= 10000000)
+                    else if (Convert.ToInt32(inputVideoBitRate) >= 10000000)
                     {
-                        inputVideoBitrate = Convert.ToString(int.Parse(inputVideoBitrate) * 0.001);
+                        inputVideoBitRate = Convert.ToString(int.Parse(inputVideoBitRate) * 0.001);
                     }
                     // e.g. (1M /1000K)
-                    else if (Convert.ToInt32(inputVideoBitrate) >= 100000)
+                    else if (Convert.ToInt32(inputVideoBitRate) >= 100000)
                     {
-                        inputVideoBitrate = Convert.ToString(int.Parse(inputVideoBitrate) * 0.001);
+                        inputVideoBitRate = Convert.ToString(int.Parse(inputVideoBitRate) * 0.001);
                     }
                     // e.g. (100K)
-                    else if (Convert.ToInt32(inputVideoBitrate) >= 10000)
+                    else if (Convert.ToInt32(inputVideoBitRate) >= 10000)
                     {
-                        inputVideoBitrate = Convert.ToString(int.Parse(inputVideoBitrate) * 0.001);
+                        inputVideoBitRate = Convert.ToString(int.Parse(inputVideoBitRate) * 0.001);
                     }
                 }
 
                 // -------------------------
                 // If Video Variable = N/A, Calculate Bitate (((Filesize*8)/1000)/Duration)
-                // Formats like WebM, MKV and with Missing Metadata can have New Bitrates calculated and applied
+                // Formats like WebM, MKV and with Missing Metadata can have New BitRates calculated and applied
                 // -------------------------
-                if (inputVideoBitrate == "N/A")
+                if (inputVideoBitRate == "N/A")
                 {
-                    // Calculating Bitrate will crash if jpg/png
+                    // Calculating BitRate will crash if jpg/png
                     try
                     {
                         // Convert to int to remove decimals
-                        inputVideoBitrate = Convert.ToInt32((double.Parse(FFprobe.inputSize) * 8) / 1000 / double.Parse(FFprobe.inputDuration)).ToString();
+                        inputVideoBitRate = Convert.ToInt32((double.Parse(FFprobe.inputSize) * 8) / 1000 / double.Parse(FFprobe.inputDuration)).ToString();
 
 
                         // Log Console Message /////////
@@ -1135,7 +1135,7 @@ namespace Axiom
                         {
                             Log.logParagraph.Inlines.Add(new LineBreak());
                             Log.logParagraph.Inlines.Add(new LineBreak());
-                            Log.logParagraph.Inlines.Add(new Bold(new Run("Calculating New Bitrate Information...")) { Foreground = Log.ConsoleAction });
+                            Log.logParagraph.Inlines.Add(new Bold(new Run("Calculating New BitRate Information...")) { Foreground = Log.ConsoleAction });
                             Log.logParagraph.Inlines.Add(new LineBreak());
                             Log.logParagraph.Inlines.Add(new Run("((File Size * 8) / 1000) / File Time Duration") { Foreground = Log.ConsoleDefault });
                         };
@@ -1148,7 +1148,7 @@ namespace Axiom
                         {
                             Log.logParagraph.Inlines.Add(new LineBreak());
                             Log.logParagraph.Inlines.Add(new LineBreak());
-                            Log.logParagraph.Inlines.Add(new Bold(new Run("Error: Could Not Calculate New Bitrate Information...")) { Foreground = Log.ConsoleError });
+                            Log.logParagraph.Inlines.Add(new Bold(new Run("Error: Could Not Calculate New BitRate Information...")) { Foreground = Log.ConsoleError });
                         };
                         Log.LogActions.Add(Log.WriteAction);
                     }
@@ -1156,50 +1156,50 @@ namespace Axiom
 
 
                 // -------------------------
-                // WebM Video Bitrate Limiter
+                // WebM Video BitRate Limiter
                 // If input video bitrate is greater than 1.5M, lower the bitrate to 1.5M
                 // -------------------------
-                if (inputVideoBitrate != "N/A" &&
-                    !string.IsNullOrEmpty(inputVideoBitrate) &&
+                if (inputVideoBitRate != "N/A" &&
+                    !string.IsNullOrEmpty(inputVideoBitRate) &&
                     container_SelectedItem == "webm" &&
                     codec_SelectedItem != "Copy"
                     )
                 {
-                    if (Convert.ToDouble(inputVideoBitrate) >= 1500)
+                    if (Convert.ToDouble(inputVideoBitRate) >= 1500)
                     {
-                        inputVideoBitrate = "1500";
+                        inputVideoBitRate = "1500";
                     }
                 }
 
 
                 // -------------------------
-                // Round Bitrate, Remove Decimals
+                // Round BitRate, Remove Decimals
                 // -------------------------
                 try
                 {
-                    inputVideoBitrate = Math.Round(double.Parse(inputVideoBitrate)).ToString();
+                    inputVideoBitRate = Math.Round(double.Parse(inputVideoBitRate)).ToString();
                 }
                 catch
                 {
-                    inputVideoBitrate = "2000";
+                    inputVideoBitRate = "2000";
                 }
 
                 // -------------------------
-                // Add K to end of Bitrate
+                // Add K to end of BitRate
                 // -------------------------
                 if (mediaType_SelectedItem != "Image" &&
                     mediaType_SelectedItem != "Sequence")
                 {
-                    inputVideoBitrate = inputVideoBitrate + "K";
+                    inputVideoBitRate = inputVideoBitRate + "K";
                 }
             }
 
             // -------------------------
-            // Input Video Bitrate does not exist
+            // Input Video BitRate does not exist
             // -------------------------
             else
             {
-                if (string.IsNullOrEmpty(inputVideoBitrate))
+                if (string.IsNullOrEmpty(inputVideoBitRate))
                 {
                     // do nothing (dont remove, it will cause substring to overload)
 
@@ -1208,14 +1208,14 @@ namespace Axiom
                     {
                         Log.logParagraph.Inlines.Add(new LineBreak());
                         Log.logParagraph.Inlines.Add(new LineBreak());
-                        Log.logParagraph.Inlines.Add(new Bold(new Run("Input Video Bitrate does not exist or can't be detected")) { Foreground = Log.ConsoleWarning });
+                        Log.logParagraph.Inlines.Add(new Bold(new Run("Input Video BitRate does not exist or can't be detected")) { Foreground = Log.ConsoleWarning });
                     };
                     Log.LogActions.Add(Log.WriteAction);
                 }
             }
 
 
-            return inputVideoBitrate;
+            return inputVideoBitRate;
         }
 
 
@@ -1600,7 +1600,7 @@ namespace Axiom
             // Media Type Audio
             // Video Codec None
             // Video Codec Copy
-            // Video Bitrate None
+            // Video BitRate None
             // Speed Auto/Null
             if (mediaType_SelectedItem != "Audio" &&
                 codec_SelectedItem != "None" &&

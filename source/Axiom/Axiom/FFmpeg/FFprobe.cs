@@ -42,8 +42,8 @@ namespace Axiom
         public static string argsProperties;
         public static string argsVideoCodec;
         public static string argsAudioCodec;
-        public static string argsVideoBitrate;
-        public static string argsAudioBitrate;
+        public static string argsVideoBitRate;
+        public static string argsAudioBitRate;
         public static string argsSize;
         public static string argsDuration;
         public static string argsFrameRate;
@@ -52,9 +52,9 @@ namespace Axiom
         // Results to Modify
         public static string inputFileProperties;
         public static string inputVideoCodec;
-        public static string inputVideoBitrate;
+        public static string inputVideoBitRate;
         public static string inputAudioCodec;
-        public static string inputAudioBitrate;
+        public static string inputAudioBitRate;
         public static string inputSize; //used to calculate video bitrate
         public static string inputDuration; //used to calculate video bitrate
         public static string inputFrameRate; //used for Frame Range
@@ -110,26 +110,26 @@ namespace Axiom
                 argsSize = " -i " + "\"" + vm.Input_Text + "\"" + " -select_streams v:0 -show_entries format=scale -v quiet -of csv=\"p=0\"";
                 argsDuration = " -i " + "\"" + vm.Input_Text + "\"" + " -select_streams v:0 -show_entries format=duration -v quiet -of csv=\"p=0\"";
                 argsVideoCodec = " -i " + "\"" + vm.Input_Text + "\"" + " -select_streams v:0 -show_entries stream=codec_name -v quiet -of csv=\"p=0\"";
-                argsVideoBitrate = " -i " + "\"" + vm.Input_Text + "\"" + " -select_streams v:0 -show_entries " + vEntryType + " -v quiet -of csv=\"p=0\"";
+                argsVideoBitRate = " -i " + "\"" + vm.Input_Text + "\"" + " -select_streams v:0 -show_entries " + vEntryType + " -v quiet -of csv=\"p=0\"";
                 argsAudioCodec = " -i " + "\"" + vm.Input_Text + "\"" + " -select_streams a:0 -show_entries stream=codec_name -v quiet -of csv=\"p=0\"";
-                argsAudioBitrate = " -i" + " " + "\"" + vm.Input_Text + "\"" + " -select_streams a:0 -show_entries " + aEntryType + " -v quiet -of csv=\"p=0\"";
+                argsAudioBitRate = " -i" + " " + "\"" + vm.Input_Text + "\"" + " -select_streams a:0 -show_entries " + aEntryType + " -v quiet -of csv=\"p=0\"";
 
                 inputFrameRate = MainWindow.RemoveLineBreaks(InputFileInfo(vm.Input_Text, vm.Batch_IsChecked, argsFrameRate));
                 inputSize = MainWindow.RemoveLineBreaks(InputFileInfo(vm.Input_Text, vm.Batch_IsChecked, argsSize));
                 inputDuration = MainWindow.RemoveLineBreaks(InputFileInfo(vm.Input_Text, vm.Batch_IsChecked, argsDuration));
                 inputVideoCodec = MainWindow.RemoveLineBreaks(InputFileInfo(vm.Input_Text, vm.Batch_IsChecked, argsVideoCodec));
-                inputVideoBitrate = MainWindow.RemoveLineBreaks(InputFileInfo(vm.Input_Text, vm.Batch_IsChecked, argsVideoBitrate));
+                inputVideoBitRate = MainWindow.RemoveLineBreaks(InputFileInfo(vm.Input_Text, vm.Batch_IsChecked, argsVideoBitRate));
                 inputAudioCodec = MainWindow.RemoveLineBreaks(InputFileInfo(vm.Input_Text, vm.Batch_IsChecked, argsAudioCodec));
-                inputAudioBitrate = MainWindow.RemoveLineBreaks(InputFileInfo(vm.Input_Text, vm.Batch_IsChecked, argsAudioBitrate));
+                inputAudioBitRate = MainWindow.RemoveLineBreaks(InputFileInfo(vm.Input_Text, vm.Batch_IsChecked, argsAudioBitRate));
 
                 // Log won't write the input data unless we pass it to a new string
                 string logInputFrameRate = inputFrameRate;
                 string logInputSize = inputSize;
                 string logInputDuration = inputDuration;
                 string logInputVideoCodec = inputVideoCodec;
-                string logInputVideoBitrate = inputVideoBitrate;
+                string logInputVideoBitRate = inputVideoBitRate;
                 string logInputAudioCodec = inputAudioCodec;
-                string logInputAudioBitrate = inputAudioBitrate;
+                string logInputAudioBitRate = inputAudioBitRate;
 
                 // --------------------------------------------------------------------
                 // Section: Input
@@ -179,8 +179,8 @@ namespace Axiom
                     Log.logParagraph.Inlines.Add(new Bold(new Run("Codec: ")) { Foreground = Log.ConsoleDefault });
                     Log.logParagraph.Inlines.Add(new Run(logInputVideoCodec) { Foreground = Log.ConsoleDefault });
                     Log.logParagraph.Inlines.Add(new LineBreak());
-                    Log.logParagraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
-                    Log.logParagraph.Inlines.Add(new Run(logInputVideoBitrate) { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new Bold(new Run("BitRate: ")) { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new Run(logInputVideoBitRate) { Foreground = Log.ConsoleDefault });
                     Log.logParagraph.Inlines.Add(new LineBreak());
                     Log.logParagraph.Inlines.Add(new Bold(new Run("FPS: ")) { Foreground = Log.ConsoleDefault });
                     Log.logParagraph.Inlines.Add(new Run(logInputFrameRate) { Foreground = Log.ConsoleDefault });
@@ -192,8 +192,8 @@ namespace Axiom
                     Log.logParagraph.Inlines.Add(new Bold(new Run("Codec: ")) { Foreground = Log.ConsoleDefault });
                     Log.logParagraph.Inlines.Add(new Run(logInputAudioCodec) { Foreground = Log.ConsoleDefault });
                     Log.logParagraph.Inlines.Add(new LineBreak());
-                    Log.logParagraph.Inlines.Add(new Bold(new Run("Bitrate: ")) { Foreground = Log.ConsoleDefault });
-                    Log.logParagraph.Inlines.Add(new Run(Convert.ToString(logInputAudioBitrate)) { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new Bold(new Run("BitRate: ")) { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new Run(Convert.ToString(logInputAudioBitRate)) { Foreground = Log.ConsoleDefault });
                 };
                 Log.LogActions.Add(Log.WriteAction);
             }
@@ -266,7 +266,7 @@ namespace Axiom
         /// <summary>
         /// FFprobe Video Entry Type Containers (Method)
         /// </summary>
-        // Used for Auto Quality to pass Bit-rate Entry Type to FFprobe
+        // Used for Auto Quality to pass Bit Rate Entry Type to FFprobe
         public static void VideoEntryType(ViewModel vm)
         {
             // -------------------------
@@ -314,7 +314,7 @@ namespace Axiom
         /// <summary>
         /// FFprobe Audio Entry Type Containers (Method)
         /// </summary>
-        // Used for Auto Quality to pass Bit-rate Entry Type to FFprobe
+        // Used for Auto Quality to pass Bit Rate Entry Type to FFprobe
         public static void AudioEntryType(ViewModel vm)
         {
             // -------------------------

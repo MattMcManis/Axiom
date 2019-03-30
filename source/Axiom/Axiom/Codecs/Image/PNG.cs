@@ -94,7 +94,7 @@ namespace Axiom
         // -------------------------
         public static List<ViewModel.VideoQuality> quality = new List<ViewModel.VideoQuality>()
         {
-             new ViewModel.VideoQuality() { Name = "Lossless", CRF = "", CBR_BitMode = "", CBR = "", VBR_BitMode = "", VBR = "",  Minrate = "", Maxrate = "", Bufsize ="", NA = "" },
+             new ViewModel.VideoQuality() { Name = "Lossless", CRF = "", CBR_BitMode = "", CBR = "", VBR_BitMode = "", VBR = "",  MinRate = "", MaxRate = "", BufSize ="", NA = "" },
         };
 
         // -------------------------
@@ -183,10 +183,10 @@ namespace Axiom
                 )
             {
                 vm.Video_CRF_Text = string.Empty;
-                vm.Video_Bitrate_Text = string.Empty;
-                vm.Video_Minrate_Text = string.Empty;
-                vm.Video_Maxrate_Text = string.Empty;
-                vm.Video_Bufsize_Text = string.Empty;
+                vm.Video_BitRate_Text = string.Empty;
+                vm.Video_MinRate_Text = string.Empty;
+                vm.Video_MaxRate_Text = string.Empty;
+                vm.Video_BufSize_Text = string.Empty;
             }
 
         }
@@ -285,7 +285,7 @@ namespace Axiom
         // -------------------------
         public static void Controls_Unhecked(ViewModel vm)
         {
-            // Bitrate Mode
+            // BitRate Mode
             vm.Video_VBR_IsChecked = false;
         }
 

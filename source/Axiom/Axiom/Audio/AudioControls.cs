@@ -23,7 +23,7 @@ along with this program.If not, see <http://www.gnu.org/licenses/>.
  METHODS
 
  * Set Controls
- * Bitrate Display
+ * BitRate Display
  * Auto Codec Copy
 ---------------------------------- */
 
@@ -423,9 +423,9 @@ namespace Axiom
 
 
         /// <summary>
-        ///    Audio Bitrate Display
+        ///    Audio BitRate Display
         /// </summary>
-        public static void AudioBitrateDisplay(ViewModel vm,
+        public static void AudioBitRateDisplay(ViewModel vm,
                                                List<ViewModel.AudioQuality> items,
                                                string selectedQuality
                                                )
@@ -441,16 +441,16 @@ namespace Axiom
                 // -------------------------
                 // Display in TextBox
                 // -------------------------
-                // Bitrate CBR
+                // BitRate CBR
                 if (vm.Audio_VBR_IsChecked == false)
                 {
-                    vm.Audio_Bitrate_Text = items.FirstOrDefault(item => item.Name == selectedQuality) ?.CBR;
+                    vm.Audio_BitRate_Text = items.FirstOrDefault(item => item.Name == selectedQuality) ?.CBR;
                 }
 
-                // Bitrate VBR
+                // BitRate VBR
                 else if (vm.Audio_VBR_IsChecked == true)
                 {
-                    vm.Audio_Bitrate_Text = items.FirstOrDefault(item => item.Name == selectedQuality) ?.VBR;
+                    vm.Audio_BitRate_Text = items.FirstOrDefault(item => item.Name == selectedQuality) ?.VBR;
                 }
             }
         }
@@ -467,9 +467,9 @@ namespace Axiom
             // Only for Custom
             if (vm.Audio_Quality_SelectedItem == "Custom")
             {
-                // Bitrate
-                vm.Audio_Bitrate_IsEnabled = true;
-                vm.Audio_Bitrate_Text = "";
+                // BitRate
+                vm.Audio_BitRate_IsEnabled = true;
+                vm.Audio_BitRate_Text = "";
             }
 
             // -------------------------
@@ -478,15 +478,15 @@ namespace Axiom
             // Only for Custom
             else if (vm.Audio_Quality_SelectedItem == "Auto")
             {
-                // Bitrate
-                vm.Audio_Bitrate_IsEnabled = false;
-                vm.Audio_Bitrate_Text = "";
+                // BitRate
+                vm.Audio_BitRate_IsEnabled = false;
+                vm.Audio_BitRate_Text = "";
             }
             // All Other Qualities
             else
             {
-                // Bitrate
-                vm.Audio_Bitrate_IsEnabled = false;
+                // BitRate
+                vm.Audio_BitRate_IsEnabled = false;
             }
         }
 

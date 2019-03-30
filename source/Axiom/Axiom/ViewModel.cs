@@ -1886,14 +1886,14 @@ namespace Axiom
             public string NA { get; set; }
             public string Lossless { get; set; }
             public string CRF { get; set; }
-            public string Video_CRF_Bitrate { get; set; }
+            public string Video_CRF_BitRate { get; set; }
             public string CBR_BitMode { get; set; }
             public string CBR { get; set; }
             public string VBR_BitMode { get; set; }
             public string VBR { get; set; }
-            public string Minrate { get; set; }
-            public string Maxrate { get; set; }
-            public string Bufsize { get; set; }
+            public string MinRate { get; set; }
+            public string MaxRate { get; set; }
+            public string BufSize { get; set; }
             //public string Custom { get; set; }
         }
         private List<VideoQuality> _Video_Quality_Items = new List<VideoQuality>();
@@ -1908,7 +1908,7 @@ namespace Axiom
         }
 
         // Command
-        //public string VideoBitrateMode_Command;
+        //public string VideoBitRateMode_Command;
 
         // Selected Index
         private int _Video_Quality_SelectedIndex { get; set; }
@@ -2061,148 +2061,148 @@ namespace Axiom
 
 
         // -------------------------
-        // Video Bitrate
+        // Video BitRate
         // -------------------------
         // Text
-        private string _Video_Bitrate_Text;
-        public string Video_Bitrate_Text
+        private string _Video_BitRate_Text;
+        public string Video_BitRate_Text
         {
-            get { return _Video_Bitrate_Text; }
+            get { return _Video_BitRate_Text; }
             set
             {
-                if (_Video_Bitrate_Text == value)
+                if (_Video_BitRate_Text == value)
                 {
                     return;
                 }
 
-                _Video_Bitrate_Text = value;
-                OnPropertyChanged("Video_Bitrate_Text");
+                _Video_BitRate_Text = value;
+                OnPropertyChanged("Video_BitRate_Text");
             }
         }
         // Enabled
-        private bool _Video_Bitrate_IsEnabled = true;
-        public bool Video_Bitrate_IsEnabled
+        private bool _Video_BitRate_IsEnabled = true;
+        public bool Video_BitRate_IsEnabled
         {
-            get { return _Video_Bitrate_IsEnabled; }
+            get { return _Video_BitRate_IsEnabled; }
             set
             {
-                if (_Video_Bitrate_IsEnabled == value)
+                if (_Video_BitRate_IsEnabled == value)
                 {
                     return;
                 }
 
-                _Video_Bitrate_IsEnabled = value;
-                OnPropertyChanged("Video_Bitrate_IsEnabled");
+                _Video_BitRate_IsEnabled = value;
+                OnPropertyChanged("Video_BitRate_IsEnabled");
             }
         }
 
 
         // -------------------------
-        // Video Minrate
+        // Video MinRate
         // -------------------------
         // Text
-        private string _Video_Minrate_Text;
-        public string Video_Minrate_Text
+        private string _Video_MinRate_Text;
+        public string Video_MinRate_Text
         {
-            get { return _Video_Minrate_Text; }
+            get { return _Video_MinRate_Text; }
             set
             {
-                if (_Video_Minrate_Text == value)
+                if (_Video_MinRate_Text == value)
                 {
                     return;
                 }
 
-                _Video_Minrate_Text = value;
-                OnPropertyChanged("Video_Minrate_Text");
+                _Video_MinRate_Text = value;
+                OnPropertyChanged("Video_MinRate_Text");
             }
         }
         // Enabled
-        private bool _Video_Minrate_IsEnabled = true;
-        public bool Video_Minrate_IsEnabled
+        private bool _Video_MinRate_IsEnabled = true;
+        public bool Video_MinRate_IsEnabled
         {
-            get { return _Video_Minrate_IsEnabled; }
+            get { return _Video_MinRate_IsEnabled; }
             set
             {
-                if (_Video_Minrate_IsEnabled == value)
+                if (_Video_MinRate_IsEnabled == value)
                 {
                     return;
                 }
 
-                _Video_Minrate_IsEnabled = value;
-                OnPropertyChanged("Video_Minrate_IsEnabled");
+                _Video_MinRate_IsEnabled = value;
+                OnPropertyChanged("Video_MinRate_IsEnabled");
             }
         }
 
         // -------------------------
-        // Video Maxrate
+        // Video MaxRate
         // -------------------------
         // Text
-        private string _Video_Maxrate_Text;
-        public string Video_Maxrate_Text
+        private string _Video_MaxRate_Text;
+        public string Video_MaxRate_Text
         {
-            get { return _Video_Maxrate_Text; }
+            get { return _Video_MaxRate_Text; }
             set
             {
-                if (_Video_Maxrate_Text == value)
+                if (_Video_MaxRate_Text == value)
                 {
                     return;
                 }
 
-                _Video_Maxrate_Text = value;
-                OnPropertyChanged("Video_Maxrate_Text");
+                _Video_MaxRate_Text = value;
+                OnPropertyChanged("Video_MaxRate_Text");
             }
         }
         // Enabled
-        private bool _Video_Maxrate_IsEnabled = true;
-        public bool Video_Maxrate_IsEnabled
+        private bool _Video_MaxRate_IsEnabled = true;
+        public bool Video_MaxRate_IsEnabled
         {
-            get { return _Video_Maxrate_IsEnabled; }
+            get { return _Video_MaxRate_IsEnabled; }
             set
             {
-                if (_Video_Maxrate_IsEnabled == value)
+                if (_Video_MaxRate_IsEnabled == value)
                 {
                     return;
                 }
 
-                _Video_Maxrate_IsEnabled = value;
-                OnPropertyChanged("Video_Maxrate_IsEnabled");
+                _Video_MaxRate_IsEnabled = value;
+                OnPropertyChanged("Video_MaxRate_IsEnabled");
             }
         }
 
 
         // -------------------------
-        // Video Bufsize
+        // Video BufSize
         // -------------------------
         // Text
-        private string _Video_Bufsize_Text;
-        public string Video_Bufsize_Text
+        private string _Video_BufSize_Text;
+        public string Video_BufSize_Text
         {
-            get { return _Video_Bufsize_Text; }
+            get { return _Video_BufSize_Text; }
             set
             {
-                if (_Video_Bufsize_Text == value)
+                if (_Video_BufSize_Text == value)
                 {
                     return;
                 }
 
-                _Video_Bufsize_Text = value;
-                OnPropertyChanged("Video_Bufsize_Text");
+                _Video_BufSize_Text = value;
+                OnPropertyChanged("Video_BufSize_Text");
             }
         }
         // Enabled
-        private bool _Video_Bufsize_IsEnabled = true;
-        public bool Video_Bufsize_IsEnabled
+        private bool _Video_BufSize_IsEnabled = true;
+        public bool Video_BufSize_IsEnabled
         {
-            get { return _Video_Bufsize_IsEnabled; }
+            get { return _Video_BufSize_IsEnabled; }
             set
             {
-                if (_Video_Bufsize_IsEnabled == value)
+                if (_Video_BufSize_IsEnabled == value)
                 {
                     return;
                 }
 
-                _Video_Bufsize_IsEnabled = value;
-                OnPropertyChanged("Video_Bufsize_IsEnabled");
+                _Video_BufSize_IsEnabled = value;
+                OnPropertyChanged("Video_BufSize_IsEnabled");
             }
         }
 
@@ -3620,38 +3620,38 @@ namespace Axiom
 
 
         // -------------------------
-        // Audio Bitrate
+        // Audio BitRate
         // -------------------------
         // Text
-        private string _Audio_Bitrate_Text;
-        public string Audio_Bitrate_Text
+        private string _Audio_BitRate_Text;
+        public string Audio_BitRate_Text
         {
-            get { return _Audio_Bitrate_Text; }
+            get { return _Audio_BitRate_Text; }
             set
             {
-                if (_Audio_Bitrate_Text == value)
+                if (_Audio_BitRate_Text == value)
                 {
                     return;
                 }
 
-                _Audio_Bitrate_Text = value;
-                OnPropertyChanged("Audio_Bitrate_Text");
+                _Audio_BitRate_Text = value;
+                OnPropertyChanged("Audio_BitRate_Text");
             }
         }
         // Enabled
-        private bool _Audio_Bitrate_IsEnabled = true;
-        public bool Audio_Bitrate_IsEnabled
+        private bool _Audio_BitRate_IsEnabled = true;
+        public bool Audio_BitRate_IsEnabled
         {
-            get { return _Audio_Bitrate_IsEnabled; }
+            get { return _Audio_BitRate_IsEnabled; }
             set
             {
-                if (_Audio_Bitrate_IsEnabled == value)
+                if (_Audio_BitRate_IsEnabled == value)
                 {
                     return;
                 }
 
-                _Audio_Bitrate_IsEnabled = value;
-                OnPropertyChanged("Audio_Bitrate_IsEnabled");
+                _Audio_BitRate_IsEnabled = value;
+                OnPropertyChanged("Audio_BitRate_IsEnabled");
             }
         }
 

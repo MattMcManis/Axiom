@@ -134,7 +134,7 @@ namespace Axiom
         // -------------------------
         public static void Controls_Unhecked(ViewModel vm)
         {
-            // Bitrate Mode
+            // BitRate Mode
             vm.Audio_VBR_IsChecked = false;
         }
 
@@ -143,7 +143,7 @@ namespace Axiom
         // -------------------------
         public static void Controls_Enable(ViewModel vm)
         {
-            // Bitrate Mode
+            // BitRate Mode
             vm.Audio_VBR_IsChecked = false;
         }
 

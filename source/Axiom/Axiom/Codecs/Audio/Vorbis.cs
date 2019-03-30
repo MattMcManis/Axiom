@@ -166,7 +166,7 @@ namespace Axiom
         // -------------------------
         public static void Controls_Checked(ViewModel vm)
         {
-            // Bitrate Mode
+            // BitRate Mode
             vm.Audio_VBR_IsChecked = true;
         }
 

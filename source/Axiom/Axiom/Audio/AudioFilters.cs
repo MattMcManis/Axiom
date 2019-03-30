@@ -232,7 +232,7 @@ namespace Axiom
         /// <summary>
         public static String AudioFilter(ViewModel vm)
         {
-            // Audio Bitrate None Check
+            // Audio BitRate None Check
             // Audio Codec None
             // Codec Copy Check
             // Mute Check

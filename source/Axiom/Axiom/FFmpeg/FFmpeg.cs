@@ -171,10 +171,10 @@ namespace Axiom
                                        vm.Video_Quality_SelectedItem,
                                        vm.Video_Pass_SelectedItem,
                                        vm.Video_CRF_Text,
-                                       vm.Video_Bitrate_Text,
-                                       vm.Video_Minrate_Text,
-                                       vm.Video_Maxrate_Text,
-                                       vm.Video_Bufsize_Text,
+                                       vm.Video_BitRate_Text,
+                                       vm.Video_MinRate_Text,
+                                       vm.Video_MaxRate_Text,
+                                       vm.Video_BufSize_Text,
                                        vm.Input_Text
                                        ),
                     "\r\n" +
@@ -237,7 +237,7 @@ namespace Axiom
                                        vm.Audio_Codec_SelectedItem,
                                        vm.Audio_Quality_Items,
                                        vm.Audio_Quality_SelectedItem,
-                                       vm.Audio_Bitrate_Text,
+                                       vm.Audio_BitRate_Text,
                                        vm.Audio_VBR_IsChecked
                                        ),
                     Audio.CompressionLevel(vm.Format_MediaType_SelectedItem,
@@ -377,10 +377,10 @@ namespace Axiom
                                        vm.Video_Quality_SelectedItem,
                                        vm.Video_Pass_SelectedItem,
                                        vm.Video_CRF_Text,
-                                       vm.Video_Bitrate_Text,
-                                       vm.Video_Minrate_Text,
-                                       vm.Video_Maxrate_Text,
-                                       vm.Video_Bufsize_Text,
+                                       vm.Video_BitRate_Text,
+                                       vm.Video_MinRate_Text,
+                                       vm.Video_MaxRate_Text,
+                                       vm.Video_BufSize_Text,
                                        vm.Input_Text
                                        ),
                     "\r\n" +
@@ -531,7 +531,7 @@ namespace Axiom
                                        vm.Audio_Codec_SelectedItem,
                                        vm.Audio_Quality_Items,
                                        vm.Audio_Quality_SelectedItem,
-                                       vm.Audio_Bitrate_Text,
+                                       vm.Audio_BitRate_Text,
                                        vm.Audio_VBR_IsChecked
                                        ),
                     Audio.CompressionLevel(vm.Format_MediaType_SelectedItem,
@@ -725,7 +725,7 @@ namespace Axiom
                                                              vm.Audio_Stream_SelectedItem,
                                                              vm.Audio_Quality_SelectedItem
                                                              ),
-                    "\r\n\r\n" + Audio.BatchAudioBitrateLimiter(vm.Format_MediaType_SelectedItem,
+                    "\r\n\r\n" + Audio.BatchAudioBitRateLimiter(vm.Format_MediaType_SelectedItem,
                                                                 vm.Audio_Codec_SelectedItem,
                                                                 vm.Audio_Stream_SelectedItem,
                                                                 vm.Audio_Quality_SelectedItem
@@ -805,14 +805,23 @@ namespace Axiom
 
                 "\r\n\r\n" + "&&",
 
-                "\r\n\r\n" + "for /f \"delims=\" %f in",
+                "\r\n\r\n" + "for /f \"delims=\" %f in ('",
 
                 // Get Title
-                "\r\n\r\n" + "('@" + "\"" + MainWindow.youtubedl + "\"" + " --get-filename -o \"%(title)s\" " + "\"" + MainWindow.YouTubeDownloadURL(vm.Input_Text) + "\"" + "')",
+                "\r\n\r\n" + "@" + "\"" + MainWindow.youtubedl + "\"",
+                "\r\n"  + " --get-filename -o \"%(title)s\" " + "\"" + MainWindow.YouTubeDownloadURL(vm.Input_Text) + "\"",
+                "\r\n" + "')",
 
                 // Download Video
                 "\r\n\r\n" + "do (",
-                "\r\n\r\n" + "@" + "\"" + MainWindow.youtubedl + "\"" + " -f " + MainWindow.YouTubeDownloadQuality(vm.Format_YouTube_SelectedItem, vm.Format_YouTube_Quality_SelectedItem) + " " + "\"" + vm.Input_Text + "\"" + " -o " + "\"" + MainWindow.downloadDir + "%f" + "." + MainWindow.YouTubeDownloadFormat(vm.Format_YouTube_SelectedItem) + "\"" + MainWindow.YouTubeDL_FFmpegPath(vm) + " --merge-output-format " + MainWindow.YouTubeDownloadFormat(vm.Format_YouTube_SelectedItem),
+                "\r\n\r\n" + "@" + "\"" + MainWindow.youtubedl + "\"",
+
+                "\r\n\r\n" + " -f " + MainWindow.YouTubeDownloadQuality(vm.Format_YouTube_SelectedItem, vm.Format_YouTube_Quality_SelectedItem),
+                "\r\n\r\n" + "\"" + vm.Input_Text + "\"",
+                "\r\n" +" -o " + "\"" + MainWindow.downloadDir + "%f" + "." + MainWindow.YouTubeDownloadFormat(vm.Format_YouTube_SelectedItem) + "\"",
+
+                // Merge Output Format
+                "\r\n\r\n" + MainWindow.YouTubeDL_FFmpegPath(vm) + " --merge-output-format " + MainWindow.YouTubeDownloadFormat(vm.Format_YouTube_SelectedItem)
             };
 
             // FFmpeg Args
@@ -835,10 +844,13 @@ namespace Axiom
             // -------------------------
             // Download Only
             // -------------------------
-            if (MainWindow.IsYouTubeDownloadOnly(vm) == true)
+            if (MainWindow.IsYouTubeDownloadOnly(vm.Video_Codec_SelectedItem,
+                                                 vm.Subtitle_Codec_SelectedItem,
+                                                 vm.Audio_Codec_SelectedItem) == true
+                                                 )
             {
                 // Add "do" Closing Tag
-                youtubedlArgs.Add(")");
+                youtubedlArgs.Add("\r\n)");
 
                 // Join List with Spaces
                 // Remove: Empty, Null, Standalone LineBreak
@@ -867,7 +879,7 @@ namespace Axiom
                 // Join YouTube Args & FFmpeg Args
                 youtubedlArgs.AddRange(FFmpegArgs);
                 // Add "do" Closing Tag
-                youtubedlArgs.Add(")");
+                youtubedlArgs.Add("\r\n)");
 
                 // Join List with Spaces
                 // Remove: Empty, Null, Standalone LineBreak

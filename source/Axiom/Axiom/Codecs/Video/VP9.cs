@@ -106,14 +106,14 @@ namespace Axiom
         // -------------------------
         public static List<ViewModel.VideoQuality> quality = new List<ViewModel.VideoQuality>()
         {
-             new ViewModel.VideoQuality() { Name = "Auto",     CRF = "",   Video_CRF_Bitrate = "",      CBR_BitMode = "-b:v", CBR = "",      VBR_BitMode = "-q:v", VBR = "",      Minrate = "", Maxrate = "", Bufsize ="", NA = "2000K" },
-             new ViewModel.VideoQuality() { Name = "Lossless", CRF = "",   Video_CRF_Bitrate = "",      CBR_BitMode = "",     CBR = "",      VBR_BitMode = "-q:v", VBR = "",      Minrate = "", Maxrate = "", Bufsize ="", Lossless = "-lossless 1" },
-             new ViewModel.VideoQuality() { Name = "Ultra",    CRF = "10", Video_CRF_Bitrate = "4000K", CBR_BitMode = "-b:v", CBR = "4000K", VBR_BitMode = "-q:v", VBR = "4000K", Minrate = "", Maxrate = "", Bufsize ="" },
-             new ViewModel.VideoQuality() { Name = "High",     CRF = "12", Video_CRF_Bitrate = "2000K", CBR_BitMode = "-b:v", CBR = "2000K", VBR_BitMode = "-q:v", VBR = "2000K", Minrate = "", Maxrate = "", Bufsize ="" },
-             new ViewModel.VideoQuality() { Name = "Medium",   CRF = "16", Video_CRF_Bitrate = "1300K", CBR_BitMode = "-b:v", CBR = "1300K", VBR_BitMode = "-q:v", VBR = "1300K", Minrate = "", Maxrate = "", Bufsize ="" },
-             new ViewModel.VideoQuality() { Name = "Low",      CRF = "20", Video_CRF_Bitrate = "600K",  CBR_BitMode = "-b:v", CBR = "600K",  VBR_BitMode = "-q:v", VBR = "600K",  Minrate = "", Maxrate = "", Bufsize ="" },
-             new ViewModel.VideoQuality() { Name = "Sub",      CRF = "25", Video_CRF_Bitrate = "250K",  CBR_BitMode = "-b:v", CBR = "250K",  VBR_BitMode = "-q:v", VBR = "250K",  Minrate = "", Maxrate = "", Bufsize ="" },
-             new ViewModel.VideoQuality() { Name = "Custom",   CRF = "",   Video_CRF_Bitrate = "",      CBR_BitMode = "-b:v", CBR = "",      VBR_BitMode = "-q:v", VBR = "",      Minrate = "", Maxrate = "", Bufsize ="" }
+             new ViewModel.VideoQuality() { Name = "Auto",     CRF = "",   Video_CRF_BitRate = "",      CBR_BitMode = "-b:v", CBR = "",      VBR_BitMode = "-q:v", VBR = "",      MinRate = "", MaxRate = "", BufSize ="", NA = "2000K" },
+             new ViewModel.VideoQuality() { Name = "Lossless", CRF = "",   Video_CRF_BitRate = "",      CBR_BitMode = "",     CBR = "",      VBR_BitMode = "-q:v", VBR = "",      MinRate = "", MaxRate = "", BufSize ="", Lossless = "-lossless 1" },
+             new ViewModel.VideoQuality() { Name = "Ultra",    CRF = "10", Video_CRF_BitRate = "4000K", CBR_BitMode = "-b:v", CBR = "4000K", VBR_BitMode = "-q:v", VBR = "4000K", MinRate = "", MaxRate = "", BufSize ="" },
+             new ViewModel.VideoQuality() { Name = "High",     CRF = "12", Video_CRF_BitRate = "2000K", CBR_BitMode = "-b:v", CBR = "2000K", VBR_BitMode = "-q:v", VBR = "2000K", MinRate = "", MaxRate = "", BufSize ="" },
+             new ViewModel.VideoQuality() { Name = "Medium",   CRF = "16", Video_CRF_BitRate = "1300K", CBR_BitMode = "-b:v", CBR = "1300K", VBR_BitMode = "-q:v", VBR = "1300K", MinRate = "", MaxRate = "", BufSize ="" },
+             new ViewModel.VideoQuality() { Name = "Low",      CRF = "20", Video_CRF_BitRate = "600K",  CBR_BitMode = "-b:v", CBR = "600K",  VBR_BitMode = "-q:v", VBR = "600K",  MinRate = "", MaxRate = "", BufSize ="" },
+             new ViewModel.VideoQuality() { Name = "Sub",      CRF = "25", Video_CRF_BitRate = "250K",  CBR_BitMode = "-b:v", CBR = "250K",  VBR_BitMode = "-q:v", VBR = "250K",  MinRate = "", MaxRate = "", BufSize ="" },
+             new ViewModel.VideoQuality() { Name = "Custom",   CRF = "",   Video_CRF_BitRate = "",      CBR_BitMode = "-b:v", CBR = "",      VBR_BitMode = "-q:v", VBR = "",      MinRate = "", MaxRate = "", BufSize ="" }
         };
 
         // -------------------------
@@ -204,10 +204,10 @@ namespace Axiom
                 )
             {
                 vm.Video_CRF_Text = string.Empty;
-                vm.Video_Bitrate_Text = string.Empty;
-                vm.Video_Minrate_Text = string.Empty;
-                vm.Video_Maxrate_Text = string.Empty;
-                vm.Video_Bufsize_Text = string.Empty;
+                vm.Video_BitRate_Text = string.Empty;
+                vm.Video_MinRate_Text = string.Empty;
+                vm.Video_MaxRate_Text = string.Empty;
+                vm.Video_BufSize_Text = string.Empty;
             }
 
         }
@@ -305,7 +305,7 @@ namespace Axiom
         // -------------------------
         public static void Controls_Unhecked(ViewModel vm)
         {
-            // Bitrate Mode
+            // BitRate Mode
             vm.Video_VBR_IsChecked = false;
         }
 

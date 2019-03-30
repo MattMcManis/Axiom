@@ -42,7 +42,7 @@ namespace Axiom
             // Clear Variables before Run
             // -------------------------
             ffplay = string.Empty;
-            MainWindow.ClearVariables(vm);
+            MainWindow.ClearGlobalVariables(vm);
 
             // Ignore if Batch
             if (vm.Batch_IsChecked == false)

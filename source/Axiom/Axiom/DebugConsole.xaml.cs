@@ -162,7 +162,7 @@ namespace Axiom
             // -------------------------
             // Clear Variables before Run
             // -------------------------
-            MainWindow.ClearVariables(vm);
+            MainWindow.ClearGlobalVariables(vm);
 
             // -------------------------
             // Batch Extention Period Check
@@ -231,7 +231,7 @@ namespace Axiom
                 // -------------------------
                 // Clear Variables for next Run
                 // -------------------------
-                MainWindow.ClearVariables(vm);
+                MainWindow.ClearGlobalVariables(vm);
                 GC.Collect();
             }
         }
@@ -453,16 +453,16 @@ namespace Axiom
             //debugParagraph.Inlines.Add(new Run(Video.vBitMode) { Foreground = Value });
             //debugParagraph.Inlines.Add(new LineBreak());
 
-            debugParagraph.Inlines.Add(new Bold(new Run("vBitrate ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(Video.vBitrate) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Bold(new Run("vBitRate ")) { Foreground = Variable });
+            debugParagraph.Inlines.Add(new Run(Video.vBitRate) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
-            debugParagraph.Inlines.Add(new Bold(new Run("vMaxrate ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(Video.vMaxrate) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Bold(new Run("vMaxRate ")) { Foreground = Variable });
+            debugParagraph.Inlines.Add(new Run(Video.vMaxRate) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
-            debugParagraph.Inlines.Add(new Bold(new Run("vBufsize ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(Video.vBufsize) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Bold(new Run("vBufSize ")) { Foreground = Variable });
+            debugParagraph.Inlines.Add(new Run(Video.vBufSize) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("vOptions ")) { Foreground = Variable });
@@ -590,8 +590,8 @@ namespace Axiom
             debugParagraph.Inlines.Add(new Run(Audio.aBitMode) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
-            debugParagraph.Inlines.Add(new Bold(new Run("aBitrate ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(Audio.aBitrate) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Bold(new Run("aBitRate ")) { Foreground = Variable });
+            debugParagraph.Inlines.Add(new Run(Audio.aBitRate) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("aChannel ")) { Foreground = Variable });
@@ -620,8 +620,8 @@ namespace Axiom
             debugParagraph.Inlines.Add(new Run(AudioFilters.aFilter) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
-            //debugParagraph.Inlines.Add(new Bold(new Run("aBitrateLimiter ")) { Foreground = Variable });
-            //debugParagraph.Inlines.Add(new Run(Audio.aBitrateLimiter) { Foreground = Value });
+            //debugParagraph.Inlines.Add(new Bold(new Run("aBitRateLimiter ")) { Foreground = Variable });
+            //debugParagraph.Inlines.Add(new Run(Audio.aBitRateLimiter) { Foreground = Value });
             //debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new LineBreak());
@@ -696,12 +696,12 @@ namespace Axiom
             debugParagraph.Inlines.Add(new Run(FFprobe.argsAudioCodec) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
-            debugParagraph.Inlines.Add(new Bold(new Run("argsVideoBitrate ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(FFprobe.argsVideoBitrate) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Bold(new Run("argsVideoBitRate ")) { Foreground = Variable });
+            debugParagraph.Inlines.Add(new Run(FFprobe.argsVideoBitRate) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
-            debugParagraph.Inlines.Add(new Bold(new Run("argsAudioBitrate ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(FFprobe.argsAudioBitrate) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Bold(new Run("argsAudioBitRate ")) { Foreground = Variable });
+            debugParagraph.Inlines.Add(new Run(FFprobe.argsAudioBitRate) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("argsSize ")) { Foreground = Variable });
@@ -727,16 +727,16 @@ namespace Axiom
             debugParagraph.Inlines.Add(new Run(FFprobe.inputVideoCodec) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
-            debugParagraph.Inlines.Add(new Bold(new Run("inputVideoBitrate ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(FFprobe.inputVideoBitrate) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Bold(new Run("inputVideoBitRate ")) { Foreground = Variable });
+            debugParagraph.Inlines.Add(new Run(FFprobe.inputVideoBitRate) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("inputAudioCodec ")) { Foreground = Variable });
             debugParagraph.Inlines.Add(new Run(FFprobe.inputAudioCodec) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
-            debugParagraph.Inlines.Add(new Bold(new Run("inputAudioBitrate ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(FFprobe.inputAudioBitrate) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Bold(new Run("inputAudioBitRate ")) { Foreground = Variable });
+            debugParagraph.Inlines.Add(new Run(FFprobe.inputAudioBitRate) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("inputSize ")) { Foreground = Variable });

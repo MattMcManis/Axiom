@@ -153,10 +153,10 @@ namespace Axiom
         //        inif.Write("Video", "Quality_SelectedItem", (vm.Video_Quality_SelectedItem));
         //        inif.Write("Video", "Pass_SelectedItem", (vm.Video_Pass_SelectedItem));
         //        inif.Write("Video", "CRF_Text", (vm.Video_CRF_Text));
-        //        inif.Write("Video", "Bitrate_Text", (vm.Video_Bitrate_Text));
-        //        inif.Write("Video", "Minrate_Text", (vm.Video_Minrate_Text));
-        //        inif.Write("Video", "Maxrate_Text", (vm.Video_Maxrate_Text));
-        //        inif.Write("Video", "Bufsize_Text", (vm.Video_Bufsize_Text));
+        //        inif.Write("Video", "BitRate_Text", (vm.Video_BitRate_Text));
+        //        inif.Write("Video", "MinRate_Text", (vm.Video_MinRate_Text));
+        //        inif.Write("Video", "MaxRate_Text", (vm.Video_MaxRate_Text));
+        //        inif.Write("Video", "BufSize_Text", (vm.Video_BufSize_Text));
         //        inif.Write("Video", "PixelFormat_SelectedItem", (vm.Video_PixelFormat_SelectedItem));
         //        inif.Write("Video", "FPS_SelectedItem", (vm.Video_FPS_SelectedItem));
         //        inif.Write("Video", "Speed_SelectedItem", (vm.Video_Speed_SelectedItem));
@@ -191,7 +191,7 @@ namespace Axiom
         //        // Quality
         //        inif.Write("Audio", "Quality_SelectedItem", (vm.Audio_Quality_SelectedItem));
         //        inif.Write("Audio", "VBR_IsChecked", (vm.Audio_VBR_IsChecked.ToString()));
-        //        inif.Write("Audio", "Bitrate_Text", (vm.Audio_Bitrate_Text));
+        //        inif.Write("Audio", "BitRate_Text", (vm.Audio_BitRate_Text));
         //        inif.Write("Audio", "SampleRate_SelectedItem", (vm.Audio_SampleRate_SelectedItem));
         //        inif.Write("Audio", "BitDepth_SelectedItem", (vm.Audio_BitDepth_SelectedItem));
 

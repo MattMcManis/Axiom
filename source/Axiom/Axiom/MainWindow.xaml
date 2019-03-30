@@ -196,7 +196,7 @@
 
             <!-- Browse Textbox -->
             <TextBox x:Name="tbxInput" 
-                     Text="{Binding Input_Text, Mode=TwoWay}"
+                     Text="{Binding Input_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                      Style="{DynamicResource TextBoxBrowseCustom}" 
                      Height="22"
                      Margin="75,0,-14,0" 
@@ -248,7 +248,7 @@
             </Button>
             <!-- Output Textbox-->
             <TextBox x:Name="tbxOutput" 
-                     Text="{Binding Output_Text, Mode=TwoWay}"
+                     Text="{Binding Output_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                      Style="{DynamicResource TextBoxBrowseCustom}"
                      Height="22"
                      Margin="75,29,-14,0"
@@ -832,7 +832,7 @@
                                 Grid.Column="1" />
                             <!-- Start -->
                             <TextBox x:Name="tbxFrameStart"
-                                     Text="{Binding Format_FrameStart_Text, Mode=TwoWay}"
+                                     Text="{Binding Format_FrameStart_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                      IsEnabled="{Binding Format_FrameEnd_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                      Style="{DynamicResource TextBoxCustom}"
                                      HorizontalAlignment="Left" 
@@ -853,7 +853,7 @@
                                      Margin="0,3,0,0" />
                             <!-- End -->
                             <TextBox x:Name="tbxFrameEnd"
-                                     Text="{Binding Format_FrameEnd_Text, Mode=TwoWay}"
+                                     Text="{Binding Format_FrameEnd_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                      IsEnabled="{Binding Format_FrameEnd_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                      Style="{DynamicResource TextBoxCustom}"
                                      HorizontalAlignment="Left"
@@ -1226,18 +1226,18 @@
                                      Margin="75,2,0,0" 
                                      TextChanged="tbxVideo_CRF_TextChanged"/>
 
-                            <!-- Video Bitrate-->
+                            <!-- Video Bit Rate-->
                             <Label Style="{DynamicResource LabelCustom}" 
-                                   Content="Bitrate" 
+                                   Content="Bit Rate" 
                                    HorizontalAlignment="Left" 
                                    VerticalAlignment="Top"
                                    Width="56" 
                                    FontFamily="Segoe UI Semilight"
                                    Grid.Row="7" 
                                    Grid.Column="1"/>
-                            <TextBox x:Name="tbxVideo_Bitrate"
-                                     Text="{Binding Video_Bitrate_Text, Mode=TwoWay}"
-                                     IsEnabled="{Binding Video_Bitrate_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            <TextBox x:Name="tbxVideo_BitRate"
+                                     Text="{Binding Video_BitRate_Text, Mode=TwoWay}"
+                                     IsEnabled="{Binding Video_BitRate_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                      Style="{DynamicResource TextBoxCustom}"
                                      HorizontalAlignment="Left" 
                                      Height="22" 
@@ -1249,7 +1249,7 @@
                                      MaxLength="10"
                                      ToolTipService.InitialShowDelay="1000" 
                                      ToolTipService.ShowOnDisabled="True"
-                                     ToolTip="Video Bitrate (e.g. 1M or 1000K)" 
+                                     ToolTip="Video Bit Rate (e.g. 1M or 1000K)" 
                                      Grid.Row="7" 
                                      Grid.Column="2"
                                      Margin="0,2,0,0"/>
@@ -1266,7 +1266,7 @@
                                           Cursor="Hand" 
                                           ToolTipService.InitialShowDelay="1000" 
                                           ToolTipService.ShowOnDisabled="True" 
-                                          ToolTip="Toggle Variable Bitrate." 
+                                          ToolTip="Toggle Variable Bit Rate." 
                                           Width="30" 
                                           Height="23" 
                                           Checked="tglVideo_VBR_Checked"
@@ -1274,18 +1274,18 @@
                                           Grid.Row="7" 
                                           Grid.Column="2" />
 
-                            <!-- Video Minrate -->
+                            <!-- Video Min Rate -->
                             <Label Style="{DynamicResource LabelCustom}" 
-                                   Content="Minrate" 
+                                   Content="Min Rate" 
                                    HorizontalAlignment="Left" 
                                    VerticalAlignment="Top"
                                    Width="56" 
                                    FontFamily="Segoe UI Semilight" 
                                    Grid.Row="8"
                                    Grid.Column="1" />
-                            <TextBox x:Name="tbxVideo_Minrate" 
-                                     Text="{Binding Video_Minrate_Text, Mode=TwoWay}"
-                                     IsEnabled="{Binding Video_Minrate_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            <TextBox x:Name="tbxVideo_MinRate" 
+                                     Text="{Binding Video_MinRate_Text, Mode=TwoWay}"
+                                     IsEnabled="{Binding Video_MinRate_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                      Style="{DynamicResource TextBoxCustom}"
                                      HorizontalAlignment="Left" 
                                      Height="22" 
@@ -1297,23 +1297,23 @@
                                      MaxLength="10"
                                      ToolTipService.InitialShowDelay="1000" 
                                      ToolTipService.ShowOnDisabled="True"
-                                     ToolTip="Video Minrate (e.g. 1M or 1000K)" 
+                                     ToolTip="Video Min Bit Rate (e.g. 1M or 1000K)" 
                                      Grid.Row="8"
                                      Grid.Column="2"
                                      Margin="0,2,0,0"/>
 
-                            <!-- Video Maxrate -->
+                            <!-- Video Max Rate -->
                             <Label Style="{DynamicResource LabelCustom}" 
-                                   Content="Maxrate" 
+                                   Content="Max Rate" 
                                    HorizontalAlignment="Left" 
                                    VerticalAlignment="Top"
                                    Width="56" 
                                    FontFamily="Segoe UI Semilight" 
                                    Grid.Row="9" 
                                    Grid.Column="1" />
-                            <TextBox x:Name="tbxVideo_Maxrate" 
-                                     Text="{Binding Video_Maxrate_Text, Mode=TwoWay}"
-                                     IsEnabled="{Binding Video_Maxrate_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            <TextBox x:Name="tbxVideo_MaxRate" 
+                                     Text="{Binding Video_MaxRate_Text, Mode=TwoWay}"
+                                     IsEnabled="{Binding Video_MaxRate_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                      Style="{DynamicResource TextBoxCustom}"
                                      HorizontalAlignment="Left" 
                                      Height="22" 
@@ -1325,23 +1325,23 @@
                                      MaxLength="10"
                                      ToolTipService.InitialShowDelay="1000" 
                                      ToolTipService.ShowOnDisabled="True"
-                                     ToolTip="Video Maxrate (e.g. 1M or 1000K)" 
+                                     ToolTip="Video Max Bit Rate (e.g. 1M or 1000K)" 
                                      Grid.Row="9"
                                      Grid.Column="2"
                                      Margin="0,2,0,0"/>
 
-                            <!-- Video Bufsize -->
+                            <!-- Video Buf Size -->
                             <Label Style="{DynamicResource LabelCustom}" 
-                                   Content="Bufsize" 
+                                   Content="Buf Size" 
                                    HorizontalAlignment="Left" 
                                    VerticalAlignment="Top"
                                    Width="56" 
                                    FontFamily="Segoe UI Semilight" 
                                    Grid.Row="10" 
                                    Grid.Column="1" />
-                            <TextBox x:Name="tbxVideo_Bufsize" 
-                                     Text="{Binding Video_Bufsize_Text, Mode=TwoWay}"
-                                     IsEnabled="{Binding Video_Bufsize_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            <TextBox x:Name="tbxVideo_BufSize" 
+                                     Text="{Binding Video_BufSize_Text, Mode=TwoWay}"
+                                     IsEnabled="{Binding Video_BufSize_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                      Style="{DynamicResource TextBoxCustom}"
                                      HorizontalAlignment="Left" 
                                      Height="22" 
@@ -1353,7 +1353,7 @@
                                      MaxLength="10"
                                      ToolTipService.InitialShowDelay="1000" 
                                      ToolTipService.ShowOnDisabled="True"
-                                     ToolTip="Video Bufsize (e.g. 1M or 1000K)" 
+                                     ToolTip="Video Buf Size (e.g. 1M or 1000K)" 
                                      Grid.Row="10"
                                      Grid.Column="2"
                                      Margin="0,2,0,0"/>
@@ -1931,9 +1931,9 @@
                                 Grid.Row="5" 
                                 Grid.Column="1" />
 
-                            <TextBox x:Name="tbxAudio_Bitrate"
-                                     Text="{Binding Audio_Bitrate_Text, Mode=TwoWay}"
-                                     IsEnabled="{Binding Audio_Bitrate_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            <TextBox x:Name="tbxAudio_BitRate"
+                                     Text="{Binding Audio_BitRate_Text, Mode=TwoWay}"
+                                     IsEnabled="{Binding Audio_BitRate_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                      Style="{DynamicResource TextBoxCustom}" 
                                      HorizontalAlignment="Left"
                                      Height="22" 
@@ -1943,12 +1943,12 @@
                                      VerticalAlignment="Top" 
                                      MaxLines="1" 
                                      MaxLength="5" 
-                                     GotFocus="tbxAudio_Bitrate_GotFocus"
-                                     LostFocus="tbxAudio_Bitrate_LostFocus"
-                                     KeyDown="tbxAudio_Bitrate_KeyDown" 
+                                     GotFocus="tbxAudio_BitRate_GotFocus"
+                                     LostFocus="tbxAudio_BitRate_LostFocus"
+                                     KeyDown="tbxAudio_BitRate_KeyDown" 
                                      ToolTipService.InitialShowDelay="1000" 
                                      ToolTipService.ShowOnDisabled="True"
-                                     ToolTip="Custom Audio Bitrate (e.g. 245)" 
+                                     ToolTip="Custom Audio Bit Rate (e.g. 245)" 
                                      Grid.Column="2" 
                                      Grid.Row="5" 
                                      Margin="0,2,0,0"/>
@@ -1965,7 +1965,7 @@
                                           Cursor="Hand" 
                                           ToolTipService.InitialShowDelay="1000" 
                                           ToolTipService.ShowOnDisabled="True" 
-                                          ToolTip="Toggle Variable Bitrate for Vorbis (always), Opus, Lame, AAC, (if not Auto)." 
+                                          ToolTip="Toggle Variable Bit Rate for Vorbis (always), Opus, Lame, AAC, (if not Auto)." 
                                           Width="30" 
                                           Height="22"
                                           Grid.Column="2" 

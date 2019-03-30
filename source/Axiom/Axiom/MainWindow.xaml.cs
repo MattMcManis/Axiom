@@ -594,9 +594,9 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Clear Variables (Method)
+        ///     Clear Global Variables (Method)
         /// </summary>
-        public static void ClearVariables(ViewModel vm)
+        public static void ClearGlobalVariables(ViewModel vm)
         {
             // FFmpeg
             //FFmpeg.cmdWindow = string.Empty;
@@ -604,16 +604,16 @@ namespace Axiom
             // FFprobe
             FFprobe.argsVideoCodec = string.Empty;
             FFprobe.argsAudioCodec = string.Empty;
-            FFprobe.argsVideoBitrate = string.Empty;
-            FFprobe.argsAudioBitrate = string.Empty;
+            FFprobe.argsVideoBitRate = string.Empty;
+            FFprobe.argsAudioBitRate = string.Empty;
             FFprobe.argsSize = string.Empty;
             FFprobe.argsDuration = string.Empty;
             FFprobe.argsFrameRate = string.Empty;
 
             FFprobe.inputVideoCodec = string.Empty;
-            FFprobe.inputVideoBitrate = string.Empty;
+            FFprobe.inputVideoBitRate = string.Empty;
             FFprobe.inputAudioCodec = string.Empty;
-            FFprobe.inputAudioBitrate = string.Empty;
+            FFprobe.inputAudioBitRate = string.Empty;
             FFprobe.inputSize = string.Empty;
             FFprobe.inputDuration = string.Empty;
             FFprobe.inputFrameRate = string.Empty;
@@ -627,12 +627,12 @@ namespace Axiom
             Video.vCodec = string.Empty;
             Video.vBitMode = string.Empty;
             Video.vQuality = string.Empty;
-            Video.vBitrateNA = string.Empty;
+            Video.vBitRateNA = string.Empty;
             Video.vLossless = string.Empty;
-            Video.vBitrate = string.Empty;
-            Video.vMinrate = string.Empty;
-            Video.vMaxrate = string.Empty;
-            Video.vBufsize = string.Empty;
+            Video.vBitRate = string.Empty;
+            Video.vMinRate = string.Empty;
+            Video.vMaxRate = string.Empty;
+            Video.vBufSize = string.Empty;
             Video.vOptions = string.Empty;
             Video.vCRF = string.Empty;
             Video.pix_fmt = string.Empty;
@@ -696,13 +696,13 @@ namespace Axiom
             Audio.aCodec = string.Empty;
             Audio.aChannel = string.Empty;
             Audio.aBitMode = string.Empty;
-            Audio.aBitrate = string.Empty;
-            Audio.aBitrateNA = string.Empty;
+            Audio.aBitRate = string.Empty;
+            Audio.aBitRateNA = string.Empty;
             Audio.aQuality = string.Empty;
             Audio.aCompressionLevel = string.Empty;
             Audio.aSamplerate = string.Empty;
             Audio.aBitDepth = string.Empty;
-            //Audio.aBitrateLimiter = string.Empty;
+            //Audio.aBitRateLimiter = string.Empty;
             AudioFilters.aFilter = string.Empty;
             Audio.aVolume = string.Empty;
             Audio.aHardLimiter = string.Empty;
@@ -718,7 +718,7 @@ namespace Axiom
             FFprobe.batchFFprobeAuto = string.Empty;
             Video.batchVideoAuto = string.Empty;
             Audio.batchAudioAuto = string.Empty;
-            //Audio.aBitrateLimiter = string.Empty;
+            //Audio.aBitRateLimiter = string.Empty;
 
             // Streams
             //Streams.map = string.Empty;
@@ -1701,17 +1701,27 @@ namespace Axiom
             // If Configure youtubedl Path is <auto>
             if (vm.youtubedlPath_Text == "<auto>")
             {
+                // youtube-dl.exe Exists
                 if (File.Exists(appDir + @"youtube-dl\youtube-dl.exe"))
                 {
-                    // use included binary
+                    // use included binary path
                     youtubedl = appDir + @"youtube-dl\youtube-dl.exe";
                 }
+                else if (File.Exists(appDir + @"youtube-dl.exe"))
+                {
+                    // moved from folder
+                    youtubedl = appDir + @"youtube-dl.exe";
+                }
+
+                // youtube-dl.exe Does Not Exist
                 else if (!File.Exists(appDir + @"youtube-dl\youtube-dl.exe"))
                 {
-                    // use system installed binaries
+                    // Installed
+                    // Environment Variable auto path
                     youtubedl = @"youtube-dl";
                 }
             }
+
             // Use User Custom Path
             else
             {
@@ -1780,29 +1790,36 @@ namespace Axiom
         /// </summary>
         public static bool IsYouTubeURL(string input_Text)
         {
-            // YouTube
-            if(// youtube (any domain extension)
-               input_Text.StartsWith("https://www.youtube.") ||
-               input_Text.StartsWith("http://www.youtube.") ||
-               input_Text.StartsWith("www.youtube.") ||
-               input_Text.StartsWith("youtube.") ||
-
-               // youtu.be
-               input_Text.StartsWith("https://youtu.be") ||
-               input_Text.StartsWith("http://youtu.be") ||
-               input_Text.StartsWith("www.youtu.be") ||
-               input_Text.StartsWith("youtu.be") ||
-
-               // YouTube Music
-               input_Text.StartsWith("https://music.youtube.") ||
-               input_Text.StartsWith("http://music.youtube.") ||
-               input_Text.StartsWith("music.youtube.")
-               )
+            if (!string.IsNullOrEmpty(input_Text))
             {
-                return true;
-            }
+                // YouTube
+                if (// youtube (any domain extension)
+                   input_Text.StartsWith("https://www.youtube.") ||
+                   input_Text.StartsWith("http://www.youtube.") ||
+                   input_Text.StartsWith("www.youtube.") ||
+                   input_Text.StartsWith("youtube.") ||
 
-            // Local File
+                   // youtu.be
+                   input_Text.StartsWith("https://youtu.be") ||
+                   input_Text.StartsWith("http://youtu.be") ||
+                   input_Text.StartsWith("www.youtu.be") ||
+                   input_Text.StartsWith("youtu.be") ||
+
+                   // YouTube Music
+                   input_Text.StartsWith("https://music.youtube.") ||
+                   input_Text.StartsWith("http://music.youtube.") ||
+                   input_Text.StartsWith("music.youtube.")
+                   )
+                {
+                    return true;
+                }
+
+                // Local File
+                else
+                {
+                    return false;
+                }
+            }
             else
             {
                 return false;
@@ -1816,37 +1833,43 @@ namespace Axiom
         /// <remarks>
         ///     If Axiom is in full Codec Copy mode Download the file without converting
         /// </remarks>
-        public static bool IsYouTubeDownloadOnly(ViewModel vm)
+        public static bool IsYouTubeDownloadOnly(string videoCodec_SelectedItem,
+                                                 string subtitleCodec_SelectedItem,
+                                                 string audioCodec_SelectedItem
+                                                 )
         {
+            //MessageBox.Show("1");
             if (//IsYouTubeURL(vm.Input_Text) == true &&
                 
                 // Video
-                (vm.Video_Codec_SelectedItem == "Copy" &&
-                 vm.Subtitle_Codec_SelectedItem == "Copy" &&
-                 vm.Audio_Codec_SelectedItem == "Copy") ||
+                (videoCodec_SelectedItem == "Copy" &&
+                 subtitleCodec_SelectedItem == "Copy" &&
+                 subtitleCodec_SelectedItem == "Copy") ||
 
-                (vm.Video_Codec_SelectedItem == "Copy" &&
-                 vm.Subtitle_Codec_SelectedItem == "Copy" //&&
+                (videoCodec_SelectedItem == "Copy" &&
+                 subtitleCodec_SelectedItem == "Copy" //&&
                  /*vm.Audio_Codec_SelectedItem == "None"*/) ||
 
-                (vm.Video_Codec_SelectedItem == "Copy" &&
-                 vm.Subtitle_Codec_SelectedItem == "None" //&&
+                (videoCodec_SelectedItem == "Copy" &&
+                 subtitleCodec_SelectedItem == "None" //&&
                  /*vm.Audio_Codec_SelectedItem == "None"*/) ||
 
-                (vm.Video_Codec_SelectedItem == "Copy" &&
-                 vm.Subtitle_Codec_SelectedItem == "None" &&
-                 vm.Audio_Codec_SelectedItem == "Copy") ||
+                (videoCodec_SelectedItem == "Copy" &&
+                 subtitleCodec_SelectedItem == "None" &&
+                 audioCodec_SelectedItem == "Copy") ||
 
                 // Music
-                (vm.Video_Codec_SelectedItem == "None" &&
-                vm.Subtitle_Codec_SelectedItem == "None" &&
-                vm.Audio_Codec_SelectedItem == "Copy")
+                (videoCodec_SelectedItem == "None" &&
+                 subtitleCodec_SelectedItem == "None" &&
+                 audioCodec_SelectedItem == "Copy")
                 )
             {
+                //MessageBox.Show("2");
                 return true;
             }
             else
             {
+                //MessageBox.Show("3");
                 return false;
             }
         }
@@ -1893,9 +1916,13 @@ namespace Axiom
         /// </summary>
         public static void ConvertButtonText(ViewModel vm)
         {
+            //MessageBox.Show(vm.Input_Text);
             // Change to "Download" if YouTube Download Only Mode
             if (IsYouTubeURL(vm.Input_Text) == true &&
-                IsYouTubeDownloadOnly(vm) == true)
+                IsYouTubeDownloadOnly(vm.Video_Codec_SelectedItem, 
+                                      vm.Subtitle_Codec_SelectedItem, 
+                                      vm.Audio_Codec_SelectedItem) == true
+                )
             {
                 vm.Convert_Text = "Download";
             }
@@ -2251,53 +2278,53 @@ namespace Axiom
 
 
             // -------------------------
-            // Video Bitrate is missing K or M at end of value
+            // Video BitRate is missing K or M at end of value
             // -------------------------
             if (vm.Video_Quality_SelectedItem == "Custom" &&
-                vm.Video_Bitrate_IsEnabled == true &&
-                vm.Video_Bitrate_Text != "0" && // Constant Bit Rate 0 does not need K or M
+                vm.Video_BitRate_IsEnabled == true &&
+                vm.Video_BitRate_Text != "0" && // Constant Bit Rate 0 does not need K or M
                 vm.Video_VBR_IsChecked != true)
             {
                 // Error List
                 List<string> errors = new List<string>();
 
-                // Bitrate
-                if (!string.IsNullOrEmpty(vm.Video_Bitrate_Text))
+                // Bit Rate
+                if (!string.IsNullOrEmpty(vm.Video_BitRate_Text))
                 {
-                    if (vm.Video_Bitrate_Text.ToUpper()?.Contains("K") != true &&
-                        vm.Video_Bitrate_Text.ToUpper()?.Contains("M") != true)
+                    if (vm.Video_BitRate_Text.ToUpper()?.Contains("K") != true &&
+                        vm.Video_BitRate_Text.ToUpper()?.Contains("M") != true)
                     {
-                        errors.Add("Bitrate");
+                        errors.Add("Bit Rate");
                     }
                 }
 
-                // Minrate
-                if (!string.IsNullOrEmpty(vm.Video_Minrate_Text))
+                // Min Rate
+                if (!string.IsNullOrEmpty(vm.Video_MinRate_Text))
                 {
-                    if (vm.Video_Minrate_Text.ToUpper()?.Contains("K") != true &&
-                        vm.Video_Minrate_Text.ToUpper()?.Contains("M") != true)
+                    if (vm.Video_MinRate_Text.ToUpper()?.Contains("K") != true &&
+                        vm.Video_MinRate_Text.ToUpper()?.Contains("M") != true)
                     {
-                        errors.Add("Minrate");
+                        errors.Add("Min Rate");
                     }
                 }
 
-                // Maxrate
-                if (!string.IsNullOrEmpty(vm.Video_Maxrate_Text))
+                // Max Rate
+                if (!string.IsNullOrEmpty(vm.Video_MaxRate_Text))
                 {
-                    if (vm.Video_Maxrate_Text.ToUpper()?.Contains("K") != true &&
-                        vm.Video_Maxrate_Text.ToUpper()?.Contains("M") != true)
+                    if (vm.Video_MaxRate_Text.ToUpper()?.Contains("K") != true &&
+                        vm.Video_MaxRate_Text.ToUpper()?.Contains("M") != true)
                     {
-                        errors.Add("Maxrate");
+                        errors.Add("Max Rate");
                     }
                 }
 
-                // Bufsize
-                if (!string.IsNullOrEmpty(vm.Video_Bufsize_Text))
+                // Buf Size
+                if (!string.IsNullOrEmpty(vm.Video_BufSize_Text))
                 {
-                    if (vm.Video_Bufsize_Text.ToUpper()?.Contains("K") != true &&
-                        vm.Video_Bufsize_Text.ToUpper()?.Contains("M") != true)
+                    if (vm.Video_BufSize_Text.ToUpper()?.Contains("K") != true &&
+                        vm.Video_BufSize_Text.ToUpper()?.Contains("M") != true)
                     {
-                        errors.Add("Bufsize");
+                        errors.Add("Buf Size");
                     }
                 }
 
@@ -2309,7 +2336,7 @@ namespace Axiom
                     // Log Console Message /////////
                     Log.logParagraph.Inlines.Add(new LineBreak());
                     Log.logParagraph.Inlines.Add(new LineBreak());
-                    Log.logParagraph.Inlines.Add(new Bold(new Run("Notice: Video Bitrate is missing K or M at end of value.")) { Foreground = Log.ConsoleWarning });
+                    Log.logParagraph.Inlines.Add(new Bold(new Run("Notice: Video Bit Rate is missing K or M at end of value.")) { Foreground = Log.ConsoleWarning });
 
                     // Warning
                     MessageBox.Show("Video " + string.Join(", ", errors) + " missing K or M at end of value.",
@@ -2374,21 +2401,21 @@ namespace Axiom
 
 
             // -------------------------
-            // VP8/VP9 & CRF does not have Bitrate -b:v
+            // VP8/VP9 & CRF does not have BitRate -b:v
             // -------------------------
             if (vm.Video_Codec_SelectedItem == "VP8" ||
                 vm.Video_Codec_SelectedItem == "VP9")
             {
                 if (!string.IsNullOrEmpty(vm.Video_CRF_Text) &&
-                    string.IsNullOrEmpty(vm.Video_Bitrate_Text))
+                    string.IsNullOrEmpty(vm.Video_BitRate_Text))
                 {
                     // Log Console Message /////////
                     Log.logParagraph.Inlines.Add(new LineBreak());
                     Log.logParagraph.Inlines.Add(new LineBreak());
-                    Log.logParagraph.Inlines.Add(new Bold(new Run("Notice: VP8/VP9 CRF must also have Bitrate. \n(e.g. 0 for Constant, 1234k for Constrained)")) { Foreground = Log.ConsoleWarning });
+                    Log.logParagraph.Inlines.Add(new Bold(new Run("Notice: VP8/VP9 CRF must also have Bit Rate. \n(e.g. 0 for Constant, 1234k for Constrained)")) { Foreground = Log.ConsoleWarning });
 
                     // Notice
-                    MessageBox.Show("VP8/VP9 CRF must also have Bitrate. \n(e.g. 0 for Constant, 1234K for Constrained)",
+                    MessageBox.Show("VP8/VP9 CRF must also have Bit Rate. \n(e.g. 0 for Constant, 1234K for Constrained)",
                                 "Notice",
                                 MessageBoxButton.OK,
                                 MessageBoxImage.Exclamation);
@@ -3323,11 +3350,27 @@ namespace Axiom
                     }
                 }
 
-                // Set Video & Audio Codec Combobox to "Copy" if Input Extension is Same as Output Extension and Video Quality is Auto
-                VideoControls.AutoCopyVideoCodec(vm);
-                SubtitleControls.AutoCopySubtitleCodec(vm);
-                AudioControls.AutoCopyAudioCodec(vm);
+                // Set Video & Audio Codec Combobox to "Copy" 
+                // if Input Extension is Same as Output Extension and Video Quality is Auto
+                //
+                if (IsYouTubeURL(vm.Input_Text) == false) // Check if Input is a Windows Path, Not a URL
+                {
+                    if (Path.HasExtension(vm.Input_Text) == true) // Check if Input has file extension after it has passed URL check
+                                                                  // to prevent path forward slash error in Path.HasExtension()
+                    {
+                        VideoControls.AutoCopyVideoCodec(vm);
+                        SubtitleControls.AutoCopySubtitleCodec(vm);
+                        AudioControls.AutoCopyAudioCodec(vm);
+                    }
+                }
+
             }
+
+            // -------------------------
+            // Convert Button Text Change
+            // -------------------------
+            // YouTube Download
+            ConvertButtonText(vm);
         }
 
         /// <summary>
@@ -4426,9 +4469,9 @@ namespace Axiom
             VideoControls.EncodingPassControls(vm);
 
             // -------------------------
-            // Display Bit-rate in TextBox
+            // Display Bit Rate in TextBox
             // -------------------------
-            VideoControls.VideoBitrateDisplay(vm,
+            VideoControls.VideoBitRateDisplay(vm,
                                               vm.Video_Quality_Items,
                                               vm.Video_Quality_SelectedItem,
                                               vm.Video_Pass_SelectedItem);
@@ -4451,9 +4494,9 @@ namespace Axiom
             VideoControls.QualityControls(vm);
 
             // -------------------------
-            // Display Bit-rate in TextBox
+            // Display Bit Rate in TextBox
             // -------------------------
-            VideoControls.VideoBitrateDisplay(vm,
+            VideoControls.VideoBitRateDisplay(vm,
                                               vm.Video_Quality_Items,
                                               vm.Video_Quality_SelectedItem,
                                               vm.Video_Pass_SelectedItem);
@@ -4560,9 +4603,9 @@ namespace Axiom
 
 
             // -------------------------
-            // Display Bit-rate in TextBox
+            // Display Bit Rate in TextBox
             // -------------------------
-            VideoControls.VideoBitrateDisplay(vm,
+            VideoControls.VideoBitRateDisplay(vm,
                                               vm.Video_Quality_Items,
                                               vm.Video_Quality_SelectedItem,
                                               vm.Video_Pass_SelectedItem);
@@ -4599,9 +4642,9 @@ namespace Axiom
             }
 
             // -------------------------
-            // Display Bit-rate in TextBox
+            // Display Bit Rate in TextBox
             // -------------------------
-            VideoControls.VideoBitrateDisplay(vm,
+            VideoControls.VideoBitRateDisplay(vm,
                                               vm.Video_Quality_Items,
                                               vm.Video_Quality_SelectedItem,
                                               vm.Video_Pass_SelectedItem);
@@ -5552,9 +5595,9 @@ namespace Axiom
             AudioControls.QualityControls(vm);
 
             // -------------------------
-            // Display Bit-rate in TextBox
+            // Display Bit Rate in TextBox
             // -------------------------
-            AudioControls.AudioBitrateDisplay(vm,
+            AudioControls.AudioBitRateDisplay(vm,
                                               vm.Audio_Quality_Items,
                                               vm.Audio_Quality_SelectedItem
                                               );
@@ -5574,9 +5617,9 @@ namespace Axiom
             AudioControls.QualityControls(vm);
 
             // -------------------------
-            // Display Bit-rate in TextBox
+            // Display Bit Rate in TextBox
             // -------------------------
-            AudioControls.AudioBitrateDisplay(vm,
+            AudioControls.AudioBitRateDisplay(vm,
                                               vm.Audio_Quality_Items,
                                               vm.Audio_Quality_SelectedItem
                                               );
@@ -5590,9 +5633,9 @@ namespace Axiom
             AudioControls.QualityControls(vm);
 
             // -------------------------
-            // Display Bit-rate in TextBox
+            // Display Bit Rate in TextBox
             // -------------------------
-            AudioControls.AudioBitrateDisplay(vm,
+            AudioControls.AudioBitRateDisplay(vm,
                                               vm.Audio_Quality_Items,
                                               vm.Audio_Quality_SelectedItem
                                               );
@@ -5600,33 +5643,33 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Audio Custom Bitrate kbps - Textbox
+        ///     Audio Custom BitRate kbps - Textbox
         /// </summary>
-        private void tbxAudio_Bitrate_KeyDown(object sender, KeyEventArgs e)
+        private void tbxAudio_BitRate_KeyDown(object sender, KeyEventArgs e)
         {
             // Only allow Numbers and Backspace
             AllowOnlyNumbersAndBackspace(e);
         }
         // Got Focus
-        private void tbxAudio_Bitrate_GotFocus(object sender, RoutedEventArgs e)
+        private void tbxAudio_BitRate_GotFocus(object sender, RoutedEventArgs e)
         {
             // Clear Textbox on first use
-            if (vm.Audio_Bitrate_Text == string.Empty)
+            if (vm.Audio_BitRate_Text == string.Empty)
             {
                 TextBox tbac = (TextBox)sender;
                 tbac.Text = string.Empty;
-                tbac.GotFocus += tbxAudio_Bitrate_GotFocus; //used to be -=
+                tbac.GotFocus += tbxAudio_BitRate_GotFocus; //used to be -=
             }
         }
         // Lost Focus
-        private void tbxAudio_Bitrate_LostFocus(object sender, RoutedEventArgs e)
+        private void tbxAudio_BitRate_LostFocus(object sender, RoutedEventArgs e)
         {
             // Change Textbox back to kbps
             TextBox tbac = sender as TextBox;
             if (tbac.Text.Trim().Equals(string.Empty))
             {
                 tbac.Text = string.Empty;
-                tbac.GotFocus -= tbxAudio_Bitrate_GotFocus; //used to be +=
+                tbac.GotFocus -= tbxAudio_BitRate_GotFocus; //used to be +=
             }
         }
 
@@ -6678,16 +6721,6 @@ namespace Axiom
                 if (ScriptView.sort == false &&
                     RemoveLineBreaks(vm.ScriptView_Text) == FFmpeg.ffmpegArgs)
                 {
-                    // Clear Old Text
-                    //ScriptView.scriptParagraph.Inlines.Clear();
-                    //ScriptView.ClearScriptView(this, vm);
-
-                    // Write FFmpeg Args Sort
-                    //rtbScriptView.Document = new FlowDocument(ScriptView.scriptParagraph);
-                    //rtbScriptView.BeginChange();
-                    //ScriptView.scriptParagraph.Inlines.Add(new Run(FFmpeg.ffmpegArgsSort));
-                    //rtbScriptView.EndChange();
-                    //vm.ScriptView_Text = string.Join<char>(" ", FFmpeg.ffmpegArgsSort);
                     vm.ScriptView_Text = FFmpeg.ffmpegArgsSort;
 
                     // Sort is Off
@@ -6721,16 +6754,6 @@ namespace Axiom
                     // CMD Arguments are from Script TextBox
                     FFmpeg.ffmpegArgs = RemoveLineBreaks(vm.ScriptView_Text);
 
-                    // Clear Old Text
-                    //ScriptView.ClearScriptView(this, vm);
-                    //ScriptView.scriptParagraph.Inlines.Clear();
-
-                    // Write FFmpeg Args
-                    //rtbScriptView.Document = new FlowDocument(ScriptView.scriptParagraph);
-                    //rtbScriptView.BeginChange();
-                    //ScriptView.scriptParagraph.Inlines.Add(new Run(FFmpeg.ffmpegArgs));
-                    //rtbScriptView.EndChange();
-                    //vm.ScriptView_Text = string.Join<char>(" ", FFmpeg.ffmpegArgs);
                     vm.ScriptView_Text = FFmpeg.ffmpegArgs;
 
                     // Sort is On
@@ -6740,6 +6763,73 @@ namespace Axiom
                 }
             }
         }
+
+
+
+        /// <summary>
+        ///    Start Process
+        /// </summary>
+        public static void StartProcess(ViewModel vm)
+        {
+            // -------------------------
+            // Local File
+            // -------------------------
+            if (IsYouTubeURL(vm.Input_Text) == false)
+            {
+                // -------------------------
+                // Single
+                // -------------------------
+                if (vm.Batch_IsChecked == false)
+                {
+                    // -------------------------
+                    // FFprobe Detect Metadata
+                    // -------------------------
+                    FFprobe.Metadata(vm);
+
+                    // -------------------------
+                    // FFmpeg Generate Arguments (Single)
+                    // -------------------------
+                    // disabled if batch
+                    FFmpeg.FFmpegSingleGenerateArgs(vm);
+                }
+
+                // -------------------------
+                // Batch
+                // -------------------------
+                else if (vm.Batch_IsChecked == true)
+                {
+                    // -------------------------
+                    // FFprobe Video Entry Type Containers
+                    // -------------------------
+                    FFprobe.VideoEntryType(vm);
+
+                    // -------------------------
+                    // FFprobe Video Entry Type Containers
+                    // -------------------------
+                    FFprobe.AudioEntryType(vm);
+
+                    // -------------------------
+                    // FFmpeg Generate Arguments (Batch)
+                    // -------------------------
+                    //disabled if single file
+                    FFmpeg.FFmpegBatchGenerateArgs(vm);
+                }
+            }
+
+            // -------------------------
+            // YouTube Download
+            // -------------------------
+            else if (IsYouTubeURL(vm.Input_Text) == true)
+            {
+                // -------------------------
+                // Generate Arguments
+                // -------------------------
+                // Do not use FFprobe Metadata Parsing
+                // Video/Audio Auto Quality will add BitRate
+                FFmpeg.YouTubeDownloadGenerateArgs(vm);
+            }
+        }
+
 
 
         /// <summary>
@@ -6761,46 +6851,7 @@ namespace Axiom
             // -------------------------
             // Clear Variables before Run
             // -------------------------
-            ClearVariables(vm);
-
-
-            // Log Console Message /////////
-            Log.WriteAction = () =>
-            {
-                Log.logParagraph.Inlines.Add(new LineBreak());
-                Log.logParagraph.Inlines.Add(new LineBreak());
-                Log.logParagraph.Inlines.Add(new Bold(new Run("...............................................")) { Foreground = Log.ConsoleAction });
-            };
-            Log.LogActions.Add(Log.WriteAction);
-
-            // Log Console Message /////////
-            DateTime localDate = DateTime.Now;
-
-            // Log Console Message /////////
-            Log.WriteAction = () =>
-            {
-
-                Log.logParagraph.Inlines.Add(new LineBreak());
-                Log.logParagraph.Inlines.Add(new LineBreak());
-                Log.logParagraph.Inlines.Add(new Bold(new Run(Convert.ToString(localDate))) { Foreground = Log.ConsoleAction });
-                Log.logParagraph.Inlines.Add(new LineBreak());
-                Log.logParagraph.Inlines.Add(new LineBreak());
-                Log.logParagraph.Inlines.Add(new Bold(new Run("Generating Script...")) { Foreground = Log.ConsoleTitle });
-
-            };
-            Log.LogActions.Add(Log.WriteAction);
-
-
-            // -------------------------
-            // Enable Script
-            // -------------------------
-            //script = true;
-
-            // -------------------------
-            // Reset Sort
-            // -------------------------
-            ScriptView.sort = false;
-            txblScriptSort.Text = "Sort";
+            ClearGlobalVariables(vm);
 
             // -------------------------
             // Batch Extention Period Check
@@ -6817,75 +6868,75 @@ namespace Axiom
             // -------------------------
             youtubedlPath(vm);
 
+            //// Log Console Message /////////
+            //Log.WriteAction = () =>
+            //{
+            //    Log.logParagraph.Inlines.Add(new LineBreak());
+            //    Log.logParagraph.Inlines.Add(new LineBreak());
+            //    Log.logParagraph.Inlines.Add(new Bold(new Run("...............................................")) { Foreground = Log.ConsoleAction });
+            //};
+            //Log.LogActions.Add(Log.WriteAction);
+
+            //// Log Console Message /////////
+            //DateTime localDate = DateTime.Now;
+
+            //// Log Console Message /////////
+            //Log.WriteAction = () =>
+            //{
+
+            //    Log.logParagraph.Inlines.Add(new LineBreak());
+            //    Log.logParagraph.Inlines.Add(new LineBreak());
+            //    Log.logParagraph.Inlines.Add(new Bold(new Run(Convert.ToString(localDate))) { Foreground = Log.ConsoleAction });
+            //    Log.logParagraph.Inlines.Add(new LineBreak());
+            //    Log.logParagraph.Inlines.Add(new LineBreak());
+            //    Log.logParagraph.Inlines.Add(new Bold(new Run("Generating Script...")) { Foreground = Log.ConsoleTitle });
+
+            //};
+            //Log.LogActions.Add(Log.WriteAction);
+
+
+            // -------------------------
+            // Reset Sort
+            // -------------------------
+            ScriptView.sort = false;
+            txblScriptSort.Text = "Sort";
+
+
             // -------------------------
             // Start Script
             // -------------------------
             if (ReadyHalts(vm) == true)
             {
-
-                // -------------------------
-                // Local File
-                // -------------------------
-                if (IsYouTubeURL(vm.Input_Text) == false)
+                // Log Console Message /////////
+                Log.WriteAction = () =>
                 {
-                    // -------------------------
-                    // Single
-                    // -------------------------
-                    if (vm.Batch_IsChecked == false)
-                    {
-                        // -------------------------
-                        // FFprobe Detect Metadata
-                        // -------------------------
-                        FFprobe.Metadata(vm);
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new Bold(new Run("...............................................")) { Foreground = Log.ConsoleAction });
+                };
+                Log.LogActions.Add(Log.WriteAction);
 
-                        // -------------------------
-                        // FFmpeg Generate Arguments (Single)
-                        // -------------------------
-                        // disabled if batch
-                        FFmpeg.FFmpegSingleGenerateArgs(vm);
-                    }
+                // Log Console Message /////////
+                DateTime localDate = DateTime.Now;
 
-                    // -------------------------
-                    // Batch
-                    // -------------------------
-                    else if (vm.Batch_IsChecked == true)
-                    {
-                        // -------------------------
-                        // FFprobe Video Entry Type Containers
-                        // -------------------------
-                        FFprobe.VideoEntryType(vm);
-
-                        // -------------------------
-                        // FFprobe Video Entry Type Containers
-                        // -------------------------
-                        FFprobe.AudioEntryType(vm);
-
-                        // -------------------------
-                        // FFmpeg Generate Arguments (Batch)
-                        // -------------------------
-                        //disabled if single file
-                        FFmpeg.FFmpegBatchGenerateArgs(vm);
-                    }
-                }
-
-                // -------------------------
-                // YouTube Download
-                // -------------------------
-                else if (IsYouTubeURL(vm.Input_Text) == true)
+                // Log Console Message /////////
+                Log.WriteAction = () =>
                 {
-                    // -------------------------
-                    // Generate Arguments
-                    // -------------------------
-                    // Do not use FFprobe Metadata Parsing
-                    // Video/Audio Auto Quality will add Bitrate
-                    FFmpeg.YouTubeDownloadGenerateArgs(vm);
-                }
 
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new Bold(new Run(Convert.ToString(localDate))) { Foreground = Log.ConsoleAction });
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new Bold(new Run("Generating Script...")) { Foreground = Log.ConsoleTitle });
+
+                };
+                Log.LogActions.Add(Log.WriteAction);
 
                 // -------------------------
-                // Write All Log Actions to Console
+                // Start All Processes
                 // -------------------------
-                Log.LogWriteAll(this, vm);
+                StartProcess(vm);
 
                 // -------------------------
                 // Generate Script
@@ -6901,20 +6952,16 @@ namespace Axiom
                 }
 
                 // -------------------------
+                // Write All Log Actions to Console
+                // -------------------------
+                Log.LogWriteAll(this, vm);
+
+                // -------------------------
                 // Clear Variables for next Run
                 // -------------------------
-                ClearVariables(vm);
+                ClearGlobalVariables(vm);
                 GC.Collect();
             }
-
-            // -------------------------
-            // Restart
-            // -------------------------
-            //else
-            //{
-            //    /* unlock */
-            //    //ready = true;
-            //}
 
         }
 
@@ -7026,14 +7073,9 @@ namespace Axiom
             }
 
             // -------------------------
-            // Clear Variables before Run
+            // Clear Global Variables before each Run
             // -------------------------
-            ClearVariables(vm);
-
-            // -------------------------
-            // Enable Script
-            // -------------------------
-            //script = true;
+            ClearGlobalVariables(vm);
 
             // -------------------------
             // Batch Extention Period Check
@@ -7050,9 +7092,9 @@ namespace Axiom
             // -------------------------
             youtubedlPath(vm);
 
-
-            // Log Console Message /////////
-            //if (ready == true)
+            // --------------------------------------------------
+            // Start Convert
+            // --------------------------------------------------
             if (ReadyHalts(vm) == true)
             {
                 // Log Console Message /////////
@@ -7062,12 +7104,12 @@ namespace Axiom
                     Log.logParagraph.Inlines.Add(new LineBreak());
                     Log.logParagraph.Inlines.Add(new Bold(new Run("...............................................")) { Foreground = Log.ConsoleAction });
 
-                    // Log Console Message /////////
-                    DateTime localDate = DateTime.Now;
+                        // Log Console Message /////////
+                        DateTime localDate = DateTime.Now;
 
-                    // Log Console Message /////////
+                        // Log Console Message /////////
 
-                    Log.logParagraph.Inlines.Add(new LineBreak());
+                        Log.logParagraph.Inlines.Add(new LineBreak());
                     Log.logParagraph.Inlines.Add(new LineBreak());
                     Log.logParagraph.Inlines.Add(new Bold(new Run(Convert.ToString(localDate))) { Foreground = Log.ConsoleAction });
                     Log.logParagraph.Inlines.Add(new LineBreak());
@@ -7075,74 +7117,11 @@ namespace Axiom
                     Log.logParagraph.Inlines.Add(new Bold(new Run("Starting Conversion...")) { Foreground = Log.ConsoleTitle });
                 };
                 Log.LogActions.Add(Log.WriteAction);
-            }
-
-
-            // --------------------------------------------------------------------
-            // Ready Check
-            // If Ready, start conversion process
-            // --------------------------------------------------------------------
-            //if (ready == true)
-            if (ReadyHalts(vm) == true)
-            {
-                // -------------------------
-                // Local File
-                // -------------------------
-                if (IsYouTubeURL(vm.Input_Text) == false)
-                {
-                    // -------------------------
-                    // Single
-                    // -------------------------
-                    if (vm.Batch_IsChecked == false)
-                    {
-                        // -------------------------
-                        // FFprobe Detect Metadata
-                        // -------------------------
-                        FFprobe.Metadata(vm);
-
-                        // -------------------------
-                        // FFmpeg Generate Arguments (Single)
-                        // -------------------------
-                        //disabled if batch
-                        FFmpeg.FFmpegSingleGenerateArgs(vm);
-                    }
-
-                    // -------------------------
-                    // Batch
-                    // -------------------------
-                    else if (vm.Batch_IsChecked == true)
-                    {
-                        // -------------------------
-                        // FFprobe Video Entry Type Containers
-                        // -------------------------
-                        FFprobe.VideoEntryType(vm);
-
-                        // -------------------------
-                        // FFprobe Video Entry Type Containers
-                        // -------------------------
-                        FFprobe.AudioEntryType(vm);
-
-                        // -------------------------
-                        // FFmpeg Generate Arguments (Batch)
-                        // -------------------------
-                        //disabled if single file
-                        FFmpeg.FFmpegBatchGenerateArgs(vm);
-                    }
-                }
 
                 // -------------------------
-                // YouTube Download
+                // Start All Processes
                 // -------------------------
-                else if (IsYouTubeURL(vm.Input_Text) == true)
-                {
-                    // -------------------------
-                    // Generate Arguments
-                    // -------------------------
-                    // Do not use FFprobe Metadata Parsing
-                    // Video/Audio Auto Quality will add Bitrate
-                    FFmpeg.YouTubeDownloadGenerateArgs(vm);
-                }
-
+                StartProcess(vm);
 
                 // -------------------------
                 // FFmpeg Convert
@@ -7159,7 +7138,6 @@ namespace Axiom
                     Sort();
                 }
 
-
                 // -------------------------
                 // Write All Log Actions to Log Console
                 // -------------------------
@@ -7171,39 +7149,39 @@ namespace Axiom
                 Log.CreateOutputLog(this, vm);
 
                 // -------------------------
-                // Clear Strings for next Run
+                // Clear Global Variables before each Run
                 // -------------------------
-                ClearVariables(vm);
+                //ClearGlobalVariables(vm);
                 GC.Collect();
             }
-            else
-            {
-                //debug
-                //MessageBox.Show("Not Ready");
+            //else
+            //{
+            //    //debug
+            //    //MessageBox.Show("Not Ready");
 
-                // Log Console Message /////////
-                Log.WriteAction = () =>
-                {
-                    Log.logParagraph.Inlines.Add(new LineBreak());
-                    Log.logParagraph.Inlines.Add(new LineBreak());
-                    Log.logParagraph.Inlines.Add(new Run("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~") { Foreground = Log.ConsoleAction });
-                };
-                Log.LogActions.Add(Log.WriteAction);
-
-
-                /// <summary>
-                ///    Write All Log Actions to Console
-                /// </summary> 
-                Log.LogWriteAll(this, vm);
+            //    // Log Console Message /////////
+            //    Log.WriteAction = () =>
+            //    {
+            //        Log.logParagraph.Inlines.Add(new LineBreak());
+            //        Log.logParagraph.Inlines.Add(new LineBreak());
+            //        Log.logParagraph.Inlines.Add(new Run("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~") { Foreground = Log.ConsoleAction });
+            //    };
+            //    Log.LogActions.Add(Log.WriteAction);
 
 
-                // -------------------------
-                // Clear Variables for next Run
-                // -------------------------
-                ClearVariables(vm);
-                GC.Collect();
+            //    /// <summary>
+            //    ///    Write All Log Actions to Console
+            //    /// </summary> 
+            //    Log.LogWriteAll(this, vm);
 
-            }
+
+            //    // -------------------------
+            //    // Clear Variables for next Run
+            //    // -------------------------
+            //    ClearVariables(vm);
+            //    GC.Collect();
+
+            //}
 
         } //end convert button
 

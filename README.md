@@ -76,12 +76,12 @@ Axiom is portable and can be run from any location on the computer.
 `Axiom` will auto-detect it in its included folder. You can also add it to Windows Environment Variables or specify a path in the Axiom Settings Tab.
 
 1. Paste a YouTube URL into the Input TextBox
-2. Download the file: 
-    - Select Preset: YouTube-DL → Video or Music, Press Convert
+2. Download file only: 
+    - Select Preset: YouTube-DL → Video or Music, Press `Download`
 3. Download and Convert: 
-    - Select any Presets or Settings you need and Press Convert 
+    - Select any Presets or Settings you need and Press `Convert`
 4. Generate a Script without Downloading:
-    - Select any Settings you need and Press Script
+    - Select any Settings you need and Press `Script`
 
 &nbsp;
 

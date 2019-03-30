@@ -23,7 +23,7 @@ along with this program.If not, see <http://www.gnu.org/licenses/>.
  METHODS
 
  * Set Controls
- * Bitrate Display
+ * BitRate Display
  * Quality Controls
  * Pixel Format Controls
  * Optimize Controls
@@ -545,9 +545,9 @@ namespace Axiom
 
 
         /// <summary>
-        ///    Bitrate Display
+        ///    BitRate Display
         /// </summary>
-        public static void VideoBitrateDisplay(ViewModel vm,
+        public static void VideoBitRateDisplay(ViewModel vm,
                                                List<ViewModel.VideoQuality> items,
                                                string selectedQuality,
                                                string selectedPass)
@@ -569,10 +569,10 @@ namespace Axiom
                 if (selectedPass == "auto")
                 {
                     vm.Video_CRF_Text = string.Empty;
-                    vm.Video_Bitrate_Text = string.Empty;
-                    vm.Video_Minrate_Text = string.Empty;
-                    vm.Video_Maxrate_Text = string.Empty;
-                    vm.Video_Bufsize_Text = string.Empty;
+                    vm.Video_BitRate_Text = string.Empty;
+                    vm.Video_MinRate_Text = string.Empty;
+                    vm.Video_MaxRate_Text = string.Empty;
+                    vm.Video_BufSize_Text = string.Empty;
                 }
 
                 // -------------------------
@@ -580,27 +580,27 @@ namespace Axiom
                 // -------------------------
                 else if (selectedPass == "CRF")
                 {
-                    // VP8/VP9 CRF is combined with Bitrate e.g. -b:v 2000K -crf 16
+                    // VP8/VP9 CRF is combined with BitRate e.g. -b:v 2000K -crf 16
                     // Other Codecs just use CRF
 
-                    // CRF Bitrate
-                    vm.Video_Bitrate_Text = items.FirstOrDefault(item => item.Name == selectedQuality) ?.Video_CRF_Bitrate;
+                    // CRF BitRate
+                    vm.Video_BitRate_Text = items.FirstOrDefault(item => item.Name == selectedQuality) ?.Video_CRF_BitRate;
 
                     // CRF
                     vm.Video_CRF_Text = items.FirstOrDefault(item => item.Name == selectedQuality)?.CRF;
 
-                    // Minrate
-                    vm.Video_Minrate_Text = items.FirstOrDefault(item => item.Name == selectedQuality)?.Minrate;
+                    // MinRate
+                    vm.Video_MinRate_Text = items.FirstOrDefault(item => item.Name == selectedQuality)?.MinRate;
 
-                    // Maxrate
-                    vm.Video_Maxrate_Text = items.FirstOrDefault(item => item.Name == selectedQuality)?.Maxrate;
+                    // MaxRate
+                    vm.Video_MaxRate_Text = items.FirstOrDefault(item => item.Name == selectedQuality)?.MaxRate;
 
-                    // Bufsize
-                    vm.Video_Bufsize_Text = items.FirstOrDefault(item => item.Name == selectedQuality)?.Bufsize;
+                    // BufSize
+                    vm.Video_BufSize_Text = items.FirstOrDefault(item => item.Name == selectedQuality)?.BufSize;
                 }
 
                 // -------------------------
-                // Bitrate
+                // BitRate
                 // -------------------------
                 else if (selectedPass == "1 Pass" ||
                          selectedPass == "2 Pass")
@@ -608,26 +608,26 @@ namespace Axiom
                     // CRF
                     vm.Video_CRF_Text = string.Empty;
 
-                    // Bitrate CBR
+                    // BitRate CBR
                     if (vm.Video_VBR_IsChecked == false)
                     {
-                        vm.Video_Bitrate_Text = items.FirstOrDefault(item => item.Name == selectedQuality) ?.CBR;
+                        vm.Video_BitRate_Text = items.FirstOrDefault(item => item.Name == selectedQuality) ?.CBR;
                     }
 
-                    // Bitrate VBR
+                    // BitRate VBR
                     else if (vm.Video_VBR_IsChecked == true)
                     {
-                        vm.Video_Bitrate_Text = items.FirstOrDefault(item => item.Name == selectedQuality) ?.VBR;
+                        vm.Video_BitRate_Text = items.FirstOrDefault(item => item.Name == selectedQuality) ?.VBR;
                     }
 
-                    // Minrate
-                    vm.Video_Minrate_Text = items.FirstOrDefault(item => item.Name == selectedQuality) ?.Minrate;
+                    // MinRate
+                    vm.Video_MinRate_Text = items.FirstOrDefault(item => item.Name == selectedQuality) ?.MinRate;
 
-                    // Maxrate
-                    vm.Video_Maxrate_Text = items.FirstOrDefault(item => item.Name == selectedQuality) ?.Maxrate;
+                    // MaxRate
+                    vm.Video_MaxRate_Text = items.FirstOrDefault(item => item.Name == selectedQuality) ?.MaxRate;
 
-                    // Bufsize
-                    vm.Video_Bufsize_Text = items.FirstOrDefault(item => item.Name == selectedQuality) ?.Bufsize;
+                    // BufSize
+                    vm.Video_BufSize_Text = items.FirstOrDefault(item => item.Name == selectedQuality) ?.BufSize;
                 }
             }
         }
@@ -647,7 +647,7 @@ namespace Axiom
             // -------------------------
             if (vm.Video_Quality_SelectedItem == "Custom")
             {
-                // Enable and Clear Bitrate Text Display
+                // Enable and Clear BitRate Text Display
 
                 // Pass
                 vm.Video_Pass_IsEnabled = true;
@@ -663,24 +663,24 @@ namespace Axiom
 
                 vm.Video_CRF_Text = "";
 
-                // Bitrate
-                vm.Video_Bitrate_IsEnabled = true;
-                vm.Video_Bitrate_Text = "";
+                // BitRate
+                vm.Video_BitRate_IsEnabled = true;
+                vm.Video_BitRate_Text = "";
 
                 // VBR
                 vm.Video_VBR_IsEnabled = true;
 
-                // Minrate
-                vm.Video_Minrate_IsEnabled = true;
-                vm.Video_Minrate_Text = "";
+                // MinRate
+                vm.Video_MinRate_IsEnabled = true;
+                vm.Video_MinRate_Text = "";
 
-                // Maxrate
-                vm.Video_Maxrate_IsEnabled = true;
-                vm.Video_Maxrate_Text = "";
+                // MaxRate
+                vm.Video_MaxRate_IsEnabled = true;
+                vm.Video_MaxRate_Text = "";
 
-                // Bufsize
-                vm.Video_Bufsize_IsEnabled = true;
-                vm.Video_Bufsize_Text = "";
+                // BufSize
+                vm.Video_BufSize_IsEnabled = true;
+                vm.Video_BufSize_Text = "";
 
                 // Size
                 vm.Video_Scale_IsEnabled = true;
@@ -691,7 +691,7 @@ namespace Axiom
             // -------------------------
             else if (vm.Video_Quality_SelectedItem == "Auto")
             {
-                // Disable and Clear Bitrate Text Dispaly
+                // Disable and Clear BitRate Text Dispaly
 
                 // Pass
                 vm.Video_Pass_IsEnabled = false;
@@ -700,25 +700,25 @@ namespace Axiom
                 vm.Video_CRF_IsEnabled = false;
                 vm.Video_CRF_Text = "";
 
-                // Bitrate
-                vm.Video_Bitrate_IsEnabled = false;
-                vm.Video_Bitrate_Text = "";
+                // BitRate
+                vm.Video_BitRate_IsEnabled = false;
+                vm.Video_BitRate_Text = "";
 
                 // VBR
                 vm.Video_VBR_IsEnabled = false;
                 vm.Video_VBR_IsChecked = false;
 
-                // Minrate
-                vm.Video_Minrate_IsEnabled = false;
-                vm.Video_Minrate_Text = "";
+                // MinRate
+                vm.Video_MinRate_IsEnabled = false;
+                vm.Video_MinRate_Text = "";
 
-                // Maxrate
-                vm.Video_Maxrate_IsEnabled = false;
-                vm.Video_Maxrate_Text = "";
+                // MaxRate
+                vm.Video_MaxRate_IsEnabled = false;
+                vm.Video_MaxRate_Text = "";
 
-                // Bufsize
-                vm.Video_Bufsize_IsEnabled = false;
-                vm.Video_Bufsize_Text = "";
+                // BufSize
+                vm.Video_BufSize_IsEnabled = false;
+                vm.Video_BufSize_Text = "";
 
                 // Size
                 vm.Video_Scale_IsEnabled = true;
@@ -729,7 +729,7 @@ namespace Axiom
             // -------------------------
             else if (vm.Video_Quality_SelectedItem == "None")
             {
-                // Bitrate Text is Displayed through VideoBitrateDisplay()
+                // BitRate Text is Displayed through VideoBitRateDisplay()
 
                 // Pass
                 vm.Video_Pass_IsEnabled = false; 
@@ -737,16 +737,16 @@ namespace Axiom
                 // CRF
                 vm.Video_CRF_IsEnabled = false;
 
-                // Bitrate
-                vm.Video_Bitrate_IsEnabled = false;
+                // BitRate
+                vm.Video_BitRate_IsEnabled = false;
                 // VBR
                 vm.Video_VBR_IsEnabled = false;
-                // Minrate
-                vm.Video_Minrate_IsEnabled = false;
-                // Maxrate
-                vm.Video_Maxrate_IsEnabled = false;
-                // Bufsize
-                vm.Video_Bufsize_IsEnabled = false;
+                // MinRate
+                vm.Video_MinRate_IsEnabled = false;
+                // MaxRate
+                vm.Video_MaxRate_IsEnabled = false;
+                // BufSize
+                vm.Video_BufSize_IsEnabled = false;
 
                 // Size
                 vm.Video_Scale_IsEnabled = false;
@@ -757,7 +757,7 @@ namespace Axiom
             // -------------------------
             else
             {
-                // Bitrate Text is Displayed through VideoBitrateDisplay()
+                // BitRate Text is Displayed through VideoBitRateDisplay()
 
                 // Pass
                 vm.Video_Pass_IsEnabled = true; // always enabled
@@ -765,8 +765,8 @@ namespace Axiom
                 // CRF
                 vm.Video_CRF_IsEnabled = false;
 
-                // Bitrate
-                vm.Video_Bitrate_IsEnabled = false;
+                // BitRate
+                vm.Video_BitRate_IsEnabled = false;
 
                 // VBR
                 if (vm.Video_Codec_SelectedItem == "VP8" || // special rules
@@ -787,14 +787,14 @@ namespace Axiom
                     vm.Video_VBR_IsEnabled = true;
                 }
 
-                // Minrate
-                vm.Video_Minrate_IsEnabled = false;
+                // MinRate
+                vm.Video_MinRate_IsEnabled = false;
 
-                // Maxrate
-                vm.Video_Maxrate_IsEnabled = false;
+                // MaxRate
+                vm.Video_MaxRate_IsEnabled = false;
 
-                // Bufsize
-                vm.Video_Bufsize_IsEnabled = false;
+                // BufSize
+                vm.Video_BufSize_IsEnabled = false;
 
                 // Size
                 vm.Video_Scale_IsEnabled = true;
