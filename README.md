@@ -77,7 +77,7 @@ Axiom is portable and can be run from any location on the computer.
 
 1. Paste a YouTube URL into the Input TextBox
 2. Download file only: 
-    - Select Preset: YouTube-DL → Video or Music, Press `Download`
+    - Select Preset: `YouTube-DL` → `Video` or `Music`, Press `Download`
 3. Download and Convert: 
     - Select any Presets or Settings you need and Press `Convert`
 4. Generate a Script without Downloading:
