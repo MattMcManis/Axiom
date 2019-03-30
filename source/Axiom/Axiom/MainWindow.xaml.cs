@@ -5125,6 +5125,7 @@ namespace Axiom
         {
             // Widescreen (16:9, 16:10, etc) or auto, scale by Width 
             if (aspectRatio_SelectedItem == "auto" ||
+                aspectRatio_SelectedItem == "14:10" ||
                 aspectRatio_SelectedItem == "16:9" ||
                 aspectRatio_SelectedItem == "16:10" ||
                 aspectRatio_SelectedItem == "19:10" ||
