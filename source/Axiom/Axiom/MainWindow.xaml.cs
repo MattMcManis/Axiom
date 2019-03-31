@@ -4708,6 +4708,11 @@ namespace Axiom
             VideoControls.SetControls(vm, vm.Video_Codec_SelectedItem);
 
             // -------------------------
+            // Audio Stream Controls
+            // -------------------------
+            FormatControls.AudioStreamControls(vm); 
+
+            // -------------------------
             // Video Encoding Pass
             // -------------------------
             VideoControls.EncodingPassControls(vm);
@@ -5838,6 +5843,11 @@ namespace Axiom
             // Set Controls
             // -------------------------
             AudioControls.SetControls(vm, vm.Audio_Codec_SelectedItem);
+
+            // -------------------------
+            // Audio Stream Controls
+            // -------------------------
+            FormatControls.AudioStreamControls(vm);
 
             // -------------------------
             // Convert Button Text Change

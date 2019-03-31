@@ -491,7 +491,8 @@ namespace Axiom
 
                 // Audio Stream
                 vm.Audio_Stream_IsEnabled = true;
-                vm.Audio_Stream_SelectedItem = "all";
+                AudioStreamControls(vm); // Selected Item
+                //vm.Audio_Stream_SelectedItem = "all";
 
 
                 // -------------------------
@@ -567,7 +568,8 @@ namespace Axiom
 
                 // Audio Stream
                 vm.Audio_Stream_IsEnabled = true;
-                vm.Audio_Stream_SelectedItem = "1";
+                AudioStreamControls(vm); // Selected Item
+                //vm.Audio_Stream_SelectedItem = "1";
 
                 // Channel
                 vm.Audio_Channel_IsEnabled = true;
@@ -667,7 +669,8 @@ namespace Axiom
                 vm.Audio_Codec_IsEnabled = false;
 
                 // Audio Stream
-                vm.Audio_Stream_SelectedItem = "none";
+                //vm.Audio_Stream_SelectedItem = "none";
+                AudioStreamControls(vm); // Selected Item
                 vm.Audio_Stream_IsEnabled = false;
 
                 // Channel
@@ -764,7 +767,8 @@ namespace Axiom
                 vm.Audio_Codec_IsEnabled = false;
 
                 // Audio Stream
-                vm.Audio_Stream_SelectedItem = "none";
+                //vm.Audio_Stream_SelectedItem = "none";
+                AudioStreamControls(vm); // Selected Item
                 vm.Audio_Stream_IsEnabled = false;
 
                 // Channel
@@ -821,6 +825,132 @@ namespace Axiom
                 vm.Format_CutEnd_Milliseconds_Text = "000";
             }
         }
+
+
+
+        /// <summary>
+        ///     Audio Stream Controls
+        /// </summary>
+        public static void AudioStreamControls(ViewModel vm)
+        {
+            // --------------------------------------------------
+            // Video 
+            // Selected Audio Stream
+            // --------------------------------------------------
+            // -------------------------
+            // webm
+            // -------------------------
+            if (vm.Format_Container_SelectedItem == "webm")
+            {
+                // -------------------------
+                // VP8
+                // -------------------------
+                if (vm.Video_Codec_SelectedItem == "VP8")
+                {
+                    vm.Audio_Stream_SelectedItem = "1";
+                }
+
+                // -------------------------
+                // VP9
+                // -------------------------
+                else if (vm.Video_Codec_SelectedItem == "VP9")
+                {
+                    vm.Audio_Stream_SelectedItem = "all";
+                }
+
+                // -------------------------
+                // None
+                // -------------------------
+                else if (vm.Audio_Codec_SelectedItem == "None")
+                {
+                    vm.Audio_Stream_SelectedItem = "none";
+                }
+            }
+
+            // -------------------------
+            // mp4
+            // mkv
+            // mpg
+            // avi
+            // ogv
+            // -------------------------
+            else if (vm.Format_Container_SelectedItem == "mp4" ||
+                     vm.Format_Container_SelectedItem == "mkv" ||
+                     vm.Format_Container_SelectedItem == "mpg" ||
+                     vm.Format_Container_SelectedItem == "avi" ||
+                     vm.Format_Container_SelectedItem == "ogv"
+                     )
+            {
+                // -------------------------
+                // None
+                // -------------------------
+                if (vm.Audio_Codec_SelectedItem == "None")
+                {
+                    vm.Audio_Stream_SelectedItem = "none";
+                }
+
+                // -------------------------
+                // All Other Codecs
+                // -------------------------
+                else
+                {
+                    vm.Audio_Stream_SelectedItem = "all";
+                }
+            }
+
+
+            // --------------------------------------------------
+            // Image / Sequence 
+            // Selected Audio Stream
+            // --------------------------------------------------
+            // -------------------------
+            // None
+            // -------------------------
+            else if (vm.Format_Container_SelectedItem == "jpg" ||
+                     vm.Format_Container_SelectedItem == "png" ||
+                     vm.Format_Container_SelectedItem == "webp"
+                )
+            {
+                // -------------------------
+                // All Codecs
+                // -------------------------
+                vm.Audio_Stream_SelectedItem = "none";
+            }
+
+
+            // --------------------------------------------------
+            // Audio 
+            // Selected Audio Stream
+            // --------------------------------------------------
+            // -------------------------
+            // None
+            // -------------------------
+            else if (vm.Format_Container_SelectedItem == "mp3" ||
+                     vm.Format_Container_SelectedItem == "m4a" ||
+                     vm.Format_Container_SelectedItem == "ogg" ||
+                     vm.Format_Container_SelectedItem == "flac" ||
+                     vm.Format_Container_SelectedItem == "wav"
+                )
+            {
+                // -------------------------
+                // None
+                // -------------------------
+                if (vm.Audio_Codec_SelectedItem == "None")
+                {
+                    vm.Audio_Stream_SelectedItem = "none";
+                }
+
+                // -------------------------
+                // All Other Codecs
+                // -------------------------
+                else
+                {
+                    vm.Audio_Stream_SelectedItem = "1";
+                }
+            }
+
+        }
+
 
 
         /// <summary>

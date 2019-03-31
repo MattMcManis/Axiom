@@ -115,7 +115,8 @@ namespace Axiom
         // -------------------------
         public static void Controls_Selected(ViewModel vm)
         {
-            //vm.Audio_Stream_SelectedItem = "all";
+            // Stream
+            //vm.Audio_Stream_SelectedItem = "none";
 
             // Compression Level
             vm.Audio_CompressionLevel_SelectedItem = "none";
