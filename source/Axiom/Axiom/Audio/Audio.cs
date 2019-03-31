@@ -378,12 +378,14 @@ namespace Axiom
         {
             // Check:
             // Media Type Image/Sequence
+            // Audio Stream none
             // Audio Codec None
             // Audio Codec Copy
             // Audio Quality None
             // Audio Quality Mute
             if (mediaType_SelectedItem != "Image" &&
                 mediaType_SelectedItem != "Sequence" &&
+                stream_SelectedItem != "none" &&
                 codec_SelectedItem != "None" &&
                 codec_SelectedItem != "Copy" &&
                 quality_SelectedItem != "None" &&

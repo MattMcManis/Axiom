@@ -56,7 +56,8 @@ namespace Axiom
             {
                 "Vorbis",
                 "Opus",
-                "Copy"
+                "Copy",
+                "None"
             };
 
             public static List<string> subtitle = new List<string>()
@@ -91,7 +92,8 @@ namespace Axiom
                 "AC3",
                 "AAC",
                 "DTS",
-                "Copy"
+                "Copy",
+                "None"
             };
 
             public static List<string> subtitle = new List<string>()
@@ -140,7 +142,8 @@ namespace Axiom
                 "LAME",
                 "FLAC",
                 "PCM",
-                "Copy"
+                "Copy",
+                "None"
             };
 
             public static List<string> subtitle = new List<string>()
@@ -214,7 +217,8 @@ namespace Axiom
                 "DTS",
                 "LAME",
                 "PCM",
-                "Copy"
+                "Copy",
+                "None"
             };
 
             public static List<string> subtitle = new List<string>()
@@ -255,7 +259,8 @@ namespace Axiom
                 "DTS",
                 "LAME",
                 "PCM",
-                "Copy"
+                "Copy",
+                "None"
             };
 
             public static List<string> subtitle = new List<string>()
@@ -290,7 +295,8 @@ namespace Axiom
             public static List<string> audio = new List<string>()
             {
                 "Vorbis",
-                "Copy"
+                "Copy",
+                "None"
             };
 
             public static List<string> subtitle = new List<string>()

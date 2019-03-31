@@ -203,7 +203,7 @@ namespace Axiom
             vm.Video_EncodeSpeed_IsEnabled = false;
 
             // Video Codec
-            vm.Video_Codec_IsEnabled = false;
+            //vm.Video_Codec_IsEnabled = false;
 
             // Video Quality
             vm.Video_Quality_IsEnabled = false;

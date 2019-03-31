@@ -1743,6 +1743,7 @@
                                    Grid.Column="1" />
                             <Button x:Name="btnVideo_Crop"
                                     Style="{DynamicResource ButtonCropCustom}"
+                                    IsEnabled="{Binding Video_Crop_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     Padding="0" 
                                     HorizontalAlignment="Left" 
                                     VerticalAlignment="Top"

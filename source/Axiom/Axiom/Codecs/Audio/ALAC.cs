@@ -207,6 +207,9 @@ namespace Axiom
 
             // Volume
             vm.Audio_Volume_IsEnabled = true;
+
+            // Hard Limiter
+            vm.Audio_HardLimiter_IsEnabled = true;
         }
 
         // -------------------------

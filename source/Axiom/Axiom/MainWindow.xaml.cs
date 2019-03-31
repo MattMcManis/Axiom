@@ -30,6 +30,7 @@ using System.Linq;
 using System.Management;
 using System.Net;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -1372,6 +1373,45 @@ namespace Axiom
 
 
         /// <summary>
+        ///    Is Valid Windows File Path
+        /// </summary>
+        /// <remarks>
+        ///     Check for Invalid Characters
+        /// </remarks>
+        public static bool IsValidFilePath(string path)
+        {
+            // Not Valid
+            string invalidChars = new string(Path.GetInvalidPathChars());
+            Regex regex = new Regex("[" + Regex.Escape(invalidChars) + "]");
+
+            if (regex.IsMatch(path)) { return false; };
+
+            // Is Valid
+            return true;
+        }
+
+
+        /// <summary>
+        ///    Is Valid Windows Filename
+        /// </summary>
+        /// <remarks>
+        ///     Check for Invalid Characters
+        /// </remarks>
+        public static bool IsValidFilename(string filename)
+        {
+            // Not Valid
+            string invalidChars = new string(Path.GetInvalidFileNameChars());
+            Regex regex = new Regex("[" + Regex.Escape(invalidChars) + "]");
+
+            if (regex.IsMatch(filename)) { return false; };
+
+            // Is Valid
+            return true;
+        }
+
+
+
+        /// <summary>
         ///    FFcheck (Method)
         /// </summary>
         /// <remarks>
@@ -1795,8 +1835,8 @@ namespace Axiom
                 // URL
                 if ((input_Text.StartsWith("http://") ||
                     input_Text.StartsWith("https://") ||
-                    input_Text.StartsWith("www.") ||
-                    input_Text.EndsWith(".com")) //&&
+                    input_Text.StartsWith("www.")) //||
+                    //input_Text.EndsWith(".com")) //&&
                     //IsValidURL(input_Text) == true
                    )
                 {
@@ -1808,34 +1848,6 @@ namespace Axiom
                 {
                     return false;
                 }
-
-                //// YouTube
-                //if (// youtube (any domain extension)
-                //   input_Text.StartsWith("https://www.youtube.") ||
-                //   input_Text.StartsWith("http://www.youtube.") ||
-                //   input_Text.StartsWith("www.youtube.") ||
-                //   input_Text.StartsWith("youtube.") ||
-
-                //   // youtu.be
-                //   input_Text.StartsWith("https://youtu.be") ||
-                //   input_Text.StartsWith("http://youtu.be") ||
-                //   input_Text.StartsWith("www.youtu.be") ||
-                //   input_Text.StartsWith("youtu.be") ||
-
-                //   // YouTube Music
-                //   input_Text.StartsWith("https://music.youtube.") ||
-                //   input_Text.StartsWith("http://music.youtube.") ||
-                //   input_Text.StartsWith("music.youtube.")
-                //   )
-                //{
-                //    return true;
-                //}
-
-                //// Local File
-                //else
-                //{
-                //    return false;
-                //}
             }
             else
             {
@@ -1988,7 +2000,8 @@ namespace Axiom
         /// </summary>
         public static void ConvertButtonText(ViewModel vm)
         {
-            //MessageBox.Show(vm.Input_Text);
+            //MessageBox.Show(vm.Input_Text); //debug
+
             // Change to "Download" if YouTube Download Only Mode
             if (IsWebURL(vm.Input_Text) == true &&
                 IsWebDownloadOnly(vm.Video_Codec_SelectedItem, 
@@ -2113,206 +2126,95 @@ namespace Axiom
                                                     )
         {
             // -------------------------
-            // YouTube URL
+            // Video + Audio
             // -------------------------
-            //if (IsYouTubeURL(input_Text) == true)
-            //{
-                // -------------------------
-                // Video + Audio
-                // -------------------------
-                if (youtubedl_SelectedItem == "Video + Audio")
+            if (youtubedl_SelectedItem == "Video + Audio")
+            {
+                // Best
+                if (youtubedl_Quality_SelectedItem == "best")
                 {
-                    // Best
-                    if (youtubedl_Quality_SelectedItem == "best")
-                    {
-                        return "bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio/best";
-                    }
-                    // Best 4K
-                    else if (youtubedl_Quality_SelectedItem == "best 4K")
-                    {
-                        return "bestvideo[height=2160][ext=mp4]+bestaudio[ext=m4a]/bestvideo[height=2160]+bestaudio/bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio/best";
-                    }
-                    // Best 1080p
-                    else if (youtubedl_Quality_SelectedItem == "best 1080p")
-                    {
-                        return "bestvideo[height=1080][ext=mp4]+bestaudio[ext=m4a]/bestvideo[height=1080]+bestaudio/bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio/best";
-                    }
-                    // Best 720p
-                    else if (youtubedl_Quality_SelectedItem == "best 720p")
-                    {
-                        return "bestvideo[height=720][ext=mp4]+bestaudio[ext=m4a]/bestvideo[height=720]+bestaudio/bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio/best";
-                    }
-                    // Best 480p
-                    else if (youtubedl_Quality_SelectedItem == "best 480p")
-                    {
-                        return "bestvideo[height=480][ext=mp4]+bestaudio[ext=m4a]/bestvideo[height=480]+bestaudio/bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio/best";
-                    }
-                    // Worst
-                    else if (youtubedl_Quality_SelectedItem == "worst")
-                    {
-                        return "worstvideo[ext=mp4]+worstaudio[ext=m4a]/worstvideo+worstaudio/worst";
-                    }
+                    return "bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio/best";
                 }
-
-                // -------------------------
-                // Video Only
-                // -------------------------
-                else if (youtubedl_SelectedItem == "Video Only")
+                // Best 4K
+                else if (youtubedl_Quality_SelectedItem == "best 4K")
                 {
-                    // Best
-                    if (youtubedl_Quality_SelectedItem == "best")
-                    {
-                        return "bestvideo[ext=mp4]/bestvideo";
-                    }
-                    // Best 4K
-                    else if (youtubedl_Quality_SelectedItem == "best 4K")
-                    {
-                        return "bestvideo[height=2160][ext=mp4]/bestvideo[ext=mp4]/bestvideo";
-                    }
-                    // Best 1080p
-                    else if (youtubedl_Quality_SelectedItem == "best 1080p")
-                    {
-                        return "bestvideo[height=1080][ext=mp4]/bestvideo[ext=mp4]/bestvideo";
-                    }
-                    // Best 720p
-                    else if (youtubedl_Quality_SelectedItem == "best 720p")
-                    {
-                        return "bestvideo[height=720p][ext=mp4]/bestvideo[ext=mp4]/bestvideo";
-                    }
-                    // Best 480p
-                    else if (youtubedl_Quality_SelectedItem == "best 480p")
-                    {
-                        return "bestvideo[height=480p][ext=mp4]/bestvideo[ext=mp4]/bestvideo";
-                    }
-                    // Worst
-                    else if (youtubedl_Quality_SelectedItem == "worst")
-                    {
-                        return "worstvideo[ext=mp4]/worstvideo";
-                    }
+                    return "bestvideo[height=2160][ext=mp4]+bestaudio[ext=m4a]/bestvideo[height=2160]+bestaudio/bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio/best";
                 }
-
-                // -------------------------
-                // Audio Only
-                // -------------------------
-                else if (youtubedl_SelectedItem == "Audio Only")
+                // Best 1080p
+                else if (youtubedl_Quality_SelectedItem == "best 1080p")
                 {
-                    // Best
-                    if (youtubedl_Quality_SelectedItem == "best")
-                    {
-                        return "bestaudio[ext=m4a]/bestaudio";
-                    }
-                    // Worst
-                    else if (youtubedl_Quality_SelectedItem == "worst")
-                    {
-                        return "worstaudio[ext=m4a]/worstaudio";
-                    }
+                    return "bestvideo[height=1080][ext=mp4]+bestaudio[ext=m4a]/bestvideo[height=1080]+bestaudio/bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio/best";
                 }
-            //}
+                // Best 720p
+                else if (youtubedl_Quality_SelectedItem == "best 720p")
+                {
+                    return "bestvideo[height=720][ext=mp4]+bestaudio[ext=m4a]/bestvideo[height=720]+bestaudio/bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio/best";
+                }
+                // Best 480p
+                else if (youtubedl_Quality_SelectedItem == "best 480p")
+                {
+                    return "bestvideo[height=480][ext=mp4]+bestaudio[ext=m4a]/bestvideo[height=480]+bestaudio/bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio/best";
+                }
+                // Worst
+                else if (youtubedl_Quality_SelectedItem == "worst")
+                {
+                    return "worstvideo[ext=mp4]+worstaudio[ext=m4a]/worstvideo+worstaudio/worst";
+                }
+            }
 
-            //// -------------------------
-            //// Other Website
-            //// -------------------------
-            //else
-            //{
-            //    // Do not use [ext=mp4] or [ext=m4a], it is not always found
+            // -------------------------
+            // Video Only
+            // -------------------------
+            else if (youtubedl_SelectedItem == "Video Only")
+            {
+                // Best
+                if (youtubedl_Quality_SelectedItem == "best")
+                {
+                    return "bestvideo[ext=mp4]/bestvideo";
+                }
+                // Best 4K
+                else if (youtubedl_Quality_SelectedItem == "best 4K")
+                {
+                    return "bestvideo[height=2160][ext=mp4]/bestvideo[ext=mp4]/bestvideo";
+                }
+                // Best 1080p
+                else if (youtubedl_Quality_SelectedItem == "best 1080p")
+                {
+                    return "bestvideo[height=1080][ext=mp4]/bestvideo[ext=mp4]/bestvideo";
+                }
+                // Best 720p
+                else if (youtubedl_Quality_SelectedItem == "best 720p")
+                {
+                    return "bestvideo[height=720p][ext=mp4]/bestvideo[ext=mp4]/bestvideo";
+                }
+                // Best 480p
+                else if (youtubedl_Quality_SelectedItem == "best 480p")
+                {
+                    return "bestvideo[height=480p][ext=mp4]/bestvideo[ext=mp4]/bestvideo";
+                }
+                // Worst
+                else if (youtubedl_Quality_SelectedItem == "worst")
+                {
+                    return "worstvideo[ext=mp4]/worstvideo";
+                }
+            }
 
-            //    // -------------------------
-            //    // Video + Audio
-            //    // -------------------------
-            //    if (youtubedl_SelectedItem == "Video + Audio")
-            //    {
-            //        //return "bestvideo+bestaudio";
-
-            //        // Best
-            //        if (youtubedl_Quality_SelectedItem == "best")
-            //        {
-            //            return "best";
-            //        }
-            //        // Best 4K
-            //        else if (youtubedl_Quality_SelectedItem == "best 4K")
-            //        {
-            //            return "best[height=2160][ext=mp4]/best[ext=mp4]/best";
-            //        }
-            //        // Best 1080p
-            //        else if (youtubedl_Quality_SelectedItem == "best 1080p")
-            //        {
-            //            return "best[height=1080][ext=mp4]/best[ext=mp4]/best";
-            //        }
-            //        // Best 720p
-            //        else if (youtubedl_Quality_SelectedItem == "best 720p")
-            //        {
-            //            return "best[height=720][ext=mp4]/best[ext=mp4]/best";
-            //        }
-            //        // Best 480p
-            //        else if (youtubedl_Quality_SelectedItem == "best 480p")
-            //        {
-            //            return "best[height=480][ext=mp4]/best[ext=mp4]/best";
-            //        }
-            //        // Worst
-            //        else if (youtubedl_Quality_SelectedItem == "worst")
-            //        {
-            //            return "worst";
-            //        }
-            //    }
-
-            //    // -------------------------
-            //    // Video Only
-            //    // -------------------------
-            //    else if (youtubedl_SelectedItem == "Video Only")
-            //    {
-            //        //return "bestvideo";
-
-            //        // Best
-            //        if (youtubedl_Quality_SelectedItem == "best")
-            //        {
-            //            return "best";
-            //        }
-            //        // Best 4K
-            //        else if (youtubedl_Quality_SelectedItem == "best 4K")
-            //        {
-            //            return "best";
-            //        }
-            //        // Best 1080p
-            //        else if (youtubedl_Quality_SelectedItem == "best 1080p")
-            //        {
-            //            return "best";
-            //        }
-            //        // Best 720p
-            //        else if (youtubedl_Quality_SelectedItem == "best 720p")
-            //        {
-            //            return "best";
-            //        }
-            //        // Best 480p
-            //        else if (youtubedl_Quality_SelectedItem == "best 480p")
-            //        {
-            //            return "best";
-            //        }
-            //        // Worst
-            //        else if (youtubedl_Quality_SelectedItem == "worst")
-            //        {
-            //            return "worst";
-            //        }
-            //    }
-
-            //    // -------------------------
-            //    // Audio Only
-            //    // -------------------------
-            //    else if (youtubedl_SelectedItem == "Audio Only")
-            //    {
-            //        //return "bestaudio";
-
-            //        // Best
-            //        if (youtubedl_Quality_SelectedItem == "best")
-            //        {
-            //            return "bestaudio[ext=m4a]/bestaudio";
-            //        }
-            //        // Worst
-            //        else if (youtubedl_Quality_SelectedItem == "worst")
-            //        {
-            //            return "worstaudio[ext=m4a]/worstaudio";
-            //        }
-            //    }
-            //}
+            // -------------------------
+            // Audio Only
+            // -------------------------
+            else if (youtubedl_SelectedItem == "Audio Only")
+            {
+                // Best
+                if (youtubedl_Quality_SelectedItem == "best")
+                {
+                    return "bestaudio[ext=m4a]/bestaudio";
+                }
+                // Worst
+                else if (youtubedl_Quality_SelectedItem == "worst")
+                {
+                    return "worstaudio[ext=m4a]/worstaudio";
+                }
+            }
 
 
             return string.Empty;
@@ -2450,7 +2352,7 @@ namespace Axiom
             // Input File does not exist
             // -------------------------
             //MessageBox.Show(input); //debug
-            if (IsWebURL(vm.Input_Text) == false) // Ignore YouTube URL's
+            if (IsWebURL(vm.Input_Text) == false) // Ignore Web URL's
             {
                 if (!string.IsNullOrEmpty(vm.Input_Text) &&
                     vm.Batch_IsChecked == false)
@@ -2629,8 +2531,10 @@ namespace Axiom
                 if (string.Equals(inputDir, outputDir, StringComparison.CurrentCultureIgnoreCase) &&
                     string.Equals(inputExt, outputExt, StringComparison.CurrentCultureIgnoreCase))
                 {
-                    //MessageBox.Show(inputDir); //debug
-                    //MessageBox.Show(outputDir); //debug
+                    //MessageBox.Show("inputDir = " + inputDir); //debug
+                    //MessageBox.Show("outputDir = " + outputDir); //debug
+                    //MessageBox.Show("inputExt = " + inputExt); //debug
+                    //MessageBox.Show("outputExt = " + outputExt); //debug
 
                     // Log Console Message /////////
                     Log.logParagraph.Inlines.Add(new LineBreak());
@@ -3088,8 +2992,6 @@ namespace Axiom
         /// </summary>
         public void UpdateAvailableCheck(ViewModel vm)
         {
-            //if (tglUpdatesAutoCheck.IsChecked == true)
-            //if (tglUpdateAutoCheck.Dispatcher.Invoke((() => { return tglUpdateAutoCheck.IsChecked; })) == true)
             if (vm.UpdateAutoCheck_IsChecked == true)
             {
                 ServicePointManager.Expect100Continue = true;
@@ -3573,48 +3475,183 @@ namespace Axiom
         {
             input = vm.Input_Text;
 
-            if (!string.IsNullOrEmpty(vm.Input_Text))
+            // -------------------------
+            // Local File
+            // -------------------------
+            if (IsWebURL(vm.Input_Text) == false)
             {
-                // Remove stray slash if closed out early (duplicate code?)
-                if (vm.Input_Text == "\\")
+                // -------------------------
+                // Single File
+                // -------------------------
+                if (vm.Batch_IsChecked == false)
                 {
-                    vm.Input_Text = string.Empty;
+                    // Has Text
+                    if (!string.IsNullOrEmpty(vm.Input_Text))
+                    {
+                        // Remove stray slash if closed out early
+                        if (input == "\\")
+                        {
+                            input = string.Empty;
+                        }
+
+                        //inputDir = Path.GetDirectoryName(vm.Input_Text).TrimEnd('\\') + @"\"; // eg. C:\Input\Path\
+                        inputExt = Path.GetExtension(vm.Input_Text);
+                    }
+
+                    // No Text
+                    else
+                    {
+                        input = string.Empty;
+                        inputDir = string.Empty;
+                    }
                 }
 
-                // Get input file extension
-                inputExt = Path.GetExtension(vm.Input_Text);
-
-
-                // Enable / Disable "Open Input Location" Buttion
-                if (!string.IsNullOrEmpty(vm.Input_Text))
+                // -------------------------
+                // Batch
+                // -------------------------
+                else
                 {
-                    bool exists = Directory.Exists(Path.GetDirectoryName(vm.Input_Text));
+                    // Has Text
+                    if (!string.IsNullOrEmpty(vm.Input_Text))
+                    {
+                        // Remove stray slash if closed out early
+                        if (input == @"\")
+                        {
+                            input = string.Empty;
+                        }
 
+                        //inputDir = Path.GetDirectoryName(vm.Input_Text).TrimEnd('\\') + @"\"; // eg. C:\Input\Path\
+                        inputExt = vm.BatchExtension_Text;
+                    }
+
+                    // No Text
+                    else
+                    {
+                        input = string.Empty;
+                        inputDir = string.Empty;
+                    }
+                }
+
+
+                // -------------------------
+                // Enable / Disable "Open Input Location" Buttion
+                // -------------------------
+                //MessageBox.Show(input);
+                //MessageBox.Show(inputDir);
+                //MessageBox.Show(IsValidFilePath(inputDir).ToString());
+                //MessageBox.Show(IsValidFilename(input).ToString());
+
+                if (!string.IsNullOrEmpty(vm.Input_Text) &&
+                    !string.IsNullOrEmpty(inputDir) &&
+                    IsValidFilePath(inputDir) == true &&
+                    //!inputDir.Contains("/") &&
+
+                    // TrimEnd('\\') + @"\" is adding a backslash to 'http' until it is detected as Web URL
+                    Path.IsPathRooted(inputDir) == true //&&
+                    //inputDir != @"http:\" &&
+                    //inputDir != @"https:\"
+                    )
+                {
+                    //MessageBox.Show(inputDir);
+
+                    bool exists = Directory.Exists(inputDir);
+
+                    // Path exists
                     if (exists)
                     {
                         vm.Input_Location_IsEnabled = true;
                     }
+                    // Path does not exist
                     else
                     {
                         vm.Input_Location_IsEnabled = false;
                     }
                 }
 
+                // Disable Button for Web URL
+                else
+                {
+                    vm.Input_Location_IsEnabled = false;
+                }
+
+
+                // -------------------------
                 // Set Video & Audio Codec Combobox to "Copy" 
                 // if Input Extension is Same as Output Extension and Video Quality is Auto
-                //
+                // -------------------------
                 if (IsWebURL(vm.Input_Text) == false) // Check if Input is a Windows Path, Not a URL
                 {
                     if (Path.HasExtension(vm.Input_Text) == true) // Check if Input has file extension after it has passed URL check
-                                                                  // to prevent path forward slash error in Path.HasExtension()
+                                                          // to prevent path forward slash error in Path.HasExtension()
                     {
                         VideoControls.AutoCopyVideoCodec(vm);
                         SubtitleControls.AutoCopySubtitleCodec(vm);
                         AudioControls.AutoCopyAudioCodec(vm);
                     }
                 }
-
             }
+
+            // -------------------------
+            // Web URL
+            // -------------------------
+            else
+            {
+                inputDir = string.Empty;
+                inputExt = string.Empty;
+                vm.Input_Location_IsEnabled = false;
+            }
+
+           
+            // -------------------------
+            // YouTube Download
+            // -------------------------
+            //if (!string.IsNullOrEmpty(input))
+            //{
+                //// Remove stray slash if closed out early (duplicate code?)
+                //if (vm.Input_Text == "\\")
+                //{
+                //    vm.Input_Text = string.Empty;
+                //}
+
+                //// Input Directory
+                //inputDir = Path.GetDirectoryName(vm.Input_Text.TrimEnd('\\') + @"\");
+
+                //// Get input file extension
+                //inputExt = Path.GetExtension(vm.Input_Text);
+
+
+                //// -------------------------
+                //// Enable / Disable "Open Input Location" Buttion
+                //// -------------------------
+                //if (!string.IsNullOrEmpty(vm.Input_Text))
+                //{
+                //    bool exists = Directory.Exists(Path.GetDirectoryName(vm.Input_Text));
+
+                //    if (exists)
+                //    {
+                //        vm.Input_Location_IsEnabled = true;
+                //    }
+                //    else
+                //    {
+                //        vm.Input_Location_IsEnabled = false;
+                //    }
+                //}
+
+                // Set Video & Audio Codec Combobox to "Copy" 
+                // if Input Extension is Same as Output Extension and Video Quality is Auto
+                //
+                //if (IsWebURL(input) == false) // Check if Input is a Windows Path, Not a URL
+                //{
+                //    if (Path.HasExtension(input) == true) // Check if Input has file extension after it has passed URL check
+                //                                                  // to prevent path forward slash error in Path.HasExtension()
+                //    {
+                //        VideoControls.AutoCopyVideoCodec(vm);
+                //        SubtitleControls.AutoCopySubtitleCodec(vm);
+                //        AudioControls.AutoCopyAudioCodec(vm);
+                //    }
+                //}
+
+            //}
 
             // -------------------------
             // Convert Button Text Change
@@ -3671,16 +3708,19 @@ namespace Axiom
             // -------------------------
             if (vm.Batch_IsChecked == false)
             {
+                // -------------------------
                 // Get Output Ext
+                // -------------------------
                 FormatControls.OutputFormatExt(vm);
 
-
+                // -------------------------
                 // Open 'Save File'
+                // -------------------------
                 Microsoft.Win32.SaveFileDialog saveFile = new Microsoft.Win32.SaveFileDialog();
 
-
+                // -------------------------
                 // 'Save File' Default Path same as Input Directory
-                //
+                // -------------------------
                 try
                 {
                     string previousPath = Settings.Default.OutputDir.ToString();
@@ -3720,7 +3760,9 @@ namespace Axiom
                 }
 
 
+                // -------------------------
                 // Show Dialog Box
+                // -------------------------
                 Nullable<bool> result = saveFile.ShowDialog();
 
                 // Process Dialog Box
@@ -3857,13 +3899,11 @@ namespace Axiom
                         !vm.BatchExtension_Text.StartsWith(".")
                         )
                     {
-                        //batchExt = "." + vm.BatchExtension_Text;
                         inputExt = "." + vm.BatchExtension_Text;
                     }
                 }
                 else
                 {
-                    //batchExt = string.Empty;
                     inputExt = string.Empty;
                 }
             }
@@ -3919,7 +3959,6 @@ namespace Axiom
                 inputFileName = string.Empty;
                 inputDir = string.Empty;
                 inputExt = string.Empty;
-                //batchExt = string.Empty;
             }
 
             // Clear Output Textbox, Output Filename, Dir, Ext
@@ -3948,23 +3987,19 @@ namespace Axiom
                 vm.BatchExtension_Text == "extension"
                 )
             {
-                //batchExt = string.Empty;
                 inputExt = string.Empty;
             }
             // TextBox Value
             else
             {
-                //batchExt = vm.BatchExtension_Text;
                 inputExt = vm.BatchExtension_Text;
             }
 
             // Add period to batchExt if user did not enter (This helps enable Copy)
             if (!string.IsNullOrEmpty(vm.BatchExtension_Text) &&
-                //!batchExt.StartsWith(".") &&
                 !inputExt.StartsWith(".") &&
                 vm.BatchExtension_Text != "extension")
             {
-                //batchExt = "." + batchExt;
                 inputExt = "." + inputExt;
             }
 
@@ -4015,75 +4050,74 @@ namespace Axiom
         /// </summary>
         public static String InputPath(ViewModel vm, string pass)
         {
-            // -------------------------
-            // Local File
-            // -------------------------
-            if (IsWebURL(vm.Input_Text) == false) // Ignore YouTube URL's
+            if (!string.IsNullOrEmpty(vm.Input_Text))
             {
                 // -------------------------
-                // Single File
+                // Local File
                 // -------------------------
-                if (vm.Batch_IsChecked == false &&
-                    pass != "pass 2") // Ignore Pass 2, use existing input path
+                if (IsWebURL(vm.Input_Text) == false) // Ignore Web URL's
                 {
-                    // Input Directory
-                    if (!string.IsNullOrEmpty(vm.Input_Text))
+                    // -------------------------
+                    // Single File
+                    // -------------------------
+                    if (vm.Batch_IsChecked == false &&
+                        pass != "pass 2") // Ignore Pass 2, use existing input path
                     {
-                        inputDir = Path.GetDirectoryName(vm.Input_Text).TrimEnd('\\') + @"\"; // (eg. C:\Input Folder\)
-                        inputFileName = Path.GetFileNameWithoutExtension(vm.Input_Text);
-                        inputExt = Path.GetExtension(vm.Input_Text);
+                        // Input Directory
+                        if (!string.IsNullOrEmpty(vm.Input_Text))
+                        {
+                            inputDir = Path.GetDirectoryName(vm.Input_Text).TrimEnd('\\') + @"\"; // eg. C:\Input\Path\
+                            inputFileName = Path.GetFileNameWithoutExtension(vm.Input_Text);
+                            inputExt = Path.GetExtension(vm.Input_Text);
+                        }
+
+                        // Combine Input
+                        input = vm.Input_Text; // eg. C:\Path\To\file.avi
                     }
 
-                    // Input
-                    input = vm.Input_Text; // (eg. C:\Input Folder\file.wmv)
+                    // -------------------------
+                    // Batch
+                    // -------------------------
+                    else if (vm.Batch_IsChecked == true)
+                    {
+                        inputDir = Path.GetDirectoryName(vm.Input_Text).TrimEnd('\\') + @"\"; // eg. C:\Input\Path\
+
+                        // Note: %f is filename, %~f is full path
+                        inputFileName = "%~f";
+
+                        // Combine Input
+                        input = inputDir + inputFileName; // eg. C:\Input\Path\
+                    }
                 }
 
                 // -------------------------
-                // Batch
+                // YouTube Download
                 // -------------------------
-                else if (vm.Batch_IsChecked == true)
+                else if (IsWebURL(vm.Input_Text) == true &&
+                         pass != "pass 2") // Ignore Pass 2, use existing input path
                 {
-                    // Add slash to Batch Browse Text folder path if missing
-                    vm.Input_Text = vm.Input_Text.TrimEnd('\\') + @"\";
+                    inputDir = downloadDir;
+                    inputFileName = "%f";
+                    inputExt = "." + YouTubeDownloadFormat(vm.Format_YouTube_SelectedItem,
+                                                           vm.Video_Codec_SelectedItem,
+                                                           vm.Subtitle_Codec_SelectedItem,
+                                                           vm.Audio_Codec_SelectedItem
+                                                           );
 
-                    inputDir = vm.Input_Text; // (eg. C:\Input Folder\)
-
-                    inputFileName = "%~f";
-
-                    // Input
-                    input = inputDir + inputFileName; // (eg. C:\Input Folder\)
+                    input = inputDir + inputFileName + inputExt; // eg. C:\Users\Example\Downloads\%f.mp4
                 }
             }
-
-            // -------------------------
-            // YouTube Download
-            // -------------------------
-            else if (IsWebURL(vm.Input_Text) == true &&
-                     pass != "pass 2") // Ignore Pass 2, use existing input path
-            {
-                inputDir = downloadDir;
-                inputFileName = "%f";
-                inputExt = "." + YouTubeDownloadFormat(vm.Format_YouTube_SelectedItem,
-                                                       vm.Video_Codec_SelectedItem, 
-                                                       vm.Subtitle_Codec_SelectedItem, 
-                                                       vm.Audio_Codec_SelectedItem
-                                                       );
-
-                input = inputDir + inputFileName + inputExt; // eg. C:\Users\Example\Downloads\%f.mp4
-            }
-
 
             // -------------------------
             // Empty
             // -------------------------
-            // Input Textbox & Output Textbox Both Empty
-            if (string.IsNullOrEmpty(vm.Input_Text))
+            else
             {
                 inputDir = string.Empty;
                 inputFileName = string.Empty;
                 input = string.Empty;
             }
-
+           
 
             // Return Value
             return input;
@@ -4102,7 +4136,7 @@ namespace Axiom
             // -------------------------
             if (vm.Batch_IsChecked == true)
             {
-                inputDir = vm.Input_Text; // (eg. C:\Input Folder\)
+                inputDir = vm.Input_Text; // eg. C:\Input\Path\
             }
 
             // -------------------------
@@ -4128,149 +4162,156 @@ namespace Axiom
             // Get Output Extension (Method)
             FormatControls.OutputFormatExt(vm);
 
-            // -------------------------
-            // Local File
-            // -------------------------
-            if (IsWebURL(vm.Input_Text) == false) // Ignore YouTube URL's
+            if (!string.IsNullOrEmpty(vm.Input_Text)) // Check Input
             {
                 // -------------------------
-                // Single File
+                // Local File
                 // -------------------------
-                if (vm.Batch_IsChecked == false)
+                if (IsWebURL(vm.Input_Text) == false) // Ignore Web URL's
                 {
-                    // Input Not Empty, Output Empty
-                    // Default Output to be same as Input Directory
-                    if (!string.IsNullOrEmpty(vm.Input_Text) &&
-                        string.IsNullOrEmpty(vm.Output_Text))
+                    // -------------------------
+                    // Single File
+                    // -------------------------
+                    if (vm.Batch_IsChecked == false)
                     {
-                        vm.Output_Text = inputDir + inputFileName + outputExt;
-                    }
+                        // Input Not Empty
+                        // Output Empty
+                        if (!string.IsNullOrEmpty(vm.Input_Text) &&
+                            string.IsNullOrEmpty(vm.Output_Text))
+                        {
+                            // Default Output Dir to be same as Input Directory
+                            outputDir = inputDir;
+                            outputFileName = inputFileName;
+                        }
 
-                    // Input Empty, Output Not Empty
-                    if (!string.IsNullOrEmpty(vm.Output_Text))
-                    {
-                        outputDir = Path.GetDirectoryName(vm.Output_Text).TrimEnd('\\') + @"\";
+                        // Input Not Empty
+                        // Output Not Empty
+                        else
+                        {
+                            outputDir = Path.GetDirectoryName(vm.Output_Text).TrimEnd('\\') + @"\"; // eg. C:\Output\Path\
+                            outputFileName = Path.GetFileNameWithoutExtension(vm.Output_Text);
+                        }
 
-                        outputFileName = Path.GetFileNameWithoutExtension(vm.Output_Text);
-                    }
+                        // -------------------------
+                        // File Renamer
+                        // -------------------------
+                        // Pressing Script or Convert while Output TextBox is empty
+                        if (inputDir == outputDir &&
+                            inputFileName == outputFileName &&
+                            string.Equals(inputExt, outputExt, StringComparison.CurrentCultureIgnoreCase))
+                        {
+                            outputFileName = FileRenamer(inputFileName);
+                        }
 
-                    // -------------------------
-                    // File Renamer
-                    // -------------------------
-                    // Auto Renamer
-                    // Pressing Script or Convert while Output is empty
-                    if (inputDir == outputDir &&
-                        inputFileName == outputFileName &&
-                        string.Equals(inputExt, outputExt, StringComparison.CurrentCultureIgnoreCase))
-                    {
-                        outputFileName = FileRenamer(inputFileName);
-                    }
+                        // -------------------------
+                        // Image Sequence Renamer
+                        // -------------------------
+                        if (vm.Format_MediaType_SelectedItem == "Sequence")
+                        {
+                            outputFileName = "image-%03d"; //must be this name
+                        }
 
-                    // -------------------------
-                    // Image Sequence Renamer
-                    // -------------------------
-                    if (vm.Format_MediaType_SelectedItem == "Sequence")
-                    {
-                        outputFileName = "image-%03d"; //must be this name
-                    }
+                        // -------------------------
+                        // Combine Output
+                        // -------------------------
+                        output = outputDir + outputFileName + outputExt; // eg. C:\Output Folder\ + file + .mp4
 
-                    // -------------------------
-                    // Output
-                    // -------------------------
-                    output = outputDir + outputFileName + outputExt; // eg. C:\Output Folder\ + file + .mp4
-
-                    // Update TextBox
-                    if (!string.IsNullOrEmpty(vm.Output_Text))
-                    {
+                        // -------------------------
+                        // Update TextBox
+                        // -------------------------
+                        // Used if FileRenamer() changes name: filename (1)
+                        // Only used for Single File, ignore Batch and Web URLs
                         vm.Output_Text = output;
                     }
+
+                    // -------------------------
+                    // Batch
+                    // -------------------------
+                    else if (vm.Batch_IsChecked == true)
+                    {
+                        // Note: %f is filename, %~f is full path
+
+                        // Add slash to Batch Output Text folder path if missing
+                        vm.Output_Text = vm.Output_Text.TrimEnd('\\') + @"\";
+
+                        // Input Not Empty, Output Empty
+                        // Default Output to be same as Input Directory
+                        if (!string.IsNullOrEmpty(vm.Input_Text) &&
+                            string.IsNullOrEmpty(vm.Output_Text))
+                        {
+                            vm.Output_Text = vm.Input_Text;
+                        }
+
+                        outputDir = vm.Output_Text.TrimEnd('\\') + @"\";
+
+                        // Combine Output  
+                        output = outputDir + "%~nf" + outputExt; // eg. C:\Output Folder\%~nf.mp4
+                    }
                 }
 
                 // -------------------------
-                // Batch
+                // YouTube Download
                 // -------------------------
-                else if (vm.Batch_IsChecked == true)
+                else if (IsWebURL(vm.Input_Text) == true) 
                 {
-                    // Add slash to Batch Output Text folder path if missing
-                    vm.Output_Text = vm.Output_Text.TrimEnd('\\') + @"\";
+                    // Note: %f is filename, %~f is full path
 
-                    // Input Not Empty, Output Empty
-                    // Default Output to be same as Input Directory
-                    if (!string.IsNullOrEmpty(vm.Input_Text) &&
-                        string.IsNullOrEmpty(vm.Output_Text))
+                    // Auto Output Path
+                    if (string.IsNullOrEmpty(vm.Output_Text))
                     {
-                        vm.Output_Text = vm.Input_Text;
+                        outputDir = downloadDir;
+                        //outputFileName = "%f";
+
+                        // Check if output filename already exists
+                        // Check if YouTube Download Format is the same as Output Extension
+                        // The youtub-dl merged format for converting should be mkv
+                        if ("." + YouTubeDownloadFormat(vm.Format_YouTube_SelectedItem,
+                                                  vm.Video_Codec_SelectedItem,
+                                                  vm.Subtitle_Codec_SelectedItem,
+                                                  vm.Audio_Codec_SelectedItem
+                                                  )
+
+                                                  ==
+
+                                                  outputExt
+                                                  )
+                        {
+                            // Add (1)
+                            outputFileName = "%f" + " (1)";
+                        }
+                        else
+                        {
+                            outputFileName = "%f";
+                        }
+
+                        // Combine Output
+                        output = outputDir + outputFileName + outputExt; // eg. C:\Users\Example\Downloads\%f.webm
                     }
 
-                    outputDir = vm.Output_Text.TrimEnd('\\') + @"\";
-
-                    // Combine          
-                    output = outputDir + "%~nf" + outputExt; // (eg. C:\Output Folder\%~nf.mp4)
-                }
-
-                // -------------------------
-                // Empty
-                // -------------------------
-                // Input Textbox & Output Textbox Both Empty
-                if (string.IsNullOrEmpty(vm.Output_Text))
-                {
-                    outputDir = string.Empty;
-                    outputFileName = string.Empty;
-                    output = string.Empty;
-                }
-            }
-
-            // -------------------------
-            // YouTube Download
-            // -------------------------
-            else if (IsWebURL(vm.Input_Text) == true) // Ignore Pass 2, use existing input path
-            {
-                // Note: %f is filename, %~f is full path
-
-                // Auto Output Path
-                if (string.IsNullOrEmpty(vm.Output_Text))
-                {
-                    outputDir = downloadDir;
-                    //outputFileName = "%f";
-
-                    // Check if output filename already exists
-                    // Check if YouTube Download Format is the same as Output Extension
-                    // The youtub-dl merged format for converting should be mkv
-                    if ("." + YouTubeDownloadFormat(vm.Format_YouTube_SelectedItem,
-                                              vm.Video_Codec_SelectedItem,
-                                              vm.Subtitle_Codec_SelectedItem,
-                                              vm.Audio_Codec_SelectedItem
-                                              )
-
-                                              ==
-
-                                              outputExt
-                                              )
-                    {
-                        // Add (1)
-                        outputFileName = "%f" + " (1)";
-                    }
+                    // User Defined Output Path
                     else
                     {
-                        outputFileName = "%f";
+                        outputDir = Path.GetDirectoryName(vm.Output_Text).TrimEnd('\\') + @"\"; // eg. C:\Output\Path\
+                        outputFileName = Path.GetFileNameWithoutExtension(vm.Output_Text);
+
+                        // Combine Output
+                        output = outputDir + outputFileName + outputExt;
                     }
-
-                    // Combine
-                    output = outputDir + outputFileName + outputExt; // eg. C:\Users\Example\Downloads\%f.webm
-                }
-
-                // User Defined Output Path
-                else
-                {
-                    outputDir = Path.GetDirectoryName(vm.Output_Text).TrimEnd('\\') + @"\";
-                    outputFileName = Path.GetFileNameWithoutExtension(vm.Output_Text);
-
-                    // Combine
-                    output = outputDir + outputFileName + outputExt;
                 }
             }
 
+            // -------------------------
+            // Input Empty
+            // -------------------------
+            // Output must have an Input
+            else
+            {
+                outputDir = string.Empty;
+                outputFileName = string.Empty;
+                output = string.Empty;
+            }
 
+            
             // Return Value
             return output;
         }

@@ -153,7 +153,7 @@ namespace Axiom
         public static void Controls_Disable(ViewModel vm)
         {
             // Codec
-            vm.Audio_Codec_IsEnabled = false;
+            //vm.Audio_Codec_IsEnabled = false;
 
             // Stream
             vm.Audio_Stream_IsEnabled = false;
@@ -173,11 +173,14 @@ namespace Axiom
             // SampleRate
             vm.Audio_SampleRate_IsEnabled = false;
 
+            // Bit Depth
+            vm.Audio_BitDepth_IsEnabled = false;
+
             // Volume
             vm.Audio_Volume_IsEnabled = false;
 
-            // Bit Depth
-            vm.Audio_BitDepth_IsEnabled = false;
+            // Hard Limiter
+            vm.Audio_HardLimiter_IsEnabled = false;
         }
 
     }
