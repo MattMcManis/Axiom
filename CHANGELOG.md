@@ -4,9 +4,24 @@ Axiom FFmpeg UI
 
 ## [alpha]
 
+## [1.6.4.0] - Mar 31, 2019
+### Added
+- Audio Codec None to Video Containers
+- Audio Quality Stream none check
+- Audio Stream Control Method
+
+### Changed
+- Improved Input/Output Buttons and Paths
+
+### Fixed
+- Video Codec None - Crop Button Disable
+- Audio Codec None - Hard Limiter Slider Disable 
+- Batch Video Auto Quality
+
+
 ## [1.6.4.0] - Mar 30, 2019
 ### Added
-- Added support for youtube-dl other websites
+- Support for youtube-dl other websites
 
 ### Changed
 - Refactored Script and Convert Methods

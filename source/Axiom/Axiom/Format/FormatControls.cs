@@ -491,7 +491,7 @@ namespace Axiom
 
                 // Audio Stream
                 vm.Audio_Stream_IsEnabled = true;
-                AudioStreamControls(vm); // Selected Item
+                //AudioStreamControls(vm); // Selected Item
                 //vm.Audio_Stream_SelectedItem = "all";
 
 
@@ -568,7 +568,7 @@ namespace Axiom
 
                 // Audio Stream
                 vm.Audio_Stream_IsEnabled = true;
-                AudioStreamControls(vm); // Selected Item
+                //AudioStreamControls(vm); // Selected Item
                 //vm.Audio_Stream_SelectedItem = "1";
 
                 // Channel
@@ -670,7 +670,7 @@ namespace Axiom
 
                 // Audio Stream
                 //vm.Audio_Stream_SelectedItem = "none";
-                AudioStreamControls(vm); // Selected Item
+                //AudioStreamControls(vm); // Selected Item
                 vm.Audio_Stream_IsEnabled = false;
 
                 // Channel
@@ -768,7 +768,7 @@ namespace Axiom
 
                 // Audio Stream
                 //vm.Audio_Stream_SelectedItem = "none";
-                AudioStreamControls(vm); // Selected Item
+                //AudioStreamControls(vm); // Selected Item
                 vm.Audio_Stream_IsEnabled = false;
 
                 // Channel
@@ -861,7 +861,7 @@ namespace Axiom
                 // -------------------------
                 // None
                 // -------------------------
-                else if (vm.Audio_Codec_SelectedItem == "None")
+                if (vm.Audio_Codec_SelectedItem == "None")
                 {
                     vm.Audio_Stream_SelectedItem = "none";
                 }
