@@ -68,7 +68,7 @@ Axiom is portable and can be run from any location on the computer.
 5. Separate multiple paths with semicolon `;`
 6. Typing `ffmpeg` in Command Prompt will now execute without needing to specify a direct path.
 
-<a href="https://raw.githubusercontent.com/MattMcManis/Axiom/master/images/guide/Environment-Variables.png" target="_blank"><img src="https://raw.githubusercontent.com/MattMcManis/Axiom/master/images/guide/Environment-Variables.png" width="500"/></a> 
+<a href="https://raw.githubusercontent.com/MattMcManis/Axiom/master/images/docs/Windows%20Environment%20Variables/Environment-Variables.png" target="_blank"><img src="https://raw.githubusercontent.com/MattMcManis/Axiom/master/images/docs/Windows%20Environment%20Variables/Environment-Variables.png" width="500"/></a> 
 
 #### YouTube Download
 `youtube-dl.exe` is included in `Axiom.FFmpeg.7z`. 
