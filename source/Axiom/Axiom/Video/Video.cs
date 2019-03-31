@@ -95,7 +95,7 @@ namespace Axiom
         // Scale
         public static string width;
         public static string height;
-        public static string scale; // contains scale, width, height
+        public static string scale; // contains size, width, height
 
         // Pass
         public static string v2PassArgs; // 2-Pass Arguments
@@ -1016,10 +1016,10 @@ namespace Axiom
                         // Make List
                         List<string> BatchVideoAutoList = new List<string>()
                         {
-                            // scale
-                            "& for /F \"delims=\" %S in ('@" + FFprobe.ffprobe + " -v error -select_streams v:0 -show_entries format^=scale -of default^=noprint_wrappers^=1:nokey^=1 \"%~f\" 2^>^&1') do (SET scale=%S)",
-                            // set %S to %scale%
-                            "\r\n\r\n" + "& for /F %S in ('echo %scale%') do (echo)",
+                            // size
+                            "& for /F \"delims=\" %S in ('@" + FFprobe.ffprobe + " -v error -select_streams v:0 -show_entries format^=size -of default^=noprint_wrappers^=1:nokey^=1 \"%~f\" 2^>^&1') do (SET size=%S)",
+                            // set %S to %size%
+                            "\r\n\r\n" + "& for /F %S in ('echo %size%') do (echo)",
 
                             // duration
                             "\r\n\r\n" + "& for /F \"delims=\" %D in ('@" + FFprobe.ffprobe + " -v error -select_streams v:0 -show_entries format^=duration -of default^=noprint_wrappers^=1:nokey^=1 \"%~f\" 2^>^&1') do (SET duration=%D)",
@@ -1033,10 +1033,11 @@ namespace Axiom
                             // set %V to %vBitRate%
                             "\r\n\r\n" + "& for /F %V in ('echo %vBitRate%') do (echo)",
                             // auto bitrate calcuate
-                            "\r\n\r\n" + "& (if %V EQU N/A (SET /a vBitRate=%S*8/1000/%D*1000) ELSE (echo Video BitRate Detected))",
+                            "\r\n\r\n" + "& (if %V EQU N/A (SET /a vBitRate=%S*8/1000/%D*1000) ELSE (echo Video Bit Rate Detected))",
                             // set %V to %vBitRate%
                             "\r\n\r\n" + "& for /F %V in ('echo %vBitRate%') do (echo)",
                         };
+
 
                         // -------------------------
                         // Join List with Spaces, Remove Empty Strings

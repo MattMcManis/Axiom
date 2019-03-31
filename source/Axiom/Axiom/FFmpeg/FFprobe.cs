@@ -32,7 +32,9 @@ namespace Axiom
     public class FFprobe
     {
         // --------------------------------------------------------------------------------------------------------
-        // Variables
+        /// <summary>
+        ///     Global Variables
+        /// </summary>
         // --------------------------------------------------------------------------------------------------------
 
         // FFprobe
@@ -264,7 +266,7 @@ namespace Axiom
 
 
         /// <summary>
-        /// FFprobe Video Entry Type Containers (Method)
+        ///     FFprobe Video Entry Type Containers (Method)
         /// </summary>
         // Used for Auto Quality to pass Bit Rate Entry Type to FFprobe
         public static void VideoEntryType(ViewModel vm)
@@ -296,11 +298,11 @@ namespace Axiom
             {
                 if (Format.VideoFormats_EntryType_Stream.Any(s => s.Equals(MainWindow.inputExt, StringComparison.OrdinalIgnoreCase)))
                 {
-                    vEntryType = "stream^=bit_rate";
+                    vEntryTypeBatch = "stream^=bit_rate";
                 }
                 else if (Format.VideoFormats_EntryType_Format.Any(s => s.Equals(MainWindow.inputExt, StringComparison.OrdinalIgnoreCase)))
                 {
-                    vEntryType = "format^=bit_rate";
+                    vEntryTypeBatch = "format^=bit_rate";
                 }
                 // UNLISTED Filetypes & Audio to Video
                 else
