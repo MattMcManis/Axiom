@@ -1380,11 +1380,20 @@ namespace Axiom
         /// </remarks>
         public static bool IsValidFilePath(string path)
         {
-            // Not Valid
-            string invalidChars = new string(Path.GetInvalidPathChars());
-            Regex regex = new Regex("[" + Regex.Escape(invalidChars) + "]");
+            if (!string.IsNullOrEmpty(path))
+            {
+                // Not Valid
+                string invalidChars = new string(Path.GetInvalidPathChars());
+                Regex regex = new Regex("[" + Regex.Escape(invalidChars) + "]");
 
-            if (regex.IsMatch(path)) { return false; };
+                if (regex.IsMatch(path)) { return false; };
+            }
+
+            // Empty
+            else
+            {
+                return false;
+            }
 
             // Is Valid
             return true;
@@ -1898,7 +1907,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///    YouTube Download Only Check (Method)
+        ///    YouTube Download-Only Mode Check (Method)
         /// </summary>
         /// <remarks>
         ///     If Axiom is in full Codec Copy mode Download the file without converting
@@ -1993,8 +2002,6 @@ namespace Axiom
 
 
 
-
-
         /// <summary>
         ///    Convert Button Text Change (Method)
         /// </summary>
@@ -2002,8 +2009,8 @@ namespace Axiom
         {
             //MessageBox.Show(vm.Input_Text); //debug
 
-            // Change to "Download" if YouTube Download Only Mode
-            if (IsWebURL(vm.Input_Text) == true &&
+            // Change to "Download" if YouTube Download-Only Mode
+            if ((IsWebURL(vm.Input_Text) == true || IsYouTubeURL(vm.Input_Text) == true) &&
                 IsWebDownloadOnly(vm.Video_Codec_SelectedItem, 
                                   vm.Subtitle_Codec_SelectedItem, 
                                   vm.Audio_Codec_SelectedItem) == true
@@ -3468,6 +3475,8 @@ namespace Axiom
             }
         }
 
+
+
         /// <summary>
         ///    Input Textbox
         /// </summary>
@@ -3534,27 +3543,16 @@ namespace Axiom
 
 
                 // -------------------------
-                // Enable / Disable "Open Input Location" Buttion
+                // Enable / Disable "Open Input Location" Button
                 // -------------------------
-                //MessageBox.Show(input);
-                //MessageBox.Show(inputDir);
-                //MessageBox.Show(IsValidFilePath(inputDir).ToString());
-                //MessageBox.Show(IsValidFilename(input).ToString());
-
                 if (!string.IsNullOrEmpty(vm.Input_Text) &&
-                    !string.IsNullOrEmpty(inputDir) &&
-                    IsValidFilePath(inputDir) == true &&
-                    //!inputDir.Contains("/") &&
+                    IsValidFilePath(vm.Input_Text) == true && // Detect Invalid Characters
 
-                    // TrimEnd('\\') + @"\" is adding a backslash to 'http' until it is detected as Web URL
-                    Path.IsPathRooted(inputDir) == true //&&
-                    //inputDir != @"http:\" &&
-                    //inputDir != @"https:\"
+                    Path.IsPathRooted(vm.Input_Text) == true  // TrimEnd('\\') + @"\" is adding a backslash to 
+                                                              // Iput text 'http' until it is detected as Web URL
                     )
                 {
-                    //MessageBox.Show(inputDir);
-
-                    bool exists = Directory.Exists(inputDir);
+                    bool exists = Directory.Exists(Path.GetDirectoryName(vm.Input_Text));
 
                     // Path exists
                     if (exists)
@@ -3581,8 +3579,12 @@ namespace Axiom
                 // -------------------------
                 if (IsWebURL(vm.Input_Text) == false) // Check if Input is a Windows Path, Not a URL
                 {
-                    if (Path.HasExtension(vm.Input_Text) == true) // Check if Input has file extension after it has passed URL check
-                                                          // to prevent path forward slash error in Path.HasExtension()
+                    if (Path.HasExtension(vm.Input_Text) == true && // Check if Input has file extension after it has passed URL check
+                                                                    // to prevent path forward slash error in Path.HasExtension()
+
+                        !vm.Input_Text.Contains("youtube"))         // Input text does not contain "youtube", 
+                                                                    // Path.HasExtension() detects .c, .co, .com as extension
+
                     {
                         VideoControls.AutoCopyVideoCodec(vm);
                         SubtitleControls.AutoCopySubtitleCodec(vm);
@@ -3601,57 +3603,6 @@ namespace Axiom
                 vm.Input_Location_IsEnabled = false;
             }
 
-           
-            // -------------------------
-            // YouTube Download
-            // -------------------------
-            //if (!string.IsNullOrEmpty(input))
-            //{
-                //// Remove stray slash if closed out early (duplicate code?)
-                //if (vm.Input_Text == "\\")
-                //{
-                //    vm.Input_Text = string.Empty;
-                //}
-
-                //// Input Directory
-                //inputDir = Path.GetDirectoryName(vm.Input_Text.TrimEnd('\\') + @"\");
-
-                //// Get input file extension
-                //inputExt = Path.GetExtension(vm.Input_Text);
-
-
-                //// -------------------------
-                //// Enable / Disable "Open Input Location" Buttion
-                //// -------------------------
-                //if (!string.IsNullOrEmpty(vm.Input_Text))
-                //{
-                //    bool exists = Directory.Exists(Path.GetDirectoryName(vm.Input_Text));
-
-                //    if (exists)
-                //    {
-                //        vm.Input_Location_IsEnabled = true;
-                //    }
-                //    else
-                //    {
-                //        vm.Input_Location_IsEnabled = false;
-                //    }
-                //}
-
-                // Set Video & Audio Codec Combobox to "Copy" 
-                // if Input Extension is Same as Output Extension and Video Quality is Auto
-                //
-                //if (IsWebURL(input) == false) // Check if Input is a Windows Path, Not a URL
-                //{
-                //    if (Path.HasExtension(input) == true) // Check if Input has file extension after it has passed URL check
-                //                                                  // to prevent path forward slash error in Path.HasExtension()
-                //    {
-                //        VideoControls.AutoCopyVideoCodec(vm);
-                //        SubtitleControls.AutoCopySubtitleCodec(vm);
-                //        AudioControls.AutoCopyAudioCodec(vm);
-                //    }
-                //}
-
-            //}
 
             // -------------------------
             // Convert Button Text Change

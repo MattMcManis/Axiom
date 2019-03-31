@@ -861,7 +861,7 @@ namespace Axiom
 
 
             // -------------------------
-            // Download Only
+            // Download-Only
             // -------------------------
             if (MainWindow.IsWebDownloadOnly(vm.Video_Codec_SelectedItem,
                                                  vm.Subtitle_Codec_SelectedItem,
