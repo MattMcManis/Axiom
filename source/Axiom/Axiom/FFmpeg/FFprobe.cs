@@ -159,11 +159,11 @@ namespace Axiom
                         Log.logParagraph.Inlines.Add(new Run(MainWindow.inputExt) { Foreground = Log.ConsoleDefault });
                     }
                     // Batch
-                    if (!string.IsNullOrEmpty(MainWindow.inputExt) &&
-                    MainWindow.inputExt != "extension")
-                    {
-                        Log.logParagraph.Inlines.Add(new Run(MainWindow.inputExt) { Foreground = Log.ConsoleDefault });
-                    }
+                    //if (!string.IsNullOrEmpty(MainWindow.inputExt) &&
+                    //    MainWindow.inputExt != "extension")
+                    //{
+                    //    Log.logParagraph.Inlines.Add(new Run(MainWindow.inputExt) { Foreground = Log.ConsoleDefault });
+                    //}
 
                     Log.logParagraph.Inlines.Add(new LineBreak());
                     Log.logParagraph.Inlines.Add(new Bold(new Run("Size: ")) { Foreground = Log.ConsoleDefault });

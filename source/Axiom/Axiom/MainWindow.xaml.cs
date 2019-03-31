@@ -3462,7 +3462,9 @@ namespace Axiom
                     vm.Input_Text = inputFolder.SelectedPath.TrimEnd('\\') + @"\";
 
                     // Input Directory
-                    inputDir = Path.GetDirectoryName(vm.Input_Text.TrimEnd('\\') + @"\");
+                    //inputDir = Path.GetDirectoryName(vm.Input_Text.TrimEnd('\\') + @"\");
+                    inputDir = vm.Input_Text.TrimEnd('\\') + @"\"; // Note: Do not use Path.GetDirectoryName() with Batch Path only
+                                                                   //       It will remove the last dir as a file extension
                 }
 
                 // -------------------------
@@ -3498,12 +3500,14 @@ namespace Axiom
                     if (!string.IsNullOrEmpty(vm.Input_Text))
                     {
                         // Remove stray slash if closed out early
-                        if (input == "\\")
+                        if (input == @"\")
                         {
                             input = string.Empty;
                         }
 
-                        //inputDir = Path.GetDirectoryName(vm.Input_Text).TrimEnd('\\') + @"\"; // eg. C:\Input\Path\
+                        // Do not set inputDir
+
+                        // Input Extension
                         inputExt = Path.GetExtension(vm.Input_Text);
                     }
 
@@ -3529,7 +3533,8 @@ namespace Axiom
                             input = string.Empty;
                         }
 
-                        //inputDir = Path.GetDirectoryName(vm.Input_Text).TrimEnd('\\') + @"\"; // eg. C:\Input\Path\
+                        inputDir = vm.Input_Text.TrimEnd('\\') + @"\"; // Note: Do not use Path.GetDirectoryName() with Batch Path only
+                                                                       //       It will remove the last dir as a file extension
                         inputExt = vm.BatchExtension_Text;
                     }
 
@@ -4031,7 +4036,8 @@ namespace Axiom
                     // -------------------------
                     else if (vm.Batch_IsChecked == true)
                     {
-                        inputDir = Path.GetDirectoryName(vm.Input_Text).TrimEnd('\\') + @"\"; // eg. C:\Input\Path\
+                        inputDir = vm.Input_Text.TrimEnd('\\') + @"\";  // Note: Do not use Path.GetDirectoryName() with Batch Path only
+                                                                        //       It will remove the last dir as a file extension
 
                         // Note: %f is filename, %~f is full path
                         inputFileName = "%~f";
