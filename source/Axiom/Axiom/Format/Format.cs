@@ -350,10 +350,10 @@ namespace Axiom
                 if (string.IsNullOrEmpty(frameStart_Text))
                 {
                     // Start
-                    trimStart = "-ss " + cutStart_Text_Hours.PadLeft(2, '0') + ":" +
-                                         cutStart_Text_Minutes.PadLeft(2, '0') + ":" +
-                                         cutStart_Text_Seconds.PadLeft(2, '0') + "." +
-                                         cutStart_Text_Milliseconds.PadLeft(3, '0');
+                    trimStart = cutStart_Text_Hours.PadLeft(2, '0') + ":" +
+                                cutStart_Text_Minutes.PadLeft(2, '0') + ":" +
+                                cutStart_Text_Seconds.PadLeft(2, '0') + "." +
+                                cutStart_Text_Milliseconds.PadLeft(3, '0');
                 }
 
                 // -------------------------
@@ -363,8 +363,11 @@ namespace Axiom
                 // use FramesToDecimal Method (Override Time)
                 else if (!string.IsNullOrEmpty(frameStart_Text))
                 {
-                    trimStart = "-ss " + Video.FramesToDecimal(frameStart_Text);
+                    trimStart = Video.FramesToDecimal(frameStart_Text);
                 }
+
+
+                trimStart = "-ss " + trimStart;
             }
 
             // -------------------------
@@ -412,10 +415,22 @@ namespace Axiom
                     if (string.IsNullOrEmpty(frameEnd_Text))
                     {
                         // End
-                        trimEnd = "-to " + cutEnd_Text_Hours.PadLeft(2, '0') + ":" +
-                                           cutEnd_Text_Minutes.PadLeft(2, '0') + ":" +
-                                           cutEnd_Text_Seconds.PadLeft(2, '0') + "." +
-                                           cutEnd_Text_Milliseconds.PadLeft(3, '0');
+                        trimEnd = cutEnd_Text_Hours.PadLeft(2, '0') + ":" +
+                                  cutEnd_Text_Minutes.PadLeft(2, '0') + ":" +
+                                  cutEnd_Text_Seconds.PadLeft(2, '0') + "." +
+                                  cutEnd_Text_Milliseconds.PadLeft(3, '0');
+
+                        // If End Time is Empty, Default to Full Duration
+                        // Input Null Check
+                        if (!string.IsNullOrEmpty(input_Text))
+                        {
+                            if (trimEnd == "00:00:00.000" ||
+                                string.IsNullOrEmpty(trimEnd))
+                            {
+                                trimEnd = FFprobe.CutDuration(input_Text, batch_IsChecked);
+                            }
+                        }
+
                     }
 
                     // -------------------------
@@ -425,8 +440,11 @@ namespace Axiom
                     // use FramesToDecimal Method (Override Time)
                     else if (!string.IsNullOrEmpty(frameEnd_Text))
                     {
-                        trimEnd = "-to " + Video.FramesToDecimal(frameEnd_Text);
+                        trimEnd = /*"-to " + */Video.FramesToDecimal(frameEnd_Text);
                     }
+
+
+                    trimEnd = "-to " + trimEnd;
                 }
             }
 

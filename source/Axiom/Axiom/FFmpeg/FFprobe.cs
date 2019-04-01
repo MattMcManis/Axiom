@@ -314,7 +314,7 @@ namespace Axiom
 
 
         /// <summary>
-        /// FFprobe Audio Entry Type Containers (Method)
+        ///     FFprobe Audio Entry Type Containers (Method)
         /// </summary>
         // Used for Auto Quality to pass Bit Rate Entry Type to FFprobe
         public static void AudioEntryType(ViewModel vm)
@@ -358,7 +358,7 @@ namespace Axiom
 
 
         /// <summary>
-        /// FFprobe Cut Duration
+        ///     FFprobe Cut Duration
         /// </summary>
         public static String CutDuration(string input_Text,
                                          bool batch_IsChecked
@@ -386,7 +386,7 @@ namespace Axiom
 
 
         /// <summary>
-        /// FFprobe Input File Info Parse (Method)
+        ///     FFprobe Input File Info Parse (Method)
         /// </summary>
         public static String InputFileInfo(string input_Text, 
                                            bool batch_IsChecked, 
