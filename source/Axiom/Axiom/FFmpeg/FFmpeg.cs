@@ -468,13 +468,11 @@ namespace Axiom
                                          ),
 
                     "\r\n\r\n" +
-                    Format.trimStart,
-
-                    "\r\n\r\n" +
                     "-i " + "\"" + MainWindow.InputPath(vm, "pass 2") + "\"",
                     //"-i " + "\"" + MainWindow.input + "\"",
 
                     "\r\n\r\n" +
+                    Format.trimStart,
                     Format.trimEnd,
 
                     "\r\n\r\n" +

@@ -1787,7 +1787,7 @@
                                       Width="105" 
                                       ToolTipService.InitialShowDelay="1000"
                                       ToolTipService.ShowOnDisabled="True"
-                                      ToolTip="Aspect Ratio" 
+                                      ToolTip="Screen Format" 
                                       Grid.Row="21" 
                                       Grid.Column="2" 
                                       Height="22" 
