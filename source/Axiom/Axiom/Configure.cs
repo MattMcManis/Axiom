@@ -1,11 +1,11 @@
 ﻿/* ----------------------------------------------------------------------
 Axiom UI
-Copyright(C) 2017, 2018 Matt McManis
+Copyright (C) 2017-2019 Matt McManis
 https://github.com/MattMcManis/Axiom
 https://axiomui.github.io
-axiom.interface @gmail.com
+mattmcmanis@outlook.com
 
- This program is free software: you can redistribute it and/or modify
+This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.
@@ -32,11 +32,6 @@ namespace Axiom
         // Variables
         // --------------------------------------------------------------------------------------------------------
         public static string theme; // Set Theme
-        //public static string ffmpegPath; // Config Settings Path
-        //public static string ffprobePath; // Config Settings Path
-        //public static string ffplayPath; // Config Settings Path
-        //public static string logPath; // output.log Config Settings Path
-        //public static bool logEnable; //checkBoxLogConfig, Enable or Disable Log, true or false
         public static string threads; // Set FFmpeg -threads
         public static string maxthreads; // All CPU Threads
 
@@ -56,8 +51,6 @@ namespace Axiom
                 // --------------------------
                 if (string.IsNullOrEmpty(Settings.Default.FFmpegPath))
                 {
-                    //ffmpegPath = "<auto>";
-
                     // Set ComboBox if Configure Window is Open
                     vm.FFmpegPath_Text = "<auto>";
 
@@ -70,8 +63,6 @@ namespace Axiom
                 // --------------------------
                 else if (!string.IsNullOrEmpty(Settings.Default.FFmpegPath)) // null check
                 {
-                    //ffmpegPath = Settings.Default.FFmpegPath.ToString();
-
                     // Set ComboBox if Configure Window is Open
                     vm.FFmpegPath_Text = Settings.Default.FFmpegPath;
                 }
@@ -96,10 +87,8 @@ namespace Axiom
                 // --------------------------
                 // First time use
                 // --------------------------
-                if (string.IsNullOrEmpty(Settings.Default.FFprobePath.ToString()))
+                if (string.IsNullOrEmpty(Settings.Default.FFprobePath))
                 {
-                    //ffprobePath = "<auto>";
-
                     // Set ComboBox if Configure Window is Open
                     vm.FFprobePath_Text = "<auto>";
 
@@ -110,10 +99,8 @@ namespace Axiom
                 // --------------------------
                 // Load Saved Settings Override
                 // --------------------------
-                else if (!string.IsNullOrEmpty(Settings.Default.FFprobePath.ToString())) // null check
+                else if (!string.IsNullOrEmpty(Settings.Default.FFprobePath)) // null check
                 {
-                    //ffprobePath = Settings.Default.FFprobePath.ToString();
-
                     // Set ComboBox if Configure Window is Open
                     vm.FFprobePath_Text = Settings.Default.FFprobePath;
                 }
@@ -138,10 +125,8 @@ namespace Axiom
                 // --------------------------
                 // First time use
                 // --------------------------
-                if (string.IsNullOrEmpty(Settings.Default.FFplayPath.ToString()))
+                if (string.IsNullOrEmpty(Settings.Default.FFplayPath))
                 {
-                    //ffplayPath = "<auto>";
-
                     // Set ComboBox if Configure Window is Open
                     vm.FFplayPath_Text = "<auto>";
 
@@ -152,12 +137,10 @@ namespace Axiom
                 // --------------------------
                 // Load Saved Settings Override
                 // --------------------------
-                else if (!string.IsNullOrEmpty(Settings.Default.FFplayPath.ToString())) // null check
+                else if (!string.IsNullOrEmpty(Settings.Default.FFplayPath)) // null check
                 {
-                    //ffplayPath = Settings.Default.FFplayPath.ToString();
-
                     // Set ComboBox if Configure Window is Open
-                    vm.FFplayPath_Text = Settings.Default.FFplayPath.ToString();
+                    vm.FFplayPath_Text = Settings.Default.FFplayPath;
                 }
             }
             catch
@@ -180,10 +163,8 @@ namespace Axiom
                 // --------------------------
                 // First time use
                 // --------------------------
-                if (string.IsNullOrEmpty(Settings.Default.youtubedlPath.ToString()))
+                if (string.IsNullOrEmpty(Settings.Default.youtubedlPath))
                 {
-                    //ffplayPath = "<auto>";
-
                     // Set ComboBox if Configure Window is Open
                     vm.youtubedlPath_Text = "<auto>";
 
@@ -194,12 +175,10 @@ namespace Axiom
                 // --------------------------
                 // Load Saved Settings Override
                 // --------------------------
-                else if (!string.IsNullOrEmpty(Settings.Default.youtubedlPath.ToString())) // null check
+                else if (!string.IsNullOrEmpty(Settings.Default.youtubedlPath)) // null check
                 {
-                    //ffplayPath = Settings.Default.youtubedlPath.ToString();
-
                     // Set ComboBox if Configure Window is Open
-                    vm.youtubedlPath_Text = Settings.Default.youtubedlPath.ToString();
+                    vm.youtubedlPath_Text = Settings.Default.youtubedlPath;
                 }
             }
             catch
@@ -224,8 +203,6 @@ namespace Axiom
                 // --------------------------
                 if (string.IsNullOrEmpty(Convert.ToString(Settings.Default.Log_IsChecked)))
                 {
-                    //logEnable = false;
-
                     // Set ComboBox if Configure Window is Open
                     vm.LogCheckBox_IsChecked = false;
 
@@ -238,8 +215,6 @@ namespace Axiom
                 // --------------------------
                 else if (!string.IsNullOrEmpty(Convert.ToString(Settings.Default.Log_IsChecked)))
                 {
-                    //logEnable = Convert.ToBoolean(Settings.Default.Log_IsChecked);
-
                     // Set ComboBox if Configure Window is Open
                     vm.LogCheckBox_IsChecked = Convert.ToBoolean(Settings.Default.Log_IsChecked);
                 }
@@ -280,8 +255,6 @@ namespace Axiom
                 // --------------------------
                 if (!string.IsNullOrEmpty(Settings.Default.LogPath)) // null check
                 {
-                    //logPath = Settings.Default.LogPath.ToString();
-
                     // Set ComboBox if Configure Window is Open
                     vm.LogPath_Text = Settings.Default.LogPath;
                 }
@@ -306,7 +279,7 @@ namespace Axiom
                 // --------------------------
                 // First time use
                 // --------------------------
-                if (string.IsNullOrEmpty(Settings.Default.Threads.ToString()))
+                if (string.IsNullOrEmpty(Settings.Default.Threads))
                 {
                     threads = "optimal";
 
@@ -320,12 +293,12 @@ namespace Axiom
                 // --------------------------
                 // Load Saved Settings Override
                 // --------------------------
-                else if (!string.IsNullOrEmpty(Settings.Default.Threads.ToString())) // null check
+                else if (!string.IsNullOrEmpty(Settings.Default.Threads)) // null check
                 {
-                    threads = Settings.Default.Threads.ToString();
+                    threads = Settings.Default.Threads;
 
                     // Set ComboBox if Configure Window is Open
-                    vm.Threads_SelectedItem = Settings.Default.Threads.ToString();
+                    vm.Threads_SelectedItem = Settings.Default.Threads;
                 }
             }
             catch
@@ -333,7 +306,6 @@ namespace Axiom
 
             }
         }
-
 
 
 
@@ -357,9 +329,6 @@ namespace Axiom
                 // Display Folder Path in Textbox
                 vm.FFmpegPath_Text = OpenFileDialog.FileName;
 
-                // Set the ffmpegPath string
-                //ffmpegPath = vm.FFmpegPath_Text;
-
                 // Save 7-zip Path for next launch
                 Settings.Default.FFmpegPath = vm.FFmpegPath_Text;
                 Settings.Default.Save();
@@ -381,9 +350,6 @@ namespace Axiom
             {
                 // Display Folder Path in Textbox
                 vm.FFprobePath_Text = OpenFileDialog.FileName;
-
-                // Set the ffprobePath string
-                //ffprobePath = vm.FFprobePath_Text;
 
                 // Save WinRAR Path for next launch
                 Settings.Default.FFprobePath = vm.FFprobePath_Text;
@@ -407,9 +373,6 @@ namespace Axiom
                 // Display Folder Path in Textbox
                 vm.FFplayPath_Text = OpenFileDialog.FileName;
 
-                // Set the ffplayPath string
-                //ffplayPath = vm.FFplayPath_Text;
-
                 // Save WinRAR Path for next launch
                 Settings.Default.FFplayPath = vm.FFplayPath_Text;
                 Settings.Default.Save();
@@ -432,9 +395,6 @@ namespace Axiom
                 // Display Folder Path in Textbox
                 vm.youtubedlPath_Text = OpenFileDialog.FileName;
 
-                // Set the ffmpegPath string
-                //ffmpegPath = vm.youtubedlPath_Text;
-
                 // Save 7-zip Path for next launch
                 Settings.Default.youtubedlPath = vm.youtubedlPath_Text;
                 Settings.Default.Save();
@@ -446,7 +406,7 @@ namespace Axiom
         // --------------------------------------------------
         // Log Folder Browser Dialog 
         // --------------------------------------------------
-        public static void logFolderBrowser(ViewModel vm) // Method
+        public static void LogFolderBrowser(ViewModel vm) // Method
         {
             var folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             System.Windows.Forms.DialogResult result = folderBrowserDialog.ShowDialog();
@@ -460,15 +420,13 @@ namespace Axiom
                 // Add backslash if missing
                 vm.LogPath_Text = vm.LogPath_Text.TrimEnd('\\') + @"\";
 
-                // Set the ffprobePath string
-                //logPath = vm.LogPath_Text;
-
-
                 // Save FFmpeg Path for next launch
                 Settings.Default.LogPath = vm.LogPath_Text;
                 Settings.Default.Save();
                 Settings.Default.Reload();
             }
         }
+
+
     }
 }

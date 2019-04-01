@@ -1387,7 +1387,7 @@ namespace Axiom
                 // If Auto, Use Empty
                 // If Not Auto, use Selected Item
                 if (pixelFormat_SelectedItem != "auto" &&
-                pixelFormat_SelectedItem != "none")
+                    pixelFormat_SelectedItem != "none")
                 {
                     pix_fmt = "-pix_fmt " + pixelFormat_SelectedItem;
                 }
@@ -1754,7 +1754,7 @@ namespace Axiom
                     }
 
                     // Full Screen
-                    else
+                    else if (screenFormat_SelectedItem == "Full Screen")
                     {
                         width = SizeWidthAuto(codec_SelectedItem);
                         height = height_Text;

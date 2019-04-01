@@ -2995,10 +2995,10 @@ namespace Axiom
         // Items Source
         private List<string> _Video_ScreenFormat_Items = new List<string>()
         {
-            "auto",
+            //"auto",
             "Full Screen",
             "Widescreen",
-            "Ultrawide"
+            //"Ultrawide"
         };
         public List<string> Video_ScreenFormat_Items
         {

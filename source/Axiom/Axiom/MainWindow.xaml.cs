@@ -1124,7 +1124,7 @@ namespace Axiom
         // --------------------------------------------------
         private void tbxLog_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            Configure.logFolderBrowser(vm);
+            Configure.LogFolderBrowser(vm);
         }
 
         // --------------------------------------------------
@@ -5100,8 +5100,8 @@ namespace Axiom
         ///     Video Scale Display
         /// </summary>
         /// <remarks>
-        ///     If Aspect Ratio is Widescreen (16:9, 16:10, etc) or auto, scale by Width 
-        ///     If Aspect Ratio is Full Screen (4:3, 5:4, etc), scale by Height
+        ///     If Input Video is Widescreen (16:9, 16:10, etc) or auto, scale by Width -vf "scale=1920:-2" 
+        ///     If Input Video is Full Screen (4:3, 5:4, etc), scale by Height -vf "scale=-2:1080" 
         /// </remarks>
         public static void VideoScaleDisplay(ViewModel vm)
         {
@@ -5136,7 +5136,7 @@ namespace Axiom
                 }
 
                 // Full Screen
-                else
+                else if (vm.Video_ScreenFormat_SelectedItem == "Full Screen")
                 {
                     vm.Video_Width_Text = "auto";
                     vm.Video_Height_Text = "4320";
@@ -5160,7 +5160,7 @@ namespace Axiom
                 }
 
                 // Full Screen
-                else
+                else if (vm.Video_ScreenFormat_SelectedItem == "Full Screen")
                 {
                     vm.Video_Width_Text = "auto";
                     vm.Video_Height_Text = "4320";
@@ -5184,7 +5184,7 @@ namespace Axiom
                 }
 
                 // Full Screen
-                else
+                else if (vm.Video_ScreenFormat_SelectedItem == "Full Screen")
                 {
                     vm.Video_Width_Text = "auto";
                     vm.Video_Height_Text = "2160";
@@ -5208,7 +5208,7 @@ namespace Axiom
                 }
 
                 // Full Screen
-                else
+                else if (vm.Video_ScreenFormat_SelectedItem == "Full Screen")
                 {
                     vm.Video_Width_Text = "auto";
                     vm.Video_Height_Text = "2160";
@@ -5232,7 +5232,7 @@ namespace Axiom
                 }
 
                 // Full Screen
-                else
+                else if (vm.Video_ScreenFormat_SelectedItem == "Full Screen")
                 {
                     vm.Video_Width_Text = "auto";
                     vm.Video_Height_Text = "1556";
@@ -5257,7 +5257,7 @@ namespace Axiom
                 }
 
                 // Full Screen
-                else
+                else if (vm.Video_ScreenFormat_SelectedItem == "Full Screen")
                 {
                     vm.Video_Width_Text = "auto";
                     vm.Video_Height_Text = "1440";
@@ -5281,7 +5281,7 @@ namespace Axiom
                 }
 
                 // Full Screen
-                else
+                else if (vm.Video_ScreenFormat_SelectedItem == "Full Screen")
                 {
                     vm.Video_Width_Text = "auto";
                     vm.Video_Height_Text = "1200";
@@ -5305,7 +5305,7 @@ namespace Axiom
                 }
 
                 // Full Screen
-                else
+                else if (vm.Video_ScreenFormat_SelectedItem == "Full Screen")
                 {
                     vm.Video_Width_Text = "auto";
                     vm.Video_Height_Text = "1080";
@@ -5329,7 +5329,7 @@ namespace Axiom
                 }
 
                 // Full Screen
-                else
+                else if (vm.Video_ScreenFormat_SelectedItem == "Full Screen")
                 {
                     vm.Video_Width_Text = "auto";
                     vm.Video_Height_Text = "1080";
@@ -5353,7 +5353,7 @@ namespace Axiom
                 }
 
                 // Full Screen
-                else
+                else if (vm.Video_ScreenFormat_SelectedItem == "Full Screen")
                 {
                     vm.Video_Width_Text = "auto";
                     vm.Video_Height_Text = "720";
@@ -5377,7 +5377,7 @@ namespace Axiom
                 }
 
                 // Full Screen
-                else
+                else if (vm.Video_ScreenFormat_SelectedItem == "Full Screen")
                 {
                     vm.Video_Width_Text = "auto";
                     vm.Video_Height_Text = "576";
@@ -5401,7 +5401,7 @@ namespace Axiom
                 }
 
                 // Full Screen
-                else
+                else if (vm.Video_ScreenFormat_SelectedItem == "Full Screen")
                 {
                     vm.Video_Width_Text = "auto";
                     vm.Video_Height_Text = "480";
@@ -5424,7 +5424,7 @@ namespace Axiom
                 }
 
                 // Full Screen
-                else
+                else if (vm.Video_ScreenFormat_SelectedItem == "Full Screen")
                 {
                     vm.Video_Width_Text = "auto";
                     vm.Video_Height_Text = "320";
@@ -5448,7 +5448,7 @@ namespace Axiom
                 }
 
                 // Full Screen
-                else
+                else if (vm.Video_ScreenFormat_SelectedItem == "Full Screen")
                 {
                     vm.Video_Width_Text = "auto";
                     vm.Video_Height_Text = "240";
@@ -5469,28 +5469,29 @@ namespace Axiom
         /// <summary>
         ///     Is Aspect Ratio Widescreen
         /// </summary>
-        public static bool IsAspectRatioWidescreen(string aspectRatio_SelectedItem)
-        {
-            // Widescreen (16:9, 16:10, etc) or auto, scale by Width 
-            if (aspectRatio_SelectedItem == "auto" ||
-                aspectRatio_SelectedItem == "14:10" ||
-                aspectRatio_SelectedItem == "16:9" ||
-                aspectRatio_SelectedItem == "16:10" ||
-                aspectRatio_SelectedItem == "19:10" ||
-                aspectRatio_SelectedItem == "21:9" ||
-                aspectRatio_SelectedItem == "32:9" ||
-                aspectRatio_SelectedItem == "240:100"
-                )
-            {
-                return true;
-            }
+        //public static bool IsAspectRatioWidescreen(string aspectRatio_SelectedItem)
+        //{
+        //    // Widescreen (16:9, 16:10, etc) or auto, scale by Width 
+        //    if (aspectRatio_SelectedItem == "auto" ||
+        //        aspectRatio_SelectedItem == "14:10" ||
+        //        aspectRatio_SelectedItem == "16:9" ||
+        //        aspectRatio_SelectedItem == "16:10" ||
+        //        aspectRatio_SelectedItem == "19:10" ||
+        //        aspectRatio_SelectedItem == "21:9" ||
+        //        aspectRatio_SelectedItem == "32:9" ||
+        //        aspectRatio_SelectedItem == "240:100"
+        //        )
+        //    {
+        //        return true;
+        //    }
 
-            // Full Screen (4:3, 5:4, etc), scale by Height
-            else
-            {
-                return false;
-            }
-        }
+        //    // Full Screen (4:3, 5:4, etc), scale by Height
+        //    else
+        //    {
+        //        return false;
+        //    }
+        //}
+
 
         /// <summary>
         ///     Width Textbox Change
@@ -5550,7 +5551,10 @@ namespace Axiom
         {
             //VideoControls.AutoCopyVideoCodec(vm);
 
-            VideoScaleDisplay(vm);
+            if (vm.Video_Scale_SelectedItem != "Custom")
+            {
+                VideoScaleDisplay(vm);
+            }
         }
 
 
@@ -5563,7 +5567,6 @@ namespace Axiom
 
             //VideoScaleDisplay(vm);
         }
-
 
 
         /// <summary>

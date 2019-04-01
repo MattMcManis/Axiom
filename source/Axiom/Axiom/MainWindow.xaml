@@ -4745,7 +4745,7 @@
                                    Grid.Column="1"
                                    Width="56"/>
                             <TextBox x:Name="tbxFFmpegPathConfig" 
-                                     Text="{Binding FFmpegPath_Text, Mode=TwoWay}"
+                                     Text="{Binding FFmpegPath_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                      IsEnabled="{Binding FFmpegPath_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                      Style="{DynamicResource TextBoxBrowseCustom}"
                                      HorizontalAlignment="Left" 
@@ -4799,7 +4799,7 @@
                                    Grid.Column="1" 
                                    Width="56"/>
                             <TextBox x:Name="tbxFFprobePathConfig" 
-                                     Text="{Binding FFprobePath_Text, Mode=TwoWay}"
+                                     Text="{Binding FFprobePath_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                      IsEnabled="{Binding FFprobePath_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                      Style="{DynamicResource TextBoxBrowseCustom}"
                                      HorizontalAlignment="Left" 
@@ -4854,7 +4854,7 @@
                                    Grid.Column="1" 
                                    Width="56"/>
                             <TextBox x:Name="tbxFFplayPathConfig" 
-                                     Text="{Binding FFplayPath_Text, Mode=TwoWay}"
+                                     Text="{Binding FFplayPath_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                      IsEnabled="{Binding FFplayPath_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                      Style="{DynamicResource TextBoxBrowseCustom}"
                                      HorizontalAlignment="Left" 
@@ -4912,7 +4912,7 @@
                                    Width="70" 
                                    Grid.ColumnSpan="2"/>
                             <TextBox x:Name="tbxyoutubedlPathConfig" 
-                                     Text="{Binding youtubedlPath_Text, Mode=TwoWay}"
+                                     Text="{Binding youtubedlPath_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                      IsEnabled="{Binding youtubedlPath_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                      Style="{DynamicResource TextBoxBrowseCustom}"
                                      HorizontalAlignment="Left" 
@@ -4971,7 +4971,7 @@
                                    Grid.Column="1" 
                                    Width="36"/>
                             <TextBox x:Name="tbxLogConfig" 
-                                     Text="{Binding LogPath_Text, Mode=TwoWay}"
+                                     Text="{Binding LogPath_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                      IsEnabled="{Binding LogPath_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                      Style="{DynamicResource TextBoxBrowseCustom}" 
                                      HorizontalAlignment="Left" 
