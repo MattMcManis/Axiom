@@ -58,7 +58,7 @@ namespace Axiom
         /// <summary>
         ///     Controls
         /// </summary>
-        public static bool passUserSelected = false; // Used to determine if User willingly selected CRF, 1 Pass or 2 Pass
+        public static bool passUserSelected = false; // Used to determine if User manually selected CRF, 1 Pass or 2 Pass
 
 
         /// <summary>
@@ -83,19 +83,21 @@ namespace Axiom
 
                 // Items Source
                 VP8.Controls_ItemsSource(vm);
-
                 // Selected Items
                 VP8.Controls_Selected(vm);
 
+                // Expanded
+                VP8.Controls_Expanded(vm);
+                // Collapsed
+                VP8.Controls_Collapsed(vm);
+
                 // Checked
                 VP8.Controls_Checked(vm);
-
                 // Unhecked
                 VP8.Controls_Unhecked(vm);
 
                 // Enabled
                 VP8.Controls_Enable(vm);
-
                 // Disabled
                 VP8.Controls_Disable(vm);
             }
@@ -110,19 +112,21 @@ namespace Axiom
 
                 // Items Source
                 VP9.Controls_ItemsSource(vm);
-
                 // Selected Items
                 VP9.Controls_Selected(vm);
 
+                // Expanded
+                VP9.Controls_Expanded(vm);
+                // Collapsed
+                VP9.Controls_Collapsed(vm);
+
                 // Checked
                 VP9.Controls_Checked(vm);
-
                 // Unhecked
                 VP9.Controls_Unhecked(vm);
 
                 // Enabled
                 VP9.Controls_Enable(vm);
-
                 // Disabled
                 VP9.Controls_Disable(vm);
             }
@@ -137,19 +141,21 @@ namespace Axiom
 
                 // Items Source
                 x264.Controls_ItemsSource(vm);
-
                 // Selected Items
                 x264.Controls_Selected(vm);
 
+                // Expanded
+                x264.Controls_Expanded(vm);
+                // Collapsed
+                x264.Controls_Collapsed(vm);
+
                 // Checked
                 x264.Controls_Checked(vm);
-
                 // Unhecked
                 x264.Controls_Unhecked(vm);
 
                 // Enabled
                 x264.Controls_Enable(vm);
-
                 // Disabled
                 x264.Controls_Disable(vm);
             }
@@ -164,19 +170,21 @@ namespace Axiom
 
                 // Items Source
                 x265.Controls_ItemsSource(vm);
-
                 // Selected Items
                 x265.Controls_Selected(vm);
 
+                // Expanded
+                x265.Controls_Expanded(vm);
+                // Collapsed
+                x265.Controls_Collapsed(vm);
+
                 // Checked
                 x265.Controls_Checked(vm);
-
                 // Unhecked
                 x265.Controls_Unhecked(vm);
 
                 // Enabled
                 x265.Controls_Enable(vm);
-
                 // Disabled
                 x265.Controls_Disable(vm);
             }
@@ -191,19 +199,21 @@ namespace Axiom
 
                 // Items Source
                 AV1.Controls_ItemsSource(vm);
-
                 // Selected Items
                 AV1.Controls_Selected(vm);
 
+                // Expanded
+                AV1.Controls_Expanded(vm);
+                // Collapsed
+                AV1.Controls_Collapsed(vm);
+
                 // Checked
                 AV1.Controls_Checked(vm);
-
                 // Unhecked
                 AV1.Controls_Unhecked(vm);
 
                 // Enabled
                 AV1.Controls_Enable(vm);
-
                 // Disabled
                 AV1.Controls_Disable(vm);
             }
@@ -218,19 +228,21 @@ namespace Axiom
 
                 // Items Source
                 FFV1.Controls_ItemsSource(vm);
-
                 // Selected Items
                 FFV1.Controls_Selected(vm);
 
+                // Expanded
+                FFV1.Controls_Expanded(vm);
+                // Collapsed
+                FFV1.Controls_Collapsed(vm);
+
                 // Checked
                 FFV1.Controls_Checked(vm);
-
                 // Unhecked
                 FFV1.Controls_Unhecked(vm);
 
                 // Enabled
                 FFV1.Controls_Enable(vm);
-
                 // Disabled
                 FFV1.Controls_Disable(vm);
             }
@@ -245,19 +257,21 @@ namespace Axiom
 
                 // Items Source
                 HuffYUV.Controls_ItemsSource(vm);
-
                 // Selected Items
                 HuffYUV.Controls_Selected(vm);
 
+                // Expanded
+                HuffYUV.Controls_Expanded(vm);
+                // Collapsed
+                HuffYUV.Controls_Collapsed(vm);
+
                 // Checked
                 HuffYUV.Controls_Checked(vm);
-
                 // Unhecked
                 HuffYUV.Controls_Unhecked(vm);
 
                 // Enabled
                 HuffYUV.Controls_Enable(vm);
-
                 // Disabled
                 HuffYUV.Controls_Disable(vm);
             }
@@ -272,19 +286,21 @@ namespace Axiom
 
                 // Items Source
                 Theora.Controls_ItemsSource(vm);
-
                 // Selected Items
                 Theora.Controls_Selected(vm);
 
+                // Expanded
+                Theora.Controls_Expanded(vm);
+                // Collapsed
+                Theora.Controls_Collapsed(vm);
+
                 // Checked
                 Theora.Controls_Checked(vm);
-
                 // Unhecked
                 Theora.Controls_Unhecked(vm);
 
                 // Enabled
                 Theora.Controls_Enable(vm);
-
                 // Disabled
                 Theora.Controls_Disable(vm);
             }
@@ -299,19 +315,21 @@ namespace Axiom
 
                 // Items Source
                 MPEG_2.Controls_ItemsSource(vm);
-
                 // Selected Items
                 MPEG_2.Controls_Selected(vm);
 
+                // Expanded
+                MPEG_2.Controls_Expanded(vm);
+                // Collapsed
+                MPEG_2.Controls_Collapsed(vm);
+
                 // Checked
                 MPEG_2.Controls_Checked(vm);
-
                 // Unhecked
                 MPEG_2.Controls_Unhecked(vm);
 
                 // Enabled
                 MPEG_2.Controls_Enable(vm);
-
                 // Disabled
                 MPEG_2.Controls_Disable(vm);
             }
@@ -326,19 +344,21 @@ namespace Axiom
 
                 // Items Source
                 MPEG_4.Controls_ItemsSource(vm);
-
                 // Selected Items
                 MPEG_4.Controls_Selected(vm);
 
+                // Expanded
+                MPEG_4.Controls_Expanded(vm);
+                // Collapsed
+                MPEG_4.Controls_Collapsed(vm);
+
                 // Checked
                 MPEG_4.Controls_Checked(vm);
-
                 // Unhecked
                 MPEG_4.Controls_Unhecked(vm);
 
                 // Enabled
                 MPEG_4.Controls_Enable(vm);
-
                 // Disabled
                 MPEG_4.Controls_Disable(vm);
             }
@@ -357,19 +377,21 @@ namespace Axiom
 
                 // Items Source
                 JPEG.Controls_ItemsSource(vm);
-
                 // Selected Items
                 JPEG.Controls_Selected(vm);
 
+                // Expanded
+                JPEG.Controls_Expanded(vm);
+                // Collapsed
+                JPEG.Controls_Collapsed(vm);
+
                 // Checked
                 JPEG.Controls_Checked(vm);
-
                 // Unhecked
                 JPEG.Controls_Unhecked(vm);
 
                 // Enabled
                 JPEG.Controls_Enable(vm);
-
                 // Disabled
                 JPEG.Controls_Disable(vm);
             }
@@ -384,19 +406,21 @@ namespace Axiom
 
                 // Items Source
                 PNG.Controls_ItemsSource(vm);
-
                 // Selected Items
                 PNG.Controls_Selected(vm);
 
+                // Expanded
+                PNG.Controls_Expanded(vm);
+                // Collapsed
+                PNG.Controls_Collapsed(vm);
+
                 // Checked
                 PNG.Controls_Checked(vm);
-
                 // Unhecked
                 PNG.Controls_Unhecked(vm);
 
                 // Enabled
                 PNG.Controls_Enable(vm);
-
                 // Disabled
                 PNG.Controls_Disable(vm);
             }
@@ -411,19 +435,21 @@ namespace Axiom
 
                 // Items Source
                 WebP.Controls_ItemsSource(vm);
-
                 // Selected Items
                 WebP.Controls_Selected(vm);
 
+                // Expanded
+                WebP.Controls_Expanded(vm);
+                // Collapsed
+                WebP.Controls_Collapsed(vm);
+
                 // Checked
                 WebP.Controls_Checked(vm);
-
                 // Unhecked
                 WebP.Controls_Unhecked(vm);
 
                 // Enabled
                 WebP.Controls_Enable(vm);
-
                 // Disabled
                 WebP.Controls_Disable(vm);
             }
@@ -438,19 +464,21 @@ namespace Axiom
 
                 // Items Source
                 VideoCopy.Controls_ItemsSource(vm);
-
                 // Selected Items
                 VideoCopy.Controls_Selected(vm);
 
+                // Expanded
+                VideoCopy.Controls_Expanded(vm);
+                // Collapsed
+                VideoCopy.Controls_Collapsed(vm);
+
                 // Checked
                 VideoCopy.Controls_Checked(vm);
-
                 // Unhecked
                 VideoCopy.Controls_Unhecked(vm);
 
                 // Enabled
                 VideoCopy.Controls_Enable(vm);
-
                 // Disabled
                 VideoCopy.Controls_Disable(vm);
             }
@@ -465,19 +493,21 @@ namespace Axiom
 
                 // Items Source
                 VideoNone.Controls_ItemsSource(vm);
-
                 // Selected Items
                 VideoNone.Controls_Selected(vm);
 
+                // Expanded
+                VideoNone.Controls_Expanded(vm);
+                // Collapsed
+                VideoNone.Controls_Collapsed(vm);
+
                 // Checked
                 VideoNone.Controls_Checked(vm);
-
                 // Unhecked
                 VideoNone.Controls_Unhecked(vm);
 
                 // Enabled
                 VideoNone.Controls_Enable(vm);
-
                 // Disabled
                 VideoNone.Controls_Disable(vm);
             }

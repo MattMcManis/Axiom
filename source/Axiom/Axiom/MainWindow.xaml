@@ -44,6 +44,371 @@
         Title="{Binding TitleVersion, RelativeSource={RelativeSource Mode=Self}}" 
         Style="{DynamicResource WindowStyleCustom}"
         >
+
+    <Window.Resources>
+        <!--<SolidColorBrush x:Key="Expander.MouseOver.Circle.Stroke" Color="Transparent"/>
+        <SolidColorBrush x:Key="Expander.MouseOver.Circle.Fill" Color="Transparent"/>
+        <SolidColorBrush x:Key="Expander.MouseOver.Arrow.Stroke" Color="Transparent"/>
+        <SolidColorBrush x:Key="Expander.Pressed.Circle.Stroke" Color="Transparent"/>
+        <SolidColorBrush x:Key="Expander.Pressed.Circle.Fill" Color="Transparent"/>
+        <SolidColorBrush x:Key="Expander.Pressed.Arrow.Stroke" Color="Transparent"/>
+        <SolidColorBrush x:Key="Expander.Disabled.Circle.Stroke" Color="Transparent"/>
+        <SolidColorBrush x:Key="Expander.Disabled.Circle.Fill" Color="Transparent"/>
+        <SolidColorBrush x:Key="Expander.Disabled.Arrow.Stroke" Color="Transparent"/>
+        <SolidColorBrush x:Key="Expander.Static.Circle.Fill" Color="Transparent"/>
+        <SolidColorBrush x:Key="Expander.Static.Circle.Stroke" Color="Transparent"/>
+        <SolidColorBrush x:Key="Expander.Static.Arrow.Stroke" Color="Transparent"/>
+        <Style x:Key="ExpanderRightHeaderStyle" TargetType="{x:Type ToggleButton}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ToggleButton}">
+                        <Border Padding="{TemplateBinding Padding}">
+                            <Grid Background="Transparent" SnapsToDevicePixels="False">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="19"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Grid>
+                                    <Grid.LayoutTransform>
+                                        <TransformGroup>
+                                            <TransformGroup.Children>
+                                                <TransformCollection>
+                                                    <RotateTransform Angle="-90"/>
+                                                </TransformCollection>
+                                            </TransformGroup.Children>
+                                        </TransformGroup>
+                                    </Grid.LayoutTransform>
+                                    <Ellipse x:Name="circle" Fill="{StaticResource Expander.Static.Circle.Fill}" HorizontalAlignment="Center" Height="19" Stroke="{StaticResource Expander.Static.Circle.Stroke}" VerticalAlignment="Center" Width="19"/>
+                                    <Path x:Name="arrow" Data="M 1,1.5 L 4.5,5 L 8,1.5" HorizontalAlignment="Center" SnapsToDevicePixels="false" Stroke="{StaticResource Expander.Static.Arrow.Stroke}" StrokeThickness="2" VerticalAlignment="Center"/>
+                                </Grid>
+                                <ContentPresenter HorizontalAlignment="Center" Margin="0,4,0,0" Grid.Row="1" RecognizesAccessKey="True" SnapsToDevicePixels="True" VerticalAlignment="Top"/>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="true">
+                                <Setter Property="Data" TargetName="arrow" Value="M 1,4.5  L 4.5,1  L 8,4.5"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Stroke" TargetName="circle" Value="{StaticResource Expander.MouseOver.Circle.Stroke}"/>
+                                <Setter Property="Fill" TargetName="circle" Value="{StaticResource Expander.MouseOver.Circle.Fill}"/>
+                                <Setter Property="Stroke" TargetName="arrow" Value="{StaticResource Expander.MouseOver.Arrow.Stroke}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Stroke" TargetName="circle" Value="{StaticResource Expander.Pressed.Circle.Stroke}"/>
+                                <Setter Property="StrokeThickness" TargetName="circle" Value="1.5"/>
+                                <Setter Property="Fill" TargetName="circle" Value="{StaticResource Expander.Pressed.Circle.Fill}"/>
+                                <Setter Property="Stroke" TargetName="arrow" Value="{StaticResource Expander.Pressed.Arrow.Stroke}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Stroke" TargetName="circle" Value="{StaticResource Expander.Disabled.Circle.Stroke}"/>
+                                <Setter Property="Fill" TargetName="circle" Value="{StaticResource Expander.Disabled.Circle.Fill}"/>
+                                <Setter Property="Stroke" TargetName="arrow" Value="{StaticResource Expander.Disabled.Arrow.Stroke}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ExpanderUpHeaderStyle" TargetType="{x:Type ToggleButton}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ToggleButton}">
+                        <Border Padding="{TemplateBinding Padding}">
+                            <Grid Background="Transparent" SnapsToDevicePixels="False">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="19"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid>
+                                    <Grid.LayoutTransform>
+                                        <TransformGroup>
+                                            <TransformGroup.Children>
+                                                <TransformCollection>
+                                                    <RotateTransform Angle="180"/>
+                                                </TransformCollection>
+                                            </TransformGroup.Children>
+                                        </TransformGroup>
+                                    </Grid.LayoutTransform>
+                                    <Ellipse x:Name="circle" Fill="{StaticResource Expander.Static.Circle.Fill}" HorizontalAlignment="Center" Height="19" Stroke="{StaticResource Expander.Static.Circle.Stroke}" VerticalAlignment="Center" Width="19"/>
+                                    <Path x:Name="arrow" Data="M 1,1.5 L 4.5,5 L 8,1.5" HorizontalAlignment="Center" SnapsToDevicePixels="false" Stroke="{StaticResource Expander.Static.Arrow.Stroke}" StrokeThickness="2" VerticalAlignment="Center"/>
+                                </Grid>
+                                <ContentPresenter Grid.Column="1" HorizontalAlignment="Left" Margin="4,0,0,0" RecognizesAccessKey="True" SnapsToDevicePixels="True" VerticalAlignment="Center"/>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="true">
+                                <Setter Property="Data" TargetName="arrow" Value="M 1,4.5  L 4.5,1  L 8,4.5"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Stroke" TargetName="circle" Value="{StaticResource Expander.MouseOver.Circle.Stroke}"/>
+                                <Setter Property="Fill" TargetName="circle" Value="{StaticResource Expander.MouseOver.Circle.Fill}"/>
+                                <Setter Property="Stroke" TargetName="arrow" Value="{StaticResource Expander.MouseOver.Arrow.Stroke}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Stroke" TargetName="circle" Value="{StaticResource Expander.Pressed.Circle.Stroke}"/>
+                                <Setter Property="StrokeThickness" TargetName="circle" Value="1.5"/>
+                                <Setter Property="Fill" TargetName="circle" Value="{StaticResource Expander.Pressed.Circle.Fill}"/>
+                                <Setter Property="Stroke" TargetName="arrow" Value="{StaticResource Expander.Pressed.Arrow.Stroke}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Stroke" TargetName="circle" Value="{StaticResource Expander.Disabled.Circle.Stroke}"/>
+                                <Setter Property="Fill" TargetName="circle" Value="{StaticResource Expander.Disabled.Circle.Fill}"/>
+                                <Setter Property="Stroke" TargetName="arrow" Value="{StaticResource Expander.Disabled.Arrow.Stroke}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ExpanderLeftHeaderStyle" TargetType="{x:Type ToggleButton}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ToggleButton}">
+                        <Border Padding="{TemplateBinding Padding}">
+                            <Grid Background="Transparent" SnapsToDevicePixels="False">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="19"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Grid>
+                                    <Grid.LayoutTransform>
+                                        <TransformGroup>
+                                            <TransformGroup.Children>
+                                                <TransformCollection>
+                                                    <RotateTransform Angle="90"/>
+                                                </TransformCollection>
+                                            </TransformGroup.Children>
+                                        </TransformGroup>
+                                    </Grid.LayoutTransform>
+                                    <Ellipse x:Name="circle" Fill="{StaticResource Expander.Static.Circle.Fill}" HorizontalAlignment="Center" Height="19" Stroke="{StaticResource Expander.Static.Circle.Stroke}" VerticalAlignment="Center" Width="19"/>
+                                    <Path x:Name="arrow" Data="M 1,1.5 L 4.5,5 L 8,1.5" HorizontalAlignment="Center" SnapsToDevicePixels="false" Stroke="{StaticResource Expander.Static.Arrow.Stroke}" StrokeThickness="2" VerticalAlignment="Center"/>
+                                </Grid>
+                                <ContentPresenter HorizontalAlignment="Center" Margin="0,4,0,0" Grid.Row="1" RecognizesAccessKey="True" SnapsToDevicePixels="True" VerticalAlignment="Top"/>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="true">
+                                <Setter Property="Data" TargetName="arrow" Value="M 1,4.5  L 4.5,1  L 8,4.5"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Stroke" TargetName="circle" Value="{StaticResource Expander.MouseOver.Circle.Stroke}"/>
+                                <Setter Property="Fill" TargetName="circle" Value="{StaticResource Expander.MouseOver.Circle.Fill}"/>
+                                <Setter Property="Stroke" TargetName="arrow" Value="{StaticResource Expander.MouseOver.Arrow.Stroke}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Stroke" TargetName="circle" Value="{StaticResource Expander.Pressed.Circle.Stroke}"/>
+                                <Setter Property="StrokeThickness" TargetName="circle" Value="1.5"/>
+                                <Setter Property="Fill" TargetName="circle" Value="{StaticResource Expander.Pressed.Circle.Fill}"/>
+                                <Setter Property="Stroke" TargetName="arrow" Value="{StaticResource Expander.Pressed.Arrow.Stroke}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Stroke" TargetName="circle" Value="{StaticResource Expander.Disabled.Circle.Stroke}"/>
+                                <Setter Property="Fill" TargetName="circle" Value="{StaticResource Expander.Disabled.Circle.Fill}"/>
+                                <Setter Property="Stroke" TargetName="arrow" Value="{StaticResource Expander.Disabled.Arrow.Stroke}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ExpanderHeaderFocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border>
+                            <Rectangle Margin="0" SnapsToDevicePixels="true" Stroke="Black" StrokeThickness="1" StrokeDashArray="1 2"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ExpanderDownHeaderStyle" TargetType="{x:Type ToggleButton}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ToggleButton}">
+                        <Border Padding="{TemplateBinding Padding}">
+                            <Grid Background="Transparent" SnapsToDevicePixels="False">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="19"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Ellipse x:Name="circle" Fill="{StaticResource Expander.Static.Circle.Fill}" HorizontalAlignment="Center" Height="19" Stroke="{StaticResource Expander.Static.Circle.Stroke}" VerticalAlignment="Center" Width="19"/>
+                                <Path x:Name="arrow" Data="M 1,1.5 L 4.5,5 L 8,1.5" HorizontalAlignment="Center" SnapsToDevicePixels="false" Stroke="{StaticResource Expander.Static.Arrow.Stroke}" StrokeThickness="2" VerticalAlignment="Center"/>
+                                <ContentPresenter Grid.Column="1" HorizontalAlignment="Left" Margin="4,0,0,0" RecognizesAccessKey="True" SnapsToDevicePixels="True" VerticalAlignment="Center"/>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="true">
+                                <Setter Property="Data" TargetName="arrow" Value="M 1,4.5  L 4.5,1  L 8,4.5"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Stroke" TargetName="circle" Value="{StaticResource Expander.MouseOver.Circle.Stroke}"/>
+                                <Setter Property="Fill" TargetName="circle" Value="{StaticResource Expander.MouseOver.Circle.Fill}"/>
+                                <Setter Property="Stroke" TargetName="arrow" Value="{StaticResource Expander.MouseOver.Arrow.Stroke}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Stroke" TargetName="circle" Value="{StaticResource Expander.Pressed.Circle.Stroke}"/>
+                                <Setter Property="StrokeThickness" TargetName="circle" Value="1.5"/>
+                                <Setter Property="Fill" TargetName="circle" Value="{StaticResource Expander.Pressed.Circle.Fill}"/>
+                                <Setter Property="Stroke" TargetName="arrow" Value="{StaticResource Expander.Pressed.Arrow.Stroke}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Stroke" TargetName="circle" Value="{StaticResource Expander.Disabled.Circle.Stroke}"/>
+                                <Setter Property="Fill" TargetName="circle" Value="{StaticResource Expander.Disabled.Circle.Fill}"/>
+                                <Setter Property="Stroke" TargetName="arrow" Value="{StaticResource Expander.Disabled.Arrow.Stroke}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ExpanderStyle" TargetType="{x:Type Expander}">
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Expander}">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" CornerRadius="3" SnapsToDevicePixels="true">
+                            <DockPanel>
+                                <ToggleButton x:Name="HeaderSite" ContentTemplate="{TemplateBinding HeaderTemplate}" ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}" Content="{TemplateBinding Header}" DockPanel.Dock="Top" Foreground="{TemplateBinding Foreground}" FontWeight="{TemplateBinding FontWeight}" FocusVisualStyle="{StaticResource ExpanderHeaderFocusVisual}" FontStyle="{TemplateBinding FontStyle}" FontStretch="{TemplateBinding FontStretch}" FontSize="{TemplateBinding FontSize}" FontFamily="{TemplateBinding FontFamily}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" IsChecked="{Binding IsExpanded, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" Margin="1" MinWidth="0" MinHeight="0" Padding="{TemplateBinding Padding}" Style="{StaticResource ExpanderDownHeaderStyle}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                <ContentPresenter x:Name="ExpandSite" DockPanel.Dock="Bottom" Focusable="false" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" Visibility="Collapsed" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            </DockPanel>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsExpanded" Value="true">
+                                <Setter Property="Visibility" TargetName="ExpandSite" Value="Visible"/>
+                            </Trigger>
+                            <Trigger Property="ExpandDirection" Value="Right">
+                                <Setter Property="DockPanel.Dock" TargetName="ExpandSite" Value="Right"/>
+                                <Setter Property="DockPanel.Dock" TargetName="HeaderSite" Value="Left"/>
+                                <Setter Property="Style" TargetName="HeaderSite" Value="{StaticResource ExpanderRightHeaderStyle}"/>
+                            </Trigger>
+                            <Trigger Property="ExpandDirection" Value="Up">
+                                <Setter Property="DockPanel.Dock" TargetName="ExpandSite" Value="Top"/>
+                                <Setter Property="DockPanel.Dock" TargetName="HeaderSite" Value="Bottom"/>
+                                <Setter Property="Style" TargetName="HeaderSite" Value="{StaticResource ExpanderUpHeaderStyle}"/>
+                            </Trigger>
+                            <Trigger Property="ExpandDirection" Value="Left">
+                                <Setter Property="DockPanel.Dock" TargetName="ExpandSite" Value="Left"/>
+                                <Setter Property="DockPanel.Dock" TargetName="HeaderSite" Value="Right"/>
+                                <Setter Property="Style" TargetName="HeaderSite" Value="{StaticResource ExpanderLeftHeaderStyle}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="expVideo_Optimize_Expander_Header" TargetType="{x:Type TextBlock}">
+            <Setter Property="Height" Value="0" />
+            <Setter Property="Margin" Value="0,0,0,0" />
+            <Setter Property="Padding" Value="0,0,0,0" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="VerticalAlignment" Value="Top" />
+        </Style>-->
+
+        <Style x:Key="GroupBoxExpanderToggleButtonStyle" TargetType="{x:Type ToggleButton}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ToggleButton}">
+                        <Grid SnapsToDevicePixels="False" Background="Transparent">
+                            <Ellipse HorizontalAlignment="Center" x:Name="circle" VerticalAlignment="Center" Width="0" Height="0" Fill="{DynamicResource ButtonNormalBackgroundFill}" Stroke="Transparent"/>
+                            <Ellipse Visibility="Hidden" HorizontalAlignment="Center" x:Name="shadow" VerticalAlignment="Center" Width="0" Height="0" Fill="{DynamicResource ExpanderShadowFill}"/>
+                            <Path SnapsToDevicePixels="false" x:Name="arrow" VerticalAlignment="Center" HorizontalAlignment="Center" Stroke="Transparent" StrokeThickness="0" Data="M1,1 L4,4 7,1" />
+                        </Grid>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="true">
+                                <Setter Property="Data" TargetName="arrow" Value="M 1,4  L 4,1  L 7,4"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Stroke" TargetName="circle" Value="Transparent"/>
+                                <Setter Property="Stroke" TargetName="arrow" Value="Transparent"/>
+                                <Setter Property="Visibility" TargetName="shadow" Value="Hidden"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <SolidColorBrush x:Key="GroupBoxBorderBrush" Color="Transparent"/>
+        <SolidColorBrush x:Key="GroupBoxHeaderBrush" Color="Transparent"/>
+        <BorderGapMaskConverter x:Key="BorderGapMaskConverter"/>
+
+        <Style x:Key="GroupBoxExpanderStyle" TargetType="Expander">
+            <Setter Property="BorderBrush" Value="{StaticResource GroupBoxBorderBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Expander}">
+                        <Grid SnapsToDevicePixels="true">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="0" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="0" />
+                            </Grid.RowDefinitions>
+                            <Border CornerRadius="4" Grid.Row="1" Grid.RowSpan="3" Grid.Column="0" Grid.ColumnSpan="4" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="Transparent" Background="{TemplateBinding Background}" />
+                            <Border x:Name="Header" Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" Padding="3,0,3,0">
+                                <Grid SnapsToDevicePixels="False" Background="Transparent" Grid.Column="1" Grid.Row="0" Grid.RowSpan="2">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <ToggleButton Grid.Column="0" MinHeight="0" MinWidth="0"
+                                    Name="HeaderToggle" Style="{StaticResource GroupBoxExpanderToggleButtonStyle}"
+                                    IsChecked="{Binding Path=IsExpanded, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" >
+                                    </ToggleButton>
+                                    <ContentPresenter ContentSource="Header" RecognizesAccessKey="true"
+                                    TextElement.Foreground="{StaticResource GroupBoxHeaderBrush}"
+                                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="3,0,0,0" />
+                                </Grid>
+                            </Border>
+
+                            <ContentPresenter x:Name="ExpandSite" Visibility="Collapsed" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Margin="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+
+                            <Border Grid.Row="1" Grid.RowSpan="3" Grid.ColumnSpan="4" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="4">
+                                <Border.OpacityMask>
+                                    <MultiBinding Converter="{StaticResource BorderGapMaskConverter}" ConverterParameter="7">
+                                        <Binding Path="ActualWidth" ElementName="Header"/>
+                                        <Binding Path="ActualWidth" RelativeSource="{RelativeSource Self}"/>
+                                        <Binding Path="ActualHeight" RelativeSource="{RelativeSource Self}"/>
+                                    </MultiBinding>
+                                </Border.OpacityMask>
+                            </Border>
+
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsExpanded" Value="true">
+                                <Setter Property="Visibility" TargetName="ExpandSite" Value="Visible"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </Window.Resources>
+
     <Grid>
 
         <!-- Script View -->
@@ -992,12 +1357,12 @@
                                 <RowDefinition Height="33"/>
                                 <RowDefinition Height="22"/>
                                 <RowDefinition Height="33"/>
-                                <RowDefinition Height="33"/>
-                                <RowDefinition Height="33"/>
-                                <RowDefinition Height="33"/>
+                                <!-- Optimize -->
+                                <RowDefinition Height="auto"/>
                                 <RowDefinition Height="22"/>
                                 <RowDefinition Height="33"/>
                                 <RowDefinition Height="33"/>
+
                                 <RowDefinition Height="33"/>
                                 <RowDefinition Height="33"/>
                                 <RowDefinition Height="33"/>
@@ -1280,7 +1645,7 @@
                                    Content="Min Rate" 
                                    HorizontalAlignment="Left" 
                                    VerticalAlignment="Top"
-                                   Width="56" 
+                                   Width="75" 
                                    FontFamily="Segoe UI Semilight" 
                                    Grid.Row="8"
                                    Grid.Column="1" />
@@ -1308,7 +1673,7 @@
                                    Content="Max Rate" 
                                    HorizontalAlignment="Left" 
                                    VerticalAlignment="Top"
-                                   Width="56" 
+                                   Width="75" 
                                    FontFamily="Segoe UI Semilight" 
                                    Grid.Row="9" 
                                    Grid.Column="1" />
@@ -1462,7 +1827,9 @@
                                    FontFamily="Segoe UI Semilight" 
                                    Grid.Row="15" 
                                    Height="26" 
-                                   Grid.Column="1" />
+                                   Grid.Column="1"
+                                   Panel.ZIndex="1"
+                                   />
                             <ComboBox x:Name="cboVideo_Optimize" 
                                       Style="{DynamicResource ComboBoxWhite}"
                                       ItemContainerStyle="{DynamicResource ComboBoxWhiteItem}" 
@@ -1482,7 +1849,8 @@
                                       ToolTipService.InitialShowDelay="1000"
                                       ToolTipService.ShowOnDisabled="True"
                                       ToolTip="Optimize file for device type." 
-                                      Margin="0,1,0,0"
+                                      Margin="0,1,0,0" 
+                                      Panel.ZIndex="1"
                                       >
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
@@ -1498,101 +1866,120 @@
                             </ComboBox>
 
                             <!-- Expander -->
-                            <!--<Grid Margin="0,10,0,23"
+                            <Grid Margin="0,16,10,0"
                                   Grid.Row="15" 
                                   Grid.Column="1" 
-                                  Grid.RowSpan="2"
+                                  Grid.RowSpan="2" 
+                                  Grid.ColumnSpan="2"
                                   >
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
-                                <Expander IsExpanded="True">
-                                    <Border BorderBrush="Red" BorderThickness="2">
-                                        <TextBlock Height="50" Text="Hello" />
-                                    </Border>
+
+                                <Expander x:Name="expVideo_Optimize_Expander" 
+                                          IsExpanded="{Binding Video_Optimize_IsExpanded, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                          IsEnabled="{Binding Video_Optimize_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                          Margin="0,0,0,0"
+                                          Panel.ZIndex="0" 
+                                          Style="{DynamicResource GroupBoxExpanderStyle}"
+                                          >
+
+                                    <Expander.Header>
+                                        <StackPanel>
+                                            <TextBlock x:Name="expVideo_Optimize_Expander_Header" IsEnabled="False">
+                                            </TextBlock>
+                                        </StackPanel>
+                                    </Expander.Header>
+
+                                    <Grid>
+
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="96"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="33"/>
+                                            <RowDefinition Height="33"/>
+                                            <RowDefinition Height="33"/>
+                                        </Grid.RowDefinitions>
+
+                                        <!-- Tune -->
+                                        <Label Style="{DynamicResource LabelCustom}" 
+                                                   Content="Tune" 
+                                                   HorizontalAlignment="Left" 
+                                                   VerticalAlignment="Top" 
+                                                   Width="75" 
+                                                   Grid.Row="0" 
+                                                   Grid.Column="0"/>
+                                        <ComboBox x:Name="cboVideo_Optimize_Tune" 
+                                                      ItemsSource="{Binding Optimize_Tune_Items}"
+                                                      SelectedIndex="{Binding Optimize_Tune_SelectedIndex}"
+                                                      SelectedItem="{Binding Video_Optimize_Tune_SelectedItem, Mode=TwoWay}"
+                                                      IsEnabled="{Binding Optimize_Tune_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                      IsSynchronizedWithCurrentItem="True"
+                                                      Style="{DynamicResource ComboBoxCustom}" 
+                                                      ItemContainerStyle="{DynamicResource ComboBoxCustomItem}"
+                                                      HorizontalAlignment="Left"
+                                                      Margin="0,2,0,0"
+                                                      VerticalAlignment="Top"
+                                                      Width="105" 
+                                                      Grid.Row="0" 
+                                                      Grid.Column="2"/>
+
+                                        <!-- Profile -->
+                                        <Label Style="{DynamicResource LabelCustom}" 
+                                                   Content="Profile" 
+                                                   HorizontalAlignment="Left" 
+                                                   VerticalAlignment="Top" 
+                                                   Width="75" 
+                                                   Grid.Row="1" 
+                                                   Grid.Column="0"/>
+                                        <ComboBox x:Name="cboVideo_Optimize_Profile"
+                                                      ItemsSource="{Binding Optimize_Profile_Items}"
+                                                      SelectedIndex="{Binding Optimize_Profile_SelectedIndex}"
+                                                      SelectedItem="{Binding Video_Optimize_Profile_SelectedItem, Mode=TwoWay}"
+                                                      IsEnabled="{Binding Optimize_Profile_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                      IsSynchronizedWithCurrentItem="True"
+                                                      Style="{DynamicResource ComboBoxCustom}" 
+                                                      ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" 
+                                                      HorizontalAlignment="Left" 
+                                                      Margin="0,2,0,0" 
+                                                      VerticalAlignment="Top" 
+                                                      Width="105" 
+                                                      Grid.Row="1" 
+                                                      Grid.Column="1" />
+
+                                        <!-- Level -->
+                                        <Label Style="{DynamicResource LabelCustom}" 
+                                                   Content="Level" 
+                                                   HorizontalAlignment="Left" 
+                                                   VerticalAlignment="Top" 
+                                                   Width="75" 
+                                                   Grid.Row="2" 
+                                                   Grid.Column="0"/>
+                                        <ComboBox x:Name="cboVideo_Optimize_Level" 
+                                                      ItemsSource="{Binding Video_Optimize_Level_Items}"
+                                                      SelectedIndex="{Binding Video_Optimize_Level_SelectedIndex}"
+                                                      SelectedItem="{Binding Video_Optimize_Level_SelectedItem, Mode=TwoWay}"
+                                                      IsEnabled="{Binding Video_Optimize_Level_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                      IsSynchronizedWithCurrentItem="True"
+                                                      Style="{DynamicResource ComboBoxCustom}" 
+                                                      ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" 
+                                                      HorizontalAlignment="Left" 
+                                                      Margin="0,2,0,0" 
+                                                      VerticalAlignment="Top" 
+                                                      Width="105" 
+                                                      Grid.Row="2" 
+                                                      Grid.Column="1" />
+
+                                    </Grid>
+
                                 </Expander>
-                                <Expander Grid.Row="1" IsExpanded="True">
-                                    <Border BorderBrush="Green" BorderThickness="2">
-                                        <TextBlock Height="50" Text="World" />
-                                    </Border>
-                                </Expander>
-                            </Grid>-->
 
-                            <!-- Tune -->
-                            <Label Style="{DynamicResource LabelCustom}" 
-                                   Content="Tune" 
-                                   HorizontalAlignment="Left" 
-                                   VerticalAlignment="Top" 
-                                   Width="75" 
-                                   Grid.Row="16" 
-                                   Grid.Column="1"/>
-                            <ComboBox x:Name="cboVideo_Optimize_Tune" 
-                                      ItemsSource="{Binding Optimize_Tune_Items}"
-                                      SelectedIndex="{Binding Optimize_Tune_SelectedIndex}"
-                                      SelectedItem="{Binding Video_Optimize_Tune_SelectedItem, Mode=TwoWay}"
-                                      IsEnabled="{Binding Optimize_Tune_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                      IsSynchronizedWithCurrentItem="True"
-                                      Style="{DynamicResource ComboBoxCustom}" 
-                                      ItemContainerStyle="{DynamicResource ComboBoxCustomItem}"
-                                      HorizontalAlignment="Left"
-                                      Margin="0,2,0,0"
-                                      VerticalAlignment="Top"
-                                      Width="105" 
-                                      Grid.Row="16" 
-                                      Grid.Column="2">
-                                <!-- Items added by Optimize Controls Method -->
-                            </ComboBox>
+                            </Grid>
 
-                            <!-- Profile -->
-                            <Label Style="{DynamicResource LabelCustom}" 
-                                   Content="Profile" 
-                                   HorizontalAlignment="Left" 
-                                   VerticalAlignment="Top" 
-                                   Width="75" 
-                                   Grid.Row="17" 
-                                   Grid.Column="1"/>
-                            <ComboBox x:Name="cboVideo_Optimize_Profile"
-                                      ItemsSource="{Binding Optimize_Profile_Items}"
-                                      SelectedIndex="{Binding Optimize_Profile_SelectedIndex}"
-                                      SelectedItem="{Binding Video_Optimize_Profile_SelectedItem, Mode=TwoWay}"
-                                      IsEnabled="{Binding Optimize_Profile_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                      IsSynchronizedWithCurrentItem="True"
-                                      Style="{DynamicResource ComboBoxCustom}" 
-                                      ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" 
-                                      HorizontalAlignment="Left" 
-                                      Margin="0,2,0,0" 
-                                      VerticalAlignment="Top" 
-                                      Width="105" 
-                                      Grid.Row="17" 
-                                      Grid.Column="2" >
-                                <!-- Items added by Optimize Controls Method -->
-                            </ComboBox>
 
-                            <!-- Level -->
-                            <Label Style="{DynamicResource LabelCustom}" 
-                                   Content="Level" 
-                                   HorizontalAlignment="Left" 
-                                   VerticalAlignment="Top" 
-                                   Width="75" 
-                                   Grid.Row="18" 
-                                   Grid.Column="1"/>
-                            <ComboBox x:Name="cboVideo_Optimize_Level" 
-                                      ItemsSource="{Binding Video_Optimize_Level_Items}"
-                                      SelectedIndex="{Binding Video_Optimize_Level_SelectedIndex}"
-                                      SelectedItem="{Binding Video_Optimize_Level_SelectedItem, Mode=TwoWay}"
-                                      IsEnabled="{Binding Video_Optimize_Level_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                      IsSynchronizedWithCurrentItem="True"
-                                      Style="{DynamicResource ComboBoxCustom}" 
-                                      ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" 
-                                      HorizontalAlignment="Left" 
-                                      Margin="0,2,0,0" 
-                                      VerticalAlignment="Top" 
-                                      Width="105" 
-                                      Grid.Row="18" 
-                                      Grid.Column="2" >
-                                <!-- Items added by Optimize Controls Method -->
-                            </ComboBox>
 
                             <!-- Size -->
                             <Label Style="{DynamicResource LabelCustom}"
@@ -1600,7 +1987,7 @@
                                     HorizontalAlignment="Left" 
                                     VerticalAlignment="Top"
                                     Width="75" 
-                                    Grid.Row="20" 
+                                    Grid.Row="18" 
                                     Grid.Column="1" />
                             <ComboBox x:Name="cboVideo_Scale" 
                                       ItemsSource="{Binding Video_Scale_Items}"
@@ -1613,7 +2000,7 @@
                                       VerticalAlignment="Top"
                                       Width="105" 
                                       SelectionChanged="cboVideo_Scale_SelectionChanged" 
-                                      Grid.Row="20" 
+                                      Grid.Row="18" 
                                       Grid.Column="2" 
                                       Margin="0,2,0,0" />
 
@@ -1624,7 +2011,7 @@
                                 HorizontalAlignment="Left" 
                                 VerticalAlignment="Top"
                                 Width="75" 
-                                Grid.Row="21" 
+                                Grid.Row="19" 
                                 Grid.Column="1" />
                             <TextBox x:Name="tbxVideo_Width"
                                      Text="{Binding Video_Width_Text, Mode=TwoWay}"
@@ -1639,7 +2026,7 @@
                                      MaxLines="1"
                                      GotFocus="tbxVideo_Width_GotFocus" 
                                      LostFocus="tbxVideo_Width_LostFocus" 
-                                     Grid.Row="21" 
+                                     Grid.Row="19" 
                                      Grid.Column="2"
                                      Margin="0,2,0,0" />
 
@@ -1650,7 +2037,7 @@
                                 HorizontalAlignment="Left" 
                                 VerticalAlignment="Top"
                                 Width="75" 
-                                Grid.Row="22" 
+                                Grid.Row="20" 
                                 Grid.Column="1" />
                             <TextBox x:Name="tbxVideo_Height" 
                                      Text="{Binding Video_Height_Text, Mode=TwoWay}"
@@ -1665,7 +2052,7 @@
                                      MaxLines="1" 
                                      GotFocus="tbxVideo_Height_GotFocus" 
                                      LostFocus="tbxVideo_Height_LostFocus"
-                                     Grid.Row="22" 
+                                     Grid.Row="20" 
                                      Grid.Column="2" 
                                      Margin="0,2,0,0" />
 
@@ -1680,7 +2067,7 @@
                                    ToolTipService.InitialShowDelay="1000"
                                    ToolTipService.ShowOnDisabled="True"
                                    ToolTip="Screen Format" 
-                                   Grid.Row="23" 
+                                   Grid.Row="21" 
                                    Grid.Column="1" />
                             <ComboBox x:Name="cboVideo_ScreenFormat" 
                                       ItemsSource="{Binding Video_ScreenFormat_Items}"
@@ -1695,12 +2082,12 @@
                                       ToolTipService.InitialShowDelay="1000"
                                       ToolTipService.ShowOnDisabled="True"
                                       ToolTip="Aspect Ratio" 
-                                      Grid.Row="23" 
+                                      Grid.Row="21" 
                                       Grid.Column="2" 
                                       Height="22" 
                                       Margin="0,2,0,0" 
                                       SelectionChanged="cboVideo_ScreenFormat_SelectionChanged"/>
-                            
+
                             <!-- Aspect Ratio -->
                             <Label Style="{DynamicResource LabelCustom}" 
                                    Content="Aspect Ratio"
@@ -1712,7 +2099,7 @@
                                    ToolTipService.InitialShowDelay="1000"
                                    ToolTipService.ShowOnDisabled="True"
                                    ToolTip="Aspect Ratio" 
-                                   Grid.Row="24" 
+                                   Grid.Row="22" 
                                    Grid.Column="1" />
                             <ComboBox x:Name="cboVideo_AspectRatio" 
                                       ItemsSource="{Binding Video_AspectRatio_Items}"
@@ -1727,7 +2114,7 @@
                                       ToolTipService.InitialShowDelay="1000"
                                       ToolTipService.ShowOnDisabled="True"
                                       ToolTip="Aspect Ratio" 
-                                      Grid.Row="24" 
+                                      Grid.Row="22" 
                                       Grid.Column="2" 
                                       Height="22" 
                                       Margin="0,2,0,0" 
@@ -1744,7 +2131,7 @@
                                    ToolTipService.InitialShowDelay="1000"
                                    ToolTipService.ShowOnDisabled="True"
                                    ToolTip="Algorithm used for resizing." 
-                                   Grid.Row="25" 
+                                   Grid.Row="23" 
                                    Grid.Column="1" />
                             <ComboBox x:Name="cboVideo_ScalingAlgorithm" 
                                       ItemsSource="{Binding Video_ScalingAlgorithm_Items}"
@@ -1760,7 +2147,7 @@
                                       ToolTipService.InitialShowDelay="1000"
                                       ToolTipService.ShowOnDisabled="True" 
                                       ToolTip="Algorithm used for resizing." 
-                                      Grid.Row="25" 
+                                      Grid.Row="23" 
                                       Grid.Column="2" 
                                       Height="22" 
                                       Margin="0,2,0,0" 
@@ -1772,7 +2159,7 @@
                                    HorizontalAlignment="Left" 
                                    VerticalAlignment="Top"
                                    Width="75" 
-                                   Grid.Row="26" 
+                                   Grid.Row="24" 
                                    Grid.Column="1" />
                             <Button x:Name="btnVideo_Crop"
                                     Style="{DynamicResource ButtonCropCustom}"
@@ -1787,7 +2174,7 @@
                                     ToolTipService.InitialShowDelay="1000"
                                     ToolTipService.ShowOnDisabled="True" 
                                     ToolTip="Open Crop Window" 
-                                    Grid.Row="26"
+                                    Grid.Row="24"
                                     Grid.Column="2" 
                                     Margin="0,2,0,0">
                                 <TextBlock Style="{DynamicResource ButtonCropTextBlock}"
@@ -1808,7 +2195,7 @@
                                     ToolTipService.InitialShowDelay="1000"
                                     ToolTipService.ShowOnDisabled="True"
                                     ToolTip="Clear Last Used Crop Settings" 
-                                    Grid.Row="26"
+                                    Grid.Row="24"
                                     Grid.Column="2">
                                 <TextBlock x:Name="tblkCropClear" 
                                            Text="{Binding Video_CropClear_Text, Mode=TwoWay}"

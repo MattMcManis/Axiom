@@ -5031,7 +5031,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///    Optimize Combobox
+        ///    Video Optimize Combobox
         /// </summary>
         private void cboVideo_Optimize_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -5041,9 +5041,33 @@ namespace Axiom
             VideoControls.OptimizeControls(vm);
         }
 
+        /// <summary>
+        ///    Video Optimize Expander
+        /// </summary>
+        //// Expanded
+        //private void expVideo_Optimize_Expander_Expanded(object sender, RoutedEventArgs e)
+        //{
+
+        //}
+        //// Collapsed
+        //private void expVideo_Optimize_Expander_Collapsed(object sender, RoutedEventArgs e)
+        //{
+
+        //}
+        //// Mouse Down
+        //private void expVideo_Optimize_Expander_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        //{
+
+        //}
+        //// Mouse Up
+        //private void expVideo_Optimize_Expander_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        //{
+
+        //}
+
 
         /// <summary>
-        ///    Size Combobox
+        ///    Video Size Combobox
         /// </summary>
         private void cboVideo_Scale_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

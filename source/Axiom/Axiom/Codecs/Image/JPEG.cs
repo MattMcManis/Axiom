@@ -257,6 +257,24 @@ namespace Axiom
             vm.Audio_Channel_SelectedItem = "none";
         }
 
+
+        // -------------------------
+        // Expanded
+        // -------------------------
+        public static void Controls_Expanded(ViewModel vm)
+        {
+            // None
+        }
+
+        // -------------------------
+        // Collapsed
+        // -------------------------
+        public static void Controls_Collapsed(ViewModel vm)
+        {
+            vm.Video_Optimize_IsExpanded = false;
+        }
+
+
         // -------------------------
         // Checked
         // -------------------------
@@ -273,6 +291,7 @@ namespace Axiom
         {
             // None
         }
+
 
         // -------------------------
         // Enabled

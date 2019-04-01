@@ -265,6 +265,24 @@ namespace Axiom
             vm.Video_FPS_SelectedItem = "auto";
         }
 
+
+        // -------------------------
+        // Expanded
+        // -------------------------
+        public static void Controls_Expanded(ViewModel vm)
+        {
+            // None
+        }
+
+        // -------------------------
+        // Collapsed
+        // -------------------------
+        public static void Controls_Collapsed(ViewModel vm)
+        {
+            vm.Video_Optimize_IsExpanded = false;
+        }
+
+
         // -------------------------
         // Checked
         // -------------------------
@@ -281,6 +299,7 @@ namespace Axiom
             // BitRate Mode
             vm.Video_VBR_IsChecked = false;
         }
+
 
         // -------------------------
         // Enabled

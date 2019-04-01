@@ -2620,6 +2620,23 @@ namespace Axiom
             }
         }
 
+        // Controls Expanded
+        private bool _Video_Optimize_IsExpanded = true;
+        public bool Video_Optimize_IsExpanded
+        {
+            get { return _Video_Optimize_IsExpanded; }
+            set
+            {
+                if (_Video_Optimize_IsExpanded == value)
+                {
+                    return;
+                }
+
+                _Video_Optimize_IsExpanded = value;
+                OnPropertyChanged("Video_Optimize_IsExpanded");
+            }
+        }
+
 
         // --------------------------------------------------
         // Optimize Tune
