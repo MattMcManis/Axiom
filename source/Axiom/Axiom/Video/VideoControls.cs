@@ -558,15 +558,15 @@ namespace Axiom
             // -------------------------
             // Video Optimize Selected Item
             // -------------------------
-            if (!string.IsNullOrEmpty(vm.Video_Optimize_SelectedItem) &&
-                vm.Video_Optimize_SelectedItem != "None")
-            {
-                MainWindow.VideoOptimize_PreviousItem = vm.Video_Optimize_SelectedItem;
-            }
+            //if (!string.IsNullOrEmpty(vm.Video_Optimize_SelectedItem) &&
+            //    vm.Video_Optimize_SelectedItem != "None")
+            //{
+            //    MainWindow.VideoOptimize_PreviousItem = vm.Video_Optimize_SelectedItem;
+            //}
 
-            vm.Video_Optimize_SelectedItem = MainWindow.SelectedItem(vm.Video_Optimize_Items.Select(c => c.Name).ToList(),
-                                                                     MainWindow.VideoOptimize_PreviousItem
-                                                                     );
+            //vm.Video_Optimize_SelectedItem = MainWindow.SelectedItem(vm.Video_Optimize_Items.Select(c => c.Name).ToList(),
+            //                                                         MainWindow.VideoOptimize_PreviousItem
+            //                                                         );
         }
 
 

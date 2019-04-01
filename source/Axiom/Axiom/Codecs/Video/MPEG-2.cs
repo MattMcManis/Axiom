@@ -339,6 +339,9 @@ namespace Axiom
         {
             // Video Encode Speed
             vm.Video_EncodeSpeed_IsEnabled = false;
+
+            // Optimize ComboBox
+            vm.Video_Optimize_IsEnabled = false;
         }
     }
 }

@@ -71,6 +71,9 @@ namespace Axiom
                 vm.Video_Codec_Items = Containers.WebM.video;
                 vm.Video_Codec_SelectedItem = "VP8";
 
+                // Optimize
+                vm.Video_Optimize_SelectedItem = "Web";
+
                 // Audio Codec
                 vm.Audio_Codec_Items = Containers.WebM.audio;
                 vm.Audio_Codec_SelectedItem = "Vorbis";

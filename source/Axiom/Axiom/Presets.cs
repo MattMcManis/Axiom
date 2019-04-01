@@ -119,7 +119,7 @@ namespace Axiom
                     {
                         vm.Subtitle_Stream_SelectedItem = "none";
                         vm.Audio_Stream_SelectedItem = "1";
-                        //vm.Video_Optimize_SelectedItem = "Web";
+                        vm.Video_Optimize_SelectedItem = "Web";
                     }
                     else
                     {

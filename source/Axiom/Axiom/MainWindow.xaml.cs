@@ -4347,7 +4347,7 @@ namespace Axiom
                 //MessageBox.Show(outputExt); //debug
                 vm.Output_Text = outputDir + outputFileName + outputExt;
             }
-
+            
             // -------------------------
             // Force MediaTypeControls ComboBox to fire SelectionChanged Event
             // to update Format changes such as Audio_Stream_SelectedItem

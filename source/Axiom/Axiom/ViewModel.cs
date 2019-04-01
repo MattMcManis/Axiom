@@ -77,7 +77,7 @@ namespace Axiom
             Format_Cut_SelectedItem = "No";
             Format_YouTube_SelectedItem = "Video + Audio";
             Format_YouTube_Quality_SelectedItem = "best";
-            Format_YouTube_Method_SelectedItem = "Download";
+            //Format_YouTube_Method_SelectedItem = "Download";
 
             // -------------------------
             // Video
@@ -89,7 +89,7 @@ namespace Axiom
             Video_PixelFormat_SelectedItem = "auto";
             Video_FPS_SelectedItem = "auto";
             Video_Speed_SelectedItem = "auto";
-            Video_Optimize_SelectedItem = "None";
+            Video_Optimize_SelectedItem = "Web";
             Video_Optimize_Tune_SelectedItem = "none";
             Video_Optimize_Profile_SelectedItem = "none";
             Video_Optimize_Level_SelectedItem = "none";
@@ -1642,77 +1642,6 @@ namespace Axiom
 
                 _Format_YouTube_Quality_IsEnabled = value;
                 OnPropertyChanged("Format_YouTube_Quality_IsEnabled");
-            }
-        }
-
-
-        // --------------------------------------------------
-        // YouTube_Method
-        // --------------------------------------------------
-        // Items Source
-        private List<string> _Format_YouTube_Method_Items = new List<string>()
-        {
-            "Download",
-            "Convert"
-        };
-        public List<string> Format_YouTube_Method_Items
-        {
-            get { return _Format_YouTube_Method_Items; }
-            set
-            {
-                _Format_YouTube_Method_Items = value;
-                OnPropertyChanged("Format_YouTube_Method_Items");
-            }
-        }
-
-        // Selected Index
-        private int _Format_YouTube_Method_SelectedIndex { get; set; }
-        public int Format_YouTube_Method_SelectedIndex
-        {
-            get { return _Format_YouTube_Method_SelectedIndex; }
-            set
-            {
-                if (_Format_YouTube_Method_SelectedIndex == value)
-                {
-                    return;
-                }
-
-                _Format_YouTube_Method_SelectedIndex = value;
-                OnPropertyChanged("Format_YouTube_Method_SelectedIndex");
-            }
-        }
-
-        // Selected Item
-        private string _Format_YouTube_Method_SelectedItem { get; set; }
-        public string Format_YouTube_Method_SelectedItem
-        {
-            get { return _Format_YouTube_Method_SelectedItem; }
-            set
-            {
-                if (_Format_YouTube_Method_SelectedItem == value)
-                {
-                    return;
-                }
-
-                _Format_YouTube_Method_SelectedItem = value;
-                OnPropertyChanged("Format_YouTube_Method_SelectedItem");
-            }
-        }
-
-        // Controls Enable
-        private bool _Format_YouTube_Method_IsEnabled = true;
-        public bool Format_YouTube_Method_IsEnabled
-        {
-            get { return _Format_YouTube_Method_IsEnabled; }
-            set
-            {
-                if (_Format_YouTube_Method_IsEnabled == value)
-                {
-                    return;
-                }
-
-                _Format_YouTube_Method_IsEnabled = value;
-                OnPropertyChanged("Format_YouTube_Method_IsEnabled");
             }
         }
 
