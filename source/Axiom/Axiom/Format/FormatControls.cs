@@ -471,6 +471,9 @@ namespace Axiom
                 // Speed
                 vm.Video_Speed_IsEnabled = true;
 
+                // Screen Format
+                vm.Video_ScreenFormat_IsEnabled = true;
+
                 // Aspect Ratio
                 vm.Video_AspectRatio_IsEnabled = true;
 
@@ -548,6 +551,9 @@ namespace Axiom
 
                 // Speed
                 vm.Video_Speed_IsEnabled = false;
+
+                // Screen Format
+                vm.Video_ScreenFormat_IsEnabled = false;
 
                 // Aspect Ratio
                 vm.Video_AspectRatio_IsEnabled = false;
@@ -652,6 +658,9 @@ namespace Axiom
                 // Speed
                 vm.Video_Speed_IsEnabled = false;
 
+                // Screen Format
+                vm.Video_ScreenFormat_IsEnabled = true;
+
                 // Aspect Ratio
                 vm.Video_AspectRatio_IsEnabled = true;
 
@@ -749,6 +758,9 @@ namespace Axiom
 
                 // Speed
                 vm.Video_Speed_IsEnabled = true;
+
+                // Screen Format
+                vm.Video_ScreenFormat_IsEnabled = true;
 
                 // Aspect Ratio
                 vm.Video_AspectRatio_IsEnabled = true;

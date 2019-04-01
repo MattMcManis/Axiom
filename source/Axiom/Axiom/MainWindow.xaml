@@ -1779,7 +1779,7 @@
                                       ItemsSource="{Binding Video_ScreenFormat_Items}"
                                       SelectedIndex="{Binding Video_ScreenFormat_SelectedIndex}"
                                       SelectedItem="{Binding Video_ScreenFormat_SelectedItem}"
-                                      IsEnabled="{Binding Video_Screen_FormatIsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      IsEnabled="{Binding Video_ScreenFormat_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                       Style="{DynamicResource ComboBoxCustom}"
                                       ItemContainerStyle="{DynamicResource ComboBoxCustomItem}"
                                       HorizontalAlignment="Left" 
