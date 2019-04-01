@@ -69,7 +69,7 @@ namespace Axiom
         // -------------------------
         public static List<ViewModel.VideoEncodeSpeed> encodeSpeed = new List<ViewModel.VideoEncodeSpeed>()
         {
-             new ViewModel.VideoEncodeSpeed() { Name = "None", Command = ""},
+             new ViewModel.VideoEncodeSpeed() { Name = "none", Command = ""},
         };
 
         // -------------------------
@@ -77,16 +77,17 @@ namespace Axiom
         // -------------------------
         public static List<string> pixelFormat = new List<string>()
         {
-            "rgb24",
-            "rgba",
-            "rgb48be",
-            "rgba64be",
-            "pal8",
+            "auto",
             "gray",
-            "ya8",
             "gray16be",
+            "monob",
+            "pal8",
+            "rgb24",
+            "rgb48be",
+            "rgba",
+            "rgba64be",
             "ya16be",
-            "monob"
+            "ya8",
         };
 
         // -------------------------

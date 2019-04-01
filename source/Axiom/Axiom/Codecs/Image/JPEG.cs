@@ -57,11 +57,8 @@ namespace Axiom
 
             vm.Video_Codec = string.Join(" ", codec.Where(s => !string.IsNullOrEmpty(s)));
         }
-        //// Codec
-        //public static string codec = "mjpeg";
 
-        //// Codec Parameters
-        //public static string codecParameters = "";
+
 
         // ---------------------------------------------------------------------------
         // Items Source
@@ -72,7 +69,7 @@ namespace Axiom
         // -------------------------
         public static List<ViewModel.VideoEncodeSpeed> encodeSpeed = new List<ViewModel.VideoEncodeSpeed>()
         {
-             new ViewModel.VideoEncodeSpeed() { Name = "None", Command = ""},
+             new ViewModel.VideoEncodeSpeed() { Name = "none", Command = ""},
         };
 
         // -------------------------
@@ -80,6 +77,7 @@ namespace Axiom
         // -------------------------
         public static List<string> pixelFormat = new List<string>()
         {
+            "auto",
             "yuvj420p",
             "yuvj422p",
             "yuvj444p"

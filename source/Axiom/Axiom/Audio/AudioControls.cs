@@ -488,6 +488,28 @@ namespace Axiom
                 // BitRate
                 vm.Audio_BitRate_IsEnabled = false;
             }
+
+
+            // -------------------------
+            // Compression Level
+            // -------------------------
+            if (vm.Audio_Codec_SelectedItem == "Opus")
+            {
+                // VBR
+                // Enable
+                if (vm.Audio_VBR_IsChecked == true)
+                {
+                    vm.Audio_CompressionLevel_IsEnabled = true;
+                    vm.Audio_CompressionLevel_SelectedItem = "10";
+                }
+                // CBR
+                // Disable
+                else
+                {
+                    vm.Audio_CompressionLevel_IsEnabled = false;
+                    vm.Audio_CompressionLevel_SelectedItem = "auto";
+                }
+            }
         }
 
 

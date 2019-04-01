@@ -54,12 +54,6 @@ namespace Axiom
             vm.Video_Codec = string.Join(" ", codec.Where(s => !string.IsNullOrEmpty(s)));
         }
 
-        //// Codec
-        //public static string codec = "ffv1";
-
-        //// Codec Parameters
-        //public static string codecParameters = "-level 3 -coder 1 -context 1 -g 1 -slices 24 -slicecrc 1";
-
 
 
         // ---------------------------------------------------------------------------
@@ -71,7 +65,7 @@ namespace Axiom
         // -------------------------
         public static List<ViewModel.VideoEncodeSpeed> encodeSpeed = new List<ViewModel.VideoEncodeSpeed>()
         {
-             new ViewModel.VideoEncodeSpeed() { Name = "None", Command = ""},
+             new ViewModel.VideoEncodeSpeed() { Name = "none", Command = ""},
         };
 
         // -------------------------
@@ -80,59 +74,59 @@ namespace Axiom
         public static List<string> pixelFormat = new List<string>()
         {
             "auto",
-            "yuv420p",
-            "yuva420p",
-            "yuva422p",
-            "yuv444p",
-            "yuva444p",
-            "yuv440p",
-            "yuv422p",
-            "yuv411p",
-            "yuv410p",
             "bgr0",
             "bgra",
-            "yuv420p16le",
-            "yuv422p16le",
-            "yuv444p16le",
-            "yuv444p9le",
-            "yuv422p9le",
-            "yuv420p9le",
-            "yuv420p10le",
-            "yuv422p10le",
-            "yuv444p10le",
-            "yuv420p12le",
-            "yuv422p12le",
-            "yuv444p12le",
-            "yuva444p16le",
-            "yuva422p16le",
-            "yuva420p16le",
-            "yuva444p10le",
-            "yuva422p10le",
-            "yuva420p10le",
-            "yuva444p9le",
-            "yuva422p9le",
-            "yuva420p9le",
-            "gray16le",
-            "gray",
-            "gbrp9le",
+            "gbrap10le",
+            "gbrap12le",
+            "gbrap16le",
             "gbrp10le",
             "gbrp12le",
             "gbrp14le",
-            "gbrap10le",
-            "gbrap12le",
-            "ya8",
+            "gbrp16le",
+            "gbrp9le",
+            "gray",
             "gray10le",
             "gray12le",
-            "gbrp16le",
-            "rgb48le",
-            "gbrap16le",
-            "rgba64le",
+            "gray16le",
             "gray9le",
+            "rgb48le",
+            "rgba64le",
+            "ya8",
+            "yuv410p",
+            "yuv411p",
+            "yuv420p",
+            "yuv420p10le",
+            "yuv420p12le",
             "yuv420p14le",
+            "yuv420p16le",
+            "yuv420p9le",
+            "yuv422p",
+            "yuv422p10le",
+            "yuv422p12le",
             "yuv422p14le",
-            "yuv444p14le",
+            "yuv422p16le",
+            "yuv422p9le",
+            "yuv440p",
             "yuv440p10le",
-            "yuv440p12le"
+            "yuv440p12le",
+            "yuv444p",
+            "yuv444p10le",
+            "yuv444p12le",
+            "yuv444p14le",
+            "yuv444p16le",
+            "yuv444p9le",
+            "yuva420p",
+            "yuva420p10le",
+            "yuva420p16le",
+            "yuva420p9le",
+            "yuva422p",
+            "yuva422p10le",
+            "yuva422p16le",
+            "yuva422p9le",
+            "yuva444p",
+            "yuva444p10le",
+            "yuva444p16le",
+            "yuva444p9le",
         };
 
         // -------------------------

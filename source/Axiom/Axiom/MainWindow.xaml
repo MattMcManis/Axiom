@@ -1003,6 +1003,7 @@
                                 <RowDefinition Height="33"/>
                                 <RowDefinition Height="33"/>
                                 <RowDefinition Height="33"/>
+                                <RowDefinition Height="33"/>
                             </Grid.RowDefinitions>
 
                             <!-- Video Codec -->
@@ -1668,18 +1669,50 @@
                                      Grid.Column="2" 
                                      Margin="0,2,0,0" />
 
+                            <!-- Screen Format -->
+                            <Label Style="{DynamicResource LabelCustom}" 
+                                   Content="Screen Format"
+                                   HorizontalAlignment="Left" 
+                                   VerticalAlignment="Top"
+                                   Width="86"
+                                   FontFamily="Segoe UI Semilight"
+                                   Height="26" 
+                                   ToolTipService.InitialShowDelay="1000"
+                                   ToolTipService.ShowOnDisabled="True"
+                                   ToolTip="Screen Format" 
+                                   Grid.Row="23" 
+                                   Grid.Column="1" />
+                            <ComboBox x:Name="cboVideo_ScreenFormat" 
+                                      ItemsSource="{Binding Video_ScreenFormat_Items}"
+                                      SelectedIndex="{Binding Video_ScreenFormat_SelectedIndex}"
+                                      SelectedItem="{Binding Video_ScreenFormat_SelectedItem}"
+                                      IsEnabled="{Binding Video_Screen_FormatIsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      Style="{DynamicResource ComboBoxCustom}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxCustomItem}"
+                                      HorizontalAlignment="Left" 
+                                      VerticalAlignment="Top" 
+                                      Width="105" 
+                                      ToolTipService.InitialShowDelay="1000"
+                                      ToolTipService.ShowOnDisabled="True"
+                                      ToolTip="Aspect Ratio" 
+                                      Grid.Row="23" 
+                                      Grid.Column="2" 
+                                      Height="22" 
+                                      Margin="0,2,0,0" 
+                                      SelectionChanged="cboVideo_ScreenFormat_SelectionChanged"/>
+                            
                             <!-- Aspect Ratio -->
                             <Label Style="{DynamicResource LabelCustom}" 
                                    Content="Aspect Ratio"
                                    HorizontalAlignment="Left" 
                                    VerticalAlignment="Top"
-                                   Width="75"
+                                   Width="80"
                                    FontFamily="Segoe UI Semilight"
                                    Height="26" 
                                    ToolTipService.InitialShowDelay="1000"
                                    ToolTipService.ShowOnDisabled="True"
                                    ToolTip="Aspect Ratio" 
-                                   Grid.Row="23" 
+                                   Grid.Row="24" 
                                    Grid.Column="1" />
                             <ComboBox x:Name="cboVideo_AspectRatio" 
                                       ItemsSource="{Binding Video_AspectRatio_Items}"
@@ -1694,7 +1727,7 @@
                                       ToolTipService.InitialShowDelay="1000"
                                       ToolTipService.ShowOnDisabled="True"
                                       ToolTip="Aspect Ratio" 
-                                      Grid.Row="23" 
+                                      Grid.Row="24" 
                                       Grid.Column="2" 
                                       Height="22" 
                                       Margin="0,2,0,0" 
@@ -1711,7 +1744,7 @@
                                    ToolTipService.InitialShowDelay="1000"
                                    ToolTipService.ShowOnDisabled="True"
                                    ToolTip="Algorithm used for resizing." 
-                                   Grid.Row="24" 
+                                   Grid.Row="25" 
                                    Grid.Column="1" />
                             <ComboBox x:Name="cboVideo_ScalingAlgorithm" 
                                       ItemsSource="{Binding Video_ScalingAlgorithm_Items}"
@@ -1727,7 +1760,7 @@
                                       ToolTipService.InitialShowDelay="1000"
                                       ToolTipService.ShowOnDisabled="True" 
                                       ToolTip="Algorithm used for resizing." 
-                                      Grid.Row="24" 
+                                      Grid.Row="25" 
                                       Grid.Column="2" 
                                       Height="22" 
                                       Margin="0,2,0,0" 
@@ -1739,7 +1772,7 @@
                                    HorizontalAlignment="Left" 
                                    VerticalAlignment="Top"
                                    Width="75" 
-                                   Grid.Row="25" 
+                                   Grid.Row="26" 
                                    Grid.Column="1" />
                             <Button x:Name="btnVideo_Crop"
                                     Style="{DynamicResource ButtonCropCustom}"
@@ -1754,7 +1787,7 @@
                                     ToolTipService.InitialShowDelay="1000"
                                     ToolTipService.ShowOnDisabled="True" 
                                     ToolTip="Open Crop Window" 
-                                    Grid.Row="25"
+                                    Grid.Row="26"
                                     Grid.Column="2" 
                                     Margin="0,2,0,0">
                                 <TextBlock Style="{DynamicResource ButtonCropTextBlock}"
@@ -1775,7 +1808,7 @@
                                     ToolTipService.InitialShowDelay="1000"
                                     ToolTipService.ShowOnDisabled="True"
                                     ToolTip="Clear Last Used Crop Settings" 
-                                    Grid.Row="25"
+                                    Grid.Row="26"
                                     Grid.Column="2">
                                 <TextBlock x:Name="tblkCropClear" 
                                            Text="{Binding Video_CropClear_Text, Mode=TwoWay}"

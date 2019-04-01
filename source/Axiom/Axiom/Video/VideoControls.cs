@@ -491,7 +491,6 @@ namespace Axiom
             // Video Encode Speed Selected Item
             // -------------------------
             if (!string.IsNullOrEmpty(vm.Video_EncodeSpeed_SelectedItem) &&
-                vm.Video_EncodeSpeed_SelectedItem != "None" &&
                 vm.Video_EncodeSpeed_SelectedItem != "none")
             {
                 MainWindow.Video_EncodeSpeed_PreviousItem = vm.Video_EncodeSpeed_SelectedItem;
@@ -505,8 +504,7 @@ namespace Axiom
             // Video Quality Selected Item
             // -------------------------
             if (!string.IsNullOrEmpty(vm.Video_Quality_SelectedItem) &&
-                vm.Video_Quality_SelectedItem != "None" &&
-                vm.Video_Quality_SelectedItem != "none")
+                vm.Video_Quality_SelectedItem != "None")
             {
                 MainWindow.Video_Quality_PreviousItem = vm.Video_Quality_SelectedItem;
             }
@@ -531,8 +529,7 @@ namespace Axiom
             // Video Optimize Selected Item
             // -------------------------
             if (!string.IsNullOrEmpty(vm.Video_Optimize_SelectedItem) &&
-                vm.Video_Optimize_SelectedItem != "None" &&
-                vm.Video_Optimize_SelectedItem != "none")
+                vm.Video_Optimize_SelectedItem != "None")
             {
                 MainWindow.VideoOptimize_PreviousItem = vm.Video_Optimize_SelectedItem;
             }

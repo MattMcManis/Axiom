@@ -350,7 +350,7 @@ namespace Axiom
                 Log.WriteAction = () =>
                 {
                     Log.logParagraph.Inlines.Add(new LineBreak());
-                    Log.logParagraph.Inlines.Add(new Bold(new Run("Encoding EncodeSpeed: ")) { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new Bold(new Run("Video Encode Speed: ")) { Foreground = Log.ConsoleDefault });
                     Log.logParagraph.Inlines.Add(new Run(encodeSpeed_SelectedItem) { Foreground = Log.ConsoleDefault });
                 };
                 Log.LogActions.Add(Log.WriteAction);
@@ -1701,7 +1701,8 @@ namespace Axiom
                                  string size_SelectedItem,
                                  string width_Text,
                                  string height_Text,
-                                 string aspectRatio_SelectedItem,
+                                 string screenFormat_SelectedItem,
+                                 //string aspectRatio_SelectedItem,
                                  string scalingAlgorithm_SelectedItem,
                                  string cropClear_Text
                                  )
@@ -1742,7 +1743,11 @@ namespace Axiom
                 if (size_SelectedItem != "Custom")
                 {
                     // Widescreen
-                    if (MainWindow.IsAspectRatioWidescreen(aspectRatio_SelectedItem) == true)
+                    //if (MainWindow.IsAspectRatioWidescreen(aspectRatio_SelectedItem) == true)
+                    if (screenFormat_SelectedItem == "auto" ||
+                        screenFormat_SelectedItem == "Widescreen" ||
+                        screenFormat_SelectedItem == "Ultrawide"
+                    )
                     {
                         width = width_Text;
                         height = SizeHeightAuto(codec_SelectedItem);

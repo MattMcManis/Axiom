@@ -625,6 +625,7 @@ namespace Axiom
             // Video
             Video.passSingle = string.Empty;
             Video.vEncodeSpeed = string.Empty;
+            Video.hwacceleration = string.Empty;
             Video.vCodec = string.Empty;
             Video.vBitMode = string.Empty;
             Video.vQuality = string.Empty;
@@ -686,9 +687,7 @@ namespace Axiom
             Video.pass2 = string.Empty;
             Video.image = string.Empty;
             Video.optimize = string.Empty;
-            Video.vEncodeSpeed = string.Empty;
-            Video.hwacceleration = string.Empty;
-
+           
             // Subtitle
             Subtitle.sCodec = string.Empty;
             Subtitle.subtitles = string.Empty;
@@ -703,7 +702,6 @@ namespace Axiom
             Audio.aCompressionLevel = string.Empty;
             Audio.aSamplerate = string.Empty;
             Audio.aBitDepth = string.Empty;
-            //Audio.aBitRateLimiter = string.Empty;
             AudioFilters.aFilter = string.Empty;
             Audio.aVolume = string.Empty;
             Audio.aHardLimiter = string.Empty;
@@ -719,7 +717,6 @@ namespace Axiom
             FFprobe.batchFFprobeAuto = string.Empty;
             Video.batchVideoAuto = string.Empty;
             Audio.batchAudioAuto = string.Empty;
-            //Audio.aBitRateLimiter = string.Empty;
 
             // Streams
             //Streams.map = string.Empty;
@@ -1262,28 +1259,22 @@ namespace Axiom
         {
             // Revert FFmpeg
             vm.FFmpegPath_Text = "<auto>";
-            //Configure.ffmpegPath = vm.FFmpegPath_Text;
 
             // Revert FFprobe
             vm.FFprobePath_Text = "<auto>";
-            //Configure.ffprobePath = vm.FFprobePath_Text;
 
             // Revert FFplay
             vm.FFplayPath_Text = "<auto>";
-            //Configure.ffprobePath = vm.FFplayPath_Text;
 
             // Revert youtube-dl
             vm.youtubedlPath_Text = "<auto>";
-            //Configure.ffprobePath = vm.FFplayPath_Text;
 
             // Revert Log
             vm.LogCheckBox_IsChecked = false;
             vm.LogPath_Text = string.Empty;
-            //Configure.logPath = string.Empty;
 
             // Revert Threads
             vm.Threads_SelectedItem = "optimal";
-            //Configure.threads = string.Empty;
 
 
             // Yes/No Dialog Confirmation
@@ -1447,8 +1438,6 @@ namespace Axiom
                     if (File.Exists(appDir + "ffmpeg\\bin\\ffmpeg.exe"))
                     {
                         // let pass
-                        //ffCheckCleared = true;
-                        //ready = true;
                         return true;
                     }
                     else
@@ -1465,21 +1454,16 @@ namespace Axiom
                         if (found == 1)
                         {
                             // let pass
-                            //ffCheckCleared = true;
-                            //ready = true;
                             return true;
                         }
                         else
                         {
-                            /* lock */
-                            //ready = false;
-                            //ffCheckCleared = false;
+                            // lock
                             MessageBox.Show("Cannot locate FFmpeg Path in Environment Variables or Current Folder.",
                                             "Error",
                                             MessageBoxButton.OK,
                                             MessageBoxImage.Warning);
 
-                            //ready = false;
                             return false;
                         }
 
@@ -1496,22 +1480,16 @@ namespace Axiom
                     if (File.Exists(fullPath))
                     {
                         // let pass
-                        //ffCheckCleared = true;
-                        //ready = true;
                         return true;
                     }
                     else
                     {
-                        /* lock */
-                        //ready = false;
-                        //ffCheckCleared = false;
-
+                        // lock
                         MessageBox.Show("Cannot locate FFmpeg Path in User Defined Path.",
                                         "Error",
                                         MessageBoxButton.OK,
                                         MessageBoxImage.Warning);
 
-                        //ready = false;
                         return false;
                     }
 
@@ -1546,8 +1524,6 @@ namespace Axiom
                     if (File.Exists(appDir + "ffmpeg\\bin\\ffprobe.exe"))
                     {
                         // let pass
-                        //ffCheckCleared = true;
-                        //ready = true;
                         return true;
                     }
                     else
@@ -1564,21 +1540,16 @@ namespace Axiom
                         if (found == 1)
                         {
                             // let pass
-                            //ffCheckCleared = true;
-                            //ready = true;
                             return true;
                         }
                         else
                         {
-                            /* lock */
-                            //ready = false;
-                            //ffCheckCleared = false;
+                            // lock
                             MessageBox.Show("Cannot locate FFprobe Path in Environment Variables or Current Folder.",
                                         "Error",
                                         MessageBoxButton.OK,
                                         MessageBoxImage.Warning);
 
-                            //ready = false;
                             return false;
                         }
 
@@ -1594,21 +1565,16 @@ namespace Axiom
                     if (File.Exists(fullPath))
                     {
                         // let pass
-                        //ffCheckCleared = true;
-                        //ready = true;
                         return true;
                     }
                     else
                     {
-                        /* lock */
-                        //ready = false;
-                        //ffCheckCleared = false;
+                        // lock
                         MessageBox.Show("Cannot locate FFprobe Path in User Defined Path.",
                                         "Error",
                                         MessageBoxButton.OK,
                                         MessageBoxImage.Warning);
 
-                        //ready = true;
                         return true;
                     }
 
@@ -1858,6 +1824,8 @@ namespace Axiom
                     return false;
                 }
             }
+            
+            // Empty
             else
             {
                 return false;
@@ -1899,6 +1867,8 @@ namespace Axiom
                     return false;
                 }
             }
+
+            // Empty
             else
             {
                 return false;
@@ -2035,15 +2005,12 @@ namespace Axiom
         /// </remarks>
         public static bool YouTubeDownloadCheck(ViewModel vm)
         {
-            bool ready = false;
-
-            //if (File.Exists(appDir + @"youtube-dl\youtube-dl.exe"))
             if (File.Exists(youtubedl))
             {
                 return true;
             }
 
-            return ready;
+            return false;
         }
 
 
@@ -2341,8 +2308,6 @@ namespace Axiom
         /// </summary>
         public static bool ReadyHalts(ViewModel vm)
         {
-            bool ready = true;
-
             // -------------------------
             // Check if FFmpeg & FFprobe Exists
             // -------------------------
@@ -2585,7 +2550,11 @@ namespace Axiom
                 }
             }
 
-            return ready;
+
+            // -------------------------
+            // Ready
+            // -------------------------
+            return true;
         }
 
 
@@ -5156,7 +5125,11 @@ namespace Axiom
             else if (vm.Video_Scale_SelectedItem == "8K")
             {
                 // Widescreen
-                if (IsAspectRatioWidescreen(vm.Video_AspectRatio_SelectedItem) == true)
+                ////if (IsAspectRatioWidescreen(vm.Video_AspectRatio_SelectedItem) == true)
+                if (vm.Video_ScreenFormat_SelectedItem == "auto" ||
+                    vm.Video_ScreenFormat_SelectedItem == "Widescreen" ||
+                    vm.Video_ScreenFormat_SelectedItem == "Ultrawide"
+                    )
                 {
                     vm.Video_Width_Text = "8192";
                     vm.Video_Height_Text = "auto";
@@ -5176,7 +5149,11 @@ namespace Axiom
             else if (vm.Video_Scale_SelectedItem == "8K UHD")
             {
                 // Widescreen
-                if (IsAspectRatioWidescreen(vm.Video_AspectRatio_SelectedItem) == true)
+                ////if (IsAspectRatioWidescreen(vm.Video_AspectRatio_SelectedItem) == true)
+                if (vm.Video_ScreenFormat_SelectedItem == "auto" ||
+                    vm.Video_ScreenFormat_SelectedItem == "Widescreen" ||
+                    vm.Video_ScreenFormat_SelectedItem == "Ultrawide"
+                    )
                 {
                     vm.Video_Width_Text = "7680";
                     vm.Video_Height_Text = "auto";
@@ -5196,7 +5173,11 @@ namespace Axiom
             else if (vm.Video_Scale_SelectedItem == "4K")
             {
                 // Widescreen
-                if (IsAspectRatioWidescreen(vm.Video_AspectRatio_SelectedItem) == true)
+                ////if (IsAspectRatioWidescreen(vm.Video_AspectRatio_SelectedItem) == true)
+                if (vm.Video_ScreenFormat_SelectedItem == "auto" ||
+                    vm.Video_ScreenFormat_SelectedItem == "Widescreen" ||
+                    vm.Video_ScreenFormat_SelectedItem == "Ultrawide"
+                    )
                 {
                     vm.Video_Width_Text = "4096";
                     vm.Video_Height_Text = "auto";
@@ -5216,7 +5197,11 @@ namespace Axiom
             else if (vm.Video_Scale_SelectedItem == "4K UHD")
             {
                 // Widescreen
-                if (IsAspectRatioWidescreen(vm.Video_AspectRatio_SelectedItem) == true)
+                ////if (IsAspectRatioWidescreen(vm.Video_AspectRatio_SelectedItem) == true)
+                if (vm.Video_ScreenFormat_SelectedItem == "auto" ||
+                    vm.Video_ScreenFormat_SelectedItem == "Widescreen" ||
+                    vm.Video_ScreenFormat_SelectedItem == "Ultrawide"
+                    )
                 {
                     vm.Video_Width_Text = "3840";
                     vm.Video_Height_Text = "auto";
@@ -5236,7 +5221,11 @@ namespace Axiom
             else if (vm.Video_Scale_SelectedItem == "2K")
             {
                 // Widescreen
-                if (IsAspectRatioWidescreen(vm.Video_AspectRatio_SelectedItem) == true)
+                //if (IsAspectRatioWidescreen(vm.Video_AspectRatio_SelectedItem) == true)
+                if (vm.Video_ScreenFormat_SelectedItem == "auto" ||
+                    vm.Video_ScreenFormat_SelectedItem == "Widescreen" ||
+                    vm.Video_ScreenFormat_SelectedItem == "Ultrawide"
+                    )
                 {
                     vm.Video_Width_Text = "2048";
                     vm.Video_Height_Text = "auto";
@@ -5256,7 +5245,11 @@ namespace Axiom
             else if (vm.Video_Scale_SelectedItem == "1440p")
             {
                 // Widescreen
-                if (IsAspectRatioWidescreen(vm.Video_AspectRatio_SelectedItem) == true)
+                //if (IsAspectRatioWidescreen(vm.Video_AspectRatio_SelectedItem) == true)
+                if (vm.Video_ScreenFormat_SelectedItem == "auto" ||
+                    vm.Video_ScreenFormat_SelectedItem == "Widescreen" ||
+                    vm.Video_ScreenFormat_SelectedItem == "Ultrawide"
+                    )
                 {
 
                     vm.Video_Width_Text = "2560";
@@ -5277,7 +5270,11 @@ namespace Axiom
             else if (vm.Video_Scale_SelectedItem == "1200p")
             {
                 // Widescreen
-                if (IsAspectRatioWidescreen(vm.Video_AspectRatio_SelectedItem) == true)
+                //if (IsAspectRatioWidescreen(vm.Video_AspectRatio_SelectedItem) == true)
+                if (vm.Video_ScreenFormat_SelectedItem == "auto" ||
+                    vm.Video_ScreenFormat_SelectedItem == "Widescreen" ||
+                    vm.Video_ScreenFormat_SelectedItem == "Ultrawide"
+                    )
                 {
                     vm.Video_Width_Text = "1920";
                     vm.Video_Height_Text = "auto";
@@ -5297,7 +5294,11 @@ namespace Axiom
             else if (vm.Video_Scale_SelectedItem == "1080p")
             {
                 // Widescreen
-                if (IsAspectRatioWidescreen(vm.Video_AspectRatio_SelectedItem) == true)
+                //if (IsAspectRatioWidescreen(vm.Video_AspectRatio_SelectedItem) == true)
+                if (vm.Video_ScreenFormat_SelectedItem == "auto" ||
+                    vm.Video_ScreenFormat_SelectedItem == "Widescreen" ||
+                    vm.Video_ScreenFormat_SelectedItem == "Ultrawide"
+                    )
                 {
                     vm.Video_Width_Text = "1920";
                     vm.Video_Height_Text = "auto";
@@ -5317,7 +5318,11 @@ namespace Axiom
             else if (vm.Video_Scale_SelectedItem == "900p")
             {
                 // Widescreen
-                if (IsAspectRatioWidescreen(vm.Video_AspectRatio_SelectedItem) == true)
+                //if (IsAspectRatioWidescreen(vm.Video_AspectRatio_SelectedItem) == true)
+                if (vm.Video_ScreenFormat_SelectedItem == "auto" ||
+                    vm.Video_ScreenFormat_SelectedItem == "Widescreen" ||
+                    vm.Video_ScreenFormat_SelectedItem == "Ultrawide"
+                    )
                 {
                     vm.Video_Width_Text = "1600";
                     vm.Video_Height_Text = "auto";
@@ -5337,7 +5342,11 @@ namespace Axiom
             else if (vm.Video_Scale_SelectedItem == "720p")
             {
                 // Widescreen
-                if (IsAspectRatioWidescreen(vm.Video_AspectRatio_SelectedItem) == true)
+                //if (IsAspectRatioWidescreen(vm.Video_AspectRatio_SelectedItem) == true)
+                if (vm.Video_ScreenFormat_SelectedItem == "auto" ||
+                    vm.Video_ScreenFormat_SelectedItem == "Widescreen" ||
+                    vm.Video_ScreenFormat_SelectedItem == "Ultrawide"
+                    )
                 {
                     vm.Video_Width_Text = "1280";
                     vm.Video_Height_Text = "auto";
@@ -5357,7 +5366,11 @@ namespace Axiom
             else if (vm.Video_Scale_SelectedItem == "576p")
             {
                 // Widescreen
-                if (IsAspectRatioWidescreen(vm.Video_AspectRatio_SelectedItem) == true)
+                //if (IsAspectRatioWidescreen(vm.Video_AspectRatio_SelectedItem) == true)
+                if (vm.Video_ScreenFormat_SelectedItem == "auto" ||
+                    vm.Video_ScreenFormat_SelectedItem == "Widescreen" ||
+                    vm.Video_ScreenFormat_SelectedItem == "Ultrawide"
+                    )
                 {
                     vm.Video_Width_Text = "1024";
                     vm.Video_Height_Text = "auto";
@@ -5377,7 +5390,11 @@ namespace Axiom
             else if (vm.Video_Scale_SelectedItem == "480p")
             {
                 // Widescreen
-                if (IsAspectRatioWidescreen(vm.Video_AspectRatio_SelectedItem) == true)
+                //if (IsAspectRatioWidescreen(vm.Video_AspectRatio_SelectedItem) == true)
+                if (vm.Video_ScreenFormat_SelectedItem == "auto" ||
+                    vm.Video_ScreenFormat_SelectedItem == "Widescreen" ||
+                    vm.Video_ScreenFormat_SelectedItem == "Ultrawide"
+                    )
                 {
                     vm.Video_Width_Text = "720";
                     vm.Video_Height_Text = "auto";
@@ -5397,7 +5414,10 @@ namespace Axiom
             else if (vm.Video_Scale_SelectedItem == "320p")
             {
                 // Widescreen
-                if (IsAspectRatioWidescreen(vm.Video_AspectRatio_SelectedItem) == true)
+                //if (IsAspectRatioWidescreen(vm.Video_AspectRatio_SelectedItem) == true)
+                if (vm.Video_ScreenFormat_SelectedItem == "Widescreen" ||
+                    vm.Video_ScreenFormat_SelectedItem == "Ultrawide"
+                    )
                 {
                     vm.Video_Width_Text = "480";
                     vm.Video_Height_Text = "auto";
@@ -5417,7 +5437,11 @@ namespace Axiom
             else if (vm.Video_Scale_SelectedItem == "240p")
             {
                 // Widescreen
-                if (IsAspectRatioWidescreen(vm.Video_AspectRatio_SelectedItem) == true)
+                //if (IsAspectRatioWidescreen(vm.Video_AspectRatio_SelectedItem) == true)
+                if (vm.Video_ScreenFormat_SelectedItem == "auto" ||
+                    vm.Video_ScreenFormat_SelectedItem == "Widescreen" ||
+                    vm.Video_ScreenFormat_SelectedItem == "Ultrawide"
+                    )
                 {
                     vm.Video_Width_Text = "320";
                     vm.Video_Height_Text = "auto";
@@ -5454,7 +5478,8 @@ namespace Axiom
                 aspectRatio_SelectedItem == "16:10" ||
                 aspectRatio_SelectedItem == "19:10" ||
                 aspectRatio_SelectedItem == "21:9" ||
-                aspectRatio_SelectedItem == "32:9"
+                aspectRatio_SelectedItem == "32:9" ||
+                aspectRatio_SelectedItem == "240:100"
                 )
             {
                 return true;
@@ -5519,13 +5544,24 @@ namespace Axiom
 
 
         /// <summary>
+        ///     Video Screen Format
+        /// </summary>
+        private void cboVideo_ScreenFormat_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            //VideoControls.AutoCopyVideoCodec(vm);
+
+            VideoScaleDisplay(vm);
+        }
+
+
+        /// <summary>
         ///     Video Aspect Ratio
         /// </summary>
         private void cboVideo_AspectRatio_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             //VideoControls.AutoCopyVideoCodec(vm);
 
-            VideoScaleDisplay(vm);
+            //VideoScaleDisplay(vm);
         }
 
 
@@ -7153,33 +7189,6 @@ namespace Axiom
             // Set youtube-dl Path
             // -------------------------
             youtubedlPath(vm);
-
-            //// Log Console Message /////////
-            //Log.WriteAction = () =>
-            //{
-            //    Log.logParagraph.Inlines.Add(new LineBreak());
-            //    Log.logParagraph.Inlines.Add(new LineBreak());
-            //    Log.logParagraph.Inlines.Add(new Bold(new Run("...............................................")) { Foreground = Log.ConsoleAction });
-            //};
-            //Log.LogActions.Add(Log.WriteAction);
-
-            //// Log Console Message /////////
-            //DateTime localDate = DateTime.Now;
-
-            //// Log Console Message /////////
-            //Log.WriteAction = () =>
-            //{
-
-            //    Log.logParagraph.Inlines.Add(new LineBreak());
-            //    Log.logParagraph.Inlines.Add(new LineBreak());
-            //    Log.logParagraph.Inlines.Add(new Bold(new Run(Convert.ToString(localDate))) { Foreground = Log.ConsoleAction });
-            //    Log.logParagraph.Inlines.Add(new LineBreak());
-            //    Log.logParagraph.Inlines.Add(new LineBreak());
-            //    Log.logParagraph.Inlines.Add(new Bold(new Run("Generating Script...")) { Foreground = Log.ConsoleTitle });
-
-            //};
-            //Log.LogActions.Add(Log.WriteAction);
-
 
             // -------------------------
             // Reset Sort

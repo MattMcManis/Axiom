@@ -48,7 +48,7 @@ namespace Axiom
         // -------------------------
         public static List<ViewModel.VideoEncodeSpeed> encodeSpeed = new List<ViewModel.VideoEncodeSpeed>()
         {
-             new ViewModel.VideoEncodeSpeed() { Name = "None", Command = ""},
+             new ViewModel.VideoEncodeSpeed() { Name = "none", Command = ""},
         };
 
         // -------------------------

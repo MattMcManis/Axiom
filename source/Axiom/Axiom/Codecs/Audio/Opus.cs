@@ -200,9 +200,6 @@ namespace Axiom
             // Audio Quality
             vm.Audio_Quality_IsEnabled = true;
 
-            // Compression Level
-            vm.Audio_CompressionLevel_IsEnabled = true;
-
             // VBR Button
             vm.Audio_VBR_IsEnabled = true;
 
@@ -221,6 +218,9 @@ namespace Axiom
         // -------------------------
         public static void Controls_Disable(ViewModel vm)
         {
+            // Compression Level
+            vm.Audio_CompressionLevel_IsEnabled = false;
+
             // Bit Depth
             vm.Audio_BitDepth_IsEnabled = false;
         }

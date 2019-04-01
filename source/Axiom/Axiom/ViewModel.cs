@@ -94,6 +94,7 @@ namespace Axiom
             Video_Optimize_Profile_SelectedItem = "none";
             Video_Optimize_Level_SelectedItem = "none";
             Video_Scale_SelectedItem = "Source";
+            Video_ScreenFormat_SelectedItem = "auto";
             Video_AspectRatio_SelectedItem = "auto";
             Video_ScalingAlgorithm_SelectedItem = "auto";
 
@@ -884,7 +885,7 @@ namespace Axiom
                 var previousItem = _Video_EncodeSpeed_SelectedItem;
 
                 if (!string.IsNullOrEmpty(Video_EncodeSpeed_SelectedItem) &&
-                    Video_EncodeSpeed_SelectedItem != "None")
+                    Video_EncodeSpeed_SelectedItem != "none")
                 {
                     MainWindow.Video_EncodeSpeed_PreviousItem = previousItem;
                 }
@@ -2987,6 +2988,80 @@ namespace Axiom
         }
 
 
+
+        // --------------------------------------------------
+        // Screen Format
+        // --------------------------------------------------
+        // Items Source
+        private List<string> _Video_ScreenFormat_Items = new List<string>()
+        {
+            "auto",
+            "Full Screen",
+            "Widescreen",
+            "Ultrawide"
+        };
+        public List<string> Video_ScreenFormat_Items
+        {
+            get { return _Video_ScreenFormat_Items; }
+            set
+            {
+                _Video_ScreenFormat_Items = value;
+                OnPropertyChanged("Video_ScreenFormat_Items");
+            }
+        }
+
+        // Selected Index
+        private int _Video_ScreenFormat_SelectedIndex { get; set; }
+        public int Video_ScreenFormat_SelectedIndex
+        {
+            get { return _Video_ScreenFormat_SelectedIndex; }
+            set
+            {
+                if (_Video_ScreenFormat_SelectedIndex == value)
+                {
+                    return;
+                }
+
+                _Video_ScreenFormat_SelectedIndex = value;
+                OnPropertyChanged("Video_ScreenFormat_SelectedIndex");
+            }
+        }
+
+        // Selected Item
+        public string _Video_ScreenFormat_SelectedItem { get; set; }
+        public string Video_ScreenFormat_SelectedItem
+        {
+            get { return _Video_ScreenFormat_SelectedItem; }
+            set
+            {
+                if (_Video_ScreenFormat_SelectedItem == value)
+                {
+                    return;
+                }
+
+                _Video_ScreenFormat_SelectedItem = value;
+                OnPropertyChanged("Video_ScreenFormat_SelectedItem");
+            }
+        }
+
+        // Controls Enable
+        private bool _Video_ScreenFormat_IsEnabled = true;
+        public bool Video_ScreenFormat_IsEnabled
+        {
+            get { return _Video_ScreenFormat_IsEnabled; }
+            set
+            {
+                if (_Video_ScreenFormat_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _Video_ScreenFormat_IsEnabled = value;
+                OnPropertyChanged("Video_ScreenFormat_IsEnabled");
+            }
+        }
+
+
         // --------------------------------------------------
         // Aspect Ratio
         // --------------------------------------------------
@@ -3004,7 +3079,8 @@ namespace Axiom
             "16:10",
             "19:10",
             "21:9",
-            "32:9"
+            "32:9",
+            "240:100",
         };
         public List<string> Video_AspectRatio_Items
         {
@@ -3034,31 +3110,47 @@ namespace Axiom
         }
 
         // Selected Item
-        private string _Video_AspectRatio_SelectedItem { get; set; }
+        public string _Video_AspectRatio_SelectedItem { get; set; }
         public string Video_AspectRatio_SelectedItem
         {
             get { return _Video_AspectRatio_SelectedItem; }
             set
             {
-                var previousItem = _Video_AspectRatio_SelectedItem;
-                _Video_AspectRatio_SelectedItem = value;
-                OnPropertyChanged("Video_AspectRatio_SelectedItem");
-
-                if (previousItem != value)
+                if (_Video_AspectRatio_SelectedItem == value)
                 {
-                    VideoControls.AutoCopyVideoCodec(this);
-                    SubtitleControls.AutoCopySubtitleCodec(this);
+                    return;
                 }
 
-                //if (_Video_AspectRatio_SelectedItem == value)
-                //{
-                //    return;
-                //}
-
-                //_Video_AspectRatio_SelectedItem = value;
-                //OnPropertyChanged("Video_AspectRatio_SelectedItem");
+                _Video_AspectRatio_SelectedItem = value;
+                OnPropertyChanged("Video_AspectRatio_SelectedItem");
             }
         }
+
+        //private string _Video_AspectRatio_SelectedItem { get; set; }
+        //public string Video_AspectRatio_SelectedItem
+        //{
+        //    get { return _Video_AspectRatio_SelectedItem; }
+        //    set
+        //    {
+        //        var previousItem = _Video_AspectRatio_SelectedItem;
+        //        _Video_AspectRatio_SelectedItem = value;
+        //        OnPropertyChanged("Video_AspectRatio_SelectedItem");
+
+        //        if (previousItem != value)
+        //        {
+        //            //VideoControls.AutoCopyVideoCodec(this);
+        //            //SubtitleControls.AutoCopySubtitleCodec(this);
+        //        }
+
+        //        //if (_Video_AspectRatio_SelectedItem == value)
+        //        //{
+        //        //    return;
+        //        //}
+
+        //        //_Video_AspectRatio_SelectedItem = value;
+        //        //OnPropertyChanged("Video_AspectRatio_SelectedItem");
+        //    }
+        //}
 
         // Controls Enable
         private bool _Video_AspectRatio_IsEnabled = true;

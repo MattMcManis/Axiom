@@ -65,7 +65,7 @@ namespace Axiom
         // -------------------------
         public static List<ViewModel.VideoEncodeSpeed> encodeSpeed = new List<ViewModel.VideoEncodeSpeed>()
         {
-             new ViewModel.VideoEncodeSpeed() { Name = "None",       Command = ""},
+             new ViewModel.VideoEncodeSpeed() { Name = "none",       Command = ""},
              new ViewModel.VideoEncodeSpeed() { Name = "Placebo",    Command = "-preset placebo" },
              new ViewModel.VideoEncodeSpeed() { Name = "Very Slow",  Command = "-preset veryslow" },
              new ViewModel.VideoEncodeSpeed() { Name = "Slower",     Command = "-preset slower" },
@@ -84,16 +84,16 @@ namespace Axiom
         public static List<string> pixelFormat = new List<string>()
         {
             "auto",
-            "yuv420p",
-            "yuv422p",
-            "yuv444p",
             "gbrp",
-            "yuv420p10le",
-            "yuv422p10le",
-            "yuv444p10le",
             "gbrp10le",
             "gray",
-            "gray10le"
+            "gray10le",
+            "yuv420p",
+            "yuv420p10le",
+            "yuv422p",
+            "yuv422p10le",
+            "yuv444p",
+            "yuv444p10le",
         };
 
         // -------------------------
@@ -239,22 +239,15 @@ namespace Axiom
         {
             "none",
             "main",
-            //"main-intra",
             "mainstillpicture",
             "main444-8",
-            //"main444-intra",
             "main444-stillpicture",
             "main10",
-            //"main10-intra",
             "main422-10",
-            //"main422-10-intra",
             "main444-10",
-            //"main444-10-intra",
             "main12",
             "main422-12",
-            //"main422-12-intra",
             "main444-12",
-            //"main444-12-intra",
         };
 
         // -------------------------
