@@ -4,7 +4,23 @@ Axiom FFmpeg UI
 
 ## [alpha]
 
-## [1.6.4.0] - Mar 31, 2019
+## [1.6.7.0] - Apr 01, 2019
+### Added
+- Screen Format ComboBox
+- Video Optimize Expander for Tune, Profile, Level
+- webm Optimize Web default
+
+### Removed
+- `Opus` Compression Level on CBR
+
+### Changed
+- Changed Preset `Disc UHD`
+- Sorted Video Pixel Formats
+- MPEG-2 Controls Disabled
+- Disabled Video Optimize Previous Item Control
+
+
+## [1.6.5.0] - Mar 31, 2019
 ### Added
 - Audio Codec None to Video Containers
 - Audio Quality Stream none check
