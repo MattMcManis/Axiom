@@ -115,15 +115,15 @@
     <Compile Include="FilePropertiesWindow.xaml.cs">
       <DependentUpon>FilePropertiesWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Log.cs" />
+    <Compile Include="LogConsole.xaml.cs">
+      <DependentUpon>LogConsole.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Profiles.cs" />
     <Compile Include="Video\VideoFilters.cs" />
     <Compile Include="Format\Format.cs" />
     <Compile Include="InfoWindow.xaml.cs">
       <DependentUpon>InfoWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Log\Log.cs" />
-    <Compile Include="Log\LogConsole.xaml.cs">
-      <DependentUpon>LogConsole.xaml</DependentUpon>
     </Compile>
     <Compile Include="Presets.cs" />
     <Compile Include="ScriptView.cs" />
@@ -157,7 +157,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Log\LogConsole.xaml">
+    <Page Include="LogConsole.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
