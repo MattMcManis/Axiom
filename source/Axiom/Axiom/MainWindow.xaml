@@ -41,8 +41,8 @@
         
         Top="{Binding Top, Source={x:Static settings:Settings.Default}, Mode=TwoWay}"
         Left="{Binding Left, Source={x:Static settings:Settings.Default}, Mode=TwoWay}" 
-        Title="{Binding TitleVersion, RelativeSource={RelativeSource Mode=Self}}" 
-        Style="{DynamicResource WindowStyleCustom}"
+        Title="{Binding TitleVersion, Mode=OneWay}" 
+        Style="{DynamicResource WindowStyle}"
         >
 
     <Window.Resources>
@@ -159,7 +159,7 @@
 
         <!-- Save Button -->
         <Button x:Name="btnScriptSave" 
-                Style="{DynamicResource ButtonCustom}"
+                Style="{DynamicResource ButtonStyle}"
                 Margin="21,0,0,66"
                 Cursor="Hand"
                 MaxWidth="60" 
@@ -177,7 +177,7 @@
 
         <!-- Copy Button -->
         <Button x:Name="btnScriptCopy"
-                Style="{DynamicResource ButtonCustom}"
+                Style="{DynamicResource ButtonStyle}"
                 Margin="89,0,0,66"
                 Cursor="Hand" 
                 MaxWidth="60" 
@@ -195,7 +195,7 @@
 
         <!-- Sort Button -->
         <Button x:Name="btnScriptSort"
-                Style="{DynamicResource ButtonCustom}"
+                Style="{DynamicResource ButtonStyle}"
                 Margin="157,0,0,66" 
                 Cursor="Hand"
                 MaxWidth="60"
@@ -216,7 +216,7 @@
 
         <!-- Clear Button -->
         <Button x:Name="btnScriptClear"
-                Style="{DynamicResource ButtonCustom}"
+                Style="{DynamicResource ButtonStyle}"
                 Margin="225,0,0,66" 
                 Cursor="Hand"
                 MaxWidth="60"
@@ -236,7 +236,7 @@
 
         <!-- Script Button -->
         <Button x:Name="btnScript" 
-                Style="{DynamicResource ButtonCustom}" 
+                Style="{DynamicResource ButtonStyle}" 
                 HorizontalAlignment="Left"
                 Margin="293,0,0,66"
                 VerticalAlignment="Bottom"
@@ -253,7 +253,7 @@
 
         <!-- Run Button -->
         <Button x:Name="btnScriptRun"
-                Style="{DynamicResource ButtonCustom}"
+                Style="{DynamicResource ButtonStyle}"
                 Margin="361,0,0,66"
                 Cursor="Hand" 
                 MaxWidth="60" 
@@ -280,7 +280,7 @@
 
             <!-- Browse Button -->
             <Button x:Name="btnInput" 
-                    Style="{DynamicResource ButtonCustom}" 
+                    Style="{DynamicResource ButtonStyle}" 
                     HorizontalAlignment="Left"
                     Margin="0,0,0,0"
                     VerticalAlignment="Top"
@@ -294,7 +294,7 @@
             <!-- Browse Textbox -->
             <TextBox x:Name="tbxInput" 
                      Text="{Binding Input_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                     Style="{DynamicResource TextBoxBrowseCustom}" 
+                     Style="{DynamicResource TextBoxBrowseStyle}" 
                      Height="22"
                      Margin="75,0,-14,0" 
                      Padding="2, 0, 25, 0" 
@@ -310,7 +310,7 @@
 
             <!-- Input Location Button -->
             <Button x:Name="openLocationInput" 
-                    Style="{DynamicResource ButtonFolderCustom}" 
+                    Style="{DynamicResource ButtonFolderStyle}" 
                     IsEnabled="{Binding Input_Location_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     Margin="0,1,-11,0"
                     Cursor="Hand"
@@ -333,7 +333,7 @@
 
             <!-- Output Button -->
             <Button x:Name="btnOutput" 
-                    Style="{DynamicResource ButtonCustom}"
+                    Style="{DynamicResource ButtonStyle}"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
                     Width="70" 
@@ -346,7 +346,7 @@
             <!-- Output Textbox-->
             <TextBox x:Name="tbxOutput" 
                      Text="{Binding Output_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                     Style="{DynamicResource TextBoxBrowseCustom}"
+                     Style="{DynamicResource TextBoxBrowseStyle}"
                      Height="22"
                      Margin="75,29,-14,0"
                      Padding="2, 0, 25, 0" 
@@ -362,7 +362,7 @@
 
             <!-- Output Location Button -->
             <Button x:Name="openLocationOutput"
-                    Style="{DynamicResource ButtonFolderCustom}" 
+                    Style="{DynamicResource ButtonFolderStyle}" 
                     IsEnabled="{Binding Output_Location_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     Cursor="Hand" 
                     Click="openLocationOutput_Click" 
@@ -430,7 +430,7 @@
                             </Grid.RowDefinitions>
 
                             <!-- Container -->
-                            <Label Style="{DynamicResource LabelCustom}"
+                            <Label Style="{DynamicResource LabelStyle}"
                                     Content="Container" 
                                     HorizontalAlignment="Left" 
                                     VerticalAlignment="Top" 
@@ -443,8 +443,8 @@
                                       SelectedIndex="{Binding Format_Container_SelectedIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                       SelectedValuePath="Name"
                                       SelectedValue="{Binding Format_Container_SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                      Style="{DynamicResource ComboBoxWhite}"
-                                      ItemContainerStyle="{DynamicResource ComboBoxWhiteItem_FormatContainer}" 
+                                      Style="{DynamicResource ComboBoxCategoryStyle}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxCategoryStyleItem_FormatContainer}" 
                                       HorizontalAlignment="Left"
                                       VerticalAlignment="Top" 
                                       Width="105" 
@@ -471,7 +471,7 @@
                             </ComboBox>
 
                             <!-- MediaType -->
-                            <Label Style="{DynamicResource LabelCustom}"
+                            <Label Style="{DynamicResource LabelStyle}"
                                    Content="Media" 
                                    HorizontalAlignment="Left" 
                                    VerticalAlignment="Top" 
@@ -485,8 +485,8 @@
                                       SelectedIndex="{Binding Format_MediaType_SelectedIndex}"
                                       SelectedItem="{Binding Format_MediaType_SelectedItem, Mode=TwoWay}"
                                       IsEnabled="{Binding Format_MediaType_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                      Style="{DynamicResource ComboBoxCustom}"
-                                      ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" 
+                                      Style="{DynamicResource ComboBoxStyle}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxStyleItem}" 
                                       HorizontalAlignment="Left"
                                       Margin="0,2,0,0" 
                                       VerticalAlignment="Top" 
@@ -499,7 +499,7 @@
                             <!-- Encode Speed -->
                             <!--
                             <Label 
-                                Style="{DynamicResource LabelCustom}" 
+                                Style="{DynamicResource LabelStyle}" 
                                 Content="Encode Speed" 
                                 HorizontalAlignment="Left" 
                                 VerticalAlignment="Top"
@@ -509,8 +509,8 @@
                                 Height="26" Grid.Column="1" />
 
                             <ComboBox x:Name="cboEncodeSpeed" 
-                                      Style="{DynamicResource ComboBoxWhite}"
-                                      ItemContainerStyle="{DynamicResource ComboBoxWhiteItem}" 
+                                      Style="{DynamicResource ComboBoxCategoryStyle}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxCategoryStyleItem}" 
                                       ItemsSource="{Binding Video_EncodeSpeed_Items}"
                                       SelectedValuePath="Name"
                                       SelectedIndex="{Binding Video_EncodeSpeed_SelectedIndex}"
@@ -544,7 +544,7 @@
                             <!-- HW Acceleration -->
                             <!--
                             <Label 
-                                Style="{DynamicResource LabelCustom}" 
+                                Style="{DynamicResource LabelStyle}" 
                                 Content="HW Accel" 
                                 HorizontalAlignment="Left" 
                                 VerticalAlignment="Top"
@@ -559,9 +559,9 @@
                                       SelectedIndex="{Binding Format_HWAccel_SelectedIndex}"
                                       SelectedItem="{Binding Format_HWAccel_SelectedItem, Mode=TwoWay}"
                                       IsEnabled="{Binding Format_HWAccel_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                      Style="{DynamicResource ComboBoxCustom}"
+                                      Style="{DynamicResource ComboBoxStyle}"
                                       IsSynchronizedWithCurrentItem="True"
-                                      ItemContainerStyle="{DynamicResource ComboBoxCustomItem}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxStyleItem}"
                                       HorizontalAlignment="Left" 
                                       VerticalAlignment="Top" 
                                       Width="105" 
@@ -575,7 +575,7 @@
 
 
                             <!-- Cut -->
-                            <Label Style="{DynamicResource LabelCustom}" 
+                            <Label Style="{DynamicResource LabelStyle}" 
                                    Content="Cut" 
                                    HorizontalAlignment="Left" 
                                    VerticalAlignment="Top" 
@@ -589,8 +589,8 @@
                                       SelectedIndex="{Binding Format_Cut_SelectedIndex}"
                                       SelectedItem="{Binding Format_Cut_SelectedItem, Mode=TwoWay}"
                                       IsEnabled="{Binding Format_Cut_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                      Style="{DynamicResource ComboBoxWhite}"
-                                      ItemContainerStyle="{DynamicResource ComboBoxWhiteItem}" 
+                                      Style="{DynamicResource ComboBoxCategoryStyle}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxCategoryStyleItem}" 
                                       HorizontalAlignment="Left" VerticalAlignment="Top"
                                       Width="105" 
                                       SelectionChanged="cboFormat_Cut_SelectionChanged" 
@@ -600,7 +600,7 @@
                                       Margin="0,3,0,0" />
 
                             <!-- Cut Start -->
-                            <Label Style="{DynamicResource LabelCustom}"
+                            <Label Style="{DynamicResource LabelStyle}"
                                    Content="Start Time"
                                    HorizontalAlignment="Left" 
                                    VerticalAlignment="Top" 
@@ -744,7 +744,7 @@
                                      Panel.ZIndex="2"/>
                             <!-- Background -->
                             <TextBox IsEnabled="{Binding Format_CutStart_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                     Style="{DynamicResource TextBoxCustom}"
+                                     Style="{DynamicResource TextBoxStyle}"
                                      IsReadOnly="True"
                                      Cursor="Arrow"
                                      TextWrapping="NoWrap"
@@ -760,7 +760,7 @@
 
                             <!-- Cut End -->
                             <Label 
-                                Style="{DynamicResource LabelCustom}" 
+                                Style="{DynamicResource LabelStyle}" 
                                 Content="End Time" 
                                 HorizontalAlignment="Left" 
                                 VerticalAlignment="Top"
@@ -902,7 +902,7 @@
                                      Panel.ZIndex="2"/>
                             <!-- Background -->
                             <TextBox IsEnabled="{Binding Format_CutEnd_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                     Style="{DynamicResource TextBoxCustom}"
+                                     Style="{DynamicResource TextBoxStyle}"
                                      IsReadOnly="True"
                                      Cursor="Arrow"
                                      TextWrapping="NoWrap"
@@ -917,7 +917,7 @@
 
                             <!-- Frame Range -->
                             <Label
-                                Style="{DynamicResource LabelCustom}"
+                                Style="{DynamicResource LabelStyle}"
                                 Content="Frame Range"
                                 HorizontalAlignment="Left"
                                 Margin="0,1,0,0"
@@ -931,7 +931,7 @@
                             <TextBox x:Name="tbxFrameStart"
                                      Text="{Binding Format_FrameStart_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                      IsEnabled="{Binding Format_FrameEnd_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                     Style="{DynamicResource TextBoxCustom}"
+                                     Style="{DynamicResource TextBoxStyle}"
                                      HorizontalAlignment="Left" 
                                      Height="22" 
                                      Padding="0, 1, 0, 0"
@@ -952,7 +952,7 @@
                             <TextBox x:Name="tbxFrameEnd"
                                      Text="{Binding Format_FrameEnd_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                      IsEnabled="{Binding Format_FrameEnd_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                     Style="{DynamicResource TextBoxCustom}"
+                                     Style="{DynamicResource TextBoxStyle}"
                                      HorizontalAlignment="Left"
                                      Height="22" 
                                      Margin="55,3,0,0" 
@@ -971,7 +971,7 @@
                                      Grid.Row="6" />
 
                             <!-- YouTube -->
-                            <Label Style="{DynamicResource LabelCustom}" 
+                            <Label Style="{DynamicResource LabelStyle}" 
                                    Content="YouTube" 
                                    HorizontalAlignment="Left" 
                                    VerticalAlignment="Top" 
@@ -985,8 +985,8 @@
                                       SelectedIndex="{Binding Format_YouTube_SelectedIndex}"
                                       SelectedItem="{Binding Format_YouTube_SelectedItem, Mode=TwoWay}"
                                       IsEnabled="{Binding Format_YouTube_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                      Style="{DynamicResource ComboBoxWhite}"
-                                      ItemContainerStyle="{DynamicResource ComboBoxWhiteItem}" 
+                                      Style="{DynamicResource ComboBoxCategoryStyle}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxCategoryStyleItem}" 
                                       HorizontalAlignment="Left" VerticalAlignment="Top"
                                       Width="105" 
                                       Grid.Column="2" 
@@ -995,7 +995,7 @@
                                       Margin="0,3,0,0" SelectionChanged="cboYouTube_SelectionChanged" />
 
                             <!-- YouTube Quality -->
-                            <Label Style="{DynamicResource LabelCustom}"
+                            <Label Style="{DynamicResource LabelStyle}"
                                    Content="Quality" 
                                    HorizontalAlignment="Left" 
                                    VerticalAlignment="Top" 
@@ -1009,8 +1009,8 @@
                                       SelectedIndex="{Binding Format_YouTube_Quality_SelectedIndex}"
                                       SelectedItem="{Binding Format_YouTube_Quality_SelectedItem, Mode=TwoWay}"
                                       IsEnabled="{Binding Format_YouTube_Quality_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                      Style="{DynamicResource ComboBoxCustom}"
-                                      ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" 
+                                      Style="{DynamicResource ComboBoxStyle}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxStyleItem}" 
                                       HorizontalAlignment="Left"
                                       Margin="0,2,0,0" 
                                       VerticalAlignment="Top" 
@@ -1079,7 +1079,7 @@
                             </Grid.RowDefinitions>
 
                             <!-- Video Codec -->
-                            <Label Style="{DynamicResource LabelCustom}"
+                            <Label Style="{DynamicResource LabelStyle}"
                                    Content="Video Codec" 
                                    HorizontalAlignment="Left"
                                    Margin="0,0,0,0" 
@@ -1090,8 +1090,8 @@
                                    Height="26" 
                                    Grid.Column="1" />
                             <ComboBox x:Name="cboVideo_Codec" 
-                                      Style="{DynamicResource ComboBoxWhite}"
-                                      ItemContainerStyle="{DynamicResource ComboBoxWhiteItem}" 
+                                      Style="{DynamicResource ComboBoxCategoryStyle}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxCategoryStyleItem}" 
                                       ItemsSource="{Binding Video_Codec_Items}"
                                       SelectedIndex="{Binding Video_Codec_SelectedIndex}"
                                       SelectedItem="{Binding Video_Codec_SelectedItem}"
@@ -1107,7 +1107,7 @@
                                       Margin="0,2,0,0" />
 
                             <!-- Encode Speed -->
-                            <Label Style="{DynamicResource LabelCustom}" 
+                            <Label Style="{DynamicResource LabelStyle}" 
                                    Content="Encode Speed" 
                                    HorizontalAlignment="Left" 
                                    VerticalAlignment="Top"
@@ -1118,8 +1118,8 @@
                                    Grid.Column="1" />
 
                             <ComboBox x:Name="cboEncodeSpeed" 
-                                      Style="{DynamicResource ComboBoxCustom}"
-                                      ItemContainerStyle="{DynamicResource ComboBoxCustomItem}"
+                                      Style="{DynamicResource ComboBoxStyle}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxStyleItem}"
                                       ItemsSource="{Binding Video_EncodeSpeed_Items}"
                                       SelectedValuePath="Name"
                                       SelectedIndex="{Binding Video_EncodeSpeed_SelectedIndex}"
@@ -1150,7 +1150,7 @@
 
 
                             <!-- HW Acceleration -->
-                            <Label Style="{DynamicResource LabelCustom}" 
+                            <Label Style="{DynamicResource LabelStyle}" 
                                    Content="HW Accel" 
                                    HorizontalAlignment="Left" 
                                    VerticalAlignment="Top"
@@ -1164,9 +1164,9 @@
                                       SelectedIndex="{Binding Format_HWAccel_SelectedIndex}"
                                       SelectedItem="{Binding Format_HWAccel_SelectedItem, Mode=TwoWay}"
                                       IsEnabled="{Binding Format_HWAccel_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                      Style="{DynamicResource ComboBoxCustom}"
+                                      Style="{DynamicResource ComboBoxStyle}"
                                       IsSynchronizedWithCurrentItem="True"
-                                      ItemContainerStyle="{DynamicResource ComboBoxCustomItem}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxStyleItem}"
                                       HorizontalAlignment="Left" 
                                       VerticalAlignment="Top" 
                                       Width="105" 
@@ -1180,7 +1180,7 @@
 
 
                             <!-- Video Quality -->
-                            <Label Style="{DynamicResource LabelCustom}" 
+                            <Label Style="{DynamicResource LabelStyle}" 
                                    Content="Quality" 
                                    HorizontalAlignment="Left"
                                    Width="56"  
@@ -1189,8 +1189,8 @@
                                    Grid.Row="4"
                                    Grid.Column="1" />
                             <ComboBox x:Name="cboVideoQuality" 
-                                      Style="{DynamicResource ComboBoxWhite}"
-                                      ItemContainerStyle="{DynamicResource ComboBoxWhiteItem}" 
+                                      Style="{DynamicResource ComboBoxCategoryStyle}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxCategoryStyleItem}" 
                                       ItemsSource="{Binding Video_Quality_Items}"
                                       SelectedValuePath="Name"
                                       SelectedIndex="{Binding Video_Quality_SelectedIndex}"
@@ -1220,7 +1220,7 @@
                             </ComboBox>
 
                             <!-- Pass -->
-                            <Label Style="{DynamicResource LabelCustom}" 
+                            <Label Style="{DynamicResource LabelStyle}" 
                                    Content="Pass" 
                                    HorizontalAlignment="Left" 
                                    VerticalAlignment="Top" 
@@ -1234,8 +1234,8 @@
                                       SelectedIndex="{Binding Video_Pass_SelectedIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                       SelectedValue="{Binding Video_Pass_SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                       IsEnabled="{Binding Video_Pass_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                      Style="{DynamicResource ComboBoxCustom}"
-                                      ItemContainerStyle="{DynamicResource ComboBoxCustomItem}"
+                                      Style="{DynamicResource ComboBoxStyle}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxStyleItem}"
                                       HorizontalAlignment="Left"
                                       VerticalAlignment="Top"
                                       Width="105" 
@@ -1249,7 +1249,7 @@
                                       Margin="0,2,0,0" />
 
                             <!-- CRF -->
-                            <Label Style="{DynamicResource LabelCustom}" 
+                            <Label Style="{DynamicResource LabelStyle}" 
                                    Content="CRF" 
                                    HorizontalAlignment="Left" 
                                    VerticalAlignment="Top"
@@ -1281,7 +1281,7 @@
                             <TextBox x:Name="tbxVideo_CRF" 
                                      Text="{Binding Video_CRF_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                      IsEnabled="{Binding Video_CRF_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                     Style="{DynamicResource TextBoxCustom}"
+                                     Style="{DynamicResource TextBoxStyle}"
                                      HorizontalAlignment="Left" 
                                      Height="22"
                                      Padding="1, 1, 0, 0" 
@@ -1300,7 +1300,7 @@
                                      TextChanged="tbxVideo_CRF_TextChanged"/>
 
                             <!-- Video Bit Rate-->
-                            <Label Style="{DynamicResource LabelCustom}" 
+                            <Label Style="{DynamicResource LabelStyle}" 
                                    Content="Bit Rate" 
                                    HorizontalAlignment="Left" 
                                    VerticalAlignment="Top"
@@ -1311,7 +1311,7 @@
                             <TextBox x:Name="tbxVideo_BitRate"
                                      Text="{Binding Video_BitRate_Text, Mode=TwoWay}"
                                      IsEnabled="{Binding Video_BitRate_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                     Style="{DynamicResource TextBoxCustom}"
+                                     Style="{DynamicResource TextBoxStyle}"
                                      HorizontalAlignment="Left" 
                                      Height="22" 
                                      Padding="1, 1, 0, 0" 
@@ -1348,7 +1348,7 @@
                                           Grid.Column="2" />
 
                             <!-- Video Min Rate -->
-                            <Label Style="{DynamicResource LabelCustom}" 
+                            <Label Style="{DynamicResource LabelStyle}" 
                                    Content="Min Rate" 
                                    HorizontalAlignment="Left" 
                                    VerticalAlignment="Top"
@@ -1359,7 +1359,7 @@
                             <TextBox x:Name="tbxVideo_MinRate" 
                                      Text="{Binding Video_MinRate_Text, Mode=TwoWay}"
                                      IsEnabled="{Binding Video_MinRate_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                     Style="{DynamicResource TextBoxCustom}"
+                                     Style="{DynamicResource TextBoxStyle}"
                                      HorizontalAlignment="Left" 
                                      Height="22" 
                                      Padding="1, 1, 0, 0" 
@@ -1376,7 +1376,7 @@
                                      Margin="0,2,0,0"/>
 
                             <!-- Video Max Rate -->
-                            <Label Style="{DynamicResource LabelCustom}" 
+                            <Label Style="{DynamicResource LabelStyle}" 
                                    Content="Max Rate" 
                                    HorizontalAlignment="Left" 
                                    VerticalAlignment="Top"
@@ -1387,7 +1387,7 @@
                             <TextBox x:Name="tbxVideo_MaxRate" 
                                      Text="{Binding Video_MaxRate_Text, Mode=TwoWay}"
                                      IsEnabled="{Binding Video_MaxRate_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                     Style="{DynamicResource TextBoxCustom}"
+                                     Style="{DynamicResource TextBoxStyle}"
                                      HorizontalAlignment="Left" 
                                      Height="22" 
                                      Padding="1, 1, 0, 0" 
@@ -1404,7 +1404,7 @@
                                      Margin="0,2,0,0"/>
 
                             <!-- Video Buf Size -->
-                            <Label Style="{DynamicResource LabelCustom}" 
+                            <Label Style="{DynamicResource LabelStyle}" 
                                    Content="Buf Size" 
                                    HorizontalAlignment="Left" 
                                    VerticalAlignment="Top"
@@ -1415,7 +1415,7 @@
                             <TextBox x:Name="tbxVideo_BufSize" 
                                      Text="{Binding Video_BufSize_Text, Mode=TwoWay}"
                                      IsEnabled="{Binding Video_BufSize_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                     Style="{DynamicResource TextBoxCustom}"
+                                     Style="{DynamicResource TextBoxStyle}"
                                      HorizontalAlignment="Left" 
                                      Height="22" 
                                      Padding="1, 1, 0, 0" 
@@ -1432,7 +1432,7 @@
                                      Margin="0,2,0,0"/>
 
                             <!-- Pix Format -->
-                            <Label Style="{DynamicResource LabelCustom}" 
+                            <Label Style="{DynamicResource LabelStyle}" 
                                    Content="Pixel Format" 
                                    HorizontalAlignment="Left" 
                                    VerticalAlignment="Top"
@@ -1446,8 +1446,8 @@
                                       SelectedItem="{Binding Video_PixelFormat_SelectedItem}"
                                       IsEnabled="{Binding Video_PixelFormat_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                       IsSynchronizedWithCurrentItem="True"
-                                      Style="{DynamicResource ComboBoxCustom}" 
-                                      ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" 
+                                      Style="{DynamicResource ComboBoxStyle}" 
+                                      ItemContainerStyle="{DynamicResource ComboBoxStyleItem}" 
                                       HorizontalAlignment="Left" 
                                       VerticalAlignment="Top" 
                                       Width="105" 
@@ -1458,7 +1458,7 @@
                                       SelectionChanged="cboVideo_PixelFormat_SelectionChanged"/>
 
                             <!-- Framerate -->
-                            <Label Style="{DynamicResource LabelCustom}" 
+                            <Label Style="{DynamicResource LabelStyle}" 
                                    Content="Frame Rate" 
                                    HorizontalAlignment="Left" 
                                    VerticalAlignment="Top"
@@ -1475,9 +1475,9 @@
                                       SelectedItem="{Binding Video_FPS_SelectedItem}"
                                       IsEnabled="{Binding Video_FPS_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                       IsEditable="{Binding Video_FPS_IsEditable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                      Style="{DynamicResource ComboBoxCustom}" 
+                                      Style="{DynamicResource ComboBoxStyle}" 
                                       Text="{Binding Video_FPS_Text}"
-                                      ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" 
+                                      ItemContainerStyle="{DynamicResource ComboBoxStyleItem}" 
                                       HorizontalAlignment="Left" 
                                       VerticalAlignment="Top" 
                                       Width="105" 
@@ -1492,7 +1492,7 @@
                                       Margin="0,2,0,0"/>
 
                             <!-- Speed -->
-                            <Label Style="{DynamicResource LabelCustom}" 
+                            <Label Style="{DynamicResource LabelStyle}" 
                                    Content="Speed" 
                                    HorizontalAlignment="Left" 
                                    VerticalAlignment="Top"
@@ -1509,9 +1509,9 @@
                                       SelectedItem="{Binding Video_Speed_SelectedItem}"
                                       IsEnabled="{Binding Video_Speed_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                       IsEditable="{Binding Video_Speed_IsEditable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                      Style="{DynamicResource ComboBoxCustom}" 
+                                      Style="{DynamicResource ComboBoxStyle}" 
                                       Text="{Binding Video_Speed_Text}"
-                                      ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" 
+                                      ItemContainerStyle="{DynamicResource ComboBoxStyleItem}" 
                                       HorizontalAlignment="Left" 
                                       VerticalAlignment="Top" 
                                       Width="105" 
@@ -1526,7 +1526,7 @@
                                       Margin="0,2,0,0"/>
 
                             <!-- Optimize -->
-                            <Label Style="{DynamicResource LabelCustom}" 
+                            <Label Style="{DynamicResource LabelStyle}" 
                                    Content="Optimize"
                                    HorizontalAlignment="Left" 
                                    VerticalAlignment="Top"
@@ -1537,8 +1537,8 @@
                                    Grid.Column="1"
                                    Panel.ZIndex="1"/>
                             <ComboBox x:Name="cboVideo_Optimize" 
-                                      Style="{DynamicResource ComboBoxWhite}"
-                                      ItemContainerStyle="{DynamicResource ComboBoxWhiteItem}" 
+                                      Style="{DynamicResource ComboBoxCategoryStyle}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxCategoryStyleItem}" 
                                       ItemsSource="{Binding Video_Optimize_Items}"
                                       SelectedValuePath="Name"
                                       SelectedIndex="{Binding Video_Optimize_SelectedIndex}"
@@ -1611,7 +1611,7 @@
                                         </Grid.RowDefinitions>
 
                                         <!-- Tune -->
-                                        <Label Style="{DynamicResource LabelCustom}" 
+                                        <Label Style="{DynamicResource LabelStyle}" 
                                                    Content="Tune" 
                                                    HorizontalAlignment="Left" 
                                                    VerticalAlignment="Top" 
@@ -1624,8 +1624,8 @@
                                                       SelectedItem="{Binding Video_Optimize_Tune_SelectedItem, Mode=TwoWay}"
                                                       IsEnabled="{Binding Optimize_Tune_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                       IsSynchronizedWithCurrentItem="True"
-                                                      Style="{DynamicResource ComboBoxCustom}" 
-                                                      ItemContainerStyle="{DynamicResource ComboBoxCustomItem}"
+                                                      Style="{DynamicResource ComboBoxStyle}" 
+                                                      ItemContainerStyle="{DynamicResource ComboBoxStyleItem}"
                                                       HorizontalAlignment="Left"
                                                       Margin="0,2,0,0"
                                                       VerticalAlignment="Top"
@@ -1634,7 +1634,7 @@
                                                       Grid.Column="2"/>
 
                                         <!-- Profile -->
-                                        <Label Style="{DynamicResource LabelCustom}" 
+                                        <Label Style="{DynamicResource LabelStyle}" 
                                                    Content="Profile" 
                                                    HorizontalAlignment="Left" 
                                                    VerticalAlignment="Top" 
@@ -1647,8 +1647,8 @@
                                                       SelectedItem="{Binding Video_Optimize_Profile_SelectedItem, Mode=TwoWay}"
                                                       IsEnabled="{Binding Optimize_Profile_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                       IsSynchronizedWithCurrentItem="True"
-                                                      Style="{DynamicResource ComboBoxCustom}" 
-                                                      ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" 
+                                                      Style="{DynamicResource ComboBoxStyle}" 
+                                                      ItemContainerStyle="{DynamicResource ComboBoxStyleItem}" 
                                                       HorizontalAlignment="Left" 
                                                       Margin="0,2,0,0" 
                                                       VerticalAlignment="Top" 
@@ -1657,7 +1657,7 @@
                                                       Grid.Column="1" />
 
                                         <!-- Level -->
-                                        <Label Style="{DynamicResource LabelCustom}" 
+                                        <Label Style="{DynamicResource LabelStyle}" 
                                                    Content="Level" 
                                                    HorizontalAlignment="Left" 
                                                    VerticalAlignment="Top" 
@@ -1670,8 +1670,8 @@
                                                       SelectedItem="{Binding Video_Optimize_Level_SelectedItem, Mode=TwoWay}"
                                                       IsEnabled="{Binding Video_Optimize_Level_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                       IsSynchronizedWithCurrentItem="True"
-                                                      Style="{DynamicResource ComboBoxCustom}" 
-                                                      ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" 
+                                                      Style="{DynamicResource ComboBoxStyle}" 
+                                                      ItemContainerStyle="{DynamicResource ComboBoxStyleItem}" 
                                                       HorizontalAlignment="Left" 
                                                       Margin="0,2,0,0" 
                                                       VerticalAlignment="Top" 
@@ -1688,7 +1688,7 @@
 
 
                             <!-- Size -->
-                            <Label Style="{DynamicResource LabelCustom}"
+                            <Label Style="{DynamicResource LabelStyle}"
                                     Content="Size" 
                                     HorizontalAlignment="Left" 
                                     VerticalAlignment="Top"
@@ -1700,8 +1700,8 @@
                                       SelectedIndex="{Binding Video_Scale_SelectedIndex}"
                                       SelectedItem="{Binding Video_Scale_SelectedItem, Mode=TwoWay}"
                                       IsEnabled="{Binding Video_Scale_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                      Style="{DynamicResource ComboBoxWhite}"
-                                      ItemContainerStyle="{DynamicResource ComboBoxWhiteItem}" 
+                                      Style="{DynamicResource ComboBoxCategoryStyle}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxCategoryStyleItem}" 
                                       HorizontalAlignment="Left"
                                       VerticalAlignment="Top"
                                       Width="105" 
@@ -1712,7 +1712,7 @@
 
                             <!-- Width -->
                             <Label 
-                                Style="{DynamicResource LabelCustom}"
+                                Style="{DynamicResource LabelStyle}"
                                 Content="Width" 
                                 HorizontalAlignment="Left" 
                                 VerticalAlignment="Top"
@@ -1722,7 +1722,7 @@
                             <TextBox x:Name="tbxVideo_Width"
                                      Text="{Binding Video_Width_Text, Mode=TwoWay}"
                                      IsEnabled="{Binding Video_Width_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                     Style="{DynamicResource TextBoxCustom}" 
+                                     Style="{DynamicResource TextBoxStyle}" 
                                      HorizontalAlignment="Left"
                                      Height="22" 
                                      Padding="2, 1, 0, 0" 
@@ -1738,7 +1738,7 @@
 
                             <!-- Height -->
                             <Label 
-                                Style="{DynamicResource LabelCustom}"
+                                Style="{DynamicResource LabelStyle}"
                                 Content="Height" 
                                 HorizontalAlignment="Left" 
                                 VerticalAlignment="Top"
@@ -1748,7 +1748,7 @@
                             <TextBox x:Name="tbxVideo_Height" 
                                      Text="{Binding Video_Height_Text, Mode=TwoWay}"
                                      IsEnabled="{Binding Video_Height_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                     Style="{DynamicResource TextBoxCustom}"
+                                     Style="{DynamicResource TextBoxStyle}"
                                      HorizontalAlignment="Left"
                                      Height="22" 
                                      Padding="2, 1, 0, 0"
@@ -1763,7 +1763,7 @@
                                      Margin="0,2,0,0" />
 
                             <!-- Screen Format -->
-                            <Label Style="{DynamicResource LabelCustom}" 
+                            <Label Style="{DynamicResource LabelStyle}" 
                                    Content="Format"
                                    HorizontalAlignment="Left" 
                                    VerticalAlignment="Top"
@@ -1780,8 +1780,8 @@
                                       SelectedIndex="{Binding Video_ScreenFormat_SelectedIndex}"
                                       SelectedItem="{Binding Video_ScreenFormat_SelectedItem}"
                                       IsEnabled="{Binding Video_ScreenFormat_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                      Style="{DynamicResource ComboBoxCustom}"
-                                      ItemContainerStyle="{DynamicResource ComboBoxCustomItem}"
+                                      Style="{DynamicResource ComboBoxStyle}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxStyleItem}"
                                       HorizontalAlignment="Left" 
                                       VerticalAlignment="Top" 
                                       Width="105" 
@@ -1795,7 +1795,7 @@
                                       SelectionChanged="cboVideo_ScreenFormat_SelectionChanged"/>
 
                             <!-- Aspect Ratio -->
-                            <Label Style="{DynamicResource LabelCustom}" 
+                            <Label Style="{DynamicResource LabelStyle}" 
                                    Content="Aspect Ratio"
                                    HorizontalAlignment="Left" 
                                    VerticalAlignment="Top"
@@ -1812,8 +1812,8 @@
                                       SelectedIndex="{Binding Video_AspectRatio_SelectedIndex}"
                                       SelectedItem="{Binding Video_AspectRatio_SelectedItem}"
                                       IsEnabled="{Binding Video_AspectRatio_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                      Style="{DynamicResource ComboBoxCustom}"
-                                      ItemContainerStyle="{DynamicResource ComboBoxCustomItem}"
+                                      Style="{DynamicResource ComboBoxStyle}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxStyleItem}"
                                       HorizontalAlignment="Left" 
                                       VerticalAlignment="Top" 
                                       Width="105" 
@@ -1827,7 +1827,7 @@
                                       SelectionChanged="cboVideo_AspectRatio_SelectionChanged"/>
 
                             <!-- Scaling -->
-                            <Label Style="{DynamicResource LabelCustom}" 
+                            <Label Style="{DynamicResource LabelStyle}" 
                                    Content="Scaling"
                                    HorizontalAlignment="Left" 
                                    VerticalAlignment="Top"
@@ -1845,8 +1845,8 @@
                                       SelectedItem="{Binding Video_ScalingAlgorithm_SelectedItem}"
                                       IsEnabled="{Binding Video_ScalingAlgorithm_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                       IsSynchronizedWithCurrentItem="True"
-                                      Style="{DynamicResource ComboBoxCustom}"
-                                      ItemContainerStyle="{DynamicResource ComboBoxCustomItem}"
+                                      Style="{DynamicResource ComboBoxStyle}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxStyleItem}"
                                       HorizontalAlignment="Left" 
                                       VerticalAlignment="Top" 
                                       Width="105" 
@@ -1860,7 +1860,7 @@
                                       SelectionChanged="cboVideo_ScalingAlgorithm_SelectionChanged"/>
 
                             <!-- Crop -->
-                            <Label Style="{DynamicResource LabelCustom}"
+                            <Label Style="{DynamicResource LabelStyle}"
                                    Content="Crop" 
                                    HorizontalAlignment="Left" 
                                    VerticalAlignment="Top"
@@ -1868,7 +1868,7 @@
                                    Grid.Row="24" 
                                    Grid.Column="1" />
                             <Button x:Name="btnVideo_Crop"
-                                    Style="{DynamicResource ButtonCropCustom}"
+                                    Style="{DynamicResource ButtonCropStyle}"
                                     IsEnabled="{Binding Video_Crop_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     Padding="0" 
                                     HorizontalAlignment="Left" 
@@ -1889,7 +1889,7 @@
                             </Button>
 
                             <Button x:Name="btnVideo_CropClear"
-                                    Style="{DynamicResource ButtonCropCustom}"
+                                    Style="{DynamicResource ButtonCropStyle}"
                                     Padding="0" 
                                     HorizontalAlignment="Left"
                                     Margin="55,2,0,0"
@@ -1949,7 +1949,7 @@
                             </Grid.RowDefinitions>
 
                             <!-- Audio Codec -->
-                            <Label Style="{DynamicResource LabelCustom}"
+                            <Label Style="{DynamicResource LabelStyle}"
                                    Content="Audio Codec" 
                                    HorizontalAlignment="Left" 
                                    VerticalAlignment="Top" 
@@ -1959,8 +1959,8 @@
                                    Height="26" 
                                    Grid.Column="1" />
                             <ComboBox x:Name="cboAudio_Codec" 
-                                      Style="{DynamicResource ComboBoxWhite}"
-                                      ItemContainerStyle="{DynamicResource ComboBoxWhiteItem}" 
+                                      Style="{DynamicResource ComboBoxCategoryStyle}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxCategoryStyleItem}" 
                                       ItemsSource="{Binding Audio_Codec_Items}"
                                       SelectedIndex="{Binding Audio_Codec_SelectedIndex}"
                                       SelectedItem="{Binding Audio_Codec_SelectedItem }"
@@ -1975,7 +1975,7 @@
                                       Margin="0,2,0,0"/>
 
                             <!-- Stream Track -->
-                            <Label Style="{DynamicResource LabelCustom}" 
+                            <Label Style="{DynamicResource LabelStyle}" 
                                    Content="Stream"
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Top" 
@@ -1993,8 +1993,8 @@
                                       SelectedItem="{Binding Audio_Stream_SelectedItem}"
                                       IsEnabled="{Binding Audio_Stream_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                       IsSynchronizedWithCurrentItem="True"
-                                      Style="{DynamicResource ComboBoxCustom}" 
-                                      ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" 
+                                      Style="{DynamicResource ComboBoxStyle}" 
+                                      ItemContainerStyle="{DynamicResource ComboBoxStyleItem}" 
                                       HorizontalAlignment="Left"
                                       VerticalAlignment="Top"
                                       Width="105" 
@@ -2006,7 +2006,7 @@
                                       Margin="0,2,0,0" />
 
                             <!-- Channel -->
-                            <Label Style="{DynamicResource LabelCustom}" 
+                            <Label Style="{DynamicResource LabelStyle}" 
                                    Content="Channel" 
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Top" 
@@ -2019,8 +2019,8 @@
                                       SelectedItem="{Binding Audio_Channel_SelectedItem}"
                                       IsEnabled="{Binding Audio_Channel_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                       IsSynchronizedWithCurrentItem="True"
-                                      Style="{DynamicResource ComboBoxCustom}" 
-                                      ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" 
+                                      Style="{DynamicResource ComboBoxStyle}" 
+                                      ItemContainerStyle="{DynamicResource ComboBoxStyleItem}" 
                                       HorizontalAlignment="Left" 
                                       VerticalAlignment="Top" 
                                       Width="105" 
@@ -2030,7 +2030,7 @@
                                       SelectionChanged="cboAudio_Channel_SelectionChanged" />
 
                             <!-- Audio Quality -->
-                            <Label Style="{DynamicResource LabelCustom}" 
+                            <Label Style="{DynamicResource LabelStyle}" 
                                    Content="Quality" 
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Top"
@@ -2039,8 +2039,8 @@
                                    Grid.Row="4" 
                                    Grid.Column="1" />
                             <ComboBox x:Name="cboAudio_Quality" 
-                                      Style="{DynamicResource ComboBoxWhite}"
-                                      ItemContainerStyle="{DynamicResource ComboBoxWhiteItem}" 
+                                      Style="{DynamicResource ComboBoxCategoryStyle}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxCategoryStyleItem}" 
                                       ItemsSource="{Binding Audio_Quality_Items}"
                                       SelectedValuePath="Name"
                                       SelectedIndex="{Binding Audio_Quality_SelectedIndex}"
@@ -2071,7 +2071,7 @@
 
                             <!-- Bit Rate -->
                             <Label 
-                                Style="{DynamicResource LabelCustom}" 
+                                Style="{DynamicResource LabelStyle}" 
                                 Content="Bit Rate"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Top"
@@ -2083,7 +2083,7 @@
                             <TextBox x:Name="tbxAudio_BitRate"
                                      Text="{Binding Audio_BitRate_Text, Mode=TwoWay}"
                                      IsEnabled="{Binding Audio_BitRate_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                     Style="{DynamicResource TextBoxCustom}" 
+                                     Style="{DynamicResource TextBoxStyle}" 
                                      HorizontalAlignment="Left"
                                      Height="22" 
                                      Width="70" 
@@ -2123,7 +2123,7 @@
                                           Unchecked="tglAudio_VBR_Unchecked"/>
 
                             <!-- Compression Level -->
-                            <Label Style="{DynamicResource LabelCustom}" 
+                            <Label Style="{DynamicResource LabelStyle}" 
                                    Content="Compression" 
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Top" 
@@ -2140,8 +2140,8 @@
                                       SelectedItem="{Binding Audio_CompressionLevel_SelectedItem}"
                                       IsEnabled="{Binding Audio_CompressionLevel_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                       IsSynchronizedWithCurrentItem="True"
-                                      Style="{DynamicResource ComboBoxCustom}" 
-                                      ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" 
+                                      Style="{DynamicResource ComboBoxStyle}" 
+                                      ItemContainerStyle="{DynamicResource ComboBoxStyleItem}" 
                                       HorizontalAlignment="Left" 
                                       VerticalAlignment="Top" 
                                       Width="105" 
@@ -2152,7 +2152,7 @@
                                       ToolTipService.ShowOnDisabled="True" 
                                       ToolTip="Compression Level. Higher value is more compression." 
                                       />
-                            <!--<Label Style="{DynamicResource LabelCustom}" 
+                            <!--<Label Style="{DynamicResource LabelStyle}" 
                                    Content="Compression" 
                                    HorizontalAlignment="Left" 
                                    VerticalAlignment="Top"
@@ -2162,8 +2162,8 @@
                                    Grid.Row="6"
                                    Grid.Column="1" />
                             <ComboBox x:Name="cboAudio_CompressionLevel" 
-                                      Style="{DynamicResource ComboBoxCustom}"
-                                      ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" 
+                                      Style="{DynamicResource ComboBoxStyle}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxStyleItem}" 
                                       ItemsSource="{Binding Audio_CompressionLevel_Items}"
                                       SelectedIndex="{Binding Audio_CompressionLevel_SelectedIndex}"
                                       SelectedValuePath="Name"
@@ -2195,7 +2195,7 @@
 
 
                             <!-- Sample Rate -->
-                            <Label Style="{DynamicResource LabelCustom}" 
+                            <Label Style="{DynamicResource LabelStyle}" 
                                    Content="Sample Rate" 
                                    HorizontalAlignment="Left" 
                                    VerticalAlignment="Top"
@@ -2205,8 +2205,8 @@
                                    Grid.Column="1"
                                    />
                             <ComboBox x:Name="cboAudio_SampleRate" 
-                                      Style="{DynamicResource ComboBoxCustom}"
-                                      ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" 
+                                      Style="{DynamicResource ComboBoxStyle}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxStyleItem}" 
                                       ItemsSource="{Binding Audio_SampleRate_Items}"
                                       SelectedIndex="{Binding Audio_SampleRate_SelectedIndex}"
                                       SelectedValuePath="Name"
@@ -2237,7 +2237,7 @@
 
                             <!-- Bit Depth -->
                             <Label x:Name="labelBitdepth"
-                                   Style="{DynamicResource LabelCustom}" 
+                                   Style="{DynamicResource LabelStyle}" 
                                    Content="Bit Depth" 
                                    HorizontalAlignment="Left" 
                                    VerticalAlignment="Top" 
@@ -2246,8 +2246,8 @@
                                    Grid.Row="8" 
                                    Grid.Column="1" />
                             <ComboBox x:Name="cboAudio_BitDepth" 
-                                      Style="{DynamicResource ComboBoxCustom}"
-                                      ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" 
+                                      Style="{DynamicResource ComboBoxStyle}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxStyleItem}" 
                                       ItemsSource="{Binding Audio_BitDepth_Items}"
                                       SelectedIndex="{Binding Audio_BitDepth_SelectedIndex}"
                                       SelectedValuePath="Name"
@@ -2277,7 +2277,7 @@
                             </ComboBox>
 
                             <!-- Volume -->
-                            <Label Style="{DynamicResource LabelCustom}"  
+                            <Label Style="{DynamicResource LabelStyle}"  
                                    Content="Volume"
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Top" 
@@ -2288,7 +2288,7 @@
                             <TextBox x:Name="tbxAudio_Volume" 
                                      Text="{Binding Audio_Volume_Text, Mode=TwoWay}"
                                      IsEnabled="{Binding Audio_Volume_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                     Style="{DynamicResource TextBoxCustom}" 
+                                     Style="{DynamicResource TextBoxStyle}" 
                                      HorizontalAlignment="Left" 
                                      TextAlignment="Right"
                                      Height="22"
@@ -2359,7 +2359,7 @@
                             </Button>
 
                             <!-- Audio Limiter Toggle -->
-                            <Label Style="{DynamicResource LabelCustom}"  
+                            <Label Style="{DynamicResource LabelStyle}"  
                                    Content="Hard Limiter" 
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Top"
@@ -2385,7 +2385,7 @@
                                     Grid.Row="11" 
                                     Height="18"/>
                             <TextBox x:Name="tbxAudio_HardLimiter"
-                                     Style="{DynamicResource TextBoxCustom}" 
+                                     Style="{DynamicResource TextBoxStyle}" 
                                      Text="{Binding Value, ElementName=slAudio_HardLimiter, StringFormat=N2, UpdateSourceTrigger=PropertyChanged}"
                                      IsEnabled="{Binding Audio_HardLimiter_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                      Height="22" 
@@ -2436,7 +2436,7 @@
 
                             <!-- Subtitle Codec -->
                             <Label 
-                                Style="{DynamicResource LabelCustom}"
+                                Style="{DynamicResource LabelStyle}"
                                 Content="Subtitle Codec" 
                                 HorizontalAlignment="Left" 
                                 VerticalAlignment="Top" 
@@ -2451,8 +2451,8 @@
                                       SelectedItem="{Binding Subtitle_Codec_SelectedItem}"
                                       IsEnabled="{Binding Subtitle_Codec_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                       IsSynchronizedWithCurrentItem="True"
-                                      Style="{DynamicResource ComboBoxWhite}"
-                                      ItemContainerStyle="{DynamicResource ComboBoxWhiteItem}"
+                                      Style="{DynamicResource ComboBoxCategoryStyle}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxCategoryStyleItem}"
                                       HorizontalAlignment="Left" 
                                       VerticalAlignment="Bottom" 
                                       Width="105" 
@@ -2463,7 +2463,7 @@
                                       Margin="0,0,0,9" />
 
                             <!-- Subtitles -->
-                            <Label Style="{DynamicResource LabelCustom}"
+                            <Label Style="{DynamicResource LabelStyle}"
                                    Content="Stream" 
                                    HorizontalAlignment="Left" 
                                    VerticalAlignment="Top"
@@ -2480,8 +2480,8 @@
                                       SelectedItem="{Binding Subtitle_Stream_SelectedItem}"
                                       IsEnabled="{Binding Subtitle_Stream_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                       IsSynchronizedWithCurrentItem="True"
-                                      Style="{DynamicResource ComboBoxCustom}"
-                                      ItemContainerStyle="{DynamicResource ComboBoxCustomItem}"
+                                      Style="{DynamicResource ComboBoxStyle}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxStyleItem}"
                                       HorizontalAlignment="Left" 
                                       VerticalAlignment="Top" 
                                       Width="105" 
@@ -2705,7 +2705,7 @@
                                             <!-- Video Section -->
 
                                             <!-- Fix Group -->
-                                            <Label Style="{DynamicResource LabelCustom}"
+                                            <Label Style="{DynamicResource LabelStyle}"
                                                    Content="Fix" 
                                                    HorizontalAlignment="Left" 
                                                    VerticalAlignment="Top" 
@@ -2716,7 +2716,7 @@
                                                    Grid.Column="1" />
 
                                             <!-- Deband -->
-                                            <Label Style="{DynamicResource LabelCustom}"
+                                            <Label Style="{DynamicResource LabelStyle}"
                                                    Content="Deband" 
                                                    HorizontalAlignment="Left" 
                                                    VerticalAlignment="Top" 
@@ -2729,8 +2729,8 @@
                                             <ComboBox x:Name="cboFilterVideo_Deband" 
                                                       ItemsSource="{Binding FilterVideo_Deband_Items}"
                                                       SelectedItem="{Binding FilterVideo_Deband_SelectedItem, Mode=TwoWay}"
-                                                      Style="{DynamicResource ComboBoxCustom}"
-                                                      ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" 
+                                                      Style="{DynamicResource ComboBoxStyle}"
+                                                      ItemContainerStyle="{DynamicResource ComboBoxStyleItem}" 
                                                       HorizontalAlignment="Left"
                                                       Margin="0,2,0,0" 
                                                       VerticalAlignment="Top" 
@@ -2742,7 +2742,7 @@
                                             </ComboBox>
 
                                             <!-- Deshake -->
-                                            <Label Style="{DynamicResource LabelCustom}"
+                                            <Label Style="{DynamicResource LabelStyle}"
                                                    Content="Deshake" 
                                                    HorizontalAlignment="Left" 
                                                    VerticalAlignment="Top" 
@@ -2755,8 +2755,8 @@
                                             <ComboBox x:Name="cboFilterVideo_Deshake" 
                                                       ItemsSource="{Binding FilterVideo_Deshake_Items}"
                                                       SelectedItem="{Binding FilterVideo_Deshake_SelectedItem, Mode=TwoWay}"
-                                                      Style="{DynamicResource ComboBoxCustom}"
-                                                      ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" 
+                                                      Style="{DynamicResource ComboBoxStyle}"
+                                                      ItemContainerStyle="{DynamicResource ComboBoxStyleItem}" 
                                                       HorizontalAlignment="Left"
                                                       Margin="0,2,0,0" 
                                                       VerticalAlignment="Top" 
@@ -2768,7 +2768,7 @@
                                             </ComboBox>
 
                                             <!-- Deflicker -->
-                                            <Label Style="{DynamicResource LabelCustom}"
+                                            <Label Style="{DynamicResource LabelStyle}"
                                                    Content="Deflicker" 
                                                    HorizontalAlignment="Left" 
                                                    VerticalAlignment="Top" 
@@ -2779,8 +2779,8 @@
                                             <ComboBox x:Name="cboFilterVideo_Deflicker"
                                                       ItemsSource="{Binding FilterVideo_Deflicker_Items}"
                                                       SelectedItem="{Binding FilterVideo_Deflicker_SelectedItem, Mode=TwoWay}"
-                                                      Style="{DynamicResource ComboBoxCustom}"
-                                                      ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" 
+                                                      Style="{DynamicResource ComboBoxStyle}"
+                                                      ItemContainerStyle="{DynamicResource ComboBoxStyleItem}" 
                                                       HorizontalAlignment="Left"
                                                       Margin="0,2,0,0" 
                                                       VerticalAlignment="Top" 
@@ -2793,7 +2793,7 @@
 
                                             <!-- Dejudder -->
                                             <Label 
-                                                    Style="{DynamicResource LabelCustom}"
+                                                    Style="{DynamicResource LabelStyle}"
                                                     Content="Dejudder" 
                                                     HorizontalAlignment="Left" 
                                                     VerticalAlignment="Top" 
@@ -2804,8 +2804,8 @@
                                             <ComboBox x:Name="cboFilterVideo_Dejudder" 
                                                       ItemsSource="{Binding FilterVideo_Dejudder_Items}"
                                                       SelectedItem="{Binding FilterVideo_Dejudder_SelectedItem, Mode=TwoWay}"
-                                                      Style="{DynamicResource ComboBoxCustom}"
-                                                      ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" 
+                                                      Style="{DynamicResource ComboBoxStyle}"
+                                                      ItemContainerStyle="{DynamicResource ComboBoxStyleItem}" 
                                                       HorizontalAlignment="Left"
                                                       Margin="0,2,0,0" 
                                                       VerticalAlignment="Top" 
@@ -2818,7 +2818,7 @@
 
                                             <!-- Denoise -->
                                             <Label 
-                                                    Style="{DynamicResource LabelCustom}"
+                                                    Style="{DynamicResource LabelStyle}"
                                                     Content="Denoise" 
                                                     HorizontalAlignment="Left" 
                                                     VerticalAlignment="Top" 
@@ -2829,8 +2829,8 @@
                                             <ComboBox x:Name="cboFilterVideo_Denoise" 
                                                       ItemsSource="{Binding FilterVideo_Denoise_Items}"
                                                       SelectedItem="{Binding FilterVideo_Denoise_SelectedItem, Mode=TwoWay}"
-                                                      Style="{DynamicResource ComboBoxCustom}"
-                                                      ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" 
+                                                      Style="{DynamicResource ComboBoxStyle}"
+                                                      ItemContainerStyle="{DynamicResource ComboBoxStyleItem}" 
                                                       HorizontalAlignment="Left"
                                                       Margin="0,2,0,0" 
                                                       VerticalAlignment="Top" 
@@ -2842,7 +2842,7 @@
                                             </ComboBox>
 
                                             <!-- Deinterlace -->
-                                            <Label Style="{DynamicResource LabelCustom}"
+                                            <Label Style="{DynamicResource LabelStyle}"
                                                    Content="Deinterlace" 
                                                    HorizontalAlignment="Left" 
                                                    VerticalAlignment="Top" 
@@ -2854,8 +2854,8 @@
                                             <ComboBox x:Name="cboFilterVideo_Deinterlace" 
                                                       ItemsSource="{Binding FilterVideo_Deinterlace_Items}"
                                                       SelectedItem="{Binding FilterVideo_Deinterlace_SelectedItem, Mode=TwoWay}"
-                                                      Style="{DynamicResource ComboBoxCustom}"
-                                                      ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" 
+                                                      Style="{DynamicResource ComboBoxStyle}"
+                                                      ItemContainerStyle="{DynamicResource ComboBoxStyleItem}" 
                                                       HorizontalAlignment="Left"
                                                       Margin="0,2,0,0" 
                                                       VerticalAlignment="Top" 
@@ -2867,7 +2867,7 @@
 
                                             <!-- Color Group -->
                                             <!-- Selective Color -->
-                                            <Label Style="{DynamicResource LabelCustom}"
+                                            <Label Style="{DynamicResource LabelStyle}"
                                                    Content="Selective Color" 
                                                    HorizontalAlignment="Left" 
                                                    VerticalAlignment="Top" 
@@ -2878,7 +2878,7 @@
                                                    Grid.Column="1" />
 
                                             <!-- Color -->
-                                            <Label Style="{DynamicResource LabelCustom}"
+                                            <Label Style="{DynamicResource LabelStyle}"
                                                    Content="Color" 
                                                    HorizontalAlignment="Left" 
                                                    VerticalAlignment="Top" 
@@ -2889,9 +2889,9 @@
                                                    Grid.Column="1" />
 
                                             <ComboBox x:Name="cboFilterVideo_SelectiveColor" 
-                                                      Style="{DynamicResource ComboBoxCustom}"
+                                                      Style="{DynamicResource ComboBoxStyle}"
                                                       SelectedIndex="{Binding FilterVideo_SelectiveColor_SelectedIndex, Mode=TwoWay}"
-                                                      ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" 
+                                                      ItemContainerStyle="{DynamicResource ComboBoxStyleItem}" 
                                                       HorizontalAlignment="Left" 
                                                       VerticalAlignment="Top" 
                                                       Width="105"
@@ -2933,7 +2933,7 @@
                                             </ComboBox>
 
                                             <!-- Correction Method -->
-                                            <Label Style="{DynamicResource LabelCustom}"
+                                            <Label Style="{DynamicResource LabelStyle}"
                                                    Content="Method" 
                                                    HorizontalAlignment="Left"
                                                    Margin="0,32,0,0" 
@@ -2948,8 +2948,8 @@
                                             <ComboBox x:Name="cboFilterVideo_SelectiveColor_Correction_Method" 
                                                       ItemsSource="{Binding FilterVideo_SelectiveColor_Correction_Method_Items}"
                                                       SelectedItem="{Binding FilterVideo_SelectiveColor_Correction_Method_SelectedItem, Mode=TwoWay}"
-                                                      Style="{DynamicResource ComboBoxCustom}"
-                                                      ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" 
+                                                      Style="{DynamicResource ComboBoxStyle}"
+                                                      ItemContainerStyle="{DynamicResource ComboBoxStyleItem}" 
                                                       HorizontalAlignment="Left" 
                                                       VerticalAlignment="Top" 
                                                       Width="105"
@@ -2993,7 +2993,7 @@
                                                             </Grid.RowDefinitions>
 
                                                             <!-- Reds Cyan -->
-                                                            <Label Style="{DynamicResource LabelCustom}"
+                                                            <Label Style="{DynamicResource LabelStyle}"
                                                                    Content="Cyan" 
                                                                    HorizontalAlignment="Left"
                                                                    Margin="20,0,0,0" 
@@ -3017,7 +3017,7 @@
                                                                     MouseDoubleClick="slFilterVideo_SelectiveColor_Reds_Cyan_MouseDoubleClick"
                                                                     Grid.Column="1"/>
                                                             <TextBox x:Name="tbxFilterVideo_SelectiveColor_Reds_Cyan"
-                                                                    Style="{DynamicResource TextBoxCustom}" 
+                                                                    Style="{DynamicResource TextBoxStyle}" 
                                                                     Text="{Binding Value, ElementName=slFilterVideo_SelectiveColor_Reds_Cyan, UpdateSourceTrigger=PropertyChanged}"
                                                                     Height="22" 
                                                                     MaxLines="1"
@@ -3030,7 +3030,7 @@
                                                                     Grid.Column="1"/>
 
                                                             <!-- Reds Magenta -->
-                                                            <Label Style="{DynamicResource LabelCustom}"
+                                                            <Label Style="{DynamicResource LabelStyle}"
                                                                    Content="Magenta" 
                                                                    HorizontalAlignment="Left"
                                                                    Margin="20,0,0,0" 
@@ -3056,7 +3056,7 @@
                                                                     MouseDoubleClick="slFilterVideo_SelectiveColor_Reds_Magenta_MouseDoubleClick" 
                                                                     Grid.Column="1"/>
                                                             <TextBox x:Name="tbxFilterVideo_SelectiveColor_Reds_Magenta"
-                                                                    Style="{DynamicResource TextBoxCustom}" 
+                                                                    Style="{DynamicResource TextBoxStyle}" 
                                                                     Text="{Binding Value, ElementName=slFilterVideo_SelectiveColor_Reds_Magenta, UpdateSourceTrigger=PropertyChanged}"
                                                                     Height="22" 
                                                                     MaxLines="1"
@@ -3069,7 +3069,7 @@
                                                                     Grid.Row="1"/>
 
                                                             <!-- Reds Yellow -->
-                                                            <Label Style="{DynamicResource LabelCustom}"
+                                                            <Label Style="{DynamicResource LabelStyle}"
                                                                     Content="Yellow" 
                                                                     HorizontalAlignment="Left"
                                                                     Margin="20,0,0,0" 
@@ -3095,7 +3095,7 @@
                                                                     PreviewMouseUp="slFilterVideo_SelectiveColor_Reds_Yellow_PreviewMouseUp"
                                                                     MouseDoubleClick="slFilterVideo_SelectiveColor_Reds_Yellow_MouseDoubleClick"/>
                                                             <TextBox x:Name="tbxFilterVideo_SelectiveColor_Reds_Yellow"
-                                                                     Style="{DynamicResource TextBoxCustom}" 
+                                                                     Style="{DynamicResource TextBoxStyle}" 
                                                                     Text="{Binding Value, ElementName=slFilterVideo_SelectiveColor_Reds_Yellow, UpdateSourceTrigger=PropertyChanged}"
                                                                      Height="22" 
                                                                      MaxLines="1"
@@ -3133,7 +3133,7 @@
                                                             </Grid.RowDefinitions>
 
                                                             <!-- Yellows Cyan -->
-                                                            <Label Style="{DynamicResource LabelCustom}"
+                                                            <Label Style="{DynamicResource LabelStyle}"
                                                                     Content="Cyan" 
                                                                     HorizontalAlignment="Left"
                                                                     Margin="20,0,0,0" 
@@ -3156,7 +3156,7 @@
                                                                     MouseDoubleClick="slFilterVideo_SelectiveColor_Yellows_Cyan_MouseDoubleClick"
                                                                     Grid.ColumnSpan="2" />
                                                             <TextBox x:Name="tbxFilterVideo_SelectiveColor_Yellows_Cyan"
-                                                                    Style="{DynamicResource TextBoxCustom}" 
+                                                                    Style="{DynamicResource TextBoxStyle}" 
                                                                     Text="{Binding Value, ElementName=slFilterVideo_SelectiveColor_Yellows_Cyan, UpdateSourceTrigger=PropertyChanged}"
                                                                     Height="22" 
                                                                     MaxLines="1"
@@ -3169,7 +3169,7 @@
                                                                     PreviewKeyUp="tbxFilterVideo_SelectiveColor_Yellows_Cyan_PreviewKeyUp"/>
 
                                                             <!-- Yellows Magenta -->
-                                                            <Label Style="{DynamicResource LabelCustom}"
+                                                            <Label Style="{DynamicResource LabelStyle}"
                                                                     Content="Magenta" 
                                                                     HorizontalAlignment="Left"
                                                                     Margin="20,0,0,0" 
@@ -3194,7 +3194,7 @@
                                                                     Grid.Row="1" 
                                                                     Grid.Column="1" />
                                                             <TextBox x:Name="tbxFilterVideo_SelectiveColor_Yellows_Magenta"
-                                                                     Style="{DynamicResource TextBoxCustom}" 
+                                                                     Style="{DynamicResource TextBoxStyle}" 
                                                                     Text="{Binding Value, ElementName=slFilterVideo_SelectiveColor_Yellows_Magenta, UpdateSourceTrigger=PropertyChanged}"
                                                                      Height="22" 
                                                                      MaxLines="1"
@@ -3208,7 +3208,7 @@
                                                                      Grid.Row="1"/>
 
                                                             <!-- Yellows Yellow -->
-                                                            <Label Style="{DynamicResource LabelCustom}"
+                                                            <Label Style="{DynamicResource LabelStyle}"
                                                                     Content="Yellow" 
                                                                     HorizontalAlignment="Left"
                                                                     Margin="20,0,0,0" 
@@ -3233,7 +3233,7 @@
                                                                     Grid.Row="2" 
                                                                     Grid.ColumnSpan="2" />
                                                             <TextBox x:Name="tbxFilterVideo_SelectiveColor_Yellows_Yellow"
-                                                                     Style="{DynamicResource TextBoxCustom}" 
+                                                                     Style="{DynamicResource TextBoxStyle}" 
                                                                     Text="{Binding Value, ElementName=slFilterVideo_SelectiveColor_Yellows_Yellow, UpdateSourceTrigger=PropertyChanged}"
                                                                      Height="22" 
                                                                      MaxLines="1"
@@ -3272,7 +3272,7 @@
                                                             </Grid.RowDefinitions>
 
                                                             <!-- Greens Cyan -->
-                                                            <Label Style="{DynamicResource LabelCustom}"
+                                                            <Label Style="{DynamicResource LabelStyle}"
                                                                     Content="Cyan" 
                                                                     HorizontalAlignment="Left"
                                                                     Margin="20,0,0,0" 
@@ -3295,7 +3295,7 @@
                                                                     MouseDoubleClick="slFilterVideo_SelectiveColor_Greens_Cyan_MouseDoubleClick"
                                                                     Grid.ColumnSpan="2" />
                                                             <TextBox x:Name="tbxFilterVideo_SelectiveColor_Greens_Cyan"
-                                                                    Style="{DynamicResource TextBoxCustom}" 
+                                                                    Style="{DynamicResource TextBoxStyle}" 
                                                                     Text="{Binding Value, ElementName=slFilterVideo_SelectiveColor_Greens_Cyan, UpdateSourceTrigger=PropertyChanged}"
                                                                     Height="22" 
                                                                     MaxLines="1"
@@ -3308,7 +3308,7 @@
                                                                     Grid.Column="1"/>
 
                                                             <!-- Greens Magenta -->
-                                                            <Label Style="{DynamicResource LabelCustom}"
+                                                            <Label Style="{DynamicResource LabelStyle}"
                                                                     Content="Magenta" 
                                                                     HorizontalAlignment="Left"
                                                                     Margin="20,0,0,0" 
@@ -3333,7 +3333,7 @@
                                                                     Grid.Row="1" 
                                                                     Grid.Column="1" />
                                                             <TextBox x:Name="tbxFilterVideo_SelectiveColor_Greens_Magenta"
-                                                                     Style="{DynamicResource TextBoxCustom}" 
+                                                                     Style="{DynamicResource TextBoxStyle}" 
                                                                     Text="{Binding Value, ElementName=slFilterVideo_SelectiveColor_Greens_Magenta, UpdateSourceTrigger=PropertyChanged}"
                                                                      Height="22" 
                                                                      MaxLines="1"
@@ -3347,7 +3347,7 @@
                                                                      Grid.Row="1"/>
 
                                                             <!-- Greens Yellow -->
-                                                            <Label Style="{DynamicResource LabelCustom}"
+                                                            <Label Style="{DynamicResource LabelStyle}"
                                                                     Content="Yellow" 
                                                                     HorizontalAlignment="Left"
                                                                     Margin="20,0,0,0" 
@@ -3372,7 +3372,7 @@
                                                                     Grid.Row="2" 
                                                                     Grid.ColumnSpan="2" />
                                                             <TextBox x:Name="tbxFilterVideo_SelectiveColor_Greens_Yellow"
-                                                                     Style="{DynamicResource TextBoxCustom}" 
+                                                                     Style="{DynamicResource TextBoxStyle}" 
                                                                     Text="{Binding Value, ElementName=slFilterVideo_SelectiveColor_Greens_Yellow, UpdateSourceTrigger=PropertyChanged}"
                                                                      Height="22" 
                                                                      MaxLines="1"
@@ -3411,7 +3411,7 @@
                                                             </Grid.RowDefinitions>
 
                                                             <!-- Cyans Cyan -->
-                                                            <Label Style="{DynamicResource LabelCustom}"
+                                                            <Label Style="{DynamicResource LabelStyle}"
                                                                     Content="Cyan" 
                                                                     HorizontalAlignment="Left"
                                                                     Margin="20,0,0,0" 
@@ -3434,7 +3434,7 @@
                                                                     MouseDoubleClick="slFilterVideo_SelectiveColor_Cyans_Cyan_MouseDoubleClick"
                                                                     Grid.ColumnSpan="2" />
                                                             <TextBox x:Name="tbxFilterVideo_SelectiveColor_Cyans_Cyan"
-                                                                     Style="{DynamicResource TextBoxCustom}" 
+                                                                     Style="{DynamicResource TextBoxStyle}" 
                                                                     Text="{Binding Value, ElementName=slFilterVideo_SelectiveColor_Cyans_Cyan, UpdateSourceTrigger=PropertyChanged}"
                                                                      Height="22" 
                                                                      MaxLines="1"
@@ -3447,7 +3447,7 @@
                                                                      Grid.Column="1"/>
 
                                                             <!-- Cyans Magenta -->
-                                                            <Label Style="{DynamicResource LabelCustom}"
+                                                            <Label Style="{DynamicResource LabelStyle}"
                                                                     Content="Magenta" 
                                                                     HorizontalAlignment="Left"
                                                                     Margin="20,0,0,0" 
@@ -3472,7 +3472,7 @@
                                                                     Grid.Row="1" 
                                                                     Grid.Column="1" />
                                                             <TextBox x:Name="tbxFilterVideo_SelectiveColor_Cyans_Magenta"
-                                                                     Style="{DynamicResource TextBoxCustom}" 
+                                                                     Style="{DynamicResource TextBoxStyle}" 
                                                                     Text="{Binding Value, ElementName=slFilterVideo_SelectiveColor_Cyans_Magenta, UpdateSourceTrigger=PropertyChanged}"
                                                                      Height="22" 
                                                                      MaxLines="1"
@@ -3486,7 +3486,7 @@
                                                                      Grid.Row="1"/>
 
                                                             <!-- Cyans Yellow -->
-                                                            <Label Style="{DynamicResource LabelCustom}"
+                                                            <Label Style="{DynamicResource LabelStyle}"
                                                                     Content="Yellow" 
                                                                     HorizontalAlignment="Left"
                                                                     Margin="20,0,0,0" 
@@ -3511,7 +3511,7 @@
                                                                     Grid.Row="2" 
                                                                     Grid.ColumnSpan="2" />
                                                             <TextBox x:Name="tbxFilterVideo_SelectiveColor_Cyans_Yellow"
-                                                                     Style="{DynamicResource TextBoxCustom}" 
+                                                                     Style="{DynamicResource TextBoxStyle}" 
                                                                     Text="{Binding Value, ElementName=slFilterVideo_SelectiveColor_Cyans_Yellow, UpdateSourceTrigger=PropertyChanged}"
                                                                      Height="22" 
                                                                      MaxLines="1"
@@ -3550,7 +3550,7 @@
                                                             </Grid.RowDefinitions>
 
                                                             <!-- Blues Cyan -->
-                                                            <Label Style="{DynamicResource LabelCustom}"
+                                                            <Label Style="{DynamicResource LabelStyle}"
                                                                    Content="Cyan" 
                                                                    HorizontalAlignment="Left"
                                                                    Margin="20,0,0,0" 
@@ -3573,7 +3573,7 @@
                                                                     MouseDoubleClick="slFilterVideo_SelectiveColor_Blues_Cyan_MouseDoubleClick"
                                                                     Grid.ColumnSpan="2" />
                                                             <TextBox x:Name="tbxFilterVideo_SelectiveColor_Blues_Cyan"
-                                                                    Style="{DynamicResource TextBoxCustom}" 
+                                                                    Style="{DynamicResource TextBoxStyle}" 
                                                                     Text="{Binding Value, ElementName=slFilterVideo_SelectiveColor_Blues_Cyan, UpdateSourceTrigger=PropertyChanged}"
                                                                     Height="22" 
                                                                     MaxLines="1"
@@ -3586,7 +3586,7 @@
                                                                     Grid.Column="1"/>
 
                                                             <!-- Blues Magenta -->
-                                                            <Label Style="{DynamicResource LabelCustom}"
+                                                            <Label Style="{DynamicResource LabelStyle}"
                                                                     Content="Magenta" 
                                                                     HorizontalAlignment="Left"
                                                                     Margin="20,0,0,0" 
@@ -3611,7 +3611,7 @@
                                                                     Grid.Row="1" 
                                                                     Grid.Column="1" />
                                                             <TextBox x:Name="tbxFilterVideo_SelectiveColor_Blues_Magenta"
-                                                                     Style="{DynamicResource TextBoxCustom}" 
+                                                                     Style="{DynamicResource TextBoxStyle}" 
                                                                     Text="{Binding Value, ElementName=slFilterVideo_SelectiveColor_Blues_Magenta, UpdateSourceTrigger=PropertyChanged}"
                                                                      Height="22" 
                                                                      MaxLines="1"
@@ -3625,7 +3625,7 @@
                                                                      Grid.Row="1"/>
 
                                                             <!-- Blues Yellow -->
-                                                            <Label Style="{DynamicResource LabelCustom}"
+                                                            <Label Style="{DynamicResource LabelStyle}"
                                                                     Content="Yellow" 
                                                                     HorizontalAlignment="Left"
                                                                     Margin="20,0,0,0" 
@@ -3650,7 +3650,7 @@
                                                                     Grid.Row="2" 
                                                                     Grid.ColumnSpan="2" />
                                                             <TextBox x:Name="tbxFilterVideo_SelectiveColor_Blues_Yellow"
-                                                                     Style="{DynamicResource TextBoxCustom}" 
+                                                                     Style="{DynamicResource TextBoxStyle}" 
                                                                     Text="{Binding Value, ElementName=slFilterVideo_SelectiveColor_Blues_Yellow, UpdateSourceTrigger=PropertyChanged}"
                                                                      Height="22" 
                                                                      MaxLines="1"
@@ -3689,7 +3689,7 @@
                                                             </Grid.RowDefinitions>
 
                                                             <!-- Magentas Cyan -->
-                                                            <Label Style="{DynamicResource LabelCustom}"
+                                                            <Label Style="{DynamicResource LabelStyle}"
                                                                     Content="Cyan" 
                                                                     HorizontalAlignment="Left"
                                                                     Margin="20,0,0,0" 
@@ -3712,7 +3712,7 @@
                                                                     MouseDoubleClick="slFilterVideo_SelectiveColor_Magentas_Cyan_MouseDoubleClick"
                                                                     Grid.ColumnSpan="2" />
                                                             <TextBox x:Name="tbxFilterVideo_SelectiveColor_Magentas_Cyan"
-                                                                    Style="{DynamicResource TextBoxCustom}" 
+                                                                    Style="{DynamicResource TextBoxStyle}" 
                                                                     Text="{Binding Value, ElementName=slFilterVideo_SelectiveColor_Magentas_Cyan, UpdateSourceTrigger=PropertyChanged}"
                                                                     Height="22" 
                                                                     MaxLines="1"
@@ -3725,7 +3725,7 @@
                                                                     Grid.Column="1"/>
 
                                                             <!-- Magentas Magenta -->
-                                                            <Label Style="{DynamicResource LabelCustom}"
+                                                            <Label Style="{DynamicResource LabelStyle}"
                                                                     Content="Magenta" 
                                                                     HorizontalAlignment="Left"
                                                                     Margin="20,0,0,0" 
@@ -3750,7 +3750,7 @@
                                                                     Grid.Row="1" 
                                                                     Grid.Column="1" />
                                                             <TextBox x:Name="tbxFilterVideo_SelectiveColor_Magentas_Magenta"
-                                                                     Style="{DynamicResource TextBoxCustom}" 
+                                                                     Style="{DynamicResource TextBoxStyle}" 
                                                                     Text="{Binding Value, ElementName=slFilterVideo_SelectiveColor_Magentas_Magenta, UpdateSourceTrigger=PropertyChanged}"
                                                                      Height="22" 
                                                                      MaxLines="1"
@@ -3764,7 +3764,7 @@
                                                                      Grid.Row="1"/>
 
                                                             <!-- Magentas Yellow -->
-                                                            <Label Style="{DynamicResource LabelCustom}"
+                                                            <Label Style="{DynamicResource LabelStyle}"
                                                                     Content="Yellow" 
                                                                     HorizontalAlignment="Left"
                                                                     Margin="20,0,0,0" 
@@ -3789,7 +3789,7 @@
                                                                     Grid.Row="2" 
                                                                     Grid.ColumnSpan="2" />
                                                             <TextBox x:Name="tbxFilterVideo_SelectiveColor_Magentas_Yellow"
-                                                                     Style="{DynamicResource TextBoxCustom}" 
+                                                                     Style="{DynamicResource TextBoxStyle}" 
                                                                     Text="{Binding Value, ElementName=slFilterVideo_SelectiveColor_Magentas_Yellow, UpdateSourceTrigger=PropertyChanged}"
                                                                      Height="22" 
                                                                      MaxLines="1"
@@ -3828,7 +3828,7 @@
                                                             </Grid.RowDefinitions>
 
                                                             <!-- Whites Cyan -->
-                                                            <Label Style="{DynamicResource LabelCustom}"
+                                                            <Label Style="{DynamicResource LabelStyle}"
                                                                     Content="Cyan" 
                                                                     HorizontalAlignment="Left"
                                                                     Margin="20,0,0,0" 
@@ -3851,7 +3851,7 @@
                                                                     MouseDoubleClick="slFilterVideo_SelectiveColor_Whites_Cyan_MouseDoubleClick"
                                                                     Grid.ColumnSpan="2" />
                                                             <TextBox x:Name="tbxFilterVideo_SelectiveColor_Whites_Cyan"
-                                                                    Style="{DynamicResource TextBoxCustom}" 
+                                                                    Style="{DynamicResource TextBoxStyle}" 
                                                                     Text="{Binding Value, ElementName=slFilterVideo_SelectiveColor_Whites_Cyan, UpdateSourceTrigger=PropertyChanged}"
                                                                     Height="22" 
                                                                     MaxLines="1"
@@ -3864,7 +3864,7 @@
                                                                     Grid.Column="1"/>
 
                                                             <!-- Whites Magenta -->
-                                                            <Label Style="{DynamicResource LabelCustom}"
+                                                            <Label Style="{DynamicResource LabelStyle}"
                                                                     Content="Magenta" 
                                                                     HorizontalAlignment="Left"
                                                                     Margin="20,0,0,0" 
@@ -3889,7 +3889,7 @@
                                                                     Grid.Row="1" 
                                                                     Grid.Column="1" />
                                                             <TextBox x:Name="tbxFilterVideo_SelectiveColor_Whites_Magenta"
-                                                                     Style="{DynamicResource TextBoxCustom}" 
+                                                                     Style="{DynamicResource TextBoxStyle}" 
                                                                     Text="{Binding Value, ElementName=slFilterVideo_SelectiveColor_Whites_Magenta, UpdateSourceTrigger=PropertyChanged}"
                                                                      Height="22" 
                                                                      MaxLines="1"
@@ -3903,7 +3903,7 @@
                                                                      Grid.Row="1"/>
 
                                                             <!-- Whites Yellow -->
-                                                            <Label Style="{DynamicResource LabelCustom}"
+                                                            <Label Style="{DynamicResource LabelStyle}"
                                                                     Content="Yellow" 
                                                                     HorizontalAlignment="Left"
                                                                     Margin="20,0,0,0" 
@@ -3928,7 +3928,7 @@
                                                                     Grid.Row="2" 
                                                                     Grid.ColumnSpan="2" />
                                                             <TextBox x:Name="tbxFilterVideo_SelectiveColor_Whites_Yellow"
-                                                                     Style="{DynamicResource TextBoxCustom}" 
+                                                                     Style="{DynamicResource TextBoxStyle}" 
                                                                     Text="{Binding Value, ElementName=slFilterVideo_SelectiveColor_Whites_Yellow, UpdateSourceTrigger=PropertyChanged}"
                                                                      Height="22" 
                                                                      MaxLines="1"
@@ -3967,7 +3967,7 @@
                                                             </Grid.RowDefinitions>
 
                                                             <!-- Neutrals Cyan -->
-                                                            <Label Style="{DynamicResource LabelCustom}"
+                                                            <Label Style="{DynamicResource LabelStyle}"
                                                                     Content="Cyan" 
                                                                     HorizontalAlignment="Left"
                                                                     Margin="20,0,0,0" 
@@ -3990,7 +3990,7 @@
                                                                     MouseDoubleClick="slFilterVideo_SelectiveColor_Neutrals_Cyan_MouseDoubleClick"
                                                                     Grid.ColumnSpan="2" />
                                                             <TextBox x:Name="tbxFilterVideo_SelectiveColor_Neutrals_Cyan"
-                                                                    Style="{DynamicResource TextBoxCustom}" 
+                                                                    Style="{DynamicResource TextBoxStyle}" 
                                                                     Text="{Binding Value, ElementName=slFilterVideo_SelectiveColor_Neutrals_Cyan, UpdateSourceTrigger=PropertyChanged}"
                                                                     Height="22" 
                                                                     MaxLines="1"
@@ -4003,7 +4003,7 @@
                                                                     Grid.Column="1"/>
 
                                                             <!-- Neutrals Magenta -->
-                                                            <Label Style="{DynamicResource LabelCustom}"
+                                                            <Label Style="{DynamicResource LabelStyle}"
                                                                     Content="Magenta" 
                                                                     HorizontalAlignment="Left"
                                                                     Margin="20,0,0,0" 
@@ -4028,7 +4028,7 @@
                                                                     Grid.Row="1" 
                                                                     Grid.Column="1" />
                                                             <TextBox x:Name="tbxFilterVideo_SelectiveColor_Neutrals_Magenta"
-                                                                     Style="{DynamicResource TextBoxCustom}" 
+                                                                     Style="{DynamicResource TextBoxStyle}" 
                                                                     Text="{Binding Value, ElementName=slFilterVideo_SelectiveColor_Neutrals_Magenta, UpdateSourceTrigger=PropertyChanged}"
                                                                      Height="22" 
                                                                      MaxLines="1"
@@ -4042,7 +4042,7 @@
                                                                      Grid.Row="1"/>
 
                                                             <!-- Neutrals Yellow -->
-                                                            <Label Style="{DynamicResource LabelCustom}"
+                                                            <Label Style="{DynamicResource LabelStyle}"
                                                                     Content="Yellow" 
                                                                     HorizontalAlignment="Left"
                                                                     Margin="20,0,0,0" 
@@ -4067,7 +4067,7 @@
                                                                     Grid.Row="2" 
                                                                     Grid.ColumnSpan="2" />
                                                             <TextBox x:Name="tbxFilterVideo_SelectiveColor_Neutrals_Yellow"
-                                                                     Style="{DynamicResource TextBoxCustom}" 
+                                                                     Style="{DynamicResource TextBoxStyle}" 
                                                                     Text="{Binding Value, ElementName=slFilterVideo_SelectiveColor_Neutrals_Yellow, UpdateSourceTrigger=PropertyChanged}"
                                                                      Height="22" 
                                                                      MaxLines="1"
@@ -4106,7 +4106,7 @@
                                                             </Grid.RowDefinitions>
 
                                                             <!-- Blacks Cyan -->
-                                                            <Label Style="{DynamicResource LabelCustom}"
+                                                            <Label Style="{DynamicResource LabelStyle}"
                                                                     Content="Cyan" 
                                                                     HorizontalAlignment="Left"
                                                                     Margin="20,0,0,0" 
@@ -4129,7 +4129,7 @@
                                                                     MouseDoubleClick="slFilterVideo_SelectiveColor_Blacks_Cyan_MouseDoubleClick"
                                                                     Grid.ColumnSpan="2" />
                                                             <TextBox x:Name="tbxFilterVideo_SelectiveColor_Blacks_Cyan"
-                                                                     Style="{DynamicResource TextBoxCustom}" 
+                                                                     Style="{DynamicResource TextBoxStyle}" 
                                                                     Text="{Binding Value, ElementName=slFilterVideo_SelectiveColor_Blacks_Cyan, UpdateSourceTrigger=PropertyChanged}"
                                                                      Height="22" 
                                                                      MaxLines="1"
@@ -4142,7 +4142,7 @@
                                                                      Grid.Column="1"/>
 
                                                             <!-- Blacks Magenta -->
-                                                            <Label Style="{DynamicResource LabelCustom}"
+                                                            <Label Style="{DynamicResource LabelStyle}"
                                                                     Content="Magenta" 
                                                                     HorizontalAlignment="Left"
                                                                     Margin="20,0,0,0" 
@@ -4167,7 +4167,7 @@
                                                                     Grid.Row="1" 
                                                                     Grid.Column="1" />
                                                             <TextBox x:Name="tbxFilterVideo_SelectiveColor_Blacks_Magenta"
-                                                                     Style="{DynamicResource TextBoxCustom}" 
+                                                                     Style="{DynamicResource TextBoxStyle}" 
                                                                     Text="{Binding Value, ElementName=slFilterVideo_SelectiveColor_Blacks_Magenta, UpdateSourceTrigger=PropertyChanged}"
                                                                      Height="22" 
                                                                      MaxLines="1"
@@ -4181,7 +4181,7 @@
                                                                      Grid.Row="1"/>
 
                                                             <!-- Blacks Yellow -->
-                                                            <Label Style="{DynamicResource LabelCustom}"
+                                                            <Label Style="{DynamicResource LabelStyle}"
                                                                     Content="Yellow" 
                                                                     HorizontalAlignment="Left"
                                                                     Margin="20,0,0,0" 
@@ -4206,7 +4206,7 @@
                                                                     Grid.Row="2" 
                                                                     Grid.ColumnSpan="2" />
                                                             <TextBox x:Name="tbxFilterVideo_SelectiveColor_Blacks_Yellow"
-                                                                     Style="{DynamicResource TextBoxCustom}" 
+                                                                     Style="{DynamicResource TextBoxStyle}" 
                                                                     Text="{Binding Value, ElementName=slFilterVideo_SelectiveColor_Blacks_Yellow, UpdateSourceTrigger=PropertyChanged}"
                                                                      Height="22" 
                                                                      MaxLines="1"
@@ -4227,7 +4227,7 @@
 
                                             <!-- Selective Color Rest Button -->
                                             <Button x:Name="btnFilterVideo_SelectiveColorReset"
-                                                    Style="{DynamicResource ButtonCropCustom}"
+                                                    Style="{DynamicResource ButtonCropStyle}"
                                                     Margin="55,0,0,12"
                                                     Cursor="Hand" 
                                                     MaxWidth="60" 
@@ -4251,7 +4251,7 @@
 
                                             <!-- EQ -->
                                             <Label 
-                                                Style="{DynamicResource LabelCustom}"
+                                                Style="{DynamicResource LabelStyle}"
                                                 Content="EQ" 
                                                 HorizontalAlignment="Left" 
                                                 VerticalAlignment="Top" 
@@ -4262,7 +4262,7 @@
                                                 Grid.Column="1" />
 
                                             <!-- Brightness -->
-                                            <Label Style="{DynamicResource LabelCustom}"
+                                            <Label Style="{DynamicResource LabelStyle}"
                                                    Content="Brightness" 
                                                    HorizontalAlignment="Left" 
                                                    VerticalAlignment="Top" 
@@ -4288,7 +4288,7 @@
                                                     Grid.Row="10" 
                                                     Height="18"/>
                                             <TextBox x:Name="tbxFilterVideo_EQ_Brightness"
-                                                     Style="{DynamicResource TextBoxCustom}" 
+                                                     Style="{DynamicResource TextBoxStyle}" 
                                                      Text="{Binding Value, ElementName=slFilterVideo_EQ_Brightness, UpdateSourceTrigger=PropertyChanged}"
                                                      Height="22" 
                                                      MaxLines="1"
@@ -4303,7 +4303,7 @@
                                                      Grid.Row="10"/>
 
                                             <!-- Contrast -->
-                                            <Label Style="{DynamicResource LabelCustom}"
+                                            <Label Style="{DynamicResource LabelStyle}"
                                                    Content="Contrast" 
                                                    HorizontalAlignment="Left" 
                                                    VerticalAlignment="Top" 
@@ -4329,7 +4329,7 @@
                                                     Grid.Row="11" 
                                                     Height="18"/>
                                             <TextBox x:Name="tbxFilterVideo_EQ_Contrast"
-                                                    Style="{DynamicResource TextBoxCustom}" 
+                                                    Style="{DynamicResource TextBoxStyle}" 
                                                     Text="{Binding Value, ElementName=slFilterVideo_EQ_Contrast, UpdateSourceTrigger=PropertyChanged}"
                                                     Height="22" 
                                                     MaxLines="1"
@@ -4344,7 +4344,7 @@
                                                     Grid.Row="11"/>
 
                                             <!-- Saturation -->
-                                            <Label Style="{DynamicResource LabelCustom}"
+                                            <Label Style="{DynamicResource LabelStyle}"
                                                    Content="Saturation" 
                                                    HorizontalAlignment="Left" 
                                                    VerticalAlignment="Top" 
@@ -4370,7 +4370,7 @@
                                                     Grid.Row="12" 
                                                     Height="18"/>
                                             <TextBox x:Name="tbxFilterVideo_EQ_Saturation"
-                                                    Style="{DynamicResource TextBoxCustom}" 
+                                                    Style="{DynamicResource TextBoxStyle}" 
                                                     Text="{Binding Value, ElementName=slFilterVideo_EQ_Saturation, UpdateSourceTrigger=PropertyChanged}"
                                                     Height="22" 
                                                     MaxLines="1"
@@ -4385,7 +4385,7 @@
                                                     Grid.Row="12"/>
 
                                             <!-- Gamma -->
-                                            <Label Style="{DynamicResource LabelCustom}"
+                                            <Label Style="{DynamicResource LabelStyle}"
                                                    Content="Gamma" 
                                                    HorizontalAlignment="Left" 
                                                    VerticalAlignment="Top" 
@@ -4411,7 +4411,7 @@
                                                     Grid.Row="13" 
                                                     Height="18"/>
                                             <TextBox x:Name="tbxFilterVideo_EQ_Gamma"
-                                                    Style="{DynamicResource TextBoxCustom}" 
+                                                    Style="{DynamicResource TextBoxStyle}" 
                                                     Text="{Binding Value, ElementName=slFilterVideo_EQ_Gamma, UpdateSourceTrigger=PropertyChanged}"
                                                     Height="22" 
                                                     MaxLines="1"
@@ -4427,7 +4427,7 @@
 
                                             <!-- EQ Reset Button -->
                                             <Button x:Name="btnFilterVideo_EQ_Reset"
-                                                    Style="{DynamicResource ButtonCropCustom}"
+                                                    Style="{DynamicResource ButtonCropStyle}"
                                                     Margin="54,0,0,4"
                                                     Cursor="Hand" 
                                                     MaxWidth="60" 
@@ -4450,7 +4450,7 @@
 
                                             <!-- Audio Section -->
                                             <!--<Label x:Name="lblFiltersAudioSection"
-                                                       Style="{DynamicResource LabelCustom}"
+                                                       Style="{DynamicResource LabelStyle}"
                                                        Content="Audio" 
                                                        HorizontalAlignment="Left"
                                                        Margin="20,0,0,0" 
@@ -4504,7 +4504,7 @@
                                             </Grid.RowDefinitions>
 
                                             <!-- Fix Group -->
-                                            <!--<Label Style="{DynamicResource LabelCustom}"
+                                            <!--<Label Style="{DynamicResource LabelStyle}"
                                                    Content="Fix" 
                                                    HorizontalAlignment="Left" 
                                                    VerticalAlignment="Top" 
@@ -4515,7 +4515,7 @@
                                                    Grid.Row="0" />-->
 
                                             <!-- Remove Click -->
-                                            <!--<Label Style="{DynamicResource LabelCustom}"
+                                            <!--<Label Style="{DynamicResource LabelStyle}"
                                                    Content="Remove Click" 
                                                    HorizontalAlignment="Left" 
                                                    VerticalAlignment="Top" 
@@ -4551,7 +4551,7 @@
                                                      Grid.Row="1"/>-->
 
                                             <!-- EQ Group -->
-                                            <Label Style="{DynamicResource LabelCustom}"
+                                            <Label Style="{DynamicResource LabelStyle}"
                                                    Content="EQ" 
                                                    HorizontalAlignment="Left" 
                                                    VerticalAlignment="Top" 
@@ -4562,7 +4562,7 @@
                                                    Grid.Row="3" />
 
                                             <!-- Lowpass -->
-                                            <Label Style="{DynamicResource LabelCustom}"
+                                            <Label Style="{DynamicResource LabelStyle}"
                                                    Content="Lowpass" 
                                                    HorizontalAlignment="Left" 
                                                    VerticalAlignment="Top" 
@@ -4574,8 +4574,8 @@
                                             <ComboBox x:Name="cboFilterAudio_Lowpass" 
                                                       ItemsSource="{Binding FilterAudio_Lowpass_Items}"
                                                       SelectedItem="{Binding FilterAudio_Lowpass_SelectedItem, Mode=TwoWay}"
-                                                      Style="{DynamicResource ComboBoxCustom}"
-                                                      ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" 
+                                                      Style="{DynamicResource ComboBoxStyle}"
+                                                      ItemContainerStyle="{DynamicResource ComboBoxStyleItem}" 
                                                       HorizontalAlignment="Left"
                                                       Margin="0,2,0,0" 
                                                       VerticalAlignment="Top" 
@@ -4586,7 +4586,7 @@
                                             </ComboBox>
 
                                             <!-- Highpass -->
-                                            <Label Style="{DynamicResource LabelCustom}"
+                                            <Label Style="{DynamicResource LabelStyle}"
                                                    Content="Highpass" 
                                                    HorizontalAlignment="Left" 
                                                    VerticalAlignment="Top" 
@@ -4598,8 +4598,8 @@
                                             <ComboBox x:Name="cboFilterAudio_Highpass" 
                                                       ItemsSource="{Binding FilterAudio_Highpass_Items}"
                                                       SelectedItem="{Binding FilterAudio_Highpass_SelectedItem, Mode=TwoWay}"
-                                                      Style="{DynamicResource ComboBoxCustom}"
-                                                      ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" 
+                                                      Style="{DynamicResource ComboBoxStyle}"
+                                                      ItemContainerStyle="{DynamicResource ComboBoxStyleItem}" 
                                                       HorizontalAlignment="Left"
                                                       Margin="0,2,0,0" 
                                                       VerticalAlignment="Top" 
@@ -4610,7 +4610,7 @@
                                             </ComboBox>
 
                                             <!-- Dynamics Group -->
-                                            <Label Style="{DynamicResource LabelCustom}"
+                                            <Label Style="{DynamicResource LabelStyle}"
                                                    Content="Dynamics" 
                                                    HorizontalAlignment="Left" 
                                                    VerticalAlignment="Top" 
@@ -4621,7 +4621,7 @@
                                                    Grid.Row="7" />
 
                                             <!-- Contrast -->
-                                            <Label Style="{DynamicResource LabelCustom}"
+                                            <Label Style="{DynamicResource LabelStyle}"
                                                    Content="Contrast" 
                                                    HorizontalAlignment="Left" 
                                                    VerticalAlignment="Top" 
@@ -4646,7 +4646,7 @@
                                                     Grid.Row="8" 
                                                     Height="18"/>
                                             <TextBox x:Name="tbxFilterAudio_Contrast"
-                                                     Style="{DynamicResource TextBoxCustom}" 
+                                                     Style="{DynamicResource TextBoxStyle}" 
                                                      Text="{Binding Value, ElementName=slFilterAudio_Contrast, UpdateSourceTrigger=PropertyChanged}"
                                                      Height="22" 
                                                      MaxLines="1"
@@ -4661,7 +4661,7 @@
                                                      Grid.Row="8"/>
 
                                             <!-- Extra Stereo -->
-                                            <Label Style="{DynamicResource LabelCustom}"
+                                            <Label Style="{DynamicResource LabelStyle}"
                                                    Content="Extra Stereo" 
                                                    HorizontalAlignment="Left" 
                                                    VerticalAlignment="Top" 
@@ -4686,7 +4686,7 @@
                                                     Grid.Row="9" 
                                                     Height="18"/>
                                             <TextBox x:Name="tbxFilterAudio_ExtraStereo"
-                                                     Style="{DynamicResource TextBoxCustom}" 
+                                                     Style="{DynamicResource TextBoxStyle}" 
                                                      Text="{Binding Value, ElementName=slFilterAudio_ExtraStereo, UpdateSourceTrigger=PropertyChanged}"
                                                      Height="22" 
                                                      MaxLines="1"
@@ -4701,7 +4701,7 @@
                                                      Grid.Row="9"/>
 
                                             <!-- Headphones -->
-                                            <Label Style="{DynamicResource LabelCustom}"
+                                            <Label Style="{DynamicResource LabelStyle}"
                                                    Content="Headphones" 
                                                    HorizontalAlignment="Left" 
                                                    VerticalAlignment="Top" 
@@ -4713,8 +4713,8 @@
                                             <ComboBox x:Name="cboFilterAudio_Headphones" 
                                                       ItemsSource="{Binding FilterAudio_Headphones_Items}"
                                                       SelectedItem="{Binding FilterAudio_Headphones_SelectedItem, Mode=TwoWay}"
-                                                      Style="{DynamicResource ComboBoxCustom}"
-                                                      ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" 
+                                                      Style="{DynamicResource ComboBoxStyle}"
+                                                      ItemContainerStyle="{DynamicResource ComboBoxStyleItem}" 
                                                       HorizontalAlignment="Left"
                                                       Margin="0,2,0,0" 
                                                       VerticalAlignment="Top" 
@@ -4725,7 +4725,7 @@
                                             </ComboBox>
 
                                             <!-- Timing Group -->
-                                            <Label Style="{DynamicResource LabelCustom}"
+                                            <Label Style="{DynamicResource LabelStyle}"
                                                    Content="Timing" 
                                                    HorizontalAlignment="Left" 
                                                    VerticalAlignment="Top" 
@@ -4736,7 +4736,7 @@
                                                    Grid.Row="12" />
 
                                             <!-- Tempo -->
-                                            <Label Style="{DynamicResource LabelCustom}"
+                                            <Label Style="{DynamicResource LabelStyle}"
                                                    Content="Tempo" 
                                                    HorizontalAlignment="Left" 
                                                    VerticalAlignment="Top" 
@@ -4761,7 +4761,7 @@
                                                     Grid.Row="13" 
                                                     Height="18"/>
                                             <TextBox x:Name="tbxFilterAudio_Tempo"
-                                                     Style="{DynamicResource TextBoxCustom}" 
+                                                     Style="{DynamicResource TextBoxStyle}" 
                                                      Text="{Binding Value, ElementName=slFilterAudio_Tempo, UpdateSourceTrigger=PropertyChanged}"
                                                      MaxLines="1"
                                                      MaxLength="4"
@@ -4827,7 +4827,7 @@
                             </Grid.ColumnDefinitions>
 
                             <!-- FFmpeg Path TextBox -->
-                            <Label Style="{DynamicResource LabelCustom}" 
+                            <Label Style="{DynamicResource LabelStyle}" 
                                    Content="FFmpeg" 
                                    HorizontalAlignment="Left" 
                                    VerticalAlignment="Top"
@@ -4840,7 +4840,7 @@
                             <TextBox x:Name="tbxFFmpegPathConfig" 
                                      Text="{Binding FFmpegPath_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                      IsEnabled="{Binding FFmpegPath_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                     Style="{DynamicResource TextBoxBrowseCustom}"
+                                     Style="{DynamicResource TextBoxBrowseStyle}"
                                      HorizontalAlignment="Left" 
                                      Height="20"
                                      Margin="10,2,0,0" 
@@ -4870,7 +4870,7 @@
                                     ToolTipService.ShowOnDisabled="True"
                                     ToolTip="Revert to Auto"
                                     Click="btnFFmpegAuto_Click"
-                                    Style="{DynamicResource ButtonFolderCustom}" Grid.Column="2" >
+                                    Style="{DynamicResource ButtonFolderStyle}" Grid.Column="2" >
                                 <Image Width="9" 
                                        Height="11" 
                                        Stretch="Uniform"
@@ -4880,7 +4880,7 @@
                             </Button>
 
                             <!-- FFprobe Path TextBox -->
-                            <Label Style="{DynamicResource LabelCustom}" 
+                            <Label Style="{DynamicResource LabelStyle}" 
                                    Content="FFprobe" 
                                    HorizontalAlignment="Left" 
                                    VerticalAlignment="Top"
@@ -4894,7 +4894,7 @@
                             <TextBox x:Name="tbxFFprobePathConfig" 
                                      Text="{Binding FFprobePath_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                      IsEnabled="{Binding FFprobePath_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                     Style="{DynamicResource TextBoxBrowseCustom}"
+                                     Style="{DynamicResource TextBoxBrowseStyle}"
                                      HorizontalAlignment="Left" 
                                      Height="20"
                                      Margin="10,2,0,0" 
@@ -4925,7 +4925,7 @@
                                     ToolTipService.ShowOnDisabled="True"
                                     ToolTip="Revert to Auto"
                                     Click="btnFFprobeAuto_Click"
-                                    Style="{DynamicResource ButtonFolderCustom}" Grid.Column="2" Grid.Row="1" >
+                                    Style="{DynamicResource ButtonFolderStyle}" Grid.Column="2" Grid.Row="1" >
                                 <Image Width="9" 
                                        Height="11" 
                                        Stretch="Uniform"
@@ -4935,7 +4935,7 @@
                             </Button>
 
                             <!-- FFplay Path TextBox -->
-                            <Label Style="{DynamicResource LabelCustom}" 
+                            <Label Style="{DynamicResource LabelStyle}" 
                                    Content="FFplay" 
                                    HorizontalAlignment="Left" 
                                    VerticalAlignment="Top"
@@ -4949,7 +4949,7 @@
                             <TextBox x:Name="tbxFFplayPathConfig" 
                                      Text="{Binding FFplayPath_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                      IsEnabled="{Binding FFplayPath_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                     Style="{DynamicResource TextBoxBrowseCustom}"
+                                     Style="{DynamicResource TextBoxBrowseStyle}"
                                      HorizontalAlignment="Left" 
                                      Height="20"
                                      Margin="10,2,0,0" 
@@ -4980,7 +4980,7 @@
                                             ToolTipService.ShowOnDisabled="True"
                                             ToolTip="Revert to Auto"
                                             Click="btnFFplayAuto_Click"
-                                            Style="{DynamicResource ButtonFolderCustom}" 
+                                            Style="{DynamicResource ButtonFolderStyle}" 
                                             Grid.Column="2" 
                                             Grid.Row="2" >
                                 <Image Width="9" 
@@ -4992,7 +4992,7 @@
                             </Button>
 
                             <!-- youtube-dl Path TextBox -->
-                            <Label Style="{DynamicResource LabelCustom}" 
+                            <Label Style="{DynamicResource LabelStyle}" 
                                    Content="youtube-dl" 
                                    HorizontalAlignment="Left" 
                                    VerticalAlignment="Top"
@@ -5007,7 +5007,7 @@
                             <TextBox x:Name="tbxyoutubedlPathConfig" 
                                      Text="{Binding youtubedlPath_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                      IsEnabled="{Binding youtubedlPath_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                     Style="{DynamicResource TextBoxBrowseCustom}"
+                                     Style="{DynamicResource TextBoxBrowseStyle}"
                                      HorizontalAlignment="Left" 
                                      Height="20"
                                      Margin="10,2,0,0" 
@@ -5038,7 +5038,7 @@
                                     ToolTipService.ShowOnDisabled="True"
                                     ToolTip="Revert to Auto"
                                     Click="btnyoutubedlAuto_Click"
-                                    Style="{DynamicResource ButtonFolderCustom}" 
+                                    Style="{DynamicResource ButtonFolderStyle}" 
                                     Grid.Column="2" 
                                     Grid.Row="3" >
                                 <Image Width="9" 
@@ -5052,7 +5052,7 @@
 
                             <!-- Log Path TextBox -->
                             <Label x:Name="labelLogConfig" 
-                                   Style="{DynamicResource LabelCustom}" 
+                                   Style="{DynamicResource LabelStyle}" 
                                    Content="Log" 
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Top"
@@ -5066,7 +5066,7 @@
                             <TextBox x:Name="tbxLogConfig" 
                                      Text="{Binding LogPath_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                      IsEnabled="{Binding LogPath_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                     Style="{DynamicResource TextBoxBrowseCustom}" 
+                                     Style="{DynamicResource TextBoxBrowseStyle}" 
                                      HorizontalAlignment="Left" 
                                      Height="20" 
                                      Margin="10,2,0,0" 
@@ -5093,7 +5093,7 @@
                                     ToolTipService.ShowOnDisabled="True"
                                     ToolTip="Clear Path" 
                                     Click="btnLogAuto_Click" 
-                                    Style="{DynamicResource ButtonFolderCustom}" 
+                                    Style="{DynamicResource ButtonFolderStyle}" 
                                     Grid.Column="2"
                                     Grid.Row="4">
                                 <Image Width="9"
@@ -5117,13 +5117,13 @@
                                       ToolTip="Enable/Disable Log"
                                       Checked="cbxLog_Checked" 
                                       Unchecked="cbxLog_Unchecked" 
-                                      Style="{DynamicResource CheckBoxCustom}" 
+                                      Style="{DynamicResource CheckBoxStyle}" 
                                       Grid.Row="4" 
                                       Grid.Column="1"/>
 
                             <!-- Threads -->
                             <Label x:Name="labelThreads"
-                                   Style="{DynamicResource LabelCustom}"
+                                   Style="{DynamicResource LabelStyle}"
                                    Content="Threads" 
                                    HorizontalAlignment="Left" 
                                    VerticalAlignment="Top" 
@@ -5138,8 +5138,8 @@
                                       SelectedIndex="{Binding Threads_SelectedIndex}"
                                       SelectedItem="{Binding Threads_SelectedItem}"
                                       IsEnabled="{Binding Threads_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                      Style="{DynamicResource ComboBoxCustom}" 
-                                      ItemContainerStyle="{DynamicResource ComboBoxCustomItem}"
+                                      Style="{DynamicResource ComboBoxStyle}" 
+                                      ItemContainerStyle="{DynamicResource ComboBoxStyleItem}"
                                       HorizontalAlignment="Left" 
                                       VerticalAlignment="Top" 
                                       Width="105" 
@@ -5152,7 +5152,7 @@
 
                             <!-- Theme -->
                             <Label x:Name="labelTheme" 
-                                   Style="{DynamicResource LabelCustom}" 
+                                   Style="{DynamicResource LabelStyle}" 
                                    Content="Theme" 
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Top"
@@ -5167,8 +5167,8 @@
                                       SelectedIndex="{Binding Theme_SelectedIndex}"
                                       SelectedItem="{Binding Theme_SelectedItem}"
                                       IsEnabled="{Binding Theme_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                      Style="{DynamicResource ComboBoxCustom}"
-                                      ItemContainerStyle="{DynamicResource ComboBoxCustomItem}" 
+                                      Style="{DynamicResource ComboBoxStyle}"
+                                      ItemContainerStyle="{DynamicResource ComboBoxStyleItem}" 
                                       HorizontalAlignment="Left" 
                                       VerticalAlignment="Top" 
                                       Width="105"
@@ -5179,7 +5179,7 @@
                                       Margin="10,2,0,0"/>
 
                             <!-- Check for Updates -->
-                            <Label Style="{DynamicResource LabelCustom}" 
+                            <Label Style="{DynamicResource LabelStyle}" 
                                    Content="Updates" 
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Top"
@@ -5201,19 +5201,19 @@
                                           ToolTip="Automatically check for updates at startup." 
                                           Width="58" 
                                           Height="22" 
-                                          Style="{DynamicResource ToggleButtonCustom}" 
+                                          Style="{DynamicResource ToggleButtonStyle}" 
                                           Checked="tglUpdateAutoCheck_Checked"
                                           Unchecked="tglUpdateAutoCheck_Unchecked"
                                           Grid.Column="2" 
                                           Grid.Row="9" 
                                           Margin="10,2,0,0">
                                 <TextBlock x:Name="tblkUpdatesAutoCheck" 
-                                           Style="{DynamicResource TextBlockCustom}" 
+                                           Style="{DynamicResource TextBlockStyle}" 
                                            Text="Off"
                                            Margin="0,-2,0,0" />
                             </ToggleButton>
 
-                            <Label Style="{DynamicResource LabelCustom}" 
+                            <Label Style="{DynamicResource LabelStyle}" 
                                    Content="Check" 
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Top"
@@ -5223,7 +5223,7 @@
                                    Margin="73,0,0,0"/>
 
                             <!-- Reset Saved Settings -->
-                            <Label Style="{DynamicResource LabelCustom}" 
+                            <Label Style="{DynamicResource LabelStyle}" 
                                    Content="Settings"
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Top" 
@@ -5243,11 +5243,11 @@
                                     ToolTip="Reset the Saved Settings to Default." 
                                     Cursor="Hand" 
                                     Click="btnClearAllSavedSettings_Click" 
-                                    Style="{DynamicResource ButtonSmallCustom}" 
+                                    Style="{DynamicResource ButtonSmallStyle}" 
                                     Grid.Column="2" 
                                     Grid.Row="11" 
                                     Margin="10,2,0,0">
-                                <TextBlock Style="{DynamicResource TextBlockCustom}" 
+                                <TextBlock Style="{DynamicResource TextBlockStyle}" 
                                            Text="Reset" 
                                            Margin="0,-1,0,0"/>
                             </Button>
@@ -5264,11 +5264,11 @@
                                     ToolTipService.ShowOnDisabled="True"
                                     ToolTip="Delete the Settings File in AppData." 
                                     Cursor="Hand" 
-                                    Style="{DynamicResource ButtonSmallCustom}" 
+                                    Style="{DynamicResource ButtonSmallStyle}" 
                                     Click="btnDeleteSettings_Click" 
                                     Grid.Column="2" 
                                     Grid.Row="11">
-                                <TextBlock Style="{DynamicResource TextBlockCustom}" 
+                                <TextBlock Style="{DynamicResource TextBlockStyle}" 
                                            Text="Delete" 
                                            Margin="0,-1,0,0"/>
                             </Button>
@@ -5317,7 +5317,7 @@
                     Cursor="Hand" 
                     Click="btnInfo_Click" 
                     Background="{x:Null}"
-                    Style="{DynamicResource ButtonSmallCustom}"
+                    Style="{DynamicResource ButtonSmallStyle}"
                     ToolTipService.InitialShowDelay="1000"
                     ToolTipService.ShowOnDisabled="True"
                     ToolTip="About this program">
@@ -5339,7 +5339,7 @@
                     Cursor="Hand" 
                     Click="btbWebsite_Click" 
                     Background="{x:Null}" 
-                    Style="{DynamicResource ButtonSmallCustom}" 
+                    Style="{DynamicResource ButtonSmallStyle}" 
                     ToolTipService.InitialShowDelay="1000"
                     ToolTipService.ShowOnDisabled="True"
                     ToolTip="Visit Website" 
@@ -5361,7 +5361,7 @@
                     Height="22" 
                     Cursor="Hand" 
                     Background="{x:Null}" 
-                    Style="{DynamicResource ButtonSmallCustom}" 
+                    Style="{DynamicResource ButtonSmallStyle}" 
                     ToolTipService.InitialShowDelay="1000"
                     ToolTipService.ShowOnDisabled="True"
                     ToolTip="Check for Updates"
@@ -5387,7 +5387,7 @@
                           ToolTip="Keep FFmpeg window open after converting" 
                           Width="22" 
                           Height="22" 
-                          Style="{DynamicResource ToggleButtonCustom}" 
+                          Style="{DynamicResource ToggleButtonStyle}" 
                           Checked="tglCMDWindowKeep_Checked"
                           Unchecked="tglCMDWindowKeep_Unchecked"
                           Grid.Column="3">
@@ -5402,7 +5402,7 @@
 
             <!-- Auto Sort Script Button -->
             <ToggleButton x:Name="tglAutoSortScript"
-                          Style="{DynamicResource ToggleButtonCustom}"
+                          Style="{DynamicResource ToggleButtonStyle}"
                           IsChecked="{Binding AutoSortScript_IsChecked}"
                           Margin="0,0,0,0"
                           Cursor="Hand" 
@@ -5434,7 +5434,7 @@
                     Cursor="Hand" 
                     Click="btnDebugConsole_Click" 
                     Background="{x:Null}" 
-                    Style="{DynamicResource ButtonSmallCustom}" 
+                    Style="{DynamicResource ButtonSmallStyle}" 
                     ToolTipService.InitialShowDelay="1000"
                     ToolTipService.ShowOnDisabled="True"
                     ToolTip="Show Debug Console" 
@@ -5458,7 +5458,7 @@
                     Cursor="Hand" 
                     Click="btnLogConsole_Click" 
                     Background="{x:Null}"
-                    Style="{DynamicResource ButtonSmallCustom}"
+                    Style="{DynamicResource ButtonSmallStyle}"
                     ToolTipService.InitialShowDelay="1000"
                     ToolTipService.ShowOnDisabled="True"
                     ToolTip="Show Log Console" 
@@ -5484,7 +5484,7 @@
                     ToolTipService.ShowOnDisabled="True"
                     ToolTip="View the last Output Log"
                     Background="{x:Null}"
-                    Style="{DynamicResource ButtonSmallCustom}"
+                    Style="{DynamicResource ButtonSmallStyle}"
                     Grid.Column="7">
                 <Image Width="9" 
                        Height="11" 
@@ -5504,7 +5504,7 @@
                     Cursor="Hand" 
                     Click="btnCmd_Click" 
                     Background="{x:Null}" 
-                    Style="{DynamicResource ButtonSmallCustom}" 
+                    Style="{DynamicResource ButtonSmallStyle}" 
                     ToolTipService.InitialShowDelay="1000"
                     ToolTipService.ShowOnDisabled="True"
                     ToolTip="Launch Command Prompt"
@@ -5527,7 +5527,7 @@
                     Cursor="Hand" 
                     Click="btnProperties_Click"
                     Background="{x:Null}" 
-                    Style="{DynamicResource ButtonSmallCustom}" 
+                    Style="{DynamicResource ButtonSmallStyle}" 
                     ToolTipService.InitialShowDelay="1000"
                     ToolTipService.ShowOnDisabled="True"
                     ToolTip="View File Properties"
@@ -5550,7 +5550,7 @@
                     Cursor="Hand" 
                     Click="btnPlayFile_Click" 
                     Background="{x:Null}" 
-                    Style="{DynamicResource ButtonSmallCustom}" 
+                    Style="{DynamicResource ButtonSmallStyle}" 
                     ToolTipService.InitialShowDelay="1000"
                     ToolTipService.ShowOnDisabled="True"
                     ToolTip="Play Converted File"
@@ -5580,8 +5580,8 @@
                      SelectedIndex="{Binding Preset_SelectedIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       SelectedValuePath="Name"
                       SelectedValue="{Binding Preset_SelectedItem, Mode=TwoWay}"
-                      Style="{DynamicResource ComboBoxWhite}"
-                      ItemContainerStyle="{DynamicResource ComboBoxWhiteItem_FormatContainer}" 
+                      Style="{DynamicResource ComboBoxCategoryStyle}"
+                      ItemContainerStyle="{DynamicResource ComboBoxCategoryStyleItem_FormatContainer}" 
                       HorizontalAlignment="Left"
                       VerticalAlignment="Top" 
                       Width="75" 
@@ -5595,7 +5595,7 @@
                 </ComboBox.ItemsPanel>
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
-                        <Grid Width="90">
+                        <Grid Width="93">
                             <TextBlock DataContext="{Binding}">
                                 <TextBlock.Text>
                                     <Binding Path="Name"/>
@@ -5610,8 +5610,8 @@
                       SelectedIndex="{Binding Preset_SelectedIndex}"
                       SelectedValue="{Binding Preset_SelectedItem}"
                       IsEnabled="{Binding Preset_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                      Style="{DynamicResource ComboBoxWhite}" 
-                      ItemContainerStyle="{DynamicResource ComboBoxWhiteItem}" 
+                      Style="{DynamicResource ComboBoxCategoryStyle}" 
+                      ItemContainerStyle="{DynamicResource ComboBoxCategoryStyleItem}" 
                       HorizontalAlignment="Right"
                       Margin="0,0,300,0" 
                       VerticalAlignment="Top" 
@@ -5620,7 +5620,7 @@
 
             <!-- Preview Button -->
             <Button x:Name="btnPreview"
-                    Style="{DynamicResource ButtonCustom}" 
+                    Style="{DynamicResource ButtonStyle}" 
                     HorizontalAlignment="Right" 
                     Margin="0,0,87,0" 
                     VerticalAlignment="Top"
@@ -5634,7 +5634,7 @@
 
             <!-- Convert Button -->
             <Button x:Name="btnConvert"
-                    Style="{DynamicResource ButtonCustom}" 
+                    Style="{DynamicResource ButtonStyle}" 
                     HorizontalAlignment="Right" 
                     Margin="0,0,4,0" 
                     VerticalAlignment="Top"
@@ -5659,10 +5659,10 @@
                           ToolTip="Enable, Browse for folder, Enter file extention to batch process."
                           Width="45"
                           Height="22"
-                          Style="{DynamicResource ToggleButtonCustom}"
+                          Style="{DynamicResource ToggleButtonStyle}"
                           Margin="0,0,241,0">
                 <TextBlock x:Name="batchTextBlock" 
-                           Style="{DynamicResource TextBlockCustom}" 
+                           Style="{DynamicResource TextBlockStyle}" 
                            Text="Batch"
                            Margin="0,-2,0,0" />
             </ToggleButton>
@@ -5678,7 +5678,7 @@
                      VerticalAlignment="Top" 
                      Width="60" 
                      TextChanged="batchExtension_TextChanged"
-                     Style="{DynamicResource TextBoxCustom}" 
+                     Style="{DynamicResource TextBoxStyle}" 
                      ToolTipService.InitialShowDelay="1000" 
                      ToolTipService.ShowOnDisabled="True" 
                      ToolTip="File Extension in Folder to Batch Process (e.g. mp4)"/>

@@ -40,7 +40,7 @@
     <Grid>
 
         <!-- Crop X -->
-        <Label Style="{DynamicResource LabelCustom}" 
+        <Label Style="{DynamicResource LabelStyle}" 
                Content="X" 
                HorizontalAlignment="Left" 
                Margin="15,107,0,0" 
@@ -55,13 +55,13 @@
                  MaxLines="1"
                  VerticalAlignment="Top" 
                  Width="60" 
-                 Style="{DynamicResource TextBoxCustom}" 
+                 Style="{DynamicResource TextBoxStyle}" 
                  KeyDown="tbxVideo_Crop_X_KeyDown" 
                  ToolTipService.ShowOnDisabled="True" 
                  ToolTip="Position of Crop from Left"/>
 
         <!-- Crop Y -->
-        <Label Style="{DynamicResource LabelCustom}" 
+        <Label Style="{DynamicResource LabelStyle}" 
                Content="Y" 
                HorizontalAlignment="Left" 
                Margin="186,15,0,0" 
@@ -76,13 +76,13 @@
                  MaxLines="1" 
                  VerticalAlignment="Top"
                  Width="60" 
-                 Style="{DynamicResource TextBoxCustom}" 
+                 Style="{DynamicResource TextBoxStyle}" 
                  KeyDown="tbxVideo_Crop_Y_KeyDown" 
                  ToolTipService.ShowOnDisabled="True" 
                  ToolTip="Position of Crop from Top"/>
 
         <!-- Crop Width -->
-        <Label Style="{DynamicResource LabelCustom}"
+        <Label Style="{DynamicResource LabelStyle}"
                Content="Width" HorizontalAlignment="Left"
                Margin="178,84,0,0" 
                VerticalAlignment="Top"
@@ -96,13 +96,13 @@
                  MaxLines="1" 
                  VerticalAlignment="Top"
                  Width="60" 
-                 Style="{DynamicResource TextBoxCustom}" 
+                 Style="{DynamicResource TextBoxStyle}" 
                  KeyDown="tbxVideo_Crop_Width_KeyDown" 
                  ToolTipService.ShowOnDisabled="True" 
                  ToolTip="Width of Cropped Area"/>
 
         <!-- Crop Height -->
-        <Label Style="{DynamicResource LabelCustom}" 
+        <Label Style="{DynamicResource LabelStyle}" 
                Content="Height" HorizontalAlignment="Left" 
                Margin="241,84,0,0" 
                VerticalAlignment="Top" 
@@ -116,7 +116,7 @@
                  MaxLines="1"
                  VerticalAlignment="Top"
                  Width="60"
-                 Style="{DynamicResource TextBoxCustom}" 
+                 Style="{DynamicResource TextBoxStyle}" 
                  KeyDown="tbxVideo_Crop_Height_KeyDown" 
                  ToolTipService.ShowOnDisabled="True" 
                  ToolTip="Height of Cropped Area"/>
@@ -132,7 +132,7 @@
 
         <!-- Set button -->
         <Button x:Name="buttonSet" 
-                Style="{DynamicResource ButtonCustom}" 
+                Style="{DynamicResource ButtonStyle}" 
                 HorizontalAlignment="Left" 
                 Margin="387,194,0,0" 
                 VerticalAlignment="Top" 
@@ -146,7 +146,7 @@
 
         <!-- Clear Button -->
         <Button x:Name="btnClear" 
-                Style="{DynamicResource ButtonCustom}" 
+                Style="{DynamicResource ButtonStyle}" 
                 HorizontalAlignment="Left"
                 Margin="17,194,0,0" 
                 VerticalAlignment="Top"

@@ -149,7 +149,7 @@ namespace Axiom
 
                 Uri url = new Uri("https://github.com/MattMcManis/Axiom/releases/download/" + "v" + Convert.ToString(MainWindow.latestVersion) + "-" + MainWindow.latestBuildPhase + "/Axiom.zip"); // v1.0.0.0-alpha/Axiom.zip
 
-                //Async
+                // Async
                 wc.DownloadProgressChanged += new DownloadProgressChangedEventHandler(wc_DownloadProgressChanged);
                 wc.DownloadFileCompleted += new AsyncCompletedEventHandler(wc_DownloadFileCompleted);
                 wc.DownloadFileAsync(url, MainWindow.tempDir + "Axiom.zip");

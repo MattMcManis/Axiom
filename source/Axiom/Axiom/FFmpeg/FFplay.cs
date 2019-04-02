@@ -68,9 +68,9 @@ namespace Axiom
                     //Video.VideoCodec(),
                     //Video.Speed(mainwindow),
                     //Video.VideoQuality(mainwindow),
-                    Video.FPS(vm.Format_MediaType_SelectedItem,
+                    Video.FPS(//vm.Format_MediaType_SelectedItem,
                               vm.Video_Codec_SelectedItem,
-                              vm.Video_Quality_SelectedItem,
+                              //vm.Video_Quality_SelectedItem,
                               vm.Video_FPS_SelectedItem,
                               vm.Video_FPS_Text
                               ),
@@ -78,8 +78,8 @@ namespace Axiom
                     VideoFilters.VideoFilter(vm),
 
                     Video.Images(vm.Format_MediaType_SelectedItem,
-                                 vm.Video_Codec_SelectedItem,
-                                 vm.Video_Quality_SelectedItem
+                                 vm.Video_Codec_SelectedItem//,
+                                 //vm.Video_Quality_SelectedItem
                                  ),
                     //Video.Optimize(mainwindow),
                     //Streams.VideoStreamMaps(mainwindow),
@@ -89,27 +89,27 @@ namespace Axiom
 
                     //Audio.AudioCodec(mainwindow),
                     //Audio.AudioQuality(mainwindow),
-                    Audio.SampleRate(vm.Format_MediaType_SelectedItem,
+                    Audio.SampleRate(//vm.Format_MediaType_SelectedItem,
                                      vm.Audio_Codec_SelectedItem,
-                                     vm.Audio_Stream_SelectedItem,
-                                     vm.Audio_Quality_SelectedItem,
-                                     vm.Audio_Channel_SelectedItem,
+                                     //vm.Audio_Stream_SelectedItem,
+                                     //vm.Audio_Quality_SelectedItem,
+                                     //vm.Audio_Channel_SelectedItem,
                                      vm.Audio_SampleRate_Items,
                                      vm.Audio_SampleRate_SelectedItem
                                      ),
 
-                    Audio.BitDepth(vm.Format_MediaType_SelectedItem,
+                    Audio.BitDepth(//vm.Format_MediaType_SelectedItem,
                                    vm.Audio_Codec_SelectedItem,
-                                   vm.Audio_Stream_SelectedItem,
-                                   vm.Audio_Quality_SelectedItem,
+                                   //vm.Audio_Stream_SelectedItem,
+                                   //vm.Audio_Quality_SelectedItem,
                                    vm.Audio_BitDepth_Items,
                                    vm.Audio_BitDepth_SelectedItem
                                    ),
 
-                    Audio.Channel(vm.Format_MediaType_SelectedItem,
+                    Audio.Channel(//vm.Format_MediaType_SelectedItem,
                                   vm.Audio_Codec_SelectedItem,
-                                  vm.Audio_Stream_SelectedItem,
-                                  vm.Audio_Quality_SelectedItem,
+                                  //vm.Audio_Stream_SelectedItem,
+                                  //vm.Audio_Quality_SelectedItem,
                                   vm.Audio_Channel_SelectedItem
                                   ),
 

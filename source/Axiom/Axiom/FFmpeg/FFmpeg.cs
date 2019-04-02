@@ -92,6 +92,8 @@ namespace Axiom
             return cmdWindow;
         }
 
+
+
         /// <summary>
         ///     1-Pass Arguments
         /// </summary>
@@ -108,19 +110,27 @@ namespace Axiom
                 )
             {
                 // -------------------------
-                //  Arguments List
+                // Input
                 // -------------------------
-                List<string> FFmpegArgsSinglePassList = new List<string>()
+                List<string> inputList = new List<string>()
                 {
                     "\r\n\r\n" +
                     "-i "+ "\"" + MainWindow.InputPath(vm, "pass 1") + "\"",
 
                     "\r\n\r\n" +
+                    Subtitle.SubtitlesExternal(vm.Subtitle_Codec_SelectedItem,
+                                               vm.Subtitle_Stream_SelectedItem
+                                               ),
+                };
+
+                // -------------------------
+                // Format
+                // -------------------------
+                List<string> formatList = new List<string>()
+                {
+                    "\r\n\r\n" +
                     Format.CutStart(vm.Input_Text,
                                     vm.Batch_IsChecked,
-                                    vm.Format_MediaType_SelectedItem,
-                                    vm.Video_Codec_SelectedItem,
-                                    vm.Video_Quality_SelectedItem,
                                     vm.Format_Cut_SelectedItem,
                                     vm.Format_CutStart_Hours_Text,
                                     vm.Format_CutStart_Minutes_Text,
@@ -131,8 +141,6 @@ namespace Axiom
                     Format.CutEnd(vm.Input_Text,
                                   vm.Batch_IsChecked,
                                   vm.Format_MediaType_SelectedItem,
-                                  vm.Video_Codec_SelectedItem,
-                                  vm.Video_Quality_SelectedItem,
                                   vm.Format_Cut_SelectedItem,
                                   vm.Format_CutEnd_Hours_Text,
                                   vm.Format_CutEnd_Minutes_Text,
@@ -140,136 +148,184 @@ namespace Axiom
                                   vm.Format_CutEnd_Milliseconds_Text,
                                   vm.Format_FrameEnd_Text
                                   ),
+                };
 
-                    "\r\n\r\n" +
-                    Subtitle.SubtitlesExternal(vm.Subtitle_Codec_SelectedItem,
-                                               vm.Subtitle_Stream_SelectedItem
+                // -------------------------
+                // Video
+                // -------------------------
+                List<string> videoList = new List<string>();
+
+                if (vm.Format_MediaType_SelectedItem != "Audio" &&
+                    vm.Video_Codec_SelectedItem != "None" &&
+                    vm.Video_Quality_SelectedItem != "None"
+                    )
+                {
+                    videoList = new List<string>()
+                    {
+                        "\r\n\r\n" +
+                        Video.VideoCodec(vm.Format_HWAccel_SelectedItem,
+                                         vm.Video_Codec_SelectedItem,
+                                         vm.Video_Codec
+                                         ),
+                        "\r\n" +
+                        Video.VideoEncodeSpeed(vm.Video_EncodeSpeed_Items,
+                                               vm.Video_EncodeSpeed_SelectedItem,
+                                               vm.Video_Codec_SelectedItem,
+                                               vm.Video_Pass_SelectedItem
                                                ),
 
-                    "\r\n\r\n" +
-                    Video.VideoCodec(vm.Format_HWAccel_SelectedItem,
-                                     vm.Video_Codec_SelectedItem,
-                                     vm.Video_Codec
-                                     ),
-                    "\r\n" +
-                    Video.VideoEncodeSpeed(vm.Video_EncodeSpeed_Items,
-                                           vm.Video_EncodeSpeed_SelectedItem,
+                        Video.VideoQuality(vm.Batch_IsChecked,
+                                           vm.Video_VBR_IsChecked,
+                                           vm.Format_Container_SelectedItem,
                                            vm.Format_MediaType_SelectedItem,
                                            vm.Video_Codec_SelectedItem,
+                                           vm.Video_Quality_Items,
                                            vm.Video_Quality_SelectedItem,
-                                           vm.Video_Pass_SelectedItem
+                                           vm.Video_Pass_SelectedItem,
+                                           vm.Video_CRF_Text,
+                                           vm.Video_BitRate_Text,
+                                           vm.Video_MinRate_Text,
+                                           vm.Video_MaxRate_Text,
+                                           vm.Video_BufSize_Text,
+                                           vm.Input_Text
                                            ),
-
-                    Video.VideoQuality(vm.Batch_IsChecked,
-                                       vm.Video_VBR_IsChecked,
-                                       vm.Format_Container_SelectedItem,
-                                       vm.Format_MediaType_SelectedItem,
-                                       vm.Video_Codec_SelectedItem,
-                                       vm.Video_Quality_Items,
-                                       vm.Video_Quality_SelectedItem,
-                                       vm.Video_Pass_SelectedItem,
-                                       vm.Video_CRF_Text,
-                                       vm.Video_BitRate_Text,
-                                       vm.Video_MinRate_Text,
-                                       vm.Video_MaxRate_Text,
-                                       vm.Video_BufSize_Text,
-                                       vm.Input_Text
-                                       ),
-                    "\r\n" +
-                    Video.PixFmt(vm.Format_MediaType_SelectedItem,
-                                 vm.Video_Codec_SelectedItem,
-                                 vm.Video_Quality_SelectedItem,
-                                 vm.Video_PixelFormat_SelectedItem
-                                 ),
-                    "\r\n" +
-                    Video.FPS(vm.Format_MediaType_SelectedItem,
-                              vm.Video_Codec_SelectedItem,
-                              vm.Video_Quality_SelectedItem,
-                              vm.Video_FPS_SelectedItem,
-                              vm.Video_FPS_Text
-                              ),
-                    "\r\n" +
-                    VideoFilters.VideoFilter(vm),
-                    "\r\n" +
-                    Video.AspectRatio(vm.Format_MediaType_SelectedItem,
-                                      vm.Video_Codec_SelectedItem,
-                                      vm.Video_Quality_SelectedItem,
-                                      vm.Video_AspectRatio_SelectedItem
-                                      ),
-                    "\r\n" +
-                    Video.Images(vm.Format_MediaType_SelectedItem,
-                                 vm.Video_Codec_SelectedItem,
-                                 vm.Video_Quality_SelectedItem
-                                 ),
-                    "\r\n" +
-                    Video.Optimize(vm.Format_MediaType_SelectedItem,
-                                   vm.Video_Codec_SelectedItem,
-                                   vm.Video_Quality_SelectedItem,
-                                   vm.Video_Optimize_Items,
-                                   vm.Video_Optimize_SelectedItem,
-                                   vm.Video_Optimize_Tune_SelectedItem,
-                                   vm.Video_Optimize_Profile_SelectedItem,
-                                   vm.Video_Optimize_Level_SelectedItem
-                                   ),
-                    "\r\n" +
-                    Streams.VideoStreamMaps(vm),
-
-                    "\r\n\r\n" +
-                    Subtitle.SubtitleCodec(vm.Subtitle_Codec_SelectedItem,
-                                           vm.Subtitle_Codec
-                                           ),
-                    "\r\n" +
-                    Streams.SubtitleMaps(vm),
-
-                    "\r\n\r\n" +
-                    Audio.AudioCodec(vm.Audio_Codec_SelectedItem,
-                                     vm.Audio_Codec,
-                                     vm.Audio_BitDepth_SelectedItem,
-                                     vm.Input_Text
+                        "\r\n" +
+                        Video.PixFmt(vm.Video_Codec_SelectedItem,
+                                     vm.Video_PixelFormat_SelectedItem
                                      ),
-                    "\r\n" +
-                    Audio.AudioQuality(vm.Input_Text,
-                                       vm.Batch_IsChecked,
-                                       vm.Format_MediaType_SelectedItem,
-                                       vm.Audio_Stream_SelectedItem,
-                                       vm.Audio_Codec_SelectedItem,
-                                       vm.Audio_Quality_Items,
-                                       vm.Audio_Quality_SelectedItem,
-                                       vm.Audio_BitRate_Text,
-                                       vm.Audio_VBR_IsChecked
-                                       ),
-                    Audio.CompressionLevel(vm.Format_MediaType_SelectedItem,
-                                           vm.Audio_Codec_SelectedItem,
-                                           vm.Audio_Stream_SelectedItem,
-                                           vm.Audio_Quality_SelectedItem,
-                                           vm.Audio_CompressionLevel_SelectedItem
-                                           ),
-                    Audio.SampleRate(vm.Format_MediaType_SelectedItem,
-                                     vm.Audio_Codec_SelectedItem,
-                                     vm.Audio_Stream_SelectedItem,
-                                     vm.Audio_Quality_SelectedItem,
-                                     vm.Audio_Channel_SelectedItem,
-                                     vm.Audio_SampleRate_Items,
-                                     vm.Audio_SampleRate_SelectedItem
-                                     ),
-                    Audio.BitDepth(vm.Format_MediaType_SelectedItem,
-                                   vm.Audio_Codec_SelectedItem,
-                                   vm.Audio_Stream_SelectedItem,
-                                   vm.Audio_Quality_SelectedItem,
-                                   vm.Audio_BitDepth_Items,
-                                   vm.Audio_BitDepth_SelectedItem
-                                   ),
-                    Audio.Channel(vm.Format_MediaType_SelectedItem,
-                                  vm.Audio_Codec_SelectedItem,
-                                  vm.Audio_Stream_SelectedItem,
-                                  vm.Audio_Quality_SelectedItem,
-                                  vm.Audio_Channel_SelectedItem
+                        "\r\n" +
+                        Video.FPS(vm.Video_Codec_SelectedItem,
+                                  vm.Video_FPS_SelectedItem,
+                                  vm.Video_FPS_Text
                                   ),
-                    "\r\n" +
-                    AudioFilters.AudioFilter(vm),
-                    "\r\n" +
-                    Streams.AudioStreamMaps(vm),
+                        "\r\n" +
+                        VideoFilters.VideoFilter(vm),
+                        "\r\n" +
+                        Video.AspectRatio(vm.Video_AspectRatio_SelectedItem),
+                        "\r\n" +
+                        Video.Images(vm.Format_MediaType_SelectedItem,
+                                     vm.Video_Codec_SelectedItem
+                                     ),
+                        "\r\n" +
+                        Video.Optimize(vm.Video_Codec_SelectedItem,
+                                       vm.Video_Optimize_Items,
+                                       vm.Video_Optimize_SelectedItem,
+                                       vm.Video_Optimize_Tune_SelectedItem,
+                                       vm.Video_Optimize_Profile_SelectedItem,
+                                       vm.Video_Optimize_Level_SelectedItem
+                                       ),
+                        "\r\n" +
+                        Streams.VideoStreamMaps(vm),
+                    };
+                }
+                // Disable Video
+                else
+                {
+                    videoList = new List<string>()
+                    {
+                        "\r\n\r\n" +
+                        "-vn",
+                    };
+                }
 
+                // -------------------------
+                // Subtitle
+                // -------------------------
+                List<string> subtitleList = new List<string>();
+
+                if (vm.Format_MediaType_SelectedItem != "Audio" &&
+                    vm.Video_Codec_SelectedItem != "None" &&
+                    vm.Video_Quality_SelectedItem != "None"
+                    )
+                {
+                    subtitleList = new List<string>()
+                    {
+                        "\r\n\r\n" +
+                        Subtitle.SubtitleCodec(vm.Subtitle_Codec_SelectedItem,
+                                               vm.Subtitle_Codec
+                                               ),
+                        "\r\n" +
+                        Streams.SubtitleMaps(vm),
+                    };
+                }
+                // Disable Subtitles
+                else
+                {
+                    subtitleList = new List<string>()
+                    {
+                        
+                        "\r\n" +
+                        "-sn",
+                    };
+                }
+
+                // -------------------------
+                // Audio
+                // -------------------------
+                List<string> audioList = new List<string>();
+
+                if (vm.Format_MediaType_SelectedItem != "Image" &&
+                    vm.Format_MediaType_SelectedItem != "Sequence" &&
+                    vm.Audio_Codec_SelectedItem != "None" &&
+                    vm.Audio_Stream_SelectedItem != "none" &&
+                    vm.Audio_Quality_SelectedItem != "None" &&
+                    vm.Audio_Quality_SelectedItem != "Mute"
+                    )
+                {
+                    audioList = new List<string>()
+                    {
+                        "\r\n\r\n" +
+                        Audio.AudioCodec(vm.Audio_Codec_SelectedItem,
+                                         vm.Audio_Codec//,
+                                         //vm.Audio_BitDepth_SelectedItem,
+                                         //vm.Input_Text
+                                         ),
+                        "\r\n" +
+                        Audio.AudioQuality(vm.Input_Text,
+                                           vm.Batch_IsChecked,
+                                           vm.Format_MediaType_SelectedItem,
+                                           vm.Audio_Stream_SelectedItem,
+                                           vm.Audio_Codec_SelectedItem,
+                                           vm.Audio_Quality_Items,
+                                           vm.Audio_Quality_SelectedItem,
+                                           vm.Audio_BitRate_Text,
+                                           vm.Audio_VBR_IsChecked
+                                           ),
+                        Audio.CompressionLevel(vm.Audio_Codec_SelectedItem,
+                                               vm.Audio_CompressionLevel_SelectedItem
+                                               ),
+                        Audio.SampleRate(vm.Audio_Codec_SelectedItem,
+                                         vm.Audio_SampleRate_Items,
+                                         vm.Audio_SampleRate_SelectedItem
+                                         ),
+                        Audio.BitDepth(vm.Audio_Codec_SelectedItem,
+                                       vm.Audio_BitDepth_Items,
+                                       vm.Audio_BitDepth_SelectedItem
+                                       ),
+                        Audio.Channel(vm.Audio_Codec_SelectedItem,
+                                      vm.Audio_Channel_SelectedItem
+                                      ),
+                        "\r\n" +
+                        AudioFilters.AudioFilter(vm),
+                        "\r\n" +
+                        Streams.AudioStreamMaps(vm),
+                    };
+                }
+                // Disable Audio
+                else
+                {
+                    audioList = new List<string>()
+                    {
+                        "\r\n" +
+                        "-an",
+                    };
+                }
+
+                // -------------------------
+                // Output
+                // -------------------------
+                List<string> outputList = new List<string>()
+                {
                     "\r\n\r\n" +
                     Streams.FormatMaps(vm),
 
@@ -282,6 +338,16 @@ namespace Axiom
                     "\r\n\r\n" +
                     "\"" + MainWindow.OutputPath(vm) + "\""
                 };
+                
+
+                // Combine Lists
+                List<string> FFmpegArgsSinglePassList = inputList
+                                                        .Concat(formatList)
+                                                        .Concat(videoList)
+                                                        .Concat(subtitleList)
+                                                        .Concat(audioList)
+                                                        .Concat(outputList)
+                                                        .ToList();
 
                 // Join List with Spaces
                 // Remove: Empty, Null, Standalone LineBreak
@@ -315,21 +381,27 @@ namespace Axiom
                 vm.Format_Container_SelectedItem != "ogv" // exclude ogv (special rule)
                 )
             {
-                // -------------------------
+                // --------------------------------------------------
                 // Pass 1
+                // --------------------------------------------------
                 // -------------------------
-                List<string> FFmpegArgsPass1List = new List<string>()
+                // Input
+                // -------------------------
+                List<string> inputList_Pass1 = new List<string>()
                 {
                     "\r\n\r\n" +
                     "-i "+ "\"" +
                     MainWindow.InputPath(vm, "pass 1") + "\"",
+                };
 
+                // -------------------------
+                // Format
+                // -------------------------
+                List<string> formatList_Pass1 = new List<string>()
+                {
                     "\r\n\r\n" +
                     Format.CutStart(vm.Input_Text,
                                     vm.Batch_IsChecked,
-                                    vm.Format_MediaType_SelectedItem,
-                                    vm.Video_Codec_SelectedItem,
-                                    vm.Video_Quality_SelectedItem,
                                     vm.Format_Cut_SelectedItem,
                                     vm.Format_CutStart_Hours_Text,
                                     vm.Format_CutStart_Minutes_Text,
@@ -340,8 +412,6 @@ namespace Axiom
                     Format.CutEnd(vm.Input_Text,
                                   vm.Batch_IsChecked,
                                   vm.Format_MediaType_SelectedItem,
-                                  vm.Video_Codec_SelectedItem,
-                                  vm.Video_Quality_SelectedItem,
                                   vm.Format_Cut_SelectedItem,
                                   vm.Format_CutEnd_Hours_Text,
                                   vm.Format_CutEnd_Minutes_Text,
@@ -349,85 +419,141 @@ namespace Axiom
                                   vm.Format_CutEnd_Milliseconds_Text,
                                   vm.Format_FrameEnd_Text
                                   ),
+                };
 
-                    "\r\n\r\n" +
-                    Video.VideoCodec(vm.Format_HWAccel_SelectedItem,
-                                     vm.Video_Codec_SelectedItem,
-                                     vm.Video_Codec
-                                     ),
-                    "\r\n" +
-                    Video.VideoEncodeSpeed(vm.Video_EncodeSpeed_Items,
-                                           vm.Video_EncodeSpeed_SelectedItem,
+                // -------------------------
+                // Video
+                // -------------------------
+                List<string> videoList_Pass1 = new List<string>();
+
+                if (vm.Format_MediaType_SelectedItem != "Audio" &&
+                    vm.Video_Codec_SelectedItem != "None" &&
+                    vm.Video_Quality_SelectedItem != "None"
+                    )
+                {
+                    videoList_Pass1 = new List<string>()
+                    {
+                        "\r\n\r\n" +
+                        Video.VideoCodec(vm.Format_HWAccel_SelectedItem,
+                                         vm.Video_Codec_SelectedItem,
+                                         vm.Video_Codec
+                                         ),
+                        "\r\n" +
+                        Video.VideoEncodeSpeed(vm.Video_EncodeSpeed_Items,
+                                               vm.Video_EncodeSpeed_SelectedItem,
+                                               vm.Video_Codec_SelectedItem,
+                                               vm.Video_Pass_SelectedItem
+                                               ),
+
+                        Video.VideoQuality(vm.Batch_IsChecked,
+                                           vm.Video_VBR_IsChecked,
+                                           vm.Format_Container_SelectedItem,
                                            vm.Format_MediaType_SelectedItem,
                                            vm.Video_Codec_SelectedItem,
+                                           vm.Video_Quality_Items,
                                            vm.Video_Quality_SelectedItem,
-                                           vm.Video_Pass_SelectedItem
+                                           vm.Video_Pass_SelectedItem,
+                                           vm.Video_CRF_Text,
+                                           vm.Video_BitRate_Text,
+                                           vm.Video_MinRate_Text,
+                                           vm.Video_MaxRate_Text,
+                                           vm.Video_BufSize_Text,
+                                           vm.Input_Text
                                            ),
-
-                    Video.VideoQuality(vm.Batch_IsChecked,
-                                       vm.Video_VBR_IsChecked,
-                                       vm.Format_Container_SelectedItem,
-                                       vm.Format_MediaType_SelectedItem,
-                                       vm.Video_Codec_SelectedItem,
-                                       vm.Video_Quality_Items,
-                                       vm.Video_Quality_SelectedItem,
-                                       vm.Video_Pass_SelectedItem,
-                                       vm.Video_CRF_Text,
-                                       vm.Video_BitRate_Text,
-                                       vm.Video_MinRate_Text,
-                                       vm.Video_MaxRate_Text,
-                                       vm.Video_BufSize_Text,
-                                       vm.Input_Text
+                        "\r\n" +
+                        Video.PixFmt(vm.Video_Codec_SelectedItem,
+                                     vm.Video_PixelFormat_SelectedItem
+                                     ),
+                        "\r\n" +
+                        Video.FPS(vm.Video_Codec_SelectedItem,
+                                  vm.Video_FPS_SelectedItem,
+                                  vm.Video_FPS_Text
+                                  ),
+                        "\r\n" +
+                        VideoFilters.VideoFilter(vm),
+                        "\r\n" +
+                        Video.AspectRatio(vm.Video_AspectRatio_SelectedItem),
+                        "\r\n" +
+                        Video.Images(vm.Format_MediaType_SelectedItem,
+                                     vm.Video_Codec_SelectedItem
+                                     ),
+                        "\r\n" +
+                        Video.Optimize(vm.Video_Codec_SelectedItem,
+                                       vm.Video_Optimize_Items,
+                                       vm.Video_Optimize_SelectedItem,
+                                       vm.Video_Optimize_Tune_SelectedItem,
+                                       vm.Video_Optimize_Profile_SelectedItem,
+                                       vm.Video_Optimize_Level_SelectedItem
                                        ),
-                    "\r\n" +
-                    Video.PixFmt(vm.Format_MediaType_SelectedItem,
-                                 vm.Video_Codec_SelectedItem,
-                                 vm.Video_Quality_SelectedItem,
-                                 vm.Video_PixelFormat_SelectedItem
-                                 ),
-                    "\r\n" +
-                    Video.FPS(vm.Format_MediaType_SelectedItem,
-                              vm.Video_Codec_SelectedItem,
-                              vm.Video_Quality_SelectedItem,
-                              vm.Video_FPS_SelectedItem,
-                              vm.Video_FPS_Text
-                              ),
-                    "\r\n" +
-                    VideoFilters.VideoFilter(vm),
-                    "\r\n" +
-                    Video.AspectRatio(vm.Format_MediaType_SelectedItem,
-                                      vm.Video_Codec_SelectedItem,
-                                      vm.Video_Quality_SelectedItem,
-                                      vm.Video_AspectRatio_SelectedItem
-                                      ),
-                    "\r\n" +
-                    Video.Images(vm.Format_MediaType_SelectedItem,
-                                 vm.Video_Codec_SelectedItem,
-                                 vm.Video_Quality_SelectedItem
-                                 ),
-                    "\r\n" +
-                    Video.Optimize(vm.Format_MediaType_SelectedItem,
-                                   vm.Video_Codec_SelectedItem,
-                                   vm.Video_Quality_SelectedItem,
-                                   vm.Video_Optimize_Items,
-                                   vm.Video_Optimize_SelectedItem,
-                                   vm.Video_Optimize_Tune_SelectedItem,
-                                   vm.Video_Optimize_Profile_SelectedItem,
-                                   vm.Video_Optimize_Level_SelectedItem
-                                   ),
 
-                    // -pass 1, -x265-params pass=2
-                    "\r\n" +
-                    Video.Pass1Modifier(vm.Video_Codec_SelectedItem, 
-                                        vm.Video_Pass_SelectedItem
-                                        ),  
+                        // -pass 1, -x265-params pass=2
+                        "\r\n" +
+                        Video.Pass1Modifier(vm.Video_Codec_SelectedItem,
+                                            vm.Video_Pass_SelectedItem
+                                            ),
+                    };
+                }
+                // Disable Video
+                else
+                {
+                    videoList_Pass1 = new List<string>()
+                    {
+                        "\r\n\r\n" +
+                        "-vn",
+                    };
+                }
 
-                    // Disable Audio & Subtitles for Pass 1 to speed up encoding
-                    "\r\n\r\n" +
-                    "-sn -an", 
+                // -------------------------
+                // Subtitle
+                // -------------------------
+                List<string> subtitleList_Pass1 = new List<string>();
+
+                //if (vm.Format_MediaType_SelectedItem != "Audio" &&
+                //    vm.Video_Codec_SelectedItem != "None" &&
+                //    vm.Video_Quality_SelectedItem != "None"
+                //    )
+                //{
+                    subtitleList_Pass1 = new List<string>()
+                    {
+                        // Disable Subtitles for Pass 1 to speed up encoding
+                        //"\r\n\r\n" +
+                        "\r\n" +
+                        "-sn",
+                    };
+                //}
+
+                // -------------------------
+                // Audio
+                // -------------------------
+                List<string> audioList_Pass1 = new List<string>();
+
+                //if (vm.Format_MediaType_SelectedItem != "Image" &&
+                //    vm.Format_MediaType_SelectedItem != "Sequence" &&
+                //    vm.Audio_Codec_SelectedItem != "None" &&
+                //    vm.Audio_Stream_SelectedItem != "none" &&
+                //    vm.Audio_Quality_SelectedItem != "None" &&
+                //    vm.Audio_Quality_SelectedItem != "Mute"
+                //    )
+                //{
+                    audioList_Pass1 = new List<string>()
+                    {
+                        // Disable Audio for Pass 1 to speed up encoding
+                        //"\r\n\r\n" +
+                        "\r\n" +
+                        "-an",
+                    };
+                //}
+
+                // -------------------------
+                // Output
+                // -------------------------
+                List<string> outputList_Pass1 = new List<string>()
+                {
+                    // Disable FormatMaps()
 
                     "\r\n\r\n" +
                     Format.ForceFormat(vm.Format_Container_SelectedItem),
+
                     "\r\n\r\n" +
                     MainWindow.ThreadDetect(vm),
 
@@ -435,6 +561,16 @@ namespace Axiom
                     "\r\n\r\n" +
                     "NUL"
                 };
+                
+
+                // Combine Lists
+                List<string> FFmpegArgsPass1List = inputList_Pass1
+                                                   .Concat(formatList_Pass1)
+                                                   .Concat(videoList_Pass1)
+                                                   .Concat(subtitleList_Pass1)
+                                                   .Concat(audioList_Pass1)
+                                                   .Concat(outputList_Pass1)
+                                                   .ToList();
 
                 // Join List with Spaces
                 // Remove: Empty, Null, Standalone LineBreak
@@ -446,10 +582,13 @@ namespace Axiom
                                              );
 
 
-                // -------------------------
+                // --------------------------------------------------
                 // Pass 2
+                // --------------------------------------------------
                 // -------------------------
-                List<string> FFmpegArgsPass2List = new List<string>()
+                // Input
+                // -------------------------
+                List<string> inputList_Pass2 = new List<string>()
                 {
                     // Video Methods have already defined Global Strings in Pass 1
                     // Use Strings instead of Methods
@@ -472,94 +611,163 @@ namespace Axiom
                     //"-i " + "\"" + MainWindow.input + "\"",
 
                     "\r\n\r\n" +
-                    Format.trimStart,
-                    Format.trimEnd,
-
-                    "\r\n\r\n" +
                     Subtitle.SubtitlesExternal(vm.Subtitle_Codec_SelectedItem,
                                                vm.Subtitle_Stream_SelectedItem
                                                ),
+                };
 
+                // -------------------------
+                // Format
+                // -------------------------
+                List<string> formatList_Pass2 = new List<string>()
+                {
                     "\r\n\r\n" +
-                    Video.vCodec,
-                    "\r\n" +
-                    Video.vEncodeSpeed,
-                    Video.vQuality,
-                    "\r\n" +
-                    Video.pix_fmt,
-                    "\r\n" +
-                    Video.fps,
-                    "\r\n" +
-                    VideoFilters.vFilter,
-                    "\r\n" +
-                    Video.vAspectRatio,
-                    "\r\n" +
-                    Video.image,
-                    "\r\n" +
-                    Video.optimize,
-                    "\r\n" +
-                    Streams.VideoStreamMaps(vm),
-                    "\r\n" +
-                    Video.Pass2Modifier(vm.Video_Codec_SelectedItem, // -pass 2, -x265-params pass=2
-                                        vm.Video_Pass_SelectedItem
-                                        ), 
+                    Format.trimStart,
+                    Format.trimEnd,
+                };
 
-                    "\r\n\r\n" +
-                    Subtitle.SubtitleCodec(vm.Subtitle_Codec_SelectedItem,
-                                           vm.Subtitle_Codec
-                                           ),
-                    "\r\n" +
-                    Streams.SubtitleMaps(vm),
+                // -------------------------
+                // Video
+                // -------------------------
+                List<string> videoList_Pass2 = new List<string>();
 
-                    "\r\n\r\n" +
-                    Audio.AudioCodec(vm.Audio_Codec_SelectedItem,
-                                     vm.Audio_Codec,
-                                     vm.Audio_BitDepth_SelectedItem,
-                                     vm.Input_Text
-                                     ),
-                    "\r\n" +
-                    Audio.AudioQuality(vm.Input_Text,
-                                       vm.Batch_IsChecked,
-                                       vm.Format_MediaType_SelectedItem,
-                                       vm.Audio_Stream_SelectedItem,
-                                       vm.Audio_Codec_SelectedItem,
-                                       vm.Audio_Quality_Items,
-                                       vm.Audio_Quality_SelectedItem,
-                                       vm.Audio_BitRate_Text,
-                                       vm.Audio_VBR_IsChecked
-                                       ),
-                    Audio.CompressionLevel(vm.Format_MediaType_SelectedItem,
-                                           vm.Audio_Codec_SelectedItem,
+                if (vm.Format_MediaType_SelectedItem != "Audio" &&
+                    vm.Video_Codec_SelectedItem != "None" &&
+                    vm.Video_Quality_SelectedItem != "None"
+                    )
+                {
+                    videoList_Pass2 = new List<string>()
+                    {
+                        "\r\n\r\n" +
+                        Video.vCodec,
+                        "\r\n" +
+                        Video.vEncodeSpeed,
+                        Video.vQuality,
+                        "\r\n" +
+                        Video.pix_fmt,
+                        "\r\n" +
+                        Video.fps,
+                        "\r\n" +
+                        VideoFilters.vFilter,
+                        "\r\n" +
+                        Video.vAspectRatio,
+                        "\r\n" +
+                        Video.image,
+                        "\r\n" +
+                        Video.optimize,
+                        "\r\n" +
+                        Streams.VideoStreamMaps(vm),
+                        "\r\n" +
+                        Video.Pass2Modifier(vm.Video_Codec_SelectedItem, // -pass 2, -x265-params pass=2
+                                            vm.Video_Pass_SelectedItem
+                                            ),
+                    };
+                }
+                // Disable Video
+                else
+                {
+                    videoList_Pass1 = new List<string>()
+                    {
+                        "\r\n\r\n" +
+                        "-vn",
+                    };
+                }
+
+                // -------------------------
+                // Subtitle
+                // -------------------------
+                List<string> subtitleList_Pass2 = new List<string>();
+
+                if (vm.Format_MediaType_SelectedItem != "Audio" &&
+                    vm.Video_Codec_SelectedItem != "None" &&
+                    vm.Video_Quality_SelectedItem != "None"
+                    )
+                {
+                    subtitleList_Pass2 = new List<string>()
+                    {
+                        "\r\n\r\n" +
+                        Subtitle.SubtitleCodec(vm.Subtitle_Codec_SelectedItem,
+                                               vm.Subtitle_Codec
+                                               ),
+                        "\r\n" +
+                        Streams.SubtitleMaps(vm),
+                    };
+                }
+                // Disable Subtitle
+                else
+                {
+                    subtitleList_Pass1 = new List<string>()
+                    {
+                        "\r\n\r\n" +
+                        "-sn",
+                    };
+                }
+
+                // -------------------------
+                // Audio
+                // -------------------------
+                List<string> audioList_Pass2 = new List<string>();
+
+                if (vm.Format_MediaType_SelectedItem != "Image" &&
+                    vm.Format_MediaType_SelectedItem != "Sequence" &&
+                    vm.Audio_Codec_SelectedItem != "None" &&
+                    vm.Audio_Stream_SelectedItem != "none" &&
+                    vm.Audio_Quality_SelectedItem != "None" &&
+                    vm.Audio_Quality_SelectedItem != "Mute"
+                    )
+                {
+                    audioList_Pass2 = new List<string>()
+                    {
+                        "\r\n\r\n" +
+                        Audio.AudioCodec(vm.Audio_Codec_SelectedItem,
+                                         vm.Audio_Codec
+                                         ),
+                        "\r\n" +
+                        Audio.AudioQuality(vm.Input_Text,
+                                           vm.Batch_IsChecked,
+                                           vm.Format_MediaType_SelectedItem,
                                            vm.Audio_Stream_SelectedItem,
+                                           vm.Audio_Codec_SelectedItem,
+                                           vm.Audio_Quality_Items,
                                            vm.Audio_Quality_SelectedItem,
-                                           vm.Audio_CompressionLevel_SelectedItem
+                                           vm.Audio_BitRate_Text,
+                                           vm.Audio_VBR_IsChecked
                                            ),
-                    Audio.SampleRate(vm.Format_MediaType_SelectedItem,
-                                     vm.Audio_Codec_SelectedItem,
-                                     vm.Audio_Stream_SelectedItem,
-                                     vm.Audio_Quality_SelectedItem,
-                                     vm.Audio_Channel_SelectedItem,
-                                     vm.Audio_SampleRate_Items,
-                                     vm.Audio_SampleRate_SelectedItem
-                                     ),
-                    Audio.BitDepth(vm.Format_MediaType_SelectedItem,
-                                   vm.Audio_Codec_SelectedItem,
-                                   vm.Audio_Stream_SelectedItem,
-                                   vm.Audio_Quality_SelectedItem,
-                                   vm.Audio_BitDepth_Items,
-                                   vm.Audio_BitDepth_SelectedItem
-                                   ),
-                    Audio.Channel(vm.Format_MediaType_SelectedItem,
-                                  vm.Audio_Codec_SelectedItem,
-                                  vm.Audio_Stream_SelectedItem,
-                                  vm.Audio_Quality_SelectedItem,
-                                  vm.Audio_Channel_SelectedItem
-                                  ),
-                    "\r\n" +
-                    AudioFilters.AudioFilter(vm),
-                    "\r\n" +
-                    Streams.AudioStreamMaps(vm),
+                        Audio.CompressionLevel(vm.Audio_Codec_SelectedItem,
+                                               vm.Audio_CompressionLevel_SelectedItem
+                                               ),
+                        Audio.SampleRate(vm.Audio_Codec_SelectedItem,
+                                         vm.Audio_SampleRate_Items,
+                                         vm.Audio_SampleRate_SelectedItem
+                                         ),
+                        Audio.BitDepth(vm.Audio_Codec_SelectedItem,
+                                       vm.Audio_BitDepth_Items,
+                                       vm.Audio_BitDepth_SelectedItem
+                                       ),
+                        Audio.Channel(vm.Audio_Codec_SelectedItem,
+                                      vm.Audio_Channel_SelectedItem
+                                      ),
+                        "\r\n" +
+                        AudioFilters.AudioFilter(vm),
+                        "\r\n" +
+                        Streams.AudioStreamMaps(vm),
+                    };
+                }
+                // Disable Audio
+                else
+                {
+                    audioList_Pass1 = new List<string>()
+                    {
+                        "\r\n\r\n" +
+                        "-an",
+                    };
+                }
 
+                // -------------------------
+                // Output
+                // -------------------------
+                List<string> outputList_Pass2 = new List<string>()
+                {
                     "\r\n\r\n" +
                     Streams.FormatMaps(vm),
 
@@ -572,6 +780,17 @@ namespace Axiom
                     "\r\n\r\n" +
                     "\"" + MainWindow.OutputPath(vm) + "\""
                 };
+
+
+                // Combine Lists
+                List<string> FFmpegArgsPass2List = inputList_Pass2
+                                                   .Concat(formatList_Pass2)
+                                                   .Concat(videoList_Pass2)
+                                                   .Concat(subtitleList_Pass2)
+                                                   .Concat(audioList_Pass2)
+                                                   .Concat(outputList_Pass2)
+                                                   .ToList();
+
 
                 // Join List with Spaces
                 // Remove: Empty, Null, Standalone LineBreak
@@ -707,21 +926,16 @@ namespace Axiom
 
                     // Video
                     "\r\n\r\n" + Video.BatchVideoQualityAuto(vm.Batch_IsChecked,
-                                                             vm.Format_MediaType_SelectedItem,
                                                              vm.Video_Codec_SelectedItem,
                                                              vm.Video_Quality_SelectedItem 
                                                              ),
 
                     // Audio
                     "\r\n\r\n" + Audio.BatchAudioQualityAuto(vm.Batch_IsChecked,
-                                                             vm.Format_MediaType_SelectedItem,
                                                              vm.Audio_Codec_SelectedItem,
-                                                             vm.Audio_Stream_SelectedItem,
                                                              vm.Audio_Quality_SelectedItem
                                                              ),
-                    "\r\n\r\n" + Audio.BatchAudioBitRateLimiter(vm.Format_MediaType_SelectedItem,
-                                                                vm.Audio_Codec_SelectedItem,
-                                                                vm.Audio_Stream_SelectedItem,
+                    "\r\n\r\n" + Audio.BatchAudioBitRateLimiter(vm.Audio_Codec_SelectedItem,
                                                                 vm.Audio_Quality_SelectedItem
                                                                 ),
 

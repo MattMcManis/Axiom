@@ -127,7 +127,7 @@
          ComboBox White
         /////////////////////////////////////-->
     <!-- ComboBox White Item - Format Containers -->
-    <Style x:Key="ComboBoxWhiteItem_FormatContainer" TargetType="{x:Type ComboBoxItem}">
+    <Style x:Key="ComboBoxCategoryStyleItem_FormatContainer" TargetType="{x:Type ComboBoxItem}">
         <Style.Triggers>
             <!-- Headers -->
             <DataTrigger Binding="{Binding Category}" Value="True">
@@ -142,7 +142,7 @@
     </Style>
     
     <!-- ComboBox White Item -->
-    <Style x:Key="ComboBoxWhiteItem" TargetType="{x:Type ComboBoxItem}">
+    <Style x:Key="ComboBoxCategoryStyleItem" TargetType="{x:Type ComboBoxItem}">
         <Style.Triggers>
         </Style.Triggers>
     </Style>
@@ -168,7 +168,7 @@
         /////////////////////////////////////-->
 
     <!-- Main Window Style Custom -->
-    <Style x:Key="WindowStyleCustom" TargetType="{x:Type Window}">
+    <Style x:Key="WindowStyle" TargetType="{x:Type Window}">
         <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}"/>
         <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
         <!--Background-->

@@ -204,6 +204,35 @@ namespace Axiom
         }
 
 
+
+        // --------------------------------------------------------------------------------------------------------
+        /// <summary>
+        ///     MainWindow
+        /// </summary>
+        // --------------------------------------------------------------------------------------------------------
+        //public string TitleVersion
+        //{
+        //    get { return (string)GetValue(TitleProperty); }
+        //    set { SetValue(TitleProperty, value); }
+        //}
+
+        // Text
+        private string _TitleVersion;
+        public string TitleVersion
+        {
+            get { return _TitleVersion; }
+            set
+            {
+                if (value != _TitleVersion)
+                {
+                    _TitleVersion = value;
+                    OnPropertyChanged("TitleVersion");
+                }
+            }
+        }
+
+
+
         // --------------------------------------------------------------------------------------------------------
         /// <summary>
         ///     Threads
@@ -549,37 +578,36 @@ namespace Axiom
         public List<Preset> _Preset_Items = new List<Preset>()
         {
             // Default
-            new Preset() { Name = "Default",   Category = true  },
-            new Preset() { Name = "Preset",    Category = false },
+            new Preset() { Name = "Default",       Category = true  },
+            new Preset() { Name = "Preset",        Category = false },
 
             // Web
-            new Preset() { Name = "Web",       Category = true  },
-            new Preset() { Name = "HTML5",     Category = false },
-            new Preset() { Name = "YouTube",   Category = false },
+            new Preset() { Name = "Web",           Category = true  },
+            new Preset() { Name = "HTML5",         Category = false },
+            new Preset() { Name = "YouTube",       Category = false },
 
             // UHD
-            new Preset() { Name = "UHD",        Category = true  },
-            new Preset() { Name = "Archive",   Category = false },
-            new Preset() { Name = "HEVC Ultra",      Category = false },
-            new Preset() { Name = "HEVC High",      Category = false },
+            new Preset() { Name = "UHD",           Category = true  },
+            new Preset() { Name = "Archive",       Category = false },
+            new Preset() { Name = "HEVC Ultra",    Category = false },
+            new Preset() { Name = "HEVC High",     Category = false },
 
             // HD
-            new Preset() { Name = "HD",        Category = true  },
-            new Preset() { Name = "HD Ultra",  Category = false },
-            new Preset() { Name = "HD High",   Category = false },
-            new Preset() { Name = "HD Medium", Category = false },
-            //new Preset() { Name = "HD Low",    Category = false },
+            new Preset() { Name = "HD",            Category = true  },
+            new Preset() { Name = "HD Ultra",      Category = false },
+            new Preset() { Name = "HD High",       Category = false },
+            new Preset() { Name = "HD Medium",     Category = false },
 
             // SD
-            new Preset() { Name = "SD",        Category = true  },
-            new Preset() { Name = "SD High",   Category = false },
-            new Preset() { Name = "SD Medium", Category = false },
-            new Preset() { Name = "SD Low",    Category = false },
+            new Preset() { Name = "SD",            Category = true  },
+            new Preset() { Name = "SD High",       Category = false },
+            new Preset() { Name = "SD Medium",     Category = false },
+            new Preset() { Name = "SD Low",        Category = false },
 
             // Mobile
-            new Preset() { Name = "Mobile",    Category = true  },
-            new Preset() { Name = "Android",   Category = false },
-            new Preset() { Name = "iOS",       Category = false },
+            new Preset() { Name = "Mobile",        Category = true  },
+            new Preset() { Name = "Android",       Category = false },
+            new Preset() { Name = "iOS",           Category = false },
 
             // Device
             new Preset() { Name = "Device",        Category = true  },
@@ -590,30 +618,30 @@ namespace Axiom
             new Preset() { Name = "Raspberry Pi",  Category = false },
 
             // Console
-            new Preset() { Name = "Console",   Category = true  },
-            new Preset() { Name = "PS3",       Category = false },
-            new Preset() { Name = "PS4",       Category = false },
-            new Preset() { Name = "Xbox 360",  Category = false },
-            new Preset() { Name = "Xbox One",  Category = false },
+            new Preset() { Name = "Console",       Category = true  },
+            new Preset() { Name = "PS3",           Category = false },
+            new Preset() { Name = "PS4",           Category = false },
+            new Preset() { Name = "Xbox 360",      Category = false },
+            new Preset() { Name = "Xbox One",      Category = false },
 
             // Disc
-            new Preset() { Name = "Disc",      Category = true  },
-            new Preset() { Name = "UHD",       Category = false },
-            new Preset() { Name = "Blu-ray",   Category = false },
-            new Preset() { Name = "DVD",       Category = false },          
+            new Preset() { Name = "Disc",          Category = true  },
+            new Preset() { Name = "UHD",           Category = false },
+            new Preset() { Name = "Blu-ray",       Category = false },
+            new Preset() { Name = "DVD",           Category = false },          
 
             // Music
-            new Preset() { Name = "Music",     Category = true  },
-            new Preset() { Name = "Lossless",  Category = false },
-            new Preset() { Name = "MP3 HQ",    Category = false },
-            new Preset() { Name = "MP3 Low",   Category = false },
-            new Preset() { Name = "iTunes",    Category = false },
-            new Preset() { Name = "Voice",     Category = false },
+            new Preset() { Name = "Music",         Category = true  },
+            new Preset() { Name = "Lossless",      Category = false },
+            new Preset() { Name = "MP3 HQ",        Category = false },
+            new Preset() { Name = "MP3 Low",       Category = false },
+            new Preset() { Name = "iTunes",        Category = false },
+            new Preset() { Name = "Voice",         Category = false },
 
             // YouTube
             new Preset() { Name = "YouTube-DL",       Category = true  },
-            new Preset() { Name = "Video",      Category = false },
-            new Preset() { Name = "Music",         Category = false },
+            new Preset() { Name = "Video Download",   Category = false },
+            new Preset() { Name = "Music Download",   Category = false },
         };
 
         public List<Preset> Preset_Items

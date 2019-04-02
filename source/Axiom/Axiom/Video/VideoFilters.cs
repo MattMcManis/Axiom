@@ -778,9 +778,9 @@ namespace Axiom
                 // -------------------------
                 //  Speed
                 // -------------------------
-                Video.Speed(vm.Format_MediaType_SelectedItem,
+                Video.Speed(//vm.Format_MediaType_SelectedItem,
                             vm.Video_Codec_SelectedItem,
-                            vm.Video_Quality_SelectedItem,
+                            //vm.Video_Quality_SelectedItem,
                             vm.Video_Speed_SelectedItem,
                             vm.Video_Speed_Text
                             );

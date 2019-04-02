@@ -29,6 +29,8 @@ using System.IO;
 using System.Linq;
 using System.Management;
 using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -63,11 +65,11 @@ namespace Axiom
         public static string latestBuildPhase;
         public static string[] splitVersionBuildPhase;
 
-        public string TitleVersion
-        {
-            get { return (string)GetValue(TitleProperty); }
-            set { SetValue(TitleProperty, value); }
-        }
+        //public string TitleVersion
+        //{
+        //    get { return (string)GetValue(TitleProperty); }
+        //    set { SetValue(TitleProperty, value); }
+        //}
 
         // --------------------------------------------------------------------------------------------------------
         /// <summary>
@@ -190,7 +192,7 @@ namespace Axiom
             // -------------------------
             // Title + Version
             // -------------------------
-            TitleVersion = "Axiom ~ FFmpeg UI (" + Convert.ToString(currentVersion) + "-" + currentBuildPhase + ")";
+            vm.TitleVersion = "Axiom ~ FFmpeg UI (" + Convert.ToString(currentVersion) + "-" + currentBuildPhase + ")";
 
             // -------------------------
             // Load Theme
@@ -310,7 +312,7 @@ namespace Axiom
             logconsole.rtbLog.Document = new FlowDocument(Log.logParagraph); //start
             logconsole.rtbLog.BeginChange(); //begin change
 
-            Log.logParagraph.Inlines.Add(new Bold(new Run(TitleVersion)) { Foreground = Log.ConsoleTitle });
+            Log.logParagraph.Inlines.Add(new Bold(new Run(vm.TitleVersion)) { Foreground = Log.ConsoleTitle });
 
             //Log.LogConsoleMessageAdd(TitleVersion,      // Message
             //                         "bold",            // Emphasis
@@ -322,6 +324,7 @@ namespace Axiom
             /// </summary>
             // Shows OS and Hardware information in Log Console
             SystemInfoDisplay();
+            //Task<int> task = SystemInfoDisplay();
 
 
             // -----------------------------------------------------------------
@@ -546,10 +549,12 @@ namespace Axiom
             // -------------------------
             // Check for Available Updates
             // -------------------------
-            Task.Factory.StartNew(() =>
-            {
-                UpdateAvailableCheck(vm);
-            });
+            //Task.Factory.StartNew(() =>
+            //{
+            Task<int> task = UpdateAvailableCheck(vm);
+                //UpdateAvailableCheck(vm);
+                //int count = await task; // do not await
+            //});
         }
 
 
@@ -2563,6 +2568,9 @@ namespace Axiom
         /// </summary>
         public void SystemInfoDisplay()
         {
+            //int count = 0;
+            //await Task.Factory.StartNew(() =>
+            //{
             // -----------------------------------------------------------------
             /// <summary>
             ///     System Info
@@ -2577,9 +2585,9 @@ namespace Axiom
             Log.logParagraph.Inlines.Add(new Bold(new Run("System Info:")) { Foreground = Log.ConsoleAction });
             Log.logParagraph.Inlines.Add(new LineBreak());
 
-            /// <summary>
-            /// OS
-            /// </summary>
+            // -------------------------
+            // OS
+            // -------------------------
             try
             {
                 ManagementClass os = new ManagementClass("Win32_OperatingSystem");
@@ -2598,10 +2606,9 @@ namespace Axiom
 
             }
 
-
-            /// <summary>
-            /// CPU
-            /// </summary>
+            // -------------------------
+            // CPU
+            // -------------------------
             try
             {
                 ManagementObjectSearcher cpu = new ManagementObjectSearcher("root\\CIMV2", "SELECT Name FROM Win32_Processor");
@@ -2625,10 +2632,9 @@ namespace Axiom
 
             }
 
-
-            /// <summary>
-            /// GPU
-            /// </summary>
+            // -------------------------
+            // GPU
+            // -------------------------
             try
             {
                 ManagementObjectSearcher gpu = new ManagementObjectSearcher("root\\CIMV2", "SELECT Name, AdapterRAM FROM Win32_VideoController");
@@ -2644,16 +2650,15 @@ namespace Axiom
 
             }
 
-
-            /// <summary>
-            /// RAM
-            /// </summary>
+            // -------------------------
+            // RAM
+            // -------------------------
             try
             {
                 Log.logParagraph.Inlines.Add(new Run("RAM ") { Foreground = Log.ConsoleDefault });
 
                 double capacity = 0;
-                int memtype = 0;
+                //int memtype = 0;
                 string type;
                 int speed = 0;
 
@@ -2662,7 +2667,7 @@ namespace Axiom
                 foreach (ManagementObject obj in ram.Get())
                 {
                     capacity += Convert.ToDouble(obj["Capacity"]);
-                    memtype = Int32.Parse(obj.GetPropertyValue("MemoryType").ToString());
+                    //memtype = Int32.Parse(obj.GetPropertyValue("MemoryType").ToString());
                     speed = Int32.Parse(obj.GetPropertyValue("Speed").ToString());
                 }
 
@@ -2670,24 +2675,25 @@ namespace Axiom
                 capacity = Math.Round(capacity, 3); // Round to 3 decimal places
 
                 // Select RAM Type
-                switch (memtype)
-                {
-                    case 20:
-                        type = "DDR";
-                        break;
-                    case 21:
-                        type = "DDR2";
-                        break;
-                    case 17:
-                        type = "SDRAM";
-                        break;
-                    default:
-                        if (memtype == 0 || memtype > 22)
-                            type = "DDR3";
-                        else
-                            type = "Unknown";
-                        break;
-                }
+                type = RamInfo.MemType;
+                //switch (memtype)
+                //{
+                //    case 20:
+                //        type = "DDR";
+                //        break;
+                //    case 21:
+                //        type = "DDR2";
+                //        break;
+                //    case 17:
+                //        type = "SDRAM";
+                //        break;
+                //    default:
+                //        if (memtype == 0 || memtype > 22)
+                //            type = "DDR3";
+                //        else
+                //            type = "Unknown";
+                //        break;
+                //}
 
                 // Log Console Message /////////
                 Log.logParagraph.Inlines.Add(new Run(Convert.ToString(capacity) + "GB " + type + " " + Convert.ToString(speed) + "MHz") { Foreground = Log.ConsoleDefault });
@@ -2699,9 +2705,81 @@ namespace Axiom
             {
 
             }
-
+            
             // End System Info
+
+            //});
+
+            //return count;
         }
+
+
+        /// <summary>
+        ///    RAM Type
+        /// <summary>
+        public class RamInfo
+        {
+            public static string MemType
+            {
+                get
+                {
+                    int type = 0;
+
+                    ConnectionOptions connection = new ConnectionOptions();
+                    connection.Impersonation = ImpersonationLevel.Impersonate;
+                    ManagementScope scope = new ManagementScope("\\\\.\\root\\CIMV2", connection);
+                    scope.Connect();
+                    ObjectQuery query = new ObjectQuery("SELECT * FROM Win32_PhysicalMemory");
+                    ManagementObjectSearcher searcher = new ManagementObjectSearcher(scope, query);
+                    foreach (ManagementObject queryObj in searcher.Get())
+                    {
+                        type = Convert.ToInt32(queryObj["MemoryType"]);
+                    }
+
+                    return TypeString(type);
+                }
+            }
+
+            private static string TypeString(int type)
+            {
+                string outValue = string.Empty;
+
+                switch (type)
+                {
+                    case 0x0: outValue = "Unknown"; break;
+                    case 0x1: outValue = "Other"; break;
+                    case 0x2: outValue = "DRAM"; break;
+                    case 0x3: outValue = "Synchronous DRAM"; break;
+                    case 0x4: outValue = "Cache DRAM"; break;
+                    case 0x5: outValue = "EDO"; break;
+                    case 0x6: outValue = "EDRAM"; break;
+                    case 0x7: outValue = "VRAM"; break;
+                    case 0x8: outValue = "SRAM"; break;
+                    case 0x9: outValue = "RAM"; break;
+                    case 0xa: outValue = "ROM"; break;
+                    case 0xb: outValue = "Flash"; break;
+                    case 0xc: outValue = "EEPROM"; break;
+                    case 0xd: outValue = "FEPROM"; break;
+                    case 0xe: outValue = "EPROM"; break;
+                    case 0xf: outValue = "CDRAM"; break;
+                    case 0x10: outValue = "3DRAM"; break;
+                    case 0x11: outValue = "SDRAM"; break;
+                    case 0x12: outValue = "SGRAM"; break;
+                    case 0x13: outValue = "RDRAM"; break;
+                    case 0x14: outValue = "DDR"; break;
+                    case 0x15: outValue = "DDR2"; break;
+                    case 0x16: outValue = "DDR2 FB-DIMM"; break;
+                    case 0x17: outValue = "Undefined 23"; break;
+                    case 0x18: outValue = "DDR3"; break;
+                    case 0x19: outValue = "FBD2"; break;
+                    case 0x1a: outValue = "DDR4"; break;
+                    default: outValue = "Undefined"; break;
+                }
+
+                return outValue;
+            }
+        }
+
 
 
         /// <summary>
@@ -2840,9 +2918,9 @@ namespace Axiom
                 catch
                 {
                     MessageBox.Show("GitHub version file not found.",
-                                "Notice",
-                                MessageBoxButton.OK,
-                                MessageBoxImage.Exclamation);
+                                    "Notice",
+                                    MessageBoxButton.OK,
+                                    MessageBoxImage.Exclamation);
 
                     return;
                 }
@@ -2864,9 +2942,9 @@ namespace Axiom
                     catch
                     {
                         MessageBox.Show("Error reading version.",
-                                "Error",
-                                MessageBoxButton.OK,
-                                MessageBoxImage.Error);
+                                        "Error",
+                                        MessageBoxButton.OK,
+                                        MessageBoxImage.Error);
 
                         return;
                     }
@@ -2884,8 +2962,9 @@ namespace Axiom
                         // Yes/No Dialog Confirmation
                         //
                         MessageBoxResult result = MessageBox.Show("v" + Convert.ToString(latestVersion) + "-" + latestBuildPhase + "\n\nDownload Update?",
-                                                             "Update Available",
-                                                             MessageBoxButton.YesNo);
+                                                                  "Update Available",
+                                                                  MessageBoxButton.YesNo
+                                                                  );
                         switch (result)
                         {
                             case MessageBoxResult.Yes:
@@ -2966,73 +3045,92 @@ namespace Axiom
         /// <summary>
         ///    Update Available Check
         /// </summary>
-        public void UpdateAvailableCheck(ViewModel vm)
+        public static async Task<int> UpdateAvailableCheck(ViewModel vm)
         {
+            int count = 0;
             if (vm.UpdateAutoCheck_IsChecked == true)
             {
-                ServicePointManager.Expect100Continue = true;
-                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-
-                WebClient wc = new WebClient();
-                wc.Headers.Add(HttpRequestHeader.UserAgent, "Axiom (https://github.com/MattMcManis/Axiom)" + " v" + currentVersion + "-" + currentBuildPhase + " Update Check");
-                wc.Headers.Add("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8");
-                wc.Headers.Add("accept-language", "en-US,en;q=0.9");
-                wc.Headers.Add("dnt", "1");
-                wc.Headers.Add("upgrade-insecure-requests", "1");
-                //wc.Headers.Add("accept-encoding", "gzip, deflate, br"); //error
-
-                // -------------------------
-                // Parse GitHub .version file
-                // -------------------------
-                string parseLatestVersion = string.Empty;
-
-                try
+                await Task.Factory.StartNew(() =>
                 {
-                    parseLatestVersion = wc.DownloadString("https://raw.githubusercontent.com/MattMcManis/Axiom/master/.version");
-                }
-                catch
-                {
-                    return;
-                }
+                    ServicePointManager.Expect100Continue = true;
+                    ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
-                // -------------------------
-                // Split Version & Build Phase by dash
-                // -------------------------
-                if (!string.IsNullOrEmpty(parseLatestVersion)) //null check
-                {
+                    //HttpClient client = new HttpClient();
+                    //client.BaseAddress = new Uri("https://github.com/");
+                    //client.DefaultRequestHeaders.Accept.Clear();
+                    //client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    //client.DefaultRequestHeaders.Add("User-Agent", "Axiom (https://github.com/MattMcManis/Axiom)" + " v" + currentVersion + "-" + currentBuildPhase + " Update Check");
+                    //client.DefaultRequestHeaders.Add("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8");
+                    //client.DefaultRequestHeaders.Add("Accept-Language", "en-US,en;q=0.9");
+                    //client.DefaultRequestHeaders.Add("dnt", "1");
+                    //client.DefaultRequestHeaders.Add("Upgrade-Insecure-Requests", "1");
+
+                    WebClient wc = new WebClient();
+                    wc.Headers.Add(HttpRequestHeader.UserAgent, "Axiom (https://github.com/MattMcManis/Axiom)" + " v" + currentVersion + "-" + currentBuildPhase + " Update Check");
+                    wc.Headers.Add("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8");
+                    wc.Headers.Add("Accept-Language", "en-US,en;q=0.9");
+                    wc.Headers.Add("dnt", "1");
+                    wc.Headers.Add("Upgrade-Insecure-Requests", "1");
+                    //wc.Headers.Add("accept-encoding", "gzip, deflate, br"); //error
+
+                    // -------------------------
+                    // Parse GitHub .version file
+                    // -------------------------
+                    string parseLatestVersion = string.Empty;
+
                     try
                     {
-                        // Split Version and Build Phase
-                        splitVersionBuildPhase = Convert.ToString(parseLatestVersion).Split('-');
-
-                        // Set Version Number
-                        latestVersion = new Version(splitVersionBuildPhase[0]); //number
-                        latestBuildPhase = splitVersionBuildPhase[1]; //alpha
+                        //parseLatestVersion = client.GetStringAsync("https://raw.githubusercontent.com/MattMcManis/Axiom/master/.version").Result;
+                        parseLatestVersion = wc.DownloadString("https://raw.githubusercontent.com/MattMcManis/Axiom/master/.version");
                     }
                     catch
                     {
                         return;
                     }
 
-                    // Check if Axiom is the Latest Version
-                    // Update Available
-                    if (latestVersion > currentVersion)
+                    // -------------------------
+                    // Split Version & Build Phase by dash
+                    // -------------------------
+                    if (!string.IsNullOrEmpty(parseLatestVersion)) //null check
                     {
-                        //updateAvailable = " ~ Update Available: " + "(" + Convert.ToString(latestVersion) + "-" + latestBuildPhase + ")";
-
-                        Dispatcher.Invoke(new Action(delegate
+                        try
                         {
-                            TitleVersion = "Axiom ~ FFmpeg UI (" + Convert.ToString(currentVersion) + "-" + currentBuildPhase + ")"
-                                            + " ~ Update Available: " + "(" + Convert.ToString(latestVersion) + "-" + latestBuildPhase + ")";
-                        }));
+                            // Split Version and Build Phase
+                            splitVersionBuildPhase = Convert.ToString(parseLatestVersion).Split('-');
+
+                            // Set Version Number
+                            latestVersion = new Version(splitVersionBuildPhase[0]); //number
+                            latestBuildPhase = splitVersionBuildPhase[1]; //alpha
+                        }
+                        catch
+                        {
+                            return;
+                        }
+
+                        // Check if Axiom is the Latest Version
+                        // Update Available
+                        if (latestVersion > currentVersion)
+                        {
+                            //updateAvailable = " ~ Update Available: " + "(" + Convert.ToString(latestVersion) + "-" + latestBuildPhase + ")";
+
+                            //Dispatcher.Invoke(new Action(delegate
+                            //{
+                            //vm.TitleVersion = "Axiom ~ FFmpeg UI (" + Convert.ToString(currentVersion) + "-" + currentBuildPhase + ")"
+                            //                  + " ~ Update Available: " + "(" + Convert.ToString(latestVersion) + "-" + latestBuildPhase + ")";
+                            //}));
+
+                            vm.TitleVersion = vm.TitleVersion + " ~ Update Available: " + "(" + Convert.ToString(latestVersion) + "-" + latestBuildPhase + ")";
+                        }
+                        // Update Not Available
+                        else if (latestVersion <= currentVersion)
+                        {
+                            return;
+                        }
                     }
-                    // Update Not Available
-                    else if (latestVersion <= currentVersion)
-                    {
-                        return;
-                    }
-                }
+                });
             }
+
+            return count;
         }
 
 
@@ -7118,65 +7216,72 @@ namespace Axiom
         /// <summary>
         ///    Start Process
         /// </summary>
-        public static void StartProcess(ViewModel vm)
+        //public static async void StartProcess(ViewModel vm)
+        public static async Task<int> StartProcess(ViewModel vm)
         {
-            // -------------------------
-            // Local File
-            // -------------------------
-            if (IsWebURL(vm.Input_Text) == false)
+            int count = 0;
+            await Task.Factory.StartNew(() =>
             {
                 // -------------------------
-                // Single
+                // Local File
                 // -------------------------
-                if (vm.Batch_IsChecked == false)
+                if (IsWebURL(vm.Input_Text) == false)
                 {
                     // -------------------------
-                    // FFprobe Detect Metadata
+                    // Single
                     // -------------------------
-                    FFprobe.Metadata(vm);
+                    if (vm.Batch_IsChecked == false)
+                    {
+                        // -------------------------
+                        // FFprobe Detect Metadata
+                        // -------------------------
+                        FFprobe.Metadata(vm);
+
+                        // -------------------------
+                        // FFmpeg Generate Arguments (Single)
+                        // -------------------------
+                        // disabled if batch
+                        FFmpeg.FFmpegSingleGenerateArgs(vm);
+                    }
 
                     // -------------------------
-                    // FFmpeg Generate Arguments (Single)
+                    // Batch
                     // -------------------------
-                    // disabled if batch
-                    FFmpeg.FFmpegSingleGenerateArgs(vm);
+                    else if (vm.Batch_IsChecked == true)
+                    {
+                        // -------------------------
+                        // FFprobe Video Entry Type Containers
+                        // -------------------------
+                        FFprobe.VideoEntryType(vm);
+
+                        // -------------------------
+                        // FFprobe Video Entry Type Containers
+                        // -------------------------
+                        FFprobe.AudioEntryType(vm);
+
+                        // -------------------------
+                        // FFmpeg Generate Arguments (Batch)
+                        // -------------------------
+                        //disabled if single file
+                        FFmpeg.FFmpegBatchGenerateArgs(vm);
+                    }
                 }
 
                 // -------------------------
-                // Batch
+                // YouTube Download
                 // -------------------------
-                else if (vm.Batch_IsChecked == true)
+                else if (IsWebURL(vm.Input_Text) == true)
                 {
                     // -------------------------
-                    // FFprobe Video Entry Type Containers
+                    // Generate Arguments
                     // -------------------------
-                    FFprobe.VideoEntryType(vm);
-
-                    // -------------------------
-                    // FFprobe Video Entry Type Containers
-                    // -------------------------
-                    FFprobe.AudioEntryType(vm);
-
-                    // -------------------------
-                    // FFmpeg Generate Arguments (Batch)
-                    // -------------------------
-                    //disabled if single file
-                    FFmpeg.FFmpegBatchGenerateArgs(vm);
+                    // Do not use FFprobe Metadata Parsing
+                    // Video/Audio Auto Quality will add BitRate
+                    FFmpeg.YouTubeDownloadGenerateArgs(vm);
                 }
-            }
+            });
 
-            // -------------------------
-            // YouTube Download
-            // -------------------------
-            else if (IsWebURL(vm.Input_Text) == true)
-            {
-                // -------------------------
-                // Generate Arguments
-                // -------------------------
-                // Do not use FFprobe Metadata Parsing
-                // Video/Audio Auto Quality will add BitRate
-                FFmpeg.YouTubeDownloadGenerateArgs(vm);
-            }
+            return count;
         }
 
 
@@ -7196,6 +7301,11 @@ namespace Axiom
         ///    Script - Button
         /// </summary>
         private void btnScript_Click(object sender, RoutedEventArgs e)
+        {
+            ScriptButtonAsync();
+        }
+
+        public async void ScriptButtonAsync()
         {
             // -------------------------
             // Clear Variables before Run
@@ -7258,7 +7368,9 @@ namespace Axiom
                 // -------------------------
                 // Start All Processes
                 // -------------------------
-                StartProcess(vm);
+                //StartProcess(vm);
+                Task<int> task = StartProcess(vm);
+                int count = await task;
 
                 // -------------------------
                 // Generate Script
@@ -7284,8 +7396,8 @@ namespace Axiom
                 ClearGlobalVariables(vm);
                 GC.Collect();
             }
-
         }
+
 
 
         /// <summary>
@@ -7385,6 +7497,11 @@ namespace Axiom
         /// --------------------------------------------------------------------------------------------------------
         private void btnConvert_Click(object sender, RoutedEventArgs e)
         {
+            ConvertButtonAsync();
+        }
+
+        public async void ConvertButtonAsync()
+        {
             // -------------------------
             // Check if Script has been Edited
             // -------------------------
@@ -7426,12 +7543,12 @@ namespace Axiom
                     Log.logParagraph.Inlines.Add(new LineBreak());
                     Log.logParagraph.Inlines.Add(new Bold(new Run("...............................................")) { Foreground = Log.ConsoleAction });
 
-                        // Log Console Message /////////
-                        DateTime localDate = DateTime.Now;
+                    // Log Console Message /////////
+                    DateTime localDate = DateTime.Now;
 
-                        // Log Console Message /////////
+                    // Log Console Message /////////
 
-                        Log.logParagraph.Inlines.Add(new LineBreak());
+                    Log.logParagraph.Inlines.Add(new LineBreak());
                     Log.logParagraph.Inlines.Add(new LineBreak());
                     Log.logParagraph.Inlines.Add(new Bold(new Run(Convert.ToString(localDate))) { Foreground = Log.ConsoleAction });
                     Log.logParagraph.Inlines.Add(new LineBreak());
@@ -7443,7 +7560,9 @@ namespace Axiom
                 // -------------------------
                 // Start All Processes
                 // -------------------------
-                StartProcess(vm);
+                //StartProcess(vm);
+                Task<int> task = StartProcess(vm);
+                int count = await task;
 
                 // -------------------------
                 // FFmpeg Convert
@@ -7504,8 +7623,7 @@ namespace Axiom
             //    GC.Collect();
 
             //}
-
-        } //end convert button
+        }
 
 
     }

@@ -87,9 +87,7 @@ namespace Axiom
         ///     Audio Codec
         /// <summary>
         public static String AudioCodec(string codec_SelectedItem,
-                                        string codec_Command,
-                                        string bitDepth_SelectedItem,
-                                        string input_Text
+                                        string codec_Command
                                         )
         {
             // Passed Command
@@ -175,8 +173,8 @@ namespace Axiom
                                                               //FFprobe.inputAudioBitRate
 
                                                               // Limit FFprobe Input Audio BitRate if higher than Codec's maximum bit rate
-                                                              AudioBitRateLimiter(mediaType_SelectedItem,
-                                                                                  stream_SelectedItem,
+                                                              AudioBitRateLimiter(//mediaType_SelectedItem,
+                                                                                  //stream_SelectedItem,
                                                                                   codec_SelectedItem,
                                                                                   quality_SelectedItem,
                                                                                   Convert.ToInt32(FFprobe.inputAudioBitRate)
@@ -377,20 +375,8 @@ namespace Axiom
                                           )
         {
             // Check:
-            // Media Type Image/Sequence
-            // Audio Stream none
-            // Audio Codec None
-            // Audio Codec Copy
-            // Audio Quality None
-            // Audio Quality Mute
-            if (mediaType_SelectedItem != "Image" &&
-                mediaType_SelectedItem != "Sequence" &&
-                stream_SelectedItem != "none" &&
-                codec_SelectedItem != "None" &&
-                codec_SelectedItem != "Copy" &&
-                quality_SelectedItem != "None" &&
-                quality_SelectedItem != "Mute"
-                )
+            // Audio Codec Not Copy
+            if (codec_SelectedItem != "Copy")
             {
                 // BitRate Mode
                 aBitMode = BitRateMode(vbr_IsChecked,
@@ -781,27 +767,13 @@ namespace Axiom
         /// <summary>
         ///     Channel
         /// <summary>
-        public static String Channel(string mediaType_SelectedItem,
-                                     string codec_SelectedItem,
-                                     string stream_SelectedItem,
-                                     string quality_SelectedItem,
-                                     string channel_SelectedItem)
+        public static String Channel(string codec_SelectedItem,
+                                     string channel_SelectedItem
+                                    )
         {
             // Check:
-            // Media Type Image/Sequence
-            // Audio Codec None
-            // Audio Codec Copy
-            // Audio Stream none
-            // Audio Quality None
-            // Audio Quality Mute
-            if (mediaType_SelectedItem != "Image" &&
-                mediaType_SelectedItem != "Sequence" &&
-                codec_SelectedItem != "None" &&
-                codec_SelectedItem != "Copy" &&
-                stream_SelectedItem != "none" &&
-                quality_SelectedItem != "None" &&
-                quality_SelectedItem != "Mute"
-                )
+            // Audio Codec Not Copy
+            if (codec_SelectedItem != "Copy")
             {
                 // -------------------------
                 // Auto
@@ -867,27 +839,13 @@ namespace Axiom
         /// <summary>
         ///     Compression Level
         /// <summary>
-        public static String CompressionLevel(string mediaType_SelectedItem,
-                                              string codec_SelectedItem,
-                                              string stream_SelectedItem,
-                                              string quality_SelectedItem,
-                                              string compressionLevel_SelectedItem)
+        public static String CompressionLevel(string codec_SelectedItem,
+                                              string compressionLevel_SelectedItem
+                                             )
         {
             // Check:
-            // Media Type Image/Sequence
-            // Audio Codec None
-            // Audio Codec Copy
-            // Audio Stream none
-            // Audio Quality None
-            // Audio Quality Mute
-            if (mediaType_SelectedItem != "Image" &&
-                mediaType_SelectedItem != "Sequence" &&
-                codec_SelectedItem != "None" &&
-                codec_SelectedItem != "Copy" &&
-                stream_SelectedItem != "none" &&
-                quality_SelectedItem != "None" &&
-                quality_SelectedItem != "Mute"
-                )
+            // Audio Codec Not Copy
+            if (codec_SelectedItem != "Copy")
             {
                 // -------------------------
                 // none
@@ -929,30 +887,14 @@ namespace Axiom
         /// <summary>
         ///     Sample Rate
         /// <summary>
-        public static String SampleRate(string mediaType_SelectedItem,
-                                        string codec_SelectedItem,
-                                        string stream_SelectedItem,
-                                        string quality_SelectedItem,
-                                        string channel_SelectedItem,
+        public static String SampleRate(string codec_SelectedItem,
                                         List<ViewModel.AudioSampleRate> sampleRate_Items,
                                         string sampleRate_SelectedItem
                                         )
         {
             // Check:
-            // Media Type Image/Sequence
-            // Audio Codec None
-            // Audio Codec Copy
-            // Audio Stream none
-            // Audio Quality None
-            // Audio Quality Mute
-            if (mediaType_SelectedItem != "Image" &&
-                mediaType_SelectedItem != "Sequence" &&
-                codec_SelectedItem != "None" &&
-                codec_SelectedItem != "Copy" &&
-                stream_SelectedItem != "none" &&
-                quality_SelectedItem != "None" &&
-                quality_SelectedItem != "Mute"
-                )
+            // Audio Codec Not Copy
+            if (codec_SelectedItem != "Copy")
             {
                 // Auto
                 if (sampleRate_SelectedItem == "auto")
@@ -983,28 +925,14 @@ namespace Axiom
         /// <summary>
         ///     Bit Depth
         /// <summary>
-        public static String BitDepth(string mediaType_SelectedItem,
-                                      string codec_SelectedItem,
-                                      string stream_SelectedItem,
-                                      string quality_SelectedItem,
+        public static String BitDepth(string codec_SelectedItem,
                                       List<ViewModel.AudioBitDepth> bitDepth_Items,
-                                      string bitDepth_SelectedItem)
+                                      string bitDepth_SelectedItem
+                                     )
         {
             // Check:
-            // Media Type Image/Sequence
-            // Audio Codec None
-            // Audio Codec Copy
-            // Audio Stream none
-            // Audio Quality None
-            // Audio Quality Mute
-            if (mediaType_SelectedItem != "Image" &&
-                mediaType_SelectedItem != "Sequence" &&
-                codec_SelectedItem != "None" &&
-                codec_SelectedItem != "Copy" &&
-                stream_SelectedItem != "none" &&
-                quality_SelectedItem != "None" &&
-                quality_SelectedItem != "Mute"
-                )
+            // Audio Codec Not Copy
+            if (codec_SelectedItem != "Copy")
             {
                 // PCM has Bitdepth defined by Codec instead of sample_fmt, can use 8, 16, 24, 32, 64-bit
                 // FLAC can only use 16 and 32-bit
@@ -1045,28 +973,14 @@ namespace Axiom
         /// <summary>
         ///    Audio BitRate Limiter (Method)
         /// <summary>
-        public static int AudioBitRateLimiter(string mediaType_SelectedItem,
-                                              string stream_SelectedItem,
-                                              string codec_SelectedItem,
+        public static int AudioBitRateLimiter(string codec_SelectedItem,
                                               string quality_SelectedItem,
                                               int aBitRateLimit
-                                              )
+                                             )
         {
             // Check:
-            // Media Type Image/Sequence
-            // Audio Codec None
-            // Audio Codec Copy
-            // Audio Stream none
-            // Audio Quality None
-            // Audio Quality Mute
-            if (mediaType_SelectedItem != "Image" &&
-                mediaType_SelectedItem != "Sequence" &&
-                codec_SelectedItem != "None" &&
-                codec_SelectedItem != "Copy" &&
-                stream_SelectedItem != "none" &&
-                quality_SelectedItem != "None" &&
-                quality_SelectedItem != "Mute"
-                )
+            // Audio Codec Not Copy
+            if (codec_SelectedItem != "Copy")
             {
                 // -------------------------
                 // Batch Limit BitRates
@@ -1167,27 +1081,13 @@ namespace Axiom
         /// <summary>
         ///     Batch Audio BitRate Limiter (Method)
         /// <summary>
-        public static String BatchAudioBitRateLimiter(string mediaType_SelectedItem,
-                                                      string codec_SelectedItem,
-                                                      string stream_SelectedItem,
+        public static String BatchAudioBitRateLimiter(string codec_SelectedItem,
                                                       string quality_SelectedItem
                                                       )
         {
             // Check:
-            // Media Type Image/Sequence
-            // Audio Codec None
-            // Audio Codec Copy
-            // Audio Stream none
-            // Audio Quality None
-            // Audio Quality Mute
-            if (mediaType_SelectedItem != "Image" &&
-                mediaType_SelectedItem != "Sequence" &&
-                codec_SelectedItem != "None" &&
-                codec_SelectedItem != "Copy" &&
-                stream_SelectedItem != "none" &&
-                quality_SelectedItem != "None" &&
-                quality_SelectedItem != "Mute"
-                )
+            // Audio Codec Not Copy
+            if (codec_SelectedItem != "Copy")
             {
                 // -------------------------
                 // Batch Limit BitRates
@@ -1253,26 +1153,13 @@ namespace Axiom
         ///     Batch Audio Quality Auto
         /// <summary>
         public static String BatchAudioQualityAuto(bool batch_IsChecked,
-                                                   string mediaType_SelectedItem,
                                                    string codec_SelectedItem,
-                                                   string stream_SelectedItem,
-                                                   string quality_SelectedItem)
+                                                   string quality_SelectedItem
+                                                   )
         {
             // Check:
-            // Media Type Image/Sequence
-            // Audio Codec None
-            // Audio Codec Copy
-            // Audio Stream none
-            // Audio Quality None
-            // Audio Quality Mute
-            if (mediaType_SelectedItem != "Image" &&
-                mediaType_SelectedItem != "Sequence" &&
-                codec_SelectedItem != "None" &&
-                codec_SelectedItem != "Copy" &&
-                stream_SelectedItem != "none" &&
-                quality_SelectedItem != "None" &&
-                quality_SelectedItem != "Mute"
-                )
+            // Audio Codec Not Copy
+            if (codec_SelectedItem != "Copy")
             {
                 // -------------------------
                 // Batch Audio Auto BitRates

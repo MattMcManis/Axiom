@@ -129,10 +129,8 @@ namespace Axiom
                                             )
         {
             // Check:
-            // Media Type Video, Image, Sequence
-            if (mediaType_SelectedItem == "Video" ||
-                mediaType_SelectedItem == "Image" ||
-                mediaType_SelectedItem == "Sequence")
+            // Media Type Not Audio
+            if (mediaType_SelectedItem != "Audio")
             {
                 // --------------------------------------------------
                 // All Codecs
@@ -303,22 +301,13 @@ namespace Axiom
         /// <summary>
         public static String VideoEncodeSpeed(List<ViewModel.VideoEncodeSpeed> encodeSpeedItems,
                                               string encodeSpeed_SelectedItem,
-                                              string mediaType_SelectedItem,
                                               string codec_SelectedItem,
-                                              string quality_SelectedItem,
                                               string pass
                                               )
         {
             // Check:
-            // Media Type Audio
-            // Video Codec None
-            // Video Codec Copy
-            // Video Quality None
-            if (mediaType_SelectedItem != "Audio" &&
-                codec_SelectedItem != "None" &&
-                codec_SelectedItem != "Copy" &&
-                quality_SelectedItem != "None"
-                )
+            // Video Codec Not Copy
+            if (codec_SelectedItem != "Copy")
             {
                 // -------------------------
                 // Auto / VP8 - Special Rules
@@ -369,7 +358,8 @@ namespace Axiom
         public static String BitRateMode(List<ViewModel.VideoQuality> quality_Items,
                                          string quality_SelectedItem,
                                          string bitrate_Text,
-                                         bool vbr_IsChecked)
+                                         bool vbr_IsChecked
+                                         )
         {
             //MessageBox.Show(vbr_IsChecked.ToString()); //debug
 
@@ -806,15 +796,8 @@ namespace Axiom
             //MessageBox.Show(vbr_IsChecked.ToString()); //debug
 
             // Check:
-            // Media Type Audio
-            // Video Quality None
-            // Video Codec None
-            // Video Codec Copy
-            if (mediaType_SelectedItem != "Audio" &&
-                codec_SelectedItem != "None" &&
-                codec_SelectedItem != "Copy" &&
-                quality_SelectedItem != "None"
-                )
+            // Video Codec Not Copy
+            if (codec_SelectedItem != "Copy")
             {
                 // -------------------------
                 // Auto
@@ -986,7 +969,6 @@ namespace Axiom
         ///     Batch Video Quality Auto (Method)
         /// <summary>
         public static String BatchVideoQualityAuto(bool batch_IsChecked,
-                                                   string mediaType_SelectedItem,
                                                    string codec_SelectedItem,
                                                    string quality_SelectedItem
                                                    )
@@ -994,16 +976,10 @@ namespace Axiom
             // -------------------------
             // Batch Auto
             // -------------------------
+
             // Check:
-            // Media Type Audio
-            // Video Codec None
-            // Video Codec Copy
-            // Video Quality None
-            if (mediaType_SelectedItem != "Audio" &&
-                codec_SelectedItem != "None" &&
-                codec_SelectedItem != "Copy" &&
-                quality_SelectedItem != "None"
-                )
+            // Video Codec Not Copy
+            if (codec_SelectedItem != "Copy")
             {
                 // Batch Check
                 //if (batch_IsChecked == true)
@@ -1367,22 +1343,13 @@ namespace Axiom
         /// <summary>
         ///     Pixel Foramt
         /// <summary>
-        public static String PixFmt(string mediaType_SelectedItem,
-                                    string codec_SelectedItem,
-                                    string quality_SelectedItem,
+        public static String PixFmt(string codec_SelectedItem,
                                     string pixelFormat_SelectedItem
                                     )
         {
             // Check:
-            // Media Type Audio
-            // Video Codec None
-            // Video Codec Copy
-            // Video Quality None
-            if (mediaType_SelectedItem != "Audio" &&
-                codec_SelectedItem != "None" &&
-                codec_SelectedItem != "Copy" &&
-                quality_SelectedItem != "None"
-                )
+            // Video Codec Not Copy
+            if (codec_SelectedItem != "Copy")
             {
                 // If Auto, Use Empty
                 // If Not Auto, use Selected Item
@@ -1401,9 +1368,7 @@ namespace Axiom
         /// <summary>
         ///     Optimize
         /// <summary>
-        public static String Optimize(string mediaType_SelectedItem,
-                                      string codec_SelectedItem,
-                                      string quality_SelectedItem,
+        public static String Optimize(string codec_SelectedItem,
                                       List<ViewModel.VideoOptimize> optimize_Items,
                                       string optimize_SelectedItem,
                                       string tune_SelectedItem,
@@ -1412,15 +1377,8 @@ namespace Axiom
                                       )
         {
             // Check:
-            // Media Type Audio
-            // Video Codec None
-            // Video Codec Copy
-            // Video Quality None
-            if (mediaType_SelectedItem != "Audio" &&
-                codec_SelectedItem != "None" &&
-                codec_SelectedItem != "Copy" &&
-                quality_SelectedItem != "None" 
-                )
+            // Video Codec Not Copy
+            if (codec_SelectedItem != "Copy")
             {
                 //MessageBox.Show(tune_SelectedItem); //debug
                 //MessageBox.Show(profile_SelectedItem); //debug
@@ -1480,22 +1438,15 @@ namespace Axiom
         /// <summary>
         ///     FPS
         /// <summary>
-        public static String FPS(string mediaType_SelectedItem,
-                                 string codec_SelectedItem,
-                                 string quality_SelectedItem,
+        public static String FPS(string codec_SelectedItem,
                                  string fps_SelectedItem,
                                  string fps_Text
                                  )
         {
             // Check:
-            // Media Type Audio
-            // Video Codec None
-            // Video Codec Copy
-            // Video Quality None
-            if (mediaType_SelectedItem != "Audio" &&
-                codec_SelectedItem != "None" &&
-                codec_SelectedItem != "Copy" &&
-                quality_SelectedItem != "None" &&
+            // Video Codec Not Copy
+            // FPS Not Empty
+            if (codec_SelectedItem != "Copy" &&
                 !string.IsNullOrEmpty(fps_Text)
                 )
             {
@@ -1523,7 +1474,7 @@ namespace Axiom
                 }
                 else if (fps_SelectedItem == "24")
                 {
-                    fps = "24";
+                    fps = "-r 24";
                 }
                 else if (fps_SelectedItem == "25")
                 {
@@ -1591,9 +1542,9 @@ namespace Axiom
         /// <summary>
         ///     Video Speed (Method)
         /// <summary>
-        public static void Speed(string mediaType_SelectedItem,
+        public static void Speed(//string mediaType_SelectedItem,
                                  string codec_SelectedItem,
-                                 string quality_SelectedItem,
+                                 //string quality_SelectedItem,
                                  string speed_SelectedItem,
                                  string speed_Text
                                  )
@@ -1603,10 +1554,10 @@ namespace Axiom
             // Video Codec Copy
             // Video BitRate None
             // Speed Auto/Null
-            if (mediaType_SelectedItem != "Audio" &&
-                codec_SelectedItem != "None" &&
+            if (//mediaType_SelectedItem != "Audio" &&
+                //codec_SelectedItem != "None" &&
                 codec_SelectedItem != "Copy" &&
-                quality_SelectedItem != "None" &&
+                //quality_SelectedItem != "None" &&
                 speed_SelectedItem != "auto" &&
                 !string.IsNullOrEmpty(speed_Text)
                 )
@@ -2057,34 +2008,22 @@ namespace Axiom
         /// <summary>
         ///     Aspect Ratio
         /// <summary>
-        public static String AspectRatio(string mediaType_SelectedItem,
-                                         string codec_SelectedItem,
-                                         string quality_SelectedItem,
-                                         string aspectRatio_SelectedItem
-                                         )
+        public static String AspectRatio(string aspectRatio_SelectedItem)
         {
-            // Check:
-            // Media Type Audio
-            // Video Codec None
-            // Video Quality None
-            if (mediaType_SelectedItem != "Audio" &&
-                codec_SelectedItem != "None" &&
-                quality_SelectedItem != "None"
-                )
-            {
-                // None & Default
-                //
-                if (aspectRatio_SelectedItem == "auto")
-                {
-                    vAspectRatio = string.Empty;
-                }
+            // Note: Can be used with Video Codec Copy
 
-                // Aspect, eg. 4:3, 16:9
-                //
-                else
-                {
-                    vAspectRatio = "-aspect " + aspectRatio_SelectedItem;
-                }
+            // None & Default
+            //
+            if (aspectRatio_SelectedItem == "auto")
+            {
+                vAspectRatio = string.Empty;
+            }
+
+            // Aspect, eg. 4:3, 16:9
+            //
+            else
+            {
+                vAspectRatio = "-aspect " + aspectRatio_SelectedItem;
             }
 
             return vAspectRatio;
@@ -2160,19 +2099,13 @@ namespace Axiom
         ///     Images
         /// <summary>
         public static String Images(string mediaType_SelectedItem,
-                                    string codec_SelectedItem,
-                                    string quality_SelectedItem)
+                                    string codec_SelectedItem//,
+                                    //string quality_SelectedItem
+                                    )
         {
             // Check:
-            // Media Type Audio
-            // Video Codec None
-            // Video Codec Copy
-            // Video Quality None
-            if (mediaType_SelectedItem != "Audio" &&
-                codec_SelectedItem != "None" &&
-                codec_SelectedItem != "Copy" &&
-                quality_SelectedItem != "None" 
-                )
+            // Video Codec Not Copy
+            if (codec_SelectedItem != "Copy")
             {
                 // -------------------------
                 // Image

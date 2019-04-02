@@ -514,8 +514,8 @@ namespace Axiom
 
             // --------------------------------------------------
             // Default Selected Item
-            // --------------------------------------------------
             // Previous Items set in ViewModel _SelectedItem
+            // --------------------------------------------------
 
             // -------------------------
             // Video Encode Speed Selected Item
@@ -527,8 +527,8 @@ namespace Axiom
             }
 
             vm.Video_EncodeSpeed_SelectedItem = MainWindow.SelectedItem(vm.Video_EncodeSpeed_Items.Select(c => c.Name).ToList(),
-                                                                       MainWindow.Video_EncodeSpeed_PreviousItem
-                                                                       );
+                                                                        MainWindow.Video_EncodeSpeed_PreviousItem
+                                                                        );
 
             // -------------------------
             // Video Quality Selected Item
@@ -540,8 +540,8 @@ namespace Axiom
             }
 
             vm.Video_Quality_SelectedItem = MainWindow.SelectedItem(vm.Video_Quality_Items.Select(c => c.Name).ToList(),
-                                                                   MainWindow.Video_Quality_PreviousItem
-                                                                   );
+                                                                    MainWindow.Video_Quality_PreviousItem
+                                                                    );
 
             // -------------------------
             // Video Pass Selected Item
@@ -558,6 +558,7 @@ namespace Axiom
             // -------------------------
             // Video Optimize Selected Item
             // -------------------------
+            // Problem, do not use, selects Web in mp4 when coming from webm
             //if (!string.IsNullOrEmpty(vm.Video_Optimize_SelectedItem) &&
             //    vm.Video_Optimize_SelectedItem != "None")
             //{
@@ -1176,6 +1177,7 @@ namespace Axiom
                 string.IsNullOrEmpty(CropWindow.crop) &&
                 vm.Video_Scale_SelectedItem == "Source" &&
                 vm.Video_ScalingAlgorithm_SelectedItem == "auto" &&
+                // Do not add Aspect Ratio -aspect, it can be used with Copy
                 vm.Video_FPS_SelectedItem == "auto" &&
                 vm.Video_Optimize_SelectedItem == "None" &&
 
