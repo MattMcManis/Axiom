@@ -19,6 +19,7 @@ You should have received a copy of the GNU General Public License
 along with this program.If not, see <http://www.gnu.org/licenses/>. 
 ---------------------------------------------------------------------- */
 
+using System.IO;
 using System.Linq;
 // Disable XML Comment warnings
 #pragma warning disable 1591
@@ -1802,67 +1803,32 @@ namespace Axiom
                 vm.FiltersSetDefault();
             }
 
-            // ---------------------------------------------------------------------------
-            // Debug
-            // ---------------------------------------------------------------------------
-            else if (vm.Preset_SelectedItem == "Debug")
+            // -------------------------
+            // Custom Preset
+            // -------------------------
+            else
             {
-                //vm.Preset.IsEditable = false;
+                // Get Preset INI Path
+                string preset = string.Empty;
 
-                // Format
-                vm.Format_Container_SelectedItem = "mkv";
-                vm.Format_Cut_SelectedItem = "Yes";
-                vm.Format_CutStart_Hours_Text = "00";
-                vm.Format_CutStart_Minutes_Text = "00";
-                vm.Format_CutStart_Seconds_Text = "03";
-                vm.Format_CutStart_Milliseconds_Text = "250";
-                vm.Format_CutEnd_Hours_Text = "00";
-                vm.Format_CutEnd_Minutes_Text = "00";
-                vm.Format_CutEnd_Seconds_Text = "12";
-                vm.Format_CutEnd_Milliseconds_Text = "400";
+                foreach (string path in Profiles.customPresetPathsList)
+                {
+                    string filename = Path.GetFileNameWithoutExtension(path);
 
-                // Video
-                vm.Video_Codec_SelectedItem = "x264";
-                vm.Video_EncodeSpeed_SelectedItem = "Faster";
-                vm.Video_Quality_SelectedItem = "Custom";
-                vm.Video_Pass_SelectedItem = "CRF";
-                vm.Video_BitRate_Text = "1250K";
-                vm.Video_MinRate_Text = "";
-                vm.Video_MaxRate_Text = "";
-                vm.Video_BufSize_Text = "";
-                vm.Video_CRF_Text = "26";
-                vm.Video_PixelFormat_SelectedItem = "yuv444p";
-                vm.Video_FPS_SelectedItem = "29.97";
-                vm.Video_Speed_SelectedItem = "auto";
-                vm.Video_Optimize_SelectedItem = "Windows";
-                vm.Video_Scale_SelectedItem = "Custom";
-                vm.Video_Width_Text = "545";
-                vm.Video_Height_Text = "307";
-                vm.Video_ScreenFormat_SelectedItem = "Widescreen";
-                vm.Video_ScalingAlgorithm_SelectedItem = "spline";
-                vm.Video_AspectRatio_SelectedItem = "16:9";
+                    if (vm.Preset_SelectedItem == filename)
+                    {
+                        preset = path;
+                        break;
+                    }
+                }
 
-                // Subtitle
-                vm.Subtitle_Codec_SelectedItem = "SSA";
-                vm.Subtitle_Stream_SelectedItem = "all";
-
-                // Audio
-                vm.Audio_Codec_SelectedItem = "Opus";
-                vm.Audio_Stream_SelectedItem = "1";
-                vm.Audio_Channel_SelectedItem = "Stereo";
-                vm.Audio_Quality_SelectedItem = "Custom";
-                vm.Audio_BitRate_Text = "380";
-                vm.Audio_VBR_IsChecked = true;
-                vm.Audio_CompressionLevel_SelectedItem = "8";
-                vm.Audio_SampleRate_SelectedItem = "48k";
-                vm.Audio_BitDepth_SelectedItem = "auto";
-                vm.Audio_Volume_Text = "120";
-                vm.Audio_HardLimiter_Value = 0.9;
-
-                // Filters
-                vm.FiltersSetDefault();
+                // Import Preset INI File
+                Profiles.ImportPreset(vm, preset);
             }
 
+
         }
+
+
     }
 }

@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Documents;
 // Disable XML Comment warnings
 #pragma warning disable 1591
@@ -49,11 +50,33 @@ namespace Axiom
             }
         }
 
+        /// <summary>
+        ///     View Model
+        /// </summary>
         public ViewModel()
         {
-            // --------------------------------------------------
-            // ComboBox Defaults
-            // --------------------------------------------------
+            LoadDefaults();
+        }
+
+        /// <summary>
+        ///     Filters Set Default
+        /// </summary>
+        public void LoadDefaults()
+        {
+            // -------------------------
+            // Settings
+            // -------------------------
+            CustomPresetsPath_Text = Profiles.presetsDir;
+            FFmpegPath_Text = "<auto>";
+            FFprobePath_Text = "<auto>";
+            FFplayPath_Text = "<auto>";
+            youtubedlPath_Text = "<auto>";
+            LogPath_Text = "";
+            LogCheckBox_IsChecked = false;
+            Theme_SelectedItem = "Axiom";
+            Threads_SelectedItem = "optimal";
+            UpdateAutoCheck_IsChecked = true;
+
             // -------------------------
             // Main
             // -------------------------
@@ -63,6 +86,8 @@ namespace Axiom
             Input_Location_IsEnabled = false;
             Output_Location_IsEnabled = false;
             BatchExtension_IsEnabled = false;
+            CMDWindowKeep_IsChecked = true;
+            AutoSortScript_IsChecked = true;
 
             // -------------------------
             // Format
@@ -116,13 +141,7 @@ namespace Axiom
             // Filters
             // -------------------------
             FiltersSetDefault();
-
-            // -------------------------
-            // Configure
-            // -------------------------
-            Theme_SelectedItem = "Axiom";
-            Threads_SelectedItem = "optimal";
-        }
+        } 
 
 
         /// <summary>
@@ -204,15 +223,325 @@ namespace Axiom
 
         // --------------------------------------------------------------------------------------------------------
         /// <summary>
+        ///     System
+        /// </summary>
+        // --------------------------------------------------------------------------------------------------------
+        // --------------------------------------------------
+        // Paths
+        // --------------------------------------------------
+        //public static string appDir = AppDomain.CurrentDomain.BaseDirectory.TrimEnd('\\') + @"\"; // Axiom.exe directory
+        //public static string tempDir = Path.GetTempPath(); // Windows AppData Temp Directory
+        //public static string userProfile = Environment.ExpandEnvironmentVariables(@"%USERPROFILE%").TrimEnd('\\') + @"\"; // C:\Users\Example\
+        //public static string downloadDir = userProfile + @"Downloads\"; // C:\Users\Example\Downloads\
+        //public static string presetsDir = appDir + @"profiles\"; // Custom User ini profiles
+
+
+        // --------------------------------------------------------------------------------------------------------
+        /// <summary>
+        ///     Settings
+        /// </summary>
+        // --------------------------------------------------------------------------------------------------------
+        // --------------------------------------------------
+        // Profiles Path - TextBox
+        // --------------------------------------------------
+        // Text
+        //private string _ProfilesPath_Text;
+        //public string ProfilesPath_Text
+        //{
+        //    get { return _ProfilesPath_Text; }
+        //    set
+        //    {
+        //        if (_ProfilesPath_Text == value)
+        //        {
+        //            return;
+        //        }
+
+        //        _ProfilesPath_Text = value;
+        //        OnPropertyChanged("ProfilesPath_Text");
+        //    }
+        //}
+
+
+        // --------------------------------------------------
+        // Preset - ComboBox
+        // --------------------------------------------------
+        // Items Source
+        public class Preset
+        {
+            public string Name { get; set; }
+            public bool Category { get; set; }
+        }
+
+        public List<Preset> _Preset_Items = new List<Preset>()
+        {
+            // Default
+            new Preset() { Name = "Default",       Category = true  },
+            new Preset() { Name = "Preset",        Category = false },
+
+            // Custom
+            new Preset() { Name = "Custom",        Category = true  },
+
+            // Web
+            new Preset() { Name = "Web",           Category = true  },
+            new Preset() { Name = "HTML5",         Category = false },
+            new Preset() { Name = "YouTube",       Category = false },
+
+            // UHD
+            new Preset() { Name = "UHD",           Category = true  },
+            new Preset() { Name = "Archive",       Category = false },
+            new Preset() { Name = "HEVC Ultra",    Category = false },
+            new Preset() { Name = "HEVC High",     Category = false },
+
+            // HD
+            new Preset() { Name = "HD",            Category = true  },
+            new Preset() { Name = "HD Ultra",      Category = false },
+            new Preset() { Name = "HD High",       Category = false },
+            new Preset() { Name = "HD Medium",     Category = false },
+
+            // SD
+            new Preset() { Name = "SD",            Category = true  },
+            new Preset() { Name = "SD High",       Category = false },
+            new Preset() { Name = "SD Medium",     Category = false },
+            new Preset() { Name = "SD Low",        Category = false },
+
+            // Mobile
+            new Preset() { Name = "Mobile",        Category = true  },
+            new Preset() { Name = "Android",       Category = false },
+            new Preset() { Name = "iOS",           Category = false },
+
+            // Device
+            new Preset() { Name = "Device",        Category = true  },
+            new Preset() { Name = "Roku",          Category = false },
+            new Preset() { Name = "Amazon Fire",   Category = false },
+            new Preset() { Name = "Chromecast",    Category = false },
+            new Preset() { Name = "Apple TV",      Category = false },
+            new Preset() { Name = "Raspberry Pi",  Category = false },
+
+            // Console
+            new Preset() { Name = "Console",       Category = true  },
+            new Preset() { Name = "PS3",           Category = false },
+            new Preset() { Name = "PS4",           Category = false },
+            new Preset() { Name = "Xbox 360",      Category = false },
+            new Preset() { Name = "Xbox One",      Category = false },
+
+            // Disc
+            new Preset() { Name = "Disc",          Category = true  },
+            new Preset() { Name = "UHD",           Category = false },
+            new Preset() { Name = "Blu-ray",       Category = false },
+            new Preset() { Name = "DVD",           Category = false },          
+
+            // Music
+            new Preset() { Name = "Music",         Category = true  },
+            new Preset() { Name = "Lossless",      Category = false },
+            new Preset() { Name = "MP3 HQ",        Category = false },
+            new Preset() { Name = "MP3 Low",       Category = false },
+            new Preset() { Name = "iTunes",        Category = false },
+            new Preset() { Name = "Voice",         Category = false },
+
+            // YouTube
+            new Preset() { Name = "YouTube-DL",       Category = true  },
+            new Preset() { Name = "Video Download",   Category = false },
+            new Preset() { Name = "Music Download",   Category = false },
+        };
+
+        public List<Preset> Preset_Items
+        {
+            get { return _Preset_Items; }
+            set
+            {
+                _Preset_Items = value;
+                OnPropertyChanged("Preset_Items");
+            }
+        }
+
+        // Selected Index
+        private int _Preset_SelectedIndex { get; set; }
+        public int Preset_SelectedIndex
+        {
+            get { return _Preset_SelectedIndex; }
+            set
+            {
+                if (_Preset_SelectedIndex == value)
+                {
+                    return;
+                }
+
+                _Preset_SelectedIndex = value;
+                OnPropertyChanged("Preset_SelectedIndex");
+            }
+        }
+
+        // Selected Item
+        private string _Preset_SelectedItem { get; set; }
+        public string Preset_SelectedItem
+        {
+            get { return _Preset_SelectedItem; }
+            set
+            {
+                if (_Preset_SelectedItem == value)
+                {
+                    return;
+                }
+
+                _Preset_SelectedItem = value;
+                OnPropertyChanged("Preset_SelectedItem");
+            }
+        }
+
+        // Controls Enable
+        private bool _Preset_IsEnabled { get; set; }
+        public bool Preset_IsEnabled
+        {
+            get { return _Preset_IsEnabled; }
+            set
+            {
+                if (_Preset_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _Preset_IsEnabled = value;
+                OnPropertyChanged("Preset_IsEnabled");
+            }
+        }
+
+
+        // --------------------------------------------------------------------------------------------------------
+        /// <summary>
         ///     MainWindow
         /// </summary>
         // --------------------------------------------------------------------------------------------------------
+        // -------------------------
+        // Window Top
+        // -------------------------
+        // Value
+        private double _Window_Position_Top = 0;
+        public double Window_Position_Top
+        {
+            get { return _Window_Position_Top; }
+            set
+            {
+                if (_Window_Position_Top == value)
+                {
+                    return;
+                }
+
+                _Window_Position_Top = value;
+                OnPropertyChanged("Window_Position_Top");
+            }
+        }
+
+        // -------------------------
+        // Window Left
+        // -------------------------
+        private double _Window_Position_Left = 0;
+        public double Window_Position_Left
+        {
+            get { return _Window_Position_Left; }
+            set
+            {
+                if (_Window_Position_Left == value)
+                {
+                    return;
+                }
+
+                _Window_Position_Left = value;
+                OnPropertyChanged("Window_Position_Left");
+            }
+        }
+
+        // -------------------------
+        // Window Width
+        // -------------------------
+        // Value
+        private double _Window_Width = 0;
+        public double Window_Width
+        {
+            get { return _Window_Width; }
+            set
+            {
+                if (_Window_Width == value)
+                {
+                    return;
+                }
+
+                _Window_Width = value;
+                OnPropertyChanged("Window_Width");
+            }
+        }
+
+        // -------------------------
+        // Window Height
+        // -------------------------
+        // Value
+        private double _Window_Height = 0;
+        public double Window_Height
+        {
+            get { return _Window_Height; }
+            set
+            {
+                if (_Window_Height == value)
+                {
+                    return;
+                }
+
+                _Window_Height = value;
+                OnPropertyChanged("Window_Height");
+            }
+        }
+
+        // -------------------------
+        // Window Maximized
+        // -------------------------
+        // Value
+        private bool _Window_IsMaximized = true;
+        public bool Window_IsMaximized
+        {
+            get { return _Window_IsMaximized; }
+            set
+            {
+                if (_Window_IsMaximized == value)
+                {
+                    return;
+                }
+
+                _Window_IsMaximized = value;
+                OnPropertyChanged("Window_IsMaximized");
+            }
+        }
+
+
+        // -------------------------
+        // Window State
+        // -------------------------
+        // Value
+        private WindowState _Window_State = WindowState.Normal;
+        public WindowState Window_State
+        {
+            get { return _Window_State; }
+            set
+            {
+                if (_Window_State == value)
+                {
+                    return;
+                }
+
+                _Window_State = value;
+                OnPropertyChanged("Window_State");
+            }
+        }
+
+
         //public string TitleVersion
         //{
         //    get { return (string)GetValue(TitleProperty); }
         //    set { SetValue(TitleProperty, value); }
         //}
 
+
+        // -------------------------
+        // Window Title
+        // -------------------------
         // Text
         private string _TitleVersion;
         public string TitleVersion
@@ -229,10 +558,489 @@ namespace Axiom
         }
 
 
+        // --------------------------------------------------------------------------------------------------------
+        /// <summary>
+        ///     Configure
+        /// </summary>
+        // --------------------------------------------------------------------------------------------------------
+
+        // -------------------------
+        // Custom Presets Path
+        // -------------------------
+        // Text
+        private string _CustomPresetsPath_Text /*= Profiles.presetsDir*/;
+        public string CustomPresetsPath_Text
+        {
+            get { return _CustomPresetsPath_Text; }
+            set
+            {
+                if (_CustomPresetsPath_Text == value)
+                {
+                    return;
+                }
+
+                _CustomPresetsPath_Text = value;
+                OnPropertyChanged("CustomPresetsPath_Text");
+            }
+        }
+        // Enabled
+        private bool _CustomPresetsPath_IsEnabled = true;
+        public bool CustomPresetsPath_IsEnabled
+        {
+            get { return _CustomPresetsPath_IsEnabled; }
+            set
+            {
+                if (_CustomPresetsPath_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _CustomPresetsPath_IsEnabled = value;
+                OnPropertyChanged("CustomPresetsPath_IsEnabled");
+            }
+        }
+
+
+        // -------------------------
+        // FFmpeg Path
+        // -------------------------
+        // Text
+        private string _FFmpegPath_Text = "<auto>";
+        public string FFmpegPath_Text
+        {
+            get { return _FFmpegPath_Text; }
+            set
+            {
+                if (_FFmpegPath_Text == value)
+                {
+                    return;
+                }
+
+                _FFmpegPath_Text = value;
+                OnPropertyChanged("FFmpegPath_Text");
+            }
+        }
+        // Enabled
+        private bool _FFmpegPath_IsEnabled = true;
+        public bool FFmpegPath_IsEnabled
+        {
+            get { return _FFmpegPath_IsEnabled; }
+            set
+            {
+                if (_FFmpegPath_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _FFmpegPath_IsEnabled = value;
+                OnPropertyChanged("FFmpegPath_IsEnabled");
+            }
+        }
+
+        // -------------------------
+        // FFprobe Path
+        // -------------------------
+        // Text
+        private string _FFprobePath_Text = "<auto>";
+        public string FFprobePath_Text
+        {
+            get { return _FFprobePath_Text; }
+            set
+            {
+                if (_FFprobePath_Text == value)
+                {
+                    return;
+                }
+
+                _FFprobePath_Text = value;
+                OnPropertyChanged("FFprobePath_Text");
+            }
+        }
+        // Enabled
+        private bool _FFprobePath_IsEnabled = true;
+        public bool FFprobePath_IsEnabled
+        {
+            get { return _FFprobePath_IsEnabled; }
+            set
+            {
+                if (_FFprobePath_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _FFprobePath_IsEnabled = value;
+                OnPropertyChanged("FFprobePath_IsEnabled");
+            }
+        }
+
+        // -------------------------
+        // FFplay Path
+        // -------------------------
+        // Text
+        private string _FFplayPath_Text = "<auto>";
+        public string FFplayPath_Text
+        {
+            get { return _FFplayPath_Text; }
+            set
+            {
+                if (_FFplayPath_Text == value)
+                {
+                    return;
+                }
+
+                _FFplayPath_Text = value;
+                OnPropertyChanged("FFplayPath_Text");
+            }
+        }
+        // Enabled
+        private bool _FFplayPath_IsEnabled = true;
+        public bool FFplayPath_IsEnabled
+        {
+            get { return _FFplayPath_IsEnabled; }
+            set
+            {
+                if (_FFplayPath_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _FFplayPath_IsEnabled = value;
+                OnPropertyChanged("FFplayPath_IsEnabled");
+            }
+        }
+
+
+        // -------------------------
+        // Log Console
+        // -------------------------
+        // Text
+        private string _LogConsole_Text;
+        public string LogConsole_Text
+        {
+            get { return _LogConsole_Text; }
+            set
+            {
+                if (_LogConsole_Text == value)
+                {
+                    return;
+                }
+
+                _LogConsole_Text = value;
+                OnPropertyChanged("LogConsole_Text");
+            }
+        }
+
+
+        // -------------------------
+        // youtubedl Path
+        // -------------------------
+        // Text
+        private string _youtubedlPath_Text = "<auto>";
+        public string youtubedlPath_Text
+        {
+            get { return _youtubedlPath_Text; }
+            set
+            {
+                if (_youtubedlPath_Text == value)
+                {
+                    return;
+                }
+
+                _youtubedlPath_Text = value;
+                OnPropertyChanged("youtubedlPath_Text");
+            }
+        }
+        // Enabled
+        private bool _youtubedlPath_IsEnabled = true;
+        public bool youtubedlPath_IsEnabled
+        {
+            get { return _youtubedlPath_IsEnabled; }
+            set
+            {
+                if (_youtubedlPath_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _youtubedlPath_IsEnabled = value;
+                OnPropertyChanged("youtubedlPath_IsEnabled");
+            }
+        }
+
+
+        // -------------------------
+        // Log Path
+        // -------------------------
+        // Text
+        private string _LogPath_Text;
+        public string LogPath_Text
+        {
+            get { return _LogPath_Text; }
+            set
+            {
+                if (_LogPath_Text == value)
+                {
+                    return;
+                }
+
+                _LogPath_Text = value;
+                OnPropertyChanged("LogPath_Text");
+            }
+        }
+        // Enabled
+        private bool _LogPath_IsEnabled = true;
+        public bool LogPath_IsEnabled
+        {
+            get { return _LogPath_IsEnabled; }
+            set
+            {
+                if (_LogPath_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _LogPath_IsEnabled = value;
+                OnPropertyChanged("LogPath_IsEnabled");
+            }
+        }
+
+        // -------------------------
+        // Log - CheckBox
+        // -------------------------
+        // Checked
+        private bool _LogCheckBox_IsChecked;
+        public bool LogCheckBox_IsChecked
+        {
+            get { return _LogCheckBox_IsChecked; }
+            set
+            {
+                if (_LogCheckBox_IsChecked != value)
+                {
+                    _LogCheckBox_IsChecked = value;
+                    OnPropertyChanged("LogCheckBox_IsChecked");
+                }
+            }
+        }
+        // Enabled
+        private bool _LogCheckBox_IsEnabled = true;
+        public bool LogCheckBox_IsEnabled
+        {
+            get { return _LogCheckBox_IsEnabled; }
+            set
+            {
+                if (_LogCheckBox_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _LogCheckBox_IsEnabled = value;
+                OnPropertyChanged("LogCheckBox_IsEnabled");
+            }
+        }
+
+        // --------------------------------------------------
+        // Threads
+        // --------------------------------------------------
+        // Items Source
+        private List<string> _Threads_Items = new List<string>()
+        {
+           "default",
+           "optimal",
+           "all",
+           "1",
+           "2",
+           "3",
+           "4",
+           "5",
+           "6",
+           "7",
+           "8",
+           "9",
+           "10",
+           "11",
+           "12",
+           "13",
+           "14",
+           "15",
+           "16"
+        };
+        public List<string> Threads_Items
+        {
+            get { return _Threads_Items; }
+            set
+            {
+                _Threads_Items = value;
+                OnPropertyChanged("Threads_Items");
+            }
+        }
+
+        // Selected Index
+        private int _Threads_SelectedIndex { get; set; }
+        public int Threads_SelectedIndex
+        {
+            get { return _Threads_SelectedIndex; }
+            set
+            {
+                if (_Threads_SelectedIndex == value)
+                {
+                    return;
+                }
+
+                _Threads_SelectedIndex = value;
+                OnPropertyChanged("Threads_SelectedIndex");
+            }
+        }
+
+        // Selected Item
+        private string _Threads_SelectedItem { get; set; }
+        public string Threads_SelectedItem
+        {
+            get { return _Threads_SelectedItem; }
+            set
+            {
+                if (_Threads_SelectedItem == value)
+                {
+                    return;
+                }
+
+                _Threads_SelectedItem = value;
+                OnPropertyChanged("Threads_SelectedItem");
+            }
+        }
+
+        // Controls Enable
+        private bool _Threads_IsEnabled = true;
+        public bool Threads_IsEnabled
+        {
+            get { return _Threads_IsEnabled; }
+            set
+            {
+                if (_Threads_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _Threads_IsEnabled = value;
+                OnPropertyChanged("Threads_IsEnabled");
+            }
+        }
+
+
+        // --------------------------------------------------
+        // Theme
+        // --------------------------------------------------
+        // Items Source
+        private List<string> _Theme_Items = new List<string>()
+        {
+            "Axiom",
+            "FFmpeg",
+            "Cyberpunk",
+            "Onyx",
+            "Circuit",
+            "System"
+        };
+        public List<string> Theme_Items
+        {
+            get { return _Theme_Items; }
+            set
+            {
+                _Theme_Items = value;
+                OnPropertyChanged("Theme_Items");
+            }
+        }
+
+        // Selected Index
+        private int _Theme_SelectedIndex { get; set; }
+        public int Theme_SelectedIndex
+        {
+            get { return _Theme_SelectedIndex; }
+            set
+            {
+                if (_Theme_SelectedIndex == value)
+                {
+                    return;
+                }
+
+                _Theme_SelectedIndex = value;
+                OnPropertyChanged("Theme_SelectedIndex");
+            }
+        }
+
+        // Selected Item
+        private string _Theme_SelectedItem { get; set; }
+        public string Theme_SelectedItem
+        {
+            get { return _Theme_SelectedItem; }
+            set
+            {
+                if (_Theme_SelectedItem == value)
+                {
+                    return;
+                }
+
+                _Theme_SelectedItem = value;
+                OnPropertyChanged("Theme_SelectedItem");
+            }
+        }
+
+        // Controls Enable
+        private bool _Theme_IsEnabled = true;
+        public bool Theme_IsEnabled
+        {
+            get { return _Theme_IsEnabled; }
+            set
+            {
+                if (_Theme_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _Theme_IsEnabled = value;
+                OnPropertyChanged("Theme_IsEnabled");
+            }
+        }
+
+
+        // -------------------------
+        // Update Auto Check - Toggle
+        // -------------------------
+        // Checked
+        private bool _UpdateAutoCheck_IsChecked;
+        public bool UpdateAutoCheck_IsChecked
+        {
+            get { return _UpdateAutoCheck_IsChecked; }
+            set
+            {
+                if (_UpdateAutoCheck_IsChecked != value)
+                {
+                    _UpdateAutoCheck_IsChecked = value;
+                    OnPropertyChanged("UpdateAutoCheck_IsChecked");
+                }
+            }
+        }
+
+        // Enabled
+        private bool _UpdateAutoCheck_IsEnabled = true;
+        public bool UpdateAutoCheck_IsEnabled
+        {
+            get { return _UpdateAutoCheck_IsEnabled; }
+            set
+            {
+                if (_UpdateAutoCheck_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _UpdateAutoCheck_IsEnabled = value;
+                OnPropertyChanged("UpdateAutoCheck_IsEnabled");
+            }
+        }
+
+
 
         // --------------------------------------------------------------------------------------------------------
         /// <summary>
-        ///     Threads
+        ///     App Threads
         /// </summary>
         // --------------------------------------------------------------------------------------------------------
         public Task youtubedlInputWorker = null;
@@ -556,151 +1364,6 @@ namespace Axiom
         }
 
 
-
-        // --------------------------------------------------------------------------------------------------------
-        /// <summary>
-        ///     Settings
-        /// </summary>
-        // --------------------------------------------------------------------------------------------------------
-        // --------------------------------------------------
-        // Preset
-        // --------------------------------------------------
-        // Items Source
-        public class Preset
-        {
-            public string Name { get; set; }
-            public bool Category { get; set; }
-        }
-
-        public List<Preset> _Preset_Items = new List<Preset>()
-        {
-            // Default
-            new Preset() { Name = "Default",       Category = true  },
-            new Preset() { Name = "Preset",        Category = false },
-
-            // Web
-            new Preset() { Name = "Web",           Category = true  },
-            new Preset() { Name = "HTML5",         Category = false },
-            new Preset() { Name = "YouTube",       Category = false },
-
-            // UHD
-            new Preset() { Name = "UHD",           Category = true  },
-            new Preset() { Name = "Archive",       Category = false },
-            new Preset() { Name = "HEVC Ultra",    Category = false },
-            new Preset() { Name = "HEVC High",     Category = false },
-
-            // HD
-            new Preset() { Name = "HD",            Category = true  },
-            new Preset() { Name = "HD Ultra",      Category = false },
-            new Preset() { Name = "HD High",       Category = false },
-            new Preset() { Name = "HD Medium",     Category = false },
-
-            // SD
-            new Preset() { Name = "SD",            Category = true  },
-            new Preset() { Name = "SD High",       Category = false },
-            new Preset() { Name = "SD Medium",     Category = false },
-            new Preset() { Name = "SD Low",        Category = false },
-
-            // Mobile
-            new Preset() { Name = "Mobile",        Category = true  },
-            new Preset() { Name = "Android",       Category = false },
-            new Preset() { Name = "iOS",           Category = false },
-
-            // Device
-            new Preset() { Name = "Device",        Category = true  },
-            new Preset() { Name = "Roku",          Category = false },
-            new Preset() { Name = "Amazon Fire",   Category = false },
-            new Preset() { Name = "Chromecast",    Category = false },
-            new Preset() { Name = "Apple TV",      Category = false },
-            new Preset() { Name = "Raspberry Pi",  Category = false },
-
-            // Console
-            new Preset() { Name = "Console",       Category = true  },
-            new Preset() { Name = "PS3",           Category = false },
-            new Preset() { Name = "PS4",           Category = false },
-            new Preset() { Name = "Xbox 360",      Category = false },
-            new Preset() { Name = "Xbox One",      Category = false },
-
-            // Disc
-            new Preset() { Name = "Disc",          Category = true  },
-            new Preset() { Name = "UHD",           Category = false },
-            new Preset() { Name = "Blu-ray",       Category = false },
-            new Preset() { Name = "DVD",           Category = false },          
-
-            // Music
-            new Preset() { Name = "Music",         Category = true  },
-            new Preset() { Name = "Lossless",      Category = false },
-            new Preset() { Name = "MP3 HQ",        Category = false },
-            new Preset() { Name = "MP3 Low",       Category = false },
-            new Preset() { Name = "iTunes",        Category = false },
-            new Preset() { Name = "Voice",         Category = false },
-
-            // YouTube
-            new Preset() { Name = "YouTube-DL",       Category = true  },
-            new Preset() { Name = "Video Download",   Category = false },
-            new Preset() { Name = "Music Download",   Category = false },
-        };
-
-        public List<Preset> Preset_Items
-        {
-            get { return _Preset_Items; }
-            set
-            {
-                _Preset_Items = value;
-                OnPropertyChanged("Preset_Items");
-            }
-        }
-
-        // Selected Index
-        private int _Preset_SelectedIndex { get; set; }
-        public int Preset_SelectedIndex
-        {
-            get { return _Preset_SelectedIndex; }
-            set
-            {
-                if (_Preset_SelectedIndex == value)
-                {
-                    return;
-                }
-
-                _Preset_SelectedIndex = value;
-                OnPropertyChanged("Preset_SelectedIndex");
-            }
-        }
-
-        // Selected Item
-        private string _Preset_SelectedItem { get; set; }
-        public string Preset_SelectedItem
-        {
-            get { return _Preset_SelectedItem; }
-            set
-            {
-                if (_Preset_SelectedItem == value)
-                {
-                    return;
-                }
-
-                _Preset_SelectedItem = value;
-                OnPropertyChanged("Preset_SelectedItem");
-            }
-        }
-
-        // Controls Enable
-        private bool _Preset_IsEnabled { get; set; }
-        public bool Preset_IsEnabled
-        {
-            get { return _Preset_IsEnabled; }
-            set
-            {
-                if (_Preset_IsEnabled == value)
-                {
-                    return;
-                }
-
-                _Preset_IsEnabled = value;
-                OnPropertyChanged("Preset_IsEnabled");
-            }
-        }
 
         // --------------------------------------------------------------------------------------------------------
         /// <summary>
@@ -4076,448 +4739,7 @@ namespace Axiom
         }
 
 
-        // --------------------------------------------------------------------------------------------------------
-        /// <summary>
-        ///     Configure
-        /// </summary>
-        // --------------------------------------------------------------------------------------------------------
-        // -------------------------
-        // FFmpeg Path
-        // -------------------------
-        // Text
-        private string _FFmpegPath_Text;
-        public string FFmpegPath_Text
-        {
-            get { return _FFmpegPath_Text; }
-            set
-            {
-                if (_FFmpegPath_Text == value)
-                {
-                    return;
-                }
-
-                _FFmpegPath_Text = value;
-                OnPropertyChanged("FFmpegPath_Text");
-            }
-        }
-        // Enabled
-        private bool _FFmpegPath_IsEnabled = true;
-        public bool FFmpegPath_IsEnabled
-        {
-            get { return _FFmpegPath_IsEnabled; }
-            set
-            {
-                if (_FFmpegPath_IsEnabled == value)
-                {
-                    return;
-                }
-
-                _FFmpegPath_IsEnabled = value;
-                OnPropertyChanged("FFmpegPath_IsEnabled");
-            }
-        }
-
-        // -------------------------
-        // FFprobe Path
-        // -------------------------
-        // Text
-        private string _FFprobePath_Text;
-        public string FFprobePath_Text
-        {
-            get { return _FFprobePath_Text; }
-            set
-            {
-                if (_FFprobePath_Text == value)
-                {
-                    return;
-                }
-
-                _FFprobePath_Text = value;
-                OnPropertyChanged("FFprobePath_Text");
-            }
-        }
-        // Enabled
-        private bool _FFprobePath_IsEnabled = true;
-        public bool FFprobePath_IsEnabled
-        {
-            get { return _FFprobePath_IsEnabled; }
-            set
-            {
-                if (_FFprobePath_IsEnabled == value)
-                {
-                    return;
-                }
-
-                _FFprobePath_IsEnabled = value;
-                OnPropertyChanged("FFprobePath_IsEnabled");
-            }
-        }
-
-        // -------------------------
-        // FFplay Path
-        // -------------------------
-        // Text
-        private string _FFplayPath_Text;
-        public string FFplayPath_Text
-        {
-            get { return _FFplayPath_Text; }
-            set
-            {
-                if (_FFplayPath_Text == value)
-                {
-                    return;
-                }
-
-                _FFplayPath_Text = value;
-                OnPropertyChanged("FFplayPath_Text");
-            }
-        }
-        // Enabled
-        private bool _FFplayPath_IsEnabled = true;
-        public bool FFplayPath_IsEnabled
-        {
-            get { return _FFplayPath_IsEnabled; }
-            set
-            {
-                if (_FFplayPath_IsEnabled == value)
-                {
-                    return;
-                }
-
-                _FFplayPath_IsEnabled = value;
-                OnPropertyChanged("FFplayPath_IsEnabled");
-            }
-        }
-
-
-        // -------------------------
-        // Log Console
-        // -------------------------
-        // Text
-        private string _LogConsole_Text;
-        public string LogConsole_Text
-        {
-            get { return _LogConsole_Text; }
-            set
-            {
-                if (_LogConsole_Text == value)
-                {
-                    return;
-                }
-
-                _LogConsole_Text = value;
-                OnPropertyChanged("LogConsole_Text");
-            }
-        }
-
-
-        // -------------------------
-        // youtubedl Path
-        // -------------------------
-        // Text
-        private string _youtubedlPath_Text;
-        public string youtubedlPath_Text
-        {
-            get { return _youtubedlPath_Text; }
-            set
-            {
-                if (_youtubedlPath_Text == value)
-                {
-                    return;
-                }
-
-                _youtubedlPath_Text = value;
-                OnPropertyChanged("youtubedlPath_Text");
-            }
-        }
-        // Enabled
-        private bool _youtubedlPath_IsEnabled = true;
-        public bool youtubedlPath_IsEnabled
-        {
-            get { return _youtubedlPath_IsEnabled; }
-            set
-            {
-                if (_youtubedlPath_IsEnabled == value)
-                {
-                    return;
-                }
-
-                _youtubedlPath_IsEnabled = value;
-                OnPropertyChanged("youtubedlPath_IsEnabled");
-            }
-        }
-
-
-        // -------------------------
-        // Log Path
-        // -------------------------
-        // Text
-        private string _LogPath_Text;
-        public string LogPath_Text
-        {
-            get { return _LogPath_Text; }
-            set
-            {
-                if (_LogPath_Text == value)
-                {
-                    return;
-                }
-
-                _LogPath_Text = value;
-                OnPropertyChanged("LogPath_Text");
-            }
-        }
-        // Enabled
-        private bool _LogPath_IsEnabled = true;
-        public bool LogPath_IsEnabled
-        {
-            get { return _LogPath_IsEnabled; }
-            set
-            {
-                if (_LogPath_IsEnabled == value)
-                {
-                    return;
-                }
-
-                _LogPath_IsEnabled = value;
-                OnPropertyChanged("LogPath_IsEnabled");
-            }
-        }
-
-        // -------------------------
-        // Log - CheckBox
-        // -------------------------
-        // Checked
-        private bool _LogCheckBox_IsChecked;
-        public bool LogCheckBox_IsChecked
-        {
-            get { return _LogCheckBox_IsChecked; }
-            set
-            {
-                if (_LogCheckBox_IsChecked != value)
-                {
-                    _LogCheckBox_IsChecked = value;
-                    OnPropertyChanged("LogCheckBox_IsChecked");
-                }
-            }
-        }
-        // Enabled
-        private bool _LogCheckBox_IsEnabled = true;
-        public bool LogCheckBox_IsEnabled
-        {
-            get { return _LogCheckBox_IsEnabled; }
-            set
-            {
-                if (_LogCheckBox_IsEnabled == value)
-                {
-                    return;
-                }
-
-                _LogCheckBox_IsEnabled = value;
-                OnPropertyChanged("LogCheckBox_IsEnabled");
-            }
-        }
-
-        // --------------------------------------------------
-        // Threads
-        // --------------------------------------------------
-        // Items Source
-        private List<string> _Threads_Items = new List<string>()
-        {
-           "default",
-           "optimal",
-           "all",
-           "1",
-           "2",
-           "3",
-           "4",
-           "5",
-           "6",
-           "7",
-           "8",
-           "9",
-           "10",
-           "11",
-           "12",
-           "13",
-           "14",
-           "15",
-           "16"
-        };
-        public List<string> Threads_Items
-        {
-            get { return _Threads_Items; }
-            set
-            {
-                _Threads_Items = value;
-                OnPropertyChanged("Threads_Items");
-            }
-        }
-
-        // Selected Index
-        private int _Threads_SelectedIndex { get; set; }
-        public int Threads_SelectedIndex
-        {
-            get { return _Threads_SelectedIndex; }
-            set
-            {
-                if (_Threads_SelectedIndex == value)
-                {
-                    return;
-                }
-
-                _Threads_SelectedIndex = value;
-                OnPropertyChanged("Threads_SelectedIndex");
-            }
-        }
-
-        // Selected Item
-        private string _Threads_SelectedItem { get; set; }
-        public string Threads_SelectedItem
-        {
-            get { return _Threads_SelectedItem; }
-            set
-            {
-                if (_Threads_SelectedItem == value)
-                {
-                    return;
-                }
-
-                _Threads_SelectedItem = value;
-                OnPropertyChanged("Threads_SelectedItem");
-            }
-        }
-
-        // Controls Enable
-        private bool _Threads_IsEnabled = true;
-        public bool Threads_IsEnabled
-        {
-            get { return _Threads_IsEnabled; }
-            set
-            {
-                if (_Threads_IsEnabled == value)
-                {
-                    return;
-                }
-
-                _Threads_IsEnabled = value;
-                OnPropertyChanged("Threads_IsEnabled");
-            }
-        }
-
-
-        // --------------------------------------------------
-        // Theme
-        // --------------------------------------------------
-        // Items Source
-        private List<string> _Theme_Items = new List<string>()
-        {
-            "Axiom",
-            "FFmpeg",
-            "Cyberpunk",
-            "Onyx",
-            "Circuit",
-            "System"
-        };
-        public List<string> Theme_Items
-        {
-            get { return _Theme_Items; }
-            set
-            {
-                _Theme_Items = value;
-                OnPropertyChanged("Theme_Items");
-            }
-        }
-
-        // Selected Index
-        private int _Theme_SelectedIndex { get; set; }
-        public int Theme_SelectedIndex
-        {
-            get { return _Theme_SelectedIndex; }
-            set
-            {
-                if (_Theme_SelectedIndex == value)
-                {
-                    return;
-                }
-
-                _Theme_SelectedIndex = value;
-                OnPropertyChanged("Theme_SelectedIndex");
-            }
-        }
-
-        // Selected Item
-        private string _Theme_SelectedItem { get; set; }
-        public string Theme_SelectedItem
-        {
-            get { return _Theme_SelectedItem; }
-            set
-            {
-                if (_Theme_SelectedItem == value)
-                {
-                    return;
-                }
-
-                _Theme_SelectedItem = value;
-                OnPropertyChanged("Theme_SelectedItem");
-            }
-        }
-
-        // Controls Enable
-        private bool _Theme_IsEnabled = true;
-        public bool Theme_IsEnabled
-        {
-            get { return _Theme_IsEnabled; }
-            set
-            {
-                if (_Theme_IsEnabled == value)
-                {
-                    return;
-                }
-
-                _Theme_IsEnabled = value;
-                OnPropertyChanged("Theme_IsEnabled");
-            }
-        }
-
-
-        // -------------------------
-        // Update Auto Check - Toggle
-        // -------------------------
-        // Checked
-        private bool _UpdateAutoCheck_IsChecked;
-        public bool UpdateAutoCheck_IsChecked
-        {
-            get { return _UpdateAutoCheck_IsChecked; }
-            set
-            {
-                if (_UpdateAutoCheck_IsChecked != value)
-                {
-                    _UpdateAutoCheck_IsChecked = value;
-                    OnPropertyChanged("UpdateAutoCheck_IsChecked");
-                }
-            }
-        }
-
-        // Enabled
-        private bool _UpdateAutoCheck_IsEnabled = true;
-        public bool UpdateAutoCheck_IsEnabled
-        {
-            get { return _UpdateAutoCheck_IsEnabled; }
-            set
-            {
-                if (_UpdateAutoCheck_IsEnabled == value)
-                {
-                    return;
-                }
-
-                _UpdateAutoCheck_IsEnabled = value;
-                OnPropertyChanged("UpdateAutoCheck_IsEnabled");
-            }
-        }
-
-
-
+      
 
         // --------------------------------------------------------------------------------------------------------
         /// <summary>
@@ -4746,12 +4968,12 @@ namespace Axiom
         // Deband
         // -------------------------
         // Items
-        public static List<string> _FilterVideo_Deband_Items = new List<string>()
+        public List<string> _FilterVideo_Deband_Items = new List<string>()
         {
             "disabled",
             "enabled"
         };
-        public static List<string> FilterVideo_Deband_Items
+        public List<string> FilterVideo_Deband_Items
         {
             get { return _FilterVideo_Deband_Items; }
             set { _FilterVideo_Deband_Items = value; }
@@ -4778,12 +5000,12 @@ namespace Axiom
         // Deshake
         // -------------------------
         // Items
-        public static List<string> _FilterVideo_Deshake_Items = new List<string>()
+        public List<string> _FilterVideo_Deshake_Items = new List<string>()
         {
             "disabled",
             "enabled"
         };
-        public static List<string> FilterVideo_Deshake_Items
+        public List<string> FilterVideo_Deshake_Items
         {
             get { return _FilterVideo_Deshake_Items; }
             set { _FilterVideo_Deshake_Items = value; }
@@ -4811,12 +5033,12 @@ namespace Axiom
         // Deflicker
         // -------------------------
         // Items
-        public static List<string> _FilterVideo_Deflicker_Items = new List<string>()
+        public List<string> _FilterVideo_Deflicker_Items = new List<string>()
         {
             "disabled",
             "enabled"
         };
-        public static List<string> FilterVideo_Deflicker_Items
+        public List<string> FilterVideo_Deflicker_Items
         {
             get { return _FilterVideo_Deflicker_Items; }
             set { _FilterVideo_Deflicker_Items = value; }
@@ -4843,12 +5065,12 @@ namespace Axiom
         // Dejudder
         // -------------------------
         // Items
-        public static List<string> _FilterVideo_Dejudder_Items = new List<string>()
+        public List<string> _FilterVideo_Dejudder_Items = new List<string>()
         {
             "disabled",
             "enabled"
         };
-        public static List<string> FilterVideo_Dejudder_Items
+        public List<string> FilterVideo_Dejudder_Items
         {
             get { return _FilterVideo_Dejudder_Items; }
             set { _FilterVideo_Dejudder_Items = value; }
@@ -4874,7 +5096,7 @@ namespace Axiom
         // Denoise
         // -------------------------
         // Items
-        public static List<string> _FilterVideo_Denoise_Items = new List<string>()
+        public List<string> _FilterVideo_Denoise_Items = new List<string>()
         {
             "disabled",
             "default",
@@ -4882,7 +5104,7 @@ namespace Axiom
             "medium",
             "heavy",
         };
-        public static List<string> FilterVideo_Denoise_Items
+        public List<string> FilterVideo_Denoise_Items
         {
             get { return _FilterVideo_Denoise_Items; }
             set { _FilterVideo_Denoise_Items = value; }
@@ -4908,7 +5130,7 @@ namespace Axiom
         // Deinterlace
         // -------------------------
         // Items
-        public static List<string> _FilterVideo_Deinterlace_Items = new List<string>()
+        public List<string> _FilterVideo_Deinterlace_Items = new List<string>()
         {
             "disabled",
             "frame",
@@ -4918,7 +5140,7 @@ namespace Axiom
             //"cuda frame",
             //"cuda field"
         };
-        public static List<string> FilterVideo_Deinterlace_Items
+        public List<string> FilterVideo_Deinterlace_Items
         {
             get { return _FilterVideo_Deinterlace_Items; }
             set { _FilterVideo_Deinterlace_Items = value; }
@@ -5045,12 +5267,12 @@ namespace Axiom
         // Correction Method
         // -------------------------
         // Items
-        public static List<string> _FilterVideo_SelectiveColor_Correction_Method_Items = new List<string>()
+        public List<string> _FilterVideo_SelectiveColor_Correction_Method_Items = new List<string>()
         {
             "relative",
             "absolute"
         };
-        public static List<string> FilterVideo_SelectiveColor_Correction_Method_Items
+        public List<string> FilterVideo_SelectiveColor_Correction_Method_Items
         {
             get { return _FilterVideo_SelectiveColor_Correction_Method_Items; }
             set { _FilterVideo_SelectiveColor_Correction_Method_Items = value; }
@@ -5652,12 +5874,12 @@ namespace Axiom
         // Lowpass
         // -------------------------
         // Items
-        public static List<string> _FilterAudio_Lowpass_Items = new List<string>()
+        public List<string> _FilterAudio_Lowpass_Items = new List<string>()
         {
             "disabled",
             "enabled"
         };
-        public static List<string> FilterAudio_Lowpass_Items
+        public List<string> FilterAudio_Lowpass_Items
         {
             get { return _FilterAudio_Lowpass_Items; }
             set { _FilterAudio_Lowpass_Items = value; }
@@ -5684,12 +5906,12 @@ namespace Axiom
         // Highpass
         // -------------------------
         // Items
-        public static List<string> _FilterAudio_Highpass_Items = new List<string>()
+        public List<string> _FilterAudio_Highpass_Items = new List<string>()
         {
             "disabled",
             "enabled"
         };
-        public static List<string> FilterAudio_Highpass_Items
+        public List<string> FilterAudio_Highpass_Items
         {
             get { return _FilterAudio_Highpass_Items; }
             set { _FilterAudio_Highpass_Items = value; }
@@ -5715,12 +5937,12 @@ namespace Axiom
         // Headphones (Earwax)
         // -------------------------
         // Items
-        public static List<string> _FilterAudio_Headphones_Items = new List<string>()
+        public List<string> _FilterAudio_Headphones_Items = new List<string>()
         {
             "disabled",
             "enabled"
         };
-        public static List<string> FilterAudio_Headphones_Items
+        public List<string> FilterAudio_Headphones_Items
         {
             get { return _FilterAudio_Headphones_Items; }
             set { _FilterAudio_Headphones_Items = value; }

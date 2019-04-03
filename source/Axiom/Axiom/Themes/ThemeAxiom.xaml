@@ -443,8 +443,8 @@
 
         </Style.Triggers>
     </Style>
-    
-    
+
+
     <!-- ComboBox White Item -->
     <Style x:Key="ComboBoxCategoryStyleItem" TargetType="{x:Type ComboBoxItem}">
         <Setter Property="Template" Value="{StaticResource ComboBoxCategoryStyle.Item.ControlTemplate}"/>
@@ -790,16 +790,16 @@
     </Style>
 
 
-    
+
     <!--/////////////////////////////////////
           TextBox Cut
         /////////////////////////////////////-->
     <SolidColorBrush x:Key="TextBoxCut.Static.Foreground" Color="#FFFFFFFF"/>
     <SolidColorBrush x:Key="TextBoxCut.Disabled.Foreground" Color="#FFADD5FF"/>
-    
+
     <SolidColorBrush x:Key="TextBoxCut.Static.Background" Color="Transparent"/>
     <SolidColorBrush x:Key="TextBoxCut.Disabled.Background" Color="Transparent"/>
-    
+
     <SolidColorBrush x:Key="TextBoxCut.Static.Border" Color="Transparent"/>
     <SolidColorBrush x:Key="TextBoxCut.Disabled.Border" Color="Transparent"/>
 
@@ -859,7 +859,7 @@
         </Style.Triggers>
     </Style>
 
-    
+
     <!--/////////////////////////////////////
          Label Cut
         /////////////////////////////////////-->
@@ -890,8 +890,8 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
-    
+
+
 
 
     <!--/////////////////////////////////////
@@ -2275,7 +2275,7 @@
     <SolidColorBrush x:Key="TextBox.Static.Border" Color="#FFABAdB3"/>
     <SolidColorBrush x:Key="TextBox.MouseOver.Border" Color="#FF7EB4EA"/>
     <SolidColorBrush x:Key="TextBox.Focus.Border" Color="#FF569DE5"/>
-    
+
     <Style x:Key="{x:Type TextBoxBase}" TargetType="{x:Type TextBoxBase}">
         <Setter Property="Background" Value="{DynamicResource TextBox.Static.Background}"/>
         <Setter Property="BorderBrush" Value="{StaticResource TextBox.Static.Border}"/>
@@ -3055,7 +3055,7 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-    
+
 
 
     <!--/////////////////////////////////////
@@ -3168,5 +3168,18 @@
         </Style.Triggers>
     </Style>
 
+    <!-- Import Button -->
+    <Style x:Key="ButtonImportStyle" TargetType="{x:Type Image}">
+        <Setter Property="FlowDirection" Value="LeftToRight"/>
+        <Setter Property="Source" Value="../Resources/Images/Buttons/White/import.png"/>
+        <Setter Property="Stretch" Value="Uniform"/>
+    </Style>
+
+    <!-- Export Button -->
+    <Style x:Key="ButtonExportStyle" TargetType="{x:Type Image}">
+        <Setter Property="FlowDirection" Value="LeftToRight"/>
+        <Setter Property="Source" Value="../Resources/Images/Buttons/White/export.png"/>
+        <Setter Property="Stretch" Value="Uniform"/>
+    </Style>
 
 </ResourceDictionary>

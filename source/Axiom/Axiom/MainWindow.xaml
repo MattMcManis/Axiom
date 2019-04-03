@@ -36,8 +36,9 @@
         
         RenderOptions.BitmapScalingMode="Fant"
         UseLayoutRounding="True"
-        Height="432"
-        Width="768"
+        
+        Width="824"
+        Height="464"
         
         Top="{Binding Top, Source={x:Static settings:Settings.Default}, Mode=TwoWay}"
         Left="{Binding Left, Source={x:Static settings:Settings.Default}, Mode=TwoWay}" 
@@ -47,6 +48,8 @@
 
     <Window.Resources>
 
+        <!-- Group Box Epander -->
+        <!-- Disables Expander Header Click -->
         <Style x:Key="GroupBoxExpanderToggleButtonStyle" TargetType="{x:Type ToggleButton}">
             <Setter Property="Template">
                 <Setter.Value>
@@ -495,84 +498,6 @@
                                       Grid.Row="1"
                                       Grid.Column="2"
                                       Height="22"/>
-
-                            <!-- Encode Speed -->
-                            <!--
-                            <Label 
-                                Style="{DynamicResource LabelStyle}" 
-                                Content="Encode Speed" 
-                                HorizontalAlignment="Left" 
-                                VerticalAlignment="Top"
-                                Width="91" 
-                                FontFamily="Segoe UI Semilight" 
-                                Grid.Row="3" 
-                                Height="26" Grid.Column="1" />
-
-                            <ComboBox x:Name="cboEncodeSpeed" 
-                                      Style="{DynamicResource ComboBoxCategoryStyle}"
-                                      ItemContainerStyle="{DynamicResource ComboBoxCategoryStyleItem}" 
-                                      ItemsSource="{Binding Video_EncodeSpeed_Items}"
-                                      SelectedValuePath="Name"
-                                      SelectedIndex="{Binding Video_EncodeSpeed_SelectedIndex}"
-                                      SelectedValue="{Binding Video_EncodeSpeed_SelectedItem, Mode=TwoWay}"
-                                      IsEnabled="{Binding Video_EncodeSpeed_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                      HorizontalAlignment="Left" 
-                                      VerticalAlignment="Top" 
-                                      Width="105" 
-                                      Height="22"
-                                      Grid.Column="2" 
-                                      Grid.Row="3"
-                                      ToolTipService.InitialShowDelay="1000" 
-                                      ToolTipService.ShowOnDisabled="True" 
-                                      ToolTip="Encoding Speed. Slower = Better Quality &amp; Compression." Margin="0,2,0,0" 
-                                      >
-                                <ComboBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <Grid>
-                                            <TextBlock DataContext="{Binding}">
-                                                <TextBlock.Text>
-                                                    <Binding Path="Name"/>
-                                                </TextBlock.Text>
-                                            </TextBlock>
-                                        </Grid>
-                                    </DataTemplate>
-                                </ComboBox.ItemTemplate>
-                            </ComboBox>-->
-
-
-
-                            <!-- HW Acceleration -->
-                            <!--
-                            <Label 
-                                Style="{DynamicResource LabelStyle}" 
-                                Content="HW Accel" 
-                                HorizontalAlignment="Left" 
-                                VerticalAlignment="Top"
-                                Width="91" 
-                                FontFamily="Segoe UI Semilight" 
-                                Grid.Row="4
-                                " 
-                                Height="26" Grid.Column="1" />
-
-                            <ComboBox x:Name="cboHWAccel" 
-                                      ItemsSource="{Binding Format_HWAccel_Items}"
-                                      SelectedIndex="{Binding Format_HWAccel_SelectedIndex}"
-                                      SelectedItem="{Binding Format_HWAccel_SelectedItem, Mode=TwoWay}"
-                                      IsEnabled="{Binding Format_HWAccel_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                      Style="{DynamicResource ComboBoxStyle}"
-                                      IsSynchronizedWithCurrentItem="True"
-                                      ItemContainerStyle="{DynamicResource ComboBoxStyleItem}"
-                                      HorizontalAlignment="Left" 
-                                      VerticalAlignment="Top" 
-                                      Width="105" 
-                                      ToolTipService.InitialShowDelay="1000" 
-                                      ToolTipService.ShowOnDisabled="True" 
-                                      ToolTip="Hardware Acceleration" 
-                                      Grid.Row="4"
-                                      Grid.Column="2"
-                                      Height="22" 
-                                      Margin="0,4,0,0" />-->
-
 
                             <!-- Cut -->
                             <Label Style="{DynamicResource LabelStyle}" 
@@ -2152,47 +2077,6 @@
                                       ToolTipService.ShowOnDisabled="True" 
                                       ToolTip="Compression Level. Higher value is more compression." 
                                       />
-                            <!--<Label Style="{DynamicResource LabelStyle}" 
-                                   Content="Compression" 
-                                   HorizontalAlignment="Left" 
-                                   VerticalAlignment="Top"
-                                   Width="85" 
-                                   ToolTip="Audio Sample Rate" 
-                                   FontFamily="Segoe UI Semilight" 
-                                   Grid.Row="6"
-                                   Grid.Column="1" />
-                            <ComboBox x:Name="cboAudio_CompressionLevel" 
-                                      Style="{DynamicResource ComboBoxStyle}"
-                                      ItemContainerStyle="{DynamicResource ComboBoxStyleItem}" 
-                                      ItemsSource="{Binding Audio_CompressionLevel_Items}"
-                                      SelectedIndex="{Binding Audio_CompressionLevel_SelectedIndex}"
-                                      SelectedValuePath="Name"
-                                      SelectedValue="{Binding Audio_CompressionLevel_SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                      IsEnabled="{Binding Audio_CompressionLevel_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                      IsSynchronizedWithCurrentItem="True"
-                                      HorizontalAlignment="Left" 
-                                      VerticalAlignment="Top" 
-                                      Width="105"
-                                      Height="22"
-                                      SelectionChanged="cboAudio_CompressionLevel_SelectionChanged" 
-                                      ToolTip="Audio Sample Rate"
-                                      Grid.Column="2" 
-                                      Grid.Row="6" 
-                                      Margin="0,2,0,0"
-                                      >
-                                <ComboBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <Grid>
-                                            <TextBlock DataContext="{Binding}">
-                                                <TextBlock.Text>
-                                                    <Binding Path="Name"/>
-                                                </TextBlock.Text>
-                                            </TextBlock>
-                                        </Grid>
-                                    </DataTemplate>
-                                </ComboBox.ItemTemplate>
-                            </ComboBox>-->
-
 
                             <!-- Sample Rate -->
                             <Label Style="{DynamicResource LabelStyle}" 
@@ -4810,13 +4694,13 @@
                                 <RowDefinition Height="33"/>
                                 <RowDefinition Height="33"/>
                                 <RowDefinition Height="33"/>
-                                <RowDefinition Height="22"/>
-                                <RowDefinition Height="33"/>
                                 <RowDefinition Height="33"/>
                                 <RowDefinition Height="22"/>
                                 <RowDefinition Height="33"/>
+                                <RowDefinition Height="33"/>
                                 <RowDefinition Height="22"/>
                                 <RowDefinition Height="33"/>
+                                <RowDefinition Height="22"/>
                                 <RowDefinition Height="33"/>
                                 <RowDefinition Height="33"/>
                             </Grid.RowDefinitions>
@@ -4826,6 +4710,64 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
 
+                            <!-- Custom Presets Path TextBox -->
+                            <Label Style="{DynamicResource LabelStyle}" 
+                                   Content="Presets" 
+                                   HorizontalAlignment="Left" 
+                                   VerticalAlignment="Top"
+                                   Height="26" 
+                                   ToolTipService.InitialShowDelay="1000"
+                                   ToolTipService.ShowOnDisabled="True"
+                                   ToolTip="Path to Custom Presets folder." 
+                                   Grid.Column="1"
+                                   Grid.Row="0"
+                                   Width="56"/>
+                            <TextBox x:Name="tbxCustomPresetsPath" 
+                                     Text="{Binding CustomPresetsPath_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                     IsEnabled="{Binding CustomPresetsPath_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                     Style="{DynamicResource TextBoxBrowseStyle}"
+                                     HorizontalAlignment="Left" 
+                                     Height="20"
+                                     Margin="10,2,0,0" 
+                                     TextWrapping="Wrap" 
+                                     VerticalAlignment="Top"
+                                     Width="105"
+                                     IsReadOnly="True" 
+                                     PreviewMouseDown="tbxCustomPresetsPath_PreviewMouseDown"
+                                     AllowDrop="True"
+                                     PreviewDragOver="tbxCustomPresetsPath_PreviewDragOver"
+                                     PreviewDragEnter="tbxCustomPresetsPath_PreviewDragOver"
+                                     PreviewDrop="tbxCustomPresetsPath_PreviewDrop"
+                                     ToolTipService.InitialShowDelay="1000" 
+                                     ToolTipService.ShowOnDisabled="True" 
+                                     ToolTip="Path to Custom Presets folder." 
+                                     Grid.Column="2"
+                                     Grid.Row="0"
+                                     />
+
+                            <!-- CustomPresets Path Revert Button -->
+                            <Button x:Name="btnCustomPresetsAuto"
+                                    HorizontalAlignment="Left"
+                                    Margin="122,0,0,0" 
+                                    VerticalAlignment="Top"
+                                    Width="23" 
+                                    Height="23" 
+                                    Cursor="Hand"
+                                    ToolTipService.InitialShowDelay="1000"
+                                    ToolTipService.ShowOnDisabled="True"
+                                    ToolTip="Revert to Auto"
+                                    Click="btnCustomPresetsAuto_Click"
+                                    Grid.Column="2"
+                                    Grid.Row="0"
+                                    Style="{DynamicResource ButtonFolderStyle}" >
+                                <Image Width="9" 
+                                       Height="11" 
+                                       Stretch="Uniform"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center" 
+                                       Style="{DynamicResource ButtonRevertArrow}" />
+                            </Button>
+                            
                             <!-- FFmpeg Path TextBox -->
                             <Label Style="{DynamicResource LabelStyle}" 
                                    Content="FFmpeg" 
@@ -4836,6 +4778,7 @@
                                    ToolTipService.ShowOnDisabled="True"
                                    ToolTip="Path to FFmpeg.exe" 
                                    Grid.Column="1"
+                                   Grid.Row="1"
                                    Width="56"/>
                             <TextBox x:Name="tbxFFmpegPathConfig" 
                                      Text="{Binding FFmpegPath_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -4856,7 +4799,9 @@
                                      ToolTipService.InitialShowDelay="1000" 
                                      ToolTipService.ShowOnDisabled="True" 
                                      ToolTip="Path to FFmpeg.exe" 
-                                     Grid.Column="2"/>
+                                     Grid.Column="2"
+                                     Grid.Row="1"
+                                     />
 
                             <!-- FFmpeg Path Revert Button -->
                             <Button x:Name="btnFFmpegAuto"
@@ -4870,7 +4815,9 @@
                                     ToolTipService.ShowOnDisabled="True"
                                     ToolTip="Revert to Auto"
                                     Click="btnFFmpegAuto_Click"
-                                    Style="{DynamicResource ButtonFolderStyle}" Grid.Column="2" >
+                                    Grid.Column="2"
+                                    Grid.Row="1"
+                                    Style="{DynamicResource ButtonFolderStyle}"  >
                                 <Image Width="9" 
                                        Height="11" 
                                        Stretch="Uniform"
@@ -4888,7 +4835,7 @@
                                    ToolTipService.InitialShowDelay="1000"
                                    ToolTipService.ShowOnDisabled="True"
                                    ToolTip="Path to FFprobe.exe" 
-                                   Grid.Row="1" 
+                                   Grid.Row="2" 
                                    Grid.Column="1" 
                                    Width="56"/>
                             <TextBox x:Name="tbxFFprobePathConfig" 
@@ -4911,7 +4858,7 @@
                                      ToolTipService.ShowOnDisabled="True" 
                                      ToolTip="Path to FFprobe.exe"
                                      Grid.Column="2" 
-                                     Grid.Row="1"/>
+                                     Grid.Row="2"/>
 
                             <!-- FFprobe Path Revert Button -->
                             <Button x:Name="btnFFprobeAuto"
@@ -4925,7 +4872,9 @@
                                     ToolTipService.ShowOnDisabled="True"
                                     ToolTip="Revert to Auto"
                                     Click="btnFFprobeAuto_Click"
-                                    Style="{DynamicResource ButtonFolderStyle}" Grid.Column="2" Grid.Row="1" >
+                                    Style="{DynamicResource ButtonFolderStyle}" 
+                                    Grid.Column="2" 
+                                    Grid.Row="2" >
                                 <Image Width="9" 
                                        Height="11" 
                                        Stretch="Uniform"
@@ -4943,7 +4892,7 @@
                                    ToolTipService.InitialShowDelay="1000"
                                    ToolTipService.ShowOnDisabled="True"
                                    ToolTip="Path to FFplay.exe"
-                                   Grid.Row="2"
+                                   Grid.Row="3"
                                    Grid.Column="1" 
                                    Width="56"/>
                             <TextBox x:Name="tbxFFplayPathConfig" 
@@ -4966,7 +4915,7 @@
                                      ToolTipService.ShowOnDisabled="True" 
                                      ToolTip="Path to FFplay.exe" 
                                      Grid.Column="2" 
-                                     Grid.Row="2"/>
+                                     Grid.Row="3"/>
 
                             <!-- FFplay Path Revert Button -->
                             <Button x:Name="btnFFplayAuto"
@@ -4982,7 +4931,7 @@
                                             Click="btnFFplayAuto_Click"
                                             Style="{DynamicResource ButtonFolderStyle}" 
                                             Grid.Column="2" 
-                                            Grid.Row="2" >
+                                            Grid.Row="3" >
                                 <Image Width="9" 
                                            Height="11" 
                                            Stretch="Uniform"
@@ -5000,7 +4949,7 @@
                                    ToolTipService.InitialShowDelay="1000"
                                    ToolTipService.ShowOnDisabled="True"
                                    ToolTip="Path to youtube-dl.exe"
-                                   Grid.Row="3" 
+                                   Grid.Row="4" 
                                    Grid.Column="1" 
                                    Width="70" 
                                    Grid.ColumnSpan="2"/>
@@ -5024,7 +4973,7 @@
                                      ToolTipService.ShowOnDisabled="True" 
                                      ToolTip="Path to youtubedl.exe" 
                                      Grid.Column="2" 
-                                     Grid.Row="3"/>
+                                     Grid.Row="4"/>
 
                             <!-- youtubedl Path Revert Button -->
                             <Button x:Name="btnyoutubedlAuto"
@@ -5040,7 +4989,7 @@
                                     Click="btnyoutubedlAuto_Click"
                                     Style="{DynamicResource ButtonFolderStyle}" 
                                     Grid.Column="2" 
-                                    Grid.Row="3" >
+                                    Grid.Row="4" >
                                 <Image Width="9" 
                                        Height="11" 
                                        Stretch="Uniform"
@@ -5059,8 +5008,8 @@
                                    Height="26" 
                                    ToolTipService.InitialShowDelay="1000"
                                    ToolTipService.ShowOnDisabled="True"
-                                   ToolTip="Path to Save Log" 
-                                   Grid.Row="4"
+                                   ToolTip="Path to save axiom.log" 
+                                   Grid.Row="5"
                                    Grid.Column="1" 
                                    Width="36"/>
                             <TextBox x:Name="tbxLogConfig" 
@@ -5077,9 +5026,9 @@
                                      PreviewMouseDown="tbxLog_PreviewMouseDown" 
                                      ToolTipService.InitialShowDelay="1000"
                                      ToolTipService.ShowOnDisabled="True" 
-                                     ToolTip="Path to save output log." 
+                                     ToolTip="Path to save axiom.log." 
                                      Grid.Column="2" 
-                                     Grid.Row="4"/>
+                                     Grid.Row="5"/>
 
                             <!-- Log Revert Button -->
                             <Button x:Name="btnLogAuto" 
@@ -5095,7 +5044,7 @@
                                     Click="btnLogAuto_Click" 
                                     Style="{DynamicResource ButtonFolderStyle}" 
                                     Grid.Column="2"
-                                    Grid.Row="4">
+                                    Grid.Row="5">
                                 <Image Width="9"
                                        Height="11" 
                                        Stretch="Uniform" 
@@ -5118,7 +5067,7 @@
                                       Checked="cbxLog_Checked" 
                                       Unchecked="cbxLog_Unchecked" 
                                       Style="{DynamicResource CheckBoxStyle}" 
-                                      Grid.Row="4" 
+                                      Grid.Row="5" 
                                       Grid.Column="1"/>
 
                             <!-- Threads -->
@@ -5131,8 +5080,8 @@
                                    ToolTipService.InitialShowDelay="1000"
                                    ToolTipService.ShowOnDisabled="True"
                                    ToolTip="Amount of CPU threads to use."
-                                   Grid.Row="6" 
-                                   Grid.Column="1"/>
+                                   Grid.Row="7" 
+                                   Grid.Column="1" Width="56"/>
                             <ComboBox x:Name="cboThreads"
                                       ItemsSource="{Binding Threads_Items}"
                                       SelectedIndex="{Binding Threads_SelectedIndex}"
@@ -5147,7 +5096,7 @@
                                       SelectionChanged="threadSelect_SelectionChanged" 
                                       KeyDown="threadSelect_KeyDown" 
                                       Grid.Column="2"
-                                      Grid.Row="6" 
+                                      Grid.Row="7" 
                                       Margin="10,2,0,0"/>
 
                             <!-- Theme -->
@@ -5160,8 +5109,8 @@
                                    ToolTipService.InitialShowDelay="1000"
                                    ToolTipService.ShowOnDisabled="True"
                                    ToolTip="Program Theme" 
-                                   Grid.Row="7" 
-                                   Grid.Column="1"/>
+                                   Grid.Row="8" 
+                                   Grid.Column="1" Width="52"/>
                             <ComboBox x:Name="cboTheme" 
                                       ItemsSource="{Binding Theme_Items}"
                                       SelectedIndex="{Binding Theme_SelectedIndex}"
@@ -5175,7 +5124,7 @@
                                       IsTextSearchEnabled="False"
                                       SelectionChanged="themeSelect_SelectionChanged" 
                                       Grid.Column="2" 
-                                      Grid.Row="7"
+                                      Grid.Row="8"
                                       Margin="10,2,0,0"/>
 
                             <!-- Check for Updates -->
@@ -5187,8 +5136,8 @@
                                    ToolTipService.InitialShowDelay="1000"
                                    ToolTipService.ShowOnDisabled="True"
                                    ToolTip="Automatically check for updates at startup." 
-                                   Grid.Row="9" 
-                                   Grid.Column="1"/>
+                                   Grid.Row="10" 
+                                   Grid.Column="1" Width="58"/>
                             <!-- Window Toggle  -->
                             <ToggleButton x:Name="tglUpdateAutoCheck"
                                           IsChecked="{Binding UpdateAutoCheck_IsChecked}"
@@ -5205,7 +5154,7 @@
                                           Checked="tglUpdateAutoCheck_Checked"
                                           Unchecked="tglUpdateAutoCheck_Unchecked"
                                           Grid.Column="2" 
-                                          Grid.Row="9" 
+                                          Grid.Row="10" 
                                           Margin="10,2,0,0">
                                 <TextBlock x:Name="tblkUpdatesAutoCheck" 
                                            Style="{DynamicResource TextBlockStyle}" 
@@ -5219,7 +5168,7 @@
                                    VerticalAlignment="Top"
                                    Height="26" 
                                    Grid.Column="2" 
-                                   Grid.Row="9" 
+                                   Grid.Row="10" 
                                    Margin="73,0,0,0"/>
 
                             <!-- Reset Saved Settings -->
@@ -5228,8 +5177,8 @@
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Top" 
                                    Height="26" 
-                                   Grid.Row="11" 
-                                   Grid.Column="1" />
+                                   Grid.Row="12" 
+                                   Grid.Column="1" Width="58" />
 
                             <!-- Reset Saved Settings Button -->
                             <Button x:Name="btnClearAllSavedSettings"
@@ -5245,7 +5194,7 @@
                                     Click="btnClearAllSavedSettings_Click" 
                                     Style="{DynamicResource ButtonSmallStyle}" 
                                     Grid.Column="2" 
-                                    Grid.Row="11" 
+                                    Grid.Row="12" 
                                     Margin="10,2,0,0">
                                 <TextBlock Style="{DynamicResource TextBlockStyle}" 
                                            Text="Reset" 
@@ -5267,7 +5216,7 @@
                                     Style="{DynamicResource ButtonSmallStyle}" 
                                     Click="btnDeleteSettings_Click" 
                                     Grid.Column="2" 
-                                    Grid.Row="11">
+                                    Grid.Row="12">
                                 <TextBlock Style="{DynamicResource TextBlockStyle}" 
                                            Text="Delete" 
                                            Margin="0,-1,0,0"/>
@@ -5572,14 +5521,57 @@
               Height="35" 
               VerticalAlignment="Bottom" 
               HorizontalAlignment="Right" 
-              Width="380">
+              Width="430">
+
+            <!-- Import Preset ini -->
+            <!--<Button x:Name="btnImportPreset"
+                    Style="{DynamicResource ButtonSmallStyle}" 
+                    Margin="0,0,0,13" 
+                    VerticalAlignment="Bottom" 
+                    Height="22"
+                    Cursor="Hand" 
+                    ToolTipService.InitialShowDelay="1000" 
+                    ToolTipService.ShowOnDisabled="True" 
+                    ToolTip="Import Preset"
+                    Click="btnImportPreset_Click"
+                    HorizontalAlignment="Left"
+                    Width="22">
+                <Image Style="{DynamicResource ButtonImportStyle}" 
+                       Width="9" 
+                       Height="11" 
+                       Margin="0,-1,0,0"
+                       Stretch="Fill" 
+                       HorizontalAlignment="Center" 
+                       VerticalAlignment="Center"/>
+            </Button>-->
+
+            <!-- Save Preset ini -->
+            <Button x:Name="btnSavePreset"
+                    Style="{DynamicResource ButtonSmallStyle}" 
+                    Margin="27,0,0,13" Height="22"
+                    VerticalAlignment="Bottom" 
+                    Cursor="Hand" 
+                    ToolTipService.InitialShowDelay="1000" 
+                    ToolTipService.ShowOnDisabled="True" 
+                    ToolTip="Save Preset"
+                    Click="btnSavePreset_Click"
+                    HorizontalAlignment="Left" 
+                    Width="22">
+                <Image Style="{DynamicResource ButtonExportStyle}" 
+                       Width="11" 
+                       Height="11" 
+                       Margin="0,-1,0,0"
+                       Stretch="Fill" 
+                       HorizontalAlignment="Center" 
+                       VerticalAlignment="Center"/>
+            </Button>
 
             <!-- Preset -->
             <ComboBox x:Name="cboPreset" 
-                      ItemsSource="{Binding Preset_Items}"
-                     SelectedIndex="{Binding Preset_SelectedIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      ItemsSource="{Binding Preset_Items, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedIndex="{Binding Preset_SelectedIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       SelectedValuePath="Name"
-                      SelectedValue="{Binding Preset_SelectedItem, Mode=TwoWay}"
+                      SelectedValue="{Binding Preset_SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       Style="{DynamicResource ComboBoxCategoryStyle}"
                       ItemContainerStyle="{DynamicResource ComboBoxCategoryStyleItem_FormatContainer}" 
                       HorizontalAlignment="Left"
@@ -5587,7 +5579,7 @@
                       Width="75" 
                       Height="22"
                       SelectionChanged="cboPreset_SelectionChanged" 
-                      Margin="0,0,87,0" >
+                      Margin="56,0,0,0" >
                 <ComboBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel Margin="0 -7 0 0"/>
@@ -5605,18 +5597,6 @@
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
-            <!--<ComboBox x:Name="cboPreset"
-                      ItemsSource="{Binding Preset_Items}"
-                      SelectedIndex="{Binding Preset_SelectedIndex}"
-                      SelectedValue="{Binding Preset_SelectedItem}"
-                      IsEnabled="{Binding Preset_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                      Style="{DynamicResource ComboBoxCategoryStyle}" 
-                      ItemContainerStyle="{DynamicResource ComboBoxCategoryStyleItem}" 
-                      HorizontalAlignment="Right"
-                      Margin="0,0,300,0" 
-                      VerticalAlignment="Top" 
-                      Width="75" 
-                      SelectionChanged="cboPreset_SelectionChanged"/>-->
 
             <!-- Preview Button -->
             <Button x:Name="btnPreview"

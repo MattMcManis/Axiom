@@ -163,8 +163,8 @@ namespace Axiom
             /// </summary>
             // -----------------------------------------------------------------
             // Set Min/Max Width/Height to prevent Tablets maximizing
-            MinWidth = 768;
-            MinHeight = 432;
+            MinWidth = 824;
+            MinHeight = 464;
 
             // -------------------------
             // Set Current Version to Assembly Version
@@ -191,123 +191,123 @@ namespace Axiom
             // -------------------------
             vm.TitleVersion = "Axiom ~ FFmpeg UI (" + Convert.ToString(currentVersion) + "-" + currentBuildPhase + ")";
 
-            // -------------------------
-            // Load Theme
-            // -------------------------
-            // --------------------------
-            // First time use
-            // --------------------------
-            try
-            {
-                if (string.IsNullOrEmpty(Settings.Default.Theme.ToString()))
-                {
-                    Configure.theme = "Axiom";
+            //// -------------------------
+            //// Load Theme
+            //// -------------------------
+            //// --------------------------
+            //// First time use
+            //// --------------------------
+            //try
+            //{
+            //    if (string.IsNullOrEmpty(Settings.Default.Theme.ToString()))
+            //    {
+            //        Configure.theme = "Axiom";
 
-                    // Set ComboBox if Configure Window is Open
-                    vm.Theme_SelectedItem = "Axiom";
+            //        // Set ComboBox if Configure Window is Open
+            //        vm.Theme_SelectedItem = "Axiom";
 
-                    // Save Theme for next launch
-                    Settings.Default.Theme = Configure.theme;
-                    Settings.Default.Save();
+            //        // Save Theme for next launch
+            //        Settings.Default.Theme = Configure.theme;
+            //        Settings.Default.Save();
 
-                    // Change Theme Resource
-                    App.Current.Resources.MergedDictionaries.Clear();
-                    App.Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
-                    {
-                        Source = new Uri("Themes/" + "Theme" + Configure.theme + ".xaml", UriKind.RelativeOrAbsolute)
-                    });
-                }
-                // --------------------------
-                // Load Saved Settings Override
-                // --------------------------
-                else if (!string.IsNullOrEmpty(Settings.Default.Theme.ToString())) // null check
-                {
-                    Configure.theme = Settings.Default.Theme.ToString();
+            //        // Change Theme Resource
+            //        App.Current.Resources.MergedDictionaries.Clear();
+            //        App.Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
+            //        {
+            //            Source = new Uri("Themes/" + "Theme" + Configure.theme + ".xaml", UriKind.RelativeOrAbsolute)
+            //        });
+            //    }
+            //    // --------------------------
+            //    // Load Saved Settings Override
+            //    // --------------------------
+            //    else if (!string.IsNullOrEmpty(Settings.Default.Theme.ToString())) // null check
+            //    {
+            //        Configure.theme = Settings.Default.Theme.ToString();
 
-                    // Set ComboBox
-                    vm.Theme_SelectedItem = Configure.theme;
+            //        // Set ComboBox
+            //        vm.Theme_SelectedItem = Configure.theme;
 
-                    // Change Theme Resource
-                    App.Current.Resources.MergedDictionaries.Clear();
-                    App.Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
-                    {
-                        Source = new Uri("Themes/" + "Theme" + Configure.theme + ".xaml", UriKind.RelativeOrAbsolute)
-                    });
-                }
+            //        // Change Theme Resource
+            //        App.Current.Resources.MergedDictionaries.Clear();
+            //        App.Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
+            //        {
+            //            Source = new Uri("Themes/" + "Theme" + Configure.theme + ".xaml", UriKind.RelativeOrAbsolute)
+            //        });
+            //    }
 
 
-                // -------------------------
-                // Log Text Theme SelectiveColorPreview
-                // -------------------------
-                if (Configure.theme == "Axiom")
-                {
-                    Log.ConsoleDefault = Brushes.White; // Default
-                    Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#007DF2")); // Titles
-                    Log.ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
-                    Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
-                    Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#72D4E8")); // Actions
-                }
-                else if (Configure.theme == "FFmpeg")
-                {
-                    Log.ConsoleDefault = Brushes.White; // Default
-                    Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#5cb85c")); // Titles
-                    Log.ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
-                    Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
-                    Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#5cb85c")); // Actions
-                }
-                else if (Configure.theme == "Cyberpunk")
-                {
-                    Log.ConsoleDefault = Brushes.White; // Default
-                    Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#9f3ed2")); // Titles
-                    Log.ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
-                    Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
-                    Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#9380fd")); // Actions
-                }
-                else if (Configure.theme == "Onyx")
-                {
-                    Log.ConsoleDefault = Brushes.White; // Default
-                    Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#999999")); // Titles
-                    Log.ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
-                    Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
-                    Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#777777")); // Actions
-                }
-                else if (Configure.theme == "Circuit")
-                {
-                    Log.ConsoleDefault = Brushes.White; // Default
-                    Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#ad8a4a")); // Titles
-                    Log.ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
-                    Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
-                    Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#2ebf93")); // Actions
-                }
-                else if (Configure.theme == "Prelude")
-                {
-                    Log.ConsoleDefault = Brushes.White; // Default
-                    Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#999999")); // Titles
-                    Log.ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
-                    Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
-                    Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#777777")); // Actions
-                }
-                else if (Configure.theme == "System")
-                {
-                    Log.ConsoleDefault = Brushes.White; // Default
-                    Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#007DF2")); // Titles
-                    Log.ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
-                    Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
-                    Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#72D4E8")); // Actions
-                }
-            }
-            catch
-            {
-                MessageBox.Show("Problem loading Theme.",
-                                "Error",
-                                MessageBoxButton.OK,
-                                MessageBoxImage.Error);
-            }
+            //    // -------------------------
+            //    // Log Text Theme SelectiveColorPreview
+            //    // -------------------------
+            //    if (Configure.theme == "Axiom")
+            //    {
+            //        Log.ConsoleDefault = Brushes.White; // Default
+            //        Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#007DF2")); // Titles
+            //        Log.ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
+            //        Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
+            //        Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#72D4E8")); // Actions
+            //    }
+            //    else if (Configure.theme == "FFmpeg")
+            //    {
+            //        Log.ConsoleDefault = Brushes.White; // Default
+            //        Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#5cb85c")); // Titles
+            //        Log.ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
+            //        Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
+            //        Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#5cb85c")); // Actions
+            //    }
+            //    else if (Configure.theme == "Cyberpunk")
+            //    {
+            //        Log.ConsoleDefault = Brushes.White; // Default
+            //        Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#9f3ed2")); // Titles
+            //        Log.ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
+            //        Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
+            //        Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#9380fd")); // Actions
+            //    }
+            //    else if (Configure.theme == "Onyx")
+            //    {
+            //        Log.ConsoleDefault = Brushes.White; // Default
+            //        Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#999999")); // Titles
+            //        Log.ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
+            //        Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
+            //        Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#777777")); // Actions
+            //    }
+            //    else if (Configure.theme == "Circuit")
+            //    {
+            //        Log.ConsoleDefault = Brushes.White; // Default
+            //        Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#ad8a4a")); // Titles
+            //        Log.ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
+            //        Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
+            //        Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#2ebf93")); // Actions
+            //    }
+            //    else if (Configure.theme == "Prelude")
+            //    {
+            //        Log.ConsoleDefault = Brushes.White; // Default
+            //        Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#999999")); // Titles
+            //        Log.ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
+            //        Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
+            //        Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#777777")); // Actions
+            //    }
+            //    else if (Configure.theme == "System")
+            //    {
+            //        Log.ConsoleDefault = Brushes.White; // Default
+            //        Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#007DF2")); // Titles
+            //        Log.ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
+            //        Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
+            //        Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#72D4E8")); // Actions
+            //    }
+            //}
+            //catch
+            //{
+            //    MessageBox.Show("Problem loading Theme.",
+            //                    "Error",
+            //                    MessageBoxButton.OK,
+            //                    MessageBoxImage.Error);
+            //}
 
 
             // Log Console Message /////////
-            logconsole.rtbLog.Document = new FlowDocument(Log.logParagraph); //start
-            logconsole.rtbLog.BeginChange(); //begin change
+            //logconsole.rtbLog.Document = new FlowDocument(Log.logParagraph); //start
+            //logconsole.rtbLog.BeginChange(); //begin change
 
             Log.logParagraph.Inlines.Add(new Bold(new Run(vm.TitleVersion)) { Foreground = Log.ConsoleTitle });
 
@@ -333,55 +333,62 @@ namespace Axiom
             Log.logParagraph.Inlines.Add(new LineBreak());
             Log.logParagraph.Inlines.Add(new Bold(new Run("Loading Saved Settings...")) { Foreground = Log.ConsoleAction });
 
-            // -------------------------
-            // Prevent Loading Corrupt App.Config
-            // -------------------------
-            try
-            {
-                ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal);
-            }
-            catch (ConfigurationErrorsException ex)
-            {
-                string filename = ex.Filename;
+            //// -------------------------
+            //// Prevent Loading Corrupt App.Config
+            //// -------------------------
+            //try
+            //{
+            //    ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal);
+            //}
+            //catch (ConfigurationErrorsException ex)
+            //{
+            //    string filename = ex.Filename;
 
-                if (File.Exists(filename) == true)
-                {
-                    File.Delete(filename);
-                    Settings.Default.Upgrade();
-                }
-                else
-                {
+            //    if (File.Exists(filename) == true)
+            //    {
+            //        File.Delete(filename);
+            //        Settings.Default.Upgrade();
+            //    }
+            //    else
+            //    {
 
-                }
-            }
+            //    }
+            //}
 
 
-            // -------------------------
-            // Window Position
-            // -------------------------
-            if (Convert.ToDouble(Settings.Default.Left) == 0
-                && Convert.ToDouble(Settings.Default.Top) == 0)
+            //// -------------------------
+            //// Window Position
+            //// -------------------------
+            if (this.Top == 0 &&
+                this.Left == 0
+                )
             {
                 WindowStartupLocation = WindowStartupLocation.CenterScreen;
             }
-            // Load Saved
-            else
-            {
-                Top = Settings.Default.Top;
-                Left = Settings.Default.Left;
-                Height = Settings.Default.Height;
-                Width = Settings.Default.Width;
+            //if (Convert.ToDouble(Settings.Default.Left) == 0
+            //    && Convert.ToDouble(Settings.Default.Top) == 0)
+            //{
+            //    WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            //}
+            //// Load Saved
+            //else
+            //{
+            //    Top = Settings.Default.Top;
+            //    Left = Settings.Default.Left;
+            //    Height = Settings.Default.Height;
+            //    Width = Settings.Default.Width;
 
-                if (Settings.Default.Maximized)
-                {
-                    WindowState = WindowState.Maximized;
-                }
-            }
+            //    if (Settings.Default.Maximized)
+            //    {
+            //        WindowState = WindowState.Maximized;
+            //    }
+            //}
 
-            // -------------------------
-            // Load FFmpeg.exe Path
-            // -------------------------
-            Configure.LoadFFmpegPath(vm);
+
+            //// -------------------------
+            //// Load FFmpeg.exe Path
+            //// -------------------------
+            //Configure.LoadFFmpegPath(vm);
 
             // Log Console Message /////////
             Log.logParagraph.Inlines.Add(new LineBreak());
@@ -389,40 +396,40 @@ namespace Axiom
             Log.logParagraph.Inlines.Add(new Bold(new Run("FFmpeg: ")) { Foreground = Log.ConsoleDefault });
             Log.logParagraph.Inlines.Add(new Run(vm.FFmpegPath_Text) { Foreground = Log.ConsoleDefault });
 
-            // -------------------------
-            // Load FFprobe.exe Path
-            // -------------------------
-            Configure.LoadFFprobePath(vm);
+            //// -------------------------
+            //// Load FFprobe.exe Path
+            //// -------------------------
+            //Configure.LoadFFprobePath(vm);
 
             // Log Console Message /////////
             Log.logParagraph.Inlines.Add(new LineBreak());
             Log.logParagraph.Inlines.Add(new Bold(new Run("FFprobe: ")) { Foreground = Log.ConsoleDefault });
             Log.logParagraph.Inlines.Add(new Run(vm.FFprobePath_Text) { Foreground = Log.ConsoleDefault });
 
-            // -------------------------
-            // Load FFplay.exe Path
-            // -------------------------
-            Configure.LoadFFplayPath(vm);
+            //// -------------------------
+            //// Load FFplay.exe Path
+            //// -------------------------
+            //Configure.LoadFFplayPath(vm);
 
             // Log Console Message /////////
             Log.logParagraph.Inlines.Add(new LineBreak());
             Log.logParagraph.Inlines.Add(new Bold(new Run("FFplay: ")) { Foreground = Log.ConsoleDefault });
             Log.logParagraph.Inlines.Add(new Run(vm.FFplayPath_Text) { Foreground = Log.ConsoleDefault });
 
-            // -------------------------
-            // Load youtube-dl.exe Path
-            // -------------------------
-            Configure.LoadyoutubedlPath(vm);
+            //// -------------------------
+            //// Load youtube-dl.exe Path
+            //// -------------------------
+            //Configure.LoadyoutubedlPath(vm);
 
             // Log Console Message /////////
             Log.logParagraph.Inlines.Add(new LineBreak());
             Log.logParagraph.Inlines.Add(new Bold(new Run("youtube-dl: ")) { Foreground = Log.ConsoleDefault });
             Log.logParagraph.Inlines.Add(new Run(vm.youtubedlPath_Text) { Foreground = Log.ConsoleDefault });
 
-            // -------------------------
-            // Load Log Enabled
-            // -------------------------
-            Configure.LoadLogCheckbox(vm);
+            //// -------------------------
+            //// Load Log Enabled
+            //// -------------------------
+            //Configure.LoadLogCheckbox(vm);
 
             // Log Console Message /////////
             Log.logParagraph.Inlines.Add(new LineBreak());
@@ -430,83 +437,83 @@ namespace Axiom
             Log.logParagraph.Inlines.Add(new Bold(new Run("Log Enabled: ")) { Foreground = Log.ConsoleDefault });
             Log.logParagraph.Inlines.Add(new Run(Convert.ToString(vm.LogCheckBox_IsChecked.ToString())) { Foreground = Log.ConsoleDefault });
 
-            // -------------------------
-            // Load Log Path
-            // -------------------------
-            Configure.LoadLogPath(vm);
+            //// -------------------------
+            //// Load Log Path
+            //// -------------------------
+            //Configure.LoadLogPath(vm);
 
             // Log Console Message /////////
             Log.logParagraph.Inlines.Add(new LineBreak());
             Log.logParagraph.Inlines.Add(new Bold(new Run("Log Path: ")) { Foreground = Log.ConsoleDefault });
             Log.logParagraph.Inlines.Add(new Run(vm.LogPath_Text) { Foreground = Log.ConsoleDefault });
 
-            // -------------------------
-            // Load Threads
-            // -------------------------
-            Configure.LoadThreads(vm);
+            //// -------------------------
+            //// Load Threads
+            //// -------------------------
+            //Configure.LoadThreads(vm);
 
             // Log Console Message /////////
             Log.logParagraph.Inlines.Add(new LineBreak());
             Log.logParagraph.Inlines.Add(new LineBreak());
             Log.logParagraph.Inlines.Add(new Bold(new Run("Using CPU Threads: ")) { Foreground = Log.ConsoleDefault });
-            Log.logParagraph.Inlines.Add(new Run(Configure.threads) { Foreground = Log.ConsoleDefault });
+            Log.logParagraph.Inlines.Add(new Run(vm.Threads_SelectedItem) { Foreground = Log.ConsoleDefault });
 
 
             //end change !important
-            logconsole.rtbLog.EndChange();
+            //logconsole.rtbLog.EndChange();
 
 
-            // -------------------------
-            // Load CMD Keep Window Toggle
-            // -------------------------
-            // Log Checkbox     
-            // Safeguard Against Corrupt Saved Settings
-            try
-            {
-                // --------------------------
-                // First time use
-                // --------------------------
-                vm.CMDWindowKeep_IsChecked = Convert.ToBoolean(Settings.Default.CMDWindowKeep);
-            }
-            catch
-            {
+            //// -------------------------
+            //// Load CMD Keep Window Toggle
+            //// -------------------------
+            //// Log Checkbox     
+            //// Safeguard Against Corrupt Saved Settings
+            //try
+            //{
+            //    // --------------------------
+            //    // First time use
+            //    // --------------------------
+            //    vm.CMDWindowKeep_IsChecked = Convert.ToBoolean(Settings.Default.CMDWindowKeep);
+            //}
+            //catch
+            //{
 
-            }
+            //}
 
-            // -------------------------
-            // Load Auto Sort Script Toggle
-            // -------------------------
-            // Log Checkbox     
-            // Safeguard Against Corrupt Saved Settings
-            try
-            {
-                // --------------------------
-                // First time use
-                // --------------------------
-                vm.AutoSortScript_IsChecked = Convert.ToBoolean(Settings.Default.AutoSortScript);
-            }
-            catch
-            {
+            //// -------------------------
+            //// Load Auto Sort Script Toggle
+            //// -------------------------
+            //// Log Checkbox     
+            //// Safeguard Against Corrupt Saved Settings
+            //try
+            //{
+            //    // --------------------------
+            //    // First time use
+            //    // --------------------------
+            //    vm.AutoSortScript_IsChecked = Convert.ToBoolean(Settings.Default.AutoSortScript);
+            //}
+            //catch
+            //{
 
-            }
+            //}
 
 
-            // -------------------------
-            // Load Updates Auto Check
-            // -------------------------
-            // Log Checkbox     
-            // Safeguard Against Corrupt Saved Settings
-            try
-            {
-                // --------------------------
-                // First time use
-                // --------------------------
-                vm.UpdateAutoCheck_IsChecked = Convert.ToBoolean(Settings.Default.UpdateAutoCheck);
-            }
-            catch
-            {
+            //// -------------------------
+            //// Load Updates Auto Check
+            //// -------------------------
+            //// Log Checkbox     
+            //// Safeguard Against Corrupt Saved Settings
+            //try
+            //{
+            //    // --------------------------
+            //    // First time use
+            //    // --------------------------
+            //    vm.UpdateAutoCheck_IsChecked = Convert.ToBoolean(Settings.Default.UpdateAutoCheck);
+            //}
+            //catch
+            //{
 
-            }
+            //}
 
             // -------------------------
             // Volume Up/Down Button Timer Tick
@@ -521,6 +528,87 @@ namespace Axiom
             // --------------------------
             DataObject.AddCopyingHandler(tbxScriptView, new DataObjectCopyingEventHandler(OnScriptCopy));
             DataObject.AddPastingHandler(tbxScriptView, new DataObjectPastingEventHandler(OnScriptPaste));
+
+
+            // -------------------------
+            // Import Axiom Config axiom.conf
+            // -------------------------
+            if (File.Exists(Configure.configFile))
+            {
+                Configure.ImportConfig(this, vm);
+            }
+            // Defaults
+            else
+            {
+                vm.LoadDefaults();
+            }
+
+            //// -------------------------
+            //// Load Custom Presets
+            //// -------------------------
+            //Profiles.LoadCustomPresets(vm);
+
+
+
+            // -------------------------
+            // Log Text Theme SelectiveColorPreview
+            // -------------------------
+            if (vm.Theme_SelectedItem == "Axiom")
+            {
+                Log.ConsoleDefault = Brushes.White; // Default
+                Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#007DF2")); // Titles
+                Log.ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
+                Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
+                Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#72D4E8")); // Actions
+            }
+            else if (vm.Theme_SelectedItem == "FFmpeg")
+            {
+                Log.ConsoleDefault = Brushes.White; // Default
+                Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#5cb85c")); // Titles
+                Log.ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
+                Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
+                Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#5cb85c")); // Actions
+            }
+            else if (vm.Theme_SelectedItem == "Cyberpunk")
+            {
+                Log.ConsoleDefault = Brushes.White; // Default
+                Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#9f3ed2")); // Titles
+                Log.ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
+                Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
+                Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#9380fd")); // Actions
+            }
+            else if (vm.Theme_SelectedItem == "Onyx")
+            {
+                Log.ConsoleDefault = Brushes.White; // Default
+                Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#999999")); // Titles
+                Log.ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
+                Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
+                Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#777777")); // Actions
+            }
+            else if (vm.Theme_SelectedItem == "Circuit")
+            {
+                Log.ConsoleDefault = Brushes.White; // Default
+                Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#ad8a4a")); // Titles
+                Log.ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
+                Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
+                Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#2ebf93")); // Actions
+            }
+            else if (vm.Theme_SelectedItem == "Prelude")
+            {
+                Log.ConsoleDefault = Brushes.White; // Default
+                Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#999999")); // Titles
+                Log.ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
+                Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
+                Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#777777")); // Actions
+            }
+            else if (vm.Theme_SelectedItem == "System")
+            {
+                Log.ConsoleDefault = Brushes.White; // Default
+                Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#007DF2")); // Titles
+                Log.ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
+                Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
+                Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#72D4E8")); // Actions
+            }
         }
 
 
@@ -549,9 +637,14 @@ namespace Axiom
             //Task.Factory.StartNew(() =>
             //{
             Task<int> task = UpdateAvailableCheck(vm);
-                //UpdateAvailableCheck(vm);
-                //int count = await task; // do not await
+            //UpdateAvailableCheck(vm);
+            //int count = await task; // do not await
             //});
+
+            // -------------------------
+            // Load Custom Presets
+            // -------------------------
+            Profiles.LoadCustomPresets(vm);
         }
 
 
@@ -569,25 +662,112 @@ namespace Axiom
         // Save Window Position
         void Window_Closing(object sender, CancelEventArgs e)
         {
-            if (WindowState == WindowState.Maximized)
-            {
-                // Use the RestoreBounds as the current values will be 0, 0 and the scale of the screen
-                Settings.Default.Top = RestoreBounds.Top;
-                Settings.Default.Left = RestoreBounds.Left;
-                Settings.Default.Height = RestoreBounds.Height;
-                Settings.Default.Width = RestoreBounds.Width;
-                Settings.Default.Maximized = true;
-            }
-            else
-            {
-                Settings.Default.Top = Top;
-                Settings.Default.Left = Left;
-                Settings.Default.Height = Height;
-                Settings.Default.Width = Width;
-                Settings.Default.Maximized = false;
-            }
+            //if (WindowState == WindowState.Maximized)
+            //{
+            //    // Use the RestoreBounds as the current values will be 0, 0 and the scale of the screen
+            //    Settings.Default.Top = RestoreBounds.Top;
+            //    Settings.Default.Left = RestoreBounds.Left;
+            //    Settings.Default.Height = RestoreBounds.Height;
+            //    Settings.Default.Width = RestoreBounds.Width;
+            //    Settings.Default.Maximized = true;
+            //}
+            //else
+            //{
+            //    Settings.Default.Top = Top;
+            //    Settings.Default.Left = Left;
+            //    Settings.Default.Height = Height;
+            //    Settings.Default.Width = Width;
+            //    Settings.Default.Maximized = false;
+            //}
 
-            Settings.Default.Save();
+            //Settings.Default.Save();
+
+            // -------------------------
+            // Export axiom.conf
+            // -------------------------
+            try
+            {
+                // Overwrite only if changes made
+                if (File.Exists(Configure.configFile))
+                {
+                    Configure.INIFile conf = new Configure.INIFile(Configure.configFile);
+
+                    //double? top = Convert.ToDouble(inif.Read("Main Window", "Window_Position_Top"));
+                    //double? left = Convert.ToDouble(inif.Read("Main Window", "Window_Position_Left"));
+                    //double? width = Convert.ToDouble(inif.Read("Main Window", "Window_Width"));
+                    //double? height = Convert.ToDouble(inif.Read("Main Window", "Window_Height"));
+
+                    // Window
+                    double top;
+                    double.TryParse(conf.Read("Main Window", "Window_Position_Top"), out top);
+                    double left;
+                    double.TryParse(conf.Read("Main Window", "Window_Position_Left"), out left);
+                    double width;
+                    double.TryParse(conf.Read("Main Window", "Window_Width"), out width);
+                    double height;
+                    double.TryParse(conf.Read("Main Window", "Window_Height"), out height);
+                    //bool windowState;
+                    //bool.TryParse(conf.Read("Main Window", "WindowState_Maximized").ToLower(), out windowState);
+
+                    // CMD Window Keep
+                    bool settings_CMDWindowKeep_IsChecked;
+                    bool.TryParse(conf.Read("Main Window", "CMDWindowKeep_IsChecked").ToLower(), out settings_CMDWindowKeep_IsChecked);
+
+                    // Auto Sort Script
+                    bool settings_AutoSortScript_IsChecked;
+                    bool.TryParse(conf.Read("Main Window", "AutoSortScript_IsChecked").ToLower(), out settings_AutoSortScript_IsChecked);
+
+                    // Log CheckBox
+                    bool settings_LogCheckBox_IsChecked;
+                    bool.TryParse(conf.Read("Settings", "LogCheckBox_IsChecked").ToLower(), out settings_LogCheckBox_IsChecked);
+
+                    // Update Auto Check
+                    bool settings_UpdateAutoCheck_IsChecked;
+                    bool.TryParse(conf.Read("Settings", "UpdateAutoCheck_IsChecked").ToLower(), out settings_UpdateAutoCheck_IsChecked);
+
+                    if (// Main Window
+                        this.Top != top ||
+                        this.Left != left ||
+                        this.Width != width ||
+                        this.Height != height ||
+
+                        //this.WindowState != windowState ||
+
+                        //vm.CMDWindowKeep_IsChecked != Convert.ToBoolean(inif.Read("Main Window", "CMDWindowKeep_IsChecked").ToLower()) ||
+                        //vm.AutoSortScript_IsChecked != Convert.ToBoolean(inif.Read("Main Window", "AutoSortScript_IsChecked").ToLower()) ||
+                        vm.CMDWindowKeep_IsChecked != settings_CMDWindowKeep_IsChecked ||
+                        vm.AutoSortScript_IsChecked != settings_AutoSortScript_IsChecked ||
+
+                        // Settings
+                        vm.FFmpegPath_Text != conf.Read("Settings", "FFmpegPath_Text") ||
+                        vm.FFprobePath_Text != conf.Read("Settings", "FFprobePath_Text") ||
+                        vm.FFplayPath_Text != conf.Read("Settings", "FFplayPath_Text") ||
+                        vm.CustomPresetsPath_Text != conf.Read("Settings", "CustomPresetsPath_Text") ||
+                        vm.LogPath_Text != conf.Read("Settings", "LogPath_Text") ||
+                        //vm.LogCheckBox_IsChecked != Convert.ToBoolean(inif.Read("Settings", "LogCheckBox_IsChecked").ToLower()) ||
+                        vm.LogCheckBox_IsChecked != settings_LogCheckBox_IsChecked ||
+                        vm.Threads_SelectedItem != conf.Read("Settings", "Threads_SelectedItem") ||
+                        vm.Theme_SelectedItem != conf.Read("Settings", "Theme_SelectedItem") ||
+                        //vm.UpdateAutoCheck_IsChecked != Convert.ToBoolean(inif.Read("Settings", "UpdateAutoCheck_IsChecked").ToLower())
+                        vm.UpdateAutoCheck_IsChecked != settings_UpdateAutoCheck_IsChecked
+                        )
+                    {
+                        //MessageBox.Show("1"); //debug
+                        Configure.ExportConfig(this, vm);
+                    }
+                }
+
+                // Export Defaults & Currently Selected
+                else if (!File.Exists(Configure.configFile))
+                {
+                    Configure.ExportConfig(this, vm);
+                }
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.ToString());
+            }
+            
 
             // Exit
             e.Cancel = true;
@@ -927,6 +1107,44 @@ namespace Axiom
         // --------------------------------------------------------------------------------------------------------
         // Configure
         // --------------------------------------------------------------------------------------------------------
+        // --------------------------------------------------
+        // Custom Presets Path - Textbox
+        // --------------------------------------------------
+        private void tbxCustomPresetsPath_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Configure.CustomPresetsFolderBrowser(vm);
+        }
+
+        // Drag and Drop
+        private void tbxCustomPresetsPath_PreviewDragOver(object sender, DragEventArgs e)
+        {
+            e.Handled = true;
+            e.Effects = DragDropEffects.Copy;
+        }
+        private void tbxCustomPresetsPath_PreviewDrop(object sender, DragEventArgs e)
+        {
+            var buffer = e.Data.GetData(DataFormats.FileDrop, false) as string[];
+            vm.CustomPresetsPath_Text = buffer.First();
+        }
+
+
+        // --------------------------------------------------
+        // CustomPresets Auto Path - Button
+        // --------------------------------------------------
+        private void btnCustomPresetsAuto_Click(object sender, RoutedEventArgs e)
+        {
+            // Set the ffmpegPath string
+            //Configure.ffmpegPath = "<auto>";
+
+            // Display Folder Path in Textbox
+            vm.CustomPresetsPath_Text = Profiles.presetsDir;
+
+            // CustomPresets Path path for next launch
+            //Settings.Default.CustomPresetsPath = Profiles.presetsDir;
+            //Settings.Default.Save();
+            //Settings.Default.Reload();
+        }
+
 
         // --------------------------------------------------
         // FFmpeg Path - Textbox
@@ -961,9 +1179,9 @@ namespace Axiom
             vm.FFmpegPath_Text = "<auto>";
 
             // FFmpeg Path path for next launch
-            Settings.Default.FFmpegPath = "<auto>";
-            Settings.Default.Save();
-            Settings.Default.Reload();
+            //Settings.Default.FFmpegPath = "<auto>";
+            //Settings.Default.Save();
+            //Settings.Default.Reload();
         }
 
 
@@ -999,9 +1217,9 @@ namespace Axiom
             vm.FFprobePath_Text = "<auto>";
 
             // Save 7-zip Path path for next launch
-            Settings.Default.FFprobePath = "<auto>";
-            Settings.Default.Save();
-            Settings.Default.Reload();
+            //Settings.Default.FFprobePath = "<auto>";
+            //Settings.Default.Save();
+            //Settings.Default.Reload();
         }
 
 
@@ -1037,9 +1255,9 @@ namespace Axiom
             vm.FFplayPath_Text = "<auto>";
 
             // Save 7-zip Path path for next launch
-            Settings.Default.FFplayPath = "<auto>";
-            Settings.Default.Save();
-            Settings.Default.Reload();
+            //Settings.Default.FFplayPath = "<auto>";
+            //Settings.Default.Save();
+            //Settings.Default.Reload();
         }
 
 
@@ -1075,9 +1293,9 @@ namespace Axiom
             vm.youtubedlPath_Text = "<auto>";
 
             // youtubedl Path path for next launch
-            Settings.Default.youtubedlPath = "<auto>";
-            Settings.Default.Save();
-            Settings.Default.Reload();
+            //Settings.Default.youtubedlPath = "<auto>";
+            //Settings.Default.Save();
+            //Settings.Default.Reload();
         }
 
 
@@ -1088,16 +1306,16 @@ namespace Axiom
         {
             // Enable the Log
 
-            // Prevent Loading Corrupt App.Config
-            try
-            {
-                Settings.Default.Log_IsChecked = vm.LogCheckBox_IsChecked;
-                Settings.Default.Save();
-            }
-            catch
-            {
+            //// Prevent Loading Corrupt App.Config
+            //try
+            //{
+            //    Settings.Default.Log_IsChecked = vm.LogCheckBox_IsChecked;
+            //    Settings.Default.Save();
+            //}
+            //catch
+            //{
 
-            }
+            //}
         }
 
 
@@ -1108,16 +1326,16 @@ namespace Axiom
         {
             // Disable the Log
 
-            // Prevent Loading Corrupt App.Config
-            try
-            {
-                Settings.Default.Log_IsChecked = vm.LogCheckBox_IsChecked;
-                Settings.Default.Save();
-            }
-            catch
-            {
+            //// Prevent Loading Corrupt App.Config
+            //try
+            //{
+            //    Settings.Default.Log_IsChecked = vm.LogCheckBox_IsChecked;
+            //    Settings.Default.Save();
+            //}
+            //catch
+            //{
 
-            }
+            //}
         }
 
 
@@ -1144,9 +1362,9 @@ namespace Axiom
             //Configure.logPath = string.Empty;
 
             // Save Log Path path for next launch
-            Settings.Default.LogPath = string.Empty;
-            Settings.Default.Save();
-            Settings.Default.Reload();
+            //Settings.Default.LogPath = string.Empty;
+            //Settings.Default.Save();
+            //Settings.Default.Reload();
         }
 
 
@@ -1180,9 +1398,9 @@ namespace Axiom
             Configure.threads = vm.Threads_SelectedItem;
 
             // Save Thread Number for next launch
-            Settings.Default.Threads = vm.Threads_SelectedItem;
-            Settings.Default.Save();
-            Settings.Default.Reload();
+            //Settings.Default.Threads = vm.Threads_SelectedItem;
+            //Settings.Default.Save();
+            //Settings.Default.Reload();
         }
         // --------------------------------------------------
         // Thread Select ComboBox - Allow Only Numbers
@@ -1208,9 +1426,9 @@ namespace Axiom
             });
 
             // Save Theme for next launch
-            Settings.Default.Theme = vm.Theme_SelectedItem;
-            Settings.Default.Save();
-            Settings.Default.Reload();
+            //Settings.Default.Theme = vm.Theme_SelectedItem;
+            //Settings.Default.Save();
+            //Settings.Default.Reload();
         }
 
 
@@ -1222,16 +1440,16 @@ namespace Axiom
             // Update Toggle Text
             tblkUpdatesAutoCheck.Text = "On";
 
-            // Prevent Loading Corrupt App.Config
-            try
-            {
-                Settings.Default.UpdateAutoCheck = vm.UpdateAutoCheck_IsChecked;
-                Settings.Default.Save();
-            }
-            catch
-            {
+            //// Prevent Loading Corrupt App.Config
+            //try
+            //{
+            //    Settings.Default.UpdateAutoCheck = vm.UpdateAutoCheck_IsChecked;
+            //    Settings.Default.Save();
+            //}
+            //catch
+            //{
 
-            }
+            //}
         }
         /// <summary>
         ///    Updates Auto Check - Unchecked
@@ -1241,16 +1459,16 @@ namespace Axiom
             // Update Toggle Text
             tblkUpdatesAutoCheck.Text = "Off";
 
-            // Prevent Loading Corrupt App.Config
-            try
-            {
-                Settings.Default.UpdateAutoCheck = vm.UpdateAutoCheck_IsChecked;
-                Settings.Default.Save();
-            }
-            catch
-            {
+            //// Prevent Loading Corrupt App.Config
+            //try
+            //{
+            //    Settings.Default.UpdateAutoCheck = vm.UpdateAutoCheck_IsChecked;
+            //    Settings.Default.Save();
+            //}
+            //catch
+            //{
 
-            }
+            //}
         }
 
 
@@ -3142,16 +3360,16 @@ namespace Axiom
             Log.logParagraph.Inlines.Add(new Bold(new Run("Keep FFmpeg Window Toggle: ")) { Foreground = Log.ConsoleDefault });
             Log.logParagraph.Inlines.Add(new Run("On") { Foreground = Log.ConsoleDefault });
 
-            // Prevent Loading Corrupt App.Config
-            try
-            {
-                Settings.Default.CMDWindowKeep = vm.CMDWindowKeep_IsChecked;
-                Settings.Default.Save();
-            }
-            catch
-            {
+            //// Prevent Loading Corrupt App.Config
+            //try
+            //{
+            //    Settings.Default.CMDWindowKeep = vm.CMDWindowKeep_IsChecked;
+            //    Settings.Default.Save();
+            //}
+            //catch
+            //{
 
-            }
+            //}
         }
         /// <summary>
         ///    Keep Window - Toggle - Unchecked
@@ -3164,16 +3382,16 @@ namespace Axiom
             Log.logParagraph.Inlines.Add(new Bold(new Run("Keep FFmpeg Window Toggle: ")) { Foreground = Log.ConsoleDefault });
             Log.logParagraph.Inlines.Add(new Run("Off") { Foreground = Log.ConsoleDefault });
 
-            // Prevent Loading Corrupt App.Config
-            try
-            {
-                Settings.Default.CMDWindowKeep = vm.CMDWindowKeep_IsChecked;
-                Settings.Default.Save();
-            }
-            catch
-            {
+            //// Prevent Loading Corrupt App.Config
+            //try
+            //{
+            //    Settings.Default.CMDWindowKeep = vm.CMDWindowKeep_IsChecked;
+            //    Settings.Default.Save();
+            //}
+            //catch
+            //{
 
-            }
+            //}
         }
 
         /// <summary>
@@ -3187,16 +3405,16 @@ namespace Axiom
             Log.logParagraph.Inlines.Add(new Bold(new Run("Auto Sort Script Toggle: ")) { Foreground = Log.ConsoleDefault });
             Log.logParagraph.Inlines.Add(new Run("On") { Foreground = Log.ConsoleDefault });
 
-            // Prevent Loading Corrupt App.Config
-            try
-            {
-                Settings.Default.AutoSortScript = vm.AutoSortScript_IsChecked;
-                Settings.Default.Save();
-            }
-            catch
-            {
+            //// Prevent Loading Corrupt App.Config
+            //try
+            //{
+            //    Settings.Default.AutoSortScript = vm.AutoSortScript_IsChecked;
+            //    Settings.Default.Save();
+            //}
+            //catch
+            //{
 
-            }
+            //}
         }
         /// <summary>
         ///    Auto Sort Script - Toggle - Unchecked
@@ -3209,16 +3427,16 @@ namespace Axiom
             Log.logParagraph.Inlines.Add(new Bold(new Run("Auto Sort Script Toggle: ")) { Foreground = Log.ConsoleDefault });
             Log.logParagraph.Inlines.Add(new Run("Off") { Foreground = Log.ConsoleDefault });
 
-            // Prevent Loading Corrupt App.Config
-            try
-            {
-                Settings.Default.AutoSortScript = vm.AutoSortScript_IsChecked;
-                Settings.Default.Save();
-            }
-            catch
-            {
+            //// Prevent Loading Corrupt App.Config
+            //try
+            //{
+            //    Settings.Default.AutoSortScript = vm.AutoSortScript_IsChecked;
+            //    Settings.Default.Save();
+            //}
+            //catch
+            //{
 
-            }
+            //}
         }
 
         /// <summary>
@@ -5122,6 +5340,134 @@ namespace Axiom
         private void cboPreset_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Presets.SetPreset(vm);
+        }
+
+        /// <summary>
+        ///    Import Preset
+        /// </summary>
+        private void btnImportPreset_Click(object sender, RoutedEventArgs e)
+        {
+            // Check if presets directory exists
+            // If not, create it
+            //Directory.CreateDirectory(presetsDir);
+
+            // Open 'Select File'
+            Microsoft.Win32.OpenFileDialog selectFile = new Microsoft.Win32.OpenFileDialog();
+
+            // Defaults
+            selectFile.InitialDirectory = vm.CustomPresetsPath_Text;
+            selectFile.RestoreDirectory = true;
+            selectFile.Filter = "ini file (*.ini)|*.ini";
+
+            // Show select file dialog box
+            Nullable<bool> result = selectFile.ShowDialog();
+
+            // Process dialog box
+            if (result == true)
+            {
+                // Set Preset Dir, Name, Ext
+                string presetsDir = Path.GetDirectoryName(selectFile.FileName).TrimEnd('\\') + @"\";
+                //string presetsFileName = Path.GetFileName(selectFile.FileName);
+                string presetFileName = Path.GetFileNameWithoutExtension(selectFile.FileName);
+                string presetExt = Path.GetExtension(selectFile.FileName);
+                string preset = presetsDir + presetFileName + presetExt;
+                //string presets = Path.Combine(presetsDir, presetsFileName);
+
+                // Import ini file
+                Profiles.ImportPreset(vm, preset);
+            }
+        }
+
+
+        /// <summary>
+        ///    Export Preset
+        /// </summary>
+        private void btnSavePreset_Click(object sender, RoutedEventArgs e)
+        {
+            // Check if Profiles Directory exists
+            //bool exists = Directory.Exists(vm.ProfilesPath_Text);
+            // If not, create it
+            if (!Directory.Exists(vm.CustomPresetsPath_Text))
+            {
+                // Yes/No Dialog Confirmation
+                //
+                MessageBoxResult resultExport = MessageBox.Show("Profiles Folder does not exist. Automatically create it?",
+                                                                "Directory Not Found",
+                                                                MessageBoxButton.YesNo,
+                                                                MessageBoxImage.Information);
+                switch (resultExport)
+                {
+                    // Create
+                    case MessageBoxResult.Yes:
+                        try
+                        {
+                            Directory.CreateDirectory(vm.CustomPresetsPath_Text);
+                        }
+                        catch
+                        {
+                            MessageBox.Show("Could not create Profiles folder. May require Administrator privileges.",
+                                            "Error",
+                                            MessageBoxButton.OK,
+                                            MessageBoxImage.Error);
+                        }
+                        break;
+                    // Use Default
+                    case MessageBoxResult.No:
+                        break;
+                }
+            }
+
+            // Open 'Save File'
+            Microsoft.Win32.SaveFileDialog saveFile = new Microsoft.Win32.SaveFileDialog();
+
+            // Defaults
+            saveFile.InitialDirectory = vm.CustomPresetsPath_Text;
+            saveFile.RestoreDirectory = true;
+            saveFile.Filter = "Initialization Files (*.ini)|*.ini";
+            saveFile.DefaultExt = ".ini";
+            saveFile.FileName = "Custom Preset.ini";
+
+            // Show save file dialog box
+            Nullable<bool> result = saveFile.ShowDialog();
+
+            // Process dialog box
+            if (result == true)
+            {
+                // Set Preset Dir, Name, Ext
+                string presetsDir = Path.GetDirectoryName(saveFile.FileName).TrimEnd('\\') + @"\";
+                //string presetsFileName = Path.GetFileName(saveFile.FileName);
+                string presetFileName = Path.GetFileNameWithoutExtension(saveFile.FileName);
+                string presetExt = Path.GetExtension(saveFile.FileName);
+                string preset = presetsDir + presetFileName + presetExt;
+                //string presets = Path.Combine(presetsDir, presetsFileName);
+
+                // -------------------------
+                // Overwriting doesn't work properly with INI Writer
+                // Delete File instead before saving new
+                // -------------------------
+                if (File.Exists(preset))
+                {
+                    try
+                    {
+                        File.Delete(preset);
+                    }
+                    catch
+                    {
+                        
+                    }
+                }
+
+                // -------------------------
+                // Save Custom Preset ini file
+                // -------------------------
+                Profiles.ExportPreset(vm, preset);
+
+                // -------------------------
+                // Load Custom Presets
+                // Refresh Presets ComboBox
+                // -------------------------
+                Profiles.LoadCustomPresets(vm); // not working
+            }
         }
 
 

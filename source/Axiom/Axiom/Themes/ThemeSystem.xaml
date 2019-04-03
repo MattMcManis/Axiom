@@ -24,7 +24,7 @@
     xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero" 
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    
+
     <!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////
          Template Default
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
@@ -39,11 +39,11 @@
          Label
         /////////////////////////////////////-->
 
-   
+
     <!--/////////////////////////////////////
          ComboBox Default
         /////////////////////////////////////-->
-    
+
 
     <!--/////////////////////////////////////
          Textbox Default
@@ -122,7 +122,7 @@
     <!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////
          Template White
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
-    
+
     <!--/////////////////////////////////////
          ComboBox White
         /////////////////////////////////////-->
@@ -140,7 +140,7 @@
             </DataTrigger>
         </Style.Triggers>
     </Style>
-    
+
     <!-- ComboBox White Item -->
     <Style x:Key="ComboBoxCategoryStyleItem" TargetType="{x:Type ComboBoxItem}">
         <Style.Triggers>
@@ -283,7 +283,7 @@
         </Style.Triggers>
     </Style>
 
-    
+
     <!-- Debug Console -->
     <Style x:Key="WindowDebugConsole" TargetType="{x:Type Window}">
         <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}"/>
@@ -311,7 +311,7 @@
     <!--/////////////////////////////////////
         ComboBox Custom
         /////////////////////////////////////-->
-    
+
 
     <!--/////////////////////////////////////
           TextBox Custom
@@ -365,7 +365,7 @@
         Button Folder Custom
         /////////////////////////////////////-->
 
-    
+
     <!--/////////////////////////////////////
           Volume TextBox
         /////////////////////////////////////-->
@@ -375,12 +375,12 @@
          Button Custom Volume
         /////////////////////////////////////-->
 
-    
+
     <!--/////////////////////////////////////
          Toggle Button Custom
         /////////////////////////////////////-->
 
-    
+
     <!--/////////////////////////////////////
          TextBlock Custom
         /////////////////////////////////////-->
@@ -520,6 +520,20 @@
                 <Setter Property="Opacity" Value="0.6"/>
             </Trigger>
         </Style.Triggers>
+    </Style>
+
+    <!-- Import Button -->
+    <Style x:Key="ButtonImportStyle" TargetType="{x:Type Image}">
+        <Setter Property="FlowDirection" Value="LeftToRight"/>
+        <Setter Property="Source" Value="../Resources/Images/Buttons/Black/import.png"/>
+        <Setter Property="Stretch" Value="Uniform"/>
+    </Style>
+
+    <!-- Export Button -->
+    <Style x:Key="ButtonExportStyle" TargetType="{x:Type Image}">
+        <Setter Property="FlowDirection" Value="LeftToRight"/>
+        <Setter Property="Source" Value="../Resources/Images/Buttons/Black/export.png"/>
+        <Setter Property="Stretch" Value="Uniform"/>
     </Style>
 
 </ResourceDictionary>
