@@ -119,6 +119,7 @@ namespace Axiom
             Video_ScreenFormat_SelectedItem = "auto";
             Video_AspectRatio_SelectedItem = "auto";
             Video_ScalingAlgorithm_SelectedItem = "auto";
+            Video_CropClear_Text = "Clear";
 
             // -------------------------
             // Subtitle
@@ -272,7 +273,7 @@ namespace Axiom
             public bool Category { get; set; }
         }
 
-        public List<Preset> _Preset_Items = new List<Preset>()
+        public ObservableCollection<Preset> _Preset_Items = new ObservableCollection<Preset>()
         {
             // Default
             new Preset() { Name = "Default",       Category = true  },
@@ -344,7 +345,7 @@ namespace Axiom
             new Preset() { Name = "Music Download",   Category = false },
         };
 
-        public List<Preset> Preset_Items
+        public ObservableCollection<Preset> Preset_Items
         {
             get { return _Preset_Items; }
             set

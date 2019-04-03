@@ -1,11 +1,33 @@
-﻿using System;
+﻿/* ----------------------------------------------------------------------
+Axiom UI
+Copyright (C) 2017-2019 Matt McManis
+https://github.com/MattMcManis/Axiom
+https://axiomui.github.io
+mattmcmanis@outlook.com
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.If not, see <http://www.gnu.org/licenses/>. 
+---------------------------------------------------------------------- */
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
+// Disable XML Comment warnings
+#pragma warning disable 1591
+#pragma warning disable 1587
+#pragma warning disable 1570
 
 namespace Axiom
 {
@@ -30,15 +52,6 @@ namespace Axiom
                                                              .OrderByDescending(x => x)
                                                              .ToList();
 
-
-                // Create Custom Presets List
-                List<ViewModel.Preset> customPresetsList = new List<ViewModel.Preset>()
-                {
-                    // Custom
-                    //new ViewModel.Preset() { Name = "Custom", Category = true  },
-                    // Names added here
-                };
-
                 // Preset Names Only List
                 List<string> presetNamesList = vm.Preset_Items.Select(item => item.Name).ToList();
 
@@ -50,27 +63,12 @@ namespace Axiom
 
                     // Prevent adding duplicate
                     // Ignore Desktop.ini
-                    //MessageBox.Show(profileName);
                     if (!presetNamesList.Contains(presetName) &&
                         !string.Equals(presetName, "desktop", StringComparison.CurrentCultureIgnoreCase))
                     {
-                        //customPresetsList.Add(new ViewModel.Preset() { Name = presetName, Category = false });
                         vm.Preset_Items.Insert(3, new ViewModel.Preset() { Name = presetName, Category = false });
-
-                        //MessageBox.Show(presetName);
                     }
                 }
-
-                // Combine Presets and Custom Presets List
-                // Add to top of Presets ComboBox
-                // Index 3 = After Category: Default -> Item: Preset
-                // Index 3 = After Category: Custom
-                //vm.Preset_Items.InsertRange(3, customPresetsList);
-                //vm.Preset_Items.InsertRange(3, customPresetsList);
-                //vm.Preset_Items.AddRange(customPresetsList);
-
-                //MainWindow mainwindow = (MainWindow)Application.Current.MainWindow;
-                //vm = mainwindow.DataContext as ViewModel;
             }
 
             // -------------------------
@@ -327,7 +325,8 @@ namespace Axiom
                 vm.Video_Crop_Width_Text = inif.Read("Video", "Crop_Width_Text");
                 // Crop Height
                 vm.Video_Crop_Height_Text = inif.Read("Video", "Crop_Height_Text");
-
+                // Crop Clear
+                vm.Video_CropClear_Text = inif.Read("Video", "CropClear_Text");
 
                 // --------------------------------------------------
                 // Audio
@@ -686,7 +685,8 @@ namespace Axiom
                 if (listFailedImports.Count > 0 && listFailedImports != null)
                 {
                     // Open Window
-                    //FailedImportWindow(mainwindow, listFailedImports);
+                    MainWindow mainwindow = (MainWindow)Application.Current.MainWindow;
+                    FailedImportWindow(mainwindow, listFailedImports);
                 }
             }
 
@@ -795,6 +795,7 @@ namespace Axiom
                 inif.Write("Video", "Crop_Y_Text", (vm.Video_Crop_Y_Text));
                 inif.Write("Video", "Crop_Width_Text", (vm.Video_Crop_Width_Text));
                 inif.Write("Video", "Crop_Height_Text", (vm.Video_Crop_Height_Text));
+                inif.Write("Video", "CropClear_Text", (vm.Video_CropClear_Text));
 
 
                 // --------------------------------------------------

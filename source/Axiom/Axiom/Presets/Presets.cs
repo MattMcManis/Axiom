@@ -98,8 +98,13 @@ namespace Axiom
                     vm.Video_Speed_SelectedItem = "auto";
                     vm.Video_Scale_SelectedItem = "Source";
                     vm.Video_ScreenFormat_SelectedItem = "Widescreen";
-                    vm.Video_AspectRatio_SelectedItem = "auto";
                     vm.Video_ScalingAlgorithm_SelectedItem = "auto";
+                    vm.Video_AspectRatio_SelectedItem = "auto";
+                    vm.Video_Crop_X_Text = "";
+                    vm.Video_Crop_Y_Text = "";
+                    vm.Video_Crop_Width_Text = "";
+                    vm.Video_Crop_Height_Text = "";
+                    vm.Video_CropClear_Text = "Clear";
 
                     // Subtitle
                     //vm.Subtitle_Codec_SelectedItem = "None";
@@ -177,6 +182,12 @@ namespace Axiom
                     vm.Video_ScreenFormat_SelectedItem = "Widescreen";
                     vm.Video_ScalingAlgorithm_SelectedItem = "auto";
                     vm.Video_AspectRatio_SelectedItem = "auto";
+                    vm.Video_AspectRatio_SelectedItem = "auto";
+                    vm.Video_Crop_X_Text = "";
+                    vm.Video_Crop_Y_Text = "";
+                    vm.Video_Crop_Width_Text = "";
+                    vm.Video_Crop_Height_Text = "";
+                    vm.Video_CropClear_Text = "Clear";
 
                     // Subtitle
                     vm.Subtitle_Codec_SelectedItem = "None";
@@ -247,6 +258,12 @@ namespace Axiom
                 vm.Video_ScreenFormat_SelectedItem = "Widescreen";
                 vm.Video_ScalingAlgorithm_SelectedItem = "auto";
                 vm.Video_AspectRatio_SelectedItem = "auto";
+                vm.Video_AspectRatio_SelectedItem = "auto";
+                vm.Video_Crop_X_Text = "";
+                vm.Video_Crop_Y_Text = "";
+                vm.Video_Crop_Width_Text = "";
+                vm.Video_Crop_Height_Text = "";
+                vm.Video_CropClear_Text = "Clear";
 
                 // Subtitle
                 vm.Subtitle_Codec_SelectedItem = "None";
@@ -304,6 +321,12 @@ namespace Axiom
                 vm.Video_ScreenFormat_SelectedItem = "Widescreen";
                 vm.Video_ScalingAlgorithm_SelectedItem = "auto";
                 vm.Video_AspectRatio_SelectedItem = "auto";
+                vm.Video_AspectRatio_SelectedItem = "auto";
+                vm.Video_Crop_X_Text = "";
+                vm.Video_Crop_Y_Text = "";
+                vm.Video_Crop_Width_Text = "";
+                vm.Video_Crop_Height_Text = "";
+                vm.Video_CropClear_Text = "Clear";
 
                 // Subtitle
                 vm.Subtitle_Codec_SelectedItem = "MOV Text";
@@ -365,6 +388,12 @@ namespace Axiom
                 vm.Video_ScreenFormat_SelectedItem = "Widescreen";
                 vm.Video_ScalingAlgorithm_SelectedItem = "auto";
                 vm.Video_AspectRatio_SelectedItem = "auto";
+                vm.Video_AspectRatio_SelectedItem = "auto";
+                vm.Video_Crop_X_Text = "";
+                vm.Video_Crop_Y_Text = "";
+                vm.Video_Crop_Width_Text = "";
+                vm.Video_Crop_Height_Text = "";
+                vm.Video_CropClear_Text = "Clear";
 
                 // Subtitle
                 vm.Subtitle_Codec_SelectedItem = "Copy";
@@ -436,6 +465,12 @@ namespace Axiom
                 vm.Video_ScreenFormat_SelectedItem = "Widescreen";
                 vm.Video_ScalingAlgorithm_SelectedItem = "auto";
                 vm.Video_AspectRatio_SelectedItem = "auto";
+                vm.Video_AspectRatio_SelectedItem = "auto";
+                vm.Video_Crop_X_Text = "";
+                vm.Video_Crop_Y_Text = "";
+                vm.Video_Crop_Width_Text = "";
+                vm.Video_Crop_Height_Text = "";
+                vm.Video_CropClear_Text = "Clear";
 
 
                 // Subtitle
@@ -515,6 +550,12 @@ namespace Axiom
                 vm.Video_ScreenFormat_SelectedItem = "Widescreen";
                 vm.Video_ScalingAlgorithm_SelectedItem = "auto";
                 vm.Video_AspectRatio_SelectedItem = "auto";
+                vm.Video_AspectRatio_SelectedItem = "auto";
+                vm.Video_Crop_X_Text = "";
+                vm.Video_Crop_Y_Text = "";
+                vm.Video_Crop_Width_Text = "";
+                vm.Video_Crop_Height_Text = "";
+                vm.Video_CropClear_Text = "Clear";
 
                 // Subtitle
                 vm.Subtitle_Codec_SelectedItem = "MOV Text";
@@ -587,6 +628,12 @@ namespace Axiom
                 vm.Video_ScreenFormat_SelectedItem = "Widescreen";
                 vm.Video_ScalingAlgorithm_SelectedItem = "auto";
                 vm.Video_AspectRatio_SelectedItem = "auto";
+                vm.Video_AspectRatio_SelectedItem = "auto";
+                vm.Video_Crop_X_Text = "";
+                vm.Video_Crop_Y_Text = "";
+                vm.Video_Crop_Width_Text = "";
+                vm.Video_Crop_Height_Text = "";
+                vm.Video_CropClear_Text = "Clear";
 
                 // Subtitle
                 vm.Subtitle_Codec_SelectedItem = "MOV Text";
@@ -651,6 +698,12 @@ namespace Axiom
                 vm.Video_ScreenFormat_SelectedItem = "Widescreen";
                 vm.Video_ScalingAlgorithm_SelectedItem = "auto";
                 vm.Video_AspectRatio_SelectedItem = "auto";
+                vm.Video_AspectRatio_SelectedItem = "auto";
+                vm.Video_Crop_X_Text = "";
+                vm.Video_Crop_Y_Text = "";
+                vm.Video_Crop_Width_Text = "";
+                vm.Video_Crop_Height_Text = "";
+                vm.Video_CropClear_Text = "Clear";
 
                 // Subtitle
                 vm.Subtitle_Codec_SelectedItem = "SRT";
@@ -711,6 +764,12 @@ namespace Axiom
                 vm.Video_ScreenFormat_SelectedItem = "Widescreen";
                 vm.Video_ScalingAlgorithm_SelectedItem = "auto";
                 vm.Video_AspectRatio_SelectedItem = "auto";
+                vm.Video_AspectRatio_SelectedItem = "auto";
+                vm.Video_Crop_X_Text = "";
+                vm.Video_Crop_Y_Text = "";
+                vm.Video_Crop_Width_Text = "";
+                vm.Video_Crop_Height_Text = "";
+                vm.Video_CropClear_Text = "Clear";
 
                 // Subtitle
                 vm.Subtitle_Codec_SelectedItem = "SRT";
@@ -771,6 +830,12 @@ namespace Axiom
                 vm.Video_ScreenFormat_SelectedItem = "Widescreen";
                 vm.Video_ScalingAlgorithm_SelectedItem = "auto";
                 vm.Video_AspectRatio_SelectedItem = "auto";
+                vm.Video_AspectRatio_SelectedItem = "auto";
+                vm.Video_Crop_X_Text = "";
+                vm.Video_Crop_Y_Text = "";
+                vm.Video_Crop_Width_Text = "";
+                vm.Video_Crop_Height_Text = "";
+                vm.Video_CropClear_Text = "Clear";
 
                 // Subtitle
                 vm.Subtitle_Codec_SelectedItem = "SRT";
@@ -831,6 +896,12 @@ namespace Axiom
                 vm.Video_ScreenFormat_SelectedItem = "Widescreen";
                 vm.Video_ScalingAlgorithm_SelectedItem = "auto";
                 vm.Video_AspectRatio_SelectedItem = "auto";
+                vm.Video_AspectRatio_SelectedItem = "auto";
+                vm.Video_Crop_X_Text = "";
+                vm.Video_Crop_Y_Text = "";
+                vm.Video_Crop_Width_Text = "";
+                vm.Video_Crop_Height_Text = "";
+                vm.Video_CropClear_Text = "Clear";
 
                 // Subtitle
                 vm.Subtitle_Codec_SelectedItem = "SRT";
@@ -891,6 +962,12 @@ namespace Axiom
                 vm.Video_ScreenFormat_SelectedItem = "Widescreen";
                 vm.Video_ScalingAlgorithm_SelectedItem = "auto";
                 vm.Video_AspectRatio_SelectedItem = "auto";
+                vm.Video_AspectRatio_SelectedItem = "auto";
+                vm.Video_Crop_X_Text = "";
+                vm.Video_Crop_Y_Text = "";
+                vm.Video_Crop_Width_Text = "";
+                vm.Video_Crop_Height_Text = "";
+                vm.Video_CropClear_Text = "Clear";
 
                 // Subtitle
                 vm.Subtitle_Codec_SelectedItem = "SRT";
@@ -952,6 +1029,12 @@ namespace Axiom
                 vm.Video_ScreenFormat_SelectedItem = "Widescreen";
                 vm.Video_ScalingAlgorithm_SelectedItem = "auto";
                 vm.Video_AspectRatio_SelectedItem = "auto";
+                vm.Video_AspectRatio_SelectedItem = "auto";
+                vm.Video_Crop_X_Text = "";
+                vm.Video_Crop_Y_Text = "";
+                vm.Video_Crop_Width_Text = "";
+                vm.Video_Crop_Height_Text = "";
+                vm.Video_CropClear_Text = "Clear";
 
                 // Subtitle
                 vm.Subtitle_Codec_SelectedItem = "MOV Text";
@@ -1009,6 +1092,12 @@ namespace Axiom
                 vm.Video_ScreenFormat_SelectedItem = "Widescreen";
                 vm.Video_ScalingAlgorithm_SelectedItem = "auto";
                 vm.Video_AspectRatio_SelectedItem = "auto";
+                vm.Video_AspectRatio_SelectedItem = "auto";
+                vm.Video_Crop_X_Text = "";
+                vm.Video_Crop_Y_Text = "";
+                vm.Video_Crop_Width_Text = "";
+                vm.Video_Crop_Height_Text = "";
+                vm.Video_CropClear_Text = "Clear";
 
                 // Subtitle
                 vm.Subtitle_Codec_SelectedItem = "MOV Text";
@@ -1070,6 +1159,12 @@ namespace Axiom
                 vm.Video_ScreenFormat_SelectedItem = "Widescreen";
                 vm.Video_ScalingAlgorithm_SelectedItem = "auto";
                 vm.Video_AspectRatio_SelectedItem = "auto";
+                vm.Video_AspectRatio_SelectedItem = "auto";
+                vm.Video_Crop_X_Text = "";
+                vm.Video_Crop_Y_Text = "";
+                vm.Video_Crop_Width_Text = "";
+                vm.Video_Crop_Height_Text = "";
+                vm.Video_CropClear_Text = "Clear";
 
                 // Subtitle
                 vm.Subtitle_Codec_SelectedItem = "MOV Text";
@@ -1127,6 +1222,12 @@ namespace Axiom
                 vm.Video_ScreenFormat_SelectedItem = "Widescreen";
                 vm.Video_ScalingAlgorithm_SelectedItem = "auto";
                 vm.Video_AspectRatio_SelectedItem = "auto";
+                vm.Video_AspectRatio_SelectedItem = "auto";
+                vm.Video_Crop_X_Text = "";
+                vm.Video_Crop_Y_Text = "";
+                vm.Video_Crop_Width_Text = "";
+                vm.Video_Crop_Height_Text = "";
+                vm.Video_CropClear_Text = "Clear";
 
                 // Subtitle
                 vm.Subtitle_Codec_SelectedItem = "MOV Text";
@@ -1184,6 +1285,12 @@ namespace Axiom
                 vm.Video_ScreenFormat_SelectedItem = "Widescreen";
                 vm.Video_ScalingAlgorithm_SelectedItem = "auto";
                 vm.Video_AspectRatio_SelectedItem = "auto";
+                vm.Video_AspectRatio_SelectedItem = "auto";
+                vm.Video_Crop_X_Text = "";
+                vm.Video_Crop_Y_Text = "";
+                vm.Video_Crop_Width_Text = "";
+                vm.Video_Crop_Height_Text = "";
+                vm.Video_CropClear_Text = "Clear";
 
                 // Subtitle
                 vm.Subtitle_Codec_SelectedItem = "MOV Text";
@@ -1241,6 +1348,12 @@ namespace Axiom
                 vm.Video_ScreenFormat_SelectedItem = "Widescreen";
                 vm.Video_ScalingAlgorithm_SelectedItem = "auto";
                 vm.Video_AspectRatio_SelectedItem = "auto";
+                vm.Video_AspectRatio_SelectedItem = "auto";
+                vm.Video_Crop_X_Text = "";
+                vm.Video_Crop_Y_Text = "";
+                vm.Video_Crop_Width_Text = "";
+                vm.Video_Crop_Height_Text = "";
+                vm.Video_CropClear_Text = "Clear";
 
                 // Subtitle
                 vm.Subtitle_Codec_SelectedItem = "MOV Text";
@@ -1302,6 +1415,12 @@ namespace Axiom
                 vm.Video_ScreenFormat_SelectedItem = "Widescreen";
                 vm.Video_ScalingAlgorithm_SelectedItem = "auto";
                 vm.Video_AspectRatio_SelectedItem = "auto";
+                vm.Video_AspectRatio_SelectedItem = "auto";
+                vm.Video_Crop_X_Text = "";
+                vm.Video_Crop_Y_Text = "";
+                vm.Video_Crop_Width_Text = "";
+                vm.Video_Crop_Height_Text = "";
+                vm.Video_CropClear_Text = "Clear";
 
                 // Subtitle
                 vm.Subtitle_Codec_SelectedItem = "MOV Text";
@@ -1359,6 +1478,12 @@ namespace Axiom
                 vm.Video_ScreenFormat_SelectedItem = "Widescreen";
                 vm.Video_ScalingAlgorithm_SelectedItem = "auto";
                 vm.Video_AspectRatio_SelectedItem = "auto";
+                vm.Video_AspectRatio_SelectedItem = "auto";
+                vm.Video_Crop_X_Text = "";
+                vm.Video_Crop_Y_Text = "";
+                vm.Video_Crop_Width_Text = "";
+                vm.Video_Crop_Height_Text = "";
+                vm.Video_CropClear_Text = "Clear";
 
                 // Subtitle
                 vm.Subtitle_Codec_SelectedItem = "MOV Text";
@@ -1479,6 +1604,12 @@ namespace Axiom
                 vm.Video_ScreenFormat_SelectedItem = "Widescreen";
                 vm.Video_ScalingAlgorithm_SelectedItem = "auto";
                 vm.Video_AspectRatio_SelectedItem = "auto";
+                vm.Video_AspectRatio_SelectedItem = "auto";
+                vm.Video_Crop_X_Text = "";
+                vm.Video_Crop_Y_Text = "";
+                vm.Video_Crop_Width_Text = "";
+                vm.Video_Crop_Height_Text = "";
+                vm.Video_CropClear_Text = "Clear";
 
                 // Subtitle
                 vm.Subtitle_Codec_SelectedItem = "None";
@@ -1537,6 +1668,12 @@ namespace Axiom
                 vm.Video_ScreenFormat_SelectedItem = "Widescreen";
                 vm.Video_ScalingAlgorithm_SelectedItem = "auto";
                 vm.Video_AspectRatio_SelectedItem = "auto";
+                vm.Video_AspectRatio_SelectedItem = "auto";
+                vm.Video_Crop_X_Text = "";
+                vm.Video_Crop_Y_Text = "";
+                vm.Video_Crop_Width_Text = "";
+                vm.Video_Crop_Height_Text = "";
+                vm.Video_CropClear_Text = "Clear";
 
                 // Subtitle
                 vm.Subtitle_Codec_SelectedItem = "None";
@@ -1605,6 +1742,12 @@ namespace Axiom
                 vm.Video_ScreenFormat_SelectedItem = "Widescreen";
                 vm.Video_ScalingAlgorithm_SelectedItem = "auto";
                 vm.Video_AspectRatio_SelectedItem = "auto";
+                vm.Video_AspectRatio_SelectedItem = "auto";
+                vm.Video_Crop_X_Text = "";
+                vm.Video_Crop_Y_Text = "";
+                vm.Video_Crop_Width_Text = "";
+                vm.Video_Crop_Height_Text = "";
+                vm.Video_CropClear_Text = "Clear";
 
                 // Subtitle
                 vm.Subtitle_Codec_SelectedItem = "None";
@@ -1662,6 +1805,12 @@ namespace Axiom
                 vm.Video_ScreenFormat_SelectedItem = "Widescreen";
                 vm.Video_ScalingAlgorithm_SelectedItem = "auto";
                 vm.Video_AspectRatio_SelectedItem = "auto";
+                vm.Video_AspectRatio_SelectedItem = "auto";
+                vm.Video_Crop_X_Text = "";
+                vm.Video_Crop_Y_Text = "";
+                vm.Video_Crop_Width_Text = "";
+                vm.Video_Crop_Height_Text = "";
+                vm.Video_CropClear_Text = "Clear";
 
                 // Subtitle
                 vm.Subtitle_Codec_SelectedItem = "None";
@@ -1725,6 +1874,12 @@ namespace Axiom
                 vm.Video_ScreenFormat_SelectedItem = "Widescreen";
                 vm.Video_ScalingAlgorithm_SelectedItem = "auto";
                 vm.Video_AspectRatio_SelectedItem = "auto";
+                vm.Video_AspectRatio_SelectedItem = "auto";
+                vm.Video_Crop_X_Text = "";
+                vm.Video_Crop_Y_Text = "";
+                vm.Video_Crop_Width_Text = "";
+                vm.Video_Crop_Height_Text = "";
+                vm.Video_CropClear_Text = "Clear";
 
                 // Subtitle
                 vm.Subtitle_Codec_SelectedItem = "Copy";
@@ -1782,6 +1937,12 @@ namespace Axiom
                 vm.Video_ScreenFormat_SelectedItem = "Widescreen";
                 vm.Video_ScalingAlgorithm_SelectedItem = "auto";
                 vm.Video_AspectRatio_SelectedItem = "auto";
+                vm.Video_AspectRatio_SelectedItem = "auto";
+                vm.Video_Crop_X_Text = "";
+                vm.Video_Crop_Y_Text = "";
+                vm.Video_Crop_Width_Text = "";
+                vm.Video_Crop_Height_Text = "";
+                vm.Video_CropClear_Text = "Clear";
 
                 // Subtitle
                 vm.Subtitle_Codec_SelectedItem = "None";

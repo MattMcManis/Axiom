@@ -24,6 +24,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows;
@@ -100,37 +101,20 @@ namespace Axiom
                     // -------------------------
                     // Main Window
                     // -------------------------
-                    //Window Position Top
+                    // Window Position Top
                     double top;
                     double.TryParse(conf.Read("Main Window", "Window_Position_Top"), out top);
                     mainwindow.Top = top;
-
-                    ////double? top = Double.Parse(conf.Read("Main Window", "Window_Position_Top"));
-                    //if (top != null)
-                    //{
-                    //    //vm.Window_Top = Convert.ToDouble(inif.Read("Main Window", "Window_Position_Top"));
-                    //    //mainwindow.Top = Convert.ToDouble(conf.Read("Main Window", "Window_Position_Top"));
-                    //    mainwindow.Top = top;
-                    //}
 
                     // Window Position Left
                     double left;
                     double.TryParse(conf.Read("Main Window", "Window_Position_Left"), out left);
                     mainwindow.Left = left;
 
-                    //double? left = Double.Parse(conf.Read("Main Window", "Window_Position_Left"));
-                    //if (left != null)
-                    //{
-                    //    //vm.Window_Left = Convert.ToDouble(inif.Read("Main Window", "Window_Position_Left"));
-                    //    //mainwindow.Left = Convert.ToDouble(conf.Read("Main Window", "Window_Position_Left"));
-                    //    mainwindow.Left = left;
-                    //}
-
                     // Window Maximized
                     bool mainwindow_WindowState_Maximized;
                     bool.TryParse(conf.Read("Main Window", "WindowState_Maximized").ToLower(), out mainwindow_WindowState_Maximized);
 
-                    //if (Convert.ToBoolean(conf.Read("Main Window", "WindowState_Maximized").ToLower()) == true)
                     if (mainwindow_WindowState_Maximized == true)
                     {
                         //vm.Window_State = WindowState.Maximized;
@@ -147,23 +131,10 @@ namespace Axiom
                     double.TryParse(conf.Read("Main Window", "Window_Width"), out width);
                     mainwindow.Width = width;
 
-                    //double? width = Double.Parse(conf.Read("Main Window", "Window_Width"));
-                    //if (width != null)
-                    //{
-                    //    //vm.Window_Width = Convert.ToDouble(inif.Read("MainWindow", "Window_Width"));
-                    //    mainwindow.Width = Convert.ToDouble(conf.Read("Main Window", "Window_Width"));
-                    //}
-
                     // Window Height
                     double height;
                     double.TryParse(conf.Read("Main Window", "Window_Height"), out height);
                     mainwindow.Height = height;
-                    //double? height = Double.Parse(conf.Read("Main Window", "Window_Height"));
-                    //if (height != null)
-                    //{
-                    //    //vm.Window_Height = Convert.ToDouble(inif.Read("Main Window", "Window_Height"));
-                    //    mainwindow.Height = Convert.ToDouble(conf.Read("Main Window", "Window_Height"));
-                    //}
 
                     // CMD Window Keep
                     bool mainwindow_CMDWindowKeep_IsChecked;
@@ -188,7 +159,6 @@ namespace Axiom
                     vm.CustomPresetsPath_Text = conf.Read("Settings", "CustomPresetsPath_Text");
 
                     // Log
-                    //vm.LogCheckBox_IsChecked = Convert.ToBoolean(conf.Read("Settings", "LogCheckBox_IsChecked").ToLower());
                     bool settings_LogCheckBox_IsChecked;
                     bool.TryParse(conf.Read("Settings", "LogCheckBox_IsChecked").ToLower(), out settings_LogCheckBox_IsChecked);
                     vm.LogCheckBox_IsChecked = settings_LogCheckBox_IsChecked;
@@ -202,7 +172,6 @@ namespace Axiom
                     vm.Theme_SelectedItem = conf.Read("Settings", "Theme_SelectedItem");
 
                     // Updates
-                    //vm.UpdateAutoCheck_IsChecked = Convert.ToBoolean(conf.Read("Settings", "UpdateAutoCheck_IsChecked").ToLower());
                     bool settings_UpdateAutoCheck_IsChecked;
                     bool.TryParse(conf.Read("Settings", "UpdateAutoCheck_IsChecked").ToLower(), out settings_UpdateAutoCheck_IsChecked);
                     vm.UpdateAutoCheck_IsChecked = settings_UpdateAutoCheck_IsChecked;
@@ -223,24 +192,24 @@ namespace Axiom
                 // --------------------------------------------------
                 // Failed Imports
                 // --------------------------------------------------
-                //if (listFailedImports.Count > 0 && listFailedImports != null)
-                //{
-                //    failedImportMessage = string.Join(Environment.NewLine, listFailedImports);
+                if (listFailedImports.Count > 0 && listFailedImports != null)
+                {
+                    Profiles.failedImportMessage = string.Join(Environment.NewLine, listFailedImports);
 
-                //    // Detect which screen we're on
-                //    var allScreens = System.Windows.Forms.Screen.AllScreens.ToList();
-                //    var thisScreen = allScreens.SingleOrDefault(s => mainwindow.Left >= s.WorkingArea.Left && mainwindow.Left < s.WorkingArea.Right);
+                    // Detect which screen we're on
+                    var allScreens = System.Windows.Forms.Screen.AllScreens.ToList();
+                    var thisScreen = allScreens.SingleOrDefault(s => mainwindow.Left >= s.WorkingArea.Left && mainwindow.Left < s.WorkingArea.Right);
 
-                //    // Start Window
-                //    FailedImportWindow failedimportwindow = new FailedImportWindow();
+                    // Start Window
+                    FailedImportWindow failedimportwindow = new FailedImportWindow();
 
-                //    // Position Relative to MainWindow
-                //    failedimportwindow.Left = Math.Max((mainwindow.Left + (mainwindow.Width - failedimportwindow.Width) / 2), thisScreen.WorkingArea.Left);
-                //    failedimportwindow.Top = Math.Max((mainwindow.Top + (mainwindow.Height - failedimportwindow.Height) / 2), thisScreen.WorkingArea.Top);
+                    // Position Relative to MainWindow
+                    failedimportwindow.Left = Math.Max((mainwindow.Left + (mainwindow.Width - failedimportwindow.Width) / 2), thisScreen.WorkingArea.Left);
+                    failedimportwindow.Top = Math.Max((mainwindow.Top + (mainwindow.Height - failedimportwindow.Height) / 2), thisScreen.WorkingArea.Top);
 
-                //    // Open Window
-                //    failedimportwindow.Show();
-                //}
+                    // Open Window
+                    failedimportwindow.Show();
+                }
             }
 
             // Error Loading axiom.conf
@@ -392,318 +361,7 @@ namespace Axiom
                 // Updates
                 conf.Write("Settings", "UpdateAutoCheck_IsChecked", vm.UpdateAutoCheck_IsChecked.ToString().ToLower());
             }
-        }
-
-
-
-        /// <summary>
-        ///     Load CustomPresets Path
-        /// </summary>
-        //public static void LoadCustomPresetsPath(ViewModel vm)
-        //{
-        //    // --------------------------------------------------
-        //    // Safeguard Against Corrupt Saved Settings
-        //    // --------------------------------------------------
-        //    try
-        //    {
-        //        // --------------------------
-        //        // First time use
-        //        // --------------------------
-        //        if (string.IsNullOrEmpty(Settings.Default.CustomPresetsPath))
-        //        {
-        //            // Set ComboBox if Configure Window is Open
-        //            vm.CustomPresetsPath_Text = "<auto>";
-
-        //            // Save for next launch
-        //            Settings.Default.CustomPresetsPath = vm.CustomPresetsPath_Text;
-        //            Settings.Default.Save();
-        //        }
-        //        // --------------------------
-        //        // Load Saved Settings Override
-        //        // --------------------------
-        //        else if (!string.IsNullOrEmpty(Settings.Default.CustomPresetsPath)) // null check
-        //        {
-        //            // Set ComboBox if Configure Window is Open
-        //            vm.CustomPresetsPath_Text = Settings.Default.CustomPresetsPath;
-        //        }
-        //    }
-        //    catch
-        //    {
-
-        //    }
-        //}
-
-
-        /// <summary>
-        ///     Load FFmpeg Path
-        /// </summary>
-        //public static void LoadFFmpegPath(ViewModel vm)
-        //{
-        //    // --------------------------------------------------
-        //    // Safeguard Against Corrupt Saved Settings
-        //    // --------------------------------------------------
-        //    try
-        //    {
-        //        // --------------------------
-        //        // First time use
-        //        // --------------------------
-        //        if (string.IsNullOrEmpty(Settings.Default.FFmpegPath))
-        //        {
-        //            // Set ComboBox if Configure Window is Open
-        //            vm.FFmpegPath_Text = "<auto>";
-
-        //            // Save for next launch
-        //            Settings.Default.FFmpegPath = vm.FFmpegPath_Text;
-        //            Settings.Default.Save();
-        //        }
-        //        // --------------------------
-        //        // Load Saved Settings Override
-        //        // --------------------------
-        //        else if (!string.IsNullOrEmpty(Settings.Default.FFmpegPath)) // null check
-        //        {
-        //            // Set ComboBox if Configure Window is Open
-        //            vm.FFmpegPath_Text = Settings.Default.FFmpegPath;
-        //        }
-        //    }
-        //    catch
-        //    {
-
-        //    }
-        //}
-
-
-        /// <summary>
-        ///     Load FFprobe Path
-        /// </summary>
-        //public static void LoadFFprobePath(ViewModel vm)
-        //{
-        //    // --------------------------------------------------
-        //    // Safeguard Against Corrupt Saved Settings
-        //    // --------------------------------------------------
-        //    try
-        //    {
-        //        // --------------------------
-        //        // First time use
-        //        // --------------------------
-        //        if (string.IsNullOrEmpty(Settings.Default.FFprobePath))
-        //        {
-        //            // Set ComboBox if Configure Window is Open
-        //            vm.FFprobePath_Text = "<auto>";
-
-        //            // Save for next launch
-        //            Settings.Default.FFprobePath = vm.FFprobePath_Text;
-        //            Settings.Default.Save();
-        //        }
-        //        // --------------------------
-        //        // Load Saved Settings Override
-        //        // --------------------------
-        //        else if (!string.IsNullOrEmpty(Settings.Default.FFprobePath)) // null check
-        //        {
-        //            // Set ComboBox if Configure Window is Open
-        //            vm.FFprobePath_Text = Settings.Default.FFprobePath;
-        //        }
-        //    }
-        //    catch
-        //    {
-
-        //    }
-        //}
-
-
-        /// <summary>
-        ///     Load FFplay Path
-        /// </summary>
-        //public static void LoadFFplayPath(ViewModel vm)
-        //{
-        //    // --------------------------------------------------
-        //    // Safeguard Against Corrupt Saved Settings
-        //    // --------------------------------------------------
-        //    try
-        //    {
-        //        // --------------------------
-        //        // First time use
-        //        // --------------------------
-        //        if (string.IsNullOrEmpty(Settings.Default.FFplayPath))
-        //        {
-        //            // Set ComboBox if Configure Window is Open
-        //            vm.FFplayPath_Text = "<auto>";
-
-        //            // Save for next launch
-        //            Settings.Default.FFplayPath = vm.FFplayPath_Text;
-        //            Settings.Default.Save();
-        //        }
-        //        // --------------------------
-        //        // Load Saved Settings Override
-        //        // --------------------------
-        //        else if (!string.IsNullOrEmpty(Settings.Default.FFplayPath)) // null check
-        //        {
-        //            // Set ComboBox if Configure Window is Open
-        //            vm.FFplayPath_Text = Settings.Default.FFplayPath;
-        //        }
-        //    }
-        //    catch
-        //    {
-
-        //    }
-        //}
-
-
-        /// <summary>
-        ///     Load youtubedl Path
-        /// </summary>
-        //public static void LoadyoutubedlPath(ViewModel vm)
-        //{
-        //    // --------------------------------------------------
-        //    // Safeguard Against Corrupt Saved Settings
-        //    // --------------------------------------------------
-        //    try
-        //    {
-        //        // --------------------------
-        //        // First time use
-        //        // --------------------------
-        //        if (string.IsNullOrEmpty(Settings.Default.youtubedlPath))
-        //        {
-        //            // Set ComboBox if Configure Window is Open
-        //            vm.youtubedlPath_Text = "<auto>";
-
-        //            // Save for next launch
-        //            Settings.Default.youtubedlPath = vm.youtubedlPath_Text;
-        //            Settings.Default.Save();
-        //        }
-        //        // --------------------------
-        //        // Load Saved Settings Override
-        //        // --------------------------
-        //        else if (!string.IsNullOrEmpty(Settings.Default.youtubedlPath)) // null check
-        //        {
-        //            // Set ComboBox if Configure Window is Open
-        //            vm.youtubedlPath_Text = Settings.Default.youtubedlPath;
-        //        }
-        //    }
-        //    catch
-        //    {
-
-        //    }
-        //}
-
-
-        /// <summary>
-        ///     Load Log Checkbox
-        /// </summary>
-        //public static void LoadLogCheckbox(ViewModel vm)
-        //{
-        //    // --------------------------------------------------
-        //    // Safeguard Against Corrupt Saved Settings
-        //    // --------------------------------------------------
-        //    try
-        //    {
-        //        // --------------------------
-        //        // First time use
-        //        // --------------------------
-        //        if (string.IsNullOrEmpty(Convert.ToString(Settings.Default.Log_IsChecked)))
-        //        {
-        //            // Set ComboBox if Configure Window is Open
-        //            vm.LogCheckBox_IsChecked = false;
-
-        //            // Save for next launch
-        //            Settings.Default.Log_IsChecked = false;
-        //            Settings.Default.Save();
-        //        }
-        //        // --------------------------
-        //        // Load Saved Settings Override
-        //        // --------------------------
-        //        else if (!string.IsNullOrEmpty(Convert.ToString(Settings.Default.Log_IsChecked)))
-        //        {
-        //            // Set ComboBox if Configure Window is Open
-        //            vm.LogCheckBox_IsChecked = Convert.ToBoolean(Settings.Default.Log_IsChecked);
-        //        }
-        //    }
-        //    catch
-        //    {
-
-        //    }
-        //}
-
-
-        /// <summary>
-        ///     Load Log Path
-        /// </summary>
-        //public static void LoadLogPath(ViewModel vm)
-        //{
-        //    // --------------------------------------------------
-        //    // Safeguard Against Corrupt Saved Settings
-        //    // --------------------------------------------------
-        //    try
-        //    {
-        //        // --------------------------
-        //        // First time use
-        //        // --------------------------
-        //        if (string.IsNullOrEmpty(Settings.Default.LogPath))
-        //        {
-        //            //logPath = string.Empty;
-
-        //            // Set ComboBox if Configure Window is Open
-        //            vm.LogPath_Text = string.Empty;
-
-        //            // Save for next launch
-        //            Settings.Default.LogPath = vm.LogPath_Text;
-        //            Settings.Default.Save();
-        //        }
-        //        // --------------------------
-        //        // Load Saved Settings Override
-        //        // --------------------------
-        //        if (!string.IsNullOrEmpty(Settings.Default.LogPath)) // null check
-        //        {
-        //            // Set ComboBox if Configure Window is Open
-        //            vm.LogPath_Text = Settings.Default.LogPath;
-        //        }
-        //    }
-        //    catch
-        //    {
-
-        //    }
-        //}
-
-
-        /// <summary>
-        ///     Load Threads
-        /// </summary>
-        //public static void LoadThreads(ViewModel vm)
-        //{
-        //    // --------------------------------------------------
-        //    // Safeguard Against Corrupt Saved Settings
-        //    // --------------------------------------------------
-        //    try
-        //    {
-        //        // --------------------------
-        //        // First time use
-        //        // --------------------------
-        //        if (string.IsNullOrEmpty(Settings.Default.Threads))
-        //        {
-        //            threads = "optimal";
-
-        //            // Set ComboBox if Configure Window is Open
-        //            vm.Threads_SelectedItem = threads;
-
-        //            // Save for next launch
-        //            Settings.Default.Threads = threads;
-        //            Settings.Default.Save();
-        //        }
-        //        // --------------------------
-        //        // Load Saved Settings Override
-        //        // --------------------------
-        //        else if (!string.IsNullOrEmpty(Settings.Default.Threads)) // null check
-        //        {
-        //            threads = Settings.Default.Threads;
-
-        //            // Set ComboBox if Configure Window is Open
-        //            vm.Threads_SelectedItem = Settings.Default.Threads;
-        //        }
-        //    }
-        //    catch
-        //    {
-
-        //    }
-        //}
+        }      
 
 
 
@@ -729,11 +387,6 @@ namespace Axiom
 
                 // Add backslash if missing
                 vm.CustomPresetsPath_Text = vm.CustomPresetsPath_Text.TrimEnd('\\') + @"\";
-
-                // Save FFmpeg Path for next launch
-                //Settings.Default.CustomPresetsPath = vm.CustomPresetsPath_Text;
-                //Settings.Default.Save();
-                //Settings.Default.Reload();
             }
         }
 
@@ -750,11 +403,6 @@ namespace Axiom
             {
                 // Display Folder Path in Textbox
                 vm.FFmpegPath_Text = OpenFileDialog.FileName;
-
-                // Save 7-zip Path for next launch
-                //Settings.Default.FFmpegPath = vm.FFmpegPath_Text;
-                //Settings.Default.Save();
-                //Settings.Default.Reload();
             }
         }
 
@@ -772,11 +420,6 @@ namespace Axiom
             {
                 // Display Folder Path in Textbox
                 vm.FFprobePath_Text = OpenFileDialog.FileName;
-
-                // Save WinRAR Path for next launch
-                //Settings.Default.FFprobePath = vm.FFprobePath_Text;
-                //Settings.Default.Save();
-                //Settings.Default.Reload();
             }
         }
 
@@ -794,11 +437,6 @@ namespace Axiom
             {
                 // Display Folder Path in Textbox
                 vm.FFplayPath_Text = OpenFileDialog.FileName;
-
-                // Save WinRAR Path for next launch
-                //Settings.Default.FFplayPath = vm.FFplayPath_Text;
-                //Settings.Default.Save();
-                //Settings.Default.Reload();
             }
         }
 
@@ -816,11 +454,6 @@ namespace Axiom
             {
                 // Display Folder Path in Textbox
                 vm.youtubedlPath_Text = OpenFileDialog.FileName;
-
-                //// Save 7-zip Path for next launch
-                //Settings.Default.youtubedlPath = vm.youtubedlPath_Text;
-                //Settings.Default.Save();
-                //Settings.Default.Reload();
             }
         }
 
@@ -841,11 +474,6 @@ namespace Axiom
 
                 // Add backslash if missing
                 vm.LogPath_Text = vm.LogPath_Text.TrimEnd('\\') + @"\";
-
-                //// Save FFmpeg Path for next launch
-                //Settings.Default.LogPath = vm.LogPath_Text;
-                //Settings.Default.Save();
-                //Settings.Default.Reload();
             }
         }
 

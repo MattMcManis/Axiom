@@ -191,130 +191,75 @@ namespace Axiom
             // -------------------------
             vm.TitleVersion = "Axiom ~ FFmpeg UI (" + Convert.ToString(currentVersion) + "-" + currentBuildPhase + ")";
 
-            //// -------------------------
-            //// Load Theme
-            //// -------------------------
-            //// --------------------------
-            //// First time use
-            //// --------------------------
-            //try
-            //{
-            //    if (string.IsNullOrEmpty(Settings.Default.Theme.ToString()))
-            //    {
-            //        Configure.theme = "Axiom";
+            // -------------------------
+            // Log Text Theme SelectiveColorPreview
+            // -------------------------
+            if (vm.Theme_SelectedItem == "Axiom")
+            {
+                Log.ConsoleDefault = Brushes.White; // Default
+                Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#007DF2")); // Titles
+                Log.ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
+                Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
+                Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#72D4E8")); // Actions
+            }
+            else if (vm.Theme_SelectedItem == "FFmpeg")
+            {
+                Log.ConsoleDefault = Brushes.White; // Default
+                Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#5cb85c")); // Titles
+                Log.ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
+                Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
+                Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#5cb85c")); // Actions
+            }
+            else if (vm.Theme_SelectedItem == "Cyberpunk")
+            {
+                Log.ConsoleDefault = Brushes.White; // Default
+                Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#9f3ed2")); // Titles
+                Log.ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
+                Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
+                Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#9380fd")); // Actions
+            }
+            else if (vm.Theme_SelectedItem == "Onyx")
+            {
+                Log.ConsoleDefault = Brushes.White; // Default
+                Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#999999")); // Titles
+                Log.ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
+                Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
+                Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#777777")); // Actions
+            }
+            else if (vm.Theme_SelectedItem == "Circuit")
+            {
+                Log.ConsoleDefault = Brushes.White; // Default
+                Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#ad8a4a")); // Titles
+                Log.ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
+                Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
+                Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#2ebf93")); // Actions
+            }
+            else if (vm.Theme_SelectedItem == "Prelude")
+            {
+                Log.ConsoleDefault = Brushes.White; // Default
+                Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#999999")); // Titles
+                Log.ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
+                Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
+                Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#777777")); // Actions
+            }
+            else if (vm.Theme_SelectedItem == "System")
+            {
+                Log.ConsoleDefault = Brushes.White; // Default
+                Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#007DF2")); // Titles
+                Log.ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
+                Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
+                Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#72D4E8")); // Actions
+            }
 
-            //        // Set ComboBox if Configure Window is Open
-            //        vm.Theme_SelectedItem = "Axiom";
+            // -----------------------------------------------------------------
+            // Log Console Message ///////// 
+            //-----------------------------------------------------------------
+            logconsole.rtbLog.Document = new FlowDocument(Log.logParagraph); //start
+            logconsole.rtbLog.BeginChange(); //begin change
 
-            //        // Save Theme for next launch
-            //        Settings.Default.Theme = Configure.theme;
-            //        Settings.Default.Save();
-
-            //        // Change Theme Resource
-            //        App.Current.Resources.MergedDictionaries.Clear();
-            //        App.Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
-            //        {
-            //            Source = new Uri("Themes/" + "Theme" + Configure.theme + ".xaml", UriKind.RelativeOrAbsolute)
-            //        });
-            //    }
-            //    // --------------------------
-            //    // Load Saved Settings Override
-            //    // --------------------------
-            //    else if (!string.IsNullOrEmpty(Settings.Default.Theme.ToString())) // null check
-            //    {
-            //        Configure.theme = Settings.Default.Theme.ToString();
-
-            //        // Set ComboBox
-            //        vm.Theme_SelectedItem = Configure.theme;
-
-            //        // Change Theme Resource
-            //        App.Current.Resources.MergedDictionaries.Clear();
-            //        App.Current.Resources.MergedDictionaries.Add(new ResourceDictionary()
-            //        {
-            //            Source = new Uri("Themes/" + "Theme" + Configure.theme + ".xaml", UriKind.RelativeOrAbsolute)
-            //        });
-            //    }
-
-
-            //    // -------------------------
-            //    // Log Text Theme SelectiveColorPreview
-            //    // -------------------------
-            //    if (Configure.theme == "Axiom")
-            //    {
-            //        Log.ConsoleDefault = Brushes.White; // Default
-            //        Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#007DF2")); // Titles
-            //        Log.ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
-            //        Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
-            //        Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#72D4E8")); // Actions
-            //    }
-            //    else if (Configure.theme == "FFmpeg")
-            //    {
-            //        Log.ConsoleDefault = Brushes.White; // Default
-            //        Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#5cb85c")); // Titles
-            //        Log.ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
-            //        Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
-            //        Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#5cb85c")); // Actions
-            //    }
-            //    else if (Configure.theme == "Cyberpunk")
-            //    {
-            //        Log.ConsoleDefault = Brushes.White; // Default
-            //        Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#9f3ed2")); // Titles
-            //        Log.ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
-            //        Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
-            //        Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#9380fd")); // Actions
-            //    }
-            //    else if (Configure.theme == "Onyx")
-            //    {
-            //        Log.ConsoleDefault = Brushes.White; // Default
-            //        Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#999999")); // Titles
-            //        Log.ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
-            //        Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
-            //        Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#777777")); // Actions
-            //    }
-            //    else if (Configure.theme == "Circuit")
-            //    {
-            //        Log.ConsoleDefault = Brushes.White; // Default
-            //        Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#ad8a4a")); // Titles
-            //        Log.ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
-            //        Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
-            //        Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#2ebf93")); // Actions
-            //    }
-            //    else if (Configure.theme == "Prelude")
-            //    {
-            //        Log.ConsoleDefault = Brushes.White; // Default
-            //        Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#999999")); // Titles
-            //        Log.ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
-            //        Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
-            //        Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#777777")); // Actions
-            //    }
-            //    else if (Configure.theme == "System")
-            //    {
-            //        Log.ConsoleDefault = Brushes.White; // Default
-            //        Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#007DF2")); // Titles
-            //        Log.ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
-            //        Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
-            //        Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#72D4E8")); // Actions
-            //    }
-            //}
-            //catch
-            //{
-            //    MessageBox.Show("Problem loading Theme.",
-            //                    "Error",
-            //                    MessageBoxButton.OK,
-            //                    MessageBoxImage.Error);
-            //}
-
-
-            // Log Console Message /////////
-            //logconsole.rtbLog.Document = new FlowDocument(Log.logParagraph); //start
-            //logconsole.rtbLog.BeginChange(); //begin change
 
             Log.logParagraph.Inlines.Add(new Bold(new Run(vm.TitleVersion)) { Foreground = Log.ConsoleTitle });
 
-            //Log.LogConsoleMessageAdd(TitleVersion,      // Message
-            //                         "bold",            // Emphasis
-            //                         Log.ConsoleAction, // Color
-            //                         0);                // Linebreaks
 
             /// <summary>
             ///     System Info
@@ -333,27 +278,27 @@ namespace Axiom
             Log.logParagraph.Inlines.Add(new LineBreak());
             Log.logParagraph.Inlines.Add(new Bold(new Run("Loading Saved Settings...")) { Foreground = Log.ConsoleAction });
 
-            //// -------------------------
-            //// Prevent Loading Corrupt App.Config
-            //// -------------------------
-            //try
-            //{
-            //    ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal);
-            //}
-            //catch (ConfigurationErrorsException ex)
-            //{
-            //    string filename = ex.Filename;
+            // -------------------------
+            // Prevent Loading Corrupt App.Config
+            // -------------------------
+            try
+            {
+                ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal);
+            }
+            catch (ConfigurationErrorsException ex)
+            {
+                string filename = ex.Filename;
 
-            //    if (File.Exists(filename) == true)
-            //    {
-            //        File.Delete(filename);
-            //        Settings.Default.Upgrade();
-            //    }
-            //    else
-            //    {
+                if (File.Exists(filename) == true)
+                {
+                    File.Delete(filename);
+                    Settings.Default.Upgrade();
+                }
+                else
+                {
 
-            //    }
-            //}
+                }
+            }
 
 
             //// -------------------------
@@ -458,62 +403,11 @@ namespace Axiom
             Log.logParagraph.Inlines.Add(new Bold(new Run("Using CPU Threads: ")) { Foreground = Log.ConsoleDefault });
             Log.logParagraph.Inlines.Add(new Run(vm.Threads_SelectedItem) { Foreground = Log.ConsoleDefault });
 
+            // -----------------------------------------------------------------
+            // end change !important
+            // -----------------------------------------------------------------
+            logconsole.rtbLog.EndChange();
 
-            //end change !important
-            //logconsole.rtbLog.EndChange();
-
-
-            //// -------------------------
-            //// Load CMD Keep Window Toggle
-            //// -------------------------
-            //// Log Checkbox     
-            //// Safeguard Against Corrupt Saved Settings
-            //try
-            //{
-            //    // --------------------------
-            //    // First time use
-            //    // --------------------------
-            //    vm.CMDWindowKeep_IsChecked = Convert.ToBoolean(Settings.Default.CMDWindowKeep);
-            //}
-            //catch
-            //{
-
-            //}
-
-            //// -------------------------
-            //// Load Auto Sort Script Toggle
-            //// -------------------------
-            //// Log Checkbox     
-            //// Safeguard Against Corrupt Saved Settings
-            //try
-            //{
-            //    // --------------------------
-            //    // First time use
-            //    // --------------------------
-            //    vm.AutoSortScript_IsChecked = Convert.ToBoolean(Settings.Default.AutoSortScript);
-            //}
-            //catch
-            //{
-
-            //}
-
-
-            //// -------------------------
-            //// Load Updates Auto Check
-            //// -------------------------
-            //// Log Checkbox     
-            //// Safeguard Against Corrupt Saved Settings
-            //try
-            //{
-            //    // --------------------------
-            //    // First time use
-            //    // --------------------------
-            //    vm.UpdateAutoCheck_IsChecked = Convert.ToBoolean(Settings.Default.UpdateAutoCheck);
-            //}
-            //catch
-            //{
-
-            //}
 
             // -------------------------
             // Volume Up/Down Button Timer Tick
@@ -543,72 +437,6 @@ namespace Axiom
                 vm.LoadDefaults();
             }
 
-            //// -------------------------
-            //// Load Custom Presets
-            //// -------------------------
-            //Profiles.LoadCustomPresets(vm);
-
-
-
-            // -------------------------
-            // Log Text Theme SelectiveColorPreview
-            // -------------------------
-            if (vm.Theme_SelectedItem == "Axiom")
-            {
-                Log.ConsoleDefault = Brushes.White; // Default
-                Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#007DF2")); // Titles
-                Log.ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
-                Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
-                Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#72D4E8")); // Actions
-            }
-            else if (vm.Theme_SelectedItem == "FFmpeg")
-            {
-                Log.ConsoleDefault = Brushes.White; // Default
-                Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#5cb85c")); // Titles
-                Log.ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
-                Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
-                Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#5cb85c")); // Actions
-            }
-            else if (vm.Theme_SelectedItem == "Cyberpunk")
-            {
-                Log.ConsoleDefault = Brushes.White; // Default
-                Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#9f3ed2")); // Titles
-                Log.ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
-                Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
-                Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#9380fd")); // Actions
-            }
-            else if (vm.Theme_SelectedItem == "Onyx")
-            {
-                Log.ConsoleDefault = Brushes.White; // Default
-                Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#999999")); // Titles
-                Log.ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
-                Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
-                Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#777777")); // Actions
-            }
-            else if (vm.Theme_SelectedItem == "Circuit")
-            {
-                Log.ConsoleDefault = Brushes.White; // Default
-                Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#ad8a4a")); // Titles
-                Log.ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
-                Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
-                Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#2ebf93")); // Actions
-            }
-            else if (vm.Theme_SelectedItem == "Prelude")
-            {
-                Log.ConsoleDefault = Brushes.White; // Default
-                Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#999999")); // Titles
-                Log.ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
-                Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
-                Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#777777")); // Actions
-            }
-            else if (vm.Theme_SelectedItem == "System")
-            {
-                Log.ConsoleDefault = Brushes.White; // Default
-                Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#007DF2")); // Titles
-                Log.ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
-                Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
-                Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#72D4E8")); // Actions
-            }
         }
 
 
@@ -1133,16 +961,8 @@ namespace Axiom
         // --------------------------------------------------
         private void btnCustomPresetsAuto_Click(object sender, RoutedEventArgs e)
         {
-            // Set the ffmpegPath string
-            //Configure.ffmpegPath = "<auto>";
-
             // Display Folder Path in Textbox
             vm.CustomPresetsPath_Text = Profiles.presetsDir;
-
-            // CustomPresets Path path for next launch
-            //Settings.Default.CustomPresetsPath = Profiles.presetsDir;
-            //Settings.Default.Save();
-            //Settings.Default.Reload();
         }
 
 
@@ -1172,16 +992,8 @@ namespace Axiom
         // --------------------------------------------------
         private void btnFFmpegAuto_Click(object sender, RoutedEventArgs e)
         {
-            // Set the ffmpegPath string
-            //Configure.ffmpegPath = "<auto>";
-
             // Display Folder Path in Textbox
             vm.FFmpegPath_Text = "<auto>";
-
-            // FFmpeg Path path for next launch
-            //Settings.Default.FFmpegPath = "<auto>";
-            //Settings.Default.Save();
-            //Settings.Default.Reload();
         }
 
 
@@ -1210,16 +1022,8 @@ namespace Axiom
         // --------------------------------------------------
         private void btnFFprobeAuto_Click(object sender, RoutedEventArgs e)
         {
-            // Set the ffprobePath string
-            //Configure.ffprobePath = "<auto>"; //<auto>
-
             // Display Folder Path in Textbox
             vm.FFprobePath_Text = "<auto>";
-
-            // Save 7-zip Path path for next launch
-            //Settings.Default.FFprobePath = "<auto>";
-            //Settings.Default.Save();
-            //Settings.Default.Reload();
         }
 
 
@@ -1248,16 +1052,8 @@ namespace Axiom
         // --------------------------------------------------
         private void btnFFplayAuto_Click(object sender, RoutedEventArgs e)
         {
-            // Set the ffplayPath string
-            //Configure.ffplayPath = "<auto>"; //<auto>
-
             // Display Folder Path in Textbox
             vm.FFplayPath_Text = "<auto>";
-
-            // Save 7-zip Path path for next launch
-            //Settings.Default.FFplayPath = "<auto>";
-            //Settings.Default.Save();
-            //Settings.Default.Reload();
         }
 
 
@@ -1286,16 +1082,8 @@ namespace Axiom
         // --------------------------------------------------
         private void btnyoutubedlAuto_Click(object sender, RoutedEventArgs e)
         {
-            // Set the ffmpegPath string
-            //Configure.ffmpegPath = "<auto>";
-
             // Display Folder Path in Textbox
             vm.youtubedlPath_Text = "<auto>";
-
-            // youtubedl Path path for next launch
-            //Settings.Default.youtubedlPath = "<auto>";
-            //Settings.Default.Save();
-            //Settings.Default.Reload();
         }
 
 
@@ -1304,18 +1092,7 @@ namespace Axiom
         // --------------------------------------------------
         private void cbxLog_Checked(object sender, RoutedEventArgs e)
         {
-            // Enable the Log
 
-            //// Prevent Loading Corrupt App.Config
-            //try
-            //{
-            //    Settings.Default.Log_IsChecked = vm.LogCheckBox_IsChecked;
-            //    Settings.Default.Save();
-            //}
-            //catch
-            //{
-
-            //}
         }
 
 
@@ -1324,18 +1101,7 @@ namespace Axiom
         // --------------------------------------------------
         private void cbxLog_Unchecked(object sender, RoutedEventArgs e)
         {
-            // Disable the Log
 
-            //// Prevent Loading Corrupt App.Config
-            //try
-            //{
-            //    Settings.Default.Log_IsChecked = vm.LogCheckBox_IsChecked;
-            //    Settings.Default.Save();
-            //}
-            //catch
-            //{
-
-            //}
         }
 
 
@@ -1357,14 +1123,6 @@ namespace Axiom
 
             // Clear Path in Textbox
             vm.LogPath_Text = string.Empty;
-
-            // Set the logPath string
-            //Configure.logPath = string.Empty;
-
-            // Save Log Path path for next launch
-            //Settings.Default.LogPath = string.Empty;
-            //Settings.Default.Save();
-            //Settings.Default.Reload();
         }
 
 
@@ -1396,11 +1154,6 @@ namespace Axiom
 
             // Set the threads to pass to MainWindow
             Configure.threads = vm.Threads_SelectedItem;
-
-            // Save Thread Number for next launch
-            //Settings.Default.Threads = vm.Threads_SelectedItem;
-            //Settings.Default.Save();
-            //Settings.Default.Reload();
         }
         // --------------------------------------------------
         // Thread Select ComboBox - Allow Only Numbers
@@ -1424,11 +1177,6 @@ namespace Axiom
             {
                 Source = new Uri("Themes/" + "Theme" + Configure.theme + ".xaml", UriKind.RelativeOrAbsolute)
             });
-
-            // Save Theme for next launch
-            //Settings.Default.Theme = vm.Theme_SelectedItem;
-            //Settings.Default.Save();
-            //Settings.Default.Reload();
         }
 
 
@@ -1439,17 +1187,6 @@ namespace Axiom
         {
             // Update Toggle Text
             tblkUpdatesAutoCheck.Text = "On";
-
-            //// Prevent Loading Corrupt App.Config
-            //try
-            //{
-            //    Settings.Default.UpdateAutoCheck = vm.UpdateAutoCheck_IsChecked;
-            //    Settings.Default.Save();
-            //}
-            //catch
-            //{
-
-            //}
         }
         /// <summary>
         ///    Updates Auto Check - Unchecked
@@ -1458,17 +1195,6 @@ namespace Axiom
         {
             // Update Toggle Text
             tblkUpdatesAutoCheck.Text = "Off";
-
-            //// Prevent Loading Corrupt App.Config
-            //try
-            //{
-            //    Settings.Default.UpdateAutoCheck = vm.UpdateAutoCheck_IsChecked;
-            //    Settings.Default.Save();
-            //}
-            //catch
-            //{
-
-            //}
         }
 
 
@@ -3270,16 +2996,6 @@ namespace Axiom
                     ServicePointManager.Expect100Continue = true;
                     ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
-                    //HttpClient client = new HttpClient();
-                    //client.BaseAddress = new Uri("https://github.com/");
-                    //client.DefaultRequestHeaders.Accept.Clear();
-                    //client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    //client.DefaultRequestHeaders.Add("User-Agent", "Axiom (https://github.com/MattMcManis/Axiom)" + " v" + currentVersion + "-" + currentBuildPhase + " Update Check");
-                    //client.DefaultRequestHeaders.Add("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8");
-                    //client.DefaultRequestHeaders.Add("Accept-Language", "en-US,en;q=0.9");
-                    //client.DefaultRequestHeaders.Add("dnt", "1");
-                    //client.DefaultRequestHeaders.Add("Upgrade-Insecure-Requests", "1");
-
                     WebClient wc = new WebClient();
                     wc.Headers.Add(HttpRequestHeader.UserAgent, "Axiom (https://github.com/MattMcManis/Axiom)" + " v" + currentVersion + "-" + currentBuildPhase + " Update Check");
                     wc.Headers.Add("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8");
@@ -3295,7 +3011,6 @@ namespace Axiom
 
                     try
                     {
-                        //parseLatestVersion = client.GetStringAsync("https://raw.githubusercontent.com/MattMcManis/Axiom/master/.version").Result;
                         parseLatestVersion = wc.DownloadString("https://raw.githubusercontent.com/MattMcManis/Axiom/master/.version");
                     }
                     catch
@@ -3326,14 +3041,6 @@ namespace Axiom
                         // Update Available
                         if (latestVersion > currentVersion)
                         {
-                            //updateAvailable = " ~ Update Available: " + "(" + Convert.ToString(latestVersion) + "-" + latestBuildPhase + ")";
-
-                            //Dispatcher.Invoke(new Action(delegate
-                            //{
-                            //vm.TitleVersion = "Axiom ~ FFmpeg UI (" + Convert.ToString(currentVersion) + "-" + currentBuildPhase + ")"
-                            //                  + " ~ Update Available: " + "(" + Convert.ToString(latestVersion) + "-" + latestBuildPhase + ")";
-                            //}));
-
                             vm.TitleVersion = vm.TitleVersion + " ~ Update Available: " + "(" + Convert.ToString(latestVersion) + "-" + latestBuildPhase + ")";
                         }
                         // Update Not Available
@@ -3359,17 +3066,6 @@ namespace Axiom
             Log.logParagraph.Inlines.Add(new LineBreak());
             Log.logParagraph.Inlines.Add(new Bold(new Run("Keep FFmpeg Window Toggle: ")) { Foreground = Log.ConsoleDefault });
             Log.logParagraph.Inlines.Add(new Run("On") { Foreground = Log.ConsoleDefault });
-
-            //// Prevent Loading Corrupt App.Config
-            //try
-            //{
-            //    Settings.Default.CMDWindowKeep = vm.CMDWindowKeep_IsChecked;
-            //    Settings.Default.Save();
-            //}
-            //catch
-            //{
-
-            //}
         }
         /// <summary>
         ///    Keep Window - Toggle - Unchecked
@@ -3381,17 +3077,6 @@ namespace Axiom
             Log.logParagraph.Inlines.Add(new LineBreak());
             Log.logParagraph.Inlines.Add(new Bold(new Run("Keep FFmpeg Window Toggle: ")) { Foreground = Log.ConsoleDefault });
             Log.logParagraph.Inlines.Add(new Run("Off") { Foreground = Log.ConsoleDefault });
-
-            //// Prevent Loading Corrupt App.Config
-            //try
-            //{
-            //    Settings.Default.CMDWindowKeep = vm.CMDWindowKeep_IsChecked;
-            //    Settings.Default.Save();
-            //}
-            //catch
-            //{
-
-            //}
         }
 
         /// <summary>
@@ -3404,17 +3089,6 @@ namespace Axiom
             Log.logParagraph.Inlines.Add(new LineBreak());
             Log.logParagraph.Inlines.Add(new Bold(new Run("Auto Sort Script Toggle: ")) { Foreground = Log.ConsoleDefault });
             Log.logParagraph.Inlines.Add(new Run("On") { Foreground = Log.ConsoleDefault });
-
-            //// Prevent Loading Corrupt App.Config
-            //try
-            //{
-            //    Settings.Default.AutoSortScript = vm.AutoSortScript_IsChecked;
-            //    Settings.Default.Save();
-            //}
-            //catch
-            //{
-
-            //}
         }
         /// <summary>
         ///    Auto Sort Script - Toggle - Unchecked
@@ -3426,17 +3100,6 @@ namespace Axiom
             Log.logParagraph.Inlines.Add(new LineBreak());
             Log.logParagraph.Inlines.Add(new Bold(new Run("Auto Sort Script Toggle: ")) { Foreground = Log.ConsoleDefault });
             Log.logParagraph.Inlines.Add(new Run("Off") { Foreground = Log.ConsoleDefault });
-
-            //// Prevent Loading Corrupt App.Config
-            //try
-            //{
-            //    Settings.Default.AutoSortScript = vm.AutoSortScript_IsChecked;
-            //    Settings.Default.Save();
-            //}
-            //catch
-            //{
-
-            //}
         }
 
         /// <summary>
