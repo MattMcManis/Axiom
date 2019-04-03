@@ -27,6 +27,7 @@ along with this program.If not, see <http://www.gnu.org/licenses/>.
  * TwoPassArgs
  * FFmpegSingleGenerateArgs
  * FFmpegBatchGenerateArgs
+ * YouTubeDownloadGenerateArgs
  * FFmpegScript
  * FFmpegStart
  * FFmpegConvert
@@ -34,10 +35,8 @@ along with this program.If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Linq;
-using System.Windows;
 using System.Windows.Documents;
 // Disable XML Comment warnings
 #pragma warning disable 1591
@@ -508,41 +507,24 @@ namespace Axiom
                 // -------------------------
                 List<string> subtitleList_Pass1 = new List<string>();
 
-                //if (vm.Format_MediaType_SelectedItem != "Audio" &&
-                //    vm.Video_Codec_SelectedItem != "None" &&
-                //    vm.Video_Quality_SelectedItem != "None"
-                //    )
-                //{
-                    subtitleList_Pass1 = new List<string>()
-                    {
-                        // Disable Subtitles for Pass 1 to speed up encoding
-                        //"\r\n\r\n" +
-                        "\r\n" +
-                        "-sn",
-                    };
-                //}
+                subtitleList_Pass1 = new List<string>()
+                {
+                    // Disable Subtitles for Pass 1 to speed up encoding
+                    "\r\n" +
+                    "-sn",
+                };
 
                 // -------------------------
                 // Audio
                 // -------------------------
                 List<string> audioList_Pass1 = new List<string>();
 
-                //if (vm.Format_MediaType_SelectedItem != "Image" &&
-                //    vm.Format_MediaType_SelectedItem != "Sequence" &&
-                //    vm.Audio_Codec_SelectedItem != "None" &&
-                //    vm.Audio_Stream_SelectedItem != "none" &&
-                //    vm.Audio_Quality_SelectedItem != "None" &&
-                //    vm.Audio_Quality_SelectedItem != "Mute"
-                //    )
-                //{
-                    audioList_Pass1 = new List<string>()
-                    {
-                        // Disable Audio for Pass 1 to speed up encoding
-                        //"\r\n\r\n" +
-                        "\r\n" +
-                        "-an",
-                    };
-                //}
+                audioList_Pass1 = new List<string>()
+                {
+                    // Disable Audio for Pass 1 to speed up encoding
+                    "\r\n" +
+                    "-an",
+                };
 
                 // -------------------------
                 // Output
@@ -608,7 +590,6 @@ namespace Axiom
 
                     "\r\n\r\n" +
                     "-i " + "\"" + MainWindow.InputPath(vm, "pass 2") + "\"",
-                    //"-i " + "\"" + MainWindow.input + "\"",
 
                     "\r\n\r\n" +
                     Subtitle.SubtitlesExternal(vm.Subtitle_Codec_SelectedItem,
@@ -801,8 +782,8 @@ namespace Axiom
                                                    .Where(s => !s.Equals("\r\n"))
                                              );
 
+
                 // Combine Pass 1 & Pass 2 Args
-                //
                 Video.v2PassArgs = Video.pass1Args + " " + Video.pass2Args;
             }
 
@@ -826,15 +807,14 @@ namespace Axiom
                 // Make Arugments List
                 List<string> FFmpegArgsList = new List<string>()
                 {
-                    //MainWindow.YouTubeDownload(MainWindow.InputPath(vm)),
                     MainWindow.FFmpegPath(vm),
                     "-y",
                     "\r\n\r\n" + Video.HWAcceleration(vm.Format_MediaType_SelectedItem,
                                                       vm.Video_Codec_SelectedItem,
                                                       vm.Format_HWAccel_SelectedItem
                                                       ),
-                    OnePassArgs(vm), //disabled if 2-Pass
-                    TwoPassArgs(vm) //disabled if 1-Pass
+                    OnePassArgs(vm), // disabled if 2-Pass
+                    TwoPassArgs(vm) // disabled if 1-Pass
                 };
 
                 // Join List with Spaces
@@ -946,10 +926,10 @@ namespace Axiom
                                                       vm.Format_HWAccel_SelectedItem
                                                       ),
                     "-y",
-                    //%~f added in InputPath()
+                    // %~f added in InputPath()
 
-                    OnePassArgs(vm), //disabled if 2-Pass       
-                    TwoPassArgs(vm) //disabled if 1-Pass
+                    OnePassArgs(vm), // disabled if 2-Pass       
+                    TwoPassArgs(vm) // disabled if 1-Pass
                 };
 
                 // Join List with Spaces
@@ -1076,9 +1056,9 @@ namespace Axiom
             // Download-Only
             // -------------------------
             if (MainWindow.IsWebDownloadOnly(vm.Video_Codec_SelectedItem,
-                                                 vm.Subtitle_Codec_SelectedItem,
-                                                 vm.Audio_Codec_SelectedItem) == true
-                                                 )
+                                             vm.Subtitle_Codec_SelectedItem,
+                                             vm.Audio_Codec_SelectedItem) == true
+                                             )
             {
                 // Add "do" Closing Tag
                 youtubedlArgs.Add("\r\n)");
@@ -1115,18 +1095,18 @@ namespace Axiom
                 // Join List with Spaces
                 // Remove: Empty, Null, Standalone LineBreak
                 ffmpegArgsSort = string.Join(" ", youtubedlArgs
-                                                .Where(s => !string.IsNullOrEmpty(s))
-                                                .Where(s => !s.Equals(Environment.NewLine))
-                                                .Where(s => !s.Equals("\r\n\r\n"))
-                                                .Where(s => !s.Equals("\r\n"))
-                                        );
+                                       .Where(s => !string.IsNullOrEmpty(s))
+                                       .Where(s => !s.Equals(Environment.NewLine))
+                                       .Where(s => !s.Equals("\r\n\r\n"))
+                                       .Where(s => !s.Equals("\r\n"))
+                                 );
 
                 // Inline 
                 ffmpegArgs = MainWindow.RemoveLineBreaks(string.Join(" ", youtubedlArgs
-                                                                .Where(s => !string.IsNullOrEmpty(s))
-                                                                .Where(s => !s.Equals(Environment.NewLine))
-                                                                .Where(s => !s.Equals("\r\n\r\n"))
-                                                                .Where(s => !s.Equals("\r\n"))
+                                                               .Where(s => !string.IsNullOrEmpty(s))
+                                                               .Where(s => !s.Equals(Environment.NewLine))
+                                                               .Where(s => !s.Equals("\r\n\r\n"))
+                                                               .Where(s => !s.Equals("\r\n"))
                                                         )
                                         );
             }

@@ -327,9 +327,6 @@ namespace Axiom
         /// </summary>
         public static String CutStart(string input_Text,
                                       bool batch_IsChecked,
-                                      //string mediaType_SelectedItem,
-                                      //string codec_SelectedItem,
-                                      //string quality_SelectedItem,
                                       string cut_SelectedItem,
                                       string cutStart_Text_Hours,
                                       string cutStart_Text_Minutes,
@@ -389,8 +386,6 @@ namespace Axiom
         public static String CutEnd(string input_Text,
                                     bool batch_IsChecked,
                                     string mediaType_SelectedItem,
-                                    //string codec_SelectedItem,
-                                    //string quality_SelectedItem,
                                     string cut_SelectedItem,
                                     string cutEnd_Text_Hours,
                                     string cutEnd_Text_Minutes,
@@ -440,7 +435,7 @@ namespace Axiom
                     // use FramesToDecimal Method (Override Time)
                     else if (!string.IsNullOrEmpty(frameEnd_Text))
                     {
-                        trimEnd = /*"-to " + */Video.FramesToDecimal(frameEnd_Text);
+                        trimEnd = Video.FramesToDecimal(frameEnd_Text);
                     }
 
 

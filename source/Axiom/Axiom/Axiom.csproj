@@ -69,9 +69,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Audio\Audio.cs" />
-    <Compile Include="Audio\AudioControls.cs" />
-    <Compile Include="Audio\AudioFilters.cs" />
+    <Compile Include="Generators\Audio.cs" />
+    <Compile Include="Controls\AudioControls.cs" />
+    <Compile Include="Filters\AudioFilters.cs" />
     <Compile Include="Codecs\Audio\AAC.cs" />
     <Compile Include="Codecs\Audio\AC3.cs" />
     <Compile Include="Codecs\Audio\ALAC.cs" />
@@ -98,7 +98,7 @@
     <Compile Include="Codecs\Video\MPEG-4.cs" />
     <Compile Include="Codecs\Video\Theora.cs" />
     <Compile Include="Codecs\Video\None.cs" />
-    <Compile Include="Configure.cs" />
+    <Compile Include="Controls\Configure.cs" />
     <Compile Include="CropWindow.xaml.cs">
       <DependentUpon>CropWindow.xaml</DependentUpon>
     </Compile>
@@ -119,26 +119,26 @@
     <Compile Include="LogConsole.xaml.cs">
       <DependentUpon>LogConsole.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Profiles.cs" />
-    <Compile Include="Video\VideoFilters.cs" />
-    <Compile Include="Format\Format.cs" />
+    <Compile Include="Profiles\Profiles.cs" />
+    <Compile Include="Filters\VideoFilters.cs" />
+    <Compile Include="Generators\Format.cs" />
     <Compile Include="InfoWindow.xaml.cs">
       <DependentUpon>InfoWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Presets.cs" />
-    <Compile Include="ScriptView.cs" />
-    <Compile Include="Streams.cs" />
-    <Compile Include="Subtitle\Subtitle.cs" />
-    <Compile Include="Subtitle\SubtitleControls.cs" />
+    <Compile Include="Profiles\Presets.cs" />
+    <Compile Include="Controls\ScriptView.cs" />
+    <Compile Include="Generators\Streams.cs" />
+    <Compile Include="Generators\Subtitle.cs" />
+    <Compile Include="Controls\SubtitleControls.cs" />
     <Compile Include="UpdateWindow.xaml.cs">
       <DependentUpon>UpdateWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Video\Video.cs" />
+    <Compile Include="Generators\Video.cs" />
     <Compile Include="Codecs\Video\VP8.cs" />
-    <Compile Include="Format\Containers.cs" />
-    <Compile Include="Format\FormatControls.cs" />
-    <Compile Include="Video\VideoControls.cs" />
-    <Compile Include="ViewModel.cs" />
+    <Compile Include="Controls\FormatContainers.cs" />
+    <Compile Include="Controls\FormatControls.cs" />
+    <Compile Include="Controls\VideoControls.cs" />
+    <Compile Include="ViewModels\ViewModel.cs" />
     <Compile Include="Codecs\Audio\Vorbis.cs" />
     <Compile Include="Codecs\Video\x264.cs" />
     <Page Include="CropWindow.xaml">
