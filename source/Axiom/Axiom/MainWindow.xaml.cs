@@ -5387,6 +5387,16 @@ namespace Axiom
                                     MessageBoxImage.Error);
                 }
 
+                // Set the Index
+                var selectedIndex = vm.Preset_SelectedIndex;
+
+                // Select Default Item
+                vm.Preset_SelectedItem = "Preset";
+
+                // Delete from Items Source
+                // (needs to be after SelectedItem change to prevent error reloading)
+                vm.Preset_Items.RemoveAt(selectedIndex);
+
                 // Load Custom Presets
                 // Refresh Presets ComboBox
                 Profiles.LoadCustomPresets(vm);
@@ -5489,6 +5499,11 @@ namespace Axiom
                 // Refresh Presets ComboBox
                 // -------------------------
                 Profiles.LoadCustomPresets(vm);
+
+                // -------------------------
+                // Select the Preset
+                // -------------------------
+                //vm.Preset_SelectedItem = preset;
             }
         }
 

@@ -691,7 +691,9 @@ namespace Axiom
                 }
             }
 
+            // -------------------------
             // Preset ini file does not exist
+            // -------------------------
             else
             {
                 MessageBox.Show("Preset does not exist.",
