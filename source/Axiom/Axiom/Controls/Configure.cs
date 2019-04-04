@@ -37,11 +37,10 @@ namespace Axiom
         // --------------------------------------------------------------------------------------------------------
         // Variables
         // --------------------------------------------------------------------------------------------------------
-        public static string theme; // Set Theme
-        public static string threads; // Set FFmpeg -threads
+        public static string theme; // Theme
+        public static string threads; // FFmpeg -threads
         public static string maxthreads; // All CPU Threads
-        //public static string configDir = MainWindow.documentsDir + @"Axiom UI\"; // Axiom Config File Directory (Can't change location)
-        public static string configDir = MainWindow.appDataDir + @"Axiom UI\"; // Axiom Config File Directory (Can't change location)
+        public static string configDir = MainWindow.appDataLocalDir + @"Axiom UI\"; // Axiom Config File Directory (Can't change location)
         public static string configFile = configDir + "axiom.conf"; // Axiom Config File axiom.conf (Can't change location)
 
 
@@ -170,7 +169,8 @@ namespace Axiom
                             File.Delete(configFile);
 
                             // Reload Control Defaults
-                            vm.LoadDefaults();
+                            vm.LoadConfigDefaults();
+                            vm.LoadControlsDefaults();
 
                             // Restart Program
                             Process.Start(Application.ResourceAssembly.Location);
@@ -288,6 +288,8 @@ namespace Axiom
             bool.TryParse(conf.Read("Settings", "UpdateAutoCheck_IsChecked").ToLower(), out settings_UpdateAutoCheck_IsChecked);
             vm.UpdateAutoCheck_IsChecked = settings_UpdateAutoCheck_IsChecked;
         }
+
+
 
 
         /// <summary>
@@ -416,7 +418,16 @@ namespace Axiom
                 }
 
             }
-        }      
+        }
+
+
+        /// <summary>
+        ///    Export Write Config
+        /// </summary>
+        public static void WriteConfig(MainWindow mainwindow, ViewModel vm, INIFile conf)
+        {
+
+        }
 
 
 
@@ -426,9 +437,9 @@ namespace Axiom
         // --------------------------------------------------------------------------------------------------------
         // --------------------------------------------------------------------------------------------------------
 
-        // --------------------------------------------------
-        // Custom Presets Folder Browser Dialog
-        // --------------------------------------------------
+            // --------------------------------------------------
+            // Custom Presets Folder Browser Dialog
+            // --------------------------------------------------
         public static void CustomPresetsFolderBrowser(ViewModel vm)
         {
             var folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();

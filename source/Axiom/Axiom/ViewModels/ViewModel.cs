@@ -55,17 +55,17 @@ namespace Axiom
         /// </summary>
         public ViewModel()
         {
-            LoadDefaults();
+            LoadConfigDefaults();
+            LoadControlsDefaults();
         }
 
+
         /// <summary>
-        ///     Filters Set Default
+        ///     Load Controls Defaults
         /// </summary>
-        public void LoadDefaults()
+        public void LoadConfigDefaults()
         {
-            // -------------------------
-            // Settings
-            // -------------------------
+            ConfigPath_Text = @"%LocalAppData%\Axiom UI\";
             CustomPresetsPath_Text = Profiles.presetsDir;
             FFmpegPath_Text = "<auto>";
             FFprobePath_Text = "<auto>";
@@ -76,7 +76,14 @@ namespace Axiom
             Theme_SelectedItem = "Axiom";
             Threads_SelectedItem = "optimal";
             UpdateAutoCheck_IsChecked = true;
+        }
 
+
+        /// <summary>
+        ///     Load Controls Defaults
+        /// </summary>
+        public void LoadControlsDefaults()
+        {
             // -------------------------
             // Main
             // -------------------------
@@ -141,14 +148,14 @@ namespace Axiom
             // -------------------------
             // Filters
             // -------------------------
-            FiltersSetDefault();
+            LoadFiltersDefault();
         } 
 
 
         /// <summary>
-        ///     Filters Set Default
+        ///     Load Filters Default
         /// </summary>
-        public void FiltersSetDefault()
+        public void LoadFiltersDefault()
         {
             // -------------------------
             // Filters
@@ -546,6 +553,42 @@ namespace Axiom
         // --------------------------------------------------------------------------------------------------------
 
         // -------------------------
+        // Config Path
+        // -------------------------
+        // Text
+        private string _ConfigPath_Text;
+        public string ConfigPath_Text
+        {
+            get { return _ConfigPath_Text; }
+            set
+            {
+                if (_ConfigPath_Text == value)
+                {
+                    return;
+                }
+
+                _ConfigPath_Text = value;
+                OnPropertyChanged("ConfigPath_Text");
+            }
+        }
+        // Enabled
+        private bool _ConfigPath_IsEnabled = false;
+        public bool ConfigPath_IsEnabled
+        {
+            get { return _ConfigPath_IsEnabled; }
+            set
+            {
+                if (_ConfigPath_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _ConfigPath_IsEnabled = value;
+                OnPropertyChanged("ConfigPath_IsEnabled");
+            }
+        }
+
+        // -------------------------
         // Custom Presets Path
         // -------------------------
         // Text
@@ -580,7 +623,6 @@ namespace Axiom
                 OnPropertyChanged("CustomPresetsPath_IsEnabled");
             }
         }
-
 
         // -------------------------
         // FFmpeg Path

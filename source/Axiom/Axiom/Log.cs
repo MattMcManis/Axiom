@@ -45,7 +45,7 @@ namespace Axiom
         // Rich Textbox Paragraph
         public static Paragraph logParagraph = new Paragraph(); //RichTextBox
 
-        public static string logDir = MainWindow.appDataDir + @"Axiom UI\";
+        public static string logDir = MainWindow.appDataLocalDir + @"Axiom UI\";
 
         // --------------------------------------------------------------------------------------------------------
         // Theme

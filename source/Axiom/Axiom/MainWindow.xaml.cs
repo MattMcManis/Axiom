@@ -76,7 +76,7 @@ namespace Axiom
         // System
         public static string appDir = AppDomain.CurrentDomain.BaseDirectory.TrimEnd('\\') + @"\"; // Axiom.exe directory
         public static string programDataDir = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData).TrimEnd('\\') + @"\";
-        public static string appDataDir = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData).TrimEnd('\\') + @"\";
+        public static string appDataLocalDir = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData).TrimEnd('\\') + @"\";
         public static string tempDir = Path.GetTempPath(); // Windows AppData Temp Directory
 
         public static string userProfile = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile).TrimEnd('\\') + @"\";
@@ -194,6 +194,13 @@ namespace Axiom
             // Title + Version
             // -------------------------
             vm.TitleVersion = "Axiom ~ FFmpeg UI (" + Convert.ToString(currentVersion) + "-" + currentBuildPhase + ")";
+
+            // -------------------------
+            // Tool Tips
+            // -------------------------
+            // Longer Display Time
+            ToolTipService.ShowDurationProperty.OverrideMetadata(typeof(DependencyObject), 
+                                                                 new FrameworkPropertyMetadata(Int32.MaxValue));
 
             // -------------------------
             // Log Text Theme SelectiveColorPreview
@@ -384,23 +391,50 @@ namespace Axiom
             //DataObject.AddPastingHandler(tbxScriptView, new DataObjectPastingEventHandler(OnScriptPaste));
 
 
-            // -------------------------
+            // --------------------------------------------------
             // Import Axiom Config axiom.conf
+            // --------------------------------------------------
             // -------------------------
-            // Default Documents directory
-            if (File.Exists(Configure.configFile)) 
+            // App Root Directory
+            // -------------------------
+            if (File.Exists(Path.Combine(appDir, "axiom.conf"))) 
             {
+                // Import Config
+                Configure.ImportConfig(this, vm);
+
+                // If Axiom finds axiom.conf in the App Directory
+                // Change the Configure Directory variable to it 
+                // so that it saves changes to that path on program exit
+                Configure.configDir = appDir;
+                Configure.configFile = Path.Combine(appDir, "axiom.conf");
+                vm.ConfigPath_Text = appDir;
+
+                // Change Presets Directory to App Root Directory
+                Profiles.presetsDir = appDir + @"presets\";
+                vm.CustomPresetsPath_Text = Profiles.presetsDir;
+
+                // Change Log Directory to App Root Directory
+                Log.logDir = appDir;
+                vm.LogPath_Text = Log.logDir;
+
+                // These changes will be seen in Axiom's Settings Tab
+
+            }
+            // -------------------------
+            // AppData Local Directory
+            // -------------------------
+            else if (File.Exists(Configure.configFile))
+            {
+                // Import Config
                 Configure.ImportConfig(this, vm);
             }
-            // App directory
-            else if (File.Exists(appDir + "axiom.conf")) 
-            {
-                Configure.ImportConfig(this, vm);
-            }
+            // -------------------------
             // Missing, Load Defaults
+            // -------------------------
             else
             {
-                vm.LoadDefaults();
+                vm.LoadConfigDefaults();
+                vm.LoadControlsDefaults();
             }
 
             // -------------------------
@@ -436,12 +470,7 @@ namespace Axiom
             // -------------------------
             // Check for Available Updates
             // -------------------------
-            //Task.Factory.StartNew(() =>
-            //{
             Task<int> task = UpdateAvailableCheck(vm);
-            //UpdateAvailableCheck(vm);
-            //int count = await task; // do not await
-            //});
 
             // -------------------------
             // Load Custom Presets
@@ -469,71 +498,49 @@ namespace Axiom
             // -------------------------
             try
             {
-                // Overwrite only if changes made
+                // -------------------------
+                // App Root Directory
+                // -------------------------
+                //if (File.Exists(appDir + "axiom.conf"))
+                //{
+                //    // If Axiom finds axiom.conf in the App Directory
+                //    // Change the Configure Directory variable to it 
+                //    // so that it saves changes to that path on program exit
+                //    Configure.configDir = appDir;
+
+                //    // Change Presets Directory to App Directory
+                //    Profiles.presetsDir = appDir + @"presets\";
+                //    vm.CustomPresetsPath_Text = Profiles.presetsDir;
+
+                //    // Change Log Directory to App Root Directory
+                //    Log.logDir = appDir;
+                //    vm.LogPath_Text = Log.logDir;
+
+                //    // Save Config
+                //    ExportWriteConfig();
+                //}
+
+                // -------------------------
+                // AppData Local Directory
+                // -------------------------
+                /*else */
                 if (File.Exists(Configure.configFile))
                 {
-                    Configure.INIFile conf = new Configure.INIFile(Configure.configFile);
+                    //Configure.configDir = appDataDir + @"Axiom UI\";
 
-                    // Window
-                    double top;
-                    double.TryParse(conf.Read("Main Window", "Window_Position_Top"), out top);
-                    double left;
-                    double.TryParse(conf.Read("Main Window", "Window_Position_Left"), out left);
-                    double width;
-                    double.TryParse(conf.Read("Main Window", "Window_Width"), out width);
-                    double height;
-                    double.TryParse(conf.Read("Main Window", "Window_Height"), out height);
-                    //bool windowState;
-                    //bool.TryParse(conf.Read("Main Window", "WindowState_Maximized").ToLower(), out windowState);
-
-                    // CMD Window Keep
-                    bool settings_CMDWindowKeep_IsChecked;
-                    bool.TryParse(conf.Read("Main Window", "CMDWindowKeep_IsChecked").ToLower(), out settings_CMDWindowKeep_IsChecked);
-
-                    // Auto Sort Script
-                    bool settings_AutoSortScript_IsChecked;
-                    bool.TryParse(conf.Read("Main Window", "AutoSortScript_IsChecked").ToLower(), out settings_AutoSortScript_IsChecked);
-
-                    // Log CheckBox
-                    bool settings_LogCheckBox_IsChecked;
-                    bool.TryParse(conf.Read("Settings", "LogCheckBox_IsChecked").ToLower(), out settings_LogCheckBox_IsChecked);
-
-                    // Update Auto Check
-                    bool settings_UpdateAutoCheck_IsChecked;
-                    bool.TryParse(conf.Read("Settings", "UpdateAutoCheck_IsChecked").ToLower(), out settings_UpdateAutoCheck_IsChecked);
-
-                    if (// Main Window
-                        this.Top != top ||
-                        this.Left != left ||
-                        this.Width != width ||
-                        this.Height != height ||
-
-                        //this.WindowState != windowState ||
-
-                        vm.CMDWindowKeep_IsChecked != settings_CMDWindowKeep_IsChecked ||
-                        vm.AutoSortScript_IsChecked != settings_AutoSortScript_IsChecked ||
-
-                        // Settings
-                        vm.FFmpegPath_Text != conf.Read("Settings", "FFmpegPath_Text") ||
-                        vm.FFprobePath_Text != conf.Read("Settings", "FFprobePath_Text") ||
-                        vm.FFplayPath_Text != conf.Read("Settings", "FFplayPath_Text") ||
-                        vm.CustomPresetsPath_Text != conf.Read("Settings", "CustomPresetsPath_Text") ||
-                        vm.LogPath_Text != conf.Read("Settings", "LogPath_Text") ||
-                        vm.LogCheckBox_IsChecked != settings_LogCheckBox_IsChecked ||
-                        vm.Threads_SelectedItem != conf.Read("Settings", "Threads_SelectedItem") ||
-                        vm.Theme_SelectedItem != conf.Read("Settings", "Theme_SelectedItem") ||
-                        vm.UpdateAutoCheck_IsChecked != settings_UpdateAutoCheck_IsChecked
-                        )
-                    {
-                        Configure.ExportConfig(this, vm);
-                    }
+                    // Save Config
+                    ExportWriteConfig();
                 }
 
-                // Export Defaults & Currently Selected
-                else if (!File.Exists(Configure.configFile))
+                // -------------------------
+                // First time, Save Current Selected
+                // -------------------------
+                else //if (!File.Exists(Configure.configFile))
                 {
+                    // Save Config
                     Configure.ExportConfig(this, vm);
                 }
+
             }
             catch (Exception exception)
             {
@@ -546,6 +553,74 @@ namespace Axiom
             System.Windows.Forms.Application.ExitThread();
             Environment.Exit(0);
         }
+
+
+        /// <summary>
+        ///     Export Write Config (Method)
+        /// </summary>
+        public void ExportWriteConfig()
+        {
+            Configure.INIFile conf = new Configure.INIFile(Configure.configFile);
+
+            // Window
+            double top;
+            double.TryParse(conf.Read("Main Window", "Window_Position_Top"), out top);
+            double left;
+            double.TryParse(conf.Read("Main Window", "Window_Position_Left"), out left);
+            double width;
+            double.TryParse(conf.Read("Main Window", "Window_Width"), out width);
+            double height;
+            double.TryParse(conf.Read("Main Window", "Window_Height"), out height);
+            //bool windowState;
+            //bool.TryParse(conf.Read("Main Window", "WindowState_Maximized").ToLower(), out windowState);
+
+            // CMD Window Keep
+            bool settings_CMDWindowKeep_IsChecked;
+            bool.TryParse(conf.Read("Main Window", "CMDWindowKeep_IsChecked").ToLower(), out settings_CMDWindowKeep_IsChecked);
+
+            // Auto Sort Script
+            bool settings_AutoSortScript_IsChecked;
+            bool.TryParse(conf.Read("Main Window", "AutoSortScript_IsChecked").ToLower(), out settings_AutoSortScript_IsChecked);
+
+            // Log CheckBox
+            bool settings_LogCheckBox_IsChecked;
+            bool.TryParse(conf.Read("Settings", "LogCheckBox_IsChecked").ToLower(), out settings_LogCheckBox_IsChecked);
+
+            // Update Auto Check
+            bool settings_UpdateAutoCheck_IsChecked;
+            bool.TryParse(conf.Read("Settings", "UpdateAutoCheck_IsChecked").ToLower(), out settings_UpdateAutoCheck_IsChecked);
+
+            // -------------------------
+            // Save only if changes have been made
+            // -------------------------
+            if (// Main Window
+                this.Top != top ||
+                this.Left != left ||
+                this.Width != width ||
+                this.Height != height ||
+
+                //this.WindowState != windowState ||
+
+                vm.CMDWindowKeep_IsChecked != settings_CMDWindowKeep_IsChecked ||
+                vm.AutoSortScript_IsChecked != settings_AutoSortScript_IsChecked ||
+
+                // Settings
+                vm.FFmpegPath_Text != conf.Read("Settings", "FFmpegPath_Text") ||
+                vm.FFprobePath_Text != conf.Read("Settings", "FFprobePath_Text") ||
+                vm.FFplayPath_Text != conf.Read("Settings", "FFplayPath_Text") ||
+                vm.CustomPresetsPath_Text != conf.Read("Settings", "CustomPresetsPath_Text") ||
+                vm.LogPath_Text != conf.Read("Settings", "LogPath_Text") ||
+                vm.LogCheckBox_IsChecked != settings_LogCheckBox_IsChecked ||
+                vm.Threads_SelectedItem != conf.Read("Settings", "Threads_SelectedItem") ||
+                vm.Theme_SelectedItem != conf.Read("Settings", "Theme_SelectedItem") ||
+                vm.UpdateAutoCheck_IsChecked != settings_UpdateAutoCheck_IsChecked
+                )
+            {
+                // Save Config
+                Configure.ExportConfig(this, vm);
+            }
+        }
+
 
 
         /// <summary>
@@ -881,6 +956,55 @@ namespace Axiom
         // --------------------------------------------------------------------------------------------------------
 
         /// <summary>
+        ///    Config Open Directory - Label Button
+        /// </summary>
+        private void lblConfigPath_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            // Open Directory
+            if (!string.IsNullOrEmpty(vm.ConfigPath_Text))
+            {
+                //if (Directory.Exists(vm.ConfigPath_Text))
+                //{
+                // AppData Local Directory
+                if (vm.ConfigPath_Text == @"%LocalAppData%\Axiom UI\")
+                {
+                    Process.Start("explorer.exe", appDataLocalDir + @"Axiom UI\");
+                }
+                // App Root Directory
+                else if (vm.ConfigPath_Text == appDir)
+                {
+                    Process.Start("explorer.exe", appDir);
+                }
+                //}
+            }
+        }
+
+        /// <summary>
+        ///     Config Open Directory - Button
+        /// </summary>
+        private void btnConfigPath_Click(object sender, RoutedEventArgs e)
+        {
+            // Open Directory
+            if (!string.IsNullOrEmpty(vm.ConfigPath_Text))
+            {
+                //if (Directory.Exists(vm.ConfigPath_Text))
+                //{
+                // AppData Local Directory
+                if (vm.ConfigPath_Text == @"%LocalAppData%\Axiom UI\")
+                {
+                    Process.Start("explorer.exe", appDataLocalDir + @"Axiom UI\");
+                }
+                // App Root Directory
+                else if (vm.ConfigPath_Text == appDir)
+                {
+                    Process.Start("explorer.exe", appDir);
+                }
+                //}
+            }
+        }
+
+
+        /// <summary>
         ///    Presets Open Directory - Button
         /// </summary>
         private void lblCustomPresetsPath_PreviewMouseDown(object sender, MouseButtonEventArgs e)
@@ -963,9 +1087,8 @@ namespace Axiom
             //Profiles.LoadCustomPresets(vm);
         }
 
-
         /// <summary>
-        ///     CustomPresets Auto Path - Button
+        ///     CustomPresets Auto Path - Label Button
         /// </summary>
         private void btnCustomPresetsAuto_Click(object sender, RoutedEventArgs e)
         {
@@ -975,7 +1098,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///    FFmpeg Open Directory - Button
+        ///    FFmpeg Open Directory - Label Button
         /// </summary>
         private void lblFFmpegPath_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -1104,7 +1227,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///    FFprobe Open Directory - Button
+        ///    FFprobe Open Directory - Label Button
         /// </summary>
         private void lblFFprobePath_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -1207,7 +1330,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///    FFplay Open Directory - Button
+        ///    FFplay Open Directory - Label Button
         /// </summary>
         private void lblFFplayPath_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -1310,7 +1433,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///    youtube-dl Open Directory - Button
+        ///    youtube-dl Open Directory - Label Button
         /// </summary>
         private void lblyoutubedlPath_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -1413,7 +1536,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///    Log Open Directory - Button
+        ///    Log Open Directory - Label Button
         /// </summary>
         private void lblLogPath_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -1476,13 +1599,13 @@ namespace Axiom
         /// <summary>
         ///     Log Auto Path - Button
         /// </summary>
-        private void btnLogAuto_Click(object sender, RoutedEventArgs e)
+        private void btnLogPathAuto_Click(object sender, RoutedEventArgs e)
         {
             // Uncheck Log Checkbox
             vm.LogCheckBox_IsChecked = false;
 
             // Clear Path in Textbox
-            vm.LogPath_Text = string.Empty;
+            vm.LogPath_Text = Log.logDir;
         }
 
 
@@ -1567,7 +1690,10 @@ namespace Axiom
             {
                 // Show Yes No Window
                 System.Windows.Forms.DialogResult dialogResult = System.Windows.Forms.MessageBox.Show(
-                    "Delete " + Configure.configFile, "Delete Directory Confirm", System.Windows.Forms.MessageBoxButtons.YesNo);
+                                                                "Delete " + Configure.configFile, 
+                                                                "Delete Directory Confirm", 
+                                                                System.Windows.Forms.MessageBoxButtons.YesNo);
+
                 // Yes
                 if (dialogResult == System.Windows.Forms.DialogResult.Yes)
                 {
@@ -1583,23 +1709,9 @@ namespace Axiom
 
                     }
 
-                    //// Delete
-                    //using (Process delete = new Process())
-                    //{
-                    //    delete.StartInfo.UseShellExecute = false;
-                    //    delete.StartInfo.CreateNoWindow = false;
-                    //    delete.StartInfo.RedirectStandardOutput = false;
-                    //    delete.StartInfo.FileName = "cmd.exe";
-                    //    delete.StartInfo.Arguments = "/c /S del " + "\"" + Configure.configFile + "\"";
-                    //    delete.Start();
-                    //    delete.WaitForExit();
-                    //    //delete.Close();
-
-                    //    delete.Dispose();
-                    //}
-
                     // Load Defaults
-                    vm.LoadDefaults();
+                    vm.LoadConfigDefaults();
+                    vm.LoadControlsDefaults();
 
                     // Restart Program
                     Process.Start(Application.ResourceAssembly.Location);
@@ -4641,7 +4753,7 @@ namespace Axiom
                 vm.Video_ScalingAlgorithm_SelectedItem = "auto";
 
                 // Filters
-                vm.FiltersSetDefault();
+                vm.LoadFiltersDefault();
             }
 
             // -------------------------

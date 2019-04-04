@@ -34,13 +34,16 @@ namespace Axiom
     class Profiles
     {
         /// <summary>
+        ///    Global Variables
+        /// </summary>
+        public static string presetsDir = MainWindow.appDataLocalDir + @"Axiom UI\presets\"; // Custom User ini presets
+
+
+        /// <summary>
         ///    Scan PC Custom Presets
         /// </summary>
         public static List<string> customPresetPathsList = new List<string>();
-        //public static string presetsDir = MainWindow.appDir + @"presets\"; // Custom User ini presets
-        //public static string presetsDir = MainWindow.documentsDir + @"Axiom UI\presets\"; // Custom User ini presets
-        public static string presetsDir = MainWindow.appDataDir + @"Axiom UI\presets\"; // Custom User ini presets
-
+        
         public static void LoadCustomPresets(ViewModel vm)
         {
             // -------------------------

@@ -4709,12 +4709,14 @@
                                 <RowDefinition Height="33"/>
                                 <RowDefinition Height="33"/>
                                 <RowDefinition Height="33"/>
-                                <RowDefinition Height="22"/>
-                                <RowDefinition Height="33"/>
                                 <RowDefinition Height="33"/>
                                 <RowDefinition Height="22"/>
                                 <RowDefinition Height="33"/>
+                                <RowDefinition Height="33"/>
                                 <RowDefinition Height="22"/>
+                                <RowDefinition Height="33"/>
+                                <RowDefinition Height="22"/>
+                                <RowDefinition Height="33"/>
                                 <RowDefinition Height="33"/>
                                 <RowDefinition Height="33"/>
                             </Grid.RowDefinitions>
@@ -4724,17 +4726,73 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
 
+                            <!-- Config Path TextBox -->
+                            <Label Style="{DynamicResource LabelStyle}" 
+                                   Content="Config" 
+                                   HorizontalAlignment="Left" 
+                                   VerticalAlignment="Top"
+                                   Height="26" 
+                                   ToolTipService.InitialShowDelay="200"
+                                   ToolTipService.ShowOnDisabled="True"
+                                   ToolTip="Path to Config folder." 
+                                   Grid.Column="1"
+                                   Grid.Row="0"
+                                   Width="58"
+                                   Cursor="Hand"
+                                   PreviewMouseDown="lblConfigPath_PreviewMouseDown"/>
+                           
+                            <TextBox x:Name="tbxConfigPath" 
+                                     Text="{Binding ConfigPath_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                     IsEnabled="{Binding ConfigPath_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                     Style="{DynamicResource TextBoxBrowseStyle}"
+                                     HorizontalAlignment="Left" 
+                                     Height="20"
+                                     Margin="10,2,0,0" 
+                                     TextWrapping="Wrap" 
+                                     VerticalAlignment="Top"
+                                     Width="105"
+                                     IsReadOnly="True" 
+                                     ToolTipService.InitialShowDelay="200" 
+                                     ToolTipService.ShowOnDisabled="True" 
+                                     ToolTip="{Binding ConfigPath_Text, Mode=OneWay}" 
+                                     Grid.Column="2"
+                                     Grid.Row="0"/>
+
+                            <Button x:Name="btnConfigPathAuto"
+                                    HorizontalAlignment="Left"
+                                    Margin="122,0,0,0" 
+                                    VerticalAlignment="Top"
+                                    Width="23" 
+                                    Height="23" 
+                                    Cursor="Hand"
+                                    ToolTipService.InitialShowDelay="200"
+                                    ToolTipService.ShowOnDisabled="True"
+                                    ToolTip="Open Location"
+                                    Click="btnConfigPath_Click"
+                                    Grid.Column="2"
+                                    Grid.Row="0"
+                                    Style="{DynamicResource ButtonFolderStyle}" >
+                                <Image Width="11"
+                                       Height="7" 
+                                       Stretch="Uniform" 
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       Margin="1,0,0,0"
+                                       Style="{DynamicResource ButtonQuickFolder}" />
+                            </Button>
+                            
+                            
                             <!-- Custom Presets Path TextBox -->
                             <Label Style="{DynamicResource LabelStyle}" 
                                    Content="Presets" 
                                    HorizontalAlignment="Left" 
                                    VerticalAlignment="Top"
                                    Height="26" 
-                                   ToolTipService.InitialShowDelay="1000"
+                                   ToolTipService.InitialShowDelay="200"
                                    ToolTipService.ShowOnDisabled="True"
                                    ToolTip="Path to Custom Presets folder." 
                                    Grid.Column="1"
-                                   Grid.Row="0"
+                                   Grid.Row="1"
                                    Width="58"
                                    Cursor="Hand"
                                    PreviewMouseDown="lblCustomPresetsPath_PreviewMouseDown"
@@ -4755,11 +4813,11 @@
                                      PreviewDragOver="tbxCustomPresetsPath_PreviewDragOver"
                                      PreviewDragEnter="tbxCustomPresetsPath_PreviewDragOver"
                                      PreviewDrop="tbxCustomPresetsPath_PreviewDrop"
-                                     ToolTipService.InitialShowDelay="1000" 
+                                     ToolTipService.InitialShowDelay="200" 
                                      ToolTipService.ShowOnDisabled="True" 
-                                     ToolTip="Path to Custom Presets folder." 
+                                     ToolTip="{Binding CustomPresetsPath_Text, Mode=OneWay}"
                                      Grid.Column="2"
-                                     Grid.Row="0"
+                                     Grid.Row="1"
                                      />
 
                             <!-- CustomPresets Path Revert Button -->
@@ -4770,12 +4828,12 @@
                                     Width="23" 
                                     Height="23" 
                                     Cursor="Hand"
-                                    ToolTipService.InitialShowDelay="1000"
+                                    ToolTipService.InitialShowDelay="200"
                                     ToolTipService.ShowOnDisabled="True"
-                                    ToolTip="Revert to Auto"
+                                    ToolTip="Revert to Default"
                                     Click="btnCustomPresetsAuto_Click"
                                     Grid.Column="2"
-                                    Grid.Row="0"
+                                    Grid.Row="1"
                                     Style="{DynamicResource ButtonFolderStyle}" >
                                 <Image Width="9" 
                                        Height="11" 
@@ -4791,11 +4849,11 @@
                                    HorizontalAlignment="Left" 
                                    VerticalAlignment="Top"
                                    Height="26" 
-                                   ToolTipService.InitialShowDelay="1000"
+                                   ToolTipService.InitialShowDelay="200"
                                    ToolTipService.ShowOnDisabled="True"
                                    ToolTip="Path to FFmpeg.exe" 
                                    Grid.Column="1"
-                                   Grid.Row="1"
+                                   Grid.Row="2"
                                    Width="58"
                                    Cursor="Hand"
                                    PreviewMouseDown="lblFFmpegPath_PreviewMouseDown"
@@ -4816,11 +4874,11 @@
                                      PreviewDragOver="tbxFFmpegPath_PreviewDragOver"
                                      PreviewDragEnter="tbxFFmpegPath_PreviewDragOver"
                                      PreviewDrop="tbxFFmpegPath_PreviewDrop"
-                                     ToolTipService.InitialShowDelay="1000" 
+                                     ToolTipService.InitialShowDelay="200" 
                                      ToolTipService.ShowOnDisabled="True" 
-                                     ToolTip="Path to FFmpeg.exe" 
+                                     ToolTip="{Binding FFmpegPath_Text, Mode=OneWay}"
                                      Grid.Column="2"
-                                     Grid.Row="1"
+                                     Grid.Row="2"
                                      />
 
                             <!-- FFmpeg Path Revert Button -->
@@ -4831,12 +4889,12 @@
                                     Width="23" 
                                     Height="23" 
                                     Cursor="Hand"
-                                    ToolTipService.InitialShowDelay="1000"
+                                    ToolTipService.InitialShowDelay="200"
                                     ToolTipService.ShowOnDisabled="True"
                                     ToolTip="Revert to Auto"
                                     Click="btnFFmpegAuto_Click"
                                     Grid.Column="2"
-                                    Grid.Row="1"
+                                    Grid.Row="2"
                                     Style="{DynamicResource ButtonFolderStyle}"  >
                                 <Image Width="9" 
                                        Height="11" 
@@ -4852,10 +4910,10 @@
                                    HorizontalAlignment="Left" 
                                    VerticalAlignment="Top"
                                    Height="26" 
-                                   ToolTipService.InitialShowDelay="1000"
+                                   ToolTipService.InitialShowDelay="200"
                                    ToolTipService.ShowOnDisabled="True"
                                    ToolTip="Path to FFprobe.exe" 
-                                   Grid.Row="2" 
+                                   Grid.Row="3" 
                                    Grid.Column="1" 
                                    Width="58"
                                    Cursor="Hand"
@@ -4877,11 +4935,11 @@
                                      PreviewDragOver="tbxFFprobePath_PreviewDragOver"
                                      PreviewDragEnter="tbxFFprobePath_PreviewDragOver"
                                      PreviewDrop="tbxFFprobePath_PreviewDrop"
-                                     ToolTipService.InitialShowDelay="1000" 
+                                     ToolTipService.InitialShowDelay="200" 
                                      ToolTipService.ShowOnDisabled="True" 
-                                     ToolTip="Path to FFprobe.exe"
+                                     ToolTip="{Binding FFprobePath_Text, Mode=OneWay}"
                                      Grid.Column="2" 
-                                     Grid.Row="2"/>
+                                     Grid.Row="3"/>
 
                             <!-- FFprobe Path Revert Button -->
                             <Button x:Name="btnFFprobeAuto"
@@ -4891,13 +4949,13 @@
                                     Width="23" 
                                     Height="23" 
                                     Cursor="Hand"
-                                    ToolTipService.InitialShowDelay="1000"
+                                    ToolTipService.InitialShowDelay="200"
                                     ToolTipService.ShowOnDisabled="True"
                                     ToolTip="Revert to Auto"
                                     Click="btnFFprobeAuto_Click"
                                     Style="{DynamicResource ButtonFolderStyle}" 
                                     Grid.Column="2" 
-                                    Grid.Row="2" >
+                                    Grid.Row="3" >
                                 <Image Width="9" 
                                        Height="11" 
                                        Stretch="Uniform"
@@ -4912,10 +4970,10 @@
                                    HorizontalAlignment="Left" 
                                    VerticalAlignment="Top"
                                    Height="26" 
-                                   ToolTipService.InitialShowDelay="1000"
+                                   ToolTipService.InitialShowDelay="200"
                                    ToolTipService.ShowOnDisabled="True"
                                    ToolTip="Path to FFplay.exe"
-                                   Grid.Row="3"
+                                   Grid.Row="4"
                                    Grid.Column="1" 
                                    Width="58"
                                    Cursor="Hand"
@@ -4937,33 +4995,33 @@
                                      PreviewDragOver="tbxFFplayPath_PreviewDragOver"
                                      PreviewDragEnter="tbxFFplayPath_PreviewDragOver"
                                      PreviewDrop="tbxFFplayPath_PreviewDrop"
-                                     ToolTipService.InitialShowDelay="1000" 
+                                     ToolTipService.InitialShowDelay="200" 
                                      ToolTipService.ShowOnDisabled="True" 
-                                     ToolTip="Path to FFplay.exe" 
+                                     ToolTip="{Binding FFplayPath_Text, Mode=OneWay}"
                                      Grid.Column="2" 
-                                     Grid.Row="3"/>
+                                     Grid.Row="4"/>
 
                             <!-- FFplay Path Revert Button -->
                             <Button x:Name="btnFFplayAuto"
-                                            HorizontalAlignment="Left"
-                                            Margin="122,1,0,0" 
-                                            VerticalAlignment="Top"
-                                            Width="23" 
-                                            Height="23" 
-                                            Cursor="Hand"
-                                            ToolTipService.InitialShowDelay="1000"
-                                            ToolTipService.ShowOnDisabled="True"
-                                            ToolTip="Revert to Auto"
-                                            Click="btnFFplayAuto_Click"
-                                            Style="{DynamicResource ButtonFolderStyle}" 
-                                            Grid.Column="2" 
-                                            Grid.Row="3" >
+                                    HorizontalAlignment="Left"
+                                    Margin="122,1,0,0" 
+                                    VerticalAlignment="Top"
+                                    Width="23" 
+                                    Height="23" 
+                                    Cursor="Hand"
+                                    ToolTipService.InitialShowDelay="200"
+                                    ToolTipService.ShowOnDisabled="True"
+                                    ToolTip="Revert to Auto"
+                                    Click="btnFFplayAuto_Click"
+                                    Style="{DynamicResource ButtonFolderStyle}" 
+                                    Grid.Column="2" 
+                                    Grid.Row="4" >
                                 <Image Width="9" 
-                                           Height="11" 
-                                           Stretch="Uniform"
-                                           HorizontalAlignment="Center"
-                                           VerticalAlignment="Center" 
-                                           Style="{DynamicResource ButtonRevertArrow}" />
+                                       Height="11" 
+                                       Stretch="Uniform"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center" 
+                                       Style="{DynamicResource ButtonRevertArrow}" />
                             </Button>
 
                             <!-- youtube-dl Path TextBox -->
@@ -4972,10 +5030,10 @@
                                    HorizontalAlignment="Left" 
                                    VerticalAlignment="Top"
                                    Height="26" 
-                                   ToolTipService.InitialShowDelay="1000"
+                                   ToolTipService.InitialShowDelay="200"
                                    ToolTipService.ShowOnDisabled="True"
                                    ToolTip="Path to youtube-dl.exe"
-                                   Grid.Row="4" 
+                                   Grid.Row="5" 
                                    Grid.Column="1" 
                                    Width="70" 
                                    Grid.ColumnSpan="2"
@@ -4998,11 +5056,11 @@
                                      PreviewDragOver="tbxyoutubedlPath_PreviewDragOver"
                                      PreviewDragEnter="tbxyoutubedlPath_PreviewDragOver"
                                      PreviewDrop="tbxyoutubedlPath_PreviewDrop"
-                                     ToolTipService.InitialShowDelay="1000" 
+                                     ToolTipService.InitialShowDelay="200" 
                                      ToolTipService.ShowOnDisabled="True" 
-                                     ToolTip="Path to youtubedl.exe" 
+                                     ToolTip="{Binding youtubedlPath_Text, Mode=OneWay}"
                                      Grid.Column="2" 
-                                     Grid.Row="4"/>
+                                     Grid.Row="5"/>
 
                             <!-- youtubedl Path Revert Button -->
                             <Button x:Name="btnyoutubedlAuto"
@@ -5012,13 +5070,13 @@
                                     Width="23" 
                                     Height="23" 
                                     Cursor="Hand"
-                                    ToolTipService.InitialShowDelay="1000"
+                                    ToolTipService.InitialShowDelay="200"
                                     ToolTipService.ShowOnDisabled="True"
                                     ToolTip="Revert to Auto"
                                     Click="btnyoutubedlAuto_Click"
                                     Style="{DynamicResource ButtonFolderStyle}" 
                                     Grid.Column="2" 
-                                    Grid.Row="4" >
+                                    Grid.Row="5" >
                                 <Image Width="9" 
                                        Height="11" 
                                        Stretch="Uniform"
@@ -5035,10 +5093,10 @@
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Top"
                                    Height="26" 
-                                   ToolTipService.InitialShowDelay="1000"
+                                   ToolTipService.InitialShowDelay="200"
                                    ToolTipService.ShowOnDisabled="True"
                                    ToolTip="Path to save axiom.log" 
-                                   Grid.Row="5"
+                                   Grid.Row="6"
                                    Grid.Column="1" 
                                    Width="36"
                                    Cursor="Hand"
@@ -5060,11 +5118,11 @@
                                      PreviewDragEnter="tbxLogPath_PreviewDragOver"
                                      PreviewDrop="tbxLogPath_PreviewDrop"
                                      PreviewMouseDown="tbxLogPath_PreviewMouseDown" 
-                                     ToolTipService.InitialShowDelay="1000"
+                                     ToolTipService.InitialShowDelay="200"
                                      ToolTipService.ShowOnDisabled="True" 
-                                     ToolTip="Path to save axiom.log." 
+                                     ToolTip="{Binding LogPath_Text, Mode=OneWay}"
                                      Grid.Column="2" 
-                                     Grid.Row="5"/>
+                                     Grid.Row="6"/>
 
                             <!-- Log Revert Button -->
                             <Button x:Name="btnLogAuto" 
@@ -5074,13 +5132,13 @@
                                     Width="23"
                                     Height="23" 
                                     Cursor="Hand"
-                                    ToolTipService.InitialShowDelay="1000"
+                                    ToolTipService.InitialShowDelay="200"
                                     ToolTipService.ShowOnDisabled="True"
-                                    ToolTip="Clear Path" 
-                                    Click="btnLogAuto_Click" 
+                                    ToolTip="Revert to Default" 
+                                    Click="btnLogPathAuto_Click" 
                                     Style="{DynamicResource ButtonFolderStyle}" 
                                     Grid.Column="2"
-                                    Grid.Row="5">
+                                    Grid.Row="6">
                                 <Image Width="9"
                                        Height="11" 
                                        Stretch="Uniform" 
@@ -5103,7 +5161,7 @@
                                       Checked="cbxLog_Checked" 
                                       Unchecked="cbxLog_Unchecked" 
                                       Style="{DynamicResource CheckBoxStyle}" 
-                                      Grid.Row="5" 
+                                      Grid.Row="6" 
                                       Grid.Column="1"/>
 
                             <!-- Threads -->
@@ -5116,8 +5174,9 @@
                                    ToolTipService.InitialShowDelay="1000"
                                    ToolTipService.ShowOnDisabled="True"
                                    ToolTip="Amount of CPU threads to use."
-                                   Grid.Row="7" 
-                                   Grid.Column="1" Width="56"/>
+                                   Grid.Row="8" 
+                                   Grid.Column="1" 
+                                   Width="56"/>
                             <ComboBox x:Name="cboThreads"
                                       ItemsSource="{Binding Threads_Items}"
                                       SelectedIndex="{Binding Threads_SelectedIndex}"
@@ -5132,7 +5191,7 @@
                                       SelectionChanged="threadSelect_SelectionChanged" 
                                       KeyDown="threadSelect_KeyDown" 
                                       Grid.Column="2"
-                                      Grid.Row="7" 
+                                      Grid.Row="8" 
                                       Margin="10,2,0,0"/>
 
                             <!-- Theme -->
@@ -5145,8 +5204,9 @@
                                    ToolTipService.InitialShowDelay="1000"
                                    ToolTipService.ShowOnDisabled="True"
                                    ToolTip="Program Theme" 
-                                   Grid.Row="8" 
-                                   Grid.Column="1" Width="52"/>
+                                   Grid.Row="9" 
+                                   Grid.Column="1" 
+                                   Width="52"/>
                             <ComboBox x:Name="cboTheme" 
                                       ItemsSource="{Binding Theme_Items}"
                                       SelectedIndex="{Binding Theme_SelectedIndex}"
@@ -5160,7 +5220,7 @@
                                       IsTextSearchEnabled="False"
                                       SelectionChanged="themeSelect_SelectionChanged" 
                                       Grid.Column="2" 
-                                      Grid.Row="8"
+                                      Grid.Row="9"
                                       Margin="10,2,0,0"/>
 
                             <!-- Check for Updates -->
@@ -5172,8 +5232,9 @@
                                    ToolTipService.InitialShowDelay="1000"
                                    ToolTipService.ShowOnDisabled="True"
                                    ToolTip="Automatically check for updates at startup." 
-                                   Grid.Row="10" 
-                                   Grid.Column="1" Width="58"/>
+                                   Grid.Row="11" 
+                                   Grid.Column="1" 
+                                   Width="58"/>
                             <!-- Window Toggle  -->
                             <ToggleButton x:Name="tglUpdateAutoCheck"
                                           IsChecked="{Binding UpdateAutoCheck_IsChecked}"
@@ -5190,7 +5251,7 @@
                                           Checked="tglUpdateAutoCheck_Checked"
                                           Unchecked="tglUpdateAutoCheck_Unchecked"
                                           Grid.Column="2" 
-                                          Grid.Row="10" 
+                                          Grid.Row="11" 
                                           Margin="10,2,0,0">
                                 <TextBlock x:Name="tblkUpdatesAutoCheck" 
                                            Style="{DynamicResource TextBlockStyle}" 
@@ -5204,7 +5265,7 @@
                                    VerticalAlignment="Top"
                                    Height="26" 
                                    Grid.Column="2" 
-                                   Grid.Row="10" 
+                                   Grid.Row="11" 
                                    Margin="73,0,0,0"/>
 
                             <!-- Reset Saved Settings -->
@@ -5213,8 +5274,9 @@
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Top" 
                                    Height="26" 
-                                   Grid.Row="12" 
-                                   Grid.Column="1" Width="58" />
+                                   Grid.Row="13" 
+                                   Grid.Column="1" 
+                                   Width="58" />
 
                             <!-- Reset Saved Settings Button -->
                             <Button x:Name="btnClearAllSavedSettings"
@@ -5230,7 +5292,7 @@
                                     Click="btnResetConfig_Click" 
                                     Style="{DynamicResource ButtonSmallStyle}" 
                                     Grid.Column="2" 
-                                    Grid.Row="12" 
+                                    Grid.Row="13" 
                                     Margin="10,2,0,0">
                                 <TextBlock Style="{DynamicResource TextBlockStyle}" 
                                            Text="Reset" 

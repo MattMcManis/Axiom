@@ -1185,7 +1185,8 @@ namespace Axiom
                     {
                         Log.logParagraph.Inlines.Add(new LineBreak());
                         Log.logParagraph.Inlines.Add(new LineBreak());
-                        Log.logParagraph.Inlines.Add(new Bold(new Run("Input Video BitRate does not exist or can't be detected")) { Foreground = Log.ConsoleWarning });
+                        Log.logParagraph.Inlines.Add(new Bold(new Run("Input Video Bit Rate does not exist or can't be detected")) { Foreground = Log.ConsoleWarning });
+                        Log.logParagraph.Inlines.Add(new LineBreak());
                     };
                     Log.LogActions.Add(Log.WriteAction);
                 }

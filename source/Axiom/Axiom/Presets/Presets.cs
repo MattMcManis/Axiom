@@ -138,7 +138,7 @@ namespace Axiom
                     }
 
                     // Filters
-                    vm.FiltersSetDefault();
+                    vm.LoadFiltersDefault();
 
                 }
 
@@ -218,7 +218,7 @@ namespace Axiom
                     vm.Audio_HardLimiter_Value = 1;
 
                     // Filters
-                    vm.FiltersSetDefault();
+                    vm.LoadFiltersDefault();
                 }
             }
 
@@ -288,7 +288,7 @@ namespace Axiom
                 vm.Audio_HardLimiter_Value = 1;
 
                 // Filters
-                vm.FiltersSetDefault();
+                vm.LoadFiltersDefault();
             }
 
             // -------------------------
@@ -353,7 +353,7 @@ namespace Axiom
                 vm.Audio_HardLimiter_Value = 1;
 
                 // Filters
-                vm.FiltersSetDefault();
+                vm.LoadFiltersDefault();
             }
 
 
@@ -422,7 +422,7 @@ namespace Axiom
                 vm.Audio_HardLimiter_Value = 1;
 
                 // Filters
-                vm.FiltersSetDefault();
+                vm.LoadFiltersDefault();
             }
 
             // -------------------------
@@ -502,7 +502,7 @@ namespace Axiom
                 vm.Audio_HardLimiter_Value = 1;
 
                 // Filters
-                vm.FiltersSetDefault();
+                vm.LoadFiltersDefault();
             }
 
             // -------------------------
@@ -588,7 +588,7 @@ namespace Axiom
                 vm.Audio_HardLimiter_Value = 1;
 
                 // Filters
-                vm.FiltersSetDefault();
+                vm.LoadFiltersDefault();
             }
 
             // -------------------------
@@ -668,7 +668,7 @@ namespace Axiom
                 vm.Audio_HardLimiter_Value = 1;
 
                 // Filters
-                vm.FiltersSetDefault();
+                vm.LoadFiltersDefault();
             }
 
 
@@ -740,7 +740,7 @@ namespace Axiom
                 vm.Audio_HardLimiter_Value = 1;
 
                 // Filters
-                vm.FiltersSetDefault();
+                vm.LoadFiltersDefault();
             }
 
             // -------------------------
@@ -808,7 +808,7 @@ namespace Axiom
                 vm.Audio_HardLimiter_Value = 1;
 
                 // Filters
-                vm.FiltersSetDefault();
+                vm.LoadFiltersDefault();
             }
 
             // -------------------------
@@ -876,7 +876,7 @@ namespace Axiom
                 vm.Audio_HardLimiter_Value = 1;
 
                 // Filters
-                vm.FiltersSetDefault();
+                vm.LoadFiltersDefault();
             }
 
             // -------------------------
@@ -944,7 +944,7 @@ namespace Axiom
                 vm.Audio_HardLimiter_Value = 1;
 
                 // Filters
-                vm.FiltersSetDefault();
+                vm.LoadFiltersDefault();
             }
 
             // -------------------------
@@ -1012,7 +1012,7 @@ namespace Axiom
                 vm.Audio_HardLimiter_Value = 1;
 
                 // Filters
-                vm.FiltersSetDefault();
+                vm.LoadFiltersDefault();
             }
 
 
@@ -1081,7 +1081,7 @@ namespace Axiom
                 vm.Audio_HardLimiter_Value = 1;
 
                 // Filters
-                vm.FiltersSetDefault();
+                vm.LoadFiltersDefault();
             }
 
             // -------------------------
@@ -1146,7 +1146,7 @@ namespace Axiom
                 vm.Audio_HardLimiter_Value = 1;
 
                 // Filters
-                vm.FiltersSetDefault();
+                vm.LoadFiltersDefault();
             }
 
 
@@ -1215,7 +1215,7 @@ namespace Axiom
                 vm.Audio_HardLimiter_Value = 1;
 
                 // Filters
-                vm.FiltersSetDefault();
+                vm.LoadFiltersDefault();
             }
 
             // -------------------------
@@ -1280,7 +1280,7 @@ namespace Axiom
                 vm.Audio_HardLimiter_Value = 1;
 
                 // Filters
-                vm.FiltersSetDefault();
+                vm.LoadFiltersDefault();
             }
 
             // -------------------------
@@ -1345,7 +1345,7 @@ namespace Axiom
                 vm.Audio_HardLimiter_Value = 1;
 
                 // Filters
-                vm.FiltersSetDefault();
+                vm.LoadFiltersDefault();
             }
 
             // -------------------------
@@ -1410,7 +1410,7 @@ namespace Axiom
                 vm.Audio_HardLimiter_Value = 1;
 
                 // Filters
-                vm.FiltersSetDefault();
+                vm.LoadFiltersDefault();
             }
 
 
@@ -1467,10 +1467,10 @@ namespace Axiom
                 vm.Subtitle_Stream_SelectedItem = "all";
 
                 // Audio
-                vm.Audio_Codec_SelectedItem = "AC3";
+                vm.Audio_Codec_SelectedItem = "DTS";
                 vm.Audio_Stream_SelectedItem = "all";
                 vm.Audio_Channel_SelectedItem = "Source";
-                vm.Audio_Quality_SelectedItem = "640";
+                vm.Audio_Quality_SelectedItem = "1509";
                 vm.Audio_VBR_IsChecked = false;
                 vm.Audio_CompressionLevel_SelectedItem = "auto";
                 vm.Audio_SampleRate_SelectedItem = "48k";
@@ -1479,7 +1479,7 @@ namespace Axiom
                 vm.Audio_HardLimiter_Value = 1;
 
                 // Filters
-                vm.FiltersSetDefault();
+                vm.LoadFiltersDefault();
             }
 
             // -------------------------
@@ -1544,7 +1544,7 @@ namespace Axiom
                 vm.Audio_HardLimiter_Value = 1;
 
                 // Filters
-                vm.FiltersSetDefault();
+                vm.LoadFiltersDefault();
             }
 
             // -------------------------
@@ -1605,7 +1605,7 @@ namespace Axiom
                 vm.Audio_HardLimiter_Value = 1;
 
                 // Filters
-                vm.FiltersSetDefault();
+                vm.LoadFiltersDefault();
             }
 
 
@@ -1674,7 +1674,7 @@ namespace Axiom
                 vm.Audio_HardLimiter_Value = 1;
 
                 // Filters
-                vm.FiltersSetDefault();
+                vm.LoadFiltersDefault();
             }
 
             // -------------------------
@@ -1751,7 +1751,7 @@ namespace Axiom
                 vm.Audio_HardLimiter_Value = 1;
 
                 // Filters
-                vm.FiltersSetDefault();
+                vm.LoadFiltersDefault();
             }
 
             // -------------------------
@@ -1816,7 +1816,7 @@ namespace Axiom
                 vm.Audio_HardLimiter_Value = 1;
 
                 // Filters
-                vm.FiltersSetDefault();
+                vm.LoadFiltersDefault();
             }
 
             // -------------------------
@@ -1881,7 +1881,7 @@ namespace Axiom
                 vm.Audio_HardLimiter_Value = 1;
 
                 // Filters
-                vm.FiltersSetDefault();
+                vm.LoadFiltersDefault();
             }
 
             // ---------------------------------------------------------------------------
@@ -1952,7 +1952,7 @@ namespace Axiom
                 vm.Audio_HardLimiter_Value = 1;
 
                 // Filters
-                vm.FiltersSetDefault();
+                vm.LoadFiltersDefault();
             }
 
             // -------------------------
@@ -2017,7 +2017,7 @@ namespace Axiom
                 vm.Audio_HardLimiter_Value = 1;
 
                 // Filters
-                vm.FiltersSetDefault();
+                vm.LoadFiltersDefault();
             }
 
             // -------------------------
