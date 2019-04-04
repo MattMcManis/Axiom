@@ -5209,7 +5209,7 @@
                                     ToolTipService.ShowOnDisabled="True"
                                     ToolTip="Reset the Saved Settings to Default." 
                                     Cursor="Hand" 
-                                    Click="btnClearAllSavedSettings_Click" 
+                                    Click="btnResetConfig_Click" 
                                     Style="{DynamicResource ButtonSmallStyle}" 
                                     Grid.Column="2" 
                                     Grid.Row="12" 
@@ -5220,7 +5220,7 @@
                             </Button>
 
                             <!-- Delete Saved Settings Button -->
-                            <Button x:Name="btnDeleteSettings"
+                            <!--<Button x:Name="btnDeleteSettings"
                                     HorizontalAlignment="Left"
                                     Margin="72,2,0,0"
                                     VerticalAlignment="Top"
@@ -5238,7 +5238,7 @@
                                 <TextBlock Style="{DynamicResource TextBlockStyle}" 
                                            Text="Delete" 
                                            Margin="0,-1,0,0"/>
-                            </Button>
+                            </Button>-->
 
                         </Grid>
 

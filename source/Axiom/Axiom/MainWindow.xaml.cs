@@ -75,6 +75,7 @@ namespace Axiom
         // --------------------------------------------------------------------------------------------------------
         // System
         public static string appDir = AppDomain.CurrentDomain.BaseDirectory.TrimEnd('\\') + @"\"; // Axiom.exe directory
+        public static string programDataDir = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData).TrimEnd('\\') + @"\";
         public static string tempDir = Path.GetTempPath(); // Windows AppData Temp Directory
         public static string userProfile = Environment.ExpandEnvironmentVariables(@"%USERPROFILE%").TrimEnd('\\') + @"\"; // C:\Users\Example\
         public static string documentsDir = userProfile + @"Documents\"; // C:\Users\Example\Documents\
@@ -1551,92 +1552,46 @@ namespace Axiom
         // --------------------------------------------------
         // Reset Saved Settings - Button
         // --------------------------------------------------
-        private void btnClearAllSavedSettings_Click(object sender, RoutedEventArgs e)
+        private void btnResetConfig_Click(object sender, RoutedEventArgs e)
         {
-            // Revert FFmpeg
-            vm.FFmpegPath_Text = "<auto>";
-
-            // Revert FFprobe
-            vm.FFprobePath_Text = "<auto>";
-
-            // Revert FFplay
-            vm.FFplayPath_Text = "<auto>";
-
-            // Revert youtube-dl
-            vm.youtubedlPath_Text = "<auto>";
-
-            // Revert Log
-            vm.LogCheckBox_IsChecked = false;
-            vm.LogPath_Text = string.Empty;
-
-            // Revert Threads
-            vm.Threads_SelectedItem = "optimal";
-
-
-            // Yes/No Dialog Confirmation
-            //
-            MessageBoxResult result = MessageBox.Show(
-                                                "Reset Saved Settings?",
-                                                "Settings",
-                                                MessageBoxButton.YesNo,
-                                                MessageBoxImage.Exclamation
-                                                );
-            switch (result)
-            {
-                case MessageBoxResult.Yes:
-
-                    // Reset AppData Settings
-                    Settings.Default.Reset();
-                    Settings.Default.Reload();
-
-                    // Restart Program
-                    Process.Start(Application.ResourceAssembly.Location);
-                    Application.Current.Shutdown();
-
-                    break;
-
-                case MessageBoxResult.No:
-
-                    break;
-            }
-        }
-
-
-        // --------------------------------------------------
-        // Delete Saved Settings - Button
-        // --------------------------------------------------
-        private void btnDeleteSettings_Click(object sender, RoutedEventArgs e)
-        {
-            string userProfile = Environment.ExpandEnvironmentVariables(@"%USERPROFILE%").TrimEnd('\\') + @"\";
-            string appDataPath = @"AppData\Local\Axiom";
-
             // Check if Directory Exists
-            if (Directory.Exists(userProfile + appDataPath))
+            if (File.Exists(Configure.configFile))
             {
                 // Show Yes No Window
                 System.Windows.Forms.DialogResult dialogResult = System.Windows.Forms.MessageBox.Show(
-                    "Delete " + userProfile + appDataPath, "Delete Directory Confirm", System.Windows.Forms.MessageBoxButtons.YesNo);
+                    "Delete " + Configure.configFile, "Delete Directory Confirm", System.Windows.Forms.MessageBoxButtons.YesNo);
                 // Yes
                 if (dialogResult == System.Windows.Forms.DialogResult.Yes)
                 {
-                    // Delete
-                    using (Process delete = new Process())
+                    try
                     {
-                        delete.StartInfo.UseShellExecute = false;
-                        delete.StartInfo.CreateNoWindow = false;
-                        delete.StartInfo.RedirectStandardOutput = true;
-                        delete.StartInfo.FileName = "cmd.exe";
-                        delete.StartInfo.Arguments = "/c RD /Q /S " + "\"" + userProfile + appDataPath;
-                        delete.Start();
-                        delete.WaitForExit();
-                        //delete.Close();
+                        if (File.Exists(Configure.configFile))
+                        {
+                            File.Delete(Configure.configFile);
+                        }
+                    }
+                    catch
+                    {
 
-                        delete.Dispose();
                     }
 
-                    // Reset AppData Settings
-                    Settings.Default.Reset();
-                    Settings.Default.Reload();
+                    //// Delete
+                    //using (Process delete = new Process())
+                    //{
+                    //    delete.StartInfo.UseShellExecute = false;
+                    //    delete.StartInfo.CreateNoWindow = false;
+                    //    delete.StartInfo.RedirectStandardOutput = false;
+                    //    delete.StartInfo.FileName = "cmd.exe";
+                    //    delete.StartInfo.Arguments = "/c /S del " + "\"" + Configure.configFile + "\"";
+                    //    delete.Start();
+                    //    delete.WaitForExit();
+                    //    //delete.Close();
+
+                    //    delete.Dispose();
+                    //}
+
+                    // Load Defaults
+                    vm.LoadDefaults();
 
                     // Restart Program
                     Process.Start(Application.ResourceAssembly.Location);
@@ -1648,15 +1603,90 @@ namespace Axiom
                     //do nothing
                 }
             }
+
             // If Axiom Folder Not Found
             else
             {
-                MessageBox.Show("No Previous Settings Found.",
+                MessageBox.Show("Config file " + Configure.configFile + " not Found.",
                                 "Notice",
                                 MessageBoxButton.OK,
                                 MessageBoxImage.Information);
             }
         }
+
+
+        // --------------------------------------------------
+        // Delete Config - Button
+        // --------------------------------------------------
+        //private void btnDeleteSettings_Click(object sender, RoutedEventArgs e)
+        //{
+        //    //string userProfile = Environment.ExpandEnvironmentVariables(@"%USERPROFILE%").TrimEnd('\\') + @"\";
+        //    //string appDataPath = @"AppData\Local\Axiom";
+
+        //    // Check if Directory Exists
+        //    //if (Directory.Exists(userProfile + appDataPath))
+        //    if(File.Exists(Configure.configFile))
+        //    {
+        //        // Show Yes No Window
+        //        System.Windows.Forms.DialogResult dialogResult = System.Windows.Forms.MessageBox.Show(
+        //            "Delete " + Configure.configFile, "Delete Directory Confirm", System.Windows.Forms.MessageBoxButtons.YesNo);
+        //        // Yes
+        //        if (dialogResult == System.Windows.Forms.DialogResult.Yes)
+        //        {
+        //            //try
+        //            //{
+        //            //    if (File.Exists(Configure.configFile))
+        //            //    {
+        //            //        File.Delete(Configure.configFile);
+        //            //    }
+        //            //}
+        //            //catch
+        //            //{
+
+        //            //}
+
+        //            // Delete
+        //            using (Process delete = new Process())
+        //            {
+        //                delete.StartInfo.UseShellExecute = false;
+        //                delete.StartInfo.CreateNoWindow = false;
+        //                delete.StartInfo.RedirectStandardOutput = false;
+        //                delete.StartInfo.FileName = "cmd.exe";
+        //                delete.StartInfo.Arguments = "/c /S del " + "\"" + Configure.configFile + "\"";
+        //                delete.Start();
+        //                delete.WaitForExit();
+        //                //delete.Close();
+
+        //                delete.Dispose();
+        //            }
+
+        //            // Reset AppData Settings
+        //            //Settings.Default.Reset();
+        //            //Settings.Default.Reload();
+
+        //            // Load Defaults
+        //            vm.LoadDefaults();
+
+        //            // Restart Program
+        //            Process.Start(Application.ResourceAssembly.Location);
+        //            Application.Current.Shutdown();
+        //        }
+        //        // No
+        //        else if (dialogResult == System.Windows.Forms.DialogResult.No)
+        //        {
+        //            //do nothing
+        //        }
+        //    }
+
+        //    // If Axiom Folder Not Found
+        //    else
+        //    {
+        //        MessageBox.Show("Config file " + Configure.configFile + " not Found.",
+        //                        "Notice",
+        //                        MessageBoxButton.OK,
+        //                        MessageBoxImage.Information);
+        //    }
+        //}
 
 
         /// <summary>

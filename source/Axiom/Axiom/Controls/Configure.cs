@@ -42,7 +42,8 @@ namespace Axiom
         public static string maxthreads; // All CPU Threads
         //public static string configDir = MainWindow.appDir; // Axiom Config File Path axiom.conf path (Can't change location)
         //public static string configFile = MainWindow.appDir + "axiom.conf"; // Axiom Config File (Can't change location)
-        public static string configDir = MainWindow.documentsDir + @"Axiom\"; // Axiom Config File Directory (Can't change location)
+        //public static string configDir = MainWindow.documentsDir + @"Axiom UI\"; // Axiom Config File Directory (Can't change location)
+        public static string configDir = MainWindow.programDataDir + @"Axiom UI\"; // Axiom Config File Directory (Can't change location)
         public static string configFile = configDir + "axiom.conf"; // Axiom Config File axiom.conf (Can't change location)
 
 
@@ -93,7 +94,7 @@ namespace Axiom
                 Configure.INIFile conf = null;
 
                 // -------------------------
-                // Check if axiom.conf file exists in C:\Users\Example\Documents\Axiom\
+                // Check if axiom.conf file exists in C:\ProgramData\Axiom UI\
                 // -------------------------
                 if (File.Exists(configFile))
                 {
