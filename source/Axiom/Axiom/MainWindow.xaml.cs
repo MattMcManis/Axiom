@@ -4428,7 +4428,8 @@ namespace Axiom
         /// </summary>
         public static String FileRenamer(string filename)
         {
-            string output = outputDir + filename + outputExt;
+            //string output = outputDir + filename + outputExt;
+            string output = Path.Combine(outputDir, filename + outputExt);
             string outputNewFileName = string.Empty;
 
             int count = 1;
@@ -4494,7 +4495,8 @@ namespace Axiom
                         inputFileName = "%~f";
 
                         // Combine Input
-                        input = inputDir + inputFileName; // eg. C:\Input\Path\
+                        input = inputDir + inputFileName; // eg. C:\Input\Path\%~f
+                        //Path.Combine(inputDir, inputFileName); // Path.Combine does not work with %~f
                     }
                 }
 
@@ -4512,7 +4514,8 @@ namespace Axiom
                                                            vm.Audio_Codec_SelectedItem
                                                            );
 
-                    input = inputDir + inputFileName + inputExt; // eg. C:\Users\Example\Downloads\%f.mp4
+                    //input = inputDir + inputFileName + inputExt; // eg. C:\Users\Example\Downloads\%f.mp4
+                    input = Path.Combine(inputDir, inputFileName + inputExt); // eg. C:\Users\Example\Downloads\%f.mp4
                 }
             }
 
@@ -4622,7 +4625,8 @@ namespace Axiom
                         // -------------------------
                         // Combine Output
                         // -------------------------
-                        output = outputDir + outputFileName + outputExt; // eg. C:\Output Folder\ + file + .mp4
+                        //output = outputDir + outputFileName + outputExt; // eg. C:\Output Folder\ + file + .mp4
+                        output = Path.Combine(outputDir, outputFileName + outputExt);
 
                         // -------------------------
                         // Update TextBox
@@ -4653,7 +4657,8 @@ namespace Axiom
                         outputDir = vm.Output_Text.TrimEnd('\\') + @"\";
 
                         // Combine Output  
-                        output = outputDir + "%~nf" + outputExt; // eg. C:\Output Folder\%~nf.mp4
+                        //output = outputDir + "%~nf" + outputExt; // eg. C:\Output Folder\%~nf.mp4
+                        output = Path.Combine(outputDir, "%~nf" + outputExt); // eg. C:\Output Folder\%~nf.mp4
                     }
                 }
 
@@ -4693,7 +4698,8 @@ namespace Axiom
                         }
 
                         // Combine Output
-                        output = outputDir + outputFileName + outputExt; // eg. C:\Users\Example\Downloads\%f.webm
+                        //output = outputDir + outputFileName + outputExt; // eg. C:\Users\Example\Downloads\%f.webm
+                        output = Path.Combine(outputDir, outputFileName + outputExt);
                     }
 
                     // User Defined Output Path
@@ -4703,7 +4709,8 @@ namespace Axiom
                         outputFileName = Path.GetFileNameWithoutExtension(vm.Output_Text);
 
                         // Combine Output
-                        output = outputDir + outputFileName + outputExt;
+                        //output = outputDir + outputFileName + outputExt;
+                        output = Path.Combine(outputDir, outputFileName + outputExt);
                     }
                 }
             }
@@ -4827,7 +4834,8 @@ namespace Axiom
                 !string.IsNullOrEmpty(vm.Output_Text))
             {
                 //MessageBox.Show(outputExt); //debug
-                vm.Output_Text = outputDir + outputFileName + outputExt;
+                //vm.Output_Text = outputDir + outputFileName + outputExt;
+                vm.Output_Text = Path.Combine(outputDir, outputFileName + outputExt);
             }
             
             // -------------------------

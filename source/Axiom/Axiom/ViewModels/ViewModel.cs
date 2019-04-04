@@ -2652,7 +2652,7 @@ namespace Axiom
         // CRF
         // -------------------------
         // Value
-        private double? _Video_CRF_Value = null;
+        private double? _Video_CRF_Value = 0;
         public double? Video_CRF_Value
         {
             get { return _Video_CRF_Value; }

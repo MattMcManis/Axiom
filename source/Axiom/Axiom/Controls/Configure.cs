@@ -104,7 +104,7 @@ namespace Axiom
                 // -------------------------
                 // Check if axiom.conf file exists in App Dir
                 // -------------------------
-                if (File.Exists(MainWindow.appDir + "axiom.conf"))
+                else if (File.Exists(MainWindow.appDir + "axiom.conf"))
                 {
                     conf = new Configure.INIFile(MainWindow.appDir + "axiom.conf");
 
