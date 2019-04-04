@@ -3156,10 +3156,10 @@
         </Style.Triggers>
     </Style>
 
-    <!-- Import Button -->
-    <Style x:Key="ButtonImportStyle" TargetType="{x:Type Image}">
+    <!-- Delete Button -->
+    <Style x:Key="ButtonDeleteStyle" TargetType="{x:Type Image}">
         <Setter Property="FlowDirection" Value="LeftToRight"/>
-        <Setter Property="Source" Value="../Resources/Images/Buttons/White/import.png"/>
+        <Setter Property="Source" Value="../Resources/Images/Buttons/White/delete.png"/>
         <Setter Property="Stretch" Value="Uniform"/>
     </Style>
 

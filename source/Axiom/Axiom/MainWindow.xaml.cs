@@ -935,9 +935,21 @@ namespace Axiom
         // --------------------------------------------------------------------------------------------------------
         // Configure
         // --------------------------------------------------------------------------------------------------------
-        // --------------------------------------------------
-        // Custom Presets Path - Textbox
-        // --------------------------------------------------
+
+        /// <summary>
+        ///    Presets Open Directory - Button
+        /// </summary>
+        private void lblPresetsPath_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(@Profiles.presetsDir))
+            {
+                Process.Start("explorer.exe", @Profiles.presetsDir);
+            }
+        }
+
+        /// <summary>
+        ///     Custom Presets Path - Textbox
+        /// </summary>
         private void tbxCustomPresetsPath_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             Configure.CustomPresetsFolderBrowser(vm);
@@ -956,9 +968,9 @@ namespace Axiom
         }
 
 
-        // --------------------------------------------------
-        // CustomPresets Auto Path - Button
-        // --------------------------------------------------
+        /// <summary>
+        ///     CustomPresets Auto Path - Button
+        /// </summary>
         private void btnCustomPresetsAuto_Click(object sender, RoutedEventArgs e)
         {
             // Display Folder Path in Textbox
@@ -966,9 +978,105 @@ namespace Axiom
         }
 
 
-        // --------------------------------------------------
-        // FFmpeg Path - Textbox
-        // --------------------------------------------------
+        /// <summary>
+        ///    FFmpeg Open Directory - Button
+        /// </summary>
+        private void lblFFmpegPath_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            string ffmpegPath = string.Empty;
+
+            // If Configure FFmpeg Path is <auto>
+            if (vm.FFmpegPath_Text == "<auto>")
+            {
+                // Included Binary
+                if (File.Exists(appDir + @"ffmpeg\bin\ffmpeg.exe"))
+                {
+                    ffmpegPath = appDir + @"ffmpeg\bin\";
+                }
+                // Using Enviornment Variable
+                else
+                {
+                    var envar = Environment.GetEnvironmentVariable("Path", EnvironmentVariableTarget.Machine);
+
+                    List<string> files = new List<string>();
+                    string exePath = string.Empty;
+
+                    // Get Environment Variable Paths
+                    foreach (var path in envar.Split(';'))
+                    {
+                        if (!string.IsNullOrEmpty(path))
+                        {
+                            if (Directory.Exists(path))
+                            {
+                                // Get all files in Path
+                                files = Directory.GetFiles(path, "ffmpeg.exe")
+                                                 .Select(Path.GetFullPath)
+                                                 .Where(s => !string.IsNullOrEmpty(s))
+                                                 .ToList();
+
+                                // Find ffmpeg.exe in files list
+                                if (files != null && files.Count > 0)
+                                {
+                                    foreach (string file in files)
+                                    {
+                                        if (file.Contains("ffmpeg.exe"))
+                                        {
+                                            exePath = file;
+                                            break;
+                                        }
+                                    }
+                                }
+
+                                //if (path.Contains("FFmpeg"))
+                                //{
+                                //paths = Directory.GetFiles(path, "ffmpeg.exe")
+                                //                     .Select(Path.GetFullPath)
+                                //                     .Where(s => !string.IsNullOrEmpty(s))
+                                //                     .ToList();
+                                //}
+                            }
+
+                        }
+                    }
+
+                    //MessageBox.Show(string.Join("\r", files)); //debug
+                    //MessageBox.Show(exePath); //debug
+
+                    // Find ffmpeg.exe in Paths list
+                    //if (paths != null && paths.Count > 0)
+                    //{
+                    //    foreach (string file in paths)
+                    //    {
+                    //        if (file.Contains("ffmpeg.exe"))
+                    //        {
+                    //            exePath = file;
+                    //            break;
+                    //        }
+                    //    }
+                    //}
+
+                    ffmpegPath = Path.GetDirectoryName(exePath).TrimEnd('\\') + @"\";
+                    //MessageBox.Show(exePath); //debug
+                }
+            }
+
+            // Use User Custom Path
+            else
+            {
+                ffmpegPath = Path.GetDirectoryName(vm.FFmpegPath_Text).TrimEnd('\\') + @"\";
+            }
+
+
+            // Open Directory
+            if (!string.IsNullOrEmpty(ffmpegPath))
+            {
+                Process.Start("explorer.exe", ffmpegPath);
+            }
+        }
+
+        /// <summary>
+        ///     FFmpeg Path - Textbox
+        /// </summary>
         private void tbxFFmpegPath_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             Configure.FFmpegFolderBrowser(vm);
@@ -986,10 +1094,9 @@ namespace Axiom
             vm.FFmpegPath_Text = buffer.First();
         }
 
-
-        // --------------------------------------------------
-        // FFmpeg Auto Path - Button
-        // --------------------------------------------------
+        /// <summary>
+        ///     FFmpeg Auto Path - Button
+        /// </summary>
         private void btnFFmpegAuto_Click(object sender, RoutedEventArgs e)
         {
             // Display Folder Path in Textbox
@@ -997,9 +1104,79 @@ namespace Axiom
         }
 
 
-        // --------------------------------------------------
-        // FFprobe Path - Textbox
-        // --------------------------------------------------
+        /// <summary>
+        ///    FFprobe Open Directory - Button
+        /// </summary>
+        private void lblFFprobePath_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            string ffprobePath = string.Empty;
+
+            // If Configure FFprobe Path is <auto>
+            if (vm.FFprobePath_Text == "<auto>")
+            {
+                // Included Binary
+                if (File.Exists(appDir + @"ffmpeg\bin\ffprobe.exe"))
+                {
+                    ffprobePath = appDir + @"ffmpeg\bin\";
+                }
+                // Using Enviornment Variable
+                else
+                {
+                    var envar = Environment.GetEnvironmentVariable("Path", EnvironmentVariableTarget.Machine);
+
+                    List<string> files = new List<string>();
+                    string exePath = string.Empty;
+
+                    // Get Environment Variable Paths
+                    foreach (var path in envar.Split(';'))
+                    {
+                        if (!string.IsNullOrEmpty(path))
+                        {
+                            if (Directory.Exists(path))
+                            {
+                                // Get all files in Path
+                                files = Directory.GetFiles(path, "ffprobe.exe")
+                                                 .Select(Path.GetFullPath)
+                                                 .Where(s => !string.IsNullOrEmpty(s))
+                                                 .ToList();
+
+                                // Find ffprobe.exe in files list
+                                if (files != null && files.Count > 0)
+                                {
+                                    foreach (string file in files)
+                                    {
+                                        if (file.Contains("ffprobe.exe"))
+                                        {
+                                            exePath = file;
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    ffprobePath = Path.GetDirectoryName(exePath).TrimEnd('\\') + @"\";
+                }
+            }
+
+            // Use User Custom Path
+            else
+            {
+                ffprobePath = Path.GetDirectoryName(vm.FFprobePath_Text).TrimEnd('\\') + @"\";
+            }
+
+
+            // Open Directory
+            if (!string.IsNullOrEmpty(ffprobePath))
+            {
+                Process.Start("explorer.exe", ffprobePath);
+            }
+        }
+
+        /// <summary>
+        ///     FFprobe Path - Textbox
+        /// </summary>
         private void tbxFFprobePath_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             Configure.FFprobeFolderBrowser(vm);
@@ -1017,9 +1194,9 @@ namespace Axiom
             vm.FFprobePath_Text = buffer.First();
         }
 
-        // --------------------------------------------------
-        // FFprobe Auto Path - Button
-        // --------------------------------------------------
+        /// <summary>
+        ///     FFprobe Auto Path - Button
+        /// </summary>
         private void btnFFprobeAuto_Click(object sender, RoutedEventArgs e)
         {
             // Display Folder Path in Textbox
@@ -1027,9 +1204,79 @@ namespace Axiom
         }
 
 
-        // --------------------------------------------------
-        // FFplay Path - Textbox
-        // --------------------------------------------------
+        /// <summary>
+        ///    FFplay Open Directory - Button
+        /// </summary>
+        private void lblFFplayPath_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            string ffplayPath = string.Empty;
+
+            // If Configure FFplay Path is <auto>
+            if (vm.FFplayPath_Text == "<auto>")
+            {
+                // Included Binary
+                if (File.Exists(appDir + @"ffmpeg\bin\ffplay.exe"))
+                {
+                    ffplayPath = appDir + @"ffmpeg\bin\";
+                }
+                // Using Enviornment Variable
+                else
+                {
+                    var envar = Environment.GetEnvironmentVariable("Path", EnvironmentVariableTarget.Machine);
+
+                    List<string> files = new List<string>();
+                    string exePath = string.Empty;
+
+                    // Get Environment Variable Paths
+                    foreach (var path in envar.Split(';'))
+                    {
+                        if (!string.IsNullOrEmpty(path))
+                        {
+                            if (Directory.Exists(path))
+                            {
+                                // Get all files in Path
+                                files = Directory.GetFiles(path, "ffplay.exe")
+                                                 .Select(Path.GetFullPath)
+                                                 .Where(s => !string.IsNullOrEmpty(s))
+                                                 .ToList();
+
+                                // Find ffplay.exe in files list
+                                if (files != null && files.Count > 0)
+                                {
+                                    foreach (string file in files)
+                                    {
+                                        if (file.Contains("ffplay.exe"))
+                                        {
+                                            exePath = file;
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    ffplayPath = Path.GetDirectoryName(exePath).TrimEnd('\\') + @"\";
+                }
+            }
+
+            // Use User Custom Path
+            else
+            {
+                ffplayPath = Path.GetDirectoryName(vm.FFplayPath_Text).TrimEnd('\\') + @"\";
+            }
+
+
+            // Open Directory
+            if (!string.IsNullOrEmpty(ffplayPath))
+            {
+                Process.Start("explorer.exe", ffplayPath);
+            }
+        }
+
+        /// <summary>
+        ///     FFplay Path - Textbox
+        /// </summary>
         private void tbxFFplayPath_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             Configure.FFplayFolderBrowser(vm);
@@ -1047,9 +1294,9 @@ namespace Axiom
             vm.FFplayPath_Text = buffer.First();
         }
 
-        // --------------------------------------------------
-        // FFplay Auto Path - Button
-        // --------------------------------------------------
+        /// <summary>
+        ///     FFplay Auto Path - Button
+        /// </summary>
         private void btnFFplayAuto_Click(object sender, RoutedEventArgs e)
         {
             // Display Folder Path in Textbox
@@ -1057,9 +1304,79 @@ namespace Axiom
         }
 
 
-        // --------------------------------------------------
-        // youtubedl Path - Textbox
-        // --------------------------------------------------
+        /// <summary>
+        ///    youtube-dl Open Directory - Button
+        /// </summary>
+        private void lblyoutubedlPath_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            string youtubedlPath = string.Empty;
+
+            // If Configure youtube-dl Path is <auto>
+            if (vm.youtubedlPath_Text == "<auto>")
+            {
+                // Included Binary
+                if (File.Exists(appDir + @"youtube-dl\youtube-dl.exe"))
+                {
+                    youtubedlPath = appDir + @"youtube-dl\";
+                }
+                // Using Enviornment Variable
+                else
+                {
+                    var envar = Environment.GetEnvironmentVariable("Path", EnvironmentVariableTarget.Machine);
+
+                    List<string> files = new List<string>();
+                    string exePath = string.Empty;
+
+                    // Get Environment Variable Paths
+                    foreach (var path in envar.Split(';'))
+                    {
+                        if (!string.IsNullOrEmpty(path))
+                        {
+                            if (Directory.Exists(path))
+                            {
+                                // Get all files in Path
+                                files = Directory.GetFiles(path, "youtube-dl.exe")
+                                                 .Select(Path.GetFullPath)
+                                                 .Where(s => !string.IsNullOrEmpty(s))
+                                                 .ToList();
+
+                                // Find youtube-dl.exe in files list
+                                if (files != null && files.Count > 0)
+                                {
+                                    foreach (string file in files)
+                                    {
+                                        if (file.Contains("youtube-dl.exe"))
+                                        {
+                                            exePath = file;
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    youtubedlPath = Path.GetDirectoryName(exePath).TrimEnd('\\') + @"\";
+                }
+            }
+
+            // Use User Custom Path
+            else
+            {
+                youtubedlPath = Path.GetDirectoryName(vm.youtubedlPath_Text).TrimEnd('\\') + @"\";
+            }
+
+
+            // Open Directory
+            if (!string.IsNullOrEmpty(youtubedlPath))
+            {
+                Process.Start("explorer.exe", youtubedlPath);
+            }
+        }
+
+        /// <summary>
+        ///     youtubedl Path - Textbox
+        /// </summary>
         private void tbxyoutubedlPath_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             Configure.youtubedlFolderBrowser(vm);
@@ -1077,9 +1394,9 @@ namespace Axiom
             vm.youtubedlPath_Text = buffer.First();
         }
 
-        // --------------------------------------------------
-        // youtubedl Auto Path - Button
-        // --------------------------------------------------
+        /// <summary>
+        ///     youtubedl Auto Path - Button
+        /// </summary>
         private void btnyoutubedlAuto_Click(object sender, RoutedEventArgs e)
         {
             // Display Folder Path in Textbox
@@ -1087,35 +1404,44 @@ namespace Axiom
         }
 
 
-        // --------------------------------------------------
-        // Log Checkbox - Checked
-        // --------------------------------------------------
+        /// <summary>
+        ///    Log Open Directory - Button
+        /// </summary>
+        private void lblLogPath_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(vm.LogPath_Text))
+            {
+                Process.Start("explorer.exe", vm.LogPath_Text);
+            }
+        }
+
+        /// <summary>
+        ///     Log Checkbox - Checked
+        /// </summary>
         private void cbxLog_Checked(object sender, RoutedEventArgs e)
         {
 
         }
 
-
-        // --------------------------------------------------
-        // Log Checkbox - Unchecked
-        // --------------------------------------------------
+        /// <summary>
+        ///     Log Checkbox - Unchecked
+        /// </summary>
         private void cbxLog_Unchecked(object sender, RoutedEventArgs e)
         {
 
         }
 
-
-        // --------------------------------------------------
-        // Log Path - Textbox
-        // --------------------------------------------------
+        /// <summary>
+        ///     Log Path - Textbox
+        /// </summary>
         private void tbxLog_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             Configure.LogFolderBrowser(vm);
         }
 
-        // --------------------------------------------------
-        // Log Auto Path - Button
-        // --------------------------------------------------
+        /// <summary>
+        ///     Log Auto Path - Button
+        /// </summary>
         private void btnLogAuto_Click(object sender, RoutedEventArgs e)
         {
             // Uncheck Log Checkbox
@@ -1126,9 +1452,9 @@ namespace Axiom
         }
 
 
-        // --------------------------------------------------
-        // Threads - ComboBox
-        // --------------------------------------------------
+        /// <summary>
+        ///     Threads - ComboBox
+        /// </summary>
         private void threadSelect_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // Custom ComboBox Editable
@@ -1155,18 +1481,17 @@ namespace Axiom
             // Set the threads to pass to MainWindow
             Configure.threads = vm.Threads_SelectedItem;
         }
-        // --------------------------------------------------
-        // Thread Select ComboBox - Allow Only Numbers
-        // --------------------------------------------------
+
+        // Key Down
         private void threadSelect_KeyDown(object sender, KeyEventArgs e)
         {
             // Only allow Numbers and Backspace
             AllowOnlyNumbersAndBackspace(e);
         }
 
-        // --------------------------------------------------
-        // Theme Select - ComboBox
-        // --------------------------------------------------
+        /// <summary>
+        ///     Theme Select - ComboBox
+        /// </summary>
         private void themeSelect_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Configure.theme = vm.Theme_SelectedItem;
@@ -1370,8 +1695,8 @@ namespace Axiom
             try
             {
                 // Environment Variables
-                var envar = Environment.GetEnvironmentVariable("PATH");
-
+                //var envar = Environment.GetEnvironmentVariable("PATH");, 
+                var envar = Environment.GetEnvironmentVariable("Path", EnvironmentVariableTarget.Machine);
                 //MessageBox.Show(envar); //debug
 
                 // -------------------------
@@ -1381,7 +1706,7 @@ namespace Axiom
                 if (vm.FFmpegPath_Text == "<auto>")
                 {
                     // Check default current directory
-                    if (File.Exists(appDir + "ffmpeg\\bin\\ffmpeg.exe"))
+                    if (File.Exists(appDir + @"ffmpeg\bin\ffmpeg.exe"))
                     {
                         // let pass
                         return true;
@@ -1467,7 +1792,7 @@ namespace Axiom
                 if (vm.FFprobePath_Text == "<auto>")
                 {
                     // Check default current directory
-                    if (File.Exists(appDir + "ffmpeg\\bin\\ffprobe.exe"))
+                    if (File.Exists(appDir + @"ffmpeg\bin\ffprobe.exe"))
                     {
                         // let pass
                         return true;
@@ -1572,12 +1897,12 @@ namespace Axiom
             // If Configure FFmpeg Path is <auto>
             if (vm.FFmpegPath_Text == "<auto>")
             {
-                if (File.Exists(appDir + "ffmpeg\\bin\\ffmpeg.exe"))
+                if (File.Exists(appDir + @"ffmpeg\bin\ffmpeg.exe"))
                 {
                     // use included binary
-                    FFmpeg.ffmpeg = "\"" + appDir + "ffmpeg\\bin\\ffmpeg.exe" + "\"";
+                    FFmpeg.ffmpeg = "\"" + appDir + @"ffmpeg\bin\ffmpeg.exe" + "\"";
                 }
-                else if (!File.Exists(appDir + "ffmpeg\\bin\\ffmpeg.exe"))
+                else if (!File.Exists(appDir + @"ffmpeg\bin\ffmpeg.exe"))
                 {
                     // use system installed binaries
                     FFmpeg.ffmpeg = "ffmpeg";
@@ -1602,12 +1927,12 @@ namespace Axiom
             // If Configure FFprobe Path is <auto>
             if (vm.FFprobePath_Text == "<auto>")
             {
-                if (File.Exists(appDir + "ffmpeg\\bin\\ffprobe.exe"))
+                if (File.Exists(appDir + @"ffmpeg\bin\ffprobe.exe"))
                 {
                     // use included binary
-                    FFprobe.ffprobe = "\"" + appDir + "ffmpeg\\bin\\ffprobe.exe" + "\"";
+                    FFprobe.ffprobe = "\"" + appDir + @"ffmpeg\bin\ffprobe.exe" + "\"";
                 }
-                else if (!File.Exists(appDir + "ffmpeg\\bin\\ffprobe.exe"))
+                else if (!File.Exists(appDir + @"ffmpeg\bin\ffprobe.exe"))
                 {
                     // use system installed binaries
                     FFprobe.ffprobe = "ffprobe";
@@ -5006,44 +5331,47 @@ namespace Axiom
         }
 
         /// <summary>
-        ///    Import Preset
+        ///    Delete Preset - Button
         /// </summary>
-        private void btnImportPreset_Click(object sender, RoutedEventArgs e)
+        private void btnDeletePreset_Click(object sender, RoutedEventArgs e)
         {
-            // Check if presets directory exists
-            // If not, create it
-            //Directory.CreateDirectory(presetsDir);
+            // Set Preset Dir, Name, Ext
+            string presetsDir = Path.GetDirectoryName(@Profiles.presetsDir).TrimEnd('\\') + @"\";
+            string presetFileName = Path.GetFileNameWithoutExtension(vm.Preset_SelectedItem);
+            string presetExt = Path.GetExtension(".ini");
+            string preset = presetsDir + presetFileName + presetExt;
 
-            // Open 'Select File'
-            Microsoft.Win32.OpenFileDialog selectFile = new Microsoft.Win32.OpenFileDialog();
-
-            // Defaults
-            selectFile.InitialDirectory = vm.CustomPresetsPath_Text;
-            selectFile.RestoreDirectory = true;
-            selectFile.Filter = "ini file (*.ini)|*.ini";
-
-            // Show select file dialog box
-            Nullable<bool> result = selectFile.ShowDialog();
-
-            // Process dialog box
-            if (result == true)
+            // Delete
+            if (File.Exists(preset))
             {
-                // Set Preset Dir, Name, Ext
-                string presetsDir = Path.GetDirectoryName(selectFile.FileName).TrimEnd('\\') + @"\";
-                //string presetsFileName = Path.GetFileName(selectFile.FileName);
-                string presetFileName = Path.GetFileNameWithoutExtension(selectFile.FileName);
-                string presetExt = Path.GetExtension(selectFile.FileName);
-                string preset = presetsDir + presetFileName + presetExt;
-                //string presets = Path.Combine(presetsDir, presetsFileName);
+                try
+                {
+                    File.Delete(preset);
+                }
+                catch
+                {
+                    MessageBox.Show("Could not delete Preset. May be missing or requires Administrator Privileges.",
+                                    "Error",
+                                    MessageBoxButton.OK,
+                                    MessageBoxImage.Error);
+                }
 
-                // Import ini file
-                Profiles.ImportPreset(vm, preset);
+                // Load Custom Presets
+                // Refresh Presets ComboBox
+                Profiles.LoadCustomPresets(vm);
+            }
+            else
+            {
+                MessageBox.Show("This is not a custom Preset, or the Preset does not exist.",
+                                "Notice",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Information);
             }
         }
 
 
         /// <summary>
-        ///    Export Preset
+        ///    Export Preset - Button
         /// </summary>
         private void btnSavePreset_Click(object sender, RoutedEventArgs e)
         {
@@ -5129,7 +5457,7 @@ namespace Axiom
                 // Load Custom Presets
                 // Refresh Presets ComboBox
                 // -------------------------
-                Profiles.LoadCustomPresets(vm); // not working
+                Profiles.LoadCustomPresets(vm);
             }
         }
 

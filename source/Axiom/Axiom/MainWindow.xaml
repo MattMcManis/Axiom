@@ -4721,7 +4721,10 @@
                                    ToolTip="Path to Custom Presets folder." 
                                    Grid.Column="1"
                                    Grid.Row="0"
-                                   Width="56"/>
+                                   Width="58"
+                                   Cursor="Hand"
+                                   PreviewMouseDown="lblPresetsPath_PreviewMouseDown"
+                                   />
                             <TextBox x:Name="tbxCustomPresetsPath" 
                                      Text="{Binding CustomPresetsPath_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                      IsEnabled="{Binding CustomPresetsPath_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -4767,7 +4770,7 @@
                                        VerticalAlignment="Center" 
                                        Style="{DynamicResource ButtonRevertArrow}" />
                             </Button>
-                            
+
                             <!-- FFmpeg Path TextBox -->
                             <Label Style="{DynamicResource LabelStyle}" 
                                    Content="FFmpeg" 
@@ -4779,7 +4782,10 @@
                                    ToolTip="Path to FFmpeg.exe" 
                                    Grid.Column="1"
                                    Grid.Row="1"
-                                   Width="56"/>
+                                   Width="58"
+                                   Cursor="Hand"
+                                   PreviewMouseDown="lblFFmpegPath_PreviewMouseDown"
+                                   />
                             <TextBox x:Name="tbxFFmpegPathConfig" 
                                      Text="{Binding FFmpegPath_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                      IsEnabled="{Binding FFmpegPath_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -4837,7 +4843,10 @@
                                    ToolTip="Path to FFprobe.exe" 
                                    Grid.Row="2" 
                                    Grid.Column="1" 
-                                   Width="56"/>
+                                   Width="58"
+                                   Cursor="Hand"
+                                   PreviewMouseDown="lblFFprobePath_PreviewMouseDown"
+                                   />
                             <TextBox x:Name="tbxFFprobePathConfig" 
                                      Text="{Binding FFprobePath_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                      IsEnabled="{Binding FFprobePath_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -4894,7 +4903,10 @@
                                    ToolTip="Path to FFplay.exe"
                                    Grid.Row="3"
                                    Grid.Column="1" 
-                                   Width="56"/>
+                                   Width="58"
+                                   Cursor="Hand"
+                                   PreviewMouseDown="lblFFplayPath_PreviewMouseDown"
+                                   />
                             <TextBox x:Name="tbxFFplayPathConfig" 
                                      Text="{Binding FFplayPath_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                      IsEnabled="{Binding FFplayPath_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -4952,7 +4964,10 @@
                                    Grid.Row="4" 
                                    Grid.Column="1" 
                                    Width="70" 
-                                   Grid.ColumnSpan="2"/>
+                                   Grid.ColumnSpan="2"
+                                   Cursor="Hand"
+                                   PreviewMouseDown="lblyoutubedlPath_PreviewMouseDown"
+                                   />
                             <TextBox x:Name="tbxyoutubedlPathConfig" 
                                      Text="{Binding youtubedlPath_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                      IsEnabled="{Binding youtubedlPath_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -5011,7 +5026,10 @@
                                    ToolTip="Path to save axiom.log" 
                                    Grid.Row="5"
                                    Grid.Column="1" 
-                                   Width="36"/>
+                                   Width="36"
+                                   Cursor="Hand"
+                                   PreviewMouseDown="lblLogPath_PreviewMouseDown"
+                                   />
                             <TextBox x:Name="tbxLogConfig" 
                                      Text="{Binding LogPath_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                      IsEnabled="{Binding LogPath_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -5059,7 +5077,7 @@
                                       IsChecked="{Binding LogCheckBox_IsChecked}"
                                       IsEnabled="{Binding LogCheckBox_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                       HorizontalAlignment="Left" 
-                                      Margin="36,6,0,0" 
+                                      Margin="39,6,0,0" 
                                       VerticalAlignment="Top" 
                                       ToolTipService.InitialShowDelay="1000"
                                       ToolTipService.ShowOnDisabled="True"
@@ -5521,10 +5539,10 @@
               Height="35" 
               VerticalAlignment="Bottom" 
               HorizontalAlignment="Right" 
-              Width="430">
+              Width="433">
 
-            <!-- Import Preset ini -->
-            <!--<Button x:Name="btnImportPreset"
+            <!-- Delete Preset ini -->
+            <Button x:Name="btnDeletePreset"
                     Style="{DynamicResource ButtonSmallStyle}" 
                     Margin="0,0,0,13" 
                     VerticalAlignment="Bottom" 
@@ -5532,23 +5550,23 @@
                     Cursor="Hand" 
                     ToolTipService.InitialShowDelay="1000" 
                     ToolTipService.ShowOnDisabled="True" 
-                    ToolTip="Import Preset"
-                    Click="btnImportPreset_Click"
+                    ToolTip="Delete Preset"
+                    Click="btnDeletePreset_Click"
                     HorizontalAlignment="Left"
                     Width="22">
-                <Image Style="{DynamicResource ButtonImportStyle}" 
+                <Image Style="{DynamicResource ButtonDeleteStyle}" 
                        Width="9" 
                        Height="11" 
                        Margin="0,-1,0,0"
                        Stretch="Fill" 
                        HorizontalAlignment="Center" 
                        VerticalAlignment="Center"/>
-            </Button>-->
+            </Button>
 
             <!-- Save Preset ini -->
             <Button x:Name="btnSavePreset"
                     Style="{DynamicResource ButtonSmallStyle}" 
-                    Margin="27,0,0,13" Height="22"
+                    Margin="28,0,0,13" Height="22"
                     VerticalAlignment="Bottom" 
                     Cursor="Hand" 
                     ToolTipService.InitialShowDelay="1000" 
@@ -5640,7 +5658,7 @@
                           Width="45"
                           Height="22"
                           Style="{DynamicResource ToggleButtonStyle}"
-                          Margin="0,0,241,0">
+                          Margin="0,0,242,0">
                 <TextBlock x:Name="batchTextBlock" 
                            Style="{DynamicResource TextBlockStyle}" 
                            Text="Batch"
@@ -5652,7 +5670,7 @@
                      IsEnabled="{Binding BatchExtension_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                      HorizontalAlignment="Right" 
                      Height="23" 
-                     Margin="0,0,176,0" 
+                     Margin="0,0,177,0" 
                      TextWrapping="NoWrap"
                      Padding="2,1,0,0" 
                      VerticalAlignment="Top" 
