@@ -963,8 +963,6 @@ namespace Axiom
             // Open Directory
             if (!string.IsNullOrEmpty(vm.ConfigPath_Text))
             {
-                //if (Directory.Exists(vm.ConfigPath_Text))
-                //{
                 // AppData Local Directory
                 if (vm.ConfigPath_Text == @"%LocalAppData%\Axiom UI\")
                 {
@@ -975,7 +973,6 @@ namespace Axiom
                 {
                     Process.Start("explorer.exe", appDir);
                 }
-                //}
             }
         }
 
@@ -987,8 +984,6 @@ namespace Axiom
             // Open Directory
             if (!string.IsNullOrEmpty(vm.ConfigPath_Text))
             {
-                //if (Directory.Exists(vm.ConfigPath_Text))
-                //{
                 // AppData Local Directory
                 if (vm.ConfigPath_Text == @"%LocalAppData%\Axiom UI\")
                 {
@@ -999,7 +994,6 @@ namespace Axiom
                 {
                     Process.Start("explorer.exe", appDir);
                 }
-                //}
             }
         }
 
@@ -1145,34 +1139,9 @@ namespace Axiom
                                         }
                                     }
                                 }
-
-                                //if (path.Contains("FFmpeg"))
-                                //{
-                                //paths = Directory.GetFiles(path, "ffmpeg.exe")
-                                //                     .Select(Path.GetFullPath)
-                                //                     .Where(s => !string.IsNullOrEmpty(s))
-                                //                     .ToList();
-                                //}
                             }
-
                         }
                     }
-
-                    //MessageBox.Show(string.Join("\r", files)); //debug
-                    //MessageBox.Show(exePath); //debug
-
-                    // Find ffmpeg.exe in Paths list
-                    //if (paths != null && paths.Count > 0)
-                    //{
-                    //    foreach (string file in paths)
-                    //    {
-                    //        if (file.Contains("ffmpeg.exe"))
-                    //        {
-                    //            exePath = file;
-                    //            break;
-                    //        }
-                    //    }
-                    //}
 
                     ffmpegPath = Path.GetDirectoryName(exePath).TrimEnd('\\') + @"\";
                     //MessageBox.Show(exePath); //debug
@@ -1733,80 +1702,6 @@ namespace Axiom
                                 MessageBoxImage.Information);
             }
         }
-
-
-        // --------------------------------------------------
-        // Delete Config - Button
-        // --------------------------------------------------
-        //private void btnDeleteSettings_Click(object sender, RoutedEventArgs e)
-        //{
-        //    //string userProfile = Environment.ExpandEnvironmentVariables(@"%USERPROFILE%").TrimEnd('\\') + @"\";
-        //    //string appDataPath = @"AppData\Local\Axiom";
-
-        //    // Check if Directory Exists
-        //    //if (Directory.Exists(userProfile + appDataPath))
-        //    if(File.Exists(Configure.configFile))
-        //    {
-        //        // Show Yes No Window
-        //        System.Windows.Forms.DialogResult dialogResult = System.Windows.Forms.MessageBox.Show(
-        //            "Delete " + Configure.configFile, "Delete Directory Confirm", System.Windows.Forms.MessageBoxButtons.YesNo);
-        //        // Yes
-        //        if (dialogResult == System.Windows.Forms.DialogResult.Yes)
-        //        {
-        //            //try
-        //            //{
-        //            //    if (File.Exists(Configure.configFile))
-        //            //    {
-        //            //        File.Delete(Configure.configFile);
-        //            //    }
-        //            //}
-        //            //catch
-        //            //{
-
-        //            //}
-
-        //            // Delete
-        //            using (Process delete = new Process())
-        //            {
-        //                delete.StartInfo.UseShellExecute = false;
-        //                delete.StartInfo.CreateNoWindow = false;
-        //                delete.StartInfo.RedirectStandardOutput = false;
-        //                delete.StartInfo.FileName = "cmd.exe";
-        //                delete.StartInfo.Arguments = "/c /S del " + "\"" + Configure.configFile + "\"";
-        //                delete.Start();
-        //                delete.WaitForExit();
-        //                //delete.Close();
-
-        //                delete.Dispose();
-        //            }
-
-        //            // Reset AppData Settings
-        //            //Settings.Default.Reset();
-        //            //Settings.Default.Reload();
-
-        //            // Load Defaults
-        //            vm.LoadDefaults();
-
-        //            // Restart Program
-        //            Process.Start(Application.ResourceAssembly.Location);
-        //            Application.Current.Shutdown();
-        //        }
-        //        // No
-        //        else if (dialogResult == System.Windows.Forms.DialogResult.No)
-        //        {
-        //            //do nothing
-        //        }
-        //    }
-
-        //    // If Axiom Folder Not Found
-        //    else
-        //    {
-        //        MessageBox.Show("Config file " + Configure.configFile + " not Found.",
-        //                        "Notice",
-        //                        MessageBoxButton.OK,
-        //                        MessageBoxImage.Information);
-        //    }
-        //}
 
 
         /// <summary>
@@ -4679,15 +4574,13 @@ namespace Axiom
                         // Check if YouTube Download Format is the same as Output Extension
                         // The youtub-dl merged format for converting should be mkv
                         if ("." + YouTubeDownloadFormat(vm.Format_YouTube_SelectedItem,
-                                                  vm.Video_Codec_SelectedItem,
-                                                  vm.Subtitle_Codec_SelectedItem,
-                                                  vm.Audio_Codec_SelectedItem
-                                                  )
-
-                                                  ==
-
-                                                  outputExt
-                                                  )
+                                                        vm.Video_Codec_SelectedItem,
+                                                        vm.Subtitle_Codec_SelectedItem,
+                                                        vm.Audio_Codec_SelectedItem
+                                                        )
+                                                        ==
+                                                        outputExt
+                                                        )
                         {
                             // Add (1)
                             outputFileName = "%f" + " (1)";
@@ -4699,7 +4592,7 @@ namespace Axiom
 
                         // Combine Output
                         //output = outputDir + outputFileName + outputExt; // eg. C:\Users\Example\Downloads\%f.webm
-                        output = Path.Combine(outputDir, outputFileName + outputExt);
+                        output = Path.Combine(outputDir, outputFileName + outputExt); // eg. C:\Users\Example\Downloads\%f.webm
                     }
 
                     // User Defined Output Path
@@ -6280,43 +6173,6 @@ namespace Axiom
             // Set Controls
             // -------------------------
             SubtitleControls.SetControls(vm, vm.Subtitle_Codec_SelectedItem);
-
-            //// -------------------------
-            //// None Codec
-            //// -------------------------
-            //if (vm.Subtitle_Codec_SelectedItem == "None")
-            //{
-            //    vm.Subtitle_Stream_SelectedItem = "none";
-            //    vm.Subtitle_Stream_IsEnabled = false;
-            //}
-
-            //// -------------------------
-            //// Burn Codec
-            //// -------------------------
-            //else if (vm.Subtitle_Codec_SelectedItem == "Burn")
-            //{
-            //    // Force Select External
-            //    // Can't burn All subtitle streams
-            //    vm.Subtitle_Stream_SelectedItem = "external";
-            //    vm.Subtitle_Stream_IsEnabled = true;
-            //}
-
-            //// -------------------------
-            //// Copy Codec
-            //// -------------------------
-            //else if (vm.Subtitle_Codec_SelectedItem == "Copy")
-            //{
-            //    vm.Subtitle_Stream_IsEnabled = true;
-            //}
-
-            //// -------------------------
-            //// All Other Codecs
-            //// -------------------------
-            //else
-            //{
-            //    vm.Subtitle_Stream_IsEnabled = true;
-            //}
-
 
             // -------------------------
             // Convert Button Text Change
