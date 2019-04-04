@@ -39,7 +39,7 @@ namespace Axiom
         public static List<string> customPresetPathsList = new List<string>();
         //public static string presetsDir = MainWindow.appDir + @"presets\"; // Custom User ini presets
         //public static string presetsDir = MainWindow.documentsDir + @"Axiom UI\presets\"; // Custom User ini presets
-        public static string presetsDir = MainWindow.programDataDir + @"Axiom UI\presets\"; // Custom User ini presets
+        public static string presetsDir = MainWindow.appDataDir + @"Axiom UI\presets\"; // Custom User ini presets
 
         public static void LoadCustomPresets(ViewModel vm)
         {
@@ -935,7 +935,7 @@ namespace Axiom
             {
                 // Yes/No Dialog Confirmation
                 //
-                MessageBoxResult resultExport = MessageBox.Show("Presets Folder does not exist. Automatically create it?",
+                MessageBoxResult resultExport = MessageBox.Show("Presets folder does not yet exist. Automatically create it?",
                                                                 "Directory Not Found",
                                                                 MessageBoxButton.YesNo,
                                                                 MessageBoxImage.Information);

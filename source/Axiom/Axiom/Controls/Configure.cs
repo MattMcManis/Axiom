@@ -41,7 +41,7 @@ namespace Axiom
         public static string threads; // Set FFmpeg -threads
         public static string maxthreads; // All CPU Threads
         //public static string configDir = MainWindow.documentsDir + @"Axiom UI\"; // Axiom Config File Directory (Can't change location)
-        public static string configDir = MainWindow.programDataDir + @"Axiom UI\"; // Axiom Config File Directory (Can't change location)
+        public static string configDir = MainWindow.appDataDir + @"Axiom UI\"; // Axiom Config File Directory (Can't change location)
         public static string configFile = configDir + "axiom.conf"; // Axiom Config File axiom.conf (Can't change location)
 
 
@@ -216,6 +216,12 @@ namespace Axiom
             double left;
             double.TryParse(conf.Read("Main Window", "Window_Position_Left"), out left);
             mainwindow.Left = left;
+
+            // Center
+            if (top == 0 && left == 0)
+            {
+                mainwindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            }
 
             // Window Maximized
             bool mainwindow_WindowState_Maximized;

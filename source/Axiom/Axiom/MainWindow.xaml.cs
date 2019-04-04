@@ -76,8 +76,10 @@ namespace Axiom
         // System
         public static string appDir = AppDomain.CurrentDomain.BaseDirectory.TrimEnd('\\') + @"\"; // Axiom.exe directory
         public static string programDataDir = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData).TrimEnd('\\') + @"\";
+        public static string appDataDir = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData).TrimEnd('\\') + @"\";
         public static string tempDir = Path.GetTempPath(); // Windows AppData Temp Directory
-        public static string userProfile = Environment.ExpandEnvironmentVariables(@"%USERPROFILE%").TrimEnd('\\') + @"\"; // C:\Users\Example\
+
+        public static string userProfile = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile).TrimEnd('\\') + @"\";
         public static string documentsDir = userProfile + @"Documents\"; // C:\Users\Example\Documents\
         public static string downloadDir = userProfile + @"Downloads\"; // C:\Users\Example\Downloads\
 
@@ -302,103 +304,59 @@ namespace Axiom
                 }
             }
 
-
-            //// -------------------------
-            //// Window Position
-            //// -------------------------
-            if (this.Top == 0 &&
-                this.Left == 0
-                )
-            {
-                WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            }
-            //if (Convert.ToDouble(Settings.Default.Left) == 0
-            //    && Convert.ToDouble(Settings.Default.Top) == 0)
-            //{
-            //    WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            //}
-            //// Load Saved
-            //else
-            //{
-            //    Top = Settings.Default.Top;
-            //    Left = Settings.Default.Left;
-            //    Height = Settings.Default.Height;
-            //    Width = Settings.Default.Width;
-
-            //    if (Settings.Default.Maximized)
-            //    {
-            //        WindowState = WindowState.Maximized;
-            //    }
-            //}
-
-
-            //// -------------------------
-            //// Load FFmpeg.exe Path
-            //// -------------------------
-            //Configure.LoadFFmpegPath(vm);
-
+            // -------------------------
+            // Load FFmpeg.exe Path
+            // -------------------------
             // Log Console Message /////////
             Log.logParagraph.Inlines.Add(new LineBreak());
             Log.logParagraph.Inlines.Add(new LineBreak());
             Log.logParagraph.Inlines.Add(new Bold(new Run("FFmpeg: ")) { Foreground = Log.ConsoleDefault });
             Log.logParagraph.Inlines.Add(new Run(vm.FFmpegPath_Text) { Foreground = Log.ConsoleDefault });
 
-            //// -------------------------
-            //// Load FFprobe.exe Path
-            //// -------------------------
-            //Configure.LoadFFprobePath(vm);
-
+            // -------------------------
+            // Load FFprobe.exe Path
+            // -------------------------
             // Log Console Message /////////
             Log.logParagraph.Inlines.Add(new LineBreak());
             Log.logParagraph.Inlines.Add(new Bold(new Run("FFprobe: ")) { Foreground = Log.ConsoleDefault });
             Log.logParagraph.Inlines.Add(new Run(vm.FFprobePath_Text) { Foreground = Log.ConsoleDefault });
 
-            //// -------------------------
-            //// Load FFplay.exe Path
-            //// -------------------------
-            //Configure.LoadFFplayPath(vm);
-
+            // -------------------------
+            // Load FFplay.exe Path
+            // -------------------------
             // Log Console Message /////////
             Log.logParagraph.Inlines.Add(new LineBreak());
             Log.logParagraph.Inlines.Add(new Bold(new Run("FFplay: ")) { Foreground = Log.ConsoleDefault });
             Log.logParagraph.Inlines.Add(new Run(vm.FFplayPath_Text) { Foreground = Log.ConsoleDefault });
 
-            //// -------------------------
-            //// Load youtube-dl.exe Path
-            //// -------------------------
-            //Configure.LoadyoutubedlPath(vm);
-
+            // -------------------------
+            // Load youtube-dl.exe Path
+            // -------------------------
             // Log Console Message /////////
             Log.logParagraph.Inlines.Add(new LineBreak());
             Log.logParagraph.Inlines.Add(new Bold(new Run("youtube-dl: ")) { Foreground = Log.ConsoleDefault });
             Log.logParagraph.Inlines.Add(new Run(vm.youtubedlPath_Text) { Foreground = Log.ConsoleDefault });
 
-            //// -------------------------
-            //// Load Log Enabled
-            //// -------------------------
-            //Configure.LoadLogCheckbox(vm);
-
+            // -------------------------
+            // Load Log Enabled
+            // -------------------------
             // Log Console Message /////////
             Log.logParagraph.Inlines.Add(new LineBreak());
             Log.logParagraph.Inlines.Add(new LineBreak());
             Log.logParagraph.Inlines.Add(new Bold(new Run("Log Enabled: ")) { Foreground = Log.ConsoleDefault });
             Log.logParagraph.Inlines.Add(new Run(Convert.ToString(vm.LogCheckBox_IsChecked.ToString())) { Foreground = Log.ConsoleDefault });
 
-            //// -------------------------
-            //// Load Log Path
-            //// -------------------------
-            //Configure.LoadLogPath(vm);
-
+            // -------------------------
+            // Load Log Path
+            // -------------------------
             // Log Console Message /////////
             Log.logParagraph.Inlines.Add(new LineBreak());
             Log.logParagraph.Inlines.Add(new Bold(new Run("Log Path: ")) { Foreground = Log.ConsoleDefault });
             Log.logParagraph.Inlines.Add(new Run(vm.LogPath_Text) { Foreground = Log.ConsoleDefault });
 
-            //// -------------------------
-            //// Load Threads
-            //// -------------------------
-            //Configure.LoadThreads(vm);
-
+            // -------------------------
+            // Load Threads
+            // -------------------------
             // Log Console Message /////////
             Log.logParagraph.Inlines.Add(new LineBreak());
             Log.logParagraph.Inlines.Add(new LineBreak());
@@ -445,6 +403,14 @@ namespace Axiom
                 vm.LoadDefaults();
             }
 
+            // -------------------------
+            // Window Position
+            // -------------------------
+            // Center on first run, before first axiom.conf has been created
+            if (this.Top == 0 && this.Left == 0)
+            {
+                WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            }
         }
 
 
@@ -495,29 +461,9 @@ namespace Axiom
             Application.Current.Shutdown();
         }
 
-        // Save Window Position
+
         void Window_Closing(object sender, CancelEventArgs e)
         {
-            //if (WindowState == WindowState.Maximized)
-            //{
-            //    // Use the RestoreBounds as the current values will be 0, 0 and the scale of the screen
-            //    Settings.Default.Top = RestoreBounds.Top;
-            //    Settings.Default.Left = RestoreBounds.Left;
-            //    Settings.Default.Height = RestoreBounds.Height;
-            //    Settings.Default.Width = RestoreBounds.Width;
-            //    Settings.Default.Maximized = true;
-            //}
-            //else
-            //{
-            //    Settings.Default.Top = Top;
-            //    Settings.Default.Left = Left;
-            //    Settings.Default.Height = Height;
-            //    Settings.Default.Width = Width;
-            //    Settings.Default.Maximized = false;
-            //}
-
-            //Settings.Default.Save();
-
             // -------------------------
             // Export axiom.conf
             // -------------------------
@@ -527,11 +473,6 @@ namespace Axiom
                 if (File.Exists(Configure.configFile))
                 {
                     Configure.INIFile conf = new Configure.INIFile(Configure.configFile);
-
-                    //double? top = Convert.ToDouble(inif.Read("Main Window", "Window_Position_Top"));
-                    //double? left = Convert.ToDouble(inif.Read("Main Window", "Window_Position_Left"));
-                    //double? width = Convert.ToDouble(inif.Read("Main Window", "Window_Width"));
-                    //double? height = Convert.ToDouble(inif.Read("Main Window", "Window_Height"));
 
                     // Window
                     double top;
@@ -569,8 +510,6 @@ namespace Axiom
 
                         //this.WindowState != windowState ||
 
-                        //vm.CMDWindowKeep_IsChecked != Convert.ToBoolean(inif.Read("Main Window", "CMDWindowKeep_IsChecked").ToLower()) ||
-                        //vm.AutoSortScript_IsChecked != Convert.ToBoolean(inif.Read("Main Window", "AutoSortScript_IsChecked").ToLower()) ||
                         vm.CMDWindowKeep_IsChecked != settings_CMDWindowKeep_IsChecked ||
                         vm.AutoSortScript_IsChecked != settings_AutoSortScript_IsChecked ||
 
@@ -580,15 +519,12 @@ namespace Axiom
                         vm.FFplayPath_Text != conf.Read("Settings", "FFplayPath_Text") ||
                         vm.CustomPresetsPath_Text != conf.Read("Settings", "CustomPresetsPath_Text") ||
                         vm.LogPath_Text != conf.Read("Settings", "LogPath_Text") ||
-                        //vm.LogCheckBox_IsChecked != Convert.ToBoolean(inif.Read("Settings", "LogCheckBox_IsChecked").ToLower()) ||
                         vm.LogCheckBox_IsChecked != settings_LogCheckBox_IsChecked ||
                         vm.Threads_SelectedItem != conf.Read("Settings", "Threads_SelectedItem") ||
                         vm.Theme_SelectedItem != conf.Read("Settings", "Theme_SelectedItem") ||
-                        //vm.UpdateAutoCheck_IsChecked != Convert.ToBoolean(inif.Read("Settings", "UpdateAutoCheck_IsChecked").ToLower())
                         vm.UpdateAutoCheck_IsChecked != settings_UpdateAutoCheck_IsChecked
                         )
                     {
-                        //MessageBox.Show("1"); //debug
                         Configure.ExportConfig(this, vm);
                     }
                 }
@@ -947,13 +883,44 @@ namespace Axiom
         /// <summary>
         ///    Presets Open Directory - Button
         /// </summary>
-        private void lblPresetsPath_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        private void lblCustomPresetsPath_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (!string.IsNullOrEmpty(@Profiles.presetsDir))
+            if (!Directory.Exists(vm.CustomPresetsPath_Text))
             {
-                if (Directory.Exists(@Profiles.presetsDir))
+                // Yes/No Dialog Confirmation
+                //
+                MessageBoxResult resultExport = MessageBox.Show("Presets folder does not yet exist. Automatically create it?",
+                                                                "Directory Not Found",
+                                                                MessageBoxButton.YesNo,
+                                                                MessageBoxImage.Information);
+                switch (resultExport)
                 {
-                    Process.Start("explorer.exe", @Profiles.presetsDir);
+                    // Create
+                    case MessageBoxResult.Yes:
+                        try
+                        {
+                            Directory.CreateDirectory(vm.CustomPresetsPath_Text);
+                        }
+                        catch
+                        {
+                            MessageBox.Show("Could not create Presets folder. May require Administrator privileges.",
+                                            "Error",
+                                            MessageBoxButton.OK,
+                                            MessageBoxImage.Error);
+                        }
+                        break;
+                    // Use Default
+                    case MessageBoxResult.No:
+                        break;
+                }
+            }
+
+            // Open Directory
+            if (!string.IsNullOrEmpty(vm.CustomPresetsPath_Text))
+            {
+                if (Directory.Exists(vm.CustomPresetsPath_Text))
+                {
+                    Process.Start("explorer.exe", vm.CustomPresetsPath_Text);
                 } 
             }
         }

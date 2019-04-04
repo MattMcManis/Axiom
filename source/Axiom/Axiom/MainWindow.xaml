@@ -4737,7 +4737,7 @@
                                    Grid.Row="0"
                                    Width="58"
                                    Cursor="Hand"
-                                   PreviewMouseDown="lblPresetsPath_PreviewMouseDown"
+                                   PreviewMouseDown="lblCustomPresetsPath_PreviewMouseDown"
                                    />
                             <TextBox x:Name="tbxCustomPresetsPath" 
                                      Text="{Binding CustomPresetsPath_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -5562,6 +5562,7 @@
             <!-- Delete Preset ini -->
             <Button x:Name="btnDeletePreset"
                     Style="{DynamicResource ButtonSmallStyle}" 
+                    Background="{x:Null}" 
                     Margin="0,0,0,13" 
                     VerticalAlignment="Bottom" 
                     Height="22"
@@ -5584,7 +5585,9 @@
             <!-- Save Preset ini -->
             <Button x:Name="btnSavePreset"
                     Style="{DynamicResource ButtonSmallStyle}" 
-                    Margin="28,0,0,13" Height="22"
+                    Background="{x:Null}" 
+                    Margin="28,0,0,13" 
+                    Height="22"
                     VerticalAlignment="Bottom" 
                     Cursor="Hand" 
                     ToolTipService.InitialShowDelay="1000" 

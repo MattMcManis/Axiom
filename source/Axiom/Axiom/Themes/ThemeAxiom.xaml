@@ -898,10 +898,10 @@
           TextBox Browse Custom
         /////////////////////////////////////-->
     <SolidColorBrush x:Key="TextBoxBrowseStyle.Static.Foreground" Color="#FFFFFFFF"/>
-    <ImageBrush x:Key="TextBoxBrowseStyle.Static.Background" ImageSource="../Resources/Images/Themes/Axiom/BrowseTextBox.png" Stretch="UniformToFill" AlignmentX="Left" AlignmentY="Bottom" />
+    <ImageBrush x:Key="TextBoxBrowseStyle.Static.Background" ImageSource="../Resources/Images/Themes/Axiom/BrowseTextBox.png" Stretch="Fill" AlignmentX="Left" AlignmentY="Bottom" />
     <SolidColorBrush x:Key="TextBoxBrowseStyle.Static.Border" Color="#FFFFFFFF"/>
 
-    <ImageBrush x:Key="TextBoxBrowseStyle.Disabled.Background" ImageSource="../Resources/Images/Themes/Axiom/BrowseTextBox.png" Stretch="UniformToFill" AlignmentX="Left" AlignmentY="Bottom" />
+    <ImageBrush x:Key="TextBoxBrowseStyle.Disabled.Background" ImageSource="../Resources/Images/Themes/Axiom/BrowseTextBox.png" Stretch="Fill" AlignmentX="Left" AlignmentY="Bottom" />
 
     <SolidColorBrush x:Key="TextBoxBrowseStyle.MouseOver.Border" Color="#FF7EB4EA"/>
     <SolidColorBrush x:Key="TextBoxBrowseStyle.Focus.Border" Color="#FF569DE5"/>

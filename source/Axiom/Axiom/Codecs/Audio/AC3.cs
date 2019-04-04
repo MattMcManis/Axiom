@@ -76,7 +76,7 @@ namespace Axiom
         // -------------------------
         public static List<ViewModel.AudioQuality> quality = new List<ViewModel.AudioQuality>()
         {
-             new ViewModel.AudioQuality() { Name = "Auto",   CBR_BitMode = "-b:a", CBR = "",    VBR_BitMode = "", VBR = "", NA = "320" },
+             new ViewModel.AudioQuality() { Name = "Auto",   CBR_BitMode = "-b:a", CBR = "",    VBR_BitMode = "", VBR = "", NA = "640" },
              new ViewModel.AudioQuality() { Name = "640",    CBR_BitMode = "-b:a", CBR = "640", VBR_BitMode = "", VBR = "" },
              new ViewModel.AudioQuality() { Name = "448",    CBR_BitMode = "-b:a", CBR = "448", VBR_BitMode = "", VBR = "" },
              new ViewModel.AudioQuality() { Name = "320",    CBR_BitMode = "-b:a", CBR = "320", VBR_BitMode = "", VBR = "" },

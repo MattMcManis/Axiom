@@ -45,6 +45,7 @@ namespace Axiom
         // Rich Textbox Paragraph
         public static Paragraph logParagraph = new Paragraph(); //RichTextBox
 
+        public static string logDir = MainWindow.appDataDir + @"Axiom UI\";
 
         // --------------------------------------------------------------------------------------------------------
         // Theme
@@ -95,10 +96,11 @@ namespace Axiom
             // --------------------------
             if (vm.LogCheckBox_IsChecked == true)
             {
-                // Empty, Set Log Path to App's Directory
+                // Empty, Set Log Path to %ProgramData% Directory
                 if (string.IsNullOrEmpty(vm.LogPath_Text))
                 {
-                    vm.LogPath_Text = MainWindow.appDir;
+                    //vm.LogPath_Text = MainWindow.appDir;
+                    vm.LogPath_Text = logDir;
                 }
             }
         }

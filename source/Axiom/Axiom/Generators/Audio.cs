@@ -255,7 +255,8 @@ namespace Axiom
                 if (string.IsNullOrEmpty(input_Text))
                 {
                     aBitMode = "-b:a";
-                    aBitRate = "320";
+                    //aBitRate = "320";
+                    aBitRate = quality_Items.FirstOrDefault(item => item.Name == "Auto")?.NA;
                 }
 
                 // -------------------------

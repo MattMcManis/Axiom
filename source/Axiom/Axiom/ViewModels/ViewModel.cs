@@ -71,7 +71,7 @@ namespace Axiom
             FFprobePath_Text = "<auto>";
             FFplayPath_Text = "<auto>";
             youtubedlPath_Text = "<auto>";
-            LogPath_Text = "";
+            LogPath_Text = Log.logDir;
             LogCheckBox_IsChecked = false;
             Theme_SelectedItem = "Axiom";
             Threads_SelectedItem = "optimal";
@@ -242,26 +242,6 @@ namespace Axiom
         ///     Settings
         /// </summary>
         // --------------------------------------------------------------------------------------------------------
-        // --------------------------------------------------
-        // Profiles Path - TextBox
-        // --------------------------------------------------
-        // Text
-        //private string _ProfilesPath_Text;
-        //public string ProfilesPath_Text
-        //{
-        //    get { return _ProfilesPath_Text; }
-        //    set
-        //    {
-        //        if (_ProfilesPath_Text == value)
-        //        {
-        //            return;
-        //        }
-
-        //        _ProfilesPath_Text = value;
-        //        OnPropertyChanged("ProfilesPath_Text");
-        //    }
-        //}
-
 
         // --------------------------------------------------
         // Preset - ComboBox
@@ -569,7 +549,7 @@ namespace Axiom
         // Custom Presets Path
         // -------------------------
         // Text
-        private string _CustomPresetsPath_Text /*= Profiles.presetsDir*/;
+        private string _CustomPresetsPath_Text;
         public string CustomPresetsPath_Text
         {
             get { return _CustomPresetsPath_Text; }
@@ -606,7 +586,7 @@ namespace Axiom
         // FFmpeg Path
         // -------------------------
         // Text
-        private string _FFmpegPath_Text = "<auto>";
+        private string _FFmpegPath_Text;
         public string FFmpegPath_Text
         {
             get { return _FFmpegPath_Text; }
@@ -642,7 +622,7 @@ namespace Axiom
         // FFprobe Path
         // -------------------------
         // Text
-        private string _FFprobePath_Text = "<auto>";
+        private string _FFprobePath_Text;
         public string FFprobePath_Text
         {
             get { return _FFprobePath_Text; }
@@ -678,7 +658,7 @@ namespace Axiom
         // FFplay Path
         // -------------------------
         // Text
-        private string _FFplayPath_Text = "<auto>";
+        private string _FFplayPath_Text;
         public string FFplayPath_Text
         {
             get { return _FFplayPath_Text; }
@@ -736,7 +716,7 @@ namespace Axiom
         // youtubedl Path
         // -------------------------
         // Text
-        private string _youtubedlPath_Text = "<auto>";
+        private string _youtubedlPath_Text;
         public string youtubedlPath_Text
         {
             get { return _youtubedlPath_Text; }
