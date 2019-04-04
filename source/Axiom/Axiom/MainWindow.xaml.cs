@@ -77,6 +77,7 @@ namespace Axiom
         public static string appDir = AppDomain.CurrentDomain.BaseDirectory.TrimEnd('\\') + @"\"; // Axiom.exe directory
         public static string tempDir = Path.GetTempPath(); // Windows AppData Temp Directory
         public static string userProfile = Environment.ExpandEnvironmentVariables(@"%USERPROFILE%").TrimEnd('\\') + @"\"; // C:\Users\Example\
+        public static string documentsDir = userProfile + @"Documents\"; // C:\Users\Example\Documents\
         public static string downloadDir = userProfile + @"Downloads\"; // C:\Users\Example\Downloads\
 
         // Programs
@@ -420,18 +421,24 @@ namespace Axiom
             // --------------------------
             // ScriptView Copy/Paste
             // --------------------------
-            DataObject.AddCopyingHandler(tbxScriptView, new DataObjectCopyingEventHandler(OnScriptCopy));
-            DataObject.AddPastingHandler(tbxScriptView, new DataObjectPastingEventHandler(OnScriptPaste));
+            //DataObject.AddCopyingHandler(tbxScriptView, new DataObjectCopyingEventHandler(OnScriptCopy));
+            //DataObject.AddPastingHandler(tbxScriptView, new DataObjectPastingEventHandler(OnScriptPaste));
 
 
             // -------------------------
             // Import Axiom Config axiom.conf
             // -------------------------
-            if (File.Exists(Configure.configFile))
+            // Default Documents directory
+            if (File.Exists(Configure.configFile)) 
             {
                 Configure.ImportConfig(this, vm);
             }
-            // Defaults
+            // App directory
+            else if (File.Exists(appDir + "axiom.conf")) 
+            {
+                Configure.ImportConfig(this, vm);
+            }
+            // Missing, Load Defaults
             else
             {
                 vm.LoadDefaults();
@@ -943,7 +950,10 @@ namespace Axiom
         {
             if (!string.IsNullOrEmpty(@Profiles.presetsDir))
             {
-                Process.Start("explorer.exe", @Profiles.presetsDir);
+                if (Directory.Exists(@Profiles.presetsDir))
+                {
+                    Process.Start("explorer.exe", @Profiles.presetsDir);
+                } 
             }
         }
 
@@ -1070,7 +1080,10 @@ namespace Axiom
             // Open Directory
             if (!string.IsNullOrEmpty(ffmpegPath))
             {
-                Process.Start("explorer.exe", ffmpegPath);
+                if (Directory.Exists(ffmpegPath))
+                {
+                    Process.Start("explorer.exe", ffmpegPath);
+                }
             }
         }
 
@@ -1170,7 +1183,10 @@ namespace Axiom
             // Open Directory
             if (!string.IsNullOrEmpty(ffprobePath))
             {
-                Process.Start("explorer.exe", ffprobePath);
+                if (Directory.Exists(ffprobePath))
+                {
+                    Process.Start("explorer.exe", ffprobePath);
+                }
             }
         }
 
@@ -1270,7 +1286,10 @@ namespace Axiom
             // Open Directory
             if (!string.IsNullOrEmpty(ffplayPath))
             {
-                Process.Start("explorer.exe", ffplayPath);
+                if (Directory.Exists(ffplayPath))
+                {
+                    Process.Start("explorer.exe", ffplayPath);
+                }
             }
         }
 
@@ -1370,7 +1389,10 @@ namespace Axiom
             // Open Directory
             if (!string.IsNullOrEmpty(youtubedlPath))
             {
-                Process.Start("explorer.exe", youtubedlPath);
+                if (Directory.Exists(youtubedlPath))
+                {
+                    Process.Start("explorer.exe", youtubedlPath);
+                }
             }
         }
 
@@ -1411,7 +1433,10 @@ namespace Axiom
         {
             if (!string.IsNullOrEmpty(vm.LogPath_Text))
             {
-                Process.Start("explorer.exe", vm.LogPath_Text);
+                if (Directory.Exists(vm.LogPath_Text))
+                {
+                    Process.Start("explorer.exe", vm.LogPath_Text);
+                }
             }
         }
 
@@ -3918,7 +3943,10 @@ namespace Axiom
         {
             if (!string.IsNullOrEmpty(inputDir))
             {
-                Process.Start("explorer.exe", @inputDir);
+                if (Directory.Exists(@inputDir))
+                {
+                    Process.Start("explorer.exe", @inputDir);
+                }
             }
         }
 
@@ -4105,7 +4133,10 @@ namespace Axiom
         {
             if (!string.IsNullOrEmpty(outputDir))
             {
-                Process.Start("explorer.exe", @outputDir);
+                if (Directory.Exists(@outputDir))
+                {
+                    Process.Start("explorer.exe", @outputDir);
+                }
             }
         }
 
@@ -5376,13 +5407,13 @@ namespace Axiom
         private void btnSavePreset_Click(object sender, RoutedEventArgs e)
         {
             // Check if Profiles Directory exists
-            //bool exists = Directory.Exists(vm.ProfilesPath_Text);
+
             // If not, create it
             if (!Directory.Exists(vm.CustomPresetsPath_Text))
             {
                 // Yes/No Dialog Confirmation
                 //
-                MessageBoxResult resultExport = MessageBox.Show("Profiles Folder does not exist. Automatically create it?",
+                MessageBoxResult resultExport = MessageBox.Show("Presets folder does not exist. Automatically create it?",
                                                                 "Directory Not Found",
                                                                 MessageBoxButton.YesNo,
                                                                 MessageBoxImage.Information);
@@ -7623,13 +7654,14 @@ namespace Axiom
         /// <summary>
         ///    Script View Copy/Paste
         /// </summary>
-        private void OnScriptPaste(object sender, DataObjectPastingEventArgs e)
-        {
-        }
+        //private void OnScriptPaste(object sender, DataObjectPastingEventArgs e)
+        //{
+        //}
 
-        private void OnScriptCopy(object sender, DataObjectCopyingEventArgs e)
-        {
-        }
+        //private void OnScriptCopy(object sender, DataObjectCopyingEventArgs e)
+        //{
+        //}
+
 
         /// <summary>
         ///    Script - Button

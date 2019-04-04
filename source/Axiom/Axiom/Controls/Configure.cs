@@ -19,7 +19,6 @@ You should have received a copy of the GNU General Public License
 along with this program.If not, see <http://www.gnu.org/licenses/>. 
 ---------------------------------------------------------------------- */
 
-using Axiom.Properties;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -41,8 +40,10 @@ namespace Axiom
         public static string theme; // Set Theme
         public static string threads; // Set FFmpeg -threads
         public static string maxthreads; // All CPU Threads
-        public static string configDir = MainWindow.appDir; // Axiom Config File Path axiom.conf path (Can't change location)
-        public static string configFile = MainWindow.appDir + "axiom.conf"; // Axiom Config File (Can't change location)
+        //public static string configDir = MainWindow.appDir; // Axiom Config File Path axiom.conf path (Can't change location)
+        //public static string configFile = MainWindow.appDir + "axiom.conf"; // Axiom Config File (Can't change location)
+        public static string configDir = MainWindow.documentsDir + @"Axiom\"; // Axiom Config File Directory (Can't change location)
+        public static string configFile = configDir + "axiom.conf"; // Axiom Config File axiom.conf (Can't change location)
 
 
         /// <summary>
@@ -92,89 +93,25 @@ namespace Axiom
                 Configure.INIFile conf = null;
 
                 // -------------------------
-                // Check if axiom.conf file exists
+                // Check if axiom.conf file exists in C:\Users\Example\Documents\Axiom\
                 // -------------------------
                 if (File.Exists(configFile))
                 {
                     conf = new Configure.INIFile(configFile);
 
-                    // -------------------------
-                    // Main Window
-                    // -------------------------
-                    // Window Position Top
-                    double top;
-                    double.TryParse(conf.Read("Main Window", "Window_Position_Top"), out top);
-                    mainwindow.Top = top;
+                    // Read
+                    ReadConfig(mainwindow, vm, conf);
+                }
 
-                    // Window Position Left
-                    double left;
-                    double.TryParse(conf.Read("Main Window", "Window_Position_Left"), out left);
-                    mainwindow.Left = left;
+                // -------------------------
+                // Check if axiom.conf file exists in App Dir
+                // -------------------------
+                if (File.Exists(MainWindow.appDir + "axiom.conf"))
+                {
+                    conf = new Configure.INIFile(MainWindow.appDir + "axiom.conf");
 
-                    // Window Maximized
-                    bool mainwindow_WindowState_Maximized;
-                    bool.TryParse(conf.Read("Main Window", "WindowState_Maximized").ToLower(), out mainwindow_WindowState_Maximized);
-
-                    if (mainwindow_WindowState_Maximized == true)
-                    {
-                        //vm.Window_State = WindowState.Maximized;
-                        mainwindow.WindowState = WindowState.Maximized;
-                    }
-                    else
-                    {
-                        //vm.Window_State = WindowState.Normal;
-                        mainwindow.WindowState = WindowState.Normal;
-                    }
-
-                    // Window Width
-                    double width;
-                    double.TryParse(conf.Read("Main Window", "Window_Width"), out width);
-                    mainwindow.Width = width;
-
-                    // Window Height
-                    double height;
-                    double.TryParse(conf.Read("Main Window", "Window_Height"), out height);
-                    mainwindow.Height = height;
-
-                    // CMD Window Keep
-                    bool mainwindow_CMDWindowKeep_IsChecked;
-                    bool.TryParse(conf.Read("Main Window", "CMDWindowKeep_IsChecked").ToLower(), out mainwindow_CMDWindowKeep_IsChecked);
-                    vm.CMDWindowKeep_IsChecked = mainwindow_CMDWindowKeep_IsChecked;
-
-                    // Auto Sort Script
-                    bool mainwindow_AutoSortScript_IsChecked;
-                    bool.TryParse(conf.Read("Main Window", "AutoSortScript_IsChecked").ToLower(), out mainwindow_AutoSortScript_IsChecked);
-                    vm.AutoSortScript_IsChecked = mainwindow_AutoSortScript_IsChecked;
-
-
-                    // --------------------------------------------------
-                    // Settings
-                    // --------------------------------------------------
-                    // FFmpeg
-                    vm.FFmpegPath_Text = conf.Read("Settings", "FFmpegPath_Text");
-                    vm.FFprobePath_Text = conf.Read("Settings", "FFprobePath_Text");
-                    vm.FFplayPath_Text = conf.Read("Settings", "FFplayPath_Text");
-
-                    // Presets
-                    vm.CustomPresetsPath_Text = conf.Read("Settings", "CustomPresetsPath_Text");
-
-                    // Log
-                    bool settings_LogCheckBox_IsChecked;
-                    bool.TryParse(conf.Read("Settings", "LogCheckBox_IsChecked").ToLower(), out settings_LogCheckBox_IsChecked);
-                    vm.LogCheckBox_IsChecked = settings_LogCheckBox_IsChecked;
-
-                    vm.LogPath_Text = conf.Read("Settings", "LogPath_Text");
-
-                    // Threads
-                    vm.Threads_SelectedItem = conf.Read("Settings", "Threads_SelectedItem");
-
-                    // Theme
-                    vm.Theme_SelectedItem = conf.Read("Settings", "Theme_SelectedItem");
-
-                    // Updates
-                    bool settings_UpdateAutoCheck_IsChecked;
-                    bool.TryParse(conf.Read("Settings", "UpdateAutoCheck_IsChecked").ToLower(), out settings_UpdateAutoCheck_IsChecked);
-                    vm.UpdateAutoCheck_IsChecked = settings_UpdateAutoCheck_IsChecked;
+                    // Read
+                    ReadConfig(mainwindow, vm, conf);
                 }
 
                 // -------------------------
@@ -182,7 +119,7 @@ namespace Axiom
                 // -------------------------
                 else if (!File.Exists(configFile))
                 {
-                    MessageBox.Show("Preset does not exist.",
+                    MessageBox.Show("Confg file axiom.conf does not exist.",
                                     "Error",
                                     MessageBoxButton.OK,
                                     MessageBoxImage.Error);
@@ -264,102 +201,214 @@ namespace Axiom
 
 
         /// <summary>
+        ///    Import Read Config
+        /// </summary>
+        public static void ReadConfig(MainWindow mainwindow, ViewModel vm, INIFile conf)
+        {
+            // -------------------------
+            // Main Window
+            // -------------------------
+            // Window Position Top
+            double top;
+            double.TryParse(conf.Read("Main Window", "Window_Position_Top"), out top);
+            mainwindow.Top = top;
+
+            // Window Position Left
+            double left;
+            double.TryParse(conf.Read("Main Window", "Window_Position_Left"), out left);
+            mainwindow.Left = left;
+
+            // Window Maximized
+            bool mainwindow_WindowState_Maximized;
+            bool.TryParse(conf.Read("Main Window", "WindowState_Maximized").ToLower(), out mainwindow_WindowState_Maximized);
+
+            if (mainwindow_WindowState_Maximized == true)
+            {
+                //vm.Window_State = WindowState.Maximized;
+                mainwindow.WindowState = WindowState.Maximized;
+            }
+            else
+            {
+                //vm.Window_State = WindowState.Normal;
+                mainwindow.WindowState = WindowState.Normal;
+            }
+
+            // Window Width
+            double width;
+            double.TryParse(conf.Read("Main Window", "Window_Width"), out width);
+            mainwindow.Width = width;
+
+            // Window Height
+            double height;
+            double.TryParse(conf.Read("Main Window", "Window_Height"), out height);
+            mainwindow.Height = height;
+
+            // CMD Window Keep
+            bool mainwindow_CMDWindowKeep_IsChecked;
+            bool.TryParse(conf.Read("Main Window", "CMDWindowKeep_IsChecked").ToLower(), out mainwindow_CMDWindowKeep_IsChecked);
+            vm.CMDWindowKeep_IsChecked = mainwindow_CMDWindowKeep_IsChecked;
+
+            // Auto Sort Script
+            bool mainwindow_AutoSortScript_IsChecked;
+            bool.TryParse(conf.Read("Main Window", "AutoSortScript_IsChecked").ToLower(), out mainwindow_AutoSortScript_IsChecked);
+            vm.AutoSortScript_IsChecked = mainwindow_AutoSortScript_IsChecked;
+
+
+            // --------------------------------------------------
+            // Settings
+            // --------------------------------------------------
+            // FFmpeg
+            vm.FFmpegPath_Text = conf.Read("Settings", "FFmpegPath_Text");
+            vm.FFprobePath_Text = conf.Read("Settings", "FFprobePath_Text");
+            vm.FFplayPath_Text = conf.Read("Settings", "FFplayPath_Text");
+
+            // Presets
+            vm.CustomPresetsPath_Text = conf.Read("Settings", "CustomPresetsPath_Text");
+
+            // Log
+            bool settings_LogCheckBox_IsChecked;
+            bool.TryParse(conf.Read("Settings", "LogCheckBox_IsChecked").ToLower(), out settings_LogCheckBox_IsChecked);
+            vm.LogCheckBox_IsChecked = settings_LogCheckBox_IsChecked;
+
+            vm.LogPath_Text = conf.Read("Settings", "LogPath_Text");
+
+            // Threads
+            vm.Threads_SelectedItem = conf.Read("Settings", "Threads_SelectedItem");
+
+            // Theme
+            vm.Theme_SelectedItem = conf.Read("Settings", "Theme_SelectedItem");
+
+            // Updates
+            bool settings_UpdateAutoCheck_IsChecked;
+            bool.TryParse(conf.Read("Settings", "UpdateAutoCheck_IsChecked").ToLower(), out settings_UpdateAutoCheck_IsChecked);
+            vm.UpdateAutoCheck_IsChecked = settings_UpdateAutoCheck_IsChecked;
+        }
+
+
+        /// <summary>
         ///    Export axiom.conf
         /// </summary>
         public static void ExportConfig(MainWindow mainwindow, ViewModel vm)
         {
-            //// Check if Directory Exists
-            //if (!Directory.Exists(configDir))
-            //{
-            //    // Yes/No Dialog Confirmation
-            //    //
-            //    MessageBoxResult resultExport = MessageBox.Show("Config Folder does not exist. Automatically create it?",
-            //                                                    "Directory Not Found",
-            //                                                    MessageBoxButton.YesNo,
-            //                                                    MessageBoxImage.Information);
-            //    switch (resultExport)
-            //    {
-            //        // Create
-            //        case MessageBoxResult.Yes:
-            //            try
-            //            {
-            //                Directory.CreateDirectory(configDir);
-            //            }
-            //            catch
-            //            {
-            //                MessageBox.Show("Could not create Config folder. May require Administrator privileges.",
-            //                                "Error",
-            //                                MessageBoxButton.OK,
-            //                                MessageBoxImage.Error);
-            //            }
-            //            break;
-            //        // Use Default
-            //        case MessageBoxResult.No:
-            //            break;
-            //    }
-            //}
-
-            // Save axiom.conf file if directory exists
-            /*else */if (Directory.Exists(configDir))
+            // -------------------------
+            // Check if Directory Exists
+            // -------------------------
+            if (!Directory.Exists(configDir))
             {
-                // Start conf File Write
-                Configure.INIFile conf = new Configure.INIFile(configFile);
-
-                // -------------------------
-                // Main Window
-                // -------------------------
-                // Window Position Top
-                conf.Write("Main Window", "Window_Position_Top", mainwindow.Top.ToString());
-
-                // Window Position Left
-                conf.Write("Main Window", "Window_Position_Left", mainwindow.Left.ToString());
-
-                // Window Width
-                conf.Write("Main Window", "Window_Width", mainwindow.Width.ToString());
-
-                // Window Height
-                conf.Write("Main Window", "Window_Height", mainwindow.Height.ToString());
-
-                // Window Maximized
-                if (mainwindow.WindowState == WindowState.Maximized)
+                try
                 {
-                    conf.Write("Main Window", "WindowState_Maximized", "true");
+                    Directory.CreateDirectory(configDir);
                 }
-                else
+                catch
                 {
-                    conf.Write("Main Window", "WindowState_Maximized", "false");
+                    MessageBox.Show("Could not create Config folder. May require Administrator privileges.",
+                                    "Error",
+                                    MessageBoxButton.OK,
+                                    MessageBoxImage.Error);
                 }
 
-                // CMD Keep Window Open Toggle
-                conf.Write("Main Window", "CMDWindowKeep_IsChecked", vm.CMDWindowKeep_IsChecked.ToString().ToLower());
+                //// Yes/No Dialog Confirmation
+                ////
+                //MessageBoxResult resultExport = MessageBox.Show("Config Folder does not exist. Automatically create it?",
+                //                                                "Directory Not Found",
+                //                                                MessageBoxButton.YesNo,
+                //                                                MessageBoxImage.Information);
+                //switch (resultExport)
+                //{
+                //    // Create
+                //    case MessageBoxResult.Yes:
+                //        try
+                //        {
+                //            Directory.CreateDirectory(configDir);
+                //        }
+                //        catch
+                //        {
+                //            MessageBox.Show("Could not create Config folder. May require Administrator privileges.",
+                //                            "Error",
+                //                            MessageBoxButton.OK,
+                //                            MessageBoxImage.Error);
+                //        }
+                //        break;
+                //    // Use Default
+                //    case MessageBoxResult.No:
+                //        break;
+                //}
+            }
 
-                // Auto Sort Script Toggle
-                conf.Write("Main Window", "AutoSortScript_IsChecked", vm.AutoSortScript_IsChecked.ToString().ToLower());
+            // -------------------------
+            // Save axiom.conf file if directory exists
+            // -------------------------
+            if (Directory.Exists(configDir))
+            {
+                try
+                {
+                    // Start conf File Write
+                    Configure.INIFile conf = new Configure.INIFile(configFile);
+
+                    // -------------------------
+                    // Main Window
+                    // -------------------------
+                    // Window Position Top
+                    conf.Write("Main Window", "Window_Position_Top", mainwindow.Top.ToString());
+
+                    // Window Position Left
+                    conf.Write("Main Window", "Window_Position_Left", mainwindow.Left.ToString());
+
+                    // Window Width
+                    conf.Write("Main Window", "Window_Width", mainwindow.Width.ToString());
+
+                    // Window Height
+                    conf.Write("Main Window", "Window_Height", mainwindow.Height.ToString());
+
+                    // Window Maximized
+                    if (mainwindow.WindowState == WindowState.Maximized)
+                    {
+                        conf.Write("Main Window", "WindowState_Maximized", "true");
+                    }
+                    else
+                    {
+                        conf.Write("Main Window", "WindowState_Maximized", "false");
+                    }
+
+                    // CMD Keep Window Open Toggle
+                    conf.Write("Main Window", "CMDWindowKeep_IsChecked", vm.CMDWindowKeep_IsChecked.ToString().ToLower());
+
+                    // Auto Sort Script Toggle
+                    conf.Write("Main Window", "AutoSortScript_IsChecked", vm.AutoSortScript_IsChecked.ToString().ToLower());
 
 
-                // --------------------------------------------------
-                // Settings
-                // --------------------------------------------------
-                // FFmpeg
-                conf.Write("Settings", "FFmpegPath_Text", vm.FFmpegPath_Text);
-                conf.Write("Settings", "FFprobePath_Text", vm.FFprobePath_Text);
-                conf.Write("Settings", "FFplayPath_Text", vm.FFplayPath_Text);
+                    // --------------------------------------------------
+                    // Settings
+                    // --------------------------------------------------
+                    // FFmpeg
+                    conf.Write("Settings", "FFmpegPath_Text", vm.FFmpegPath_Text);
+                    conf.Write("Settings", "FFprobePath_Text", vm.FFprobePath_Text);
+                    conf.Write("Settings", "FFplayPath_Text", vm.FFplayPath_Text);
 
-                // Presets
-                conf.Write("Settings", "CustomPresetsPath_Text", vm.CustomPresetsPath_Text);
+                    // Presets
+                    conf.Write("Settings", "CustomPresetsPath_Text", vm.CustomPresetsPath_Text);
 
-                // Log
-                conf.Write("Settings", "LogCheckBox_IsChecked", vm.LogCheckBox_IsChecked.ToString().ToLower());
-                conf.Write("Settings", "LogPath_Text", vm.LogPath_Text);
+                    // Log
+                    conf.Write("Settings", "LogCheckBox_IsChecked", vm.LogCheckBox_IsChecked.ToString().ToLower());
+                    conf.Write("Settings", "LogPath_Text", vm.LogPath_Text);
 
-                // Threads
-                conf.Write("Settings", "Threads_SelectedItem", vm.Threads_SelectedItem);
+                    // Threads
+                    conf.Write("Settings", "Threads_SelectedItem", vm.Threads_SelectedItem);
 
-                // Theme
-                conf.Write("Settings", "Theme_SelectedItem", vm.Theme_SelectedItem);
+                    // Theme
+                    conf.Write("Settings", "Theme_SelectedItem", vm.Theme_SelectedItem);
 
-                // Updates
-                conf.Write("Settings", "UpdateAutoCheck_IsChecked", vm.UpdateAutoCheck_IsChecked.ToString().ToLower());
+                    // Updates
+                    conf.Write("Settings", "UpdateAutoCheck_IsChecked", vm.UpdateAutoCheck_IsChecked.ToString().ToLower());
+                }
+                catch
+                {
+                    MessageBox.Show("Could not save config file. May require Administrator privileges.",
+                                    "Error",
+                                    MessageBoxButton.OK,
+                                    MessageBoxImage.Error);
+                }
+
             }
         }      
 

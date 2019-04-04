@@ -37,7 +37,8 @@ namespace Axiom
         ///    Scan PC Custom Presets
         /// </summary>
         public static List<string> customPresetPathsList = new List<string>();
-        public static string presetsDir = MainWindow.appDir + @"presets\"; // Custom User ini presets
+        //public static string presetsDir = MainWindow.appDir + @"presets\"; // Custom User ini presets
+        public static string presetsDir = MainWindow.documentsDir + @"Axiom\presets\"; // Custom User ini presets
 
         public static void LoadCustomPresets(ViewModel vm)
         {
