@@ -4,6 +4,23 @@ Axiom FFmpeg UI
 
 ## [alpha]
 
+## [1.7.0.0] - Apr 04, 2019
+### Added
+- App Config File axiom.conf
+- Save Custom Pesets to .ini
+- Threaded Update Check
+- Threaded FFmpeg Arguments Generate
+
+### Changed
+- Improved FFmpeg Arguments Lists
+- Refactored Title Version
+- Refactored Theme Styles
+
+### Fixed
+- Frame Rate option 24 fps
+- Run Button crash if Script empty
+
+
 ## [1.6.7.0] - Apr 01, 2019
 ### Added
 - Screen Format ComboBox
