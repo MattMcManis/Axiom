@@ -975,7 +975,25 @@ namespace Axiom
         private void tbxCustomPresetsPath_PreviewDrop(object sender, DragEventArgs e)
         {
             var buffer = e.Data.GetData(DataFormats.FileDrop, false) as string[];
-            vm.CustomPresetsPath_Text = buffer.First();
+
+            // If Path has file, extract Directory only
+            if (Path.HasExtension(buffer.First()))
+            {
+                vm.CustomPresetsPath_Text = Path.GetDirectoryName(buffer.First()).TrimEnd('\\') + @"\";
+            }
+
+            // Use Folder Path
+            else
+            {
+                vm.CustomPresetsPath_Text = buffer.First();
+            }
+
+           
+            //// -------------------------
+            //// Load Custom Presets
+            //// Refresh Presets ComboBox
+            //// -------------------------
+            //Profiles.LoadCustomPresets(vm);
         }
 
 
@@ -1441,6 +1459,29 @@ namespace Axiom
             }
         }
 
+        // Drag and Drop
+        private void tbxLogPath_PreviewDragOver(object sender, DragEventArgs e)
+        {
+            e.Handled = true;
+            e.Effects = DragDropEffects.Copy;
+        }
+        private void tbxLogPath_PreviewDrop(object sender, DragEventArgs e)
+        {
+            var buffer = e.Data.GetData(DataFormats.FileDrop, false) as string[];
+
+            // If Path has file, extract Directory only
+            if (Path.HasExtension(buffer.First()))
+            {
+                vm.LogPath_Text = Path.GetDirectoryName(buffer.First()).TrimEnd('\\') + @"\";
+            }
+
+            // Use Folder Path
+            else
+            {
+                vm.LogPath_Text = buffer.First();
+            }
+        }
+
         /// <summary>
         ///     Log Checkbox - Checked
         /// </summary>
@@ -1460,7 +1501,7 @@ namespace Axiom
         /// <summary>
         ///     Log Path - Textbox
         /// </summary>
-        private void tbxLog_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        private void tbxLogPath_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             Configure.LogFolderBrowser(vm);
         }
@@ -5497,7 +5538,6 @@ namespace Axiom
             {
                 // Set Preset Dir, Name, Ext
                 string presetsDir = Path.GetDirectoryName(saveFile.FileName).TrimEnd('\\') + @"\";
-                //string presetsFileName = Path.GetFileName(saveFile.FileName);
                 string presetFileName = Path.GetFileNameWithoutExtension(saveFile.FileName);
                 string presetExt = Path.GetExtension(saveFile.FileName);
                 string preset = presetsDir + presetFileName + presetExt;
@@ -6095,9 +6135,7 @@ namespace Axiom
         /// </summary>
         private void cboVideo_AspectRatio_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //VideoControls.AutoCopyVideoCodec(vm);
 
-            //VideoScaleDisplay(vm);
         }
 
 
@@ -7871,22 +7909,25 @@ namespace Axiom
         /// </summary>
         private void btnScriptRun_Click(object sender, RoutedEventArgs e)
         {
-            // -------------------------
-            // Use Arguments from Script TextBox
-            // -------------------------
-            FFmpeg.ffmpegArgs = ReplaceLineBreaksWithSpaces(
-                                    vm.ScriptView_Text
-                                );
+            if (!string.IsNullOrEmpty(vm.ScriptView_Text))
+            {
+                // -------------------------
+                // Use Arguments from Script TextBox
+                // -------------------------
+                FFmpeg.ffmpegArgs = ReplaceLineBreaksWithSpaces(
+                                        vm.ScriptView_Text
+                                    );
 
-            // -------------------------
-            // Start FFmpeg
-            // -------------------------
-            FFmpeg.FFmpegStart(vm);
+                // -------------------------
+                // Start FFmpeg
+                // -------------------------
+                FFmpeg.FFmpegStart(vm);
 
-            // -------------------------
-            // Create output.log
-            // -------------------------
-            Log.CreateOutputLog(this, vm);
+                // -------------------------
+                // Create output.log
+                // -------------------------
+                Log.CreateOutputLog(this, vm);
+            }
         }
 
 

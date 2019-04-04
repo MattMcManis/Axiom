@@ -84,7 +84,9 @@ namespace Axiom
                     vm.Format_CutEnd_Minutes_Text = "00";
                     vm.Format_CutEnd_Seconds_Text = "00";
                     vm.Format_CutEnd_Milliseconds_Text = "000";
-                    
+                    vm.Format_YouTube_SelectedItem = "Video + Audio";
+                    vm.Format_YouTube_Quality_SelectedItem = "best";
+
                     // Video
                     //vm.Video_Codec_SelectedItem = "VP8";
                     vm.Video_EncodeSpeed_SelectedItem = "Medium";
@@ -164,6 +166,8 @@ namespace Axiom
                     vm.Format_CutEnd_Minutes_Text = "00";
                     vm.Format_CutEnd_Seconds_Text = "00";
                     vm.Format_CutEnd_Milliseconds_Text = "000";
+                    vm.Format_YouTube_SelectedItem = "Video + Audio";
+                    vm.Format_YouTube_Quality_SelectedItem = "best";
 
                     // Video
                     vm.Video_Codec_SelectedItem = "None";
@@ -240,6 +244,8 @@ namespace Axiom
                 vm.Format_CutEnd_Minutes_Text = "00";
                 vm.Format_CutEnd_Seconds_Text = "00";
                 vm.Format_CutEnd_Milliseconds_Text = "000";
+                vm.Format_YouTube_SelectedItem = "Video + Audio";
+                vm.Format_YouTube_Quality_SelectedItem = "best";
 
                 // Video
                 vm.Video_Codec_SelectedItem = "VP8";
@@ -303,6 +309,8 @@ namespace Axiom
                 vm.Format_CutEnd_Minutes_Text = "00";
                 vm.Format_CutEnd_Seconds_Text = "00";
                 vm.Format_CutEnd_Milliseconds_Text = "000";
+                vm.Format_YouTube_SelectedItem = "Video + Audio";
+                vm.Format_YouTube_Quality_SelectedItem = "best";
 
                 // Video
                 vm.Video_Codec_SelectedItem = "x264";
@@ -370,6 +378,8 @@ namespace Axiom
                 vm.Format_CutEnd_Minutes_Text = "00";
                 vm.Format_CutEnd_Seconds_Text = "00";
                 vm.Format_CutEnd_Milliseconds_Text = "000";
+                vm.Format_YouTube_SelectedItem = "Video + Audio";
+                vm.Format_YouTube_Quality_SelectedItem = "best";
 
                 // Video
                 vm.Video_Codec_SelectedItem = "FFV1";
@@ -434,6 +444,8 @@ namespace Axiom
                 vm.Format_CutEnd_Minutes_Text = "00";
                 vm.Format_CutEnd_Seconds_Text = "00";
                 vm.Format_CutEnd_Milliseconds_Text = "000";
+                vm.Format_YouTube_SelectedItem = "Video + Audio";
+                vm.Format_YouTube_Quality_SelectedItem = "best";
 
                 // Video
                 vm.Video_Codec_SelectedItem = "x265";
@@ -515,6 +527,8 @@ namespace Axiom
                 vm.Format_CutEnd_Minutes_Text = "00";
                 vm.Format_CutEnd_Seconds_Text = "00";
                 vm.Format_CutEnd_Milliseconds_Text = "000";
+                vm.Format_YouTube_SelectedItem = "Video + Audio";
+                vm.Format_YouTube_Quality_SelectedItem = "best";
 
                 // Video
                 vm.Video_Codec_SelectedItem = "x264";
@@ -597,6 +611,8 @@ namespace Axiom
                 vm.Format_CutEnd_Minutes_Text = "00";
                 vm.Format_CutEnd_Seconds_Text = "00";
                 vm.Format_CutEnd_Milliseconds_Text = "000";
+                vm.Format_YouTube_SelectedItem = "Video + Audio";
+                vm.Format_YouTube_Quality_SelectedItem = "best";
 
                 // Video
                 vm.Video_Codec_SelectedItem = "x264";
@@ -677,6 +693,8 @@ namespace Axiom
                 vm.Format_CutEnd_Minutes_Text = "00";
                 vm.Format_CutEnd_Seconds_Text = "00";
                 vm.Format_CutEnd_Milliseconds_Text = "000";
+                vm.Format_YouTube_SelectedItem = "Video + Audio";
+                vm.Format_YouTube_Quality_SelectedItem = "best";
 
                 // Video
                 vm.Video_Codec_SelectedItem = "x264";
@@ -743,6 +761,8 @@ namespace Axiom
                 vm.Format_CutEnd_Minutes_Text = "00";
                 vm.Format_CutEnd_Seconds_Text = "00";
                 vm.Format_CutEnd_Milliseconds_Text = "000";
+                vm.Format_YouTube_SelectedItem = "Video + Audio";
+                vm.Format_YouTube_Quality_SelectedItem = "best";
 
                 // Video
                 vm.Video_Codec_SelectedItem = "x264";
@@ -809,6 +829,8 @@ namespace Axiom
                 vm.Format_CutEnd_Minutes_Text = "00";
                 vm.Format_CutEnd_Seconds_Text = "00";
                 vm.Format_CutEnd_Milliseconds_Text = "000";
+                vm.Format_YouTube_SelectedItem = "Video + Audio";
+                vm.Format_YouTube_Quality_SelectedItem = "best";
 
                 // Video
                 vm.Video_Codec_SelectedItem = "x264";
@@ -875,6 +897,8 @@ namespace Axiom
                 vm.Format_CutEnd_Minutes_Text = "00";
                 vm.Format_CutEnd_Seconds_Text = "00";
                 vm.Format_CutEnd_Milliseconds_Text = "000";
+                vm.Format_YouTube_SelectedItem = "Video + Audio";
+                vm.Format_YouTube_Quality_SelectedItem = "best";
 
                 // Video
                 vm.Video_Codec_SelectedItem = "x264";
@@ -941,6 +965,8 @@ namespace Axiom
                 vm.Format_CutEnd_Minutes_Text = "00";
                 vm.Format_CutEnd_Seconds_Text = "00";
                 vm.Format_CutEnd_Milliseconds_Text = "000";
+                vm.Format_YouTube_SelectedItem = "Video + Audio";
+                vm.Format_YouTube_Quality_SelectedItem = "best";
 
                 // Video
                 vm.Video_Codec_SelectedItem = "x264";
@@ -1011,6 +1037,8 @@ namespace Axiom
                 vm.Format_CutEnd_Minutes_Text = "00";
                 vm.Format_CutEnd_Seconds_Text = "00";
                 vm.Format_CutEnd_Milliseconds_Text = "000";
+                vm.Format_YouTube_SelectedItem = "Video + Audio";
+                vm.Format_YouTube_Quality_SelectedItem = "best";
 
                 // Video
                 vm.Video_Codec_SelectedItem = "x264";
@@ -1074,6 +1102,8 @@ namespace Axiom
                 vm.Format_CutEnd_Minutes_Text = "00";
                 vm.Format_CutEnd_Seconds_Text = "00";
                 vm.Format_CutEnd_Milliseconds_Text = "000";
+                vm.Format_YouTube_SelectedItem = "Video + Audio";
+                vm.Format_YouTube_Quality_SelectedItem = "best";
 
                 // Video
                 vm.Video_Codec_SelectedItem = "x264";
@@ -1141,6 +1171,8 @@ namespace Axiom
                 vm.Format_CutEnd_Minutes_Text = "00";
                 vm.Format_CutEnd_Seconds_Text = "00";
                 vm.Format_CutEnd_Milliseconds_Text = "000";
+                vm.Format_YouTube_SelectedItem = "Video + Audio";
+                vm.Format_YouTube_Quality_SelectedItem = "best";
 
                 // Video
                 vm.Video_Codec_SelectedItem = "x264";
@@ -1204,6 +1236,8 @@ namespace Axiom
                 vm.Format_CutEnd_Minutes_Text = "00";
                 vm.Format_CutEnd_Seconds_Text = "00";
                 vm.Format_CutEnd_Milliseconds_Text = "000";
+                vm.Format_YouTube_SelectedItem = "Video + Audio";
+                vm.Format_YouTube_Quality_SelectedItem = "best";
 
                 // Video
                 vm.Video_Codec_SelectedItem = "x264";
@@ -1267,6 +1301,8 @@ namespace Axiom
                 vm.Format_CutEnd_Minutes_Text = "00";
                 vm.Format_CutEnd_Seconds_Text = "00";
                 vm.Format_CutEnd_Milliseconds_Text = "000";
+                vm.Format_YouTube_SelectedItem = "Video + Audio";
+                vm.Format_YouTube_Quality_SelectedItem = "best";
 
                 // Video
                 vm.Video_Codec_SelectedItem = "x264";
@@ -1330,6 +1366,8 @@ namespace Axiom
                 vm.Format_CutEnd_Minutes_Text = "00";
                 vm.Format_CutEnd_Seconds_Text = "00";
                 vm.Format_CutEnd_Milliseconds_Text = "000";
+                vm.Format_YouTube_SelectedItem = "Video + Audio";
+                vm.Format_YouTube_Quality_SelectedItem = "best";
 
                 // Video
                 vm.Video_Codec_SelectedItem = "x264";
@@ -1397,6 +1435,8 @@ namespace Axiom
                 vm.Format_CutEnd_Minutes_Text = "00";
                 vm.Format_CutEnd_Seconds_Text = "00";
                 vm.Format_CutEnd_Milliseconds_Text = "000";
+                vm.Format_YouTube_SelectedItem = "Video + Audio";
+                vm.Format_YouTube_Quality_SelectedItem = "best";
 
                 // Video
                 vm.Video_Codec_SelectedItem = "x265";
@@ -1460,6 +1500,8 @@ namespace Axiom
                 vm.Format_CutEnd_Minutes_Text = "00";
                 vm.Format_CutEnd_Seconds_Text = "00";
                 vm.Format_CutEnd_Milliseconds_Text = "000";
+                vm.Format_YouTube_SelectedItem = "Video + Audio";
+                vm.Format_YouTube_Quality_SelectedItem = "best";
 
                 // Video
                 vm.Video_Codec_SelectedItem = "x264";
@@ -1523,6 +1565,8 @@ namespace Axiom
                 vm.Format_CutEnd_Minutes_Text = "00";
                 vm.Format_CutEnd_Seconds_Text = "00";
                 vm.Format_CutEnd_Milliseconds_Text = "000";
+                vm.Format_YouTube_SelectedItem = "Audio Only";
+                vm.Format_YouTube_Quality_SelectedItem = "best";
 
                 // Video
                 vm.Video_Codec_SelectedItem = "MPEG-2";
@@ -1586,6 +1630,8 @@ namespace Axiom
                 vm.Format_CutEnd_Minutes_Text = "00";
                 vm.Format_CutEnd_Seconds_Text = "00";
                 vm.Format_CutEnd_Milliseconds_Text = "000";
+                vm.Format_YouTube_SelectedItem = "Video + Audio";
+                vm.Format_YouTube_Quality_SelectedItem = "best";
 
                 // Video
                 vm.Video_Codec_SelectedItem = "None";
@@ -1650,6 +1696,8 @@ namespace Axiom
                 vm.Format_CutEnd_Minutes_Text = "00";
                 vm.Format_CutEnd_Seconds_Text = "00";
                 vm.Format_CutEnd_Milliseconds_Text = "000";
+                vm.Format_YouTube_SelectedItem = "Audio Only";
+                vm.Format_YouTube_Quality_SelectedItem = "best";
 
                 // Video
                 vm.Video_Codec_SelectedItem = "None";
@@ -1724,6 +1772,8 @@ namespace Axiom
                 vm.Format_CutEnd_Minutes_Text = "00";
                 vm.Format_CutEnd_Seconds_Text = "00";
                 vm.Format_CutEnd_Milliseconds_Text = "000";
+                vm.Format_YouTube_SelectedItem = "Audio Only";
+                vm.Format_YouTube_Quality_SelectedItem = "best";
 
                 // Video
                 vm.Video_Codec_SelectedItem = "None";
@@ -1787,6 +1837,8 @@ namespace Axiom
                 vm.Format_CutEnd_Minutes_Text = "00";
                 vm.Format_CutEnd_Seconds_Text = "00";
                 vm.Format_CutEnd_Milliseconds_Text = "000";
+                vm.Format_YouTube_SelectedItem = "Audio Only";
+                vm.Format_YouTube_Quality_SelectedItem = "best";
 
                 // Video
                 vm.Video_Codec_SelectedItem = "None";
@@ -1838,7 +1890,7 @@ namespace Axiom
             // -------------------------
             // Video
             // -------------------------
-            else if (vm.Preset_SelectedItem == "Video")
+            else if (vm.Preset_SelectedItem == "Video Download")
             {
                 //vm.Preset.IsEditable = false;
 
@@ -1853,6 +1905,8 @@ namespace Axiom
                 vm.Format_CutEnd_Minutes_Text = "00";
                 vm.Format_CutEnd_Seconds_Text = "00";
                 vm.Format_CutEnd_Milliseconds_Text = "000";
+                vm.Format_YouTube_SelectedItem = "Video + Audio";
+                vm.Format_YouTube_Quality_SelectedItem = "best";
 
                 // Video
                 vm.Video_Codec_SelectedItem = "Copy";
@@ -1904,7 +1958,7 @@ namespace Axiom
             // -------------------------
             // Music
             // -------------------------
-            else if (vm.Preset_SelectedItem == "Music")
+            else if (vm.Preset_SelectedItem == "Music Download")
             {
                 //vm.Preset.IsEditable = false;
 
@@ -1919,6 +1973,8 @@ namespace Axiom
                 vm.Format_CutEnd_Minutes_Text = "00";
                 vm.Format_CutEnd_Seconds_Text = "00";
                 vm.Format_CutEnd_Milliseconds_Text = "000";
+                vm.Format_YouTube_SelectedItem = "Audio Only";
+                vm.Format_YouTube_Quality_SelectedItem = "best";
 
                 // Video
                 vm.Video_Codec_SelectedItem = "None";

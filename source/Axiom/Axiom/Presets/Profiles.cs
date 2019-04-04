@@ -65,8 +65,11 @@ namespace Axiom
 
                     // Prevent adding duplicate
                     // Ignore Desktop.ini
+                    // Ignore ntuser.ini
                     if (!presetNamesList.Contains(presetName) &&
-                        !string.Equals(presetName, "desktop", StringComparison.CurrentCultureIgnoreCase))
+                        !string.Equals(presetName, "desktop", StringComparison.CurrentCultureIgnoreCase) &&
+                        !string.Equals(presetName, "ntuser", StringComparison.CurrentCultureIgnoreCase)
+                        )
                     {
                         vm.Preset_Items.Insert(3, new ViewModel.Preset() { Name = presetName, Category = false });
                     }

@@ -40,8 +40,6 @@ namespace Axiom
         public static string theme; // Set Theme
         public static string threads; // Set FFmpeg -threads
         public static string maxthreads; // All CPU Threads
-        //public static string configDir = MainWindow.appDir; // Axiom Config File Path axiom.conf path (Can't change location)
-        //public static string configFile = MainWindow.appDir + "axiom.conf"; // Axiom Config File (Can't change location)
         //public static string configDir = MainWindow.documentsDir + @"Axiom UI\"; // Axiom Config File Directory (Can't change location)
         public static string configDir = MainWindow.programDataDir + @"Axiom UI\"; // Axiom Config File Directory (Can't change location)
         public static string configFile = configDir + "axiom.conf"; // Axiom Config File axiom.conf (Can't change location)
@@ -298,6 +296,7 @@ namespace Axiom
             {
                 try
                 {
+                    // Create Config Directory
                     Directory.CreateDirectory(configDir);
                 }
                 catch
@@ -437,8 +436,15 @@ namespace Axiom
 
                 // Add backslash if missing
                 vm.CustomPresetsPath_Text = vm.CustomPresetsPath_Text.TrimEnd('\\') + @"\";
+
+                //// -------------------------
+                //// Load Custom Presets
+                //// Refresh Presets ComboBox
+                //// -------------------------
+                //Profiles.LoadCustomPresets(vm);
             }
         }
+
 
         // --------------------------------------------------
         // FFmpeg Folder Browser Dialog
