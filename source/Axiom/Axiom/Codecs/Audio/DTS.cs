@@ -32,16 +32,16 @@ namespace Axiom
         // ---------------------------------------------------------------------------
         // Codec
         // ---------------------------------------------------------------------------
-        public static List<ViewModel.AudioCodec> codec = new List<ViewModel.AudioCodec>()
+        public static List<AudioView.AudioCodec> codec = new List<AudioView.AudioCodec>()
         {
-             new ViewModel.AudioCodec()
+             new AudioView.AudioCodec()
              {
                  Codec = "dca",
                  Parameters = "-strict -2"
              }
         };
 
-        public static void Codec_Set(ViewModel vm)
+        public static void Codec_Set()
         {
             // Combine Codec + Parameters
             List<string> codec = new List<string>()
@@ -51,7 +51,7 @@ namespace Axiom
                 DTS.codec.FirstOrDefault()?.Parameters
             };
 
-            vm.Audio_Codec = string.Join(" ", codec.Where(s => !string.IsNullOrEmpty(s)));
+            AudioView.vm.Audio_Codec = string.Join(" ", codec.Where(s => !string.IsNullOrEmpty(s)));
         }
 
 
@@ -74,22 +74,22 @@ namespace Axiom
         // -------------------------
         // Quality
         // -------------------------
-        public static List<ViewModel.AudioQuality> quality = new List<ViewModel.AudioQuality>()
+        public static List<AudioView.AudioQuality> quality = new List<AudioView.AudioQuality>()
         {
-             new ViewModel.AudioQuality() { Name = "Auto",   CBR_BitMode = "-b:a", CBR = "",     VBR_BitMode = "", VBR = "", NA = "1509" },
-             new ViewModel.AudioQuality() { Name = "1509",   CBR_BitMode = "-b:a", CBR = "1509", VBR_BitMode = "", VBR = "" },
-             new ViewModel.AudioQuality() { Name = "755",    CBR_BitMode = "-b:a", CBR = "755",  VBR_BitMode = "", VBR = "" },
-             new ViewModel.AudioQuality() { Name = "640",    CBR_BitMode = "-b:a", CBR = "640",  VBR_BitMode = "", VBR = "" },
-             new ViewModel.AudioQuality() { Name = "448",    CBR_BitMode = "-b:a", CBR = "448",  VBR_BitMode = "", VBR = "" },
-             new ViewModel.AudioQuality() { Name = "320",    CBR_BitMode = "-b:a", CBR = "320",  VBR_BitMode = "", VBR = "" },
-             new ViewModel.AudioQuality() { Name = "256",    CBR_BitMode = "-b:a", CBR = "256",  VBR_BitMode = "", VBR = "" },
-             new ViewModel.AudioQuality() { Name = "224",    CBR_BitMode = "-b:a", CBR = "224",  VBR_BitMode = "", VBR = "" },
-             new ViewModel.AudioQuality() { Name = "192",    CBR_BitMode = "-b:a", CBR = "192",  VBR_BitMode = "", VBR = "" },
-             new ViewModel.AudioQuality() { Name = "160",    CBR_BitMode = "-b:a", CBR = "160",  VBR_BitMode = "", VBR = "" },
-             new ViewModel.AudioQuality() { Name = "128",    CBR_BitMode = "-b:a", CBR = "128",  VBR_BitMode = "", VBR = "" },
-             new ViewModel.AudioQuality() { Name = "96",     CBR_BitMode = "-b:a", CBR = "96",   VBR_BitMode = "", VBR = "" },
-             new ViewModel.AudioQuality() { Name = "Custom", CBR_BitMode = "-b:a", CBR = "",     VBR_BitMode = "", VBR = "" },
-             new ViewModel.AudioQuality() { Name = "Mute",   CBR_BitMode = "",     CBR = "",     VBR_BitMode = "", VBR = "" }
+             new AudioView.AudioQuality() { Name = "Auto",   CBR_BitMode = "-b:a", CBR = "",     VBR_BitMode = "", VBR = "", NA = "1509" },
+             new AudioView.AudioQuality() { Name = "1509",   CBR_BitMode = "-b:a", CBR = "1509", VBR_BitMode = "", VBR = "" },
+             new AudioView.AudioQuality() { Name = "755",    CBR_BitMode = "-b:a", CBR = "755",  VBR_BitMode = "", VBR = "" },
+             new AudioView.AudioQuality() { Name = "640",    CBR_BitMode = "-b:a", CBR = "640",  VBR_BitMode = "", VBR = "" },
+             new AudioView.AudioQuality() { Name = "448",    CBR_BitMode = "-b:a", CBR = "448",  VBR_BitMode = "", VBR = "" },
+             new AudioView.AudioQuality() { Name = "320",    CBR_BitMode = "-b:a", CBR = "320",  VBR_BitMode = "", VBR = "" },
+             new AudioView.AudioQuality() { Name = "256",    CBR_BitMode = "-b:a", CBR = "256",  VBR_BitMode = "", VBR = "" },
+             new AudioView.AudioQuality() { Name = "224",    CBR_BitMode = "-b:a", CBR = "224",  VBR_BitMode = "", VBR = "" },
+             new AudioView.AudioQuality() { Name = "192",    CBR_BitMode = "-b:a", CBR = "192",  VBR_BitMode = "", VBR = "" },
+             new AudioView.AudioQuality() { Name = "160",    CBR_BitMode = "-b:a", CBR = "160",  VBR_BitMode = "", VBR = "" },
+             new AudioView.AudioQuality() { Name = "128",    CBR_BitMode = "-b:a", CBR = "128",  VBR_BitMode = "", VBR = "" },
+             new AudioView.AudioQuality() { Name = "96",     CBR_BitMode = "-b:a", CBR = "96",   VBR_BitMode = "", VBR = "" },
+             new AudioView.AudioQuality() { Name = "Custom", CBR_BitMode = "-b:a", CBR = "",     VBR_BitMode = "", VBR = "" },
+             new AudioView.AudioQuality() { Name = "Mute",   CBR_BitMode = "",     CBR = "",     VBR_BitMode = "", VBR = "" }
         };
 
         // -------------------------
@@ -103,26 +103,26 @@ namespace Axiom
         // -------------------------
         // Sample Rate
         // -------------------------
-        public static List<ViewModel.AudioSampleRate> sampleRate = new List<ViewModel.AudioSampleRate>()
+        public static List<AudioView.AudioSampleRate> sampleRate = new List<AudioView.AudioSampleRate>()
         {
-             new ViewModel.AudioSampleRate() { Name = "auto",     Frequency = "" },
-             new ViewModel.AudioSampleRate() { Name = "8k",       Frequency = "8000" },
-             new ViewModel.AudioSampleRate() { Name = "11.025k",  Frequency = "11025" },
-             new ViewModel.AudioSampleRate() { Name = "12k",      Frequency = "12000" },
-             new ViewModel.AudioSampleRate() { Name = "16k",      Frequency = "16000" },
-             new ViewModel.AudioSampleRate() { Name = "22.05k",   Frequency = "22050" },
-             new ViewModel.AudioSampleRate() { Name = "24k",      Frequency = "24000" },
-             new ViewModel.AudioSampleRate() { Name = "32k",      Frequency = "32000" },
-             new ViewModel.AudioSampleRate() { Name = "44.1k",    Frequency = "44100" },
-             new ViewModel.AudioSampleRate() { Name = "48k",      Frequency = "48000" },
+             new AudioView.AudioSampleRate() { Name = "auto",     Frequency = "" },
+             new AudioView.AudioSampleRate() { Name = "8k",       Frequency = "8000" },
+             new AudioView.AudioSampleRate() { Name = "11.025k",  Frequency = "11025" },
+             new AudioView.AudioSampleRate() { Name = "12k",      Frequency = "12000" },
+             new AudioView.AudioSampleRate() { Name = "16k",      Frequency = "16000" },
+             new AudioView.AudioSampleRate() { Name = "22.05k",   Frequency = "22050" },
+             new AudioView.AudioSampleRate() { Name = "24k",      Frequency = "24000" },
+             new AudioView.AudioSampleRate() { Name = "32k",      Frequency = "32000" },
+             new AudioView.AudioSampleRate() { Name = "44.1k",    Frequency = "44100" },
+             new AudioView.AudioSampleRate() { Name = "48k",      Frequency = "48000" },
         };
 
         // -------------------------
         // Bit Depth
         // -------------------------
-        public static List<ViewModel.AudioBitDepth> bitDepth = new List<ViewModel.AudioBitDepth>()
+        public static List<AudioView.AudioBitDepth> bitDepth = new List<AudioView.AudioBitDepth>()
         {
-             new ViewModel.AudioBitDepth() { Name = "auto", Depth = "" }
+             new AudioView.AudioBitDepth() { Name = "auto", Depth = "" }
         };
 
 
@@ -134,39 +134,39 @@ namespace Axiom
         // -------------------------
         // Items Source
         // -------------------------
-        public static void Controls_ItemsSource(ViewModel vm)
+        public static void Controls_ItemsSource()
         {
             // Channel
-            vm.Audio_Channel_Items = channel;
+            AudioView.vm.Audio_Channel_Items = channel;
 
             // Quality
-            vm.Audio_Quality_Items = quality;
+            AudioView.vm.Audio_Quality_Items = quality;
 
             // Compression Level
-            vm.Audio_CompressionLevel_Items = compressionLevel;
+            AudioView.vm.Audio_CompressionLevel_Items = compressionLevel;
 
             // Samplerate
-            vm.Audio_SampleRate_Items = sampleRate;
+            AudioView.vm.Audio_SampleRate_Items = sampleRate;
 
             // Bit Depth
-            vm.Audio_BitDepth_Items = bitDepth;
+            AudioView.vm.Audio_BitDepth_Items = bitDepth;
         }
 
         // -------------------------
         // Selected Items
         // -------------------------
-        public static void Controls_Selected(ViewModel vm)
+        public static void Controls_Selected()
         {
-            //vm.Audio_Stream_SelectedItem = "all";
+            //AudioView.vm.Audio_Stream_SelectedItem = "all";
 
             // Compression Level
-            vm.Audio_CompressionLevel_SelectedItem = "auto";
+            AudioView.vm.Audio_CompressionLevel_SelectedItem = "auto";
         }
 
         // -------------------------
         // Checked
         // -------------------------
-        public static void Controls_Checked(ViewModel vm)
+        public static void Controls_Checked()
         {
             // None
         }
@@ -174,49 +174,49 @@ namespace Axiom
         // -------------------------
         // Unchecked
         // -------------------------
-        public static void Controls_Unhecked(ViewModel vm)
+        public static void Controls_Unhecked()
         {
             // BitRate Mode
-            vm.Audio_VBR_IsChecked = false;
+            AudioView.vm.Audio_VBR_IsChecked = false;
         }
 
         // -------------------------
         // Enabled
         // -------------------------
-        public static void Controls_Enable(ViewModel vm)
+        public static void Controls_Enable()
         {
             // Audio Codec
-            vm.Audio_Codec_IsEnabled = true;
+            AudioView.vm.Audio_Codec_IsEnabled = true;
 
             // Audio Quality
-            vm.Audio_Quality_IsEnabled = true;
+            AudioView.vm.Audio_Quality_IsEnabled = true;
 
             // Stream
-            vm.Audio_Stream_IsEnabled = true;
+            AudioView.vm.Audio_Stream_IsEnabled = true;
 
             // Channel
-            vm.Audio_Channel_IsEnabled = true;
+            AudioView.vm.Audio_Channel_IsEnabled = true;
 
             // SampleRate
-            vm.Audio_SampleRate_IsEnabled = true;
+            AudioView.vm.Audio_SampleRate_IsEnabled = true;
 
             // Volume
-            vm.Audio_Volume_IsEnabled = true;
+            AudioView.vm.Audio_Volume_IsEnabled = true;
 
             // Hard Limiter
-            vm.Audio_HardLimiter_IsEnabled = true;
+            AudioView.vm.Audio_HardLimiter_IsEnabled = true;
         }
 
         // -------------------------
         // Disabled
         // -------------------------
-        public static void Controls_Disable(ViewModel vm)
+        public static void Controls_Disable()
         {
             // VBR Button
-            vm.Audio_VBR_IsEnabled = false;
+            AudioView.vm.Audio_VBR_IsEnabled = false;
 
             // Compression Level
-            vm.Audio_CompressionLevel_IsEnabled = false;
+            AudioView.vm.Audio_CompressionLevel_IsEnabled = false;
         }
 
     }

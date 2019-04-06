@@ -35,9 +35,9 @@ namespace Axiom
         /// <summary>
         ///     Clear RichTextBox
         /// </summary>
-        public static void ClearScriptView(ViewModel vm)
+        public static void ClearScriptView()
         {
-            vm.ScriptView_Text = string.Empty;
+            MainView.vm.ScriptView_Text = string.Empty;
         }
 
     }

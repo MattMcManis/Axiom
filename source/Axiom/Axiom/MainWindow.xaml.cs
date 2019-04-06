@@ -51,7 +51,7 @@ namespace Axiom
     public partial class MainWindow : Window
     {
         // View Model
-        public ViewModel vm = new ViewModel();
+        //public ViewModel vm = new ViewModel();
 
         // Axiom Current Version
         public static Version currentVersion;
@@ -74,9 +74,17 @@ namespace Axiom
         /// </summary>
         // --------------------------------------------------------------------------------------------------------
         // System
-        public static string appDir = AppDomain.CurrentDomain.BaseDirectory.TrimEnd('\\') + @"\"; // Axiom.exe directory
+        public static string appRootDir = AppDomain.CurrentDomain.BaseDirectory.TrimEnd('\\') + @"\"; // Axiom.exe directory
+
+        public static string commonProgramFilesDir = Environment.GetFolderPath(Environment.SpecialFolder.CommonProgramFiles).TrimEnd('\\') + @"\";
+        public static string commonProgramFilesX86Dir = Environment.GetFolderPath(Environment.SpecialFolder.CommonProgramFilesX86).TrimEnd('\\') + @"\";
+        public static string programFilesDir = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles).TrimEnd('\\') + @"\";
+        public static string programFilesX86Dir = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86).TrimEnd('\\') + @"\";
+        public static string programFilesX64Dir = @"C:\Program Files\";
+
         public static string programDataDir = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData).TrimEnd('\\') + @"\";
         public static string appDataLocalDir = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData).TrimEnd('\\') + @"\";
+        public static string appDataRoamingDir = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData).TrimEnd('\\') + @"\";
         public static string tempDir = Path.GetTempPath(); // Windows AppData Temp Directory
 
         public static string userProfile = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile).TrimEnd('\\') + @"\";
@@ -180,10 +188,219 @@ namespace Axiom
 
             // -----------------------------------------------------------------
             /// <summary>
-            ///     Control Binding
+            ///     Control Binding Data Context
             /// </summary>
             // -----------------------------------------------------------------
-            DataContext = vm;
+            //DataContext = MainView.vm;
+
+            // Settings
+            //tbxConfigPath.DataContext =
+            cboConfigPath.DataContext =
+            tbxCustomPresetsPath.DataContext =
+            tbxFFmpegPathConfig.DataContext =
+            tbxFFprobePathConfig.DataContext =
+            tbxFFplayPathConfig.DataContext =
+            tbxyoutubedlPathConfig.DataContext =
+            cbxLog.DataContext =
+            tbxLogConfig.DataContext =
+            cboThreads.DataContext =
+            cboTheme.DataContext =
+            tglUpdateAutoCheck.DataContext =
+            ConfigureView.vm;
+
+            // Main   
+            this.DataContext = // Window Title
+            tbxInput.DataContext =
+            openLocationInput.DataContext =
+            tbxOutput.DataContext =
+            openLocationOutput.DataContext =
+            btnConvertTextBlock.DataContext =   
+            tglBatch.DataContext =
+            batchExtensionTextBox.DataContext =
+            tbxScriptView.DataContext =
+            cboPreset.DataContext =
+            MainView.vm;
+
+            // Format
+            cboFormat_Container.DataContext =
+            cboFormat_MediaType.DataContext =
+            cboFormat_Cut.DataContext =
+            tbxCutStart.DataContext =
+            tbxCutStartHours.DataContext =
+            lblCutStartHours.DataContext =
+            tbxCutStartMinutes.DataContext =
+            lblCutStartMinutes.DataContext =
+            tbxCutStartSeconds.DataContext =
+            lblCutStartSeconds.DataContext =
+            tbxCutStartMilliseconds.DataContext =
+            tbxCutEnd.DataContext =
+            tbxCutEndHours.DataContext =
+            lblCutEndHours.DataContext =
+            tbxCutEndMinutes.DataContext =
+            lblCutEndMinutes.DataContext =
+            tbxCutEndSeconds.DataContext =
+            lblCutEndSeconds.DataContext =
+            tbxCutEndMilliseconds.DataContext =
+            tbxFrameStart.DataContext =
+            tbxFrameEnd.DataContext =
+            cboYouTube.DataContext =
+            cboYouTube_Quality.DataContext =
+            FormatView.vm;
+
+            // Video
+            cboVideo_Codec.DataContext =
+            cboEncodeSpeed.DataContext =
+            cboHWAccel.DataContext =
+            cboVideo_Quality.DataContext =
+            cboVideo_Pass.DataContext =
+            slVideo_CRF.DataContext =
+            tbxVideo_CRF.DataContext =
+            tbxVideo_BitRate.DataContext =
+            tglVideo_VBR.DataContext =
+            tbxVideo_MinRate.DataContext =
+            tbxVideo_MaxRate.DataContext =
+            tbxVideo_BufSize.DataContext =
+            cboVideo_PixelFormat.DataContext =
+            cboVideo_FrameRate.DataContext =
+            cboVideo_Speed.DataContext =
+            cboVideo_Optimize.DataContext =
+            expVideo_Optimize_Expander.DataContext =
+            cboVideo_Optimize_Tune.DataContext =
+            cboVideo_Optimize_Profile.DataContext =
+            cboVideo_Optimize_Level.DataContext =
+            cboVideo_Scale.DataContext =
+            tbxVideo_Width.DataContext =
+            tbxVideo_Height.DataContext =
+            cboVideo_ScreenFormat.DataContext =
+            cboVideo_AspectRatio.DataContext =
+            cboVideo_ScalingAlgorithm.DataContext =
+            btnVideo_Crop.DataContext =
+            btnVideo_CropClear.DataContext =
+            VideoView.vm;
+
+            // Subtitle
+            cboSubtitle_Codec.DataContext =
+            cboSubtitles_Stream.DataContext =
+            lstvSubtitles.DataContext =
+            btnSubtitle_Add.DataContext =
+            btnSubtitle_Remove.DataContext =
+            btnSubtitle_Clear.DataContext =
+            btnSubtitle_SortUp.DataContext =
+            btnSubtitle_SortDown.DataContext =
+            SubtitleView.vm;
+
+            // Audio
+            cboAudio_Codec.DataContext =
+            cboAudio_Stream.DataContext =
+            cboAudio_Channel.DataContext =
+            cboAudio_Quality.DataContext =
+            tbxAudio_BitRate.DataContext =
+            tglAudio_VBR.DataContext =
+            cboAudio_CompressionLevel.DataContext =
+            cboAudio_SampleRate.DataContext =
+            cboAudio_BitDepth.DataContext =
+            tbxAudio_Volume.DataContext =
+            btnAudio_VolumeUp.DataContext =
+            btnAudio_VolumeDown.DataContext =
+            slAudio_HardLimiter.DataContext =
+            tbxAudio_HardLimiter.DataContext =
+            AudioView.vm;
+
+            // Filter Video
+            cboFilterVideo_Deband.DataContext =
+            cboFilterVideo_Deshake.DataContext =
+            cboFilterVideo_Deflicker.DataContext =
+            cboFilterVideo_Dejudder.DataContext =
+            cboFilterVideo_Denoise.DataContext =
+            cboFilterVideo_Deinterlace.DataContext =
+            slFilterVideo_EQ_Brightness.DataContext =
+            tbxFilterVideo_EQ_Brightness.DataContext =
+            slFilterVideo_EQ_Contrast.DataContext =
+            tbxFilterVideo_EQ_Contrast.DataContext =
+            slFilterVideo_EQ_Saturation.DataContext =
+            tbxFilterVideo_EQ_Saturation.DataContext =
+            slFilterVideo_EQ_Gamma.DataContext =
+            tbxFilterVideo_EQ_Gamma.DataContext =
+            cboFilterVideo_SelectiveColor.DataContext =
+            cboFilterVideo_SelectiveColor_Correction_Method.DataContext =
+
+            slFilterVideo_SelectiveColor_Reds_Cyan.DataContext =
+            tbxFilterVideo_SelectiveColor_Reds_Cyan.DataContext =
+            slFilterVideo_SelectiveColor_Reds_Magenta.DataContext =
+            tbxFilterVideo_SelectiveColor_Reds_Magenta.DataContext =
+            slFilterVideo_SelectiveColor_Reds_Yellow.DataContext =
+            tbxFilterVideo_SelectiveColor_Reds_Yellow.DataContext =
+
+            slFilterVideo_SelectiveColor_Yellows_Cyan.DataContext =
+            tbxFilterVideo_SelectiveColor_Yellows_Cyan.DataContext =
+            slFilterVideo_SelectiveColor_Yellows_Magenta.DataContext =
+            tbxFilterVideo_SelectiveColor_Yellows_Magenta.DataContext =
+            slFilterVideo_SelectiveColor_Yellows_Yellow.DataContext =
+            tbxFilterVideo_SelectiveColor_Yellows_Yellow.DataContext =
+
+            slFilterVideo_SelectiveColor_Greens_Cyan.DataContext =
+            tbxFilterVideo_SelectiveColor_Greens_Cyan.DataContext =
+            slFilterVideo_SelectiveColor_Greens_Magenta.DataContext =
+            tbxFilterVideo_SelectiveColor_Greens_Magenta.DataContext =
+            slFilterVideo_SelectiveColor_Greens_Yellow.DataContext =
+            tbxFilterVideo_SelectiveColor_Greens_Yellow.DataContext =
+
+            slFilterVideo_SelectiveColor_Cyans_Cyan.DataContext =
+            tbxFilterVideo_SelectiveColor_Cyans_Cyan.DataContext =
+            slFilterVideo_SelectiveColor_Cyans_Magenta.DataContext =
+            tbxFilterVideo_SelectiveColor_Cyans_Magenta.DataContext =
+            slFilterVideo_SelectiveColor_Cyans_Yellow.DataContext =
+            tbxFilterVideo_SelectiveColor_Cyans_Yellow.DataContext =
+
+            slFilterVideo_SelectiveColor_Blues_Cyan.DataContext =
+            tbxFilterVideo_SelectiveColor_Blues_Cyan.DataContext =
+            slFilterVideo_SelectiveColor_Blues_Magenta.DataContext =
+            tbxFilterVideo_SelectiveColor_Blues_Magenta.DataContext =
+            slFilterVideo_SelectiveColor_Blues_Yellow.DataContext =
+            tbxFilterVideo_SelectiveColor_Blues_Yellow.DataContext =
+
+            slFilterVideo_SelectiveColor_Magentas_Cyan.DataContext =
+            tbxFilterVideo_SelectiveColor_Magentas_Cyan.DataContext =
+            slFilterVideo_SelectiveColor_Magentas_Magenta.DataContext =
+            tbxFilterVideo_SelectiveColor_Magentas_Magenta.DataContext =
+            slFilterVideo_SelectiveColor_Magentas_Yellow.DataContext =
+            tbxFilterVideo_SelectiveColor_Magentas_Yellow.DataContext =
+
+            slFilterVideo_SelectiveColor_Whites_Cyan.DataContext =
+            tbxFilterVideo_SelectiveColor_Whites_Cyan.DataContext =
+            slFilterVideo_SelectiveColor_Whites_Magenta.DataContext =
+            tbxFilterVideo_SelectiveColor_Whites_Magenta.DataContext =
+            slFilterVideo_SelectiveColor_Whites_Yellow.DataContext =
+            tbxFilterVideo_SelectiveColor_Whites_Yellow.DataContext =
+
+            slFilterVideo_SelectiveColor_Neutrals_Cyan.DataContext =
+            tbxFilterVideo_SelectiveColor_Neutrals_Cyan.DataContext =
+            slFilterVideo_SelectiveColor_Neutrals_Magenta.DataContext =
+            tbxFilterVideo_SelectiveColor_Neutrals_Magenta.DataContext =
+            slFilterVideo_SelectiveColor_Neutrals_Yellow.DataContext =
+            tbxFilterVideo_SelectiveColor_Neutrals_Yellow.DataContext =
+
+            slFilterVideo_SelectiveColor_Blacks_Cyan.DataContext =
+            tbxFilterVideo_SelectiveColor_Blacks_Cyan.DataContext =
+            slFilterVideo_SelectiveColor_Blacks_Magenta.DataContext =
+            tbxFilterVideo_SelectiveColor_Blacks_Magenta.DataContext =
+            slFilterVideo_SelectiveColor_Blacks_Yellow.DataContext =
+            tbxFilterVideo_SelectiveColor_Blacks_Yellow.DataContext =
+            FilterVideoView.vm;
+
+            // Filter Audio
+            cboFilterAudio_Lowpass.DataContext =
+            cboFilterAudio_Highpass.DataContext =
+            slFilterAudio_Contrast.DataContext =
+            tbxFilterAudio_Contrast.DataContext =
+            slFilterAudio_ExtraStereo.DataContext =
+            tbxFilterAudio_ExtraStereo.DataContext =
+            cboFilterAudio_Headphones.DataContext =
+            slFilterAudio_Tempo.DataContext =
+            tbxFilterAudio_Tempo.DataContext =
+            FilterAudioView.vm;
+
+
 
             // -------------------------
             // Start the Log Console (Hidden)
@@ -193,7 +410,7 @@ namespace Axiom
             // -------------------------
             // Title + Version
             // -------------------------
-            vm.TitleVersion = "Axiom ~ FFmpeg UI (" + Convert.ToString(currentVersion) + "-" + currentBuildPhase + ")";
+            MainView.vm.TitleVersion = "Axiom ~ FFmpeg UI (" + Convert.ToString(currentVersion) + "-" + currentBuildPhase + ")";
 
             // -------------------------
             // Tool Tips
@@ -205,7 +422,7 @@ namespace Axiom
             // -------------------------
             // Log Text Theme SelectiveColorPreview
             // -------------------------
-            if (vm.Theme_SelectedItem == "Axiom")
+            if (ConfigureView.vm.Theme_SelectedItem == "Axiom")
             {
                 Log.ConsoleDefault = Brushes.White; // Default
                 Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#007DF2")); // Titles
@@ -213,7 +430,7 @@ namespace Axiom
                 Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
                 Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#72D4E8")); // Actions
             }
-            else if (vm.Theme_SelectedItem == "FFmpeg")
+            else if (ConfigureView.vm.Theme_SelectedItem == "FFmpeg")
             {
                 Log.ConsoleDefault = Brushes.White; // Default
                 Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#5cb85c")); // Titles
@@ -221,7 +438,7 @@ namespace Axiom
                 Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
                 Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#5cb85c")); // Actions
             }
-            else if (vm.Theme_SelectedItem == "Cyberpunk")
+            else if (ConfigureView.vm.Theme_SelectedItem == "Cyberpunk")
             {
                 Log.ConsoleDefault = Brushes.White; // Default
                 Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#9f3ed2")); // Titles
@@ -229,7 +446,7 @@ namespace Axiom
                 Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
                 Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#9380fd")); // Actions
             }
-            else if (vm.Theme_SelectedItem == "Onyx")
+            else if (ConfigureView.vm.Theme_SelectedItem == "Onyx")
             {
                 Log.ConsoleDefault = Brushes.White; // Default
                 Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#999999")); // Titles
@@ -237,7 +454,7 @@ namespace Axiom
                 Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
                 Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#777777")); // Actions
             }
-            else if (vm.Theme_SelectedItem == "Circuit")
+            else if (ConfigureView.vm.Theme_SelectedItem == "Circuit")
             {
                 Log.ConsoleDefault = Brushes.White; // Default
                 Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#ad8a4a")); // Titles
@@ -245,7 +462,7 @@ namespace Axiom
                 Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
                 Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#2ebf93")); // Actions
             }
-            else if (vm.Theme_SelectedItem == "Prelude")
+            else if (ConfigureView.vm.Theme_SelectedItem == "Prelude")
             {
                 Log.ConsoleDefault = Brushes.White; // Default
                 Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#999999")); // Titles
@@ -253,7 +470,7 @@ namespace Axiom
                 Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
                 Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#777777")); // Actions
             }
-            else if (vm.Theme_SelectedItem == "System")
+            else if (ConfigureView.vm.Theme_SelectedItem == "System")
             {
                 Log.ConsoleDefault = Brushes.White; // Default
                 Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#007DF2")); // Titles
@@ -269,7 +486,7 @@ namespace Axiom
             logconsole.rtbLog.BeginChange(); //begin change
 
 
-            Log.logParagraph.Inlines.Add(new Bold(new Run(vm.TitleVersion)) { Foreground = Log.ConsoleTitle });
+            Log.logParagraph.Inlines.Add(new Bold(new Run(MainView.vm.TitleVersion)) { Foreground = Log.ConsoleTitle });
 
 
             /// <summary>
@@ -318,7 +535,7 @@ namespace Axiom
             Log.logParagraph.Inlines.Add(new LineBreak());
             Log.logParagraph.Inlines.Add(new LineBreak());
             Log.logParagraph.Inlines.Add(new Bold(new Run("FFmpeg: ")) { Foreground = Log.ConsoleDefault });
-            Log.logParagraph.Inlines.Add(new Run(vm.FFmpegPath_Text) { Foreground = Log.ConsoleDefault });
+            Log.logParagraph.Inlines.Add(new Run(ConfigureView.vm.FFmpegPath_Text) { Foreground = Log.ConsoleDefault });
 
             // -------------------------
             // Load FFprobe.exe Path
@@ -326,7 +543,7 @@ namespace Axiom
             // Log Console Message /////////
             Log.logParagraph.Inlines.Add(new LineBreak());
             Log.logParagraph.Inlines.Add(new Bold(new Run("FFprobe: ")) { Foreground = Log.ConsoleDefault });
-            Log.logParagraph.Inlines.Add(new Run(vm.FFprobePath_Text) { Foreground = Log.ConsoleDefault });
+            Log.logParagraph.Inlines.Add(new Run(ConfigureView.vm.FFprobePath_Text) { Foreground = Log.ConsoleDefault });
 
             // -------------------------
             // Load FFplay.exe Path
@@ -334,7 +551,7 @@ namespace Axiom
             // Log Console Message /////////
             Log.logParagraph.Inlines.Add(new LineBreak());
             Log.logParagraph.Inlines.Add(new Bold(new Run("FFplay: ")) { Foreground = Log.ConsoleDefault });
-            Log.logParagraph.Inlines.Add(new Run(vm.FFplayPath_Text) { Foreground = Log.ConsoleDefault });
+            Log.logParagraph.Inlines.Add(new Run(ConfigureView.vm.FFplayPath_Text) { Foreground = Log.ConsoleDefault });
 
             // -------------------------
             // Load youtube-dl.exe Path
@@ -342,7 +559,7 @@ namespace Axiom
             // Log Console Message /////////
             Log.logParagraph.Inlines.Add(new LineBreak());
             Log.logParagraph.Inlines.Add(new Bold(new Run("youtube-dl: ")) { Foreground = Log.ConsoleDefault });
-            Log.logParagraph.Inlines.Add(new Run(vm.youtubedlPath_Text) { Foreground = Log.ConsoleDefault });
+            Log.logParagraph.Inlines.Add(new Run(ConfigureView.vm.youtubedlPath_Text) { Foreground = Log.ConsoleDefault });
 
             // -------------------------
             // Load Log Enabled
@@ -351,7 +568,7 @@ namespace Axiom
             Log.logParagraph.Inlines.Add(new LineBreak());
             Log.logParagraph.Inlines.Add(new LineBreak());
             Log.logParagraph.Inlines.Add(new Bold(new Run("Log Enabled: ")) { Foreground = Log.ConsoleDefault });
-            Log.logParagraph.Inlines.Add(new Run(Convert.ToString(vm.LogCheckBox_IsChecked.ToString())) { Foreground = Log.ConsoleDefault });
+            Log.logParagraph.Inlines.Add(new Run(Convert.ToString(ConfigureView.vm.LogCheckBox_IsChecked.ToString())) { Foreground = Log.ConsoleDefault });
 
             // -------------------------
             // Load Log Path
@@ -359,7 +576,7 @@ namespace Axiom
             // Log Console Message /////////
             Log.logParagraph.Inlines.Add(new LineBreak());
             Log.logParagraph.Inlines.Add(new Bold(new Run("Log Path: ")) { Foreground = Log.ConsoleDefault });
-            Log.logParagraph.Inlines.Add(new Run(vm.LogPath_Text) { Foreground = Log.ConsoleDefault });
+            Log.logParagraph.Inlines.Add(new Run(ConfigureView.vm.LogPath_Text) { Foreground = Log.ConsoleDefault });
 
             // -------------------------
             // Load Threads
@@ -368,7 +585,7 @@ namespace Axiom
             Log.logParagraph.Inlines.Add(new LineBreak());
             Log.logParagraph.Inlines.Add(new LineBreak());
             Log.logParagraph.Inlines.Add(new Bold(new Run("Using CPU Threads: ")) { Foreground = Log.ConsoleDefault });
-            Log.logParagraph.Inlines.Add(new Run(vm.Threads_SelectedItem) { Foreground = Log.ConsoleDefault });
+            Log.logParagraph.Inlines.Add(new Run(ConfigureView.vm.Threads_SelectedItem) { Foreground = Log.ConsoleDefault });
 
             // -----------------------------------------------------------------
             // end change !important
@@ -397,44 +614,99 @@ namespace Axiom
             // -------------------------
             // App Root Directory
             // -------------------------
-            if (File.Exists(Path.Combine(appDir, "axiom.conf"))) 
+            if (File.Exists(Path.Combine(appRootDir, "axiom.conf")))
             {
                 // Import Config
-                Configure.ImportConfig(this, vm);
+                Configure.ImportConfig(this);
+                ConfigureView.vm.ConfigPath_SelectedItem = "App Root";
 
+                // Make changes for Program Exit
                 // If Axiom finds axiom.conf in the App Directory
                 // Change the Configure Directory variable to it 
                 // so that it saves changes to that path on program exit
-                Configure.configDir = appDir;
-                Configure.configFile = Path.Combine(appDir, "axiom.conf");
-                vm.ConfigPath_Text = appDir;
+                Configure.configDir = appRootDir;
+                Configure.configFile = Path.Combine(appRootDir, "axiom.conf");
+                //ConfigureView.vm.ConfigPath_Text = appDir;
 
                 // Change Presets Directory to App Root Directory
-                Profiles.presetsDir = appDir + @"presets\";
-                vm.CustomPresetsPath_Text = Profiles.presetsDir;
+                //Profiles.presetsDir = appDir + @"presets\";
+                //ConfigureView.vm.CustomPresetsPath_Text = Profiles.presetsDir;
 
                 // Change Log Directory to App Root Directory
-                Log.logDir = appDir;
-                vm.LogPath_Text = Log.logDir;
+                Log.logDir = appRootDir;
+                ConfigureView.vm.LogPath_Text = Log.logDir;
 
                 // These changes will be seen in Axiom's Settings Tab
-
             }
+
             // -------------------------
             // AppData Local Directory
             // -------------------------
-            else if (File.Exists(Configure.configFile))
+            //else if (File.Exists(Configure.configFile))
+            else if (File.Exists(appDataLocalDir + @"Axiom UI\axiom.conf"))
             {
                 // Import Config
-                Configure.ImportConfig(this, vm);
+                Configure.ImportConfig(this);
+                ConfigureView.vm.ConfigPath_SelectedItem = "AppData Local";
+
+                // Make changes for Program Exit
+                // If Axiom finds axiom.conf in the App Directory
+                // Change the Configure Directory variable to it 
+                // so that it saves changes to that path on program exit
+                Configure.configDir = appDataLocalDir + @"Axiom UI\";
+                Configure.configFile = Path.Combine(appDataLocalDir + @"Axiom UI\", "axiom.conf");
+                //ConfigureView.vm.ConfigPath_Text = appDir;
+
+                // Change Presets Directory to App Root Directory
+                //Profiles.presetsDir = appDataLocalDir + @"Axiom UI\presets\";
+                //ConfigureView.vm.CustomPresetsPath_Text = Profiles.presetsDir;
+
+                // Change Log Directory to App Root Directory
+                Log.logDir = appDataLocalDir + @"Axiom UI\";
+                ConfigureView.vm.LogPath_Text = Log.logDir;
+
+                // These changes will be seen in Axiom's Settings Tab
+            }
+
+            // -------------------------
+            // AppData Roaming Directory
+            // -------------------------
+            //else if (File.Exists(Configure.configFile))
+            else if (File.Exists(appDataRoamingDir + @"Axiom UI\axiom.conf"))
+            {
+                // Import Config
+                Configure.ImportConfig(this);
+                ConfigureView.vm.ConfigPath_SelectedItem = "AppData Roaming";
+
+                // Make changes for Program Exit
+                // If Axiom finds axiom.conf in the App Directory
+                // Change the Configure Directory variable to it 
+                // so that it saves changes to that path on program exit
+                Configure.configDir = appDataRoamingDir + @"Axiom UI\";
+                Configure.configFile = Path.Combine(appDataRoamingDir + @"Axiom UI\", "axiom.conf");
+                //ConfigureView.vm.ConfigPath_Text = appDir;
+
+                // Change Presets Directory to App Root Directory
+                //Profiles.presetsDir = appDataRoamingDir + @"Axiom UI\presets\";
+                //ConfigureView.vm.CustomPresetsPath_Text = Profiles.presetsDir;
+
+                // Change Log Directory to App Root Directory
+                Log.logDir = appDataRoamingDir + @"Axiom UI\";
+                ConfigureView.vm.LogPath_Text = Log.logDir;
+
+                // These changes will be seen in Axiom's Settings Tab
             }
             // -------------------------
             // Missing, Load Defaults
             // -------------------------
             else
             {
-                vm.LoadConfigDefaults();
-                vm.LoadControlsDefaults();
+                ConfigureView.vm.LoadConfigDefaults();
+                MainView.vm.LoadControlsDefaults();
+                FormatView.vm.LoadControlsDefaults();
+                VideoView.vm.LoadControlsDefaults();
+                SubtitleView.vm.LoadControlsDefaults();
+                AudioView.vm.LoadControlsDefaults();
             }
 
             // -------------------------
@@ -459,7 +731,7 @@ namespace Axiom
             // -------------------------
             // Control Defaults
             // -------------------------
-            lstv_Subtitles.SelectionMode = SelectionMode.Single;
+            lstvSubtitles.SelectionMode = SelectionMode.Single;
 
             // -------------------------
             // Load ComboBox Items
@@ -470,12 +742,12 @@ namespace Axiom
             // -------------------------
             // Check for Available Updates
             // -------------------------
-            Task<int> task = UpdateAvailableCheck(vm);
+            Task<int> task = UpdateAvailableCheck();
 
             // -------------------------
             // Load Custom Presets
             // -------------------------
-            Profiles.LoadCustomPresets(vm);
+            Profiles.LoadCustomPresets();
         }
 
 
@@ -510,36 +782,363 @@ namespace Axiom
 
                 //    // Change Presets Directory to App Directory
                 //    Profiles.presetsDir = appDir + @"presets\";
-                //    vm.CustomPresetsPath_Text = Profiles.presetsDir;
+                //    ConfigureView.vm.CustomPresetsPath_Text = Profiles.presetsDir;
 
                 //    // Change Log Directory to App Root Directory
                 //    Log.logDir = appDir;
-                //    vm.LogPath_Text = Log.logDir;
+                //    ConfigureView.vm.LogPath_Text = Log.logDir;
 
                 //    // Save Config
                 //    ExportWriteConfig();
                 //}
 
+
+
+                //// -------------------------
+                //// AppData Local Directory
+                //// -------------------------
+                ///*else */
+                //if (File.Exists(Configure.configFile))
+                //{
+                //    //Configure.configDir = appDataDir + @"Axiom UI\";
+
+                //    // Save Config
+                //    ExportWriteConfig();
+                //}
+
+                //// -------------------------
+                //// First time, Save Current Selected
+                //// -------------------------
+                //else //if (!File.Exists(Configure.configFile))
+                //{
+                //    // Save Config
+                //    Configure.ExportConfig(this);
+                //}
+
+                string confAppRootPath = appRootDir + "axiom.conf";
+                string confAppDataLocalPath = appDataLocalDir + @"Axiom UI\axiom.conf";
+                string confAppDataRoamingPath = appDataRoamingDir + @"Axiom UI\axiom.conf";
+
+                string logAppRootPath = appRootDir + "axiom.log";
+                string logAppDataLocalPath = appDataLocalDir + @"Axiom UI\axiom.log";
+                string logAppDataRoamingPath = appDataRoamingDir + @"Axiom UI\axiom.log";
+
+
+                // -------------------------
+                // App Directory
+                // -------------------------
+                if (ConfigureView.vm.ConfigPath_SelectedItem == "App Root")
+                {
+                    // Change the conf output folder path
+                    Configure.configDir = appRootDir;
+
+                    // -------------------------
+                    // Ignore Program Files
+                    // -------------------------
+                    if (!appRootDir.Contains(programFilesDir) &&
+                        !appRootDir.Contains(programFilesX86Dir) &&
+                        !appRootDir.Contains(programFilesX64Dir)
+                        )
+                    {
+                        try
+                        {
+                            // -------------------------
+                            // Create Axiom UI folder if missing
+                            // -------------------------
+                            if (!Directory.Exists(Configure.configDir))
+                            {
+                                Directory.CreateDirectory(Configure.configDir);
+                            }
+
+                            // -------------------------
+                            // Move the conf to App Root
+                            // -------------------------
+                            // Move from AppData Local to App Root Directory
+                            if (File.Exists(confAppDataLocalPath))
+                            {
+                                // Delete before Move instead of Overwrite
+                                if (File.Exists(confAppRootPath))
+                                {
+                                    File.Delete(confAppRootPath);
+                                }
+
+                                File.Move(confAppDataLocalPath, confAppRootPath);
+                            }
+                            // Move from AppData Roaming to App Root Directory
+                            else if (File.Exists(confAppDataRoamingPath))
+                            {
+                                // Delete before Move instead of Overwrite
+                                if (File.Exists(confAppRootPath))
+                                {
+                                    File.Delete(confAppRootPath);
+                                }
+
+                                File.Move(confAppDataRoamingPath, confAppRootPath);
+                            }
+
+                            // -------------------------
+                            // Move the log to App Root
+                            // -------------------------
+                            // Move from AppData Local to App Root Directory
+                            if (File.Exists(logAppDataLocalPath))
+                            {
+                                // Delete before Move instead of Overwrite
+                                if (File.Exists(logAppRootPath))
+                                {
+                                    File.Delete(logAppRootPath);
+                                }
+
+                                File.Move(logAppDataLocalPath, logAppRootPath);
+                            }
+                            // Move from AppData Roaming to App Root Directory
+                            else if (File.Exists(logAppDataRoamingPath))
+                            {
+                                // Delete before Move instead of Overwrite
+                                if (File.Exists(logAppRootPath))
+                                {
+                                    File.Delete(logAppRootPath);
+                                }
+
+                                File.Move(logAppDataRoamingPath, logAppRootPath);
+                            }
+
+                        }
+                        catch (IOException ex)
+                        {
+                            MessageBox.Show(ex.ToString());
+                        }
+
+                        // Save Config
+                        ExportWriteConfig(Configure.configDir);
+                    }
+
+                    // -------------------------
+                    // Program Files Write Warning
+                    // -------------------------
+                    else
+                    {
+                        if (File.Exists(confAppRootPath) || File.Exists(logAppRootPath))
+                        {
+                            MessageBox.Show("Cannot save config/log to Program Files, Axiom does not have Administrator Privileges at this time. \n\nPlease select AppData Local or Roaming instead.",
+                                            "Notice",
+                                            MessageBoxButton.OK,
+                                            MessageBoxImage.Warning);
+                        }
+                    }
+                }
+
                 // -------------------------
                 // AppData Local Directory
                 // -------------------------
-                /*else */
-                if (File.Exists(Configure.configFile))
+                else if (ConfigureView.vm.ConfigPath_SelectedItem == "AppData Local")
                 {
-                    //Configure.configDir = appDataDir + @"Axiom UI\";
+                    // Change the conf output folder path
+                    Configure.configDir = appDataLocalDir + @"Axiom UI\";
+
+                    // -------------------------
+                    // Ignore Program Files
+                    // -------------------------
+                    if (!appRootDir.Contains(programFilesDir) &&
+                        !appRootDir.Contains(programFilesX86Dir) &&
+                        !appRootDir.Contains(programFilesX64Dir)
+                        )
+                    {
+                        try
+                        {
+                            // -------------------------
+                            // Create Axiom UI folder if missing
+                            // -------------------------
+                            if (!Directory.Exists(Configure.configDir))
+                            {
+                                Directory.CreateDirectory(Configure.configDir);
+                            }
+
+                            // -------------------------
+                            // Move the conf to AppData Local
+                            // -------------------------
+                            // Move from App Directory to AppData Local
+                            if (File.Exists(confAppRootPath))
+                            {
+                                // Delete before Move instead of Overwrite
+                                if (File.Exists(confAppDataLocalPath))
+                                {
+                                    File.Delete(confAppDataLocalPath);
+                                }
+
+                                File.Move(confAppRootPath, confAppDataLocalPath);
+                            }
+                            // Move from AppData Roaming to AppData Local
+                            else if (File.Exists(confAppDataRoamingPath))
+                            {
+                                // Delete before Move instead of Overwrite
+                                if (File.Exists(confAppDataLocalPath))
+                                {
+                                    File.Delete(confAppDataLocalPath);
+                                }
+
+                                File.Move(confAppDataRoamingPath, confAppDataLocalPath);
+                            }
+
+                            // -------------------------
+                            // Move the log to AppData Local
+                            // -------------------------
+                            // Move from App Directory to AppData Local
+                            if (File.Exists(logAppRootPath))
+                            {
+                                // Delete before Move instead of Overwrite
+                                if (File.Exists(logAppDataLocalPath))
+                                {
+                                    File.Delete(logAppDataLocalPath);
+                                }
+
+                                File.Move(logAppRootPath, logAppDataLocalPath);
+                            }
+                            // Move from AppData Roaming to AppData Local
+                            else if (File.Exists(logAppDataRoamingPath))
+                            {
+                                // Delete before Move instead of Overwrite
+                                if (File.Exists(logAppDataLocalPath))
+                                {
+                                    File.Delete(logAppDataLocalPath);
+                                }
+
+                                File.Move(logAppDataRoamingPath, logAppDataLocalPath);
+                            }
+                        }
+                        catch (IOException ex)
+                        {
+                            MessageBox.Show(ex.ToString());
+                        }
+                    }
+
+                    // -------------------------
+                    // Program Files Move Warning
+                    // -------------------------
+                    else
+                    {
+                        if (File.Exists(confAppRootPath) || File.Exists(logAppRootPath))
+                        {
+                            MessageBox.Show("Cannot move config/log from Program Files to AppData Local, Axiom does not have Administrator Privileges at this time. \n\nPlease move the config manually or delete it.",
+                                        "Notice",
+                                        MessageBoxButton.OK,
+                                        MessageBoxImage.Warning);
+                        }
+                    }
 
                     // Save Config
-                    ExportWriteConfig();
+                    ExportWriteConfig(Configure.configDir);
                 }
 
                 // -------------------------
-                // First time, Save Current Selected
+                // AppData Roaming Directory
                 // -------------------------
-                else //if (!File.Exists(Configure.configFile))
+                else if (ConfigureView.vm.ConfigPath_SelectedItem == "AppData Roaming")
                 {
+                    // Change the conf output folder path
+                    Configure.configDir = appDataRoamingDir + @"Axiom UI\";
+
+                    // -------------------------
+                    // Ignore Program Files
+                    // -------------------------
+                    if (!appRootDir.Contains(programFilesDir) &&
+                        !appRootDir.Contains(programFilesX86Dir) &&
+                        !appRootDir.Contains(programFilesX64Dir)
+                        )
+                    {
+                        try
+                        {
+                            // -------------------------
+                            // Create Axiom UI folder if missing
+                            // -------------------------
+                            if (!Directory.Exists(Configure.configDir))
+                            {
+                                Directory.CreateDirectory(Configure.configDir);
+                            }
+
+                            // -------------------------
+                            // Move the conf to AppData Roaming
+                            // -------------------------
+                            // Move from App Root Directory to AppData Roaming
+                            if (File.Exists(confAppRootPath))
+                            {
+                                // Delete before Move instead of Overwrite
+                                if (File.Exists(confAppDataRoamingPath))
+                                {
+                                    File.Delete(confAppDataRoamingPath);
+                                }
+
+                                File.Move(confAppRootPath, confAppDataRoamingPath);
+                            }
+                            // Move from AppData Local to AppData Roaming
+                            else if (File.Exists(confAppDataLocalPath))
+                            {
+                                // Delete before Move instead of Overwrite
+                                if (File.Exists(confAppDataRoamingPath))
+                                {
+                                    File.Delete(confAppDataRoamingPath);
+                                }
+
+                                File.Move(confAppDataLocalPath, confAppDataRoamingPath);
+                            }
+
+                            // -------------------------
+                            // Move the log to AppData Roaming
+                            // -------------------------
+                            // Move from App Root Directory to AppData Roaming
+                            if (File.Exists(logAppRootPath))
+                            {
+                                // Delete before Move instead of Overwrite
+                                if (File.Exists(logAppDataRoamingPath))
+                                {
+                                    File.Delete(logAppDataRoamingPath);
+                                }
+
+                                File.Move(logAppRootPath, logAppDataRoamingPath);
+                            }
+                            // Move from AppData Local to AppData Roaming
+                            else if (File.Exists(logAppDataLocalPath))
+                            {
+                                // Delete before Move instead of Overwrite
+                                if (File.Exists(logAppDataRoamingPath))
+                                {
+                                    File.Delete(logAppDataRoamingPath);
+                                }
+
+                                File.Move(logAppDataLocalPath, logAppDataRoamingPath);
+                            }
+                        }
+                        catch (IOException ex)
+                        {
+                            MessageBox.Show(ex.ToString());
+                        }
+                    }
+
+                    // -------------------------
+                    // Program Files Move Warning
+                    // -------------------------
+                    else
+                    {
+                        if (File.Exists(confAppRootPath) || File.Exists(logAppRootPath))
+                        {
+                            MessageBox.Show("Cannot move config/log from Program Files to AppData Roaming, Axiom does not have Administrator Privileges at this time. \n\nPlease move the config manually or delete it.",
+                                            "Notice",
+                                            MessageBoxButton.OK,
+                                            MessageBoxImage.Warning);
+                        }
+                    }
+
                     // Save Config
-                    Configure.ExportConfig(this, vm);
+                    ExportWriteConfig(Configure.configDir);
                 }
+
+                //// -------------------------
+                //// First time, Save Current Selected
+                //// -------------------------
+                //else //if (!File.Exists(Configure.configFile))
+                //{
+                //    // Save Config
+                //    Configure.ExportConfig(this, Configure.configDir);
+                //}
 
             }
             catch (Exception exception)
@@ -558,9 +1157,9 @@ namespace Axiom
         /// <summary>
         ///     Export Write Config (Method)
         /// </summary>
-        public void ExportWriteConfig()
+        public void ExportWriteConfig(string path)
         {
-            Configure.INIFile conf = new Configure.INIFile(Configure.configFile);
+            Configure.INIFile conf = new Configure.INIFile(path/*Configure.configFile*/);
 
             // Window
             double top;
@@ -601,23 +1200,41 @@ namespace Axiom
 
                 //this.WindowState != windowState ||
 
-                vm.CMDWindowKeep_IsChecked != settings_CMDWindowKeep_IsChecked ||
-                vm.AutoSortScript_IsChecked != settings_AutoSortScript_IsChecked ||
+                MainView.vm.CMDWindowKeep_IsChecked != settings_CMDWindowKeep_IsChecked ||
+                MainView.vm.AutoSortScript_IsChecked != settings_AutoSortScript_IsChecked ||
 
                 // Settings
-                vm.FFmpegPath_Text != conf.Read("Settings", "FFmpegPath_Text") ||
-                vm.FFprobePath_Text != conf.Read("Settings", "FFprobePath_Text") ||
-                vm.FFplayPath_Text != conf.Read("Settings", "FFplayPath_Text") ||
-                vm.CustomPresetsPath_Text != conf.Read("Settings", "CustomPresetsPath_Text") ||
-                vm.LogPath_Text != conf.Read("Settings", "LogPath_Text") ||
-                vm.LogCheckBox_IsChecked != settings_LogCheckBox_IsChecked ||
-                vm.Threads_SelectedItem != conf.Read("Settings", "Threads_SelectedItem") ||
-                vm.Theme_SelectedItem != conf.Read("Settings", "Theme_SelectedItem") ||
-                vm.UpdateAutoCheck_IsChecked != settings_UpdateAutoCheck_IsChecked
+                ConfigureView.vm.FFmpegPath_Text != conf.Read("Settings", "FFmpegPath_Text") ||
+                ConfigureView.vm.FFprobePath_Text != conf.Read("Settings", "FFprobePath_Text") ||
+                ConfigureView.vm.FFplayPath_Text != conf.Read("Settings", "FFplayPath_Text") ||
+                ConfigureView.vm.CustomPresetsPath_Text != conf.Read("Settings", "CustomPresetsPath_Text") ||
+                ConfigureView.vm.LogPath_Text != conf.Read("Settings", "LogPath_Text") ||
+                ConfigureView.vm.LogCheckBox_IsChecked != settings_LogCheckBox_IsChecked ||
+                ConfigureView.vm.Threads_SelectedItem != conf.Read("Settings", "Threads_SelectedItem") ||
+                ConfigureView.vm.Theme_SelectedItem != conf.Read("Settings", "Theme_SelectedItem") ||
+                ConfigureView.vm.UpdateAutoCheck_IsChecked != settings_UpdateAutoCheck_IsChecked
                 )
             {
                 // Save Config
-                Configure.ExportConfig(this, vm);
+                Configure.ExportConfig(this, path);
+            }
+        }
+
+
+
+        /// <summary>
+        ///     Folder Write Access Check (Method)
+        /// </summary>
+        private bool hasWriteAccessToFolder(string path)
+        {
+            try
+            {
+                System.Security.AccessControl.DirectorySecurity ds = Directory.GetAccessControl(path);
+                return true;
+            }
+            catch (UnauthorizedAccessException)
+            {
+                return false;
             }
         }
 
@@ -626,7 +1243,7 @@ namespace Axiom
         /// <summary>
         ///     Clear Global Variables (Method)
         /// </summary>
-        public static void ClearGlobalVariables(ViewModel vm)
+        public static void ClearGlobalVariables()
         {
             // FFmpeg
             //FFmpeg.cmdWindow = string.Empty;
@@ -688,7 +1305,7 @@ namespace Axiom
             Video.x265params = string.Empty;
 
             // Clear Crop if ClearCrop Button Identifier is Empty
-            if (vm.Video_CropClear_Text == "Clear")
+            if (VideoView.vm.Video_CropClear_Text == "Clear")
             {
                 CropWindow.crop = string.Empty;
                 CropWindow.divisibleCropWidth = null; //int
@@ -955,25 +1572,92 @@ namespace Axiom
         // Configure
         // --------------------------------------------------------------------------------------------------------
 
+        public static void ConfigDirectoryOpen(string path)
+        {
+            if (Directory.Exists(path))
+            {
+                Process.Start("explorer.exe", path);
+            }
+            else
+            {
+                // Yes/No Dialog Confirmation
+                //
+                MessageBoxResult resultExport = MessageBox.Show("The Axiom UI directory does not exist in this location yet. Automatically create it?",
+                                                                "Directory Not Found",
+                                                                MessageBoxButton.YesNo,
+                                                                MessageBoxImage.Information);
+                switch (resultExport)
+                {
+                    // Create
+                    case MessageBoxResult.Yes:
+                        try
+                        {
+                            Directory.CreateDirectory(path);
+                            Process.Start("explorer.exe", path);
+                        }
+                        catch
+                        {
+                            MessageBox.Show("Could not create directory. May require Administrator privileges.",
+                                            "Error",
+                                            MessageBoxButton.OK,
+                                            MessageBoxImage.Error);
+                        }
+                        break;
+                    // Use Default
+                    case MessageBoxResult.No:
+                        break;
+                }
+            }
+        }
+
+
         /// <summary>
         ///    Config Open Directory - Label Button
         /// </summary>
         private void lblConfigPath_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             // Open Directory
-            if (!string.IsNullOrEmpty(vm.ConfigPath_Text))
+            //if (!string.IsNullOrEmpty(ConfigureView.vm.ConfigPath_Text))
+            //{
+            // AppData Local
+            if (ConfigureView.vm.ConfigPath_SelectedItem == "AppData Local")
             {
-                // AppData Local Directory
-                if (vm.ConfigPath_Text == @"%LocalAppData%\Axiom UI\")
-                {
-                    Process.Start("explorer.exe", appDataLocalDir + @"Axiom UI\");
-                }
-                // App Root Directory
-                else if (vm.ConfigPath_Text == appDir)
-                {
-                    Process.Start("explorer.exe", appDir);
-                }
+                //Process.Start("explorer.exe", appDataLocalDir + @"Axiom UI\");
+                ConfigDirectoryOpen(appDataLocalDir + @"Axiom UI\");
             }
+            // AppData Roaming
+            else if (ConfigureView.vm.ConfigPath_SelectedItem == "AppData Roaming")
+            {
+                //Process.Start("explorer.exe", appDataRoamingDir + @"Axiom UI\");
+                ConfigDirectoryOpen(appDataRoamingDir + @"Axiom UI\");
+            }
+            // Documents
+            else if (ConfigureView.vm.ConfigPath_SelectedItem == "Documents")
+            {
+                //Process.Start("explorer.exe", documentsDir + @"Axiom UI\");
+                ConfigDirectoryOpen(documentsDir + @"Axiom UI\");
+            }
+            // App Root
+            else if (ConfigureView.vm.ConfigPath_SelectedItem == "App Root")
+            {
+                Process.Start("explorer.exe", appRootDir);          
+            }
+            //}
+
+            //// Open Directory
+            //if (!string.IsNullOrEmpty(ConfigureView.vm.ConfigPath_Text))
+            //{
+            //    // AppData Local Directory
+            //    if (ConfigureView.vm.ConfigPath_Text == @"%LocalAppData%\Axiom UI\")
+            //    {
+            //        Process.Start("explorer.exe", appDataLocalDir + @"Axiom UI\");
+            //    }
+            //    // App Root Directory
+            //    else if (ConfigureView.vm.ConfigPath_Text == appDir)
+            //    {
+            //        Process.Start("explorer.exe", appDir);
+            //    }
+            //}
         }
 
         /// <summary>
@@ -981,21 +1665,112 @@ namespace Axiom
         /// </summary>
         private void btnConfigPath_Click(object sender, RoutedEventArgs e)
         {
-            // Open Directory
-            if (!string.IsNullOrEmpty(vm.ConfigPath_Text))
+            // AppData Local
+            if (ConfigureView.vm.ConfigPath_SelectedItem == "AppData Local")
             {
-                // AppData Local Directory
-                if (vm.ConfigPath_Text == @"%LocalAppData%\Axiom UI\")
-                {
-                    Process.Start("explorer.exe", appDataLocalDir + @"Axiom UI\");
-                }
-                // App Root Directory
-                else if (vm.ConfigPath_Text == appDir)
-                {
-                    Process.Start("explorer.exe", appDir);
-                }
+                //Process.Start("explorer.exe", appDataLocalDir + @"Axiom UI\");
+                ConfigDirectoryOpen(appDataLocalDir + @"Axiom UI\");
             }
+            // AppData Roaming
+            else if (ConfigureView.vm.ConfigPath_SelectedItem == "AppData Roaming")
+            {
+                //Process.Start("explorer.exe", appDataRoamingDir + @"Axiom UI\");
+                ConfigDirectoryOpen(appDataRoamingDir + @"Axiom UI\");
+            }
+            // Documents
+            else if (ConfigureView.vm.ConfigPath_SelectedItem == "Documents")
+            {
+                //Process.Start("explorer.exe", documentsDir + @"Axiom UI\");
+                ConfigDirectoryOpen(documentsDir + @"Axiom UI\");
+            }
+            // App Root
+            else if (ConfigureView.vm.ConfigPath_SelectedItem == "App Root")
+            {
+                Process.Start("explorer.exe", appRootDir);
+            }
+
+            //// Open Directory
+            //if (!string.IsNullOrEmpty(ConfigureView.vm.ConfigPath_Text))
+            //{
+            //    // AppData Local Directory
+            //    if (ConfigureView.vm.ConfigPath_Text == @"%LocalAppData%\Axiom UI\")
+            //    {
+            //        Process.Start("explorer.exe", appDataLocalDir + @"Axiom UI\");
+            //    }
+            //    // App Root Directory
+            //    else if (ConfigureView.vm.ConfigPath_Text == appDir)
+            //    {
+            //        Process.Start("explorer.exe", appDir);
+            //    }
+            //}
         }
+
+
+        /// <summary>
+        ///    Config Directory - ComboBox
+        /// </summary>
+        private void cboConfigPath_SelectionChangedSelectionChangeCommitted(object sender, SelectionChangedEventArgs e)
+        {
+            ////MessageBox.Show(e.RemovedItems.Count.ToString()); //debug
+            //// 0 first startup
+            //// 1 first bind
+            //if (e.RemovedItems.Count != 1 && e.RemovedItems.Count != 0)
+            //{
+            //    string path = string.Empty;
+            //    bool access = true;
+
+            //    // AppData Local
+            //    if (ConfigureView.vm.ConfigPath_SelectedItem == "AppData Local")
+            //    {
+            //        // Check Folder Write Access
+            //        if (hasWriteAccessToFolder(appDataLocalDir) == false)
+            //        {
+            //            access = false;
+            //        }
+            //    }
+            //    // AppData Roaming
+            //    else if (ConfigureView.vm.ConfigPath_SelectedItem == "AppData Roaming")
+            //    {
+            //        // Check Folder Write Access
+            //        if (hasWriteAccessToFolder(appDataRoamingDir) == false)
+            //        {
+            //            access = false;
+            //        }
+            //    }
+            //    // Documents
+            //    else if (ConfigureView.vm.ConfigPath_SelectedItem == "Documents")
+            //    {
+            //        // Check Folder Write Access
+            //        if (hasWriteAccessToFolder(documentsDir) == false)
+            //        {
+            //            access = false;
+            //        }
+            //    }
+            //    // App Root
+            //    else if (ConfigureView.vm.ConfigPath_SelectedItem == "App Root")
+            //    {
+            //        // Check Folder Write Access
+            //        if (appDir.Contains(programFilesDir) ||
+            //            appDir.Contains(programFilesX86Dir) ||
+            //            appDir.Contains(programFilesX64Dir) ||
+            //            hasWriteAccessToFolder(appDir) == false
+            //            )
+            //        {
+            //            access = false;
+            //        }
+            //    }
+
+            //    // Display Warning if Axiom can't write to location
+            //    if (access == false)
+            //    {
+            //        MessageBox.Show("Axiom does not have write access to this location.",
+            //                        "Notice",
+            //                        MessageBoxButton.OK,
+            //                        MessageBoxImage.Warning);
+            //    }
+            //}
+        }
+
 
 
         /// <summary>
@@ -1003,7 +1778,7 @@ namespace Axiom
         /// </summary>
         private void lblCustomPresetsPath_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (!Directory.Exists(vm.CustomPresetsPath_Text))
+            if (!Directory.Exists(ConfigureView.vm.CustomPresetsPath_Text))
             {
                 // Yes/No Dialog Confirmation
                 //
@@ -1017,7 +1792,7 @@ namespace Axiom
                     case MessageBoxResult.Yes:
                         try
                         {
-                            Directory.CreateDirectory(vm.CustomPresetsPath_Text);
+                            Directory.CreateDirectory(ConfigureView.vm.CustomPresetsPath_Text);
                         }
                         catch
                         {
@@ -1034,11 +1809,11 @@ namespace Axiom
             }
 
             // Open Directory
-            if (!string.IsNullOrEmpty(vm.CustomPresetsPath_Text))
+            if (!string.IsNullOrEmpty(ConfigureView.vm.CustomPresetsPath_Text))
             {
-                if (Directory.Exists(vm.CustomPresetsPath_Text))
+                if (Directory.Exists(ConfigureView.vm.CustomPresetsPath_Text))
                 {
-                    Process.Start("explorer.exe", vm.CustomPresetsPath_Text);
+                    Process.Start("explorer.exe", ConfigureView.vm.CustomPresetsPath_Text);
                 } 
             }
         }
@@ -1048,7 +1823,7 @@ namespace Axiom
         /// </summary>
         private void tbxCustomPresetsPath_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            Configure.CustomPresetsFolderBrowser(vm);
+            Configure.CustomPresetsFolderBrowser();
         }
 
         // Drag and Drop
@@ -1064,13 +1839,13 @@ namespace Axiom
             // If Path has file, extract Directory only
             if (Path.HasExtension(buffer.First()))
             {
-                vm.CustomPresetsPath_Text = Path.GetDirectoryName(buffer.First()).TrimEnd('\\') + @"\";
+                ConfigureView.vm.CustomPresetsPath_Text = Path.GetDirectoryName(buffer.First()).TrimEnd('\\') + @"\";
             }
 
             // Use Folder Path
             else
             {
-                vm.CustomPresetsPath_Text = buffer.First();
+                ConfigureView.vm.CustomPresetsPath_Text = buffer.First();
             }
 
            
@@ -1078,7 +1853,7 @@ namespace Axiom
             //// Load Custom Presets
             //// Refresh Presets ComboBox
             //// -------------------------
-            //Profiles.LoadCustomPresets(vm);
+            //Profiles.LoadCustomPresets();
         }
 
         /// <summary>
@@ -1086,8 +1861,42 @@ namespace Axiom
         /// </summary>
         private void btnCustomPresetsAuto_Click(object sender, RoutedEventArgs e)
         {
+            // -------------------------
             // Display Folder Path in Textbox
-            vm.CustomPresetsPath_Text = Profiles.presetsDir;
+            // -------------------------
+
+            // AppData Local
+            if (ConfigureView.vm.ConfigPath_SelectedItem == "AppData Local")
+            {
+                ConfigureView.vm.CustomPresetsPath_Text = appDataLocalDir + @"Axiom UI\presets\";
+            }
+            // AppData Roaming
+            else if (ConfigureView.vm.ConfigPath_SelectedItem == "AppData Roaming")
+            {
+                ConfigureView.vm.CustomPresetsPath_Text = appDataRoamingDir + @"Axiom UI\presets\";
+            }
+            // Documents
+            else if (ConfigureView.vm.ConfigPath_SelectedItem == "Documents")
+            {
+                ConfigureView.vm.CustomPresetsPath_Text = documentsDir + @"Axiom UI\presets\";
+            }
+            // App Root
+            else if (ConfigureView.vm.ConfigPath_SelectedItem == "App Root")
+            {
+                if (appRootDir.Contains(programFilesDir) &&
+                    appRootDir.Contains(programFilesX86Dir) &&
+                    appRootDir.Contains(programFilesX64Dir)
+                    )
+                {
+                    // Change Program Files to AppData Local
+                    ConfigureView.vm.CustomPresetsPath_Text = appDataLocalDir + @"Axiom UI\presets\";
+                }
+                else
+                {
+                    ConfigureView.vm.CustomPresetsPath_Text = appRootDir + @"presets\";
+                }
+                    
+            } 
         }
 
 
@@ -1099,12 +1908,12 @@ namespace Axiom
             string ffmpegPath = string.Empty;
 
             // If Configure FFmpeg Path is <auto>
-            if (vm.FFmpegPath_Text == "<auto>")
+            if (ConfigureView.vm.FFmpegPath_Text == "<auto>")
             {
                 // Included Binary
-                if (File.Exists(appDir + @"ffmpeg\bin\ffmpeg.exe"))
+                if (File.Exists(appRootDir + @"ffmpeg\bin\ffmpeg.exe"))
                 {
-                    ffmpegPath = appDir + @"ffmpeg\bin\";
+                    ffmpegPath = appRootDir + @"ffmpeg\bin\";
                 }
                 // Using Enviornment Variable
                 else
@@ -1151,7 +1960,7 @@ namespace Axiom
             // Use User Custom Path
             else
             {
-                ffmpegPath = Path.GetDirectoryName(vm.FFmpegPath_Text).TrimEnd('\\') + @"\";
+                ffmpegPath = Path.GetDirectoryName(ConfigureView.vm.FFmpegPath_Text).TrimEnd('\\') + @"\";
             }
 
 
@@ -1170,7 +1979,7 @@ namespace Axiom
         /// </summary>
         private void tbxFFmpegPath_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            Configure.FFmpegFolderBrowser(vm);
+            Configure.FFmpegFolderBrowser();
         }
 
         // Drag and Drop
@@ -1182,7 +1991,7 @@ namespace Axiom
         private void tbxFFmpegPath_PreviewDrop(object sender, DragEventArgs e)
         {
             var buffer = e.Data.GetData(DataFormats.FileDrop, false) as string[];
-            vm.FFmpegPath_Text = buffer.First();
+            ConfigureView.vm.FFmpegPath_Text = buffer.First();
         }
 
         /// <summary>
@@ -1191,7 +2000,7 @@ namespace Axiom
         private void btnFFmpegAuto_Click(object sender, RoutedEventArgs e)
         {
             // Display Folder Path in Textbox
-            vm.FFmpegPath_Text = "<auto>";
+            ConfigureView.vm.FFmpegPath_Text = "<auto>";
         }
 
 
@@ -1203,12 +2012,12 @@ namespace Axiom
             string ffprobePath = string.Empty;
 
             // If Configure FFprobe Path is <auto>
-            if (vm.FFprobePath_Text == "<auto>")
+            if (ConfigureView.vm.FFprobePath_Text == "<auto>")
             {
                 // Included Binary
-                if (File.Exists(appDir + @"ffmpeg\bin\ffprobe.exe"))
+                if (File.Exists(appRootDir + @"ffmpeg\bin\ffprobe.exe"))
                 {
-                    ffprobePath = appDir + @"ffmpeg\bin\";
+                    ffprobePath = appRootDir + @"ffmpeg\bin\";
                 }
                 // Using Enviornment Variable
                 else
@@ -1254,7 +2063,7 @@ namespace Axiom
             // Use User Custom Path
             else
             {
-                ffprobePath = Path.GetDirectoryName(vm.FFprobePath_Text).TrimEnd('\\') + @"\";
+                ffprobePath = Path.GetDirectoryName(ConfigureView.vm.FFprobePath_Text).TrimEnd('\\') + @"\";
             }
 
 
@@ -1273,7 +2082,7 @@ namespace Axiom
         /// </summary>
         private void tbxFFprobePath_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            Configure.FFprobeFolderBrowser(vm);
+            Configure.FFprobeFolderBrowser();
         }
 
         // Drag and Drop
@@ -1285,7 +2094,7 @@ namespace Axiom
         private void tbxFFprobePath_PreviewDrop(object sender, DragEventArgs e)
         {
             var buffer = e.Data.GetData(DataFormats.FileDrop, false) as string[];
-            vm.FFprobePath_Text = buffer.First();
+            ConfigureView.vm.FFprobePath_Text = buffer.First();
         }
 
         /// <summary>
@@ -1294,7 +2103,7 @@ namespace Axiom
         private void btnFFprobeAuto_Click(object sender, RoutedEventArgs e)
         {
             // Display Folder Path in Textbox
-            vm.FFprobePath_Text = "<auto>";
+            ConfigureView.vm.FFprobePath_Text = "<auto>";
         }
 
 
@@ -1306,12 +2115,12 @@ namespace Axiom
             string ffplayPath = string.Empty;
 
             // If Configure FFplay Path is <auto>
-            if (vm.FFplayPath_Text == "<auto>")
+            if (ConfigureView.vm.FFplayPath_Text == "<auto>")
             {
                 // Included Binary
-                if (File.Exists(appDir + @"ffmpeg\bin\ffplay.exe"))
+                if (File.Exists(appRootDir + @"ffmpeg\bin\ffplay.exe"))
                 {
-                    ffplayPath = appDir + @"ffmpeg\bin\";
+                    ffplayPath = appRootDir + @"ffmpeg\bin\";
                 }
                 // Using Enviornment Variable
                 else
@@ -1357,7 +2166,7 @@ namespace Axiom
             // Use User Custom Path
             else
             {
-                ffplayPath = Path.GetDirectoryName(vm.FFplayPath_Text).TrimEnd('\\') + @"\";
+                ffplayPath = Path.GetDirectoryName(ConfigureView.vm.FFplayPath_Text).TrimEnd('\\') + @"\";
             }
 
 
@@ -1376,7 +2185,7 @@ namespace Axiom
         /// </summary>
         private void tbxFFplayPath_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            Configure.FFplayFolderBrowser(vm);
+            Configure.FFplayFolderBrowser();
         }
 
         // Drag and Drop
@@ -1388,7 +2197,7 @@ namespace Axiom
         private void tbxFFplayPath_PreviewDrop(object sender, DragEventArgs e)
         {
             var buffer = e.Data.GetData(DataFormats.FileDrop, false) as string[];
-            vm.FFplayPath_Text = buffer.First();
+            ConfigureView.vm.FFplayPath_Text = buffer.First();
         }
 
         /// <summary>
@@ -1397,7 +2206,7 @@ namespace Axiom
         private void btnFFplayAuto_Click(object sender, RoutedEventArgs e)
         {
             // Display Folder Path in Textbox
-            vm.FFplayPath_Text = "<auto>";
+            ConfigureView.vm.FFplayPath_Text = "<auto>";
         }
 
 
@@ -1409,12 +2218,12 @@ namespace Axiom
             string youtubedlPath = string.Empty;
 
             // If Configure youtube-dl Path is <auto>
-            if (vm.youtubedlPath_Text == "<auto>")
+            if (ConfigureView.vm.youtubedlPath_Text == "<auto>")
             {
                 // Included Binary
-                if (File.Exists(appDir + @"youtube-dl\youtube-dl.exe"))
+                if (File.Exists(appRootDir + @"youtube-dl\youtube-dl.exe"))
                 {
-                    youtubedlPath = appDir + @"youtube-dl\";
+                    youtubedlPath = appRootDir + @"youtube-dl\";
                 }
                 // Using Enviornment Variable
                 else
@@ -1460,7 +2269,7 @@ namespace Axiom
             // Use User Custom Path
             else
             {
-                youtubedlPath = Path.GetDirectoryName(vm.youtubedlPath_Text).TrimEnd('\\') + @"\";
+                youtubedlPath = Path.GetDirectoryName(ConfigureView.vm.youtubedlPath_Text).TrimEnd('\\') + @"\";
             }
 
 
@@ -1479,7 +2288,7 @@ namespace Axiom
         /// </summary>
         private void tbxyoutubedlPath_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            Configure.youtubedlFolderBrowser(vm);
+            Configure.youtubedlFolderBrowser();
         }
 
         // Drag and Drop
@@ -1491,7 +2300,7 @@ namespace Axiom
         private void tbxyoutubedlPath_PreviewDrop(object sender, DragEventArgs e)
         {
             var buffer = e.Data.GetData(DataFormats.FileDrop, false) as string[];
-            vm.youtubedlPath_Text = buffer.First();
+            ConfigureView.vm.youtubedlPath_Text = buffer.First();
         }
 
         /// <summary>
@@ -1500,7 +2309,7 @@ namespace Axiom
         private void btnyoutubedlAuto_Click(object sender, RoutedEventArgs e)
         {
             // Display Folder Path in Textbox
-            vm.youtubedlPath_Text = "<auto>";
+            ConfigureView.vm.youtubedlPath_Text = "<auto>";
         }
 
 
@@ -1509,11 +2318,11 @@ namespace Axiom
         /// </summary>
         private void lblLogPath_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (!string.IsNullOrEmpty(vm.LogPath_Text))
+            if (!string.IsNullOrEmpty(ConfigureView.vm.LogPath_Text))
             {
-                if (Directory.Exists(vm.LogPath_Text))
+                if (Directory.Exists(ConfigureView.vm.LogPath_Text))
                 {
-                    Process.Start("explorer.exe", vm.LogPath_Text);
+                    Process.Start("explorer.exe", ConfigureView.vm.LogPath_Text);
                 }
             }
         }
@@ -1531,13 +2340,13 @@ namespace Axiom
             // If Path has file, extract Directory only
             if (Path.HasExtension(buffer.First()))
             {
-                vm.LogPath_Text = Path.GetDirectoryName(buffer.First()).TrimEnd('\\') + @"\";
+                ConfigureView.vm.LogPath_Text = Path.GetDirectoryName(buffer.First()).TrimEnd('\\') + @"\";
             }
 
             // Use Folder Path
             else
             {
-                vm.LogPath_Text = buffer.First();
+                ConfigureView.vm.LogPath_Text = buffer.First();
             }
         }
 
@@ -1546,7 +2355,7 @@ namespace Axiom
         /// </summary>
         private void cbxLog_Checked(object sender, RoutedEventArgs e)
         {
-
+            ConfigureView.vm.LogPath_IsEnabled = true;
         }
 
         /// <summary>
@@ -1554,7 +2363,7 @@ namespace Axiom
         /// </summary>
         private void cbxLog_Unchecked(object sender, RoutedEventArgs e)
         {
-
+            ConfigureView.vm.LogPath_IsEnabled = false;
         }
 
         /// <summary>
@@ -1562,7 +2371,7 @@ namespace Axiom
         /// </summary>
         private void tbxLogPath_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            Configure.LogFolderBrowser(vm);
+            Configure.LogFolderBrowser();
         }
 
         /// <summary>
@@ -1571,10 +2380,10 @@ namespace Axiom
         private void btnLogPathAuto_Click(object sender, RoutedEventArgs e)
         {
             // Uncheck Log Checkbox
-            vm.LogCheckBox_IsChecked = false;
+            ConfigureView.vm.LogCheckBox_IsChecked = false;
 
             // Clear Path in Textbox
-            vm.LogPath_Text = Log.logDir;
+            ConfigureView.vm.LogPath_Text = Log.logDir;
         }
 
 
@@ -1584,13 +2393,13 @@ namespace Axiom
         private void threadSelect_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // Custom ComboBox Editable
-            //if (vm.Threads_SelectedItem == "Custom" || cboThreads.SelectedValue == null)
+            //if (ConfigureView.vm.Threads_SelectedItem == "Custom" || cboThreads.SelectedValue == null)
             //{
             //    cboThreads.IsEditable = true;
             //}
 
             // Other Items Disable Editable
-            //if (vm.Threads_SelectedItem != "Custom" && cboThreads.SelectedValue != null)
+            //if (ConfigureView.vm.Threads_SelectedItem != "Custom" && cboThreads.SelectedValue != null)
             //{
             //    cboThreads.IsEditable = false;
             //}
@@ -1605,7 +2414,7 @@ namespace Axiom
             //}
 
             // Set the threads to pass to MainWindow
-            Configure.threads = vm.Threads_SelectedItem;
+            Configure.threads = ConfigureView.vm.Threads_SelectedItem;
         }
 
         // Key Down
@@ -1620,7 +2429,7 @@ namespace Axiom
         /// </summary>
         private void themeSelect_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Configure.theme = vm.Theme_SelectedItem;
+            Configure.theme = ConfigureView.vm.Theme_SelectedItem;
 
             // Change Theme Resource
             App.Current.Resources.MergedDictionaries.Clear();
@@ -1679,9 +2488,13 @@ namespace Axiom
                     }
 
                     // Load Defaults
-                    vm.LoadConfigDefaults();
-                    vm.LoadControlsDefaults();
-
+                    ConfigureView.vm.LoadConfigDefaults();
+                    MainView.vm.LoadControlsDefaults();
+                    FormatView.vm.LoadControlsDefaults();
+                    VideoView.vm.LoadControlsDefaults();
+                    SubtitleView.vm.LoadControlsDefaults();
+                    AudioView.vm.LoadControlsDefaults();
+        
                     // Restart Program
                     Process.Start(Application.ResourceAssembly.Location);
                     Application.Current.Shutdown();
@@ -1758,7 +2571,7 @@ namespace Axiom
         /// <remarks>
         ///     Check if FFmpeg and FFprobe is on Computer 
         /// </remarks>
-        public static bool FFcheck(ViewModel vm)
+        public static bool FFcheck()
         {
             bool ready = true;
 
@@ -1773,10 +2586,10 @@ namespace Axiom
                 // FFmpeg
                 // -------------------------
                 // If Auto Mode
-                if (vm.FFmpegPath_Text == "<auto>")
+                if (ConfigureView.vm.FFmpegPath_Text == "<auto>")
                 {
                     // Check default current directory
-                    if (File.Exists(appDir + @"ffmpeg\bin\ffmpeg.exe"))
+                    if (File.Exists(appRootDir + @"ffmpeg\bin\ffmpeg.exe"))
                     {
                         // let pass
                         return true;
@@ -1811,10 +2624,10 @@ namespace Axiom
                     }
                 }
                 // If User Defined Path
-                else if (vm.FFmpegPath_Text != "<auto>" && 
-                        !string.IsNullOrEmpty(vm.FFprobePath_Text))
+                else if (ConfigureView.vm.FFmpegPath_Text != "<auto>" && 
+                        !string.IsNullOrEmpty(ConfigureView.vm.FFprobePath_Text))
                 {
-                    var dirPath = Path.GetDirectoryName(vm.FFmpegPath_Text).TrimEnd('\\') + @"\";
+                    var dirPath = Path.GetDirectoryName(ConfigureView.vm.FFmpegPath_Text).TrimEnd('\\') + @"\";
                     var fullPath = Path.Combine(dirPath, "ffmpeg.exe");
 
                     // Make Sure ffmpeg.exe Exists
@@ -1835,7 +2648,7 @@ namespace Axiom
                     }
 
                     // If Configure Path is ffmpeg.exe and not another Program
-                    //if (string.Equals(vm.FFmpegPath_Text, fullPath, StringComparison.CurrentCultureIgnoreCase))
+                    //if (string.Equals(ConfigureView.vm.FFmpegPath_Text, fullPath, StringComparison.CurrentCultureIgnoreCase))
                     //{
                     //    // let pass
                     //    //ffCheckCleared = true;
@@ -1859,10 +2672,10 @@ namespace Axiom
                 // FFprobe
                 // -------------------------
                 // If Auto Mode
-                if (vm.FFprobePath_Text == "<auto>")
+                if (ConfigureView.vm.FFprobePath_Text == "<auto>")
                 {
                     // Check default current directory
-                    if (File.Exists(appDir + @"ffmpeg\bin\ffprobe.exe"))
+                    if (File.Exists(appRootDir + @"ffmpeg\bin\ffprobe.exe"))
                     {
                         // let pass
                         return true;
@@ -1897,9 +2710,9 @@ namespace Axiom
                     }
                 }
                 // If User Defined Path
-                else if (vm.FFprobePath_Text != "<auto>" && !string.IsNullOrEmpty(vm.FFprobePath_Text))
+                else if (ConfigureView.vm.FFprobePath_Text != "<auto>" && !string.IsNullOrEmpty(ConfigureView.vm.FFprobePath_Text))
                 {
-                    var dirPath = Path.GetDirectoryName(vm.FFprobePath_Text).TrimEnd('\\') + @"\";
+                    var dirPath = Path.GetDirectoryName(ConfigureView.vm.FFprobePath_Text).TrimEnd('\\') + @"\";
                     var fullPath = Path.Combine(dirPath, "ffprobe.exe");
 
                     // Make Sure ffprobe.exe Exists
@@ -1920,7 +2733,7 @@ namespace Axiom
                     }
 
                     //// If Configure Path is FFmpeg.exe and not another Program
-                    //if (string.Equals(vm.FFprobePath_Text, fullPath, StringComparison.CurrentCultureIgnoreCase))
+                    //if (string.Equals(ConfigureView.vm.FFprobePath_Text, fullPath, StringComparison.CurrentCultureIgnoreCase))
                     //{
                     //    // let pass
                     //    //ffCheckCleared = true;
@@ -1959,20 +2772,20 @@ namespace Axiom
         /// <summary>
         ///    FFmpeg Path (Method)
         /// </summary>
-        public static String FFmpegPath(ViewModel vm)
+        public static String FFmpegPath()
         {
             // -------------------------
             // FFmpeg.exe and FFprobe.exe Paths
             // -------------------------
             // If Configure FFmpeg Path is <auto>
-            if (vm.FFmpegPath_Text == "<auto>")
+            if (ConfigureView.vm.FFmpegPath_Text == "<auto>")
             {
-                if (File.Exists(appDir + @"ffmpeg\bin\ffmpeg.exe"))
+                if (File.Exists(appRootDir + @"ffmpeg\bin\ffmpeg.exe"))
                 {
                     // use included binary
-                    FFmpeg.ffmpeg = "\"" + appDir + @"ffmpeg\bin\ffmpeg.exe" + "\"";
+                    FFmpeg.ffmpeg = "\"" + appRootDir + @"ffmpeg\bin\ffmpeg.exe" + "\"";
                 }
-                else if (!File.Exists(appDir + @"ffmpeg\bin\ffmpeg.exe"))
+                else if (!File.Exists(appRootDir + @"ffmpeg\bin\ffmpeg.exe"))
                 {
                     // use system installed binaries
                     FFmpeg.ffmpeg = "ffmpeg";
@@ -1981,7 +2794,7 @@ namespace Axiom
             // Use User Custom Path
             else
             {
-                FFmpeg.ffmpeg = "\"" + vm.FFmpegPath_Text + "\"";
+                FFmpeg.ffmpeg = "\"" + ConfigureView.vm.FFmpegPath_Text + "\"";
             }
 
             // Return Value
@@ -1992,17 +2805,17 @@ namespace Axiom
         /// <summary>
         ///     FFprobe Path
         /// </summary>
-        public static void FFprobePath(ViewModel vm)
+        public static void FFprobePath()
         {
             // If Configure FFprobe Path is <auto>
-            if (vm.FFprobePath_Text == "<auto>")
+            if (ConfigureView.vm.FFprobePath_Text == "<auto>")
             {
-                if (File.Exists(appDir + @"ffmpeg\bin\ffprobe.exe"))
+                if (File.Exists(appRootDir + @"ffmpeg\bin\ffprobe.exe"))
                 {
                     // use included binary
-                    FFprobe.ffprobe = "\"" + appDir + @"ffmpeg\bin\ffprobe.exe" + "\"";
+                    FFprobe.ffprobe = "\"" + appRootDir + @"ffmpeg\bin\ffprobe.exe" + "\"";
                 }
-                else if (!File.Exists(appDir + @"ffmpeg\bin\ffprobe.exe"))
+                else if (!File.Exists(appRootDir + @"ffmpeg\bin\ffprobe.exe"))
                 {
                     // use system installed binaries
                     FFprobe.ffprobe = "ffprobe";
@@ -2011,7 +2824,7 @@ namespace Axiom
             // Use User Custom Path
             else
             {
-                FFprobe.ffprobe = "\"" + vm.FFprobePath_Text + "\"";
+                FFprobe.ffprobe = "\"" + ConfigureView.vm.FFprobePath_Text + "\"";
             }
 
             // Return Value
@@ -2022,17 +2835,17 @@ namespace Axiom
         /// <summary>
         ///     FFplay Path
         /// </summary>
-        public static void FFplayPath(ViewModel vm)
+        public static void FFplayPath()
         {
             // If Configure FFprobe Path is <auto>
-            if (vm.FFplayPath_Text == "<auto>")
+            if (ConfigureView.vm.FFplayPath_Text == "<auto>")
             {
-                if (File.Exists(appDir + @"ffmpeg\bin\ffplay.exe"))
+                if (File.Exists(appRootDir + @"ffmpeg\bin\ffplay.exe"))
                 {
                     // use included binary
-                    FFplay.ffplay = "\"" + appDir + @"ffmpeg\bin\ffplay.exe" + "\"";
+                    FFplay.ffplay = "\"" + appRootDir + @"ffmpeg\bin\ffplay.exe" + "\"";
                 }
-                else if (!File.Exists(appDir + @"ffmpeg\bin\ffplay.exe"))
+                else if (!File.Exists(appRootDir + @"ffmpeg\bin\ffplay.exe"))
                 {
                     // use system installed binaries
                     FFplay.ffplay = "ffplay";
@@ -2041,7 +2854,7 @@ namespace Axiom
             // Use User Custom Path
             else
             {
-                FFplay.ffplay = "\"" + vm.FFplayPath_Text + "\"";
+                FFplay.ffplay = "\"" + ConfigureView.vm.FFplayPath_Text + "\"";
             }
 
             // Return Value
@@ -2052,25 +2865,25 @@ namespace Axiom
         /// <summary>
         ///     youtube-dl Path
         /// </summary>
-        public static void youtubedlPath(ViewModel vm)
+        public static void youtubedlPath()
         {
             // If Configure youtubedl Path is <auto>
-            if (vm.youtubedlPath_Text == "<auto>")
+            if (ConfigureView.vm.youtubedlPath_Text == "<auto>")
             {
                 // youtube-dl.exe Exists
-                if (File.Exists(appDir + @"youtube-dl\youtube-dl.exe"))
+                if (File.Exists(appRootDir + @"youtube-dl\youtube-dl.exe"))
                 {
                     // use included binary path
-                    youtubedl = appDir + @"youtube-dl\youtube-dl.exe";
+                    youtubedl = appRootDir + @"youtube-dl\youtube-dl.exe";
                 }
-                else if (File.Exists(appDir + @"youtube-dl.exe"))
+                else if (File.Exists(appRootDir + @"youtube-dl.exe"))
                 {
                     // moved from folder
-                    youtubedl = appDir + @"youtube-dl.exe";
+                    youtubedl = appRootDir + @"youtube-dl.exe";
                 }
 
                 // youtube-dl.exe Does Not Exist
-                else if (!File.Exists(appDir + @"youtube-dl\youtube-dl.exe"))
+                else if (!File.Exists(appRootDir + @"youtube-dl\youtube-dl.exe"))
                 {
                     // Installed
                     // Environment Variable auto path
@@ -2081,7 +2894,7 @@ namespace Axiom
             // Use User Custom Path
             else
             {
-                youtubedl = vm.youtubedlPath_Text;
+                youtubedl = ConfigureView.vm.youtubedlPath_Text;
             }
         }
 
@@ -2090,12 +2903,12 @@ namespace Axiom
         /// <summary>
         ///    Thread Detect
         /// </summary>
-        public static String ThreadDetect(ViewModel vm)
+        public static String ThreadDetect()
         {
             // -------------------------
             // Default
             // -------------------------
-            if (vm.Threads_SelectedItem == "default")
+            if (ConfigureView.vm.Threads_SelectedItem == "default")
             {
                 Configure.threads = string.Empty;
             }
@@ -2103,7 +2916,7 @@ namespace Axiom
             // -------------------------
             // Optimal
             // -------------------------
-            else if (vm.Threads_SelectedItem == "optimal" ||
+            else if (ConfigureView.vm.Threads_SelectedItem == "optimal" ||
                      string.IsNullOrEmpty(Configure.threads))
             {
                 Configure.threads = "-threads 0";
@@ -2112,7 +2925,7 @@ namespace Axiom
             // -------------------------
             // All
             // -------------------------
-            else if (vm.Threads_SelectedItem == "all" ||
+            else if (ConfigureView.vm.Threads_SelectedItem == "all" ||
                      string.IsNullOrEmpty(Configure.threads))
             {
                 Configure.threads = "-threads " + Configure.maxthreads;
@@ -2123,7 +2936,7 @@ namespace Axiom
             // -------------------------
             else
             {
-                Configure.threads = "-threads " + vm.Threads_SelectedItem;
+                Configure.threads = "-threads " + ConfigureView.vm.Threads_SelectedItem;
             }
 
             // Return Value
@@ -2228,7 +3041,7 @@ namespace Axiom
                                              string audioCodec_SelectedItem
                                              )
         {
-            if (//IsYouTubeURL(vm.Input_Text) == true &&
+            if (//IsYouTubeURL(MainView.vm.Input_Text) == true &&
                 
                 // Video
                 (videoCodec_SelectedItem == "Copy" &&
@@ -2279,7 +3092,7 @@ namespace Axiom
         /// <summary>
         ///     YouTube Download - FFmpeg Path
         /// </summary>
-        public static String YouTubeDL_FFmpegPath(ViewModel vm)
+        public static String YouTubeDL_FFmpegPath()
         {
             // youtube-dl
             // FFmpeg must be detected by youtube-dl to merge video+audio into a single file
@@ -2287,7 +3100,7 @@ namespace Axiom
             // If defining ffmpeg location, do not use "--ffmpeg-location ffmpeg", it will fail
             // You must use a full path --ffmpeg-location "C:\Path\To\ffmpeg.exe"
 
-            string path = FFmpegPath(vm);
+            string path = FFmpegPath();
 
             // Environment Variables
             if (path == "ffmpeg")
@@ -2316,24 +3129,24 @@ namespace Axiom
         /// <summary>
         ///    Convert Button Text Change (Method)
         /// </summary>
-        public static void ConvertButtonText(ViewModel vm)
+        public static void ConvertButtonText()
         {
-            //MessageBox.Show(vm.Input_Text); //debug
+            //MessageBox.Show(MainView.vm.Input_Text); //debug
 
             // Change to "Download" if YouTube Download-Only Mode
-            if ((IsWebURL(vm.Input_Text) == true || IsYouTubeURL(vm.Input_Text) == true) &&
-                IsWebDownloadOnly(vm.Video_Codec_SelectedItem, 
-                                  vm.Subtitle_Codec_SelectedItem, 
-                                  vm.Audio_Codec_SelectedItem) == true
+            if ((IsWebURL(MainView.vm.Input_Text) == true || IsYouTubeURL(MainView.vm.Input_Text) == true) &&
+                IsWebDownloadOnly(VideoView.vm.Video_Codec_SelectedItem, 
+                                  SubtitleView.vm.Subtitle_Codec_SelectedItem, 
+                                  AudioView.vm.Audio_Codec_SelectedItem) == true
                 )
             {
-                vm.Convert_Text = "Download";
+                MainView.vm.Convert_Text = "Download";
             }
 
             // Change to Convert if User Defined Custom Settings
             else
             {
-                vm.Convert_Text = "Convert";
+                MainView.vm.Convert_Text = "Convert";
             }
         }
 
@@ -2344,7 +3157,7 @@ namespace Axiom
         /// <remarks>
         ///     Check if youtube-dl.exe is on Computer 
         /// </remarks>
-        public static bool YouTubeDownloadCheck(ViewModel vm)
+        public static bool YouTubeDownloadCheck()
         {
             if (File.Exists(youtubedl))
             {
@@ -2543,11 +3356,11 @@ namespace Axiom
         {
             // Video + Audio
             // Video Only
-            if (vm.Format_YouTube_SelectedItem == "Video + Audio" ||
-                vm.Format_YouTube_SelectedItem == "Video Only")
+            if (FormatView.vm.Format_YouTube_SelectedItem == "Video + Audio" ||
+                FormatView.vm.Format_YouTube_SelectedItem == "Video Only")
             {
                 // Change Items Source
-                vm.Format_YouTube_Quality_Items = new List<string>()
+                FormatView.vm.Format_YouTube_Quality_Items = new List<string>()
                 {
                     "best",
                     "best 4K",
@@ -2558,21 +3371,21 @@ namespace Axiom
                 };
 
                 // Select Default
-                vm.Format_YouTube_Quality_SelectedItem = "best";
+                FormatView.vm.Format_YouTube_Quality_SelectedItem = "best";
             }
 
             // Audio Only
-            else if (vm.Format_YouTube_SelectedItem == "Audio Only")
+            else if (FormatView.vm.Format_YouTube_SelectedItem == "Audio Only")
             {
                 // Change Items Source
-                vm.Format_YouTube_Quality_Items = new List<string>()
+                FormatView.vm.Format_YouTube_Quality_Items = new List<string>()
                 {
                     "best",
                     "worst"
                 };
 
                 // Select Default
-                vm.Format_YouTube_Quality_SelectedItem = "best";
+                FormatView.vm.Format_YouTube_Quality_SelectedItem = "best";
             }
         }
 
@@ -2581,7 +3394,7 @@ namespace Axiom
         /// <summary>
         ///     YouTube Download - Merge Output Format
         /// </summary>
-        //public static String YouTubeDownload_MergeOutputFormat(ViewModel vm)
+        //public static String YouTubeDownload_MergeOutputFormat()
         //{
 
         //    if (IsWebDownloadOnly() == true)
@@ -2590,10 +3403,10 @@ namespace Axiom
         //    }
         //    else
         //    {
-        //        return "--merge-output-format " + YouTubeDownloadFormat(vm.Format_YouTube_SelectedItem,
-        //                                                                vm.Video_Codec_SelectedItem,
-        //                                                                vm.Subtitle_Codec_SelectedItem,
-        //                                                                vm.Audio_Codec_SelectedItem
+        //        return "--merge-output-format " + YouTubeDownloadFormat(FormatView.vm.Format_YouTube_SelectedItem,
+        //                                                                VideoView.vm.Video_Codec_SelectedItem,
+        //                                                                SubtitleView.vm.Subtitle_Codec_SelectedItem,
+        //                                                                AudioView.vm.Audio_Codec_SelectedItem
         //                                                                );
         //    }
         //}
@@ -2603,21 +3416,21 @@ namespace Axiom
         /// <summary>
         ///    Check if Script has been Edited (Method)
         /// </summary>
-        public static bool CheckScriptEdited(ViewModel vm)
+        public static bool CheckScriptEdited()
         {
             bool edited = false;
 
             // -------------------------
             // Check if Script has been modified
             // -------------------------
-            if (!string.IsNullOrEmpty(vm.ScriptView_Text) && 
+            if (!string.IsNullOrEmpty(MainView.vm.ScriptView_Text) && 
                 !string.IsNullOrEmpty(FFmpeg.ffmpegArgs))
             {
                 //MessageBox.Show(RemoveLineBreaks(ScriptView.GetScriptRichTextBoxContents(mainwindow))); //debug
                 //MessageBox.Show(FFmpeg.ffmpegArgs); //debug
 
                 // Compare RichTextBox Script Against FFmpeg Generated Args
-                if (RemoveLineBreaks(vm.ScriptView_Text) != FFmpeg.ffmpegArgs)
+                if (RemoveLineBreaks(MainView.vm.ScriptView_Text) != FFmpeg.ffmpegArgs)
                 {
                     // Yes/No Dialog Confirmation
                     MessageBoxResult result = MessageBox.Show("The Convert button will override and replace your custom script with the selected controls."
@@ -2647,30 +3460,30 @@ namespace Axiom
         /// <summary>
         ///    Ready Halts (Method)
         /// </summary>
-        public static bool ReadyHalts(ViewModel vm)
+        public static bool ReadyHalts()
         {
             // -------------------------
             // Check if FFmpeg & FFprobe Exists
             // -------------------------
-            if (FFcheck(vm) == false)
+            if (FFcheck() == false)
             {
                 // Halt
                 return false;
             }
 
-            //MessageBox.Show(FFcheck(vm).ToString()); //debug
+            //MessageBox.Show(FFcheck().ToString()); //debug
             //MessageBox.Show(ready.ToString()); //debug
 
             // -------------------------
             // Input File does not exist
             // -------------------------
             //MessageBox.Show(input); //debug
-            if (IsWebURL(vm.Input_Text) == false) // Ignore Web URL's
+            if (IsWebURL(MainView.vm.Input_Text) == false) // Ignore Web URL's
             {
-                if (!string.IsNullOrEmpty(vm.Input_Text) &&
-                    vm.Batch_IsChecked == false)
+                if (!string.IsNullOrEmpty(MainView.vm.Input_Text) &&
+                    MainView.vm.Batch_IsChecked == false)
                 {
-                    if (!File.Exists(vm.Input_Text))
+                    if (!File.Exists(MainView.vm.Input_Text))
                     {
                         MessageBox.Show("Input file does not exist.",
                                         "Notice",
@@ -2687,7 +3500,7 @@ namespace Axiom
             // YouTube Download - URL Missing
             // -------------------------
             // Needs Preset Video/Music detection
-            //if (IsYouTubeDownloadOnly(vm) == true)
+            //if (IsYouTubeDownloadOnly() == true)
             //{
 
             //}
@@ -2697,8 +3510,8 @@ namespace Axiom
             // -------------------------
             if (string.IsNullOrEmpty(FFprobe.ffprobe))
             {
-                if (vm.Video_Quality_SelectedItem == "Auto" ||
-                    vm.Audio_Quality_SelectedItem == "Auto")
+                if (VideoView.vm.Video_Quality_SelectedItem == "Auto" ||
+                    AudioView.vm.Audio_Quality_SelectedItem == "Auto")
                 {
                     // Log Console Message /////////
                     Log.logParagraph.Inlines.Add(new LineBreak());
@@ -2720,7 +3533,7 @@ namespace Axiom
             // Crop Codec Copy
             // -------------------------
             if (!string.IsNullOrEmpty(CropWindow.crop) &&
-                vm.Video_Codec_SelectedItem == "Copy") //null check
+                VideoView.vm.Video_Codec_SelectedItem == "Copy") //null check
             {
                 // Log Console Message /////////
                 Log.WriteAction = () =>
@@ -2744,49 +3557,49 @@ namespace Axiom
             // -------------------------
             // Video BitRate is missing K or M at end of value
             // -------------------------
-            if (vm.Video_Quality_SelectedItem == "Custom" &&
-                vm.Video_BitRate_IsEnabled == true &&
-                vm.Video_BitRate_Text != "0" && // Constant Bit Rate 0 does not need K or M
-                vm.Video_VBR_IsChecked != true)
+            if (VideoView.vm.Video_Quality_SelectedItem == "Custom" &&
+                VideoView.vm.Video_BitRate_IsEnabled == true &&
+                VideoView.vm.Video_BitRate_Text != "0" && // Constant Bit Rate 0 does not need K or M
+                VideoView.vm.Video_VBR_IsChecked != true)
             {
                 // Error List
                 List<string> errors = new List<string>();
 
                 // Bit Rate
-                if (!string.IsNullOrEmpty(vm.Video_BitRate_Text))
+                if (!string.IsNullOrEmpty(VideoView.vm.Video_BitRate_Text))
                 {
-                    if (vm.Video_BitRate_Text.ToUpper()?.Contains("K") != true &&
-                        vm.Video_BitRate_Text.ToUpper()?.Contains("M") != true)
+                    if (VideoView.vm.Video_BitRate_Text.ToUpper()?.Contains("K") != true &&
+                        VideoView.vm.Video_BitRate_Text.ToUpper()?.Contains("M") != true)
                     {
                         errors.Add("Bit Rate");
                     }
                 }
 
                 // Min Rate
-                if (!string.IsNullOrEmpty(vm.Video_MinRate_Text))
+                if (!string.IsNullOrEmpty(VideoView.vm.Video_MinRate_Text))
                 {
-                    if (vm.Video_MinRate_Text.ToUpper()?.Contains("K") != true &&
-                        vm.Video_MinRate_Text.ToUpper()?.Contains("M") != true)
+                    if (VideoView.vm.Video_MinRate_Text.ToUpper()?.Contains("K") != true &&
+                        VideoView.vm.Video_MinRate_Text.ToUpper()?.Contains("M") != true)
                     {
                         errors.Add("Min Rate");
                     }
                 }
 
                 // Max Rate
-                if (!string.IsNullOrEmpty(vm.Video_MaxRate_Text))
+                if (!string.IsNullOrEmpty(VideoView.vm.Video_MaxRate_Text))
                 {
-                    if (vm.Video_MaxRate_Text.ToUpper()?.Contains("K") != true &&
-                        vm.Video_MaxRate_Text.ToUpper()?.Contains("M") != true)
+                    if (VideoView.vm.Video_MaxRate_Text.ToUpper()?.Contains("K") != true &&
+                        VideoView.vm.Video_MaxRate_Text.ToUpper()?.Contains("M") != true)
                     {
                         errors.Add("Max Rate");
                     }
                 }
 
                 // Buf Size
-                if (!string.IsNullOrEmpty(vm.Video_BufSize_Text))
+                if (!string.IsNullOrEmpty(VideoView.vm.Video_BufSize_Text))
                 {
-                    if (vm.Video_BufSize_Text.ToUpper()?.Contains("K") != true &&
-                        vm.Video_BufSize_Text.ToUpper()?.Contains("M") != true)
+                    if (VideoView.vm.Video_BufSize_Text.ToUpper()?.Contains("K") != true &&
+                        VideoView.vm.Video_BufSize_Text.ToUpper()?.Contains("M") != true)
                     {
                         errors.Add("Buf Size");
                     }
@@ -2817,8 +3630,8 @@ namespace Axiom
             // -------------------------
             // Single File Input with no Extension
             // -------------------------
-            if (vm.Batch_IsChecked == false && 
-                vm.Input_Text.EndsWith("\\"))
+            if (MainView.vm.Batch_IsChecked == false && 
+                MainView.vm.Input_Text.EndsWith("\\"))
             {
                 // Log Console Message /////////
                 Log.logParagraph.Inlines.Add(new LineBreak());
@@ -2839,7 +3652,7 @@ namespace Axiom
             // -------------------------
             // Do Not allow Batch Copy to same folder if file extensions are the same (to avoid file overwrite)
             // -------------------------
-            if (vm.Batch_IsChecked == true)
+            if (MainView.vm.Batch_IsChecked == true)
             {
                 if (string.Equals(inputDir, outputDir, StringComparison.CurrentCultureIgnoreCase) &&
                     string.Equals(inputExt, outputExt, StringComparison.CurrentCultureIgnoreCase))
@@ -2869,11 +3682,11 @@ namespace Axiom
             // -------------------------
             // VP8/VP9 & CRF does not have BitRate -b:v
             // -------------------------
-            if (vm.Video_Codec_SelectedItem == "VP8" ||
-                vm.Video_Codec_SelectedItem == "VP9")
+            if (VideoView.vm.Video_Codec_SelectedItem == "VP8" ||
+                VideoView.vm.Video_Codec_SelectedItem == "VP9")
             {
-                if (!string.IsNullOrEmpty(vm.Video_CRF_Text) &&
-                    string.IsNullOrEmpty(vm.Video_BitRate_Text))
+                if (!string.IsNullOrEmpty(VideoView.vm.Video_CRF_Text) &&
+                    string.IsNullOrEmpty(VideoView.vm.Video_BitRate_Text))
                 {
                     // Log Console Message /////////
                     Log.logParagraph.Inlines.Add(new LineBreak());
@@ -3381,10 +4194,10 @@ namespace Axiom
         /// <summary>
         ///    Update Available Check
         /// </summary>
-        public static async Task<int> UpdateAvailableCheck(ViewModel vm)
+        public static async Task<int> UpdateAvailableCheck()
         {
             int count = 0;
-            if (vm.UpdateAutoCheck_IsChecked == true)
+            if (ConfigureView.vm.UpdateAutoCheck_IsChecked == true)
             {
                 await Task.Factory.StartNew(() =>
                 {
@@ -3436,7 +4249,7 @@ namespace Axiom
                         // Update Available
                         if (latestVersion > currentVersion)
                         {
-                            vm.TitleVersion = vm.TitleVersion + " ~ Update Available: " + "(" + Convert.ToString(latestVersion) + "-" + latestBuildPhase + ")";
+                            MainView.vm.TitleVersion = MainView.vm.TitleVersion + " ~ Update Available: " + "(" + Convert.ToString(latestVersion) + "-" + latestBuildPhase + ")";
                         }
                         // Update Not Available
                         else if (latestVersion <= currentVersion)
@@ -3511,7 +4324,7 @@ namespace Axiom
                 if (IsDebugConsoleOpened) return;
 
                 // Start Window
-                debugconsole = new DebugConsole(this, vm);
+                debugconsole = new DebugConsole(this);
 
                 // Only allow 1 Window instance
                 debugconsole.ContentRendered += delegate { IsDebugConsoleOpened = true; };
@@ -3529,7 +4342,7 @@ namespace Axiom
                 debugconsole.Top = Math.Max(Top - 0, thisScreen.WorkingArea.Top);
 
                 // Write Variables to Debug Window (Method)
-                //DebugConsole.DebugWrite(debugconsole, vm);
+                //DebugConsole.DebugWrite(debugconsole, MainView.vm);
 
                 // Open Window
                 debugconsole.Show();
@@ -3541,7 +4354,7 @@ namespace Axiom
                 if (IsDebugConsoleOpened) return;
 
                 // Start Window
-                debugconsole = new DebugConsole(this, vm);
+                debugconsole = new DebugConsole(this);
 
                 // Only allow 1 Window instance
                 debugconsole.ContentRendered += delegate { IsDebugConsoleOpened = true; };
@@ -3553,7 +4366,7 @@ namespace Axiom
                 debugconsole.Top = Top;
 
                 // Write Variables to Debug Window (Method)
-                //DebugConsole.DebugWrite(debugconsole, vm);
+                //DebugConsole.DebugWrite(debugconsole, MainView.vm);
 
                 // Open Window
                 debugconsole.Show();
@@ -3601,14 +4414,14 @@ namespace Axiom
         private void btnLog_Click(object sender, RoutedEventArgs e)
         {
             // Call Method to get Log Path
-            Log.DefineLogPath(vm);
+            Log.DefineLogPath();
 
             //MessageBox.Show(Configure.logPath.ToString()); //debug
 
             // Open Log
-            if (File.Exists(vm.LogPath_Text + "output.log"))
+            if (File.Exists(ConfigureView.vm.LogPath_Text + "output.log"))
             {
-                Process.Start("notepad.exe", "\"" + vm.LogPath_Text + "output.log" + "\"");
+                Process.Start("notepad.exe", "\"" + ConfigureView.vm.LogPath_Text + "output.log" + "\"");
             }
             else
             {
@@ -3648,7 +4461,7 @@ namespace Axiom
 
                 // Start window
                 //MainWindow mainwindow = this;
-                filepropwindow = new FilePropertiesWindow(this, vm);
+                filepropwindow = new FilePropertiesWindow(this);
 
                 // Only allow 1 Window instance
                 filepropwindow.ContentRendered += delegate { IsFilePropertiesOpened = true; };
@@ -3676,7 +4489,7 @@ namespace Axiom
                 if (IsFilePropertiesOpened) return;
 
                 // Start window
-                filepropwindow = new FilePropertiesWindow(this, vm);
+                filepropwindow = new FilePropertiesWindow(this);
 
                 // Only allow 1 Window instance
                 filepropwindow.ContentRendered += delegate { IsFilePropertiesOpened = true; };
@@ -3726,7 +4539,7 @@ namespace Axiom
             // -------------------------
             // Single File
             // -------------------------
-            if (vm.Batch_IsChecked == false)
+            if (MainView.vm.Batch_IsChecked == false)
             {
                 // Open Select File Window
                 Microsoft.Win32.OpenFileDialog selectFile = new Microsoft.Win32.OpenFileDialog();
@@ -3755,14 +4568,14 @@ namespace Axiom
                 if (result == true)
                 {
                     // Display path and file in Output Textbox
-                    vm.Input_Text = selectFile.FileName;
+                    MainView.vm.Input_Text = selectFile.FileName;
 
                     // Set Input Dir, Name, Ext
-                    inputDir = Path.GetDirectoryName(vm.Input_Text).TrimEnd('\\') + @"\";
+                    inputDir = Path.GetDirectoryName(MainView.vm.Input_Text).TrimEnd('\\') + @"\";
 
-                    inputFileName = Path.GetFileNameWithoutExtension(vm.Input_Text);
+                    inputFileName = Path.GetFileNameWithoutExtension(MainView.vm.Input_Text);
 
-                    inputExt = Path.GetExtension(vm.Input_Text);
+                    inputExt = Path.GetExtension(MainView.vm.Input_Text);
 
                     // Save Previous Path
                     Settings.Default.InputDir = inputDir;
@@ -3774,21 +4587,21 @@ namespace Axiom
                 // Default Auto if Input Extension matches Output Extsion
                 // This will trigger Auto Codec Copy
                 // --------------------------------------------------
-                ExtensionMatchCheckAuto(vm);
+                ExtensionMatchCheckAuto();
 
                 // -------------------------
                 // Prevent Losing Codec Copy after cancel closing Browse Folder Dialog Box 
                 // Set Video & Audio Codec Combobox to "Copy" if Input Extension is Same as Output Extension and Video Quality is Auto
                 // -------------------------
-                VideoControls.AutoCopyVideoCodec(vm);
-                SubtitleControls.AutoCopySubtitleCodec(vm);
-                AudioControls.AutoCopyAudioCodec(vm);
+                VideoControls.AutoCopyVideoCodec();
+                SubtitleControls.AutoCopySubtitleCodec();
+                AudioControls.AutoCopyAudioCodec();
             }
 
             // -------------------------
             // Batch
             // -------------------------
-            else if (vm.Batch_IsChecked == true)
+            else if (MainView.vm.Batch_IsChecked == true)
             {
                 // Open Batch Folder
                 System.Windows.Forms.FolderBrowserDialog inputFolder = new System.Windows.Forms.FolderBrowserDialog();
@@ -3799,11 +4612,11 @@ namespace Axiom
                 if (result == System.Windows.Forms.DialogResult.OK)
                 {
                     // Display Folder Path in Textbox
-                    vm.Input_Text = inputFolder.SelectedPath.TrimEnd('\\') + @"\";
+                    MainView.vm.Input_Text = inputFolder.SelectedPath.TrimEnd('\\') + @"\";
 
                     // Input Directory
-                    //inputDir = Path.GetDirectoryName(vm.Input_Text.TrimEnd('\\') + @"\");
-                    inputDir = vm.Input_Text.TrimEnd('\\') + @"\"; // Note: Do not use Path.GetDirectoryName() with Batch Path only
+                    //inputDir = Path.GetDirectoryName(MainView.vm.Input_Text.TrimEnd('\\') + @"\");
+                    inputDir = MainView.vm.Input_Text.TrimEnd('\\') + @"\"; // Note: Do not use Path.GetDirectoryName() with Batch Path only
                                                                    //       It will remove the last dir as a file extension
                 }
 
@@ -3811,9 +4624,9 @@ namespace Axiom
                 // Prevent Losing Codec Copy after cancel closing Browse Folder Dialog Box 
                 // Set Video & Audio Codec Combobox to "Copy" if Input Extension is Same as Output Extension and Video Quality is Auto
                 // -------------------------
-                VideoControls.AutoCopyVideoCodec(vm);
-                SubtitleControls.AutoCopySubtitleCodec(vm);
-                AudioControls.AutoCopyAudioCodec(vm);
+                VideoControls.AutoCopyVideoCodec();
+                SubtitleControls.AutoCopySubtitleCodec();
+                AudioControls.AutoCopyAudioCodec();
             }
         }
 
@@ -3824,20 +4637,20 @@ namespace Axiom
         /// </summary>
         private void tbxInput_TextChanged(object sender, TextChangedEventArgs e)
         {
-            input = vm.Input_Text;
+            input = MainView.vm.Input_Text;
 
             // -------------------------
             // Local File
             // -------------------------
-            if (IsWebURL(vm.Input_Text) == false)
+            if (IsWebURL(MainView.vm.Input_Text) == false)
             {
                 // -------------------------
                 // Single File
                 // -------------------------
-                if (vm.Batch_IsChecked == false)
+                if (MainView.vm.Batch_IsChecked == false)
                 {
                     // Has Text
-                    if (!string.IsNullOrEmpty(vm.Input_Text))
+                    if (!string.IsNullOrEmpty(MainView.vm.Input_Text))
                     {
                         // Remove stray slash if closed out early
                         if (input == @"\")
@@ -3848,7 +4661,7 @@ namespace Axiom
                         // Do not set inputDir
 
                         // Input Extension
-                        inputExt = Path.GetExtension(vm.Input_Text);
+                        inputExt = Path.GetExtension(MainView.vm.Input_Text);
                     }
 
                     // No Text
@@ -3865,7 +4678,7 @@ namespace Axiom
                 else
                 {
                     // Has Text
-                    if (!string.IsNullOrEmpty(vm.Input_Text))
+                    if (!string.IsNullOrEmpty(MainView.vm.Input_Text))
                     {
                         // Remove stray slash if closed out early
                         if (input == @"\")
@@ -3873,9 +4686,9 @@ namespace Axiom
                             input = string.Empty;
                         }
 
-                        inputDir = vm.Input_Text.TrimEnd('\\') + @"\"; // Note: Do not use Path.GetDirectoryName() with Batch Path only
+                        inputDir = MainView.vm.Input_Text.TrimEnd('\\') + @"\"; // Note: Do not use Path.GetDirectoryName() with Batch Path only
                                                                        //       It will remove the last dir as a file extension
-                        inputExt = vm.BatchExtension_Text;
+                        inputExt = MainView.vm.BatchExtension_Text;
                     }
 
                     // No Text
@@ -3890,31 +4703,31 @@ namespace Axiom
                 // -------------------------
                 // Enable / Disable "Open Input Location" Button
                 // -------------------------
-                if (!string.IsNullOrEmpty(vm.Input_Text) &&
-                    IsValidFilePath(vm.Input_Text) == true && // Detect Invalid Characters
+                if (!string.IsNullOrEmpty(MainView.vm.Input_Text) &&
+                    IsValidFilePath(MainView.vm.Input_Text) == true && // Detect Invalid Characters
 
-                    Path.IsPathRooted(vm.Input_Text) == true  // TrimEnd('\\') + @"\" is adding a backslash to 
+                    Path.IsPathRooted(MainView.vm.Input_Text) == true  // TrimEnd('\\') + @"\" is adding a backslash to 
                                                               // Iput text 'http' until it is detected as Web URL
                     )
                 {
-                    bool exists = Directory.Exists(Path.GetDirectoryName(vm.Input_Text));
+                    bool exists = Directory.Exists(Path.GetDirectoryName(MainView.vm.Input_Text));
 
                     // Path exists
                     if (exists)
                     {
-                        vm.Input_Location_IsEnabled = true;
+                        MainView.vm.Input_Location_IsEnabled = true;
                     }
                     // Path does not exist
                     else
                     {
-                        vm.Input_Location_IsEnabled = false;
+                        MainView.vm.Input_Location_IsEnabled = false;
                     }
                 }
 
                 // Disable Button for Web URL
                 else
                 {
-                    vm.Input_Location_IsEnabled = false;
+                    MainView.vm.Input_Location_IsEnabled = false;
                 }
 
 
@@ -3922,18 +4735,18 @@ namespace Axiom
                 // Set Video & Audio Codec Combobox to "Copy" 
                 // if Input Extension is Same as Output Extension and Video Quality is Auto
                 // -------------------------
-                if (IsWebURL(vm.Input_Text) == false) // Check if Input is a Windows Path, Not a URL
+                if (IsWebURL(MainView.vm.Input_Text) == false) // Check if Input is a Windows Path, Not a URL
                 {
-                    if (Path.HasExtension(vm.Input_Text) == true && // Check if Input has file extension after it has passed URL check
+                    if (Path.HasExtension(MainView.vm.Input_Text) == true && // Check if Input has file extension after it has passed URL check
                                                                     // to prevent path forward slash error in Path.HasExtension()
 
-                        !vm.Input_Text.Contains("youtube"))         // Input text does not contain "youtube", 
+                        !MainView.vm.Input_Text.Contains("youtube"))         // Input text does not contain "youtube", 
                                                                     // Path.HasExtension() detects .c, .co, .com as extension
 
                     {
-                        VideoControls.AutoCopyVideoCodec(vm);
-                        SubtitleControls.AutoCopySubtitleCodec(vm);
-                        AudioControls.AutoCopyAudioCodec(vm);
+                        VideoControls.AutoCopyVideoCodec();
+                        SubtitleControls.AutoCopySubtitleCodec();
+                        AudioControls.AutoCopyAudioCodec();
                     }
                 }
             }
@@ -3945,7 +4758,7 @@ namespace Axiom
             {
                 inputDir = string.Empty;
                 inputExt = string.Empty;
-                vm.Input_Location_IsEnabled = false;
+                MainView.vm.Input_Location_IsEnabled = false;
             }
 
 
@@ -3953,7 +4766,7 @@ namespace Axiom
             // Convert Button Text Change
             // -------------------------
             // YouTube Download
-            ConvertButtonText(vm);
+            ConvertButtonText();
         }
 
         /// <summary>
@@ -3968,17 +4781,17 @@ namespace Axiom
         private void tbxInput_PreviewDrop(object sender, DragEventArgs e)
         {
             var buffer = e.Data.GetData(DataFormats.FileDrop, false) as string[];
-            vm.Input_Text = buffer.First();
+            MainView.vm.Input_Text = buffer.First();
 
             // Set Input Dir, Name, Ext
-            inputDir = Path.GetDirectoryName(vm.Input_Text).TrimEnd('\\') + @"\";
-            inputFileName = Path.GetFileNameWithoutExtension(vm.Input_Text);
-            inputExt = Path.GetExtension(vm.Input_Text);
+            inputDir = Path.GetDirectoryName(MainView.vm.Input_Text).TrimEnd('\\') + @"\";
+            inputFileName = Path.GetFileNameWithoutExtension(MainView.vm.Input_Text);
+            inputExt = Path.GetExtension(MainView.vm.Input_Text);
 
             // Set Video & Audio Codec Combobox to "Copy" if Input Extension is Same as Output Extension and Video Quality is Auto
-            VideoControls.AutoCopyVideoCodec(vm);
-            SubtitleControls.AutoCopySubtitleCodec(vm);
-            AudioControls.AutoCopyAudioCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
+            SubtitleControls.AutoCopySubtitleCodec();
+            AudioControls.AutoCopyAudioCodec();
         }
 
         /// <summary>
@@ -4005,12 +4818,12 @@ namespace Axiom
             // -------------------------
             // Single File
             // -------------------------
-            if (vm.Batch_IsChecked == false)
+            if (MainView.vm.Batch_IsChecked == false)
             {
                 // -------------------------
                 // Get Output Ext
                 // -------------------------
-                FormatControls.OutputFormatExt(vm);
+                FormatControls.OutputFormatExt();
 
                 // -------------------------
                 // Open 'Save File'
@@ -4068,13 +4881,13 @@ namespace Axiom
                 if (result == true)
                 {
                     // Display path and file in Output Textbox
-                    vm.Output_Text = saveFile.FileName;
+                    MainView.vm.Output_Text = saveFile.FileName;
 
                     // Output Path
-                    outputDir = Path.GetDirectoryName(vm.Output_Text).TrimEnd('\\') + @"\";
+                    outputDir = Path.GetDirectoryName(MainView.vm.Output_Text).TrimEnd('\\') + @"\";
 
                     // Output Filename (without extension)
-                    outputFileName = Path.GetFileNameWithoutExtension(vm.Output_Text);
+                    outputFileName = Path.GetFileNameWithoutExtension(MainView.vm.Output_Text);
 
                     // Add slash to inputDir path if missing
                     if (!string.IsNullOrEmpty(outputDir))
@@ -4094,7 +4907,7 @@ namespace Axiom
             // -------------------------
             // Batch
             // -------------------------
-            else if (vm.Batch_IsChecked == true)
+            else if (MainView.vm.Batch_IsChecked == true)
             {
                 // Open 'Select Folder'
                 System.Windows.Forms.FolderBrowserDialog outputFolder = new System.Windows.Forms.FolderBrowserDialog();
@@ -4105,13 +4918,13 @@ namespace Axiom
                 if (result == System.Windows.Forms.DialogResult.OK)
                 {
                     // Display path and file in Output Textbox
-                    vm.Output_Text = outputFolder.SelectedPath.TrimEnd('\\') + @"\";
+                    MainView.vm.Output_Text = outputFolder.SelectedPath.TrimEnd('\\') + @"\";
 
                     // Remove Double Slash in Root Dir, such as C:\
-                    vm.Output_Text = vm.Output_Text.Replace(@"\\", @"\");
+                    MainView.vm.Output_Text = MainView.vm.Output_Text.Replace(@"\\", @"\");
 
                     // Output Path
-                    outputDir = Path.GetDirectoryName(vm.Output_Text.TrimEnd('\\') + @"\");
+                    outputDir = Path.GetDirectoryName(MainView.vm.Output_Text.TrimEnd('\\') + @"\");
 
                     // Add slash to inputDir path if missing
                     if (!string.IsNullOrEmpty(outputDir))
@@ -4133,23 +4946,23 @@ namespace Axiom
         private void tbxOutput_TextChanged(object sender, TextChangedEventArgs e)
         {
             // Remove stray slash if closed out early
-            if (vm.Output_Text == "\\")
+            if (MainView.vm.Output_Text == "\\")
             {
-                vm.Output_Text = string.Empty;
+                MainView.vm.Output_Text = string.Empty;
             }
 
             // Enable / Disable "Open Output Location" Buttion
-            if (!string.IsNullOrEmpty(vm.Output_Text))
+            if (!string.IsNullOrEmpty(MainView.vm.Output_Text))
             {
-                bool exists = Directory.Exists(Path.GetDirectoryName(vm.Output_Text));
+                bool exists = Directory.Exists(Path.GetDirectoryName(MainView.vm.Output_Text));
 
                 if (exists)
                 {
-                    vm.Output_Location_IsEnabled = true;
+                    MainView.vm.Output_Location_IsEnabled = true;
                 }
                 else
                 {
-                    vm.Output_Location_IsEnabled = false;
+                    MainView.vm.Output_Location_IsEnabled = false;
                 }
             }
         }
@@ -4167,7 +4980,7 @@ namespace Axiom
         private void tbxOutput_PreviewDrop(object sender, DragEventArgs e)
         {
             var buffer = e.Data.GetData(DataFormats.FileDrop, false) as string[];
-            vm.Output_Text = buffer.First();
+            MainView.vm.Output_Text = buffer.First();
         }
 
 
@@ -4189,19 +5002,19 @@ namespace Axiom
         /// <summary>
         ///    Batch Extension Period Check (Method)
         /// </summary>
-        public static void BatchExtCheck(ViewModel vm)
+        public static void BatchExtCheck()
         {
-            if (vm.Batch_IsChecked == true)
+            if (MainView.vm.Batch_IsChecked == true)
             {
                 // Add period to Batch Extension if User did not enter one
-                if (!string.IsNullOrEmpty(vm.BatchExtension_Text))
+                if (!string.IsNullOrEmpty(MainView.vm.BatchExtension_Text))
                 {
-                    if (vm.BatchExtension_Text != "extension" &&
-                        vm.BatchExtension_Text != "." &&
-                        !vm.BatchExtension_Text.StartsWith(".")
+                    if (MainView.vm.BatchExtension_Text != "extension" &&
+                        MainView.vm.BatchExtension_Text != "." &&
+                        !MainView.vm.BatchExtension_Text.StartsWith(".")
                         )
                     {
-                        inputExt = "." + vm.BatchExtension_Text;
+                        inputExt = "." + MainView.vm.BatchExtension_Text;
                     }
                 }
                 else
@@ -4219,25 +5032,25 @@ namespace Axiom
         private void tglBatch_Checked(object sender, RoutedEventArgs e)
         {
             // Enable / Disable batch extension textbox
-            if (vm.Batch_IsChecked == true)
+            if (MainView.vm.Batch_IsChecked == true)
             {
-                vm.BatchExtension_IsEnabled = true;
-                vm.BatchExtension_Text = string.Empty;
+                MainView.vm.BatchExtension_IsEnabled = true;
+                MainView.vm.BatchExtension_Text = string.Empty;
             }
 
             // Clear Browse Textbox, Input Filename, Dir, Ext
-            if (!string.IsNullOrEmpty(vm.Input_Text))
+            if (!string.IsNullOrEmpty(MainView.vm.Input_Text))
             {
-                vm.Input_Text = string.Empty;
+                MainView.vm.Input_Text = string.Empty;
                 inputFileName = string.Empty;
                 inputDir = string.Empty;
                 inputExt = string.Empty;
             }
 
             // Clear Output Textbox, Output Filename, Dir, Ext
-            if (!string.IsNullOrEmpty(vm.Output_Text))
+            if (!string.IsNullOrEmpty(MainView.vm.Output_Text))
             {
-                vm.Output_Text = string.Empty;
+                MainView.vm.Output_Text = string.Empty;
                 outputFileName = string.Empty;
                 outputDir = string.Empty;
                 outputExt = string.Empty;
@@ -4248,34 +5061,34 @@ namespace Axiom
         private void tglBatch_Unchecked(object sender, RoutedEventArgs e)
         {
             // Enable / Disable batch extension textbox
-            if (vm.Batch_IsChecked == false)
+            if (MainView.vm.Batch_IsChecked == false)
             {
-                vm.BatchExtension_IsEnabled = false;
-                vm.BatchExtension_Text = "extension";
+                MainView.vm.BatchExtension_IsEnabled = false;
+                MainView.vm.BatchExtension_Text = "extension";
             }
 
             // Clear Browse Textbox, Batch Filename, Dir, Ext
-            if (!string.IsNullOrEmpty(vm.Input_Text))
+            if (!string.IsNullOrEmpty(MainView.vm.Input_Text))
             {
-                vm.Input_Text = string.Empty;
+                MainView.vm.Input_Text = string.Empty;
                 inputFileName = string.Empty;
                 inputDir = string.Empty;
                 inputExt = string.Empty;
             }
 
             // Clear Output Textbox, Output Filename, Dir, Ext
-            if (!string.IsNullOrEmpty(vm.Output_Text))
+            if (!string.IsNullOrEmpty(MainView.vm.Output_Text))
             {
-                vm.Output_Text = string.Empty;
+                MainView.vm.Output_Text = string.Empty;
                 outputFileName = string.Empty;
                 outputDir = string.Empty;
                 outputExt = string.Empty;
             }
 
             // Set Video and AudioCodec Combobox to "Copy" if Input Extension is Same as Output Extension and Video Quality is Auto
-            VideoControls.AutoCopyVideoCodec(vm);
-            SubtitleControls.AutoCopySubtitleCodec(vm);
-            AudioControls.AutoCopyAudioCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
+            SubtitleControls.AutoCopySubtitleCodec();
+            AudioControls.AutoCopyAudioCodec();
         }
 
 
@@ -4285,8 +5098,8 @@ namespace Axiom
         private void batchExtension_TextChanged(object sender, TextChangedEventArgs e)
         {
             // Remove Default Value
-            if (string.IsNullOrEmpty(vm.BatchExtension_Text) ||
-                vm.BatchExtension_Text == "extension"
+            if (string.IsNullOrEmpty(MainView.vm.BatchExtension_Text) ||
+                MainView.vm.BatchExtension_Text == "extension"
                 )
             {
                 inputExt = string.Empty;
@@ -4294,13 +5107,13 @@ namespace Axiom
             // TextBox Value
             else
             {
-                inputExt = vm.BatchExtension_Text;
+                inputExt = MainView.vm.BatchExtension_Text;
             }
 
             // Add period to batchExt if user did not enter (This helps enable Copy)
-            if (!string.IsNullOrEmpty(vm.BatchExtension_Text) &&
+            if (!string.IsNullOrEmpty(MainView.vm.BatchExtension_Text) &&
                 !inputExt.StartsWith(".") &&
-                vm.BatchExtension_Text != "extension")
+                MainView.vm.BatchExtension_Text != "extension")
             {
                 inputExt = "." + inputExt;
             }
@@ -4309,12 +5122,12 @@ namespace Axiom
             // Default Auto if Input Extension matches Output Extsion
             // This will trigger Auto Codec Copy
             // --------------------------------------------------
-            ExtensionMatchCheckAuto(vm);
+            ExtensionMatchCheckAuto();
 
             // Set Video and AudioCodec Combobox to "Copy" if Input Extension is Same as Output Extension and Video Quality is Auto
-            VideoControls.AutoCopyVideoCodec(vm);
-            SubtitleControls.AutoCopySubtitleCodec(vm);
-            AudioControls.AutoCopyAudioCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
+            SubtitleControls.AutoCopySubtitleCodec();
+            AudioControls.AutoCopyAudioCodec();
         }
 
 
@@ -4351,39 +5164,39 @@ namespace Axiom
         /// <summary>
         ///    Input Path
         /// </summary>
-        public static String InputPath(ViewModel vm, string pass)
+        public static String InputPath(string pass)
         {
-            if (!string.IsNullOrEmpty(vm.Input_Text))
+            if (!string.IsNullOrEmpty(MainView.vm.Input_Text))
             {
                 // -------------------------
                 // Local File
                 // -------------------------
-                if (IsWebURL(vm.Input_Text) == false) // Ignore Web URL's
+                if (IsWebURL(MainView.vm.Input_Text) == false) // Ignore Web URL's
                 {
                     // -------------------------
                     // Single File
                     // -------------------------
-                    if (vm.Batch_IsChecked == false &&
+                    if (MainView.vm.Batch_IsChecked == false &&
                         pass != "pass 2") // Ignore Pass 2, use existing input path
                     {
                         // Input Directory
-                        if (!string.IsNullOrEmpty(vm.Input_Text))
+                        if (!string.IsNullOrEmpty(MainView.vm.Input_Text))
                         {
-                            inputDir = Path.GetDirectoryName(vm.Input_Text).TrimEnd('\\') + @"\"; // eg. C:\Input\Path\
-                            inputFileName = Path.GetFileNameWithoutExtension(vm.Input_Text);
-                            inputExt = Path.GetExtension(vm.Input_Text);
+                            inputDir = Path.GetDirectoryName(MainView.vm.Input_Text).TrimEnd('\\') + @"\"; // eg. C:\Input\Path\
+                            inputFileName = Path.GetFileNameWithoutExtension(MainView.vm.Input_Text);
+                            inputExt = Path.GetExtension(MainView.vm.Input_Text);
                         }
 
                         // Combine Input
-                        input = vm.Input_Text; // eg. C:\Path\To\file.avi
+                        input = MainView.vm.Input_Text; // eg. C:\Path\To\file.avi
                     }
 
                     // -------------------------
                     // Batch
                     // -------------------------
-                    else if (vm.Batch_IsChecked == true)
+                    else if (MainView.vm.Batch_IsChecked == true)
                     {
-                        inputDir = vm.Input_Text.TrimEnd('\\') + @"\";  // Note: Do not use Path.GetDirectoryName() with Batch Path only
+                        inputDir = MainView.vm.Input_Text.TrimEnd('\\') + @"\";  // Note: Do not use Path.GetDirectoryName() with Batch Path only
                                                                         //       It will remove the last dir as a file extension
 
                         // Note: %f is filename, %~f is full path
@@ -4398,15 +5211,15 @@ namespace Axiom
                 // -------------------------
                 // YouTube Download
                 // -------------------------
-                else if (IsWebURL(vm.Input_Text) == true &&
+                else if (IsWebURL(MainView.vm.Input_Text) == true &&
                          pass != "pass 2") // Ignore Pass 2, use existing input path
                 {
                     inputDir = downloadDir;
                     inputFileName = "%f";
-                    inputExt = "." + YouTubeDownloadFormat(vm.Format_YouTube_SelectedItem,
-                                                           vm.Video_Codec_SelectedItem,
-                                                           vm.Subtitle_Codec_SelectedItem,
-                                                           vm.Audio_Codec_SelectedItem
+                    inputExt = "." + YouTubeDownloadFormat(FormatView.vm.Format_YouTube_SelectedItem,
+                                                           VideoView.vm.Video_Codec_SelectedItem,
+                                                           SubtitleView.vm.Subtitle_Codec_SelectedItem,
+                                                           AudioView.vm.Audio_Codec_SelectedItem
                                                            );
 
                     //input = inputDir + inputFileName + inputExt; // eg. C:\Users\Example\Downloads\%f.mp4
@@ -4435,21 +5248,21 @@ namespace Axiom
         ///    Batch Input Directory
         /// </summary>
         // Directory Only, Needed for Batch
-        public static String BatchInputDirectory(ViewModel vm)
+        public static String BatchInputDirectory()
         {
             // -------------------------
             // Batch
             // -------------------------
-            if (vm.Batch_IsChecked == true)
+            if (MainView.vm.Batch_IsChecked == true)
             {
-                inputDir = vm.Input_Text; // eg. C:\Input\Path\
+                inputDir = MainView.vm.Input_Text; // eg. C:\Input\Path\
             }
 
             // -------------------------
             // Empty
             // -------------------------
             // Input Textbox & Output Textbox Both Empty
-            if (string.IsNullOrEmpty(vm.Input_Text))
+            if (string.IsNullOrEmpty(MainView.vm.Input_Text))
             {
                 inputDir = string.Empty;
             }
@@ -4463,27 +5276,27 @@ namespace Axiom
         /// <summary>
         ///    Output Path
         /// </summary>
-        public static String OutputPath(ViewModel vm)
+        public static String OutputPath()
         {
             // Get Output Extension (Method)
-            FormatControls.OutputFormatExt(vm);
+            FormatControls.OutputFormatExt();
 
-            if (!string.IsNullOrEmpty(vm.Input_Text)) // Check Input
+            if (!string.IsNullOrEmpty(MainView.vm.Input_Text)) // Check Input
             {
                 // -------------------------
                 // Local File
                 // -------------------------
-                if (IsWebURL(vm.Input_Text) == false) // Ignore Web URL's
+                if (IsWebURL(MainView.vm.Input_Text) == false) // Ignore Web URL's
                 {
                     // -------------------------
                     // Single File
                     // -------------------------
-                    if (vm.Batch_IsChecked == false)
+                    if (MainView.vm.Batch_IsChecked == false)
                     {
                         // Input Not Empty
                         // Output Empty
-                        if (!string.IsNullOrEmpty(vm.Input_Text) &&
-                            string.IsNullOrEmpty(vm.Output_Text))
+                        if (!string.IsNullOrEmpty(MainView.vm.Input_Text) &&
+                            string.IsNullOrEmpty(MainView.vm.Output_Text))
                         {
                             // Default Output Dir to be same as Input Directory
                             outputDir = inputDir;
@@ -4494,8 +5307,8 @@ namespace Axiom
                         // Output Not Empty
                         else
                         {
-                            outputDir = Path.GetDirectoryName(vm.Output_Text).TrimEnd('\\') + @"\"; // eg. C:\Output\Path\
-                            outputFileName = Path.GetFileNameWithoutExtension(vm.Output_Text);
+                            outputDir = Path.GetDirectoryName(MainView.vm.Output_Text).TrimEnd('\\') + @"\"; // eg. C:\Output\Path\
+                            outputFileName = Path.GetFileNameWithoutExtension(MainView.vm.Output_Text);
                         }
 
                         // -------------------------
@@ -4512,7 +5325,7 @@ namespace Axiom
                         // -------------------------
                         // Image Sequence Renamer
                         // -------------------------
-                        if (vm.Format_MediaType_SelectedItem == "Sequence")
+                        if (FormatView.vm.Format_MediaType_SelectedItem == "Sequence")
                         {
                             outputFileName = "image-%03d"; //must be this name
                         }
@@ -4528,28 +5341,28 @@ namespace Axiom
                         // -------------------------
                         // Used if FileRenamer() changes name: filename (1)
                         // Only used for Single File, ignore Batch and Web URLs
-                        vm.Output_Text = output;
+                        MainView.vm.Output_Text = output;
                     }
 
                     // -------------------------
                     // Batch
                     // -------------------------
-                    else if (vm.Batch_IsChecked == true)
+                    else if (MainView.vm.Batch_IsChecked == true)
                     {
                         // Note: %f is filename, %~f is full path
 
                         // Add slash to Batch Output Text folder path if missing
-                        vm.Output_Text = vm.Output_Text.TrimEnd('\\') + @"\";
+                        MainView.vm.Output_Text = MainView.vm.Output_Text.TrimEnd('\\') + @"\";
 
                         // Input Not Empty, Output Empty
                         // Default Output to be same as Input Directory
-                        if (!string.IsNullOrEmpty(vm.Input_Text) &&
-                            string.IsNullOrEmpty(vm.Output_Text))
+                        if (!string.IsNullOrEmpty(MainView.vm.Input_Text) &&
+                            string.IsNullOrEmpty(MainView.vm.Output_Text))
                         {
-                            vm.Output_Text = vm.Input_Text;
+                            MainView.vm.Output_Text = MainView.vm.Input_Text;
                         }
 
-                        outputDir = vm.Output_Text.TrimEnd('\\') + @"\";
+                        outputDir = MainView.vm.Output_Text.TrimEnd('\\') + @"\";
 
                         // Combine Output  
                         //output = outputDir + "%~nf" + outputExt; // eg. C:\Output Folder\%~nf.mp4
@@ -4560,12 +5373,12 @@ namespace Axiom
                 // -------------------------
                 // YouTube Download
                 // -------------------------
-                else if (IsWebURL(vm.Input_Text) == true) 
+                else if (IsWebURL(MainView.vm.Input_Text) == true) 
                 {
                     // Note: %f is filename, %~f is full path
 
                     // Auto Output Path
-                    if (string.IsNullOrEmpty(vm.Output_Text))
+                    if (string.IsNullOrEmpty(MainView.vm.Output_Text))
                     {
                         outputDir = downloadDir;
                         //outputFileName = "%f";
@@ -4573,10 +5386,10 @@ namespace Axiom
                         // Check if output filename already exists
                         // Check if YouTube Download Format is the same as Output Extension
                         // The youtub-dl merged format for converting should be mkv
-                        if ("." + YouTubeDownloadFormat(vm.Format_YouTube_SelectedItem,
-                                                        vm.Video_Codec_SelectedItem,
-                                                        vm.Subtitle_Codec_SelectedItem,
-                                                        vm.Audio_Codec_SelectedItem
+                        if ("." + YouTubeDownloadFormat(FormatView.vm.Format_YouTube_SelectedItem,
+                                                        VideoView.vm.Video_Codec_SelectedItem,
+                                                        SubtitleView.vm.Subtitle_Codec_SelectedItem,
+                                                        AudioView.vm.Audio_Codec_SelectedItem
                                                         )
                                                         ==
                                                         outputExt
@@ -4598,8 +5411,8 @@ namespace Axiom
                     // User Defined Output Path
                     else
                     {
-                        outputDir = Path.GetDirectoryName(vm.Output_Text).TrimEnd('\\') + @"\"; // eg. C:\Output\Path\
-                        outputFileName = Path.GetFileNameWithoutExtension(vm.Output_Text);
+                        outputDir = Path.GetDirectoryName(MainView.vm.Output_Text).TrimEnd('\\') + @"\"; // eg. C:\Output\Path\
+                        outputFileName = Path.GetFileNameWithoutExtension(MainView.vm.Output_Text);
 
                         // Combine Output
                         //output = outputDir + outputFileName + outputExt;
@@ -4632,47 +5445,49 @@ namespace Axiom
         ///    Change the Controls to Auto if Input Extension matches Output Extsion
         ///    This will trigger Auto Codec Copy
         /// </remarks>
-        public void ExtensionMatchCheckAuto(ViewModel vm)
+        public void ExtensionMatchCheckAuto()
         {
             //MessageBox.Show(inputExt + " " + outputExt); //debug
 
             // -------------------------
             // Video
             // -------------------------
-            if (vm.Video_Quality_SelectedItem == "Auto" &&
+            if (VideoView.vm.Video_Quality_SelectedItem == "Auto" &&
                 string.Equals(inputExt, outputExt, StringComparison.CurrentCultureIgnoreCase))
             {
                 // Set Controls:
 
                 // Main
-                vm.Video_Quality_SelectedItem = "Auto";
-                vm.Video_PixelFormat_SelectedItem = "auto";
-                vm.Video_FPS_SelectedItem = "auto";
-                vm.Video_Optimize_SelectedItem = "None";
-                vm.Video_Scale_SelectedItem = "Source";
-                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
+                VideoView.vm.Video_Quality_SelectedItem = "Auto";
+                VideoView.vm.Video_PixelFormat_SelectedItem = "auto";
+                VideoView.vm.Video_FPS_SelectedItem = "auto";
+                VideoView.vm.Video_Optimize_SelectedItem = "None";
+                VideoView.vm.Video_Scale_SelectedItem = "Source";
+                VideoView.vm.Video_ScalingAlgorithm_SelectedItem = "auto";
 
                 // Filters
-                vm.LoadFiltersDefault();
+                FilterVideoView.vm.LoadFilterVideoDefaults();
+                FilterAudioView.vm.LoadFilterAudioDefaults();
             }
 
             // -------------------------
             // Audio
             // -------------------------
-            if (vm.Audio_Quality_SelectedItem == "Auto" &&
+            if (AudioView.vm.Audio_Quality_SelectedItem == "Auto" &&
                 string.Equals(inputExt, outputExt, StringComparison.CurrentCultureIgnoreCase))
             {
                 // Set Controls:
 
                 // Main
-                vm.Audio_Quality_SelectedItem = "Auto";
-                vm.Audio_Channel_SelectedItem = "Source";
-                vm.Audio_SampleRate_SelectedItem = "auto";
-                vm.Audio_BitDepth_SelectedItem = "auto";
+                AudioView.vm.Audio_Quality_SelectedItem = "Auto";
+                AudioView.vm.Audio_Channel_SelectedItem = "Source";
+                AudioView.vm.Audio_SampleRate_SelectedItem = "auto";
+                AudioView.vm.Audio_BitDepth_SelectedItem = "auto";
 
                 // Filters
-                vm.Audio_Volume_Text = "100";
-                vm.Audio_HardLimiter_Value = 1;
+                AudioView.vm.Audio_Volume_Text = "100";
+                AudioView.vm.Audio_HardLimiter_Value = 1;
+                FilterAudioView.vm.LoadFilterAudioDefaults();
             }
         }
 
@@ -4685,22 +5500,22 @@ namespace Axiom
             // -------------------------
             // Set Controls
             // -------------------------
-            FormatControls.SetControls(vm, vm.Format_Container_SelectedItem);
+            FormatControls.SetControls(FormatView.vm.Format_Container_SelectedItem);
 
             // -------------------------
             // Get Output Extension
             // -------------------------
-            FormatControls.OutputFormatExt(vm);
+            FormatControls.OutputFormatExt();
 
             // -------------------------
             // Video Encoding Pass
             // -------------------------
-            VideoControls.EncodingPassControls(vm);
+            VideoControls.EncodingPassControls();
 
             // -------------------------
             // Optimize Controls
             // -------------------------
-            VideoControls.OptimizeControls(vm);
+            VideoControls.OptimizeControls();
 
 
             // -------------------------
@@ -4717,18 +5532,18 @@ namespace Axiom
             // Default Auto if Input Extension matches Output Extsion
             // This will trigger Auto Codec Copy
             // --------------------------------------------------
-            ExtensionMatchCheckAuto(vm);
+            ExtensionMatchCheckAuto();
             //MessageBox.Show(inputExt + " " + outputExt); //debug
 
             // -------------------------
             // Update Ouput Textbox with current Format extension
             // -------------------------
-            if (vm.Batch_IsChecked == false && // Single File
-                !string.IsNullOrEmpty(vm.Output_Text))
+            if (MainView.vm.Batch_IsChecked == false && // Single File
+                !string.IsNullOrEmpty(MainView.vm.Output_Text))
             {
                 //MessageBox.Show(outputExt); //debug
-                //vm.Output_Text = outputDir + outputFileName + outputExt;
-                vm.Output_Text = Path.Combine(outputDir, outputFileName + outputExt);
+                //MainView.vm.Output_Text = outputDir + outputFileName + outputExt;
+                MainView.vm.Output_Text = Path.Combine(outputDir, outputFileName + outputExt);
             }
             
             // -------------------------
@@ -4745,7 +5560,7 @@ namespace Axiom
         /// </summary>
         private void cboFormat_MediaType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            FormatControls.MediaTypeControls(vm);
+            FormatControls.MediaTypeControls();
         }
 
 
@@ -4754,7 +5569,7 @@ namespace Axiom
         /// </summary>
         private void cboFormat_Cut_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            FormatControls.CutControls(vm);
+            FormatControls.CutControls();
         }
 
         /// <summary>
@@ -4768,20 +5583,20 @@ namespace Axiom
         {
             // Clear textbox on focus if default text "auto"
             if (tbxCutStartHours.Focus() == true &&
-                vm.Format_CutStart_Hours_Text == "00")
+                FormatView.vm.Format_CutStart_Hours_Text == "00")
             {
-                vm.Format_CutStart_Hours_Text = string.Empty;
+                FormatView.vm.Format_CutStart_Hours_Text = string.Empty;
             }
         }
         // Lost Focus
         private void tbxCutStartHours_LostFocus(object sender, RoutedEventArgs e)
         {
-            vm.Format_CutStart_Hours_Text = tbxCutStartHours.Text;
+            FormatView.vm.Format_CutStart_Hours_Text = tbxCutStartHours.Text;
 
             // Change textbox back to "00" if left empty
-            if (string.IsNullOrEmpty(vm.Format_CutStart_Hours_Text))
+            if (string.IsNullOrEmpty(FormatView.vm.Format_CutStart_Hours_Text))
             {
-                vm.Format_CutStart_Hours_Text = "00";
+                FormatView.vm.Format_CutStart_Hours_Text = "00";
             }
         }
         // Key Down
@@ -4798,20 +5613,20 @@ namespace Axiom
         {
             // Clear textbox on focus if default text "auto"
             if (tbxCutStartMinutes.Focus() == true &&
-                vm.Format_CutStart_Minutes_Text == "00")
+                FormatView.vm.Format_CutStart_Minutes_Text == "00")
             {
-                vm.Format_CutStart_Minutes_Text = string.Empty;
+                FormatView.vm.Format_CutStart_Minutes_Text = string.Empty;
             }
         }
         // Lost Focus
         private void tbxCutStartMinutes_LostFocus(object sender, RoutedEventArgs e)
         {
-            vm.Format_CutStart_Minutes_Text = tbxCutStartMinutes.Text;
+            FormatView.vm.Format_CutStart_Minutes_Text = tbxCutStartMinutes.Text;
 
             // Change textbox back to "00" if left empty
-            if (string.IsNullOrEmpty(vm.Format_CutStart_Minutes_Text))
+            if (string.IsNullOrEmpty(FormatView.vm.Format_CutStart_Minutes_Text))
             {
-                vm.Format_CutStart_Minutes_Text = "00";
+                FormatView.vm.Format_CutStart_Minutes_Text = "00";
             }
         }
         // Key Down
@@ -4828,20 +5643,20 @@ namespace Axiom
         {
             // Clear textbox on focus if default text "auto"
             if (tbxCutStartSeconds.Focus() == true &&
-                vm.Format_CutStart_Seconds_Text == "00")
+                FormatView.vm.Format_CutStart_Seconds_Text == "00")
             {
-                vm.Format_CutStart_Seconds_Text = string.Empty;
+                FormatView.vm.Format_CutStart_Seconds_Text = string.Empty;
             }
         }
         // Lost Focus
         private void tbxCutStartSeconds_LostFocus(object sender, RoutedEventArgs e)
         {
-            vm.Format_CutStart_Seconds_Text = tbxCutStartSeconds.Text;
+            FormatView.vm.Format_CutStart_Seconds_Text = tbxCutStartSeconds.Text;
 
             // Change textbox back to "00" if left empty
-            if (string.IsNullOrEmpty(vm.Format_CutStart_Seconds_Text))
+            if (string.IsNullOrEmpty(FormatView.vm.Format_CutStart_Seconds_Text))
             {
-                vm.Format_CutStart_Seconds_Text = "00";
+                FormatView.vm.Format_CutStart_Seconds_Text = "00";
             }
         }
         // Key Down
@@ -4858,20 +5673,20 @@ namespace Axiom
         {
             // Clear textbox on focus if default text "auto"
             if (tbxCutStartMilliseconds.Focus() == true &&
-                vm.Format_CutStart_Milliseconds_Text == "000")
+                FormatView.vm.Format_CutStart_Milliseconds_Text == "000")
             {
-                vm.Format_CutStart_Milliseconds_Text = string.Empty;
+                FormatView.vm.Format_CutStart_Milliseconds_Text = string.Empty;
             }
         }
         // Lost Focus
         private void tbxCutStartMilliseconds_LostFocus(object sender, RoutedEventArgs e)
         {
-            vm.Format_CutStart_Milliseconds_Text = tbxCutStartMilliseconds.Text;
+            FormatView.vm.Format_CutStart_Milliseconds_Text = tbxCutStartMilliseconds.Text;
 
             // Change textbox back to "00" if left empty
-            if (string.IsNullOrEmpty(vm.Format_CutStart_Milliseconds_Text))
+            if (string.IsNullOrEmpty(FormatView.vm.Format_CutStart_Milliseconds_Text))
             {
-                vm.Format_CutStart_Milliseconds_Text = "000";
+                FormatView.vm.Format_CutStart_Milliseconds_Text = "000";
             }
         }
         // Key Down
@@ -4891,20 +5706,20 @@ namespace Axiom
         {
             // Clear textbox on focus if default text "auto"
             if (tbxCutEndHours.Focus() == true &&
-                vm.Format_CutEnd_Hours_Text == "00")
+                FormatView.vm.Format_CutEnd_Hours_Text == "00")
             {
-                vm.Format_CutEnd_Hours_Text = string.Empty;
+                FormatView.vm.Format_CutEnd_Hours_Text = string.Empty;
             }
         }
         // Lost Focus
         private void tbxCutEndHours_LostFocus(object sender, RoutedEventArgs e)
         {
-            vm.Format_CutEnd_Hours_Text = tbxCutEndHours.Text;
+            FormatView.vm.Format_CutEnd_Hours_Text = tbxCutEndHours.Text;
 
             // Change textbox back to "00" if left empty
-            if (string.IsNullOrEmpty(vm.Format_CutEnd_Hours_Text))
+            if (string.IsNullOrEmpty(FormatView.vm.Format_CutEnd_Hours_Text))
             {
-                vm.Format_CutEnd_Hours_Text = "00";
+                FormatView.vm.Format_CutEnd_Hours_Text = "00";
             }
         }
         // Key Down
@@ -4921,20 +5736,20 @@ namespace Axiom
         {
             // Clear textbox on focus if default text "auto"
             if (tbxCutEndMinutes.Focus() == true &&
-                vm.Format_CutEnd_Minutes_Text == "00")
+                FormatView.vm.Format_CutEnd_Minutes_Text == "00")
             {
-                vm.Format_CutEnd_Minutes_Text = string.Empty;
+                FormatView.vm.Format_CutEnd_Minutes_Text = string.Empty;
             }
         }
         // Lost Focus
         private void tbxCutEndMinutes_LostFocus(object sender, RoutedEventArgs e)
         {
-            vm.Format_CutEnd_Minutes_Text = tbxCutEndMinutes.Text;
+            FormatView.vm.Format_CutEnd_Minutes_Text = tbxCutEndMinutes.Text;
 
             // Change textbox back to "00" if left empty
-            if (string.IsNullOrEmpty(vm.Format_CutEnd_Minutes_Text))
+            if (string.IsNullOrEmpty(FormatView.vm.Format_CutEnd_Minutes_Text))
             {
-                vm.Format_CutEnd_Minutes_Text = "00";
+                FormatView.vm.Format_CutEnd_Minutes_Text = "00";
             }
         }
         // Key Down
@@ -4951,20 +5766,20 @@ namespace Axiom
         {
             // Clear textbox on focus if default text "auto"
             if (tbxCutEndSeconds.Focus() == true &&
-                vm.Format_CutEnd_Seconds_Text == "00")
+                FormatView.vm.Format_CutEnd_Seconds_Text == "00")
             {
-                vm.Format_CutEnd_Seconds_Text = string.Empty;
+                FormatView.vm.Format_CutEnd_Seconds_Text = string.Empty;
             }
         }
         // Lost Focus
         private void tbxCutEndSeconds_LostFocus(object sender, RoutedEventArgs e)
         {
-            vm.Format_CutEnd_Seconds_Text = tbxCutEndSeconds.Text;
+            FormatView.vm.Format_CutEnd_Seconds_Text = tbxCutEndSeconds.Text;
 
             // Change textbox back to "00" if left empty
-            if (string.IsNullOrEmpty(vm.Format_CutEnd_Seconds_Text))
+            if (string.IsNullOrEmpty(FormatView.vm.Format_CutEnd_Seconds_Text))
             {
-                vm.Format_CutEnd_Seconds_Text = "00";
+                FormatView.vm.Format_CutEnd_Seconds_Text = "00";
             }
         }
         // Key Down
@@ -4981,20 +5796,20 @@ namespace Axiom
         {
             // Clear textbox on focus if default text "auto"
             if (tbxCutEndMilliseconds.Focus() == true &&
-                vm.Format_CutEnd_Milliseconds_Text == "000")
+                FormatView.vm.Format_CutEnd_Milliseconds_Text == "000")
             {
-                vm.Format_CutEnd_Milliseconds_Text = string.Empty;
+                FormatView.vm.Format_CutEnd_Milliseconds_Text = string.Empty;
             }
         }
         // Lost Focus
         private void tbxCutEndMilliseconds_LostFocus(object sender, RoutedEventArgs e)
         {
-            vm.Format_CutEnd_Milliseconds_Text = tbxCutEndMilliseconds.Text;
+            FormatView.vm.Format_CutEnd_Milliseconds_Text = tbxCutEndMilliseconds.Text;
 
             // Change textbox back to "00" if left empty
-            if (string.IsNullOrEmpty(vm.Format_CutEnd_Milliseconds_Text))
+            if (string.IsNullOrEmpty(FormatView.vm.Format_CutEnd_Milliseconds_Text))
             {
-                vm.Format_CutEnd_Milliseconds_Text = "000";
+                FormatView.vm.Format_CutEnd_Milliseconds_Text = "000";
             }
         }
         // Key Down
@@ -5051,38 +5866,38 @@ namespace Axiom
             //Change 2 - New Items Loaded from Codec
             //Selection is Null
 
-            //MessageBox.Show(vm.Video_Quality_SelectedItem); //debug
+            //MessageBox.Show(VideoView.vm.Video_Quality_SelectedItem); //debug
             //MessageBox.Show("cboVideo_Codec_SelectionChanged"); //debug
 
             // -------------------------
             // Set Controls
             // -------------------------
-            VideoControls.SetControls(vm, vm.Video_Codec_SelectedItem);
+            VideoControls.SetControls(VideoView.vm.Video_Codec_SelectedItem);
 
             // -------------------------
             // Audio Stream Controls
             // -------------------------
-            FormatControls.AudioStreamControls(vm); 
+            FormatControls.AudioStreamControls(); 
 
             // -------------------------
             // Video Encoding Pass
             // -------------------------
-            VideoControls.EncodingPassControls(vm);
+            VideoControls.EncodingPassControls();
 
             // -------------------------
             // Pixel Format
             // -------------------------
-            //VideoControls.PixelFormatControls(vm);
+            //VideoControls.PixelFormatControls();
 
             // -------------------------
             // Optimize Controls
             // -------------------------
-            VideoControls.OptimizeControls(vm);
+            VideoControls.OptimizeControls();
 
             // -------------------------
             // Convert Button Text Change
             // -------------------------
-            ConvertButtonText(vm);
+            ConvertButtonText();
         }
 
 
@@ -5094,20 +5909,20 @@ namespace Axiom
             // -------------------------
             // Set Controls
             // -------------------------
-            //VideoControls.SetControls(vm, vm.Video_Quality_SelectedItem);
+            //VideoControls.SetControls(VideoView.vm.Video_Quality_SelectedItem);
 
             // -------------------------
             // Pass Controls
             // -------------------------
-            VideoControls.EncodingPassControls(vm);
+            VideoControls.EncodingPassControls();
 
             // -------------------------
             // Display Bit Rate in TextBox
             // -------------------------
-            VideoControls.VideoBitRateDisplay(vm,
-                                              vm.Video_Quality_Items,
-                                              vm.Video_Quality_SelectedItem,
-                                              vm.Video_Pass_SelectedItem);
+            VideoControls.VideoBitRateDisplay(
+                                              VideoView.vm.Video_Quality_Items,
+                                              VideoView.vm.Video_Quality_SelectedItem,
+                                              VideoView.vm.Video_Pass_SelectedItem);
         }
         private void cboVideo_Pass_DropDownClosed(object sender, EventArgs e)
         {
@@ -5124,43 +5939,43 @@ namespace Axiom
             // -------------------------
             // Quality Controls
             // -------------------------
-            VideoControls.QualityControls(vm);
+            VideoControls.QualityControls();
 
             // -------------------------
             // Display Bit Rate in TextBox
             // -------------------------
-            VideoControls.VideoBitRateDisplay(vm,
-                                              vm.Video_Quality_Items,
-                                              vm.Video_Quality_SelectedItem,
-                                              vm.Video_Pass_SelectedItem);
+            VideoControls.VideoBitRateDisplay(
+                                              VideoView.vm.Video_Quality_Items,
+                                              VideoView.vm.Video_Quality_SelectedItem,
+                                              VideoView.vm.Video_Pass_SelectedItem);
 
             // -------------------------
             // Video Encoding Pass
             // -------------------------
-            VideoControls.EncodingPassControls(vm);
+            VideoControls.EncodingPassControls();
 
             // Custom
-            if (vm.Video_Quality_SelectedItem == "Custom")
+            if (VideoView.vm.Video_Quality_SelectedItem == "Custom")
             {
                 // Default to CRF
-                if (vm.Video_Pass_Items?.Contains("CRF") == true)
+                if (VideoView.vm.Video_Pass_Items?.Contains("CRF") == true)
                 {
-                    vm.Video_Pass_SelectedItem = "CRF";
+                    VideoView.vm.Video_Pass_SelectedItem = "CRF";
                 }
                 // Select first available (1 Pass, 2 Pass, auto)
                 else
                 {
-                    vm.Video_Pass_SelectedItem = vm.Video_Pass_Items.FirstOrDefault();
+                    VideoView.vm.Video_Pass_SelectedItem = VideoView.vm.Video_Pass_Items.FirstOrDefault();
                 }
             }
 
             // -------------------------
             // Pixel Format
             // -------------------------
-            VideoControls.PixelFormatControls(vm,
-                                              vm.Format_MediaType_SelectedItem,
-                                              vm.Video_Codec_SelectedItem,
-                                              vm.Video_Quality_SelectedItem);
+            VideoControls.PixelFormatControls(
+                                              FormatView.vm.Format_MediaType_SelectedItem,
+                                              VideoView.vm.Video_Codec_SelectedItem,
+                                              VideoView.vm.Video_Quality_SelectedItem);
         }
 
 
@@ -5171,16 +5986,16 @@ namespace Axiom
         private void tbxVideo_CRF_TextChanged(object sender, TextChangedEventArgs e)
         {
             // Update Slider with entered value
-            if (!string.IsNullOrEmpty(vm.Video_CRF_Text))
+            if (!string.IsNullOrEmpty(VideoView.vm.Video_CRF_Text))
             {
-                vm.Video_CRF_Value = Convert.ToDouble(vm.Video_CRF_Text);
+                VideoView.vm.Video_CRF_Value = Convert.ToDouble(VideoView.vm.Video_CRF_Text);
             }
 
             // TextBox Empty
-            //else if (string.IsNullOrEmpty(vm.Video_CRF_Text))
+            //else if (string.IsNullOrEmpty(VideoView.vm.Video_CRF_Text))
             //{
-                //vm.Video_CRF_Value = 0;
-                //vm.Video_CRF_Text = string.Empty;
+                //VideoView.vm.Video_CRF_Value = 0;
+                //VideoView.vm.Video_CRF_Text = string.Empty;
             //}
             
         }
@@ -5194,15 +6009,13 @@ namespace Axiom
         private void slVideo_CRF_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             // Update TextBox with value
-            vm.Video_CRF_Text = vm.Video_CRF_Value.ToString();
+            VideoView.vm.Video_CRF_Text = VideoView.vm.Video_CRF_Value.ToString();
         }
         // Slider Double Click
         private void slVideo_CRF_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             // Reset to default
-            vm.Video_CRF_Value = 23;
-
-            //VideoControls.AutoCopyVideoCodec(vm);
+            VideoView.vm.Video_CRF_Value = 23;
         }
 
         /// <summary>
@@ -5213,35 +6026,35 @@ namespace Axiom
             // -------------------------
             // Quality Controls
             // -------------------------
-            VideoControls.QualityControls(vm);
+            VideoControls.QualityControls();
 
             // -------------------------
             // MPEG-4 VBR can only use 1 Pass
             // -------------------------
-            if (vm.Video_Codec_SelectedItem == "MPEG-2" || 
-                vm.Video_Codec_SelectedItem == "MPEG-4")
+            if (VideoView.vm.Video_Codec_SelectedItem == "MPEG-2" || 
+                VideoView.vm.Video_Codec_SelectedItem == "MPEG-4")
             {
                 // Change ItemsSource
-                vm.Video_Pass_Items = new List<string>()
+                VideoView.vm.Video_Pass_Items = new List<string>()
                 {
                     "1 Pass",
                 };
 
                 // Populate ComboBox from ItemsSource
-                //vm.Video_Pass_Items = VideoControls.Video_Pass_ItemsSource;
+                //VideoView.vm.Video_Pass_Items = VideoControls.Video_Pass_ItemsSource;
 
                 // Select Item
-                vm.Video_Pass_SelectedItem = "1 Pass";
+                VideoView.vm.Video_Pass_SelectedItem = "1 Pass";
             }
 
 
             // -------------------------
             // Display Bit Rate in TextBox
             // -------------------------
-            VideoControls.VideoBitRateDisplay(vm,
-                                              vm.Video_Quality_Items,
-                                              vm.Video_Quality_SelectedItem,
-                                              vm.Video_Pass_SelectedItem);
+            VideoControls.VideoBitRateDisplay(
+                                              VideoView.vm.Video_Quality_Items,
+                                              VideoView.vm.Video_Quality_SelectedItem,
+                                              VideoView.vm.Video_Pass_SelectedItem);
         }
 
         /// <summary>
@@ -5252,16 +6065,16 @@ namespace Axiom
             // -------------------------
             // Quality Controls
             // -------------------------
-            VideoControls.QualityControls(vm);
+            VideoControls.QualityControls();
 
             // -------------------------
             // MPEG-2 / MPEG-4 CBR Reset
             // -------------------------
-            if (vm.Video_Codec_SelectedItem == "MPEG-2" || 
-                vm.Video_Codec_SelectedItem == "MPEG-4")
+            if (VideoView.vm.Video_Codec_SelectedItem == "MPEG-2" || 
+                VideoView.vm.Video_Codec_SelectedItem == "MPEG-4")
             {
                 // Change ItemsSource
-                vm.Video_Pass_Items = new List<string>()
+                VideoView.vm.Video_Pass_Items = new List<string>()
                 {
                     "2 Pass",
                     "1 Pass",
@@ -5271,16 +6084,16 @@ namespace Axiom
                 //cboVideo_Pass.ItemsSource = VideoControls.Video_Pass_ItemsSource;
 
                 // Select Item
-                vm.Video_Pass_SelectedItem = "2 Pass";
+                VideoView.vm.Video_Pass_SelectedItem = "2 Pass";
             }
 
             // -------------------------
             // Display Bit Rate in TextBox
             // -------------------------
-            VideoControls.VideoBitRateDisplay(vm,
-                                              vm.Video_Quality_Items,
-                                              vm.Video_Quality_SelectedItem,
-                                              vm.Video_Pass_SelectedItem);
+            VideoControls.VideoBitRateDisplay(
+                                              VideoView.vm.Video_Quality_Items,
+                                              VideoView.vm.Video_Quality_SelectedItem,
+                                              VideoView.vm.Video_Pass_SelectedItem);
         }
 
 
@@ -5289,7 +6102,7 @@ namespace Axiom
         /// </summary>
         private void cboVideo_PixelFormat_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //VideoControls.AutoCopyVideoCodec(vm);
+
         }
 
 
@@ -5301,37 +6114,31 @@ namespace Axiom
             // -------------------------
             // Custom ComboBox Editable
             // -------------------------
-            if (vm.Video_FPS_SelectedItem == "Custom" ||
-                string.IsNullOrEmpty(vm.Video_FPS_SelectedItem))
+            if (VideoView.vm.Video_FPS_SelectedItem == "Custom" ||
+                string.IsNullOrEmpty(VideoView.vm.Video_FPS_SelectedItem))
             {
-                vm.Video_FPS_IsEditable = true;
+                VideoView.vm.Video_FPS_IsEditable = true;
             }
 
             // -------------------------
             // Other Items Disable Editable
             // -------------------------
-            if (vm.Video_FPS_SelectedItem != "Custom" &&
-                !string.IsNullOrEmpty(vm.Video_FPS_SelectedItem))
+            if (VideoView.vm.Video_FPS_SelectedItem != "Custom" &&
+                !string.IsNullOrEmpty(VideoView.vm.Video_FPS_SelectedItem))
             {
-                vm.Video_FPS_IsEditable = false;
+                VideoView.vm.Video_FPS_IsEditable = false;
             }
 
             // -------------------------
             // Maintain Editable Combobox while typing
             // -------------------------
-            if (vm.Video_FPS_IsEditable == true)
+            if (VideoView.vm.Video_FPS_IsEditable == true)
             {
-                vm.Video_FPS_IsEditable = true;
+                VideoView.vm.Video_FPS_IsEditable = true;
 
                 // Clear Custom Text
-                vm.Video_FPS_SelectedIndex = -1;
+                VideoView.vm.Video_FPS_SelectedIndex = -1;
             }
-
-            // -------------------------
-            // Disable Copy on change
-            // -------------------------
-            //VideoControls.AutoCopyVideoCodec(vm);
-            //SubtitleControls.AutoCopySubtitleCodec(vm);
         }
 
         // Speed Custom KeyDown
@@ -5363,37 +6170,31 @@ namespace Axiom
             // -------------------------
             // Custom ComboBox Editable
             // -------------------------
-            if (vm.Video_Speed_SelectedItem == "Custom" ||
-                string.IsNullOrEmpty(vm.Video_Speed_SelectedItem))
+            if (VideoView.vm.Video_Speed_SelectedItem == "Custom" ||
+                string.IsNullOrEmpty(VideoView.vm.Video_Speed_SelectedItem))
             {
-                vm.Video_Speed_IsEditable = true;
+                VideoView.vm.Video_Speed_IsEditable = true;
             }
 
             // -------------------------
             // Other Items Disable Editable
             // -------------------------
-            if (vm.Video_Speed_SelectedItem != "Custom" &&
-                !string.IsNullOrEmpty(vm.Video_Speed_SelectedItem))
+            if (VideoView.vm.Video_Speed_SelectedItem != "Custom" &&
+                !string.IsNullOrEmpty(VideoView.vm.Video_Speed_SelectedItem))
             {
-                vm.Video_Speed_IsEditable = false;
+                VideoView.vm.Video_Speed_IsEditable = false;
             }
 
             // -------------------------
             // Maintain Editable Combobox while typing
             // -------------------------
-            if (vm.Video_Speed_IsEditable == true)
+            if (VideoView.vm.Video_Speed_IsEditable == true)
             {
-                vm.Video_Speed_IsEditable = true;
+                VideoView.vm.Video_Speed_IsEditable = true;
 
                 // Clear Custom Text
-                vm.Video_Speed_SelectedIndex = -1;
+                VideoView.vm.Video_Speed_SelectedIndex = -1;
             }
-
-            // -------------------------
-            // Disable Copy on change
-            // -------------------------
-            //VideoControls.AutoCopyVideoCodec(vm);
-            //SubtitleControls.AutoCopySubtitleCodec(vm);
         }
 
         // Speed Custom KeyDown
@@ -5409,7 +6210,7 @@ namespace Axiom
         /// </summary>
         private void cboPreset_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Presets.SetPreset(vm);
+            Presets.SetPreset();
         }
 
         /// <summary>
@@ -5419,45 +6220,63 @@ namespace Axiom
         {
             // Set Preset Dir, Name, Ext
             string presetsDir = Path.GetDirectoryName(@Profiles.presetsDir).TrimEnd('\\') + @"\";
-            string presetFileName = Path.GetFileNameWithoutExtension(vm.Preset_SelectedItem);
+            string presetFileName = Path.GetFileNameWithoutExtension(MainView.vm.Preset_SelectedItem);
             string presetExt = Path.GetExtension(".ini");
             string preset = presetsDir + presetFileName + presetExt;
 
-            // Delete
-            if (File.Exists(preset))
+
+            // Yes/No Dialog Confirmation
+            //
+            MessageBoxResult resultExport = MessageBox.Show("Delete " + presetFileName + "?",
+                                                            "Directory Not Found",
+                                                            MessageBoxButton.YesNo,
+                                                            MessageBoxImage.Information);
+            switch (resultExport)
             {
-                try
-                {
-                    File.Delete(preset);
-                }
-                catch
-                {
-                    MessageBox.Show("Could not delete Preset. May be missing or requires Administrator Privileges.",
-                                    "Error",
-                                    MessageBoxButton.OK,
-                                    MessageBoxImage.Error);
-                }
+                // Create
+                case MessageBoxResult.Yes:
 
-                // Set the Index
-                var selectedIndex = vm.Preset_SelectedIndex;
+                    // Delete
+                    if (File.Exists(preset))
+                    {
+                        try
+                        {
+                            File.Delete(preset);
+                        }
+                        catch
+                        {
+                            MessageBox.Show("Could not delete Preset. May be missing or requires Administrator Privileges.",
+                                            "Error",
+                                            MessageBoxButton.OK,
+                                            MessageBoxImage.Error);
+                        }
 
-                // Select Default Item
-                vm.Preset_SelectedItem = "Preset";
+                        // Set the Index
+                        var selectedIndex = MainView.vm.Preset_SelectedIndex;
 
-                // Delete from Items Source
-                // (needs to be after SelectedItem change to prevent error reloading)
-                vm.Preset_Items.RemoveAt(selectedIndex);
+                        // Select Default Item
+                        MainView.vm.Preset_SelectedItem = "Preset";
 
-                // Load Custom Presets
-                // Refresh Presets ComboBox
-                Profiles.LoadCustomPresets(vm);
-            }
-            else
-            {
-                MessageBox.Show("This is not a custom Preset, or the Preset does not exist.",
-                                "Notice",
-                                MessageBoxButton.OK,
-                                MessageBoxImage.Information);
+                        // Delete from Items Source
+                        // (needs to be after SelectedItem change to prevent error reloading)
+                        MainView.vm.Preset_Items.RemoveAt(selectedIndex);
+
+                        // Load Custom Presets
+                        // Refresh Presets ComboBox
+                        Profiles.LoadCustomPresets();
+                    }
+                    else
+                    {
+                        MessageBox.Show("This is not a custom Preset, or the Preset does not exist.",
+                                        "Notice",
+                                        MessageBoxButton.OK,
+                                        MessageBoxImage.Information);
+                    }
+
+                    break;
+                // Use Default
+                case MessageBoxResult.No:
+                    break;
             }
         }
 
@@ -5470,7 +6289,7 @@ namespace Axiom
             // Check if Profiles Directory exists
 
             // If not, create it
-            if (!Directory.Exists(vm.CustomPresetsPath_Text))
+            if (!Directory.Exists(ConfigureView.vm.CustomPresetsPath_Text))
             {
                 // Yes/No Dialog Confirmation
                 //
@@ -5484,7 +6303,7 @@ namespace Axiom
                     case MessageBoxResult.Yes:
                         try
                         {
-                            Directory.CreateDirectory(vm.CustomPresetsPath_Text);
+                            Directory.CreateDirectory(ConfigureView.vm.CustomPresetsPath_Text);
                         }
                         catch
                         {
@@ -5504,7 +6323,7 @@ namespace Axiom
             Microsoft.Win32.SaveFileDialog saveFile = new Microsoft.Win32.SaveFileDialog();
 
             // Defaults
-            saveFile.InitialDirectory = vm.CustomPresetsPath_Text;
+            saveFile.InitialDirectory = ConfigureView.vm.CustomPresetsPath_Text;
             saveFile.RestoreDirectory = true;
             saveFile.Filter = "Initialization Files (*.ini)|*.ini";
             saveFile.DefaultExt = ".ini";
@@ -5542,18 +6361,18 @@ namespace Axiom
                 // -------------------------
                 // Save Custom Preset ini file
                 // -------------------------
-                Profiles.ExportPreset(vm, preset);
+                Profiles.ExportPreset(preset);
 
                 // -------------------------
                 // Load Custom Presets
                 // Refresh Presets ComboBox
                 // -------------------------
-                Profiles.LoadCustomPresets(vm);
+                Profiles.LoadCustomPresets();
 
                 // -------------------------
                 // Select the Preset
                 // -------------------------
-                //vm.Preset_SelectedItem = preset;
+                //MainView.vm.Preset_SelectedItem = preset;
             }
         }
 
@@ -5566,7 +6385,7 @@ namespace Axiom
             // -------------------------
             // Optimize Controls
             // -------------------------
-            VideoControls.OptimizeControls(vm);
+            VideoControls.OptimizeControls();
         }
 
         /// <summary>
@@ -5599,33 +6418,29 @@ namespace Axiom
         /// </summary>
         private void cboVideo_Scale_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            // Set Video Codec Combobox to "Copy" if Input Extension is Same as Output Extension and Video Quality is Auto
-            //VideoControls.AutoCopyVideoCodec(vm);
-            //SubtitleControls.AutoCopySubtitleCodec(vm);
-
             // --------------------------------------------------
             // Enable/Disable Size
             // --------------------------------------------------
             // -------------------------
             // Custom
             // -------------------------
-            if (vm.Video_Scale_SelectedItem == "Custom")
+            if (VideoView.vm.Video_Scale_SelectedItem == "Custom")
             {
-                vm.Video_Width_IsEnabled = true;
-                vm.Video_Height_IsEnabled = true;
+                VideoView.vm.Video_Width_IsEnabled = true;
+                VideoView.vm.Video_Height_IsEnabled = true;
 
-                vm.Video_ScalingAlgorithm_IsEnabled = true;
+                VideoView.vm.Video_ScalingAlgorithm_IsEnabled = true;
             }
 
             // -------------------------
             // Source
             // -------------------------
-            else if (vm.Video_Scale_SelectedItem == "Source")
+            else if (VideoView.vm.Video_Scale_SelectedItem == "Source")
             {
-                vm.Video_Width_IsEnabled = false;
-                vm.Video_Height_IsEnabled = false;
+                VideoView.vm.Video_Width_IsEnabled = false;
+                VideoView.vm.Video_Height_IsEnabled = false;
 
-                vm.Video_ScalingAlgorithm_IsEnabled = false;
+                VideoView.vm.Video_ScalingAlgorithm_IsEnabled = false;
             }
 
             // -------------------------
@@ -5633,17 +6448,17 @@ namespace Axiom
             // -------------------------
             else
             {
-                vm.Video_Width_IsEnabled = false;
-                vm.Video_Height_IsEnabled = false;
+                VideoView.vm.Video_Width_IsEnabled = false;
+                VideoView.vm.Video_Height_IsEnabled = false;
 
-                vm.Video_ScalingAlgorithm_IsEnabled = true;
+                VideoView.vm.Video_ScalingAlgorithm_IsEnabled = true;
             }
 
 
             // -------------------------
             // Update Width/Height TextBox Display
             // -------------------------
-            VideoScaleDisplay(vm);
+            VideoScaleDisplay();
         }
 
 
@@ -5655,7 +6470,7 @@ namespace Axiom
         ///     If Input Video is Widescreen (16:9, 16:10, etc) or auto, scale by Width -vf "scale=1920:-2" 
         ///     If Input Video is Full Screen (4:3, 5:4, etc), scale by Height -vf "scale=-2:1080" 
         /// </remarks>
-        public static void VideoScaleDisplay(ViewModel vm)
+        public static void VideoScaleDisplay()
         {
             // --------------------------------------------------
             // Change TextBox Resolution Numbers
@@ -5663,357 +6478,357 @@ namespace Axiom
             // -------------------------
             // Source
             // -------------------------
-            if (vm.Video_Scale_SelectedItem == "Source")
+            if (VideoView.vm.Video_Scale_SelectedItem == "Source")
             {
-                vm.Video_Width_Text = "auto";
-                vm.Video_Height_Text = "auto";
+                VideoView.vm.Video_Width_Text = "auto";
+                VideoView.vm.Video_Height_Text = "auto";
 
-                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
+                VideoView.vm.Video_ScalingAlgorithm_SelectedItem = "auto";
             }
 
             // -------------------------
             // 8K
             // -------------------------
-            else if (vm.Video_Scale_SelectedItem == "8K")
+            else if (VideoView.vm.Video_Scale_SelectedItem == "8K")
             {
                 // Widescreen
-                ////if (IsAspectRatioWidescreen(vm.Video_AspectRatio_SelectedItem) == true)
-                if (vm.Video_ScreenFormat_SelectedItem == "auto" ||
-                    vm.Video_ScreenFormat_SelectedItem == "Widescreen" ||
-                    vm.Video_ScreenFormat_SelectedItem == "Ultrawide"
+                ////if (IsAspectRatioWidescreen(VideoView.vm.Video_AspectRatio_SelectedItem) == true)
+                if (VideoView.vm.Video_ScreenFormat_SelectedItem == "auto" ||
+                    VideoView.vm.Video_ScreenFormat_SelectedItem == "Widescreen" ||
+                    VideoView.vm.Video_ScreenFormat_SelectedItem == "Ultrawide"
                     )
                 {
-                    vm.Video_Width_Text = "8192";
-                    vm.Video_Height_Text = "auto";
+                    VideoView.vm.Video_Width_Text = "8192";
+                    VideoView.vm.Video_Height_Text = "auto";
                 }
 
                 // Full Screen
-                else if (vm.Video_ScreenFormat_SelectedItem == "Full Screen")
+                else if (VideoView.vm.Video_ScreenFormat_SelectedItem == "Full Screen")
                 {
-                    vm.Video_Width_Text = "auto";
-                    vm.Video_Height_Text = "4320";
+                    VideoView.vm.Video_Width_Text = "auto";
+                    VideoView.vm.Video_Height_Text = "4320";
                 }
             }
 
             // -------------------------
             // 8K UHD
             // -------------------------
-            else if (vm.Video_Scale_SelectedItem == "8K UHD")
+            else if (VideoView.vm.Video_Scale_SelectedItem == "8K UHD")
             {
                 // Widescreen
-                ////if (IsAspectRatioWidescreen(vm.Video_AspectRatio_SelectedItem) == true)
-                if (vm.Video_ScreenFormat_SelectedItem == "auto" ||
-                    vm.Video_ScreenFormat_SelectedItem == "Widescreen" ||
-                    vm.Video_ScreenFormat_SelectedItem == "Ultrawide"
+                ////if (IsAspectRatioWidescreen(VideoView.vm.Video_AspectRatio_SelectedItem) == true)
+                if (VideoView.vm.Video_ScreenFormat_SelectedItem == "auto" ||
+                    VideoView.vm.Video_ScreenFormat_SelectedItem == "Widescreen" ||
+                    VideoView.vm.Video_ScreenFormat_SelectedItem == "Ultrawide"
                     )
                 {
-                    vm.Video_Width_Text = "7680";
-                    vm.Video_Height_Text = "auto";
+                    VideoView.vm.Video_Width_Text = "7680";
+                    VideoView.vm.Video_Height_Text = "auto";
                 }
 
                 // Full Screen
-                else if (vm.Video_ScreenFormat_SelectedItem == "Full Screen")
+                else if (VideoView.vm.Video_ScreenFormat_SelectedItem == "Full Screen")
                 {
-                    vm.Video_Width_Text = "auto";
-                    vm.Video_Height_Text = "4320";
+                    VideoView.vm.Video_Width_Text = "auto";
+                    VideoView.vm.Video_Height_Text = "4320";
                 }
             }
 
             // -------------------------
             // 4K
             // -------------------------
-            else if (vm.Video_Scale_SelectedItem == "4K")
+            else if (VideoView.vm.Video_Scale_SelectedItem == "4K")
             {
                 // Widescreen
-                ////if (IsAspectRatioWidescreen(vm.Video_AspectRatio_SelectedItem) == true)
-                if (vm.Video_ScreenFormat_SelectedItem == "auto" ||
-                    vm.Video_ScreenFormat_SelectedItem == "Widescreen" ||
-                    vm.Video_ScreenFormat_SelectedItem == "Ultrawide"
+                ////if (IsAspectRatioWidescreen(VideoView.vm.Video_AspectRatio_SelectedItem) == true)
+                if (VideoView.vm.Video_ScreenFormat_SelectedItem == "auto" ||
+                    VideoView.vm.Video_ScreenFormat_SelectedItem == "Widescreen" ||
+                    VideoView.vm.Video_ScreenFormat_SelectedItem == "Ultrawide"
                     )
                 {
-                    vm.Video_Width_Text = "4096";
-                    vm.Video_Height_Text = "auto";
+                    VideoView.vm.Video_Width_Text = "4096";
+                    VideoView.vm.Video_Height_Text = "auto";
                 }
 
                 // Full Screen
-                else if (vm.Video_ScreenFormat_SelectedItem == "Full Screen")
+                else if (VideoView.vm.Video_ScreenFormat_SelectedItem == "Full Screen")
                 {
-                    vm.Video_Width_Text = "auto";
-                    vm.Video_Height_Text = "2160";
+                    VideoView.vm.Video_Width_Text = "auto";
+                    VideoView.vm.Video_Height_Text = "2160";
                 }
             }
 
             // -------------------------
             // 4K UHD
             // -------------------------
-            else if (vm.Video_Scale_SelectedItem == "4K UHD")
+            else if (VideoView.vm.Video_Scale_SelectedItem == "4K UHD")
             {
                 // Widescreen
-                ////if (IsAspectRatioWidescreen(vm.Video_AspectRatio_SelectedItem) == true)
-                if (vm.Video_ScreenFormat_SelectedItem == "auto" ||
-                    vm.Video_ScreenFormat_SelectedItem == "Widescreen" ||
-                    vm.Video_ScreenFormat_SelectedItem == "Ultrawide"
+                ////if (IsAspectRatioWidescreen(VideoView.vm.Video_AspectRatio_SelectedItem) == true)
+                if (VideoView.vm.Video_ScreenFormat_SelectedItem == "auto" ||
+                    VideoView.vm.Video_ScreenFormat_SelectedItem == "Widescreen" ||
+                    VideoView.vm.Video_ScreenFormat_SelectedItem == "Ultrawide"
                     )
                 {
-                    vm.Video_Width_Text = "3840";
-                    vm.Video_Height_Text = "auto";
+                    VideoView.vm.Video_Width_Text = "3840";
+                    VideoView.vm.Video_Height_Text = "auto";
                 }
 
                 // Full Screen
-                else if (vm.Video_ScreenFormat_SelectedItem == "Full Screen")
+                else if (VideoView.vm.Video_ScreenFormat_SelectedItem == "Full Screen")
                 {
-                    vm.Video_Width_Text = "auto";
-                    vm.Video_Height_Text = "2160";
+                    VideoView.vm.Video_Width_Text = "auto";
+                    VideoView.vm.Video_Height_Text = "2160";
                 }
             }
 
             // -------------------------
             // 2K
             // -------------------------
-            else if (vm.Video_Scale_SelectedItem == "2K")
+            else if (VideoView.vm.Video_Scale_SelectedItem == "2K")
             {
                 // Widescreen
-                //if (IsAspectRatioWidescreen(vm.Video_AspectRatio_SelectedItem) == true)
-                if (vm.Video_ScreenFormat_SelectedItem == "auto" ||
-                    vm.Video_ScreenFormat_SelectedItem == "Widescreen" ||
-                    vm.Video_ScreenFormat_SelectedItem == "Ultrawide"
+                //if (IsAspectRatioWidescreen(VideoView.vm.Video_AspectRatio_SelectedItem) == true)
+                if (VideoView.vm.Video_ScreenFormat_SelectedItem == "auto" ||
+                    VideoView.vm.Video_ScreenFormat_SelectedItem == "Widescreen" ||
+                    VideoView.vm.Video_ScreenFormat_SelectedItem == "Ultrawide"
                     )
                 {
-                    vm.Video_Width_Text = "2048";
-                    vm.Video_Height_Text = "auto";
+                    VideoView.vm.Video_Width_Text = "2048";
+                    VideoView.vm.Video_Height_Text = "auto";
                 }
 
                 // Full Screen
-                else if (vm.Video_ScreenFormat_SelectedItem == "Full Screen")
+                else if (VideoView.vm.Video_ScreenFormat_SelectedItem == "Full Screen")
                 {
-                    vm.Video_Width_Text = "auto";
-                    vm.Video_Height_Text = "1556";
+                    VideoView.vm.Video_Width_Text = "auto";
+                    VideoView.vm.Video_Height_Text = "1556";
                 }
             }
 
             // -------------------------
             // 1440p
             // -------------------------
-            else if (vm.Video_Scale_SelectedItem == "1440p")
+            else if (VideoView.vm.Video_Scale_SelectedItem == "1440p")
             {
                 // Widescreen
-                //if (IsAspectRatioWidescreen(vm.Video_AspectRatio_SelectedItem) == true)
-                if (vm.Video_ScreenFormat_SelectedItem == "auto" ||
-                    vm.Video_ScreenFormat_SelectedItem == "Widescreen" ||
-                    vm.Video_ScreenFormat_SelectedItem == "Ultrawide"
+                //if (IsAspectRatioWidescreen(VideoView.vm.Video_AspectRatio_SelectedItem) == true)
+                if (VideoView.vm.Video_ScreenFormat_SelectedItem == "auto" ||
+                    VideoView.vm.Video_ScreenFormat_SelectedItem == "Widescreen" ||
+                    VideoView.vm.Video_ScreenFormat_SelectedItem == "Ultrawide"
                     )
                 {
 
-                    vm.Video_Width_Text = "2560";
-                    vm.Video_Height_Text = "auto";
+                    VideoView.vm.Video_Width_Text = "2560";
+                    VideoView.vm.Video_Height_Text = "auto";
                 }
 
                 // Full Screen
-                else if (vm.Video_ScreenFormat_SelectedItem == "Full Screen")
+                else if (VideoView.vm.Video_ScreenFormat_SelectedItem == "Full Screen")
                 {
-                    vm.Video_Width_Text = "auto";
-                    vm.Video_Height_Text = "1440";
+                    VideoView.vm.Video_Width_Text = "auto";
+                    VideoView.vm.Video_Height_Text = "1440";
                 }
             }
 
             // -------------------------
             // 1200p
             // -------------------------
-            else if (vm.Video_Scale_SelectedItem == "1200p")
+            else if (VideoView.vm.Video_Scale_SelectedItem == "1200p")
             {
                 // Widescreen
-                //if (IsAspectRatioWidescreen(vm.Video_AspectRatio_SelectedItem) == true)
-                if (vm.Video_ScreenFormat_SelectedItem == "auto" ||
-                    vm.Video_ScreenFormat_SelectedItem == "Widescreen" ||
-                    vm.Video_ScreenFormat_SelectedItem == "Ultrawide"
+                //if (IsAspectRatioWidescreen(VideoView.vm.Video_AspectRatio_SelectedItem) == true)
+                if (VideoView.vm.Video_ScreenFormat_SelectedItem == "auto" ||
+                    VideoView.vm.Video_ScreenFormat_SelectedItem == "Widescreen" ||
+                    VideoView.vm.Video_ScreenFormat_SelectedItem == "Ultrawide"
                     )
                 {
-                    vm.Video_Width_Text = "1920";
-                    vm.Video_Height_Text = "auto";
+                    VideoView.vm.Video_Width_Text = "1920";
+                    VideoView.vm.Video_Height_Text = "auto";
                 }
 
                 // Full Screen
-                else if (vm.Video_ScreenFormat_SelectedItem == "Full Screen")
+                else if (VideoView.vm.Video_ScreenFormat_SelectedItem == "Full Screen")
                 {
-                    vm.Video_Width_Text = "auto";
-                    vm.Video_Height_Text = "1200";
+                    VideoView.vm.Video_Width_Text = "auto";
+                    VideoView.vm.Video_Height_Text = "1200";
                 }
             }
 
             // -------------------------
             // 1080p
             // -------------------------
-            else if (vm.Video_Scale_SelectedItem == "1080p")
+            else if (VideoView.vm.Video_Scale_SelectedItem == "1080p")
             {
                 // Widescreen
-                //if (IsAspectRatioWidescreen(vm.Video_AspectRatio_SelectedItem) == true)
-                if (vm.Video_ScreenFormat_SelectedItem == "auto" ||
-                    vm.Video_ScreenFormat_SelectedItem == "Widescreen" ||
-                    vm.Video_ScreenFormat_SelectedItem == "Ultrawide"
+                //if (IsAspectRatioWidescreen(VideoView.vm.Video_AspectRatio_SelectedItem) == true)
+                if (VideoView.vm.Video_ScreenFormat_SelectedItem == "auto" ||
+                    VideoView.vm.Video_ScreenFormat_SelectedItem == "Widescreen" ||
+                    VideoView.vm.Video_ScreenFormat_SelectedItem == "Ultrawide"
                     )
                 {
-                    vm.Video_Width_Text = "1920";
-                    vm.Video_Height_Text = "auto";
+                    VideoView.vm.Video_Width_Text = "1920";
+                    VideoView.vm.Video_Height_Text = "auto";
                 }
 
                 // Full Screen
-                else if (vm.Video_ScreenFormat_SelectedItem == "Full Screen")
+                else if (VideoView.vm.Video_ScreenFormat_SelectedItem == "Full Screen")
                 {
-                    vm.Video_Width_Text = "auto";
-                    vm.Video_Height_Text = "1080";
+                    VideoView.vm.Video_Width_Text = "auto";
+                    VideoView.vm.Video_Height_Text = "1080";
                 }
             }
 
             // -------------------------
             // 900p
             // -------------------------
-            else if (vm.Video_Scale_SelectedItem == "900p")
+            else if (VideoView.vm.Video_Scale_SelectedItem == "900p")
             {
                 // Widescreen
-                //if (IsAspectRatioWidescreen(vm.Video_AspectRatio_SelectedItem) == true)
-                if (vm.Video_ScreenFormat_SelectedItem == "auto" ||
-                    vm.Video_ScreenFormat_SelectedItem == "Widescreen" ||
-                    vm.Video_ScreenFormat_SelectedItem == "Ultrawide"
+                //if (IsAspectRatioWidescreen(VideoView.vm.Video_AspectRatio_SelectedItem) == true)
+                if (VideoView.vm.Video_ScreenFormat_SelectedItem == "auto" ||
+                    VideoView.vm.Video_ScreenFormat_SelectedItem == "Widescreen" ||
+                    VideoView.vm.Video_ScreenFormat_SelectedItem == "Ultrawide"
                     )
                 {
-                    vm.Video_Width_Text = "1600";
-                    vm.Video_Height_Text = "auto";
+                    VideoView.vm.Video_Width_Text = "1600";
+                    VideoView.vm.Video_Height_Text = "auto";
                 }
 
                 // Full Screen
-                else if (vm.Video_ScreenFormat_SelectedItem == "Full Screen")
+                else if (VideoView.vm.Video_ScreenFormat_SelectedItem == "Full Screen")
                 {
-                    vm.Video_Width_Text = "auto";
-                    vm.Video_Height_Text = "1080";
+                    VideoView.vm.Video_Width_Text = "auto";
+                    VideoView.vm.Video_Height_Text = "1080";
                 }
             }
 
             // -------------------------
             // 720p
             // -------------------------
-            else if (vm.Video_Scale_SelectedItem == "720p")
+            else if (VideoView.vm.Video_Scale_SelectedItem == "720p")
             {
                 // Widescreen
-                //if (IsAspectRatioWidescreen(vm.Video_AspectRatio_SelectedItem) == true)
-                if (vm.Video_ScreenFormat_SelectedItem == "auto" ||
-                    vm.Video_ScreenFormat_SelectedItem == "Widescreen" ||
-                    vm.Video_ScreenFormat_SelectedItem == "Ultrawide"
+                //if (IsAspectRatioWidescreen(VideoView.vm.Video_AspectRatio_SelectedItem) == true)
+                if (VideoView.vm.Video_ScreenFormat_SelectedItem == "auto" ||
+                    VideoView.vm.Video_ScreenFormat_SelectedItem == "Widescreen" ||
+                    VideoView.vm.Video_ScreenFormat_SelectedItem == "Ultrawide"
                     )
                 {
-                    vm.Video_Width_Text = "1280";
-                    vm.Video_Height_Text = "auto";
+                    VideoView.vm.Video_Width_Text = "1280";
+                    VideoView.vm.Video_Height_Text = "auto";
                 }
 
                 // Full Screen
-                else if (vm.Video_ScreenFormat_SelectedItem == "Full Screen")
+                else if (VideoView.vm.Video_ScreenFormat_SelectedItem == "Full Screen")
                 {
-                    vm.Video_Width_Text = "auto";
-                    vm.Video_Height_Text = "720";
+                    VideoView.vm.Video_Width_Text = "auto";
+                    VideoView.vm.Video_Height_Text = "720";
                 }
             }
 
             // -------------------------
             // 576p
             // -------------------------
-            else if (vm.Video_Scale_SelectedItem == "576p")
+            else if (VideoView.vm.Video_Scale_SelectedItem == "576p")
             {
                 // Widescreen
-                //if (IsAspectRatioWidescreen(vm.Video_AspectRatio_SelectedItem) == true)
-                if (vm.Video_ScreenFormat_SelectedItem == "auto" ||
-                    vm.Video_ScreenFormat_SelectedItem == "Widescreen" ||
-                    vm.Video_ScreenFormat_SelectedItem == "Ultrawide"
+                //if (IsAspectRatioWidescreen(VideoView.vm.Video_AspectRatio_SelectedItem) == true)
+                if (VideoView.vm.Video_ScreenFormat_SelectedItem == "auto" ||
+                    VideoView.vm.Video_ScreenFormat_SelectedItem == "Widescreen" ||
+                    VideoView.vm.Video_ScreenFormat_SelectedItem == "Ultrawide"
                     )
                 {
-                    vm.Video_Width_Text = "1024";
-                    vm.Video_Height_Text = "auto";
+                    VideoView.vm.Video_Width_Text = "1024";
+                    VideoView.vm.Video_Height_Text = "auto";
                 }
 
                 // Full Screen
-                else if (vm.Video_ScreenFormat_SelectedItem == "Full Screen")
+                else if (VideoView.vm.Video_ScreenFormat_SelectedItem == "Full Screen")
                 {
-                    vm.Video_Width_Text = "auto";
-                    vm.Video_Height_Text = "576";
+                    VideoView.vm.Video_Width_Text = "auto";
+                    VideoView.vm.Video_Height_Text = "576";
                 }
             }
 
             // -------------------------
             // 480p
             // -------------------------
-            else if (vm.Video_Scale_SelectedItem == "480p")
+            else if (VideoView.vm.Video_Scale_SelectedItem == "480p")
             {
                 // Widescreen
-                //if (IsAspectRatioWidescreen(vm.Video_AspectRatio_SelectedItem) == true)
-                if (vm.Video_ScreenFormat_SelectedItem == "auto" ||
-                    vm.Video_ScreenFormat_SelectedItem == "Widescreen" ||
-                    vm.Video_ScreenFormat_SelectedItem == "Ultrawide"
+                //if (IsAspectRatioWidescreen(VideoView.vm.Video_AspectRatio_SelectedItem) == true)
+                if (VideoView.vm.Video_ScreenFormat_SelectedItem == "auto" ||
+                    VideoView.vm.Video_ScreenFormat_SelectedItem == "Widescreen" ||
+                    VideoView.vm.Video_ScreenFormat_SelectedItem == "Ultrawide"
                     )
                 {
-                    vm.Video_Width_Text = "720";
-                    vm.Video_Height_Text = "auto";
+                    VideoView.vm.Video_Width_Text = "720";
+                    VideoView.vm.Video_Height_Text = "auto";
                 }
 
                 // Full Screen
-                else if (vm.Video_ScreenFormat_SelectedItem == "Full Screen")
+                else if (VideoView.vm.Video_ScreenFormat_SelectedItem == "Full Screen")
                 {
-                    vm.Video_Width_Text = "auto";
-                    vm.Video_Height_Text = "480";
+                    VideoView.vm.Video_Width_Text = "auto";
+                    VideoView.vm.Video_Height_Text = "480";
                 }
             }
 
             // -------------------------
             // 320p
             // -------------------------
-            else if (vm.Video_Scale_SelectedItem == "320p")
+            else if (VideoView.vm.Video_Scale_SelectedItem == "320p")
             {
                 // Widescreen
-                //if (IsAspectRatioWidescreen(vm.Video_AspectRatio_SelectedItem) == true)
-                if (vm.Video_ScreenFormat_SelectedItem == "Widescreen" ||
-                    vm.Video_ScreenFormat_SelectedItem == "Ultrawide"
+                //if (IsAspectRatioWidescreen(VideoView.vm.Video_AspectRatio_SelectedItem) == true)
+                if (VideoView.vm.Video_ScreenFormat_SelectedItem == "Widescreen" ||
+                    VideoView.vm.Video_ScreenFormat_SelectedItem == "Ultrawide"
                     )
                 {
-                    vm.Video_Width_Text = "480";
-                    vm.Video_Height_Text = "auto";
+                    VideoView.vm.Video_Width_Text = "480";
+                    VideoView.vm.Video_Height_Text = "auto";
                 }
 
                 // Full Screen
-                else if (vm.Video_ScreenFormat_SelectedItem == "Full Screen")
+                else if (VideoView.vm.Video_ScreenFormat_SelectedItem == "Full Screen")
                 {
-                    vm.Video_Width_Text = "auto";
-                    vm.Video_Height_Text = "320";
+                    VideoView.vm.Video_Width_Text = "auto";
+                    VideoView.vm.Video_Height_Text = "320";
                 }
             }
 
             // -------------------------
             // 240p
             // -------------------------
-            else if (vm.Video_Scale_SelectedItem == "240p")
+            else if (VideoView.vm.Video_Scale_SelectedItem == "240p")
             {
                 // Widescreen
-                //if (IsAspectRatioWidescreen(vm.Video_AspectRatio_SelectedItem) == true)
-                if (vm.Video_ScreenFormat_SelectedItem == "auto" ||
-                    vm.Video_ScreenFormat_SelectedItem == "Widescreen" ||
-                    vm.Video_ScreenFormat_SelectedItem == "Ultrawide"
+                //if (IsAspectRatioWidescreen(VideoView.vm.Video_AspectRatio_SelectedItem) == true)
+                if (VideoView.vm.Video_ScreenFormat_SelectedItem == "auto" ||
+                    VideoView.vm.Video_ScreenFormat_SelectedItem == "Widescreen" ||
+                    VideoView.vm.Video_ScreenFormat_SelectedItem == "Ultrawide"
                     )
                 {
-                    vm.Video_Width_Text = "320";
-                    vm.Video_Height_Text = "auto";
+                    VideoView.vm.Video_Width_Text = "320";
+                    VideoView.vm.Video_Height_Text = "auto";
                 }
 
                 // Full Screen
-                else if (vm.Video_ScreenFormat_SelectedItem == "Full Screen")
+                else if (VideoView.vm.Video_ScreenFormat_SelectedItem == "Full Screen")
                 {
-                    vm.Video_Width_Text = "auto";
-                    vm.Video_Height_Text = "240";
+                    VideoView.vm.Video_Width_Text = "auto";
+                    VideoView.vm.Video_Height_Text = "240";
                 }
             }
 
             // -------------------------
             // Custom
             // -------------------------
-            else if (vm.Video_Scale_SelectedItem == "Custom")
+            else if (VideoView.vm.Video_Scale_SelectedItem == "Custom")
             {
-                vm.Video_Width_Text = "auto";
-                vm.Video_Height_Text = "auto";
+                VideoView.vm.Video_Width_Text = "auto";
+                VideoView.vm.Video_Height_Text = "auto";
             }
         }
 
@@ -6053,20 +6868,20 @@ namespace Axiom
         {
             // Clear textbox on focus if default text "auto"
             if (tbxVideo_Width.Focus() == true && 
-                vm.Video_Width_Text == "auto")
+                VideoView.vm.Video_Width_Text == "auto")
             {
-                vm.Video_Width_Text = string.Empty;
+                VideoView.vm.Video_Width_Text = string.Empty;
             }
         }
         // Lost Focus
         private void tbxVideo_Width_LostFocus(object sender, RoutedEventArgs e)
         {
-            vm.Video_Width_Text = tbxVideo_Width.Text;
+            VideoView.vm.Video_Width_Text = tbxVideo_Width.Text;
 
             // Change textbox back to "auto" if left empty
-            if (string.IsNullOrEmpty(vm.Video_Width_Text))
+            if (string.IsNullOrEmpty(VideoView.vm.Video_Width_Text))
             {
-                vm.Video_Width_Text = "auto";
+                VideoView.vm.Video_Width_Text = "auto";
             }
         }
 
@@ -6078,20 +6893,20 @@ namespace Axiom
         {
             // Clear textbox on focus if default text "auto"
             if (tbxVideo_Height.Focus() == true && 
-                vm.Video_Height_Text == "auto")
+                VideoView.vm.Video_Height_Text == "auto")
             {
-                vm.Video_Height_Text = string.Empty;
+                VideoView.vm.Video_Height_Text = string.Empty;
             }
         }
         // Lost Focus
         private void tbxVideo_Height_LostFocus(object sender, RoutedEventArgs e)
         {
-            vm.Video_Height_Text = tbxVideo_Height.Text;
+            VideoView.vm.Video_Height_Text = tbxVideo_Height.Text;
 
             // Change textbox back to "height" if left empty
-            if (string.IsNullOrEmpty(vm.Video_Height_Text))
+            if (string.IsNullOrEmpty(VideoView.vm.Video_Height_Text))
             {
-                vm.Video_Height_Text = "auto";
+                VideoView.vm.Video_Height_Text = "auto";
             }
         }
 
@@ -6101,11 +6916,9 @@ namespace Axiom
         /// </summary>
         private void cboVideo_ScreenFormat_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //VideoControls.AutoCopyVideoCodec(vm);
-
-            if (vm.Video_Scale_SelectedItem != "Custom")
+            if (VideoView.vm.Video_Scale_SelectedItem != "Custom")
             {
-                VideoScaleDisplay(vm);
+                VideoScaleDisplay();
             }
         }
 
@@ -6124,7 +6937,7 @@ namespace Axiom
         /// </summary>
         private void cboVideo_ScalingAlgorithm_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //VideoControls.AutoCopyVideoCodec(vm);
+
         }
 
 
@@ -6134,7 +6947,7 @@ namespace Axiom
         private void btnVideo_Crop_Click(object sender, RoutedEventArgs e)
         {
             // Start Window
-            cropwindow = new CropWindow(this, vm);
+            cropwindow = new CropWindow(this);
 
             // Detect which screen we're on
             var allScreens = System.Windows.Forms.Screen.AllScreens.ToList();
@@ -6159,7 +6972,7 @@ namespace Axiom
         private void btnVideo_CropClear_Click(object sender, RoutedEventArgs e)
         {
             // Clear Crop Values
-            CropWindow.CropClear(vm);
+            CropWindow.CropClear();
         }
 
 
@@ -6172,12 +6985,12 @@ namespace Axiom
             // -------------------------
             // Set Controls
             // -------------------------
-            SubtitleControls.SetControls(vm, vm.Subtitle_Codec_SelectedItem);
+            SubtitleControls.SetControls(SubtitleView.vm.Subtitle_Codec_SelectedItem);
 
             // -------------------------
             // Convert Button Text Change
             // -------------------------
-            ConvertButtonText(vm);
+            ConvertButtonText();
         }
 
 
@@ -6189,37 +7002,37 @@ namespace Axiom
             // -------------------------
             // External
             // -------------------------
-            if (vm.Subtitle_Stream_SelectedItem == "external")
+            if (SubtitleView.vm.Subtitle_Stream_SelectedItem == "external")
             {
                 // Enable External ListView and Buttons
-                vm.Subtitle_ListView_IsEnabled = true;
+                SubtitleView.vm.Subtitle_ListView_IsEnabled = true;
 
-                lstv_Subtitles.Opacity = 1;
+                lstvSubtitles.Opacity = 1;
             }
             else
             {
                 // Disable External ListView and Buttons
-                vm.Subtitle_ListView_IsEnabled = false;
+                SubtitleView.vm.Subtitle_ListView_IsEnabled = false;
 
-                lstv_Subtitles.Opacity = 0.1;
+                lstvSubtitles.Opacity = 0.1;
             }
         }
 
         /// <summary>
         ///     Subtitle ListView
         /// </summary>
-        private void lstv_Subtitles_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void lstvSubtitles_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // Clear before adding new selected items
-            if (vm.Subtitle_ListView_SelectedItems != null &&
-                vm.Subtitle_ListView_SelectedItems.Count > 0)
+            if (SubtitleView.vm.Subtitle_ListView_SelectedItems != null &&
+                SubtitleView.vm.Subtitle_ListView_SelectedItems.Count > 0)
             {
-                vm.Subtitle_ListView_SelectedItems.Clear();
-                vm.Subtitle_ListView_SelectedItems.TrimExcess();
+                SubtitleView.vm.Subtitle_ListView_SelectedItems.Clear();
+                SubtitleView.vm.Subtitle_ListView_SelectedItems.TrimExcess();
             }
            
             // Create Selected Items List for ViewModel
-            vm.Subtitle_ListView_SelectedItems = lstv_Subtitles.SelectedItems
+            SubtitleView.vm.Subtitle_ListView_SelectedItems = lstvSubtitles.SelectedItems
                                                 .Cast<string>()
                                                 .ToList();
         }
@@ -6254,7 +7067,7 @@ namespace Axiom
                     Subtitle.subtitleFileNamesList.Add(Path.GetFileName(selectFiles.FileNames[i]));
 
                     // ListView Display File Names + Ext
-                    vm.Subtitle_ListView_Items.Add(Path.GetFileName(selectFiles.FileNames[i]));
+                    SubtitleView.vm.Subtitle_ListView_Items.Add(Path.GetFileName(selectFiles.FileNames[i]));
                 }
             }
         }
@@ -6264,13 +7077,13 @@ namespace Axiom
         /// </summary>
         private void btnSubtitle_Remove_Click(object sender, RoutedEventArgs e)
         {
-            if (vm.Subtitle_ListView_SelectedItems.Count > 0)
+            if (SubtitleView.vm.Subtitle_ListView_SelectedItems.Count > 0)
             {
-                var selectedIndex = vm.Subtitle_ListView_SelectedIndex;
+                var selectedIndex = SubtitleView.vm.Subtitle_ListView_SelectedIndex;
 
                 // ListView Items
-                var itemlsvFileNames = vm.Subtitle_ListView_Items[selectedIndex];
-                vm.Subtitle_ListView_Items.RemoveAt(selectedIndex);
+                var itemlsvFileNames = SubtitleView.vm.Subtitle_ListView_Items[selectedIndex];
+                SubtitleView.vm.Subtitle_ListView_Items.RemoveAt(selectedIndex);
 
                 // List File Paths
                 string itemFilePaths = Subtitle.subtitleFilePathsList[selectedIndex];
@@ -6296,11 +7109,11 @@ namespace Axiom
         public void SubtitlesClear()
         {
             // Clear List View
-            //lstv_Subtitles.Items.Clear();
-            if (vm.Subtitle_ListView_Items != null &&
-                vm.Subtitle_ListView_Items.Count > 0)
+            //lstvSubtitles.Items.Clear();
+            if (SubtitleView.vm.Subtitle_ListView_Items != null &&
+                SubtitleView.vm.Subtitle_ListView_Items.Count > 0)
             {
-                vm.Subtitle_ListView_Items.Clear();
+                SubtitleView.vm.Subtitle_ListView_Items.Clear();
             }
 
             // Clear Paths List
@@ -6325,16 +7138,16 @@ namespace Axiom
         /// </summary>
         private void btnSubtitle_SortUp_Click(object sender, RoutedEventArgs e)
         {
-            if (vm.Subtitle_ListView_SelectedItems.Count > 0)
+            if (SubtitleView.vm.Subtitle_ListView_SelectedItems.Count > 0)
             {
-                var selectedIndex = vm.Subtitle_ListView_SelectedIndex;
+                var selectedIndex = SubtitleView.vm.Subtitle_ListView_SelectedIndex;
 
                 if (selectedIndex > 0)
                 {
                     // ListView Items
-                    var itemlsvFileNames = vm.Subtitle_ListView_Items[selectedIndex];
-                    vm.Subtitle_ListView_Items.RemoveAt(selectedIndex);
-                    vm.Subtitle_ListView_Items.Insert(selectedIndex - 1, itemlsvFileNames);
+                    var itemlsvFileNames = SubtitleView.vm.Subtitle_ListView_Items[selectedIndex];
+                    SubtitleView.vm.Subtitle_ListView_Items.RemoveAt(selectedIndex);
+                    SubtitleView.vm.Subtitle_ListView_Items.Insert(selectedIndex - 1, itemlsvFileNames);
 
                     // List File Paths
                     string itemFilePaths = Subtitle.subtitleFilePathsList[selectedIndex];
@@ -6347,7 +7160,7 @@ namespace Axiom
                     Subtitle.subtitleFileNamesList.Insert(selectedIndex - 1, itemFileNames);
 
                     // Highlight Selected Index
-                    vm.Subtitle_ListView_SelectedIndex = selectedIndex - 1;
+                    SubtitleView.vm.Subtitle_ListView_SelectedIndex = selectedIndex - 1;
                 }
             }
         }
@@ -6357,16 +7170,16 @@ namespace Axiom
         /// </summary>
         private void btnSubtitle_SortDown_Click(object sender, RoutedEventArgs e)
         {
-            if (vm.Subtitle_ListView_SelectedItems.Count > 0)
+            if (SubtitleView.vm.Subtitle_ListView_SelectedItems.Count > 0)
             {
-                var selectedIndex = vm.Subtitle_ListView_SelectedIndex;
+                var selectedIndex = SubtitleView.vm.Subtitle_ListView_SelectedIndex;
 
-                if (selectedIndex + 1 < vm.Subtitle_ListView_Items.Count)
+                if (selectedIndex + 1 < SubtitleView.vm.Subtitle_ListView_Items.Count)
                 {
                     // ListView Items
-                    var itemlsvFileNames = vm.Subtitle_ListView_Items[selectedIndex];
-                    vm.Subtitle_ListView_Items.RemoveAt(selectedIndex);
-                    vm.Subtitle_ListView_Items.Insert(selectedIndex + 1, itemlsvFileNames);
+                    var itemlsvFileNames = SubtitleView.vm.Subtitle_ListView_Items[selectedIndex];
+                    SubtitleView.vm.Subtitle_ListView_Items.RemoveAt(selectedIndex);
+                    SubtitleView.vm.Subtitle_ListView_Items.Insert(selectedIndex + 1, itemlsvFileNames);
 
                     // List FilePaths
                     string itemFilePaths = Subtitle.subtitleFilePathsList[selectedIndex];
@@ -6379,7 +7192,7 @@ namespace Axiom
                     Subtitle.subtitleFileNamesList.Insert(selectedIndex + 1, itemFileNames);
 
                     // Highlight Selected Index
-                    vm.Subtitle_ListView_SelectedIndex = selectedIndex + 1;
+                    SubtitleView.vm.Subtitle_ListView_SelectedIndex = selectedIndex + 1;
                 }
             }
         }
@@ -6394,17 +7207,17 @@ namespace Axiom
             // -------------------------
             // Set Controls
             // -------------------------
-            AudioControls.SetControls(vm, vm.Audio_Codec_SelectedItem);
+            AudioControls.SetControls(AudioView.vm.Audio_Codec_SelectedItem);
 
             // -------------------------
             // Audio Stream Controls
             // -------------------------
-            FormatControls.AudioStreamControls(vm);
+            FormatControls.AudioStreamControls();
 
             // -------------------------
             // Convert Button Text Change
             // -------------------------
-            ConvertButtonText(vm);
+            ConvertButtonText();
         }
 
 
@@ -6413,7 +7226,7 @@ namespace Axiom
         /// </summary>
         private void cboAudio_Channel_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //AudioControls.AutoCopyAudioCodec(vm);
+
         }
 
 
@@ -6425,19 +7238,19 @@ namespace Axiom
             // -------------------------
             // Set Controls
             // -------------------------
-            //AudioControls.SetControls(vm, vm.Audio_Codec_SelectedItem);
+            //AudioControls.SetControls(AudioView.vm.Audio_Codec_SelectedItem);
 
             // -------------------------
             // Quality Controls
             // -------------------------
-            AudioControls.QualityControls(vm);
+            AudioControls.QualityControls();
 
             // -------------------------
             // Display Bit Rate in TextBox
             // -------------------------
-            AudioControls.AudioBitRateDisplay(vm,
-                                              vm.Audio_Quality_Items,
-                                              vm.Audio_Quality_SelectedItem
+            AudioControls.AudioBitRateDisplay(
+                                              AudioView.vm.Audio_Quality_Items,
+                                              AudioView.vm.Audio_Quality_SelectedItem
                                               );
 
         }
@@ -6452,14 +7265,14 @@ namespace Axiom
             // -------------------------
             // Quality Controls
             // -------------------------
-            AudioControls.QualityControls(vm);
+            AudioControls.QualityControls();
 
             // -------------------------
             // Display Bit Rate in TextBox
             // -------------------------
-            AudioControls.AudioBitRateDisplay(vm,
-                                              vm.Audio_Quality_Items,
-                                              vm.Audio_Quality_SelectedItem
+            AudioControls.AudioBitRateDisplay(
+                                              AudioView.vm.Audio_Quality_Items,
+                                              AudioView.vm.Audio_Quality_SelectedItem
                                               );
         }
         // Unchecked
@@ -6468,14 +7281,14 @@ namespace Axiom
             // -------------------------
             // Quality Controls
             // -------------------------
-            AudioControls.QualityControls(vm);
+            AudioControls.QualityControls();
 
             // -------------------------
             // Display Bit Rate in TextBox
             // -------------------------
-            AudioControls.AudioBitRateDisplay(vm,
-                                              vm.Audio_Quality_Items,
-                                              vm.Audio_Quality_SelectedItem
+            AudioControls.AudioBitRateDisplay(
+                                              AudioView.vm.Audio_Quality_Items,
+                                              AudioView.vm.Audio_Quality_SelectedItem
                                               );
         }
 
@@ -6492,7 +7305,7 @@ namespace Axiom
         private void tbxAudio_BitRate_GotFocus(object sender, RoutedEventArgs e)
         {
             // Clear Textbox on first use
-            if (vm.Audio_BitRate_Text == string.Empty)
+            if (AudioView.vm.Audio_BitRate_Text == string.Empty)
             {
                 TextBox tbac = (TextBox)sender;
                 tbac.Text = string.Empty;
@@ -6517,21 +7330,21 @@ namespace Axiom
         /// </summary>
         private void cboAudio_SampleRate_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //if (!string.IsNullOrEmpty(vm.Audio_SampleRate_SelectedItem))
+            //if (!string.IsNullOrEmpty(AudioView.vm.Audio_SampleRate_SelectedItem))
             //{
-            //    Audio_SampleRate_PreviousItem = vm.Audio_SampleRate_SelectedItem;
+            //    Audio_SampleRate_PreviousItem = AudioView.vm.Audio_SampleRate_SelectedItem;
             //}
 
             //MessageBox.Show("Previous: " + Audio_SampleRate_PreviousItem); //debug
-            //MessageBox.Show("Current: " + vm.Audio_SampleRate_SelectedItem); //debug
+            //MessageBox.Show("Current: " + AudioView.vm.Audio_SampleRate_SelectedItem); //debug
 
-            //if (Audio_SampleRate_PreviousItem != vm.Audio_SampleRate_SelectedItem)
+            //if (Audio_SampleRate_PreviousItem != AudioView.vm.Audio_SampleRate_SelectedItem)
             //{
             //    // Switch to Copy if inputExt & outputExt match
-            //    AudioControls.AutoCopyAudioCodec(vm);
+            //    AudioControls.AutoCopyAudioCodec();
             //}
 
-            //MessageBox.Show("Current Changed: " + vm.Audio_SampleRate_SelectedItem); //debug
+            //MessageBox.Show("Current Changed: " + AudioView.vm.Audio_SampleRate_SelectedItem); //debug
         }
 
 
@@ -6540,9 +7353,9 @@ namespace Axiom
         /// </summary>
         private void cboAudio_BitDepth_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (vm.Audio_Codec_SelectedItem == "PCM")
+            if (AudioView.vm.Audio_Codec_SelectedItem == "PCM")
             {
-                PCM.Codec_Set(vm);
+                PCM.Codec_Set();
             }
         }
 
@@ -6552,9 +7365,7 @@ namespace Axiom
         /// </summary>
         private void tbxAudio_Volume_TextChanged(object sender, TextChangedEventArgs e)
         {
-            // Disable Volume instead of running AutoCopyAudioCodec each time 
-            // This needs to be re-thought, calling method on every timer tick
-            //AudioControls.AutoCopyAudioCodec(vm);
+
         }
         /// <summary>
         ///    Volume TextBox KeyDown
@@ -6575,19 +7386,19 @@ namespace Axiom
         private void btnAudio_VolumeUp_Click(object sender, RoutedEventArgs e)
         {
             int value;
-            int.TryParse(vm.Audio_Volume_Text, out value);
+            int.TryParse(AudioView.vm.Audio_Volume_Text, out value);
 
             value += 1;
-            vm.Audio_Volume_Text = value.ToString();
+            AudioView.vm.Audio_Volume_Text = value.ToString();
         }
         // Up Button Each Timer Tick
         private void dispatcherTimerUp_Tick(object sender, EventArgs e)
         {
             int value;
-            int.TryParse(vm.Audio_Volume_Text, out value);
+            int.TryParse(AudioView.vm.Audio_Volume_Text, out value);
 
             value += 1;
-            vm.Audio_Volume_Text = value.ToString();
+            AudioView.vm.Audio_Volume_Text = value.ToString();
         }
         // Hold Up Button
         private void btnAudio_VolumeUp_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -6609,19 +7420,19 @@ namespace Axiom
         private void btnAudio_VolumeDown_Click(object sender, RoutedEventArgs e)
         {
             int value;
-            int.TryParse(vm.Audio_Volume_Text, out value);
+            int.TryParse(AudioView.vm.Audio_Volume_Text, out value);
 
             value -= 1;
-            vm.Audio_Volume_Text = value.ToString();
+            AudioView.vm.Audio_Volume_Text = value.ToString();
         }
         // Down Button Each Timer Tick
         private void dispatcherTimerDown_Tick(object sender, EventArgs e)
         {
             int value;
-            int.TryParse(vm.Audio_Volume_Text, out value);
+            int.TryParse(AudioView.vm.Audio_Volume_Text, out value);
 
             value -= 1;
-            vm.Audio_Volume_Text = value.ToString();
+            AudioView.vm.Audio_Volume_Text = value.ToString();
         }
         // Hold Down Button
         private void btnAudio_VolumeDown_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -6644,19 +7455,19 @@ namespace Axiom
         private void slAudio_HardLimiter_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             // Reset to default
-            vm.Audio_HardLimiter_Value = 1;
+            AudioView.vm.Audio_HardLimiter_Value = 1;
 
-            AudioControls.AutoCopyAudioCodec(vm);
+            AudioControls.AutoCopyAudioCodec();
         }
 
         private void slAudio_HardLimiter_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            AudioControls.AutoCopyAudioCodec(vm);
+            AudioControls.AutoCopyAudioCodec();
         }
 
         private void tbxAudio_HardLimiter_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            AudioControls.AutoCopyAudioCodec(vm);
+            AudioControls.AutoCopyAudioCodec();
         }
 
 
@@ -6748,437 +7559,437 @@ namespace Axiom
         private void slFilterVideo_SelectiveColor_Reds_Cyan_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             // Reset to default
-            vm.FilterVideo_SelectiveColor_Reds_Cyan_Value = 0;
+            FilterVideoView.vm.FilterVideo_SelectiveColor_Reds_Cyan_Value = 0;
 
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
         private void slFilterVideo_SelectiveColor_Reds_Cyan_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
         private void tbxFilterVideo_SelectiveColor_Reds_Cyan_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
         // Reds Magenta
         private void slFilterVideo_SelectiveColor_Reds_Magenta_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             // Reset to default
-            vm.FilterVideo_SelectiveColor_Reds_Magenta_Value = 0;
+            FilterVideoView.vm.FilterVideo_SelectiveColor_Reds_Magenta_Value = 0;
 
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
         private void slFilterVideo_SelectiveColor_Reds_Magenta_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
         // Reds Yellow
         private void slFilterVideo_SelectiveColor_Reds_Yellow_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             // Reset to default
-            vm.FilterVideo_SelectiveColor_Reds_Yellow_Value = 0;
+            FilterVideoView.vm.FilterVideo_SelectiveColor_Reds_Yellow_Value = 0;
 
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
         private void slFilterVideo_SelectiveColor_Reds_Yellow_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
 
         // Yellows Cyan
         private void slFilterVideo_SelectiveColor_Yellows_Cyan_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             // Reset to default
-            vm.FilterVideo_SelectiveColor_Yellows_Cyan_Value = 0;
+            FilterVideoView.vm.FilterVideo_SelectiveColor_Yellows_Cyan_Value = 0;
 
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
         private void slFilterVideo_SelectiveColor_Yellows_Cyan_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
 
         private void tbxFilterVideo_SelectiveColor_Yellows_Cyan_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
         // Yellows Magenta
         private void slFilterVideo_SelectiveColor_Yellows_Magenta_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             // Reset to default
-            vm.FilterVideo_SelectiveColor_Yellows_Magenta_Value = 0;
+            FilterVideoView.vm.FilterVideo_SelectiveColor_Yellows_Magenta_Value = 0;
 
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
         private void slFilterVideo_SelectiveColor_Yellows_Magenta_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
         private void tbxFilterVideo_SelectiveColor_Yellows_Magenta_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
 
         // Yellows Yellow
         private void slFilterVideo_SelectiveColor_Yellows_Yellow_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             // Reset to default
-            vm.FilterVideo_SelectiveColor_Yellows_Yellow_Value = 0;
+            FilterVideoView.vm.FilterVideo_SelectiveColor_Yellows_Yellow_Value = 0;
 
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
         private void slFilterVideo_SelectiveColor_Yellows_Yellow_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
         private void tbxFilterVideo_SelectiveColor_Yellows_Yellow_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
 
         // Greens Cyan
         private void slFilterVideo_SelectiveColor_Greens_Cyan_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             // Reset to default
-            vm.FilterVideo_SelectiveColor_Greens_Cyan_Value = 0;
+            FilterVideoView.vm.FilterVideo_SelectiveColor_Greens_Cyan_Value = 0;
 
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
         private void slFilterVideo_SelectiveColor_Greens_Cyan_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
         private void tbxFilterVideo_SelectiveColor_Greens_Cyan_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
         // Greens Magenta
         private void slFilterVideo_SelectiveColor_Greens_Magenta_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             // Reset to default
-            vm.FilterVideo_SelectiveColor_Greens_Magenta_Value = 0;
+            FilterVideoView.vm.FilterVideo_SelectiveColor_Greens_Magenta_Value = 0;
 
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
         private void slFilterVideo_SelectiveColor_Greens_Magenta_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
         private void tbxFilterVideo_SelectiveColor_Greens_Magenta_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
         // Greens Yellow
         private void slFilterVideo_SelectiveColor_Greens_Yellow_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             // Reset to default
-            vm.FilterVideo_SelectiveColor_Greens_Yellow_Value = 0;
+            FilterVideoView.vm.FilterVideo_SelectiveColor_Greens_Yellow_Value = 0;
 
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
         private void slFilterVideo_SelectiveColor_Greens_Yellow_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
         private void tbxFilterVideo_SelectiveColor_Greens_Yellow_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
 
         // Cyans Cyan
         private void slFilterVideo_SelectiveColor_Cyans_Cyan_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             // Reset to default
-            vm.FilterVideo_SelectiveColor_Cyans_Cyan_Value = 0;
+            FilterVideoView.vm.FilterVideo_SelectiveColor_Cyans_Cyan_Value = 0;
 
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
         private void slFilterVideo_SelectiveColor_Cyans_Cyan_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
         private void tbxFilterVideo_SelectiveColor_Cyans_Cyan_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
 
         // Cyans Magenta
         private void slFilterVideo_SelectiveColor_Cyans_Magenta_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             // Reset to default
-            vm.FilterVideo_SelectiveColor_Cyans_Magenta_Value = 0;
+            FilterVideoView.vm.FilterVideo_SelectiveColor_Cyans_Magenta_Value = 0;
 
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
         private void slFilterVideo_SelectiveColor_Cyans_Magenta_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
         private void tbxFilterVideo_SelectiveColor_Cyans_Magenta_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
         // Cyans Yellow
         private void slFilterVideo_SelectiveColor_Cyans_Yellow_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             // Reset to default
-            vm.FilterVideo_SelectiveColor_Cyans_Yellow_Value = 0;
+            FilterVideoView.vm.FilterVideo_SelectiveColor_Cyans_Yellow_Value = 0;
 
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
         private void slFilterVideo_SelectiveColor_Cyans_Yellow_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
         private void tbxFilterVideo_SelectiveColor_Cyans_Yellow_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
 
         // Blues Cyan
         private void slFilterVideo_SelectiveColor_Blues_Cyan_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             // Reset to default
-            vm.FilterVideo_SelectiveColor_Blues_Cyan_Value = 0;
+            FilterVideoView.vm.FilterVideo_SelectiveColor_Blues_Cyan_Value = 0;
 
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
         private void slFilterVideo_SelectiveColor_Blues_Cyan_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
         private void tbxFilterVideo_SelectiveColor_Blues_Cyan_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
         // Blues Magneta
         private void slFilterVideo_SelectiveColor_Blues_Magenta_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             // Reset to default
-            vm.FilterVideo_SelectiveColor_Blues_Magenta_Value = 0;
+            FilterVideoView.vm.FilterVideo_SelectiveColor_Blues_Magenta_Value = 0;
 
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
         private void slFilterVideo_SelectiveColor_Blues_Magenta_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
         private void tbxFilterVideo_SelectiveColor_Blues_Magenta_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
         // Blues Yellow
         private void slFilterVideo_SelectiveColor_Blues_Yellow_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             // Reset to default
-            vm.FilterVideo_SelectiveColor_Blues_Yellow_Value = 0;
+            FilterVideoView.vm.FilterVideo_SelectiveColor_Blues_Yellow_Value = 0;
 
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
         private void slFilterVideo_SelectiveColor_Blues_Yellow_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
         private void tbxFilterVideo_SelectiveColor_Blues_Yellow_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
 
         // Magentas Cyan
         private void slFilterVideo_SelectiveColor_Magentas_Cyan_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             // Reset to default
-            vm.FilterVideo_SelectiveColor_Magentas_Cyan_Value = 0;
+            FilterVideoView.vm.FilterVideo_SelectiveColor_Magentas_Cyan_Value = 0;
 
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
         private void slFilterVideo_SelectiveColor_Magentas_Cyan_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
         private void tbxFilterVideo_SelectiveColor_Magentas_Cyan_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
         // Magentas Magenta
         private void slFilterVideo_SelectiveColor_Magentas_Magenta_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             // Reset to default
-            vm.FilterVideo_SelectiveColor_Magentas_Magenta_Value = 0;
+            FilterVideoView.vm.FilterVideo_SelectiveColor_Magentas_Magenta_Value = 0;
 
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
         private void slFilterVideo_SelectiveColor_Magentas_Magenta_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
 
         private void tbxFilterVideo_SelectiveColor_Magentas_Magenta_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
         // Magentas Yellow
         private void slFilterVideo_SelectiveColor_Magentas_Yellow_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             // Reset to default
-            vm.FilterVideo_SelectiveColor_Magentas_Yellow_Value = 0;
+            FilterVideoView.vm.FilterVideo_SelectiveColor_Magentas_Yellow_Value = 0;
 
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
         private void slFilterVideo_SelectiveColor_Magentas_Yellow_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
         private void tbxFilterVideo_SelectiveColor_Magentas_Yellow_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
 
         // Whites Cyan
         private void slFilterVideo_SelectiveColor_Whites_Cyan_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             // Reset to default
-            vm.FilterVideo_SelectiveColor_Whites_Cyan_Value = 0;
+            FilterVideoView.vm.FilterVideo_SelectiveColor_Whites_Cyan_Value = 0;
 
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
         private void slFilterVideo_SelectiveColor_Whites_Cyan_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
         private void tbxFilterVideo_SelectiveColor_Whites_Cyan_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
         // Whites Magenta
         private void slFilterVideo_SelectiveColor_Whites_Magenta_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             // Reset to default
-            vm.FilterVideo_SelectiveColor_Whites_Magenta_Value = 0;
+            FilterVideoView.vm.FilterVideo_SelectiveColor_Whites_Magenta_Value = 0;
 
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
         private void slFilterVideo_SelectiveColor_Whites_Magenta_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
         private void tbxFilterVideo_SelectiveColor_Whites_Magenta_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
         // Whites Yellow
         private void slFilterVideo_SelectiveColor_Whites_Yellow_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             // Reset to default
-            vm.FilterVideo_SelectiveColor_Whites_Yellow_Value = 0;
+            FilterVideoView.vm.FilterVideo_SelectiveColor_Whites_Yellow_Value = 0;
 
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
         private void slFilterVideo_SelectiveColor_Whites_Yellow_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
         private void tbxFilterVideo_SelectiveColor_Whites_Yellow_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
 
         // Neutrals Cyan
         private void slFilterVideo_SelectiveColor_Neutrals_Cyan_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             // Reset to default
-            vm.FilterVideo_SelectiveColor_Neutrals_Cyan_Value = 0;
+            FilterVideoView.vm.FilterVideo_SelectiveColor_Neutrals_Cyan_Value = 0;
 
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
         private void slFilterVideo_SelectiveColor_Neutrals_Cyan_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
         private void tbxFilterVideo_SelectiveColor_Neutrals_Cyan_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
         // Neutrals Magenta
         private void slFilterVideo_SelectiveColor_Neutrals_Magenta_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             // Reset to default
-            vm.FilterVideo_SelectiveColor_Neutrals_Magenta_Value = 0;
+            FilterVideoView.vm.FilterVideo_SelectiveColor_Neutrals_Magenta_Value = 0;
 
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
         private void slFilterVideo_SelectiveColor_Neutrals_Magenta_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
         private void tbxFilterVideo_SelectiveColor_Neutrals_Magenta_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
         // Neutrals Yellow
         private void slFilterVideo_SelectiveColor_Neutrals_Yellow_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             // Reset to default
-            vm.FilterVideo_SelectiveColor_Neutrals_Yellow_Value = 0;
+            FilterVideoView.vm.FilterVideo_SelectiveColor_Neutrals_Yellow_Value = 0;
 
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
         private void slFilterVideo_SelectiveColor_Neutrals_Yellow_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
         private void tbxFilterVideo_SelectiveColor_Neutrals_Yellow_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
 
         // Blacks Cyan
         private void slFilterVideo_SelectiveColor_Blacks_Cyan_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             // Reset to default
-            vm.FilterVideo_SelectiveColor_Blacks_Cyan_Value = 0;
+            FilterVideoView.vm.FilterVideo_SelectiveColor_Blacks_Cyan_Value = 0;
 
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
         private void slFilterVideo_SelectiveColor_Blacks_Cyan_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
         private void tbxFilterVideo_SelectiveColor_Blacks_Cyan_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
         // Blacks Magenta
         private void slFilterVideo_SelectiveColor_Blacks_Magenta_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             // Reset to default
-            vm.FilterVideo_SelectiveColor_Blacks_Magenta_Value = 0;
+            FilterVideoView.vm.FilterVideo_SelectiveColor_Blacks_Magenta_Value = 0;
 
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
         private void slFilterVideo_SelectiveColor_Blacks_Magenta_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
         private void tbxFilterVideo_SelectiveColor_Blacks_Magenta_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
         // Blacks Yellow
         private void slFilterVideo_SelectiveColor_Blacks_Yellow_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             // Reset to default
-            vm.FilterVideo_SelectiveColor_Blacks_Yellow_Value = 0;
+            FilterVideoView.vm.FilterVideo_SelectiveColor_Blacks_Yellow_Value = 0;
 
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
         private void slFilterVideo_SelectiveColor_Blacks_Yellow_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
         private void tbxFilterVideo_SelectiveColor_Blacks_Yellow_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
 
 
@@ -7190,70 +8001,70 @@ namespace Axiom
             // Reset to default
 
             // Reds Cyan
-            vm.FilterVideo_SelectiveColor_Reds_Cyan_Value = 0;
+            FilterVideoView.vm.FilterVideo_SelectiveColor_Reds_Cyan_Value = 0;
             // Reds Magenta
-            vm.FilterVideo_SelectiveColor_Reds_Magenta_Value = 0;
+            FilterVideoView.vm.FilterVideo_SelectiveColor_Reds_Magenta_Value = 0;
             // Regs Yellow
-            vm.FilterVideo_SelectiveColor_Reds_Yellow_Value = 0;
+            FilterVideoView.vm.FilterVideo_SelectiveColor_Reds_Yellow_Value = 0;
 
             // Yellows Cyan
-            vm.FilterVideo_SelectiveColor_Yellows_Cyan_Value = 0;
+            FilterVideoView.vm.FilterVideo_SelectiveColor_Yellows_Cyan_Value = 0;
             // Yellows Magenta
-            vm.FilterVideo_SelectiveColor_Yellows_Magenta_Value = 0;
+            FilterVideoView.vm.FilterVideo_SelectiveColor_Yellows_Magenta_Value = 0;
             // Yellows Yellow
-            vm.FilterVideo_SelectiveColor_Yellows_Yellow_Value = 0;
+            FilterVideoView.vm.FilterVideo_SelectiveColor_Yellows_Yellow_Value = 0;
 
             // Greens Cyan
-            vm.FilterVideo_SelectiveColor_Greens_Cyan_Value = 0;
+            FilterVideoView.vm.FilterVideo_SelectiveColor_Greens_Cyan_Value = 0;
             // Greens Magenta
-            vm.FilterVideo_SelectiveColor_Greens_Magenta_Value = 0;
+            FilterVideoView.vm.FilterVideo_SelectiveColor_Greens_Magenta_Value = 0;
             // Greens Yellow
-            vm.FilterVideo_SelectiveColor_Greens_Yellow_Value = 0;
+            FilterVideoView.vm.FilterVideo_SelectiveColor_Greens_Yellow_Value = 0;
 
             // Cyans Cyan
-            vm.FilterVideo_SelectiveColor_Cyans_Cyan_Value = 0;
+            FilterVideoView.vm.FilterVideo_SelectiveColor_Cyans_Cyan_Value = 0;
             // Cyans Magenta
-            vm.FilterVideo_SelectiveColor_Cyans_Magenta_Value = 0;
+            FilterVideoView.vm.FilterVideo_SelectiveColor_Cyans_Magenta_Value = 0;
             // Cyans Yellow
-            vm.FilterVideo_SelectiveColor_Cyans_Yellow_Value = 0;
+            FilterVideoView.vm.FilterVideo_SelectiveColor_Cyans_Yellow_Value = 0;
 
             // Blues Cyan
-            vm.FilterVideo_SelectiveColor_Blues_Cyan_Value = 0;
+            FilterVideoView.vm.FilterVideo_SelectiveColor_Blues_Cyan_Value = 0;
             // Blues Magneta
-            vm.FilterVideo_SelectiveColor_Blues_Magenta_Value = 0;
+            FilterVideoView.vm.FilterVideo_SelectiveColor_Blues_Magenta_Value = 0;
             // Blues Yellow
-            vm.FilterVideo_SelectiveColor_Blues_Yellow_Value = 0;
+            FilterVideoView.vm.FilterVideo_SelectiveColor_Blues_Yellow_Value = 0;
 
             // Magentas Cyan
-            vm.FilterVideo_SelectiveColor_Magentas_Cyan_Value = 0;
+            FilterVideoView.vm.FilterVideo_SelectiveColor_Magentas_Cyan_Value = 0;
             // Magentas Magenta
-            vm.FilterVideo_SelectiveColor_Magentas_Magenta_Value = 0;
+            FilterVideoView.vm.FilterVideo_SelectiveColor_Magentas_Magenta_Value = 0;
             // Magentas Yellow
-            vm.FilterVideo_SelectiveColor_Magentas_Yellow_Value = 0;
+            FilterVideoView.vm.FilterVideo_SelectiveColor_Magentas_Yellow_Value = 0;
 
             // Whites Cyan
-            vm.FilterVideo_SelectiveColor_Whites_Cyan_Value = 0;
+            FilterVideoView.vm.FilterVideo_SelectiveColor_Whites_Cyan_Value = 0;
             // Whites Magenta
-            vm.FilterVideo_SelectiveColor_Whites_Magenta_Value = 0;
+            FilterVideoView.vm.FilterVideo_SelectiveColor_Whites_Magenta_Value = 0;
             // Whites Yellow
-            vm.FilterVideo_SelectiveColor_Whites_Yellow_Value = 0;
+            FilterVideoView.vm.FilterVideo_SelectiveColor_Whites_Yellow_Value = 0;
 
             // Neutrals Cyan
-            vm.FilterVideo_SelectiveColor_Neutrals_Cyan_Value = 0;
+            FilterVideoView.vm.FilterVideo_SelectiveColor_Neutrals_Cyan_Value = 0;
             // Neutrals Magenta
-            vm.FilterVideo_SelectiveColor_Neutrals_Magenta_Value = 0;
+            FilterVideoView.vm.FilterVideo_SelectiveColor_Neutrals_Magenta_Value = 0;
             // Neutrals Yellow
-            vm.FilterVideo_SelectiveColor_Neutrals_Yellow_Value = 0;
+            FilterVideoView.vm.FilterVideo_SelectiveColor_Neutrals_Yellow_Value = 0;
 
             // Blacks Cyan
-            vm.FilterVideo_SelectiveColor_Blacks_Cyan_Value = 0;
+            FilterVideoView.vm.FilterVideo_SelectiveColor_Blacks_Cyan_Value = 0;
             // Blacks Magenta
-            vm.FilterVideo_SelectiveColor_Blacks_Magenta_Value = 0;
+            FilterVideoView.vm.FilterVideo_SelectiveColor_Blacks_Magenta_Value = 0;
             // Blacks Yellow
-            vm.FilterVideo_SelectiveColor_Blacks_Yellow_Value = 0;
+            FilterVideoView.vm.FilterVideo_SelectiveColor_Blacks_Yellow_Value = 0;
 
 
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
 
 
@@ -7264,23 +8075,23 @@ namespace Axiom
         private void slFilterVideo_EQ_Brightness_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             // Reset to default
-            vm.FilterVideo_EQ_Brightness_Value = 0;
+            FilterVideoView.vm.FilterVideo_EQ_Brightness_Value = 0;
 
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
         private void slFilterVideo_EQ_Brightness_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
         private void tbxFilterVideo_EQ_Brightness_PreviewKeyUp(object sender, KeyEventArgs e)
         {
             // Reset Empty to 0
             if (string.IsNullOrWhiteSpace(tbxFilterVideo_EQ_Brightness.Text))
             {
-                vm.FilterVideo_EQ_Brightness_Value = 0;
+                FilterVideoView.vm.FilterVideo_EQ_Brightness_Value = 0;
             }
 
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
         private void tbxFilterVideo_EQ_Brightness_KeyDown(object sender, KeyEventArgs e)
         {
@@ -7291,17 +8102,17 @@ namespace Axiom
         private void slFilterVideo_EQ_Contrast_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             // Reset to default
-            vm.FilterVideo_EQ_Contrast_Value = 0;
+            FilterVideoView.vm.FilterVideo_EQ_Contrast_Value = 0;
 
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
         private void slFilterVideo_EQ_Contrast_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
         private void tbxFilterVideo_EQ_Contrast_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
         private void tbxFilterVideo_EQ_Contrast_KeyDown(object sender, KeyEventArgs e)
         {
@@ -7312,17 +8123,17 @@ namespace Axiom
         private void slFilterVideo_EQ_Saturation_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             // Reset to default
-            vm.FilterVideo_EQ_Saturation_Value = 0;
+            FilterVideoView.vm.FilterVideo_EQ_Saturation_Value = 0;
 
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
         private void slFilterVideo_EQ_Saturation_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
         private void tbxFilterVideo_EQ_Saturation_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
         private void tbxFilterVideo_EQ_Saturation_KeyDown(object sender, KeyEventArgs e)
         {
@@ -7333,17 +8144,17 @@ namespace Axiom
         private void slFilterVideo_EQ_Gamma_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             // Reset to default
-            vm.FilterVideo_EQ_Gamma_Value = 0;
+            FilterVideoView.vm.FilterVideo_EQ_Gamma_Value = 0;
 
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
         private void slFilterVideo_EQ_Gamma_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
         private void tbxFilterVideo_EQ_Gamma_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
         private void tbxFilterVideo_EQ_Gamma_KeyDown(object sender, KeyEventArgs e)
         {
@@ -7356,15 +8167,15 @@ namespace Axiom
             // Reset to default
 
             // Brightness
-            vm.FilterVideo_EQ_Brightness_Value = 0;
+            FilterVideoView.vm.FilterVideo_EQ_Brightness_Value = 0;
             // Contrast
-            vm.FilterVideo_EQ_Contrast_Value = 0;
+            FilterVideoView.vm.FilterVideo_EQ_Contrast_Value = 0;
             // Saturation
-            vm.FilterVideo_EQ_Saturation_Value = 0;
+            FilterVideoView.vm.FilterVideo_EQ_Saturation_Value = 0;
             // Gamma
-            vm.FilterVideo_EQ_Gamma_Value = 0;
+            FilterVideoView.vm.FilterVideo_EQ_Gamma_Value = 0;
 
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
 
 
@@ -7374,7 +8185,7 @@ namespace Axiom
         /// </summary>
         private void cboFilterVideo_Deband_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
 
         /// <summary>
@@ -7382,7 +8193,7 @@ namespace Axiom
         /// </summary>
         private void cboFilterVideo_Deshake_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
 
         /// <summary>
@@ -7390,7 +8201,7 @@ namespace Axiom
         /// </summary>
         private void cboFilterVideo_Deflicker_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
 
         /// <summary>
@@ -7398,7 +8209,7 @@ namespace Axiom
         /// </summary>
         private void cboFilterVideo_Dejudder_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
 
         /// <summary>
@@ -7406,7 +8217,7 @@ namespace Axiom
         /// </summary>
         private void cboFilterVideo_Denoise_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
 
         /// <summary>
@@ -7414,7 +8225,7 @@ namespace Axiom
         /// </summary>
         private void cboFilterVideo_Deinterlace_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            VideoControls.AutoCopyVideoCodec(vm);
+            VideoControls.AutoCopyVideoCodec();
         }
 
 
@@ -7425,19 +8236,19 @@ namespace Axiom
         private void slAudioLimiter_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             // Reset to default
-            vm.Audio_HardLimiter_Value = 1;
+            AudioView.vm.Audio_HardLimiter_Value = 1;
 
-            AudioControls.AutoCopyAudioCodec(vm);
+            AudioControls.AutoCopyAudioCodec();
         }
 
         private void slAudioLimiter_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            AudioControls.AutoCopyAudioCodec(vm);
+            AudioControls.AutoCopyAudioCodec();
         }
 
         private void tbxAudioLimiter_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            AudioControls.AutoCopyAudioCodec(vm);
+            AudioControls.AutoCopyAudioCodec();
         }
 
         /// <summary>
@@ -7448,17 +8259,17 @@ namespace Axiom
         //    // Reset to default
         //    slFilterAudio_RemoveClick_Value = 0;
 
-        //    AudioControls.AutoCopyAudioCodec(vm);
+        //    AudioControls.AutoCopyAudioCodec();
         //}
 
         //private void slFilterAudio_RemoveClick_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         //{
-        //    AudioControls.AutoCopyAudioCodec(vm);
+        //    AudioControls.AutoCopyAudioCodec();
         //}
 
         //private void tbxFilterAudio_RemoveClick_PreviewKeyUp(object sender, KeyEventArgs e)
         //{
-        //    AudioControls.AutoCopyAudioCodec(vm);
+        //    AudioControls.AutoCopyAudioCodec();
         //}
 
 
@@ -7469,9 +8280,9 @@ namespace Axiom
         private void slFilterAudio_Contrast_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             // Reset to default
-            vm.FilterAudio_Contrast_Value = 0;
+            FilterAudioView.vm.FilterAudio_Contrast_Value = 0;
 
-            AudioControls.AutoCopyAudioCodec(vm);
+            AudioControls.AutoCopyAudioCodec();
         }
         // Key Down
         private void tbxFilterAudio_Contrast_KeyDown(object sender, KeyEventArgs e)
@@ -7481,12 +8292,12 @@ namespace Axiom
         // Key Up
         private void tbxFilterAudio_Contrast_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            AudioControls.AutoCopyAudioCodec(vm);
+            AudioControls.AutoCopyAudioCodec();
         }
         // Mouse Up
         private void slFilterAudio_Contrast_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            AudioControls.AutoCopyAudioCodec(vm);
+            AudioControls.AutoCopyAudioCodec();
         }
 
         /// <summary>
@@ -7496,9 +8307,9 @@ namespace Axiom
         private void slFilterAudio_ExtraStereo_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             // Reset to default
-            vm.FilterAudio_ExtraStereo_Value = 0;
+            FilterAudioView.vm.FilterAudio_ExtraStereo_Value = 0;
 
-            AudioControls.AutoCopyAudioCodec(vm);
+            AudioControls.AutoCopyAudioCodec();
         }
         // Key Down
         private void tbxFilterAudio_ExtraStereo_KeyDown(object sender, KeyEventArgs e)
@@ -7508,12 +8319,12 @@ namespace Axiom
         // Key Up
         private void tbxFilterAudio_ExtraStereo_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            AudioControls.AutoCopyAudioCodec(vm);
+            AudioControls.AutoCopyAudioCodec();
         }
         // Mouse Up
         private void slFilterAudio_ExtraStereo_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            AudioControls.AutoCopyAudioCodec(vm);
+            AudioControls.AutoCopyAudioCodec();
         }
 
         /// <summary>
@@ -7523,9 +8334,9 @@ namespace Axiom
         private void slFilterAudio_Tempo_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             // Reset to default
-            vm.FilterAudio_Tempo_Value = 100;
+            FilterAudioView.vm.FilterAudio_Tempo_Value = 100;
 
-            AudioControls.AutoCopyAudioCodec(vm);
+            AudioControls.AutoCopyAudioCodec();
         }
         // Key Down
         private void tbxFilterAudio_Tempo_KeyDown(object sender, KeyEventArgs e)
@@ -7535,12 +8346,12 @@ namespace Axiom
         // Key Up
         private void tbxFilterAudio_Tempo_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            AudioControls.AutoCopyAudioCodec(vm);
+            AudioControls.AutoCopyAudioCodec();
         }
         // Mouse Up
         private void slFilterAudio_Tempo_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            AudioControls.AutoCopyAudioCodec(vm);
+            AudioControls.AutoCopyAudioCodec();
         }
 
 
@@ -7551,15 +8362,15 @@ namespace Axiom
         public void Sort()
         {
             // Only if Script not empty
-            if (!string.IsNullOrEmpty(vm.ScriptView_Text))
+            if (!string.IsNullOrEmpty(MainView.vm.ScriptView_Text))
             {
                 // -------------------------
                 // Has Not Been Edited
                 // -------------------------
                 if (ScriptView.sort == false &&
-                    RemoveLineBreaks(vm.ScriptView_Text) == FFmpeg.ffmpegArgs)
+                    RemoveLineBreaks(MainView.vm.ScriptView_Text) == FFmpeg.ffmpegArgs)
                 {
-                    vm.ScriptView_Text = FFmpeg.ffmpegArgsSort;
+                    MainView.vm.ScriptView_Text = FFmpeg.ffmpegArgsSort;
 
                     // Sort is Off
                     ScriptView.sort = true;
@@ -7571,7 +8382,7 @@ namespace Axiom
                 // Has Been Edited
                 // -------------------------
                 else if (ScriptView.sort == false &&
-                         RemoveLineBreaks(vm.ScriptView_Text)
+                         RemoveLineBreaks(MainView.vm.ScriptView_Text)
 
                                         != FFmpeg.ffmpegArgs)
                 {
@@ -7590,9 +8401,9 @@ namespace Axiom
                 else if (ScriptView.sort == true)
                 {
                     // CMD Arguments are from Script TextBox
-                    FFmpeg.ffmpegArgs = RemoveLineBreaks(vm.ScriptView_Text);
+                    FFmpeg.ffmpegArgs = RemoveLineBreaks(MainView.vm.ScriptView_Text);
 
-                    vm.ScriptView_Text = FFmpeg.ffmpegArgs;
+                    MainView.vm.ScriptView_Text = FFmpeg.ffmpegArgs;
 
                     // Sort is On
                     ScriptView.sort = false;
@@ -7607,8 +8418,8 @@ namespace Axiom
         /// <summary>
         ///    Start Process
         /// </summary>
-        //public static async void StartProcess(ViewModel vm)
-        public static async Task<int> StartProcess(ViewModel vm)
+        //public static async void StartProcess()
+        public static async Task<int> StartProcess()
         {
             int count = 0;
             await Task.Factory.StartNew(() =>
@@ -7616,59 +8427,59 @@ namespace Axiom
                 // -------------------------
                 // Local File
                 // -------------------------
-                if (IsWebURL(vm.Input_Text) == false)
+                if (IsWebURL(MainView.vm.Input_Text) == false)
                 {
                     // -------------------------
                     // Single
                     // -------------------------
-                    if (vm.Batch_IsChecked == false)
+                    if (MainView.vm.Batch_IsChecked == false)
                     {
                         // -------------------------
                         // FFprobe Detect Metadata
                         // -------------------------
-                        FFprobe.Metadata(vm);
+                        FFprobe.Metadata();
 
                         // -------------------------
                         // FFmpeg Generate Arguments (Single)
                         // -------------------------
                         // disabled if batch
-                        FFmpeg.FFmpegSingleGenerateArgs(vm);
+                        FFmpeg.FFmpegSingleGenerateArgs();
                     }
 
                     // -------------------------
                     // Batch
                     // -------------------------
-                    else if (vm.Batch_IsChecked == true)
+                    else if (MainView.vm.Batch_IsChecked == true)
                     {
                         // -------------------------
                         // FFprobe Video Entry Type Containers
                         // -------------------------
-                        FFprobe.VideoEntryType(vm);
+                        FFprobe.VideoEntryType();
 
                         // -------------------------
                         // FFprobe Video Entry Type Containers
                         // -------------------------
-                        FFprobe.AudioEntryType(vm);
+                        FFprobe.AudioEntryType();
 
                         // -------------------------
                         // FFmpeg Generate Arguments (Batch)
                         // -------------------------
                         //disabled if single file
-                        FFmpeg.FFmpegBatchGenerateArgs(vm);
+                        FFmpeg.FFmpegBatchGenerateArgs();
                     }
                 }
 
                 // -------------------------
                 // YouTube Download
                 // -------------------------
-                else if (IsWebURL(vm.Input_Text) == true)
+                else if (IsWebURL(MainView.vm.Input_Text) == true)
                 {
                     // -------------------------
                     // Generate Arguments
                     // -------------------------
                     // Do not use FFprobe Metadata Parsing
                     // Video/Audio Auto Quality will add BitRate
-                    FFmpeg.YouTubeDownloadGenerateArgs(vm);
+                    FFmpeg.YouTubeDownloadGenerateArgs();
                 }
             });
 
@@ -7702,22 +8513,22 @@ namespace Axiom
             // -------------------------
             // Clear Variables before Run
             // -------------------------
-            ClearGlobalVariables(vm);
+            ClearGlobalVariables();
 
             // -------------------------
             // Batch Extention Period Check
             // -------------------------
-            BatchExtCheck(vm);
+            BatchExtCheck();
 
             // -------------------------
             // Set FFprobe Path
             // -------------------------
-            FFprobePath(vm);
+            FFprobePath();
 
             // -------------------------
             // Set youtube-dl Path
             // -------------------------
-            youtubedlPath(vm);
+            youtubedlPath();
 
             // -------------------------
             // Reset Sort
@@ -7729,7 +8540,7 @@ namespace Axiom
             // -------------------------
             // Start Script
             // -------------------------
-            if (ReadyHalts(vm) == true)
+            if (ReadyHalts() == true)
             {
                 // Log Console Message /////////
                 Log.WriteAction = () =>
@@ -7760,19 +8571,23 @@ namespace Axiom
                 // -------------------------
                 // Start All Processes
                 // -------------------------
-                //StartProcess(vm);
-                Task<int> task = StartProcess(vm);
+                //Stopwatch sw = new Stopwatch(); // Performance Test
+                //sw.Start();
+                Task<int> task = StartProcess();
                 int count = await task;
+                //sw.Stop();
+                //MessageBox.Show(sw.Elapsed.ToString());
+
 
                 // -------------------------
                 // Generate Script
                 // -------------------------
-                FFmpeg.FFmpegScript(vm);
+                FFmpeg.FFmpegScript();
 
                 // -------------------------
                 // Auto Sort Toggle
                 // -------------------------
-                if (vm.AutoSortScript_IsChecked == true)
+                if (MainView.vm.AutoSortScript_IsChecked == true)
                 {
                     Sort();
                 }
@@ -7780,12 +8595,12 @@ namespace Axiom
                 // -------------------------
                 // Write All Log Actions to Console
                 // -------------------------
-                Log.LogWriteAll(this, vm);
+                Log.LogWriteAll(this);
 
                 // -------------------------
                 // Clear Variables for next Run
                 // -------------------------
-                ClearGlobalVariables(vm);
+                ClearGlobalVariables();
                 GC.Collect();
             }
         }
@@ -7814,7 +8629,7 @@ namespace Axiom
             {
                 // Save document
                 //File.WriteAllText(saveFile.FileName, ScriptView.GetScriptRichTextBoxContents(this), Encoding.Unicode);
-                File.WriteAllText(saveFile.FileName, vm.ScriptView_Text, Encoding.Unicode);
+                File.WriteAllText(saveFile.FileName, MainView.vm.ScriptView_Text, Encoding.Unicode);
             }
         }
 
@@ -7825,7 +8640,7 @@ namespace Axiom
         private void btnScriptCopy_Click(object sender, RoutedEventArgs e)
         {
             //Clipboard.SetText(ScriptView.GetScriptRichTextBoxContents(this), TextDataFormat.UnicodeText);
-            Clipboard.SetText(vm.ScriptView_Text, TextDataFormat.UnicodeText);
+            Clipboard.SetText(MainView.vm.ScriptView_Text, TextDataFormat.UnicodeText);
         }
 
 
@@ -7834,7 +8649,7 @@ namespace Axiom
         /// </summary>
         private void btnScriptClear_Click(object sender, RoutedEventArgs e)
         {
-            ScriptView.ClearScriptView(vm);
+            ScriptView.ClearScriptView();
         }
 
 
@@ -7852,24 +8667,24 @@ namespace Axiom
         /// </summary>
         private void btnScriptRun_Click(object sender, RoutedEventArgs e)
         {
-            if (!string.IsNullOrEmpty(vm.ScriptView_Text))
+            if (!string.IsNullOrEmpty(MainView.vm.ScriptView_Text))
             {
                 // -------------------------
                 // Use Arguments from Script TextBox
                 // -------------------------
                 FFmpeg.ffmpegArgs = ReplaceLineBreaksWithSpaces(
-                                        vm.ScriptView_Text
+                                        MainView.vm.ScriptView_Text
                                     );
 
                 // -------------------------
                 // Start FFmpeg
                 // -------------------------
-                FFmpeg.FFmpegStart(vm);
+                FFmpeg.FFmpegStart();
 
                 // -------------------------
                 // Create output.log
                 // -------------------------
-                Log.CreateOutputLog(this, vm);
+                Log.CreateOutputLog(this);
             }
         }
 
@@ -7881,7 +8696,7 @@ namespace Axiom
         /// --------------------------------------------------------------------------------------------------------
         private void btnPreview_Click(object sender, RoutedEventArgs e)
         {
-            FFplay.Preview(this, vm);
+            FFplay.Preview(this);
         }
 
 
@@ -7900,7 +8715,7 @@ namespace Axiom
             // -------------------------
             // Check if Script has been Edited
             // -------------------------
-            if (CheckScriptEdited(vm) == true)
+            if (CheckScriptEdited() == true)
             {
                 // Halt
                 return;
@@ -7909,27 +8724,27 @@ namespace Axiom
             // -------------------------
             // Clear Global Variables before each Run
             // -------------------------
-            ClearGlobalVariables(vm);
+            ClearGlobalVariables();
 
             // -------------------------
             // Batch Extention Period Check
             // -------------------------
-            BatchExtCheck(vm);
+            BatchExtCheck();
 
             // -------------------------
             // Set FFprobe Path
             // -------------------------
-            FFprobePath(vm);
+            FFprobePath();
 
             // -------------------------
             // Set youtube-dl Path
             // -------------------------
-            youtubedlPath(vm);
+            youtubedlPath();
 
             // --------------------------------------------------
             // Start Convert
             // --------------------------------------------------
-            if (ReadyHalts(vm) == true)
+            if (ReadyHalts() == true)
             {
                 // Log Console Message /////////
                 Log.WriteAction = () =>
@@ -7955,20 +8770,20 @@ namespace Axiom
                 // -------------------------
                 // Start All Processes
                 // -------------------------
-                //StartProcess(vm);
-                Task<int> task = StartProcess(vm);
+                //StartProcess();
+                Task<int> task = StartProcess();
                 int count = await task;
 
                 // -------------------------
                 // FFmpeg Convert
                 // -------------------------
-                FFmpeg.FFmpegConvert(vm);
+                FFmpeg.FFmpegConvert();
 
                 // -------------------------
                 // Sort Script
                 // -------------------------
                 // Only if Auto Sort is enabled
-                if (vm.AutoSortScript_IsChecked == true)
+                if (MainView.vm.AutoSortScript_IsChecked == true)
                 {
                     ScriptView.sort = false;
                     Sort();
@@ -7977,17 +8792,17 @@ namespace Axiom
                 // -------------------------
                 // Write All Log Actions to Log Console
                 // -------------------------
-                Log.LogWriteAll(this, vm);
+                Log.LogWriteAll(this);
 
                 // -------------------------
                 // Create output.log
                 // -------------------------
-                Log.CreateOutputLog(this, vm);
+                Log.CreateOutputLog(this);
 
                 // -------------------------
                 // Clear Global Variables before each Run
                 // -------------------------
-                //ClearGlobalVariables(vm);
+                //ClearGlobalVariables();
                 GC.Collect();
             }
             //else
@@ -8008,18 +8823,18 @@ namespace Axiom
             //    /// <summary>
             //    ///    Write All Log Actions to Console
             //    /// </summary> 
-            //    Log.LogWriteAll(this, vm);
+            //    Log.LogWriteAll(this, MainView.vm);
 
 
             //    // -------------------------
             //    // Clear Variables for next Run
             //    // -------------------------
-            //    ClearVariables(vm);
+            //    ClearVariables();
             //    GC.Collect();
 
             //}
         }
 
-
+        
     }
 }

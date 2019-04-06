@@ -73,12 +73,12 @@ namespace Axiom
         ///     CMD.exe command, /k = keep, /c = close
         ///     Do not .Close(); if using /c, it will throw a Dispose exception
         /// </remarks>
-        public static String KeepWindow(ViewModel vm)
+        public static String KeepWindow()
         {
             string cmdWindow = string.Empty;
 
             // Keep
-            if (vm.CMDWindowKeep_IsChecked == true)
+            if (MainView.vm.CMDWindowKeep_IsChecked == true)
             {
                 cmdWindow = "/k ";
             }
@@ -97,15 +97,15 @@ namespace Axiom
         ///     1-Pass Arguments
         /// </summary>
         // 1-Pass, CRF, & Auto
-        public static String OnePassArgs(ViewModel vm)
+        public static String OnePassArgs()
         {
             // -------------------------
             //  Single Pass
             // -------------------------
-            if (vm.Video_Pass_SelectedItem == "1 Pass" ||
-                vm.Video_Pass_SelectedItem == "CRF" ||
-                vm.Video_Pass_SelectedItem == "auto" ||
-                vm.Format_Container_SelectedItem == "ogv" //ogv (special rule)
+            if (VideoView.vm.Video_Pass_SelectedItem == "1 Pass" ||
+                VideoView.vm.Video_Pass_SelectedItem == "CRF" ||
+                VideoView.vm.Video_Pass_SelectedItem == "auto" ||
+                FormatView.vm.Format_Container_SelectedItem == "ogv" //ogv (special rule)
                 )
             {
                 // -------------------------
@@ -114,11 +114,11 @@ namespace Axiom
                 List<string> inputList = new List<string>()
                 {
                     "\r\n\r\n" +
-                    "-i "+ "\"" + MainWindow.InputPath(vm, "pass 1") + "\"",
+                    "-i "+ "\"" + MainWindow.InputPath(/*main_vm,*/ "pass 1") + "\"",
 
                     "\r\n\r\n" +
-                    Subtitle.SubtitlesExternal(vm.Subtitle_Codec_SelectedItem,
-                                               vm.Subtitle_Stream_SelectedItem
+                    Subtitle.SubtitlesExternal(SubtitleView.vm.Subtitle_Codec_SelectedItem,
+                                               SubtitleView.vm.Subtitle_Stream_SelectedItem
                                                ),
                 };
 
@@ -128,24 +128,24 @@ namespace Axiom
                 List<string> formatList = new List<string>()
                 {
                     "\r\n\r\n" +
-                    Format.CutStart(vm.Input_Text,
-                                    vm.Batch_IsChecked,
-                                    vm.Format_Cut_SelectedItem,
-                                    vm.Format_CutStart_Hours_Text,
-                                    vm.Format_CutStart_Minutes_Text,
-                                    vm.Format_CutStart_Seconds_Text,
-                                    vm.Format_CutStart_Milliseconds_Text,
-                                    vm.Format_FrameStart_Text
+                    Format.CutStart(MainView.vm.Input_Text,
+                                    MainView.vm.Batch_IsChecked,
+                                    FormatView.vm.Format_Cut_SelectedItem,
+                                    FormatView.vm.Format_CutStart_Hours_Text,
+                                    FormatView.vm.Format_CutStart_Minutes_Text,
+                                    FormatView.vm.Format_CutStart_Seconds_Text,
+                                    FormatView.vm.Format_CutStart_Milliseconds_Text,
+                                    FormatView.vm.Format_FrameStart_Text
                                     ),
-                    Format.CutEnd(vm.Input_Text,
-                                  vm.Batch_IsChecked,
-                                  vm.Format_MediaType_SelectedItem,
-                                  vm.Format_Cut_SelectedItem,
-                                  vm.Format_CutEnd_Hours_Text,
-                                  vm.Format_CutEnd_Minutes_Text,
-                                  vm.Format_CutEnd_Seconds_Text,
-                                  vm.Format_CutEnd_Milliseconds_Text,
-                                  vm.Format_FrameEnd_Text
+                    Format.CutEnd(MainView.vm.Input_Text,
+                                  MainView.vm.Batch_IsChecked,
+                                  FormatView.vm.Format_MediaType_SelectedItem,
+                                  FormatView.vm.Format_Cut_SelectedItem,
+                                  FormatView.vm.Format_CutEnd_Hours_Text,
+                                  FormatView.vm.Format_CutEnd_Minutes_Text,
+                                  FormatView.vm.Format_CutEnd_Seconds_Text,
+                                  FormatView.vm.Format_CutEnd_Milliseconds_Text,
+                                  FormatView.vm.Format_FrameEnd_Text
                                   ),
                 };
 
@@ -154,67 +154,67 @@ namespace Axiom
                 // -------------------------
                 List<string> videoList = new List<string>();
 
-                if (vm.Format_MediaType_SelectedItem != "Audio" &&
-                    vm.Video_Codec_SelectedItem != "None" &&
-                    vm.Video_Quality_SelectedItem != "None"
+                if (FormatView.vm.Format_MediaType_SelectedItem != "Audio" &&
+                    VideoView.vm.Video_Codec_SelectedItem != "None" &&
+                    VideoView.vm.Video_Quality_SelectedItem != "None"
                     )
                 {
                     videoList = new List<string>()
                     {
                         "\r\n\r\n" +
-                        Video.VideoCodec(vm.Format_HWAccel_SelectedItem,
-                                         vm.Video_Codec_SelectedItem,
-                                         vm.Video_Codec
+                        Video.VideoCodec(VideoView.vm.Video_HWAccel_SelectedItem,
+                                         VideoView.vm.Video_Codec_SelectedItem,
+                                         VideoView.vm.Video_Codec
                                          ),
                         "\r\n" +
-                        Video.VideoEncodeSpeed(vm.Video_EncodeSpeed_Items,
-                                               vm.Video_EncodeSpeed_SelectedItem,
-                                               vm.Video_Codec_SelectedItem,
-                                               vm.Video_Pass_SelectedItem
+                        Video.VideoEncodeSpeed(VideoView.vm.Video_EncodeSpeed_Items,
+                                               VideoView.vm.Video_EncodeSpeed_SelectedItem,
+                                               VideoView.vm.Video_Codec_SelectedItem,
+                                               VideoView.vm.Video_Pass_SelectedItem
                                                ),
 
-                        Video.VideoQuality(vm.Batch_IsChecked,
-                                           vm.Video_VBR_IsChecked,
-                                           vm.Format_Container_SelectedItem,
-                                           vm.Format_MediaType_SelectedItem,
-                                           vm.Video_Codec_SelectedItem,
-                                           vm.Video_Quality_Items,
-                                           vm.Video_Quality_SelectedItem,
-                                           vm.Video_Pass_SelectedItem,
-                                           vm.Video_CRF_Text,
-                                           vm.Video_BitRate_Text,
-                                           vm.Video_MinRate_Text,
-                                           vm.Video_MaxRate_Text,
-                                           vm.Video_BufSize_Text,
-                                           vm.Input_Text
+                        Video.VideoQuality(MainView.vm.Batch_IsChecked,
+                                           VideoView.vm.Video_VBR_IsChecked,
+                                           FormatView.vm.Format_Container_SelectedItem,
+                                           FormatView.vm.Format_MediaType_SelectedItem,
+                                           VideoView.vm.Video_Codec_SelectedItem,
+                                           VideoView.vm.Video_Quality_Items,
+                                           VideoView.vm.Video_Quality_SelectedItem,
+                                           VideoView.vm.Video_Pass_SelectedItem,
+                                           VideoView.vm.Video_CRF_Text,
+                                           VideoView.vm.Video_BitRate_Text,
+                                           VideoView.vm.Video_MinRate_Text,
+                                           VideoView.vm.Video_MaxRate_Text,
+                                           VideoView.vm.Video_BufSize_Text,
+                                           MainView.vm.Input_Text
                                            ),
                         "\r\n" +
-                        Video.PixFmt(vm.Video_Codec_SelectedItem,
-                                     vm.Video_PixelFormat_SelectedItem
+                        Video.PixFmt(VideoView.vm.Video_Codec_SelectedItem,
+                                     VideoView.vm.Video_PixelFormat_SelectedItem
                                      ),
                         "\r\n" +
-                        Video.FPS(vm.Video_Codec_SelectedItem,
-                                  vm.Video_FPS_SelectedItem,
-                                  vm.Video_FPS_Text
+                        Video.FPS(VideoView.vm.Video_Codec_SelectedItem,
+                                  VideoView.vm.Video_FPS_SelectedItem,
+                                  VideoView.vm.Video_FPS_Text
                                   ),
                         "\r\n" +
-                        VideoFilters.VideoFilter(vm),
+                        VideoFilters.VideoFilter(),
                         "\r\n" +
-                        Video.AspectRatio(vm.Video_AspectRatio_SelectedItem),
+                        Video.AspectRatio(VideoView.vm.Video_AspectRatio_SelectedItem),
                         "\r\n" +
-                        Video.Images(vm.Format_MediaType_SelectedItem,
-                                     vm.Video_Codec_SelectedItem
+                        Video.Images(FormatView.vm.Format_MediaType_SelectedItem,
+                                     VideoView.vm.Video_Codec_SelectedItem
                                      ),
                         "\r\n" +
-                        Video.Optimize(vm.Video_Codec_SelectedItem,
-                                       vm.Video_Optimize_Items,
-                                       vm.Video_Optimize_SelectedItem,
-                                       vm.Video_Optimize_Tune_SelectedItem,
-                                       vm.Video_Optimize_Profile_SelectedItem,
-                                       vm.Video_Optimize_Level_SelectedItem
+                        Video.Optimize(VideoView.vm.Video_Codec_SelectedItem,
+                                       VideoView.vm.Video_Optimize_Items,
+                                       VideoView.vm.Video_Optimize_SelectedItem,
+                                       VideoView.vm.Video_Video_Optimize_Tune_SelectedItem,
+                                       VideoView.vm.Video_Video_Optimize_Profile_SelectedItem,
+                                       VideoView.vm.Video_Optimize_Level_SelectedItem
                                        ),
                         "\r\n" +
-                        Streams.VideoStreamMaps(vm),
+                        Streams.VideoStreamMaps(),
                     };
                 }
                 // Disable Video
@@ -232,19 +232,19 @@ namespace Axiom
                 // -------------------------
                 List<string> subtitleList = new List<string>();
 
-                if (vm.Format_MediaType_SelectedItem != "Audio" &&
-                    vm.Video_Codec_SelectedItem != "None" &&
-                    vm.Video_Quality_SelectedItem != "None"
+                if (FormatView.vm.Format_MediaType_SelectedItem != "Audio" &&
+                    VideoView.vm.Video_Codec_SelectedItem != "None" &&
+                    VideoView.vm.Video_Quality_SelectedItem != "None"
                     )
                 {
                     subtitleList = new List<string>()
                     {
                         "\r\n\r\n" +
-                        Subtitle.SubtitleCodec(vm.Subtitle_Codec_SelectedItem,
-                                               vm.Subtitle_Codec
+                        Subtitle.SubtitleCodec(SubtitleView.vm.Subtitle_Codec_SelectedItem,
+                                               SubtitleView.vm.Subtitle_Codec
                                                ),
                         "\r\n" +
-                        Streams.SubtitleMaps(vm),
+                        Streams.SubtitleMaps(),
                     };
                 }
                 // Disable Subtitles
@@ -263,51 +263,51 @@ namespace Axiom
                 // -------------------------
                 List<string> audioList = new List<string>();
 
-                if (vm.Format_MediaType_SelectedItem != "Image" &&
-                    vm.Format_MediaType_SelectedItem != "Sequence" &&
-                    vm.Audio_Codec_SelectedItem != "None" &&
-                    vm.Audio_Stream_SelectedItem != "none" &&
-                    vm.Audio_Quality_SelectedItem != "None" &&
-                    vm.Audio_Quality_SelectedItem != "Mute"
+                if (FormatView.vm.Format_MediaType_SelectedItem != "Image" &&
+                    FormatView.vm.Format_MediaType_SelectedItem != "Sequence" &&
+                    AudioView.vm.Audio_Codec_SelectedItem != "None" &&
+                    AudioView.vm.Audio_Stream_SelectedItem != "none" &&
+                    AudioView.vm.Audio_Quality_SelectedItem != "None" &&
+                    AudioView.vm.Audio_Quality_SelectedItem != "Mute"
                     )
                 {
                     audioList = new List<string>()
                     {
                         "\r\n\r\n" +
-                        Audio.AudioCodec(vm.Audio_Codec_SelectedItem,
-                                         vm.Audio_Codec//,
-                                         //vm.Audio_BitDepth_SelectedItem,
-                                         //vm.Input_Text
+                        Audio.AudioCodec(AudioView.vm.Audio_Codec_SelectedItem,
+                                         AudioView.vm.Audio_Codec//,
+                                         //AudioView.vm.Audio_BitDepth_SelectedItem,
+                                         //MainView.vm.Input_Text
                                          ),
                         "\r\n" +
-                        Audio.AudioQuality(vm.Input_Text,
-                                           vm.Batch_IsChecked,
-                                           vm.Format_MediaType_SelectedItem,
-                                           vm.Audio_Stream_SelectedItem,
-                                           vm.Audio_Codec_SelectedItem,
-                                           vm.Audio_Quality_Items,
-                                           vm.Audio_Quality_SelectedItem,
-                                           vm.Audio_BitRate_Text,
-                                           vm.Audio_VBR_IsChecked
+                        Audio.AudioQuality(MainView.vm.Input_Text,
+                                           MainView.vm.Batch_IsChecked,
+                                           FormatView.vm.Format_MediaType_SelectedItem,
+                                           AudioView.vm.Audio_Stream_SelectedItem,
+                                           AudioView.vm.Audio_Codec_SelectedItem,
+                                           AudioView.vm.Audio_Quality_Items,
+                                           AudioView.vm.Audio_Quality_SelectedItem,
+                                           AudioView.vm.Audio_BitRate_Text,
+                                           AudioView.vm.Audio_VBR_IsChecked
                                            ),
-                        Audio.CompressionLevel(vm.Audio_Codec_SelectedItem,
-                                               vm.Audio_CompressionLevel_SelectedItem
+                        Audio.CompressionLevel(AudioView.vm.Audio_Codec_SelectedItem,
+                                               AudioView.vm.Audio_CompressionLevel_SelectedItem
                                                ),
-                        Audio.SampleRate(vm.Audio_Codec_SelectedItem,
-                                         vm.Audio_SampleRate_Items,
-                                         vm.Audio_SampleRate_SelectedItem
+                        Audio.SampleRate(AudioView.vm.Audio_Codec_SelectedItem,
+                                         AudioView.vm.Audio_SampleRate_Items,
+                                         AudioView.vm.Audio_SampleRate_SelectedItem
                                          ),
-                        Audio.BitDepth(vm.Audio_Codec_SelectedItem,
-                                       vm.Audio_BitDepth_Items,
-                                       vm.Audio_BitDepth_SelectedItem
+                        Audio.BitDepth(AudioView.vm.Audio_Codec_SelectedItem,
+                                       AudioView.vm.Audio_BitDepth_Items,
+                                       AudioView.vm.Audio_BitDepth_SelectedItem
                                        ),
-                        Audio.Channel(vm.Audio_Codec_SelectedItem,
-                                      vm.Audio_Channel_SelectedItem
+                        Audio.Channel(AudioView.vm.Audio_Codec_SelectedItem,
+                                      AudioView.vm.Audio_Channel_SelectedItem
                                       ),
                         "\r\n" +
-                        AudioFilters.AudioFilter(vm),
+                        AudioFilters.AudioFilter(),
                         "\r\n" +
-                        Streams.AudioStreamMaps(vm),
+                        Streams.AudioStreamMaps(),
                     };
                 }
                 // Disable Audio
@@ -326,16 +326,16 @@ namespace Axiom
                 List<string> outputList = new List<string>()
                 {
                     "\r\n\r\n" +
-                    Streams.FormatMaps(vm),
+                    Streams.FormatMaps(),
 
                     "\r\n\r\n" +
-                    Format.ForceFormat(vm.Format_Container_SelectedItem),
+                    Format.ForceFormat(FormatView.vm.Format_Container_SelectedItem),
 
                     "\r\n\r\n" +
-                    MainWindow.ThreadDetect(vm),
+                    MainWindow.ThreadDetect(),
 
                     "\r\n\r\n" +
-                    "\"" + MainWindow.OutputPath(vm) + "\""
+                    "\"" + MainWindow.OutputPath() + "\""
                 };
                 
 
@@ -367,17 +367,17 @@ namespace Axiom
         /// <summary>
         ///     2-Pass Arguments
         /// </summary>      
-        public static String TwoPassArgs(ViewModel vm)
+        public static String TwoPassArgs()
         {
             // -------------------------
             //  2-Pass Auto Quality
             // -------------------------
             // Enabled 
             //
-            if (vm.Video_Pass_SelectedItem == "2 Pass" &&
-                vm.Format_MediaType_SelectedItem == "Video" &&  // video only
-                vm.Video_Codec_SelectedItem != "Copy" &&  // exclude copy
-                vm.Format_Container_SelectedItem != "ogv" // exclude ogv (special rule)
+            if (VideoView.vm.Video_Pass_SelectedItem == "2 Pass" &&
+                FormatView.vm.Format_MediaType_SelectedItem == "Video" &&  // video only
+                VideoView.vm.Video_Codec_SelectedItem != "Copy" &&  // exclude copy
+                FormatView.vm.Format_Container_SelectedItem != "ogv" // exclude ogv (special rule)
                 )
             {
                 // --------------------------------------------------
@@ -390,7 +390,7 @@ namespace Axiom
                 {
                     "\r\n\r\n" +
                     "-i "+ "\"" +
-                    MainWindow.InputPath(vm, "pass 1") + "\"",
+                    MainWindow.InputPath(/*main_vm,*/ "pass 1") + "\"",
                 };
 
                 // -------------------------
@@ -399,24 +399,24 @@ namespace Axiom
                 List<string> formatList_Pass1 = new List<string>()
                 {
                     "\r\n\r\n" +
-                    Format.CutStart(vm.Input_Text,
-                                    vm.Batch_IsChecked,
-                                    vm.Format_Cut_SelectedItem,
-                                    vm.Format_CutStart_Hours_Text,
-                                    vm.Format_CutStart_Minutes_Text,
-                                    vm.Format_CutStart_Seconds_Text,
-                                    vm.Format_CutStart_Milliseconds_Text,
-                                    vm.Format_FrameStart_Text
+                    Format.CutStart(MainView.vm.Input_Text,
+                                    MainView.vm.Batch_IsChecked,
+                                    FormatView.vm.Format_Cut_SelectedItem,
+                                    FormatView.vm.Format_CutStart_Hours_Text,
+                                    FormatView.vm.Format_CutStart_Minutes_Text,
+                                    FormatView.vm.Format_CutStart_Seconds_Text,
+                                    FormatView.vm.Format_CutStart_Milliseconds_Text,
+                                    FormatView.vm.Format_FrameStart_Text
                                     ),
-                    Format.CutEnd(vm.Input_Text,
-                                  vm.Batch_IsChecked,
-                                  vm.Format_MediaType_SelectedItem,
-                                  vm.Format_Cut_SelectedItem,
-                                  vm.Format_CutEnd_Hours_Text,
-                                  vm.Format_CutEnd_Minutes_Text,
-                                  vm.Format_CutEnd_Seconds_Text,
-                                  vm.Format_CutEnd_Milliseconds_Text,
-                                  vm.Format_FrameEnd_Text
+                    Format.CutEnd(MainView.vm.Input_Text,
+                                  MainView.vm.Batch_IsChecked,
+                                  FormatView.vm.Format_MediaType_SelectedItem,
+                                  FormatView.vm.Format_Cut_SelectedItem,
+                                  FormatView.vm.Format_CutEnd_Hours_Text,
+                                  FormatView.vm.Format_CutEnd_Minutes_Text,
+                                  FormatView.vm.Format_CutEnd_Seconds_Text,
+                                  FormatView.vm.Format_CutEnd_Milliseconds_Text,
+                                  FormatView.vm.Format_FrameEnd_Text
                                   ),
                 };
 
@@ -425,70 +425,70 @@ namespace Axiom
                 // -------------------------
                 List<string> videoList_Pass1 = new List<string>();
 
-                if (vm.Format_MediaType_SelectedItem != "Audio" &&
-                    vm.Video_Codec_SelectedItem != "None" &&
-                    vm.Video_Quality_SelectedItem != "None"
+                if (FormatView.vm.Format_MediaType_SelectedItem != "Audio" &&
+                    VideoView.vm.Video_Codec_SelectedItem != "None" &&
+                    VideoView.vm.Video_Quality_SelectedItem != "None"
                     )
                 {
                     videoList_Pass1 = new List<string>()
                     {
                         "\r\n\r\n" +
-                        Video.VideoCodec(vm.Format_HWAccel_SelectedItem,
-                                         vm.Video_Codec_SelectedItem,
-                                         vm.Video_Codec
+                        Video.VideoCodec(VideoView.vm.Video_HWAccel_SelectedItem,
+                                         VideoView.vm.Video_Codec_SelectedItem,
+                                         VideoView.vm.Video_Codec
                                          ),
                         "\r\n" +
-                        Video.VideoEncodeSpeed(vm.Video_EncodeSpeed_Items,
-                                               vm.Video_EncodeSpeed_SelectedItem,
-                                               vm.Video_Codec_SelectedItem,
-                                               vm.Video_Pass_SelectedItem
+                        Video.VideoEncodeSpeed(VideoView.vm.Video_EncodeSpeed_Items,
+                                               VideoView.vm.Video_EncodeSpeed_SelectedItem,
+                                               VideoView.vm.Video_Codec_SelectedItem,
+                                               VideoView.vm.Video_Pass_SelectedItem
                                                ),
 
-                        Video.VideoQuality(vm.Batch_IsChecked,
-                                           vm.Video_VBR_IsChecked,
-                                           vm.Format_Container_SelectedItem,
-                                           vm.Format_MediaType_SelectedItem,
-                                           vm.Video_Codec_SelectedItem,
-                                           vm.Video_Quality_Items,
-                                           vm.Video_Quality_SelectedItem,
-                                           vm.Video_Pass_SelectedItem,
-                                           vm.Video_CRF_Text,
-                                           vm.Video_BitRate_Text,
-                                           vm.Video_MinRate_Text,
-                                           vm.Video_MaxRate_Text,
-                                           vm.Video_BufSize_Text,
-                                           vm.Input_Text
+                        Video.VideoQuality(MainView.vm.Batch_IsChecked,
+                                           VideoView.vm.Video_VBR_IsChecked,
+                                           FormatView.vm.Format_Container_SelectedItem,
+                                           FormatView.vm.Format_MediaType_SelectedItem,
+                                           VideoView.vm.Video_Codec_SelectedItem,
+                                           VideoView.vm.Video_Quality_Items,
+                                           VideoView.vm.Video_Quality_SelectedItem,
+                                           VideoView.vm.Video_Pass_SelectedItem,
+                                           VideoView.vm.Video_CRF_Text,
+                                           VideoView.vm.Video_BitRate_Text,
+                                           VideoView.vm.Video_MinRate_Text,
+                                           VideoView.vm.Video_MaxRate_Text,
+                                           VideoView.vm.Video_BufSize_Text,
+                                           MainView.vm.Input_Text
                                            ),
                         "\r\n" +
-                        Video.PixFmt(vm.Video_Codec_SelectedItem,
-                                     vm.Video_PixelFormat_SelectedItem
+                        Video.PixFmt(VideoView.vm.Video_Codec_SelectedItem,
+                                     VideoView.vm.Video_PixelFormat_SelectedItem
                                      ),
                         "\r\n" +
-                        Video.FPS(vm.Video_Codec_SelectedItem,
-                                  vm.Video_FPS_SelectedItem,
-                                  vm.Video_FPS_Text
+                        Video.FPS(VideoView.vm.Video_Codec_SelectedItem,
+                                  VideoView.vm.Video_FPS_SelectedItem,
+                                  VideoView.vm.Video_FPS_Text
                                   ),
                         "\r\n" +
-                        VideoFilters.VideoFilter(vm),
+                        VideoFilters.VideoFilter(),
                         "\r\n" +
-                        Video.AspectRatio(vm.Video_AspectRatio_SelectedItem),
+                        Video.AspectRatio(VideoView.vm.Video_AspectRatio_SelectedItem),
                         "\r\n" +
-                        Video.Images(vm.Format_MediaType_SelectedItem,
-                                     vm.Video_Codec_SelectedItem
+                        Video.Images(FormatView.vm.Format_MediaType_SelectedItem,
+                                     VideoView.vm.Video_Codec_SelectedItem
                                      ),
                         "\r\n" +
-                        Video.Optimize(vm.Video_Codec_SelectedItem,
-                                       vm.Video_Optimize_Items,
-                                       vm.Video_Optimize_SelectedItem,
-                                       vm.Video_Optimize_Tune_SelectedItem,
-                                       vm.Video_Optimize_Profile_SelectedItem,
-                                       vm.Video_Optimize_Level_SelectedItem
+                        Video.Optimize(VideoView.vm.Video_Codec_SelectedItem,
+                                       VideoView.vm.Video_Optimize_Items,
+                                       VideoView.vm.Video_Optimize_SelectedItem,
+                                       VideoView.vm.Video_Video_Optimize_Tune_SelectedItem,
+                                       VideoView.vm.Video_Video_Optimize_Profile_SelectedItem,
+                                       VideoView.vm.Video_Optimize_Level_SelectedItem
                                        ),
 
                         // -pass 1, -x265-params pass=2
                         "\r\n" +
-                        Video.Pass1Modifier(vm.Video_Codec_SelectedItem,
-                                            vm.Video_Pass_SelectedItem
+                        Video.Pass1Modifier(VideoView.vm.Video_Codec_SelectedItem,
+                                            VideoView.vm.Video_Pass_SelectedItem
                                             ),
                     };
                 }
@@ -534,10 +534,10 @@ namespace Axiom
                     // Disable FormatMaps()
 
                     "\r\n\r\n" +
-                    Format.ForceFormat(vm.Format_Container_SelectedItem),
+                    Format.ForceFormat(FormatView.vm.Format_Container_SelectedItem),
 
                     "\r\n\r\n" +
-                    MainWindow.ThreadDetect(vm),
+                    MainWindow.ThreadDetect(),
 
                     // Output Path Null
                     "\r\n\r\n" +
@@ -579,21 +579,21 @@ namespace Axiom
                     "&&",
 
                     "\r\n\r\n" +
-                    MainWindow.FFmpegPath(vm),
+                    MainWindow.FFmpegPath(),
                     "-y",
 
                     "\r\n\r\n" +
-                    Video.HWAcceleration(vm.Format_MediaType_SelectedItem,
-                                         vm.Video_Codec_SelectedItem,
-                                         vm.Format_HWAccel_SelectedItem
+                    Video.HWAcceleration(FormatView.vm.Format_MediaType_SelectedItem,
+                                         VideoView.vm.Video_Codec_SelectedItem,
+                                         VideoView.vm.Video_HWAccel_SelectedItem
                                          ),
 
                     "\r\n\r\n" +
-                    "-i " + "\"" + MainWindow.InputPath(vm, "pass 2") + "\"",
+                    "-i " + "\"" + MainWindow.InputPath(/*main_vm,*/ "pass 2") + "\"",
 
                     "\r\n\r\n" +
-                    Subtitle.SubtitlesExternal(vm.Subtitle_Codec_SelectedItem,
-                                               vm.Subtitle_Stream_SelectedItem
+                    Subtitle.SubtitlesExternal(SubtitleView.vm.Subtitle_Codec_SelectedItem,
+                                               SubtitleView.vm.Subtitle_Stream_SelectedItem
                                                ),
                 };
 
@@ -612,9 +612,9 @@ namespace Axiom
                 // -------------------------
                 List<string> videoList_Pass2 = new List<string>();
 
-                if (vm.Format_MediaType_SelectedItem != "Audio" &&
-                    vm.Video_Codec_SelectedItem != "None" &&
-                    vm.Video_Quality_SelectedItem != "None"
+                if (FormatView.vm.Format_MediaType_SelectedItem != "Audio" &&
+                    VideoView.vm.Video_Codec_SelectedItem != "None" &&
+                    VideoView.vm.Video_Quality_SelectedItem != "None"
                     )
                 {
                     videoList_Pass2 = new List<string>()
@@ -637,10 +637,10 @@ namespace Axiom
                         "\r\n" +
                         Video.optimize,
                         "\r\n" +
-                        Streams.VideoStreamMaps(vm),
+                        Streams.VideoStreamMaps(),
                         "\r\n" +
-                        Video.Pass2Modifier(vm.Video_Codec_SelectedItem, // -pass 2, -x265-params pass=2
-                                            vm.Video_Pass_SelectedItem
+                        Video.Pass2Modifier(VideoView.vm.Video_Codec_SelectedItem, // -pass 2, -x265-params pass=2
+                                            VideoView.vm.Video_Pass_SelectedItem
                                             ),
                     };
                 }
@@ -659,19 +659,19 @@ namespace Axiom
                 // -------------------------
                 List<string> subtitleList_Pass2 = new List<string>();
 
-                if (vm.Format_MediaType_SelectedItem != "Audio" &&
-                    vm.Video_Codec_SelectedItem != "None" &&
-                    vm.Video_Quality_SelectedItem != "None"
+                if (FormatView.vm.Format_MediaType_SelectedItem != "Audio" &&
+                    VideoView.vm.Video_Codec_SelectedItem != "None" &&
+                    VideoView.vm.Video_Quality_SelectedItem != "None"
                     )
                 {
                     subtitleList_Pass2 = new List<string>()
                     {
                         "\r\n\r\n" +
-                        Subtitle.SubtitleCodec(vm.Subtitle_Codec_SelectedItem,
-                                               vm.Subtitle_Codec
+                        Subtitle.SubtitleCodec(SubtitleView.vm.Subtitle_Codec_SelectedItem,
+                                               SubtitleView.vm.Subtitle_Codec
                                                ),
                         "\r\n" +
-                        Streams.SubtitleMaps(vm),
+                        Streams.SubtitleMaps(),
                     };
                 }
                 // Disable Subtitle
@@ -689,49 +689,49 @@ namespace Axiom
                 // -------------------------
                 List<string> audioList_Pass2 = new List<string>();
 
-                if (vm.Format_MediaType_SelectedItem != "Image" &&
-                    vm.Format_MediaType_SelectedItem != "Sequence" &&
-                    vm.Audio_Codec_SelectedItem != "None" &&
-                    vm.Audio_Stream_SelectedItem != "none" &&
-                    vm.Audio_Quality_SelectedItem != "None" &&
-                    vm.Audio_Quality_SelectedItem != "Mute"
+                if (FormatView.vm.Format_MediaType_SelectedItem != "Image" &&
+                    FormatView.vm.Format_MediaType_SelectedItem != "Sequence" &&
+                    AudioView.vm.Audio_Codec_SelectedItem != "None" &&
+                    AudioView.vm.Audio_Stream_SelectedItem != "none" &&
+                    AudioView.vm.Audio_Quality_SelectedItem != "None" &&
+                    AudioView.vm.Audio_Quality_SelectedItem != "Mute"
                     )
                 {
                     audioList_Pass2 = new List<string>()
                     {
                         "\r\n\r\n" +
-                        Audio.AudioCodec(vm.Audio_Codec_SelectedItem,
-                                         vm.Audio_Codec
+                        Audio.AudioCodec(AudioView.vm.Audio_Codec_SelectedItem,
+                                         AudioView.vm.Audio_Codec
                                          ),
                         "\r\n" +
-                        Audio.AudioQuality(vm.Input_Text,
-                                           vm.Batch_IsChecked,
-                                           vm.Format_MediaType_SelectedItem,
-                                           vm.Audio_Stream_SelectedItem,
-                                           vm.Audio_Codec_SelectedItem,
-                                           vm.Audio_Quality_Items,
-                                           vm.Audio_Quality_SelectedItem,
-                                           vm.Audio_BitRate_Text,
-                                           vm.Audio_VBR_IsChecked
+                        Audio.AudioQuality(MainView.vm.Input_Text,
+                                           MainView.vm.Batch_IsChecked,
+                                           FormatView.vm.Format_MediaType_SelectedItem,
+                                           AudioView.vm.Audio_Stream_SelectedItem,
+                                           AudioView.vm.Audio_Codec_SelectedItem,
+                                           AudioView.vm.Audio_Quality_Items,
+                                           AudioView.vm.Audio_Quality_SelectedItem,
+                                           AudioView.vm.Audio_BitRate_Text,
+                                           AudioView.vm.Audio_VBR_IsChecked
                                            ),
-                        Audio.CompressionLevel(vm.Audio_Codec_SelectedItem,
-                                               vm.Audio_CompressionLevel_SelectedItem
+                        Audio.CompressionLevel(AudioView.vm.Audio_Codec_SelectedItem,
+                                               AudioView.vm.Audio_CompressionLevel_SelectedItem
                                                ),
-                        Audio.SampleRate(vm.Audio_Codec_SelectedItem,
-                                         vm.Audio_SampleRate_Items,
-                                         vm.Audio_SampleRate_SelectedItem
+                        Audio.SampleRate(AudioView.vm.Audio_Codec_SelectedItem,
+                                         AudioView.vm.Audio_SampleRate_Items,
+                                         AudioView.vm.Audio_SampleRate_SelectedItem
                                          ),
-                        Audio.BitDepth(vm.Audio_Codec_SelectedItem,
-                                       vm.Audio_BitDepth_Items,
-                                       vm.Audio_BitDepth_SelectedItem
+                        Audio.BitDepth(AudioView.vm.Audio_Codec_SelectedItem,
+                                       AudioView.vm.Audio_BitDepth_Items,
+                                       AudioView.vm.Audio_BitDepth_SelectedItem
                                        ),
-                        Audio.Channel(vm.Audio_Codec_SelectedItem,
-                                      vm.Audio_Channel_SelectedItem
+                        Audio.Channel(AudioView.vm.Audio_Codec_SelectedItem,
+                                      AudioView.vm.Audio_Channel_SelectedItem
                                       ),
                         "\r\n" +
-                        AudioFilters.AudioFilter(vm),
+                        AudioFilters.AudioFilter(),
                         "\r\n" +
-                        Streams.AudioStreamMaps(vm),
+                        Streams.AudioStreamMaps(),
                     };
                 }
                 // Disable Audio
@@ -750,16 +750,16 @@ namespace Axiom
                 List<string> outputList_Pass2 = new List<string>()
                 {
                     "\r\n\r\n" +
-                    Streams.FormatMaps(vm),
+                    Streams.FormatMaps(),
 
                     "\r\n\r\n" +
-                    Format.ForceFormat(vm.Format_Container_SelectedItem),
+                    Format.ForceFormat(FormatView.vm.Format_Container_SelectedItem),
 
                     "\r\n\r\n" +
                     Configure.threads,
 
                     "\r\n\r\n" +
-                    "\"" + MainWindow.OutputPath(vm) + "\""
+                    "\"" + MainWindow.OutputPath() + "\""
                 };
 
 
@@ -800,21 +800,21 @@ namespace Axiom
         /// <summary>
         ///     FFmpeg Single File - Generate Args
         /// </summary>
-        public static String FFmpegSingleGenerateArgs(ViewModel vm)
+        public static String FFmpegSingleGenerateArgs()
         {
-            if (vm.Batch_IsChecked == false)
+            if (MainView.vm.Batch_IsChecked == false)
             {
                 // Make Arugments List
                 List<string> FFmpegArgsList = new List<string>()
                 {
-                    MainWindow.FFmpegPath(vm),
+                    MainWindow.FFmpegPath(),
                     "-y",
-                    "\r\n\r\n" + Video.HWAcceleration(vm.Format_MediaType_SelectedItem,
-                                                      vm.Video_Codec_SelectedItem,
-                                                      vm.Format_HWAccel_SelectedItem
+                    "\r\n\r\n" + Video.HWAcceleration(FormatView.vm.Format_MediaType_SelectedItem,
+                                                      VideoView.vm.Video_Codec_SelectedItem,
+                                                      VideoView.vm.Video_HWAccel_SelectedItem
                                                       ),
-                    OnePassArgs(vm), // disabled if 2-Pass
-                    TwoPassArgs(vm) // disabled if 1-Pass
+                    OnePassArgs(), // disabled if 2-Pass
+                    TwoPassArgs() // disabled if 1-Pass
                 };
 
                 // Join List with Spaces
@@ -862,9 +862,9 @@ namespace Axiom
         /// <summary>
         ///     FFmpeg Batch - Generate Args
         /// </summary>
-        public static void FFmpegBatchGenerateArgs(ViewModel vm)
+        public static void FFmpegBatchGenerateArgs()
         {
-            if (vm.Batch_IsChecked == true)
+            if (MainView.vm.Batch_IsChecked == true)
             {
                 // Replace ( with ^( to avoid Windows 7 CMD Error //important!
                 // This is only used in select areas
@@ -877,7 +877,7 @@ namespace Axiom
                     Log.logParagraph.Inlines.Add(new LineBreak());
                     Log.logParagraph.Inlines.Add(new LineBreak());
                     Log.logParagraph.Inlines.Add(new Bold(new Run("Batch: ")) { Foreground = Log.ConsoleDefault });
-                    Log.logParagraph.Inlines.Add(new Run(Convert.ToString(vm.Batch_IsChecked)) { Foreground = Log.ConsoleDefault });
+                    Log.logParagraph.Inlines.Add(new Run(Convert.ToString(MainView.vm.Batch_IsChecked)) { Foreground = Log.ConsoleDefault });
                     Log.logParagraph.Inlines.Add(new LineBreak());
                     Log.logParagraph.Inlines.Add(new LineBreak());
                     Log.logParagraph.Inlines.Add(new Bold(new Run("Generating Batch Script...")) { Foreground = Log.ConsoleTitle });
@@ -898,38 +898,38 @@ namespace Axiom
                 List<string> FFmpegBatchArgsList = new List<string>()
                 {
                     "cd /d",
-                    "\"" + MainWindow.BatchInputDirectory(vm) + "\"",
+                    "\"" + MainWindow.BatchInputDirectory() + "\"",
 
                     "\r\n\r\n" + "&& for %f in",
                     "(*" + MainWindow.inputExt + ")",
                     "do (echo)",
 
                     // Video
-                    "\r\n\r\n" + Video.BatchVideoQualityAuto(vm.Batch_IsChecked,
-                                                             vm.Video_Codec_SelectedItem,
-                                                             vm.Video_Quality_SelectedItem 
+                    "\r\n\r\n" + Video.BatchVideoQualityAuto(MainView.vm.Batch_IsChecked,
+                                                             VideoView.vm.Video_Codec_SelectedItem,
+                                                             VideoView.vm.Video_Quality_SelectedItem 
                                                              ),
 
                     // Audio
-                    "\r\n\r\n" + Audio.BatchAudioQualityAuto(vm.Batch_IsChecked,
-                                                             vm.Audio_Codec_SelectedItem,
-                                                             vm.Audio_Quality_SelectedItem
+                    "\r\n\r\n" + Audio.BatchAudioQualityAuto(MainView.vm.Batch_IsChecked,
+                                                             AudioView.vm.Audio_Codec_SelectedItem,
+                                                             AudioView.vm.Audio_Quality_SelectedItem
                                                              ),
-                    "\r\n\r\n" + Audio.BatchAudioBitRateLimiter(vm.Audio_Codec_SelectedItem,
-                                                                vm.Audio_Quality_SelectedItem
+                    "\r\n\r\n" + Audio.BatchAudioBitRateLimiter(AudioView.vm.Audio_Codec_SelectedItem,
+                                                                AudioView.vm.Audio_Quality_SelectedItem
                                                                 ),
 
                     "\r\n\r\n" + "&&",
-                    "\r\n\r\n" + MainWindow.FFmpegPath(vm),
-                    "\r\n\r\n" + Video.HWAcceleration(vm.Format_MediaType_SelectedItem,
-                                                      vm.Video_Codec_SelectedItem,
-                                                      vm.Format_HWAccel_SelectedItem
+                    "\r\n\r\n" + MainWindow.FFmpegPath(),
+                    "\r\n\r\n" + Video.HWAcceleration(FormatView.vm.Format_MediaType_SelectedItem,
+                                                      VideoView.vm.Video_Codec_SelectedItem,
+                                                      VideoView.vm.Video_HWAccel_SelectedItem
                                                       ),
                     "-y",
                     // %~f added in InputPath()
 
-                    OnePassArgs(vm), // disabled if 2-Pass       
-                    TwoPassArgs(vm) // disabled if 1-Pass
+                    OnePassArgs(), // disabled if 2-Pass       
+                    TwoPassArgs() // disabled if 1-Pass
                 };
 
                 // Join List with Spaces
@@ -960,7 +960,7 @@ namespace Axiom
         /// <summary>
         ///     YouTube Download - Generate Args
         /// </summary>
-        public static void YouTubeDownloadGenerateArgs(ViewModel vm)
+        public static void YouTubeDownloadGenerateArgs()
         {
             // Log Console Message /////////
             Log.WriteAction = () =>
@@ -968,7 +968,7 @@ namespace Axiom
                 Log.logParagraph.Inlines.Add(new LineBreak());
                 Log.logParagraph.Inlines.Add(new LineBreak());
                 Log.logParagraph.Inlines.Add(new Bold(new Run("YouTube Download: ")) { Foreground = Log.ConsoleDefault });
-                Log.logParagraph.Inlines.Add(new Run(Convert.ToString(vm.Batch_IsChecked)) { Foreground = Log.ConsoleDefault });
+                Log.logParagraph.Inlines.Add(new Run(Convert.ToString(MainView.vm.Batch_IsChecked)) { Foreground = Log.ConsoleDefault });
                 Log.logParagraph.Inlines.Add(new LineBreak());
                 Log.logParagraph.Inlines.Add(new LineBreak());
                 Log.logParagraph.Inlines.Add(new Bold(new Run("Generating Script...")) { Foreground = Log.ConsoleTitle });
@@ -997,32 +997,32 @@ namespace Axiom
 
                 // Get Title
                 "\r\n\r\n" + "@" + "\"" + MainWindow.youtubedl + "\"",
-                "\r\n"  + " --get-filename -o \"%(title)s\" " + "\"" + MainWindow.YouTubeDownloadURL(vm.Input_Text) + "\"",
+                "\r\n"  + " --get-filename -o \"%(title)s\" " + "\"" + MainWindow.YouTubeDownloadURL(MainView.vm.Input_Text) + "\"",
                 "\r\n" + "')",
 
                 // Download Video
                 "\r\n\r\n" + "do (",
                 "\r\n\r\n" + "@" + "\"" + MainWindow.youtubedl + "\"",
 
-                "\r\n\r\n" + " -f " + MainWindow.YouTubeDownloadQuality(vm.Input_Text, 
-                                                                        vm.Format_YouTube_SelectedItem, 
-                                                                        vm.Format_YouTube_Quality_SelectedItem
+                "\r\n\r\n" + " -f " + MainWindow.YouTubeDownloadQuality(MainView.vm.Input_Text, 
+                                                                        FormatView.vm.Format_YouTube_SelectedItem, 
+                                                                        FormatView.vm.Format_YouTube_Quality_SelectedItem
                                                                         ),
-                "\r\n\r\n" + "\"" + vm.Input_Text + "\"",
-                "\r\n" +" -o " + "\"" + MainWindow.downloadDir + "%f" + "." + MainWindow.YouTubeDownloadFormat(vm.Format_YouTube_SelectedItem,
-                                                                                                               vm.Video_Codec_SelectedItem,
-                                                                                                               vm.Subtitle_Codec_SelectedItem,
-                                                                                                               vm.Audio_Codec_SelectedItem
+                "\r\n\r\n" + "\"" + MainView.vm.Input_Text + "\"",
+                "\r\n" +" -o " + "\"" + MainWindow.downloadDir + "%f" + "." + MainWindow.YouTubeDownloadFormat(FormatView.vm.Format_YouTube_SelectedItem,
+                                                                                                               VideoView.vm.Video_Codec_SelectedItem,
+                                                                                                               SubtitleView.vm.Subtitle_Codec_SelectedItem,
+                                                                                                               AudioView.vm.Audio_Codec_SelectedItem
                                                                                                                ) + "\"",
 
                 // FFmpeg Location
-                "\r\n\r\n" + MainWindow.YouTubeDL_FFmpegPath(vm),
+                "\r\n\r\n" + MainWindow.YouTubeDL_FFmpegPath(),
 
                 // Merge Output Format
-                "\r\n\r\n" + "--merge-output-format " + MainWindow.YouTubeDownloadFormat(vm.Format_YouTube_SelectedItem,
-                                                                                         vm.Video_Codec_SelectedItem,
-                                                                                         vm.Subtitle_Codec_SelectedItem,
-                                                                                         vm.Audio_Codec_SelectedItem
+                "\r\n\r\n" + "--merge-output-format " + MainWindow.YouTubeDownloadFormat(FormatView.vm.Format_YouTube_SelectedItem,
+                                                                                         VideoView.vm.Video_Codec_SelectedItem,
+                                                                                         SubtitleView.vm.Subtitle_Codec_SelectedItem,
+                                                                                         AudioView.vm.Audio_Codec_SelectedItem
                                                                                          )
             };
 
@@ -1031,23 +1031,23 @@ namespace Axiom
             List<string> FFmpegArgs = new List<string>()
             {
                 "\r\n\r\n" + "&&",
-                "\r\n\r\n" + MainWindow.FFmpegPath(vm),
-                "\r\n\r\n" + Video.HWAcceleration(vm.Format_MediaType_SelectedItem,
-                                                  vm.Video_Codec_SelectedItem,
-                                                  vm.Format_HWAccel_SelectedItem
+                "\r\n\r\n" + MainWindow.FFmpegPath(),
+                "\r\n\r\n" + Video.HWAcceleration(FormatView.vm.Format_MediaType_SelectedItem,
+                                                  VideoView.vm.Video_Codec_SelectedItem,
+                                                  VideoView.vm.Video_HWAccel_SelectedItem
                                                   ),
                 "-y",
 
-                OnePassArgs(vm), //disabled if 2-Pass       
-                TwoPassArgs(vm), //disabled if 1-Pass
+                OnePassArgs(), //disabled if 2-Pass       
+                TwoPassArgs(), //disabled if 1-Pass
 
                 "\r\n\r\n" + "&&",
 
                 // Delete Downloaded File
-                "\r\n\r\n" + "del " + "\"" + MainWindow.downloadDir + "%f" + "." + MainWindow.YouTubeDownloadFormat(vm.Format_YouTube_SelectedItem, 
-                                                                                                                    vm.Video_Codec_SelectedItem,
-                                                                                                                    vm.Subtitle_Codec_SelectedItem,
-                                                                                                                    vm.Audio_Codec_SelectedItem
+                "\r\n\r\n" + "del " + "\"" + MainWindow.downloadDir + "%f" + "." + MainWindow.YouTubeDownloadFormat(FormatView.vm.Format_YouTube_SelectedItem, 
+                                                                                                                    VideoView.vm.Video_Codec_SelectedItem,
+                                                                                                                    SubtitleView.vm.Subtitle_Codec_SelectedItem,
+                                                                                                                    AudioView.vm.Audio_Codec_SelectedItem
                                                                                                                     ) + "\"",
             };
 
@@ -1055,9 +1055,9 @@ namespace Axiom
             // -------------------------
             // Download-Only
             // -------------------------
-            if (MainWindow.IsWebDownloadOnly(vm.Video_Codec_SelectedItem,
-                                             vm.Subtitle_Codec_SelectedItem,
-                                             vm.Audio_Codec_SelectedItem) == true
+            if (MainWindow.IsWebDownloadOnly(VideoView.vm.Video_Codec_SelectedItem,
+                                             SubtitleView.vm.Subtitle_Codec_SelectedItem,
+                                             AudioView.vm.Audio_Codec_SelectedItem) == true
                                              )
             {
                 // Add "do" Closing Tag
@@ -1120,21 +1120,21 @@ namespace Axiom
         /// <summary>
         ///     FFmpeg Generate Script
         /// </summary>
-        public static void FFmpegScript(ViewModel vm)
+        public static void FFmpegScript()
         {
             // Write FFmpeg Args
-            vm.ScriptView_Text = ffmpegArgs;
+            MainView.vm.ScriptView_Text = ffmpegArgs;
         }
 
 
         /// <summary>
         ///     FFmpeg Start
         /// </summary>
-        public static void FFmpegStart(ViewModel vm)
+        public static void FFmpegStart()
         {
             // Start FFmpeg Process
             System.Diagnostics.Process.Start("cmd.exe",
-                                             KeepWindow(vm)
+                                             KeepWindow()
                                              + " cd " + "\"" + MainWindow.outputDir + "\""
                                              + " & "
                                              + ffmpegArgs
@@ -1145,7 +1145,7 @@ namespace Axiom
         /// <summary>
         ///     FFmpeg Convert
         /// </summary>
-        public static void FFmpegConvert(ViewModel vm)
+        public static void FFmpegConvert()
         {
             Log.WriteAction = () =>
             {
@@ -1159,12 +1159,12 @@ namespace Axiom
             // Generate Controls Script
             // -------------------------
             // Inline
-            FFmpegScript(vm);
+            FFmpegScript();
 
             // -------------------------
             // Start FFmpeg
             // -------------------------
-            FFmpegStart(vm);
+            FFmpegStart();
         }
 
 

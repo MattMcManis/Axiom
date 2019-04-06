@@ -43,7 +43,7 @@ namespace Axiom
         /// <summary>
         ///     Set Controls
         /// </summary>
-        public static void SetControls(ViewModel vm, string codec_SelectedItem)
+        public static void SetControls(string codec_SelectedItem)
         {
             // --------------------------------------------------
             // Codec
@@ -55,25 +55,25 @@ namespace Axiom
             if (codec_SelectedItem == "Vorbis")
             {
                 // Codec
-                Vorbis.Codec_Set(vm);
+                Vorbis.Codec_Set();
 
                 // Items Source
-                Vorbis.Controls_ItemsSource(vm);
+                Vorbis.Controls_ItemsSource();
 
                 // Selected Items
-                Vorbis.Controls_Selected(vm);
+                Vorbis.Controls_Selected();
 
                 // Checked
-                Vorbis.Controls_Checked(vm);
+                Vorbis.Controls_Checked();
 
                 // Unhecked
-                Vorbis.Controls_Unhecked(vm);
+                Vorbis.Controls_Unhecked();
 
                 // Enabled
-                Vorbis.Controls_Enable(vm);
+                Vorbis.Controls_Enable();
 
                 // Disabled
-                Vorbis.Controls_Disable(vm);
+                Vorbis.Controls_Disable();
             }
 
             // -------------------------
@@ -82,25 +82,25 @@ namespace Axiom
             else if (codec_SelectedItem == "Opus")
             {
                 // Codec
-                Opus.Codec_Set(vm);
+                Opus.Codec_Set();
 
                 // Items Source
-                Opus.Controls_ItemsSource(vm);
+                Opus.Controls_ItemsSource();
 
                 // Selected Items
-                Opus.Controls_Selected(vm);
+                Opus.Controls_Selected();
 
                 // Checked
-                Opus.Controls_Checked(vm);
+                Opus.Controls_Checked();
 
                 // Unhecked
-                Opus.Controls_Unhecked(vm);
+                Opus.Controls_Unhecked();
 
                 // Enabled
-                Opus.Controls_Enable(vm);
+                Opus.Controls_Enable();
 
                 // Disabled
-                Opus.Controls_Disable(vm);
+                Opus.Controls_Disable();
             }
 
             // -------------------------
@@ -109,25 +109,25 @@ namespace Axiom
             else if (codec_SelectedItem == "AC3")
             {
                 // Codec
-                AC3.Codec_Set(vm);
+                AC3.Codec_Set();
 
                 // Items Source
-                AC3.Controls_ItemsSource(vm);
+                AC3.Controls_ItemsSource();
 
                 // Selected Items
-                AC3.Controls_Selected(vm);
+                AC3.Controls_Selected();
 
                 // Checked
-                AC3.Controls_Checked(vm);
+                AC3.Controls_Checked();
 
                 // Unhecked
-                AC3.Controls_Unhecked(vm);
+                AC3.Controls_Unhecked();
 
                 // Enabled
-                AC3.Controls_Enable(vm);
+                AC3.Controls_Enable();
 
                 // Disabled
-                AC3.Controls_Disable(vm);
+                AC3.Controls_Disable();
             }
 
             // -------------------------
@@ -136,25 +136,25 @@ namespace Axiom
             else if (codec_SelectedItem == "AAC")
             {
                 // Codec
-                AAC.Codec_Set(vm);
+                AAC.Codec_Set();
 
                 // Items Source
-                AAC.Controls_ItemsSource(vm);
+                AAC.Controls_ItemsSource();
 
                 // Selected Items
-                AAC.Controls_Selected(vm);
+                AAC.Controls_Selected();
 
                 // Checked
-                AAC.Controls_Checked(vm);
+                AAC.Controls_Checked();
 
                 // Unhecked
-                AAC.Controls_Unhecked(vm);
+                AAC.Controls_Unhecked();
 
                 // Enabled
-                AAC.Controls_Enable(vm);
+                AAC.Controls_Enable();
 
                 // Disabled
-                AAC.Controls_Disable(vm);
+                AAC.Controls_Disable();
             }
 
             // -------------------------
@@ -163,25 +163,25 @@ namespace Axiom
             else if (codec_SelectedItem == "DTS")
             {
                 // Codec
-                DTS.Codec_Set(vm);
+                DTS.Codec_Set();
 
                 // Items Source
-                DTS.Controls_ItemsSource(vm);
+                DTS.Controls_ItemsSource();
 
                 // Selected Items
-                DTS.Controls_Selected(vm);
+                DTS.Controls_Selected();
 
                 // Checked
-                DTS.Controls_Checked(vm);
+                DTS.Controls_Checked();
 
                 // Unhecked
-                DTS.Controls_Unhecked(vm);
+                DTS.Controls_Unhecked();
 
                 // Enabled
-                DTS.Controls_Enable(vm);
+                DTS.Controls_Enable();
 
                 // Disabled
-                DTS.Controls_Disable(vm);
+                DTS.Controls_Disable();
             }
 
             // -------------------------
@@ -190,25 +190,25 @@ namespace Axiom
             else if (codec_SelectedItem == "MP2")
             {
                 // Codec
-                MP2.Codec_Set(vm);
+                MP2.Codec_Set();
 
                 // Items Source
-                MP2.Controls_ItemsSource(vm);
+                MP2.Controls_ItemsSource();
 
                 // Selected Items
-                MP2.Controls_Selected(vm);
+                MP2.Controls_Selected();
 
                 // Checked
-                MP2.Controls_Checked(vm);
+                MP2.Controls_Checked();
 
                 // Unhecked
-                MP2.Controls_Unhecked(vm);
+                MP2.Controls_Unhecked();
 
                 // Enabled
-                MP2.Controls_Enable(vm);
+                MP2.Controls_Enable();
 
                 // Disabled
-                MP2.Controls_Disable(vm);
+                MP2.Controls_Disable();
             }
 
             // -------------------------
@@ -217,25 +217,25 @@ namespace Axiom
             else if (codec_SelectedItem == "LAME")
             {
                 // Codec
-                LAME.Codec_Set(vm);
+                LAME.Codec_Set();
 
                 // Items Source
-                LAME.Controls_ItemsSource(vm);
+                LAME.Controls_ItemsSource();
 
                 // Selected Items
-                LAME.Controls_Selected(vm);
+                LAME.Controls_Selected();
 
                 // Checked
-                LAME.Controls_Checked(vm);
+                LAME.Controls_Checked();
 
                 // Unhecked
-                LAME.Controls_Unhecked(vm);
+                LAME.Controls_Unhecked();
 
                 // Enabled
-                LAME.Controls_Enable(vm);
+                LAME.Controls_Enable();
 
                 // Disabled
-                LAME.Controls_Disable(vm);
+                LAME.Controls_Disable();
             }
 
             // -------------------------
@@ -244,25 +244,25 @@ namespace Axiom
             else if (codec_SelectedItem == "ALAC")
             {
                 // Codec
-                ALAC.Codec_Set(vm);
+                ALAC.Codec_Set();
 
                 // Items Source
-                ALAC.Controls_ItemsSource(vm);
+                ALAC.Controls_ItemsSource();
 
                 // Selected Items
-                ALAC.Controls_Selected(vm);
+                ALAC.Controls_Selected();
 
                 // Checked
-                ALAC.Controls_Checked(vm);
+                ALAC.Controls_Checked();
 
                 // Unhecked
-                ALAC.Controls_Unhecked(vm);
+                ALAC.Controls_Unhecked();
 
                 // Enabled
-                ALAC.Controls_Enable(vm);
+                ALAC.Controls_Enable();
 
                 // Disabled
-                ALAC.Controls_Disable(vm);
+                ALAC.Controls_Disable();
             }
 
             // -------------------------
@@ -271,25 +271,25 @@ namespace Axiom
             else if (codec_SelectedItem == "FLAC")
             {
                 // Codec
-                FLAC.Codec_Set(vm);
+                FLAC.Codec_Set();
 
                 // Items Source
-                FLAC.Controls_ItemsSource(vm);
+                FLAC.Controls_ItemsSource();
 
                 // Selected Items
-                FLAC.Controls_Selected(vm);
+                FLAC.Controls_Selected();
 
                 // Checked
-                FLAC.Controls_Checked(vm);
+                FLAC.Controls_Checked();
 
                 // Unhecked
-                FLAC.Controls_Unhecked(vm);
+                FLAC.Controls_Unhecked();
 
                 // Enabled
-                FLAC.Controls_Enable(vm);
+                FLAC.Controls_Enable();
 
                 // Disabled
-                FLAC.Controls_Disable(vm);
+                FLAC.Controls_Disable();
             }
 
             // -------------------------
@@ -298,25 +298,25 @@ namespace Axiom
             else if (codec_SelectedItem == "PCM")
             {
                 // Codec
-                PCM.Codec_Set(vm);
+                PCM.Codec_Set();
 
                 // Items Source
-                PCM.Controls_ItemsSource(vm);
+                PCM.Controls_ItemsSource();
 
                 // Selected Items
-                PCM.Controls_Selected(vm);
+                PCM.Controls_Selected();
 
                 // Checked
-                PCM.Controls_Checked(vm);
+                PCM.Controls_Checked();
 
                 // Unhecked
-                PCM.Controls_Unhecked(vm);
+                PCM.Controls_Unhecked();
 
                 // Enabled
-                PCM.Controls_Enable(vm);
+                PCM.Controls_Enable();
 
                 // Disabled
-                PCM.Controls_Disable(vm);
+                PCM.Controls_Disable();
             }
 
             // -------------------------
@@ -325,25 +325,25 @@ namespace Axiom
             else if (codec_SelectedItem == "Copy")
             {
                 // Codec
-                AudioCopy.Codec_Set(vm);
+                AudioCopy.Codec_Set();
 
                 // Items Source
-                AudioCopy.Controls_ItemsSource(vm);
+                AudioCopy.Controls_ItemsSource();
 
                 // Selected Items
-                AudioCopy.Controls_Selected(vm);
+                AudioCopy.Controls_Selected();
 
                 // Checked
-                AudioCopy.Controls_Checked(vm);
+                AudioCopy.Controls_Checked();
 
                 // Unhecked
-                AudioCopy.Controls_Unhecked(vm);
+                AudioCopy.Controls_Unhecked();
 
                 // Enabled
-                AudioCopy.Controls_Enable(vm);
+                AudioCopy.Controls_Enable();
 
                 // Disabled
-                AudioCopy.Controls_Disable(vm);
+                AudioCopy.Controls_Disable();
             }
 
             // -------------------------
@@ -352,25 +352,25 @@ namespace Axiom
             else if (codec_SelectedItem == "None")
             {
                 // Codec
-                AudioNone.Codec_Set(vm);
+                AudioNone.Codec_Set();
 
                 // Items Source
-                AudioNone.Controls_ItemsSource(vm);
+                AudioNone.Controls_ItemsSource();
 
                 // Selected Items
-                AudioNone.Controls_Selected(vm);
+                AudioNone.Controls_Selected();
 
                 // Checked
-                AudioNone.Controls_Checked(vm);
+                AudioNone.Controls_Checked();
 
                 // Unhecked
-                AudioNone.Controls_Unhecked(vm);
+                AudioNone.Controls_Unhecked();
 
                 // Enabled
-                AudioNone.Controls_Enable(vm);
+                AudioNone.Controls_Enable();
 
                 // Disabled
-                AudioNone.Controls_Disable(vm);
+                AudioNone.Controls_Disable();
             }
 
             // --------------------------------------------------
@@ -379,42 +379,42 @@ namespace Axiom
             // -------------------------
             // Audio Quality Selected Item
             // -------------------------
-            if (!string.IsNullOrEmpty(vm.Audio_Quality_SelectedItem) &&
-                vm.Audio_Quality_SelectedItem != "None" &&
-                vm.Audio_Quality_SelectedItem != "none")
+            if (!string.IsNullOrEmpty(AudioView.vm.Audio_Quality_SelectedItem) &&
+                AudioView.vm.Audio_Quality_SelectedItem != "None" &&
+                AudioView.vm.Audio_Quality_SelectedItem != "none")
             {
-                MainWindow.Audio_Quality_PreviousItem = vm.Audio_Quality_SelectedItem;
+                MainWindow.Audio_Quality_PreviousItem = AudioView.vm.Audio_Quality_SelectedItem;
             }
 
-            vm.Audio_Quality_SelectedItem = MainWindow.SelectedItem(vm.Audio_Quality_Items.Select(c => c.Name).ToList(),
+            AudioView.vm.Audio_Quality_SelectedItem = MainWindow.SelectedItem(AudioView.vm.Audio_Quality_Items.Select(c => c.Name).ToList(),
                                                                        MainWindow.Audio_Quality_PreviousItem
                                                                        );
 
             // -------------------------
             // Audio SampleRate Selected Item
             // -------------------------
-            if (!string.IsNullOrEmpty(vm.Audio_SampleRate_SelectedItem) &&
-                vm.Audio_SampleRate_SelectedItem != "None" &&
-                vm.Audio_SampleRate_SelectedItem != "none")
+            if (!string.IsNullOrEmpty(AudioView.vm.Audio_SampleRate_SelectedItem) &&
+                AudioView.vm.Audio_SampleRate_SelectedItem != "None" &&
+                AudioView.vm.Audio_SampleRate_SelectedItem != "none")
             {
-                MainWindow.Audio_SampleRate_PreviousItem = vm.Audio_SampleRate_SelectedItem;
+                MainWindow.Audio_SampleRate_PreviousItem = AudioView.vm.Audio_SampleRate_SelectedItem;
             }
 
-            vm.Audio_SampleRate_SelectedItem = MainWindow.SelectedItem(vm.Audio_SampleRate_Items.Select(c => c.Name).ToList(),
+            AudioView.vm.Audio_SampleRate_SelectedItem = MainWindow.SelectedItem(AudioView.vm.Audio_SampleRate_Items.Select(c => c.Name).ToList(),
                                                                       MainWindow.Audio_SampleRate_PreviousItem
                                                                       );
 
             // -------------------------
             // Audio BitDepth Selected Item
             // -------------------------
-            if (!string.IsNullOrEmpty(vm.Audio_BitDepth_SelectedItem) &&
-                vm.Audio_BitDepth_SelectedItem != "None" &&
-                vm.Audio_BitDepth_SelectedItem != "none")
+            if (!string.IsNullOrEmpty(AudioView.vm.Audio_BitDepth_SelectedItem) &&
+                AudioView.vm.Audio_BitDepth_SelectedItem != "None" &&
+                AudioView.vm.Audio_BitDepth_SelectedItem != "none")
             {
-                MainWindow.Audio_BitDepth_PreviousItem = vm.Audio_BitDepth_SelectedItem;
+                MainWindow.Audio_BitDepth_PreviousItem = AudioView.vm.Audio_BitDepth_SelectedItem;
             }
 
-            vm.Audio_BitDepth_SelectedItem = MainWindow.SelectedItem(vm.Audio_BitDepth_Items.Select(c => c.Name).ToList(),
+            AudioView.vm.Audio_BitDepth_SelectedItem = MainWindow.SelectedItem(AudioView.vm.Audio_BitDepth_Items.Select(c => c.Name).ToList(),
                                                                     MainWindow.Audio_BitDepth_PreviousItem
                                                                     );
 
@@ -425,32 +425,32 @@ namespace Axiom
         /// <summary>
         ///    Audio BitRate Display
         /// </summary>
-        public static void AudioBitRateDisplay(ViewModel vm,
-                                               List<ViewModel.AudioQuality> items,
+        public static void AudioBitRateDisplay(
+                                               List<AudioView.AudioQuality> items,
                                                string selectedQuality
                                                )
         {
             // Condition Check
-            if (!string.IsNullOrEmpty(vm.Audio_Quality_SelectedItem) &&
-                vm.Audio_Quality_SelectedItem != "None" &&
-                vm.Audio_Quality_SelectedItem != "Auto" &&
-                vm.Audio_Quality_SelectedItem != "Lossless" &&
-                vm.Audio_Quality_SelectedItem != "Custom" &&
-                vm.Audio_Quality_SelectedItem != "Mute")
+            if (!string.IsNullOrEmpty(AudioView.vm.Audio_Quality_SelectedItem) &&
+                AudioView.vm.Audio_Quality_SelectedItem != "None" &&
+                AudioView.vm.Audio_Quality_SelectedItem != "Auto" &&
+                AudioView.vm.Audio_Quality_SelectedItem != "Lossless" &&
+                AudioView.vm.Audio_Quality_SelectedItem != "Custom" &&
+                AudioView.vm.Audio_Quality_SelectedItem != "Mute")
             {
                 // -------------------------
                 // Display in TextBox
                 // -------------------------
                 // BitRate CBR
-                if (vm.Audio_VBR_IsChecked == false)
+                if (AudioView.vm.Audio_VBR_IsChecked == false)
                 {
-                    vm.Audio_BitRate_Text = items.FirstOrDefault(item => item.Name == selectedQuality) ?.CBR;
+                    AudioView.vm.Audio_BitRate_Text = items.FirstOrDefault(item => item.Name == selectedQuality) ?.CBR;
                 }
 
                 // BitRate VBR
-                else if (vm.Audio_VBR_IsChecked == true)
+                else if (AudioView.vm.Audio_VBR_IsChecked == true)
                 {
-                    vm.Audio_BitRate_Text = items.FirstOrDefault(item => item.Name == selectedQuality) ?.VBR;
+                    AudioView.vm.Audio_BitRate_Text = items.FirstOrDefault(item => item.Name == selectedQuality) ?.VBR;
                 }
             }
         }
@@ -459,55 +459,55 @@ namespace Axiom
         /// <summary>
         ///     Quality Controls
         /// <summary>
-        public static void QualityControls(ViewModel vm)
+        public static void QualityControls()
         {
             // -------------------------
             // Enable
             // -------------------------
             // Only for Custom
-            if (vm.Audio_Quality_SelectedItem == "Custom")
+            if (AudioView.vm.Audio_Quality_SelectedItem == "Custom")
             {
                 // BitRate
-                vm.Audio_BitRate_IsEnabled = true;
-                vm.Audio_BitRate_Text = "";
+                AudioView.vm.Audio_BitRate_IsEnabled = true;
+                AudioView.vm.Audio_BitRate_Text = "";
             }
 
             // -------------------------
             // Disable
             // -------------------------
             // Only for Custom
-            else if (vm.Audio_Quality_SelectedItem == "Auto")
+            else if (AudioView.vm.Audio_Quality_SelectedItem == "Auto")
             {
                 // BitRate
-                vm.Audio_BitRate_IsEnabled = false;
-                vm.Audio_BitRate_Text = "";
+                AudioView.vm.Audio_BitRate_IsEnabled = false;
+                AudioView.vm.Audio_BitRate_Text = "";
             }
             // All Other Qualities
             else
             {
                 // BitRate
-                vm.Audio_BitRate_IsEnabled = false;
+                AudioView.vm.Audio_BitRate_IsEnabled = false;
             }
 
 
             // -------------------------
             // Compression Level
             // -------------------------
-            if (vm.Audio_Codec_SelectedItem == "Opus")
+            if (AudioView.vm.Audio_Codec_SelectedItem == "Opus")
             {
                 // VBR
                 // Enable
-                if (vm.Audio_VBR_IsChecked == true)
+                if (AudioView.vm.Audio_VBR_IsChecked == true)
                 {
-                    vm.Audio_CompressionLevel_IsEnabled = true;
-                    vm.Audio_CompressionLevel_SelectedItem = "10";
+                    AudioView.vm.Audio_CompressionLevel_IsEnabled = true;
+                    AudioView.vm.Audio_CompressionLevel_SelectedItem = "10";
                 }
                 // CBR
                 // Disable
                 else
                 {
-                    vm.Audio_CompressionLevel_IsEnabled = false;
-                    vm.Audio_CompressionLevel_SelectedItem = "auto";
+                    AudioView.vm.Audio_CompressionLevel_IsEnabled = false;
+                    AudioView.vm.Audio_CompressionLevel_SelectedItem = "auto";
                 }
             }
         }
@@ -516,25 +516,25 @@ namespace Axiom
         /// <summary>
         ///    Auto Copy Conditions Check
         /// <summary>
-        public static bool AutoCopyConditionsCheck(ViewModel vm,
+        public static bool AutoCopyConditionsCheck(
                                                    string inputExt,
                                                    string outputExt)
         {
             // Pass Check
-            if (vm.Audio_Quality_SelectedItem == "Auto" &&
-                vm.Audio_Channel_SelectedItem == "Source" &&
-                vm.Audio_SampleRate_SelectedItem == "auto" &&
-                vm.Audio_BitDepth_SelectedItem == "auto" &&
-                vm.Audio_HardLimiter_Value == 1 &&
-                vm.Audio_Volume_Text == "100" &&
+            if (AudioView.vm.Audio_Quality_SelectedItem == "Auto" &&
+                AudioView.vm.Audio_Channel_SelectedItem == "Source" &&
+                AudioView.vm.Audio_SampleRate_SelectedItem == "auto" &&
+                AudioView.vm.Audio_BitDepth_SelectedItem == "auto" &&
+                AudioView.vm.Audio_HardLimiter_Value == 1 &&
+                AudioView.vm.Audio_Volume_Text == "100" &&
                 // Filters
-                vm.FilterAudio_Lowpass_SelectedItem == "disabled" &&
-                vm.FilterAudio_Highpass_SelectedItem == "disabled" &&
-                vm.FilterAudio_Headphones_SelectedItem == "disabled" &&
-                vm.FilterAudio_Contrast_Value == 0 &&
-                vm.FilterAudio_ExtraStereo_Value == 0 &&
-                vm.FilterAudio_Tempo_Value == 100 &&
-                vm.FilterVideo_EQ_Gamma_Value == 0 &&
+                FilterAudioView.vm.FilterAudio_Lowpass_SelectedItem == "disabled" &&
+                FilterAudioView.vm.FilterAudio_Highpass_SelectedItem == "disabled" &&
+                FilterAudioView.vm.FilterAudio_Headphones_SelectedItem == "disabled" &&
+                FilterAudioView.vm.FilterAudio_Contrast_Value == 0 &&
+                FilterAudioView.vm.FilterAudio_ExtraStereo_Value == 0 &&
+                FilterAudioView.vm.FilterAudio_Tempo_Value == 100 &&
+                FilterVideoView.vm.FilterVideo_EQ_Gamma_Value == 0 &&
                 // File Extension Match
                 string.Equals(inputExt, outputExt, StringComparison.CurrentCultureIgnoreCase)
                 )
@@ -554,22 +554,22 @@ namespace Axiom
         /// <summary>
         ///    Copy Controls
         /// <summary>
-        public static void CopyControls(ViewModel vm)
+        public static void CopyControls()
         {
             // -------------------------
             // Conditions Check
             // Enable
             // -------------------------
-            if (AutoCopyConditionsCheck(vm, MainWindow.inputExt, MainWindow.outputExt) == true)
+            if (AutoCopyConditionsCheck(/*main_vm,*/ MainWindow.inputExt, MainWindow.outputExt) == true)
             {
                 // -------------------------
                 // Set Audio Codec Combobox Selected Item to Copy
                 // -------------------------
-                if (vm.Audio_Codec_Items.Count > 0)
+                if (AudioView.vm.Audio_Codec_Items.Count > 0)
                 {
-                    if (vm.Audio_Codec_Items?.Contains("Copy") == true)
+                    if (AudioView.vm.Audio_Codec_Items?.Contains("Copy") == true)
                     {
-                        vm.Audio_Codec_SelectedItem = "Copy";
+                        AudioView.vm.Audio_Codec_SelectedItem = "Copy";
                     }
                 }
             }
@@ -591,90 +591,90 @@ namespace Axiom
                 // -------------------------
                 // Null Check
                 // -------------------------
-                if (!string.IsNullOrEmpty(vm.Audio_Quality_SelectedItem))
+                if (!string.IsNullOrEmpty(AudioView.vm.Audio_Quality_SelectedItem))
                 {
                     // -------------------------
                     // Copy Selected
                     // -------------------------
-                    if (vm.Audio_Codec_SelectedItem == "Copy")
+                    if (AudioView.vm.Audio_Codec_SelectedItem == "Copy")
                     {
                         // -------------------------
                         // Switch back to format's default codec
                         // -------------------------
-                        if (vm.Audio_Codec_SelectedItem != "Auto" ||
+                        if (AudioView.vm.Audio_Codec_SelectedItem != "Auto" ||
                             !string.Equals(MainWindow.inputExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase)
                             )
                         {
                             // -------------------------
                             // Video Container
                             // -------------------------
-                            if (vm.Format_Container_SelectedItem == "webm")
+                            if (FormatView.vm.Format_Container_SelectedItem == "webm")
                             {
-                                vm.Audio_Codec_SelectedItem = "Vorbis";
+                                AudioView.vm.Audio_Codec_SelectedItem = "Vorbis";
                             }
-                            else if (vm.Format_Container_SelectedItem == "mp4")
+                            else if (FormatView.vm.Format_Container_SelectedItem == "mp4")
                             {
-                                vm.Audio_Codec_SelectedItem = "AAC";
+                                AudioView.vm.Audio_Codec_SelectedItem = "AAC";
                             }
-                            else if (vm.Format_Container_SelectedItem == "mkv")
+                            else if (FormatView.vm.Format_Container_SelectedItem == "mkv")
                             {
-                                vm.Audio_Codec_SelectedItem = "AC3";
+                                AudioView.vm.Audio_Codec_SelectedItem = "AC3";
                             }
-                            else if (vm.Format_Container_SelectedItem == "m2v")
+                            else if (FormatView.vm.Format_Container_SelectedItem == "m2v")
                             {
-                                vm.Audio_Codec_SelectedItem = "None";
+                                AudioView.vm.Audio_Codec_SelectedItem = "None";
                             }
-                            else if (vm.Format_Container_SelectedItem == "mpg")
+                            else if (FormatView.vm.Format_Container_SelectedItem == "mpg")
                             {
-                                vm.Audio_Codec_SelectedItem = "MP2";
+                                AudioView.vm.Audio_Codec_SelectedItem = "MP2";
                             }
-                            else if (vm.Format_Container_SelectedItem == "avi")
+                            else if (FormatView.vm.Format_Container_SelectedItem == "avi")
                             {
-                                vm.Audio_Codec_SelectedItem = "LAME";
+                                AudioView.vm.Audio_Codec_SelectedItem = "LAME";
                             }
-                            else if (vm.Format_Container_SelectedItem == "ogv")
+                            else if (FormatView.vm.Format_Container_SelectedItem == "ogv")
                             {
-                                vm.Audio_Codec_SelectedItem = "Vorbis";
+                                AudioView.vm.Audio_Codec_SelectedItem = "Vorbis";
                             }
 
                             // -------------------------
                             // Audio Container
                             // -------------------------
-                            if (vm.Format_Container_SelectedItem == "m4a")
+                            if (FormatView.vm.Format_Container_SelectedItem == "m4a")
                             {
-                                vm.Audio_Codec_SelectedItem = "AAC";
+                                AudioView.vm.Audio_Codec_SelectedItem = "AAC";
                             }
-                            else if (vm.Format_Container_SelectedItem == "mp3")
+                            else if (FormatView.vm.Format_Container_SelectedItem == "mp3")
                             {
-                                vm.Audio_Codec_SelectedItem = "LAME";
+                                AudioView.vm.Audio_Codec_SelectedItem = "LAME";
                             }
-                            else if (vm.Format_Container_SelectedItem == "ogg")
+                            else if (FormatView.vm.Format_Container_SelectedItem == "ogg")
                             {
-                                vm.Audio_Codec_SelectedItem = "Opus";
+                                AudioView.vm.Audio_Codec_SelectedItem = "Opus";
                             }
-                            else if (vm.Format_Container_SelectedItem == "flac")
+                            else if (FormatView.vm.Format_Container_SelectedItem == "flac")
                             {
-                                vm.Audio_Codec_SelectedItem = "FLAC";
+                                AudioView.vm.Audio_Codec_SelectedItem = "FLAC";
                             }
-                            else if (vm.Format_Container_SelectedItem == "wav")
+                            else if (FormatView.vm.Format_Container_SelectedItem == "wav")
                             {
-                                vm.Audio_Codec_SelectedItem = "PCM";
+                                AudioView.vm.Audio_Codec_SelectedItem = "PCM";
                             }
 
                             // -------------------------
                             // Image Container
                             // -------------------------
-                            //if (vm.Format_Container_SelectedItem == "jpg")
+                            //if (FormatView.vm.Format_Container_SelectedItem == "jpg")
                             //{
-                            //    vm.Audio_Codec_SelectedItem = "None";
+                            //    AudioView.vm.Audio_Codec_SelectedItem = "None";
                             //}
-                            //else if (vm.Format_Container_SelectedItem == "png")
+                            //else if (FormatView.vm.Format_Container_SelectedItem == "png")
                             //{
-                            //    vm.Audio_Codec_SelectedItem = "None";
+                            //    AudioView.vm.Audio_Codec_SelectedItem = "None";
                             //}
-                            //else if (vm.Format_Container_SelectedItem == "webp")
+                            //else if (FormatView.vm.Format_Container_SelectedItem == "webp")
                             //{
-                            //    vm.Audio_Codec_SelectedItem = "None";
+                            //    AudioView.vm.Audio_Codec_SelectedItem = "None";
                             //}
                         }
                     }
@@ -686,23 +686,23 @@ namespace Axiom
         /// <summary>
         ///    Auto Codec Copy
         /// <summary>
-        public static void AutoCopyAudioCodec(ViewModel vm)
+        public static void AutoCopyAudioCodec()
         {
             // --------------------------------------------------
             // When Input Extension is Not Empty
             // --------------------------------------------------
             if (!string.IsNullOrEmpty(MainWindow.inputExt))
             {
-                CopyControls(vm);
+                CopyControls();
             }
 
             // --------------------------------------------------
             // When Input Extension is Empty
             // --------------------------------------------------
             else if (string.IsNullOrEmpty(MainWindow.inputExt) &&
-                vm.Audio_Codec_SelectedItem == "Copy")
+                AudioView.vm.Audio_Codec_SelectedItem == "Copy")
             {
-                CopyControls(vm);
+                CopyControls();
             }
         }
 

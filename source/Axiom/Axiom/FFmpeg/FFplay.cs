@@ -36,21 +36,21 @@ namespace Axiom
         /// <summary>
         ///     Preview FFplay
         /// </summary>
-        public static void Preview(MainWindow mainwindow, ViewModel vm)
+        public static void Preview(MainWindow mainwindow)
         {
             // -------------------------
             // Clear Variables before Run
             // -------------------------
             ffplay = string.Empty;
-            MainWindow.ClearGlobalVariables(vm);
+            MainWindow.ClearGlobalVariables();
 
             // Ignore if Batch
-            if (vm.Batch_IsChecked == false)
+            if (MainView.vm.Batch_IsChecked == false)
             {
                 // -------------------------
                 // Set FFprobe Path
                 // -------------------------
-                MainWindow.FFplayPath(vm);
+                MainWindow.FFplayPath();
 
                 // -------------------------
                 //  Arguments List
@@ -59,27 +59,27 @@ namespace Axiom
                 {
                     //ffplay,
 
-                    "-i " + "\"" + MainWindow.InputPath(vm, "pass 1") + "\"",
+                    "-i " + "\"" + MainWindow.InputPath(/*main_vm,*/ "pass 1") + "\"",
 
-                    Subtitle.SubtitlesExternal(vm.Subtitle_Codec_SelectedItem,
-                                               vm.Subtitle_Stream_SelectedItem
+                    Subtitle.SubtitlesExternal(SubtitleView.vm.Subtitle_Codec_SelectedItem,
+                                               SubtitleView.vm.Subtitle_Stream_SelectedItem
                                                ),
 
                     //Video.VideoCodec(),
                     //Video.Speed(mainwindow),
                     //Video.VideoQuality(mainwindow),
-                    Video.FPS(//vm.Format_MediaType_SelectedItem,
-                              vm.Video_Codec_SelectedItem,
-                              //vm.Video_Quality_SelectedItem,
-                              vm.Video_FPS_SelectedItem,
-                              vm.Video_FPS_Text
+                    Video.FPS(//FormatView.vm.Format_MediaType_SelectedItem,
+                              VideoView.vm.Video_Codec_SelectedItem,
+                              //VideoView.vm.Video_Quality_SelectedItem,
+                              VideoView.vm.Video_FPS_SelectedItem,
+                              VideoView.vm.Video_FPS_Text
                               ),
 
-                    VideoFilters.VideoFilter(vm),
+                    VideoFilters.VideoFilter(),
 
-                    Video.Images(vm.Format_MediaType_SelectedItem,
-                                 vm.Video_Codec_SelectedItem//,
-                                 //vm.Video_Quality_SelectedItem
+                    Video.Images(FormatView.vm.Format_MediaType_SelectedItem,
+                                 VideoView.vm.Video_Codec_SelectedItem//,
+                                 //VideoView.vm.Video_Quality_SelectedItem
                                  ),
                     //Video.Optimize(mainwindow),
                     //Streams.VideoStreamMaps(mainwindow),
@@ -89,31 +89,31 @@ namespace Axiom
 
                     //Audio.AudioCodec(mainwindow),
                     //Audio.AudioQuality(mainwindow),
-                    Audio.SampleRate(//vm.Format_MediaType_SelectedItem,
-                                     vm.Audio_Codec_SelectedItem,
-                                     //vm.Audio_Stream_SelectedItem,
-                                     //vm.Audio_Quality_SelectedItem,
-                                     //vm.Audio_Channel_SelectedItem,
-                                     vm.Audio_SampleRate_Items,
-                                     vm.Audio_SampleRate_SelectedItem
+                    Audio.SampleRate(//FormatView.vm.Format_MediaType_SelectedItem,
+                                     AudioView.vm.Audio_Codec_SelectedItem,
+                                     //AudioView.vm.Audio_Stream_SelectedItem,
+                                     //AudioView.vm.Audio_Quality_SelectedItem,
+                                     //AudioView.vm.Audio_Channel_SelectedItem,
+                                     AudioView.vm.Audio_SampleRate_Items,
+                                     AudioView.vm.Audio_SampleRate_SelectedItem
                                      ),
 
-                    Audio.BitDepth(//vm.Format_MediaType_SelectedItem,
-                                   vm.Audio_Codec_SelectedItem,
-                                   //vm.Audio_Stream_SelectedItem,
-                                   //vm.Audio_Quality_SelectedItem,
-                                   vm.Audio_BitDepth_Items,
-                                   vm.Audio_BitDepth_SelectedItem
+                    Audio.BitDepth(//FormatView.vm.Format_MediaType_SelectedItem,
+                                   AudioView.vm.Audio_Codec_SelectedItem,
+                                   //AudioView.vm.Audio_Stream_SelectedItem,
+                                   //AudioView.vm.Audio_Quality_SelectedItem,
+                                   AudioView.vm.Audio_BitDepth_Items,
+                                   AudioView.vm.Audio_BitDepth_SelectedItem
                                    ),
 
-                    Audio.Channel(//vm.Format_MediaType_SelectedItem,
-                                  vm.Audio_Codec_SelectedItem,
-                                  //vm.Audio_Stream_SelectedItem,
-                                  //vm.Audio_Quality_SelectedItem,
-                                  vm.Audio_Channel_SelectedItem
+                    Audio.Channel(//FormatView.vm.Format_MediaType_SelectedItem,
+                                  AudioView.vm.Audio_Codec_SelectedItem,
+                                  //AudioView.vm.Audio_Stream_SelectedItem,
+                                  //AudioView.vm.Audio_Quality_SelectedItem,
+                                  AudioView.vm.Audio_Channel_SelectedItem
                                   ),
 
-                    AudioFilters.AudioFilter(vm),
+                    AudioFilters.AudioFilter(),
                     //Streams.AudioStreamMaps(mainwindow),
 
                     //Format.Cut(mainwindow),

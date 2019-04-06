@@ -141,9 +141,16 @@
     <Compile Include="Controls\FormatContainers.cs" />
     <Compile Include="Controls\FormatControls.cs" />
     <Compile Include="Controls\VideoControls.cs" />
-    <Compile Include="ViewModels\ViewModel.cs" />
+    <Compile Include="ViewModel\AudioViewModel.cs" />
+    <Compile Include="ViewModel\ConfigureViewModel.cs" />
+    <Compile Include="ViewModel\FilterAudioViewModel.cs" />
+    <Compile Include="ViewModel\FilterVideoViewModel.cs" />
+    <Compile Include="ViewModel\FormatViewModel.cs" />
+    <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="Codecs\Audio\Vorbis.cs" />
     <Compile Include="Codecs\Video\x264.cs" />
+    <Compile Include="ViewModel\SubtitleViewModel.cs" />
+    <Compile Include="ViewModel\VideoViewModel.cs" />
     <Page Include="CropWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

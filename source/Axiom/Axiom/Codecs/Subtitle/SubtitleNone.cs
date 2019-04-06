@@ -32,9 +32,9 @@ namespace Axiom
         // ---------------------------------------------------------------------------
         // Codec
         // ---------------------------------------------------------------------------
-        public static void Codec_Set(ViewModel vm)
+        public static void Codec_Set()
         {
-            vm.Subtitle_Codec = string.Empty;
+            SubtitleView.vm.Subtitle_Codec = string.Empty;
         }
 
         // -------------------------
@@ -54,24 +54,24 @@ namespace Axiom
         // -------------------------
         // Items Source
         // -------------------------
-        public static void Controls_ItemsSource(ViewModel vm)
+        public static void Controls_ItemsSource()
         {
-            vm.Subtitle_Stream_Items = stream;
+            SubtitleView.vm.Subtitle_Stream_Items = stream;
         }
 
         // -------------------------
         // Selected Items
         // -------------------------
-        public static void Controls_Selected(ViewModel vm)
+        public static void Controls_Selected()
         {
             // Stream
-            vm.Subtitle_Stream_SelectedItem = "none";
+            SubtitleView.vm.Subtitle_Stream_SelectedItem = "none";
         }
 
         // -------------------------
         // Checked
         // -------------------------
-        public static void Controls_Checked(ViewModel vm)
+        public static void Controls_Checked()
         {
             // None
         }
@@ -79,7 +79,7 @@ namespace Axiom
         // -------------------------
         // Unchecked
         // -------------------------
-        public static void Controls_Unhecked(ViewModel vm)
+        public static void Controls_Unhecked()
         {
             // None
         }
@@ -87,7 +87,7 @@ namespace Axiom
         // -------------------------
         // Enabled
         // -------------------------
-        public static void Controls_Enable(ViewModel vm)
+        public static void Controls_Enable()
         {
             // None
         }
@@ -95,7 +95,7 @@ namespace Axiom
         // -------------------------
         // Disabled
         // -------------------------
-        public static void Controls_Disable(ViewModel vm)
+        public static void Controls_Disable()
         {
             // None
         }

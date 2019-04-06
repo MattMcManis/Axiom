@@ -89,18 +89,18 @@ namespace Axiom
         /// <summary>
         ///     Define Log Path (Method)
         /// </summary>
-        public static void DefineLogPath(ViewModel vm)
+        public static void DefineLogPath()
         {
             // --------------------------
             // Checked
             // --------------------------
-            if (vm.LogCheckBox_IsChecked == true)
+            if (ConfigureView.vm.LogCheckBox_IsChecked == true)
             {
                 // Empty, Set Log Path to %ProgramData% Directory
-                if (string.IsNullOrEmpty(vm.LogPath_Text))
+                if (string.IsNullOrEmpty(ConfigureView.vm.LogPath_Text))
                 {
-                    //vm.LogPath_Text = MainWindow.appDir;
-                    vm.LogPath_Text = logDir;
+                    //ConfigureView.vm.LogPath_Text = MainWindow.appDir;
+                    ConfigureView.vm.LogPath_Text = logDir;
                 }
             }
         }
@@ -109,7 +109,7 @@ namespace Axiom
         /// <summary>
         ///     Create Output Log (Method)
         /// </summary>
-        public static void CreateOutputLog(MainWindow mainwindow, ViewModel vm)
+        public static void CreateOutputLog(MainWindow mainwindow)
         {
             // -------------------------
             // Background Thread Worker
@@ -130,7 +130,7 @@ namespace Axiom
                 mainwindow.Dispatcher.Invoke(() =>
                 {
                     // Log Path
-                    if (vm.LogCheckBox_IsChecked == true) // Only if Log is Enabled through Configure Checkbox
+                    if (ConfigureView.vm.LogCheckBox_IsChecked == true) // Only if Log is Enabled through Configure Checkbox
                     {
                         // Start write output log file
                         //Catch Directory Access Errors
@@ -138,7 +138,7 @@ namespace Axiom
                         {
                             TextRange t = new TextRange(mainwindow.logconsole.rtbLog.Document.ContentStart,
                                                         mainwindow.logconsole.rtbLog.Document.ContentEnd);
-                            FileStream file = new FileStream(vm.LogPath_Text + "axiom.log", FileMode.Create);
+                            FileStream file = new FileStream(ConfigureView.vm.LogPath_Text + "axiom.log", FileMode.Create);
                             t.Save(file, System.Windows.DataFormats.Text);
                             file.Close();
                         }
@@ -149,12 +149,12 @@ namespace Axiom
                             {
                                 Log.logParagraph.Inlines.Add(new LineBreak());
                                 Log.logParagraph.Inlines.Add(new LineBreak());
-                                Log.logParagraph.Inlines.Add(new Bold(new Run("Warning: Saving Output Log to " + "\"" + vm.LogPath_Text + "\"" + " is Denied. May require Administrator Privileges.")) { Foreground = ConsoleWarning });
+                                Log.logParagraph.Inlines.Add(new Bold(new Run("Warning: Saving Output Log to " + "\"" + ConfigureView.vm.LogPath_Text + "\"" + " is Denied. May require Administrator Privileges.")) { Foreground = ConsoleWarning });
                             };
                             Log.LogActions.Add(Log.WriteAction);
 
                             // Popup Message Dialog Box
-                            MessageBox.Show("Error Saving Output Log to " + "\"" + vm.LogPath_Text + "\"" + ". May require Administrator Privileges.",
+                            MessageBox.Show("Error Saving Output Log to " + "\"" + ConfigureView.vm.LogPath_Text + "\"" + ". May require Administrator Privileges.",
                                             "Error",
                                             MessageBoxButton.OK,
                                             MessageBoxImage.Warning);
@@ -185,7 +185,7 @@ namespace Axiom
         /// <summary>
         ///     Log Write All 
         /// </summary>
-        public static void LogWriteAll(MainWindow mainwindow, ViewModel vm)
+        public static void LogWriteAll(MainWindow mainwindow)
         {
             // -------------------------
             // Background Thread Worker

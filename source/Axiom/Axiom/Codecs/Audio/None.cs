@@ -32,9 +32,9 @@ namespace Axiom
         // ---------------------------------------------------------------------------
         // Codec
         // ---------------------------------------------------------------------------
-        public static void Codec_Set(ViewModel vm)
+        public static void Codec_Set()
         {
-            vm.Audio_Codec = string.Empty;
+            AudioView.vm.Audio_Codec = string.Empty;
         }
 
 
@@ -54,9 +54,9 @@ namespace Axiom
         // -------------------------
         // Quality
         // -------------------------
-        public static List<ViewModel.AudioQuality> quality = new List<ViewModel.AudioQuality>()
+        public static List<AudioView.AudioQuality> quality = new List<AudioView.AudioQuality>()
         {
-             new ViewModel.AudioQuality() { Name = "None", CBR_BitMode = "", CBR = "", VBR_BitMode = "", VBR = "", NA = ""}
+             new AudioView.AudioQuality() { Name = "None", CBR_BitMode = "", CBR = "", VBR_BitMode = "", VBR = "", NA = ""}
         };
 
         // -------------------------
@@ -70,17 +70,17 @@ namespace Axiom
         // -------------------------
         // Sample Rate
         // -------------------------
-        public static List<ViewModel.AudioSampleRate> sampleRate = new List<ViewModel.AudioSampleRate>()
+        public static List<AudioView.AudioSampleRate> sampleRate = new List<AudioView.AudioSampleRate>()
         {
-             new ViewModel.AudioSampleRate() { Name = "auto", Frequency = "" }
+             new AudioView.AudioSampleRate() { Name = "auto", Frequency = "" }
         };
 
         // -------------------------
         // Bit Depth
         // -------------------------
-        public static List<ViewModel.AudioBitDepth> bitDepth = new List<ViewModel.AudioBitDepth>()
+        public static List<AudioView.AudioBitDepth> bitDepth = new List<AudioView.AudioBitDepth>()
         {
-             new ViewModel.AudioBitDepth() { Name = "auto", Depth = "" }
+             new AudioView.AudioBitDepth() { Name = "auto", Depth = "" }
         };
 
 
@@ -92,40 +92,40 @@ namespace Axiom
         // -------------------------
         // Items Source
         // -------------------------
-        public static void Controls_ItemsSource(ViewModel vm)
+        public static void Controls_ItemsSource()
         {
             // Channel
-            vm.Audio_Channel_Items = channel;
+            AudioView.vm.Audio_Channel_Items = channel;
 
             // Quality
-            vm.Audio_Quality_Items = quality;
+            AudioView.vm.Audio_Quality_Items = quality;
 
             // Compression Level
-            vm.Audio_CompressionLevel_Items = compressionLevel;
+            AudioView.vm.Audio_CompressionLevel_Items = compressionLevel;
 
             // Samplerate
-            vm.Audio_SampleRate_Items = sampleRate;
+            AudioView.vm.Audio_SampleRate_Items = sampleRate;
 
             // Bit Depth
-            vm.Audio_BitDepth_Items = bitDepth;
+            AudioView.vm.Audio_BitDepth_Items = bitDepth;
         }
 
         // -------------------------
         // Selected Items
         // -------------------------
-        public static void Controls_Selected(ViewModel vm)
+        public static void Controls_Selected()
         {
             // Stream
-            //vm.Audio_Stream_SelectedItem = "none";
+            //AudioView.vm.Audio_Stream_SelectedItem = "none";
 
             // Compression Level
-            vm.Audio_CompressionLevel_SelectedItem = "none";
+            AudioView.vm.Audio_CompressionLevel_SelectedItem = "none";
         }
 
         // -------------------------
         // Checked
         // -------------------------
-        public static void Controls_Checked(ViewModel vm)
+        public static void Controls_Checked()
         {
             // None
         }
@@ -133,55 +133,55 @@ namespace Axiom
         // -------------------------
         // Unchecked
         // -------------------------
-        public static void Controls_Unhecked(ViewModel vm)
+        public static void Controls_Unhecked()
         {
             // BitRate Mode
-            vm.Audio_VBR_IsChecked = false;
+            AudioView.vm.Audio_VBR_IsChecked = false;
         }
 
         // -------------------------
         // Enabled
         // -------------------------
-        public static void Controls_Enable(ViewModel vm)
+        public static void Controls_Enable()
         {
             // BitRate Mode
-            vm.Audio_VBR_IsChecked = false;
+            AudioView.vm.Audio_VBR_IsChecked = false;
         }
 
         // -------------------------
         // Disabled
         // -------------------------
-        public static void Controls_Disable(ViewModel vm)
+        public static void Controls_Disable()
         {
             // Codec
-            //vm.Audio_Codec_IsEnabled = false;
+            //AudioView.vm.Audio_Codec_IsEnabled = false;
 
             // Stream
-            vm.Audio_Stream_IsEnabled = false;
+            AudioView.vm.Audio_Stream_IsEnabled = false;
 
             // Channel
-            vm.Audio_Channel_IsEnabled = false;
+            AudioView.vm.Audio_Channel_IsEnabled = false;
 
             // Audio Quality
-            vm.Audio_Quality_IsEnabled = false;
+            AudioView.vm.Audio_Quality_IsEnabled = false;
 
             // VBR Button
-            vm.Audio_VBR_IsEnabled = false;
+            AudioView.vm.Audio_VBR_IsEnabled = false;
 
             // Compression Level
-            vm.Audio_CompressionLevel_IsEnabled = false;
+            AudioView.vm.Audio_CompressionLevel_IsEnabled = false;
 
             // SampleRate
-            vm.Audio_SampleRate_IsEnabled = false;
+            AudioView.vm.Audio_SampleRate_IsEnabled = false;
 
             // Bit Depth
-            vm.Audio_BitDepth_IsEnabled = false;
+            AudioView.vm.Audio_BitDepth_IsEnabled = false;
 
             // Volume
-            vm.Audio_Volume_IsEnabled = false;
+            AudioView.vm.Audio_Volume_IsEnabled = false;
 
             // Hard Limiter
-            vm.Audio_HardLimiter_IsEnabled = false;
+            AudioView.vm.Audio_HardLimiter_IsEnabled = false;
         }
 
     }

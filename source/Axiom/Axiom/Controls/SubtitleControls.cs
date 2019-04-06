@@ -32,7 +32,7 @@ namespace Axiom
         /// <summary>
         ///     Set Controls
         /// </summary>
-        public static void SetControls(ViewModel vm, string selectedCodec)
+        public static void SetControls(string selectedCodec)
         {
             // --------------------------------------------------
             // Codec
@@ -44,25 +44,25 @@ namespace Axiom
             if (selectedCodec == "MOV Text")
             {
                 // Codec
-                MOV_Text.Codec_Set(vm);
+                MOV_Text.Codec_Set();
 
                 // Items Source
-                MOV_Text.Controls_ItemsSource(vm);
+                MOV_Text.Controls_ItemsSource();
 
                 // Selected Items
-                MOV_Text.Controls_Selected(vm);
+                MOV_Text.Controls_Selected();
 
                 // Checked
-                MOV_Text.Controls_Checked(vm);
+                MOV_Text.Controls_Checked();
 
                 // Unhecked
-                MOV_Text.Controls_Unhecked(vm);
+                MOV_Text.Controls_Unhecked();
 
                 // Enabled
-                MOV_Text.Controls_Enable(vm);
+                MOV_Text.Controls_Enable();
 
                 // Disabled
-                MOV_Text.Controls_Disable(vm);
+                MOV_Text.Controls_Disable();
             }
 
             // -------------------------
@@ -71,25 +71,25 @@ namespace Axiom
             else if (selectedCodec == "SSA")
             {
                 // Codec
-                SSA.Codec_Set(vm);
+                SSA.Codec_Set();
 
                 // Items Source
-                SSA.Controls_ItemsSource(vm);
+                SSA.Controls_ItemsSource();
 
                 // Selected Items
-                SSA.Controls_Selected(vm);
+                SSA.Controls_Selected();
 
                 // Checked
-                SSA.Controls_Checked(vm);
+                SSA.Controls_Checked();
 
                 // Unhecked
-                SSA.Controls_Unhecked(vm);
+                SSA.Controls_Unhecked();
 
                 // Enabled
-                SSA.Controls_Enable(vm);
+                SSA.Controls_Enable();
 
                 // Disabled
-                SSA.Controls_Disable(vm);
+                SSA.Controls_Disable();
             }
 
             // -------------------------
@@ -98,25 +98,25 @@ namespace Axiom
             else if (selectedCodec == "SRT")
             {
                 // Codec
-                SRT.Codec_Set(vm);
+                SRT.Codec_Set();
 
                 // Items Source
-                SRT.Controls_ItemsSource(vm);
+                SRT.Controls_ItemsSource();
 
                 // Selected Items
-                SRT.Controls_Selected(vm);
+                SRT.Controls_Selected();
 
                 // Checked
-                SRT.Controls_Checked(vm);
+                SRT.Controls_Checked();
 
                 // Unhecked
-                SRT.Controls_Unhecked(vm);
+                SRT.Controls_Unhecked();
 
                 // Enabled
-                SRT.Controls_Enable(vm);
+                SRT.Controls_Enable();
 
                 // Disabled
-                SRT.Controls_Disable(vm);
+                SRT.Controls_Disable();
             }
 
             // -------------------------
@@ -125,25 +125,25 @@ namespace Axiom
             else if (selectedCodec == "Burn")
             {
                 // Codec
-                Burn.Codec_Set(vm);
+                Burn.Codec_Set();
 
                 // Items Source
-                Burn.Controls_ItemsSource(vm);
+                Burn.Controls_ItemsSource();
 
                 // Selected Items
-                Burn.Controls_Selected(vm);
+                Burn.Controls_Selected();
 
                 // Checked
-                Burn.Controls_Checked(vm);
+                Burn.Controls_Checked();
 
                 // Unhecked
-                Burn.Controls_Unhecked(vm);
+                Burn.Controls_Unhecked();
 
                 // Enabled
-                Burn.Controls_Enable(vm);
+                Burn.Controls_Enable();
 
                 // Disabled
-                Burn.Controls_Disable(vm);
+                Burn.Controls_Disable();
             }
 
             // -------------------------
@@ -152,25 +152,25 @@ namespace Axiom
             else if (selectedCodec == "Copy")
             {
                 // Codec
-                SubtitleCopy.Codec_Set(vm);
+                SubtitleCopy.Codec_Set();
 
                 // Items Source
-                SubtitleCopy.Controls_ItemsSource(vm);
+                SubtitleCopy.Controls_ItemsSource();
 
                 // Selected Items
-                SubtitleCopy.Controls_Selected(vm);
+                SubtitleCopy.Controls_Selected();
 
                 // Checked
-                SubtitleCopy.Controls_Checked(vm);
+                SubtitleCopy.Controls_Checked();
 
                 // Unhecked
-                SubtitleCopy.Controls_Unhecked(vm);
+                SubtitleCopy.Controls_Unhecked();
 
                 // Enabled
-                SubtitleCopy.Controls_Enable(vm);
+                SubtitleCopy.Controls_Enable();
 
                 // Disabled
-                SubtitleCopy.Controls_Disable(vm);
+                SubtitleCopy.Controls_Disable();
             }
 
             // -------------------------
@@ -179,33 +179,33 @@ namespace Axiom
             else if (selectedCodec == "None")
             {
                 // Codec
-                SubtitleNone.Codec_Set(vm);
+                SubtitleNone.Codec_Set();
 
                 // Items Source
-                SubtitleNone.Controls_ItemsSource(vm);
+                SubtitleNone.Controls_ItemsSource();
 
                 // Selected Items
-                SubtitleNone.Controls_Selected(vm);
+                SubtitleNone.Controls_Selected();
 
                 // Checked
-                SubtitleNone.Controls_Checked(vm);
+                SubtitleNone.Controls_Checked();
 
                 // Unhecked
-                SubtitleNone.Controls_Unhecked(vm);
+                SubtitleNone.Controls_Unhecked();
 
                 // Enabled
-                SubtitleNone.Controls_Enable(vm);
+                SubtitleNone.Controls_Enable();
 
                 // Disabled
-                SubtitleNone.Controls_Disable(vm);
+                SubtitleNone.Controls_Disable();
             }
 
             // --------------------------------------------------
             // Default Selected Item
             // --------------------------------------------------
             // Video
-            //vm.Video_Quality_SelectedItem = SelectedItem(vm.Video_Quality_Items,
-            //                                            vm.Video_Quality_SelectedItem
+            //VideoView.vm.Video_Quality_SelectedItem = SelectedItem(VideoView.vm.Video_Quality_Items,
+            //                                            VideoView.vm.Video_Quality_SelectedItem
             //                                            );
 
 
@@ -215,29 +215,29 @@ namespace Axiom
             // -------------------------
             // None Codec
             // -------------------------
-            if (vm.Subtitle_Codec_SelectedItem == "None")
+            if (SubtitleView.vm.Subtitle_Codec_SelectedItem == "None")
             {
-                vm.Subtitle_Stream_SelectedItem = "none";
-                vm.Subtitle_Stream_IsEnabled = false;
+                SubtitleView.vm.Subtitle_Stream_SelectedItem = "none";
+                SubtitleView.vm.Subtitle_Stream_IsEnabled = false;
             }
 
             // -------------------------
             // Burn Codec
             // -------------------------
-            else if (vm.Subtitle_Codec_SelectedItem == "Burn")
+            else if (SubtitleView.vm.Subtitle_Codec_SelectedItem == "Burn")
             {
                 // Force Select External
                 // Can't burn All subtitle streams
-                vm.Subtitle_Stream_SelectedItem = "external";
-                vm.Subtitle_Stream_IsEnabled = true;
+                SubtitleView.vm.Subtitle_Stream_SelectedItem = "external";
+                SubtitleView.vm.Subtitle_Stream_IsEnabled = true;
             }
 
             // -------------------------
             // Copy Codec
             // -------------------------
-            else if (vm.Subtitle_Codec_SelectedItem == "Copy")
+            else if (SubtitleView.vm.Subtitle_Codec_SelectedItem == "Copy")
             {
-                vm.Subtitle_Stream_IsEnabled = true;
+                SubtitleView.vm.Subtitle_Stream_IsEnabled = true;
             }
 
             // -------------------------
@@ -245,7 +245,7 @@ namespace Axiom
             // -------------------------
             else
             {
-                vm.Subtitle_Stream_IsEnabled = true;
+                SubtitleView.vm.Subtitle_Stream_IsEnabled = true;
             }
         }
 
@@ -253,16 +253,16 @@ namespace Axiom
         /// <summary>
         ///    Auto Copy Conditions Check
         /// <summary>
-        public static bool AutoCopyConditionsCheck(ViewModel vm,
+        public static bool AutoCopyConditionsCheck(
                                                    string inputExt,
                                                    string outputExt)
         {
             // Input Extension is Same as Output Extension and Video Quality is Auto
-            if (vm.Video_Quality_SelectedItem == "Auto" &&
-                vm.Video_Scale_SelectedItem == "Source" &&
+            if (VideoView.vm.Video_Quality_SelectedItem == "Auto" &&
+                VideoView.vm.Video_Scale_SelectedItem == "Source" &&
                 string.IsNullOrEmpty(CropWindow.crop) &&
-                vm.Video_FPS_SelectedItem == "auto" &&
-                vm.Video_Optimize_SelectedItem == "None" &&
+                VideoView.vm.Video_FPS_SelectedItem == "auto" &&
+                VideoView.vm.Video_Optimize_SelectedItem == "None" &&
 
                 // Extension Match
                 string.Equals(inputExt, outputExt, StringComparison.CurrentCultureIgnoreCase)
@@ -282,22 +282,22 @@ namespace Axiom
         /// <summary>
         ///    Copy Controls
         /// <summary>
-        public static void CopyControls(ViewModel vm)
+        public static void CopyControls()
         {
             // -------------------------
             // Conditions Check
             // Enable
             // -------------------------
-            if (AutoCopyConditionsCheck(vm, MainWindow.inputExt, MainWindow.outputExt) == true)
+            if (AutoCopyConditionsCheck(/*main_vm,*/ MainWindow.inputExt, MainWindow.outputExt) == true)
             {
                 // -------------------------
                 // Set Subtitle Codec Combobox Selected Item to Copy
                 // -------------------------
-                if (vm.Subtitle_Codec_Items.Count > 0)
+                if (SubtitleView.vm.Subtitle_Codec_Items.Count > 0)
                 {
-                    if (vm.Subtitle_Codec_Items?.Contains("Copy") == true)
+                    if (SubtitleView.vm.Subtitle_Codec_Items?.Contains("Copy") == true)
                     {
-                        vm.Subtitle_Codec_SelectedItem = "Copy";
+                        SubtitleView.vm.Subtitle_Codec_SelectedItem = "Copy";
                     }
                 }
             }
@@ -318,12 +318,12 @@ namespace Axiom
                 // -------------------------
                 // Null Check
                 // -------------------------
-                if (!string.IsNullOrEmpty(vm.Subtitle_Stream_SelectedItem))
+                if (!string.IsNullOrEmpty(SubtitleView.vm.Subtitle_Stream_SelectedItem))
                 {
                     // -------------------------
                     // Copy Selected 
                     // -------------------------
-                    if (vm.Subtitle_Codec_SelectedItem == "Copy")
+                    if (SubtitleView.vm.Subtitle_Codec_SelectedItem == "Copy")
                     {
                         // -------------------------
                         // Switch back to format's default codec
@@ -334,65 +334,65 @@ namespace Axiom
                             // -------------------------
                             // WebM
                             // -------------------------
-                            if (vm.Format_Container_SelectedItem == "webm")
+                            if (FormatView.vm.Format_Container_SelectedItem == "webm")
                             {
-                                vm.Subtitle_Codec_SelectedItem = "None";
+                                SubtitleView.vm.Subtitle_Codec_SelectedItem = "None";
                             }
                             // -------------------------
                             // MP4
                             // -------------------------
-                            else if (vm.Format_Container_SelectedItem == "mp4")
+                            else if (FormatView.vm.Format_Container_SelectedItem == "mp4")
                             {
-                                vm.Subtitle_Codec_SelectedItem = "MOV Text";
+                                SubtitleView.vm.Subtitle_Codec_SelectedItem = "MOV Text";
                             }
                             // -------------------------
                             // MKV
                             // -------------------------
-                            else if (vm.Format_Container_SelectedItem == "mkv")
+                            else if (FormatView.vm.Format_Container_SelectedItem == "mkv")
                             {
-                                vm.Subtitle_Codec_SelectedItem = "Copy";
+                                SubtitleView.vm.Subtitle_Codec_SelectedItem = "Copy";
                             }
                             // -------------------------
                             // MPG
                             // -------------------------
-                            else if (vm.Format_Container_SelectedItem == "mpg")
+                            else if (FormatView.vm.Format_Container_SelectedItem == "mpg")
                             {
-                                vm.Subtitle_Codec_SelectedItem = "Copy";
+                                SubtitleView.vm.Subtitle_Codec_SelectedItem = "Copy";
                             }
                             // -------------------------
                             // AVI
                             // -------------------------
-                            else if (vm.Format_Container_SelectedItem == "avi")
+                            else if (FormatView.vm.Format_Container_SelectedItem == "avi")
                             {
-                                vm.Subtitle_Codec_SelectedItem = "SRT";
+                                SubtitleView.vm.Subtitle_Codec_SelectedItem = "SRT";
                             }
                             // -------------------------
                             // OGV
                             // -------------------------
-                            else if (vm.Format_Container_SelectedItem == "ogv")
+                            else if (FormatView.vm.Format_Container_SelectedItem == "ogv")
                             {
-                                vm.Subtitle_Codec_SelectedItem = "None";
+                                SubtitleView.vm.Subtitle_Codec_SelectedItem = "None";
                             }
                             // -------------------------
                             // JPG
                             // -------------------------
-                            else if (vm.Format_Container_SelectedItem == "jpg")
+                            else if (FormatView.vm.Format_Container_SelectedItem == "jpg")
                             {
-                                vm.Subtitle_Codec_SelectedItem = "None";
+                                SubtitleView.vm.Subtitle_Codec_SelectedItem = "None";
                             }
                             // -------------------------
                             // PNG
                             // -------------------------
-                            else if (vm.Format_Container_SelectedItem == "png")
+                            else if (FormatView.vm.Format_Container_SelectedItem == "png")
                             {
-                                vm.Subtitle_Codec_SelectedItem = "None";
+                                SubtitleView.vm.Subtitle_Codec_SelectedItem = "None";
                             }
                             // -------------------------
                             // WebP
                             // -------------------------
-                            else if (vm.Format_Container_SelectedItem == "webp")
+                            else if (FormatView.vm.Format_Container_SelectedItem == "webp")
                             {
-                                vm.Subtitle_Codec_SelectedItem = "None";
+                                SubtitleView.vm.Subtitle_Codec_SelectedItem = "None";
                             }
                         }
                     }
@@ -404,23 +404,23 @@ namespace Axiom
         /// <summary>
         ///    Auto Codec Copy
         /// <summary>
-        public static void AutoCopySubtitleCodec(ViewModel vm)
+        public static void AutoCopySubtitleCodec()
         {
             // --------------------------------------------------
             // When Input Extension is Not Empty
             // --------------------------------------------------
             if (!string.IsNullOrEmpty(MainWindow.inputExt))
             {
-                CopyControls(vm);
+                CopyControls();
             }
 
             // --------------------------------------------------
             // When Input Extension is Empty
             // --------------------------------------------------
             else if (string.IsNullOrEmpty(MainWindow.inputExt) &&
-                vm.Audio_Codec_SelectedItem == "Copy")
+                AudioView.vm.Audio_Codec_SelectedItem == "Copy")
             {
-                CopyControls(vm);
+                CopyControls();
             }
         } 
 

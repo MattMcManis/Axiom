@@ -64,7 +64,7 @@ namespace Axiom
         //    // Slider Default 0
         //    // Limit to 2 decimal places
 
-        //    double value = vm.FilterAudio_RemoveClick.Value;
+        //    double value = FilterAudioView.vm.FilterAudio_RemoveClick.Value;
 
         //    string adeclick = string.Empty;
 
@@ -81,9 +81,9 @@ namespace Axiom
         /// <summary>
         ///     Lowpass (Method)
         /// <summary>
-        public static void Lowpass_Filter(ViewModel vm)
+        public static void Lowpass_Filter()
         {
-            if (vm.FilterAudio_Lowpass_SelectedItem == "enabled")
+            if (FilterAudioView.vm.FilterAudio_Lowpass_SelectedItem == "enabled")
             {
                 // -------------------------
                 // Add Filter to List
@@ -95,9 +95,9 @@ namespace Axiom
         /// <summary>
         ///     Highpass (Method)
         /// <summary>
-        public static void Highpass_Filter(ViewModel vm)
+        public static void Highpass_Filter()
         {
-            if (vm.FilterAudio_Highpass_SelectedItem == "enabled")
+            if (FilterAudioView.vm.FilterAudio_Highpass_SelectedItem == "enabled")
             {
                 // -------------------------
                 // Add Filter to List
@@ -110,7 +110,7 @@ namespace Axiom
         /// <summary>
         ///     Contrast (Method)
         /// <summary>
-        public static void Contrast_Filter(ViewModel vm)
+        public static void Contrast_Filter()
         {
             // FFmpeg Range 0 to 100
             // FFmpeg Default 33
@@ -118,7 +118,7 @@ namespace Axiom
             // Slider Default 0
             // Limit to 2 decimal places
 
-            double value = vm.FilterAudio_Contrast_Value;
+            double value = FilterAudioView.vm.FilterAudio_Contrast_Value;
 
             string acontrast = string.Empty;
 
@@ -135,7 +135,7 @@ namespace Axiom
         /// <summary>
         ///     Extra Stereo (Method)
         /// <summary>
-        public static void ExtraStereo_Filter(ViewModel vm)
+        public static void ExtraStereo_Filter()
         {
             // FFmpeg Range 0 to ??
             // FFmpeg Default 2.5
@@ -143,7 +143,7 @@ namespace Axiom
             // Slider Default 0
             // Limit to 2 decimal places
 
-            double value = vm.FilterAudio_ExtraStereo_Value;
+            double value = FilterAudioView.vm.FilterAudio_ExtraStereo_Value;
 
             string extrastereo = string.Empty;
 
@@ -187,9 +187,9 @@ namespace Axiom
         /// <summary>
         ///     Headphones (Method)
         /// <summary>
-        public static void Headphones_Filter(ViewModel vm)
+        public static void Headphones_Filter()
         {
-            if (vm.FilterAudio_Headphones_SelectedItem == "enabled")
+            if (FilterAudioView.vm.FilterAudio_Headphones_SelectedItem == "enabled")
             {
                 // -------------------------
                 // Add Filter to List
@@ -202,7 +202,7 @@ namespace Axiom
         /// <summary>
         ///     Tempo (Method)
         /// <summary>
-        public static void Tempo_Filter(ViewModel vm)
+        public static void Tempo_Filter()
         {
             // FFmpeg Range 0.5 to 2
             // FFmpeg Default 1.0
@@ -213,7 +213,7 @@ namespace Axiom
             // Example: Slow down audio to 80% tempo: atempo=0.8
             //          Speed up audio to 200% tempo: atempo=2
 
-            double value = vm.FilterAudio_Tempo_Value;
+            double value = FilterAudioView.vm.FilterAudio_Tempo_Value;
 
             string tempo = string.Empty;
 
@@ -230,7 +230,7 @@ namespace Axiom
         /// <summary>
         ///     Audio Filter Combine (Method)
         /// <summary>
-        public static String AudioFilter(ViewModel vm)
+        public static String AudioFilter()
         {
             // Audio BitRate None Check
             // Audio Codec None
@@ -238,13 +238,13 @@ namespace Axiom
             // Mute Check
             // Stream None Check
             // Media Type Check
-            if (vm.Audio_Quality_SelectedItem != "None"
-                && vm.Audio_Codec_SelectedItem != "None"
-                && vm.Audio_Codec_SelectedItem != "Copy"
-                && vm.Audio_Quality_SelectedItem != "Mute"
-                && vm.Audio_Stream_SelectedItem != "none"
-                && vm.Format_MediaType_SelectedItem != "Image"
-                && vm.Format_MediaType_SelectedItem != "Sequence")
+            if (AudioView.vm.Audio_Quality_SelectedItem != "None"
+                && AudioView.vm.Audio_Codec_SelectedItem != "None"
+                && AudioView.vm.Audio_Codec_SelectedItem != "Copy"
+                && AudioView.vm.Audio_Quality_SelectedItem != "Mute"
+                && AudioView.vm.Audio_Stream_SelectedItem != "none"
+                && FormatView.vm.Format_MediaType_SelectedItem != "Image"
+                && FormatView.vm.Format_MediaType_SelectedItem != "Sequence")
             {
                 // --------------------------------------------------
                 // Filters
@@ -252,12 +252,12 @@ namespace Axiom
                 // -------------------------
                 // Volume
                 // -------------------------
-                Audio.Volume(vm);
+                Audio.Volume();
 
                 // -------------------------
                 // Hard Limiter
                 // -------------------------
-                Audio.HardLimiter(vm);
+                Audio.HardLimiter();
 
                 // -------------------------
                 // Remove Click
@@ -267,38 +267,38 @@ namespace Axiom
                 // -------------------------
                 // Lowpass
                 // -------------------------
-                Lowpass_Filter(vm);
+                Lowpass_Filter();
 
                 // -------------------------
                 // Highpass
                 // -------------------------
-                Highpass_Filter(vm);
+                Highpass_Filter();
 
                 // -------------------------
                 // Contrast
                 // -------------------------
-                Contrast_Filter(vm);
+                Contrast_Filter();
 
                 // -------------------------
                 // Extra Stereo
                 // -------------------------
-                ExtraStereo_Filter(vm);
+                ExtraStereo_Filter();
 
                 // -------------------------
                 // Headphones
                 // -------------------------
-                Headphones_Filter(vm);
+                Headphones_Filter();
 
                 // -------------------------
                 // Tempo
                 // -------------------------
-                Tempo_Filter(vm);
+                Tempo_Filter();
 
 
                 // -------------------------
                 // Filter Combine
                 // -------------------------
-                if (vm.Audio_Codec_SelectedItem != "None") // None Check
+                if (AudioView.vm.Audio_Codec_SelectedItem != "None") // None Check
                 {
                     // -------------------------
                     // 1 Filter

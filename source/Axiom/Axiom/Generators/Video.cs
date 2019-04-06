@@ -299,7 +299,7 @@ namespace Axiom
         /// <summary>
         ///    Encode Speed
         /// <summary>
-        public static String VideoEncodeSpeed(List<ViewModel.VideoEncodeSpeed> encodeSpeedItems,
+        public static String VideoEncodeSpeed(List<VideoView.VideoEncodeSpeed> encodeSpeedItems,
                                               string encodeSpeed_SelectedItem,
                                               string codec_SelectedItem,
                                               string pass
@@ -355,7 +355,7 @@ namespace Axiom
         /// <summary>
         ///     BitRate Mode
         /// <summary>
-        public static String BitRateMode(List<ViewModel.VideoQuality> quality_Items,
+        public static String BitRateMode(List<VideoView.VideoQuality> quality_Items,
                                          string quality_SelectedItem,
                                          string bitrate_Text,
                                          bool vbr_IsChecked
@@ -402,7 +402,7 @@ namespace Axiom
                                        string container_SelectedItem,
                                        string mediaType_SelectedItem,
                                        string codec_SelectedItem,
-                                       List<ViewModel.VideoQuality> quality_Items,
+                                       List<VideoView.VideoQuality> quality_Items,
                                        string quality_SelectedItem,
                                        string pass_SelectedItem,
                                        string crf_Text,
@@ -604,7 +604,7 @@ namespace Axiom
         ///     Video Quality - Lossless
         /// <summary>
         public static void QualityLossless(string codec_SelectedItem,
-                                           List<ViewModel.VideoQuality> qualityItems
+                                           List<VideoView.VideoQuality> qualityItems
                                            )
         {
             // -------------------------
@@ -629,7 +629,7 @@ namespace Axiom
         ///     Video Quality - Custom
         /// <summary>
         public static void QualityCustom(bool vbr_IsChecked,
-                                         List<ViewModel.VideoQuality> quality_Items,
+                                         List<VideoView.VideoQuality> quality_Items,
                                          string quality_SelectedItem,
                                          string crf_Text,
                                          string bitrate_Text,
@@ -680,7 +680,7 @@ namespace Axiom
         /// <summary>
         public static void QualityPreset(bool vbr_IsChecked,
                                          string codec_SelectedItem,
-                                         List<ViewModel.VideoQuality> quality_Items,
+                                         List<VideoView.VideoQuality> quality_Items,
                                          string quality_SelectedItem,
                                          string pass_SelectedItem,
                                          string crf_Text,
@@ -782,7 +782,7 @@ namespace Axiom
                                           string container_SelectedItem,
                                           string mediaType_SelectedItem,
                                           string codec_SelectedItem,
-                                          List<ViewModel.VideoQuality> quality_Items,
+                                          List<VideoView.VideoQuality> quality_Items,
                                           string quality_SelectedItem,
                                           string pass_SelectedItem,
                                           string crf_Text,
@@ -1370,7 +1370,7 @@ namespace Axiom
         ///     Optimize
         /// <summary>
         public static String Optimize(string codec_SelectedItem,
-                                      List<ViewModel.VideoOptimize> optimize_Items,
+                                      List<VideoView.VideoOptimize> optimize_Items,
                                       string optimize_SelectedItem,
                                       string tune_SelectedItem,
                                       string profile_SelectedItem,
@@ -1674,9 +1674,8 @@ namespace Axiom
                     height = "trunc(ih/2)*2";
 
                     // -------------------------
-                    // Combine & Add Aspect Filter
+                    // Combine & Add Scaling Algorithm
                     // -------------------------
-                    //combine
                     scale = "scale=" + width + ":" + height + ScalingAlgorithm(scalingAlgorithm_SelectedItem);
 
                     // Video Filter Add
@@ -1711,6 +1710,14 @@ namespace Axiom
                         width = SizeWidthAuto(codec_SelectedItem);
                         height = height_Text;
                     }
+
+                    // -------------------------
+                    // Combine & Add Scaling Algorithm
+                    // -------------------------
+                    scale = "scale=" + width + ":" + height + ScalingAlgorithm(scalingAlgorithm_SelectedItem);
+
+                    // Video Filter Add
+                    VideoFilters.vFiltersList.Add(scale);
                 }
 
                 // -------------------------
@@ -1718,8 +1725,8 @@ namespace Axiom
                 // -------------------------
                 else if (size_SelectedItem == "Custom")
                 {
-                    MainWindow mainwindow = (MainWindow)System.Windows.Application.Current.MainWindow;
-                    ViewModel vm = mainwindow.DataContext as ViewModel;
+                    //MainWindow mainwindow = (MainWindow)System.Windows.Application.Current.MainWindow;
+                    //MainView vm = mainwindow.DataContext as MainView;
 
                     // Get width height from custom textbox
                     width = width_Text;
@@ -1728,12 +1735,12 @@ namespace Axiom
                     // Change the left over Default empty text to "auto"
                     if (string.Equals(width_Text, "", StringComparison.CurrentCultureIgnoreCase))
                     {
-                        vm.Video_Width_Text = "auto";
+                        VideoView.vm.Video_Width_Text = "auto";
                     }
 
                     if (string.Equals(height_Text, "", StringComparison.CurrentCultureIgnoreCase))
                     {
-                        vm.Video_Height_Text = "auto";
+                        VideoView.vm.Video_Height_Text = "auto";
                     }
 
                     // -------------------------
@@ -1755,6 +1762,14 @@ namespace Axiom
                         {
                             height = "-1";
                         }
+
+                        // -------------------------
+                        // Combine & Add Scaling Algorithm
+                        // -------------------------
+                        scale = "scale=" + width + ":" + height + ScalingAlgorithm(scalingAlgorithm_SelectedItem);
+
+                        // Video Filter Add
+                        VideoFilters.vFiltersList.Add(scale);
                     }
 
 
@@ -1764,10 +1779,10 @@ namespace Axiom
                     // Fix FFmpeg MP4 but (User entered value)
                     // Apply Fix to all scale effects above
                     //
-                    if (codec_SelectedItem == "x264" ||
-                        codec_SelectedItem == "x265" ||
-                        codec_SelectedItem == "MPEG-2" ||
-                        codec_SelectedItem == "MPEG-4")
+                    else if (codec_SelectedItem == "x264" ||
+                             codec_SelectedItem == "x265" ||
+                             codec_SelectedItem == "MPEG-2" ||
+                             codec_SelectedItem == "MPEG-4")
                     {
                         // -------------------------
                         // Width = Custom value
@@ -1776,16 +1791,19 @@ namespace Axiom
                         if (!string.Equals(width_Text, "auto", StringComparison.CurrentCultureIgnoreCase) &&
                             !string.Equals(height_Text, "auto", StringComparison.CurrentCultureIgnoreCase))
                         {
+                            // -------------------------
                             // Aspect Must be Cropped to be divisible by 2
                             // e.g. -vf "scale=777:777, crop=776:776:0:0"
-                            //
+                            // -------------------------
                             try
                             {
+                                // -------------------------
                                 // Only if Crop is already Empty
+                                // -------------------------
                                 // User Defined Crop should always override Divisible Crop
-                                // CropClearButton ~ is used as an Identifier, Divisible Crop does not leave "Clear*"
+                                // CropClear Button symbol * is used as an Identifier, Divisible Crop does not leave "Clear*"
                                 //
-                                if (cropClear_Text == "") // Crop Set Check
+                                if (cropClear_Text == "Clear") // Crop Set Check
                                 {
                                     // Temporary Strings
                                     // So not to Override User Defined Crop
@@ -1795,15 +1813,15 @@ namespace Axiom
                                     string cropY = "0";
 
                                     // int convert check
-                                    if (Int32.TryParse(width, out divisibleCropWidth) &&
-                                        Int32.TryParse(height, out divisibleCropHeight))
+                                    if (int.TryParse(width, out divisibleCropWidth) &&
+                                        int.TryParse(height, out divisibleCropHeight))
                                     {
-                                        // If not divisible by 2, subtract 1 from total
+                                        // If not divisible by 2, subtract 1 from value
 
                                         // Width
                                         if (divisibleCropWidth % 2 != 0)
                                         {
-                                            divisibleCropWidth -= 1;
+                                            divisibleCropHeight -= 1;
                                         }
                                         // Height
                                         if (divisibleCropHeight % 2 != 0)
@@ -1811,7 +1829,68 @@ namespace Axiom
                                             divisibleCropHeight -= 1;
                                         }
 
+                                        // Crop instead of Resizing to avoid stretching pixels
+                                        //width = divisibleCropHeight.ToString();
+                                        //height = divisibleCropHeight.ToString();
+
+                                        // -------------------------
+                                        // Combine & Add Scaling Algorithm
+                                        // -------------------------
+                                        scale = "scale=" + width + ":" + height + ScalingAlgorithm(scalingAlgorithm_SelectedItem);
+                                        VideoFilters.vFiltersList.Add(scale);
+
+                                        // Divisible Crop
                                         CropWindow.crop = Convert.ToString("crop=" + divisibleCropWidth + ":" + divisibleCropHeight + ":" + cropX + ":" + cropY);
+                                        VideoFilters.vFiltersList.Add(CropWindow.crop);
+                                    }
+                                }
+
+                                // -------------------------
+                                // If Crop has manually been set
+                                // -------------------------
+                                else if (cropClear_Text == "Clear*")
+                                {
+                                    // Temporary Strings
+                                    // So not to Override User Defined Crop
+                                    int divisibleCropWidth = Convert.ToInt32(width);
+                                    int divisibleCropHeight = Convert.ToInt32(height);
+                                    string cropX = "0";
+                                    string cropY = "0";
+
+                                    // int convert check
+                                    if (int.TryParse(width, out divisibleCropWidth) &&
+                                        int.TryParse(height, out divisibleCropHeight))
+                                    {
+                                        // If not divisible by 2, subtract 1 from value
+
+                                        // Width
+                                        if (divisibleCropWidth % 2 != 0)
+                                        {
+                                            divisibleCropHeight -= 1;
+                                        }
+                                        // Height
+                                        if (divisibleCropHeight % 2 != 0)
+                                        {
+                                            divisibleCropHeight -= 1;
+                                        }
+
+                                        // Crop instead of Resizing to avoid stretching pixels
+                                        //width = divisibleCropHeight.ToString();
+                                        //height = divisibleCropHeight.ToString();
+
+                                        // -------------------------
+                                        // Combine & Add Scaling Algorithm
+                                        // -------------------------
+                                        // Manual Crop - Crop what you want out of the video
+                                        VideoFilters.vFiltersList.Add(CropWindow.crop);
+
+                                        // Scale - Resize video
+                                        scale = "scale=" + width + ":" + height + ScalingAlgorithm(scalingAlgorithm_SelectedItem);
+                                        VideoFilters.vFiltersList.Add(scale);
+
+                                        // Divisible Crop - crop off the extra pixels
+                                        string divisibleCrop = Convert.ToString("crop=" + divisibleCropWidth + ":" + divisibleCropHeight + ":" + cropX + ":" + cropY);
+                                        VideoFilters.vFiltersList.Add(divisibleCrop);
                                     }
                                 }
                             }
@@ -1822,7 +1901,7 @@ namespace Axiom
                                 {
                                     Log.logParagraph.Inlines.Add(new LineBreak());
                                     Log.logParagraph.Inlines.Add(new LineBreak());
-                                    Log.logParagraph.Inlines.Add(new Bold(new Run("Warning: Must enter numbers only.")) { Foreground = Log.ConsoleWarning });
+                                    Log.logParagraph.Inlines.Add(new Bold(new Run("Notice: Must enter numbers only.")) { Foreground = Log.ConsoleWarning });
                                 };
                                 Log.LogActions.Add(Log.WriteAction);
 
@@ -1855,7 +1934,7 @@ namespace Axiom
                                 int divisibleHeight = Convert.ToInt32(height);
 
                                 // int convert check
-                                if (Int32.TryParse(height, out divisibleHeight))
+                                if (int.TryParse(height, out divisibleHeight))
                                 {
                                     // If not divisible by 2, subtract 1 from total
                                     if (divisibleHeight % 2 != 0)
@@ -1872,7 +1951,7 @@ namespace Axiom
                                 {
                                     Log.logParagraph.Inlines.Add(new LineBreak());
                                     Log.logParagraph.Inlines.Add(new LineBreak());
-                                    Log.logParagraph.Inlines.Add(new Bold(new Run("Warning: Must enter numbers only.")) { Foreground = Log.ConsoleWarning });
+                                    Log.logParagraph.Inlines.Add(new Bold(new Run("Notice: Must enter numbers only.")) { Foreground = Log.ConsoleWarning });
                                 };
                                 Log.LogActions.Add(Log.WriteAction);
 
@@ -1904,7 +1983,7 @@ namespace Axiom
                                 int divisibleWidth = Convert.ToInt32(width);
 
                                 // int convert check
-                                if (Int32.TryParse(width, out divisibleWidth))
+                                if (int.TryParse(width, out divisibleWidth))
                                 {
                                     // If not divisible by 2, subtract 1 from total
                                     if (divisibleWidth % 2 != 0)
@@ -1921,7 +2000,7 @@ namespace Axiom
                                 {
                                     Log.logParagraph.Inlines.Add(new LineBreak());
                                     Log.logParagraph.Inlines.Add(new LineBreak());
-                                    Log.logParagraph.Inlines.Add(new Bold(new Run("Warning: Must enter numbers only.")) { Foreground = Log.ConsoleWarning });
+                                    Log.logParagraph.Inlines.Add(new Bold(new Run("Notice: Must enter numbers only.")) { Foreground = Log.ConsoleWarning });
                                 };
                                 Log.LogActions.Add(Log.WriteAction);
 
@@ -1959,13 +2038,13 @@ namespace Axiom
                 } //end custom
 
 
-                // -------------------------
-                // Combine & Add Aspect Filter
-                // -------------------------
-                scale = "scale=" + width + ":" + height + ScalingAlgorithm(scalingAlgorithm_SelectedItem);
+                //// -------------------------
+                //// Combine & Add Scaling Algorithm
+                //// -------------------------
+                //scale = "scale=" + width + ":" + height + ScalingAlgorithm(scalingAlgorithm_SelectedItem);
 
-                // Video Filter Add
-                VideoFilters.vFiltersList.Add(scale);
+                //// Video Filter Add
+                //VideoFilters.vFiltersList.Add(scale);
 
             } //end Yes
 
@@ -2061,25 +2140,25 @@ namespace Axiom
         /// <summary>
         ///     Crop (Method)
         /// <summary>
-        public static void Crop(CropWindow cropwindow, ViewModel vm)
+        public static void Crop(CropWindow cropwindow)
         {
             // -------------------------
             // Clear
             // -------------------------
             // Clear leftover Divisible Crop if not x264/x265
             // CropClearButton is used as an Identifier, Divisible Crop does not leave "Clear*"
-            if (vm.Video_Codec_SelectedItem != "x264" &&
-                vm.Video_Codec_SelectedItem != "x265" &&
-                vm.Video_Codec_SelectedItem != "MPEG-2" &&
-                vm.Video_Codec_SelectedItem != "MPEG-4" &&
-                vm.Video_CropClear_Text == "Clear"
+            if (VideoView.vm.Video_Codec_SelectedItem != "x264" &&
+                VideoView.vm.Video_Codec_SelectedItem != "x265" &&
+                VideoView.vm.Video_Codec_SelectedItem != "MPEG-2" &&
+                VideoView.vm.Video_Codec_SelectedItem != "MPEG-4" &&
+                VideoView.vm.Video_CropClear_Text == "Clear"
                 )
             {
                 CropWindow.crop = string.Empty;
             }
 
             // Clear Crop if MediaTypeControls is Audio
-            if (vm.Format_MediaType_SelectedItem == "Audio")
+            if (FormatView.vm.Format_MediaType_SelectedItem == "Audio")
             {
                 CropWindow.crop = string.Empty;
             }

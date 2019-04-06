@@ -32,16 +32,16 @@ namespace Axiom
         // ---------------------------------------------------------------------------
         // Codec
         // ---------------------------------------------------------------------------
-        public static List<ViewModel.SubtitleCodec> codec = new List<ViewModel.SubtitleCodec>()
+        public static List<SubtitleView.SubtitleCodec> codec = new List<SubtitleView.SubtitleCodec>()
         {
-             new ViewModel.SubtitleCodec()
+             new SubtitleView.SubtitleCodec()
              {
                  Codec = "ass",
                  Parameters = ""
              }
         };
 
-        public static void Codec_Set(ViewModel vm)
+        public static void Codec_Set()
         {
             // Combine Codec + Parameters
             List<string> codec = new List<string>()
@@ -51,7 +51,7 @@ namespace Axiom
                 SSA.codec.FirstOrDefault()?.Parameters
             };
 
-            vm.Subtitle_Codec = string.Join(" ", codec.Where(s => !string.IsNullOrEmpty(s)));
+            SubtitleView.vm.Subtitle_Codec = string.Join(" ", codec.Where(s => !string.IsNullOrEmpty(s)));
         }
 
         // -------------------------
@@ -80,24 +80,24 @@ namespace Axiom
         // -------------------------
         // Items Source
         // -------------------------
-        public static void Controls_ItemsSource(ViewModel vm)
+        public static void Controls_ItemsSource()
         {
-            vm.Subtitle_Stream_Items = stream;
+            SubtitleView.vm.Subtitle_Stream_Items = stream;
         }
 
         // -------------------------
         // Selected Items
         // -------------------------
-        public static void Controls_Selected(ViewModel vm)
+        public static void Controls_Selected()
         {
             // Stream
-            vm.Subtitle_Stream_SelectedItem = "all";
+            SubtitleView.vm.Subtitle_Stream_SelectedItem = "all";
         }
 
         // -------------------------
         // Checked
         // -------------------------
-        public static void Controls_Checked(ViewModel vm)
+        public static void Controls_Checked()
         {
             // None
         }
@@ -105,7 +105,7 @@ namespace Axiom
         // -------------------------
         // Unchecked
         // -------------------------
-        public static void Controls_Unhecked(ViewModel vm)
+        public static void Controls_Unhecked()
         {
             // None
         }
@@ -113,13 +113,13 @@ namespace Axiom
         // -------------------------
         // Enabled
         // -------------------------
-        public static void Controls_Enable(ViewModel vm)
+        public static void Controls_Enable()
         {
             // Subtitle Codec
-            vm.Subtitle_Codec_IsEnabled = true;
+            SubtitleView.vm.Subtitle_Codec_IsEnabled = true;
 
             // Subtitle Stream
-            vm.Subtitle_Stream_IsEnabled = true;
+            SubtitleView.vm.Subtitle_Stream_IsEnabled = true;
 
             // Subtitle List View
             // Controlled in cboSubtitle_Stream_SelectionChanged
@@ -128,7 +128,7 @@ namespace Axiom
         // -------------------------
         // Disabled
         // -------------------------
-        public static void Controls_Disable(ViewModel vm)
+        public static void Controls_Disable()
         {
             // None
         }

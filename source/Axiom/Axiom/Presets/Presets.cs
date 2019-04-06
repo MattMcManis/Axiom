@@ -30,195 +30,198 @@ namespace Axiom
 {
     public class Presets
     {
-        public static void SetPreset(ViewModel vm)
+        public static void SetPreset()
         {
             // -------------------------
             // Custom
             // -------------------------
             //// Custom ComboBox Editable
-            //if (vm.Preset_SelectedItem == "Custom")
+            //if (MainView.vm.Preset_SelectedItem == "Custom")
             //{
-            //    //vm.Preset.IsEditable = true;
+            //    //MainView.vm.Preset.IsEditable = true;
             //}
             //// Maintain Editable Combobox while typing
-            //if (vm.Preset.IsEditable == true)
+            //if (MainView.vm.Preset.IsEditable == true)
             //{
-            //    //vm.Preset.IsEditable = true;
+            //    //MainView.vm.Preset.IsEditable = true;
 
             //    // Clear Custom Text
-            //    //vm.Preset.Text = string.Empty;
+            //    //MainView.vm.Preset.Text = string.Empty;
             //}
 
-            //System.Windows.MessageBox.Show(vm.Preset_SelectedItem); //debug
+            //System.Windows.MessageBox.Show(MainView.vm.Preset_SelectedItem); //debug
 
             // ---------------------------------------------------------------------------
             // Default
             // ---------------------------------------------------------------------------
-            if (vm.Preset_SelectedItem == "Preset")
+            if (MainView.vm.Preset_SelectedItem == "Preset")
             {
                 // -------------------------
                 // Default Video
                 // -------------------------
-                if (vm.Format_Container_SelectedItem == "webm" ||
-                    vm.Format_Container_SelectedItem == "mp4" ||
-                    vm.Format_Container_SelectedItem == "mkv" ||
-                    vm.Format_Container_SelectedItem == "m2v" ||
-                    vm.Format_Container_SelectedItem == "mpg" ||
-                    vm.Format_Container_SelectedItem == "avi" ||
-                    vm.Format_Container_SelectedItem == "ogv" ||
-                    vm.Format_Container_SelectedItem == "jpg" ||
-                    vm.Format_Container_SelectedItem == "png" ||
-                    vm.Format_Container_SelectedItem == "webp")
+                if (FormatView.vm.Format_Container_SelectedItem == "webm" ||
+                    FormatView.vm.Format_Container_SelectedItem == "mp4" ||
+                    FormatView.vm.Format_Container_SelectedItem == "mkv" ||
+                    FormatView.vm.Format_Container_SelectedItem == "m2v" ||
+                    FormatView.vm.Format_Container_SelectedItem == "mpg" ||
+                    FormatView.vm.Format_Container_SelectedItem == "avi" ||
+                    FormatView.vm.Format_Container_SelectedItem == "ogv" ||
+                    FormatView.vm.Format_Container_SelectedItem == "jpg" ||
+                    FormatView.vm.Format_Container_SelectedItem == "png" ||
+                    FormatView.vm.Format_Container_SelectedItem == "webp")
                 {
-                    //vm.Preset.IsEditable = false;
+                    //MainView.vm.Preset.IsEditable = false;
 
                     // Format
-                    //vm.Format_Container_SelectedItem = vm.Format_Container_Items.FirstOrDefault();
-                    vm.Format_Container_SelectedItem = "webm";
-                    vm.Format_Cut_SelectedItem = "No";
-                    vm.Format_CutStart_Hours_Text = "00";
-                    vm.Format_CutStart_Minutes_Text = "00";
-                    vm.Format_CutStart_Seconds_Text = "00";
-                    vm.Format_CutStart_Milliseconds_Text = "000";
-                    vm.Format_CutEnd_Hours_Text = "00";
-                    vm.Format_CutEnd_Minutes_Text = "00";
-                    vm.Format_CutEnd_Seconds_Text = "00";
-                    vm.Format_CutEnd_Milliseconds_Text = "000";
-                    vm.Format_YouTube_SelectedItem = "Video + Audio";
-                    vm.Format_YouTube_Quality_SelectedItem = "best";
+                    //FormatView.vm.Format_Container_SelectedItem = FormatView.vm.Format_Container_Items.FirstOrDefault();
+                    FormatView.vm.Format_Container_SelectedItem = "webm";
+                    FormatView.vm.Format_Cut_SelectedItem = "No";
+                    FormatView.vm.Format_CutStart_Hours_Text = "00";
+                    FormatView.vm.Format_CutStart_Minutes_Text = "00";
+                    FormatView.vm.Format_CutStart_Seconds_Text = "00";
+                    FormatView.vm.Format_CutStart_Milliseconds_Text = "000";
+                    FormatView.vm.Format_CutEnd_Hours_Text = "00";
+                    FormatView.vm.Format_CutEnd_Minutes_Text = "00";
+                    FormatView.vm.Format_CutEnd_Seconds_Text = "00";
+                    FormatView.vm.Format_CutEnd_Milliseconds_Text = "000";
+                    FormatView.vm.Format_YouTube_SelectedItem = "Video + Audio";
+                    FormatView.vm.Format_YouTube_Quality_SelectedItem = "best";
 
                     // Video
-                    //vm.Video_Codec_SelectedItem = "VP8";
-                    vm.Video_EncodeSpeed_SelectedItem = "Medium";
-                    vm.Video_Quality_SelectedItem = "Auto";
-                    vm.Video_Pass_SelectedItem = "CRF";
-                    vm.Video_BitRate_Text = "";
-                    vm.Video_MinRate_Text = "";
-                    vm.Video_MaxRate_Text = "";
-                    vm.Video_BufSize_Text = "";
-                    vm.Video_FPS_SelectedItem = "auto";
-                    vm.Video_Speed_SelectedItem = "auto";
-                    vm.Video_Scale_SelectedItem = "Source";
-                    vm.Video_ScreenFormat_SelectedItem = "Widescreen";
-                    vm.Video_ScalingAlgorithm_SelectedItem = "auto";
-                    vm.Video_AspectRatio_SelectedItem = "auto";
-                    vm.Video_Crop_X_Text = "";
-                    vm.Video_Crop_Y_Text = "";
-                    vm.Video_Crop_Width_Text = "";
-                    vm.Video_Crop_Height_Text = "";
-                    vm.Video_CropClear_Text = "Clear";
+                    //VideoView.vm.Video_Codec_SelectedItem = "VP8";
+                    VideoView.vm.Video_EncodeSpeed_SelectedItem = "Medium";
+                    VideoView.vm.Video_Quality_SelectedItem = "Auto";
+                    VideoView.vm.Video_Pass_SelectedItem = "CRF";
+                    VideoView.vm.Video_BitRate_Text = "";
+                    VideoView.vm.Video_MinRate_Text = "";
+                    VideoView.vm.Video_MaxRate_Text = "";
+                    VideoView.vm.Video_BufSize_Text = "";
+                    VideoView.vm.Video_FPS_SelectedItem = "auto";
+                    VideoView.vm.Video_Speed_SelectedItem = "auto";
+                    VideoView.vm.Video_Scale_SelectedItem = "Source";
+                    VideoView.vm.Video_ScreenFormat_SelectedItem = "Widescreen";
+                    VideoView.vm.Video_ScalingAlgorithm_SelectedItem = "auto";
+                    VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
+                    VideoView.vm.Video_Crop_X_Text = "";
+                    VideoView.vm.Video_Crop_Y_Text = "";
+                    VideoView.vm.Video_Crop_Width_Text = "";
+                    VideoView.vm.Video_Crop_Height_Text = "";
+                    VideoView.vm.Video_CropClear_Text = "Clear";
 
                     // Subtitle
-                    //vm.Subtitle_Codec_SelectedItem = "None";
-                    vm.Subtitle_Stream_SelectedItem = "none";
+                    //SubtitleView.vm.Subtitle_Codec_SelectedItem = "None";
+                    SubtitleView.vm.Subtitle_Stream_SelectedItem = "none";
 
                     // Audio
-                    //vm.Audio_Codec_SelectedItem = "Vorbis";
-                    vm.Audio_Stream_SelectedItem = "all";
-                    vm.Audio_Channel_SelectedItem = "Source";
-                    vm.Audio_Quality_SelectedItem = "Auto";
-                    vm.Audio_SampleRate_SelectedItem = "auto";
-                    vm.Audio_BitDepth_SelectedItem = "auto";
-                    vm.Audio_Volume_Text = "100";
-                    vm.Audio_HardLimiter_Value = 1;
+                    //AudioView.vm.Audio_Codec_SelectedItem = "Vorbis";
+                    AudioView.vm.Audio_Stream_SelectedItem = "all";
+                    AudioView.vm.Audio_Channel_SelectedItem = "Source";
+                    AudioView.vm.Audio_Quality_SelectedItem = "Auto";
+                    AudioView.vm.Audio_SampleRate_SelectedItem = "auto";
+                    AudioView.vm.Audio_BitDepth_SelectedItem = "auto";
+                    AudioView.vm.Audio_Volume_Text = "100";
+                    AudioView.vm.Audio_HardLimiter_Value = 1;
 
                     // special rules for webm
-                    if (vm.Format_Container_SelectedItem == "webm")
+                    if (FormatView.vm.Format_Container_SelectedItem == "webm")
                     {
-                        vm.Subtitle_Stream_SelectedItem = "none";
-                        vm.Audio_Stream_SelectedItem = "1";
-                        vm.Video_Optimize_SelectedItem = "Web";
+                        SubtitleView.vm.Subtitle_Stream_SelectedItem = "none";
+                        AudioView.vm.Audio_Stream_SelectedItem = "1";
+                        VideoView.vm.Video_Optimize_SelectedItem = "Web";
                     }
                     else
                     {
-                        vm.Video_Optimize_SelectedItem = "None";
-                        vm.Video_Optimize_Tune_SelectedItem = "none";
-                        vm.Video_Optimize_Profile_SelectedItem = "main";
-                        vm.Video_Optimize_Level_SelectedItem = "5.2";
+                        VideoView.vm.Video_Optimize_SelectedItem = "None";
+                        VideoView.vm.Video_Video_Optimize_Tune_SelectedItem = "none";
+                        VideoView.vm.Video_Video_Optimize_Profile_SelectedItem = "main";
+                        VideoView.vm.Video_Optimize_Level_SelectedItem = "5.2";
                     }
 
                     // Filters
-                    vm.LoadFiltersDefault();
+                    FilterVideoView.vm.LoadFilterVideoDefaults();
+                    FilterAudioView.vm.LoadFilterAudioDefaults();
 
                 }
 
                 // -------------------------
                 // Default Audio
                 // -------------------------
-                else if (vm.Format_Container_SelectedItem == "m4a" ||
-                         vm.Format_Container_SelectedItem == "mp3" ||
-                         vm.Format_Container_SelectedItem == "ogg" ||
-                         vm.Format_Container_SelectedItem == "flac" ||
-                         vm.Format_Container_SelectedItem == "wav")
+                else if (FormatView.vm.Format_Container_SelectedItem == "m4a" ||
+                         FormatView.vm.Format_Container_SelectedItem == "mp3" ||
+                         FormatView.vm.Format_Container_SelectedItem == "ogg" ||
+                         FormatView.vm.Format_Container_SelectedItem == "flac" ||
+                         FormatView.vm.Format_Container_SelectedItem == "wav")
                 {
-                    //vm.Preset.IsEditable = false;
+                    //MainView.vm.Preset.IsEditable = false;
 
                     // Format
-                    //vm.Format_Container_SelectedItem = vm.Format_Container_Items.FirstOrDefault();
-                    //vm.Format_Container_SelectedIndex = 1;
-                    vm.Format_Container_SelectedItem = "mp3";
-                    vm.Format_Cut_SelectedItem = "No";
-                    vm.Format_CutStart_Hours_Text = "00";
-                    vm.Format_CutStart_Minutes_Text = "00";
-                    vm.Format_CutStart_Seconds_Text = "00";
-                    vm.Format_CutStart_Milliseconds_Text = "000";
-                    vm.Format_CutEnd_Hours_Text = "00";
-                    vm.Format_CutEnd_Minutes_Text = "00";
-                    vm.Format_CutEnd_Seconds_Text = "00";
-                    vm.Format_CutEnd_Milliseconds_Text = "000";
-                    vm.Format_YouTube_SelectedItem = "Video + Audio";
-                    vm.Format_YouTube_Quality_SelectedItem = "best";
+                    //FormatView.vm.Format_Container_SelectedItem = FormatView.vm.Format_Container_Items.FirstOrDefault();
+                    //FormatView.vm.Format_Container_SelectedIndex = 1;
+                    FormatView.vm.Format_Container_SelectedItem = "mp3";
+                    FormatView.vm.Format_Cut_SelectedItem = "No";
+                    FormatView.vm.Format_CutStart_Hours_Text = "00";
+                    FormatView.vm.Format_CutStart_Minutes_Text = "00";
+                    FormatView.vm.Format_CutStart_Seconds_Text = "00";
+                    FormatView.vm.Format_CutStart_Milliseconds_Text = "000";
+                    FormatView.vm.Format_CutEnd_Hours_Text = "00";
+                    FormatView.vm.Format_CutEnd_Minutes_Text = "00";
+                    FormatView.vm.Format_CutEnd_Seconds_Text = "00";
+                    FormatView.vm.Format_CutEnd_Milliseconds_Text = "000";
+                    FormatView.vm.Format_YouTube_SelectedItem = "Video + Audio";
+                    FormatView.vm.Format_YouTube_Quality_SelectedItem = "best";
 
                     // Video
-                    vm.Video_Codec_SelectedItem = "None";
-                    vm.Video_EncodeSpeed_SelectedItem = "none";
-                    vm.Video_Quality_SelectedItem = "None";
-                    vm.Video_Pass_SelectedItem = "auto";
-                    vm.Video_BitRate_Text = "";
-                    vm.Video_MinRate_Text = "";
-                    vm.Video_MaxRate_Text = "";
-                    vm.Video_BufSize_Text = "";
-                    vm.Video_PixelFormat_SelectedItem = "none";
-                    vm.Video_FPS_SelectedItem = "auto";
-                    vm.Video_Speed_SelectedItem = "auto";
-                    vm.Video_Optimize_SelectedItem = "None";
-                    vm.Video_Scale_SelectedItem = "Source";
-                    vm.Video_ScreenFormat_SelectedItem = "Widescreen";
-                    vm.Video_ScalingAlgorithm_SelectedItem = "auto";
-                    vm.Video_AspectRatio_SelectedItem = "auto";
-                    vm.Video_AspectRatio_SelectedItem = "auto";
-                    vm.Video_Crop_X_Text = "";
-                    vm.Video_Crop_Y_Text = "";
-                    vm.Video_Crop_Width_Text = "";
-                    vm.Video_Crop_Height_Text = "";
-                    vm.Video_CropClear_Text = "Clear";
+                    VideoView.vm.Video_Codec_SelectedItem = "None";
+                    VideoView.vm.Video_EncodeSpeed_SelectedItem = "none";
+                    VideoView.vm.Video_Quality_SelectedItem = "None";
+                    VideoView.vm.Video_Pass_SelectedItem = "auto";
+                    VideoView.vm.Video_BitRate_Text = "";
+                    VideoView.vm.Video_MinRate_Text = "";
+                    VideoView.vm.Video_MaxRate_Text = "";
+                    VideoView.vm.Video_BufSize_Text = "";
+                    VideoView.vm.Video_PixelFormat_SelectedItem = "none";
+                    VideoView.vm.Video_FPS_SelectedItem = "auto";
+                    VideoView.vm.Video_Speed_SelectedItem = "auto";
+                    VideoView.vm.Video_Optimize_SelectedItem = "None";
+                    VideoView.vm.Video_Scale_SelectedItem = "Source";
+                    VideoView.vm.Video_ScreenFormat_SelectedItem = "Widescreen";
+                    VideoView.vm.Video_ScalingAlgorithm_SelectedItem = "auto";
+                    VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
+                    VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
+                    VideoView.vm.Video_Crop_X_Text = "";
+                    VideoView.vm.Video_Crop_Y_Text = "";
+                    VideoView.vm.Video_Crop_Width_Text = "";
+                    VideoView.vm.Video_Crop_Height_Text = "";
+                    VideoView.vm.Video_CropClear_Text = "Clear";
 
                     // Subtitle
-                    vm.Subtitle_Codec_SelectedItem = "None";
-                    vm.Subtitle_Stream_SelectedItem = "none";
+                    SubtitleView.vm.Subtitle_Codec_SelectedItem = "None";
+                    SubtitleView.vm.Subtitle_Stream_SelectedItem = "none";
 
                     // Audio
-                    vm.Audio_Codec_SelectedItem = "LAME";
-                    vm.Audio_Stream_SelectedItem = "1";
-                    vm.Audio_Channel_SelectedItem = "Source";
-                    vm.Audio_Quality_SelectedItem = "Auto";
-                    vm.Audio_CompressionLevel_SelectedItem = "auto";
-                    vm.Audio_SampleRate_SelectedItem = "auto";
+                    AudioView.vm.Audio_Codec_SelectedItem = "LAME";
+                    AudioView.vm.Audio_Stream_SelectedItem = "1";
+                    AudioView.vm.Audio_Channel_SelectedItem = "Source";
+                    AudioView.vm.Audio_Quality_SelectedItem = "Auto";
+                    AudioView.vm.Audio_VBR_IsChecked = false;
+                    AudioView.vm.Audio_CompressionLevel_SelectedItem = "auto";
+                    AudioView.vm.Audio_SampleRate_SelectedItem = "auto";
                     // special rules for PCM codec
-                    if (vm.Audio_Codec_SelectedItem == "PCM")
+                    if (AudioView.vm.Audio_Codec_SelectedItem == "PCM")
                     {
-                        vm.Audio_BitDepth_SelectedItem = "24";
+                        AudioView.vm.Audio_BitDepth_SelectedItem = "24";
                     }
                     else
                     {
-                        vm.Audio_BitDepth_SelectedItem = "auto";
+                        AudioView.vm.Audio_BitDepth_SelectedItem = "auto";
                     }
 
-                    vm.Audio_Volume_Text = "100";
-                    vm.Audio_HardLimiter_Value = 1;
+                    AudioView.vm.Audio_Volume_Text = "100";
+                    AudioView.vm.Audio_HardLimiter_Value = 1;
 
                     // Filters
-                    vm.LoadFiltersDefault();
+                    FilterVideoView.vm.LoadFilterVideoDefaults();
+                    FilterAudioView.vm.LoadFilterAudioDefaults();
                 }
             }
 
@@ -229,131 +232,133 @@ namespace Axiom
             // -------------------------
             // HTML5
             // -------------------------
-            else if (vm.Preset_SelectedItem == "HTML5")
+            else if (MainView.vm.Preset_SelectedItem == "HTML5")
             {
-                //vm.Preset.IsEditable = false;
+                //MainView.vm.Preset.IsEditable = false;
 
                 // Format
-                vm.Format_Container_SelectedItem = "webm";
-                vm.Format_Cut_SelectedItem = "No";
-                vm.Format_CutStart_Hours_Text = "00";
-                vm.Format_CutStart_Minutes_Text = "00";
-                vm.Format_CutStart_Seconds_Text = "00";
-                vm.Format_CutStart_Milliseconds_Text = "000";
-                vm.Format_CutEnd_Hours_Text = "00";
-                vm.Format_CutEnd_Minutes_Text = "00";
-                vm.Format_CutEnd_Seconds_Text = "00";
-                vm.Format_CutEnd_Milliseconds_Text = "000";
-                vm.Format_YouTube_SelectedItem = "Video + Audio";
-                vm.Format_YouTube_Quality_SelectedItem = "best";
+                FormatView.vm.Format_Container_SelectedItem = "webm";
+                FormatView.vm.Format_Cut_SelectedItem = "No";
+                FormatView.vm.Format_CutStart_Hours_Text = "00";
+                FormatView.vm.Format_CutStart_Minutes_Text = "00";
+                FormatView.vm.Format_CutStart_Seconds_Text = "00";
+                FormatView.vm.Format_CutStart_Milliseconds_Text = "000";
+                FormatView.vm.Format_CutEnd_Hours_Text = "00";
+                FormatView.vm.Format_CutEnd_Minutes_Text = "00";
+                FormatView.vm.Format_CutEnd_Seconds_Text = "00";
+                FormatView.vm.Format_CutEnd_Milliseconds_Text = "000";
+                FormatView.vm.Format_YouTube_SelectedItem = "Video + Audio";
+                FormatView.vm.Format_YouTube_Quality_SelectedItem = "best";
 
                 // Video
-                vm.Video_Codec_SelectedItem = "VP8";
-                vm.Video_EncodeSpeed_SelectedItem = "Medium";
-                vm.Video_Quality_SelectedItem = "Medium";
-                vm.Video_Pass_SelectedItem = "CRF";
-                //vm.Video_BitRate_Text = ""; // use quality preset bitrate
-                vm.Video_MinRate_Text = "";
-                vm.Video_MaxRate_Text = "";
-                vm.Video_BufSize_Text = "";
-                vm.Video_PixelFormat_SelectedItem = "yuv420p";
-                vm.Video_FPS_SelectedItem = "auto";
-                vm.Video_Speed_SelectedItem = "auto";
-                vm.Video_Optimize_SelectedItem = "Web";
-                vm.Video_Scale_SelectedItem = "Source";
-                vm.Video_ScreenFormat_SelectedItem = "Widescreen";
-                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
-                vm.Video_AspectRatio_SelectedItem = "auto";
-                vm.Video_AspectRatio_SelectedItem = "auto";
-                vm.Video_Crop_X_Text = "";
-                vm.Video_Crop_Y_Text = "";
-                vm.Video_Crop_Width_Text = "";
-                vm.Video_Crop_Height_Text = "";
-                vm.Video_CropClear_Text = "Clear";
+                VideoView.vm.Video_Codec_SelectedItem = "VP8";
+                VideoView.vm.Video_EncodeSpeed_SelectedItem = "Medium";
+                VideoView.vm.Video_Quality_SelectedItem = "Medium";
+                VideoView.vm.Video_Pass_SelectedItem = "CRF";
+                //VideoView.vm.Video_BitRate_Text = ""; // use quality preset bitrate
+                VideoView.vm.Video_MinRate_Text = "";
+                VideoView.vm.Video_MaxRate_Text = "";
+                VideoView.vm.Video_BufSize_Text = "";
+                VideoView.vm.Video_PixelFormat_SelectedItem = "yuv420p";
+                VideoView.vm.Video_FPS_SelectedItem = "auto";
+                VideoView.vm.Video_Speed_SelectedItem = "auto";
+                VideoView.vm.Video_Optimize_SelectedItem = "Web";
+                VideoView.vm.Video_Scale_SelectedItem = "Source";
+                VideoView.vm.Video_ScreenFormat_SelectedItem = "Widescreen";
+                VideoView.vm.Video_ScalingAlgorithm_SelectedItem = "auto";
+                VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
+                VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
+                VideoView.vm.Video_Crop_X_Text = "";
+                VideoView.vm.Video_Crop_Y_Text = "";
+                VideoView.vm.Video_Crop_Width_Text = "";
+                VideoView.vm.Video_Crop_Height_Text = "";
+                VideoView.vm.Video_CropClear_Text = "Clear";
 
                 // Subtitle
-                vm.Subtitle_Codec_SelectedItem = "None";
-                vm.Subtitle_Stream_SelectedItem = "none";
+                SubtitleView.vm.Subtitle_Codec_SelectedItem = "None";
+                SubtitleView.vm.Subtitle_Stream_SelectedItem = "none";
 
                 // Audio
-                vm.Audio_Codec_SelectedItem = "Vorbis";
-                vm.Audio_Stream_SelectedItem = "1";
-                vm.Audio_Channel_SelectedItem = "Stereo";
-                vm.Audio_Quality_SelectedItem = "192";
-                vm.Audio_VBR_IsChecked = true;
-                vm.Audio_CompressionLevel_SelectedItem = "auto";
-                vm.Audio_SampleRate_SelectedItem = "44.1k";
-                vm.Audio_BitDepth_SelectedItem = "auto";
-                vm.Audio_Volume_Text = "100";
-                vm.Audio_HardLimiter_Value = 1;
+                AudioView.vm.Audio_Codec_SelectedItem = "Vorbis";
+                AudioView.vm.Audio_Stream_SelectedItem = "1";
+                AudioView.vm.Audio_Channel_SelectedItem = "Stereo";
+                AudioView.vm.Audio_Quality_SelectedItem = "192";
+                AudioView.vm.Audio_VBR_IsChecked = true;
+                AudioView.vm.Audio_CompressionLevel_SelectedItem = "auto";
+                AudioView.vm.Audio_SampleRate_SelectedItem = "44.1k";
+                AudioView.vm.Audio_BitDepth_SelectedItem = "auto";
+                AudioView.vm.Audio_Volume_Text = "100";
+                AudioView.vm.Audio_HardLimiter_Value = 1;
 
                 // Filters
-                vm.LoadFiltersDefault();
+                FilterVideoView.vm.LoadFilterVideoDefaults();
+                FilterAudioView.vm.LoadFilterAudioDefaults();
             }
 
             // -------------------------
             // YouTube
             // -------------------------
-            else if (vm.Preset_SelectedItem == "YouTube")
+            else if (MainView.vm.Preset_SelectedItem == "YouTube")
             {
-                //vm.Preset.IsEditable = false;
+                //MainView.vm.Preset.IsEditable = false;
 
                 // Format
-                vm.Format_Container_SelectedItem = "mp4";
-                vm.Format_Cut_SelectedItem = "No";
-                vm.Format_CutStart_Hours_Text = "00";
-                vm.Format_CutStart_Minutes_Text = "00";
-                vm.Format_CutStart_Seconds_Text = "00";
-                vm.Format_CutStart_Milliseconds_Text = "000";
-                vm.Format_CutEnd_Hours_Text = "00";
-                vm.Format_CutEnd_Minutes_Text = "00";
-                vm.Format_CutEnd_Seconds_Text = "00";
-                vm.Format_CutEnd_Milliseconds_Text = "000";
-                vm.Format_YouTube_SelectedItem = "Video + Audio";
-                vm.Format_YouTube_Quality_SelectedItem = "best";
+                FormatView.vm.Format_Container_SelectedItem = "mp4";
+                FormatView.vm.Format_Cut_SelectedItem = "No";
+                FormatView.vm.Format_CutStart_Hours_Text = "00";
+                FormatView.vm.Format_CutStart_Minutes_Text = "00";
+                FormatView.vm.Format_CutStart_Seconds_Text = "00";
+                FormatView.vm.Format_CutStart_Milliseconds_Text = "000";
+                FormatView.vm.Format_CutEnd_Hours_Text = "00";
+                FormatView.vm.Format_CutEnd_Minutes_Text = "00";
+                FormatView.vm.Format_CutEnd_Seconds_Text = "00";
+                FormatView.vm.Format_CutEnd_Milliseconds_Text = "000";
+                FormatView.vm.Format_YouTube_SelectedItem = "Video + Audio";
+                FormatView.vm.Format_YouTube_Quality_SelectedItem = "best";
 
                 // Video
-                vm.Video_Codec_SelectedItem = "x264";
-                vm.Video_EncodeSpeed_SelectedItem = "Medium";
-                vm.Video_Quality_SelectedItem = "Ultra";
-                vm.Video_Pass_SelectedItem = "CRF";
-                vm.Video_BitRate_Text = "";
-                vm.Video_MinRate_Text = "";
-                vm.Video_MaxRate_Text = "";
-                vm.Video_BufSize_Text = "";
-                vm.Video_PixelFormat_SelectedItem = "yuv420p";
-                vm.Video_FPS_SelectedItem = "auto";
-                vm.Video_Speed_SelectedItem = "auto";
-                vm.Video_Optimize_SelectedItem = "Web";
-                vm.Video_Scale_SelectedItem = "Source";
-                vm.Video_ScreenFormat_SelectedItem = "Widescreen";
-                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
-                vm.Video_AspectRatio_SelectedItem = "auto";
-                vm.Video_AspectRatio_SelectedItem = "auto";
-                vm.Video_Crop_X_Text = "";
-                vm.Video_Crop_Y_Text = "";
-                vm.Video_Crop_Width_Text = "";
-                vm.Video_Crop_Height_Text = "";
-                vm.Video_CropClear_Text = "Clear";
+                VideoView.vm.Video_Codec_SelectedItem = "x264";
+                VideoView.vm.Video_EncodeSpeed_SelectedItem = "Medium";
+                VideoView.vm.Video_Quality_SelectedItem = "Ultra";
+                VideoView.vm.Video_Pass_SelectedItem = "CRF";
+                VideoView.vm.Video_BitRate_Text = "";
+                VideoView.vm.Video_MinRate_Text = "";
+                VideoView.vm.Video_MaxRate_Text = "";
+                VideoView.vm.Video_BufSize_Text = "";
+                VideoView.vm.Video_PixelFormat_SelectedItem = "yuv420p";
+                VideoView.vm.Video_FPS_SelectedItem = "auto";
+                VideoView.vm.Video_Speed_SelectedItem = "auto";
+                VideoView.vm.Video_Optimize_SelectedItem = "Web";
+                VideoView.vm.Video_Scale_SelectedItem = "Source";
+                VideoView.vm.Video_ScreenFormat_SelectedItem = "Widescreen";
+                VideoView.vm.Video_ScalingAlgorithm_SelectedItem = "auto";
+                VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
+                VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
+                VideoView.vm.Video_Crop_X_Text = "";
+                VideoView.vm.Video_Crop_Y_Text = "";
+                VideoView.vm.Video_Crop_Width_Text = "";
+                VideoView.vm.Video_Crop_Height_Text = "";
+                VideoView.vm.Video_CropClear_Text = "Clear";
 
                 // Subtitle
-                vm.Subtitle_Codec_SelectedItem = "MOV Text";
-                vm.Subtitle_Stream_SelectedItem = "all";
+                SubtitleView.vm.Subtitle_Codec_SelectedItem = "MOV Text";
+                SubtitleView.vm.Subtitle_Stream_SelectedItem = "all";
 
                 // Audio
-                vm.Audio_Codec_SelectedItem = "AAC";
-                vm.Audio_Stream_SelectedItem = "all";
-                vm.Audio_Channel_SelectedItem = "Source";
-                vm.Audio_Quality_SelectedItem = "Auto";
-                vm.Audio_VBR_IsChecked = false;
-                vm.Audio_CompressionLevel_SelectedItem = "auto";
-                vm.Audio_SampleRate_SelectedItem = "auto";
-                vm.Audio_BitDepth_SelectedItem = "auto";
-                vm.Audio_Volume_Text = "100";
-                vm.Audio_HardLimiter_Value = 1;
+                AudioView.vm.Audio_Codec_SelectedItem = "AAC";
+                AudioView.vm.Audio_Stream_SelectedItem = "all";
+                AudioView.vm.Audio_Channel_SelectedItem = "Source";
+                AudioView.vm.Audio_Quality_SelectedItem = "Auto";
+                AudioView.vm.Audio_VBR_IsChecked = false;
+                AudioView.vm.Audio_CompressionLevel_SelectedItem = "auto";
+                AudioView.vm.Audio_SampleRate_SelectedItem = "auto";
+                AudioView.vm.Audio_BitDepth_SelectedItem = "auto";
+                AudioView.vm.Audio_Volume_Text = "100";
+                AudioView.vm.Audio_HardLimiter_Value = 1;
 
                 // Filters
-                vm.LoadFiltersDefault();
+                FilterVideoView.vm.LoadFilterVideoDefaults();
+                FilterAudioView.vm.LoadFilterAudioDefaults();
             }
 
 
@@ -363,312 +368,316 @@ namespace Axiom
             // -------------------------
             // Archive Video
             // -------------------------
-            else if (vm.Preset_SelectedItem == "Archive")
+            else if (MainView.vm.Preset_SelectedItem == "Archive")
             {
-                //vm.Preset.IsEditable = false;
+                //MainView.vm.Preset.IsEditable = false;
 
                 // Format
-                vm.Format_Container_SelectedItem = "mkv";
-                vm.Format_Cut_SelectedItem = "No";
-                vm.Format_CutStart_Hours_Text = "00";
-                vm.Format_CutStart_Minutes_Text = "00";
-                vm.Format_CutStart_Seconds_Text = "00";
-                vm.Format_CutStart_Milliseconds_Text = "000";
-                vm.Format_CutEnd_Hours_Text = "00";
-                vm.Format_CutEnd_Minutes_Text = "00";
-                vm.Format_CutEnd_Seconds_Text = "00";
-                vm.Format_CutEnd_Milliseconds_Text = "000";
-                vm.Format_YouTube_SelectedItem = "Video + Audio";
-                vm.Format_YouTube_Quality_SelectedItem = "best";
+                FormatView.vm.Format_Container_SelectedItem = "mkv";
+                FormatView.vm.Format_Cut_SelectedItem = "No";
+                FormatView.vm.Format_CutStart_Hours_Text = "00";
+                FormatView.vm.Format_CutStart_Minutes_Text = "00";
+                FormatView.vm.Format_CutStart_Seconds_Text = "00";
+                FormatView.vm.Format_CutStart_Milliseconds_Text = "000";
+                FormatView.vm.Format_CutEnd_Hours_Text = "00";
+                FormatView.vm.Format_CutEnd_Minutes_Text = "00";
+                FormatView.vm.Format_CutEnd_Seconds_Text = "00";
+                FormatView.vm.Format_CutEnd_Milliseconds_Text = "000";
+                FormatView.vm.Format_YouTube_SelectedItem = "Video + Audio";
+                FormatView.vm.Format_YouTube_Quality_SelectedItem = "best";
 
                 // Video
-                vm.Video_Codec_SelectedItem = "FFV1";
-                vm.Video_EncodeSpeed_SelectedItem = "none";
-                vm.Video_Quality_SelectedItem = "Lossless";
-                vm.Video_Pass_SelectedItem = "2 Pass";
-                vm.Video_BitRate_Text = "";
-                vm.Video_MinRate_Text = "";
-                vm.Video_MaxRate_Text = "";
-                vm.Video_BufSize_Text = "";
-                vm.Video_PixelFormat_SelectedItem = "yuv444p10le";
-                vm.Video_FPS_SelectedItem = "auto";
-                vm.Video_Speed_SelectedItem = "auto";
-                vm.Video_Optimize_SelectedItem = "None";
-                vm.Video_Scale_SelectedItem = "Source";
-                vm.Video_ScreenFormat_SelectedItem = "Widescreen";
-                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
-                vm.Video_AspectRatio_SelectedItem = "auto";
-                vm.Video_AspectRatio_SelectedItem = "auto";
-                vm.Video_Crop_X_Text = "";
-                vm.Video_Crop_Y_Text = "";
-                vm.Video_Crop_Width_Text = "";
-                vm.Video_Crop_Height_Text = "";
-                vm.Video_CropClear_Text = "Clear";
+                VideoView.vm.Video_Codec_SelectedItem = "FFV1";
+                VideoView.vm.Video_EncodeSpeed_SelectedItem = "none";
+                VideoView.vm.Video_Quality_SelectedItem = "Lossless";
+                VideoView.vm.Video_Pass_SelectedItem = "2 Pass";
+                VideoView.vm.Video_BitRate_Text = "";
+                VideoView.vm.Video_MinRate_Text = "";
+                VideoView.vm.Video_MaxRate_Text = "";
+                VideoView.vm.Video_BufSize_Text = "";
+                VideoView.vm.Video_PixelFormat_SelectedItem = "yuv444p10le";
+                VideoView.vm.Video_FPS_SelectedItem = "auto";
+                VideoView.vm.Video_Speed_SelectedItem = "auto";
+                VideoView.vm.Video_Optimize_SelectedItem = "None";
+                VideoView.vm.Video_Scale_SelectedItem = "Source";
+                VideoView.vm.Video_ScreenFormat_SelectedItem = "Widescreen";
+                VideoView.vm.Video_ScalingAlgorithm_SelectedItem = "auto";
+                VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
+                VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
+                VideoView.vm.Video_Crop_X_Text = "";
+                VideoView.vm.Video_Crop_Y_Text = "";
+                VideoView.vm.Video_Crop_Width_Text = "";
+                VideoView.vm.Video_Crop_Height_Text = "";
+                VideoView.vm.Video_CropClear_Text = "Clear";
 
                 // Subtitle
-                vm.Subtitle_Codec_SelectedItem = "Copy";
-                vm.Subtitle_Stream_SelectedItem = "all";
+                SubtitleView.vm.Subtitle_Codec_SelectedItem = "Copy";
+                SubtitleView.vm.Subtitle_Stream_SelectedItem = "all";
 
                 // Audio
-                vm.Audio_Codec_SelectedItem = "FLAC";
-                vm.Audio_Stream_SelectedItem = "all";
-                vm.Audio_Channel_SelectedItem = "Source";
-                vm.Audio_Quality_SelectedItem = "Auto";
-                vm.Audio_VBR_IsChecked = false;
-                vm.Audio_CompressionLevel_SelectedItem = "auto";
-                vm.Audio_SampleRate_SelectedItem = "auto";
-                vm.Audio_BitDepth_SelectedItem = "auto";
-                vm.Audio_Volume_Text = "100";
-                vm.Audio_HardLimiter_Value = 1;
+                AudioView.vm.Audio_Codec_SelectedItem = "FLAC";
+                AudioView.vm.Audio_Stream_SelectedItem = "all";
+                AudioView.vm.Audio_Channel_SelectedItem = "Source";
+                AudioView.vm.Audio_Quality_SelectedItem = "Auto";
+                AudioView.vm.Audio_VBR_IsChecked = false;
+                AudioView.vm.Audio_CompressionLevel_SelectedItem = "auto";
+                AudioView.vm.Audio_SampleRate_SelectedItem = "auto";
+                AudioView.vm.Audio_BitDepth_SelectedItem = "auto";
+                AudioView.vm.Audio_Volume_Text = "100";
+                AudioView.vm.Audio_HardLimiter_Value = 1;
 
                 // Filters
-                vm.LoadFiltersDefault();
+                FilterVideoView.vm.LoadFilterVideoDefaults();
+                FilterAudioView.vm.LoadFilterAudioDefaults();
             }
 
             // -------------------------
             // HEVC Ultra
             // -------------------------
-            else if (vm.Preset_SelectedItem == "HEVC Ultra" ||
-                     vm.Preset_SelectedItem == "HEVC High")
+            else if (MainView.vm.Preset_SelectedItem == "HEVC Ultra" ||
+                     MainView.vm.Preset_SelectedItem == "HEVC High")
             {
-                //vm.Preset.IsEditable = false;
+                //MainView.vm.Preset.IsEditable = false;
 
                 // Format
-                vm.Format_Container_SelectedItem = "mkv";
-                vm.Format_Cut_SelectedItem = "No";
-                vm.Format_CutStart_Hours_Text = "00";
-                vm.Format_CutStart_Minutes_Text = "00";
-                vm.Format_CutStart_Seconds_Text = "00";
-                vm.Format_CutStart_Milliseconds_Text = "000";
-                vm.Format_CutEnd_Hours_Text = "00";
-                vm.Format_CutEnd_Minutes_Text = "00";
-                vm.Format_CutEnd_Seconds_Text = "00";
-                vm.Format_CutEnd_Milliseconds_Text = "000";
-                vm.Format_YouTube_SelectedItem = "Video + Audio";
-                vm.Format_YouTube_Quality_SelectedItem = "best";
+                FormatView.vm.Format_Container_SelectedItem = "mkv";
+                FormatView.vm.Format_Cut_SelectedItem = "No";
+                FormatView.vm.Format_CutStart_Hours_Text = "00";
+                FormatView.vm.Format_CutStart_Minutes_Text = "00";
+                FormatView.vm.Format_CutStart_Seconds_Text = "00";
+                FormatView.vm.Format_CutStart_Milliseconds_Text = "000";
+                FormatView.vm.Format_CutEnd_Hours_Text = "00";
+                FormatView.vm.Format_CutEnd_Minutes_Text = "00";
+                FormatView.vm.Format_CutEnd_Seconds_Text = "00";
+                FormatView.vm.Format_CutEnd_Milliseconds_Text = "000";
+                FormatView.vm.Format_YouTube_SelectedItem = "Video + Audio";
+                FormatView.vm.Format_YouTube_Quality_SelectedItem = "best";
 
                 // Video
-                vm.Video_Codec_SelectedItem = "x265";
-                vm.Video_EncodeSpeed_SelectedItem = "Slow";
+                VideoView.vm.Video_Codec_SelectedItem = "x265";
+                VideoView.vm.Video_EncodeSpeed_SelectedItem = "Slow";
 
-                if (vm.Preset_SelectedItem == "HEVC Ultra")
+                if (MainView.vm.Preset_SelectedItem == "HEVC Ultra")
                 {
-                    vm.Video_Quality_SelectedItem = "Ultra";
+                    VideoView.vm.Video_Quality_SelectedItem = "Ultra";
                 }
-                else if (vm.Preset_SelectedItem == "HEVC High")
+                else if (MainView.vm.Preset_SelectedItem == "HEVC High")
                 {
-                    vm.Video_Quality_SelectedItem = "High";
+                    VideoView.vm.Video_Quality_SelectedItem = "High";
                 }
 
-                vm.Video_Pass_SelectedItem = "CRF";
-                //vm.Video_CRF_Text = ""; // Use Quality Preset Value
-                vm.Video_BitRate_Text = "";
-                vm.Video_MinRate_Text = "";
-                vm.Video_MaxRate_Text = "";
-                vm.Video_BufSize_Text = "";
-                vm.Video_PixelFormat_SelectedItem = "yuv420p10le";
-                vm.Video_FPS_SelectedItem = "59.94";
-                vm.Video_Speed_SelectedItem = "auto";
-                vm.Video_Optimize_SelectedItem = "Custom";
-                vm.Video_Optimize_Tune_SelectedItem = "none";
-                vm.Video_Optimize_Profile_SelectedItem = "main10";
-                vm.Video_Optimize_Level_SelectedItem = "5.2";
-                vm.Video_Scale_SelectedItem = "Source";
-                vm.Video_ScreenFormat_SelectedItem = "Widescreen";
-                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
-                vm.Video_AspectRatio_SelectedItem = "auto";
-                vm.Video_AspectRatio_SelectedItem = "auto";
-                vm.Video_Crop_X_Text = "";
-                vm.Video_Crop_Y_Text = "";
-                vm.Video_Crop_Width_Text = "";
-                vm.Video_Crop_Height_Text = "";
-                vm.Video_CropClear_Text = "Clear";
+                VideoView.vm.Video_Pass_SelectedItem = "CRF";
+                //VideoView.vm.Video_CRF_Text = ""; // Use Quality Preset Value
+                VideoView.vm.Video_BitRate_Text = "";
+                VideoView.vm.Video_MinRate_Text = "";
+                VideoView.vm.Video_MaxRate_Text = "";
+                VideoView.vm.Video_BufSize_Text = "";
+                VideoView.vm.Video_PixelFormat_SelectedItem = "yuv420p10le";
+                VideoView.vm.Video_FPS_SelectedItem = "59.94";
+                VideoView.vm.Video_Speed_SelectedItem = "auto";
+                VideoView.vm.Video_Optimize_SelectedItem = "Custom";
+                VideoView.vm.Video_Video_Optimize_Tune_SelectedItem = "none";
+                VideoView.vm.Video_Video_Optimize_Profile_SelectedItem = "main10";
+                VideoView.vm.Video_Optimize_Level_SelectedItem = "5.2";
+                VideoView.vm.Video_Scale_SelectedItem = "Source";
+                VideoView.vm.Video_ScreenFormat_SelectedItem = "Widescreen";
+                VideoView.vm.Video_ScalingAlgorithm_SelectedItem = "auto";
+                VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
+                VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
+                VideoView.vm.Video_Crop_X_Text = "";
+                VideoView.vm.Video_Crop_Y_Text = "";
+                VideoView.vm.Video_Crop_Width_Text = "";
+                VideoView.vm.Video_Crop_Height_Text = "";
+                VideoView.vm.Video_CropClear_Text = "Clear";
 
 
                 // Subtitle
-                vm.Subtitle_Codec_SelectedItem = "Copy";
-                vm.Subtitle_Stream_SelectedItem = "all";
+                SubtitleView.vm.Subtitle_Codec_SelectedItem = "Copy";
+                SubtitleView.vm.Subtitle_Stream_SelectedItem = "all";
 
                 // Audio
-                vm.Audio_Codec_SelectedItem = "AAC";
-                vm.Audio_Stream_SelectedItem = "all";
-                vm.Audio_Channel_SelectedItem = "Source";
-                vm.Audio_Quality_SelectedItem = "Auto";
-                vm.Audio_VBR_IsChecked = false;
-                vm.Audio_CompressionLevel_SelectedItem = "auto";
-                vm.Audio_SampleRate_SelectedItem = "auto";
-                vm.Audio_BitDepth_SelectedItem = "auto";
-                vm.Audio_Volume_Text = "100";
-                vm.Audio_HardLimiter_Value = 1;
+                AudioView.vm.Audio_Codec_SelectedItem = "AAC";
+                AudioView.vm.Audio_Stream_SelectedItem = "all";
+                AudioView.vm.Audio_Channel_SelectedItem = "Source";
+                AudioView.vm.Audio_Quality_SelectedItem = "Auto";
+                AudioView.vm.Audio_VBR_IsChecked = false;
+                AudioView.vm.Audio_CompressionLevel_SelectedItem = "auto";
+                AudioView.vm.Audio_SampleRate_SelectedItem = "auto";
+                AudioView.vm.Audio_BitDepth_SelectedItem = "auto";
+                AudioView.vm.Audio_Volume_Text = "100";
+                AudioView.vm.Audio_HardLimiter_Value = 1;
 
                 // Filters
-                vm.LoadFiltersDefault();
+                FilterVideoView.vm.LoadFilterVideoDefaults();
+                FilterAudioView.vm.LoadFilterAudioDefaults();
             }
 
             // -------------------------
             // HD Video
             // -------------------------
-            else if (vm.Preset_SelectedItem == "HD Ultra" ||
-                     vm.Preset_SelectedItem == "HD High" ||
-                     vm.Preset_SelectedItem == "HD Medium" ||
-                     vm.Preset_SelectedItem == "HD Low"
+            else if (MainView.vm.Preset_SelectedItem == "HD Ultra" ||
+                     MainView.vm.Preset_SelectedItem == "HD High" ||
+                     MainView.vm.Preset_SelectedItem == "HD Medium" ||
+                     MainView.vm.Preset_SelectedItem == "HD Low"
                      )
             {
-                //vm.Preset.IsEditable = false;
+                //MainView.vm.Preset.IsEditable = false;
 
                 // Format
-                vm.Format_Container_SelectedItem = "mp4";
-                vm.Format_Cut_SelectedItem = "No";
-                vm.Format_CutStart_Hours_Text = "00";
-                vm.Format_CutStart_Minutes_Text = "00";
-                vm.Format_CutStart_Seconds_Text = "00";
-                vm.Format_CutStart_Milliseconds_Text = "000";
-                vm.Format_CutEnd_Hours_Text = "00";
-                vm.Format_CutEnd_Minutes_Text = "00";
-                vm.Format_CutEnd_Seconds_Text = "00";
-                vm.Format_CutEnd_Milliseconds_Text = "000";
-                vm.Format_YouTube_SelectedItem = "Video + Audio";
-                vm.Format_YouTube_Quality_SelectedItem = "best";
+                FormatView.vm.Format_Container_SelectedItem = "mp4";
+                FormatView.vm.Format_Cut_SelectedItem = "No";
+                FormatView.vm.Format_CutStart_Hours_Text = "00";
+                FormatView.vm.Format_CutStart_Minutes_Text = "00";
+                FormatView.vm.Format_CutStart_Seconds_Text = "00";
+                FormatView.vm.Format_CutStart_Milliseconds_Text = "000";
+                FormatView.vm.Format_CutEnd_Hours_Text = "00";
+                FormatView.vm.Format_CutEnd_Minutes_Text = "00";
+                FormatView.vm.Format_CutEnd_Seconds_Text = "00";
+                FormatView.vm.Format_CutEnd_Milliseconds_Text = "000";
+                FormatView.vm.Format_YouTube_SelectedItem = "Video + Audio";
+                FormatView.vm.Format_YouTube_Quality_SelectedItem = "best";
 
                 // Video
-                vm.Video_Codec_SelectedItem = "x264";
-                vm.Video_EncodeSpeed_SelectedItem = "Medium";
+                VideoView.vm.Video_Codec_SelectedItem = "x264";
+                VideoView.vm.Video_EncodeSpeed_SelectedItem = "Medium";
 
-                if (vm.Preset_SelectedItem == "HD Ultra")
+                if (MainView.vm.Preset_SelectedItem == "HD Ultra")
                 {
-                    vm.Video_Quality_SelectedItem = "Ultra";
+                    VideoView.vm.Video_Quality_SelectedItem = "Ultra";
                 }
-                else if (vm.Preset_SelectedItem == "HD High")
+                else if (MainView.vm.Preset_SelectedItem == "HD High")
                 {
-                    vm.Video_Quality_SelectedItem = "High";
+                    VideoView.vm.Video_Quality_SelectedItem = "High";
                 }
-                else if (vm.Preset_SelectedItem == "HD Medium")
+                else if (MainView.vm.Preset_SelectedItem == "HD Medium")
                 {
-                    vm.Video_Quality_SelectedItem = "Medium";
+                    VideoView.vm.Video_Quality_SelectedItem = "Medium";
                 }
-                else if (vm.Preset_SelectedItem == "HD Low")
+                else if (MainView.vm.Preset_SelectedItem == "HD Low")
                 {
-                    vm.Video_Quality_SelectedItem = "Low";
+                    VideoView.vm.Video_Quality_SelectedItem = "Low";
                 }
 
-                vm.Video_Pass_SelectedItem = "CRF";
-                vm.Video_BitRate_Text = "";
-                vm.Video_MinRate_Text = "";
-                vm.Video_MaxRate_Text = "";
-                vm.Video_BufSize_Text = "";
-                vm.Video_PixelFormat_SelectedItem = "yuv420p";
-                vm.Video_FPS_SelectedItem = "auto";
-                vm.Video_Speed_SelectedItem = "auto";
-                vm.Video_Optimize_SelectedItem = "PC HD";
-                vm.Video_Scale_SelectedItem = "Source";
-                vm.Video_ScreenFormat_SelectedItem = "Widescreen";
-                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
-                vm.Video_AspectRatio_SelectedItem = "auto";
-                vm.Video_AspectRatio_SelectedItem = "auto";
-                vm.Video_Crop_X_Text = "";
-                vm.Video_Crop_Y_Text = "";
-                vm.Video_Crop_Width_Text = "";
-                vm.Video_Crop_Height_Text = "";
-                vm.Video_CropClear_Text = "Clear";
+                VideoView.vm.Video_Pass_SelectedItem = "CRF";
+                VideoView.vm.Video_BitRate_Text = "";
+                VideoView.vm.Video_MinRate_Text = "";
+                VideoView.vm.Video_MaxRate_Text = "";
+                VideoView.vm.Video_BufSize_Text = "";
+                VideoView.vm.Video_PixelFormat_SelectedItem = "yuv420p";
+                VideoView.vm.Video_FPS_SelectedItem = "auto";
+                VideoView.vm.Video_Speed_SelectedItem = "auto";
+                VideoView.vm.Video_Optimize_SelectedItem = "PC HD";
+                VideoView.vm.Video_Scale_SelectedItem = "Source";
+                VideoView.vm.Video_ScreenFormat_SelectedItem = "Widescreen";
+                VideoView.vm.Video_ScalingAlgorithm_SelectedItem = "auto";
+                VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
+                VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
+                VideoView.vm.Video_Crop_X_Text = "";
+                VideoView.vm.Video_Crop_Y_Text = "";
+                VideoView.vm.Video_Crop_Width_Text = "";
+                VideoView.vm.Video_Crop_Height_Text = "";
+                VideoView.vm.Video_CropClear_Text = "Clear";
 
                 // Subtitle
-                vm.Subtitle_Codec_SelectedItem = "MOV Text";
-                vm.Subtitle_Stream_SelectedItem = "all";
+                SubtitleView.vm.Subtitle_Codec_SelectedItem = "MOV Text";
+                SubtitleView.vm.Subtitle_Stream_SelectedItem = "all";
 
                 // Audio
-                vm.Audio_Codec_SelectedItem = "AAC";
-                vm.Audio_Stream_SelectedItem = "all";
-                vm.Audio_Channel_SelectedItem = "Source";
-                vm.Audio_Quality_SelectedItem = "Auto";
-                vm.Audio_VBR_IsChecked = false;
-                vm.Audio_CompressionLevel_SelectedItem = "auto";
-                vm.Audio_SampleRate_SelectedItem = "auto";
-                vm.Audio_BitDepth_SelectedItem = "auto";
-                vm.Audio_Volume_Text = "100";
-                vm.Audio_HardLimiter_Value = 1;
+                AudioView.vm.Audio_Codec_SelectedItem = "AAC";
+                AudioView.vm.Audio_Stream_SelectedItem = "all";
+                AudioView.vm.Audio_Channel_SelectedItem = "Source";
+                AudioView.vm.Audio_Quality_SelectedItem = "Auto";
+                AudioView.vm.Audio_VBR_IsChecked = false;
+                AudioView.vm.Audio_CompressionLevel_SelectedItem = "auto";
+                AudioView.vm.Audio_SampleRate_SelectedItem = "auto";
+                AudioView.vm.Audio_BitDepth_SelectedItem = "auto";
+                AudioView.vm.Audio_Volume_Text = "100";
+                AudioView.vm.Audio_HardLimiter_Value = 1;
 
                 // Filters
-                vm.LoadFiltersDefault();
+                FilterVideoView.vm.LoadFilterVideoDefaults();
+                FilterAudioView.vm.LoadFilterAudioDefaults();
             }
 
             // -------------------------
             // SD Video
             // -------------------------
-            else if (vm.Preset_SelectedItem == "SD High" ||
-                     vm.Preset_SelectedItem == "SD Medium" ||
-                     vm.Preset_SelectedItem == "SD Low")
+            else if (MainView.vm.Preset_SelectedItem == "SD High" ||
+                     MainView.vm.Preset_SelectedItem == "SD Medium" ||
+                     MainView.vm.Preset_SelectedItem == "SD Low")
             {
-                //vm.Preset.IsEditable = false;
+                //MainView.vm.Preset.IsEditable = false;
 
                 // Format
-                vm.Format_Container_SelectedItem = "mp4";
-                vm.Format_Cut_SelectedItem = "No";
-                vm.Format_CutStart_Hours_Text = "00";
-                vm.Format_CutStart_Minutes_Text = "00";
-                vm.Format_CutStart_Seconds_Text = "00";
-                vm.Format_CutStart_Milliseconds_Text = "000";
-                vm.Format_CutEnd_Hours_Text = "00";
-                vm.Format_CutEnd_Minutes_Text = "00";
-                vm.Format_CutEnd_Seconds_Text = "00";
-                vm.Format_CutEnd_Milliseconds_Text = "000";
-                vm.Format_YouTube_SelectedItem = "Video + Audio";
-                vm.Format_YouTube_Quality_SelectedItem = "best";
+                FormatView.vm.Format_Container_SelectedItem = "mp4";
+                FormatView.vm.Format_Cut_SelectedItem = "No";
+                FormatView.vm.Format_CutStart_Hours_Text = "00";
+                FormatView.vm.Format_CutStart_Minutes_Text = "00";
+                FormatView.vm.Format_CutStart_Seconds_Text = "00";
+                FormatView.vm.Format_CutStart_Milliseconds_Text = "000";
+                FormatView.vm.Format_CutEnd_Hours_Text = "00";
+                FormatView.vm.Format_CutEnd_Minutes_Text = "00";
+                FormatView.vm.Format_CutEnd_Seconds_Text = "00";
+                FormatView.vm.Format_CutEnd_Milliseconds_Text = "000";
+                FormatView.vm.Format_YouTube_SelectedItem = "Video + Audio";
+                FormatView.vm.Format_YouTube_Quality_SelectedItem = "best";
 
                 // Video
-                vm.Video_Codec_SelectedItem = "x264";
-                vm.Video_EncodeSpeed_SelectedItem = "Medium";
+                VideoView.vm.Video_Codec_SelectedItem = "x264";
+                VideoView.vm.Video_EncodeSpeed_SelectedItem = "Medium";
 
-                if (vm.Preset_SelectedItem == "SD High")
+                if (MainView.vm.Preset_SelectedItem == "SD High")
                 {
-                    vm.Video_Quality_SelectedItem = "High";
+                    VideoView.vm.Video_Quality_SelectedItem = "High";
                 }
-                else if (vm.Preset_SelectedItem == "SD Medium")
+                else if (MainView.vm.Preset_SelectedItem == "SD Medium")
                 {
-                    vm.Video_Quality_SelectedItem = "Medium";
+                    VideoView.vm.Video_Quality_SelectedItem = "Medium";
                 }
-                else if (vm.Preset_SelectedItem == "SD Low")
+                else if (MainView.vm.Preset_SelectedItem == "SD Low")
                 {
-                    vm.Video_Quality_SelectedItem = "Low";
+                    VideoView.vm.Video_Quality_SelectedItem = "Low";
                 }
 
-                vm.Video_Pass_SelectedItem = "CRF";
-                vm.Video_BitRate_Text = "";
-                vm.Video_MinRate_Text = "";
-                vm.Video_MaxRate_Text = "";
-                vm.Video_BufSize_Text = "";
-                vm.Video_PixelFormat_SelectedItem = "yuv420p";
-                vm.Video_FPS_SelectedItem = "auto";
-                vm.Video_Speed_SelectedItem = "auto";
-                vm.Video_Optimize_SelectedItem = "PC SD";
-                vm.Video_Scale_SelectedItem = "Source";
-                vm.Video_ScreenFormat_SelectedItem = "Widescreen";
-                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
-                vm.Video_AspectRatio_SelectedItem = "auto";
-                vm.Video_AspectRatio_SelectedItem = "auto";
-                vm.Video_Crop_X_Text = "";
-                vm.Video_Crop_Y_Text = "";
-                vm.Video_Crop_Width_Text = "";
-                vm.Video_Crop_Height_Text = "";
-                vm.Video_CropClear_Text = "Clear";
+                VideoView.vm.Video_Pass_SelectedItem = "CRF";
+                VideoView.vm.Video_BitRate_Text = "";
+                VideoView.vm.Video_MinRate_Text = "";
+                VideoView.vm.Video_MaxRate_Text = "";
+                VideoView.vm.Video_BufSize_Text = "";
+                VideoView.vm.Video_PixelFormat_SelectedItem = "yuv420p";
+                VideoView.vm.Video_FPS_SelectedItem = "auto";
+                VideoView.vm.Video_Speed_SelectedItem = "auto";
+                VideoView.vm.Video_Optimize_SelectedItem = "PC SD";
+                VideoView.vm.Video_Scale_SelectedItem = "Source";
+                VideoView.vm.Video_ScreenFormat_SelectedItem = "Widescreen";
+                VideoView.vm.Video_ScalingAlgorithm_SelectedItem = "auto";
+                VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
+                VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
+                VideoView.vm.Video_Crop_X_Text = "";
+                VideoView.vm.Video_Crop_Y_Text = "";
+                VideoView.vm.Video_Crop_Width_Text = "";
+                VideoView.vm.Video_Crop_Height_Text = "";
+                VideoView.vm.Video_CropClear_Text = "Clear";
 
                 // Subtitle
-                vm.Subtitle_Codec_SelectedItem = "MOV Text";
-                vm.Subtitle_Stream_SelectedItem = "all";
+                SubtitleView.vm.Subtitle_Codec_SelectedItem = "MOV Text";
+                SubtitleView.vm.Subtitle_Stream_SelectedItem = "all";
 
                 // Audio
-                vm.Audio_Codec_SelectedItem = "AC3";
-                vm.Audio_Stream_SelectedItem = "all";
-                vm.Audio_Channel_SelectedItem = "Stereo";
-                vm.Audio_Quality_SelectedItem = "256";
-                vm.Audio_VBR_IsChecked = false;
-                vm.Audio_CompressionLevel_SelectedItem = "auto";
-                vm.Audio_SampleRate_SelectedItem = "44.1k";
-                vm.Audio_BitDepth_SelectedItem = "auto";
-                vm.Audio_Volume_Text = "100";
-                vm.Audio_HardLimiter_Value = 1;
+                AudioView.vm.Audio_Codec_SelectedItem = "AC3";
+                AudioView.vm.Audio_Stream_SelectedItem = "all";
+                AudioView.vm.Audio_Channel_SelectedItem = "Stereo";
+                AudioView.vm.Audio_Quality_SelectedItem = "256";
+                AudioView.vm.Audio_VBR_IsChecked = false;
+                AudioView.vm.Audio_CompressionLevel_SelectedItem = "auto";
+                AudioView.vm.Audio_SampleRate_SelectedItem = "44.1k";
+                AudioView.vm.Audio_BitDepth_SelectedItem = "auto";
+                AudioView.vm.Audio_Volume_Text = "100";
+                AudioView.vm.Audio_HardLimiter_Value = 1;
 
                 // Filters
-                vm.LoadFiltersDefault();
+                FilterVideoView.vm.LoadFilterVideoDefaults();
+                FilterAudioView.vm.LoadFilterAudioDefaults();
             }
 
 
@@ -678,341 +687,346 @@ namespace Axiom
             // -------------------------
             // Roku
             // -------------------------
-            else if (vm.Preset_SelectedItem == "Roku")
+            else if (MainView.vm.Preset_SelectedItem == "Roku")
             {
-                //vm.Preset.IsEditable = false;
+                //MainView.vm.Preset.IsEditable = false;
 
                 // Format
-                vm.Format_Container_SelectedItem = "mkv";
-                vm.Format_Cut_SelectedItem = "No";
-                vm.Format_CutStart_Hours_Text = "00";
-                vm.Format_CutStart_Minutes_Text = "00";
-                vm.Format_CutStart_Seconds_Text = "00";
-                vm.Format_CutStart_Milliseconds_Text = "000";
-                vm.Format_CutEnd_Hours_Text = "00";
-                vm.Format_CutEnd_Minutes_Text = "00";
-                vm.Format_CutEnd_Seconds_Text = "00";
-                vm.Format_CutEnd_Milliseconds_Text = "000";
-                vm.Format_YouTube_SelectedItem = "Video + Audio";
-                vm.Format_YouTube_Quality_SelectedItem = "best";
+                FormatView.vm.Format_Container_SelectedItem = "mkv";
+                FormatView.vm.Format_Cut_SelectedItem = "No";
+                FormatView.vm.Format_CutStart_Hours_Text = "00";
+                FormatView.vm.Format_CutStart_Minutes_Text = "00";
+                FormatView.vm.Format_CutStart_Seconds_Text = "00";
+                FormatView.vm.Format_CutStart_Milliseconds_Text = "000";
+                FormatView.vm.Format_CutEnd_Hours_Text = "00";
+                FormatView.vm.Format_CutEnd_Minutes_Text = "00";
+                FormatView.vm.Format_CutEnd_Seconds_Text = "00";
+                FormatView.vm.Format_CutEnd_Milliseconds_Text = "000";
+                FormatView.vm.Format_YouTube_SelectedItem = "Video + Audio";
+                FormatView.vm.Format_YouTube_Quality_SelectedItem = "best";
 
                 // Video
-                vm.Video_Codec_SelectedItem = "x264";
-                vm.Video_EncodeSpeed_SelectedItem = "Medium";
-                vm.Video_Quality_SelectedItem = "Ultra";
-                vm.Video_Pass_SelectedItem = "CRF";
-                vm.Video_BitRate_Text = "";
-                vm.Video_MinRate_Text = "";
-                vm.Video_MaxRate_Text = "";
-                vm.Video_BufSize_Text = "";
-                vm.Video_PixelFormat_SelectedItem = "yuv420p";
-                vm.Video_FPS_SelectedItem = "auto";
-                vm.Video_Speed_SelectedItem = "auto";
-                vm.Video_Optimize_SelectedItem = "Custom";
-                vm.Video_Optimize_Tune_SelectedItem = "none";
-                vm.Video_Optimize_Profile_SelectedItem = "high";
-                vm.Video_Optimize_Level_SelectedItem = "4.0";
-                vm.Video_Scale_SelectedItem = "Source";
-                vm.Video_ScreenFormat_SelectedItem = "Widescreen";
-                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
-                vm.Video_AspectRatio_SelectedItem = "auto";
-                vm.Video_AspectRatio_SelectedItem = "auto";
-                vm.Video_Crop_X_Text = "";
-                vm.Video_Crop_Y_Text = "";
-                vm.Video_Crop_Width_Text = "";
-                vm.Video_Crop_Height_Text = "";
-                vm.Video_CropClear_Text = "Clear";
+                VideoView.vm.Video_Codec_SelectedItem = "x264";
+                VideoView.vm.Video_EncodeSpeed_SelectedItem = "Medium";
+                VideoView.vm.Video_Quality_SelectedItem = "Ultra";
+                VideoView.vm.Video_Pass_SelectedItem = "CRF";
+                VideoView.vm.Video_BitRate_Text = "";
+                VideoView.vm.Video_MinRate_Text = "";
+                VideoView.vm.Video_MaxRate_Text = "";
+                VideoView.vm.Video_BufSize_Text = "";
+                VideoView.vm.Video_PixelFormat_SelectedItem = "yuv420p";
+                VideoView.vm.Video_FPS_SelectedItem = "auto";
+                VideoView.vm.Video_Speed_SelectedItem = "auto";
+                VideoView.vm.Video_Optimize_SelectedItem = "Custom";
+                VideoView.vm.Video_Video_Optimize_Tune_SelectedItem = "none";
+                VideoView.vm.Video_Video_Optimize_Profile_SelectedItem = "high";
+                VideoView.vm.Video_Optimize_Level_SelectedItem = "4.0";
+                VideoView.vm.Video_Scale_SelectedItem = "Source";
+                VideoView.vm.Video_ScreenFormat_SelectedItem = "Widescreen";
+                VideoView.vm.Video_ScalingAlgorithm_SelectedItem = "auto";
+                VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
+                VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
+                VideoView.vm.Video_Crop_X_Text = "";
+                VideoView.vm.Video_Crop_Y_Text = "";
+                VideoView.vm.Video_Crop_Width_Text = "";
+                VideoView.vm.Video_Crop_Height_Text = "";
+                VideoView.vm.Video_CropClear_Text = "Clear";
 
                 // Subtitle
-                vm.Subtitle_Codec_SelectedItem = "SRT";
-                vm.Subtitle_Stream_SelectedItem = "all";
+                SubtitleView.vm.Subtitle_Codec_SelectedItem = "SRT";
+                SubtitleView.vm.Subtitle_Stream_SelectedItem = "all";
 
                 // Audio
-                vm.Audio_Codec_SelectedItem = "AAC";
-                vm.Audio_Stream_SelectedItem = "all";
-                vm.Audio_Channel_SelectedItem = "Source";
-                vm.Audio_Quality_SelectedItem = "160";
-                vm.Audio_VBR_IsChecked = false;
-                vm.Audio_CompressionLevel_SelectedItem = "auto";
-                vm.Audio_SampleRate_SelectedItem = "auto";
-                vm.Audio_BitDepth_SelectedItem = "auto";
-                vm.Audio_Volume_Text = "100";
-                vm.Audio_HardLimiter_Value = 1;
+                AudioView.vm.Audio_Codec_SelectedItem = "AAC";
+                AudioView.vm.Audio_Stream_SelectedItem = "all";
+                AudioView.vm.Audio_Channel_SelectedItem = "Source";
+                AudioView.vm.Audio_Quality_SelectedItem = "160";
+                AudioView.vm.Audio_VBR_IsChecked = false;
+                AudioView.vm.Audio_CompressionLevel_SelectedItem = "auto";
+                AudioView.vm.Audio_SampleRate_SelectedItem = "auto";
+                AudioView.vm.Audio_BitDepth_SelectedItem = "auto";
+                AudioView.vm.Audio_Volume_Text = "100";
+                AudioView.vm.Audio_HardLimiter_Value = 1;
 
                 // Filters
-                vm.LoadFiltersDefault();
+                FilterVideoView.vm.LoadFilterVideoDefaults();
+                FilterAudioView.vm.LoadFilterAudioDefaults();
             }
 
             // -------------------------
             // Amazon Fire
             // -------------------------
-            else if (vm.Preset_SelectedItem == "Amazon Fire")
+            else if (MainView.vm.Preset_SelectedItem == "Amazon Fire")
             {
-                //vm.Preset.IsEditable = false;
+                //MainView.vm.Preset.IsEditable = false;
 
                 // Format
-                vm.Format_Container_SelectedItem = "mp4";
-                vm.Format_Cut_SelectedItem = "No";
-                vm.Format_CutStart_Hours_Text = "00";
-                vm.Format_CutStart_Minutes_Text = "00";
-                vm.Format_CutStart_Seconds_Text = "00";
-                vm.Format_CutStart_Milliseconds_Text = "000";
-                vm.Format_CutEnd_Hours_Text = "00";
-                vm.Format_CutEnd_Minutes_Text = "00";
-                vm.Format_CutEnd_Seconds_Text = "00";
-                vm.Format_CutEnd_Milliseconds_Text = "000";
-                vm.Format_YouTube_SelectedItem = "Video + Audio";
-                vm.Format_YouTube_Quality_SelectedItem = "best";
+                FormatView.vm.Format_Container_SelectedItem = "mp4";
+                FormatView.vm.Format_Cut_SelectedItem = "No";
+                FormatView.vm.Format_CutStart_Hours_Text = "00";
+                FormatView.vm.Format_CutStart_Minutes_Text = "00";
+                FormatView.vm.Format_CutStart_Seconds_Text = "00";
+                FormatView.vm.Format_CutStart_Milliseconds_Text = "000";
+                FormatView.vm.Format_CutEnd_Hours_Text = "00";
+                FormatView.vm.Format_CutEnd_Minutes_Text = "00";
+                FormatView.vm.Format_CutEnd_Seconds_Text = "00";
+                FormatView.vm.Format_CutEnd_Milliseconds_Text = "000";
+                FormatView.vm.Format_YouTube_SelectedItem = "Video + Audio";
+                FormatView.vm.Format_YouTube_Quality_SelectedItem = "best";
 
                 // Video
-                vm.Video_Codec_SelectedItem = "x264";
-                vm.Video_EncodeSpeed_SelectedItem = "Medium";
-                vm.Video_Quality_SelectedItem = "Ultra";
-                vm.Video_Pass_SelectedItem = "CRF";
-                vm.Video_BitRate_Text = "";
-                vm.Video_MinRate_Text = "";
-                vm.Video_MaxRate_Text = "";
-                vm.Video_BufSize_Text = "";
-                vm.Video_PixelFormat_SelectedItem = "yuv420p";
-                vm.Video_FPS_SelectedItem = "auto";
-                vm.Video_Speed_SelectedItem = "auto";
-                vm.Video_Optimize_SelectedItem = "Custom";
-                vm.Video_Optimize_Tune_SelectedItem = "none";
-                vm.Video_Optimize_Profile_SelectedItem = "high";
-                vm.Video_Optimize_Level_SelectedItem = "4.2";
-                vm.Video_Scale_SelectedItem = "Source";
-                vm.Video_ScreenFormat_SelectedItem = "Widescreen";
-                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
-                vm.Video_AspectRatio_SelectedItem = "auto";
-                vm.Video_AspectRatio_SelectedItem = "auto";
-                vm.Video_Crop_X_Text = "";
-                vm.Video_Crop_Y_Text = "";
-                vm.Video_Crop_Width_Text = "";
-                vm.Video_Crop_Height_Text = "";
-                vm.Video_CropClear_Text = "Clear";
+                VideoView.vm.Video_Codec_SelectedItem = "x264";
+                VideoView.vm.Video_EncodeSpeed_SelectedItem = "Medium";
+                VideoView.vm.Video_Quality_SelectedItem = "Ultra";
+                VideoView.vm.Video_Pass_SelectedItem = "CRF";
+                VideoView.vm.Video_BitRate_Text = "";
+                VideoView.vm.Video_MinRate_Text = "";
+                VideoView.vm.Video_MaxRate_Text = "";
+                VideoView.vm.Video_BufSize_Text = "";
+                VideoView.vm.Video_PixelFormat_SelectedItem = "yuv420p";
+                VideoView.vm.Video_FPS_SelectedItem = "auto";
+                VideoView.vm.Video_Speed_SelectedItem = "auto";
+                VideoView.vm.Video_Optimize_SelectedItem = "Custom";
+                VideoView.vm.Video_Video_Optimize_Tune_SelectedItem = "none";
+                VideoView.vm.Video_Video_Optimize_Profile_SelectedItem = "high";
+                VideoView.vm.Video_Optimize_Level_SelectedItem = "4.2";
+                VideoView.vm.Video_Scale_SelectedItem = "Source";
+                VideoView.vm.Video_ScreenFormat_SelectedItem = "Widescreen";
+                VideoView.vm.Video_ScalingAlgorithm_SelectedItem = "auto";
+                VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
+                VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
+                VideoView.vm.Video_Crop_X_Text = "";
+                VideoView.vm.Video_Crop_Y_Text = "";
+                VideoView.vm.Video_Crop_Width_Text = "";
+                VideoView.vm.Video_Crop_Height_Text = "";
+                VideoView.vm.Video_CropClear_Text = "Clear";
 
                 // Subtitle
-                vm.Subtitle_Codec_SelectedItem = "SRT";
-                vm.Subtitle_Stream_SelectedItem = "all";
+                SubtitleView.vm.Subtitle_Codec_SelectedItem = "SRT";
+                SubtitleView.vm.Subtitle_Stream_SelectedItem = "all";
 
                 // Audio
-                vm.Audio_Codec_SelectedItem = "AAC";
-                vm.Audio_Stream_SelectedItem = "all";
-                vm.Audio_Channel_SelectedItem = "Source";
-                vm.Audio_Quality_SelectedItem = "160";
-                vm.Audio_VBR_IsChecked = false;
-                vm.Audio_CompressionLevel_SelectedItem = "auto";
-                vm.Audio_SampleRate_SelectedItem = "auto";
-                vm.Audio_BitDepth_SelectedItem = "auto";
-                vm.Audio_Volume_Text = "100";
-                vm.Audio_HardLimiter_Value = 1;
+                AudioView.vm.Audio_Codec_SelectedItem = "AAC";
+                AudioView.vm.Audio_Stream_SelectedItem = "all";
+                AudioView.vm.Audio_Channel_SelectedItem = "Source";
+                AudioView.vm.Audio_Quality_SelectedItem = "160";
+                AudioView.vm.Audio_VBR_IsChecked = false;
+                AudioView.vm.Audio_CompressionLevel_SelectedItem = "auto";
+                AudioView.vm.Audio_SampleRate_SelectedItem = "auto";
+                AudioView.vm.Audio_BitDepth_SelectedItem = "auto";
+                AudioView.vm.Audio_Volume_Text = "100";
+                AudioView.vm.Audio_HardLimiter_Value = 1;
 
                 // Filters
-                vm.LoadFiltersDefault();
+                FilterVideoView.vm.LoadFilterVideoDefaults();
+                FilterAudioView.vm.LoadFilterAudioDefaults();
             }
 
             // -------------------------
             // Chromecast
             // -------------------------
-            else if (vm.Preset_SelectedItem == "Chromecast")
+            else if (MainView.vm.Preset_SelectedItem == "Chromecast")
             {
-                //vm.Preset.IsEditable = false;
+                //MainView.vm.Preset.IsEditable = false;
 
                 // Format
-                vm.Format_Container_SelectedItem = "mp4";
-                vm.Format_Cut_SelectedItem = "No";
-                vm.Format_CutStart_Hours_Text = "00";
-                vm.Format_CutStart_Minutes_Text = "00";
-                vm.Format_CutStart_Seconds_Text = "00";
-                vm.Format_CutStart_Milliseconds_Text = "000";
-                vm.Format_CutEnd_Hours_Text = "00";
-                vm.Format_CutEnd_Minutes_Text = "00";
-                vm.Format_CutEnd_Seconds_Text = "00";
-                vm.Format_CutEnd_Milliseconds_Text = "000";
-                vm.Format_YouTube_SelectedItem = "Video + Audio";
-                vm.Format_YouTube_Quality_SelectedItem = "best";
+                FormatView.vm.Format_Container_SelectedItem = "mp4";
+                FormatView.vm.Format_Cut_SelectedItem = "No";
+                FormatView.vm.Format_CutStart_Hours_Text = "00";
+                FormatView.vm.Format_CutStart_Minutes_Text = "00";
+                FormatView.vm.Format_CutStart_Seconds_Text = "00";
+                FormatView.vm.Format_CutStart_Milliseconds_Text = "000";
+                FormatView.vm.Format_CutEnd_Hours_Text = "00";
+                FormatView.vm.Format_CutEnd_Minutes_Text = "00";
+                FormatView.vm.Format_CutEnd_Seconds_Text = "00";
+                FormatView.vm.Format_CutEnd_Milliseconds_Text = "000";
+                FormatView.vm.Format_YouTube_SelectedItem = "Video + Audio";
+                FormatView.vm.Format_YouTube_Quality_SelectedItem = "best";
 
                 // Video
-                vm.Video_Codec_SelectedItem = "x264";
-                vm.Video_EncodeSpeed_SelectedItem = "Medium";
-                vm.Video_Quality_SelectedItem = "Ultra";
-                vm.Video_Pass_SelectedItem = "CRF";
-                vm.Video_BitRate_Text = "";
-                vm.Video_MinRate_Text = "";
-                vm.Video_MaxRate_Text = "";
-                vm.Video_BufSize_Text = "";
-                vm.Video_PixelFormat_SelectedItem = "yuv420p";
-                vm.Video_FPS_SelectedItem = "auto";
-                vm.Video_Speed_SelectedItem = "auto";
-                vm.Video_Optimize_SelectedItem = "Custom";
-                vm.Video_Optimize_Tune_SelectedItem = "none";
-                vm.Video_Optimize_Profile_SelectedItem = "high";
-                vm.Video_Optimize_Level_SelectedItem = "4.2";
-                vm.Video_Scale_SelectedItem = "Source";
-                vm.Video_ScreenFormat_SelectedItem = "Widescreen";
-                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
-                vm.Video_AspectRatio_SelectedItem = "auto";
-                vm.Video_AspectRatio_SelectedItem = "auto";
-                vm.Video_Crop_X_Text = "";
-                vm.Video_Crop_Y_Text = "";
-                vm.Video_Crop_Width_Text = "";
-                vm.Video_Crop_Height_Text = "";
-                vm.Video_CropClear_Text = "Clear";
+                VideoView.vm.Video_Codec_SelectedItem = "x264";
+                VideoView.vm.Video_EncodeSpeed_SelectedItem = "Medium";
+                VideoView.vm.Video_Quality_SelectedItem = "Ultra";
+                VideoView.vm.Video_Pass_SelectedItem = "CRF";
+                VideoView.vm.Video_BitRate_Text = "";
+                VideoView.vm.Video_MinRate_Text = "";
+                VideoView.vm.Video_MaxRate_Text = "";
+                VideoView.vm.Video_BufSize_Text = "";
+                VideoView.vm.Video_PixelFormat_SelectedItem = "yuv420p";
+                VideoView.vm.Video_FPS_SelectedItem = "auto";
+                VideoView.vm.Video_Speed_SelectedItem = "auto";
+                VideoView.vm.Video_Optimize_SelectedItem = "Custom";
+                VideoView.vm.Video_Video_Optimize_Tune_SelectedItem = "none";
+                VideoView.vm.Video_Video_Optimize_Profile_SelectedItem = "high";
+                VideoView.vm.Video_Optimize_Level_SelectedItem = "4.2";
+                VideoView.vm.Video_Scale_SelectedItem = "Source";
+                VideoView.vm.Video_ScreenFormat_SelectedItem = "Widescreen";
+                VideoView.vm.Video_ScalingAlgorithm_SelectedItem = "auto";
+                VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
+                VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
+                VideoView.vm.Video_Crop_X_Text = "";
+                VideoView.vm.Video_Crop_Y_Text = "";
+                VideoView.vm.Video_Crop_Width_Text = "";
+                VideoView.vm.Video_Crop_Height_Text = "";
+                VideoView.vm.Video_CropClear_Text = "Clear";
 
                 // Subtitle
-                vm.Subtitle_Codec_SelectedItem = "SRT";
-                vm.Subtitle_Stream_SelectedItem = "all";
+                SubtitleView.vm.Subtitle_Codec_SelectedItem = "SRT";
+                SubtitleView.vm.Subtitle_Stream_SelectedItem = "all";
 
                 // Audio
-                vm.Audio_Codec_SelectedItem = "AAC";
-                vm.Audio_Stream_SelectedItem = "all";
-                vm.Audio_Channel_SelectedItem = "Source";
-                vm.Audio_Quality_SelectedItem = "160";
-                vm.Audio_VBR_IsChecked = false;
-                vm.Audio_CompressionLevel_SelectedItem = "auto";
-                vm.Audio_SampleRate_SelectedItem = "auto";
-                vm.Audio_BitDepth_SelectedItem = "auto";
-                vm.Audio_Volume_Text = "100";
-                vm.Audio_HardLimiter_Value = 1;
+                AudioView.vm.Audio_Codec_SelectedItem = "AAC";
+                AudioView.vm.Audio_Stream_SelectedItem = "all";
+                AudioView.vm.Audio_Channel_SelectedItem = "Source";
+                AudioView.vm.Audio_Quality_SelectedItem = "160";
+                AudioView.vm.Audio_VBR_IsChecked = false;
+                AudioView.vm.Audio_CompressionLevel_SelectedItem = "auto";
+                AudioView.vm.Audio_SampleRate_SelectedItem = "auto";
+                AudioView.vm.Audio_BitDepth_SelectedItem = "auto";
+                AudioView.vm.Audio_Volume_Text = "100";
+                AudioView.vm.Audio_HardLimiter_Value = 1;
 
                 // Filters
-                vm.LoadFiltersDefault();
+                FilterVideoView.vm.LoadFilterVideoDefaults();
+                FilterAudioView.vm.LoadFilterAudioDefaults();
             }
 
             // -------------------------
             // Apple TV
             // -------------------------
-            else if (vm.Preset_SelectedItem == "Apple TV")
+            else if (MainView.vm.Preset_SelectedItem == "Apple TV")
             {
-                //vm.Preset.IsEditable = false;
+                //MainView.vm.Preset.IsEditable = false;
 
                 // Format
-                vm.Format_Container_SelectedItem = "mp4";
-                vm.Format_Cut_SelectedItem = "No";
-                vm.Format_CutStart_Hours_Text = "00";
-                vm.Format_CutStart_Minutes_Text = "00";
-                vm.Format_CutStart_Seconds_Text = "00";
-                vm.Format_CutStart_Milliseconds_Text = "000";
-                vm.Format_CutEnd_Hours_Text = "00";
-                vm.Format_CutEnd_Minutes_Text = "00";
-                vm.Format_CutEnd_Seconds_Text = "00";
-                vm.Format_CutEnd_Milliseconds_Text = "000";
-                vm.Format_YouTube_SelectedItem = "Video + Audio";
-                vm.Format_YouTube_Quality_SelectedItem = "best";
+                FormatView.vm.Format_Container_SelectedItem = "mp4";
+                FormatView.vm.Format_Cut_SelectedItem = "No";
+                FormatView.vm.Format_CutStart_Hours_Text = "00";
+                FormatView.vm.Format_CutStart_Minutes_Text = "00";
+                FormatView.vm.Format_CutStart_Seconds_Text = "00";
+                FormatView.vm.Format_CutStart_Milliseconds_Text = "000";
+                FormatView.vm.Format_CutEnd_Hours_Text = "00";
+                FormatView.vm.Format_CutEnd_Minutes_Text = "00";
+                FormatView.vm.Format_CutEnd_Seconds_Text = "00";
+                FormatView.vm.Format_CutEnd_Milliseconds_Text = "000";
+                FormatView.vm.Format_YouTube_SelectedItem = "Video + Audio";
+                FormatView.vm.Format_YouTube_Quality_SelectedItem = "best";
 
                 // Video
-                vm.Video_Codec_SelectedItem = "x264";
-                vm.Video_EncodeSpeed_SelectedItem = "Medium";
-                vm.Video_Quality_SelectedItem = "Ultra";
-                vm.Video_Pass_SelectedItem = "CRF";
-                vm.Video_BitRate_Text = "";
-                vm.Video_MinRate_Text = "";
-                vm.Video_MaxRate_Text = "";
-                vm.Video_BufSize_Text = "";
-                vm.Video_PixelFormat_SelectedItem = "yuv420p";
-                vm.Video_FPS_SelectedItem = "auto";
-                vm.Video_Speed_SelectedItem = "auto";
-                vm.Video_Optimize_SelectedItem = "Custom";
-                vm.Video_Optimize_Tune_SelectedItem = "none";
-                vm.Video_Optimize_Profile_SelectedItem = "high";
-                vm.Video_Optimize_Level_SelectedItem = "4.2";
-                vm.Video_Scale_SelectedItem = "Source";
-                vm.Video_ScreenFormat_SelectedItem = "Widescreen";
-                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
-                vm.Video_AspectRatio_SelectedItem = "auto";
-                vm.Video_AspectRatio_SelectedItem = "auto";
-                vm.Video_Crop_X_Text = "";
-                vm.Video_Crop_Y_Text = "";
-                vm.Video_Crop_Width_Text = "";
-                vm.Video_Crop_Height_Text = "";
-                vm.Video_CropClear_Text = "Clear";
+                VideoView.vm.Video_Codec_SelectedItem = "x264";
+                VideoView.vm.Video_EncodeSpeed_SelectedItem = "Medium";
+                VideoView.vm.Video_Quality_SelectedItem = "Ultra";
+                VideoView.vm.Video_Pass_SelectedItem = "CRF";
+                VideoView.vm.Video_BitRate_Text = "";
+                VideoView.vm.Video_MinRate_Text = "";
+                VideoView.vm.Video_MaxRate_Text = "";
+                VideoView.vm.Video_BufSize_Text = "";
+                VideoView.vm.Video_PixelFormat_SelectedItem = "yuv420p";
+                VideoView.vm.Video_FPS_SelectedItem = "auto";
+                VideoView.vm.Video_Speed_SelectedItem = "auto";
+                VideoView.vm.Video_Optimize_SelectedItem = "Custom";
+                VideoView.vm.Video_Video_Optimize_Tune_SelectedItem = "none";
+                VideoView.vm.Video_Video_Optimize_Profile_SelectedItem = "high";
+                VideoView.vm.Video_Optimize_Level_SelectedItem = "4.2";
+                VideoView.vm.Video_Scale_SelectedItem = "Source";
+                VideoView.vm.Video_ScreenFormat_SelectedItem = "Widescreen";
+                VideoView.vm.Video_ScalingAlgorithm_SelectedItem = "auto";
+                VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
+                VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
+                VideoView.vm.Video_Crop_X_Text = "";
+                VideoView.vm.Video_Crop_Y_Text = "";
+                VideoView.vm.Video_Crop_Width_Text = "";
+                VideoView.vm.Video_Crop_Height_Text = "";
+                VideoView.vm.Video_CropClear_Text = "Clear";
 
                 // Subtitle
-                vm.Subtitle_Codec_SelectedItem = "SRT";
-                vm.Subtitle_Stream_SelectedItem = "all";
+                SubtitleView.vm.Subtitle_Codec_SelectedItem = "SRT";
+                SubtitleView.vm.Subtitle_Stream_SelectedItem = "all";
 
                 // Audio
-                vm.Audio_Codec_SelectedItem = "AAC";
-                vm.Audio_Stream_SelectedItem = "all";
-                vm.Audio_Channel_SelectedItem = "Source";
-                vm.Audio_Quality_SelectedItem = "160";
-                vm.Audio_VBR_IsChecked = false;
-                vm.Audio_CompressionLevel_SelectedItem = "auto";
-                vm.Audio_SampleRate_SelectedItem = "auto";
-                vm.Audio_BitDepth_SelectedItem = "auto";
-                vm.Audio_Volume_Text = "100";
-                vm.Audio_HardLimiter_Value = 1;
+                AudioView.vm.Audio_Codec_SelectedItem = "AAC";
+                AudioView.vm.Audio_Stream_SelectedItem = "all";
+                AudioView.vm.Audio_Channel_SelectedItem = "Source";
+                AudioView.vm.Audio_Quality_SelectedItem = "160";
+                AudioView.vm.Audio_VBR_IsChecked = false;
+                AudioView.vm.Audio_CompressionLevel_SelectedItem = "auto";
+                AudioView.vm.Audio_SampleRate_SelectedItem = "auto";
+                AudioView.vm.Audio_BitDepth_SelectedItem = "auto";
+                AudioView.vm.Audio_Volume_Text = "100";
+                AudioView.vm.Audio_HardLimiter_Value = 1;
 
                 // Filters
-                vm.LoadFiltersDefault();
+                FilterVideoView.vm.LoadFilterVideoDefaults();
+                FilterAudioView.vm.LoadFilterAudioDefaults();
             }
 
             // -------------------------
             // Raspberry Pi
             // -------------------------
-            else if (vm.Preset_SelectedItem == "Raspberry Pi")
+            else if (MainView.vm.Preset_SelectedItem == "Raspberry Pi")
             {
-                //vm.Preset.IsEditable = false;
+                //MainView.vm.Preset.IsEditable = false;
 
                 // Format
-                vm.Format_Container_SelectedItem = "mp4";
-                vm.Format_Cut_SelectedItem = "No";
-                vm.Format_CutStart_Hours_Text = "00";
-                vm.Format_CutStart_Minutes_Text = "00";
-                vm.Format_CutStart_Seconds_Text = "00";
-                vm.Format_CutStart_Milliseconds_Text = "000";
-                vm.Format_CutEnd_Hours_Text = "00";
-                vm.Format_CutEnd_Minutes_Text = "00";
-                vm.Format_CutEnd_Seconds_Text = "00";
-                vm.Format_CutEnd_Milliseconds_Text = "000";
-                vm.Format_YouTube_SelectedItem = "Video + Audio";
-                vm.Format_YouTube_Quality_SelectedItem = "best";
+                FormatView.vm.Format_Container_SelectedItem = "mp4";
+                FormatView.vm.Format_Cut_SelectedItem = "No";
+                FormatView.vm.Format_CutStart_Hours_Text = "00";
+                FormatView.vm.Format_CutStart_Minutes_Text = "00";
+                FormatView.vm.Format_CutStart_Seconds_Text = "00";
+                FormatView.vm.Format_CutStart_Milliseconds_Text = "000";
+                FormatView.vm.Format_CutEnd_Hours_Text = "00";
+                FormatView.vm.Format_CutEnd_Minutes_Text = "00";
+                FormatView.vm.Format_CutEnd_Seconds_Text = "00";
+                FormatView.vm.Format_CutEnd_Milliseconds_Text = "000";
+                FormatView.vm.Format_YouTube_SelectedItem = "Video + Audio";
+                FormatView.vm.Format_YouTube_Quality_SelectedItem = "best";
 
                 // Video
-                vm.Video_Codec_SelectedItem = "x264";
-                vm.Video_EncodeSpeed_SelectedItem = "Medium";
-                vm.Video_Quality_SelectedItem = "High";
-                vm.Video_Pass_SelectedItem = "CRF";
-                vm.Video_BitRate_Text = "";
-                vm.Video_MinRate_Text = "";
-                vm.Video_MaxRate_Text = "";
-                vm.Video_BufSize_Text = "";
-                vm.Video_PixelFormat_SelectedItem = "yuv420p";
-                vm.Video_FPS_SelectedItem = "auto";
-                vm.Video_Speed_SelectedItem = "auto";
-                vm.Video_Optimize_SelectedItem = "Custom";
-                vm.Video_Optimize_Tune_SelectedItem = "none";
-                vm.Video_Optimize_Profile_SelectedItem = "main";
-                vm.Video_Optimize_Level_SelectedItem = "4.2";
-                vm.Video_Scale_SelectedItem = "Source";
-                vm.Video_ScreenFormat_SelectedItem = "Widescreen";
-                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
-                vm.Video_AspectRatio_SelectedItem = "auto";
-                vm.Video_AspectRatio_SelectedItem = "auto";
-                vm.Video_Crop_X_Text = "";
-                vm.Video_Crop_Y_Text = "";
-                vm.Video_Crop_Width_Text = "";
-                vm.Video_Crop_Height_Text = "";
-                vm.Video_CropClear_Text = "Clear";
+                VideoView.vm.Video_Codec_SelectedItem = "x264";
+                VideoView.vm.Video_EncodeSpeed_SelectedItem = "Medium";
+                VideoView.vm.Video_Quality_SelectedItem = "High";
+                VideoView.vm.Video_Pass_SelectedItem = "CRF";
+                VideoView.vm.Video_BitRate_Text = "";
+                VideoView.vm.Video_MinRate_Text = "";
+                VideoView.vm.Video_MaxRate_Text = "";
+                VideoView.vm.Video_BufSize_Text = "";
+                VideoView.vm.Video_PixelFormat_SelectedItem = "yuv420p";
+                VideoView.vm.Video_FPS_SelectedItem = "auto";
+                VideoView.vm.Video_Speed_SelectedItem = "auto";
+                VideoView.vm.Video_Optimize_SelectedItem = "Custom";
+                VideoView.vm.Video_Video_Optimize_Tune_SelectedItem = "none";
+                VideoView.vm.Video_Video_Optimize_Profile_SelectedItem = "main";
+                VideoView.vm.Video_Optimize_Level_SelectedItem = "4.2";
+                VideoView.vm.Video_Scale_SelectedItem = "Source";
+                VideoView.vm.Video_ScreenFormat_SelectedItem = "Widescreen";
+                VideoView.vm.Video_ScalingAlgorithm_SelectedItem = "auto";
+                VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
+                VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
+                VideoView.vm.Video_Crop_X_Text = "";
+                VideoView.vm.Video_Crop_Y_Text = "";
+                VideoView.vm.Video_Crop_Width_Text = "";
+                VideoView.vm.Video_Crop_Height_Text = "";
+                VideoView.vm.Video_CropClear_Text = "Clear";
 
                 // Subtitle
-                vm.Subtitle_Codec_SelectedItem = "SRT";
-                vm.Subtitle_Stream_SelectedItem = "all";
+                SubtitleView.vm.Subtitle_Codec_SelectedItem = "SRT";
+                SubtitleView.vm.Subtitle_Stream_SelectedItem = "all";
 
                 // Audio
-                vm.Audio_Codec_SelectedItem = "AAC";
-                vm.Audio_Stream_SelectedItem = "all";
-                vm.Audio_Channel_SelectedItem = "Source";
-                vm.Audio_Quality_SelectedItem = "160";
-                vm.Audio_VBR_IsChecked = false;
-                vm.Audio_CompressionLevel_SelectedItem = "auto";
-                vm.Audio_SampleRate_SelectedItem = "auto";
-                vm.Audio_BitDepth_SelectedItem = "auto";
-                vm.Audio_Volume_Text = "100";
-                vm.Audio_HardLimiter_Value = 1;
+                AudioView.vm.Audio_Codec_SelectedItem = "AAC";
+                AudioView.vm.Audio_Stream_SelectedItem = "all";
+                AudioView.vm.Audio_Channel_SelectedItem = "Source";
+                AudioView.vm.Audio_Quality_SelectedItem = "160";
+                AudioView.vm.Audio_VBR_IsChecked = false;
+                AudioView.vm.Audio_CompressionLevel_SelectedItem = "auto";
+                AudioView.vm.Audio_SampleRate_SelectedItem = "auto";
+                AudioView.vm.Audio_BitDepth_SelectedItem = "auto";
+                AudioView.vm.Audio_Volume_Text = "100";
+                AudioView.vm.Audio_HardLimiter_Value = 1;
 
                 // Filters
-                vm.LoadFiltersDefault();
+                FilterVideoView.vm.LoadFilterVideoDefaults();
+                FilterAudioView.vm.LoadFilterAudioDefaults();
             }
 
 
@@ -1022,131 +1036,133 @@ namespace Axiom
             // -------------------------
             // Android
             // -------------------------
-            else if (vm.Preset_SelectedItem == "Android")
+            else if (MainView.vm.Preset_SelectedItem == "Android")
             {
-                //vm.Preset.IsEditable = false;
+                //MainView.vm.Preset.IsEditable = false;
 
                 // Format
-                vm.Format_Container_SelectedItem = "mp4";
-                vm.Format_Cut_SelectedItem = "No";
-                vm.Format_CutStart_Hours_Text = "00";
-                vm.Format_CutStart_Minutes_Text = "00";
-                vm.Format_CutStart_Seconds_Text = "00";
-                vm.Format_CutStart_Milliseconds_Text = "000";
-                vm.Format_CutEnd_Hours_Text = "00";
-                vm.Format_CutEnd_Minutes_Text = "00";
-                vm.Format_CutEnd_Seconds_Text = "00";
-                vm.Format_CutEnd_Milliseconds_Text = "000";
-                vm.Format_YouTube_SelectedItem = "Video + Audio";
-                vm.Format_YouTube_Quality_SelectedItem = "best";
+                FormatView.vm.Format_Container_SelectedItem = "mp4";
+                FormatView.vm.Format_Cut_SelectedItem = "No";
+                FormatView.vm.Format_CutStart_Hours_Text = "00";
+                FormatView.vm.Format_CutStart_Minutes_Text = "00";
+                FormatView.vm.Format_CutStart_Seconds_Text = "00";
+                FormatView.vm.Format_CutStart_Milliseconds_Text = "000";
+                FormatView.vm.Format_CutEnd_Hours_Text = "00";
+                FormatView.vm.Format_CutEnd_Minutes_Text = "00";
+                FormatView.vm.Format_CutEnd_Seconds_Text = "00";
+                FormatView.vm.Format_CutEnd_Milliseconds_Text = "000";
+                FormatView.vm.Format_YouTube_SelectedItem = "Video + Audio";
+                FormatView.vm.Format_YouTube_Quality_SelectedItem = "best";
 
                 // Video
-                vm.Video_Codec_SelectedItem = "x264";
-                vm.Video_EncodeSpeed_SelectedItem = "Medium";
-                vm.Video_Quality_SelectedItem = "High";
-                vm.Video_Pass_SelectedItem = "CRF";
-                vm.Video_BitRate_Text = "";
-                vm.Video_MinRate_Text = "";
-                vm.Video_MaxRate_Text = "";
-                vm.Video_BufSize_Text = "";
-                vm.Video_PixelFormat_SelectedItem = "yuv420p";
-                vm.Video_Optimize_SelectedItem = "Android";
-                vm.Video_FPS_SelectedItem = "23.976";
-                vm.Video_Speed_SelectedItem = "auto";
-                vm.Video_Scale_SelectedItem = "Source";
-                vm.Video_ScreenFormat_SelectedItem = "Widescreen";
-                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
-                vm.Video_AspectRatio_SelectedItem = "auto";
-                vm.Video_AspectRatio_SelectedItem = "auto";
-                vm.Video_Crop_X_Text = "";
-                vm.Video_Crop_Y_Text = "";
-                vm.Video_Crop_Width_Text = "";
-                vm.Video_Crop_Height_Text = "";
-                vm.Video_CropClear_Text = "Clear";
+                VideoView.vm.Video_Codec_SelectedItem = "x264";
+                VideoView.vm.Video_EncodeSpeed_SelectedItem = "Medium";
+                VideoView.vm.Video_Quality_SelectedItem = "High";
+                VideoView.vm.Video_Pass_SelectedItem = "CRF";
+                VideoView.vm.Video_BitRate_Text = "";
+                VideoView.vm.Video_MinRate_Text = "";
+                VideoView.vm.Video_MaxRate_Text = "";
+                VideoView.vm.Video_BufSize_Text = "";
+                VideoView.vm.Video_PixelFormat_SelectedItem = "yuv420p";
+                VideoView.vm.Video_Optimize_SelectedItem = "Android";
+                VideoView.vm.Video_FPS_SelectedItem = "23.976";
+                VideoView.vm.Video_Speed_SelectedItem = "auto";
+                VideoView.vm.Video_Scale_SelectedItem = "Source";
+                VideoView.vm.Video_ScreenFormat_SelectedItem = "Widescreen";
+                VideoView.vm.Video_ScalingAlgorithm_SelectedItem = "auto";
+                VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
+                VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
+                VideoView.vm.Video_Crop_X_Text = "";
+                VideoView.vm.Video_Crop_Y_Text = "";
+                VideoView.vm.Video_Crop_Width_Text = "";
+                VideoView.vm.Video_Crop_Height_Text = "";
+                VideoView.vm.Video_CropClear_Text = "Clear";
 
                 // Subtitle
-                vm.Subtitle_Codec_SelectedItem = "MOV Text";
-                vm.Subtitle_Stream_SelectedItem = "all";
+                SubtitleView.vm.Subtitle_Codec_SelectedItem = "MOV Text";
+                SubtitleView.vm.Subtitle_Stream_SelectedItem = "all";
 
                 // Audio
-                vm.Audio_Codec_SelectedItem = "AAC";
-                vm.Audio_Stream_SelectedItem = "all";
-                vm.Audio_Channel_SelectedItem = "Stereo";
-                vm.Audio_Quality_SelectedItem = "400";
-                vm.Audio_VBR_IsChecked = true;
-                vm.Audio_CompressionLevel_SelectedItem = "auto";
-                vm.Audio_SampleRate_SelectedItem = "44.1k";
-                vm.Audio_BitDepth_SelectedItem = "auto";
-                vm.Audio_Volume_Text = "100";
-                vm.Audio_HardLimiter_Value = 1;
+                AudioView.vm.Audio_Codec_SelectedItem = "AAC";
+                AudioView.vm.Audio_Stream_SelectedItem = "all";
+                AudioView.vm.Audio_Channel_SelectedItem = "Stereo";
+                AudioView.vm.Audio_Quality_SelectedItem = "400";
+                AudioView.vm.Audio_VBR_IsChecked = true;
+                AudioView.vm.Audio_CompressionLevel_SelectedItem = "auto";
+                AudioView.vm.Audio_SampleRate_SelectedItem = "44.1k";
+                AudioView.vm.Audio_BitDepth_SelectedItem = "auto";
+                AudioView.vm.Audio_Volume_Text = "100";
+                AudioView.vm.Audio_HardLimiter_Value = 1;
 
                 // Filters
-                vm.LoadFiltersDefault();
+                FilterVideoView.vm.LoadFilterVideoDefaults();
+                FilterAudioView.vm.LoadFilterAudioDefaults();
             }
 
             // -------------------------
             // iOS
             // -------------------------
-            else if (vm.Preset_SelectedItem == "iOS")
+            else if (MainView.vm.Preset_SelectedItem == "iOS")
             {
-                //vm.Preset.IsEditable = false;
+                //MainView.vm.Preset.IsEditable = false;
 
                 // Format
-                vm.Format_Container_SelectedItem = "mp4";
-                vm.Format_Cut_SelectedItem = "No";
-                vm.Format_CutStart_Hours_Text = "00";
-                vm.Format_CutStart_Minutes_Text = "00";
-                vm.Format_CutStart_Seconds_Text = "00";
-                vm.Format_CutStart_Milliseconds_Text = "000";
-                vm.Format_CutEnd_Hours_Text = "00";
-                vm.Format_CutEnd_Minutes_Text = "00";
-                vm.Format_CutEnd_Seconds_Text = "00";
-                vm.Format_CutEnd_Milliseconds_Text = "000";
-                vm.Format_YouTube_SelectedItem = "Video + Audio";
-                vm.Format_YouTube_Quality_SelectedItem = "best";
+                FormatView.vm.Format_Container_SelectedItem = "mp4";
+                FormatView.vm.Format_Cut_SelectedItem = "No";
+                FormatView.vm.Format_CutStart_Hours_Text = "00";
+                FormatView.vm.Format_CutStart_Minutes_Text = "00";
+                FormatView.vm.Format_CutStart_Seconds_Text = "00";
+                FormatView.vm.Format_CutStart_Milliseconds_Text = "000";
+                FormatView.vm.Format_CutEnd_Hours_Text = "00";
+                FormatView.vm.Format_CutEnd_Minutes_Text = "00";
+                FormatView.vm.Format_CutEnd_Seconds_Text = "00";
+                FormatView.vm.Format_CutEnd_Milliseconds_Text = "000";
+                FormatView.vm.Format_YouTube_SelectedItem = "Video + Audio";
+                FormatView.vm.Format_YouTube_Quality_SelectedItem = "best";
 
                 // Video
-                vm.Video_Codec_SelectedItem = "x264";
-                vm.Video_EncodeSpeed_SelectedItem = "Medium";
-                vm.Video_Quality_SelectedItem = "High";
-                vm.Video_Pass_SelectedItem = "CRF";
-                vm.Video_BitRate_Text = "";
-                vm.Video_MinRate_Text = "";
-                vm.Video_MaxRate_Text = "";
-                vm.Video_BufSize_Text = "";
-                vm.Video_PixelFormat_SelectedItem = "yuv420p";
-                vm.Video_FPS_SelectedItem = "23.976";
-                vm.Video_Speed_SelectedItem = "auto";
-                vm.Video_Optimize_SelectedItem = "Apple";
-                vm.Video_Scale_SelectedItem = "Source";
-                vm.Video_ScreenFormat_SelectedItem = "Widescreen";
-                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
-                vm.Video_AspectRatio_SelectedItem = "auto";
-                vm.Video_AspectRatio_SelectedItem = "auto";
-                vm.Video_Crop_X_Text = "";
-                vm.Video_Crop_Y_Text = "";
-                vm.Video_Crop_Width_Text = "";
-                vm.Video_Crop_Height_Text = "";
-                vm.Video_CropClear_Text = "Clear";
+                VideoView.vm.Video_Codec_SelectedItem = "x264";
+                VideoView.vm.Video_EncodeSpeed_SelectedItem = "Medium";
+                VideoView.vm.Video_Quality_SelectedItem = "High";
+                VideoView.vm.Video_Pass_SelectedItem = "CRF";
+                VideoView.vm.Video_BitRate_Text = "";
+                VideoView.vm.Video_MinRate_Text = "";
+                VideoView.vm.Video_MaxRate_Text = "";
+                VideoView.vm.Video_BufSize_Text = "";
+                VideoView.vm.Video_PixelFormat_SelectedItem = "yuv420p";
+                VideoView.vm.Video_FPS_SelectedItem = "23.976";
+                VideoView.vm.Video_Speed_SelectedItem = "auto";
+                VideoView.vm.Video_Optimize_SelectedItem = "Apple";
+                VideoView.vm.Video_Scale_SelectedItem = "Source";
+                VideoView.vm.Video_ScreenFormat_SelectedItem = "Widescreen";
+                VideoView.vm.Video_ScalingAlgorithm_SelectedItem = "auto";
+                VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
+                VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
+                VideoView.vm.Video_Crop_X_Text = "";
+                VideoView.vm.Video_Crop_Y_Text = "";
+                VideoView.vm.Video_Crop_Width_Text = "";
+                VideoView.vm.Video_Crop_Height_Text = "";
+                VideoView.vm.Video_CropClear_Text = "Clear";
 
                 // Subtitle
-                vm.Subtitle_Codec_SelectedItem = "MOV Text";
-                vm.Subtitle_Stream_SelectedItem = "all";
+                SubtitleView.vm.Subtitle_Codec_SelectedItem = "MOV Text";
+                SubtitleView.vm.Subtitle_Stream_SelectedItem = "all";
 
                 // Audio
-                vm.Audio_Codec_SelectedItem = "AAC";
-                vm.Audio_Stream_SelectedItem = "all";
-                vm.Audio_Channel_SelectedItem = "Stereo";
-                vm.Audio_Quality_SelectedItem = "400";
-                vm.Audio_VBR_IsChecked = true;
-                vm.Audio_CompressionLevel_SelectedItem = "auto";
-                vm.Audio_SampleRate_SelectedItem = "44.1k";
-                vm.Audio_BitDepth_SelectedItem = "auto";
-                vm.Audio_Volume_Text = "100";
-                vm.Audio_HardLimiter_Value = 1;
+                AudioView.vm.Audio_Codec_SelectedItem = "AAC";
+                AudioView.vm.Audio_Stream_SelectedItem = "all";
+                AudioView.vm.Audio_Channel_SelectedItem = "Stereo";
+                AudioView.vm.Audio_Quality_SelectedItem = "400";
+                AudioView.vm.Audio_VBR_IsChecked = true;
+                AudioView.vm.Audio_CompressionLevel_SelectedItem = "auto";
+                AudioView.vm.Audio_SampleRate_SelectedItem = "44.1k";
+                AudioView.vm.Audio_BitDepth_SelectedItem = "auto";
+                AudioView.vm.Audio_Volume_Text = "100";
+                AudioView.vm.Audio_HardLimiter_Value = 1;
 
                 // Filters
-                vm.LoadFiltersDefault();
+                FilterVideoView.vm.LoadFilterVideoDefaults();
+                FilterAudioView.vm.LoadFilterAudioDefaults();
             }
 
 
@@ -1156,261 +1172,265 @@ namespace Axiom
             // -------------------------
             // PS3
             // -------------------------
-            else if (vm.Preset_SelectedItem == "PS3")
+            else if (MainView.vm.Preset_SelectedItem == "PS3")
             {
-                //vm.Preset.IsEditable = false;
+                //MainView.vm.Preset.IsEditable = false;
 
                 // Format
-                vm.Format_Container_SelectedItem = "mp4";
-                vm.Format_Cut_SelectedItem = "No";
-                vm.Format_CutStart_Hours_Text = "00";
-                vm.Format_CutStart_Minutes_Text = "00";
-                vm.Format_CutStart_Seconds_Text = "00";
-                vm.Format_CutStart_Milliseconds_Text = "000";
-                vm.Format_CutEnd_Hours_Text = "00";
-                vm.Format_CutEnd_Minutes_Text = "00";
-                vm.Format_CutEnd_Seconds_Text = "00";
-                vm.Format_CutEnd_Milliseconds_Text = "000";
-                vm.Format_YouTube_SelectedItem = "Video + Audio";
-                vm.Format_YouTube_Quality_SelectedItem = "best";
+                FormatView.vm.Format_Container_SelectedItem = "mp4";
+                FormatView.vm.Format_Cut_SelectedItem = "No";
+                FormatView.vm.Format_CutStart_Hours_Text = "00";
+                FormatView.vm.Format_CutStart_Minutes_Text = "00";
+                FormatView.vm.Format_CutStart_Seconds_Text = "00";
+                FormatView.vm.Format_CutStart_Milliseconds_Text = "000";
+                FormatView.vm.Format_CutEnd_Hours_Text = "00";
+                FormatView.vm.Format_CutEnd_Minutes_Text = "00";
+                FormatView.vm.Format_CutEnd_Seconds_Text = "00";
+                FormatView.vm.Format_CutEnd_Milliseconds_Text = "000";
+                FormatView.vm.Format_YouTube_SelectedItem = "Video + Audio";
+                FormatView.vm.Format_YouTube_Quality_SelectedItem = "best";
 
                 // Video
-                vm.Video_Codec_SelectedItem = "x264";
-                vm.Video_EncodeSpeed_SelectedItem = "Medium";
-                vm.Video_Quality_SelectedItem = "Ultra";
-                vm.Video_Pass_SelectedItem = "CRF";
-                vm.Video_BitRate_Text = "";
-                vm.Video_MinRate_Text = "";
-                vm.Video_MaxRate_Text = "";
-                vm.Video_BufSize_Text = "";
-                vm.Video_PixelFormat_SelectedItem = "yuv420p";
-                vm.Video_FPS_SelectedItem = "23.976";
-                vm.Video_Speed_SelectedItem = "auto";
-                vm.Video_Optimize_SelectedItem = "PS3";
-                vm.Video_Scale_SelectedItem = "Source";
-                vm.Video_ScreenFormat_SelectedItem = "Widescreen";
-                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
-                vm.Video_AspectRatio_SelectedItem = "auto";
-                vm.Video_AspectRatio_SelectedItem = "auto";
-                vm.Video_Crop_X_Text = "";
-                vm.Video_Crop_Y_Text = "";
-                vm.Video_Crop_Width_Text = "";
-                vm.Video_Crop_Height_Text = "";
-                vm.Video_CropClear_Text = "Clear";
+                VideoView.vm.Video_Codec_SelectedItem = "x264";
+                VideoView.vm.Video_EncodeSpeed_SelectedItem = "Medium";
+                VideoView.vm.Video_Quality_SelectedItem = "Ultra";
+                VideoView.vm.Video_Pass_SelectedItem = "CRF";
+                VideoView.vm.Video_BitRate_Text = "";
+                VideoView.vm.Video_MinRate_Text = "";
+                VideoView.vm.Video_MaxRate_Text = "";
+                VideoView.vm.Video_BufSize_Text = "";
+                VideoView.vm.Video_PixelFormat_SelectedItem = "yuv420p";
+                VideoView.vm.Video_FPS_SelectedItem = "23.976";
+                VideoView.vm.Video_Speed_SelectedItem = "auto";
+                VideoView.vm.Video_Optimize_SelectedItem = "PS3";
+                VideoView.vm.Video_Scale_SelectedItem = "Source";
+                VideoView.vm.Video_ScreenFormat_SelectedItem = "Widescreen";
+                VideoView.vm.Video_ScalingAlgorithm_SelectedItem = "auto";
+                VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
+                VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
+                VideoView.vm.Video_Crop_X_Text = "";
+                VideoView.vm.Video_Crop_Y_Text = "";
+                VideoView.vm.Video_Crop_Width_Text = "";
+                VideoView.vm.Video_Crop_Height_Text = "";
+                VideoView.vm.Video_CropClear_Text = "Clear";
 
                 // Subtitle
-                vm.Subtitle_Codec_SelectedItem = "MOV Text";
-                vm.Subtitle_Stream_SelectedItem = "all";
+                SubtitleView.vm.Subtitle_Codec_SelectedItem = "MOV Text";
+                SubtitleView.vm.Subtitle_Stream_SelectedItem = "all";
 
                 // Audio
-                vm.Audio_Codec_SelectedItem = "AAC";
-                vm.Audio_Stream_SelectedItem = "all";
-                vm.Audio_Channel_SelectedItem = "Source";
-                vm.Audio_Quality_SelectedItem = "400";
-                vm.Audio_VBR_IsChecked = false;
-                vm.Audio_CompressionLevel_SelectedItem = "auto";
-                vm.Audio_SampleRate_SelectedItem = "48k";
-                vm.Audio_BitDepth_SelectedItem = "auto";
-                vm.Audio_Volume_Text = "100";
-                vm.Audio_HardLimiter_Value = 1;
+                AudioView.vm.Audio_Codec_SelectedItem = "AAC";
+                AudioView.vm.Audio_Stream_SelectedItem = "all";
+                AudioView.vm.Audio_Channel_SelectedItem = "Source";
+                AudioView.vm.Audio_Quality_SelectedItem = "400";
+                AudioView.vm.Audio_VBR_IsChecked = false;
+                AudioView.vm.Audio_CompressionLevel_SelectedItem = "auto";
+                AudioView.vm.Audio_SampleRate_SelectedItem = "48k";
+                AudioView.vm.Audio_BitDepth_SelectedItem = "auto";
+                AudioView.vm.Audio_Volume_Text = "100";
+                AudioView.vm.Audio_HardLimiter_Value = 1;
 
                 // Filters
-                vm.LoadFiltersDefault();
+                FilterVideoView.vm.LoadFilterVideoDefaults();
+                FilterAudioView.vm.LoadFilterAudioDefaults();
             }
 
             // -------------------------
             // PS4
             // -------------------------
-            else if (vm.Preset_SelectedItem == "PS4")
+            else if (MainView.vm.Preset_SelectedItem == "PS4")
             {
-                //vm.Preset.IsEditable = false;
+                //MainView.vm.Preset.IsEditable = false;
 
                 // Format
-                vm.Format_Container_SelectedItem = "mp4";
-                vm.Format_Cut_SelectedItem = "No";
-                vm.Format_CutStart_Hours_Text = "00";
-                vm.Format_CutStart_Minutes_Text = "00";
-                vm.Format_CutStart_Seconds_Text = "00";
-                vm.Format_CutStart_Milliseconds_Text = "000";
-                vm.Format_CutEnd_Hours_Text = "00";
-                vm.Format_CutEnd_Minutes_Text = "00";
-                vm.Format_CutEnd_Seconds_Text = "00";
-                vm.Format_CutEnd_Milliseconds_Text = "000";
-                vm.Format_YouTube_SelectedItem = "Video + Audio";
-                vm.Format_YouTube_Quality_SelectedItem = "best";
+                FormatView.vm.Format_Container_SelectedItem = "mp4";
+                FormatView.vm.Format_Cut_SelectedItem = "No";
+                FormatView.vm.Format_CutStart_Hours_Text = "00";
+                FormatView.vm.Format_CutStart_Minutes_Text = "00";
+                FormatView.vm.Format_CutStart_Seconds_Text = "00";
+                FormatView.vm.Format_CutStart_Milliseconds_Text = "000";
+                FormatView.vm.Format_CutEnd_Hours_Text = "00";
+                FormatView.vm.Format_CutEnd_Minutes_Text = "00";
+                FormatView.vm.Format_CutEnd_Seconds_Text = "00";
+                FormatView.vm.Format_CutEnd_Milliseconds_Text = "000";
+                FormatView.vm.Format_YouTube_SelectedItem = "Video + Audio";
+                FormatView.vm.Format_YouTube_Quality_SelectedItem = "best";
 
                 // Video
-                vm.Video_Codec_SelectedItem = "x264";
-                vm.Video_EncodeSpeed_SelectedItem = "Medium";
-                vm.Video_Quality_SelectedItem = "Ultra";
-                vm.Video_Pass_SelectedItem = "CRF";
-                vm.Video_BitRate_Text = "";
-                vm.Video_MinRate_Text = "";
-                vm.Video_MaxRate_Text = "";
-                vm.Video_BufSize_Text = "";
-                vm.Video_PixelFormat_SelectedItem = "yuv420p";
-                vm.Video_FPS_SelectedItem = "auto";
-                vm.Video_Speed_SelectedItem = "auto";
-                vm.Video_Optimize_SelectedItem = "PS4";
-                vm.Video_Scale_SelectedItem = "Source";
-                vm.Video_ScreenFormat_SelectedItem = "Widescreen";
-                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
-                vm.Video_AspectRatio_SelectedItem = "auto";
-                vm.Video_AspectRatio_SelectedItem = "auto";
-                vm.Video_Crop_X_Text = "";
-                vm.Video_Crop_Y_Text = "";
-                vm.Video_Crop_Width_Text = "";
-                vm.Video_Crop_Height_Text = "";
-                vm.Video_CropClear_Text = "Clear";
+                VideoView.vm.Video_Codec_SelectedItem = "x264";
+                VideoView.vm.Video_EncodeSpeed_SelectedItem = "Medium";
+                VideoView.vm.Video_Quality_SelectedItem = "Ultra";
+                VideoView.vm.Video_Pass_SelectedItem = "CRF";
+                VideoView.vm.Video_BitRate_Text = "";
+                VideoView.vm.Video_MinRate_Text = "";
+                VideoView.vm.Video_MaxRate_Text = "";
+                VideoView.vm.Video_BufSize_Text = "";
+                VideoView.vm.Video_PixelFormat_SelectedItem = "yuv420p";
+                VideoView.vm.Video_FPS_SelectedItem = "auto";
+                VideoView.vm.Video_Speed_SelectedItem = "auto";
+                VideoView.vm.Video_Optimize_SelectedItem = "PS4";
+                VideoView.vm.Video_Scale_SelectedItem = "Source";
+                VideoView.vm.Video_ScreenFormat_SelectedItem = "Widescreen";
+                VideoView.vm.Video_ScalingAlgorithm_SelectedItem = "auto";
+                VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
+                VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
+                VideoView.vm.Video_Crop_X_Text = "";
+                VideoView.vm.Video_Crop_Y_Text = "";
+                VideoView.vm.Video_Crop_Width_Text = "";
+                VideoView.vm.Video_Crop_Height_Text = "";
+                VideoView.vm.Video_CropClear_Text = "Clear";
 
                 // Subtitle
-                vm.Subtitle_Codec_SelectedItem = "MOV Text";
-                vm.Subtitle_Stream_SelectedItem = "all";
+                SubtitleView.vm.Subtitle_Codec_SelectedItem = "MOV Text";
+                SubtitleView.vm.Subtitle_Stream_SelectedItem = "all";
 
                 // Audio
-                vm.Audio_Codec_SelectedItem = "AAC";
-                vm.Audio_Stream_SelectedItem = "all";
-                vm.Audio_Channel_SelectedItem = "Source";
-                vm.Audio_Quality_SelectedItem = "Auto";
-                vm.Audio_SampleRate_SelectedItem = "auto";
-                vm.Audio_BitDepth_SelectedItem = "auto";
-                vm.Audio_VBR_IsChecked = false;
-                vm.Audio_CompressionLevel_SelectedItem = "auto";
-                vm.Audio_Volume_Text = "100";
-                vm.Audio_HardLimiter_Value = 1;
+                AudioView.vm.Audio_Codec_SelectedItem = "AAC";
+                AudioView.vm.Audio_Stream_SelectedItem = "all";
+                AudioView.vm.Audio_Channel_SelectedItem = "Source";
+                AudioView.vm.Audio_Quality_SelectedItem = "Auto";
+                AudioView.vm.Audio_SampleRate_SelectedItem = "auto";
+                AudioView.vm.Audio_BitDepth_SelectedItem = "auto";
+                AudioView.vm.Audio_VBR_IsChecked = false;
+                AudioView.vm.Audio_CompressionLevel_SelectedItem = "auto";
+                AudioView.vm.Audio_Volume_Text = "100";
+                AudioView.vm.Audio_HardLimiter_Value = 1;
 
                 // Filters
-                vm.LoadFiltersDefault();
+                FilterVideoView.vm.LoadFilterVideoDefaults();
+                FilterAudioView.vm.LoadFilterAudioDefaults();
             }
 
             // -------------------------
             // Xbox 360
             // -------------------------
-            else if (vm.Preset_SelectedItem == "Xbox 360")
+            else if (MainView.vm.Preset_SelectedItem == "Xbox 360")
             {
-                //vm.Preset.IsEditable = false;
+                //MainView.vm.Preset.IsEditable = false;
 
                 // Format
-                vm.Format_Container_SelectedItem = "mp4";
-                vm.Format_Cut_SelectedItem = "No";
-                vm.Format_CutStart_Hours_Text = "00";
-                vm.Format_CutStart_Minutes_Text = "00";
-                vm.Format_CutStart_Seconds_Text = "00";
-                vm.Format_CutStart_Milliseconds_Text = "000";
-                vm.Format_CutEnd_Hours_Text = "00";
-                vm.Format_CutEnd_Minutes_Text = "00";
-                vm.Format_CutEnd_Seconds_Text = "00";
-                vm.Format_CutEnd_Milliseconds_Text = "000";
-                vm.Format_YouTube_SelectedItem = "Video + Audio";
-                vm.Format_YouTube_Quality_SelectedItem = "best";
+                FormatView.vm.Format_Container_SelectedItem = "mp4";
+                FormatView.vm.Format_Cut_SelectedItem = "No";
+                FormatView.vm.Format_CutStart_Hours_Text = "00";
+                FormatView.vm.Format_CutStart_Minutes_Text = "00";
+                FormatView.vm.Format_CutStart_Seconds_Text = "00";
+                FormatView.vm.Format_CutStart_Milliseconds_Text = "000";
+                FormatView.vm.Format_CutEnd_Hours_Text = "00";
+                FormatView.vm.Format_CutEnd_Minutes_Text = "00";
+                FormatView.vm.Format_CutEnd_Seconds_Text = "00";
+                FormatView.vm.Format_CutEnd_Milliseconds_Text = "000";
+                FormatView.vm.Format_YouTube_SelectedItem = "Video + Audio";
+                FormatView.vm.Format_YouTube_Quality_SelectedItem = "best";
 
                 // Video
-                vm.Video_Codec_SelectedItem = "x264";
-                vm.Video_EncodeSpeed_SelectedItem = "Medium";
-                vm.Video_Quality_SelectedItem = "High";
-                vm.Video_Pass_SelectedItem = "CRF";
-                vm.Video_BitRate_Text = "";
-                vm.Video_MinRate_Text = "";
-                vm.Video_MaxRate_Text = "";
-                vm.Video_BufSize_Text = "";
-                vm.Video_PixelFormat_SelectedItem = "yuv420p";
-                vm.Video_FPS_SelectedItem = "23.976";
-                vm.Video_Speed_SelectedItem = "auto";
-                vm.Video_Optimize_SelectedItem = "Xbox 360";
-                vm.Video_Scale_SelectedItem = "Source";
-                vm.Video_ScreenFormat_SelectedItem = "Widescreen";
-                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
-                vm.Video_AspectRatio_SelectedItem = "auto";
-                vm.Video_AspectRatio_SelectedItem = "auto";
-                vm.Video_Crop_X_Text = "";
-                vm.Video_Crop_Y_Text = "";
-                vm.Video_Crop_Width_Text = "";
-                vm.Video_Crop_Height_Text = "";
-                vm.Video_CropClear_Text = "Clear";
+                VideoView.vm.Video_Codec_SelectedItem = "x264";
+                VideoView.vm.Video_EncodeSpeed_SelectedItem = "Medium";
+                VideoView.vm.Video_Quality_SelectedItem = "High";
+                VideoView.vm.Video_Pass_SelectedItem = "CRF";
+                VideoView.vm.Video_BitRate_Text = "";
+                VideoView.vm.Video_MinRate_Text = "";
+                VideoView.vm.Video_MaxRate_Text = "";
+                VideoView.vm.Video_BufSize_Text = "";
+                VideoView.vm.Video_PixelFormat_SelectedItem = "yuv420p";
+                VideoView.vm.Video_FPS_SelectedItem = "23.976";
+                VideoView.vm.Video_Speed_SelectedItem = "auto";
+                VideoView.vm.Video_Optimize_SelectedItem = "Xbox 360";
+                VideoView.vm.Video_Scale_SelectedItem = "Source";
+                VideoView.vm.Video_ScreenFormat_SelectedItem = "Widescreen";
+                VideoView.vm.Video_ScalingAlgorithm_SelectedItem = "auto";
+                VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
+                VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
+                VideoView.vm.Video_Crop_X_Text = "";
+                VideoView.vm.Video_Crop_Y_Text = "";
+                VideoView.vm.Video_Crop_Width_Text = "";
+                VideoView.vm.Video_Crop_Height_Text = "";
+                VideoView.vm.Video_CropClear_Text = "Clear";
 
                 // Subtitle
-                vm.Subtitle_Codec_SelectedItem = "MOV Text";
-                vm.Subtitle_Stream_SelectedItem = "all";
+                SubtitleView.vm.Subtitle_Codec_SelectedItem = "MOV Text";
+                SubtitleView.vm.Subtitle_Stream_SelectedItem = "all";
 
                 // Audio
-                vm.Audio_Codec_SelectedItem = "AAC";
-                vm.Audio_Stream_SelectedItem = "all";
-                vm.Audio_Channel_SelectedItem = "Stereo";
-                vm.Audio_Quality_SelectedItem = "320";
-                vm.Audio_SampleRate_SelectedItem = "48k";
-                vm.Audio_BitDepth_SelectedItem = "auto";
-                vm.Audio_VBR_IsChecked = false;
-                vm.Audio_CompressionLevel_SelectedItem = "auto";
-                vm.Audio_Volume_Text = "100";
-                vm.Audio_HardLimiter_Value = 1;
+                AudioView.vm.Audio_Codec_SelectedItem = "AAC";
+                AudioView.vm.Audio_Stream_SelectedItem = "all";
+                AudioView.vm.Audio_Channel_SelectedItem = "Stereo";
+                AudioView.vm.Audio_Quality_SelectedItem = "320";
+                AudioView.vm.Audio_SampleRate_SelectedItem = "48k";
+                AudioView.vm.Audio_BitDepth_SelectedItem = "auto";
+                AudioView.vm.Audio_VBR_IsChecked = false;
+                AudioView.vm.Audio_CompressionLevel_SelectedItem = "auto";
+                AudioView.vm.Audio_Volume_Text = "100";
+                AudioView.vm.Audio_HardLimiter_Value = 1;
 
                 // Filters
-                vm.LoadFiltersDefault();
+                FilterVideoView.vm.LoadFilterVideoDefaults();
+                FilterAudioView.vm.LoadFilterAudioDefaults();
             }
 
             // -------------------------
             // Xbox One
             // -------------------------
-            else if (vm.Preset_SelectedItem == "Xbox One")
+            else if (MainView.vm.Preset_SelectedItem == "Xbox One")
             {
-                //vm.Preset.IsEditable = false;
+                //MainView.vm.Preset.IsEditable = false;
 
                 // Format
-                vm.Format_Container_SelectedItem = "mp4";
-                vm.Format_Cut_SelectedItem = "No";
-                vm.Format_CutStart_Hours_Text = "00";
-                vm.Format_CutStart_Minutes_Text = "00";
-                vm.Format_CutStart_Seconds_Text = "00";
-                vm.Format_CutStart_Milliseconds_Text = "000";
-                vm.Format_CutEnd_Hours_Text = "00";
-                vm.Format_CutEnd_Minutes_Text = "00";
-                vm.Format_CutEnd_Seconds_Text = "00";
-                vm.Format_CutEnd_Milliseconds_Text = "000";
-                vm.Format_YouTube_SelectedItem = "Video + Audio";
-                vm.Format_YouTube_Quality_SelectedItem = "best";
+                FormatView.vm.Format_Container_SelectedItem = "mp4";
+                FormatView.vm.Format_Cut_SelectedItem = "No";
+                FormatView.vm.Format_CutStart_Hours_Text = "00";
+                FormatView.vm.Format_CutStart_Minutes_Text = "00";
+                FormatView.vm.Format_CutStart_Seconds_Text = "00";
+                FormatView.vm.Format_CutStart_Milliseconds_Text = "000";
+                FormatView.vm.Format_CutEnd_Hours_Text = "00";
+                FormatView.vm.Format_CutEnd_Minutes_Text = "00";
+                FormatView.vm.Format_CutEnd_Seconds_Text = "00";
+                FormatView.vm.Format_CutEnd_Milliseconds_Text = "000";
+                FormatView.vm.Format_YouTube_SelectedItem = "Video + Audio";
+                FormatView.vm.Format_YouTube_Quality_SelectedItem = "best";
 
                 // Video
-                vm.Video_Codec_SelectedItem = "x264";
-                vm.Video_EncodeSpeed_SelectedItem = "Medium";
-                vm.Video_Quality_SelectedItem = "Ultra";
-                vm.Video_Pass_SelectedItem = "CRF";
-                vm.Video_BitRate_Text = "";
-                vm.Video_MinRate_Text = "";
-                vm.Video_MaxRate_Text = "";
-                vm.Video_BufSize_Text = "";
-                vm.Video_PixelFormat_SelectedItem = "yuv420p";
-                vm.Video_FPS_SelectedItem = "auto";
-                vm.Video_Speed_SelectedItem = "auto";
-                vm.Video_Optimize_SelectedItem = "Xbox One";
-                vm.Video_Scale_SelectedItem = "Source";
-                vm.Video_ScreenFormat_SelectedItem = "Widescreen";
-                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
-                vm.Video_AspectRatio_SelectedItem = "auto";
-                vm.Video_AspectRatio_SelectedItem = "auto";
-                vm.Video_Crop_X_Text = "";
-                vm.Video_Crop_Y_Text = "";
-                vm.Video_Crop_Width_Text = "";
-                vm.Video_Crop_Height_Text = "";
-                vm.Video_CropClear_Text = "Clear";
+                VideoView.vm.Video_Codec_SelectedItem = "x264";
+                VideoView.vm.Video_EncodeSpeed_SelectedItem = "Medium";
+                VideoView.vm.Video_Quality_SelectedItem = "Ultra";
+                VideoView.vm.Video_Pass_SelectedItem = "CRF";
+                VideoView.vm.Video_BitRate_Text = "";
+                VideoView.vm.Video_MinRate_Text = "";
+                VideoView.vm.Video_MaxRate_Text = "";
+                VideoView.vm.Video_BufSize_Text = "";
+                VideoView.vm.Video_PixelFormat_SelectedItem = "yuv420p";
+                VideoView.vm.Video_FPS_SelectedItem = "auto";
+                VideoView.vm.Video_Speed_SelectedItem = "auto";
+                VideoView.vm.Video_Optimize_SelectedItem = "Xbox One";
+                VideoView.vm.Video_Scale_SelectedItem = "Source";
+                VideoView.vm.Video_ScreenFormat_SelectedItem = "Widescreen";
+                VideoView.vm.Video_ScalingAlgorithm_SelectedItem = "auto";
+                VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
+                VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
+                VideoView.vm.Video_Crop_X_Text = "";
+                VideoView.vm.Video_Crop_Y_Text = "";
+                VideoView.vm.Video_Crop_Width_Text = "";
+                VideoView.vm.Video_Crop_Height_Text = "";
+                VideoView.vm.Video_CropClear_Text = "Clear";
 
                 // Subtitle
-                vm.Subtitle_Codec_SelectedItem = "MOV Text";
-                vm.Subtitle_Stream_SelectedItem = "all";
+                SubtitleView.vm.Subtitle_Codec_SelectedItem = "MOV Text";
+                SubtitleView.vm.Subtitle_Stream_SelectedItem = "all";
 
                 // Audio
-                vm.Audio_Codec_SelectedItem = "AAC";
-                vm.Audio_Stream_SelectedItem = "all";
-                vm.Audio_Channel_SelectedItem = "Source";
-                vm.Audio_Quality_SelectedItem = "Auto";
-                vm.Audio_SampleRate_SelectedItem = "auto";
-                vm.Audio_BitDepth_SelectedItem = "auto";
-                vm.Audio_VBR_IsChecked = false;
-                vm.Audio_CompressionLevel_SelectedItem = "auto";
-                vm.Audio_Volume_Text = "100";
-                vm.Audio_HardLimiter_Value = 1;
+                AudioView.vm.Audio_Codec_SelectedItem = "AAC";
+                AudioView.vm.Audio_Stream_SelectedItem = "all";
+                AudioView.vm.Audio_Channel_SelectedItem = "Source";
+                AudioView.vm.Audio_Quality_SelectedItem = "Auto";
+                AudioView.vm.Audio_SampleRate_SelectedItem = "auto";
+                AudioView.vm.Audio_BitDepth_SelectedItem = "auto";
+                AudioView.vm.Audio_VBR_IsChecked = false;
+                AudioView.vm.Audio_CompressionLevel_SelectedItem = "auto";
+                AudioView.vm.Audio_Volume_Text = "100";
+                AudioView.vm.Audio_HardLimiter_Value = 1;
 
                 // Filters
-                vm.LoadFiltersDefault();
+                FilterVideoView.vm.LoadFilterVideoDefaults();
+                FilterAudioView.vm.LoadFilterAudioDefaults();
             }
 
 
@@ -1420,192 +1440,195 @@ namespace Axiom
             // -------------------------
             // UHD
             // -------------------------
-            else if (vm.Preset_SelectedItem == "UHD")
+            else if (MainView.vm.Preset_SelectedItem == "UHD")
             {
-                //vm.Preset.IsEditable = false;
+                //MainView.vm.Preset.IsEditable = false;
 
                 // Format
-                vm.Format_Container_SelectedItem = "mp4";
-                vm.Format_Cut_SelectedItem = "No";
-                vm.Format_CutStart_Hours_Text = "00";
-                vm.Format_CutStart_Minutes_Text = "00";
-                vm.Format_CutStart_Seconds_Text = "00";
-                vm.Format_CutStart_Milliseconds_Text = "000";
-                vm.Format_CutEnd_Hours_Text = "00";
-                vm.Format_CutEnd_Minutes_Text = "00";
-                vm.Format_CutEnd_Seconds_Text = "00";
-                vm.Format_CutEnd_Milliseconds_Text = "000";
-                vm.Format_YouTube_SelectedItem = "Video + Audio";
-                vm.Format_YouTube_Quality_SelectedItem = "best";
+                FormatView.vm.Format_Container_SelectedItem = "mp4";
+                FormatView.vm.Format_Cut_SelectedItem = "No";
+                FormatView.vm.Format_CutStart_Hours_Text = "00";
+                FormatView.vm.Format_CutStart_Minutes_Text = "00";
+                FormatView.vm.Format_CutStart_Seconds_Text = "00";
+                FormatView.vm.Format_CutStart_Milliseconds_Text = "000";
+                FormatView.vm.Format_CutEnd_Hours_Text = "00";
+                FormatView.vm.Format_CutEnd_Minutes_Text = "00";
+                FormatView.vm.Format_CutEnd_Seconds_Text = "00";
+                FormatView.vm.Format_CutEnd_Milliseconds_Text = "000";
+                FormatView.vm.Format_YouTube_SelectedItem = "Video + Audio";
+                FormatView.vm.Format_YouTube_Quality_SelectedItem = "best";
 
                 // Video
-                vm.Video_Codec_SelectedItem = "x265";
-                vm.Video_EncodeSpeed_SelectedItem = "Slow";
-                vm.Video_Quality_SelectedItem = "Custom";
-                vm.Video_Pass_SelectedItem = "2 Pass";
-                vm.Video_BitRate_Text = "50M";
-                vm.Video_MinRate_Text = "";
-                vm.Video_MaxRate_Text = "75M";
-                vm.Video_BufSize_Text = "75M";
-                vm.Video_PixelFormat_SelectedItem = "yuv420p10le";
-                vm.Video_FPS_SelectedItem = "60";
-                vm.Video_Speed_SelectedItem = "auto";
-                vm.Video_Optimize_SelectedItem = "UHD";
-                vm.Video_Scale_SelectedItem = "4K UHD";
-                vm.Video_ScreenFormat_SelectedItem = "Widescreen";
-                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
-                vm.Video_AspectRatio_SelectedItem = "auto";
-                vm.Video_AspectRatio_SelectedItem = "auto";
-                vm.Video_Crop_X_Text = "";
-                vm.Video_Crop_Y_Text = "";
-                vm.Video_Crop_Width_Text = "";
-                vm.Video_Crop_Height_Text = "";
-                vm.Video_CropClear_Text = "Clear";
+                VideoView.vm.Video_Codec_SelectedItem = "x265";
+                VideoView.vm.Video_EncodeSpeed_SelectedItem = "Slow";
+                VideoView.vm.Video_Quality_SelectedItem = "Custom";
+                VideoView.vm.Video_Pass_SelectedItem = "2 Pass";
+                VideoView.vm.Video_BitRate_Text = "50M";
+                VideoView.vm.Video_MinRate_Text = "";
+                VideoView.vm.Video_MaxRate_Text = "75M";
+                VideoView.vm.Video_BufSize_Text = "75M";
+                VideoView.vm.Video_PixelFormat_SelectedItem = "yuv420p10le";
+                VideoView.vm.Video_FPS_SelectedItem = "60";
+                VideoView.vm.Video_Speed_SelectedItem = "auto";
+                VideoView.vm.Video_Optimize_SelectedItem = "UHD";
+                VideoView.vm.Video_Scale_SelectedItem = "4K UHD";
+                VideoView.vm.Video_ScreenFormat_SelectedItem = "Widescreen";
+                VideoView.vm.Video_ScalingAlgorithm_SelectedItem = "auto";
+                VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
+                VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
+                VideoView.vm.Video_Crop_X_Text = "";
+                VideoView.vm.Video_Crop_Y_Text = "";
+                VideoView.vm.Video_Crop_Width_Text = "";
+                VideoView.vm.Video_Crop_Height_Text = "";
+                VideoView.vm.Video_CropClear_Text = "Clear";
 
                 // Subtitle
-                vm.Subtitle_Codec_SelectedItem = "MOV Text";
-                vm.Subtitle_Stream_SelectedItem = "all";
+                SubtitleView.vm.Subtitle_Codec_SelectedItem = "MOV Text";
+                SubtitleView.vm.Subtitle_Stream_SelectedItem = "all";
 
                 // Audio
-                vm.Audio_Codec_SelectedItem = "DTS";
-                vm.Audio_Stream_SelectedItem = "all";
-                vm.Audio_Channel_SelectedItem = "Source";
-                vm.Audio_Quality_SelectedItem = "1509";
-                vm.Audio_VBR_IsChecked = false;
-                vm.Audio_CompressionLevel_SelectedItem = "auto";
-                vm.Audio_SampleRate_SelectedItem = "48k";
-                vm.Audio_BitDepth_SelectedItem = "auto";
-                vm.Audio_Volume_Text = "100";
-                vm.Audio_HardLimiter_Value = 1;
+                AudioView.vm.Audio_Codec_SelectedItem = "DTS";
+                AudioView.vm.Audio_Stream_SelectedItem = "all";
+                AudioView.vm.Audio_Channel_SelectedItem = "Source";
+                AudioView.vm.Audio_Quality_SelectedItem = "1509";
+                AudioView.vm.Audio_VBR_IsChecked = false;
+                AudioView.vm.Audio_CompressionLevel_SelectedItem = "auto";
+                AudioView.vm.Audio_SampleRate_SelectedItem = "48k";
+                AudioView.vm.Audio_BitDepth_SelectedItem = "auto";
+                AudioView.vm.Audio_Volume_Text = "100";
+                AudioView.vm.Audio_HardLimiter_Value = 1;
 
                 // Filters
-                vm.LoadFiltersDefault();
+                FilterVideoView.vm.LoadFilterVideoDefaults();
+                FilterAudioView.vm.LoadFilterAudioDefaults();
             }
 
             // -------------------------
             // Blu-ray
             // -------------------------
-            else if (vm.Preset_SelectedItem == "Blu-ray")
+            else if (MainView.vm.Preset_SelectedItem == "Blu-ray")
             {
-                //vm.Preset.IsEditable = false;
+                //MainView.vm.Preset.IsEditable = false;
 
                 // Format
-                vm.Format_Container_SelectedItem = "mp4";
-                vm.Format_Cut_SelectedItem = "No";
-                vm.Format_CutStart_Hours_Text = "00";
-                vm.Format_CutStart_Minutes_Text = "00";
-                vm.Format_CutStart_Seconds_Text = "00";
-                vm.Format_CutStart_Milliseconds_Text = "000";
-                vm.Format_CutEnd_Hours_Text = "00";
-                vm.Format_CutEnd_Minutes_Text = "00";
-                vm.Format_CutEnd_Seconds_Text = "00";
-                vm.Format_CutEnd_Milliseconds_Text = "000";
-                vm.Format_YouTube_SelectedItem = "Video + Audio";
-                vm.Format_YouTube_Quality_SelectedItem = "best";
+                FormatView.vm.Format_Container_SelectedItem = "mp4";
+                FormatView.vm.Format_Cut_SelectedItem = "No";
+                FormatView.vm.Format_CutStart_Hours_Text = "00";
+                FormatView.vm.Format_CutStart_Minutes_Text = "00";
+                FormatView.vm.Format_CutStart_Seconds_Text = "00";
+                FormatView.vm.Format_CutStart_Milliseconds_Text = "000";
+                FormatView.vm.Format_CutEnd_Hours_Text = "00";
+                FormatView.vm.Format_CutEnd_Minutes_Text = "00";
+                FormatView.vm.Format_CutEnd_Seconds_Text = "00";
+                FormatView.vm.Format_CutEnd_Milliseconds_Text = "000";
+                FormatView.vm.Format_YouTube_SelectedItem = "Video + Audio";
+                FormatView.vm.Format_YouTube_Quality_SelectedItem = "best";
 
                 // Video
-                vm.Video_Codec_SelectedItem = "x264";
-                vm.Video_EncodeSpeed_SelectedItem = "Slow";
-                vm.Video_Quality_SelectedItem = "Ultra";
-                vm.Video_Pass_SelectedItem = "CRF";
-                vm.Video_BitRate_Text = "";
-                vm.Video_MinRate_Text = "";
-                vm.Video_MaxRate_Text = "";
-                vm.Video_BufSize_Text = "";
-                vm.Video_PixelFormat_SelectedItem = "yuv420p10le";
-                vm.Video_FPS_SelectedItem = "23.976";
-                vm.Video_Speed_SelectedItem = "auto";
-                vm.Video_Optimize_SelectedItem = "Blu-ray";
-                vm.Video_Scale_SelectedItem = "1080p";
-                vm.Video_ScreenFormat_SelectedItem = "Widescreen";
-                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
-                vm.Video_AspectRatio_SelectedItem = "auto";
-                vm.Video_AspectRatio_SelectedItem = "auto";
-                vm.Video_Crop_X_Text = "";
-                vm.Video_Crop_Y_Text = "";
-                vm.Video_Crop_Width_Text = "";
-                vm.Video_Crop_Height_Text = "";
-                vm.Video_CropClear_Text = "Clear";
+                VideoView.vm.Video_Codec_SelectedItem = "x264";
+                VideoView.vm.Video_EncodeSpeed_SelectedItem = "Slow";
+                VideoView.vm.Video_Quality_SelectedItem = "Ultra";
+                VideoView.vm.Video_Pass_SelectedItem = "CRF";
+                VideoView.vm.Video_BitRate_Text = "";
+                VideoView.vm.Video_MinRate_Text = "";
+                VideoView.vm.Video_MaxRate_Text = "";
+                VideoView.vm.Video_BufSize_Text = "";
+                VideoView.vm.Video_PixelFormat_SelectedItem = "yuv420p10le";
+                VideoView.vm.Video_FPS_SelectedItem = "23.976";
+                VideoView.vm.Video_Speed_SelectedItem = "auto";
+                VideoView.vm.Video_Optimize_SelectedItem = "Blu-ray";
+                VideoView.vm.Video_Scale_SelectedItem = "1080p";
+                VideoView.vm.Video_ScreenFormat_SelectedItem = "Widescreen";
+                VideoView.vm.Video_ScalingAlgorithm_SelectedItem = "auto";
+                VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
+                VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
+                VideoView.vm.Video_Crop_X_Text = "";
+                VideoView.vm.Video_Crop_Y_Text = "";
+                VideoView.vm.Video_Crop_Width_Text = "";
+                VideoView.vm.Video_Crop_Height_Text = "";
+                VideoView.vm.Video_CropClear_Text = "Clear";
 
                 // Subtitle
-                vm.Subtitle_Codec_SelectedItem = "MOV Text";
-                vm.Subtitle_Stream_SelectedItem = "all";
+                SubtitleView.vm.Subtitle_Codec_SelectedItem = "MOV Text";
+                SubtitleView.vm.Subtitle_Stream_SelectedItem = "all";
 
                 // Audio
-                vm.Audio_Codec_SelectedItem = "AC3";
-                vm.Audio_Stream_SelectedItem = "all";
-                vm.Audio_Channel_SelectedItem = "Source";
-                vm.Audio_Quality_SelectedItem = "640";
-                vm.Audio_VBR_IsChecked = false;
-                vm.Audio_CompressionLevel_SelectedItem = "auto";
-                vm.Audio_SampleRate_SelectedItem = "48k";
-                vm.Audio_BitDepth_SelectedItem = "auto";
-                vm.Audio_Volume_Text = "100";
-                vm.Audio_HardLimiter_Value = 1;
+                AudioView.vm.Audio_Codec_SelectedItem = "AC3";
+                AudioView.vm.Audio_Stream_SelectedItem = "all";
+                AudioView.vm.Audio_Channel_SelectedItem = "Source";
+                AudioView.vm.Audio_Quality_SelectedItem = "640";
+                AudioView.vm.Audio_VBR_IsChecked = false;
+                AudioView.vm.Audio_CompressionLevel_SelectedItem = "auto";
+                AudioView.vm.Audio_SampleRate_SelectedItem = "48k";
+                AudioView.vm.Audio_BitDepth_SelectedItem = "auto";
+                AudioView.vm.Audio_Volume_Text = "100";
+                AudioView.vm.Audio_HardLimiter_Value = 1;
 
                 // Filters
-                vm.LoadFiltersDefault();
+                FilterVideoView.vm.LoadFilterVideoDefaults();
+                FilterAudioView.vm.LoadFilterAudioDefaults();
             }
 
             // -------------------------
             // DVD
             // -------------------------
-            else if (vm.Preset_SelectedItem == "DVD")
+            else if (MainView.vm.Preset_SelectedItem == "DVD")
             {
-                //vm.Preset.IsEditable = false;
+                //MainView.vm.Preset.IsEditable = false;
 
                 // Format
-                vm.Format_Container_SelectedItem = "mpg";
-                vm.Format_Cut_SelectedItem = "No";
-                vm.Format_CutStart_Hours_Text = "00";
-                vm.Format_CutStart_Minutes_Text = "00";
-                vm.Format_CutStart_Seconds_Text = "00";
-                vm.Format_CutStart_Milliseconds_Text = "000";
-                vm.Format_CutEnd_Hours_Text = "00";
-                vm.Format_CutEnd_Minutes_Text = "00";
-                vm.Format_CutEnd_Seconds_Text = "00";
-                vm.Format_CutEnd_Milliseconds_Text = "000";
-                vm.Format_YouTube_SelectedItem = "Audio Only";
-                vm.Format_YouTube_Quality_SelectedItem = "best";
+                FormatView.vm.Format_Container_SelectedItem = "mpg";
+                FormatView.vm.Format_Cut_SelectedItem = "No";
+                FormatView.vm.Format_CutStart_Hours_Text = "00";
+                FormatView.vm.Format_CutStart_Minutes_Text = "00";
+                FormatView.vm.Format_CutStart_Seconds_Text = "00";
+                FormatView.vm.Format_CutStart_Milliseconds_Text = "000";
+                FormatView.vm.Format_CutEnd_Hours_Text = "00";
+                FormatView.vm.Format_CutEnd_Minutes_Text = "00";
+                FormatView.vm.Format_CutEnd_Seconds_Text = "00";
+                FormatView.vm.Format_CutEnd_Milliseconds_Text = "000";
+                FormatView.vm.Format_YouTube_SelectedItem = "Audio Only";
+                FormatView.vm.Format_YouTube_Quality_SelectedItem = "best";
 
                 // Video
-                vm.Video_Codec_SelectedItem = "MPEG-2";
-                vm.Video_EncodeSpeed_SelectedItem = "none";
-                vm.Video_Quality_SelectedItem = "Custom";
-                vm.Video_Pass_SelectedItem = "2 Pass";
-                vm.Video_BitRate_Text = "3M";
-                vm.Video_MinRate_Text = "";
-                vm.Video_MaxRate_Text = "9.8M";
-                vm.Video_BufSize_Text = "9.8M";
-                vm.Video_PixelFormat_SelectedItem = "yuv420p";
-                vm.Video_FPS_SelectedItem = "ntsc";
-                vm.Video_Speed_SelectedItem = "auto";
-                vm.Video_Optimize_SelectedItem = "None";
-                vm.Video_Scale_SelectedItem = "Custom";
-                vm.Video_Width_Text = "720";
-                vm.Video_Height_Text = "480";
-                vm.Video_ScreenFormat_SelectedItem = "Widescreen";
-                vm.Video_AspectRatio_SelectedItem = "16:9";
-                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
+                VideoView.vm.Video_Codec_SelectedItem = "MPEG-2";
+                VideoView.vm.Video_EncodeSpeed_SelectedItem = "none";
+                VideoView.vm.Video_Quality_SelectedItem = "Custom";
+                VideoView.vm.Video_Pass_SelectedItem = "2 Pass";
+                VideoView.vm.Video_BitRate_Text = "3M";
+                VideoView.vm.Video_MinRate_Text = "";
+                VideoView.vm.Video_MaxRate_Text = "9.8M";
+                VideoView.vm.Video_BufSize_Text = "9.8M";
+                VideoView.vm.Video_PixelFormat_SelectedItem = "yuv420p";
+                VideoView.vm.Video_FPS_SelectedItem = "ntsc";
+                VideoView.vm.Video_Speed_SelectedItem = "auto";
+                VideoView.vm.Video_Optimize_SelectedItem = "None";
+                VideoView.vm.Video_Scale_SelectedItem = "Custom";
+                VideoView.vm.Video_Width_Text = "720";
+                VideoView.vm.Video_Height_Text = "480";
+                VideoView.vm.Video_ScreenFormat_SelectedItem = "Widescreen";
+                VideoView.vm.Video_AspectRatio_SelectedItem = "16:9";
+                VideoView.vm.Video_ScalingAlgorithm_SelectedItem = "auto";
 
                 // Subtitle
-                vm.Subtitle_Codec_SelectedItem = "SRT";
-                vm.Subtitle_Stream_SelectedItem = "all";
+                SubtitleView.vm.Subtitle_Codec_SelectedItem = "SRT";
+                SubtitleView.vm.Subtitle_Stream_SelectedItem = "all";
 
                 // Audio
-                vm.Audio_Codec_SelectedItem = "MP2";
-                vm.Audio_Stream_SelectedItem = "all";
-                vm.Audio_Channel_SelectedItem = "Source";
-                vm.Audio_Quality_SelectedItem = "384";
-                vm.Audio_VBR_IsChecked = false;
-                vm.Audio_CompressionLevel_SelectedItem = "auto";
-                vm.Audio_SampleRate_SelectedItem = "44.1k";
-                vm.Audio_BitDepth_SelectedItem = "auto";
-                vm.Audio_Volume_Text = "100";
-                vm.Audio_HardLimiter_Value = 1;
+                AudioView.vm.Audio_Codec_SelectedItem = "MP2";
+                AudioView.vm.Audio_Stream_SelectedItem = "all";
+                AudioView.vm.Audio_Channel_SelectedItem = "Source";
+                AudioView.vm.Audio_Quality_SelectedItem = "384";
+                AudioView.vm.Audio_VBR_IsChecked = false;
+                AudioView.vm.Audio_CompressionLevel_SelectedItem = "auto";
+                AudioView.vm.Audio_SampleRate_SelectedItem = "44.1k";
+                AudioView.vm.Audio_BitDepth_SelectedItem = "auto";
+                AudioView.vm.Audio_Volume_Text = "100";
+                AudioView.vm.Audio_HardLimiter_Value = 1;
 
                 // Filters
-                vm.LoadFiltersDefault();
+                FilterVideoView.vm.LoadFilterVideoDefaults();
+                FilterAudioView.vm.LoadFilterAudioDefaults();
             }
 
 
@@ -1615,273 +1638,277 @@ namespace Axiom
             // -------------------------
             // Lossless
             // -------------------------
-            else if (vm.Preset_SelectedItem == "Lossless")
+            else if (MainView.vm.Preset_SelectedItem == "Lossless")
             {
-                //vm.Preset.IsEditable = false;
+                //MainView.vm.Preset.IsEditable = false;
 
                 // Format
-                vm.Format_Container_SelectedItem = "flac";
-                vm.Format_Cut_SelectedItem = "No";
-                vm.Format_CutStart_Hours_Text = "00";
-                vm.Format_CutStart_Minutes_Text = "00";
-                vm.Format_CutStart_Seconds_Text = "00";
-                vm.Format_CutStart_Milliseconds_Text = "000";
-                vm.Format_CutEnd_Hours_Text = "00";
-                vm.Format_CutEnd_Minutes_Text = "00";
-                vm.Format_CutEnd_Seconds_Text = "00";
-                vm.Format_CutEnd_Milliseconds_Text = "000";
-                vm.Format_YouTube_SelectedItem = "Video + Audio";
-                vm.Format_YouTube_Quality_SelectedItem = "best";
+                FormatView.vm.Format_Container_SelectedItem = "flac";
+                FormatView.vm.Format_Cut_SelectedItem = "No";
+                FormatView.vm.Format_CutStart_Hours_Text = "00";
+                FormatView.vm.Format_CutStart_Minutes_Text = "00";
+                FormatView.vm.Format_CutStart_Seconds_Text = "00";
+                FormatView.vm.Format_CutStart_Milliseconds_Text = "000";
+                FormatView.vm.Format_CutEnd_Hours_Text = "00";
+                FormatView.vm.Format_CutEnd_Minutes_Text = "00";
+                FormatView.vm.Format_CutEnd_Seconds_Text = "00";
+                FormatView.vm.Format_CutEnd_Milliseconds_Text = "000";
+                FormatView.vm.Format_YouTube_SelectedItem = "Video + Audio";
+                FormatView.vm.Format_YouTube_Quality_SelectedItem = "best";
 
                 // Video
-                vm.Video_Codec_SelectedItem = "None";
-                vm.Video_EncodeSpeed_SelectedItem = "none";
-                vm.Video_Quality_SelectedItem = "None";
-                vm.Video_Pass_SelectedItem = "auto";
-                vm.Video_BitRate_Text = "";
-                vm.Video_MinRate_Text = "";
-                vm.Video_MaxRate_Text = "";
-                vm.Video_BufSize_Text = "";
-                vm.Video_PixelFormat_SelectedItem = "none";
-                vm.Video_FPS_SelectedItem = "auto";
-                vm.Video_Speed_SelectedItem = "auto";
-                vm.Video_Optimize_SelectedItem = "None";
-                vm.Video_Scale_SelectedItem = "Source";
-                vm.Video_ScreenFormat_SelectedItem = "Widescreen";
-                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
-                vm.Video_AspectRatio_SelectedItem = "auto";
-                vm.Video_AspectRatio_SelectedItem = "auto";
-                vm.Video_Crop_X_Text = "";
-                vm.Video_Crop_Y_Text = "";
-                vm.Video_Crop_Width_Text = "";
-                vm.Video_Crop_Height_Text = "";
-                vm.Video_CropClear_Text = "Clear";
+                VideoView.vm.Video_Codec_SelectedItem = "None";
+                VideoView.vm.Video_EncodeSpeed_SelectedItem = "none";
+                VideoView.vm.Video_Quality_SelectedItem = "None";
+                VideoView.vm.Video_Pass_SelectedItem = "auto";
+                VideoView.vm.Video_BitRate_Text = "";
+                VideoView.vm.Video_MinRate_Text = "";
+                VideoView.vm.Video_MaxRate_Text = "";
+                VideoView.vm.Video_BufSize_Text = "";
+                VideoView.vm.Video_PixelFormat_SelectedItem = "none";
+                VideoView.vm.Video_FPS_SelectedItem = "auto";
+                VideoView.vm.Video_Speed_SelectedItem = "auto";
+                VideoView.vm.Video_Optimize_SelectedItem = "None";
+                VideoView.vm.Video_Scale_SelectedItem = "Source";
+                VideoView.vm.Video_ScreenFormat_SelectedItem = "Widescreen";
+                VideoView.vm.Video_ScalingAlgorithm_SelectedItem = "auto";
+                VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
+                VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
+                VideoView.vm.Video_Crop_X_Text = "";
+                VideoView.vm.Video_Crop_Y_Text = "";
+                VideoView.vm.Video_Crop_Width_Text = "";
+                VideoView.vm.Video_Crop_Height_Text = "";
+                VideoView.vm.Video_CropClear_Text = "Clear";
 
                 // Subtitle
-                vm.Subtitle_Codec_SelectedItem = "None";
-                vm.Subtitle_Stream_SelectedItem = "none";
+                SubtitleView.vm.Subtitle_Codec_SelectedItem = "None";
+                SubtitleView.vm.Subtitle_Stream_SelectedItem = "none";
 
                 // Audio
-                vm.Audio_Codec_SelectedItem = "FLAC";
-                vm.Audio_Stream_SelectedItem = "1";
-                vm.Audio_Channel_SelectedItem = "Source";
-                vm.Audio_Quality_SelectedItem = "Lossless";
-                vm.Audio_VBR_IsChecked = true;
-                vm.Audio_CompressionLevel_SelectedItem = "auto";
-                vm.Audio_SampleRate_SelectedItem = "auto";
-                vm.Audio_BitDepth_SelectedItem = "auto";
-                vm.Audio_Volume_Text = "100";
-                vm.Audio_HardLimiter_Value = 1;
+                AudioView.vm.Audio_Codec_SelectedItem = "FLAC";
+                AudioView.vm.Audio_Stream_SelectedItem = "1";
+                AudioView.vm.Audio_Channel_SelectedItem = "Source";
+                AudioView.vm.Audio_Quality_SelectedItem = "Lossless";
+                AudioView.vm.Audio_VBR_IsChecked = true;
+                AudioView.vm.Audio_CompressionLevel_SelectedItem = "auto";
+                AudioView.vm.Audio_SampleRate_SelectedItem = "auto";
+                AudioView.vm.Audio_BitDepth_SelectedItem = "auto";
+                AudioView.vm.Audio_Volume_Text = "100";
+                AudioView.vm.Audio_HardLimiter_Value = 1;
 
                 // Filters
-                vm.LoadFiltersDefault();
+                FilterVideoView.vm.LoadFilterVideoDefaults();
+                FilterAudioView.vm.LoadFilterAudioDefaults();
             }
 
             // -------------------------
             // MP3
             // -------------------------
-            else if (vm.Preset_SelectedItem == "MP3 HQ" ||
-                     vm.Preset_SelectedItem == "MP3 Low")
+            else if (MainView.vm.Preset_SelectedItem == "MP3 HQ" ||
+                     MainView.vm.Preset_SelectedItem == "MP3 Low")
             {
-                //vm.Preset.IsEditable = false;
+                //MainView.vm.Preset.IsEditable = false;
 
                 // Format
-                vm.Format_Container_SelectedItem = "mp3";
-                vm.Format_Cut_SelectedItem = "No";
-                vm.Format_CutStart_Hours_Text = "00";
-                vm.Format_CutStart_Minutes_Text = "00";
-                vm.Format_CutStart_Seconds_Text = "00";
-                vm.Format_CutStart_Milliseconds_Text = "000";
-                vm.Format_CutEnd_Hours_Text = "00";
-                vm.Format_CutEnd_Minutes_Text = "00";
-                vm.Format_CutEnd_Seconds_Text = "00";
-                vm.Format_CutEnd_Milliseconds_Text = "000";
-                vm.Format_YouTube_SelectedItem = "Audio Only";
-                vm.Format_YouTube_Quality_SelectedItem = "best";
+                FormatView.vm.Format_Container_SelectedItem = "mp3";
+                FormatView.vm.Format_Cut_SelectedItem = "No";
+                FormatView.vm.Format_CutStart_Hours_Text = "00";
+                FormatView.vm.Format_CutStart_Minutes_Text = "00";
+                FormatView.vm.Format_CutStart_Seconds_Text = "00";
+                FormatView.vm.Format_CutStart_Milliseconds_Text = "000";
+                FormatView.vm.Format_CutEnd_Hours_Text = "00";
+                FormatView.vm.Format_CutEnd_Minutes_Text = "00";
+                FormatView.vm.Format_CutEnd_Seconds_Text = "00";
+                FormatView.vm.Format_CutEnd_Milliseconds_Text = "000";
+                FormatView.vm.Format_YouTube_SelectedItem = "Audio Only";
+                FormatView.vm.Format_YouTube_Quality_SelectedItem = "best";
 
                 // Video
-                vm.Video_Codec_SelectedItem = "None";
-                vm.Video_EncodeSpeed_SelectedItem = "none";
-                vm.Video_Quality_SelectedItem = "None";
-                vm.Video_Pass_SelectedItem = "auto";
-                vm.Video_BitRate_Text = "";
-                vm.Video_MinRate_Text = "";
-                vm.Video_MaxRate_Text = "";
-                vm.Video_BufSize_Text = "";
-                vm.Video_PixelFormat_SelectedItem = "none";
-                vm.Video_FPS_SelectedItem = "auto";
-                vm.Video_Speed_SelectedItem = "auto";
-                vm.Video_Optimize_SelectedItem = "None";
-                vm.Video_Scale_SelectedItem = "Source";
-                vm.Video_ScreenFormat_SelectedItem = "Widescreen";
-                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
-                vm.Video_AspectRatio_SelectedItem = "auto";
-                vm.Video_AspectRatio_SelectedItem = "auto";
-                vm.Video_Crop_X_Text = "";
-                vm.Video_Crop_Y_Text = "";
-                vm.Video_Crop_Width_Text = "";
-                vm.Video_Crop_Height_Text = "";
-                vm.Video_CropClear_Text = "Clear";
+                VideoView.vm.Video_Codec_SelectedItem = "None";
+                VideoView.vm.Video_EncodeSpeed_SelectedItem = "none";
+                VideoView.vm.Video_Quality_SelectedItem = "None";
+                VideoView.vm.Video_Pass_SelectedItem = "auto";
+                VideoView.vm.Video_BitRate_Text = "";
+                VideoView.vm.Video_MinRate_Text = "";
+                VideoView.vm.Video_MaxRate_Text = "";
+                VideoView.vm.Video_BufSize_Text = "";
+                VideoView.vm.Video_PixelFormat_SelectedItem = "none";
+                VideoView.vm.Video_FPS_SelectedItem = "auto";
+                VideoView.vm.Video_Speed_SelectedItem = "auto";
+                VideoView.vm.Video_Optimize_SelectedItem = "None";
+                VideoView.vm.Video_Scale_SelectedItem = "Source";
+                VideoView.vm.Video_ScreenFormat_SelectedItem = "Widescreen";
+                VideoView.vm.Video_ScalingAlgorithm_SelectedItem = "auto";
+                VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
+                VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
+                VideoView.vm.Video_Crop_X_Text = "";
+                VideoView.vm.Video_Crop_Y_Text = "";
+                VideoView.vm.Video_Crop_Width_Text = "";
+                VideoView.vm.Video_Crop_Height_Text = "";
+                VideoView.vm.Video_CropClear_Text = "Clear";
 
                 // Subtitle
-                vm.Subtitle_Codec_SelectedItem = "None";
-                vm.Subtitle_Stream_SelectedItem = "none";
+                SubtitleView.vm.Subtitle_Codec_SelectedItem = "None";
+                SubtitleView.vm.Subtitle_Stream_SelectedItem = "none";
 
                 // Audio
-                vm.Audio_Codec_SelectedItem = "LAME";
-                vm.Audio_Stream_SelectedItem = "1";
-                vm.Audio_Channel_SelectedItem = "Joint Stereo";
+                AudioView.vm.Audio_Codec_SelectedItem = "LAME";
+                AudioView.vm.Audio_Stream_SelectedItem = "1";
+                AudioView.vm.Audio_Channel_SelectedItem = "Joint Stereo";
 
                 // HQ
-                if (vm.Preset_SelectedItem == "MP3 HQ")
+                if (MainView.vm.Preset_SelectedItem == "MP3 HQ")
                 {
-                    vm.Audio_Quality_SelectedItem = "320";
+                    AudioView.vm.Audio_Quality_SelectedItem = "320";
                 }
                 // Low
-                else if (vm.Preset_SelectedItem == "MP3 Low")
+                else if (MainView.vm.Preset_SelectedItem == "MP3 Low")
                 {
-                    vm.Audio_Quality_SelectedItem = "160";
+                    AudioView.vm.Audio_Quality_SelectedItem = "160";
                 }
 
-                vm.Audio_VBR_IsChecked = true;
-                vm.Audio_CompressionLevel_SelectedItem = "auto";
-                vm.Audio_SampleRate_SelectedItem = "auto";
-                vm.Audio_BitDepth_SelectedItem = "auto";
-                vm.Audio_Volume_Text = "100";
-                vm.Audio_HardLimiter_Value = 1;
+                AudioView.vm.Audio_VBR_IsChecked = true;
+                AudioView.vm.Audio_CompressionLevel_SelectedItem = "auto";
+                AudioView.vm.Audio_SampleRate_SelectedItem = "auto";
+                AudioView.vm.Audio_BitDepth_SelectedItem = "auto";
+                AudioView.vm.Audio_Volume_Text = "100";
+                AudioView.vm.Audio_HardLimiter_Value = 1;
 
                 // Filters
-                vm.LoadFiltersDefault();
+                FilterVideoView.vm.LoadFilterVideoDefaults();
+                FilterAudioView.vm.LoadFilterAudioDefaults();
             }
 
             // -------------------------
             // iTunes
             // -------------------------
-            else if (vm.Preset_SelectedItem == "iTunes")
+            else if (MainView.vm.Preset_SelectedItem == "iTunes")
             {
-                //vm.Preset.IsEditable = false;
+                //MainView.vm.Preset.IsEditable = false;
 
                 // Format
-                vm.Format_Container_SelectedItem = "m4a";
-                vm.Format_Cut_SelectedItem = "No";
-                vm.Format_CutStart_Hours_Text = "00";
-                vm.Format_CutStart_Minutes_Text = "00";
-                vm.Format_CutStart_Seconds_Text = "00";
-                vm.Format_CutStart_Milliseconds_Text = "000";
-                vm.Format_CutEnd_Hours_Text = "00";
-                vm.Format_CutEnd_Minutes_Text = "00";
-                vm.Format_CutEnd_Seconds_Text = "00";
-                vm.Format_CutEnd_Milliseconds_Text = "000";
-                vm.Format_YouTube_SelectedItem = "Audio Only";
-                vm.Format_YouTube_Quality_SelectedItem = "best";
+                FormatView.vm.Format_Container_SelectedItem = "m4a";
+                FormatView.vm.Format_Cut_SelectedItem = "No";
+                FormatView.vm.Format_CutStart_Hours_Text = "00";
+                FormatView.vm.Format_CutStart_Minutes_Text = "00";
+                FormatView.vm.Format_CutStart_Seconds_Text = "00";
+                FormatView.vm.Format_CutStart_Milliseconds_Text = "000";
+                FormatView.vm.Format_CutEnd_Hours_Text = "00";
+                FormatView.vm.Format_CutEnd_Minutes_Text = "00";
+                FormatView.vm.Format_CutEnd_Seconds_Text = "00";
+                FormatView.vm.Format_CutEnd_Milliseconds_Text = "000";
+                FormatView.vm.Format_YouTube_SelectedItem = "Audio Only";
+                FormatView.vm.Format_YouTube_Quality_SelectedItem = "best";
 
                 // Video
-                vm.Video_Codec_SelectedItem = "None";
-                vm.Video_EncodeSpeed_SelectedItem = "none";
-                vm.Video_Quality_SelectedItem = "None";
-                vm.Video_Pass_SelectedItem = "auto";
-                vm.Video_BitRate_Text = "";
-                vm.Video_MinRate_Text = "";
-                vm.Video_MaxRate_Text = "";
-                vm.Video_BufSize_Text = "";
-                vm.Video_PixelFormat_SelectedItem = "none";
-                vm.Video_FPS_SelectedItem = "auto";
-                vm.Video_Speed_SelectedItem = "auto";
-                vm.Video_Optimize_SelectedItem = "None";
-                vm.Video_Scale_SelectedItem = "Source";
-                vm.Video_ScreenFormat_SelectedItem = "Widescreen";
-                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
-                vm.Video_AspectRatio_SelectedItem = "auto";
-                vm.Video_AspectRatio_SelectedItem = "auto";
-                vm.Video_Crop_X_Text = "";
-                vm.Video_Crop_Y_Text = "";
-                vm.Video_Crop_Width_Text = "";
-                vm.Video_Crop_Height_Text = "";
-                vm.Video_CropClear_Text = "Clear";
+                VideoView.vm.Video_Codec_SelectedItem = "None";
+                VideoView.vm.Video_EncodeSpeed_SelectedItem = "none";
+                VideoView.vm.Video_Quality_SelectedItem = "None";
+                VideoView.vm.Video_Pass_SelectedItem = "auto";
+                VideoView.vm.Video_BitRate_Text = "";
+                VideoView.vm.Video_MinRate_Text = "";
+                VideoView.vm.Video_MaxRate_Text = "";
+                VideoView.vm.Video_BufSize_Text = "";
+                VideoView.vm.Video_PixelFormat_SelectedItem = "none";
+                VideoView.vm.Video_FPS_SelectedItem = "auto";
+                VideoView.vm.Video_Speed_SelectedItem = "auto";
+                VideoView.vm.Video_Optimize_SelectedItem = "None";
+                VideoView.vm.Video_Scale_SelectedItem = "Source";
+                VideoView.vm.Video_ScreenFormat_SelectedItem = "Widescreen";
+                VideoView.vm.Video_ScalingAlgorithm_SelectedItem = "auto";
+                VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
+                VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
+                VideoView.vm.Video_Crop_X_Text = "";
+                VideoView.vm.Video_Crop_Y_Text = "";
+                VideoView.vm.Video_Crop_Width_Text = "";
+                VideoView.vm.Video_Crop_Height_Text = "";
+                VideoView.vm.Video_CropClear_Text = "Clear";
 
                 // Subtitle
-                vm.Subtitle_Codec_SelectedItem = "None";
-                vm.Subtitle_Stream_SelectedItem = "none";
+                SubtitleView.vm.Subtitle_Codec_SelectedItem = "None";
+                SubtitleView.vm.Subtitle_Stream_SelectedItem = "none";
 
                 // Audio
-                vm.Audio_Codec_SelectedItem = "AAC";
-                vm.Audio_Stream_SelectedItem = "1";
-                vm.Audio_Channel_SelectedItem = "Stereo";
-                vm.Audio_Quality_SelectedItem = "320";
-                vm.Audio_VBR_IsChecked = true;
-                vm.Audio_CompressionLevel_SelectedItem = "auto";
-                vm.Audio_SampleRate_SelectedItem = "auto";
-                vm.Audio_BitDepth_SelectedItem = "auto";
-                vm.Audio_Volume_Text = "100";
-                vm.Audio_HardLimiter_Value = 1;
+                AudioView.vm.Audio_Codec_SelectedItem = "AAC";
+                AudioView.vm.Audio_Stream_SelectedItem = "1";
+                AudioView.vm.Audio_Channel_SelectedItem = "Stereo";
+                AudioView.vm.Audio_Quality_SelectedItem = "320";
+                AudioView.vm.Audio_VBR_IsChecked = true;
+                AudioView.vm.Audio_CompressionLevel_SelectedItem = "auto";
+                AudioView.vm.Audio_SampleRate_SelectedItem = "auto";
+                AudioView.vm.Audio_BitDepth_SelectedItem = "auto";
+                AudioView.vm.Audio_Volume_Text = "100";
+                AudioView.vm.Audio_HardLimiter_Value = 1;
 
                 // Filters
-                vm.LoadFiltersDefault();
+                FilterVideoView.vm.LoadFilterVideoDefaults();
+                FilterAudioView.vm.LoadFilterAudioDefaults();
             }
 
             // -------------------------
             // Voice
             // -------------------------
-            else if (vm.Preset_SelectedItem == "Voice")
+            else if (MainView.vm.Preset_SelectedItem == "Voice")
             {
-                //vm.Preset.IsEditable = false;
+                //MainView.vm.Preset.IsEditable = false;
 
                 // Format
-                vm.Format_Container_SelectedItem = "ogg";
-                vm.Format_Cut_SelectedItem = "No";
-                vm.Format_CutStart_Hours_Text = "00";
-                vm.Format_CutStart_Minutes_Text = "00";
-                vm.Format_CutStart_Seconds_Text = "00";
-                vm.Format_CutStart_Milliseconds_Text = "000";
-                vm.Format_CutEnd_Hours_Text = "00";
-                vm.Format_CutEnd_Minutes_Text = "00";
-                vm.Format_CutEnd_Seconds_Text = "00";
-                vm.Format_CutEnd_Milliseconds_Text = "000";
-                vm.Format_YouTube_SelectedItem = "Audio Only";
-                vm.Format_YouTube_Quality_SelectedItem = "best";
+                FormatView.vm.Format_Container_SelectedItem = "ogg";
+                FormatView.vm.Format_Cut_SelectedItem = "No";
+                FormatView.vm.Format_CutStart_Hours_Text = "00";
+                FormatView.vm.Format_CutStart_Minutes_Text = "00";
+                FormatView.vm.Format_CutStart_Seconds_Text = "00";
+                FormatView.vm.Format_CutStart_Milliseconds_Text = "000";
+                FormatView.vm.Format_CutEnd_Hours_Text = "00";
+                FormatView.vm.Format_CutEnd_Minutes_Text = "00";
+                FormatView.vm.Format_CutEnd_Seconds_Text = "00";
+                FormatView.vm.Format_CutEnd_Milliseconds_Text = "000";
+                FormatView.vm.Format_YouTube_SelectedItem = "Audio Only";
+                FormatView.vm.Format_YouTube_Quality_SelectedItem = "best";
 
                 // Video
-                vm.Video_Codec_SelectedItem = "None";
-                vm.Video_EncodeSpeed_SelectedItem = "none";
-                vm.Video_Quality_SelectedItem = "None";
-                vm.Video_Pass_SelectedItem = "auto";
-                vm.Video_BitRate_Text = "";
-                vm.Video_MinRate_Text = "";
-                vm.Video_MaxRate_Text = "";
-                vm.Video_BufSize_Text = "";
-                vm.Video_PixelFormat_SelectedItem = "none";
-                vm.Video_FPS_SelectedItem = "auto";
-                vm.Video_Speed_SelectedItem = "auto";
-                vm.Video_Optimize_SelectedItem = "None";
-                vm.Video_Scale_SelectedItem = "Source";
-                vm.Video_ScreenFormat_SelectedItem = "Widescreen";
-                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
-                vm.Video_AspectRatio_SelectedItem = "auto";
-                vm.Video_AspectRatio_SelectedItem = "auto";
-                vm.Video_Crop_X_Text = "";
-                vm.Video_Crop_Y_Text = "";
-                vm.Video_Crop_Width_Text = "";
-                vm.Video_Crop_Height_Text = "";
-                vm.Video_CropClear_Text = "Clear";
+                VideoView.vm.Video_Codec_SelectedItem = "None";
+                VideoView.vm.Video_EncodeSpeed_SelectedItem = "none";
+                VideoView.vm.Video_Quality_SelectedItem = "None";
+                VideoView.vm.Video_Pass_SelectedItem = "auto";
+                VideoView.vm.Video_BitRate_Text = "";
+                VideoView.vm.Video_MinRate_Text = "";
+                VideoView.vm.Video_MaxRate_Text = "";
+                VideoView.vm.Video_BufSize_Text = "";
+                VideoView.vm.Video_PixelFormat_SelectedItem = "none";
+                VideoView.vm.Video_FPS_SelectedItem = "auto";
+                VideoView.vm.Video_Speed_SelectedItem = "auto";
+                VideoView.vm.Video_Optimize_SelectedItem = "None";
+                VideoView.vm.Video_Scale_SelectedItem = "Source";
+                VideoView.vm.Video_ScreenFormat_SelectedItem = "Widescreen";
+                VideoView.vm.Video_ScalingAlgorithm_SelectedItem = "auto";
+                VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
+                VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
+                VideoView.vm.Video_Crop_X_Text = "";
+                VideoView.vm.Video_Crop_Y_Text = "";
+                VideoView.vm.Video_Crop_Width_Text = "";
+                VideoView.vm.Video_Crop_Height_Text = "";
+                VideoView.vm.Video_CropClear_Text = "Clear";
 
                 // Subtitle
-                vm.Subtitle_Codec_SelectedItem = "None";
-                vm.Subtitle_Stream_SelectedItem = "none";
+                SubtitleView.vm.Subtitle_Codec_SelectedItem = "None";
+                SubtitleView.vm.Subtitle_Stream_SelectedItem = "none";
 
                 // Audio
-                vm.Audio_Codec_SelectedItem = "Opus";
-                vm.Audio_Stream_SelectedItem = "1";
-                vm.Audio_Channel_SelectedItem = "Source";
-                vm.Audio_Quality_SelectedItem = "96";
-                vm.Audio_VBR_IsChecked = true;
-                vm.Audio_CompressionLevel_SelectedItem = "10";
-                vm.Audio_SampleRate_SelectedItem = "auto";
-                vm.Audio_BitDepth_SelectedItem = "auto";
-                vm.Audio_Volume_Text = "100";
-                vm.Audio_HardLimiter_Value = 1;
+                AudioView.vm.Audio_Codec_SelectedItem = "Opus";
+                AudioView.vm.Audio_Stream_SelectedItem = "1";
+                AudioView.vm.Audio_Channel_SelectedItem = "Source";
+                AudioView.vm.Audio_Quality_SelectedItem = "96";
+                AudioView.vm.Audio_VBR_IsChecked = true;
+                AudioView.vm.Audio_CompressionLevel_SelectedItem = "10";
+                AudioView.vm.Audio_SampleRate_SelectedItem = "auto";
+                AudioView.vm.Audio_BitDepth_SelectedItem = "auto";
+                AudioView.vm.Audio_Volume_Text = "100";
+                AudioView.vm.Audio_HardLimiter_Value = 1;
 
                 // Filters
-                vm.LoadFiltersDefault();
+                FilterVideoView.vm.LoadFilterVideoDefaults();
+                FilterAudioView.vm.LoadFilterAudioDefaults();
             }
 
             // ---------------------------------------------------------------------------
@@ -1890,134 +1917,136 @@ namespace Axiom
             // -------------------------
             // Video
             // -------------------------
-            else if (vm.Preset_SelectedItem == "Video Download")
+            else if (MainView.vm.Preset_SelectedItem == "Video Download")
             {
-                //vm.Preset.IsEditable = false;
+                //MainView.vm.Preset.IsEditable = false;
 
                 // Format
-                vm.Format_Container_SelectedItem = "mp4";
-                vm.Format_Cut_SelectedItem = "No";
-                vm.Format_CutStart_Hours_Text = "00";
-                vm.Format_CutStart_Minutes_Text = "00";
-                vm.Format_CutStart_Seconds_Text = "00";
-                vm.Format_CutStart_Milliseconds_Text = "000";
-                vm.Format_CutEnd_Hours_Text = "00";
-                vm.Format_CutEnd_Minutes_Text = "00";
-                vm.Format_CutEnd_Seconds_Text = "00";
-                vm.Format_CutEnd_Milliseconds_Text = "000";
-                vm.Format_YouTube_SelectedItem = "Video + Audio";
-                vm.Format_YouTube_Quality_SelectedItem = "best";
+                FormatView.vm.Format_Container_SelectedItem = "mp4";
+                FormatView.vm.Format_Cut_SelectedItem = "No";
+                FormatView.vm.Format_CutStart_Hours_Text = "00";
+                FormatView.vm.Format_CutStart_Minutes_Text = "00";
+                FormatView.vm.Format_CutStart_Seconds_Text = "00";
+                FormatView.vm.Format_CutStart_Milliseconds_Text = "000";
+                FormatView.vm.Format_CutEnd_Hours_Text = "00";
+                FormatView.vm.Format_CutEnd_Minutes_Text = "00";
+                FormatView.vm.Format_CutEnd_Seconds_Text = "00";
+                FormatView.vm.Format_CutEnd_Milliseconds_Text = "000";
+                FormatView.vm.Format_YouTube_SelectedItem = "Video + Audio";
+                FormatView.vm.Format_YouTube_Quality_SelectedItem = "best";
 
                 // Video
-                vm.Video_Codec_SelectedItem = "Copy";
-                vm.Video_EncodeSpeed_SelectedItem = "none";
-                vm.Video_Quality_SelectedItem = "Auto";
-                vm.Video_Pass_SelectedItem = "auto";
-                vm.Video_BitRate_Text = "";
-                vm.Video_MinRate_Text = "";
-                vm.Video_MaxRate_Text = "";
-                vm.Video_BufSize_Text = "";
-                vm.Video_PixelFormat_SelectedItem = "auto";
-                vm.Video_FPS_SelectedItem = "auto";
-                vm.Video_Speed_SelectedItem = "auto";
-                vm.Video_Optimize_SelectedItem = "None";
-                vm.Video_Optimize_Tune_SelectedItem = "none";
-                vm.Video_Optimize_Profile_SelectedItem = "none";
-                vm.Video_Optimize_Level_SelectedItem = "none";
-                vm.Video_Scale_SelectedItem = "Source";
-                vm.Video_ScreenFormat_SelectedItem = "Widescreen";
-                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
-                vm.Video_AspectRatio_SelectedItem = "auto";
-                vm.Video_AspectRatio_SelectedItem = "auto";
-                vm.Video_Crop_X_Text = "";
-                vm.Video_Crop_Y_Text = "";
-                vm.Video_Crop_Width_Text = "";
-                vm.Video_Crop_Height_Text = "";
-                vm.Video_CropClear_Text = "Clear";
+                VideoView.vm.Video_Codec_SelectedItem = "Copy";
+                VideoView.vm.Video_EncodeSpeed_SelectedItem = "none";
+                VideoView.vm.Video_Quality_SelectedItem = "Auto";
+                VideoView.vm.Video_Pass_SelectedItem = "auto";
+                VideoView.vm.Video_BitRate_Text = "";
+                VideoView.vm.Video_MinRate_Text = "";
+                VideoView.vm.Video_MaxRate_Text = "";
+                VideoView.vm.Video_BufSize_Text = "";
+                VideoView.vm.Video_PixelFormat_SelectedItem = "auto";
+                VideoView.vm.Video_FPS_SelectedItem = "auto";
+                VideoView.vm.Video_Speed_SelectedItem = "auto";
+                VideoView.vm.Video_Optimize_SelectedItem = "None";
+                VideoView.vm.Video_Video_Optimize_Tune_SelectedItem = "none";
+                VideoView.vm.Video_Video_Optimize_Profile_SelectedItem = "none";
+                VideoView.vm.Video_Optimize_Level_SelectedItem = "none";
+                VideoView.vm.Video_Scale_SelectedItem = "Source";
+                VideoView.vm.Video_ScreenFormat_SelectedItem = "Widescreen";
+                VideoView.vm.Video_ScalingAlgorithm_SelectedItem = "auto";
+                VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
+                VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
+                VideoView.vm.Video_Crop_X_Text = "";
+                VideoView.vm.Video_Crop_Y_Text = "";
+                VideoView.vm.Video_Crop_Width_Text = "";
+                VideoView.vm.Video_Crop_Height_Text = "";
+                VideoView.vm.Video_CropClear_Text = "Clear";
 
                 // Subtitle
-                vm.Subtitle_Codec_SelectedItem = "Copy";
-                vm.Subtitle_Stream_SelectedItem = "none";
+                SubtitleView.vm.Subtitle_Codec_SelectedItem = "Copy";
+                SubtitleView.vm.Subtitle_Stream_SelectedItem = "none";
 
                 // Audio
-                vm.Audio_Codec_SelectedItem = "Copy";
-                vm.Audio_Stream_SelectedItem = "all";
-                vm.Audio_Channel_SelectedItem = "Source";
-                vm.Audio_Quality_SelectedItem = "Auto";
-                vm.Audio_VBR_IsChecked = false;
-                vm.Audio_CompressionLevel_SelectedItem = "auto";
-                vm.Audio_SampleRate_SelectedItem = "auto";
-                vm.Audio_BitDepth_SelectedItem = "auto";
-                vm.Audio_Volume_Text = "100";
-                vm.Audio_HardLimiter_Value = 1;
+                AudioView.vm.Audio_Codec_SelectedItem = "Copy";
+                AudioView.vm.Audio_Stream_SelectedItem = "all";
+                AudioView.vm.Audio_Channel_SelectedItem = "Source";
+                AudioView.vm.Audio_Quality_SelectedItem = "Auto";
+                AudioView.vm.Audio_VBR_IsChecked = false;
+                AudioView.vm.Audio_CompressionLevel_SelectedItem = "auto";
+                AudioView.vm.Audio_SampleRate_SelectedItem = "auto";
+                AudioView.vm.Audio_BitDepth_SelectedItem = "auto";
+                AudioView.vm.Audio_Volume_Text = "100";
+                AudioView.vm.Audio_HardLimiter_Value = 1;
 
                 // Filters
-                vm.LoadFiltersDefault();
+                FilterVideoView.vm.LoadFilterVideoDefaults();
+                FilterAudioView.vm.LoadFilterAudioDefaults();
             }
 
             // -------------------------
             // Music
             // -------------------------
-            else if (vm.Preset_SelectedItem == "Music Download")
+            else if (MainView.vm.Preset_SelectedItem == "Music Download")
             {
-                //vm.Preset.IsEditable = false;
+                //MainView.vm.Preset.IsEditable = false;
 
                 // Format
-                vm.Format_Container_SelectedItem = "m4a";
-                vm.Format_Cut_SelectedItem = "No";
-                vm.Format_CutStart_Hours_Text = "00";
-                vm.Format_CutStart_Minutes_Text = "00";
-                vm.Format_CutStart_Seconds_Text = "00";
-                vm.Format_CutStart_Milliseconds_Text = "000";
-                vm.Format_CutEnd_Hours_Text = "00";
-                vm.Format_CutEnd_Minutes_Text = "00";
-                vm.Format_CutEnd_Seconds_Text = "00";
-                vm.Format_CutEnd_Milliseconds_Text = "000";
-                vm.Format_YouTube_SelectedItem = "Audio Only";
-                vm.Format_YouTube_Quality_SelectedItem = "best";
+                FormatView.vm.Format_Container_SelectedItem = "m4a";
+                FormatView.vm.Format_Cut_SelectedItem = "No";
+                FormatView.vm.Format_CutStart_Hours_Text = "00";
+                FormatView.vm.Format_CutStart_Minutes_Text = "00";
+                FormatView.vm.Format_CutStart_Seconds_Text = "00";
+                FormatView.vm.Format_CutStart_Milliseconds_Text = "000";
+                FormatView.vm.Format_CutEnd_Hours_Text = "00";
+                FormatView.vm.Format_CutEnd_Minutes_Text = "00";
+                FormatView.vm.Format_CutEnd_Seconds_Text = "00";
+                FormatView.vm.Format_CutEnd_Milliseconds_Text = "000";
+                FormatView.vm.Format_YouTube_SelectedItem = "Audio Only";
+                FormatView.vm.Format_YouTube_Quality_SelectedItem = "best";
 
                 // Video
-                vm.Video_Codec_SelectedItem = "None";
-                vm.Video_EncodeSpeed_SelectedItem = "none";
-                vm.Video_Quality_SelectedItem = "None";
-                vm.Video_Pass_SelectedItem = "auto";
-                vm.Video_BitRate_Text = "";
-                vm.Video_MinRate_Text = "";
-                vm.Video_MaxRate_Text = "";
-                vm.Video_BufSize_Text = "";
-                vm.Video_PixelFormat_SelectedItem = "none";
-                vm.Video_FPS_SelectedItem = "auto";
-                vm.Video_Speed_SelectedItem = "auto";
-                vm.Video_Optimize_SelectedItem = "None";
-                vm.Video_Scale_SelectedItem = "Source";
-                vm.Video_ScreenFormat_SelectedItem = "Widescreen";
-                vm.Video_ScalingAlgorithm_SelectedItem = "auto";
-                vm.Video_AspectRatio_SelectedItem = "auto";
-                vm.Video_AspectRatio_SelectedItem = "auto";
-                vm.Video_Crop_X_Text = "";
-                vm.Video_Crop_Y_Text = "";
-                vm.Video_Crop_Width_Text = "";
-                vm.Video_Crop_Height_Text = "";
-                vm.Video_CropClear_Text = "Clear";
+                VideoView.vm.Video_Codec_SelectedItem = "None";
+                VideoView.vm.Video_EncodeSpeed_SelectedItem = "none";
+                VideoView.vm.Video_Quality_SelectedItem = "None";
+                VideoView.vm.Video_Pass_SelectedItem = "auto";
+                VideoView.vm.Video_BitRate_Text = "";
+                VideoView.vm.Video_MinRate_Text = "";
+                VideoView.vm.Video_MaxRate_Text = "";
+                VideoView.vm.Video_BufSize_Text = "";
+                VideoView.vm.Video_PixelFormat_SelectedItem = "none";
+                VideoView.vm.Video_FPS_SelectedItem = "auto";
+                VideoView.vm.Video_Speed_SelectedItem = "auto";
+                VideoView.vm.Video_Optimize_SelectedItem = "None";
+                VideoView.vm.Video_Scale_SelectedItem = "Source";
+                VideoView.vm.Video_ScreenFormat_SelectedItem = "Widescreen";
+                VideoView.vm.Video_ScalingAlgorithm_SelectedItem = "auto";
+                VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
+                VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
+                VideoView.vm.Video_Crop_X_Text = "";
+                VideoView.vm.Video_Crop_Y_Text = "";
+                VideoView.vm.Video_Crop_Width_Text = "";
+                VideoView.vm.Video_Crop_Height_Text = "";
+                VideoView.vm.Video_CropClear_Text = "Clear";
 
                 // Subtitle
-                vm.Subtitle_Codec_SelectedItem = "None";
-                vm.Subtitle_Stream_SelectedItem = "none";
+                SubtitleView.vm.Subtitle_Codec_SelectedItem = "None";
+                SubtitleView.vm.Subtitle_Stream_SelectedItem = "none";
 
                 // Audio
-                vm.Audio_Codec_SelectedItem = "Copy";
-                vm.Audio_Stream_SelectedItem = "1";
-                vm.Audio_Channel_SelectedItem = "Source";
-                vm.Audio_Quality_SelectedItem = "Auto";
-                vm.Audio_VBR_IsChecked = true;
-                vm.Audio_CompressionLevel_SelectedItem = "auto";
-                vm.Audio_SampleRate_SelectedItem = "auto";
-                vm.Audio_BitDepth_SelectedItem = "auto";
-                vm.Audio_Volume_Text = "100";
-                vm.Audio_HardLimiter_Value = 1;
+                AudioView.vm.Audio_Codec_SelectedItem = "Copy";
+                AudioView.vm.Audio_Stream_SelectedItem = "1";
+                AudioView.vm.Audio_Channel_SelectedItem = "Source";
+                AudioView.vm.Audio_Quality_SelectedItem = "Auto";
+                AudioView.vm.Audio_VBR_IsChecked = true;
+                AudioView.vm.Audio_CompressionLevel_SelectedItem = "auto";
+                AudioView.vm.Audio_SampleRate_SelectedItem = "auto";
+                AudioView.vm.Audio_BitDepth_SelectedItem = "auto";
+                AudioView.vm.Audio_Volume_Text = "100";
+                AudioView.vm.Audio_HardLimiter_Value = 1;
 
                 // Filters
-                vm.LoadFiltersDefault();
+                FilterVideoView.vm.LoadFilterVideoDefaults();
+                FilterAudioView.vm.LoadFilterAudioDefaults();
             }
 
             // -------------------------
@@ -2032,7 +2061,7 @@ namespace Axiom
                 {
                     string filename = Path.GetFileNameWithoutExtension(path);
 
-                    if (vm.Preset_SelectedItem == filename)
+                    if (MainView.vm.Preset_SelectedItem == filename)
                     {
                         preset = path;
                         break;
@@ -2040,7 +2069,7 @@ namespace Axiom
                 }
 
                 // Import Preset INI File
-                Profiles.ImportPreset(vm, preset);
+                Profiles.ImportPreset(/*main_vm,*/ preset);
             }
 
 

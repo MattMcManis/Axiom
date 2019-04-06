@@ -103,7 +103,7 @@ namespace Axiom
         ///     BitRate Mode
         /// <summary>
         public static String BitRateMode(bool vbr_IsChecked,
-                                         List<ViewModel.AudioQuality> quality_Items,
+                                         List<AudioView.AudioQuality> quality_Items,
                                          string quality_SelectedItem,
                                          string bitrate_Text)
         {
@@ -139,7 +139,7 @@ namespace Axiom
                                        string mediaType_SelectedItem,
                                        string stream_SelectedItem,
                                        string codec_SelectedItem,
-                                       List<ViewModel.AudioQuality> quality_Items,
+                                       List<AudioView.AudioQuality> quality_Items,
                                        string quality_SelectedItem,
                                        bool vbr_IsChecked
                                        )
@@ -304,7 +304,7 @@ namespace Axiom
         /// <summary>
         ///     Audio Quality - Lossless
         /// <summary>
-        public static void QualityLossless(List<ViewModel.AudioQuality> quality_Items)
+        public static void QualityLossless(List<AudioView.AudioQuality> quality_Items)
         {
             aLossless = quality_Items.FirstOrDefault(item => item.Name == "Lossless")?.Lossless;
         }
@@ -327,7 +327,7 @@ namespace Axiom
         /// <summary>
         public static void QualityCustom(bool vbr_IsChecked,
                                          string codec_SelectedItem,
-                                         List<ViewModel.AudioQuality> quality_Items,
+                                         List<AudioView.AudioQuality> quality_Items,
                                          string quality_SelectedItem,
                                          string bitrate_Text
                                          )
@@ -368,7 +368,7 @@ namespace Axiom
                                           string mediaType_SelectedItem,
                                           string stream_SelectedItem,
                                           string codec_SelectedItem,
-                                          List<ViewModel.AudioQuality> quality_Items,
+                                          List<AudioView.AudioQuality> quality_Items,
                                           string quality_SelectedItem,
                                           string bitrate_Text,
                                           bool vbr_IsChecked
@@ -619,7 +619,7 @@ namespace Axiom
         /// <summary>
         public static String AudioVBRCalculator(bool vbr_IsChecked, 
                                                 string codec_SelectedItem,
-                                                List<ViewModel.AudioQuality> quality_Items,
+                                                List<AudioView.AudioQuality> quality_Items,
                                                 string quality_SelectedItem,
                                                 string inputBitRate
                                                 )
@@ -888,7 +888,7 @@ namespace Axiom
         ///     Sample Rate
         /// <summary>
         public static String SampleRate(string codec_SelectedItem,
-                                        List<ViewModel.AudioSampleRate> sampleRate_Items,
+                                        List<AudioView.AudioSampleRate> sampleRate_Items,
                                         string sampleRate_SelectedItem
                                         )
         {
@@ -926,7 +926,7 @@ namespace Axiom
         ///     Bit Depth
         /// <summary>
         public static String BitDepth(string codec_SelectedItem,
-                                      List<ViewModel.AudioBitDepth> bitDepth_Items,
+                                      List<AudioView.AudioBitDepth> bitDepth_Items,
                                       string bitDepth_SelectedItem
                                      )
         {
@@ -1200,17 +1200,17 @@ namespace Axiom
         /// <summary>
         ///     Volume
         /// <summary>
-        public static void Volume(ViewModel vm)
+        public static void Volume()
         {
             // -------------------------
             // Only if Audio Codec is Not Empty
             // -------------------------
-            if (!string.IsNullOrEmpty(vm.Audio_Codec_SelectedItem))
+            if (!string.IsNullOrEmpty(AudioView.vm.Audio_Codec_SelectedItem))
             {
                 // If TextBox is 100% or Empty
-                if (vm.Audio_Volume_Text == "100%" ||
-                    vm.Audio_Volume_Text == "100" ||
-                    string.IsNullOrEmpty(vm.Audio_Volume_Text))
+                if (AudioView.vm.Audio_Volume_Text == "100%" ||
+                    AudioView.vm.Audio_Volume_Text == "100" ||
+                    string.IsNullOrEmpty(AudioView.vm.Audio_Volume_Text))
                 {
                     aVolume = string.Empty;
                 }
@@ -1221,7 +1221,7 @@ namespace Axiom
                     try
                     {
                         // If user enters value, turn on Filter
-                        double volumeDecimal = Convert.ToDouble(vm.Audio_Volume_Text.Trim()) * 0.01;
+                        double volumeDecimal = Convert.ToDouble(AudioView.vm.Audio_Volume_Text.Trim()) * 0.01;
 
                         aVolume = "volume=" + volumeDecimal;
 
@@ -1240,7 +1240,7 @@ namespace Axiom
             {
                 Log.logParagraph.Inlines.Add(new LineBreak());
                 Log.logParagraph.Inlines.Add(new Bold(new Run("Volume: ")) { Foreground = Log.ConsoleDefault });
-                Log.logParagraph.Inlines.Add(new Run(vm.Audio_Volume_Text) { Foreground = Log.ConsoleDefault });
+                Log.logParagraph.Inlines.Add(new Run(AudioView.vm.Audio_Volume_Text) { Foreground = Log.ConsoleDefault });
             };
             Log.LogActions.Add(Log.WriteAction);
         }
@@ -1250,12 +1250,12 @@ namespace Axiom
         /// <summary>
         ///     Hard Limiter Filter (Method)
         /// <summary>
-        public static void HardLimiter(ViewModel vm)
+        public static void HardLimiter()
         {
-            double value = vm.Audio_HardLimiter_Value;
+            double value = AudioView.vm.Audio_HardLimiter_Value;
 
             // If enabled and not default
-            if (vm.Audio_HardLimiter_IsEnabled == true && 
+            if (AudioView.vm.Audio_HardLimiter_IsEnabled == true && 
                 value != 1)
             {
                 aHardLimiter = "alimiter=level_in=1:level_out=1:limit=" + Convert.ToString(Math.Round(value, 2)) + ":attack=7:release=100:level=disabled";

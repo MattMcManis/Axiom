@@ -33,11 +33,11 @@ namespace Axiom
     {
         private MainWindow mainwindow;
 
-        public FilePropertiesWindow(MainWindow mainwindow, ViewModel vm)
+        public FilePropertiesWindow(MainWindow mainwindow)
         {
             InitializeComponent();
 
-            DataContext = vm;
+            //DataContext = vm;
 
             // Set Width/Height to prevent Tablets maximizing
             //this.Width = 420;
@@ -53,14 +53,14 @@ namespace Axiom
         /// </summary>
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            ViewModel vm = mainwindow.DataContext as ViewModel;
+            //MainView vm = mainwindow.DataContext as MainView;
 
             // -------------------------
             // Display FFprobe File Properties
             // -------------------------
 
             // Get FFprobe Path
-            MainWindow.FFprobePath(vm);
+            MainWindow.FFprobePath();
 
             // -------------------------
             // Write Properties to Window
@@ -75,10 +75,10 @@ namespace Axiom
                 // Start
                 rtbFileProperties.Document = new FlowDocument(propertiesParagraph); 
 
-                FFprobe.argsFileProperties = " -i" + " " + "\"" + vm.Input_Text + "\"" + " -v quiet -print_format ini -show_format -show_streams";
+                FFprobe.argsFileProperties = " -i" + " " + "\"" + MainView.vm.Input_Text + "\"" + " -v quiet -print_format ini -show_format -show_streams";
 
-                FFprobe.inputFileProperties = FFprobe.InputFileInfo(vm.Input_Text, 
-                                                                    vm.Batch_IsChecked, 
+                FFprobe.inputFileProperties = FFprobe.InputFileInfo(MainView.vm.Input_Text, 
+                                                                    MainView.vm.Batch_IsChecked, 
                                                                     FFprobe.argsFileProperties
                                                                     );
 

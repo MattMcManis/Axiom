@@ -181,7 +181,7 @@ namespace Axiom
                     "$shell = new-object -com shell.application;",
                     "$zip = $shell.NameSpace('" + MainWindow.tempDir + "Axiom.zip');",
                     //"foreach ($item in $zip.items()) {$shell.Namespace('" + MainWindow.appDir + "').CopyHere($item, 0x14)};", //all files
-                    "foreach ($item in $zip.items()) {$name = [string]$item.Name; if ($name -match 'Axiom.exe') {$shell.Namespace('" + MainWindow.appDir + "').CopyHere($item, 0x14)}};",
+                    "foreach ($item in $zip.items()) {$name = [string]$item.Name; if ($name -match 'Axiom.exe') {$shell.Namespace('" + MainWindow.appRootDir + "').CopyHere($item, 0x14)}};",
                     // Delete Temp
                     "Write-Host \"`nDeleting Temp File\";",
                     "del " + "\"" + MainWindow.tempDir + "Axiom.zip" + "\";",
@@ -189,7 +189,7 @@ namespace Axiom
                     "Write-Host \"`nUpdate Complete. Relaunching Axiom.\";",
                     "timeout 3;",
                     // Relaunch Axiom
-                    "& '" + MainWindow.appDir + "Axiom.exe'",
+                    "& '" + MainWindow.appRootDir + "Axiom.exe'",
                 };
 
                 // Join List with Spaces

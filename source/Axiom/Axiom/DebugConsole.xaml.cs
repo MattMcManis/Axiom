@@ -48,13 +48,13 @@ namespace Axiom
         public static Brush Value;
 
 
-        public DebugConsole(MainWindow mainwindow, ViewModel vm)
+        public DebugConsole(MainWindow mainwindow)
         {
             InitializeComponent();
 
             //this.mainwindow = mainwindow;
             //vm = mainwindow.DataContext as ViewModel;
-            DataContext = vm;
+            //DataContext = vm;
 
             //this.Width = 400;
             //this.Height = 500;
@@ -157,82 +157,82 @@ namespace Axiom
         /// </summary>
         private void btnDebugTest_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow mainwindow = (MainWindow)System.Windows.Application.Current.MainWindow;
-            ViewModel vm = mainwindow.DataContext as ViewModel;
+            //MainWindow mainwindow = (MainWindow)System.Windows.Application.Current.MainWindow;
+            //MainView vm = mainwindow.DataContext as MainView;
 
             // -------------------------
             // Clear Variables before Run
             // -------------------------
-            MainWindow.ClearGlobalVariables(vm);
+            MainWindow.ClearGlobalVariables();
 
             // -------------------------
             // Batch Extention Period Check
             // -------------------------
-            MainWindow.BatchExtCheck(vm);
+            MainWindow.BatchExtCheck();
 
             // -------------------------
             // Set FFprobe Path
             // -------------------------
-            MainWindow.FFprobePath(vm);
+            MainWindow.FFprobePath();
 
             // -------------------------
             // Set youtube-dl Path
             // -------------------------
-            MainWindow.youtubedlPath(vm);
+            MainWindow.youtubedlPath();
 
             // -------------------------
             // Ready Halts
             // -------------------------
-            if (MainWindow.ReadyHalts(vm) == true)
+            if (MainWindow.ReadyHalts() == true)
             {
                 // -------------------------
                 // Single
                 // -------------------------
-                if (vm.Batch_IsChecked == false)
+                if (MainView.vm.Batch_IsChecked == false)
                 {
                     // -------------------------
                     // FFprobe Detect Metadata
                     // -------------------------
-                    FFprobe.Metadata(vm);
+                    FFprobe.Metadata();
 
                     // -------------------------
                     // FFmpeg Generate Arguments (Single)
                     // -------------------------
                     //disabled if batch
-                    FFmpeg.FFmpegSingleGenerateArgs(vm);
+                    FFmpeg.FFmpegSingleGenerateArgs();
                 }
 
                 // -------------------------
                 // Batch
                 // -------------------------
-                else if (vm.Batch_IsChecked == true)
+                else if (MainView.vm.Batch_IsChecked == true)
                 {
                     // -------------------------
                     // FFprobe Video Entry Type Containers
                     // -------------------------
-                    FFprobe.VideoEntryType(vm);
+                    FFprobe.VideoEntryType();
 
                     // -------------------------
                     // FFprobe Video Entry Type Containers
                     // -------------------------
-                    FFprobe.AudioEntryType(vm);
+                    FFprobe.AudioEntryType();
 
                     // -------------------------
                     // FFmpeg Generate Arguments (Batch)
                     // -------------------------
                     //disabled if single file
-                    FFmpeg.FFmpegBatchGenerateArgs(vm);
+                    FFmpeg.FFmpegBatchGenerateArgs();
                 }
 
                 // -------------------------
                 // Write Variables to Debug Window
                 // -------------------------
-                DebugWrite(this, vm);
+                DebugWrite(this);
 
                 // -------------------------
                 // Clear Variables for next Run
                 // -------------------------
-                MainWindow.ClearGlobalVariables(vm);
+                MainWindow.ClearGlobalVariables();
                 GC.Collect();
             }
         }
@@ -241,7 +241,7 @@ namespace Axiom
         /// <summary>
         ///     Debug Write
         /// </summary>
-        public static void DebugWrite(DebugConsole debugconsole, ViewModel vm)
+        public static void DebugWrite(DebugConsole debugconsole)
         {
             // -------------------------
             // Write Variables to Console
@@ -279,7 +279,7 @@ namespace Axiom
             //debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("ready ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(MainWindow.ReadyHalts(vm).ToString()) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(MainWindow.ReadyHalts().ToString()) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             //debugParagraph.Inlines.Add(new Bold(new Run("script ")) { Foreground = Variable });
@@ -291,7 +291,7 @@ namespace Axiom
             //debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("ffCheckCleared ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(MainWindow.FFcheck(vm).ToString()) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(MainWindow.FFcheck().ToString()) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("threads ")) { Foreground = Variable });
@@ -303,7 +303,7 @@ namespace Axiom
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("appDir ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(MainWindow.appDir) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(MainWindow.appRootDir) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new LineBreak());
@@ -327,19 +327,19 @@ namespace Axiom
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("ffmpegPath ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(vm.FFmpegPath_Text) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(ConfigureView.vm.FFmpegPath_Text) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("ffprobePath ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(vm.FFprobePath_Text) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(ConfigureView.vm.FFprobePath_Text) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("logPath ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(vm.LogPath_Text) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(ConfigureView.vm.LogPath_Text) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("logEnable ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(vm.LogCheckBox_IsChecked.ToString()) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(ConfigureView.vm.LogCheckBox_IsChecked.ToString()) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new LineBreak());
