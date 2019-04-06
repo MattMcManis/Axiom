@@ -16,7 +16,7 @@ using namespace System::Security::Permissions;
 [assembly:AssemblyConfigurationAttribute("")];
 [assembly:AssemblyCompanyAttribute("")];
 [assembly:AssemblyProductAttribute("AxiomTroubleshooter")];
-[assembly:AssemblyCopyrightAttribute("Copyright (c)  2017")];
+[assembly:AssemblyCopyrightAttribute("Copyright (c)  2019")];
 [assembly:AssemblyTrademarkAttribute("")];
 [assembly:AssemblyCultureAttribute("")];
 

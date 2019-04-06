@@ -433,10 +433,22 @@ namespace Axiom
                     // User
                     // --------------------------------------------------
                     // Input Previous Path
-                    conf.Write("User", "InputPreviousPath", MainWindow.inputPreviousPath);
+                    if (!string.IsNullOrEmpty(MainWindow.inputPreviousPath))
+                    {
+                        if (Directory.Exists(MainWindow.inputPreviousPath))
+                        {
+                            conf.Write("User", "InputPreviousPath", MainWindow.inputPreviousPath);
+                        }
+                    }
 
                     // Output Previous Path
-                    conf.Write("User", "OutputPreviousPath", MainWindow.outputPreviousPath);
+                    if (!string.IsNullOrEmpty(MainWindow.outputPreviousPath))
+                    {
+                        if (Directory.Exists(MainWindow.outputPreviousPath))
+                        {
+                            conf.Write("User", "OutputPreviousPath", MainWindow.outputPreviousPath);
+                        }
+                    }
                 }
                 catch
                 {

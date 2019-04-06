@@ -4,12 +4,15 @@
 #include <string>
 #include <sys/types.h>
 #include <sys/stat.h>
-//#pragma comment(lib, "shell32")
-//#include <shellapi.h>
+#pragma comment(lib, "shell32")
+#include <shellapi.h>
 #include <stdlib.h>
 #include <cstdlib>
 #include <stdio.h>
 #include <shlobj.h>
+#include <fstream>
+#include <iostream>
+#include <cstdio>
 #pragma warning(disable:4996)
 #ifdef _MSC_VER
 #define _CRT_SECURE_NO_WARNINGS
@@ -26,7 +29,7 @@ namespace AxiomTroubleshooter {
 	using namespace std;
 
 	/// <summary>
-	/// Summary for Main Form1
+	/// Summary for Form1
 	/// </summary>
 	public ref class Form1 : public System::Windows::Forms::Form
 	{
@@ -50,19 +53,16 @@ namespace AxiomTroubleshooter {
 				delete components;
 			}
 		}
-	private: System::Windows::Forms::Button^  btnOpen;
-	protected:
-	private: System::Windows::Forms::Label^  labelInfo;
 	private: System::Windows::Forms::Label^  label1;
+	protected: 
 	private: System::Windows::Forms::Label^  label2;
-	private: System::Windows::Forms::Button^  btnDelete;
-	private: System::Windows::Forms::Button^  btnDotNet;
-
-	protected:
-
-	protected:
+	private: System::Windows::Forms::Button^  btnOpen;
+	private: System::Windows::Forms::Button^  bntDelete;
+	private: System::Windows::Forms::Button^  btndotNET;
 
 
+
+	private: System::Windows::Forms::Label^  label3;
 
 	private:
 		/// <summary>
@@ -78,115 +78,104 @@ namespace AxiomTroubleshooter {
 		void InitializeComponent(void)
 		{
 			System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(Form1::typeid));
-			this->btnOpen = (gcnew System::Windows::Forms::Button());
-			this->labelInfo = (gcnew System::Windows::Forms::Label());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->label2 = (gcnew System::Windows::Forms::Label());
-			this->btnDelete = (gcnew System::Windows::Forms::Button());
-			this->btnDotNet = (gcnew System::Windows::Forms::Button());
+			this->btnOpen = (gcnew System::Windows::Forms::Button());
+			this->bntDelete = (gcnew System::Windows::Forms::Button());
+			this->btndotNET = (gcnew System::Windows::Forms::Button());
+			this->label3 = (gcnew System::Windows::Forms::Label());
 			this->SuspendLayout();
-			// 
-			// btnOpen
-			// 
-			this->btnOpen->Location = System::Drawing::Point(34, 127);
-			this->btnOpen->Name = L"btnOpen";
-			this->btnOpen->Size = System::Drawing::Size(75, 23);
-			this->btnOpen->TabIndex = 0;
-			this->btnOpen->Text = L"Open";
-			this->btnOpen->UseVisualStyleBackColor = true;
-			this->btnOpen->Click += gcnew System::EventHandler(this, &Form1::btnOpen_Click);
-			// 
-			// labelInfo
-			// 
-			this->labelInfo->AutoSize = true;
-			this->labelInfo->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->labelInfo->Location = System::Drawing::Point(83, 15);
-			this->labelInfo->Name = L"labelInfo";
-			this->labelInfo->Size = System::Drawing::Size(139, 20);
-			this->labelInfo->TabIndex = 1;
-			this->labelInfo->Text = L"Fix Program Crash";
 			// 
 			// label1
 			// 
 			this->label1->AutoSize = true;
-			this->label1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->label1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
 				static_cast<System::Byte>(0)));
-			this->label1->Location = System::Drawing::Point(43, 47);
+			this->label1->Location = System::Drawing::Point(76, 19);
 			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(218, 32);
-			this->label1->TabIndex = 2;
-			this->label1->Text = L"Delete Axiom Last Save Settings in:\n%UserProfile%\\AppData\\Local\\";
+			this->label1->Size = System::Drawing::Size(139, 20);
+			this->label1->TabIndex = 0;
+			this->label1->Text = L"Fix Program Crash";
 			// 
 			// label2
 			// 
 			this->label2->AutoSize = true;
-			this->label2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->label2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
 				static_cast<System::Byte>(0)));
-			this->label2->Location = System::Drawing::Point(39, 89);
+			this->label2->Location = System::Drawing::Point(17, 57);
 			this->label2->Name = L"label2";
-			this->label2->Size = System::Drawing::Size(226, 16);
-			this->label2->TabIndex = 3;
-			this->label2->Text = L"Upgrade Microsoft .NET Framework.";
+			this->label2->Size = System::Drawing::Size(262, 16);
+			this->label2->TabIndex = 1;
+			this->label2->Text = L"Delete axiom.conf file in %LocalAppData%";
 			// 
-			// btnDelete
+			// btnOpen
 			// 
-			this->btnDelete->Location = System::Drawing::Point(115, 127);
-			this->btnDelete->Name = L"btnDelete";
-			this->btnDelete->Size = System::Drawing::Size(75, 23);
-			this->btnDelete->TabIndex = 4;
-			this->btnDelete->Text = L"Delete";
-			this->btnDelete->UseVisualStyleBackColor = true;
-			this->btnDelete->Click += gcnew System::EventHandler(this, &Form1::btnDelete_Click);
+			this->btnOpen->Location = System::Drawing::Point(28, 120);
+			this->btnOpen->Name = L"btnOpen";
+			this->btnOpen->Size = System::Drawing::Size(75, 23);
+			this->btnOpen->TabIndex = 2;
+			this->btnOpen->Text = L"Open";
+			this->btnOpen->UseVisualStyleBackColor = true;
+			this->btnOpen->Click += gcnew System::EventHandler(this, &Form1::btnOpen_Click);
 			// 
-			// btnDotNet
+			// bntDelete
 			// 
-			this->btnDotNet->Location = System::Drawing::Point(196, 127);
-			this->btnDotNet->Name = L"btnDotNet";
-			this->btnDotNet->Size = System::Drawing::Size(75, 23);
-			this->btnDotNet->TabIndex = 5;
-			this->btnDotNet->Text = L".NET 4.5";
-			this->btnDotNet->UseVisualStyleBackColor = true;
-			this->btnDotNet->Click += gcnew System::EventHandler(this, &Form1::btnDotNet_Click);
+			this->bntDelete->Location = System::Drawing::Point(109, 120);
+			this->bntDelete->Name = L"bntDelete";
+			this->bntDelete->Size = System::Drawing::Size(75, 23);
+			this->bntDelete->TabIndex = 3;
+			this->bntDelete->Text = L"Delete";
+			this->bntDelete->UseVisualStyleBackColor = true;
+			this->bntDelete->Click += gcnew System::EventHandler(this, &Form1::bntDelete_Click);
+			// 
+			// btndotNET
+			// 
+			this->btndotNET->Location = System::Drawing::Point(190, 120);
+			this->btndotNET->Name = L"btndotNET";
+			this->btndotNET->Size = System::Drawing::Size(75, 23);
+			this->btndotNET->TabIndex = 4;
+			this->btndotNET->Text = L".NET 4.5";
+			this->btndotNET->UseVisualStyleBackColor = true;
+			this->btndotNET->Click += gcnew System::EventHandler(this, &Form1::btndotNET_Click);
+			// 
+			// label3
+			// 
+			this->label3->AutoSize = true;
+			this->label3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
+				static_cast<System::Byte>(0)));
+			this->label3->Location = System::Drawing::Point(34, 81);
+			this->label3->Name = L"label3";
+			this->label3->Size = System::Drawing::Size(226, 16);
+			this->label3->TabIndex = 5;
+			this->label3->Text = L"Upgrade Microsoft .NET Framework.";
 			// 
 			// Form1
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(304, 171);
-			this->Controls->Add(this->btnDotNet);
-			this->Controls->Add(this->btnDelete);
+			this->ClientSize = System::Drawing::Size(294, 161);
+			this->Controls->Add(this->label3);
+			this->Controls->Add(this->btndotNET);
+			this->Controls->Add(this->bntDelete);
+			this->Controls->Add(this->btnOpen);
 			this->Controls->Add(this->label2);
 			this->Controls->Add(this->label1);
-			this->Controls->Add(this->labelInfo);
-			this->Controls->Add(this->btnOpen);
-			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedSingle;
-			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
+			this->Icon = (cli::safe_cast<System::Drawing::Icon^  >(resources->GetObject(L"$this.Icon")));
 			this->MaximizeBox = false;
+			this->MaximumSize = System::Drawing::Size(310, 200);
+			this->MinimumSize = System::Drawing::Size(310, 200);
 			this->Name = L"Form1";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"Axiom Troubleshooter";
-			this->Load += gcnew System::EventHandler(this, &Form1::Form1_Load);
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
 		}
 #pragma endregion
 
-		// Form Load
-	private: System::Void Form1_Load(System::Object^  sender, System::EventArgs^  e) {
-	}
-
-			 // Open Button
-	private: System::Void btnOpen_Click(System::Object^  sender, System::EventArgs^  e) {
-
-		//const char* userprofile = getenv("USERPROFILE");
-		//if ( userprofile == NULL ) {
-		//	//  Big problem...
-		//} else {
-		//	string s( userprofile );
-		//}
-
+	// Open Button
+	private: System::Void btnOpen_Click(System::Object^  sender, System::EventArgs^  e) 
+	{
 		// Get %userprofile% from Environment Variables
 		char* userProfilePath = getenv("USERPROFILE");
 
@@ -194,97 +183,93 @@ namespace AxiomTroubleshooter {
 		string appDataPath = "\\AppData\\Local";
 
 		// Combine Paths
-		string fullPathStr = string(userProfilePath) + string(appDataPath);
+		string fullPathStr = string(userProfilePath) + string(appDataPath) + string("\\Axiom UI");
+
 		// Execute Explorer + FullPath
-		string execPathStr = string("explorer ") + string(fullPathStr);
+		string execPathStr = string("explorer ") + string("\"") + string(fullPathStr) + string("\"");
 
 		// Convert String to Const Char
-		const char* fullPath = fullPathStr.c_str();
-		const char* execPath = execPathStr.c_str();
+		const char* fullPath = fullPathStr.c_str(); 
+		const char* execPath = execPathStr.c_str(); 
 
 		// Open User Profile Directory in Window
 		struct stat info;
 
-		// cannot access
-		if (stat(fullPath, &info) != 0)
+		// Can't Acces Path
+		if( stat( fullPath, &info ) != 0 ) 
 		{
-			MessageBox::Show("Could Not Access Folder.");
+			MessageBox::Show("Could not access directory.");
 		}
-		// dir exists
-		else if (info.st_mode & S_IFDIR)
+		// Path Exists
+		else if( info.st_mode & S_IFDIR ) 
 		{
-			system(execPath); // Open Window
+			// open window
+			system(execPath); 
 		}
-		// dir does not exist
-		else
+		// Path does not exist
+		else 
 		{
-			MessageBox::Show("Could Not Access Folder.");
+			MessageBox::Show("Directory does not exist."); 
 		}
 	}
 
 
-			 // Delete
-	private: System::Void btnDelete_Click(System::Object^  sender, System::EventArgs^  e) {
-
+	// Delete Button
+	private: System::Void bntDelete_Click(System::Object^  sender, System::EventArgs^  e) 
+	{
 		// Get %userprofile% from Environment Variables
 		char* userProfilePath = getenv("USERPROFILE");
 
 		// AppData Local Path
-		string settingsPath = "\\AppData\\Local\\Axiom";
+		string settingsPath = "\\AppData\\Local\\Axiom UI";
 
 		// Combine Paths
-		string fullPathStr = string(userProfilePath) + string(settingsPath);
+		string fullPathStr = string(userProfilePath) + string(settingsPath) + string("\\axiom.conf");
+
 		// Execute CMD Remove + FullPath
-		string execRemoveStr = string("RD /S /Q ") + string(fullPathStr);
+		string execRemoveStr = string(fullPathStr);
 
 		// Convert String to Const Char
-		const char* fullPath = fullPathStr.c_str();
-		const char* execRemove = execRemoveStr.c_str();
-
+		const char* fullPath = fullPathStr.c_str(); 
+		const char* execDelete = execRemoveStr.c_str(); 
 
 		// Convert fullPathStr to a System:string
 		String^ msg = gcnew System::String(fullPathStr.c_str());
-		// Open Yes No Dialog Box
-		//MessageBox::Show(msg, "Delete Confirm", MessageBoxButtons::YesNo);
 
 		// Open Yes No Dialog Box
-		if (MessageBox::Show(msg, "Delete Confirm", MessageBoxButtons::YesNo) == ::System::Windows::Forms::DialogResult::Yes)
-		{
+		if (MessageBox::Show(msg, "Delete Confirm", MessageBoxButtons::YesNo) == ::System::Windows::Forms::DialogResult::Yes) 
+		{					
 			// Delete
 			struct stat info;
 
-			// cannot access
-			if (stat(fullPath, &info) != 0)
+			// Check if file exists
+			ifstream file(fullPath);
+
+			// Exists
+			if (file) 
 			{
-				MessageBox::Show("No Previous Settings Found.");
-			}
-			// dir exists
-			else if (info.st_mode & S_IFDIR)
-			{
-				system(execRemove); // Remove Setting Folder
-			}
-			// dir does not exist
-			else
-			{
-				MessageBox::Show("No Previous Settings Found.");
+				// Close the file before deleting
+				file.close();
+
+				// Delete axiom.conf
+				std::remove(execDelete);
 			}
 
-		}
-		// If No
-		else
-		{
-			// Stop
-		}
+			// Does not exist
+			else 
+			{
+				MessageBox::Show("Config file not found.");
+			}
+		}		
 	}
+	
 
-
-			 // .NET Upgrade
-	private: System::Void btnDotNet_Click(System::Object^  sender, System::EventArgs^  e) {
+	// .NET Uprade
+	private: System::Void btndotNET_Click(System::Object^  sender, System::EventArgs^  e) 
+	{
 		system("start https://www.microsoft.com/en-us/download/details.aspx?id=30653");
 	}
 
-
-	};
-
+};
 }
 
