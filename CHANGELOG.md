@@ -4,6 +4,22 @@ Axiom FFmpeg UI
 
 ## [alpha]
 
+## [1.7.1.0] - Apr 06, 2019
+### Added
+- Config Path ComboBox
+- Updated ViewModels
+- Path.Combine()
+
+### Changed
+- Updated ViewModels
+- Changed Video CRF Value to 0
+- Refactored Theme Styles
+
+### Fixed
+- `axiom.conf` Import `else if` statement
+- Size Custom with/height
+
+
 ## [1.7.0.0] - Apr 04, 2019
 ### Added
 - App Config File axiom.conf
