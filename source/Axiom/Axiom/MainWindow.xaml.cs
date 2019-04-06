@@ -95,12 +95,14 @@ namespace Axiom
         public static string youtubedl; // youtube-dl.exe
 
         // Input
+        public static string inputPreviousPath;
         public static string inputDir; // Input File Directory
         public static string inputFileName; // (eg. myvideo.mp4 = myvideo)
         public static string inputExt; // (eg. .mp4)
         public static string input; // Single: Input Path + Filename No Ext + Input Ext (Browse Text Box) /// Batch: Input Path (Browse Text Box)
 
         // Output
+        public static string outputPreviousPath;
         public static string outputDir; // Output Path
         public static string outputFileName; // Output Directory + Filename (No Extension)
         public static string outputExt; // (eg. .webm)
@@ -4548,12 +4550,19 @@ namespace Axiom
                 //
                 try
                 {
-                    string previousPath = Settings.Default.InputDir.ToString();
+                    //string previousPath = Settings.Default.InputDir.ToString();
+                    inputPreviousPath = string.Empty;
 
-                    // Use Previous Path if Not Null
-                    if (!string.IsNullOrEmpty(previousPath))
+                    if (File.Exists(Configure.configFile))
                     {
-                        selectFile.InitialDirectory = previousPath;
+                        Configure.INIFile conf = new Configure.INIFile(Configure.configFile);
+                        inputPreviousPath = conf.Read("User", "InputPreviousPath");
+
+                        // Use Previous Path if Not Empty
+                        if (!string.IsNullOrEmpty(inputPreviousPath))
+                        {
+                            selectFile.InitialDirectory = inputPreviousPath;
+                        }
                     }
                 }
                 catch
@@ -4578,9 +4587,20 @@ namespace Axiom
                     inputExt = Path.GetExtension(MainView.vm.Input_Text);
 
                     // Save Previous Path
-                    Settings.Default.InputDir = inputDir;
-                    Settings.Default.Save();
+                    //Settings.Default.InputDir = inputDir;
+                    //Settings.Default.Save();
+                    if (File.Exists(Configure.configFile))
+                    {
+                        try
+                        {
+                            Configure.INIFile conf = new Configure.INIFile(Configure.configFile);
+                            conf.Write("User", "InputPreviousPath", inputDir);
+                        }
+                        catch
+                        {
 
+                        }
+                    }
                 }
 
                 // --------------------------------------------------
@@ -4835,11 +4855,28 @@ namespace Axiom
                 // -------------------------
                 try
                 {
-                    string previousPath = Settings.Default.OutputDir.ToString();
+                    //string previousPath = Settings.Default.OutputDir.ToString();
                     // Use Input Path if Previous Path is Null
-                    if (string.IsNullOrEmpty(previousPath))
+                    //if (string.IsNullOrEmpty(previousPath))
+                    //{
+                    //    saveFile.InitialDirectory = inputDir;
+                    //}
+
+                    if (File.Exists(Configure.configFile))
                     {
-                        saveFile.InitialDirectory = inputDir;
+                        Configure.INIFile conf = new Configure.INIFile(Configure.configFile);
+                        outputPreviousPath = conf.Read("User", "OutputPreviousPath");
+
+                        // Use Input Path is Output Path is Empty
+                        if (string.IsNullOrEmpty(outputPreviousPath))
+                        {
+                            saveFile.InitialDirectory = inputPreviousPath;
+                        }
+                        // Use Output Path if it exists
+                        else
+                        {
+                            saveFile.InitialDirectory = outputPreviousPath;
+                        }
                     }
                 }
                 catch
@@ -4899,8 +4936,20 @@ namespace Axiom
                     }
 
                     // Save Previous Path
-                    Settings.Default.OutputDir = outputDir;
-                    Settings.Default.Save();
+                    //Settings.Default.OutputDir = outputDir;
+                    //Settings.Default.Save();
+                    if (File.Exists(Configure.configFile))
+                    {
+                        try
+                        {
+                            Configure.INIFile conf = new Configure.INIFile(Configure.configFile);
+                            conf.Write("User", "OutputPreviousPath", outputDir);
+                        }
+                        catch
+                        {
+
+                        }
+                    }
                 }
             }
 

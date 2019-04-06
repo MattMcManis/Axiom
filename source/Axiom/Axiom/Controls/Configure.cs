@@ -87,18 +87,18 @@ namespace Axiom
             {
                 List<string> listFailedImports = new List<string>();
 
-                // Start INI File Read
-                Configure.INIFile conf = null;
+                // Start Cofig File Read
+                INIFile conf = null;
 
                 // -------------------------
-                // Check if axiom.conf file exists in C:\ProgramData\Axiom UI\
+                // Check if axiom.conf file exists in C:\Path\To\Axiom UI\
                 // -------------------------
                 if (File.Exists(configFile))
                 {
-                    conf = new Configure.INIFile(configFile);
+                    conf = new INIFile(configFile);
 
                     // Read
-                    ReadConfig(mainwindow, /*main_vm, */conf);
+                    ReadConfig(mainwindow, conf);
                 }
 
                 // -------------------------
@@ -106,14 +106,14 @@ namespace Axiom
                 // -------------------------
                 else if (File.Exists(MainWindow.appRootDir + "axiom.conf"))
                 {
-                    conf = new Configure.INIFile(MainWindow.appRootDir + "axiom.conf");
+                    conf = new INIFile(MainWindow.appRootDir + "axiom.conf");
 
                     // Read
-                    ReadConfig(mainwindow, /*main_vm, */conf);
+                    ReadConfig(mainwindow, conf);
                 }
 
                 // -------------------------
-                // Preset conf file does not exist
+                // conf file does not exist
                 // -------------------------
                 //else if (!File.Exists(configFile))
                 //{
@@ -427,6 +427,16 @@ namespace Axiom
 
                     // Updates
                     conf.Write("Settings", "UpdateAutoCheck_IsChecked", ConfigureView.vm.UpdateAutoCheck_IsChecked.ToString().ToLower());
+
+
+                    // --------------------------------------------------
+                    // User
+                    // --------------------------------------------------
+                    // Input Previous Path
+                    conf.Write("User", "InputPreviousPath", MainWindow.inputPreviousPath);
+
+                    // Output Previous Path
+                    conf.Write("User", "OutputPreviousPath", MainWindow.outputPreviousPath);
                 }
                 catch
                 {

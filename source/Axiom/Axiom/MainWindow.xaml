@@ -5308,8 +5308,6 @@
                                    Grid.Row="13" 
                                    Grid.Column="1" 
                                    Width="58" />
-
-                            <!-- Reset Saved Settings Button -->
                             <Button x:Name="btnClearAllSavedSettings"
                                     HorizontalAlignment="Left" 
                                     VerticalAlignment="Top"
