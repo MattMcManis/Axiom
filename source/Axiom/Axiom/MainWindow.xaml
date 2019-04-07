@@ -35,13 +35,10 @@
         Icon="axiom.ico"
         
         RenderOptions.BitmapScalingMode="Fant"
-        UseLayoutRounding="True"
-        
+        UseLayoutRounding="True"       
         Width="824"
         Height="464"
         
-        Top="{Binding Top, Source={x:Static settings:Settings.Default}, Mode=TwoWay}"
-        Left="{Binding Left, Source={x:Static settings:Settings.Default}, Mode=TwoWay}" 
         Title="{Binding TitleVersion, Mode=OneWay}" 
         Style="{DynamicResource WindowStyle}"
         >

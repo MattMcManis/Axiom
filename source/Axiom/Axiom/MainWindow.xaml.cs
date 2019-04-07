@@ -3654,7 +3654,8 @@ namespace Axiom
             // -------------------------
             // Do Not allow Batch Copy to same folder if file extensions are the same (to avoid file overwrite)
             // -------------------------
-            if (MainView.vm.Batch_IsChecked == true)
+            if (MainView.vm.Batch_IsChecked == true &&
+                !string.IsNullOrEmpty(MainView.vm.Input_Text))
             {
                 if (string.Equals(inputDir, outputDir, StringComparison.CurrentCultureIgnoreCase) &&
                     string.Equals(inputExt, outputExt, StringComparison.CurrentCultureIgnoreCase))
@@ -6331,7 +6332,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///    Export Preset - Button
+        ///    Save Preset - Button
         /// </summary>
         private void btnSavePreset_Click(object sender, RoutedEventArgs e)
         {
@@ -6421,8 +6422,17 @@ namespace Axiom
                 // -------------------------
                 // Select the Preset
                 // -------------------------
-                //MainView.vm.Preset_SelectedItem = preset;
+                MainView.vm.Preset_SelectedItem = presetFileName;
             }
+            else
+            {
+                // -------------------------
+                // Load Custom Presets
+                // Refresh Presets ComboBox
+                // -------------------------
+                Profiles.LoadCustomPresets();
+            }
+
         }
 
 

@@ -74,8 +74,38 @@ namespace Axiom
                         !string.Equals(presetName, "ntuser", StringComparison.CurrentCultureIgnoreCase)
                         )
                     {
-                        MainView.vm.Preset_Items.Insert(3, new MainView.Preset() { Name = presetName, Category = false });
+                        MainView.vm.Preset_Items.Insert(3, new MainView.Preset() { Name = presetName, Category = false, Type = "Custom" });
                     }
+
+                }
+
+
+                // -------------------------
+                // Cleanup Missing/Deleted Presets
+                // -------------------------
+                // Refresh the List
+                presetNamesList = MainView.vm.Preset_Items.Select(item => item.Name).ToList();
+
+                // .ini file is missing in \Axiom UI\presets directory
+                try
+                {
+                    for (int i = MainView.vm.Preset_Items.Count - 1; i >= 0; --i)
+                    {
+                        // If .ini File List does not contain Preset Name
+                        if (!customPresetPathsList.Contains(Profiles.presetsDir + presetNamesList[i] + ".ini"))
+                        //if (!File.Exists(Profiles.presetsDir + presetNamesList[i] + ".ini"))
+                        {
+                            // Remove from Presets List if Type is Custom
+                            if (MainView.vm.Preset_Items.FirstOrDefault(item => item.Name == presetNamesList[i])?.Type == "Custom")
+                            {
+                                MainView.vm.Preset_Items.RemoveAt(i);
+                            }
+                        }
+                    }
+                }
+                catch
+                {
+
                 }
             }
 
@@ -996,7 +1026,6 @@ namespace Axiom
             // Open Window
             failedimportwindow.Show();
         }
-
 
 
     }

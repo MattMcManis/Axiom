@@ -809,6 +809,7 @@ namespace Axiom
                 {
                     MainWindow.FFmpegPath(),
                     "-y",
+
                     "\r\n\r\n" + Video.HWAcceleration(FormatView.vm.Format_MediaType_SelectedItem,
                                                       VideoView.vm.Video_Codec_SelectedItem,
                                                       VideoView.vm.Video_HWAccel_SelectedItem
@@ -921,11 +922,13 @@ namespace Axiom
 
                     "\r\n\r\n" + "&&",
                     "\r\n\r\n" + MainWindow.FFmpegPath(),
+                    "-y",
+
                     "\r\n\r\n" + Video.HWAcceleration(FormatView.vm.Format_MediaType_SelectedItem,
                                                       VideoView.vm.Video_Codec_SelectedItem,
                                                       VideoView.vm.Video_HWAccel_SelectedItem
                                                       ),
-                    "-y",
+                   
                     // %~f added in InputPath()
 
                     OnePassArgs(), // disabled if 2-Pass       
@@ -1032,12 +1035,13 @@ namespace Axiom
             {
                 "\r\n\r\n" + "&&",
                 "\r\n\r\n" + MainWindow.FFmpegPath(),
+                "-y",
+
                 "\r\n\r\n" + Video.HWAcceleration(FormatView.vm.Format_MediaType_SelectedItem,
                                                   VideoView.vm.Video_Codec_SelectedItem,
                                                   VideoView.vm.Video_HWAccel_SelectedItem
                                                   ),
-                "-y",
-
+                
                 OnePassArgs(), //disabled if 2-Pass       
                 TwoPassArgs(), //disabled if 1-Pass
 

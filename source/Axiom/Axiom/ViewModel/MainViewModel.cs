@@ -94,6 +94,7 @@ namespace Axiom
         {
             public string Name { get; set; }
             public bool Category { get; set; }
+            public string Type { get; set; }
         }
 
         public ObservableCollection<Preset> _Preset_Items = new ObservableCollection<Preset>()
