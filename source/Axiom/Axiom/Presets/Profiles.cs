@@ -60,22 +60,28 @@ namespace Axiom
                 // Preset Names Only List
                 List<string> presetNamesList = MainView.vm.Preset_Items.Select(item => item.Name).ToList();
 
-                // Add .ini Preset Names to Presets List
-                for (var i = 0; i < customPresetPathsList.Count; i++)
+                try
                 {
-                    // Get name from .ini
-                    string presetName = Path.GetFileNameWithoutExtension(customPresetPathsList[i]);
-
-                    // Prevent adding duplicate
-                    // Ignore Desktop.ini
-                    // Ignore ntuser.ini
-                    if (!presetNamesList.Contains(presetName) &&
-                        !string.Equals(presetName, "desktop", StringComparison.CurrentCultureIgnoreCase) &&
-                        !string.Equals(presetName, "ntuser", StringComparison.CurrentCultureIgnoreCase)
-                        )
+                    // Add .ini Preset Names to Presets List
+                    for (var i = 0; i < customPresetPathsList.Count; i++)
                     {
-                        MainView.vm.Preset_Items.Insert(3, new MainView.Preset() { Name = presetName, Category = false, Type = "Custom" });
+                        // Get name from .ini
+                        string presetName = Path.GetFileNameWithoutExtension(customPresetPathsList[i]);
+
+                        // Prevent adding duplicate
+                        // Ignore Desktop.ini
+                        // Ignore ntuser.ini
+                        if (!presetNamesList.Contains(presetName) &&
+                            !string.Equals(presetName, "desktop", StringComparison.CurrentCultureIgnoreCase) &&
+                            !string.Equals(presetName, "ntuser", StringComparison.CurrentCultureIgnoreCase)
+                            )
+                        {
+                            MainView.vm.Preset_Items.Insert(3, new MainView.Preset() { Name = presetName, Category = false, Type = "Custom" });
+                        }
                     }
+                }
+                catch
+                {
 
                 }
 

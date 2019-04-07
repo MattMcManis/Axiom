@@ -50,9 +50,6 @@ namespace Axiom
     /// </summary>
     public partial class MainWindow : Window
     {
-        // View Model
-        //public ViewModel vm = new ViewModel();
-
         // Axiom Current Version
         public static Version currentVersion;
         // Axiom GitHub Latest Version
@@ -61,12 +58,6 @@ namespace Axiom
         public static string currentBuildPhase = "alpha";
         public static string latestBuildPhase;
         public static string[] splitVersionBuildPhase;
-
-        //public string TitleVersion
-        //{
-        //    get { return (string)GetValue(TitleProperty); }
-        //    set { SetValue(TitleProperty, value); }
-        //}
 
         // --------------------------------------------------------------------------------------------------------
         /// <summary>
@@ -133,7 +124,7 @@ namespace Axiom
         /// <summary>
         ///     Log Console
         /// </summary>
-        public LogConsole logconsole = new LogConsole(/*((MainWindow)Application.Current.MainWindow)*/);
+        public LogConsole logconsole = new LogConsole();
 
         /// <summary>
         ///     Debug Console
@@ -6389,15 +6380,22 @@ namespace Axiom
             // Show save file dialog box
             Nullable<bool> result = saveFile.ShowDialog();
 
+            // Set Preset Dir, Name, Ext
+            string presetsDir = Path.GetDirectoryName(saveFile.FileName).TrimEnd('\\') + @"\";
+            string presetFileName = Path.GetFileNameWithoutExtension(saveFile.FileName);
+            string presetExt = Path.GetExtension(saveFile.FileName);
+            string preset = presetsDir + presetFileName + presetExt;
+            //string presets = Path.Combine(presetsDir, presetsFileName);
+
             // Process dialog box
             if (result == true)
             {
-                // Set Preset Dir, Name, Ext
-                string presetsDir = Path.GetDirectoryName(saveFile.FileName).TrimEnd('\\') + @"\";
-                string presetFileName = Path.GetFileNameWithoutExtension(saveFile.FileName);
-                string presetExt = Path.GetExtension(saveFile.FileName);
-                string preset = presetsDir + presetFileName + presetExt;
-                //string presets = Path.Combine(presetsDir, presetsFileName);
+                //// Set Preset Dir, Name, Ext
+                //string presetsDir = Path.GetDirectoryName(saveFile.FileName).TrimEnd('\\') + @"\";
+                //string presetFileName = Path.GetFileNameWithoutExtension(saveFile.FileName);
+                //string presetExt = Path.GetExtension(saveFile.FileName);
+                //string preset = presetsDir + presetFileName + presetExt;
+                ////string presets = Path.Combine(presetsDir, presetsFileName);
 
                 // -------------------------
                 // Overwriting doesn't work properly with INI Writer
@@ -6438,6 +6436,22 @@ namespace Axiom
                 // Refresh Presets ComboBox
                 // -------------------------
                 Profiles.LoadCustomPresets();
+
+                if (string.IsNullOrEmpty(MainView.vm.Preset_SelectedItem))
+                {
+                    MainView.vm.Preset_SelectedItem = "Preset";
+                }
+                // Select Newly Created Preset
+                //List<string> presetNamesList = MainView.vm.Preset_Items.Select(item => item.Name).ToList();
+                //if (presetNamesList.Contains(presetFileName))
+                //{
+                //    MainView.vm.Preset_SelectedItem = presetFileName;
+                //}
+                //// Default if does not exist
+                //else
+                //{
+                //    MainView.vm.Preset_SelectedItem = "Preset";
+                //}
             }
 
         }
@@ -8871,34 +8885,6 @@ namespace Axiom
                 //ClearGlobalVariables();
                 GC.Collect();
             }
-            //else
-            //{
-            //    //debug
-            //    //MessageBox.Show("Not Ready");
-
-            //    // Log Console Message /////////
-            //    Log.WriteAction = () =>
-            //    {
-            //        Log.logParagraph.Inlines.Add(new LineBreak());
-            //        Log.logParagraph.Inlines.Add(new LineBreak());
-            //        Log.logParagraph.Inlines.Add(new Run("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~") { Foreground = Log.ConsoleAction });
-            //    };
-            //    Log.LogActions.Add(Log.WriteAction);
-
-
-            //    /// <summary>
-            //    ///    Write All Log Actions to Console
-            //    /// </summary> 
-            //    Log.LogWriteAll(this, MainView.vm);
-
-
-            //    // -------------------------
-            //    // Clear Variables for next Run
-            //    // -------------------------
-            //    ClearVariables();
-            //    GC.Collect();
-
-            //}
         }
 
         

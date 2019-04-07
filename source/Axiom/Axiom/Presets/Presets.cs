@@ -32,25 +32,6 @@ namespace Axiom
     {
         public static void SetPreset()
         {
-            // -------------------------
-            // Custom
-            // -------------------------
-            //// Custom ComboBox Editable
-            //if (MainView.vm.Preset_SelectedItem == "Custom")
-            //{
-            //    //MainView.vm.Preset.IsEditable = true;
-            //}
-            //// Maintain Editable Combobox while typing
-            //if (MainView.vm.Preset.IsEditable == true)
-            //{
-            //    //MainView.vm.Preset.IsEditable = true;
-
-            //    // Clear Custom Text
-            //    //MainView.vm.Preset.Text = string.Empty;
-            //}
-
-            //System.Windows.MessageBox.Show(MainView.vm.Preset_SelectedItem); //debug
-
             // ---------------------------------------------------------------------------
             // Default
             // ---------------------------------------------------------------------------
