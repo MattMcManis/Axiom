@@ -1604,6 +1604,7 @@ namespace Axiom
         {
             "auto",
             "1:1",
+            "2.4:1",
             "3:2",
             "4:3",
             "5:4",
@@ -1614,7 +1615,6 @@ namespace Axiom
             "19:10",
             "21:9",
             "32:9",
-            "240:100",
         };
         public List<string> Video_AspectRatio_Items
         {

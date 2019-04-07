@@ -6269,7 +6269,7 @@ namespace Axiom
             // Yes/No Dialog Confirmation
             //
             MessageBoxResult resultExport = MessageBox.Show("Delete " + presetFileName + "?",
-                                                            "Directory Not Found",
+                                                            "Delete Confirm",
                                                             MessageBoxButton.YesNo,
                                                             MessageBoxImage.Information);
             switch (resultExport)

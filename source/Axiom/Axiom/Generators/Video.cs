@@ -2099,7 +2099,13 @@ namespace Axiom
                 vAspectRatio = string.Empty;
             }
 
-            // Aspect, eg. 4:3, 16:9
+            // 2.4:1
+            else if (aspectRatio_SelectedItem == "2.4:1")
+            {
+                vAspectRatio = "-aspect " + "240:100";
+            }
+
+            // 4:3, 16:9, etc.
             //
             else
             {
