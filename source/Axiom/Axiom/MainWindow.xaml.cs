@@ -8719,8 +8719,11 @@ namespace Axiom
         /// </summary>
         private void btnScriptCopy_Click(object sender, RoutedEventArgs e)
         {
-            //Clipboard.SetText(ScriptView.GetScriptRichTextBoxContents(this), TextDataFormat.UnicodeText);
-            Clipboard.SetText(MainView.vm.ScriptView_Text, TextDataFormat.UnicodeText);
+            if (!string.IsNullOrEmpty(MainView.vm.ScriptView_Text))
+            {
+                //Clipboard.SetText(ScriptView.GetScriptRichTextBoxContents(this), TextDataFormat.UnicodeText);
+                Clipboard.SetText(MainView.vm.ScriptView_Text, TextDataFormat.UnicodeText);
+            }
         }
 
 
