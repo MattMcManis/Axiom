@@ -4,6 +4,17 @@ Axiom FFmpeg UI
 
 ## [alpha]
 
+## [1.7.2.0] - Apr 07, 2019
+### Added
+- HD Background Image for Axiom Theme
+- Selective Color to Custom Presets
+- Custom Preset Add & Delete
+- Custom Presets error catches
+
+### Fixed
+- Batch Codec Copy Warning when Input is Empty
+
+
 ## [1.7.1.0] - Apr 06, 2019
 ### Added
 - Config Path ComboBox
