@@ -76,7 +76,7 @@ Axiom is portable and can be run from any location on the computer.
 #### YouTube Download
 `youtube-dl.exe` is included in `Axiom.FFmpeg.7z`. 
 
-`Axiom` will auto-detect it in its included folder. You can also add it to Windows Environment Variables or specify a path in the Axiom Settings Tab.
+Axiom will auto-detect it in its included folder. You can also add it to Windows Environment Variables or specify a path in the Axiom Settings Tab.
 
 1. Paste a YouTube URL into the Input TextBox
 2. Download file only: 
