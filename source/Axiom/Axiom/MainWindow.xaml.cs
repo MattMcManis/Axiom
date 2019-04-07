@@ -6309,8 +6309,15 @@ namespace Axiom
 
                         // Delete from Items Source
                         // (needs to be after SelectedItem change to prevent error reloading)
-                        MainView.vm.Preset_Items.RemoveAt(selectedIndex);
+                        try
+                        {
+                            MainView.vm.Preset_Items.RemoveAt(selectedIndex);
+                        }
+                        catch
+                        {
 
+                        }
+                        
                         // Load Custom Presets
                         // Refresh Presets ComboBox
                         Profiles.LoadCustomPresets();

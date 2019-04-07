@@ -56,8 +56,6 @@ namespace Axiom
         /// </summary>
         public MainView()
         {
-            //FormatView formatview = new FormatView();
-            //formatview.LoadControlsDefaults();
             LoadControlsDefaults();
         }
 

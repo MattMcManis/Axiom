@@ -537,7 +537,18 @@ namespace Axiom
                 double.TryParse(inif.Read("Filter Video", "EQ_Gamma_Value"), out video_EQ_Gamma_Value);
                 FilterVideoView.vm.FilterVideo_EQ_Gamma_Value = video_EQ_Gamma_Value;
 
-                // Selective Color - Skip
+                // Selective Color
+                int filterVideo_SelectiveColor_Index;
+                int.TryParse(inif.Read("Filter Video", "SelectiveColor_SelectedIndex"), out filterVideo_SelectiveColor_Index);
+
+                if (filterVideo_SelectiveColor_Index <= MainWindow.cboSelectiveColor_Items.Count) // Check if Index is in range
+                {
+                    FilterVideoView.vm.FilterVideo_SelectiveColor_SelectedIndex = filterVideo_SelectiveColor_Index;
+                }
+                else
+                {
+                    listFailedImports.Add("Filter Video: Selective Color");
+                }
 
                 // SelectiveColor Correction_Method
                 string filterVideoSelectiveColor_Correction_Method = inif.Read("Filter Video", "SelectiveColor_Correction_Method_SelectedItem");
@@ -891,7 +902,9 @@ namespace Axiom
                 inif.Write("Filter Video", "EQ_Gamma_Value", FilterVideoView.vm.FilterVideo_EQ_Gamma_Value.ToString());
 
                 // Selective Color
-                //inif.Write("Filter Video", "SelectiveColor_SelectedIndex", (FilterVideoView.vm.FilterVideo_SelectiveColor_SelectedIndex.ToString()));
+                inif.Write("Filter Video", "SelectiveColor_SelectedIndex", (FilterVideoView.vm.FilterVideo_SelectiveColor_SelectedIndex.ToString()));
+
+                // Selective Color Method
                 inif.Write("Filter Video", "SelectiveColor_Correction_Method_SelectedItem", FilterVideoView.vm.FilterVideo_SelectiveColor_Correction_Method_SelectedItem);
 
                 // Reds
