@@ -276,20 +276,42 @@ namespace Axiom
                     listFailedImports.Add("Video: PixelFormat");
 
                 // FPS
-                string videoFPS = inif.Read("Video", "FPS_SelectedItem");
+                bool videoFPS_IsEditable;
+                bool.TryParse(inif.Read("Video", "FPS_IsEditable").ToLower(), out videoFPS_IsEditable);
 
-                if (VM.VideoView.Video_FPS_Items.Contains(videoFPS))
-                    VM.VideoView.Video_FPS_SelectedItem = videoFPS;
-                else
-                    listFailedImports.Add("Video: FPS");
+                if (videoFPS_IsEditable == false) // Selected
+                {
+                    string videoFPS = inif.Read("Video", "FPS_SelectedItem");
+
+                    if (VM.VideoView.Video_FPS_Items.Contains(videoFPS))
+                        VM.VideoView.Video_FPS_SelectedItem = videoFPS;
+                    else
+                        listFailedImports.Add("Video: FPS");
+                }
+                else if (videoFPS_IsEditable == true) // Custom
+                {
+                    VM.VideoView.Video_FPS_IsEditable = true;
+                    VM.VideoView.Video_FPS_Text = inif.Read("Video", "FPS_Text");
+                }
 
                 // Speed
-                string videoSpeed = inif.Read("Video", "Speed_SelectedItem");
+                bool videoSpeed_IsEditable;
+                bool.TryParse(inif.Read("Video", "Speed_IsEditable").ToLower(), out videoSpeed_IsEditable);
 
-                if (VM.VideoView.Video_Speed_Items.Contains(videoSpeed))
-                    VM.VideoView.Video_Speed_SelectedItem = videoSpeed;
-                else
-                    listFailedImports.Add("Video: Speed");
+                if (videoSpeed_IsEditable == false) // Selected
+                {
+                    string videoSpeed = inif.Read("Video", "Speed_SelectedItem");
+
+                    if (VM.VideoView.Video_Speed_Items.Contains(videoSpeed))
+                        VM.VideoView.Video_Speed_SelectedItem = videoSpeed;
+                    else
+                        listFailedImports.Add("Video: Speed");
+                }
+                else if (videoSpeed_IsEditable == true) // Custom
+                {
+                    VM.VideoView.Video_Speed_IsEditable = true;
+                    VM.VideoView.Video_Speed_Text = inif.Read("Video", "Speed_Text");
+                }
 
                 // Optimize
                 string videoOptimize = inif.Read("Video", "Optimize_SelectedItem");
@@ -830,8 +852,29 @@ namespace Axiom
                 inif.Write("Video", "BufSize_Text", VM.VideoView.Video_BufSize_Text);
                 inif.Write("Video", "VBR_IsChecked", VM.VideoView.Video_VBR_IsChecked.ToString().ToLower());
                 inif.Write("Video", "PixelFormat_SelectedItem", VM.VideoView.Video_PixelFormat_SelectedItem);
-                inif.Write("Video", "FPS_SelectedItem", VM.VideoView.Video_FPS_SelectedItem);
-                inif.Write("Video", "Speed_SelectedItem", VM.VideoView.Video_Speed_SelectedItem);
+                
+                if (VM.VideoView.Video_FPS_IsEditable == false) // Selected
+                {
+                    inif.Write("Video", "FPS_IsEditable", VM.VideoView.Video_FPS_IsEditable.ToString().ToLower());
+                    inif.Write("Video", "FPS_SelectedItem", VM.VideoView.Video_FPS_SelectedItem);
+                }
+                else if (VM.VideoView.Video_FPS_IsEditable == true) // Custom
+                {
+                    inif.Write("Video", "FPS_IsEditable", VM.VideoView.Video_FPS_IsEditable.ToString().ToLower());
+                    inif.Write("Video", "FPS_Text", VM.VideoView.Video_FPS_Text);
+                    
+                }
+
+                if (VM.VideoView.Video_Speed_IsEditable == false) // Selected
+                {
+                    inif.Write("Video", "Speed_IsEditable", VM.VideoView.Video_Speed_IsEditable.ToString().ToLower());
+                    inif.Write("Video", "Speed_SelectedItem", VM.VideoView.Video_FPS_SelectedItem);          
+                }
+                else if (VM.VideoView.Video_Speed_IsEditable == true) // Custom
+                {
+                    inif.Write("Video", "Speed_IsEditable", VM.VideoView.Video_Speed_IsEditable.ToString().ToLower());
+                    inif.Write("Video", "Speed_Text", VM.VideoView.Video_Speed_Text);
+                }
 
                 // Optimize
                 inif.Write("Video", "Optimize_SelectedItem", VM.VideoView.Video_Optimize_SelectedItem);

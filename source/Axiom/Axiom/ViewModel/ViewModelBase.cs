@@ -49,9 +49,6 @@ namespace Axiom
 
         }
 
-        /// <summary>
-        ///     ViewModel Base
-        /// </summary>
         // Main
         public static MainView MainView { get; set; } = new MainView();
         // Format

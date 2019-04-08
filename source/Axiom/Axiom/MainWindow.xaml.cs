@@ -183,215 +183,6 @@ namespace Axiom
             //VM vm = new VM();
             //DataContext = vm;
 
-            //// Settings
-            ////tbxConfigPath.DataContext =
-            //cboConfigPath.DataContext =
-            //tbxCustomPresetsPath.DataContext =
-            //tbxFFmpegPathConfig.DataContext =
-            //tbxFFprobePathConfig.DataContext =
-            //tbxFFplayPathConfig.DataContext =
-            //tbxyoutubedlPathConfig.DataContext =
-            //cbxLog.DataContext =
-            //tbxLogConfig.DataContext =
-            //cboThreads.DataContext =
-            //cboTheme.DataContext =
-            //tglUpdateAutoCheck.DataContext =
-            //VM.FilterVideoView;
-
-            //// Main   
-            //this.DataContext = // Window Title
-            //tbxInput.DataContext =
-            //openLocationInput.DataContext =
-            //tbxOutput.DataContext =
-            //openLocationOutput.DataContext =
-            //btnConvertTextBlock.DataContext =
-            //tglBatch.DataContext =
-            //batchExtensionTextBox.DataContext =
-            //tbxScriptView.DataContext =
-            //cboPreset.DataContext =
-            //VM.MainView;
-
-            //// Format
-            //cboFormat_Container.DataContext =
-            //cboFormat_MediaType.DataContext =
-            //cboFormat_Cut.DataContext =
-            //tbxCutStart.DataContext =
-            //tbxCutStartHours.DataContext =
-            //lblCutStartHours.DataContext =
-            //tbxCutStartMinutes.DataContext =
-            //lblCutStartMinutes.DataContext =
-            //tbxCutStartSeconds.DataContext =
-            //lblCutStartSeconds.DataContext =
-            //tbxCutStartMilliseconds.DataContext =
-            //tbxCutEnd.DataContext =
-            //tbxCutEndHours.DataContext =
-            //lblCutEndHours.DataContext =
-            //tbxCutEndMinutes.DataContext =
-            //lblCutEndMinutes.DataContext =
-            //tbxCutEndSeconds.DataContext =
-            //lblCutEndSeconds.DataContext =
-            //tbxCutEndMilliseconds.DataContext =
-            //tbxFrameStart.DataContext =
-            //tbxFrameEnd.DataContext =
-            //cboYouTube.DataContext =
-            //cboYouTube_Quality.DataContext =
-            //VM.FormatView;
-
-            //// Video
-            //cboVideo_Codec.DataContext =
-            //cboEncodeSpeed.DataContext =
-            //cboHWAccel.DataContext =
-            //cboVideo_Quality.DataContext =
-            //cboVideo_Pass.DataContext =
-            //slVideo_CRF.DataContext =
-            //tbxVideo_CRF.DataContext =
-            //tbxVideo_BitRate.DataContext =
-            //tglVideo_VBR.DataContext =
-            //tbxVideo_MinRate.DataContext =
-            //tbxVideo_MaxRate.DataContext =
-            //tbxVideo_BufSize.DataContext =
-            //cboVideo_PixelFormat.DataContext =
-            //cboVideo_FrameRate.DataContext =
-            //cboVideo_Speed.DataContext =
-            //cboVideo_Optimize.DataContext =
-            //expVideo_Optimize_Expander.DataContext =
-            //cboVideo_Optimize_Tune.DataContext =
-            //cboVideo_Optimize_Profile.DataContext =
-            //cboVideo_Optimize_Level.DataContext =
-            //cboVideo_Scale.DataContext =
-            //tbxVideo_Width.DataContext =
-            //tbxVideo_Height.DataContext =
-            //cboVideo_ScreenFormat.DataContext =
-            //cboVideo_AspectRatio.DataContext =
-            //cboVideo_ScalingAlgorithm.DataContext =
-            //btnVideo_Crop.DataContext =
-            //btnVideo_CropClear.DataContext =
-            //VM.VideoView;
-
-            //// Subtitle
-            //cboSubtitle_Codec.DataContext =
-            //cboSubtitles_Stream.DataContext =
-            //lstvSubtitles.DataContext =
-            //btnSubtitle_Add.DataContext =
-            //btnSubtitle_Remove.DataContext =
-            //btnSubtitle_Clear.DataContext =
-            //btnSubtitle_SortUp.DataContext =
-            //btnSubtitle_SortDown.DataContext =
-            //VM.SubtitleView;
-
-            //// Audio
-            //cboAudio_Codec.DataContext =
-            //cboAudio_Stream.DataContext =
-            //cboAudio_Channel.DataContext =
-            //cboAudio_Quality.DataContext =
-            //tbxAudio_BitRate.DataContext =
-            //tglAudio_VBR.DataContext =
-            //cboAudio_CompressionLevel.DataContext =
-            //cboAudio_SampleRate.DataContext =
-            //cboAudio_BitDepth.DataContext =
-            //tbxAudio_Volume.DataContext =
-            //btnAudio_VolumeUp.DataContext =
-            //btnAudio_VolumeDown.DataContext =
-            //slAudio_HardLimiter.DataContext =
-            //tbxAudio_HardLimiter.DataContext =
-            //VM.AudioView;
-
-            //// Filter Video
-            //cboFilterVideo_Deband.DataContext =
-            //cboFilterVideo_Deshake.DataContext =
-            //cboFilterVideo_Deflicker.DataContext =
-            //cboFilterVideo_Dejudder.DataContext =
-            //cboFilterVideo_Denoise.DataContext =
-            //cboFilterVideo_Deinterlace.DataContext =
-            //slFilterVideo_EQ_Brightness.DataContext =
-            //tbxFilterVideo_EQ_Brightness.DataContext =
-            //slFilterVideo_EQ_Contrast.DataContext =
-            //tbxFilterVideo_EQ_Contrast.DataContext =
-            //slFilterVideo_EQ_Saturation.DataContext =
-            //tbxFilterVideo_EQ_Saturation.DataContext =
-            //slFilterVideo_EQ_Gamma.DataContext =
-            //tbxFilterVideo_EQ_Gamma.DataContext =
-            //cboFilterVideo_SelectiveColor.DataContext =
-            //cboFilterVideo_SelectiveColor_Correction_Method.DataContext =
-
-            //slFilterVideo_SelectiveColor_Reds_Cyan.DataContext =
-            //tbxFilterVideo_SelectiveColor_Reds_Cyan.DataContext =
-            //slFilterVideo_SelectiveColor_Reds_Magenta.DataContext =
-            //tbxFilterVideo_SelectiveColor_Reds_Magenta.DataContext =
-            //slFilterVideo_SelectiveColor_Reds_Yellow.DataContext =
-            //tbxFilterVideo_SelectiveColor_Reds_Yellow.DataContext =
-
-            //slFilterVideo_SelectiveColor_Yellows_Cyan.DataContext =
-            //tbxFilterVideo_SelectiveColor_Yellows_Cyan.DataContext =
-            //slFilterVideo_SelectiveColor_Yellows_Magenta.DataContext =
-            //tbxFilterVideo_SelectiveColor_Yellows_Magenta.DataContext =
-            //slFilterVideo_SelectiveColor_Yellows_Yellow.DataContext =
-            //tbxFilterVideo_SelectiveColor_Yellows_Yellow.DataContext =
-
-            //slFilterVideo_SelectiveColor_Greens_Cyan.DataContext =
-            //tbxFilterVideo_SelectiveColor_Greens_Cyan.DataContext =
-            //slFilterVideo_SelectiveColor_Greens_Magenta.DataContext =
-            //tbxFilterVideo_SelectiveColor_Greens_Magenta.DataContext =
-            //slFilterVideo_SelectiveColor_Greens_Yellow.DataContext =
-            //tbxFilterVideo_SelectiveColor_Greens_Yellow.DataContext =
-
-            //slFilterVideo_SelectiveColor_Cyans_Cyan.DataContext =
-            //tbxFilterVideo_SelectiveColor_Cyans_Cyan.DataContext =
-            //slFilterVideo_SelectiveColor_Cyans_Magenta.DataContext =
-            //tbxFilterVideo_SelectiveColor_Cyans_Magenta.DataContext =
-            //slFilterVideo_SelectiveColor_Cyans_Yellow.DataContext =
-            //tbxFilterVideo_SelectiveColor_Cyans_Yellow.DataContext =
-
-            //slFilterVideo_SelectiveColor_Blues_Cyan.DataContext =
-            //tbxFilterVideo_SelectiveColor_Blues_Cyan.DataContext =
-            //slFilterVideo_SelectiveColor_Blues_Magenta.DataContext =
-            //tbxFilterVideo_SelectiveColor_Blues_Magenta.DataContext =
-            //slFilterVideo_SelectiveColor_Blues_Yellow.DataContext =
-            //tbxFilterVideo_SelectiveColor_Blues_Yellow.DataContext =
-
-            //slFilterVideo_SelectiveColor_Magentas_Cyan.DataContext =
-            //tbxFilterVideo_SelectiveColor_Magentas_Cyan.DataContext =
-            //slFilterVideo_SelectiveColor_Magentas_Magenta.DataContext =
-            //tbxFilterVideo_SelectiveColor_Magentas_Magenta.DataContext =
-            //slFilterVideo_SelectiveColor_Magentas_Yellow.DataContext =
-            //tbxFilterVideo_SelectiveColor_Magentas_Yellow.DataContext =
-
-            //slFilterVideo_SelectiveColor_Whites_Cyan.DataContext =
-            //tbxFilterVideo_SelectiveColor_Whites_Cyan.DataContext =
-            //slFilterVideo_SelectiveColor_Whites_Magenta.DataContext =
-            //tbxFilterVideo_SelectiveColor_Whites_Magenta.DataContext =
-            //slFilterVideo_SelectiveColor_Whites_Yellow.DataContext =
-            //tbxFilterVideo_SelectiveColor_Whites_Yellow.DataContext =
-
-            //slFilterVideo_SelectiveColor_Neutrals_Cyan.DataContext =
-            //tbxFilterVideo_SelectiveColor_Neutrals_Cyan.DataContext =
-            //slFilterVideo_SelectiveColor_Neutrals_Magenta.DataContext =
-            //tbxFilterVideo_SelectiveColor_Neutrals_Magenta.DataContext =
-            //slFilterVideo_SelectiveColor_Neutrals_Yellow.DataContext =
-            //tbxFilterVideo_SelectiveColor_Neutrals_Yellow.DataContext =
-
-            //slFilterVideo_SelectiveColor_Blacks_Cyan.DataContext =
-            //tbxFilterVideo_SelectiveColor_Blacks_Cyan.DataContext =
-            //slFilterVideo_SelectiveColor_Blacks_Magenta.DataContext =
-            //tbxFilterVideo_SelectiveColor_Blacks_Magenta.DataContext =
-            //slFilterVideo_SelectiveColor_Blacks_Yellow.DataContext =
-            //tbxFilterVideo_SelectiveColor_Blacks_Yellow.DataContext =
-            //VM.FilterVideoView;
-
-            //// Filter Audio
-            //cboFilterAudio_Lowpass.DataContext =
-            //cboFilterAudio_Highpass.DataContext =
-            //slFilterAudio_Contrast.DataContext =
-            //tbxFilterAudio_Contrast.DataContext =
-            //slFilterAudio_ExtraStereo.DataContext =
-            //tbxFilterAudio_ExtraStereo.DataContext =
-            //cboFilterAudio_Headphones.DataContext =
-            //slFilterAudio_Tempo.DataContext =
-            //tbxFilterAudio_Tempo.DataContext =
-            //VM.FilterAudioView;
-
-
-
             // -------------------------
             // Start the Log Console (Hidden)
             // -------------------------
@@ -760,51 +551,6 @@ namespace Axiom
             // -------------------------
             try
             {
-                // -------------------------
-                // App Root Directory
-                // -------------------------
-                //if (File.Exists(appDir + "axiom.conf"))
-                //{
-                //    // If Axiom finds axiom.conf in the App Directory
-                //    // Change the Configure Directory variable to it 
-                //    // so that it saves changes to that path on program exit
-                //    Configure.configDir = appDir;
-
-                //    // Change Presets Directory to App Directory
-                //    Profiles.presetsDir = appDir + @"presets\";
-                //    VM.ConfigureView.CustomPresetsPath_Text = Profiles.presetsDir;
-
-                //    // Change Log Directory to App Root Directory
-                //    Log.logDir = appDir;
-                //    VM.ConfigureView.LogPath_Text = Log.logDir;
-
-                //    // Save Config
-                //    ExportWriteConfig();
-                //}
-
-
-
-                //// -------------------------
-                //// AppData Local Directory
-                //// -------------------------
-                ///*else */
-                //if (File.Exists(Configure.configFile))
-                //{
-                //    //Configure.configDir = appDataDir + @"Axiom UI\";
-
-                //    // Save Config
-                //    ExportWriteConfig();
-                //}
-
-                //// -------------------------
-                //// First time, Save Current Selected
-                //// -------------------------
-                //else //if (!File.Exists(Configure.configFile))
-                //{
-                //    // Save Config
-                //    Configure.ExportConfig(this);
-                //}
-
                 string confAppRootPath = appRootDir + "axiom.conf";
                 string confAppDataLocalPath = appDataLocalDir + @"Axiom UI\axiom.conf";
                 string confAppDataRoamingPath = appDataRoamingDir + @"Axiom UI\axiom.conf";
@@ -812,7 +558,6 @@ namespace Axiom
                 string logAppRootPath = appRootDir + "axiom.log";
                 string logAppDataLocalPath = appDataLocalDir + @"Axiom UI\axiom.log";
                 string logAppDataRoamingPath = appDataRoamingDir + @"Axiom UI\axiom.log";
-
 
                 // -------------------------
                 // App Directory
@@ -1009,9 +754,9 @@ namespace Axiom
                         if (File.Exists(confAppRootPath) || File.Exists(logAppRootPath))
                         {
                             MessageBox.Show("Cannot move config/log from Program Files to AppData Local, Axiom does not have Administrator Privileges at this time. \n\nPlease move the config manually or delete it.",
-                                        "Notice",
-                                        MessageBoxButton.OK,
-                                        MessageBoxImage.Warning);
+                                            "Notice",
+                                            MessageBoxButton.OK,
+                                            MessageBoxImage.Warning);
                         }
                     }
 
@@ -1235,9 +980,6 @@ namespace Axiom
         /// </summary>
         public static void ClearGlobalVariables()
         {
-            // FFmpeg
-            //FFmpeg.cmdWindow = string.Empty;
-
             // FFprobe
             FFprobe.argsVideoCodec = string.Empty;
             FFprobe.argsAudioCodec = string.Empty;
@@ -1381,6 +1123,7 @@ namespace Axiom
             //CropWindow.cropHeight
             //CropWindow.cropX
             //CropWindow.cropY
+            //FFmpeg.cmdWindow
         }
 
 
@@ -1607,24 +1350,20 @@ namespace Axiom
         private void lblConfigPath_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             // Open Directory
-            //if (!string.IsNullOrEmpty(VM.ConfigureView.ConfigPath_Text))
-            //{
+
             // AppData Local
             if (VM.ConfigureView.ConfigPath_SelectedItem == "AppData Local")
             {
-                //Process.Start("explorer.exe", appDataLocalDir + @"Axiom UI\");
                 ConfigDirectoryOpen(appDataLocalDir + @"Axiom UI\");
             }
             // AppData Roaming
             else if (VM.ConfigureView.ConfigPath_SelectedItem == "AppData Roaming")
             {
-                //Process.Start("explorer.exe", appDataRoamingDir + @"Axiom UI\");
                 ConfigDirectoryOpen(appDataRoamingDir + @"Axiom UI\");
             }
             // Documents
             else if (VM.ConfigureView.ConfigPath_SelectedItem == "Documents")
             {
-                //Process.Start("explorer.exe", documentsDir + @"Axiom UI\");
                 ConfigDirectoryOpen(documentsDir + @"Axiom UI\");
             }
             // App Root
@@ -1632,22 +1371,6 @@ namespace Axiom
             {
                 Process.Start("explorer.exe", appRootDir);          
             }
-            //}
-
-            //// Open Directory
-            //if (!string.IsNullOrEmpty(VM.ConfigureView.ConfigPath_Text))
-            //{
-            //    // AppData Local Directory
-            //    if (VM.ConfigureView.ConfigPath_Text == @"%LocalAppData%\Axiom UI\")
-            //    {
-            //        Process.Start("explorer.exe", appDataLocalDir + @"Axiom UI\");
-            //    }
-            //    // App Root Directory
-            //    else if (VM.ConfigureView.ConfigPath_Text == appDir)
-            //    {
-            //        Process.Start("explorer.exe", appDir);
-            //    }
-            //}
         }
 
         /// <summary>
@@ -1655,22 +1378,21 @@ namespace Axiom
         /// </summary>
         private void btnConfigPath_Click(object sender, RoutedEventArgs e)
         {
+            // Open Directory
+
             // AppData Local
             if (VM.ConfigureView.ConfigPath_SelectedItem == "AppData Local")
             {
-                //Process.Start("explorer.exe", appDataLocalDir + @"Axiom UI\");
                 ConfigDirectoryOpen(appDataLocalDir + @"Axiom UI\");
             }
             // AppData Roaming
             else if (VM.ConfigureView.ConfigPath_SelectedItem == "AppData Roaming")
             {
-                //Process.Start("explorer.exe", appDataRoamingDir + @"Axiom UI\");
                 ConfigDirectoryOpen(appDataRoamingDir + @"Axiom UI\");
             }
             // Documents
             else if (VM.ConfigureView.ConfigPath_SelectedItem == "Documents")
             {
-                //Process.Start("explorer.exe", documentsDir + @"Axiom UI\");
                 ConfigDirectoryOpen(documentsDir + @"Axiom UI\");
             }
             // App Root
@@ -1678,21 +1400,6 @@ namespace Axiom
             {
                 Process.Start("explorer.exe", appRootDir);
             }
-
-            //// Open Directory
-            //if (!string.IsNullOrEmpty(VM.ConfigureView.ConfigPath_Text))
-            //{
-            //    // AppData Local Directory
-            //    if (VM.ConfigureView.ConfigPath_Text == @"%LocalAppData%\Axiom UI\")
-            //    {
-            //        Process.Start("explorer.exe", appDataLocalDir + @"Axiom UI\");
-            //    }
-            //    // App Root Directory
-            //    else if (VM.ConfigureView.ConfigPath_Text == appDir)
-            //    {
-            //        Process.Start("explorer.exe", appDir);
-            //    }
-            //}
         }
 
 
