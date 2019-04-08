@@ -6259,72 +6259,96 @@ namespace Axiom
         /// </summary>
         private void btnDeletePreset_Click(object sender, RoutedEventArgs e)
         {
+            // -------------------------
             // Set Preset Dir, Name, Ext
+            // -------------------------
             string presetsDir = Path.GetDirectoryName(@Profiles.presetsDir).TrimEnd('\\') + @"\";
             string presetFileName = Path.GetFileNameWithoutExtension(MainView.vm.Preset_SelectedItem);
             string presetExt = Path.GetExtension(".ini");
             string preset = presetsDir + presetFileName + presetExt;
 
+            // -------------------------
+            // Get Selected Preset Type
+            // -------------------------
+            string type = MainView.vm.Preset_Items.FirstOrDefault(item => item.Name == MainView.vm.Preset_SelectedItem)?.Type;
 
-            // Yes/No Dialog Confirmation
-            //
-            MessageBoxResult resultExport = MessageBox.Show("Delete " + presetFileName + "?",
-                                                            "Delete Confirm",
-                                                            MessageBoxButton.YesNo,
-                                                            MessageBoxImage.Information);
-            switch (resultExport)
+            // -------------------------
+            // Delete
+            // -------------------------
+            if (type == "Custom")
             {
-                // Create
-                case MessageBoxResult.Yes:
+                // Yes/No Dialog Confirmation
+                //
+                MessageBoxResult resultExport = MessageBox.Show("Delete " + presetFileName + "?",
+                                                                "Delete Confirm",
+                                                                MessageBoxButton.YesNo,
+                                                                MessageBoxImage.Information);
+                switch (resultExport)
+                {
+                    // Yes
+                    case MessageBoxResult.Yes:
 
-                    // Delete
-                    if (File.Exists(preset))
-                    {
-                        try
+                        // Delete
+                        if (File.Exists(preset))
                         {
-                            File.Delete(preset);
+                            try
+                            {
+                                File.Delete(preset);
+                            }
+                            catch
+                            {
+                                MessageBox.Show("Could not delete Preset. May be missing or requires Administrator Privileges.",
+                                                "Error",
+                                                MessageBoxButton.OK,
+                                                MessageBoxImage.Error);
+                            }
+
+                            // Set the Index
+                            var selectedIndex = MainView.vm.Preset_SelectedIndex;
+
+                            // Select Default Item
+                            MainView.vm.Preset_SelectedItem = "Preset";
+
+                            // Delete from Items Source
+                            // (needs to be after SelectedItem change to prevent error reloading)
+                            try
+                            {
+                                MainView.vm.Preset_Items.RemoveAt(selectedIndex);
+                            }
+                            catch
+                            {
+
+                            }
+
+                            // Load Custom Presets
+                            // Refresh Presets ComboBox
+                            Profiles.LoadCustomPresets();
                         }
-                        catch
+                        else
                         {
-                            MessageBox.Show("Could not delete Preset. May be missing or requires Administrator Privileges.",
-                                            "Error",
+                            MessageBox.Show("The Preset does not exist.",
+                                            "Notice",
                                             MessageBoxButton.OK,
-                                            MessageBoxImage.Error);
+                                            MessageBoxImage.Warning);
                         }
 
-                        // Set the Index
-                        var selectedIndex = MainView.vm.Preset_SelectedIndex;
+                        break;
 
-                        // Select Default Item
-                        MainView.vm.Preset_SelectedItem = "Preset";
+                    // No
+                    case MessageBoxResult.No:
+                        break;
+                }
+            }
 
-                        // Delete from Items Source
-                        // (needs to be after SelectedItem change to prevent error reloading)
-                        try
-                        {
-                            MainView.vm.Preset_Items.RemoveAt(selectedIndex);
-                        }
-                        catch
-                        {
-
-                        }
-                        
-                        // Load Custom Presets
-                        // Refresh Presets ComboBox
-                        Profiles.LoadCustomPresets();
-                    }
-                    else
-                    {
-                        MessageBox.Show("This is not a custom Preset, or the Preset does not exist.",
-                                        "Notice",
-                                        MessageBoxButton.OK,
-                                        MessageBoxImage.Information);
-                    }
-
-                    break;
-                // Use Default
-                case MessageBoxResult.No:
-                    break;
+            // -------------------------
+            // Not Custom
+            // -------------------------
+            else
+            {
+                MessageBox.Show("This is not a Custom Preset.",
+                                "Notice",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Information);
             }
         }
 

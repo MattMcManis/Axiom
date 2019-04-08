@@ -168,7 +168,6 @@ namespace Axiom
                     VideoView.vm.Video_ScreenFormat_SelectedItem = "Widescreen";
                     VideoView.vm.Video_ScalingAlgorithm_SelectedItem = "auto";
                     VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
-                    VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
                     VideoView.vm.Video_Crop_X_Text = "";
                     VideoView.vm.Video_Crop_Y_Text = "";
                     VideoView.vm.Video_Crop_Width_Text = "";
@@ -248,7 +247,6 @@ namespace Axiom
                 VideoView.vm.Video_ScreenFormat_SelectedItem = "Widescreen";
                 VideoView.vm.Video_ScalingAlgorithm_SelectedItem = "auto";
                 VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
-                VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
                 VideoView.vm.Video_Crop_X_Text = "";
                 VideoView.vm.Video_Crop_Y_Text = "";
                 VideoView.vm.Video_Crop_Width_Text = "";
@@ -313,7 +311,6 @@ namespace Axiom
                 VideoView.vm.Video_Scale_SelectedItem = "Source";
                 VideoView.vm.Video_ScreenFormat_SelectedItem = "Widescreen";
                 VideoView.vm.Video_ScalingAlgorithm_SelectedItem = "auto";
-                VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
                 VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
                 VideoView.vm.Video_Crop_X_Text = "";
                 VideoView.vm.Video_Crop_Y_Text = "";
@@ -384,7 +381,6 @@ namespace Axiom
                 VideoView.vm.Video_ScreenFormat_SelectedItem = "Widescreen";
                 VideoView.vm.Video_ScalingAlgorithm_SelectedItem = "auto";
                 VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
-                VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
                 VideoView.vm.Video_Crop_X_Text = "";
                 VideoView.vm.Video_Crop_Y_Text = "";
                 VideoView.vm.Video_Crop_Width_Text = "";
@@ -454,7 +450,7 @@ namespace Axiom
                 VideoView.vm.Video_MaxRate_Text = "";
                 VideoView.vm.Video_BufSize_Text = "";
                 VideoView.vm.Video_PixelFormat_SelectedItem = "yuv420p10le";
-                VideoView.vm.Video_FPS_SelectedItem = "59.94";
+                VideoView.vm.Video_FPS_SelectedItem = "23.976";
                 VideoView.vm.Video_Speed_SelectedItem = "auto";
                 VideoView.vm.Video_Optimize_SelectedItem = "Custom";
                 VideoView.vm.Video_Video_Optimize_Tune_SelectedItem = "none";
@@ -463,7 +459,6 @@ namespace Axiom
                 VideoView.vm.Video_Scale_SelectedItem = "Source";
                 VideoView.vm.Video_ScreenFormat_SelectedItem = "Widescreen";
                 VideoView.vm.Video_ScalingAlgorithm_SelectedItem = "auto";
-                VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
                 VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
                 VideoView.vm.Video_Crop_X_Text = "";
                 VideoView.vm.Video_Crop_Y_Text = "";
@@ -552,7 +547,6 @@ namespace Axiom
                 VideoView.vm.Video_ScreenFormat_SelectedItem = "Widescreen";
                 VideoView.vm.Video_ScalingAlgorithm_SelectedItem = "auto";
                 VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
-                VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
                 VideoView.vm.Video_Crop_X_Text = "";
                 VideoView.vm.Video_Crop_Y_Text = "";
                 VideoView.vm.Video_Crop_Width_Text = "";
@@ -633,7 +627,6 @@ namespace Axiom
                 VideoView.vm.Video_ScreenFormat_SelectedItem = "Widescreen";
                 VideoView.vm.Video_ScalingAlgorithm_SelectedItem = "auto";
                 VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
-                VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
                 VideoView.vm.Video_Crop_X_Text = "";
                 VideoView.vm.Video_Crop_Y_Text = "";
                 VideoView.vm.Video_Crop_Width_Text = "";
@@ -706,7 +699,6 @@ namespace Axiom
                 VideoView.vm.Video_ScreenFormat_SelectedItem = "Widescreen";
                 VideoView.vm.Video_ScalingAlgorithm_SelectedItem = "auto";
                 VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
-                VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
                 VideoView.vm.Video_Crop_X_Text = "";
                 VideoView.vm.Video_Crop_Y_Text = "";
                 VideoView.vm.Video_Crop_Width_Text = "";
@@ -774,7 +766,6 @@ namespace Axiom
                 VideoView.vm.Video_Scale_SelectedItem = "Source";
                 VideoView.vm.Video_ScreenFormat_SelectedItem = "Widescreen";
                 VideoView.vm.Video_ScalingAlgorithm_SelectedItem = "auto";
-                VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
                 VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
                 VideoView.vm.Video_Crop_X_Text = "";
                 VideoView.vm.Video_Crop_Y_Text = "";
@@ -844,7 +835,6 @@ namespace Axiom
                 VideoView.vm.Video_ScreenFormat_SelectedItem = "Widescreen";
                 VideoView.vm.Video_ScalingAlgorithm_SelectedItem = "auto";
                 VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
-                VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
                 VideoView.vm.Video_Crop_X_Text = "";
                 VideoView.vm.Video_Crop_Y_Text = "";
                 VideoView.vm.Video_Crop_Width_Text = "";
@@ -912,7 +902,6 @@ namespace Axiom
                 VideoView.vm.Video_Scale_SelectedItem = "Source";
                 VideoView.vm.Video_ScreenFormat_SelectedItem = "Widescreen";
                 VideoView.vm.Video_ScalingAlgorithm_SelectedItem = "auto";
-                VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
                 VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
                 VideoView.vm.Video_Crop_X_Text = "";
                 VideoView.vm.Video_Crop_Y_Text = "";
@@ -982,7 +971,6 @@ namespace Axiom
                 VideoView.vm.Video_ScreenFormat_SelectedItem = "Widescreen";
                 VideoView.vm.Video_ScalingAlgorithm_SelectedItem = "auto";
                 VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
-                VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
                 VideoView.vm.Video_Crop_X_Text = "";
                 VideoView.vm.Video_Crop_Y_Text = "";
                 VideoView.vm.Video_Crop_Width_Text = "";
@@ -1046,12 +1034,11 @@ namespace Axiom
                 VideoView.vm.Video_BufSize_Text = "";
                 VideoView.vm.Video_PixelFormat_SelectedItem = "yuv420p";
                 VideoView.vm.Video_Optimize_SelectedItem = "Android";
-                VideoView.vm.Video_FPS_SelectedItem = "23.976";
+                VideoView.vm.Video_FPS_SelectedItem = "auto";
                 VideoView.vm.Video_Speed_SelectedItem = "auto";
                 VideoView.vm.Video_Scale_SelectedItem = "Source";
                 VideoView.vm.Video_ScreenFormat_SelectedItem = "Widescreen";
                 VideoView.vm.Video_ScalingAlgorithm_SelectedItem = "auto";
-                VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
                 VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
                 VideoView.vm.Video_Crop_X_Text = "";
                 VideoView.vm.Video_Crop_Y_Text = "";
@@ -1111,13 +1098,12 @@ namespace Axiom
                 VideoView.vm.Video_MaxRate_Text = "";
                 VideoView.vm.Video_BufSize_Text = "";
                 VideoView.vm.Video_PixelFormat_SelectedItem = "yuv420p";
-                VideoView.vm.Video_FPS_SelectedItem = "23.976";
+                VideoView.vm.Video_FPS_SelectedItem = "auto";
                 VideoView.vm.Video_Speed_SelectedItem = "auto";
                 VideoView.vm.Video_Optimize_SelectedItem = "Apple";
                 VideoView.vm.Video_Scale_SelectedItem = "Source";
                 VideoView.vm.Video_ScreenFormat_SelectedItem = "Widescreen";
                 VideoView.vm.Video_ScalingAlgorithm_SelectedItem = "auto";
-                VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
                 VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
                 VideoView.vm.Video_Crop_X_Text = "";
                 VideoView.vm.Video_Crop_Y_Text = "";
@@ -1188,7 +1174,6 @@ namespace Axiom
                 VideoView.vm.Video_ScreenFormat_SelectedItem = "Widescreen";
                 VideoView.vm.Video_ScalingAlgorithm_SelectedItem = "auto";
                 VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
-                VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
                 VideoView.vm.Video_Crop_X_Text = "";
                 VideoView.vm.Video_Crop_Y_Text = "";
                 VideoView.vm.Video_Crop_Width_Text = "";
@@ -1253,7 +1238,6 @@ namespace Axiom
                 VideoView.vm.Video_Scale_SelectedItem = "Source";
                 VideoView.vm.Video_ScreenFormat_SelectedItem = "Widescreen";
                 VideoView.vm.Video_ScalingAlgorithm_SelectedItem = "auto";
-                VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
                 VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
                 VideoView.vm.Video_Crop_X_Text = "";
                 VideoView.vm.Video_Crop_Y_Text = "";
@@ -1320,7 +1304,6 @@ namespace Axiom
                 VideoView.vm.Video_ScreenFormat_SelectedItem = "Widescreen";
                 VideoView.vm.Video_ScalingAlgorithm_SelectedItem = "auto";
                 VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
-                VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
                 VideoView.vm.Video_Crop_X_Text = "";
                 VideoView.vm.Video_Crop_Y_Text = "";
                 VideoView.vm.Video_Crop_Width_Text = "";
@@ -1385,7 +1368,6 @@ namespace Axiom
                 VideoView.vm.Video_Scale_SelectedItem = "Source";
                 VideoView.vm.Video_ScreenFormat_SelectedItem = "Widescreen";
                 VideoView.vm.Video_ScalingAlgorithm_SelectedItem = "auto";
-                VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
                 VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
                 VideoView.vm.Video_Crop_X_Text = "";
                 VideoView.vm.Video_Crop_Y_Text = "";
@@ -1456,7 +1438,6 @@ namespace Axiom
                 VideoView.vm.Video_ScreenFormat_SelectedItem = "Widescreen";
                 VideoView.vm.Video_ScalingAlgorithm_SelectedItem = "auto";
                 VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
-                VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
                 VideoView.vm.Video_Crop_X_Text = "";
                 VideoView.vm.Video_Crop_Y_Text = "";
                 VideoView.vm.Video_Crop_Width_Text = "";
@@ -1521,7 +1502,6 @@ namespace Axiom
                 VideoView.vm.Video_Scale_SelectedItem = "1080p";
                 VideoView.vm.Video_ScreenFormat_SelectedItem = "Widescreen";
                 VideoView.vm.Video_ScalingAlgorithm_SelectedItem = "auto";
-                VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
                 VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
                 VideoView.vm.Video_Crop_X_Text = "";
                 VideoView.vm.Video_Crop_Y_Text = "";
@@ -1654,7 +1634,6 @@ namespace Axiom
                 VideoView.vm.Video_ScreenFormat_SelectedItem = "Widescreen";
                 VideoView.vm.Video_ScalingAlgorithm_SelectedItem = "auto";
                 VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
-                VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
                 VideoView.vm.Video_Crop_X_Text = "";
                 VideoView.vm.Video_Crop_Y_Text = "";
                 VideoView.vm.Video_Crop_Width_Text = "";
@@ -1720,7 +1699,6 @@ namespace Axiom
                 VideoView.vm.Video_Scale_SelectedItem = "Source";
                 VideoView.vm.Video_ScreenFormat_SelectedItem = "Widescreen";
                 VideoView.vm.Video_ScalingAlgorithm_SelectedItem = "auto";
-                VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
                 VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
                 VideoView.vm.Video_Crop_X_Text = "";
                 VideoView.vm.Video_Crop_Y_Text = "";
@@ -1798,7 +1776,6 @@ namespace Axiom
                 VideoView.vm.Video_ScreenFormat_SelectedItem = "Widescreen";
                 VideoView.vm.Video_ScalingAlgorithm_SelectedItem = "auto";
                 VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
-                VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
                 VideoView.vm.Video_Crop_X_Text = "";
                 VideoView.vm.Video_Crop_Y_Text = "";
                 VideoView.vm.Video_Crop_Width_Text = "";
@@ -1863,7 +1840,6 @@ namespace Axiom
                 VideoView.vm.Video_Scale_SelectedItem = "Source";
                 VideoView.vm.Video_ScreenFormat_SelectedItem = "Widescreen";
                 VideoView.vm.Video_ScalingAlgorithm_SelectedItem = "auto";
-                VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
                 VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
                 VideoView.vm.Video_Crop_X_Text = "";
                 VideoView.vm.Video_Crop_Y_Text = "";
@@ -1936,7 +1912,6 @@ namespace Axiom
                 VideoView.vm.Video_ScreenFormat_SelectedItem = "Widescreen";
                 VideoView.vm.Video_ScalingAlgorithm_SelectedItem = "auto";
                 VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
-                VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
                 VideoView.vm.Video_Crop_X_Text = "";
                 VideoView.vm.Video_Crop_Y_Text = "";
                 VideoView.vm.Video_Crop_Width_Text = "";
@@ -2001,7 +1976,6 @@ namespace Axiom
                 VideoView.vm.Video_Scale_SelectedItem = "Source";
                 VideoView.vm.Video_ScreenFormat_SelectedItem = "Widescreen";
                 VideoView.vm.Video_ScalingAlgorithm_SelectedItem = "auto";
-                VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
                 VideoView.vm.Video_AspectRatio_SelectedItem = "auto";
                 VideoView.vm.Video_Crop_X_Text = "";
                 VideoView.vm.Video_Crop_Y_Text = "";

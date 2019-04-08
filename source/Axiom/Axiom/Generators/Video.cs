@@ -1821,7 +1821,7 @@ namespace Axiom
                                         // Width
                                         if (divisibleCropWidth % 2 != 0)
                                         {
-                                            divisibleCropHeight -= 1;
+                                            divisibleCropWidth -= 1;
                                         }
                                         // Height
                                         if (divisibleCropHeight % 2 != 0)
@@ -1866,7 +1866,7 @@ namespace Axiom
                                         // Width
                                         if (divisibleCropWidth % 2 != 0)
                                         {
-                                            divisibleCropHeight -= 1;
+                                            divisibleCropWidth -= 1;
                                         }
                                         // Height
                                         if (divisibleCropHeight % 2 != 0)
