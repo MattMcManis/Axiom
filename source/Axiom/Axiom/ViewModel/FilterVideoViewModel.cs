@@ -21,6 +21,7 @@ along with this program.If not, see <http://www.gnu.org/licenses/>.
 
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Windows.Media;
 // Disable XML Comment warnings
 #pragma warning disable 1591
 #pragma warning disable 1587
@@ -42,7 +43,7 @@ namespace Axiom
         }
 
         // Filter Video View Model
-        public static FilterVideoView vm = new FilterVideoView();
+        //public static FilterVideoView vm = new FilterVideoView();
 
 
         /// <summary>
@@ -413,7 +414,36 @@ namespace Axiom
         // -------------------------
         // Selective Color
         // -------------------------
-        // Selected Idnex
+        public static List<SelectiveColor> SelectiveColorList { get; set; }
+        public partial class SelectiveColor
+        {
+            public string Name { get; set; }
+            public string Color { get; set; }
+        }
+
+        public static List<SelectiveColor> _FilterVideo_SelectiveColor_Items = new List<SelectiveColor>()
+        {
+            new SelectiveColor() { Name = "Reds",     Color = "Red"},
+            new SelectiveColor() { Name = "Yellows",  Color = "Yellow"},
+            new SelectiveColor() { Name = "Greens",   Color = "Green"},
+            new SelectiveColor() { Name = "Cyans",    Color = "Cyan"},
+            new SelectiveColor() { Name = "Blues",    Color = "Blue"},
+            new SelectiveColor() { Name = "Magentas", Color = "Magenta"},
+            new SelectiveColor() { Name = "Whites",   Color = "White"},
+            new SelectiveColor() { Name = "Neutrals", Color = "Gray"},
+            new SelectiveColor() { Name = "Blacks",   Color = "Black"},
+        };
+        public List<SelectiveColor> FilterVideo_SelectiveColor_Items
+        {
+            get { return _FilterVideo_SelectiveColor_Items; }
+            set
+            {
+                _FilterVideo_SelectiveColor_Items = value;
+                OnPropertyChanged("FilterVideo_SelectiveColor_Items");
+            }
+        }
+
+        // Selected Index
         private int _FilterVideo_SelectiveColor_SelectedIndex { get; set; }
         public int FilterVideo_SelectiveColor_SelectedIndex
         {
@@ -429,6 +459,24 @@ namespace Axiom
                 OnPropertyChanged("FilterVideo_SelectiveColor_SelectedIndex");
             }
         }
+
+        // Selected Item
+        private string _FilterVideo_SelectiveColor_SelectedItem { get; set; }
+        public string FilterVideo_SelectiveColor_SelectedItem
+        {
+            get { return _FilterVideo_SelectiveColor_SelectedItem; }
+            set
+            {
+                if (_FilterVideo_SelectiveColor_SelectedItem == value)
+                {
+                    return;
+                }
+
+                _FilterVideo_SelectiveColor_SelectedItem = value;
+                OnPropertyChanged("FilterVideo_SelectiveColor_SelectedItem");
+            }
+        }
+
 
         // -------------------------
         // Correction Method

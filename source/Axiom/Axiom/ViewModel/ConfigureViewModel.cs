@@ -44,7 +44,7 @@ namespace Axiom
         }
 
         // Configure View Model
-        public static ConfigureView vm = new ConfigureView();
+        //public static ConfigureView vm = new ConfigureView();
 
 
         /// <summary>
@@ -646,6 +646,23 @@ namespace Axiom
                     _UpdateAutoCheck_IsChecked = value;
                     OnPropertyChanged("UpdateAutoCheck_IsChecked");
                 }
+            }
+        }
+
+        // Text
+        private string _UpdateAutoCheck_Text = "On";
+        public string UpdateAutoCheck_Text
+        {
+            get { return _UpdateAutoCheck_Text; }
+            set
+            {
+                if (_UpdateAutoCheck_Text == value)
+                {
+                    return;
+                }
+
+                _UpdateAutoCheck_Text = value;
+                OnPropertyChanged("UpdateAutoCheck_Text");
             }
         }
 

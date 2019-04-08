@@ -34,7 +34,7 @@ namespace Axiom
         // ---------------------------------------------------------------------------
         public static void Codec_Set()
         {
-            SubtitleView.vm.Subtitle_Codec = string.Empty;
+            VM.SubtitleView.Subtitle_Codec = string.Empty;
         }
 
         // -------------------------
@@ -57,7 +57,7 @@ namespace Axiom
         // -------------------------
         public static void Controls_ItemsSource()
         {
-            SubtitleView.vm.Subtitle_Stream_Items = stream;
+            VM.SubtitleView.Subtitle_Stream_Items = stream;
         }
 
         // -------------------------
@@ -66,7 +66,7 @@ namespace Axiom
         public static void Controls_Selected()
         {
             // Stream
-            SubtitleView.vm.Subtitle_Stream_SelectedItem = "external";
+            VM.SubtitleView.Subtitle_Stream_SelectedItem = "external";
         }
 
         // -------------------------
@@ -91,10 +91,10 @@ namespace Axiom
         public static void Controls_Enable()
         {
             // Subtitle Codec
-            SubtitleView.vm.Subtitle_Codec_IsEnabled = true;
+            VM.SubtitleView.Subtitle_Codec_IsEnabled = true;
 
             // Subtitle Stream
-            SubtitleView.vm.Subtitle_Stream_IsEnabled = true;
+            VM.SubtitleView.Subtitle_Stream_IsEnabled = true;
 
             // Subtitle List View
             // Controlled in cboSubtitle_Stream_SelectionChanged

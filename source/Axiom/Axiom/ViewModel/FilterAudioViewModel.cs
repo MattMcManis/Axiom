@@ -42,7 +42,7 @@ namespace Axiom
         }
 
         // Filter Audio View Model
-        public static FilterAudioView vm = new FilterAudioView();
+        //public static FilterAudioView vm = new FilterAudioView();
 
 
         /// <summary>

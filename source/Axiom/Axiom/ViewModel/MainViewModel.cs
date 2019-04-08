@@ -48,7 +48,7 @@ namespace Axiom
         }
 
         // Main View Model
-        public static MainView vm = new MainView();
+        //public static MainView vm = new MainView();
 
 
         /// <summary>

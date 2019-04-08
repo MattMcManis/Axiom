@@ -45,7 +45,7 @@ namespace Axiom
             MainWindow.ClearGlobalVariables();
 
             // Ignore if Batch
-            if (MainView.vm.Batch_IsChecked == false)
+            if (VM.MainView.Batch_IsChecked == false)
             {
                 // -------------------------
                 // Set FFprobe Path
@@ -61,25 +61,25 @@ namespace Axiom
 
                     "-i " + "\"" + MainWindow.InputPath(/*main_vm,*/ "pass 1") + "\"",
 
-                    Subtitle.SubtitlesExternal(SubtitleView.vm.Subtitle_Codec_SelectedItem,
-                                               SubtitleView.vm.Subtitle_Stream_SelectedItem
+                    Subtitle.SubtitlesExternal(VM.SubtitleView.Subtitle_Codec_SelectedItem,
+                                               VM.SubtitleView.Subtitle_Stream_SelectedItem
                                                ),
 
                     //Video.VideoCodec(),
                     //Video.Speed(mainwindow),
                     //Video.VideoQuality(mainwindow),
-                    Video.FPS(//FormatView.vm.Format_MediaType_SelectedItem,
-                              VideoView.vm.Video_Codec_SelectedItem,
-                              //VideoView.vm.Video_Quality_SelectedItem,
-                              VideoView.vm.Video_FPS_SelectedItem,
-                              VideoView.vm.Video_FPS_Text
+                    Video.FPS(//VM.FormatView.Format_MediaType_SelectedItem,
+                              VM.VideoView.Video_Codec_SelectedItem,
+                              //VM.VideoView.Video_Quality_SelectedItem,
+                              VM.VideoView.Video_FPS_SelectedItem,
+                              VM.VideoView.Video_FPS_Text
                               ),
 
                     VideoFilters.VideoFilter(),
 
-                    Video.Images(FormatView.vm.Format_MediaType_SelectedItem,
-                                 VideoView.vm.Video_Codec_SelectedItem//,
-                                 //VideoView.vm.Video_Quality_SelectedItem
+                    Video.Images(VM.FormatView.Format_MediaType_SelectedItem,
+                                 VM.VideoView.Video_Codec_SelectedItem//,
+                                 //VM.VideoView.Video_Quality_SelectedItem
                                  ),
                     //Video.Optimize(mainwindow),
                     //Streams.VideoStreamMaps(mainwindow),
@@ -89,28 +89,28 @@ namespace Axiom
 
                     //Audio.AudioCodec(mainwindow),
                     //Audio.AudioQuality(mainwindow),
-                    Audio.SampleRate(//FormatView.vm.Format_MediaType_SelectedItem,
-                                     AudioView.vm.Audio_Codec_SelectedItem,
-                                     //AudioView.vm.Audio_Stream_SelectedItem,
-                                     //AudioView.vm.Audio_Quality_SelectedItem,
-                                     //AudioView.vm.Audio_Channel_SelectedItem,
-                                     AudioView.vm.Audio_SampleRate_Items,
-                                     AudioView.vm.Audio_SampleRate_SelectedItem
+                    Audio.SampleRate(//VM.FormatView.Format_MediaType_SelectedItem,
+                                     VM.AudioView.Audio_Codec_SelectedItem,
+                                     //VM.AudioView.Audio_Stream_SelectedItem,
+                                     //VM.AudioView.Audio_Quality_SelectedItem,
+                                     //VM.AudioView.Audio_Channel_SelectedItem,
+                                     VM.AudioView.Audio_SampleRate_Items,
+                                     VM.AudioView.Audio_SampleRate_SelectedItem
                                      ),
 
-                    Audio.BitDepth(//FormatView.vm.Format_MediaType_SelectedItem,
-                                   AudioView.vm.Audio_Codec_SelectedItem,
-                                   //AudioView.vm.Audio_Stream_SelectedItem,
-                                   //AudioView.vm.Audio_Quality_SelectedItem,
-                                   AudioView.vm.Audio_BitDepth_Items,
-                                   AudioView.vm.Audio_BitDepth_SelectedItem
+                    Audio.BitDepth(//VM.FormatView.Format_MediaType_SelectedItem,
+                                   VM.AudioView.Audio_Codec_SelectedItem,
+                                   //VM.AudioView.Audio_Stream_SelectedItem,
+                                   //VM.AudioView.Audio_Quality_SelectedItem,
+                                   VM.AudioView.Audio_BitDepth_Items,
+                                   VM.AudioView.Audio_BitDepth_SelectedItem
                                    ),
 
-                    Audio.Channel(//FormatView.vm.Format_MediaType_SelectedItem,
-                                  AudioView.vm.Audio_Codec_SelectedItem,
-                                  //AudioView.vm.Audio_Stream_SelectedItem,
-                                  //AudioView.vm.Audio_Quality_SelectedItem,
-                                  AudioView.vm.Audio_Channel_SelectedItem
+                    Audio.Channel(//VM.FormatView.Format_MediaType_SelectedItem,
+                                  VM.AudioView.Audio_Codec_SelectedItem,
+                                  //VM.AudioView.Audio_Stream_SelectedItem,
+                                  //VM.AudioView.Audio_Quality_SelectedItem,
+                                  VM.AudioView.Audio_Channel_SelectedItem
                                   ),
 
                     AudioFilters.AudioFilter(),

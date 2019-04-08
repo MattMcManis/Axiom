@@ -1735,12 +1735,12 @@ namespace Axiom
                     // Change the left over Default empty text to "auto"
                     if (string.Equals(width_Text, "", StringComparison.CurrentCultureIgnoreCase))
                     {
-                        VideoView.vm.Video_Width_Text = "auto";
+                        VM.VideoView.Video_Width_Text = "auto";
                     }
 
                     if (string.Equals(height_Text, "", StringComparison.CurrentCultureIgnoreCase))
                     {
-                        VideoView.vm.Video_Height_Text = "auto";
+                        VM.VideoView.Video_Height_Text = "auto";
                     }
 
                     // -------------------------
@@ -2153,18 +2153,18 @@ namespace Axiom
             // -------------------------
             // Clear leftover Divisible Crop if not x264/x265
             // CropClearButton is used as an Identifier, Divisible Crop does not leave "Clear*"
-            if (VideoView.vm.Video_Codec_SelectedItem != "x264" &&
-                VideoView.vm.Video_Codec_SelectedItem != "x265" &&
-                VideoView.vm.Video_Codec_SelectedItem != "MPEG-2" &&
-                VideoView.vm.Video_Codec_SelectedItem != "MPEG-4" &&
-                VideoView.vm.Video_CropClear_Text == "Clear"
+            if (VM.VideoView.Video_Codec_SelectedItem != "x264" &&
+                VM.VideoView.Video_Codec_SelectedItem != "x265" &&
+                VM.VideoView.Video_Codec_SelectedItem != "MPEG-2" &&
+                VM.VideoView.Video_Codec_SelectedItem != "MPEG-4" &&
+                VM.VideoView.Video_CropClear_Text == "Clear"
                 )
             {
                 CropWindow.crop = string.Empty;
             }
 
             // Clear Crop if MediaTypeControls is Audio
-            if (FormatView.vm.Format_MediaType_SelectedItem == "Audio")
+            if (VM.FormatView.Format_MediaType_SelectedItem == "Audio")
             {
                 CropWindow.crop = string.Empty;
             }

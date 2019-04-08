@@ -68,7 +68,7 @@ namespace Axiom
         /// <summary>
         public static void PNGtoJPG_Filter()
         {
-            if (VideoView.vm.Video_Codec_SelectedItem == "JPEG")
+            if (VM.VideoView.Video_Codec_SelectedItem == "JPEG")
             {
                 // Turn on PNG to JPG Filter
                 if (string.Equals(MainWindow.inputExt, ".png", StringComparison.CurrentCultureIgnoreCase)
@@ -96,7 +96,7 @@ namespace Axiom
         {
             string burn = string.Empty;
 
-            if (SubtitleView.vm.Subtitle_Codec_SelectedItem == "Burn" &&
+            if (VM.SubtitleView.Subtitle_Codec_SelectedItem == "Burn" &&
                 Subtitle.subtitleFileNamesList.Count > 0)
             {
                 // Join File Names List
@@ -130,7 +130,7 @@ namespace Axiom
         {
             //if ((string)mainwindow.cboFilterVideo_Deband.SelectedItem == "enabled")
             //if (ViewModel.Filters.cboFilterVideo_Deband_SelectedItem == "enabled")
-            if (FilterVideoView.vm.FilterVideo_Deband_SelectedItem == "enabled")
+            if (VM.FilterVideoView.FilterVideo_Deband_SelectedItem == "enabled")
             {
                 // -------------------------
                 // Add Filter to List
@@ -145,7 +145,7 @@ namespace Axiom
         /// <summary>
         public static void Deshake_Filter()
         {
-            if (FilterVideoView.vm.FilterVideo_Deshake_SelectedItem == "enabled")
+            if (VM.FilterVideoView.FilterVideo_Deshake_SelectedItem == "enabled")
             {
                 // -------------------------
                 // Add Filter to List
@@ -160,7 +160,7 @@ namespace Axiom
         /// <summary>
         public static void Deflicker_Filter()
         {
-            if (FilterVideoView.vm.FilterVideo_Deflicker_SelectedItem == "enabled")
+            if (VM.FilterVideoView.FilterVideo_Deflicker_SelectedItem == "enabled")
             {
                 // -------------------------
                 // Add Filter to List
@@ -175,7 +175,7 @@ namespace Axiom
         /// <summary>
         public static void Dejudder_Filter()
         {
-            if (FilterVideoView.vm.FilterVideo_Dejudder_SelectedItem == "enabled")
+            if (VM.FilterVideoView.FilterVideo_Dejudder_SelectedItem == "enabled")
             {
                 // -------------------------
                 // Add Filter to List
@@ -190,35 +190,35 @@ namespace Axiom
         /// <summary>
         public static void Denoise_Filter()
         {
-            if (FilterVideoView.vm.FilterVideo_Denoise_SelectedItem != "disabled")
+            if (VM.FilterVideoView.FilterVideo_Denoise_SelectedItem != "disabled")
             {
                 string denoise = string.Empty;
 
                 // -------------------------
                 // Default
                 // -------------------------
-                if (FilterVideoView.vm.FilterVideo_Denoise_SelectedItem == "default")
+                if (VM.FilterVideoView.FilterVideo_Denoise_SelectedItem == "default")
                 {
                     denoise = "removegrain=0";
                 }
                 // -------------------------
                 // Light
                 // -------------------------
-                else if (FilterVideoView.vm.FilterVideo_Denoise_SelectedItem == "light")
+                else if (VM.FilterVideoView.FilterVideo_Denoise_SelectedItem == "light")
                 {
                     denoise = "removegrain=22";
                 }
                 // -------------------------
                 // Medium
                 // -------------------------
-                else if (FilterVideoView.vm.FilterVideo_Denoise_SelectedItem == "medium")
+                else if (VM.FilterVideoView.FilterVideo_Denoise_SelectedItem == "medium")
                 {
                     denoise = "vaguedenoiser=threshold=3:method=soft:nsteps=5";
                 }
                 // -------------------------
                 // Heavy
                 // -------------------------
-                else if (FilterVideoView.vm.FilterVideo_Denoise_SelectedItem == "heavy")
+                else if (VM.FilterVideoView.FilterVideo_Denoise_SelectedItem == "heavy")
                 {
                     denoise = "vaguedenoiser=threshold=6:method=soft:nsteps=5";
                 }
@@ -239,49 +239,49 @@ namespace Axiom
         /// </remarks>
         public static void Deinterlace_Filter()
         {
-            if (FilterVideoView.vm.FilterVideo_Deinterlace_SelectedItem != "disabled")
+            if (VM.FilterVideoView.FilterVideo_Deinterlace_SelectedItem != "disabled")
             {
                 string deinterlace = string.Empty;
 
                 // -------------------------
                 // Send Frame
                 // -------------------------
-                if (FilterVideoView.vm.FilterVideo_Deinterlace_SelectedItem == "frame")
+                if (VM.FilterVideoView.FilterVideo_Deinterlace_SelectedItem == "frame")
                 {
                     deinterlace = "yadif=0:-1:0";
                 }
                 // -------------------------
                 // Send Field
                 // -------------------------
-                else if (FilterVideoView.vm.FilterVideo_Deinterlace_SelectedItem == "field")
+                else if (VM.FilterVideoView.FilterVideo_Deinterlace_SelectedItem == "field")
                 {
                     deinterlace = "yadif=1:-1:0";
                 }
                 // -------------------------
                 // Frame Skip Spatial
                 // -------------------------
-                else if (FilterVideoView.vm.FilterVideo_Deinterlace_SelectedItem == "frame nospatial")
+                else if (VM.FilterVideoView.FilterVideo_Deinterlace_SelectedItem == "frame nospatial")
                 {
                     deinterlace = "yadif=2:-1:0";
                 }
                 // -------------------------
                 // Field Skip Spatial
                 // -------------------------
-                else if (FilterVideoView.vm.FilterVideo_Deinterlace_SelectedItem == "field nospatial")
+                else if (VM.FilterVideoView.FilterVideo_Deinterlace_SelectedItem == "field nospatial")
                 {
                     deinterlace = "yadif=3:-1:0";
                 }
                 //// -------------------------
                 //// Cuda Frame
                 //// -------------------------
-                //else if (FilterVideoView.vm.FilterVideo_Deinterlace_SelectedItem == "cuda frame")
+                //else if (VM.FilterVideoView.FilterVideo_Deinterlace_SelectedItem == "cuda frame")
                 //{
                 //    deinterlace = "yadif_cuda=0:-1:0";
                 //}
                 //// -------------------------
                 //// Cuda Field
                 //// -------------------------
-                //else if (FilterVideoView.vm.FilterVideo_Deinterlace_SelectedItem == "cuda field")
+                //else if (VM.FilterVideoView.FilterVideo_Deinterlace_SelectedItem == "cuda field")
                 //{
                 //    deinterlace = "yadif_cuda=1:-1:0";
                 //}
@@ -298,18 +298,18 @@ namespace Axiom
         /// <summary>
         ///     Selective Color Class
         /// <summary>
-        public static List<FilterVideoSelectiveColor> SelectiveColorList { get; set; }
-        public partial class FilterVideoSelectiveColor
-        {
-            public string SelectiveColorName { get; set; }
-            public Color SelectiveColorPreview { get; set; }
-            public string SelectiveColorPreviewStr { get { return SelectiveColorPreview.ToString(); } }
-            public FilterVideoSelectiveColor(string name, Color color)
-            {
-                SelectiveColorName = name;
-                SelectiveColorPreview = color;
-            }
-        }
+        //public static List<FilterVideoSelectiveColor> SelectiveColorList { get; set; }
+        //public partial class FilterVideoSelectiveColor
+        //{
+        //    public string SelectiveColorName { get; set; }
+        //    public Color SelectiveColorPreview { get; set; }
+        //    public string SelectiveColorPreviewStr { get { return SelectiveColorPreview.ToString(); } }
+        //    public FilterVideoSelectiveColor(string name, Color color)
+        //    {
+        //        SelectiveColorName = name;
+        //        SelectiveColorPreview = color;
+        //    }
+        //}
 
         /// <summary>
         ///     Selective Color Normalize (Method)
@@ -348,41 +348,41 @@ namespace Axiom
             List<double> selectiveColorSliders = new List<double>()
             {
                 // Reds
-                FilterVideoView.vm.FilterVideo_SelectiveColor_Reds_Cyan_Value,
-                FilterVideoView.vm.FilterVideo_SelectiveColor_Reds_Magenta_Value,
-                FilterVideoView.vm.FilterVideo_SelectiveColor_Reds_Yellow_Value,
+                VM.FilterVideoView.FilterVideo_SelectiveColor_Reds_Cyan_Value,
+                VM.FilterVideoView.FilterVideo_SelectiveColor_Reds_Magenta_Value,
+                VM.FilterVideoView.FilterVideo_SelectiveColor_Reds_Yellow_Value,
                 // Yellows
-                FilterVideoView.vm.FilterVideo_SelectiveColor_Yellows_Cyan_Value,
-                FilterVideoView.vm.FilterVideo_SelectiveColor_Yellows_Magenta_Value,
-                FilterVideoView.vm.FilterVideo_SelectiveColor_Yellows_Yellow_Value,
+                VM.FilterVideoView.FilterVideo_SelectiveColor_Yellows_Cyan_Value,
+                VM.FilterVideoView.FilterVideo_SelectiveColor_Yellows_Magenta_Value,
+                VM.FilterVideoView.FilterVideo_SelectiveColor_Yellows_Yellow_Value,
                 // Greens
-                FilterVideoView.vm.FilterVideo_SelectiveColor_Greens_Cyan_Value,
-                FilterVideoView.vm.FilterVideo_SelectiveColor_Greens_Magenta_Value,
-                FilterVideoView.vm.FilterVideo_SelectiveColor_Greens_Yellow_Value,
+                VM.FilterVideoView.FilterVideo_SelectiveColor_Greens_Cyan_Value,
+                VM.FilterVideoView.FilterVideo_SelectiveColor_Greens_Magenta_Value,
+                VM.FilterVideoView.FilterVideo_SelectiveColor_Greens_Yellow_Value,
                 // Cyans
-                FilterVideoView.vm.FilterVideo_SelectiveColor_Cyans_Cyan_Value,
-                FilterVideoView.vm.FilterVideo_SelectiveColor_Cyans_Magenta_Value,
-                FilterVideoView.vm.FilterVideo_SelectiveColor_Cyans_Yellow_Value,
+                VM.FilterVideoView.FilterVideo_SelectiveColor_Cyans_Cyan_Value,
+                VM.FilterVideoView.FilterVideo_SelectiveColor_Cyans_Magenta_Value,
+                VM.FilterVideoView.FilterVideo_SelectiveColor_Cyans_Yellow_Value,
                 // Blues
-                FilterVideoView.vm.FilterVideo_SelectiveColor_Blues_Cyan_Value,
-                FilterVideoView.vm.FilterVideo_SelectiveColor_Blues_Magenta_Value,
-                FilterVideoView.vm.FilterVideo_SelectiveColor_Blues_Yellow_Value,
+                VM.FilterVideoView.FilterVideo_SelectiveColor_Blues_Cyan_Value,
+                VM.FilterVideoView.FilterVideo_SelectiveColor_Blues_Magenta_Value,
+                VM.FilterVideoView.FilterVideo_SelectiveColor_Blues_Yellow_Value,
                 // Magentas
-                FilterVideoView.vm.FilterVideo_SelectiveColor_Magentas_Cyan_Value,
-                FilterVideoView.vm.FilterVideo_SelectiveColor_Magentas_Magenta_Value,
-                FilterVideoView.vm.FilterVideo_SelectiveColor_Magentas_Yellow_Value,
+                VM.FilterVideoView.FilterVideo_SelectiveColor_Magentas_Cyan_Value,
+                VM.FilterVideoView.FilterVideo_SelectiveColor_Magentas_Magenta_Value,
+                VM.FilterVideoView.FilterVideo_SelectiveColor_Magentas_Yellow_Value,
                 // Whites
-                FilterVideoView.vm.FilterVideo_SelectiveColor_Whites_Cyan_Value,
-                FilterVideoView.vm.FilterVideo_SelectiveColor_Whites_Magenta_Value,
-                FilterVideoView.vm.FilterVideo_SelectiveColor_Whites_Yellow_Value,
+                VM.FilterVideoView.FilterVideo_SelectiveColor_Whites_Cyan_Value,
+                VM.FilterVideoView.FilterVideo_SelectiveColor_Whites_Magenta_Value,
+                VM.FilterVideoView.FilterVideo_SelectiveColor_Whites_Yellow_Value,
                 // Neutrals
-                FilterVideoView.vm.FilterVideo_SelectiveColor_Neutrals_Cyan_Value,
-                FilterVideoView.vm.FilterVideo_SelectiveColor_Neutrals_Magenta_Value,
-                FilterVideoView.vm.FilterVideo_SelectiveColor_Neutrals_Yellow_Value,
+                VM.FilterVideoView.FilterVideo_SelectiveColor_Neutrals_Cyan_Value,
+                VM.FilterVideoView.FilterVideo_SelectiveColor_Neutrals_Magenta_Value,
+                VM.FilterVideoView.FilterVideo_SelectiveColor_Neutrals_Yellow_Value,
                 // Blacks
-                FilterVideoView.vm.FilterVideo_SelectiveColor_Blacks_Cyan_Value,
-                FilterVideoView.vm.FilterVideo_SelectiveColor_Blacks_Magenta_Value,
-                FilterVideoView.vm.FilterVideo_SelectiveColor_Blacks_Yellow_Value,
+                VM.FilterVideoView.FilterVideo_SelectiveColor_Blacks_Cyan_Value,
+                VM.FilterVideoView.FilterVideo_SelectiveColor_Blacks_Magenta_Value,
+                VM.FilterVideoView.FilterVideo_SelectiveColor_Blacks_Yellow_Value,
             };
 
             // -------------------------
@@ -395,91 +395,91 @@ namespace Axiom
                 // Reds
                 // -------------------------
                 // Cyan
-                string reds_cyan = SelectiveColor_Normalize(FilterVideoView.vm.FilterVideo_SelectiveColor_Reds_Cyan_Value);
+                string reds_cyan = SelectiveColor_Normalize(VM.FilterVideoView.FilterVideo_SelectiveColor_Reds_Cyan_Value);
                 // Magenta
-                string reds_magenta = SelectiveColor_Normalize(FilterVideoView.vm.FilterVideo_SelectiveColor_Reds_Magenta_Value);
+                string reds_magenta = SelectiveColor_Normalize(VM.FilterVideoView.FilterVideo_SelectiveColor_Reds_Magenta_Value);
                 // Yellow
-                string reds_yellow = SelectiveColor_Normalize(FilterVideoView.vm.FilterVideo_SelectiveColor_Reds_Yellow_Value);
+                string reds_yellow = SelectiveColor_Normalize(VM.FilterVideoView.FilterVideo_SelectiveColor_Reds_Yellow_Value);
 
                 // -------------------------
                 // Yellows
                 // -------------------------
                 // Cyan
-                string yellows_cyan = SelectiveColor_Normalize(FilterVideoView.vm.FilterVideo_SelectiveColor_Yellows_Cyan_Value);
+                string yellows_cyan = SelectiveColor_Normalize(VM.FilterVideoView.FilterVideo_SelectiveColor_Yellows_Cyan_Value);
                 // Magenta
-                string yellows_magenta = SelectiveColor_Normalize(FilterVideoView.vm.FilterVideo_SelectiveColor_Yellows_Magenta_Value);
+                string yellows_magenta = SelectiveColor_Normalize(VM.FilterVideoView.FilterVideo_SelectiveColor_Yellows_Magenta_Value);
                 // Yellow
-                string yellows_yellow = SelectiveColor_Normalize(FilterVideoView.vm.FilterVideo_SelectiveColor_Yellows_Yellow_Value);
+                string yellows_yellow = SelectiveColor_Normalize(VM.FilterVideoView.FilterVideo_SelectiveColor_Yellows_Yellow_Value);
 
                 // -------------------------
                 // Greens
                 // -------------------------
                 // Cyan
-                string greens_cyan = SelectiveColor_Normalize(FilterVideoView.vm.FilterVideo_SelectiveColor_Greens_Cyan_Value);
+                string greens_cyan = SelectiveColor_Normalize(VM.FilterVideoView.FilterVideo_SelectiveColor_Greens_Cyan_Value);
                 // Magenta
-                string greens_magenta = SelectiveColor_Normalize(FilterVideoView.vm.FilterVideo_SelectiveColor_Greens_Magenta_Value);
+                string greens_magenta = SelectiveColor_Normalize(VM.FilterVideoView.FilterVideo_SelectiveColor_Greens_Magenta_Value);
                 // Yellow
-                string greens_yellow = SelectiveColor_Normalize(FilterVideoView.vm.FilterVideo_SelectiveColor_Greens_Yellow_Value);
+                string greens_yellow = SelectiveColor_Normalize(VM.FilterVideoView.FilterVideo_SelectiveColor_Greens_Yellow_Value);
 
                 // -------------------------
                 // Cyans
                 // -------------------------
                 // Cyan
-                string cyans_cyan = SelectiveColor_Normalize(FilterVideoView.vm.FilterVideo_SelectiveColor_Cyans_Cyan_Value);
+                string cyans_cyan = SelectiveColor_Normalize(VM.FilterVideoView.FilterVideo_SelectiveColor_Cyans_Cyan_Value);
                 // Magenta
-                string cyans_magenta = SelectiveColor_Normalize(FilterVideoView.vm.FilterVideo_SelectiveColor_Cyans_Magenta_Value);
+                string cyans_magenta = SelectiveColor_Normalize(VM.FilterVideoView.FilterVideo_SelectiveColor_Cyans_Magenta_Value);
                 // Yellow
-                string cyans_yellow = SelectiveColor_Normalize(FilterVideoView.vm.FilterVideo_SelectiveColor_Cyans_Yellow_Value);
+                string cyans_yellow = SelectiveColor_Normalize(VM.FilterVideoView.FilterVideo_SelectiveColor_Cyans_Yellow_Value);
 
                 // -------------------------
                 // Blues
                 // -------------------------
                 // Cyan
-                string blues_cyan = SelectiveColor_Normalize(FilterVideoView.vm.FilterVideo_SelectiveColor_Blues_Cyan_Value);
+                string blues_cyan = SelectiveColor_Normalize(VM.FilterVideoView.FilterVideo_SelectiveColor_Blues_Cyan_Value);
                 // Magenta
-                string blues_magenta = SelectiveColor_Normalize(FilterVideoView.vm.FilterVideo_SelectiveColor_Blues_Magenta_Value);
+                string blues_magenta = SelectiveColor_Normalize(VM.FilterVideoView.FilterVideo_SelectiveColor_Blues_Magenta_Value);
                 // Yellow
-                string blues_yellow = SelectiveColor_Normalize(FilterVideoView.vm.FilterVideo_SelectiveColor_Blues_Yellow_Value);
+                string blues_yellow = SelectiveColor_Normalize(VM.FilterVideoView.FilterVideo_SelectiveColor_Blues_Yellow_Value);
 
                 // -------------------------
                 // Magentas
                 // -------------------------
                 // Cyan
-                string magentas_cyan = SelectiveColor_Normalize(FilterVideoView.vm.FilterVideo_SelectiveColor_Magentas_Cyan_Value);
+                string magentas_cyan = SelectiveColor_Normalize(VM.FilterVideoView.FilterVideo_SelectiveColor_Magentas_Cyan_Value);
                 // Magenta
-                string magentas_magenta = SelectiveColor_Normalize(FilterVideoView.vm.FilterVideo_SelectiveColor_Magentas_Magenta_Value);
+                string magentas_magenta = SelectiveColor_Normalize(VM.FilterVideoView.FilterVideo_SelectiveColor_Magentas_Magenta_Value);
                 // Yellow
-                string magentas_yellow = SelectiveColor_Normalize(FilterVideoView.vm.FilterVideo_SelectiveColor_Magentas_Yellow_Value);
+                string magentas_yellow = SelectiveColor_Normalize(VM.FilterVideoView.FilterVideo_SelectiveColor_Magentas_Yellow_Value);
 
                 // -------------------------
                 // Whites
                 // -------------------------
                 // Cyan
-                string whites_cyan = SelectiveColor_Normalize(FilterVideoView.vm.FilterVideo_SelectiveColor_Whites_Cyan_Value);
+                string whites_cyan = SelectiveColor_Normalize(VM.FilterVideoView.FilterVideo_SelectiveColor_Whites_Cyan_Value);
                 // Magenta
-                string whites_magenta = SelectiveColor_Normalize(FilterVideoView.vm.FilterVideo_SelectiveColor_Whites_Magenta_Value);
+                string whites_magenta = SelectiveColor_Normalize(VM.FilterVideoView.FilterVideo_SelectiveColor_Whites_Magenta_Value);
                 // Yellow
-                string whites_yellow = SelectiveColor_Normalize(FilterVideoView.vm.FilterVideo_SelectiveColor_Whites_Yellow_Value);
+                string whites_yellow = SelectiveColor_Normalize(VM.FilterVideoView.FilterVideo_SelectiveColor_Whites_Yellow_Value);
 
                 // -------------------------
                 // Nuetrals
                 // -------------------------
                 // Cyan
-                string neutrals_cyan = SelectiveColor_Normalize(FilterVideoView.vm.FilterVideo_SelectiveColor_Neutrals_Cyan_Value);
+                string neutrals_cyan = SelectiveColor_Normalize(VM.FilterVideoView.FilterVideo_SelectiveColor_Neutrals_Cyan_Value);
                 // Magenta
-                string neutrals_magenta = SelectiveColor_Normalize(FilterVideoView.vm.FilterVideo_SelectiveColor_Neutrals_Magenta_Value);
+                string neutrals_magenta = SelectiveColor_Normalize(VM.FilterVideoView.FilterVideo_SelectiveColor_Neutrals_Magenta_Value);
                 // Yellow
-                string neutrals_yellow = SelectiveColor_Normalize(FilterVideoView.vm.FilterVideo_SelectiveColor_Neutrals_Yellow_Value);
+                string neutrals_yellow = SelectiveColor_Normalize(VM.FilterVideoView.FilterVideo_SelectiveColor_Neutrals_Yellow_Value);
 
                 // -------------------------
                 // Blacks
                 // -------------------------
                 // Cyan
-                string blacks_cyan = SelectiveColor_Normalize(FilterVideoView.vm.FilterVideo_SelectiveColor_Blacks_Cyan_Value);
+                string blacks_cyan = SelectiveColor_Normalize(VM.FilterVideoView.FilterVideo_SelectiveColor_Blacks_Cyan_Value);
                 // Magenta
-                string blacks_magenta = SelectiveColor_Normalize(FilterVideoView.vm.FilterVideo_SelectiveColor_Blacks_Magenta_Value);
+                string blacks_magenta = SelectiveColor_Normalize(VM.FilterVideoView.FilterVideo_SelectiveColor_Blacks_Magenta_Value);
                 // Yellow
-                string blacks_yellow = SelectiveColor_Normalize(FilterVideoView.vm.FilterVideo_SelectiveColor_Blacks_Yellow_Value);
+                string blacks_yellow = SelectiveColor_Normalize(VM.FilterVideoView.FilterVideo_SelectiveColor_Blacks_Yellow_Value);
 
                 // -------------------------
                 // Combine
@@ -488,7 +488,7 @@ namespace Axiom
                 {
                     "selectivecolor="
                     + "\r\n"
-                    + "correction_method=" + FilterVideoView.vm.FilterVideo_SelectiveColor_Correction_Method_SelectedItem
+                    + "correction_method=" + VM.FilterVideoView.FilterVideo_SelectiveColor_Correction_Method_SelectedItem
                     + "\r\n",
 
                     "reds="     + reds_cyan     + " " + reds_magenta     + " " + reds_yellow     + "\r\n",
@@ -519,10 +519,10 @@ namespace Axiom
         /// <summary>
         public static void Video_EQ_Filter()
         {
-            if (FilterVideoView.vm.FilterVideo_EQ_Brightness_Value != 0 ||
-                FilterVideoView.vm.FilterVideo_EQ_Contrast_Value != 0 ||
-                FilterVideoView.vm.FilterVideo_EQ_Saturation_Value != 0 ||
-                FilterVideoView.vm.FilterVideo_EQ_Gamma_Value != 0)
+            if (VM.FilterVideoView.FilterVideo_EQ_Brightness_Value != 0 ||
+                VM.FilterVideoView.FilterVideo_EQ_Contrast_Value != 0 ||
+                VM.FilterVideoView.FilterVideo_EQ_Saturation_Value != 0 ||
+                VM.FilterVideoView.FilterVideo_EQ_Gamma_Value != 0)
             {
                 // EQ List
                 List<string> vEQ_Filter_List = new List<string>()
@@ -552,7 +552,7 @@ namespace Axiom
         /// <summary>
         public static String Video_EQ_Brightness_Filter()
         {
-            double value = FilterVideoView.vm.FilterVideo_EQ_Brightness_Value;
+            double value = VM.FilterVideoView.FilterVideo_EQ_Brightness_Value;
 
             string brightness = string.Empty;
 
@@ -564,7 +564,7 @@ namespace Axiom
                 // Slider Default 0
                 // Limit to 2 decimal places
 
-                //brightness = "brightness=" + FilterVideoView.vm.FilterVideo_EQ_Brightness.Value.ToString();
+                //brightness = "brightness=" + VM.FilterVideoView.FilterVideo_EQ_Brightness.Value.ToString();
 
                 try
                 {
@@ -603,7 +603,7 @@ namespace Axiom
         /// <summary>
         public static String Video_EQ_Contrast_Filter()
         {
-            double value = FilterVideoView.vm.FilterVideo_EQ_Contrast_Value;
+            double value = VM.FilterVideoView.FilterVideo_EQ_Contrast_Value;
 
             string contrast = string.Empty;
 
@@ -615,7 +615,7 @@ namespace Axiom
                 // Slider Default 0
                 // Limit to 2 decimal places
 
-                //contrast = "contrast=" + FilterVideoView.vm.FilterVideo_EQ_Contrast.Value.ToString();
+                //contrast = "contrast=" + VM.FilterVideoView.FilterVideo_EQ_Contrast.Value.ToString();
 
                 try
                 {
@@ -656,7 +656,7 @@ namespace Axiom
         /// <summary>
         public static String Video_EQ_Saturation_Filter()
         {
-            double value = FilterVideoView.vm.FilterVideo_EQ_Saturation_Value;
+            double value = VM.FilterVideoView.FilterVideo_EQ_Saturation_Value;
 
             string saturation = string.Empty;
 
@@ -668,7 +668,7 @@ namespace Axiom
                 // Slider Default 0
                 // Limit to 2 decimal places
 
-                //saturation = "saturation=" + FilterVideoView.vm.FilterVideo_EQ_Saturation.Value.ToString();
+                //saturation = "saturation=" + VM.FilterVideoView.FilterVideo_EQ_Saturation.Value.ToString();
 
                 try
                 {
@@ -709,7 +709,7 @@ namespace Axiom
         /// <summary>
         public static String Video_EQ_Gamma_Filter()
         {
-            double value = FilterVideoView.vm.FilterVideo_EQ_Gamma_Value;
+            double value = VM.FilterVideoView.FilterVideo_EQ_Gamma_Value;
 
             string gamma = string.Empty;
 
@@ -721,7 +721,7 @@ namespace Axiom
                 // Slider Default 0
                 // Limit to 2 decimal places
 
-                //gamma = "gamma=" + FilterVideoView.vm.FilterVideo_EQ_Gamma.Value.ToString();
+                //gamma = "gamma=" + VM.FilterVideoView.FilterVideo_EQ_Gamma.Value.ToString();
                 try
                 {
                     gamma = "gamma=" +
@@ -766,10 +766,10 @@ namespace Axiom
             // Video Codec None Check
             // Codec Copy Check
             // Media Type Check
-            if (VideoView.vm.Video_Quality_SelectedItem != "None" &&
-                VideoView.vm.Video_Codec_SelectedItem != "None" &&
-                VideoView.vm.Video_Codec_SelectedItem != "Copy" &&
-                FormatView.vm.Format_MediaType_SelectedItem != "Audio")
+            if (VM.VideoView.Video_Quality_SelectedItem != "None" &&
+                VM.VideoView.Video_Codec_SelectedItem != "None" &&
+                VM.VideoView.Video_Codec_SelectedItem != "Copy" &&
+                VM.FormatView.Format_MediaType_SelectedItem != "Audio")
             {
                 // --------------------------------------------------
                 // Add Each Filter to Master Filters List
@@ -778,11 +778,11 @@ namespace Axiom
                 // -------------------------
                 //  Speed
                 // -------------------------
-                Video.Speed(//FormatView.vm.Format_MediaType_SelectedItem,
-                            VideoView.vm.Video_Codec_SelectedItem,
-                            //VideoView.vm.Video_Quality_SelectedItem,
-                            VideoView.vm.Video_Speed_SelectedItem,
-                            VideoView.vm.Video_Speed_Text
+                Video.Speed(//VM.FormatView.Format_MediaType_SelectedItem,
+                            VM.VideoView.Video_Codec_SelectedItem,
+                            //VM.VideoView.Video_Quality_SelectedItem,
+                            VM.VideoView.Video_Speed_SelectedItem,
+                            VM.VideoView.Video_Speed_Text
                             );
 
                 // -------------------------
@@ -790,27 +790,27 @@ namespace Axiom
                 // -------------------------
                 //  Scale is Custom width & height
                 // -------------------------
-                if ((VideoView.vm.Video_Codec_SelectedItem == "x264" ||
-                    VideoView.vm.Video_Codec_SelectedItem == "x265" ||
-                    VideoView.vm.Video_Codec_SelectedItem == "MPEG-2" ||
-                    VideoView.vm.Video_Codec_SelectedItem == "MPEG-4")
+                if ((VM.VideoView.Video_Codec_SelectedItem == "x264" ||
+                    VM.VideoView.Video_Codec_SelectedItem == "x265" ||
+                    VM.VideoView.Video_Codec_SelectedItem == "MPEG-2" ||
+                    VM.VideoView.Video_Codec_SelectedItem == "MPEG-4")
                     &&
-                    !string.Equals(VideoView.vm.Video_Width_Text, "auto", StringComparison.CurrentCultureIgnoreCase) &&
-                    !string.Equals(VideoView.vm.Video_Height_Text, "auto", StringComparison.CurrentCultureIgnoreCase)// && 
-                    //VideoView.vm.Video_CropClear_Text == "Clear"
+                    !string.Equals(VM.VideoView.Video_Width_Text, "auto", StringComparison.CurrentCultureIgnoreCase) &&
+                    !string.Equals(VM.VideoView.Video_Height_Text, "auto", StringComparison.CurrentCultureIgnoreCase)// && 
+                    //VM.VideoView.Video_CropClear_Text == "Clear"
                     )
                 {
                     // -------------------------
                     //  Resize - Crop and Divisible Crop are added in the Video Scale() Method
                     // -------------------------
-                    Video.Scale(VideoView.vm.Video_Codec_SelectedItem,
-                                VideoView.vm.Video_Scale_SelectedItem,
-                                VideoView.vm.Video_Width_Text,
-                                VideoView.vm.Video_Height_Text,
-                                VideoView.vm.Video_ScreenFormat_SelectedItem,
-                                //VideoView.vm.Video_AspectRatio_SelectedItem,
-                                VideoView.vm.Video_ScalingAlgorithm_SelectedItem,
-                                VideoView.vm.Video_CropClear_Text
+                    Video.Scale(VM.VideoView.Video_Codec_SelectedItem,
+                                VM.VideoView.Video_Scale_SelectedItem,
+                                VM.VideoView.Video_Width_Text,
+                                VM.VideoView.Video_Height_Text,
+                                VM.VideoView.Video_ScreenFormat_SelectedItem,
+                                //VM.VideoView.Video_AspectRatio_SelectedItem,
+                                VM.VideoView.Video_ScalingAlgorithm_SelectedItem,
+                                VM.VideoView.Video_CropClear_Text
                                 );
                 }
 
@@ -827,14 +827,14 @@ namespace Axiom
                     // -------------------------
                     //  Resize (second)
                     // -------------------------
-                    Video.Scale(VideoView.vm.Video_Codec_SelectedItem,
-                                VideoView.vm.Video_Scale_SelectedItem,
-                                VideoView.vm.Video_Width_Text,
-                                VideoView.vm.Video_Height_Text,
-                                VideoView.vm.Video_ScreenFormat_SelectedItem,
-                                //VideoView.vm.Video_AspectRatio_SelectedItem,
-                                VideoView.vm.Video_ScalingAlgorithm_SelectedItem,
-                                VideoView.vm.Video_CropClear_Text
+                    Video.Scale(VM.VideoView.Video_Codec_SelectedItem,
+                                VM.VideoView.Video_Scale_SelectedItem,
+                                VM.VideoView.Video_Width_Text,
+                                VM.VideoView.Video_Height_Text,
+                                VM.VideoView.Video_ScreenFormat_SelectedItem,
+                                //VM.VideoView.Video_AspectRatio_SelectedItem,
+                                VM.VideoView.Video_ScalingAlgorithm_SelectedItem,
+                                VM.VideoView.Video_CropClear_Text
                                 );
                 }
 
@@ -892,7 +892,7 @@ namespace Axiom
                 // -------------------------
                 // Filter Combine
                 // -------------------------
-                if (VideoView.vm.Video_Codec_SelectedItem != "None") // None Check
+                if (VM.VideoView.Video_Codec_SelectedItem != "None") // None Check
                 {
                     //System.Windows.MessageBox.Show(string.Join(",\r\n\r\n", vFiltersList.Where(s => !string.IsNullOrEmpty(s)))); //debug
                     //System.Windows.MessageBox.Show(Convert.ToString(vFiltersList.Count())); //debug

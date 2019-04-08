@@ -75,10 +75,10 @@ namespace Axiom
                 // Start
                 rtbFileProperties.Document = new FlowDocument(propertiesParagraph); 
 
-                FFprobe.argsFileProperties = " -i" + " " + "\"" + MainView.vm.Input_Text + "\"" + " -v quiet -print_format ini -show_format -show_streams";
+                FFprobe.argsFileProperties = " -i" + " " + "\"" + VM.MainView.Input_Text + "\"" + " -v quiet -print_format ini -show_format -show_streams";
 
-                FFprobe.inputFileProperties = FFprobe.InputFileInfo(MainView.vm.Input_Text, 
-                                                                    MainView.vm.Batch_IsChecked, 
+                FFprobe.inputFileProperties = FFprobe.InputFileInfo(VM.MainView.Input_Text, 
+                                                                    VM.MainView.Batch_IsChecked, 
                                                                     FFprobe.argsFileProperties
                                                                     );
 

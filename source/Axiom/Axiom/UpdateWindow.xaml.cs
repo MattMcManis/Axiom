@@ -44,7 +44,6 @@ namespace Axiom
         //public static string currentDir = Directory.GetCurrentDirectory().TrimEnd('\\') + @"\";
 
         // Web Downloads
-        //public static WebClient wc = new WebClient();
         public static ManualResetEvent waiter = new ManualResetEvent(false); // Download one at a time
 
         // Progress Label Info

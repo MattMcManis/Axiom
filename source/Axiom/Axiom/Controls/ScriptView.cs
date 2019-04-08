@@ -37,7 +37,7 @@ namespace Axiom
         /// </summary>
         public static void ClearScriptView()
         {
-            MainView.vm.ScriptView_Text = string.Empty;
+            VM.MainView.ScriptView_Text = string.Empty;
         }
 
     }

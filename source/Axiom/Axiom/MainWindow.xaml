@@ -27,6 +27,7 @@
         xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
         xmlns:Themes1="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2" 
         xmlns:my="clr-namespace:Axiom"
+        xmlns:local="clr-namespace:Axiom"
         xmlns:settings="clr-namespace:Axiom.Properties"
         mc:Ignorable="d"
         
@@ -39,9 +40,13 @@
         Width="824"
         Height="464"
         
-        Title="{Binding TitleVersion, Mode=OneWay}" 
+        Title="{Binding MainView.TitleVersion, Mode=OneWay}" 
         Style="{DynamicResource WindowStyle}"
         >
+
+    <Window.DataContext>
+        <local:VM/>
+    </Window.DataContext>
 
     <Window.Resources>
 
@@ -145,7 +150,7 @@
 
         <!-- Script View -->
         <TextBox x:Name="tbxScriptView" 
-                 Text="{Binding ScriptView_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 Text="{Binding MainView.ScriptView_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  Style="{DynamicResource TextBoxScriptView}"
                  FontSize="14" 
                  RenderOptions.ClearTypeHint="Enabled"
@@ -293,7 +298,7 @@
 
             <!-- Browse Textbox -->
             <TextBox x:Name="tbxInput" 
-                     Text="{Binding Input_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     Text="{Binding MainView.Input_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                      Style="{DynamicResource TextBoxBrowseStyle}" 
                      Height="22"
                      Margin="75,0,-14,0" 
@@ -311,7 +316,7 @@
             <!-- Input Location Button -->
             <Button x:Name="openLocationInput" 
                     Style="{DynamicResource ButtonFolderStyle}" 
-                    IsEnabled="{Binding Input_Location_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    IsEnabled="{Binding MainView.Input_Location_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     Margin="0,1,-11,0"
                     Cursor="Hand"
                     Click="openLocationInput_Click"
@@ -345,7 +350,7 @@
             </Button>
             <!-- Output Textbox-->
             <TextBox x:Name="tbxOutput" 
-                     Text="{Binding Output_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     Text="{Binding MainView.Output_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                      Style="{DynamicResource TextBoxBrowseStyle}"
                      Height="22"
                      Margin="75,29,-14,0"
@@ -363,7 +368,7 @@
             <!-- Output Location Button -->
             <Button x:Name="openLocationOutput"
                     Style="{DynamicResource ButtonFolderStyle}" 
-                    IsEnabled="{Binding Output_Location_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    IsEnabled="{Binding MainView.Output_Location_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     Cursor="Hand" 
                     Click="openLocationOutput_Click" 
                     ToolTipService.InitialShowDelay="500"
@@ -396,6 +401,7 @@
             <!-- Format Tab -->
             <TabItem Header="Format" 
                      Width="85"
+                     DataContext="{Binding FormatView}"
                      Style="{DynamicResource TabItemStyle}">
                 <Grid Background="Transparent">
 
@@ -406,7 +412,7 @@
 
                         <!-- Grid -->
                         <Grid Margin="0,20,0,30"  
-                              VerticalAlignment="Top" >
+                              VerticalAlignment="Top">
 
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="15"/>
@@ -964,6 +970,7 @@
             <TabItem Header="Video"
                      Width="86"
                      Padding="0"
+                     DataContext="{Binding VideoView}"
                      Style="{DynamicResource TabItemStyle}" >
                 <Grid Background="Transparent">
 
@@ -1870,6 +1877,7 @@
             <!-- Audio Tab -->
             <TabItem Header="Audio"
                      Width="85"
+                     DataContext="{Binding AudioView}"
                      Style="{DynamicResource TabItemStyle}" >
                 <Grid Background="Transparent">
 
@@ -2318,6 +2326,7 @@
             <!-- Subtitles Tab -->
             <TabItem Header="Subtitles" 
                      Width="85"
+                     DataContext="{Binding SubtitleView}"
                      Style="{DynamicResource TabItemStyle}">
                 <Grid Background="Transparent">
 
@@ -2354,7 +2363,8 @@
                                 Width="85" 
                                 FontFamily="Segoe UI Semilight" 
                                 Grid.Row="0" 
-                                Height="26" Grid.Column="1" />
+                                Height="26" 
+                                Grid.Column="1" />
 
                             <ComboBox x:Name="cboSubtitle_Codec" 
                                       ItemsSource="{Binding Subtitle_Codec_Items}"
@@ -2409,6 +2419,7 @@
                                       ItemsSource="{Binding Subtitle_ListView_Items}"
                                       SelectedIndex="{Binding Subtitle_ListView_SelectedIndex}"
                                       IsEnabled="{Binding Subtitle_ListView_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      Opacity="{Binding Subtitle_ListView_Opacity}"
                                       Height="130" 
                                       Margin="5,7,48,0"
                                       VerticalAlignment="Top"
@@ -2575,6 +2586,7 @@
                                 <!-- Filter Video Tab -->
                                 <TabItem Header="Video" 
                                          Width="75"
+                                         DataContext="{Binding FilterVideoView}"
                                          Style="{DynamicResource TabItemStyle}" 
                                          Margin="6,-2,-6,0">
                                     <Grid Background="Transparent">
@@ -2802,7 +2814,10 @@
 
                                             <ComboBox x:Name="cboFilterVideo_SelectiveColor" 
                                                       Style="{DynamicResource ComboBoxStyle}"
-                                                      SelectedIndex="{Binding FilterVideo_SelectiveColor_SelectedIndex, Mode=TwoWay}"
+                                                      ItemsSource="{Binding FilterVideo_SelectiveColor_Items}"
+                                                      SelectedIndex="{Binding FilterVideo_SelectiveColor_SelectedIndex}"
+                                                      SelectedValuePath="Name"
+                                                      SelectedValue="{Binding FilterVideo_SelectiveColor_SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                       ItemContainerStyle="{DynamicResource ComboBoxStyleItem}" 
                                                       HorizontalAlignment="Left" 
                                                       VerticalAlignment="Top" 
@@ -2821,14 +2836,15 @@
                                                                 <ColumnDefinition/>
                                                             </Grid.ColumnDefinitions>
 
-                                                            <Border Background="{Binding SelectiveColorPreviewStr}" 
+                                                            <Border Background="{Binding Color}" 
                                                                     Height="12" 
                                                                     Width="12" 
                                                                     Margin="2"/>
+                                                            
                                                             <TextBlock Grid.Column="1" 
                                                                        Margin="5,0" 
                                                                        VerticalAlignment="Center" 
-                                                                       Text="{Binding SelectiveColorName}"/>
+                                                                       Text="{Binding Name}"/>
                                                         </Grid>
                                                     </DataTemplate>
                                                 </ComboBox.ItemTemplate>
@@ -4384,6 +4400,7 @@
                                 <!-- Filter Audio Tab -->
                                 <TabItem Header="Audio" 
                                          Width="75"
+                                         DataContext="{Binding FilterAudioView}"
                                          Style="{DynamicResource TabItemStyle}" 
                                          Margin="6,-2,-6,0">
                                     <Grid Background="Transparent">
@@ -4706,6 +4723,7 @@
             <!-- Settings Tab -->
             <TabItem Header="Settings"
                      Width="85"
+                     DataContext="{Binding ConfigureView}"
                      Style="{DynamicResource TabItemStyle}">
 
                 <Grid Background="Transparent">
@@ -5265,7 +5283,7 @@
                                    Width="58"/>
                             <!-- Window Toggle  -->
                             <ToggleButton x:Name="tglUpdateAutoCheck"
-                                          IsChecked="{Binding UpdateAutoCheck_IsChecked}"
+                                          IsChecked="{Binding UpdateAutoCheck_IsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                           IsEnabled="{Binding UpdateAutoCheck_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                           Cursor="Hand" 
                                           HorizontalAlignment="Left" 
@@ -5281,9 +5299,8 @@
                                           Grid.Column="2" 
                                           Grid.Row="11" 
                                           Margin="10,2,0,0">
-                                <TextBlock x:Name="tblkUpdatesAutoCheck" 
-                                           Style="{DynamicResource TextBlockStyle}" 
-                                           Text="Off"
+                                <TextBlock Style="{DynamicResource TextBlockStyle}" 
+                                           Text="{Binding UpdateAutoCheck_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                            Margin="0,-2,0,0" />
                             </ToggleButton>
 
@@ -5451,7 +5468,7 @@
 
             <!-- Window Toggle  -->
             <ToggleButton x:Name="tglCMDWindowKeep"
-                          IsChecked="{Binding CMDWindowKeep_IsChecked}"
+                          IsChecked="{Binding MainView.CMDWindowKeep_IsChecked}"
                           Cursor="Hand" 
                           HorizontalAlignment="Left" 
                           VerticalAlignment="Top" 
@@ -5476,7 +5493,7 @@
             <!-- Auto Sort Script Button -->
             <ToggleButton x:Name="tglAutoSortScript"
                           Style="{DynamicResource ToggleButtonStyle}"
-                          IsChecked="{Binding AutoSortScript_IsChecked}"
+                          IsChecked="{Binding MainView.AutoSortScript_IsChecked}"
                           Margin="0,0,0,0"
                           Cursor="Hand" 
                           Width="22" 
@@ -5695,10 +5712,10 @@
 
             <!-- Preset -->
             <ComboBox x:Name="cboPreset" 
-                      ItemsSource="{Binding Preset_Items, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                      SelectedIndex="{Binding Preset_SelectedIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      ItemsSource="{Binding MainView.Preset_Items, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedIndex="{Binding MainView.Preset_SelectedIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       SelectedValuePath="Name"
-                      SelectedValue="{Binding Preset_SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedValue="{Binding MainView.Preset_SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       Style="{DynamicResource ComboBoxCategoryStyle}"
                       ItemContainerStyle="{DynamicResource ComboBoxCategoryStyleItem_FormatContainer}" 
                       HorizontalAlignment="Left"
@@ -5749,13 +5766,13 @@
                     Height="22"
                     Cursor="Hand" Click="btnConvert_Click">
                 <TextBlock x:Name="btnConvertTextBlock" 
-                           Text="{Binding Convert_Text, Mode=TwoWay}"
+                           Text="{Binding MainView.Convert_Text, Mode=TwoWay}"
                            Margin="0,-2,0,0"/>
             </Button>
 
             <!-- Batch Checkbox -->
             <ToggleButton x:Name="tglBatch" 
-                          IsChecked="{Binding Batch_IsChecked, Mode=TwoWay}"
+                          IsChecked="{Binding MainView.Batch_IsChecked, Mode=TwoWay}"
                           HorizontalAlignment="Right" 
                           VerticalAlignment="Top" 
                           Checked="tglBatch_Checked" 
@@ -5775,8 +5792,8 @@
             </ToggleButton>
             <!-- Batch Textbox -->
             <TextBox x:Name="batchExtensionTextBox" 
-                     Text="{Binding BatchExtension_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                     IsEnabled="{Binding BatchExtension_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     Text="{Binding MainView.BatchExtension_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     IsEnabled="{Binding MainView.BatchExtension_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                      HorizontalAlignment="Right" 
                      Height="23" 
                      Margin="0,0,177,0" 

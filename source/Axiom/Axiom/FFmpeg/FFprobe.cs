@@ -93,7 +93,7 @@ namespace Axiom
             // Only Run FFprobe if Input File is Not Null
             // Strange FFprobe Class problem - methods halting after InputFileInfo() 
             // unless Null Check is put here instead of inside the Class.
-            if (!string.IsNullOrEmpty(MainView.vm.Input_Text) && 
+            if (!string.IsNullOrEmpty(VM.MainView.Input_Text) && 
                 !string.IsNullOrEmpty(ffprobe))
             {
                 // -------------------------
@@ -109,21 +109,21 @@ namespace Axiom
                 // -------------------------
                 //    FFprobe File Info
                 // -------------------------
-                argsFrameRate = " -i " + "\"" + MainView.vm.Input_Text + "\"" + " -select_streams v:0 -show_entries stream=r_frame_rate -v quiet -of csv=\"p=0\"";
-                argsSize = " -i " + "\"" + MainView.vm.Input_Text + "\"" + " -select_streams v:0 -show_entries format=scale -v quiet -of csv=\"p=0\"";
-                argsDuration = " -i " + "\"" + MainView.vm.Input_Text + "\"" + " -select_streams v:0 -show_entries format=duration -v quiet -of csv=\"p=0\"";
-                argsVideoCodec = " -i " + "\"" + MainView.vm.Input_Text + "\"" + " -select_streams v:0 -show_entries stream=codec_name -v quiet -of csv=\"p=0\"";
-                argsVideoBitRate = " -i " + "\"" + MainView.vm.Input_Text + "\"" + " -select_streams v:0 -show_entries " + vEntryType + " -v quiet -of csv=\"p=0\"";
-                argsAudioCodec = " -i " + "\"" + MainView.vm.Input_Text + "\"" + " -select_streams a:0 -show_entries stream=codec_name -v quiet -of csv=\"p=0\"";
-                argsAudioBitRate = " -i" + " " + "\"" + MainView.vm.Input_Text + "\"" + " -select_streams a:0 -show_entries " + aEntryType + " -v quiet -of csv=\"p=0\"";
+                argsFrameRate = " -i " + "\"" + VM.MainView.Input_Text + "\"" + " -select_streams v:0 -show_entries stream=r_frame_rate -v quiet -of csv=\"p=0\"";
+                argsSize = " -i " + "\"" + VM.MainView.Input_Text + "\"" + " -select_streams v:0 -show_entries format=scale -v quiet -of csv=\"p=0\"";
+                argsDuration = " -i " + "\"" + VM.MainView.Input_Text + "\"" + " -select_streams v:0 -show_entries format=duration -v quiet -of csv=\"p=0\"";
+                argsVideoCodec = " -i " + "\"" + VM.MainView.Input_Text + "\"" + " -select_streams v:0 -show_entries stream=codec_name -v quiet -of csv=\"p=0\"";
+                argsVideoBitRate = " -i " + "\"" + VM.MainView.Input_Text + "\"" + " -select_streams v:0 -show_entries " + vEntryType + " -v quiet -of csv=\"p=0\"";
+                argsAudioCodec = " -i " + "\"" + VM.MainView.Input_Text + "\"" + " -select_streams a:0 -show_entries stream=codec_name -v quiet -of csv=\"p=0\"";
+                argsAudioBitRate = " -i" + " " + "\"" + VM.MainView.Input_Text + "\"" + " -select_streams a:0 -show_entries " + aEntryType + " -v quiet -of csv=\"p=0\"";
 
-                inputFrameRate = MainWindow.RemoveLineBreaks(InputFileInfo(MainView.vm.Input_Text, MainView.vm.Batch_IsChecked, argsFrameRate));
-                inputSize = MainWindow.RemoveLineBreaks(InputFileInfo(MainView.vm.Input_Text, MainView.vm.Batch_IsChecked, argsSize));
-                inputDuration = MainWindow.RemoveLineBreaks(InputFileInfo(MainView.vm.Input_Text, MainView.vm.Batch_IsChecked, argsDuration));
-                inputVideoCodec = MainWindow.RemoveLineBreaks(InputFileInfo(MainView.vm.Input_Text, MainView.vm.Batch_IsChecked, argsVideoCodec));
-                inputVideoBitRate = MainWindow.RemoveLineBreaks(InputFileInfo(MainView.vm.Input_Text, MainView.vm.Batch_IsChecked, argsVideoBitRate));
-                inputAudioCodec = MainWindow.RemoveLineBreaks(InputFileInfo(MainView.vm.Input_Text, MainView.vm.Batch_IsChecked, argsAudioCodec));
-                inputAudioBitRate = MainWindow.RemoveLineBreaks(InputFileInfo(MainView.vm.Input_Text, MainView.vm.Batch_IsChecked, argsAudioBitRate));
+                inputFrameRate = MainWindow.RemoveLineBreaks(InputFileInfo(VM.MainView.Input_Text, VM.MainView.Batch_IsChecked, argsFrameRate));
+                inputSize = MainWindow.RemoveLineBreaks(InputFileInfo(VM.MainView.Input_Text, VM.MainView.Batch_IsChecked, argsSize));
+                inputDuration = MainWindow.RemoveLineBreaks(InputFileInfo(VM.MainView.Input_Text, VM.MainView.Batch_IsChecked, argsDuration));
+                inputVideoCodec = MainWindow.RemoveLineBreaks(InputFileInfo(VM.MainView.Input_Text, VM.MainView.Batch_IsChecked, argsVideoCodec));
+                inputVideoBitRate = MainWindow.RemoveLineBreaks(InputFileInfo(VM.MainView.Input_Text, VM.MainView.Batch_IsChecked, argsVideoBitRate));
+                inputAudioCodec = MainWindow.RemoveLineBreaks(InputFileInfo(VM.MainView.Input_Text, VM.MainView.Batch_IsChecked, argsAudioCodec));
+                inputAudioBitRate = MainWindow.RemoveLineBreaks(InputFileInfo(VM.MainView.Input_Text, VM.MainView.Batch_IsChecked, argsAudioBitRate));
 
                 // Log won't write the input data unless we pass it to a new string
                 string logInputFrameRate = inputFrameRate;
@@ -275,7 +275,7 @@ namespace Axiom
             // -------------------------
             // Single
             // -------------------------
-            if (MainView.vm.Batch_IsChecked == false)
+            if (VM.MainView.Batch_IsChecked == false)
             {
                 if (Format.VideoFormats_EntryType_Stream.Any(s => s.Equals(MainWindow.inputExt, StringComparison.OrdinalIgnoreCase)))
                 {
@@ -295,7 +295,7 @@ namespace Axiom
             // -------------------------
             // Batch
             // -------------------------
-            else if (MainView.vm.Batch_IsChecked == true)
+            else if (VM.MainView.Batch_IsChecked == true)
             {
                 if (Format.VideoFormats_EntryType_Stream.Any(s => s.Equals(MainWindow.inputExt, StringComparison.OrdinalIgnoreCase)))
                 {
@@ -323,7 +323,7 @@ namespace Axiom
             // -------------------------
             // Single
             // -------------------------
-            if (MainView.vm.Batch_IsChecked == false)
+            if (VM.MainView.Batch_IsChecked == false)
             {
                 // These file types need special instructions for FFprobe to detect
                 if (string.Equals(MainWindow.inputExt, ".flac", StringComparison.CurrentCultureIgnoreCase) ||
@@ -341,7 +341,7 @@ namespace Axiom
             // -------------------------
             // Batch
             // -------------------------
-            else if (MainView.vm.Batch_IsChecked == true)
+            else if (VM.MainView.Batch_IsChecked == true)
             {
                 // Choose FFprobe Entry Type based on Input file extension
                 if (string.Equals(MainWindow.inputExt, ".flac", StringComparison.CurrentCultureIgnoreCase) ||

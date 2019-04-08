@@ -52,6 +52,23 @@
             </FlowDocument>-->
         </RichTextBox>
 
+        <!-- Random Button -->
+        <Button x:Name="btnDebugRandom" 
+                Margin="0,10,113,0" 
+                BorderBrush="#7FFFFFFF" 
+                Background="{x:Null}" 
+                Foreground="White" 
+                Cursor="Hand" 
+                HorizontalAlignment="Right" 
+                Width="55" 
+                Height="20" 
+                VerticalAlignment="Top" 
+                Click="btnDebugRandom_Click">
+            <TextBlock Text="Random" 
+                       Margin="0,-2,0,0" 
+                       Foreground="#99FFFFFF" />
+        </Button>
+        
         <!-- Test Button -->
         <Button x:Name="btnDebugTest" 
                 Margin="0,10,53,0" 
@@ -60,12 +77,11 @@
                 Foreground="White" 
                 Cursor="Hand" 
                 HorizontalAlignment="Right" 
-                Width="53" 
+                Width="55" 
                 Height="20" 
                 VerticalAlignment="Top" 
                 Click="btnDebugTest_Click">
-            <TextBlock x:Name="textBlockDebugTest" 
-                       Text="Test" 
+            <TextBlock Text="Test" 
                        Margin="0,-2,0,0" 
                        Foreground="#99FFFFFF" />
         </Button>

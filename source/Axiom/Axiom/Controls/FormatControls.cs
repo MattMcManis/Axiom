@@ -63,24 +63,24 @@ namespace Axiom
             if (container_SelectedItem == "webm")
             {
                 // Media Type
-                FormatView.vm.Format_MediaType_Items = Containers.WebM.media;
-                FormatView.vm.Format_MediaType_SelectedItem = "Video";
-                FormatView.vm.Format_MediaType_IsEnabled = false;
+                VM.FormatView.Format_MediaType_Items = Containers.WebM.media;
+                VM.FormatView.Format_MediaType_SelectedItem = "Video";
+                VM.FormatView.Format_MediaType_IsEnabled = false;
 
                 // Video Codec
-                VideoView.vm.Video_Codec_Items = Containers.WebM.video;
-                VideoView.vm.Video_Codec_SelectedItem = "VP8";
+                VM.VideoView.Video_Codec_Items = Containers.WebM.video;
+                VM.VideoView.Video_Codec_SelectedItem = "VP8";
 
                 // Optimize
-                VideoView.vm.Video_Optimize_SelectedItem = "Web";
+                VM.VideoView.Video_Optimize_SelectedItem = "Web";
 
                 // Audio Codec
-                AudioView.vm.Audio_Codec_Items = Containers.WebM.audio;
-                AudioView.vm.Audio_Codec_SelectedItem = "Vorbis";
+                VM.AudioView.Audio_Codec_Items = Containers.WebM.audio;
+                VM.AudioView.Audio_Codec_SelectedItem = "Vorbis";
 
                 // Subtitle Codec
-                SubtitleView.vm.Subtitle_Codec_Items = Containers.WebM.subtitle;
-                SubtitleView.vm.Subtitle_Codec_SelectedItem = "None";
+                VM.SubtitleView.Subtitle_Codec_Items = Containers.WebM.subtitle;
+                VM.SubtitleView.Subtitle_Codec_SelectedItem = "None";
             }
 
             // -------------------------
@@ -89,21 +89,21 @@ namespace Axiom
             else if (container_SelectedItem == "mp4")
             {
                 // Media Type
-                FormatView.vm.Format_MediaType_Items = Containers.MP4.media;
-                FormatView.vm.Format_MediaType_SelectedItem = "Video";
-                FormatView.vm.Format_MediaType_IsEnabled = false;
+                VM.FormatView.Format_MediaType_Items = Containers.MP4.media;
+                VM.FormatView.Format_MediaType_SelectedItem = "Video";
+                VM.FormatView.Format_MediaType_IsEnabled = false;
 
                 // Video Codec
-                VideoView.vm.Video_Codec_Items = Containers.MP4.video;
-                VideoView.vm.Video_Codec_SelectedItem = "x264";
+                VM.VideoView.Video_Codec_Items = Containers.MP4.video;
+                VM.VideoView.Video_Codec_SelectedItem = "x264";
 
                 // Audio Codec
-                AudioView.vm.Audio_Codec_Items = Containers.MP4.audio;
-                AudioView.vm.Audio_Codec_SelectedItem = "AAC";
+                VM.AudioView.Audio_Codec_Items = Containers.MP4.audio;
+                VM.AudioView.Audio_Codec_SelectedItem = "AAC";
 
                 // Subtitle Codec
-                SubtitleView.vm.Subtitle_Codec_Items = Containers.MP4.subtitle;
-                SubtitleView.vm.Subtitle_Codec_SelectedItem = "MOV Text";
+                VM.SubtitleView.Subtitle_Codec_Items = Containers.MP4.subtitle;
+                VM.SubtitleView.Subtitle_Codec_SelectedItem = "MOV Text";
             }
 
             // -------------------------
@@ -112,21 +112,21 @@ namespace Axiom
             else if (container_SelectedItem == "mkv")
             {
                 // Media Type
-                FormatView.vm.Format_MediaType_Items = Containers.MKV.media;
-                FormatView.vm.Format_MediaType_SelectedItem = "Video";
-                FormatView.vm.Format_MediaType_IsEnabled = false;
+                VM.FormatView.Format_MediaType_Items = Containers.MKV.media;
+                VM.FormatView.Format_MediaType_SelectedItem = "Video";
+                VM.FormatView.Format_MediaType_IsEnabled = false;
 
                 // Video Codec
-                VideoView.vm.Video_Codec_Items = Containers.MKV.video;
-                VideoView.vm.Video_Codec_SelectedItem = "x264";
+                VM.VideoView.Video_Codec_Items = Containers.MKV.video;
+                VM.VideoView.Video_Codec_SelectedItem = "x264";
 
                 // Audio Codec
-                AudioView.vm.Audio_Codec_Items = Containers.MKV.audio;
-                AudioView.vm.Audio_Codec_SelectedItem = "AC3";
+                VM.AudioView.Audio_Codec_Items = Containers.MKV.audio;
+                VM.AudioView.Audio_Codec_SelectedItem = "AC3";
 
                 // Subtitle Codec
-                SubtitleView.vm.Subtitle_Codec_Items = Containers.MKV.subtitle;
-                SubtitleView.vm.Subtitle_Codec_SelectedItem = "SSA";
+                VM.SubtitleView.Subtitle_Codec_Items = Containers.MKV.subtitle;
+                VM.SubtitleView.Subtitle_Codec_SelectedItem = "SSA";
             }
 
             // -------------------------
@@ -135,21 +135,21 @@ namespace Axiom
             else if (container_SelectedItem == "m2v")
             {
                 // Media Type
-                FormatView.vm.Format_MediaType_Items = Containers.M2V.media;
-                FormatView.vm.Format_MediaType_SelectedItem = "Video";
-                FormatView.vm.Format_MediaType_IsEnabled = false;
+                VM.FormatView.Format_MediaType_Items = Containers.M2V.media;
+                VM.FormatView.Format_MediaType_SelectedItem = "Video";
+                VM.FormatView.Format_MediaType_IsEnabled = false;
 
                 // Video Codec
-                VideoView.vm.Video_Codec_Items = Containers.M2V.video;
-                VideoView.vm.Video_Codec_SelectedItem = "MPEG-2";
+                VM.VideoView.Video_Codec_Items = Containers.M2V.video;
+                VM.VideoView.Video_Codec_SelectedItem = "MPEG-2";
 
                 // Audio Codec
-                AudioView.vm.Audio_Codec_Items = Containers.M2V.audio;
-                AudioView.vm.Audio_Codec_SelectedItem = "None";
+                VM.AudioView.Audio_Codec_Items = Containers.M2V.audio;
+                VM.AudioView.Audio_Codec_SelectedItem = "None";
 
                 // Subtitle Codec
-                SubtitleView.vm.Subtitle_Codec_Items = Containers.M2V.subtitle;
-                SubtitleView.vm.Subtitle_Codec_SelectedItem = "None";
+                VM.SubtitleView.Subtitle_Codec_Items = Containers.M2V.subtitle;
+                VM.SubtitleView.Subtitle_Codec_SelectedItem = "None";
             }
 
             // -------------------------
@@ -158,21 +158,21 @@ namespace Axiom
             else if (container_SelectedItem == "mpg")
             {
                 // Media Type
-                FormatView.vm.Format_MediaType_Items = Containers.MPG.media;
-                FormatView.vm.Format_MediaType_SelectedItem = "Video";
-                FormatView.vm.Format_MediaType_IsEnabled = false;
+                VM.FormatView.Format_MediaType_Items = Containers.MPG.media;
+                VM.FormatView.Format_MediaType_SelectedItem = "Video";
+                VM.FormatView.Format_MediaType_IsEnabled = false;
 
                 // Video Codec
-                VideoView.vm.Video_Codec_Items = Containers.MPG.video;
-                VideoView.vm.Video_Codec_SelectedItem = "MPEG-2";
+                VM.VideoView.Video_Codec_Items = Containers.MPG.video;
+                VM.VideoView.Video_Codec_SelectedItem = "MPEG-2";
 
                 // Audio Codec
-                AudioView.vm.Audio_Codec_Items = Containers.MPG.audio;
-                AudioView.vm.Audio_Codec_SelectedItem = "MP2";
+                VM.AudioView.Audio_Codec_Items = Containers.MPG.audio;
+                VM.AudioView.Audio_Codec_SelectedItem = "MP2";
 
                 // Subtitle Codec
-                SubtitleView.vm.Subtitle_Codec_Items = Containers.MPG.subtitle;
-                SubtitleView.vm.Subtitle_Codec_SelectedItem = "SRT";
+                VM.SubtitleView.Subtitle_Codec_Items = Containers.MPG.subtitle;
+                VM.SubtitleView.Subtitle_Codec_SelectedItem = "SRT";
             }
 
             // -------------------------
@@ -181,21 +181,21 @@ namespace Axiom
             else if (container_SelectedItem == "avi")
             {
                 // Media Type
-                FormatView.vm.Format_MediaType_Items = Containers.AVI.media;
-                FormatView.vm.Format_MediaType_SelectedItem = "Video";
-                FormatView.vm.Format_MediaType_IsEnabled = false;
+                VM.FormatView.Format_MediaType_Items = Containers.AVI.media;
+                VM.FormatView.Format_MediaType_SelectedItem = "Video";
+                VM.FormatView.Format_MediaType_IsEnabled = false;
 
                 // Video Codec
-                VideoView.vm.Video_Codec_Items = Containers.AVI.video;
-                VideoView.vm.Video_Codec_SelectedItem = "MPEG-4";
+                VM.VideoView.Video_Codec_Items = Containers.AVI.video;
+                VM.VideoView.Video_Codec_SelectedItem = "MPEG-4";
 
                 // Audio Codec
-                AudioView.vm.Audio_Codec_Items = Containers.AVI.audio;
-                AudioView.vm.Audio_Codec_SelectedItem = "LAME";
+                VM.AudioView.Audio_Codec_Items = Containers.AVI.audio;
+                VM.AudioView.Audio_Codec_SelectedItem = "LAME";
 
                 // Subtitle Codec
-                SubtitleView.vm.Subtitle_Codec_Items = Containers.AVI.subtitle;
-                SubtitleView.vm.Subtitle_Codec_SelectedItem = "SRT";
+                VM.SubtitleView.Subtitle_Codec_Items = Containers.AVI.subtitle;
+                VM.SubtitleView.Subtitle_Codec_SelectedItem = "SRT";
             }
 
             // -------------------------
@@ -204,21 +204,21 @@ namespace Axiom
             else if (container_SelectedItem == "ogv")
             {
                 // Media Type
-                FormatView.vm.Format_MediaType_Items = Containers.OGV.media;
-                FormatView.vm.Format_MediaType_SelectedItem = "Video";
-                FormatView.vm.Format_MediaType_IsEnabled = false;
+                VM.FormatView.Format_MediaType_Items = Containers.OGV.media;
+                VM.FormatView.Format_MediaType_SelectedItem = "Video";
+                VM.FormatView.Format_MediaType_IsEnabled = false;
 
                 // Video Codec
-                VideoView.vm.Video_Codec_Items = Containers.OGV.video;
-                VideoView.vm.Video_Codec_SelectedItem = "Theora";
+                VM.VideoView.Video_Codec_Items = Containers.OGV.video;
+                VM.VideoView.Video_Codec_SelectedItem = "Theora";
 
                 // Audio Codec
-                AudioView.vm.Audio_Codec_Items = Containers.OGV.audio;
-                AudioView.vm.Audio_Codec_SelectedItem = "Opus";
+                VM.AudioView.Audio_Codec_Items = Containers.OGV.audio;
+                VM.AudioView.Audio_Codec_SelectedItem = "Opus";
 
                 // Subtitle Codec
-                SubtitleView.vm.Subtitle_Codec_Items = Containers.OGV.subtitle;
-                SubtitleView.vm.Subtitle_Codec_SelectedItem = "None";
+                VM.SubtitleView.Subtitle_Codec_Items = Containers.OGV.subtitle;
+                VM.SubtitleView.Subtitle_Codec_SelectedItem = "None";
             }
 
 
@@ -231,21 +231,21 @@ namespace Axiom
             else if (container_SelectedItem == "mp3")
             {
                 // Media Type
-                FormatView.vm.Format_MediaType_Items = Containers.LAME.media;
-                FormatView.vm.Format_MediaType_SelectedItem = "Audio";
-                FormatView.vm.Format_MediaType_IsEnabled = false;
+                VM.FormatView.Format_MediaType_Items = Containers.LAME.media;
+                VM.FormatView.Format_MediaType_SelectedItem = "Audio";
+                VM.FormatView.Format_MediaType_IsEnabled = false;
 
                 // Video Codec
-                VideoView.vm.Video_Codec_Items = Containers.LAME.video;
-                VideoView.vm.Video_Codec_SelectedItem = "None";
+                VM.VideoView.Video_Codec_Items = Containers.LAME.video;
+                VM.VideoView.Video_Codec_SelectedItem = "None";
 
                 // Audio Codec
-                AudioView.vm.Audio_Codec_Items = Containers.LAME.audio;
-                AudioView.vm.Audio_Codec_SelectedItem = "LAME";
+                VM.AudioView.Audio_Codec_Items = Containers.LAME.audio;
+                VM.AudioView.Audio_Codec_SelectedItem = "LAME";
 
                 // Subtitle Codec
-                SubtitleView.vm.Subtitle_Codec_Items = Containers.LAME.subtitle;
-                SubtitleView.vm.Subtitle_Codec_SelectedItem = "None";
+                VM.SubtitleView.Subtitle_Codec_Items = Containers.LAME.subtitle;
+                VM.SubtitleView.Subtitle_Codec_SelectedItem = "None";
             }
 
             // -------------------------
@@ -254,21 +254,21 @@ namespace Axiom
             else if (container_SelectedItem == "m4a")
             {
                 // Media Type
-                FormatView.vm.Format_MediaType_Items = Containers.M4A.media;
-                FormatView.vm.Format_MediaType_SelectedItem = "Audio";
-                FormatView.vm.Format_MediaType_IsEnabled = false;
+                VM.FormatView.Format_MediaType_Items = Containers.M4A.media;
+                VM.FormatView.Format_MediaType_SelectedItem = "Audio";
+                VM.FormatView.Format_MediaType_IsEnabled = false;
 
                 // Video Codec
-                VideoView.vm.Video_Codec_Items = Containers.M4A.video;
-                VideoView.vm.Video_Codec_SelectedItem = "None";
+                VM.VideoView.Video_Codec_Items = Containers.M4A.video;
+                VM.VideoView.Video_Codec_SelectedItem = "None";
 
                 // Audio Codec
-                AudioView.vm.Audio_Codec_Items = Containers.M4A.audio;
-                AudioView.vm.Audio_Codec_SelectedItem = "AAC";
+                VM.AudioView.Audio_Codec_Items = Containers.M4A.audio;
+                VM.AudioView.Audio_Codec_SelectedItem = "AAC";
 
                 // Subtitle Codec
-                SubtitleView.vm.Subtitle_Codec_Items = Containers.M4A.subtitle;
-                SubtitleView.vm.Subtitle_Codec_SelectedItem = "None";
+                VM.SubtitleView.Subtitle_Codec_Items = Containers.M4A.subtitle;
+                VM.SubtitleView.Subtitle_Codec_SelectedItem = "None";
             }
 
             // -------------------------
@@ -277,21 +277,21 @@ namespace Axiom
             else if (container_SelectedItem == "ogg")
             {
                 // Media Type
-                FormatView.vm.Format_MediaType_Items = Containers.OGG.media;
-                FormatView.vm.Format_MediaType_SelectedItem = "Audio";
-                FormatView.vm.Format_MediaType_IsEnabled = false;
+                VM.FormatView.Format_MediaType_Items = Containers.OGG.media;
+                VM.FormatView.Format_MediaType_SelectedItem = "Audio";
+                VM.FormatView.Format_MediaType_IsEnabled = false;
 
                 // Video Codec
-                VideoView.vm.Video_Codec_Items = Containers.OGG.video;
-                VideoView.vm.Video_Codec_SelectedItem = "None";
+                VM.VideoView.Video_Codec_Items = Containers.OGG.video;
+                VM.VideoView.Video_Codec_SelectedItem = "None";
 
                 // Audio Codec
-                AudioView.vm.Audio_Codec_Items = Containers.OGG.audio;
-                AudioView.vm.Audio_Codec_SelectedItem = "Opus";
+                VM.AudioView.Audio_Codec_Items = Containers.OGG.audio;
+                VM.AudioView.Audio_Codec_SelectedItem = "Opus";
 
                 // Subtitle Codec
-                SubtitleView.vm.Subtitle_Codec_Items = Containers.OGG.subtitle;
-                SubtitleView.vm.Subtitle_Codec_SelectedItem = "None";
+                VM.SubtitleView.Subtitle_Codec_Items = Containers.OGG.subtitle;
+                VM.SubtitleView.Subtitle_Codec_SelectedItem = "None";
             }
 
             // -------------------------
@@ -300,21 +300,21 @@ namespace Axiom
             else if (container_SelectedItem == "flac")
             {
                 // Media Type
-                FormatView.vm.Format_MediaType_Items = Containers.FLAC.media;
-                FormatView.vm.Format_MediaType_SelectedItem = "Audio";
-                FormatView.vm.Format_MediaType_IsEnabled = false;
+                VM.FormatView.Format_MediaType_Items = Containers.FLAC.media;
+                VM.FormatView.Format_MediaType_SelectedItem = "Audio";
+                VM.FormatView.Format_MediaType_IsEnabled = false;
 
                 // Video Codec
-                VideoView.vm.Video_Codec_Items = Containers.FLAC.video;
-                VideoView.vm.Video_Codec_SelectedItem = "None";
+                VM.VideoView.Video_Codec_Items = Containers.FLAC.video;
+                VM.VideoView.Video_Codec_SelectedItem = "None";
 
                 // Audio Codec
-                AudioView.vm.Audio_Codec_Items = Containers.FLAC.audio;
-                AudioView.vm.Audio_Codec_SelectedItem = "FLAC";
+                VM.AudioView.Audio_Codec_Items = Containers.FLAC.audio;
+                VM.AudioView.Audio_Codec_SelectedItem = "FLAC";
 
                 // Subtitle Codec
-                SubtitleView.vm.Subtitle_Codec_Items = Containers.FLAC.subtitle;
-                SubtitleView.vm.Subtitle_Codec_SelectedItem = "None";
+                VM.SubtitleView.Subtitle_Codec_Items = Containers.FLAC.subtitle;
+                VM.SubtitleView.Subtitle_Codec_SelectedItem = "None";
             }
 
             // -------------------------
@@ -323,21 +323,21 @@ namespace Axiom
             else if (container_SelectedItem == "wav")
             {
                 // Media Type
-                FormatView.vm.Format_MediaType_Items = Containers.WAV.media;
-                FormatView.vm.Format_MediaType_SelectedItem = "Audio";
-                FormatView.vm.Format_MediaType_IsEnabled = false;
+                VM.FormatView.Format_MediaType_Items = Containers.WAV.media;
+                VM.FormatView.Format_MediaType_SelectedItem = "Audio";
+                VM.FormatView.Format_MediaType_IsEnabled = false;
 
                 // Video Codec
-                VideoView.vm.Video_Codec_Items = Containers.WAV.video;
-                VideoView.vm.Video_Codec_SelectedItem = "None";
+                VM.VideoView.Video_Codec_Items = Containers.WAV.video;
+                VM.VideoView.Video_Codec_SelectedItem = "None";
 
                 // Audio Codec
-                AudioView.vm.Audio_Codec_Items = Containers.WAV.audio;
-                AudioView.vm.Audio_Codec_SelectedItem = "PCM";
+                VM.AudioView.Audio_Codec_Items = Containers.WAV.audio;
+                VM.AudioView.Audio_Codec_SelectedItem = "PCM";
 
                 // Subtitle Codec
-                SubtitleView.vm.Subtitle_Codec_Items = Containers.WAV.subtitle;
-                SubtitleView.vm.Subtitle_Codec_SelectedItem = "None";
+                VM.SubtitleView.Subtitle_Codec_Items = Containers.WAV.subtitle;
+                VM.SubtitleView.Subtitle_Codec_SelectedItem = "None";
             }
 
 
@@ -350,21 +350,21 @@ namespace Axiom
             else if (container_SelectedItem == "jpg")
             {
                 // Media Type
-                FormatView.vm.Format_MediaType_Items = Containers.JPG.media;
-                FormatView.vm.Format_MediaType_SelectedItem = "Image";
-                FormatView.vm.Format_MediaType_IsEnabled = true;
+                VM.FormatView.Format_MediaType_Items = Containers.JPG.media;
+                VM.FormatView.Format_MediaType_SelectedItem = "Image";
+                VM.FormatView.Format_MediaType_IsEnabled = true;
 
                 // Video Codec
-                VideoView.vm.Video_Codec_Items = Containers.JPG.video;
-                VideoView.vm.Video_Codec_SelectedItem = "JPEG";
+                VM.VideoView.Video_Codec_Items = Containers.JPG.video;
+                VM.VideoView.Video_Codec_SelectedItem = "JPEG";
 
                 // Audio Codec
-                AudioView.vm.Audio_Codec_Items = Containers.JPG.audio;
-                AudioView.vm.Audio_Codec_SelectedItem = "None";
+                VM.AudioView.Audio_Codec_Items = Containers.JPG.audio;
+                VM.AudioView.Audio_Codec_SelectedItem = "None";
 
                 // Subtitle Codec
-                SubtitleView.vm.Subtitle_Codec_Items = Containers.JPG.subtitle;
-                SubtitleView.vm.Subtitle_Codec_SelectedItem = "None";
+                VM.SubtitleView.Subtitle_Codec_Items = Containers.JPG.subtitle;
+                VM.SubtitleView.Subtitle_Codec_SelectedItem = "None";
             }
 
             // -------------------------
@@ -373,21 +373,21 @@ namespace Axiom
             else if (container_SelectedItem == "png")
             {
                 // Media Type
-                FormatView.vm.Format_MediaType_Items = Containers.JPG.media;
-                FormatView.vm.Format_MediaType_SelectedItem = "Image";
-                FormatView.vm.Format_MediaType_IsEnabled = true;
+                VM.FormatView.Format_MediaType_Items = Containers.JPG.media;
+                VM.FormatView.Format_MediaType_SelectedItem = "Image";
+                VM.FormatView.Format_MediaType_IsEnabled = true;
 
                 // Video Codec
-                VideoView.vm.Video_Codec_Items = Containers.PNG.video;
-                VideoView.vm.Video_Codec_SelectedItem = "PNG";
+                VM.VideoView.Video_Codec_Items = Containers.PNG.video;
+                VM.VideoView.Video_Codec_SelectedItem = "PNG";
 
                 // Audio Codec
-                AudioView.vm.Audio_Codec_Items = Containers.PNG.audio;
-                AudioView.vm.Audio_Codec_SelectedItem = "None";
+                VM.AudioView.Audio_Codec_Items = Containers.PNG.audio;
+                VM.AudioView.Audio_Codec_SelectedItem = "None";
 
                 // Subtitle Codec
-                SubtitleView.vm.Subtitle_Codec_Items = Containers.PNG.subtitle;
-                SubtitleView.vm.Subtitle_Codec_SelectedItem = "None";
+                VM.SubtitleView.Subtitle_Codec_Items = Containers.PNG.subtitle;
+                VM.SubtitleView.Subtitle_Codec_SelectedItem = "None";
             }
 
             // -------------------------
@@ -396,21 +396,21 @@ namespace Axiom
             else if (container_SelectedItem == "webp")
             {
                 // Media Type
-                FormatView.vm.Format_MediaType_Items = Containers.JPG.media;
-                FormatView.vm.Format_MediaType_SelectedItem = "Image";
-                FormatView.vm.Format_MediaType_IsEnabled = true;
+                VM.FormatView.Format_MediaType_Items = Containers.JPG.media;
+                VM.FormatView.Format_MediaType_SelectedItem = "Image";
+                VM.FormatView.Format_MediaType_IsEnabled = true;
 
                 // Video Codec
-                VideoView.vm.Video_Codec_Items = Containers.WebP.video;
-                VideoView.vm.Video_Codec_SelectedItem = "WebP";
+                VM.VideoView.Video_Codec_Items = Containers.WebP.video;
+                VM.VideoView.Video_Codec_SelectedItem = "WebP";
 
                 // Audio Codec
-                AudioView.vm.Audio_Codec_Items = Containers.WebP.audio;
-                AudioView.vm.Audio_Codec_SelectedItem = "None";
+                VM.AudioView.Audio_Codec_Items = Containers.WebP.audio;
+                VM.AudioView.Audio_Codec_SelectedItem = "None";
 
                 // Subtitle Codec
-                SubtitleView.vm.Subtitle_Codec_Items = Containers.WebP.subtitle;
-                SubtitleView.vm.Subtitle_Codec_SelectedItem = "None";
+                VM.SubtitleView.Subtitle_Codec_Items = Containers.WebP.subtitle;
+                VM.SubtitleView.Subtitle_Codec_SelectedItem = "None";
             }
         }
 
@@ -422,7 +422,7 @@ namespace Axiom
         public static void OutputFormatExt()
         {
             // Output Extension is Format ComboBox's Selected Item (eg mp4)
-            MainWindow.outputExt = "." + FormatView.vm.Format_Container_SelectedItem;
+            MainWindow.outputExt = "." + VM.FormatView.Format_Container_SelectedItem;
         }
 
 
@@ -436,152 +436,152 @@ namespace Axiom
             // Video
             // -------------------------
             // Enable Frame Textbox for Image Screenshot
-            if (FormatView.vm.Format_MediaType_SelectedItem == "Video")
+            if (VM.FormatView.Format_MediaType_SelectedItem == "Video")
             {
                 // -------------------------
                 // Format
                 // -------------------------
                 // Hardware Acceleration
-                VideoView.vm.Video_HWAccel_IsEnabled = true;
+                VM.VideoView.Video_HWAccel_IsEnabled = true;
 
                 // Cut
                 // Change if coming back from JPEG, PNG, WebP
-                if (FormatView.vm.Format_CutStart_IsEnabled == true &&
-                    FormatView.vm.Format_CutEnd_IsEnabled == false)
+                if (VM.FormatView.Format_CutStart_IsEnabled == true &&
+                    VM.FormatView.Format_CutEnd_IsEnabled == false)
                 {
-                    FormatView.vm.Format_Cut_SelectedItem = "No";
+                    VM.FormatView.Format_Cut_SelectedItem = "No";
                 }
 
                 // YouTube
-                FormatView.vm.Format_YouTube_SelectedItem = "Video + Audio";
+                VM.FormatView.Format_YouTube_SelectedItem = "Video + Audio";
 
                 // -------------------------
                 // Video
                 // -------------------------
                 // Codec
-                VideoView.vm.Video_Codec_IsEnabled = true;
+                VM.VideoView.Video_Codec_IsEnabled = true;
 
                 // Size
-                VideoView.vm.Video_Scale_IsEnabled = true;
+                VM.VideoView.Video_Scale_IsEnabled = true;
 
                 // Scaling
-                VideoView.vm.Video_ScalingAlgorithm_IsEnabled = true;
-                VideoView.vm.Video_ScalingAlgorithm_SelectedItem = "auto";
+                VM.VideoView.Video_ScalingAlgorithm_IsEnabled = true;
+                VM.VideoView.Video_ScalingAlgorithm_SelectedItem = "auto";
 
                 // Speed
-                VideoView.vm.Video_Speed_IsEnabled = true;
+                VM.VideoView.Video_Speed_IsEnabled = true;
 
                 // Screen Format
-                VideoView.vm.Video_ScreenFormat_IsEnabled = true;
+                VM.VideoView.Video_ScreenFormat_IsEnabled = true;
 
                 // Aspect Ratio
-                VideoView.vm.Video_AspectRatio_IsEnabled = true;
+                VM.VideoView.Video_AspectRatio_IsEnabled = true;
 
                 // Crop
-                VideoView.vm.Video_Crop_IsEnabled = true;
+                VM.VideoView.Video_Crop_IsEnabled = true;
 
                 // -------------------------
                 // Audio
                 // -------------------------
                 // Codec
-                AudioView.vm.Audio_Codec_IsEnabled = true;
+                VM.AudioView.Audio_Codec_IsEnabled = true;
 
                 // Channel
-                AudioView.vm.Audio_Channel_IsEnabled = true;
+                VM.AudioView.Audio_Channel_IsEnabled = true;
 
                 // Volume
-                AudioView.vm.Audio_Volume_IsEnabled = true;
+                VM.AudioView.Audio_Volume_IsEnabled = true;
 
                 // Limiter
-                AudioView.vm.Audio_HardLimiter_IsEnabled = true;
+                VM.AudioView.Audio_HardLimiter_IsEnabled = true;
 
                 // Audio Stream
-                AudioView.vm.Audio_Stream_IsEnabled = true;
+                VM.AudioView.Audio_Stream_IsEnabled = true;
                 //AudioStreamControls(); // Selected Item
-                //AudioView.vm.Audio_Stream_SelectedItem = "all";
+                //VM.AudioView.Audio_Stream_SelectedItem = "all";
 
 
                 // -------------------------
                 // Subtitle
                 // -------------------------
                 // Codec
-                SubtitleView.vm.Subtitle_Codec_IsEnabled = true;
+                VM.SubtitleView.Subtitle_Codec_IsEnabled = true;
             }
 
             // -------------------------
             // Audio
             // -------------------------
-            else if (FormatView.vm.Format_MediaType_SelectedItem == "Audio")
+            else if (VM.FormatView.Format_MediaType_SelectedItem == "Audio")
             {
                 // -------------------------
                 // Format
                 // -------------------------
                 // Hardware Acceleration
-                VideoView.vm.Video_HWAccel_IsEnabled = false;
-                VideoView.vm.Video_HWAccel_SelectedItem = "off";
+                VM.VideoView.Video_HWAccel_IsEnabled = false;
+                VM.VideoView.Video_HWAccel_SelectedItem = "off";
 
                 // Cut
                 // Change if coming back from JPEG, PNG, WebP
-                if (FormatView.vm.Format_CutStart_IsEnabled == true &&
-                    FormatView.vm.Format_CutEnd_IsEnabled == false)
+                if (VM.FormatView.Format_CutStart_IsEnabled == true &&
+                    VM.FormatView.Format_CutEnd_IsEnabled == false)
                 {
-                    FormatView.vm.Format_Cut_SelectedItem = "No";
+                    VM.FormatView.Format_Cut_SelectedItem = "No";
                 }
 
                 // YouTube
-                FormatView.vm.Format_YouTube_SelectedItem = "Audio Only";
+                VM.FormatView.Format_YouTube_SelectedItem = "Audio Only";
 
                 // Frame
-                FormatView.vm.Format_FrameEnd_IsEnabled = false;
-                FormatView.vm.Format_FrameEnd_Text = "";
+                VM.FormatView.Format_FrameEnd_IsEnabled = false;
+                VM.FormatView.Format_FrameEnd_Text = "";
 
                 // -------------------------
                 // Video
                 // -------------------------
                 // Codec
-                VideoView.vm.Video_Codec_IsEnabled = false;
+                VM.VideoView.Video_Codec_IsEnabled = false;
 
                 // Size
-                VideoView.vm.Video_Scale_SelectedItem = "Source";
-                VideoView.vm.Video_Scale_IsEnabled = false;
+                VM.VideoView.Video_Scale_SelectedItem = "Source";
+                VM.VideoView.Video_Scale_IsEnabled = false;
 
                 // Scaling
-                VideoView.vm.Video_ScalingAlgorithm_SelectedItem = "auto";
-                VideoView.vm.Video_ScalingAlgorithm_IsEnabled = false;
+                VM.VideoView.Video_ScalingAlgorithm_SelectedItem = "auto";
+                VM.VideoView.Video_ScalingAlgorithm_IsEnabled = false;
 
                 // Speed
-                VideoView.vm.Video_Speed_IsEnabled = false;
+                VM.VideoView.Video_Speed_IsEnabled = false;
 
                 // Screen Format
-                VideoView.vm.Video_ScreenFormat_IsEnabled = false;
+                VM.VideoView.Video_ScreenFormat_IsEnabled = false;
 
                 // Aspect Ratio
-                VideoView.vm.Video_AspectRatio_IsEnabled = false;
+                VM.VideoView.Video_AspectRatio_IsEnabled = false;
 
                 // Crop
-                VideoView.vm.Video_Crop_IsEnabled = false;
+                VM.VideoView.Video_Crop_IsEnabled = false;
 
                 // FPS
-                VideoView.vm.Video_FPS_SelectedItem = "auto";
-                VideoView.vm.Video_FPS_IsEnabled = false;
+                VM.VideoView.Video_FPS_SelectedItem = "auto";
+                VM.VideoView.Video_FPS_IsEnabled = false;
 
                 // Encode Speed
-                VideoView.vm.Video_EncodeSpeed_IsEnabled = false;
+                VM.VideoView.Video_EncodeSpeed_IsEnabled = false;
 
 
                 // -------------------------
                 // Audio
                 // -------------------------
                 // Codec
-                AudioView.vm.Audio_Codec_IsEnabled = true;
+                VM.AudioView.Audio_Codec_IsEnabled = true;
 
                 // Audio Stream
-                AudioView.vm.Audio_Stream_IsEnabled = true;
+                VM.AudioView.Audio_Stream_IsEnabled = true;
                 //AudioStreamControls(); // Selected Item
-                //AudioView.vm.Audio_Stream_SelectedItem = "1";
+                //VM.AudioView.Audio_Stream_SelectedItem = "1";
 
                 // Channel
-                AudioView.vm.Audio_Channel_IsEnabled = true;
+                VM.AudioView.Audio_Channel_IsEnabled = true;
 
                 // Sample Rate
                 // Controled Through Codec Class
@@ -590,254 +590,254 @@ namespace Axiom
                 // Controled Through Codec Class
 
                 // Volume
-                AudioView.vm.Audio_Volume_IsEnabled = true;
+                VM.AudioView.Audio_Volume_IsEnabled = true;
 
                 // Limiter
-                AudioView.vm.Audio_HardLimiter_IsEnabled = true;
+                VM.AudioView.Audio_HardLimiter_IsEnabled = true;
 
 
                 // -------------------------
                 // Subtitle
                 // -------------------------
                 // Codec
-                SubtitleView.vm.Subtitle_Codec_IsEnabled = false;
+                VM.SubtitleView.Subtitle_Codec_IsEnabled = false;
             }
 
             // -------------------------
             // Image
             // -------------------------
-            else if (FormatView.vm.Format_MediaType_SelectedItem == "Image")
+            else if (VM.FormatView.Format_MediaType_SelectedItem == "Image")
             {
                 // -------------------------
                 // Format
                 // -------------------------
                 // Hardware Acceleration
-                VideoView.vm.Video_HWAccel_IsEnabled = true;
+                VM.VideoView.Video_HWAccel_IsEnabled = true;
 
                 // Cut
                 // Enable Cut Start Time for Frame Selection
-                FormatView.vm.Format_Cut_SelectedItem = "Yes";
-                FormatView.vm.Format_CutStart_IsEnabled = true;
-                //FormatView.vm.Format_CutStart_Hours_IsEnabled = true;
-                //FormatView.vm.Format_CutStart_Minutes_IsEnabled = true;
-                //FormatView.vm.Format_CutStart_Seconds_IsEnabled = true;
-                //FormatView.vm.Format_CutStart_Milliseconds_IsEnabled = true;
+                VM.FormatView.Format_Cut_SelectedItem = "Yes";
+                VM.FormatView.Format_CutStart_IsEnabled = true;
+                //VM.FormatView.Format_CutStart_Hours_IsEnabled = true;
+                //VM.FormatView.Format_CutStart_Minutes_IsEnabled = true;
+                //VM.FormatView.Format_CutStart_Seconds_IsEnabled = true;
+                //VM.FormatView.Format_CutStart_Milliseconds_IsEnabled = true;
 
-                FormatView.vm.Format_CutEnd_IsEnabled = false;
-                //FormatView.vm.Format_CutEnd_Hours_IsEnabled = false;
-                //FormatView.vm.Format_CutEnd_Minutes_IsEnabled = false;
-                //FormatView.vm.Format_CutEnd_Seconds_IsEnabled = false;
-                //FormatView.vm.Format_CutEnd_Milliseconds_IsEnabled = false;
+                VM.FormatView.Format_CutEnd_IsEnabled = false;
+                //VM.FormatView.Format_CutEnd_Hours_IsEnabled = false;
+                //VM.FormatView.Format_CutEnd_Minutes_IsEnabled = false;
+                //VM.FormatView.Format_CutEnd_Seconds_IsEnabled = false;
+                //VM.FormatView.Format_CutEnd_Milliseconds_IsEnabled = false;
 
-                FormatView.vm.Format_CutEnd_Hours_Text = string.Empty;
-                FormatView.vm.Format_CutEnd_Minutes_Text = string.Empty;
-                FormatView.vm.Format_CutEnd_Seconds_Text = string.Empty;
-                FormatView.vm.Format_CutEnd_Milliseconds_Text = string.Empty;
+                VM.FormatView.Format_CutEnd_Hours_Text = string.Empty;
+                VM.FormatView.Format_CutEnd_Minutes_Text = string.Empty;
+                VM.FormatView.Format_CutEnd_Seconds_Text = string.Empty;
+                VM.FormatView.Format_CutEnd_Milliseconds_Text = string.Empty;
 
                 // Frame
-                FormatView.vm.Format_FrameEnd_IsEnabled = false;
-                FormatView.vm.Format_FrameEnd_Text = "";
+                VM.FormatView.Format_FrameEnd_IsEnabled = false;
+                VM.FormatView.Format_FrameEnd_Text = "";
 
                 // YouTube
-                FormatView.vm.Format_YouTube_SelectedItem = "Video + Audio";
+                VM.FormatView.Format_YouTube_SelectedItem = "Video + Audio";
 
 
                 // -------------------------
                 // Video
                 // -------------------------
                 // Codec
-                VideoView.vm.Video_Codec_IsEnabled = true;
+                VM.VideoView.Video_Codec_IsEnabled = true;
 
                 //Size
-                VideoView.vm.Video_Scale_IsEnabled = true;
+                VM.VideoView.Video_Scale_IsEnabled = true;
 
                 // Scaling
-                VideoView.vm.Video_ScalingAlgorithm_SelectedItem = "auto";
-                VideoView.vm.Video_ScalingAlgorithm_IsEnabled = true;
+                VM.VideoView.Video_ScalingAlgorithm_SelectedItem = "auto";
+                VM.VideoView.Video_ScalingAlgorithm_IsEnabled = true;
 
                 // Speed
-                VideoView.vm.Video_Speed_IsEnabled = false;
+                VM.VideoView.Video_Speed_IsEnabled = false;
 
                 // Screen Format
-                VideoView.vm.Video_ScreenFormat_IsEnabled = true;
+                VM.VideoView.Video_ScreenFormat_IsEnabled = true;
 
                 // Aspect Ratio
-                VideoView.vm.Video_AspectRatio_IsEnabled = true;
+                VM.VideoView.Video_AspectRatio_IsEnabled = true;
 
                 // Crop
-                VideoView.vm.Video_Crop_IsEnabled = true;
+                VM.VideoView.Video_Crop_IsEnabled = true;
 
                 // Fps
-                VideoView.vm.Video_FPS_SelectedItem = "auto";
-                VideoView.vm.Video_FPS_IsEnabled = false;
+                VM.VideoView.Video_FPS_SelectedItem = "auto";
+                VM.VideoView.Video_FPS_IsEnabled = false;
 
                 // Encode Speed
-                VideoView.vm.Video_EncodeSpeed_IsEnabled = false;
+                VM.VideoView.Video_EncodeSpeed_IsEnabled = false;
 
                 // -------------------------
                 // Audio
                 // -------------------------
                 // Codec
-                AudioView.vm.Audio_Codec_IsEnabled = false;
+                VM.AudioView.Audio_Codec_IsEnabled = false;
 
                 // Audio Stream
-                //AudioView.vm.Audio_Stream_SelectedItem = "none";
+                //VM.AudioView.Audio_Stream_SelectedItem = "none";
                 //AudioStreamControls(); // Selected Item
-                AudioView.vm.Audio_Stream_IsEnabled = false;
+                VM.AudioView.Audio_Stream_IsEnabled = false;
 
                 // Channel
-                AudioView.vm.Audio_Channel_SelectedItem = "Source";
-                AudioView.vm.Audio_Channel_IsEnabled = false;
+                VM.AudioView.Audio_Channel_SelectedItem = "Source";
+                VM.AudioView.Audio_Channel_IsEnabled = false;
 
                 // Quality
-                AudioView.vm.Audio_Quality_SelectedItem = "None";
-                AudioView.vm.Audio_Quality_IsEnabled = false;
+                VM.AudioView.Audio_Quality_SelectedItem = "None";
+                VM.AudioView.Audio_Quality_IsEnabled = false;
 
                 // Compression Level
-                AudioView.vm.Audio_CompressionLevel_SelectedItem = "auto";
-                AudioView.vm.Audio_CompressionLevel_IsEnabled = false;
+                VM.AudioView.Audio_CompressionLevel_SelectedItem = "auto";
+                VM.AudioView.Audio_CompressionLevel_IsEnabled = false;
 
                 // Sample Rate
-                AudioView.vm.Audio_SampleRate_SelectedItem = "auto";
-                AudioView.vm.Audio_SampleRate_IsEnabled = false;
+                VM.AudioView.Audio_SampleRate_SelectedItem = "auto";
+                VM.AudioView.Audio_SampleRate_IsEnabled = false;
 
                 // Bit Depth
-                AudioView.vm.Audio_BitDepth_SelectedItem = "auto";
-                AudioView.vm.Audio_BitDepth_IsEnabled = false;
+                VM.AudioView.Audio_BitDepth_SelectedItem = "auto";
+                VM.AudioView.Audio_BitDepth_IsEnabled = false;
 
                 // Volume
-                AudioView.vm.Audio_Volume_IsEnabled = false;
+                VM.AudioView.Audio_Volume_IsEnabled = false;
 
                 // Limiter
-                AudioView.vm.Audio_HardLimiter_IsEnabled = false;
-                AudioView.vm.Audio_HardLimiter_Value = 1;
+                VM.AudioView.Audio_HardLimiter_IsEnabled = false;
+                VM.AudioView.Audio_HardLimiter_Value = 1;
 
 
                 // -------------------------
                 // Subtitle
                 // -------------------------
                 // Codec
-                SubtitleView.vm.Subtitle_Codec_IsEnabled = false;
+                VM.SubtitleView.Subtitle_Codec_IsEnabled = false;
             }
 
             // -------------------------
             // Sequence 
             // -------------------------
-            else if (FormatView.vm.Format_MediaType_SelectedItem == "Sequence")
+            else if (VM.FormatView.Format_MediaType_SelectedItem == "Sequence")
             {
                 // -------------------------
                 // Format
                 // -------------------------
                 // Hardware Acceleration
-                VideoView.vm.Video_HWAccel_IsEnabled = true;
+                VM.VideoView.Video_HWAccel_IsEnabled = true;
 
                 // Cut
                 // Change if coming back from Image
-                if (FormatView.vm.Format_CutStart_IsEnabled == true &&
-                    FormatView.vm.Format_CutEnd_IsEnabled == false)
+                if (VM.FormatView.Format_CutStart_IsEnabled == true &&
+                    VM.FormatView.Format_CutEnd_IsEnabled == false)
                 {
-                    FormatView.vm.Format_Cut_SelectedItem = "No";
+                    VM.FormatView.Format_Cut_SelectedItem = "No";
                 }
 
                 // YouTube
-                FormatView.vm.Format_YouTube_SelectedItem = "Video + Audio";
+                VM.FormatView.Format_YouTube_SelectedItem = "Video + Audio";
 
 
                 // -------------------------
                 // Video
                 // -------------------------
                 // Codec 
-                VideoView.vm.Video_Codec_IsEnabled = true;
+                VM.VideoView.Video_Codec_IsEnabled = true;
 
                 //Size
-                VideoView.vm.Video_Scale_IsEnabled = true;
+                VM.VideoView.Video_Scale_IsEnabled = true;
 
                 // Scaling
-                VideoView.vm.Video_ScalingAlgorithm_SelectedItem = "auto";
-                VideoView.vm.Video_ScalingAlgorithm_IsEnabled = true;
+                VM.VideoView.Video_ScalingAlgorithm_SelectedItem = "auto";
+                VM.VideoView.Video_ScalingAlgorithm_IsEnabled = true;
 
                 // Speed
-                VideoView.vm.Video_Speed_IsEnabled = true;
+                VM.VideoView.Video_Speed_IsEnabled = true;
 
                 // Screen Format
-                VideoView.vm.Video_ScreenFormat_IsEnabled = true;
+                VM.VideoView.Video_ScreenFormat_IsEnabled = true;
 
                 // Aspect Ratio
-                VideoView.vm.Video_AspectRatio_IsEnabled = true;
+                VM.VideoView.Video_AspectRatio_IsEnabled = true;
 
                 // Crop
-                VideoView.vm.Video_Crop_IsEnabled = true;
+                VM.VideoView.Video_Crop_IsEnabled = true;
 
                 // Speed
-                VideoView.vm.Video_EncodeSpeed_IsEnabled = false;
+                VM.VideoView.Video_EncodeSpeed_IsEnabled = false;
 
                 // FPS
-                VideoView.vm.Video_FPS_IsEnabled = true;
+                VM.VideoView.Video_FPS_IsEnabled = true;
 
 
                 // -------------------------
                 // Audio
                 // -------------------------
                 // Codec
-                AudioView.vm.Audio_Codec_IsEnabled = false;
+                VM.AudioView.Audio_Codec_IsEnabled = false;
 
                 // Audio Stream
-                //AudioView.vm.Audio_Stream_SelectedItem = "none";
+                //VM.AudioView.Audio_Stream_SelectedItem = "none";
                 //AudioStreamControls(); // Selected Item
-                AudioView.vm.Audio_Stream_IsEnabled = false;
+                VM.AudioView.Audio_Stream_IsEnabled = false;
 
                 // Channel
-                AudioView.vm.Audio_Channel_SelectedItem = "Source";
-                AudioView.vm.Audio_Channel_IsEnabled = false;
+                VM.AudioView.Audio_Channel_SelectedItem = "Source";
+                VM.AudioView.Audio_Channel_IsEnabled = false;
 
                 // Quality
-                AudioView.vm.Audio_Quality_SelectedItem = "None";
-                AudioView.vm.Audio_Quality_IsEnabled = false;
+                VM.AudioView.Audio_Quality_SelectedItem = "None";
+                VM.AudioView.Audio_Quality_IsEnabled = false;
 
                 // Compression Level
-                AudioView.vm.Audio_CompressionLevel_SelectedItem = "auto";
-                AudioView.vm.Audio_CompressionLevel_IsEnabled = false;
+                VM.AudioView.Audio_CompressionLevel_SelectedItem = "auto";
+                VM.AudioView.Audio_CompressionLevel_IsEnabled = false;
 
                 // Sample Rate
-                AudioView.vm.Audio_SampleRate_SelectedItem = "auto";
-                AudioView.vm.Audio_SampleRate_IsEnabled = false;
+                VM.AudioView.Audio_SampleRate_SelectedItem = "auto";
+                VM.AudioView.Audio_SampleRate_IsEnabled = false;
 
                 // Bit Depth
-                AudioView.vm.Audio_BitDepth_SelectedItem = "auto";
-                AudioView.vm.Audio_BitDepth_IsEnabled = false;
+                VM.AudioView.Audio_BitDepth_SelectedItem = "auto";
+                VM.AudioView.Audio_BitDepth_IsEnabled = false;
 
                 // Volume
-                AudioView.vm.Audio_Volume_IsEnabled = false;
+                VM.AudioView.Audio_Volume_IsEnabled = false;
 
                 // Limiter
-                AudioView.vm.Audio_HardLimiter_IsEnabled = false;
-                AudioView.vm.Audio_HardLimiter_Value = 1;
+                VM.AudioView.Audio_HardLimiter_IsEnabled = false;
+                VM.AudioView.Audio_HardLimiter_Value = 1;
 
 
                 // -------------------------
                 // Subtitle
                 // -------------------------
                 // Codec
-                SubtitleView.vm.Subtitle_Codec_IsEnabled = false;
+                VM.SubtitleView.Subtitle_Codec_IsEnabled = false;
             }
 
 
             // -------------------------
             // Reset to 0 if Disabled
             // -------------------------
-            if (FormatView.vm.Format_CutStart_IsEnabled == false &&
-                FormatView.vm.Format_CutEnd_IsEnabled == false)
+            if (VM.FormatView.Format_CutStart_IsEnabled == false &&
+                VM.FormatView.Format_CutEnd_IsEnabled == false)
             {
                 // Start
-                FormatView.vm.Format_CutStart_Hours_Text = "00";
-                FormatView.vm.Format_CutStart_Minutes_Text = "00";
-                FormatView.vm.Format_CutStart_Seconds_Text = "00";
-                FormatView.vm.Format_CutStart_Milliseconds_Text = "000";
+                VM.FormatView.Format_CutStart_Hours_Text = "00";
+                VM.FormatView.Format_CutStart_Minutes_Text = "00";
+                VM.FormatView.Format_CutStart_Seconds_Text = "00";
+                VM.FormatView.Format_CutStart_Milliseconds_Text = "000";
                 // End
-                FormatView.vm.Format_CutEnd_Hours_Text = "00";
-                FormatView.vm.Format_CutEnd_Minutes_Text = "00";
-                FormatView.vm.Format_CutEnd_Seconds_Text = "00";
-                FormatView.vm.Format_CutEnd_Milliseconds_Text = "000";
+                VM.FormatView.Format_CutEnd_Hours_Text = "00";
+                VM.FormatView.Format_CutEnd_Minutes_Text = "00";
+                VM.FormatView.Format_CutEnd_Seconds_Text = "00";
+                VM.FormatView.Format_CutEnd_Milliseconds_Text = "000";
             }
         }
 
@@ -855,30 +855,30 @@ namespace Axiom
             // -------------------------
             // webm
             // -------------------------
-            if (FormatView.vm.Format_Container_SelectedItem == "webm")
+            if (VM.FormatView.Format_Container_SelectedItem == "webm")
             {
                 // -------------------------
                 // VP8
                 // -------------------------
-                if (VideoView.vm.Video_Codec_SelectedItem == "VP8")
+                if (VM.VideoView.Video_Codec_SelectedItem == "VP8")
                 {
-                    AudioView.vm.Audio_Stream_SelectedItem = "1";
+                    VM.AudioView.Audio_Stream_SelectedItem = "1";
                 }
 
                 // -------------------------
                 // VP9
                 // -------------------------
-                else if (VideoView.vm.Video_Codec_SelectedItem == "VP9")
+                else if (VM.VideoView.Video_Codec_SelectedItem == "VP9")
                 {
-                    AudioView.vm.Audio_Stream_SelectedItem = "all";
+                    VM.AudioView.Audio_Stream_SelectedItem = "all";
                 }
 
                 // -------------------------
                 // None
                 // -------------------------
-                if (AudioView.vm.Audio_Codec_SelectedItem == "None")
+                if (VM.AudioView.Audio_Codec_SelectedItem == "None")
                 {
-                    AudioView.vm.Audio_Stream_SelectedItem = "none";
+                    VM.AudioView.Audio_Stream_SelectedItem = "none";
                 }
             }
 
@@ -889,19 +889,19 @@ namespace Axiom
             // avi
             // ogv
             // -------------------------
-            else if (FormatView.vm.Format_Container_SelectedItem == "mp4" ||
-                     FormatView.vm.Format_Container_SelectedItem == "mkv" ||
-                     FormatView.vm.Format_Container_SelectedItem == "mpg" ||
-                     FormatView.vm.Format_Container_SelectedItem == "avi" ||
-                     FormatView.vm.Format_Container_SelectedItem == "ogv"
+            else if (VM.FormatView.Format_Container_SelectedItem == "mp4" ||
+                     VM.FormatView.Format_Container_SelectedItem == "mkv" ||
+                     VM.FormatView.Format_Container_SelectedItem == "mpg" ||
+                     VM.FormatView.Format_Container_SelectedItem == "avi" ||
+                     VM.FormatView.Format_Container_SelectedItem == "ogv"
                      )
             {
                 // -------------------------
                 // None
                 // -------------------------
-                if (AudioView.vm.Audio_Codec_SelectedItem == "None")
+                if (VM.AudioView.Audio_Codec_SelectedItem == "None")
                 {
-                    AudioView.vm.Audio_Stream_SelectedItem = "none";
+                    VM.AudioView.Audio_Stream_SelectedItem = "none";
                 }
 
                 // -------------------------
@@ -909,7 +909,7 @@ namespace Axiom
                 // -------------------------
                 else
                 {
-                    AudioView.vm.Audio_Stream_SelectedItem = "all";
+                    VM.AudioView.Audio_Stream_SelectedItem = "all";
                 }
             }
 
@@ -921,15 +921,15 @@ namespace Axiom
             // -------------------------
             // None
             // -------------------------
-            else if (FormatView.vm.Format_Container_SelectedItem == "jpg" ||
-                     FormatView.vm.Format_Container_SelectedItem == "png" ||
-                     FormatView.vm.Format_Container_SelectedItem == "webp"
+            else if (VM.FormatView.Format_Container_SelectedItem == "jpg" ||
+                     VM.FormatView.Format_Container_SelectedItem == "png" ||
+                     VM.FormatView.Format_Container_SelectedItem == "webp"
                 )
             {
                 // -------------------------
                 // All Codecs
                 // -------------------------
-                AudioView.vm.Audio_Stream_SelectedItem = "none";
+                VM.AudioView.Audio_Stream_SelectedItem = "none";
             }
 
 
@@ -940,19 +940,19 @@ namespace Axiom
             // -------------------------
             // None
             // -------------------------
-            else if (FormatView.vm.Format_Container_SelectedItem == "mp3" ||
-                     FormatView.vm.Format_Container_SelectedItem == "m4a" ||
-                     FormatView.vm.Format_Container_SelectedItem == "ogg" ||
-                     FormatView.vm.Format_Container_SelectedItem == "flac" ||
-                     FormatView.vm.Format_Container_SelectedItem == "wav"
+            else if (VM.FormatView.Format_Container_SelectedItem == "mp3" ||
+                     VM.FormatView.Format_Container_SelectedItem == "m4a" ||
+                     VM.FormatView.Format_Container_SelectedItem == "ogg" ||
+                     VM.FormatView.Format_Container_SelectedItem == "flac" ||
+                     VM.FormatView.Format_Container_SelectedItem == "wav"
                 )
             {
                 // -------------------------
                 // None
                 // -------------------------
-                if (AudioView.vm.Audio_Codec_SelectedItem == "None")
+                if (VM.AudioView.Audio_Codec_SelectedItem == "None")
                 {
-                    AudioView.vm.Audio_Stream_SelectedItem = "none";
+                    VM.AudioView.Audio_Stream_SelectedItem = "none";
                 }
 
                 // -------------------------
@@ -960,7 +960,7 @@ namespace Axiom
                 // -------------------------
                 else
                 {
-                    AudioView.vm.Audio_Stream_SelectedItem = "1";
+                    VM.AudioView.Audio_Stream_SelectedItem = "1";
                 }
             }
 
@@ -978,162 +978,162 @@ namespace Axiom
             // -------------------------
             // No
             // -------------------------
-            if (FormatView.vm.Format_Cut_SelectedItem == "No")
+            if (VM.FormatView.Format_Cut_SelectedItem == "No")
             {
                 // Cut
-                FormatView.vm.Format_CutStart_IsEnabled = false;
-                //FormatView.vm.Format_CutStart_Hours_IsEnabled = false;
-                //FormatView.vm.Format_CutStart_Minutes_IsEnabled = false;
-                //FormatView.vm.Format_CutStart_Seconds_IsEnabled = false;
-                //FormatView.vm.Format_CutStart_Milliseconds_IsEnabled = false;
+                VM.FormatView.Format_CutStart_IsEnabled = false;
+                //VM.FormatView.Format_CutStart_Hours_IsEnabled = false;
+                //VM.FormatView.Format_CutStart_Minutes_IsEnabled = false;
+                //VM.FormatView.Format_CutStart_Seconds_IsEnabled = false;
+                //VM.FormatView.Format_CutStart_Milliseconds_IsEnabled = false;
 
-                FormatView.vm.Format_CutEnd_IsEnabled = false;
-                //FormatView.vm.Format_CutEnd_Hours_IsEnabled = false;
-                //FormatView.vm.Format_CutEnd_Minutes_IsEnabled = false;
-                //FormatView.vm.Format_CutEnd_Seconds_IsEnabled = false;
-                //FormatView.vm.Format_CutEnd_Milliseconds_IsEnabled = false;
+                VM.FormatView.Format_CutEnd_IsEnabled = false;
+                //VM.FormatView.Format_CutEnd_Hours_IsEnabled = false;
+                //VM.FormatView.Format_CutEnd_Minutes_IsEnabled = false;
+                //VM.FormatView.Format_CutEnd_Seconds_IsEnabled = false;
+                //VM.FormatView.Format_CutEnd_Milliseconds_IsEnabled = false;
 
                 // Video / Sequence
-                if (FormatView.vm.Format_MediaType_SelectedItem == "Video" ||
-                    FormatView.vm.Format_MediaType_SelectedItem == "Sequence")
+                if (VM.FormatView.Format_MediaType_SelectedItem == "Video" ||
+                    VM.FormatView.Format_MediaType_SelectedItem == "Sequence")
                 {
                     // Start
-                    FormatView.vm.Format_CutStart_Hours_Text = "00";
-                    FormatView.vm.Format_CutStart_Minutes_Text = "00";
-                    FormatView.vm.Format_CutStart_Seconds_Text = "00";
-                    FormatView.vm.Format_CutStart_Milliseconds_Text = "000";
+                    VM.FormatView.Format_CutStart_Hours_Text = "00";
+                    VM.FormatView.Format_CutStart_Minutes_Text = "00";
+                    VM.FormatView.Format_CutStart_Seconds_Text = "00";
+                    VM.FormatView.Format_CutStart_Milliseconds_Text = "000";
                     // End
-                    FormatView.vm.Format_CutEnd_Hours_Text = "00";
-                    FormatView.vm.Format_CutEnd_Minutes_Text = "00";
-                    FormatView.vm.Format_CutEnd_Seconds_Text = "00";
-                    FormatView.vm.Format_CutEnd_Milliseconds_Text = "000";
+                    VM.FormatView.Format_CutEnd_Hours_Text = "00";
+                    VM.FormatView.Format_CutEnd_Minutes_Text = "00";
+                    VM.FormatView.Format_CutEnd_Seconds_Text = "00";
+                    VM.FormatView.Format_CutEnd_Milliseconds_Text = "000";
                 }
                 // Image
-                else if (FormatView.vm.Format_MediaType_SelectedItem == "Image")
+                else if (VM.FormatView.Format_MediaType_SelectedItem == "Image")
                 {
-                    //FormatView.vm.Format_CutStart_Text = "00:00:00.000";
-                    //FormatView.vm.Format_CutEnd_Text = string.Empty;
+                    //VM.FormatView.Format_CutStart_Text = "00:00:00.000";
+                    //VM.FormatView.Format_CutEnd_Text = string.Empty;
 
                     // Start
-                    FormatView.vm.Format_CutStart_Hours_Text = "00";
-                    FormatView.vm.Format_CutStart_Minutes_Text = "00";
-                    FormatView.vm.Format_CutStart_Seconds_Text = "00";
-                    FormatView.vm.Format_CutStart_Milliseconds_Text = "000";
+                    VM.FormatView.Format_CutStart_Hours_Text = "00";
+                    VM.FormatView.Format_CutStart_Minutes_Text = "00";
+                    VM.FormatView.Format_CutStart_Seconds_Text = "00";
+                    VM.FormatView.Format_CutStart_Milliseconds_Text = "000";
                     // End
-                    FormatView.vm.Format_CutEnd_Hours_Text = string.Empty;
-                    FormatView.vm.Format_CutEnd_Minutes_Text = string.Empty;
-                    FormatView.vm.Format_CutEnd_Seconds_Text = string.Empty;
-                    FormatView.vm.Format_CutEnd_Milliseconds_Text = string.Empty;
+                    VM.FormatView.Format_CutEnd_Hours_Text = string.Empty;
+                    VM.FormatView.Format_CutEnd_Minutes_Text = string.Empty;
+                    VM.FormatView.Format_CutEnd_Seconds_Text = string.Empty;
+                    VM.FormatView.Format_CutEnd_Milliseconds_Text = string.Empty;
                 }
 
                 // Frames
-                FormatView.vm.Format_FrameStart_IsEnabled = false;
-                FormatView.vm.Format_FrameEnd_IsEnabled = false;
+                VM.FormatView.Format_FrameStart_IsEnabled = false;
+                VM.FormatView.Format_FrameEnd_IsEnabled = false;
 
                 // Reset Text
-                FormatView.vm.Format_FrameStart_Text = string.Empty;
-                FormatView.vm.Format_FrameEnd_Text = string.Empty;
+                VM.FormatView.Format_FrameStart_Text = string.Empty;
+                VM.FormatView.Format_FrameEnd_Text = string.Empty;
             }
 
             // -------------------------
             // Yes
             // -------------------------
-            else if (FormatView.vm.Format_Cut_SelectedItem == "Yes")
+            else if (VM.FormatView.Format_Cut_SelectedItem == "Yes")
             {
                 // Frames
 
                 // Only for Video
-                if (FormatView.vm.Format_MediaType_SelectedItem == "Video") 
+                if (VM.FormatView.Format_MediaType_SelectedItem == "Video") 
                 {
                     // Time
-                    FormatView.vm.Format_CutStart_IsEnabled = true;
-                    //FormatView.vm.Format_CutStart_Hours_IsEnabled = true;
-                    //FormatView.vm.Format_CutStart_Minutes_IsEnabled = true;
-                    //FormatView.vm.Format_CutStart_Seconds_IsEnabled = true;
-                    //FormatView.vm.Format_CutStart_Milliseconds_IsEnabled = true;
+                    VM.FormatView.Format_CutStart_IsEnabled = true;
+                    //VM.FormatView.Format_CutStart_Hours_IsEnabled = true;
+                    //VM.FormatView.Format_CutStart_Minutes_IsEnabled = true;
+                    //VM.FormatView.Format_CutStart_Seconds_IsEnabled = true;
+                    //VM.FormatView.Format_CutStart_Milliseconds_IsEnabled = true;
 
-                    FormatView.vm.Format_CutEnd_IsEnabled = true;
-                    //FormatView.vm.Format_CutEnd_Hours_IsEnabled = true;
-                    //FormatView.vm.Format_CutEnd_Minutes_IsEnabled = true;
-                    //FormatView.vm.Format_CutEnd_Seconds_IsEnabled = true;
-                    //FormatView.vm.Format_CutEnd_Milliseconds_IsEnabled = true;
+                    VM.FormatView.Format_CutEnd_IsEnabled = true;
+                    //VM.FormatView.Format_CutEnd_Hours_IsEnabled = true;
+                    //VM.FormatView.Format_CutEnd_Minutes_IsEnabled = true;
+                    //VM.FormatView.Format_CutEnd_Seconds_IsEnabled = true;
+                    //VM.FormatView.Format_CutEnd_Milliseconds_IsEnabled = true;
 
                     // Frames
-                    FormatView.vm.Format_FrameStart_IsEnabled = true;
-                    FormatView.vm.Format_FrameEnd_IsEnabled = true;
+                    VM.FormatView.Format_FrameStart_IsEnabled = true;
+                    VM.FormatView.Format_FrameEnd_IsEnabled = true;
                 }
 
                 // Only for Video
-                else if (FormatView.vm.Format_MediaType_SelectedItem == "Audio")
+                else if (VM.FormatView.Format_MediaType_SelectedItem == "Audio")
                 {
                     // Time
-                    FormatView.vm.Format_CutStart_IsEnabled = true;
-                    //FormatView.vm.Format_CutStart_Hours_IsEnabled = true;
-                    //FormatView.vm.Format_CutStart_Minutes_IsEnabled = true;
-                    //FormatView.vm.Format_CutStart_Seconds_IsEnabled = true;
-                    //FormatView.vm.Format_CutStart_Milliseconds_IsEnabled = true;
+                    VM.FormatView.Format_CutStart_IsEnabled = true;
+                    //VM.FormatView.Format_CutStart_Hours_IsEnabled = true;
+                    //VM.FormatView.Format_CutStart_Minutes_IsEnabled = true;
+                    //VM.FormatView.Format_CutStart_Seconds_IsEnabled = true;
+                    //VM.FormatView.Format_CutStart_Milliseconds_IsEnabled = true;
 
-                    FormatView.vm.Format_CutEnd_IsEnabled = true;
-                    //FormatView.vm.Format_CutEnd_Hours_IsEnabled = true;
-                    //FormatView.vm.Format_CutEnd_Minutes_IsEnabled = true;
-                    //FormatView.vm.Format_CutEnd_Seconds_IsEnabled = true;
-                    //FormatView.vm.Format_CutEnd_Milliseconds_IsEnabled = true;
+                    VM.FormatView.Format_CutEnd_IsEnabled = true;
+                    //VM.FormatView.Format_CutEnd_Hours_IsEnabled = true;
+                    //VM.FormatView.Format_CutEnd_Minutes_IsEnabled = true;
+                    //VM.FormatView.Format_CutEnd_Seconds_IsEnabled = true;
+                    //VM.FormatView.Format_CutEnd_Milliseconds_IsEnabled = true;
 
                     // Frames
-                    FormatView.vm.Format_FrameStart_IsEnabled = false;
-                    FormatView.vm.Format_FrameEnd_IsEnabled = false;
+                    VM.FormatView.Format_FrameStart_IsEnabled = false;
+                    VM.FormatView.Format_FrameEnd_IsEnabled = false;
 
                     // Text
-                    FormatView.vm.Format_FrameStart_Text = string.Empty;
-                    FormatView.vm.Format_FrameEnd_Text = string.Empty;
+                    VM.FormatView.Format_FrameStart_Text = string.Empty;
+                    VM.FormatView.Format_FrameEnd_Text = string.Empty;
                 }
 
                 // Only for Video
-                else if (FormatView.vm.Format_MediaType_SelectedItem == "Image")
+                else if (VM.FormatView.Format_MediaType_SelectedItem == "Image")
                 {
                     // Time
-                    FormatView.vm.Format_CutStart_IsEnabled = true;
-                    //FormatView.vm.Format_CutStart_Hours_IsEnabled = true;
-                    //FormatView.vm.Format_CutStart_Minutes_IsEnabled = true;
-                    //FormatView.vm.Format_CutStart_Seconds_IsEnabled = true;
-                    //FormatView.vm.Format_CutStart_Milliseconds_IsEnabled = true;
+                    VM.FormatView.Format_CutStart_IsEnabled = true;
+                    //VM.FormatView.Format_CutStart_Hours_IsEnabled = true;
+                    //VM.FormatView.Format_CutStart_Minutes_IsEnabled = true;
+                    //VM.FormatView.Format_CutStart_Seconds_IsEnabled = true;
+                    //VM.FormatView.Format_CutStart_Milliseconds_IsEnabled = true;
 
-                    FormatView.vm.Format_CutEnd_IsEnabled = false;
-                    //FormatView.vm.Format_CutEnd_Hours_IsEnabled = false;
-                    //FormatView.vm.Format_CutEnd_Minutes_IsEnabled = false;
-                    //FormatView.vm.Format_CutEnd_Seconds_IsEnabled = false;
-                    //FormatView.vm.Format_CutEnd_Milliseconds_IsEnabled = false;
+                    VM.FormatView.Format_CutEnd_IsEnabled = false;
+                    //VM.FormatView.Format_CutEnd_Hours_IsEnabled = false;
+                    //VM.FormatView.Format_CutEnd_Minutes_IsEnabled = false;
+                    //VM.FormatView.Format_CutEnd_Seconds_IsEnabled = false;
+                    //VM.FormatView.Format_CutEnd_Milliseconds_IsEnabled = false;
 
-                    FormatView.vm.Format_CutEnd_Hours_Text = string.Empty;
-                    FormatView.vm.Format_CutEnd_Minutes_Text = string.Empty;
-                    FormatView.vm.Format_CutEnd_Seconds_Text = string.Empty;
-                    FormatView.vm.Format_CutEnd_Milliseconds_Text = string.Empty;
+                    VM.FormatView.Format_CutEnd_Hours_Text = string.Empty;
+                    VM.FormatView.Format_CutEnd_Minutes_Text = string.Empty;
+                    VM.FormatView.Format_CutEnd_Seconds_Text = string.Empty;
+                    VM.FormatView.Format_CutEnd_Milliseconds_Text = string.Empty;
 
                     // Frames
-                    FormatView.vm.Format_FrameStart_IsEnabled = true;
-                    FormatView.vm.Format_FrameEnd_IsEnabled = false;
-                    FormatView.vm.Format_FrameEnd_Text = string.Empty;
+                    VM.FormatView.Format_FrameStart_IsEnabled = true;
+                    VM.FormatView.Format_FrameEnd_IsEnabled = false;
+                    VM.FormatView.Format_FrameEnd_Text = string.Empty;
                 }
 
                 // Only for Video
-                else if (FormatView.vm.Format_MediaType_SelectedItem == "Sequence")
+                else if (VM.FormatView.Format_MediaType_SelectedItem == "Sequence")
                 {
                     // Time
-                    FormatView.vm.Format_CutStart_IsEnabled = true;
-                    //FormatView.vm.Format_CutStart_Hours_IsEnabled = true;
-                    //FormatView.vm.Format_CutStart_Minutes_IsEnabled = true;
-                    //FormatView.vm.Format_CutStart_Seconds_IsEnabled = true;
-                    //FormatView.vm.Format_CutStart_Milliseconds_IsEnabled = true;
+                    VM.FormatView.Format_CutStart_IsEnabled = true;
+                    //VM.FormatView.Format_CutStart_Hours_IsEnabled = true;
+                    //VM.FormatView.Format_CutStart_Minutes_IsEnabled = true;
+                    //VM.FormatView.Format_CutStart_Seconds_IsEnabled = true;
+                    //VM.FormatView.Format_CutStart_Milliseconds_IsEnabled = true;
 
-                    FormatView.vm.Format_CutEnd_IsEnabled = true;
-                    //FormatView.vm.Format_CutEnd_Hours_IsEnabled = true;
-                    //FormatView.vm.Format_CutEnd_Minutes_IsEnabled = true;
-                    //FormatView.vm.Format_CutEnd_Seconds_IsEnabled = true;
-                    //FormatView.vm.Format_CutEnd_Milliseconds_IsEnabled = true;
+                    VM.FormatView.Format_CutEnd_IsEnabled = true;
+                    //VM.FormatView.Format_CutEnd_Hours_IsEnabled = true;
+                    //VM.FormatView.Format_CutEnd_Minutes_IsEnabled = true;
+                    //VM.FormatView.Format_CutEnd_Seconds_IsEnabled = true;
+                    //VM.FormatView.Format_CutEnd_Milliseconds_IsEnabled = true;
 
                     // Frames
-                    FormatView.vm.Format_FrameStart_IsEnabled = true;
-                    FormatView.vm.Format_FrameEnd_IsEnabled = true;
+                    VM.FormatView.Format_FrameStart_IsEnabled = true;
+                    VM.FormatView.Format_FrameEnd_IsEnabled = true;
                 }
             }
         } 

@@ -68,31 +68,31 @@ namespace Axiom
             // -------------------------
             // Video Formats
             // -------------------------
-            if (FormatView.vm.Format_Container_SelectedItem == "webm")
+            if (VM.FormatView.Format_Container_SelectedItem == "webm")
             {
                 vMap = "-map 0:v:0?"; // only video track 1
             }
-            else if (FormatView.vm.Format_Container_SelectedItem == "mp4")
+            else if (VM.FormatView.Format_Container_SelectedItem == "mp4")
             {
                 vMap = "-map 0:v:0?"; // only video track 1
             }
-            else if (FormatView.vm.Format_Container_SelectedItem == "mkv")
+            else if (VM.FormatView.Format_Container_SelectedItem == "mkv")
             {
                 vMap = "-map 0:v?"; // all video tracks
             }
-            else if (FormatView.vm.Format_Container_SelectedItem == "m2v")
+            else if (VM.FormatView.Format_Container_SelectedItem == "m2v")
             {
                 vMap = "-map 0:v?"; // all video tracks
             }
-            else if (FormatView.vm.Format_Container_SelectedItem == "mpg")
+            else if (VM.FormatView.Format_Container_SelectedItem == "mpg")
             {
                 vMap = "-map 0:v?"; // all video tracks
             }
-            else if (FormatView.vm.Format_Container_SelectedItem == "avi")
+            else if (VM.FormatView.Format_Container_SelectedItem == "avi")
             {
                 vMap = "-map 0:v:0?"; // only video track 1
             }
-            else if (FormatView.vm.Format_Container_SelectedItem == "ogv")
+            else if (VM.FormatView.Format_Container_SelectedItem == "ogv")
             {
                 vMap = "-map 0:v?"; // all video tracks
             }
@@ -107,7 +107,7 @@ namespace Axiom
             // -------------------------
             // Video Codecs
             // -------------------------
-            if (VideoView.vm.Video_Codec_SelectedItem == "None")
+            if (VM.VideoView.Video_Codec_SelectedItem == "None")
             {
                 vMap = "-vn"; // only video track 1
             }
@@ -140,31 +140,31 @@ namespace Axiom
             // -------------------------
             // Video Formats
             // -------------------------
-            if (FormatView.vm.Format_Container_SelectedItem == "webm")
+            if (VM.FormatView.Format_Container_SelectedItem == "webm")
             {
                 cMap = "-map_chapters -1"; // remove chapters
             }
-            else if (FormatView.vm.Format_Container_SelectedItem == "mp4")
+            else if (VM.FormatView.Format_Container_SelectedItem == "mp4")
             {
                 cMap = "-map_chapters 0"; // all chapters
             }
-            else if (FormatView.vm.Format_Container_SelectedItem == "mkv")
+            else if (VM.FormatView.Format_Container_SelectedItem == "mkv")
             {
                 cMap = "-map_chapters 0"; // all chapters
             }
-            else if (FormatView.vm.Format_Container_SelectedItem == "m2v")
+            else if (VM.FormatView.Format_Container_SelectedItem == "m2v")
             {
                 cMap = "-map_chapters -1"; // remove chapters
             }
-            else if (FormatView.vm.Format_Container_SelectedItem == "mpg")
+            else if (VM.FormatView.Format_Container_SelectedItem == "mpg")
             {
                 cMap = "-map_chapters 0"; // all chapters
             }
-            else if (FormatView.vm.Format_Container_SelectedItem == "avi")
+            else if (VM.FormatView.Format_Container_SelectedItem == "avi")
             {
                 cMap = "-map_chapters 0"; // all chapters
             }
-            else if (FormatView.vm.Format_Container_SelectedItem == "ogv")
+            else if (VM.FormatView.Format_Container_SelectedItem == "ogv")
             {
                 cMap = "-map_chapters 0"; // all chapters
             }
@@ -220,19 +220,19 @@ namespace Axiom
             // Subtitle Map
             // --------------------------------------------------------------------
 
-            if (SubtitleView.vm.Subtitle_Codec_SelectedItem != "Burn") // Ignore if Burn
+            if (VM.SubtitleView.Subtitle_Codec_SelectedItem != "Burn") // Ignore if Burn
             {
                 // -------------------------
                 // None
                 // -------------------------
-                if (SubtitleView.vm.Subtitle_Stream_SelectedItem == "none")
+                if (VM.SubtitleView.Subtitle_Stream_SelectedItem == "none")
                 {
                     sMap = "-sn";
                 }
                 // -------------------------
                 // External
                 // -------------------------
-                else if (SubtitleView.vm.Subtitle_Stream_SelectedItem == "external")
+                else if (VM.SubtitleView.Subtitle_Stream_SelectedItem == "external")
                 {
                     // -------------------------
                     // Map
@@ -256,10 +256,10 @@ namespace Axiom
                     // Default Subtitle
                     // -------------------------
                     string checkedItem = string.Empty;
-                    for (var i = 0; i < SubtitleView.vm.Subtitle_ListView_Items.Count; i++)
+                    for (var i = 0; i < VM.SubtitleView.Subtitle_ListView_Items.Count; i++)
                     {
                         // If list contains a checked item
-                        if (SubtitleView.vm.Subtitle_ListView_SelectedItems.Contains(SubtitleView.vm.Subtitle_ListView_Items[i]))
+                        if (VM.SubtitleView.Subtitle_ListView_SelectedItems.Contains(VM.SubtitleView.Subtitle_ListView_Items[i]))
                         {
                             // Get Index Position
                             checkedItem = i.ToString();
@@ -289,47 +289,47 @@ namespace Axiom
                 // -------------------------
                 // All
                 // -------------------------
-                else if (SubtitleView.vm.Subtitle_Stream_SelectedItem == "all")
+                else if (VM.SubtitleView.Subtitle_Stream_SelectedItem == "all")
                 {
                     // Formats
                     //
-                    if (FormatView.vm.Format_Container_SelectedItem == "webm")
+                    if (VM.FormatView.Format_Container_SelectedItem == "webm")
                     {
                         sMap = "-sn"; // no subtitles
                     }
-                    else if (FormatView.vm.Format_Container_SelectedItem == "mp4")
+                    else if (VM.FormatView.Format_Container_SelectedItem == "mp4")
                     {
                         sMap = "-map 0:s?"; // all subtitles (:? at the end ignores error if subtitle is not available)
                     }
-                    else if (FormatView.vm.Format_Container_SelectedItem == "mkv")
+                    else if (VM.FormatView.Format_Container_SelectedItem == "mkv")
                     {
                         sMap = "-map 0:s?"; // all subtitles
                     }
-                    else if (FormatView.vm.Format_Container_SelectedItem == "m2v")
+                    else if (VM.FormatView.Format_Container_SelectedItem == "m2v")
                     {
                         sMap = "-sn"; //  no subtitles
                     }
-                    else if (FormatView.vm.Format_Container_SelectedItem == "mpg")
+                    else if (VM.FormatView.Format_Container_SelectedItem == "mpg")
                     {
                         sMap = "-map 0:s?"; // all subtitles
                     }
-                    else if (FormatView.vm.Format_Container_SelectedItem == "avi")
+                    else if (VM.FormatView.Format_Container_SelectedItem == "avi")
                     {
                         sMap = "-map 0:s?"; // all subtitles
                     }
-                    else if (FormatView.vm.Format_Container_SelectedItem == "ogv")
+                    else if (VM.FormatView.Format_Container_SelectedItem == "ogv")
                     {
                         sMap = "-map 0:s?"; // all subtitles, OGV has problem using Subtitles
                     }
-                    else if (FormatView.vm.Format_Container_SelectedItem == "jpg")
+                    else if (VM.FormatView.Format_Container_SelectedItem == "jpg")
                     {
                         sMap = "-sn"; // disable subtitles
                     }
-                    else if (FormatView.vm.Format_Container_SelectedItem == "png")
+                    else if (VM.FormatView.Format_Container_SelectedItem == "png")
                     {
                         sMap = "-sn"; // disable subtitles
                     }
-                    else if (FormatView.vm.Format_Container_SelectedItem == "webp")
+                    else if (VM.FormatView.Format_Container_SelectedItem == "webp")
                     {
                         sMap = "-sn"; // disable subtitles
                     }
@@ -346,14 +346,14 @@ namespace Axiom
                 else
                 {
                     // Subtract 1, Map starts at 0
-                    int sMapNumber = Int32.Parse(SubtitleView.vm.Subtitle_Stream_SelectedItem) - 1;
+                    int sMapNumber = Int32.Parse(VM.SubtitleView.Subtitle_Stream_SelectedItem) - 1;
 
                     sMap = "-map 1:s:" + sMapNumber + "?";
 
                     // Image
-                    if (FormatView.vm.Format_Container_SelectedItem == "jpg" ||
-                        FormatView.vm.Format_Container_SelectedItem == "png" ||
-                        FormatView.vm.Format_Container_SelectedItem == "webp")
+                    if (VM.FormatView.Format_Container_SelectedItem == "jpg" ||
+                        VM.FormatView.Format_Container_SelectedItem == "png" ||
+                        VM.FormatView.Format_Container_SelectedItem == "webp")
                     {
                         sMap = "-sn";
                     }
@@ -375,7 +375,7 @@ namespace Axiom
             {
                 Log.logParagraph.Inlines.Add(new LineBreak());
                 Log.logParagraph.Inlines.Add(new Bold(new Run("Subtitle Stream: ")) { Foreground = Log.ConsoleDefault });
-                Log.logParagraph.Inlines.Add(new Run(SubtitleView.vm.Subtitle_Stream_SelectedItem) { Foreground = Log.ConsoleDefault });
+                Log.logParagraph.Inlines.Add(new Run(VM.SubtitleView.Subtitle_Stream_SelectedItem) { Foreground = Log.ConsoleDefault });
             };
             Log.LogActions.Add(Log.WriteAction);
 
@@ -408,61 +408,61 @@ namespace Axiom
             // -------------------------
             // None
             // -------------------------
-            if (AudioView.vm.Audio_Stream_SelectedItem == "none")
+            if (VM.AudioView.Audio_Stream_SelectedItem == "none")
             {
                 aMap = "-an";
             }
             // -------------------------
             // All
             // -------------------------
-            else if (AudioView.vm.Audio_Stream_SelectedItem == "all")
+            else if (VM.AudioView.Audio_Stream_SelectedItem == "all")
             {
                 // Video/Image Format
                 //
-                if (FormatView.vm.Format_Container_SelectedItem == "webm")
+                if (VM.FormatView.Format_Container_SelectedItem == "webm")
                 {
                     aMap = "-map 0:a:0?"; // only audio track 1
                 }
-                else if (FormatView.vm.Format_Container_SelectedItem == "mp4")
+                else if (VM.FormatView.Format_Container_SelectedItem == "mp4")
                 {
                     aMap = "-map 0:a?"; // all audio tracks 
                 }
-                else if (FormatView.vm.Format_Container_SelectedItem == "mkv")
+                else if (VM.FormatView.Format_Container_SelectedItem == "mkv")
                 {
                     aMap = "-map 0:a?"; // all audio tracks 
                 }
-                else if (FormatView.vm.Format_Container_SelectedItem == "m2v")
+                else if (VM.FormatView.Format_Container_SelectedItem == "m2v")
                 {
                     aMap = "-an"; // disable audio
                 }
-                else if (FormatView.vm.Format_Container_SelectedItem == "mpg")
+                else if (VM.FormatView.Format_Container_SelectedItem == "mpg")
                 {
                     aMap = "-map 0:a?"; // all audio tracks 
                 }
-                else if (FormatView.vm.Format_Container_SelectedItem == "avi")
+                else if (VM.FormatView.Format_Container_SelectedItem == "avi")
                 {
                     aMap = "-map 0:a?"; // all audio tracks 
                 }
-                else if (FormatView.vm.Format_Container_SelectedItem == "ogv")
+                else if (VM.FormatView.Format_Container_SelectedItem == "ogv")
                 {
                     aMap = "-map 0:a?"; // all audio tracks 
                 }
-                else if (FormatView.vm.Format_Container_SelectedItem == "jpg")
+                else if (VM.FormatView.Format_Container_SelectedItem == "jpg")
                 {
                     aMap = "-an"; // disable audio
                 }
-                else if (FormatView.vm.Format_Container_SelectedItem == "png")
+                else if (VM.FormatView.Format_Container_SelectedItem == "png")
                 {
                     aMap = "-an"; // disable audio
                 }
-                else if (FormatView.vm.Format_Container_SelectedItem == "webp")
+                else if (VM.FormatView.Format_Container_SelectedItem == "webp")
                 {
                     aMap = "-an"; // disable audio
                 }
 
                 // Audio Media Type
                 //
-                else if (FormatView.vm.Format_MediaType_SelectedItem == "Audio")
+                else if (VM.FormatView.Format_MediaType_SelectedItem == "Audio")
                 {
                     aMap = "-map 0:a:0?"; // only audio track 1
                 }
@@ -473,7 +473,7 @@ namespace Axiom
             else
             {
                 // Subtract 1, Map starts at 0
-                int aMapNumber = Int32.Parse(AudioView.vm.Audio_Stream_SelectedItem) - 1;
+                int aMapNumber = Int32.Parse(VM.AudioView.Audio_Stream_SelectedItem) - 1;
 
                 aMap = "-map 0:a:" + aMapNumber + "?";
             }
@@ -491,7 +491,7 @@ namespace Axiom
             // -------------------------
             // Mute
             // -------------------------
-            if (AudioView.vm.Audio_Quality_SelectedItem == "Mute")
+            if (VM.AudioView.Audio_Quality_SelectedItem == "Mute")
             {
                 aMap = "-an";
             }
@@ -511,7 +511,7 @@ namespace Axiom
             {
                 Log.logParagraph.Inlines.Add(new LineBreak());
                 Log.logParagraph.Inlines.Add(new Bold(new Run("Audio Stream: ")) { Foreground = Log.ConsoleDefault });
-                Log.logParagraph.Inlines.Add(new Run(AudioView.vm.Audio_Stream_SelectedItem) { Foreground = Log.ConsoleDefault });
+                Log.logParagraph.Inlines.Add(new Run(VM.AudioView.Audio_Stream_SelectedItem) { Foreground = Log.ConsoleDefault });
             };
             Log.LogActions.Add(Log.WriteAction);
 
@@ -535,28 +535,28 @@ namespace Axiom
             // -------------------------
             // mp3
             // -------------------------
-            if (FormatView.vm.Format_Container_SelectedItem == "mp3")
+            if (VM.FormatView.Format_Container_SelectedItem == "mp3")
             {
                 mMap = "-map_metadata 0 -id3v2_version 3";
             }
             // -------------------------
             // jpg
             // -------------------------
-            else if (FormatView.vm.Format_Container_SelectedItem == "jpg")
+            else if (VM.FormatView.Format_Container_SelectedItem == "jpg")
             {
                 mMap = string.Empty; // do not copy metadata
             }
             // -------------------------
             // png
             // -------------------------
-            else if (FormatView.vm.Format_Container_SelectedItem == "png")
+            else if (VM.FormatView.Format_Container_SelectedItem == "png")
             {
                 mMap = string.Empty; // do not copy metadata
             }
             // -------------------------
             // webp
             // -------------------------
-            else if (FormatView.vm.Format_Container_SelectedItem == "webp")
+            else if (VM.FormatView.Format_Container_SelectedItem == "webp")
             {
                 mMap = string.Empty; // do not copy metadata
             }

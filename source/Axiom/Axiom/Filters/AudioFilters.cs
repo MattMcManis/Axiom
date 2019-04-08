@@ -64,7 +64,7 @@ namespace Axiom
         //    // Slider Default 0
         //    // Limit to 2 decimal places
 
-        //    double value = FilterAudioView.vm.FilterAudio_RemoveClick.Value;
+        //    double value = VM.FilterAudioView.FilterAudio_RemoveClick.Value;
 
         //    string adeclick = string.Empty;
 
@@ -83,7 +83,7 @@ namespace Axiom
         /// <summary>
         public static void Lowpass_Filter()
         {
-            if (FilterAudioView.vm.FilterAudio_Lowpass_SelectedItem == "enabled")
+            if (VM.FilterAudioView.FilterAudio_Lowpass_SelectedItem == "enabled")
             {
                 // -------------------------
                 // Add Filter to List
@@ -97,7 +97,7 @@ namespace Axiom
         /// <summary>
         public static void Highpass_Filter()
         {
-            if (FilterAudioView.vm.FilterAudio_Highpass_SelectedItem == "enabled")
+            if (VM.FilterAudioView.FilterAudio_Highpass_SelectedItem == "enabled")
             {
                 // -------------------------
                 // Add Filter to List
@@ -118,7 +118,7 @@ namespace Axiom
             // Slider Default 0
             // Limit to 2 decimal places
 
-            double value = FilterAudioView.vm.FilterAudio_Contrast_Value;
+            double value = VM.FilterAudioView.FilterAudio_Contrast_Value;
 
             string acontrast = string.Empty;
 
@@ -143,7 +143,7 @@ namespace Axiom
             // Slider Default 0
             // Limit to 2 decimal places
 
-            double value = FilterAudioView.vm.FilterAudio_ExtraStereo_Value;
+            double value = VM.FilterAudioView.FilterAudio_ExtraStereo_Value;
 
             string extrastereo = string.Empty;
 
@@ -189,7 +189,7 @@ namespace Axiom
         /// <summary>
         public static void Headphones_Filter()
         {
-            if (FilterAudioView.vm.FilterAudio_Headphones_SelectedItem == "enabled")
+            if (VM.FilterAudioView.FilterAudio_Headphones_SelectedItem == "enabled")
             {
                 // -------------------------
                 // Add Filter to List
@@ -213,7 +213,7 @@ namespace Axiom
             // Example: Slow down audio to 80% tempo: atempo=0.8
             //          Speed up audio to 200% tempo: atempo=2
 
-            double value = FilterAudioView.vm.FilterAudio_Tempo_Value;
+            double value = VM.FilterAudioView.FilterAudio_Tempo_Value;
 
             string tempo = string.Empty;
 
@@ -238,13 +238,13 @@ namespace Axiom
             // Mute Check
             // Stream None Check
             // Media Type Check
-            if (AudioView.vm.Audio_Quality_SelectedItem != "None"
-                && AudioView.vm.Audio_Codec_SelectedItem != "None"
-                && AudioView.vm.Audio_Codec_SelectedItem != "Copy"
-                && AudioView.vm.Audio_Quality_SelectedItem != "Mute"
-                && AudioView.vm.Audio_Stream_SelectedItem != "none"
-                && FormatView.vm.Format_MediaType_SelectedItem != "Image"
-                && FormatView.vm.Format_MediaType_SelectedItem != "Sequence")
+            if (VM.AudioView.Audio_Quality_SelectedItem != "None"
+                && VM.AudioView.Audio_Codec_SelectedItem != "None"
+                && VM.AudioView.Audio_Codec_SelectedItem != "Copy"
+                && VM.AudioView.Audio_Quality_SelectedItem != "Mute"
+                && VM.AudioView.Audio_Stream_SelectedItem != "none"
+                && VM.FormatView.Format_MediaType_SelectedItem != "Image"
+                && VM.FormatView.Format_MediaType_SelectedItem != "Sequence")
             {
                 // --------------------------------------------------
                 // Filters
@@ -298,7 +298,7 @@ namespace Axiom
                 // -------------------------
                 // Filter Combine
                 // -------------------------
-                if (AudioView.vm.Audio_Codec_SelectedItem != "None") // None Check
+                if (VM.AudioView.Audio_Codec_SelectedItem != "None") // None Check
                 {
                     // -------------------------
                     // 1 Filter

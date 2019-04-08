@@ -42,7 +42,7 @@ namespace Axiom
         }
 
         // Video View Model
-        public static VideoView vm = new VideoView();
+        //public static VideoView vm = new VideoView();
 
 
         /// <summary>

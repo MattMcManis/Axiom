@@ -169,12 +169,12 @@ namespace Axiom
                             File.Delete(configFile);
 
                             // Reload Control Defaults
-                            ConfigureView.vm.LoadConfigDefaults();
-                            MainView.vm.LoadControlsDefaults();
-                            FormatView.vm.LoadControlsDefaults();
-                            VideoView.vm.LoadControlsDefaults();
-                            SubtitleView.vm.LoadControlsDefaults();
-                            AudioView.vm.LoadControlsDefaults();
+                            VM.ConfigureView.LoadConfigDefaults();
+                            VM.MainView.LoadControlsDefaults();
+                            VM.FormatView.LoadControlsDefaults();
+                            VM.VideoView.LoadControlsDefaults();
+                            VM.SubtitleView.LoadControlsDefaults();
+                            VM.AudioView.LoadControlsDefaults();
 
                             // Restart Program
                             Process.Start(Application.ResourceAssembly.Location);
@@ -233,12 +233,12 @@ namespace Axiom
 
             if (mainwindow_WindowState_Maximized == true)
             {
-                //MainView.vm.Window_State = WindowState.Maximized;
+                //VM.MainView.Window_State = WindowState.Maximized;
                 mainwindow.WindowState = WindowState.Maximized;
             }
             else
             {
-                //MainView.vm.Window_State = WindowState.Normal;
+                //VM.MainView.Window_State = WindowState.Normal;
                 mainwindow.WindowState = WindowState.Normal;
             }
 
@@ -255,52 +255,52 @@ namespace Axiom
             // CMD Window Keep
             bool mainwindow_CMDWindowKeep_IsChecked;
             bool.TryParse(conf.Read("Main Window", "CMDWindowKeep_IsChecked").ToLower(), out mainwindow_CMDWindowKeep_IsChecked);
-            MainView.vm.CMDWindowKeep_IsChecked = mainwindow_CMDWindowKeep_IsChecked;
+            VM.MainView.CMDWindowKeep_IsChecked = mainwindow_CMDWindowKeep_IsChecked;
 
             // Auto Sort Script
             bool mainwindow_AutoSortScript_IsChecked;
             bool.TryParse(conf.Read("Main Window", "AutoSortScript_IsChecked").ToLower(), out mainwindow_AutoSortScript_IsChecked);
-            MainView.vm.AutoSortScript_IsChecked = mainwindow_AutoSortScript_IsChecked;
+            VM.MainView.AutoSortScript_IsChecked = mainwindow_AutoSortScript_IsChecked;
 
 
             // --------------------------------------------------
             // Settings
             // --------------------------------------------------
             // Config Path
-            conf.Write("Settings", "ConfigPath_SelectedItem", ConfigureView.vm.ConfigPath_SelectedItem);
+            conf.Write("Settings", "ConfigPath_SelectedItem", VM.ConfigureView.ConfigPath_SelectedItem);
 
             // HWAccel
             string configPath = conf.Read("Settings", "ConfigPath_SelectedItem");
-            if (ConfigureView.vm.ConfigPath_Items.Contains(configPath))
-                ConfigureView.vm.ConfigPath_SelectedItem = configPath;
+            if (VM.ConfigureView.ConfigPath_Items.Contains(configPath))
+                VM.ConfigureView.ConfigPath_SelectedItem = configPath;
             //else
             //    Profiles.listFailedImports.Add("Settings: Config Path");
 
             // Presets
-            ConfigureView.vm.CustomPresetsPath_Text = conf.Read("Settings", "CustomPresetsPath_Text");
+            VM.ConfigureView.CustomPresetsPath_Text = conf.Read("Settings", "CustomPresetsPath_Text");
 
             // FFmpeg
-            ConfigureView.vm.FFmpegPath_Text = conf.Read("Settings", "FFmpegPath_Text");
-            ConfigureView.vm.FFprobePath_Text = conf.Read("Settings", "FFprobePath_Text");
-            ConfigureView.vm.FFplayPath_Text = conf.Read("Settings", "FFplayPath_Text");
+            VM.ConfigureView.FFmpegPath_Text = conf.Read("Settings", "FFmpegPath_Text");
+            VM.ConfigureView.FFprobePath_Text = conf.Read("Settings", "FFprobePath_Text");
+            VM.ConfigureView.FFplayPath_Text = conf.Read("Settings", "FFplayPath_Text");
 
             // Log
             bool settings_LogCheckBox_IsChecked;
             bool.TryParse(conf.Read("Settings", "LogCheckBox_IsChecked").ToLower(), out settings_LogCheckBox_IsChecked);
-            ConfigureView.vm.LogCheckBox_IsChecked = settings_LogCheckBox_IsChecked;
+            VM.ConfigureView.LogCheckBox_IsChecked = settings_LogCheckBox_IsChecked;
 
-            ConfigureView.vm.LogPath_Text = conf.Read("Settings", "LogPath_Text");
+            VM.ConfigureView.LogPath_Text = conf.Read("Settings", "LogPath_Text");
 
             // Threads
-            ConfigureView.vm.Threads_SelectedItem = conf.Read("Settings", "Threads_SelectedItem");
+            VM.ConfigureView.Threads_SelectedItem = conf.Read("Settings", "Threads_SelectedItem");
 
             // Theme
-            ConfigureView.vm.Theme_SelectedItem = conf.Read("Settings", "Theme_SelectedItem");
+            VM.ConfigureView.Theme_SelectedItem = conf.Read("Settings", "Theme_SelectedItem");
 
             // Updates
             bool settings_UpdateAutoCheck_IsChecked;
             bool.TryParse(conf.Read("Settings", "UpdateAutoCheck_IsChecked").ToLower(), out settings_UpdateAutoCheck_IsChecked);
-            ConfigureView.vm.UpdateAutoCheck_IsChecked = settings_UpdateAutoCheck_IsChecked;
+            VM.ConfigureView.UpdateAutoCheck_IsChecked = settings_UpdateAutoCheck_IsChecked;
         }
 
 
@@ -395,38 +395,38 @@ namespace Axiom
                     }
 
                     // CMD Keep Window Open Toggle
-                    conf.Write("Main Window", "CMDWindowKeep_IsChecked", MainView.vm.CMDWindowKeep_IsChecked.ToString().ToLower());
+                    conf.Write("Main Window", "CMDWindowKeep_IsChecked", VM.MainView.CMDWindowKeep_IsChecked.ToString().ToLower());
 
                     // Auto Sort Script Toggle
-                    conf.Write("Main Window", "AutoSortScript_IsChecked", MainView.vm.AutoSortScript_IsChecked.ToString().ToLower());
+                    conf.Write("Main Window", "AutoSortScript_IsChecked", VM.MainView.AutoSortScript_IsChecked.ToString().ToLower());
 
 
                     // --------------------------------------------------
                     // Settings
                     // --------------------------------------------------
                     // Config Path
-                    conf.Write("Settings", "ConfigPath_SelectedItem", ConfigureView.vm.ConfigPath_SelectedItem);
+                    conf.Write("Settings", "ConfigPath_SelectedItem", VM.ConfigureView.ConfigPath_SelectedItem);
 
                     // Presets
-                    conf.Write("Settings", "CustomPresetsPath_Text", ConfigureView.vm.CustomPresetsPath_Text);
+                    conf.Write("Settings", "CustomPresetsPath_Text", VM.ConfigureView.CustomPresetsPath_Text);
 
                     // FFmpeg
-                    conf.Write("Settings", "FFmpegPath_Text", ConfigureView.vm.FFmpegPath_Text);
-                    conf.Write("Settings", "FFprobePath_Text", ConfigureView.vm.FFprobePath_Text);
-                    conf.Write("Settings", "FFplayPath_Text", ConfigureView.vm.FFplayPath_Text);
+                    conf.Write("Settings", "FFmpegPath_Text", VM.ConfigureView.FFmpegPath_Text);
+                    conf.Write("Settings", "FFprobePath_Text", VM.ConfigureView.FFprobePath_Text);
+                    conf.Write("Settings", "FFplayPath_Text", VM.ConfigureView.FFplayPath_Text);
 
                     // Log
-                    conf.Write("Settings", "LogCheckBox_IsChecked", ConfigureView.vm.LogCheckBox_IsChecked.ToString().ToLower());
-                    conf.Write("Settings", "LogPath_Text", ConfigureView.vm.LogPath_Text);
+                    conf.Write("Settings", "LogCheckBox_IsChecked", VM.ConfigureView.LogCheckBox_IsChecked.ToString().ToLower());
+                    conf.Write("Settings", "LogPath_Text", VM.ConfigureView.LogPath_Text);
 
                     // Threads
-                    conf.Write("Settings", "Threads_SelectedItem", ConfigureView.vm.Threads_SelectedItem);
+                    conf.Write("Settings", "Threads_SelectedItem", VM.ConfigureView.Threads_SelectedItem);
 
                     // Theme
-                    conf.Write("Settings", "Theme_SelectedItem", ConfigureView.vm.Theme_SelectedItem);
+                    conf.Write("Settings", "Theme_SelectedItem", VM.ConfigureView.Theme_SelectedItem);
 
                     // Updates
-                    conf.Write("Settings", "UpdateAutoCheck_IsChecked", ConfigureView.vm.UpdateAutoCheck_IsChecked.ToString().ToLower());
+                    conf.Write("Settings", "UpdateAutoCheck_IsChecked", VM.ConfigureView.UpdateAutoCheck_IsChecked.ToString().ToLower());
 
 
                     // --------------------------------------------------
@@ -490,10 +490,10 @@ namespace Axiom
             if (result == System.Windows.Forms.DialogResult.OK)
             {
                 // Display Folder Path in Textbox
-                ConfigureView.vm.CustomPresetsPath_Text = folderBrowserDialog.SelectedPath;
+                VM.ConfigureView.CustomPresetsPath_Text = folderBrowserDialog.SelectedPath;
 
                 // Add backslash if missing
-                ConfigureView.vm.CustomPresetsPath_Text = ConfigureView.vm.CustomPresetsPath_Text.TrimEnd('\\') + @"\";
+                VM.ConfigureView.CustomPresetsPath_Text = VM.ConfigureView.CustomPresetsPath_Text.TrimEnd('\\') + @"\";
 
                 //// -------------------------
                 //// Load Custom Presets
@@ -516,7 +516,7 @@ namespace Axiom
             if (result == System.Windows.Forms.DialogResult.OK)
             {
                 // Display Folder Path in Textbox
-                ConfigureView.vm.FFmpegPath_Text = OpenFileDialog.FileName;
+                VM.ConfigureView.FFmpegPath_Text = OpenFileDialog.FileName;
             }
         }
 
@@ -533,7 +533,7 @@ namespace Axiom
             if (result == System.Windows.Forms.DialogResult.OK)
             {
                 // Display Folder Path in Textbox
-                ConfigureView.vm.FFprobePath_Text = OpenFileDialog.FileName;
+                VM.ConfigureView.FFprobePath_Text = OpenFileDialog.FileName;
             }
         }
 
@@ -550,7 +550,7 @@ namespace Axiom
             if (result == System.Windows.Forms.DialogResult.OK)
             {
                 // Display Folder Path in Textbox
-                ConfigureView.vm.FFplayPath_Text = OpenFileDialog.FileName;
+                VM.ConfigureView.FFplayPath_Text = OpenFileDialog.FileName;
             }
         }
 
@@ -567,7 +567,7 @@ namespace Axiom
             if (result == System.Windows.Forms.DialogResult.OK)
             {
                 // Display Folder Path in Textbox
-                ConfigureView.vm.youtubedlPath_Text = OpenFileDialog.FileName;
+                VM.ConfigureView.youtubedlPath_Text = OpenFileDialog.FileName;
             }
         }
 
@@ -584,10 +584,10 @@ namespace Axiom
             if (result == System.Windows.Forms.DialogResult.OK)
             {
                 // Display Folder Path in Textbox
-                ConfigureView.vm.LogPath_Text = folderBrowserDialog.SelectedPath;
+                VM.ConfigureView.LogPath_Text = folderBrowserDialog.SelectedPath;
 
                 // Add backslash if missing
-                ConfigureView.vm.LogPath_Text = ConfigureView.vm.LogPath_Text.TrimEnd('\\') + @"\";
+                VM.ConfigureView.LogPath_Text = VM.ConfigureView.LogPath_Text.TrimEnd('\\') + @"\";
             }
         }
 

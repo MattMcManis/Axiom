@@ -51,7 +51,7 @@ namespace Axiom
                 AAC.codec.FirstOrDefault()?.Parameters
             };
 
-            AudioView.vm.Audio_Codec = string.Join(" ", codec.Where(s => !string.IsNullOrEmpty(s)));
+            VM.AudioView.Audio_Codec = string.Join(" ", codec.Where(s => !string.IsNullOrEmpty(s)));
         }
 
 
@@ -135,19 +135,19 @@ namespace Axiom
         public static void Controls_ItemsSource()
         {
             // Channel
-            AudioView.vm.Audio_Channel_Items = channel;
+            VM.AudioView.Audio_Channel_Items = channel;
 
             // Quality
-            AudioView.vm.Audio_Quality_Items = quality;
+            VM.AudioView.Audio_Quality_Items = quality;
 
             // Compression Level
-            AudioView.vm.Audio_CompressionLevel_Items = compressionLevel;
+            VM.AudioView.Audio_CompressionLevel_Items = compressionLevel;
 
             // Samplerate
-            AudioView.vm.Audio_SampleRate_Items = sampleRate;
+            VM.AudioView.Audio_SampleRate_Items = sampleRate;
 
             // Bit Depth
-            AudioView.vm.Audio_BitDepth_Items = bitDepth;
+            VM.AudioView.Audio_BitDepth_Items = bitDepth;
         }
 
         // -------------------------
@@ -156,10 +156,10 @@ namespace Axiom
         public static void Controls_Selected()
         {
 
-            //AudioView.vm.Audio_Stream_SelectedItem = "all";
+            //VM.AudioView.Audio_Stream_SelectedItem = "all";
 
             // Compression Level
-            AudioView.vm.Audio_CompressionLevel_SelectedItem = "auto";
+            VM.AudioView.Audio_CompressionLevel_SelectedItem = "auto";
         }
 
         // -------------------------
@@ -176,7 +176,7 @@ namespace Axiom
         public static void Controls_Unhecked()
         {
             // BitRate Mode
-            AudioView.vm.Audio_VBR_IsChecked = false;
+            VM.AudioView.Audio_VBR_IsChecked = false;
         }
 
         // -------------------------
@@ -185,28 +185,28 @@ namespace Axiom
         public static void Controls_Enable()
         {
             // Audio Codec
-            AudioView.vm.Audio_Codec_IsEnabled = true;
+            VM.AudioView.Audio_Codec_IsEnabled = true;
 
             // Stream
-            AudioView.vm.Audio_Stream_IsEnabled = true;
+            VM.AudioView.Audio_Stream_IsEnabled = true;
 
             // Channel
-            AudioView.vm.Audio_Channel_IsEnabled = true;
+            VM.AudioView.Audio_Channel_IsEnabled = true;
 
             // Audio Quality
-            AudioView.vm.Audio_Quality_IsEnabled = true;
+            VM.AudioView.Audio_Quality_IsEnabled = true;
 
             // Audio VBR
-            AudioView.vm.Audio_VBR_IsEnabled = true;
+            VM.AudioView.Audio_VBR_IsEnabled = true;
 
             // SampleRate
-            AudioView.vm.Audio_SampleRate_IsEnabled = true;
+            VM.AudioView.Audio_SampleRate_IsEnabled = true;
 
             // Volume
-            AudioView.vm.Audio_Volume_IsEnabled = true;
+            VM.AudioView.Audio_Volume_IsEnabled = true;
 
             // Hard Limiter
-            AudioView.vm.Audio_HardLimiter_IsEnabled = true;
+            VM.AudioView.Audio_HardLimiter_IsEnabled = true;
         }
 
         // -------------------------
@@ -215,10 +215,10 @@ namespace Axiom
         public static void Controls_Disable()
         {
             // Compression Level
-            AudioView.vm.Audio_CompressionLevel_IsEnabled = false;
+            VM.AudioView.Audio_CompressionLevel_IsEnabled = false;
 
             // Bit Depth
-            AudioView.vm.Audio_BitDepth_IsEnabled = false;
+            VM.AudioView.Audio_BitDepth_IsEnabled = false;
         }
     }
 }

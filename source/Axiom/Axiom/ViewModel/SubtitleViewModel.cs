@@ -43,7 +43,7 @@ namespace Axiom
         }
 
         // Subtitle View Model
-        public static SubtitleView vm = new SubtitleView();
+        //public static SubtitleView vm = new SubtitleView();
 
 
         /// <summary>
@@ -241,7 +241,7 @@ namespace Axiom
                 OnPropertyChanged("Subtitle_ListView_SelectedItems");
             }
         }
-        // Selected Idnex
+        // Selected Index
         private int _Subtitle_ListView_SelectedIndex { get; set; }
         public int Subtitle_ListView_SelectedIndex
         {
@@ -255,6 +255,21 @@ namespace Axiom
 
                 _Subtitle_ListView_SelectedIndex = value;
                 OnPropertyChanged("Subtitle_ListView_SelectedIndex");
+            }
+        }
+        private double _Subtitle_ListView_Opacity { get; set; }
+        public double Subtitle_ListView_Opacity
+        {
+            get { return _Subtitle_ListView_Opacity; }
+            set
+            {
+                if (_Subtitle_ListView_Opacity == value)
+                {
+                    return;
+                }
+
+                _Subtitle_ListView_Opacity = value;
+                OnPropertyChanged("Subtitle_ListView_Opacity");
             }
         }
         // Controls Enable

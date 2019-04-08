@@ -20,7 +20,9 @@ along with this program.If not, see <http://www.gnu.org/licenses/>.
 ---------------------------------------------------------------------- */
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Documents;
@@ -157,6 +159,12 @@ namespace Axiom
         /// </summary>
         private void btnDebugTest_Click(object sender, RoutedEventArgs e)
         {
+            DebugTest();
+        }
+
+
+        public async void DebugTest() 
+        {
             //MainWindow mainwindow = (MainWindow)System.Windows.Application.Current.MainWindow;
             //MainView vm = mainwindow.DataContext as MainView;
 
@@ -185,45 +193,9 @@ namespace Axiom
             // -------------------------
             if (MainWindow.ReadyHalts() == true)
             {
-                // -------------------------
-                // Single
-                // -------------------------
-                if (MainView.vm.Batch_IsChecked == false)
-                {
-                    // -------------------------
-                    // FFprobe Detect Metadata
-                    // -------------------------
-                    FFprobe.Metadata();
-
-                    // -------------------------
-                    // FFmpeg Generate Arguments (Single)
-                    // -------------------------
-                    //disabled if batch
-                    FFmpeg.FFmpegSingleGenerateArgs();
-                }
-
-                // -------------------------
-                // Batch
-                // -------------------------
-                else if (MainView.vm.Batch_IsChecked == true)
-                {
-                    // -------------------------
-                    // FFprobe Video Entry Type Containers
-                    // -------------------------
-                    FFprobe.VideoEntryType();
-
-                    // -------------------------
-                    // FFprobe Video Entry Type Containers
-                    // -------------------------
-                    FFprobe.AudioEntryType();
-
-                    // -------------------------
-                    // FFmpeg Generate Arguments (Batch)
-                    // -------------------------
-                    //disabled if single file
-                    FFmpeg.FFmpegBatchGenerateArgs();
-                }
-
+                Task<int> task = MainWindow.StartProcess();
+                int count = await task;
+                
                 // -------------------------
                 // Write Variables to Debug Window
                 // -------------------------
@@ -239,9 +211,173 @@ namespace Axiom
 
 
         /// <summary>
+        ///     Random Button
+        /// </summary>
+        private void btnDebugRandom_Click(object sender, RoutedEventArgs e)
+        {
+            // Run 500 Random Tests
+
+            //for (var i = 0; i < 500; i++)
+            //{
+                try
+                {
+                    DebugControlRandomizer();
+                    DebugTest();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString());
+                }
+            //}
+        }
+
+
+        /// <summary>
+        ///     Control Randomizer
+        /// </summary>
+        public void DebugControlRandomizer()
+        {
+            // -------------------------
+            // Format
+            // -------------------------
+            // Container
+            List<string> container = VM.FormatView.Format_Container_Items.Select(item => item.Name).ToList();
+            for (int i = container.Count - 1; i >= 0; --i) // Remove Category Headers
+            {
+                if (container[i] == "Video" ||
+                    container[i] == "Audio" ||
+                    container[i] == "Image")
+                {
+                    container.RemoveAt(i);
+                }
+            }
+            container.TrimExcess();
+
+            VM.FormatView.Format_Container_SelectedItem = SelectRandom(container);
+
+            // -------------------------
+            // Video
+            // -------------------------
+            // Codec
+            if (VM.VideoView.Video_Codec_IsEnabled == true)
+            {
+                VM.VideoView.Video_Codec_SelectedItem = SelectRandom(VM.VideoView.Video_Codec_Items);
+            }
+
+            // Encode Speed
+            if (VM.VideoView.Video_EncodeSpeed_IsEnabled == true)
+            {
+                List<string> encodeSpeed = VM.VideoView.Video_EncodeSpeed_Items.Select(item => item.Name).ToList();
+                VM.VideoView.Video_EncodeSpeed_SelectedItem = SelectRandom(encodeSpeed);
+            }
+
+            // Quality
+            if (VM.VideoView.Video_Quality_IsEnabled == true)
+            {
+                List<string> quality = VM.VideoView.Video_Quality_Items.Select(item => item.Name).ToList();
+                for (int i = quality.Count - 1; i >= 0; --i) // Remove Auto to prevent FFprobe execute
+                {
+                    if (quality[i] == "Auto") 
+                    {
+                        quality.RemoveAt(i);
+                    }
+                }
+                quality.TrimExcess();
+
+                VM.VideoView.Video_Quality_SelectedItem = SelectRandom(quality);
+            }
+
+            // Pass
+            if (VM.VideoView.Video_Pass_IsEnabled == true)
+            {
+                VM.VideoView.Video_EncodeSpeed_SelectedItem = SelectRandom(VM.VideoView.Video_Pass_Items);
+            }
+
+            // Pixel Format
+            if (VM.VideoView.Video_PixelFormat_IsEnabled == true)
+            {
+                VM.VideoView.Video_PixelFormat_SelectedItem = SelectRandom(VM.VideoView.Video_Pass_Items);
+            }
+
+            // Optimize
+            if (VM.VideoView.Video_Optimize_IsEnabled == true)
+            {
+                VM.VideoView.Video_Optimize_SelectedItem = SelectRandom(VM.VideoView.Video_Pass_Items);
+            }
+
+
+            // -------------------------
+            // Subtitle
+            // -------------------------
+            // Codec
+            if (VM.SubtitleView.Subtitle_Codec_IsEnabled == true)
+            {
+                VM.SubtitleView.Subtitle_Codec_SelectedItem = SelectRandom(VM.SubtitleView.Subtitle_Codec_Items);
+            }
+
+
+            // -------------------------
+            // Audio
+            // -------------------------
+            // Codec
+            if (VM.AudioView.Audio_Codec_IsEnabled == true)
+            {
+                VM.AudioView.Audio_Codec_SelectedItem = SelectRandom(VM.AudioView.Audio_Codec_Items);
+            }
+
+            // Channel
+            if (VM.AudioView.Audio_Channel_IsEnabled == true)
+            {
+                VM.AudioView.Audio_Channel_SelectedItem = SelectRandom(VM.AudioView.Audio_Codec_Items);
+            }
+
+            // Quality
+            if (VM.AudioView.Audio_Quality_IsEnabled == true)
+            {
+                List<string> quality = VM.AudioView.Audio_Quality_Items.Select(item => item.Name).ToList();
+                for (int i = quality.Count - 1; i >= 0; --i) // Remove Auto to prevent FFprobe execute
+                {
+                    if (quality[i] == "Auto")
+                    {
+                        quality.RemoveAt(i);
+                    }
+                }
+                quality.TrimExcess();
+
+                VM.AudioView.Audio_Quality_SelectedItem = SelectRandom(quality);
+            }
+
+            // Sample Rate
+            if (VM.AudioView.Audio_SampleRate_IsEnabled == true)
+            {
+                List<string> quality = VM.AudioView.Audio_SampleRate_Items.Select(item => item.Name).ToList();
+                VM.AudioView.Audio_SampleRate_SelectedItem = SelectRandom(quality);
+            }
+
+            // Bit Depth
+            if (VM.AudioView.Audio_BitDepth_IsEnabled == true)
+            {
+                List<string> quality = VM.AudioView.Audio_BitDepth_Items.Select(item => item.Name).ToList();
+                VM.AudioView.Audio_BitDepth_SelectedItem = SelectRandom(quality);
+            }
+        }
+
+        /// <summary>
+        ///     Select Random
+        /// </summary>
+        public string SelectRandom(List<string> items)
+        {
+            // Return random item for SelectedItem
+            Random rnd = new Random();
+            int r = rnd.Next(items.Count);
+            return items[r];
+        }
+
+
+        /// <summary>
         ///     Debug Write
         /// </summary>
-        public static void DebugWrite(DebugConsole debugconsole)
+        public void DebugWrite(DebugConsole debugconsole)
         {
             // -------------------------
             // Write Variables to Console
@@ -327,19 +463,19 @@ namespace Axiom
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("ffmpegPath ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(ConfigureView.vm.FFmpegPath_Text) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(VM.ConfigureView.FFmpegPath_Text) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("ffprobePath ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(ConfigureView.vm.FFprobePath_Text) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(VM.ConfigureView.FFprobePath_Text) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("logPath ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(ConfigureView.vm.LogPath_Text) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(VM.ConfigureView.LogPath_Text) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("logEnable ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(ConfigureView.vm.LogCheckBox_IsChecked.ToString()) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Run(VM.ConfigureView.LogCheckBox_IsChecked.ToString()) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new LineBreak());
@@ -781,6 +917,7 @@ namespace Axiom
             //////////////////////////////////////////////////
             debugconsole.rtbDebug.EndChange(); // end change
         }
+
 
     }
 }

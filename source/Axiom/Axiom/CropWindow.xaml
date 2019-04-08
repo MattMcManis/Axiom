@@ -26,6 +26,8 @@
         xmlns:System="clr-namespace:System;assembly=mscorlib" 
         xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
         xmlns:Themes1="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2" 
+        xmlns:my="clr-namespace:Axiom"
+        xmlns:local="clr-namespace:Axiom"
         mc:Ignorable="d"
         
         Title="Crop"
@@ -36,6 +38,10 @@
         RenderOptions.BitmapScalingMode="Fant"
         UseLayoutRounding="True"
         Style="{DynamicResource WindowCrop}">
+
+    <Window.DataContext>
+        <local:VM/>
+    </Window.DataContext>
 
     <Grid>
 

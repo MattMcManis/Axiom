@@ -42,7 +42,7 @@ namespace Axiom
         }
 
         // Format View Model
-        public static FormatView vm = new FormatView();
+        //public static FormatView vm = new FormatView();
 
 
         /// <summary>

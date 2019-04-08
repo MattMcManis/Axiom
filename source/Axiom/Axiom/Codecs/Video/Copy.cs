@@ -51,7 +51,7 @@ namespace Axiom
                 VideoCopy.codec.FirstOrDefault()?.Parameters
             };
 
-            VideoView.vm.Video_Codec = string.Join(" ", codec.Where(s => !string.IsNullOrEmpty(s)));
+            VM.VideoView.Video_Codec = string.Join(" ", codec.Where(s => !string.IsNullOrEmpty(s)));
         }
 
 
@@ -96,21 +96,21 @@ namespace Axiom
         public static void EncodingPass()
         {
             // Items Source
-            VideoView.vm.Video_Pass_Items = new List<string>()
+            VM.VideoView.Video_Pass_Items = new List<string>()
             {
                 "auto"
             };
 
-            VideoView.vm.Video_Pass_SelectedItem = "auto";
-            VideoView.vm.Video_Pass_IsEnabled = false;
+            VM.VideoView.Video_Pass_SelectedItem = "auto";
+            VM.VideoView.Video_Pass_IsEnabled = false;
             VideoControls.passUserSelected = false;
 
-            VideoView.vm.Video_CRF_IsEnabled = false;
-            VideoView.vm.Video_CRF_Text = string.Empty;
-            VideoView.vm.Video_BitRate_Text = string.Empty;
-            VideoView.vm.Video_MinRate_Text = string.Empty;
-            VideoView.vm.Video_MaxRate_Text = string.Empty;
-            VideoView.vm.Video_BufSize_Text = string.Empty;
+            VM.VideoView.Video_CRF_IsEnabled = false;
+            VM.VideoView.Video_CRF_Text = string.Empty;
+            VM.VideoView.Video_BitRate_Text = string.Empty;
+            VM.VideoView.Video_MinRate_Text = string.Empty;
+            VM.VideoView.Video_MaxRate_Text = string.Empty;
+            VM.VideoView.Video_BufSize_Text = string.Empty;
         }
 
         // -------------------------
@@ -156,26 +156,26 @@ namespace Axiom
         public static void Controls_ItemsSource()
         {
             // Encode Speed
-            VideoView.vm.Video_EncodeSpeed_Items = encodeSpeed;
+            VM.VideoView.Video_EncodeSpeed_Items = encodeSpeed;
 
             // Pixel Format
-            VideoView.vm.Video_PixelFormat_Items = pixelFormat;
+            VM.VideoView.Video_PixelFormat_Items = pixelFormat;
 
             // Pass
-            //VideoView.vm.Video_Pass_Items = pass;
+            //VM.VideoView.Video_Pass_Items = pass;
             EncodingPass();
 
             // Video Quality
-            VideoView.vm.Video_Quality_Items = quality;
+            VM.VideoView.Video_Quality_Items = quality;
 
             // Optimize
-            VideoView.vm.Video_Optimize_Items = optimize;
+            VM.VideoView.Video_Optimize_Items = optimize;
             // Tune
-            VideoView.vm.Video_Optimize_Tune_Items = tune;
+            VM.VideoView.Video_Optimize_Tune_Items = tune;
             // Profile
-            VideoView.vm.Video_Optimize_Profile_Items = profile;
+            VM.VideoView.Video_Optimize_Profile_Items = profile;
             // Level
-            VideoView.vm.Video_Optimize_Level_Items = level;
+            VM.VideoView.Video_Optimize_Level_Items = level;
         }
 
         // -------------------------
@@ -184,10 +184,10 @@ namespace Axiom
         public static void Controls_Selected()
         {
             // Pixel Format
-            VideoView.vm.Video_PixelFormat_SelectedItem = "auto";
+            VM.VideoView.Video_PixelFormat_SelectedItem = "auto";
 
             // Framerate
-            VideoView.vm.Video_FPS_SelectedItem = "auto";
+            VM.VideoView.Video_FPS_SelectedItem = "auto";
         }
 
 
@@ -204,7 +204,7 @@ namespace Axiom
         // -------------------------
         public static void Controls_Collapsed()
         {
-            VideoView.vm.Video_Optimize_IsExpanded = false;
+            VM.VideoView.Video_Optimize_IsExpanded = false;
         }
 
 
@@ -222,7 +222,7 @@ namespace Axiom
         public static void Controls_Unhecked()
         {
             // BitRate Mode
-            VideoView.vm.Video_VBR_IsChecked = false;
+            VM.VideoView.Video_VBR_IsChecked = false;
         }
 
 
@@ -232,34 +232,34 @@ namespace Axiom
         public static void Controls_Enable()
         {
             // Video Codec
-            VideoView.vm.Video_Codec_IsEnabled = true;
+            VM.VideoView.Video_Codec_IsEnabled = true;
 
             // Video Quality
-            VideoView.vm.Video_Quality_IsEnabled = true;
+            VM.VideoView.Video_Quality_IsEnabled = true;
 
             // Video VBR
-            AudioView.vm.Audio_VBR_IsEnabled = true;
+            VM.AudioView.Audio_VBR_IsEnabled = true;
 
             // Pixel Format
-            VideoView.vm.Video_PixelFormat_IsEnabled = true;
+            VM.VideoView.Video_PixelFormat_IsEnabled = true;
 
             // FPS ComboBox
-            VideoView.vm.Video_FPS_IsEnabled = true;
+            VM.VideoView.Video_FPS_IsEnabled = true;
 
             // Optimize ComboBox
-            VideoView.vm.Video_Optimize_IsEnabled = true;
+            VM.VideoView.Video_Optimize_IsEnabled = true;
 
             // Scaling ComboBox
-            VideoView.vm.Video_ScalingAlgorithm_IsEnabled = true;
+            VM.VideoView.Video_ScalingAlgorithm_IsEnabled = true;
 
             // Crop
-            VideoView.vm.Video_Crop_IsEnabled = true;
+            VM.VideoView.Video_Crop_IsEnabled = true;
 
             // Subtitle Codec
-            SubtitleView.vm.Subtitle_Codec_IsEnabled = true;
+            VM.SubtitleView.Subtitle_Codec_IsEnabled = true;
 
             // Subtitle Stream
-            SubtitleView.vm.Subtitle_Stream_IsEnabled = true;
+            VM.SubtitleView.Subtitle_Stream_IsEnabled = true;
         }
 
         // -------------------------
@@ -268,7 +268,7 @@ namespace Axiom
         public static void Controls_Disable()
         {
             // Video Encode Speed
-            VideoView.vm.Video_EncodeSpeed_IsEnabled = false;
+            VM.VideoView.Video_EncodeSpeed_IsEnabled = false;
         }
     }
 }

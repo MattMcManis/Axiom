@@ -42,7 +42,7 @@ namespace Axiom
         }
 
         // Audio View Model
-        public static AudioView vm = new AudioView();
+        //public static AudioView vm = new AudioView();
 
 
         /// <summary>

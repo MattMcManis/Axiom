@@ -151,6 +151,7 @@
     <Compile Include="Codecs\Video\x264.cs" />
     <Compile Include="ViewModel\SubtitleViewModel.cs" />
     <Compile Include="ViewModel\VideoViewModel.cs" />
+    <Compile Include="ViewModel\ViewModelBase.cs" />
     <Page Include="CropWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

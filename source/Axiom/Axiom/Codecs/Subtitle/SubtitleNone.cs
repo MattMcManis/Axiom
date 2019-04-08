@@ -34,7 +34,7 @@ namespace Axiom
         // ---------------------------------------------------------------------------
         public static void Codec_Set()
         {
-            SubtitleView.vm.Subtitle_Codec = string.Empty;
+            VM.SubtitleView.Subtitle_Codec = string.Empty;
         }
 
         // -------------------------
@@ -56,7 +56,7 @@ namespace Axiom
         // -------------------------
         public static void Controls_ItemsSource()
         {
-            SubtitleView.vm.Subtitle_Stream_Items = stream;
+            VM.SubtitleView.Subtitle_Stream_Items = stream;
         }
 
         // -------------------------
@@ -65,7 +65,7 @@ namespace Axiom
         public static void Controls_Selected()
         {
             // Stream
-            SubtitleView.vm.Subtitle_Stream_SelectedItem = "none";
+            VM.SubtitleView.Subtitle_Stream_SelectedItem = "none";
         }
 
         // -------------------------

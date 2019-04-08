@@ -94,13 +94,13 @@ namespace Axiom
             // --------------------------
             // Checked
             // --------------------------
-            if (ConfigureView.vm.LogCheckBox_IsChecked == true)
+            if (VM.ConfigureView.LogCheckBox_IsChecked == true)
             {
                 // Empty, Set Log Path to %ProgramData% Directory
-                if (string.IsNullOrEmpty(ConfigureView.vm.LogPath_Text))
+                if (string.IsNullOrEmpty(VM.ConfigureView.LogPath_Text))
                 {
-                    //ConfigureView.vm.LogPath_Text = MainWindow.appDir;
-                    ConfigureView.vm.LogPath_Text = logDir;
+                    //VM.ConfigureView.LogPath_Text = MainWindow.appDir;
+                    VM.ConfigureView.LogPath_Text = logDir;
                 }
             }
         }
@@ -130,7 +130,7 @@ namespace Axiom
                 mainwindow.Dispatcher.Invoke(() =>
                 {
                     // Log Path
-                    if (ConfigureView.vm.LogCheckBox_IsChecked == true) // Only if Log is Enabled through Configure Checkbox
+                    if (VM.ConfigureView.LogCheckBox_IsChecked == true) // Only if Log is Enabled through Configure Checkbox
                     {
                         // Start write output log file
                         //Catch Directory Access Errors
@@ -138,7 +138,7 @@ namespace Axiom
                         {
                             TextRange t = new TextRange(mainwindow.logconsole.rtbLog.Document.ContentStart,
                                                         mainwindow.logconsole.rtbLog.Document.ContentEnd);
-                            FileStream file = new FileStream(ConfigureView.vm.LogPath_Text + "axiom.log", FileMode.Create);
+                            FileStream file = new FileStream(VM.ConfigureView.LogPath_Text + "axiom.log", FileMode.Create);
                             t.Save(file, System.Windows.DataFormats.Text);
                             file.Close();
                         }
@@ -149,12 +149,12 @@ namespace Axiom
                             {
                                 Log.logParagraph.Inlines.Add(new LineBreak());
                                 Log.logParagraph.Inlines.Add(new LineBreak());
-                                Log.logParagraph.Inlines.Add(new Bold(new Run("Warning: Saving Output Log to " + "\"" + ConfigureView.vm.LogPath_Text + "\"" + " is Denied. May require Administrator Privileges.")) { Foreground = ConsoleWarning });
+                                Log.logParagraph.Inlines.Add(new Bold(new Run("Warning: Saving Output Log to " + "\"" + VM.ConfigureView.LogPath_Text + "\"" + " is Denied. May require Administrator Privileges.")) { Foreground = ConsoleWarning });
                             };
                             Log.LogActions.Add(Log.WriteAction);
 
                             // Popup Message Dialog Box
-                            MessageBox.Show("Error Saving Output Log to " + "\"" + ConfigureView.vm.LogPath_Text + "\"" + ". May require Administrator Privileges.",
+                            MessageBox.Show("Error Saving Output Log to " + "\"" + VM.ConfigureView.LogPath_Text + "\"" + ". May require Administrator Privileges.",
                                             "Error",
                                             MessageBoxButton.OK,
                                             MessageBoxImage.Warning);
