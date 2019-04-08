@@ -4,6 +4,15 @@ Axiom FFmpeg UI
 
 ## [alpha]
 
+## [1.7.3.0] - Apr 08, 2019
+### Changed
+- Adjusted Presets
+- Improved Custom Preset Delete
+
+### Fixed
+- Fixed `x264`/`x265` Size Custom Divisible Calculator
+
+
 ## [1.7.2.0] - Apr 07, 2019
 ### Added
 - HD Background Image for Axiom Theme
