@@ -46,9 +46,9 @@ namespace Axiom
         // -------------------------
         // Encode Speed
         // -------------------------
-        public static List<VideoView.VideoEncodeSpeed> encodeSpeed = new List<VideoView.VideoEncodeSpeed>()
+        public static List<VideoViewModel.VideoEncodeSpeed> encodeSpeed = new List<VideoViewModel.VideoEncodeSpeed>()
         {
-             new VideoView.VideoEncodeSpeed() { Name = "none", Command = ""},
+             new VideoViewModel.VideoEncodeSpeed() { Name = "none", Command = ""},
         };
 
         // -------------------------
@@ -62,9 +62,9 @@ namespace Axiom
         // -------------------------
         // Quality
         // -------------------------
-        public static List<VideoView.VideoQuality> quality = new List<VideoView.VideoQuality>()
+        public static List<VideoViewModel.VideoQuality> quality = new List<VideoViewModel.VideoQuality>()
         {
-             new VideoView.VideoQuality() { Name = "None", }
+             new VideoViewModel.VideoQuality() { Name = "None", }
         };
 
         // -------------------------
@@ -93,9 +93,9 @@ namespace Axiom
         // -------------------------
         // Optimize
         // -------------------------
-        public static List<VideoView.VideoOptimize> optimize = new List<VideoView.VideoOptimize>()
+        public static List<VideoViewModel.VideoOptimize> optimize = new List<VideoViewModel.VideoOptimize>()
         {
-            new VideoView.VideoOptimize() { Name = "None", Tune = "none", Profile = "none", Level = "none", Command = "" }
+            new VideoViewModel.VideoOptimize() { Name = "None", Tune = "none", Profile = "none", Level = "none", Command = "" }
         };
 
         // -------------------------

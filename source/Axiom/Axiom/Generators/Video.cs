@@ -299,7 +299,7 @@ namespace Axiom
         /// <summary>
         ///    Encode Speed
         /// <summary>
-        public static String VideoEncodeSpeed(List<VideoView.VideoEncodeSpeed> encodeSpeedItems,
+        public static String VideoEncodeSpeed(List<VideoViewModel.VideoEncodeSpeed> encodeSpeedItems,
                                               string encodeSpeed_SelectedItem,
                                               string codec_SelectedItem,
                                               string pass
@@ -355,7 +355,7 @@ namespace Axiom
         /// <summary>
         ///     BitRate Mode
         /// <summary>
-        public static String BitRateMode(List<VideoView.VideoQuality> quality_Items,
+        public static String BitRateMode(List<VideoViewModel.VideoQuality> quality_Items,
                                          string quality_SelectedItem,
                                          string bitrate_Text,
                                          bool vbr_IsChecked
@@ -402,7 +402,7 @@ namespace Axiom
                                        string container_SelectedItem,
                                        string mediaType_SelectedItem,
                                        string codec_SelectedItem,
-                                       List<VideoView.VideoQuality> quality_Items,
+                                       List<VideoViewModel.VideoQuality> quality_Items,
                                        string quality_SelectedItem,
                                        string pass_SelectedItem,
                                        string crf_Text,
@@ -604,7 +604,7 @@ namespace Axiom
         ///     Video Quality - Lossless
         /// <summary>
         public static void QualityLossless(string codec_SelectedItem,
-                                           List<VideoView.VideoQuality> qualityItems
+                                           List<VideoViewModel.VideoQuality> qualityItems
                                            )
         {
             // -------------------------
@@ -629,7 +629,7 @@ namespace Axiom
         ///     Video Quality - Custom
         /// <summary>
         public static void QualityCustom(bool vbr_IsChecked,
-                                         List<VideoView.VideoQuality> quality_Items,
+                                         List<VideoViewModel.VideoQuality> quality_Items,
                                          string quality_SelectedItem,
                                          string crf_Text,
                                          string bitrate_Text,
@@ -680,7 +680,7 @@ namespace Axiom
         /// <summary>
         public static void QualityPreset(bool vbr_IsChecked,
                                          string codec_SelectedItem,
-                                         List<VideoView.VideoQuality> quality_Items,
+                                         List<VideoViewModel.VideoQuality> quality_Items,
                                          string quality_SelectedItem,
                                          string pass_SelectedItem,
                                          string crf_Text,
@@ -782,7 +782,7 @@ namespace Axiom
                                           string container_SelectedItem,
                                           string mediaType_SelectedItem,
                                           string codec_SelectedItem,
-                                          List<VideoView.VideoQuality> quality_Items,
+                                          List<VideoViewModel.VideoQuality> quality_Items,
                                           string quality_SelectedItem,
                                           string pass_SelectedItem,
                                           string crf_Text,
@@ -1370,7 +1370,7 @@ namespace Axiom
         ///     Optimize
         /// <summary>
         public static String Optimize(string codec_SelectedItem,
-                                      List<VideoView.VideoOptimize> optimize_Items,
+                                      List<VideoViewModel.VideoOptimize> optimize_Items,
                                       string optimize_SelectedItem,
                                       string tune_SelectedItem,
                                       string profile_SelectedItem,
@@ -1797,6 +1797,32 @@ namespace Axiom
                             // -------------------------
                             try
                             {
+                                // Convert width and height from string to int
+                                int width_int;
+                                int.TryParse(width, out width_int);
+                                int height_int;
+                                int.TryParse(height, out height_int);
+
+                                // Set divible crop placeholders
+                                int divisibleWidthCrop = width_int;
+                                int divisibleHeightCrop = height_int;
+
+                                // Set Crop Position to default top left
+                                string cropX = "0";
+                                string cropY = "0";
+
+                                // Width
+                                if (width_int % 2 != 0)
+                                {
+                                    divisibleWidthCrop = width_int - 1;
+                                }
+                                // Height
+                                if (height_int % 2 != 0)
+                                {
+                                    divisibleHeightCrop = height_int - 1;
+                                }
+
+
                                 // -------------------------
                                 // Only if Crop is already Empty
                                 // -------------------------
@@ -1805,42 +1831,16 @@ namespace Axiom
                                 //
                                 if (cropClear_Text == "Clear") // Crop Set Check
                                 {
-                                    // Temporary Strings
-                                    // So not to Override User Defined Crop
-                                    int divisibleCropWidth = Convert.ToInt32(width);
-                                    int divisibleCropHeight = Convert.ToInt32(height);
-                                    string cropX = "0";
-                                    string cropY = "0";
+                                    // -------------------------
+                                    // Combine & Add Scaling Algorithm
+                                    // -------------------------
+                                    scale = "scale=" + width + ":" + height + ScalingAlgorithm(scalingAlgorithm_SelectedItem);
+                                    VideoFilters.vFiltersList.Add(scale);
 
-                                    // int convert check
-                                    if (int.TryParse(width, out divisibleCropWidth) &&
-                                        int.TryParse(height, out divisibleCropHeight))
+                                    // Divisible Crop - crop off the extra pixels
+                                    if (width_int % 2 != 0 || height_int % 2 != 0)
                                     {
-                                        // If not divisible by 2, subtract 1 from value
-
-                                        // Width
-                                        if (divisibleCropWidth % 2 != 0)
-                                        {
-                                            divisibleCropWidth -= 1;
-                                        }
-                                        // Height
-                                        if (divisibleCropHeight % 2 != 0)
-                                        {
-                                            divisibleCropHeight -= 1;
-                                        }
-
-                                        // Crop instead of Resizing to avoid stretching pixels
-                                        //width = divisibleCropHeight.ToString();
-                                        //height = divisibleCropHeight.ToString();
-
-                                        // -------------------------
-                                        // Combine & Add Scaling Algorithm
-                                        // -------------------------
-                                        scale = "scale=" + width + ":" + height + ScalingAlgorithm(scalingAlgorithm_SelectedItem);
-                                        VideoFilters.vFiltersList.Add(scale);
-
-                                        // Divisible Crop
-                                        CropWindow.crop = Convert.ToString("crop=" + divisibleCropWidth + ":" + divisibleCropHeight + ":" + cropX + ":" + cropY);
+                                        CropWindow.crop = Convert.ToString("crop=" + divisibleWidthCrop + ":" + divisibleHeightCrop + ":" + cropX + ":" + cropY);
                                         VideoFilters.vFiltersList.Add(CropWindow.crop);
                                     }
                                 }
@@ -1850,46 +1850,20 @@ namespace Axiom
                                 // -------------------------
                                 else if (cropClear_Text == "Clear*")
                                 {
-                                    // Temporary Strings
-                                    // So not to Override User Defined Crop
-                                    int divisibleCropWidth = Convert.ToInt32(width);
-                                    int divisibleCropHeight = Convert.ToInt32(height);
-                                    string cropX = "0";
-                                    string cropY = "0";
+                                    // -------------------------
+                                    // Combine & Add Scaling Algorithm
+                                    // -------------------------
+                                    // Manual Crop - Crop what you want out of the video
+                                    VideoFilters.vFiltersList.Add(CropWindow.crop);
 
-                                    // int convert check
-                                    if (int.TryParse(width, out divisibleCropWidth) &&
-                                        int.TryParse(height, out divisibleCropHeight))
+                                    // Scale - Resize video
+                                    scale = "scale=" + width + ":" + height + ScalingAlgorithm(scalingAlgorithm_SelectedItem);
+                                    VideoFilters.vFiltersList.Add(scale);
+
+                                    // Divisible Crop - crop off the extra pixels
+                                    if (width_int % 2 != 0 || height_int % 2 != 0)
                                     {
-                                        // If not divisible by 2, subtract 1 from value
-
-                                        // Width
-                                        if (divisibleCropWidth % 2 != 0)
-                                        {
-                                            divisibleCropWidth -= 1;
-                                        }
-                                        // Height
-                                        if (divisibleCropHeight % 2 != 0)
-                                        {
-                                            divisibleCropHeight -= 1;
-                                        }
-
-                                        // Crop instead of Resizing to avoid stretching pixels
-                                        //width = divisibleCropHeight.ToString();
-                                        //height = divisibleCropHeight.ToString();
-
-                                        // -------------------------
-                                        // Combine & Add Scaling Algorithm
-                                        // -------------------------
-                                        // Manual Crop - Crop what you want out of the video
-                                        VideoFilters.vFiltersList.Add(CropWindow.crop);
-
-                                        // Scale - Resize video
-                                        scale = "scale=" + width + ":" + height + ScalingAlgorithm(scalingAlgorithm_SelectedItem);
-                                        VideoFilters.vFiltersList.Add(scale);
-
-                                        // Divisible Crop - crop off the extra pixels
-                                        string divisibleCrop = Convert.ToString("crop=" + divisibleCropWidth + ":" + divisibleCropHeight + ":" + cropX + ":" + cropY);
+                                        string divisibleCrop = Convert.ToString("crop=" + divisibleWidthCrop + ":" + divisibleHeightCrop + ":" + cropX + ":" + cropY);
                                         VideoFilters.vFiltersList.Add(divisibleCrop);
                                     }
                                 }

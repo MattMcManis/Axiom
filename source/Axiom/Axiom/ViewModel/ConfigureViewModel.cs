@@ -30,7 +30,7 @@ using System.Windows.Documents;
 
 namespace Axiom
 {
-    public class ConfigureView : INotifyPropertyChanged
+    public class ConfigureViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
         private void OnPropertyChanged(string prop)
@@ -50,7 +50,7 @@ namespace Axiom
         /// <summary>
         ///     Configure View Model
         /// </summary>
-        public ConfigureView()
+        public ConfigureViewModel()
         {
             LoadControlsDefaults();
         }

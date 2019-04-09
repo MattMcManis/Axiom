@@ -28,7 +28,7 @@ using System.ComponentModel;
 
 namespace Axiom
 {
-    public class FormatView : INotifyPropertyChanged
+    public class FormatViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
         private void OnPropertyChanged(string prop)
@@ -48,7 +48,7 @@ namespace Axiom
         /// <summary>
         ///     Format View Model
         /// </summary>
-        public FormatView()
+        public FormatViewModel()
         {
             LoadControlsDefaults();
         }

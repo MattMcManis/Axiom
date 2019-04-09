@@ -32,9 +32,9 @@ namespace Axiom
         // ---------------------------------------------------------------------------
         // Codec
         // ---------------------------------------------------------------------------
-        public static List<VideoView.VideoCodec> codec = new List<VideoView.VideoCodec>()
+        public static List<VideoViewModel.VideoCodec> codec = new List<VideoViewModel.VideoCodec>()
         {
-             new VideoView.VideoCodec()
+             new VideoViewModel.VideoCodec()
              {
                  Codec = "copy",
                  Parameters = ""
@@ -63,9 +63,9 @@ namespace Axiom
         // -------------------------
         // Encode Speed
         // -------------------------
-        public static List<VideoView.VideoEncodeSpeed> encodeSpeed = new List<VideoView.VideoEncodeSpeed>()
+        public static List<VideoViewModel.VideoEncodeSpeed> encodeSpeed = new List<VideoViewModel.VideoEncodeSpeed>()
         {
-             new VideoView.VideoEncodeSpeed() { Name = "none", Command = ""},
+             new VideoViewModel.VideoEncodeSpeed() { Name = "none", Command = ""},
         };
 
         // -------------------------
@@ -79,15 +79,15 @@ namespace Axiom
         // -------------------------
         // Quality
         // -------------------------
-        public static List<VideoView.VideoQuality> quality = new List<VideoView.VideoQuality>()
+        public static List<VideoViewModel.VideoQuality> quality = new List<VideoViewModel.VideoQuality>()
         {
-             new VideoView.VideoQuality() { Name = "Auto",   CRF = "",  Video_CRF_BitRate = "", CBR_BitMode = "", CBR = "", VBR_BitMode = "", VBR = "", MinRate = "", MaxRate = "", BufSize ="", NA = "" },
-             new VideoView.VideoQuality() { Name = "Ultra",  CRF = "",  Video_CRF_BitRate = "", CBR_BitMode = "", CBR = "", VBR_BitMode = "", VBR = "", MinRate = "", MaxRate = "", BufSize ="" },
-             new VideoView.VideoQuality() { Name = "High",   CRF = "",  Video_CRF_BitRate = "", CBR_BitMode = "", CBR = "", VBR_BitMode = "", VBR = "", MinRate = "", MaxRate = "", BufSize ="" },
-             new VideoView.VideoQuality() { Name = "Medium", CRF = "",  Video_CRF_BitRate = "", CBR_BitMode = "", CBR = "", VBR_BitMode = "", VBR = "", MinRate = "", MaxRate = "", BufSize ="" },
-             new VideoView.VideoQuality() { Name = "Low",    CRF = "",  Video_CRF_BitRate = "", CBR_BitMode = "", CBR = "", VBR_BitMode = "", VBR = "", MinRate = "", MaxRate = "", BufSize ="" },
-             new VideoView.VideoQuality() { Name = "Sub",    CRF = "",  Video_CRF_BitRate = "", CBR_BitMode = "", CBR = "", VBR_BitMode = "", VBR = "", MinRate = "", MaxRate = "", BufSize ="" },
-             new VideoView.VideoQuality() { Name = "Custom", CRF = "",  Video_CRF_BitRate = "", CBR_BitMode = "", CBR = "", VBR_BitMode = "", VBR = "", MinRate = "", MaxRate = "", BufSize ="" }
+             new VideoViewModel.VideoQuality() { Name = "Auto",   CRF = "",  Video_CRF_BitRate = "", CBR_BitMode = "", CBR = "", VBR_BitMode = "", VBR = "", MinRate = "", MaxRate = "", BufSize ="", NA = "" },
+             new VideoViewModel.VideoQuality() { Name = "Ultra",  CRF = "",  Video_CRF_BitRate = "", CBR_BitMode = "", CBR = "", VBR_BitMode = "", VBR = "", MinRate = "", MaxRate = "", BufSize ="" },
+             new VideoViewModel.VideoQuality() { Name = "High",   CRF = "",  Video_CRF_BitRate = "", CBR_BitMode = "", CBR = "", VBR_BitMode = "", VBR = "", MinRate = "", MaxRate = "", BufSize ="" },
+             new VideoViewModel.VideoQuality() { Name = "Medium", CRF = "",  Video_CRF_BitRate = "", CBR_BitMode = "", CBR = "", VBR_BitMode = "", VBR = "", MinRate = "", MaxRate = "", BufSize ="" },
+             new VideoViewModel.VideoQuality() { Name = "Low",    CRF = "",  Video_CRF_BitRate = "", CBR_BitMode = "", CBR = "", VBR_BitMode = "", VBR = "", MinRate = "", MaxRate = "", BufSize ="" },
+             new VideoViewModel.VideoQuality() { Name = "Sub",    CRF = "",  Video_CRF_BitRate = "", CBR_BitMode = "", CBR = "", VBR_BitMode = "", VBR = "", MinRate = "", MaxRate = "", BufSize ="" },
+             new VideoViewModel.VideoQuality() { Name = "Custom", CRF = "",  Video_CRF_BitRate = "", CBR_BitMode = "", CBR = "", VBR_BitMode = "", VBR = "", MinRate = "", MaxRate = "", BufSize ="" }
         };
 
         // -------------------------
@@ -116,9 +116,9 @@ namespace Axiom
         // -------------------------
         // Optimize
         // -------------------------
-        public static List<VideoView.VideoOptimize> optimize = new List<VideoView.VideoOptimize>()
+        public static List<VideoViewModel.VideoOptimize> optimize = new List<VideoViewModel.VideoOptimize>()
         {
-            new VideoView.VideoOptimize() { Name = "None", Tune = "none", Profile = "none", Level = "none", Command = "" },
+            new VideoViewModel.VideoOptimize() { Name = "None", Tune = "none", Profile = "none", Level = "none", Command = "" },
         };
 
         // -------------------------

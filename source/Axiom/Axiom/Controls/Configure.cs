@@ -465,10 +465,10 @@ namespace Axiom
         /// <summary>
         ///    Export Write Config
         /// </summary>
-        public static void WriteConfig(MainWindow mainwindow, MainView vm, INIFile conf)
-        {
+        //public static void WriteConfig(MainWindow mainwindow, MainViewModel vm, INIFile conf)
+        //{
 
-        }
+        //}
 
 
 

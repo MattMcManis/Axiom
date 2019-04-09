@@ -32,9 +32,9 @@ namespace Axiom
         // ---------------------------------------------------------------------------
         // Codec
         // ---------------------------------------------------------------------------
-        public static List<AudioView.AudioCodec> codec = new List<AudioView.AudioCodec>()
+        public static List<AudioViewModel.AudioCodec> codec = new List<AudioViewModel.AudioCodec>()
         {
-             new AudioView.AudioCodec()
+             new AudioViewModel.AudioCodec()
              {
                  Codec = "libopus",
                  Parameters = ""
@@ -74,19 +74,19 @@ namespace Axiom
         // -------------------------
         // Quality
         // -------------------------
-        public static List<AudioView.AudioQuality> quality = new List<AudioView.AudioQuality>()
+        public static List<AudioViewModel.AudioQuality> quality = new List<AudioViewModel.AudioQuality>()
         {
-             new AudioView.AudioQuality() { Name = "Auto",   CBR_BitMode = "-b:a", CBR = "",    VBR_BitMode="-vbr on -b:a", VBR = "256", NA = "265" },
-             new AudioView.AudioQuality() { Name = "510",    CBR_BitMode = "-b:a", CBR = "510", VBR_BitMode="-vbr on -b:a", VBR = "256" },
-             new AudioView.AudioQuality() { Name = "320",    CBR_BitMode = "-b:a", CBR = "320", VBR_BitMode="-vbr on -b:a", VBR = "256" },
-             new AudioView.AudioQuality() { Name = "256",    CBR_BitMode = "-b:a", CBR = "256", VBR_BitMode="-vbr on -b:a", VBR = "256" },
-             new AudioView.AudioQuality() { Name = "224",    CBR_BitMode = "-b:a", CBR = "224", VBR_BitMode="-vbr on -b:a", VBR = "224" },
-             new AudioView.AudioQuality() { Name = "192",    CBR_BitMode = "-b:a", CBR = "192", VBR_BitMode="-vbr on -b:a", VBR = "192" },
-             new AudioView.AudioQuality() { Name = "160",    CBR_BitMode = "-b:a", CBR = "160", VBR_BitMode="-vbr on -b:a", VBR = "160" },
-             new AudioView.AudioQuality() { Name = "128",    CBR_BitMode = "-b:a", CBR = "128", VBR_BitMode="-vbr on -b:a", VBR = "128" },
-             new AudioView.AudioQuality() { Name = "96",     CBR_BitMode = "-b:a", CBR = "96",  VBR_BitMode="-vbr on -b:a", VBR = "96" },
-             new AudioView.AudioQuality() { Name = "Custom", CBR_BitMode = "-b:a", CBR = "",    VBR_BitMode="-vbr on -b:a", VBR = "" },
-             new AudioView.AudioQuality() { Name = "Mute",   CBR_BitMode = "",     CBR = "",    VBR_BitMode="",             VBR = "" }
+             new AudioViewModel.AudioQuality() { Name = "Auto",   CBR_BitMode = "-b:a", CBR = "",    VBR_BitMode="-vbr on -b:a", VBR = "256", NA = "265" },
+             new AudioViewModel.AudioQuality() { Name = "510",    CBR_BitMode = "-b:a", CBR = "510", VBR_BitMode="-vbr on -b:a", VBR = "256" },
+             new AudioViewModel.AudioQuality() { Name = "320",    CBR_BitMode = "-b:a", CBR = "320", VBR_BitMode="-vbr on -b:a", VBR = "256" },
+             new AudioViewModel.AudioQuality() { Name = "256",    CBR_BitMode = "-b:a", CBR = "256", VBR_BitMode="-vbr on -b:a", VBR = "256" },
+             new AudioViewModel.AudioQuality() { Name = "224",    CBR_BitMode = "-b:a", CBR = "224", VBR_BitMode="-vbr on -b:a", VBR = "224" },
+             new AudioViewModel.AudioQuality() { Name = "192",    CBR_BitMode = "-b:a", CBR = "192", VBR_BitMode="-vbr on -b:a", VBR = "192" },
+             new AudioViewModel.AudioQuality() { Name = "160",    CBR_BitMode = "-b:a", CBR = "160", VBR_BitMode="-vbr on -b:a", VBR = "160" },
+             new AudioViewModel.AudioQuality() { Name = "128",    CBR_BitMode = "-b:a", CBR = "128", VBR_BitMode="-vbr on -b:a", VBR = "128" },
+             new AudioViewModel.AudioQuality() { Name = "96",     CBR_BitMode = "-b:a", CBR = "96",  VBR_BitMode="-vbr on -b:a", VBR = "96" },
+             new AudioViewModel.AudioQuality() { Name = "Custom", CBR_BitMode = "-b:a", CBR = "",    VBR_BitMode="-vbr on -b:a", VBR = "" },
+             new AudioViewModel.AudioQuality() { Name = "Mute",   CBR_BitMode = "",     CBR = "",    VBR_BitMode="",             VBR = "" }
         };
 
         // -------------------------
@@ -111,22 +111,22 @@ namespace Axiom
         // -------------------------
         // Sample Rate
         // -------------------------
-        public static List<AudioView.AudioSampleRate> sampleRate = new List<AudioView.AudioSampleRate>()
+        public static List<AudioViewModel.AudioSampleRate> sampleRate = new List<AudioViewModel.AudioSampleRate>()
         {
-             new AudioView.AudioSampleRate() { Name = "auto",     Frequency = "" },
-             new AudioView.AudioSampleRate() { Name = "8k",       Frequency = "8000" },
-             new AudioView.AudioSampleRate() { Name = "12k",      Frequency = "12000" },
-             new AudioView.AudioSampleRate() { Name = "16k",      Frequency = "16000" },
-             new AudioView.AudioSampleRate() { Name = "24k",      Frequency = "24000" },
-             new AudioView.AudioSampleRate() { Name = "48k",      Frequency = "48000" },
+             new AudioViewModel.AudioSampleRate() { Name = "auto",     Frequency = "" },
+             new AudioViewModel.AudioSampleRate() { Name = "8k",       Frequency = "8000" },
+             new AudioViewModel.AudioSampleRate() { Name = "12k",      Frequency = "12000" },
+             new AudioViewModel.AudioSampleRate() { Name = "16k",      Frequency = "16000" },
+             new AudioViewModel.AudioSampleRate() { Name = "24k",      Frequency = "24000" },
+             new AudioViewModel.AudioSampleRate() { Name = "48k",      Frequency = "48000" },
         };
 
         // -------------------------
         // Bit Depth
         // -------------------------
-        public static List<AudioView.AudioBitDepth> bitDepth = new List<AudioView.AudioBitDepth>()
+        public static List<AudioViewModel.AudioBitDepth> bitDepth = new List<AudioViewModel.AudioBitDepth>()
         {
-             new AudioView.AudioBitDepth() { Name = "auto", Depth = "" }
+             new AudioViewModel.AudioBitDepth() { Name = "auto", Depth = "" }
         };
 
 

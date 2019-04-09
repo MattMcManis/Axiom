@@ -29,7 +29,7 @@ using System.Windows;
 
 namespace Axiom
 {
-    public class MainView : INotifyPropertyChanged
+    public class MainViewModel : INotifyPropertyChanged
     {
         //private MainWindow mainwindow = (MainWindow)System.Windows.Application.Current.MainWindow;
 
@@ -54,7 +54,7 @@ namespace Axiom
         /// <summary>
         ///     Main View Model
         /// </summary>
-        public MainView()
+        public MainViewModel()
         {
             LoadControlsDefaults();
         }

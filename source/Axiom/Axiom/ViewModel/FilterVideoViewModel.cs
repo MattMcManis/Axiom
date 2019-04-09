@@ -29,7 +29,7 @@ using System.Windows.Media;
 
 namespace Axiom
 {
-    public class FilterVideoView : INotifyPropertyChanged
+    public class FilterVideoViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
         private void OnPropertyChanged(string prop)
@@ -49,7 +49,7 @@ namespace Axiom
         /// <summary>
         ///     Filter View Model
         /// </summary>
-        public FilterVideoView()
+        public FilterVideoViewModel()
         {
             LoadControlsDefaults();
         }

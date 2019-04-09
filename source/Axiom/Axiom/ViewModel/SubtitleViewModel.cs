@@ -29,7 +29,7 @@ using System.ComponentModel;
 
 namespace Axiom
 {
-    public class SubtitleView : INotifyPropertyChanged
+    public class SubtitleViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
         private void OnPropertyChanged(string prop)
@@ -49,7 +49,7 @@ namespace Axiom
         /// <summary>
         ///     Subtitle View Model
         /// </summary>
-        public SubtitleView()
+        public SubtitleViewModel()
         {
             LoadControlsDefaults();
         }

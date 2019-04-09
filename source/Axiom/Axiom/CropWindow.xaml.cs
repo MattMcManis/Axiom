@@ -36,8 +36,6 @@ namespace Axiom
     {
         private MainWindow mainwindow = (MainWindow)System.Windows.Application.Current.MainWindow;
 
-        //private ViewModel vm;
-
         // Temp save settings when Crop Window is closed
         public static int? divisibleCropWidth;
         public static int? divisibleCropHeight;
@@ -54,15 +52,7 @@ namespace Axiom
 
             this.mainwindow = mainwindow;
 
-            //VM vm = new VM();
-            //DataContext = vm;
-
-            //// Data Context
-            //tbxCropX.DataContext =
-            //tbxCropY.DataContext =
-            //tbxCropWidth.DataContext =
-            //tbxCropHeight.DataContext =
-            //VideoView.vm;
+            //DataContext = new VM();
 
             // Set Min/Max Width/Height to prevent Tablets maximizing
             this.MinWidth = 480;
@@ -294,27 +284,6 @@ namespace Axiom
             else
             {
                 CropClear();
-                //// Crop
-                //crop = string.Empty;
-
-                //// Width
-                //VM.VideoView.Video_Crop_Width_Text = string.Empty;
-                //cropWidth = string.Empty;
-
-                //// Height
-                //VM.VideoView.Video_Crop_Height_Text = string.Empty;
-                //cropHeight = string.Empty;
-
-                //// X
-                //VM.VideoView.Video_Crop_X_Text = string.Empty;
-                //cropX = string.Empty;
-
-                //// Y
-                //VM.VideoView.Video_Crop_Y_Text = string.Empty;
-                //cropY = string.Empty;
-
-                //// Set Button Text to show Crop is Nonactive
-                //VM.VideoView.Video_CropClear_Text = "Clear";
             }
 
             this.Close();
@@ -326,13 +295,6 @@ namespace Axiom
         /// </summary>
         public void btnClear_Click(object sender, RoutedEventArgs e)
         {
-            //MainView vm = mainwindow.DataContext as MainView;
-
-            //VM.VideoView.Video_Crop_Width_Text = string.Empty;
-            //VM.VideoView.Video_Crop_Height_Text = string.Empty;
-            //VM.VideoView.Video_Crop_X_Text = string.Empty;
-            //VM.VideoView.Video_Crop_Y_Text = string.Empty;
-
             CropClear();
         }
 

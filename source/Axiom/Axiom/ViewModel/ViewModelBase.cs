@@ -50,21 +50,21 @@ namespace Axiom
         }
 
         // Main
-        public static MainView MainView { get; set; } = new MainView();
+        public static MainViewModel MainView { get; set; } = new MainViewModel();
         // Format
-        public static FormatView FormatView { get; set; } = new FormatView();
+        public static FormatViewModel FormatView { get; set; } = new FormatViewModel();
         // Video
-        public static VideoView VideoView { get; set; } = new VideoView();
+        public static VideoViewModel VideoView { get; set; } = new VideoViewModel();
         // Subtitle
-        public static SubtitleView SubtitleView { get; set; } = new SubtitleView();
+        public static SubtitleViewModel SubtitleView { get; set; } = new SubtitleViewModel();
         // Audio
-        public static AudioView AudioView { get; set; } = new AudioView();
+        public static AudioViewModel AudioView { get; set; } = new AudioViewModel();
         // Filter Video
-        public static FilterVideoView FilterVideoView { get; set; } = new FilterVideoView();
+        public static FilterVideoViewModel FilterVideoView { get; set; } = new FilterVideoViewModel();
         // Filter Audio
-        public static FilterAudioView FilterAudioView { get; set; } = new FilterAudioView();
+        public static FilterAudioViewModel FilterAudioView { get; set; } = new FilterAudioViewModel();
         // Configure
-        public static ConfigureView ConfigureView { get; set; } = new ConfigureView();
+        public static ConfigureViewModel ConfigureView { get; set; } = new ConfigureViewModel();
 
     }
 }

@@ -32,9 +32,9 @@ namespace Axiom
         // ---------------------------------------------------------------------------
         // Codec
         // ---------------------------------------------------------------------------
-        public static List<SubtitleView.SubtitleCodec> codec = new List<SubtitleView.SubtitleCodec>()
+        public static List<SubtitleViewModel.SubtitleCodec> codec = new List<SubtitleViewModel.SubtitleCodec>()
         {
-             new SubtitleView.SubtitleCodec()
+             new SubtitleViewModel.SubtitleCodec()
              {
                  Codec = "copy",
                  Parameters = ""

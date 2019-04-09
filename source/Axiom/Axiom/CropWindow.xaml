@@ -53,7 +53,7 @@
                VerticalAlignment="Top" 
                Width="20" />
         <TextBox x:Name="tbxCropX" 
-                 Text="{Binding Video_Crop_X_Text, Mode=TwoWay}"
+                 Text="{Binding VideoView.Video_Crop_X_Text, Mode=TwoWay}"
                  HorizontalAlignment="Left" 
                  Height="22" 
                  Margin="32,109,0,0" 
@@ -74,7 +74,7 @@
                VerticalAlignment="Top" 
                Width="21" />
         <TextBox x:Name="tbxCropY" 
-                 Text="{Binding Video_Crop_Y_Text, Mode=TwoWay}"
+                 Text="{Binding VideoView.Video_Crop_Y_Text, Mode=TwoWay}"
                  HorizontalAlignment="Left" 
                  Height="22" 
                  Margin="202,17,0,0" 
@@ -94,7 +94,7 @@
                VerticalAlignment="Top"
                Width="44" />
         <TextBox x:Name="tbxCropWidth" 
-                 Text="{Binding Video_Crop_Width_Text, Mode=TwoWay}"
+                 Text="{Binding VideoView.Video_Crop_Width_Text, Mode=TwoWay}"
                  HorizontalAlignment="Left" 
                  Height="22" 
                  Margin="170,109,0,0" 
@@ -114,7 +114,7 @@
                VerticalAlignment="Top" 
                Width="48" />
         <TextBox x:Name="tbxCropHeight" 
-                 Text="{Binding Video_Crop_Height_Text, Mode=TwoWay}"
+                 Text="{Binding VideoView.Video_Crop_Height_Text, Mode=TwoWay}"
                  HorizontalAlignment="Left"
                  Height="22"
                  Margin="235,109,0,0" 
@@ -166,3 +166,4 @@
 
     </Grid>
 </Window>
+    

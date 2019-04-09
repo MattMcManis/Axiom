@@ -426,7 +426,7 @@ namespace Axiom
         ///    Audio BitRate Display
         /// </summary>
         public static void AudioBitRateDisplay(
-                                               List<AudioView.AudioQuality> items,
+                                               List<AudioViewModel.AudioQuality> items,
                                                string selectedQuality
                                                )
         {

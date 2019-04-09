@@ -54,9 +54,9 @@ namespace Axiom
         // -------------------------
         // Quality
         // -------------------------
-        public static List<AudioView.AudioQuality> quality = new List<AudioView.AudioQuality>()
+        public static List<AudioViewModel.AudioQuality> quality = new List<AudioViewModel.AudioQuality>()
         {
-             new AudioView.AudioQuality() { Name = "None", CBR_BitMode = "", CBR = "", VBR_BitMode = "", VBR = "", NA = ""}
+             new AudioViewModel.AudioQuality() { Name = "None", CBR_BitMode = "", CBR = "", VBR_BitMode = "", VBR = "", NA = ""}
         };
 
         // -------------------------
@@ -70,17 +70,17 @@ namespace Axiom
         // -------------------------
         // Sample Rate
         // -------------------------
-        public static List<AudioView.AudioSampleRate> sampleRate = new List<AudioView.AudioSampleRate>()
+        public static List<AudioViewModel.AudioSampleRate> sampleRate = new List<AudioViewModel.AudioSampleRate>()
         {
-             new AudioView.AudioSampleRate() { Name = "auto", Frequency = "" }
+             new AudioViewModel.AudioSampleRate() { Name = "auto", Frequency = "" }
         };
 
         // -------------------------
         // Bit Depth
         // -------------------------
-        public static List<AudioView.AudioBitDepth> bitDepth = new List<AudioView.AudioBitDepth>()
+        public static List<AudioViewModel.AudioBitDepth> bitDepth = new List<AudioViewModel.AudioBitDepth>()
         {
-             new AudioView.AudioBitDepth() { Name = "auto", Depth = "" }
+             new AudioViewModel.AudioBitDepth() { Name = "auto", Depth = "" }
         };
 
 

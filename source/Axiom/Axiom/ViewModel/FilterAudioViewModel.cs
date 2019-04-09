@@ -28,7 +28,7 @@ using System.ComponentModel;
 
 namespace Axiom
 {
-    public class FilterAudioView : INotifyPropertyChanged
+    public class FilterAudioViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
         private void OnPropertyChanged(string prop)
@@ -48,7 +48,7 @@ namespace Axiom
         /// <summary>
         ///     Filter View Model
         /// </summary>
-        public FilterAudioView()
+        public FilterAudioViewModel()
         {
             LoadControlsDefaults();
         }

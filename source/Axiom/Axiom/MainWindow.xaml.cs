@@ -7058,8 +7058,7 @@ namespace Axiom
             // -------------------------
             // Display Bit Rate in TextBox
             // -------------------------
-            AudioControls.AudioBitRateDisplay(
-                                              VM.AudioView.Audio_Quality_Items,
+            AudioControls.AudioBitRateDisplay(VM.AudioView.Audio_Quality_Items,
                                               VM.AudioView.Audio_Quality_SelectedItem
                                               );
 
@@ -7080,8 +7079,7 @@ namespace Axiom
             // -------------------------
             // Display Bit Rate in TextBox
             // -------------------------
-            AudioControls.AudioBitRateDisplay(
-                                              VM.AudioView.Audio_Quality_Items,
+            AudioControls.AudioBitRateDisplay(VM.AudioView.Audio_Quality_Items,
                                               VM.AudioView.Audio_Quality_SelectedItem
                                               );
         }
@@ -7096,8 +7094,7 @@ namespace Axiom
             // -------------------------
             // Display Bit Rate in TextBox
             // -------------------------
-            AudioControls.AudioBitRateDisplay(
-                                              VM.AudioView.Audio_Quality_Items,
+            AudioControls.AudioBitRateDisplay(VM.AudioView.Audio_Quality_Items,
                                               VM.AudioView.Audio_Quality_SelectedItem
                                               );
         }

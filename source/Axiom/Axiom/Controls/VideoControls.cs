@@ -574,7 +574,7 @@ namespace Axiom
         /// <summary>
         ///    BitRate Display
         /// </summary>
-        public static void VideoBitRateDisplay(List<VideoView.VideoQuality> items,
+        public static void VideoBitRateDisplay(List<VideoViewModel.VideoQuality> items,
                                                string selectedQuality,
                                                string selectedPass)
         {

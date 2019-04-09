@@ -51,10 +51,7 @@ namespace Axiom
                     VM.FormatView.Format_Container_SelectedItem == "png" ||
                     VM.FormatView.Format_Container_SelectedItem == "webp")
                 {
-                    //VM.MainView.Preset.IsEditable = false;
-
                     // Format
-                    //VM.FormatView.Format_Container_SelectedItem = VM.FormatView.Format_Container_Items.FirstOrDefault();
                     VM.FormatView.Format_Container_SelectedItem = "webm";
                     VM.FormatView.Format_Cut_SelectedItem = "No";
                     VM.FormatView.Format_CutStart_Hours_Text = "00";

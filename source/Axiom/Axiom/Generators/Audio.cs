@@ -103,7 +103,7 @@ namespace Axiom
         ///     BitRate Mode
         /// <summary>
         public static String BitRateMode(bool vbr_IsChecked,
-                                         List<AudioView.AudioQuality> quality_Items,
+                                         List<AudioViewModel.AudioQuality> quality_Items,
                                          string quality_SelectedItem,
                                          string bitrate_Text)
         {
@@ -139,7 +139,7 @@ namespace Axiom
                                        string mediaType_SelectedItem,
                                        string stream_SelectedItem,
                                        string codec_SelectedItem,
-                                       List<AudioView.AudioQuality> quality_Items,
+                                       List<AudioViewModel.AudioQuality> quality_Items,
                                        string quality_SelectedItem,
                                        bool vbr_IsChecked
                                        )
@@ -304,7 +304,7 @@ namespace Axiom
         /// <summary>
         ///     Audio Quality - Lossless
         /// <summary>
-        public static void QualityLossless(List<AudioView.AudioQuality> quality_Items)
+        public static void QualityLossless(List<AudioViewModel.AudioQuality> quality_Items)
         {
             aLossless = quality_Items.FirstOrDefault(item => item.Name == "Lossless")?.Lossless;
         }
@@ -327,7 +327,7 @@ namespace Axiom
         /// <summary>
         public static void QualityCustom(bool vbr_IsChecked,
                                          string codec_SelectedItem,
-                                         List<AudioView.AudioQuality> quality_Items,
+                                         List<AudioViewModel.AudioQuality> quality_Items,
                                          string quality_SelectedItem,
                                          string bitrate_Text
                                          )
@@ -368,7 +368,7 @@ namespace Axiom
                                           string mediaType_SelectedItem,
                                           string stream_SelectedItem,
                                           string codec_SelectedItem,
-                                          List<AudioView.AudioQuality> quality_Items,
+                                          List<AudioViewModel.AudioQuality> quality_Items,
                                           string quality_SelectedItem,
                                           string bitrate_Text,
                                           bool vbr_IsChecked
@@ -619,7 +619,7 @@ namespace Axiom
         /// <summary>
         public static String AudioVBRCalculator(bool vbr_IsChecked, 
                                                 string codec_SelectedItem,
-                                                List<AudioView.AudioQuality> quality_Items,
+                                                List<AudioViewModel.AudioQuality> quality_Items,
                                                 string quality_SelectedItem,
                                                 string inputBitRate
                                                 )
@@ -888,7 +888,7 @@ namespace Axiom
         ///     Sample Rate
         /// <summary>
         public static String SampleRate(string codec_SelectedItem,
-                                        List<AudioView.AudioSampleRate> sampleRate_Items,
+                                        List<AudioViewModel.AudioSampleRate> sampleRate_Items,
                                         string sampleRate_SelectedItem
                                         )
         {
@@ -926,7 +926,7 @@ namespace Axiom
         ///     Bit Depth
         /// <summary>
         public static String BitDepth(string codec_SelectedItem,
-                                      List<AudioView.AudioBitDepth> bitDepth_Items,
+                                      List<AudioViewModel.AudioBitDepth> bitDepth_Items,
                                       string bitDepth_SelectedItem
                                      )
         {

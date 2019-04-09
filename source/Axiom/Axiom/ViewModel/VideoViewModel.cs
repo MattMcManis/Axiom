@@ -28,7 +28,7 @@ using System.ComponentModel;
 
 namespace Axiom
 {
-    public class VideoView : INotifyPropertyChanged
+    public class VideoViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
         private void OnPropertyChanged(string prop)
@@ -48,7 +48,7 @@ namespace Axiom
         /// <summary>
         ///     Video View Model
         /// </summary>
-        public VideoView()
+        public VideoViewModel()
         {
             LoadControlsDefaults();
         }

@@ -76,7 +76,7 @@ namespace Axiom
                             !string.Equals(presetName, "ntuser", StringComparison.CurrentCultureIgnoreCase)
                             )
                         {
-                            VM.MainView.Preset_Items.Insert(3, new MainView.Preset() { Name = presetName, Category = false, Type = "Custom" });
+                            VM.MainView.Preset_Items.Insert(3, new MainViewModel.Preset() { Name = presetName, Category = false, Type = "Custom" });
                         }
                     }
                 }

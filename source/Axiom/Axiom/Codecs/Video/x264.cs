@@ -32,9 +32,9 @@ namespace Axiom
         // ---------------------------------------------------------------------------
         // Codec
         // ---------------------------------------------------------------------------
-        public static List<VideoView.VideoCodec> codec = new List<VideoView.VideoCodec>()
+        public static List<VideoViewModel.VideoCodec> codec = new List<VideoViewModel.VideoCodec>()
         {
-             new VideoView.VideoCodec()
+             new VideoViewModel.VideoCodec()
              {
                  Codec = "libx264",
                  Parameters = ""
@@ -63,19 +63,19 @@ namespace Axiom
         // -------------------------
         // Encode Speed
         // -------------------------
-        public static List<VideoView.VideoEncodeSpeed> encodeSpeed = new List<VideoView.VideoEncodeSpeed>()
+        public static List<VideoViewModel.VideoEncodeSpeed> encodeSpeed = new List<VideoViewModel.VideoEncodeSpeed>()
         {
-             new VideoView.VideoEncodeSpeed() { Name = "none",       Command = ""},
-             new VideoView.VideoEncodeSpeed() { Name = "Placebo",    Command = "-preset placebo" },
-             new VideoView.VideoEncodeSpeed() { Name = "Very Slow",  Command = "-preset veryslow" },
-             new VideoView.VideoEncodeSpeed() { Name = "Slower",     Command = "-preset slower" },
-             new VideoView.VideoEncodeSpeed() { Name = "Slow",       Command = "-preset slow" },
-             new VideoView.VideoEncodeSpeed() { Name = "Medium",     Command = "-preset medium" },
-             new VideoView.VideoEncodeSpeed() { Name = "Fast",       Command = "-preset fast" },
-             new VideoView.VideoEncodeSpeed() { Name = "Faster",     Command = "-preset faster" },
-             new VideoView.VideoEncodeSpeed() { Name = "Very Fast",  Command = "-preset veryfast" },
-             new VideoView.VideoEncodeSpeed() { Name = "Super Fast", Command = "-preset superfast" },
-             new VideoView.VideoEncodeSpeed() { Name = "Ultra Fast", Command = "-preset ultrafast" }
+             new VideoViewModel.VideoEncodeSpeed() { Name = "none",       Command = ""},
+             new VideoViewModel.VideoEncodeSpeed() { Name = "Placebo",    Command = "-preset placebo" },
+             new VideoViewModel.VideoEncodeSpeed() { Name = "Very Slow",  Command = "-preset veryslow" },
+             new VideoViewModel.VideoEncodeSpeed() { Name = "Slower",     Command = "-preset slower" },
+             new VideoViewModel.VideoEncodeSpeed() { Name = "Slow",       Command = "-preset slow" },
+             new VideoViewModel.VideoEncodeSpeed() { Name = "Medium",     Command = "-preset medium" },
+             new VideoViewModel.VideoEncodeSpeed() { Name = "Fast",       Command = "-preset fast" },
+             new VideoViewModel.VideoEncodeSpeed() { Name = "Faster",     Command = "-preset faster" },
+             new VideoViewModel.VideoEncodeSpeed() { Name = "Very Fast",  Command = "-preset veryfast" },
+             new VideoViewModel.VideoEncodeSpeed() { Name = "Super Fast", Command = "-preset superfast" },
+             new VideoViewModel.VideoEncodeSpeed() { Name = "Ultra Fast", Command = "-preset ultrafast" }
         };
 
         // -------------------------
@@ -104,16 +104,16 @@ namespace Axiom
         // -------------------------
         // Quality
         // -------------------------
-        public static List<VideoView.VideoQuality> quality = new List<VideoView.VideoQuality>()
+        public static List<VideoViewModel.VideoQuality> quality = new List<VideoViewModel.VideoQuality>()
         {
-             new VideoView.VideoQuality() { Name = "Auto",      CRF = "",   CBR_BitMode = "-b:v", CBR = "",      VBR_BitMode = "-q:v", VBR = "",      MinRate = "", MaxRate = "", BufSize ="", NA = "3000K" },
-             new VideoView.VideoQuality() { Name = "Lossless",  CRF = "",   CBR_BitMode = "",     CBR = "",      VBR_BitMode = "",     VBR = "",      MinRate = "", MaxRate = "", BufSize ="", Lossless = "-qp 0" },
-             new VideoView.VideoQuality() { Name = "Ultra",     CRF = "16", CBR_BitMode = "-b:v", CBR = "5000K", VBR_BitMode = "-q:v", VBR = "5000K", MinRate = "", MaxRate = "", BufSize ="" },
-             new VideoView.VideoQuality() { Name = "High",      CRF = "20", CBR_BitMode = "-b:v", CBR = "2500K", VBR_BitMode = "-q:v", VBR = "2500K", MinRate = "", MaxRate = "", BufSize ="" },
-             new VideoView.VideoQuality() { Name = "Medium",    CRF = "25", CBR_BitMode = "-b:v", CBR = "1300K", VBR_BitMode = "-q:v", VBR = "1300K", MinRate = "", MaxRate = "", BufSize ="" },
-             new VideoView.VideoQuality() { Name = "Low",       CRF = "35", CBR_BitMode = "-b:v", CBR = "600K",  VBR_BitMode = "-q:v", VBR = "600K",  MinRate = "", MaxRate = "", BufSize ="" },
-             new VideoView.VideoQuality() { Name = "Sub",       CRF = "45", CBR_BitMode = "-b:v", CBR = "250K",  VBR_BitMode = "-q:v", VBR = "250K",  MinRate = "", MaxRate = "", BufSize ="" },
-             new VideoView.VideoQuality() { Name = "Custom",    CRF = "",   CBR_BitMode = "-b:v", CBR = "",      VBR_BitMode = "-q:v",     VBR = "",  MinRate = "", MaxRate = "", BufSize ="" }
+             new VideoViewModel.VideoQuality() { Name = "Auto",      CRF = "",   CBR_BitMode = "-b:v", CBR = "",      VBR_BitMode = "-q:v", VBR = "",      MinRate = "", MaxRate = "", BufSize ="", NA = "3000K" },
+             new VideoViewModel.VideoQuality() { Name = "Lossless",  CRF = "",   CBR_BitMode = "",     CBR = "",      VBR_BitMode = "",     VBR = "",      MinRate = "", MaxRate = "", BufSize ="", Lossless = "-qp 0" },
+             new VideoViewModel.VideoQuality() { Name = "Ultra",     CRF = "16", CBR_BitMode = "-b:v", CBR = "5000K", VBR_BitMode = "-q:v", VBR = "5000K", MinRate = "", MaxRate = "", BufSize ="" },
+             new VideoViewModel.VideoQuality() { Name = "High",      CRF = "20", CBR_BitMode = "-b:v", CBR = "2500K", VBR_BitMode = "-q:v", VBR = "2500K", MinRate = "", MaxRate = "", BufSize ="" },
+             new VideoViewModel.VideoQuality() { Name = "Medium",    CRF = "25", CBR_BitMode = "-b:v", CBR = "1300K", VBR_BitMode = "-q:v", VBR = "1300K", MinRate = "", MaxRate = "", BufSize ="" },
+             new VideoViewModel.VideoQuality() { Name = "Low",       CRF = "35", CBR_BitMode = "-b:v", CBR = "600K",  VBR_BitMode = "-q:v", VBR = "600K",  MinRate = "", MaxRate = "", BufSize ="" },
+             new VideoViewModel.VideoQuality() { Name = "Sub",       CRF = "45", CBR_BitMode = "-b:v", CBR = "250K",  VBR_BitMode = "-q:v", VBR = "250K",  MinRate = "", MaxRate = "", BufSize ="" },
+             new VideoViewModel.VideoQuality() { Name = "Custom",    CRF = "",   CBR_BitMode = "-b:v", CBR = "",      VBR_BitMode = "-q:v",     VBR = "",  MinRate = "", MaxRate = "", BufSize ="" }
         };
 
         // -------------------------
@@ -216,22 +216,22 @@ namespace Axiom
         // -------------------------
         // Optimize
         // -------------------------
-        public static List<VideoView.VideoOptimize> optimize = new List<VideoView.VideoOptimize>()
+        public static List<VideoViewModel.VideoOptimize> optimize = new List<VideoViewModel.VideoOptimize>()
         {
-            new VideoView.VideoOptimize() { Name = "None",      Tune = "none",      Profile = "none",     Level = "none", Command = "" },
-            new VideoView.VideoOptimize() { Name = "Custom",    Tune = "none",      Profile = "none",     Level = "none", Command = "" },
-            new VideoView.VideoOptimize() { Name = "Web",       Tune = "none",      Profile = "baseline", Level = "3.0",  Command = "-movflags +faststart" },
-            new VideoView.VideoOptimize() { Name = "Animation", Tune = "animation", Profile = "main",     Level = "4.1",  Command = "" },
-            new VideoView.VideoOptimize() { Name = "PC HD",     Tune = "none",      Profile = "high",     Level = "4.2",  Command = "" },
-            new VideoView.VideoOptimize() { Name = "PC SD",     Tune = "none",      Profile = "baseline", Level = "3.1",  Command = "" },
-            new VideoView.VideoOptimize() { Name = "Blu-ray",   Tune = "none",      Profile = "main",     Level = "4.1",  Command = "-deblock 0:0 -sar 1/1 -x264-params \"bluray-compat=1:level=4.1:open-gop=1:slices=4:tff=1:colorprim=bt709:colormatrix=bt709:vbv-maxrate=40000:vbv-bufsize=30000:me=umh:ref=4:nal-hrd=vbr:aud=1:b-pyramid=strict\"" },
-            new VideoView.VideoOptimize() { Name = "Windows",   Tune = "none",      Profile = "baseline", Level = "3.1",  Command = "" },
-            new VideoView.VideoOptimize() { Name = "Apple",     Tune = "none",      Profile = "baseline", Level = "3.1",  Command = "" },
-            new VideoView.VideoOptimize() { Name = "Android",   Tune = "none",      Profile = "baseline", Level = "3.0",  Command = "" },
-            new VideoView.VideoOptimize() { Name = "PS3",       Tune = "none",      Profile = "main",     Level = "4.0",  Command = "" },
-            new VideoView.VideoOptimize() { Name = "PS4",       Tune = "none",      Profile = "high",     Level = "4.1",  Command = "" },
-            new VideoView.VideoOptimize() { Name = "Xbox 360",  Tune = "none",      Profile = "main",     Level = "4.0",  Command = "" },
-            new VideoView.VideoOptimize() { Name = "Xbox One",  Tune = "none",      Profile = "high",     Level = "4.1",  Command = "" }
+            new VideoViewModel.VideoOptimize() { Name = "None",      Tune = "none",      Profile = "none",     Level = "none", Command = "" },
+            new VideoViewModel.VideoOptimize() { Name = "Custom",    Tune = "none",      Profile = "none",     Level = "none", Command = "" },
+            new VideoViewModel.VideoOptimize() { Name = "Web",       Tune = "none",      Profile = "baseline", Level = "3.0",  Command = "-movflags +faststart" },
+            new VideoViewModel.VideoOptimize() { Name = "Animation", Tune = "animation", Profile = "main",     Level = "4.1",  Command = "" },
+            new VideoViewModel.VideoOptimize() { Name = "PC HD",     Tune = "none",      Profile = "high",     Level = "4.2",  Command = "" },
+            new VideoViewModel.VideoOptimize() { Name = "PC SD",     Tune = "none",      Profile = "baseline", Level = "3.1",  Command = "" },
+            new VideoViewModel.VideoOptimize() { Name = "Blu-ray",   Tune = "none",      Profile = "main",     Level = "4.1",  Command = "-deblock 0:0 -sar 1/1 -x264-params \"bluray-compat=1:level=4.1:open-gop=1:slices=4:tff=1:colorprim=bt709:colormatrix=bt709:vbv-maxrate=40000:vbv-bufsize=30000:me=umh:ref=4:nal-hrd=vbr:aud=1:b-pyramid=strict\"" },
+            new VideoViewModel.VideoOptimize() { Name = "Windows",   Tune = "none",      Profile = "baseline", Level = "3.1",  Command = "" },
+            new VideoViewModel.VideoOptimize() { Name = "Apple",     Tune = "none",      Profile = "baseline", Level = "3.1",  Command = "" },
+            new VideoViewModel.VideoOptimize() { Name = "Android",   Tune = "none",      Profile = "baseline", Level = "3.0",  Command = "" },
+            new VideoViewModel.VideoOptimize() { Name = "PS3",       Tune = "none",      Profile = "main",     Level = "4.0",  Command = "" },
+            new VideoViewModel.VideoOptimize() { Name = "PS4",       Tune = "none",      Profile = "high",     Level = "4.1",  Command = "" },
+            new VideoViewModel.VideoOptimize() { Name = "Xbox 360",  Tune = "none",      Profile = "main",     Level = "4.0",  Command = "" },
+            new VideoViewModel.VideoOptimize() { Name = "Xbox One",  Tune = "none",      Profile = "high",     Level = "4.1",  Command = "" }
         };
 
         // -------------------------
