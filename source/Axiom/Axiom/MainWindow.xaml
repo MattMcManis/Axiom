@@ -5790,6 +5790,7 @@
                            Text="Batch"
                            Margin="0,-2,0,0" />
             </ToggleButton>
+            
             <!-- Batch Textbox -->
             <TextBox x:Name="batchExtensionTextBox" 
                      Text="{Binding MainView.BatchExtension_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -5808,8 +5809,6 @@
                      ToolTip="File Extension in Folder to Batch Process (e.g. mp4)"/>
 
         </Grid>
-
-
 
     </Grid>
 </Window>

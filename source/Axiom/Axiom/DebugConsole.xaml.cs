@@ -290,19 +290,20 @@ namespace Axiom
             // Pass
             if (VM.VideoView.Video_Pass_IsEnabled == true)
             {
-                VM.VideoView.Video_EncodeSpeed_SelectedItem = SelectRandom(VM.VideoView.Video_Pass_Items);
+                VM.VideoView.Video_Pass_SelectedItem = SelectRandom(VM.VideoView.Video_Pass_Items);
             }
 
             // Pixel Format
             if (VM.VideoView.Video_PixelFormat_IsEnabled == true)
             {
-                VM.VideoView.Video_PixelFormat_SelectedItem = SelectRandom(VM.VideoView.Video_Pass_Items);
+                VM.VideoView.Video_PixelFormat_SelectedItem = SelectRandom(VM.VideoView.Video_PixelFormat_Items);
             }
 
             // Optimize
             if (VM.VideoView.Video_Optimize_IsEnabled == true)
             {
-                VM.VideoView.Video_Optimize_SelectedItem = SelectRandom(VM.VideoView.Video_Pass_Items);
+                List<string> optimize = VM.VideoView.Video_Quality_Items.Select(item => item.Name).ToList();
+                VM.VideoView.Video_Optimize_SelectedItem = SelectRandom(optimize);
             }
 
 
@@ -328,7 +329,7 @@ namespace Axiom
             // Channel
             if (VM.AudioView.Audio_Channel_IsEnabled == true)
             {
-                VM.AudioView.Audio_Channel_SelectedItem = SelectRandom(VM.AudioView.Audio_Codec_Items);
+                VM.AudioView.Audio_Channel_SelectedItem = SelectRandom(VM.AudioView.Audio_Channel_Items);
             }
 
             // Quality
@@ -350,15 +351,15 @@ namespace Axiom
             // Sample Rate
             if (VM.AudioView.Audio_SampleRate_IsEnabled == true)
             {
-                List<string> quality = VM.AudioView.Audio_SampleRate_Items.Select(item => item.Name).ToList();
-                VM.AudioView.Audio_SampleRate_SelectedItem = SelectRandom(quality);
+                List<string> sampleRate = VM.AudioView.Audio_SampleRate_Items.Select(item => item.Name).ToList();
+                VM.AudioView.Audio_SampleRate_SelectedItem = SelectRandom(sampleRate);
             }
 
             // Bit Depth
             if (VM.AudioView.Audio_BitDepth_IsEnabled == true)
             {
-                List<string> quality = VM.AudioView.Audio_BitDepth_Items.Select(item => item.Name).ToList();
-                VM.AudioView.Audio_BitDepth_SelectedItem = SelectRandom(quality);
+                List<string> bitDpeth = VM.AudioView.Audio_BitDepth_Items.Select(item => item.Name).ToList();
+                VM.AudioView.Audio_BitDepth_SelectedItem = SelectRandom(bitDpeth);
             }
         }
 

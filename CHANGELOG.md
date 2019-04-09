@@ -4,6 +4,18 @@ Axiom FFmpeg UI
 
 ## [alpha]
 
+## [1.7.4.0] - Apr 08, 2019
+### Added
+- Debug Random Controls Tester
+- Custom Preset Video FPS/Speed Custom Text
+
+### Changed
+- Improved ViewModel Binding
+- Improved Selective Color Display
+- Improved Video Size Custom Divisible Crop
+- Changed ViewModel names
+
+
 ## [1.7.3.0] - Apr 08, 2019
 ### Changed
 - Adjusted Presets
