@@ -65,7 +65,7 @@ Axiom is portable and can be run from any location on the computer.
 1. Move the `ffmpeg` folder to a location of your choice, such as `C:\Program Files\`.
 2. Go to Control Panel → System and Security → System → Advanced system settings
 3. Advanced Tab → Environment Variables → System variables → Path
-4. Add `C:\Program Files\FFmpeg\bin\`
+4. Add `C:\Program Files\ffmpeg\bin\`
 5. Separate multiple paths with semicolon `;`
 6. Typing `ffmpeg` in Command Prompt will now execute without needing to specify a direct path.
 
