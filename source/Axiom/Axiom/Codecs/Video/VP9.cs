@@ -359,6 +359,9 @@ namespace Axiom
 
             // Crop
             VM.VideoView.Video_Crop_IsEnabled = true;
+
+            // Subtitle Codec
+            VM.SubtitleView.Subtitle_Codec_IsEnabled = true;
         }
 
         // -------------------------
@@ -366,9 +369,6 @@ namespace Axiom
         // -------------------------
         public static void Controls_Disable()
         {
-            // Subtitle Codec
-            VM.SubtitleView.Subtitle_Codec_IsEnabled = false;
-
             // Subtitle Stream
             VM.SubtitleView.Subtitle_Stream_IsEnabled = false;
         }

@@ -710,7 +710,7 @@ namespace Axiom
 
                 // Limiter
                 VM.AudioView.Audio_HardLimiter_IsEnabled = false;
-                VM.AudioView.Audio_HardLimiter_Value = 1;
+                VM.AudioView.Audio_HardLimiter_Value = 0.0;
 
 
                 // -------------------------
@@ -811,7 +811,7 @@ namespace Axiom
 
                 // Limiter
                 VM.AudioView.Audio_HardLimiter_IsEnabled = false;
-                VM.AudioView.Audio_HardLimiter_Value = 1;
+                VM.AudioView.Audio_HardLimiter_Value = 0.0;
 
 
                 // -------------------------

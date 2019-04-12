@@ -5231,7 +5231,7 @@ namespace Axiom
 
                 // Filters
                 VM.AudioView.Audio_Volume_Text = "100";
-                VM.AudioView.Audio_HardLimiter_Value = 1;
+                VM.AudioView.Audio_HardLimiter_Value = 0.0;
                 VM.FilterAudioView.LoadFilterAudioDefaults();
             }
         }
@@ -7262,7 +7262,7 @@ namespace Axiom
         private void slAudio_HardLimiter_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             // Reset to default
-            VM.AudioView.Audio_HardLimiter_Value = 1;
+            VM.AudioView.Audio_HardLimiter_Value = 0.0;
 
             AudioControls.AutoCopyAudioCodec();
         }
@@ -8045,7 +8045,7 @@ namespace Axiom
         private void slAudioLimiter_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             // Reset to default
-            VM.AudioView.Audio_HardLimiter_Value = 1;
+            VM.AudioView.Audio_HardLimiter_Value = 0.0;
 
             AudioControls.AutoCopyAudioCodec();
         }

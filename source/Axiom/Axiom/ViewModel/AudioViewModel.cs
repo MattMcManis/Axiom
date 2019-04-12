@@ -755,7 +755,7 @@ namespace Axiom
         // Hard Limiter
         // -------------------------
         // Value
-        private double _Audio_HardLimiter_Value = 1;
+        private double _Audio_HardLimiter_Value = 0.0;
         public double Audio_HardLimiter_Value
         {
             get { return _Audio_HardLimiter_Value; }

@@ -525,7 +525,7 @@ namespace Axiom
                 VM.AudioView.Audio_Channel_SelectedItem == "Source" &&
                 VM.AudioView.Audio_SampleRate_SelectedItem == "auto" &&
                 VM.AudioView.Audio_BitDepth_SelectedItem == "auto" &&
-                VM.AudioView.Audio_HardLimiter_Value == 1 &&
+                VM.AudioView.Audio_HardLimiter_Value == 0.0 &&
                 VM.AudioView.Audio_Volume_Text == "100" &&
                 // Filters
                 VM.FilterAudioView.FilterAudio_Lowpass_SelectedItem == "disabled" &&

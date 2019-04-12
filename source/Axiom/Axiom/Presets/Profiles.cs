@@ -468,11 +468,22 @@ namespace Axiom
                 VM.AudioView.Audio_Volume_Text = inif.Read("Audio", "Volume_Text");
 
                 // Hard Limiter
+                string audio_HardLimiterStr = inif.Read("Audio", "HardLimiter_Value"); // old value before using dB
+
                 double audio_HardLimiter_Value;
                 double.TryParse(inif.Read("Audio", "HardLimiter_Value"), out audio_HardLimiter_Value);
-                VM.AudioView.Audio_HardLimiter_Value = audio_HardLimiter_Value;
 
+                if (audio_HardLimiterStr == "1.00") // Fixes the old default value
+                {
+                    // Change the new default value to use dB
+                    audio_HardLimiter_Value = 0.0;
+                }
+                else
+                {
+                    VM.AudioView.Audio_HardLimiter_Value = audio_HardLimiter_Value;
+                }
 
+               
                 // --------------------------------------------------
                 // Subtitle
                 // --------------------------------------------------
@@ -868,7 +879,7 @@ namespace Axiom
                 if (VM.VideoView.Video_Speed_IsEditable == false) // Selected
                 {
                     inif.Write("Video", "Speed_IsEditable", VM.VideoView.Video_Speed_IsEditable.ToString().ToLower());
-                    inif.Write("Video", "Speed_SelectedItem", VM.VideoView.Video_FPS_SelectedItem);          
+                    inif.Write("Video", "Speed_SelectedItem", VM.VideoView.Video_Speed_SelectedItem);          
                 }
                 else if (VM.VideoView.Video_Speed_IsEditable == true) // Custom
                 {

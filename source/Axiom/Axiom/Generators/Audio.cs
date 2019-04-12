@@ -645,29 +645,11 @@ namespace Axiom
                     aBitRateVBR = aBitRateVBR / 1000;
                 }
 
-                
-                // -------------------------
-                // AAC
-                // -------------------------
-                if (codec_SelectedItem == "AAC")
-                {
-                    // Above 400k 
-                    if (aBitRateVBR > 400)
-                    {
-                        //aBitRateVBR = 2;
-                        aBitRateVBR = Convert.ToDouble(quality_Items.FirstOrDefault(item => item.Name == "Auto")?.VBR);
-                    }
-                    else
-                    {
-                        // Calculate VBR
-                        aBitRateVBR = aBitRateVBR * 0.00625;
-                    }
-                }
 
                 // -------------------------
                 // Vorbis
                 // -------------------------
-                else if (codec_SelectedItem == "Vorbis")
+                if (codec_SelectedItem == "Vorbis")
                 {
                     // Above 290k set to 10 Quality
                     if (aBitRateVBR > 290)
@@ -709,12 +691,29 @@ namespace Axiom
                     }
                     else
                     {
-                        // e.g. 128000 to 128k
-                        aBitRateVBR = aBitRateVBR * 0.001;
+                        // Use the original -b:a bitrate detected (e.g. -b:a 256k)
                     }
 
                 }
 
+                // -------------------------
+                // AAC
+                // -------------------------
+                else if (codec_SelectedItem == "AAC")
+                {
+                    // Range 
+                    // Above 320k 
+                    if (aBitRateVBR > 400)
+                    {
+                        aBitRateVBR = Convert.ToDouble(quality_Items.FirstOrDefault(item => item.Name == "Auto")?.VBR);
+                    }
+                    else
+                    {
+                        // VBR User entered value algorithm (2 high / 0.1 low)
+                        aBitRateVBR = Math.Min(2, Math.Max(aBitRateVBR * 0.00625, 0.1));
+                    }
+                }
+           
                 // -------------------------
                 // MP2
                 // -------------------------
@@ -1252,16 +1251,153 @@ namespace Axiom
         /// <summary>
         public static void HardLimiter()
         {
+            // FFmpeg Range 0.0625 to 1
+            // FFmpeg Default 0
+            // Slider -24 to 0
+            // Slider Default 0
+            // Limit to 4 decimal places
+
             double value = VM.AudioView.Audio_HardLimiter_Value;
 
-            // If enabled and not default
-            if (VM.AudioView.Audio_HardLimiter_IsEnabled == true && 
-                value != 1)
-            {
-                aHardLimiter = "alimiter=level_in=1:level_out=1:limit=" + Convert.ToString(Math.Round(value, 2)) + ":attack=7:release=100:level=disabled";
+            aHardLimiter = string.Empty;
 
-                // Add to Audio Filters
-                AudioFilters.aFiltersList.Add(aHardLimiter);
+            if (VM.AudioView.Audio_HardLimiter_IsEnabled == true &&
+                value != 0)
+            {
+
+                try
+                {
+                    string limit = string.Empty;
+
+                    // -0.1 to -3dB
+                    if (value > -4)
+                    {
+                        limit = Convert.ToString(
+                                        Math.Round(
+                                            MainWindow.NormalizeValue(
+                                                                  value, // input
+                                                                     -3, // input min
+                                                                   -0.1, // input max
+                                                                    0.7, // normalize min
+                                                                   0.99, // normalize max
+                                                                  0.845  // midpoint
+                                                        )
+
+                                                    , 4 // max decimal places
+                                                )
+                                            );
+                    }
+
+                    // -4 to -7dB
+                    else if (value <= -4 && value >= -7)
+                    {
+                        limit = Convert.ToString(
+                                        Math.Round(
+                                            MainWindow.NormalizeValue(
+                                                                  value, // input
+                                                                     -7, // input min
+                                                                     -4, // input max
+                                                                   0.45, // normalize min
+                                                                   0.65, // normalize max
+                                                                   0.55  // midpoint
+                                                        )
+
+                                                    , 4 // max decimal places
+                                                )
+                                            );
+                    }
+
+                    // -8 to -10dB
+                    else if (value <= -8 && value >= -10)
+                    {
+                        limit = Convert.ToString(
+                                        Math.Round(
+                                            MainWindow.NormalizeValue(
+                                                                   value, // input
+                                                                     -10, // input min
+                                                                      -8, // input max
+                                                                     0.3, // normalize min
+                                                                     0.4, // normalize max
+                                                                    0.35  // midpoint
+                                                        )
+
+                                                    , 4 // max decimal places
+                                                )
+                                            );
+                    }
+
+                    // -11 to -16dB
+                    else if (value <= -11 && value >= -16)
+                    {
+                        limit = Convert.ToString(
+                                        Math.Round(
+                                            MainWindow.NormalizeValue(
+                                                                   value, // input
+                                                                     -16, // input min
+                                                                     -11, // input max
+                                                                    0.15, // normalize min
+                                                                   0.275, // normalize max
+                                                                  0.2125  // midpoint
+                                                        )
+
+                                                    , 4 // max decimal places
+                                                )
+                                            );
+                    }
+
+                    // -17 to -19dB
+                    else if (value <= -17 && value >= -19)
+                    {
+                        limit = Convert.ToString(
+                                        Math.Round(
+                                            MainWindow.NormalizeValue(
+                                                                  value, // input
+                                                                    -19, // input min
+                                                                    -17, // input max
+                                                                    0.1, // normalize min
+                                                                  0.135, // normalize max
+                                                                 0.1175  // midpoint
+                                                        )
+
+                                                    , 8 // max decimal places
+                                                )
+                                            );
+                    }
+
+                    // -20 to -24dB
+                    else if (value <= -20)
+                    {
+                        limit = Convert.ToString(
+                                        Math.Round(
+                                            MainWindow.NormalizeValue(
+                                                                  value, // input
+                                                                    -24, // input min
+                                                                    -20, // input max
+                                                                 0.0625, // normalize min
+                                                                 0.0975, // normalize max
+                                                                   0.08  // midpoint
+                                                        )
+
+                                                    , 4 // max decimal places
+                                                )
+                                            );
+                    }
+
+                    aHardLimiter = "alimiter=level_in=1:level_out=1:limit=" + limit + ":attack=7:release=100:level=disabled";
+
+                    // Add to Filters List
+                    AudioFilters.aFiltersList.Add(aHardLimiter);
+                }
+                catch
+                {
+                    // Log Console Message /////////
+                    Log.WriteAction = () =>
+                    {
+                        Log.logParagraph.Inlines.Add(new LineBreak());
+                        Log.logParagraph.Inlines.Add(new Bold(new Run("Error: Could not set Hard Limiter .")) { Foreground = Log.ConsoleDefault });
+                    };
+                    Log.LogActions.Add(Log.WriteAction);
+                }
             }
         }
 

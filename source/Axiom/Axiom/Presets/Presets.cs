@@ -102,7 +102,7 @@ namespace Axiom
                     VM.AudioView.Audio_SampleRate_SelectedItem = "auto";
                     VM.AudioView.Audio_BitDepth_SelectedItem = "auto";
                     VM.AudioView.Audio_Volume_Text = "100";
-                    VM.AudioView.Audio_HardLimiter_Value = 1;
+                    VM.AudioView.Audio_HardLimiter_Value = 0.0;
 
                     // special rules for webm
                     if (VM.FormatView.Format_Container_SelectedItem == "webm")
@@ -202,7 +202,7 @@ namespace Axiom
                     }
 
                     VM.AudioView.Audio_Volume_Text = "100";
-                    VM.AudioView.Audio_HardLimiter_Value = 1;
+                    VM.AudioView.Audio_HardLimiter_Value = 0.0;
 
                     // Filters
                     VM.FilterVideoView.LoadFilterVideoDefaults();
@@ -276,7 +276,7 @@ namespace Axiom
                 VM.AudioView.Audio_SampleRate_SelectedItem = "44.1k";
                 VM.AudioView.Audio_BitDepth_SelectedItem = "auto";
                 VM.AudioView.Audio_Volume_Text = "100";
-                VM.AudioView.Audio_HardLimiter_Value = 1;
+                VM.AudioView.Audio_HardLimiter_Value = 0.0;
 
                 // Filters
                 VM.FilterVideoView.LoadFilterVideoDefaults();
@@ -345,7 +345,7 @@ namespace Axiom
                 VM.AudioView.Audio_SampleRate_SelectedItem = "auto";
                 VM.AudioView.Audio_BitDepth_SelectedItem = "auto";
                 VM.AudioView.Audio_Volume_Text = "100";
-                VM.AudioView.Audio_HardLimiter_Value = 1;
+                VM.AudioView.Audio_HardLimiter_Value = 0.0;
 
                 // Filters
                 VM.FilterVideoView.LoadFilterVideoDefaults();
@@ -418,7 +418,7 @@ namespace Axiom
                 VM.AudioView.Audio_SampleRate_SelectedItem = "auto";
                 VM.AudioView.Audio_BitDepth_SelectedItem = "auto";
                 VM.AudioView.Audio_Volume_Text = "100";
-                VM.AudioView.Audio_HardLimiter_Value = 1;
+                VM.AudioView.Audio_HardLimiter_Value = 0.0;
 
                 // Filters
                 VM.FilterVideoView.LoadFilterVideoDefaults();
@@ -502,7 +502,7 @@ namespace Axiom
                 VM.AudioView.Audio_SampleRate_SelectedItem = "auto";
                 VM.AudioView.Audio_BitDepth_SelectedItem = "auto";
                 VM.AudioView.Audio_Volume_Text = "100";
-                VM.AudioView.Audio_HardLimiter_Value = 1;
+                VM.AudioView.Audio_HardLimiter_Value = 0.0;
 
                 // Filters
                 VM.FilterVideoView.LoadFilterVideoDefaults();
@@ -592,7 +592,7 @@ namespace Axiom
                 VM.AudioView.Audio_SampleRate_SelectedItem = "auto";
                 VM.AudioView.Audio_BitDepth_SelectedItem = "auto";
                 VM.AudioView.Audio_Volume_Text = "100";
-                VM.AudioView.Audio_HardLimiter_Value = 1;
+                VM.AudioView.Audio_HardLimiter_Value = 0.0;
 
                 // Filters
                 VM.FilterVideoView.LoadFilterVideoDefaults();
@@ -676,7 +676,7 @@ namespace Axiom
                 VM.AudioView.Audio_SampleRate_SelectedItem = "44.1k";
                 VM.AudioView.Audio_BitDepth_SelectedItem = "auto";
                 VM.AudioView.Audio_Volume_Text = "100";
-                VM.AudioView.Audio_HardLimiter_Value = 1;
+                VM.AudioView.Audio_HardLimiter_Value = 0.0;
 
                 // Filters
                 VM.FilterVideoView.LoadFilterVideoDefaults();
@@ -752,7 +752,7 @@ namespace Axiom
                 VM.AudioView.Audio_SampleRate_SelectedItem = "auto";
                 VM.AudioView.Audio_BitDepth_SelectedItem = "auto";
                 VM.AudioView.Audio_Volume_Text = "100";
-                VM.AudioView.Audio_HardLimiter_Value = 1;
+                VM.AudioView.Audio_HardLimiter_Value = 0.0;
 
                 // Filters
                 VM.FilterVideoView.LoadFilterVideoDefaults();
@@ -824,7 +824,7 @@ namespace Axiom
                 VM.AudioView.Audio_SampleRate_SelectedItem = "auto";
                 VM.AudioView.Audio_BitDepth_SelectedItem = "auto";
                 VM.AudioView.Audio_Volume_Text = "100";
-                VM.AudioView.Audio_HardLimiter_Value = 1;
+                VM.AudioView.Audio_HardLimiter_Value = 0.0;
 
                 // Filters
                 VM.FilterVideoView.LoadFilterVideoDefaults();
@@ -896,7 +896,7 @@ namespace Axiom
                 VM.AudioView.Audio_SampleRate_SelectedItem = "auto";
                 VM.AudioView.Audio_BitDepth_SelectedItem = "auto";
                 VM.AudioView.Audio_Volume_Text = "100";
-                VM.AudioView.Audio_HardLimiter_Value = 1;
+                VM.AudioView.Audio_HardLimiter_Value = 0.0;
 
                 // Filters
                 VM.FilterVideoView.LoadFilterVideoDefaults();
@@ -968,7 +968,7 @@ namespace Axiom
                 VM.AudioView.Audio_SampleRate_SelectedItem = "auto";
                 VM.AudioView.Audio_BitDepth_SelectedItem = "auto";
                 VM.AudioView.Audio_Volume_Text = "100";
-                VM.AudioView.Audio_HardLimiter_Value = 1;
+                VM.AudioView.Audio_HardLimiter_Value = 0.0;
 
                 // Filters
                 VM.FilterVideoView.LoadFilterVideoDefaults();
@@ -1040,7 +1040,7 @@ namespace Axiom
                 VM.AudioView.Audio_SampleRate_SelectedItem = "auto";
                 VM.AudioView.Audio_BitDepth_SelectedItem = "auto";
                 VM.AudioView.Audio_Volume_Text = "100";
-                VM.AudioView.Audio_HardLimiter_Value = 1;
+                VM.AudioView.Audio_HardLimiter_Value = 0.0;
 
                 // Filters
                 VM.FilterVideoView.LoadFilterVideoDefaults();
@@ -1113,7 +1113,7 @@ namespace Axiom
                 VM.AudioView.Audio_SampleRate_SelectedItem = "44.1k";
                 VM.AudioView.Audio_BitDepth_SelectedItem = "auto";
                 VM.AudioView.Audio_Volume_Text = "100";
-                VM.AudioView.Audio_HardLimiter_Value = 1;
+                VM.AudioView.Audio_HardLimiter_Value = 0.0;
 
                 // Filters
                 VM.FilterVideoView.LoadFilterVideoDefaults();
@@ -1182,7 +1182,7 @@ namespace Axiom
                 VM.AudioView.Audio_SampleRate_SelectedItem = "44.1k";
                 VM.AudioView.Audio_BitDepth_SelectedItem = "auto";
                 VM.AudioView.Audio_Volume_Text = "100";
-                VM.AudioView.Audio_HardLimiter_Value = 1;
+                VM.AudioView.Audio_HardLimiter_Value = 0.0;
 
                 // Filters
                 VM.FilterVideoView.LoadFilterVideoDefaults();
@@ -1255,7 +1255,7 @@ namespace Axiom
                 VM.AudioView.Audio_SampleRate_SelectedItem = "48k";
                 VM.AudioView.Audio_BitDepth_SelectedItem = "auto";
                 VM.AudioView.Audio_Volume_Text = "100";
-                VM.AudioView.Audio_HardLimiter_Value = 1;
+                VM.AudioView.Audio_HardLimiter_Value = 0.0;
 
                 // Filters
                 VM.FilterVideoView.LoadFilterVideoDefaults();
@@ -1324,7 +1324,7 @@ namespace Axiom
                 VM.AudioView.Audio_VBR_IsChecked = false;
                 VM.AudioView.Audio_CompressionLevel_SelectedItem = "auto";
                 VM.AudioView.Audio_Volume_Text = "100";
-                VM.AudioView.Audio_HardLimiter_Value = 1;
+                VM.AudioView.Audio_HardLimiter_Value = 0.0;
 
                 // Filters
                 VM.FilterVideoView.LoadFilterVideoDefaults();
@@ -1393,7 +1393,7 @@ namespace Axiom
                 VM.AudioView.Audio_VBR_IsChecked = false;
                 VM.AudioView.Audio_CompressionLevel_SelectedItem = "auto";
                 VM.AudioView.Audio_Volume_Text = "100";
-                VM.AudioView.Audio_HardLimiter_Value = 1;
+                VM.AudioView.Audio_HardLimiter_Value = 0.0;
 
                 // Filters
                 VM.FilterVideoView.LoadFilterVideoDefaults();
@@ -1462,7 +1462,7 @@ namespace Axiom
                 VM.AudioView.Audio_VBR_IsChecked = false;
                 VM.AudioView.Audio_CompressionLevel_SelectedItem = "auto";
                 VM.AudioView.Audio_Volume_Text = "100";
-                VM.AudioView.Audio_HardLimiter_Value = 1;
+                VM.AudioView.Audio_HardLimiter_Value = 0.0;
 
                 // Filters
                 VM.FilterVideoView.LoadFilterVideoDefaults();
@@ -1535,7 +1535,7 @@ namespace Axiom
                 VM.AudioView.Audio_SampleRate_SelectedItem = "48k";
                 VM.AudioView.Audio_BitDepth_SelectedItem = "auto";
                 VM.AudioView.Audio_Volume_Text = "100";
-                VM.AudioView.Audio_HardLimiter_Value = 1;
+                VM.AudioView.Audio_HardLimiter_Value = 0.0;
 
                 // Filters
                 VM.FilterVideoView.LoadFilterVideoDefaults();
@@ -1604,7 +1604,7 @@ namespace Axiom
                 VM.AudioView.Audio_SampleRate_SelectedItem = "48k";
                 VM.AudioView.Audio_BitDepth_SelectedItem = "auto";
                 VM.AudioView.Audio_Volume_Text = "100";
-                VM.AudioView.Audio_HardLimiter_Value = 1;
+                VM.AudioView.Audio_HardLimiter_Value = 0.0;
 
                 // Filters
                 VM.FilterVideoView.LoadFilterVideoDefaults();
@@ -1670,7 +1670,7 @@ namespace Axiom
                 VM.AudioView.Audio_SampleRate_SelectedItem = "44.1k";
                 VM.AudioView.Audio_BitDepth_SelectedItem = "auto";
                 VM.AudioView.Audio_Volume_Text = "100";
-                VM.AudioView.Audio_HardLimiter_Value = 1;
+                VM.AudioView.Audio_HardLimiter_Value = 0.0;
 
                 // Filters
                 VM.FilterVideoView.LoadFilterVideoDefaults();
@@ -1743,7 +1743,7 @@ namespace Axiom
                 VM.AudioView.Audio_SampleRate_SelectedItem = "auto";
                 VM.AudioView.Audio_BitDepth_SelectedItem = "auto";
                 VM.AudioView.Audio_Volume_Text = "100";
-                VM.AudioView.Audio_HardLimiter_Value = 1;
+                VM.AudioView.Audio_HardLimiter_Value = 0.0;
 
                 // Filters
                 VM.FilterVideoView.LoadFilterVideoDefaults();
@@ -1824,7 +1824,7 @@ namespace Axiom
                 VM.AudioView.Audio_SampleRate_SelectedItem = "auto";
                 VM.AudioView.Audio_BitDepth_SelectedItem = "auto";
                 VM.AudioView.Audio_Volume_Text = "100";
-                VM.AudioView.Audio_HardLimiter_Value = 1;
+                VM.AudioView.Audio_HardLimiter_Value = 0.0;
 
                 // Filters
                 VM.FilterVideoView.LoadFilterVideoDefaults();
@@ -1893,7 +1893,7 @@ namespace Axiom
                 VM.AudioView.Audio_SampleRate_SelectedItem = "auto";
                 VM.AudioView.Audio_BitDepth_SelectedItem = "auto";
                 VM.AudioView.Audio_Volume_Text = "100";
-                VM.AudioView.Audio_HardLimiter_Value = 1;
+                VM.AudioView.Audio_HardLimiter_Value = 0.0;
 
                 // Filters
                 VM.FilterVideoView.LoadFilterVideoDefaults();
@@ -1962,7 +1962,7 @@ namespace Axiom
                 VM.AudioView.Audio_SampleRate_SelectedItem = "auto";
                 VM.AudioView.Audio_BitDepth_SelectedItem = "auto";
                 VM.AudioView.Audio_Volume_Text = "100";
-                VM.AudioView.Audio_HardLimiter_Value = 1;
+                VM.AudioView.Audio_HardLimiter_Value = 0.0;
 
                 // Filters
                 VM.FilterVideoView.LoadFilterVideoDefaults();
@@ -2037,7 +2037,7 @@ namespace Axiom
                 VM.AudioView.Audio_SampleRate_SelectedItem = "auto";
                 VM.AudioView.Audio_BitDepth_SelectedItem = "auto";
                 VM.AudioView.Audio_Volume_Text = "100";
-                VM.AudioView.Audio_HardLimiter_Value = 1;
+                VM.AudioView.Audio_HardLimiter_Value = 0.0;
 
                 // Filters
                 VM.FilterVideoView.LoadFilterVideoDefaults();
@@ -2106,7 +2106,7 @@ namespace Axiom
                 VM.AudioView.Audio_SampleRate_SelectedItem = "auto";
                 VM.AudioView.Audio_BitDepth_SelectedItem = "auto";
                 VM.AudioView.Audio_Volume_Text = "100";
-                VM.AudioView.Audio_HardLimiter_Value = 1;
+                VM.AudioView.Audio_HardLimiter_Value = 0.0;
 
                 // Filters
                 VM.FilterVideoView.LoadFilterVideoDefaults();
