@@ -4,6 +4,19 @@ Axiom FFmpeg UI
 
 ## [alpha]
 
+## [1.7.5.0] - Apr 11, 2019
+### Added
+- Min/Max to Audio VBR `AAC` Calculator
+
+### Changed
+- Changed Audio Hard Limiter to use Decibels
+- Enabled mkv `VP9` Subtitles
+
+### Fixed
+- Audio Codec `Opus` Auto Quality VBR Calculator
+- Custom Profiles Export Video Speed
+
+
 ## [1.7.4.0] - Apr 08, 2019
 ### Added
 - Debug Random Controls Tester
