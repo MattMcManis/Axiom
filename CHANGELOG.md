@@ -4,6 +4,11 @@ Axiom FFmpeg UI
 
 ## [alpha]
 
+## [1.7.5.1] - Apr 18, 2019
+### Fixed
+- Config App Root Load Custom Presets
+
+
 ## [1.7.5.0] - Apr 11, 2019
 ### Added
 - Min/Max to Audio VBR `AAC` Calculator
