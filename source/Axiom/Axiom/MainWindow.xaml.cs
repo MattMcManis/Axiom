@@ -1545,12 +1545,11 @@ namespace Axiom
                 VM.ConfigureView.CustomPresetsPath_Text = buffer.First();
             }
 
-           
-            //// -------------------------
-            //// Load Custom Presets
-            //// Refresh Presets ComboBox
-            //// -------------------------
-            //Profiles.LoadCustomPresets();
+            // -------------------------
+            // Load Custom Presets
+            // Refresh Presets ComboBox
+            // -------------------------
+            Profiles.LoadCustomPresets();
         }
 
         /// <summary>
@@ -1561,7 +1560,6 @@ namespace Axiom
             // -------------------------
             // Display Folder Path in Textbox
             // -------------------------
-
             // AppData Local
             if (VM.ConfigureView.ConfigPath_SelectedItem == "AppData Local")
             {
@@ -1592,8 +1590,13 @@ namespace Axiom
                 {
                     VM.ConfigureView.CustomPresetsPath_Text = appRootDir + @"presets\";
                 }
-                    
-            } 
+            }
+
+            // -------------------------
+            // Load Custom Presets
+            // Refresh Presets ComboBox
+            // -------------------------
+            Profiles.LoadCustomPresets();
         }
 
 
@@ -5966,7 +5969,7 @@ namespace Axiom
             // -------------------------
             // Set Preset Dir, Name, Ext
             // -------------------------
-            string presetsDir = Path.GetDirectoryName(@Profiles.presetsDir).TrimEnd('\\') + @"\";
+            string presetsDir = Path.GetDirectoryName(/*@Profiles.presetsDir)*/VM.ConfigureView.CustomPresetsPath_Text).TrimEnd('\\') + @"\";
             string presetFileName = Path.GetFileNameWithoutExtension(VM.MainView.Preset_SelectedItem);
             string presetExt = Path.GetExtension(".ini");
             string preset = presetsDir + presetFileName + presetExt;

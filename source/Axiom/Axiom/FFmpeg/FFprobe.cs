@@ -425,6 +425,10 @@ namespace Axiom
                         inputMetaData = inputMetaData.Trim();
                         inputMetaData = inputMetaData.TrimEnd();
                     }
+                    else
+                    {
+                        inputMetaData = string.Empty;
+                    }
 
                     FFprobeParse.Dispose();
                 }

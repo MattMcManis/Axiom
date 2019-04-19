@@ -495,11 +495,11 @@ namespace Axiom
                 // Add backslash if missing
                 VM.ConfigureView.CustomPresetsPath_Text = VM.ConfigureView.CustomPresetsPath_Text.TrimEnd('\\') + @"\";
 
-                //// -------------------------
-                //// Load Custom Presets
-                //// Refresh Presets ComboBox
-                //// -------------------------
-                //Profiles.LoadCustomPresets();
+                // -------------------------
+                // Load Custom Presets
+                // Refresh Presets ComboBox
+                // -------------------------
+                Profiles.LoadCustomPresets();
             }
         }
 

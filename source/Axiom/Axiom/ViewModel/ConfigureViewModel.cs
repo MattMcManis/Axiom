@@ -70,9 +70,8 @@ namespace Axiom
         /// </summary>
         public void LoadConfigDefaults()
         {
-            //ConfigPath_Text = @"%LocalAppData%\Axiom UI\";
             ConfigPath_SelectedItem = "AppData Local";
-            CustomPresetsPath_Text = Profiles.presetsDir;
+            CustomPresetsPath_Text = MainWindow.appDataLocalDir + @"Axiom UI\presets\";
             FFmpegPath_Text = "<auto>";
             FFprobePath_Text = "<auto>";
             FFplayPath_Text = "<auto>";

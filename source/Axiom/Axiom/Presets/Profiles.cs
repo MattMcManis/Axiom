@@ -36,7 +36,7 @@ namespace Axiom
         /// <summary>
         ///    Global Variables
         /// </summary>
-        public static string presetsDir = MainWindow.appDataLocalDir + @"Axiom UI\presets\"; // Custom User ini presets
+        //public static string presetsDir = MainWindow.appDataLocalDir + @"Axiom UI\presets\"; // Custom User ini presets
 
 
         /// <summary>
@@ -98,7 +98,7 @@ namespace Axiom
                     for (int i = VM.MainView.Preset_Items.Count - 1; i >= 0; --i)
                     {
                         // If .ini File List does not contain Preset Name
-                        if (!customPresetPathsList.Contains(Profiles.presetsDir + presetNamesList[i] + ".ini"))
+                        if (!customPresetPathsList.Contains(/*Profiles.presetsDir*/ VM.ConfigureView.CustomPresetsPath_Text + presetNamesList[i] + ".ini"))
                         //if (!File.Exists(Profiles.presetsDir + presetNamesList[i] + ".ini"))
                         {
                             // Remove from Presets List if Type is Custom
