@@ -4,6 +4,11 @@ Axiom FFmpeg UI
 
 ## [alpha]
 
+## [1.7.5.2] - Apr 25, 2019
+### Fixed
+- Crash with Batch when output folder has the name of format extension
+
+
 ## [1.7.5.1] - Apr 18, 2019
 ### Fixed
 - Config App Root Load Custom Presets

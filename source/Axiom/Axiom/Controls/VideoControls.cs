@@ -1256,7 +1256,7 @@ namespace Axiom
             // Conditions Check
             // Enable
             // -------------------------
-            if (AutoCopyConditionsCheck(/*main_vm,*/ MainWindow.inputExt, MainWindow.outputExt) == true)
+            if (AutoCopyConditionsCheck(MainWindow.inputExt, MainWindow.outputExt) == true)
             {
                 // -------------------------
                 // Set Video Codec Combobox Selected Item to Copy

@@ -4415,6 +4415,7 @@ namespace Axiom
                     {
                         input = string.Empty;
                         inputDir = string.Empty;
+                        inputExt = string.Empty;
                     }
                 }
 
@@ -5270,10 +5271,13 @@ namespace Axiom
             // File Renamer
             // -------------------------
             // Add (1) if File Names are the same
-            if (!string.IsNullOrEmpty(inputDir) && 
-                string.Equals(inputFileName, outputFileName, StringComparison.CurrentCultureIgnoreCase))
+            if (VM.MainView.Batch_IsChecked == false) // Ignore batch
             {
-                outputFileName = FileRenamer(inputFileName);
+                if (!string.IsNullOrEmpty(inputDir) &&
+                    string.Equals(inputFileName, outputFileName, StringComparison.CurrentCultureIgnoreCase))
+                {
+                    outputFileName = FileRenamer(inputFileName);
+                }
             }
 
             // --------------------------------------------------
