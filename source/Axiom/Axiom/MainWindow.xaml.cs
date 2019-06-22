@@ -1186,14 +1186,14 @@ namespace Axiom
         /// </summary>
         public void DenySpecialKeys(KeyEventArgs e)
         {
-            if (Keyboard.IsKeyDown(Key.LeftShift) && e.Key == Key.D8 || // *
-                Keyboard.IsKeyDown(Key.RightShift) && e.Key == Key.D8 ||  // *
+            if ((Keyboard.IsKeyDown(Key.LeftShift) && e.Key == Key.D8) || // *
+                (Keyboard.IsKeyDown(Key.RightShift) && e.Key == Key.D8) ||  // *
 
-                Keyboard.IsKeyDown(Key.LeftShift) && e.Key == Key.OemPeriod ||  // >
-                Keyboard.IsKeyDown(Key.RightShift) && e.Key == Key.OemPeriod ||  // >
+                (Keyboard.IsKeyDown(Key.LeftShift) && e.Key == Key.OemPeriod) ||  // >
+                (Keyboard.IsKeyDown(Key.RightShift) && e.Key == Key.OemPeriod) ||  // >
 
-                Keyboard.IsKeyDown(Key.LeftShift) && e.Key == Key.OemComma ||  // <
-                Keyboard.IsKeyDown(Key.RightShift) && e.Key == Key.OemComma ||  // <
+                (Keyboard.IsKeyDown(Key.LeftShift) && e.Key == Key.OemComma) ||  // <
+                (Keyboard.IsKeyDown(Key.RightShift) && e.Key == Key.OemComma) ||  // <
 
                 e.Key == Key.Tab ||  // tab
                 e.Key == Key.Oem2 ||  // forward slash
@@ -1211,33 +1211,15 @@ namespace Axiom
         /// <summary>
         ///     Allow Only Numbers
         /// </summary>
-        public void AllowOnlyNumbers(KeyEventArgs e)
+        public void AllowNumbersOnly(KeyEventArgs e)
         {
             // Only allow Numbers
             // Deny Symbols (Shift + Number)
-            if (!(e.Key >= Key.D0 && e.Key <= Key.D9) ||
-                e.Key == Key.Back ||
-                e.Key == Key.Delete ||
-                Keyboard.IsKeyDown(Key.LeftShift) && (e.Key >= Key.D0 && e.Key <= Key.D9) ||
-                Keyboard.IsKeyDown(Key.RightShift) && (e.Key >= Key.D0 && e.Key <= Key.D9)
-                )
-            {
-                e.Handled = true;
-            }
-        }
-
-        /// <summary>
-        ///     Allow Only Numbers and Backspace
-        /// </summary>
-        public void AllowOnlyNumbersAndBackspace(KeyEventArgs e)
-        {
-            // Only allow Numbers and Backspace
-            // Deny Symbols (Shift + Number)
-            if (!(e.Key >= Key.D0 && e.Key <= Key.D9) &&
-                e.Key != Key.Back &&
-                e.Key != Key.Delete ||
-                Keyboard.IsKeyDown(Key.LeftShift) && (e.Key >= Key.D0 && e.Key <= Key.D9) ||
-                Keyboard.IsKeyDown(Key.RightShift) && (e.Key >= Key.D0 && e.Key <= Key.D9)
+            if (!(e.Key >= System.Windows.Input.Key.D0 && e.Key <= System.Windows.Input.Key.D9) ||
+                e.Key == System.Windows.Input.Key.Back ||
+                e.Key == System.Windows.Input.Key.Delete ||
+                (Keyboard.IsKeyDown(System.Windows.Input.Key.LeftShift) && (e.Key >= System.Windows.Input.Key.D9)) ||
+                (Keyboard.IsKeyDown(System.Windows.Input.Key.RightShift) && (e.Key >= System.Windows.Input.Key.D9))
                 )
             {
                 e.Handled = true;
@@ -2121,7 +2103,7 @@ namespace Axiom
         private void threadSelect_KeyDown(object sender, KeyEventArgs e)
         {
             // Only allow Numbers and Backspace
-            AllowOnlyNumbersAndBackspace(e);
+            AllowNumbersOnly(e);
         }
 
         /// <summary>
@@ -5291,11 +5273,12 @@ namespace Axiom
             // Update Ouput Textbox with current Format extension
             // -------------------------
             if (VM.MainView.Batch_IsChecked == false && // Single File
-                !string.IsNullOrEmpty(VM.MainView.Output_Text))
+                !string.IsNullOrEmpty(VM.MainView.Output_Text) &&
+                !string.IsNullOrEmpty(inputExt)) // Path Combine with null file extension causes error
             {
                 //MessageBox.Show(outputExt); //debug
-                //VM.MainView.Output_Text = outputDir + outputFileName + outputExt;
-                VM.MainView.Output_Text = Path.Combine(outputDir, outputFileName + outputExt);
+                //VM.MainView.Output_Text = outputDir + outputFileName + outputExt; 
+                VM.MainView.Output_Text = Path.Combine(outputDir, outputFileName + outputExt); 
             }
             
             // -------------------------
@@ -5354,7 +5337,7 @@ namespace Axiom
         // Key Down
         private void tbxCutStartHours_KeyDown(object sender, KeyEventArgs e)
         {
-            AllowOnlyNumbersAndBackspace(e);
+            AllowNumbersOnly(e);
         }
 
         // -------------------------
@@ -5384,7 +5367,7 @@ namespace Axiom
         // Key Down
         private void tbxCutStartMinutes_KeyDown(object sender, KeyEventArgs e)
         {
-            AllowOnlyNumbersAndBackspace(e);
+            AllowNumbersOnly(e);
         }
 
         // -------------------------
@@ -5414,7 +5397,7 @@ namespace Axiom
         // Key Down
         private void tbxCutStartSeconds_KeyDown(object sender, KeyEventArgs e)
         {
-            AllowOnlyNumbersAndBackspace(e);
+            AllowNumbersOnly(e);
         }
 
         // -------------------------
@@ -5444,7 +5427,7 @@ namespace Axiom
         // Key Down
         private void tbxCutStartMilliseconds_KeyDown(object sender, KeyEventArgs e)
         {
-            AllowOnlyNumbersAndBackspace(e);
+            AllowNumbersOnly(e);
         }
 
         /// <summary>
@@ -5477,7 +5460,7 @@ namespace Axiom
         // Key Down
         private void tbxCutEndHours_KeyDown(object sender, KeyEventArgs e)
         {
-            AllowOnlyNumbersAndBackspace(e);
+            AllowNumbersOnly(e);
         }
 
         // -------------------------
@@ -5507,7 +5490,7 @@ namespace Axiom
         // Key Down
         private void tbxCutEndMinutes_KeyDown(object sender, KeyEventArgs e)
         {
-            AllowOnlyNumbersAndBackspace(e);
+            AllowNumbersOnly(e);
         }
 
         // -------------------------
@@ -5537,7 +5520,7 @@ namespace Axiom
         // Key Down
         private void tbxCutEndSeconds_KeyDown(object sender, KeyEventArgs e)
         {
-            AllowOnlyNumbersAndBackspace(e);
+            AllowNumbersOnly(e);
         }
 
         // -------------------------
@@ -5567,7 +5550,7 @@ namespace Axiom
         // Key Down
         private void tbxCutEndMilliseconds_KeyDown(object sender, KeyEventArgs e)
         {
-            AllowOnlyNumbersAndBackspace(e);
+            AllowNumbersOnly(e);
         }
 
 
@@ -5585,7 +5568,7 @@ namespace Axiom
         // Key Down
         private void tbxFrameStart_KeyDown(object sender, KeyEventArgs e)
         {
-            AllowOnlyNumbersAndBackspace(e);
+            AllowNumbersOnly(e);
         }
 
         // -------------------------
@@ -5602,7 +5585,7 @@ namespace Axiom
         // Key Down
         private void tbxFrameEnd_KeyDown(object sender, KeyEventArgs e)
         {
-            AllowOnlyNumbersAndBackspace(e);
+            AllowNumbersOnly(e);
         }
 
 
@@ -5755,7 +5738,7 @@ namespace Axiom
         private void tbxVideo_CRF_KeyDown(object sender, KeyEventArgs e)
         {
             // Only allow Numbers and Backspace
-            AllowOnlyNumbersAndBackspace(e);
+            AllowNumbersOnly(e);
         }
         // Slider Value Change
         private void slVideo_CRF_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -5953,7 +5936,7 @@ namespace Axiom
         private void cboVideo_Speed_KeyDown(object sender, KeyEventArgs e)
         {
             // Only allow Numbers and Backspace
-            AllowOnlyNumbersAndBackspace(e);
+            AllowNumbersOnly(e);
         }
 
 
@@ -6422,6 +6405,31 @@ namespace Axiom
             }
 
             // -------------------------
+            // 1600p
+            // -------------------------
+            else if (VM.VideoView.Video_Scale_SelectedItem == "1600p")
+            {
+                // Widescreen
+                //if (IsAspectRatioWidescreen(VM.VideoView.Video_AspectRatio_SelectedItem) == true)
+                if (VM.VideoView.Video_ScreenFormat_SelectedItem == "auto" ||
+                    VM.VideoView.Video_ScreenFormat_SelectedItem == "Widescreen" ||
+                    VM.VideoView.Video_ScreenFormat_SelectedItem == "Ultrawide"
+                    )
+                {
+
+                    VM.VideoView.Video_Width_Text = "2560";
+                    VM.VideoView.Video_Height_Text = "auto";
+                }
+
+                // Full Screen
+                else if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Full Screen")
+                {
+                    VM.VideoView.Video_Width_Text = "auto";
+                    VM.VideoView.Video_Height_Text = "1600";
+                }
+            }
+
+            // -------------------------
             // 1440p
             // -------------------------
             else if (VM.VideoView.Video_Scale_SelectedItem == "1440p")
@@ -6514,7 +6522,7 @@ namespace Axiom
                 else if (VM.VideoView.Video_ScreenFormat_SelectedItem == "Full Screen")
                 {
                     VM.VideoView.Video_Width_Text = "auto";
-                    VM.VideoView.Video_Height_Text = "1080";
+                    VM.VideoView.Video_Height_Text = "900";
                 }
             }
 
@@ -7113,7 +7121,7 @@ namespace Axiom
         private void tbxAudio_BitRate_KeyDown(object sender, KeyEventArgs e)
         {
             // Only allow Numbers and Backspace
-            AllowOnlyNumbersAndBackspace(e);
+            AllowNumbersOnly(e);
         }
         // Got Focus
         private void tbxAudio_BitRate_GotFocus(object sender, RoutedEventArgs e)
@@ -7187,7 +7195,7 @@ namespace Axiom
         private void tbxAudio_Volume_KeyDown(object sender, KeyEventArgs e)
         {
             // Only allow Numbers and Backspace
-            AllowOnlyNumbersAndBackspace(e);
+            AllowNumbersOnly(e);
         }
 
         /// <summary>
@@ -7911,7 +7919,7 @@ namespace Axiom
         }
         private void tbxFilterVideo_EQ_Brightness_KeyDown(object sender, KeyEventArgs e)
         {
-            AllowOnlyNumbers(e);
+            AllowNumbersOnly(e);
         }
 
         // Contrast
@@ -7932,7 +7940,7 @@ namespace Axiom
         }
         private void tbxFilterVideo_EQ_Contrast_KeyDown(object sender, KeyEventArgs e)
         {
-            AllowOnlyNumbers(e);
+            AllowNumbersOnly(e);
         }
 
         // Saturation
@@ -7953,7 +7961,7 @@ namespace Axiom
         }
         private void tbxFilterVideo_EQ_Saturation_KeyDown(object sender, KeyEventArgs e)
         {
-            AllowOnlyNumbers(e);
+            AllowNumbersOnly(e);
         }
 
         // Gamma
@@ -7974,7 +7982,7 @@ namespace Axiom
         }
         private void tbxFilterVideo_EQ_Gamma_KeyDown(object sender, KeyEventArgs e)
         {
-            AllowOnlyNumbers(e);
+            AllowNumbersOnly(e);
         }
 
         // Reset
@@ -8103,7 +8111,7 @@ namespace Axiom
         // Key Down
         private void tbxFilterAudio_Contrast_KeyDown(object sender, KeyEventArgs e)
         {
-            AllowOnlyNumbers(e);
+            AllowNumbersOnly(e);
         }
         // Key Up
         private void tbxFilterAudio_Contrast_PreviewKeyUp(object sender, KeyEventArgs e)
@@ -8130,7 +8138,7 @@ namespace Axiom
         // Key Down
         private void tbxFilterAudio_ExtraStereo_KeyDown(object sender, KeyEventArgs e)
         {
-            AllowOnlyNumbers(e);
+            AllowNumbersOnly(e);
         }
         // Key Up
         private void tbxFilterAudio_ExtraStereo_PreviewKeyUp(object sender, KeyEventArgs e)
@@ -8157,7 +8165,7 @@ namespace Axiom
         // Key Down
         private void tbxFilterAudio_Tempo_KeyDown(object sender, KeyEventArgs e)
         {
-            AllowOnlyNumbers(e);
+            AllowNumbersOnly(e);
         }
         // Key Up
         private void tbxFilterAudio_Tempo_PreviewKeyUp(object sender, KeyEventArgs e)

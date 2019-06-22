@@ -4,6 +4,17 @@ Axiom FFmpeg UI
 
 ## [alpha]
 
+## [1.7.6.0] - Jun 22, 2019
+### Added
+- 1600p Video Resolution
+
+### Changed
+- Improve Numbers Only `KeyDown`
+
+### Fixed
+Crash if Input Extension is null
+
+
 ## [1.7.5.2] - Apr 25, 2019
 ### Fixed
 - Crash with Batch when output folder has the name of format extension
