@@ -31,7 +31,7 @@ using System.Windows;
 
 namespace Axiom
 {
-    class Profiles
+    public class Profiles
     {
         /// <summary>
         ///    Global Variables
