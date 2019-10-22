@@ -28,7 +28,7 @@ using System.Windows.Media;
 namespace Axiom
 {
     /// <summary>
-    ///     Interaction logic for Console.xaml
+    /// Interaction logic for Console.xaml
     /// </summary>
     public partial class LogConsole : Window
     {
@@ -45,7 +45,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Close
+        /// Close
         /// </summary>
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
@@ -55,7 +55,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Hide Window Instead of Closing
+        /// Hide Window Instead of Closing
         /// </summary>
         protected override void OnClosing(CancelEventArgs e)
         {
@@ -68,7 +68,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Expand Button
+        /// Expand Button
         /// </summary>
         private void btnExpand_Click(object sender, RoutedEventArgs e)
         {

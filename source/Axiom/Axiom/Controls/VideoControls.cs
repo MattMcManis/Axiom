@@ -55,13 +55,13 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Controls
+        /// Controls
         /// </summary>
         public static bool passUserSelected = false; // Used to determine if User manually selected CRF, 1 Pass or 2 Pass
 
 
         /// <summary>
-        ///     Set Controls
+        /// Set Controls
         /// </summary>
         public static void SetControls(string codec_SelectedItem)
         {
@@ -572,7 +572,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///    BitRate Display
+        /// BitRate Display
         /// </summary>
         public static void VideoBitRateDisplay(List<VideoViewModel.VideoQuality> items,
                                                string selectedQuality,
@@ -660,7 +660,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Quality Controls
+        /// Quality Controls
         /// <summary>
         public static void QualityControls()
         {
@@ -829,7 +829,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Pixel Format Controls
+        /// Pixel Format Controls
         /// </summary>
         public static void PixelFormatControls(string mediaType, 
                                                string codec, 
@@ -944,7 +944,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Optimize Controls
+        /// Optimize Controls
         /// <summary>
         public static void OptimizeControls()
         {
@@ -1016,7 +1016,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Encoding Pass Controls
+        /// Encoding Pass Controls
         /// <summary>
         public static void EncodingPassControls()
         {
@@ -1162,7 +1162,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///    Auto Copy Conditions Check
+        /// Auto Copy Conditions Check
         /// <summary>
         public static bool AutoCopyConditionsCheck(string inputExt, 
                                                    string outputExt
@@ -1248,7 +1248,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///    Copy Controls
+        /// Copy Controls
         /// <summary>
         public static void CopyControls()
         {
@@ -1371,10 +1371,10 @@ namespace Axiom
 
 
         /// <summary>
-        ///    Auto Codec Copy
+        /// Auto Codec Copy
         /// <summary>
         /// <remarks>
-        ///     Input Extension is Same as Output Extension and Video Quality is Auto
+        /// Input Extension is Same as Output Extension and Video Quality is Auto
         /// </remarks>
         public static void AutoCopyVideoCodec()
         {

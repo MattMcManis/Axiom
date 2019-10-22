@@ -49,7 +49,7 @@ namespace Axiom
         }
 
         /// <summary>
-        ///    Window Loaded
+        /// Window Loaded
         /// </summary>
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {

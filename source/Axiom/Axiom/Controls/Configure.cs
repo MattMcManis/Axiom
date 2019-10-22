@@ -45,7 +45,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///    INI Reader
+        /// INI Reader
         /// </summary>
         /*
         * Source: GitHub Sn0wCrack
@@ -79,7 +79,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///    Import axiom.conf file
+        /// Import axiom.conf file
         /// </summary>
         public static void ImportConfig(MainWindow mainwindow)
         {
@@ -204,7 +204,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///    Import Read Config
+        /// Import Read Config
         /// </summary>
         public static void ReadConfig(MainWindow mainwindow, /*MainView vm, */INIFile conf)
         {
@@ -307,7 +307,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///    Export axiom.conf
+        /// Export axiom.conf
         /// </summary>
         public static void ExportConfig(MainWindow mainwindow, string path)
         {
@@ -463,7 +463,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///    Export Write Config
+        /// Export Write Config
         /// </summary>
         //public static void WriteConfig(MainWindow mainwindow, MainViewModel vm, INIFile conf)
         //{

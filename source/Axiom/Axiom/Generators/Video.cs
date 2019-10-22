@@ -60,67 +60,67 @@ namespace Axiom
     {
         // --------------------------------------------------------------------------------------------------------
         /// <summary>
-        ///     Global Variables
+        /// Global Variables
         /// </summary>
         // --------------------------------------------------------------------------------------------------------
 
         // Video
-        public static string vEncodeSpeed;
-        public static string vCodec; // Video Codec
-        public static string vQuality; // Video Quality
-        public static string vBitMode;
-        public static string vLossless;
-        public static string vBitRate; // Video BitRate
-        public static string vBitRateNA; // N/A e.g. Define 3000K
-        public static string vMinRate;
-        public static string vMaxRate;
-        public static string vBufSize;
-        public static string vOptions; // -pix_fmt, -qcomp
-        public static string vCRF; // Constant Rate Factor
-        public static string pix_fmt;
-        public static string vAspectRatio;
-        public static string vScalingAlgorithm;
-        public static string fps; // Frames Per Second
-        public static string image; // JPEG & PNG options
-        public static string optTune; // x264/x265 tuning modes
-        public static string optProfile; // x264/x265 Profile
-        public static string optLevel; // x264/x265 Level
-        public static string optFlags; // Additional Optimization Flags
-        public static string optimize; // Contains opTune + optProfile + optLevel
+        public static string vEncodeSpeed { get; set; }
+        public static string vCodec { get; set; } // Video Codec
+        public static string vQuality { get; set; } // Video Quality
+        public static string vBitMode { get; set; }
+        public static string vLossless { get; set; }
+        public static string vBitRate { get; set; } // Video BitRate
+        public static string vBitRateNA { get; set; } // N/A e.g. Define 3000K
+        public static string vMinRate { get; set; }
+        public static string vMaxRate { get; set; }
+        public static string vBufSize { get; set; }
+        public static string vOptions { get; set; } // -pix_fmt, -qcomp
+        public static string vCRF { get; set; } // Constant Rate Factor
+        public static string pix_fmt { get; set; }
+        public static string vAspectRatio { get; set; }
+        public static string vScalingAlgorithm { get; set; }
+        public static string fps { get; set; } // Frames Per Second
+        public static string image { get; set; } // JPEG & PNG options
+        public static string optTune { get; set; } // x264/x265 tuning modes
+        public static string optProfile { get; set; } // x264/x265 Profile
+        public static string optLevel { get; set; } // x264/x265 Level
+        public static string optFlags { get; set; } // Additional Optimization Flags
+        public static string optimize { get; set; } // Contains opTune + optProfile + optLevel
 
         // x265 Params
         public static List<string> x265paramsList = new List<string>(); // multiple parameters
-        public static string x265params; // combined inline list
+        public static string x265params { get; set; } // combined inline list
 
         // Scale
-        public static string width;
-        public static string height;
-        public static string scale; // contains size, width, height
+        public static string width { get; set; }
+        public static string height { get; set; }
+        public static string scale { get; set; } // contains size, width, height
 
         // Pass
-        public static string v2PassArgs; // 2-Pass Arguments
-        public static string passSingle; // 1-Pass & CRF Args
-        public static string pass1Args; // Batch 2-Pass (Pass 1)
-        public static string pass2Args; // Batch 2-Pass (Pass 2)
-        public static string pass1; // x265 Modifier
-        public static string pass2; // x265 Modifier
+        public static string v2PassArgs { get; set; } // 2-Pass Arguments
+        public static string passSingle { get; set; } // 1-Pass & CRF Args
+        public static string pass1Args { get; set; } // Batch 2-Pass (Pass 1)
+        public static string pass2Args { get; set; } // Batch 2-Pass (Pass 2)
+        public static string pass1 { get; set; } // x265 Modifier
+        public static string pass2 { get; set; } // x265 Modifier
 
         // Batch
-        public static string batchVideoAuto;
+        public static string batchVideoAuto { get; set; }
 
         // Rendering
-        public static string hwacceleration;
+        public static string hwacceleration { get; set; }
 
 
 
         // --------------------------------------------------------------------------------------------------------
         /// <summary>
-        ///     Methods
+        /// Methods
         /// </summary>
         /// --------------------------------------------------------------------------------------------------------
 
         /// <summary>
-        ///     Hardware Acceleration
+        /// Hardware Acceleration
         /// <summary>
         /// https://trac.ffmpeg.org/wiki/HWAccelIntro
         public static String HWAcceleration(string mediaType_SelectedItem,
@@ -218,7 +218,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Hardware Acceleration Codec Override
+        /// Hardware Acceleration Codec Override
         /// <summary>
         /// https://trac.ffmpeg.org/wiki/HWAccelIntro
         public static String HWAccelerationCodecOverride(string hwaccel_SelectedItem, 
@@ -267,7 +267,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Video Codec
+        /// Video Codec
         /// <summary>
         public static String VideoCodec(string hwAccel_SelectedItem, 
                                         string codec_SelectedItem, 
@@ -297,7 +297,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///    Encode Speed
+        /// Encode Speed
         /// <summary>
         public static String VideoEncodeSpeed(List<VideoViewModel.VideoEncodeSpeed> encodeSpeedItems,
                                               string encodeSpeed_SelectedItem,
@@ -353,7 +353,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     BitRate Mode
+        /// BitRate Mode
         /// <summary>
         public static String BitRateMode(List<VideoViewModel.VideoQuality> quality_Items,
                                          string quality_SelectedItem,
@@ -395,7 +395,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Video Quality - Auto
+        /// Video Quality - Auto
         /// <summary>
         public static void QualityAuto(bool batch_IsChecked,
                                        bool vbr_IsChecked,
@@ -601,7 +601,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Video Quality - Lossless
+        /// Video Quality - Lossless
         /// <summary>
         public static void QualityLossless(string codec_SelectedItem,
                                            List<VideoViewModel.VideoQuality> qualityItems
@@ -626,7 +626,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Video Quality - Custom
+        /// Video Quality - Custom
         /// <summary>
         public static void QualityCustom(bool vbr_IsChecked,
                                          List<VideoViewModel.VideoQuality> quality_Items,
@@ -676,7 +676,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Video Quality - Preset
+        /// Video Quality - Preset
         /// <summary>
         public static void QualityPreset(bool vbr_IsChecked,
                                          string codec_SelectedItem,
@@ -775,7 +775,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Video Quality
+        /// Video Quality
         /// <summary>
         public static String VideoQuality(bool batch_IsChecked,
                                           bool vbr_IsChecked,
@@ -938,7 +938,7 @@ namespace Axiom
                                             .Where(s => !s.Equals("\n"))
                                       );
 
-                // Log Console Message /////////        
+                // Log Console Message /////////    
                 Log.WriteAction = () =>
                 {
                     Log.logParagraph.Inlines.Add(new LineBreak());
@@ -966,7 +966,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Batch Video Quality Auto (Method)
+        /// Batch Video Quality Auto (Method)
         /// <summary>
         public static String BatchVideoQualityAuto(bool batch_IsChecked,
                                                    string codec_SelectedItem,
@@ -1032,7 +1032,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Video BitRate Calculator (Method)
+        /// Video BitRate Calculator (Method)
         /// <summary>
         public static String VideoBitRateCalculator(string container_SelectedItem,
                                                     string mediaType_SelectedItem,
@@ -1199,7 +1199,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Pass 1 Modifier (Method)
+        /// Pass 1 Modifier (Method)
         /// <summary>
         // x265 Pass 1
         public static String Pass1Modifier(string codec_SelectedItem,
@@ -1241,7 +1241,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Pass 2 Modifier (Method)
+        /// Pass 2 Modifier (Method)
         /// <summary>
         // x265 Pass 2
         public static String Pass2Modifier(string codec_SelectedItem,
@@ -1283,10 +1283,10 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Frame Rate To Decimal
+        /// Frame Rate To Decimal
         /// <summary>
         /// <remarks>
-        ///     When using Video Frame Range instead of Time
+        /// When using Video Frame Range instead of Time
         /// </remarks>
         public static String FramesToDecimal(string frame)
         {
@@ -1342,7 +1342,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Pixel Foramt
+        /// Pixel Foramt
         /// <summary>
         public static String PixFmt(string codec_SelectedItem,
                                     string pixelFormat_SelectedItem
@@ -1367,7 +1367,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Optimize
+        /// Optimize
         /// <summary>
         public static String Optimize(string codec_SelectedItem,
                                       List<VideoViewModel.VideoOptimize> optimize_Items,
@@ -1437,7 +1437,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     FPS
+        /// FPS
         /// <summary>
         public static String FPS(string codec_SelectedItem,
                                  string fps_SelectedItem,
@@ -1541,7 +1541,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Video Speed (Method)
+        /// Video Speed (Method)
         /// <summary>
         public static void Speed(//string mediaType_SelectedItem,
                                  string codec_SelectedItem,
@@ -1588,7 +1588,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Size Width Auto
+        /// Size Width Auto
         /// <summary>
         public static String SizeWidthAuto(string codec_SelectedItem)
         {
@@ -1617,7 +1617,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Size Height Auto
+        /// Size Height Auto
         /// <summary>
         public static String SizeHeightAuto(string codec_SelectedItem)
         {
@@ -1646,7 +1646,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Size
+        /// Size
         /// <summary>
         // Size is a Filter
         public static void Scale(string codec_SelectedItem,
@@ -2060,7 +2060,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Aspect Ratio
+        /// Aspect Ratio
         /// <summary>
         public static String AspectRatio(string aspectRatio_SelectedItem)
         {
@@ -2092,7 +2092,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Scaling Algorithm
+        /// Scaling Algorithm
         /// <summary>
         public static String ScalingAlgorithm(string scalingAlgorithm_SelectedItem)
         {
@@ -2118,7 +2118,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Crop (Method)
+        /// Crop (Method)
         /// <summary>
         public static void Crop(CropWindow cropwindow)
         {
@@ -2156,7 +2156,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Images
+        /// Images
         /// <summary>
         public static String Images(string mediaType_SelectedItem,
                                     string codec_SelectedItem//,

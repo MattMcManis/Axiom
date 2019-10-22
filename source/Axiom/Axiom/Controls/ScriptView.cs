@@ -33,7 +33,7 @@ namespace Axiom
         public static bool sort = false;
 
         /// <summary>
-        ///     Clear RichTextBox
+        /// Clear RichTextBox
         /// </summary>
         public static void ClearScriptView()
         {

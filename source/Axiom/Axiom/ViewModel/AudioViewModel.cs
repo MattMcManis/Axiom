@@ -46,7 +46,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Audio View Model
+        /// Audio View Model
         /// </summary>
         public AudioViewModel()
         {
@@ -55,7 +55,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Load Controls Defaults
+        /// Load Controls Defaults
         /// </summary>
         public void LoadControlsDefaults()
         {
@@ -71,7 +71,7 @@ namespace Axiom
 
         // --------------------------------------------------------------------------------------------------------
         /// <summary>
-        ///     Audio
+        /// Audio
         /// </summary>
         // --------------------------------------------------------------------------------------------------------
 

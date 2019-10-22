@@ -29,7 +29,7 @@ using System.Windows.Documents;
 namespace Axiom
 {
     /// <summary>
-    ///     Interaction logic for FailedImportWindow.xaml
+    /// Interaction logic for FailedImportWindow.xaml
     /// </summary>
     public partial class FailedImportWindow : Window
     {
@@ -39,7 +39,7 @@ namespace Axiom
         }
 
         /// <summary>
-        ///    Window Loaded
+        /// Window Loaded
         /// </summary>
         public void Window_Loaded(object sender, RoutedEventArgs e)
         {

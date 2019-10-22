@@ -34,18 +34,24 @@ namespace Axiom
     public class Profiles
     {
         /// <summary>
-        ///    Global Variables
+        /// Global Variables
         /// </summary>
         //public static string presetsDir = MainWindow.appDataLocalDir + @"Axiom UI\presets\"; // Custom User ini presets
 
 
         /// <summary>
-        ///    Scan PC Custom Presets
+        /// Scan PC Custom Presets
         /// </summary>
         public static List<string> customPresetPathsList = new List<string>();
         
         public static void LoadCustomPresets()
         {
+            // Check if Custom Presets Path is valid
+            if (MainWindow.IsValidPath(VM.ConfigureView.CustomPresetsPath_Text) == false)
+            {
+                return;
+            }
+
             // -------------------------
             // User Custom Preset Full Path
             // -------------------------
@@ -128,7 +134,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///    Import Preset
+        /// Import Preset
         /// </summary>
         public static void ImportPreset(string profile)
         {
@@ -795,10 +801,16 @@ namespace Axiom
 
 
         /// <summary>
-        ///    Export Prest
+        /// Export Prest
         /// </summary>
         public static void ExportPreset(string profile)
         {
+            // Check if Custom Presets Path is valid
+            if (MainWindow.IsValidPath(VM.ConfigureView.CustomPresetsPath_Text) == false)
+            {
+                return;
+            }
+
             // -------------------------
             // Check if Preset Directory exists
             // -------------------------
@@ -1072,7 +1084,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///    Failed Import Window Open
+        /// Failed Import Window Open
         /// </summary>
         private static Boolean IsFailedImportWindowOpened = false;
         public static string failedImportMessage;

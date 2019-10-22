@@ -46,7 +46,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Video View Model
+        /// Video View Model
         /// </summary>
         public VideoViewModel()
         {
@@ -55,7 +55,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Load Controls Defaults
+        /// Load Controls Defaults
         /// </summary>
         public void LoadControlsDefaults()
         {
@@ -82,7 +82,7 @@ namespace Axiom
 
         // --------------------------------------------------------------------------------------------------------
         /// <summary>
-        ///     Video
+        /// Video
         /// </summary>
         // --------------------------------------------------------------------------------------------------------
 

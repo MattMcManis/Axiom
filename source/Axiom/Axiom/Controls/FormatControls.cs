@@ -40,12 +40,12 @@ namespace Axiom
     {
         // --------------------------------------------------------------------------------------------------------
         /// <summary>
-        ///     ComboBoxes Item Sources
+        /// ComboBoxes Item Sources
         /// </summary>
         // --------------------------------------------------------------------------------------------------------
 
         /// <summary>
-        ///     Set Controls
+        /// Set Controls
         /// </summary>
         public static void SetControls(string container_SelectedItem)
         {
@@ -417,7 +417,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Get Output Extension
+        /// Get Output Extension
         /// </summary>
         public static void OutputFormatExt()
         {
@@ -428,7 +428,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     MediaType Controls Controls
+        /// MediaType Controls Controls
         /// </summary>
         public static void MediaTypeControls()
         {
@@ -844,7 +844,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Audio Stream Controls
+        /// Audio Stream Controls
         /// </summary>
         public static void AudioStreamControls()
         {
@@ -969,7 +969,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Cut Controls
+        /// Cut Controls
         /// </summary>
         public static void CutControls()
         {

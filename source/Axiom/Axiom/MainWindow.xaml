@@ -5737,7 +5737,7 @@
                       Margin="56,0,0,0" >
                 <ComboBox.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <StackPanel Margin="0 -7 0 0"/>
+                        <StackPanel Margin="0, -7, 0, 0"/>
                     </ItemsPanelTemplate>
                 </ComboBox.ItemsPanel>
                 <ComboBox.ItemTemplate>

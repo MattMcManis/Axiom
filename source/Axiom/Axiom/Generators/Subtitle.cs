@@ -33,14 +33,14 @@ namespace Axiom
     {
         // --------------------------------------------------------------------------------------------------------
         /// <summary>
-        ///     Global Variables
+        /// Global Variables
         /// </summary>
         /// --------------------------------------------------------------------------------------------------------
 
-        public static string sCodec; // Subtitle Codec
-        public static string subtitles;
+        public static string sCodec { get; set; } // Subtitle Codec
+        public static string subtitles { get; set; }
 
-        public static string subsDir; // Subtitles Directory
+        public static string subsDir { get; set; } // Subtitles Directory
         public static List<string> subtitleFilePathsList = new List<string>(); // Files Added   
         public static List<string> subtitleFileNamesList = new List<string>(); // File Names without Path
 
@@ -48,12 +48,12 @@ namespace Axiom
 
         // --------------------------------------------------------------------------------------------------------
         /// <summary>
-        ///     Methods
+        /// Methods
         /// </summary>
         // --------------------------------------------------------------------------------------------------------
 
         /// <summary>
-        ///     Subtitle Codec
+        /// Subtitle Codec
         /// <summary>
         public static String SubtitleCodec(string codec_SelectedItem,
                                            string codec_Command
@@ -71,7 +71,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Subtitles External
+        /// Subtitles External
         /// <summary>
         public static String SubtitlesExternal(string codec_SelectedItem,
                                                string stream_SelectedItem

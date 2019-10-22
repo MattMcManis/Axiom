@@ -49,29 +49,29 @@ namespace Axiom
     {
         // --------------------------------------------------------------------------------------------------------
         /// <summary>
-        ///     Global Variables
+        /// Global Variables
         /// </summary>
         /// --------------------------------------------------------------------------------------------------------
         // FFmepg / FFprobe
-        public static string ffmpeg; // ffmpeg.exe location
-        public static string ffmpegArgs; // FFmpeg Arguments
-        public static string ffmpegArgsSort; // FFmpeg Arguments Sorted
+        public static string ffmpeg { get; set; } // ffmpeg.exe location
+        public static string ffmpegArgs { get; set; } // FFmpeg Arguments
+        public static string ffmpegArgsSort { get; set; } // FFmpeg Arguments Sorted
 
 
         // --------------------------------------------------------------------------------------------------------
         // --------------------------------------------------------------------------------------------------------
         /// <summary>
-        ///     Process Methods
+        /// Process Methods
         /// </summary>
         // --------------------------------------------------------------------------------------------------------
         // --------------------------------------------------------------------------------------------------------
 
         /// <summary>
-        ///     Keep FFmpegWindow Switch (Method)
+        /// Keep FFmpegWindow Switch (Method)
         /// </summary>
         /// <remarks>
-        ///     CMD.exe command, /k = keep, /c = close
-        ///     Do not .Close(); if using /c, it will throw a Dispose exception
+        /// CMD.exe command, /k = keep, /c = close
+        /// Do not .Close(); if using /c, it will throw a Dispose exception
         /// </remarks>
         public static String KeepWindow()
         {
@@ -94,7 +94,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     1-Pass Arguments
+        /// 1-Pass Arguments
         /// </summary>
         // 1-Pass, CRF, & Auto
         public static String OnePassArgs()
@@ -365,7 +365,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     2-Pass Arguments
+        /// 2-Pass Arguments
         /// </summary>      
         public static String TwoPassArgs()
         {
@@ -798,7 +798,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     FFmpeg Single File - Generate Args
+        /// FFmpeg Single File - Generate Args
         /// </summary>
         public static String FFmpegSingleGenerateArgs()
         {
@@ -861,7 +861,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     FFmpeg Batch - Generate Args
+        /// FFmpeg Batch - Generate Args
         /// </summary>
         public static void FFmpegBatchGenerateArgs()
         {
@@ -961,7 +961,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     YouTube Download - Generate Args
+        /// YouTube Download - Generate Args
         /// </summary>
         public static void YouTubeDownloadGenerateArgs()
         {
@@ -1122,7 +1122,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     FFmpeg Generate Script
+        /// FFmpeg Generate Script
         /// </summary>
         public static void FFmpegScript()
         {
@@ -1132,7 +1132,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     FFmpeg Start
+        /// FFmpeg Start
         /// </summary>
         public static void FFmpegStart()
         {
@@ -1147,7 +1147,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     FFmpeg Convert
+        /// FFmpeg Convert
         /// </summary>
         public static void FFmpegConvert()
         {

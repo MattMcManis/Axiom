@@ -41,7 +41,7 @@ namespace Axiom
     public class AudioControls
     {
         /// <summary>
-        ///     Set Controls
+        /// Set Controls
         /// </summary>
         public static void SetControls(string codec_SelectedItem)
         {
@@ -423,7 +423,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///    Audio BitRate Display
+        /// Audio BitRate Display
         /// </summary>
         public static void AudioBitRateDisplay(
                                                List<AudioViewModel.AudioQuality> items,
@@ -457,7 +457,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Quality Controls
+        /// Quality Controls
         /// <summary>
         public static void QualityControls()
         {
@@ -514,7 +514,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///    Auto Copy Conditions Check
+        /// Auto Copy Conditions Check
         /// <summary>
         public static bool AutoCopyConditionsCheck(
                                                    string inputExt,
@@ -552,7 +552,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///    Copy Controls
+        /// Copy Controls
         /// <summary>
         public static void CopyControls()
         {
@@ -684,7 +684,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///    Auto Codec Copy
+        /// Auto Codec Copy
         /// <summary>
         public static void AutoCopyAudioCodec()
         {

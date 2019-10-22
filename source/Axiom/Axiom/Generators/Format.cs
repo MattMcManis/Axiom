@@ -42,12 +42,12 @@ namespace Axiom
     {
         // --------------------------------------------------------------------------------------------------------
         /// <summary>
-        ///     Global Variables
+        /// Global Variables
         /// </summary>
         /// --------------------------------------------------------------------------------------------------------
         // Cut
-        public static string trimStart;
-        public static string trimEnd;
+        public static string trimStart { get; set; }
+        public static string trimEnd { get; set; }
         //public static string trim; // combine trimStart, trimEnd
 
         // --------------------------------------------------
@@ -177,12 +177,12 @@ namespace Axiom
 
         // --------------------------------------------------------------------------------------------------------
         /// <summary>
-        ///     Methods
+        /// Methods
         /// </summary>
         /// --------------------------------------------------------------------------------------------------------
 
         /// <summary>
-        ///     Force Format
+        /// Force Format
         /// </summary>
         // Used for Two-Pass, Pass 1
         public static String ForceFormat(string container_SelectedItem)
@@ -323,7 +323,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Cut Start
+        /// Cut Start
         /// </summary>
         public static String CutStart(string input_Text,
                                       bool batch_IsChecked,
@@ -381,7 +381,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Cut End
+        /// Cut End
         /// </summary>
         public static String CutEnd(string input_Text,
                                     bool batch_IsChecked,

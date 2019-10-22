@@ -53,37 +53,37 @@ namespace Axiom
     {
         // --------------------------------------------------------------------------------------------------------
         /// <summary>
-        ///     Global Variables
+        /// Global Variables
         /// </summary>
         /// --------------------------------------------------------------------------------------------------------
         // Audio
-        public static string aCodec;
-        public static string aChannel;
-        public static string aBitMode; // -b:a, -q:a
-        public static string aBitRate;
-        public static string aBitRateNA; // fallback default if not available
-        public static string aQuality;
-        public static string aLossless;
-        public static string aCompressionLevel;
-        public static string aSamplerate;
-        public static string aBitDepth;
-        public static string aVolume;
-        public static string aHardLimiter;
+        public static string aCodec { get; set; }
+        public static string aChannel { get; set; }
+        public static string aBitMode { get; set; } // -b:a, -q:a
+        public static string aBitRate { get; set; }
+        public static string aBitRateNA { get; set; } // fallback default if not available
+        public static string aQuality { get; set; }
+        public static string aLossless { get; set; }
+        public static string aCompressionLevel { get; set; }
+        public static string aSamplerate { get; set; }
+        public static string aBitDepth { get; set; }
+        public static string aVolume { get; set; }
+        public static string aHardLimiter { get; set; }
 
         // Batch
         //public static string aBitRateLimiter; // limits the bitrate value of webm and ogg
-        public static string batchAudioAuto;
+        public static string batchAudioAuto { get; set; }
 
 
 
         // --------------------------------------------------------------------------------------------------------
         /// <summary>
-        ///     Methods
+        /// Methods
         /// </summary>
         /// --------------------------------------------------------------------------------------------------------
 
         /// <summary>
-        ///     Audio Codec
+        /// Audio Codec
         /// <summary>
         public static String AudioCodec(string codec_SelectedItem,
                                         string codec_Command
@@ -100,7 +100,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     BitRate Mode
+        /// BitRate Mode
         /// <summary>
         public static String BitRateMode(bool vbr_IsChecked,
                                          List<AudioViewModel.AudioQuality> quality_Items,
@@ -132,7 +132,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Audio Quality - Auto
+        /// Audio Quality - Auto
         /// <summary>
         public static void QualityAuto(string input_Text,
                                        bool batch_IsChecked,
@@ -302,7 +302,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Audio Quality - Lossless
+        /// Audio Quality - Lossless
         /// <summary>
         public static void QualityLossless(List<AudioViewModel.AudioQuality> quality_Items)
         {
@@ -311,7 +311,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Audio Quality - Preset
+        /// Audio Quality - Preset
         /// <summary>
         public static void QualityPreset(string bitrate_Text)
         {
@@ -323,7 +323,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Audio Quality - Custom
+        /// Audio Quality - Custom
         /// <summary>
         public static void QualityCustom(bool vbr_IsChecked,
                                          string codec_SelectedItem,
@@ -361,7 +361,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Audio Quality
+        /// Audio Quality
         /// <summary>
         public static String AudioQuality(string input_Text,
                                           bool batch_IsChecked,
@@ -469,7 +469,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Audio BitRate Calculator
+        /// Audio BitRate Calculator
         /// <summary>
         public static String AudioBitRateCalculator(string codec_SelectedItem, 
                                                     string aEntryType, 
@@ -615,7 +615,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Audio VBR Calculator
+        /// Audio VBR Calculator
         /// <summary>
         public static String AudioVBRCalculator(bool vbr_IsChecked, 
                                                 string codec_SelectedItem,
@@ -651,30 +651,50 @@ namespace Axiom
                 // -------------------------
                 if (codec_SelectedItem == "Vorbis")
                 {
-                    // Above 290k set to 10 Quality
-                    if (aBitRateVBR > 290)
-                    {
-                        aBitRateVBR = aBitRateVBR = Convert.ToDouble(quality_Items.FirstOrDefault(item => item.Name == "Auto")?.VBR);
-                    }
-                    // 32 bracket
-                    else if (aBitRateVBR >= 128) //above 113kbps, use standard equation
-                    {
-                        aBitRateVBR = aBitRateVBR * 0.03125;
-                    }
-                    // 16 bracket
-                    else if (aBitRateVBR <= 127) //112kbps needs work, half decimal off
-                    {
-                        aBitRateVBR = (aBitRateVBR * 0.03125) - 0.5;
-                    }
-                    else if (aBitRateVBR <= 96)
-                    {
-                        aBitRateVBR = (aBitRateVBR * 0.013125) - 0.25;
-                    }
-                    // 8 bracket
-                    else if (aBitRateVBR <= 64)
-                    {
-                        aBitRateVBR = 0;
-                    }
+                    // VBR User entered value algorithm (0 low / 10 high)
+
+                    double inputMin = 0; // kbps
+                    double inputMax = 320; // kbps
+                    double normMin = 0;    // low
+                    double normMax = 10;   // high
+
+                    aBitRateVBR = Math.Round(
+                                        MainWindow.NormalizeValue(
+                                                        aBitRateVBR, // input
+                                                        inputMin,    // input min
+                                                        inputMax,    // input max
+                                                        normMin,     // normalize min
+                                                        normMax,     // normalize max
+                                                        (normMin + normMax) / 2 // midpoint average
+                                                    )
+
+                                                , 5 // max decimal places
+                                        );
+
+                    //// Above 290k set to 10 Quality
+                    //if (aBitRateVBR > 290)
+                    //{
+                    //    aBitRateVBR = aBitRateVBR = Convert.ToDouble(quality_Items.FirstOrDefault(item => item.Name == "Auto")?.VBR);
+                    //}
+                    //// 32 bracket
+                    //else if (aBitRateVBR >= 128)
+                    //{
+                    //    //aBitRateVBR = aBitRateVBR * 0.03125;
+                    //}
+                    //// 16 bracket
+                    //else if (aBitRateVBR < 128)
+                    //{
+                    //    //aBitRateVBR = (aBitRateVBR * 0.03125) - 0.5;
+                    //}
+                    //else if (aBitRateVBR <= 96)
+                    //{
+                    //    //aBitRateVBR = (aBitRateVBR * 0.013125) - 0.25;
+                    //}
+                    //// 8 bracket
+                    //else if (aBitRateVBR <= 64)
+                    //{
+                    //    aBitRateVBR = 0;
+                    //}
 
                     //MessageBox.Show(aBitRateVBR.ToString()); //debug
                 }
@@ -709,7 +729,7 @@ namespace Axiom
                     }
                     else
                     {
-                        // VBR User entered value algorithm (2 high / 0.1 low)
+                        // VBR User entered value algorithm (0.1 low / 2 high)
                         aBitRateVBR = Math.Min(2, Math.Max(aBitRateVBR * 0.00625, 0.1));
                     }
                 }
@@ -726,7 +746,7 @@ namespace Axiom
                     }
                     else
                     {
-                        // VBR User entered value algorithm (0 high / 10 low)
+                        // VBR User entered value algorithm (10 low / 0 high)
                         aBitRateVBR = (((aBitRateVBR * (-0.01)) / 2.60) + 1) * 10;
                     }
                 }
@@ -743,7 +763,7 @@ namespace Axiom
                     }
                     else
                     {
-                        // VBR User entered value algorithm (0 high / 10 low)
+                        // VBR User entered value algorithm (10 low / 0 high)
                         aBitRateVBR = (((aBitRateVBR * (-0.01)) / 2.60) + 1) * 10;
                     }
                 }
@@ -764,7 +784,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Channel
+        /// Channel
         /// <summary>
         public static String Channel(string codec_SelectedItem,
                                      string channel_SelectedItem
@@ -836,7 +856,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Compression Level
+        /// Compression Level
         /// <summary>
         public static String CompressionLevel(string codec_SelectedItem,
                                               string compressionLevel_SelectedItem
@@ -884,7 +904,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Sample Rate
+        /// Sample Rate
         /// <summary>
         public static String SampleRate(string codec_SelectedItem,
                                         List<AudioViewModel.AudioSampleRate> sampleRate_Items,
@@ -922,7 +942,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Bit Depth
+        /// Bit Depth
         /// <summary>
         public static String BitDepth(string codec_SelectedItem,
                                       List<AudioViewModel.AudioBitDepth> bitDepth_Items,
@@ -970,7 +990,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///    Audio BitRate Limiter (Method)
+        /// Audio BitRate Limiter (Method)
         /// <summary>
         public static int AudioBitRateLimiter(string codec_SelectedItem,
                                               string quality_SelectedItem,
@@ -1078,7 +1098,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Batch Audio BitRate Limiter (Method)
+        /// Batch Audio BitRate Limiter (Method)
         /// <summary>
         public static String BatchAudioBitRateLimiter(string codec_SelectedItem,
                                                       string quality_SelectedItem
@@ -1149,7 +1169,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Batch Audio Quality Auto
+        /// Batch Audio Quality Auto
         /// <summary>
         public static String BatchAudioQualityAuto(bool batch_IsChecked,
                                                    string codec_SelectedItem,
@@ -1166,7 +1186,10 @@ namespace Axiom
 
                 // Batch CMD Detect
                 //
-                if (quality_SelectedItem == "Auto")
+                if (quality_SelectedItem == "Auto" &&
+                    codec_SelectedItem != "FLAC" && // Don't set Auto FLAC bitrate, FFmpeg will choose default
+                    codec_SelectedItem != "PCM"// Don't set Auto PCM bitrate, FFmpeg will choose default
+                    )
                 {
                     // Make List
                     List<string> BatchAudioAutoList = new List<string>()
@@ -1197,7 +1220,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Volume
+        /// Volume
         /// <summary>
         public static void Volume()
         {
@@ -1247,7 +1270,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Hard Limiter Filter (Method)
+        /// Hard Limiter Filter (Method)
         /// <summary>
         public static void HardLimiter()
         {
@@ -1272,15 +1295,20 @@ namespace Axiom
                     // -0.1 to -3dB
                     if (value > -4)
                     {
+                        double inputMin = -3;
+                        double inputMax = -0.1;
+                        double normMin = 0.7;
+                        double normMax = 0.99;
+
                         limit = Convert.ToString(
                                         Math.Round(
                                             MainWindow.NormalizeValue(
-                                                                  value, // input
-                                                                     -3, // input min
-                                                                   -0.1, // input max
-                                                                    0.7, // normalize min
-                                                                   0.99, // normalize max
-                                                                  0.845  // midpoint
+                                                            value,    // input
+                                                            inputMin, // input min
+                                                            inputMax, // input max
+                                                            normMin,  // normalize min
+                                                            normMax,  // normalize max
+                                                            (normMin + normMax) / 2 // midpoint average
                                                         )
 
                                                     , 4 // max decimal places
@@ -1291,15 +1319,20 @@ namespace Axiom
                     // -4 to -7dB
                     else if (value <= -4 && value >= -7)
                     {
+                        double inputMin = -7;
+                        double inputMax = -4;
+                        double normMin = 0.45;
+                        double normMax = 0.65;
+
                         limit = Convert.ToString(
                                         Math.Round(
                                             MainWindow.NormalizeValue(
-                                                                  value, // input
-                                                                     -7, // input min
-                                                                     -4, // input max
-                                                                   0.45, // normalize min
-                                                                   0.65, // normalize max
-                                                                   0.55  // midpoint
+                                                            value,    // input
+                                                            inputMin, // input min
+                                                            inputMax, // input max
+                                                            normMin,  // normalize min
+                                                            normMax,  // normalize max
+                                                            (normMin + normMax) / 2 // midpoint average
                                                         )
 
                                                     , 4 // max decimal places
@@ -1310,15 +1343,20 @@ namespace Axiom
                     // -8 to -10dB
                     else if (value <= -8 && value >= -10)
                     {
+                        double inputMin = -10;
+                        double inputMax = -8;
+                        double normMin = 0.3;
+                        double normMax = 0.4;
+
                         limit = Convert.ToString(
                                         Math.Round(
                                             MainWindow.NormalizeValue(
-                                                                   value, // input
-                                                                     -10, // input min
-                                                                      -8, // input max
-                                                                     0.3, // normalize min
-                                                                     0.4, // normalize max
-                                                                    0.35  // midpoint
+                                                            value,    // input
+                                                            inputMin, // input min
+                                                            inputMax, // input max
+                                                            normMin,  // normalize min
+                                                            normMax,  // normalize max
+                                                            (normMin + normMax) / 2 // midpoint average
                                                         )
 
                                                     , 4 // max decimal places
@@ -1329,15 +1367,20 @@ namespace Axiom
                     // -11 to -16dB
                     else if (value <= -11 && value >= -16)
                     {
+                        double inputMin = -16;
+                        double inputMax = -11;
+                        double normMin = 0.15;
+                        double normMax = 0.275;
+
                         limit = Convert.ToString(
                                         Math.Round(
                                             MainWindow.NormalizeValue(
-                                                                   value, // input
-                                                                     -16, // input min
-                                                                     -11, // input max
-                                                                    0.15, // normalize min
-                                                                   0.275, // normalize max
-                                                                  0.2125  // midpoint
+                                                            value,    // input
+                                                            inputMin, // input min
+                                                            inputMax, // input max
+                                                            normMin,  // normalize min
+                                                            normMax,  // normalize max
+                                                            (normMin + normMax) / 2 // midpoint average
                                                         )
 
                                                     , 4 // max decimal places
@@ -1348,15 +1391,20 @@ namespace Axiom
                     // -17 to -19dB
                     else if (value <= -17 && value >= -19)
                     {
+                        double inputMin = -19;
+                        double inputMax = -17;
+                        double normMin = 0.1;
+                        double normMax = 0.135;
+
                         limit = Convert.ToString(
                                         Math.Round(
                                             MainWindow.NormalizeValue(
-                                                                  value, // input
-                                                                    -19, // input min
-                                                                    -17, // input max
-                                                                    0.1, // normalize min
-                                                                  0.135, // normalize max
-                                                                 0.1175  // midpoint
+                                                            value,    // input
+                                                            inputMin, // input min
+                                                            inputMax, // input max
+                                                            normMin,  // normalize min
+                                                            normMax,  // normalize max
+                                                            (normMin + normMax) / 2 // midpoint average
                                                         )
 
                                                     , 8 // max decimal places
@@ -1367,15 +1415,20 @@ namespace Axiom
                     // -20 to -24dB
                     else if (value <= -20)
                     {
+                        double inputMin = -24;
+                        double inputMax = -20;
+                        double normMin = 0.0625;
+                        double normMax = 0.0975;
+
                         limit = Convert.ToString(
                                         Math.Round(
                                             MainWindow.NormalizeValue(
-                                                                  value, // input
-                                                                    -24, // input min
-                                                                    -20, // input max
-                                                                 0.0625, // normalize min
-                                                                 0.0975, // normalize max
-                                                                   0.08  // midpoint
+                                                            value,    // input
+                                                            inputMin, // input min
+                                                            inputMax, // input max
+                                                            normMin,  // normalize min
+                                                            normMax,  // normalize max
+                                                            (normMin + normMax) / 2 // midpoint average
                                                         )
 
                                                     , 4 // max decimal places

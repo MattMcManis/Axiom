@@ -46,7 +46,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Format View Model
+        /// Format View Model
         /// </summary>
         public FormatViewModel()
         {
@@ -54,7 +54,7 @@ namespace Axiom
         }
 
         /// <summary>
-        ///     Load Controls Defaults
+        /// Load Controls Defaults
         /// </summary>
         public void LoadControlsDefaults()
         {
@@ -68,7 +68,7 @@ namespace Axiom
 
         // --------------------------------------------------------------------------------------------------------
         /// <summary>
-        ///     Format
+        /// Format
         /// </summary>
         // --------------------------------------------------------------------------------------------------------
         // --------------------------------------------------
@@ -445,7 +445,7 @@ namespace Axiom
         // Cut Start - Milliseconds
         // --------------------------------------------------
         // Text
-        private string _Format_CutStart_Milliseconds_Text = "000";
+        private string _Format_CutStart_Milliseconds_Text;
         public string Format_CutStart_Milliseconds_Text
         {
             get { return _Format_CutStart_Milliseconds_Text; }

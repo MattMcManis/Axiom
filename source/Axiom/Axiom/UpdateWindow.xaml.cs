@@ -47,10 +47,10 @@ namespace Axiom
         public static ManualResetEvent waiter = new ManualResetEvent(false); // Download one at a time
 
         // Progress Label Info
-        public static string progressInfo;
+        public static string progressInfo { get; set; }
 
         // Unzip CMD Arguments
-        public static string extractArgs;
+        public static string extractArgs { get; set; }
 
 
         public UpdateWindow()
@@ -147,6 +147,19 @@ namespace Axiom
                 waiter = new ManualResetEvent(false); //start a new waiter for next pass (clicking update again)
 
                 Uri url = new Uri("https://github.com/MattMcManis/Axiom/releases/download/" + "v" + Convert.ToString(MainWindow.latestVersion) + "-" + MainWindow.latestBuildPhase + "/Axiom.zip"); // v1.0.0.0-alpha/Axiom.zip
+
+                // Delete old Axiom.zip file if it was left in %temp%
+                if (File.Exists(Path.Combine(MainWindow.tempDir,"Axiom.zip")))
+                {
+                    try
+                    {
+                        File.Delete(Path.Combine(MainWindow.tempDir, "Axiom.zip"));
+                    }
+                    catch
+                    {
+
+                    }
+                }
 
                 // Async
                 wc.DownloadProgressChanged += new DownloadProgressChangedEventHandler(wc_DownloadProgressChanged);

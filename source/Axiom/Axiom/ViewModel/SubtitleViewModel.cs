@@ -47,7 +47,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Subtitle View Model
+        /// Subtitle View Model
         /// </summary>
         public SubtitleViewModel()
         {
@@ -56,7 +56,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Load Controls Defaults
+        /// Load Controls Defaults
         /// </summary>
         public void LoadControlsDefaults()
         {
@@ -67,7 +67,7 @@ namespace Axiom
 
         // --------------------------------------------------------------------------------------------------------
         /// <summary>
-        ///     Subtitle
+        /// Subtitle
         /// </summary>
         // --------------------------------------------------------------------------------------------------------
 

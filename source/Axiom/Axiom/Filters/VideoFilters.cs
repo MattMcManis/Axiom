@@ -53,18 +53,18 @@ using System.Windows.Media;
 namespace Axiom
 {
     /// <summary>
-    ///     Video Filters (Class)
+    /// Video Filters (Class)
     /// <summary>
     public class VideoFilters
     {
         // Filter
         public static List<string> vFiltersList = new List<string>(); // Master Filters List
-        public static string geq; // png transparent to jpg whtie background filter
-        public static string vFilter;
+        public static string geq { get; set; } // png transparent to jpg whtie background filter
+        public static string vFilter { get; set; }
 
 
         /// <summary>
-        ///     PNG to JPG (Method)
+        /// PNG to JPG (Method)
         /// <summary>
         public static void PNGtoJPG_Filter()
         {
@@ -124,7 +124,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Deband
+        /// Deband
         /// <summary>
         public static void Deband_Filter()
         {
@@ -141,7 +141,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Deshake
+        /// Deshake
         /// <summary>
         public static void Deshake_Filter()
         {
@@ -156,7 +156,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Deflicker (Method)
+        /// Deflicker (Method)
         /// <summary>
         public static void Deflicker_Filter()
         {
@@ -171,7 +171,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Dejudder
+        /// Dejudder
         /// <summary>
         public static void Dejudder_Filter()
         {
@@ -186,7 +186,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Denoise
+        /// Denoise
         /// <summary>
         public static void Denoise_Filter()
         {
@@ -232,7 +232,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Deinterlace
+        /// Deinterlace
         /// <summary>
         /// <remarks>
         /// https://ffmpeg.org/ffmpeg-filters.html#yadif-1
@@ -296,7 +296,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Selective Color Class
+        /// Selective Color Class
         /// <summary>
         //public static List<FilterVideoSelectiveColor> SelectiveColorList { get; set; }
         //public partial class FilterVideoSelectiveColor
@@ -312,7 +312,7 @@ namespace Axiom
         //}
 
         /// <summary>
-        ///     Selective Color Normalize (Method)
+        /// Selective Color Normalize (Method)
         /// <summary>
         public static String SelectiveColor_Normalize(double value)
         {
@@ -339,7 +339,7 @@ namespace Axiom
         }
 
         /// <summary>
-        ///     Selective Color (Method)
+        /// Selective Color (Method)
         /// <summary>
         public static void SelectiveColor_Filter()
         {
@@ -515,7 +515,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Video EQ (Method)
+        /// Video EQ (Method)
         /// <summary>
         public static void Video_EQ_Filter()
         {
@@ -548,7 +548,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Video EQ - Brightness (Method)
+        /// Video EQ - Brightness (Method)
         /// <summary>
         public static String Video_EQ_Brightness_Filter()
         {
@@ -599,7 +599,7 @@ namespace Axiom
         }
 
         /// <summary>
-        ///     Video EQ - Contrast (Method)
+        /// Video EQ - Contrast (Method)
         /// <summary>
         public static String Video_EQ_Contrast_Filter()
         {
@@ -652,7 +652,7 @@ namespace Axiom
         }
 
         /// <summary>
-        ///     Video EQ - Saturation (Method)
+        /// Video EQ - Saturation (Method)
         /// <summary>
         public static String Video_EQ_Saturation_Filter()
         {
@@ -705,7 +705,7 @@ namespace Axiom
         }
 
         /// <summary>
-        ///     Video EQ - Gamma (Method)
+        /// Video EQ - Gamma (Method)
         /// <summary>
         public static String Video_EQ_Gamma_Filter()
         {
@@ -758,7 +758,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Video Filter Combine (Method)
+        /// Video Filter Combine (Method)
         /// <summary>
         public static String VideoFilter()
         {

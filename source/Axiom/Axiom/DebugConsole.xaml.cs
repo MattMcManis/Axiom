@@ -45,9 +45,9 @@ namespace Axiom
 
         public static Paragraph debugParagraph = new Paragraph(); //RichTextBox
 
-        public static Brush Heading;
-        public static Brush Variable;
-        public static Brush Value;
+        public static Brush Heading { get; set; }
+        public static Brush Variable { get; set; }
+        public static Brush Value { get; set; }
 
 
         public DebugConsole(MainWindow mainwindow)
@@ -155,7 +155,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Debug Test Button
+        /// Debug Test Button
         /// </summary>
         private void btnDebugTest_Click(object sender, RoutedEventArgs e)
         {
@@ -211,7 +211,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Random Button
+        /// Random Button
         /// </summary>
         private void btnDebugRandom_Click(object sender, RoutedEventArgs e)
         {
@@ -233,7 +233,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Control Randomizer
+        /// Control Randomizer
         /// </summary>
         public void DebugControlRandomizer()
         {
@@ -364,7 +364,7 @@ namespace Axiom
         }
 
         /// <summary>
-        ///     Select Random
+        /// Select Random
         /// </summary>
         public string SelectRandom(List<string> items)
         {
@@ -376,7 +376,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Debug Write
+        /// Debug Write
         /// </summary>
         public void DebugWrite(DebugConsole debugconsole)
         {

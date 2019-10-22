@@ -42,7 +42,7 @@ namespace Axiom
         }
 
         /// <summary>
-        ///     ViewModel Base
+        /// ViewModel Base
         /// </summary>
         public VM()
         {

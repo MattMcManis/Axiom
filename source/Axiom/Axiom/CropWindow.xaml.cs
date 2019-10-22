@@ -37,13 +37,13 @@ namespace Axiom
         private MainWindow mainwindow = (MainWindow)System.Windows.Application.Current.MainWindow;
 
         // Temp save settings when Crop Window is closed
-        public static int? divisibleCropWidth;
-        public static int? divisibleCropHeight;
-        public static string cropWidth;
-        public static string cropHeight;
-        public static string cropX;
-        public static string cropY;
-        public static string crop; // Combined Width, Height, X, Y
+        public static int? divisibleCropWidth { get; set; }
+        public static int? divisibleCropHeight { get; set; }
+        public static string cropWidth { get; set; }
+        public static string cropHeight { get; set; }
+        public static string cropX { get; set; }
+        public static string cropY { get; set; }
+        public static string crop { get; set; } // Combined Width, Height, X, Y
 
 
         public CropWindow(MainWindow mainwindow)
@@ -122,7 +122,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Close All
+        /// Close All
         /// </summary>
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
@@ -131,7 +131,7 @@ namespace Axiom
         }
 
         /// <summary>
-        ///     Crop Width
+        /// Crop Width
         /// </summary>
         private void tbxVideo_Crop_Width_KeyDown(object sender, KeyEventArgs e)
         {
@@ -143,7 +143,7 @@ namespace Axiom
         }
 
         /// <summary>
-        ///     Crop Height
+        /// Crop Height
         /// </summary>
         private void tbxVideo_Crop_Height_KeyDown(object sender, KeyEventArgs e)
         {
@@ -155,7 +155,7 @@ namespace Axiom
         }
 
         /// <summary>
-        ///     Crop X
+        /// Crop X
         /// </summary>
         private void tbxVideo_Crop_X_KeyDown(object sender, KeyEventArgs e)
         {
@@ -167,7 +167,7 @@ namespace Axiom
         }
 
         /// <summary>
-        ///     Crop Y
+        /// Crop Y
         /// </summary>
         private void tbxVideo_Crop_Y_KeyDown(object sender, KeyEventArgs e)
         {
@@ -180,7 +180,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     SET Button
+        /// SET Button
         /// </summary>
         public void btnSet_Click(object sender, RoutedEventArgs e)
         {
@@ -291,7 +291,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Clear Button
+        /// Clear Button
         /// </summary>
         public void btnClear_Click(object sender, RoutedEventArgs e)
         {
@@ -299,7 +299,7 @@ namespace Axiom
         }
 
         /// <summary>
-        ///     Crop Clear (Method)
+        /// Crop Clear (Method)
         /// </summary>
         public static void CropClear()
         {

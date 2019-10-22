@@ -47,7 +47,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Filter View Model
+        /// Filter View Model
         /// </summary>
         public FilterVideoViewModel()
         {
@@ -56,7 +56,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Load Controls Defaults
+        /// Load Controls Defaults
         /// </summary>
         public void LoadControlsDefaults()
         {
@@ -65,7 +65,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Load Filter Video Defaults
+        /// Load Filter Video Defaults
         /// </summary>
         public void LoadFilterVideoDefaults()
         {
@@ -128,7 +128,7 @@ namespace Axiom
 
         // --------------------------------------------------------------------------------------------------------
         /// <summary>
-        ///     Filter Video
+        /// Filter Video
         /// </summary>
         // --------------------------------------------------------------------------------------------------------
 

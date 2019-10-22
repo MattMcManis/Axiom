@@ -44,17 +44,17 @@ using System.Windows.Media;
 namespace Axiom
 {
     /// <summary>
-    ///     Audio Filters (Class)
+    /// Audio Filters (Class)
     /// <summary>
     public class AudioFilters
     {
         // Filter Lists
         public static List<string> aFiltersList = new List<string>(); // Filters to String Join
-        public static string aFilter;
+        public static string aFilter { get; set; }
 
 
         /// <summary>
-        ///     Remove Click (Method)
+        /// Remove Click (Method)
         /// <summary>
         //public static void RemoveClick_Filter(MainWindow mainwindow)
         //{
@@ -79,7 +79,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Lowpass (Method)
+        /// Lowpass (Method)
         /// <summary>
         public static void Lowpass_Filter()
         {
@@ -93,7 +93,7 @@ namespace Axiom
         }
 
         /// <summary>
-        ///     Highpass (Method)
+        /// Highpass (Method)
         /// <summary>
         public static void Highpass_Filter()
         {
@@ -108,7 +108,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Contrast (Method)
+        /// Contrast (Method)
         /// <summary>
         public static void Contrast_Filter()
         {
@@ -133,7 +133,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Extra Stereo (Method)
+        /// Extra Stereo (Method)
         /// <summary>
         public static void ExtraStereo_Filter()
         {
@@ -185,7 +185,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Headphones (Method)
+        /// Headphones (Method)
         /// <summary>
         public static void Headphones_Filter()
         {
@@ -200,7 +200,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Tempo (Method)
+        /// Tempo (Method)
         /// <summary>
         public static void Tempo_Filter()
         {
@@ -228,7 +228,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Audio Filter Combine (Method)
+        /// Audio Filter Combine (Method)
         /// <summary>
         public static String AudioFilter()
         {

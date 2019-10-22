@@ -31,10 +31,10 @@ namespace Axiom
     public class FFplay
     {
         // FFplay
-        public static string ffplay; // ffplay.exe
+        public static string ffplay { get; set; } // ffplay.exe
 
         /// <summary>
-        ///     Preview FFplay
+        /// Preview FFplay
         /// </summary>
         public static void Preview(MainWindow mainwindow)
         {

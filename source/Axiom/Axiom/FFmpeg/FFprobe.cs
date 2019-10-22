@@ -34,45 +34,45 @@ namespace Axiom
     {
         // --------------------------------------------------------------------------------------------------------
         /// <summary>
-        ///     Global Variables
+        /// Global Variables
         /// </summary>
         // --------------------------------------------------------------------------------------------------------
 
         // FFprobe
-        public static string ffprobe; // ffprobe.exe
+        public static string ffprobe { get; set; } // ffprobe.exe
 
         // Arguments for StartInfo
-        public static string argsProperties;
-        public static string argsVideoCodec;
-        public static string argsAudioCodec;
-        public static string argsVideoBitRate;
-        public static string argsAudioBitRate;
-        public static string argsSize;
-        public static string argsDuration;
-        public static string argsFrameRate;
-        public static string argsFileProperties;
+        public static string argsProperties { get; set; }
+        public static string argsVideoCodec { get; set; }
+        public static string argsAudioCodec { get; set; }
+        public static string argsVideoBitRate { get; set; }
+        public static string argsAudioBitRate { get; set; }
+        public static string argsSize { get; set; }
+        public static string argsDuration { get; set; }
+        public static string argsFrameRate { get; set; }
+        public static string argsFileProperties { get; set; }
 
         // Results to Modify
-        public static string inputFileProperties;
-        public static string inputVideoCodec;
-        public static string inputVideoBitRate;
-        public static string inputAudioCodec;
-        public static string inputAudioBitRate;
-        public static string inputSize; //used to calculate video bitrate
-        public static string inputDuration; //used to calculate video bitrate
-        public static string inputFrameRate; //used for Frame Range
+        public static string inputFileProperties { get; set; }
+        public static string inputVideoCodec { get; set; }
+        public static string inputVideoBitRate { get; set; }
+        public static string inputAudioCodec { get; set; }
+        public static string inputAudioBitRate { get; set; }
+        public static string inputSize { get; set; } //used to calculate video bitrate
+        public static string inputDuration { get; set; } //used to calculate video bitrate
+        public static string inputFrameRate { get; set; } //used for Frame Range
 
         // Single Auto
-        public static string vEntryType; // ffprobe format or stream
-        public static string aEntryType; // ffprobe format or stream
+        public static string vEntryType { get; set; } // ffprobe format or stream
+        public static string aEntryType { get; set; } // ffprobe format or stream
 
         // Batch Auto
-        public static string vEntryTypeBatch;
-        public static string batchFFprobeAuto;
+        public static string vEntryTypeBatch { get; set; }
+        public static string batchFFprobeAuto { get; set; }
 
 
         /// <summary>
-        ///    FFprobe Detect Metadata (Method)
+        /// FFprobe Detect Metadata (Method)
         /// </summary> 
         public static void Metadata()
         {
@@ -267,7 +267,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     FFprobe Video Entry Type Containers (Method)
+        /// FFprobe Video Entry Type Containers (Method)
         /// </summary>
         // Used for Auto Quality to pass Bit Rate Entry Type to FFprobe
         public static void VideoEntryType()
@@ -315,7 +315,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     FFprobe Audio Entry Type Containers (Method)
+        /// FFprobe Audio Entry Type Containers (Method)
         /// </summary>
         // Used for Auto Quality to pass Bit Rate Entry Type to FFprobe
         public static void AudioEntryType()
@@ -359,7 +359,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     FFprobe Cut Duration
+        /// FFprobe Cut Duration
         /// </summary>
         public static String CutDuration(string input_Text,
                                          bool batch_IsChecked
@@ -387,7 +387,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     FFprobe Input File Info Parse (Method)
+        /// FFprobe Input File Info Parse (Method)
         /// </summary>
         public static String InputFileInfo(string input_Text, 
                                            bool batch_IsChecked, 

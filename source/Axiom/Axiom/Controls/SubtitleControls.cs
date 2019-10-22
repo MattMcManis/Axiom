@@ -30,7 +30,7 @@ namespace Axiom
     public class SubtitleControls
     {
         /// <summary>
-        ///     Set Controls
+        /// Set Controls
         /// </summary>
         public static void SetControls(string selectedCodec)
         {
@@ -251,7 +251,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///    Auto Copy Conditions Check
+        /// Auto Copy Conditions Check
         /// <summary>
         public static bool AutoCopyConditionsCheck(
                                                    string inputExt,
@@ -280,7 +280,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///    Copy Controls
+        /// Copy Controls
         /// <summary>
         public static void CopyControls()
         {
@@ -402,7 +402,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///    Auto Codec Copy
+        /// Auto Codec Copy
         /// <summary>
         public static void AutoCopySubtitleCodec()
         {

@@ -38,11 +38,11 @@ namespace Axiom
         /// Variables
         /// <summary>
         // --------------------------------------------------------------------------------------------------------
-        public static string vMap; // video streams
-        public static string cMap; // video chapters
-        public static string sMap; // video subtitles
-        public static string aMap; // audio streams
-        public static string mMap; // file metadata
+        public static string vMap { get; set; } // video streams
+        public static string cMap { get; set; } // video chapters
+        public static string sMap { get; set; } // video subtitles
+        public static string aMap { get; set; } // audio streams
+        public static string mMap { get; set; } // file metadata
         //public static string map; // combines all maps
 
 

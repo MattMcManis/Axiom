@@ -41,7 +41,7 @@ namespace Axiom
         // List of Actions
         public static List<Action> LogActions = new List<Action>();
         // Action
-        public static Action WriteAction;
+        public static Action WriteAction { get; set; }
         // Rich Textbox Paragraph
         public static Paragraph logParagraph = new Paragraph(); //RichTextBox
 
@@ -51,15 +51,15 @@ namespace Axiom
         // Theme
         // --------------------------------------------------------------------------------------------------------
         // Console Colors
-        public static Brush ConsoleDefault; // Default
-        public static Brush ConsoleTitle; // Titles
-        public static Brush ConsoleWarning; // Warning
-        public static Brush ConsoleError; // Error
-        public static Brush ConsoleAction; // Actions
+        public static Brush ConsoleDefault { get; set; } // Default
+        public static Brush ConsoleTitle { get; set; } // Titles
+        public static Brush ConsoleWarning { get; set; } // Warning
+        public static Brush ConsoleError { get; set; } // Error
+        public static Brush ConsoleAction { get; set; } // Actions
 
 
         /// <summary>
-        ///     Lod Console Message Add (Method)
+        /// Lod Console Message Add (Method)
         /// </summary>
         //public static void LogConsoleMessageAdd(string message, string emphasis, Brush color, int linebreaks)
         //{
@@ -87,7 +87,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Define Log Path (Method)
+        /// Define Log Path (Method)
         /// </summary>
         public static void DefineLogPath()
         {
@@ -107,7 +107,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Create Output Log (Method)
+        /// Create Output Log (Method)
         /// </summary>
         public static void CreateOutputLog(MainWindow mainwindow)
         {
@@ -183,7 +183,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Log Write All 
+        /// Log Write All 
         /// </summary>
         public static void LogWriteAll(MainWindow mainwindow)
         {

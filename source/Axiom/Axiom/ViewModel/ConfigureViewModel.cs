@@ -48,7 +48,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Configure View Model
+        /// Configure View Model
         /// </summary>
         public ConfigureViewModel()
         {
@@ -57,7 +57,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Load Controls Defaults
+        /// Load Controls Defaults
         /// </summary>
         public void LoadControlsDefaults()
         {
@@ -66,7 +66,7 @@ namespace Axiom
 
 
         /// <summary>
-        ///     Load Controls Defaults
+        /// Load Controls Defaults
         /// </summary>
         public void LoadConfigDefaults()
         {
@@ -86,7 +86,7 @@ namespace Axiom
 
         // --------------------------------------------------------------------------------------------------------
         /// <summary>
-        ///     Configure
+        /// Configure
         /// </summary>
         // --------------------------------------------------------------------------------------------------------
 
@@ -686,7 +686,7 @@ namespace Axiom
 
         // --------------------------------------------------------------------------------------------------------
         /// <summary>
-        ///     App Threads
+        /// App Threads
         /// </summary>
         // --------------------------------------------------------------------------------------------------------
         public Task youtubedlInputWorker = null;
@@ -696,7 +696,7 @@ namespace Axiom
 
         // --------------------------------------------------------------------------------------------------------
         /// <summary>
-        ///     Tools
+        /// Tools
         /// </summary>
         // --------------------------------------------------------------------------------------------------------
         // --------------------------------------------------
