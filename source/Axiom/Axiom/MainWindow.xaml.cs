@@ -5341,7 +5341,11 @@ namespace Axiom
             {
                 //MessageBox.Show(outputExt); //debug
                 //VM.MainView.Output_Text = outputDir + outputFileName + outputExt; 
-                VM.MainView.Output_Text = Path.Combine(outputDir, outputFileName + outputExt); 
+                if (outputDir == null | outputFileName == null); // Prevents a crash when changing containers if input and output paths are not empty
+                else
+                {
+                    VM.MainView.Output_Text = Path.Combine(outputDir, outputFileName + outputExt);
+                }
             }
             
             // -------------------------
