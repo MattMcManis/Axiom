@@ -459,6 +459,12 @@ namespace Axiom
                                                 .Where(s => !string.IsNullOrEmpty(s))
                                                 .Where(s => !s.Equals("\n"))
                                           );
+
+
+                    // --------------------------------------------------
+                    // Format European English comma to US English peroid - 1,234 to 1.234
+                    // --------------------------------------------------
+                    aQuality = string.Format(System.Globalization.CultureInfo.GetCultureInfo("en-US"), "{0:0.0}", aQuality);
                 }
 
             }
