@@ -359,7 +359,6 @@
                      MaxLines="1" 
                      VerticalAlignment="Top" 
                      TextChanged="tbxOutput_TextChanged"
-                     
                      AllowDrop="True"
                      PreviewDragOver="tbxOutput_PreviewDragOver"
                      PreviewDragEnter="tbxOutput_PreviewDragOver"
