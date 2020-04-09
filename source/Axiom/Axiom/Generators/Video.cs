@@ -932,6 +932,9 @@ namespace Axiom
                     //MessageBox.Show(string.Join("\n", vQualityArgs)); //debug
                 }
 
+                // Format European English comma to US English peroid - 1,234 to 1.234
+                vQuality = string.Format(System.Globalization.CultureInfo.GetCultureInfo("en-US"), "{0:0.0}", vQuality);
+
                 // Join Video Quality Args List
                 vQuality = string.Join(" ", vQualityArgs
                                             .Where(s => !string.IsNullOrEmpty(s))
@@ -1068,27 +1071,27 @@ namespace Axiom
                 if (inputVideoBitRate != "N/A")
                 {
                     // e.g. (1000M / 1,000,000K)
-                    if (Convert.ToInt32(inputVideoBitRate) >= 1000000000)
+                    if (Convert.ToInt64(inputVideoBitRate) >= 1000000000)
                     {
                         inputVideoBitRate = Convert.ToString(int.Parse(inputVideoBitRate) * 0.00001);
                     }
                     // e.g. (100M / 100,000K) 
-                    else if (Convert.ToInt32(inputVideoBitRate) >= 100000000)
+                    else if (Convert.ToInt64(inputVideoBitRate) >= 100000000)
                     {
                         inputVideoBitRate = Convert.ToString(int.Parse(inputVideoBitRate) * 0.0001);
                     }
                     // e.g. (10M / 10,000K)
-                    else if (Convert.ToInt32(inputVideoBitRate) >= 10000000)
+                    else if (Convert.ToInt64(inputVideoBitRate) >= 10000000)
                     {
                         inputVideoBitRate = Convert.ToString(int.Parse(inputVideoBitRate) * 0.001);
                     }
                     // e.g. (1M /1000K)
-                    else if (Convert.ToInt32(inputVideoBitRate) >= 100000)
+                    else if (Convert.ToInt64(inputVideoBitRate) >= 100000)
                     {
                         inputVideoBitRate = Convert.ToString(int.Parse(inputVideoBitRate) * 0.001);
                     }
                     // e.g. (100K)
-                    else if (Convert.ToInt32(inputVideoBitRate) >= 10000)
+                    else if (Convert.ToInt64(inputVideoBitRate) >= 10000)
                     {
                         inputVideoBitRate = Convert.ToString(int.Parse(inputVideoBitRate) * 0.001);
                     }
@@ -1104,7 +1107,7 @@ namespace Axiom
                     try
                     {
                         // Convert to int to remove decimals
-                        inputVideoBitRate = Convert.ToInt32((double.Parse(FFprobe.inputSize) * 8) / 1000 / double.Parse(FFprobe.inputDuration)).ToString();
+                        inputVideoBitRate = Convert.ToInt64((double.Parse(FFprobe.inputSize) * 8) / 1000 / double.Parse(FFprobe.inputDuration)).ToString();
 
 
                         // Log Console Message /////////
