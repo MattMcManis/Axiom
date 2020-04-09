@@ -418,14 +418,14 @@ namespace Axiom
             if (mediaType_SelectedItem == "Video")
             {
                 vBitRate = VideoBitRateCalculator(container_SelectedItem,
-                                                    mediaType_SelectedItem,
-                                                    codec_SelectedItem,
-                                                    FFprobe.vEntryType,
-                                                    FFprobe.inputVideoBitRate);
+                                                  mediaType_SelectedItem,
+                                                  codec_SelectedItem,
+                                                  FFprobe.vEntryType,
+                                                  FFprobe.inputVideoBitRate);
             }
             // Images
             else if (mediaType_SelectedItem == "Image" ||
-                        mediaType_SelectedItem == "Sequence"
+                     mediaType_SelectedItem == "Sequence"
                     )
             {
                 vBitRate = quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.VBR;
@@ -520,16 +520,16 @@ namespace Axiom
 
                         // Default to NA BitRate
                         vBitMode = BitRateMode(quality_Items,
-                                                quality_SelectedItem,
-                                                bitrate_Text,
-                                                vbr_IsChecked
-                                                );
+                                               quality_SelectedItem,
+                                               bitrate_Text,
+                                               vbr_IsChecked
+                                               );
 
                         vBitRate = VideoBitRateCalculator(container_SelectedItem,
-                                                            mediaType_SelectedItem,
-                                                            codec_SelectedItem,
-                                                            FFprobe.vEntryType,
-                                                            vBitRateNA);
+                                                          mediaType_SelectedItem,
+                                                          codec_SelectedItem,
+                                                          FFprobe.vEntryType,
+                                                          vBitRateNA);
 
                         vMinRate = string.Empty;
                         vMaxRate = string.Empty;
@@ -546,25 +546,25 @@ namespace Axiom
                 // Input Video Codec Detected
                 // -------------------------
                 else if (!string.IsNullOrEmpty(FFprobe.inputVideoBitRate) &&
-                            FFprobe.inputVideoBitRate != "N/A")
+                         FFprobe.inputVideoBitRate != "N/A")
                 {
                     // -------------------------
                     // Codec Detected
                     // -------------------------
                     if (!string.IsNullOrEmpty(FFprobe.inputVideoCodec))
                     {
-                        //MessageBox.Show("5 " + vBitRate);
+                        //MessageBox.Show("5 " + vBitRate); //debug
 
                         vCRF = string.Empty;
 
                         if (!string.IsNullOrEmpty(vBitRate))
                         {
                             vBitMode = BitRateMode(quality_Items,
-                                                    quality_SelectedItem,
-                                                    bitrate_Text,
-                                                    vbr_IsChecked
-                                                    );
-                            //MessageBox.Show(vBitMode);
+                                                   quality_SelectedItem,
+                                                   bitrate_Text,
+                                                   vbr_IsChecked
+                                                   );
+                            //MessageBox.Show(vBitMode); //debug
                         }
 
 
@@ -1071,29 +1071,29 @@ namespace Axiom
                 if (inputVideoBitRate != "N/A")
                 {
                     // e.g. (1000M / 1,000,000K)
-                    if (Convert.ToInt64(inputVideoBitRate) >= 1000000000)
+                    if (Convert.ToDouble(inputVideoBitRate) >= 1000000000)
                     {
-                        inputVideoBitRate = Convert.ToString(int.Parse(inputVideoBitRate) * 0.00001);
+                        inputVideoBitRate = Convert.ToString(double.Parse(inputVideoBitRate) * 0.00001);
                     }
                     // e.g. (100M / 100,000K) 
-                    else if (Convert.ToInt64(inputVideoBitRate) >= 100000000)
+                    else if (Convert.ToDouble(inputVideoBitRate) >= 100000000)
                     {
-                        inputVideoBitRate = Convert.ToString(int.Parse(inputVideoBitRate) * 0.0001);
+                        inputVideoBitRate = Convert.ToString(double.Parse(inputVideoBitRate) * 0.0001);
                     }
                     // e.g. (10M / 10,000K)
-                    else if (Convert.ToInt64(inputVideoBitRate) >= 10000000)
+                    else if (Convert.ToDouble(inputVideoBitRate) >= 10000000)
                     {
-                        inputVideoBitRate = Convert.ToString(int.Parse(inputVideoBitRate) * 0.001);
+                        inputVideoBitRate = Convert.ToString(double.Parse(inputVideoBitRate) * 0.001);
                     }
                     // e.g. (1M /1000K)
-                    else if (Convert.ToInt64(inputVideoBitRate) >= 100000)
+                    else if (Convert.ToDouble(inputVideoBitRate) >= 100000)
                     {
-                        inputVideoBitRate = Convert.ToString(int.Parse(inputVideoBitRate) * 0.001);
+                        inputVideoBitRate = Convert.ToString(double.Parse(inputVideoBitRate) * 0.001);
                     }
                     // e.g. (100K)
-                    else if (Convert.ToInt64(inputVideoBitRate) >= 10000)
+                    else if (Convert.ToDouble(inputVideoBitRate) >= 10000)
                     {
-                        inputVideoBitRate = Convert.ToString(int.Parse(inputVideoBitRate) * 0.001);
+                        inputVideoBitRate = Convert.ToString(double.Parse(inputVideoBitRate) * 0.001);
                     }
                 }
 
