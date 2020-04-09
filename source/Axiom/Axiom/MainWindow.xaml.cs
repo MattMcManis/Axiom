@@ -5088,10 +5088,13 @@ namespace Axiom
                     {
                         // Input Not Empty
                         // Output Empty
-                        if (!string.IsNullOrEmpty(VM.MainView.Input_Text) &&
-                            !string.IsNullOrWhiteSpace(VM.MainView.Input_Text) &&
-                            string.IsNullOrEmpty(VM.MainView.Output_Text) &&
+                        // Default Output to be same as Input Directory
+                        if ((!string.IsNullOrEmpty(VM.MainView.Input_Text) &&
+                            !string.IsNullOrWhiteSpace(VM.MainView.Input_Text))
+                            &&
+                            (string.IsNullOrEmpty(VM.MainView.Output_Text) ||
                             string.IsNullOrWhiteSpace(VM.MainView.Output_Text))
+                            )
                         {
                             // Default Output Dir to be same as Input Directory
                             outputDir = inputDir;
@@ -5146,15 +5149,25 @@ namespace Axiom
                     {
                         // Note: %f is filename, %~f is full path
 
-                        // Add slash to Batch Output Text folder path if missing
-                        VM.MainView.Output_Text = VM.MainView.Output_Text.TrimEnd('\\') + @"\";
-
-                        // Input Not Empty, Output Empty
+                        // Input Not Empty
+                        // Output Empty
                         // Default Output to be same as Input Directory
-                        if (!string.IsNullOrEmpty(VM.MainView.Input_Text) &&
-                            string.IsNullOrEmpty(VM.MainView.Output_Text))
+                        if ((!string.IsNullOrEmpty(VM.MainView.Input_Text) &&
+                            !string.IsNullOrWhiteSpace(VM.MainView.Input_Text)) 
+                            &&
+                            (string.IsNullOrEmpty(VM.MainView.Output_Text) ||
+                            string.IsNullOrWhiteSpace(VM.MainView.Output_Text))
+                            )
                         {
                             VM.MainView.Output_Text = VM.MainView.Input_Text;
+                        }
+
+                        // Add slash to Batch Output Text folder path if missing
+                        // If Output is not Empty
+                        if (!string.IsNullOrEmpty(VM.MainView.Input_Text) &&
+                            !string.IsNullOrWhiteSpace(VM.MainView.Input_Text))
+                        {
+                            VM.MainView.Output_Text = VM.MainView.Output_Text.TrimEnd('\\') + @"\";
                         }
 
                         outputDir = VM.MainView.Output_Text.TrimEnd('\\') + @"\";
