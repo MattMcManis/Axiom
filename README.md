@@ -74,7 +74,7 @@ Axiom is portable and can be run from any location on the computer.
 ---
 
 #### YouTube Download
-`youtube-dl.exe` is included in `Axiom.FFmpeg.7z`. 
+`youtube-dl.exe` is included in `Axiom.FFmpeg.7z`. Requires [Microsoft Visual C++ 2010 x86](https://www.microsoft.com/en-US/download/details.aspx?id=5555) installed.
 
 Axiom will auto-detect it in its included folder. You can also add it to Windows Environment Variables or specify a path in the Axiom Settings Tab.
 
