@@ -103,7 +103,7 @@ namespace Axiom
         public static List<AudioViewModel.AudioSampleRate> sampleRate = new List<AudioViewModel.AudioSampleRate>()
         {
              new AudioViewModel.AudioSampleRate() { Name = "auto",     Frequency = "" },
-             new AudioViewModel.AudioSampleRate() { Name = "7.35k",       Frequency = "7350" },
+             new AudioViewModel.AudioSampleRate() { Name = "7.35k",    Frequency = "7350" },
              new AudioViewModel.AudioSampleRate() { Name = "8k",       Frequency = "8000" },
              new AudioViewModel.AudioSampleRate() { Name = "11.025k",  Frequency = "11025" },
              new AudioViewModel.AudioSampleRate() { Name = "12k",      Frequency = "12000" },
