@@ -1,6 +1,6 @@
 ﻿<!-- 
     Axiom UI
-    Copyright (C) 2017-2019 Matt McManis
+    Copyright (C) 2017-2020 Matt McManis
     https://github.com/MattMcManis/Axiom
     https://axiomui.github.io
     mattmcmanis@outlook.com
@@ -302,7 +302,7 @@
                      Style="{DynamicResource TextBoxBrowseStyle}" 
                      Height="22"
                      Margin="75,0,-14,0" 
-                     Padding="2, 0, 25, 0" 
+                     Padding="2, 1, 25, 0" 
                      TextWrapping="NoWrap"
                      MaxLines="1" 
                      VerticalAlignment="Top" 
@@ -354,7 +354,7 @@
                      Style="{DynamicResource TextBoxBrowseStyle}"
                      Height="22"
                      Margin="75,29,-14,0"
-                     Padding="2, 0, 25, 0" 
+                     Padding="2, 1, 25, 0" 
                      TextWrapping="NoWrap" 
                      MaxLines="1" 
                      VerticalAlignment="Top" 
