@@ -1,6 +1,6 @@
 ﻿/* ----------------------------------------------------------------------
 Axiom UI
-Copyright (C) 2017-2019 Matt McManis
+Copyright (C) 2017-2020 Matt McManis
 https://github.com/MattMcManis/Axiom
 https://axiomui.github.io
 mattmcmanis@outlook.com
@@ -65,43 +65,44 @@ namespace Axiom
             // --------------------------------------------------------------------
             // Video Map
             // --------------------------------------------------------------------
-            // -------------------------
-            // Video Formats
-            // -------------------------
-            if (VM.FormatView.Format_Container_SelectedItem == "webm")
+            switch (VM.FormatView.Format_Container_SelectedItem)
             {
-                vMap = "-map 0:v:0?"; // only video track 1
-            }
-            else if (VM.FormatView.Format_Container_SelectedItem == "mp4")
-            {
-                vMap = "-map 0:v:0?"; // only video track 1
-            }
-            else if (VM.FormatView.Format_Container_SelectedItem == "mkv")
-            {
-                vMap = "-map 0:v?"; // all video tracks
-            }
-            else if (VM.FormatView.Format_Container_SelectedItem == "m2v")
-            {
-                vMap = "-map 0:v?"; // all video tracks
-            }
-            else if (VM.FormatView.Format_Container_SelectedItem == "mpg")
-            {
-                vMap = "-map 0:v?"; // all video tracks
-            }
-            else if (VM.FormatView.Format_Container_SelectedItem == "avi")
-            {
-                vMap = "-map 0:v:0?"; // only video track 1
-            }
-            else if (VM.FormatView.Format_Container_SelectedItem == "ogv")
-            {
-                vMap = "-map 0:v?"; // all video tracks
-            }
-            // -------------------------
-            // Non-Video Formats
-            // -------------------------
-            else
-            {
-                vMap = string.Empty; // do not copy video map
+                // -------------------------
+                // Video Formats
+                // -------------------------
+                case "webm":
+                    vMap = "-map 0:v:0?"; // only video track 1
+                    break;
+
+                case "mp4":
+                    vMap = "-map 0:v:0?"; // only video track 1
+                    break;
+
+                case "mkv":
+                    vMap = "-map 0:v?"; // all video tracks
+                    break;
+
+                case "m2v":
+                    vMap = "-map 0:v?"; // all video tracks
+                    break;
+
+                case "mpg":
+                    vMap = "-map 0:v?"; // all video tracks
+                    break;
+
+                case "avi":
+                    vMap = "-map 0:v:0?"; // only video track 1
+                    break;
+
+                case "ogv":
+                    vMap = "-map 0:v?"; // all video tracks
+                    break;
+
+                // Non-Video Formats
+                //
+                default:
+                    vMap = string.Empty; // do not copy video map
+                    break;
             }
 
             // -------------------------
@@ -140,40 +141,41 @@ namespace Axiom
             // -------------------------
             // Video Formats
             // -------------------------
-            if (VM.FormatView.Format_Container_SelectedItem == "webm")
+            switch (VM.FormatView.Format_Container_SelectedItem)
             {
-                cMap = "-map_chapters -1"; // remove chapters
-            }
-            else if (VM.FormatView.Format_Container_SelectedItem == "mp4")
-            {
-                cMap = "-map_chapters 0"; // all chapters
-            }
-            else if (VM.FormatView.Format_Container_SelectedItem == "mkv")
-            {
-                cMap = "-map_chapters 0"; // all chapters
-            }
-            else if (VM.FormatView.Format_Container_SelectedItem == "m2v")
-            {
-                cMap = "-map_chapters -1"; // remove chapters
-            }
-            else if (VM.FormatView.Format_Container_SelectedItem == "mpg")
-            {
-                cMap = "-map_chapters 0"; // all chapters
-            }
-            else if (VM.FormatView.Format_Container_SelectedItem == "avi")
-            {
-                cMap = "-map_chapters 0"; // all chapters
-            }
-            else if (VM.FormatView.Format_Container_SelectedItem == "ogv")
-            {
-                cMap = "-map_chapters 0"; // all chapters
-            }
-            // -------------------------
-            // All Other Formats
-            // -------------------------
-            else
-            {
-                cMap = string.Empty; // do not copy chapters
+                case "webm":
+                    cMap = "-map_chapters -1"; // remove chapters
+                    break;
+
+                case "mp4":
+                    cMap = "-map_chapters 0"; // all chapters
+                    break;
+
+                case "mkv":
+                    cMap = "-map_chapters 0"; // all chapters
+                    break;
+
+                case "m2v":
+                    cMap = "-map_chapters -1"; // remove chapters
+                    break;
+
+                case "mpg":
+                    cMap = "-map_chapters 0"; // all chapters
+                    break;
+
+                case "avi":
+                    cMap = "-map_chapters 0"; // all chapters
+                    break;
+
+                case "ogv":
+                    cMap = "-map_chapters 0"; // all chapters
+                    break;
+
+                // All Other Formats
+                //
+                default:
+                    cMap = string.Empty; // do not copy chapters
+                    break;
             }
 
             // -------------------------
@@ -291,53 +293,56 @@ namespace Axiom
                 // -------------------------
                 else if (VM.SubtitleView.Subtitle_Stream_SelectedItem == "all")
                 {
+                    // -------------------------
                     // Formats
-                    //
-                    if (VM.FormatView.Format_Container_SelectedItem == "webm")
+                    // -------------------------
+                    switch (VM.FormatView.Format_Container_SelectedItem)
                     {
-                        sMap = "-sn"; // no subtitles
-                    }
-                    else if (VM.FormatView.Format_Container_SelectedItem == "mp4")
-                    {
-                        sMap = "-map 0:s?"; // all subtitles (:? at the end ignores error if subtitle is not available)
-                    }
-                    else if (VM.FormatView.Format_Container_SelectedItem == "mkv")
-                    {
-                        sMap = "-map 0:s?"; // all subtitles
-                    }
-                    else if (VM.FormatView.Format_Container_SelectedItem == "m2v")
-                    {
-                        sMap = "-sn"; //  no subtitles
-                    }
-                    else if (VM.FormatView.Format_Container_SelectedItem == "mpg")
-                    {
-                        sMap = "-map 0:s?"; // all subtitles
-                    }
-                    else if (VM.FormatView.Format_Container_SelectedItem == "avi")
-                    {
-                        sMap = "-map 0:s?"; // all subtitles
-                    }
-                    else if (VM.FormatView.Format_Container_SelectedItem == "ogv")
-                    {
-                        sMap = "-map 0:s?"; // all subtitles, OGV has problem using Subtitles
-                    }
-                    else if (VM.FormatView.Format_Container_SelectedItem == "jpg")
-                    {
-                        sMap = "-sn"; // disable subtitles
-                    }
-                    else if (VM.FormatView.Format_Container_SelectedItem == "png")
-                    {
-                        sMap = "-sn"; // disable subtitles
-                    }
-                    else if (VM.FormatView.Format_Container_SelectedItem == "webp")
-                    {
-                        sMap = "-sn"; // disable subtitles
-                    }
-                    // Non-Video/Image Formats
-                    //
-                    else
-                    {
-                        sMap = "-sn"; // disable subtitles
+                        case "webm":
+                            sMap = "-sn"; // no subtitles
+                            break;
+
+                        case "mp4":
+                            sMap = "-map 0:s?"; // all subtitles (:? at the end ignores error if subtitle is not available:
+                            break;
+
+                        case "mkv":
+                            sMap = "-map 0:s?"; // all subtitles
+                            break;
+
+                        case "m2v":
+                            sMap = "-sn"; //  no subtitles
+                            break;
+
+                        case "mpg":
+                            sMap = "-map 0:s?"; // all subtitles
+                            break;
+
+                        case "avi":
+                            sMap = "-map 0:s?"; // all subtitles
+                            break;
+
+                        case "ogv":
+                            sMap = "-map 0:s?"; // all subtitles, OGV has problem using Subtitles
+                            break;
+
+                        case "jpg":
+                            sMap = "-sn"; // disable subtitles
+                            break;
+
+                        case "png":
+                            sMap = "-sn"; // disable subtitles
+                            break;
+
+                        case "webp":
+                            sMap = "-sn"; // disable subtitles
+                            break;
+
+                        // Non-Video/Image Formats
+                        //
+                        default:
+                            sMap = "-sn"; // disable subtitles
+                            break;
                     }
                 }
                 // -------------------------
@@ -417,52 +422,58 @@ namespace Axiom
             // -------------------------
             else if (VM.AudioView.Audio_Stream_SelectedItem == "all")
             {
-                // Video/Image Format
-                //
-                if (VM.FormatView.Format_Container_SelectedItem == "webm")
+                switch (VM.FormatView.Format_Container_SelectedItem)
                 {
-                    aMap = "-map 0:a:0?"; // only audio track 1
-                }
-                else if (VM.FormatView.Format_Container_SelectedItem == "mp4")
-                {
-                    aMap = "-map 0:a?"; // all audio tracks 
-                }
-                else if (VM.FormatView.Format_Container_SelectedItem == "mkv")
-                {
-                    aMap = "-map 0:a?"; // all audio tracks 
-                }
-                else if (VM.FormatView.Format_Container_SelectedItem == "m2v")
-                {
-                    aMap = "-an"; // disable audio
-                }
-                else if (VM.FormatView.Format_Container_SelectedItem == "mpg")
-                {
-                    aMap = "-map 0:a?"; // all audio tracks 
-                }
-                else if (VM.FormatView.Format_Container_SelectedItem == "avi")
-                {
-                    aMap = "-map 0:a?"; // all audio tracks 
-                }
-                else if (VM.FormatView.Format_Container_SelectedItem == "ogv")
-                {
-                    aMap = "-map 0:a?"; // all audio tracks 
-                }
-                else if (VM.FormatView.Format_Container_SelectedItem == "jpg")
-                {
-                    aMap = "-an"; // disable audio
-                }
-                else if (VM.FormatView.Format_Container_SelectedItem == "png")
-                {
-                    aMap = "-an"; // disable audio
-                }
-                else if (VM.FormatView.Format_Container_SelectedItem == "webp")
-                {
-                    aMap = "-an"; // disable audio
+                    // Video/Image Format
+                    //
+                    case "webm":
+                        aMap = "-map 0:a:0?"; // only audio track 1
+                        break;
+
+                    case "mp4":
+                        aMap = "-map 0:a?"; // all audio tracks 
+                        break;
+
+                    case "mkv":
+                        aMap = "-map 0:a?"; // all audio tracks 
+                        break;
+
+                    case "m2v":
+                        aMap = "-an"; // disable audio
+                        break;
+
+                    case "mpg":
+                        aMap = "-map 0:a?"; // all audio tracks 
+                        break;
+
+                    case "avi":
+                        aMap = "-map 0:a?"; // all audio tracks 
+                        break;
+
+                    case "ogv":
+                        aMap = "-map 0:a?"; // all audio tracks 
+                        break;
+
+                    case "jpg":
+                        aMap = "-an"; // disable audio
+                        break;
+
+                    case "png":
+                        aMap = "-an"; // disable audio
+                        break;
+
+                    case "webp":
+                        aMap = "-an"; // disable audio
+                        break;
+
+                    default:
+                        aMap = string.Empty; // do not copy audio
+                        break;
                 }
 
                 // Audio Media Type
                 //
-                else if (VM.FormatView.Format_MediaType_SelectedItem == "Audio")
+                if (VM.FormatView.Format_MediaType_SelectedItem == "Audio")
                 {
                     aMap = "-map 0:a:0?"; // only audio track 1
                 }
@@ -531,43 +542,30 @@ namespace Axiom
             // Metadata Map
             // --------------------------------------------------------------------
             // Go by Format Container
+            switch(VM.FormatView.Format_Container_SelectedItem)
+            {
+                case "mp3":
+                    mMap = "-map_metadata 0 -id3v2_version 3";
+                    break;
 
-            // -------------------------
-            // mp3
-            // -------------------------
-            if (VM.FormatView.Format_Container_SelectedItem == "mp3")
-            {
-                mMap = "-map_metadata 0 -id3v2_version 3";
-            }
-            // -------------------------
-            // jpg
-            // -------------------------
-            else if (VM.FormatView.Format_Container_SelectedItem == "jpg")
-            {
-                mMap = string.Empty; // do not copy metadata
-            }
-            // -------------------------
-            // png
-            // -------------------------
-            else if (VM.FormatView.Format_Container_SelectedItem == "png")
-            {
-                mMap = string.Empty; // do not copy metadata
-            }
-            // -------------------------
-            // webp
-            // -------------------------
-            else if (VM.FormatView.Format_Container_SelectedItem == "webp")
-            {
-                mMap = string.Empty; // do not copy metadata
-            }
-            // -------------------------
-            // All Other Formats
-            // -------------------------
-            else
-            {
-                mMap = "-map_metadata 0"; // copy all metadata
-            }
+                case "jpg":
+                    mMap = string.Empty; // do not copy metadata
+                    break;
 
+                case "png":
+                    mMap = string.Empty; // do not copy metadata
+                    break;
+
+                case "webp":
+                    mMap = string.Empty; // do not copy metadata
+                    break;
+
+                // All Other Formats
+                // 
+                default:
+                    mMap = "-map_metadata 0"; // copy all metadata
+                    break;
+            }
 
             // --------------------------------------------------------------------
             // Combine Maps
