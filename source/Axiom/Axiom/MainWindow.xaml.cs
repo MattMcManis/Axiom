@@ -1,6 +1,6 @@
 ﻿/* ----------------------------------------------------------------------
 Axiom UI
-Copyright (C) 2017-2019 Matt McManis
+Copyright (C) 2017-2020 Matt McManis
 https://github.com/MattMcManis/Axiom
 https://axiomui.github.io
 mattmcmanis@outlook.com
@@ -2947,35 +2947,31 @@ namespace Axiom
             // -------------------------
             if (youtubedl_SelectedItem == "Video + Audio")
             {
-                // Best
-                if (youtubedl_Quality_SelectedItem == "best")
+                switch (youtubedl_Quality_SelectedItem)
                 {
-                    return "bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio/best";
-                }
-                // Best 4K
-                else if (youtubedl_Quality_SelectedItem == "best 4K")
-                {
-                    return "bestvideo[height=2160][ext=mp4]+bestaudio[ext=m4a]/bestvideo[height=2160]+bestaudio/bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio/best";
-                }
-                // Best 1080p
-                else if (youtubedl_Quality_SelectedItem == "best 1080p")
-                {
-                    return "bestvideo[height=1080][ext=mp4]+bestaudio[ext=m4a]/bestvideo[height=1080]+bestaudio/bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio/best";
-                }
-                // Best 720p
-                else if (youtubedl_Quality_SelectedItem == "best 720p")
-                {
-                    return "bestvideo[height=720][ext=mp4]+bestaudio[ext=m4a]/bestvideo[height=720]+bestaudio/bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio/best";
-                }
-                // Best 480p
-                else if (youtubedl_Quality_SelectedItem == "best 480p")
-                {
-                    return "bestvideo[height=480][ext=mp4]+bestaudio[ext=m4a]/bestvideo[height=480]+bestaudio/bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio/best";
-                }
-                // Worst
-                else if (youtubedl_Quality_SelectedItem == "worst")
-                {
-                    return "worstvideo[ext=mp4]+worstaudio[ext=m4a]/worstvideo+worstaudio/worst";
+                    // Best
+                    case "best":
+                        return "bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio/best";
+
+                    // Best 4K
+                    case "best 4K":
+                        return "bestvideo[height=2160][ext=mp4]+bestaudio[ext=m4a]/bestvideo[height=2160]+bestaudio/bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio/best";
+
+                    // Best 1080p
+                    case "best 1080p":
+                        return "bestvideo[height=1080][ext=mp4]+bestaudio[ext=m4a]/bestvideo[height=1080]+bestaudio/bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio/best";
+
+                    // Best 720p
+                    case "best 720p":
+                        return "bestvideo[height=720][ext=mp4]+bestaudio[ext=m4a]/bestvideo[height=720]+bestaudio/bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio/best";
+
+                    // Best 480p
+                    case "best 480p":
+                        return "bestvideo[height=480][ext=mp4]+bestaudio[ext=m4a]/bestvideo[height=480]+bestaudio/bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio/best";
+
+                    // Worst
+                    case "worst":
+                        return "worstvideo[ext=mp4]+worstaudio[ext=m4a]/worstvideo+worstaudio/worst";
                 }
             }
 
@@ -2984,35 +2980,32 @@ namespace Axiom
             // -------------------------
             else if (youtubedl_SelectedItem == "Video Only")
             {
-                // Best
-                if (youtubedl_Quality_SelectedItem == "best")
+                switch (youtubedl_Quality_SelectedItem)
                 {
-                    return "bestvideo[ext=mp4]/bestvideo";
-                }
-                // Best 4K
-                else if (youtubedl_Quality_SelectedItem == "best 4K")
-                {
-                    return "bestvideo[height=2160][ext=mp4]/bestvideo[ext=mp4]/bestvideo";
-                }
-                // Best 1080p
-                else if (youtubedl_Quality_SelectedItem == "best 1080p")
-                {
-                    return "bestvideo[height=1080][ext=mp4]/bestvideo[ext=mp4]/bestvideo";
-                }
-                // Best 720p
-                else if (youtubedl_Quality_SelectedItem == "best 720p")
-                {
-                    return "bestvideo[height=720p][ext=mp4]/bestvideo[ext=mp4]/bestvideo";
-                }
-                // Best 480p
-                else if (youtubedl_Quality_SelectedItem == "best 480p")
-                {
-                    return "bestvideo[height=480p][ext=mp4]/bestvideo[ext=mp4]/bestvideo";
-                }
-                // Worst
-                else if (youtubedl_Quality_SelectedItem == "worst")
-                {
-                    return "worstvideo[ext=mp4]/worstvideo";
+                    // Best
+                    case "best":
+                        return "bestvideo[ext=mp4]/bestvideo";
+
+                    // Best 4K
+                    case "best 4K":
+                        return "bestvideo[height=2160][ext=mp4]/bestvideo[ext=mp4]/bestvideo";
+
+                    // Best 1080p
+                    case "best 1080p":
+                        return "bestvideo[height=1080][ext=mp4]/bestvideo[ext=mp4]/bestvideo";
+
+                    // Best 720p
+                    case "best 720p":
+                        return "bestvideo[height=720p][ext=mp4]/bestvideo[ext=mp4]/bestvideo";
+
+                    // Best 480p
+                    case "best 480p":
+                        return "bestvideo[height=480p][ext=mp4]/bestvideo[ext=mp4]/bestvideo";
+
+                    // Worst
+                    case "worst":
+                        return "worstvideo[ext=mp4]/worstvideo";
+
                 }
             }
 
@@ -4352,7 +4345,9 @@ namespace Axiom
 
                 // -------------------------
                 // Prevent Losing Codec Copy after cancel closing Browse Folder Dialog Box 
-                // Set Video & Audio Codec Combobox to "Copy" if Input Extension is Same as Output Extension and Video Quality is Auto
+                // Set Video and AudioCodec Combobox to "Copy" if 
+                // Input File Extension is Same as Output File Extension 
+                // and Quality is Auto
                 // -------------------------
                 VideoControls.AutoCopyVideoCodec();
                 SubtitleControls.AutoCopySubtitleCodec();
@@ -4478,6 +4473,11 @@ namespace Axiom
                                                                     // Path.HasExtension() detects .c, .co, .com as extension
 
                     {
+                        // -------------------------
+                        // Set Video and AudioCodec Combobox to "Copy" if 
+                        // Input File Extension is Same as Output File Extension 
+                        // and Quality is Auto
+                        // -------------------------
                         VideoControls.AutoCopyVideoCodec();
                         SubtitleControls.AutoCopySubtitleCodec();
                         AudioControls.AutoCopyAudioCodec();
@@ -4522,7 +4522,11 @@ namespace Axiom
             inputFileName = Path.GetFileNameWithoutExtension(VM.MainView.Input_Text);
             inputExt = Path.GetExtension(VM.MainView.Input_Text);
 
-            // Set Video & Audio Codec Combobox to "Copy" if Input Extension is Same as Output Extension and Video Quality is Auto
+            // -------------------------
+            // Set Video and AudioCodec Combobox to "Copy" if 
+            // Input File Extension is Same as Output File Extension 
+            // and Quality is Auto
+            // -------------------------
             VideoControls.AutoCopyVideoCodec();
             SubtitleControls.AutoCopySubtitleCodec();
             AudioControls.AutoCopyAudioCodec();
@@ -4873,7 +4877,11 @@ namespace Axiom
                 outputExt = string.Empty;
             }
 
-            // Set Video and AudioCodec Combobox to "Copy" if Input Extension is Same as Output Extension and Video Quality is Auto
+            // -------------------------
+            // Set Video and AudioCodec Combobox to "Copy" if 
+            // Input File Extension is Same as Output File Extension 
+            // and Quality is Auto
+            // -------------------------
             VideoControls.AutoCopyVideoCodec();
             SubtitleControls.AutoCopySubtitleCodec();
             AudioControls.AutoCopyAudioCodec();
@@ -4913,7 +4921,11 @@ namespace Axiom
             // --------------------------------------------------
             ExtensionMatchCheckAuto();
 
-            // Set Video and AudioCodec Combobox to "Copy" if Input Extension is Same as Output Extension and Video Quality is Auto
+            // -------------------------
+            // Set Video and AudioCodec Combobox to "Copy" if 
+            // Input File Extension is Same as Output File Extension 
+            // and Quality is Auto
+            // -------------------------
             VideoControls.AutoCopyVideoCodec();
             SubtitleControls.AutoCopySubtitleCodec();
             AudioControls.AutoCopyAudioCodec();
@@ -5185,10 +5197,13 @@ namespace Axiom
                 {
                     // Note: %f is filename, %~f is full path
 
+                    // -------------------------
                     // Auto Output Path
-                    if (string.IsNullOrEmpty(VM.MainView.Output_Text))
+                    // -------------------------
+                    if (string.IsNullOrEmpty(VM.MainView.Output_Text) ||
+                        string.IsNullOrWhiteSpace(VM.MainView.Output_Text))
                     {
-                        outputDir = downloadDir;
+                        outputDir = downloadDir; // Default
                         //outputFileName = "%f";
 
                         // Check if output filename already exists
@@ -5214,9 +5229,17 @@ namespace Axiom
                         // Combine Output
                         //output = outputDir + outputFileName + outputExt; // eg. C:\Users\Example\Downloads\%f.webm
                         output = Path.Combine(outputDir, outputFileName + outputExt); // eg. C:\Users\Example\Downloads\%f.webm
+
+                        // -------------------------
+                        // Update TextBox
+                        // -------------------------
+                        // Display Folder + file (%f) + extension
+                        VM.MainView.Output_Text = Path.Combine(outputDir, outputFileName + outputExt);
                     }
 
+                    // -------------------------
                     // User Defined Output Path
+                    // -------------------------
                     else
                     {
                         outputDir = Path.GetDirectoryName(VM.MainView.Output_Text).TrimEnd('\\') + @"\"; // eg. C:\Output\Path\
@@ -5354,8 +5377,10 @@ namespace Axiom
                 !string.IsNullOrEmpty(inputExt)) // Path Combine with null file extension causes error
             {
                 //MessageBox.Show(outputExt); //debug
-                //VM.MainView.Output_Text = outputDir + outputFileName + outputExt; 
-                VM.MainView.Output_Text = Path.Combine(outputDir, outputFileName + outputExt); 
+                if (!string.IsNullOrEmpty(outputDir) && !string.IsNullOrEmpty(outputFileName)) // Prevents a crash when changing containers if input and output paths are not empty
+                {
+                    VM.MainView.Output_Text = Path.Combine(outputDir, outputFileName + outputExt);
+                }
             }
             
             // -------------------------
@@ -5363,6 +5388,15 @@ namespace Axiom
             // to update Format changes such as Audio_Stream_SelectedItem
             // -------------------------
             cboFormat_MediaType_SelectionChanged(cboFormat_MediaType, null);
+
+            // -------------------------
+            // Set Video and AudioCodec Combobox to "Copy" if 
+            // Input File Extension is Same as Output File Extension 
+            // and Quality is Auto
+            // -------------------------
+            VideoControls.AutoCopyVideoCodec();
+            SubtitleControls.AutoCopySubtitleCodec();
+            AudioControls.AutoCopyAudioCodec();
         }
 
 
@@ -5739,8 +5773,7 @@ namespace Axiom
             // -------------------------
             // Display Bit Rate in TextBox
             // -------------------------
-            VideoControls.VideoBitRateDisplay(
-                                              VM.VideoView.Video_Quality_Items,
+            VideoControls.VideoBitRateDisplay(VM.VideoView.Video_Quality_Items,
                                               VM.VideoView.Video_Quality_SelectedItem,
                                               VM.VideoView.Video_Pass_SelectedItem);
         }
@@ -5764,8 +5797,7 @@ namespace Axiom
             // -------------------------
             // Display Bit Rate in TextBox
             // -------------------------
-            VideoControls.VideoBitRateDisplay(
-                                              VM.VideoView.Video_Quality_Items,
+            VideoControls.VideoBitRateDisplay(VM.VideoView.Video_Quality_Items,
                                               VM.VideoView.Video_Quality_SelectedItem,
                                               VM.VideoView.Video_Pass_SelectedItem);
 
@@ -5792,10 +5824,16 @@ namespace Axiom
             // -------------------------
             // Pixel Format
             // -------------------------
-            VideoControls.PixelFormatControls(
-                                              VM.FormatView.Format_MediaType_SelectedItem,
+            VideoControls.PixelFormatControls(VM.FormatView.Format_MediaType_SelectedItem,
                                               VM.VideoView.Video_Codec_SelectedItem,
                                               VM.VideoView.Video_Quality_SelectedItem);
+
+            // -------------------------
+            // Set Video and AudioCodec Combobox to "Copy" if 
+            // Input File Extension is Same as Output File Extension 
+            // and Quality is Auto
+            // -------------------------
+            VideoControls.AutoCopyVideoCodec();
         }
 
 
@@ -5872,8 +5910,7 @@ namespace Axiom
             // -------------------------
             // Display Bit Rate in TextBox
             // -------------------------
-            VideoControls.VideoBitRateDisplay(
-                                              VM.VideoView.Video_Quality_Items,
+            VideoControls.VideoBitRateDisplay(VM.VideoView.Video_Quality_Items,
                                               VM.VideoView.Video_Quality_SelectedItem,
                                               VM.VideoView.Video_Pass_SelectedItem);
         }
@@ -7169,6 +7206,12 @@ namespace Axiom
                                               VM.AudioView.Audio_Quality_SelectedItem
                                               );
 
+            // -------------------------
+            // Set Video and AudioCodec Combobox to "Copy" if 
+            // Input File Extension is Same as Output File Extension 
+            // and Quality is Auto
+            // -------------------------
+            AudioControls.AutoCopyAudioCodec();
         }
 
 
