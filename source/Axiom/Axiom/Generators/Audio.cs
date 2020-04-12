@@ -1,6 +1,6 @@
 ﻿/* ----------------------------------------------------------------------
 Axiom UI
-Copyright (C) 2017-2019 Matt McManis
+Copyright (C) 2017-2020 Matt McManis
 https://github.com/MattMcManis/Axiom
 https://axiomui.github.io
 mattmcmanis@outlook.com
@@ -511,9 +511,14 @@ namespace Axiom
                     !string.IsNullOrEmpty(FFprobe.inputAudioBitRate))
                 {
                     // -------------------------
-                    // Convert to Decimal
+                    // Convert inputAudioBitRate to Decimal
                     // -------------------------
                     inputAudioBitRate = Convert.ToString(double.Parse(inputAudioBitRate) * 0.001);
+
+                    // -------------------------
+                    // Convert inputAudioBitRate to Double
+                    // -------------------------
+                    double inputAudioBitRate_Double = double.Parse(inputAudioBitRate);
 
                     // -------------------------
                     // Apply limits if BitRate goes over
@@ -522,7 +527,7 @@ namespace Axiom
                     // Vorbis
                     // -------------------------
                     if (codec_SelectedItem == "Vorbis" &&
-                        double.Parse(inputAudioBitRate) > 500)
+                        inputAudioBitRate_Double > 500)
                     {
                         inputAudioBitRate = Convert.ToString(500); //was 500,000 (before converting to decimal)
                     }
@@ -530,7 +535,7 @@ namespace Axiom
                     // Opus
                     // -------------------------
                     else if (codec_SelectedItem == "Opus" &&
-                             double.Parse(inputAudioBitRate) > 510)
+                             inputAudioBitRate_Double > 510)
                     {
                         inputAudioBitRate = Convert.ToString(510); //was 510,000 (before converting to decimal)
                     }
@@ -538,7 +543,7 @@ namespace Axiom
                     // MP2
                     // -------------------------
                     else if (codec_SelectedItem == "MP2" &&
-                             double.Parse(inputAudioBitRate) > 384)
+                             inputAudioBitRate_Double > 384)
                     {
                         inputAudioBitRate = Convert.ToString(384); //was 320,000 before converting to decimal)
                     }
@@ -546,7 +551,7 @@ namespace Axiom
                     // LAME
                     // -------------------------
                     else if (codec_SelectedItem == "LAME" &&
-                             double.Parse(inputAudioBitRate) > 320)
+                             inputAudioBitRate_Double > 320)
                     {
                         inputAudioBitRate = Convert.ToString(320); //was 320,000 before converting to decimal)
                     }
@@ -554,7 +559,7 @@ namespace Axiom
                     // AC3
                     // -------------------------
                     else if (codec_SelectedItem == "AC3" &&
-                             double.Parse(inputAudioBitRate) > 640)
+                             inputAudioBitRate_Double > 640)
                     {
                         inputAudioBitRate = Convert.ToString(640); //was 640,000 (before converting to decimal)
                     }
@@ -562,7 +567,7 @@ namespace Axiom
                     // AAC
                     // -------------------------
                     else if (codec_SelectedItem == "AAC" &&
-                             double.Parse(inputAudioBitRate) > 400)
+                             inputAudioBitRate_Double > 400)
                     {
                         inputAudioBitRate = Convert.ToString(400); //was 400,000 (before converting to decimal)
                     }
@@ -570,7 +575,7 @@ namespace Axiom
                     // DTS
                     // -------------------------
                     else if (codec_SelectedItem == "DTS" &&
-                             double.Parse(inputAudioBitRate) > 1509)
+                             inputAudioBitRate_Double > 1509)
                     {
                         inputAudioBitRate = Convert.ToString(1509); //was 640,000 (before converting to decimal)
                     }
@@ -587,7 +592,7 @@ namespace Axiom
                     // -------------------------
                     // Vorbis has a minimum bitrate limit of 45k, if less than, set to 45k
                     else if (codec_SelectedItem == "Vorbis" &&
-                             double.Parse(inputAudioBitRate) < 45)
+                             inputAudioBitRate_Double < 45)
                     {
                         inputAudioBitRate = Convert.ToString(45);
                     }
@@ -597,7 +602,7 @@ namespace Axiom
                     // -------------------------
                     // Opus has a minimum bitrate limit of 6k, if less than, set to 6k
                     else if (codec_SelectedItem == "Opus" &&
-                             double.Parse(inputAudioBitRate) < 6)
+                             inputAudioBitRate_Double < 6)
                     {
                         inputAudioBitRate = Convert.ToString(6);
                     }
@@ -605,7 +610,7 @@ namespace Axiom
                     // -------------------------
                     // Round BitRate, Remove Decimals
                     // -------------------------
-                    inputAudioBitRate = Math.Round(double.Parse(inputAudioBitRate)).ToString();
+                    inputAudioBitRate = Math.Round(inputAudioBitRate_Double).ToString();
                 }
             }
             catch
@@ -1015,77 +1020,72 @@ namespace Axiom
                 {
                     try
                     {
-                        // Vorbis
-                        if (codec_SelectedItem == "Vorbis")
+                        switch (codec_SelectedItem)
                         {
-                            if (aBitRateLimit > 500000)
-                            {
-                                return 500000;
-                            }
-                        }
-                        // Opus
-                        else if (codec_SelectedItem == "Opus")
-                        {
-                            if (aBitRateLimit > 510000)
-                            {
-                                return 510000;
-                            }
-                        }
-                        // AAC
-                        else if (codec_SelectedItem == "AAC")
-                        {
-                            if (aBitRateLimit > 400000)
-                            {
-                                return 400000;
-                            }
-                        }
-                        // AC3
-                        else if (codec_SelectedItem == "AC3")
-                        {
-                            if (aBitRateLimit > 640000)
-                            {
-                                return 640000;
-                            }
-                        }
-                        // DTS
-                        else if (codec_SelectedItem == "DTS")
-                        {
-                            if (aBitRateLimit > 1509075)
-                            {
-                                return 1509075;
-                            }
-                        }
-                        // MP2
-                        else if (codec_SelectedItem == "MP2")
-                        {
-                            if (aBitRateLimit > 384000)
-                            {
-                                return 384000;
-                            }
-                        }
-                        // LAME
-                        else if (codec_SelectedItem == "LAME")
-                        {
-                            if (aBitRateLimit > 320000)
-                            {
-                                return 320000;
-                            }
-                        }
-                        // FLAC
-                        else if (codec_SelectedItem == "FLAC")
-                        {
-                            if (aBitRateLimit > 1411000)
-                            {
-                                return 1411000;
-                            }
-                        }
-                        // PCM
-                        else if (codec_SelectedItem == "PCM")
-                        {
-                            if (aBitRateLimit > 1536000)
-                            {
-                                return 1536000;
-                            }
+                            // Vorbis
+                            case "Vorbis":
+                                if (aBitRateLimit > 500000)
+                                {
+                                    return 500000;
+                                }
+                                break;
+                            // Opus
+                            case "Opus":
+                                if (aBitRateLimit > 510000)
+                                {
+                                    return 510000;
+                                }
+                                break;
+                            // AAC
+                            case "AAC":
+                                if (aBitRateLimit > 400000)
+                                {
+                                    return 400000;
+                                }
+                                break;
+
+                            // AC3
+                            case "AC3":
+                                if (aBitRateLimit > 640000)
+                                {
+                                    return 640000;
+                                }
+                                break;
+                            // DTS
+                            case "DTS":
+                                if (aBitRateLimit > 1509075)
+                                {
+                                    return 1509075;
+                                }
+                                break;
+                            // MP2
+                            case "MP2":
+                                if (aBitRateLimit > 384000)
+                                {
+                                    return 384000;
+                                }
+                                break;
+                            // LAME
+                            case "LAME":
+                                if (aBitRateLimit > 320000)
+                                {
+                                    return 320000;
+                                }
+                                break;
+                            // FLAC
+                            case "FLAC":
+                                if (aBitRateLimit > 1411000)
+                                {
+                                    return 1411000;
+                                }
+                                break;
+                            // PCM
+                            case "PCM":
+                                if (aBitRateLimit > 1536000)
+                                {
+                                    return 1536000;
+                                }
+                                break;
                         }
                     }
 
@@ -1120,51 +1120,44 @@ namespace Axiom
                 // Only if Audio Quality Auto
                 if (quality_SelectedItem == "Auto")
                 {
-                    // Vorbis
-                    if (codec_SelectedItem == "Vorbis")
-                    {
-                        return "& (IF %A gtr 500000 (SET aBitRate=500000) ELSE (echo BitRate within Vorbis Limit of 500k)) & for /F %A in ('echo %aBitRate%') do (echo)";
+                    switch (codec_SelectedItem) {
+                        // Vorbis
+                        case "Vorbis":
+                            return "& (IF %A gtr 500000 (SET aBitRate=500000) ELSE (echo BitRate within Vorbis Limit of 500k)) & for /F %A in ('echo %aBitRate%') do (echo)";
+
+                        // Opus
+                        case "Opus":
+                            return "& (IF %A gtr 510000 (SET aBitRate=510000) ELSE (echo BitRate within Opus Limit of 510k)) & for /F %A in ('echo %aBitRate%') do (echo)";
+
+                        // AAC
+                        case "AAC":
+                            return "& (IF %A gtr 400000 (SET aBitRate=400000) ELSE (echo BitRate within AAC Limit of 400k)) & for /F %A in ('echo %aBitRate%') do (echo)";
+
+                        // AC3
+                        case "AC3":
+                            return "& (IF %A gtr 640000 (SET aBitRate=640000) ELSE (echo BitRate within AC3 Limit of 640k)) & for /F %A in ('echo %aBitRate%') do (echo)";
+
+                        // DTS
+                        case "DTS":
+                            return "& (IF %A gtr 1509075 (SET aBitRate=640000) ELSE (echo BitRate within DTS Limit of 1509.75k)) & for /F %A in ('echo %aBitRate%') do (echo)";
+
+                        // MP2
+                        case "MP2":
+                            return "& (IF %A gtr 384000 (SET aBitRate=384000) ELSE (echo BitRate within MP2 Limit of 384k)) & for /F %A in ('echo %aBitRate%') do (echo)";
+
+                        // LAME
+                        case "LAME":
+                            return "& (IF %A gtr 320000 (SET aBitRate=320000) ELSE (echo BitRate within LAME Limit of 320k)) & for /F %A in ('echo %aBitRate%') do (echo)";
+
+                        //// FLAC
+                        //case "FLAC":
+                        //    return "& (IF %A gtr 1411000 (SET aBitRate=1411000) ELSE (echo BitRate within LAME Limit of 1411k)) & for /F %A in ('echo %aBitRate%') do (echo)";
+
+                        //// PCM
+                        //case "PCM":
+                        //    return "& (IF %A gtr 1536000 (SET aBitRate=1536000) ELSE (echo BitRate within LAME Limit of 1536k)) & for /F %A in ('echo %aBitRate%') do (echo)";
+
                     }
-                    // Opus
-                    else if (codec_SelectedItem == "Opus")
-                    {
-                        return "& (IF %A gtr 510000 (SET aBitRate=510000) ELSE (echo BitRate within Opus Limit of 510k)) & for /F %A in ('echo %aBitRate%') do (echo)";
-                    }
-                    // AAC
-                    else if (codec_SelectedItem == "AAC")
-                    {
-                        return "& (IF %A gtr 400000 (SET aBitRate=400000) ELSE (echo BitRate within AAC Limit of 400k)) & for /F %A in ('echo %aBitRate%') do (echo)";
-                    }
-                    // AC3
-                    else if (codec_SelectedItem == "AC3")
-                    {
-                        return "& (IF %A gtr 640000 (SET aBitRate=640000) ELSE (echo BitRate within AC3 Limit of 640k)) & for /F %A in ('echo %aBitRate%') do (echo)";
-                    }
-                    // DTS
-                    else if (codec_SelectedItem == "DTS")
-                    {
-                        return "& (IF %A gtr 1509075 (SET aBitRate=640000) ELSE (echo BitRate within DTS Limit of 1509.75k)) & for /F %A in ('echo %aBitRate%') do (echo)";
-                    }
-                    // MP2
-                    else if (codec_SelectedItem == "MP2")
-                    {
-                        return "& (IF %A gtr 384000 (SET aBitRate=384000) ELSE (echo BitRate within MP2 Limit of 384k)) & for /F %A in ('echo %aBitRate%') do (echo)";
-                    }
-                    // LAME
-                    else if (codec_SelectedItem == "LAME")
-                    {
-                        return "& (IF %A gtr 320000 (SET aBitRate=320000) ELSE (echo BitRate within LAME Limit of 320k)) & for /F %A in ('echo %aBitRate%') do (echo)";
-                    }
-                    //// FLAC
-                    //else if (codec_SelectedItem == "FLAC")
-                    //{
-                    //    return "& (IF %A gtr 1411000 (SET aBitRate=1411000) ELSE (echo BitRate within LAME Limit of 1411k)) & for /F %A in ('echo %aBitRate%') do (echo)";
-                    //}
-                    //// PCM
-                    //else if (codec_SelectedItem == "PCM")
-                    //{
-                    //    return "& (IF %A gtr 1536000 (SET aBitRate=1536000) ELSE (echo BitRate within LAME Limit of 1536k)) & for /F %A in ('echo %aBitRate%') do (echo)";
-                    //}
                 }
             }
 
