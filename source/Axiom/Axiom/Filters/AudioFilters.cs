@@ -1,6 +1,6 @@
 ﻿/* ----------------------------------------------------------------------
 Axiom UI
-Copyright (C) 2017-2019 Matt McManis
+Copyright (C) 2017-2020 Matt McManis
 https://github.com/MattMcManis/Axiom
 https://axiomui.github.io
 mattmcmanis@outlook.com
@@ -238,13 +238,13 @@ namespace Axiom
             // Mute Check
             // Stream None Check
             // Media Type Check
-            if (VM.AudioView.Audio_Quality_SelectedItem != "None"
-                && VM.AudioView.Audio_Codec_SelectedItem != "None"
-                && VM.AudioView.Audio_Codec_SelectedItem != "Copy"
-                && VM.AudioView.Audio_Quality_SelectedItem != "Mute"
-                && VM.AudioView.Audio_Stream_SelectedItem != "none"
-                && VM.FormatView.Format_MediaType_SelectedItem != "Image"
-                && VM.FormatView.Format_MediaType_SelectedItem != "Sequence")
+            if (VM.AudioView.Audio_Quality_SelectedItem != "None" &&
+                VM.AudioView.Audio_Codec_SelectedItem != "None" &&
+                VM.AudioView.Audio_Codec_SelectedItem != "Copy" &&
+                VM.AudioView.Audio_Quality_SelectedItem != "Mute" &&
+                VM.AudioView.Audio_Stream_SelectedItem != "none" &&
+                VM.FormatView.Format_MediaType_SelectedItem != "Image" &&
+                VM.FormatView.Format_MediaType_SelectedItem != "Sequence")
             {
                 // --------------------------------------------------
                 // Filters
