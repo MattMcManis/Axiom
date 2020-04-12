@@ -1,6 +1,6 @@
 ﻿/* ----------------------------------------------------------------------
 Axiom UI
-Copyright (C) 2017-2019 Matt McManis
+Copyright (C) 2017-2020 Matt McManis
 https://github.com/MattMcManis/Axiom
 https://axiomui.github.io
 mattmcmanis@outlook.com
@@ -1066,38 +1066,6 @@ namespace Axiom
                 }
 
                 // -------------------------
-                // If Video has a BitRate, calculate BitRate into decimal
-                // -------------------------
-                if (inputVideoBitRate != "N/A")
-                {
-                    // e.g. (1000M / 1,000,000K)
-                    if (Convert.ToDouble(inputVideoBitRate) >= 1000000000)
-                    {
-                        inputVideoBitRate = Convert.ToString(double.Parse(inputVideoBitRate) * 0.00001);
-                    }
-                    // e.g. (100M / 100,000K) 
-                    else if (Convert.ToDouble(inputVideoBitRate) >= 100000000)
-                    {
-                        inputVideoBitRate = Convert.ToString(double.Parse(inputVideoBitRate) * 0.0001);
-                    }
-                    // e.g. (10M / 10,000K)
-                    else if (Convert.ToDouble(inputVideoBitRate) >= 10000000)
-                    {
-                        inputVideoBitRate = Convert.ToString(double.Parse(inputVideoBitRate) * 0.001);
-                    }
-                    // e.g. (1M /1000K)
-                    else if (Convert.ToDouble(inputVideoBitRate) >= 100000)
-                    {
-                        inputVideoBitRate = Convert.ToString(double.Parse(inputVideoBitRate) * 0.001);
-                    }
-                    // e.g. (100K)
-                    else if (Convert.ToDouble(inputVideoBitRate) >= 10000)
-                    {
-                        inputVideoBitRate = Convert.ToString(double.Parse(inputVideoBitRate) * 0.001);
-                    }
-                }
-
-                // -------------------------
                 // If Video Variable = N/A, Calculate Bitate (((Filesize*8)/1000)/Duration)
                 // Formats like WebM, MKV and with Missing Metadata can have New BitRates calculated and applied
                 // -------------------------
@@ -1131,6 +1099,41 @@ namespace Axiom
                             Log.logParagraph.Inlines.Add(new Bold(new Run("Error: Could Not Calculate New BitRate Information...")) { Foreground = Log.ConsoleError });
                         };
                         Log.LogActions.Add(Log.WriteAction);
+                    }
+                }
+
+                // -------------------------
+                // If Video has a BitRate (and is not N/A), calculate BitRate into decimal
+                // -------------------------
+                else if (inputVideoBitRate != "N/A")
+                {
+                    // Convert InputVideoBitrate to Double
+                    double inputVideoBitRate_Double = Convert.ToDouble(inputVideoBitRate);
+
+                    // e.g. (1000M / 1,000,000K)
+                    if (inputVideoBitRate_Double >= 1000000000)
+                    {
+                        inputVideoBitRate = Convert.ToString(inputVideoBitRate_Double * 0.00001);
+                    }
+                    // e.g. (100M / 100,000K) 
+                    else if (inputVideoBitRate_Double >= 100000000)
+                    {
+                        inputVideoBitRate = Convert.ToString(inputVideoBitRate_Double * 0.0001);
+                    }
+                    // e.g. (10M / 10,000K)
+                    else if (inputVideoBitRate_Double >= 10000000)
+                    {
+                        inputVideoBitRate = Convert.ToString(inputVideoBitRate_Double * 0.001);
+                    }
+                    // e.g. (1M /1000K)
+                    else if (inputVideoBitRate_Double >= 100000)
+                    {
+                        inputVideoBitRate = Convert.ToString(inputVideoBitRate_Double * 0.001);
+                    }
+                    // e.g. (100K)
+                    else if (inputVideoBitRate_Double >= 10000)
+                    {
+                        inputVideoBitRate = Convert.ToString(inputVideoBitRate_Double * 0.001);
                     }
                 }
 
@@ -1456,77 +1459,141 @@ namespace Axiom
             {
                 //fps = string.Empty;
 
-                if (fps_SelectedItem == "auto")
+                switch (fps_SelectedItem)
                 {
-                    fps = string.Empty;
-                }
-                else if (fps_SelectedItem == "film")
-                {
-                    fps = "-r film";
-                }
-                else if (fps_SelectedItem == "pal")
-                {
-                    fps = "-r pal";
-                }
-                else if (fps_SelectedItem == "ntsc")
-                {
-                    fps = "-r ntsc";
-                }
-                else if (fps_SelectedItem == "23.976")
-                {
-                    fps = "-r 24000/1001";
-                }
-                else if (fps_SelectedItem == "24")
-                {
-                    fps = "-r 24";
-                }
-                else if (fps_SelectedItem == "25")
-                {
-                    fps = "-r 25";
-                }
-                else if (fps_SelectedItem == "ntsc" ||
-                         fps_SelectedItem == "29.97")
-                {
-                    fps = "-r 30000/1001";
-                }
-                else if (fps_SelectedItem == "30")
-                {
-                    fps = "-r 30";
-                }
-                else if (fps_SelectedItem == "48")
-                {
-                    fps = "-r 48";
-                }
-                else if (fps_SelectedItem == "50")
-                {
-                    fps = "-r 50";
-                }
-                else if (fps_SelectedItem == "59.94")
-                {
-                    fps = "-r 60000/1001";
-                }
-                else if (fps_SelectedItem == "60")
-                {
-                    fps = "-r 60";
-                }
-                else
-                {
-                    try
-                    {
-                        fps = "-r " + fps_Text;
-                    }
-                    catch
-                    {
-                        /* lock */
-                        //MainWindow.ready = false;
-                        // Warning
-                        MessageBox.Show("Invalid Custom FPS.",
-                                        "Notice",
-                                        MessageBoxButton.OK,
-                                        MessageBoxImage.Warning);
-                    }
+                    case "auto":
+                        fps = string.Empty;
+                        break;
+                    case "film":
+                        fps = "-r film";
+                        break;
+                    case "pal":
+                        fps = "-r pal";
+                        break;
+                    case "ntsc":
+                        fps = "-r ntsc";
+                        break;
+                    case "23.976":
+                        fps = "-r 24000/1001";
+                        break;
+                    case "24":
+                        fps = "-r 24";
+                        break;
+                    case "25":
+                        fps = "-r 25";
+                        break;
+                    //case "ntsc":
+                    //    fps = "-r 30000/1001";
+                    //    break;
+                    case "29.97":
+                        fps = "-r 30000/1001";
+                        break;
+                    case "30":
+                        fps = "-r 30";
+                        break;
+                    case "48":
+                        fps = "-r 48";
+                        break;
+                    case "50":
+                        fps = "-r 50";
+                        break;
+                    case "59.94":
+                        fps = "-r 60000/1001";
+                        break;
+                    case "60":
+                        fps = "-r 60";
+                        break;
 
+                    default:
+                        try
+                        {
+                            fps = "-r " + fps_Text;
+                            break;
+                        }
+                        catch
+                        {
+                            /* lock */
+                            //MainWindow.ready = false;
+                            // Warning
+                            MessageBox.Show("Invalid Custom FPS.",
+                            "Notice",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Warning);
+                        }
+                        break;
                 }
+
+                //if (fps_SelectedItem == "auto")
+                //{
+                //    fps = string.Empty;
+                //}
+                //else if (fps_SelectedItem == "film")
+                //{
+                //    fps = "-r film";
+                //}
+                //else if (fps_SelectedItem == "pal")
+                //{
+                //    fps = "-r pal";
+                //}
+                //else if (fps_SelectedItem == "ntsc")
+                //{
+                //    fps = "-r ntsc";
+                //}
+                //else if (fps_SelectedItem == "23.976")
+                //{
+                //    fps = "-r 24000/1001";
+                //}
+                //else if (fps_SelectedItem == "24")
+                //{
+                //    fps = "-r 24";
+                //}
+                //else if (fps_SelectedItem == "25")
+                //{
+                //    fps = "-r 25";
+                //}
+                //else if (fps_SelectedItem == "ntsc" ||
+                //         fps_SelectedItem == "29.97")
+                //{
+                //    fps = "-r 30000/1001";
+                //}
+                //else if (fps_SelectedItem == "30")
+                //{
+                //    fps = "-r 30";
+                //}
+                //else if (fps_SelectedItem == "48")
+                //{
+                //    fps = "-r 48";
+                //}
+                //else if (fps_SelectedItem == "50")
+                //{
+                //    fps = "-r 50";
+                //}
+                //else if (fps_SelectedItem == "59.94")
+                //{
+                //    fps = "-r 60000/1001";
+                //}
+                //else if (fps_SelectedItem == "60")
+                //{
+                //    fps = "-r 60";
+                //}
+                //else
+                //{
+                //    try
+                //    {
+                //        fps = "-r " + fps_Text;
+                //    }
+                //    catch
+                //    {
+                //        /* lock */
+                //        //MainWindow.ready = false;
+                //        // Warning
+                //        MessageBox.Show("Invalid Custom FPS.",
+                //                        "Notice",
+                //                        MessageBoxButton.OK,
+                //                        MessageBoxImage.Warning);
+                //    }
+
+                //}
 
                 // Log Console Message /////////
                 Log.WriteAction = () =>
