@@ -1,6 +1,6 @@
 ﻿/* ----------------------------------------------------------------------
 Axiom UI
-Copyright (C) 2017-2019 Matt McManis
+Copyright (C) 2017-2020 Matt McManis
 https://github.com/MattMcManis/Axiom
 https://axiomui.github.io
 mattmcmanis@outlook.com
@@ -72,443 +72,431 @@ namespace Axiom
             // --------------------------------------------------
             // Video
             // --------------------------------------------------
-            // -------------------------
-            // VP8
-            // -------------------------
-            if (codec_SelectedItem == "VP8")
+            switch (codec_SelectedItem)
             {
-                // Codec
-                VP8.Codec_Set();
-
-                // Items Source
-                VP8.Controls_ItemsSource();
-                // Selected Items
-                VP8.Controls_Selected();
-
-                // Expanded
-                VP8.Controls_Expanded();
-                // Collapsed
-                VP8.Controls_Collapsed();
-
-                // Checked
-                VP8.Controls_Checked();
-                // Unhecked
-                VP8.Controls_Unhecked();
-
-                // Enabled
-                VP8.Controls_Enable();
-                // Disabled
-                VP8.Controls_Disable();
-            }
-
-            // -------------------------
-            // VP9
-            // -------------------------
-            else if (codec_SelectedItem == "VP9")
-            {
-                // Codec
-                VP9.Codec_Set();
-
-                // Items Source
-                VP9.Controls_ItemsSource();
-                // Selected Items
-                VP9.Controls_Selected();
-
-                // Expanded
-                VP9.Controls_Expanded();
-                // Collapsed
-                VP9.Controls_Collapsed();
-
-                // Checked
-                VP9.Controls_Checked();
-                // Unhecked
-                VP9.Controls_Unhecked();
-
-                // Enabled
-                VP9.Controls_Enable();
-                // Disabled
-                VP9.Controls_Disable();
-            }
-
-            // -------------------------
-            // x264
-            // -------------------------
-            else if (codec_SelectedItem == "x264")
-            {
-                // Codec
-                x264.Codec_Set();
-
-                // Items Source
-                x264.Controls_ItemsSource();
-                // Selected Items
-                x264.Controls_Selected();
-
-                // Expanded
-                x264.Controls_Expanded();
-                // Collapsed
-                x264.Controls_Collapsed();
-
-                // Checked
-                x264.Controls_Checked();
-                // Unhecked
-                x264.Controls_Unhecked();
-
-                // Enabled
-                x264.Controls_Enable();
-                // Disabled
-                x264.Controls_Disable();
-            }
-
-            // -------------------------
-            // x265
-            // -------------------------
-            else if (codec_SelectedItem == "x265")
-            {
-                // Codec
-                x265.Codec_Set();
-
-                // Items Source
-                x265.Controls_ItemsSource();
-                // Selected Items
-                x265.Controls_Selected();
-
-                // Expanded
-                x265.Controls_Expanded();
-                // Collapsed
-                x265.Controls_Collapsed();
-
-                // Checked
-                x265.Controls_Checked();
-                // Unhecked
-                x265.Controls_Unhecked();
-
-                // Enabled
-                x265.Controls_Enable();
-                // Disabled
-                x265.Controls_Disable();
-            }
-
-            // -------------------------
-            // AV1
-            // -------------------------
-            else if (codec_SelectedItem == "AV1")
-            {
-                // Codec
-                AV1.Codec_Set();
-
-                // Items Source
-                AV1.Controls_ItemsSource();
-                // Selected Items
-                AV1.Controls_Selected();
-
-                // Expanded
-                AV1.Controls_Expanded();
-                // Collapsed
-                AV1.Controls_Collapsed();
-
-                // Checked
-                AV1.Controls_Checked();
-                // Unhecked
-                AV1.Controls_Unhecked();
-
-                // Enabled
-                AV1.Controls_Enable();
-                // Disabled
-                AV1.Controls_Disable();
-            }
-
-            // -------------------------
-            // FFV1
-            // -------------------------
-            else if (codec_SelectedItem == "FFV1")
-            {
-                // Codec
-                FFV1.Codec_Set();
-
-                // Items Source
-                FFV1.Controls_ItemsSource();
-                // Selected Items
-                FFV1.Controls_Selected();
-
-                // Expanded
-                FFV1.Controls_Expanded();
-                // Collapsed
-                FFV1.Controls_Collapsed();
-
-                // Checked
-                FFV1.Controls_Checked();
-                // Unhecked
-                FFV1.Controls_Unhecked();
-
-                // Enabled
-                FFV1.Controls_Enable();
-                // Disabled
-                FFV1.Controls_Disable();
-            }
-
-            // -------------------------
-            // HuffYUV
-            // -------------------------
-            else if (codec_SelectedItem == "HuffYUV")
-            {
-                // Codec
-                HuffYUV.Codec_Set();
-
-                // Items Source
-                HuffYUV.Controls_ItemsSource();
-                // Selected Items
-                HuffYUV.Controls_Selected();
-
-                // Expanded
-                HuffYUV.Controls_Expanded();
-                // Collapsed
-                HuffYUV.Controls_Collapsed();
-
-                // Checked
-                HuffYUV.Controls_Checked();
-                // Unhecked
-                HuffYUV.Controls_Unhecked();
-
-                // Enabled
-                HuffYUV.Controls_Enable();
-                // Disabled
-                HuffYUV.Controls_Disable();
-            }
-
-            // -------------------------
-            // Theora
-            // -------------------------
-            else if (codec_SelectedItem == "Theora")
-            {
-                // Codec
-                Theora.Codec_Set();
-
-                // Items Source
-                Theora.Controls_ItemsSource();
-                // Selected Items
-                Theora.Controls_Selected();
-
-                // Expanded
-                Theora.Controls_Expanded();
-                // Collapsed
-                Theora.Controls_Collapsed();
-
-                // Checked
-                Theora.Controls_Checked();
-                // Unhecked
-                Theora.Controls_Unhecked();
-
-                // Enabled
-                Theora.Controls_Enable();
-                // Disabled
-                Theora.Controls_Disable();
-            }
-
-            // -------------------------
-            // MPEG-2
-            // -------------------------
-            else if (codec_SelectedItem == "MPEG-2")
-            {
-                // Codec
-                MPEG_2.Codec_Set();
-
-                // Items Source
-                MPEG_2.Controls_ItemsSource();
-                // Selected Items
-                MPEG_2.Controls_Selected();
-
-                // Expanded
-                MPEG_2.Controls_Expanded();
-                // Collapsed
-                MPEG_2.Controls_Collapsed();
-
-                // Checked
-                MPEG_2.Controls_Checked();
-                // Unhecked
-                MPEG_2.Controls_Unhecked();
-
-                // Enabled
-                MPEG_2.Controls_Enable();
-                // Disabled
-                MPEG_2.Controls_Disable();
-            }
-
-            // -------------------------
-            // MPEG-4
-            // -------------------------
-            else if (codec_SelectedItem == "MPEG-4")
-            {
-                // Codec
-                MPEG_4.Codec_Set();
-
-                // Items Source
-                MPEG_4.Controls_ItemsSource();
-                // Selected Items
-                MPEG_4.Controls_Selected();
-
-                // Expanded
-                MPEG_4.Controls_Expanded();
-                // Collapsed
-                MPEG_4.Controls_Collapsed();
-
-                // Checked
-                MPEG_4.Controls_Checked();
-                // Unhecked
-                MPEG_4.Controls_Unhecked();
-
-                // Enabled
-                MPEG_4.Controls_Enable();
-                // Disabled
-                MPEG_4.Controls_Disable();
-            }
-
-
-            // --------------------------------------------------
-            // Image
-            // --------------------------------------------------
-            // -------------------------
-            // JPEG
-            // -------------------------
-            else if (codec_SelectedItem == "JPEG")
-            {
-                // Codec
-                JPEG.Codec_Set();
-
-                // Items Source
-                JPEG.Controls_ItemsSource();
-                // Selected Items
-                JPEG.Controls_Selected();
-
-                // Expanded
-                JPEG.Controls_Expanded();
-                // Collapsed
-                JPEG.Controls_Collapsed();
-
-                // Checked
-                JPEG.Controls_Checked();
-                // Unhecked
-                JPEG.Controls_Unhecked();
-
-                // Enabled
-                JPEG.Controls_Enable();
-                // Disabled
-                JPEG.Controls_Disable();
-            }
-
-            // -------------------------
-            // PNG
-            // -------------------------
-            else if (codec_SelectedItem == "PNG")
-            {
-                // Codec
-                PNG.Codec_Set();
-
-                // Items Source
-                PNG.Controls_ItemsSource();
-                // Selected Items
-                PNG.Controls_Selected();
-
-                // Expanded
-                PNG.Controls_Expanded();
-                // Collapsed
-                PNG.Controls_Collapsed();
-
-                // Checked
-                PNG.Controls_Checked();
-                // Unhecked
-                PNG.Controls_Unhecked();
-
-                // Enabled
-                PNG.Controls_Enable();
-                // Disabled
-                PNG.Controls_Disable();
-            }
-
-            // -------------------------
-            // WebP
-            // -------------------------
-            else if (codec_SelectedItem == "WebP")
-            {
-                // Codec
-                WebP.Codec_Set();
-
-                // Items Source
-                WebP.Controls_ItemsSource();
-                // Selected Items
-                WebP.Controls_Selected();
-
-                // Expanded
-                WebP.Controls_Expanded();
-                // Collapsed
-                WebP.Controls_Collapsed();
-
-                // Checked
-                WebP.Controls_Checked();
-                // Unhecked
-                WebP.Controls_Unhecked();
-
-                // Enabled
-                WebP.Controls_Enable();
-                // Disabled
-                WebP.Controls_Disable();
-            }
-
-            // -------------------------
-            // Copy
-            // -------------------------
-            else if (codec_SelectedItem == "Copy")
-            {
-                // Codec
-                VideoCopy.Codec_Set();
-
-                // Items Source
-                VideoCopy.Controls_ItemsSource();
-                // Selected Items
-                VideoCopy.Controls_Selected();
-
-                // Expanded
-                VideoCopy.Controls_Expanded();
-                // Collapsed
-                VideoCopy.Controls_Collapsed();
-
-                // Checked
-                VideoCopy.Controls_Checked();
-                // Unhecked
-                VideoCopy.Controls_Unhecked();
-
-                // Enabled
-                VideoCopy.Controls_Enable();
-                // Disabled
-                VideoCopy.Controls_Disable();
-            }
-
-            // -------------------------
-            // None
-            // -------------------------
-            else if (codec_SelectedItem == "None")
-            {
-                // Codec
-                VideoNone.Codec_Set();
-
-                // Items Source
-                VideoNone.Controls_ItemsSource();
-                // Selected Items
-                VideoNone.Controls_Selected();
-
-                // Expanded
-                VideoNone.Controls_Expanded();
-                // Collapsed
-                VideoNone.Controls_Collapsed();
-
-                // Checked
-                VideoNone.Controls_Checked();
-                // Unhecked
-                VideoNone.Controls_Unhecked();
-
-                // Enabled
-                VideoNone.Controls_Enable();
-                // Disabled
-                VideoNone.Controls_Disable();
+                // -------------------------
+                // VP8
+                // -------------------------
+                case "VP8":
+                    // Codec
+                    VP8.Codec_Set();
+
+                    // Items Source
+                    VP8.Controls_ItemsSource();
+                    // Selected Items
+                    VP8.Controls_Selected();
+
+                    // Expanded
+                    VP8.Controls_Expanded();
+                    // Collapsed
+                    VP8.Controls_Collapsed();
+
+                    // Checked
+                    VP8.Controls_Checked();
+                    // Unhecked
+                    VP8.Controls_Unhecked();
+
+                    // Enabled
+                    VP8.Controls_Enable();
+                    // Disabled
+                    VP8.Controls_Disable();
+                    break;
+
+                // -------------------------
+                // VP9
+                // -------------------------
+                case "VP9":
+                    // Codec
+                    VP9.Codec_Set();
+
+                    // Items Source
+                    VP9.Controls_ItemsSource();
+                    // Selected Items
+                    VP9.Controls_Selected();
+
+                    // Expanded
+                    VP9.Controls_Expanded();
+                    // Collapsed
+                    VP9.Controls_Collapsed();
+
+                    // Checked
+                    VP9.Controls_Checked();
+                    // Unhecked
+                    VP9.Controls_Unhecked();
+
+                    // Enabled
+                    VP9.Controls_Enable();
+                    // Disabled
+                    VP9.Controls_Disable();
+                    break;
+
+                // -------------------------
+                // x264
+                // -------------------------
+                case "x264":
+                    // Codec
+                    x264.Codec_Set();
+
+                    // Items Source
+                    x264.Controls_ItemsSource();
+                    // Selected Items
+                    x264.Controls_Selected();
+
+                    // Expanded
+                    x264.Controls_Expanded();
+                    // Collapsed
+                    x264.Controls_Collapsed();
+
+                    // Checked
+                    x264.Controls_Checked();
+                    // Unhecked
+                    x264.Controls_Unhecked();
+
+                    // Enabled
+                    x264.Controls_Enable();
+                    // Disabled
+                    x264.Controls_Disable();
+                    break;
+
+                // -------------------------
+                // x265
+                // -------------------------
+                case "x265":
+                    // Codec
+                    x265.Codec_Set();
+
+                    // Items Source
+                    x265.Controls_ItemsSource();
+                    // Selected Items
+                    x265.Controls_Selected();
+
+                    // Expanded
+                    x265.Controls_Expanded();
+                    // Collapsed
+                    x265.Controls_Collapsed();
+
+                    // Checked
+                    x265.Controls_Checked();
+                    // Unhecked
+                    x265.Controls_Unhecked();
+
+                    // Enabled
+                    x265.Controls_Enable();
+                    // Disabled
+                    x265.Controls_Disable();
+                    break;
+
+                // -------------------------
+                // AV1
+                // -------------------------
+                case "AV1":
+                    // Codec
+                    AV1.Codec_Set();
+
+                    // Items Source
+                    AV1.Controls_ItemsSource();
+                    // Selected Items
+                    AV1.Controls_Selected();
+
+                    // Expanded
+                    AV1.Controls_Expanded();
+                    // Collapsed
+                    AV1.Controls_Collapsed();
+
+                    // Checked
+                    AV1.Controls_Checked();
+                    // Unhecked
+                    AV1.Controls_Unhecked();
+
+                    // Enabled
+                    AV1.Controls_Enable();
+                    // Disabled
+                    AV1.Controls_Disable();
+                    break;
+
+                // -------------------------
+                // FFV1
+                // -------------------------
+                case "FFV1":
+                    // Codec
+                    FFV1.Codec_Set();
+
+                    // Items Source
+                    FFV1.Controls_ItemsSource();
+                    // Selected Items
+                    FFV1.Controls_Selected();
+
+                    // Expanded
+                    FFV1.Controls_Expanded();
+                    // Collapsed
+                    FFV1.Controls_Collapsed();
+
+                    // Checked
+                    FFV1.Controls_Checked();
+                    // Unhecked
+                    FFV1.Controls_Unhecked();
+
+                    // Enabled
+                    FFV1.Controls_Enable();
+                    // Disabled
+                    FFV1.Controls_Disable();
+                    break;
+
+                // -------------------------
+                // HuffYUV
+                // -------------------------
+                case "HuffYUV":
+                    // Codec
+                    HuffYUV.Codec_Set();
+
+                    // Items Source
+                    HuffYUV.Controls_ItemsSource();
+                    // Selected Items
+                    HuffYUV.Controls_Selected();
+
+                    // Expanded
+                    HuffYUV.Controls_Expanded();
+                    // Collapsed
+                    HuffYUV.Controls_Collapsed();
+
+                    // Checked
+                    HuffYUV.Controls_Checked();
+                    // Unhecked
+                    HuffYUV.Controls_Unhecked();
+
+                    // Enabled
+                    HuffYUV.Controls_Enable();
+                    // Disabled
+                    HuffYUV.Controls_Disable();
+                    break;
+
+                // -------------------------
+                // Theora
+                // -------------------------
+                case "Theora":
+                    // Codec
+                    Theora.Codec_Set();
+
+                    // Items Source
+                    Theora.Controls_ItemsSource();
+                    // Selected Items
+                    Theora.Controls_Selected();
+
+                    // Expanded
+                    Theora.Controls_Expanded();
+                    // Collapsed
+                    Theora.Controls_Collapsed();
+
+                    // Checked
+                    Theora.Controls_Checked();
+                    // Unhecked
+                    Theora.Controls_Unhecked();
+
+                    // Enabled
+                    Theora.Controls_Enable();
+                    // Disabled
+                    Theora.Controls_Disable();
+                    break;
+
+                // -------------------------
+                // MPEG-2
+                // -------------------------
+                case "MPEG-2":
+                    // Codec
+                    MPEG_2.Codec_Set();
+
+                    // Items Source
+                    MPEG_2.Controls_ItemsSource();
+                    // Selected Items
+                    MPEG_2.Controls_Selected();
+
+                    // Expanded
+                    MPEG_2.Controls_Expanded();
+                    // Collapsed
+                    MPEG_2.Controls_Collapsed();
+
+                    // Checked
+                    MPEG_2.Controls_Checked();
+                    // Unhecked
+                    MPEG_2.Controls_Unhecked();
+
+                    // Enabled
+                    MPEG_2.Controls_Enable();
+                    // Disabled
+                    MPEG_2.Controls_Disable();
+                    break;
+
+                // -------------------------
+                // MPEG-4
+                // -------------------------
+                case "MPEG-4":
+                    // Codec
+                    MPEG_4.Codec_Set();
+
+                    // Items Source
+                    MPEG_4.Controls_ItemsSource();
+                    // Selected Items
+                    MPEG_4.Controls_Selected();
+
+                    // Expanded
+                    MPEG_4.Controls_Expanded();
+                    // Collapsed
+                    MPEG_4.Controls_Collapsed();
+
+                    // Checked
+                    MPEG_4.Controls_Checked();
+                    // Unhecked
+                    MPEG_4.Controls_Unhecked();
+
+                    // Enabled
+                    MPEG_4.Controls_Enable();
+                    // Disabled
+                    MPEG_4.Controls_Disable();
+                    break;
+
+
+                // --------------------------------------------------
+                // Image
+                // --------------------------------------------------
+                // -------------------------
+                // JPEG
+                // -------------------------
+                case "JPEG":
+                    // Codec
+                    JPEG.Codec_Set();
+
+                    // Items Source
+                    JPEG.Controls_ItemsSource();
+                    // Selected Items
+                    JPEG.Controls_Selected();
+
+                    // Expanded
+                    JPEG.Controls_Expanded();
+                    // Collapsed
+                    JPEG.Controls_Collapsed();
+
+                    // Checked
+                    JPEG.Controls_Checked();
+                    // Unhecked
+                    JPEG.Controls_Unhecked();
+
+                    // Enabled
+                    JPEG.Controls_Enable();
+                    // Disabled
+                    JPEG.Controls_Disable();
+                    break;
+
+                // -------------------------
+                // PNG
+                // -------------------------
+                case "PNG":
+                    // Codec
+                    PNG.Codec_Set();
+
+                    // Items Source
+                    PNG.Controls_ItemsSource();
+                    // Selected Items
+                    PNG.Controls_Selected();
+
+                    // Expanded
+                    PNG.Controls_Expanded();
+                    // Collapsed
+                    PNG.Controls_Collapsed();
+
+                    // Checked
+                    PNG.Controls_Checked();
+                    // Unhecked
+                    PNG.Controls_Unhecked();
+
+                    // Enabled
+                    PNG.Controls_Enable();
+                    // Disabled
+                    PNG.Controls_Disable();
+                    break;
+
+                // -------------------------
+                // WebP
+                // -------------------------
+                case "WebP":
+                    // Codec
+                    WebP.Codec_Set();
+
+                    // Items Source
+                    WebP.Controls_ItemsSource();
+                    // Selected Items
+                    WebP.Controls_Selected();
+
+                    // Expanded
+                    WebP.Controls_Expanded();
+                    // Collapsed
+                    WebP.Controls_Collapsed();
+
+                    // Checked
+                    WebP.Controls_Checked();
+                    // Unhecked
+                    WebP.Controls_Unhecked();
+
+                    // Enabled
+                    WebP.Controls_Enable();
+                    // Disabled
+                    WebP.Controls_Disable();
+                    break;
+
+                // -------------------------
+                // Copy
+                // -------------------------
+                case "Copy":
+                    // Codec
+                    VideoCopy.Codec_Set();
+
+                    // Items Source
+                    VideoCopy.Controls_ItemsSource();
+                    // Selected Items
+                    VideoCopy.Controls_Selected();
+
+                    // Expanded
+                    VideoCopy.Controls_Expanded();
+                    // Collapsed
+                    VideoCopy.Controls_Collapsed();
+
+                    // Checked
+                    VideoCopy.Controls_Checked();
+                    // Unhecked
+                    VideoCopy.Controls_Unhecked();
+
+                    // Enabled
+                    VideoCopy.Controls_Enable();
+                    // Disabled
+                    VideoCopy.Controls_Disable();
+                    break;
+
+                // -------------------------
+                // None
+                // -------------------------
+                case "None":
+                    // Codec
+                    VideoNone.Codec_Set();
+
+                    // Items Source
+                    VideoNone.Controls_ItemsSource();
+                    // Selected Items
+                    VideoNone.Controls_Selected();
+
+                    // Expanded
+                    VideoNone.Controls_Expanded();
+                    // Collapsed
+                    VideoNone.Controls_Collapsed();
+
+                    // Checked
+                    VideoNone.Controls_Checked();
+                    // Unhecked
+                    VideoNone.Controls_Unhecked();
+
+                    // Enabled
+                    VideoNone.Controls_Enable();
+                    // Disabled
+                    VideoNone.Controls_Disable();
+                    break;
             }
 
             // --------------------------------------------------
@@ -1168,6 +1156,8 @@ namespace Axiom
                                                    string outputExt
                                                    )
         {
+            // Problem: Getting Previous Selected Values
+
             // Input Extension is Same as Output Extension and Video Quality is Auto
             // Note: Aspect Ratio -aspect can be applied to Copy
             if (VM.VideoView.Video_Quality_SelectedItem == "Auto" &&
@@ -1235,6 +1225,7 @@ namespace Axiom
                 string.Equals(inputExt, outputExt, StringComparison.CurrentCultureIgnoreCase)
             )
             {
+                //System.Windows.MessageBox.Show("pass check"); //debug
                 return true;
             }
 
@@ -1250,21 +1241,24 @@ namespace Axiom
         /// <summary>
         /// Copy Controls
         /// <summary>
-        public static void CopyControls()
+        private static void CopyControls()
         {
             // -------------------------
             // Conditions Check
             // Enable
             // -------------------------
-            if (AutoCopyConditionsCheck(MainWindow.inputExt, MainWindow.outputExt) == true)
+            if (AutoCopyConditionsCheck(MainWindow.inputExt.ToLower(), MainWindow.outputExt) == true)
+            //if (AutoCopyConditionsCheck(MainWindow.inputExt.ToLower(), "." + VM.FormatView.Format_Container_SelectedItem.ToLower()) == true)
             {
                 // -------------------------
                 // Set Video Codec Combobox Selected Item to Copy
                 // -------------------------
                 if (VM.VideoView.Video_Codec_Items.Count > 0)
                 {
+                    //System.Windows.MessageBox.Show("copy1"); //debug
                     if (VM.VideoView.Video_Codec_Items?.Contains("Copy") == true)
                     {
+                        //System.Windows.MessageBox.Show("copy2"); //debug
                         VM.VideoView.Video_Codec_SelectedItem = "Copy";
                     }
                 }
@@ -1300,68 +1294,44 @@ namespace Axiom
                             !string.Equals(MainWindow.inputExt, MainWindow.outputExt, StringComparison.CurrentCultureIgnoreCase)
                             )
                         {
-                            // -------------------------
-                            // WebM
-                            // -------------------------
-                            if (VM.FormatView.Format_Container_SelectedItem == "webm")
+                            switch (VM.FormatView.Format_Container_SelectedItem)
                             {
-                                VM.VideoView.Video_Codec_SelectedItem = "VP8";
-                            }
-                            // -------------------------
-                            // MP4
-                            // -------------------------
-                            else if (VM.FormatView.Format_Container_SelectedItem == "mp4")
-                            {
-                                VM.VideoView.Video_Codec_SelectedItem = "x264";
-                            }
-                            // -------------------------
-                            // MKV
-                            // -------------------------
-                            else if (VM.FormatView.Format_Container_SelectedItem == "mkv")
-                            {
-                                VM.VideoView.Video_Codec_SelectedItem = "x264";
-                            }
-                            // -------------------------
-                            // MPG
-                            // -------------------------
-                            else if (VM.FormatView.Format_Container_SelectedItem == "mpg")
-                            {
-                                VM.VideoView.Video_Codec_SelectedItem = "MPEG-2";
-                            }
-                            // -------------------------
-                            // AVI
-                            // -------------------------
-                            else if (VM.FormatView.Format_Container_SelectedItem == "avi")
-                            {
-                                VM.VideoView.Video_Codec_SelectedItem = "MPEG-4";
-                            }
-                            // -------------------------
-                            // OGV
-                            // -------------------------
-                            else if (VM.FormatView.Format_Container_SelectedItem == "ogv")
-                            {
-                                VM.VideoView.Video_Codec_SelectedItem = "Theora";
-                            }
-                            // -------------------------
-                            // JPG
-                            // -------------------------
-                            else if (VM.FormatView.Format_Container_SelectedItem == "jpg")
-                            {
-                                VM.VideoView.Video_Codec_SelectedItem = "JPEG";
-                            }
-                            // -------------------------
-                            // PNG
-                            // -------------------------
-                            else if (VM.FormatView.Format_Container_SelectedItem == "png")
-                            {
-                                VM.VideoView.Video_Codec_SelectedItem = "PNG";
-                            }
-                            // -------------------------
-                            // WebP
-                            // -------------------------
-                            else if (VM.FormatView.Format_Container_SelectedItem == "webp")
-                            {
-                                VM.VideoView.Video_Codec_SelectedItem = "WebP";
+                                // WebM
+                                case "webm":
+                                    VM.VideoView.Video_Codec_SelectedItem = "VP8";
+                                    break;
+                                // MP4
+                                case "mp4":
+                                    VM.VideoView.Video_Codec_SelectedItem = "x264";
+                                    break;
+                                // MKV
+                                case "mkv":
+                                    VM.VideoView.Video_Codec_SelectedItem = "x264";
+                                    break;
+                                // MPG
+                                case "mpg":
+                                    VM.VideoView.Video_Codec_SelectedItem = "MPEG-2";
+                                    break;
+                                // AVI
+                                case "avi":
+                                    VM.VideoView.Video_Codec_SelectedItem = "MPEG-4";
+                                    break;
+                                // OGV
+                                case "ogv":
+                                    VM.VideoView.Video_Codec_SelectedItem = "Theora";
+                                    break;
+                                // JPG
+                                case "jpg":
+                                    VM.VideoView.Video_Codec_SelectedItem = "JPEG";
+                                    break;
+                                // PNG
+                                case "png":
+                                    VM.VideoView.Video_Codec_SelectedItem = "PNG";
+                                    break;
+                                // WebP
+                                case "webp":
+                                    VM.VideoView.Video_Codec_SelectedItem = "WebP";
+                                    break;
                             }
                         }
                     }

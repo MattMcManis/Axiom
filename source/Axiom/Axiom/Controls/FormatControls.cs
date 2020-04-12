@@ -1,6 +1,6 @@
 ﻿/* ----------------------------------------------------------------------
 Axiom UI
-Copyright (C) 2017-2019 Matt McManis
+Copyright (C) 2017-2020 Matt McManis
 https://github.com/MattMcManis/Axiom
 https://axiomui.github.io
 mattmcmanis@outlook.com
@@ -54,363 +54,366 @@ namespace Axiom
             // --------------------------------------------------
             // Select Codecs and Default Selected Items per container
 
-            // --------------------------------------------------
-            // Video
-            // --------------------------------------------------
-            // -------------------------
-            // webm
-            // -------------------------
-            if (container_SelectedItem == "webm")
+            switch (container_SelectedItem)
             {
-                // Media Type
-                VM.FormatView.Format_MediaType_Items = Containers.WebM.media;
-                VM.FormatView.Format_MediaType_SelectedItem = "Video";
-                VM.FormatView.Format_MediaType_IsEnabled = false;
+                // --------------------------------------------------
+                // Video
+                // --------------------------------------------------
+                // -------------------------
+                // webm
+                // -------------------------
+                case "webm":
 
-                // Video Codec
-                VM.VideoView.Video_Codec_Items = Containers.WebM.video;
-                VM.VideoView.Video_Codec_SelectedItem = "VP8";
+                    // Media Type
+                    VM.FormatView.Format_MediaType_Items = Containers.WebM.media;
+                    VM.FormatView.Format_MediaType_SelectedItem = "Video";
+                    VM.FormatView.Format_MediaType_IsEnabled = false;
 
-                // Optimize
-                VM.VideoView.Video_Optimize_SelectedItem = "Web";
+                    // Video Codec
+                    VM.VideoView.Video_Codec_Items = Containers.WebM.video;
+                    VM.VideoView.Video_Codec_SelectedItem = "VP8";
 
-                // Audio Codec
-                VM.AudioView.Audio_Codec_Items = Containers.WebM.audio;
-                VM.AudioView.Audio_Codec_SelectedItem = "Vorbis";
+                    // Optimize
+                    VM.VideoView.Video_Optimize_SelectedItem = "Web";
 
-                // Subtitle Codec
-                VM.SubtitleView.Subtitle_Codec_Items = Containers.WebM.subtitle;
-                VM.SubtitleView.Subtitle_Codec_SelectedItem = "None";
-            }
+                    // Audio Codec
+                    VM.AudioView.Audio_Codec_Items = Containers.WebM.audio;
+                    VM.AudioView.Audio_Codec_SelectedItem = "Vorbis";
 
-            // -------------------------
-            // mp4
-            // -------------------------
-            else if (container_SelectedItem == "mp4")
-            {
-                // Media Type
-                VM.FormatView.Format_MediaType_Items = Containers.MP4.media;
-                VM.FormatView.Format_MediaType_SelectedItem = "Video";
-                VM.FormatView.Format_MediaType_IsEnabled = false;
+                    // Subtitle Codec
+                    VM.SubtitleView.Subtitle_Codec_Items = Containers.WebM.subtitle;
+                    VM.SubtitleView.Subtitle_Codec_SelectedItem = "None";
+                    break;
 
-                // Video Codec
-                VM.VideoView.Video_Codec_Items = Containers.MP4.video;
-                VM.VideoView.Video_Codec_SelectedItem = "x264";
+                // -------------------------
+                // mp4
+                // -------------------------
+                case "mp4":
 
-                // Audio Codec
-                VM.AudioView.Audio_Codec_Items = Containers.MP4.audio;
-                VM.AudioView.Audio_Codec_SelectedItem = "AAC";
+                    // Media Type
+                    VM.FormatView.Format_MediaType_Items = Containers.MP4.media;
+                    VM.FormatView.Format_MediaType_SelectedItem = "Video";
+                    VM.FormatView.Format_MediaType_IsEnabled = false;
 
-                // Subtitle Codec
-                VM.SubtitleView.Subtitle_Codec_Items = Containers.MP4.subtitle;
-                VM.SubtitleView.Subtitle_Codec_SelectedItem = "MOV Text";
-            }
+                    // Video Codec
+                    VM.VideoView.Video_Codec_Items = Containers.MP4.video;
+                    VM.VideoView.Video_Codec_SelectedItem = "x264";
 
-            // -------------------------
-            // mkv
-            // -------------------------
-            else if (container_SelectedItem == "mkv")
-            {
-                // Media Type
-                VM.FormatView.Format_MediaType_Items = Containers.MKV.media;
-                VM.FormatView.Format_MediaType_SelectedItem = "Video";
-                VM.FormatView.Format_MediaType_IsEnabled = false;
+                    // Audio Codec
+                    VM.AudioView.Audio_Codec_Items = Containers.MP4.audio;
+                    VM.AudioView.Audio_Codec_SelectedItem = "AAC";
 
-                // Video Codec
-                VM.VideoView.Video_Codec_Items = Containers.MKV.video;
-                VM.VideoView.Video_Codec_SelectedItem = "x264";
+                    // Subtitle Codec
+                    VM.SubtitleView.Subtitle_Codec_Items = Containers.MP4.subtitle;
+                    VM.SubtitleView.Subtitle_Codec_SelectedItem = "MOV Text";
+                    break;
 
-                // Audio Codec
-                VM.AudioView.Audio_Codec_Items = Containers.MKV.audio;
-                VM.AudioView.Audio_Codec_SelectedItem = "AC3";
+                // -------------------------
+                // mkv
+                // -------------------------
+                case "mkv":
 
-                // Subtitle Codec
-                VM.SubtitleView.Subtitle_Codec_Items = Containers.MKV.subtitle;
-                VM.SubtitleView.Subtitle_Codec_SelectedItem = "SSA";
-            }
+                    // Media Type
+                    VM.FormatView.Format_MediaType_Items = Containers.MKV.media;
+                    VM.FormatView.Format_MediaType_SelectedItem = "Video";
+                    VM.FormatView.Format_MediaType_IsEnabled = false;
 
-            // -------------------------
-            // m2v
-            // -------------------------
-            else if (container_SelectedItem == "m2v")
-            {
-                // Media Type
-                VM.FormatView.Format_MediaType_Items = Containers.M2V.media;
-                VM.FormatView.Format_MediaType_SelectedItem = "Video";
-                VM.FormatView.Format_MediaType_IsEnabled = false;
+                    // Video Codec
+                    VM.VideoView.Video_Codec_Items = Containers.MKV.video;
+                    VM.VideoView.Video_Codec_SelectedItem = "x264";
 
-                // Video Codec
-                VM.VideoView.Video_Codec_Items = Containers.M2V.video;
-                VM.VideoView.Video_Codec_SelectedItem = "MPEG-2";
+                    // Audio Codec
+                    VM.AudioView.Audio_Codec_Items = Containers.MKV.audio;
+                    VM.AudioView.Audio_Codec_SelectedItem = "AC3";
 
-                // Audio Codec
-                VM.AudioView.Audio_Codec_Items = Containers.M2V.audio;
-                VM.AudioView.Audio_Codec_SelectedItem = "None";
+                    // Subtitle Codec
+                    VM.SubtitleView.Subtitle_Codec_Items = Containers.MKV.subtitle;
+                    VM.SubtitleView.Subtitle_Codec_SelectedItem = "SSA";
+                    break;
 
-                // Subtitle Codec
-                VM.SubtitleView.Subtitle_Codec_Items = Containers.M2V.subtitle;
-                VM.SubtitleView.Subtitle_Codec_SelectedItem = "None";
-            }
+                // -------------------------
+                // m2v
+                // -------------------------
+                case "m2v":
 
-            // -------------------------
-            // mpg
-            // -------------------------
-            else if (container_SelectedItem == "mpg")
-            {
-                // Media Type
-                VM.FormatView.Format_MediaType_Items = Containers.MPG.media;
-                VM.FormatView.Format_MediaType_SelectedItem = "Video";
-                VM.FormatView.Format_MediaType_IsEnabled = false;
+                    // Media Type
+                    VM.FormatView.Format_MediaType_Items = Containers.M2V.media;
+                    VM.FormatView.Format_MediaType_SelectedItem = "Video";
+                    VM.FormatView.Format_MediaType_IsEnabled = false;
 
-                // Video Codec
-                VM.VideoView.Video_Codec_Items = Containers.MPG.video;
-                VM.VideoView.Video_Codec_SelectedItem = "MPEG-2";
+                    // Video Codec
+                    VM.VideoView.Video_Codec_Items = Containers.M2V.video;
+                    VM.VideoView.Video_Codec_SelectedItem = "MPEG-2";
 
-                // Audio Codec
-                VM.AudioView.Audio_Codec_Items = Containers.MPG.audio;
-                VM.AudioView.Audio_Codec_SelectedItem = "MP2";
+                    // Audio Codec
+                    VM.AudioView.Audio_Codec_Items = Containers.M2V.audio;
+                    VM.AudioView.Audio_Codec_SelectedItem = "None";
 
-                // Subtitle Codec
-                VM.SubtitleView.Subtitle_Codec_Items = Containers.MPG.subtitle;
-                VM.SubtitleView.Subtitle_Codec_SelectedItem = "SRT";
-            }
+                    // Subtitle Codec
+                    VM.SubtitleView.Subtitle_Codec_Items = Containers.M2V.subtitle;
+                    VM.SubtitleView.Subtitle_Codec_SelectedItem = "None";
+                    break;
 
-            // -------------------------
-            // avi
-            // -------------------------
-            else if (container_SelectedItem == "avi")
-            {
-                // Media Type
-                VM.FormatView.Format_MediaType_Items = Containers.AVI.media;
-                VM.FormatView.Format_MediaType_SelectedItem = "Video";
-                VM.FormatView.Format_MediaType_IsEnabled = false;
+                // -------------------------
+                // mpg
+                // -------------------------
+                case "mpg":
 
-                // Video Codec
-                VM.VideoView.Video_Codec_Items = Containers.AVI.video;
-                VM.VideoView.Video_Codec_SelectedItem = "MPEG-4";
+                    // Media Type
+                    VM.FormatView.Format_MediaType_Items = Containers.MPG.media;
+                    VM.FormatView.Format_MediaType_SelectedItem = "Video";
+                    VM.FormatView.Format_MediaType_IsEnabled = false;
 
-                // Audio Codec
-                VM.AudioView.Audio_Codec_Items = Containers.AVI.audio;
-                VM.AudioView.Audio_Codec_SelectedItem = "LAME";
+                    // Video Codec
+                    VM.VideoView.Video_Codec_Items = Containers.MPG.video;
+                    VM.VideoView.Video_Codec_SelectedItem = "MPEG-2";
 
-                // Subtitle Codec
-                VM.SubtitleView.Subtitle_Codec_Items = Containers.AVI.subtitle;
-                VM.SubtitleView.Subtitle_Codec_SelectedItem = "SRT";
-            }
+                    // Audio Codec
+                    VM.AudioView.Audio_Codec_Items = Containers.MPG.audio;
+                    VM.AudioView.Audio_Codec_SelectedItem = "MP2";
 
-            // -------------------------
-            // ogv
-            // -------------------------
-            else if (container_SelectedItem == "ogv")
-            {
-                // Media Type
-                VM.FormatView.Format_MediaType_Items = Containers.OGV.media;
-                VM.FormatView.Format_MediaType_SelectedItem = "Video";
-                VM.FormatView.Format_MediaType_IsEnabled = false;
+                    // Subtitle Codec
+                    VM.SubtitleView.Subtitle_Codec_Items = Containers.MPG.subtitle;
+                    VM.SubtitleView.Subtitle_Codec_SelectedItem = "SRT";
+                    break;
 
-                // Video Codec
-                VM.VideoView.Video_Codec_Items = Containers.OGV.video;
-                VM.VideoView.Video_Codec_SelectedItem = "Theora";
+                // -------------------------
+                // avi
+                // -------------------------
+                case "avi":
 
-                // Audio Codec
-                VM.AudioView.Audio_Codec_Items = Containers.OGV.audio;
-                VM.AudioView.Audio_Codec_SelectedItem = "Opus";
+                    // Media Type
+                    VM.FormatView.Format_MediaType_Items = Containers.AVI.media;
+                    VM.FormatView.Format_MediaType_SelectedItem = "Video";
+                    VM.FormatView.Format_MediaType_IsEnabled = false;
 
-                // Subtitle Codec
-                VM.SubtitleView.Subtitle_Codec_Items = Containers.OGV.subtitle;
-                VM.SubtitleView.Subtitle_Codec_SelectedItem = "None";
-            }
+                    // Video Codec
+                    VM.VideoView.Video_Codec_Items = Containers.AVI.video;
+                    VM.VideoView.Video_Codec_SelectedItem = "MPEG-4";
 
+                    // Audio Codec
+                    VM.AudioView.Audio_Codec_Items = Containers.AVI.audio;
+                    VM.AudioView.Audio_Codec_SelectedItem = "LAME";
 
-            // --------------------------------------------------
-            // Audio
-            // --------------------------------------------------
-            // -------------------------
-            // mp3
-            // -------------------------
-            else if (container_SelectedItem == "mp3")
-            {
-                // Media Type
-                VM.FormatView.Format_MediaType_Items = Containers.LAME.media;
-                VM.FormatView.Format_MediaType_SelectedItem = "Audio";
-                VM.FormatView.Format_MediaType_IsEnabled = false;
+                    // Subtitle Codec
+                    VM.SubtitleView.Subtitle_Codec_Items = Containers.AVI.subtitle;
+                    VM.SubtitleView.Subtitle_Codec_SelectedItem = "SRT";
+                    break;
 
-                // Video Codec
-                VM.VideoView.Video_Codec_Items = Containers.LAME.video;
-                VM.VideoView.Video_Codec_SelectedItem = "None";
+                // -------------------------
+                // ogv
+                // -------------------------
+                case "ogv":
 
-                // Audio Codec
-                VM.AudioView.Audio_Codec_Items = Containers.LAME.audio;
-                VM.AudioView.Audio_Codec_SelectedItem = "LAME";
+                    // Media Type
+                    VM.FormatView.Format_MediaType_Items = Containers.OGV.media;
+                    VM.FormatView.Format_MediaType_SelectedItem = "Video";
+                    VM.FormatView.Format_MediaType_IsEnabled = false;
 
-                // Subtitle Codec
-                VM.SubtitleView.Subtitle_Codec_Items = Containers.LAME.subtitle;
-                VM.SubtitleView.Subtitle_Codec_SelectedItem = "None";
-            }
+                    // Video Codec
+                    VM.VideoView.Video_Codec_Items = Containers.OGV.video;
+                    VM.VideoView.Video_Codec_SelectedItem = "Theora";
 
-            // -------------------------
-            // m4a
-            // -------------------------
-            else if (container_SelectedItem == "m4a")
-            {
-                // Media Type
-                VM.FormatView.Format_MediaType_Items = Containers.M4A.media;
-                VM.FormatView.Format_MediaType_SelectedItem = "Audio";
-                VM.FormatView.Format_MediaType_IsEnabled = false;
+                    // Audio Codec
+                    VM.AudioView.Audio_Codec_Items = Containers.OGV.audio;
+                    VM.AudioView.Audio_Codec_SelectedItem = "Opus";
 
-                // Video Codec
-                VM.VideoView.Video_Codec_Items = Containers.M4A.video;
-                VM.VideoView.Video_Codec_SelectedItem = "None";
-
-                // Audio Codec
-                VM.AudioView.Audio_Codec_Items = Containers.M4A.audio;
-                VM.AudioView.Audio_Codec_SelectedItem = "AAC";
-
-                // Subtitle Codec
-                VM.SubtitleView.Subtitle_Codec_Items = Containers.M4A.subtitle;
-                VM.SubtitleView.Subtitle_Codec_SelectedItem = "None";
-            }
-
-            // -------------------------
-            // ogg
-            // -------------------------
-            else if (container_SelectedItem == "ogg")
-            {
-                // Media Type
-                VM.FormatView.Format_MediaType_Items = Containers.OGG.media;
-                VM.FormatView.Format_MediaType_SelectedItem = "Audio";
-                VM.FormatView.Format_MediaType_IsEnabled = false;
-
-                // Video Codec
-                VM.VideoView.Video_Codec_Items = Containers.OGG.video;
-                VM.VideoView.Video_Codec_SelectedItem = "None";
-
-                // Audio Codec
-                VM.AudioView.Audio_Codec_Items = Containers.OGG.audio;
-                VM.AudioView.Audio_Codec_SelectedItem = "Opus";
-
-                // Subtitle Codec
-                VM.SubtitleView.Subtitle_Codec_Items = Containers.OGG.subtitle;
-                VM.SubtitleView.Subtitle_Codec_SelectedItem = "None";
-            }
-
-            // -------------------------
-            // flac
-            // -------------------------
-            else if (container_SelectedItem == "flac")
-            {
-                // Media Type
-                VM.FormatView.Format_MediaType_Items = Containers.FLAC.media;
-                VM.FormatView.Format_MediaType_SelectedItem = "Audio";
-                VM.FormatView.Format_MediaType_IsEnabled = false;
-
-                // Video Codec
-                VM.VideoView.Video_Codec_Items = Containers.FLAC.video;
-                VM.VideoView.Video_Codec_SelectedItem = "None";
-
-                // Audio Codec
-                VM.AudioView.Audio_Codec_Items = Containers.FLAC.audio;
-                VM.AudioView.Audio_Codec_SelectedItem = "FLAC";
-
-                // Subtitle Codec
-                VM.SubtitleView.Subtitle_Codec_Items = Containers.FLAC.subtitle;
-                VM.SubtitleView.Subtitle_Codec_SelectedItem = "None";
-            }
-
-            // -------------------------
-            // wav
-            // -------------------------
-            else if (container_SelectedItem == "wav")
-            {
-                // Media Type
-                VM.FormatView.Format_MediaType_Items = Containers.WAV.media;
-                VM.FormatView.Format_MediaType_SelectedItem = "Audio";
-                VM.FormatView.Format_MediaType_IsEnabled = false;
-
-                // Video Codec
-                VM.VideoView.Video_Codec_Items = Containers.WAV.video;
-                VM.VideoView.Video_Codec_SelectedItem = "None";
-
-                // Audio Codec
-                VM.AudioView.Audio_Codec_Items = Containers.WAV.audio;
-                VM.AudioView.Audio_Codec_SelectedItem = "PCM";
-
-                // Subtitle Codec
-                VM.SubtitleView.Subtitle_Codec_Items = Containers.WAV.subtitle;
-                VM.SubtitleView.Subtitle_Codec_SelectedItem = "None";
-            }
+                    // Subtitle Codec
+                    VM.SubtitleView.Subtitle_Codec_Items = Containers.OGV.subtitle;
+                    VM.SubtitleView.Subtitle_Codec_SelectedItem = "None";
+                    break;
 
 
-            // --------------------------------------------------
-            // Image
-            // --------------------------------------------------
-            // -------------------------
-            // jpg
-            // -------------------------
-            else if (container_SelectedItem == "jpg")
-            {
-                // Media Type
-                VM.FormatView.Format_MediaType_Items = Containers.JPG.media;
-                VM.FormatView.Format_MediaType_SelectedItem = "Image";
-                VM.FormatView.Format_MediaType_IsEnabled = true;
+                // --------------------------------------------------
+                // Audio
+                // --------------------------------------------------
+                // -------------------------
+                // mp3
+                // -------------------------
+                case "mp3":
 
-                // Video Codec
-                VM.VideoView.Video_Codec_Items = Containers.JPG.video;
-                VM.VideoView.Video_Codec_SelectedItem = "JPEG";
+                    // Media Type
+                    VM.FormatView.Format_MediaType_Items = Containers.LAME.media;
+                    VM.FormatView.Format_MediaType_SelectedItem = "Audio";
+                    VM.FormatView.Format_MediaType_IsEnabled = false;
 
-                // Audio Codec
-                VM.AudioView.Audio_Codec_Items = Containers.JPG.audio;
-                VM.AudioView.Audio_Codec_SelectedItem = "None";
+                    // Video Codec
+                    VM.VideoView.Video_Codec_Items = Containers.LAME.video;
+                    VM.VideoView.Video_Codec_SelectedItem = "None";
 
-                // Subtitle Codec
-                VM.SubtitleView.Subtitle_Codec_Items = Containers.JPG.subtitle;
-                VM.SubtitleView.Subtitle_Codec_SelectedItem = "None";
-            }
+                    // Audio Codec
+                    VM.AudioView.Audio_Codec_Items = Containers.LAME.audio;
+                    VM.AudioView.Audio_Codec_SelectedItem = "LAME";
 
-            // -------------------------
-            // png
-            // -------------------------
-            else if (container_SelectedItem == "png")
-            {
-                // Media Type
-                VM.FormatView.Format_MediaType_Items = Containers.JPG.media;
-                VM.FormatView.Format_MediaType_SelectedItem = "Image";
-                VM.FormatView.Format_MediaType_IsEnabled = true;
+                    // Subtitle Codec
+                    VM.SubtitleView.Subtitle_Codec_Items = Containers.LAME.subtitle;
+                    VM.SubtitleView.Subtitle_Codec_SelectedItem = "None";
+                    break;
 
-                // Video Codec
-                VM.VideoView.Video_Codec_Items = Containers.PNG.video;
-                VM.VideoView.Video_Codec_SelectedItem = "PNG";
+                // -------------------------
+                // m4a
+                // -------------------------
+                case "m4a":
 
-                // Audio Codec
-                VM.AudioView.Audio_Codec_Items = Containers.PNG.audio;
-                VM.AudioView.Audio_Codec_SelectedItem = "None";
+                    // Media Type
+                    VM.FormatView.Format_MediaType_Items = Containers.M4A.media;
+                    VM.FormatView.Format_MediaType_SelectedItem = "Audio";
+                    VM.FormatView.Format_MediaType_IsEnabled = false;
 
-                // Subtitle Codec
-                VM.SubtitleView.Subtitle_Codec_Items = Containers.PNG.subtitle;
-                VM.SubtitleView.Subtitle_Codec_SelectedItem = "None";
-            }
+                    // Video Codec
+                    VM.VideoView.Video_Codec_Items = Containers.M4A.video;
+                    VM.VideoView.Video_Codec_SelectedItem = "None";
 
-            // -------------------------
-            // webp
-            // -------------------------
-            else if (container_SelectedItem == "webp")
-            {
-                // Media Type
-                VM.FormatView.Format_MediaType_Items = Containers.JPG.media;
-                VM.FormatView.Format_MediaType_SelectedItem = "Image";
-                VM.FormatView.Format_MediaType_IsEnabled = true;
+                    // Audio Codec
+                    VM.AudioView.Audio_Codec_Items = Containers.M4A.audio;
+                    VM.AudioView.Audio_Codec_SelectedItem = "AAC";
 
-                // Video Codec
-                VM.VideoView.Video_Codec_Items = Containers.WebP.video;
-                VM.VideoView.Video_Codec_SelectedItem = "WebP";
+                    // Subtitle Codec
+                    VM.SubtitleView.Subtitle_Codec_Items = Containers.M4A.subtitle;
+                    VM.SubtitleView.Subtitle_Codec_SelectedItem = "None";
+                    break;
 
-                // Audio Codec
-                VM.AudioView.Audio_Codec_Items = Containers.WebP.audio;
-                VM.AudioView.Audio_Codec_SelectedItem = "None";
+                // -------------------------
+                // ogg
+                // -------------------------
+                case "ogg":
 
-                // Subtitle Codec
-                VM.SubtitleView.Subtitle_Codec_Items = Containers.WebP.subtitle;
-                VM.SubtitleView.Subtitle_Codec_SelectedItem = "None";
+                    // Media Type
+                    VM.FormatView.Format_MediaType_Items = Containers.OGG.media;
+                    VM.FormatView.Format_MediaType_SelectedItem = "Audio";
+                    VM.FormatView.Format_MediaType_IsEnabled = false;
+
+                    // Video Codec
+                    VM.VideoView.Video_Codec_Items = Containers.OGG.video;
+                    VM.VideoView.Video_Codec_SelectedItem = "None";
+
+                    // Audio Codec
+                    VM.AudioView.Audio_Codec_Items = Containers.OGG.audio;
+                    VM.AudioView.Audio_Codec_SelectedItem = "Opus";
+
+                    // Subtitle Codec
+                    VM.SubtitleView.Subtitle_Codec_Items = Containers.OGG.subtitle;
+                    VM.SubtitleView.Subtitle_Codec_SelectedItem = "None";
+                    break;
+
+                // -------------------------
+                // flac
+                // -------------------------
+                case "flac":
+
+                    // Media Type
+                    VM.FormatView.Format_MediaType_Items = Containers.FLAC.media;
+                    VM.FormatView.Format_MediaType_SelectedItem = "Audio";
+                    VM.FormatView.Format_MediaType_IsEnabled = false;
+
+                    // Video Codec
+                    VM.VideoView.Video_Codec_Items = Containers.FLAC.video;
+                    VM.VideoView.Video_Codec_SelectedItem = "None";
+
+                    // Audio Codec
+                    VM.AudioView.Audio_Codec_Items = Containers.FLAC.audio;
+                    VM.AudioView.Audio_Codec_SelectedItem = "FLAC";
+
+                    // Subtitle Codec
+                    VM.SubtitleView.Subtitle_Codec_Items = Containers.FLAC.subtitle;
+                    VM.SubtitleView.Subtitle_Codec_SelectedItem = "None";
+                    break;
+
+                // -------------------------
+                // wav
+                // -------------------------
+                case "wav":
+
+                    // Media Type
+                    VM.FormatView.Format_MediaType_Items = Containers.WAV.media;
+                    VM.FormatView.Format_MediaType_SelectedItem = "Audio";
+                    VM.FormatView.Format_MediaType_IsEnabled = false;
+
+                    // Video Codec
+                    VM.VideoView.Video_Codec_Items = Containers.WAV.video;
+                    VM.VideoView.Video_Codec_SelectedItem = "None";
+
+                    // Audio Codec
+                    VM.AudioView.Audio_Codec_Items = Containers.WAV.audio;
+                    VM.AudioView.Audio_Codec_SelectedItem = "PCM";
+
+                    // Subtitle Codec
+                    VM.SubtitleView.Subtitle_Codec_Items = Containers.WAV.subtitle;
+                    VM.SubtitleView.Subtitle_Codec_SelectedItem = "None";
+                    break;
+
+
+                // --------------------------------------------------
+                // Image
+                // --------------------------------------------------
+                // -------------------------
+                // jpg
+                // -------------------------
+                case "jpg":
+
+                    // Media Type
+                    VM.FormatView.Format_MediaType_Items = Containers.JPG.media;
+                    VM.FormatView.Format_MediaType_SelectedItem = "Image";
+                    VM.FormatView.Format_MediaType_IsEnabled = true;
+
+                    // Video Codec
+                    VM.VideoView.Video_Codec_Items = Containers.JPG.video;
+                    VM.VideoView.Video_Codec_SelectedItem = "JPEG";
+
+                    // Audio Codec
+                    VM.AudioView.Audio_Codec_Items = Containers.JPG.audio;
+                    VM.AudioView.Audio_Codec_SelectedItem = "None";
+
+                    // Subtitle Codec
+                    VM.SubtitleView.Subtitle_Codec_Items = Containers.JPG.subtitle;
+                    VM.SubtitleView.Subtitle_Codec_SelectedItem = "None";
+                    break;
+
+                // -------------------------
+                // png
+                // -------------------------
+                case "png":
+
+                    // Media Type
+                    VM.FormatView.Format_MediaType_Items = Containers.JPG.media;
+                    VM.FormatView.Format_MediaType_SelectedItem = "Image";
+                    VM.FormatView.Format_MediaType_IsEnabled = true;
+
+                    // Video Codec
+                    VM.VideoView.Video_Codec_Items = Containers.PNG.video;
+                    VM.VideoView.Video_Codec_SelectedItem = "PNG";
+
+                    // Audio Codec
+                    VM.AudioView.Audio_Codec_Items = Containers.PNG.audio;
+                    VM.AudioView.Audio_Codec_SelectedItem = "None";
+
+                    // Subtitle Codec
+                    VM.SubtitleView.Subtitle_Codec_Items = Containers.PNG.subtitle;
+                    VM.SubtitleView.Subtitle_Codec_SelectedItem = "None";
+                    break;
+
+                // -------------------------
+                // webp
+                // -------------------------
+                case "webp":
+
+                    // Media Type
+                    VM.FormatView.Format_MediaType_Items = Containers.JPG.media;
+                    VM.FormatView.Format_MediaType_SelectedItem = "Image";
+                    VM.FormatView.Format_MediaType_IsEnabled = true;
+
+                    // Video Codec
+                    VM.VideoView.Video_Codec_Items = Containers.WebP.video;
+                    VM.VideoView.Video_Codec_SelectedItem = "WebP";
+
+                    // Audio Codec
+                    VM.AudioView.Audio_Codec_Items = Containers.WebP.audio;
+                    VM.AudioView.Audio_Codec_SelectedItem = "None";
+
+                    // Subtitle Codec
+                    VM.SubtitleView.Subtitle_Codec_Items = Containers.WebP.subtitle;
+                    VM.SubtitleView.Subtitle_Codec_SelectedItem = "None";
+                    break;
             }
         }
 
@@ -432,396 +435,394 @@ namespace Axiom
         /// </summary>
         public static void MediaTypeControls()
         {
-            // -------------------------
-            // Video
-            // -------------------------
-            // Enable Frame Textbox for Image Screenshot
-            if (VM.FormatView.Format_MediaType_SelectedItem == "Video")
+            switch (VM.FormatView.Format_MediaType_SelectedItem)
             {
-                // -------------------------
-                // Format
-                // -------------------------
-                // Hardware Acceleration
-                VM.VideoView.Video_HWAccel_IsEnabled = true;
-
-                // Cut
-                // Change if coming back from JPEG, PNG, WebP
-                if (VM.FormatView.Format_CutStart_IsEnabled == true &&
-                    VM.FormatView.Format_CutEnd_IsEnabled == false)
-                {
-                    VM.FormatView.Format_Cut_SelectedItem = "No";
-                }
-
-                // YouTube
-                VM.FormatView.Format_YouTube_SelectedItem = "Video + Audio";
-
                 // -------------------------
                 // Video
                 // -------------------------
-                // Codec
-                VM.VideoView.Video_Codec_IsEnabled = true;
+                // Enable Frame Textbox for Image Screenshot
+                case "Video":
+                    // -------------------------
+                    // Format
+                    // -------------------------
+                    // Hardware Acceleration
+                    VM.VideoView.Video_HWAccel_IsEnabled = true;
 
-                // Size
-                VM.VideoView.Video_Scale_IsEnabled = true;
+                    // Cut
+                    // Change if coming back from JPEG, PNG, WebP
+                    if (VM.FormatView.Format_CutStart_IsEnabled == true &&
+                        VM.FormatView.Format_CutEnd_IsEnabled == false)
+                    {
+                        VM.FormatView.Format_Cut_SelectedItem = "No";
+                    }
 
-                // Scaling
-                VM.VideoView.Video_ScalingAlgorithm_IsEnabled = true;
-                VM.VideoView.Video_ScalingAlgorithm_SelectedItem = "auto";
+                    // YouTube
+                    VM.FormatView.Format_YouTube_SelectedItem = "Video + Audio";
 
-                // Speed
-                VM.VideoView.Video_Speed_IsEnabled = true;
+                    // -------------------------
+                    // Video
+                    // -------------------------
+                    // Codec
+                    VM.VideoView.Video_Codec_IsEnabled = true;
 
-                // Screen Format
-                VM.VideoView.Video_ScreenFormat_IsEnabled = true;
+                    // Size
+                    VM.VideoView.Video_Scale_IsEnabled = true;
 
-                // Aspect Ratio
-                VM.VideoView.Video_AspectRatio_IsEnabled = true;
+                    // Scaling
+                    VM.VideoView.Video_ScalingAlgorithm_IsEnabled = true;
+                    VM.VideoView.Video_ScalingAlgorithm_SelectedItem = "auto";
 
-                // Crop
-                VM.VideoView.Video_Crop_IsEnabled = true;
+                    // Speed
+                    VM.VideoView.Video_Speed_IsEnabled = true;
+
+                    // Screen Format
+                    VM.VideoView.Video_ScreenFormat_IsEnabled = true;
+
+                    // Aspect Ratio
+                    VM.VideoView.Video_AspectRatio_IsEnabled = true;
+
+                    // Crop
+                    VM.VideoView.Video_Crop_IsEnabled = true;
+
+                    // -------------------------
+                    // Audio
+                    // -------------------------
+                    // Codec
+                    VM.AudioView.Audio_Codec_IsEnabled = true;
+
+                    // Channel
+                    VM.AudioView.Audio_Channel_IsEnabled = true;
+
+                    // Volume
+                    VM.AudioView.Audio_Volume_IsEnabled = true;
+
+                    // Limiter
+                    VM.AudioView.Audio_HardLimiter_IsEnabled = true;
+
+                    // Audio Stream
+                    VM.AudioView.Audio_Stream_IsEnabled = true;
+                    //AudioStreamControls(:; // Selected Item
+                    //VM.AudioView.Audio_Stream_SelectedItem = "all";
+
+
+                    // -------------------------
+                    // Subtitle
+                    // -------------------------
+                    // Codec
+                    VM.SubtitleView.Subtitle_Codec_IsEnabled = true;
+                    break;
 
                 // -------------------------
                 // Audio
                 // -------------------------
-                // Codec
-                VM.AudioView.Audio_Codec_IsEnabled = true;
+                case "Audio":
+                    // -------------------------
+                    // Format
+                    // -------------------------
+                    // Hardware Acceleration
+                    VM.VideoView.Video_HWAccel_IsEnabled = false;
+                    VM.VideoView.Video_HWAccel_SelectedItem = "off";
 
-                // Channel
-                VM.AudioView.Audio_Channel_IsEnabled = true;
+                    // Cut
+                    // Change if coming back from JPEG, PNG, WebP
+                    if (VM.FormatView.Format_CutStart_IsEnabled == true &&
+                        VM.FormatView.Format_CutEnd_IsEnabled == false)
+                    {
+                        VM.FormatView.Format_Cut_SelectedItem = "No";
+                    }
 
-                // Volume
-                VM.AudioView.Audio_Volume_IsEnabled = true;
+                    // YouTube
+                    VM.FormatView.Format_YouTube_SelectedItem = "Audio Only";
 
-                // Limiter
-                VM.AudioView.Audio_HardLimiter_IsEnabled = true;
+                    // Frame
+                    VM.FormatView.Format_FrameEnd_IsEnabled = false;
+                    VM.FormatView.Format_FrameEnd_Text = "";
 
-                // Audio Stream
-                VM.AudioView.Audio_Stream_IsEnabled = true;
-                //AudioStreamControls(); // Selected Item
-                //VM.AudioView.Audio_Stream_SelectedItem = "all";
+                    // -------------------------
+                    // Video
+                    // -------------------------
+                    // Codec
+                    VM.VideoView.Video_Codec_IsEnabled = false;
 
+                    // Size
+                    VM.VideoView.Video_Scale_SelectedItem = "Source";
+                    VM.VideoView.Video_Scale_IsEnabled = false;
+
+                    // Scaling
+                    VM.VideoView.Video_ScalingAlgorithm_SelectedItem = "auto";
+                    VM.VideoView.Video_ScalingAlgorithm_IsEnabled = false;
+
+                    // Speed
+                    VM.VideoView.Video_Speed_IsEnabled = false;
+
+                    // Screen Format
+                    VM.VideoView.Video_ScreenFormat_IsEnabled = false;
+
+                    // Aspect Ratio
+                    VM.VideoView.Video_AspectRatio_IsEnabled = false;
+
+                    // Crop
+                    VM.VideoView.Video_Crop_IsEnabled = false;
+
+                    // FPS
+                    VM.VideoView.Video_FPS_SelectedItem = "auto";
+                    VM.VideoView.Video_FPS_IsEnabled = false;
+
+                    // Encode Speed
+                    VM.VideoView.Video_EncodeSpeed_IsEnabled = false;
+
+
+                    // -------------------------
+                    // Audio
+                    // -------------------------
+                    // Codec
+                    VM.AudioView.Audio_Codec_IsEnabled = true;
+
+                    // Audio Stream
+                    VM.AudioView.Audio_Stream_IsEnabled = true;
+                    //AudioStreamControls(:; // Selected Item
+                    //VM.AudioView.Audio_Stream_SelectedItem = "1";
+
+                    // Channel
+                    VM.AudioView.Audio_Channel_IsEnabled = true;
+
+                    // Sample Rate
+                    // Controled Through Codec Class
+
+                    // Bit Depth
+                    // Controled Through Codec Class
+
+                    // Volume
+                    VM.AudioView.Audio_Volume_IsEnabled = true;
+
+                    // Limiter
+                    VM.AudioView.Audio_HardLimiter_IsEnabled = true;
+
+
+                    // -------------------------
+                    // Subtitle
+                    // -------------------------
+                    // Codec
+                    VM.SubtitleView.Subtitle_Codec_IsEnabled = false;
+                    break;
 
                 // -------------------------
-                // Subtitle
+                // Image
                 // -------------------------
-                // Codec
-                VM.SubtitleView.Subtitle_Codec_IsEnabled = true;
+                case "Image":
+                    // -------------------------
+                    // Format
+                    // -------------------------
+                    // Hardware Acceleration
+                    VM.VideoView.Video_HWAccel_IsEnabled = true;
+
+                    // Cut
+                    // Enable Cut Start Time for Frame Selection
+                    VM.FormatView.Format_Cut_SelectedItem = "Yes";
+                    VM.FormatView.Format_CutStart_IsEnabled = true;
+                    //VM.FormatView.Format_CutStart_Hours_IsEnabled = true;
+                    //VM.FormatView.Format_CutStart_Minutes_IsEnabled = true;
+                    //VM.FormatView.Format_CutStart_Seconds_IsEnabled = true;
+                    //VM.FormatView.Format_CutStart_Milliseconds_IsEnabled = true;
+
+                    VM.FormatView.Format_CutEnd_IsEnabled = false;
+                    //VM.FormatView.Format_CutEnd_Hours_IsEnabled = false;
+                    //VM.FormatView.Format_CutEnd_Minutes_IsEnabled = false;
+                    //VM.FormatView.Format_CutEnd_Seconds_IsEnabled = false;
+                    //VM.FormatView.Format_CutEnd_Milliseconds_IsEnabled = false;
+
+                    VM.FormatView.Format_CutEnd_Hours_Text = string.Empty;
+                    VM.FormatView.Format_CutEnd_Minutes_Text = string.Empty;
+                    VM.FormatView.Format_CutEnd_Seconds_Text = string.Empty;
+                    VM.FormatView.Format_CutEnd_Milliseconds_Text = string.Empty;
+
+                    // Frame
+                    VM.FormatView.Format_FrameEnd_IsEnabled = false;
+                    VM.FormatView.Format_FrameEnd_Text = "";
+
+                    // YouTube
+                    VM.FormatView.Format_YouTube_SelectedItem = "Video + Audio";
+
+
+                    // -------------------------
+                    // Video
+                    // -------------------------
+                    // Codec
+                    VM.VideoView.Video_Codec_IsEnabled = true;
+
+                    //Size
+                    VM.VideoView.Video_Scale_IsEnabled = true;
+
+                    // Scaling
+                    VM.VideoView.Video_ScalingAlgorithm_SelectedItem = "auto";
+                    VM.VideoView.Video_ScalingAlgorithm_IsEnabled = true;
+
+                    // Speed
+                    VM.VideoView.Video_Speed_IsEnabled = false;
+
+                    // Screen Format
+                    VM.VideoView.Video_ScreenFormat_IsEnabled = true;
+
+                    // Aspect Ratio
+                    VM.VideoView.Video_AspectRatio_IsEnabled = true;
+
+                    // Crop
+                    VM.VideoView.Video_Crop_IsEnabled = true;
+
+                    // Fps
+                    VM.VideoView.Video_FPS_SelectedItem = "auto";
+                    VM.VideoView.Video_FPS_IsEnabled = false;
+
+                    // Encode Speed
+                    VM.VideoView.Video_EncodeSpeed_IsEnabled = false;
+
+                    // -------------------------
+                    // Audio
+                    // -------------------------
+                    // Codec
+                    VM.AudioView.Audio_Codec_IsEnabled = false;
+
+                    // Audio Stream
+                    //VM.AudioView.Audio_Stream_SelectedItem = "none";
+                    //AudioStreamControls(:; // Selected Item
+                    VM.AudioView.Audio_Stream_IsEnabled = false;
+
+                    // Channel
+                    VM.AudioView.Audio_Channel_SelectedItem = "Source";
+                    VM.AudioView.Audio_Channel_IsEnabled = false;
+
+                    // Quality
+                    VM.AudioView.Audio_Quality_SelectedItem = "None";
+                    VM.AudioView.Audio_Quality_IsEnabled = false;
+
+                    // Compression Level
+                    VM.AudioView.Audio_CompressionLevel_SelectedItem = "auto";
+                    VM.AudioView.Audio_CompressionLevel_IsEnabled = false;
+
+                    // Sample Rate
+                    VM.AudioView.Audio_SampleRate_SelectedItem = "auto";
+                    VM.AudioView.Audio_SampleRate_IsEnabled = false;
+
+                    // Bit Depth
+                    VM.AudioView.Audio_BitDepth_SelectedItem = "auto";
+                    VM.AudioView.Audio_BitDepth_IsEnabled = false;
+
+                    // Volume
+                    VM.AudioView.Audio_Volume_IsEnabled = false;
+
+                    // Limiter
+                    VM.AudioView.Audio_HardLimiter_IsEnabled = false;
+                    VM.AudioView.Audio_HardLimiter_Value = 0.0;
+
+
+                    // -------------------------
+                    // Subtitle
+                    // -------------------------
+                    // Codec
+                    VM.SubtitleView.Subtitle_Codec_IsEnabled = false;
+                    break;
+
+                // -------------------------
+                // Sequence 
+                // -------------------------
+                case "Sequence":
+                    // -------------------------
+                    // Format
+                    // -------------------------
+                    // Hardware Acceleration
+                    VM.VideoView.Video_HWAccel_IsEnabled = true;
+
+                    // Cut
+                    // Change if coming back from Image
+                    if (VM.FormatView.Format_CutStart_IsEnabled == true &&
+                        VM.FormatView.Format_CutEnd_IsEnabled == false)
+                    {
+                        VM.FormatView.Format_Cut_SelectedItem = "No";
+                    }
+
+                    // YouTube
+                    VM.FormatView.Format_YouTube_SelectedItem = "Video + Audio";
+
+
+                    // -------------------------
+                    // Video
+                    // -------------------------
+                    // Codec 
+                    VM.VideoView.Video_Codec_IsEnabled = true;
+
+                    //Size
+                    VM.VideoView.Video_Scale_IsEnabled = true;
+
+                    // Scaling
+                    VM.VideoView.Video_ScalingAlgorithm_SelectedItem = "auto";
+                    VM.VideoView.Video_ScalingAlgorithm_IsEnabled = true;
+
+                    // Speed
+                    VM.VideoView.Video_Speed_IsEnabled = true;
+
+                    // Screen Format
+                    VM.VideoView.Video_ScreenFormat_IsEnabled = true;
+
+                    // Aspect Ratio
+                    VM.VideoView.Video_AspectRatio_IsEnabled = true;
+
+                    // Crop
+                    VM.VideoView.Video_Crop_IsEnabled = true;
+
+                    // Speed
+                    VM.VideoView.Video_EncodeSpeed_IsEnabled = false;
+
+                    // FPS
+                    VM.VideoView.Video_FPS_IsEnabled = true;
+
+
+                    // -------------------------
+                    // Audio
+                    // -------------------------
+                    // Codec
+                    VM.AudioView.Audio_Codec_IsEnabled = false;
+
+                    // Audio Stream
+                    //VM.AudioView.Audio_Stream_SelectedItem = "none";
+                    //AudioStreamControls(:; // Selected Item
+                    VM.AudioView.Audio_Stream_IsEnabled = false;
+
+                    // Channel
+                    VM.AudioView.Audio_Channel_SelectedItem = "Source";
+                    VM.AudioView.Audio_Channel_IsEnabled = false;
+
+                    // Quality
+                    VM.AudioView.Audio_Quality_SelectedItem = "None";
+                    VM.AudioView.Audio_Quality_IsEnabled = false;
+
+                    // Compression Level
+                    VM.AudioView.Audio_CompressionLevel_SelectedItem = "auto";
+                    VM.AudioView.Audio_CompressionLevel_IsEnabled = false;
+
+                    // Sample Rate
+                    VM.AudioView.Audio_SampleRate_SelectedItem = "auto";
+                    VM.AudioView.Audio_SampleRate_IsEnabled = false;
+
+                    // Bit Depth
+                    VM.AudioView.Audio_BitDepth_SelectedItem = "auto";
+                    VM.AudioView.Audio_BitDepth_IsEnabled = false;
+
+                    // Volume
+                    VM.AudioView.Audio_Volume_IsEnabled = false;
+
+                    // Limiter
+                    VM.AudioView.Audio_HardLimiter_IsEnabled = false;
+                    VM.AudioView.Audio_HardLimiter_Value = 0.0;
+
+
+                    // -------------------------
+                    // Subtitle
+                    // -------------------------
+                    // Codec
+                    VM.SubtitleView.Subtitle_Codec_IsEnabled = false;
+                    break;
             }
-
-            // -------------------------
-            // Audio
-            // -------------------------
-            else if (VM.FormatView.Format_MediaType_SelectedItem == "Audio")
-            {
-                // -------------------------
-                // Format
-                // -------------------------
-                // Hardware Acceleration
-                VM.VideoView.Video_HWAccel_IsEnabled = false;
-                VM.VideoView.Video_HWAccel_SelectedItem = "off";
-
-                // Cut
-                // Change if coming back from JPEG, PNG, WebP
-                if (VM.FormatView.Format_CutStart_IsEnabled == true &&
-                    VM.FormatView.Format_CutEnd_IsEnabled == false)
-                {
-                    VM.FormatView.Format_Cut_SelectedItem = "No";
-                }
-
-                // YouTube
-                VM.FormatView.Format_YouTube_SelectedItem = "Audio Only";
-
-                // Frame
-                VM.FormatView.Format_FrameEnd_IsEnabled = false;
-                VM.FormatView.Format_FrameEnd_Text = "";
-
-                // -------------------------
-                // Video
-                // -------------------------
-                // Codec
-                VM.VideoView.Video_Codec_IsEnabled = false;
-
-                // Size
-                VM.VideoView.Video_Scale_SelectedItem = "Source";
-                VM.VideoView.Video_Scale_IsEnabled = false;
-
-                // Scaling
-                VM.VideoView.Video_ScalingAlgorithm_SelectedItem = "auto";
-                VM.VideoView.Video_ScalingAlgorithm_IsEnabled = false;
-
-                // Speed
-                VM.VideoView.Video_Speed_IsEnabled = false;
-
-                // Screen Format
-                VM.VideoView.Video_ScreenFormat_IsEnabled = false;
-
-                // Aspect Ratio
-                VM.VideoView.Video_AspectRatio_IsEnabled = false;
-
-                // Crop
-                VM.VideoView.Video_Crop_IsEnabled = false;
-
-                // FPS
-                VM.VideoView.Video_FPS_SelectedItem = "auto";
-                VM.VideoView.Video_FPS_IsEnabled = false;
-
-                // Encode Speed
-                VM.VideoView.Video_EncodeSpeed_IsEnabled = false;
-
-
-                // -------------------------
-                // Audio
-                // -------------------------
-                // Codec
-                VM.AudioView.Audio_Codec_IsEnabled = true;
-
-                // Audio Stream
-                VM.AudioView.Audio_Stream_IsEnabled = true;
-                //AudioStreamControls(); // Selected Item
-                //VM.AudioView.Audio_Stream_SelectedItem = "1";
-
-                // Channel
-                VM.AudioView.Audio_Channel_IsEnabled = true;
-
-                // Sample Rate
-                // Controled Through Codec Class
-
-                // Bit Depth
-                // Controled Through Codec Class
-
-                // Volume
-                VM.AudioView.Audio_Volume_IsEnabled = true;
-
-                // Limiter
-                VM.AudioView.Audio_HardLimiter_IsEnabled = true;
-
-
-                // -------------------------
-                // Subtitle
-                // -------------------------
-                // Codec
-                VM.SubtitleView.Subtitle_Codec_IsEnabled = false;
-            }
-
-            // -------------------------
-            // Image
-            // -------------------------
-            else if (VM.FormatView.Format_MediaType_SelectedItem == "Image")
-            {
-                // -------------------------
-                // Format
-                // -------------------------
-                // Hardware Acceleration
-                VM.VideoView.Video_HWAccel_IsEnabled = true;
-
-                // Cut
-                // Enable Cut Start Time for Frame Selection
-                VM.FormatView.Format_Cut_SelectedItem = "Yes";
-                VM.FormatView.Format_CutStart_IsEnabled = true;
-                //VM.FormatView.Format_CutStart_Hours_IsEnabled = true;
-                //VM.FormatView.Format_CutStart_Minutes_IsEnabled = true;
-                //VM.FormatView.Format_CutStart_Seconds_IsEnabled = true;
-                //VM.FormatView.Format_CutStart_Milliseconds_IsEnabled = true;
-
-                VM.FormatView.Format_CutEnd_IsEnabled = false;
-                //VM.FormatView.Format_CutEnd_Hours_IsEnabled = false;
-                //VM.FormatView.Format_CutEnd_Minutes_IsEnabled = false;
-                //VM.FormatView.Format_CutEnd_Seconds_IsEnabled = false;
-                //VM.FormatView.Format_CutEnd_Milliseconds_IsEnabled = false;
-
-                VM.FormatView.Format_CutEnd_Hours_Text = string.Empty;
-                VM.FormatView.Format_CutEnd_Minutes_Text = string.Empty;
-                VM.FormatView.Format_CutEnd_Seconds_Text = string.Empty;
-                VM.FormatView.Format_CutEnd_Milliseconds_Text = string.Empty;
-
-                // Frame
-                VM.FormatView.Format_FrameEnd_IsEnabled = false;
-                VM.FormatView.Format_FrameEnd_Text = "";
-
-                // YouTube
-                VM.FormatView.Format_YouTube_SelectedItem = "Video + Audio";
-
-
-                // -------------------------
-                // Video
-                // -------------------------
-                // Codec
-                VM.VideoView.Video_Codec_IsEnabled = true;
-
-                //Size
-                VM.VideoView.Video_Scale_IsEnabled = true;
-
-                // Scaling
-                VM.VideoView.Video_ScalingAlgorithm_SelectedItem = "auto";
-                VM.VideoView.Video_ScalingAlgorithm_IsEnabled = true;
-
-                // Speed
-                VM.VideoView.Video_Speed_IsEnabled = false;
-
-                // Screen Format
-                VM.VideoView.Video_ScreenFormat_IsEnabled = true;
-
-                // Aspect Ratio
-                VM.VideoView.Video_AspectRatio_IsEnabled = true;
-
-                // Crop
-                VM.VideoView.Video_Crop_IsEnabled = true;
-
-                // Fps
-                VM.VideoView.Video_FPS_SelectedItem = "auto";
-                VM.VideoView.Video_FPS_IsEnabled = false;
-
-                // Encode Speed
-                VM.VideoView.Video_EncodeSpeed_IsEnabled = false;
-
-                // -------------------------
-                // Audio
-                // -------------------------
-                // Codec
-                VM.AudioView.Audio_Codec_IsEnabled = false;
-
-                // Audio Stream
-                //VM.AudioView.Audio_Stream_SelectedItem = "none";
-                //AudioStreamControls(); // Selected Item
-                VM.AudioView.Audio_Stream_IsEnabled = false;
-
-                // Channel
-                VM.AudioView.Audio_Channel_SelectedItem = "Source";
-                VM.AudioView.Audio_Channel_IsEnabled = false;
-
-                // Quality
-                VM.AudioView.Audio_Quality_SelectedItem = "None";
-                VM.AudioView.Audio_Quality_IsEnabled = false;
-
-                // Compression Level
-                VM.AudioView.Audio_CompressionLevel_SelectedItem = "auto";
-                VM.AudioView.Audio_CompressionLevel_IsEnabled = false;
-
-                // Sample Rate
-                VM.AudioView.Audio_SampleRate_SelectedItem = "auto";
-                VM.AudioView.Audio_SampleRate_IsEnabled = false;
-
-                // Bit Depth
-                VM.AudioView.Audio_BitDepth_SelectedItem = "auto";
-                VM.AudioView.Audio_BitDepth_IsEnabled = false;
-
-                // Volume
-                VM.AudioView.Audio_Volume_IsEnabled = false;
-
-                // Limiter
-                VM.AudioView.Audio_HardLimiter_IsEnabled = false;
-                VM.AudioView.Audio_HardLimiter_Value = 0.0;
-
-
-                // -------------------------
-                // Subtitle
-                // -------------------------
-                // Codec
-                VM.SubtitleView.Subtitle_Codec_IsEnabled = false;
-            }
-
-            // -------------------------
-            // Sequence 
-            // -------------------------
-            else if (VM.FormatView.Format_MediaType_SelectedItem == "Sequence")
-            {
-                // -------------------------
-                // Format
-                // -------------------------
-                // Hardware Acceleration
-                VM.VideoView.Video_HWAccel_IsEnabled = true;
-
-                // Cut
-                // Change if coming back from Image
-                if (VM.FormatView.Format_CutStart_IsEnabled == true &&
-                    VM.FormatView.Format_CutEnd_IsEnabled == false)
-                {
-                    VM.FormatView.Format_Cut_SelectedItem = "No";
-                }
-
-                // YouTube
-                VM.FormatView.Format_YouTube_SelectedItem = "Video + Audio";
-
-
-                // -------------------------
-                // Video
-                // -------------------------
-                // Codec 
-                VM.VideoView.Video_Codec_IsEnabled = true;
-
-                //Size
-                VM.VideoView.Video_Scale_IsEnabled = true;
-
-                // Scaling
-                VM.VideoView.Video_ScalingAlgorithm_SelectedItem = "auto";
-                VM.VideoView.Video_ScalingAlgorithm_IsEnabled = true;
-
-                // Speed
-                VM.VideoView.Video_Speed_IsEnabled = true;
-
-                // Screen Format
-                VM.VideoView.Video_ScreenFormat_IsEnabled = true;
-
-                // Aspect Ratio
-                VM.VideoView.Video_AspectRatio_IsEnabled = true;
-
-                // Crop
-                VM.VideoView.Video_Crop_IsEnabled = true;
-
-                // Speed
-                VM.VideoView.Video_EncodeSpeed_IsEnabled = false;
-
-                // FPS
-                VM.VideoView.Video_FPS_IsEnabled = true;
-
-
-                // -------------------------
-                // Audio
-                // -------------------------
-                // Codec
-                VM.AudioView.Audio_Codec_IsEnabled = false;
-
-                // Audio Stream
-                //VM.AudioView.Audio_Stream_SelectedItem = "none";
-                //AudioStreamControls(); // Selected Item
-                VM.AudioView.Audio_Stream_IsEnabled = false;
-
-                // Channel
-                VM.AudioView.Audio_Channel_SelectedItem = "Source";
-                VM.AudioView.Audio_Channel_IsEnabled = false;
-
-                // Quality
-                VM.AudioView.Audio_Quality_SelectedItem = "None";
-                VM.AudioView.Audio_Quality_IsEnabled = false;
-
-                // Compression Level
-                VM.AudioView.Audio_CompressionLevel_SelectedItem = "auto";
-                VM.AudioView.Audio_CompressionLevel_IsEnabled = false;
-
-                // Sample Rate
-                VM.AudioView.Audio_SampleRate_SelectedItem = "auto";
-                VM.AudioView.Audio_SampleRate_IsEnabled = false;
-
-                // Bit Depth
-                VM.AudioView.Audio_BitDepth_SelectedItem = "auto";
-                VM.AudioView.Audio_BitDepth_IsEnabled = false;
-
-                // Volume
-                VM.AudioView.Audio_Volume_IsEnabled = false;
-
-                // Limiter
-                VM.AudioView.Audio_HardLimiter_IsEnabled = false;
-                VM.AudioView.Audio_HardLimiter_Value = 0.0;
-
-
-                // -------------------------
-                // Subtitle
-                // -------------------------
-                // Codec
-                VM.SubtitleView.Subtitle_Codec_IsEnabled = false;
-            }
-
-
+            
             // -------------------------
             // Reset to 0 if Disabled
             // -------------------------
