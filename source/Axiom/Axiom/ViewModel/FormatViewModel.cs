@@ -1,6 +1,6 @@
 ﻿/* ----------------------------------------------------------------------
 Axiom UI
-Copyright (C) 2017-2019 Matt McManis
+Copyright (C) 2017-2020 Matt McManis
 https://github.com/MattMcManis/Axiom
 https://axiomui.github.io
 mattmcmanis@outlook.com
@@ -90,6 +90,7 @@ namespace Axiom
             new FormatContainer() { Name = "mpg",   Category = false },
             new FormatContainer() { Name = "avi",   Category = false },
             new FormatContainer() { Name = "ogv",   Category = false },
+            //new FormatContainer() { Name = "m2v",   Category = false },
 
             new FormatContainer() { Name = "Audio", Category = true  },
             new FormatContainer() { Name = "mp3",   Category = false },
@@ -143,6 +144,9 @@ namespace Axiom
             get { return _Format_Container_SelectedItem; }
             set
             {
+                //var previousItem = _Format_Container_SelectedItem;
+                //System.Windows.MessageBox.Show(previousItem); //debug
+
                 if (_Format_Container_SelectedItem == value)
                 {
                     return;
@@ -150,6 +154,16 @@ namespace Axiom
 
                 _Format_Container_SelectedItem = value;
                 OnPropertyChanged("Format_Container_SelectedItem");
+
+                //System.Windows.MessageBox.Show(previousItem); //debug
+                //if (previousItem != value && 
+                //    !string.IsNullOrEmpty(previousItem))
+                //{
+                //    //System.Windows.MessageBox.Show("!"); //debug
+                //    VideoControls.AutoCopyVideoCodec();
+                //    SubtitleControls.AutoCopySubtitleCodec();
+                //    AudioControls.AutoCopyAudioCodec();
+                //}
             }
         }
 

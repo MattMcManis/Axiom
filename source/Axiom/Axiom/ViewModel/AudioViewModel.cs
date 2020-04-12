@@ -1,6 +1,6 @@
 ﻿/* ----------------------------------------------------------------------
 Axiom UI
-Copyright (C) 2017-2019 Matt McManis
+Copyright (C) 2017-2020 Matt McManis
 https://github.com/MattMcManis/Axiom
 https://axiomui.github.io
 mattmcmanis@outlook.com
@@ -270,22 +270,13 @@ namespace Axiom
             get { return _Audio_Channel_SelectedItem; }
             set
             {
-                var previousItem = _Audio_Channel_SelectedItem;
-                _Audio_Channel_SelectedItem = value;
-                OnPropertyChanged("Audio_Channel_SelectedItem");
-
-                if (previousItem != value)
+                if (_Audio_Channel_SelectedItem == value)
                 {
-                    //AudioControls.AutoCopyAudioCodec(/*this*/);
+                    return;
                 }
 
-                //if (_Audio_Channel_SelectedItem == value)
-                //{
-                //    return;
-                //}
-
-                //_Audio_Channel_SelectedItem = value;
-                //OnPropertyChanged("Audio_Channel_SelectedItem");
+                _Audio_Channel_SelectedItem = value;
+                OnPropertyChanged("Audio_Channel_SelectedItem");
             }
         }
 
@@ -358,22 +349,13 @@ namespace Axiom
             get { return _Audio_Quality_SelectedItem; }
             set
             {
-                var previousItem = _Audio_Quality_SelectedItem;
-                _Audio_Quality_SelectedItem = value;
-                OnPropertyChanged("Audio_Quality_SelectedItem");
-
-                if (previousItem != value)
+                if (_Audio_Quality_SelectedItem == value)
                 {
-                    //AudioControls.AutoCopyAudioCodec(/*this*/);
+                    return;
                 }
 
-                //if (_Audio_Quality_SelectedItem == value)
-                //{
-                //    return;
-                //}
-
-                //_Audio_Quality_SelectedItem = value;
-                //OnPropertyChanged("Audio_Quality_SelectedItem");
+                _Audio_Quality_SelectedItem = value;
+                OnPropertyChanged("Audio_Quality_SelectedItem");
             }
         }
 
@@ -596,22 +578,13 @@ namespace Axiom
             get { return _Audio_SampleRate_SelectedItem; }
             set
             {
-                var previousItem = _Audio_SampleRate_SelectedItem;
-                _Audio_SampleRate_SelectedItem = value;
-                OnPropertyChanged("Audio_SampleRate_SelectedItem");
-
-                if (previousItem != value)
+                if (_Audio_SampleRate_SelectedItem == value)
                 {
-                    //AudioControls.AutoCopyAudioCodec(/*this*/);
+                    return;
                 }
 
-                //if (_Audio_SampleRate_SelectedItem == value)
-                //{
-                //    return;
-                //}
-
-                //_Audio_SampleRate_SelectedItem = value;
-                //OnPropertyChanged("Audio_SampleRate_SelectedItem");
+                _Audio_SampleRate_SelectedItem = value;
+                OnPropertyChanged("Audio_SampleRate_SelectedItem");
             }
         }
 
@@ -677,22 +650,13 @@ namespace Axiom
             get { return _Audio_BitDepth_SelectedItem; }
             set
             {
-                var previousItem = _Audio_BitDepth_SelectedItem;
-                _Audio_BitDepth_SelectedItem = value;
-                OnPropertyChanged("Audio_BitDepth_SelectedItem");
-
-                if (previousItem != value)
+                if (_Audio_BitDepth_SelectedItem == value)
                 {
-                    //AudioControls.AutoCopyAudioCodec(/*this*/);
+                    return;
                 }
 
-                //if (_Audio_BitDepth_SelectedItem == value)
-                //{
-                //    return;
-                //}
-
-                //_Audio_BitDepth_SelectedItem = value;
-                //OnPropertyChanged("Audio_BitDepth_SelectedItem");
+                _Audio_BitDepth_SelectedItem = value;
+                OnPropertyChanged("Audio_BitDepth_SelectedItem");
             }
         }
 

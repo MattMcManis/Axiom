@@ -1,6 +1,6 @@
 ﻿/* ----------------------------------------------------------------------
 Axiom UI
-Copyright (C) 2017-2019 Matt McManis
+Copyright (C) 2017-2020 Matt McManis
 https://github.com/MattMcManis/Axiom
 https://axiomui.github.io
 mattmcmanis@outlook.com
@@ -453,23 +453,13 @@ namespace Axiom
             get { return _Video_Quality_SelectedItem; }
             set
             {
-                var previousItem = _Video_Quality_SelectedItem;
-                _Video_Quality_SelectedItem = value;
-                OnPropertyChanged("Video_Quality_SelectedItem");
-
-                if (previousItem != value)
+                if (_Video_Quality_SelectedItem == value)
                 {
-                    //VideoControls.AutoCopyVideoCodec(/*this*/);
-                    //SubtitleControls.AutoCopySubtitleCodec(/*this*/);
+                    return;
                 }
 
-                //if (_Video_Quality_SelectedItem == value)
-                //{
-                //    return;
-                //}
-
-                //_Video_Quality_SelectedItem = value;
-                //OnPropertyChanged("Video_Quality_SelectedItem");
+                _Video_Quality_SelectedItem = value;
+                OnPropertyChanged("Video_Quality_SelectedItem");
             }
         }
 
@@ -764,21 +754,13 @@ namespace Axiom
             get { return _Video_PixelFormat_SelectedItem; }
             set
             {
-                var previousItem = _Video_PixelFormat_SelectedItem;
+                if (_Video_PixelFormat_SelectedItem == value)
+                {
+                    return;
+                }
+
                 _Video_PixelFormat_SelectedItem = value;
                 OnPropertyChanged("Video_PixelFormat_SelectedItem");
-
-                if (previousItem != value)
-                {
-                    //SubtitleControls.AutoCopySubtitleCodec(/*this*/);
-                }
-                //if (_Video_PixelFormat_SelectedItem == value)
-                //{
-                //    return;
-                //}
-
-                //_Video_PixelFormat_SelectedItem = value;
-                //OnPropertyChanged("Video_PixelFormat_SelectedItem");
             }
         }
 
@@ -855,23 +837,13 @@ namespace Axiom
             get { return _Video_FPS_SelectedItem; }
             set
             {
-                var previousItem = _Video_FPS_SelectedItem;
-                _Video_FPS_SelectedItem = value;
-                OnPropertyChanged("Video_FPS_SelectedItem");
-
-                if (previousItem != value)
+                if (_Video_FPS_SelectedItem == value)
                 {
-                    //VideoControls.AutoCopyVideoCodec(/*this*/);
-                    //SubtitleControls.AutoCopySubtitleCodec(/*this*/);
+                    return;
                 }
 
-                //if (_Video_FPS_SelectedItem == value)
-                //{
-                //    return;
-                //}
-
-                //_Video_FPS_SelectedItem = value;
-                //OnPropertyChanged("Video_FPS_SelectedItem");
+                _Video_FPS_SelectedItem = value;
+                OnPropertyChanged("Video_FPS_SelectedItem");
             }
         }
 
@@ -980,23 +952,13 @@ namespace Axiom
             get { return _Video_Speed_SelectedItem; }
             set
             {
-                var previousItem = _Video_Speed_SelectedItem;
-                _Video_Speed_SelectedItem = value;
-                OnPropertyChanged("Video_Speed_SelectedItem");
-
-                if (previousItem != value)
+                if (_Video_Speed_SelectedItem == value)
                 {
-                    //VideoControls.AutoCopyVideoCodec(/*this*/);
-                    //SubtitleControls.AutoCopySubtitleCodec(/*this*/);
+                    return;
                 }
 
-                //if (_Video_Speed_SelectedItem == value)
-                //{
-                //    return;
-                //}
-
-                //_Video_Speed_SelectedItem = value;
-                //OnPropertyChanged("Video_Speed_SelectedItem");
+                _Video_Speed_SelectedItem = value;
+                OnPropertyChanged("Video_Speed_SelectedItem");
             }
         }
 
@@ -1100,23 +1062,13 @@ namespace Axiom
             get { return _Video_Optimize_SelectedItem; }
             set
             {
-                var previousItem = _Video_Optimize_SelectedItem;
-                _Video_Optimize_SelectedItem = value;
-                OnPropertyChanged("Video_Optimize_SelectedItem");
-
-                if (previousItem != value)
+                if (_Video_Optimize_SelectedItem == value)
                 {
-                    //VideoControls.AutoCopyVideoCodec(/*this*/);
-                    //SubtitleControls.AutoCopySubtitleCodec(/*this*/);
+                    return;
                 }
 
-                //if (_Video_Optimize_SelectedItem == value)
-                //{
-                //    return;
-                //}
-
-                //_Video_Optimize_SelectedItem = value;
-                //OnPropertyChanged("Video_Optimize_SelectedItem");
+                _Video_Optimize_SelectedItem = value;
+                OnPropertyChanged("Video_Optimize_SelectedItem");
             }
         }
 
@@ -1414,23 +1366,13 @@ namespace Axiom
             get { return _Video_Scale_SelectedItem; }
             set
             {
-                var previousItem = _Video_Scale_SelectedItem;
-                _Video_Scale_SelectedItem = value;
-                OnPropertyChanged("Video_Scale_SelectedItem");
-
-                if (previousItem != value)
+                if (_Video_Scale_SelectedItem == value)
                 {
-                    //VideoControls.AutoCopyVideoCodec(/*this*/);
-                    //SubtitleControls.AutoCopySubtitleCodec(/*this*/);
+                    return;
                 }
 
-                //if (_Video_Scale_SelectedItem == value)
-                //{
-                //    return;
-                //}
-
-                //_Video_Scale_SelectedItem = value;
-                //OnPropertyChanged("Video_Scale_SelectedItem");
+                _Video_Scale_SelectedItem = value;
+                OnPropertyChanged("Video_Scale_SelectedItem");
             }
         }
 
@@ -1732,23 +1674,13 @@ namespace Axiom
             get { return _Video_ScalingAlgorithm_SelectedItem; }
             set
             {
-                var previousItem = _Video_ScalingAlgorithm_SelectedItem;
-                _Video_ScalingAlgorithm_SelectedItem = value;
-                OnPropertyChanged("Video_ScalingAlgorithm_SelectedItem");
-
-                if (previousItem != value)
+                if (_Video_ScalingAlgorithm_SelectedItem == value)
                 {
-                    //VideoControls.AutoCopyVideoCodec(/*this*/);
-                    //SubtitleControls.AutoCopySubtitleCodec(/*this*/);
+                    return;
                 }
 
-                //if (_Video_ScalingAlgorithm_SelectedItem == value)
-                //{
-                //    return;
-                //}
-
-                //_Video_ScalingAlgorithm_SelectedItem = value;
-                //OnPropertyChanged("Video_ScalingAlgorithm_SelectedItem");
+                _Video_ScalingAlgorithm_SelectedItem = value;
+                OnPropertyChanged("Video_ScalingAlgorithm_SelectedItem");
             }
         }
 
