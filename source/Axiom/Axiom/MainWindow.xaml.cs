@@ -5394,9 +5394,9 @@ namespace Axiom
             // Input File Extension is Same as Output File Extension 
             // and Quality is Auto
             // -------------------------
-            VideoControls.AutoCopyVideoCodec();
-            SubtitleControls.AutoCopySubtitleCodec();
-            AudioControls.AutoCopyAudioCodec();
+            //VideoControls.AutoCopyVideoCodec();
+            //SubtitleControls.AutoCopySubtitleCodec();
+            //AudioControls.AutoCopyAudioCodec();
         }
 
 
@@ -5833,7 +5833,7 @@ namespace Axiom
             // Input File Extension is Same as Output File Extension 
             // and Quality is Auto
             // -------------------------
-            VideoControls.AutoCopyVideoCodec();
+            //VideoControls.AutoCopyVideoCodec();
         }
 
 

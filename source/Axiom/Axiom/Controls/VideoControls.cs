@@ -1158,6 +1158,8 @@ namespace Axiom
         {
             // Problem: Getting Previous Selected Values
 
+            //System.Windows.MessageBox.Show(VM.VideoView.Video_Quality_SelectedItem); //debug
+
             // Input Extension is Same as Output Extension and Video Quality is Auto
             // Note: Aspect Ratio -aspect can be applied to Copy
             if (VM.VideoView.Video_Quality_SelectedItem == "Auto" &&
