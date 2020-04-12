@@ -1,6 +1,6 @@
 ﻿/* ----------------------------------------------------------------------
 Axiom UI
-Copyright (C) 2017-2019 Matt McManis
+Copyright (C) 2017-2020 Matt McManis
 https://github.com/MattMcManis/Axiom
 https://axiomui.github.io
 mattmcmanis@outlook.com
@@ -194,34 +194,64 @@ namespace Axiom
             {
                 string denoise = string.Empty;
 
-                // -------------------------
-                // Default
-                // -------------------------
-                if (VM.FilterVideoView.FilterVideo_Denoise_SelectedItem == "default")
+                switch (VM.FilterVideoView.FilterVideo_Denoise_SelectedItem)
                 {
-                    denoise = "removegrain=0";
+                    // -------------------------
+                    // Default
+                    // -------------------------
+                    case "default":
+                        denoise = "removegrain=0";
+                        break;
+
+                    // -------------------------
+                    // Light
+                    // -------------------------
+                    case "light":
+                        denoise = "removegrain=22";
+                        break;
+
+                    // -------------------------
+                    // Medium
+                    // -------------------------
+                    case "medium":
+                        denoise = "vaguedenoiser=threshold=3:method=soft:nsteps=5";
+                        break;
+
+                    // -------------------------
+                    // Heavy
+                    // -------------------------
+                    case "heavy":
+                        denoise = "vaguedenoiser=threshold=6:method=soft:nsteps=5";
+                        break;
                 }
-                // -------------------------
-                // Light
-                // -------------------------
-                else if (VM.FilterVideoView.FilterVideo_Denoise_SelectedItem == "light")
-                {
-                    denoise = "removegrain=22";
-                }
-                // -------------------------
-                // Medium
-                // -------------------------
-                else if (VM.FilterVideoView.FilterVideo_Denoise_SelectedItem == "medium")
-                {
-                    denoise = "vaguedenoiser=threshold=3:method=soft:nsteps=5";
-                }
-                // -------------------------
-                // Heavy
-                // -------------------------
-                else if (VM.FilterVideoView.FilterVideo_Denoise_SelectedItem == "heavy")
-                {
-                    denoise = "vaguedenoiser=threshold=6:method=soft:nsteps=5";
-                }
+                //// -------------------------
+                //// Default
+                //// -------------------------
+                //if (VM.FilterVideoView.FilterVideo_Denoise_SelectedItem == "default")
+                //{
+                //    denoise = "removegrain=0";
+                //}
+                //// -------------------------
+                //// Light
+                //// -------------------------
+                //else if (VM.FilterVideoView.FilterVideo_Denoise_SelectedItem == "light")
+                //{
+                //    denoise = "removegrain=22";
+                //}
+                //// -------------------------
+                //// Medium
+                //// -------------------------
+                //else if (VM.FilterVideoView.FilterVideo_Denoise_SelectedItem == "medium")
+                //{
+                //    denoise = "vaguedenoiser=threshold=3:method=soft:nsteps=5";
+                //}
+                //// -------------------------
+                //// Heavy
+                //// -------------------------
+                //else if (VM.FilterVideoView.FilterVideo_Denoise_SelectedItem == "heavy")
+                //{
+                //    denoise = "vaguedenoiser=threshold=6:method=soft:nsteps=5";
+                //}
 
                 // -------------------------
                 // Add Filter to List
@@ -243,48 +273,78 @@ namespace Axiom
             {
                 string deinterlace = string.Empty;
 
-                // -------------------------
-                // Send Frame
-                // -------------------------
-                if (VM.FilterVideoView.FilterVideo_Deinterlace_SelectedItem == "frame")
+                switch (VM.FilterVideoView.FilterVideo_Deinterlace_SelectedItem)
                 {
-                    deinterlace = "yadif=0:-1:0";
-                }
-                // -------------------------
-                // Send Field
-                // -------------------------
-                else if (VM.FilterVideoView.FilterVideo_Deinterlace_SelectedItem == "field")
-                {
-                    deinterlace = "yadif=1:-1:0";
-                }
-                // -------------------------
-                // Frame Skip Spatial
-                // -------------------------
-                else if (VM.FilterVideoView.FilterVideo_Deinterlace_SelectedItem == "frame nospatial")
-                {
-                    deinterlace = "yadif=2:-1:0";
-                }
-                // -------------------------
-                // Field Skip Spatial
-                // -------------------------
-                else if (VM.FilterVideoView.FilterVideo_Deinterlace_SelectedItem == "field nospatial")
-                {
-                    deinterlace = "yadif=3:-1:0";
+                    // -------------------------
+                    // Send Frame
+                    // -------------------------
+                    case "frame":
+                        deinterlace = "yadif=0:-1:0";
+                        break;
+
+                    // -------------------------
+                    // Send Field
+                    // -------------------------
+                    case "field":
+                        deinterlace = "yadif=1:-1:0";
+                        break;
+
+                    // -------------------------
+                    // Frame Skip Spatial
+                    // -------------------------
+                    case "frame nospatial":
+                        deinterlace = "yadif=2:-1:0";
+                        break;
+
+                    // -------------------------
+                    // Field Skip Spatial
+                    // -------------------------
+                    case "field nospatial":
+                        deinterlace = "yadif=3:-1:0";
+                        break;
                 }
                 //// -------------------------
-                //// Cuda Frame
+                //// Send Frame
                 //// -------------------------
-                //else if (VM.FilterVideoView.FilterVideo_Deinterlace_SelectedItem == "cuda frame")
+                //if (VM.FilterVideoView.FilterVideo_Deinterlace_SelectedItem == "frame")
                 //{
-                //    deinterlace = "yadif_cuda=0:-1:0";
+                //    deinterlace = "yadif=0:-1:0";
                 //}
                 //// -------------------------
-                //// Cuda Field
+                //// Send Field
                 //// -------------------------
-                //else if (VM.FilterVideoView.FilterVideo_Deinterlace_SelectedItem == "cuda field")
+                //else if (VM.FilterVideoView.FilterVideo_Deinterlace_SelectedItem == "field")
                 //{
-                //    deinterlace = "yadif_cuda=1:-1:0";
+                //    deinterlace = "yadif=1:-1:0";
                 //}
+                //// -------------------------
+                //// Frame Skip Spatial
+                //// -------------------------
+                //else if (VM.FilterVideoView.FilterVideo_Deinterlace_SelectedItem == "frame nospatial")
+                //{
+                //    deinterlace = "yadif=2:-1:0";
+                //}
+                //// -------------------------
+                //// Field Skip Spatial
+                //// -------------------------
+                //else if (VM.FilterVideoView.FilterVideo_Deinterlace_SelectedItem == "field nospatial")
+                //{
+                //    deinterlace = "yadif=3:-1:0";
+                //}
+                ////// -------------------------
+                ////// Cuda Frame
+                ////// -------------------------
+                ////else if (VM.FilterVideoView.FilterVideo_Deinterlace_SelectedItem == "cuda frame")
+                ////{
+                ////    deinterlace = "yadif_cuda=0:-1:0";
+                ////}
+                ////// -------------------------
+                ////// Cuda Field
+                ////// -------------------------
+                ////else if (VM.FilterVideoView.FilterVideo_Deinterlace_SelectedItem == "cuda field")
+                ////{
+                ////    deinterlace = "yadif_cuda=1:-1:0";
+                ////}
 
                 // -------------------------
                 // Add Filter to List
