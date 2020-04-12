@@ -1,6 +1,6 @@
 ﻿/* ----------------------------------------------------------------------
 Axiom UI
-Copyright (C) 2017-2019 Matt McManis
+Copyright (C) 2017-2020 Matt McManis
 https://github.com/MattMcManis/Axiom
 https://axiomui.github.io
 mattmcmanis@outlook.com
@@ -36,6 +36,7 @@ along with this program.If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Windows.Documents;
 // Disable XML Comment warnings
@@ -983,6 +984,13 @@ namespace Axiom
             };
             Log.LogActions.Add(Log.WriteAction);
 
+            // -------------------------
+            // Generate the youtube-dl Output Path and break it into sections for args below
+            // -------------------------
+            string outputPath = MainWindow.OutputPath();
+            string outputDir = Path.GetDirectoryName(VM.MainView.Output_Text).TrimEnd('\\') + @"\"; // eg. C:\Output\Path\
+            string outputFileName = Path.GetFileNameWithoutExtension(outputPath);
+            string output = Path.Combine(outputDir, outputFileName + MainWindow.outputExt);
 
             // -------------------------
             // YouTube Download Arguments Full
@@ -992,7 +1000,7 @@ namespace Axiom
             List<string> youtubedlArgs = new List<string>()
             {
                 "cd /d",
-                "\"" + MainWindow.downloadDir + "\"",
+                "\"" + /*MainWindow.downloadDir*/ outputDir + "\"",
 
                 "\r\n\r\n" + "&&",
 
@@ -1012,7 +1020,7 @@ namespace Axiom
                                                                         VM.FormatView.Format_YouTube_Quality_SelectedItem
                                                                         ),
                 "\r\n\r\n" + "\"" + VM.MainView.Input_Text + "\"",
-                "\r\n" +" -o " + "\"" + MainWindow.downloadDir + "%f" + "." + MainWindow.YouTubeDownloadFormat(VM.FormatView.Format_YouTube_SelectedItem,
+                "\r\n" +" -o " + "\"" + /*MainWindow.downloadDir*/outputDir + /*"%f"*/outputFileName + "." + MainWindow.YouTubeDownloadFormat(VM.FormatView.Format_YouTube_SelectedItem,
                                                                                                                VM.VideoView.Video_Codec_SelectedItem,
                                                                                                                VM.SubtitleView.Subtitle_Codec_SelectedItem,
                                                                                                                VM.AudioView.Audio_Codec_SelectedItem
