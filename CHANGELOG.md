@@ -4,6 +4,48 @@ Axiom FFmpeg UI
 
 ## [alpha]
 
+## [1.7.9.0] - Apr 12, 2020
+### Added
+- Custom User-defined Output Path for youtube-dl
+
+### Changed
+- Format, Video, Audio, Subtitle `SetControls()` `If/Else` to `Switch/Case`
+- Format, Video, Audio, Subtitle `CopyControls()` `If/Else` to `Switch/Case`
+
+### Fixed
+- European English decimal comma to period
+- Allow Numbers Only Symbols
+
+
+## [1.7.8.1] - Apr 9, 2020
+
+### Changed
+Video Bitrate Calculator from int to double
+
+### Fixed
+- Auto-Fill Empty Output Textbox
+- Auto-Fill Empty Output Textbox
+
+
+## [1.7.8.0] - Apr 9, 2020
+
+### Fixed
+- European English decimal comma to period
+- Allow Numbers Only Symbols
+
+
+## [1.7.7.0] - Oct 21, 2019
+
+### Added
+- Valid Path Checker
+
+### Changed
+- Improved Audio Bitrate Converter Calculator using Normalizer
+
+### Fixed
+- `FLAC` Batch Auto Quality
+
+
 ## [1.7.6.0] - Jun 22, 2019
 ### Added
 - 1600p Video Resolution
