@@ -203,61 +203,63 @@ namespace Axiom
             // -------------------------
             // Log Text Theme SelectiveColorPreview
             // -------------------------
-            if (VM.ConfigureView.Theme_SelectedItem == "Axiom")
+            switch (VM.ConfigureView.Theme_SelectedItem)
             {
-                Log.ConsoleDefault = Brushes.White; // Default
-                Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#007DF2")); // Titles
-                Log.ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
-                Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
-                Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#72D4E8")); // Actions
-            }
-            else if (VM.ConfigureView.Theme_SelectedItem == "FFmpeg")
-            {
-                Log.ConsoleDefault = Brushes.White; // Default
-                Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#5cb85c")); // Titles
-                Log.ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
-                Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
-                Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#5cb85c")); // Actions
-            }
-            else if (VM.ConfigureView.Theme_SelectedItem == "Cyberpunk")
-            {
-                Log.ConsoleDefault = Brushes.White; // Default
-                Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#9f3ed2")); // Titles
-                Log.ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
-                Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
-                Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#9380fd")); // Actions
-            }
-            else if (VM.ConfigureView.Theme_SelectedItem == "Onyx")
-            {
-                Log.ConsoleDefault = Brushes.White; // Default
-                Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#999999")); // Titles
-                Log.ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
-                Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
-                Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#777777")); // Actions
-            }
-            else if (VM.ConfigureView.Theme_SelectedItem == "Circuit")
-            {
-                Log.ConsoleDefault = Brushes.White; // Default
-                Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#ad8a4a")); // Titles
-                Log.ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
-                Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
-                Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#2ebf93")); // Actions
-            }
-            else if (VM.ConfigureView.Theme_SelectedItem == "Prelude")
-            {
-                Log.ConsoleDefault = Brushes.White; // Default
-                Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#999999")); // Titles
-                Log.ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
-                Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
-                Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#777777")); // Actions
-            }
-            else if (VM.ConfigureView.Theme_SelectedItem == "System")
-            {
-                Log.ConsoleDefault = Brushes.White; // Default
-                Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#007DF2")); // Titles
-                Log.ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
-                Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
-                Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#72D4E8")); // Actions
+                case "Axiom":
+                    Log.ConsoleDefault = Brushes.White; // Default
+                    Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#007DF2")); // Titles
+                    Log.ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
+                    Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
+                    Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#72D4E8")); // Actions
+                    break;
+
+                case "FFmpeg":
+                    Log.ConsoleDefault = Brushes.White; // Default
+                    Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#5cb85c")); // Titles
+                    Log.ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
+                    Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
+                    Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#5cb85c")); // Actions
+                    break;
+
+                case "Cyberpunk":
+                    Log.ConsoleDefault = Brushes.White; // Default
+                    Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#9f3ed2")); // Titles
+                    Log.ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
+                    Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
+                    Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#9380fd")); // Actions
+                    break;
+
+                case "Onyx":
+                    Log.ConsoleDefault = Brushes.White; // Default
+                    Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#999999")); // Titles
+                    Log.ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
+                    Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
+                    Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#777777")); // Actions
+                    break;
+
+                case "Circuit":
+                    Log.ConsoleDefault = Brushes.White; // Default
+                    Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#ad8a4a")); // Titles
+                    Log.ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
+                    Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
+                    Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#2ebf93")); // Actions
+                    break;
+
+                case "Prelude":
+                    Log.ConsoleDefault = Brushes.White; // Default
+                    Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#999999")); // Titles
+                    Log.ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
+                    Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
+                    Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#777777")); // Actions
+                    break;
+
+                case "System":
+                    Log.ConsoleDefault = Brushes.White; // Default
+                    Log.ConsoleTitle = (SolidColorBrush)(new BrushConverter().ConvertFrom("#007DF2")); // Titles
+                    Log.ConsoleWarning = (SolidColorBrush)(new BrushConverter().ConvertFrom("#E3D004")); // Warning
+                    Log.ConsoleError = (SolidColorBrush)(new BrushConverter().ConvertFrom("#F44B35")); // Error
+                    Log.ConsoleAction = (SolidColorBrush)(new BrushConverter().ConvertFrom("#72D4E8")); // Actions
+                    break;
             }
 
             // -----------------------------------------------------------------
@@ -2264,8 +2266,10 @@ namespace Axiom
             try
             {
                 // Environment Variables
+                var envar = Environment.GetEnvironmentVariable("Path"); // Checks both User and System
                 //var envar = Environment.GetEnvironmentVariable("PATH");, 
-                var envar = Environment.GetEnvironmentVariable("Path", EnvironmentVariableTarget.Machine);
+                //var envarUser = Environment.GetEnvironmentVariable("Path", EnvironmentVariableTarget.User);
+                //var envarSystem = Environment.GetEnvironmentVariable("Path", EnvironmentVariableTarget.Machine);
                 //MessageBox.Show(envar); //debug
 
                 // -------------------------
@@ -5204,27 +5208,27 @@ namespace Axiom
                         string.IsNullOrWhiteSpace(VM.MainView.Output_Text))
                     {
                         outputDir = downloadDir; // Default
-                        //outputFileName = "%f";
+                        outputFileName = "%f";
 
                         // Check if output filename already exists
                         // Check if YouTube Download Format is the same as Output Extension
-                        // The youtub-dl merged format for converting should be mkv
-                        if ("." + YouTubeDownloadFormat(VM.FormatView.Format_YouTube_SelectedItem,
-                                                        VM.VideoView.Video_Codec_SelectedItem,
-                                                        VM.SubtitleView.Subtitle_Codec_SelectedItem,
-                                                        VM.AudioView.Audio_Codec_SelectedItem
-                                                        )
-                                                        ==
-                                                        outputExt
-                                                        )
-                        {
-                            // Add (1)
-                            outputFileName = "%f" + " (1)";
-                        }
-                        else
-                        {
-                            outputFileName = "%f";
-                        }
+                        // The youtub-dl merged format for converting should be mkv for converting, mp4 for download-only
+                        //if ("." + YouTubeDownloadFormat(VM.FormatView.Format_YouTube_SelectedItem,
+                        //                                VM.VideoView.Video_Codec_SelectedItem,
+                        //                                VM.SubtitleView.Subtitle_Codec_SelectedItem,
+                        //                                VM.AudioView.Audio_Codec_SelectedItem
+                        //                                )
+                        //                                ==
+                        //                                outputExt
+                        //                                )
+                        //{
+                        //    // Add (1)
+                        //    outputFileName = "%f" + " (1)";
+                        //}
+                        //else
+                        //{
+                        //    outputFileName = "%f";
+                        //}
 
                         // Combine Output
                         //output = outputDir + outputFileName + outputExt; // eg. C:\Users\Example\Downloads\%f.webm
