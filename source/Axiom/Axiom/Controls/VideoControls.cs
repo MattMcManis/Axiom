@@ -1008,121 +1008,109 @@ namespace Axiom
         /// <summary>
         public static void EncodingPassControls()
         {
-            // --------------------------------------------------
-            // Video
-            // --------------------------------------------------
-            // -------------------------
-            // VP8
-            // -------------------------
-            if (VM.VideoView.Video_Codec_SelectedItem == "VP8")
+            switch (VM.VideoView.Video_Codec_SelectedItem)
             {
-                VP8.EncodingPass();
-            }
-            // -------------------------
-            // VP9
-            // -------------------------
-            else if (VM.VideoView.Video_Codec_SelectedItem == "VP9")
-            {
-                VP9.EncodingPass();
-            }
-            // -------------------------
-            // x264
-            // -------------------------
-            else if (VM.VideoView.Video_Codec_SelectedItem == "x264")
-            {
-                x264.EncodingPass();
-            }
-            // -------------------------
-            // x265
-            // -------------------------
-            else if (VM.VideoView.Video_Codec_SelectedItem == "x265")
-            {
-                x265.EncodingPass();
-            }
-            // -------------------------
-            // AV1
-            // -------------------------
-            else if (VM.VideoView.Video_Codec_SelectedItem == "AV1")
-            {
-                AV1.EncodingPass();
-            }
-            // -------------------------
-            // FFV1
-            // -------------------------
-            else if (VM.VideoView.Video_Codec_SelectedItem == "FFV1")
-            {
-                FFV1.EncodingPass();
-            }
-            // -------------------------
-            // HuffYUV
-            // -------------------------
-            else if (VM.VideoView.Video_Codec_SelectedItem == "HuffYUV")
-            {
-                HuffYUV.EncodingPass();
-            }
-            // -------------------------
-            // Theora
-            // -------------------------
-            else if (VM.VideoView.Video_Codec_SelectedItem == "Theora")
-            {
-                Theora.EncodingPass();
-            }
-            // -------------------------
-            // MPEG-2
-            // -------------------------
-            else if (VM.VideoView.Video_Codec_SelectedItem == "MPEG-2")
-            {
-                MPEG_2.EncodingPass();
-            }
-            // -------------------------
-            // MPEG-4
-            // -------------------------
-            else if (VM.VideoView.Video_Codec_SelectedItem == "MPEG-4")
-            {
-                MPEG_4.EncodingPass();
-            }
+                // --------------------------------------------------
+                // Video
+                // --------------------------------------------------
+                // -------------------------
+                // VP8
+                // -------------------------
+                case "VP8":
+                    VP8.EncodingPass();
+                    break;
+                // -------------------------
+                // VP9
+                // -------------------------
+                case "VP9":
+                    VP9.EncodingPass();
+                    break;
+                // -------------------------
+                // x264
+                // -------------------------
+                case "x264":
+                    x264.EncodingPass();
+                    break;
+                // -------------------------
+                // x265
+                // -------------------------
+                case "x265":
+                    x265.EncodingPass();
+                    break;
+                // -------------------------
+                // AV1
+                // -------------------------
+                case "AV1":
+                    AV1.EncodingPass();
+                    break;
+                // -------------------------
+                // FFV1
+                // -------------------------
+                case "FFV1":
+                    FFV1.EncodingPass();
+                    break;
+                // -------------------------
+                // HuffYUV
+                // -------------------------
+                case "HuffYUV":
+                    HuffYUV.EncodingPass();
+                    break;
+                // -------------------------
+                // Theora
+                // -------------------------
+                case "Theora":
+                    Theora.EncodingPass();
+                    break;
+                // -------------------------
+                // MPEG-2
+                // -------------------------
+                case "MPEG-2":
+                    MPEG_2.EncodingPass();
+                    break;
+                // -------------------------
+                // MPEG-4
+                // -------------------------
+                case "MPEG-4":
+                    MPEG_4.EncodingPass();
+                    break;
 
-            // --------------------------------------------------
-            // Image
-            // --------------------------------------------------
-            // -------------------------
-            // JPEG
-            // -------------------------
-            else if (VM.VideoView.Video_Codec_SelectedItem == "JPEG")
-            {
-                JPEG.EncodingPass();
-            }
-            // -------------------------
-            // PNG
-            // -------------------------
-            else if (VM.VideoView.Video_Codec_SelectedItem == "PNG")
-            {
-                PNG.EncodingPass();
-            }
-            // -------------------------
-            // WebP
-            // -------------------------
-            else if (VM.VideoView.Video_Codec_SelectedItem == "WebP")
-            {
-                WebP.EncodingPass();
-            }
+                // --------------------------------------------------
+                // Image
+                // --------------------------------------------------
+                // -------------------------
+                // JPEG
+                // -------------------------
+                case "JPEG":
+                    JPEG.EncodingPass();
+                    break;
+                // -------------------------
+                // PNG
+                // -------------------------
+                case "PNG":
+                    PNG.EncodingPass();
+                    break;
+                // -------------------------
+                // WebP
+                // -------------------------
+                case "WebP":
+                    WebP.EncodingPass();
+                    break;
 
-            // --------------------------------------------------
-            // Other
-            // --------------------------------------------------
-            // -------------------------
-            // Copy
-            // -------------------------
-            else if (VM.VideoView.Video_Codec_SelectedItem == "Copy")
-            {
-                VideoCopy.EncodingPass();
-            }
-            // -------------------------
-            // None
-            // -------------------------
-            else if (VM.VideoView.Video_Codec_SelectedItem == "None")
-            {
-                VideoNone.EncodingPass();
+                // --------------------------------------------------
+                // Other
+                // --------------------------------------------------
+                // -------------------------
+                // Copy
+                // -------------------------
+                case "Copy":
+                    VideoCopy.EncodingPass();
+                    break;
+                // -------------------------
+                // None
+                // -------------------------
+                case "None":
+                    VideoNone.EncodingPass();
+                    break;
             }
 
 
@@ -1156,8 +1144,6 @@ namespace Axiom
                                                    string outputExt
                                                    )
         {
-            // Problem: Getting Previous Selected Values
-
             //System.Windows.MessageBox.Show(VM.VideoView.Video_Quality_SelectedItem); //debug
 
             // Input Extension is Same as Output Extension and Video Quality is Auto
@@ -1246,11 +1232,20 @@ namespace Axiom
         private static void CopyControls()
         {
             // -------------------------
+            // Halt if Input Extention Null Check
+            // or youtube-dl URL
+            // -------------------------
+            if (string.IsNullOrEmpty(MainWindow.inputExt) ||
+                string.IsNullOrWhiteSpace(MainWindow.inputExt))
+            {
+                return;
+            }
+
+            // -------------------------
             // Conditions Check
             // Enable
             // -------------------------
             if (AutoCopyConditionsCheck(MainWindow.inputExt.ToLower(), MainWindow.outputExt) == true)
-            //if (AutoCopyConditionsCheck(MainWindow.inputExt.ToLower(), "." + VM.FormatView.Format_Container_SelectedItem.ToLower()) == true)
             {
                 // -------------------------
                 // Set Video Codec Combobox Selected Item to Copy
