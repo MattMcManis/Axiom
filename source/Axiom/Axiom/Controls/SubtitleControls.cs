@@ -264,11 +264,20 @@ namespace Axiom
         private static void CopyControls()
         {
             // -------------------------
+            // Halt if Input Extention Null Check
+            // or youtube-dl URL
+            // -------------------------
+            if (string.IsNullOrEmpty(MainWindow.inputExt) ||
+                string.IsNullOrWhiteSpace(MainWindow.inputExt))
+            {
+                return;
+            }
+
+            // -------------------------
             // Conditions Check
             // Enable
             // -------------------------
             if (AutoCopyConditionsCheck(MainWindow.inputExt.ToLower(), MainWindow.outputExt) == true)
-            //if (AutoCopyConditionsCheck(MainWindow.inputExt.ToLower(), "." + VM.FormatView.Format_Container_SelectedItem.ToLower()) == true)
             {
                 // -------------------------
                 // Set Subtitle Codec Combobox Selected Item to Copy
