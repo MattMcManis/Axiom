@@ -343,8 +343,8 @@ namespace Axiom
             }
 
             VM.AudioView.Audio_Quality_SelectedItem = MainWindow.SelectedItem(VM.AudioView.Audio_Quality_Items.Select(c => c.Name).ToList(),
-                                                                       MainWindow.Audio_Quality_PreviousItem
-                                                                       );
+                                                                              MainWindow.Audio_Quality_PreviousItem
+                                                                             );
 
             // -------------------------
             // Audio SampleRate Selected Item
@@ -357,8 +357,8 @@ namespace Axiom
             }
 
             VM.AudioView.Audio_SampleRate_SelectedItem = MainWindow.SelectedItem(VM.AudioView.Audio_SampleRate_Items.Select(c => c.Name).ToList(),
-                                                                      MainWindow.Audio_SampleRate_PreviousItem
-                                                                      );
+                                                                                 MainWindow.Audio_SampleRate_PreviousItem
+                                                                                 );
 
             // -------------------------
             // Audio BitDepth Selected Item
@@ -371,8 +371,8 @@ namespace Axiom
             }
 
             VM.AudioView.Audio_BitDepth_SelectedItem = MainWindow.SelectedItem(VM.AudioView.Audio_BitDepth_Items.Select(c => c.Name).ToList(),
-                                                                    MainWindow.Audio_BitDepth_PreviousItem
-                                                                    );
+                                                                               MainWindow.Audio_BitDepth_PreviousItem
+                                                                              );
 
 
         }
@@ -513,11 +513,20 @@ namespace Axiom
         private static void CopyControls()
         {
             // -------------------------
+            // Halt if Input Extention Null Check
+            // or youtube-dl URL
+            // -------------------------
+            if (string.IsNullOrEmpty(MainWindow.inputExt) ||
+                string.IsNullOrWhiteSpace(MainWindow.inputExt))
+            {
+                return;
+            }
+
+            // -------------------------
             // Conditions Check
             // Enable
             // -------------------------
             if (AutoCopyConditionsCheck(MainWindow.inputExt.ToLower(), MainWindow.outputExt) == true)
-            //if (AutoCopyConditionsCheck(MainWindow.inputExt.ToLower(), "." + VM.FormatView.Format_Container_SelectedItem.ToLower()) == true)
             {
                 // -------------------------
                 // Set Audio Codec Combobox Selected Item to Copy
