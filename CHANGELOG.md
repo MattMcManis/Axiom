@@ -4,6 +4,14 @@ Axiom FFmpeg UI
 
 ## [alpha]
 
+## [1.7.9.1] - Apr 14, 2020
+### Changed
+- Changed FFcheck `Environment Variable` Path from `System` Only to `User` and `System`
+
+### Fixed
+- `youtube-dl` output filename appended number
+
+
 ## [1.7.9.0] - Apr 12, 2020
 ### Added
 - Custom User-defined Output Path for youtube-dl
