@@ -4,6 +4,11 @@ Axiom FFmpeg UI
 
 ## [alpha]
 
+## [1.7.9.2] - May 6, 2020
+### Fixed
+- `HWAccel` options for `x265`
+
+
 ## [1.7.9.1] - Apr 14, 2020
 ### Changed
 - Changed FFcheck `Environment Variable` Path from `System` Only to `User` and `System`
