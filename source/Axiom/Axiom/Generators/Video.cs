@@ -169,7 +169,7 @@ namespace Axiom
                         {
                             vCodec = "-c:v h264_cuvid";
                         }
-                        else if (codec_SelectedItem == "x264")
+                        else if (codec_SelectedItem == "x265")
                         {
                             vCodec = "-c:v h265_cuvid";
                         }
@@ -188,7 +188,7 @@ namespace Axiom
                         {
                             vCodec = "-c:v h264_nvenc";
                         }
-                        else if (codec_SelectedItem == "x264")
+                        else if (codec_SelectedItem == "x265")
                         {
                             vCodec = "-c:v h265_nvenc";
                         }
@@ -238,7 +238,7 @@ namespace Axiom
                 {
                     vCodec = "-c:v h264_cuvid";
                 }
-                else if (codec_SelectedItem == "x264")
+                else if (codec_SelectedItem == "x265")
                 {
                     vCodec = "-c:v h265_cuvid";
                 }
@@ -256,7 +256,7 @@ namespace Axiom
                 {
                     vCodec = "-c:v h264_nvenc";
                 }
-                else if (codec_SelectedItem == "x264")
+                else if (codec_SelectedItem == "x265")
                 {
                     vCodec = "-c:v h265_nvenc";
                 }
@@ -1482,9 +1482,6 @@ namespace Axiom
                     case "25":
                         fps = "-r 25";
                         break;
-                    //case "ntsc":
-                    //    fps = "-r 30000/1001";
-                    //    break;
                     case "29.97":
                         fps = "-r 30000/1001";
                         break;
@@ -1522,78 +1519,6 @@ namespace Axiom
                         }
                         break;
                 }
-
-                //if (fps_SelectedItem == "auto")
-                //{
-                //    fps = string.Empty;
-                //}
-                //else if (fps_SelectedItem == "film")
-                //{
-                //    fps = "-r film";
-                //}
-                //else if (fps_SelectedItem == "pal")
-                //{
-                //    fps = "-r pal";
-                //}
-                //else if (fps_SelectedItem == "ntsc")
-                //{
-                //    fps = "-r ntsc";
-                //}
-                //else if (fps_SelectedItem == "23.976")
-                //{
-                //    fps = "-r 24000/1001";
-                //}
-                //else if (fps_SelectedItem == "24")
-                //{
-                //    fps = "-r 24";
-                //}
-                //else if (fps_SelectedItem == "25")
-                //{
-                //    fps = "-r 25";
-                //}
-                //else if (fps_SelectedItem == "ntsc" ||
-                //         fps_SelectedItem == "29.97")
-                //{
-                //    fps = "-r 30000/1001";
-                //}
-                //else if (fps_SelectedItem == "30")
-                //{
-                //    fps = "-r 30";
-                //}
-                //else if (fps_SelectedItem == "48")
-                //{
-                //    fps = "-r 48";
-                //}
-                //else if (fps_SelectedItem == "50")
-                //{
-                //    fps = "-r 50";
-                //}
-                //else if (fps_SelectedItem == "59.94")
-                //{
-                //    fps = "-r 60000/1001";
-                //}
-                //else if (fps_SelectedItem == "60")
-                //{
-                //    fps = "-r 60";
-                //}
-                //else
-                //{
-                //    try
-                //    {
-                //        fps = "-r " + fps_Text;
-                //    }
-                //    catch
-                //    {
-                //        /* lock */
-                //        //MainWindow.ready = false;
-                //        // Warning
-                //        MessageBox.Show("Invalid Custom FPS.",
-                //                        "Notice",
-                //                        MessageBoxButton.OK,
-                //                        MessageBoxImage.Warning);
-                //    }
-
-                //}
 
                 // Log Console Message /////////
                 Log.WriteAction = () =>
