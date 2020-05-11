@@ -45,35 +45,32 @@ namespace Axiom
         {
             //string codec = string.Empty;
 
-            // auto
-            if (VM.AudioView.Audio_BitDepth_SelectedItem == "auto")
+            switch (VM.AudioView.Audio_BitDepth_SelectedItem)
             {
-                PCM.codec.FirstOrDefault().Codec = "pcm_s24le";
-            }
-            // 8
-            else if (VM.AudioView.Audio_BitDepth_SelectedItem == "8")
-            {
-                PCM.codec.FirstOrDefault().Codec = "pcm_u8";
-            }
-            // 16
-            else if (VM.AudioView.Audio_BitDepth_SelectedItem == "16")
-            {
-                PCM.codec.FirstOrDefault().Codec = "pcm_s16le";
-            }
-            // 24
-            else if (VM.AudioView.Audio_BitDepth_SelectedItem == "24")
-            {
-                PCM.codec.FirstOrDefault().Codec = "pcm_s24le";
-            }
-            // 32
-            else if (VM.AudioView.Audio_BitDepth_SelectedItem == "32")
-            {
-                PCM.codec.FirstOrDefault().Codec = "pcm_f32le";
-            }
-            // 64
-            else if (VM.AudioView.Audio_BitDepth_SelectedItem == "64")
-            {
-                PCM.codec.FirstOrDefault().Codec = "pcm_f64le";
+                // auto
+                case "auto":
+                    PCM.codec.FirstOrDefault().Codec = "pcm_s24le";
+                    break;
+                // 8
+                case "8":
+                    PCM.codec.FirstOrDefault().Codec = "pcm_u8";
+                    break; 
+                // 16
+                case "16":
+                    PCM.codec.FirstOrDefault().Codec = "pcm_s16le";
+                    break;
+                // 24
+                case "24":
+                    PCM.codec.FirstOrDefault().Codec = "pcm_s24le";
+                    break;
+                // 32
+                case "32":
+                    PCM.codec.FirstOrDefault().Codec = "pcm_f32le";
+                    break;
+                // 64
+                case "64":
+                    PCM.codec.FirstOrDefault().Codec = "pcm_f64le";
+                    break;
             }
 
             // Combine Codec + Parameters
@@ -114,7 +111,7 @@ namespace Axiom
         // -------------------------
         public static List<AudioViewModel.AudioQuality> quality = new List<AudioViewModel.AudioQuality>()
         {
-             new AudioViewModel.AudioQuality() { Name = "Auto",     CBR_BitMode = "-b:a", CBR = "",    VBR_BitMode = "", VBR = "", NA = "" },
+             new AudioViewModel.AudioQuality() { Name = "Auto",     CBR_BitMode = "", CBR = "",    VBR_BitMode = "", VBR = "", NA = "" },
              new AudioViewModel.AudioQuality() { Name = "Lossless", CBR_BitMode = "",     CBR = "",    VBR_BitMode = "", VBR = ""   },
              new AudioViewModel.AudioQuality() { Name = "320",      CBR_BitMode = "-b:a", CBR = "320", VBR_BitMode = "", VBR = ""   },
              new AudioViewModel.AudioQuality() { Name = "256",      CBR_BitMode = "-b:a", CBR = "256", VBR_BitMode = "", VBR = ""   },
