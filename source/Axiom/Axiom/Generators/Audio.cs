@@ -1150,10 +1150,12 @@ namespace Axiom
                             return "& (IF %A gtr 320000 (SET aBitRate=320000) ELSE (echo BitRate within LAME Limit of 320k)) & for /F %A in ('echo %aBitRate%') do (echo)";
 
                         //// FLAC
+                        // Do not use, empty is FFmpeg default
                         //case "FLAC":
                         //    return "& (IF %A gtr 1411000 (SET aBitRate=1411000) ELSE (echo BitRate within LAME Limit of 1411k)) & for /F %A in ('echo %aBitRate%') do (echo)";
 
                         //// PCM
+                        // Do not use, empty is FFmpeg default
                         //case "PCM":
                         //    return "& (IF %A gtr 1536000 (SET aBitRate=1536000) ELSE (echo BitRate within LAME Limit of 1536k)) & for /F %A in ('echo %aBitRate%') do (echo)";
 
