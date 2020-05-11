@@ -171,7 +171,7 @@ namespace Axiom
                         }
                         else if (codec_SelectedItem == "x265")
                         {
-                            vCodec = "-c:v h265_cuvid";
+                            vCodec = "-c:v hevc_cuvid";
                         }
 
                         hwacceleration = string.Empty;
@@ -190,7 +190,7 @@ namespace Axiom
                         }
                         else if (codec_SelectedItem == "x265")
                         {
-                            vCodec = "-c:v h265_nvenc";
+                            vCodec = "-c:v hevc_nvenc";
                         }
 
                         hwacceleration = string.Empty;
@@ -203,11 +203,11 @@ namespace Axiom
                         // ffmpeg -hwaccel cuvid -c:v h264_cuvid -i input -c:v h264_nvenc -preset slow output.mkv
                         if (codec_SelectedItem == "x264")
                         {
-                            hwacceleration = "-hwaccel cuvid -c:v h264_cuvid";
+                            hwacceleration = "-hwaccel cuvid -c:v h264_nvenc";
                         }
                         else if (codec_SelectedItem == "x265")
                         {
-                            hwacceleration = "-hwaccel cuvid -c:v hevc_cuvid";
+                            hwacceleration = "-hwaccel cuvid -c:v hevc_nvenc";
                         }
                     }
                 }
@@ -240,7 +240,7 @@ namespace Axiom
                 }
                 else if (codec_SelectedItem == "x265")
                 {
-                    vCodec = "-c:v h265_cuvid";
+                    vCodec = "-c:v hevc_cuvid";
                 }
             }
             // -------------------------
@@ -258,7 +258,7 @@ namespace Axiom
                 }
                 else if (codec_SelectedItem == "x265")
                 {
-                    vCodec = "-c:v h265_nvenc";
+                    vCodec = "-c:v hevc_nvenc";
                 }
             }
 
