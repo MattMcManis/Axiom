@@ -4,6 +4,16 @@ Axiom FFmpeg UI
 
 ## [alpha]
 
+## [1.7.9.4] - May 10, 2020
+### Fixed
+- Fixed `wav` `PCM` Batch bit rate.
+
+
+## [1.7.9.3] - May 10, 2020
+### Fixed
+- `HWAccel`
+
+
 ## [1.7.9.2] - May 6, 2020
 ### Fixed
 - `HWAccel` options for `x265`
