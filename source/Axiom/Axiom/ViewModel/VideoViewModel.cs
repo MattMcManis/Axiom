@@ -257,10 +257,13 @@ namespace Axiom
         private List<string> _Video_HWAccel_Items = new List<string>()
         {
             "off",
-            "dxva2",
-            "cuvid",
-            "nvenc",
-            "cuvid+nvenc"
+            "CUDA",
+            "CUVID",
+            "D3D11VA",
+            "DXVA2",
+            "NVENC",
+            "NVENC+CUDA",
+            "Intel QSV"
         };
         public List<string> Video_HWAccel_Items
         {
