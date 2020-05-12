@@ -4,6 +4,13 @@ Axiom FFmpeg UI
 
 ## [alpha]
 
+## [1.8.0.0] - May 12, 2020
+### Added
+- `HW Accel` options `CUDA`, `D3D11VA`, `NVENC+CUDA`, `Intel QSV`
+
+### Fixed
+- `HWAccel`
+
 ## [1.7.9.4] - May 10, 2020
 ### Fixed
 - Fixed `wav` `PCM` Batch bit rate.
