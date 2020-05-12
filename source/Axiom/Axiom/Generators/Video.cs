@@ -122,7 +122,10 @@ namespace Axiom
         /// <summary>
         /// Hardware Acceleration
         /// <summary>
+        /// <remarks>
         /// https://trac.ffmpeg.org/wiki/HWAccelIntro
+        /// https://trac.ffmpeg.org/wiki/Hardware/QuickSync
+        /// </remarks>
         public static String HWAcceleration(string mediaType_SelectedItem,
                                             string codec_SelectedItem,
                                             string hwaccel_SelectedItem
@@ -135,81 +138,70 @@ namespace Axiom
                 // --------------------------------------------------
                 // All Codecs
                 // --------------------------------------------------
-                // -------------------------
-                // Off
-                // -------------------------
-                if (hwaccel_SelectedItem == "off")
-                {
-                    hwacceleration = string.Empty;
-                }
-                // -------------------------
-                // DXVA2
-                // -------------------------
-                else if (hwaccel_SelectedItem == "dxva2")
-                {
-                    // ffmpeg -hwaccel dxva2 -threads 1 -i INPUT -f null
-                    hwacceleration = "-hwaccel dxva2";
-                }
-
-                // --------------------------------------------------
-                // Only x264/x265
-                // --------------------------------------------------
-                if (codec_SelectedItem == "x264" ||
-                    codec_SelectedItem == "x265")
+                switch (hwaccel_SelectedItem)
                 {
                     // -------------------------
-                    // CUVID
+                    // Off
                     // -------------------------
-                    if (hwaccel_SelectedItem == "cuvid")
-                    {
-                        // ffmpeg -c:v h264_cuvid -i input output.mkv
-
-                        // Override Codecs
-                        if (codec_SelectedItem == "x264")
-                        {
-                            vCodec = "-c:v h264_cuvid";
-                        }
-                        else if (codec_SelectedItem == "x265")
-                        {
-                            vCodec = "-c:v hevc_cuvid";
-                        }
-
+                    case "off":
                         hwacceleration = string.Empty;
-                    }
-                    // -------------------------
-                    // NVENC
-                    // -------------------------
-                    else if (hwaccel_SelectedItem == "nvenc")
-                    {
-                        // ffmpeg -i input -c:v h264_nvenc -profile high444p -pix_fmt yuv444p -preset default output.mp4
+                        break;
 
-                        // Override Codecs
-                        if (codec_SelectedItem == "x264")
-                        {
-                            vCodec = "-c:v h264_nvenc";
-                        }
-                        else if (codec_SelectedItem == "x265")
-                        {
-                            vCodec = "-c:v hevc_nvenc";
-                        }
+                    // -------------------------
+                    // CUDA (decode)
+                    // -------------------------
+                    case "CUDA":
+                        hwacceleration = "-hwaccel cuda";
+                        break;
 
+                    // -------------------------
+                    // CUVID (decode)
+                    // -------------------------
+                    case "CUVID":
+                        hwacceleration = "-hwaccel cuvid";
+                        break;
+
+                    // -------------------------
+                    // D3D11VA (decode)
+                    // -------------------------
+                    case "D3D11VA":
+                        hwacceleration = "-hwaccel d3d11va";
+                        break;
+
+                    // -------------------------
+                    // DXVA2 (decode)
+                    // -------------------------
+                    case "DXVA2":
+                        hwacceleration = "-hwaccel dxva2";
+                        break;
+
+                    // -------------------------
+                    // NVENC (transcode)
+                    // -------------------------
+                    case "NVENC":
                         hwacceleration = string.Empty;
-                    }
+                        break;
+
                     // -------------------------
-                    // CUVID + NVENC
+                    // NVENC + CUDA (transcode)
                     // -------------------------
-                    else if (hwaccel_SelectedItem == "cuvid+nvenc")
-                    {
-                        // ffmpeg -hwaccel cuvid -c:v h264_cuvid -i input -c:v h264_nvenc -preset slow output.mkv
-                        if (codec_SelectedItem == "x264")
-                        {
-                            hwacceleration = "-hwaccel cuvid -c:v h264_nvenc";
-                        }
-                        else if (codec_SelectedItem == "x265")
-                        {
-                            hwacceleration = "-hwaccel cuvid -c:v hevc_nvenc";
-                        }
-                    }
+                    case "NVENC+CUDA":
+                        hwacceleration = "-hwaccel cuda -hwaccel_output_format cuda";  
+                        break;
+
+                    // -------------------------
+                    // Intel QSV (transcode)
+                    // -------------------------
+                    case "Intel QSV":
+                        hwacceleration = "-init_hw_device qsv=hw -filter_hw_device hw";
+                        break;
+
+                    // -------------------------
+                    // Other
+                    // -------------------------
+                    default:
+                        hwacceleration = string.Empty;
+                        break;
                 }
             }
 
@@ -220,33 +212,19 @@ namespace Axiom
         /// <summary>
         /// Hardware Acceleration Codec Override
         /// <summary>
+        /// <remarks>
         /// https://trac.ffmpeg.org/wiki/HWAccelIntro
+        /// https://trac.ffmpeg.org/wiki/Hardware/QuickSync
+        /// </remarks>
         public static String HWAccelerationCodecOverride(string hwaccel_SelectedItem, 
                                                          string codec_SelectedItem
                                                          )
         {
             // -------------------------
-            // Cuvid
+            // NVENC (transcode)
             // -------------------------
-            if (hwaccel_SelectedItem == "cuvid")
-            {
-                // Only x264/ x265
-                // e.g. ffmpeg -c:v h264_cuvid -i input output.mkv
-
-                // Override Codecs
-                if (codec_SelectedItem == "x264")
-                {
-                    vCodec = "-c:v h264_cuvid";
-                }
-                else if (codec_SelectedItem == "x265")
-                {
-                    vCodec = "-c:v hevc_cuvid";
-                }
-            }
-            // -------------------------
-            // NVENC
-            // -------------------------
-            else if (hwaccel_SelectedItem == "nvenc")
+            if (hwaccel_SelectedItem == "NVENC" ||
+                hwaccel_SelectedItem == "NVENC+CUDA")
             {
                 // Only x264/ x265
                 // e.g. ffmpeg -i input -c:v h264_nvenc -profile high444p -pix_fmt yuv444p -preset default output.mp4
@@ -259,6 +237,23 @@ namespace Axiom
                 else if (codec_SelectedItem == "x265")
                 {
                     vCodec = "-c:v hevc_nvenc";
+                }
+            }
+
+            // -------------------------
+            // QSV (transcode)
+            // -------------------------
+            else if (hwaccel_SelectedItem == "Intel QSV")
+            {
+                // x264
+                if (codec_SelectedItem == "x264")
+                {
+                    vCodec = "-c:v h264_qsv";
+                }
+                // x265
+                else if (codec_SelectedItem == "x265")
+                {
+                    vCodec = "-c:v hevc_qsv";
                 }
             }
 
@@ -279,9 +274,10 @@ namespace Axiom
             {
                 vCodec = codec_Command;
 
-                // HW Acceleration Override
-                if (hwAccel_SelectedItem == "cuvid" ||
-                    hwAccel_SelectedItem == "nvenc"
+                // HW Acceleration vCodec Override
+                if (hwAccel_SelectedItem == "NVENC" || // h264_nvenc / hevc_nvenc
+                    hwAccel_SelectedItem == "NVENC+CUDA" || // h264_nvenc / hevc_nvenc
+                    hwAccel_SelectedItem == "Intel QSV" // hevc_qsv
                     )
                 {
                     vCodec = HWAccelerationCodecOverride(hwAccel_SelectedItem,
