@@ -301,6 +301,11 @@ namespace Axiom
                 if (VM.AudioView.Audio_Codec_SelectedItem != "None") // None Check
                 {
                     // -------------------------
+                    // Remove Empty Strings
+                    // -------------------------
+                    aFiltersList.RemoveAll(s => string.IsNullOrEmpty(s));
+
+                    // -------------------------
                     // 1 Filter
                     // -------------------------
                     if (aFiltersList.Count == 1)
