@@ -229,12 +229,26 @@ namespace Axiom
                 else
                     listFailedImports.Add("Video: EncodeSpeed");
 
-                // HWAccel
+                // HW Accel
                 string hwAccel = inif.Read("Video", "HWAccel_SelectedItem");
                 if (VM.VideoView.Video_HWAccel_Items.Contains(hwAccel))
                     VM.VideoView.Video_HWAccel_SelectedItem = hwAccel;
                 else
-                    listFailedImports.Add("Video: HWAccel");
+                    listFailedImports.Add("Video: HW Accel");
+
+                // HW Accel Decode
+                string hwAccelDecode = inif.Read("Video", "HWAccel_Decode_SelectedItem");
+                if (VM.VideoView.Video_HWAccel_Decode_Items.Contains(hwAccelDecode))
+                    VM.VideoView.Video_HWAccel_Decode_SelectedItem = hwAccelDecode;
+                else
+                    listFailedImports.Add("Video: HW Accel Decode");
+
+                // HW Accel Transcode
+                string hwAccelTranscode = inif.Read("Video", "HWAccel_Transcode_SelectedItem");
+                if (VM.VideoView.Video_HWAccel_Transcode_Items.Contains(hwAccelTranscode))
+                    VM.VideoView.Video_HWAccel_Transcode_SelectedItem = hwAccelTranscode;
+                else
+                    listFailedImports.Add("Video: HW Accel Transcode");
 
                 // Quality
                 string videoQuality = inif.Read("Video", "Quality_SelectedItem");
@@ -273,13 +287,45 @@ namespace Axiom
                 bool.TryParse(inif.Read("Video", "VBR_IsChecked").ToLower(), out video_VBR_IsChecked);
                 VM.VideoView.Video_VBR_IsChecked = video_VBR_IsChecked;
 
+                // Color Primaries
+                string videoColorPrimaries = inif.Read("Video", "Color_Primaries_SelectedItem");
+
+                if (VM.VideoView.Video_Color_Primaries_Items.Contains(videoColorPrimaries))
+                    VM.VideoView.Video_Color_Primaries_SelectedItem = videoColorPrimaries;
+                else
+                    listFailedImports.Add("Video: Color Primaries");
+
+                // Color TransferCharacteristics
+                string videoColorTransferCharacteristics = inif.Read("Video", "Color_TransferCharacteristics_SelectedItem");
+
+                if (VM.VideoView.Video_Color_TransferCharacteristics_Items.Contains(videoColorTransferCharacteristics))
+                    VM.VideoView.Video_Color_TransferCharacteristics_SelectedItem = videoColorTransferCharacteristics;
+                else
+                    listFailedImports.Add("Video: Color Transfer Characteristics");
+
+                // Color Space
+                string videoColorSpace = inif.Read("Video", "Color_Space_SelectedItem");
+
+                if (VM.VideoView.Video_Color_Space_Items.Contains(videoColorSpace))
+                    VM.VideoView.Video_Color_Space_SelectedItem = videoColorSpace;
+                else
+                    listFailedImports.Add("Video: Color Space");
+
+                // Color Range
+                string videoColorRange = inif.Read("Video", "Color_Range_SelectedItem");
+
+                if (VM.VideoView.Video_Color_Range_Items.Contains(videoColorRange))
+                    VM.VideoView.Video_Color_Range_SelectedItem = videoColorRange;
+                else
+                    listFailedImports.Add("Video: Color Range");
+
                 // Pixel Format
                 string videoPixelFormat = inif.Read("Video", "PixelFormat_SelectedItem");
 
                 if (VM.VideoView.Video_PixelFormat_Items.Contains(videoPixelFormat))
                     VM.VideoView.Video_PixelFormat_SelectedItem = videoPixelFormat;
                 else
-                    listFailedImports.Add("Video: PixelFormat");
+                    listFailedImports.Add("Video: Pixel Format");
 
                 // FPS
                 bool videoFPS_IsEditable;
@@ -866,6 +912,8 @@ namespace Axiom
                 // Quality
                 inif.Write("Video", "EncodeSpeed_SelectedItem", VM.VideoView.Video_EncodeSpeed_SelectedItem);
                 inif.Write("Video", "HWAccel_SelectedItem", VM.VideoView.Video_HWAccel_SelectedItem);
+                inif.Write("Video", "HWAccel_Decode_SelectedItem", VM.VideoView.Video_HWAccel_Decode_SelectedItem);
+                inif.Write("Video", "HWAccel_Transcode_SelectedItem", VM.VideoView.Video_HWAccel_Transcode_SelectedItem);
                 inif.Write("Video", "Quality_SelectedItem", VM.VideoView.Video_Quality_SelectedItem);
                 inif.Write("Video", "Pass_SelectedItem", VM.VideoView.Video_Pass_SelectedItem);
                 inif.Write("Video", "CRF_Text", VM.VideoView.Video_CRF_Text);
@@ -875,7 +923,17 @@ namespace Axiom
                 inif.Write("Video", "BufSize_Text", VM.VideoView.Video_BufSize_Text);
                 inif.Write("Video", "VBR_IsChecked", VM.VideoView.Video_VBR_IsChecked.ToString().ToLower());
                 inif.Write("Video", "PixelFormat_SelectedItem", VM.VideoView.Video_PixelFormat_SelectedItem);
-                
+
+                // Color Primaries
+                inif.Write("Video", "Color_Primaries_SelectedItem", VM.VideoView.Video_Color_Primaries_SelectedItem);
+                // Color Transfer Characteristics
+                inif.Write("Video", "Color_TransferCharacteristics_SelectedItem", VM.VideoView.Video_Color_TransferCharacteristics_SelectedItem);
+                // Color Space
+                inif.Write("Video", "Color_Space_SelectedItem", VM.VideoView.Video_Color_Space_SelectedItem);
+                // Color Range
+                inif.Write("Video", "Color_Range_SelectedItem", VM.VideoView.Video_Color_Range_SelectedItem);
+
+                // FPS
                 if (VM.VideoView.Video_FPS_IsEditable == false) // Selected
                 {
                     inif.Write("Video", "FPS_IsEditable", VM.VideoView.Video_FPS_IsEditable.ToString().ToLower());
@@ -885,9 +943,9 @@ namespace Axiom
                 {
                     inif.Write("Video", "FPS_IsEditable", VM.VideoView.Video_FPS_IsEditable.ToString().ToLower());
                     inif.Write("Video", "FPS_Text", VM.VideoView.Video_FPS_Text);
-                    
                 }
 
+                // Speed
                 if (VM.VideoView.Video_Speed_IsEditable == false) // Selected
                 {
                     inif.Write("Video", "Speed_IsEditable", VM.VideoView.Video_Speed_IsEditable.ToString().ToLower());
