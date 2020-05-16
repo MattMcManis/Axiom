@@ -61,7 +61,7 @@ namespace Axiom
         {
             Video_Codec_SelectedItem = "VP8";
             Video_EncodeSpeed_SelectedItem = "Medium";
-            Video_HWAccel_SelectedItem = "off";
+            Video_HWAccel_SelectedItem = "Off";
             Video_Quality_SelectedItem = "Auto";
             Video_VBR_IsChecked = false;
             Video_Pass_SelectedItem = "2 Pass";
@@ -72,6 +72,11 @@ namespace Axiom
             Video_Video_Optimize_Tune_SelectedItem = "none";
             Video_Video_Optimize_Profile_SelectedItem = "none";
             Video_Optimize_Level_SelectedItem = "none";
+            Video_Color_Matrix_SelectedItem = "auto";
+            Video_Color_TransferCharacteristics_SelectedItem = "auto";
+            Video_Color_Primaries_SelectedItem = "auto";
+            Video_Color_Space_SelectedItem = "auto";
+            Video_Color_Range_SelectedItem = "auto";
             Video_Scale_SelectedItem = "Source";
             Video_ScreenFormat_SelectedItem = "auto";
             Video_AspectRatio_SelectedItem = "auto";
@@ -256,14 +261,9 @@ namespace Axiom
         // Items Source
         private List<string> _Video_HWAccel_Items = new List<string>()
         {
-            "off",
-            "CUDA",
-            "CUVID",
-            "D3D11VA",
-            "DXVA2",
-            "NVENC",
-            "NVENC+CUDA",
-            "Intel QSV"
+            "Off",
+            "On",
+            "Auto"
         };
         public List<string> Video_HWAccel_Items
         {
@@ -323,6 +323,154 @@ namespace Axiom
 
                 _Video_HWAccel_IsEnabled = value;
                 OnPropertyChanged("Video_HWAccel_IsEnabled");
+            }
+        }
+
+        // --------------------------------------------------
+        // HW Accel Decode
+        // --------------------------------------------------
+        // Items Source
+        private List<string> _Video_HWAccel_Decode_Items = new List<string>()
+        {
+            "off",
+            "auto",
+            "CUDA",
+            "CUVID",
+            "D3D11VA",
+            "DXVA2",
+            "Intel QSV"
+        };
+        public List<string> Video_HWAccel_Decode_Items
+        {
+            get { return _Video_HWAccel_Decode_Items; }
+            set
+            {
+                _Video_HWAccel_Decode_Items = value;
+                OnPropertyChanged("Video_HWAccel_Decode_Items");
+            }
+        }
+
+        // Selected Index
+        private int _Video_HWAccel_Decode_SelectedIndex { get; set; }
+        public int Video_HWAccel_Decode_SelectedIndex
+        {
+            get { return _Video_HWAccel_Decode_SelectedIndex; }
+            set
+            {
+                if (_Video_HWAccel_Decode_SelectedIndex == value)
+                {
+                    return;
+                }
+
+                _Video_HWAccel_Decode_SelectedIndex = value;
+                OnPropertyChanged("Video_HWAccel_Decode_SelectedIndex");
+            }
+        }
+
+        // Selected Item
+        private string _Video_HWAccel_Decode_SelectedItem { get; set; }
+        public string Video_HWAccel_Decode_SelectedItem
+        {
+            get { return _Video_HWAccel_Decode_SelectedItem; }
+            set
+            {
+                if (_Video_HWAccel_Decode_SelectedItem == value)
+                {
+                    return;
+                }
+
+                _Video_HWAccel_Decode_SelectedItem = value;
+                OnPropertyChanged("Video_HWAccel_Decode_SelectedItem");
+            }
+        }
+
+        // Controls Enable
+        private bool _Video_HWAccel_Decode_IsEnabled = true;
+        public bool Video_HWAccel_Decode_IsEnabled
+        {
+            get { return _Video_HWAccel_Decode_IsEnabled; }
+            set
+            {
+                if (_Video_HWAccel_Decode_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _Video_HWAccel_Decode_IsEnabled = value;
+                OnPropertyChanged("Video_HWAccel_Decode_IsEnabled");
+            }
+        }
+
+        // --------------------------------------------------
+        // HW Accel Transcode
+        // --------------------------------------------------
+        // Items Source
+        private List<string> _Video_HWAccel_Transcode_Items = new List<string>()
+        {
+            "off",
+            "auto",
+            "AMD AMF",
+            "NVIDIA NVENC",
+            "Intel QSV"
+        };
+        public List<string> Video_HWAccel_Transcode_Items
+        {
+            get { return _Video_HWAccel_Transcode_Items; }
+            set
+            {
+                _Video_HWAccel_Transcode_Items = value;
+                OnPropertyChanged("Video_HWAccel_Transcode_Items");
+            }
+        }
+
+        // Selected Index
+        private int _Video_HWAccel_Transcode_SelectedIndex { get; set; }
+        public int Video_HWAccel_Transcode_SelectedIndex
+        {
+            get { return _Video_HWAccel_Transcode_SelectedIndex; }
+            set
+            {
+                if (_Video_HWAccel_Transcode_SelectedIndex == value)
+                {
+                    return;
+                }
+
+                _Video_HWAccel_Transcode_SelectedIndex = value;
+                OnPropertyChanged("Video_HWAccel_Transcode_SelectedIndex");
+            }
+        }
+
+        // Selected Item
+        private string _Video_HWAccel_Transcode_SelectedItem { get; set; }
+        public string Video_HWAccel_Transcode_SelectedItem
+        {
+            get { return _Video_HWAccel_Transcode_SelectedItem; }
+            set
+            {
+                if (_Video_HWAccel_Transcode_SelectedItem == value)
+                {
+                    return;
+                }
+
+                _Video_HWAccel_Transcode_SelectedItem = value;
+                OnPropertyChanged("Video_HWAccel_Transcode_SelectedItem");
+            }
+        }
+
+        // Controls Enable
+        private bool _Video_HWAccel_Transcode_IsEnabled = true;
+        public bool Video_HWAccel_Transcode_IsEnabled
+        {
+            get { return _Video_HWAccel_Transcode_IsEnabled; }
+            set
+            {
+                if (_Video_HWAccel_Transcode_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _Video_HWAccel_Transcode_IsEnabled = value;
+                OnPropertyChanged("Video_HWAccel_Transcode_IsEnabled");
             }
         }
 
@@ -1309,6 +1457,408 @@ namespace Axiom
                 OnPropertyChanged("Video_Optimize_Level_IsEnabled");
             }
         }
+
+
+
+        // --------------------------------------------------
+        // Color Matrix
+        // --------------------------------------------------
+        // Items Source
+        private List<string> _Video_Color_Matrix_Items = new List<string>()
+        {
+            "auto",
+            "BT.709",
+            "FCC",
+            "BT.601",
+            "BT.470",
+            "BT.470BG",
+            "SMPTE-170M",
+            "SMPTE-240M",
+            "BT.2020"
+        };
+        public List<string> Video_Color_Matrix_Items
+        {
+            get { return _Video_Color_Matrix_Items; }
+            set
+            {
+                _Video_Color_Matrix_Items = value;
+                OnPropertyChanged("Video_Color_Matrix_Items");
+            }
+        }
+
+        // Selected Index
+        private int _Video_Color_Matrix_SelectedIndex { get; set; }
+        public int Video_Color_Matrix_SelectedIndex
+        {
+            get { return _Video_Color_Matrix_SelectedIndex; }
+            set
+            {
+                if (_Video_Color_Matrix_SelectedIndex == value)
+                {
+                    return;
+                }
+
+                _Video_Color_Matrix_SelectedIndex = value;
+                OnPropertyChanged("Video_Color_Matrix_SelectedIndex");
+            }
+        }
+
+        // Selected Item
+        private string _Video_Color_Matrix_SelectedItem { get; set; }
+        public string Video_Color_Matrix_SelectedItem
+        {
+            get { return _Video_Color_Matrix_SelectedItem; }
+            set
+            {
+                if (_Video_Color_Matrix_SelectedItem == value)
+                {
+                    return;
+                }
+
+                _Video_Color_Matrix_SelectedItem = value;
+                OnPropertyChanged("Video_Color_Matrix_SelectedItem");
+            }
+        }
+
+        // Controls Enable
+        private bool _Video_Color_Matrix_IsEnabled = true;
+        public bool Video_Color_Matrix_IsEnabled
+        {
+            get { return _Video_Color_Matrix_IsEnabled; }
+            set
+            {
+                if (_Video_Color_Matrix_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _Video_Color_Matrix_IsEnabled = value;
+                OnPropertyChanged("Video_Color_Matrix_IsEnabled");
+            }
+        }
+
+
+        // --------------------------------------------------
+        // Color Space
+        // --------------------------------------------------
+        // Items Source
+        private List<string> _Video_Color_Space_Items = new List<string>()
+        {
+            "auto",
+            "BT.709",
+            "FCC",
+            "BT.470BG",
+            "BT.601-6 525",
+            "BT.601-6 625",
+            "SMPTE-170M",
+            "SMPTE-240M",
+            "YCgCo",
+            "BT.2020 NCL"
+        };
+        public List<string> Video_Color_Space_Items
+        {
+            get { return _Video_Color_Space_Items; }
+            set
+            {
+                _Video_Color_Space_Items = value;
+                OnPropertyChanged("Video_Color_Space_Items");
+            }
+        }
+
+        // Selected Index
+        private int _Video_Color_Space_SelectedIndex { get; set; }
+        public int Video_Color_Space_SelectedIndex
+        {
+            get { return _Video_Color_Space_SelectedIndex; }
+            set
+            {
+                if (_Video_Color_Space_SelectedIndex == value)
+                {
+                    return;
+                }
+
+                _Video_Color_Space_SelectedIndex = value;
+                OnPropertyChanged("Video_Color_Space_SelectedIndex");
+            }
+        }
+
+        // Selected Item
+        private string _Video_Color_Space_SelectedItem { get; set; }
+        public string Video_Color_Space_SelectedItem
+        {
+            get { return _Video_Color_Space_SelectedItem; }
+            set
+            {
+                if (_Video_Color_Space_SelectedItem == value)
+                {
+                    return;
+                }
+
+                _Video_Color_Space_SelectedItem = value;
+                OnPropertyChanged("Video_Color_Space_SelectedItem");
+            }
+        }
+
+        // Controls Enable
+        private bool _Video_Color_Space_IsEnabled = true;
+        public bool Video_Color_Space_IsEnabled
+        {
+            get { return _Video_Color_Space_IsEnabled; }
+            set
+            {
+                if (_Video_Color_Space_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _Video_Color_Space_IsEnabled = value;
+                OnPropertyChanged("Video_Color_Space_IsEnabled");
+            }
+        }
+
+
+        // --------------------------------------------------
+        // Color Transfer Characteristics
+        // --------------------------------------------------
+        // Items Source
+        private List<string> _Video_Color_TransferCharacteristics_Items = new List<string>()
+        {
+            "auto",
+            "BT.709",
+            "BT.470M",
+            "BT.470BG",
+            "Gamma 2.2",
+            "Gamma 2.8 ",
+            "BT.601-6 525",
+            "BT.601-6 625",
+            "SMPTE-170M",
+            "SMPTE-240M ",
+            "SRGB",
+            "iec61966-2-1",
+            "iec61966-2-4",
+            "xvycc",
+            "BT.2020 10-bit",
+            "BT.2020 12-bit"
+
+        };
+        public List<string> Video_Color_TransferCharacteristics_Items
+        {
+            get { return _Video_Color_TransferCharacteristics_Items; }
+            set
+            {
+                _Video_Color_TransferCharacteristics_Items = value;
+                OnPropertyChanged("Video_Color_TransferCharacteristics_Items");
+            }
+        }
+
+        // Selected Index
+        private int _Video_Color_TransferCharacteristics_SelectedIndex { get; set; }
+        public int Video_Color_TransferCharacteristics_SelectedIndex
+        {
+            get { return _Video_Color_TransferCharacteristics_SelectedIndex; }
+            set
+            {
+                if (_Video_Color_TransferCharacteristics_SelectedIndex == value)
+                {
+                    return;
+                }
+
+                _Video_Color_TransferCharacteristics_SelectedIndex = value;
+                OnPropertyChanged("Video_Color_TransferCharacteristics_SelectedIndex");
+            }
+        }
+
+        // Selected Item
+        private string _Video_Color_TransferCharacteristics_SelectedItem { get; set; }
+        public string Video_Color_TransferCharacteristics_SelectedItem
+        {
+            get { return _Video_Color_TransferCharacteristics_SelectedItem; }
+            set
+            {
+                if (_Video_Color_TransferCharacteristics_SelectedItem == value)
+                {
+                    return;
+                }
+
+                _Video_Color_TransferCharacteristics_SelectedItem = value;
+                OnPropertyChanged("Video_Color_TransferCharacteristics_SelectedItem");
+            }
+        }
+
+        // Controls Enable
+        private bool _Video_Color_TransferCharacteristics_IsEnabled = true;
+        public bool Video_Color_TransferCharacteristics_IsEnabled
+        {
+            get { return _Video_Color_TransferCharacteristics_IsEnabled; }
+            set
+            {
+                if (_Video_Color_TransferCharacteristics_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _Video_Color_TransferCharacteristics_IsEnabled = value;
+                OnPropertyChanged("Video_Color_TransferCharacteristics_IsEnabled");
+            }
+        }
+
+
+        // --------------------------------------------------
+        // Color Primaries
+        // --------------------------------------------------
+        // Items Source
+        private List<string> _Video_Color_Primaries_Items = new List<string>()
+        {
+            "auto",
+            "BT.709",
+            "BT.470M",
+            "BT.470BG",
+            "BT.601-6 525",
+            "BT.601-6 625",
+            "SMPTE-170M",
+            "SMPTE-240M",
+            "film",
+            "SMPTE-431",
+            "SMPTE-432",
+            "BT.2020",
+            "JEDEC P22 phosphors"
+
+        };
+        public List<string> Video_Color_Primaries_Items
+        {
+            get { return _Video_Color_Primaries_Items; }
+            set
+            {
+                _Video_Color_Primaries_Items = value;
+                OnPropertyChanged("Video_Color_Primaries_Items");
+            }
+        }
+
+        // Selected Index
+        private int _Video_Color_Primaries_SelectedIndex { get; set; }
+        public int Video_Color_Primaries_SelectedIndex
+        {
+            get { return _Video_Color_Primaries_SelectedIndex; }
+            set
+            {
+                if (_Video_Color_Primaries_SelectedIndex == value)
+                {
+                    return;
+                }
+
+                _Video_Color_Primaries_SelectedIndex = value;
+                OnPropertyChanged("Video_Color_Primaries_SelectedIndex");
+            }
+        }
+
+        // Selected Item
+        private string _Video_Color_Primaries_SelectedItem { get; set; }
+        public string Video_Color_Primaries_SelectedItem
+        {
+            get { return _Video_Color_Primaries_SelectedItem; }
+            set
+            {
+                if (_Video_Color_Primaries_SelectedItem == value)
+                {
+                    return;
+                }
+
+                _Video_Color_Primaries_SelectedItem = value;
+                OnPropertyChanged("Video_Color_Primaries_SelectedItem");
+            }
+        }
+
+        // Controls Enable
+        private bool _Video_Color_Primaries_IsEnabled = true;
+        public bool Video_Color_Primaries_IsEnabled
+        {
+            get { return _Video_Color_Primaries_IsEnabled; }
+            set
+            {
+                if (_Video_Color_Primaries_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _Video_Color_Primaries_IsEnabled = value;
+                OnPropertyChanged("Video_Color_Primaries_IsEnabled");
+            }
+        }
+
+
+        // --------------------------------------------------
+        // Color Range
+        // --------------------------------------------------
+        // Items Source
+        private List<string> _Video_Color_Range_Items = new List<string>()
+        {
+            "auto",
+            "TV",
+            "PC",
+            "MPEG",
+            "JPEG"
+        };
+        public List<string> Video_Color_Range_Items
+        {
+            get { return _Video_Color_Range_Items; }
+            set
+            {
+                _Video_Color_Range_Items = value;
+                OnPropertyChanged("Video_Color_Range_Items");
+            }
+        }
+
+        // Selected Index
+        private int _Video_Color_Range_SelectedIndex { get; set; }
+        public int Video_Color_Range_SelectedIndex
+        {
+            get { return _Video_Color_Range_SelectedIndex; }
+            set
+            {
+                if (_Video_Color_Range_SelectedIndex == value)
+                {
+                    return;
+                }
+
+                _Video_Color_Range_SelectedIndex = value;
+                OnPropertyChanged("Video_Color_Range_SelectedIndex");
+            }
+        }
+
+        // Selected Item
+        private string _Video_Color_Range_SelectedItem { get; set; }
+        public string Video_Color_Range_SelectedItem
+        {
+            get { return _Video_Color_Range_SelectedItem; }
+            set
+            {
+                if (_Video_Color_Range_SelectedItem == value)
+                {
+                    return;
+                }
+
+                _Video_Color_Range_SelectedItem = value;
+                OnPropertyChanged("Video_Color_Range_SelectedItem");
+            }
+        }
+
+        // Controls Enable
+        private bool _Video_Color_Range_IsEnabled = true;
+        public bool Video_Color_Range_IsEnabled
+        {
+            get { return _Video_Color_Range_IsEnabled; }
+            set
+            {
+                if (_Video_Color_Range_IsEnabled == value)
+                {
+                    return;
+                }
+
+                _Video_Color_Range_IsEnabled = value;
+                OnPropertyChanged("Video_Color_Range_IsEnabled");
+            }
+        }
+
 
 
         // --------------------------------------------------
