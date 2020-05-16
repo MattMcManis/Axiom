@@ -906,7 +906,7 @@ namespace Axiom
                 // -------------------------
                 //    Subtitles Burn
                 // -------------------------
-                VideoFilters.SubtitlesBurn_Filter(/*mainwindow*/ );
+                VideoFilters.SubtitlesBurn_Filter();
 
                 // -------------------------
                 //  Deband
@@ -948,54 +948,55 @@ namespace Axiom
                 // -------------------------
                 VideoFilters.SelectiveColor_Filter();
 
+                // -------------------------
+                // Empty Halt
+                // -------------------------
+                if (vFiltersList == null || // Null Check
+                    vFiltersList.Count == 0) // None Check
+                {
+                    return string.Empty;
+                }
 
                 // -------------------------
                 // Filter Combine
                 // -------------------------
-                if (VM.VideoView.Video_Codec_SelectedItem != "None") // None Check
+                //System.Windows.MessageBox.Show(string.Join(",\r\n\r\n", vFiltersList.Where(s => !string.IsNullOrEmpty(s)))); //debug
+                //System.Windows.MessageBox.Show(Convert.ToString(vFiltersList.Count())); //debug
+
+                // -------------------------
+                // Remove Empty Strings
+                // -------------------------
+                vFiltersList.RemoveAll(s => string.IsNullOrEmpty(s));
+
+                // -------------------------
+                // 1 Filter
+                // -------------------------
+                if (vFiltersList.Count == 1)
                 {
-                    //System.Windows.MessageBox.Show(string.Join(",\r\n\r\n", vFiltersList.Where(s => !string.IsNullOrEmpty(s)))); //debug
-                    //System.Windows.MessageBox.Show(Convert.ToString(vFiltersList.Count())); //debug
-
-                    // -------------------------
-                    // 1 Filter
-                    // -------------------------
-                    if (vFiltersList.Count == 1)
-                    {
-                        // Always wrap in quotes
-                        vFilter = "-vf \"" + string.Join(", \r\n\r\n", vFiltersList
-                                                   .Where(s => !string.IsNullOrEmpty(s)))
-                                                   + "\"";
-                    }
-
-                    // -------------------------
-                    // Multiple Filters
-                    // -------------------------
-                    else if (vFiltersList.Count > 1)
-                    {
-                        // Always wrap in quotes
-                        // Linebreak beginning and end
-                        vFilter = "-vf \"\r\n" + string.Join(", \r\n\r\n", vFiltersList
-                                                       .Where(s => !string.IsNullOrEmpty(s)))
-                                                       + "\r\n\"";
-                    }
-
-                    // -------------------------
-                    // Empty
-                    // -------------------------
-                    else
-                    {
-                        vFilter = string.Empty;
-                    }
+                    // Always wrap in quotes
+                    vFilter = "-vf \"" + string.Join(", \r\n\r\n", vFiltersList
+                                                .Where(s => !string.IsNullOrEmpty(s)))
+                                                + "\"";
                 }
 
                 // -------------------------
-                // Video Codec None
+                // Multiple Filters
+                // -------------------------
+                else if (vFiltersList.Count > 1)
+                {
+                    // Always wrap in quotes
+                    // Linebreak beginning and end
+                    vFilter = "-vf \"\r\n" + string.Join(", \r\n\r\n", vFiltersList
+                                                    .Where(s => !string.IsNullOrEmpty(s)))
+                                                    + "\r\n\"";
+                }
+
+                // -------------------------
+                // Empty
                 // -------------------------
                 else
                 {
                     vFilter = string.Empty;
-
                 }
             }
 
