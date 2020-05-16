@@ -1007,7 +1007,8 @@ namespace Axiom
             // Video
             Video.passSingle = string.Empty;
             Video.vEncodeSpeed = string.Empty;
-            Video.hwacceleration = string.Empty;
+            Video.hwAccelDecode = string.Empty;
+            Video.hwAccelTranscode = string.Empty;
             Video.vCodec = string.Empty;
             Video.vBitMode = string.Empty;
             Video.vQuality = string.Empty;
@@ -1020,6 +1021,11 @@ namespace Axiom
             Video.vOptions = string.Empty;
             Video.vCRF = string.Empty;
             Video.pix_fmt = string.Empty;
+            Video.colorPrimaries = string.Empty;
+            Video.colorTransferCharacteristics = string.Empty;
+            Video.colorSpace = string.Empty;
+            Video.colorRange = string.Empty;
+            Video.colorMatrix = string.Empty;
             Video.vAspectRatio = string.Empty;
             Video.vScalingAlgorithm = string.Empty;
             Video.fps = string.Empty;
@@ -1031,14 +1037,30 @@ namespace Axiom
             Video.height = string.Empty;
             //Video.scale = string.Empty;
 
-            if (Video.x265paramsList != null &&
-                Video.x265paramsList.Count > 0)
+            //if (Video.x264paramsList != null &&
+            //    Video.x264paramsList.Count > 0)
+            //{
+            //    Video.x264paramsList.Clear();
+            //    Video.x264paramsList.TrimExcess();
+            //}
+
+            //if (Video.x265paramsList != null &&
+            //    Video.x265paramsList.Count > 0)
+            //{
+            //    Video.x265paramsList.Clear();
+            //    Video.x265paramsList.TrimExcess();
+            //}
+
+            //Video.x265params = string.Empty;
+
+            if (VideoParams.vParamsList != null &&
+                VideoParams.vParamsList.Count > 0)
             {
-                Video.x265paramsList.Clear();
-                Video.x265paramsList.TrimExcess();
+                VideoParams.vParamsList.Clear();
+                VideoParams.vParamsList.TrimExcess();
             }
 
-            Video.x265params = string.Empty;
+            VideoParams.vParams = string.Empty;
 
             // Clear Crop if ClearCrop Button Identifier is Empty
             if (VM.VideoView.Video_CropClear_Text == "Clear")
@@ -5756,6 +5778,44 @@ namespace Axiom
             // Convert Button Text Change
             // -------------------------
             ConvertButtonText();
+        }
+
+
+        /// <summary>
+        /// HW Accel
+        /// </summary>
+        private void cboHWAccel_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            switch (VM.VideoView.Video_HWAccel_SelectedItem)
+            {
+                case "Auto":
+                    VM.VideoView.Video_HWAccel_Decode_IsEnabled = false;
+                    VM.VideoView.Video_HWAccel_Decode_SelectedItem = "auto";
+                    VM.VideoView.Video_HWAccel_Transcode_IsEnabled = false;
+                    VM.VideoView.Video_HWAccel_Transcode_SelectedItem = "auto";
+                    break;
+
+                case "On":
+                    VM.VideoView.Video_HWAccel_Decode_IsEnabled = true;
+                    VM.VideoView.Video_HWAccel_Decode_SelectedItem = "auto";
+                    VM.VideoView.Video_HWAccel_Transcode_IsEnabled = true;
+                    VM.VideoView.Video_HWAccel_Transcode_SelectedItem = "auto";
+                    break;
+
+                case "Off":
+                    VM.VideoView.Video_HWAccel_Decode_IsEnabled = false;
+                    VM.VideoView.Video_HWAccel_Decode_SelectedItem = "off";
+                    VM.VideoView.Video_HWAccel_Transcode_IsEnabled = false;
+                    VM.VideoView.Video_HWAccel_Transcode_SelectedItem = "off";
+                    break;
+
+                default:
+                    VM.VideoView.Video_HWAccel_Decode_IsEnabled = true;
+                    VM.VideoView.Video_HWAccel_Decode_SelectedItem = "off";
+                    VM.VideoView.Video_HWAccel_Transcode_IsEnabled = true;
+                    VM.VideoView.Video_HWAccel_Transcode_SelectedItem = "off";
+                    break;
+            }
         }
 
 
