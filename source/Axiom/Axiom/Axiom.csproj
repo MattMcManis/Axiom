@@ -122,6 +122,7 @@
     <Compile Include="LogConsole.xaml.cs">
       <DependentUpon>LogConsole.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Params\VideoParams.cs" />
     <Compile Include="Presets\Profiles.cs" />
     <Compile Include="Filters\VideoFilters.cs" />
     <Compile Include="Generators\Format.cs" />
