@@ -4,6 +4,19 @@ Axiom FFmpeg UI
 
 ## [alpha]
 
+## [1.8.1.0] - May 16, 2020
+### Added
+- Video Sub Tabs, `Encoding`, `Color`, `Size`
+- `HW Accel` `Decode` and `Transcode` Dropdown Menus
+- `AMD AMF` `HW Accel` Option
+- `Color Primaries`, `Color Transfer Characteristics`, `Colorspace`, `Color Range`
+
+### Changed
+- Changed `HW Accel` `NVENC` to `NVIDIA NVENC`
+- Changed `HW Accel` `Intel QSV`
+- Improved FFmpeg Generated `HW Accel` Arguments
+
+
 ## [1.8.0.0] - May 12, 2020
 ### Added
 - `HW Accel` options `CUDA`, `D3D11VA`, `NVENC+CUDA`, `Intel QSV`
@@ -48,7 +61,6 @@ Axiom FFmpeg UI
 
 
 ## [1.7.8.1] - Apr 9, 2020
-
 ### Changed
 Video Bitrate Calculator from int to double
 
@@ -58,14 +70,12 @@ Video Bitrate Calculator from int to double
 
 
 ## [1.7.8.0] - Apr 9, 2020
-
 ### Fixed
 - European English decimal comma to period
 - Allow Numbers Only Symbols
 
 
 ## [1.7.7.0] - Oct 21, 2019
-
 ### Added
 - Valid Path Checker
 
