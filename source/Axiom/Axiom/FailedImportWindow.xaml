@@ -50,7 +50,7 @@
                  Margin="10,10,0,0"
                  VerticalAlignment="Top" 
                  Width="364"
-                 Padding="6"
+                 Padding="10"
                  IsReadOnly="True"/>
     </Grid>
 </Window>
