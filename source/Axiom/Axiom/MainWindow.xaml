@@ -978,893 +978,1198 @@
                                   Width="254"
                                   Template="{DynamicResource ScrollViewerControlTemplate}">
 
-                        <Grid Margin="0,20,0,30"  
+                        <!-- Grid -->
+                        <Grid Margin="0,15,0,30"  
                               VerticalAlignment="Top" >
 
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="15"/>
-                                <ColumnDefinition Width="96"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
 
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="33"/>
-                                <RowDefinition Height="33"/>
-                                <RowDefinition Height="33"/>
-                                <RowDefinition Height="22"/>
-                                <RowDefinition Height="33"/>
-                                <RowDefinition Height="33"/>
-                                <RowDefinition Height="33"/>
-                                <RowDefinition Height="33"/>
-                                <RowDefinition Height="33"/>
-                                <RowDefinition Height="33"/>
-                                <RowDefinition Height="33"/>
-                                <RowDefinition Height="33"/>
-                                <RowDefinition Height="33"/>
-                                <RowDefinition Height="33"/>
-                                <RowDefinition Height="22"/>
-                                <RowDefinition Height="33"/>
-                                <!-- Optimize -->
-                                <RowDefinition Height="auto"/>
-                                <RowDefinition Height="22"/>
-                                <RowDefinition Height="33"/>
-                                <RowDefinition Height="33"/>
-
-                                <RowDefinition Height="33"/>
-                                <RowDefinition Height="33"/>
-                                <RowDefinition Height="33"/>
-                                <RowDefinition Height="33"/>
-                                <RowDefinition Height="33"/>
-                                <RowDefinition Height="33"/>
+                                <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
 
-                            <!-- Video Codec -->
-                            <Label Style="{DynamicResource LabelStyle}"
-                                   Content="Video Codec" 
-                                   HorizontalAlignment="Left"
-                                   Margin="0,0,0,0" 
-                                   VerticalAlignment="Top" 
-                                   Width="75" 
-                                   FontFamily="Segoe UI Semilight" 
-                                   Grid.Row="0" 
-                                   Height="26" 
-                                   Grid.Column="1" />
-                            <ComboBox x:Name="cboVideo_Codec" 
-                                      Style="{DynamicResource ComboBoxCategoryStyle}"
-                                      ItemContainerStyle="{DynamicResource ComboBoxCategoryStyleItem}" 
-                                      ItemsSource="{Binding Video_Codec_Items}"
-                                      SelectedIndex="{Binding Video_Codec_SelectedIndex}"
-                                      SelectedItem="{Binding Video_Codec_SelectedItem}"
-                                      IsEnabled="{Binding Video_Codec_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                      IsSynchronizedWithCurrentItem="True"
-                                      HorizontalAlignment="Left" 
-                                      VerticalAlignment="Top" 
-                                      Width="105" 
-                                      Height="22"
-                                      SelectionChanged="cboVideo_Codec_SelectionChanged" 
-                                      Grid.Row="0"
-                                      Grid.Column="2" 
-                                      Margin="0,2,0,0" />
+                            <!-- SubTab Control -->
+                            <TabControl x:Name="tabControlVideoEncoding" 
+                                        HorizontalAlignment="Right" 
+                                        Width="237" 
+                                        Margin="0,0,0,0"
+                                        BorderThickness="0,1,0,0"
+                                        BorderBrush="#60FFFFFF"
+                                        Background="Transparent">
 
-                            <!-- Encode Speed -->
-                            <Label Style="{DynamicResource LabelStyle}" 
-                                   Content="Encode Speed" 
-                                   HorizontalAlignment="Left" 
-                                   VerticalAlignment="Top"
-                                   FontFamily="Segoe UI Semilight" 
-                                   Width="91" 
-                                   Height="26"
-                                   ToolTipService.InitialShowDelay="500" 
-                                   ToolTipService.ShowOnDisabled="True" 
-                                   ToolTip="Encoding Speed. Slower = Better Quality &amp; Compression." 
-                                   Grid.Row="1" 
-                                   Grid.Column="1" />
-                            <ComboBox x:Name="cboEncodeSpeed" 
-                                      Style="{DynamicResource ComboBoxStyle}"
-                                      ItemContainerStyle="{DynamicResource ComboBoxStyleItem}"
-                                      ItemsSource="{Binding Video_EncodeSpeed_Items}"
-                                      SelectedValuePath="Name"
-                                      SelectedIndex="{Binding Video_EncodeSpeed_SelectedIndex}"
-                                      SelectedValue="{Binding Video_EncodeSpeed_SelectedItem, Mode=TwoWay}"
-                                      IsEnabled="{Binding Video_EncodeSpeed_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                      HorizontalAlignment="Left" 
-                                      VerticalAlignment="Top" 
-                                      Width="105" 
-                                      Height="22"
-                                      Grid.Column="2" 
-                                      Grid.Row="1"
-                                      ToolTipService.InitialShowDelay="500" 
-                                      ToolTipService.ShowOnDisabled="True" 
-                                      ToolTip="Encoding Speed. Slower = Better Quality &amp; Compression." 
-                                      Margin="0,2,0,0" 
-                                      >
-                                <ComboBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <Grid>
-                                            <TextBlock DataContext="{Binding}">
-                                                <TextBlock.Text>
-                                                    <Binding Path="Name"/>
-                                                </TextBlock.Text>
-                                            </TextBlock>
-                                        </Grid>
-                                    </DataTemplate>
-                                </ComboBox.ItemTemplate>
-                            </ComboBox>
+                                <!-- Encoding Tab -->
+                                <TabItem Header="Encoding" 
+                                         Width="74"
+                                         Style="{DynamicResource TabItemStyle}" 
+                                         Margin="6,-2,-6,0">
+                                    <Grid Background="Transparent">
 
+                                        <!-- Grid -->
+                                        <Grid Margin="0,20,0,0" 
+                                              VerticalAlignment="Top" >
 
-                            <!-- HW Acceleration -->
-                            <Label Style="{DynamicResource LabelStyle}" 
-                                   Content="HW Accel" 
-                                   HorizontalAlignment="Left" 
-                                   VerticalAlignment="Top"
-                                   FontFamily="Segoe UI Semilight" 
-                                   Width="91" 
-                                   Height="26"
-                                   ToolTipService.InitialShowDelay="500" 
-                                   ToolTipService.ShowOnDisabled="True" 
-                                   ToolTip="Hardware Acceleration" 
-                                   Grid.Row="2" 
-                                   Grid.Column="1" />
-                            <ComboBox x:Name="cboHWAccel" 
-                                      ItemsSource="{Binding Video_HWAccel_Items}"
-                                      SelectedIndex="{Binding Video_HWAccel_SelectedIndex}"
-                                      SelectedItem="{Binding Video_HWAccel_SelectedItem, Mode=TwoWay}"
-                                      IsEnabled="{Binding Video_HWAccel_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                      Style="{DynamicResource ComboBoxStyle}"
-                                      IsSynchronizedWithCurrentItem="True"
-                                      ItemContainerStyle="{DynamicResource ComboBoxStyleItem}"
-                                      HorizontalAlignment="Left" 
-                                      VerticalAlignment="Top" 
-                                      Width="105" 
-                                      ToolTipService.InitialShowDelay="500" 
-                                      ToolTipService.ShowOnDisabled="True" 
-                                      ToolTip="Hardware Acceleration" 
-                                      Grid.Row="2"
-                                      Grid.Column="2"
-                                      Height="22" 
-                                      Margin="0,2,0,0" />
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="15"/>
+                                                <ColumnDefinition Width="96"/>
+                                                <ColumnDefinition/>
+                                            </Grid.ColumnDefinitions>
 
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="33"/>
+                                                <RowDefinition Height="33"/>
+                                                <RowDefinition Height="22"/>
+                                                <RowDefinition Height="33"/>
+                                                <RowDefinition Height="33"/>
+                                                <RowDefinition Height="33"/>
+                                                <RowDefinition Height="22"/>
+                                                <RowDefinition Height="33"/>
+                                                <RowDefinition Height="33"/>
+                                                <RowDefinition Height="33"/>
+                                                <RowDefinition Height="33"/>
+                                                <RowDefinition Height="33"/>
+                                                <RowDefinition Height="33"/>
+                                                <RowDefinition Height="33"/>
+                                                <RowDefinition Height="33"/>
+                                                <RowDefinition Height="33"/>
+                                                <RowDefinition Height="33"/>
+                                                <RowDefinition Height="22"/>
+                                                <RowDefinition Height="33"/>
+                                                <RowDefinition Height="auto"/>
+                                                <RowDefinition Height="33"/>
+                                            </Grid.RowDefinitions>
 
-                            <!-- Video Quality -->
-                            <Label Style="{DynamicResource LabelStyle}" 
-                                   Content="Quality" 
-                                   HorizontalAlignment="Left"
-                                   Width="56"  
-                                   FontFamily="Segoe UI Semilight"
-                                   Margin="0,0,0,4"
-                                   Grid.Row="4"
-                                   Grid.Column="1" />
-                            <ComboBox x:Name="cboVideo_Quality" 
-                                      Style="{DynamicResource ComboBoxCategoryStyle}"
-                                      ItemContainerStyle="{DynamicResource ComboBoxCategoryStyleItem}" 
-                                      ItemsSource="{Binding Video_Quality_Items}"
-                                      SelectedValuePath="Name"
-                                      SelectedIndex="{Binding Video_Quality_SelectedIndex}"
-                                      SelectedValue="{Binding Video_Quality_SelectedItem, Mode=TwoWay}"
-                                      IsEnabled="{Binding Video_Quality_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                      IsSynchronizedWithCurrentItem="True"
-                                      HorizontalAlignment="Left" 
-                                      VerticalAlignment="Top" 
-                                      Width="105" 
-                                      Height="22"
-                                      SelectionChanged="cboVideo_Quality_SelectionChanged" 
-                                      Grid.Column="2" 
-                                      Grid.Row="4" 
-                                      Margin="0,2,0,0"
-                                      >
-                                <ComboBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <Grid>
-                                            <TextBlock DataContext="{Binding}">
-                                                <TextBlock.Text>
-                                                    <Binding Path="Name"/>
-                                                </TextBlock.Text>
-                                            </TextBlock>
-                                        </Grid>
-                                    </DataTemplate>
-                                </ComboBox.ItemTemplate>
-                            </ComboBox>
-
-                            <!-- Pass -->
-                            <Label Style="{DynamicResource LabelStyle}" 
-                                   Content="Pass" 
-                                   HorizontalAlignment="Left" 
-                                   VerticalAlignment="Top" 
-                                   Width="56"
-                                   ToolTip="Encoding Pass Method"
-                                   FontFamily="Segoe UI Semilight" 
-                                   Grid.Row="5" 
-                                   Grid.Column="1" />
-                            <ComboBox x:Name="cboVideo_Pass"
-                                      ItemsSource="{Binding Video_Pass_Items}"
-                                      SelectedIndex="{Binding Video_Pass_SelectedIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                      SelectedValue="{Binding Video_Pass_SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                      IsEnabled="{Binding Video_Pass_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                      Style="{DynamicResource ComboBoxStyle}"
-                                      ItemContainerStyle="{DynamicResource ComboBoxStyleItem}"
-                                      HorizontalAlignment="Left"
-                                      VerticalAlignment="Top"
-                                      Width="105" 
-                                      ToolTipService.InitialShowDelay="500" 
-                                      ToolTipService.ShowOnDisabled="True"
-                                      ToolTip="Encoding Pass Method" 
-                                      SelectionChanged="cboVideo_Pass_SelectionChanged"
-                                      DropDownClosed="cboVideo_Pass_DropDownClosed" 
-                                      Grid.Row="5" 
-                                      Grid.Column="2" 
-                                      Margin="0,2,0,0" />
-
-                            <!-- CRF -->
-                            <Label Style="{DynamicResource LabelStyle}" 
-                                   Content="CRF" 
-                                   HorizontalAlignment="Left" 
-                                   VerticalAlignment="Top"
-                                   Width="56" 
-                                   FontFamily="Segoe UI Semilight" 
-                                   Grid.Row="6"
-                                   Grid.Column="1"
-                                   ToolTipService.InitialShowDelay="500"
-                                   ToolTipService.ShowOnDisabled="True"
-                                   ToolTip="Constant Rate Factor. Lower value is higher quality."/>
-                            <Slider x:Name="slVideo_CRF" 
-                                    Style="{DynamicResource SliderStyle}"
-                                    IsEnabled="{Binding Video_CRF_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                    HorizontalAlignment="Right"
-                                    Margin="0,4,56,0" 
-                                    VerticalAlignment="Top" 
-                                    Width="70"
-                                    IsDirectionReversed="True"
-                                    IsSnapToTickEnabled="True"
-                                    IsMoveToPointEnabled="True" 
-                                    Minimum="0"
-                                    Maximum="51" 
-                                    Value="{Binding Video_CRF_Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                    Grid.Column="2" 
-                                    Grid.Row="6" 
-                                    Height="18" 
-                                    ToolTipService.InitialShowDelay="500"
-                                    ToolTipService.ShowOnDisabled="True"
-                                    ToolTip="Constant Rate Factor. Lower value is higher quality."
-                                    MouseDoubleClick="slVideo_CRF_MouseDoubleClick"
-                                    ValueChanged="slVideo_CRF_ValueChanged"/>
-                            <TextBox x:Name="tbxVideo_CRF" 
-                                     Text="{Binding Video_CRF_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                     IsEnabled="{Binding Video_CRF_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                     Style="{DynamicResource TextBoxStyle}"
-                                     HorizontalAlignment="Left" 
-                                     Height="22"
-                                     Padding="1,1,0,0" 
-                                     TextWrapping="NoWrap"
-                                     VerticalAlignment="Top"
-                                     Width="30"
-                                     KeyDown="tbxVideo_CRF_KeyDown" 
-                                     MaxLines="1"
-                                     MaxLength="2"
-                                     ToolTipService.InitialShowDelay="500"
-                                     ToolTipService.ShowOnDisabled="True"
-                                     ToolTip="Constant Rate Factor. Lower value is higher quality."
-                                     Grid.Row="6" 
-                                     Grid.Column="2" 
-                                     Margin="75,2,0,0" 
-                                     TextChanged="tbxVideo_CRF_TextChanged"/>
-
-                            <!-- Video Bit Rate-->
-                            <Label Style="{DynamicResource LabelStyle}" 
-                                   Content="Bit Rate" 
-                                   HorizontalAlignment="Left" 
-                                   VerticalAlignment="Top"
-                                   Width="56" 
-                                   FontFamily="Segoe UI Semilight"
-                                   ToolTipService.InitialShowDelay="500" 
-                                   ToolTipService.ShowOnDisabled="True"
-                                   ToolTip="Video Bit Rate (e.g. 1000K or 1M)" 
-                                   Grid.Row="7" 
-                                   Grid.Column="1"/>
-                            <TextBox x:Name="tbxVideo_BitRate"
-                                     Text="{Binding Video_BitRate_Text, Mode=TwoWay}"
-                                     IsEnabled="{Binding Video_BitRate_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                     Style="{DynamicResource TextBoxStyle}"
-                                     HorizontalAlignment="Left" 
-                                     Height="22" 
-                                     Padding="1,1,0,0" 
-                                     TextWrapping="NoWrap" 
-                                     VerticalAlignment="Top" 
-                                     Width="70"
-                                     MaxLines="1" 
-                                     MaxLength="10"
-                                     ToolTipService.InitialShowDelay="500" 
-                                     ToolTipService.ShowOnDisabled="True"
-                                     ToolTip="Video Bit Rate (e.g. 1000K or 1M)" 
-                                     Grid.Row="7" 
-                                     Grid.Column="2"
-                                     Margin="0,2,0,0"/>
-
-                            <!-- Video VBR -->
-                            <ToggleButton x:Name="tglVideo_VBR" 
-                                          IsChecked="{Binding Video_VBR_IsChecked}"
-                                          IsEnabled="{Binding Video_VBR_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                          Style="{DynamicResource ToggleButtonSmall}"
-                                          Content="VBR"
-                                          HorizontalAlignment="Left"
-                                          Margin="75,1,0,0" 
-                                          VerticalAlignment="Top" 
-                                          Cursor="Hand" 
-                                          ToolTipService.InitialShowDelay="500" 
-                                          ToolTipService.ShowOnDisabled="True" 
-                                          ToolTip="Toggle Variable Bit Rate." 
-                                          Width="30" 
-                                          Height="23" 
-                                          Checked="tglVideo_VBR_Checked"
-                                          Unchecked="tglVideo_VBR_Unchecked"
-                                          Grid.Row="7" 
-                                          Grid.Column="2" />
-
-                            <!-- Video Min Rate -->
-                            <Label Style="{DynamicResource LabelStyle}" 
-                                   Content="Min Rate" 
-                                   HorizontalAlignment="Left" 
-                                   VerticalAlignment="Top"
-                                   Width="75" 
-                                   FontFamily="Segoe UI Semilight" 
-                                   ToolTipService.InitialShowDelay="500" 
-                                   ToolTipService.ShowOnDisabled="True"
-                                   ToolTip="Video Min Bit Rate (e.g. 1000K or 1M)" 
-                                   Grid.Row="8"
-                                   Grid.Column="1" />
-                            <TextBox x:Name="tbxVideo_MinRate" 
-                                     Text="{Binding Video_MinRate_Text, Mode=TwoWay}"
-                                     IsEnabled="{Binding Video_MinRate_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                     Style="{DynamicResource TextBoxStyle}"
-                                     HorizontalAlignment="Left" 
-                                     Height="22" 
-                                     Padding="1,1,0,0" 
-                                     TextWrapping="NoWrap" 
-                                     VerticalAlignment="Top" 
-                                     Width="105"
-                                     MaxLines="1" 
-                                     MaxLength="10"
-                                     ToolTipService.InitialShowDelay="500" 
-                                     ToolTipService.ShowOnDisabled="True"
-                                     ToolTip="Video Min Bit Rate (e.g. 1000K or 1M)" 
-                                     Grid.Row="8"
-                                     Grid.Column="2"
-                                     Margin="0,2,0,0"/>
-
-                            <!-- Video Max Rate -->
-                            <Label Style="{DynamicResource LabelStyle}" 
-                                   Content="Max Rate" 
-                                   HorizontalAlignment="Left" 
-                                   VerticalAlignment="Top"
-                                   Width="75" 
-                                   FontFamily="Segoe UI Semilight" 
-                                   ToolTipService.InitialShowDelay="500" 
-                                   ToolTipService.ShowOnDisabled="True"
-                                   ToolTip="Video Max Bit Rate (e.g. 1000K or 1M)" 
-                                   Grid.Row="9" 
-                                   Grid.Column="1" />
-                            <TextBox x:Name="tbxVideo_MaxRate" 
-                                     Text="{Binding Video_MaxRate_Text, Mode=TwoWay}"
-                                     IsEnabled="{Binding Video_MaxRate_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                     Style="{DynamicResource TextBoxStyle}"
-                                     HorizontalAlignment="Left" 
-                                     Height="22" 
-                                     Padding="1,1,0,0" 
-                                     TextWrapping="NoWrap" 
-                                     VerticalAlignment="Top" 
-                                     Width="105"
-                                     MaxLines="1" 
-                                     MaxLength="10"
-                                     ToolTipService.InitialShowDelay="500" 
-                                     ToolTipService.ShowOnDisabled="True"
-                                     ToolTip="Video Max Bit Rate (e.g. 1000K or 1M)" 
-                                     Grid.Row="9"
-                                     Grid.Column="2"
-                                     Margin="0,2,0,0"/>
-
-                            <!-- Video Buf Size -->
-                            <Label Style="{DynamicResource LabelStyle}" 
-                                   Content="Buf Size" 
-                                   HorizontalAlignment="Left" 
-                                   VerticalAlignment="Top"
-                                   Width="56" 
-                                   FontFamily="Segoe UI Semilight" 
-                                   ToolTipService.InitialShowDelay="500" 
-                                   ToolTipService.ShowOnDisabled="True"
-                                   ToolTip="Rate Control Buffer (e.g. 1000K or 1M)" 
-                                   Grid.Row="10" 
-                                   Grid.Column="1" />
-                            <TextBox x:Name="tbxVideo_BufSize" 
-                                     Text="{Binding Video_BufSize_Text, Mode=TwoWay}"
-                                     IsEnabled="{Binding Video_BufSize_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                     Style="{DynamicResource TextBoxStyle}"
-                                     HorizontalAlignment="Left" 
-                                     Height="22" 
-                                     Padding="1,1,0,0" 
-                                     TextWrapping="NoWrap" 
-                                     VerticalAlignment="Top" 
-                                     Width="105"
-                                     MaxLines="1" 
-                                     MaxLength="10"
-                                     ToolTipService.InitialShowDelay="500" 
-                                     ToolTipService.ShowOnDisabled="True"
-                                     ToolTip="Rate Control Buffer (e.g. 1000K or 1M)" 
-                                     Grid.Row="10"
-                                     Grid.Column="2"
-                                     Margin="0,2,0,0"/>
-
-                            <!-- Pix Format -->
-                            <Label Style="{DynamicResource LabelStyle}" 
-                                   Content="Pixel Format" 
-                                   HorizontalAlignment="Left" 
-                                   VerticalAlignment="Top"
-                                   Width="80" 
-                                   FontFamily="Segoe UI Semilight"
-                                   Grid.Row="11" 
-                                   Grid.Column="1" />
-                            <ComboBox x:Name="cboVideo_PixelFormat" 
-                                      ItemsSource="{Binding Video_PixelFormat_Items}"
-                                      SelectedIndex="{Binding Video_PixelFormat_SelectedIndex}"
-                                      SelectedItem="{Binding Video_PixelFormat_SelectedItem}"
-                                      IsEnabled="{Binding Video_PixelFormat_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                      IsSynchronizedWithCurrentItem="True"
-                                      Style="{DynamicResource ComboBoxStyle}" 
-                                      ItemContainerStyle="{DynamicResource ComboBoxStyleItem}" 
-                                      HorizontalAlignment="Left" 
-                                      VerticalAlignment="Top" 
-                                      Width="105" 
-                                      IsTextSearchEnabled="False"
-                                      Grid.Row="11" 
-                                      Grid.Column="2" 
-                                      Margin="0,2,0,0" 
-                                      SelectionChanged="cboVideo_PixelFormat_SelectionChanged"/>
-
-                            <!-- Framerate -->
-                            <Label Style="{DynamicResource LabelStyle}" 
-                                   Content="Frame Rate" 
-                                   HorizontalAlignment="Left" 
-                                   VerticalAlignment="Top"
-                                   Width="75" 
-                                   ToolTipService.InitialShowDelay="500"
-                                   ToolTipService.ShowOnDisabled="True"
-                                   ToolTip="Frames Per Second" 
-                                   FontFamily="Segoe UI Semilight" 
-                                   Grid.Row="12"
-                                   Grid.Column="1" />
-                            <ComboBox x:Name="cboVideo_FrameRate" 
-                                      ItemsSource="{Binding Video_FPS_Items}"
-                                      SelectedIndex="{Binding Video_FPS_SelectedIndex}"
-                                      SelectedItem="{Binding Video_FPS_SelectedItem}"
-                                      IsEnabled="{Binding Video_FPS_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                      IsEditable="{Binding Video_FPS_IsEditable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                      Style="{DynamicResource ComboBoxStyle}" 
-                                      Text="{Binding Video_FPS_Text}"
-                                      ItemContainerStyle="{DynamicResource ComboBoxStyleItem}" 
-                                      HorizontalAlignment="Left" 
-                                      VerticalAlignment="Top" 
-                                      Width="105" 
-                                      ToolTipService.InitialShowDelay="500"
-                                      ToolTipService.ShowOnDisabled="True" 
-                                      ToolTip="Frames Per Second" 
-                                      SelectionChanged="cboVideo_FPS_SelectionChanged"
-                                      TextBoxBase.KeyDown="cboVideo_FrameRate_KeyDown"
-                                      IsTextSearchEnabled="False" 
-                                      Grid.Row="12" 
-                                      Grid.Column="2" 
-                                      Margin="0,2,0,0"/>
-
-                            <!-- Speed -->
-                            <Label Style="{DynamicResource LabelStyle}" 
-                                   Content="Speed" 
-                                   HorizontalAlignment="Left" 
-                                   VerticalAlignment="Top"
-                                   Width="75" 
-                                   ToolTipService.InitialShowDelay="500"
-                                   ToolTipService.ShowOnDisabled="True"
-                                   ToolTip="Speed Up / Slow Down Video" 
-                                   FontFamily="Segoe UI Semilight" 
-                                   Grid.Row="13"
-                                   Grid.Column="1" />
-                            <ComboBox x:Name="cboVideo_Speed" 
-                                      ItemsSource="{Binding Video_Speed_Items}"
-                                      SelectedIndex="{Binding Video_Speed_SelectedIndex}"
-                                      SelectedItem="{Binding Video_Speed_SelectedItem}"
-                                      IsEnabled="{Binding Video_Speed_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                      IsEditable="{Binding Video_Speed_IsEditable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                      Style="{DynamicResource ComboBoxStyle}" 
-                                      Text="{Binding Video_Speed_Text}"
-                                      ItemContainerStyle="{DynamicResource ComboBoxStyleItem}" 
-                                      HorizontalAlignment="Left" 
-                                      VerticalAlignment="Top" 
-                                      Width="105" 
-                                      SelectionChanged="cboVideo_Speed_SelectionChanged"
-                                      TextBoxBase.KeyDown="cboVideo_Speed_KeyDown"
-                                      ToolTipService.InitialShowDelay="500"
-                                      ToolTipService.ShowOnDisabled="True" 
-                                      ToolTip="Speed Up / Slow Down Video" 
-                                      IsTextSearchEnabled="False" 
-                                      Grid.Row="13" 
-                                      Grid.Column="2" 
-                                      Margin="0,2,0,0"/>
-
-                            <!-- Optimize -->
-                            <Label Style="{DynamicResource LabelStyle}" 
-                                   Content="Optimize"
-                                   HorizontalAlignment="Left" 
-                                   VerticalAlignment="Top"
-                                   Width="75"
-                                   FontFamily="Segoe UI Semilight" 
-                                   Grid.Row="15" 
-                                   Height="26" 
-                                   Grid.Column="1"
-                                   Panel.ZIndex="1"/>
-                            <ComboBox x:Name="cboVideo_Optimize" 
-                                      Style="{DynamicResource ComboBoxCategoryStyle}"
-                                      ItemContainerStyle="{DynamicResource ComboBoxCategoryStyleItem}" 
-                                      ItemsSource="{Binding Video_Optimize_Items}"
-                                      SelectedValuePath="Name"
-                                      SelectedIndex="{Binding Video_Optimize_SelectedIndex}"
-                                      SelectedValue="{Binding Video_Optimize_SelectedItem, Mode=TwoWay}"
-                                      IsEnabled="{Binding Video_Optimize_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                      IsSynchronizedWithCurrentItem="True"
-                                      HorizontalAlignment="Left" 
-                                      VerticalAlignment="Top" 
-                                      Width="105" 
-                                      Height="22"
-                                      SelectionChanged="cboVideo_Optimize_SelectionChanged" 
-                                      Grid.Column="2" 
-                                      Grid.Row="15" 
-                                      ToolTipService.InitialShowDelay="500"
-                                      ToolTipService.ShowOnDisabled="True"
-                                      ToolTip="Optimize file for device type." 
-                                      Margin="0,1,0,0" 
-                                      Panel.ZIndex="1"
-                                      >
-                                <ComboBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <Grid>
-                                            <TextBlock DataContext="{Binding}">
-                                                <TextBlock.Text>
-                                                    <Binding Path="Name"/>
-                                                </TextBlock.Text>
-                                            </TextBlock>
-                                        </Grid>
-                                    </DataTemplate>
-                                </ComboBox.ItemTemplate>
-                            </ComboBox>
-
-                            <!-- Expander -->
-                            <Grid Margin="0,16,10,0"
-                                  Grid.Row="15" 
-                                  Grid.Column="1" 
-                                  Grid.RowSpan="2" 
-                                  Grid.ColumnSpan="2"
-                                  >
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                </Grid.RowDefinitions>
-
-                                <Expander x:Name="expVideo_Optimize_Expander" 
-                                          IsExpanded="{Binding Video_Optimize_IsExpanded, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                                          IsEnabled="{Binding Video_Optimize_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                          Margin="0,0,0,0"
-                                          Panel.ZIndex="0" 
-                                          Style="{DynamicResource GroupBoxExpanderStyle}"
-                                          >
-
-                                    <Expander.Header>
-                                        <StackPanel>
-                                            <TextBlock x:Name="expVideo_Optimize_Expander_Header" IsEnabled="False">
-                                            </TextBlock>
-                                        </StackPanel>
-                                    </Expander.Header>
-
-                                    <Grid>
-
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="96"/>
-                                            <ColumnDefinition Width="*"/>
-                                        </Grid.ColumnDefinitions>
-
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="33"/>
-                                            <RowDefinition Height="33"/>
-                                            <RowDefinition Height="33"/>
-                                        </Grid.RowDefinitions>
-
-                                        <!-- Tune -->
-                                        <Label Style="{DynamicResource LabelStyle}" 
-                                                   Content="Tune" 
-                                                   HorizontalAlignment="Left" 
+                                            <!-- Video Codec -->
+                                            <Label Style="{DynamicResource LabelStyle}"
+                                                   Content="Video Codec" 
+                                                   HorizontalAlignment="Left"
+                                                   Margin="0,0,0,0" 
                                                    VerticalAlignment="Top" 
                                                    Width="75" 
+                                                   FontFamily="Segoe UI Semilight" 
                                                    Grid.Row="0" 
-                                                   Grid.Column="0"/>
-                                        <ComboBox x:Name="cboVideo_Optimize_Tune" 
-                                                      ItemsSource="{Binding Video_Optimize_Tune_Items}"
-                                                      SelectedIndex="{Binding Video_Optimize_Tune_SelectedIndex}"
-                                                      SelectedItem="{Binding Video_Video_Optimize_Tune_SelectedItem, Mode=TwoWay}"
-                                                      IsEnabled="{Binding Video_Optimize_Tune_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                   Height="26" 
+                                                   Grid.Column="1" />
+                                            <ComboBox x:Name="cboVideo_Codec" 
+                                                      Style="{DynamicResource ComboBoxCategoryStyle}"
+                                                      ItemContainerStyle="{DynamicResource ComboBoxCategoryStyleItem}" 
+                                                      ItemsSource="{Binding Video_Codec_Items}"
+                                                      SelectedIndex="{Binding Video_Codec_SelectedIndex}"
+                                                      SelectedItem="{Binding Video_Codec_SelectedItem}"
+                                                      IsEnabled="{Binding Video_Codec_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                       IsSynchronizedWithCurrentItem="True"
-                                                      Style="{DynamicResource ComboBoxStyle}" 
+                                                      HorizontalAlignment="Left" 
+                                                      VerticalAlignment="Top" 
+                                                      Width="105" 
+                                                      Height="22"
+                                                      SelectionChanged="cboVideo_Codec_SelectionChanged" 
+                                                      Grid.Row="0"
+                                                      Grid.Column="2" 
+                                                      Margin="0,2,0,0" />
+
+                                            <!-- Encode Speed -->
+                                            <Label Style="{DynamicResource LabelStyle}" 
+                                                   Content="Encode Speed" 
+                                                   HorizontalAlignment="Left" 
+                                                   VerticalAlignment="Top"
+                                                   FontFamily="Segoe UI Semilight" 
+                                                   Width="91" 
+                                                   Height="26"
+                                                   ToolTipService.InitialShowDelay="500" 
+                                                   ToolTipService.ShowOnDisabled="True" 
+                                                   ToolTip="Encoding Speed. Slower = Better Quality &amp; Compression." 
+                                                   Grid.Row="1" 
+                                                   Grid.Column="1" />
+                                            <ComboBox x:Name="cboEncodeSpeed" 
+                                                      Style="{DynamicResource ComboBoxStyle}"
+                                                      ItemContainerStyle="{DynamicResource ComboBoxStyleItem}"
+                                                      ItemsSource="{Binding Video_EncodeSpeed_Items}"
+                                                      SelectedValuePath="Name"
+                                                      SelectedIndex="{Binding Video_EncodeSpeed_SelectedIndex}"
+                                                      SelectedValue="{Binding Video_EncodeSpeed_SelectedItem, Mode=TwoWay}"
+                                                      IsEnabled="{Binding Video_EncodeSpeed_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                      HorizontalAlignment="Left" 
+                                                      VerticalAlignment="Top" 
+                                                      Width="105" 
+                                                      Height="22"
+                                                      Grid.Column="2" 
+                                                      Grid.Row="1"
+                                                      ToolTipService.InitialShowDelay="500" 
+                                                      ToolTipService.ShowOnDisabled="True" 
+                                                      ToolTip="Encoding Speed. Slower = Better Quality &amp; Compression." 
+                                                      Margin="0,2,0,0" 
+                                                      >
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Grid>
+                                                            <TextBlock DataContext="{Binding}">
+                                                                <TextBlock.Text>
+                                                                    <Binding Path="Name"/>
+                                                                </TextBlock.Text>
+                                                            </TextBlock>
+                                                        </Grid>
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
+
+
+                                            <!-- HW Acceleration -->
+                                            <Label Style="{DynamicResource LabelStyle}" 
+                                                   Content="HW Accel" 
+                                                   HorizontalAlignment="Left" 
+                                                   VerticalAlignment="Top"
+                                                   FontFamily="Segoe UI Semilight" 
+                                                   Width="91" 
+                                                   Height="26"
+                                                   ToolTipService.InitialShowDelay="500" 
+                                                   ToolTipService.ShowOnDisabled="True" 
+                                                   ToolTip="Hardware Acceleration" 
+                                                   Grid.Row="3" 
+                                                   Grid.Column="1" />
+                                            <ComboBox x:Name="cboHWAccel" 
+                                                      Style="{DynamicResource ComboBoxCategoryStyle}"
+                                                      ItemContainerStyle="{DynamicResource ComboBoxCategoryStyleItem}" 
+                                                      ItemsSource="{Binding Video_HWAccel_Items}"
+                                                      SelectedIndex="{Binding Video_HWAccel_SelectedIndex}"
+                                                      SelectedItem="{Binding Video_HWAccel_SelectedItem}"
+                                                      IsEnabled="{Binding Video_HWAccel_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                      IsSynchronizedWithCurrentItem="True"
+                                                      HorizontalAlignment="Left" 
+                                                      VerticalAlignment="Top" 
+                                                      Width="105" 
+                                                      Height="22"
+                                                      SelectionChanged="cboHWAccel_SelectionChanged"
+                                                      ToolTip="Hardware Acceleration" 
+                                                      Grid.Row="3"
+                                                      Grid.Column="2" 
+                                                      Margin="0,2,0,0" />
+                                            <!-- HW Decode -->
+                                            <Label Style="{DynamicResource LabelStyle}" 
+                                                   Content="Decode" 
+                                                   HorizontalAlignment="Left" 
+                                                   VerticalAlignment="Top"
+                                                   FontFamily="Segoe UI Semilight" 
+                                                   Width="91" 
+                                                   Height="26"
+                                                   ToolTipService.InitialShowDelay="500" 
+                                                   ToolTipService.ShowOnDisabled="True" 
+                                                   ToolTip="Hardware Acceleration Decode" 
+                                                   Grid.Row="4" 
+                                                   Grid.Column="1" />
+                                            <ComboBox x:Name="cboHWAccelDecode" 
+                                                      ItemsSource="{Binding Video_HWAccel_Decode_Items}"
+                                                      SelectedIndex="{Binding Video_HWAccel_Decode_SelectedIndex}"
+                                                      SelectedItem="{Binding Video_HWAccel_Decode_SelectedItem, Mode=TwoWay}"
+                                                      IsEnabled="{Binding Video_HWAccel_Decode_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                      Style="{DynamicResource ComboBoxStyle}"
+                                                      IsSynchronizedWithCurrentItem="True"
+                                                      ItemContainerStyle="{DynamicResource ComboBoxStyleItem}"
+                                                      HorizontalAlignment="Left" 
+                                                      VerticalAlignment="Top" 
+                                                      Width="105" 
+                                                      ToolTipService.InitialShowDelay="500" 
+                                                      ToolTipService.ShowOnDisabled="True" 
+                                                      ToolTip="Hardware Acceleration Decode" 
+                                                      Grid.Row="4"
+                                                      Grid.Column="2"
+                                                      Height="22" 
+                                                      Margin="0,2,0,0" />
+                                            <!-- HW Transcode -->
+                                            <Label Style="{DynamicResource LabelStyle}" 
+                                                   Content="Transcode" 
+                                                   HorizontalAlignment="Left" 
+                                                   VerticalAlignment="Top"
+                                                   FontFamily="Segoe UI Semilight" 
+                                                   Width="91" 
+                                                   Height="26"
+                                                   ToolTipService.InitialShowDelay="500" 
+                                                   ToolTipService.ShowOnDisabled="True" 
+                                                   ToolTip="Hardware Acceleration Transcode" 
+                                                   Grid.Row="5" 
+                                                   Grid.Column="1" />
+                                            <ComboBox x:Name="cboHWAccelTranscode" 
+                                                      ItemsSource="{Binding Video_HWAccel_Transcode_Items}"
+                                                      SelectedIndex="{Binding Video_HWAccel_Transcode_SelectedIndex}"
+                                                      SelectedItem="{Binding Video_HWAccel_Transcode_SelectedItem, Mode=TwoWay}"
+                                                      IsEnabled="{Binding Video_HWAccel_Transcode_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                      Style="{DynamicResource ComboBoxStyle}"
+                                                      IsSynchronizedWithCurrentItem="True"
+                                                      ItemContainerStyle="{DynamicResource ComboBoxStyleItem}"
+                                                      HorizontalAlignment="Left" 
+                                                      VerticalAlignment="Top" 
+                                                      Width="105" 
+                                                      ToolTipService.InitialShowDelay="500" 
+                                                      ToolTipService.ShowOnDisabled="True" 
+                                                      ToolTip="Hardware Acceleration Transcode" 
+                                                      Grid.Row="5"
+                                                      Grid.Column="2"
+                                                      Height="22" />
+
+
+                                            <!-- Video Quality -->
+                                            <Label Style="{DynamicResource LabelStyle}" 
+                                                   Content="Quality" 
+                                                   HorizontalAlignment="Left"
+                                                   Width="56"  
+                                                   FontFamily="Segoe UI Semilight"
+                                                   Margin="0,0,0,4"
+                                                   Grid.Row="7"
+                                                   Grid.Column="1" />
+                                            <ComboBox x:Name="cboVideo_Quality" 
+                                                      Style="{DynamicResource ComboBoxCategoryStyle}"
+                                                      ItemContainerStyle="{DynamicResource ComboBoxCategoryStyleItem}" 
+                                                      ItemsSource="{Binding Video_Quality_Items}"
+                                                      SelectedValuePath="Name"
+                                                      SelectedIndex="{Binding Video_Quality_SelectedIndex}"
+                                                      SelectedValue="{Binding Video_Quality_SelectedItem, Mode=TwoWay}"
+                                                      IsEnabled="{Binding Video_Quality_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                      IsSynchronizedWithCurrentItem="True"
+                                                      HorizontalAlignment="Left" 
+                                                      VerticalAlignment="Top" 
+                                                      Width="105" 
+                                                      Height="22"
+                                                      SelectionChanged="cboVideo_Quality_SelectionChanged" 
+                                                      Grid.Column="2" 
+                                                      Grid.Row="7" 
+                                                      Margin="0,2,0,0"
+                                                      >
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Grid>
+                                                            <TextBlock DataContext="{Binding}">
+                                                                <TextBlock.Text>
+                                                                    <Binding Path="Name"/>
+                                                                </TextBlock.Text>
+                                                            </TextBlock>
+                                                        </Grid>
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
+
+                                            <!-- Pass -->
+                                            <Label Style="{DynamicResource LabelStyle}" 
+                                                   Content="Pass" 
+                                                   HorizontalAlignment="Left" 
+                                                   VerticalAlignment="Top" 
+                                                   Width="56"
+                                                   ToolTip="Encoding Pass Method"
+                                                   FontFamily="Segoe UI Semilight" 
+                                                   Grid.Row="8" 
+                                                   Grid.Column="1" />
+                                            <ComboBox x:Name="cboVideo_Pass"
+                                                      ItemsSource="{Binding Video_Pass_Items}"
+                                                      SelectedIndex="{Binding Video_Pass_SelectedIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                      SelectedValue="{Binding Video_Pass_SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                      IsEnabled="{Binding Video_Pass_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                      Style="{DynamicResource ComboBoxStyle}"
                                                       ItemContainerStyle="{DynamicResource ComboBoxStyleItem}"
                                                       HorizontalAlignment="Left"
-                                                      Margin="0,2,0,0"
                                                       VerticalAlignment="Top"
                                                       Width="105" 
-                                                      Grid.Row="0" 
-                                                      Grid.Column="2"/>
+                                                      ToolTipService.InitialShowDelay="500" 
+                                                      ToolTipService.ShowOnDisabled="True"
+                                                      ToolTip="Encoding Pass Method" 
+                                                      SelectionChanged="cboVideo_Pass_SelectionChanged"
+                                                      DropDownClosed="cboVideo_Pass_DropDownClosed" 
+                                                      Grid.Row="8" 
+                                                      Grid.Column="2" 
+                                                      Margin="0,2,0,0" />
 
-                                        <!-- Profile -->
-                                        <Label Style="{DynamicResource LabelStyle}" 
-                                                   Content="Profile" 
+                                            <!-- CRF -->
+                                            <Label Style="{DynamicResource LabelStyle}" 
+                                                   Content="CRF" 
                                                    HorizontalAlignment="Left" 
-                                                   VerticalAlignment="Top" 
+                                                   VerticalAlignment="Top"
+                                                   Width="56" 
+                                                   FontFamily="Segoe UI Semilight" 
+                                                   Grid.Row="9"
+                                                   Grid.Column="1"
+                                                   ToolTipService.InitialShowDelay="500"
+                                                   ToolTipService.ShowOnDisabled="True"
+                                                   ToolTip="Constant Rate Factor. Lower value is higher quality."/>
+                                            <Slider x:Name="slVideo_CRF" 
+                                                    Style="{DynamicResource SliderStyle}"
+                                                    IsEnabled="{Binding Video_CRF_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                    HorizontalAlignment="Right"
+                                                    Margin="0,4,56,0" 
+                                                    VerticalAlignment="Top" 
+                                                    Width="70"
+                                                    IsDirectionReversed="True"
+                                                    IsSnapToTickEnabled="True"
+                                                    IsMoveToPointEnabled="True" 
+                                                    Minimum="0"
+                                                    Maximum="51" 
+                                                    Value="{Binding Video_CRF_Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                    Grid.Column="2" 
+                                                    Grid.Row="9" 
+                                                    Height="18" 
+                                                    ToolTipService.InitialShowDelay="500"
+                                                    ToolTipService.ShowOnDisabled="True"
+                                                    ToolTip="Constant Rate Factor. Lower value is higher quality."
+                                                    MouseDoubleClick="slVideo_CRF_MouseDoubleClick"
+                                                    ValueChanged="slVideo_CRF_ValueChanged"/>
+                                            <TextBox x:Name="tbxVideo_CRF" 
+                                                     Text="{Binding Video_CRF_Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                     IsEnabled="{Binding Video_CRF_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                     Style="{DynamicResource TextBoxStyle}"
+                                                     HorizontalAlignment="Left" 
+                                                     Height="22"
+                                                     Padding="1,1,0,0" 
+                                                     TextWrapping="NoWrap"
+                                                     VerticalAlignment="Top"
+                                                     Width="30"
+                                                     KeyDown="tbxVideo_CRF_KeyDown" 
+                                                     MaxLines="1"
+                                                     MaxLength="2"
+                                                     ToolTipService.InitialShowDelay="500"
+                                                     ToolTipService.ShowOnDisabled="True"
+                                                     ToolTip="Constant Rate Factor. Lower value is higher quality."
+                                                     Grid.Row="9" 
+                                                     Grid.Column="2" 
+                                                     Margin="75,2,0,0" 
+                                                     TextChanged="tbxVideo_CRF_TextChanged"/>
+
+                                            <!-- Video Bit Rate-->
+                                            <Label Style="{DynamicResource LabelStyle}" 
+                                                    Content="Bit Rate" 
+                                                    HorizontalAlignment="Left" 
+                                                    VerticalAlignment="Top"
+                                                    Width="56" 
+                                                    FontFamily="Segoe UI Semilight"
+                                                    ToolTipService.InitialShowDelay="500" 
+                                                    ToolTipService.ShowOnDisabled="True"
+                                                    ToolTip="Video Bit Rate (e.g. 1000K or 1M)" 
+                                                    Grid.Row="10" 
+                                                    Grid.Column="1"/>
+                                            <TextBox x:Name="tbxVideo_BitRate"
+                                                     Text="{Binding Video_BitRate_Text, Mode=TwoWay}"
+                                                     IsEnabled="{Binding Video_BitRate_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                     Style="{DynamicResource TextBoxStyle}"
+                                                     HorizontalAlignment="Left" 
+                                                     Height="22" 
+                                                     Padding="1,1,0,0" 
+                                                     TextWrapping="NoWrap" 
+                                                     VerticalAlignment="Top" 
+                                                     Width="70"
+                                                     MaxLines="1" 
+                                                     MaxLength="10"
+                                                     ToolTipService.InitialShowDelay="500" 
+                                                     ToolTipService.ShowOnDisabled="True"
+                                                     ToolTip="Video Bit Rate (e.g. 1000K or 1M)" 
+                                                     Grid.Row="10" 
+                                                     Grid.Column="2"
+                                                     Margin="0,2,0,0"/>
+
+                                            <!-- Video VBR -->
+                                            <ToggleButton x:Name="tglVideo_VBR" 
+                                                            IsChecked="{Binding Video_VBR_IsChecked}"
+                                                            IsEnabled="{Binding Video_VBR_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                            Style="{DynamicResource ToggleButtonSmall}"
+                                                            Content="VBR"
+                                                            HorizontalAlignment="Left"
+                                                            Margin="75,1,0,0" 
+                                                            VerticalAlignment="Top" 
+                                                            Cursor="Hand" 
+                                                            ToolTipService.InitialShowDelay="500" 
+                                                            ToolTipService.ShowOnDisabled="True" 
+                                                            ToolTip="Toggle Variable Bit Rate." 
+                                                            Width="30" 
+                                                            Height="23" 
+                                                            Checked="tglVideo_VBR_Checked"
+                                                            Unchecked="tglVideo_VBR_Unchecked"
+                                                            Grid.Row="10" 
+                                                            Grid.Column="2" />
+
+                                            <!-- Video Min Rate -->
+                                            <Label Style="{DynamicResource LabelStyle}" 
+                                                   Content="Min Rate" 
+                                                   HorizontalAlignment="Left" 
+                                                   VerticalAlignment="Top"
                                                    Width="75" 
-                                                   Grid.Row="1" 
-                                                   Grid.Column="0"/>
-                                        <ComboBox x:Name="cboVideo_Optimize_Profile"
-                                                      ItemsSource="{Binding Video_Optimize_Profile_Items}"
-                                                      SelectedIndex="{Binding Video_Optimize_Profile_SelectedIndex}"
-                                                      SelectedItem="{Binding Video_Video_Optimize_Profile_SelectedItem, Mode=TwoWay}"
-                                                      IsEnabled="{Binding Video_Optimize_Profile_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                      IsSynchronizedWithCurrentItem="True"
+                                                   FontFamily="Segoe UI Semilight" 
+                                                   ToolTipService.InitialShowDelay="500" 
+                                                   ToolTipService.ShowOnDisabled="True"
+                                                   ToolTip="Video Min Bit Rate (e.g. 1000K or 1M)" 
+                                                   Grid.Row="11"
+                                                   Grid.Column="1" />
+                                            <TextBox x:Name="tbxVideo_MinRate" 
+                                                     Text="{Binding Video_MinRate_Text, Mode=TwoWay}"
+                                                     IsEnabled="{Binding Video_MinRate_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                     Style="{DynamicResource TextBoxStyle}"
+                                                     HorizontalAlignment="Left" 
+                                                     Height="22" 
+                                                     Padding="1,1,0,0" 
+                                                     TextWrapping="NoWrap" 
+                                                     VerticalAlignment="Top" 
+                                                     Width="105"
+                                                     MaxLines="1" 
+                                                     MaxLength="10"
+                                                     ToolTipService.InitialShowDelay="500" 
+                                                     ToolTipService.ShowOnDisabled="True"
+                                                     ToolTip="Video Min Bit Rate (e.g. 1000K or 1M)" 
+                                                     Grid.Row="11"
+                                                     Grid.Column="2"
+                                                     Margin="0,2,0,0"/>
+
+                                            <!-- Video Max Rate -->
+                                            <Label Style="{DynamicResource LabelStyle}" 
+                                                   Content="Max Rate" 
+                                                   HorizontalAlignment="Left" 
+                                                   VerticalAlignment="Top"
+                                                   Width="75" 
+                                                   FontFamily="Segoe UI Semilight" 
+                                                   ToolTipService.InitialShowDelay="500" 
+                                                   ToolTipService.ShowOnDisabled="True"
+                                                   ToolTip="Video Max Bit Rate (e.g. 1000K or 1M)" 
+                                                   Grid.Row="12" 
+                                                   Grid.Column="1" />
+                                            <TextBox x:Name="tbxVideo_MaxRate" 
+                                                    Text="{Binding Video_MaxRate_Text, Mode=TwoWay}"
+                                                    IsEnabled="{Binding Video_MaxRate_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                    Style="{DynamicResource TextBoxStyle}"
+                                                    HorizontalAlignment="Left" 
+                                                    Height="22" 
+                                                    Padding="1,1,0,0" 
+                                                    TextWrapping="NoWrap" 
+                                                    VerticalAlignment="Top" 
+                                                    Width="105"
+                                                    MaxLines="1" 
+                                                    MaxLength="10"
+                                                    ToolTipService.InitialShowDelay="500" 
+                                                    ToolTipService.ShowOnDisabled="True"
+                                                    ToolTip="Video Max Bit Rate (e.g. 1000K or 1M)" 
+                                                    Grid.Row="12"
+                                                    Grid.Column="2"
+                                                    Margin="0,2,0,0"/>
+
+                                            <!-- Video Buf Size -->
+                                            <Label Style="{DynamicResource LabelStyle}" 
+                                                   Content="Buf Size" 
+                                                   HorizontalAlignment="Left" 
+                                                   VerticalAlignment="Top"
+                                                   Width="56" 
+                                                   FontFamily="Segoe UI Semilight" 
+                                                   ToolTipService.InitialShowDelay="500" 
+                                                   ToolTipService.ShowOnDisabled="True"
+                                                   ToolTip="Rate Control Buffer (e.g. 1000K or 1M)" 
+                                                   Grid.Row="13" 
+                                                   Grid.Column="1" />
+                                            <TextBox x:Name="tbxVideo_BufSize" 
+                                                     Text="{Binding Video_BufSize_Text, Mode=TwoWay}"
+                                                     IsEnabled="{Binding Video_BufSize_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                     Style="{DynamicResource TextBoxStyle}"
+                                                     HorizontalAlignment="Left" 
+                                                     Height="22" 
+                                                     Padding="1,1,0,0" 
+                                                     TextWrapping="NoWrap" 
+                                                     VerticalAlignment="Top" 
+                                                     Width="105"
+                                                     MaxLines="1" 
+                                                     MaxLength="10"
+                                                     ToolTipService.InitialShowDelay="500" 
+                                                     ToolTipService.ShowOnDisabled="True"
+                                                     ToolTip="Rate Control Buffer (e.g. 1000K or 1M)" 
+                                                     Grid.Row="13"
+                                                     Grid.Column="2"
+                                                     Margin="0,2,0,0"/>
+
+                                            <!-- Pix Format -->
+                                            <Label Style="{DynamicResource LabelStyle}" 
+                                                   Content="Pixel Format" 
+                                                   HorizontalAlignment="Left" 
+                                                   VerticalAlignment="Top"
+                                                   Width="80" 
+                                                   FontFamily="Segoe UI Semilight"
+                                                   Grid.Row="14" 
+                                                   Grid.Column="1" />
+                                            <ComboBox x:Name="cboVideo_PixelFormat" 
+                                                    ItemsSource="{Binding Video_PixelFormat_Items}"
+                                                    SelectedIndex="{Binding Video_PixelFormat_SelectedIndex}"
+                                                    SelectedItem="{Binding Video_PixelFormat_SelectedItem}"
+                                                    IsEnabled="{Binding Video_PixelFormat_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                    IsSynchronizedWithCurrentItem="True"
+                                                    Style="{DynamicResource ComboBoxStyle}" 
+                                                    ItemContainerStyle="{DynamicResource ComboBoxStyleItem}" 
+                                                    HorizontalAlignment="Left" 
+                                                    VerticalAlignment="Top" 
+                                                    Width="105" 
+                                                    IsTextSearchEnabled="False"
+                                                    Grid.Row="14" 
+                                                    Grid.Column="2" 
+                                                    Margin="0,2,0,0" 
+                                                    SelectionChanged="cboVideo_PixelFormat_SelectionChanged"/>
+
+                                            <!-- Framerate -->
+                                            <Label Style="{DynamicResource LabelStyle}" 
+                                                   Content="Frame Rate" 
+                                                   HorizontalAlignment="Left" 
+                                                   VerticalAlignment="Top"
+                                                   Width="75" 
+                                                   ToolTipService.InitialShowDelay="500"
+                                                   ToolTipService.ShowOnDisabled="True"
+                                                   ToolTip="Frames Per Second" 
+                                                   FontFamily="Segoe UI Semilight" 
+                                                   Grid.Row="15"
+                                                   Grid.Column="1" />
+                                            <ComboBox x:Name="cboVideo_FrameRate" 
+                                                      ItemsSource="{Binding Video_FPS_Items}"
+                                                      SelectedIndex="{Binding Video_FPS_SelectedIndex}"
+                                                      SelectedItem="{Binding Video_FPS_SelectedItem}"
+                                                      IsEnabled="{Binding Video_FPS_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                      IsEditable="{Binding Video_FPS_IsEditable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                       Style="{DynamicResource ComboBoxStyle}" 
+                                                      Text="{Binding Video_FPS_Text}"
                                                       ItemContainerStyle="{DynamicResource ComboBoxStyleItem}" 
                                                       HorizontalAlignment="Left" 
-                                                      Margin="0,2,0,0" 
                                                       VerticalAlignment="Top" 
                                                       Width="105" 
-                                                      Grid.Row="1" 
-                                                      Grid.Column="1" />
+                                                      ToolTipService.InitialShowDelay="500"
+                                                      ToolTipService.ShowOnDisabled="True" 
+                                                      ToolTip="Frames Per Second" 
+                                                      SelectionChanged="cboVideo_FPS_SelectionChanged"
+                                                      TextBoxBase.KeyDown="cboVideo_FrameRate_KeyDown"
+                                                      IsTextSearchEnabled="False" 
+                                                      Grid.Row="15" 
+                                                      Grid.Column="2" 
+                                                      Margin="0,2,0,0"/>
 
-                                        <!-- Level -->
-                                        <Label Style="{DynamicResource LabelStyle}" 
-                                                   Content="Level" 
+                                            <!-- Speed -->
+                                            <Label Style="{DynamicResource LabelStyle}" 
+                                                   Content="Speed" 
                                                    HorizontalAlignment="Left" 
-                                                   VerticalAlignment="Top" 
+                                                   VerticalAlignment="Top"
                                                    Width="75" 
-                                                   Grid.Row="2" 
-                                                   Grid.Column="0"/>
-                                        <ComboBox x:Name="cboVideo_Optimize_Level" 
-                                                      ItemsSource="{Binding Video_Optimize_Level_Items}"
-                                                      SelectedIndex="{Binding Video_Optimize_Level_SelectedIndex}"
-                                                      SelectedItem="{Binding Video_Optimize_Level_SelectedItem, Mode=TwoWay}"
-                                                      IsEnabled="{Binding Video_Optimize_Level_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                      IsSynchronizedWithCurrentItem="True"
+                                                   ToolTipService.InitialShowDelay="500"
+                                                   ToolTipService.ShowOnDisabled="True"
+                                                   ToolTip="Speed Up / Slow Down Video" 
+                                                   FontFamily="Segoe UI Semilight" 
+                                                   Grid.Row="16"
+                                                   Grid.Column="1" />
+                                            <ComboBox x:Name="cboVideo_Speed" 
+                                                      ItemsSource="{Binding Video_Speed_Items}"
+                                                      SelectedIndex="{Binding Video_Speed_SelectedIndex}"
+                                                      SelectedItem="{Binding Video_Speed_SelectedItem}"
+                                                      IsEnabled="{Binding Video_Speed_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                      IsEditable="{Binding Video_Speed_IsEditable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                       Style="{DynamicResource ComboBoxStyle}" 
+                                                      Text="{Binding Video_Speed_Text}"
                                                       ItemContainerStyle="{DynamicResource ComboBoxStyleItem}" 
                                                       HorizontalAlignment="Left" 
-                                                      Margin="0,2,0,0" 
                                                       VerticalAlignment="Top" 
                                                       Width="105" 
-                                                      Grid.Row="2" 
-                                                      Grid.Column="1" />
+                                                      SelectionChanged="cboVideo_Speed_SelectionChanged"
+                                                      TextBoxBase.KeyDown="cboVideo_Speed_KeyDown"
+                                                      ToolTipService.InitialShowDelay="500"
+                                                      ToolTipService.ShowOnDisabled="True" 
+                                                      ToolTip="Speed Up / Slow Down Video" 
+                                                      IsTextSearchEnabled="False" 
+                                                      Grid.Row="16" 
+                                                      Grid.Column="2" 
+                                                      Margin="0,2,0,0"/>
+
+                                            <!-- Optimize -->
+                                            <Label Style="{DynamicResource LabelStyle}" 
+                                                    Content="Optimize"
+                                                    HorizontalAlignment="Left" 
+                                                    VerticalAlignment="Top"
+                                                    Width="75"
+                                                    FontFamily="Segoe UI Semilight" 
+                                                    Grid.Row="18" 
+                                                    Height="26" 
+                                                    Grid.Column="1"
+                                                    Panel.ZIndex="1"/>
+                                            <ComboBox x:Name="cboVideo_Optimize" 
+                                                      Style="{DynamicResource ComboBoxCategoryStyle}"
+                                                      ItemContainerStyle="{DynamicResource ComboBoxCategoryStyleItem}" 
+                                                      ItemsSource="{Binding Video_Optimize_Items}"
+                                                      SelectedValuePath="Name"
+                                                      SelectedIndex="{Binding Video_Optimize_SelectedIndex}"
+                                                      SelectedValue="{Binding Video_Optimize_SelectedItem, Mode=TwoWay}"
+                                                      IsEnabled="{Binding Video_Optimize_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                      IsSynchronizedWithCurrentItem="True"
+                                                      HorizontalAlignment="Left" 
+                                                      VerticalAlignment="Top" 
+                                                      Width="105" 
+                                                      Height="22"
+                                                      SelectionChanged="cboVideo_Optimize_SelectionChanged" 
+                                                      Grid.Column="2" 
+                                                      Grid.Row="18" 
+                                                      ToolTipService.InitialShowDelay="500"
+                                                      ToolTipService.ShowOnDisabled="True"
+                                                      ToolTip="Optimize file for device type." 
+                                                      Margin="0,1,0,0" 
+                                                      Panel.ZIndex="1"
+                                                      >
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Grid>
+                                                            <TextBlock DataContext="{Binding}">
+                                                                <TextBlock.Text>
+                                                                    <Binding Path="Name"/>
+                                                                </TextBlock.Text>
+                                                            </TextBlock>
+                                                        </Grid>
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
+
+                                            <!-- Expander -->
+                                            <Grid Margin="0,0,10,0"
+                                                  Grid.Row="19" 
+                                                  Grid.Column="1" 
+                                                  Grid.RowSpan="2" 
+                                                  Grid.ColumnSpan="2"
+                                                  >
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto" />
+                                                </Grid.RowDefinitions>
+
+                                                <Expander x:Name="expVideo_Optimize_Expander" 
+                                                          IsExpanded="{Binding Video_Optimize_IsExpanded, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                                          IsEnabled="{Binding Video_Optimize_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                          Margin="0,0,0,0"
+                                                          Panel.ZIndex="0" 
+                                                          Style="{DynamicResource GroupBoxExpanderStyle}"
+                                                          >
+
+                                                    <Expander.Header>
+                                                        <StackPanel>
+                                                            <TextBlock x:Name="expVideo_Optimize_Expander_Header" IsEnabled="False">
+                                                            </TextBlock>
+                                                        </StackPanel>
+                                                    </Expander.Header>
+
+                                                    <Grid Margin="0,-17,0,0">
+
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="96"/>
+                                                            <ColumnDefinition Width="*"/>
+                                                        </Grid.ColumnDefinitions>
+
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="33"/>
+                                                            <RowDefinition Height="33"/>
+                                                            <RowDefinition Height="33"/>
+                                                        </Grid.RowDefinitions>
+
+                                                        <!-- Tune -->
+                                                        <Label Style="{DynamicResource LabelStyle}" 
+                                                               Content="Tune" 
+                                                               HorizontalAlignment="Left" 
+                                                               VerticalAlignment="Top" 
+                                                               Width="75" 
+                                                               Grid.Row="0" 
+                                                               Grid.Column="0"/>
+                                                        <ComboBox x:Name="cboVideo_Optimize_Tune" 
+                                                                  ItemsSource="{Binding Video_Optimize_Tune_Items}"
+                                                                  SelectedIndex="{Binding Video_Optimize_Tune_SelectedIndex}"
+                                                                  SelectedItem="{Binding Video_Video_Optimize_Tune_SelectedItem, Mode=TwoWay}"
+                                                                  IsEnabled="{Binding Video_Optimize_Tune_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                                  IsSynchronizedWithCurrentItem="True"
+                                                                  Style="{DynamicResource ComboBoxStyle}" 
+                                                                  ItemContainerStyle="{DynamicResource ComboBoxStyleItem}"
+                                                                  HorizontalAlignment="Left"
+                                                                  Margin="0,2,0,0"
+                                                                  VerticalAlignment="Top"
+                                                                  Width="105" 
+                                                                  Grid.Row="0" 
+                                                                  Grid.Column="1"/>
+
+                                                        <!-- Profile -->
+                                                        <Label Style="{DynamicResource LabelStyle}" 
+                                                               Content="Profile" 
+                                                               HorizontalAlignment="Left" 
+                                                               VerticalAlignment="Top" 
+                                                               Width="75" 
+                                                               Grid.Row="1" 
+                                                               Grid.Column="0"/>
+                                                        <ComboBox x:Name="cboVideo_Optimize_Profile"
+                                                                  ItemsSource="{Binding Video_Optimize_Profile_Items}"
+                                                                  SelectedIndex="{Binding Video_Optimize_Profile_SelectedIndex}"
+                                                                  SelectedItem="{Binding Video_Video_Optimize_Profile_SelectedItem, Mode=TwoWay}"
+                                                                  IsEnabled="{Binding Video_Optimize_Profile_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                                  IsSynchronizedWithCurrentItem="True"
+                                                                  Style="{DynamicResource ComboBoxStyle}" 
+                                                                  ItemContainerStyle="{DynamicResource ComboBoxStyleItem}" 
+                                                                  HorizontalAlignment="Left" 
+                                                                  Margin="0,2,0,0" 
+                                                                  VerticalAlignment="Top" 
+                                                                  Width="105" 
+                                                                  Grid.Row="1" 
+                                                                  Grid.Column="1" />
+
+                                                        <!-- Level -->
+                                                        <Label Style="{DynamicResource LabelStyle}" 
+                                                               Content="Level" 
+                                                               HorizontalAlignment="Left" 
+                                                               VerticalAlignment="Top" 
+                                                               Width="75" 
+                                                               Grid.Row="2" 
+                                                               Grid.Column="0"/>
+                                                        <ComboBox x:Name="cboVideo_Optimize_Level" 
+                                                                  ItemsSource="{Binding Video_Optimize_Level_Items}"
+                                                                  SelectedIndex="{Binding Video_Optimize_Level_SelectedIndex}"
+                                                                  SelectedItem="{Binding Video_Optimize_Level_SelectedItem, Mode=TwoWay}"
+                                                                  IsEnabled="{Binding Video_Optimize_Level_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                                  IsSynchronizedWithCurrentItem="True"
+                                                                  Style="{DynamicResource ComboBoxStyle}" 
+                                                                  ItemContainerStyle="{DynamicResource ComboBoxStyleItem}" 
+                                                                  HorizontalAlignment="Left" 
+                                                                  Margin="0,2,0,0" 
+                                                                  VerticalAlignment="Top" 
+                                                                  Width="105" 
+                                                                  Grid.Row="2" 
+                                                                  Grid.Column="1" />
+
+                                                    </Grid>
+
+                                                </Expander>
+
+                                            </Grid>
+
+                                        </Grid>
 
                                     </Grid>
 
-                                </Expander>
+                                </TabItem>
 
-                            </Grid>
+                                <!-- Color Tab -->
+                                <TabItem Header="Color" 
+                                         Width="74"
+                                         Style="{DynamicResource TabItemStyle}" 
+                                         Margin="6,-2,-6,0">
+                                    <Grid Background="Transparent">
+
+                                        <!-- Grid -->
+                                        <Grid Margin="0,20,0,0" VerticalAlignment="Top" >
+
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="15"/>
+                                                <ColumnDefinition Width="96"/>
+                                                <ColumnDefinition/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="33"/>
+                                                <RowDefinition Height="33"/>
+                                                <RowDefinition Height="33"/>
+                                                <RowDefinition Height="33"/>
+                                                <RowDefinition Height="33"/>
+                                            </Grid.RowDefinitions>
+
+                                            <!-- Primaries -->
+                                            <Label Style="{DynamicResource LabelStyle}" 
+                                                   Content="Primaries" 
+                                                   HorizontalAlignment="Left" 
+                                                   VerticalAlignment="Top"
+                                                   FontFamily="Segoe UI Semilight" 
+                                                   Width="91" 
+                                                   Height="26"
+                                                   ToolTipService.InitialShowDelay="500" 
+                                                   ToolTipService.ShowOnDisabled="True" 
+                                                   ToolTip="Color Primaries" 
+                                                   Grid.Row="0" 
+                                                   Grid.Column="1" />
+                                            <ComboBox x:Name="cboColorPrimaries" 
+                                                      ItemsSource="{Binding Video_Color_Primaries_Items}"
+                                                      SelectedIndex="{Binding Video_Color_Primaries_SelectedIndex}"
+                                                      SelectedItem="{Binding Video_Color_Primaries_SelectedItem, Mode=TwoWay}"
+                                                      IsEnabled="{Binding Video_Color_Primaries_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                      Style="{DynamicResource ComboBoxStyle}"
+                                                      IsSynchronizedWithCurrentItem="True"
+                                                      ItemContainerStyle="{DynamicResource ComboBoxStyleItem}"
+                                                      HorizontalAlignment="Left" 
+                                                      VerticalAlignment="Top" 
+                                                      Width="105" 
+                                                      ToolTipService.InitialShowDelay="500" 
+                                                      ToolTipService.ShowOnDisabled="True" 
+                                                      ToolTip="Color Primaries" 
+                                                      Grid.Row="0"
+                                                      Grid.Column="2"
+                                                      Height="22" />
+
+                                            <!-- Transfer -->
+                                            <Label Style="{DynamicResource LabelStyle}" 
+                                                   Content="Transfer" 
+                                                   HorizontalAlignment="Left" 
+                                                   VerticalAlignment="Top"
+                                                   FontFamily="Segoe UI Semilight" 
+                                                   Width="91" 
+                                                   Height="26"
+                                                   ToolTipService.InitialShowDelay="500" 
+                                                   ToolTipService.ShowOnDisabled="True" 
+                                                   ToolTip="Color Transfer" 
+                                                   Grid.Row="1" 
+                                                   Grid.Column="1" />
+                                            <ComboBox x:Name="cboColorTransferCharacteristics" 
+                                                      ItemsSource="{Binding Video_Color_TransferCharacteristics_Items}"
+                                                      SelectedIndex="{Binding Video_Color_TransferCharacteristics_SelectedIndex}"
+                                                      SelectedItem="{Binding Video_Color_TransferCharacteristics_SelectedItem, Mode=TwoWay}"
+                                                      IsEnabled="{Binding Video_Color_TransferCharacteristics_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                      Style="{DynamicResource ComboBoxStyle}"
+                                                      IsSynchronizedWithCurrentItem="True"
+                                                      ItemContainerStyle="{DynamicResource ComboBoxStyleItem}"
+                                                      HorizontalAlignment="Left" 
+                                                      VerticalAlignment="Top" 
+                                                      Width="105" 
+                                                      ToolTipService.InitialShowDelay="500" 
+                                                      ToolTipService.ShowOnDisabled="True" 
+                                                      ToolTip="Color Transfer Characteristics" 
+                                                      Grid.Row="1"
+                                                      Grid.Column="2"
+                                                      Height="22" />
+
+                                            <!-- Color Space -->
+                                            <Label Style="{DynamicResource LabelStyle}" 
+                                                   Content="Color Space" 
+                                                   HorizontalAlignment="Left" 
+                                                   VerticalAlignment="Top"
+                                                   FontFamily="Segoe UI Semilight" 
+                                                   Width="91" 
+                                                   Height="26"
+                                                   ToolTipService.InitialShowDelay="500" 
+                                                   ToolTipService.ShowOnDisabled="True" 
+                                                   ToolTip="Color Space" 
+                                                   Grid.Row="2" 
+                                                   Grid.Column="1" />
+                                            <ComboBox x:Name="cboColorSpace" 
+                                                      ItemsSource="{Binding Video_Color_Space_Items}"
+                                                      SelectedIndex="{Binding Video_Color_Space_SelectedIndex}"
+                                                      SelectedItem="{Binding Video_Color_Space_SelectedItem, Mode=TwoWay}"
+                                                      IsEnabled="{Binding Video_Color_Space_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                      Style="{DynamicResource ComboBoxStyle}"
+                                                      IsSynchronizedWithCurrentItem="True"
+                                                      ItemContainerStyle="{DynamicResource ComboBoxStyleItem}"
+                                                      HorizontalAlignment="Left" 
+                                                      VerticalAlignment="Top" 
+                                                      Width="105" 
+                                                      ToolTipService.InitialShowDelay="500" 
+                                                      ToolTipService.ShowOnDisabled="True" 
+                                                      ToolTip="Color Space" 
+                                                      Grid.Row="2"
+                                                      Grid.Column="2"
+                                                      Height="22" />
+
+                                            <!-- Color Range -->
+                                            <Label Style="{DynamicResource LabelStyle}" 
+                                                   Content="Color Range" 
+                                                   HorizontalAlignment="Left" 
+                                                   VerticalAlignment="Top"
+                                                   FontFamily="Segoe UI Semilight" 
+                                                   Width="91" 
+                                                   Height="26"
+                                                   ToolTipService.InitialShowDelay="500" 
+                                                   ToolTipService.ShowOnDisabled="True" 
+                                                   ToolTip="Color Range" 
+                                                   Grid.Row="3" 
+                                                   Grid.Column="1" />
+                                            <ComboBox x:Name="cboColorRange" 
+                                                      ItemsSource="{Binding Video_Color_Range_Items}"
+                                                      SelectedIndex="{Binding Video_Color_Range_SelectedIndex}"
+                                                      SelectedItem="{Binding Video_Color_Range_SelectedItem, Mode=TwoWay}"
+                                                      IsEnabled="{Binding Video_Color_Range_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                      Style="{DynamicResource ComboBoxStyle}"
+                                                      IsSynchronizedWithCurrentItem="True"
+                                                      ItemContainerStyle="{DynamicResource ComboBoxStyleItem}"
+                                                      HorizontalAlignment="Left" 
+                                                      VerticalAlignment="Top" 
+                                                      Width="105" 
+                                                      ToolTipService.InitialShowDelay="500" 
+                                                      ToolTipService.ShowOnDisabled="True" 
+                                                      ToolTip="Color Range" 
+                                                      Grid.Row="3"
+                                                      Grid.Column="2"
+                                                      Height="22" />
+
+                                            <!-- Color Matrix -->
+                                            <!--<Label Style="{DynamicResource LabelStyle}" 
+                                                   Content="Color Matrix" 
+                                                   HorizontalAlignment="Left" 
+                                                   VerticalAlignment="Top"
+                                                   FontFamily="Segoe UI Semilight" 
+                                                   Width="91" 
+                                                   Height="26"
+                                                   ToolTipService.InitialShowDelay="500" 
+                                                   ToolTipService.ShowOnDisabled="True" 
+                                                   ToolTip="Color Matrix" 
+                                                   Grid.Row="4" 
+                                                   Grid.Column="1" />-->
+                                            <!--<ComboBox x:Name="cboColorMatrix" 
+                                                      ItemsSource="{Binding Video_Color_Matrix_Items}"
+                                                      SelectedIndex="{Binding Video_Color_Matrix_SelectedIndex}"
+                                                      SelectedItem="{Binding Video_Color_Matrix_SelectedItem, Mode=TwoWay}"
+                                                      IsEnabled="{Binding Video_Color_Matrix_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                      Style="{DynamicResource ComboBoxStyle}"
+                                                      IsSynchronizedWithCurrentItem="True"
+                                                      ItemContainerStyle="{DynamicResource ComboBoxStyleItem}"
+                                                      HorizontalAlignment="Left" 
+                                                      VerticalAlignment="Top" 
+                                                      Width="105" 
+                                                      ToolTipService.InitialShowDelay="500" 
+                                                      ToolTipService.ShowOnDisabled="True" 
+                                                      ToolTip="Color Matrix" 
+                                                      Grid.Row="4"
+                                                      Grid.Column="2"
+                                                      Height="22" />-->
+                                        </Grid>
+
+                                    </Grid>
+
+                                </TabItem>
 
 
+                                <!-- Size Tab -->
+                                <TabItem Header="Size" 
+                                         Width="74"
+                                         Style="{DynamicResource TabItemStyle}" 
+                                         Margin="6,-2,-6,0">
+                                    <Grid Background="Transparent">
 
-                            <!-- Size -->
-                            <Label Style="{DynamicResource LabelStyle}"
-                                    Content="Size" 
-                                    HorizontalAlignment="Left" 
-                                    VerticalAlignment="Top"
-                                    Width="75" 
-                                    Grid.Row="18" 
-                                    Grid.Column="1" />
-                            <ComboBox x:Name="cboVideo_Scale" 
-                                      ItemsSource="{Binding Video_Scale_Items}"
-                                      SelectedIndex="{Binding Video_Scale_SelectedIndex}"
-                                      SelectedItem="{Binding Video_Scale_SelectedItem, Mode=TwoWay}"
-                                      IsEnabled="{Binding Video_Scale_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                      Style="{DynamicResource ComboBoxCategoryStyle}"
-                                      ItemContainerStyle="{DynamicResource ComboBoxCategoryStyleItem}" 
-                                      HorizontalAlignment="Left"
-                                      VerticalAlignment="Top"
-                                      Width="105" 
-                                      SelectionChanged="cboVideo_Scale_SelectionChanged" 
-                                      Grid.Row="18" 
-                                      Grid.Column="2" 
-                                      Margin="0,2,0,0" />
+                                        <!-- Grid -->
+                                        <Grid Margin="0,20,0,0" 
+                                              VerticalAlignment="Top" >
 
-                            <!-- Width -->
-                            <Label 
-                                Style="{DynamicResource LabelStyle}"
-                                Content="Width" 
-                                HorizontalAlignment="Left" 
-                                VerticalAlignment="Top"
-                                Width="75" 
-                                Grid.Row="19" 
-                                Grid.Column="1" />
-                            <TextBox x:Name="tbxVideo_Width"
-                                     Text="{Binding Video_Width_Text, Mode=TwoWay}"
-                                     IsEnabled="{Binding Video_Width_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                     Style="{DynamicResource TextBoxStyle}" 
-                                     HorizontalAlignment="Left"
-                                     Height="22" 
-                                     Padding="2, 1, 0, 0" 
-                                     TextWrapping="NoWrap" 
-                                     VerticalAlignment="Top" 
-                                     Width="105"
-                                     MaxLines="1"
-                                     GotFocus="tbxVideo_Width_GotFocus" 
-                                     LostFocus="tbxVideo_Width_LostFocus" 
-                                     Grid.Row="19" 
-                                     Grid.Column="2"
-                                     Margin="0,2,0,0" />
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="15"/>
+                                                <ColumnDefinition Width="96"/>
+                                                <ColumnDefinition/>
+                                            </Grid.ColumnDefinitions>
 
-                            <!-- Height -->
-                            <Label 
-                                Style="{DynamicResource LabelStyle}"
-                                Content="Height" 
-                                HorizontalAlignment="Left" 
-                                VerticalAlignment="Top"
-                                Width="75" 
-                                Grid.Row="20" 
-                                Grid.Column="1" />
-                            <TextBox x:Name="tbxVideo_Height" 
-                                     Text="{Binding Video_Height_Text, Mode=TwoWay}"
-                                     IsEnabled="{Binding Video_Height_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                     Style="{DynamicResource TextBoxStyle}"
-                                     HorizontalAlignment="Left"
-                                     Height="22" 
-                                     Padding="2, 1, 0, 0"
-                                     TextWrapping="NoWrap"
-                                     VerticalAlignment="Top" 
-                                     Width="105" 
-                                     MaxLines="1" 
-                                     GotFocus="tbxVideo_Height_GotFocus" 
-                                     LostFocus="tbxVideo_Height_LostFocus"
-                                     Grid.Row="20" 
-                                     Grid.Column="2" 
-                                     Margin="0,2,0,0" />
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="33"/>
+                                                <RowDefinition Height="33"/>
+                                                <RowDefinition Height="33"/>
+                                                <RowDefinition Height="33"/>
+                                                <RowDefinition Height="33"/>
+                                                <RowDefinition Height="33"/>
+                                                <RowDefinition Height="33"/>
+                                                <RowDefinition Height="33"/>
+                                            </Grid.RowDefinitions>
 
-                            <!-- Screen Format -->
-                            <Label Style="{DynamicResource LabelStyle}" 
-                                   Content="Format"
-                                   HorizontalAlignment="Left" 
-                                   VerticalAlignment="Top"
-                                   Width="86"
-                                   FontFamily="Segoe UI Semilight"
-                                   Height="26" 
-                                   ToolTipService.InitialShowDelay="500"
-                                   ToolTipService.ShowOnDisabled="True"
-                                   ToolTip="Screen Format" 
-                                   Grid.Row="21" 
-                                   Grid.Column="1" />
-                            <ComboBox x:Name="cboVideo_ScreenFormat" 
-                                      ItemsSource="{Binding Video_ScreenFormat_Items}"
-                                      SelectedIndex="{Binding Video_ScreenFormat_SelectedIndex}"
-                                      SelectedItem="{Binding Video_ScreenFormat_SelectedItem}"
-                                      IsEnabled="{Binding Video_ScreenFormat_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                      Style="{DynamicResource ComboBoxStyle}"
-                                      ItemContainerStyle="{DynamicResource ComboBoxStyleItem}"
-                                      HorizontalAlignment="Left" 
-                                      VerticalAlignment="Top" 
-                                      Width="105" 
-                                      ToolTipService.InitialShowDelay="500"
-                                      ToolTipService.ShowOnDisabled="True"
-                                      ToolTip="Screen Format" 
-                                      Grid.Row="21" 
-                                      Grid.Column="2" 
-                                      Height="22" 
-                                      Margin="0,2,0,0" 
-                                      SelectionChanged="cboVideo_ScreenFormat_SelectionChanged"/>
+                                            <!-- Size -->
+                                            <Label Style="{DynamicResource LabelStyle}"
+                                                  Content="Size" 
+                                                  HorizontalAlignment="Left" 
+                                                  VerticalAlignment="Top"
+                                                  Width="75" 
+                                                  Grid.Row="0" 
+                                                  Grid.Column="1" />
+                                            <ComboBox x:Name="cboVideo_Scale" 
+                                                    ItemsSource="{Binding Video_Scale_Items}"
+                                                    SelectedIndex="{Binding Video_Scale_SelectedIndex}"
+                                                    SelectedItem="{Binding Video_Scale_SelectedItem, Mode=TwoWay}"
+                                                    IsEnabled="{Binding Video_Scale_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                    Style="{DynamicResource ComboBoxCategoryStyle}"
+                                                    ItemContainerStyle="{DynamicResource ComboBoxCategoryStyleItem}" 
+                                                    HorizontalAlignment="Left"
+                                                    VerticalAlignment="Top"
+                                                    Width="105" 
+                                                    SelectionChanged="cboVideo_Scale_SelectionChanged" 
+                                                    Grid.Row="0" 
+                                                    Grid.Column="2" 
+                                                    Margin="0,2,0,0" />
 
-                            <!-- Aspect Ratio -->
-                            <Label Style="{DynamicResource LabelStyle}" 
-                                   Content="Aspect Ratio"
-                                   HorizontalAlignment="Left" 
-                                   VerticalAlignment="Top"
-                                   Width="80"
-                                   FontFamily="Segoe UI Semilight"
-                                   Height="26" 
-                                   ToolTipService.InitialShowDelay="500"
-                                   ToolTipService.ShowOnDisabled="True"
-                                   ToolTip="Aspect Ratio" 
-                                   Grid.Row="22" 
-                                   Grid.Column="1" />
-                            <ComboBox x:Name="cboVideo_AspectRatio" 
-                                      ItemsSource="{Binding Video_AspectRatio_Items}"
-                                      SelectedIndex="{Binding Video_AspectRatio_SelectedIndex}"
-                                      SelectedItem="{Binding Video_AspectRatio_SelectedItem}"
-                                      IsEnabled="{Binding Video_AspectRatio_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                      Style="{DynamicResource ComboBoxStyle}"
-                                      ItemContainerStyle="{DynamicResource ComboBoxStyleItem}"
-                                      HorizontalAlignment="Left" 
-                                      VerticalAlignment="Top" 
-                                      Width="105" 
-                                      Grid.Row="22" 
-                                      Grid.Column="2" 
-                                      Height="22" 
-                                      Margin="0,2,0,0" 
-                                      SelectionChanged="cboVideo_AspectRatio_SelectionChanged"/>
+                                            <!-- Width -->
+                                            <Label Style="{DynamicResource LabelStyle}"
+                                                  Content="Width" 
+                                                  HorizontalAlignment="Left" 
+                                                  VerticalAlignment="Top"
+                                                  Width="75" 
+                                                  Grid.Row="1" 
+                                                  Grid.Column="1" />
+                                            <TextBox x:Name="tbxVideo_Width"
+                                                   Text="{Binding Video_Width_Text, Mode=TwoWay}"
+                                                   IsEnabled="{Binding Video_Width_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                   Style="{DynamicResource TextBoxStyle}" 
+                                                   HorizontalAlignment="Left"
+                                                   Height="22" 
+                                                   Padding="2, 1, 0, 0" 
+                                                   TextWrapping="NoWrap" 
+                                                   VerticalAlignment="Top" 
+                                                   Width="105"
+                                                   MaxLines="1"
+                                                   GotFocus="tbxVideo_Width_GotFocus" 
+                                                   LostFocus="tbxVideo_Width_LostFocus" 
+                                                   Grid.Row="1" 
+                                                   Grid.Column="2"
+                                                   Margin="0,2,0,0" />
 
-                            <!-- Scaling -->
-                            <Label Style="{DynamicResource LabelStyle}" 
-                                   Content="Scaling"
-                                   HorizontalAlignment="Left" 
-                                   VerticalAlignment="Top"
-                                   Width="75"
-                                   FontFamily="Segoe UI Semilight"
-                                   Height="26"
-                                   ToolTipService.InitialShowDelay="500"
-                                   ToolTipService.ShowOnDisabled="True"
-                                   ToolTip="Algorithm used for resizing." 
-                                   Grid.Row="23" 
-                                   Grid.Column="1" />
-                            <ComboBox x:Name="cboVideo_ScalingAlgorithm" 
-                                      ItemsSource="{Binding Video_ScalingAlgorithm_Items}"
-                                      SelectedIndex="{Binding Video_ScalingAlgorithm_SelectedIndex}"
-                                      SelectedItem="{Binding Video_ScalingAlgorithm_SelectedItem}"
-                                      IsEnabled="{Binding Video_ScalingAlgorithm_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                      IsSynchronizedWithCurrentItem="True"
-                                      Style="{DynamicResource ComboBoxStyle}"
-                                      ItemContainerStyle="{DynamicResource ComboBoxStyleItem}"
-                                      HorizontalAlignment="Left" 
-                                      VerticalAlignment="Top" 
-                                      Width="105" 
-                                      ToolTipService.InitialShowDelay="500"
-                                      ToolTipService.ShowOnDisabled="True" 
-                                      ToolTip="Algorithm used for resizing." 
-                                      Grid.Row="23" 
-                                      Grid.Column="2" 
-                                      Height="22" 
-                                      Margin="0,2,0,0" 
-                                      SelectionChanged="cboVideo_ScalingAlgorithm_SelectionChanged"/>
+                                            <!-- Height -->
+                                            <Label Style="{DynamicResource LabelStyle}"
+                                                  Content="Height" 
+                                                  HorizontalAlignment="Left" 
+                                                  VerticalAlignment="Top"
+                                                  Width="75" 
+                                                  Grid.Row="2" 
+                                                  Grid.Column="1" />
+                                            <TextBox x:Name="tbxVideo_Height" 
+                                                    Text="{Binding Video_Height_Text, Mode=TwoWay}"
+                                                    IsEnabled="{Binding Video_Height_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                    Style="{DynamicResource TextBoxStyle}"
+                                                    HorizontalAlignment="Left"
+                                                    Height="22" 
+                                                    Padding="2, 1, 0, 0"
+                                                    TextWrapping="NoWrap"
+                                                    VerticalAlignment="Top" 
+                                                    Width="105" 
+                                                    MaxLines="1" 
+                                                    GotFocus="tbxVideo_Height_GotFocus" 
+                                                    LostFocus="tbxVideo_Height_LostFocus"
+                                                    Grid.Row="2" 
+                                                    Grid.Column="2" 
+                                                    Margin="0,2,0,0" />
 
-                            <!-- Crop -->
-                            <Label Style="{DynamicResource LabelStyle}"
-                                   Content="Crop" 
-                                   HorizontalAlignment="Left" 
-                                   VerticalAlignment="Top"
-                                   Width="75" 
-                                   Grid.Row="24" 
-                                   Grid.Column="1" />
-                            <Button x:Name="btnVideo_Crop"
-                                    Style="{DynamicResource ButtonCropStyle}"
-                                    IsEnabled="{Binding Video_Crop_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                    Padding="0" 
-                                    HorizontalAlignment="Left" 
-                                    VerticalAlignment="Top"
-                                    Width="50" 
-                                    Height="22" 
-                                    Cursor="Hand" 
-                                    Click="btnVideo_Crop_Click" 
-                                    ToolTipService.InitialShowDelay="500"
-                                    ToolTipService.ShowOnDisabled="True" 
-                                    ToolTip="Open Crop Window" 
-                                    Grid.Row="24"
-                                    Grid.Column="2" 
-                                    Margin="0,2,0,0">
-                                <TextBlock Style="{DynamicResource ButtonCropTextBlock}"
-                                           Text="Crop"
-                                           Margin="0,-2,0,0"/>
-                            </Button>
+                                            <!-- Screen Format -->
+                                            <Label Style="{DynamicResource LabelStyle}" 
+                                                     Content="Format"
+                                                     HorizontalAlignment="Left" 
+                                                     VerticalAlignment="Top"
+                                                     Width="86"
+                                                     FontFamily="Segoe UI Semilight"
+                                                     Height="26" 
+                                                     ToolTipService.InitialShowDelay="500"
+                                                     ToolTipService.ShowOnDisabled="True"
+                                                     ToolTip="Screen Format" 
+                                                     Grid.Row="3" 
+                                                     Grid.Column="1" />
+                                            <ComboBox x:Name="cboVideo_ScreenFormat" 
+                                                        ItemsSource="{Binding Video_ScreenFormat_Items}"
+                                                        SelectedIndex="{Binding Video_ScreenFormat_SelectedIndex}"
+                                                        SelectedItem="{Binding Video_ScreenFormat_SelectedItem}"
+                                                        IsEnabled="{Binding Video_ScreenFormat_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                        Style="{DynamicResource ComboBoxStyle}"
+                                                        ItemContainerStyle="{DynamicResource ComboBoxStyleItem}"
+                                                        HorizontalAlignment="Left" 
+                                                        VerticalAlignment="Top" 
+                                                        Width="105" 
+                                                        ToolTipService.InitialShowDelay="500"
+                                                        ToolTipService.ShowOnDisabled="True"
+                                                        ToolTip="Screen Format" 
+                                                        Grid.Row="3" 
+                                                        Grid.Column="2" 
+                                                        Height="22" 
+                                                        Margin="0,2,0,0" 
+                                                        SelectionChanged="cboVideo_ScreenFormat_SelectionChanged"/>
 
-                            <Button x:Name="btnVideo_CropClear"
-                                    Style="{DynamicResource ButtonCropStyle}"
-                                    Padding="0" 
-                                    HorizontalAlignment="Left"
-                                    Margin="55,2,0,0"
-                                    VerticalAlignment="Top"
-                                    Width="50" 
-                                    Height="22" 
-                                    Cursor="Hand" 
-                                    Click="btnVideo_CropClear_Click" 
-                                    ToolTipService.InitialShowDelay="500"
-                                    ToolTipService.ShowOnDisabled="True"
-                                    ToolTip="Clear Last Used Crop Settings" 
-                                    Grid.Row="24"
-                                    Grid.Column="2">
-                                <TextBlock x:Name="tblkCropClear" 
-                                           Text="{Binding Video_CropClear_Text, Mode=TwoWay}"
-                                           Margin="0,-2,0,0" />
-                            </Button>
+                                            <!-- Aspect Ratio -->
+                                            <Label Style="{DynamicResource LabelStyle}" 
+                                                     Content="Aspect Ratio"
+                                                     HorizontalAlignment="Left" 
+                                                     VerticalAlignment="Top"
+                                                     Width="80"
+                                                     FontFamily="Segoe UI Semilight"
+                                                     Height="26" 
+                                                     ToolTipService.InitialShowDelay="500"
+                                                     ToolTipService.ShowOnDisabled="True"
+                                                     ToolTip="Aspect Ratio" 
+                                                     Grid.Row="4" 
+                                                     Grid.Column="1" />
+                                            <ComboBox x:Name="cboVideo_AspectRatio" 
+                                                        ItemsSource="{Binding Video_AspectRatio_Items}"
+                                                        SelectedIndex="{Binding Video_AspectRatio_SelectedIndex}"
+                                                        SelectedItem="{Binding Video_AspectRatio_SelectedItem}"
+                                                        IsEnabled="{Binding Video_AspectRatio_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                        Style="{DynamicResource ComboBoxStyle}"
+                                                        ItemContainerStyle="{DynamicResource ComboBoxStyleItem}"
+                                                        HorizontalAlignment="Left" 
+                                                        VerticalAlignment="Top" 
+                                                        Width="105" 
+                                                        Grid.Row="4" 
+                                                        Grid.Column="2" 
+                                                        Height="22" 
+                                                        Margin="0,2,0,0" 
+                                                        SelectionChanged="cboVideo_AspectRatio_SelectionChanged"/>
+
+                                            <!-- Scaling -->
+                                            <Label Style="{DynamicResource LabelStyle}" 
+                                                     Content="Scaling"
+                                                     HorizontalAlignment="Left" 
+                                                     VerticalAlignment="Top"
+                                                     Width="75"
+                                                     FontFamily="Segoe UI Semilight"
+                                                     Height="26"
+                                                     ToolTipService.InitialShowDelay="500"
+                                                     ToolTipService.ShowOnDisabled="True"
+                                                     ToolTip="Algorithm used for resizing." 
+                                                     Grid.Row="5" 
+                                                     Grid.Column="1" />
+                                            <ComboBox x:Name="cboVideo_ScalingAlgorithm" 
+                                                    ItemsSource="{Binding Video_ScalingAlgorithm_Items}"
+                                                    SelectedIndex="{Binding Video_ScalingAlgorithm_SelectedIndex}"
+                                                    SelectedItem="{Binding Video_ScalingAlgorithm_SelectedItem}"
+                                                    IsEnabled="{Binding Video_ScalingAlgorithm_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                    IsSynchronizedWithCurrentItem="True"
+                                                    Style="{DynamicResource ComboBoxStyle}"
+                                                    ItemContainerStyle="{DynamicResource ComboBoxStyleItem}"
+                                                    HorizontalAlignment="Left" 
+                                                    VerticalAlignment="Top" 
+                                                    Width="105" 
+                                                    ToolTipService.InitialShowDelay="500"
+                                                    ToolTipService.ShowOnDisabled="True" 
+                                                    ToolTip="Algorithm used for resizing." 
+                                                    Grid.Row="5" 
+                                                    Grid.Column="2" 
+                                                    Height="22" 
+                                                    Margin="0,2,0,0" 
+                                                    SelectionChanged="cboVideo_ScalingAlgorithm_SelectionChanged"/>
+
+                                            <!-- Crop -->
+                                            <Label Style="{DynamicResource LabelStyle}"
+                                                    Content="Crop" 
+                                                    HorizontalAlignment="Left" 
+                                                    VerticalAlignment="Top"
+                                                    Width="75" 
+                                                    Grid.Row="6" 
+                                                    Grid.Column="1" />
+                                            <Button x:Name="btnVideo_Crop"
+                                                      Style="{DynamicResource ButtonCropStyle}"
+                                                      IsEnabled="{Binding Video_Crop_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                      Padding="0" 
+                                                      HorizontalAlignment="Left" 
+                                                      VerticalAlignment="Top"
+                                                      Width="50" 
+                                                      Height="22" 
+                                                      Cursor="Hand" 
+                                                      Click="btnVideo_Crop_Click" 
+                                                      ToolTipService.InitialShowDelay="500"
+                                                      ToolTipService.ShowOnDisabled="True" 
+                                                      ToolTip="Open Crop Window" 
+                                                      Grid.Row="6"
+                                                      Grid.Column="2" 
+                                                      Margin="0,2,0,0">
+                                                <TextBlock Style="{DynamicResource ButtonCropTextBlock}"
+                                                             Text="Crop"
+                                                             Margin="0,-2,0,0"/>
+                                            </Button>
+
+                                            <Button x:Name="btnVideo_CropClear"
+                                                      Style="{DynamicResource ButtonCropStyle}"
+                                                      Padding="0" 
+                                                      HorizontalAlignment="Left"
+                                                      Margin="55,2,0,0"
+                                                      VerticalAlignment="Top"
+                                                      Width="50" 
+                                                      Height="22" 
+                                                      Cursor="Hand" 
+                                                      Click="btnVideo_CropClear_Click" 
+                                                      ToolTipService.InitialShowDelay="500"
+                                                      ToolTipService.ShowOnDisabled="True"
+                                                      ToolTip="Clear Last Used Crop Settings" 
+                                                      Grid.Row="6"
+                                                      Grid.Column="2">
+                                                <TextBlock x:Name="tblkCropClear" 
+                                                             Text="{Binding Video_CropClear_Text, Mode=TwoWay}"
+                                                             Margin="0,-2,0,0" />
+                                            </Button>
+
+                                        </Grid>
+
+                                    </Grid>
+
+                                </TabItem>
+
+                            </TabControl>
 
                         </Grid>
 
@@ -2595,7 +2900,7 @@
 
                                 <!-- Filter Video Tab -->
                                 <TabItem Header="Video" 
-                                         Width="75"
+                                         Width="74"
                                          DataContext="{Binding FilterVideoView}"
                                          Style="{DynamicResource TabItemStyle}" 
                                          Margin="6,-2,-6,0">
@@ -4409,7 +4714,7 @@
 
                                 <!-- Filter Audio Tab -->
                                 <TabItem Header="Audio" 
-                                         Width="75"
+                                         Width="74"
                                          DataContext="{Binding FilterAudioView}"
                                          Style="{DynamicResource TabItemStyle}" 
                                          Margin="6,-2,-6,0">
