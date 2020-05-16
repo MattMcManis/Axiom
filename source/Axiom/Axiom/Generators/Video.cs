@@ -42,6 +42,7 @@ along with this program.If not, see <http://www.gnu.org/licenses/>.
  * Images
 ---------------------------------- */
 
+
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -77,6 +78,11 @@ namespace Axiom
         public static string vBufSize { get; set; }
         public static string vOptions { get; set; } // -pix_fmt, -qcomp
         public static string vCRF { get; set; } // Constant Rate Factor
+        public static string colorPrimaries { get; set; }
+        public static string colorTransferCharacteristics { get; set; }
+        public static string colorSpace { get; set; }
+        public static string colorRange { get; set; }
+        public static string colorMatrix { get; set; }
         public static string pix_fmt { get; set; }
         public static string vAspectRatio { get; set; }
         public static string vScalingAlgorithm { get; set; }
@@ -88,9 +94,12 @@ namespace Axiom
         public static string optFlags { get; set; } // Additional Optimization Flags
         public static string optimize { get; set; } // Contains opTune + optProfile + optLevel
 
-        // x265 Params
-        public static List<string> x265paramsList = new List<string>(); // multiple parameters
-        public static string x265params { get; set; } // combined inline list
+        //// x264 Params
+        //public static List<string> x264paramsList = new List<string>(); // multiple parameters
+        //public static string x264params { get; set; } // combined inline list
+        //// x265 Params
+        //public static List<string> x265paramsList = new List<string>(); // multiple parameters
+        //public static string x265params { get; set; } // combined inline list
 
         // Scale
         public static string width { get; set; }
@@ -109,7 +118,9 @@ namespace Axiom
         public static string batchVideoAuto { get; set; }
 
         // Rendering
-        public static string hwacceleration { get; set; }
+        //public static string hwAcceleration { get; set; }
+        public static string hwAccelDecode { get; set; }
+        public static string hwAccelTranscode { get; set; }
 
 
 
@@ -120,92 +131,145 @@ namespace Axiom
         /// --------------------------------------------------------------------------------------------------------
 
         /// <summary>
-        /// Hardware Acceleration
+        /// Hardware Acceleration Decode
         /// <summary>
         /// <remarks>
         /// https://trac.ffmpeg.org/wiki/HWAccelIntro
         /// https://trac.ffmpeg.org/wiki/Hardware/QuickSync
         /// </remarks>
-        public static String HWAcceleration(string mediaType_SelectedItem,
-                                            string codec_SelectedItem,
-                                            string hwaccel_SelectedItem
-                                            )
+        public static String HWAccelerationDecode(string mediaType_SelectedItem,
+                                                  string codec_SelectedItem,
+                                                  string hwaccel_decode_SelectedItem
+                                                 )
         {
             // Check:
+            // HW Accel Not Off
             // Media Type Not Audio
-            if (mediaType_SelectedItem != "Audio")
+            if (hwaccel_decode_SelectedItem != "off" &&
+                mediaType_SelectedItem != "Audio")
             {
                 // --------------------------------------------------
                 // All Codecs
                 // --------------------------------------------------
-                switch (hwaccel_SelectedItem)
+                switch (hwaccel_decode_SelectedItem)
                 {
                     // -------------------------
-                    // Off
+                    // Auto
                     // -------------------------
-                    case "off":
-                        hwacceleration = string.Empty;
+                    case "auto":
+                        hwAccelDecode = "-hwaccel auto";
                         break;
 
                     // -------------------------
-                    // CUDA (decode)
+                    // CUDA
                     // -------------------------
                     case "CUDA":
-                        hwacceleration = "-hwaccel cuda";
+                        hwAccelDecode = "-hwaccel cuda -hwaccel_output_format cuda";
                         break;
 
                     // -------------------------
-                    // CUVID (decode)
+                    // CUVID
                     // -------------------------
                     case "CUVID":
-                        hwacceleration = "-hwaccel cuvid";
+                        hwAccelDecode = "-hwaccel cuvid";
                         break;
 
                     // -------------------------
-                    // D3D11VA (decode)
+                    // D3D11VA
                     // -------------------------
                     case "D3D11VA":
-                        hwacceleration = "-hwaccel d3d11va";
+                        hwAccelDecode = "-hwaccel d3d11va";
                         break;
 
                     // -------------------------
-                    // DXVA2 (decode)
+                    // DXVA2
                     // -------------------------
                     case "DXVA2":
-                        hwacceleration = "-hwaccel dxva2";
+                        hwAccelDecode = "-hwaccel dxva2";
                         break;
 
                     // -------------------------
-                    // NVENC (transcode)
-                    // -------------------------
-                    case "NVENC":
-                        hwacceleration = string.Empty;
-                        break;
-
-                    // -------------------------
-                    // NVENC + CUDA (transcode)
-                    // -------------------------
-                    case "NVENC+CUDA":
-                        hwacceleration = "-hwaccel cuda -hwaccel_output_format cuda";  
-                        break;
-
-                    // -------------------------
-                    // Intel QSV (transcode)
+                    // Intel QSV
                     // -------------------------
                     case "Intel QSV":
-                        hwacceleration = "-init_hw_device qsv=hw -filter_hw_device hw";
+                        hwAccelDecode = "-hwaccel qsv -hwaccel_output_format qsv";
                         break;
 
                     // -------------------------
                     // Other
                     // -------------------------
                     default:
-                        hwacceleration = string.Empty;
+                        hwAccelDecode = string.Empty;
                         break;
                 }
             }
 
-            return hwacceleration;
+            return hwAccelDecode;
+        }
+
+
+        /// <summary>
+        /// Hardware Acceleration Transcode
+        /// <summary>
+        /// <remarks>
+        /// https://trac.ffmpeg.org/wiki/HWAccelIntro
+        /// https://trac.ffmpeg.org/wiki/Hardware/QuickSync
+        /// </remarks>
+        public static String HWAccelerationTranscode(string mediaType_SelectedItem,
+                                                     string codec_SelectedItem,
+                                                     string hwaccel_transcode_SelectedItem
+                                                    )
+        {
+            // Check:
+            // HW Accel Not Off
+            // Media Type Not Audio
+            if (hwaccel_transcode_SelectedItem != "off" &&
+                mediaType_SelectedItem != "Audio")
+            {
+                // --------------------------------------------------
+                // All Codecs
+                // --------------------------------------------------
+                switch (hwaccel_transcode_SelectedItem)
+                {
+                    // -------------------------
+                    // Auto
+                    // -------------------------
+                    case "auto":
+                        hwAccelTranscode = string.Empty;
+                        break;
+
+                    // -------------------------
+                    // AMD AMF
+                    // -------------------------
+                    case "CUDA":
+                        hwAccelTranscode = string.Empty;
+                        break;
+
+                    // -------------------------
+                    // NVIDIA NVENC
+                    // -------------------------
+                    case "NVIDIA NVENC":
+                        hwAccelTranscode = string.Empty;
+                        break;
+
+                    // -------------------------
+                    // Intel QSV
+                    // -------------------------
+                    case "Intel QSV":
+                        //hwAccelTranscode = "-init_hw_device qsv=hw -filter_hw_device hw"; //software
+                        hwAccelTranscode = string.Empty;
+                        break;
+
+                    // -------------------------
+                    // Other
+                    // -------------------------
+                    default:
+                        hwAccelTranscode = string.Empty;
+                        break;
+                }
+            }
+
+            return hwAccelTranscode;
         }
 
 
@@ -216,45 +280,62 @@ namespace Axiom
         /// https://trac.ffmpeg.org/wiki/HWAccelIntro
         /// https://trac.ffmpeg.org/wiki/Hardware/QuickSync
         /// </remarks>
-        public static String HWAccelerationCodecOverride(string hwaccel_SelectedItem, 
+        public static String HWAccelerationCodecOverride(string hwaccel_transcode_SelectedItem,
                                                          string codec_SelectedItem
                                                          )
         {
-            // -------------------------
-            // NVENC (transcode)
-            // -------------------------
-            if (hwaccel_SelectedItem == "NVENC" ||
-                hwaccel_SelectedItem == "NVENC+CUDA")
+            switch (hwaccel_transcode_SelectedItem)
             {
-                // Only x264/ x265
-                // e.g. ffmpeg -i input -c:v h264_nvenc -profile high444p -pix_fmt yuv444p -preset default output.mp4
+                // -------------------------
+                // AMD AMF
+                // -------------------------
+                case "AMD AMF":
+                    // x264
+                    if (codec_SelectedItem == "x264")
+                    {
+                        vCodec = "-c:v h264_amf";
+                    }
+                    // x265
+                    else if (codec_SelectedItem == "x265")
+                    {
+                        vCodec = "-c:v hevc_amf";
+                    }
+                    break;
 
-                // Override Codecs
-                if (codec_SelectedItem == "x264")
-                {
-                    vCodec = "-c:v h264_nvenc";
-                }
-                else if (codec_SelectedItem == "x265")
-                {
-                    vCodec = "-c:v hevc_nvenc";
-                }
-            }
+                // -------------------------
+                // NVIDIA NVENC
+                // -------------------------
+                case "NVIDIA NVENC":
+                    // Only x264/ x265
+                    // e.g. ffmpeg -i input -c:v h264_nvenc -profile high444p -pix_fmt yuv444p -preset default output.mp4
 
-            // -------------------------
-            // QSV (transcode)
-            // -------------------------
-            else if (hwaccel_SelectedItem == "Intel QSV")
-            {
-                // x264
-                if (codec_SelectedItem == "x264")
-                {
-                    vCodec = "-c:v h264_qsv";
-                }
-                // x265
-                else if (codec_SelectedItem == "x265")
-                {
-                    vCodec = "-c:v hevc_qsv";
-                }
+                    // Override Codecs
+                    if (codec_SelectedItem == "x264")
+                    {
+                        vCodec = "-c:v h264_nvenc";
+                    }
+                    else if (codec_SelectedItem == "x265")
+                    {
+                        vCodec = "-c:v hevc_nvenc";
+                    }
+                    break;
+
+                // -------------------------
+                // Intel QSV
+                // -------------------------
+                case "Intel QSV":
+                    // x264
+                    if (codec_SelectedItem == "x264")
+                    {
+                        vCodec = "-c:v h264_qsv";
+                    }
+                    // x265
+                    else if (codec_SelectedItem == "x265")
+                    {
+                        vCodec = "-c:v hevc_qsv";
+                    }
+                    break;
+
             }
 
             return vCodec;
@@ -264,7 +345,7 @@ namespace Axiom
         /// <summary>
         /// Video Codec
         /// <summary>
-        public static String VideoCodec(string hwAccel_SelectedItem, 
+        public static String VideoCodec(string hwAccel_transcode_SelectedItem,
                                         string codec_SelectedItem, 
                                         string codec_Command
                                         )
@@ -275,12 +356,12 @@ namespace Axiom
                 vCodec = codec_Command;
 
                 // HW Acceleration vCodec Override
-                if (hwAccel_SelectedItem == "NVENC" || // h264_nvenc / hevc_nvenc
-                    hwAccel_SelectedItem == "NVENC+CUDA" || // h264_nvenc / hevc_nvenc
-                    hwAccel_SelectedItem == "Intel QSV" // hevc_qsv
+                if (hwAccel_transcode_SelectedItem == "AMD AMF" || // h264_amf / hevc_amf
+                    hwAccel_transcode_SelectedItem == "NVIDIA NVENC" || // h264_nvenc / hevc_nvenc
+                    hwAccel_transcode_SelectedItem == "Intel QSV" // h264_qsv / hevc_qsv
                     )
                 {
-                    vCodec = HWAccelerationCodecOverride(hwAccel_SelectedItem,
+                    vCodec = HWAccelerationCodecOverride(hwAccel_transcode_SelectedItem,
                                                          codec_SelectedItem
                                                          );
 
@@ -609,7 +690,8 @@ namespace Axiom
             if (codec_SelectedItem == "x265")
             {
                 // e.g. -x265-params "lossless"
-                x265paramsList.Add("lossless");
+                //x265paramsList.Add("lossless");
+                VideoParams.vParamsList.Add("lossless");
             }
             // -------------------------
             // All Other Codecs
@@ -737,7 +819,7 @@ namespace Axiom
                 if (codec_SelectedItem == "x265")
                 {
                     // x265 Params
-                    x265paramsList.Add("crf=" + quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.CRF);
+                    VideoParams.vParamsList.Add("crf=" + quality_Items.FirstOrDefault(item => item.Name == quality_SelectedItem)?.CRF);
                     vCRF = string.Empty;
                 }
                 // -------------------------
@@ -874,17 +956,17 @@ namespace Axiom
                 // -------------------------
                 // x265 Params
                 // -------------------------
-                if (codec_SelectedItem == "x265" &&
-                    x265paramsList.Count > 0)
-                {
-                    x265params = "-x265-params " + "\"" + string.Join(":", x265paramsList
-                                                                           .Where(s => !string.IsNullOrEmpty(s)))
-                                                 + "\"";
-                }
-                else
-                {
-                    x265params = string.Empty;
-                }
+                //if (codec_SelectedItem == "x265" &&
+                //    x265paramsList.Count > 0)
+                //{
+                //    x265params = "-x265-params " + "\"" + string.Join(":", x265paramsList
+                //                                                           .Where(s => !string.IsNullOrEmpty(s)))
+                //                                 + "\"";
+                //}
+                //else
+                //{
+                //    x265params = string.Empty;
+                //}
 
                 // -------------------------
                 // CRF
@@ -900,7 +982,8 @@ namespace Axiom
                         vMaxRate,
                         vBufSize,
                         vCRF,
-                        x265params,
+                        //x265params,
+                        VideoParams.Video_Params(),
                         vOptions
                     };
                 }
@@ -921,7 +1004,8 @@ namespace Axiom
                         vMinRate,
                         vMaxRate,
                         vBufSize,
-                        x265params,
+                        //x265params,
+                        VideoParams.Video_Params(),
                         vOptions
                     };
 
@@ -1342,9 +1426,336 @@ namespace Axiom
         }
 
 
+        /// <summary>
+        /// Color Primaries
+        /// <summary>
+        /// <remarks>
+        /// https://ffmpeg.org/ffmpeg-filters.html#colorspace
+        /// </remarks>
+        public static String Color_Primaries(string primaries_SelectedItem)
+        {
+            //string colorPrimaries = string.Empty;
+
+            if (primaries_SelectedItem != "auto")
+            {
+                switch (primaries_SelectedItem)
+                {
+                    case "BT.709":
+                        colorPrimaries = "bt709";
+                        break;
+
+                    case "BT.470M":
+                        colorPrimaries = "bt470m";
+                        break;
+
+                    case "BT.470BG":
+                        colorPrimaries = "bt470bg";
+                        break;
+
+                    case "BT.601-6 525":
+                        colorPrimaries = "smpte170m";
+                        break;
+
+                    case "BT.601-6 625":
+                        colorPrimaries = "bt470bg";
+                        break;
+
+                    case "SMPTE-170M":
+                        colorPrimaries = "smpte170m";
+                        break;
+
+                    case "SMPTE-240M":
+                        colorPrimaries = "smpte240m";
+                        break;
+
+                    case "film":
+                        colorPrimaries = "film";
+                        break;
+
+                    case "SMPTE-431":
+                        colorPrimaries = "smpte431";
+                        break;
+
+                    case "SMPTE-432":
+                        colorPrimaries = "smpte432";
+                        break;
+
+                    case "BT.2020":
+                        colorPrimaries = "bt2020";
+                        break;
+
+                    case "JEDEC P22 phosphors":
+                        colorPrimaries = "jedec-p22";
+                        break;
+                }
+
+                colorPrimaries = "-color_primaries " + colorPrimaries;
+
+                return colorPrimaries;
+            }
+
+            // Auto
+            else
+            {
+                return string.Empty;
+            }
+        }
 
         /// <summary>
-        /// Pixel Foramt
+        /// Color Transfer Characteristics
+        /// <summary>
+        /// <remarks>
+        /// https://ffmpeg.org/ffmpeg-filters.html#colorspace
+        /// </remarks>
+        public static String Color_TransferCharacteristics(string transferChar_SelectedItem)
+        {
+            //string colorTransferCharacteristics = string.Empty;
+
+            if (transferChar_SelectedItem != "auto")
+            {
+                switch (transferChar_SelectedItem)
+                {
+                    case "BT.709":
+                        colorTransferCharacteristics = "bt709";
+                        break;
+
+                    case "BT.470M":
+                        colorTransferCharacteristics = "bt470m";
+                        break;
+
+                    case "BT.470BG":
+                        colorTransferCharacteristics = "bt470bg";
+                        break;
+
+                    case "Gamma 2.2":
+                        colorTransferCharacteristics = "gamma22";
+                        break;
+
+                    case "Gamma 2.8":
+                        colorTransferCharacteristics = "gamma28";
+                        break;
+
+                    case "BT.601-6 525":
+                        colorTransferCharacteristics = "smpte170m";
+                        break;
+
+                    case "BT.601-6 625":
+                        colorTransferCharacteristics = "smpte170m";
+                        break;
+
+                    case "SMPTE-170M":
+                        colorTransferCharacteristics = "smpte170m";
+                        break;
+
+                    case "SMPTE-240M":
+                        colorTransferCharacteristics = "smpte240m";
+                        break;
+
+                    case "SRGB":
+                        colorTransferCharacteristics = "srgb";
+                        break;
+
+                    case "iec61966-2-1":
+                        colorTransferCharacteristics = "iec61966-2-1";
+                        break;
+
+                    case "iec61966-2-4":
+                        colorTransferCharacteristics = "iec61966-2-4";
+                        break;
+
+                    case "xvycc":
+                        colorTransferCharacteristics = "xvycc";
+                        break;
+
+                    case "BT.2020 10-bit":
+                        colorTransferCharacteristics = "bt2020-10";
+                        break;
+
+                    case "BT.2020 12-bit":
+                        colorTransferCharacteristics = "bt2020-12";
+                        break;
+                }
+
+                colorTransferCharacteristics = "-color_trc " + colorTransferCharacteristics;
+
+                return colorTransferCharacteristics;
+            }
+
+            // Auto
+            else
+            {
+                return string.Empty;
+            }
+        }
+
+        /// <summary>
+        /// Color Space
+        /// <summary>
+        /// <remarks>
+        /// https://ffmpeg.org/ffmpeg-filters.html#colorspace
+        /// </remarks>
+        public static String Color_Space(string colorspace_SelectedItem)
+        {
+            //string colorSpace = string.Empty;
+
+            if (colorspace_SelectedItem != "auto")
+            {
+                switch (colorspace_SelectedItem)
+                {
+                    case "BT.709":
+                        colorSpace = "bt709";
+                        break;
+
+                    case "FCC":
+                        colorSpace = "fcc";
+                        break;
+
+                    case "BT.470BG":
+                        colorSpace = "bt470bg";
+                        break;
+
+                    case "BT.601-6 525":
+                        colorSpace = "smpte170m";
+                        break;
+
+                    case "BT.601-6 625":
+                        colorSpace = "bt470bg";
+                        break;
+
+                    case "SMPTE-170M":
+                        colorSpace = "smpte170m";
+                        break;
+
+                    case "SMPTE-240M":
+                        colorSpace = "smpte240m";
+                        break;
+
+                    case "YCgCo":
+                        colorSpace = "ycgco";
+                        break;
+
+                    case "BT.2020 NCL":
+                        colorSpace = "bt2020ncl";
+                        break;
+                }
+
+                colorSpace = "-colorspace " + colorSpace;
+
+                return colorSpace;
+            }
+
+            // Auto
+            else
+            {
+                return string.Empty;
+            }
+        }
+
+        /// <summary>
+        /// Color Range
+        /// <summary>
+        /// <remarks>
+        /// https://ffmpeg.org/ffmpeg-filters.html#colorspace
+        /// </remarks>
+        public static String Color_Range(string colorRange_SelectedItem)
+        {
+            //string colorRange = string.Empty;
+
+            if (colorRange_SelectedItem != "auto")
+            {
+                switch (colorRange_SelectedItem)
+                {
+                    case "TV":
+                        colorRange = "tv";
+                        break;
+
+                    case "PC":
+                        colorRange = "pc";
+                        break;
+
+                    case "MPEG":
+                        colorRange = "mpeg";
+                        break;
+
+                    case "JPEG":
+                        colorRange = "jpeg";
+                        break;
+                }
+
+                colorRange = "-color_range " + colorRange;
+
+                return colorRange;
+            }
+
+            // Auto
+            else
+            {
+                return string.Empty;
+            }
+        }
+
+        /// <summary>
+        /// Color Matrix
+        /// <summary>
+        /// <remarks>
+        /// https://ffmpeg.org/ffmpeg-filters.html#colorspace
+        /// </remarks>
+        //public static String Color_Matrix(string colormatrix_SelectedItem)
+        //{
+        //    //string colorMatrix = string.Empty;
+
+        //    if (colormatrix_SelectedItem != "auto")
+        //    {
+        //        switch (colormatrix_SelectedItem)
+        //        {
+        //            case "BT.709":
+        //                colorMatrix = "bt709";
+        //                break;
+
+        //            case "FCC":
+        //                colorMatrix = "fcc";
+        //                break;
+
+        //            case "BT.601":
+        //                colorMatrix = "bt601";
+        //                break;
+
+        //            case "BT.470":
+        //                colorMatrix = "bt470";
+        //                break;
+
+        //            case "BT.470BG":
+        //                colorMatrix = "bt470bg";
+        //                break;
+
+        //            case "SMPTE-170M":
+        //                colorMatrix = "smpte170m";
+        //                break;
+
+        //            case "SMPTE-240M":
+        //                colorMatrix = "smpte240m";
+        //                break;
+
+        //            case "BT.2020":
+        //                colorMatrix = "bt2020";
+        //                break;
+        //        }
+
+        //        colorMatrix = "-colormatrix " + colorMatrix;
+
+        //        return colorMatrix;
+        //    }
+
+        //    // Auto
+        //    else
+        //    {
+        //        return string.Empty;
+        //    }
+        //}
+
+
+        /// <summary>
+        /// Pixel Format
         /// <summary>
         public static String PixFmt(string codec_SelectedItem,
                                     string pixelFormat_SelectedItem
