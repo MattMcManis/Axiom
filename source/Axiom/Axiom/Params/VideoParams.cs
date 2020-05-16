@@ -151,11 +151,11 @@ namespace Axiom
                         colorTransferCharacteristics = "bt470bg";
                         break;
 
-                    case "Gamm 2.2":
+                    case "Gamma 2.2":
                         colorTransferCharacteristics = "gamma22";
                         break;
 
-                    case "Game 2.8":
+                    case "Gamma 2.8":
                         colorTransferCharacteristics = "gamma28";
                         break;
 
