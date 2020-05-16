@@ -567,8 +567,12 @@ namespace Axiom
             debugParagraph.Inlines.Add(new Bold(new Run("Video ")) { Foreground = Heading });
             debugParagraph.Inlines.Add(new LineBreak());
 
-            debugParagraph.Inlines.Add(new Bold(new Run("hwaccel ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(Video.hwacceleration) { Foreground = Value });
+            debugParagraph.Inlines.Add(new Bold(new Run("hwAccelDecode ")) { Foreground = Variable });
+            debugParagraph.Inlines.Add(new Run(Video.hwAccelDecode) { Foreground = Value });
+            debugParagraph.Inlines.Add(new LineBreak());
+
+            debugParagraph.Inlines.Add(new Bold(new Run("hwAccelTranscode ")) { Foreground = Variable });
+            debugParagraph.Inlines.Add(new Run(Video.hwAccelTranscode) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("vEncodeSpeed ")) { Foreground = Variable });
@@ -611,8 +615,12 @@ namespace Axiom
             debugParagraph.Inlines.Add(new Run(Video.vCRF) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
-            debugParagraph.Inlines.Add(new Bold(new Run("x265params ")) { Foreground = Variable });
-            debugParagraph.Inlines.Add(new Run(Video.x265params) { Foreground = Value });
+            //debugParagraph.Inlines.Add(new Bold(new Run("x265params ")) { Foreground = Variable });
+            //debugParagraph.Inlines.Add(new Run(Video.x265params) { Foreground = Value });
+            //debugParagraph.Inlines.Add(new LineBreak());
+
+            debugParagraph.Inlines.Add(new Bold(new Run("vParams ")) { Foreground = Variable });
+            debugParagraph.Inlines.Add(new Run(VideoParams.vParams) { Foreground = Value });
             debugParagraph.Inlines.Add(new LineBreak());
 
             debugParagraph.Inlines.Add(new Bold(new Run("fps ")) { Foreground = Variable });
