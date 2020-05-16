@@ -110,17 +110,41 @@ namespace Axiom
                 )
             {
                 // -------------------------
+                // HW Accel Decode
+                // -------------------------
+                List<string> hwAccelDecodeList = new List<string>()
+                {
+                    "\r\n\r\n" +
+                    Video.HWAccelerationDecode(VM.FormatView.Format_MediaType_SelectedItem,
+                                               VM.VideoView.Video_Codec_SelectedItem,
+                                               VM.VideoView.Video_HWAccel_Decode_SelectedItem
+                                               ),
+                };
+
+                // -------------------------
                 // Input
                 // -------------------------
                 List<string> inputList = new List<string>()
                 {
                     "\r\n\r\n" +
-                    "-i "+ "\"" + MainWindow.InputPath(/*main_vm,*/ "pass 1") + "\"",
+                    "-i "+ "\"" + MainWindow.InputPath("pass 1") + "\"",
 
                     "\r\n\r\n" +
                     Subtitle.SubtitlesExternal(VM.SubtitleView.Subtitle_Codec_SelectedItem,
                                                VM.SubtitleView.Subtitle_Stream_SelectedItem
                                                ),
+                };
+
+                // -------------------------
+                // HW Accel Transcode
+                // -------------------------
+                List<string> hwAccelTranscodeList = new List<string>()
+                {
+                    "\r\n\r\n" +
+                    Video.HWAccelerationTranscode(VM.FormatView.Format_MediaType_SelectedItem,
+                                                  VM.VideoView.Video_Codec_SelectedItem,
+                                                  VM.VideoView.Video_HWAccel_Transcode_SelectedItem
+                                                  ),
                 };
 
                 // -------------------------
@@ -163,7 +187,7 @@ namespace Axiom
                     videoList = new List<string>()
                     {
                         "\r\n\r\n" +
-                        Video.VideoCodec(VM.VideoView.Video_HWAccel_SelectedItem,
+                        Video.VideoCodec(VM.VideoView.Video_HWAccel_Transcode_SelectedItem,
                                          VM.VideoView.Video_Codec_SelectedItem,
                                          VM.VideoView.Video_Codec
                                          ),
@@ -189,10 +213,23 @@ namespace Axiom
                                            VM.VideoView.Video_BufSize_Text,
                                            VM.MainView.Input_Text
                                            ),
+
                         "\r\n" +
                         Video.PixFmt(VM.VideoView.Video_Codec_SelectedItem,
                                      VM.VideoView.Video_PixelFormat_SelectedItem
                                      ),
+
+                        "\r\n" +
+                        Video.Color_Primaries(VM.VideoView.Video_Color_Primaries_SelectedItem),
+                        "\r\n" +
+                        Video.Color_TransferCharacteristics(VM.VideoView.Video_Color_TransferCharacteristics_SelectedItem),
+                        "\r\n" +
+                        Video.Color_Space(VM.VideoView.Video_Color_Space_SelectedItem),
+                        "\r\n" +
+                        Video.Color_Range(VM.VideoView.Video_Color_Range_SelectedItem),
+                        //"\r\n" +
+                        //Video.Color_Matrix(VM.VideoView.Video_Color_Matrix_SelectedItem),
+
                         "\r\n" +
                         Video.FPS(VM.VideoView.Video_Codec_SelectedItem,
                                   VM.VideoView.Video_FPS_SelectedItem,
@@ -341,7 +378,9 @@ namespace Axiom
                 
 
                 // Combine Lists
-                List<string> FFmpegArgsSinglePassList = inputList
+                List<string> FFmpegArgsSinglePassList = hwAccelDecodeList
+                                                        .Concat(inputList)
+                                                        .Concat(hwAccelTranscodeList)
                                                         .Concat(formatList)
                                                         .Concat(videoList)
                                                         .Concat(subtitleList)
@@ -385,6 +424,17 @@ namespace Axiom
                 // Pass 1
                 // --------------------------------------------------
                 // -------------------------
+                // HW Accel Decode
+                // -------------------------
+                List<string> hwAccelDecodeList_Pass1 = new List<string>()
+                {
+                    "\r\n\r\n" +
+                    Video.HWAccelerationDecode(VM.FormatView.Format_MediaType_SelectedItem,
+                                               VM.VideoView.Video_Codec_SelectedItem,
+                                               VM.VideoView.Video_HWAccel_Decode_SelectedItem
+                                               ),
+                };
+                // -------------------------
                 // Input
                 // -------------------------
                 List<string> inputList_Pass1 = new List<string>()
@@ -392,6 +442,18 @@ namespace Axiom
                     "\r\n\r\n" +
                     "-i "+ "\"" +
                     MainWindow.InputPath(/*main_vm,*/ "pass 1") + "\"",
+                };
+
+                // -------------------------
+                // HW Accel Transcode
+                // -------------------------
+                List<string> hwAccelTranscodeList_Pass1 = new List<string>()
+                {
+                    "\r\n\r\n" +
+                    Video.HWAccelerationTranscode(VM.FormatView.Format_MediaType_SelectedItem,
+                                                  VM.VideoView.Video_Codec_SelectedItem,
+                                                  VM.VideoView.Video_HWAccel_Transcode_SelectedItem
+                                                  ),
                 };
 
                 // -------------------------
@@ -434,7 +496,7 @@ namespace Axiom
                     videoList_Pass1 = new List<string>()
                     {
                         "\r\n\r\n" +
-                        Video.VideoCodec(VM.VideoView.Video_HWAccel_SelectedItem,
+                        Video.VideoCodec(VM.VideoView.Video_HWAccel_Transcode_SelectedItem,
                                          VM.VideoView.Video_Codec_SelectedItem,
                                          VM.VideoView.Video_Codec
                                          ),
@@ -460,10 +522,23 @@ namespace Axiom
                                            VM.VideoView.Video_BufSize_Text,
                                            VM.MainView.Input_Text
                                            ),
+
                         "\r\n" +
                         Video.PixFmt(VM.VideoView.Video_Codec_SelectedItem,
                                      VM.VideoView.Video_PixelFormat_SelectedItem
                                      ),
+
+                        "\r\n" +
+                        Video.Color_Primaries(VM.VideoView.Video_Color_Primaries_SelectedItem),
+                        "\r\n" +
+                        Video.Color_TransferCharacteristics(VM.VideoView.Video_Color_TransferCharacteristics_SelectedItem),
+                        "\r\n" +
+                        Video.Color_Space(VM.VideoView.Video_Color_Space_SelectedItem),
+                        "\r\n" +
+                        Video.Color_Range(VM.VideoView.Video_Color_Range_SelectedItem),
+                        //"\r\n" +
+                        //Video.Color_Matrix(VM.VideoView.Video_Color_Matrix_SelectedItem),
+
                         "\r\n" +
                         Video.FPS(VM.VideoView.Video_Codec_SelectedItem,
                                   VM.VideoView.Video_FPS_SelectedItem,
@@ -547,7 +622,9 @@ namespace Axiom
                 
 
                 // Combine Lists
-                List<string> FFmpegArgsPass1List = inputList_Pass1
+                List<string> FFmpegArgsPass1List = hwAccelDecodeList_Pass1
+                                                   .Concat(inputList_Pass1)
+                                                   .Concat(hwAccelTranscodeList_Pass1)
                                                    .Concat(formatList_Pass1)
                                                    .Concat(videoList_Pass1)
                                                    .Concat(subtitleList_Pass1)
@@ -569,33 +646,57 @@ namespace Axiom
                 // Pass 2
                 // --------------------------------------------------
                 // -------------------------
-                // Input
+                // Pass 2 Initialize
                 // -------------------------
-                List<string> inputList_Pass2 = new List<string>()
+                List<string> initializeList_Pass2 = new List<string>()
                 {
-                    // Video Methods have already defined Global Strings in Pass 1
-                    // Use Strings instead of Methods
-                    //
                     "\r\n\r\n" +
                     "&&",
 
                     "\r\n\r\n" +
                     MainWindow.FFmpegPath(),
+
+                    "\r\n\r\n" +
                     "-y",
+                };
 
+                // -------------------------
+                // HW Accel Decode
+                // -------------------------
+                List<string> hwAccelDecodeList_Pass2 = new List<string>()
+                {
                     "\r\n\r\n" +
-                    Video.HWAcceleration(VM.FormatView.Format_MediaType_SelectedItem,
-                                         VM.VideoView.Video_Codec_SelectedItem,
-                                         VM.VideoView.Video_HWAccel_SelectedItem
-                                         ),
+                    Video.HWAccelerationDecode(VM.FormatView.Format_MediaType_SelectedItem,
+                                               VM.VideoView.Video_Codec_SelectedItem,
+                                               VM.VideoView.Video_HWAccel_Decode_SelectedItem
+                                               ),
+                };
 
+                // -------------------------
+                // Input
+                // -------------------------
+                List<string> inputList_Pass2 = new List<string>()
+                {
                     "\r\n\r\n" +
-                    "-i " + "\"" + MainWindow.InputPath(/*main_vm,*/ "pass 2") + "\"",
+                    "-i " + "\"" +
+                    MainWindow.InputPath("pass 2") + "\"",
 
                     "\r\n\r\n" +
                     Subtitle.SubtitlesExternal(VM.SubtitleView.Subtitle_Codec_SelectedItem,
                                                VM.SubtitleView.Subtitle_Stream_SelectedItem
                                                ),
+                };
+
+                // -------------------------
+                // HW Accel Transcode
+                // -------------------------
+                List<string> hwAccelTranscodeList_Pass2 = new List<string>()
+                {
+                    "\r\n\r\n" +
+                    Video.HWAccelerationTranscode(VM.FormatView.Format_MediaType_SelectedItem,
+                                                  VM.VideoView.Video_Codec_SelectedItem,
+                                                  VM.VideoView.Video_HWAccel_Transcode_SelectedItem
+                                                  ),
                 };
 
                 // -------------------------
@@ -627,6 +728,18 @@ namespace Axiom
                         Video.vQuality,
                         "\r\n" +
                         Video.pix_fmt,
+                        "\r\n" +
+                        Video.colorPrimaries,
+                        "\r\n" +
+                        Video.colorTransferCharacteristics,
+                        "\r\n" +
+                        Video.colorSpace,
+                        "\r\n" +
+                        Video.colorRange,
+                        "\r\n" +
+                        Video.colorPrimaries,
+                        //"\r\n" +
+                        //Video.colorMatrix,
                         "\r\n" +
                         Video.fps,
                         "\r\n" +
@@ -765,7 +878,10 @@ namespace Axiom
 
 
                 // Combine Lists
-                List<string> FFmpegArgsPass2List = inputList_Pass2
+                List<string> FFmpegArgsPass2List = initializeList_Pass2
+                                                   .Concat(hwAccelDecodeList_Pass2)
+                                                   .Concat(inputList_Pass2)
+                                                   .Concat(hwAccelTranscodeList_Pass2)
                                                    .Concat(formatList_Pass2)
                                                    .Concat(videoList_Pass2)
                                                    .Concat(subtitleList_Pass2)
@@ -809,12 +925,10 @@ namespace Axiom
                 List<string> FFmpegArgsList = new List<string>()
                 {
                     MainWindow.FFmpegPath(),
+
+                    "\r\n\r\n" +
                     "-y",
 
-                    "\r\n\r\n" + Video.HWAcceleration(VM.FormatView.Format_MediaType_SelectedItem,
-                                                      VM.VideoView.Video_Codec_SelectedItem,
-                                                      VM.VideoView.Video_HWAccel_SelectedItem
-                                                      ),
                     OnePassArgs(), // disabled if 2-Pass
                     TwoPassArgs() // disabled if 1-Pass
                 };
@@ -907,28 +1021,28 @@ namespace Axiom
                     "do (echo)",
 
                     // Video
-                    "\r\n\r\n" + Video.BatchVideoQualityAuto(VM.MainView.Batch_IsChecked,
-                                                             VM.VideoView.Video_Codec_SelectedItem,
-                                                             VM.VideoView.Video_Quality_SelectedItem 
-                                                             ),
+                    "\r\n\r\n" + 
+                    Video.BatchVideoQualityAuto(VM.MainView.Batch_IsChecked,
+                                                VM.VideoView.Video_Codec_SelectedItem,
+                                                VM.VideoView.Video_Quality_SelectedItem 
+                                                ),
 
                     // Audio
-                    "\r\n\r\n" + Audio.BatchAudioQualityAuto(VM.MainView.Batch_IsChecked,
-                                                             VM.AudioView.Audio_Codec_SelectedItem,
-                                                             VM.AudioView.Audio_Quality_SelectedItem
-                                                             ),
-                    "\r\n\r\n" + Audio.BatchAudioBitRateLimiter(VM.AudioView.Audio_Codec_SelectedItem,
-                                                                VM.AudioView.Audio_Quality_SelectedItem
-                                                                ),
+                    "\r\n\r\n" + 
+                    Audio.BatchAudioQualityAuto(VM.MainView.Batch_IsChecked,
+                                                VM.AudioView.Audio_Codec_SelectedItem,
+                                                VM.AudioView.Audio_Quality_SelectedItem
+                                                ),
+                    "\r\n\r\n" + 
+                    Audio.BatchAudioBitRateLimiter(VM.AudioView.Audio_Codec_SelectedItem,
+                                                   VM.AudioView.Audio_Quality_SelectedItem
+                                                   ),
 
                     "\r\n\r\n" + "&&",
                     "\r\n\r\n" + MainWindow.FFmpegPath(),
-                    "-y",
 
-                    "\r\n\r\n" + Video.HWAcceleration(VM.FormatView.Format_MediaType_SelectedItem,
-                                                      VM.VideoView.Video_Codec_SelectedItem,
-                                                      VM.VideoView.Video_HWAccel_SelectedItem
-                                                      ),
+                    "\r\n\r\n" +
+                    "-y",
                    
                     // %~f added in InputPath()
 
@@ -1043,13 +1157,10 @@ namespace Axiom
             {
                 "\r\n\r\n" + "&&",
                 "\r\n\r\n" + MainWindow.FFmpegPath(),
+
+                "\r\n\r\n" +
                 "-y",
 
-                "\r\n\r\n" + Video.HWAcceleration(VM.FormatView.Format_MediaType_SelectedItem,
-                                                  VM.VideoView.Video_Codec_SelectedItem,
-                                                  VM.VideoView.Video_HWAccel_SelectedItem
-                                                  ),
-                
                 OnePassArgs(), //disabled if 2-Pass       
                 TwoPassArgs(), //disabled if 1-Pass
 
