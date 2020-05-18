@@ -68,9 +68,17 @@ namespace Axiom
         /// </summary>
         public void LoadFilterAudioDefaults()
         {
+            // EQ
             FilterAudio_Lowpass_SelectedItem = "disabled";
             FilterAudio_Highpass_SelectedItem = "disabled";
+
+            // Dynamics
+            FilterAudio_Contrast_Value = 0;
+            FilterAudio_ExtraStereo_Value = 0;
             FilterAudio_Headphones_SelectedItem = "disabled";
+
+            // Timing
+            FilterAudio_Tempo_Value = 100;
         }
 
 
