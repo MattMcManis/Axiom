@@ -164,7 +164,18 @@ namespace Axiom
                     // CUDA
                     // -------------------------
                     case "CUDA":
-                        hwAccelDecode = "-hwaccel cuda -hwaccel_output_format cuda";
+                        hwAccelDecode = "-hwaccel cuda";
+                        //// Decode Only
+                        //if (VM.VideoView.Video_HWAccel_Transcode_SelectedItem == "off" ||
+                        //    VM.VideoView.Video_HWAccel_Transcode_SelectedItem == "auto")
+                        //{
+                        //    hwAccelDecode = "-hwaccel cuda";
+                        //}
+                        //// Decode + Transcode
+                        //else
+                        //{
+                        //    hwAccelDecode = "-hwaccel cuda -hwaccel_output_format cuda";
+                        //}
                         break;
 
                     // -------------------------
@@ -983,7 +994,7 @@ namespace Axiom
                         vBufSize,
                         vCRF,
                         //x265params,
-                        VideoParams.Video_Params(),
+                        //VideoParams.Video_Params(),
                         vOptions
                     };
                 }
@@ -1005,7 +1016,7 @@ namespace Axiom
                         vMaxRate,
                         vBufSize,
                         //x265params,
-                        VideoParams.Video_Params(),
+                        //VideoParams.Video_Params(),
                         vOptions
                     };
 
@@ -1283,6 +1294,63 @@ namespace Axiom
         }
 
 
+        /// <summary>
+        /// Pass (Method)
+        /// <summary>
+        public static String PassParams(string codec_SelectedItem,
+                                        string pass_SelectedItem,
+                                        string passNumber)
+        {
+            string pass = string.Empty;
+
+            // -------------------------
+            // Clear and Re-Generate All Params for Pass 2
+            // -------------------------
+            if (passNumber == "2")
+            {
+                if (VideoParams.vParamsList != null &&
+                    VideoParams.vParamsList.Count > 0)
+                {
+                    VideoParams.vParamsList.Clear();
+                    VideoParams.vParamsList.TrimExcess();
+                }
+            }
+
+            // -------------------------
+            // Enabled
+            // -------------------------
+            if (pass_SelectedItem == "2 Pass")
+            {
+                // Enable pass parameters in the FFmpeg Arguments
+                // x265 Pass 2 Params
+                if (codec_SelectedItem == "x265")
+                {
+                    //pass = string.Empty;
+                    VideoParams.vParamsList.Add("pass=" + passNumber);
+                }
+                // All other codecs
+                //else
+                //{
+                //    pass = string.Empty;
+                //}
+                //MessageBox.Show(string.Join("", VideoParams.vParamsList)); //debug
+            }
+
+            // -------------------------
+            // Disabled
+            // -------------------------
+            //else if (pass_SelectedItem == "1 Pass" ||
+            //         pass_SelectedItem == "CRF" ||
+            //         pass_SelectedItem == "auto") // JPG, PNG, WebP
+            //{
+            //    pass = string.Empty;
+            //}
+
+
+            // Return Value
+            return pass;
+        }
+
 
         /// <summary>
         /// Pass 1 Modifier (Method)
@@ -1301,7 +1369,9 @@ namespace Axiom
                 // x265 Pass 2 Params
                 if (codec_SelectedItem == "x265")
                 {
-                    pass1 = "-x265-params pass=1";
+                    //pass1 = "-x265-params pass=1";
+                    pass1 = string.Empty;
+                    //VideoParams.vParamsList.Add("pass=1");
                 }
                 // All other codecs
                 else
@@ -1343,7 +1413,9 @@ namespace Axiom
                 // x265 Pass 2 Params
                 if (codec_SelectedItem == "x265")
                 {
-                    pass2 = "-x265-params pass=2";
+                    //pass2 = "-x265-params pass=2";
+                    pass1 = string.Empty;
+                    //VideoParams.vParamsList.Add("pass=2");
                 }
                 // All other codecs
                 else
