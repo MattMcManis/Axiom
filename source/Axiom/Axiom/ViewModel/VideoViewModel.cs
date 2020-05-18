@@ -72,11 +72,11 @@ namespace Axiom
             Video_Video_Optimize_Tune_SelectedItem = "none";
             Video_Video_Optimize_Profile_SelectedItem = "none";
             Video_Optimize_Level_SelectedItem = "none";
-            Video_Color_Matrix_SelectedItem = "auto";
             Video_Color_TransferCharacteristics_SelectedItem = "auto";
             Video_Color_Primaries_SelectedItem = "auto";
             Video_Color_Space_SelectedItem = "auto";
             Video_Color_Range_SelectedItem = "auto";
+            Video_Color_Matrix_SelectedItem = "auto";
             Video_Scale_SelectedItem = "Source";
             Video_ScreenFormat_SelectedItem = "auto";
             Video_AspectRatio_SelectedItem = "auto";
@@ -1469,12 +1469,12 @@ namespace Axiom
             "auto",
             "BT.709",
             "FCC",
-            "BT.601",
-            "BT.470",
+            //"BT.601", // doesn't work
+            //"BT.470", // doesn't work
             "BT.470BG",
             "SMPTE-170M",
             "SMPTE-240M",
-            "BT.2020"
+            //"BT.2020" // doesn't work
         };
         public List<string> Video_Color_Matrix_Items
         {
