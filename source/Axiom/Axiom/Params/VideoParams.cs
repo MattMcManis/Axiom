@@ -58,72 +58,72 @@ namespace Axiom
         /// <remarks>
         /// https://ffmpeg.org/ffmpeg-filters.html#colorspace
         /// </remarks>
-        public static String Color_Primaries_Filter()
-        {
-            string colorPrimaries = string.Empty;
+        //public static String Color_Primaries_Filter()
+        //{
+        //    string colorPrimaries = string.Empty;
 
-            if (VM.VideoView.Video_Color_Primaries_SelectedItem != "auto")
-            {
-                switch (VM.VideoView.Video_Color_Primaries_SelectedItem)
-                {
-                    case "BT.709":
-                        colorPrimaries = "bt709";
-                        break;
+        //    if (VM.VideoView.Video_Color_Primaries_SelectedItem != "auto")
+        //    {
+        //        switch (VM.VideoView.Video_Color_Primaries_SelectedItem)
+        //        {
+        //            case "BT.709":
+        //                colorPrimaries = "bt709";
+        //                break;
 
-                    case "BT.470M":
-                        colorPrimaries = "bt470m";
-                        break;
+        //            case "BT.470M":
+        //                colorPrimaries = "bt470m";
+        //                break;
 
-                    case "BT.470BG":
-                        colorPrimaries = "bt470bg";
-                        break;
+        //            case "BT.470BG":
+        //                colorPrimaries = "bt470bg";
+        //                break;
 
-                    case "BT.601-6 525":
-                        colorPrimaries = "smpte170m";
-                        break;
+        //            case "BT.601-6 525":
+        //                colorPrimaries = "smpte170m";
+        //                break;
 
-                    case "BT.601-6 625":
-                        colorPrimaries = "bt470bg";
-                        break;
+        //            case "BT.601-6 625":
+        //                colorPrimaries = "bt470bg";
+        //                break;
 
-                    case "SMPTE-170M":
-                        colorPrimaries = "smpte170m";
-                        break;
+        //            case "SMPTE-170M":
+        //                colorPrimaries = "smpte170m";
+        //                break;
 
-                    case "SMPTE-240M":
-                        colorPrimaries = "smpte240m";
-                        break;
+        //            case "SMPTE-240M":
+        //                colorPrimaries = "smpte240m";
+        //                break;
 
-                    case "film":
-                        colorPrimaries = "film";
-                        break;
+        //            case "film":
+        //                colorPrimaries = "film";
+        //                break;
 
-                    case "SMPTE-431":
-                        colorPrimaries = "smpte431";
-                        break;
+        //            case "SMPTE-431":
+        //                colorPrimaries = "smpte431";
+        //                break;
 
-                    case "SMPTE-432":
-                        colorPrimaries = "smpte432";
-                        break;
+        //            case "SMPTE-432":
+        //                colorPrimaries = "smpte432";
+        //                break;
 
-                    case "BT.2020":
-                        colorPrimaries = "bt2020";
-                        break;
+        //            case "BT.2020":
+        //                colorPrimaries = "bt2020";
+        //                break;
 
-                    case "JEDEC P22 phosphors":
-                        colorPrimaries = "jedec-p22";
-                        break;
-                }
+        //            case "JEDEC P22 phosphors":
+        //                colorPrimaries = "jedec-p22";
+        //                break;
+        //        }
 
-                return "colorprim=" + colorPrimaries;
-            }
+        //        return "colorprim=" + colorPrimaries;
+        //    }
 
-            // Auto
-            else
-            {
-                return string.Empty;
-            }
-        }
+        //    // Auto
+        //    else
+        //    {
+        //        return string.Empty;
+        //    }
+        //}
 
         /// <summary>
         /// Color Transfer Characteristics
@@ -131,145 +131,145 @@ namespace Axiom
         /// <remarks>
         /// https://ffmpeg.org/ffmpeg-filters.html#colorspace
         /// </remarks>
-        public static String Color_TransferCharacteristics_Filter()
-        {
-            string colorTransferCharacteristics = string.Empty;
+        //public static String Color_TransferCharacteristics_Filter()
+        //{
+        //    string colorTransferCharacteristics = string.Empty;
 
-            if (VM.VideoView.Video_Color_TransferCharacteristics_SelectedItem != "auto")
-            {
-                switch (VM.VideoView.Video_Color_TransferCharacteristics_SelectedItem)
-                {
-                    case "BT.709":
-                        colorTransferCharacteristics = "bt709";
-                        break;
+        //    if (VM.VideoView.Video_Color_TransferCharacteristics_SelectedItem != "auto")
+        //    {
+        //        switch (VM.VideoView.Video_Color_TransferCharacteristics_SelectedItem)
+        //        {
+        //            case "BT.709":
+        //                colorTransferCharacteristics = "bt709";
+        //                break;
 
-                    case "BT.470M":
-                        colorTransferCharacteristics = "bt470m";
-                        break;
+        //            case "BT.470M":
+        //                colorTransferCharacteristics = "bt470m";
+        //                break;
 
-                    case "BT.470BG":
-                        colorTransferCharacteristics = "bt470bg";
-                        break;
+        //            case "BT.470BG":
+        //                colorTransferCharacteristics = "bt470bg";
+        //                break;
 
-                    case "Gamma 2.2":
-                        colorTransferCharacteristics = "gamma22";
-                        break;
+        //            case "Gamma 2.2":
+        //                colorTransferCharacteristics = "gamma22";
+        //                break;
 
-                    case "Gamma 2.8":
-                        colorTransferCharacteristics = "gamma28";
-                        break;
+        //            case "Gamma 2.8":
+        //                colorTransferCharacteristics = "gamma28";
+        //                break;
 
-                    case "BT.601-6 525":
-                        colorTransferCharacteristics = "smpte170m";
-                        break;
+        //            case "BT.601-6 525":
+        //                colorTransferCharacteristics = "smpte170m";
+        //                break;
 
-                    case "BT.601-6 625":
-                        colorTransferCharacteristics = "smpte170m";
-                        break;
+        //            case "BT.601-6 625":
+        //                colorTransferCharacteristics = "smpte170m";
+        //                break;
 
-                    case "SMPTE-170M":
-                        colorTransferCharacteristics = "smpte170m";
-                        break;
+        //            case "SMPTE-170M":
+        //                colorTransferCharacteristics = "smpte170m";
+        //                break;
 
-                    case "SMPTE-240M":
-                        colorTransferCharacteristics = "smpte240m";
-                        break;
+        //            case "SMPTE-240M":
+        //                colorTransferCharacteristics = "smpte240m";
+        //                break;
 
-                    case "SRGB":
-                        colorTransferCharacteristics = "srgb";
-                        break;
+        //            case "SRGB":
+        //                colorTransferCharacteristics = "srgb";
+        //                break;
 
-                    case "iec61966-2-1":
-                        colorTransferCharacteristics = "iec61966-2-1";
-                        break;
+        //            case "iec61966-2-1":
+        //                colorTransferCharacteristics = "iec61966-2-1";
+        //                break;
 
-                    case "iec61966-2-4":
-                        colorTransferCharacteristics = "iec61966-2-4";
-                        break;
+        //            case "iec61966-2-4":
+        //                colorTransferCharacteristics = "iec61966-2-4";
+        //                break;
 
-                    case "xvycc":
-                        colorTransferCharacteristics = "xvycc";
-                        break;
+        //            case "xvycc":
+        //                colorTransferCharacteristics = "xvycc";
+        //                break;
 
-                    case "BT.2020 10-bit":
-                        colorTransferCharacteristics = "bt2020-10";
-                        break;
+        //            case "BT.2020 10-bit":
+        //                colorTransferCharacteristics = "bt2020-10";
+        //                break;
 
-                    case "BT.2020 12-bit":
-                        colorTransferCharacteristics = "bt2020-12";
-                        break;
-                }
+        //            case "BT.2020 12-bit":
+        //                colorTransferCharacteristics = "bt2020-12";
+        //                break;
+        //        }
 
-                return "transfer=" + colorTransferCharacteristics;
-            }
+        //        return "transfer=" + colorTransferCharacteristics;
+        //    }
 
-            // Auto
-            else
-            {
-                return string.Empty;
-            }
-        }
+        //    // Auto
+        //    else
+        //    {
+        //        return string.Empty;
+        //    }
+        //}
 
-        /// <summary>
-        /// Color Space
-        /// <summary>
-        /// <remarks>
-        /// https://ffmpeg.org/ffmpeg-filters.html#colorspace
-        /// </remarks>
-        public static String Color_Space_Filter()
-        {
-            string colorSpace = string.Empty;
+        ///// <summary>
+        ///// Color Space
+        ///// <summary>
+        ///// <remarks>
+        ///// https://ffmpeg.org/ffmpeg-filters.html#colorspace
+        ///// </remarks>
+        //public static String Color_Space_Filter()
+        //{
+        //    string colorSpace = string.Empty;
 
-            if (VM.VideoView.Video_Color_Space_SelectedItem != "auto")
-            {
-                switch (VM.VideoView.Video_Color_Space_SelectedItem)
-                {
-                    case "BT.709":
-                        colorSpace = "bt709";
-                        break;
+        //    if (VM.VideoView.Video_Color_Space_SelectedItem != "auto")
+        //    {
+        //        switch (VM.VideoView.Video_Color_Space_SelectedItem)
+        //        {
+        //            case "BT.709":
+        //                colorSpace = "bt709";
+        //                break;
 
-                    case "FCC":
-                        colorSpace = "fcc";
-                        break;
+        //            case "FCC":
+        //                colorSpace = "fcc";
+        //                break;
 
-                    case "BT.470BG":
-                        colorSpace = "bt470bg";
-                        break;
+        //            case "BT.470BG":
+        //                colorSpace = "bt470bg";
+        //                break;
 
-                    case "BT.601-6 525":
-                        colorSpace = "smpte170m";
-                        break;
+        //            case "BT.601-6 525":
+        //                colorSpace = "smpte170m";
+        //                break;
 
-                    case "BT.601-6 625":
-                        colorSpace = "bt470bg";
-                        break;
+        //            case "BT.601-6 625":
+        //                colorSpace = "bt470bg";
+        //                break;
 
-                    case "SMPTE-170M":
-                        colorSpace = "smpte170m";
-                        break;
+        //            case "SMPTE-170M":
+        //                colorSpace = "smpte170m";
+        //                break;
 
-                    case "SMPTE-240M":
-                        colorSpace = "smpte240m";
-                        break;
+        //            case "SMPTE-240M":
+        //                colorSpace = "smpte240m";
+        //                break;
 
-                    case "YCgCo":
-                        colorSpace = "ycgco";
-                        break;
+        //            case "YCgCo":
+        //                colorSpace = "ycgco";
+        //                break;
 
-                    case "BT.2020 NCL":
-                        colorSpace = "bt2020ncl";
-                        break;
-                }
+        //            case "BT.2020 NCL":
+        //                colorSpace = "bt2020ncl";
+        //                break;
+        //        }
 
-                return "colorspace=" + colorSpace;
-            }
+        //        return "colorspace=" + colorSpace;
+        //    }
 
-            // Auto
-            else
-            {
-                return string.Empty;
-            }
-        }
+        //    // Auto
+        //    else
+        //    {
+        //        return string.Empty;
+        //    }
+        //}
 
         /// <summary>
         /// Color Range
@@ -277,40 +277,40 @@ namespace Axiom
         /// <remarks>
         /// https://ffmpeg.org/ffmpeg-filters.html#colorspace
         /// </remarks>
-        public static String Color_Range_Filter()
-        {
-            string colorRange = string.Empty;
+        //public static String Color_Range_Filter()
+        //{
+        //    string colorRange = string.Empty;
 
-            if (VM.VideoView.Video_Color_Range_SelectedItem != "auto")
-            {
-                switch (VM.VideoView.Video_Color_Range_SelectedItem)
-                {
-                    case "TV":
-                        colorRange = "tv";
-                        break;
+        //    if (VM.VideoView.Video_Color_Range_SelectedItem != "auto")
+        //    {
+        //        switch (VM.VideoView.Video_Color_Range_SelectedItem)
+        //        {
+        //            case "TV":
+        //                colorRange = "tv";
+        //                break;
 
-                    case "PC":
-                        colorRange = "pc";
-                        break;
+        //            case "PC":
+        //                colorRange = "pc";
+        //                break;
 
-                    case "MPEG":
-                        colorRange = "mpeg";
-                        break;
+        //            case "MPEG":
+        //                colorRange = "mpeg";
+        //                break;
 
-                    case "JPEG":
-                        colorRange = "jpeg";
-                        break;
-                }
+        //            case "JPEG":
+        //                colorRange = "jpeg";
+        //                break;
+        //        }
 
-                return "colorrange=" + colorRange;
-            }
+        //        return "colorrange=" + colorRange;
+        //    }
 
-            // Auto
-            else
-            {
-                return string.Empty;
-            }
-        }
+        //    // Auto
+        //    else
+        //    {
+        //        return string.Empty;
+        //    }
+        //}
 
         /// <summary>
         /// Color Matrix
@@ -334,13 +334,13 @@ namespace Axiom
                         colorMatrix = "fcc";
                         break;
 
-                    case "BT.601":
-                        colorMatrix = "bt601";
-                        break;
+                    //case "BT.601":
+                    //    colorMatrix = "bt601";
+                    //    break;
 
-                    case "BT.470":
-                        colorMatrix = "bt470";
-                        break;
+                    //case "BT.470":
+                    //    colorMatrix = "bt470";
+                    //    break;
 
                     case "BT.470BG":
                         colorMatrix = "bt470bg";
@@ -354,9 +354,9 @@ namespace Axiom
                         colorMatrix = "smpte240m";
                         break;
 
-                    case "BT.2020":
-                        colorMatrix = "bt2020";
-                        break;
+                    //case "BT.2020":
+                    //    colorMatrix = "bt2020";
+                    //    break;
                 }
 
                 return "colormatrix=" + colorMatrix;
@@ -377,10 +377,10 @@ namespace Axiom
             // Color List
             List<string> vColor_Params_List = new List<string>()
             {
-                VideoParams.Color_Primaries_Filter(),
-                VideoParams.Color_TransferCharacteristics_Filter(),
-                VideoParams.Color_Space_Filter(),
-                VideoParams.Color_Range_Filter(),
+                //VideoParams.Color_Primaries_Filter(),
+                //VideoParams.Color_TransferCharacteristics_Filter(),
+                //VideoParams.Color_Space_Filter(),
+                //VideoParams.Color_Range_Filter(),
                 VideoParams.Color_Matrix_Filter()
             };
 
@@ -396,16 +396,19 @@ namespace Axiom
         /// <summary>
         /// Video Params Combine (Method)
         /// <summary>
-        public static String Video_Params()
+        public static String Video_Params(string video_Quality_SelectedItem,
+                                          string video_Codec_SelectedItem,
+                                          string format_MediaType_SelectedItem
+            )
         {
             // Video BitRate None Check
             // Video Codec None Check
             // Codec Copy Check
             // Media Type Check
-            if (VM.VideoView.Video_Quality_SelectedItem != "None" &&
-                VM.VideoView.Video_Codec_SelectedItem != "None" &&
-                VM.VideoView.Video_Codec_SelectedItem != "Copy" &&
-                VM.FormatView.Format_MediaType_SelectedItem != "Audio")
+            if (video_Quality_SelectedItem != "None" &&
+                video_Codec_SelectedItem != "None" &&
+                video_Codec_SelectedItem != "Copy" &&
+                format_MediaType_SelectedItem != "Audio")
             {
                 // --------------------------------------------------
                 // Add Each Filter to Master Filters List
@@ -414,7 +417,7 @@ namespace Axiom
                 // -------------------------
                 // Color
                 // -------------------------
-                //VideoParams.Video_Color(); // Disabled for now
+                VideoParams.Video_Color();
 
                 // -------------------------
                 // Empty Halt
@@ -438,11 +441,11 @@ namespace Axiom
                 {
                     // x264
                     case "x264":
-                        codec = "-x264-params";
+                        codec = "-x264-params" + " ";
                         break;
                     // x265
                     case "x265":
-                        codec = "-x265-params";
+                        codec = "-x265-params" + " ";
                         break;
                     // All Other Codecs
                     default: return string.Empty;
@@ -454,9 +457,9 @@ namespace Axiom
                 if (vParamsList.Count == 1)
                 {
                     // Always wrap in quotes
-                    vParams = codec + " \"" + string.Join(", \r\n\r\n", vParamsList
-                                                .Where(s => !string.IsNullOrEmpty(s)))
-                                                + "\"";
+                    vParams = codec + "\"" + string.Join("", vParamsList
+                                                   .Where(s => !string.IsNullOrEmpty(s)))
+                                    + "\"";
                 }
 
                 // -------------------------
@@ -466,9 +469,9 @@ namespace Axiom
                 {
                     // Always wrap in quotes
                     // Linebreak beginning and end
-                    vParams = codec + " \"\r\n" + string.Join(", \r\n\r\n", vParamsList
-                                                    .Where(s => !string.IsNullOrEmpty(s)))
-                                                    + "\r\n\"";
+                    vParams = codec + "\"\r\n" + string.Join("\r\n:", vParamsList
+                                                       .Where(s => !string.IsNullOrEmpty(s)))
+                                    + "\r\n\"";
                 }
 
                 // -------------------------
