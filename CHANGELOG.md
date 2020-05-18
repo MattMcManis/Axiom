@@ -4,6 +4,17 @@ Axiom FFmpeg UI
 
 ## [alpha]
 
+## [1.8.2.0] - May 18, 2020
+### Added
+- Video Color Matrix
+
+### Changed
+- Improved 2 Pass `-x265-Params`
+
+### Fixed
+- Presets Filter Audio Defaults
+
+
 ## [1.8.1.0] - May 16, 2020
 ### Added
 - Video Sub Tabs, `Encoding`, `Color`, `Size`
