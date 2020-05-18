@@ -974,9 +974,9 @@ namespace Axiom
                 if (vFiltersList.Count == 1)
                 {
                     // Always wrap in quotes
-                    vFilter = "-vf \"" + string.Join(", \r\n\r\n", vFiltersList
-                                                .Where(s => !string.IsNullOrEmpty(s)))
-                                                + "\"";
+                    vFilter = "-vf \"" + string.Join("", vFiltersList
+                                               .Where(s => !string.IsNullOrEmpty(s)))
+                                + "\"";
                 }
 
                 // -------------------------
@@ -987,8 +987,8 @@ namespace Axiom
                     // Always wrap in quotes
                     // Linebreak beginning and end
                     vFilter = "-vf \"\r\n" + string.Join(", \r\n\r\n", vFiltersList
-                                                    .Where(s => !string.IsNullOrEmpty(s)))
-                                                    + "\r\n\"";
+                                                   .Where(s => !string.IsNullOrEmpty(s)))
+                                + "\r\n\"";
                 }
 
                 // -------------------------
