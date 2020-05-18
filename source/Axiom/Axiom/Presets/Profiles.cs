@@ -319,6 +319,14 @@ namespace Axiom
                 else
                     listFailedImports.Add("Video: Color Range");
 
+                // Color Matrix
+                string videoColorMatrix = inif.Read("Video", "Color_Matrix_SelectedItem");
+
+                if (VM.VideoView.Video_Color_Matrix_Items.Contains(videoColorMatrix))
+                    VM.VideoView.Video_Color_Matrix_SelectedItem = videoColorMatrix;
+                else
+                    listFailedImports.Add("Video: Color Matrix");
+
                 // Pixel Format
                 string videoPixelFormat = inif.Read("Video", "PixelFormat_SelectedItem");
 
@@ -932,6 +940,8 @@ namespace Axiom
                 inif.Write("Video", "Color_Space_SelectedItem", VM.VideoView.Video_Color_Space_SelectedItem);
                 // Color Range
                 inif.Write("Video", "Color_Range_SelectedItem", VM.VideoView.Video_Color_Range_SelectedItem);
+                // Color Matrix
+                inif.Write("Video", "Color_Matrix_SelectedItem", VM.VideoView.Video_Color_Matrix_SelectedItem);
 
                 // FPS
                 if (VM.VideoView.Video_FPS_IsEditable == false) // Selected
