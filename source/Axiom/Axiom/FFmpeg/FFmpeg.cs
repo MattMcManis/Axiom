@@ -98,10 +98,10 @@ namespace Axiom
         /// 1-Pass Arguments
         /// </summary>
         // 1-Pass, CRF, & Auto
-        public static String OnePassArgs()
+        public static String OnePass_CRF_Args()
         {
             // -------------------------
-            //  Single Pass
+            //  Single Pass (1 Pass & CRF)
             // -------------------------
             if (VM.VideoView.Video_Pass_SelectedItem == "1 Pass" ||
                 VM.VideoView.Video_Pass_SelectedItem == "CRF" ||
@@ -191,6 +191,14 @@ namespace Axiom
                                          VM.VideoView.Video_Codec_SelectedItem,
                                          VM.VideoView.Video_Codec
                                          ),
+
+                        "\r\n" +
+                        // No PassParams() for 1 Pass / CRF
+                        VideoParams.Video_Params(VM.VideoView.Video_Quality_SelectedItem,
+                                                 VM.VideoView.Video_Codec_SelectedItem,
+                                                 VM.FormatView.Format_MediaType_SelectedItem
+                                                 ),
+
                         "\r\n" +
                         Video.VideoEncodeSpeed(VM.VideoView.Video_EncodeSpeed_Items,
                                                VM.VideoView.Video_EncodeSpeed_SelectedItem,
@@ -227,8 +235,6 @@ namespace Axiom
                         Video.Color_Space(VM.VideoView.Video_Color_Space_SelectedItem),
                         "\r\n" +
                         Video.Color_Range(VM.VideoView.Video_Color_Range_SelectedItem),
-                        //"\r\n" +
-                        //Video.Color_Matrix(VM.VideoView.Video_Color_Matrix_SelectedItem),
 
                         "\r\n" +
                         Video.FPS(VM.VideoView.Video_Codec_SelectedItem,
@@ -313,9 +319,7 @@ namespace Axiom
                     {
                         "\r\n\r\n" +
                         Audio.AudioCodec(VM.AudioView.Audio_Codec_SelectedItem,
-                                         VM.AudioView.Audio_Codec//,
-                                         //VM.AudioView.Audio_BitDepth_SelectedItem,
-                                         //VM.MainView.Input_Text
+                                         VM.AudioView.Audio_Codec
                                          ),
                         "\r\n" +
                         Audio.AudioQuality(VM.MainView.Input_Text,
@@ -407,10 +411,10 @@ namespace Axiom
         /// <summary>
         /// 2-Pass Arguments
         /// </summary>      
-        public static String TwoPassArgs()
+        public static String TwoPass_Args()
         {
             // -------------------------
-            //  2-Pass Auto Quality
+            //  2-Pass / Auto Quality
             // -------------------------
             // Enabled 
             //
@@ -441,7 +445,7 @@ namespace Axiom
                 {
                     "\r\n\r\n" +
                     "-i "+ "\"" +
-                    MainWindow.InputPath(/*main_vm,*/ "pass 1") + "\"",
+                    MainWindow.InputPath("pass 1") + "\"",
                 };
 
                 // -------------------------
@@ -500,6 +504,17 @@ namespace Axiom
                                          VM.VideoView.Video_Codec_SelectedItem,
                                          VM.VideoView.Video_Codec
                                          ),
+
+                        Video.PassParams(VM.VideoView.Video_Codec_SelectedItem, //-x265-params pass=1
+                                         VM.VideoView.Video_Pass_SelectedItem,
+                                         "1"
+                                         ),
+                        "\r\n" +
+                        VideoParams.Video_Params(VM.VideoView.Video_Quality_SelectedItem,
+                                                 VM.VideoView.Video_Codec_SelectedItem,
+                                                 VM.FormatView.Format_MediaType_SelectedItem
+                                                 ),
+
                         "\r\n" +
                         Video.VideoEncodeSpeed(VM.VideoView.Video_EncodeSpeed_Items,
                                                VM.VideoView.Video_EncodeSpeed_SelectedItem,
@@ -536,8 +551,6 @@ namespace Axiom
                         Video.Color_Space(VM.VideoView.Video_Color_Space_SelectedItem),
                         "\r\n" +
                         Video.Color_Range(VM.VideoView.Video_Color_Range_SelectedItem),
-                        //"\r\n" +
-                        //Video.Color_Matrix(VM.VideoView.Video_Color_Matrix_SelectedItem),
 
                         "\r\n" +
                         Video.FPS(VM.VideoView.Video_Codec_SelectedItem,
@@ -723,6 +736,15 @@ namespace Axiom
                     {
                         "\r\n\r\n" +
                         Video.vCodec,
+                        Video.PassParams(VM.VideoView.Video_Codec_SelectedItem, //-x265-params pass=2
+                                         VM.VideoView.Video_Pass_SelectedItem,
+                                         "2"
+                                         ),
+                        "\r\n" +
+                        VideoParams.Video_Params(VM.VideoView.Video_Quality_SelectedItem,    // Note: Use Method, not String, to re-generate all Pass 2 Params
+                                                 VM.VideoView.Video_Codec_SelectedItem,      //       for 2 Pass -x265-params pass=2
+                                                 VM.FormatView.Format_MediaType_SelectedItem
+                                                 ),
                         "\r\n" +
                         Video.vEncodeSpeed,
                         Video.vQuality,
@@ -929,8 +951,8 @@ namespace Axiom
                     "\r\n\r\n" +
                     "-y",
 
-                    OnePassArgs(), // disabled if 2-Pass
-                    TwoPassArgs() // disabled if 1-Pass
+                    OnePass_CRF_Args(), // disabled if 2-Pass
+                    TwoPass_Args() // disabled if 1-Pass/CRF
                 };
 
                 // Join List with Spaces
@@ -1046,8 +1068,8 @@ namespace Axiom
                    
                     // %~f added in InputPath()
 
-                    OnePassArgs(), // disabled if 2-Pass       
-                    TwoPassArgs() // disabled if 1-Pass
+                    OnePass_CRF_Args(), // disabled if 2-Pass       
+                    TwoPass_Args() // disabled if 1-Pass/CRF
                 };
 
                 // Join List with Spaces
@@ -1161,8 +1183,8 @@ namespace Axiom
                 "\r\n\r\n" +
                 "-y",
 
-                OnePassArgs(), //disabled if 2-Pass       
-                TwoPassArgs(), //disabled if 1-Pass
+                OnePass_CRF_Args(), //disabled if 2-Pass       
+                TwoPass_Args(), //disabled if 1-Pass/CRF
 
                 "\r\n\r\n" + "&&",
 
