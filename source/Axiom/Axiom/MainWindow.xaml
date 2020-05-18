@@ -1756,11 +1756,12 @@
                                                 <RowDefinition Height="33"/>
                                                 <RowDefinition Height="33"/>
                                                 <RowDefinition Height="33"/>
+                                                <RowDefinition Height="33"/>
                                             </Grid.RowDefinitions>
 
-                                            <!-- Primaries -->
+                                            <!-- Color Range -->
                                             <Label Style="{DynamicResource LabelStyle}" 
-                                                   Content="Primaries" 
+                                                   Content="Color Range" 
                                                    HorizontalAlignment="Left" 
                                                    VerticalAlignment="Top"
                                                    FontFamily="Segoe UI Semilight" 
@@ -1768,55 +1769,21 @@
                                                    Height="26"
                                                    ToolTipService.InitialShowDelay="500" 
                                                    ToolTipService.ShowOnDisabled="True" 
-                                                   ToolTip="Color Primaries" 
+                                                   ToolTip="Color Range" 
                                                    Grid.Row="0" 
                                                    Grid.Column="1" />
-                                            <ComboBox x:Name="cboColorPrimaries" 
-                                                      ItemsSource="{Binding Video_Color_Primaries_Items}"
-                                                      SelectedIndex="{Binding Video_Color_Primaries_SelectedIndex}"
-                                                      SelectedItem="{Binding Video_Color_Primaries_SelectedItem, Mode=TwoWay}"
-                                                      IsEnabled="{Binding Video_Color_Primaries_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            <ComboBox x:Name="cboColorRange" 
+                                                      ItemsSource="{Binding Video_Color_Range_Items}"
+                                                      SelectedIndex="{Binding Video_Color_Range_SelectedIndex}"
+                                                      SelectedItem="{Binding Video_Color_Range_SelectedItem, Mode=TwoWay}"
+                                                      IsEnabled="{Binding Video_Color_Range_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                       Style="{DynamicResource ComboBoxStyle}"
                                                       IsSynchronizedWithCurrentItem="True"
                                                       ItemContainerStyle="{DynamicResource ComboBoxStyleItem}"
                                                       HorizontalAlignment="Left" 
                                                       VerticalAlignment="Top" 
                                                       Width="105" 
-                                                      ToolTipService.InitialShowDelay="500" 
-                                                      ToolTipService.ShowOnDisabled="True" 
-                                                      ToolTip="Color Primaries" 
                                                       Grid.Row="0"
-                                                      Grid.Column="2"
-                                                      Height="22" />
-
-                                            <!-- Transfer -->
-                                            <Label Style="{DynamicResource LabelStyle}" 
-                                                   Content="Transfer" 
-                                                   HorizontalAlignment="Left" 
-                                                   VerticalAlignment="Top"
-                                                   FontFamily="Segoe UI Semilight" 
-                                                   Width="91" 
-                                                   Height="26"
-                                                   ToolTipService.InitialShowDelay="500" 
-                                                   ToolTipService.ShowOnDisabled="True" 
-                                                   ToolTip="Color Transfer" 
-                                                   Grid.Row="1" 
-                                                   Grid.Column="1" />
-                                            <ComboBox x:Name="cboColorTransferCharacteristics" 
-                                                      ItemsSource="{Binding Video_Color_TransferCharacteristics_Items}"
-                                                      SelectedIndex="{Binding Video_Color_TransferCharacteristics_SelectedIndex}"
-                                                      SelectedItem="{Binding Video_Color_TransferCharacteristics_SelectedItem, Mode=TwoWay}"
-                                                      IsEnabled="{Binding Video_Color_TransferCharacteristics_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                      Style="{DynamicResource ComboBoxStyle}"
-                                                      IsSynchronizedWithCurrentItem="True"
-                                                      ItemContainerStyle="{DynamicResource ComboBoxStyleItem}"
-                                                      HorizontalAlignment="Left" 
-                                                      VerticalAlignment="Top" 
-                                                      Width="105" 
-                                                      ToolTipService.InitialShowDelay="500" 
-                                                      ToolTipService.ShowOnDisabled="True" 
-                                                      ToolTip="Color Transfer Characteristics" 
-                                                      Grid.Row="1"
                                                       Grid.Column="2"
                                                       Height="22" />
 
@@ -1831,7 +1798,7 @@
                                                    ToolTipService.InitialShowDelay="500" 
                                                    ToolTipService.ShowOnDisabled="True" 
                                                    ToolTip="Color Space" 
-                                                   Grid.Row="2" 
+                                                   Grid.Row="1" 
                                                    Grid.Column="1" />
                                             <ComboBox x:Name="cboColorSpace" 
                                                       ItemsSource="{Binding Video_Color_Space_Items}"
@@ -1844,46 +1811,68 @@
                                                       HorizontalAlignment="Left" 
                                                       VerticalAlignment="Top" 
                                                       Width="105" 
-                                                      ToolTipService.InitialShowDelay="500" 
-                                                      ToolTipService.ShowOnDisabled="True" 
-                                                      ToolTip="Color Space" 
-                                                      Grid.Row="2"
+                                                      Grid.Row="1"
                                                       Grid.Column="2"
                                                       Height="22" />
 
-                                            <!-- Color Range -->
+                                            <!-- Color Primaries -->
                                             <Label Style="{DynamicResource LabelStyle}" 
-                                                   Content="Color Range" 
+                                                   Content="Color Primaries" 
                                                    HorizontalAlignment="Left" 
                                                    VerticalAlignment="Top"
                                                    FontFamily="Segoe UI Semilight" 
-                                                   Width="91" 
+                                                   Width="96" 
                                                    Height="26"
                                                    ToolTipService.InitialShowDelay="500" 
                                                    ToolTipService.ShowOnDisabled="True" 
-                                                   ToolTip="Color Range" 
-                                                   Grid.Row="3" 
+                                                   ToolTip="Color Primaries" 
+                                                   Grid.Row="2" 
                                                    Grid.Column="1" />
-                                            <ComboBox x:Name="cboColorRange" 
-                                                      ItemsSource="{Binding Video_Color_Range_Items}"
-                                                      SelectedIndex="{Binding Video_Color_Range_SelectedIndex}"
-                                                      SelectedItem="{Binding Video_Color_Range_SelectedItem, Mode=TwoWay}"
-                                                      IsEnabled="{Binding Video_Color_Range_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            <ComboBox x:Name="cboColorPrimaries" 
+                                                      ItemsSource="{Binding Video_Color_Primaries_Items}"
+                                                      SelectedIndex="{Binding Video_Color_Primaries_SelectedIndex}"
+                                                      SelectedItem="{Binding Video_Color_Primaries_SelectedItem, Mode=TwoWay}"
+                                                      IsEnabled="{Binding Video_Color_Primaries_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                       Style="{DynamicResource ComboBoxStyle}"
                                                       IsSynchronizedWithCurrentItem="True"
                                                       ItemContainerStyle="{DynamicResource ComboBoxStyleItem}"
                                                       HorizontalAlignment="Left" 
                                                       VerticalAlignment="Top" 
                                                       Width="105" 
-                                                      ToolTipService.InitialShowDelay="500" 
-                                                      ToolTipService.ShowOnDisabled="True" 
-                                                      ToolTip="Color Range" 
+                                                      Grid.Row="2"
+                                                      Grid.Column="2"
+                                                      Height="22" />
+
+                                            <!-- Transfer Characteristics -->
+                                            <Label Style="{DynamicResource LabelStyle}" 
+                                                   Content="Transfer Char" 
+                                                   HorizontalAlignment="Left" 
+                                                   VerticalAlignment="Top"
+                                                   FontFamily="Segoe UI Semilight" 
+                                                   Width="96" 
+                                                   Height="26"
+                                                   ToolTipService.InitialShowDelay="500" 
+                                                   ToolTipService.ShowOnDisabled="True" 
+                                                   ToolTip="Transfer Characteristics" 
+                                                   Grid.Row="3" 
+                                                   Grid.Column="1" />
+                                            <ComboBox x:Name="cboColorTransferCharacteristics" 
+                                                      ItemsSource="{Binding Video_Color_TransferCharacteristics_Items}"
+                                                      SelectedIndex="{Binding Video_Color_TransferCharacteristics_SelectedIndex}"
+                                                      SelectedItem="{Binding Video_Color_TransferCharacteristics_SelectedItem, Mode=TwoWay}"
+                                                      IsEnabled="{Binding Video_Color_TransferCharacteristics_IsEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                      Style="{DynamicResource ComboBoxStyle}"
+                                                      IsSynchronizedWithCurrentItem="True"
+                                                      ItemContainerStyle="{DynamicResource ComboBoxStyleItem}"
+                                                      HorizontalAlignment="Left" 
+                                                      VerticalAlignment="Top" 
+                                                      Width="105" 
                                                       Grid.Row="3"
                                                       Grid.Column="2"
                                                       Height="22" />
 
                                             <!-- Color Matrix -->
-                                            <!--<Label Style="{DynamicResource LabelStyle}" 
+                                            <Label Style="{DynamicResource LabelStyle}" 
                                                    Content="Color Matrix" 
                                                    HorizontalAlignment="Left" 
                                                    VerticalAlignment="Top"
@@ -1894,8 +1883,8 @@
                                                    ToolTipService.ShowOnDisabled="True" 
                                                    ToolTip="Color Matrix" 
                                                    Grid.Row="4" 
-                                                   Grid.Column="1" />-->
-                                            <!--<ComboBox x:Name="cboColorMatrix" 
+                                                   Grid.Column="1" />
+                                            <ComboBox x:Name="cboColorMatrix" 
                                                       ItemsSource="{Binding Video_Color_Matrix_Items}"
                                                       SelectedIndex="{Binding Video_Color_Matrix_SelectedIndex}"
                                                       SelectedItem="{Binding Video_Color_Matrix_SelectedItem, Mode=TwoWay}"
@@ -1906,12 +1895,9 @@
                                                       HorizontalAlignment="Left" 
                                                       VerticalAlignment="Top" 
                                                       Width="105" 
-                                                      ToolTipService.InitialShowDelay="500" 
-                                                      ToolTipService.ShowOnDisabled="True" 
-                                                      ToolTip="Color Matrix" 
                                                       Grid.Row="4"
                                                       Grid.Column="2"
-                                                      Height="22" />-->
+                                                      Height="22" />
                                         </Grid>
 
                                     </Grid>
